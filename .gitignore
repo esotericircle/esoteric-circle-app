@@ -116,4 +116,21 @@ app.*.symbols
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-!/dev/ci/**/Gemfile.lock
+!/dev/ci/**/Gemfile.lock# Segreti e credenziali - non caricare mai su GitHub
+.env
+.env.*
+.secrets/
+*.key
+*.p8
+*.jks
+*.keystore
+**/service-account*.json
+# Segreti e credenziali - non caricare mai su GitHub
+.env
+.env.*
+.secrets/
+*.key
+*.p8
+*.jks
+*.keystore
+**/service-account*.json
