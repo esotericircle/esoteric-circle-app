@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +32,6 @@ class OnboardingForm extends StatelessWidget {
       SkyNode('Data', c.dateValid),
       SkyNode('Ora', c.time != null || c.timeUnknown),
       SkyNode('Luogo', c.placeValid),
-      SkyNode('Segno', c.gender != null),
     ];
 
     return Stack(
@@ -43,7 +43,7 @@ class OnboardingForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: SpacingTokens.xs),
-              Text('IL RISVEGLIO',
+              Text('ACCENDI IL TUO CIELO',
                   style: TypographyTokens.body(size: 12).copyWith(
                     color: palette.goldSoft,
                     letterSpacing: 3,
@@ -152,8 +152,6 @@ class _StepContent extends StatelessWidget {
         return _TimeStep(controller: controller);
       case OnboardingStep.place:
         return _PlaceStep(controller: controller);
-      case OnboardingStep.gender:
-        return _GenderStep(controller: controller);
     }
   }
 }
@@ -245,7 +243,10 @@ class _DateStep extends StatelessWidget {
               lastDate: now,
               helpText: 'Data di nascita',
             );
-            if (picked != null) controller.setDate(picked);
+            if (picked != null) {
+              controller.setDate(picked);
+              HapticFeedback.selectionClick(); // una stella si accende
+            }
           },
         ),
       ),
@@ -285,7 +286,10 @@ class _TimeStep extends StatelessWidget {
                             time ?? const TimeOfDay(hour: 12, minute: 0),
                         helpText: 'Ora di nascita',
                       );
-                      if (picked != null) controller.setTime(picked);
+                      if (picked != null) {
+                        controller.setTime(picked);
+                        HapticFeedback.selectionClick();
+                      }
                     },
             ),
           ),
@@ -293,7 +297,10 @@ class _TimeStep extends StatelessWidget {
           _CheckRow(
             label: 'Non conosco l\'ora',
             value: controller.timeUnknown,
-            onChanged: controller.setTimeUnknown,
+            onChanged: (v) {
+              controller.setTimeUnknown(v);
+              HapticFeedback.selectionClick();
+            },
           ),
         ],
       ),
@@ -408,6 +415,7 @@ class _PlaceStepState extends State<_PlaceStep> {
                       ),
                       onTap: () {
                         widget.controller.setPlace(place);
+                        HapticFeedback.selectionClick();
                         FocusScope.of(context).unfocus();
                         setState(() {});
                       },
@@ -431,55 +439,6 @@ class _PlaceStepState extends State<_PlaceStep> {
                     ),
                   );
                 },
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class _GenderStep extends StatelessWidget {
-  const _GenderStep({required this.controller});
-  final OnboardingController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    return _StepShell(
-      title: 'Come ti identifichi?',
-      subtitle: 'Opzionale, e non cambia il calcolo del cielo.',
-      child: Wrap(
-        spacing: SpacingTokens.sm,
-        runSpacing: SpacingTokens.sm,
-        children: [
-          for (final g in Gender.values)
-            GestureDetector(
-              onTap: () => controller
-                  .setGender(controller.gender == g ? null : g),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: SpacingTokens.md,
-                  vertical: SpacingTokens.sm,
-                ),
-                decoration: BoxDecoration(
-                  color: controller.gender == g
-                      ? palette.gold.withValues(alpha: 0.2)
-                      : ColorTokens.glassTint,
-                  borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-                  border: Border.all(
-                    color: controller.gender == g
-                        ? palette.gold
-                        : ColorTokens.glassStroke,
-                  ),
-                ),
-                child: Text(g.label,
-                    style: TypographyTokens.body(size: 14).copyWith(
-                      color: controller.gender == g
-                          ? palette.goldSoft
-                          : ColorTokens.textSecondary,
-                    )),
               ),
             ),
         ],

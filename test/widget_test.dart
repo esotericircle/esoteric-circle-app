@@ -16,12 +16,12 @@ void main() {
     // Intro: il tasto Salta e' sempre disponibile.
     expect(find.text('Salta'), findsOneWidget);
 
-    // Saltando l'intro si entra nell'onboarding Il Risveglio.
+    // Saltando l'intro si entra nell'onboarding, dal passo del nome.
     await tester.tap(find.text('Salta'));
     await tester.pump(); // avvia la transizione
     await tester.pump(const Duration(milliseconds: 700));
 
-    expect(find.text('Quando sei nato?'), findsOneWidget);
+    expect(find.text('Come vuoi che ti chiami il cerchio?'), findsOneWidget);
   });
 
   test('La risoluzione dei feature flag rispetta gli stati', () {

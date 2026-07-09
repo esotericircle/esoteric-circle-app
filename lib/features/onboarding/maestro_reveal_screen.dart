@@ -2,7 +2,13 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
+import '../../core/astro/natal_chart.dart';
+import '../../core/astro/natal_chart_controller.dart';
+import '../../core/astro/natal_poetics.dart';
+import '../../core/identity/identity_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -101,6 +107,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
     _tutorialTimer?.cancel();
     _levelSub?.cancel();
     _breath.stop();
+    HapticFeedback.mediumImpact(); // la nebbia si dirada, il Maestro appare
     setState(() {
       _progress = 1;
       _showTutorial = false;
@@ -125,6 +132,8 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(ThemeKey.of(widget.maestro));
+    final identity = context.read<IdentityController>();
+    final chart = context.read<NatalChartController>().chart;
 
     return GestureDetector(
       onPanUpdate: _onDrag,
@@ -173,6 +182,8 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
               _RevealedFooter(
                 maestro: widget.maestro,
                 palette: palette,
+                identity: identity,
+                chart: chart,
                 onEnter: () => widget.onRevealed(widget.maestro),
               )
             else
@@ -291,23 +302,49 @@ class _RevealedFooter extends StatelessWidget {
   const _RevealedFooter({
     required this.maestro,
     required this.palette,
+    required this.identity,
+    required this.chart,
     required this.onEnter,
   });
 
   final Maestro maestro;
   final MaestroPalette palette;
+  final IdentityController identity;
+  final NatalChart? chart;
   final VoidCallback onEnter;
 
   @override
   Widget build(BuildContext context) {
+    final first = chart != null
+        ? NatalPoetics.firstMoment(
+            chart: chart!, maestro: maestro, identity: identity)
+        : null;
+
     return Column(
       children: [
+        // Il Maestro saluta per nome e nella forma scelta.
         Text(
-          'Ti guidera\' nel cerchio: ${maestro.domainTitle}.',
+          identity.welcome(),
           textAlign: TextAlign.center,
-          style: TypographyTokens.body(size: 14)
-              .copyWith(color: ColorTokens.textSecondary),
+          style: TypographyTokens.display(size: 18)
+              .copyWith(color: palette.goldSoft),
         ),
+        const SizedBox(height: SpacingTokens.sm),
+        if (first != null)
+          Container(
+            padding: const EdgeInsets.all(SpacingTokens.md),
+            decoration: BoxDecoration(
+              color: palette.surface.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+            ),
+            child: Text(
+              first,
+              textAlign: TextAlign.center,
+              style: TypographyTokens.body(size: 14)
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.45),
+            ),
+          ),
         const SizedBox(height: SpacingTokens.md),
         SizedBox(
           width: double.infinity,

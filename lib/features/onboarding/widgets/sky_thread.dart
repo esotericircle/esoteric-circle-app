@@ -52,7 +52,7 @@ class _SkyThreadState extends State<SkyThread>
     final target = n <= 1 ? 0.0 : (filled - 1).clamp(0, n - 1) / (n - 1);
 
     return SizedBox(
-      height: 58,
+      height: 66,
       child: TweenAnimationBuilder<double>(
         tween: Tween(begin: 0, end: target.toDouble()),
         duration: const Duration(milliseconds: 600),
@@ -94,24 +94,58 @@ class _ThreadPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final n = nodes.length;
     if (n == 0) return;
-    const marginX = 22.0;
-    const y = 18.0;
+    const marginX = 26.0;
+    const baseY = 26.0;
+    const arc = 12.0;
     final span = size.width - marginX * 2;
-    Offset nodeAt(int i) =>
-        Offset(marginX + (n == 1 ? 0 : span * i / (n - 1)), y);
+    // I nodi stanno su un arco morbido: da uniti formano una piccola
+    // costellazione, non una riga.
+    Offset nodeAt(int i) {
+      final f = n == 1 ? 0.0 : i / (n - 1);
+      final y = baseY - math.sin(f * math.pi) * arc;
+      return Offset(marginX + span * f, y);
+    }
 
-    // Filo di fondo.
-    canvas.drawLine(nodeAt(0), nodeAt(n - 1),
-        Paint()..strokeWidth = 1..color = gold.withValues(alpha: 0.18));
-    // Filo composto.
-    final endX = nodeAt(0).dx + span * fill;
-    canvas.drawLine(
-      nodeAt(0),
-      Offset(endX, y),
-      Paint()
-        ..strokeWidth = 1.6
-        ..color = goldSoft.withValues(alpha: 0.85),
-    );
+    // Filo di fondo lungo l'arco.
+    final bgPath = Path()..moveTo(nodeAt(0).dx, nodeAt(0).dy);
+    for (var i = 1; i < n; i++) {
+      bgPath.lineTo(nodeAt(i).dx, nodeAt(i).dy);
+    }
+    canvas.drawPath(
+        bgPath,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1
+          ..color = gold.withValues(alpha: 0.18));
+
+    // Filo composto fino alla frazione raggiunta.
+    final litSegments = (fill * (n - 1));
+    final litPath = Path()..moveTo(nodeAt(0).dx, nodeAt(0).dy);
+    for (var i = 1; i < n; i++) {
+      final seg = (litSegments - (i - 1)).clamp(0.0, 1.0);
+      if (seg <= 0) break;
+      final a = nodeAt(i - 1);
+      final b = nodeAt(i);
+      litPath.lineTo(a.dx + (b.dx - a.dx) * seg, a.dy + (b.dy - a.dy) * seg);
+    }
+    canvas.drawPath(
+        litPath,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.6
+          ..color = goldSoft.withValues(alpha: 0.85));
+
+    // Costellazione personale: da tutte accese, un satellite chiude la figura.
+    final allFilled = nodes.every((x) => x.filled);
+    if (allFilled && n >= 2) {
+      final sat = Offset((nodeAt(0).dx + nodeAt(n - 1).dx) / 2, baseY + 12);
+      canvas.drawLine(nodeAt(0), sat,
+          Paint()..strokeWidth = 1..color = goldSoft.withValues(alpha: 0.4));
+      canvas.drawLine(nodeAt(n - 1), sat,
+          Paint()..strokeWidth = 1..color = goldSoft.withValues(alpha: 0.4));
+      final twk = 0.5 + 0.5 * math.sin(2 * math.pi * shimmer);
+      _star(canvas, sat, 3.5, goldSoft.withValues(alpha: 0.6 + 0.4 * twk));
+    }
 
     for (var i = 0; i < n; i++) {
       final node = nodes[i];
@@ -130,7 +164,7 @@ class _ThreadPainter extends CustomPainter {
         canvas.drawCircle(p, 3,
             Paint()..color = gold.withValues(alpha: 0.35));
       }
-      _label(canvas, node.label, Offset(p.dx, y + 20),
+      _label(canvas, node.label, Offset(p.dx, baseY + 22),
           color: node.filled
               ? goldSoft.withValues(alpha: 0.9)
               : ColorTokens.textMuted);

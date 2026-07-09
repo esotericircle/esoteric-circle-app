@@ -3,24 +3,23 @@ import 'package:flutter/material.dart';
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/birth_place.dart';
 
-/// I passi dell'onboarding Il Risveglio.
-enum OnboardingStep { date, time, place, gender }
+/// I passi della raccolta dei dati di nascita (Accendi il tuo cielo).
+enum OnboardingStep { date, time, place }
 
 /// Flag di sola revisione (spento di default): precompila data e luogo per
 /// scorrere velocemente il flusso ai checkpoint. Si attiva con
 /// `--dart-define=DEMO_AUTOFILL=true`, non influisce sulla produzione.
 const bool _kDemoAutofill = bool.fromEnvironment('DEMO_AUTOFILL');
 
-/// Stato dei dati raccolti nell'onboarding.
+/// Stato dei dati di nascita raccolti (Accendi il tuo cielo).
 ///
-/// Data e luogo sono obbligatori; ora e genere opzionali. Nessun contatto: la
-/// registrazione e' progressiva e anonima, il telefono non entra mai nel form.
+/// Data e luogo obbligatori; ora opzionale. Nessun contatto: la registrazione
+/// e' progressiva e anonima, il telefono non entra mai nel form.
 class OnboardingController extends ChangeNotifier {
   DateTime? _date;
   TimeOfDay? _time;
   bool _timeUnknown = false;
   BirthPlace? _place;
-  Gender? _gender;
   int _stepIndex = 0;
 
   OnboardingController() {
@@ -41,7 +40,6 @@ class OnboardingController extends ChangeNotifier {
   TimeOfDay? get time => _time;
   bool get timeUnknown => _timeUnknown;
   BirthPlace? get place => _place;
-  Gender? get gender => _gender;
 
   int get stepIndex => _stepIndex;
   OnboardingStep get step => OnboardingStep.values[_stepIndex];
@@ -56,7 +54,6 @@ class OnboardingController extends ChangeNotifier {
         OnboardingStep.date => dateValid,
         OnboardingStep.time => true, // opzionale
         OnboardingStep.place => placeValid,
-        OnboardingStep.gender => true, // opzionale
       };
 
   /// Tutti i dati obbligatori presenti.
@@ -84,11 +81,6 @@ class OnboardingController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setGender(Gender? value) {
-    _gender = value;
-    notifyListeners();
-  }
-
   void goToStep(int index) {
     _stepIndex = index.clamp(0, stepsCount - 1);
     notifyListeners();
@@ -104,7 +96,6 @@ class OnboardingController extends ChangeNotifier {
       date: _date!,
       place: _place!,
       time: _timeUnknown ? null : _time,
-      gender: _gender,
     );
   }
 }
