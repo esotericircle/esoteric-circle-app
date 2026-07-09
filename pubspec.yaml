@@ -1,0 +1,40 @@
+name: esoteric_circle
+description: "Esoteric Circle, ecosistema esoterico immersivo. App nativa Flutter."
+publish_to: "none"
+
+# La versione segue il formato semver+build.
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Icone di sistema iOS oltre a quelle Material.
+  cupertino_icons: ^1.0.8
+
+  # Gestione dello stato leggera e matura, usata per Maestro attivo,
+  # feature flag ed entitlement. Nessuna dipendenza pesante.
+  provider: ^6.1.2
+
+  # Tipografia del design system. Il pacchetto carica i font a runtime
+  # con fallback automatico al font di sistema se la rete non e'
+  # disponibile, quindi non introduce asset binari nel repository.
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Linter ufficiale Flutter.
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Cartella asset consumati a runtime (icone, riferimenti, lottie, shader).
+  # Il file .gitkeep mantiene la cartella versionata anche se vuota.
+  assets:
+    - assets/

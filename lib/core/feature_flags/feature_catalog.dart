@@ -1,0 +1,123 @@
+import 'package:flutter/material.dart';
+
+import '../entitlement/tier.dart';
+import '../maestro/maestro.dart';
+import 'feature_flag.dart';
+
+/// Catalogo delle funzioni dell'app note al client.
+///
+/// In C1 il catalogo e' volutamente parziale: contiene funzioni di esempio
+/// scelte per mostrare in Home tutti e tre gli stati (attiva, Coming soon,
+/// premium bloccata). Man mano che i checkpoint aggiungono funzioni reali,
+/// le voci si aggiungono qui e i loro id restano allineati ai parametri
+/// Remote Config.
+///
+/// Gli stati di default riflettono la mappa dei feature flag della Demo
+/// (Handoff Fase C sezione 6): nella Demo alcune funzioni sono attive, altre
+/// Coming soon, altre premium.
+class FeatureCatalog {
+  FeatureCatalog._();
+
+  static const List<FeatureDefinition> all = [
+    // --- Attive (dominio Medora) ---
+    FeatureDefinition(
+      id: 'natal_chart',
+      title: 'Carta Natale',
+      teaser: 'La tua mappa celeste, calcolata sulle effemeridi svizzere.',
+      icon: Icons.auto_awesome,
+      owner: Maestro.medora,
+    ),
+    FeatureDefinition(
+      id: 'tarot_spread_three',
+      title: 'Stesa a Tre Carte',
+      teaser: 'Passato, Presente e Futuro nel ventaglio di Medora.',
+      icon: Icons.style,
+      owner: Maestro.medora,
+    ),
+
+    // --- Attive (dominio Aura) ---
+    FeatureDefinition(
+      id: 'archetype_test',
+      title: 'Test Archetipo',
+      teaser: 'Scopri il tuo archetipo junghiano.',
+      icon: Icons.psychology_alt,
+      owner: Maestro.aura,
+    ),
+
+    // --- Attive (dominio Caligo) ---
+    FeatureDefinition(
+      id: 'rune_draw',
+      title: 'Estrazione Rune',
+      teaser: 'Lancia le rune e ascolta il presagio di Caligo.',
+      icon: Icons.casino,
+      owner: Maestro.caligo,
+    ),
+
+    // --- Coming soon (non ancora pronte in questa fase) ---
+    FeatureDefinition(
+      id: 'face_constellation',
+      title: 'Costellazione del Viso',
+      teaser:
+          'La videocamera trasforma i tratti del tuo volto in una costellazione. Presto disponibile.',
+      icon: Icons.face_retouching_natural,
+      owner: Maestro.aura,
+      defaultAvailability: RemoteAvailability.comingSoon,
+    ),
+    FeatureDefinition(
+      id: 'palmistry',
+      title: 'Chiromanzia',
+      teaser:
+          'La lettura della mano che unisce i tuoi tratti stabili ai transiti del giorno. Presto disponibile.',
+      icon: Icons.back_hand,
+      owner: Maestro.aura,
+      defaultAvailability: RemoteAvailability.comingSoon,
+    ),
+    FeatureDefinition(
+      id: 'extended_oracles',
+      title: 'Oracoli Estesi',
+      teaser:
+          'I-Ching, pendolo, cristalli e fondi di caffe si uniranno al cerchio. Presto disponibili.',
+      icon: Icons.blur_on,
+      owner: Maestro.caligo,
+      defaultAvailability: RemoteAvailability.comingSoon,
+    ),
+
+    // --- Premium bloccate (richiedono un tier superiore) ---
+    FeatureDefinition(
+      id: 'masters_memory',
+      title: 'Memoria dei Maestri',
+      teaser:
+          'I Maestri ricordano il tuo cammino. Disponibile con l\'abbonamento.',
+      icon: Icons.hub,
+      requiredTier: Tier.tier1,
+    ),
+    FeatureDefinition(
+      id: 'synastry_depth',
+      title: 'Sinastria Approfondita',
+      teaser:
+          'La lettura di coppia completa, aspetto per aspetto. Disponibile con l\'abbonamento.',
+      icon: Icons.favorite,
+      owner: Maestro.medora,
+      requiredTier: Tier.tier2,
+    ),
+    FeatureDefinition(
+      id: 'vedic_astrology',
+      title: 'Astrologia Vedica',
+      teaser:
+          'Le tradizioni siderali, esclusiva dei livelli superiori.',
+      icon: Icons.brightness_7,
+      owner: Maestro.medora,
+      requiredTier: Tier.tier3,
+    ),
+  ];
+
+  static List<FeatureDefinition> forMaestro(Maestro maestro) =>
+      all.where((f) => f.owner == maestro).toList(growable: false);
+
+  static FeatureDefinition? byId(String id) {
+    for (final f in all) {
+      if (f.id == id) return f;
+    }
+    return null;
+  }
+}
