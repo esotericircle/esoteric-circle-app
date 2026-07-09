@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
@@ -8,14 +9,16 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/breath_detector.dart';
+import 'widgets/maestro_card.dart';
+import 'widgets/ritual_object.dart';
 
 /// Rivelazione del Maestro col rito del soffio.
 ///
-/// Il Maestro assegnato si svela soffiando sull'oggetto rituale: il microfono
+/// Il Maestro assegnato si svela soffiando sull'oggetto rituale vivo (sfera di
+/// cristallo per Medora, candela per Caligo, soffione per Aura): il microfono
 /// misura il soffio con una soglia, ma c'e' sempre il fallback tattile (si
-/// trascina il dito per svelare, in stile gratta e vinci). Dopo tre secondi
-/// compare un tutorial visivo: la silhouette del viso che soffia, oppure, in
-/// fallback, la silhouette del dito che cancella.
+/// trascina il dito, in stile gratta e vinci). Dopo tre secondi compare un
+/// tutorial visivo. Al termine il Maestro entra in scena in modo cinematografico.
 class MaestroRevealScreen extends StatefulWidget {
   const MaestroRevealScreen({
     super.key,
@@ -24,8 +27,6 @@ class MaestroRevealScreen extends StatefulWidget {
   });
 
   final Maestro maestro;
-
-  /// Chiamato quando il rito e' compiuto (il Maestro e' svelato).
   final ValueChanged<Maestro> onRevealed;
 
   @override
@@ -40,6 +41,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
 
   double _progress = 0;
   double _micLevel = 0;
+  double _dragPulse = 0;
   bool _micAvailable = false;
   bool _showTutorial = false;
   bool _revealed = false;
@@ -47,12 +49,13 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
 
   static const _blowThreshold = 0.12;
 
+  double get _reactLevel => math.max(_micLevel, _dragPulse);
+
   @override
   void initState() {
     super.initState();
     _startMic();
     _tick = Timer.periodic(const Duration(milliseconds: 60), _onTick);
-    // Dopo tre secondi compare il tutorial visivo.
     _tutorialTimer = Timer(const Duration(seconds: 3), () {
       if (mounted && !_revealed) setState(() => _showTutorial = true);
     });
@@ -62,23 +65,20 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
     final ok = await _breath.start();
     if (!mounted) return;
     setState(() => _micAvailable = ok);
-    if (ok) {
-      _levelSub = _breath.level.listen((l) => _micLevel = l);
-    }
+    if (ok) _levelSub = _breath.level.listen((l) => _micLevel = l);
   }
 
   void _onTick(Timer _) {
     if (_revealed) return;
     final blowing = _micAvailable && _micLevel > _blowThreshold;
     setState(() {
+      _dragPulse *= 0.85;
       if (blowing) {
         _progress = (_progress + 0.05).clamp(0.0, 1.0);
         _idle = 0;
       } else {
         _idle++;
-        if (_idle > 8) {
-          _progress = (_progress - 0.01).clamp(0.0, 1.0);
-        }
+        if (_idle > 8) _progress = (_progress - 0.01).clamp(0.0, 1.0);
       }
     });
     if (_progress >= 1.0) _complete();
@@ -88,6 +88,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
     if (_revealed) return;
     setState(() {
       _progress = (_progress + d.delta.distance / 1400).clamp(0.0, 1.0);
+      _dragPulse = 1;
       _idle = 0;
     });
     if (_progress >= 1.0) _complete();
@@ -115,10 +116,14 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
     super.dispose();
   }
 
+  String get _title => switch (widget.maestro) {
+        Maestro.medora => 'Soffia sulla sfera di cristallo',
+        Maestro.caligo => 'Soffia per spegnere la candela',
+        Maestro.aura => 'Soffia per disperdere il soffione',
+      };
+
   @override
   Widget build(BuildContext context) {
-    // La palette e' quella del Maestro assegnato (impostata dal flusso), cosi'
-    // la scena e' gia' nel suo colore.
     final palette = MaestroPalette.forKey(ThemeKey.of(widget.maestro));
 
     return GestureDetector(
@@ -131,27 +136,35 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
             const SizedBox(height: SpacingTokens.md),
             Text(
               _revealed ? 'Il tuo Maestro' : 'La rivelazione',
-              style: TypographyTokens.body(size: 12).copyWith(
-                color: palette.goldSoft,
-                letterSpacing: 3,
-              ),
+              style: TypographyTokens.body(size: 12)
+                  .copyWith(color: palette.goldSoft, letterSpacing: 3),
             ),
             const SizedBox(height: SpacingTokens.xs),
             Text(
-              _revealed ? widget.maestro.displayName : _ritual.title,
-              style: TypographyTokens.display(size: 28),
+              _revealed ? widget.maestro.displayName : _title,
+              style: TypographyTokens.display(size: 26),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: SpacingTokens.xl),
+            const SizedBox(height: SpacingTokens.lg),
             Expanded(
               child: Center(
-                child: _RevealStage(
-                  maestro: widget.maestro,
-                  palette: palette,
-                  progress: _progress,
-                  ritual: _ritual,
-                  showTutorial: _showTutorial,
-                  micAvailable: _micAvailable,
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 600),
+                  child: _revealed
+                      ? MaestroCardReveal(
+                          key: const ValueKey('card'),
+                          maestro: widget.maestro,
+                          palette: palette,
+                        )
+                      : _RitualStage(
+                          key: const ValueKey('ritual'),
+                          maestro: widget.maestro,
+                          palette: palette,
+                          progress: _progress,
+                          level: _reactLevel,
+                          showTutorial: _showTutorial,
+                          micAvailable: _micAvailable,
+                        ),
                 ),
               ),
             ),
@@ -177,35 +190,15 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
       ),
     );
   }
-
-  _RitualObject get _ritual => switch (widget.maestro) {
-        Maestro.medora => const _RitualObject(
-            title: 'Soffia sulla sfera di cristallo',
-            icon: Icons.blur_on,
-          ),
-        Maestro.caligo => const _RitualObject(
-            title: 'Soffia per spegnere la candela',
-            icon: Icons.local_fire_department,
-          ),
-        Maestro.aura => const _RitualObject(
-            title: 'Soffia per disperdere il soffione',
-            icon: Icons.spa,
-          ),
-      };
 }
 
-class _RitualObject {
-  const _RitualObject({required this.title, required this.icon});
-  final String title;
-  final IconData icon;
-}
-
-class _RevealStage extends StatelessWidget {
-  const _RevealStage({
+class _RitualStage extends StatelessWidget {
+  const _RitualStage({
+    super.key,
     required this.maestro,
     required this.palette,
     required this.progress,
-    required this.ritual,
+    required this.level,
     required this.showTutorial,
     required this.micAvailable,
   });
@@ -213,7 +206,7 @@ class _RevealStage extends StatelessWidget {
   final Maestro maestro;
   final MaestroPalette palette;
   final double progress;
-  final _RitualObject ritual;
+  final double level;
   final bool showTutorial;
   final bool micAvailable;
 
@@ -221,78 +214,31 @@ class _RevealStage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 300,
-      height: 360,
+      height: 340,
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Aura pulsante dietro.
-          Container(
-            width: 260,
-            height: 260,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: RadialGradient(
-                colors: [
-                  palette.glow.withValues(alpha: 0.12 + 0.2 * progress),
-                  Colors.transparent,
-                ],
-              ),
-            ),
+          RitualObject(
+            maestro: maestro,
+            palette: palette,
+            progress: progress,
+            level: level,
+            size: 210,
           ),
-          // Il Maestro che affiora man mano.
-          Opacity(
-            opacity: progress,
-            child: Image.asset(
-              maestro.avatarAsset,
-              height: 340,
-              fit: BoxFit.contain,
-              alignment: Alignment.bottomCenter,
-              errorBuilder: (_, __, ___) => Icon(maestro.icon,
-                  size: 120, color: palette.goldSoft),
-            ),
-          ),
-          // Il velo con l'oggetto rituale, che si dissolve col progresso.
-          Opacity(
-            opacity: (1 - progress).clamp(0.0, 1.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 150,
-                  height: 150,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: RadialGradient(
-                      colors: [
-                        palette.surfaceElevated.withValues(alpha: 0.9),
-                        palette.deepest.withValues(alpha: 0.7),
-                      ],
-                    ),
-                    border: Border.all(
-                        color: palette.gold.withValues(alpha: 0.5)),
-                  ),
-                  child: Icon(ritual.icon,
-                      size: 60, color: palette.goldSoft),
-                ),
-              ],
-            ),
-          ),
-          // Anello di progresso.
+          // Anello di progresso attorno all'oggetto.
           SizedBox(
-            width: 170,
-            height: 170,
+            width: 240,
+            height: 240,
             child: CircularProgressIndicator(
               value: progress,
-              strokeWidth: 2.5,
-              backgroundColor: palette.gold.withValues(alpha: 0.15),
+              strokeWidth: 2,
+              backgroundColor: palette.gold.withValues(alpha: 0.12),
               valueColor: AlwaysStoppedAnimation(palette.goldSoft),
             ),
           ),
-          // Tutorial visivo dopo tre secondi.
           if (showTutorial)
             Positioned(
-              bottom: 0,
+              bottom: 4,
               child: _Tutorial(micAvailable: micAvailable, palette: palette),
             ),
         ],
@@ -308,7 +254,6 @@ class _Tutorial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Silhouette del viso che soffia, oppure del dito che cancella.
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: SpacingTokens.md,
@@ -333,9 +278,8 @@ class _Tutorial extends StatelessWidget {
           const SizedBox(width: SpacingTokens.xs),
           Text(
             micAvailable ? 'Soffia qui' : 'Trascina qui',
-            style: TypographyTokens.body(size: 13).copyWith(
-              color: ColorTokens.textPrimary,
-            ),
+            style: TypographyTokens.body(size: 13)
+                .copyWith(color: ColorTokens.textPrimary),
           ),
         ],
       ),

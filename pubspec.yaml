@@ -53,6 +53,7 @@ flutter:
   assets:
     - assets/
     - assets/fonts/
+    - assets/data/
     - brand_assets/avatars/
     - brand_assets/intro/
 
@@ -66,3 +67,7 @@ flutter:
     - family: EBGaramond
       fonts:
         - asset: assets/fonts/EBGaramond-variable.ttf
+    # Glifi astrologici (pianeti e segni) per la ruota natale.
+    - family: NotoSansSymbols
+      fonts:
+        - asset: assets/fonts/NotoSansSymbols.ttf

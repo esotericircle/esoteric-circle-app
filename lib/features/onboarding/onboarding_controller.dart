@@ -26,7 +26,14 @@ class OnboardingController extends ChangeNotifier {
   OnboardingController() {
     if (_kDemoAutofill) {
       _date = DateTime(1990, 6, 15);
-      _place = BirthPlaces.all.first;
+      _time = const TimeOfDay(hour: 14, minute: 30);
+      _place = const BirthPlace(
+        label: 'Roma',
+        province: 'RM',
+        latitude: 41.9028,
+        longitude: 12.4964,
+        timezone: 'Europe/Rome',
+      );
     }
   }
 

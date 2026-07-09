@@ -19,22 +19,17 @@ class AstroApiException implements Exception {
 
 /// Client del motore astrologico su effemeridi svizzere (FreeAstroAPI).
 ///
-/// La chiave si legge da `AstroApiConfig` (variabile d'ambiente), mai dal
-/// codice, e viaggia nell'header `x-api-key`. Il client e' iniettabile con un
+/// Endpoint reale: POST /api/v1/natal/calculate su api.freeastroapi.com, con
+/// la chiave nell'header `x-api-key`. La chiave si legge da `AstroApiConfig`
+/// (variabile d'ambiente), mai dal codice. Il client e' iniettabile con un
 /// `http.Client` per i test con API simulata.
-///
-/// Nota per lo sviluppo: il percorso e lo schema esatti vanno confermati sul
-/// piano FreeAstroAPI. La richiesta e la lettura della risposta sono isolate e
-/// tolleranti: nomi di campo alternativi vengono riconosciuti, e se qualcosa
-/// non torna si solleva `AstroApiException`, cosi' il chiamante mostra il cielo
-/// essenziale senza mai un errore tecnico.
 class FreeAstroClient {
   FreeAstroClient({
     http.Client? httpClient,
     String? apiKey,
     String baseUrl = AstroApiConfig.baseUrl,
-    this.endpointPath = '/api/v1/natal-chart',
-    this.timeout = const Duration(seconds: 12),
+    this.endpointPath = '/api/v1/natal/calculate',
+    this.timeout = const Duration(seconds: 15),
   })  : _http = httpClient ?? http.Client(),
         _apiKey = apiKey ?? AstroApiConfig.apiKey,
         _baseUrl = baseUrl;
@@ -47,29 +42,23 @@ class FreeAstroClient {
 
   bool get hasKey => _apiKey != null && _apiKey.isNotEmpty;
 
-  /// Calcola la carta natale chiamando l'API. Solleva `AstroApiException` se
-  /// la chiave manca, la rete fallisce o la risposta non e' interpretabile.
+  /// Calcola la carta natale chiamando l'API. Solleva `AstroApiException` se la
+  /// chiave manca, la rete fallisce o la risposta non e' interpretabile.
   Future<NatalChart> fetchNatalChart(BirthDetails details) async {
     final key = _apiKey;
     if (key == null || key.isEmpty) {
       throw const AstroApiException('Chiave API non configurata.');
     }
 
-    final dt = details.dateTime;
     final body = jsonEncode({
-      'year': dt.year,
-      'month': dt.month,
-      'day': dt.day,
+      'year': details.date.year,
+      'month': details.date.month,
+      'day': details.date.day,
       'hour': details.time?.hour ?? 12,
       'minute': details.time?.minute ?? 0,
-      'latitude': details.place.latitude,
-      'longitude': details.place.longitude,
-      'timezone': details.place.timezoneOffsetHours,
-      'settings': {
-        'house_system': 'placidus',
-        'zodiac': 'tropical',
-        'language': 'it',
-      },
+      'lat': details.place.latitude,
+      'lng': details.place.longitude,
+      'tz_str': details.place.timezone,
     });
 
     late http.Response res;
@@ -85,7 +74,7 @@ class FreeAstroClient {
             body: body,
           )
           .timeout(timeout);
-    } catch (e) {
+    } catch (_) {
       throw const AstroApiException('Il cielo non risponde in questo momento.');
     }
 
@@ -97,135 +86,138 @@ class FreeAstroClient {
     }
 
     try {
-      final decoded = jsonDecode(res.body);
-      return _parse(decoded, details);
+      return _parse(jsonDecode(res.body) as Map<String, dynamic>, details);
     } catch (e) {
       if (e is AstroApiException) rethrow;
       throw const AstroApiException('La risposta del cielo non e\' leggibile.');
     }
   }
 
-  // --- Interpretazione tollerante della risposta ---
+  /// Interpreta una risposta gia' ottenuta (usata per i test e per la fixture
+  /// di revisione).
+  NatalChart parseResponse(Map<String, dynamic> json, BirthDetails details) =>
+      _parse(json, details);
 
-  NatalChart _parse(dynamic decoded, BirthDetails details) {
-    final planetsRaw = _findPlanetList(decoded);
-    if (planetsRaw.isEmpty) {
+  NatalChart _parse(Map<String, dynamic> d, BirthDetails details) {
+    // La verita' sull'ora e' quella data dall'utente: senza ora, Ascendente e
+    // Case non hanno senso anche se l'API le calcola dal mezzogiorno di default.
+    final hasTime = details.hasTime;
+
+    final planetsRaw = d['planets'];
+    if (planetsRaw is! List || planetsRaw.isEmpty) {
       throw const AstroApiException('Nessun pianeta nella risposta.');
     }
 
     final planets = <PlanetPosition>[];
+    final lonById = <String, double>{};
     Zodiac? sunSign;
     Zodiac? moonSign;
-    Zodiac? ascendant;
 
     for (final raw in planetsRaw) {
       if (raw is! Map) continue;
       final map = raw.cast<String, dynamic>();
-      final rawName = (map['name'] ?? map['planet'] ?? map['body'] ?? '')
-          .toString()
-          .toLowerCase()
-          .trim();
-      final lon = _readLongitude(map);
-      final sign = _readSign(map) ??
-          (lon != null ? _signFromLongitude(lon) : null);
-      if (sign == null) continue;
-
-      if (rawName.contains('asc')) {
-        ascendant = sign;
-        continue; // l'Ascendente non e' un pianeta da disegnare
-      }
-      final it = _planetIt[rawName];
-      if (it == null) continue; // ignora nodi e punti non gestiti in C2
-      if (rawName.contains('sun')) sunSign = sign;
-      if (rawName.contains('moon')) moonSign = sign;
+      final id = (map['id'] ?? map['name'] ?? '').toString().toLowerCase().trim();
+      final lon = _num(map['abs_pos'] ?? map['fullDegree'] ?? map['longitude']);
+      if (lon == null) continue;
+      final sign = _sign(map['sign_id'] ?? map['sign']) ?? _signFromLon(lon);
+      final it = _planetIt[id];
+      if (it == null) continue; // punti non gestiti in C3
+      lonById[id] = lon;
+      if (id == 'sun') sunSign = sign;
+      if (id == 'moon') moonSign = sign;
       planets.add(PlanetPosition(
+        id: id,
         name: it.$1,
-        symbol: it.$2,
-        longitude: lon ?? Zodiac.values.indexOf(sign) * 30.0 + 15,
+        glyph: it.$2,
+        longitude: lon,
         sign: sign,
+        retrograde: (map['retrograde'] as bool?) ?? false,
+        house: (map['house'] as num?)?.toInt(),
       ));
     }
-
-    // L'Ascendente ha senso solo con l'ora di nascita.
-    if (!details.hasTime) ascendant = null;
-
-    sunSign ??= Zodiac.fromDate(details.date);
     if (planets.isEmpty) {
       throw const AstroApiException('Pianeti non riconosciuti.');
     }
+
+    // Angoli.
+    Zodiac? ascendant;
+    double? ascLon;
+    Zodiac? mc;
+    double? mcLon;
+    final angles = d['angles'] as Map<String, dynamic>?;
+    final angleDetails = d['angles_details'] as Map<String, dynamic>?;
+    if (hasTime && angles != null) {
+      ascLon = _num(angles['asc']);
+      mcLon = _num(angles['mc']);
+      ascendant = _sign(angleDetails?['asc']?['sign_id']) ??
+          (ascLon != null ? _signFromLon(ascLon) : null);
+      mc = _sign(angleDetails?['mc']?['sign_id']) ??
+          (mcLon != null ? _signFromLon(mcLon) : null);
+    }
+
+    // Case.
+    final houses = <HouseCusp>[];
+    if (hasTime && d['houses'] is List) {
+      for (final h in d['houses'] as List) {
+        if (h is! Map) continue;
+        final n = (h['house'] as num?)?.toInt();
+        final lon = _num(h['abs_pos']);
+        if (n != null && lon != null) {
+          houses.add(HouseCusp(number: n, longitude: lon));
+        }
+      }
+    }
+
+    // Aspetti (tra pianeti riconosciuti).
+    final aspects = <ChartAspect>[];
+    if (d['aspects'] is List) {
+      for (final a in d['aspects'] as List) {
+        if (a is! Map) continue;
+        final p1 = a['p1']?.toString().toLowerCase();
+        final p2 = a['p2']?.toString().toLowerCase();
+        final type = AspectType.fromId(a['type']?.toString() ?? '');
+        final l1 = lonById[p1];
+        final l2 = lonById[p2];
+        if (type != null && l1 != null && l2 != null) {
+          aspects.add(ChartAspect(aLongitude: l1, bLongitude: l2, type: type));
+        }
+      }
+    }
+
+    sunSign ??= Zodiac.fromDate(details.date);
 
     return NatalChart(
       sunSign: sunSign,
       moonSign: moonSign,
       ascendant: ascendant,
+      ascendantLongitude: ascLon,
+      midheaven: mc,
+      midheavenLongitude: mcLon,
+      houses: houses,
+      aspects: aspects,
       planets: planets,
-      hasTime: details.hasTime,
+      hasTime: hasTime,
     );
   }
 
-  List<dynamic> _findPlanetList(dynamic decoded) {
-    if (decoded is List) return decoded;
-    if (decoded is Map) {
-      for (final key in ['planets', 'output', 'data', 'result', 'bodies']) {
-        final v = decoded[key];
-        if (v is List) return v;
-        if (v is Map) {
-          final inner = v['planets'] ?? v['output'] ?? v['data'];
-          if (inner is List) return inner;
-        }
-      }
-    }
-    return const [];
-  }
-
-  double? _readLongitude(Map<String, dynamic> map) {
-    for (final k in [
-      'fullDegree',
-      'full_degree',
-      'longitude',
-      'lon',
-      'norm_degree',
-      'normDegree',
-      'degree',
-    ]) {
-      final v = map[k];
-      if (v is num) return v.toDouble();
-      if (v is String) {
-        final parsed = double.tryParse(v);
-        if (parsed != null) return parsed;
-      }
-    }
+  static double? _num(dynamic v) {
+    if (v is num) return v.toDouble();
+    if (v is String) return double.tryParse(v);
     return null;
   }
 
-  Zodiac? _readSign(Map<String, dynamic> map) {
-    for (final k in ['sign', 'zodiac_sign', 'sign_name', 'zodiac']) {
-      final v = map[k];
-      if (v is String) {
-        final z = _zodiacFromEnglish(v);
-        if (z != null) return z;
-      }
-      if (v is Map) {
-        final name = v['name'];
-        if (name is String) {
-          final z = _zodiacFromEnglish(name);
-          if (z != null) return z;
-        }
-      }
-    }
-    return null;
+  static Zodiac _signFromLon(double lon) {
+    final n = ((lon % 360) + 360) % 360;
+    return Zodiac.values[(n ~/ 30).clamp(0, 11)];
   }
 
-  static Zodiac _signFromLongitude(double lon) {
-    final normalized = ((lon % 360) + 360) % 360;
-    final index = (normalized ~/ 30).clamp(0, 11);
-    return Zodiac.values[index];
+  static Zodiac? _sign(dynamic v) {
+    if (v is! String) return null;
+    final s = v.toLowerCase().trim();
+    return _fullNames[s] ?? _shortNames[s];
   }
 
-  static Zodiac? _zodiacFromEnglish(String raw) => _english[raw.toLowerCase()];
-
-  // Nome inglese -> segno.
-  static const Map<String, Zodiac> _english = {
+  static const Map<String, Zodiac> _fullNames = {
     'aries': Zodiac.aries,
     'taurus': Zodiac.taurus,
     'gemini': Zodiac.gemini,
@@ -240,7 +232,22 @@ class FreeAstroClient {
     'pisces': Zodiac.pisces,
   };
 
-  // Nome inglese del pianeta -> (nome italiano, simbolo).
+  static const Map<String, Zodiac> _shortNames = {
+    'ari': Zodiac.aries,
+    'tau': Zodiac.taurus,
+    'gem': Zodiac.gemini,
+    'can': Zodiac.cancer,
+    'leo': Zodiac.leo,
+    'vir': Zodiac.virgo,
+    'lib': Zodiac.libra,
+    'sco': Zodiac.scorpio,
+    'sag': Zodiac.sagittarius,
+    'cap': Zodiac.capricorn,
+    'aqu': Zodiac.aquarius,
+    'pis': Zodiac.pisces,
+  };
+
+  // id -> (nome italiano, glifo)
   static const Map<String, (String, String)> _planetIt = {
     'sun': ('Sole', '☉'),
     'moon': ('Luna', '☽'),
@@ -252,6 +259,9 @@ class FreeAstroClient {
     'uranus': ('Urano', '♅'),
     'neptune': ('Nettuno', '♆'),
     'pluto': ('Plutone', '♇'),
+    'north_node': ('Nodo Nord', '☊'),
+    'chiron': ('Chirone', '⚷'),
+    'lilith': ('Lilith', '⚸'),
   };
 
   void dispose() => _http.close();

@@ -2,3 +2,6 @@ I font Cinzel e EB Garamond sono distribuiti con SIL Open Font License 1.1.
 Cinzel: Copyright Natanael Gama (Ndiscovered).
 EB Garamond: Copyright The EB Garamond Project Authors.
 La licenza OFL consente l'inclusione dei font nel bundle dell'app.
+
+Noto Sans Symbols: Copyright The Noto Project Authors, SIL Open Font License 1.1.
+Usato per i glifi astrologici (pianeti e segni) nella ruota natale.

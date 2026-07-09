@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import '../../services/free_astro_client.dart';
 import 'birth_details.dart';
@@ -6,6 +9,12 @@ import 'natal_chart.dart';
 import 'zodiac.dart';
 
 enum ChartStatus { idle, loading, ready }
+
+/// Flag di sola revisione (spento di default): usa una risposta reale gia'
+/// catturata come fixture, per mostrare la ruota completa nell'anteprima web
+/// dove il browser non puo' raggiungere l'API. Si attiva con
+/// `--dart-define=DEMO_CHART=true`; in produzione la chiamata e' quella vera.
+const bool _kDemoChart = bool.fromEnvironment('DEMO_CHART');
 
 /// Orchestrazione del calcolo della carta natale.
 ///
@@ -37,7 +46,14 @@ class NatalChartController extends ChangeNotifier {
 
     final localSun = Zodiac.fromDate(details.date);
     try {
-      chart = await _client.fetchNatalChart(details);
+      if (_kDemoChart) {
+        final raw =
+            await rootBundle.loadString('assets/data/sample_natal_rome.json');
+        chart = _client.parseResponse(
+            jsonDecode(raw) as Map<String, dynamic>, details);
+      } else {
+        chart = await _client.fetchNatalChart(details);
+      }
     } catch (_) {
       chart = NatalChart.essential(
         sunSign: localSun,

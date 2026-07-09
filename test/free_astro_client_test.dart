@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart';
+import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/services/free_astro_client.dart';
@@ -17,16 +18,41 @@ BirthDetails _details({TimeOfDay? time}) => BirthDetails(
         label: 'Roma',
         latitude: 41.9,
         longitude: 12.5,
-        timezoneOffsetHours: 1,
+        timezone: 'Europe/Rome',
       ),
     );
 
+// Risposta di esempio nello schema reale di FreeAstroAPI.
 const _okBody = {
+  'subject': {
+    'settings': {'time_known': true}
+  },
   'planets': [
-    {'name': 'Sun', 'fullDegree': 137.5, 'sign': 'Leo'},
-    {'name': 'Moon', 'fullDegree': 200.0, 'sign': 'Libra'},
-    {'name': 'Mars', 'fullDegree': 45.0}, // segno derivato dalla longitudine
-    {'name': 'Ascendant', 'fullDegree': 10.0, 'sign': 'Aries'},
+    {'id': 'sun', 'name': 'Sun', 'sign_id': 'leo', 'abs_pos': 137.5, 'retrograde': false, 'house': 5},
+    {'id': 'moon', 'name': 'Moon', 'sign_id': 'libra', 'abs_pos': 200.0, 'retrograde': false, 'house': 7},
+    {'id': 'mars', 'name': 'Mars', 'abs_pos': 45.0, 'retrograde': true, 'house': 1},
+  ],
+  'angles': {'asc': 10.0, 'mc': 100.0},
+  'angles_details': {
+    'asc': {'sign_id': 'aries', 'abs_pos': 10.0},
+    'mc': {'sign_id': 'cancer', 'abs_pos': 100.0},
+  },
+  'houses': [
+    {'house': 1, 'abs_pos': 10.0},
+    {'house': 2, 'abs_pos': 40.0},
+    {'house': 3, 'abs_pos': 70.0},
+    {'house': 4, 'abs_pos': 100.0},
+    {'house': 5, 'abs_pos': 130.0},
+    {'house': 6, 'abs_pos': 160.0},
+    {'house': 7, 'abs_pos': 190.0},
+    {'house': 8, 'abs_pos': 220.0},
+    {'house': 9, 'abs_pos': 250.0},
+    {'house': 10, 'abs_pos': 280.0},
+    {'house': 11, 'abs_pos': 310.0},
+    {'house': 12, 'abs_pos': 340.0},
+  ],
+  'aspects': [
+    {'p1': 'sun', 'p2': 'moon', 'type': 'trine', 'is_major': true},
   ],
 };
 
@@ -48,11 +74,17 @@ void main() {
       expect(chart.sunSign, Zodiac.leo);
       expect(chart.moonSign, Zodiac.libra);
       expect(chart.ascendant, Zodiac.aries);
+      expect(chart.ascendantLongitude, 10.0);
+      expect(chart.midheaven, Zodiac.cancer);
       expect(chart.hasTime, isTrue);
       // Sole, Luna, Marte (l'Ascendente non e' un pianeta disegnato).
       expect(chart.planets.length, 3);
       final mars = chart.planets.firstWhere((p) => p.name == 'Marte');
       expect(mars.sign, Zodiac.taurus); // 45 gradi -> Toro
+      expect(mars.retrograde, isTrue);
+      expect(chart.houses.length, 12);
+      expect(chart.aspects.length, 1);
+      expect(chart.aspects.first.type, AspectType.trine);
     });
 
     test('senza ora l\'Ascendente resta velato', () async {

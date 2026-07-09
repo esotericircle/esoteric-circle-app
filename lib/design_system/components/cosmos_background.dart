@@ -173,9 +173,15 @@ class _CosmosPainter extends CustomPainter {
     final t = _animate ? animation.value : 0.0;
 
     // Offset dei tre piani (lontano si muove poco, vicino di piu').
-    final farOff = parallax.layerOffset(0.15);
-    final midOff = parallax.layerOffset(0.45);
-    final nearOff = parallax.layerOffset(0.95);
+    // Al parallasse si somma una deriva lenta e continua, cosi' stelle e
+    // costellazioni si muovono dolcemente e non sembrano incollate.
+    final drift = _animate
+        ? Offset(math.sin(2 * math.pi * t) * 10,
+            math.cos(2 * math.pi * t * 0.7) * 7)
+        : Offset.zero;
+    final farOff = parallax.layerOffset(0.15) + drift;
+    final midOff = parallax.layerOffset(0.45) + drift * 1.6;
+    final nearOff = parallax.layerOffset(0.95) + drift * 2.4;
 
     if (_nebulaClusters > 0) _paintNebula(canvas, size, midOff, t);
     _paintFieldStars(canvas, size, farOff, t);

@@ -4,17 +4,19 @@ import 'package:provider/provider.dart';
 
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/birth_place.dart';
+import '../../core/astro/place_repository.dart';
 import '../../design_system/components/depth_card.dart';
+import '../../design_system/components/golden_motes.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'onboarding_controller.dart';
+import 'widgets/sky_thread.dart';
 
-/// Onboarding Il Risveglio: raccolta a passi dei dati di nascita.
-///
-/// Data e luogo obbligatori, ora e genere opzionali. Registrazione progressiva
-/// e anonima: nessun contatto, il telefono non entra mai nel form.
+/// Onboarding Il Risveglio: raccolta a passi dei dati di nascita, come una
+/// piccola cerimonia. Attorno al campo centrale c'e' sempre vita: particelle
+/// dorate che fluttuano e il filo del cielo che si compone a ogni dato.
 class OnboardingForm extends StatelessWidget {
   const OnboardingForm({super.key, required this.onSubmit});
 
@@ -25,73 +27,113 @@ class OnboardingForm extends StatelessWidget {
     final c = context.watch<OnboardingController>();
     final palette = context.palette;
 
-    return Padding(
-      padding: const EdgeInsets.all(SpacingTokens.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: SpacingTokens.xs),
-          Text('IL RISVEGLIO',
-              style: TypographyTokens.body(size: 12).copyWith(
-                color: palette.goldSoft,
-                letterSpacing: 3,
-              )),
-          const SizedBox(height: SpacingTokens.xs),
-          _ProgressDots(count: c.stepsCount, index: c.stepIndex),
-          const SizedBox(height: SpacingTokens.lg),
-          Expanded(
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 350),
-              child: _StepContent(
-                key: ValueKey(c.step),
-                controller: c,
-              ),
-            ),
-          ),
-          Row(
+    final nodes = [
+      SkyNode('Data', c.dateValid),
+      SkyNode('Ora', c.time != null || c.timeUnknown),
+      SkyNode('Luogo', c.placeValid),
+      SkyNode('Segno', c.gender != null),
+    ];
+
+    return Stack(
+      children: [
+        const Positioned.fill(child: GoldenMotes()),
+        Padding(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (c.stepIndex > 0)
-                TextButton(
-                  onPressed: c.back,
-                  child: Text('Indietro',
-                      style: TypographyTokens.body(size: 14)
-                          .copyWith(color: ColorTokens.textSecondary)),
-                ),
-              const Spacer(),
-              FilledButton(
-                style: FilledButton.styleFrom(
-                  backgroundColor: c.canProceed
-                      ? palette.gold
-                      : palette.gold.withValues(alpha: 0.3),
-                  foregroundColor: palette.deepest,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: SpacingTokens.xl,
-                    vertical: SpacingTokens.md,
+              const SizedBox(height: SpacingTokens.xs),
+              Text('IL RISVEGLIO',
+                  style: TypographyTokens.body(size: 12).copyWith(
+                    color: palette.goldSoft,
+                    letterSpacing: 3,
+                  )),
+              const SizedBox(height: SpacingTokens.sm),
+              SkyThread(nodes: nodes),
+              const SizedBox(height: SpacingTokens.md),
+              Expanded(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 420),
+                  transitionBuilder: (child, anim) => FadeTransition(
+                    opacity: anim,
+                    child: SlideTransition(
+                      position: Tween(
+                        begin: const Offset(0.06, 0),
+                        end: Offset.zero,
+                      ).animate(CurvedAnimation(
+                          parent: anim, curve: Curves.easeOutCubic)),
+                      child: child,
+                    ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(SpacingTokens.radiusPill),
-                  ),
+                  child: _StepContent(key: ValueKey(c.step), controller: c),
                 ),
-                onPressed: c.canProceed
-                    ? () {
-                        if (c.isLastStep) {
-                          final details = c.build();
-                          if (details != null) onSubmit(details);
-                        } else {
-                          c.next();
-                        }
+              ),
+              Row(
+                children: [
+                  if (c.stepIndex > 0)
+                    TextButton(
+                      onPressed: c.back,
+                      child: Text('Indietro',
+                          style: TypographyTokens.body(size: 14)
+                              .copyWith(color: ColorTokens.textSecondary)),
+                    ),
+                  const Spacer(),
+                  _ContinueButton(
+                    label: c.isLastStep ? 'Rivela il mio cielo' : 'Continua',
+                    enabled: c.canProceed,
+                    onTap: () {
+                      if (c.isLastStep) {
+                        final details = c.build();
+                        if (details != null) onSubmit(details);
+                      } else {
+                        c.next();
                       }
-                    : null,
-                child: Text(
-                  c.isLastStep ? 'Rivela il mio cielo' : 'Continua',
-                  style: TypographyTokens.body(size: 15, weight: 600)
-                      .copyWith(color: palette.deepest),
-                ),
+                    },
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
+      ],
+    );
+  }
+}
+
+class _ContinueButton extends StatelessWidget {
+  const _ContinueButton({
+    required this.label,
+    required this.enabled,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool enabled;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return AnimatedScale(
+      scale: enabled ? 1 : 0.97,
+      duration: const Duration(milliseconds: 250),
+      child: FilledButton(
+        style: FilledButton.styleFrom(
+          backgroundColor:
+              enabled ? palette.gold : palette.gold.withValues(alpha: 0.3),
+          foregroundColor: palette.deepest,
+          padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.xl,
+            vertical: SpacingTokens.md,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+          ),
+        ),
+        onPressed: enabled ? onTap : null,
+        child: Text(label,
+            style: TypographyTokens.body(size: 15, weight: 600)
+                .copyWith(color: palette.deepest)),
       ),
     );
   }
@@ -99,7 +141,6 @@ class OnboardingForm extends StatelessWidget {
 
 class _StepContent extends StatelessWidget {
   const _StepContent({super.key, required this.controller});
-
   final OnboardingController controller;
 
   @override
@@ -122,11 +163,13 @@ class _StepShell extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.child,
+    this.expandChild = false,
   });
 
   final String title;
   final String subtitle;
   final Widget child;
+  final bool expandChild;
 
   @override
   Widget build(BuildContext context) {
@@ -138,9 +181,39 @@ class _StepShell extends StatelessWidget {
         Text(subtitle,
             style: TypographyTokens.body(size: 15)
                 .copyWith(color: ColorTokens.textSecondary)),
-        const SizedBox(height: SpacingTokens.lg),
-        Expanded(child: child),
+        const SizedBox(height: SpacingTokens.xl),
+        if (expandChild) Expanded(child: child) else child,
       ],
+    );
+  }
+}
+
+/// Cornice luminosa attorno al campo centrale: un alone che respira.
+class _FieldAura extends StatelessWidget {
+  const _FieldAura({required this.child, this.filled = false});
+  final Widget child;
+  final bool filled;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: filled ? 1 : 0.4),
+      duration: const Duration(milliseconds: 500),
+      builder: (context, v, child) => DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+          boxShadow: [
+            BoxShadow(
+              color: palette.glow.withValues(alpha: 0.18 * v),
+              blurRadius: 34,
+              spreadRadius: 2,
+            ),
+          ],
+        ),
+        child: child,
+      ),
+      child: child,
     );
   }
 }
@@ -155,8 +228,8 @@ class _DateStep extends StatelessWidget {
     return _StepShell(
       title: 'Quando sei nato?',
       subtitle: 'La data e\' il primo filo del tuo cielo. E\' obbligatoria.',
-      child: Align(
-        alignment: Alignment.topCenter,
+      child: _FieldAura(
+        filled: date != null,
         child: _TapField(
           icon: Icons.calendar_today_outlined,
           label: date == null
@@ -193,24 +266,28 @@ class _TimeStep extends StatelessWidget {
           'L\'ora serve per l\'Ascendente e le Case. Se non la conosci, va bene lo stesso: leggeremo un cielo parziale.',
       child: Column(
         children: [
-          _TapField(
-            icon: Icons.schedule_outlined,
-            label: controller.timeUnknown
-                ? 'Ora non conosciuta'
-                : (time == null
-                    ? 'Scegli l\'ora di nascita'
-                    : time.format(context)),
+          _FieldAura(
             filled: time != null && !controller.timeUnknown,
-            onTap: controller.timeUnknown
-                ? null
-                : () async {
-                    final picked = await showTimePicker(
-                      context: context,
-                      initialTime: time ?? const TimeOfDay(hour: 12, minute: 0),
-                      helpText: 'Ora di nascita',
-                    );
-                    if (picked != null) controller.setTime(picked);
-                  },
+            child: _TapField(
+              icon: Icons.schedule_outlined,
+              label: controller.timeUnknown
+                  ? 'Ora non conosciuta'
+                  : (time == null
+                      ? 'Scegli l\'ora di nascita'
+                      : time.format(context)),
+              filled: time != null && !controller.timeUnknown,
+              onTap: controller.timeUnknown
+                  ? null
+                  : () async {
+                      final picked = await showTimePicker(
+                        context: context,
+                        initialTime:
+                            time ?? const TimeOfDay(hour: 12, minute: 0),
+                        helpText: 'Ora di nascita',
+                      );
+                      if (picked != null) controller.setTime(picked);
+                    },
+            ),
           ),
           const SizedBox(height: SpacingTokens.md),
           _CheckRow(
@@ -233,81 +310,129 @@ class _PlaceStep extends StatefulWidget {
 }
 
 class _PlaceStepState extends State<_PlaceStep> {
-  String _query = '';
+  final _text = TextEditingController();
+  List<BirthPlace> _results = const [];
+  bool _ready = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _text.addListener(_refresh);
+    _load();
+  }
+
+  Future<void> _load() async {
+    final repo = context.read<PlaceRepository>();
+    await repo.ensureLoaded();
+    if (!mounted) return;
+    setState(() {
+      _ready = true;
+      _results = repo.search(_text.text);
+    });
+  }
+
+  void _refresh() {
+    if (!_ready) return;
+    final repo = context.read<PlaceRepository>();
+    setState(() => _results = repo.search(_text.text, limit: 12));
+  }
+
+  @override
+  void dispose() {
+    _text.removeListener(_refresh);
+    _text.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final results = BirthPlaces.all
-        .where((p) => p.label.toLowerCase().contains(_query.toLowerCase()))
-        .toList();
     final selected = widget.controller.place;
 
     return _StepShell(
       title: 'Dove sei nato?',
       subtitle: 'Il luogo ancora il tuo cielo alla terra. E\' obbligatorio.',
+      expandChild: true,
       child: Column(
         children: [
-          TextField(
-            onChanged: (v) => setState(() => _query = v),
-            style: TypographyTokens.body(size: 15),
-            decoration: InputDecoration(
-              hintText: 'Cerca la citta\'',
-              hintStyle: TypographyTokens.body(size: 15)
-                  .copyWith(color: ColorTokens.textMuted),
-              prefixIcon: Icon(Icons.search, color: palette.goldSoft),
-              filled: true,
-              fillColor: ColorTokens.glassTint,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                borderSide: BorderSide(
-                    color: palette.gold.withValues(alpha: 0.3)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                borderSide: BorderSide(color: palette.gold),
+          _FieldAura(
+            filled: selected != null,
+            child: TextField(
+              controller: _text,
+              style: TypographyTokens.body(size: 15),
+              decoration: InputDecoration(
+                hintText: selected != null
+                    ? selected.displayLabel
+                    : 'Scrivi il tuo comune di nascita',
+                hintStyle: TypographyTokens.body(size: 15).copyWith(
+                    color: selected != null
+                        ? ColorTokens.textPrimary
+                        : ColorTokens.textMuted),
+                prefixIcon: Icon(Icons.search, color: palette.goldSoft),
+                filled: true,
+                fillColor: palette.surface.withValues(alpha: 0.5),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                  borderSide:
+                      BorderSide(color: palette.gold.withValues(alpha: 0.35)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                  borderSide: BorderSide(color: palette.gold),
+                ),
               ),
             ),
           ),
           const SizedBox(height: SpacingTokens.sm),
-          Expanded(
-            child: ListView.builder(
-              itemCount: results.length,
-              itemBuilder: (context, i) {
-                final place = results[i];
-                final isSel = place == selected;
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
-                  child: DepthCard(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.md,
-                      vertical: SpacingTokens.sm,
+          if (!_ready)
+            Padding(
+              padding: const EdgeInsets.all(SpacingTokens.lg),
+              child: Text('Sto radunando i luoghi...',
+                  style: TypographyTokens.body(size: 13)
+                      .copyWith(color: ColorTokens.textMuted)),
+            )
+          else
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: _results.length,
+                itemBuilder: (context, i) {
+                  final place = _results[i];
+                  final isSel = place == selected;
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
+                    child: DepthCard(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: SpacingTokens.md,
+                        vertical: SpacingTokens.sm,
+                      ),
+                      onTap: () {
+                        widget.controller.setPlace(place);
+                        FocusScope.of(context).unfocus();
+                        setState(() {});
+                      },
+                      child: Row(
+                        children: [
+                          Icon(isSel ? Icons.place : Icons.place_outlined,
+                              color: isSel
+                                  ? palette.goldSoft
+                                  : ColorTokens.textSecondary,
+                              size: 20),
+                          const SizedBox(width: SpacingTokens.sm),
+                          Expanded(
+                            child: Text(place.displayLabel,
+                                style: TypographyTokens.body(size: 15)),
+                          ),
+                          if (isSel)
+                            Icon(Icons.check,
+                                color: palette.goldSoft, size: 18),
+                        ],
+                      ),
                     ),
-                    onTap: () => widget.controller.setPlace(place),
-                    child: Row(
-                      children: [
-                        Icon(
-                          isSel
-                              ? Icons.place
-                              : Icons.place_outlined,
-                          color: isSel
-                              ? palette.goldSoft
-                              : ColorTokens.textSecondary,
-                          size: 20,
-                        ),
-                        const SizedBox(width: SpacingTokens.sm),
-                        Text(place.label,
-                            style: TypographyTokens.body(size: 15)),
-                        const Spacer(),
-                        if (isSel)
-                          Icon(Icons.check, color: palette.goldSoft, size: 18),
-                      ],
-                    ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -324,45 +449,40 @@ class _GenderStep extends StatelessWidget {
     return _StepShell(
       title: 'Come ti identifichi?',
       subtitle: 'Opzionale, e non cambia il calcolo del cielo.',
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Wrap(
-          spacing: SpacingTokens.sm,
-          runSpacing: SpacingTokens.sm,
-          children: [
-            for (final g in Gender.values)
-              GestureDetector(
-                onTap: () => controller.setGender(
-                    controller.gender == g ? null : g),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: SpacingTokens.md,
-                    vertical: SpacingTokens.sm,
-                  ),
-                  decoration: BoxDecoration(
+      child: Wrap(
+        spacing: SpacingTokens.sm,
+        runSpacing: SpacingTokens.sm,
+        children: [
+          for (final g in Gender.values)
+            GestureDetector(
+              onTap: () => controller
+                  .setGender(controller.gender == g ? null : g),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: SpacingTokens.md,
+                  vertical: SpacingTokens.sm,
+                ),
+                decoration: BoxDecoration(
+                  color: controller.gender == g
+                      ? palette.gold.withValues(alpha: 0.2)
+                      : ColorTokens.glassTint,
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+                  border: Border.all(
                     color: controller.gender == g
-                        ? palette.gold.withValues(alpha: 0.2)
-                        : ColorTokens.glassTint,
-                    borderRadius:
-                        BorderRadius.circular(SpacingTokens.radiusPill),
-                    border: Border.all(
-                      color: controller.gender == g
-                          ? palette.gold
-                          : ColorTokens.glassStroke,
-                    ),
+                        ? palette.gold
+                        : ColorTokens.glassStroke,
                   ),
-                  child: Text(
-                    g.label,
+                ),
+                child: Text(g.label,
                     style: TypographyTokens.body(size: 14).copyWith(
                       color: controller.gender == g
                           ? palette.goldSoft
                           : ColorTokens.textSecondary,
-                    ),
-                  ),
-                ),
+                    )),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
@@ -388,16 +508,16 @@ class _TapField extends StatelessWidget {
       onTap: onTap,
       padding: const EdgeInsets.symmetric(
         horizontal: SpacingTokens.md,
-        vertical: SpacingTokens.md,
+        vertical: SpacingTokens.lg,
       ),
       child: Row(
         children: [
-          Icon(icon, color: palette.goldSoft, size: 22),
+          Icon(icon, color: palette.goldSoft, size: 24),
           const SizedBox(width: SpacingTokens.sm),
           Expanded(
             child: Text(
               label,
-              style: TypographyTokens.body(size: 16).copyWith(
+              style: TypographyTokens.display(size: 18).copyWith(
                 color: filled
                     ? ColorTokens.textPrimary
                     : ColorTokens.textSecondary,
@@ -429,7 +549,8 @@ class _CheckRow extends StatelessWidget {
       onTap: () => onChanged(!value),
       child: Row(
         children: [
-          Container(
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
             width: 22,
             height: 22,
             decoration: BoxDecoration(
@@ -445,36 +566,6 @@ class _CheckRow extends StatelessWidget {
           Text(label, style: TypographyTokens.body(size: 15)),
         ],
       ),
-    );
-  }
-}
-
-class _ProgressDots extends StatelessWidget {
-  const _ProgressDots({required this.count, required this.index});
-  final int count;
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    return Row(
-      children: [
-        for (var i = 0; i < count; i++)
-          Padding(
-            padding: const EdgeInsets.only(right: 6),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              width: i == index ? 26 : 8,
-              height: 8,
-              decoration: BoxDecoration(
-                color: i <= index
-                    ? palette.gold
-                    : palette.gold.withValues(alpha: 0.25),
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-              ),
-            ),
-          ),
-      ],
     );
   }
 }

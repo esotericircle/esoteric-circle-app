@@ -38,8 +38,6 @@ class _OnboardingJourneyState extends State<OnboardingJourney> {
 
     final chart = chartCtrl.chart;
     if (chart != null) {
-      // Evidenzia la costellazione del segno solare nel cosmo.
-      context.read<ZodiacController>().setSunSign(chart.sunSign);
       _assigned = assignMaestro(chart.sunSign);
     }
   }
@@ -52,6 +50,11 @@ class _OnboardingJourneyState extends State<OnboardingJourney> {
 
   void _onRevealed(Maestro maestro) {
     context.read<MaestroController>().selectMaestro(maestro);
+    // Solo ora, entrando nel Santuario, il cielo evidenzia la costellazione
+    // del segno solare dell'utente: durante tutto l'onboarding nessuna
+    // costellazione resta pinnata in un angolo.
+    final sun = context.read<NatalChartController>().sunSign;
+    if (sun != null) context.read<ZodiacController>().setSunSign(sun);
     context.read<AppFlowController>().toApp();
   }
 

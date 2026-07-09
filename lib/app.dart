@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'core/app_flow/app_flow_controller.dart';
 import 'core/astro/natal_chart_controller.dart';
+import 'core/astro/place_repository.dart';
 import 'core/astro/zodiac_controller.dart';
 import 'core/entitlement/entitlement_service.dart';
 import 'core/feature_flags/feature_flag_service.dart';
@@ -34,6 +35,7 @@ class EsotericCircleApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ZodiacController()),
         ChangeNotifierProvider(create: (_) => AppFlowController()),
         ChangeNotifierProvider(create: (_) => NatalChartController()),
+        Provider<PlaceRepository>(create: (_) => ItalianComuniRepository()),
         ChangeNotifierProvider(
           create: (ctx) =>
               NavigationController(ctx.read<MaestroController>()),

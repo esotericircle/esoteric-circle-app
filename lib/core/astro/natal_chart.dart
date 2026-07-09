@@ -1,63 +1,125 @@
 import 'zodiac.dart';
 
-/// Posizione di un pianeta nella carta natale.
+/// Tipo di aspetto tra due pianeti.
+enum AspectType {
+  conjunction('Congiunzione', AspectHarmony.neutral),
+  sextile('Sestile', AspectHarmony.soft),
+  square('Quadratura', AspectHarmony.hard),
+  trine('Trigono', AspectHarmony.soft),
+  opposition('Opposizione', AspectHarmony.hard);
+
+  const AspectType(this.italianName, this.harmony);
+  final String italianName;
+  final AspectHarmony harmony;
+
+  static AspectType? fromId(String id) {
+    switch (id.toLowerCase()) {
+      case 'conjunction':
+        return AspectType.conjunction;
+      case 'sextile':
+        return AspectType.sextile;
+      case 'square':
+        return AspectType.square;
+      case 'trine':
+        return AspectType.trine;
+      case 'opposition':
+        return AspectType.opposition;
+    }
+    return null;
+  }
+}
+
+enum AspectHarmony { soft, hard, neutral }
+
+/// Un aspetto tra due punti della carta (per longitudine eclittica).
+class ChartAspect {
+  const ChartAspect({
+    required this.aLongitude,
+    required this.bLongitude,
+    required this.type,
+  });
+
+  final double aLongitude;
+  final double bLongitude;
+  final AspectType type;
+}
+
+/// Una cuspide di casa.
+class HouseCusp {
+  const HouseCusp({required this.number, required this.longitude});
+  final int number;
+  final double longitude;
+}
+
+/// Posizione di un pianeta (o punto) nella carta natale.
 class PlanetPosition {
   const PlanetPosition({
+    required this.id,
     required this.name,
-    required this.symbol,
+    required this.glyph,
     required this.longitude,
     required this.sign,
+    this.retrograde = false,
+    this.house,
   });
+
+  final String id;
 
   /// Nome in italiano (Sole, Luna, Mercurio, ...).
   final String name;
 
-  /// Simbolo astronomico (usato come etichetta breve).
-  final String symbol;
+  /// Glifo astronomico (font NotoSansSymbols).
+  final String glyph;
 
   /// Longitudine eclittica in gradi [0, 360).
   final double longitude;
-
   final Zodiac sign;
+  final bool retrograde;
+  final int? house;
 }
 
 /// La carta natale calcolata.
 ///
 /// Puo' essere:
-/// - completa: pianeti, segno solare e, se l'ora e' nota, Ascendente;
-/// - parziale: senza ora, quindi senza Ascendente ne Case (invito a completare);
-/// - essenziale: costruita in locale quando l'API non e' disponibile, con il
-///   solo segno solare deterministico. Mai un errore tecnico: sempre un cielo.
+/// - completa: pianeti, angoli, case e aspetti;
+/// - parziale: senza ora, quindi senza Ascendente ne Case;
+/// - essenziale: costruita in locale quando l'API non e' disponibile, col solo
+///   segno solare deterministico. Mai un errore: sempre un cielo.
 class NatalChart {
   const NatalChart({
     required this.sunSign,
     required this.planets,
     this.moonSign,
     this.ascendant,
+    this.ascendantLongitude,
+    this.midheaven,
+    this.midheavenLongitude,
+    this.houses = const [],
+    this.aspects = const [],
     this.hasTime = false,
     this.isEssential = false,
   });
 
   final Zodiac sunSign;
   final Zodiac? moonSign;
-
-  /// Ascendente, disponibile solo con l'ora di nascita e il calcolo completo.
   final Zodiac? ascendant;
-
+  final double? ascendantLongitude;
+  final Zodiac? midheaven;
+  final double? midheavenLongitude;
+  final List<HouseCusp> houses;
+  final List<ChartAspect> aspects;
   final List<PlanetPosition> planets;
-
-  /// Vero se l'ora era nota (quindi Ascendente e Case sono significativi).
   final bool hasTime;
-
-  /// Vero se la carta e' il cielo essenziale locale (API non disponibile).
   final bool isEssential;
 
   bool get isPartial => !hasTime;
 
+  /// Longitudine dell'Ascendente da usare per orientare la ruota (0 se assente,
+  /// cosi' l'Ariete resta a sinistra).
+  double get orientationLongitude => ascendantLongitude ?? 0;
+
   /// Cielo essenziale: solo il Sole nel suo segno, calcolato in locale.
-  /// Usato come fallback elegante quando l'API non risponde o la chiave manca.
   factory NatalChart.essential({required Zodiac sunSign, required bool hasTime}) {
-    // Il Sole si colloca a meta' del proprio segno come posizione simbolica.
     final longitude = Zodiac.values.indexOf(sunSign) * 30.0 + 15.0;
     return NatalChart(
       sunSign: sunSign,
@@ -65,8 +127,9 @@ class NatalChart {
       isEssential: true,
       planets: [
         PlanetPosition(
+          id: 'sun',
           name: 'Sole',
-          symbol: '☉',
+          glyph: '☉',
           longitude: longitude,
           sign: sunSign,
         ),

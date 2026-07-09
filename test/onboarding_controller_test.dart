@@ -14,7 +14,7 @@ void main() {
       expect(c.canProceed, isTrue);
       expect(c.isComplete, isFalse); // manca il luogo
 
-      c.setPlace(BirthPlaces.all.first);
+      c.setPlace(const BirthPlace(label: 'Roma', province: 'RM', latitude: 41.9, longitude: 12.5, timezone: 'Europe/Rome'));
       expect(c.isComplete, isTrue);
     });
 
@@ -38,7 +38,7 @@ void main() {
       final c = OnboardingController();
       c.setDate(DateTime(1988, 2, 20));
       c.setTime(const TimeOfDay(hour: 8, minute: 15));
-      c.setPlace(BirthPlaces.all.first);
+      c.setPlace(const BirthPlace(label: 'Roma', province: 'RM', latitude: 41.9, longitude: 12.5, timezone: 'Europe/Rome'));
       var details = c.build();
       expect(details, isNotNull);
       expect(details!.hasTime, isTrue);
