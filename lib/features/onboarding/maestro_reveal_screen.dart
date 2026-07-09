@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
@@ -17,14 +18,17 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/breath_detector.dart';
 import 'widgets/maestro_card.dart';
 import 'widgets/ritual_object.dart';
+import 'widgets/sensory_reveal.dart';
 
 /// Rivelazione del Maestro col rito del soffio.
 ///
 /// Il Maestro assegnato si svela soffiando sull'oggetto rituale vivo (sfera di
-/// cristallo per Medora, candela per Caligo, soffione per Aura): il microfono
-/// misura il soffio con una soglia, ma c'e' sempre il fallback tattile (si
-/// trascina il dito, in stile gratta e vinci). Dopo tre secondi compare un
-/// tutorial visivo. Al termine il Maestro entra in scena in modo cinematografico.
+/// cristallo su piedistallo per Medora, candela per Caligo, soffione per Aura):
+/// il microfono misura il soffio con una soglia generosa, ma il tocco e' sempre
+/// la via garantita. La scala dell'aiuto universale ([RevealHelp]) governa i
+/// gradini: l'oggetto invita col movimento, dopo tre secondi le silhouette
+/// senza sfondo, al primo input il feedback e' immediato, e poco dopo appare
+/// l'invito sempre toccabile "Tocca per svelare". Rispetta Riduci Movimento.
 class MaestroRevealScreen extends StatefulWidget {
   const MaestroRevealScreen({
     super.key,
@@ -39,21 +43,35 @@ class MaestroRevealScreen extends StatefulWidget {
   State<MaestroRevealScreen> createState() => _MaestroRevealScreenState();
 }
 
-class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
+class _MaestroRevealScreenState extends State<MaestroRevealScreen>
+    with SingleTickerProviderStateMixin {
   final BreathDetector _breath = BreathDetector();
+  static const _help = RevealHelp();
+
   StreamSubscription<double>? _levelSub;
-  Timer? _tick;
-  Timer? _tutorialTimer;
+  // Un solo ticker vsync fa da orologio del rito: cosi' i gradini d'aiuto
+  // seguono lo stesso tempo dell'oggetto animato, senza dipendere da un timer.
+  late final Ticker _ticker;
+  Duration _lastFrame = Duration.zero;
 
   double _progress = 0;
   double _micLevel = 0;
   double _dragPulse = 0;
   bool _micAvailable = false;
-  bool _showTutorial = false;
   bool _revealed = false;
-  int _idle = 0;
+  bool _autoFinishing = false;
 
-  static const _blowThreshold = 0.12;
+  int _elapsedMs = 0;
+  int _lastInputMs = 0;
+  bool _attempted = false;
+  double _idleMs = 0;
+
+  bool _showCoach = false;
+  bool _showSafetyTap = false;
+
+  // Soglie generose e perdonanti: il soffio piu' lieve basta e il dito reagisce
+  // subito.
+  static const _blowThreshold = 0.10;
 
   double get _reactLevel => math.max(_micLevel, _dragPulse);
 
@@ -61,10 +79,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
   void initState() {
     super.initState();
     _startMic();
-    _tick = Timer.periodic(const Duration(milliseconds: 60), _onTick);
-    _tutorialTimer = Timer(const Duration(seconds: 3), () {
-      if (mounted && !_revealed) setState(() => _showTutorial = true);
-    });
+    _ticker = createTicker(_onFrame)..start();
   }
 
   Future<void> _startMic() async {
@@ -74,18 +89,40 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
     if (ok) _levelSub = _breath.level.listen((l) => _micLevel = l);
   }
 
-  void _onTick(Timer _) {
+  void _onFrame(Duration elapsed) {
     if (_revealed) return;
+    final dtMs = (elapsed - _lastFrame).inMilliseconds.clamp(0, 100).toDouble();
+    _lastFrame = elapsed;
+    _elapsedMs = elapsed.inMilliseconds;
+    final k = dtMs / 60.0; // passo normalizzato a un tick di 60ms
     final blowing = _micAvailable && _micLevel > _blowThreshold;
     setState(() {
-      _dragPulse *= 0.85;
-      if (blowing) {
-        _progress = (_progress + 0.05).clamp(0.0, 1.0);
-        _idle = 0;
+      _dragPulse *= math.pow(0.85, k).toDouble();
+      if (_autoFinishing) {
+        // Il tocco di sicurezza porta a termine da solo la dispersione.
+        _progress = (_progress + 0.06 * k).clamp(0.0, 1.0);
+        _dragPulse = math.max(_dragPulse, 0.6);
+      } else if (blowing) {
+        _progress = (_progress + 0.05 * k).clamp(0.0, 1.0);
+        _lastInputMs = _elapsedMs;
+        _attempted = true;
+        _idleMs = 0;
       } else {
-        _idle++;
-        if (_idle > 8) _progress = (_progress - 0.01).clamp(0.0, 1.0);
+        _idleMs += dtMs;
+        // Rientro molto lento: il progresso guadagnato non si perde in fretta.
+        if (_idleMs > 840) _progress = (_progress - 0.006 * k).clamp(0.0, 1.0);
       }
+
+      final sinceStart = Duration(milliseconds: _elapsedMs);
+      final idleSinceInput = _elapsedMs - _lastInputMs;
+      final attemptStalled =
+          _attempted && _progress > 0.02 && _progress < 1 && idleSinceInput > 1100;
+      _showCoach = _help.showCoach(sinceStart: sinceStart, progress: _progress);
+      _showSafetyTap = !_autoFinishing &&
+          _help.showSafetyTap(
+              sinceStart: sinceStart,
+              attemptStalled: attemptStalled,
+              progress: _progress);
     });
     if (_progress >= 1.0) _complete();
   }
@@ -93,31 +130,45 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
   void _onDrag(DragUpdateDetails d) {
     if (_revealed) return;
     setState(() {
-      _progress = (_progress + d.delta.distance / 1400).clamp(0.0, 1.0);
+      // Feedback immediato: anche un tocco minimo muove il rito e accende
+      // l'oggetto.
+      _progress = (_progress + math.max(d.delta.distance / 900, 0.004))
+          .clamp(0.0, 1.0);
       _dragPulse = 1;
-      _idle = 0;
+      _attempted = true;
+      _lastInputMs = _elapsedMs;
+      _idleMs = 0;
     });
     if (_progress >= 1.0) _complete();
+  }
+
+  void _finishByTap() {
+    // La via garantita: un tocco completa la dispersione, sensori a parte.
+    setState(() {
+      _autoFinishing = true;
+      _attempted = true;
+      _showSafetyTap = false;
+    });
+    HapticFeedback.selectionClick();
   }
 
   void _complete() {
     if (_revealed) return;
     _revealed = true;
-    _tick?.cancel();
-    _tutorialTimer?.cancel();
+    _ticker.stop();
     _levelSub?.cancel();
     _breath.stop();
     HapticFeedback.mediumImpact(); // la nebbia si dirada, il Maestro appare
     setState(() {
       _progress = 1;
-      _showTutorial = false;
+      _showCoach = false;
+      _showSafetyTap = false;
     });
   }
 
   @override
   void dispose() {
-    _tick?.cancel();
-    _tutorialTimer?.cancel();
+    _ticker.dispose();
     _levelSub?.cancel();
     _breath.dispose();
     super.dispose();
@@ -134,9 +185,14 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
     final palette = MaestroPalette.forKey(ThemeKey.of(widget.maestro));
     final identity = context.read<IdentityController>();
     final chart = context.read<NatalChartController>().chart;
+    final reduceMotion = MediaQuery.of(context).disableAnimations;
 
     return GestureDetector(
       onPanUpdate: _onDrag,
+      onTapDown: _revealed ? null : (_) => _onDrag(DragUpdateDetails(
+            globalPosition: Offset.zero,
+            delta: const Offset(9, 0),
+          )),
       behavior: HitTestBehavior.opaque,
       child: Padding(
         padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -145,25 +201,26 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
             const SizedBox(height: SpacingTokens.md),
             Text(
               _revealed ? 'Il tuo Maestro' : 'La rivelazione',
-              style: TypographyTokens.body(size: 12)
+              style: TypographyTokens.label(size: 13)
                   .copyWith(color: palette.goldSoft, letterSpacing: 3),
             ),
             const SizedBox(height: SpacingTokens.xs),
             Text(
               _revealed ? widget.maestro.displayName : _title,
-              style: TypographyTokens.display(size: 26),
+              style: TypographyTokens.display(size: 28),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: SpacingTokens.lg),
+            const SizedBox(height: SpacingTokens.md),
             Expanded(
               child: Center(
                 child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 600),
+                  duration: Duration(milliseconds: reduceMotion ? 0 : 600),
                   child: _revealed
                       ? MaestroCardReveal(
                           key: const ValueKey('card'),
                           maestro: widget.maestro,
                           palette: palette,
+                          reduceMotion: reduceMotion,
                         )
                       : _RitualStage(
                           key: const ValueKey('ritual'),
@@ -171,13 +228,14 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
                           palette: palette,
                           progress: _progress,
                           level: _reactLevel,
-                          showTutorial: _showTutorial,
+                          showCoach: _showCoach,
                           micAvailable: _micAvailable,
+                          reduceMotion: reduceMotion,
                         ),
                 ),
               ),
             ),
-            const SizedBox(height: SpacingTokens.lg),
+            const SizedBox(height: SpacingTokens.md),
             if (_revealed)
               _RevealedFooter(
                 maestro: widget.maestro,
@@ -186,13 +244,15 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen> {
                 chart: chart,
                 onEnter: () => widget.onRevealed(widget.maestro),
               )
+            else if (_showSafetyTap)
+              _SafetyTapInvite(palette: palette, onTap: _finishByTap)
             else
               Text(
                 _micAvailable
                     ? 'Soffia dolcemente, oppure trascina il dito per svelare'
                     : 'Trascina il dito per svelare, come un gratta e vinci',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 13)
+                style: TypographyTokens.body(size: 15)
                     .copyWith(color: ColorTokens.textSecondary),
               ),
             const SizedBox(height: SpacingTokens.md),
@@ -210,89 +270,184 @@ class _RitualStage extends StatelessWidget {
     required this.palette,
     required this.progress,
     required this.level,
-    required this.showTutorial,
+    required this.showCoach,
     required this.micAvailable,
+    required this.reduceMotion,
   });
 
   final Maestro maestro;
   final MaestroPalette palette;
   final double progress;
   final double level;
-  final bool showTutorial;
+  final bool showCoach;
   final bool micAvailable;
+  final bool reduceMotion;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 300,
-      height: 340,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          RitualObject(
-            maestro: maestro,
-            palette: palette,
-            progress: progress,
-            level: level,
-            size: 210,
-          ),
-          // Anello di progresso attorno all'oggetto.
-          SizedBox(
-            width: 240,
-            height: 240,
-            child: CircularProgressIndicator(
-              value: progress,
-              strokeWidth: 2,
-              backgroundColor: palette.gold.withValues(alpha: 0.12),
-              valueColor: AlwaysStoppedAnimation(palette.goldSoft),
+    return LayoutBuilder(builder: (context, constraints) {
+      final side = math.min(constraints.maxHeight, constraints.maxWidth);
+      final objectSize = side.clamp(240.0, 320.0);
+      return SizedBox.expand(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Atmosfera: alone del Maestro e particelle, cosi' l'oggetto non e'
+            // mai un puntino nel nero.
+            Positioned.fill(
+              child: _Atmosphere(palette: palette, reduceMotion: reduceMotion),
             ),
-          ),
-          if (showTutorial)
-            Positioned(
-              bottom: 4,
-              child: _Tutorial(micAvailable: micAvailable, palette: palette),
+            RitualObject(
+              maestro: maestro,
+              palette: palette,
+              progress: progress,
+              level: level,
+              reduceMotion: reduceMotion,
+              size: objectSize,
             ),
-        ],
+            // Anello di progresso attorno all'oggetto.
+            SizedBox(
+              width: objectSize * 1.06,
+              height: objectSize * 1.06,
+              child: CircularProgressIndicator(
+                value: progress,
+                strokeWidth: 2.4,
+                backgroundColor: palette.gold.withValues(alpha: 0.12),
+                valueColor: AlwaysStoppedAnimation(palette.goldSoft),
+              ),
+            ),
+            // Le silhouette guida, grandi e senza sfondo.
+            if (showCoach)
+              Positioned(
+                bottom: 0,
+                child: GestureCoach(
+                  palette: palette,
+                  reduceMotion: reduceMotion,
+                  gestures: micAvailable
+                      ? const [CoachGesture.blow, CoachGesture.swipe]
+                      : const [CoachGesture.swipe],
+                ),
+              ),
+          ],
+        ),
+      );
+    });
+  }
+}
+
+/// Alone del Maestro e particelle sospese dietro l'oggetto rituale.
+class _Atmosphere extends StatefulWidget {
+  const _Atmosphere({required this.palette, required this.reduceMotion});
+  final MaestroPalette palette;
+  final bool reduceMotion;
+
+  @override
+  State<_Atmosphere> createState() => _AtmosphereState();
+}
+
+class _AtmosphereState extends State<_Atmosphere>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c;
+
+  @override
+  void initState() {
+    super.initState();
+    _c = AnimationController(
+        vsync: this, duration: const Duration(seconds: 18));
+    if (!widget.reduceMotion) _c.repeat();
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, _) => CustomPaint(
+        painter: _AtmospherePainter(
+            palette: widget.palette,
+            t: widget.reduceMotion ? 0.0 : _c.value),
       ),
     );
   }
 }
 
-class _Tutorial extends StatelessWidget {
-  const _Tutorial({required this.micAvailable, required this.palette});
-  final bool micAvailable;
+class _AtmospherePainter extends CustomPainter {
+  _AtmospherePainter({required this.palette, required this.t});
   final MaestroPalette palette;
+  final double t;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    // Grande alone morbido del Maestro.
+    canvas.drawCircle(
+        c,
+        size.shortestSide * 0.55,
+        Paint()
+          ..shader = RadialGradient(
+            colors: [
+              palette.glow.withValues(alpha: 0.22),
+              palette.primary.withValues(alpha: 0.08),
+              Colors.transparent,
+            ],
+            stops: const [0.0, 0.5, 1.0],
+          ).createShader(Rect.fromCircle(
+              center: c, radius: size.shortestSide * 0.55)));
+
+    // Particelle sospese che ruotano lente.
+    final rng = math.Random(7);
+    for (var i = 0; i < 22; i++) {
+      final base = rng.nextDouble() * 2 * math.pi;
+      final rad = size.shortestSide * (0.20 + rng.nextDouble() * 0.32);
+      final a = base + t * 2 * math.pi * (0.2 + rng.nextDouble() * 0.3);
+      final p = c + Offset(math.cos(a), math.sin(a) * 0.8) * rad;
+      final tw = 0.3 + 0.7 * (0.5 + 0.5 * math.sin(t * 6 + i));
+      canvas.drawCircle(
+          p,
+          0.8 + rng.nextDouble() * 1.6,
+          Paint()
+            ..color = palette.goldSoft.withValues(alpha: 0.4 * tw)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.2));
+    }
+  }
+
+  @override
+  bool shouldRepaint(_AtmospherePainter old) => old.t != t;
+}
+
+/// L'invito di sicurezza, sempre toccabile, che completa il rito con un tocco.
+class _SafetyTapInvite extends StatelessWidget {
+  const _SafetyTapInvite({required this.palette, required this.onTap});
+  final MaestroPalette palette;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: SpacingTokens.md,
-        vertical: SpacingTokens.xs,
-      ),
-      decoration: BoxDecoration(
-        color: palette.deepest.withValues(alpha: 0.7),
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            micAvailable ? Icons.face_retouching_natural : Icons.touch_app,
-            color: palette.goldSoft,
-            size: 20,
-          ),
-          const SizedBox(width: 6),
-          Icon(micAvailable ? Icons.air : Icons.gesture,
-              color: palette.goldSoft, size: 18),
-          const SizedBox(width: SpacingTokens.xs),
-          Text(
-            micAvailable ? 'Soffia qui' : 'Trascina qui',
-            style: TypographyTokens.body(size: 13)
-                .copyWith(color: ColorTokens.textPrimary),
-          ),
-        ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.lg, vertical: SpacingTokens.sm),
+        decoration: BoxDecoration(
+          color: palette.gold.withValues(alpha: 0.16),
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.7)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.touch_app, color: palette.goldSoft, size: 22),
+            const SizedBox(width: SpacingTokens.xs),
+            Text('Tocca per svelare',
+                style: TypographyTokens.body(size: 16, weight: 600)
+                    .copyWith(color: palette.goldSoft)),
+          ],
+        ),
       ),
     );
   }
@@ -326,7 +481,7 @@ class _RevealedFooter extends StatelessWidget {
         Text(
           identity.welcome(),
           textAlign: TextAlign.center,
-          style: TypographyTokens.display(size: 18)
+          style: TypographyTokens.display(size: 20)
               .copyWith(color: palette.goldSoft),
         ),
         const SizedBox(height: SpacingTokens.sm),
@@ -341,8 +496,8 @@ class _RevealedFooter extends StatelessWidget {
             child: Text(
               first,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 14)
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.45),
+              style: TypographyTokens.body(size: 16)
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.5),
             ),
           ),
         const SizedBox(height: SpacingTokens.md),
@@ -359,7 +514,7 @@ class _RevealedFooter extends StatelessWidget {
             ),
             onPressed: onEnter,
             child: Text('Entra nel Santuario',
-                style: TypographyTokens.body(size: 15, weight: 600)
+                style: TypographyTokens.body(size: 16, weight: 600)
                     .copyWith(color: palette.deepest)),
           ),
         ),

@@ -18,6 +18,18 @@ import 'resonance_screen.dart';
 
 enum _JourneyPhase { name, sky, chart, resonance, reveal }
 
+/// Solo per l'anteprima visiva: forza il Maestro della rivelazione con
+/// `--dart-define=DEMO_MAESTRO=medora|caligo|aura`, cosi' si possono rivedere i
+/// tre oggetti rituali. Vuoto in produzione, dove decide la risonanza.
+const String _kDemoMaestro = String.fromEnvironment('DEMO_MAESTRO');
+
+Maestro? _demoMaestro() => switch (_kDemoMaestro) {
+      'medora' => Maestro.medora,
+      'caligo' => Maestro.caligo,
+      'aura' => Maestro.aura,
+      _ => null,
+    };
+
 /// Orchestrazione dell'onboarding: nome e forma, dati di nascita (Accendi il
 /// tuo cielo), carta natale, risonanza coi Maestri, rivelazione col soffio.
 class OnboardingJourney extends StatefulWidget {
@@ -40,7 +52,7 @@ class _OnboardingJourneyState extends State<OnboardingJourney> {
     final chart = chartCtrl.chart;
     if (chart != null) {
       _resonance = computeResonance(chart);
-      _assigned = _resonance!.winner;
+      _assigned = _demoMaestro() ?? _resonance!.winner;
     }
   }
 

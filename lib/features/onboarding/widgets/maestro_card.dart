@@ -17,12 +17,14 @@ class MaestroCardReveal extends StatefulWidget {
     super.key,
     required this.maestro,
     required this.palette,
+    this.reduceMotion = false,
     this.width = 240,
     this.height = 340,
   });
 
   final Maestro maestro;
   final MaestroPalette palette;
+  final bool reduceMotion;
   final double width;
   final double height;
 
@@ -41,11 +43,19 @@ class _MaestroCardRevealState extends State<MaestroCardReveal>
     _enter = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1100),
-    )..forward();
+    );
     _idle = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 6),
-    )..repeat();
+    );
+    if (widget.reduceMotion) {
+      // Con Riduci Movimento la figura appare presente e ferma, senza ingresso
+      // scenico ne galleggiamento.
+      _enter.value = 1;
+    } else {
+      _enter.forward();
+      _idle.repeat();
+    }
   }
 
   @override
