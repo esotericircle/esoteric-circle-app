@@ -6,6 +6,7 @@ import '../../design_system/components/section_title.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../maestri/widgets/maestro_presence.dart';
 import 'widgets/demo_controls.dart';
 import 'widgets/maestro_selector.dart';
 
@@ -73,7 +74,9 @@ class HomeScreen extends StatelessWidget {
                     'Scegli un Maestro e senti l\'intero cerchio cambiare colore.',
                     style: TypographyTokens.body(size: 15),
                   ),
-                  const SizedBox(height: SpacingTokens.lg),
+                  const SizedBox(height: SpacingTokens.md),
+                  const SantuarioPresence(height: 150),
+                  const SizedBox(height: SpacingTokens.md),
                   const MaestroSelector(),
                   const SizedBox(height: SpacingTokens.xl),
                   const SectionTitle(

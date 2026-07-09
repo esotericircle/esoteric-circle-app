@@ -89,14 +89,7 @@ class _MaestroChip extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Text(
-              maestro.symbol,
-              style: TextStyle(
-                color: own.goldSoft,
-                fontSize: 30,
-                height: 1,
-              ),
-            ),
+            Icon(maestro.icon, color: own.goldSoft, size: 30),
             const SizedBox(height: SpacingTokens.xs),
             Text(
               maestro.displayName,

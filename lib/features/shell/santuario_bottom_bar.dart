@@ -56,7 +56,7 @@ class SantuarioBottomBar extends StatelessWidget {
               for (final maestro in Maestro.values)
                 _BarItem(
                   label: maestro.displayName,
-                  symbol: maestro.symbol,
+                  iconData: maestro.icon,
                   selected: current == AppDestination.forMaestro(maestro),
                   onTap: () =>
                       onSelected(AppDestination.forMaestro(maestro)),
@@ -74,15 +74,13 @@ class _BarItem extends StatelessWidget {
     required this.label,
     required this.selected,
     required this.onTap,
-    this.iconData,
-    this.symbol,
+    required this.iconData,
   });
 
   final String label;
   final bool selected;
   final VoidCallback onTap;
-  final IconData? iconData;
-  final String? symbol;
+  final IconData iconData;
 
   @override
   Widget build(BuildContext context) {
@@ -125,16 +123,7 @@ class _BarItem extends StatelessWidget {
                       : null,
                 ),
                 alignment: Alignment.center,
-                child: iconData != null
-                    ? Icon(iconData, color: color, size: 22)
-                    : Text(
-                        symbol ?? '',
-                        style: TextStyle(
-                          color: color,
-                          fontSize: 22,
-                          height: 1,
-                        ),
-                      ),
+                child: Icon(iconData, color: color, size: 22),
               ),
               const SizedBox(height: 4),
               Text(

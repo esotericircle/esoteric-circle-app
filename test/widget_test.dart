@@ -5,12 +5,8 @@ import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/feature_flags/feature_flag_service.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  // Evita che google_fonts tenti download di rete durante i test.
-  setUpAll(() => GoogleFonts.config.allowRuntimeFetching = false);
-
   testWidgets('La Home Il Santuario si avvia e mostra i Maestri',
       (tester) async {
     await tester.pumpWidget(const EsotericCircleApp());
@@ -30,7 +26,10 @@ void main() {
 
     // Tocca la voce Caligo nella bottom bar (l'ultima occorrenza).
     await tester.tap(find.text('Caligo').last);
-    await tester.pumpAndSettle();
+    // Le animazioni di fondo sono in loop: non si usa pumpAndSettle, ma pump
+    // con durate fisse per far avanzare la transizione.
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
 
     // L'intestazione della sezione mostra la tagline univoca del Maestro.
     expect(find.text('Custode delle rune e dei riti antichi'),

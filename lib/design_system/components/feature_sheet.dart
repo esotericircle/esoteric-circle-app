@@ -120,7 +120,7 @@ class _FeatureSheetContent extends StatelessWidget {
                 isPremium
                     ? 'Scopri l\'abbonamento (${feature.requiredTier.label})'
                     : 'Avvisami quando arriva',
-                style: TypographyTokens.body(size: 15, weight: FontWeight.w600)
+                style: TypographyTokens.body(size: 15, weight: 600)
                     .copyWith(color: palette.deepest),
               ),
             ),

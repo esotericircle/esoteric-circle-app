@@ -77,7 +77,7 @@ class _DemoControlsSheet extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.lg),
           Text('Tier utente (sblocca le funzioni premium)',
-              style: TypographyTokens.body(size: 14, weight: FontWeight.w600)),
+              style: TypographyTokens.body(size: 14, weight: 600)),
           const SizedBox(height: SpacingTokens.xs),
           Wrap(
             spacing: SpacingTokens.xs,
@@ -92,7 +92,7 @@ class _DemoControlsSheet extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.lg),
           Text('Quality Tier (degradazione degli effetti)',
-              style: TypographyTokens.body(size: 14, weight: FontWeight.w600)),
+              style: TypographyTokens.body(size: 14, weight: 600)),
           const SizedBox(height: SpacingTokens.xs),
           Wrap(
             spacing: SpacingTokens.xs,
@@ -146,7 +146,7 @@ class _Choice extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TypographyTokens.body(size: 13, weight: FontWeight.w600)
+          style: TypographyTokens.body(size: 13, weight: 600)
               .copyWith(
             color: selected ? palette.goldSoft : ColorTokens.textSecondary,
           ),

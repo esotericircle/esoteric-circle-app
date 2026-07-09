@@ -39,10 +39,10 @@ class ColorTokens {
   static const Color caligoPrimary = Color(0xFFB0262E);
   static const Color caligoGlow = Color(0xFFE8555C);
 
-  // --- Stato neutro: viola scuro / nero notte stellato con oro ---
-  static const Color neutralDeepest = Color(0xFF08060F);
-  static const Color neutralDeep = Color(0xFF140B2E);
-  static const Color neutralSurface = Color(0xFF241547);
+  // --- Stato neutro: cosmo nero profondo con oro e un velo viola lontano ---
+  static const Color neutralDeepest = Color(0xFF010208);
+  static const Color neutralDeep = Color(0xFF080718);
+  static const Color neutralSurface = Color(0xFF1C1338);
   static const Color neutralPrimary = Color(0xFF5A3AA6);
   static const Color neutralGlow = Color(0xFF8A6BE0);
 

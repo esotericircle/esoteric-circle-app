@@ -9,6 +9,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import 'widgets/maestro_presence.dart';
 
 /// Sezione di un Maestro.
 ///
@@ -40,32 +41,15 @@ class MaestroScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Presenza del Maestro: avatar reale con respiro e aura.
+                  MaestroPresence(maestro: maestro, height: 250),
+                  const SizedBox(height: SpacingTokens.md),
                   DepthCard(
                     raised: true,
                     padding: const EdgeInsets.all(SpacingTokens.lg),
                     child: Row(
                       children: [
-                        Container(
-                          width: 64,
-                          height: 64,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: palette.primary.withValues(alpha: 0.4),
-                            border: Border.all(
-                              color: palette.gold.withValues(alpha: 0.6),
-                              width: 1.4,
-                            ),
-                          ),
-                          child: Text(
-                            maestro.symbol,
-                            style: TextStyle(
-                              color: palette.goldSoft,
-                              fontSize: 34,
-                              height: 1,
-                            ),
-                          ),
-                        ),
+                        Icon(maestro.icon, color: palette.goldSoft, size: 30),
                         const SizedBox(width: SpacingTokens.md),
                         Expanded(
                           child: Column(

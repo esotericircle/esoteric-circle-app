@@ -28,7 +28,7 @@ class SectionTitle extends StatelessWidget {
             const SizedBox(width: SpacingTokens.xs),
             Text(
               title.toUpperCase(),
-              style: TypographyTokens.display(size: 15, weight: FontWeight.w600)
+              style: TypographyTokens.display(size: 15, weight: 600)
                   .copyWith(letterSpacing: 2, color: palette.goldSoft),
             ),
           ],

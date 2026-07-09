@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'core/entitlement/entitlement_service.dart';
 import 'core/feature_flags/feature_flag_service.dart';
 import 'core/maestro/maestro_controller.dart';
+import 'core/motion/parallax_controller.dart';
 import 'core/quality/quality_tier.dart';
 import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
@@ -24,6 +25,7 @@ class EsotericCircleApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(
           create: (ctx) =>
               NavigationController(ctx.read<MaestroController>()),
