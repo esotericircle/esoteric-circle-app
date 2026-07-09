@@ -19,7 +19,8 @@ android {
         applicationId = "com.esotericircle.esoteric_circle"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        // Il pacchetto di registrazione audio (rito del soffio) richiede almeno il livello 23.
+        minSdk = maxOf(flutter.minSdkVersion, 23)
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

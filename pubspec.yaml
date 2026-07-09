@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   # Icone di sistema iOS oltre a quelle Material.
   cupertino_icons: ^1.0.8
@@ -23,6 +25,19 @@ dependencies:
   # sensore manca o non e' disponibile, la parallasse resta guidata dallo
   # scorrimento e da un moto lento, senza mai bloccare l'esperienza.
   sensors_plus: ^6.1.1
+
+  # Riproduzione del video dell'intro cinematografica.
+  video_player: ^2.9.2
+
+  # Client HTTP per il motore astrologico (FreeAstroAPI).
+  http: ^1.2.2
+
+  # Microfono per il rito del soffio, con lettura dell'ampiezza. Sempre con
+  # fallback tattile se il permesso manca o il sensore non e' disponibile.
+  record: ^5.2.1
+
+  # Formattazione di date in italiano.
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +54,7 @@ flutter:
     - assets/
     - assets/fonts/
     - brand_assets/avatars/
+    - brand_assets/intro/
 
   # Tipografia del design system, inclusa nel bundle come asset locale, cosi'
   # il testo si legge sempre, anche offline e nell'anteprima headless. Sono

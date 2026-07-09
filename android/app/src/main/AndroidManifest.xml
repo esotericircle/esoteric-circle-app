@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Microfono per il rito del soffio. Sempre con fallback tattile. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Rete per il motore astrologico (FreeAstroAPI). -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="Esoteric Circle"
         android:name="${applicationName}"
