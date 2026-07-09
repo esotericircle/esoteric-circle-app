@@ -4,6 +4,8 @@ import 'package:esoteric_circle/core/feature_flags/feature_flag.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/feature_flags/feature_flag_service.dart';
+import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -51,5 +53,21 @@ void main() {
     // Salendo di tier, la funzione premium si sblocca.
     entitlement.setTier(Tier.tier1);
     expect(flags.statusOf(premium), FeatureStatus.active);
+  });
+
+  test('Le dodici costellazioni zodiacali sono definite e coerenti', () {
+    // Una per ogni segno, senza duplicati.
+    expect(kZodiacConstellations.length, Zodiac.values.length);
+    final signs = kZodiacConstellations.map((c) => c.sign).toSet();
+    expect(signs.length, Zodiac.values.length);
+
+    // Ogni spigolo referenzia indici di stelle validi.
+    for (final c in kZodiacConstellations) {
+      expect(c.points.length, greaterThanOrEqualTo(3));
+      for (final (a, b) in c.edges) {
+        expect(a, inInclusiveRange(0, c.points.length - 1));
+        expect(b, inInclusiveRange(0, c.points.length - 1));
+      }
+    }
   });
 }

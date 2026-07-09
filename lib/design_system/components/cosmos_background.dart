@@ -3,21 +3,25 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/astro/zodiac.dart';
+import '../../core/astro/zodiac_controller.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../core/quality/quality_tier.dart';
 import '../theme/maestro_palette.dart';
 import '../theme/maestro_scope.dart';
+import 'zodiac_figures.dart';
 
 /// Sfondo cosmico immersivo full-bleed.
 ///
 /// Compone, dal fondo alla superficie:
 /// - un cielo quasi nero che vira verso l'accento del Maestro attivo;
-/// - tre piani di parallasse (stelle lontane, nebulosa e polvere media,
+/// - tre piani di parallasse (stelle lontane e costellazioni, nebulose media,
 ///   particelle vicine) che rispondono allo scorrimento e a una leggera
 ///   inclinazione del dispositivo;
-/// - stelle che pulsano dolcemente, costellazioni sottili che respirano in
-///   opacita' e ogni tanto una stella cadente lenta;
-/// - un alone del colore del Maestro in alto.
+/// - le dodici costellazioni zodiacali con linee sottili dorate che respirano
+///   in opacita', con la costellazione del segno solare evidenziata in oro;
+/// - nebulose soffuse e pittoriche tinte verso l'accento del Maestro;
+/// - stelle che pulsano e ogni tanto una stella cadente lenta.
 ///
 /// Tutto e' regolato dal Quality Tier: pieno in alto, ridotto in medio, quasi
 /// statico in basso per garantire fluidita' e batteria.
@@ -55,6 +59,7 @@ class _CosmosBackgroundState extends State<CosmosBackground>
     final palette = context.palette;
     final quality = context.watch<QualityTierController>().tier;
     final parallax = context.watch<ParallaxController>();
+    final sunSign = context.watch<ZodiacController>().sunSign;
 
     // In qualita' bassa il cosmo e' quasi statico: fermiamo il ciclo.
     if (quality == QualityTier.low) {
@@ -74,8 +79,8 @@ class _CosmosBackgroundState extends State<CosmosBackground>
                 end: Alignment.bottomCenter,
                 colors: [
                   palette.deepest,
-                  Color.lerp(palette.deepest, palette.backgroundGradient[1],
-                      0.6)!,
+                  Color.lerp(
+                      palette.deepest, palette.backgroundGradient[1], 0.6)!,
                   palette.deepest,
                 ],
                 stops: const [0.0, 0.55, 1.0],
@@ -92,6 +97,7 @@ class _CosmosBackgroundState extends State<CosmosBackground>
                 parallax: parallax,
                 palette: palette,
                 tier: quality,
+                highlighted: sunSign,
               ),
             ),
           ),
@@ -135,30 +141,30 @@ class _CosmosPainter extends CustomPainter {
     required this.parallax,
     required this.palette,
     required this.tier,
+    required this.highlighted,
   }) : super(repaint: Listenable.merge([animation, parallax]));
 
   final Animation<double> animation;
   final ParallaxController parallax;
   final MaestroPalette palette;
   final QualityTier tier;
+  final Zodiac? highlighted;
 
-  // Conteggi per tier.
-  int get _farCount => switch (tier) {
-        QualityTier.high => 120,
-        QualityTier.medium => 60,
-        QualityTier.low => 24,
+  int get _fieldStars => switch (tier) {
+        QualityTier.high => 70,
+        QualityTier.medium => 40,
+        QualityTier.low => 18,
       };
   int get _nearCount => switch (tier) {
         QualityTier.high => 12,
         QualityTier.medium => 6,
         QualityTier.low => 0,
       };
-  int get _constellations => switch (tier) {
-        QualityTier.high => 4,
+  int get _nebulaClusters => switch (tier) {
+        QualityTier.high => 3,
         QualityTier.medium => 2,
-        QualityTier.low => 1,
+        QualityTier.low => 0,
       };
-  bool get _nebula => tier != QualityTier.low;
   bool get _shootingStars => tier != QualityTier.low;
   bool get _animate => tier != QualityTier.low;
 
@@ -171,119 +177,156 @@ class _CosmosPainter extends CustomPainter {
     final midOff = parallax.layerOffset(0.45);
     final nearOff = parallax.layerOffset(0.95);
 
-    if (_nebula) _paintNebula(canvas, size, midOff, t);
-    _paintFarStarsAndConstellations(canvas, size, farOff, t);
+    if (_nebulaClusters > 0) _paintNebula(canvas, size, midOff, t);
+    _paintFieldStars(canvas, size, farOff, t);
+    _paintZodiac(canvas, size, farOff, t);
     if (_nearCount > 0) _paintNearParticles(canvas, size, nearOff, t);
     if (_shootingStars) _paintShootingStars(canvas, size, farOff, t);
   }
 
-  List<_Star> _buildStars(int count, int seed, Size size) {
-    final rng = math.Random(seed);
-    return List<_Star>.generate(count, (_) {
+  // --- Stelle di fondo, pulsazione dolce ---
+
+  void _paintFieldStars(Canvas canvas, Size size, Offset off, double t) {
+    final rng = math.Random(7);
+    final stars = List<_Star>.generate(_fieldStars, (_) {
       return _Star(
         rng.nextDouble(),
         rng.nextDouble(),
-        0.4 + rng.nextDouble() * 1.7,
+        0.4 + rng.nextDouble() * 1.5,
         rng.nextDouble(),
-        0.18 + rng.nextDouble() * 0.6,
+        0.14 + rng.nextDouble() * 0.5,
       );
     });
-  }
-
-  void _paintFarStarsAndConstellations(
-      Canvas canvas, Size size, Offset off, double t) {
-    final stars = _buildStars(_farCount, 7, size);
     final paint = Paint()..style = PaintingStyle.fill;
-
-    // Costellazioni: piccoli grappoli compatti di stelle vicine, collegati da
-    // linee sottili che respirano in opacita'. Ogni grappolo ha un centro e
-    // punti entro un raggio breve, cosi' le linee restano delicate, non un
-    // reticolo che attraversa lo schermo.
-    final linePaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.7;
-    final crng = math.Random(101);
-    for (var c = 0; c < _constellations; c++) {
-      final breath = 0.08 +
-          0.12 *
-              (0.5 + 0.5 * math.sin(2 * math.pi * (t + c / _constellations)));
-      linePaint.color = palette.goldSoft.withValues(alpha: breath);
-      final dotPaint = Paint()
-        ..color = palette.goldSoft.withValues(alpha: breath + 0.15);
-
-      final center = Offset(
-        (0.15 + crng.nextDouble() * 0.7) * size.width,
-        (0.10 + crng.nextDouble() * 0.5) * size.height,
-      );
-      final points = <Offset>[];
-      final n = 4 + crng.nextInt(3);
-      for (var k = 0; k < n; k++) {
-        final angle = crng.nextDouble() * 2 * math.pi;
-        final dist = 16 + crng.nextDouble() * 46;
-        points.add(center +
-            Offset(math.cos(angle) * dist, math.sin(angle) * dist) +
-            off);
-      }
-      for (var k = 1; k < points.length; k++) {
-        canvas.drawLine(points[k - 1], points[k], linePaint);
-      }
-      for (final p in points) {
-        canvas.drawCircle(p, 1.2, dotPaint);
-      }
-    }
-
-    // Stelle che pulsano dolcemente.
     for (final s in stars) {
       final twinkle = _animate
           ? 0.5 + 0.5 * math.sin(2 * math.pi * (t * 6 + s.phase))
           : 0.7;
       final alpha = (s.baseAlpha * (0.45 + 0.55 * twinkle)).clamp(0.0, 1.0);
-      final color = s.phase > 0.85 ? palette.goldSoft : const Color(0xFFFFFFFF);
-      paint.color = color.withValues(alpha: alpha);
-      final p = Offset(s.x * size.width, s.y * size.height) + off;
-      canvas.drawCircle(p, s.radius, paint);
+      paint.color = const Color(0xFFFFFFFF).withValues(alpha: alpha);
+      canvas.drawCircle(
+          Offset(s.x * size.width, s.y * size.height) + off, s.radius, paint);
     }
   }
+
+  // --- Le dodici costellazioni zodiacali ---
+
+  void _paintZodiac(Canvas canvas, Size size, Offset off, double t) {
+    for (var i = 0; i < kZodiacConstellations.length; i++) {
+      final c = kZodiacConstellations[i];
+      final bool isHi = c.sign == highlighted;
+
+      final breath =
+          0.5 + 0.5 * math.sin(2 * math.pi * (t + i * 0.11));
+
+      // Mappa i punti locali nello schermo.
+      final center =
+          Offset(c.anchor.dx * size.width, c.anchor.dy * size.height) + off;
+      final fig = size.width * c.scale;
+      final pts = [
+        for (final p in c.points)
+          center + Offset((p.dx - 0.5) * fig, (p.dy - 0.5) * fig),
+      ];
+
+      final double lineAlpha =
+          isHi ? 0.6 + 0.3 * breath : 0.10 + 0.10 * breath;
+      final double dotAlpha =
+          isHi ? 0.8 + 0.2 * breath : 0.32 + 0.22 * breath;
+      final Color lineColor =
+          isHi ? palette.goldSoft : palette.gold;
+
+      // Alone dorato sotto la costellazione evidenziata.
+      if (isHi && tier != QualityTier.low) {
+        final glow = Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 4.0
+          ..strokeCap = StrokeCap.round
+          ..color = palette.goldSoft.withValues(alpha: 0.38 * (0.6 + 0.4 * breath))
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 7);
+        for (final (a, b) in c.edges) {
+          canvas.drawLine(pts[a], pts[b], glow);
+        }
+      }
+
+      // Linee dell'asterismo.
+      final linePaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = isHi ? 1.3 : 0.8
+        ..strokeCap = StrokeCap.round
+        ..color = lineColor.withValues(alpha: lineAlpha);
+      for (final (a, b) in c.edges) {
+        canvas.drawLine(pts[a], pts[b], linePaint);
+      }
+
+      // Stelle ai vertici.
+      final dotPaint = Paint()
+        ..color = palette.goldSoft.withValues(alpha: dotAlpha);
+      final double r = isHi ? 2.0 : 1.3;
+      for (final p in pts) {
+        canvas.drawCircle(p, r, dotPaint);
+      }
+    }
+  }
+
+  // --- Nebulose soffuse e pittoriche, piano intermedio ---
 
   void _paintNebula(Canvas canvas, Size size, Offset off, double t) {
-    final blobs = tier == QualityTier.high ? 3 : 1;
-    final drift = _animate ? math.sin(2 * math.pi * t) * 12 : 0.0;
-    final paint = Paint();
-    if (tier == QualityTier.high) {
-      paint.maskFilter = const MaskFilter.blur(BlurStyle.normal, 60);
-    }
-    final spots = <Offset>[
-      Offset(size.width * 0.25, size.height * 0.30),
-      Offset(size.width * 0.80, size.height * 0.48),
-      Offset(size.width * 0.50, size.height * 0.72),
+    const centers = [
+      Offset(0.22, 0.24),
+      Offset(0.80, 0.5),
+      Offset(0.5, 0.8),
     ];
-    final colors = <Color>[palette.primary, palette.glow, palette.primary];
-    for (var i = 0; i < blobs; i++) {
-      final center = spots[i] + off + Offset(drift, -drift);
-      paint.color = colors[i].withValues(alpha: 0.10);
-      canvas.drawCircle(center, size.width * 0.35, paint);
+    final drift = _animate ? math.sin(2 * math.pi * t) * 10 : 0.0;
+    final blur = tier == QualityTier.high ? 90.0 : 46.0;
+    final rng = math.Random(53);
+
+    for (var i = 0; i < _nebulaClusters; i++) {
+      final base = Offset(centers[i].dx * size.width, centers[i].dy * size.height) +
+          off +
+          Offset(drift, -drift);
+      // Ogni nebulosa e' un grappolo di macchie morbide sovrapposte, cosi'
+      // il bordo e' irregolare e pittorico, non un cerchio da sfondo.
+      const blobs = 4;
+      for (var b = 0; b < blobs; b++) {
+        final dx = (rng.nextDouble() - 0.5) * size.width * 0.28;
+        final dy = (rng.nextDouble() - 0.5) * size.height * 0.14;
+        final radius = size.width * (0.16 + rng.nextDouble() * 0.22);
+        final color = b.isEven ? palette.primary : palette.glow;
+        final paint = Paint()
+          ..color = color.withValues(alpha: 0.06 + rng.nextDouble() * 0.03)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, blur);
+        canvas.drawCircle(base + Offset(dx, dy), radius, paint);
+      }
     }
   }
+
+  // --- Particelle vicine (bokeh) ---
 
   void _paintNearParticles(Canvas canvas, Size size, Offset off, double t) {
-    final stars = _buildStars(_nearCount, 31, size);
+    final rng = math.Random(31);
     final paint = Paint()..style = PaintingStyle.fill;
-    for (final s in stars) {
-      // Deriva verticale lenta e continua.
-      final dy = _animate ? (t + s.phase) % 1.0 : s.y;
-      final y = (s.y + dy * 0.12) % 1.0;
-      final p = Offset(s.x * size.width, y * size.height) + off;
-      final glow = Paint()
-        ..color = palette.goldSoft.withValues(alpha: 0.10)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
-      canvas.drawCircle(p, s.radius * 2.6, glow);
+    for (var i = 0; i < _nearCount; i++) {
+      final baseX = rng.nextDouble();
+      final baseY = rng.nextDouble();
+      final radius = 0.6 + rng.nextDouble() * 1.6;
+      final dy = _animate ? (t + rng.nextDouble()) % 1.0 : baseY;
+      final y = (baseY + dy * 0.12) % 1.0;
+      final p = Offset(baseX * size.width, y * size.height) + off;
+      canvas.drawCircle(
+        p,
+        radius * 2.6,
+        Paint()
+          ..color = palette.goldSoft.withValues(alpha: 0.10)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+      );
       paint.color = palette.goldSoft.withValues(alpha: 0.5);
-      canvas.drawCircle(p, s.radius * 1.4, paint);
+      canvas.drawCircle(p, radius * 1.3, paint);
     }
   }
 
+  // --- Stelle cadenti occasionali ---
+
   void _paintShootingStars(Canvas canvas, Size size, Offset off, double t) {
-    // Due passaggi per ciclo, in finestre brevi.
     const windows = [0.18, 0.68];
     const dur = 0.06;
     for (var i = 0; i < windows.length; i++) {
@@ -304,11 +347,14 @@ class _CosmosPainter extends CustomPainter {
           palette.goldSoft.withValues(alpha: 0.9 * (1 - p)),
         ],
       ).createShader(Rect.fromPoints(tail, head));
-      final streak = Paint()
-        ..shader = shader
-        ..strokeWidth = 2
-        ..strokeCap = StrokeCap.round;
-      canvas.drawLine(tail, head, streak);
+      canvas.drawLine(
+        tail,
+        head,
+        Paint()
+          ..shader = shader
+          ..strokeWidth = 2
+          ..strokeCap = StrokeCap.round,
+      );
       canvas.drawCircle(
         head,
         2.2,
@@ -319,5 +365,7 @@ class _CosmosPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_CosmosPainter old) =>
-      old.palette != palette || old.tier != tier;
+      old.palette != palette ||
+      old.tier != tier ||
+      old.highlighted != highlighted;
 }

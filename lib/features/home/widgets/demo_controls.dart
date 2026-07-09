@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/astro/zodiac.dart';
+import '../../../core/astro/zodiac_controller.dart';
 import '../../../core/entitlement/entitlement_service.dart';
 import '../../../core/entitlement/tier.dart';
 import '../../../core/quality/quality_tier.dart';
@@ -33,6 +35,7 @@ class _DemoControlsSheet extends StatelessWidget {
     final palette = context.palette;
     final entitlement = context.watch<EntitlementService>();
     final quality = context.watch<QualityTierController>();
+    final zodiac = context.watch<ZodiacController>();
 
     return Container(
       padding: EdgeInsets.only(
@@ -102,6 +105,27 @@ class _DemoControlsSheet extends StatelessWidget {
                   label: q.name,
                   selected: quality.tier == q,
                   onTap: () => quality.setTier(q),
+                ),
+            ],
+          ),
+          const SizedBox(height: SpacingTokens.lg),
+          Text('Segno solare (evidenzia la costellazione nel cosmo)',
+              style: TypographyTokens.body(size: 14, weight: 600)),
+          const SizedBox(height: SpacingTokens.xs),
+          Wrap(
+            spacing: SpacingTokens.xs,
+            runSpacing: SpacingTokens.xs,
+            children: [
+              _Choice(
+                label: 'Nessuno',
+                selected: zodiac.sunSign == null,
+                onTap: () => zodiac.setSunSign(null),
+              ),
+              for (final sign in Zodiac.values)
+                _Choice(
+                  label: '${sign.symbol} ${sign.italianName}',
+                  selected: zodiac.sunSign == sign,
+                  onTap: () => zodiac.setSunSign(sign),
                 ),
             ],
           ),
