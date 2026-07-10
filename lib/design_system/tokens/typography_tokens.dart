@@ -24,8 +24,14 @@ class TypographyTokens {
   /// restano nitide su schermo e in anteprima. I font restano scalabili: il
   /// `textScaler` di sistema si applica sopra queste basi.
   static const double minDisplay = 20;
-  static const double minBody = 16;
+  static const double minBody = 17;
   static const double minLabel = 12.5;
+
+  /// Dimensione del corpo informativo: ogni testo che spiega, istruisce o guida
+  /// (sottotitoli, istruzioni del gesto, righe di aiuto, descrizioni) usa questa
+  /// misura generosa, ben leggibile sul cosmo. Le etichette decorative in
+  /// maiuscoletto restano invece compatte con `label()`.
+  static const double guide = 18;
 
   static List<FontVariation> _wght(double weight) =>
       [FontVariation('wght', weight)];

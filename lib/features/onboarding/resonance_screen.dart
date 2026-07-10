@@ -66,8 +66,8 @@ class ResonanceScreen extends StatelessWidget {
             child: Text(
               resonance.reason,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 15)
-                  .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+              style: TypographyTokens.body(size: TypographyTokens.guide)
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.45),
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),

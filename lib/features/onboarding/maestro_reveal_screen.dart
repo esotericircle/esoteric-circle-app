@@ -252,8 +252,8 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
                     ? 'Soffia dolcemente, oppure trascina il dito per svelare'
                     : 'Trascina il dito per svelare, come un gratta e vinci',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 15)
-                    .copyWith(color: ColorTokens.textSecondary),
+                style: TypographyTokens.body(size: TypographyTokens.guide)
+                    .copyWith(color: ColorTokens.textPrimary, height: 1.4),
               ),
             const SizedBox(height: SpacingTokens.md),
           ],
@@ -441,10 +441,11 @@ class _SafetyTapInvite extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.touch_app, color: palette.goldSoft, size: 22),
+            Icon(Icons.touch_app, color: palette.goldSoft, size: 24),
             const SizedBox(width: SpacingTokens.xs),
             Text('Tocca per svelare',
-                style: TypographyTokens.body(size: 16, weight: 600)
+                style: TypographyTokens.body(
+                        size: TypographyTokens.guide, weight: 600)
                     .copyWith(color: palette.goldSoft)),
           ],
         ),
@@ -496,7 +497,7 @@ class _RevealedFooter extends StatelessWidget {
             child: Text(
               first,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 16)
+              style: TypographyTokens.body(size: TypographyTokens.guide)
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5),
             ),
           ),

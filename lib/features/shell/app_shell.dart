@@ -119,14 +119,15 @@ class _Coachmark extends StatelessWidget {
                   child: Text(
                     'I tre Maestri sono sempre con te. Cambiali quando vuoi dalla barra qui in basso.',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.body(size: 15).copyWith(height: 1.4),
+                    style: TypographyTokens.body(size: TypographyTokens.guide)
+                        .copyWith(height: 1.45),
                   ),
                 ),
                 const SizedBox(height: SpacingTokens.sm),
                 Icon(Icons.keyboard_arrow_down,
                     color: palette.goldSoft, size: 28),
                 Text('Ho capito',
-                    style: TypographyTokens.body(size: 13)
+                    style: TypographyTokens.body(size: 16)
                         .copyWith(color: palette.goldSoft)),
               ],
             ),

@@ -175,7 +175,8 @@ class _AscendantNote extends StatelessWidget {
         child: Text(
           'Ascendente in ${chart.ascendant!.italianName}: la soglia da cui ti mostri al mondo.',
           textAlign: TextAlign.center,
-          style: TypographyTokens.body(size: 13).copyWith(color: palette.goldSoft),
+          style: TypographyTokens.body(size: TypographyTokens.guide)
+              .copyWith(color: palette.goldSoft, height: 1.4),
         ),
       );
     }
@@ -183,8 +184,8 @@ class _AscendantNote extends StatelessWidget {
     return Text(
       'Senza l\'ora di nascita l\'Ascendente e le Case restano velati. Potrai aggiungerla per completare il cielo.',
       textAlign: TextAlign.center,
-      style: TypographyTokens.body(size: 13)
-          .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+      style: TypographyTokens.body(size: TypographyTokens.guide)
+          .copyWith(color: ColorTokens.textPrimary, height: 1.4),
     );
   }
 }
@@ -214,11 +215,11 @@ class _AspectToggle extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(value ? Icons.grain : Icons.blur_on,
-                size: 16,
+                size: 18,
                 color: value ? palette.goldSoft : ColorTokens.textSecondary),
             const SizedBox(width: 6),
             Text(value ? 'Aspetti accesi' : 'Mostra gli aspetti',
-                style: TypographyTokens.body(size: 13).copyWith(
+                style: TypographyTokens.body(size: 16).copyWith(
                   color:
                       value ? palette.goldSoft : ColorTokens.textSecondary,
                 )),
@@ -317,10 +318,10 @@ class _PlanetTile extends StatelessWidget {
                           ],
                         ],
                       ),
-                      const SizedBox(height: 2),
+                      const SizedBox(height: 3),
                       Text(NatalPoetics.meaningOf(planet.id),
-                          style: TypographyTokens.body(size: 13)
-                              .copyWith(color: ColorTokens.textSecondary)),
+                          style: TypographyTokens.body(size: TypographyTokens.guide)
+                              .copyWith(color: ColorTokens.textPrimary)),
                     ],
                   ),
                 ),
@@ -384,7 +385,7 @@ class _Loading extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.md),
           Text('Traccio il tuo cielo...',
-              style: TypographyTokens.body(size: 15)
+              style: TypographyTokens.body(size: TypographyTokens.guide)
                   .copyWith(color: ColorTokens.textSecondary)),
         ],
       ),

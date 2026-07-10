@@ -74,7 +74,7 @@ class OnboardingForm extends StatelessWidget {
                     TextButton(
                       onPressed: c.back,
                       child: Text('Indietro',
-                          style: TypographyTokens.body(size: 14)
+                          style: TypographyTokens.body(size: 16)
                               .copyWith(color: ColorTokens.textSecondary)),
                     ),
                   const Spacer(),
@@ -177,8 +177,8 @@ class _StepShell extends StatelessWidget {
         Text(title, style: TypographyTokens.display(size: 26)),
         const SizedBox(height: SpacingTokens.xs),
         Text(subtitle,
-            style: TypographyTokens.body(size: 15)
-                .copyWith(color: ColorTokens.textSecondary)),
+            style: TypographyTokens.body(size: TypographyTokens.guide)
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
         const SizedBox(height: SpacingTokens.xl),
         if (expandChild) Expanded(child: child) else child,
       ],
@@ -366,12 +366,13 @@ class _PlaceStepState extends State<_PlaceStep> {
             filled: selected != null,
             child: TextField(
               controller: _text,
-              style: TypographyTokens.body(size: 15),
+              style: TypographyTokens.body(size: TypographyTokens.guide),
               decoration: InputDecoration(
                 hintText: selected != null
                     ? selected.displayLabel
                     : 'Scrivi il tuo comune di nascita',
-                hintStyle: TypographyTokens.body(size: 15).copyWith(
+                hintStyle: TypographyTokens.body(size: TypographyTokens.guide)
+                    .copyWith(
                     color: selected != null
                         ? ColorTokens.textPrimary
                         : ColorTokens.textMuted),
@@ -395,8 +396,8 @@ class _PlaceStepState extends State<_PlaceStep> {
             Padding(
               padding: const EdgeInsets.all(SpacingTokens.lg),
               child: Text('Sto radunando i luoghi...',
-                  style: TypographyTokens.body(size: 13)
-                      .copyWith(color: ColorTokens.textMuted)),
+                  style: TypographyTokens.body(size: TypographyTokens.guide)
+                      .copyWith(color: ColorTokens.textSecondary)),
             )
           else
             Expanded(

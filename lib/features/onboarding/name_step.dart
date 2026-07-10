@@ -47,7 +47,15 @@ class _NameStepState extends State<NameStep> {
         const Positioned.fill(child: GoldenMotes(count: 20)),
         Padding(
           padding: const EdgeInsets.all(SpacingTokens.lg),
-          child: Column(
+          // Riempie l'altezza sui grandi schermi (lo Spacer spinge in basso la
+          // forma di cortesia), ma scorre con grazia su schermi piu' piccoli
+          // cosi' i testi generosi non vanno mai in overflow.
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: SpacingTokens.md),
@@ -66,7 +74,7 @@ class _NameStepState extends State<NameStep> {
               const Spacer(),
               Text('Come preferisci che ci si rivolga a te?',
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.body(size: 16)
+                  style: TypographyTokens.body(size: TypographyTokens.guide)
                       .copyWith(color: ColorTokens.textSecondary)),
               const SizedBox(height: SpacingTokens.md),
               Wrap(
@@ -103,6 +111,10 @@ class _NameStepState extends State<NameStep> {
               ),
               const SizedBox(height: SpacingTokens.sm),
             ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ],
@@ -121,10 +133,10 @@ class _NameField extends StatelessWidget {
       controller: controller,
       textAlign: TextAlign.center,
       textCapitalization: TextCapitalization.words,
-      style: TypographyTokens.body(size: 16),
+      style: TypographyTokens.body(size: TypographyTokens.guide),
       decoration: InputDecoration(
         hintText: 'scrivi il tuo nome',
-        hintStyle: TypographyTokens.body(size: 15)
+        hintStyle: TypographyTokens.body(size: TypographyTokens.guide)
             .copyWith(color: ColorTokens.textMuted),
         filled: true,
         fillColor: palette.surface.withValues(alpha: 0.4),
