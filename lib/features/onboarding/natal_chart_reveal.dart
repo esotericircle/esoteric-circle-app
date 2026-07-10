@@ -5,22 +5,15 @@ import 'package:provider/provider.dart';
 import '../../core/astro/natal_chart.dart';
 import '../../core/astro/natal_chart_controller.dart';
 import '../../core/astro/natal_poetics.dart';
-import '../../core/astro/zodiac.dart';
+import '../../core/identity/birth_identity.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/natal_wheel.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import 'widgets/intertwined_auras.dart';
+import '../identity/widgets/identity_widgets.dart';
 import 'widgets/nature_emblem.dart';
-
-const _elementColor = {
-  ZodiacElement.fire: Color(0xFFE0733A),
-  ZodiacElement.earth: Color(0xFF5F9E6E),
-  ZodiacElement.air: Color(0xFF8FB8EC),
-  ZodiacElement.water: Color(0xFF49B7B0),
-};
 
 /// La carta natale a due livelli: prima il colpo d'occhio (frase poetica e tre
 /// aure intrecciate), poi la ruota elegante con gli aspetti attivabili e la
@@ -64,6 +57,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<NatalChartController>();
+    final identity = context.watch<BirthIdentityController>();
     final palette = context.palette;
 
     if (controller.status != ChartStatus.ready || controller.chart == null) {
@@ -82,9 +76,15 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
               style: TypographyTokens.label(size: 13)
                   .copyWith(color: palette.goldSoft, letterSpacing: 3)),
           const SizedBox(height: SpacingTokens.md),
-          // --- Colpo d'occhio: aure intrecciate + frase poetica ---
-          IntertwinedAuras(colors: _auraColors(chart), size: 180),
-          const SizedBox(height: SpacingTokens.sm),
+          // --- Portale al cielo reale della nascita (al posto del vecchio
+          //     bagliore), sempre riapribile a tutto schermo. ---
+          if (identity.details != null)
+            BirthSkyPortal(
+              details: identity.details!,
+              moonPhase: identity.facts?.moonPhase,
+            ),
+          const SizedBox(height: SpacingTokens.md),
+          // --- Colpo d'occhio: frase poetica ---
           Text(
             NatalPoetics.glanceSummary(chart),
             textAlign: TextAlign.center,
@@ -93,6 +93,11 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
           const SizedBox(height: SpacingTokens.sm),
           _AscendantNote(chart: chart),
           const SizedBox(height: SpacingTokens.lg),
+          // --- Fatti identitari: fase lunare di nascita e numero della vita ---
+          if (identity.facts != null) ...[
+            IdentityFactsSection(facts: identity.facts!),
+            const SizedBox(height: SpacingTokens.lg),
+          ],
           // --- La ruota, con aspetti attivabili ---
           NatalWheel(
             chart: chart,
@@ -143,16 +148,6 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
     );
   }
 
-  List<Color> _auraColors(NatalChart chart) {
-    final colors = <Color>[_elementColor[chart.sunSign.element]!];
-    if (chart.moonSign != null) {
-      colors.add(_elementColor[chart.moonSign!.element]!);
-    }
-    if (chart.ascendant != null) {
-      colors.add(_elementColor[chart.ascendant!.element]!);
-    }
-    return colors;
-  }
 }
 
 class _AscendantNote extends StatelessWidget {

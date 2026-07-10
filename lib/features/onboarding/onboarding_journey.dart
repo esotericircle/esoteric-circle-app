@@ -6,6 +6,7 @@ import '../../core/astro/birth_details.dart';
 import '../../core/astro/natal_chart_controller.dart';
 import '../../core/astro/resonance.dart';
 import '../../core/astro/zodiac_controller.dart';
+import '../../core/identity/birth_identity.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../design_system/components/immersive_scaffold.dart';
@@ -57,6 +58,9 @@ class _OnboardingJourneyState extends State<OnboardingJourney> {
     await chartCtrl.compute(details);
     if (!mounted) return;
     final chart = chartCtrl.chart;
+    // I fatti identitari (fase lunare di nascita, numero della vita) dietro il
+    // modello riusabile, cosi' carta, profilo e Cosmic Passport li leggono.
+    context.read<BirthIdentityController>().setBirth(details, chart);
     if (chart != null) {
       _resonance = computeResonance(chart);
       _assigned = _demoMaestro() ?? _resonance!.winner;

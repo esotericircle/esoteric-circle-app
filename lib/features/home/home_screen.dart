@@ -7,6 +7,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../maestri/widgets/maestro_presence.dart';
+import '../profile/profile_screen.dart';
 import 'widgets/demo_controls.dart';
 import 'widgets/maestro_selector.dart';
 
@@ -60,6 +61,12 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ],
                         ),
+                      ),
+                      IconButton(
+                        tooltip: 'Il tuo profilo',
+                        icon: Icon(Icons.person_outline_rounded,
+                            color: palette.goldSoft),
+                        onPressed: () => openProfile(context),
                       ),
                       IconButton(
                         tooltip: 'Controlli dimostrativi',

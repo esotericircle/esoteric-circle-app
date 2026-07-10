@@ -9,6 +9,7 @@ import '../../core/astro/sky.dart';
 import '../../core/identity/identity_controller.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../core/quality/quality_tier.dart';
+import '../../design_system/components/moon_phase_emblem.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -26,10 +27,15 @@ class BirthSkyHero extends StatefulWidget {
     super.key,
     required this.details,
     required this.onContinue,
+    this.ctaLabel = 'Leggi la tua carta',
   });
 
   final BirthDetails details;
   final VoidCallback onContinue;
+
+  /// Testo del pulsante finale: "Leggi la tua carta" nell'onboarding, oppure
+  /// "Torna alla carta" quando il cielo si riapre dal portale.
+  final String ctaLabel;
 
   @override
   State<BirthSkyHero> createState() => _BirthSkyHeroState();
@@ -164,7 +170,7 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
                       ),
                     ),
                     onPressed: snap == null ? null : widget.onContinue,
-                    child: Text('Leggi la tua carta',
+                    child: Text(widget.ctaLabel,
                         style: TypographyTokens.body(size: 17, weight: 600)
                             .copyWith(color: palette.deepest)),
                   ),
@@ -317,46 +323,10 @@ class _SkyPainter extends CustomPainter {
   }
 
   void _moon(Canvas canvas, Offset c, double r) {
-    final k = snapshot.moonPhase.fraction;
-    final waxing = snapshot.moonPhase.waxing;
-    const bright = Color(0xFFF3ECD6);
-    const dark = Color(0xFF20242E);
-
-    // Alone lunare.
-    if (_rich) {
-      canvas.drawCircle(
-          c,
-          r * 2.2,
-          Paint()
-            ..color = bright.withValues(alpha: 0.16)
-            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12));
-    }
-    // Disco in ombra (terra che riflette appena).
-    canvas.drawCircle(c, r, Paint()..color = dark);
-
-    // Parte illuminata: meta' luminosa piu' ellisse del terminatore.
-    canvas.save();
-    canvas.clipPath(Path()..addOval(Rect.fromCircle(center: c, radius: r)));
-    final litLeft = !waxing;
-    final half = litLeft
-        ? Rect.fromLTRB(c.dx - r, c.dy - r, c.dx, c.dy + r)
-        : Rect.fromLTRB(c.dx, c.dy - r, c.dx + r, c.dy + r);
-    canvas.drawRect(half, Paint()..color = bright);
-    final rx = (r * (1 - 2 * k)).abs();
-    if (rx > 0.5) {
-      final term = Rect.fromCenter(center: c, width: 2 * rx, height: 2 * r);
-      canvas.drawOval(term, Paint()..color = k < 0.5 ? dark : bright);
-    }
-    canvas.restore();
-
-    // Bordo tenue.
-    canvas.drawCircle(
-        c,
-        r,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 0.8
-          ..color = bright.withValues(alpha: 0.35));
+    paintMoonPhase(canvas, c, r,
+        fraction: snapshot.moonPhase.fraction,
+        waxing: snapshot.moonPhase.waxing,
+        glow: _rich);
   }
 
   @override
