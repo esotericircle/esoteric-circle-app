@@ -3,7 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Il microfono serve solo per il rito del soffio con cui riveli il tuo Maestro. C'e' sempre un'alternativa tattile.</string>
+	<string>Il microfono serve solo per il rito del soffio: ascolta il tuo soffio nel momento, non registra ne conserva alcun audio. C'e' sempre l'alternativa col dito.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>La fotocamera serve solo per i riti che leggono un gesto nel momento, sul tuo dispositivo. Nessuna immagine viene salvata ne inviata.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>I sensori di movimento muovono il cielo quando inclini il telefono. Puoi sempre usare il dito.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>La posizione serve solo a mostrare il cielo sopra di te ora. Resta sul dispositivo, non viene condivisa.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

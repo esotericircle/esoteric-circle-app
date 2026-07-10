@@ -11,6 +11,7 @@ import '../../core/astro/natal_chart_controller.dart';
 import '../../core/astro/natal_poetics.dart';
 import '../../core/identity/identity_controller.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/permissions/app_permission.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -75,18 +76,42 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
 
   double get _reactLevel => math.max(_micLevel, _dragPulse);
 
+  bool _micAsked = false;
+
   @override
   void initState() {
     super.initState();
-    _startMic();
+    // Nessuna richiesta di microfono all'apertura: si soffia col dito, e il
+    // microfono si chiede solo quando l'utente sceglie di usare la voce.
     _ticker = createTicker(_onFrame)..start();
   }
 
-  Future<void> _startMic() async {
-    final ok = await _breath.start();
+  String get _ritualObjectName => switch (widget.maestro) {
+        Maestro.medora => 'la sfera di cristallo',
+        Maestro.caligo => 'la candela',
+        Maestro.aura => 'il soffione',
+      };
+
+  Future<void> _askMic() async {
+    setState(() => _micAsked = true);
+    final palette = MaestroPalette.forKey(ThemeKey.of(widget.maestro));
+    final granted = await requestPermissionWithPrelude(
+      context,
+      permission: AppPermission.microphone,
+      palette: palette,
+      maestro: widget.maestro,
+      copy: PermissionCopy(
+        icon: Icons.mic_none_rounded,
+        title: '${widget.maestro.displayName} ha bisogno del microfono',
+        body:
+            'Per soffiare su $_ritualObjectName, ascolta solo il tuo soffio. Non registra nulla, non conserva audio.',
+        cta: 'Attiva il microfono',
+      ),
+      systemRequest: () => _breath.start(),
+    );
     if (!mounted) return;
-    setState(() => _micAvailable = ok);
-    if (ok) _levelSub = _breath.level.listen((l) => _micLevel = l);
+    setState(() => _micAvailable = granted);
+    if (granted) _levelSub = _breath.level.listen((l) => _micLevel = l);
   }
 
   void _onFrame(Duration elapsed) {
@@ -247,13 +272,23 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
             else if (_showSafetyTap)
               _SafetyTapInvite(palette: palette, onTap: _finishByTap)
             else
-              Text(
-                _micAvailable
-                    ? 'Soffia dolcemente, oppure trascina il dito per svelare'
-                    : 'Trascina il dito per svelare, come un gratta e vinci',
-                textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: TypographyTokens.guide)
-                    .copyWith(color: ColorTokens.textPrimary, height: 1.4),
+              Column(
+                children: [
+                  Text(
+                    _micAvailable
+                        ? 'Soffia dolcemente, oppure trascina il dito per svelare'
+                        : 'Trascina il dito per svelare, come un gratta e vinci',
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.body(size: TypographyTokens.guide)
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.4),
+                  ),
+                  // Il microfono si chiede solo qui, quando l'utente sceglie la
+                  // voce, con un pre-avviso in tono. Rifiutare non blocca nulla.
+                  if (!_micAvailable && !_micAsked) ...[
+                    const SizedBox(height: SpacingTokens.sm),
+                    _VoiceInvite(palette: palette, onTap: _askMic),
+                  ],
+                ],
               ),
             const SizedBox(height: SpacingTokens.md),
           ],
@@ -446,6 +481,40 @@ class _SafetyTapInvite extends StatelessWidget {
             Text('Tocca per svelare',
                 style: TypographyTokens.body(
                         size: TypographyTokens.guide, weight: 600)
+                    .copyWith(color: palette.goldSoft)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Invito, sempre facoltativo, a soffiare con la voce. Al tocco parte il
+/// pre-avviso gentile del microfono.
+class _VoiceInvite extends StatelessWidget {
+  const _VoiceInvite({required this.palette, required this.onTap});
+  final MaestroPalette palette;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
+        decoration: BoxDecoration(
+          color: ColorTokens.glassTint,
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.mic_none_rounded, color: palette.goldSoft, size: 20),
+            const SizedBox(width: 6),
+            Text('Soffia con la voce',
+                style: TypographyTokens.body(size: 16)
                     .copyWith(color: palette.goldSoft)),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/sky.dart';
+import '../../core/identity/birth_identity.dart';
 import '../../core/identity/identity_controller.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../core/quality/quality_tier.dart';
@@ -47,6 +49,8 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
   final ParallaxController _parallax = ParallaxController();
   SkySnapshot? _snapshot;
   double _dragAz = 0; // pan manuale in gradi (fallback tattile)
+  bool _showCaption = false;
+  Timer? _captionTimer;
 
   @override
   void initState() {
@@ -62,12 +66,17 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
     if (!mounted) return;
     setState(() => _snapshot = buildSkySnapshot(catalog, widget.details));
     HapticFeedback.selectionClick(); // il cielo si apre
+    // La didascalia arriva con dolcezza dopo lo stupore.
+    _captionTimer = Timer(const Duration(milliseconds: 2600), () {
+      if (mounted) setState(() => _showCaption = true);
+    });
   }
 
   @override
   void dispose() {
     _pulse.dispose();
     _parallax.dispose();
+    _captionTimer?.cancel();
     super.dispose();
   }
 
@@ -110,6 +119,7 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
                   panAz: _dragAz + (tier == QualityTier.low ? 0 : _parallax.tiltX * 16),
                   tiltY: tier == QualityTier.low ? 0 : _parallax.tiltY,
                   gold: palette.goldSoft,
+                  deep: palette.deepest,
                   tier: tier,
                 ),
               ),
@@ -147,6 +157,34 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
             bottom: SpacingTokens.xl,
             child: Column(
               children: [
+                // Didascalia vera del cielo, dai dati reali di quel momento.
+                if (snap != null)
+                  GestureDetector(
+                    onTap: () => setState(() => _showCaption = !_showCaption),
+                    child: AnimatedOpacity(
+                      opacity: _showCaption ? 1 : 0,
+                      duration: const Duration(milliseconds: 700),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: SpacingTokens.sm),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: SpacingTokens.md,
+                            vertical: SpacingTokens.sm),
+                        decoration: BoxDecoration(
+                          color: palette.surface.withValues(alpha: 0.42),
+                          borderRadius:
+                              BorderRadius.circular(SpacingTokens.radiusLg),
+                          border: Border.all(
+                              color: palette.gold.withValues(alpha: 0.25)),
+                        ),
+                        child: Text(
+                          _skyCaption(snap, widget.details),
+                          textAlign: TextAlign.center,
+                          style: TypographyTokens.body(size: 16).copyWith(
+                              color: ColorTokens.textPrimary, height: 1.4),
+                        ),
+                      ),
+                    ),
+                  ),
                 Text(
                   _parallax.sensorActive
                       ? 'Inclina il telefono per guardarti attorno'
@@ -191,6 +229,7 @@ class _SkyPainter extends CustomPainter {
     required this.panAz,
     required this.tiltY,
     required this.gold,
+    required this.deep,
     required this.tier,
   });
 
@@ -199,6 +238,7 @@ class _SkyPainter extends CustomPainter {
   final double panAz;
   final double tiltY;
   final Color gold;
+  final Color deep;
   final QualityTier tier;
 
   static const double _fov = 150; // campo visivo orizzontale in gradi
@@ -274,6 +314,105 @@ class _SkyPainter extends CustomPainter {
       final p = _project(moon.azDeg, moon.altDeg, size, depth: 1.18);
       if (p != null) _moon(canvas, p, size.width * 0.055);
     }
+
+    // Ancoraggio a terra: orizzonte discreto e culla di luce.
+    _horizonAndCradle(canvas, size);
+  }
+
+  void _horizonAndCradle(Canvas canvas, Size size) {
+    final hY = size.height * 0.86;
+
+    // Terra scura, appena accennata.
+    canvas.drawRect(
+        Rect.fromLTWH(0, hY, size.width, size.height - hY),
+        Paint()
+          ..shader = LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              deep.withValues(alpha: 0.35),
+              deep.withValues(alpha: 0.85),
+            ],
+          ).createShader(Rect.fromLTWH(0, hY, size.width, size.height - hY)));
+    // Linea d'orizzonte luminosa.
+    if (_rich) {
+      canvas.drawLine(
+          Offset(0, hY),
+          Offset(size.width, hY),
+          Paint()
+            ..color = gold.withValues(alpha: 0.22)
+            ..strokeWidth = 3
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6));
+    }
+    canvas.drawLine(
+        Offset(0, hY),
+        Offset(size.width, hY),
+        Paint()
+          ..color = gold.withValues(alpha: 0.35)
+          ..strokeWidth = 1);
+
+    _cradle(canvas, size.width / 2, hY, size.width * 0.16);
+  }
+
+  // La culla di luce: silhouette universale, senza volto ne' genere, con dentro
+  // un piccolo bagliore che pulsa piano, l'anima appena nata sotto il suo cielo.
+  void _cradle(Canvas canvas, double cx, double cy, double w) {
+    final pulse = 0.5 + 0.5 * math.sin(t * 2 * math.pi * 5); // respiro lento
+    final soul = Offset(cx, cy - w * 0.30);
+
+    // Il bagliore dell'anima.
+    if (_rich) {
+      canvas.drawCircle(
+          soul,
+          w * (0.42 + 0.14 * pulse),
+          Paint()
+            ..color = gold.withValues(alpha: 0.22 + 0.26 * pulse)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 14));
+    }
+    canvas.drawCircle(
+        soul,
+        w * 0.15 * (0.9 + 0.18 * pulse),
+        Paint()..color = Colors.white.withValues(alpha: 0.9));
+
+    final stroke = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..color = gold.withValues(alpha: 0.8);
+
+    // La conca della culla e il suo bordo.
+    final bowl = Path()
+      ..moveTo(cx - w * 0.5, cy - w * 0.12)
+      ..quadraticBezierTo(cx, cy + w * 0.36, cx + w * 0.5, cy - w * 0.12);
+    canvas.drawPath(bowl, stroke);
+    canvas.drawLine(Offset(cx - w * 0.5, cy - w * 0.12),
+        Offset(cx + w * 0.5, cy - w * 0.12), stroke);
+    // Le culle a dondolo sotto.
+    canvas.drawArc(
+        Rect.fromCenter(
+            center: Offset(cx, cy + w * 0.08), width: w * 1.16, height: w * 0.5),
+        0.12 * math.pi,
+        0.76 * math.pi,
+        false,
+        stroke..color = gold.withValues(alpha: 0.5));
+
+    // Polvere di stelle che sale dalla culla.
+    if (_rich) {
+      final rng = math.Random(31);
+      for (var i = 0; i < 6; i++) {
+        final f = ((t * 2 + i / 6) % 1.0);
+        final drift = rng.nextDouble() - 0.5;
+        final p = soul +
+            Offset(drift * w * 0.5 + math.sin(f * 6 + i) * w * 0.06,
+                -f * w * 0.9);
+        canvas.drawCircle(
+            p,
+            0.8 + (1 - f) * 1.2,
+            Paint()
+              ..color = gold.withValues(alpha: (0.7 * (1 - f)).clamp(0.0, 0.7)));
+      }
+    }
   }
 
   void _dustField(Canvas canvas, Size size) {
@@ -332,4 +471,59 @@ class _SkyPainter extends CustomPainter {
   @override
   bool shouldRepaint(_SkyPainter old) =>
       old.t != t || old.panAz != panAz || old.tiltY != tiltY;
+}
+
+/// Didascalia vera del cielo, dai dati reali di quel momento: fase e nome della
+/// Luna, una o due costellazioni allora alte, la stagione. Poco testo, dopo il
+/// visivo.
+String _skyCaption(SkySnapshot snap, BirthDetails details) {
+  final phase = phaseNameOf(snap.moonPhase).toLowerCase();
+  final tops = <MapEntry<String, double>>[];
+  for (final c in snap.constellations) {
+    var maxAlt = -90.0;
+    for (final s in c.stars) {
+      if (s.altDeg > maxAlt) maxAlt = s.altDeg;
+    }
+    if (maxAlt > 32) tops.add(MapEntry(c.name, maxAlt));
+  }
+  tops.sort((a, b) => b.value.compareTo(a.value));
+  final names = tops.take(2).map((e) => e.key).toList();
+  final season = _seasonOf(details.date.month, details.place.latitude);
+
+  final buf = StringBuffer('Vegliava una $phase');
+  if (names.length == 2) {
+    buf.write('; in alto ${names[0]} e ${names[1]}');
+  } else if (names.length == 1) {
+    buf.write('; in alto ${names[0]}');
+  }
+  buf.write(', nel cuore $season.');
+  return buf.toString();
+}
+
+String _seasonOf(int month, double latitude) {
+  String s;
+  if (month == 12 || month <= 2) {
+    s = 'inverno';
+  } else if (month <= 5) {
+    s = 'primavera';
+  } else if (month <= 8) {
+    s = 'estate';
+  } else {
+    s = 'autunno';
+  }
+  if (latitude < 0) {
+    // Emisfero australe: le stagioni si invertono.
+    s = const {
+      'inverno': 'estate',
+      'estate': 'inverno',
+      'primavera': 'autunno',
+      'autunno': 'primavera',
+    }[s]!;
+  }
+  return const {
+    'inverno': 'dell\'inverno',
+    'primavera': 'della primavera',
+    'estate': 'dell\'estate',
+    'autunno': 'dell\'autunno',
+  }[s]!;
 }
