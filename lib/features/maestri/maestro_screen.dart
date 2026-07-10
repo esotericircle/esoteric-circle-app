@@ -92,8 +92,14 @@ class MaestroScreen extends StatelessWidget {
               child: FeatureGrid(features: features),
             ),
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: SpacingTokens.xxxl),
+          // Respiro finale che libera l'ultima riga di tessere da sotto la
+          // bottom bar (che il corpo attraversa, extendBody): l'altezza della
+          // barra dei Maestri piu' l'area sicura, cosi' il testo non finisce
+          // mai coperto.
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 136 + MediaQuery.of(context).padding.bottom,
+            ),
           ),
         ],
       ),

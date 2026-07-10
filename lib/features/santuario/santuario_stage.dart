@@ -137,6 +137,7 @@ class _SantuarioStageState extends State<SantuarioStage>
                       t: _pulse.value,
                       glow: palette.glow,
                       gold: palette.goldSoft,
+                      deep: palette.deepest,
                       hour: _now.hour,
                       fullMoon: _fullMoon,
                       solarReturn: solarReturn,
@@ -407,6 +408,7 @@ class _StagePainter extends CustomPainter {
     required this.t,
     required this.glow,
     required this.gold,
+    required this.deep,
     required this.hour,
     required this.fullMoon,
     required this.solarReturn,
@@ -419,6 +421,7 @@ class _StagePainter extends CustomPainter {
   final double t;
   final Color glow;
   final Color gold;
+  final Color deep;
   final int hour;
   final bool fullMoon;
   final bool solarReturn;
@@ -450,6 +453,10 @@ class _StagePainter extends CustomPainter {
           Offset.zero & size,
           Paint()..color = const Color(0xFFBFD0E8).withValues(alpha: 0.06));
     }
+
+    // Il palco architettonico: il tempio del Santuario, silhouette scura ed
+    // elegante illuminata dall'alto dalla Luna, piano di fondo dietro i Maestri.
+    _temple(canvas, size);
 
     // Cosmo che vira all'accento del Maestro centrale: un grande alone dietro.
     canvas.drawCircle(
@@ -484,6 +491,134 @@ class _StagePainter extends CustomPainter {
     if (hour >= 8 && hour < 17) return const Color(0xFF3E6DA8).withValues(alpha: 0.08);
     if (hour >= 17 && hour < 21) return const Color(0xFF7A5AA8).withValues(alpha: 0.12);
     return const Color(0xFF0B1030).withValues(alpha: 0.14);
+  }
+
+  /// Il tempio del Santuario: una silhouette architettonica scura, con cupola,
+  /// timpano, colonnato e gradinata, come piano di fondo dietro i Maestri.
+  /// Illuminata dall'alto (la Luna): i bordi superiori catturano un filo di
+  /// luce e la pietra e' piu' chiara in cima, piu' scura alla base. Due piani
+  /// danno profondita' 2.5D. Il fondo pittorico ricco arrivera' come asset.
+  void _temple(Canvas canvas, Size size) {
+    final cx = size.width / 2;
+    final half = size.width * 0.42;
+    final portHalf = half * 0.72; // mezza larghezza del portico
+    final domeTopY = size.height * 0.175;
+    final pedApexY = size.height * 0.232;
+    final architraveY = size.height * 0.335;
+    final archH = size.height * 0.018;
+    final colTopY = architraveY + archH;
+    final floorY = size.height * 0.60;
+    final stepsBottomY = size.height * 0.655;
+
+    // Pietra scura ma illuminata dall'alto: cima piu' chiara, base piu' fonda.
+    final coolLight = fullMoon ? 0.20 : 0.10;
+    final stoneTop = Color.lerp(
+        Color.lerp(deep, Colors.black, 0.28)!, const Color(0xFFBFD0E8), coolLight)!;
+    final stoneBottom = Color.lerp(deep, Colors.black, 0.66)!;
+    Paint stoneFill(double top, double bottom) => Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [stoneTop, stoneBottom],
+      ).createShader(Rect.fromLTRB(cx - half, top, cx + half, bottom));
+
+    // Filo di luce lunare sui bordi alti.
+    final rimColor = fullMoon ? const Color(0xFFDCE8Fb) : gold;
+    final rim = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.3
+      ..strokeCap = StrokeCap.round
+      ..color = rimColor.withValues(alpha: _rich ? 0.34 : 0.22);
+    final rimGlow = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.4
+      ..color = rimColor.withValues(alpha: 0.16)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4);
+
+    // --- Piano lontano: una seconda cupola arretrata, piu' chiara e sfumata ---
+    if (_rich) {
+      final farDome = Rect.fromCircle(
+          center: Offset(cx, architraveY - size.height * 0.02),
+          radius: portHalf * 0.62);
+      canvas.drawArc(farDome, math.pi, math.pi, false,
+          Paint()..color = Color.lerp(deep, Colors.black, 0.12)!.withValues(alpha: 0.8));
+    }
+
+    // --- Cupola (rotonda) dietro il timpano ---
+    final domeR = portHalf * 0.5;
+    final domeRect = Rect.fromCircle(
+        center: Offset(cx, architraveY), radius: domeR);
+    canvas.drawArc(domeRect, math.pi, math.pi, false, stoneFill(domeTopY, architraveY));
+    // Lanterna e pinnacolo in cima alla cupola.
+    canvas.drawLine(Offset(cx, domeTopY - size.height * 0.018),
+        Offset(cx, domeTopY), rim);
+    canvas.drawCircle(Offset(cx, domeTopY - size.height * 0.022), 2.4,
+        Paint()..color = rimColor.withValues(alpha: 0.5));
+    // Bordo luminoso della cupola.
+    canvas.drawArc(domeRect, math.pi, math.pi, false, rimGlow);
+    canvas.drawArc(domeRect, math.pi, math.pi, false, rim);
+
+    // --- Colonnato ---
+    const n = 6;
+    final colW = portHalf * 2 * 0.085;
+    final span = portHalf * 2 - colW;
+    for (var i = 0; i < n; i++) {
+      final x = cx - portHalf + colW / 2 + span * (i / (n - 1));
+      final shaft = RRect.fromRectAndCorners(
+        Rect.fromLTWH(x - colW / 2, colTopY, colW, floorY - colTopY),
+        topLeft: const Radius.circular(3),
+        topRight: const Radius.circular(3),
+      );
+      canvas.drawRRect(shaft, stoneFill(colTopY, floorY));
+      // Scanalatura chiara: un filo di luce verticale che da' tondezza (2.5D).
+      canvas.drawLine(
+          Offset(x - colW * 0.16, colTopY + 4),
+          Offset(x - colW * 0.16, floorY - 4),
+          Paint()
+            ..strokeWidth = 1
+            ..color = rimColor.withValues(alpha: _rich ? 0.14 : 0.08));
+      // Capitello.
+      canvas.drawRect(
+          Rect.fromCenter(
+              center: Offset(x, colTopY + 2), width: colW * 1.3, height: 5),
+          stoneFill(colTopY, colTopY + 6));
+      canvas.drawLine(Offset(x - colW * 0.7, colTopY),
+          Offset(x + colW * 0.7, colTopY), rim);
+    }
+
+    // --- Architrave ---
+    final archRect =
+        Rect.fromLTWH(cx - portHalf, architraveY, portHalf * 2, archH);
+    canvas.drawRect(archRect, stoneFill(architraveY, architraveY + archH));
+    canvas.drawLine(Offset(cx - portHalf, architraveY),
+        Offset(cx + portHalf, architraveY), rim);
+
+    // --- Timpano (frontone triangolare) ---
+    final pediment = Path()
+      ..moveTo(cx - portHalf, architraveY)
+      ..lineTo(cx, pedApexY)
+      ..lineTo(cx + portHalf, architraveY)
+      ..close();
+    canvas.drawPath(pediment, stoneFill(pedApexY, architraveY));
+    final pedEdge = Path()
+      ..moveTo(cx - portHalf, architraveY)
+      ..lineTo(cx, pedApexY)
+      ..lineTo(cx + portHalf, architraveY);
+    canvas.drawPath(pedEdge, rimGlow);
+    canvas.drawPath(pedEdge, rim);
+
+    // --- Gradinata ---
+    for (var i = 0; i < 3; i++) {
+      final st = i / 2.0;
+      final y = floorY + (stepsBottomY - floorY) * st;
+      final sHalf = portHalf * (1.08 + 0.16 * i);
+      canvas.drawRect(
+          Rect.fromLTRB(cx - sHalf, y, cx + sHalf,
+              y + (stepsBottomY - floorY) / 3 + 1),
+          stoneFill(y, y + (stepsBottomY - floorY) / 3));
+      canvas.drawLine(
+          Offset(cx - sHalf, y), Offset(cx + sHalf, y), rim);
+    }
   }
 
   void _circleThread(Canvas canvas, Size size) {

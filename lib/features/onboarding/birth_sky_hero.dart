@@ -378,31 +378,30 @@ class _SkyPainter extends CustomPainter {
           ..color = gold.withValues(alpha: 0.35)
           ..strokeWidth = 1);
 
-    _cradle(canvas, size.width / 2, hY, size.width * 0.185);
+    _cradle(canvas, size.width / 2, hY, size.width * 0.20);
   }
 
-  // La culla di luce: una culla vera e riconoscibile, la conca che accoglie e i
-  // due dondoli curvi sotto, appoggiata sull'orizzonte. Dentro, un piccolo
-  // bagliore che pulsa piano: l'anima appena nata sotto il suo cielo. Nessun
-  // volto ne' genere.
+  // La culla di luce: una culla a dondolo riconoscibile, appoggiata
+  // sull'orizzonte. Le due sponde curve accolgono, il pattino ricurvo sotto la
+  // fa dondolare, dentro pulsa il piccolo bagliore dell'anima appena nata sotto
+  // il suo cielo. Nessun volto ne' genere.
   void _cradle(Canvas canvas, double cx, double cy, double w) {
     final pulse = 0.5 + 0.5 * math.sin(t * 2 * math.pi * 5); // respiro lento
-    // La culla poggia sull'orizzonte: il bordo superiore sta appena sopra.
-    final rimY = cy - w * 0.34;
-    final soul = Offset(cx, rimY - w * 0.06);
+    final soul = Offset(cx, cy - w * 0.24);
+    final hw = w * 0.60; // mezza larghezza della culla
 
     // Il bagliore dell'anima, dentro la conca.
     if (_rich) {
       canvas.drawCircle(
           soul,
-          w * (0.40 + 0.13 * pulse),
+          w * (0.34 + 0.12 * pulse),
           Paint()
-            ..color = gold.withValues(alpha: 0.22 + 0.26 * pulse)
-            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 14));
+            ..color = gold.withValues(alpha: 0.20 + 0.24 * pulse)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 13));
     }
     canvas.drawCircle(
         soul,
-        w * 0.13 * (0.9 + 0.18 * pulse),
+        w * 0.12 * (0.9 + 0.18 * pulse),
         Paint()..color = Colors.white.withValues(alpha: 0.9));
 
     final stroke = Paint()
@@ -410,37 +409,48 @@ class _SkyPainter extends CustomPainter {
       ..strokeWidth = 2.4
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..color = gold.withValues(alpha: 0.85);
+      ..color = gold.withValues(alpha: 0.9);
 
-    // La conca della culla: pareti che si alzano ai lati e fondo tondo, come un
-    // cesto. Il bordo superiore ha un piccolo rialzo verso la testa.
-    final leftTop = Offset(cx - w * 0.52, rimY);
-    final rightTop = Offset(cx + w * 0.52, rimY);
-    final basket = Path()
-      ..moveTo(leftTop.dx, leftTop.dy)
-      ..lineTo(cx - w * 0.44, rimY + w * 0.06)
-      ..quadraticBezierTo(
-          cx, rimY + w * 0.62, cx + w * 0.44, rimY + w * 0.06)
-      ..lineTo(rightTop.dx, rightTop.dy);
-    canvas.drawPath(basket, stroke);
-    // Il bordo superiore, la sponda.
-    canvas.drawLine(leftTop, rightTop, stroke);
+    final rimY = cy - w * 0.50; // bordo alto delle sponde
+    final floorY = cy - w * 0.06; // fondo della conca
 
-    // I due dondoli curvi sotto, che la fanno leggere come culla.
-    final rockPaint = Paint()
+    // La conca: due sponde che si curvano verso l'esterno e un fondo tondo.
+    final body = Path()
+      ..moveTo(cx - hw, rimY)
+      ..quadraticBezierTo(cx - hw * 1.04, cy - w * 0.24, cx - hw * 0.68, floorY)
+      ..quadraticBezierTo(cx, floorY + w * 0.12, cx + hw * 0.68, floorY)
+      ..quadraticBezierTo(cx + hw * 1.04, cy - w * 0.24, cx + hw, rimY);
+    canvas.drawPath(body, stroke);
+
+    // Il bordo superiore, morbido come una copertina che si abbassa al centro.
+    final rim = Path()
+      ..moveTo(cx - hw, rimY)
+      ..quadraticBezierTo(cx, cy - w * 0.34, cx + hw, rimY);
+    canvas.drawPath(rim, stroke);
+
+    // Il pattino ricurvo sotto: quello che fa dondolare la culla.
+    final rocker = Path()
+      ..moveTo(cx - hw * 0.98, cy - w * 0.02)
+      ..quadraticBezierTo(cx, cy + w * 0.22, cx + hw * 0.98, cy - w * 0.02);
+    canvas.drawPath(
+        rocker,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.2
+          ..strokeCap = StrokeCap.round
+          ..color = gold.withValues(alpha: 0.7));
+
+    // I due montanti che uniscono la conca al pattino.
+    final legPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2
       ..strokeCap = StrokeCap.round
-      ..color = gold.withValues(alpha: 0.55);
-    canvas.drawArc(
-        Rect.fromCenter(
-            center: Offset(cx, rimY + w * 0.30),
-            width: w * 1.28,
-            height: w * 0.62),
-        0.08 * math.pi,
-        0.84 * math.pi,
-        false,
-        rockPaint);
+      ..color = gold.withValues(alpha: 0.72);
+    for (final s in const [-1.0, 1.0]) {
+      final lx = cx + s * hw * 0.5;
+      canvas.drawLine(
+          Offset(lx, floorY + w * 0.045), Offset(lx, cy + w * 0.10), legPaint);
+    }
 
     // Polvere di stelle che sale dalla culla.
     if (_rich) {

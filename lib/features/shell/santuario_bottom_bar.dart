@@ -32,22 +32,29 @@ class SantuarioBottomBar extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
+        // Velo alto e deciso: i contenuti che scorrono sotto la barra sfumano
+        // nel buio prima di raggiungere le icone, cosi' il testo delle tessere
+        // non si accavalla mai con la navigazione.
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
             palette.deepest.withValues(alpha: 0.0),
-            palette.deepest.withValues(alpha: 0.85),
+            palette.deepest.withValues(alpha: 0.88),
+            palette.deepest,
             palette.deepest,
           ],
+          stops: const [0.0, 0.24, 0.44, 1.0],
         ),
       ),
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.md,
-            vertical: SpacingTokens.sm,
+          padding: const EdgeInsets.only(
+            left: SpacingTokens.md,
+            right: SpacingTokens.md,
+            top: SpacingTokens.lg,
+            bottom: SpacingTokens.sm,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
