@@ -24,8 +24,10 @@ class OnboardingController extends ChangeNotifier {
 
   OnboardingController() {
     if (_kDemoAutofill) {
-      _date = DateTime(1990, 6, 15);
-      _time = const TimeOfDay(hour: 14, minute: 30);
+      // Nascita notturna con la Luna alta, cosi' l'anteprima del cielo reale
+      // mostra stelle e Luna sopra l'orizzonte (Sole sempre in Gemelli).
+      _date = DateTime(1990, 6, 1);
+      _time = const TimeOfDay(hour: 21, minute: 0);
       _place = const BirthPlace(
         label: 'Roma',
         province: 'RM',

@@ -42,6 +42,29 @@ void main() {
       );
       expect(computeResonance(chart).winner, Maestro.aura);
     });
+
+    test('Sole Gemelli e Ascendente Bilancia risuonano con Medora, non Aura',
+        () {
+      // Il caso che prima era incoerente: cielo a maggioranza d'aria con Luna
+      // in acqua. La firma di luminari e angoli deve vincere.
+      final chart = NatalChart(
+        sunSign: Zodiac.gemini,
+        hasTime: true,
+        ascendant: Zodiac.libra,
+        planets: [
+          _p('sun', Zodiac.gemini),
+          _p('moon', Zodiac.pisces),
+          _p('mercury', Zodiac.gemini),
+          _p('venus', Zodiac.cancer),
+        ],
+      );
+      final r = computeResonance(chart);
+      expect(r.winner, Maestro.medora);
+      // Il perche' cita davvero il fattore che ha deciso.
+      expect(r.reason, contains(r.deciding.replaceFirst(RegExp('^.'), '')));
+      final total = r.scores.values.fold<double>(0, (a, b) => a + b);
+      expect(total, closeTo(1.0, 1e-9));
+    });
   });
 
   group('Identita\' e forma di cortesia', () {

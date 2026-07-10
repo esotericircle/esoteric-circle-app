@@ -9,6 +9,7 @@ import '../../core/astro/zodiac_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../design_system/components/immersive_scaffold.dart';
+import 'birth_sky_hero.dart';
 import 'maestro_reveal_screen.dart';
 import 'name_step.dart';
 import 'natal_chart_reveal.dart';
@@ -16,7 +17,7 @@ import 'onboarding_controller.dart';
 import 'onboarding_form.dart';
 import 'resonance_screen.dart';
 
-enum _JourneyPhase { name, sky, chart, resonance, reveal }
+enum _JourneyPhase { name, sky, heaven, chart, resonance, reveal }
 
 /// Solo per l'anteprima visiva: forza il Maestro della rivelazione con
 /// `--dart-define=DEMO_MAESTRO=medora|caligo|aura`, cosi' si possono rivedere i
@@ -43,9 +44,15 @@ class _OnboardingJourneyState extends State<OnboardingJourney> {
   _JourneyPhase _phase = _JourneyPhase.name;
   Maestro _assigned = Maestro.medora;
   Resonance? _resonance;
+  BirthDetails? _details;
 
   Future<void> _onSubmit(BirthDetails details) async {
-    setState(() => _phase = _JourneyPhase.chart);
+    // Prima lo stupore del cielo reale, poi la carta: la carta si calcola nel
+    // frattempo, cosi' e' pronta quando l'utente prosegue.
+    setState(() {
+      _details = details;
+      _phase = _JourneyPhase.heaven;
+    });
     final chartCtrl = context.read<NatalChartController>();
     await chartCtrl.compute(details);
     if (!mounted) return;
@@ -54,6 +61,10 @@ class _OnboardingJourneyState extends State<OnboardingJourney> {
       _resonance = computeResonance(chart);
       _assigned = _demoMaestro() ?? _resonance!.winner;
     }
+  }
+
+  void _onHeavenContinue() {
+    setState(() => _phase = _JourneyPhase.chart);
   }
 
   void _onChartContinue() {
@@ -96,6 +107,14 @@ class _OnboardingJourneyState extends State<OnboardingJourney> {
           create: (_) => OnboardingController(),
           child: OnboardingForm(onSubmit: _onSubmit),
         );
+      case _JourneyPhase.heaven:
+        return _details == null
+            ? const SizedBox.shrink()
+            : BirthSkyHero(
+                key: const ValueKey('heaven'),
+                details: _details!,
+                onContinue: _onHeavenContinue,
+              );
       case _JourneyPhase.chart:
         return NatalChartReveal(
           key: const ValueKey('chart'),

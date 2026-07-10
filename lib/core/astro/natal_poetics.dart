@@ -64,7 +64,7 @@ class NatalPoetics {
     final moon = chart.moonSign?.italianName;
     final asc = chart.ascendant?.italianName;
     if (moon != null && asc != null) {
-      return 'Il tuo fuoco arde in $sun, la tua marea scorre in $moon, e ti affacci al mondo con lo sguardo di $asc.';
+      return 'Il tuo fuoco arde in $sun, la tua marea scorre in $moon; ti affacci al mondo con lo sguardo di $asc.';
     }
     if (moon != null) {
       return 'Il tuo fuoco arde in $sun e la tua marea scorre in $moon.';
