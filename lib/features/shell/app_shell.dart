@@ -8,8 +8,9 @@ import '../../design_system/components/tap_wave.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import '../home/home_screen.dart';
 import '../maestri/maestro_screen.dart';
+import '../profile/profile_screen.dart';
+import '../santuario/santuario_stage.dart';
 import 'navigation_controller.dart';
 import 'santuario_bottom_bar.dart';
 
@@ -59,7 +60,7 @@ class _AppShellState extends State<AppShell> {
                 child: IndexedStack(
                   index: nav.index,
                   children: const [
-                    HomeScreen(),
+                    SantuarioStage(),
                     MaestroScreen(maestro: Maestro.medora),
                     MaestroScreen(maestro: Maestro.aura),
                     MaestroScreen(maestro: Maestro.caligo),
@@ -75,6 +76,7 @@ class _AppShellState extends State<AppShell> {
       bottomNavigationBar: SantuarioBottomBar(
         current: nav.current,
         onSelected: nav.goTo,
+        onPassport: () => openProfile(context),
       ),
     );
   }

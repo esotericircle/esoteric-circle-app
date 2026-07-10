@@ -16,10 +16,15 @@ class SantuarioBottomBar extends StatelessWidget {
     super.key,
     required this.current,
     required this.onSelected,
+    required this.onPassport,
   });
 
   final AppDestination current;
   final ValueChanged<AppDestination> onSelected;
+
+  /// Il Cosmic Passport e' distinto: non e' una destinazione della pila, apre il
+  /// profilo con i fatti identitari conquistati.
+  final VoidCallback onPassport;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +66,13 @@ class SantuarioBottomBar extends StatelessWidget {
                   onTap: () =>
                       onSelected(AppDestination.forMaestro(maestro)),
                 ),
+              _BarItem(
+                label: 'Passport',
+                iconData: Icons.hexagon_outlined,
+                selected: false,
+                distinct: true,
+                onTap: onPassport,
+              ),
             ],
           ),
         ),
@@ -75,6 +87,7 @@ class _BarItem extends StatelessWidget {
     required this.selected,
     required this.onTap,
     required this.iconData,
+    this.distinct = false,
   });
 
   final String label;
@@ -82,11 +95,15 @@ class _BarItem extends StatelessWidget {
   final VoidCallback onTap;
   final IconData iconData;
 
+  /// Voce distinta (il Cosmic Passport): bordo dorato sempre acceso.
+  final bool distinct;
+
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final Color color =
-        selected ? palette.goldSoft : ColorTokens.textMuted;
+    final Color color = selected || distinct
+        ? palette.goldSoft
+        : ColorTokens.textMuted;
 
     return Expanded(
       child: InkWell(
@@ -109,7 +126,9 @@ class _BarItem extends StatelessWidget {
                   border: Border.all(
                     color: selected
                         ? palette.gold.withValues(alpha: 0.8)
-                        : Colors.transparent,
+                        : distinct
+                            ? palette.gold.withValues(alpha: 0.55)
+                            : Colors.transparent,
                     width: 1.2,
                   ),
                   boxShadow: selected

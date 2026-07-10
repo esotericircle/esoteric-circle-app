@@ -18,13 +18,30 @@ class MaestroController extends ChangeNotifier {
   ThemeKey _activeKey;
   ThemeKey get activeKey => _activeKey;
 
+  /// L'ultimo Maestro usato, che resta anche tornando al neutro. Di default il
+  /// Maestro assegnato dall'onboarding, poi l'ultimo scelto. Il Santuario lo usa
+  /// per mettere al centro l'ultimo Maestro.
+  Maestro _lastMaestro = Maestro.medora;
+  Maestro get lastMaestro => _lastMaestro;
+
   /// Maestro attivo, oppure null quando il tema e' neutro.
   Maestro? get activeMaestro => _activeKey.maestro;
 
   bool get isNeutral => _activeKey.isNeutral;
 
   /// Seleziona un Maestro e passa al suo tema.
-  void selectMaestro(Maestro maestro) => _setKey(ThemeKey.of(maestro));
+  void selectMaestro(Maestro maestro) {
+    _lastMaestro = maestro;
+    _setKey(ThemeKey.of(maestro));
+  }
+
+  /// Ricorda l'ultimo Maestro senza cambiare il tema attivo (usato dal carosello
+  /// del Santuario, che mette al centro un Maestro ma resta sul Santuario).
+  void rememberLast(Maestro maestro) {
+    if (_lastMaestro == maestro) return;
+    _lastMaestro = maestro;
+    notifyListeners();
+  }
 
   /// Torna allo stato neutro (Il Santuario senza Maestro selezionato).
   void clearMaestro() => _setKey(const ThemeKey.neutral());
