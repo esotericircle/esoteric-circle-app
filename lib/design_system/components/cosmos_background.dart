@@ -9,7 +9,7 @@ import '../../core/motion/parallax_controller.dart';
 import '../../core/quality/quality_tier.dart';
 import '../theme/maestro_palette.dart';
 import '../theme/maestro_scope.dart';
-import 'zodiac_figures.dart';
+import 'zodiac_real.dart';
 
 /// Sfondo cosmico immersivo full-bleed.
 ///
@@ -218,8 +218,8 @@ class _CosmosPainter extends CustomPainter {
   // --- Le dodici costellazioni zodiacali ---
 
   void _paintZodiac(Canvas canvas, Size size, Offset off, double t) {
-    for (var i = 0; i < kZodiacConstellations.length; i++) {
-      final c = kZodiacConstellations[i];
+    for (var i = 0; i < kRealZodiac.length; i++) {
+      final c = kRealZodiac[i];
       final bool isHi = c.sign == highlighted;
 
       final breath =

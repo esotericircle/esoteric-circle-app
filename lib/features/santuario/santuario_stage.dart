@@ -5,14 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/celestial.dart';
-import '../../core/astro/zodiac.dart';
-import '../../core/astro/zodiac_controller.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../core/quality/quality_tier.dart';
 import '../../design_system/components/moon_phase_emblem.dart';
-import '../../design_system/components/zodiac_figures.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -96,7 +93,6 @@ class _SantuarioStageState extends State<SantuarioStage>
   Widget build(BuildContext context) {
     final tier = context.watch<QualityTierController>().tier;
     final last = context.watch<MaestroController>().lastMaestro;
-    final sun = context.watch<ZodiacController>().sunSign;
     final birth = context.watch<BirthIdentityController>().facts?.birthDate;
 
     // Ordine fisso; il centrale ruota come un carosello.
@@ -144,11 +140,10 @@ class _SantuarioStageState extends State<SantuarioStage>
                       hour: _now.hour,
                       fullMoon: _fullMoon,
                       solarReturn: solarReturn,
-                      sunSign: sun,
                       tier: tier,
-                      leftAnchor: Offset(centerX - sideDX, baseY - sideW * 0.9),
-                      centerAnchor: Offset(centerX, baseY - centerW * 0.9),
-                      rightAnchor: Offset(centerX + sideDX, baseY - sideW * 0.9),
+                      leftAnchor: Offset(centerX - sideDX, baseY - sideW * 1.2),
+                      centerAnchor: Offset(centerX, baseY - centerW * 1.15),
+                      rightAnchor: Offset(centerX + sideDX, baseY - sideW * 1.2),
                     ),
                   ),
                 ),
@@ -280,7 +275,7 @@ class _SantuarioStageState extends State<SantuarioStage>
       return 'Oggi il Sole torna dove sei nato. Il cerchio e\' in festa per te.';
     }
     if (_fullMoon && featured == _competentToday) {
-      return 'La Luna e\' piena stanotte: alza lo sguardo, e\' tempo di guardare in alto.';
+      return 'La Luna e\' piena stanotte: e\' tempo di alzare lo sguardo.';
     }
     return null;
   }
@@ -415,7 +410,6 @@ class _StagePainter extends CustomPainter {
     required this.hour,
     required this.fullMoon,
     required this.solarReturn,
-    required this.sunSign,
     required this.tier,
     required this.leftAnchor,
     required this.centerAnchor,
@@ -428,7 +422,6 @@ class _StagePainter extends CustomPainter {
   final int hour;
   final bool fullMoon;
   final bool solarReturn;
-  final Zodiac? sunSign;
   final QualityTier tier;
   final Offset leftAnchor;
   final Offset centerAnchor;
@@ -474,10 +467,9 @@ class _StagePainter extends CustomPainter {
               center: centerAnchor.translate(0, -size.height * 0.05),
               radius: size.width * 0.62)));
 
-    // Identita' conquistata: la costellazione del segno solare, in alto, come
-    // presenza acquisita del profilo. Architettata per crescere (Angelo,
-    // archetipo, Animale Guida verranno accanto).
-    if (sunSign != null) _sunConstellation(canvas, size, sunSign!);
+    // Identita' conquistata: la costellazione reale del segno solare vive nel
+    // cosmo dietro il palco (evidenziata da CosmosBackground), architettata per
+    // crescere (Angelo, archetipo, Animale Guida verranno accanto).
 
     // Il cerchio visibile: un filo d'oro che unisce i tre Maestri.
     _circleThread(canvas, size);
@@ -494,70 +486,71 @@ class _StagePainter extends CustomPainter {
     return const Color(0xFF0B1030).withValues(alpha: 0.14);
   }
 
-  void _sunConstellation(Canvas canvas, Size size, Zodiac sign) {
-    ZodiacConstellation? fig;
-    for (final c in kZodiacConstellations) {
-      if (c.sign == sign) {
-        fig = c;
-        break;
-      }
-    }
-    if (fig == null) return;
-    // Collocata in alto, sotto la Luna.
-    final anchor = Offset(size.width * 0.5, size.height * 0.30);
-    final scale = size.width * 0.34;
-    Offset at(Offset p) =>
-        anchor + Offset((p.dx - 0.5) * scale, (p.dy - 0.5) * scale);
-    final line = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1
-      ..color = gold.withValues(alpha: 0.28);
-    for (final (a, b) in fig.edges) {
-      canvas.drawLine(at(fig.points[a]), at(fig.points[b]), line);
-    }
-    for (final p in fig.points) {
-      final tw = _rich ? 0.6 + 0.4 * math.sin(t * 2 * math.pi + p.dx * 6) : 1.0;
-      canvas.drawCircle(at(p), 1.6, Paint()..color = gold.withValues(alpha: 0.8 * tw));
-    }
-  }
-
   void _circleThread(Canvas canvas, Size size) {
     final a = leftAnchor, b = centerAnchor, c = rightAnchor;
+    // L'arco sale nei due varchi ai lati del Maestro centrale, dove nulla lo
+    // copre: cosi' il filo dorato che unisce i tre resta visibile ed elegante,
+    // come una ghirlanda di luce sopra le loro spalle.
+    final lift = size.height * 0.06;
     final path = Path()
       ..moveTo(a.dx, a.dy)
-      ..quadraticBezierTo(
-          (a.dx + b.dx) / 2, b.dy - size.height * 0.02, b.dx, b.dy)
-      ..quadraticBezierTo(
-          (b.dx + c.dx) / 2, b.dy - size.height * 0.02, c.dx, c.dy);
+      ..quadraticBezierTo((a.dx + b.dx) / 2, b.dy - lift, b.dx, b.dy)
+      ..quadraticBezierTo((b.dx + c.dx) / 2, b.dy - lift, c.dx, c.dy);
+    // Alone morbido, come un respiro di luce attorno al filo (solo Alta).
     if (_rich) {
       canvas.drawPath(
           path,
           Paint()
             ..style = PaintingStyle.stroke
+            ..strokeWidth = 7
+            ..color = gold.withValues(alpha: 0.16)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 7));
+      canvas.drawPath(
+          path,
+          Paint()
+            ..style = PaintingStyle.stroke
             ..strokeWidth = 3
-            ..color = gold.withValues(alpha: 0.18)
-            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4));
+            ..color = gold.withValues(alpha: 0.30)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3));
     }
+    // Filo dorato vero e proprio, sottile ma nitido.
     canvas.drawPath(
         path,
         Paint()
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 1.2
-          ..color = gold.withValues(alpha: 0.5));
-    // Nodi luminosi ai tre ancoraggi.
+          ..strokeWidth = 1.6
+          ..strokeCap = StrokeCap.round
+          ..color = gold.withValues(alpha: 0.78));
+    // Nodi luminosi ai tre ancoraggi: un piccolo alone e un cuore chiaro.
     for (final p in [a, b, c]) {
-      canvas.drawCircle(p, 3, Paint()..color = gold.withValues(alpha: 0.8));
+      if (_rich) {
+        canvas.drawCircle(
+            p,
+            7,
+            Paint()
+              ..color = gold.withValues(alpha: 0.28)
+              ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5));
+      }
+      canvas.drawCircle(p, 3.4, Paint()..color = gold.withValues(alpha: 0.95));
+      canvas.drawCircle(
+          p, 1.4, Paint()..color = Colors.white.withValues(alpha: 0.9));
     }
-    // Scintilla che scorre lungo il filo.
+    // Scintilla che scorre lungo il filo, a rendere vivo il legame.
     if (_rich) {
       final metric = path.computeMetrics().first;
       final pos = metric.getTangentForOffset(metric.length * (t % 1.0))?.position;
       if (pos != null) {
         canvas.drawCircle(
             pos,
+            5,
+            Paint()
+              ..color = gold.withValues(alpha: 0.5)
+              ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4));
+        canvas.drawCircle(
+            pos,
             2.4,
             Paint()
-              ..color = Colors.white.withValues(alpha: 0.9)
+              ..color = Colors.white.withValues(alpha: 0.95)
               ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2));
       }
     }

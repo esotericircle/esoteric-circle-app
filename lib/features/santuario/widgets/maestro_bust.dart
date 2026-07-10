@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
@@ -71,56 +72,100 @@ class _MaestroBustState extends State<MaestroBust>
     final p = widget.palette;
     final w = widget.width;
     final h = w * 1.42;
+    // Il centrale ha piu' testa fuori dalla cornice: la 2.5D nasce qui, dalla
+    // figura che esce in avanti mentre la cornice resta un piano dietro.
+    final headroom = widget.featured ? w * 0.42 : w * 0.26;
+    final figureH = h + headroom - 8;
     return AnimatedBuilder(
       animation: _idle,
       builder: (context, _) {
         final phase = _idle.value * 2 * math.pi;
-        final floatY = widget.featured ? math.sin(phase) * 5 : 0.0;
-        final breath = widget.featured ? 1 + 0.01 * math.sin(phase) : 1.0;
+        final floatY = widget.featured ? math.sin(phase) * 6 : 0.0;
+        final breath = widget.featured ? 1 + 0.012 * math.sin(phase) : 1.0;
         final auraPulse =
             widget.featured ? 0.5 + 0.5 * math.sin(phase) : 0.25;
+        // Parallasse: la cornice, piano di fondo, si muove molto meno della
+        // figura che galleggia davanti. La distanza fra i due piani e' la
+        // profondita' che si deve vedere.
+        final frameY = widget.featured ? floatY * 0.35 : 0.0;
 
         return Opacity(
           opacity: widget.featured ? 1 : 0.62,
-          child: Transform.translate(
-            offset: Offset(0, floatY),
-            child: Transform.scale(
-              scale: breath,
-              child: SizedBox(
-                width: w,
-                height: h + 54, // spazio per la testa che esce
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    // Aura del Maestro.
-                    Positioned(
-                      bottom: 16,
-                      child: Container(
-                        width: w * 1.18,
-                        height: w * 1.18,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: RadialGradient(
-                            colors: [
-                              p.glow.withValues(
-                                  alpha: (widget.featured ? 0.28 : 0.14) +
-                                      0.18 * auraPulse),
-                              p.primary.withValues(alpha: 0.08),
-                              Colors.transparent,
-                            ],
-                            stops: const [0.0, 0.5, 1.0],
+          child: SizedBox(
+            width: w,
+            height: h + headroom, // spazio per la testa che esce
+            child: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.bottomCenter,
+              children: [
+                // Aura del Maestro, sul piano di fondo.
+                Positioned(
+                  bottom: 16,
+                  child: Container(
+                    width: w * 1.18,
+                    height: w * 1.18,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: RadialGradient(
+                        colors: [
+                          p.glow.withValues(
+                              alpha: (widget.featured ? 0.28 : 0.14) +
+                                  0.18 * auraPulse),
+                          p.primary.withValues(alpha: 0.08),
+                          Colors.transparent,
+                        ],
+                        stops: const [0.0, 0.5, 1.0],
+                      ),
+                    ),
+                  ),
+                ),
+                // Cornice a carta: il piano dietro, in leggera parallasse.
+                Positioned(
+                  bottom: 0,
+                  child: Transform.translate(
+                    offset: Offset(0, frameY),
+                    child: _Frame(palette: p, width: w, height: h),
+                  ),
+                ),
+                // Ombra portata della figura sul piano della cornice: e' il
+                // segno che il Maestro sta davanti, non chiuso nel riquadro.
+                if (widget.featured)
+                  Positioned(
+                    bottom: 6,
+                    child: Transform.translate(
+                      offset: Offset(w * 0.05, 14 + floatY),
+                      child: ImageFiltered(
+                        imageFilter:
+                            ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: ColorFiltered(
+                          colorFilter: ColorFilter.mode(
+                              Colors.black.withValues(alpha: 0.42),
+                              BlendMode.srcIn),
+                          child: SizedBox(
+                            height: figureH,
+                            child: Image.asset(
+                              widget.maestro.avatarAsset,
+                              fit: BoxFit.contain,
+                              alignment: Alignment.bottomCenter,
+                              errorBuilder: (_, __, ___) =>
+                                  const SizedBox.shrink(),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    // Cornice a carta.
-                    Positioned(bottom: 0, child: _Frame(palette: p, width: w, height: h)),
-                    // La figura, la testa rompe il bordo.
-                    Positioned(
-                      bottom: 6,
+                  ),
+                // La figura, davanti a tutto: la testa e le spalle rompono il
+                // bordo alto della cornice.
+                Positioned(
+                  bottom: 6,
+                  child: Transform.translate(
+                    offset: Offset(0, floatY),
+                    child: Transform.scale(
+                      scale: breath,
+                      alignment: Alignment.bottomCenter,
                       child: SizedBox(
-                        height: h + 46,
+                        height: figureH,
                         child: Image.asset(
                           widget.maestro.avatarAsset,
                           fit: BoxFit.contain,
@@ -133,9 +178,9 @@ class _MaestroBustState extends State<MaestroBust>
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         );

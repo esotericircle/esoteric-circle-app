@@ -36,7 +36,7 @@ PermissionCopy permissionCopy(AppPermission p, {Maestro? maestro}) {
         icon: Icons.mic_none_rounded,
         title: 'Il soffio ha bisogno del microfono',
         body:
-            'Per soffiare, $name ascolta solo il tuo soffio. Non registra nulla, non conserva audio.',
+            'Per soffiare con $name, il microfono ascolta solo il tuo soffio, non registra nulla ne\' conserva audio.',
         cta: 'Attiva il microfono',
       );
     case AppPermission.camera:

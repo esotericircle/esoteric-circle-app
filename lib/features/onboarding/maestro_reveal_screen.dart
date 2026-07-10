@@ -104,7 +104,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
         icon: Icons.mic_none_rounded,
         title: '${widget.maestro.displayName} ha bisogno del microfono',
         body:
-            'Per soffiare $_ritualObjectName, ascolta solo il tuo soffio. Non registra nulla, non conserva audio.',
+            'Per soffiare $_ritualObjectName, il microfono ascolta solo il tuo soffio, non registra nulla ne\' conserva audio.',
         cta: 'Attiva il microfono',
       ),
       systemRequest: () => _breath.start(),
