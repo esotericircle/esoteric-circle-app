@@ -87,9 +87,9 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
   }
 
   String get _ritualObjectName => switch (widget.maestro) {
-        Maestro.medora => 'la sfera di cristallo',
-        Maestro.caligo => 'la candela',
-        Maestro.aura => 'il soffione',
+        Maestro.medora => 'sulla sfera di cristallo',
+        Maestro.caligo => 'sulla candela',
+        Maestro.aura => 'sul soffione',
       };
 
   Future<void> _askMic() async {
@@ -104,7 +104,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
         icon: Icons.mic_none_rounded,
         title: '${widget.maestro.displayName} ha bisogno del microfono',
         body:
-            'Per soffiare su $_ritualObjectName, ascolta solo il tuo soffio. Non registra nulla, non conserva audio.',
+            'Per soffiare $_ritualObjectName, ascolta solo il tuo soffio. Non registra nulla, non conserva audio.',
         cta: 'Attiva il microfono',
       ),
       systemRequest: () => _breath.start(),
