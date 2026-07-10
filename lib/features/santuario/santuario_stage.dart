@@ -123,9 +123,9 @@ class _SantuarioStageState extends State<SantuarioStage>
         },
         child: LayoutBuilder(builder: (context, c) {
           final w = c.maxWidth, h = c.maxHeight;
-          final centerW = w * 0.52;
-          final sideW = w * 0.34;
-          final baseY = h * 0.86; // i piedi dei busti
+          final centerW = w * 0.50;
+          final sideW = w * 0.33;
+          final baseY = h * 0.80; // i piedi dei busti
           final centerX = w / 2;
           final sideDX = w * 0.30;
 
@@ -242,11 +242,12 @@ class _SantuarioStageState extends State<SantuarioStage>
                 ),
               ),
 
-              // Nome del Maestro centrale e, su evento, la sua frase.
+              // Nome del Maestro centrale e, su evento, la sua frase, sopra la
+              // bottom bar.
               Positioned(
                 left: SpacingTokens.lg,
                 right: SpacingTokens.lg,
-                bottom: SpacingTokens.md,
+                bottom: 96,
                 child: _FeaturedCaption(
                   maestro: featured,
                   palette: palette,
@@ -399,13 +400,8 @@ class _FeaturedCaption extends StatelessWidget {
           const SizedBox(height: SpacingTokens.sm),
         ],
         Text(maestro.displayName,
-            style: TypographyTokens.display(size: 26)
+            style: TypographyTokens.display(size: 24)
                 .copyWith(color: palette.goldSoft)),
-        const SizedBox(height: 2),
-        Text(maestro.tagline,
-            textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 16)
-                .copyWith(color: ColorTokens.textSecondary)),
       ],
     );
   }
