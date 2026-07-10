@@ -44,7 +44,7 @@ class OnboardingForm extends StatelessWidget {
             children: [
               const SizedBox(height: SpacingTokens.xs),
               Text('ACCENDI IL TUO CIELO',
-                  style: TypographyTokens.body(size: 12).copyWith(
+                  style: TypographyTokens.label(size: 13).copyWith(
                     color: palette.goldSoft,
                     letterSpacing: 3,
                   )),
@@ -132,7 +132,7 @@ class _ContinueButton extends StatelessWidget {
         ),
         onPressed: enabled ? onTap : null,
         child: Text(label,
-            style: TypographyTokens.body(size: 15, weight: 600)
+            style: TypographyTokens.body(size: 17, weight: 600)
                 .copyWith(color: palette.deepest)),
       ),
     );

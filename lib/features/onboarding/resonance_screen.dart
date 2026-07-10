@@ -36,7 +36,7 @@ class ResonanceScreen extends StatelessWidget {
         children: [
           const SizedBox(height: SpacingTokens.sm),
           Text('LA RISONANZA',
-              style: TypographyTokens.body(size: 12)
+              style: TypographyTokens.label(size: 13)
                   .copyWith(color: palette.goldSoft, letterSpacing: 3)),
           const SizedBox(height: SpacingTokens.xs),
           Text('Chi risuona con te',
@@ -85,7 +85,7 @@ class ResonanceScreen extends StatelessWidget {
               ),
               onPressed: onContinue,
               child: Text('Rivela il tuo Maestro',
-                  style: TypographyTokens.body(size: 15, weight: 600)
+                  style: TypographyTokens.body(size: 17, weight: 600)
                       .copyWith(color: palette.deepest)),
             ),
           ),
@@ -165,7 +165,7 @@ class _MaestroAuraState extends State<_MaestroAura>
                 Text(
                   widget.maestro.displayName,
                   style: TypographyTokens.display(
-                    size: widget.isWinner ? 18 : 14,
+                    size: widget.isWinner ? 24 : 20,
                   ).copyWith(
                     color: widget.isWinner
                         ? p.goldSoft

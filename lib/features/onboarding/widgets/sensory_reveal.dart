@@ -55,7 +55,7 @@ class GestureCoach extends StatefulWidget {
     required this.gestures,
     required this.palette,
     this.reduceMotion = false,
-    this.size = 92,
+    this.size = 108,
   });
 
   final List<CoachGesture> gestures;
@@ -144,105 +144,153 @@ class _CoachPainter extends CustomPainter {
     }
   }
 
-  // Viso di profilo che soffia: guance che si gonfiano e fiato che esce.
+  // Viso di profilo che soffia: guancia che si gonfia, labbra a soffio, fiato.
   void _blow(Canvas canvas, Size size) {
     final w = size.width, h = size.height;
     final puff = 0.5 + 0.5 * math.sin(t * 2 * math.pi); // ciclo del respiro
     final line = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.4
+      ..strokeWidth = 2.6
       ..strokeJoin = StrokeJoin.round
       ..strokeCap = StrokeCap.round
       ..color = color;
 
-    // Profilo del viso rivolto a destra (fronte, naso, labbra, mento).
-    final cx = w * 0.34, cy = h * 0.5;
+    final cx = w * 0.30, cy = h * 0.48;
+    final cheek = w * 0.04 * puff; // la guancia che si gonfia
+    // Profilo rivolto a destra: fronte, naso, labbra sporte, mento, mascella.
     final face = Path()
-      ..moveTo(cx - w * 0.18, cy - h * 0.30)
-      ..cubicTo(cx + w * 0.10, cy - h * 0.34, cx + w * 0.16, cy - h * 0.16,
-          cx + w * 0.14, cy - h * 0.06) // fronte verso il naso
-      ..lineTo(cx + w * (0.20 + 0.03 * puff), cy) // punta del naso
-      ..lineTo(cx + w * 0.12, cy + h * 0.05) // sotto il naso
-      ..cubicTo(cx + w * (0.20 + 0.05 * puff), cy + h * 0.10,
-          cx + w * (0.18 + 0.05 * puff), cy + h * 0.16, cx + w * 0.10,
-          cy + h * 0.16) // guancia gonfia e labbra unite
-      ..cubicTo(cx + w * 0.12, cy + h * 0.26, cx - w * 0.02, cy + h * 0.30,
-          cx - w * 0.18, cy + h * 0.28); // mento e mascella
+      ..moveTo(cx - w * 0.16, cy - h * 0.28) // alto della fronte
+      ..cubicTo(cx + w * 0.14, cy - h * 0.34, cx + w * 0.20, cy - h * 0.14,
+          cx + w * 0.16, cy - h * 0.05) // fronte che scende al naso
+      ..cubicTo(cx + w * 0.24, cy - h * 0.03, cx + w * 0.25, cy + h * 0.02,
+          cx + w * 0.18, cy + h * 0.03) // punta del naso e narice
+      ..cubicTo(cx + w * 0.22, cy + h * 0.06, cx + w * 0.22, cy + h * 0.10,
+          cx + w * 0.16, cy + h * 0.10) // labbro superiore sporto (soffio)
+      ..cubicTo(cx + w * 0.20, cy + h * 0.13, cx + w * 0.17, cy + h * 0.17,
+          cx + w * 0.12, cy + h * 0.16) // labbro inferiore e mento
+      ..cubicTo(cx + w * (0.14 + 0.02) + cheek, cy + h * 0.24,
+          cx - w * 0.02, cy + h * 0.30, cx - w * 0.16, cy + h * 0.27); // mascella
     canvas.drawPath(face, line);
 
-    // Occhio.
-    canvas.drawCircle(Offset(cx + w * 0.01, cy - h * 0.12), 1.8,
-        Paint()..color = color);
+    // Guancia gonfia suggerita da un breve arco interno.
+    canvas.drawArc(
+        Rect.fromCircle(
+            center: Offset(cx + w * 0.06, cy + h * 0.06),
+            radius: w * (0.07 + 0.02 * puff)),
+        -0.5,
+        1.8,
+        false,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.4
+          ..color = color.withValues(alpha: 0.4));
 
-    // Fiato che esce dalle labbra, tre soffi in movimento verso destra.
-    final mouth = Offset(cx + w * 0.16, cy + h * 0.10);
+    // Occhio.
+    canvas.drawCircle(
+        Offset(cx + w * 0.03, cy - h * 0.12), 2.0, Paint()..color = color);
+
+    // Fiato che esce dalle labbra in soffi curvi verso destra.
+    final mouth = Offset(cx + w * 0.19, cy + h * 0.12);
     for (var i = 0; i < 3; i++) {
       final f = ((t + i / 3) % 1.0);
-      final x = mouth.dx + f * w * 0.42;
-      final spread = h * (0.03 + 0.10 * f);
-      final alpha = ((1 - f) * 0.9).clamp(0.0, 0.9);
+      final x = mouth.dx + f * w * 0.40;
+      final spread = h * (0.03 + 0.11 * f);
+      final alpha = ((1 - f) * 0.85).clamp(0.0, 0.85);
       canvas.drawArc(
         Rect.fromCenter(
             center: Offset(x, mouth.dy + math.sin(f * 3) * h * 0.02),
-            width: w * 0.16,
+            width: w * 0.15,
             height: spread * 2),
         -math.pi / 2,
         math.pi,
         false,
         Paint()
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 2
+          ..strokeWidth = 2.2
           ..strokeCap = StrokeCap.round
           ..color = color.withValues(alpha: alpha),
       );
     }
   }
 
-  // Un dito che scorre da sinistra a destra, con scia.
+  // Una mano con il solo indice esteso che scorre da sinistra a destra.
   void _swipe(Canvas canvas, Size size) {
     final w = size.width, h = size.height;
     final travel = (t % 1.0);
-    final x = w * (0.18 + 0.6 * Curves.easeInOut.transform(travel));
-    final y = h * 0.56;
-    final line = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.4
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round
-      ..color = color;
+    final x = w * (0.30 + 0.40 * Curves.easeInOut.transform(travel)); // polpastrello
+    final y = h * 0.52;
 
-    // Scia puntinata dietro il dito.
-    for (var i = 1; i <= 5; i++) {
-      final tx = x - i * w * 0.06;
-      if (tx < w * 0.12) continue;
-      canvas.drawCircle(Offset(tx, y + h * 0.02), 1.6,
-          Paint()..color = color.withValues(alpha: (0.5 - i * 0.09).clamp(0.0, 0.5)));
+    // Scia puntinata sotto il polpastrello.
+    for (var i = 1; i <= 6; i++) {
+      final tx = x - i * w * 0.05;
+      if (tx < w * 0.08) continue;
+      canvas.drawCircle(Offset(tx, y + h * 0.08), 1.7,
+          Paint()..color = color.withValues(alpha: (0.5 - i * 0.08).clamp(0.0, 0.5)));
     }
 
-    // Dito stilizzato (polpastrello + falange), inclinato.
-    canvas.save();
-    canvas.translate(x, y);
-    canvas.rotate(-0.5);
-    final finger = Path()
-      ..moveTo(-w * 0.05, h * 0.16)
-      ..lineTo(-w * 0.05, -h * 0.04)
-      ..cubicTo(-w * 0.05, -h * 0.14, w * 0.07, -h * 0.14, w * 0.07, -h * 0.04)
-      ..lineTo(w * 0.07, h * 0.16);
-    canvas.drawPath(finger, line);
-    // Unghia.
-    canvas.drawArc(
-        Rect.fromCircle(center: Offset(w * 0.01, -h * 0.06), radius: w * 0.045),
-        math.pi, math.pi, false, line);
-    canvas.restore();
+    final fill = Paint()..color = color.withValues(alpha: 0.16);
+    final line = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.6
+      ..strokeJoin = StrokeJoin.round
+      ..strokeCap = StrokeCap.round
+      ..color = color;
 
-    // Freccia direzione.
-    final ax = w * 0.86;
-    canvas.drawLine(Offset(ax - w * 0.08, y - h * 0.22),
-        Offset(ax, y - h * 0.22), line);
-    canvas.drawLine(Offset(ax - w * 0.04, y - h * 0.25),
-        Offset(ax, y - h * 0.22), line);
-    canvas.drawLine(Offset(ax - w * 0.04, y - h * 0.19),
-        Offset(ax, y - h * 0.22), line);
+    // La sagoma della mano si compone unendo forme pulite, cosi' il contorno e'
+    // unico e netto: indice esteso, pugno, pollice.
+    final ff = h * 0.05; // mezzo spessore dell'indice
+    final fl = w * 0.34; // lunghezza dell'indice (dalla nocca alla punta)
+    final fistW = w * 0.24, fistH = h * 0.30;
+    final fistCx = x - fl - fistW * 0.30;
+    final fistCy = y + fistH * 0.16;
+
+    final index = Path()
+      ..addRRect(RRect.fromRectAndRadius(
+          Rect.fromLTRB(x - fl, y - ff, x + ff * 0.4, y + ff),
+          Radius.circular(ff)));
+    final fist = Path()
+      ..addRRect(RRect.fromRectAndRadius(
+          Rect.fromCenter(
+              center: Offset(fistCx, fistCy), width: fistW, height: fistH),
+          Radius.circular(h * 0.10)));
+    final thumb = Path()
+      ..addOval(Rect.fromCircle(
+          center: Offset(fistCx + fistW * 0.12, fistCy - fistH * 0.42),
+          radius: h * 0.055));
+
+    var hand = Path.combine(PathOperation.union, fist, index);
+    hand = Path.combine(PathOperation.union, hand, thumb);
+    canvas.drawPath(hand, fill);
+    canvas.drawPath(hand, line);
+
+    // Unghia sul polpastrello.
+    canvas.drawArc(
+        Rect.fromCircle(center: Offset(x - ff * 0.2, y), radius: ff * 0.5),
+        -math.pi / 2, math.pi, false,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.4
+          ..color = color.withValues(alpha: 0.6));
+    // Solchi delle dita chiuse sul davanti del pugno.
+    for (var k = 0; k < 3; k++) {
+      final gx = fistCx + fistW * 0.30;
+      final gy = fistCy - fistH * 0.22 + k * fistH * 0.24;
+      canvas.drawArc(
+          Rect.fromCircle(center: Offset(gx, gy), radius: h * 0.03),
+          -math.pi / 2, math.pi, false,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.4
+            ..strokeCap = StrokeCap.round
+            ..color = color.withValues(alpha: 0.45));
+    }
+
+    // Freccia di direzione sopra la mano.
+    final ax = w * 0.92;
+    final ay = y - h * 0.28;
+    canvas.drawLine(Offset(ax - w * 0.16, ay), Offset(ax, ay), line);
+    canvas.drawLine(Offset(ax - w * 0.05, ay - h * 0.035), Offset(ax, ay), line);
+    canvas.drawLine(Offset(ax - w * 0.05, ay + h * 0.035), Offset(ax, ay), line);
   }
 
   @override

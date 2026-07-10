@@ -79,7 +79,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
         children: [
           const SizedBox(height: SpacingTokens.sm),
           Text('IL TUO CIELO',
-              style: TypographyTokens.body(size: 12)
+              style: TypographyTokens.label(size: 13)
                   .copyWith(color: palette.goldSoft, letterSpacing: 3)),
           const SizedBox(height: SpacingTokens.md),
           // --- Colpo d'occhio: aure intrecciate + frase poetica ---
@@ -88,7 +88,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
           Text(
             NatalPoetics.glanceSummary(chart),
             textAlign: TextAlign.center,
-            style: TypographyTokens.display(size: 20).copyWith(height: 1.4),
+            style: TypographyTokens.display(size: 22).copyWith(height: 1.4),
           ),
           const SizedBox(height: SpacingTokens.sm),
           _AscendantNote(chart: chart),
@@ -133,7 +133,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
               ),
               onPressed: widget.onContinue,
               child: Text('Scopri chi risuona con te',
-                  style: TypographyTokens.body(size: 15, weight: 600)
+                  style: TypographyTokens.body(size: 17, weight: 600)
                       .copyWith(color: palette.deepest)),
             ),
           ),
@@ -239,7 +239,7 @@ class _LegendHeader extends StatelessWidget {
         Container(width: 20, height: 1, color: palette.gold.withValues(alpha: 0.6)),
         const SizedBox(width: SpacingTokens.xs),
         Text('LA LEGENDA VIVA',
-            style: TypographyTokens.body(size: 11).copyWith(
+            style: TypographyTokens.label(size: 13).copyWith(
                 color: palette.goldSoft, letterSpacing: 2)),
         const SizedBox(width: SpacingTokens.xs),
         Container(width: 20, height: 1, color: palette.gold.withValues(alpha: 0.6)),

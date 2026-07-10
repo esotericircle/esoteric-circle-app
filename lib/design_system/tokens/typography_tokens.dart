@@ -23,9 +23,9 @@ class TypographyTokens {
   /// qualunque valore passi il chiamante. Cosi' anche le etichette cerimoniali
   /// restano nitide su schermo e in anteprima. I font restano scalabili: il
   /// `textScaler` di sistema si applica sopra queste basi.
-  static const double minDisplay = 18;
-  static const double minBody = 15;
-  static const double minLabel = 12;
+  static const double minDisplay = 20;
+  static const double minBody = 16;
+  static const double minLabel = 12.5;
 
   static List<FontVariation> _wght(double weight) =>
       [FontVariation('wght', weight)];

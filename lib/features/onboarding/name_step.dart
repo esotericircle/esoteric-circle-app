@@ -53,12 +53,12 @@ class _NameStepState extends State<NameStep> {
               const SizedBox(height: SpacingTokens.md),
               Text('IL CERCHIO TI ACCOGLIE',
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.body(size: 12)
+                  style: TypographyTokens.label(size: 13)
                       .copyWith(color: palette.goldSoft, letterSpacing: 3)),
               const SizedBox(height: SpacingTokens.lg),
               Text('Come vuoi che ti chiami il cerchio?',
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.display(size: 24)),
+                  style: TypographyTokens.display(size: 26)),
               const SizedBox(height: SpacingTokens.lg),
               StardustName(name: identity.name),
               const SizedBox(height: SpacingTokens.md),
@@ -66,7 +66,7 @@ class _NameStepState extends State<NameStep> {
               const Spacer(),
               Text('Come preferisci che ci si rivolga a te?',
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.body(size: 15)
+                  style: TypographyTokens.body(size: 16)
                       .copyWith(color: ColorTokens.textSecondary)),
               const SizedBox(height: SpacingTokens.md),
               Wrap(
@@ -98,7 +98,7 @@ class _NameStepState extends State<NameStep> {
                 ),
                 onPressed: identity.hasName ? widget.onContinue : null,
                 child: Text('Accendi il tuo cielo',
-                    style: TypographyTokens.body(size: 15, weight: 600)
+                    style: TypographyTokens.body(size: 17, weight: 600)
                         .copyWith(color: palette.deepest)),
               ),
               const SizedBox(height: SpacingTokens.sm),
@@ -173,7 +173,7 @@ class _FormChip extends StatelessWidget {
           ),
         ),
         child: Text(form.label,
-            style: TypographyTokens.body(size: 14).copyWith(
+            style: TypographyTokens.body(size: 16).copyWith(
               color:
                   selected ? palette.goldSoft : ColorTokens.textSecondary,
             )),
