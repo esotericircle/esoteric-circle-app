@@ -20,6 +20,7 @@ class AppServices {
     required this.ai,
     required this.memory,
     required this.memoryPersistent,
+    this.appCheckDebugToken,
     this.diagnostics,
   });
 
@@ -29,6 +30,10 @@ class AppServices {
   /// Vero se la memoria e' davvero persistente (Firestore), falso se solo in
   /// RAM per la sessione.
   final bool memoryPersistent;
+
+  /// Token di debug di App Check da mostrare a schermo, quando in debug. Null in
+  /// release o quando non pertinente. Serve solo per l'enforcement.
+  final String? appCheckDebugToken;
 
   /// Nota diagnostica per i log, mai mostrata cruda all'utente.
   final String? diagnostics;
@@ -58,23 +63,27 @@ class AppServices {
     }
 
     // Passo 2: App Check. Protegge l'AI Logic. In debug si usa il provider di
-    // debug (registra il token in console per far passare le richieste), in
-    // release Play Integrity su Android e App Attest su Apple. Best effort.
+    // debug con un token che generiamo noi e mostriamo a schermo (da registrare
+    // in console per l'enforcement); in release Play Integrity su Android e App
+    // Attest su Apple. Best effort.
+    String? debugToken;
     try {
-      await FirebaseAppCheck.instance.activate(
-        androidProvider:
-            kReleaseMode ? AndroidProvider.playIntegrity : AndroidProvider.debug,
-        appleProvider:
-            kReleaseMode ? AppleProvider.appAttest : AppleProvider.debug,
-      );
+      if (kReleaseMode) {
+        await FirebaseAppCheck.instance.activate(
+          providerAndroid: const AndroidPlayIntegrityProvider(),
+          providerApple: const AppleAppAttestProvider(),
+        );
+      } else {
+        debugToken = await AppCheckDebugToken.getOrCreate();
+        await FirebaseAppCheck.instance.activate(
+          providerAndroid: AndroidDebugProvider(debugToken: debugToken),
+          providerApple: AppleDebugProvider(debugToken: debugToken),
+        );
+      }
     } catch (_) {
       // Se App Check non si attiva l'AI puo' ancora funzionare finche' non si
       // impone l'enforcement lato server. Si prosegue.
     }
-
-    // Genera subito il token di debug di App Check, cosi' e' gia' leggibile a
-    // schermo quando servira' per l'enforcement. Best effort.
-    await AppCheckDebug.prime();
 
     // Il provider AI e' pronto: parla con Gemini su Vertex via Firebase AI.
     final MaestroAiProvider ai = FirebaseMaestroAiProvider();
@@ -103,6 +112,7 @@ class AppServices {
       ai: ai,
       memory: memory,
       memoryPersistent: persistent,
+      appCheckDebugToken: debugToken,
       diagnostics: note,
     );
   }

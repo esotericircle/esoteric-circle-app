@@ -63,14 +63,13 @@ Il file di configurazione non va su Git: lo diamo alla build come secret.
 1. In console Firebase apri App Check e registra l'app Android.
 2. Lascia l'enforcement disattivato per l'API AI Logic. Cosi' la prima prova
    risponde senza bisogno di alcun token.
-3. L'app usa il provider di debug di App Check, quindi i token vengono comunque
-   generati.
+3. L'app usa il provider di debug di App Check con un token che genera lei
+   stessa e mantiene stabile fra un avvio e l'altro.
 
 Quando vorrai attivare l'enforcement, non servira' il PC: dentro la chat, in
-alto a destra, il tasto Messa a punto mostra a schermo il token di debug di App
-Check, con un tasto per copiarlo. Lo incolli poi in console, nella lista dei
-token di debug dell'app. Se all'inizio dice non disponibile, invia un messaggio
-e riapri: il token compare dopo la prima chiamata.
+alto a destra, il tasto Messa a punto mostra a schermo quel token, con un tasto
+per copiarlo. Lo incolli in console, nella lista dei token di debug dell'app.
+Essendo stabile, una volta registrato continua a valere anche ai riavvii.
 
 ## Passo 5: costruisci l'APK da GitHub e installalo
 
@@ -109,18 +108,16 @@ Messa a punto la voce Memoria diventa persistente.
 ## Lo screenshot automatico della chat, con un solo tocco
 
 Ho aggiunto un secondo workflow, Chat screenshot (Medora), che parte da solo a
-ogni push sul branch, gira su un emulatore, apre la chat e cattura la schermata.
-Usa un Medora offline con risposte gia' pronte, quindi non serve nessun secret
-ne' rete: valida solo la UI.
-
-Lo screenshot viene committato nel repo a un percorso fisso, sempre lo stesso,
+ogni push sul branch. Genera uno screenshot reale della chat con un widget test
+headless (font veri, Medora offline con risposte gia' pronte, nessuna rete,
+nessun emulatore) e lo committa nel repo a un percorso fisso, sempre lo stesso,
 cosi' lo apri direttamente dal telefono senza scaricare nulla ne' entrare in
 Actions:
 
 `docs/preview/medora-chat.png`
 
-Si sovrascrive a ogni push. La prova della risposta vera di Vertex resta l'APK
-sul telefono.
+Si sovrascrive a ogni push. Valida la UI, la prova della risposta vera di Vertex
+resta l'APK sul telefono.
 
 ## Se qualcosa non risponde
 

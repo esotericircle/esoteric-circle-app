@@ -108,6 +108,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           context,
           aiReady: controller.aiReady,
           memoryPersistent: services.memoryPersistent,
+          appCheckDebugToken: services.appCheckDebugToken,
         ),
       ),
       body: CosmosBackground(

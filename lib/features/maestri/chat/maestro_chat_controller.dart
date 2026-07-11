@@ -126,7 +126,7 @@ class MaestroChatController extends ChangeNotifier {
     required String userText,
   }) async {
     _sending = true;
-    final pending = ChatMessage(role: ChatRole.maestro, text: '', pending: true);
+    const pending = ChatMessage(role: ChatRole.maestro, text: '', pending: true);
     _messages.add(pending);
     notifyListeners();
 

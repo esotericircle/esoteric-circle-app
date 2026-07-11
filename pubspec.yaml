@@ -44,12 +44,12 @@ dependencies:
   # astrazione del repository di memoria.
   cloud_firestore: ^6.6.0
 
+  # Preferenze locali del dispositivo: qui tiene stabile il token di debug di
+  # App Check, cosi' resta lo stesso fra un avvio e l'altro.
+  shared_preferences: ^2.5.5
+
 dev_dependencies:
   flutter_test:
-    sdk: flutter
-
-  # Test di integrazione e cattura dello screenshot della chat in CI.
-  integration_test:
     sdk: flutter
 
   # Linter ufficiale Flutter.

@@ -5,7 +5,6 @@ import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
-import '../../../../services/firebase/app_check_debug.dart';
 
 /// Pannello diagnostico della chat, discreto e a portata di tocco.
 ///
@@ -17,6 +16,7 @@ Future<void> showChatDiagnostics(
   BuildContext context, {
   required bool aiReady,
   required bool memoryPersistent,
+  String? appCheckDebugToken,
 }) {
   return showModalBottomSheet<void>(
     context: context,
@@ -25,6 +25,7 @@ Future<void> showChatDiagnostics(
     builder: (_) => _DiagnosticsSheet(
       aiReady: aiReady,
       memoryPersistent: memoryPersistent,
+      appCheckDebugToken: appCheckDebugToken,
     ),
   );
 }
@@ -33,10 +34,12 @@ class _DiagnosticsSheet extends StatelessWidget {
   const _DiagnosticsSheet({
     required this.aiReady,
     required this.memoryPersistent,
+    required this.appCheckDebugToken,
   });
 
   final bool aiReady;
   final bool memoryPersistent;
+  final String? appCheckDebugToken;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +92,7 @@ class _DiagnosticsSheet extends StatelessWidget {
                 .copyWith(color: ColorTokens.textSecondary),
           ),
           const SizedBox(height: SpacingTokens.sm),
-          const _DebugTokenBox(),
+          _DebugTokenBox(token: appCheckDebugToken),
         ],
       ),
     );
@@ -136,56 +139,48 @@ class _StatusRow extends StatelessWidget {
 }
 
 class _DebugTokenBox extends StatelessWidget {
-  const _DebugTokenBox();
+  const _DebugTokenBox({required this.token});
+
+  final String? token;
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    return FutureBuilder<String?>(
-      future: AppCheckDebug.androidDebugToken(),
-      builder: (context, snapshot) {
-        final waiting = snapshot.connectionState == ConnectionState.waiting;
-        final token = snapshot.data;
-        return Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(SpacingTokens.md),
-          decoration: BoxDecoration(
-            color: palette.surface.withValues(alpha: 0.6),
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  waiting
-                      ? 'Lettura in corso...'
-                      : (token ??
-                          'Non disponibile. Compare dopo il primo messaggio, con Firebase configurato.'),
-                  style: TypographyTokens.body(size: 14).copyWith(
-                    color: token != null
-                        ? ColorTokens.textPrimary
-                        : ColorTokens.textMuted,
-                  ),
-                ),
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      decoration: BoxDecoration(
+        color: palette.surface.withValues(alpha: 0.6),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              token ??
+                  'Non disponibile in questa build. Compare quando la chat gira su Firebase in debug.',
+              style: TypographyTokens.body(size: 14).copyWith(
+                color: token != null
+                    ? ColorTokens.textPrimary
+                    : ColorTokens.textMuted,
               ),
-              if (token != null) ...[
-                const SizedBox(width: SpacingTokens.sm),
-                GestureDetector(
-                  onTap: () {
-                    Clipboard.setData(ClipboardData(text: token));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Token copiato')),
-                    );
-                  },
-                  child: Icon(Icons.copy_rounded,
-                      color: palette.goldSoft, size: 20),
-                ),
-              ],
-            ],
+            ),
           ),
-        );
-      },
+          if (token != null) ...[
+            const SizedBox(width: SpacingTokens.sm),
+            GestureDetector(
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: token!));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Token copiato')),
+                );
+              },
+              child: Icon(Icons.copy_rounded, color: palette.goldSoft, size: 20),
+            ),
+          ],
+        ],
+      ),
     );
   }
 }
