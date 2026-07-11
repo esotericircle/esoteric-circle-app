@@ -59,6 +59,15 @@ enum Maestro {
   /// Avatar reale in brand_assets.
   final String avatarAsset;
 
+  /// Ordine fisso da sinistra a destra dove i tre Maestri stanno in fila:
+  /// Medora, Caligo, Aura. Vale per la bottom bar e per il selettore in Home.
+  /// Nel Santuario non si usa, perche' li' i busti ruotano col selezionato al
+  /// centro. Resta distinto dall'ordine di dichiarazione dell'enum, cosi' la
+  /// rotazione del Santuario e ogni altra logica possono contare su quello.
+  ///
+  /// Riferimento: Consolidamento decisioni sezione 9.
+  static const List<Maestro> fixedOrder = [medora, caligo, aura];
+
   static Maestro? fromId(String? id) {
     for (final m in Maestro.values) {
       if (m.id == id) return m;

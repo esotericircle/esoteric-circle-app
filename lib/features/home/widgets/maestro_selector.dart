@@ -21,7 +21,7 @@ class MaestroSelector extends StatelessWidget {
     final nav = context.watch<NavigationController>();
     return Row(
       children: [
-        for (final maestro in Maestro.values) ...[
+        for (final maestro in Maestro.fixedOrder) ...[
           Expanded(
             child: _MaestroChip(
               maestro: maestro,
@@ -30,7 +30,7 @@ class MaestroSelector extends StatelessWidget {
                   nav.goTo(AppDestination.forMaestro(maestro)),
             ),
           ),
-          if (maestro != Maestro.values.last)
+          if (maestro != Maestro.fixedOrder.last)
             const SizedBox(width: SpacingTokens.sm),
         ],
       ],

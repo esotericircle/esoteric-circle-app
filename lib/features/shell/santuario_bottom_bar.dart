@@ -53,7 +53,7 @@ class SantuarioBottomBar extends StatelessWidget {
                 selected: current == AppDestination.santuario,
                 onTap: () => onSelected(AppDestination.santuario),
               ),
-              for (final maestro in Maestro.values)
+              for (final maestro in Maestro.fixedOrder)
                 _BarItem(
                   label: maestro.displayName,
                   iconData: maestro.icon,
