@@ -24,6 +24,26 @@ dependencies:
   # scorrimento e da un moto lento, senza mai bloccare l'esperienza.
   sensors_plus: ^6.1.1
 
+  # --- Firebase, lo strato che fa girare l'app (C3 passo 1) ---
+  # Claude costruisce, Gemini fa girare: l'AI a runtime passa da qui, mai dalle
+  # API Anthropic. Nessuna chiave nel client, nessun segreto su Git.
+  firebase_core: ^4.11.0
+
+  # Firebase AI Logic: chat dei Maestri su Gemini via backend Vertex, protetta
+  # da App Check. E' la sola via all'LLM a runtime.
+  firebase_ai: ^3.13.1
+
+  # App Check: protegge le chiamate all'AI Logic dagli abusi.
+  firebase_app_check: ^0.4.5
+
+  # Auth anonima: un uid stabile su cui appendere la memoria dell'utente.
+  firebase_auth: ^6.5.4
+
+  # Firestore: memoria persistente per la Demo (profilo, fatti, sintesi di
+  # sessione). L'evoluzione verso Cloud SQL con pgvector resta dietro la stessa
+  # astrazione del repository di memoria.
+  cloud_firestore: ^6.6.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

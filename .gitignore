@@ -134,3 +134,12 @@ app.*.symbols
 *.jks
 *.keystore
 **/service-account*.json
+
+# Configurazione Firebase per piattaforma: non versionata. Contiene gli
+# identificativi di progetto, si inietta in build da un secret (vedi
+# .github/workflows e docs/C3_CHAT_MEDORA_SETUP.md). Va rigenerata in locale
+# con `flutterfire configure` o scaricata dalla console Firebase.
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+macos/Runner/GoogleService-Info.plist
+lib/firebase_options.dart

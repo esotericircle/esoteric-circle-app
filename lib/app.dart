@@ -11,18 +11,26 @@ import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
 import 'features/shell/app_shell.dart';
 import 'features/shell/navigation_controller.dart';
+import 'services/app_services.dart';
 
 /// Radice dell'app: registra i servizi condivisi e monta lo shell.
 ///
-/// Ordine dei provider: prima i servizi di base (Maestro attivo, entitlement,
-/// qualita'), poi quelli che dipendono da essi (navigazione, feature flag).
+/// Ordine dei provider: prima i servizi a runtime (AI e memoria) e quelli di
+/// base (Maestro attivo, entitlement, qualita'), poi quelli che dipendono da
+/// essi (navigazione, feature flag).
 class EsotericCircleApp extends StatelessWidget {
-  const EsotericCircleApp({super.key});
+  const EsotericCircleApp({super.key, this.services});
+
+  /// Servizi a runtime montati all'avvio. Se assenti (test, anteprima) si usa
+  /// una configurazione offline che non tocca la rete.
+  final AppServices? services;
 
   @override
   Widget build(BuildContext context) {
+    final runtime = services ?? AppServices.offline();
     return MultiProvider(
       providers: [
+        Provider<AppServices>.value(value: runtime),
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),

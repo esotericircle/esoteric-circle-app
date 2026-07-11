@@ -1,0 +1,19 @@
+rules_version = '2';
+
+// Regole di sicurezza per la memoria dei Maestri.
+//
+// Principio: ogni utente vede e scrive solo il proprio ramo. La memoria vive
+// sotto users/{uid}, quindi basta legare l'accesso all'uid autenticato, anche
+// quando l'autenticazione e' anonima. Nessun accesso senza login.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+
+      // Sottocollezioni: memoria per Maestro e messaggi.
+      match /{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+}
