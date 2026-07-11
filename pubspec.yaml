@@ -48,6 +48,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # Test di integrazione e cattura dello screenshot della chat in CI.
+  integration_test:
+    sdk: flutter
+
   # Linter ufficiale Flutter.
   flutter_lints: ^4.0.0
 

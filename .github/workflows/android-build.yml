@@ -42,8 +42,16 @@ jobs:
             echo "Manca il secret GOOGLE_SERVICES_JSON. Vedi docs/C3_CHAT_MEDORA_SETUP.md." >&2
             exit 1
           fi
-          echo "$GOOGLE_SERVICES_JSON" | base64 --decode > android/app/google-services.json
-          echo "google-services.json scritto."
+          # Tollerante: prova a decodificare da base64, altrimenti usa il testo
+          # cosi' com'e' (JSON grezzo). Cosi' va bene sia se incolli il base64
+          # sia se incolli direttamente il contenuto del file.
+          if echo "$GOOGLE_SERVICES_JSON" | base64 --decode > android/app/google-services.json 2>/dev/null \
+             && head -c1 android/app/google-services.json | grep -q '{'; then
+            echo "google-services.json scritto da base64."
+          else
+            printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
+            echo "google-services.json scritto da JSON grezzo."
+          fi
 
       - name: Dipendenze
         run: flutter pub get

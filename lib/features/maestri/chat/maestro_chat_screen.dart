@@ -13,6 +13,7 @@ import 'maestro_chat_controller.dart';
 import 'widgets/chat_bubble.dart';
 import 'widgets/chat_composer.dart';
 import 'widgets/chat_empty_state.dart';
+import 'widgets/diagnostics_dialog.dart';
 import 'widgets/maestro_disclaimer.dart';
 
 /// La conversazione testuale con un Maestro.
@@ -85,6 +86,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<MaestroChatController>();
+    final services = context.read<AppServices>();
     final palette = context.palette;
 
     // Mostra il disclaimer una sola volta, appena la memoria e' caricata.
@@ -100,7 +102,14 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       extendBody: true,
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
-      appBar: _ChatAppBar(maestro: widget.maestro),
+      appBar: _ChatAppBar(
+        maestro: widget.maestro,
+        onDiagnostics: () => showChatDiagnostics(
+          context,
+          aiReady: controller.aiReady,
+          memoryPersistent: services.memoryPersistent,
+        ),
+      ),
       body: CosmosBackground(
         child: SafeArea(
           child: Column(
@@ -179,9 +188,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
 
 /// Barra superiore cerimoniale con il nome del Maestro e il suo dominio.
 class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _ChatAppBar({required this.maestro});
+  const _ChatAppBar({required this.maestro, required this.onDiagnostics});
 
   final Maestro maestro;
+  final VoidCallback onDiagnostics;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -205,6 +215,13 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
+      actions: [
+        IconButton(
+          onPressed: onDiagnostics,
+          icon: const Icon(Icons.tune_rounded),
+          tooltip: 'Messa a punto',
+        ),
+      ],
     );
   }
 }

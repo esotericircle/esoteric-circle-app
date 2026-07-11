@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 
 import 'ai/firebase_maestro_ai_provider.dart';
 import 'ai/maestro_ai_provider.dart';
+import 'firebase/app_check_debug.dart';
 import 'memory/firestore_maestro_memory_repository.dart';
 import 'memory/in_memory_maestro_memory_repository.dart';
 import 'memory/maestro_memory_repository.dart';
@@ -70,6 +71,10 @@ class AppServices {
       // Se App Check non si attiva l'AI puo' ancora funzionare finche' non si
       // impone l'enforcement lato server. Si prosegue.
     }
+
+    // Genera subito il token di debug di App Check, cosi' e' gia' leggibile a
+    // schermo quando servira' per l'enforcement. Best effort.
+    await AppCheckDebug.prime();
 
     // Il provider AI e' pronto: parla con Gemini su Vertex via Firebase AI.
     final MaestroAiProvider ai = FirebaseMaestroAiProvider();
