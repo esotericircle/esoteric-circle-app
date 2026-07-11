@@ -1,10 +1,14 @@
-# Screenshot della chat di Medora, per validare la UI a ogni push.
+# Screenshot della chat di Medora, visibile con un solo tocco.
 #
-# Gira un test di integrazione su un emulatore Android e cattura la schermata
-# della chat. Usa un provider AI offline (nessuna rete, nessuna chiave), quindi
-# non serve il secret Firebase: la configurazione qui e' un google-services.json
-# segnaposto, generato al volo solo per far compilare l'app. La prova della
-# risposta reale di Vertex resta l'APK sul telefono.
+# Gira un test di integrazione su un emulatore Android, cattura la schermata
+# della chat e la committa nel repo a un percorso fisso, docs/preview/
+# medora-chat.png, sovrascrivendola ogni volta. Cosi' Mauro la apre direttamente
+# su GitHub dal telefono, senza scaricare zip ne' navigare in Actions.
+#
+# Usa un provider AI offline (nessuna rete, nessuna chiave), quindi non serve il
+# secret Firebase: la configurazione qui e' un google-services.json segnaposto,
+# generato al volo solo per far compilare l'app. La prova della risposta reale
+# di Vertex resta l'APK sul telefono.
 name: Chat screenshot (Medora)
 
 on:
@@ -12,6 +16,14 @@ on:
   push:
     branches:
       - claude/esoteric-circle-master-order-e798aj
+    # Il commit dello screenshot tocca solo docs/preview: lo ignoriamo qui, cosi'
+    # non si riavvia il workflow. Doppia sicurezza con [skip ci] nel messaggio.
+    paths-ignore:
+      - "docs/preview/**"
+
+# Serve per committare lo screenshot con il GITHUB_TOKEN del workflow.
+permissions:
+  contents: write
 
 jobs:
   screenshot:
@@ -80,7 +92,26 @@ jobs:
           disable-animations: true
           script: flutter drive --driver=test_driver/integration_test.dart --target=integration_test/chat_screenshot_test.dart
 
-      - name: Pubblica lo screenshot come artifact
+      - name: Committa lo screenshot a percorso fisso
+        if: success()
+        run: |
+          if [ ! -f screenshots/medora-chat.png ]; then
+            echo "Nessuno screenshot generato, niente da committare."
+            exit 0
+          fi
+          mkdir -p docs/preview
+          cp screenshots/medora-chat.png docs/preview/medora-chat.png
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/preview/medora-chat.png
+          if git diff --cached --quiet; then
+            echo "Screenshot invariato, nessun commit."
+            exit 0
+          fi
+          git commit -m "docs: aggiorna anteprima chat Medora [skip ci]"
+          git push origin HEAD:claude/esoteric-circle-master-order-e798aj
+
+      - name: Pubblica lo screenshot anche come artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:

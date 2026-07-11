@@ -106,14 +106,21 @@ apertura, non fra un avvio e l'altro). Quando vorrai attivarla:
 Da quel momento la chat ricorda anche fra un avvio e l'altro, e nel pannello
 Messa a punto la voce Memoria diventa persistente.
 
-## Lo screenshot automatico della chat
+## Lo screenshot automatico della chat, con un solo tocco
 
-Ho aggiunto un secondo workflow, Chat screenshot (Medora), che gira su un
-emulatore, apre la chat e cattura la schermata. Usa un Medora offline con
-risposte gia' pronte, quindi non serve nessun secret ne' rete: valida solo la
-UI. Lo trovi in Actions, e lo screenshot esce come artifact
-`medora-chat-screenshot`. La prova della risposta vera di Vertex resta l'APK sul
-telefono.
+Ho aggiunto un secondo workflow, Chat screenshot (Medora), che parte da solo a
+ogni push sul branch, gira su un emulatore, apre la chat e cattura la schermata.
+Usa un Medora offline con risposte gia' pronte, quindi non serve nessun secret
+ne' rete: valida solo la UI.
+
+Lo screenshot viene committato nel repo a un percorso fisso, sempre lo stesso,
+cosi' lo apri direttamente dal telefono senza scaricare nulla ne' entrare in
+Actions:
+
+`docs/preview/medora-chat.png`
+
+Si sovrascrive a ogni push. La prova della risposta vera di Vertex resta l'APK
+sul telefono.
 
 ## Se qualcosa non risponde
 
