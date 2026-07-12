@@ -75,6 +75,15 @@ void main() {
     );
   });
 
+  testWidgets('L\'header della chat non mostra il pulsante Messa a punto',
+      (tester) async {
+    silenceSensors();
+    await openMedoraChat(tester);
+    // Il simbolo a cursori non deve comparire nell'header: nessuno strumento da
+    // sviluppatore nella build normale o da Demo.
+    expect(find.byIcon(Icons.tune_rounded), findsNothing);
+  });
+
   testWidgets('Il Santuario mantiene invece il cosmo completo con le '
       'costellazioni', (tester) async {
     silenceSensors();

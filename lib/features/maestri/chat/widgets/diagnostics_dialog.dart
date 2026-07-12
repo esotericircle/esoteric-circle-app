@@ -22,10 +22,15 @@ Future<void> showChatDiagnostics(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (_) => _DiagnosticsSheet(
-      aiReady: aiReady,
-      memoryPersistent: memoryPersistent,
-      appCheckDebugToken: appCheckDebugToken,
+    // Riavvolto in MaestroScope: il foglio vive nell'overlay del navigator,
+    // fuori dallo scope della schermata, e senza questo non troverebbe la
+    // palette del Maestro attivo.
+    builder: (_) => MaestroScope(
+      child: _DiagnosticsSheet(
+        aiReady: aiReady,
+        memoryPersistent: memoryPersistent,
+        appCheckDebugToken: appCheckDebugToken,
+      ),
     ),
   );
 }
@@ -87,7 +92,7 @@ class _DiagnosticsSheet extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xs),
           Text(
             'Serve solo per attivare l\'enforcement di App Check. Per la prima '
-            'prova non e\' necessario.',
+            'prova non è necessario.',
             style: TypographyTokens.body(size: 13)
                 .copyWith(color: ColorTokens.textSecondary),
           ),

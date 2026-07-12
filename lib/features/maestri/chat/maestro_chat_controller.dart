@@ -150,7 +150,7 @@ class MaestroChatController extends ChangeNotifier {
     } on MaestroAiUnavailable {
       _replaceLast(pending.copyWith(
         text:
-            'Il cerchio non e\' ancora acceso. Serve la configurazione AI per farmi parlare.',
+            'Il cerchio non è ancora acceso. Serve la configurazione AI per farmi parlare.',
         pending: false,
         failed: true,
       ));

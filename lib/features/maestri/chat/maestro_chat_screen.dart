@@ -13,6 +13,7 @@ import 'maestro_chat_controller.dart';
 import 'widgets/chat_bubble.dart';
 import 'widgets/chat_composer.dart';
 import 'widgets/chat_empty_state.dart';
+import 'widgets/chat_suggestions.dart';
 import 'widgets/diagnostics_dialog.dart';
 import 'widgets/maestro_disclaimer.dart';
 
@@ -122,6 +123,11 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               Expanded(child: _buildBody(controller)),
               if (!controller.aiReady) _ConfigNotice(palette: palette),
               _RetryStrip(controller: controller),
+              if (!controller.loading)
+                ChatSuggestions(
+                  enabled: controller.aiReady && !controller.sending,
+                  onSend: controller.send,
+                ),
               ChatComposer(
                 enabled: controller.aiReady && !controller.sending,
                 hintText: 'Scrivi a ${widget.maestro.displayName}',
@@ -142,8 +148,6 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       return ChatEmptyState(
         maestro: widget.maestro,
         greeting: _greetingFor(widget.maestro),
-        suggestions: _suggestionsFor(widget.maestro),
-        onSuggestion: controller.aiReady ? controller.send : (_) {},
       );
     }
     return ListView.builder(
@@ -170,23 +174,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       case Maestro.aura:
         return 'Sono Aura. Respira con me. Cosa senti il bisogno di sciogliere?';
       case Maestro.caligo:
-        return 'Sono Caligo. Le rune tacciono, finche\' non le interroghi. '
+        return 'Sono Caligo. Le rune tacciono, finché non le interroghi. '
             'Cosa cerchi?';
-    }
-  }
-
-  List<String> _suggestionsFor(Maestro maestro) {
-    switch (maestro) {
-      case Maestro.medora:
-        return const [
-          'Parlami del mio segno',
-          'Come sara\' la mia giornata?',
-          'Tira una carta per me',
-        ];
-      case Maestro.aura:
-        return const ['Aiutami a rilassarmi', 'Parlami dei chakra'];
-      case Maestro.caligo:
-        return const ['Estrai una runa', 'Parlami di un simbolo'];
     }
   }
 }
@@ -209,24 +198,26 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       iconTheme: IconThemeData(color: palette.goldSoft),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(maestro.displayName, style: TypographyTokens.display(size: 20)),
-          Text(
-            maestro.domainTitle,
-            style: TypographyTokens.body(size: 12)
-                .copyWith(color: palette.goldSoft),
-          ),
-        ],
-      ),
-      actions: [
-        IconButton(
-          onPressed: onDiagnostics,
-          icon: const Icon(Icons.tune_rounded),
-          tooltip: 'Messa a punto',
+      // Nessun simbolo da sviluppatore nell'header. La messa a punto (token di
+      // debug di App Check) resta raggiungibile con un gesto nascosto: una
+      // pressione prolungata sul nome del Maestro. Cosi' l'header e' pulito
+      // nella build normale e da Demo.
+      title: GestureDetector(
+        onLongPress: onDiagnostics,
+        behavior: HitTestBehavior.opaque,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(maestro.displayName,
+                style: TypographyTokens.display(size: 20)),
+            Text(
+              maestro.domainTitle,
+              style: TypographyTokens.body(size: 12)
+                  .copyWith(color: palette.goldSoft),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
@@ -257,8 +248,8 @@ class _ConfigNotice extends StatelessWidget {
           const SizedBox(width: SpacingTokens.sm),
           Expanded(
             child: Text(
-              'Il cerchio non e\' ancora acceso. La voce di Medora si attiva '
-              'quando la configurazione AI e\' completa.',
+              'Il cerchio non è ancora acceso. La voce di Medora si attiva '
+              'quando la configurazione AI è completa.',
               style: TypographyTokens.body(size: 14)
                   .copyWith(color: ColorTokens.textSecondary),
             ),

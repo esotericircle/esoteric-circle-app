@@ -21,7 +21,11 @@ Future<void> showMaestroDisclaimer(
     isDismissible: false,
     enableDrag: false,
     backgroundColor: Colors.transparent,
-    builder: (sheetContext) => _DisclaimerSheet(onAccepted: onAccepted),
+    // Il foglio modale vive nell'overlay del navigator, fuori dal MaestroScope
+    // della schermata: lo riavvolgiamo, cosi' la palette del Maestro attivo e'
+    // di nuovo disponibile.
+    builder: (sheetContext) =>
+        MaestroScope(child: _DisclaimerSheet(onAccepted: onAccepted)),
   );
 }
 
@@ -69,7 +73,7 @@ class _DisclaimerSheet extends StatelessWidget {
             'I Maestri attingono a tradizioni esoteriche reali, astrologia, '
             'tarocchi, numerologia e simboli. Ti accompagnano come cammino di '
             'riflessione e consapevolezza, per il tuo benessere, non come cura '
-            'medica ne\' come previsione certa del futuro. Le scelte importanti '
+            'medica né come previsione certa del futuro. Le scelte importanti '
             'restano sempre tue.',
             style: TypographyTokens.body(size: 17)
                 .copyWith(color: ColorTokens.textSecondary, height: 1.5),

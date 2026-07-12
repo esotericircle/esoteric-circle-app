@@ -109,15 +109,15 @@ void main() {
     await add(ChatRole.user, 'Parlami del mio segno');
     await add(
       ChatRole.maestro,
-      'Il tuo segno racconta una tensione fra il cuore e la volonta\'. Oggi le '
+      'Il tuo segno racconta una tensione fra il cuore e la volontà. Oggi le '
       'stelle ti invitano a scegliere con calma, senza fretta. Vuoi che guardi '
       'un ambito, l\'amore o il lavoro?',
     );
     await add(ChatRole.user, 'L\'amore, ti ascolto');
     await add(
       ChatRole.maestro,
-      'Venere ti sfiora con dolcezza. Un legame chiede verita\', non '
-      'perfezione. Prova a dire una cosa sincera a chi ami, oggi, e osserva '
+      'Venere ti sfiora con dolcezza. Un legame chiede verità, non '
+      'perfezione. Prova a dire una cosa sincera a chi ami oggi, poi osserva '
       'come cambia la luce fra voi.',
     );
 
@@ -176,7 +176,7 @@ class _ScriptedMedora implements MaestroAiProvider {
     required List<ChatMessage> history,
     required String userMessage,
   }) async {
-    return 'Le stelle ti ascoltano. Dimmi ancora, e cerchiamo insieme il filo.';
+    return 'Le stelle ti ascoltano. Dimmi ancora, cerchiamo insieme il filo.';
   }
 
   @override
