@@ -57,13 +57,23 @@ class _MoonPainter extends CustomPainter {
       ).createShader(Rect.fromCircle(center: center, radius: size.width / 2));
     canvas.drawCircle(center, size.width / 2, glowPaint);
 
-    // Disco in ombra, sempre presente.
-    final shadowPaint = Paint()..color = const Color(0xFF141726);
+    // Il disco in ombra e' appena percepibile, un velo tenue di luce lunare,
+    // non un buco nero: cosi' la Luna resta una Luna, mai un'eclissi. La parte
+    // non illuminata si intuisce soltanto.
+    final shadowPaint = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          glow.withValues(alpha: 0.16),
+          glow.withValues(alpha: 0.09),
+        ],
+      ).createShader(Rect.fromCircle(center: center, radius: r));
     canvas.drawCircle(center, r, shadowPaint);
 
+    // Il falcato illuminato e' luminoso e pieno.
     final litPaint = Paint()
       ..shader = RadialGradient(
-        colors: [glow, glow.withValues(alpha: 0.82)],
+        colors: [Colors.white, glow],
+        stops: const [0.0, 1.0],
       ).createShader(Rect.fromCircle(center: center, radius: r));
 
     final p = phase;

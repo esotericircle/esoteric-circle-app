@@ -94,8 +94,8 @@ void main() {
     });
   }
 
-  testWidgets('Il Santuario mantiene invece il cosmo completo con le '
-      'costellazioni', (tester) async {
+  testWidgets('Nemmeno il Santuario disegna le costellazioni zodiacali',
+      (tester) async {
     silenceSensors();
     await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
     await step(tester);
@@ -106,6 +106,11 @@ void main() {
         matching: find.byType(CosmosBackground),
       ),
     );
-    expect(homeCosmos.showZodiac, isTrue);
+    expect(
+      homeCosmos.showZodiac,
+      isFalse,
+      reason: 'Il Santuario e il Passport non mostrano figure zodiacali: il '
+          'segno solare in oro resta solo nel cielo di nascita.',
+    );
   });
 }

@@ -33,7 +33,12 @@ class AppShell extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
+      // Il Santuario e il Passport non mostrano le figure zodiacali: niente
+      // asterismi, niente riquadro a portale nell'angolo. Il segno solare in
+      // oro resta al cielo di nascita, non qui. Restano stelle, nebulose e
+      // atmosfera.
       body: CosmosBackground(
+        showZodiac: false,
         child: TapWaveLayer(
           child: NotificationListener<ScrollNotification>(
             onNotification: (notification) {

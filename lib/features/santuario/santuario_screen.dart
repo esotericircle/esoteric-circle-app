@@ -125,18 +125,25 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         builder: (context, constraints) {
           final w = constraints.maxWidth;
           final h = constraints.maxHeight;
-          final centralH = (h * 0.46).clamp(200.0, 380.0);
+          // I busti occupano la fascia centrale e bassa in modo pieno, non
+          // schiacciati sul fondo. Una carta piu' alta riduce lo spazio morto
+          // sopra.
+          final centralH = (h * 0.54).clamp(240.0, 460.0);
+          // Sollevati dal margine inferiore, cosi' poggiano sul palco senza
+          // sprofondare dietro la bottom bar.
+          final carouselBottom = h * 0.05;
+          final carouselHeight = centralH * 1.28;
 
           return Stack(
             children: [
               // Luna in alto nella fase reale, illumina la parte alta.
               Positioned(
-                top: h * 0.02,
+                top: h * 0.015,
                 left: 0,
                 right: 0,
                 child: Column(
                   children: [
-                    MoonWidget(phase: moon, size: (w * 0.13).clamp(64.0, 120.0)),
+                    MoonWidget(phase: moon, size: (w * 0.12).clamp(58.0, 108.0)),
                     Text(
                       moon.italianName,
                       style: TypographyTokens.label(size: 11).copyWith(
@@ -147,12 +154,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 ),
               ),
 
-              // Palco e busti nella parte bassa.
+              // Palco e busti, alzati verso il centro della scena.
               Positioned(
                 left: 0,
                 right: 0,
-                bottom: 0,
-                height: centralH * 1.35,
+                bottom: carouselBottom,
+                height: carouselHeight,
                 child: _Carousel(
                   central: central,
                   selected: selected,
@@ -165,12 +172,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 ),
               ),
 
-              // Saluto breve, non blocca mai.
+              // Saluto breve appena sopra i busti, non blocca mai.
               if (_greeting != null)
                 Positioned(
                   left: 0,
                   right: 0,
-                  bottom: centralH * 1.2,
+                  bottom: carouselBottom + centralH * 1.04,
                   child: IgnorePointer(
                     child: Center(
                       child: AnimatedOpacity(
