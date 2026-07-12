@@ -78,13 +78,10 @@ class MaestroScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // La conversazione con Medora e' attiva (primo passo di C3).
-                  // Gli altri Maestri apriranno la loro chat nei passi
-                  // successivi, quando la loro voce sara' pronta.
-                  if (maestro == Maestro.medora) ...[
-                    const SizedBox(height: SpacingTokens.md),
-                    _TalkToMaestroCard(maestro: maestro),
-                  ],
+                  // La conversazione e' attiva per tutti e tre i Maestri, con
+                  // la stessa struttura e la voce del rispettivo dominio.
+                  const SizedBox(height: SpacingTokens.md),
+                  _TalkToMaestroCard(maestro: maestro),
                   const SizedBox(height: SpacingTokens.xl),
                   SectionTitle(
                     title: 'Funzioni di ${maestro.displayName}',

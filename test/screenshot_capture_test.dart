@@ -90,38 +90,82 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
   }
 
-  Future<AppServices> buildServices({required bool seeded}) async {
+  List<(ChatRole, String)> seedFor(Maestro maestro) {
+    switch (maestro) {
+      case Maestro.medora:
+        return const [
+          (ChatRole.user, 'Parlami del mio segno'),
+          (
+            ChatRole.maestro,
+            'Il tuo segno racconta una tensione fra il cuore e la volontà. '
+                'Oggi le stelle ti invitano a scegliere con calma, senza '
+                'fretta. Vuoi che guardi un ambito, l\'amore o il lavoro?'
+          ),
+          (ChatRole.user, 'L\'amore, ti ascolto'),
+          (
+            ChatRole.maestro,
+            'Venere ti sfiora con dolcezza. Un legame chiede verità, non '
+                'perfezione. Prova a dire una cosa sincera a chi ami oggi, poi '
+                'osserva come cambia la luce fra voi.'
+          ),
+        ];
+      case Maestro.aura:
+        return const [
+          (ChatRole.user, 'Aiutami a rilassarmi'),
+          (
+            ChatRole.maestro,
+            'Chiudi gli occhi un istante. Porta il respiro nel ventre, lento e '
+                'profondo. Lascia scendere le spalle. Senti già un piccolo '
+                'spazio in più?'
+          ),
+          (ChatRole.user, 'Sì, un poco'),
+          (
+            ChatRole.maestro,
+            'Bene. Resta lì tre respiri. Il chakra del cuore si apre quando '
+                'smetti di spingere. Vuoi una frequenza dolce per stasera?'
+          ),
+        ];
+      case Maestro.caligo:
+        return const [
+          (ChatRole.user, 'Estrai una runa per me'),
+          (
+            ChatRole.maestro,
+            'Esce Uruz, la forza del toro selvatico. Parla di energia grezza '
+                'che chiede una direzione. Dove, in questi giorni, senti una '
+                'potenza che non hai ancora incanalato?'
+          ),
+          (ChatRole.user, 'Nel lavoro'),
+          (
+            ChatRole.maestro,
+            'Allora incanala. Un gesto solo, deciso, prima di sera. La forza '
+                'onora chi la usa, non chi la trattiene.'
+          ),
+        ];
+    }
+  }
+
+  Future<AppServices> buildServices(Maestro maestro,
+      {required bool seeded}) async {
     final memory = InMemoryMaestroMemoryRepository();
     await memory.saveProfile(
       UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)),
     );
     if (seeded) {
-      Future<void> add(ChatRole role, String text) => memory.appendMessage(
-          Maestro.medora, ChatMessage(role: role, text: text));
-      await add(ChatRole.user, 'Parlami del mio segno');
-      await add(
-        ChatRole.maestro,
-        'Il tuo segno racconta una tensione fra il cuore e la volontà. Oggi le '
-        'stelle ti invitano a scegliere con calma, senza fretta. Vuoi che '
-        'guardi un ambito, l\'amore o il lavoro?',
-      );
-      await add(ChatRole.user, 'L\'amore, ti ascolto');
-      await add(
-        ChatRole.maestro,
-        'Venere ti sfiora con dolcezza. Un legame chiede verità, non '
-        'perfezione. Prova a dire una cosa sincera a chi ami oggi, poi osserva '
-        'come cambia la luce fra voi.',
-      );
+      for (final (role, text) in seedFor(maestro)) {
+        await memory.appendMessage(
+            maestro, ChatMessage(role: role, text: text));
+      }
     }
     return AppServices(
-      ai: _ScriptedMedora(),
+      ai: _ScriptedMaestro(),
       memory: memory,
       memoryPersistent: true,
       diagnostics: 'Cattura offline.',
     );
   }
 
-  Future<GlobalKey> openChat(WidgetTester tester, AppServices services) async {
+  Future<GlobalKey> openChat(
+      WidgetTester tester, AppServices services, Maestro maestro) async {
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(390, 844);
     addTearDown(tester.view.resetPhysicalSize);
@@ -136,16 +180,25 @@ void main() {
     );
     await step(tester);
 
-    // Forza il Maestro attivo su Medora (tema blu) e alza la leggibilita' con
-    // un tier senza blur pesante. Selezionare Medora porta anche lo shell sulla
-    // sua schermata, da cui si apre la chat.
+    // Forza il Maestro attivo (tema e cosmo virano sul suo accento) e alza la
+    // leggibilita' con un tier senza blur pesante. Selezionare il Maestro porta
+    // anche lo shell sulla sua schermata, da cui si apre la chat.
     final ctx = tester.element(find.byType(MaterialApp));
-    ctx.read<MaestroController>().selectMaestro(Maestro.medora);
+    ctx.read<MaestroController>().selectMaestro(maestro);
     ctx.read<QualityTierController>().setTier(QualityTier.medium);
     await step(tester);
 
-    await tester.tap(find.text('Parla con Medora'));
+    await tester.tap(find.text('Parla con ${maestro.displayName}'));
     await step(tester);
+    await step(tester);
+
+    // Precarica il volto, cosi' l'avatar e' gia' decodificato alla cattura.
+    await tester.runAsync(() async {
+      await precacheImage(
+        AssetImage(maestro.avatarAsset),
+        tester.element(find.byType(MaterialApp)),
+      );
+    });
     await step(tester);
     return rootKey;
   }
@@ -164,33 +217,40 @@ void main() {
     expect(File('docs/preview/$name').existsSync(), isTrue);
   }
 
-  testWidgets('Cattura la conversazione', (tester) async {
-    silenceSensors();
-    await loadFonts();
-    final rootKey = await openChat(tester, await buildServices(seeded: true));
-    await capture(tester, rootKey, 'medora-chat.png');
-  });
+  for (final maestro in Maestro.values) {
+    final id = maestro.id;
 
-  testWidgets('Cattura il pannello dei suggerimenti', (tester) async {
-    silenceSensors();
-    await loadFonts();
-    final rootKey = await openChat(tester, await buildServices(seeded: true));
-    await tester.tap(find.text('Suggerimenti'));
-    await step(tester);
-    await step(tester);
-    await capture(tester, rootKey, 'medora-chat-suggerimenti.png');
-  });
+    testWidgets('Cattura la conversazione, $id', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey =
+          await openChat(tester, await buildServices(maestro, seeded: true), maestro);
+      await capture(tester, rootKey, '$id-chat.png');
+    });
 
-  testWidgets('Cattura lo stato vuoto', (tester) async {
-    silenceSensors();
-    await loadFonts();
-    final rootKey = await openChat(tester, await buildServices(seeded: false));
-    await capture(tester, rootKey, 'medora-chat-vuoto.png');
-  });
+    testWidgets('Cattura il pannello dei suggerimenti, $id', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey =
+          await openChat(tester, await buildServices(maestro, seeded: true), maestro);
+      await tester.tap(find.text('Suggerimenti'));
+      await step(tester);
+      await step(tester);
+      await capture(tester, rootKey, '$id-chat-suggerimenti.png');
+    });
+
+    testWidgets('Cattura lo stato vuoto, $id', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey = await openChat(
+          tester, await buildServices(maestro, seeded: false), maestro);
+      await capture(tester, rootKey, '$id-chat-vuoto.png');
+    });
+  }
 }
 
-/// Medora offline: risponde con un testo fisso, senza rete.
-class _ScriptedMedora implements MaestroAiProvider {
+/// Maestro offline: risponde con un testo fisso, senza rete.
+class _ScriptedMaestro implements MaestroAiProvider {
   @override
   bool get isReady => true;
 

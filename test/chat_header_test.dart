@@ -46,43 +46,48 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
   }
 
-  Future<void> openMedoraChat(WidgetTester tester) async {
+  Future<void> openChat(WidgetTester tester, Maestro maestro) async {
     await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
     await step(tester);
     final ctx = tester.element(find.byType(MaterialApp));
-    ctx.read<MaestroController>().selectMaestro(Maestro.medora);
+    ctx.read<MaestroController>().selectMaestro(maestro);
     await step(tester);
-    await tester.tap(find.text('Parla con Medora'));
+    await tester.tap(find.text('Parla con ${maestro.displayName}'));
     await step(tester);
   }
 
-  testWidgets('Il cosmo della chat non disegna costellazioni nell\'header',
-      (tester) async {
-    silenceSensors();
-    await openMedoraChat(tester);
+  // Le regole dell'header valgono per tutti e tre i Maestri.
+  for (final maestro in Maestro.values) {
+    testWidgets(
+        'Il cosmo della chat di ${maestro.id} non disegna costellazioni',
+        (tester) async {
+      silenceSensors();
+      await openChat(tester, maestro);
 
-    final chatCosmos = tester.widget<CosmosBackground>(
-      find.descendant(
-        of: find.byType(MaestroChatScreen),
-        matching: find.byType(CosmosBackground),
-      ),
-    );
-    expect(
-      chatCosmos.showZodiac,
-      isFalse,
-      reason: 'La chat non deve mostrare la costellazione quadrata (rettangolo '
-          'a portale) dietro l\'header.',
-    );
-  });
+      final chatCosmos = tester.widget<CosmosBackground>(
+        find.descendant(
+          of: find.byType(MaestroChatScreen),
+          matching: find.byType(CosmosBackground),
+        ),
+      );
+      expect(
+        chatCosmos.showZodiac,
+        isFalse,
+        reason: 'La chat non deve mostrare la costellazione quadrata '
+            '(rettangolo a portale) dietro l\'header.',
+      );
+    });
 
-  testWidgets('L\'header della chat non mostra il pulsante Messa a punto',
-      (tester) async {
-    silenceSensors();
-    await openMedoraChat(tester);
-    // Il simbolo a cursori non deve comparire nell'header: nessuno strumento da
-    // sviluppatore nella build normale o da Demo.
-    expect(find.byIcon(Icons.tune_rounded), findsNothing);
-  });
+    testWidgets(
+        'L\'header della chat di ${maestro.id} non mostra il pulsante Messa a '
+        'punto', (tester) async {
+      silenceSensors();
+      await openChat(tester, maestro);
+      // Il simbolo a cursori non deve comparire nell'header: nessuno strumento
+      // da sviluppatore nella build normale o da Demo.
+      expect(find.byIcon(Icons.tune_rounded), findsNothing);
+    });
+  }
 
   testWidgets('Il Santuario mantiene invece il cosmo completo con le '
       'costellazioni', (tester) async {

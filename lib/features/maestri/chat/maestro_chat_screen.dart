@@ -225,6 +225,16 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       titleSpacing: 0,
       iconTheme: IconThemeData(color: palette.goldSoft),
+      // Freccia Indietro esplicita che riavvolge la pila. Nessuna X, nessuna
+      // freccia Avanti. Il tasto di sistema Android e lo scorrimento dal bordo
+      // popano comunque la route, la chat resta superficie immersiva senza
+      // barra di navigazione.
+      automaticallyImplyLeading: false,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_rounded),
+        tooltip: 'Indietro',
+        onPressed: () => Navigator.of(context).maybePop(),
+      ),
       // Nessun simbolo da sviluppatore nell'header. La messa a punto (token di
       // debug di App Check) resta raggiungibile con un gesto nascosto: una
       // pressione prolungata sul nome del Maestro. Cosi' l'header e' pulito

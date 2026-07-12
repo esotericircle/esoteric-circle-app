@@ -140,27 +140,33 @@ void main() {
     }
   }
 
-  testWidgets('I testi visibili della chat di Medora usano accenti corretti',
-      (tester) async {
-    silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
-    await step(tester);
-    tester.element(find.byType(MaterialApp)).read<MaestroController>()
-        .selectMaestro(Maestro.medora);
-    await step(tester);
-    await tester.tap(find.text('Parla con Medora'));
-    await step(tester);
-
-    // Stato vuoto: header, invito, chip d'avvio, avviso di configurazione e il
-    // foglio del disclaimer che si apre da solo.
-    expectVisibleTextsClean(tester);
-
-    // Accetta il disclaimer e ricontrolla la schermata pulita.
-    final accept = find.text('Ho capito, entriamo');
-    if (accept.evaluate().isNotEmpty) {
-      await tester.tap(accept);
+  for (final maestro in Maestro.values) {
+    testWidgets(
+        'I testi visibili della chat di ${maestro.id} usano accenti corretti',
+        (tester) async {
+      silenceSensors();
+      await tester
+          .pumpWidget(EsotericCircleApp(services: AppServices.offline()));
       await step(tester);
-    }
-    expectVisibleTextsClean(tester);
-  });
+      tester
+          .element(find.byType(MaterialApp))
+          .read<MaestroController>()
+          .selectMaestro(maestro);
+      await step(tester);
+      await tester.tap(find.text('Parla con ${maestro.displayName}'));
+      await step(tester);
+
+      // Stato vuoto: header, invito, chip d'avvio, avviso di configurazione e
+      // il foglio del disclaimer che si apre da solo.
+      expectVisibleTextsClean(tester);
+
+      // Accetta il disclaimer e ricontrolla la schermata pulita.
+      final accept = find.text('Ho capito, entriamo');
+      if (accept.evaluate().isNotEmpty) {
+        await tester.tap(accept);
+        await step(tester);
+      }
+      expectVisibleTextsClean(tester);
+    });
+  }
 }

@@ -86,18 +86,28 @@ class _MaestroAvatarState extends State<MaestroAvatar>
             ],
           ),
           clipBehavior: Clip.antiAlias,
-          child: Image.asset(
-            widget.maestro.avatarAsset,
-            fit: BoxFit.cover,
-            // Bias verso l'alto: sul master full body cade sul volto.
-            alignment: const Alignment(0, -0.7),
-            errorBuilder: (context, error, stack) => Center(
-              child: Icon(
-                widget.maestro.icon,
-                color: palette.goldSoft,
-                size: widget.size * 0.5,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              // L'icona lineare dorata sta sempre dietro: cosi' non c'e' mai un
+              // cerchio blu vuoto mentre il volto carica o dove il master e'
+              // trasparente. Il volto, quando c'e', la copre.
+              Center(
+                child: Icon(
+                  widget.maestro.icon,
+                  color: palette.goldSoft,
+                  size: widget.size * 0.5,
+                ),
               ),
-            ),
+              Image.asset(
+                widget.maestro.avatarAsset,
+                fit: BoxFit.cover,
+                // Bias verso l'alto: sul master full body cade sul volto.
+                alignment: const Alignment(0, -0.7),
+                errorBuilder: (context, error, stack) =>
+                    const SizedBox.shrink(),
+              ),
+            ],
           ),
         );
       },

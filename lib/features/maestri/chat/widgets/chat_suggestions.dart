@@ -57,16 +57,58 @@ class SuggestionSets {
 
   static const List<String> _frequentAura = [
     'Aiutami a rilassarmi',
-    'Parlami dei chakra',
-    'Una meditazione breve',
+    'Guidami in una meditazione breve',
     'Come ritrovo equilibrio?',
+    'Parlami dei chakra',
+    'Quale chakra devo riequilibrare?',
+    'Un respiro per calmare la mente',
+    'Una frequenza per stasera',
+    'Come sciolgo la tensione?',
+    'Aiutami a dormire meglio',
+    'Un gesto per ritrovare energia',
+  ];
+
+  static const List<String> _personalAura = [
+    'Il mio Sole e la mia energia vitale',
+    'Come nutro la luce del mio Sole?',
+    'Il mio Sole e il chakra del plesso',
+    'La forza del mio Sole nel corpo',
+    'La mia Luna e il chakra del cuore',
+    'Come accolgo le emozioni della mia Luna?',
+    'La mia Luna e il respiro',
+    'Il bisogno di quiete della mia Luna',
+    'Il mio Ascendente e la mia presenza',
+    'Come abito il mio Ascendente col respiro?',
+    'Il mio Ascendente e l\'energia che mostro',
+    'La prima impressione del mio Ascendente',
   ];
 
   static const List<String> _frequentCaligo = [
-    'Estrai una runa',
+    'Estrai una runa per me',
     'Parlami di un simbolo',
     'Un presagio per oggi',
-    'Guidami con un rito semplice',
+    'Guidami in un rito semplice',
+    'Quale runa mi accompagna?',
+    'Parlami dell\'Albero della Vita',
+    'Qual è il mio animale guida?',
+    'Un archetipo che mi riguarda',
+    'Un simbolo di protezione',
+    'Cosa dice il silenzio?',
+  ];
+
+  static const List<String> _personalCaligo = [
+    'Il mio Sole e la runa del potere',
+    'Quale simbolo veste il mio Sole?',
+    'Il mio Sole e la mia volontà',
+    'L\'archetipo del mio Sole',
+    'La mia Luna e la runa dell\'acqua',
+    'Quale simbolo abita la mia Luna?',
+    'La mia Luna e l\'ombra',
+    'L\'archetipo della mia Luna',
+    'Il mio Ascendente e la maschera rituale',
+    'Quale runa apre il mio Ascendente?',
+    'Il mio Ascendente e la soglia',
+    'L\'archetipo del mio Ascendente',
   ];
 
   static List<String> frequent(Maestro maestro) => switch (maestro) {
@@ -77,10 +119,8 @@ class SuggestionSets {
 
   static List<String> personal(Maestro maestro) => switch (maestro) {
         Maestro.medora => _personalMedora,
-        // Gli altri Maestri avranno i loro Personali quando la loro chat si
-        // aprira'; per ora ripiegano sui Frequenti.
-        Maestro.aura => _frequentAura,
-        Maestro.caligo => _frequentCaligo,
+        Maestro.aura => _personalAura,
+        Maestro.caligo => _personalCaligo,
       };
 
   /// I pochi chip d'avvio dello stato vuoto, un invito iniziale.
