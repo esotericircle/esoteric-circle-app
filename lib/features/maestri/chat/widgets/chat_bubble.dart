@@ -7,6 +7,7 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import 'astral_typing_indicator.dart';
+import 'maestro_avatar.dart';
 
 /// Una bolla della conversazione.
 ///
@@ -96,7 +97,7 @@ class ChatBubble extends StatelessWidget {
       );
     }
 
-    // Maestro: avatar tondo piu' bolla.
+    // Maestro: il suo volto tondo piu' la bolla.
     return Padding(
       padding: const EdgeInsets.only(
         right: SpacingTokens.xl,
@@ -106,42 +107,10 @@ class ChatBubble extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _MaestroDot(maestro: maestro),
+          MaestroAvatar(maestro: maestro, size: 34),
           const SizedBox(width: SpacingTokens.xs),
           Flexible(child: bubble),
         ],
-      ),
-    );
-  }
-}
-
-/// Piccolo avatar circolare del Maestro accanto alle sue bolle.
-class _MaestroDot extends StatelessWidget {
-  const _MaestroDot({required this.maestro});
-
-  final Maestro maestro;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    return Container(
-      width: 34,
-      height: 34,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: palette.primary.withValues(alpha: 0.5),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Image.asset(
-        maestro.avatarAsset,
-        fit: BoxFit.cover,
-        alignment: Alignment.topCenter,
-        errorBuilder: (context, error, stack) => Icon(
-          maestro.icon,
-          color: palette.goldSoft,
-          size: 18,
-        ),
       ),
     );
   }

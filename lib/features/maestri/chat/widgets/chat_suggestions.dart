@@ -1,139 +1,199 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/maestro/maestro.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 
-/// Le due famiglie di suggerimenti sopra il composer.
-enum _SuggestionGroup { frequent, personal }
+/// Le due famiglie di suggerimenti.
+enum SuggestionGroup { frequent, personal }
 
-/// Barra dei suggerimenti a due categorie, sopra il composer.
-///
-/// Un selettore sceglie fra Frequenti, un piccolo insieme curato, e Personali,
-/// che pescano dalla carta dell'utente (Sole, Luna, Ascendente) e ruotano senza
-/// ripetersi mai due volte di fila. Il tocco di un chip invia la domanda al
-/// flusso di chat normale. L'aggancio agli scheletri e al Gateway arrivera' nel
-/// passo dedicato.
-class ChatSuggestions extends StatefulWidget {
-  const ChatSuggestions({
-    super.key,
-    required this.enabled,
-    required this.onSend,
-  });
-
-  final bool enabled;
-  final ValueChanged<String> onSend;
-
-  @override
-  State<ChatSuggestions> createState() => _ChatSuggestionsState();
+extension SuggestionGroupLabel on SuggestionGroup {
+  String get label => switch (this) {
+        SuggestionGroup.frequent => 'Domande frequenti',
+        SuggestionGroup.personal => 'Domande personali',
+      };
 }
 
-class _ChatSuggestionsState extends State<ChatSuggestions> {
-  _SuggestionGroup _group = _SuggestionGroup.frequent;
+/// Insiemi di domande suggerite per Maestro.
+///
+/// I Frequenti sono un piccolo insieme curato. I Personali pescano dalla carta
+/// dell'utente, Sole, Luna e Ascendente. Finche' l'onboarding non fornisce i
+/// segni reali, le formule restano generiche sui tre luminari, pronte a ricevere
+/// i segni veri. L'aggancio agli scheletri e al Gateway arrivera' nel passo
+/// dedicato.
+class SuggestionSets {
+  const SuggestionSets._();
 
-  // Finestra di rotazione dei Personali. Avanzando cambia la terna mostrata,
-  // cosi' non si ripete mai identica due volte di fila.
-  int _personalWindow = 0;
-
-  // Insieme curato dei Frequenti, per ora fisso.
-  static const List<String> _frequent = [
+  static const List<String> _frequentMedora = [
     'Parlami del mio segno',
     'Come sarà la mia giornata?',
     'Tira una carta per me',
+    'Cosa dicono le stelle di oggi?',
+    'Un consiglio per l\'amore',
+    'Un consiglio per il lavoro',
+    'Parlami dei miei pianeti',
+    'Cosa mi riservano i prossimi giorni?',
+    'Qual è la mia carta guida?',
+    'Parlami dei miei transiti',
   ];
 
-  // I Personali pescano dai tre luminari della carta. Finche' l'onboarding non
-  // fornisce i segni reali dell'utente, le formule restano generiche sul suo
-  // Sole, Luna e Ascendente. Ogni luminare ha piu' formulazioni e la finestra
-  // sceglie quale mostrare, cosi' la terna ruota.
-  static const List<List<String>> _personalByLuminary = [
-    [
-      'Cosa illumina il mio Sole?',
-      'Parlami del mio Sole',
-      'Il mio Sole come mi guida?',
-    ],
-    [
-      'Cosa sente la mia Luna?',
-      'Parlami della mia Luna',
-      'La mia Luna e le emozioni',
-    ],
-    [
-      'Cosa mostra il mio Ascendente?',
-      'Parlami del mio Ascendente',
-      'L\'Ascendente e la mia maschera',
-    ],
+  static const List<String> _personalMedora = [
+    'Cosa illumina il mio Sole?',
+    'Parlami del mio Sole',
+    'La forza del mio Sole',
+    'Il mio Sole come mi guida?',
+    'Cosa sente la mia Luna?',
+    'Parlami della mia Luna',
+    'La mia Luna e le emozioni',
+    'Il bisogno della mia Luna',
+    'Cosa mostra il mio Ascendente?',
+    'Parlami del mio Ascendente',
+    'L\'Ascendente e la mia maschera',
+    'La prima impressione del mio Ascendente',
   ];
 
-  List<String> get _personal => [
-        for (final luminary in _personalByLuminary)
-          luminary[_personalWindow % luminary.length],
-      ];
+  static const List<String> _frequentAura = [
+    'Aiutami a rilassarmi',
+    'Parlami dei chakra',
+    'Una meditazione breve',
+    'Come ritrovo equilibrio?',
+  ];
 
-  void _selectGroup(_SuggestionGroup group) {
-    setState(() {
-      if (group == _SuggestionGroup.personal) {
-        // Entrando nei Personali si avanza la finestra: la terna differisce
-        // sempre da quella mostrata l'ultima volta.
-        if (_group != _SuggestionGroup.personal) _personalWindow++;
-      }
-      _group = group;
-    });
-  }
+  static const List<String> _frequentCaligo = [
+    'Estrai una runa',
+    'Parlami di un simbolo',
+    'Un presagio per oggi',
+    'Guidami con un rito semplice',
+  ];
 
-  void _onChipTap(String text) {
-    if (!widget.enabled) return;
-    widget.onSend(text);
-    // Dopo aver usato un Personale, la terna ruota per la prossima volta.
-    if (_group == _SuggestionGroup.personal) {
-      setState(() => _personalWindow++);
-    }
+  static List<String> frequent(Maestro maestro) => switch (maestro) {
+        Maestro.medora => _frequentMedora,
+        Maestro.aura => _frequentAura,
+        Maestro.caligo => _frequentCaligo,
+      };
+
+  static List<String> personal(Maestro maestro) => switch (maestro) {
+        Maestro.medora => _personalMedora,
+        // Gli altri Maestri avranno i loro Personali quando la loro chat si
+        // aprira'; per ora ripiegano sui Frequenti.
+        Maestro.aura => _frequentAura,
+        Maestro.caligo => _frequentCaligo,
+      };
+
+  /// I pochi chip d'avvio dello stato vuoto, un invito iniziale.
+  static List<String> starters(Maestro maestro) =>
+      frequent(maestro).take(4).toList(growable: false);
+
+  static List<String> forGroup(Maestro maestro, SuggestionGroup group) =>
+      switch (group) {
+        SuggestionGroup.frequent => frequent(maestro),
+        SuggestionGroup.personal => personal(maestro),
+      };
+}
+
+/// Apre il pannello dei suggerimenti che sale dal basso sopra il feed.
+///
+/// In cima il selettore a due segmenti, sotto l'elenco scorrevole (fino a
+/// dodici). Il tocco su una domanda la invia e chiude il pannello. Cambiare
+/// segmento cambia l'elenco nello stesso pannello.
+Future<void> showSuggestionsPanel(
+  BuildContext context, {
+  required Maestro maestro,
+  required ValueChanged<String> onSend,
+}) {
+  return showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    // Il foglio vive nell'overlay del navigator, fuori dal MaestroScope della
+    // schermata: lo riavvolgiamo cosi' ritrova la palette del Maestro attivo.
+    builder: (_) => MaestroScope(
+      child: _SuggestionsPanel(maestro: maestro, onSend: onSend),
+    ),
+  );
+}
+
+class _SuggestionsPanel extends StatefulWidget {
+  const _SuggestionsPanel({required this.maestro, required this.onSend});
+
+  final Maestro maestro;
+  final ValueChanged<String> onSend;
+
+  @override
+  State<_SuggestionsPanel> createState() => _SuggestionsPanelState();
+}
+
+class _SuggestionsPanelState extends State<_SuggestionsPanel> {
+  SuggestionGroup _group = SuggestionGroup.frequent;
+
+  void _send(String question) {
+    widget.onSend(question);
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final chips = _group == _SuggestionGroup.frequent ? _frequent : _personal;
+    final questions = SuggestionSets.forGroup(widget.maestro, _group);
 
     return Container(
-      padding: const EdgeInsets.only(
-        left: SpacingTokens.md,
-        right: SpacingTokens.md,
-        top: SpacingTokens.xs,
+      padding: EdgeInsets.only(
+        top: SpacingTokens.md,
+        bottom: SpacingTokens.md + MediaQuery.of(context).padding.bottom,
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [palette.surfaceElevated, palette.deepest],
+        ),
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(SpacingTokens.radiusXl),
+        ),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              _GroupPill(
-                label: 'Frequenti',
-                selected: _group == _SuggestionGroup.frequent,
-                onTap: () => _selectGroup(_SuggestionGroup.frequent),
+          Center(
+            child: Container(
+              width: 44,
+              height: 4,
+              decoration: BoxDecoration(
+                color: palette.gold.withValues(alpha: 0.5),
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
               ),
-              const SizedBox(width: SpacingTokens.xs),
-              _GroupPill(
-                label: 'Personali',
-                selected: _group == _SuggestionGroup.personal,
-                onTap: () => _selectGroup(_SuggestionGroup.personal),
-              ),
-            ],
+            ),
           ),
-          const SizedBox(height: SpacingTokens.xs),
-          SizedBox(
-            height: 40,
+          const SizedBox(height: SpacingTokens.md),
+          Center(
+            child: _SegmentedControl(
+              value: _group,
+              onChanged: (g) => setState(() => _group = g),
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.42,
+            ),
             child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: chips.length,
-              separatorBuilder: (_, __) =>
-                  const SizedBox(width: SpacingTokens.xs),
-              itemBuilder: (context, i) => _Chip(
-                label: chips[i],
-                enabled: widget.enabled,
-                onTap: () => _onChipTap(chips[i]),
-                palette: palette,
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(
+                horizontal: SpacingTokens.lg,
+                vertical: SpacingTokens.xs,
+              ),
+              itemCount: questions.length,
+              separatorBuilder: (_, __) => Divider(
+                height: 1,
+                color: palette.gold.withValues(alpha: 0.12),
+              ),
+              itemBuilder: (context, i) => _QuestionRow(
+                question: questions[i],
+                onTap: () => _send(questions[i]),
               ),
             ),
           ),
@@ -143,38 +203,66 @@ class _ChatSuggestionsState extends State<ChatSuggestions> {
   }
 }
 
-class _GroupPill extends StatelessWidget {
-  const _GroupPill({
+class _SegmentedControl extends StatelessWidget {
+  const _SegmentedControl({required this.value, required this.onChanged});
+
+  final SuggestionGroup value;
+  final ValueChanged<SuggestionGroup> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Container(
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        color: palette.deepest.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (final group in SuggestionGroup.values)
+            _Segment(
+              label: group.label,
+              selected: group == value,
+              onTap: () => onChanged(group),
+              palette: palette,
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Segment extends StatelessWidget {
+  const _Segment({
     required this.label,
     required this.selected,
     required this.onTap,
+    required this.palette,
   });
 
   final String label;
   final bool selected;
   final VoidCallback onTap;
+  final MaestroPalette palette;
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.palette;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.sm,
-          vertical: 5,
+          horizontal: SpacingTokens.md,
+          vertical: SpacingTokens.xs,
         ),
         decoration: BoxDecoration(
           color: selected
-              ? palette.gold.withValues(alpha: 0.18)
+              ? palette.gold.withValues(alpha: 0.20)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-          border: Border.all(
-            color: selected
-                ? palette.gold.withValues(alpha: 0.7)
-                : palette.gold.withValues(alpha: 0.2),
-          ),
         ),
         child: Text(
           label,
@@ -187,38 +275,34 @@ class _GroupPill extends StatelessWidget {
   }
 }
 
-class _Chip extends StatelessWidget {
-  const _Chip({
-    required this.label,
-    required this.enabled,
-    required this.onTap,
-    required this.palette,
-  });
+class _QuestionRow extends StatelessWidget {
+  const _QuestionRow({required this.question, required this.onTap});
 
-  final String label;
-  final bool enabled;
+  final String question;
   final VoidCallback onTap;
-  final MaestroPalette palette;
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: enabled ? 1.0 : 0.4,
-      child: GestureDetector(
-        onTap: enabled ? onTap : null,
-        child: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
-          decoration: BoxDecoration(
-            color: palette.surface.withValues(alpha: 0.55),
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-            border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
-          ),
-          child: Text(
-            label,
-            style: TypographyTokens.body(size: 15)
-                .copyWith(color: palette.goldSoft),
-          ),
+    final palette = context.palette;
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+        child: Row(
+          children: [
+            Icon(Icons.auto_awesome_outlined,
+                color: palette.goldSoft, size: 18),
+            const SizedBox(width: SpacingTokens.sm),
+            Expanded(
+              child: Text(
+                question,
+                style: TypographyTokens.body(size: 16),
+              ),
+            ),
+            const Icon(Icons.north_east_rounded,
+                color: ColorTokens.textMuted, size: 16),
+          ],
         ),
       ),
     );

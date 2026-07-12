@@ -37,10 +37,10 @@ jobs:
       - name: Dipendenze
         run: flutter pub get
 
-      - name: Genera lo screenshot (widget test headless)
+      - name: Genera gli screenshot (widget test headless)
         run: flutter test test/screenshot_capture_test.dart
 
-      - name: Committa lo screenshot a percorso fisso
+      - name: Committa gli screenshot a percorso fisso
         if: success()
         run: |
           if [ ! -f docs/preview/medora-chat.png ]; then
@@ -49,18 +49,18 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/preview/medora-chat.png
+          git add docs/preview/
           if git diff --cached --quiet; then
-            echo "Screenshot invariato, nessun commit."
+            echo "Screenshot invariati, nessun commit."
             exit 0
           fi
-          git commit -m "docs: aggiorna anteprima chat Medora [skip ci]"
+          git commit -m "docs: aggiorna anteprime chat Medora [skip ci]"
           git push origin HEAD:claude/esoteric-circle-master-order-e798aj
 
-      - name: Pubblica lo screenshot anche come artifact
+      - name: Pubblica gli screenshot anche come artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: medora-chat-screenshot
-          path: docs/preview/medora-chat.png
+          path: docs/preview/
           if-no-files-found: warn

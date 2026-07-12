@@ -13,11 +13,17 @@ class ChatComposer extends StatefulWidget {
     super.key,
     required this.enabled,
     required this.onSend,
+    this.onSuggestions,
     this.hintText = 'Scrivi a Medora',
   });
 
   final bool enabled;
   final ValueChanged<String> onSend;
+
+  /// Se non nullo, a sinistra compare un controllo discreto Suggerimenti che
+  /// apre il pannello. E' presente solo a conversazione avviata.
+  final VoidCallback? onSuggestions;
+
   final String hintText;
 
   @override
@@ -79,6 +85,10 @@ class _ChatComposerState extends State<ChatComposer> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          if (widget.onSuggestions != null) ...[
+            _SuggestionsControl(onTap: widget.onSuggestions!),
+            const SizedBox(width: SpacingTokens.xs),
+          ],
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -117,6 +127,39 @@ class _ChatComposerState extends State<ChatComposer> {
           const SizedBox(width: SpacingTokens.xs),
           _SendButton(enabled: canSend, onTap: _submit),
         ],
+      ),
+    );
+  }
+}
+
+/// Controllo discreto a sinistra del composer: un'icona con etichetta
+/// Suggerimenti che apre il pannello a comparsa.
+class _SuggestionsControl extends StatelessWidget {
+  const _SuggestionsControl({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 4),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.auto_awesome_outlined,
+                color: palette.goldSoft, size: 24),
+            const SizedBox(height: 2),
+            Text(
+              'Suggerimenti',
+              style: TypographyTokens.body(size: 9)
+                  .copyWith(color: ColorTokens.textMuted),
+            ),
+          ],
+        ),
       ),
     );
   }

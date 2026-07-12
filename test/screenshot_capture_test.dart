@@ -90,43 +90,42 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
   }
 
-  testWidgets('Cattura la chat di Medora', (tester) async {
-    silenceSensors();
-    await loadFonts();
-
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(390, 844);
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-
-    // Conversazione gia' avvenuta, cosi' la cattura e' deterministica.
+  Future<AppServices> buildServices({required bool seeded}) async {
     final memory = InMemoryMaestroMemoryRepository();
     await memory.saveProfile(
       UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)),
     );
-    Future<void> add(ChatRole role, String text) =>
-        memory.appendMessage(Maestro.medora, ChatMessage(role: role, text: text));
-    await add(ChatRole.user, 'Parlami del mio segno');
-    await add(
-      ChatRole.maestro,
-      'Il tuo segno racconta una tensione fra il cuore e la volontà. Oggi le '
-      'stelle ti invitano a scegliere con calma, senza fretta. Vuoi che guardi '
-      'un ambito, l\'amore o il lavoro?',
-    );
-    await add(ChatRole.user, 'L\'amore, ti ascolto');
-    await add(
-      ChatRole.maestro,
-      'Venere ti sfiora con dolcezza. Un legame chiede verità, non '
-      'perfezione. Prova a dire una cosa sincera a chi ami oggi, poi osserva '
-      'come cambia la luce fra voi.',
-    );
-
-    final services = AppServices(
+    if (seeded) {
+      Future<void> add(ChatRole role, String text) => memory.appendMessage(
+          Maestro.medora, ChatMessage(role: role, text: text));
+      await add(ChatRole.user, 'Parlami del mio segno');
+      await add(
+        ChatRole.maestro,
+        'Il tuo segno racconta una tensione fra il cuore e la volontà. Oggi le '
+        'stelle ti invitano a scegliere con calma, senza fretta. Vuoi che '
+        'guardi un ambito, l\'amore o il lavoro?',
+      );
+      await add(ChatRole.user, 'L\'amore, ti ascolto');
+      await add(
+        ChatRole.maestro,
+        'Venere ti sfiora con dolcezza. Un legame chiede verità, non '
+        'perfezione. Prova a dire una cosa sincera a chi ami oggi, poi osserva '
+        'come cambia la luce fra voi.',
+      );
+    }
+    return AppServices(
       ai: _ScriptedMedora(),
       memory: memory,
       memoryPersistent: true,
       diagnostics: 'Cattura offline.',
     );
+  }
+
+  Future<GlobalKey> openChat(WidgetTester tester, AppServices services) async {
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
 
     final rootKey = GlobalKey();
     await tester.pumpWidget(
@@ -148,18 +147,45 @@ void main() {
     await tester.tap(find.text('Parla con Medora'));
     await step(tester);
     await step(tester);
+    return rootKey;
+  }
 
+  Future<void> capture(
+      WidgetTester tester, GlobalKey rootKey, String name) async {
     await tester.runAsync(() async {
       final boundary =
           rootKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
       final image = await boundary.toImage(pixelRatio: 3.0);
       final data = await image.toByteData(format: ui.ImageByteFormat.png);
-      final out = File('docs/preview/medora-chat.png');
+      final out = File('docs/preview/$name');
       out.createSync(recursive: true);
       out.writeAsBytesSync(data!.buffer.asUint8List());
     });
+    expect(File('docs/preview/$name').existsSync(), isTrue);
+  }
 
-    expect(File('docs/preview/medora-chat.png').existsSync(), isTrue);
+  testWidgets('Cattura la conversazione', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await openChat(tester, await buildServices(seeded: true));
+    await capture(tester, rootKey, 'medora-chat.png');
+  });
+
+  testWidgets('Cattura il pannello dei suggerimenti', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await openChat(tester, await buildServices(seeded: true));
+    await tester.tap(find.text('Suggerimenti'));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'medora-chat-suggerimenti.png');
+  });
+
+  testWidgets('Cattura lo stato vuoto', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await openChat(tester, await buildServices(seeded: false));
+    await capture(tester, rootKey, 'medora-chat-vuoto.png');
   });
 }
 

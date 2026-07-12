@@ -15,6 +15,7 @@ import 'widgets/chat_composer.dart';
 import 'widgets/chat_empty_state.dart';
 import 'widgets/chat_suggestions.dart';
 import 'widgets/diagnostics_dialog.dart';
+import 'widgets/maestro_avatar.dart';
 import 'widgets/maestro_disclaimer.dart';
 
 /// La conversazione testuale con un Maestro.
@@ -99,12 +100,18 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       _scrollToEnd();
     }
 
+    final hasMessages = controller.messages.isNotEmpty;
+
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
       appBar: _ChatAppBar(
         maestro: widget.maestro,
+        // Il volto appare nell'header a conversazione avviata: il mezzo busto
+        // dello stato vuoto si e' rimpicciolito qui. Pulsa quando risponde.
+        showAvatar: hasMessages,
+        speaking: controller.sending,
         onDiagnostics: () => showChatDiagnostics(
           context,
           aiReady: controller.aiReady,
@@ -123,15 +130,20 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               Expanded(child: _buildBody(controller)),
               if (!controller.aiReady) _ConfigNotice(palette: palette),
               _RetryStrip(controller: controller),
-              if (!controller.loading)
-                ChatSuggestions(
-                  enabled: controller.aiReady && !controller.sending,
-                  onSend: controller.send,
-                ),
               ChatComposer(
                 enabled: controller.aiReady && !controller.sending,
                 hintText: 'Scrivi a ${widget.maestro.displayName}',
                 onSend: controller.send,
+                // A conversazione avviata, un solo controllo discreto apre il
+                // pannello dei suggerimenti. A chat vuota gli spunti sono i chip
+                // d'avvio al centro, quindi qui non serve.
+                onSuggestions: hasMessages
+                    ? () => showSuggestionsPanel(
+                          context,
+                          maestro: widget.maestro,
+                          onSend: controller.send,
+                        )
+                    : null,
               ),
             ],
           ),
@@ -148,6 +160,9 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       return ChatEmptyState(
         maestro: widget.maestro,
         greeting: _greetingFor(widget.maestro),
+        starters: SuggestionSets.starters(widget.maestro),
+        onStarter: controller.send,
+        enabled: controller.aiReady,
       );
     }
     return ListView.builder(
@@ -182,10 +197,21 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
 
 /// Barra superiore cerimoniale con il nome del Maestro e il suo dominio.
 class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _ChatAppBar({required this.maestro, required this.onDiagnostics});
+  const _ChatAppBar({
+    required this.maestro,
+    required this.onDiagnostics,
+    this.showAvatar = false,
+    this.speaking = false,
+  });
 
   final Maestro maestro;
   final VoidCallback onDiagnostics;
+
+  /// Mostra l'avatar tondo del Maestro accanto al nome, a conversazione avviata.
+  final bool showAvatar;
+
+  /// Cenno di speaking: l'aura dell'avatar pulsa mentre il Maestro risponde.
+  final bool speaking;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -197,6 +223,7 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: palette.deepest.withValues(alpha: 0.35),
       elevation: 0,
       scrolledUnderElevation: 0,
+      titleSpacing: 0,
       iconTheme: IconThemeData(color: palette.goldSoft),
       // Nessun simbolo da sviluppatore nell'header. La messa a punto (token di
       // debug di App Check) resta raggiungibile con un gesto nascosto: una
@@ -205,15 +232,26 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: GestureDetector(
         onLongPress: onDiagnostics,
         behavior: HitTestBehavior.opaque,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(maestro.displayName,
-                style: TypographyTokens.display(size: 20)),
-            Text(
-              maestro.domainTitle,
-              style: TypographyTokens.body(size: 12)
-                  .copyWith(color: palette.goldSoft),
+            // Slot dell'avatar tondo di Medora accanto al nome. Segnaposto.
+            if (showAvatar) ...[
+              MaestroAvatar(maestro: maestro, size: 38, speaking: speaking),
+              const SizedBox(width: SpacingTokens.sm),
+            ],
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(maestro.displayName,
+                    style: TypographyTokens.display(size: 20)),
+                Text(
+                  maestro.domainTitle,
+                  style: TypographyTokens.body(size: 12)
+                      .copyWith(color: palette.goldSoft),
+                ),
+              ],
             ),
           ],
         ),

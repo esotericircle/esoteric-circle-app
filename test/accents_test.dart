@@ -3,6 +3,7 @@ import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/features/maestri/chat/widgets/chat_suggestions.dart';
 import 'package:esoteric_circle/features/shell/app_shell.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -83,6 +84,17 @@ void main() {
         MaestroPersona.distillInstruction(maestro),
         'distillato ${maestro.id}',
       );
+
+      for (final q in SuggestionSets.frequent(maestro)) {
+        expectClean(q, 'domanda frequente ${maestro.id}');
+      }
+      for (final q in SuggestionSets.personal(maestro)) {
+        expectClean(q, 'domanda personale ${maestro.id}');
+      }
+    }
+
+    for (final group in SuggestionGroup.values) {
+      expectClean(group.label, 'etichetta del gruppo');
     }
   });
 
@@ -139,18 +151,16 @@ void main() {
     await tester.tap(find.text('Parla con Medora'));
     await step(tester);
 
-    // Header, invito, avviso di configurazione, suggerimenti Frequenti e il
+    // Stato vuoto: header, invito, chip d'avvio, avviso di configurazione e il
     // foglio del disclaimer che si apre da solo.
     expectVisibleTextsClean(tester);
 
-    // Accetta il disclaimer e passa ai suggerimenti Personali.
+    // Accetta il disclaimer e ricontrolla la schermata pulita.
     final accept = find.text('Ho capito, entriamo');
     if (accept.evaluate().isNotEmpty) {
       await tester.tap(accept);
       await step(tester);
     }
-    await tester.tap(find.text('Personali'));
-    await step(tester);
     expectVisibleTextsClean(tester);
   });
 }
