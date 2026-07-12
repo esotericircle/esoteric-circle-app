@@ -38,6 +38,9 @@ class CosmicPassport extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Margine in alto: il titolo non deve mai finire sotto un
+                  // eventuale pulsante nell'angolo in alto a sinistra.
+                  const SizedBox(height: SpacingTokens.xl),
                   // Header cerimoniale: titolo e sottotitolo del documento.
                   Text(
                     'Cosmic Passport',
@@ -168,16 +171,17 @@ class _PassportEntryCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: SpacingTokens.sm),
-          _ComingSoonBadge(palette: palette),
+          _VeilBadge(palette: palette),
         ],
       ),
     );
   }
 }
 
-/// Piccolo badge testuale che segnala lo stato "in arrivo" della voce.
-class _ComingSoonBadge extends StatelessWidget {
-  const _ComingSoonBadge({required this.palette});
+/// Piccolo badge testuale con l'etichetta in-world unica, "Dietro il velo",
+/// per le voci non ancora pronte. Stessa etichetta del dominio.
+class _VeilBadge extends StatelessWidget {
+  const _VeilBadge({required this.palette});
 
   final MaestroPalette palette;
 
@@ -193,7 +197,7 @@ class _ComingSoonBadge extends StatelessWidget {
         border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
       ),
       child: Text(
-        'In arrivo',
+        'Dietro il velo',
         style: TypographyTokens.label(size: 10).copyWith(color: palette.gold),
       ),
     );

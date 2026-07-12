@@ -84,8 +84,8 @@ class MaestroScreen extends StatelessWidget {
                   _TalkToMaestroCard(maestro: maestro),
                   const SizedBox(height: SpacingTokens.xl),
                   SectionTitle(
-                    title: 'Funzioni di ${maestro.displayName}',
-                    subtitle: 'Il dominio del Maestro, presto disponibile.',
+                    title: 'Le Arti di ${maestro.displayName}',
+                    subtitle: 'Il dominio del Maestro, ancora dietro il velo.',
                   ),
                   const SizedBox(height: SpacingTokens.md),
                 ],

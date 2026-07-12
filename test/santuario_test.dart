@@ -65,15 +65,24 @@ void main() {
     );
   });
 
-  testWidgets('Il Santuario, che e\' la home, non ha la X di chiusura',
+  testWidgets('Le schede della bottom bar non hanno X ne freccia Indietro',
       (tester) async {
     silenceSensors();
     await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
     await step(tester);
 
+    // Santuario: la home non si chiude, e' il punto di ritorno.
     expect(find.byType(SantuarioScreen), findsOneWidget);
-    // Nessuna icona di chiusura: la home non si chiude, e' il punto di ritorno.
     expect(find.byIcon(Icons.close), findsNothing);
     expect(find.byIcon(Icons.close_rounded), findsNothing);
+    expect(find.byIcon(Icons.arrow_back_rounded), findsNothing);
+
+    // Passport: altra scheda della barra, nessun pulsante di chiusura o
+    // Indietro. La freccia vive solo sulle schermate spinte (dominio, chat).
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    expect(find.byIcon(Icons.close), findsNothing);
+    expect(find.byIcon(Icons.close_rounded), findsNothing);
+    expect(find.byIcon(Icons.arrow_back_rounded), findsNothing);
   });
 }

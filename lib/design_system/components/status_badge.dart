@@ -17,7 +17,9 @@ class StatusBadge extends StatelessWidget {
     final palette = context.palette;
 
     final bool isPremium = status == FeatureStatus.premiumLocked;
-    final String label = isPremium ? 'Premium' : 'Coming soon';
+    // Etichetta unica e in-world per le funzioni non ancora pronte: il velo che
+    // si dirada. Vale ovunque, dominio e Passport.
+    final String label = isPremium ? 'Premium' : 'Dietro il velo';
     final IconData? icon = isPremium ? Icons.lock_rounded : null;
 
     return Container(

@@ -59,20 +59,20 @@ class _MoonPainter extends CustomPainter {
 
     // Il disco in ombra e' appena percepibile, un velo tenue di luce lunare,
     // non un buco nero: cosi' la Luna resta una Luna, mai un'eclissi. La parte
-    // non illuminata si intuisce soltanto.
+    // non illuminata si intuisce soltanto, un filo meno cupa.
     final shadowPaint = Paint()
       ..shader = RadialGradient(
         colors: [
+          glow.withValues(alpha: 0.26),
           glow.withValues(alpha: 0.16),
-          glow.withValues(alpha: 0.09),
         ],
       ).createShader(Rect.fromCircle(center: center, radius: r));
     canvas.drawCircle(center, r, shadowPaint);
 
-    // Il falcato illuminato e' luminoso e pieno.
+    // Il falcato illuminato e' luminoso e pieno, con un cuore bianco brillante.
     final litPaint = Paint()
       ..shader = RadialGradient(
-        colors: [Colors.white, glow],
+        colors: [Colors.white, Color.lerp(Colors.white, glow, 0.65)!],
         stops: const [0.0, 1.0],
       ).createShader(Rect.fromCircle(center: center, radius: r));
 
@@ -119,7 +119,7 @@ class _MoonPainter extends CustomPainter {
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1
-        ..color = glow.withValues(alpha: 0.35),
+        ..color = glow.withValues(alpha: 0.5),
     );
   }
 
