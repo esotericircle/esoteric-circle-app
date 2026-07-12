@@ -87,6 +87,25 @@ void main() {
     expect(find.byIcon(Icons.arrow_back_rounded), findsNothing);
   });
 
+  testWidgets('Il pulsante Entra nel Dominio porta al dominio del Maestro',
+      (tester) async {
+    silenceSensors();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await step(tester);
+
+    // Al centro c'e' il preferito, Medora: il pulsante ne porta il nome.
+    expect(find.text('Entra nel Dominio di Medora'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('santuario_enter_domain')));
+    await step(tester);
+    await step(tester);
+    expect(find.text('Parla con Medora'), findsOneWidget);
+  });
+
   testWidgets('Il cielo in alto e\' toccabile e apre la sua schermata',
       (tester) async {
     silenceSensors();

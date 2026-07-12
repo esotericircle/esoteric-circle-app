@@ -30,6 +30,7 @@ class CosmosBackground extends StatefulWidget {
     super.key,
     required this.child,
     this.showZodiac = true,
+    this.starKeepOut,
   });
 
   final Widget child;
@@ -39,6 +40,11 @@ class CosmosBackground extends StatefulWidget {
   /// lo spengono per restare pulite: nessuna forma stilizzata, nessun rettangolo
   /// a portale dietro l'interfaccia. Restano stelle, nebulose e stelle cadenti.
   final bool showZodiac;
+
+  /// Zona franca, in coordinate normalizzate (0..1), dove non nascono stelle di
+  /// fondo ne' particelle vicine. Serve a tenere il cielo lontano dal testo del
+  /// titolo, cosi' nessuna stella cade su una lettera. Null per nessuna zona.
+  final Rect? starKeepOut;
 
   @override
   State<CosmosBackground> createState() => _CosmosBackgroundState();
@@ -112,6 +118,7 @@ class _CosmosBackgroundState extends State<CosmosBackground>
                 highlighted: sunSign,
                 showZodiac: widget.showZodiac,
                 reduceMotion: reduceMotion,
+                keepOut: widget.starKeepOut,
               ),
             ),
           ),
@@ -158,6 +165,7 @@ class _CosmosPainter extends CustomPainter {
     required this.highlighted,
     required this.showZodiac,
     required this.reduceMotion,
+    required this.keepOut,
   }) : super(repaint: Listenable.merge([animation, parallax]));
 
   final Animation<double> animation;
@@ -167,6 +175,9 @@ class _CosmosPainter extends CustomPainter {
   final Zodiac? highlighted;
   final bool showZodiac;
   final bool reduceMotion;
+
+  /// Zona franca normalizzata dove non nascono stelle ne' particelle.
+  final Rect? keepOut;
 
   int get _fieldStars => switch (tier) {
         QualityTier.high => 70,
@@ -217,6 +228,8 @@ class _CosmosPainter extends CustomPainter {
     });
     final paint = Paint()..style = PaintingStyle.fill;
     for (final s in stars) {
+      // Zona franca: nessuna stella sul testo del titolo in alto.
+      if (keepOut != null && keepOut!.contains(Offset(s.x, s.y))) continue;
       final twinkle = _animate
           ? 0.5 + 0.5 * math.sin(2 * math.pi * (t * 6 + s.phase))
           : 0.7;
@@ -329,6 +342,8 @@ class _CosmosPainter extends CustomPainter {
       final radius = 0.6 + rng.nextDouble() * 1.6;
       final dy = _animate ? (t + rng.nextDouble()) % 1.0 : baseY;
       final y = (baseY + dy * 0.12) % 1.0;
+      // Zona franca anche per le particelle vicine.
+      if (keepOut != null && keepOut!.contains(Offset(baseX, y))) continue;
       final p = Offset(baseX * size.width, y * size.height) + off;
       canvas.drawCircle(
         p,
@@ -387,5 +402,6 @@ class _CosmosPainter extends CustomPainter {
       old.tier != tier ||
       old.highlighted != highlighted ||
       old.showZodiac != showZodiac ||
-      old.reduceMotion != reduceMotion;
+      old.reduceMotion != reduceMotion ||
+      old.keepOut != keepOut;
 }

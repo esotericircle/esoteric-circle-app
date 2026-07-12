@@ -25,8 +25,8 @@ class MoonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: size * 2.6,
-      height: size * 2.6,
+      width: size * 2.1,
+      height: size * 2.1,
       child: CustomPaint(
         painter: _MoonPainter(phase: phase, glow: glowColor),
       ),
@@ -43,7 +43,7 @@ class _MoonPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = size.center(Offset.zero);
-    final r = size.width / 2 / 2.6; // il disco occupa il centro dell'area alone
+    final r = size.width / 2 / 2.1; // il disco occupa il centro dell'area alone
 
     // Alone diffuso che illumina la parte alta della scena.
     final glowPaint = Paint()

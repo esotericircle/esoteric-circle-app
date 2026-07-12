@@ -9,20 +9,20 @@ import 'navigation_controller.dart';
 /// Bottom bar a cinque voci: Santuario, i tre Maestri nell'ordine fisso
 /// (Medora, Caligo, Aura) e il Cosmic Passport, distinto e staccato.
 ///
-/// Le voci Maestro scelgono il busto centrale del Santuario e virano tema e
-/// cosmo sull'accento. La voce attiva si illumina d'oro.
+/// Le voci Maestro sono porte dirette al dominio del Maestro, non centrano il
+/// busto: il cambio del centro nel Santuario avviene col carosello. Nel
+/// Santuario resta acceso solo Santuario; le icone Maestro restano spente,
+/// sono scorciatoie verso i domini.
 class SantuarioBottomBar extends StatelessWidget {
   const SantuarioBottomBar({
     super.key,
     required this.view,
-    required this.activeMaestro,
     required this.onSantuario,
     required this.onMaestro,
     required this.onPassport,
   });
 
   final ShellView view;
-  final Maestro? activeMaestro;
   final VoidCallback onSantuario;
   final ValueChanged<Maestro> onMaestro;
   final VoidCallback onPassport;
@@ -57,14 +57,16 @@ class SantuarioBottomBar extends StatelessWidget {
               _BarItem(
                 label: 'Santuario',
                 iconData: Icons.brightness_3,
-                selected: onSantuarioView && activeMaestro == null,
+                selected: onSantuarioView,
                 onTap: onSantuario,
               ),
+              // Le icone Maestro portano al dominio: restano spente nel
+              // Santuario, sono scorciatoie, non lo stato del centro.
               for (final maestro in Maestro.fixedOrder)
                 _BarItem(
                   label: maestro.displayName,
                   iconData: maestro.icon,
-                  selected: onSantuarioView && activeMaestro == maestro,
+                  selected: false,
                   onTap: () => onMaestro(maestro),
                 ),
               // Il Passport, staccato dai Maestri da un filo verticale.

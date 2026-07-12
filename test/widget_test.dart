@@ -58,8 +58,7 @@ void main() {
     }
   });
 
-  testWidgets('La bottom bar sceglie il Maestro centrale del Santuario',
-      (tester) async {
+  testWidgets('La bottom bar apre il dominio del Maestro', (tester) async {
     silenceSensors();
     await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
     await step(tester);
@@ -67,8 +66,11 @@ void main() {
     final ctx = tester.element(find.byType(MaterialApp));
     expect(ctx.read<MaestroController>().activeMaestro, isNull);
 
+    // L'icona Maestro nella barra e' una porta al dominio, non centra soltanto.
     await tester.tap(find.text('Caligo'));
     await step(tester);
+    await step(tester);
+    expect(find.text('Parla con Caligo'), findsOneWidget);
     expect(ctx.read<MaestroController>().activeMaestro, Maestro.caligo);
   });
 

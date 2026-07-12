@@ -94,7 +94,7 @@ void main() {
     expect(navOf(tester).canPop(), isFalse);
   });
 
-  testWidgets('La bottom bar cambia il Maestro centrale e vira il tema',
+  testWidgets('L\'icona Maestro nella bottom bar porta al suo dominio',
       (tester) async {
     silenceSensors();
     await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
@@ -102,14 +102,31 @@ void main() {
     final maestro =
         tester.element(find.byType(MaterialApp)).read<MaestroController>();
 
-    expect(maestro.activeMaestro, isNull);
+    // L'icona nella barra non centra soltanto: apre il dominio del Maestro.
     await tester.tap(find.text('Aura'));
     await step(tester);
-    expect(maestro.activeMaestro, Maestro.aura);
-
-    await tester.tap(find.text('Medora'));
     await step(tester);
-    expect(maestro.activeMaestro, Maestro.medora);
+    expect(find.text('Parla con Aura'), findsOneWidget);
+    expect(maestro.activeMaestro, Maestro.aura);
+  });
+
+  testWidgets('Il carosello cambia il Maestro centrale restando nel Santuario',
+      (tester) async {
+    silenceSensors();
+    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await step(tester);
+    final ctx = tester.element(find.byType(MaterialApp));
+    final maestro = ctx.read<MaestroController>();
+
+    // Al centro c'e' il preferito (Medora); i laterali sono Caligo e Aura.
+    expect(maestro.activeMaestro, isNull);
+    // Toccando un busto laterale lo si porta al centro, senza lasciare il
+    // Santuario: nessun dominio spinto, cambia solo il centro.
+    await tester.tap(find.byKey(const Key('santuario_side_left')));
+    await step(tester);
+    expect(maestro.activeMaestro, Maestro.caligo);
+    expect(find.byType(SantuarioBottomBar), findsOneWidget);
+    expect(find.text('Parla con Caligo'), findsNothing);
   });
 
   testWidgets('I tre Maestri nella bottom bar rispettano l\'ordine fisso',

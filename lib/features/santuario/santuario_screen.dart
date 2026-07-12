@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,8 +10,10 @@ import '../../core/astro/zodiac_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../core/motion/parallax_controller.dart';
+import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../maestri/domain_screen.dart';
@@ -37,6 +40,11 @@ class SantuarioScreen extends StatefulWidget {
   /// Maestro preferito, segnaposto in attesa dell'assegnazione all'onboarding.
   static const Maestro preferred = Maestro.medora;
 
+  /// Zona franca del titolo in alto, in coordinate normalizzate (0..1): il
+  /// cosmo di sfondo non fa nascere stelle qui, cosi' nessuna cade su una
+  /// lettera. La legge il cosmo dello shell quando mostra il Santuario.
+  static const Rect titleKeepOut = Rect.fromLTRB(0.04, 0.15, 0.96, 0.34);
+
   @override
   State<SantuarioScreen> createState() => _SantuarioScreenState();
 }
@@ -48,6 +56,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   String? _greeting;
   Timer? _greetingTimer;
   final Map<Maestro, int> _greetingIndex = {};
+
+  // Invito al tocco del cielo: appare dopo qualche secondo di inattivita' e si
+  // dissolve al primo tocco, coerente con la scala dell'aiuto universale.
+  Timer? _skyHintTimer;
+  bool _showSkyHint = false;
+  bool _skyHintDismissed = false;
 
   static const Map<Maestro, List<String>> _greetings = {
     Maestro.medora: [
@@ -74,11 +88,34 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       vsync: this,
       duration: const Duration(seconds: 6),
     )..repeat();
+    _armSkyHint();
+  }
+
+  // Arma l'invito al cielo: dopo tre secondi senza tocco, lo mostra.
+  void _armSkyHint() {
+    _skyHintTimer?.cancel();
+    if (_skyHintDismissed) return;
+    _skyHintTimer = Timer(const Duration(seconds: 3), () {
+      if (mounted && !_skyHintDismissed) setState(() => _showSkyHint = true);
+    });
+  }
+
+  void _dismissSkyHint() {
+    _skyHintTimer?.cancel();
+    if (_skyHintDismissed && !_showSkyHint) return;
+    _skyHintDismissed = true;
+    if (mounted) setState(() => _showSkyHint = false);
+  }
+
+  void _openSky(BuildContext context) {
+    _dismissSkyHint();
+    Navigator.of(context).push(SkyOverviewScreen.route());
   }
 
   @override
   void dispose() {
     _greetingTimer?.cancel();
+    _skyHintTimer?.cancel();
     _breath.dispose();
     super.dispose();
   }
@@ -165,21 +202,35 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // I busti occupano la fascia centrale e bassa in modo pieno, non
           // schiacciati sul fondo. Una carta piu' alta riduce lo spazio morto.
           final centralH = (h * 0.54).clamp(240.0, 460.0);
-          // Sollevati dal margine inferiore, cosi' poggiano sul palco senza
+          // Sollevati dal margine inferiore: lasciano spazio, sotto il centro,
+          // al pulsante Entra nel Dominio, e poggiano sul palco senza
           // sprofondare dietro la bottom bar.
-          final carouselBottom = h * 0.05;
+          final carouselBottom = h * 0.11;
           final carouselHeight = centralH * 1.32;
+
+          // Anello del Santuario, dietro i tre Maestri: ellisse dorata attorno
+          // al terzetto, con l'arco superiore ben sopra le teste.
+          final ringCenter =
+              Offset(w / 2, h - (carouselBottom + centralH * 0.46));
 
           return Stack(
             children: [
-              // Silhouette architettonica del tempio, dietro tutto, tenue e
-              // sensibile alla parallasse: colonne, arco e cupola di linee
-              // dorate e stelle. Segnaposto del fondale dipinto.
+              // Anello del Santuario, dietro tutto: sottile e luminoso, con
+              // dentro una geometria sacra leggera (rosone e raggi da finestra
+              // di monastero). Fa anche da cerchio visibile che unisce i tre
+              // Maestri. Dove passerebbe sul testo in alto si dissolve. E' un
+              // segnaposto in codice, il fondale dipinto arriva dopo come piano
+              // profondo dietro l'anello.
               Positioned.fill(
                 child: CustomPaint(
-                  painter: _TempleSilhouettePainter(
+                  painter: _SanctuaryRingPainter(
+                    center: ringCenter,
+                    rx: w * 0.46,
+                    ry: centralH * 0.58,
                     color: palette.goldSoft,
                     offset: depth(0.22),
+                    fadeStartY: h * 0.19,
+                    fadeEndY: h * 0.30,
                   ),
                 ),
               ),
@@ -209,8 +260,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 child: GestureDetector(
                   key: const Key('santuario_sky_tap'),
                   behavior: HitTestBehavior.opaque,
-                  onTap: () =>
-                      Navigator.of(context).push(SkyOverviewScreen.route()),
+                  onTap: () => _openSky(context),
                   child: Column(
                     children: [
                       MoonWidget(
@@ -243,6 +293,14 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                           ),
                         ),
                       ),
+                      // Invito al tocco, dopo qualche secondo di inattivita':
+                      // discreto, animato, si dissolve al primo tocco.
+                      _SkyTapHint(
+                        visible: _showSkyHint,
+                        pulse: _breath,
+                        reduceMotion: reduceMotion,
+                        color: palette.goldSoft,
+                      ),
                     ],
                   ),
                 ),
@@ -268,13 +326,13 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 ),
               ),
 
-              // Saluto breve appena sopra i busti, secondario e non bloccante:
-              // non ripete la fase, resta un tocco leggero.
+              // Saluto breve, secondario e non bloccante: sotto il titolo e
+              // sopra le teste, sull'arco dell'anello. Non ripete la fase.
               if (_greeting != null)
                 Positioned(
                   left: 0,
                   right: 0,
-                  bottom: carouselBottom + centralH * 1.06,
+                  top: h * 0.30,
                   child: IgnorePointer(
                     child: Center(
                       child: AnimatedOpacity(
@@ -291,6 +349,20 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                     ),
                   ),
                 ),
+
+              // Terza via al dominio: un pulsante a bolla discreto sotto il
+              // Maestro al centro, nella sua palette, col nome che si aggiorna.
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: h * 0.035,
+                child: Center(
+                  child: _EnterDomainButton(
+                    maestro: central,
+                    onTap: () => _enterDomain(context, central),
+                  ),
+                ),
+              ),
             ],
           );
         },
@@ -350,32 +422,11 @@ class _Carousel extends StatelessWidget {
             final w = c.maxWidth;
             final breathValue = reduceMotion ? 0.5 : breath.value;
 
-            // Punti di aggancio del filo d'oro, all'altezza del petto. Seguono
-            // la deriva del giroscopio di ciascun piano, cosi' il filo resta
-            // cucito ai busti mentre la scena si inclina.
-            final centralPoint =
-                Offset(w / 2, c.maxHeight - centralHeight * 0.5) + centralDepth;
-            final sideMid = c.maxHeight - sideBottom - sideH * 0.5;
-            final leftPoint =
-                Offset(w * 0.14 + sideW / 2, sideMid) + sideDepth;
-            final rightPoint =
-                Offset(w * 0.86 - sideW / 2, sideMid) + sideDepth;
-
+            // Il cerchio che unisce i tre Maestri e' ora l'anello del
+            // Santuario, dietro i busti: qui restano solo le figure.
             return Stack(
               clipBehavior: Clip.none,
               children: [
-                // Il cerchio visibile: filo sottile di luce dorata.
-                Positioned.fill(
-                  child: CustomPaint(
-                    painter: _GoldenThreadPainter(
-                      a: leftPoint,
-                      b: centralPoint,
-                      cc: rightPoint,
-                      color: context.palette.goldSoft,
-                    ),
-                  ),
-                ),
-
                 // Busto sinistro, alzato, arretrato e in penombra.
                 Positioned(
                   left: w * 0.01,
@@ -385,6 +436,7 @@ class _Carousel extends StatelessWidget {
                   child: Transform.translate(
                     offset: sideDepth,
                     child: GestureDetector(
+                      key: const Key('santuario_side_left'),
                       onTap: () => onTapSide(sides[0]),
                       child: MaestroBust(
                         maestro: sides[0],
@@ -406,6 +458,7 @@ class _Carousel extends StatelessWidget {
                   child: Transform.translate(
                     offset: sideDepth,
                     child: GestureDetector(
+                      key: const Key('santuario_side_right'),
                       onTap: () => onTapSide(sides[1]),
                       child: MaestroBust(
                         maestro: sides[1],
@@ -449,101 +502,251 @@ class _Carousel extends StatelessWidget {
   }
 }
 
-/// Silhouette architettonica del tempio: colonne, arco e cupola disegnati con
-/// linee dorate sottili e punti-stella ai giunti. Una architettura-costellazione
-/// tenue dietro i Maestri, segnaposto del fondale dipinto.
-class _TempleSilhouettePainter extends CustomPainter {
-  _TempleSilhouettePainter({required this.color, required this.offset});
+/// L'anello del Santuario: un'ellisse dorata semitrasparente dietro i tre
+/// Maestri, sottile e luminosa, con dentro una geometria sacra leggera, un
+/// rosone al vertice e raggi da finestra di monastero. Fa da cerchio visibile
+/// che unisce i tre. Dove salirebbe sul testo in alto si dissolve. Segnaposto
+/// in codice, in attesa del fondale dipinto come piano profondo dietro.
+class _SanctuaryRingPainter extends CustomPainter {
+  _SanctuaryRingPainter({
+    required this.center,
+    required this.rx,
+    required this.ry,
+    required this.color,
+    required this.offset,
+    required this.fadeStartY,
+    required this.fadeEndY,
+  });
 
+  final Offset center;
+  final double rx;
+  final double ry;
   final Color color;
   final Offset offset;
 
+  /// Sopra [fadeStartY] l'anello e' trasparente, sotto [fadeEndY] pieno: cosi'
+  /// dove passerebbe sul testo in alto si dissolve e la lettura resta pulita.
+  final double fadeStartY;
+  final double fadeEndY;
+
   @override
   void paint(Canvas canvas, Size size) {
+    final bounds = Offset.zero & size;
+    canvas.saveLayer(bounds, Paint());
+
     canvas.save();
     canvas.translate(offset.dx, offset.dy);
+    final c = center;
+    final rect = Rect.fromCenter(center: c, width: rx * 2, height: ry * 2);
 
-    final w = size.width;
-    final h = size.height;
-    // Un tempio che si legga davvero dietro i Maestri, senza invadere: linee
-    // dorate piu' marcate con un lieve alone, e stelle piu' vive ai giunti.
-    final glowLine = Paint()
+    // Alone morbido dell'anello.
+    canvas.drawOval(
+      rect,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 6
+        ..color = color.withValues(alpha: 0.10)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8),
+    );
+    // Anello principale.
+    canvas.drawOval(
+      rect,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.6
+        ..color = color.withValues(alpha: 0.55),
+    );
+    // Doppio filo interno, da finestra di monastero.
+    canvas.drawOval(
+      Rect.fromCenter(center: c, width: rx * 1.82, height: ry * 1.82),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.9
+        ..color = color.withValues(alpha: 0.30),
+    );
+
+    // Raggi dal centro all'anello, tenui: la finestra a raggiera.
+    final spoke = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.4
-      ..strokeCap = StrokeCap.round
-      ..color = color.withValues(alpha: 0.10)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3);
-    final line = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.3
-      ..strokeCap = StrokeCap.round
-      ..color = color.withValues(alpha: 0.28);
-    final star = Paint()..color = color.withValues(alpha: 0.65);
-
-    final baseY = h * 0.80;
-    final topY = h * 0.50;
-    final cols = [0.12, 0.28, 0.5, 0.72, 0.88].map((f) => f * w).toList();
-    final joints = <Offset>[];
-
-    // Ogni tratto viene disegnato due volte: prima l'alone morbido, poi la
-    // linea netta, cosi' il tempio si legge senza pesare.
-    void stroke(void Function(Paint p) draw) {
-      draw(glowLine);
-      draw(line);
+      ..strokeWidth = 0.8
+      ..color = color.withValues(alpha: 0.16);
+    const n = 16;
+    for (var i = 0; i < n; i++) {
+      final a = 2 * math.pi * i / n;
+      canvas.drawLine(
+          c, Offset(c.dx + rx * math.cos(a), c.dy + ry * math.sin(a)), spoke);
     }
 
-    // Basamento e architrave.
-    stroke((p) => canvas.drawLine(
-        Offset(cols.first, baseY), Offset(cols.last, baseY), p));
-    stroke((p) => canvas.drawLine(
-        Offset(cols.first, topY), Offset(cols.last, topY), p));
+    // Rosone al vertice alto dell'anello, nella zona visibile sopra le teste.
+    _rosette(canvas, Offset(c.dx, c.dy - ry), ry * 0.15);
 
-    // Colonne coi capitelli.
-    for (final x in cols) {
-      stroke((p) => canvas.drawLine(Offset(x, baseY), Offset(x, topY), p));
-      stroke((p) =>
-          canvas.drawLine(Offset(x - 8, topY), Offset(x + 8, topY), p));
-      joints.add(Offset(x, baseY));
-      joints.add(Offset(x, topY));
-    }
+    canvas.restore();
 
-    // Arco centrale, come una porta.
-    final arch = Path()
-      ..moveTo(w * 0.40, baseY)
-      ..lineTo(w * 0.40, h * 0.56)
-      ..arcToPoint(Offset(w * 0.60, h * 0.56),
-          radius: Radius.circular(w * 0.10))
-      ..lineTo(w * 0.60, baseY);
-    stroke((p) => canvas.drawPath(arch, p));
-
-    // Cupola sopra l'architrave, col pinnacolo.
-    final dome = Path()
-      ..moveTo(w * 0.28, topY)
-      ..quadraticBezierTo(w * 0.5, h * 0.30, w * 0.72, topY);
-    stroke((p) => canvas.drawPath(dome, p));
-    final finial = Offset(w * 0.5, h * 0.33);
-    stroke((p) => canvas.drawLine(Offset(w * 0.5, h * 0.30), finial, p));
-    joints
-      ..add(finial)
-      ..add(Offset(w * 0.5, h * 0.36));
-
-    // Punti-stella luminosi ai giunti dell'architettura, con un piccolo alone.
-    for (final p in joints) {
-      canvas.drawCircle(
-        p,
-        4,
-        Paint()
-          ..color = color.withValues(alpha: 0.22)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3),
-      );
-      canvas.drawCircle(p, 1.8, star);
-    }
+    // Dissolvenza in alto, dove l'anello sfiorerebbe il testo.
+    final s0 = (fadeStartY / size.height).clamp(0.0, 1.0);
+    final s1 = (fadeEndY / size.height).clamp(0.0, 1.0);
+    canvas.drawRect(
+      bounds,
+      Paint()
+        ..blendMode = BlendMode.dstIn
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: const [Colors.transparent, Colors.transparent, Colors.black],
+          stops: [0.0, s0, s1 <= s0 ? s0 + 0.01 : s1],
+        ).createShader(bounds),
+    );
     canvas.restore();
   }
 
+  void _rosette(Canvas canvas, Offset o, double r) {
+    final p = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 0.9
+      ..color = color.withValues(alpha: 0.5);
+    canvas.drawCircle(o, r, p);
+    for (var i = 0; i < 6; i++) {
+      final a = 2 * math.pi * i / 6;
+      canvas.drawCircle(
+          Offset(o.dx + r * math.cos(a), o.dy + r * math.sin(a)), r * 0.55, p);
+    }
+    canvas.drawCircle(o, 1.6, Paint()..color = color.withValues(alpha: 0.8));
+  }
+
   @override
-  bool shouldRepaint(_TempleSilhouettePainter old) =>
-      old.color != color || old.offset != offset;
+  bool shouldRepaint(_SanctuaryRingPainter old) =>
+      old.center != center ||
+      old.rx != rx ||
+      old.ry != ry ||
+      old.color != color ||
+      old.offset != offset ||
+      old.fadeStartY != fadeStartY ||
+      old.fadeEndY != fadeEndY;
+}
+
+/// Pulsante a bolla discreto, terza via al dominio del Maestro al centro. Sta
+/// nella palette del Maestro e il nome si aggiorna col centro.
+class _EnterDomainButton extends StatelessWidget {
+  const _EnterDomainButton({required this.maestro, required this.onTap});
+
+  final Maestro maestro;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: const Key('santuario_enter_domain'),
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.sm, vertical: 9),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+            gradient: LinearGradient(
+              colors: [
+                palette.primary.withValues(alpha: 0.6),
+                palette.surfaceElevated.withValues(alpha: 0.6),
+              ],
+            ),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+            boxShadow: [
+              BoxShadow(
+                color: palette.glow.withValues(alpha: 0.35),
+                blurRadius: 16,
+                spreadRadius: -4,
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(maestro.icon, size: 16, color: palette.goldSoft),
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  'Entra nel Dominio di ${maestro.displayName}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TypographyTokens.label(size: 12)
+                      .copyWith(color: palette.goldSoft, letterSpacing: 0.3),
+                ),
+              ),
+              const SizedBox(width: 6),
+              Icon(Icons.chevron_right_rounded,
+                  size: 16, color: palette.goldSoft),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Invito discreto al tocco del cielo: un piccolo simbolo che pulsa piano e una
+/// riga breve. Compare dopo qualche secondo di inattivita' e si dissolve al
+/// primo tocco. Con Riduci Movimento resta fermo, senza pulsazione.
+class _SkyTapHint extends StatelessWidget {
+  const _SkyTapHint({
+    required this.visible,
+    required this.pulse,
+    required this.reduceMotion,
+    required this.color,
+  });
+
+  final bool visible;
+  final Animation<double> pulse;
+  final bool reduceMotion;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+      child: AnimatedOpacity(
+        opacity: visible ? 1 : 0,
+        duration: const Duration(milliseconds: 400),
+        child: !visible
+            ? const SizedBox(width: double.infinity)
+            : Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: AnimatedBuilder(
+                  animation: pulse,
+                  builder: (context, child) {
+                    final t = reduceMotion
+                        ? 0.5
+                        : 0.5 + 0.5 * math.sin(2 * math.pi * pulse.value);
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Opacity(
+                          opacity: 0.55 + 0.35 * t,
+                          child: Transform.translate(
+                            offset: Offset(0, reduceMotion ? 0 : -2 * t),
+                            child: Icon(Icons.touch_app_outlined,
+                                size: 18, color: color),
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Tocca il cielo',
+                          style: TypographyTokens.label(size: 9).copyWith(
+                            color: color.withValues(alpha: 0.75),
+                            letterSpacing: 1.2,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+      ),
+    );
+  }
 }
 
 /// Accenti del cielo del Santuario: nebulose soffuse tinte sull'accento del
@@ -571,9 +774,9 @@ class _SkyAccentsPainter extends CustomPainter {
 
     // Nebulose soffuse, ai lati della Luna, tinte sull'accento.
     const nebulae = [
-      (Offset(0.20, 0.15), 0.30),
-      (Offset(0.82, 0.22), 0.26),
-      (Offset(0.66, 0.09), 0.20),
+      (Offset(0.18, 0.12), 0.30),
+      (Offset(0.86, 0.13), 0.26),
+      (Offset(0.66, 0.08), 0.20),
     ];
     for (var i = 0; i < nebulae.length; i++) {
       final (pos, rf) = nebulae[i];
@@ -589,10 +792,11 @@ class _SkyAccentsPainter extends CustomPainter {
       );
     }
 
-    // Stelle-pianeta: piu' luminose, con un piccolo alone.
+    // Stelle-pianeta: piu' luminose, con un piccolo alone. In alto, ai lati
+    // della Luna, lontane dal testo del titolo.
     const planets = [
-      (Offset(0.30, 0.27), 2.4),
-      (Offset(0.74, 0.31), 1.8),
+      (Offset(0.22, 0.11), 2.4),
+      (Offset(0.80, 0.12), 1.8),
     ];
     for (final (pos, r) in planets) {
       final center = Offset(pos.dx * w, pos.dy * h);
@@ -620,42 +824,3 @@ class _SkyAccentsPainter extends CustomPainter {
       old.offset != offset;
 }
 
-/// Filo d'oro sottile che unisce i tre Maestri, discreto.
-class _GoldenThreadPainter extends CustomPainter {
-  _GoldenThreadPainter({
-    required this.a,
-    required this.b,
-    required this.cc,
-    required this.color,
-  });
-
-  final Offset a;
-  final Offset b;
-  final Offset cc;
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.1
-      ..strokeCap = StrokeCap.round
-      ..color = color.withValues(alpha: 0.5)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.2);
-    // Un arco morbido dai laterali al centro.
-    final smooth = Path()
-      ..moveTo(a.dx, a.dy)
-      ..quadraticBezierTo((a.dx + b.dx) / 2, b.dy - 30, b.dx, b.dy)
-      ..quadraticBezierTo((b.dx + cc.dx) / 2, b.dy - 30, cc.dx, cc.dy);
-    canvas.drawPath(smooth, paint);
-    // piccoli nodi di luce sui Maestri
-    final dot = Paint()..color = color.withValues(alpha: 0.7);
-    for (final o in [a, b, cc]) {
-      canvas.drawCircle(o, 2, dot);
-    }
-  }
-
-  @override
-  bool shouldRepaint(_GoldenThreadPainter old) =>
-      old.a != a || old.b != b || old.cc != cc || old.color != color;
-}
