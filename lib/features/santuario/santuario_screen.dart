@@ -52,34 +52,12 @@ class SantuarioScreen extends StatefulWidget {
 class _SantuarioScreenState extends State<SantuarioScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _breath;
-  Maestro? _lastCentral;
-  String? _greeting;
-  Timer? _greetingTimer;
-  final Map<Maestro, int> _greetingIndex = {};
 
   // Invito al tocco del cielo: appare dopo qualche secondo di inattivita' e si
   // dissolve al primo tocco, coerente con la scala dell'aiuto universale.
   Timer? _skyHintTimer;
   bool _showSkyHint = false;
   bool _skyHintDismissed = false;
-
-  static const Map<Maestro, List<String>> _greetings = {
-    Maestro.medora: [
-      'Medora ti accoglie.',
-      'Medora ti sorride.',
-      'Le stelle si voltano verso di te.',
-    ],
-    Maestro.aura: [
-      'Aura respira con te.',
-      'Aura ti avvolge.',
-      'Un respiro e sei qui.',
-    ],
-    Maestro.caligo: [
-      'Caligo alza lo sguardo.',
-      'Caligo ti riconosce.',
-      'Le rune si destano.',
-    ],
-  };
 
   @override
   void initState() {
@@ -114,22 +92,9 @@ class _SantuarioScreenState extends State<SantuarioScreen>
 
   @override
   void dispose() {
-    _greetingTimer?.cancel();
     _skyHintTimer?.cancel();
     _breath.dispose();
     super.dispose();
-  }
-
-  void _onCentralChanged(Maestro maestro) {
-    // Saluto breve a rotazione, mai lo stesso due volte di fila, non blocca.
-    final variants = _greetings[maestro]!;
-    final next = ((_greetingIndex[maestro] ?? -1) + 1) % variants.length;
-    _greetingIndex[maestro] = next;
-    setState(() => _greeting = variants[next]);
-    _greetingTimer?.cancel();
-    _greetingTimer = Timer(const Duration(milliseconds: 1300), () {
-      if (mounted) setState(() => _greeting = null);
-    });
   }
 
   void _enterDomain(BuildContext context, Maestro maestro) {
@@ -174,14 +139,6 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     final parallax = context.watch<ParallaxController>();
     final palette = context.palette;
 
-    // Segnala il cambio di centrale per il saluto (solo su un Maestro scelto).
-    if (selected && central != _lastCentral) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) _onCentralChanged(central);
-      });
-    }
-    _lastCentral = selected ? central : null;
-
     final moon = MoonPhase.forDate(DateTime.now());
 
     // Slot personali: nome e segno dell'utente. Segnaposto in attesa del
@@ -208,32 +165,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           final carouselBottom = h * 0.11;
           final carouselHeight = centralH * 1.32;
 
-          // Anello del Santuario, dietro i tre Maestri: ellisse dorata attorno
-          // al terzetto, con l'arco superiore ben sopra le teste.
-          final ringCenter =
-              Offset(w / 2, h - (carouselBottom + centralH * 0.46));
-
           return Stack(
             children: [
-              // Anello del Santuario, dietro tutto: sottile e luminoso, con
-              // dentro una geometria sacra leggera (rosone e raggi da finestra
-              // di monastero). Fa anche da cerchio visibile che unisce i tre
-              // Maestri. Dove passerebbe sul testo in alto si dissolve. E' un
-              // segnaposto in codice, il fondale dipinto arriva dopo come piano
-              // profondo dietro l'anello.
-              Positioned.fill(
-                child: CustomPaint(
-                  painter: _SanctuaryRingPainter(
-                    center: ringCenter,
-                    rx: w * 0.46,
-                    ry: centralH * 0.58,
-                    color: palette.goldSoft,
-                    offset: depth(0.22),
-                    fadeStartY: h * 0.19,
-                    fadeEndY: h * 0.30,
-                  ),
-                ),
-              ),
+              // Nessuna forma vettoriale come fondale: dietro i Maestri resta
+              // il cosmo pulito (stelle, nebulose, Luna) e lo spazio scuro. Il
+              // fondale dipinto del Santuario, quando pronto, si monta qui come
+              // piano profondo dietro i busti.
 
               // Cielo in alto: nebulose soffuse tinte sull'accento del Maestro
               // e un paio di stelle piu' luminose a evocare i pianeti, in
@@ -325,30 +262,6 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   onTapSide: (m) => _selectSide(context, m),
                 ),
               ),
-
-              // Saluto breve, secondario e non bloccante: sotto il titolo e
-              // sopra le teste, sull'arco dell'anello. Non ripete la fase.
-              if (_greeting != null)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  top: h * 0.30,
-                  child: IgnorePointer(
-                    child: Center(
-                      child: AnimatedOpacity(
-                        opacity: 1,
-                        duration: const Duration(milliseconds: 250),
-                        child: Text(
-                          _greeting!,
-                          style: TypographyTokens.body(size: 13).copyWith(
-                            color: palette.goldSoft.withValues(alpha: 0.7),
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
 
               // Terza via al dominio: un pulsante a bolla discreto sotto il
               // Maestro al centro, nella sua palette, col nome che si aggiorna.
@@ -500,128 +413,6 @@ class _Carousel extends StatelessWidget {
       },
     );
   }
-}
-
-/// L'anello del Santuario: un'ellisse dorata semitrasparente dietro i tre
-/// Maestri, sottile e luminosa, con dentro una geometria sacra leggera, un
-/// rosone al vertice e raggi da finestra di monastero. Fa da cerchio visibile
-/// che unisce i tre. Dove salirebbe sul testo in alto si dissolve. Segnaposto
-/// in codice, in attesa del fondale dipinto come piano profondo dietro.
-class _SanctuaryRingPainter extends CustomPainter {
-  _SanctuaryRingPainter({
-    required this.center,
-    required this.rx,
-    required this.ry,
-    required this.color,
-    required this.offset,
-    required this.fadeStartY,
-    required this.fadeEndY,
-  });
-
-  final Offset center;
-  final double rx;
-  final double ry;
-  final Color color;
-  final Offset offset;
-
-  /// Sopra [fadeStartY] l'anello e' trasparente, sotto [fadeEndY] pieno: cosi'
-  /// dove passerebbe sul testo in alto si dissolve e la lettura resta pulita.
-  final double fadeStartY;
-  final double fadeEndY;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final bounds = Offset.zero & size;
-    canvas.saveLayer(bounds, Paint());
-
-    canvas.save();
-    canvas.translate(offset.dx, offset.dy);
-    final c = center;
-    final rect = Rect.fromCenter(center: c, width: rx * 2, height: ry * 2);
-
-    // Alone morbido dell'anello.
-    canvas.drawOval(
-      rect,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 6
-        ..color = color.withValues(alpha: 0.10)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8),
-    );
-    // Anello principale.
-    canvas.drawOval(
-      rect,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.6
-        ..color = color.withValues(alpha: 0.55),
-    );
-    // Doppio filo interno, da finestra di monastero.
-    canvas.drawOval(
-      Rect.fromCenter(center: c, width: rx * 1.82, height: ry * 1.82),
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 0.9
-        ..color = color.withValues(alpha: 0.30),
-    );
-
-    // Raggi dal centro all'anello, tenui: la finestra a raggiera.
-    final spoke = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.8
-      ..color = color.withValues(alpha: 0.16);
-    const n = 16;
-    for (var i = 0; i < n; i++) {
-      final a = 2 * math.pi * i / n;
-      canvas.drawLine(
-          c, Offset(c.dx + rx * math.cos(a), c.dy + ry * math.sin(a)), spoke);
-    }
-
-    // Rosone al vertice alto dell'anello, nella zona visibile sopra le teste.
-    _rosette(canvas, Offset(c.dx, c.dy - ry), ry * 0.15);
-
-    canvas.restore();
-
-    // Dissolvenza in alto, dove l'anello sfiorerebbe il testo.
-    final s0 = (fadeStartY / size.height).clamp(0.0, 1.0);
-    final s1 = (fadeEndY / size.height).clamp(0.0, 1.0);
-    canvas.drawRect(
-      bounds,
-      Paint()
-        ..blendMode = BlendMode.dstIn
-        ..shader = LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: const [Colors.transparent, Colors.transparent, Colors.black],
-          stops: [0.0, s0, s1 <= s0 ? s0 + 0.01 : s1],
-        ).createShader(bounds),
-    );
-    canvas.restore();
-  }
-
-  void _rosette(Canvas canvas, Offset o, double r) {
-    final p = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.9
-      ..color = color.withValues(alpha: 0.5);
-    canvas.drawCircle(o, r, p);
-    for (var i = 0; i < 6; i++) {
-      final a = 2 * math.pi * i / 6;
-      canvas.drawCircle(
-          Offset(o.dx + r * math.cos(a), o.dy + r * math.sin(a)), r * 0.55, p);
-    }
-    canvas.drawCircle(o, 1.6, Paint()..color = color.withValues(alpha: 0.8));
-  }
-
-  @override
-  bool shouldRepaint(_SanctuaryRingPainter old) =>
-      old.center != center ||
-      old.rx != rx ||
-      old.ry != ry ||
-      old.color != color ||
-      old.offset != offset ||
-      old.fadeStartY != fadeStartY ||
-      old.fadeEndY != fadeEndY;
 }
 
 /// Pulsante a bolla discreto, terza via al dominio del Maestro al centro. Sta
