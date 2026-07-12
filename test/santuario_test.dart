@@ -1,6 +1,7 @@
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/design_system/components/cosmos_background.dart';
 import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
+import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:esoteric_circle/features/shell/app_shell.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
@@ -84,5 +85,35 @@ void main() {
     expect(find.byIcon(Icons.close), findsNothing);
     expect(find.byIcon(Icons.close_rounded), findsNothing);
     expect(find.byIcon(Icons.arrow_back_rounded), findsNothing);
+  });
+
+  testWidgets('Il cielo in alto e\' toccabile e apre la sua schermata',
+      (tester) async {
+    silenceSensors();
+    // Superficie del telefono, cosi' la composizione verticale e' quella
+    // reale: il cielo in alto non finisce sotto i busti.
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await step(tester);
+
+    // Tocco sulla zona del cielo e della Luna: apre "Il cielo sopra di te".
+    await tester.tap(find.byKey(const Key('santuario_sky_tap')));
+    await step(tester);
+    await step(tester);
+    expect(find.byType(SkyOverviewScreen), findsOneWidget);
+    // Ha la sua freccia Indietro: mai un vicolo cieco.
+    expect(find.byIcon(Icons.arrow_back_rounded), findsOneWidget);
+
+    // Indietro torna al Santuario.
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    await nav.maybePop();
+    await step(tester);
+    await step(tester);
+    expect(find.byType(SkyOverviewScreen), findsNothing);
+    expect(find.byType(SantuarioScreen), findsOneWidget);
   });
 }

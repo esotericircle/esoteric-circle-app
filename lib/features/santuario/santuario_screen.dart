@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/moon_phase.dart';
+import '../../core/astro/zodiac.dart';
+import '../../core/astro/zodiac_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../core/motion/parallax_controller.dart';
@@ -12,6 +14,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../maestri/domain_screen.dart';
+import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
 
@@ -106,26 +109,22 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     context.read<MaestroController>().selectMaestro(maestro);
   }
 
-  /// La riga dell'oggi, attribuita al Maestro al centro e alla sua arte. Per
-  /// Medora la parte astronomica e' vera (fase e luce della Luna reali). Per
-  /// Aura e Caligo il contenuto e' un segnaposto in attesa del motore vero.
-  (String, String) _tonight(Maestro maestro, MoonPhase moon) {
+  /// La riga personale del Maestro al centro, con lo slot pronto per nome e
+  /// segno dell'utente, cosi' sembra parlare proprio a lui. Per ora nome e
+  /// segno sono segnaposto. Per Medora la parte astronomica resta vera (luce e
+  /// tendenza reali della Luna); Aura e Caligo sono testo segnaposto.
+  ///
+  /// Non ripete il nome della fase, gia' mostrato nell'occhiello in alto.
+  String _personalLine(Maestro maestro, MoonPhase moon, String name, String sign) {
     switch (maestro) {
       case Maestro.medora:
         final pct = (moon.illumination * 100).round();
-        final tend =
-            moon.waxing ? 'cresce, semina ora.' : 'cala, lascia andare.';
-        return ('Il cielo di stanotte', '${moon.italianName}, $pct% di luce: $tend');
+        final tend = moon.waxing ? 'cresce' : 'cala';
+        return '$name, la Luna $tend al $pct%: la giusta ora per chi nasce sotto $sign.';
       case Maestro.aura:
-        return (
-          "L'energia di stanotte",
-          'Il verde del cuore respira: sciogli le spalle e allunga il respiro.'
-        );
+        return "$name, l'energia di chi nasce sotto $sign cerca quiete: una mano sul cuore.";
       case Maestro.caligo:
-        return (
-          'Il presagio di stanotte',
-          'Sale Perthro, la runa del segreto: qualcosa matura al riparo.'
-        );
+        return '$name, per chi nasce sotto $sign stanotte sale una runa di pazienza.';
     }
   }
 
@@ -147,7 +146,13 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     _lastCentral = selected ? central : null;
 
     final moon = MoonPhase.forDate(DateTime.now());
-    final (tonightEyebrow, tonightLine) = _tonight(central, moon);
+
+    // Slot personali: nome e segno dell'utente. Segnaposto in attesa del
+    // profilo reale; il segno si legge gia' dal controller dello zodiaco.
+    const userName = 'Viandante';
+    final userSign =
+        (context.watch<ZodiacController>().sunSign ?? Zodiac.gemini).italianName;
+    final personalLine = _personalLine(central, moon, userName, userSign);
 
     // Riduci Movimento: niente deriva di parallasse, scena ferma.
     Offset depth(double d) => reduceMotion ? Offset.zero : parallax.layerOffset(d);
@@ -193,42 +198,53 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 ),
               ),
 
-              // Luna reale protagonista, il nome della fase e la riga dell'oggi.
+              // Il cielo in alto e' toccabile: apre "Il cielo sopra di te",
+              // per ora segnaposto. Poco testo dopo il segno visivo: un
+              // occhiello con la fase reale, un'intestazione e una sola riga
+              // personale nella voce del Maestro. La fase non si ripete.
               Positioned(
                 top: h * 0.015,
                 left: 0,
                 right: 0,
-                child: Column(
-                  children: [
-                    MoonWidget(phase: moon, size: (w * 0.12).clamp(58.0, 108.0)),
-                    Text(
-                      moon.italianName,
-                      style: TypographyTokens.label(size: 11).copyWith(
-                        color: ColorTokens.textMuted,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      tonightEyebrow.toUpperCase(),
-                      style: TypographyTokens.label(size: 10).copyWith(
-                        color: palette.goldSoft,
-                        letterSpacing: 1.4,
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
-                      child: Text(
-                        tonightLine,
-                        textAlign: TextAlign.center,
-                        style: TypographyTokens.body(size: 13).copyWith(
-                          color: ColorTokens.textSecondary,
-                          fontStyle: FontStyle.italic,
-                          height: 1.3,
+                child: GestureDetector(
+                  key: const Key('santuario_sky_tap'),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () =>
+                      Navigator.of(context).push(SkyOverviewScreen.route()),
+                  child: Column(
+                    children: [
+                      MoonWidget(
+                          phase: moon, size: (w * 0.12).clamp(58.0, 108.0)),
+                      // 1. Occhiello: la fase reale della Luna, piccola.
+                      Text(
+                        moon.italianName.toUpperCase(),
+                        style: TypographyTokens.label(size: 10).copyWith(
+                          color: palette.goldSoft,
+                          letterSpacing: 1.6,
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 8),
+                      // 2. Intestazione.
+                      Text(
+                        'Il cielo sopra di te, stanotte',
+                        style: TypographyTokens.display(size: 17),
+                      ),
+                      const SizedBox(height: 4),
+                      // 3. Riga personale, nella voce del Maestro al centro.
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        child: Text(
+                          personalLine,
+                          textAlign: TextAlign.center,
+                          style: TypographyTokens.body(size: 13).copyWith(
+                            color: ColorTokens.textSecondary,
+                            fontStyle: FontStyle.italic,
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
@@ -245,13 +261,15 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   breath: _breath,
                   reduceMotion: reduceMotion,
                   preferred: SantuarioScreen.preferred,
-                  sideDepth: depth(0.3),
+                  centralDepth: depth(0.5),
+                  sideDepth: depth(0.28),
                   onTapCentral: () => _enterDomain(context, central),
                   onTapSide: (m) => _selectSide(context, m),
                 ),
               ),
 
-              // Saluto breve appena sopra i busti, non blocca mai.
+              // Saluto breve appena sopra i busti, secondario e non bloccante:
+              // non ripete la fase, resta un tocco leggero.
               if (_greeting != null)
                 Positioned(
                   left: 0,
@@ -264,8 +282,9 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         duration: const Duration(milliseconds: 250),
                         child: Text(
                           _greeting!,
-                          style: TypographyTokens.display(size: 18).copyWith(
-                            color: palette.goldSoft,
+                          style: TypographyTokens.body(size: 13).copyWith(
+                            color: palette.goldSoft.withValues(alpha: 0.7),
+                            letterSpacing: 0.5,
                           ),
                         ),
                       ),
@@ -290,6 +309,7 @@ class _Carousel extends StatelessWidget {
     required this.breath,
     required this.reduceMotion,
     required this.preferred,
+    required this.centralDepth,
     required this.sideDepth,
     required this.onTapCentral,
     required this.onTapSide,
@@ -302,7 +322,11 @@ class _Carousel extends StatelessWidget {
   final bool reduceMotion;
   final Maestro preferred;
 
-  /// Deriva di parallasse dei laterali, piano arretrato.
+  /// Deriva di parallasse (giroscopio) del busto centrale, piano in primo
+  /// piano: si inclina un po' di piu' dei laterali.
+  final Offset centralDepth;
+
+  /// Deriva di parallasse dei laterali, piano arretrato: si inclina di meno.
   final Offset sideDepth;
   final VoidCallback onTapCentral;
   final ValueChanged<Maestro> onTapSide;
@@ -326,11 +350,16 @@ class _Carousel extends StatelessWidget {
             final w = c.maxWidth;
             final breathValue = reduceMotion ? 0.5 : breath.value;
 
-            // Punti di aggancio del filo d'oro, all'altezza del petto.
-            final centralPoint = Offset(w / 2, c.maxHeight - centralHeight * 0.5);
+            // Punti di aggancio del filo d'oro, all'altezza del petto. Seguono
+            // la deriva del giroscopio di ciascun piano, cosi' il filo resta
+            // cucito ai busti mentre la scena si inclina.
+            final centralPoint =
+                Offset(w / 2, c.maxHeight - centralHeight * 0.5) + centralDepth;
             final sideMid = c.maxHeight - sideBottom - sideH * 0.5;
-            final leftPoint = Offset(w * 0.14 + sideW / 2, sideMid);
-            final rightPoint = Offset(w * 0.86 - sideW / 2, sideMid);
+            final leftPoint =
+                Offset(w * 0.14 + sideW / 2, sideMid) + sideDepth;
+            final rightPoint =
+                Offset(w * 0.86 - sideW / 2, sideMid) + sideDepth;
 
             return Stack(
               clipBehavior: Clip.none,
@@ -389,21 +418,25 @@ class _Carousel extends StatelessWidget {
                   ),
                 ),
 
-                // Busto centrale, l'unico vivo, in primo piano.
+                // Busto centrale, l'unico vivo, in primo piano: respira e si
+                // inclina un po' di piu' col giroscopio.
                 Positioned(
                   left: (w - centralW) / 2,
                   bottom: 0,
                   width: centralW,
                   height: centralHeight,
-                  child: GestureDetector(
-                    key: const Key('santuario_central_bust'),
-                    onTap: onTapCentral,
-                    child: MaestroBust(
-                      maestro: central,
-                      height: centralHeight,
-                      central: true,
-                      breath: breathValue,
-                      preferred: central == preferred,
+                  child: Transform.translate(
+                    offset: centralDepth,
+                    child: GestureDetector(
+                      key: const Key('santuario_central_bust'),
+                      onTap: onTapCentral,
+                      child: MaestroBust(
+                        maestro: central,
+                        height: centralHeight,
+                        central: true,
+                        breath: breathValue,
+                        preferred: central == preferred,
+                      ),
                     ),
                   ),
                 ),
@@ -432,26 +465,44 @@ class _TempleSilhouettePainter extends CustomPainter {
 
     final w = size.width;
     final h = size.height;
+    // Un tempio che si legga davvero dietro i Maestri, senza invadere: linee
+    // dorate piu' marcate con un lieve alone, e stelle piu' vive ai giunti.
+    final glowLine = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.4
+      ..strokeCap = StrokeCap.round
+      ..color = color.withValues(alpha: 0.10)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3);
     final line = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1
+      ..strokeWidth = 1.3
       ..strokeCap = StrokeCap.round
-      ..color = color.withValues(alpha: 0.12);
-    final star = Paint()..color = color.withValues(alpha: 0.4);
+      ..color = color.withValues(alpha: 0.28);
+    final star = Paint()..color = color.withValues(alpha: 0.65);
 
     final baseY = h * 0.80;
     final topY = h * 0.50;
     final cols = [0.12, 0.28, 0.5, 0.72, 0.88].map((f) => f * w).toList();
     final joints = <Offset>[];
 
+    // Ogni tratto viene disegnato due volte: prima l'alone morbido, poi la
+    // linea netta, cosi' il tempio si legge senza pesare.
+    void stroke(void Function(Paint p) draw) {
+      draw(glowLine);
+      draw(line);
+    }
+
     // Basamento e architrave.
-    canvas.drawLine(Offset(cols.first, baseY), Offset(cols.last, baseY), line);
-    canvas.drawLine(Offset(cols.first, topY), Offset(cols.last, topY), line);
+    stroke((p) => canvas.drawLine(
+        Offset(cols.first, baseY), Offset(cols.last, baseY), p));
+    stroke((p) => canvas.drawLine(
+        Offset(cols.first, topY), Offset(cols.last, topY), p));
 
     // Colonne coi capitelli.
     for (final x in cols) {
-      canvas.drawLine(Offset(x, baseY), Offset(x, topY), line);
-      canvas.drawLine(Offset(x - 8, topY), Offset(x + 8, topY), line);
+      stroke((p) => canvas.drawLine(Offset(x, baseY), Offset(x, topY), p));
+      stroke((p) =>
+          canvas.drawLine(Offset(x - 8, topY), Offset(x + 8, topY), p));
       joints.add(Offset(x, baseY));
       joints.add(Offset(x, topY));
     }
@@ -463,22 +514,29 @@ class _TempleSilhouettePainter extends CustomPainter {
       ..arcToPoint(Offset(w * 0.60, h * 0.56),
           radius: Radius.circular(w * 0.10))
       ..lineTo(w * 0.60, baseY);
-    canvas.drawPath(arch, line);
+    stroke((p) => canvas.drawPath(arch, p));
 
-    // Cupola sopra l'architrave.
+    // Cupola sopra l'architrave, col pinnacolo.
     final dome = Path()
       ..moveTo(w * 0.28, topY)
       ..quadraticBezierTo(w * 0.5, h * 0.30, w * 0.72, topY);
-    canvas.drawPath(dome, line);
+    stroke((p) => canvas.drawPath(dome, p));
     final finial = Offset(w * 0.5, h * 0.33);
-    canvas.drawLine(Offset(w * 0.5, h * 0.30), finial, line);
+    stroke((p) => canvas.drawLine(Offset(w * 0.5, h * 0.30), finial, p));
     joints
       ..add(finial)
       ..add(Offset(w * 0.5, h * 0.36));
 
-    // Punti-stella luminosi ai giunti dell'architettura.
+    // Punti-stella luminosi ai giunti dell'architettura, con un piccolo alone.
     for (final p in joints) {
-      canvas.drawCircle(p, 1.5, star);
+      canvas.drawCircle(
+        p,
+        4,
+        Paint()
+          ..color = color.withValues(alpha: 0.22)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3),
+      );
+      canvas.drawCircle(p, 1.8, star);
     }
     canvas.restore();
   }
