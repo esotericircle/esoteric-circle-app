@@ -164,8 +164,7 @@ void main() {
     );
   }
 
-  Future<GlobalKey> openChat(
-      WidgetTester tester, AppServices services, Maestro maestro) async {
+  Future<GlobalKey> mount(WidgetTester tester, AppServices services) async {
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(390, 844);
     addTearDown(tester.view.resetPhysicalSize);
@@ -179,28 +178,46 @@ void main() {
       ),
     );
     await step(tester);
-
-    // Forza il Maestro attivo (tema e cosmo virano sul suo accento) e alza la
-    // leggibilita' con un tier senza blur pesante. Selezionare il Maestro porta
-    // anche lo shell sulla sua schermata, da cui si apre la chat.
-    final ctx = tester.element(find.byType(MaterialApp));
-    ctx.read<MaestroController>().selectMaestro(maestro);
-    ctx.read<QualityTierController>().setTier(QualityTier.medium);
+    tester
+        .element(find.byType(MaterialApp))
+        .read<QualityTierController>()
+        .setTier(QualityTier.medium);
     await step(tester);
+    return rootKey;
+  }
 
+  void selectCentral(WidgetTester tester, Maestro maestro) {
+    tester
+        .element(find.byType(MaterialApp))
+        .read<MaestroController>()
+        .selectMaestro(maestro);
+  }
+
+  // Precarica i volti dei tre Maestri, cosi' busti e avatar sono decodificati
+  // alla cattura, senza cerchi vuoti.
+  Future<void> precacheFaces(WidgetTester tester) async {
+    await tester.runAsync(() async {
+      for (final m in Maestro.values) {
+        await precacheImage(
+          AssetImage(m.avatarAsset),
+          tester.element(find.byType(MaterialApp)),
+        );
+      }
+    });
+    await step(tester);
+  }
+
+  // Dal Santuario: mette il Maestro al centro, entra nel dominio toccando il
+  // busto, poi apre la chat.
+  Future<void> openChat(WidgetTester tester, Maestro maestro) async {
+    selectCentral(tester, maestro);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
     await tester.tap(find.text('Parla con ${maestro.displayName}'));
     await step(tester);
     await step(tester);
-
-    // Precarica il volto, cosi' l'avatar e' gia' decodificato alla cattura.
-    await tester.runAsync(() async {
-      await precacheImage(
-        AssetImage(maestro.avatarAsset),
-        tester.element(find.byType(MaterialApp)),
-      );
-    });
-    await step(tester);
-    return rootKey;
   }
 
   Future<void> capture(
@@ -217,6 +234,46 @@ void main() {
     expect(File('docs/preview/$name').existsSync(), isTrue);
   }
 
+  // --- Il Santuario, con al centro ciascun Maestro (aura e cosmo virati) ---
+  for (final maestro in Maestro.fixedOrder) {
+    testWidgets('Cattura il Santuario, ${maestro.id}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey =
+          await mount(tester, await buildServices(maestro, seeded: false));
+      selectCentral(tester, maestro);
+      await step(tester);
+      await precacheFaces(tester);
+      await capture(tester, rootKey, 'santuario-${maestro.id}.png');
+    });
+  }
+
+  // --- L'hub di dominio e il Cosmic Passport ---
+  testWidgets('Cattura l\'hub di dominio, medora', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'dominio-medora.png');
+  });
+
+  testWidgets('Cattura il Cosmic Passport', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    await capture(tester, rootKey, 'passport.png');
+  });
+
+  // --- Le chat: conversazione, pannello suggerimenti, stato vuoto ---
   for (final maestro in Maestro.values) {
     final id = maestro.id;
 
@@ -224,7 +281,9 @@ void main() {
       silenceSensors();
       await loadFonts();
       final rootKey =
-          await openChat(tester, await buildServices(maestro, seeded: true), maestro);
+          await mount(tester, await buildServices(maestro, seeded: true));
+      await openChat(tester, maestro);
+      await precacheFaces(tester);
       await capture(tester, rootKey, '$id-chat.png');
     });
 
@@ -232,7 +291,8 @@ void main() {
       silenceSensors();
       await loadFonts();
       final rootKey =
-          await openChat(tester, await buildServices(maestro, seeded: true), maestro);
+          await mount(tester, await buildServices(maestro, seeded: true));
+      await openChat(tester, maestro);
       await tester.tap(find.text('Suggerimenti'));
       await step(tester);
       await step(tester);
@@ -242,8 +302,10 @@ void main() {
     testWidgets('Cattura lo stato vuoto, $id', (tester) async {
       silenceSensors();
       await loadFonts();
-      final rootKey = await openChat(
-          tester, await buildServices(maestro, seeded: false), maestro);
+      final rootKey =
+          await mount(tester, await buildServices(maestro, seeded: false));
+      await openChat(tester, maestro);
+      await precacheFaces(tester);
       await capture(tester, rootKey, '$id-chat-vuoto.png');
     });
   }

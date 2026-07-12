@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/maestro/maestro.dart';
+import '../../core/maestro/maestro_controller.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/tap_wave.dart';
-import '../home/home_screen.dart';
-import '../maestri/maestro_screen.dart';
+import '../passport/cosmic_passport_screen.dart';
+import '../santuario/santuario_screen.dart';
 import 'navigation_controller.dart';
 import 'santuario_bottom_bar.dart';
 
-/// Contenitore principale dell'app: cosmo immersivo, schermata attiva e bottom
-/// bar dei Maestri. Le schermate restano vive in un IndexedStack, cosi' il
-/// ritorno al Santuario e' immediato (cold start percepito nullo).
+/// Contenitore principale dell'app: cosmo immersivo, schermata dello shell e
+/// bottom bar. Lo shell mostra il Santuario oppure il Cosmic Passport; il
+/// dominio di un Maestro e la chat vivono come route spinte sopra, con la loro
+/// freccia Indietro e senza bottom bar.
 ///
 /// Lo scorrimento della schermata attiva alimenta la parallasse dello sfondo;
 /// ogni tocco propaga un'onda luminosa del colore del Maestro.
@@ -22,6 +23,12 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nav = context.watch<NavigationController>();
+    final maestro = context.watch<MaestroController>();
+
+    final Widget screen = switch (nav.view) {
+      ShellView.santuario => const SantuarioScreen(),
+      ShellView.passport => const CosmicPassport(),
+    };
 
     return Scaffold(
       extendBody: true,
@@ -35,21 +42,16 @@ class AppShell extends StatelessWidget {
                   .updateScroll(notification.metrics.pixels);
               return false;
             },
-            child: IndexedStack(
-              index: nav.index,
-              children: const [
-                HomeScreen(),
-                MaestroScreen(maestro: Maestro.medora),
-                MaestroScreen(maestro: Maestro.aura),
-                MaestroScreen(maestro: Maestro.caligo),
-              ],
-            ),
+            child: screen,
           ),
         ),
       ),
       bottomNavigationBar: SantuarioBottomBar(
-        current: nav.current,
-        onSelected: nav.goTo,
+        view: nav.view,
+        activeMaestro: maestro.activeMaestro,
+        onSantuario: nav.goToSantuario,
+        onMaestro: nav.selectCentral,
+        onPassport: nav.goToPassport,
       ),
     );
   }

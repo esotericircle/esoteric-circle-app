@@ -49,8 +49,13 @@ void main() {
   Future<void> openChat(WidgetTester tester, Maestro maestro) async {
     await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
     await step(tester);
+    // Dal Santuario: porta il Maestro al centro, entra nel dominio dal busto,
+    // poi apre la chat.
     final ctx = tester.element(find.byType(MaterialApp));
     ctx.read<MaestroController>().selectMaestro(maestro);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
     await step(tester);
     await tester.tap(find.text('Parla con ${maestro.displayName}'));
     await step(tester);

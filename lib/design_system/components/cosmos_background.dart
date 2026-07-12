@@ -70,9 +70,11 @@ class _CosmosBackgroundState extends State<CosmosBackground>
     final quality = context.watch<QualityTierController>().tier;
     final parallax = context.watch<ParallaxController>();
     final sunSign = context.watch<ZodiacController>().sunSign;
+    // Riduci Movimento: cosmo fermo, niente stella cadente, parallasse minima.
+    final reduceMotion = MediaQuery.of(context).disableAnimations;
 
-    // In qualita' bassa il cosmo e' quasi statico: fermiamo il ciclo.
-    if (quality == QualityTier.low) {
+    // In qualita' bassa o con Riduci Movimento il cosmo e' quasi statico.
+    if (quality == QualityTier.low || reduceMotion) {
       if (_controller.isAnimating) _controller.stop();
     } else {
       if (!_controller.isAnimating) _controller.repeat();
@@ -109,6 +111,7 @@ class _CosmosBackgroundState extends State<CosmosBackground>
                 tier: quality,
                 highlighted: sunSign,
                 showZodiac: widget.showZodiac,
+                reduceMotion: reduceMotion,
               ),
             ),
           ),
@@ -154,6 +157,7 @@ class _CosmosPainter extends CustomPainter {
     required this.tier,
     required this.highlighted,
     required this.showZodiac,
+    required this.reduceMotion,
   }) : super(repaint: Listenable.merge([animation, parallax]));
 
   final Animation<double> animation;
@@ -162,6 +166,7 @@ class _CosmosPainter extends CustomPainter {
   final QualityTier tier;
   final Zodiac? highlighted;
   final bool showZodiac;
+  final bool reduceMotion;
 
   int get _fieldStars => switch (tier) {
         QualityTier.high => 70,
@@ -178,8 +183,8 @@ class _CosmosPainter extends CustomPainter {
         QualityTier.medium => 2,
         QualityTier.low => 0,
       };
-  bool get _shootingStars => tier != QualityTier.low;
-  bool get _animate => tier != QualityTier.low;
+  bool get _shootingStars => tier != QualityTier.low && !reduceMotion;
+  bool get _animate => tier != QualityTier.low && !reduceMotion;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -381,5 +386,6 @@ class _CosmosPainter extends CustomPainter {
       old.palette != palette ||
       old.tier != tier ||
       old.highlighted != highlighted ||
-      old.showZodiac != showZodiac;
+      old.showZodiac != showZodiac ||
+      old.reduceMotion != reduceMotion;
 }

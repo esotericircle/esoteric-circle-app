@@ -85,7 +85,7 @@ class MaestroScreen extends StatelessWidget {
                   const SizedBox(height: SpacingTokens.xl),
                   SectionTitle(
                     title: 'Funzioni di ${maestro.displayName}',
-                    subtitle: 'Il dominio del Maestro, nei suoi tre stati.',
+                    subtitle: 'Il dominio del Maestro, presto disponibile.',
                   ),
                   const SizedBox(height: SpacingTokens.md),
                 ],
@@ -96,7 +96,7 @@ class MaestroScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
             sliver: SliverToBoxAdapter(
-              child: FeatureGrid(features: features),
+              child: FeatureGrid(features: features, forceComingSoon: true),
             ),
           ),
           const SliverToBoxAdapter(

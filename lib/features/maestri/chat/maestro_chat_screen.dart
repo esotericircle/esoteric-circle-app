@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/lang/euphonic.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../design_system/components/cosmos_background.dart';
 import '../../../design_system/theme/maestro_palette.dart';
@@ -132,7 +133,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               _RetryStrip(controller: controller),
               ChatComposer(
                 enabled: controller.aiReady && !controller.sending,
-                hintText: 'Scrivi a ${widget.maestro.displayName}',
+                hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
+                    '${widget.maestro.displayName}',
                 onSend: controller.send,
                 // A conversazione avviata, un solo controllo discreto apre il
                 // pannello dei suggerimenti. A chat vuota gli spunti sono i chip

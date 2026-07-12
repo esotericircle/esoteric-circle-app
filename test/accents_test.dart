@@ -153,6 +153,10 @@ void main() {
           .read<MaestroController>()
           .selectMaestro(maestro);
       await step(tester);
+      // Dal Santuario: entra nel dominio dal busto centrale, poi apre la chat.
+      await tester.tap(find.byKey(const Key('santuario_central_bust')));
+      await step(tester);
+      await step(tester);
       await tester.tap(find.text('Parla con ${maestro.displayName}'));
       await step(tester);
 

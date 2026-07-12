@@ -6,24 +6,31 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import 'navigation_controller.dart';
 
-/// Bottom bar dei tre Maestri con l'ancora del Santuario.
+/// Bottom bar a cinque voci: Santuario, i tre Maestri nell'ordine fisso
+/// (Medora, Caligo, Aura) e il Cosmic Passport, distinto e staccato.
 ///
-/// Ogni voce Maestro, se toccata, naviga alla sua sezione e cambia il tema
-/// dell'interfaccia con la dissolvenza cromatica. La voce attiva si illumina
-/// d'oro nel colore del Maestro.
+/// Le voci Maestro scelgono il busto centrale del Santuario e virano tema e
+/// cosmo sull'accento. La voce attiva si illumina d'oro.
 class SantuarioBottomBar extends StatelessWidget {
   const SantuarioBottomBar({
     super.key,
-    required this.current,
-    required this.onSelected,
+    required this.view,
+    required this.activeMaestro,
+    required this.onSantuario,
+    required this.onMaestro,
+    required this.onPassport,
   });
 
-  final AppDestination current;
-  final ValueChanged<AppDestination> onSelected;
+  final ShellView view;
+  final Maestro? activeMaestro;
+  final VoidCallback onSantuario;
+  final ValueChanged<Maestro> onMaestro;
+  final VoidCallback onPassport;
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    final onSantuarioView = view == ShellView.santuario;
 
     return Container(
       decoration: BoxDecoration(
@@ -41,7 +48,7 @@ class SantuarioBottomBar extends StatelessWidget {
         top: false,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.md,
+            horizontal: SpacingTokens.sm,
             vertical: SpacingTokens.sm,
           ),
           child: Row(
@@ -50,17 +57,29 @@ class SantuarioBottomBar extends StatelessWidget {
               _BarItem(
                 label: 'Santuario',
                 iconData: Icons.brightness_3,
-                selected: current == AppDestination.santuario,
-                onTap: () => onSelected(AppDestination.santuario),
+                selected: onSantuarioView && activeMaestro == null,
+                onTap: onSantuario,
               ),
               for (final maestro in Maestro.fixedOrder)
                 _BarItem(
                   label: maestro.displayName,
                   iconData: maestro.icon,
-                  selected: current == AppDestination.forMaestro(maestro),
-                  onTap: () =>
-                      onSelected(AppDestination.forMaestro(maestro)),
+                  selected: onSantuarioView && activeMaestro == maestro,
+                  onTap: () => onMaestro(maestro),
                 ),
+              // Il Passport, staccato dai Maestri da un filo verticale.
+              Container(
+                width: 1,
+                height: 34,
+                margin: const EdgeInsets.symmetric(horizontal: 2),
+                color: palette.gold.withValues(alpha: 0.2),
+              ),
+              _BarItem(
+                label: 'Passport',
+                iconData: Icons.badge_outlined,
+                selected: view == ShellView.passport,
+                onTap: onPassport,
+              ),
             ],
           ),
         ),
@@ -85,8 +104,7 @@ class _BarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final Color color =
-        selected ? palette.goldSoft : ColorTokens.textMuted;
+    final Color color = selected ? palette.goldSoft : ColorTokens.textMuted;
 
     return Expanded(
       child: InkWell(
@@ -99,8 +117,8 @@ class _BarItem extends StatelessWidget {
             children: [
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                width: 46,
-                height: 46,
+                width: 44,
+                height: 44,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: selected
@@ -123,17 +141,16 @@ class _BarItem extends StatelessWidget {
                       : null,
                 ),
                 alignment: Alignment.center,
-                child: Icon(iconData, color: color, size: 22),
+                child: Icon(iconData, color: color, size: 21),
               ),
               const SizedBox(height: 4),
               Text(
                 label,
                 style: TextStyle(
                   color: color,
-                  fontSize: 11,
-                  fontWeight:
-                      selected ? FontWeight.w700 : FontWeight.w500,
-                  letterSpacing: 0.4,
+                  fontSize: 10.5,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                  letterSpacing: 0.3,
                 ),
               ),
             ],
