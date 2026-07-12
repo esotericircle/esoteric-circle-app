@@ -26,9 +26,19 @@ import 'zodiac_figures.dart';
 /// Tutto e' regolato dal Quality Tier: pieno in alto, ridotto in medio, quasi
 /// statico in basso per garantire fluidita' e batteria.
 class CosmosBackground extends StatefulWidget {
-  const CosmosBackground({super.key, required this.child});
+  const CosmosBackground({
+    super.key,
+    required this.child,
+    this.showZodiac = true,
+  });
 
   final Widget child;
+
+  /// Se falso, il cosmo non disegna le dodici costellazioni zodiacali ne'
+  /// l'evidenziazione del segno solare. Le superfici di lettura, come la chat,
+  /// lo spengono per restare pulite: nessuna forma stilizzata, nessun rettangolo
+  /// a portale dietro l'interfaccia. Restano stelle, nebulose e stelle cadenti.
+  final bool showZodiac;
 
   @override
   State<CosmosBackground> createState() => _CosmosBackgroundState();
@@ -98,6 +108,7 @@ class _CosmosBackgroundState extends State<CosmosBackground>
                 palette: palette,
                 tier: quality,
                 highlighted: sunSign,
+                showZodiac: widget.showZodiac,
               ),
             ),
           ),
@@ -142,6 +153,7 @@ class _CosmosPainter extends CustomPainter {
     required this.palette,
     required this.tier,
     required this.highlighted,
+    required this.showZodiac,
   }) : super(repaint: Listenable.merge([animation, parallax]));
 
   final Animation<double> animation;
@@ -149,6 +161,7 @@ class _CosmosPainter extends CustomPainter {
   final MaestroPalette palette;
   final QualityTier tier;
   final Zodiac? highlighted;
+  final bool showZodiac;
 
   int get _fieldStars => switch (tier) {
         QualityTier.high => 70,
@@ -179,7 +192,7 @@ class _CosmosPainter extends CustomPainter {
 
     if (_nebulaClusters > 0) _paintNebula(canvas, size, midOff, t);
     _paintFieldStars(canvas, size, farOff, t);
-    _paintZodiac(canvas, size, farOff, t);
+    if (showZodiac) _paintZodiac(canvas, size, farOff, t);
     if (_nearCount > 0) _paintNearParticles(canvas, size, nearOff, t);
     if (_shootingStars) _paintShootingStars(canvas, size, farOff, t);
   }
@@ -367,5 +380,6 @@ class _CosmosPainter extends CustomPainter {
   bool shouldRepaint(_CosmosPainter old) =>
       old.palette != palette ||
       old.tier != tier ||
-      old.highlighted != highlighted;
+      old.highlighted != highlighted ||
+      old.showZodiac != showZodiac;
 }

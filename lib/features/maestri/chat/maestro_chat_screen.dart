@@ -111,7 +111,11 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           appCheckDebugToken: services.appCheckDebugToken,
         ),
       ),
+      // La chat e' una superficie di lettura: cosmo senza costellazioni, cosi'
+      // nessuna forma stilizzata ne' rettangolo a portale trapela dietro
+      // l'header. Restano stelle e nebulose.
       body: CosmosBackground(
+        showZodiac: false,
         child: SafeArea(
           child: Column(
             children: [
