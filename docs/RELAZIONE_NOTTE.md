@@ -360,3 +360,21 @@ asset esterni (carta natale, Angelo, Archetipo, Animale guida) restano dietro il
 velo. Test: numerologia deterministica e numeri maestri, fase lunare coerente
 col motore, longitudine nel giro, il passaporto mostra i valori e nasconde la
 nota d'esempio con identita' reale. Screenshot: `passport.png`.
+
+## Punto 3, Chiedi ai Maestri con sintesi comparativa — FATTO
+
+Nuova schermata "Chiedi ai Maestri" (`lib/features/maestri/ask/`), raggiungibile
+da una via discreta nel Santuario. Si scrive una domanda e si sceglie di
+interpellare un Maestro, due o tutti e tre (chip nella palette di ciascuno,
+almeno uno resta sempre scelto). Ciascun Maestro risponde dalla sua lente di
+dominio, secondo il canone Personas, nell'anatomia a quattro strati (colpo
+d'occhio, testo, invito; il livello visivo lo dà la UI). Quando i Maestri sono
+piu' di uno, in testa compare una sintesi comparativa che mostra le lenti sullo
+stesso tema. Le risposte usano l'oracolo locale in ripiego
+(`lib/services/ai/maestro_oracle.dart`), deterministico e senza rete: la chiamata
+vera a Gemini su Vertex resta al device, dietro `MaestroAiProvider`. Stati
+coperti: vuoto, una lente senza sintesi, tre lenti con sintesi, e il vincolo che
+l'ultimo Maestro non si puo' togliere. Test: `maestro_oracle_test.dart` (lenti,
+ordine fisso, sintesi, determinismo) e `ask_maestri_test.dart` (i quattro stati).
+Screenshot: `chiedi-ai-maestri.png` (vista comparativa) e i Santuario con la
+nuova via.

@@ -325,6 +325,26 @@ void main() {
     await capture(tester, rootKey, 'cielo-sopra-di-te.png');
   });
 
+  // --- Chiedi ai Maestri: la vista comparativa con le tre lenti ---
+  testWidgets('Cattura Chiedi ai Maestri, vista comparativa', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Dal Santuario si apre "Chiedi ai Maestri".
+    await tester.tap(find.byKey(const Key('santuario_ask_maestri')));
+    await step(tester);
+    await step(tester);
+    // Tutti e tre i Maestri restano scelti di default: si pone la domanda.
+    await tester.enterText(
+        find.byKey(const Key('ask_field')), 'Devo cambiare lavoro?');
+    await step(tester);
+    await tester.tap(find.byKey(const Key('ask_submit')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'chiedi-ai-maestri.png');
+  });
+
   // --- L'hub di dominio e il Cosmic Passport ---
   testWidgets('Cattura l\'hub di dominio, medora', (tester) async {
     silenceSensors();

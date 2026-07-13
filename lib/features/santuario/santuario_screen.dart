@@ -16,6 +16,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import '../maestri/ask/ask_maestri_screen.dart';
 import '../maestri/domain_screen.dart';
 import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
@@ -333,15 +334,25 @@ class _SantuarioScreenState extends State<SantuarioScreen>
 
               // Terza via al dominio: un pulsante a bolla discreto sotto il
               // Maestro al centro, nella sua palette, col nome che si aggiorna.
+              // Sopra, discreta, la via a "Chiedi ai Maestri", dove le lenti dei
+              // tre si confrontano sullo stesso tema.
               Positioned(
                 left: 0,
                 right: 0,
                 bottom: h * 0.035,
-                child: Center(
-                  child: _EnterDomainButton(
-                    maestro: central,
-                    onTap: () => _enterDomain(context, central),
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _AskMaestriButton(
+                      onTap: () => Navigator.of(context)
+                          .push(AskMaestriScreen.route()),
+                    ),
+                    const SizedBox(height: SpacingTokens.sm),
+                    _EnterDomainButton(
+                      maestro: central,
+                      onTap: () => _enterDomain(context, central),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -480,6 +491,50 @@ class _Carousel extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+/// Via discreta a "Chiedi ai Maestri", sopra il pulsante del dominio. Neutra e
+/// dorata, non ruba la scena al Maestro al centro.
+class _AskMaestriButton extends StatelessWidget {
+  const _AskMaestriButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: const Key('santuario_ask_maestri'),
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.sm, vertical: 7),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+            color: palette.deepest.withValues(alpha: 0.35),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.forum_outlined, size: 14, color: palette.goldSoft),
+              const SizedBox(width: 7),
+              Text(
+                'Chiedi ai Maestri',
+                style: TypographyTokens.label(size: 11).copyWith(
+                  color: palette.goldSoft,
+                  letterSpacing: 0.6,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_suggestions.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
+import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -111,6 +112,20 @@ void main() {
       final bm = BirthMoon.forDate(d);
       if (signs.add(bm.sign.id)) {
         expectClean(bm.meaning, 'luna ${bm.sign.id}');
+      }
+    }
+  });
+
+  test('Chiedi ai Maestri rispetta la regola della virgola', () {
+    const oracle = MaestroOracle();
+    const temi = ['amore', 'il lavoro', 'una scelta difficile', 'la fortuna'];
+    for (final t in temi) {
+      final r = oracle.consult(theme: t, maestri: Maestro.values);
+      expectClean(r.synthesis!, 'sintesi «$t»');
+      for (final lens in r.lenses) {
+        expectClean(lens.glance, 'colpo d\'occhio ${lens.maestro.id}');
+        expectClean(lens.reading, 'testo ${lens.maestro.id}');
+        expectClean(lens.invite, 'invito ${lens.maestro.id}');
       }
     }
   });
