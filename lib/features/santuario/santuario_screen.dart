@@ -50,11 +50,13 @@ class SantuarioScreen extends StatefulWidget {
 }
 
 class _SantuarioScreenState extends State<SantuarioScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final AnimationController _breath;
 
   // Invito al tocco del cielo: appare dopo qualche secondo di inattivita' e si
-  // dissolve al primo tocco, coerente con la scala dell'aiuto universale.
+  // dissolve alla prima interazione, coerente con la scala dell'aiuto
+  // universale. La mano dell'invito pulsa su un ciclo dedicato piu' breve.
+  late final AnimationController _tapPulse;
   Timer? _skyHintTimer;
   bool _showSkyHint = false;
   bool _skyHintDismissed = false;
@@ -65,6 +67,10 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     _breath = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 6),
+    )..repeat();
+    _tapPulse = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
     )..repeat();
     _armSkyHint();
   }
@@ -93,6 +99,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   @override
   void dispose() {
     _skyHintTimer?.cancel();
+    _tapPulse.dispose();
     _breath.dispose();
     super.dispose();
   }
@@ -151,8 +158,14 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     // Riduci Movimento: niente deriva di parallasse, scena ferma.
     Offset depth(double d) => reduceMotion ? Offset.zero : parallax.layerOffset(d);
 
-    return SafeArea(
-      child: LayoutBuilder(
+    // Alla prima interazione l'invito al cielo si dissolve.
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (_) {
+        if (_showSkyHint) _dismissSkyHint();
+      },
+      child: SafeArea(
+        child: LayoutBuilder(
         builder: (context, constraints) {
           final w = constraints.maxWidth;
           final h = constraints.maxHeight;
@@ -169,12 +182,14 @@ class _SantuarioScreenState extends State<SantuarioScreen>
             children: [
               // Fondale del tempio: piano profondo dietro i Maestri e dietro le
               // cornici, davanti al cosmo. Dipinto reale scontornato (canale
-              // alpha vero), con la cupola in alto sotto la Luna e la porta buia
-              // dietro il Maestro al centro. Opacita' media, atmosfera senza
-              // rubare la scena; il suo top sfuma dietro il testo. Parallasse
+              // alpha vero), a tutta larghezza e alzato: frontone, cupola e
+              // pinnacoli restano ben visibili sopra i Maestri, la soglia buia
+              // centrale sta dietro il Maestro al centro. Opacita' media alta,
+              // cosi' si vede davvero anche sul tema blu. Solo la fascia in
+              // cima sfuma, dietro il testo, per non coprirlo. Parallasse
               // leggera del piano piu' lontano, ferma con Riduci Movimento.
               Positioned(
-                top: h * 0.11,
+                top: h * 0.05,
                 left: 0,
                 right: 0,
                 height: w * 1376 / 768,
@@ -182,7 +197,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   child: Transform.translate(
                     offset: depth(0.16),
                     child: Opacity(
-                      opacity: 0.4,
+                      opacity: 0.55,
                       child: ShaderMask(
                         blendMode: BlendMode.dstIn,
                         shaderCallback: (rect) => const LinearGradient(
@@ -194,7 +209,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                             Colors.white,
                             Colors.white,
                           ],
-                          stops: [0.0, 0.13, 0.26, 1.0],
+                          stops: [0.0, 0.05, 0.22, 1.0],
                         ).createShader(rect),
                         child: Image.asset(
                           'brand_assets/santuario/tempio.png',
@@ -221,12 +236,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 ),
               ),
 
-              // Il cielo in alto e' toccabile: apre "Il cielo sopra di te",
-              // per ora segnaposto. Poco testo dopo il segno visivo: un
-              // occhiello con la fase reale, un'intestazione e una sola riga
-              // personale nella voce del Maestro. La fase non si ripete.
+              // Il cielo in alto e' toccabile: apre "Il cielo sopra di te".
+              // Ordine pulito, poco testo: prima il titolo, poi la grafica
+              // della Luna con l'occhiello della fase, poi la riga personale
+              // nella voce del Maestro al centro.
               Positioned(
-                top: h * 0.015,
+                top: h * 0.02,
                 left: 0,
                 right: 0,
                 child: GestureDetector(
@@ -235,9 +250,16 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   onTap: () => _openSky(context),
                   child: Column(
                     children: [
+                      // 1. Titolo, in cima.
+                      Text(
+                        'Il cielo sopra di te, stanotte',
+                        style: TypographyTokens.display(size: 17),
+                      ),
+                      const SizedBox(height: 2),
+                      // 2. Grafica della Luna e del cielo, con l'occhiello della
+                      // fase reale sotto.
                       MoonWidget(
                           phase: moon, size: (w * 0.12).clamp(58.0, 108.0)),
-                      // 1. Occhiello: la fase reale della Luna, piccola.
                       Text(
                         moon.italianName.toUpperCase(),
                         style: TypographyTokens.label(size: 10).copyWith(
@@ -246,13 +268,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         ),
                       ),
                       const SizedBox(height: 8),
-                      // 2. Intestazione.
-                      Text(
-                        'Il cielo sopra di te, stanotte',
-                        style: TypographyTokens.display(size: 17),
-                      ),
-                      const SizedBox(height: 4),
-                      // 3. Riga personale, nella voce del Maestro al centro.
+                      // 3. Riga personale, col nome e il segno.
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Text(
@@ -266,10 +282,10 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         ),
                       ),
                       // Invito al tocco, dopo qualche secondo di inattivita':
-                      // discreto, animato, si dissolve al primo tocco.
+                      // una mano che pulsa, si dissolve alla prima interazione.
                       _SkyTapHint(
                         visible: _showSkyHint,
-                        pulse: _breath,
+                        pulse: _tapPulse,
                         reduceMotion: reduceMotion,
                         color: palette.goldSoft,
                       ),
@@ -315,6 +331,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           );
         },
       ),
+    ),
     );
   }
 }
@@ -512,9 +529,10 @@ class _EnterDomainButton extends StatelessWidget {
   }
 }
 
-/// Invito discreto al tocco del cielo: un piccolo simbolo che pulsa piano e una
-/// riga breve. Compare dopo qualche secondo di inattivita' e si dissolve al
-/// primo tocco. Con Riduci Movimento resta fermo, senza pulsazione.
+/// Invito al tocco del cielo: una silhouette di mano con l'indice teso che fa
+/// il gesto del tocco, pulsa dolcemente e manda un'onda dal polpastrello, con
+/// la riga "Tocca il cielo". Compare dopo qualche secondo di inattivita' e si
+/// dissolve alla prima interazione. Con Riduci Movimento resta ferma.
 class _SkyTapHint extends StatelessWidget {
   const _SkyTapHint({
     required this.visible,
@@ -540,39 +558,115 @@ class _SkyTapHint extends StatelessWidget {
             ? const SizedBox(width: double.infinity)
             : Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: AnimatedBuilder(
-                  animation: pulse,
-                  builder: (context, child) {
-                    final t = reduceMotion
-                        ? 0.5
-                        : 0.5 + 0.5 * math.sin(2 * math.pi * pulse.value);
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Opacity(
-                          opacity: 0.55 + 0.35 * t,
-                          child: Transform.translate(
-                            offset: Offset(0, reduceMotion ? 0 : -2 * t),
-                            child: Icon(Icons.touch_app_outlined,
-                                size: 18, color: color),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 40,
+                      height: 48,
+                      child: AnimatedBuilder(
+                        animation: pulse,
+                        builder: (context, _) => CustomPaint(
+                          painter: _TapHandPainter(
+                            phase: reduceMotion ? -1.0 : pulse.value,
+                            color: color,
                           ),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'Tocca il cielo',
-                          style: TypographyTokens.label(size: 9).copyWith(
-                            color: color.withValues(alpha: 0.75),
-                            letterSpacing: 1.2,
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Tocca il cielo',
+                      style: TypographyTokens.label(size: 9).copyWith(
+                        color: color.withValues(alpha: 0.75),
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                  ],
                 ),
               ),
       ),
     );
   }
+}
+
+/// Disegna la silhouette di una mano che tocca: indice teso in alto, pugno e
+/// pollice sotto. Nel gesto la mano scende un poco e dal polpastrello parte
+/// un'onda che si allarga e svanisce. [phase] in 0..1 anima il ciclo; un
+/// valore negativo tiene la mano ferma (Riduci Movimento).
+class _TapHandPainter extends CustomPainter {
+  _TapHandPainter({required this.phase, required this.color});
+
+  final double phase;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final cx = size.width / 2;
+    final motion = phase >= 0;
+
+    // Pressione del tocco: una gobba morbida nella finestra centrale.
+    double press = 0;
+    if (motion && phase >= 0.22 && phase <= 0.5) {
+      press = math.sin((phase - 0.22) / (0.5 - 0.22) * math.pi);
+    }
+    final dy = press * 4.0;
+    const tip = Offset(0, 6); // polpastrello, in coordinate locali (x=cx)
+
+    // Onda dal polpastrello, dopo la pressione.
+    if (motion && phase >= 0.42 && phase <= 0.95) {
+      final k = (phase - 0.42) / (0.95 - 0.42);
+      canvas.drawCircle(
+        Offset(cx + tip.dx, tip.dy + dy),
+        3 + k * 13,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.4
+          ..color = color.withValues(alpha: (1 - k) * 0.45),
+      );
+    }
+
+    canvas.save();
+    canvas.translate(0, dy);
+    final hand = _handPath(cx);
+    canvas.drawPath(
+      hand,
+      Paint()..color = color.withValues(alpha: motion ? 0.55 + 0.3 * press : 0.7),
+    );
+    canvas.drawPath(
+      hand,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.8
+        ..color = color.withValues(alpha: 0.9),
+    );
+    canvas.restore();
+  }
+
+  Path _handPath(double cx) {
+    // Indice teso verso l'alto.
+    final index = Path()
+      ..addRRect(RRect.fromRectAndRadius(
+        Rect.fromLTWH(cx - 3.5, 6, 7, 21),
+        const Radius.circular(3.5),
+      ));
+    // Pugno con le dita piegate.
+    final fist = Path()
+      ..addRRect(RRect.fromRectAndRadius(
+        Rect.fromLTWH(cx - 11, 22, 20, 22),
+        const Radius.circular(8),
+      ));
+    // Pollice, una piccola sporgenza sul lato.
+    final thumb = Path()
+      ..addOval(Rect.fromCircle(center: Offset(cx - 10.5, 30), radius: 5.2));
+    var p = Path.combine(PathOperation.union, index, fist);
+    p = Path.combine(PathOperation.union, p, thumb);
+    return p;
+  }
+
+  @override
+  bool shouldRepaint(_TapHandPainter old) =>
+      old.phase != phase || old.color != color;
 }
 
 /// Accenti del cielo del Santuario: nebulose soffuse tinte sull'accento del
