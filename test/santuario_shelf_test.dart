@@ -1,7 +1,9 @@
 import 'package:esoteric_circle/app.dart';
+import 'package:esoteric_circle/core/astro/moon_phase.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/santuario/function_shelf.dart';
+import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,6 +54,41 @@ void main() {
       expect(FunctionShelf.functions.any((f) => f.live), isTrue);
       expect(FunctionShelf.functions.firstWhere((f) => f.id == 'synastry_vip').live,
           isTrue);
+    });
+  });
+
+  group('Copy della Luna coerente con la fase', () {
+    MoonPhase phase(String name, {required bool waxing, double illum = 0.5}) =>
+        MoonPhase(
+            fraction: waxing ? 0.25 : 0.75,
+            illumination: illum,
+            waxing: waxing,
+            italianName: name);
+
+    test('Alla Luna nuova il verbo non è cala né cresce', () {
+      final line = SantuarioScreen.medoraMoonFragment(
+          phase('Luna nuova', waxing: false, illum: 0.01));
+      expect(line, isNot(contains('cala')));
+      expect(line, isNot(contains('cresce')));
+      expect(line, contains('buio'));
+    });
+
+    test('Alla Luna piena il verbo non è cresce né cala', () {
+      final line = SantuarioScreen.medoraMoonFragment(
+          phase('Luna piena', waxing: false, illum: 0.99));
+      expect(line, isNot(contains('cresce')));
+      expect(line, isNot(contains('cala')));
+      expect(line, contains('culmine'));
+    });
+
+    test('Nelle fasi intermedie resta cresce o cala con la percentuale', () {
+      final cresce = SantuarioScreen.medoraMoonFragment(
+          phase('Luna crescente', waxing: true, illum: 0.3));
+      expect(cresce, contains('cresce'));
+      expect(cresce, contains('30%'));
+      final cala = SantuarioScreen.medoraMoonFragment(
+          phase('Gibbosa calante', waxing: false, illum: 0.7));
+      expect(cala, contains('cala'));
     });
   });
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/core/synastry/synastry.dart';
@@ -60,6 +62,30 @@ void main() {
       expect(VipCatalog.vips, isNotEmpty);
       expect(VipCatalog.first, VipCatalog.vips.first);
     });
+
+    test('Il modello VIP porta il ritratto, con hasImage coerente', () {
+      const senza = Vip(name: 'X', sign: Zodiac.leo, note: 'n');
+      expect(senza.imagePath, isNull);
+      expect(senza.hasImage, isFalse);
+      const con = Vip(
+          name: 'Y',
+          sign: Zodiac.leo,
+          note: 'n',
+          imagePath: 'brand_assets/vip/y.png');
+      expect(con.hasImage, isTrue);
+    });
+
+    test('Ogni ritratto dichiarato esiste come file nel repo', () {
+      // Presenza immagini: nessun percorso pendente. Oggi i VIP d'esempio non
+      // hanno ritratto (output/ritratti-vip non è nel repo), quindi nessun path
+      // da verificare; appena Mauro valorizza imagePath, il file deve esistere.
+      for (final vip in VipCatalog.vips) {
+        if (vip.hasImage) {
+          expect(File(vip.imagePath!).existsSync(), isTrue,
+              reason: 'Ritratto mancante per ${vip.name}: ${vip.imagePath}');
+        }
+      }
+    });
   });
 
   testWidgets('La schermata mostra il quadrante e i VIP', (tester) async {
@@ -96,7 +122,10 @@ void main() {
     await tester.pumpAndSettle();
 
     final other = VipCatalog.vips[2];
-    await tester.tap(find.byKey(Key('vip_${other.name}')));
+    final chip = find.byKey(Key('vip_${other.name}'));
+    await tester.ensureVisible(chip);
+    await tester.pumpAndSettle();
+    await tester.tap(chip);
     await tester.pumpAndSettle();
 
     final expected = Synastry.between(Zodiac.gemini, other.sign);

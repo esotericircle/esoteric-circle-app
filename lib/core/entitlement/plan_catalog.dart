@@ -2,12 +2,17 @@ import 'tier.dart';
 
 /// I cicli di prezzo di un piano.
 enum PriceCycle {
-  weekly('Settimana'),
-  monthly('Mese'),
-  yearly('Anno');
+  weekly('Settimana', 'a settimana'),
+  monthly('Mese', 'al mese'),
+  yearly('Anno', "all'anno");
 
-  const PriceCycle(this.label);
+  const PriceCycle(this.label, this.per);
+
+  /// L'etichetta breve del riquadro ciclo.
   final String label;
+
+  /// La forma per il pulsante, ad esempio "89,90 all'anno".
+  final String per;
 }
 
 /// I tre prezzi di un piano, piu' l'equivalenza mensile e lo sconto dell'anno.

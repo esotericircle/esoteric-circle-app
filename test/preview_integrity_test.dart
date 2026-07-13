@@ -16,7 +16,6 @@ void main() {
     'sigillo-cerchio.png', // Sigillo del Cerchio, nuova esperienza
     'santuario-alto.png', // Santuario, alto pulito
     'santuario-scaffale.png', // Santuario, scaffale funzioni a scorrimento
-    'santuario-saluto.png', // saluto del Santuario col nome reale
     'chat-instradamento.png', // instradamento della chat verso una funzione
     'sinastria-vip.png', // Sinastria VIP, risultato
   ];

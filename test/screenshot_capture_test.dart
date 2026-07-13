@@ -31,7 +31,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// Cattura headless della chat di Medora, con font reali (corpo e icone),
 /// provider AI offline e una conversazione gia' seminata. Nessuna rete, nessun
@@ -471,21 +470,6 @@ void main() {
     await tester.tap(find.byKey(const Key('ritual_gesture')));
     await tester.pump(const Duration(milliseconds: 700));
     await capture(tester, rootKey, 'runa-tramonto.png');
-  });
-
-  // --- Il saluto per nome alla prima apertura del Santuario ---
-  testWidgets('Cattura il saluto del Santuario', (tester) async {
-    silenceSensors();
-    await loadFonts();
-    // Prima apertura: nessun "gia' salutato" in memoria.
-    SharedPreferences.setMockInitialValues({});
-    final rootKey =
-        await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    // Lascia che il saluto si prepari e compaia in cima.
-    await step(tester);
-    await step(tester);
-    await precacheFaces(tester);
-    await capture(tester, rootKey, 'santuario-saluto.png');
   });
 
   // --- Il Sigillo del Cerchio, emblema personale procedurale ---

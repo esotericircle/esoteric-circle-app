@@ -60,6 +60,51 @@ void main() {
     expect(find.text('Piano Attuale'), findsOneWidget); // sul Viandante
   });
 
+  testWidgets('Il ciclo di default è Annuale, il pulsante mostra ciclo e prezzo',
+      (tester) async {
+    tallView(tester);
+    final ent = EntitlementService();
+    await tester.pumpWidget(wrap(ent, const PricingScreen(isDemo: true)));
+    await tester.pump();
+
+    // I tre riquadri ciclo esistono; l'Annuale è selezionato di default e il
+    // pulsante dell'Iniziato dichiara ciclo e prezzo scelti.
+    expect(find.byKey(const Key('cycle_yearly')), findsWidgets);
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('choose_tier1')),
+        matching: find.textContaining('89,90 € all\'anno'),
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('Cambiare ciclo aggiorna il prezzo sul pulsante', (tester) async {
+    tallView(tester);
+    final ent = EntitlementService();
+    await tester.pumpWidget(wrap(ent, const PricingScreen(isDemo: true)));
+    await tester.pump();
+
+    // Nel primo piano a pagamento (Iniziato) scelgo il ciclo settimanale.
+    final weeklyBox = find
+        .descendant(
+          of: find.byKey(const Key('plan_tier1')),
+          matching: find.byKey(const Key('cycle_weekly')),
+        )
+        .first;
+    await tester.ensureVisible(weeklyBox);
+    await tester.tap(weeklyBox);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('choose_tier1')),
+        matching: find.textContaining('2,90 € a settimana'),
+      ),
+      findsOneWidget,
+    );
+  });
+
   testWidgets('Scegliere un livello lo attiva in Demo', (tester) async {
     tallView(tester);
     final ent = EntitlementService();

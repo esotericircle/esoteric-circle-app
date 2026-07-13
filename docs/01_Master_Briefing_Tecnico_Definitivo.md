@@ -375,3 +375,36 @@ Separazione netta dei due ambienti per minimizzare i costi. Ambiente di architet
 Configurazione consigliata. Claude Code: collegato al repository GitHub del progetto, con i quattro documenti guida caricati nel progetto per sfruttare il caching che non consuma limiti sul contenuto riusato. Managed Agents specializzati, uno per dominio con contesto pulito e lavoro parallelizzabile: Agente UI Flutter (schermate, widget, design system 2.5D), Agente Backend Google (Cloud Run, Firestore, Cloud SQL, API), Agente AI e Gemini (AI Gateway, prompt dei Maestri, sistema ibrido), Agente Debug (test e correzioni autonome). Cowork per i task autonomi e schedulati. Design come acceleratore di UX a monte, non come prodotto finale. Skill: installare quelle open source mature per Flutter e per il workflow agentico da fonti verificate, invece di reinventarle, dopo controllo di sicurezza.
 
 Ottimizzazione del consumo. Regola del modello giusto per il task giusto: Haiku per il banale, Sonnet per lo standard, Opus solo per l architettura e via NEXOS quando possibile. Usare i progetti e il caching dei documenti per non ripagare il contesto a ogni messaggio. Raggruppare richieste correlate in un solo messaggio. Monitorare il consumo da Impostazioni, Utilizzo, dove si vedono le barre della sessione di cinque ore e i tetti settimanali, con il limite su Opus contato a parte. Pause di controllo solo ai sei checkpoint, sviluppo e debug continui tra un checkpoint e l altro per non frammentare le sessioni. I nomi e i limiti esatti dei piani e dei modelli vanno verificati al momento dell attivazione.
+
+## 57. Stato avanzamento e percorsi asset
+
+Questa sezione rispecchia il manifesto vivo `docs/STATO_ASSET.md` e va aggiornata
+alla fine di ogni sessione, come `RELAZIONE_NOTTE.md`. Per ogni famiglia riporta
+tre cose: l'origine nella cartella locale `output/` di Mauro, il percorso nel repo
+dentro `brand_assets/`, e lo stato tra generato, importato, agganciato oppure
+mancante.
+
+Stato alla sessione corrente. La cartella `output/` non è presente nell'ambiente di
+esecuzione remoto: non è mai stata versionata su Git, vive solo in locale da Mauro.
+Percio' le famiglie che dipendono da `output/` non sono state importate in questa
+sessione; il codice è pronto ad accoglierle, i file vanno pushati nel repo o
+importati da Mauro.
+
+Famiglie e stato:
+
+- Maestri, avatar: `brand_assets/avatars/Medora-1.png`, `Aura-1.png`, `Caligo-1.png`. Agganciato.
+- Tempio, fondale del Santuario: `brand_assets/santuario/tempio.png`. Agganciato.
+- Intro cinematografica: `brand_assets/intro/Intro-Test-1.mp4`. Importato.
+- Ritratti VIP: origine `output/ritratti-vip`, destinazione `brand_assets/vip`. Mancante nel repo, codice pronto (campo `Vip.imagePath`). Escludere `output/ritratti_vip_sheet.jpg`, che è un contact sheet.
+- Mazzo tarocchi: origine `output/mazzo-tarocchi`, destinazione `brand_assets/tarocchi`. Mancante nel repo.
+- Angeli: origine `output/angeli`, destinazione `brand_assets/angeli`. Mancante nel repo.
+- Animali guida: origine `output/animali`, destinazione `brand_assets/animali`. Mancante nel repo.
+- Cristalli: origine `output/cristalli`, destinazione `brand_assets/cristalli`. Mancante nel repo.
+- Rune: origine `output/rune_bone`, la versione buona, destinazione `brand_assets/rune`. Mancante nel repo. Escludere `output/rune`, versione vecchia.
+- Oggetti rituali del Soffio, bocche dei Maestri, fondali dei rituali giornalieri: mancanti.
+
+Regole di importazione, da applicare appena i file sono disponibili: nomi in
+minuscolo senza spazi; ogni file oltre i due o tre MB ridimensionato a una
+risoluzione adatta al mobile; ogni nuova cartella registrata in `pubspec.yaml`
+sotto `flutter: assets:`. La regola di tracciare origine, percorso nel repo e stato
+vale d'ora in poi per ogni nuovo asset o funzione.

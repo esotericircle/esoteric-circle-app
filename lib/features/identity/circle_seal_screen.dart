@@ -173,16 +173,6 @@ class _CircleSealScreenState extends State<CircleSealScreen>
                 onToggle: () => setState(() => _showMeaning = !_showMeaning),
                 palette: palette,
               ),
-              const SizedBox(height: SpacingTokens.md),
-              Text(
-                'Disegno procedurale, base del sigillo: l\'arte definitiva '
-                'arriva dopo.',
-                textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 10).copyWith(
-                  color: palette.goldSoft.withValues(alpha: 0.6),
-                  letterSpacing: 0.2,
-                ),
-              ),
             ],
           ),
         ),

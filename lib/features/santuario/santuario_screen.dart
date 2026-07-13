@@ -8,6 +8,7 @@ import '../../core/astro/moon_phase.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/astro/zodiac_controller.dart';
 import '../../core/identity/profile_controller.dart';
+import '../../core/l10n/app_strings.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../core/motion/parallax_controller.dart';
@@ -51,6 +52,16 @@ class SantuarioScreen extends StatefulWidget {
   /// cosmo di sfondo non fa nascere stelle qui, cosi' nessuna cade su una
   /// lettera. La legge il cosmo dello shell quando mostra il Santuario.
   static const Rect titleKeepOut = Rect.fromLTRB(0.04, 0.15, 0.96, 0.34);
+
+  /// Il frammento astronomico sulla Luna nella voce di Medora. Il verbo segue
+  /// la fase, cosi' non contraddice l'occhiello: alla Luna nuova non si dice
+  /// "cala", alla piena non si dice "cresce".
+  static String medoraMoonFragment(MoonPhase moon) {
+    if (moon.italianName == 'Luna nuova') return 'la Luna riposa nel buio';
+    if (moon.italianName == 'Luna piena') return 'la Luna arde al culmine';
+    final pct = (moon.illumination * 100).round();
+    return 'la Luna ${moon.waxing ? 'cresce' : 'cala'} al $pct%';
+  }
 
   @override
   State<SantuarioScreen> createState() => _SantuarioScreenState();
@@ -221,9 +232,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   String _personalLine(Maestro maestro, MoonPhase moon, String name, String sign) {
     switch (maestro) {
       case Maestro.medora:
-        final pct = (moon.illumination * 100).round();
-        final tend = moon.waxing ? 'cresce' : 'cala';
-        return '$name, la Luna $tend al $pct%: la giusta ora per chi nasce sotto $sign.';
+        return '$name, ${SantuarioScreen.medoraMoonFragment(moon)}: '
+            'la giusta ora per chi nasce sotto $sign.';
       case Maestro.aura:
         return "$name, l'energia di chi nasce sotto $sign cerca quiete: una mano sul cuore.";
       case Maestro.caligo:
@@ -767,7 +777,9 @@ class _ShelfCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Titolo a piena larghezza, cosi' non si spezza a meta' parola.
-                Text(fn.title, style: TypographyTokens.display(size: 17)),
+                // Localizzato per chiave, italiano di default.
+                Text(AppStrings.functionTitle(fn.id, fallback: fn.title),
+                    style: TypographyTokens.display(size: 17)),
                 const SizedBox(height: 2),
                 Text(fn.teaser,
                     style: TypographyTokens.body(size: 13)

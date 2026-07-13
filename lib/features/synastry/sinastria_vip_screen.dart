@@ -76,7 +76,12 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen> {
                   child: Icon(Icons.favorite_border_rounded,
                       color: palette.goldSoft, size: 22),
                 ),
-                Expanded(child: _Pole(title: _vip.name, sign: _vip.sign.italianName, palette: palette)),
+                Expanded(
+                    child: _Pole(
+                        title: _vip.name,
+                        sign: _vip.sign.italianName,
+                        palette: palette,
+                        imagePath: _vip.imagePath)),
               ],
             ),
             const SizedBox(height: SpacingTokens.lg),
@@ -122,7 +127,7 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen> {
             const SizedBox(height: SpacingTokens.sm),
             // Selettore dei VIP precaricati.
             SizedBox(
-              height: 92,
+              height: 116,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: VipCatalog.vips.length,
@@ -147,19 +152,30 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen> {
 }
 
 class _Pole extends StatelessWidget {
-  const _Pole({required this.title, required this.sign, required this.palette});
+  const _Pole({
+    required this.title,
+    required this.sign,
+    required this.palette,
+    this.imagePath,
+  });
 
   final String title;
   final String sign;
   final MaestroPalette palette;
 
+  /// Ritratto illustrato del polo, quando l'asset c'e'. Se manca, resta il
+  /// medaglione dorato con la scintilla, segnaposto curato, mai un vuoto.
+  final String? imagePath;
+
   @override
   Widget build(BuildContext context) {
+    final hasImage = imagePath != null && imagePath!.isNotEmpty;
     return Column(
       children: [
         Container(
           width: 64,
           height: 64,
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: RadialGradient(colors: [
@@ -169,7 +185,16 @@ class _Pole extends StatelessWidget {
             border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
           ),
           alignment: Alignment.center,
-          child: Icon(Icons.auto_awesome, color: palette.goldSoft, size: 26),
+          child: hasImage
+              ? Image.asset(
+                  imagePath!,
+                  width: 64,
+                  height: 64,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) =>
+                      Icon(Icons.auto_awesome, color: palette.goldSoft, size: 26),
+                )
+              : Icon(Icons.auto_awesome, color: palette.goldSoft, size: 26),
         ),
         const SizedBox(height: SpacingTokens.sm),
         Text(title,
@@ -237,6 +262,25 @@ class _VipChip extends StatelessWidget {
                   style: TypographyTokens.body(size: 11)
                       .copyWith(color: ColorTokens.textSecondary, height: 1.2)),
             ),
+            if (vip.hasCategory) ...[
+              const SizedBox(height: 6),
+              // Banner basso della categoria del VIP.
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+                  color: palette.primary.withValues(alpha: 0.5),
+                  border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
+                ),
+                child: Text(vip.category.toUpperCase(),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TypographyTokens.label(size: 9).copyWith(
+                        color: palette.goldSoft, letterSpacing: 0.8)),
+              ),
+            ],
           ],
         ),
       ),

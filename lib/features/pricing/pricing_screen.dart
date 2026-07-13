@@ -158,7 +158,7 @@ class _DemoCard extends StatelessWidget {
 
 /// La tessera di un livello: identita', vantaggi in evidenza e i tre cicli di
 /// prezzo. Il Viandante gratuito non ha prezzo, ha la nota del banner.
-class _PlanCard extends StatelessWidget {
+class _PlanCard extends StatefulWidget {
   const _PlanCard({
     required this.plan,
     required this.isCurrent,
@@ -170,7 +170,18 @@ class _PlanCard extends StatelessWidget {
   final MaestroPalette palette;
 
   @override
+  State<_PlanCard> createState() => _PlanCardState();
+}
+
+class _PlanCardState extends State<_PlanCard> {
+  // Ciclo scelto, con l'Annuale evidenziato di default: e' il piu' conveniente.
+  PriceCycle _cycle = PriceCycle.yearly;
+
+  @override
   Widget build(BuildContext context) {
+    final plan = widget.plan;
+    final isCurrent = widget.isCurrent;
+    final palette = widget.palette;
     return DepthCard(
       key: Key('plan_${plan.tier.name}'),
       raised: plan.highlighted,
@@ -223,9 +234,19 @@ class _PlanCard extends StatelessWidget {
             ),
           if (plan.price != null) ...[
             const SizedBox(height: SpacingTokens.md),
-            _PriceCycles(price: plan.price!, palette: palette),
+            _PriceCycles(
+              price: plan.price!,
+              palette: palette,
+              selected: _cycle,
+              onSelect: (c) => setState(() => _cycle = c),
+            ),
             const SizedBox(height: SpacingTokens.sm),
-            if (!isCurrent) _ChoosePlanButton(plan: plan, palette: palette),
+            if (!isCurrent)
+              _ChoosePlanButton(
+                plan: plan,
+                palette: palette,
+                cycle: _cycle,
+              ),
           ],
         ],
       ),
@@ -233,13 +254,21 @@ class _PlanCard extends StatelessWidget {
   }
 }
 
-/// I tre cicli di prezzo affiancati, con l'equivalenza mensile e lo sconto
-/// dell'annuale.
+/// I tre cicli di prezzo affiancati come selettore: uno solo è scelto, l'Annuale
+/// di default. Il riquadro scelto è distinto (riempito, cornice piena, spunta),
+/// gli altri restano sobri. L'equivalenza mensile e lo sconto vivono sull'anno.
 class _PriceCycles extends StatelessWidget {
-  const _PriceCycles({required this.price, required this.palette});
+  const _PriceCycles({
+    required this.price,
+    required this.palette,
+    required this.selected,
+    required this.onSelect,
+  });
 
   final PlanPrice price;
   final MaestroPalette palette;
+  final PriceCycle selected;
+  final ValueChanged<PriceCycle> onSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -248,51 +277,111 @@ class _PriceCycles extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           for (final cycle in PriceCycle.values) ...[
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  vertical: SpacingTokens.sm, horizontal: 6),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                color: palette.surfaceElevated.withValues(alpha: 0.4),
-                border: Border.all(
-                    color: palette.gold.withValues(
-                        alpha: cycle == PriceCycle.yearly ? 0.6 : 0.25)),
-              ),
-              child: Column(
-                children: [
-                  Text(cycle.label,
-                      style: TypographyTokens.label(size: 10).copyWith(
-                        color: palette.goldSoft,
-                        letterSpacing: 0.6,
-                      )),
-                  const SizedBox(height: 4),
-                  Text(price.amount(cycle),
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.display(size: 15)),
-                  if (cycle == PriceCycle.yearly) ...[
-                    const SizedBox(height: 4),
-                    Text(price.yearlyPerMonth,
-                        textAlign: TextAlign.center,
-                        style: TypographyTokens.label(size: 9).copyWith(
-                          color: ColorTokens.textSecondary,
-                          letterSpacing: 0.2,
-                        )),
-                    Text('sconto ${price.yearlyDiscountPercent}%',
-                        textAlign: TextAlign.center,
-                        style: TypographyTokens.label(size: 9).copyWith(
-                          color: palette.goldSoft,
-                          letterSpacing: 0.2,
-                        )),
-                  ],
-                ],
+            Expanded(
+              child: _CycleBox(
+                cycle: cycle,
+                price: price,
+                palette: palette,
+                selected: cycle == selected,
+                onTap: () => onSelect(cycle),
               ),
             ),
-          ),
-          if (cycle != PriceCycle.values.last)
-            const SizedBox(width: SpacingTokens.sm),
+            if (cycle != PriceCycle.values.last)
+              const SizedBox(width: SpacingTokens.sm),
           ],
         ],
+      ),
+    );
+  }
+}
+
+/// Un riquadro ciclo del selettore, distinto quando scelto.
+class _CycleBox extends StatelessWidget {
+  const _CycleBox({
+    required this.cycle,
+    required this.price,
+    required this.palette,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final PriceCycle cycle;
+  final PlanPrice price;
+  final MaestroPalette palette;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: Key('cycle_${cycle.name}'),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        onTap: onTap,
+        child: Container(
+          padding:
+              const EdgeInsets.symmetric(vertical: SpacingTokens.sm, horizontal: 6),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            gradient: selected
+                ? LinearGradient(colors: [
+                    palette.primary.withValues(alpha: 0.75),
+                    palette.surfaceElevated.withValues(alpha: 0.75),
+                  ])
+                : null,
+            color: selected ? null : palette.surfaceElevated.withValues(alpha: 0.3),
+            border: Border.all(
+              color: palette.gold.withValues(alpha: selected ? 0.9 : 0.22),
+              width: selected ? 1.6 : 1,
+            ),
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (selected) ...[
+                    Icon(Icons.check_circle_rounded,
+                        size: 12, color: palette.goldSoft),
+                    const SizedBox(width: 4),
+                  ],
+                  Flexible(
+                    child: Text(cycle.label,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TypographyTokens.label(size: 10).copyWith(
+                          color: palette.goldSoft,
+                          letterSpacing: 0.6,
+                        )),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(price.amount(cycle),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.display(size: 15).copyWith(
+                      color: selected
+                          ? ColorTokens.textPrimary
+                          : ColorTokens.textSecondary)),
+              if (cycle == PriceCycle.yearly) ...[
+                const SizedBox(height: 4),
+                Text(price.yearlyPerMonth,
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.label(size: 9).copyWith(
+                      color: ColorTokens.textSecondary,
+                      letterSpacing: 0.2,
+                    )),
+                Text('sconto ${price.yearlyDiscountPercent}%',
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.label(size: 9).copyWith(
+                      color: palette.goldSoft,
+                      letterSpacing: 0.2,
+                    )),
+              ],
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -321,43 +410,97 @@ class _Badge extends StatelessWidget {
   }
 }
 
-/// La tabella comparativa completa, scorribile in orizzontale, senza troncare
-/// nulla: le celle vanno a capo.
+/// La tabella comparativa completa. La prima colonna delle funzioni resta fissa,
+/// le colonne dei tier scorrono in orizzontale, con una sfumatura sul bordo
+/// destro che segnala lo scorrimento. Tutti e quattro i livelli sono
+/// raggiungibili, senza troncare nulla: le celle vanno a capo.
 class _ComparativeTable extends StatelessWidget {
   const _ComparativeTable({required this.palette});
 
   final MaestroPalette palette;
 
-  static const double _labelWidth = 156;
-  static const double _cellWidth = 118;
+  static const double _labelWidth = 150;
+  static const double _cellWidth = 116;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      key: const Key('pricing_table'),
-      scrollDirection: Axis.horizontal,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
-        ),
-        child: Column(
-          children: [
-            // Intestazione con i nomi dei livelli.
-            _row(
-              label: 'Funzione',
-              values: PlanCatalog.columns,
-              header: true,
-            ),
-            for (var i = 0; i < PlanCatalog.matrix.length; i++)
-              _row(
-                label: PlanCatalog.matrix[i].label,
-                values: PlanCatalog.matrix[i].values,
-                shaded: i.isOdd,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+      child: Stack(
+        children: [
+          // La tabella intera scorre in orizzontale: definisce l'altezza dello
+          // Stack e mostra i tier via via che si scorre.
+          SingleChildScrollView(
+            key: const Key('pricing_table'),
+            scrollDirection: Axis.horizontal,
+            child: _buildTable(),
+          ),
+          // Colonna delle funzioni congelata a sinistra, su fondo pieno cosi'
+          // i tier che scorrono le passano sotto senza trasparire.
+          Positioned(
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: _labelWidth,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: ColorTokens.neutralDeepest,
+                border: Border(
+                  right: BorderSide(
+                      color: palette.gold.withValues(alpha: 0.4), width: 1),
+                ),
               ),
-          ],
-        ),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
+                child: _buildTable(),
+              ),
+            ),
+          ),
+          // Sfumatura sul bordo destro: dice che si scorre per vedere gli altri
+          // livelli.
+          Positioned(
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: 28,
+            child: IgnorePointer(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      ColorTokens.neutralDeepest.withValues(alpha: 0.0),
+                      ColorTokens.neutralDeepest,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildTable() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Intestazione con i nomi dei livelli.
+        _row(
+          label: 'Funzione',
+          values: PlanCatalog.columns,
+          header: true,
+        ),
+        for (var i = 0; i < PlanCatalog.matrix.length; i++)
+          _row(
+            label: PlanCatalog.matrix[i].label,
+            values: PlanCatalog.matrix[i].values,
+            shaded: i.isOdd,
+          ),
+      ],
     );
   }
 
@@ -414,13 +557,22 @@ class _ComparativeTable extends StatelessWidget {
 /// Il pulsante per scegliere un piano. Nella Demo apre il foglio che spiega il
 /// pagamento e consente la prova in modalita' Demo.
 class _ChoosePlanButton extends StatelessWidget {
-  const _ChoosePlanButton({required this.plan, required this.palette});
+  const _ChoosePlanButton({
+    required this.plan,
+    required this.palette,
+    required this.cycle,
+  });
 
   final Plan plan;
   final MaestroPalette palette;
+  final PriceCycle cycle;
 
   @override
   Widget build(BuildContext context) {
+    // Il pulsante dichiara il ciclo e il prezzo scelti, ad esempio
+    // "Scegli L'Iniziato, 89,90 all'anno".
+    final label =
+        'Scegli ${plan.name}, ${plan.price!.amount(cycle)} ${cycle.per}';
     return SizedBox(
       width: double.infinity,
       child: Material(
@@ -430,7 +582,8 @@ class _ChoosePlanButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
           onTap: () => _openSheet(context),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+            padding: const EdgeInsets.symmetric(
+                vertical: SpacingTokens.sm, horizontal: SpacingTokens.md),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
@@ -440,7 +593,8 @@ class _ChoosePlanButton extends StatelessWidget {
               ]),
               border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
             ),
-            child: Text('Scegli ${plan.name}',
+            child: Text(label,
+                textAlign: TextAlign.center,
                 style: TypographyTokens.display(size: 15)
                     .copyWith(color: palette.goldSoft)),
           ),

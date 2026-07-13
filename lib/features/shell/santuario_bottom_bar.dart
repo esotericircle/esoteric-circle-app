@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/l10n/app_strings.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -55,7 +56,7 @@ class SantuarioBottomBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _BarItem(
-                label: 'Santuario',
+                label: AppStrings.navSantuario,
                 iconData: Icons.brightness_3,
                 selected: onSantuarioView,
                 onTap: onSantuario,
@@ -77,7 +78,7 @@ class SantuarioBottomBar extends StatelessWidget {
                 color: palette.gold.withValues(alpha: 0.2),
               ),
               _BarItem(
-                label: 'Passport',
+                label: AppStrings.navPassport,
                 iconData: Icons.badge_outlined,
                 selected: view == ShellView.passport,
                 onTap: onPassport,

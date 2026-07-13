@@ -764,3 +764,89 @@ set coerente (per esempio restando all'ultima patch sana dei plugin, sotto quell
 regredite) finche' l'ecosistema non riallinea le versioni, poi rigenerare i preview
 e rimettere l'analisi e i test in verde end to end. In questa rifinitura non e'
 stato committato alcun pin locale, per non introdurre modifiche fuori scope.
+
+# Ottavo blocco (rifinitura Demo, seconda mano)
+
+## Blocco vero: la cartella output non è nel repo
+
+La cartella locale `output/` non è presente in questo ambiente: non è versionata
+su Git, vive solo sulla macchina di Mauro. Percio' il punto 1 (promozione degli
+asset) e la parte dati del punto 2 (VIP e tarocchi reali) non sono stati eseguiti.
+Il codice è pronto ad accoglierli, i file vanno pushati nel repo. Il quadro
+completo è in `docs/STATO_ASSET.md`.
+
+## 1. Promozione asset da output (bloccato)
+
+Nessun file importato, `output/` assente. Le regole di importazione per famiglia
+sono nel manifesto `docs/STATO_ASSET.md` e nella sezione 57 del Master Briefing,
+pronte da applicare appena i file arrivano.
+
+## 2. Aggancio cataloghi, scaffolding fatto, dati bloccati
+
+Il modello `Vip` ora ha `imagePath` e `category`. Il polo della Sinastria VIP
+mostra il ritratto quando l'immagine c'è, con ripiego a un medaglione dorato
+curato; il chip mostra il banner basso della categoria (Cinema, Musica, Sport,
+Poesia, Design negli esempi). I cinque VIP restano d'esempio finché non arrivano
+i file reali. La stesa dei tarocchi non ha ancora una schermata dedicata, percio'
+l'aggancio alle immagini attende la schermata e gli asset. Angeli, animali,
+cristalli e rune non hanno una funzione che li consumi, e gli asset non sono nel
+repo. Test: `synastry_test` (modello VIP, presenza immagini).
+
+## 3. Note per lo sviluppatore rimosse dai testi (fatto)
+
+Tolte le note di servizio visibili all'utente: i piè di pagina dei rituali (arte
+in arrivo dal bucket, il segno che resta essenziale, il glifo disegnato dal
+codice, il giroscopio e il microfono sul device) su Rito dell'Alba, Runa del
+Tramonto, Oracolo del Giorno e Soffio del Destino, più la riga del disegno
+procedurale del Sigillo. I suggerimenti dei sensori restano, perché spiegano il
+gesto e il ripiego tattile, non il dietro le quinte.
+
+## 4. Schermata prezzi (fatto)
+
+La matrice di confronto ha la prima colonna delle funzioni fissa e le colonne dei
+tier a scorrimento orizzontale, con una sfumatura sul bordo destro che segnala lo
+scorrimento: tutti e quattro i livelli sono raggiungibili. Il ciclo di default è
+l'Annuale, evidenziato con riempimento e spunta; i tre riquadri ciclo sono
+distinti quando scelti; il pulsante dichiara ciclo e prezzo, ad esempio "Scegli
+L'Iniziato, 89,90 € all'anno", e cambia col ciclo scelto. Test: `pricing_test`
+(ciclo di default, pulsante col prezzo, cambio ciclo). Screenshot: `piani.png`.
+
+## 5. Rito dell'Alba e identità (fatto)
+
+La card Rito dell'Alba mostra l'avatar del Maestro di turno accanto al nome e al
+colore. Screenshot: `card-rito-alba.png`.
+
+## 6. Localizzazione, primo strato (fatto)
+
+L'etichetta della barra (Santuario, Passport) e i nomi delle funzioni dello
+scaffale passano per chiavi di localizzazione (`lib/core/l10n/app_strings.dart`),
+italiano di default. L'inglese si aggiunge riempiendo la colonna della lingua,
+senza toccare la UI. Passport resta come termine di brand, in attesa della
+conferma di Mauro se in italiano diventa Passaporto. Test: `localization_test`.
+
+## 7. Saluto del Santuario spostato (fatto in parte)
+
+Il saluto vocale non compare più nel Santuario: resta solo la riga personale sotto
+la Luna, col nome reale. Il saluto appartiene alla fine dell'onboarding, "Il
+Risveglio". Quella schermata non esiste ancora nel repo: il componente del saluto
+(`GreetingController`, `GreetingBanner`) resta pronto da montare lì quando
+l'onboarding sarà costruito. Rimosso il preview `santuario-saluto.png`, non più
+pertinente al Santuario.
+
+## 8. Stato e percorsi asset (fatto)
+
+Creato e mantenuto `docs/STATO_ASSET.md`; aggiunta la sezione 57 "Stato
+avanzamento e percorsi asset" al Master Briefing, senza togliere nulla del testo
+esistente. Entrambi aggiornati a fine sessione, come questa relazione.
+
+## Correzione della Luna
+
+Corretto il copy della riga della Luna: se la fase è Luna nuova il verbo non è più
+"cala", se è Luna piena non è "cresce". Test: `santuario_shelf_test`.
+
+## Validazione dell'ottavo blocco
+
+`flutter analyze` pulito, 182 test verdi (con i nuovi su ciclo dei prezzi,
+localizzazione, modello VIP e presenza immagini, copy della Luna). Preview
+rigenerati, integrità dei preview verde. Runtime AI su Gemini e Vertex, mai le API
+Anthropic, nessun segreto nel codice.

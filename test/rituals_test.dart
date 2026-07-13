@@ -74,7 +74,7 @@ void main() {
         (tester) async {
       await tester.pumpWidget(MaterialApp(home: DayOracleScreen(now: date)));
       await tester.pump();
-      // La riga dichiara il gesto sul sensore e il ripiego tattile.
+      // Il ripiego allo scorrimento del dito è comunicato nel suggerimento.
       expect(find.textContaining('ripiego tattile'), findsOneWidget);
 
       await tester.drag(
