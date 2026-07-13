@@ -121,7 +121,9 @@ void main() {
     await tester.tap(find.byKey(const Key('sky_location_accept')));
     await step(tester);
     expect(find.byKey(const Key('sky_location_prompt')), findsNothing);
-    expect(find.textContaining('alt-azimut'), findsOneWidget);
+    // La dichiarazione in-world, in italiano semplice, senza gergo.
+    expect(find.textContaining('Orientato sul tuo luogo'), findsOneWidget);
+    expect(find.textContaining('motore a effemeridi'), findsOneWidget);
   });
 
   testWidgets('Se il permesso manca, ripiega con eleganza sulla veduta attuale',

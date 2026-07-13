@@ -330,3 +330,15 @@ identita' e non chiede il luogo; il portale del passaporto la apre. Screenshot:
 - Momento di nascita d'esempio (Punto 6): segnaposto in attesa di BirthIdentity
   dalle effemeridi. Il collegamento e' pronto: bastera' passare il momento reale
   a `birthRoute`.
+
+# Quarto batch
+
+## Punto 1, correzioni al cielo — FATTO
+
+a) La nota in basso del cielo di nascita non e' piu' troncata: tolti il tetto di
+due righe e i puntini, ora va a capo per intero. b) Nel pre-avviso della
+posizione (e nelle note in-world del cielo) e' sparito il gergo "alt-azimut":
+al suo posto "la posizione esatta di ogni astro nel cielo arriva col motore a
+effemeridi", in italiano semplice, mantenendo l'onesta' che la precisione piena
+arriva con le effemeridi. Test aggiornato alla nuova dicitura. Screenshot:
+`cielo-di-nascita.png` e `cielo-avvio-posizione.png`.

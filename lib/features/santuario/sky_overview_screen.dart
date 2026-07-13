@@ -160,8 +160,8 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
               Text(
                 'Con il tuo permesso leggo dove ti trovi, così la volta sopra di '
                 'te si dispone come la vedi davvero da lì. La posizione resta sul '
-                'dispositivo: serve solo a orientare le stelle. La precisione '
-                'piena in alt-azimut è custodita dal motore a effemeridi.',
+                'dispositivo: serve solo a orientare le stelle. La posizione '
+                'esatta di ogni astro nel cielo arriva col motore a effemeridi.',
                 style: TypographyTokens.body(size: 14)
                     .copyWith(color: ColorTokens.textSecondary),
               ),
@@ -817,13 +817,14 @@ class _SkyInfoCard extends StatelessWidget {
                 child: Text(
                   birth
                       ? 'Veduta d\'esempio finché non registri nascita e luogo. '
-                          'La volta esatta viene dal motore a effemeridi.'
+                          'La posizione esatta di ogni astro arriva col motore '
+                          'a effemeridi.'
                       : oriented
-                          ? 'Orientato sul tuo luogo. La volta piena in '
-                              'alt-azimut è custodita dal motore a effemeridi.'
+                          ? 'Orientato sul tuo luogo. La posizione esatta di '
+                              'ogni astro nel cielo arriva col motore a '
+                              'effemeridi.'
                           : 'I pianeti si uniranno presto al tuo cielo.',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                  // Nessun troncamento: la nota va a capo per intero.
                   style: TypographyTokens.label(size: 10).copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.7),
                     letterSpacing: 0.4,
