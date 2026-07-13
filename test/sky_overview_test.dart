@@ -1,4 +1,5 @@
 import 'package:esoteric_circle/core/astro/night_sky.dart';
+import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -36,7 +37,11 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
   }
 
-  Widget host(DateTime now) => MultiProvider(
+  Widget hostFull({
+    DateTime? now,
+    SkyLocation location = const DisabledSkyLocation(),
+  }) =>
+      MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
@@ -44,9 +49,12 @@ void main() {
           ChangeNotifierProvider(create: (_) => ZodiacController()),
         ],
         child: MaterialApp(
-          home: MaestroScope(child: SkyOverviewScreen(now: now)),
+          home: MaestroScope(
+              child: SkyOverviewScreen(now: now, location: location)),
         ),
       );
+
+  Widget host(DateTime now) => hostFull(now: now);
 
   testWidgets('Mostra la Luna e le costellazioni alte stanotte, toccabili',
       (tester) async {
@@ -97,4 +105,59 @@ void main() {
     expect(find.byKey(const Key('share_story')), findsOneWidget);
     expect(find.byKey(const Key('share_feed')), findsOneWidget);
   });
+
+  testWidgets('Col luogo disponibile chiede il permesso con un pre-avviso gentile',
+      (tester) async {
+    silence();
+    await tester.pumpWidget(hostFull(
+        location: const _FakeLocation(
+            place: SkyPlace(latitude: 41.9, longitude: 12.5))));
+    await step(tester);
+    // Appare il pre-avviso, non la richiesta secca del sistema.
+    expect(find.byKey(const Key('sky_location_prompt')), findsOneWidget);
+    expect(find.text('Oriento il cielo sul tuo luogo?'), findsOneWidget);
+
+    // Accettando, il cielo si orienta e lo dichiara in-world.
+    await tester.tap(find.byKey(const Key('sky_location_accept')));
+    await step(tester);
+    expect(find.byKey(const Key('sky_location_prompt')), findsNothing);
+    expect(find.textContaining('alt-azimut'), findsOneWidget);
+  });
+
+  testWidgets('Se il permesso manca, ripiega con eleganza sulla veduta attuale',
+      (tester) async {
+    silence();
+    await tester.pumpWidget(hostFull(location: const _FakeLocation()));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('sky_location_accept')));
+    await step(tester);
+    expect(find.text('Resto sulla veduta di stanotte, senza il tuo luogo.'),
+        findsOneWidget);
+  });
+
+  testWidgets('Col momento fissato non chiede mai il luogo', (tester) async {
+    silence();
+    // Anche con una sorgente disponibile, un momento fisso (cielo di nascita,
+    // test, anteprime) non fa comparire il pre-avviso.
+    await tester.pumpWidget(hostFull(
+        now: DateTime.utc(2026, 7, 13, 22),
+        location: const _FakeLocation(
+            place: SkyPlace(latitude: 41.9, longitude: 12.5))));
+    await step(tester);
+    expect(find.byKey(const Key('sky_location_prompt')), findsNothing);
+  });
+}
+
+/// Sorgente di posizione finta per i test: disponibile, restituisce il luogo
+/// dato (o null per simulare permesso negato o sensore assente).
+class _FakeLocation extends SkyLocation {
+  const _FakeLocation({this.place});
+
+  final SkyPlace? place;
+
+  @override
+  bool get available => true;
+
+  @override
+  Future<SkyPlace?> resolve() async => place;
 }

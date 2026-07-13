@@ -1,4 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Posizione approssimata e precisa: serve solo a orientare "Il cielo
+         sopra di te" sul luogo reale dell'utente. Con fallback elegante se il
+         permesso manca. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <application
         android:label="Esoteric Circle"
         android:name="${applicationName}"

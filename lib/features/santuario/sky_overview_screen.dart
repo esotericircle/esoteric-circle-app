@@ -10,6 +10,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/night_sky.dart';
 import '../../core/astro/sky_catalog.dart';
+import '../../core/astro/sky_location.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -32,14 +33,29 @@ import 'widgets/moon_widget.dart';
 /// di Medora. Riduci Movimento appiattisce o ferma la parallasse. Freccia
 /// Indietro al Santuario.
 class SkyOverviewScreen extends StatefulWidget {
-  const SkyOverviewScreen({super.key, this.now});
+  const SkyOverviewScreen({
+    super.key,
+    this.now,
+    this.location = const DisabledSkyLocation(),
+  });
 
   /// Momento del cielo, iniettabile per i test; di default l'ora di adesso.
   final DateTime? now;
 
-  static Route<void> route({DateTime? now}) {
+  /// Sorgente della posizione, per orientare il cielo sul luogo reale. Di
+  /// default e' spenta, cosi' test e anteprime non chiedono nulla; l'ingresso
+  /// dal Santuario passa quella vera. Il pre-avviso appare solo quando il
+  /// momento e' l'adesso reale (`now` nullo) e la sorgente e' disponibile.
+  final SkyLocation location;
+
+  static Route<void> route({DateTime? now, SkyLocation? location}) {
     return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(child: SkyOverviewScreen(now: now)),
+      builder: (_) => MaestroScope(
+        child: SkyOverviewScreen(
+          now: now,
+          location: location ?? const GeolocatorSkyLocation(),
+        ),
+      ),
     );
   }
 
@@ -50,6 +66,129 @@ class SkyOverviewScreen extends StatefulWidget {
 class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   Offset _cam = Offset.zero;
   String? _selectedKey;
+
+  // Luogo risolto per orientare la volta, e se il pre-avviso e' gia' stato
+  // proposto in questa visita (una sola volta).
+  SkyPlace? _place;
+  bool _askedLocation = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Il pre-avviso vale solo per il cielo di adesso, non per il cielo di
+    // nascita ne per i test o le anteprime, che passano un momento fisso o una
+    // sorgente spenta.
+    if (widget.now == null && widget.location.available) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _offerLocation());
+    }
+  }
+
+  Future<void> _offerLocation() async {
+    if (!mounted || _askedLocation) return;
+    _askedLocation = true;
+    final accepted = await _askLocationConsent();
+    if (accepted != true || !mounted) return;
+    final place = await widget.location.resolve();
+    if (!mounted) return;
+    if (place != null) {
+      setState(() => _place = place);
+    } else {
+      // Permesso negato o sensore assente: ripiego elegante, nessun vicolo
+      // cieco, resta la veduta attuale.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Resto sulla veduta di stanotte, senza il tuo luogo.'),
+        ),
+      );
+    }
+  }
+
+  // Il pre-avviso gentile, nel tono di Medora: spiega a cosa serve la posizione
+  // prima che il sistema mostri la sua richiesta secca.
+  Future<bool?> _askLocationConsent() {
+    final palette = context.palette;
+    return showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => Dialog(
+        key: const Key('sky_location_prompt'),
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.all(SpacingTokens.lg),
+        child: Container(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [palette.surfaceElevated, palette.deepest],
+            ),
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.public_rounded, color: palette.goldSoft, size: 22),
+                  const SizedBox(width: SpacingTokens.sm),
+                  Expanded(
+                    child: Text('Oriento il cielo sul tuo luogo?',
+                        style: TypographyTokens.display(size: 18)
+                            .copyWith(color: palette.goldSoft)),
+                  ),
+                ],
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              Text(
+                'Con il tuo permesso leggo dove ti trovi, così la volta sopra di '
+                'te si dispone come la vedi davvero da lì. La posizione resta sul '
+                'dispositivo: serve solo a orientare le stelle. La precisione '
+                'piena in alt-azimut è custodita dal motore a effemeridi.',
+                style: TypographyTokens.body(size: 14)
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+              const SizedBox(height: SpacingTokens.md),
+              // Wrap, non Row: se le etichette non stanno su una riga vanno a
+              // capo, senza mai sforare il bordo del riquadro.
+              Wrap(
+                alignment: WrapAlignment.end,
+                spacing: SpacingTokens.sm,
+                children: [
+                  TextButton(
+                    key: const Key('sky_location_decline'),
+                    onPressed: () => Navigator.of(dialogContext).pop(false),
+                    child: Text('Non ora',
+                        style: TypographyTokens.label(size: 13)
+                            .copyWith(color: ColorTokens.textSecondary)),
+                  ),
+                  TextButton(
+                    key: const Key('sky_location_accept'),
+                    onPressed: () => Navigator.of(dialogContext).pop(true),
+                    child: Text('Orienta il cielo',
+                        style: TypographyTokens.label(size: 13)
+                            .copyWith(color: palette.goldSoft)),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // La longitudine sposta il centro della volta in orizzontale, la latitudine
+  // alza o abbassa l'orizzonte: un orientamento simbolico sul luogo reale. La
+  // volta piena in alt-azimut resta al motore a effemeridi, come dichiarato.
+  Offset _orientOffset(Size size) {
+    final p = _place;
+    if (p == null) return Offset.zero;
+    return Offset(
+      (p.longitude / 180.0) * size.width * 0.32,
+      (p.latitude / 90.0) * size.height * 0.14,
+    );
+  }
 
   // Slot prominenti dei corpi alti stanotte, sempre raggiungibili.
   static const Offset _moonSlot = Offset(0.5, 0.2);
@@ -232,6 +371,9 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           final size = Size(constraints.maxWidth, constraints.maxHeight);
+          // La camera vista: pan del dito, deriva del giroscopio e, se il luogo
+          // e' noto, l'orientamento sul luogo reale dell'utente.
+          final camView = cam + _orientOffset(size);
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
             onPanUpdate: (d) => _onPan(d, size),
@@ -243,7 +385,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                 Positioned.fill(
                   child: CustomPaint(
                     painter: _SkyFieldPainter(
-                      cam: cam,
+                      cam: camView,
                       depth: depth,
                       palette: palette,
                       ambient: ambient,
@@ -254,7 +396,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                 // I corpi alti stanotte, toccabili, sul piano delle
                 // costellazioni.
                 Transform.translate(
-                  offset: cam * depth(0.42),
+                  offset: camView * depth(0.42),
                   child: Stack(
                     children: [
                       for (final b in bodies)
@@ -282,7 +424,10 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                   bottom: SpacingTokens.lg,
                   child: SafeArea(
                     top: false,
-                    child: _SkyInfoCard(selected: selected, palette: palette),
+                    child: _SkyInfoCard(
+                        selected: selected,
+                        palette: palette,
+                        oriented: _place != null),
                   ),
                 ),
               ],
@@ -580,10 +725,17 @@ class _SkyFieldPainter extends CustomPainter {
 /// Scheda in basso: se un corpo e' scelto ne mostra etichetta e riga; altrimenti
 /// invita a toccare il cielo. In coda, la nota in-world sui pianeti.
 class _SkyInfoCard extends StatelessWidget {
-  const _SkyInfoCard({required this.selected, required this.palette});
+  const _SkyInfoCard({
+    required this.selected,
+    required this.palette,
+    this.oriented = false,
+  });
 
   final _SkyBody? selected;
   final MaestroPalette palette;
+
+  /// Se il cielo e' orientato sul luogo reale dell'utente.
+  final bool oriented;
 
   @override
   Widget build(BuildContext context) {
@@ -627,7 +779,10 @@ class _SkyInfoCard extends StatelessWidget {
               const SizedBox(width: 6),
               Flexible(
                 child: Text(
-                  'I pianeti si uniranno presto al tuo cielo.',
+                  oriented
+                      ? 'Orientato sul tuo luogo. La volta piena in alt-azimut '
+                          'è custodita dal motore a effemeridi.'
+                      : 'I pianeti si uniranno presto al tuo cielo.',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TypographyTokens.label(size: 10).copyWith(

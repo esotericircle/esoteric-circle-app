@@ -124,6 +124,13 @@ void main() {
     await step(tester);
     await step(tester);
     expect(find.byType(SkyOverviewScreen), findsOneWidget);
+
+    // All'ingresso reale il cielo propone di orientarsi sul luogo: lo declino
+    // con gentilezza, resta la veduta attuale.
+    expect(find.byKey(const Key('sky_location_prompt')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('sky_location_decline')));
+    await step(tester);
+
     // Ha la sua freccia Indietro: mai un vicolo cieco.
     expect(find.byIcon(Icons.arrow_back_rounded), findsOneWidget);
 

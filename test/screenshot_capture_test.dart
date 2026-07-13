@@ -313,6 +313,14 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_sky_tap')));
     await step(tester);
     await step(tester);
+    // All'ingresso compare il pre-avviso della posizione: prima lo catturo,
+    // poi lo declino per la veduta pulita del cielo.
+    if (find.byKey(const Key('sky_location_prompt')).evaluate().isNotEmpty) {
+      await capture(tester, rootKey, 'cielo-avvio-posizione.png');
+      await tester.tap(find.byKey(const Key('sky_location_decline')));
+      await step(tester);
+      await step(tester);
+    }
     await precacheFaces(tester);
     await capture(tester, rootKey, 'cielo-sopra-di-te.png');
   });

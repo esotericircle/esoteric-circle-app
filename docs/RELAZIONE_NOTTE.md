@@ -286,3 +286,20 @@ in scala. Alla condivisione il bottone apre un foglio che offre la scelta,
 si genera nei due formati con le dimensioni corrette, il selettore mostra le
 due opzioni. Screenshot: `cartolina-cielo.png` (verticale) e
 `cartolina-cielo-quadrata.png` (quadrato).
+
+## Punto 5, avvio geolocalizzato del cielo — FATTO
+
+Aprendo "Il cielo sopra di te" dal Santuario, un pre-avviso gentile nella voce
+di Medora chiede il permesso di posizione e spiega a cosa serve, prima della
+richiesta secca del sistema. Accettando, la longitudine e la latitudine
+orientano la volta sul luogo reale (spostamento simbolico del centro della
+volta); se il permesso manca o il sensore non c'e', ripiego elegante alla
+veduta attuale, senza vicoli ciechi. La precisione piena in alt-azimut resta al
+motore a effemeridi, dichiarata sia nel pre-avviso sia nella scheda in-world. La
+posizione e' dietro l'astrazione `SkyLocation` (`lib/core/astro/sky_location.dart`):
+`GeolocatorSkyLocation` reale, `DisabledSkyLocation` di default per test e
+anteprime. Permessi aggiunti a Info.plist (iOS) e AndroidManifest. Test: col
+luogo disponibile compare il pre-avviso e l'accettazione orienta e lo dichiara;
+col permesso negato ripiega con un messaggio; col momento fissato (cielo di
+nascita, test) non chiede mai nulla. Screenshot: `cielo-avvio-posizione.png`
+(pre-avviso) e `cielo-sopra-di-te.png` (veduta pulita).
