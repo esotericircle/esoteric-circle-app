@@ -345,6 +345,29 @@ void main() {
     await capture(tester, rootKey, 'chiedi-ai-maestri.png');
   });
 
+  // --- La Meditazione di Aura: cimatica, respiro e suono generato a runtime ---
+  testWidgets('Cattura la Meditazione di Aura', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    selectCentral(tester, Maestro.aura);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    // Nel dominio di Aura, la tessera della Meditazione apre la schermata.
+    await tester.ensureVisible(find.byKey(const Key('aura_meditation_card')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('aura_meditation_card')));
+    await step(tester);
+    await step(tester);
+    // Avvio il suono e porto il respiro verso il pieno: il mandala si apre.
+    await tester.tap(find.byKey(const Key('meditation_play')));
+    await tester.pump(const Duration(milliseconds: 2600));
+    await capture(tester, rootKey, 'meditazione-aura.png');
+  });
+
   // --- L'hub di dominio e il Cosmic Passport ---
   testWidgets('Cattura l\'hub di dominio, medora', (tester) async {
     silenceSensors();

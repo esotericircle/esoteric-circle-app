@@ -378,3 +378,37 @@ l'ultimo Maestro non si puo' togliere. Test: `maestro_oracle_test.dart` (lenti,
 ordine fisso, sintesi, determinismo) e `ask_maestri_test.dart` (i quattro stati).
 Screenshot: `chiedi-ai-maestri.png` (vista comparativa) e i Santuario con la
 nuova via.
+
+## Punto 4, Meditazione di Aura con suono e cimatica — FATTO
+
+Nuova schermata di meditazione nel dominio di Aura (`lib/features/maestri/aura/
+meditation/`), raggiungibile da una tessera attiva nel dominio. Tre strati che
+nascono l'uno dall'altro. Suono generato a runtime, senza file esterni: un
+`ToneGenerator` sintetizza campioni PCM16 stereo (e li avvolge in un WAV in
+memoria) per i preset a 432 Hz, 528 Hz e un battito binaurale theta, dove il
+battito nasce dalla differenza fra i due canali, con invito a mettere le cuffie.
+Visualizzatore a cimatica: un mandala di geometria sacra (due rose sovrapposte a
+simmetria radiale, la cui ricchezza cresce con la frequenza del preset) che
+pulsa col respiro, con nodi luminosi sulle punte e un cuore che respira. Guida
+al respiro: cerchio che si apre inspirando e si chiude espirando, con l'etichetta
+della fase. Fondamento onesto: "Cornice di benessere, non cura. Le frequenze
+Solfeggio e il 432 sono tradizione culturale, non un fatto medico", senza
+ripetere il disclaimer. La riproduzione vera sul canale audio del sistema resta
+al device, dietro `TonePlayer`: in headless si usa il lettore silenzioso, che
+genera comunque i toni. Test: `meditation_test.dart` (sintesi PCM, frequenza per
+attraversamenti dello zero, WAV valido, battito binaurale, stati della schermata,
+tessera solo nel dominio di Aura). Screenshot: `meditazione-aura.png`.
+
+## Note e dubbi del quarto batch
+
+- Suono della meditazione (Punto 4): la sintesi dei toni e' reale e verificata,
+  ma la riproduzione sul canale audio del sistema richiede il plugin nativo sul
+  device (come la chiamata a Vertex). Oggi il lettore di default e' silenzioso e
+  genera i byte senza emetterli: la prova dell'audio resta al device.
+- Chiedi ai Maestri (Punto 3): le risposte sono dell'oracolo locale a scheletro,
+  deterministico. Sono coerenti col dominio ma non personalizzate sul profilo
+  dell'utente: la lettura vera, con memoria e Gemini su Vertex, resta al device.
+- Cimatica (Punto 4): il mandala e' un'evocazione fedele nello spirito delle
+  figure di Chladni, non una simulazione fisica delle onde stazionarie. Se vuoi
+  la simulazione vera dei nodi di Chladni per una data frequenza, e' un passo in
+  piu' che posso fare.

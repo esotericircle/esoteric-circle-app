@@ -11,6 +11,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import 'aura/meditation/meditation_screen.dart';
 import 'chat/maestro_chat_screen.dart';
 import 'widgets/maestro_presence.dart';
 
@@ -82,6 +83,12 @@ class MaestroScreen extends StatelessWidget {
                   // la stessa struttura e la voce del rispettivo dominio.
                   const SizedBox(height: SpacingTokens.md),
                   _TalkToMaestroCard(maestro: maestro),
+                  // La Meditazione di Aura e' gia' viva: suono generato a
+                  // runtime, cimatica e guida al respiro.
+                  if (maestro == Maestro.aura) ...[
+                    const SizedBox(height: SpacingTokens.md),
+                    const _MeditationCard(),
+                  ],
                   const SizedBox(height: SpacingTokens.xl),
                   SectionTitle(
                     title: 'Le Arti di ${maestro.displayName}',
@@ -102,6 +109,56 @@ class MaestroScreen extends StatelessWidget {
           const SliverToBoxAdapter(
             child: SizedBox(height: SpacingTokens.xxxl),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// La porta alla Meditazione di Aura: suono, cimatica e respiro.
+class _MeditationCard extends StatelessWidget {
+  const _MeditationCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return DepthCard(
+      key: const Key('aura_meditation_card'),
+      raised: true,
+      onTap: () => Navigator.of(context).push(MeditationScreen.route()),
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      child: Row(
+        children: [
+          Container(
+            width: 46,
+            height: 46,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: palette.primary.withValues(alpha: 0.5),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+            ),
+            alignment: Alignment.center,
+            child: Icon(Icons.self_improvement, color: palette.goldSoft, size: 24),
+          ),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Meditazione con suono e cimatica',
+                  style: TypographyTokens.display(size: 18),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Toni a 432 e 528 Hz, un mandala che pulsa col respiro.',
+                  style: TypographyTokens.body(size: 14)
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
         ],
       ),
     );
