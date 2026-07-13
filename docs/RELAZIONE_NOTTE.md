@@ -342,3 +342,21 @@ al suo posto "la posizione esatta di ogni astro nel cielo arriva col motore a
 effemeridi", in italiano semplice, mantenendo l'onesta' che la precisione piena
 arriva con le effemeridi. Test aggiornato alla nuova dicitura. Screenshot:
 `cielo-di-nascita.png` e `cielo-avvio-posizione.png`.
+
+## Punto 2, due fatti deterministici del Passport attivi — FATTO
+
+Attivate le due tessere che nascono dalla sola data di nascita, oggi con valore
+reale calcolato. Numero della vita: numerologia pitagorica deterministica
+(`lib/core/identity/numerology.dart`), riduzione della data conservando i numeri
+maestri 11, 22, 33, con titolo, riga di significato ed emblema a sigillo dorato.
+Fase lunare di nascita: fase e segno lunare del giorno di nascita
+(`lib/core/identity/birth_moon.dart`), riusando il renderer della Luna gia'
+esistente e la longitudine lunare reale (nuovo `NightSky.moonEclipticLongitude`
+e `moonSign`), con riga di significato. Tutto dietro il modello `BirthIdentity`:
+finche' l'onboarding non fornisce la data vera usano `BirthIdentity.example`,
+dichiarato in-world ("Valore d'esempio: si compone con la tua data"), e si
+popolano da soli passando un'identita' reale. Le voci che richiedono servizi o
+asset esterni (carta natale, Angelo, Archetipo, Animale guida) restano dietro il
+velo. Test: numerologia deterministica e numeri maestri, fase lunare coerente
+col motore, longitudine nel giro, il passaporto mostra i valori e nasconde la
+nota d'esempio con identita' reale. Screenshot: `passport.png`.

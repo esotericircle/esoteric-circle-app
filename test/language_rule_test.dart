@@ -1,6 +1,8 @@
 import 'package:esoteric_circle/core/astro/moon_phase.dart';
 import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/identity/birth_moon.dart';
+import 'package:esoteric_circle/core/identity/numerology.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -93,6 +95,23 @@ void main() {
         'testo condivisione nascita');
     for (final birth in [false, true]) {
       expectClean(SkyPostcard.titleFor(birth: birth), 'titolo cartolina $birth');
+    }
+  });
+
+  test('I fatti identitari del passaporto rispettano la regola della virgola', () {
+    final numbers = <int>{};
+    final signs = <String>{};
+    for (var i = 0; i < 400; i++) {
+      final d = DateTime(1970, 1, 1).add(Duration(days: i * 3));
+      final lp = LifePath.forDate(d);
+      if (numbers.add(lp.number)) {
+        expectClean(lp.title, 'titolo numero ${lp.number}');
+        expectClean(lp.meaning, 'significato numero ${lp.number}');
+      }
+      final bm = BirthMoon.forDate(d);
+      if (signs.add(bm.sign.id)) {
+        expectClean(bm.meaning, 'luna ${bm.sign.id}');
+      }
     }
   });
 }

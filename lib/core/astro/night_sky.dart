@@ -31,6 +31,33 @@ class NightSky {
   static Zodiac sunSign(DateTime date) =>
       _signOfLongitude(sunEclipticLongitude(date));
 
+  /// Longitudine eclittica della Luna in gradi [0, 360). Formula a bassa
+  /// precisione ma reale (termini periodici principali, errore sotto il grado),
+  /// sufficiente a sapere in quale segno si trova la Luna in una certa data.
+  static double moonEclipticLongitude(DateTime date) {
+    final d = MoonPhase.julianDay(date) - 2451545.0; // giorni da J2000.0
+    final lp = 218.316 + 13.176396 * d; // longitudine media della Luna
+    final m = _rad(134.963 + 13.064993 * d); // anomalia media della Luna
+    final ms = _rad(357.529 + 0.985600 * d); // anomalia media del Sole
+    final dd = _rad(297.850 + 12.190749 * d); // elongazione media
+    final lambda = lp +
+        6.289 * math.sin(m) -
+        1.274 * math.sin(m - 2 * dd) +
+        0.658 * math.sin(2 * dd) -
+        0.186 * math.sin(ms) -
+        0.059 * math.sin(2 * m - 2 * dd) +
+        0.053 * math.sin(m + 2 * dd) +
+        0.046 * math.sin(2 * dd - ms) +
+        0.041 * math.sin(m - ms) -
+        0.035 * math.sin(dd) -
+        0.031 * math.sin(m + ms);
+    return _norm360(lambda);
+  }
+
+  /// Segno in cui si trova la Luna in una certa data (tropicale).
+  static Zodiac moonSign(DateTime date) =>
+      _signOfLongitude(moonEclipticLongitude(date));
+
   /// Le costellazioni dello zodiaco alte stanotte, la piu' prominente per prima.
   ///
   /// Il punto opposto al Sole (longitudine + 180) culmina a mezzanotte: la sua

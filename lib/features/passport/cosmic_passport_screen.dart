@@ -1,5 +1,10 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
+import '../../core/identity/birth_identity.dart';
+import '../../core/identity/birth_moon.dart';
+import '../../core/identity/numerology.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -7,24 +12,34 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../santuario/sky_overview_screen.dart';
+import '../santuario/widgets/moon_widget.dart';
 import '../settings/settings_screen.dart';
 
-/// Schermata segnaposto del Cosmic Passport.
+/// Schermata del Cosmic Passport.
 ///
-/// In attesa dei dati identitari reali (BirthIdentity, calcolati sulle
-/// effemeridi svizzere via FreeAstroAPI) e dei relativi asset, questa
-/// schermata mostra soltanto la struttura cerimoniale e le voci "in arrivo".
-/// Nessun dato reale, nessuna rete, nessun asset esterno.
+/// I fatti identitari deterministici, quelli che nascono dalla sola data di
+/// nascita, sono gia' vivi e mostrano il valore reale calcolato: Numero della
+/// vita (numerologia) e Fase lunare di nascita (fase e segno lunare). Le voci
+/// che richiedono servizi o asset esterni (carta natale completa, Angelo,
+/// Archetipo, Animale guida) restano dietro il velo. Finche' l'onboarding non
+/// fornisce la data vera, i fatti attivi usano `BirthIdentity.example`,
+/// dichiarato in-world, e si popolano da soli quando arriva il dato reale.
 ///
 /// Non ha un proprio Scaffold, AppBar o sfondo cosmico: e' solo contenuto,
 /// destinato a essere inserito in un contenitore che fornisce navigazione e
 /// sfondo.
 class CosmicPassport extends StatelessWidget {
-  const CosmicPassport({super.key});
+  const CosmicPassport({super.key, this.identity});
+
+  /// Identita' di nascita da cui nascono i fatti deterministici. Se assente si
+  /// usa il dato d'esempio, dichiarato in-world: passando un'identita' reale le
+  /// tessere si popolano da sole.
+  final BirthIdentity? identity;
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    final id = identity ?? BirthIdentity.example;
 
     return SafeArea(
       child: CustomScrollView(
@@ -83,20 +98,19 @@ class CosmicPassport extends StatelessWidget {
               ),
             ),
           ),
-          // Il portale gia' vivo: il cielo di nascita, immersivo ed esplorabile
-          // con lo stesso motore del cielo di adesso, ma fisso sulla notte di
-          // nascita. Le altre voci restano dietro il velo.
-          const SliverPadding(
-            padding: EdgeInsets.fromLTRB(SpacingTokens.lg, 0, SpacingTokens.lg,
-                SpacingTokens.sm),
-            sliver: SliverToBoxAdapter(child: _BirthSkyPortalCard()),
-          ),
-          // Colonna di tessere "in arrivo", una per ogni fatto identitario.
+          // Le tessere gia' vive: il portale del cielo di nascita e i due fatti
+          // deterministici dalla sola data. Le altre restano dietro il velo.
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
             sliver: SliverToBoxAdapter(
               child: Column(
                 children: [
+                  _BirthSkyPortalCard(birthMoment: id.birthMoment),
+                  const SizedBox(height: SpacingTokens.sm),
+                  _LifePathCard(identity: id),
+                  const SizedBox(height: SpacingTokens.sm),
+                  _BirthMoonCard(identity: id),
+                  const SizedBox(height: SpacingTokens.sm),
                   for (final entry in _passportEntries) ...[
                     _PassportEntryCard(entry: entry),
                     const SizedBox(height: SpacingTokens.sm),
@@ -119,11 +133,9 @@ class CosmicPassport extends StatelessWidget {
 /// e luogo reali (BirthIdentity dalle effemeridi), usa un momento d'esempio,
 /// dichiarato in-world nella schermata stessa.
 class _BirthSkyPortalCard extends StatelessWidget {
-  const _BirthSkyPortalCard();
+  const _BirthSkyPortalCard({required this.birthMoment});
 
-  // Momento di nascita d'esempio, finche' l'onboarding non raccoglie il dato
-  // reale. La schermata lo dichiara come veduta d'esempio.
-  static final DateTime _placeholderBirth = DateTime(1990, 6, 15, 2, 30);
+  final DateTime birthMoment;
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +145,7 @@ class _BirthSkyPortalCard extends StatelessWidget {
       key: const Key('passport_birth_sky'),
       behavior: HitTestBehavior.opaque,
       onTap: () => Navigator.of(context).push(
-        SkyOverviewScreen.birthRoute(birthMoment: _placeholderBirth),
+        SkyOverviewScreen.birthRoute(birthMoment: birthMoment),
       ),
       child: DepthCard(
         padding: const EdgeInsets.all(SpacingTokens.md),
@@ -168,6 +180,215 @@ class _BirthSkyPortalCard extends StatelessWidget {
   }
 }
 
+/// Tessera del Numero della vita: numerologia deterministica dalla data, con
+/// un emblema a sigillo e una riga di significato.
+class _LifePathCard extends StatelessWidget {
+  const _LifePathCard({required this.identity});
+
+  final BirthIdentity identity;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final lp = LifePath.forDate(identity.birthMoment);
+    return _ActiveFactCard(
+      cardKey: const Key('passport_life_path'),
+      overline: 'Numero della vita',
+      value: '${lp.number} · ${lp.title}',
+      meaning: lp.meaning,
+      isExample: identity.isExample,
+      emblem: SizedBox(
+        width: 52,
+        height: 52,
+        child: CustomPaint(
+          painter: _LifePathSigil(number: lp.number, palette: palette),
+        ),
+      ),
+    );
+  }
+}
+
+/// Tessera della Fase lunare di nascita: fase e segno lunare del giorno di
+/// nascita, con l'emblema della Luna gia' esistente e una riga di significato.
+class _BirthMoonCard extends StatelessWidget {
+  const _BirthMoonCard({required this.identity});
+
+  final BirthIdentity identity;
+
+  @override
+  Widget build(BuildContext context) {
+    final moon = BirthMoon.forDate(identity.birthMoment);
+    return _ActiveFactCard(
+      cardKey: const Key('passport_birth_moon'),
+      overline: 'Fase lunare di nascita',
+      value: moon.label,
+      meaning: moon.meaning,
+      isExample: identity.isExample,
+      emblem: SizedBox(
+        width: 52,
+        height: 52,
+        child: Center(child: MoonWidget(phase: moon.phase, size: 24)),
+      ),
+    );
+  }
+}
+
+/// Tessera viva di un fatto identitario deterministico: emblema, etichetta,
+/// valore reale calcolato e riga di significato. Se il dato e' d'esempio lo
+/// dichiara in-world, senza il badge "Dietro il velo".
+class _ActiveFactCard extends StatelessWidget {
+  const _ActiveFactCard({
+    required this.cardKey,
+    required this.overline,
+    required this.value,
+    required this.meaning,
+    required this.emblem,
+    required this.isExample,
+  });
+
+  final Key cardKey;
+  final String overline;
+  final String value;
+  final String meaning;
+  final Widget emblem;
+  final bool isExample;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return DepthCard(
+      key: cardKey,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          emblem,
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  overline.toUpperCase(),
+                  style: TypographyTokens.label(size: 10).copyWith(
+                    color: palette.goldSoft.withValues(alpha: 0.8),
+                    letterSpacing: 1.4,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(value, style: TypographyTokens.display(size: 19)),
+                const SizedBox(height: 4),
+                Text(
+                  meaning,
+                  style: TypographyTokens.body(size: 14)
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+                if (isExample) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  _ExampleNote(palette: palette),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Nota in-world per i fatti che usano il dato d'esempio: si popolano da soli
+/// quando arriva la data vera dall'onboarding.
+class _ExampleNote extends StatelessWidget {
+  const _ExampleNote({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(Icons.auto_awesome, size: 12, color: palette.goldSoft),
+        const SizedBox(width: 6),
+        Flexible(
+          child: Text(
+            'Valore d\'esempio: si compone con la tua data di nascita.',
+            style: TypographyTokens.label(size: 10).copyWith(
+              color: palette.goldSoft.withValues(alpha: 0.7),
+              letterSpacing: 0.4,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Emblema a sigillo del Numero della vita: un cerchio dorato con la cifra al
+/// centro e una corona di tacche, piu' fitta per i numeri maestri.
+class _LifePathSigil extends CustomPainter {
+  _LifePathSigil({required this.number, required this.palette});
+
+  final int number;
+  final MaestroPalette palette;
+
+  bool get _isMaster => number == 11 || number == 22 || number == 33;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = size.center(Offset.zero);
+    final r = size.width / 2;
+
+    // Alone tenue.
+    canvas.drawCircle(
+      center,
+      r,
+      Paint()
+        ..shader = RadialGradient(colors: [
+          palette.goldSoft.withValues(alpha: 0.18),
+          Colors.transparent,
+        ]).createShader(Rect.fromCircle(center: center, radius: r)),
+    );
+
+    // Cerchio esterno.
+    canvas.drawCircle(
+      center,
+      r * 0.86,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.4
+        ..color = palette.gold.withValues(alpha: 0.8),
+    );
+
+    // Corona di tacche: dodici, o ventiquattro per i numeri maestri.
+    final ticks = _isMaster ? 24 : 12;
+    final tick = Paint()
+      ..strokeWidth = 1.0
+      ..strokeCap = StrokeCap.round
+      ..color = palette.gold.withValues(alpha: 0.55);
+    for (var i = 0; i < ticks; i++) {
+      final a = 2 * math.pi * i / ticks - math.pi / 2;
+      final dir = Offset(math.cos(a), math.sin(a));
+      canvas.drawLine(center + dir * (r * 0.9), center + dir * (r * 0.99), tick);
+    }
+
+    // La cifra al centro, in Cinzel.
+    final tp = TextPainter(
+      text: TextSpan(
+        text: '$number',
+        style: TypographyTokens.display(size: _isMaster ? 18 : 22)
+            .copyWith(color: palette.goldSoft),
+      ),
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr,
+    )..layout();
+    tp.paint(canvas, center - Offset(tp.width / 2, tp.height / 2));
+  }
+
+  @override
+  bool shouldRepaint(_LifePathSigil old) =>
+      old.number != number || old.palette != palette;
+}
+
 /// Descrizione statica di una voce segnaposto del passaporto.
 class _PassportEntry {
   const _PassportEntry({
@@ -181,22 +402,14 @@ class _PassportEntry {
   final String description;
 }
 
-/// Voci segnaposto dei fatti identitari fissi.
+/// Voci segnaposto dei fatti identitari che richiedono servizi o asset esterni.
+/// Numero della vita e Fase lunare di nascita non sono qui: sono gia' vivi,
+/// perche' nascono dalla sola data.
 const List<_PassportEntry> _passportEntries = [
   _PassportEntry(
     icon: Icons.auto_awesome,
     title: 'Carta natale',
     description: 'La tua mappa celeste, calcolata sulle effemeridi.',
-  ),
-  _PassportEntry(
-    icon: Icons.nightlight_round,
-    title: 'Fase lunare di nascita',
-    description: 'La Luna sotto cui sei venuto al mondo.',
-  ),
-  _PassportEntry(
-    icon: Icons.tag,
-    title: 'Numero della vita',
-    description: 'La cifra che riduce il tuo giorno di nascita.',
   ),
   _PassportEntry(
     icon: Icons.brightness_7,
