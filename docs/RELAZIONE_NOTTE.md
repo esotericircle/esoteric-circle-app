@@ -247,3 +247,18 @@ generazione della cartolina, non l'apertura del foglio.
    quando arriverà il rilevamento automatico del device andrà armonizzata.
 3. Cartolina: la condivisione va provata su device reale (Instagram Storie,
    altre app). Vuoi anche un formato quadrato per il feed, oltre al verticale?
+
+---
+
+# Terzo batch
+
+## Punto 1, regola di lingua (virgola piu "e") — FATTO
+
+La riga della cartolina "La Luna non ha fretta, e stanotte nemmeno tu" era gia'
+stata riscritta nel batch precedente in "La Luna non ha fretta: stanotte
+nemmeno tu". Ho poi setacciato tutti i testi visibili e generati (persona dei
+Maestri, suggerimenti, testi del cielo, cartolina, copy delle schermate):
+nessun'altra proposizione inizia con "e" dopo la virgola nelle stringhe
+visibili. Le uniche occorrenze di ", e" restano nei commenti di codice, fuori
+dal canone. Nuovo `test/language_rule_test.dart` che segnala la violazione nei
+testi statici (persona, suggerimenti, cielo, cartolina).
