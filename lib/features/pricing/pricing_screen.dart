@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/config/app_flags.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/plan_catalog.dart';
-import '../../core/entitlement/tier.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -13,12 +13,16 @@ import '../../design_system/tokens/typography_tokens.dart';
 
 /// La schermata dei piani del Cerchio, in stile 2.5D.
 ///
-/// Mostra i quattro piani con i loro benefici e mette in evidenza quello
-/// consigliato e il piano attuale. Il pagamento non e' integrato nella Demo:
-/// l'acquisto reale arrivera' dal web (modello reader app). Per provare i tier
-/// sul simulatore resta un'attivazione dichiarata di Demo. Mai un vicolo cieco.
+/// Mostra i quattro livelli canonici (Viandante, Iniziato, Adepto, Illuminato),
+/// ciascuno con i tre cicli di prezzo, la loro identita' e i vantaggi in
+/// evidenza, piu' la tabella comparativa completa delle funzioni. In Demo, in
+/// cima, una card "Demo" con il badge "Piano Attuale" sblocca tutto per la
+/// presentazione, dietro il flag `AppFlags.isDemo`: nell'MVP sparisce da sola.
+/// Il pagamento non e' integrato nella Demo, dichiarato in fondo.
 class PricingScreen extends StatelessWidget {
-  const PricingScreen({super.key});
+  const PricingScreen({super.key, this.isDemo = AppFlags.isDemo});
+
+  final bool isDemo;
 
   static Route<void> route() {
     return MaterialPageRoute<void>(
@@ -47,46 +51,66 @@ class PricingScreen extends StatelessWidget {
       ),
       body: SafeArea(
         top: false,
-        child: ListView(
-          key: const Key('pricing_list'),
-          padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
-              SpacingTokens.lg, SpacingTokens.xxxl),
+        child: Column(
           children: [
-            Text(
-              'Scegli quanto lontano portare il tuo cammino. Ogni piano apre '
-              'nuove porte del cerchio.',
-              style: TypographyTokens.body(size: 15)
-                  .copyWith(color: ColorTokens.textSecondary),
-            ),
-            const SizedBox(height: SpacingTokens.lg),
-            for (final plan in PlanCatalog.plans) ...[
-              _PlanCard(
-                plan: plan,
-                isCurrent: plan.tier == current,
-                palette: palette,
-              ),
-              const SizedBox(height: SpacingTokens.md),
-            ],
-            const SizedBox(height: SpacingTokens.sm),
-            // Nota onesta sul pagamento.
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.info_outline, size: 14, color: palette.goldSoft),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: Text(
-                    'Nella Demo il pagamento non è attivo: l\'acquisto reale '
-                    'arriverà dal web. Qui puoi provare un piano in modalità '
-                    'Demo.',
-                    style: TypographyTokens.label(size: 10).copyWith(
-                      color: palette.goldSoft.withValues(alpha: 0.7),
-                      letterSpacing: 0.3,
-                      height: 1.4,
+            Expanded(
+              child: ListView(
+                key: const Key('pricing_list'),
+                padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
+                    SpacingTokens.md, SpacingTokens.lg, SpacingTokens.xl),
+                children: [
+                  Text(
+                    'Scegli quanto lontano portare il tuo cammino. Ogni livello '
+                    'apre nuove porte del cerchio.',
+                    style: TypographyTokens.body(size: 15)
+                        .copyWith(color: ColorTokens.textSecondary),
+                  ),
+                  const SizedBox(height: SpacingTokens.lg),
+                  if (isDemo) ...[
+                    _DemoCard(palette: palette),
+                    const SizedBox(height: SpacingTokens.md),
+                  ],
+                  for (final plan in PlanCatalog.plans) ...[
+                    _PlanCard(
+                      plan: plan,
+                      // In Demo il "Piano Attuale" sta sulla card Demo, non sui
+                      // livelli; fuori Demo sta sul tier corrente.
+                      isCurrent: !isDemo && plan.tier == current,
+                      palette: palette,
                     ),
+                    const SizedBox(height: SpacingTokens.md),
+                  ],
+                  const SizedBox(height: SpacingTokens.sm),
+                  Text('Confronto completo',
+                      style: TypographyTokens.display(size: 18)
+                          .copyWith(color: palette.goldSoft)),
+                  const SizedBox(height: SpacingTokens.sm),
+                  _ComparativeTable(palette: palette),
+                ],
+              ),
+            ),
+            // Testo persistente in basso, sempre visibile.
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
+                  SpacingTokens.sm, SpacingTokens.lg, SpacingTokens.sm),
+              decoration: BoxDecoration(
+                color: palette.deepest.withValues(alpha: 0.6),
+                border: Border(
+                    top: BorderSide(
+                        color: palette.gold.withValues(alpha: 0.25))),
+              ),
+              child: SafeArea(
+                top: false,
+                child: Text(
+                  'Nella demo i piani sono visibili ma il pagamento non è integrato.',
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.label(size: 11).copyWith(
+                    color: palette.goldSoft.withValues(alpha: 0.8),
+                    letterSpacing: 0.3,
                   ),
                 ),
-              ],
+              ),
             ),
           ],
         ),
@@ -95,8 +119,45 @@ class PricingScreen extends StatelessWidget {
   }
 }
 
-/// La tessera di un piano, in profondita' 2.5D: piu' sollevata e dorata quella
-/// consigliata, con un segno per il piano attuale.
+/// La card Demo, in cima: sblocca tutto per la presentazione, col badge "Piano
+/// Attuale". Dietro il flag isDemo, sparisce nell'MVP.
+class _DemoCard extends StatelessWidget {
+  const _DemoCard({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return DepthCard(
+      key: const Key('plan_demo'),
+      raised: true,
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.auto_awesome, color: palette.goldSoft, size: 22),
+              const SizedBox(width: SpacingTokens.sm),
+              Expanded(
+                child: Text('Demo',
+                    style: TypographyTokens.display(size: 22)),
+              ),
+              _Badge(text: 'Piano Attuale', palette: palette),
+            ],
+          ),
+          const SizedBox(height: 2),
+          Text('Tutte le funzioni attive, per la presentazione.',
+              style: TypographyTokens.body(size: 14)
+                  .copyWith(color: palette.goldSoft)),
+        ],
+      ),
+    );
+  }
+}
+
+/// La tessera di un livello: identita', vantaggi in evidenza e i tre cicli di
+/// prezzo. Il Viandante gratuito non ha prezzo, ha la nota del banner.
 class _PlanCard extends StatelessWidget {
   const _PlanCard({
     required this.plan,
@@ -110,7 +171,6 @@ class _PlanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final free = plan.tier == Tier.free;
     return DepthCard(
       key: Key('plan_${plan.tier.name}'),
       raised: plan.highlighted,
@@ -126,17 +186,17 @@ class _PlanCard extends StatelessWidget {
                     style: TypographyTokens.display(size: 22)),
               ),
               if (isCurrent)
-                _Badge(text: 'Piano attuale', palette: palette)
+                _Badge(text: 'Piano Attuale', palette: palette)
               else if (plan.highlighted)
                 _Badge(text: 'Consigliato', palette: palette),
             ],
           ),
           const SizedBox(height: 2),
-          Text(plan.tagline,
+          Text(plan.identity,
               style: TypographyTokens.body(size: 14)
                   .copyWith(color: palette.goldSoft)),
           const SizedBox(height: SpacingTokens.md),
-          for (final benefit in plan.benefits) ...[
+          for (final benefit in plan.highlights) ...[
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -152,9 +212,85 @@ class _PlanCard extends StatelessWidget {
             ),
             const SizedBox(height: SpacingTokens.xs),
           ],
-          if (!free && !isCurrent) ...[
+          if (plan.isFree)
+            Padding(
+              padding: const EdgeInsets.only(top: SpacingTokens.xs),
+              child: Text('Accesso base, con un piccolo banner in basso.',
+                  style: TypographyTokens.label(size: 11).copyWith(
+                    color: ColorTokens.textSecondary,
+                    letterSpacing: 0.2,
+                  )),
+            ),
+          if (plan.price != null) ...[
+            const SizedBox(height: SpacingTokens.md),
+            _PriceCycles(price: plan.price!, palette: palette),
             const SizedBox(height: SpacingTokens.sm),
-            _ChoosePlanButton(plan: plan, palette: palette),
+            if (!isCurrent) _ChoosePlanButton(plan: plan, palette: palette),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// I tre cicli di prezzo affiancati, con l'equivalenza mensile e lo sconto
+/// dell'annuale.
+class _PriceCycles extends StatelessWidget {
+  const _PriceCycles({required this.price, required this.palette});
+
+  final PlanPrice price;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (final cycle in PriceCycle.values) ...[
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                  vertical: SpacingTokens.sm, horizontal: 6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                color: palette.surfaceElevated.withValues(alpha: 0.4),
+                border: Border.all(
+                    color: palette.gold.withValues(
+                        alpha: cycle == PriceCycle.yearly ? 0.6 : 0.25)),
+              ),
+              child: Column(
+                children: [
+                  Text(cycle.label,
+                      style: TypographyTokens.label(size: 10).copyWith(
+                        color: palette.goldSoft,
+                        letterSpacing: 0.6,
+                      )),
+                  const SizedBox(height: 4),
+                  Text(price.amount(cycle),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.display(size: 15)),
+                  if (cycle == PriceCycle.yearly) ...[
+                    const SizedBox(height: 4),
+                    Text(price.yearlyPerMonth,
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.label(size: 9).copyWith(
+                          color: ColorTokens.textSecondary,
+                          letterSpacing: 0.2,
+                        )),
+                    Text('sconto ${price.yearlyDiscountPercent}%',
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.label(size: 9).copyWith(
+                          color: palette.goldSoft,
+                          letterSpacing: 0.2,
+                        )),
+                  ],
+                ],
+              ),
+            ),
+          ),
+          if (cycle != PriceCycle.values.last)
+            const SizedBox(width: SpacingTokens.sm),
           ],
         ],
       ),
@@ -181,6 +317,96 @@ class _Badge extends StatelessWidget {
       child: Text(text,
           style:
               TypographyTokens.label(size: 10).copyWith(color: palette.goldSoft)),
+    );
+  }
+}
+
+/// La tabella comparativa completa, scorribile in orizzontale, senza troncare
+/// nulla: le celle vanno a capo.
+class _ComparativeTable extends StatelessWidget {
+  const _ComparativeTable({required this.palette});
+
+  final MaestroPalette palette;
+
+  static const double _labelWidth = 156;
+  static const double _cellWidth = 118;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      key: const Key('pricing_table'),
+      scrollDirection: Axis.horizontal,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
+        ),
+        child: Column(
+          children: [
+            // Intestazione con i nomi dei livelli.
+            _row(
+              label: 'Funzione',
+              values: PlanCatalog.columns,
+              header: true,
+            ),
+            for (var i = 0; i < PlanCatalog.matrix.length; i++)
+              _row(
+                label: PlanCatalog.matrix[i].label,
+                values: PlanCatalog.matrix[i].values,
+                shaded: i.isOdd,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _row({
+    required String label,
+    required List<String> values,
+    bool header = false,
+    bool shaded = false,
+  }) {
+    final labelStyle = header
+        ? TypographyTokens.label(size: 11)
+            .copyWith(color: palette.goldSoft, letterSpacing: 0.4)
+        : TypographyTokens.body(size: 12)
+            .copyWith(color: ColorTokens.textPrimary, height: 1.25);
+    final cellStyle = header
+        ? TypographyTokens.display(size: 12).copyWith(color: palette.goldSoft)
+        : TypographyTokens.body(size: 12)
+            .copyWith(color: ColorTokens.textSecondary, height: 1.25);
+    return Container(
+      color: shaded ? palette.surfaceElevated.withValues(alpha: 0.18) : null,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _cell(label, _labelWidth, labelStyle, alignStart: true),
+            for (final value in values)
+              _cell(value, _cellWidth, cellStyle, alignStart: false),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _cell(String text, double width, TextStyle style,
+      {required bool alignStart}) {
+    return Container(
+      width: width,
+      padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.sm, vertical: SpacingTokens.sm),
+      decoration: BoxDecoration(
+        border: Border(
+          left: BorderSide(color: palette.gold.withValues(alpha: 0.1)),
+          bottom: BorderSide(color: palette.gold.withValues(alpha: 0.1)),
+        ),
+      ),
+      alignment: alignStart ? Alignment.centerLeft : Alignment.center,
+      child: Text(text,
+          textAlign: alignStart ? TextAlign.left : TextAlign.center,
+          style: style),
     );
   }
 }
@@ -252,8 +478,8 @@ class _ChoosePlanButton extends StatelessWidget {
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(
-                'Nella Demo il pagamento non è attivo: l\'abbonamento reale '
-                'arriverà dal web. Puoi comunque provare questo piano in '
+                'Nella demo il pagamento non è integrato: l\'abbonamento reale '
+                'arriverà dal web. Puoi comunque provare questo livello in '
                 'modalità Demo, per vedere cosa apre.',
                 style: TypographyTokens.body(size: 14)
                     .copyWith(color: ColorTokens.textSecondary),

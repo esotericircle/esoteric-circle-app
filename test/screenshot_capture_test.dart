@@ -532,6 +532,9 @@ void main() {
     await tester.tap(find.byKey(const Key('settings_plans')));
     await step(tester);
     await step(tester);
+    // Superficie alta, cosi' l'anteprima mostra la card Demo e i quattro livelli.
+    tester.view.physicalSize = const Size(390, 2600);
+    await step(tester);
     await capture(tester, rootKey, 'piani.png');
   });
 

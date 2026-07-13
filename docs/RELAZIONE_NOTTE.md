@@ -531,3 +531,21 @@ ripiego tattile che rivela il responso.
   bucket: dove serve, e' dichiarato segnaposto.
 - Rito dell'Alba (Task 4): appare nel dominio del Maestro di turno oggi, non in
   un hub dedicato dei rituali. Se lo vuoi come hub unico, e' un piccolo passo.
+
+# Sesto blocco
+
+## 1. Schermata prezzi ai quattro livelli canonici — FATTO
+
+Ricostruita la schermata prezzi coi quattro livelli ufficiali (Viandante,
+L'Iniziato, L'Adepto, L'Illuminato), ciascuno con identita', i tre cicli di
+prezzo (settimana, mese, anno con equivalenza mensile e sconto) e i vantaggi in
+evidenza. Nella card de L'Iniziato la Memoria AI dei Maestri e' il primo
+vantaggio, come leva di conversione. In cima, dietro il flag `AppFlags.isDemo`,
+una card "Demo" col badge "Piano Attuale" che sblocca tutto per la
+presentazione; il badge e' tolto dal Viandante e messo sulla Demo, e nell'MVP la
+card Demo sparisce da sola restando i quattro livelli. Tabella comparativa
+completa con tutte le righe e i valori richiesti, scorribile in orizzontale,
+senza troncare nulla. Testo persistente in basso: "Nella demo i piani sono
+visibili ma il pagamento non è integrato." Il contatore delle domande e' ora per
+tier (1, 5, 10, illimitate). Test: livelli, prezzi, mappa comparativa, contatore
+per tier, schermata con Demo e senza. Screenshot: `piani.png`.

@@ -1,5 +1,4 @@
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
-import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -10,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
-/// La schermata dei piani e l'invito all'upgrade, mai un vicolo cieco.
+/// La schermata dei piani: quattro livelli canonici, la card Demo dietro il
+/// flag, la tabella comparativa e l'invito all'upgrade, mai un vicolo cieco.
 void main() {
   Widget wrap(EntitlementService ent, Widget child) => MultiProvider(
         providers: [
@@ -21,37 +21,53 @@ void main() {
         child: MaterialApp(home: MaestroScope(child: child)),
       );
 
-  testWidgets('Mostra i quattro piani e segna quello attuale', (tester) async {
+  void tallView(WidgetTester tester) {
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(430, 2200);
+    tester.view.physicalSize = const Size(430, 3200);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
+  }
 
-    final ent = EntitlementService(); // Free di default
-    await tester.pumpWidget(wrap(ent, const PricingScreen()));
+  testWidgets('In Demo mostra la card Demo col Piano Attuale e i quattro livelli',
+      (tester) async {
+    tallView(tester);
+    final ent = EntitlementService();
+    await tester.pumpWidget(wrap(ent, const PricingScreen(isDemo: true)));
     await tester.pump();
 
-    for (final plan in PlanCatalog.plans) {
-      expect(find.byKey(Key('plan_${plan.tier.name}')), findsOneWidget,
-          reason: 'manca il piano ${plan.tier.name}');
+    expect(find.byKey(const Key('plan_demo')), findsOneWidget);
+    for (final t in [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3]) {
+      expect(find.byKey(Key('plan_${t.name}')), findsOneWidget);
     }
-    expect(find.text('Piano attuale'), findsOneWidget);
+    // Il badge Piano Attuale sta sulla Demo, non sul Viandante.
+    expect(find.text('Piano Attuale'), findsOneWidget);
     expect(find.text('Consigliato'), findsOneWidget);
+    // Testo persistente in basso.
+    expect(
+        find.textContaining('il pagamento non è integrato'), findsOneWidget);
+    // La tabella comparativa e' presente.
+    expect(find.byKey(const Key('pricing_table')), findsOneWidget);
+    // Compare sia come vantaggio dell'Iniziato sia come riga della tabella.
+    expect(find.text('Memoria AI dei Maestri'), findsWidgets);
   });
 
-  testWidgets('Scegliere un piano lo attiva in Demo', (tester) async {
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(430, 2200);
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
+  testWidgets('Fuori Demo il Piano Attuale sta sul tier corrente', (tester) async {
+    tallView(tester);
+    final ent = EntitlementService(); // Viandante
+    await tester.pumpWidget(wrap(ent, const PricingScreen(isDemo: false)));
+    await tester.pump();
+    expect(find.byKey(const Key('plan_demo')), findsNothing);
+    expect(find.text('Piano Attuale'), findsOneWidget); // sul Viandante
+  });
 
+  testWidgets('Scegliere un livello lo attiva in Demo', (tester) async {
+    tallView(tester);
     final ent = EntitlementService();
-    await tester.pumpWidget(wrap(ent, const PricingScreen()));
+    await tester.pumpWidget(wrap(ent, const PricingScreen(isDemo: true)));
     await tester.pump();
 
     await tester.tap(find.byKey(const Key('choose_tier1')));
     await tester.pumpAndSettle();
-    // Il foglio spiega il pagamento non attivo, con la prova in Demo.
     await tester.tap(find.byKey(const Key('activate_demo')));
     await tester.pump();
     await tester.pump();
@@ -69,7 +85,7 @@ void main() {
             child: ElevatedButton(
               onPressed: () => showUpgradeInvite(ctx,
                   title: 'Hai posto la domanda di oggi',
-                  message: 'Col Cerchio le domande sono senza limiti.'),
+                  message: 'Con l\'Iniziato le domande crescono.'),
               child: const Text('vai'),
             ),
           ),
