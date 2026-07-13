@@ -428,3 +428,21 @@ setaccio profondo che scandaglia tutte le stringhe del codice sotto lib/
 violazione trovata dopo la sistemazione. d) Nella meditazione il chip "Battito
 theta" non e' piu' troncato: etichetta e sottotitolo vanno a capo per intero.
 Screenshot: `meditazione-aura.png`, `chiedi-ai-maestri.png`.
+
+## Task 2, tier ed entitlement piu schermata prezzi — FATTO
+
+Esteso l'entitlement gia' presente (Tier free, tier1, tier2, tier3). Nuovo
+contatore locale delle domande ai Maestri per il Free
+(`lib/core/entitlement/question_allowance.dart`): una domanda singola al giorno,
+azzeramento al cambio di giorno, orologio iniettabile per i test e persistenza
+best effort; il Tier a pagamento non consuma il contatore e il confronto a piu'
+Maestri e' riservato al pagamento (`canCompare`). Nuovo catalogo dei piani
+(`plan_catalog.dart`) con nome, richiamo e benefici per i quattro livelli
+(Gratuito, Cerchio, Cerchio d'Oro, Cerchio Astrale). Schermata prezzi in 2.5D
+(`features/pricing/pricing_screen.dart`) con i piani, i benefici, il piano
+attuale e il consigliato in evidenza; il pagamento non e' integrato nella Demo,
+dichiarato in-world, con un'attivazione di prova in Demo. Invito gentile
+all'upgrade riusabile (`upgrade_invite.dart`), mai un vicolo cieco, con la via ai
+piani. Entrata dalle Impostazioni ("Il tuo piano"). Test: contatore giornaliero
+e rollover, piani, schermata prezzi e attivazione in Demo, invito che porta ai
+piani. Screenshot: `piani.png`.

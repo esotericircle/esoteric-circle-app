@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'core/astro/zodiac_controller.dart';
 import 'core/entitlement/entitlement_service.dart';
+import 'core/entitlement/question_allowance.dart';
 import 'core/feature_flags/feature_flag_service.dart';
 import 'core/maestro/maestro_controller.dart';
 import 'core/motion/parallax_controller.dart';
@@ -34,6 +35,7 @@ class EsotericCircleApp extends StatelessWidget {
         Provider<AppServices>.value(value: runtime),
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()..load()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),

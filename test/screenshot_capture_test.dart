@@ -422,6 +422,23 @@ void main() {
     await capture(tester, rootKey, 'impostazioni.png');
   });
 
+  // --- I piani del Cerchio, aperti dalle Impostazioni ---
+  testWidgets('Cattura i piani del Cerchio', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('passport_settings')));
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('settings_plans')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'piani.png');
+  });
+
   // --- Le chat: conversazione, pannello suggerimenti, stato vuoto ---
   for (final maestro in Maestro.values) {
     final id = maestro.id;

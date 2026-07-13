@@ -1,6 +1,7 @@
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -50,6 +51,7 @@ void main() {
           Provider<AppServices>.value(value: services),
           ChangeNotifierProvider.value(value: settings),
           ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
@@ -95,6 +97,11 @@ void main() {
       memoryPersistent: false,
       diagnostics: 'test',
     );
+
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(430, 1600);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
 
     await tester.pumpWidget(host(SettingsController(), services));
     await step(tester);

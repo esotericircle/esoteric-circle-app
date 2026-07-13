@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/entitlement/entitlement_service.dart';
+import '../../core/entitlement/plan_catalog.dart';
 import '../../core/settings/settings_controller.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
@@ -11,6 +13,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import '../pricing/pricing_screen.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
 ///
@@ -59,6 +62,17 @@ class SettingsScreen extends StatelessWidget {
               SpacingTokens.xxxl,
             ),
             children: [
+              const SectionTitle(
+                title: 'Il tuo piano',
+                subtitle: 'Quanto lontano portare il cammino.',
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              DepthCard(
+                raised: true,
+                child: _PlanTile(palette: palette),
+              ),
+              const SizedBox(height: SpacingTokens.xl),
+
               const SectionTitle(
                 title: 'Aspetto',
                 subtitle: 'Come si muove e si mostra il cerchio.',
@@ -314,6 +328,47 @@ class _DeleteDataTile extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   'Profilo, ricordi e conversazioni. Il tuo diritto all\'oblio.',
+                  style: TypographyTokens.body(size: 13)
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+        ],
+      ),
+    );
+  }
+}
+
+/// Riga del piano attuale, con la via ai piani del Cerchio.
+class _PlanTile extends StatelessWidget {
+  const _PlanTile({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final tier = context.watch<EntitlementService>().tier;
+    final plan = PlanCatalog.forTier(tier);
+    return InkWell(
+      key: const Key('settings_plans'),
+      borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+      onTap: () => Navigator.of(context).push(PricingScreen.route()),
+      child: Row(
+        children: [
+          Icon(Icons.workspace_premium_outlined,
+              color: palette.goldSoft, size: 22),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Piano ${plan.name}',
+                    style: TypographyTokens.display(size: 16)),
+                const SizedBox(height: 2),
+                Text(
+                  'Vedi i piani del Cerchio e cosa aprono.',
                   style: TypographyTokens.body(size: 13)
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
