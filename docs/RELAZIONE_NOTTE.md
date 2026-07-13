@@ -589,3 +589,59 @@ ripiego tattile universale al tocco. Lo stato estratto (glifo disegnato dal
 codice con nome e parola chiave) resta com'era. Test aggiornato: chiuso mostra la
 pietra e l'invito, il tocco svela il glifo. Screenshot: `runa-tramonto-chiusa.png`
 e `runa-tramonto.png`.
+
+## 5. Tre effetti WOW per la presentazione — FATTO
+
+### 5a. Il Sigillo del Cerchio, emblema personale a fine onboarding
+
+A chiusura dell'onboarding nasce un sigillo personale, deterministico dai dati di
+nascita: il glifo del segno solare, il numero della vita (numerologia pitagorica)
+e il colore dell'elemento (fuoco, terra, aria, acqua). Non e' un'immagine caricata,
+lo disegna il codice (`lib/features/identity/seal_painter.dart`): ruota dello
+zodiaco a dodici raggi col segno acceso, geometria sacra a simmetria guidata dal
+numero della vita, il numero al centro, oro e colore d'elemento. Si compone con
+un'animazione e porta il nome dell'utente, pronto da condividere come cartolina
+(PNG generato al volo, nessuna arte esterna). L'arte procedurale e' una base
+dichiarata, sostituibile dall'artwork definitivo del bucket. Raggiungibile dal
+Cosmic Passport (`passport_seal`). Test: `circle_seal_test.dart` (calcolo
+deterministico del segno, del numero e dell'elemento, la schermata che compone e
+condivide). Screenshot: `sigillo-cerchio.png`.
+
+### 5b. Il saluto vocale per nome alla prima apertura del Santuario
+
+Alla primissima apertura del Santuario il Maestro di turno del giorno saluta
+l'utente per nome, una frase breve, una volta sola. La voce passa da Gemini-TTS
+(strato di astrazione `VoiceGreeting`, mai le API Anthropic); il sottotitolo e'
+attivo di default e sincronizzato, cosi' il saluto si legge anche senza audio. Se
+il TTS non e' disponibile resta il solo sottotitolo, nessuna chiamata ripetuta: un
+flag persistente (`SharedPreferences`) ricorda che il saluto e' gia' avvenuto. Il
+banner (`santuario_greeting`) compare in cima, si dissolve al tocco o dopo pochi
+secondi. Test: `greeting_test.dart` (saluta alla prima apertura non alla seconda,
+si nasconde dopo la vista, la frase nella voce del Maestro col nome). Screenshot:
+`santuario-saluto.png`.
+
+### 5c. La Sinastria Celeb raggiungibile in un tap dal Santuario
+
+La Sinastria Celeb ora si apre in un tap dal Santuario, da un ingresso rapido
+sopra il pulsante del dominio; funziona con almeno un VIP gia' precaricato
+(`celeb_catalog.dart`, personaggi d'esempio col solo segno solare, nessun dato
+privato, nessuna arte nuova). Il calcolo dell'affinita' e' deterministico per
+elemento (`synastry.dart`), un gioco simbolico di intrattenimento con disclaimer,
+mai una previsione. La schermata mostra prima il livello visivo (i due poli e il
+quadrante circolare della percentuale), poi la lettura e il selettore dei VIP. La
+stessa funzione e' raggiungibile anche dalla chat, dove l'intento sinastria di
+Medora ora instrada qui. Test: `synastry_test.dart` (calcolo deterministico per
+elemento, VIP precaricato, la schermata e il cambio di VIP). Screenshot:
+`sinastria-celeb.png`.
+
+## 6. Verifica del gating della sintesi comparativa — FATTO
+
+Confermato e coperto da test il gating della sintesi comparativa dei Maestri. Il
+Viandante Free ha solo la risposta di un Maestro alla volta, una al giorno; il
+confronto a piu' Maestri e' bloccato con invito gentile all'upgrade
+(`upgrade_invite`), mai un vicolo cieco. Dal primo Tier a pagamento in su la
+sintesi comparativa e' attiva. La logica vive in `question_allowance.dart`
+(`canCompare`, riservato al Tier a pagamento; `dailyLimit` per il limite
+giornaliero di domande singole, Viandante 1) e si riflette nella tabella dei
+piani. Test: `ask_maestri_test.dart` (Free invita all'upgrade sul confronto e alla
+seconda domanda, il Tier a pagamento aggiunge lo sguardo e la sintesi).

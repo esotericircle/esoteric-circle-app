@@ -11,6 +11,7 @@ import 'core/quality/quality_tier.dart';
 import 'core/settings/settings_controller.dart';
 import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
+import 'features/santuario/greeting_controller.dart';
 import 'features/shell/app_shell.dart';
 import 'features/shell/navigation_controller.dart';
 import 'services/app_services.dart';
@@ -49,6 +50,7 @@ class EsotericCircleApp extends StatelessWidget {
             entitlement: ctx.read<EntitlementService>(),
           )..initialize(),
         ),
+        ChangeNotifierProvider(create: (_) => GreetingController()),
       ],
       child: MaterialApp(
         title: 'Esoteric Circle',

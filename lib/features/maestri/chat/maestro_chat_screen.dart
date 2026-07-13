@@ -13,6 +13,7 @@ import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../services/app_services.dart';
 import '../../rituals/day_oracle_screen.dart';
 import '../../rituals/sunset_rune_screen.dart';
+import '../../synastry/sinastria_celeb_screen.dart';
 import '../aura/meditation/meditation_screen.dart';
 import 'maestro_chat_controller.dart';
 import 'widgets/chat_bubble.dart';
@@ -211,9 +212,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         return MeditationScreen.route();
       case ImmersiveTarget.lancioRune:
         return SunsetRuneScreen.route();
+      case ImmersiveTarget.sinastriaCeleb:
+        return SinastriaCelebScreen.route();
       case ImmersiveTarget.tarocchiStesa:
       case ImmersiveTarget.cartaNatale:
-      case ImmersiveTarget.sinastriaCeleb:
       case ImmersiveTarget.costellazioneViso:
       case ImmersiveTarget.scanChakra:
       case ImmersiveTarget.sigilloMagico:

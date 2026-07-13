@@ -11,6 +11,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../identity/circle_seal_screen.dart';
 import '../santuario/sky_overview_screen.dart';
 import '../santuario/widgets/moon_widget.dart';
 import '../settings/settings_screen.dart';
@@ -107,6 +108,8 @@ class CosmicPassport extends StatelessWidget {
                 children: [
                   _BirthSkyPortalCard(birthMoment: id.birthMoment),
                   const SizedBox(height: SpacingTokens.sm),
+                  _CircleSealCard(identity: id),
+                  const SizedBox(height: SpacingTokens.sm),
                   _LifePathCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   _BirthMoonCard(identity: id),
@@ -175,6 +178,58 @@ class _BirthSkyPortalCard extends StatelessWidget {
             Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Tessera del Sigillo del Cerchio: apre l'emblema personale deterministico.
+class _CircleSealCard extends StatelessWidget {
+  const _CircleSealCard({required this.identity});
+
+  final BirthIdentity identity;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return DepthCard(
+      key: const Key('passport_seal'),
+      raised: true,
+      onTap: () => Navigator.of(context)
+          .push(CircleSealScreen.route(identity: identity)),
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      child: Row(
+        children: [
+          Container(
+            width: 46,
+            height: 46,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: palette.primary.withValues(alpha: 0.5),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+            ),
+            alignment: Alignment.center,
+            child: Icon(Icons.workspace_premium_rounded,
+                color: palette.goldSoft, size: 24),
+          ),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Il tuo Sigillo del Cerchio',
+                    style: TypographyTokens.display(size: 18)),
+                const SizedBox(height: 2),
+                Text(
+                  'Il tuo emblema, dal segno, dal numero e dall\'elemento.',
+                  style: TypographyTokens.body(size: 14)
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+        ],
       ),
     );
   }

@@ -16,11 +16,13 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_celeb_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
@@ -29,6 +31,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Cattura headless della chat di Medora, con font reali (corpo e icone),
 /// provider AI offline e una conversazione gia' seminata. Nessuna rete, nessun
@@ -468,6 +471,48 @@ void main() {
     await tester.tap(find.byKey(const Key('ritual_gesture')));
     await tester.pump(const Duration(milliseconds: 700));
     await capture(tester, rootKey, 'runa-tramonto.png');
+  });
+
+  // --- Il saluto per nome alla prima apertura del Santuario ---
+  testWidgets('Cattura il saluto del Santuario', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Prima apertura: nessun "gia' salutato" in memoria.
+    SharedPreferences.setMockInitialValues({});
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Lascia che il saluto si prepari e compaia in cima.
+    await step(tester);
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'santuario-saluto.png');
+  });
+
+  // --- Il Sigillo del Cerchio, emblema personale procedurale ---
+  testWidgets('Cattura il Sigillo del Cerchio', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(CircleSealScreen.route(name: 'Sofia')));
+    await step(tester);
+    // Lascia comporre il sigillo con la sua animazione.
+    await tester.pump(const Duration(milliseconds: 2400));
+    await capture(tester, rootKey, 'sigillo-cerchio.png');
+  });
+
+  // --- La Sinastria Celeb, raggiungibile in un tap dal Santuario ---
+  testWidgets('Cattura la Sinastria Celeb', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SinastriaCelebScreen.route()));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'sinastria-celeb.png');
   });
 
   // --- La card Rito dell'Alba, col Maestro di turno del giorno ---

@@ -9,6 +9,7 @@ import '../../design_system/components/tap_wave.dart';
 import '../../services/app_services.dart';
 import '../maestri/domain_screen.dart';
 import '../passport/cosmic_passport_screen.dart';
+import '../santuario/greeting_banner.dart';
 import '../santuario/santuario_screen.dart';
 import 'navigation_controller.dart';
 import 'santuario_bottom_bar.dart';
@@ -58,14 +59,25 @@ class AppShell extends StatelessWidget {
             ? SantuarioScreen.titleKeepOut
             : null,
         child: TapWaveLayer(
-          child: NotificationListener<ScrollNotification>(
-            onNotification: (notification) {
-              context
-                  .read<ParallaxController>()
-                  .updateScroll(notification.metrics.pixels);
-              return false;
-            },
-            child: screen,
+          child: Stack(
+            children: [
+              NotificationListener<ScrollNotification>(
+                onNotification: (notification) {
+                  context
+                      .read<ParallaxController>()
+                      .updateScroll(notification.metrics.pixels);
+                  return false;
+                },
+                child: screen,
+              ),
+              // Il saluto per nome della primissima apertura del Santuario,
+              // sottotitolo in cima, una volta sola.
+              if (nav.view == ShellView.santuario)
+                const Align(
+                  alignment: Alignment.topCenter,
+                  child: GreetingBanner(),
+                ),
+            ],
           ),
         ),
       ),

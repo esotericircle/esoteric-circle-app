@@ -17,6 +17,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../maestri/domain_screen.dart';
+import '../synastry/sinastria_celeb_screen.dart';
 import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
@@ -118,6 +119,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     context.read<MaestroController>().selectMaestro(maestro);
   }
 
+  // Ingresso rapido alla Sinastria Celeb, in un tap dal Santuario, cosi' la
+  // Demo puo' aprirsi da qui con un VIP gia' precaricato.
+  void _openSinastria(BuildContext context, Zodiac userSign) {
+    Navigator.of(context).push(SinastriaCelebScreen.route(userSign: userSign));
+  }
+
   /// La riga personale del Maestro al centro, con lo slot pronto per nome e
   /// segno dell'utente, cosi' sembra parlare proprio a lui. Per ora nome e
   /// segno sono segnaposto. Per Medora la parte astronomica resta vera (luce e
@@ -151,8 +158,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     // Slot personali: nome e segno dell'utente. Segnaposto in attesa del
     // profilo reale; il segno si legge gia' dal controller dello zodiaco.
     const userName = 'Viandante';
-    final userSign =
-        (context.watch<ZodiacController>().sunSign ?? Zodiac.gemini).italianName;
+    final userZodiac = context.watch<ZodiacController>().sunSign ?? Zodiac.gemini;
+    final userSign = userZodiac.italianName;
     final personalLine = _personalLine(central, moon, userName, userSign);
 
     // Riduci Movimento: niente deriva di parallasse, scena ferma.
@@ -334,16 +341,26 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               // Terza via al dominio: un pulsante a bolla discreto sotto il
               // Maestro al centro, nella sua palette, col nome che si aggiorna.
               // Il chiedere ora parte dentro il dominio del Maestro, non piu' da
-              // qui, cosi' niente si sovrappone ai busti.
+              // qui, cosi' niente si sovrappone ai busti. Sopra, un ingresso
+              // rapido alla Sinastria Celeb, in un tap col VIP precaricato:
+              // utile per la Demo, che puo' aprirsi da qui.
               Positioned(
                 left: 0,
                 right: 0,
                 bottom: h * 0.035,
-                child: Center(
-                  child: _EnterDomainButton(
-                    maestro: central,
-                    onTap: () => _enterDomain(context, central),
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _SinastriaEntry(
+                      palette: palette,
+                      onTap: () => _openSinastria(context, userZodiac),
+                    ),
+                    const SizedBox(height: SpacingTokens.sm),
+                    _EnterDomainButton(
+                      maestro: central,
+                      onTap: () => _enterDomain(context, central),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -540,6 +557,53 @@ class _EnterDomainButton extends StatelessWidget {
               const SizedBox(width: 6),
               Icon(Icons.chevron_right_rounded,
                   size: 16, color: palette.goldSoft),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Ingresso rapido alla Sinastria Celeb, in alto a destra nel Santuario. Una
+/// bolla discreta col cuore, in un tap apre l'affinita' col VIP precaricato.
+class _SinastriaEntry extends StatelessWidget {
+  const _SinastriaEntry({required this.palette, required this.onTap});
+
+  final MaestroPalette palette;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: const Key('santuario_sinastria'),
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.sm, vertical: 7),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+            gradient: LinearGradient(
+              colors: [
+                palette.primary.withValues(alpha: 0.55),
+                palette.surfaceElevated.withValues(alpha: 0.55),
+              ],
+            ),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.55)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.favorite_rounded, size: 14, color: palette.goldSoft),
+              const SizedBox(width: 6),
+              Text(
+                'Sinastria Celeb',
+                style: TypographyTokens.label(size: 11)
+                    .copyWith(color: palette.goldSoft, letterSpacing: 0.3),
+              ),
             ],
           ),
         ),
