@@ -270,3 +270,9 @@ punto di configurazione del brand, `lib/core/brand/brand.dart` (`Brand.name`,
 `Brand.domain`, `Brand.url`). La cartolina legge da qui il marchio e il
 dominio, cosi' non divergono. Screenshot `cartolina-cielo.png` rigenerato col
 dominio corretto.
+
+## Punto 3, interruttori spenti per default — FATTO
+
+"Riduci animazioni" e "Modalità semplice" partivano già spenti (i default del
+`SettingsController` sono false); i sottotitoli restano attivi di default. Reso
+esplicito con un test unitario dedicato.

@@ -57,6 +57,14 @@ void main() {
         child: const MaterialApp(home: MaestroScope(child: SettingsScreen())),
       );
 
+  test('Riduci animazioni e Modalita semplice partono spenti', () {
+    final s = SettingsController();
+    expect(s.reduceAnimations, isFalse);
+    expect(s.simpleMode, isFalse);
+    // I sottotitoli, invece, sono attivi di default.
+    expect(s.subtitles, isTrue);
+  });
+
   testWidgets('Gli interruttori aggiornano le preferenze', (tester) async {
     silence();
     final settings = SettingsController();
