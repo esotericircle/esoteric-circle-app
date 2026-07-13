@@ -486,3 +486,48 @@ Dove serve, l'arte definitiva di brand e' dichiarata segnaposto (in arrivo dal
 bucket), il resto e' reale. Test: contenuti deterministici, rotazione dell'alba,
 Futhark completo, e per ogni schermata il livello visivo prima del testo con il
 ripiego tattile che rivela il responso.
+
+## Task 5, consegna del blocco 5 — FATTO
+
+- `flutter analyze` pulito, nessun problema.
+- Tutti i test verdi: 128 test, unita', widget e catture headless.
+- Screenshot in `docs/preview/` di ogni schermata nuova o cambiata: `piani.png`
+  (i piani del Cerchio), `chiedi-ai-maestri.png` (il nuovo flusso dal dominio),
+  `rito-alba.png`, `soffio-destino.png`, `oracolo-giorno.png`, `runa-tramonto.png`
+  (i quattro rituali), `meditazione-aura.png` (chip corretto), i Santuario senza
+  la bolla, e le Impostazioni con "Il tuo piano".
+
+### Cosa ho fatto, task per task
+- Task 1: "lenti" e' diventato "sguardi" nella UI, sottotitolo di Chiedi ai
+  Maestri senza la "e" dopo la virgola, controllo di lingua rinforzato (segnala
+  la virgola piu' "e" a meta' frase e scandaglia tutte le stringhe del codice),
+  chip Battito theta non piu' troncato.
+- Task 2: contatore locale delle domande del Free (una al giorno), catalogo dei
+  piani e schermata prezzi 2.5D, invito all'upgrade riusabile. Pagamento non
+  attivo nella Demo, dichiarato.
+- Task 3: Chiedi ai Maestri ridisegnato, parte dal dominio del Maestro con
+  l'invito a portare la domanda a un altro e la sintesi comparativa; regole di
+  accesso per tier.
+- Task 4: i quattro rituali del giorno, contenuti deterministici reali, livello
+  visivo prima del testo, sensori con ripiego tattile universale.
+
+### Cosa ho saltato e i dubbi per te
+- Niente e' stato saltato del tutto. Restano scelte tue e limiti dichiarati:
+- Prezzi dei piani (Task 2): ho messo nomi e benefici, non i prezzi, che sono una
+  decisione di business. Servono importi e nomi definitivi dei tier, poi
+  l'acquisto reale col modello reader dal web. L'attivazione "in Demo" e' solo
+  per provare i tier sul simulatore, chiaramente etichettata, non un pagamento.
+- Limite giornaliero (Task 2 e 3): il contatore e' locale al dispositivo. Un
+  limite vero, non aggirabile cambiando device, richiede l'enforcement lato
+  server: e' il passo con il backend.
+- Risposte dei Maestri (Task 3): sono dell'oracolo locale a scheletro,
+  deterministico e coerente col dominio, ma non personalizzato sul profilo. La
+  lettura vera, con memoria e Gemini su Vertex, resta al device.
+- Sensori dei rituali (Task 4): microfono e giroscopio sono provati qui solo dal
+  ripiego tattile, che vale sempre. Il comportamento reale del sensore si prova
+  sul device.
+- Arte dei rituali (Task 4): i glifi runici sono disegnati a tratti, fedeli ma
+  tracciati a mano. L'arte incisa di brand e gli sfondi definitivi arrivano dal
+  bucket: dove serve, e' dichiarato segnaposto.
+- Rito dell'Alba (Task 4): appare nel dominio del Maestro di turno oggi, non in
+  un hub dedicato dei rituali. Se lo vuoi come hub unico, e' un piccolo passo.
