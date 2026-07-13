@@ -13,6 +13,7 @@ import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
@@ -463,6 +464,24 @@ void main() {
       () async => tester.tap(find.byKey(const Key('ritual_gesture'))),
       'runa-tramonto.png',
     );
+  });
+
+  // --- La card Rito dell'Alba, col Maestro di turno del giorno ---
+  testWidgets('Cattura la card Rito dell\'Alba', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final dawn = DailyRituals.dawnMaestro(DateTime.now());
+    final rootKey =
+        await mount(tester, await buildServices(dawn, seeded: false));
+    selectCentral(tester, dawn);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await precacheFaces(tester);
+    await tester.ensureVisible(find.byKey(const Key('ritual_dawn')));
+    await step(tester);
+    await capture(tester, rootKey, 'card-rito-alba.png');
   });
 
   // --- L'hub di dominio e il Cosmic Passport ---

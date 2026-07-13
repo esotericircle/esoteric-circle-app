@@ -569,3 +569,11 @@ le domande vere del dominio restano risposte normali in chat. Test:
 `intent_routing_test.dart` (classificazione per Maestro, allow-list, parola
 intera, instradamento senza AI, domanda normale che chiama l'AI). Screenshot:
 `chat-instradamento.png`.
+
+## 3. Card Rito dell'Alba, Maestro di turno visibile — FATTO
+
+La tessera del Rito dell'Alba ora mostra a colpo d'occhio chi guida oggi: il suo
+avatar, il suo nome ("Oggi la guida è di ...") e il suo colore di tema. La
+rotazione resta deterministica sul giorno dell'anno. Test: nel dominio del
+Maestro di turno la card compare e lo nomina, negli altri no. Screenshot:
+`card-rito-alba.png`.

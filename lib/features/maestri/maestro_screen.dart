@@ -6,6 +6,7 @@ import '../../core/maestro/maestro.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/feature_grid.dart';
 import '../../design_system/components/section_title.dart';
+import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -19,6 +20,7 @@ import '../rituals/sunset_rune_screen.dart';
 import 'ask/ask_maestri_screen.dart';
 import 'aura/meditation/meditation_screen.dart';
 import 'chat/maestro_chat_screen.dart';
+import 'chat/widgets/maestro_avatar.dart';
 import 'widgets/maestro_presence.dart';
 
 /// Sezione di un Maestro.
@@ -36,13 +38,7 @@ class MaestroScreen extends StatelessWidget {
   List<Widget> _ritualCards(BuildContext context, Maestro maestro) {
     final cards = <Widget>[];
     if (DailyRituals.dawnMaestro(DateTime.now()) == maestro) {
-      cards.add(_RitualCard(
-        cardKey: const Key('ritual_dawn'),
-        icon: Icons.wb_twilight_rounded,
-        title: 'Rito dell\'Alba',
-        subtitle: 'Il rito del mattino, oggi affidato a te.',
-        onTap: () => Navigator.of(context).push(DawnRiteScreen.route()),
-      ));
+      cards.add(_DawnRiteCard(maestro: maestro));
     }
     switch (maestro) {
       case Maestro.medora:
@@ -216,6 +212,56 @@ class _AskMaestroCard extends StatelessWidget {
                   'Una domanda, poi lo sguardo di un altro Maestro a confronto.',
                   style: TypographyTokens.body(size: 14)
                       .copyWith(color: ColorTokens.textSecondary),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+        ],
+      ),
+    );
+  }
+}
+
+/// La tessera del Rito dell'Alba, con il Maestro di turno del giorno visibile:
+/// il suo avatar, il suo nome e il suo colore di tema. La rotazione e'
+/// deterministica sul giorno dell'anno.
+class _DawnRiteCard extends StatelessWidget {
+  const _DawnRiteCard({required this.maestro});
+
+  final Maestro maestro;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
+    return DepthCard(
+      key: const Key('ritual_dawn'),
+      raised: true,
+      onTap: () => Navigator.of(context).push(DawnRiteScreen.route()),
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      child: Row(
+        children: [
+          // L'avatar del Maestro di turno, nella sua cornice.
+          MaestroAvatar(maestro: maestro, size: 48),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.wb_twilight_rounded,
+                        size: 18, color: palette.goldSoft),
+                    const SizedBox(width: 6),
+                    Text('Rito dell\'Alba',
+                        style: TypographyTokens.display(size: 18)),
+                  ],
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Oggi la guida è di ${maestro.displayName}.',
+                  style: TypographyTokens.body(size: 14)
+                      .copyWith(color: palette.goldSoft),
                 ),
               ],
             ),

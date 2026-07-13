@@ -1,5 +1,6 @@
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/meditation_audio.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/meditation_screen.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/tone_generator.dart';
@@ -155,6 +156,38 @@ void main() {
     await tester.pumpWidget(domain(Maestro.medora));
     await tester.pump();
     expect(find.byKey(const Key('aura_meditation_card')), findsNothing);
+  });
+
+  testWidgets('La card Rito dell\'Alba mostra il Maestro di turno del giorno',
+      (tester) async {
+    Widget domain(Maestro m) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => EntitlementService()),
+            ChangeNotifierProvider(
+              create: (ctx) =>
+                  FeatureFlagService(entitlement: ctx.read<EntitlementService>())
+                    ..initialize(),
+            ),
+          ],
+          child: MaterialApp(
+            home: MaestroScope(child: Scaffold(body: MaestroScreen(maestro: m))),
+          ),
+        );
+
+    final dawn = DailyRituals.dawnMaestro(DateTime.now());
+    await tester.pumpWidget(domain(dawn));
+    await tester.pump();
+    // Nel dominio del Maestro di turno la card compare e lo nomina.
+    expect(find.byKey(const Key('ritual_dawn')), findsOneWidget);
+    expect(find.text('Oggi la guida è di ${dawn.displayName}.'), findsOneWidget);
+
+    // In un altro dominio la card del Rito dell'Alba non c'e'.
+    final other = Maestro.values.firstWhere((m) => m != dawn);
+    await tester.pumpWidget(domain(other));
+    await tester.pump();
+    expect(find.byKey(const Key('ritual_dawn')), findsNothing);
   });
 }
 
