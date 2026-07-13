@@ -152,3 +152,35 @@ immagini su Vertex o credenziali. Non ho pubblicato nulla, non ho aperto PR.
    Impostazioni con il bottone "Cancella i miei dati". Dove lo mettiamo?
 4. Da validare su Firestore reale: le regole di sicurezza devono permettere la
    cancellazione ricorsiva del proprio dato e negarla fra utenti diversi.
+
+---
+
+# Secondo batch
+
+## Task 1, Il cielo sopra di te immersivo — FATTO
+
+La schermata non è più uno schema ma una volta densa ed esplorabile.
+
+- Campo stellato denso su tre piani (circa 260, 120 e 44 stelle di dimensione e
+  luminosità varie) che si muovono a velocità diverse col giroscopio e col
+  trascinamento del dito, cosi' nasce la profondità. Riduci Movimento appiattisce
+  la parallasse (i piani si muovono insieme) e ferma il giroscopio.
+- Tela più ampia dello schermo: scorrendo o inclinando si rivela altro cielo ai
+  lati e in alto. La Luna e le costellazioni alte stanotte sono distribuite su
+  questa tela.
+- Accenno di Via Lattea, una fascia soffusa in diagonale.
+- Forme corrette codificate a mano in `lib/core/astro/sky_catalog.dart`: i dodici
+  segni piu' alcune brillanti (Orione, Orsa Maggiore, Cassiopea, Cigno). Il
+  Sagittario è la teiera, lo Scorpione il gancio, il Leone la falce. Le
+  costellazioni sono immerse nel campo, le stelle piu' brillanti piu' grandi,
+  unite da linee dorate sottili.
+- Corpi toccabili con etichetta e riga di Medora, come prima. La nota sui pianeti
+  è ora in-world, piccola ed elegante: "I pianeti si uniranno presto al tuo
+  cielo."
+
+Test: `sky_overview_test` e `night_sky_test` restano verdi; il fondo denso è
+coperto dalla cattura headless `docs/preview/cielo-sopra-di-te.png`.
+
+Dubbio aperto: le forme sono asterismi corretti in un frame locale, non ancora
+posizioni reali in alt-azimut. Il salto a un cielo geolocalizzato richiede il
+motore a effemeridi e la posizione dell'utente, come già annotato.
