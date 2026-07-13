@@ -139,25 +139,6 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen> {
                 },
               ),
             ),
-            const SizedBox(height: SpacingTokens.md),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.info_outline, size: 13, color: palette.goldSoft),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: Text(
-                    'Un gioco simbolico di intrattenimento, non una previsione. '
-                    'I VIP sono d\'esempio, precaricati per la Demo.',
-                    style: TypographyTokens.label(size: 10).copyWith(
-                      color: palette.goldSoft.withValues(alpha: 0.7),
-                      letterSpacing: 0.2,
-                      height: 1.4,
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),
