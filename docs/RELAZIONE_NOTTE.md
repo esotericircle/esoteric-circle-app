@@ -577,3 +577,15 @@ avatar, il suo nome ("Oggi la guida è di ...") e il suo colore di tema. La
 rotazione resta deterministica sul giorno dell'anno. Test: nel dominio del
 Maestro di turno la card compare e lo nomina, negli altri no. Screenshot:
 `card-rito-alba.png`.
+
+## 4. La Runa del Tramonto, stato pre-estrazione — FATTO
+
+Lo stato non ancora estratto non e' piu' un rettangolo piatto: ora e' una pietra
+runica velata, un monolite con un bagliore che respira, due chiodi d'oro e un
+sigillo coperto al centro, il segno nascosto fino alla rivelazione. L'invito e'
+"Scuoti per svelare la runa", coerente con la meccanica di scuotimento del
+telefono (nuovo gesto `RitualGesture.shake` che ascolta l'accelerometro), con
+ripiego tattile universale al tocco. Lo stato estratto (glifo disegnato dal
+codice con nome e parola chiave) resta com'era. Test aggiornato: chiuso mostra la
+pietra e l'invito, il tocco svela il glifo. Screenshot: `runa-tramonto-chiusa.png`
+e `runa-tramonto.png`.

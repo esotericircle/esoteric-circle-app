@@ -452,18 +452,22 @@ void main() {
     );
   });
 
-  testWidgets('Cattura la Runa del Tramonto', (tester) async {
+  testWidgets('Cattura la Runa del Tramonto, stato chiuso ed estratto',
+      (tester) async {
     silenceSensors();
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.caligo, seeded: false));
-    await captureRitual(
-      tester,
-      rootKey,
-      SunsetRuneScreen.route(now: DateTime(2026, 7, 13)),
-      () async => tester.tap(find.byKey(const Key('ritual_gesture'))),
-      'runa-tramonto.png',
-    );
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SunsetRuneScreen.route(now: DateTime(2026, 7, 13))));
+    await step(tester);
+    await step(tester);
+    // Stato chiuso: la pietra runica velata.
+    await capture(tester, rootKey, 'runa-tramonto-chiusa.png');
+    // Il tocco, ripiego dello scuotimento, svela la runa.
+    await tester.tap(find.byKey(const Key('ritual_gesture')));
+    await tester.pump(const Duration(milliseconds: 700));
+    await capture(tester, rootKey, 'runa-tramonto.png');
   });
 
   // --- La card Rito dell'Alba, col Maestro di turno del giorno ---

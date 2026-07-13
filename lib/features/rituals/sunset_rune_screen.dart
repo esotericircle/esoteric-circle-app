@@ -35,11 +35,12 @@ class SunsetRuneScreen extends StatelessWidget {
     return RitualView(
       title: 'La Runa del Tramonto',
       palette: palette,
-      gesture: RitualGesture.tap,
-      prompt: 'Tocca per estrarre la runa',
-      sensorHint: 'Un gesto solo: tocca per estrarre la runa del giorno.',
+      gesture: RitualGesture.shake,
+      prompt: 'Scuoti per svelare la runa',
+      sensorHint:
+          'Scuoti il telefono, oppure tocca: il ripiego tattile vale sempre.',
       footnote:
-          'Arte incisa di brand in arrivo dal bucket: qui il glifo runico è testo vero.',
+          'Arte incisa di brand in arrivo dal bucket: qui il glifo runico è disegnato dal codice.',
       visualBuilder: (context, revealed, t) => Stack(
         alignment: Alignment.center,
         children: [
@@ -48,21 +49,33 @@ class SunsetRuneScreen extends StatelessWidget {
               painter: _SunsetPainter(palette: palette, t: t, revealed: revealed),
             ),
           ),
-          // Il glifo runico disegnato a tratti, non un carattere di font: cosi'
-          // e' sempre leggibile, senza dipendere dal blocco runico Unicode.
-          SizedBox(
-            width: 180,
-            height: 180,
-            child: CustomPaint(
-              key: const Key('rune_glyph'),
-              painter: RunePainter(
-                runeName: rune.name,
-                color: Colors.white,
-                glow: palette.goldSoft,
-                intensity: revealed ? 1.0 : 0.35,
+          if (revealed)
+            // Il glifo runico disegnato a tratti, non un carattere di font:
+            // cosi' e' sempre leggibile, senza dipendere dal blocco Unicode.
+            SizedBox(
+              width: 190,
+              height: 190,
+              child: CustomPaint(
+                key: const Key('rune_glyph'),
+                painter: RunePainter(
+                  runeName: rune.name,
+                  color: Colors.white,
+                  glow: palette.goldSoft,
+                  intensity: 1.0,
+                ),
+              ),
+            )
+          else
+            // Stato chiuso: una pietra runica velata con un bagliore, non un
+            // rettangolo nudo. Il segno resta nascosto fino allo scuotimento.
+            SizedBox(
+              width: 200,
+              height: 240,
+              child: CustomPaint(
+                key: const Key('rune_stone'),
+                painter: _RuneStonePainter(palette: palette, t: t),
               ),
             ),
-          ),
         ],
       ),
       revealed: Column(
@@ -91,6 +104,107 @@ class SunsetRuneScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+/// La pietra runica velata dello stato chiuso: un monolite verticale con un
+/// bagliore che respira e un sigillo coperto al centro, mai un rettangolo nudo.
+class _RuneStonePainter extends CustomPainter {
+  _RuneStonePainter({required this.palette, required this.t});
+
+  final MaestroPalette palette;
+  final double t;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = size.center(Offset.zero);
+    final w = size.width * 0.62;
+    final h = size.height * 0.9;
+    final rect = Rect.fromCenter(center: center, width: w, height: h);
+    final rrect = RRect.fromRectAndCorners(
+      rect,
+      topLeft: Radius.circular(w * 0.5),
+      topRight: Radius.circular(w * 0.5),
+      bottomLeft: const Radius.circular(14),
+      bottomRight: const Radius.circular(14),
+    );
+
+    // Bagliore che respira attorno alla pietra.
+    final glow = 0.25 + 0.15 * math.sin(t * math.pi);
+    canvas.drawRRect(
+      rrect.inflate(18),
+      Paint()
+        ..color = palette.goldSoft.withValues(alpha: glow)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 26),
+    );
+
+    // Corpo della pietra, gradiente di roccia scura.
+    canvas.drawRRect(
+      rrect,
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            palette.surfaceElevated,
+            palette.deepest,
+          ],
+        ).createShader(rect),
+    );
+    // Bordo inciso.
+    canvas.drawRRect(
+      rrect,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..color = palette.gold.withValues(alpha: 0.6),
+    );
+
+    // Il velo: una fascia diagonale traslucida che copre il segno.
+    canvas.save();
+    canvas.clipRRect(rrect);
+    final veil = Paint()
+      ..color = Colors.white.withValues(alpha: 0.05)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10);
+    for (var i = -2; i <= 3; i++) {
+      final dx = i * w * 0.4 + (t - 0.5) * 10;
+      canvas.drawLine(Offset(rect.left + dx, rect.top),
+          Offset(rect.left + dx + w, rect.bottom), veil..strokeWidth = 10);
+    }
+    canvas.restore();
+
+    // Sigillo coperto al centro: un cerchio con una barra, il segno sotto il
+    // velo, appena intuibile.
+    final sealR = w * 0.24;
+    canvas.drawCircle(
+      center,
+      sealR,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.6
+        ..color = palette.goldSoft.withValues(alpha: 0.5),
+    );
+    canvas.drawLine(
+      Offset(center.dx, center.dy - sealR * 0.7),
+      Offset(center.dx, center.dy + sealR * 0.7),
+      Paint()
+        ..strokeWidth = 1.4
+        ..strokeCap = StrokeCap.round
+        ..color = palette.goldSoft.withValues(alpha: 0.45),
+    );
+
+    // Due chiodi d'oro in alto, come una pietra sigillata.
+    for (final sx in [-1.0, 1.0]) {
+      canvas.drawCircle(
+        Offset(center.dx + sx * w * 0.28, rect.top + h * 0.14),
+        3,
+        Paint()..color = palette.gold.withValues(alpha: 0.7),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_RuneStonePainter old) =>
+      old.t != t || old.palette != palette;
 }
 
 class _SunsetPainter extends CustomPainter {

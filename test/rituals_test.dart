@@ -86,12 +86,17 @@ void main() {
         (tester) async {
       await tester.pumpWidget(MaterialApp(home: SunsetRuneScreen(now: date)));
       await tester.pump();
-      // Il glifo runico e' gia' sulla scena (testo Unicode vero).
-      expect(find.byKey(const Key('rune_glyph')), findsOneWidget);
+      // Stato chiuso: la pietra velata, non il glifo ne un rettangolo nudo.
+      expect(find.byKey(const Key('rune_stone')), findsOneWidget);
+      expect(find.byKey(const Key('rune_glyph')), findsNothing);
+      expect(find.text('Scuoti per svelare la runa'), findsOneWidget);
       expect(find.byKey(const Key('ritual_content')), findsNothing);
 
+      // Il ripiego tattile (tocco) svela la runa.
       await tester.tap(find.byKey(const Key('ritual_gesture')));
       await tester.pump(const Duration(milliseconds: 600));
+      expect(find.byKey(const Key('rune_glyph')), findsOneWidget);
+      expect(find.byKey(const Key('rune_stone')), findsNothing);
       final rune = DailyRituals.sunsetRune(date);
       expect(find.text(rune.name), findsOneWidget);
       expect(find.text(rune.meaning), findsOneWidget);

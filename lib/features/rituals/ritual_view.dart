@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -7,7 +11,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 
 /// Come si compie un rituale: con un gesto tattile universale, oppure con un
 /// sensore che sul device lo arricchisce.
-enum RitualGesture { tap, hold, swipe }
+enum RitualGesture { tap, hold, swipe, shake }
 
 /// Impalcatura condivisa dei rituali del giorno: livello visivo prima del testo,
 /// un gesto per rivelare il responso e, sempre, un ripiego tattile universale.
@@ -59,6 +63,7 @@ class _RitualViewState extends State<RitualView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _pulse;
   bool _revealed = false;
+  StreamSubscription<AccelerometerEvent>? _shakeSub;
 
   @override
   void initState() {
@@ -67,10 +72,27 @@ class _RitualViewState extends State<RitualView>
       vsync: this,
       duration: const Duration(seconds: 4),
     )..repeat(reverse: true);
+    if (widget.gesture == RitualGesture.shake) _listenShake();
+  }
+
+  // Scuotimento: un picco netto dell'accelerazione svela. Se il sensore manca,
+  // resta il tocco come ripiego tattile universale.
+  void _listenShake() {
+    try {
+      _shakeSub = accelerometerEventStream(
+        samplingPeriod: const Duration(milliseconds: 66),
+      ).listen((e) {
+        final m = math.sqrt(e.x * e.x + e.y * e.y + e.z * e.z);
+        if (m > 22) _reveal();
+      }, onError: (_) {}, cancelOnError: false);
+    } catch (_) {
+      // Nessun accelerometro: si compie il rito col tocco.
+    }
   }
 
   @override
   void dispose() {
+    _shakeSub?.cancel();
     _pulse.dispose();
     super.dispose();
   }
@@ -105,6 +127,13 @@ class _RitualViewState extends State<RitualView>
               key: const Key('ritual_gesture'),
               behavior: HitTestBehavior.opaque,
               onHorizontalDragEnd: (_) => _reveal(),
+              onTap: _reveal,
+              child: child);
+        case RitualGesture.shake:
+          // Lo scuotimento arriva dal sensore; il tocco e' il ripiego tattile.
+          return GestureDetector(
+              key: const Key('ritual_gesture'),
+              behavior: HitTestBehavior.opaque,
               onTap: _reveal,
               child: child);
       }
