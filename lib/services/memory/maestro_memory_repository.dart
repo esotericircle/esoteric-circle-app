@@ -27,4 +27,10 @@ abstract interface class MaestroMemoryRepository {
 
   /// Aggiunge un messaggio alla cronologia persistente del Maestro.
   Future<void> appendMessage(Maestro maestro, ChatMessage message);
+
+  /// Cancella tutta la memoria dell'utente, per il diritto all'oblio (GDPR):
+  /// profilo, memoria di ogni Maestro e cronologia completa, più gli eventuali
+  /// livelli profondi predisposti (indice semantico, archivio freddo). Isolata
+  /// al solo utente corrente. Dopo, il cerchio riparte come al primo giorno.
+  Future<void> deleteAllData();
 }

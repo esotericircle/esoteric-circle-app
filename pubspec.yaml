@@ -54,6 +54,7 @@ dev_dependencies:
 
   # Linter ufficiale Flutter.
   flutter_lints: ^4.0.0
+  fake_cloud_firestore: ^4.1.1
 
 flutter:
   uses-material-design: true

@@ -5,6 +5,7 @@ import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/maestro.dart';
 import 'maestro_memory_repository.dart';
+import 'memory_hooks.dart';
 
 /// Persistenza della memoria dei Maestri su Firestore, per la Demo.
 ///
@@ -21,10 +22,19 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
   FirestoreMaestroMemoryRepository({
     required this.uid,
     FirebaseFirestore? firestore,
-  }) : _db = firestore ?? FirebaseFirestore.instance;
+    SemanticIndexHook semanticIndex = const NoopSemanticIndexHook(),
+    HistoryArchiveHook archive = const NoopHistoryArchiveHook(),
+  })  : _db = firestore ?? FirebaseFirestore.instance,
+        _semanticIndex = semanticIndex,
+        _archive = archive;
 
   final String uid;
   final FirebaseFirestore _db;
+
+  // Prese verso i livelli profondi (pgvector, Cloud Storage), a vuoto per
+  // default: predisposte, non attive.
+  final SemanticIndexHook _semanticIndex;
+  final HistoryArchiveHook _archive;
 
   DocumentReference<Map<String, dynamic>> get _userDoc =>
       _db.collection('users').doc(uid);
@@ -107,6 +117,40 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       'text': message.text,
       'createdAt': FieldValue.serverTimestamp(),
     });
+    // Prese verso i livelli profondi: a vuoto per default.
+    await _semanticIndex.index(uid, maestro, message);
+    await _archive.archive(uid, maestro, message);
+  }
+
+  @override
+  Future<void> deleteAllData() async {
+    // Diritto all'oblio: si cancella tutto e solo sotto questo utente. Prima la
+    // cronologia di ogni Maestro, poi i documenti dei Maestri, infine il
+    // profilo. Le prese profonde vengono ripulite in coda.
+    for (final maestro in Maestro.values) {
+      await _deleteCollection(_messagesCol(maestro));
+      await _maestroDoc(maestro).delete();
+    }
+    await _userDoc.delete();
+    await _semanticIndex.forget(uid);
+    await _archive.purge(uid);
+  }
+
+  /// Cancella una collezione a blocchi, per non superare il limite del batch.
+  Future<void> _deleteCollection(
+    CollectionReference<Map<String, dynamic>> col, {
+    int chunk = 300,
+  }) async {
+    while (true) {
+      final snap = await col.limit(chunk).get();
+      if (snap.docs.isEmpty) break;
+      final batch = _db.batch();
+      for (final doc in snap.docs) {
+        batch.delete(doc.reference);
+      }
+      await batch.commit();
+      if (snap.docs.length < chunk) break;
+    }
   }
 
   ChatMessage _messageFromDoc(Map<String, dynamic> data) {

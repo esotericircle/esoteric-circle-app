@@ -73,3 +73,43 @@ virgola con "e" nelle stringhe visibili. Screenshot delle tre chat rigenerati.
 Nota per te: le cinque categorie sono in testa alle Domande frequenti, non
 ancora come schede a sé. Se le vuoi come tab dedicate (amore, lavoro, fortuna,
 successo, relazioni) è un piccolo passo di UI in più, dimmelo.
+
+## Task 3, strato di memoria a livelli — FATTO
+
+Il memory layer vive dietro il repository astratto già esistente, che aveva
+profilo, fatti durevoli, sintesi di sessione e cronologia completa. Aggiunto
+quel che mancava:
+
+- Cancellazione GDPR: nuovo `deleteAllData()` nell'interfaccia e nelle due
+  implementazioni. Su Firestore cancella a blocchi la cronologia di ogni
+  Maestro, poi i documenti dei Maestri, poi il profilo, tutto e solo sotto
+  l'utente corrente. L'isolamento per utente c'era già (users/{uid}), ora
+  provato con un test.
+- Ganci verso i livelli profondi, predisposti e non attivi
+  (`memory_hooks.dart`): `SemanticIndexHook` per pgvector su Cloud SQL e
+  `HistoryArchiveHook` per l'archiviazione su Cloud Storage, con
+  implementazioni a vuoto di default. Sono cablati in `appendMessage` e in
+  `deleteAllData` dei due repository: oggi non fanno nulla, domani basta
+  iniettare l'implementazione vera al posto di quella a vuoto, senza toccare
+  chat né repository.
+- Chat collegata alla memoria: era già così. Il controller carica profilo,
+  memoria calda e cronologia all'apertura, persiste ogni messaggio, e ogni tre
+  turni distilla e aggiorna fatti e sintesi. I ricordi rilevanti tornano nel
+  contesto passato all'AI. La regola anti invenzione è nella persona (Task 2).
+
+Test: `test/memory_repository_test.dart` copre il contratto sul falso in
+memoria e sul falso Firestore (`fake_cloud_firestore`, aggiunto alle
+dev_dependencies): giro completo di profilo, memoria e cronologia, chiamata
+delle prese profonde, cancellazione GDPR, isolamento per utente, ordine di
+rilettura. `test/chat_memory_test.dart` prova che la conversazione si persiste
+e che i ricordi tornano nel contesto, più l'aggiornamento della memoria dal
+distillato.
+
+Blocco onesto: la validazione su Firestore reale resta a te dalla console, qui
+non ci sono credenziali né emulatore. Da verificare lì: che le regole di
+sicurezza consentano la cancellazione ricorsiva e la neghino fra utenti
+diversi.
+
+Dubbio aperto per te: la cancellazione GDPR è pronta come capacità del
+repository, ma non c'è ancora una schermata Impostazioni con il bottone
+"Cancella i miei dati". Serve decidere dove metterlo; è un piccolo passo di UI.
