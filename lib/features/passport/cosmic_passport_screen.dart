@@ -1,10 +1,12 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_moon.dart';
 import '../../core/identity/numerology.dart';
+import '../../core/identity/profile_controller.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -195,8 +197,9 @@ class _CircleSealCard extends StatelessWidget {
     return DepthCard(
       key: const Key('passport_seal'),
       raised: true,
-      onTap: () => Navigator.of(context)
-          .push(CircleSealScreen.route(identity: identity)),
+      onTap: () => Navigator.of(context).push(CircleSealScreen.route(
+          name: context.read<ProfileController>().vocative,
+          identity: identity)),
       padding: const EdgeInsets.all(SpacingTokens.lg),
       child: Row(
         children: [

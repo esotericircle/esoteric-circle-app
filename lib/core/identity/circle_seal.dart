@@ -28,6 +28,20 @@ enum SealElement {
     }
   }
 
+  /// Una riga sulla natura dell'elemento, per il pannello "Cosa significa".
+  String get meaning {
+    switch (this) {
+      case SealElement.fuoco:
+        return 'La tua natura è slancio e calore: agisci, accendi, apri strade.';
+      case SealElement.terra:
+        return 'La tua natura è radice e concretezza: costruisci, curi, dai basi.';
+      case SealElement.aria:
+        return 'La tua natura è pensiero e movimento: colleghi, comunichi, respiri.';
+      case SealElement.acqua:
+        return 'La tua natura è sentire e profondità: intuisci, accogli, trasformi.';
+    }
+  }
+
   static SealElement of(Zodiac sign) {
     switch (sign) {
       case Zodiac.aries:

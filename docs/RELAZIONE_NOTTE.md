@@ -645,3 +645,77 @@ sintesi comparativa e' attiva. La logica vive in `question_allowance.dart`
 giornaliero di domande singole, Viandante 1) e si riflette nella tabella dei
 piani. Test: `ask_maestri_test.dart` (Free invita all'upgrade sul confronto e alla
 seconda domanda, il Tier a pagamento aggiunge lo sguardo e la sintesi).
+
+# Settimo blocco (rifinitura Demo per Google)
+
+## 1. Sinastria VIP al posto di Sinastria Celeb (fatto)
+
+Il nome rivolto all'utente è ora "Sinastria VIP" ovunque: titolo della schermata,
+card dello scaffale, invito e pulsante della chat, riga della tabella dei piani.
+Rinominati anche gli identificatori interni (`Vip`, `VipCatalog`,
+`vip_catalog.dart`, `SinastriaVipScreen`, `sinastria_vip_screen.dart`, target
+`sinastriaVip`) e i test, così il codice resta coerente. Una ricerca finale nel
+repo conferma che a livello utente la parola "Celeb" non compare più; resta solo
+come sinonimo di ricerca del classificatore per chi scrive "celebrità", mai come
+etichetta a schermo. Test: `synastry_test`. Screenshot: `sinastria-vip.png`.
+
+## 2. Nome reale della persona agganciato ovunque (fatto)
+
+Nasce un `ProfileController`, sorgente unica del nome. Ogni copy che parla alla
+persona usa il suo nome reale: il saluto del Santuario ("Sofia, la soglia si apre
+per te"), la riga personale del cielo ("Sofia, la Luna cala all'1%..."), la frase
+del Sigillo, il nome inciso sull'emblema. "Viandante" resta soltanto etichetta del
+tier nella schermata prezzi. Se il nome non c'è si usa il vocativo neutro di brand
+"Anima del Cerchio", mai il nome del tier. Test: `santuario_shelf_test`
+(vocativo col nome, vocativo neutro senza nome). Screenshot: `santuario-alto.png`,
+`santuario-saluto.png`.
+
+## 3. Sigillo del Cerchio, da emblema statico a esperienza (fatto)
+
+Alla comparsa il sigillo si compone da solo: la ruota si traccia, il Sole scende
+dall'alto e si posa sulla posizione del segno dell'utente, il colore
+dell'elemento invade la scena, il Numero della vita si forma al centro con un
+bagliore. Medora accompagna con una frase breve, sottotitolo sempre attivo di
+default, voce Gemini-TTS quando disponibile con ripiego al solo sottotitolo.
+Profondità 2.5D con ombre e aloni, glifo del Sole disegnato dal codice, texture
+dell'elemento, non più linee sottili su fondo nero. Sotto, il pannello "Cosa
+significa" spiega da dove nasce ogni cosa: la ruota è lo zodiaco col Sole nel
+segno, il Numero è la riduzione numerologica mostrata passo per passo (giorno,
+mese, anno ridotti a una cifra, poi la somma), l'elemento è la sua natura con una
+riga di significato. Chi vuole capire tocca e legge, chi vuole solo l'emblema usa
+"Condividi il sigillo". La base resta procedurale, dichiaratamente sostituibile
+con l'arte definitiva. Test: `identity_test` (riduzione passo per passo),
+`circle_seal_test` (frase di Medora, pannello coi passaggi). Screenshot:
+`sigillo-cerchio.png`.
+
+## 4. Santuario, alto pulito e scaffale delle funzioni a scorrimento (fatto)
+
+Tolte tutte le bolle sovrapposte all'immagine. L'alto del Santuario è pulito:
+titolo del cielo della notte, Luna e fase, i tre Maestri, un solo pulsante "Entra
+nel Dominio del Maestro". Nulla copre il titolo o la figura. Il saluto vocale,
+quando compare, è una striscia bassa che sale sopra la barra, lontano dal titolo e
+dal volto del Maestro, col nome reale della persona. Sotto l'alto scorre lo
+scaffale delle funzioni: card ordinate, ciascuna nel colore del suo Maestro, le
+funzioni vive si aprono con un tap, quelle in arrivo portano il badge Coming soon
+con un anticipo elegante, mai un vicolo cieco. L'ordine iniziale privilegia le più
+popolari (Stesa a Tre Carte, Sinastria VIP, Test Archetipo, Costellazione del
+Viso, poi le altre attive) e vive in un file di configurazione dedicato
+(`function_shelf.dart`), modificabile senza toccare la logica; in seguito si
+personalizza sulle funzioni più usate. Test: `santuario_shelf_test`,
+`santuario_test`. Screenshot: `santuario-alto.png`, `santuario-scaffale.png`.
+
+## 5. Integrità dei preview (fatto)
+
+Un test dedicato (`preview_integrity_test`) fa fallire la build se anche un solo
+preview obbligatorio manca da `docs/preview/`, così la relazione non può dichiarare
+screenshot inesistenti. Elenco verificato e rigenerato davvero in questa sessione:
+`piani.png`, `card-rito-alba.png`, `runa-tramonto-chiusa.png`, `runa-tramonto.png`,
+`sigillo-cerchio.png`, `santuario-alto.png`, `santuario-scaffale.png`,
+`santuario-saluto.png`, `chat-instradamento.png`, `sinastria-vip.png`.
+
+## Validazione finale del settimo blocco
+
+`flutter analyze` pulito, 173 test verdi (compresi i nuovi su rinomina VIP, nome
+reale, ordinamento dello scaffale, riduzione numerologica del Sigillo, integrità
+dei preview). Tutti i preview obbligatori esistono come file. Nessun segreto nel
+codice, runtime AI su Gemini e Vertex, mai le API Anthropic.

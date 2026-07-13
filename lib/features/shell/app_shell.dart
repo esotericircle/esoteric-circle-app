@@ -70,11 +70,12 @@ class AppShell extends StatelessWidget {
                 },
                 child: screen,
               ),
-              // Il saluto per nome della primissima apertura del Santuario,
-              // sottotitolo in cima, una volta sola.
+              // Il saluto per nome della primissima apertura del Santuario, una
+              // striscia bassa che non copre il titolo ne' la figura, una volta
+              // sola.
               if (nav.view == ShellView.santuario)
                 const Align(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.bottomCenter,
                   child: GreetingBanner(),
                 ),
             ],

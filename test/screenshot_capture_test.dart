@@ -22,7 +22,7 @@ import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
-import 'package:esoteric_circle/features/synastry/sinastria_celeb_screen.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
@@ -497,22 +497,52 @@ void main() {
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(CircleSealScreen.route(name: 'Sofia')));
     await step(tester);
-    // Lascia comporre il sigillo con la sua animazione.
-    await tester.pump(const Duration(milliseconds: 2400));
+    // Lascia comporre il sigillo con la sua animazione, fino al Sole posato e al
+    // Numero acceso.
+    await tester.pump(const Duration(milliseconds: 2700));
     await capture(tester, rootKey, 'sigillo-cerchio.png');
   });
 
-  // --- La Sinastria Celeb, raggiungibile in un tap dal Santuario ---
-  testWidgets('Cattura la Sinastria Celeb', (tester) async {
+  // --- La Sinastria VIP, raggiungibile dallo scaffale del Santuario ---
+  testWidgets('Cattura la Sinastria VIP', (tester) async {
     silenceSensors();
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-    unawaited(nav.push(SinastriaCelebScreen.route()));
+    unawaited(nav.push(SinastriaVipScreen.route()));
     await step(tester);
     await step(tester);
-    await capture(tester, rootKey, 'sinastria-celeb.png');
+    await capture(tester, rootKey, 'sinastria-vip.png');
+  });
+
+  // --- Il Santuario, alto pulito senza bolle sopra l'immagine ---
+  testWidgets('Cattura il Santuario, alto pulito', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'santuario-alto.png');
+  });
+
+  // --- Il Santuario, scaffale delle funzioni a scorrimento ---
+  testWidgets('Cattura il Santuario, scaffale funzioni', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    // Scorre sotto l'alto, cosi' l'anteprima mostra lo scaffale delle funzioni.
+    final position =
+        tester.state<ScrollableState>(find.byType(Scrollable).first).position;
+    position.jumpTo(position.maxScrollExtent);
+    await step(tester);
+    await capture(tester, rootKey, 'santuario-scaffale.png');
   });
 
   // --- La card Rito dell'Alba, col Maestro di turno del giorno ---

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../core/astro/night_sky.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/identity/birth_identity.dart';
-import '../../core/synastry/celeb_catalog.dart';
+import '../../core/synastry/vip_catalog.dart';
 import '../../core/synastry/synastry.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -14,29 +14,29 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 
-/// Sinastria Celeb: l'affinita' fra il tuo cielo e quello di un VIP.
+/// Sinastria VIP: l'affinita' fra il tuo cielo e quello di un VIP.
 ///
 /// Un VIP e' sempre precaricato, cosi' la Demo puo' aprirsi da qui in un tap dal
 /// Santuario. Il calcolo e' deterministico per elemento, un gioco simbolico di
 /// intrattenimento, non una previsione. Nessuna nuova arte richiesta.
-class SinastriaCelebScreen extends StatefulWidget {
-  const SinastriaCelebScreen({super.key, this.userSign});
+class SinastriaVipScreen extends StatefulWidget {
+  const SinastriaVipScreen({super.key, this.userSign});
 
   final Zodiac? userSign;
 
   static Route<void> route({Zodiac? userSign}) {
     return MaterialPageRoute<void>(
       builder: (_) =>
-          MaestroScope(child: SinastriaCelebScreen(userSign: userSign)),
+          MaestroScope(child: SinastriaVipScreen(userSign: userSign)),
     );
   }
 
   @override
-  State<SinastriaCelebScreen> createState() => _SinastriaCelebScreenState();
+  State<SinastriaVipScreen> createState() => _SinastriaVipScreenState();
 }
 
-class _SinastriaCelebScreenState extends State<SinastriaCelebScreen> {
-  late Celeb _celeb = CelebCatalog.first;
+class _SinastriaVipScreenState extends State<SinastriaVipScreen> {
+  late Vip _vip = VipCatalog.first;
 
   Zodiac get _userSign =>
       widget.userSign ?? NightSky.sunSign(BirthIdentity.example.birthMoment);
@@ -44,7 +44,7 @@ class _SinastriaCelebScreenState extends State<SinastriaCelebScreen> {
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final result = Synastry.between(_userSign, _celeb.sign);
+    final result = Synastry.between(_userSign, _vip.sign);
 
     return Scaffold(
       backgroundColor: ColorTokens.neutralDeepest,
@@ -57,7 +57,7 @@ class _SinastriaCelebScreenState extends State<SinastriaCelebScreen> {
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Sinastria Celeb',
+        title: Text('Sinastria VIP',
             style: TypographyTokens.display(size: 20)),
       ),
       body: SafeArea(
@@ -76,7 +76,7 @@ class _SinastriaCelebScreenState extends State<SinastriaCelebScreen> {
                   child: Icon(Icons.favorite_border_rounded,
                       color: palette.goldSoft, size: 22),
                 ),
-                Expanded(child: _Pole(title: _celeb.name, sign: _celeb.sign.italianName, palette: palette)),
+                Expanded(child: _Pole(title: _vip.name, sign: _vip.sign.italianName, palette: palette)),
               ],
             ),
             const SizedBox(height: SpacingTokens.lg),
@@ -125,16 +125,16 @@ class _SinastriaCelebScreenState extends State<SinastriaCelebScreen> {
               height: 92,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemCount: CelebCatalog.vips.length,
+                itemCount: VipCatalog.vips.length,
                 separatorBuilder: (_, __) =>
                     const SizedBox(width: SpacingTokens.sm),
                 itemBuilder: (context, i) {
-                  final vip = CelebCatalog.vips[i];
+                  final vip = VipCatalog.vips[i];
                   return _VipChip(
                     vip: vip,
-                    selected: vip.name == _celeb.name,
+                    selected: vip.name == _vip.name,
                     palette: palette,
-                    onTap: () => setState(() => _celeb = vip),
+                    onTap: () => setState(() => _vip = vip),
                   );
                 },
               ),
@@ -211,7 +211,7 @@ class _VipChip extends StatelessWidget {
     required this.onTap,
   });
 
-  final Celeb vip;
+  final Vip vip;
   final bool selected;
   final MaestroPalette palette;
   final VoidCallback onTap;

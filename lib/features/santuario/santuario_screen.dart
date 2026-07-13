@@ -7,17 +7,23 @@ import 'package:provider/provider.dart';
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/astro/zodiac_controller.dart';
+import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../core/motion/parallax_controller.dart';
+import '../../core/santuario/function_shelf.dart';
+import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import '../maestri/aura/meditation/meditation_screen.dart';
 import '../maestri/domain_screen.dart';
-import '../synastry/sinastria_celeb_screen.dart';
+import '../rituals/day_oracle_screen.dart';
+import '../rituals/sunset_rune_screen.dart';
+import '../synastry/sinastria_vip_screen.dart';
 import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
@@ -119,10 +125,91 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     context.read<MaestroController>().selectMaestro(maestro);
   }
 
-  // Ingresso rapido alla Sinastria Celeb, in un tap dal Santuario, cosi' la
-  // Demo puo' aprirsi da qui con un VIP gia' precaricato.
-  void _openSinastria(BuildContext context, Zodiac userSign) {
-    Navigator.of(context).push(SinastriaCelebScreen.route(userSign: userSign));
+  // Apre una funzione dello scaffale. Le funzioni vive spingono la loro
+  // schermata (deep link interno); quelle ancora in arrivo mostrano un anticipo
+  // elegante, mai un vicolo cieco.
+  void _openShelf(BuildContext context, ShelfFunction fn, Zodiac userSign) {
+    final route = _shelfRoute(fn, userSign);
+    if (route != null) {
+      Navigator.of(context).push(route);
+      return;
+    }
+    _showShelfAnticipo(context, fn);
+  }
+
+  Route<void>? _shelfRoute(ShelfFunction fn, Zodiac userSign) {
+    switch (fn.id) {
+      case 'synastry_vip':
+        return SinastriaVipScreen.route(userSign: userSign);
+      case 'day_oracle':
+        return DayOracleScreen.route();
+      case 'sunset_rune':
+        return SunsetRuneScreen.route();
+      case 'meditation':
+        return MeditationScreen.route();
+      default:
+        return null; // ancora dietro il velo
+    }
+  }
+
+  void _showShelfAnticipo(BuildContext context, ShelfFunction fn) {
+    final palette = MaestroPalette.forKey(ThemeKey.of(fn.maestro));
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (sheetContext) => Container(
+        key: const Key('santuario_shelf_coming_soon'),
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
+            SpacingTokens.lg, SpacingTokens.xl),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [palette.surfaceElevated, palette.deepest],
+          ),
+          borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(SpacingTokens.radiusXl)),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+        ),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(fn.icon, color: palette.goldSoft, size: 26),
+                  const SizedBox(width: SpacingTokens.sm),
+                  Expanded(
+                    child: Text(fn.title,
+                        style: TypographyTokens.display(size: 19)
+                            .copyWith(color: palette.goldSoft)),
+                  ),
+                ],
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              Text(
+                '${fn.teaser} Questa esperienza sta per aprirsi nel cerchio, '
+                'con tutta la sua immersione.',
+                style: TypographyTokens.body(size: 15)
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+              ),
+              const SizedBox(height: SpacingTokens.lg),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () => Navigator.of(sheetContext).pop(),
+                  child: Text('Va bene',
+                      style: TypographyTokens.label(size: 13)
+                          .copyWith(color: palette.goldSoft)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   /// La riga personale del Maestro al centro, con lo slot pronto per nome e
@@ -155,9 +242,9 @@ class _SantuarioScreenState extends State<SantuarioScreen>
 
     final moon = MoonPhase.forDate(DateTime.now());
 
-    // Slot personali: nome e segno dell'utente. Segnaposto in attesa del
-    // profilo reale; il segno si legge gia' dal controller dello zodiaco.
-    const userName = 'Viandante';
+    // Slot personali: nome reale e segno dell'utente. Il nome viene dal profilo
+    // (mai il nome del tier); il segno si legge dal controller dello zodiaco.
+    final userName = context.watch<ProfileController>().vocative;
     final userZodiac = context.watch<ZodiacController>().sunSign ?? Zodiac.gemini;
     final userSign = userZodiac.italianName;
     final personalLine = _personalLine(central, moon, userName, userSign);
@@ -165,7 +252,9 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     // Riduci Movimento: niente deriva di parallasse, scena ferma.
     Offset depth(double d) => reduceMotion ? Offset.zero : parallax.layerOffset(d);
 
-    // Alla prima interazione l'invito al cielo si dissolve.
+    // Alla prima interazione l'invito al cielo si dissolve. L'alto del Santuario
+    // riempie il primo schermo, pulito, senza bolle sopra l'immagine; lo
+    // scaffale delle funzioni scorre sotto.
     return Listener(
       behavior: HitTestBehavior.translucent,
       onPointerDown: (_) {
@@ -173,6 +262,40 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       },
       child: SafeArea(
         child: LayoutBuilder(
+          builder: (context, outer) {
+            final viewportH = outer.maxHeight;
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: viewportH,
+                    child: _buildHero(context, central, selected, reduceMotion,
+                        palette, moon, personalLine, userZodiac, depth),
+                  ),
+                  _FunctionShelfView(
+                    onOpen: (fn) => _openShelf(context, fn, userZodiac),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHero(
+    BuildContext context,
+    Maestro central,
+    bool selected,
+    bool reduceMotion,
+    MaestroPalette palette,
+    MoonPhase moon,
+    String personalLine,
+    Zodiac userZodiac,
+    Offset Function(double) depth,
+  ) {
+    return LayoutBuilder(
         builder: (context, constraints) {
           final w = constraints.maxWidth;
           final h = constraints.maxHeight;
@@ -338,36 +461,25 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 ),
               ),
 
-              // Terza via al dominio: un pulsante a bolla discreto sotto il
-              // Maestro al centro, nella sua palette, col nome che si aggiorna.
-              // Il chiedere ora parte dentro il dominio del Maestro, non piu' da
-              // qui, cosi' niente si sovrappone ai busti. Sopra, un ingresso
-              // rapido alla Sinastria Celeb, in un tap col VIP precaricato:
-              // utile per la Demo, che puo' aprirsi da qui.
+              // Unica via dall'alto: il pulsante Entra nel Dominio del Maestro
+              // al centro, sotto la figura, nella sua palette e col nome che si
+              // aggiorna. Nessuna bolla sopra l'immagine, nulla che copra il
+              // titolo o la figura. Le altre funzioni vivono nello scaffale che
+              // scorre sotto.
               Positioned(
                 left: 0,
                 right: 0,
                 bottom: h * 0.035,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _SinastriaEntry(
-                      palette: palette,
-                      onTap: () => _openSinastria(context, userZodiac),
-                    ),
-                    const SizedBox(height: SpacingTokens.sm),
-                    _EnterDomainButton(
-                      maestro: central,
-                      onTap: () => _enterDomain(context, central),
-                    ),
-                  ],
+                child: Center(
+                  child: _EnterDomainButton(
+                    maestro: central,
+                    onTap: () => _enterDomain(context, central),
+                  ),
                 ),
               ),
             ],
           );
         },
-      ),
-    ),
     );
   }
 }
@@ -565,48 +677,139 @@ class _EnterDomainButton extends StatelessWidget {
   }
 }
 
-/// Ingresso rapido alla Sinastria Celeb, in alto a destra nel Santuario. Una
-/// bolla discreta col cuore, in un tap apre l'affinita' col VIP precaricato.
-class _SinastriaEntry extends StatelessWidget {
-  const _SinastriaEntry({required this.palette, required this.onTap});
+/// Lo scaffale delle funzioni, sotto l'alto del Santuario. Card ordinate che
+/// scorrono, ciascuna nel colore del suo Maestro: le funzioni vive si aprono, le
+/// altre mostrano un anticipo. L'ordine vive nella configurazione dedicata
+/// (`function_shelf.dart`), qui resta solo la resa.
+class _FunctionShelfView extends StatelessWidget {
+  const _FunctionShelfView({required this.onOpen});
 
-  final MaestroPalette palette;
+  final ValueChanged<ShelfFunction> onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final functions = FunctionShelf.ordered();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.sm,
+          SpacingTokens.lg, SpacingTokens.xxxl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Un titolo sobrio annuncia lo scaffale, livello visivo prima del
+          // testo lungo: le card sono la scena, questa e' solo la soglia.
+          Row(
+            children: [
+              Icon(Icons.auto_awesome_mosaic_rounded,
+                  size: 18, color: palette.goldSoft),
+              const SizedBox(width: SpacingTokens.sm),
+              Expanded(
+                child: Text('Le funzioni del Cerchio',
+                    style: TypographyTokens.display(size: 18)
+                        .copyWith(color: palette.goldSoft)),
+              ),
+            ],
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          ListView.separated(
+            key: const Key('santuario_shelf'),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: functions.length,
+            separatorBuilder: (_, __) =>
+                const SizedBox(height: SpacingTokens.sm),
+            itemBuilder: (context, i) => _ShelfCard(
+              fn: functions[i],
+              onTap: () => onOpen(functions[i]),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Una card dello scaffale, nel colore del Maestro di dominio. Livello visivo
+/// prima del testo: l'emblema tondo, poi il nome, poi una riga di anticipo. Le
+/// funzioni non ancora vive portano il badge Coming soon, mai un vicolo cieco.
+class _ShelfCard extends StatelessWidget {
+  const _ShelfCard({required this.fn, required this.onTap});
+
+  final ShelfFunction fn;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        key: const Key('santuario_sinastria'),
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: SpacingTokens.sm, vertical: 7),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-            gradient: LinearGradient(
-              colors: [
-                palette.primary.withValues(alpha: 0.55),
-                palette.surfaceElevated.withValues(alpha: 0.55),
+    final palette = MaestroPalette.forKey(ThemeKey.of(fn.maestro));
+    return DepthCard(
+      key: Key('shelf_${fn.id}'),
+      onTap: onTap,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Row(
+        children: [
+          Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+              gradient: RadialGradient(colors: [
+                palette.primary.withValues(alpha: 0.5),
+                palette.deepest.withValues(alpha: 0.4),
+              ]),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
+            ),
+            alignment: Alignment.center,
+            child: Icon(fn.icon, color: palette.goldSoft, size: 26),
+          ),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Titolo a piena larghezza, cosi' non si spezza a meta' parola.
+                Text(fn.title, style: TypographyTokens.display(size: 17)),
+                const SizedBox(height: 2),
+                Text(fn.teaser,
+                    style: TypographyTokens.body(size: 13)
+                        .copyWith(color: ColorTokens.textSecondary, height: 1.3)),
+                if (!fn.live) ...[
+                  const SizedBox(height: SpacingTokens.xs),
+                  _ComingSoonBadge(palette: palette),
+                ],
               ],
             ),
-            border: Border.all(color: palette.gold.withValues(alpha: 0.55)),
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.favorite_rounded, size: 14, color: palette.goldSoft),
-              const SizedBox(width: 6),
-              Text(
-                'Sinastria Celeb',
-                style: TypographyTokens.label(size: 11)
-                    .copyWith(color: palette.goldSoft, letterSpacing: 0.3),
-              ),
-            ],
+          const SizedBox(width: SpacingTokens.sm),
+          Icon(
+            fn.live ? Icons.chevron_right_rounded : Icons.lock_clock_rounded,
+            size: 20,
+            color: palette.goldSoft.withValues(alpha: fn.live ? 0.9 : 0.6),
           ),
-        ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Il badge dorato Coming soon delle funzioni in arrivo.
+class _ComingSoonBadge extends StatelessWidget {
+  const _ComingSoonBadge({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+        color: palette.gold.withValues(alpha: 0.16),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
+      ),
+      child: Text(
+        'Coming soon',
+        style: TypographyTokens.label(size: 9)
+            .copyWith(color: palette.goldSoft, letterSpacing: 0.4),
       ),
     );
   }

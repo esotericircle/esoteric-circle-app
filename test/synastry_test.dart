@@ -1,15 +1,15 @@
 import 'package:esoteric_circle/core/astro/zodiac.dart';
-import 'package:esoteric_circle/core/synastry/celeb_catalog.dart';
+import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/core/synastry/synastry.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
-import 'package:esoteric_circle/features/synastry/sinastria_celeb_screen.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
-/// Sinastria Celeb: calcolo deterministico per elemento, senza AI, e la
+/// Sinastria VIP: calcolo deterministico per elemento, senza AI, e la
 /// schermata raggiungibile in un tap col VIP precaricato.
 void main() {
   group('Calcolo deterministico', () {
@@ -57,8 +57,8 @@ void main() {
 
   group('Catalogo VIP', () {
     test('Almeno un VIP e sempre precaricato', () {
-      expect(CelebCatalog.vips, isNotEmpty);
-      expect(CelebCatalog.first, CelebCatalog.vips.first);
+      expect(VipCatalog.vips, isNotEmpty);
+      expect(VipCatalog.first, VipCatalog.vips.first);
     });
   });
 
@@ -69,7 +69,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => QualityTierController()),
       ],
       child: const MaterialApp(
-        home: MaestroScope(child: SinastriaCelebScreen(userSign: Zodiac.gemini)),
+        home: MaestroScope(child: SinastriaVipScreen(userSign: Zodiac.gemini)),
       ),
     ));
     await tester.pumpAndSettle();
@@ -78,7 +78,7 @@ void main() {
     expect(find.byKey(const Key('sinastria_gauge')), findsOneWidget);
     // Il VIP precaricato in testa e' selezionabile.
     expect(
-      find.byKey(Key('vip_${CelebCatalog.first.name}')),
+      find.byKey(Key('vip_${VipCatalog.first.name}')),
       findsOneWidget,
     );
   });
@@ -90,12 +90,12 @@ void main() {
         ChangeNotifierProvider(create: (_) => QualityTierController()),
       ],
       child: const MaterialApp(
-        home: MaestroScope(child: SinastriaCelebScreen(userSign: Zodiac.gemini)),
+        home: MaestroScope(child: SinastriaVipScreen(userSign: Zodiac.gemini)),
       ),
     ));
     await tester.pumpAndSettle();
 
-    final other = CelebCatalog.vips[2];
+    final other = VipCatalog.vips[2];
     await tester.tap(find.byKey(Key('vip_${other.name}')));
     await tester.pumpAndSettle();
 

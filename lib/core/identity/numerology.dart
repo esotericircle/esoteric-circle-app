@@ -60,6 +60,11 @@ class LifePath {
     33: 'Il maestro guaritore',
   };
 
+  /// La riduzione passo per passo dalla data di nascita al Numero della vita,
+  /// da mostrare a chi vuole capire da dove nasce la cifra.
+  static LifePathBreakdown breakdown(DateTime date) =>
+      LifePathBreakdown.of(date);
+
   static const Map<int, String> _meanings = {
     1: 'Guidi e apri strade: la tua forza sta nell\'iniziare.',
     2: 'Tessi legami e armonia: la tua forza sta nell\'unire.',
@@ -74,4 +79,71 @@ class LifePath {
     22: 'Trasformi i sogni in opere: costruisci in grande, con radici.',
     33: 'Servi e sollevi gli altri: la cura diventa la tua via maestra.',
   };
+
+  /// Riduce un numero mostrando ogni passaggio, per la spiegazione a schermo.
+  /// Restituisce ad esempio "1 + 9 + 9 + 0 = 19 → 1 + 9 = 10 → 1 + 0 = 1". Se il
+  /// numero e' gia' una cifra sola (o un maestro), restituisce il numero stesso.
+  static String explainReduction(int n) {
+    var v = n.abs();
+    final segments = <String>[];
+    while (v > 9 && v != 11 && v != 22 && v != 33) {
+      final digits = v.toString().split('').map(int.parse).toList();
+      final sum = digits.reduce((a, b) => a + b);
+      segments.add('${digits.join(' + ')} = $sum');
+      v = sum;
+    }
+    if (segments.isEmpty) return '$v';
+    return segments.join(' → ');
+  }
+}
+
+/// La riduzione numerologica passo per passo, dalla data di nascita al Numero
+/// della vita. Serve al pannello "Cosa significa" del Sigillo: chi vuole capire
+/// legge da dove nasce ogni cifra.
+class LifePathBreakdown {
+  const LifePathBreakdown({
+    required this.date,
+    required this.dayRoot,
+    required this.monthRoot,
+    required this.yearRoot,
+    required this.sum,
+    required this.number,
+  });
+
+  final DateTime date;
+  final int dayRoot;
+  final int monthRoot;
+  final int yearRoot;
+  final int sum;
+
+  /// La cifra finale, coincide con `LifePath.forDate(date).number`.
+  final int number;
+
+  factory LifePathBreakdown.of(DateTime date) {
+    final dayRoot = LifePath._reduce(date.day);
+    final monthRoot = LifePath._reduce(date.month);
+    final yearRoot = LifePath._reduce(date.year);
+    final sum = dayRoot + monthRoot + yearRoot;
+    return LifePathBreakdown(
+      date: date,
+      dayRoot: dayRoot,
+      monthRoot: monthRoot,
+      yearRoot: yearRoot,
+      sum: sum,
+      number: LifePath._reduce(sum),
+    );
+  }
+
+  /// Le righe leggibili della riduzione, in ordine.
+  List<String> get steps {
+    final lines = <String>[
+      'Giorno ${date.day}: ${LifePath.explainReduction(date.day)}',
+      'Mese ${date.month}: ${LifePath.explainReduction(date.month)}',
+      'Anno ${date.year}: ${LifePath.explainReduction(date.year)}',
+    ];
+    final sumLine = StringBuffer('Somma: $dayRoot + $monthRoot + $yearRoot = $sum');
+    if (sum != number) sumLine.write(' → $number');
+    lines.add(sumLine.toString());
+    return lines;
+  }
 }

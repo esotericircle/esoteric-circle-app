@@ -186,7 +186,7 @@ class PlanCatalog {
         ['Eos pieno', 'Eos scontati', '5 al giorno', 'Illimitate']),
     FeatureRow('Rune, I-Ching, Pendolo',
         ['Eos', 'Eos scontati', 'Inclusi', 'Inclusi']),
-    FeatureRow('Sinastria Celeb',
+    FeatureRow('Sinastria VIP',
         ['3 al giorno', '5 al giorno', '5 al giorno', 'Illimitata']),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Cosmic Journal',

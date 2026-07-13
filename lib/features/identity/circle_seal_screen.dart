@@ -7,6 +7,9 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/circle_seal.dart';
+import '../../core/identity/numerology.dart';
+import '../../core/voice/voice_greeting.dart';
+import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -16,18 +19,32 @@ import 'seal_painter.dart';
 
 /// Il Sigillo del Cerchio, a fine onboarding subito dopo la carta natale.
 ///
-/// Un emblema personale deterministico dai dati di nascita, disegnato dal codice
-/// e composto con una breve animazione, che porta il nome dell'utente. E'
-/// deterministico, quindi a costo zero. La condivisione e' predisposta come
-/// card. L'arte definitiva del sigillo la fornira' Mauro: il disegno procedurale
-/// resta la base sostituibile.
+/// Non un emblema statico ma un'esperienza: la ruota si disegna, il Sole scende
+/// sul segno, l'elemento invade la scena, il Numero della vita si forma al
+/// centro, mentre Medora accompagna con una frase (sottotitolo sempre attivo,
+/// voce Gemini-TTS quando c'e'). Sotto, il pannello "Cosa significa" spiega da
+/// dove nasce ogni cosa, per chi vuole capire. Chi vuole solo l'emblema usa
+/// "Condividi il sigillo". Il disegno procedurale resta la base, sostituibile
+/// con l'arte definitiva.
 class CircleSealScreen extends StatefulWidget {
-  const CircleSealScreen({super.key, this.name = 'Viandante', this.identity});
+  const CircleSealScreen({
+    super.key,
+    this.name = 'Anima del Cerchio',
+    this.identity,
+    this.voice = const SilentVoiceGreeting(),
+  });
 
   final String name;
   final BirthIdentity? identity;
 
-  static Route<void> route({String name = 'Viandante', BirthIdentity? identity}) {
+  /// Voce dei Maestri: parla la frase di Medora quando disponibile, altrimenti
+  /// resta il solo sottotitolo.
+  final VoiceGreeting voice;
+
+  static Route<void> route({
+    String name = 'Anima del Cerchio',
+    BirthIdentity? identity,
+  }) {
     return MaterialPageRoute<void>(
       builder: (_) =>
           MaestroScope(child: CircleSealScreen(name: name, identity: identity)),
@@ -42,19 +59,29 @@ class _CircleSealScreenState extends State<CircleSealScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _compose;
   late final CircleSeal _seal;
+  late final BirthIdentity _identity;
+  late final String _phrase;
+  bool _showMeaning = false;
 
   @override
   void initState() {
     super.initState();
-    _seal = CircleSeal.from(
-      name: widget.name,
-      identity: widget.identity ?? BirthIdentity.example,
-    );
+    _identity = widget.identity ?? BirthIdentity.example;
+    _seal = CircleSeal.from(name: widget.name, identity: _identity);
+    _phrase = _medoraPhrase(widget.name);
     _compose = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2200),
+      duration: const Duration(milliseconds: 2600),
     )..forward();
+    // La voce e' un di piu': se non parla, resta il sottotitolo, sempre attivo.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.voice.speak(_phrase);
+    });
   }
+
+  // La frase di Medora che accompagna la comparsa, breve e nella sua voce.
+  static String _medoraPhrase(String name) =>
+      '$name, guarda: il Sole si posa nel tuo segno e accende il tuo Sigillo.';
 
   @override
   void dispose() {
@@ -102,56 +129,250 @@ class _CircleSealScreenState extends State<CircleSealScreen>
       ),
       body: SafeArea(
         top: false,
-        child: Column(
-          children: [
-            Expanded(
-              child: Center(
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: AnimatedBuilder(
-                    animation: _compose,
-                    builder: (context, _) => CustomPaint(
-                      key: const Key('circle_seal'),
-                      painter: SealPainter(seal: _seal, progress: _compose.value),
-                    ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
+              SpacingTokens.lg, SpacingTokens.xxxl),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Livello visivo: il sigillo che si compone.
+              AspectRatio(
+                aspectRatio: 1,
+                child: AnimatedBuilder(
+                  animation: _compose,
+                  builder: (context, _) => CustomPaint(
+                    key: const Key('circle_seal'),
+                    painter: SealPainter(seal: _seal, progress: _compose.value),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
-                  SpacingTokens.lg, SpacingTokens.lg),
-              child: Column(
-                children: [
-                  Text(_seal.name,
-                      style: TypographyTokens.display(size: 24)
-                          .copyWith(color: palette.goldSoft)),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${_seal.sign.italianName} · Elemento ${_seal.element.label} · '
-                    'Numero ${_seal.lifePath}',
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.body(size: 14)
-                        .copyWith(color: ColorTokens.textSecondary),
-                  ),
-                  const SizedBox(height: SpacingTokens.md),
-                  _ShareButton(palette: palette, onTap: _share),
-                  const SizedBox(height: SpacingTokens.sm),
-                  Text(
-                    'Disegno procedurale, base del sigillo: l\'arte definitiva '
-                    'arriva dopo.',
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 10).copyWith(
-                      color: palette.goldSoft.withValues(alpha: 0.6),
-                      letterSpacing: 0.2,
-                    ),
-                  ),
-                ],
+              const SizedBox(height: SpacingTokens.sm),
+              Text(_seal.name,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.display(size: 24)
+                      .copyWith(color: palette.goldSoft)),
+              const SizedBox(height: 4),
+              Text(
+                '${_seal.sign.italianName} · Elemento ${_seal.element.label} · '
+                'Numero ${_seal.lifePath}',
+                textAlign: TextAlign.center,
+                style: TypographyTokens.body(size: 14)
+                    .copyWith(color: ColorTokens.textSecondary),
               ),
-            ),
-          ],
+              const SizedBox(height: SpacingTokens.md),
+              // La frase di Medora, sottotitolo sempre attivo, con la voce quando c'e'.
+              _MedoraSubtitle(text: _phrase, palette: palette),
+              const SizedBox(height: SpacingTokens.md),
+              _ShareButton(palette: palette, onTap: _share),
+              const SizedBox(height: SpacingTokens.md),
+              // Chi vuole capire tocca e legge: il pannello si apre a richiesta.
+              _MeaningPanel(
+                seal: _seal,
+                identity: _identity,
+                expanded: _showMeaning,
+                onToggle: () => setState(() => _showMeaning = !_showMeaning),
+                palette: palette,
+              ),
+              const SizedBox(height: SpacingTokens.md),
+              Text(
+                'Disegno procedurale, base del sigillo: l\'arte definitiva '
+                'arriva dopo.',
+                textAlign: TextAlign.center,
+                style: TypographyTokens.label(size: 10).copyWith(
+                  color: palette.goldSoft.withValues(alpha: 0.6),
+                  letterSpacing: 0.2,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+/// La frase di Medora sotto il sigillo, con l'icona della voce a indicare che il
+/// sottotitolo e' sempre attivo, la voce quando il device la sa dire.
+class _MedoraSubtitle extends StatelessWidget {
+  const _MedoraSubtitle({required this.text, required this.palette});
+
+  final String text;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('seal_greeting'),
+      padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+        gradient: LinearGradient(colors: [
+          palette.surfaceElevated.withValues(alpha: 0.7),
+          palette.deepest.withValues(alpha: 0.6),
+        ]),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.graphic_eq_rounded, size: 18, color: palette.goldSoft),
+          const SizedBox(width: SpacingTokens.sm),
+          Expanded(
+            child: Text(
+              text,
+              style: TypographyTokens.body(size: 15).copyWith(
+                color: ColorTokens.textPrimary,
+                fontStyle: FontStyle.italic,
+                height: 1.35,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Il pannello "Cosa significa": da dove nasce ogni cosa del sigillo. La ruota e
+/// lo zodiaco col Sole nel segno, il Numero e la riduzione passo per passo, e
+/// l'elemento con la sua natura.
+class _MeaningPanel extends StatelessWidget {
+  const _MeaningPanel({
+    required this.seal,
+    required this.identity,
+    required this.expanded,
+    required this.onToggle,
+    required this.palette,
+  });
+
+  final CircleSeal seal;
+  final BirthIdentity identity;
+  final bool expanded;
+  final VoidCallback onToggle;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final breakdown = LifePath.breakdown(identity.birthMoment);
+    return DepthCard(
+      raised: true,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            key: const Key('seal_meaning_toggle'),
+            onTap: onToggle,
+            child: Row(
+              children: [
+                Icon(Icons.menu_book_rounded, size: 20, color: palette.goldSoft),
+                const SizedBox(width: SpacingTokens.sm),
+                Expanded(
+                  child: Text('Cosa significa',
+                      style: TypographyTokens.display(size: 17)
+                          .copyWith(color: palette.goldSoft)),
+                ),
+                Icon(
+                  expanded
+                      ? Icons.keyboard_arrow_up_rounded
+                      : Icons.keyboard_arrow_down_rounded,
+                  color: palette.goldSoft,
+                ),
+              ],
+            ),
+          ),
+          if (expanded) ...[
+            const SizedBox(height: SpacingTokens.md),
+            Column(
+              key: const Key('seal_meaning_panel'),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _MeaningBlock(
+                  icon: Icons.brightness_7_rounded,
+                  title: 'La ruota, lo zodiaco',
+                  body:
+                      'La ruota esterna è lo zodiaco. Il Sole si posa nel tuo '
+                      'segno, ${seal.sign.italianName}: da lì nasce il tuo tono.',
+                  palette: palette,
+                ),
+                const SizedBox(height: SpacingTokens.md),
+                _MeaningBlock(
+                  icon: Icons.tag_rounded,
+                  title: 'Il Numero della vita: ${seal.lifePath}',
+                  body:
+                      'Nasce dalla tua data di nascita, ridotta a una cifra passo '
+                      'per passo.',
+                  palette: palette,
+                  steps: breakdown.steps,
+                ),
+                const SizedBox(height: SpacingTokens.md),
+                _MeaningBlock(
+                  icon: Icons.local_fire_department_rounded,
+                  title: 'L\'elemento: ${seal.element.label}',
+                  body: seal.element.meaning,
+                  palette: palette,
+                ),
+              ],
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// Un blocco del pannello: icona, titolo, riga di significato e, per il Numero,
+/// i passaggi della riduzione.
+class _MeaningBlock extends StatelessWidget {
+  const _MeaningBlock({
+    required this.icon,
+    required this.title,
+    required this.body,
+    required this.palette,
+    this.steps,
+  });
+
+  final IconData icon;
+  final String title;
+  final String body;
+  final MaestroPalette palette;
+  final List<String>? steps;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, size: 18, color: palette.goldSoft),
+        const SizedBox(width: SpacingTokens.sm),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title,
+                  style: TypographyTokens.display(size: 15)
+                      .copyWith(color: ColorTokens.textPrimary)),
+              const SizedBox(height: 2),
+              Text(body,
+                  style: TypographyTokens.body(size: 13).copyWith(
+                      color: ColorTokens.textSecondary, height: 1.35)),
+              if (steps != null) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                for (final line in steps!)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 3),
+                    child: Text(line,
+                        style: TypographyTokens.body(size: 13).copyWith(
+                          color: palette.goldSoft,
+                          height: 1.3,
+                        )),
+                  ),
+              ],
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -172,7 +393,7 @@ class _ShareButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
         child: Container(
           padding: const EdgeInsets.symmetric(
-              horizontal: SpacingTokens.lg, vertical: SpacingTokens.sm),
+              horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
             gradient: LinearGradient(colors: [
@@ -182,13 +403,18 @@ class _ShareButton extends StatelessWidget {
             border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
           ),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.ios_share_rounded, size: 18, color: palette.goldSoft),
               const SizedBox(width: SpacingTokens.sm),
-              Text('Condividi il sigillo',
-                  style: TypographyTokens.display(size: 15)
-                      .copyWith(color: palette.goldSoft)),
+              Flexible(
+                child: Text('Condividi il sigillo',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TypographyTokens.display(size: 15)
+                        .copyWith(color: palette.goldSoft)),
+              ),
             ],
           ),
         ),

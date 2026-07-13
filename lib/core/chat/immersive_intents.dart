@@ -4,7 +4,7 @@ import '../maestro/maestro.dart';
 enum ImmersiveTarget {
   tarocchiStesa,
   cartaNatale,
-  sinastriaCeleb,
+  sinastriaVip,
   oroscopoGiorno,
   meditazione,
   breathwork,
@@ -75,7 +75,7 @@ class ImmersiveIntents {
     ),
     ImmersiveIntent(
       maestro: Maestro.medora,
-      target: ImmersiveTarget.sinastriaCeleb,
+      target: ImmersiveTarget.sinastriaVip,
       keywords: [
         'sinastria',
         'compatibilita con',
@@ -85,7 +85,7 @@ class ImmersiveIntents {
       ],
       invite:
           'Due cieli che si sfiorano si leggono meglio a occhi aperti. Scegliamo la stella.',
-      buttonLabel: 'Apri la Sinastria',
+      buttonLabel: 'Apri la Sinastria VIP',
     ),
     ImmersiveIntent(
       maestro: Maestro.medora,

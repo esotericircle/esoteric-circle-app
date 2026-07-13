@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/identity/profile_controller.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -10,12 +11,15 @@ import '../../design_system/tokens/typography_tokens.dart';
 import 'greeting_controller.dart';
 
 /// Il saluto per nome della primissima apertura del Santuario, mostrato come
-/// sottotitolo in cima. Compare una volta, si dissolve dopo qualche secondo o al
-/// tocco. La voce Gemini-TTS, quando c'e', accompagna il sottotitolo sul device.
+/// striscia bassa che sale sopra la barra, cosi' non copre mai il titolo ne' la
+/// figura del Maestro. Compare una volta, si dissolve dopo qualche secondo o al
+/// tocco. Usa il nome reale della persona (mai il nome del tier). La voce
+/// Gemini-TTS, quando c'e', accompagna il sottotitolo sul device.
 class GreetingBanner extends StatefulWidget {
-  const GreetingBanner({super.key, this.name = 'Viandante'});
+  const GreetingBanner({super.key, this.name});
 
-  final String name;
+  /// Nome con cui salutare. Se assente, si usa il nome reale del profilo.
+  final String? name;
 
   @override
   State<GreetingBanner> createState() => _GreetingBannerState();
@@ -31,7 +35,8 @@ class _GreetingBannerState extends State<GreetingBanner> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_prepared || !mounted) return;
       _prepared = true;
-      context.read<GreetingController>().prepare(name: widget.name);
+      final name = widget.name ?? context.read<ProfileController>().vocative;
+      context.read<GreetingController>().prepare(name: name);
     });
   }
 
@@ -55,7 +60,9 @@ class _GreetingBannerState extends State<GreetingBanner> {
     final palette = context.palette;
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(SpacingTokens.md),
+        // Sale sopra la barra inferiore, lontano dal titolo e dalla figura.
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.md, 0, SpacingTokens.md,
+            SpacingTokens.xxl + SpacingTokens.lg),
         child: GestureDetector(
           key: const Key('santuario_greeting'),
           onTap: () => context.read<GreetingController>().dismiss(),

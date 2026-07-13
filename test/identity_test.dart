@@ -39,6 +39,41 @@ void main() {
         }
       }
     });
+
+    group('Riduzione passo per passo', () {
+      test('mostra ogni passaggio, coerente col numero finale', () {
+        final b = LifePath.breakdown(DateTime(1990, 6, 15));
+        expect(b.number, LifePath.forDate(DateTime(1990, 6, 15)).number);
+        expect(b.number, 4);
+        expect(b.dayRoot, 6);
+        expect(b.monthRoot, 6);
+        expect(b.yearRoot, 1);
+        expect(b.sum, 13);
+        expect(b.steps, [
+          'Giorno 15: 1 + 5 = 6',
+          'Mese 6: 6',
+          'Anno 1990: 1 + 9 + 9 + 0 = 19 → 1 + 9 = 10 → 1 + 0 = 1',
+          'Somma: 6 + 6 + 1 = 13 → 4',
+        ]);
+      });
+
+      test('spiega la riduzione di un singolo numero', () {
+        expect(LifePath.explainReduction(6), '6');
+        expect(LifePath.explainReduction(15), '1 + 5 = 6');
+        expect(LifePath.explainReduction(1990),
+            '1 + 9 + 9 + 0 = 19 → 1 + 9 = 10 → 1 + 0 = 1');
+        // I numeri maestri non si riducono.
+        expect(LifePath.explainReduction(11), '11');
+      });
+
+      test('conserva il numero maestro nella somma', () {
+        final b = LifePath.breakdown(DateTime(1980, 9, 29));
+        expect(b.number, 11);
+        // Giorno 29 -> 11 (maestro), 9, anno 1980 -> 9; 11 + 9 + 9 = 29 -> 11.
+        expect(b.dayRoot, 11);
+        expect(b.steps.last, 'Somma: 11 + 9 + 9 = 29 → 11');
+      });
+    });
   });
 
   group('Fase lunare di nascita', () {

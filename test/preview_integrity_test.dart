@@ -1,0 +1,46 @@
+import 'dart:io';
+
+import 'package:flutter_test/flutter_test.dart';
+
+/// Integrita' dei preview: la build fallisce se anche un solo file atteso in
+/// `docs/preview/` manca. Cosi' la relazione non puo' dichiarare screenshot che
+/// non esistono. I file veri li produce `screenshot_capture_test.dart`; qui si
+/// verifica soltanto che ci siano tutti.
+void main() {
+  // I preview obbligatori della Demo, per nome file.
+  const required = <String>[
+    'piani.png', // schermata prezzi, quattro livelli piu' la card Demo
+    'card-rito-alba.png', // card Rito dell'Alba col Maestro di turno
+    'runa-tramonto-chiusa.png', // Runa del Tramonto, stato chiuso
+    'runa-tramonto.png', // Runa del Tramonto, stato estratto
+    'sigillo-cerchio.png', // Sigillo del Cerchio, nuova esperienza
+    'santuario-alto.png', // Santuario, alto pulito
+    'santuario-scaffale.png', // Santuario, scaffale funzioni a scorrimento
+    'santuario-saluto.png', // saluto del Santuario col nome reale
+    'chat-instradamento.png', // instradamento della chat verso una funzione
+    'sinastria-vip.png', // Sinastria VIP, risultato
+  ];
+
+  test('Tutti i preview obbligatori esistono in docs/preview', () {
+    final missing = <String>[
+      for (final name in required)
+        if (!File('docs/preview/$name').existsSync()) name,
+    ];
+    expect(
+      missing,
+      isEmpty,
+      reason: 'Preview mancanti in docs/preview: ${missing.join(', ')}. '
+          'Rigenera gli screenshot con screenshot_capture_test.dart.',
+    );
+  });
+
+  test('Ogni preview obbligatorio non e vuoto', () {
+    for (final name in required) {
+      final file = File('docs/preview/$name');
+      if (file.existsSync()) {
+        expect(file.lengthSync(), greaterThan(0),
+            reason: 'Il preview $name esiste ma e vuoto.');
+      }
+    }
+  });
+}
