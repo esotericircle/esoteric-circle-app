@@ -303,3 +303,30 @@ luogo disponibile compare il pre-avviso e l'accettazione orienta e lo dichiara;
 col permesso negato ripiega con un messaggio; col momento fissato (cielo di
 nascita, test) non chiede mai nulla. Screenshot: `cielo-avvio-posizione.png`
 (pre-avviso) e `cielo-sopra-di-te.png` (veduta pulita).
+
+## Punto 6, cielo di nascita immersivo — FATTO
+
+Il cielo di nascita riusa lo stesso motore immersivo del cielo di adesso (tre
+piani di stelle dense con parallasse giroscopio piu' dito, tela piu' ampia dello
+schermo ed esplorabile, accenno di Via Lattea, forme reali degli asterismi,
+corpi toccabili con etichetta e riga). La differenza: e' ancorato al momento di
+nascita e fisso (identita'), quindi la Luna e le costellazioni sono quelle della
+notte di nascita, non di adesso; e non chiede mai la posizione. Realizzato con un
+flag `birth` su `SkyOverviewScreen` e una `birthRoute(birthMoment:)`: cambia
+titolo ("Il tuo cielo di nascita"), voce di Medora sull'identita' e testo della
+cartolina. E' connesso dove gia' vive, il portale "Il tuo cielo di nascita" nel
+Cosmic Passport, ora attivo (le altre voci restano dietro il velo). Finche'
+l'onboarding non raccoglie nascita e luogo reali, usa un momento d'esempio,
+dichiarato in-world nella scheda. Test: la volta di nascita e' fissa, parla di
+identita' e non chiede il luogo; il portale del passaporto la apre. Screenshot:
+`cielo-di-nascita.png` e `passport.png` (portale attivo).
+
+## Note e dubbi del terzo batch
+
+- Orientamento sul luogo (Punto 5): la longitudine e la latitudine danno uno
+  spostamento simbolico della volta, non la proiezione alt-azimut reale, che
+  resta al motore a effemeridi (dichiarato in-world). Quando arrivera' il motore,
+  qui si innesta il calcolo esatto.
+- Momento di nascita d'esempio (Punto 6): segnaposto in attesa di BirthIdentity
+  dalle effemeridi. Il collegamento e' pronto: bastera' passare il momento reale
+  a `birthRoute`.

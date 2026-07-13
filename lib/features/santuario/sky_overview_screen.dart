@@ -37,9 +37,11 @@ class SkyOverviewScreen extends StatefulWidget {
     super.key,
     this.now,
     this.location = const DisabledSkyLocation(),
+    this.birth = false,
   });
 
   /// Momento del cielo, iniettabile per i test; di default l'ora di adesso.
+  /// Per il cielo di nascita e' il momento fisso della nascita.
   final DateTime? now;
 
   /// Sorgente della posizione, per orientare il cielo sul luogo reale. Di
@@ -48,6 +50,11 @@ class SkyOverviewScreen extends StatefulWidget {
   /// momento e' l'adesso reale (`now` nullo) e la sorgente e' disponibile.
   final SkyLocation location;
 
+  /// Se e' il cielo di nascita: stesso motore immersivo, ma ancorato alla
+  /// notte di nascita e fisso (identita'). Cambia titolo e voce, e non chiede
+  /// mai la posizione: il luogo e' quello della nascita, non l'adesso.
+  final bool birth;
+
   static Route<void> route({DateTime? now, SkyLocation? location}) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
@@ -55,6 +62,16 @@ class SkyOverviewScreen extends StatefulWidget {
           now: now,
           location: location ?? const GeolocatorSkyLocation(),
         ),
+      ),
+    );
+  }
+
+  /// Il cielo di nascita, ancorato alla notte di nascita e fisso. Riusa il
+  /// motore immersivo del cielo di adesso, con la voce di Medora sull'identita'.
+  static Route<void> birthRoute({required DateTime birthMoment}) {
+    return MaterialPageRoute<void>(
+      builder: (_) => MaestroScope(
+        child: SkyOverviewScreen(now: birthMoment, birth: true),
       ),
     );
   }
@@ -239,14 +256,20 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     if (format == null || !context.mounted) return;
     try {
       final bytes = await SkyPostcard.render(
-          now: now, moon: moon, high: high, palette: palette, format: format);
+          now: now,
+          moon: moon,
+          high: high,
+          palette: palette,
+          format: format,
+          birth: widget.birth);
       final dir = await getTemporaryDirectory();
-      final file = File('${dir.path}/esoteric_cielo_${format.name}.png');
+      final kind = widget.birth ? 'nascita' : 'cielo';
+      final file = File('${dir.path}/esoteric_${kind}_${format.name}.png');
       await file.writeAsBytes(bytes);
       await SharePlus.instance.share(
         ShareParams(
           files: [XFile(file.path, mimeType: 'image/png')],
-          text: SkyPostcard.shareText(now),
+          text: SkyPostcard.shareText(now, birth: widget.birth),
         ),
       );
     } catch (_) {
@@ -357,8 +380,11 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Il cielo sopra di te',
-            style: TypographyTokens.display(size: 20)),
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(SkyPostcard.titleFor(birth: widget.birth),
+              style: TypographyTokens.display(size: 20)),
+        ),
         actions: [
           IconButton(
             key: const Key('sky_share'),
@@ -427,7 +453,8 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                     child: _SkyInfoCard(
                         selected: selected,
                         palette: palette,
-                        oriented: _place != null),
+                        oriented: _place != null,
+                        birth: widget.birth),
                   ),
                 ),
               ],
@@ -729,6 +756,7 @@ class _SkyInfoCard extends StatelessWidget {
     required this.selected,
     required this.palette,
     this.oriented = false,
+    this.birth = false,
   });
 
   final _SkyBody? selected;
@@ -736,6 +764,9 @@ class _SkyInfoCard extends StatelessWidget {
 
   /// Se il cielo e' orientato sul luogo reale dell'utente.
   final bool oriented;
+
+  /// Se e' il cielo di nascita: la voce di Medora parla dell'identita'.
+  final bool birth;
 
   @override
   Widget build(BuildContext context) {
@@ -759,15 +790,20 @@ class _SkyInfoCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            s?.label ?? 'Il cielo di stanotte',
+            s?.label ??
+                (birth ? 'Il cielo della tua nascita' : 'Il cielo di stanotte'),
             style: TypographyTokens.display(size: 18)
                 .copyWith(color: palette.goldSoft),
           ),
           const SizedBox(height: 4),
           Text(
             s?.description ??
-                'Sfiora il cielo col dito o inclina il telefono, poi tocca la '
-                    'Luna o una costellazione per sapere cosa è.',
+                (birth
+                    ? 'La volta che ti ha accolto nella tua prima notte. Sfiora '
+                        'il cielo, poi tocca la Luna o una costellazione per '
+                        'sapere cosa vegliava su di te.'
+                    : 'Sfiora il cielo col dito o inclina il telefono, poi '
+                        'tocca la Luna o una costellazione per sapere cosa è.'),
             style: TypographyTokens.body(size: 14)
                 .copyWith(color: ColorTokens.textSecondary),
           ),
@@ -779,10 +815,13 @@ class _SkyInfoCard extends StatelessWidget {
               const SizedBox(width: 6),
               Flexible(
                 child: Text(
-                  oriented
-                      ? 'Orientato sul tuo luogo. La volta piena in alt-azimut '
-                          'è custodita dal motore a effemeridi.'
-                      : 'I pianeti si uniranno presto al tuo cielo.',
+                  birth
+                      ? 'Veduta d\'esempio finché non registri nascita e luogo. '
+                          'La volta esatta viene dal motore a effemeridi.'
+                      : oriented
+                          ? 'Orientato sul tuo luogo. La volta piena in '
+                              'alt-azimut è custodita dal motore a effemeridi.'
+                          : 'I pianeti si uniranno presto al tuo cielo.',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TypographyTokens.label(size: 10).copyWith(

@@ -6,6 +6,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../santuario/sky_overview_screen.dart';
 import '../settings/settings_screen.dart';
 
 /// Schermata segnaposto del Cosmic Passport.
@@ -82,6 +83,14 @@ class CosmicPassport extends StatelessWidget {
               ),
             ),
           ),
+          // Il portale gia' vivo: il cielo di nascita, immersivo ed esplorabile
+          // con lo stesso motore del cielo di adesso, ma fisso sulla notte di
+          // nascita. Le altre voci restano dietro il velo.
+          const SliverPadding(
+            padding: EdgeInsets.fromLTRB(SpacingTokens.lg, 0, SpacingTokens.lg,
+                SpacingTokens.sm),
+            sliver: SliverToBoxAdapter(child: _BirthSkyPortalCard()),
+          ),
           // Colonna di tessere "in arrivo", una per ogni fatto identitario.
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
@@ -100,6 +109,60 @@ class CosmicPassport extends StatelessWidget {
             child: SizedBox(height: SpacingTokens.xxxl),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Il portale gia' attivo del passaporto: apre "Il tuo cielo di nascita", la
+/// volta immersiva ancorata alla notte di nascita. Finche' non ci sono nascita
+/// e luogo reali (BirthIdentity dalle effemeridi), usa un momento d'esempio,
+/// dichiarato in-world nella schermata stessa.
+class _BirthSkyPortalCard extends StatelessWidget {
+  const _BirthSkyPortalCard();
+
+  // Momento di nascita d'esempio, finche' l'onboarding non raccoglie il dato
+  // reale. La schermata lo dichiara come veduta d'esempio.
+  static final DateTime _placeholderBirth = DateTime(1990, 6, 15, 2, 30);
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+
+    return GestureDetector(
+      key: const Key('passport_birth_sky'),
+      behavior: HitTestBehavior.opaque,
+      onTap: () => Navigator.of(context).push(
+        SkyOverviewScreen.birthRoute(birthMoment: _placeholderBirth),
+      ),
+      child: DepthCard(
+        padding: const EdgeInsets.all(SpacingTokens.md),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(Icons.nights_stay, color: palette.goldSoft, size: 28),
+            const SizedBox(width: SpacingTokens.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Il tuo cielo di nascita',
+                    style: TypographyTokens.display(size: 18),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'La volta della tua prima notte, da esplorare con Medora.',
+                    style: TypographyTokens.body(size: 14)
+                        .copyWith(color: ColorTokens.textSecondary),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: SpacingTokens.sm),
+            Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+          ],
+        ),
       ),
     );
   }

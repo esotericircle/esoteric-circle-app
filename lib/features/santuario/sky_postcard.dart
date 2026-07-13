@@ -54,10 +54,13 @@ class SkyPostcard {
   }
 
   /// Testo precompilato per il foglio di condivisione, con hashtag.
-  static String shareText(DateTime now) =>
-      'Il mio cielo di stanotte, ${formatDate(now)}. '
-      'Scopri il tuo con ${Brand.name}. '
-      '#EsotericCircle #IlCieloSopraDiTe #astrologia #luna';
+  static String shareText(DateTime now, {bool birth = false}) => birth
+      ? 'Il mio cielo di nascita, ${formatDate(now)}. '
+          'Scopri il tuo con ${Brand.name}. '
+          '#EsotericCircle #CieloDiNascita #cartanatale #astrologia'
+      : 'Il mio cielo di stanotte, ${formatDate(now)}. '
+          'Scopri il tuo con ${Brand.name}. '
+          '#EsotericCircle #IlCieloSopraDiTe #astrologia #luna';
 
   /// Titolo mostrato in cartolina: cielo di adesso o cielo di nascita.
   static String titleFor({required bool birth}) =>

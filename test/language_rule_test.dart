@@ -89,5 +89,10 @@ void main() {
       expectClean(SkyPostcard.poeticLine(now), 'riga poetica $doy');
     }
     expectClean(SkyPostcard.shareText(DateTime(2026, 7, 13)), 'testo condivisione');
+    expectClean(SkyPostcard.shareText(DateTime(2026, 7, 13), birth: true),
+        'testo condivisione nascita');
+    for (final birth in [false, true]) {
+      expectClean(SkyPostcard.titleFor(birth: birth), 'titolo cartolina $birth');
+    }
   });
 }

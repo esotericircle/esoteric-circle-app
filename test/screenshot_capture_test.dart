@@ -350,6 +350,22 @@ void main() {
     await capture(tester, rootKey, 'passport.png');
   });
 
+  // --- Il cielo di nascita, aperto dal portale del Cosmic Passport ---
+  testWidgets('Cattura Il tuo cielo di nascita', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+    // Dal portale attivo del passaporto si apre la volta di nascita, immersiva
+    // e fissa. Non chiede la posizione: il luogo e' quello della nascita.
+    await tester.tap(find.byKey(const Key('passport_birth_sky')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'cielo-di-nascita.png');
+  });
+
   testWidgets('Cattura le Impostazioni', (tester) async {
     silenceSensors();
     await loadFonts();
