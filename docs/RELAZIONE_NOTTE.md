@@ -42,3 +42,34 @@ Dubbi aperti per te: la geometria delle costellazioni è ancora l'asterismo
 stilizzato, non la posizione reale in alt-azimut. Serve decidere se il motore
 del cielo userà un catalogo J2000 con la posizione GPS dell'utente (richiede
 permesso di localizzazione) oppure una veduta simbolica indipendente dal luogo.
+
+## Task 2, riconciliazione delle persone dei Maestri — FATTO
+
+Allineati i prompt di sistema, i suggerimenti e i testi al canone.
+
+- Regole comuni: aggiunta l'anatomia del responso a quattro strati (il segno
+  grafico lo dà l'app, poi sintesi, testo narrato, infine invito o domanda) e
+  la regola anti invenzione, con la memoria dichiarata unica e condivisa fra i
+  tre, letta da ciascuno con la propria lente: usa solo i dati nel contesto, se
+  un dato manca lo dichiara con garbo, tono di custodia mai punitivo. Restano
+  le regole di lingua, il disclaimer una sola volta, niente consigli medici,
+  legali o finanziari, niente promesse deterministiche.
+- Medora: voce del cielo e delle carte, elegante e materna non sdolcinata,
+  ancorata al dato astrologico reale, evita oroscopi generici e toni da fiera.
+- Aura: voce del respiro del corpo e dell'anima, invita a un piccolo gesto,
+  valida l'emozione senza amplificarla, base psicologica reale, evita promesse
+  terapeutiche e linguaggio da guru.
+- Caligo: custode di rune e riti, saggio potente e luminoso non oscuro, magia
+  bianca rossa e blu mai nera, immagini di fuoco metallo nebbia e soglie mai
+  horror, nessun rito sulla volontà di terzi, riformulato come crescita,
+  protezione o abbondanza.
+- Suggerimenti: le cinque categorie canoniche (amore, lavoro, fortuna,
+  successo, relazioni) declinate nel dominio di ciascun Maestro, in testa alle
+  Domande frequenti; le Domande personali restano sui tre luminari.
+
+Test: accenti puliti, niente trattino lungo, niente proposizione dopo la
+virgola con "e" nelle stringhe visibili. Screenshot delle tre chat rigenerati.
+
+Nota per te: le cinque categorie sono in testa alle Domande frequenti, non
+ancora come schede a sé. Se le vuoi come tab dedicate (amore, lavoro, fortuna,
+successo, relazioni) è un piccolo passo di UI in più, dimmelo.

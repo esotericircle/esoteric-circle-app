@@ -27,16 +27,16 @@ extension SuggestionGroupLabel on SuggestionGroup {
 class SuggestionSets {
   const SuggestionSets._();
 
+  // Le cinque categorie canoniche in testa (amore, lavoro, fortuna, successo,
+  // relazioni), declinate nel dominio del Maestro, poi qualche apertura propria.
   static const List<String> _frequentMedora = [
+    'Cosa dicono le stelle sul mio amore?',
+    'Che indicano gli astri sul mio lavoro?',
+    'Dove si apre la mia fortuna in questi giorni?',
+    'Le stelle sostengono un mio traguardo?',
+    'Cosa muove le mie relazioni ora?',
     'Parlami del mio segno',
-    'Come sarà la mia giornata?',
     'Tira una carta per me',
-    'Cosa dicono le stelle di oggi?',
-    'Un consiglio per l\'amore',
-    'Un consiglio per il lavoro',
-    'Parlami dei miei pianeti',
-    'Cosa mi riservano i prossimi giorni?',
-    'Qual è la mia carta guida?',
     'Parlami dei miei transiti',
   ];
 
@@ -56,16 +56,14 @@ class SuggestionSets {
   ];
 
   static const List<String> _frequentAura = [
-    'Aiutami a rilassarmi',
+    'Come apro il cuore all\'amore?',
+    'Un respiro per la tensione del lavoro',
+    'Come mi apro al flusso che arriva?',
+    'Come trovo la calma prima di un traguardo?',
+    'Come porto equilibrio nelle mie relazioni?',
     'Guidami in una meditazione breve',
-    'Come ritrovo equilibrio?',
-    'Parlami dei chakra',
     'Quale chakra devo riequilibrare?',
     'Un respiro per calmare la mente',
-    'Una frequenza per stasera',
-    'Come sciolgo la tensione?',
-    'Aiutami a dormire meglio',
-    'Un gesto per ritrovare energia',
   ];
 
   static const List<String> _personalAura = [
@@ -84,16 +82,14 @@ class SuggestionSets {
   ];
 
   static const List<String> _frequentCaligo = [
+    'Quale runa parla del mio amore?',
+    'Un simbolo per la forza nel lavoro',
+    'Una runa per attirare abbondanza',
+    'Quale rito sostiene un mio traguardo?',
+    'Cosa dicono i simboli delle mie relazioni?',
     'Estrai una runa per me',
-    'Parlami di un simbolo',
-    'Un presagio per oggi',
-    'Guidami in un rito semplice',
-    'Quale runa mi accompagna?',
-    'Parlami dell\'Albero della Vita',
-    'Qual è il mio animale guida?',
-    'Un archetipo che mi riguarda',
     'Un simbolo di protezione',
-    'Cosa dice il silenzio?',
+    'Qual è il mio animale guida?',
   ];
 
   static const List<String> _personalCaligo = [
