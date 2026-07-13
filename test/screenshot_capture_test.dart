@@ -269,6 +269,21 @@ void main() {
     await capture(tester, rootKey, 'santuario-invito.png');
   });
 
+  // --- La schermata "Il cielo sopra di te", aperta dal cielo del Santuario ---
+  testWidgets('Cattura Il cielo sopra di te', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_sky_tap')));
+    await step(tester);
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'cielo-sopra-di-te.png');
+  });
+
   // --- L'hub di dominio e il Cosmic Passport ---
   testWidgets('Cattura l\'hub di dominio, medora', (tester) async {
     silenceSensors();
