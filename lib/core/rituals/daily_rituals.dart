@@ -1,0 +1,77 @@
+import '../maestro/maestro.dart';
+import 'runes.dart';
+
+/// I contenuti deterministici dei quattro rituali del giorno.
+///
+/// Tutto nasce dalla data, senza rete: lo stesso giorno dà sempre lo stesso
+/// responso, e a mezzanotte cambia. Le voci restano quelle dei Maestri.
+class DailyRituals {
+  const DailyRituals._();
+
+  static int _dayOfYear(DateTime date) =>
+      date.difference(DateTime(date.year)).inDays;
+
+  /// Il Maestro del Rito dell'Alba di oggi, a rotazione di giorno in giorno.
+  static Maestro dawnMaestro(DateTime date) =>
+      Maestro.fixedOrder[_dayOfYear(date) % Maestro.fixedOrder.length];
+
+  /// Il messaggio dell'alba, nella voce del Maestro di turno.
+  static String dawnMessage(DateTime date) {
+    final maestro = dawnMaestro(date);
+    final pool = _dawnPools[maestro]!;
+    return pool[(_dayOfYear(date) ~/ 3) % pool.length];
+  }
+
+  /// Il frammento del Soffio del Destino, nella voce di Aura.
+  static String destinyFragment(DateTime date) =>
+      _destiny[_dayOfYear(date) % _destiny.length];
+
+  /// L'Oracolo del Giorno, nella voce di Medora.
+  static String dayOracle(DateTime date) =>
+      _oracle[_dayOfYear(date) % _oracle.length];
+
+  /// La Runa del Tramonto, estratta dall'Elder Futhark.
+  static Rune sunsetRune(DateTime date) =>
+      kElderFuthark[_dayOfYear(date) % kElderFuthark.length];
+
+  static const Map<Maestro, List<String>> _dawnPools = {
+    Maestro.medora: [
+      'Il cielo si schiarisce: oggi una piccola scelta conta più di mille pensieri.',
+      'La luce nasce a est: porta con te una sola intenzione, chiara.',
+      'Le stelle si ritirano, il giorno è tuo: scrivi la prima riga con calma.',
+      'Un nuovo transito comincia: accogli il giorno come una carta appena girata.',
+    ],
+    Maestro.aura: [
+      'Apri gli occhi, apri il respiro: il primo respiro del giorno è già un dono.',
+      'Prima di alzarti, senti il corpo che si sveglia: ringrazialo con un respiro.',
+      'La mattina chiede dolcezza: un sorso d\'acqua, tre respiri, poi il mondo.',
+      'Posa una mano sul cuore: oggi vai al tuo ritmo, non a quello della fretta.',
+    ],
+    Maestro.caligo: [
+      'L\'alba spezza la notte: alzati come chi varca una soglia, con fermezza.',
+      'Il fuoco del mattino chiede un gesto: scegli una cosa da onorare oggi.',
+      'La nebbia si dirada: cammina deciso, la giornata riconosce chi ha una meta.',
+      'Accendi dentro una brace piccola e salda: basta quella a reggere il giorno.',
+    ],
+  };
+
+  static const List<String> _destiny = [
+    'Il tuo soffio dice: lascia andare un peso vecchio, fai spazio al nuovo.',
+    'Nel respiro trovi la risposta: rallenta, la strada si mostra da sola.',
+    'Un\'energia sopita si risveglia: dà fiato a un desiderio che rimandi.',
+    'Oggi il vento è dalla tua parte: un piccolo coraggio verrà premiato.',
+    'Qualcosa si scioglie dentro: perdona te stesso per una cosa sola.',
+    'Il destino sussurra pazienza: ciò che matura in silenzio è quasi pronto.',
+    'Il tuo respiro apre una porta: di\' sì a un invito che ti fa un po\' paura.',
+  ];
+
+  static const List<String> _oracle = [
+    'La Luna illumina un legame: una parola sincera oggi vale un tesoro.',
+    'Il cielo consiglia misura: non forzare una porta che si apre da sola domani.',
+    'Un pianeta lento ti sostiene: fidati del lavoro fatto, i frutti arrivano.',
+    'Le carte parlano di soglia: un piccolo passo conta più di un grande piano.',
+    'Venere ti guarda con favore: coltiva la bellezza in un gesto minimo.',
+    'Mercurio chiede chiarezza: metti in ordine un pensiero, poi parla.',
+    'Il Sole scalda un progetto: dagli luce oggi, senza pretendere tutto subito.',
+  ];
+}

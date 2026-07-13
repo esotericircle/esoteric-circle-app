@@ -463,3 +463,26 @@ dal dominio con una risposta e l'invito, il Free bloccato sul confronto e sulla
 seconda domanda con l'upgrade, il Tier a pagamento che aggiunge lo sguardo e la
 sintesi. Screenshot: `chiedi-ai-maestri.png` (nuova vista) e i Santuario senza la
 bolla.
+
+## Task 4, i quattro rituali quotidiani — FATTO
+
+Costruiti i quattro rituali del giorno con contenuti deterministici reali dalla
+data (`lib/core/rituals/`), livello visivo prima del testo e ogni sensore con
+ripiego tattile universale (impalcatura condivisa `RitualView`). Ognuno nel suo
+dominio, con la sua schermata e il suo screenshot.
+- Rito dell'Alba: a rotazione tra i tre Maestri di giorno in giorno, messaggio
+  del mattino nella voce del Maestro di turno; appare nel dominio di chi tocca
+  oggi. Gesto tattile. Screenshot `rito-alba.png`.
+- Soffio del Destino (Aura): microfono per il soffio sul device, con ripiego a
+  gesto tattile (tenere premuto) sempre valido. Screenshot `soffio-destino.png`.
+- Oracolo del Giorno (Medora): rivelazione al giroscopio sul device, con ripiego
+  allo scorrimento del dito. Screenshot `oracolo-giorno.png`.
+- La Runa del Tramonto (Caligo): estrazione di una runa dell'Elder Futhark
+  (ventiquattro segni con significato reale), deterministica dal giorno. Il glifo
+  runico e' disegnato a tratti via codice (`rune_strokes.dart`), non un carattere
+  di font: cosi' e' sempre leggibile, senza dipendere dal blocco runico Unicode
+  ne' da un asset. Screenshot `runa-tramonto.png`.
+Dove serve, l'arte definitiva di brand e' dichiarata segnaposto (in arrivo dal
+bucket), il resto e' reale. Test: contenuti deterministici, rotazione dell'alba,
+Futhark completo, e per ogni schermata il livello visivo prima del testo con il
+ripiego tattile che rivela il responso.

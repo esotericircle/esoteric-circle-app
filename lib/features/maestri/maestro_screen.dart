@@ -10,7 +10,12 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/rituals/daily_rituals.dart';
 import '../../services/app_services.dart';
+import '../rituals/breath_destiny_screen.dart';
+import '../rituals/dawn_rite_screen.dart';
+import '../rituals/day_oracle_screen.dart';
+import '../rituals/sunset_rune_screen.dart';
 import 'ask/ask_maestri_screen.dart';
 import 'aura/meditation/meditation_screen.dart';
 import 'chat/maestro_chat_screen.dart';
@@ -25,6 +30,53 @@ class MaestroScreen extends StatelessWidget {
   const MaestroScreen({super.key, required this.maestro});
 
   final Maestro maestro;
+
+  /// Le tessere dei rituali del giorno per questo Maestro: quello del suo
+  /// dominio, e in piu' il Rito dell'Alba se oggi tocca a lui.
+  List<Widget> _ritualCards(BuildContext context, Maestro maestro) {
+    final cards = <Widget>[];
+    if (DailyRituals.dawnMaestro(DateTime.now()) == maestro) {
+      cards.add(_RitualCard(
+        cardKey: const Key('ritual_dawn'),
+        icon: Icons.wb_twilight_rounded,
+        title: 'Rito dell\'Alba',
+        subtitle: 'Il rito del mattino, oggi affidato a te.',
+        onTap: () => Navigator.of(context).push(DawnRiteScreen.route()),
+      ));
+    }
+    switch (maestro) {
+      case Maestro.medora:
+        cards.add(_RitualCard(
+          cardKey: const Key('ritual_oracle'),
+          icon: Icons.brightness_3_rounded,
+          title: 'Oracolo del Giorno',
+          subtitle: 'La lettura del cielo di oggi, al giroscopio o al dito.',
+          onTap: () => Navigator.of(context).push(DayOracleScreen.route()),
+        ));
+      case Maestro.aura:
+        cards.add(_RitualCard(
+          cardKey: const Key('ritual_breath'),
+          icon: Icons.air_rounded,
+          title: 'Soffio del Destino',
+          subtitle: 'Un soffio al microfono, o un tocco: il destino parla.',
+          onTap: () => Navigator.of(context).push(BreathDestinyScreen.route()),
+        ));
+      case Maestro.caligo:
+        cards.add(_RitualCard(
+          cardKey: const Key('ritual_rune'),
+          icon: Icons.change_history_rounded,
+          title: 'La Runa del Tramonto',
+          subtitle: 'Estrai la runa del giorno dall\'antico Futhark.',
+          onTap: () => Navigator.of(context).push(SunsetRuneScreen.route()),
+        ));
+    }
+    return [
+      for (final card in cards) ...[
+        const SizedBox(height: SpacingTokens.md),
+        card,
+      ],
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +138,9 @@ class MaestroScreen extends StatelessWidget {
                   _TalkToMaestroCard(maestro: maestro),
                   const SizedBox(height: SpacingTokens.md),
                   _AskMaestroCard(maestro: maestro),
+                  // I rituali del giorno, ciascuno nel suo dominio, piu' il Rito
+                  // dell'Alba nel Maestro di turno oggi.
+                  ..._ritualCards(context, maestro),
                   // La Meditazione di Aura e' gia' viva: suono generato a
                   // runtime, cimatica e guida al respiro.
                   if (maestro == Maestro.aura) ...[
@@ -159,6 +214,65 @@ class _AskMaestroCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   'Una domanda, poi lo sguardo di un altro Maestro a confronto.',
+                  style: TypographyTokens.body(size: 14)
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+        ],
+      ),
+    );
+  }
+}
+
+/// Tessera di un rituale del giorno nel dominio del Maestro.
+class _RitualCard extends StatelessWidget {
+  const _RitualCard({
+    required this.cardKey,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final Key cardKey;
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return DepthCard(
+      key: cardKey,
+      raised: true,
+      onTap: onTap,
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      child: Row(
+        children: [
+          Container(
+            width: 46,
+            height: 46,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: palette.primary.withValues(alpha: 0.5),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+            ),
+            alignment: Alignment.center,
+            child: Icon(icon, color: palette.goldSoft, size: 24),
+          ),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: TypographyTokens.display(size: 18)),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
                   style: TypographyTokens.body(size: 14)
                       .copyWith(color: ColorTokens.textSecondary),
                 ),

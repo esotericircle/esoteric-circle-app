@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -13,6 +14,10 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
+import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
+import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
+import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -383,6 +388,80 @@ void main() {
     await tester.tap(find.byKey(const Key('meditation_play')));
     await tester.pump(const Duration(milliseconds: 2600));
     await capture(tester, rootKey, 'meditazione-aura.png');
+  });
+
+  // --- I quattro rituali del giorno ---
+  Future<void> captureRitual(
+    WidgetTester tester,
+    GlobalKey rootKey,
+    Route<void> route,
+    Future<void> Function() reveal,
+    String name,
+  ) async {
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(route));
+    await step(tester);
+    await step(tester);
+    await reveal();
+    await tester.pump(const Duration(milliseconds: 700));
+    await capture(tester, rootKey, name);
+  }
+
+  testWidgets('Cattura il Rito dell\'Alba', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await captureRitual(
+      tester,
+      rootKey,
+      DawnRiteScreen.route(now: DateTime(2026, 7, 13)),
+      () async => tester.tap(find.byKey(const Key('ritual_gesture'))),
+      'rito-alba.png',
+    );
+  });
+
+  testWidgets('Cattura il Soffio del Destino', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    await captureRitual(
+      tester,
+      rootKey,
+      BreathDestinyScreen.route(now: DateTime(2026, 7, 13)),
+      () async => tester.longPress(find.byKey(const Key('ritual_gesture'))),
+      'soffio-destino.png',
+    );
+  });
+
+  testWidgets('Cattura l\'Oracolo del Giorno', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await captureRitual(
+      tester,
+      rootKey,
+      DayOracleScreen.route(now: DateTime(2026, 7, 13)),
+      () async => tester.drag(
+          find.byKey(const Key('ritual_gesture')), const Offset(250, 0)),
+      'oracolo-giorno.png',
+    );
+  });
+
+  testWidgets('Cattura la Runa del Tramonto', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    await captureRitual(
+      tester,
+      rootKey,
+      SunsetRuneScreen.route(now: DateTime(2026, 7, 13)),
+      () async => tester.tap(find.byKey(const Key('ritual_gesture'))),
+      'runa-tramonto.png',
+    );
   });
 
   // --- L'hub di dominio e il Cosmic Passport ---
