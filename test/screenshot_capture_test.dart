@@ -2,12 +2,16 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/app.dart';
+import 'package:esoteric_circle/core/astro/moon_phase.dart';
+import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
@@ -267,6 +271,24 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
     await tester.pump(const Duration(milliseconds: 300));
     await capture(tester, rootKey, 'santuario-invito.png');
+  });
+
+  // --- La cartolina condivisibile del cielo, costruita apposta ---
+  testWidgets('Cattura la cartolina del cielo', (tester) async {
+    await loadFonts();
+    await tester.runAsync(() async {
+      final now = DateTime(2026, 7, 13, 22);
+      final bytes = await SkyPostcard.render(
+        now: now,
+        moon: MoonPhase.forDate(now),
+        high: NightSky.constellationsHighTonight(now),
+        palette: MaestroPalette.medora,
+      );
+      final out = File('docs/preview/cartolina-cielo.png');
+      out.createSync(recursive: true);
+      out.writeAsBytesSync(bytes);
+    });
+    expect(File('docs/preview/cartolina-cielo.png').existsSync(), isTrue);
   });
 
   // --- La schermata "Il cielo sopra di te", aperta dal cielo del Santuario ---

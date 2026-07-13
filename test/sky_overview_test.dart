@@ -77,10 +77,12 @@ void main() {
     expect(find.text(NightSky.describe(sign)), findsOneWidget);
   });
 
-  testWidgets('Ha la freccia Indietro, mai un vicolo cieco', (tester) async {
+  testWidgets('Ha la freccia Indietro e il bottone Condividi', (tester) async {
     silence();
     await tester.pumpWidget(host(DateTime.utc(2026, 7, 13, 22)));
     await step(tester);
     expect(find.byIcon(Icons.arrow_back_rounded), findsOneWidget);
+    // Il bottone della cartolina condivisibile.
+    expect(find.byKey(const Key('sky_share')), findsOneWidget);
   });
 }

@@ -205,3 +205,45 @@ best effort su `shared_preferences`. Test: `test/settings_test.dart` (gli
 interruttori aggiornano le preferenze, la cancellazione GDPR chiede conferma e
 azzera davvero i dati, la schermata è raggiungibile dal Passport). Screenshot:
 `docs/preview/impostazioni.png`.
+
+## Task 3, cartolina condivisibile del cielo — FATTO
+
+Nella schermata Il cielo sopra di te c'è ora un bottone Condividi (in alto a
+destra) che genera una card costruita apposta, non uno screenshot.
+
+- La cartolina (`lib/features/santuario/sky_postcard.dart`) è disegnata su un
+  canvas verticale ad alta risoluzione (1080x1920) via `PictureRecorder` ed
+  esportata in PNG: il cielo di stanotte (Luna nella fase reale piu' le
+  costellazioni alte con le forme corrette), la data in italiano, il marchio
+  Esoteric Circle, una riga poetica nella voce di Medora (a rotazione per
+  giorno) e l'invito discreto "Scopri il tuo cielo".
+- Il bottone apre il foglio di condivisione del sistema (`share_plus`) con
+  l'immagine (scritta in un file temporaneo via `path_provider`) e un testo
+  precompilato con hashtag. Su Instagram l'immagine va nelle Storie, per gli
+  altri passa il testo.
+
+Test: `test/sky_postcard_test.dart` (la cartolina genera un PNG valido ad alta
+risoluzione, data e testo di condivisione corretti, righe poetiche con accenti
+giusti e senza "e" dopo la virgola). Screenshot: `docs/preview/cartolina-cielo.png`.
+
+Blocco onesto: l'apertura reale del foglio di condivisione e il salvataggio in
+Storie si vedono solo su device (canali di piattaforma). Qui è coperta la
+generazione della cartolina, non l'apertura del foglio.
+
+## Consegna del secondo batch
+
+- `flutter analyze` pulito, 63 test verdi.
+- Screenshot nuovi o cambiati in `docs/preview/`: `cielo-sopra-di-te.png`
+  (immersivo), `impostazioni.png` (nuova), `cartolina-cielo.png` (nuova).
+- Dipendenze aggiunte: `share_plus`, `path_provider` (condivisione),
+  `fake_cloud_firestore` (test, dal batch precedente).
+
+### Dubbi aperti per te (secondo batch)
+
+1. Cielo immersivo: le forme sono asterismi corretti in un frame locale, non
+   posizioni reali in alt-azimut. Il cielo geolocalizzato richiede il motore a
+   effemeridi e la posizione dell'utente.
+2. Impostazioni: "Modalità semplice" oggi forza la qualità grafica bassa;
+   quando arriverà il rilevamento automatico del device andrà armonizzata.
+3. Cartolina: la condivisione va provata su device reale (Instagram Storie,
+   altre app). Vuoi anche un formato quadrato per il feed, oltre al verticale?

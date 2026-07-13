@@ -1,7 +1,11 @@
 import 'dart:math' as math;
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/night_sky.dart';
@@ -13,6 +17,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import 'sky_postcard.dart';
 import 'widgets/moon_widget.dart';
 
 /// "Il cielo sopra di te": il cielo del momento, immersivo ed esplorabile.
@@ -85,6 +90,31 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     });
   }
 
+  // Genera la cartolina costruita apposta e apre il foglio di condivisione del
+  // sistema con l'immagine e un testo con hashtag. Su Instagram l'immagine va
+  // nelle Storie, altrove passa il testo. Solo su device: qui e' best effort.
+  Future<void> _share(BuildContext context, DateTime now, MoonPhase moon,
+      List<Zodiac> high, MaestroPalette palette) async {
+    try {
+      final bytes = await SkyPostcard.render(
+          now: now, moon: moon, high: high, palette: palette);
+      final dir = await getTemporaryDirectory();
+      final file = File('${dir.path}/esoteric_cielo.png');
+      await file.writeAsBytes(bytes);
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path, mimeType: 'image/png')],
+          text: SkyPostcard.shareText(now),
+        ),
+      );
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Non è stato possibile condividere ora.')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
@@ -135,6 +165,14 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
         ),
         title: Text('Il cielo sopra di te',
             style: TypographyTokens.display(size: 20)),
+        actions: [
+          IconButton(
+            key: const Key('sky_share'),
+            icon: const Icon(Icons.ios_share_rounded),
+            tooltip: 'Condividi il tuo cielo',
+            onPressed: () => _share(context, now, moon, high, palette),
+          ),
+        ],
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
