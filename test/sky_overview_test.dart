@@ -85,4 +85,16 @@ void main() {
     // Il bottone della cartolina condivisibile.
     expect(find.byKey(const Key('sky_share')), findsOneWidget);
   });
+
+  testWidgets('Condividi offre i due formati, Storia e Feed', (tester) async {
+    silence();
+    await tester.pumpWidget(host(DateTime.utc(2026, 7, 13, 22)));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('sky_share')));
+    await step(tester);
+    // Appare la scelta del formato; non procediamo oltre (i canali di
+    // piattaforma di condivisione non esistono in headless).
+    expect(find.byKey(const Key('share_story')), findsOneWidget);
+    expect(find.byKey(const Key('share_feed')), findsOneWidget);
+  });
 }

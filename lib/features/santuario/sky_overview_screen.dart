@@ -90,16 +90,19 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     });
   }
 
-  // Genera la cartolina costruita apposta e apre il foglio di condivisione del
-  // sistema con l'immagine e un testo con hashtag. Su Instagram l'immagine va
-  // nelle Storie, altrove passa il testo. Solo su device: qui e' best effort.
+  // Offre il formato (Storia verticale o Feed quadrato), genera la cartolina
+  // costruita apposta e apre il foglio di condivisione del sistema con
+  // l'immagine e un testo con hashtag. Su Instagram l'immagine va nelle Storie,
+  // altrove passa il testo. Solo su device: qui e' best effort.
   Future<void> _share(BuildContext context, DateTime now, MoonPhase moon,
       List<Zodiac> high, MaestroPalette palette) async {
+    final format = await _chooseFormat(context, palette);
+    if (format == null || !context.mounted) return;
     try {
       final bytes = await SkyPostcard.render(
-          now: now, moon: moon, high: high, palette: palette);
+          now: now, moon: moon, high: high, palette: palette, format: format);
       final dir = await getTemporaryDirectory();
-      final file = File('${dir.path}/esoteric_cielo.png');
+      final file = File('${dir.path}/esoteric_cielo_${format.name}.png');
       await file.writeAsBytes(bytes);
       await SharePlus.instance.share(
         ShareParams(
@@ -113,6 +116,58 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
         const SnackBar(content: Text('Non è stato possibile condividere ora.')),
       );
     }
+  }
+
+  Future<PostcardFormat?> _chooseFormat(
+      BuildContext context, MaestroPalette palette) {
+    return showModalBottomSheet<PostcardFormat>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (sheetContext) => Container(
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
+            SpacingTokens.lg, SpacingTokens.xl),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [palette.surfaceElevated, palette.deepest],
+          ),
+          borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(SpacingTokens.radiusXl)),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+        ),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Condividi il tuo cielo',
+                  style: TypographyTokens.display(size: 18)
+                      .copyWith(color: palette.goldSoft)),
+              const SizedBox(height: SpacingTokens.md),
+              _FormatOption(
+                itemKey: const Key('share_story'),
+                icon: Icons.crop_portrait_rounded,
+                title: 'Storia',
+                subtitle: 'Verticale, per le Storie.',
+                palette: palette,
+                onTap: () =>
+                    Navigator.of(sheetContext).pop(PostcardFormat.story),
+              ),
+              _FormatOption(
+                itemKey: const Key('share_feed'),
+                icon: Icons.crop_square_rounded,
+                title: 'Feed',
+                subtitle: 'Quadrato, per il feed.',
+                palette: palette,
+                onTap: () =>
+                    Navigator.of(sheetContext).pop(PostcardFormat.feed),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -584,6 +639,58 @@ class _SkyInfoCard extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Una scelta di formato nel foglio di condivisione.
+class _FormatOption extends StatelessWidget {
+  const _FormatOption({
+    required this.itemKey,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.palette,
+    required this.onTap,
+  });
+
+  final Key itemKey;
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final MaestroPalette palette;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      key: itemKey,
+      borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.sm, vertical: SpacingTokens.sm),
+        child: Row(
+          children: [
+            Icon(icon, color: palette.goldSoft, size: 26),
+            const SizedBox(width: SpacingTokens.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: TypographyTokens.display(size: 17)),
+                  Text(
+                    subtitle,
+                    style: TypographyTokens.body(size: 13)
+                        .copyWith(color: ColorTokens.textSecondary),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+          ],
+        ),
       ),
     );
   }

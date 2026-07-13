@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:esoteric_circle/core/astro/moon_phase.dart';
 import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
@@ -7,20 +9,34 @@ import 'package:flutter_test/flutter_test.dart';
 /// La cartolina del cielo e' costruita apposta (non uno screenshot) ed esportata
 /// in PNG ad alta risoluzione.
 void main() {
-  testWidgets('La cartolina si genera in PNG ad alta risoluzione',
+  testWidgets('La cartolina si genera nei due formati, verticale e quadrato',
       (tester) async {
     await tester.runAsync(() async {
       final now = DateTime(2026, 7, 13, 22);
-      final bytes = await SkyPostcard.render(
-        now: now,
-        moon: MoonPhase.forDate(now),
-        high: NightSky.constellationsHighTonight(now),
-        palette: MaestroPalette.medora,
-      );
-      // PNG non vuoto, con la firma corretta.
-      expect(bytes.length, greaterThan(2000));
-      expect(bytes.sublist(0, 8),
-          [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);
+      final moon = MoonPhase.forDate(now);
+      final high = NightSky.constellationsHighTonight(now);
+
+      Future<(int, int, int)> renderInfo(PostcardFormat format) async {
+        final bytes = await SkyPostcard.render(
+          now: now,
+          moon: moon,
+          high: high,
+          palette: MaestroPalette.medora,
+          format: format,
+        );
+        expect(bytes.length, greaterThan(2000));
+        expect(bytes.sublist(0, 8),
+            [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);
+        final codec = await ui.instantiateImageCodec(bytes);
+        final frame = await codec.getNextFrame();
+        return (bytes.length, frame.image.width, frame.image.height);
+      }
+
+      final story = await renderInfo(PostcardFormat.story);
+      final feed = await renderInfo(PostcardFormat.feed);
+      // Verticale 1080x1920, quadrato 1080x1080.
+      expect((story.$2, story.$3), (1080, 1920));
+      expect((feed.$2, feed.$3), (1080, 1080));
     });
   });
 

@@ -10,17 +10,27 @@ import '../../core/astro/zodiac.dart';
 import '../../core/brand/brand.dart';
 import '../../design_system/theme/maestro_palette.dart';
 
+/// Formato della cartolina: verticale per le Storie, quadrato per il feed.
+enum PostcardFormat {
+  story(1080, 1920, 'Storia'),
+  feed(1080, 1080, 'Feed');
+
+  const PostcardFormat(this.width, this.height, this.label);
+
+  final double width;
+  final double height;
+  final String label;
+}
+
 /// La cartolina condivisibile del cielo, costruita apposta, non uno screenshot.
 ///
-/// Disegna un widget fuori schermo (un canvas verticale ad alta risoluzione) e
-/// lo esporta in PNG: il cielo di stanotte, la data, il marchio Esoteric Circle,
-/// una riga poetica nella voce di Medora e un invito discreto. Nessun widget da
-/// montare, tutto deterministico e testabile.
+/// Disegna un canvas fuori schermo ad alta risoluzione e lo esporta in PNG: il
+/// cielo (Luna nella fase e costellazioni con le forme corrette), la data, il
+/// marchio, una riga poetica nella voce di Medora e un invito discreto. Il
+/// layout si adatta al formato: verticale 1080x1920 per le Storie, quadrato
+/// 1080x1080 per il feed. Nessun widget da montare, tutto deterministico.
 class SkyPostcard {
   const SkyPostcard._();
-
-  static const double width = 1080;
-  static const double height = 1920;
 
   static const List<String> _months = [
     'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno',
@@ -30,9 +40,9 @@ class SkyPostcard {
   static const List<String> _poeticLines = [
     'Stanotte il cielo si china su di te e ti chiama per nome.',
     'Le stelle non decidono, ti accompagnano: ascolta, poi scegli.',
-    'Ogni luce lassù è un ricordo che il buio custodisce per te.',
+    'Ogni luce lassù è un ricordo che il buio custodisce per te.',
     'La Luna non ha fretta: stanotte nemmeno tu.',
-    'Guarda in alto: il tuo cielo ti stava già aspettando.',
+    'Guarda in alto: il tuo cielo ti stava già aspettando.',
   ];
 
   static String formatDate(DateTime d) =>
@@ -49,35 +59,45 @@ class SkyPostcard {
       'Scopri il tuo con ${Brand.name}. '
       '#EsotericCircle #IlCieloSopraDiTe #astrologia #luna';
 
-  /// Costruisce la cartolina e la esporta in PNG.
+  /// Titolo mostrato in cartolina: cielo di adesso o cielo di nascita.
+  static String titleFor({required bool birth}) =>
+      birth ? 'Il tuo cielo di nascita' : 'Il cielo sopra di te';
+
+  /// Costruisce la cartolina nel formato scelto e la esporta in PNG.
   static Future<Uint8List> render({
     required DateTime now,
     required MoonPhase moon,
     required List<Zodiac> high,
     required MaestroPalette palette,
+    PostcardFormat format = PostcardFormat.story,
+    bool birth = false,
   }) async {
+    final size = Size(format.width, format.height);
     final recorder = ui.PictureRecorder();
-    final canvas = Canvas(recorder, const Rect.fromLTWH(0, 0, width, height));
-    _paint(canvas, now, moon, high, palette);
+    final canvas = Canvas(recorder, Offset.zero & size);
+    _paint(canvas, size, now, moon, high, palette, birth);
     final picture = recorder.endRecording();
-    final image = await picture.toImage(width.toInt(), height.toInt());
+    final image =
+        await picture.toImage(format.width.toInt(), format.height.toInt());
     final data = await image.toByteData(format: ui.ImageByteFormat.png);
     picture.dispose();
     image.dispose();
     return data!.buffer.asUint8List();
   }
 
-  static void _paint(Canvas canvas, DateTime now, MoonPhase moon,
-      List<Zodiac> high, MaestroPalette palette) {
-    const w = width, h = height;
+  static void _paint(Canvas canvas, Size size, DateTime now, MoonPhase moon,
+      List<Zodiac> high, MaestroPalette palette, bool birth) {
+    final w = size.width, h = size.height;
+    final s = h / 1920.0; // scala tipografica rispetto al verticale
+    double fy(double f) => f * h; // posizione verticale come frazione
 
-    // Fondo profondo e verticale.
+    // Fondo profondo.
     canvas.drawRect(
-      const Rect.fromLTWH(0, 0, w, h),
+      Offset.zero & size,
       Paint()
         ..shader = ui.Gradient.linear(
           const Offset(0, 0),
-          const Offset(0, h),
+          Offset(0, h),
           [
             palette.deepest,
             palette.backgroundGradient.length > 1
@@ -85,23 +105,24 @@ class SkyPostcard {
                 : palette.surface,
             palette.deepest,
           ],
-          [0.0, 0.5, 1.0],
+          const [0.0, 0.5, 1.0],
         ),
     );
 
     // Cornice dorata sottile.
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-          const Rect.fromLTWH(40, 40, w - 80, h - 80), const Radius.circular(36)),
+          Rect.fromLTWH(40, 40, w - 80, h - 80), const Radius.circular(36)),
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2
         ..color = palette.gold.withValues(alpha: 0.5),
     );
 
-    // Campo stellato.
+    // Campo stellato, densita' proporzionale all'area.
+    final count = (w * h / 9000).round();
     final rng = math.Random(now.year * 1000 + now.month * 40 + now.day);
-    for (var i = 0; i < 220; i++) {
+    for (var i = 0; i < count; i++) {
       final x = 60 + rng.nextDouble() * (w - 120);
       final y = 60 + rng.nextDouble() * (h - 120);
       final m = rng.nextDouble();
@@ -112,49 +133,55 @@ class SkyPostcard {
       );
     }
 
-    // Marchio in alto.
-    _text(canvas, Brand.name.toUpperCase(), const Offset(w / 2, 130),
-        _style(palette.goldSoft, 30, 'Cinzel', spacing: 8), align: TextAlign.center);
-    _text(canvas, 'Il cielo sopra di te', const Offset(w / 2, 180),
-        _style(palette.textPrimary, 64, 'Cinzel'), align: TextAlign.center);
-    _text(canvas, formatDate(now), const Offset(w / 2, 280),
-        _style(palette.goldSoft, 34, 'EBGaramond', spacing: 2), align: TextAlign.center);
+    // Marchio, titolo, data.
+    _text(canvas, Brand.name.toUpperCase(), Offset(w / 2, fy(0.065)),
+        _style(palette.goldSoft, 30 * s, 'Cinzel', spacing: 8 * s),
+        align: TextAlign.center);
+    _text(canvas, titleFor(birth: birth), Offset(w / 2, fy(0.095)),
+        _style(palette.textPrimary, 60 * s, 'Cinzel'), align: TextAlign.center);
+    _text(canvas, formatDate(now), Offset(w / 2, fy(0.155)),
+        _style(palette.goldSoft, 34 * s, 'EBGaramond', spacing: 2 * s),
+        align: TextAlign.center);
 
-    // La Luna, disco luminoso con la fase.
-    const moonC = Offset(w / 2, 520);
-    _drawMoon(canvas, moonC, 120, moon);
-    _text(canvas, moon.italianName.toUpperCase(), const Offset(w / 2, 660),
-        _style(palette.goldSoft, 28, 'Cinzel', spacing: 4), align: TextAlign.center);
+    // La Luna con la sua fase.
+    final moonR = h * 0.062;
+    final moonC = Offset(w / 2, fy(0.29));
+    _drawMoon(canvas, moonC, moonR, moon);
+    _text(canvas, moon.italianName.toUpperCase(), Offset(w / 2, fy(0.365)),
+        _style(palette.goldSoft, 28 * s, 'Cinzel', spacing: 4 * s),
+        align: TextAlign.center);
 
     // Le costellazioni alte, immerse nel campo centrale.
+    final box = h * 0.12;
     final slots = [
-      const Offset(w * 0.26, 980),
-      const Offset(w * 0.74, 940),
-      const Offset(w * 0.5, 1180),
+      Offset(w * 0.26, fy(0.53)),
+      Offset(w * 0.74, fy(0.5)),
+      Offset(w * 0.5, fy(0.64)),
     ];
     for (var i = 0; i < high.length && i < slots.length; i++) {
       final fig = kZodiacAsterisms[high[i]]!;
-      _drawAsterism(canvas, slots[i], 230, fig, palette);
-      _text(canvas, high[i].italianName, Offset(slots[i].dx, slots[i].dy + 130),
-          _style(palette.textSecondary, 26, 'Cinzel', spacing: 3),
+      _drawAsterism(canvas, slots[i], box, fig, palette);
+      _text(canvas, high[i].italianName,
+          Offset(slots[i].dx, slots[i].dy + box * 0.62),
+          _style(palette.textSecondary, 26 * s, 'Cinzel', spacing: 3 * s),
           align: TextAlign.center);
     }
 
     // Riga poetica di Medora.
-    _text(canvas, poeticLine(now), const Offset(w / 2, 1440),
-        _style(palette.textPrimary, 40, 'EBGaramond', italic: true),
-        align: TextAlign.center, maxWidth: w - 220);
+    _text(canvas, poeticLine(now), Offset(w / 2, fy(0.78)),
+        _style(palette.textPrimary, 40 * s, 'EBGaramond', italic: true),
+        align: TextAlign.center, maxWidth: w - 220 * s);
 
     // Invito discreto in basso.
-    _text(canvas, 'Scopri il tuo cielo', const Offset(w / 2, 1700),
-        _style(palette.goldSoft, 34, 'Cinzel', spacing: 3), align: TextAlign.center);
-    _text(canvas, Brand.domain, const Offset(w / 2, 1760),
-        _style(palette.textSecondary, 26, 'EBGaramond', spacing: 2),
+    _text(canvas, 'Scopri il tuo cielo', Offset(w / 2, fy(0.9)),
+        _style(palette.goldSoft, 34 * s, 'Cinzel', spacing: 3 * s),
+        align: TextAlign.center);
+    _text(canvas, Brand.domain, Offset(w / 2, fy(0.935)),
+        _style(palette.textSecondary, 26 * s, 'EBGaramond', spacing: 2 * s),
         align: TextAlign.center);
   }
 
   static void _drawMoon(Canvas canvas, Offset c, double r, MoonPhase moon) {
-    // Alone.
     canvas.drawCircle(
       c,
       r * 1.7,
@@ -164,10 +191,8 @@ class SkyPostcard {
           const Color(0x00000000),
         ]),
     );
-    // Disco in ombra, tenue.
     canvas.drawCircle(
         c, r, Paint()..color = const Color(0xFFF4F1E8).withValues(alpha: 0.18));
-    // Falcato illuminato.
     final f = moon.fraction;
     if (moon.illumination >= 0.02) {
       final rx = (math.cos(2 * math.pi * f)).abs() * r;
@@ -200,8 +225,8 @@ class SkyPostcard {
     );
   }
 
-  static void _drawAsterism(
-      Canvas canvas, Offset center, double box, Asterism fig, MaestroPalette palette) {
+  static void _drawAsterism(Canvas canvas, Offset center, double box,
+      Asterism fig, MaestroPalette palette) {
     Offset map(Offset p) =>
         center + Offset((p.dx - 0.5) * box, (p.dy - 0.5) * box);
     final pts = fig.stars.map(map).toList();
@@ -238,7 +263,7 @@ class SkyPostcard {
       text: TextSpan(text: s, style: style),
       textAlign: align,
       textDirection: TextDirection.ltr,
-    )..layout(maxWidth: maxWidth ?? width);
+    )..layout(maxWidth: maxWidth ?? 2000);
     tp.paint(canvas, Offset(center.dx - tp.width / 2, center.dy));
   }
 }

@@ -276,3 +276,13 @@ dominio corretto.
 "Riduci animazioni" e "Modalità semplice" partivano già spenti (i default del
 `SettingsController` sono false); i sottotitoli restano attivi di default. Reso
 esplicito con un test unitario dedicato.
+
+## Punto 4, cartolina in formato quadrato — FATTO
+
+La cartolina ora ha due formati: verticale 1080x1920 (Storia) e quadrato
+1080x1080 (feed). Il layout si adatta con posizioni relative all'altezza e font
+in scala. Alla condivisione il bottone apre un foglio che offre la scelta,
+"Storia" o "Feed", poi genera e condivide il formato scelto. Test: la cartolina
+si genera nei due formati con le dimensioni corrette, il selettore mostra le
+due opzioni. Screenshot: `cartolina-cielo.png` (verticale) e
+`cartolina-cielo-quadrata.png` (quadrato).

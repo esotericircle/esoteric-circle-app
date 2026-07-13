@@ -274,21 +274,32 @@ void main() {
   });
 
   // --- La cartolina condivisibile del cielo, costruita apposta ---
-  testWidgets('Cattura la cartolina del cielo', (tester) async {
+  testWidgets('Cattura la cartolina del cielo, verticale e quadrata',
+      (tester) async {
     await loadFonts();
     await tester.runAsync(() async {
       final now = DateTime(2026, 7, 13, 22);
-      final bytes = await SkyPostcard.render(
-        now: now,
-        moon: MoonPhase.forDate(now),
-        high: NightSky.constellationsHighTonight(now),
-        palette: MaestroPalette.medora,
-      );
-      final out = File('docs/preview/cartolina-cielo.png');
-      out.createSync(recursive: true);
-      out.writeAsBytesSync(bytes);
+      final moon = MoonPhase.forDate(now);
+      final high = NightSky.constellationsHighTonight(now);
+      for (final (format, name) in const [
+        (PostcardFormat.story, 'cartolina-cielo.png'),
+        (PostcardFormat.feed, 'cartolina-cielo-quadrata.png'),
+      ]) {
+        final bytes = await SkyPostcard.render(
+          now: now,
+          moon: moon,
+          high: high,
+          palette: MaestroPalette.medora,
+          format: format,
+        );
+        final out = File('docs/preview/$name');
+        out.createSync(recursive: true);
+        out.writeAsBytesSync(bytes);
+      }
     });
     expect(File('docs/preview/cartolina-cielo.png').existsSync(), isTrue);
+    expect(File('docs/preview/cartolina-cielo-quadrata.png').existsSync(),
+        isTrue);
   });
 
   // --- La schermata "Il cielo sopra di te", aperta dal cielo del Santuario ---
