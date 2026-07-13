@@ -262,3 +262,11 @@ nessun'altra proposizione inizia con "e" dopo la virgola nelle stringhe
 visibili. Le uniche occorrenze di ", e" restano nei commenti di codice, fuori
 dal canone. Nuovo `test/language_rule_test.dart` che segnala la violazione nei
 testi statici (persona, suggerimenti, cielo, cartolina).
+
+## Punto 2, dominio pubblico — FATTO
+
+Il dominio corretto è esotericircle.app (non .com). Centralizzato in un solo
+punto di configurazione del brand, `lib/core/brand/brand.dart` (`Brand.name`,
+`Brand.domain`, `Brand.url`). La cartolina legge da qui il marchio e il
+dominio, cosi' non divergono. Screenshot `cartolina-cielo.png` rigenerato col
+dominio corretto.

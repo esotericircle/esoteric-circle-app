@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/sky_catalog.dart';
 import '../../core/astro/zodiac.dart';
+import '../../core/brand/brand.dart';
 import '../../design_system/theme/maestro_palette.dart';
 
 /// La cartolina condivisibile del cielo, costruita apposta, non uno screenshot.
@@ -45,7 +46,7 @@ class SkyPostcard {
   /// Testo precompilato per il foglio di condivisione, con hashtag.
   static String shareText(DateTime now) =>
       'Il mio cielo di stanotte, ${formatDate(now)}. '
-      'Scopri il tuo con Esoteric Circle. '
+      'Scopri il tuo con ${Brand.name}. '
       '#EsotericCircle #IlCieloSopraDiTe #astrologia #luna';
 
   /// Costruisce la cartolina e la esporta in PNG.
@@ -112,7 +113,7 @@ class SkyPostcard {
     }
 
     // Marchio in alto.
-    _text(canvas, 'ESOTERIC CIRCLE', const Offset(w / 2, 130),
+    _text(canvas, Brand.name.toUpperCase(), const Offset(w / 2, 130),
         _style(palette.goldSoft, 30, 'Cinzel', spacing: 8), align: TextAlign.center);
     _text(canvas, 'Il cielo sopra di te', const Offset(w / 2, 180),
         _style(palette.textPrimary, 64, 'Cinzel'), align: TextAlign.center);
@@ -147,7 +148,7 @@ class SkyPostcard {
     // Invito discreto in basso.
     _text(canvas, 'Scopri il tuo cielo', const Offset(w / 2, 1700),
         _style(palette.goldSoft, 34, 'Cinzel', spacing: 3), align: TextAlign.center);
-    _text(canvas, 'esotericircle.com', const Offset(w / 2, 1760),
+    _text(canvas, Brand.domain, const Offset(w / 2, 1760),
         _style(palette.textSecondary, 26, 'EBGaramond', spacing: 2),
         align: TextAlign.center);
   }
