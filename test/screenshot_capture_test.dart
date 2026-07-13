@@ -251,6 +251,24 @@ void main() {
     });
   }
 
+  // --- Il Santuario con l'invito al cielo visibile (mano del tap) ---
+  testWidgets('Cattura il Santuario con l\'invito al cielo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    // Oltre i tre secondi di inattivita', senza toccare nulla, cosi' l'invito
+    // compare; poi qualche frame perche' la dissolvenza e l'animazione si
+    // assestino a meta' gesto.
+    await tester.pump(const Duration(milliseconds: 3200));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pump(const Duration(milliseconds: 300));
+    await capture(tester, rootKey, 'santuario-invito.png');
+  });
+
   // --- L'hub di dominio e il Cosmic Passport ---
   testWidgets('Cattura l\'hub di dominio, medora', (tester) async {
     silenceSensors();

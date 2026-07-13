@@ -239,9 +239,11 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               // Il cielo in alto e' toccabile: apre "Il cielo sopra di te".
               // Ordine pulito, poco testo: prima il titolo, poi la grafica
               // della Luna con l'occhiello della fase, poi la riga personale
-              // nella voce del Maestro al centro.
+              // nella voce del Maestro al centro. Un margine comodo in cima
+              // (oltre la safe area) tiene il titolo staccato dal bordo, mai
+              // sotto il notch o l'isola dinamica.
               Positioned(
-                top: h * 0.02,
+                top: h * 0.045 + 8,
                 left: 0,
                 right: 0,
                 child: GestureDetector(
@@ -281,15 +283,30 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                           ),
                         ),
                       ),
-                      // Invito al tocco, dopo qualche secondo di inattivita':
-                      // una mano che pulsa, si dissolve alla prima interazione.
-                      _SkyTapHint(
-                        visible: _showSkyHint,
-                        pulse: _tapPulse,
-                        reduceMotion: reduceMotion,
-                        color: palette.goldSoft,
-                      ),
                     ],
+                  ),
+                ),
+              ),
+
+              // Invito al tocco del cielo: in alto, accanto alla Luna, cosi'
+              // invita a toccare il cielo e non i Maestri. E' sopra la scena ma
+              // trasparente ai tocchi, che passano alla zona toccabile del
+              // cielo sottostante: mano e zona coincidono in quest'area alta.
+              // Compare dopo qualche secondo, si dissolve alla prima
+              // interazione, ferma con Riduci Movimento.
+              Positioned(
+                top: h * 0.095,
+                left: 0,
+                right: 0,
+                child: IgnorePointer(
+                  child: Align(
+                    alignment: const Alignment(0.55, 0),
+                    child: _SkyTapHint(
+                      visible: _showSkyHint,
+                      pulse: _tapPulse,
+                      reduceMotion: reduceMotion,
+                      color: palette.goldSoft,
+                    ),
                   ),
                 ),
               ),
@@ -555,7 +572,7 @@ class _SkyTapHint extends StatelessWidget {
         opacity: visible ? 1 : 0,
         duration: const Duration(milliseconds: 400),
         child: !visible
-            ? const SizedBox(width: double.infinity)
+            ? const SizedBox.shrink()
             : Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Column(
