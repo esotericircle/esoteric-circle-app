@@ -412,3 +412,19 @@ tessera solo nel dominio di Aura). Screenshot: `meditazione-aura.png`.
   figure di Chladni, non una simulazione fisica delle onde stazionarie. Se vuoi
   la simulazione vera dei nodi di Chladni per una data frequenza, e' un passo in
   piu' che posso fare.
+
+# Quinto blocco (sessione lunga)
+
+## Task 1, correzioni di lingua e testo — FATTO
+
+a) Nella UI la parola "lenti" e' diventata "sguardi" (sintesi comparativa, intro
+e stato vuoto di Chiedi ai Maestri); "lenti" resta solo come concetto interno
+(la classe `MaestroLens`, i commenti). b) Il sottotitolo di Chiedi ai Maestri e'
+ora "Una domanda sola, gli sguardi dei Maestri a confronto", senza la "e" dopo
+la virgola. c) Il controllo automatico di lingua e' rinforzato: segnala la
+sequenza virgola piu' "e"/"ed" anche a meta' frase, con un test dedicato, e un
+setaccio profondo che scandaglia tutte le stringhe del codice sotto lib/
+(unendo le stringhe adiacenti spezzate a capo), cosi' nessun copy sfugge. Nessuna
+violazione trovata dopo la sistemazione. d) Nella meditazione il chip "Battito
+theta" non e' piu' troncato: etichetta e sottotitolo vanno a capo per intero.
+Screenshot: `meditazione-aura.png`, `chiedi-ai-maestri.png`.

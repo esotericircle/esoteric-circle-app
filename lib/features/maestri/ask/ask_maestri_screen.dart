@@ -94,8 +94,8 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Una domanda, e le lenti dei Maestri a confronto. Scegli chi '
-                    'interpellare.',
+                    'Una domanda sola, gli sguardi dei Maestri a confronto. '
+                    'Scegli chi interpellare.',
                     style: TypographyTokens.body(size: 14)
                         .copyWith(color: ColorTokens.textSecondary),
                   ),
@@ -288,7 +288,7 @@ class _EmptyState extends StatelessWidget {
             const SizedBox(height: SpacingTokens.md),
             Text(
               'Scrivi la tua domanda e scegli chi interpellare. Con più Maestri '
-              'vedrai le loro lenti a confronto.',
+              'vedrai i loro sguardi a confronto.',
               textAlign: TextAlign.center,
               style: TypographyTokens.body(size: 15)
                   .copyWith(color: ColorTokens.textSecondary),

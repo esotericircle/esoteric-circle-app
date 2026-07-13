@@ -138,7 +138,7 @@ class MaestroOracle {
   // a fidarsi di piu' dove le voci concordano.
   String _synthesis(String theme, List<Maestro> chosen) {
     final lenses = _joinE([for (final m in chosen) _lensLabel(m)]);
-    return 'Stessa domanda, ${_quote(theme)}, sotto lenti diverse: $lenses. '
+    return 'Stessa domanda, ${_quote(theme)}, sotto sguardi diversi: $lenses. '
         'Dove le voci concordano, ascolta con più fiducia; dove divergono, '
         'hai più strade tra cui scegliere.';
   }

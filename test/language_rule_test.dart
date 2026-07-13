@@ -8,16 +8,19 @@ import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_suggestions.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
+import 'dart:io';
+
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Regola di lingua: mai iniziare una proposizione dopo la virgola con la
-/// congiunzione "e" (o "ed"). Questo test setaccia i testi statici e generati
-/// dell'app, cosi' la violazione non puo' rientrare di nascosto.
+/// Regola di lingua: mai la sequenza virgola piu' "e" (o "ed"), non solo a
+/// inizio di proposizione ma anche a meta' frase. Questo test setaccia i testi
+/// statici e generati dell'app, e in piu' scandaglia tutte le stringhe del
+/// codice, cosi' la violazione non puo' rientrare di nascosto.
 void main() {
-  // Virgola, spazi, poi "e"/"ed" come parola: e' l'inizio di proposizione
-  // vietato. Si escludono i troncamenti tipo "po'".
+  // Virgola, spazi, poi "e"/"ed" come parola: vietata ovunque nella frase, non
+  // solo in apertura. Si escludono i troncamenti tipo "po'".
   final commaE = RegExp(r',\s+ed?\b', caseSensitive: false);
 
   String? offending(String s) {
@@ -129,4 +132,134 @@ void main() {
       }
     }
   });
+
+  test('Il controllo segnala la virgola piu "e" anche a meta frase', () {
+    // A meta' frase, non solo in apertura.
+    expect(commaE.hasMatch('Vado al mare, e poi torno'), isTrue);
+    expect(commaE.hasMatch('Prendo il libro, ed esco di casa'), isTrue);
+    // Usi legittimi restano puliti.
+    expect(commaE.hasMatch('Vado al mare e poi torno'), isFalse);
+    expect(commaE.hasMatch('mele, pere e uva'), isFalse);
+    expect(commaE.hasMatch('la casa, è bella'), isFalse); // "è" non "e"
+  });
+
+  // Setaccio profondo: scandaglia ogni stringa nel codice sotto lib/, unendo le
+  // stringhe adiacenti spezzate su piu' righe, cosi' nessun copy sfugge, ne'
+  // statico ne' a capo. Salta i commenti.
+  test('Nessuna stringa del codice viola la regola della virgola', () {
+    final files = Directory('lib')
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.dart'));
+    for (final file in files) {
+      final strings = _logicalStrings(file.readAsStringSync());
+      for (final s in strings) {
+        expect(commaE.hasMatch(s), isFalse,
+            reason: 'Virgola piu "e" in ${file.path}, nella stringa: "$s".');
+        expect(s.contains('—'), isFalse,
+            reason: 'Trattino lungo in ${file.path}, nella stringa: "$s".');
+      }
+    }
+  });
+}
+
+/// Estrae le stringhe letterali da sorgente Dart, saltando i commenti e unendo
+/// le stringhe adiacenti (concatenazione implicita a capo). Gestisce apici
+/// singoli e doppi, stringhe grezze (r'...') e a tripla virgoletta. Basta per il
+/// controllo di lingua: non decodifica gli escape, che non toccano la sequenza
+/// virgola piu' "e".
+List<String> _logicalStrings(String src) {
+  final result = <String>[];
+  final n = src.length;
+  var i = 0;
+  StringBuffer? logical;
+
+  void flush() {
+    if (logical != null) {
+      result.add(logical.toString());
+      logical = null;
+    }
+  }
+
+  while (i < n) {
+    final c = src[i];
+    // Commenti.
+    if (c == '/' && i + 1 < n && src[i + 1] == '/') {
+      flush();
+      i += 2;
+      while (i < n && src[i] != '\n') {
+        i++;
+      }
+      continue;
+    }
+    if (c == '/' && i + 1 < n && src[i + 1] == '*') {
+      flush();
+      i += 2;
+      while (i + 1 < n && !(src[i] == '*' && src[i + 1] == '/')) {
+        i++;
+      }
+      i += 2;
+      continue;
+    }
+    // Inizio stringa, eventualmente grezza.
+    var raw = false;
+    var j = i;
+    if (c == 'r' && i + 1 < n && (src[i + 1] == '\'' || src[i + 1] == '"')) {
+      raw = true;
+      j = i + 1;
+    }
+    final ch = src[j];
+    if (ch == '\'' || ch == '"') {
+      final triple =
+          j + 2 < n && src[j + 1] == ch && src[j + 2] == ch;
+      final quoteLen = triple ? 3 : 1;
+      var k = j + quoteLen;
+      final content = StringBuffer();
+      while (k < n) {
+        if (!raw && src[k] == '\\') {
+          if (k + 1 < n) content.write(src[k + 1]);
+          k += 2;
+          continue;
+        }
+        if (triple) {
+          if (k + 2 < n && src[k] == ch && src[k + 1] == ch && src[k + 2] == ch) {
+            k += 3;
+            break;
+          }
+        } else {
+          if (src[k] == ch) {
+            k += 1;
+            break;
+          }
+          if (src[k] == '\n') break;
+        }
+        content.write(src[k]);
+        k++;
+      }
+      logical ??= StringBuffer();
+      logical!.write(content.toString());
+      i = k;
+      // Adiacenza: se la prossima cosa non-spazio e' un'altra stringa, unisci.
+      var p = i;
+      while (p < n &&
+          (src[p] == ' ' || src[p] == '\t' || src[p] == '\n' || src[p] == '\r')) {
+        p++;
+      }
+      final adjacent = p < n &&
+          (src[p] == '\'' ||
+              src[p] == '"' ||
+              (src[p] == 'r' &&
+                  p + 1 < n &&
+                  (src[p + 1] == '\'' || src[p + 1] == '"')));
+      if (adjacent) {
+        i = p;
+      } else {
+        flush();
+      }
+      continue;
+    }
+    i++;
+  }
+  flush();
+  return result;
 }

@@ -306,17 +306,17 @@ class _PresetChip extends StatelessWidget {
             children: [
               Text(
                 preset.label,
+                textAlign: TextAlign.center,
                 style: TypographyTokens.display(size: 15).copyWith(
                   color:
                       selected ? palette.goldSoft : ColorTokens.textSecondary,
                 ),
               ),
               const SizedBox(height: 2),
+              // Nessun troncamento: il sottotitolo va a capo per intero.
               Text(
                 preset.subtitle,
                 textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
                 style: TypographyTokens.label(size: 9).copyWith(
                   color: selected
                       ? palette.goldSoft.withValues(alpha: 0.8)
