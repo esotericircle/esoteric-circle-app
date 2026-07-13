@@ -63,6 +63,7 @@ flutter:
     - assets/
     - assets/fonts/
     - brand_assets/avatars/
+    - brand_assets/santuario/
 
   # Tipografia del design system, inclusa nel bundle come asset locale, cosi'
   # il testo si legge sempre, anche offline e nell'anteprima headless. Sono

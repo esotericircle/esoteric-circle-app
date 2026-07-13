@@ -167,10 +167,45 @@ class _SantuarioScreenState extends State<SantuarioScreen>
 
           return Stack(
             children: [
-              // Nessuna forma vettoriale come fondale: dietro i Maestri resta
-              // il cosmo pulito (stelle, nebulose, Luna) e lo spazio scuro. Il
-              // fondale dipinto del Santuario, quando pronto, si monta qui come
-              // piano profondo dietro i busti.
+              // Fondale del tempio: piano profondo dietro i Maestri e dietro le
+              // cornici, davanti al cosmo. Dipinto reale scontornato (canale
+              // alpha vero), con la cupola in alto sotto la Luna e la porta buia
+              // dietro il Maestro al centro. Opacita' media, atmosfera senza
+              // rubare la scena; il suo top sfuma dietro il testo. Parallasse
+              // leggera del piano piu' lontano, ferma con Riduci Movimento.
+              Positioned(
+                top: h * 0.11,
+                left: 0,
+                right: 0,
+                height: w * 1376 / 768,
+                child: IgnorePointer(
+                  child: Transform.translate(
+                    offset: depth(0.16),
+                    child: Opacity(
+                      opacity: 0.4,
+                      child: ShaderMask(
+                        blendMode: BlendMode.dstIn,
+                        shaderCallback: (rect) => const LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.transparent,
+                            Colors.white,
+                            Colors.white,
+                          ],
+                          stops: [0.0, 0.13, 0.26, 1.0],
+                        ).createShader(rect),
+                        child: Image.asset(
+                          'brand_assets/santuario/tempio.png',
+                          fit: BoxFit.fitWidth,
+                          alignment: Alignment.topCenter,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
 
               // Cielo in alto: nebulose soffuse tinte sull'accento del Maestro
               // e un paio di stelle piu' luminose a evocare i pianeti, in

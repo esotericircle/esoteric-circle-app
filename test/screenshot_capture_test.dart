@@ -197,12 +197,15 @@ void main() {
   // alla cattura, senza cerchi vuoti.
   Future<void> precacheFaces(WidgetTester tester) async {
     await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
       for (final m in Maestro.values) {
-        await precacheImage(
-          AssetImage(m.avatarAsset),
-          tester.element(find.byType(MaterialApp)),
-        );
+        await precacheImage(AssetImage(m.avatarAsset), element);
       }
+      // Anche il fondale del tempio, cosi' e' decodificato alla cattura.
+      await precacheImage(
+        const AssetImage('brand_assets/santuario/tempio.png'),
+        element,
+      );
     });
     await step(tester);
   }
