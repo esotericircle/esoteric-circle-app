@@ -184,3 +184,24 @@ coperto dalla cattura headless `docs/preview/cielo-sopra-di-te.png`.
 Dubbio aperto: le forme sono asterismi corretti in un frame locale, non ancora
 posizioni reali in alt-azimut. Il salto a un cielo geolocalizzato richiede il
 motore a effemeridi e la posizione dell'utente, come già annotato.
+
+## Task 2, schermata Impostazioni — FATTO
+
+Nuova schermata Impostazioni in stile 2.5D e nella palette del Maestro attivo,
+raggiungibile in modo pulito da un ingranaggio nell'angolo del Cosmic Passport.
+
+- Aspetto: "Riduci animazioni" (si riversa su `MediaQuery.disableAnimations`,
+  cosi' tutto il codice che rispetta Riduci Movimento lo onora) e "Modalità
+  semplice" (abbassa la qualità grafica a bassa).
+- Voce e sottotitoli: "Sottotitoli" attivi di default, segnaposto in attesa del
+  passo voce, la preferenza si conserva.
+- Privacy e dati: "Cancella i miei dati" chiama la cancellazione GDPR già
+  costruita, con una conferma chiara e un messaggio di custodia non punitivo
+  ("Non è una perdita, è il tuo diritto"), e un riscontro gentile al termine.
+- Account: segnaposto "Dietro il velo".
+
+Le preferenze vivono in `SettingsController` (`lib/core/settings/`), persistite
+best effort su `shared_preferences`. Test: `test/settings_test.dart` (gli
+interruttori aggiornano le preferenze, la cancellazione GDPR chiede conferma e
+azzera davvero i dati, la schermata è raggiungibile dal Passport). Screenshot:
+`docs/preview/impostazioni.png`.

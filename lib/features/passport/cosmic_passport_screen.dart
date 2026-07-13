@@ -6,6 +6,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../settings/settings_screen.dart';
 
 /// Schermata segnaposto del Cosmic Passport.
 ///
@@ -41,10 +42,26 @@ class CosmicPassport extends StatelessWidget {
                   // Margine in alto: il titolo non deve mai finire sotto un
                   // eventuale pulsante nell'angolo in alto a sinistra.
                   const SizedBox(height: SpacingTokens.xl),
-                  // Header cerimoniale: titolo e sottotitolo del documento.
-                  Text(
-                    'Cosmic Passport',
-                    style: TypographyTokens.display(size: 30),
+                  // Header cerimoniale: titolo e ingresso pulito alle
+                  // Impostazioni, nell'angolo del documento.
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Cosmic Passport',
+                          style: TypographyTokens.display(size: 30),
+                        ),
+                      ),
+                      IconButton(
+                        key: const Key('passport_settings'),
+                        icon: const Icon(Icons.settings_outlined),
+                        color: palette.goldSoft,
+                        tooltip: 'Impostazioni',
+                        onPressed: () =>
+                            Navigator.of(context).push(SettingsScreen.route()),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: SpacingTokens.xs),
                   Text(

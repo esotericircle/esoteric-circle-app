@@ -7,6 +7,7 @@ import 'core/feature_flags/feature_flag_service.dart';
 import 'core/maestro/maestro_controller.dart';
 import 'core/motion/parallax_controller.dart';
 import 'core/quality/quality_tier.dart';
+import 'core/settings/settings_controller.dart';
 import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
 import 'features/shell/app_shell.dart';
@@ -36,6 +37,7 @@ class EsotericCircleApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
+        ChangeNotifierProvider(create: (_) => SettingsController()..load()),
         ChangeNotifierProvider(
           create: (ctx) =>
               NavigationController(ctx.read<MaestroController>()),
@@ -52,7 +54,28 @@ class EsotericCircleApp extends StatelessWidget {
         theme: AppTheme.dark(),
         // La dissolvenza cromatica del tema riguarda lo sfondo e gli accenti,
         // gestiti da MaestroScope; qui teniamo un solo ThemeData scuro base.
-        home: const MaestroScope(child: AppShell()),
+        home: Consumer<SettingsController>(
+          builder: (context, settings, _) {
+            // Modalita' semplice: abbassa la qualita' grafica. Applicata fuori
+            // dal build per non scrivere stato durante la costruzione.
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              final q = context.read<QualityTierController>();
+              final target =
+                  settings.simpleMode ? QualityTier.low : QualityTier.high;
+              if (q.tier != target) q.setTier(target);
+            });
+            // Riduci animazioni: si riversa su disableAnimations, cosi' tutto
+            // il codice che rispetta Riduci Movimento lo onora.
+            final mq = MediaQuery.of(context);
+            return MediaQuery(
+              data: mq.copyWith(
+                disableAnimations:
+                    mq.disableAnimations || settings.reduceAnimations,
+              ),
+              child: const MaestroScope(child: AppShell()),
+            );
+          },
+        ),
       ),
     );
   }
