@@ -113,3 +113,42 @@ diversi.
 Dubbio aperto per te: la cancellazione GDPR è pronta come capacità del
 repository, ma non c'è ancora una schermata Impostazioni con il bottone
 "Cancella i miei dati". Serve decidere dove metterlo; è un piccolo passo di UI.
+
+## Task 4, consegna — FATTO
+
+- `flutter analyze` pulito, nessun problema.
+- Tutti i test verdi: 55 test, unità e widget e catture headless.
+- Screenshot in `docs/preview/` di ogni schermata nuova o cambiata:
+  - nuova: `cielo-sopra-di-te.png` (la schermata del cielo del momento);
+  - cambiate da Task 2: `medora/aura/caligo-chat-suggerimenti.png` (le cinque
+    categorie declinate) e i relativi stati vuoti, che mostrano i nuovi chip
+    d'avvio.
+
+### Cosa ho saltato e perché
+
+Niente è stato saltato del tutto, ma due limiti restano dichiarati, non finti:
+
+- Task 1: nel repo non c'era un motore del cielo di nascita con catalogo J2000
+  e coordinate equatoriali reali da riusare. Ho costruito la schermata su ciò
+  che è reale (asterismi fedeli, Luna reale, posizione del Sole per sapere cosa
+  è alto stanotte) e ho dichiarato in schermo e qui che il posizionamento reale
+  in alt-azimut e i pianeti arrivano col motore a effemeridi. Non ho finto un
+  motore astronomico completo.
+- Task 3: la validazione su Firestore reale resta a te dalla console, qui non
+  ci sono credenziali né emulatore. Ho provato la logica sul falso Firestore e
+  sul falso in memoria.
+
+Come da paletti: non ho toccato console Firebase, telefono, generazione
+immagini su Vertex o credenziali. Non ho pubblicato nulla, non ho aperto PR.
+
+### Dubbi aperti per te
+
+1. Motore del cielo: userà un catalogo J2000 con la posizione GPS dell'utente
+   (serve il permesso di localizzazione) o una veduta simbolica indipendente
+   dal luogo? Da questo dipende quanto la schermata diventa "vera".
+2. Le cinque categorie dei suggerimenti (amore, lavoro, fortuna, successo,
+   relazioni) sono in testa alle Domande frequenti. Le vuoi come schede a sé?
+3. Cancellazione GDPR: la capacità è pronta nel repository, manca la schermata
+   Impostazioni con il bottone "Cancella i miei dati". Dove lo mettiamo?
+4. Da validare su Firestore reale: le regole di sicurezza devono permettere la
+   cancellazione ricorsiva del proprio dato e negarla fra utenti diversi.
