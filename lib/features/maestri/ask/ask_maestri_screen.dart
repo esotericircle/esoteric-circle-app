@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../core/entitlement/entitlement_service.dart';
+import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
@@ -7,24 +10,33 @@ import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../services/ai/maestro_oracle.dart';
+import '../../pricing/upgrade_invite.dart';
 
-/// "Chiedi ai Maestri": una domanda, uno o piu' Maestri, e le loro lenti a
-/// confronto.
+/// "Chiedi ai Maestri", dentro il dominio di un Maestro.
 ///
-/// Si sceglie di interpellare un Maestro, due o tutti e tre. Ciascuno risponde
-/// dal suo dominio, secondo il canone Personas. Quando sono piu' di uno, in
-/// testa compare una sintesi comparativa che mostra le lenti sullo stesso tema.
-/// Le risposte usano l'oracolo locale in ripiego: la chiamata vera a Gemini su
-/// Vertex resta al device, dietro `MaestroAiProvider`. Freccia Indietro sempre,
-/// mai un vicolo cieco.
+/// Il chiedere parte singolarmente dal Maestro del dominio: una domanda, la sua
+/// risposta. Sotto la risposta, l'invito "Chiedi anche a un altro Maestro" porta
+/// lo stesso tema allo sguardo di un secondo o terzo Maestro e mostra in cima la
+/// sintesi comparativa degli sguardi. Regole di accesso: il Free ha una sola
+/// domanda singola al giorno; il confronto a piu' Maestri e le domande oltre la
+/// prima sono del Tier a pagamento, con l'invito gentile all'upgrade quando il
+/// limite e' raggiunto. Le risposte usano l'oracolo locale in ripiego: la
+/// chiamata vera a Gemini su Vertex resta al device.
 class AskMaestriScreen extends StatefulWidget {
-  const AskMaestriScreen({super.key, this.oracle = const MaestroOracle()});
+  const AskMaestriScreen({
+    super.key,
+    required this.starter,
+    this.oracle = const MaestroOracle(),
+  });
+
+  /// Il Maestro del dominio, primo a rispondere.
+  final Maestro starter;
 
   final MaestroOracle oracle;
 
-  static Route<void> route() {
+  static Route<void> route({required Maestro starter}) {
     return MaterialPageRoute<void>(
-      builder: (_) => const MaestroScope(child: AskMaestriScreen()),
+      builder: (_) => MaestroScope(child: AskMaestriScreen(starter: starter)),
     );
   }
 
@@ -34,7 +46,8 @@ class AskMaestriScreen extends StatefulWidget {
 
 class _AskMaestriScreenState extends State<AskMaestriScreen> {
   final TextEditingController _composer = TextEditingController();
-  final Set<Maestro> _selected = {Maestro.medora, Maestro.aura, Maestro.caligo};
+  final List<Maestro> _responders = [];
+  String? _theme;
   MaestriConsultation? _result;
 
   @override
@@ -43,31 +56,66 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     super.dispose();
   }
 
-  void _toggle(Maestro m) {
+  void _recompute() {
+    _result = widget.oracle.consult(theme: _theme!, maestri: _responders);
+  }
+
+  Future<void> _ask() async {
+    final theme = _composer.text.trim();
+    if (theme.isEmpty) return;
+    final tier = context.read<EntitlementService>().tier;
+    final allowance = context.read<QuestionAllowance>();
+
+    if (!allowance.canAsk(tier)) {
+      // Free: la domanda di oggi e' gia' stata posta.
+      FocusScope.of(context).unfocus();
+      await showUpgradeInvite(
+        context,
+        title: 'Hai posto la tua domanda di oggi',
+        message:
+            'Col Cerchio le domande ai Maestri sono senza limiti e puoi metterne '
+            'a confronto gli sguardi.',
+      );
+      return;
+    }
+
+    allowance.record(tier);
+    FocusScope.of(context).unfocus();
     setState(() {
-      if (_selected.contains(m)) {
-        // Almeno un Maestro resta sempre scelto: mai un vicolo cieco.
-        if (_selected.length > 1) _selected.remove(m);
-      } else {
-        _selected.add(m);
-      }
+      _theme = theme;
+      _responders
+        ..clear()
+        ..add(widget.starter);
+      _recompute();
     });
   }
 
-  void _ask() {
-    final theme = _composer.text.trim();
-    if (theme.isEmpty || _selected.isEmpty) return;
-    FocusScope.of(context).unfocus();
+  Future<void> _addResponder(Maestro maestro) async {
+    final tier = context.read<EntitlementService>().tier;
+    final allowance = context.read<QuestionAllowance>();
+    if (!allowance.canCompare(tier)) {
+      await showUpgradeInvite(
+        context,
+        title: 'Il confronto è del Cerchio',
+        message:
+            'Porta la stessa domanda allo sguardo di più Maestri col Cerchio, '
+            'con la sintesi che li mette a confronto.',
+      );
+      return;
+    }
     setState(() {
-      _result = widget.oracle
-          .consult(theme: theme, maestri: _selected.toList());
+      _responders.add(maestro);
+      _recompute();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final canAsk = _composer.text.trim().isNotEmpty;
+    final others = [
+      for (final m in Maestro.fixedOrder)
+        if (!_responders.contains(m)) m,
+    ];
 
     return Scaffold(
       backgroundColor: ColorTokens.neutralDeepest,
@@ -80,7 +128,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Chiedi ai Maestri',
+        title: Text('Chiedi a ${widget.starter.displayName}',
             style: TypographyTokens.display(size: 20)),
       ),
       body: SafeArea(
@@ -90,107 +138,41 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
                   SpacingTokens.md, SpacingTokens.lg, SpacingTokens.sm),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Una domanda sola, gli sguardi dei Maestri a confronto. '
-                    'Scegli chi interpellare.',
-                    style: TypographyTokens.body(size: 14)
-                        .copyWith(color: ColorTokens.textSecondary),
-                  ),
-                  const SizedBox(height: SpacingTokens.md),
-                  Row(
-                    children: [
-                      for (final m in Maestro.fixedOrder) ...[
-                        _MaestroChip(
-                          maestro: m,
-                          selected: _selected.contains(m),
-                          onTap: () => _toggle(m),
-                        ),
-                        if (m != Maestro.fixedOrder.last)
-                          const SizedBox(width: SpacingTokens.sm),
-                      ],
-                    ],
-                  ),
-                  const SizedBox(height: SpacingTokens.md),
-                  _Composer(
-                    controller: _composer,
-                    palette: palette,
-                    canAsk: canAsk,
-                    onChanged: () => setState(() {}),
-                    onAsk: _ask,
-                  ),
-                ],
+              child: _Composer(
+                controller: _composer,
+                palette: palette,
+                starter: widget.starter,
+                onChanged: () => setState(() {}),
+                onAsk: _ask,
               ),
             ),
             Expanded(
               child: _result == null
-                  ? _EmptyState(palette: palette)
-                  : _Results(result: _result!),
+                  ? _EmptyState(starter: widget.starter, palette: palette)
+                  : ListView(
+                      key: const Key('ask_results'),
+                      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
+                          SpacingTokens.lg, SpacingTokens.xxxl),
+                      children: [
+                        if (_result!.synthesis != null) ...[
+                          _SynthesisCard(synthesis: _result!.synthesis!),
+                          const SizedBox(height: SpacingTokens.md),
+                        ],
+                        for (final lens in _result!.lenses) ...[
+                          _LensCard(lens: lens),
+                          const SizedBox(height: SpacingTokens.sm),
+                        ],
+                        if (others.isNotEmpty) ...[
+                          const SizedBox(height: SpacingTokens.sm),
+                          _AnotherMaestroInvite(
+                            others: others,
+                            onPick: _addResponder,
+                          ),
+                        ],
+                      ],
+                    ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Un chip per scegliere se interpellare un Maestro, nella sua palette.
-class _MaestroChip extends StatelessWidget {
-  const _MaestroChip({
-    required this.maestro,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final Maestro maestro;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
-    return Expanded(
-      child: GestureDetector(
-        key: Key('ask_chip_${maestro.id}'),
-        onTap: onTap,
-        behavior: HitTestBehavior.opaque,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            gradient: selected
-                ? LinearGradient(colors: [
-                    palette.primary.withValues(alpha: 0.6),
-                    palette.surfaceElevated.withValues(alpha: 0.6),
-                  ])
-                : null,
-            border: Border.all(
-              color: selected
-                  ? palette.gold.withValues(alpha: 0.7)
-                  : palette.gold.withValues(alpha: 0.22),
-            ),
-          ),
-          child: Column(
-            children: [
-              Icon(maestro.icon,
-                  size: 22,
-                  color: selected
-                      ? palette.goldSoft
-                      : ColorTokens.textSecondary),
-              const SizedBox(height: 4),
-              Text(
-                maestro.displayName,
-                style: TypographyTokens.label(size: 11).copyWith(
-                  color:
-                      selected ? palette.goldSoft : ColorTokens.textSecondary,
-                  letterSpacing: 0.8,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
@@ -202,19 +184,20 @@ class _Composer extends StatelessWidget {
   const _Composer({
     required this.controller,
     required this.palette,
-    required this.canAsk,
+    required this.starter,
     required this.onChanged,
     required this.onAsk,
   });
 
   final TextEditingController controller;
   final MaestroPalette palette;
-  final bool canAsk;
+  final Maestro starter;
   final VoidCallback onChanged;
   final VoidCallback onAsk;
 
   @override
   Widget build(BuildContext context) {
+    final canAsk = controller.text.trim().isNotEmpty;
     return Row(
       children: [
         Expanded(
@@ -229,7 +212,7 @@ class _Composer extends StatelessWidget {
             style: TypographyTokens.body(size: 15)
                 .copyWith(color: ColorTokens.textPrimary),
             decoration: InputDecoration(
-              hintText: 'Su cosa vuoi una lettura?',
+              hintText: 'Chiedi a ${starter.displayName}...',
               hintStyle: TypographyTokens.body(size: 15)
                   .copyWith(color: ColorTokens.textSecondary),
               filled: true,
@@ -238,18 +221,18 @@ class _Composer extends StatelessWidget {
                   horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                borderSide: BorderSide(
-                    color: palette.gold.withValues(alpha: 0.3)),
+                borderSide:
+                    BorderSide(color: palette.gold.withValues(alpha: 0.3)),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                borderSide: BorderSide(
-                    color: palette.gold.withValues(alpha: 0.3)),
+                borderSide:
+                    BorderSide(color: palette.gold.withValues(alpha: 0.3)),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                borderSide: BorderSide(
-                    color: palette.gold.withValues(alpha: 0.6)),
+                borderSide:
+                    BorderSide(color: palette.gold.withValues(alpha: 0.6)),
               ),
             ),
           ),
@@ -268,10 +251,11 @@ class _Composer extends StatelessWidget {
   }
 }
 
-/// Stato vuoto: invita a comporre la domanda e a scegliere i Maestri.
+/// Stato vuoto: invita a porre la prima domanda al Maestro del dominio.
 class _EmptyState extends StatelessWidget {
-  const _EmptyState({required this.palette});
+  const _EmptyState({required this.starter, required this.palette});
 
+  final Maestro starter;
   final MaestroPalette palette;
 
   @override
@@ -283,12 +267,12 @@ class _EmptyState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.forum_outlined,
+            Icon(starter.icon,
                 size: 44, color: palette.goldSoft.withValues(alpha: 0.7)),
             const SizedBox(height: SpacingTokens.md),
             Text(
-              'Scrivi la tua domanda e scegli chi interpellare. Con più Maestri '
-              'vedrai i loro sguardi a confronto.',
+              'Scrivi la tua domanda a ${starter.displayName}. Dopo la sua '
+              'risposta potrai portarla anche a un altro Maestro.',
               textAlign: TextAlign.center,
               style: TypographyTokens.body(size: 15)
                   .copyWith(color: ColorTokens.textSecondary),
@@ -300,38 +284,96 @@ class _EmptyState extends StatelessWidget {
   }
 }
 
-/// I risultati: la sintesi comparativa in testa quando le lenti sono piu' di
-/// una, poi la lettura di ciascun Maestro.
-class _Results extends StatelessWidget {
-  const _Results({required this.result});
+/// L'invito a portare la stessa domanda allo sguardo di un altro Maestro.
+class _AnotherMaestroInvite extends StatelessWidget {
+  const _AnotherMaestroInvite({required this.others, required this.onPick});
 
-  final MaestriConsultation result;
+  final List<Maestro> others;
+  final void Function(Maestro) onPick;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      key: const Key('ask_results'),
-      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0, SpacingTokens.lg,
-          SpacingTokens.xxxl),
-      children: [
-        if (result.synthesis != null) ...[
-          _SynthesisCard(theme: result.theme, synthesis: result.synthesis!),
+    final palette = context.palette;
+    return Container(
+      key: const Key('ask_another_invite'),
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Chiedi anche a un altro Maestro',
+              style: TypographyTokens.display(size: 16)
+                  .copyWith(color: palette.goldSoft)),
+          const SizedBox(height: 4),
+          Text(
+            'Porta la stessa domanda al suo sguardo, con la sintesi a confronto.',
+            style: TypographyTokens.body(size: 13)
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
           const SizedBox(height: SpacingTokens.md),
+          Row(
+            children: [
+              for (final m in others) ...[
+                _OtherMaestroChip(maestro: m, onTap: () => onPick(m)),
+                if (m != others.last) const SizedBox(width: SpacingTokens.sm),
+              ],
+            ],
+          ),
         ],
-        for (final lens in result.lenses) ...[
-          _LensCard(lens: lens),
-          const SizedBox(height: SpacingTokens.sm),
-        ],
-      ],
+      ),
     );
   }
 }
 
-/// La sintesi comparativa: le tre lenti sullo stesso tema, in cima.
-class _SynthesisCard extends StatelessWidget {
-  const _SynthesisCard({required this.theme, required this.synthesis});
+class _OtherMaestroChip extends StatelessWidget {
+  const _OtherMaestroChip({required this.maestro, required this.onTap});
 
-  final String theme;
+  final Maestro maestro;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
+    return Expanded(
+      child: GestureDetector(
+        key: Key('ask_add_${maestro.id}'),
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            gradient: LinearGradient(colors: [
+              palette.primary.withValues(alpha: 0.5),
+              palette.surfaceElevated.withValues(alpha: 0.5),
+            ]),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
+          ),
+          child: Column(
+            children: [
+              Icon(maestro.icon, size: 20, color: palette.goldSoft),
+              const SizedBox(height: 4),
+              Text(maestro.displayName,
+                  style: TypographyTokens.label(size: 11).copyWith(
+                    color: palette.goldSoft,
+                    letterSpacing: 0.8,
+                  )),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// La sintesi comparativa degli sguardi, in cima quando i Maestri sono piu' di
+/// uno.
+class _SynthesisCard extends StatelessWidget {
+  const _SynthesisCard({required this.synthesis});
+
   final String synthesis;
 
   @override
@@ -369,11 +411,9 @@ class _SynthesisCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: SpacingTokens.sm),
-          Text(
-            synthesis,
-            style: TypographyTokens.body(size: 15)
-                .copyWith(color: ColorTokens.textPrimary, height: 1.4),
-          ),
+          Text(synthesis,
+              style: TypographyTokens.body(size: 15)
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
         ],
       ),
     );
@@ -416,8 +456,8 @@ class _LensCard extends StatelessWidget {
                   border:
                       Border.all(color: palette.gold.withValues(alpha: 0.6)),
                 ),
-                child: Icon(lens.maestro.icon,
-                    size: 18, color: palette.goldSoft),
+                child:
+                    Icon(lens.maestro.icon, size: 18, color: palette.goldSoft),
               ),
               const SizedBox(width: SpacingTokens.sm),
               Text(lens.maestro.displayName,
@@ -444,10 +484,8 @@ class _LensCard extends StatelessWidget {
               )),
           const SizedBox(height: SpacingTokens.sm),
           Text(lens.reading,
-              style: TypographyTokens.body(size: 14).copyWith(
-                color: ColorTokens.textPrimary,
-                height: 1.4,
-              )),
+              style: TypographyTokens.body(size: 14)
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
           const SizedBox(height: SpacingTokens.sm),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,

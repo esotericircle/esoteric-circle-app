@@ -11,6 +11,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import 'ask/ask_maestri_screen.dart';
 import 'aura/meditation/meditation_screen.dart';
 import 'chat/maestro_chat_screen.dart';
 import 'widgets/maestro_presence.dart';
@@ -83,6 +84,8 @@ class MaestroScreen extends StatelessWidget {
                   // la stessa struttura e la voce del rispettivo dominio.
                   const SizedBox(height: SpacingTokens.md),
                   _TalkToMaestroCard(maestro: maestro),
+                  const SizedBox(height: SpacingTokens.md),
+                  _AskMaestroCard(maestro: maestro),
                   // La Meditazione di Aura e' gia' viva: suono generato a
                   // runtime, cimatica e guida al respiro.
                   if (maestro == Maestro.aura) ...[
@@ -109,6 +112,60 @@ class MaestroScreen extends StatelessWidget {
           const SliverToBoxAdapter(
             child: SizedBox(height: SpacingTokens.xxxl),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// La porta a "Chiedi ai Maestri", che parte da questo Maestro: una domanda,
+/// la sua risposta, poi l'invito a portarla anche a un altro Maestro.
+class _AskMaestroCard extends StatelessWidget {
+  const _AskMaestroCard({required this.maestro});
+
+  final Maestro maestro;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return DepthCard(
+      key: const Key('domain_ask_card'),
+      raised: true,
+      onTap: () => Navigator.of(context)
+          .push(AskMaestriScreen.route(starter: maestro)),
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      child: Row(
+        children: [
+          Container(
+            width: 46,
+            height: 46,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: palette.primary.withValues(alpha: 0.5),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+            ),
+            alignment: Alignment.center,
+            child: Icon(Icons.balance, color: palette.goldSoft, size: 24),
+          ),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Chiedi a ${maestro.displayName}',
+                  style: TypographyTokens.display(size: 18),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Una domanda, poi lo sguardo di un altro Maestro a confronto.',
+                  style: TypographyTokens.body(size: 14)
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
         ],
       ),
     );

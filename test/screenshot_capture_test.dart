@@ -7,6 +7,8 @@ import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -325,21 +327,36 @@ void main() {
     await capture(tester, rootKey, 'cielo-sopra-di-te.png');
   });
 
-  // --- Chiedi ai Maestri: la vista comparativa con le tre lenti ---
+  // --- Chiedi ai Maestri: parte dal dominio, poi il confronto degli sguardi ---
   testWidgets('Cattura Chiedi ai Maestri, vista comparativa', (tester) async {
     silenceSensors();
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    // Dal Santuario si apre "Chiedi ai Maestri".
-    await tester.tap(find.byKey(const Key('santuario_ask_maestri')));
+    // Tier a pagamento, cosi' il confronto e' disponibile per l'anteprima.
+    tester
+        .element(find.byType(MaterialApp))
+        .read<EntitlementService>()
+        .setTier(Tier.tier1);
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
-    // Tutti e tre i Maestri restano scelti di default: si pone la domanda.
+    // Dal dominio si apre "Chiedi a Medora".
+    await tester.ensureVisible(find.byKey(const Key('domain_ask_card')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('domain_ask_card')));
+    await step(tester);
+    await step(tester);
     await tester.enterText(
         find.byKey(const Key('ask_field')), 'Devo cambiare lavoro?');
     await step(tester);
     await tester.tap(find.byKey(const Key('ask_submit')));
+    await step(tester);
+    await step(tester);
+    // Porta la stessa domanda anche allo sguardo di Aura: appare la sintesi.
+    await tester.tap(find.byKey(const Key('ask_add_aura')));
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'chiedi-ai-maestri.png');

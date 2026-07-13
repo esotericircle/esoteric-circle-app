@@ -446,3 +446,20 @@ all'upgrade riusabile (`upgrade_invite.dart`), mai un vicolo cieco, con la via a
 piani. Entrata dalle Impostazioni ("Il tuo piano"). Test: contatore giornaliero
 e rollover, piani, schermata prezzi e attivazione in Demo, invito che porta ai
 piani. Screenshot: `piani.png`.
+
+## Task 3, Chiedi ai Maestri ridisegnato — FATTO
+
+Tolta la bolla "Chiedi ai Maestri" dal Santuario: non si sovrappone piu' ai
+busti. Il chiedere ora parte dentro il dominio di un Maestro, da una tessera
+"Chiedi a {Maestro}". Si pone una domanda, il Maestro risponde dal suo sguardo,
+e sotto la risposta compare l'invito "Chiedi anche a un altro Maestro", che porta
+lo stesso tema allo sguardo di un secondo o terzo Maestro e mostra in cima la
+sintesi comparativa. Regole di accesso legate all'entitlement del Task 2: il Free
+ha una sola domanda singola al giorno; il confronto a piu' Maestri e le domande
+oltre la prima sono del Tier a pagamento, con l'invito gentile all'upgrade quando
+il limite e' raggiunto, mai un vicolo cieco. Le risposte usano l'oracolo locale
+in ripiego; la chiamata vera a Vertex resta al device. Test aggiornati: partenza
+dal dominio con una risposta e l'invito, il Free bloccato sul confronto e sulla
+seconda domanda con l'upgrade, il Tier a pagamento che aggiunge lo sguardo e la
+sintesi. Screenshot: `chiedi-ai-maestri.png` (nuova vista) e i Santuario senza la
+bolla.
