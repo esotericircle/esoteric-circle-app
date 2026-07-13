@@ -16,10 +16,15 @@ class ChatMessage {
     this.at,
     this.pending = false,
     this.failed = false,
+    this.intentId,
   });
 
   final ChatRole role;
   final String text;
+
+  /// Se il messaggio del Maestro instrada verso una funzione immersiva, l'id
+  /// dell'intento: la bolla mostra il pulsante che la apre. Nullo altrimenti.
+  final String? intentId;
 
   /// Istante di creazione, se noto (dal server in persistenza).
   final DateTime? at;
@@ -41,6 +46,7 @@ class ChatMessage {
       at: at,
       pending: pending ?? this.pending,
       failed: failed ?? this.failed,
+      intentId: intentId,
     );
   }
 }

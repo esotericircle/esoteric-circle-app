@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/chat/chat_message.dart';
+import '../../../../core/chat/immersive_intents.dart';
 import '../../../../core/maestro/maestro.dart';
+import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
@@ -20,10 +22,14 @@ class ChatBubble extends StatelessWidget {
     super.key,
     required this.message,
     required this.maestro,
+    this.onOpenIntent,
   });
 
   final ChatMessage message;
   final Maestro maestro;
+
+  /// Apre la funzione immersiva instradata, dato l'id dell'intento.
+  final void Function(String intentId)? onOpenIntent;
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +78,28 @@ class ChatBubble extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 6),
               child: AstralTypingIndicator(),
             )
-          : Text(
-              message.text,
-              style: TypographyTokens.body(size: 17).copyWith(
-                color: isUser
-                    ? ColorTokens.textPrimary
-                    : palette.textPrimary,
-                height: 1.5,
-              ),
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  message.text,
+                  style: TypographyTokens.body(size: 17).copyWith(
+                    color: isUser
+                        ? ColorTokens.textPrimary
+                        : palette.textPrimary,
+                    height: 1.5,
+                  ),
+                ),
+                if (message.intentId != null) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  _IntentButton(
+                    intentId: message.intentId!,
+                    palette: palette,
+                    onTap: () => onOpenIntent?.call(message.intentId!),
+                  ),
+                ],
+              ],
             ),
     );
 
@@ -111,6 +131,56 @@ class ChatBubble extends StatelessWidget {
           const SizedBox(width: SpacingTokens.xs),
           Flexible(child: bubble),
         ],
+      ),
+    );
+  }
+}
+
+/// Il pulsante che apre la funzione immersiva instradata dalla chat.
+class _IntentButton extends StatelessWidget {
+  const _IntentButton({
+    required this.intentId,
+    required this.palette,
+    required this.onTap,
+  });
+
+  final String intentId;
+  final MaestroPalette palette;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final intent = ImmersiveIntents.all.firstWhere((i) => i.id == intentId);
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: Key('intent_open_$intentId'),
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+            gradient: LinearGradient(colors: [
+              palette.primary.withValues(alpha: 0.7),
+              palette.surfaceElevated.withValues(alpha: 0.7),
+            ]),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.auto_awesome, size: 16, color: palette.goldSoft),
+              const SizedBox(width: SpacingTokens.sm),
+              Flexible(
+                child: Text(intent.buttonLabel,
+                    style: TypographyTokens.display(size: 15)
+                        .copyWith(color: palette.goldSoft)),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

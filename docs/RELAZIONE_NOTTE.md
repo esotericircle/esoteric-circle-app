@@ -549,3 +549,23 @@ senza troncare nulla. Testo persistente in basso: "Nella demo i piani sono
 visibili ma il pagamento non è integrato." Il contatore delle domande e' ora per
 tier (1, 5, 10, illimitate). Test: livelli, prezzi, mappa comparativa, contatore
 per tier, schermata con Demo e senza. Screenshot: `piani.png`.
+
+## 2. Instradamento della chat verso le funzioni immersive — FATTO
+
+Quando in chat l'utente chiede un'esperienza che ha gia' una funzione immersiva
+dedicata, il Maestro non genera una lettura a testo con l'AI: riconosce l'intento
+e invita ad aprire la funzione. Un classificatore leggero e deterministico
+(`lib/core/chat/intent_classifier.dart`), solo parole chiave e sinonimi, nessuna
+chiamata AI, intercetta la richiesta; l'allow-list per Maestro vive in un file di
+configurazione dedicato (`immersive_intents.dart`), estendibile senza toccare la
+logica. Medora: stesa di carte, carta natale, sinastria vip, oroscopo del giorno.
+Aura: meditazione, breathwork, costellazione del viso, scan dei chakra, frequenze.
+Caligo: rune, sigillo, I-Ching, pendolo, rituale con candela. Il Maestro risponde
+in carattere con una frase breve e un pulsante che apre la funzione (deep link
+interno): dove la schermata esiste gia' (Oracolo del Giorno, Meditazione, Runa)
+si apre, dove e' ancora dietro il velo un invito elegante "arriva presto", mai un
+vicolo cieco. Questo scambio non chiama l'AI e non consuma la domanda del giorno;
+le domande vere del dominio restano risposte normali in chat. Test:
+`intent_routing_test.dart` (classificazione per Maestro, allow-list, parola
+intera, instradamento senza AI, domanda normale che chiama l'AI). Screenshot:
+`chat-instradamento.png`.

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import '../../../core/chat/chat_message.dart';
+import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/maestro_memory.dart';
 import '../../../core/chat/user_profile.dart';
 import '../../../core/maestro/maestro.dart';
@@ -19,12 +20,15 @@ class MaestroChatController extends ChangeNotifier {
     required this.maestro,
     required MaestroAiProvider ai,
     required MaestroMemoryRepository memory,
+    IntentClassifier classifier = const IntentClassifier(),
   })  : _ai = ai,
-        _memory = memory;
+        _memory = memory,
+        _classifier = classifier;
 
   final Maestro maestro;
   final MaestroAiProvider _ai;
   final MaestroMemoryRepository _memory;
+  final IntentClassifier _classifier;
 
   /// Ogni quanti turni dell'utente rinfrescare il distillato di memoria.
   static const int _distillEvery = 3;
@@ -98,6 +102,24 @@ class MaestroChatController extends ChangeNotifier {
     );
     _messages.add(userMessage);
     unawaited(_persist(userMessage));
+
+    // Instradamento: se la richiesta e' un'esperienza immersiva dedicata, il
+    // Maestro invita ad aprire la funzione, senza chiamare l'AI e senza
+    // consumare la domanda del giorno. Il costo e la quota vivono dentro la
+    // funzione immersiva, con le sue regole.
+    final intent = _classifier.classify(maestro, trimmed);
+    if (intent != null) {
+      final invite = ChatMessage(
+        role: ChatRole.maestro,
+        text: intent.invite,
+        at: DateTime.now(),
+        intentId: intent.id,
+      );
+      _messages.add(invite);
+      unawaited(_persist(invite));
+      notifyListeners();
+      return;
+    }
 
     await _generate(priorHistory: priorHistory, userText: trimmed);
   }

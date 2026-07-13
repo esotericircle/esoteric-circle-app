@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/chat/immersive_intents.dart';
 import '../../../core/lang/euphonic.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../design_system/components/cosmos_background.dart';
@@ -10,6 +11,9 @@ import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../services/app_services.dart';
+import '../../rituals/day_oracle_screen.dart';
+import '../../rituals/sunset_rune_screen.dart';
+import '../aura/meditation/meditation_screen.dart';
 import 'maestro_chat_controller.dart';
 import 'widgets/chat_bubble.dart';
 import 'widgets/chat_composer.dart';
@@ -178,8 +182,98 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         return ChatBubble(
           message: controller.messages[index],
           maestro: widget.maestro,
+          onOpenIntent: (id) => _openIntent(context, id),
         );
       },
+    );
+  }
+
+  // Apre la funzione immersiva instradata. Se esiste gia' la schermata, la
+  // spinge (deep link interno); se e' ancora dietro il velo, un invito
+  // elegante, mai un vicolo cieco.
+  void _openIntent(BuildContext context, String intentId) {
+    final target = ImmersiveTarget.values.firstWhere((t) => t.name == intentId);
+    final route = _routeFor(target);
+    if (route != null) {
+      Navigator.of(context).push(route);
+      return;
+    }
+    _showComingSoon(context, intentId);
+  }
+
+  Route<void>? _routeFor(ImmersiveTarget target) {
+    switch (target) {
+      case ImmersiveTarget.oroscopoGiorno:
+        return DayOracleScreen.route();
+      case ImmersiveTarget.meditazione:
+      case ImmersiveTarget.breathwork:
+      case ImmersiveTarget.frequenze:
+        return MeditationScreen.route();
+      case ImmersiveTarget.lancioRune:
+        return SunsetRuneScreen.route();
+      case ImmersiveTarget.tarocchiStesa:
+      case ImmersiveTarget.cartaNatale:
+      case ImmersiveTarget.sinastriaCeleb:
+      case ImmersiveTarget.costellazioneViso:
+      case ImmersiveTarget.scanChakra:
+      case ImmersiveTarget.sigilloMagico:
+      case ImmersiveTarget.iChing:
+      case ImmersiveTarget.pendolo:
+      case ImmersiveTarget.ritualeCandela:
+        return null; // ancora dietro il velo
+    }
+  }
+
+  void _showComingSoon(BuildContext context, String intentId) {
+    final intent = ImmersiveIntents.all.firstWhere((i) => i.id == intentId);
+    final palette = context.palette;
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (sheetContext) => Container(
+        key: const Key('intent_coming_soon'),
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
+            SpacingTokens.lg, SpacingTokens.xl),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [palette.surfaceElevated, palette.deepest],
+          ),
+          borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(SpacingTokens.radiusXl)),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+        ),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(intent.buttonLabel,
+                  style: TypographyTokens.display(size: 19)
+                      .copyWith(color: palette.goldSoft)),
+              const SizedBox(height: SpacingTokens.sm),
+              Text(
+                'Questa esperienza sta per aprirsi nel cerchio. Arriva presto, '
+                'con tutta la sua immersione.',
+                style: TypographyTokens.body(size: 15)
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+              const SizedBox(height: SpacingTokens.lg),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () => Navigator.of(sheetContext).pop(),
+                  child: Text('Va bene',
+                      style: TypographyTokens.label(size: 13)
+                          .copyWith(color: palette.goldSoft)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

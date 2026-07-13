@@ -6,6 +6,7 @@ import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/astro/moon_phase.dart';
 import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
+import 'package:esoteric_circle/core/chat/immersive_intents.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
@@ -536,6 +537,33 @@ void main() {
     tester.view.physicalSize = const Size(390, 2600);
     await step(tester);
     await capture(tester, rootKey, 'piani.png');
+  });
+
+  // --- La chat che instrada verso una funzione immersiva ---
+  testWidgets('Cattura la chat che instrada a una funzione', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final memory = InMemoryMaestroMemoryRepository();
+    await memory.saveProfile(
+        UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final intent = ImmersiveIntents.all
+        .firstWhere((i) => i.target == ImmersiveTarget.tarocchiStesa);
+    await memory.appendMessage(Maestro.medora,
+        const ChatMessage(role: ChatRole.user, text: 'Puoi leggermi i tarocchi?'));
+    await memory.appendMessage(
+        Maestro.medora,
+        ChatMessage(
+            role: ChatRole.maestro, text: intent.invite, intentId: intent.id));
+    final services = AppServices(
+      ai: _ScriptedMaestro(),
+      memory: memory,
+      memoryPersistent: true,
+      diagnostics: 'Cattura offline.',
+    );
+    final rootKey = await mount(tester, services);
+    await openChat(tester, Maestro.medora);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'chat-instradamento.png');
   });
 
   // --- Le chat: conversazione, pannello suggerimenti, stato vuoto ---
