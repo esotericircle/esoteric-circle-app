@@ -113,12 +113,17 @@ void main() {
   testWidgets('Il carosello cambia il Maestro centrale restando nel Santuario',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    // Fascia dell'Oracolo (12:30-18:00): senza selezione l'eroe segue Medora,
+    // cosi' i laterali restano Caligo e Aura in ordine fisso.
+    await tester.pumpWidget(EsotericCircleApp(
+      services: AppServices.offline(),
+      clock: () => DateTime(2026, 7, 14, 13, 0),
+    ));
     await step(tester);
     final ctx = tester.element(find.byType(MaterialApp));
     final maestro = ctx.read<MaestroController>();
 
-    // Al centro c'e' il preferito (Medora); i laterali sono Caligo e Aura.
+    // Al centro c'e' Medora (fascia Oracolo); i laterali sono Caligo e Aura.
     expect(maestro.activeMaestro, isNull);
     // Toccando un busto laterale lo si porta al centro, senza lasciare il
     // Santuario: nessun dominio spinto, cambia solo il centro.

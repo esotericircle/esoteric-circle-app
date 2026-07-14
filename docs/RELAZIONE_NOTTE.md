@@ -877,3 +877,39 @@ specifica del punto 1 sul nome della classe non era esatta nel dettaglio: il fil
 del plugin resta in 7.1.0, ma la classe attesa dai plugin più recenti non c'è, e
 l'effetto è lo stesso, la mancata compilazione. Il preview `card-rito-alba.png`
 cambia col Maestro di turno del giorno, deterministico sulla data.
+
+# Decimo blocco (striscia del giorno, elenchi prezzi, onboarding)
+
+## Intervento 1, elenchi benefici estesi per Tier (fatto)
+
+Sostituiti gli highlight delle card prezzi con gli elenchi completi, uno per Tier,
+resi con la spunta check-circle esistente e lo stesso layout: Viandante (accesso
+al Santuario con le tre Guide, i quattro elementi giornalieri, carta natale di
+base, una domanda al giorno, banner), Iniziato (tutto di Viandante senza banner,
+Memoria AI delle Guide, domande alle tre Guide, diario esoterico, rune e simboli),
+Adepto (tutto di Iniziato, voce AI, interazioni illimitate salvo le funzioni ad
+alto costo, Sinastria VIP completa, rituali guidati), Illuminato (tutto di Adepto
+illimitato, Guida reale, compatibilità a tre livelli, Albero della vita dinamico,
+priorità sulle nuove funzioni). La card Demo con "Piano Attuale", il ciclo Annuale
+di default e il comparatore a scorrimento restano intatti.
+
+## Intervento 2, striscia del giorno, apertura diretta e onboarding (fatto)
+
+Striscia fissa in cima al Santuario, sempre visibile, coi quattro elementi
+giornalieri come icone: l'elemento della fascia oraria attiva e' centrato e in
+evidenza con un lieve pulsare, nel suo accento (oro per il Rito dell'Alba, verde
+per il Soffio del Destino, blu per l'Oracolo del Giorno, rosso per la Runa del
+Tramonto). La fascia e' deterministica dall'ora locale (`daily_elements.dart`):
+alba dalle 7:00, soffio dalle 10:30, oracolo dalle 12:30, runa dalle 18:00, e
+prima dell'alba resta la Runa della sera. Un tocco apre direttamente l'esperienza
+dell'elemento, senza schermata di dominio intermedia; il routing con parametro
+elemento (`dailyElementRoute`) serve anche al deep-link da notifica push, che apre
+lo screen giusto e alla chiusura torna al Santuario. Al primo avvio l'app mostra
+l'onboarding "Il Risveglio" (la Guida di turno accoglie per nome), poi il
+Santuario come home; le aperture successive vanno dirette al Santuario, con un
+flag persistente. Il Rito dell'Alba conserva l'avatar della Guida di turno.
+
+Test nuovi: `daily_elements_test` (selezione deterministica per fascia oraria),
+`daily_strip_test` (i quattro elementi, apertura a tocco singolo, nessun dominio
+intermedio), `onboarding_test` (primo avvio mostra Il Risveglio poi il Santuario,
+aperture successive dirette). `flutter analyze` pulito, 196 test verdi.

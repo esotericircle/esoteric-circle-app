@@ -21,7 +21,11 @@ import 'santuario_bottom_bar.dart';
 /// Lo scorrimento della schermata attiva alimenta la parallasse dello sfondo;
 /// ogni tocco propaga un'onda luminosa del colore del Maestro.
 class AppShell extends StatelessWidget {
-  const AppShell({super.key});
+  const AppShell({super.key, this.clock});
+
+  /// Orologio iniettabile per i test, inoltrato al Santuario cosi' che striscia
+  /// del giorno ed eroe centrale si possano fissare a una fascia oraria.
+  final DateTime Function()? clock;
 
   // L'icona Maestro nella barra e' una porta diretta al dominio: seleziona il
   // Maestro (cosi' al ritorno resta il centro) e spinge la route del dominio.
@@ -40,7 +44,7 @@ class AppShell extends StatelessWidget {
     final nav = context.watch<NavigationController>();
 
     final Widget screen = switch (nav.view) {
-      ShellView.santuario => const SantuarioScreen(),
+      ShellView.santuario => SantuarioScreen(clock: clock),
       ShellView.passport => const CosmicPassport(),
     };
 

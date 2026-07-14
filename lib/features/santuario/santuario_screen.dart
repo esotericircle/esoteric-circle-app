@@ -12,6 +12,7 @@ import '../../core/l10n/app_strings.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../core/motion/parallax_controller.dart';
+import '../../core/rituals/daily_elements.dart';
 import '../../core/santuario/function_shelf.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -25,6 +26,7 @@ import '../maestri/domain_screen.dart';
 import '../rituals/day_oracle_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
 import '../synastry/sinastria_vip_screen.dart';
+import 'daily_strip.dart';
 import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
@@ -43,7 +45,12 @@ import 'widgets/moon_widget.dart';
 /// segnaposto architettonico, l'asset dipinto e il motore a effemeridi
 /// arrivano dopo.
 class SantuarioScreen extends StatefulWidget {
-  const SantuarioScreen({super.key});
+  const SantuarioScreen({super.key, this.clock});
+
+  /// Orologio iniettabile per i test. Di default l'ora locale del dispositivo.
+  /// Guida sia la striscia del giorno sia l'eroe centrale, cosi' i due
+  /// concordano sempre sullo stesso elemento della fascia oraria attiva.
+  final DateTime Function()? clock;
 
   /// Maestro preferito, segnaposto in attesa dell'assegnazione all'onboarding.
   static const Maestro preferred = Maestro.medora;
@@ -241,16 +248,28 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     }
   }
 
+  DateTime Function() get _clock => widget.clock ?? DateTime.now;
+
   @override
   Widget build(BuildContext context) {
-    final active = context.watch<MaestroController>().activeMaestro;
-    final central = active ?? SantuarioScreen.preferred;
-    final selected = active != null;
+    final now = _clock();
+    // L'eroe centrale segue il Maestro dell'elemento in evidenza nella
+    // striscia: Soffio ad Aura, Oracolo a Medora, Runa a Caligo, e il Rito
+    // dell'Alba al Maestro di turno del giorno. La selezione esplicita di un
+    // laterale resta un'eccezione che porta quel Maestro al centro; senza
+    // selezione l'eroe si aggiorna in modo deterministico al cambio di fascia.
+    final elementMaestro =
+        DailyElements.maestroFor(DailyElements.current(now), now);
+    final chosen = context.watch<MaestroController>().activeMaestro;
+    final central = chosen ?? elementMaestro;
+    final selected = chosen != null;
     final reduceMotion = MediaQuery.of(context).disableAnimations;
     final parallax = context.watch<ParallaxController>();
-    final palette = context.palette;
+    // Colore di dominio dell'eroe coerente col Maestro al centro, cosi' cielo,
+    // testo e pulsante seguono l'elemento attivo, non il tema neutro.
+    final palette = MaestroPalette.forKey(ThemeKey.of(central));
 
-    final moon = MoonPhase.forDate(DateTime.now());
+    final moon = MoonPhase.forDate(now);
 
     // Slot personali: nome reale e segno dell'utente. Il nome viene dal profilo
     // (mai il nome del tier); il segno si legge dal controller dello zodiaco.
@@ -271,24 +290,42 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         if (_showSkyHint) _dismissSkyHint();
       },
       child: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, outer) {
-            final viewportH = outer.maxHeight;
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: viewportH,
-                    child: _buildHero(context, central, selected, reduceMotion,
-                        palette, moon, personalLine, userZodiac, depth),
-                  ),
-                  _FunctionShelfView(
-                    onOpen: (fn) => _openShelf(context, fn, userZodiac),
-                  ),
-                ],
+        child: Column(
+          children: [
+            // La striscia del giorno, fissa in cima e sempre visibile: i quattro
+            // elementi giornalieri, quello dell'ora attuale in evidenza. Stesso
+            // orologio dell'eroe, cosi' striscia e centro concordano.
+            DailyStrip(clock: widget.clock),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, outer) {
+                  final viewportH = outer.maxHeight;
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: viewportH,
+                          child: _buildHero(
+                              context,
+                              central,
+                              selected,
+                              reduceMotion,
+                              palette,
+                              moon,
+                              personalLine,
+                              userZodiac,
+                              depth),
+                        ),
+                        _FunctionShelfView(
+                          onOpen: (fn) => _openShelf(context, fn, userZodiac),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
