@@ -1,6 +1,10 @@
 # Miscellaneous
 *.class
 *.lock
+# Eccezione mirata: Esoteric Circle e' una app, non una libreria, quindi il lock
+# va versionato. Senza, l'albero delle dipendenze resta flottante e una
+# pubblicazione a monte puo' rompere la build senza che nulla cambi qui.
+!pubspec.lock
 *.log
 *.pyc
 *.swp
