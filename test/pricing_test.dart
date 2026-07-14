@@ -47,8 +47,13 @@ void main() {
         find.textContaining('il pagamento non è integrato'), findsOneWidget);
     // La tabella comparativa e' presente.
     expect(find.byKey(const Key('pricing_table')), findsOneWidget);
-    // Compare sia come vantaggio dell'Iniziato sia come riga della tabella.
-    expect(find.text('Memoria AI dei Maestri'), findsWidgets);
+    // Gli elenchi estesi dei benefici sono a schermo, uno per Tier.
+    expect(find.text('Accesso al Santuario con le tre Guide'), findsOneWidget);
+    expect(find.text('Memoria AI delle Guide, che ricordano i tuoi percorsi'),
+        findsOneWidget);
+    expect(find.text('Sinastria VIP completa'), findsOneWidget);
+    expect(find.text('Albero della vita dinamico e personalizzato'),
+        findsOneWidget);
   });
 
   testWidgets('Fuori Demo il Piano Attuale sta sul tier corrente', (tester) async {

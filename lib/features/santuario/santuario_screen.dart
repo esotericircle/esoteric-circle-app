@@ -25,6 +25,7 @@ import '../maestri/domain_screen.dart';
 import '../rituals/day_oracle_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
 import '../synastry/sinastria_vip_screen.dart';
+import 'daily_strip.dart';
 import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
@@ -271,24 +272,41 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         if (_showSkyHint) _dismissSkyHint();
       },
       child: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, outer) {
-            final viewportH = outer.maxHeight;
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: viewportH,
-                    child: _buildHero(context, central, selected, reduceMotion,
-                        palette, moon, personalLine, userZodiac, depth),
-                  ),
-                  _FunctionShelfView(
-                    onOpen: (fn) => _openShelf(context, fn, userZodiac),
-                  ),
-                ],
+        child: Column(
+          children: [
+            // La striscia del giorno, fissa in cima e sempre visibile: i quattro
+            // elementi giornalieri, quello dell'ora attuale in evidenza.
+            const DailyStrip(),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, outer) {
+                  final viewportH = outer.maxHeight;
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: viewportH,
+                          child: _buildHero(
+                              context,
+                              central,
+                              selected,
+                              reduceMotion,
+                              palette,
+                              moon,
+                              personalLine,
+                              userZodiac,
+                              depth),
+                        ),
+                        _FunctionShelfView(
+                          onOpen: (fn) => _openShelf(context, fn, userZodiac),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );

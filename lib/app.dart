@@ -8,10 +8,12 @@ import 'core/feature_flags/feature_flag_service.dart';
 import 'core/identity/profile_controller.dart';
 import 'core/maestro/maestro_controller.dart';
 import 'core/motion/parallax_controller.dart';
+import 'core/onboarding/onboarding_controller.dart';
 import 'core/quality/quality_tier.dart';
 import 'core/settings/settings_controller.dart';
 import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
+import 'features/onboarding/onboarding_screen.dart';
 import 'features/santuario/greeting_controller.dart';
 import 'features/shell/app_shell.dart';
 import 'features/shell/navigation_controller.dart';
@@ -53,6 +55,7 @@ class EsotericCircleApp extends StatelessWidget {
           )..initialize(),
         ),
         ChangeNotifierProvider(create: (_) => GreetingController()),
+        ChangeNotifierProvider(create: (_) => OnboardingController()..load()),
       ],
       child: MaterialApp(
         title: 'Esoteric Circle',
@@ -78,11 +81,43 @@ class EsotericCircleApp extends StatelessWidget {
                 disableAnimations:
                     mq.disableAnimations || settings.reduceAnimations,
               ),
-              child: const MaestroScope(child: AppShell()),
+              child: const _OnboardingLauncher(
+                child: MaestroScope(child: AppShell()),
+              ),
             );
           },
         ),
       ),
     );
+  }
+}
+
+/// Al primo avvio spinge "Il Risveglio" sopra il Santuario, una volta sola; le
+/// aperture successive restano dirette al Santuario. La home resta comunque lo
+/// shell, cosi' l'onboarding e' una soglia che si apre e si chiude, non un ramo
+/// separato dell'albero.
+class _OnboardingLauncher extends StatefulWidget {
+  const _OnboardingLauncher({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_OnboardingLauncher> createState() => _OnboardingLauncherState();
+}
+
+class _OnboardingLauncherState extends State<_OnboardingLauncher> {
+  bool _handled = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final onboarding = context.watch<OnboardingController>();
+    if (!_handled && onboarding.resolved && onboarding.needsOnboarding) {
+      _handled = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        Navigator.of(context).push(OnboardingScreen.route());
+      });
+    }
+    return widget.child;
   }
 }

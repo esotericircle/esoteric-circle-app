@@ -78,8 +78,9 @@ void main() {
       expect(iniziato.price!.monthly, '9,90 €');
       expect(iniziato.price!.yearly, '89,90 €');
       expect(iniziato.price!.yearlyDiscountPercent, 24);
-      // La Memoria AI e' la prima leva dell'Iniziato.
-      expect(iniziato.highlights.first, contains('Memoria AI'));
+      // L'Iniziato apre col riepilogo del gratuito, poi la Memoria AI.
+      expect(iniziato.highlights.first, contains('Tutto di Viandante'));
+      expect(iniziato.highlights.any((h) => h.contains('Memoria AI')), isTrue);
 
       final adepto = PlanCatalog.forTier(Tier.tier2);
       expect(adepto.price!.monthly, '19,90 €');

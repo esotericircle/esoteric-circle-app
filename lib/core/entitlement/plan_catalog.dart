@@ -105,9 +105,11 @@ class PlanCatalog {
       name: 'Viandante',
       identity: 'Esplora la soglia.',
       highlights: [
-        'Una domanda al giorno a un Maestro',
-        'I quattro rituali del giorno',
-        'Carta natale, lettura base',
+        'Accesso al Santuario con le tre Guide',
+        'I quattro elementi giornalieri (Rito dell\'Alba, Soffio del Destino, Oracolo del Giorno, Runa del Tramonto)',
+        'Carta natale di base',
+        'Una domanda al giorno a una Guida',
+        'Contenuti sponsorizzati con banner',
       ],
     ),
     Plan(
@@ -123,11 +125,11 @@ class PlanCatalog {
         yearlyDiscountPercent: 24,
       ),
       highlights: [
-        // La Memoria AI e' la prima leva di conversione dal gratuito.
-        'Memoria AI dei Maestri',
-        'Cinque domande al giorno a un Maestro',
-        'Sintesi comparativa dei Maestri',
-        'Carta natale completa con i transiti',
+        'Tutto di Viandante, senza banner',
+        'Memoria AI delle Guide, che ricordano i tuoi percorsi',
+        'Domande giornaliere ampliate alle tre Guide',
+        'Diario esoterico personale',
+        'Rune e simboli sbloccati nel Santuario',
       ],
     ),
     Plan(
@@ -142,10 +144,11 @@ class PlanCatalog {
         yearlyDiscountPercent: 25,
       ),
       highlights: [
-        'Voce AI dei Maestri, esclusiva',
-        'Dieci domande al giorno a un Maestro',
-        'Oroscopo mensile',
-        'Tarocchi a carta singola illimitati',
+        'Tutto di Iniziato',
+        'Voce AI delle tre Guide',
+        'Interazioni illimitate, salvo le funzioni ad alto costo',
+        'Sinastria VIP completa',
+        'Rituali guidati passo passo delle tre magie',
       ],
     ),
     Plan(
@@ -160,10 +163,11 @@ class PlanCatalog {
         yearlyDiscountPercent: 25,
       ),
       highlights: [
-        'Domande illimitate ai Maestri',
-        'Una domanda al Maestro reale al mese',
-        'Compatibilità a tre livelli, esclusiva',
-        'Accesso anticipato alle nuove funzioni',
+        'Tutto di Adepto, tutto illimitato',
+        'Guida reale con presenza estesa',
+        'Compatibilità a tre livelli',
+        'Albero della vita dinamico e personalizzato',
+        'Priorità sulle nuove funzioni in arrivo',
       ],
     ),
   ];
