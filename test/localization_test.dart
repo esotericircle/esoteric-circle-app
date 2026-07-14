@@ -8,7 +8,7 @@ void main() {
 
   test('Italiano di default per la barra e le funzioni', () {
     AppStrings.languageCode = 'it';
-    expect(AppStrings.navSantuario, 'Santuario');
+    expect(AppStrings.navSantuario, 'Il Cerchio');
     expect(AppStrings.navPassport, 'Passport');
     expect(
         AppStrings.functionTitle('synastry_vip', fallback: 'X'), 'Sinastria VIP');
@@ -16,7 +16,7 @@ void main() {
 
   test('L\'inglese si attiva cambiando la lingua, senza toccare il codice', () {
     AppStrings.languageCode = 'en';
-    expect(AppStrings.navSantuario, 'Sanctuary');
+    expect(AppStrings.navSantuario, 'The Circle');
     expect(
         AppStrings.functionTitle('synastry_vip', fallback: 'X'), 'VIP Synastry');
     // Passport resta invariato come termine di brand.

@@ -21,6 +21,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import '../account/account_screen.dart';
 import '../maestri/aura/meditation/meditation_screen.dart';
 import '../maestri/domain_screen.dart';
 import '../rituals/day_oracle_screen.dart';
@@ -357,51 +358,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
 
           return Stack(
             children: [
-              // Fondale del tempio: piano profondo dietro i Maestri e dietro le
-              // cornici, davanti al cosmo. Dipinto reale scontornato (canale
-              // alpha vero), a tutta larghezza e alzato: frontone, cupola e
-              // pinnacoli restano ben visibili sopra i Maestri, la soglia buia
-              // centrale sta dietro il Maestro al centro. Opacita' media alta,
-              // cosi' si vede davvero anche sul tema blu. Solo la fascia in
-              // cima sfuma, dietro il testo, per non coprirlo. Parallasse
-              // leggera del piano piu' lontano, ferma con Riduci Movimento.
-              Positioned(
-                top: h * 0.05,
-                left: 0,
-                right: 0,
-                height: w * 1376 / 768,
-                child: IgnorePointer(
-                  child: Transform.translate(
-                    offset: depth(0.16),
-                    child: Opacity(
-                      opacity: 0.55,
-                      child: ShaderMask(
-                        blendMode: BlendMode.dstIn,
-                        shaderCallback: (rect) => const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.transparent,
-                            Colors.white,
-                            Colors.white,
-                          ],
-                          stops: [0.0, 0.05, 0.22, 1.0],
-                        ).createShader(rect),
-                        child: Image.asset(
-                          'brand_assets/santuario/tempio.png',
-                          fit: BoxFit.fitWidth,
-                          alignment: Alignment.topCenter,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              // Cielo in alto: nebulose soffuse tinte sull'accento del Maestro
-              // e un paio di stelle piu' luminose a evocare i pianeti, in
-              // attesa del motore a effemeridi.
+              // Cosmo profondo dietro tutto: niente piu' tempio architettonico
+              // che competa con le carte dei Maestri. Sopra al campo stellare
+              // dello shell, qui restano nebulose soffuse tinte sull'accento del
+              // Maestro, con una piu' ampia e bassa che da' profondita', e un
+              // paio di stelle piu' luminose a evocare i pianeti. Parallasse
+              // leggera, ferma con Riduci Movimento.
               Positioned.fill(
                 child: CustomPaint(
                   painter: _SkyAccentsPainter(
@@ -409,6 +371,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                     primary: palette.primary,
                     star: palette.goldSoft,
                     offset: depth(0.12),
+                    deepOffset: depth(0.24),
                   ),
                 ),
               ),
@@ -420,7 +383,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               // (oltre la safe area) tiene il titolo staccato dal bordo, mai
               // sotto il notch o l'isola dinamica.
               Positioned(
-                top: h * 0.045 + 8,
+                top: h * 0.02 + 6,
                 left: 0,
                 right: 0,
                 child: GestureDetector(
@@ -429,12 +392,18 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   onTap: () => _openSky(context),
                   child: Column(
                     children: [
-                      // 1. Titolo, in cima.
-                      Text(
-                        'Il cielo sopra di te, stanotte',
-                        style: TypographyTokens.display(size: 17),
+                      // 1. Titolo fisso, in cima, ora con piu' respiro senza il
+                      // tempio a comprimerlo. Un margine orizzontale lo tiene
+                      // staccato dall'icona Utente nell'angolo.
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 56),
+                        child: Text(
+                          'Il Cielo Sopra di Te, Adesso',
+                          textAlign: TextAlign.center,
+                          style: TypographyTokens.display(size: 16),
+                        ),
                       ),
-                      const SizedBox(height: 2),
+                      const SizedBox(height: 6),
                       // 2. Grafica della Luna e del cielo, con l'occhiello della
                       // fase reale sotto.
                       MoonWidget(
@@ -508,20 +477,31 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 ),
               ),
 
-              // Unica via dall'alto: il pulsante Entra nel Dominio del Maestro
-              // al centro, sotto la figura, nella sua palette e col nome che si
-              // aggiorna. Nessuna bolla sopra l'immagine, nulla che copra il
-              // titolo o la figura. Le altre funzioni vivono nello scaffale che
-              // scorre sotto.
+              // La bolla di ingresso al dominio, sotto la figura: un invito di
+              // due righe su cosa si trova dentro, il pulsante Entra nel Dominio
+              // del Maestro al centro nella sua palette, e sotto la riga con le
+              // sue tre arti. Formato uniforme per tutti; per i riti che ruotano
+              // (Alba, Buonanotte) invito e arti seguono il Maestro di turno,
+              // perche' il centro e' gia' quel Maestro.
               Positioned(
                 left: 0,
                 right: 0,
-                bottom: h * 0.035,
-                child: Center(
-                  child: _EnterDomainButton(
-                    maestro: central,
-                    onTap: () => _enterDomain(context, central),
-                  ),
+                bottom: h * 0.03,
+                child: _DomainEntry(
+                  maestro: central,
+                  onTap: () => _enterDomain(context, central),
+                ),
+              ),
+
+              // Icona Utente in alto a destra: apre l'area account, distinta dal
+              // Passport (che resta il profilo esoterico nella barra in basso).
+              Positioned(
+                top: h * 0.012,
+                right: SpacingTokens.sm,
+                child: _UserAvatarButton(
+                  palette: palette,
+                  onTap: () =>
+                      Navigator.of(context).push(AccountScreen.route()),
                 ),
               ),
             ],
@@ -582,11 +562,29 @@ class _Carousel extends StatelessWidget {
             final w = c.maxWidth;
             final breathValue = reduceMotion ? 0.5 : breath.value;
 
-            // Il cerchio che unisce i tre Maestri e' ora l'anello del
-            // Santuario, dietro i busti: qui restano solo le figure.
+            // Il cerchio che unisce i tre Maestri e' un'ellisse dorata dietro
+            // la carta centrale, che congiunge le due laterali. Sta sopra il
+            // cosmo, sotto i busti.
+            final stackH = c.maxHeight;
             return Stack(
               clipBehavior: Clip.none,
               children: [
+                // L'ellisse dorata premium, dietro i busti.
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: CustomPaint(
+                      painter: _CircleEllipsePainter(
+                        width: w,
+                        stackHeight: stackH,
+                        centralHeight: centralHeight,
+                        sideBottom: sideBottom,
+                        sideHeight: sideH,
+                        sideWidth: sideW,
+                      ),
+                    ),
+                  ),
+                ),
+
                 // Busto sinistro, alzato, arretrato e in penombra.
                 Positioned(
                   left: w * 0.01,
@@ -658,6 +656,193 @@ class _Carousel extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+/// L'ellisse dorata del Cerchio: una linea curva sottile che parte da dietro la
+/// carta centrale e congiunge le due carte laterali dei Maestri. Oro luminoso a
+/// bassa opacita', premium e non invadente, sopra il cosmo e sotto i busti.
+class _CircleEllipsePainter extends CustomPainter {
+  _CircleEllipsePainter({
+    required this.width,
+    required this.stackHeight,
+    required this.centralHeight,
+    required this.sideBottom,
+    required this.sideHeight,
+    required this.sideWidth,
+  });
+
+  final double width;
+  final double stackHeight;
+  final double centralHeight;
+  final double sideBottom;
+  final double sideHeight;
+  final double sideWidth;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Centri delle due carte laterali (coordinate dall'alto), estremi
+    // dell'ellisse.
+    final leftX = width * 0.01 + sideWidth / 2;
+    final rightX = width - width * 0.01 - sideWidth / 2;
+    final sideCenterY = stackHeight - sideBottom - sideHeight / 2;
+
+    // La sommita' dell'arco sfiora la parte alta della carta centrale.
+    final topY = stackHeight - centralHeight * 0.92;
+    final rx = (rightX - leftX) / 2;
+    final ry = sideCenterY - topY;
+    if (rx <= 0 || ry <= 0) return;
+
+    final oval = Rect.fromCenter(
+      center: Offset(width / 2, sideCenterY),
+      width: rx * 2,
+      height: ry * 2,
+    );
+
+    // Meta' superiore dell'ellisse: da sinistra, su per la sommita', a destra.
+    // Un alone morbido sotto, poi il filo dorato nitido sopra.
+    canvas.drawArc(
+      oval,
+      math.pi,
+      math.pi,
+      false,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3.5
+        ..color = ColorTokens.goldLight.withValues(alpha: 0.14)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+    );
+    canvas.drawArc(
+      oval,
+      math.pi,
+      math.pi,
+      false,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.1
+        ..strokeCap = StrokeCap.round
+        ..shader = LinearGradient(
+          colors: [
+            ColorTokens.goldLight.withValues(alpha: 0.15),
+            ColorTokens.goldBright.withValues(alpha: 0.7),
+            ColorTokens.goldLight.withValues(alpha: 0.15),
+          ],
+        ).createShader(oval),
+    );
+  }
+
+  @override
+  bool shouldRepaint(_CircleEllipsePainter old) =>
+      old.width != width ||
+      old.stackHeight != stackHeight ||
+      old.centralHeight != centralHeight ||
+      old.sideBottom != sideBottom ||
+      old.sideHeight != sideHeight ||
+      old.sideWidth != sideWidth;
+}
+
+/// La bolla di ingresso al dominio del Maestro al centro. In ordine: un invito
+/// di due righe su cosa si trova dentro, il pulsante Entra nel Dominio, e sotto
+/// la riga con le tre arti del Maestro. Formato uniforme per tutti; segue il
+/// Maestro al centro, quindi anche il Maestro di turno quando e' attivo un rito
+/// che ruota.
+class _DomainEntry extends StatelessWidget {
+  const _DomainEntry({required this.maestro, required this.onTap});
+
+  final Maestro maestro;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Invito di due righe, cosa si trova nel dominio.
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xl),
+          child: Text(
+            maestro.domainInvite,
+            key: const Key('santuario_domain_invite'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.body(size: 14).copyWith(
+              color: ColorTokens.textSecondary,
+              fontStyle: FontStyle.italic,
+              height: 1.35,
+            ),
+          ),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        _EnterDomainButton(maestro: maestro, onTap: onTap),
+        const SizedBox(height: SpacingTokens.xs),
+        // La riga delle tre arti del Maestro.
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.auto_awesome, size: 12, color: palette.gold),
+            const SizedBox(width: 6),
+            Flexible(
+              child: Text(
+                maestro.domainArts,
+                key: const Key('santuario_domain_arts'),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.label(size: 10).copyWith(
+                  color: palette.goldSoft,
+                  letterSpacing: 0.6,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// L'avatar Utente in alto a destra: apre l'area account. Un cerchio discreto
+/// nella palette del Maestro al centro, con l'icona di una persona.
+class _UserAvatarButton extends StatelessWidget {
+  const _UserAvatarButton({required this.palette, required this.onTap});
+
+  final MaestroPalette palette;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      shape: const CircleBorder(),
+      child: InkWell(
+        key: const Key('santuario_user_avatar'),
+        customBorder: const CircleBorder(),
+        onTap: onTap,
+        child: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: RadialGradient(colors: [
+              palette.primary.withValues(alpha: 0.55),
+              palette.deepest.withValues(alpha: 0.5),
+            ]),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+            boxShadow: [
+              BoxShadow(
+                color: palette.glow.withValues(alpha: 0.3),
+                blurRadius: 12,
+                spreadRadius: -4,
+              ),
+            ],
+          ),
+          alignment: Alignment.center,
+          child: Icon(Icons.person_outline_rounded,
+              size: 22, color: palette.goldSoft),
+        ),
+      ),
     );
   }
 }
@@ -1013,6 +1198,7 @@ class _SkyAccentsPainter extends CustomPainter {
     required this.primary,
     required this.star,
     required this.offset,
+    required this.deepOffset,
   });
 
   final Color glow;
@@ -1020,12 +1206,37 @@ class _SkyAccentsPainter extends CustomPainter {
   final Color star;
   final Offset offset;
 
+  /// Deriva del piano piu' lontano, piu' ampia dell'accento vicino, cosi' il
+  /// cosmo ha profondita' invece di un fondo piatto.
+  final Offset deepOffset;
+
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.save();
-    canvas.translate(offset.dx, offset.dy);
     final w = size.width;
     final h = size.height;
+
+    // Piano profondo: una nebulosa ampia e tenue in basso, che scioglie il
+    // fondo e da' profondita' dietro le carte, senza competere con loro.
+    canvas.save();
+    canvas.translate(deepOffset.dx, deepOffset.dy);
+    canvas.drawCircle(
+      Offset(w * 0.5, h * 0.62),
+      w * 0.85,
+      Paint()
+        ..color = primary.withValues(alpha: 0.045)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 90),
+    );
+    canvas.drawCircle(
+      Offset(w * 0.28, h * 0.42),
+      w * 0.5,
+      Paint()
+        ..color = glow.withValues(alpha: 0.04)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 80),
+    );
+    canvas.restore();
+
+    canvas.save();
+    canvas.translate(offset.dx, offset.dy);
 
     // Nebulose soffuse, ai lati della Luna, tinte sull'accento.
     const nebulae = [
@@ -1076,6 +1287,7 @@ class _SkyAccentsPainter extends CustomPainter {
       old.glow != glow ||
       old.primary != primary ||
       old.star != star ||
-      old.offset != offset;
+      old.offset != offset ||
+      old.deepOffset != deepOffset;
 }
 

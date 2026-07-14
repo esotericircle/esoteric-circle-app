@@ -18,7 +18,7 @@ class AppStrings {
 
   /// Le voci della barra di navigazione.
   static const Map<String, Map<String, String>> _nav = {
-    'nav.santuario': {'it': 'Santuario', 'en': 'Sanctuary'},
+    'nav.santuario': {'it': 'Il Cerchio', 'en': 'The Circle'},
     // "Passport" resta come termine di brand: Mauro conferma se in italiano
     // diventa "Passaporto" o resta invariato.
     'nav.passport': {'it': 'Passport', 'en': 'Passport'},
@@ -40,7 +40,7 @@ class AppStrings {
     return byLang[languageCode] ?? byLang[_fallbackLanguage] ?? key;
   }
 
-  static String get navSantuario => _pick(_nav['nav.santuario'], 'Santuario');
+  static String get navSantuario => _pick(_nav['nav.santuario'], 'Il Cerchio');
   static String get navPassport => _pick(_nav['nav.passport'], 'Passport');
 
   /// Il nome localizzato di una funzione dello scaffale, per id. Se la chiave non

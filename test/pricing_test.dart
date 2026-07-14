@@ -52,7 +52,7 @@ void main() {
     expect(find.byKey(const Key('pricing_table')), findsOneWidget);
     // Gli elenchi estesi dei benefici sono a schermo, uno per Tier, con la
     // nomenclatura uniforme "Maestri".
-    expect(find.text('Accesso al Santuario con i tre Maestri'), findsOneWidget);
+    expect(find.text('Accesso al Cerchio con i tre Maestri'), findsOneWidget);
     expect(find.text('Memoria AI dei Maestri, esclusiva e persistente'),
         findsOneWidget);
     expect(find.text('Albero della Vita dinamico, esclusivo'), findsOneWidget);

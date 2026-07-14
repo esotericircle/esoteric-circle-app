@@ -115,7 +115,7 @@ class OnboardingScreen extends StatelessWidget {
                 const Spacer(),
                 _EnterButton(
                   palette: palette,
-                  label: 'Entra nel Santuario',
+                  label: 'Entra nel Cerchio',
                   onTap: () {
                     context.read<OnboardingController>().complete();
                     Navigator.of(context).maybePop();

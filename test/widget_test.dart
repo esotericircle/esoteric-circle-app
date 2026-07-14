@@ -48,7 +48,7 @@ void main() {
     await step(tester);
 
     for (final label in const [
-      'Santuario',
+      'Il Cerchio',
       'Medora',
       'Caligo',
       'Aura',

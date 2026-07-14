@@ -9,6 +9,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../rituals/breath_destiny_screen.dart';
 import '../rituals/dawn_rite_screen.dart';
 import '../rituals/day_oracle_screen.dart';
+import '../rituals/night_rite_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
 
 const Color _gold = Color(0xFFE8C463);
@@ -26,6 +27,8 @@ Route<void> dailyElementRoute(DailyElement element) {
       return DayOracleScreen.route();
     case DailyElement.rune:
       return SunsetRuneScreen.route();
+    case DailyElement.night:
+      return NightRiteScreen.route();
   }
 }
 
@@ -46,6 +49,8 @@ IconData _iconFor(DailyElement element) {
       return Icons.wb_sunny_rounded;
     case DailyElement.rune:
       return Icons.brightness_3_rounded;
+    case DailyElement.night:
+      return Icons.bedtime_rounded;
   }
 }
 
@@ -166,11 +171,12 @@ void _showElementInfo(
   );
 }
 
-/// La striscia del giorno, fissa in cima al Santuario: i quattro elementi
-/// giornalieri come icone, quello della fascia oraria attiva in evidenza con un
-/// lieve pulsare, nel colore del suo accento. Ogni elemento mostra in alto il
-/// suo orario e un piccolo cerchio "i" che apre la spiegazione. Un tocco
-/// sull'icona apre direttamente l'esperienza, senza passare dal dominio.
+/// La striscia degli appuntamenti quotidiani, fissa in cima al Cerchio: i cinque
+/// appuntamenti del giorno come icone, quello della fascia oraria attiva in
+/// evidenza con un lieve pulsare, nel colore del suo accento. Gli orari non sono
+/// piu' a vista: vivono nel popup che si apre dal cerchio "?" accanto a ogni
+/// etichetta. Un tocco sull'icona apre direttamente l'esperienza, senza passare
+/// dal dominio.
 class DailyStrip extends StatefulWidget {
   const DailyStrip({super.key, this.clock, this.onOpen});
 
@@ -190,8 +196,8 @@ class _DailyStripState extends State<DailyStrip>
   late final AnimationController _pulse;
   final ScrollController _scroll = ScrollController();
 
-  static const double _itemWidth = 88;
-  static const double _height = 108;
+  static const double _itemWidth = 92;
+  static const double _height = 128;
 
   DateTime Function() get _clock => widget.clock ?? DateTime.now;
 
@@ -224,38 +230,63 @@ class _DailyStripState extends State<DailyStrip>
       key: const Key('santuario_daily_strip'),
       height: _height,
       decoration: BoxDecoration(
-        // Fondo coerente col tempio: una fascia scura con un filo d'oro sotto.
+        // Una fascia scura appena accennata con un filo d'oro sotto, cosi' si
+        // stacca dal cosmo senza pesare.
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
             ColorTokens.neutralDeepest.withValues(alpha: 0.0),
-            ColorTokens.neutralDeepest.withValues(alpha: 0.55),
+            ColorTokens.neutralDeepest.withValues(alpha: 0.45),
           ],
         ),
         border: Border(
-          bottom: BorderSide(color: _gold.withValues(alpha: 0.25)),
+          bottom: BorderSide(color: _gold.withValues(alpha: 0.22)),
         ),
       ),
-      child: ListView.builder(
-        controller: _scroll,
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
-        itemCount: DailyElement.values.length,
-        itemBuilder: (context, i) {
-          final element = DailyElement.values[i];
-          final accent = _accentFor(element);
-          final maestro = DailyElements.maestroFor(element, now);
-          return _StripItem(
-            element: element,
-            active: element == current,
-            accent: accent,
-            pulse: _pulse,
-            width: _itemWidth,
-            onTap: () => _open(element),
-            onInfo: () => _showElementInfo(context, element, maestro, accent),
-          );
-        },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Staccata dal margine superiore: un respiro sotto la safe area, mai a
+          // ridosso della tacca.
+          const SizedBox(height: 8),
+          // Riga sottile che annuncia la striscia.
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+            child: Text(
+              'I tuoi appuntamenti quotidiani',
+              style: TypographyTokens.label(size: 10).copyWith(
+                color: ColorTokens.textSecondary,
+                letterSpacing: 1.2,
+              ),
+            ),
+          ),
+          const SizedBox(height: 6),
+          Expanded(
+            child: ListView.builder(
+              controller: _scroll,
+              scrollDirection: Axis.horizontal,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+              itemCount: DailyElement.values.length,
+              itemBuilder: (context, i) {
+                final element = DailyElement.values[i];
+                final accent = _accentFor(element);
+                final maestro = DailyElements.maestroFor(element, now);
+                return _StripItem(
+                  element: element,
+                  active: element == current,
+                  accent: accent,
+                  pulse: _pulse,
+                  width: _itemWidth,
+                  onTap: () => _open(element),
+                  onInfo: () =>
+                      _showElementInfo(context, element, maestro, accent),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -282,81 +313,66 @@ class _StripItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      child: Stack(
-        children: [
-          // Area di tocco principale: apre direttamente l'esperienza.
-          Positioned.fill(
-            child: GestureDetector(
-              key: Key('daily_element_${element.name}'),
-              behavior: HitTestBehavior.opaque,
-              onTap: onTap,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Il riquadro dell'orario dell'elemento.
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: accent.withValues(alpha: active ? 0.22 : 0.12),
-                      border: Border.all(
-                        color: accent.withValues(alpha: active ? 0.7 : 0.3),
-                      ),
-                    ),
-                    child: Text(
-                      element.clockLabel,
-                      style: TypographyTokens.label(size: 9).copyWith(
-                        color: active ? _gold : ColorTokens.textSecondary,
-                        letterSpacing: 0.6,
-                      ),
-                    ),
+    // Area di tocco principale: apre direttamente l'esperienza. Il cerchio "?"
+    // e' un GestureDetector annidato che vince l'arena solo per i tocchi sul
+    // suo cerchio, cosi' le due aree restano separate.
+    return GestureDetector(
+      key: Key('daily_element_${element.name}'),
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: SizedBox(
+        width: width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedBuilder(
+              animation: pulse,
+              builder: (context, child) {
+                // L'elemento attivo pulsa leggermente; gli altri fermi.
+                final scale = active ? 1.0 + 0.06 * pulse.value : 1.0;
+                return Transform.scale(scale: scale, child: child);
+              },
+              child: Container(
+                width: 46,
+                height: 46,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(colors: [
+                    accent.withValues(alpha: active ? 0.55 : 0.18),
+                    ColorTokens.neutralDeepest.withValues(alpha: 0.3),
+                  ]),
+                  border: Border.all(
+                    color: accent.withValues(alpha: active ? 0.95 : 0.35),
+                    width: active ? 1.8 : 1,
                   ),
-                  const SizedBox(height: 6),
-                  AnimatedBuilder(
-                    animation: pulse,
-                    builder: (context, child) {
-                      // L'elemento attivo pulsa leggermente; gli altri fermi.
-                      final scale = active ? 1.0 + 0.06 * pulse.value : 1.0;
-                      return Transform.scale(scale: scale, child: child);
-                    },
-                    child: Container(
-                      width: 46,
-                      height: 46,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: RadialGradient(colors: [
-                          accent.withValues(alpha: active ? 0.55 : 0.18),
-                          ColorTokens.neutralDeepest.withValues(alpha: 0.3),
-                        ]),
-                        border: Border.all(
-                          color: accent.withValues(alpha: active ? 0.95 : 0.35),
-                          width: active ? 1.8 : 1,
-                        ),
-                        boxShadow: active
-                            ? [
-                                BoxShadow(
-                                  color: accent.withValues(alpha: 0.45),
-                                  blurRadius: 16,
-                                  spreadRadius: -3,
-                                ),
-                              ]
-                            : null,
-                      ),
-                      alignment: Alignment.center,
-                      child: Icon(
-                        _iconFor(element),
-                        size: 22,
-                        color: active
-                            ? _gold
-                            : ColorTokens.textSecondary.withValues(alpha: 0.9),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
+                  boxShadow: active
+                      ? [
+                          BoxShadow(
+                            color: accent.withValues(alpha: 0.45),
+                            blurRadius: 16,
+                            spreadRadius: -3,
+                          ),
+                        ]
+                      : null,
+                ),
+                alignment: Alignment.center,
+                child: Icon(
+                  _iconFor(element),
+                  size: 22,
+                  color: active
+                      ? _gold
+                      : ColorTokens.textSecondary.withValues(alpha: 0.9),
+                ),
+              ),
+            ),
+            const SizedBox(height: 6),
+            // Etichetta e, a fianco, il cerchio "?" che apre la spiegazione.
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: Text(
                     element.shortLabel,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -365,40 +381,36 @@ class _StripItem extends StatelessWidget {
                       letterSpacing: 0.4,
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-          // Cerchio informativo "i", area di tocco separata: apre solo il popup.
-          Positioned(
-            top: 0,
-            right: 6,
-            child: GestureDetector(
-              key: Key('daily_info_button_${element.name}'),
-              behavior: HitTestBehavior.opaque,
-              onTap: onInfo,
-              child: Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: ColorTokens.neutralDeepest.withValues(alpha: 0.7),
-                  border: Border.all(
-                    color: accent.withValues(alpha: 0.6),
+                ),
+                const SizedBox(width: 5),
+                GestureDetector(
+                  key: Key('daily_help_button_${element.name}'),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: onInfo,
+                  child: Container(
+                    width: 18,
+                    height: 18,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ColorTokens.neutralDeepest.withValues(alpha: 0.7),
+                      border: Border.all(
+                        color: accent.withValues(alpha: 0.6),
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '?',
+                      style: TypographyTokens.label(size: 10).copyWith(
+                        color: accent.withValues(alpha: 0.95),
+                        letterSpacing: 0,
+                      ),
+                    ),
                   ),
                 ),
-                alignment: Alignment.center,
-                child: Text(
-                  'i',
-                  style: TypographyTokens.label(size: 11).copyWith(
-                    color: accent.withValues(alpha: 0.95),
-                    letterSpacing: 0,
-                  ),
-                ),
-              ),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
