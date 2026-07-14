@@ -253,8 +253,17 @@ class _DawnRiteCard extends StatelessWidget {
                     Icon(Icons.wb_twilight_rounded,
                         size: 18, color: palette.goldSoft),
                     const SizedBox(width: 6),
-                    Text('Rito dell\'Alba',
-                        style: TypographyTokens.display(size: 18)),
+                    // Flexible con ellissi: sul device, con Cinzel, il titolo
+                    // entra intero e l'aspetto non cambia; ma il testo non puo'
+                    // piu' sforare la tessera se il font reso e' piu' largo del
+                    // previsto, come accade nei test headless quando la Row non
+                    // era ancora protetta.
+                    Flexible(
+                      child: Text('Rito dell\'Alba',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TypographyTokens.display(size: 18)),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 2),
