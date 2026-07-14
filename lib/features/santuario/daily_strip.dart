@@ -315,11 +315,44 @@ class _DailyStripState extends State<DailyStrip>
       duration: const Duration(milliseconds: 1600),
     )..repeat(reverse: true);
     // Alla prima comparsa il controller di scorrimento non e' ancora agganciato:
-    // un giro dopo il primo frame aggiorna la barra di scorrimento, cosi' mostra
-    // subito che ci sono altre icone a destra.
+    // un giro dopo il primo frame aggiorna la barra di scorrimento e porta in
+    // vista l'elemento della fascia attiva se e' fuori a destra.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) setState(() {});
+      if (!mounted) return;
+      setState(() {});
+      _revealActive();
     });
+  }
+
+  /// Fa scorrere la striscia quel tanto che basta a far entrare in vista
+  /// l'elemento della fascia attiva quando resta nascosto a destra (o a
+  /// sinistra), senza forzare la centratura: lo si porta al bordo con un
+  /// piccolo margine.
+  void _revealActive() {
+    if (!_scroll.hasClients || !_scroll.position.hasContentDimensions) return;
+    final current = DailyElements.current(_clock());
+    final index = DailyElement.values.indexOf(current);
+    const pad = SpacingTokens.md;
+    final itemLeft = pad + index * _itemWidth;
+    final itemRight = itemLeft + _itemWidth;
+    final viewport = _scroll.position.viewportDimension;
+    final viewLeft = _scroll.offset;
+    final viewRight = viewLeft + viewport;
+    double? target;
+    if (itemRight > viewRight) {
+      // Fuori a destra: porta il bordo destro dell'elemento dentro la vista.
+      target = itemRight - viewport + pad;
+    } else if (itemLeft < viewLeft) {
+      // Fuori a sinistra: porta il bordo sinistro dentro la vista.
+      target = itemLeft - pad;
+    }
+    if (target == null) return;
+    final max = _scroll.position.maxScrollExtent;
+    _scroll.animateTo(
+      target.clamp(0.0, max),
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOutCubic,
+    );
   }
 
   @override
