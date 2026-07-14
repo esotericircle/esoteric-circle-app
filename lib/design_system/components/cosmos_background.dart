@@ -201,10 +201,20 @@ class _CosmosPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final t = _animate ? animation.value : 0.0;
 
-    // Offset dei tre piani (lontano si muove poco, vicino di piu').
-    final farOff = parallax.layerOffset(0.15);
-    final midOff = parallax.layerOffset(0.45);
-    final nearOff = parallax.layerOffset(0.95);
+    // Offset dei tre piani (lontano si muove poco, vicino di piu'). Se il
+    // giroscopio non contribuisce, una deriva lenta automatica tiene comunque
+    // vivo il cosmo, salvo Riduci Movimento.
+    Offset off(double depth) {
+      final base = parallax.layerOffset(depth);
+      if (_animate && !parallax.sensorActive) {
+        return base + parallax.autoDrift(depth, t);
+      }
+      return base;
+    }
+
+    final farOff = off(0.15);
+    final midOff = off(0.45);
+    final nearOff = off(0.95);
 
     if (_nebulaClusters > 0) _paintNebula(canvas, size, midOff, t);
     _paintFieldStars(canvas, size, farOff, t);
@@ -221,9 +231,9 @@ class _CosmosPainter extends CustomPainter {
       return _Star(
         rng.nextDouble(),
         rng.nextDouble(),
-        0.4 + rng.nextDouble() * 1.5,
+        0.6 + rng.nextDouble() * 1.8,
         rng.nextDouble(),
-        0.14 + rng.nextDouble() * 0.5,
+        0.3 + rng.nextDouble() * 0.6,
       );
     });
     final paint = Paint()..style = PaintingStyle.fill;
@@ -232,11 +242,21 @@ class _CosmosPainter extends CustomPainter {
       if (keepOut != null && keepOut!.contains(Offset(s.x, s.y))) continue;
       final twinkle = _animate
           ? 0.5 + 0.5 * math.sin(2 * math.pi * (t * 6 + s.phase))
-          : 0.7;
-      final alpha = (s.baseAlpha * (0.45 + 0.55 * twinkle)).clamp(0.0, 1.0);
+          : 0.8;
+      final alpha = (s.baseAlpha * (0.55 + 0.45 * twinkle)).clamp(0.0, 1.0);
+      final center = Offset(s.x * size.width, s.y * size.height) + off;
+      // Alone tenue sulle stelle piu' grandi, cosi' spiccano di piu'.
+      if (s.radius > 1.4) {
+        canvas.drawCircle(
+          center,
+          s.radius * 2.6,
+          Paint()
+            ..color = const Color(0xFFFFFFFF).withValues(alpha: alpha * 0.25)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3),
+        );
+      }
       paint.color = const Color(0xFFFFFFFF).withValues(alpha: alpha);
-      canvas.drawCircle(
-          Offset(s.x * size.width, s.y * size.height) + off, s.radius, paint);
+      canvas.drawCircle(center, s.radius, paint);
     }
   }
 
@@ -324,7 +344,7 @@ class _CosmosPainter extends CustomPainter {
         final radius = size.width * (0.16 + rng.nextDouble() * 0.22);
         final color = b.isEven ? palette.primary : palette.glow;
         final paint = Paint()
-          ..color = color.withValues(alpha: 0.06 + rng.nextDouble() * 0.03)
+          ..color = color.withValues(alpha: 0.10 + rng.nextDouble() * 0.05)
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, blur);
         canvas.drawCircle(base + Offset(dx, dy), radius, paint);
       }

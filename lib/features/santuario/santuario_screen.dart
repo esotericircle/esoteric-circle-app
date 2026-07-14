@@ -79,6 +79,10 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     with TickerProviderStateMixin {
   late final AnimationController _breath;
 
+  // Ciclo lungo che alimenta la deriva automatica del cosmo e le stelle cadenti
+  // quando il giroscopio non c'e', cosi' lo sfondo resta immersivo comunque.
+  late final AnimationController _drift;
+
   // Invito al tocco del cielo: appare dopo qualche secondo di inattivita' e si
   // dissolve alla prima interazione, coerente con la scala dell'aiuto
   // universale. La mano dell'invito pulsa su un ciclo dedicato piu' breve.
@@ -93,6 +97,10 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     _breath = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 6),
+    )..repeat();
+    _drift = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 28),
     )..repeat();
     _tapPulse = AnimationController(
       vsync: this,
@@ -126,6 +134,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   void dispose() {
     _skyHintTimer?.cancel();
     _tapPulse.dispose();
+    _drift.dispose();
     _breath.dispose();
     super.dispose();
   }
@@ -315,6 +324,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                               moon,
                               personalLine,
                               userZodiac,
+                              parallax,
                               depth),
                         ),
                         _FunctionShelfView(
@@ -341,20 +351,24 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     MoonPhase moon,
     String personalLine,
     Zodiac userZodiac,
+    ParallaxController parallax,
     Offset Function(double) depth,
   ) {
     return LayoutBuilder(
         builder: (context, constraints) {
           final w = constraints.maxWidth;
           final h = constraints.maxHeight;
-          // I busti occupano la fascia centrale e bassa in modo pieno, non
-          // schiacciati sul fondo. Una carta piu' alta riduce lo spazio morto.
-          final centralH = (h * 0.54).clamp(240.0, 460.0);
-          // Sollevati dal margine inferiore: lasciano spazio, sotto il centro,
-          // al pulsante Entra nel Dominio, e poggiano sul palco senza
-          // sprofondare dietro la bottom bar.
-          final carouselBottom = h * 0.11;
-          final carouselHeight = centralH * 1.32;
+          // Blocco eroe (carte, arti e pulsante) sfrutta lo spazio verticale
+          // fino alla barra inferiore, senza sovrapposizioni. Il pulsante e le
+          // arti stanno in basso; le carte poggiano appena sopra con un margine
+          // pulito, cosi' figura, arti e pulsante respirano.
+          final centralH = (h * 0.5).clamp(220.0, 430.0);
+          // Zona d'ingresso (pulsante piu' arti) ancorata in basso.
+          final entryBottom = h * 0.02;
+          const entryZone = 78.0;
+          // Le carte partono sopra la zona d'ingresso, con un margine d'aria.
+          final carouselBottom = entryBottom + entryZone + h * 0.02;
+          final carouselHeight = centralH * 1.28;
 
           return Stack(
             children: [
@@ -365,13 +379,16 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               // paio di stelle piu' luminose a evocare i pianeti. Parallasse
               // leggera, ferma con Riduci Movimento.
               Positioned.fill(
-                child: CustomPaint(
-                  painter: _SkyAccentsPainter(
-                    glow: palette.glow,
-                    primary: palette.primary,
-                    star: palette.goldSoft,
-                    offset: depth(0.12),
-                    deepOffset: depth(0.24),
+                child: RepaintBoundary(
+                  child: CustomPaint(
+                    painter: _SkyAccentsPainter(
+                      glow: palette.glow,
+                      primary: palette.primary,
+                      star: palette.goldSoft,
+                      parallax: parallax,
+                      drift: _drift,
+                      reduceMotion: reduceMotion,
+                    ),
                   ),
                 ),
               ),
@@ -383,7 +400,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               // (oltre la safe area) tiene il titolo staccato dal bordo, mai
               // sotto il notch o l'isola dinamica.
               Positioned(
-                top: h * 0.02 + 6,
+                top: h * 0.012,
                 left: 0,
                 right: 0,
                 child: GestureDetector(
@@ -392,22 +409,19 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   onTap: () => _openSky(context),
                   child: Column(
                     children: [
-                      // 1. Titolo fisso, in cima, ora con piu' respiro senza il
-                      // tempio a comprimerlo. Un margine orizzontale lo tiene
-                      // staccato dall'icona Utente nell'angolo.
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 56),
-                        child: Text(
-                          'Il Cielo Sopra di Te, Adesso',
-                          textAlign: TextAlign.center,
-                          style: TypographyTokens.display(size: 16),
-                        ),
+                      // 1. Titolo fisso, in cima. Un margine orizzontale ampio lo
+                      // tiene staccato dall'icona Utente nell'angolo, che resta
+                      // isolata; se serve va a capo, mai a ridosso dell'avatar.
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 64),
+                        child: _SkyTitle(),
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 2),
                       // 2. Grafica della Luna e del cielo, con l'occhiello della
-                      // fase reale sotto.
+                      // fase reale sotto. Footprint compatto: meno vuoto attorno
+                      // alla Luna, piu' spazio alle carte dei Maestri sotto.
                       MoonWidget(
-                          phase: moon, size: (w * 0.12).clamp(58.0, 108.0)),
+                          phase: moon, size: (w * 0.12).clamp(54.0, 100.0)),
                       Text(
                         moon.italianName.toUpperCase(),
                         style: TypographyTokens.label(size: 10).copyWith(
@@ -415,7 +429,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                           letterSpacing: 1.6,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 6),
                       // 3. Riga personale, col nome e il segno.
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -486,7 +500,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               Positioned(
                 left: 0,
                 right: 0,
-                bottom: h * 0.03,
+                bottom: entryBottom,
                 child: _DomainEntry(
                   maestro: central,
                   onTap: () => _enterDomain(context, central),
@@ -507,6 +521,23 @@ class _SantuarioScreenState extends State<SantuarioScreen>
             ],
           );
         },
+    );
+  }
+}
+
+/// Il titolo fisso del cielo. In un widget a se' cosi' la sua Padding puo'
+/// restare const; va a capo su due righe se lo spazio lasciato dall'avatar non
+/// basta, senza mai toccarlo.
+class _SkyTitle extends StatelessWidget {
+  const _SkyTitle();
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Il Cielo Sopra di Te, Adesso',
+      textAlign: TextAlign.center,
+      maxLines: 2,
+      style: TypographyTokens.display(size: 16),
     );
   }
 }
@@ -701,7 +732,8 @@ class _CircleEllipsePainter extends CustomPainter {
     );
 
     // Meta' superiore dell'ellisse: da sinistra, su per la sommita', a destra.
-    // Un alone morbido sotto, poi il filo dorato nitido sopra.
+    // Un bagliore ampio e morbido sotto, poi il filo dorato nitido sopra: piu'
+    // definito e luminoso, elegante ma chiaramente visibile.
     canvas.drawArc(
       oval,
       math.pi,
@@ -709,9 +741,9 @@ class _CircleEllipsePainter extends CustomPainter {
       false,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 3.5
-        ..color = ColorTokens.goldLight.withValues(alpha: 0.14)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+        ..strokeWidth = 6
+        ..color = ColorTokens.goldBright.withValues(alpha: 0.28)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
     );
     canvas.drawArc(
       oval,
@@ -720,14 +752,15 @@ class _CircleEllipsePainter extends CustomPainter {
       false,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.1
+        ..strokeWidth = 2.4
         ..strokeCap = StrokeCap.round
         ..shader = LinearGradient(
           colors: [
-            ColorTokens.goldLight.withValues(alpha: 0.15),
-            ColorTokens.goldBright.withValues(alpha: 0.7),
-            ColorTokens.goldLight.withValues(alpha: 0.15),
+            ColorTokens.goldLight.withValues(alpha: 0.35),
+            ColorTokens.goldBright.withValues(alpha: 0.98),
+            ColorTokens.goldLight.withValues(alpha: 0.35),
           ],
+          stops: const [0.0, 0.5, 1.0],
         ).createShader(oval),
     );
   }
@@ -756,24 +789,11 @@ class _DomainEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
+    // Solo il pulsante e la riga delle arti: nessun saluto sopra, cosi' non si
+    // sovrappone alla carta. Ogni Maestro si presenta dentro il proprio dominio.
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Invito di due righe, cosa si trova nel dominio.
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xl),
-          child: Text(
-            maestro.domainInvite,
-            key: const Key('santuario_domain_invite'),
-            textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 14).copyWith(
-              color: ColorTokens.textSecondary,
-              fontStyle: FontStyle.italic,
-              height: 1.35,
-            ),
-          ),
-        ),
-        const SizedBox(height: SpacingTokens.sm),
         _EnterDomainButton(maestro: maestro, onTap: onTap),
         const SizedBox(height: SpacingTokens.xs),
         // La riga delle tre arti del Maestro.
@@ -1190,55 +1210,71 @@ class _TapHandPainter extends CustomPainter {
 }
 
 /// Accenti del cielo del Santuario: nebulose soffuse tinte sull'accento del
-/// Maestro e un paio di stelle piu' luminose a evocare i pianeti. Sparso ed
-/// elegante, mai affollato.
+/// Maestro, stelle piu' luminose a evocare i pianeti e una stella cadente
+/// occasionale. Piu' piani a profondita' diversa che rispondono al giroscopio,
+/// con una deriva lenta automatica di ripiego quando il sensore non c'e', cosi'
+/// lo sfondo resta immersivo. Il primo piano con le carte non ne soffre: qui si
+/// resta dietro, tenui e sparsi.
 class _SkyAccentsPainter extends CustomPainter {
   _SkyAccentsPainter({
     required this.glow,
     required this.primary,
     required this.star,
-    required this.offset,
-    required this.deepOffset,
-  });
+    required this.parallax,
+    required this.drift,
+    required this.reduceMotion,
+  }) : super(repaint: Listenable.merge([drift, parallax]));
 
   final Color glow;
   final Color primary;
   final Color star;
-  final Offset offset;
+  final ParallaxController parallax;
+  final Animation<double> drift;
+  final bool reduceMotion;
 
-  /// Deriva del piano piu' lontano, piu' ampia dell'accento vicino, cosi' il
-  /// cosmo ha profondita' invece di un fondo piatto.
-  final Offset deepOffset;
+  /// Offset di un piano, dal giroscopio se attivo, altrimenti dalla deriva
+  /// automatica lenta, cosi' il moto non si spegne mai (salvo Riduci Movimento).
+  Offset _layer(double depth, double t) {
+    if (reduceMotion) return Offset.zero;
+    final base = parallax.layerOffset(depth);
+    if (parallax.sensorActive) return base;
+    return base + parallax.autoDrift(depth, t);
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
     final w = size.width;
     final h = size.height;
+    final t = reduceMotion ? 0.0 : drift.value;
 
-    // Piano profondo: una nebulosa ampia e tenue in basso, che scioglie il
-    // fondo e da' profondita' dietro le carte, senza competere con loro.
+    final deepOffset = _layer(0.28, t);
+    final midOffset = _layer(0.16, t);
+    final nearOffset = _layer(0.5, t);
+
+    // Piano profondo: nebulose ampie e tenui che sciolgono il fondo e danno
+    // profondita' dietro le carte, senza competere con loro.
     canvas.save();
     canvas.translate(deepOffset.dx, deepOffset.dy);
     canvas.drawCircle(
       Offset(w * 0.5, h * 0.62),
-      w * 0.85,
+      w * 0.9,
       Paint()
-        ..color = primary.withValues(alpha: 0.045)
+        ..color = primary.withValues(alpha: 0.07)
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 90),
     );
     canvas.drawCircle(
-      Offset(w * 0.28, h * 0.42),
-      w * 0.5,
+      Offset(w * 0.26, h * 0.4),
+      w * 0.55,
       Paint()
-        ..color = glow.withValues(alpha: 0.04)
+        ..color = glow.withValues(alpha: 0.06)
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 80),
     );
     canvas.restore();
 
     canvas.save();
-    canvas.translate(offset.dx, offset.dy);
+    canvas.translate(midOffset.dx, midOffset.dy);
 
-    // Nebulose soffuse, ai lati della Luna, tinte sull'accento.
+    // Nebulose soffuse, ai lati della Luna, tinte sull'accento, piu' percepibili.
     const nebulae = [
       (Offset(0.18, 0.12), 0.30),
       (Offset(0.86, 0.13), 0.26),
@@ -1253,7 +1289,7 @@ class _SkyAccentsPainter extends CustomPainter {
         center,
         radius,
         Paint()
-          ..color = color.withValues(alpha: 0.05)
+          ..color = color.withValues(alpha: 0.08)
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 60),
       );
     }
@@ -1261,25 +1297,64 @@ class _SkyAccentsPainter extends CustomPainter {
     // Stelle-pianeta: piu' luminose, con un piccolo alone. In alto, ai lati
     // della Luna, lontane dal testo del titolo.
     const planets = [
-      (Offset(0.22, 0.11), 2.4),
-      (Offset(0.80, 0.12), 1.8),
+      (Offset(0.22, 0.11), 2.6),
+      (Offset(0.80, 0.12), 2.0),
+      (Offset(0.5, 0.05), 1.6),
     ];
     for (final (pos, r) in planets) {
       final center = Offset(pos.dx * w, pos.dy * h);
       canvas.drawCircle(
         center,
-        r * 3.2,
+        r * 3.6,
         Paint()
-          ..color = star.withValues(alpha: 0.18)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5),
+          ..color = star.withValues(alpha: 0.24)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
       );
       canvas.drawCircle(
         center,
         r,
-        Paint()..color = Colors.white.withValues(alpha: 0.85),
+        Paint()..color = Colors.white.withValues(alpha: 0.95),
       );
     }
     canvas.restore();
+
+    // Stella cadente occasionale, sul piano vicino, ferma con Riduci Movimento.
+    if (!reduceMotion) {
+      _paintShootingStar(canvas, size, nearOffset, t);
+    }
+  }
+
+  void _paintShootingStar(Canvas canvas, Size size, Offset off, double t) {
+    // Due brevi finestre per ciclo, cosi' passa di rado ed elegante.
+    const windows = [0.2, 0.72];
+    const dur = 0.05;
+    for (var i = 0; i < windows.length; i++) {
+      final w0 = windows[i];
+      if (t < w0 || t > w0 + dur) continue;
+      final p = (t - w0) / dur;
+      final head = Offset(
+            size.width * (0.16 + i * 0.5) + p * size.width * 0.6,
+            size.height * (0.08 + i * 0.04) + p * size.height * 0.22,
+          ) +
+          off;
+      final tail = head - const Offset(84, 34);
+      canvas.drawLine(
+        tail,
+        head,
+        Paint()
+          ..shader = LinearGradient(colors: [
+            Colors.transparent,
+            star.withValues(alpha: 0.9 * (1 - p)),
+          ]).createShader(Rect.fromPoints(tail, head))
+          ..strokeWidth = 2
+          ..strokeCap = StrokeCap.round,
+      );
+      canvas.drawCircle(
+        head,
+        2.2,
+        Paint()..color = Colors.white.withValues(alpha: 0.95 * (1 - p)),
+      );
+    }
   }
 
   @override
@@ -1287,7 +1362,6 @@ class _SkyAccentsPainter extends CustomPainter {
       old.glow != glow ||
       old.primary != primary ||
       old.star != star ||
-      old.offset != offset ||
-      old.deepOffset != deepOffset;
+      old.reduceMotion != reduceMotion;
 }
 

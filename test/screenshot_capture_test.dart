@@ -531,6 +531,22 @@ void main() {
     await capture(tester, rootKey, 'santuario-alto.png');
   });
 
+  // --- L'area Utente, aperta dall'icona in alto a destra nel Cerchio ---
+  testWidgets('Cattura l\'area Utente', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    await tester.tap(find.byKey(const Key('santuario_user_avatar')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'area-utente.png');
+  });
+
   // --- Il Santuario, scaffale delle funzioni a scorrimento ---
   testWidgets('Cattura il Santuario, scaffale funzioni', (tester) async {
     silenceSensors();

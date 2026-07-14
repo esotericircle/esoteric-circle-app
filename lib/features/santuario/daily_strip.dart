@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../../core/maestro/maestro.dart';
@@ -38,20 +40,122 @@ void openDailyElement(BuildContext context, DailyElement element) {
   Navigator.of(context).push(dailyElementRoute(element));
 }
 
-/// L'icona dell'elemento nella striscia del giorno.
-IconData _iconFor(DailyElement element) {
+/// L'icona dell'elemento nella striscia del giorno, come widget cosi' Alba e
+/// Tramonto possono usare un disegno dedicato, inequivocabile su sale e scende.
+///
+/// Alba: sole che sorge sull'orizzonte con raggi verso l'alto. Soffio: soffio di
+/// vento. Oracolo: sole pieno. Tramonto: sole caldo che scende sull'orizzonte,
+/// mai una luna. Notte: luna con una piccola stella.
+Widget _elementIcon(DailyElement element,
+    {required Color color, required double size}) {
+  final key = Key('daily_icon_${element.name}');
   switch (element) {
     case DailyElement.dawn:
-      return Icons.wb_twilight_rounded;
+      return _SunHorizonIcon(key: key, color: color, size: size, rising: true);
     case DailyElement.breath:
-      return Icons.air_rounded;
+      return Icon(Icons.air_rounded, key: key, size: size, color: color);
     case DailyElement.oracle:
-      return Icons.wb_sunny_rounded;
+      return Icon(Icons.wb_sunny_rounded, key: key, size: size, color: color);
     case DailyElement.rune:
-      return Icons.brightness_3_rounded;
+      return _SunHorizonIcon(key: key, color: color, size: size, rising: false);
     case DailyElement.night:
-      return Icons.bedtime_rounded;
+      return Icon(Icons.nights_stay_rounded,
+          key: key, size: size, color: color);
   }
+}
+
+/// Sole sull'orizzonte, disegnato: una cupola solare che poggia sulla linea
+/// dell'orizzonte, con una freccia direzionale che ne dice il verso. In su per
+/// il Rito dell'Alba (con raggi che salgono), in giu' per la Runa del Tramonto.
+class _SunHorizonIcon extends StatelessWidget {
+  const _SunHorizonIcon({
+    super.key,
+    required this.color,
+    required this.size,
+    required this.rising,
+  });
+
+  final Color color;
+  final double size;
+  final bool rising;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: CustomPaint(
+        painter: _SunHorizonPainter(color: color, rising: rising),
+      ),
+    );
+  }
+}
+
+class _SunHorizonPainter extends CustomPainter {
+  _SunHorizonPainter({required this.color, required this.rising});
+
+  final Color color;
+  final bool rising;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    final cx = w / 2;
+    final horizonY = h * 0.66;
+    final r = w * 0.2;
+
+    final stroke = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = w * 0.075
+      ..strokeCap = StrokeCap.round
+      ..color = color;
+    final fill = Paint()
+      ..style = PaintingStyle.fill
+      ..color = color;
+
+    // La linea dell'orizzonte.
+    canvas.drawLine(
+        Offset(w * 0.1, horizonY), Offset(w * 0.9, horizonY), stroke);
+
+    // La cupola del sole che poggia sull'orizzonte.
+    final dome = Path()
+      ..moveTo(cx - r, horizonY)
+      ..arcToPoint(Offset(cx + r, horizonY),
+          radius: Radius.circular(r), clockwise: true)
+      ..close();
+    canvas.drawPath(dome, fill);
+
+    if (rising) {
+      // Raggi che salgono attorno alla cupola.
+      for (final a in const [-1.4, -1.0, -0.6, -2.14, -2.54]) {
+        final dir = Offset(math.cos(a), math.sin(a));
+        final p1 = Offset(cx, horizonY) + dir * (r * 1.35);
+        final p2 = Offset(cx, horizonY) + dir * (r * 1.95);
+        canvas.drawLine(p1, p2, stroke);
+      }
+      // Freccia in su, sopra il sole: il giorno che nasce.
+      final apex = Offset(cx, h * 0.08);
+      canvas.drawLine(apex, apex + Offset(-w * 0.14, h * 0.12), stroke);
+      canvas.drawLine(apex, apex + Offset(w * 0.14, h * 0.12), stroke);
+    } else {
+      // Raggi corti e calmi ai lati, il sole che cala.
+      for (final a in const [-0.35, -2.79]) {
+        final dir = Offset(math.cos(a), math.sin(a));
+        final p1 = Offset(cx, horizonY) + dir * (r * 1.3);
+        final p2 = Offset(cx, horizonY) + dir * (r * 1.75);
+        canvas.drawLine(p1, p2, stroke);
+      }
+      // Freccia in giu', sotto l'orizzonte: il sole che tramonta.
+      final tip = Offset(cx, h * 0.92);
+      canvas.drawLine(tip, tip + Offset(-w * 0.14, -h * 0.12), stroke);
+      canvas.drawLine(tip, tip + Offset(w * 0.14, -h * 0.12), stroke);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_SunHorizonPainter old) =>
+      old.color != color || old.rising != rising;
 }
 
 /// L'accento dell'elemento: oro per il Rito dell'Alba, il colore del Maestro per
@@ -111,7 +215,7 @@ void _showElementInfo(
                     border: Border.all(color: accent.withValues(alpha: 0.9)),
                   ),
                   alignment: Alignment.center,
-                  child: Icon(_iconFor(element), size: 18, color: _gold),
+                  child: _elementIcon(element, color: _gold, size: 18),
                 ),
                 const SizedBox(width: SpacingTokens.sm),
                 Expanded(
@@ -196,8 +300,10 @@ class _DailyStripState extends State<DailyStrip>
   late final AnimationController _pulse;
   final ScrollController _scroll = ScrollController();
 
-  static const double _itemWidth = 92;
-  static const double _height = 128;
+  // Largo abbastanza da tenere intero il nome piu' lungo, "Tramonto", insieme
+  // al cerchio "?", senza mai troncare l'etichetta ne' sforare la riga.
+  static const double _itemWidth = 116;
+  static const double _height = 132;
 
   DateTime Function() get _clock => widget.clock ?? DateTime.now;
 
@@ -208,6 +314,12 @@ class _DailyStripState extends State<DailyStrip>
       vsync: this,
       duration: const Duration(milliseconds: 1600),
     )..repeat(reverse: true);
+    // Alla prima comparsa il controller di scorrimento non e' ancora agganciato:
+    // un giro dopo il primo frame aggiorna la barra di scorrimento, cosi' mostra
+    // subito che ci sono altre icone a destra.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() {});
+    });
   }
 
   @override
@@ -245,20 +357,17 @@ class _DailyStripState extends State<DailyStrip>
         ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Staccata dal margine superiore: un respiro sotto la safe area, mai a
           // ridosso della tacca.
           const SizedBox(height: 8),
-          // Riga sottile che annuncia la striscia.
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
-            child: Text(
-              'I tuoi appuntamenti quotidiani',
-              style: TypographyTokens.label(size: 10).copyWith(
-                color: ColorTokens.textSecondary,
-                letterSpacing: 1.2,
-              ),
+          // Riga sottile che annuncia la striscia, centrata.
+          Text(
+            'I tuoi appuntamenti quotidiani',
+            textAlign: TextAlign.center,
+            style: TypographyTokens.label(size: 10).copyWith(
+              color: ColorTokens.textSecondary,
+              letterSpacing: 1.2,
             ),
           ),
           const SizedBox(height: 6),
@@ -286,7 +395,76 @@ class _DailyStripState extends State<DailyStrip>
               },
             ),
           ),
+          const SizedBox(height: 6),
+          // Barra di scorrimento sottile: segnala che le icone continuano oltre
+          // quelle visibili, nell'oro del tema.
+          _StripScrollbar(controller: _scroll),
+          const SizedBox(height: 6),
         ],
+      ),
+    );
+  }
+}
+
+/// Barra di scorrimento discreta sotto le icone: una traccia tenue con un
+/// cursore dorato la cui larghezza e posizione riflettono quanto della striscia
+/// e' visibile, cosi' si capisce che ci sono altri appuntamenti a destra.
+class _StripScrollbar extends StatelessWidget {
+  const _StripScrollbar({required this.controller});
+
+  final ScrollController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 3,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xxl),
+        child: AnimatedBuilder(
+          animation: controller,
+          builder: (context, _) => LayoutBuilder(
+            builder: (context, c) {
+              final trackW = c.maxWidth;
+              double frac = 1;
+              double prog = 0;
+              if (controller.hasClients &&
+                  controller.position.hasContentDimensions) {
+                final pos = controller.position;
+                final viewport = pos.viewportDimension;
+                final max = pos.maxScrollExtent;
+                final content = max + viewport;
+                if (content > 0) frac = (viewport / content).clamp(0.2, 1.0);
+                if (max > 0) prog = (pos.pixels / max).clamp(0.0, 1.0);
+              }
+              final thumbW = trackW * frac;
+              final left = (trackW - thumbW) * prog;
+              return Stack(
+                children: [
+                  // Traccia.
+                  Container(
+                    height: 3,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2),
+                      color: _gold.withValues(alpha: 0.12),
+                    ),
+                  ),
+                  // Cursore.
+                  Positioned(
+                    left: left,
+                    child: Container(
+                      height: 3,
+                      width: thumbW,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(2),
+                        color: _gold.withValues(alpha: 0.7),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }
@@ -356,8 +534,8 @@ class _StripItem extends StatelessWidget {
                       : null,
                 ),
                 alignment: Alignment.center,
-                child: Icon(
-                  _iconFor(element),
+                child: _elementIcon(
+                  element,
                   size: 22,
                   color: active
                       ? _gold
@@ -371,15 +549,15 @@ class _StripItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Flexible(
-                  child: Text(
-                    element.shortLabel,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TypographyTokens.label(size: 10).copyWith(
-                      color: active ? _gold : ColorTokens.textSecondary,
-                      letterSpacing: 0.4,
-                    ),
+                // Nome per intero, mai troncato: lo spazio dell'elemento e' gia'
+                // dimensionato per "Tramonto" con il cerchio "?" a fianco.
+                Text(
+                  element.shortLabel,
+                  maxLines: 1,
+                  softWrap: false,
+                  style: TypographyTokens.label(size: 10).copyWith(
+                    color: active ? _gold : ColorTokens.textSecondary,
+                    letterSpacing: 0.4,
                   ),
                 ),
                 const SizedBox(width: 5),
