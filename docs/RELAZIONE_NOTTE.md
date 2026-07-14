@@ -719,3 +719,48 @@ screenshot inesistenti. Elenco verificato e rigenerato davvero in questa session
 reale, ordinamento dello scaffale, riduzione numerologica del Sigillo, integrità
 dei preview). Tutti i preview obbligatori esistono come file. Nessun segreto nel
 codice, runtime AI su Gemini e Vertex, mai le API Anthropic.
+
+# Rifinitura, footnote dei rituali rimosse
+
+## 1. Footnote tolte dalle quattro schermate rituali (fatto)
+
+Rimosso il parametro `footnote` (le due righe: la chiave e la stringa) dalla
+chiamata a `RitualView` nelle quattro schermate: `dawn_rite_screen.dart`,
+`sunset_rune_screen.dart`, `day_oracle_screen.dart`, `breath_destiny_screen.dart`.
+Il resto resta intatto, compreso `sensorHint`: la riga del gesto sul sensore e
+del ripiego tattile continua a comparire sotto la scena. Il parametro opzionale
+`footnote` di `RitualView` non e' stato toccato: se in futuro serve una nota in
+coda, l'appiglio resta.
+
+## 2. Test Oracolo riallineato al sensorHint (fatto)
+
+La parola "giroscopio" viveva soltanto nella footnote dell'Oracolo del Giorno, non
+nel `sensorHint` (che dice "Inclina il telefono..."). Tolta la footnote, l'asserzione
+`find.textContaining('giroscopio')` in `rituals_test.dart` non aveva piu' riscontro.
+La ho riportata sul testo che resta davvero a schermo, la riga del ripiego tattile
+del `sensorHint` (`find.textContaining('ripiego tattile')`), come gia' fa il test
+del Soffio del Destino con "microfono". Le quattro schermate rituali passano.
+
+## Nota separata, guasto Firebase preesistente e fuori scope
+
+Segnalo un guasto di dipendenze che non riguarda questa rifinitura e va affrontato
+in un passaggio dedicato. Con Flutter stable attuale, `flutter pub get` risolve
+`firebase_core` 4.12.0 e `firebase_core_platform_interface` 7.1.0, che rimuovono
+la classe `FirebasePlugin` sostituendola con `FirebasePluginPlatform`. Le patch
+piu' recenti dei plugin fissati (`firebase_auth` 6.5.5, `cloud_firestore` 6.7.0,
+`firebase_ai` 3.14.0, `firebase_app_check` 0.4.5+1) sono pero' regredite e usano
+ancora `FirebasePlugin`, quindi ogni file di test che importa `app.dart` (Firebase)
+non compila e la build dell'app si ferma. Le patch immediatamente precedenti
+(`firebase_auth` 6.5.4 e pari) usano `FirebasePluginPlatform` e compilano.
+
+Conseguenza pratica: finche' il guasto resta, non compila l'app e quindi nemmeno
+`screenshot_capture_test`, per cui la rigenerazione dei preview toccati dai rituali
+(`rito-alba.png`, `oracolo-giorno.png`, `runa-tramonto.png`, `runa-tramonto-chiusa.png`,
+`soffio-destino.png`) va rimandata al passaggio dedicato, quando l'app tornera' a
+costruire. Anche il workflow CI degli screenshot ne e' colpito.
+
+Direzione suggerita per il passaggio dedicato: fissare la famiglia Firebase a un
+set coerente (per esempio restando all'ultima patch sana dei plugin, sotto quelle
+regredite) finche' l'ecosistema non riallinea le versioni, poi rigenerare i preview
+e rimettere l'analisi e i test in verde end to end. In questa rifinitura non e'
+stato committato alcun pin locale, per non introdurre modifiche fuori scope.
