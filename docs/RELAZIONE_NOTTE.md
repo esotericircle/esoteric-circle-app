@@ -850,3 +850,30 @@ Corretto il copy della riga della Luna: se la fase è Luna nuova il verbo non è
 localizzazione, modello VIP e presenza immagini, copy della Luna). Preview
 rigenerati, integrità dei preview verde. Runtime AI su Gemini e Vertex, mai le API
 Anthropic, nessun segreto nel codice.
+
+# Nono blocco (sblocco build)
+
+## 1. Sblocco build, dipendenze Firebase (fatto)
+
+Un `flutter pub get` pulito (senza `pubspec.lock`, che è ignorato da Git)
+risolveva i plugin Firebase alle patch più recenti: firebase_auth 6.5.5,
+cloud_firestore 6.7.0, firebase_ai 3.14.0, firebase_app_check 0.4.5+1,
+firebase_core 4.12.0. Queste estendono `FirebasePlugin`, una classe non presente
+in `firebase_core_platform_interface 7.1.0`, l'ultima risolta; percio' l'app non
+compilava, con dodici file di test in errore di compilazione. Fissate le versioni
+dei plugin Firebase all'ultimo set compatibile con il platform interface 7.x
+(firebase_core 4.11.0, firebase_ai 3.13.1, firebase_app_check 0.4.5, firebase_auth
+6.5.4, cloud_firestore 6.6.0), direttamente in `pubspec.yaml` senza caret, cosi'
+un clone pulito risolve al set che compila. Verificato: `flutter pub get` pulito,
+`flutter analyze` pulito, 182 test verdi, generazione dei preview funzionante.
+Commit dedicato.
+
+Nota di verifica sui punti 2, 3, 4, 5 e 6: erano già a schermo dal blocco
+precedente (matrice prezzi a colonna fissa con ciclo Annuale di default e pulsante
+con ciclo e prezzo, avatar del Maestro di turno nella card Rito dell'Alba, copy
+della Luna coerente con la fase, localizzazione a chiavi della barra e delle
+funzioni, modello VIP con imagePath e ripiego al medaglione). La diagnosi
+specifica del punto 1 sul nome della classe non era esatta nel dettaglio: il file
+del plugin resta in 7.1.0, ma la classe attesa dai plugin più recenti non c'è, e
+l'effetto è lo stesso, la mancata compilazione. Il preview `card-rito-alba.png`
+cambia col Maestro di turno del giorno, deterministico sulla data.
