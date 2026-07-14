@@ -23,7 +23,10 @@ void main() {
 
   void tallView(WidgetTester tester) {
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(430, 3200);
+    // Alta abbastanza da costruire tutto in una volta: gli elenchi estesi dei
+    // benefici, i quattro livelli e la tabella comparativa in coda alla lista
+    // pigra, cosi' i finder non dipendono dallo scroll.
+    tester.view.physicalSize = const Size(430, 6000);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
   }
@@ -47,13 +50,23 @@ void main() {
         find.textContaining('il pagamento non è integrato'), findsOneWidget);
     // La tabella comparativa e' presente.
     expect(find.byKey(const Key('pricing_table')), findsOneWidget);
-    // Gli elenchi estesi dei benefici sono a schermo, uno per Tier.
-    expect(find.text('Accesso al Santuario con le tre Guide'), findsOneWidget);
-    expect(find.text('Memoria AI delle Guide, che ricordano i tuoi percorsi'),
+    // Gli elenchi estesi dei benefici sono a schermo, uno per Tier, con la
+    // nomenclatura uniforme "Maestri".
+    expect(find.text('Accesso al Santuario con i tre Maestri'), findsOneWidget);
+    expect(find.text('Memoria AI dei Maestri, esclusiva e persistente'),
         findsOneWidget);
-    expect(find.text('Sinastria VIP completa'), findsOneWidget);
-    expect(find.text('Albero della vita dinamico e personalizzato'),
+    expect(find.text('Albero della Vita dinamico, esclusivo'), findsOneWidget);
+
+    // I limiti reali di reset compaiono negli highlights, uno per Tier.
+    expect(find.text('Sinastria VIP fino a 3 al giorno'), findsOneWidget);
+    expect(find.text('5 domande al giorno ai Maestri'), findsOneWidget);
+    expect(find.text('10 domande al giorno ai Maestri'), findsOneWidget);
+    expect(find.text('Una domanda al mese al Maestro reale, risposta entro 48 ore'),
         findsOneWidget);
+
+    // "senza banner" e' diventato "senza pubblicità"; nessun residuo di "Guide".
+    expect(find.text('Tutto di Viandante, senza pubblicità'), findsOneWidget);
+    expect(find.textContaining('le tre Guide'), findsNothing);
   });
 
   testWidgets('Fuori Demo il Piano Attuale sta sul tier corrente', (tester) async {

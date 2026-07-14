@@ -95,15 +95,48 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    // Fascia dell'Oracolo (12:30-18:00), guidata da Medora: al centro c'e' lei.
+    await tester.pumpWidget(EsotericCircleApp(
+      services: AppServices.offline(),
+      clock: () => DateTime(2026, 7, 14, 13, 0),
+    ));
     await step(tester);
 
-    // Al centro c'e' il preferito, Medora: il pulsante ne porta il nome.
+    // Il pulsante ne porta il nome.
     expect(find.text('Entra nel Dominio di Medora'), findsOneWidget);
     await tester.tap(find.byKey(const Key('santuario_enter_domain')));
     await step(tester);
     await step(tester);
     expect(find.text('Parla con Medora'), findsOneWidget);
+  });
+
+  testWidgets('L\'eroe centrale segue il Maestro dell\'elemento attivo',
+      (tester) async {
+    silenceSensors();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    Future<void> pumpAt(int h, int m) async {
+      await tester.pumpWidget(EsotericCircleApp(
+        services: AppServices.offline(),
+        clock: () => DateTime(2026, 7, 14, h, m),
+      ));
+      await step(tester);
+    }
+
+    // Soffio del Destino (10:30-12:30) segue Aura.
+    await pumpAt(11, 0);
+    expect(find.text('Entra nel Dominio di Aura'), findsOneWidget);
+
+    // Oracolo del Giorno (12:30-18:00) segue Medora.
+    await pumpAt(13, 0);
+    expect(find.text('Entra nel Dominio di Medora'), findsOneWidget);
+
+    // Runa del Tramonto (18:00-24:00) segue Caligo.
+    await pumpAt(19, 0);
+    expect(find.text('Entra nel Dominio di Caligo'), findsOneWidget);
   });
 
   testWidgets('Il cielo in alto e\' toccabile e apre la sua schermata',

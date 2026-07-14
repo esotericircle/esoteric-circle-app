@@ -25,11 +25,15 @@ import 'services/app_services.dart';
 /// base (Maestro attivo, entitlement, qualita'), poi quelli che dipendono da
 /// essi (navigazione, feature flag).
 class EsotericCircleApp extends StatelessWidget {
-  const EsotericCircleApp({super.key, this.services});
+  const EsotericCircleApp({super.key, this.services, this.clock});
 
   /// Servizi a runtime montati all'avvio. Se assenti (test, anteprima) si usa
   /// una configurazione offline che non tocca la rete.
   final AppServices? services;
+
+  /// Orologio iniettabile per i test, inoltrato fino al Santuario per fissare la
+  /// fascia oraria attiva. Di default l'ora locale del dispositivo.
+  final DateTime Function()? clock;
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +85,8 @@ class EsotericCircleApp extends StatelessWidget {
                 disableAnimations:
                     mq.disableAnimations || settings.reduceAnimations,
               ),
-              child: const _OnboardingLauncher(
-                child: MaestroScope(child: AppShell()),
+              child: _OnboardingLauncher(
+                child: MaestroScope(child: AppShell(clock: clock)),
               ),
             );
           },

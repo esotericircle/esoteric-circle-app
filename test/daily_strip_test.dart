@@ -80,4 +80,63 @@ void main() {
     await tester.pump(const Duration(milliseconds: 700));
     expect(find.byType(SunsetRuneScreen), findsOneWidget);
   });
+
+  testWidgets('Ogni elemento mostra il suo orario nel riquadro', (tester) async {
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 12, 30))));
+    await tester.pump();
+
+    expect(find.text('7:00'), findsOneWidget);
+    expect(find.text('10:30'), findsOneWidget);
+    expect(find.text('12:30'), findsOneWidget);
+    expect(find.text('18:00'), findsOneWidget);
+  });
+
+  testWidgets('La "i" apre il popup informativo, non l\'esperienza',
+      (tester) async {
+    DailyElement? opened;
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: DailyStrip(
+          clock: () => DateTime(2026, 7, 14, 12, 30),
+          onOpen: (_, element) => opened = element,
+        ),
+      ),
+    ));
+    await tester.pump();
+
+    // Il cerchio informativo dell'Oracolo esiste ed e' separato dall'icona.
+    expect(find.byKey(const Key('daily_info_button_oracle')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('daily_info_button_oracle')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    // Si apre il popup, l'esperienza resta chiusa.
+    expect(find.byKey(const Key('daily_info_oracle')), findsOneWidget);
+    expect(opened, isNull);
+    // Spiega quale Maestro guida l'elemento e a che ora.
+    expect(find.textContaining('Medora'), findsOneWidget);
+    expect(find.text('Alle 12:30'), findsOneWidget);
+
+    // Si chiude col pulsante, mai un vicolo cieco.
+    await tester.tap(find.byKey(const Key('daily_info_close_oracle')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.byKey(const Key('daily_info_oracle')), findsNothing);
+  });
+
+  testWidgets('Il popup del Rito dell\'Alba nomina il Maestro di turno',
+      (tester) async {
+    final now = DateTime(2026, 7, 14, 8, 0);
+    await tester
+        .pumpWidget(_host(DailyStrip(clock: () => now)));
+    await tester.pump();
+
+    await tester.tap(find.byKey(const Key('daily_info_button_dawn')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.byKey(const Key('daily_info_dawn')), findsOneWidget);
+    expect(find.textContaining('Maestro di turno del giorno'), findsOneWidget);
+  });
 }

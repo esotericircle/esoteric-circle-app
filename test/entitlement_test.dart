@@ -88,6 +88,59 @@ void main() {
       expect(illuminato.price!.yearly, '269,90 €');
     });
 
+    test('Gli highlights usano solo "Maestri", mai "Guide" o "Guida"', () {
+      for (final plan in PlanCatalog.plans) {
+        for (final h in plan.highlights) {
+          expect(h.contains('Guide'), isFalse, reason: h);
+          expect(h.contains('Guida'), isFalse, reason: h);
+        }
+      }
+      // Almeno un piano nomina davvero i "Maestri", cosi' il termine c'e'.
+      expect(
+        PlanCatalog.plans
+            .expand((p) => p.highlights)
+            .any((h) => h.contains('Maestri')),
+        isTrue,
+      );
+    });
+
+    test('Gli elenchi sono completi, uno lungo per Tier, senza condensare', () {
+      expect(PlanCatalog.forTier(Tier.free).highlights.length, 10);
+      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 12);
+      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 12);
+      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 11);
+    });
+
+    test('Gli highlights portano i limiti reali di reset giornaliero', () {
+      final viandante = PlanCatalog.forTier(Tier.free).highlights;
+      expect(viandante.any((h) => h.contains('Sinastria VIP fino a 3 al giorno')),
+          isTrue);
+      expect(viandante.any((h) => h.contains('Una carta di tarocchi al giorno')),
+          isTrue);
+      expect(viandante.any((h) => h.contains('Una domanda al giorno a un Maestro')),
+          isTrue);
+
+      final iniziato = PlanCatalog.forTier(Tier.tier1).highlights;
+      expect(iniziato.first, contains('senza pubblicità'));
+      expect(iniziato.any((h) => h.contains('5 domande al giorno ai Maestri')),
+          isTrue);
+
+      final adepto = PlanCatalog.forTier(Tier.tier2).highlights;
+      expect(adepto.any((h) => h.contains('10 domande al giorno ai Maestri')),
+          isTrue);
+      expect(
+          adepto.any((h) => h.contains('5 stese complete di tarocchi al giorno')),
+          isTrue);
+
+      final illuminato = PlanCatalog.forTier(Tier.tier3).highlights;
+      expect(illuminato.any((h) => h.contains('Domande ai Maestri illimitate')),
+          isTrue);
+      expect(
+          illuminato.any((h) =>
+              h.contains('Una domanda al mese al Maestro reale')),
+          isTrue);
+    });
+
     test('La mappa comparativa ha le righe attese con quattro valori', () {
       expect(PlanCatalog.matrix.length, 23);
       for (final row in PlanCatalog.matrix) {

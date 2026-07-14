@@ -1,5 +1,6 @@
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
+import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// La selezione deterministica dell'elemento della fascia oraria attiva.
@@ -52,6 +53,36 @@ void main() {
         expect(DailyElement.fromId(e.id), e);
       }
       expect(DailyElement.fromId('inesistente'), isNull);
+    });
+  });
+
+  group('Orario e descrizione dell\'elemento', () {
+    test('L\'orario segue l\'ancora della fascia, nel formato h:mm', () {
+      expect(DailyElement.dawn.clockLabel, '7:00');
+      expect(DailyElement.breath.clockLabel, '10:30');
+      expect(DailyElement.oracle.clockLabel, '12:30');
+      expect(DailyElement.rune.clockLabel, '18:00');
+    });
+
+    test('Ogni elemento ha una descrizione per il popup informativo', () {
+      for (final e in DailyElement.values) {
+        expect(e.description, isNotEmpty);
+      }
+    });
+  });
+
+  group('Maestro attivo dell\'elemento', () {
+    test('Gli elementi fissi seguono la loro Guida', () {
+      final now = at(12, 0);
+      expect(DailyElements.maestroFor(DailyElement.breath, now), Maestro.aura);
+      expect(DailyElements.maestroFor(DailyElement.oracle, now), Maestro.medora);
+      expect(DailyElements.maestroFor(DailyElement.rune, now), Maestro.caligo);
+    });
+
+    test('Il Rito dell\'Alba segue il Maestro di turno del giorno', () {
+      final now = at(8, 0);
+      expect(DailyElements.maestroFor(DailyElement.dawn, now),
+          DailyRituals.dawnMaestro(now));
     });
   });
 }
