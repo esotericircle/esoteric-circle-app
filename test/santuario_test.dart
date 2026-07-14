@@ -195,7 +195,7 @@ void main() {
     expect(find.textContaining('stanotte'), findsNothing);
   });
 
-  testWidgets('La bolla del dominio mostra invito e arti del Maestro attivo',
+  testWidgets('Il titolo del cielo non collide con l\'avatar Utente',
       (tester) async {
     silenceSensors();
     tester.view.devicePixelRatio = 1.0;
@@ -203,20 +203,46 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    // Fascia dell'Oracolo, guidata da Medora: invito e arti sono i suoi.
     await tester.pumpWidget(EsotericCircleApp(
       services: AppServices.offline(),
       clock: () => DateTime(2026, 7, 14, 13, 0),
     ));
     await step(tester);
 
-    expect(find.text('Il cielo che ti disegna, le carte che ti rispondono'),
-        findsOneWidget);
-    expect(find.text('Astrologia, Cartomanzia, Destino'), findsOneWidget);
-    expect(find.text('Entra nel Dominio di Medora'), findsOneWidget);
+    final titleRect = tester.getRect(find.text('Il Cielo Sopra di Te, Adesso'));
+    final avatarRect =
+        tester.getRect(find.byKey(const Key('santuario_user_avatar')));
+    // Nessuna sovrapposizione: l'avatar resta isolato nel suo angolo.
+    expect(titleRect.overlaps(avatarRect), isFalse,
+        reason: 'il titolo tocca l\'avatar: $titleRect vs $avatarRect');
   });
 
-  testWidgets('Per un rito che ruota, invito e arti seguono il Maestro di turno',
+  testWidgets('La zona d\'ingresso ha solo pulsante e arti, nessun saluto',
+      (tester) async {
+    silenceSensors();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    // Fascia dell'Oracolo, guidata da Medora: pulsante e arti sono i suoi.
+    await tester.pumpWidget(EsotericCircleApp(
+      services: AppServices.offline(),
+      clock: () => DateTime(2026, 7, 14, 13, 0),
+    ));
+    await step(tester);
+
+    // Il saluto di dominio e' stato rimosso, non si sovrappone piu' alla carta.
+    expect(find.byKey(const Key('santuario_domain_invite')), findsNothing);
+    expect(find.text('Il cielo che ti disegna, le carte che ti rispondono'),
+        findsNothing);
+    // Restano solo il pulsante e la riga delle arti.
+    expect(find.text('Entra nel Dominio di Medora'), findsOneWidget);
+    expect(find.byKey(const Key('santuario_domain_arts')), findsOneWidget);
+    expect(find.text('Astrologia, Cartomanzia, Destino'), findsOneWidget);
+  });
+
+  testWidgets('Per un rito che ruota, pulsante e arti seguono il Maestro di turno',
       (tester) async {
     silenceSensors();
     tester.view.devicePixelRatio = 1.0;
@@ -233,7 +259,7 @@ void main() {
     ));
     await step(tester);
 
-    expect(find.text(turno.domainInvite), findsOneWidget);
+    expect(find.byKey(const Key('santuario_domain_invite')), findsNothing);
     expect(find.text(turno.domainArts), findsOneWidget);
     expect(find.text('Entra nel Dominio di ${turno.displayName}'),
         findsOneWidget);

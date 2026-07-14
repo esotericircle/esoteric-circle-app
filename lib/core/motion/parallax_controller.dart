@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'dart:ui' show Offset;
 
 import 'package:flutter/foundation.dart';
@@ -41,6 +42,17 @@ class ParallaxController extends ChangeNotifier {
   Offset layerOffset(double depth, {double tiltRange = 18}) {
     final dx = _tiltX * tiltRange * depth;
     final dy = _tiltY * tiltRange * depth - _scroll * 40 * depth;
+    return Offset(dx, dy);
+  }
+
+  /// Deriva automatica di ripiego, quando il giroscopio non contribuisce: un
+  /// moto lento e continuo, cosi' il cosmo resta vivo anche senza sensore. [t]
+  /// e' una fase in 0..1 fornita da un'animazione; i piani vicini derivano piu'
+  /// di quelli lontani, come per l'inclinazione.
+  Offset autoDrift(double depth, double t, {double range = 12}) {
+    final a = 2 * math.pi * t;
+    final dx = math.cos(a) * range * depth;
+    final dy = math.sin(a * 0.7) * range * 0.7 * depth;
     return Offset(dx, dy);
   }
 

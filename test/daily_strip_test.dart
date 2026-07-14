@@ -54,6 +54,63 @@ void main() {
     }
   });
 
+  testWidgets('L\'header e\' centrato orizzontalmente', (tester) async {
+    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pump();
+    final headerX =
+        tester.getCenter(find.text('I tuoi appuntamenti quotidiani')).dx;
+    final stripX =
+        tester.getCenter(find.byKey(const Key('santuario_daily_strip'))).dx;
+    expect((headerX - stripX).abs(), lessThan(1.0));
+  });
+
+  testWidgets('Le cinque icone sono distinte, il Tramonto non e\' una luna',
+      (tester) async {
+    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pump();
+
+    // Ogni elemento ha la sua icona dedicata.
+    for (final e in DailyElement.values) {
+      expect(find.byKey(Key('daily_icon_${e.name}')), findsOneWidget);
+    }
+
+    Finder inItem(String name, Finder matching) => find.descendant(
+          of: find.byKey(Key('daily_element_$name')),
+          matching: matching,
+        );
+
+    // Oracolo sole pieno, Notte luna con stella, Soffio vento: icone Material
+    // chiaramente diverse.
+    expect(inItem('oracle', find.byIcon(Icons.wb_sunny_rounded)), findsOneWidget);
+    expect(inItem('night', find.byIcon(Icons.nights_stay_rounded)),
+        findsOneWidget);
+    expect(inItem('breath', find.byIcon(Icons.air_rounded)), findsOneWidget);
+
+    // Alba e Tramonto sono soli disegnati sull'orizzonte, non icone Material e
+    // soprattutto mai lune: nessun'icona nei loro riquadri.
+    expect(inItem('dawn', find.byType(Icon)), findsNothing);
+    expect(inItem('rune', find.byType(Icon)), findsNothing);
+    // E restano due disegni distinti, uno per l'alba e uno per il tramonto.
+    expect(find.byKey(const Key('daily_icon_dawn')), findsOneWidget);
+    expect(find.byKey(const Key('daily_icon_rune')), findsOneWidget);
+  });
+
+  testWidgets('Nessuna etichetta viene troncata, "Tramonto" resta intero',
+      (tester) async {
+    await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pump();
+    for (final label in const [
+      'Alba',
+      'Soffio',
+      'Oracolo',
+      'Tramonto',
+      'Notte',
+    ]) {
+      expect(find.text(label), findsOneWidget);
+    }
+  });
+
+
   testWidgets('Un tocco apre l\'elemento, con l\'elemento giusto', (tester) async {
     DailyElement? opened;
     await tester.pumpWidget(MaterialApp(
