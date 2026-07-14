@@ -38,8 +38,6 @@ class DawnRiteScreen extends StatelessWidget {
       gesture: RitualGesture.tap,
       prompt: 'Tocca per ricevere il rito',
       sensorHint: 'Un gesto solo: tocca la scena per accogliere l\'alba.',
-      footnote:
-          'Arte dei Maestri in arrivo dal bucket: qui il segno resta essenziale.',
       visualBuilder: (context, revealed, t) => CustomPaint(
         painter: _DawnPainter(palette: palette, t: t, revealed: revealed),
       ),

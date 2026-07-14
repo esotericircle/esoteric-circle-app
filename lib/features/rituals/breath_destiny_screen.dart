@@ -38,8 +38,6 @@ class BreathDestinyScreen extends StatelessWidget {
       prompt: 'Tieni premuto e soffia',
       sensorHint:
           'Soffia nel microfono, oppure tieni premuto: il ripiego tattile vale sempre.',
-      footnote:
-          'Il microfono si attiva sul device. Qui il gesto tattile compie il rito.',
       visualBuilder: (context, revealed, t) => CustomPaint(
         painter: _BreathPainter(palette: palette, t: t, revealed: revealed),
       ),

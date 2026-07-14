@@ -39,8 +39,6 @@ class SunsetRuneScreen extends StatelessWidget {
       prompt: 'Scuoti per svelare la runa',
       sensorHint:
           'Scuoti il telefono, oppure tocca: il ripiego tattile vale sempre.',
-      footnote:
-          'Arte incisa di brand in arrivo dal bucket: qui il glifo runico è disegnato dal codice.',
       visualBuilder: (context, revealed, t) => Stack(
         alignment: Alignment.center,
         children: [
