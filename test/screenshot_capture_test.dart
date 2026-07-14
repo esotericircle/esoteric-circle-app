@@ -32,11 +32,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
-/// Cattura headless della chat di Medora, con font reali (corpo e icone),
-/// provider AI offline e una conversazione gia' seminata. Nessuna rete, nessun
-/// device. Scrive il PNG in docs/preview/medora-chat.png.
+/// Cattura headless delle schermate, con font reali (corpo e icone), provider
+/// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
+///
+/// Dove finiscono i PNG. Di default in `build/preview/`, cartella ignorata dal
+/// versionamento: cosi' `flutter test` verifica che ogni schermata renda ancora
+/// senza mai sporcare l'albero di lavoro. Le anteprime committate in
+/// `docs/preview/` si aggiornano solo su richiesta esplicita, valorizzando
+/// AGGIORNA_ANTEPRIME=1, cosa che fanno gli script in `tool/`.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
+
+  // Un solo comando rigenera le anteprime: tool/aggiorna_anteprime.ps1 su
+  // Windows, tool/aggiorna_anteprime.sh altrove.
+  final aggiornaAnteprime =
+      Platform.environment['AGGIORNA_ANTEPRIME'] == '1';
+  final previewDir = aggiornaAnteprime ? 'docs/preview' : 'build/preview';
 
   Future<void> loadFont(String family, String path) async {
     final loader = FontLoader(family);
@@ -260,11 +271,11 @@ void main() {
           rootKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
       final image = await boundary.toImage(pixelRatio: 3.0);
       final data = await image.toByteData(format: ui.ImageByteFormat.png);
-      final out = File('docs/preview/$name');
+      final out = File('$previewDir/$name');
       out.createSync(recursive: true);
       out.writeAsBytesSync(data!.buffer.asUint8List());
     });
-    expect(File('docs/preview/$name').existsSync(), isTrue);
+    expect(File('$previewDir/$name').existsSync(), isTrue);
   }
 
   // --- Il Santuario, con al centro ciascun Maestro (aura e cosmo virati) ---
@@ -321,13 +332,13 @@ void main() {
           palette: MaestroPalette.medora,
           format: format,
         );
-        final out = File('docs/preview/$name');
+        final out = File('$previewDir/$name');
         out.createSync(recursive: true);
         out.writeAsBytesSync(bytes);
       }
     });
-    expect(File('docs/preview/cartolina-cielo.png').existsSync(), isTrue);
-    expect(File('docs/preview/cartolina-cielo-quadrata.png').existsSync(),
+    expect(File('$previewDir/cartolina-cielo.png').existsSync(), isTrue);
+    expect(File('$previewDir/cartolina-cielo-quadrata.png').existsSync(),
         isTrue);
   });
 
