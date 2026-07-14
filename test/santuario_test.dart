@@ -1,4 +1,5 @@
 import 'package:esoteric_circle/app.dart';
+import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/design_system/components/cosmos_background.dart';
 import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
@@ -174,5 +175,99 @@ void main() {
     await step(tester);
     expect(find.byType(SkyOverviewScreen), findsNothing);
     expect(find.byType(SantuarioScreen), findsOneWidget);
+  });
+
+  testWidgets('Il titolo del cielo e\' fisso, "Il Cielo Sopra di Te, Adesso"',
+      (tester) async {
+    silenceSensors();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(EsotericCircleApp(
+      services: AppServices.offline(),
+      clock: () => DateTime(2026, 7, 14, 13, 0),
+    ));
+    await step(tester);
+
+    expect(find.text('Il Cielo Sopra di Te, Adesso'), findsOneWidget);
+    expect(find.textContaining('stanotte'), findsNothing);
+  });
+
+  testWidgets('La bolla del dominio mostra invito e arti del Maestro attivo',
+      (tester) async {
+    silenceSensors();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    // Fascia dell'Oracolo, guidata da Medora: invito e arti sono i suoi.
+    await tester.pumpWidget(EsotericCircleApp(
+      services: AppServices.offline(),
+      clock: () => DateTime(2026, 7, 14, 13, 0),
+    ));
+    await step(tester);
+
+    expect(find.text('Il cielo che ti disegna, le carte che ti rispondono'),
+        findsOneWidget);
+    expect(find.text('Astrologia, Cartomanzia, Destino'), findsOneWidget);
+    expect(find.text('Entra nel Dominio di Medora'), findsOneWidget);
+  });
+
+  testWidgets('Per un rito che ruota, invito e arti seguono il Maestro di turno',
+      (tester) async {
+    silenceSensors();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    // Fascia della Buonanotte (dopo le 22:30): il centro e' il Maestro di turno.
+    final now = DateTime(2026, 7, 14, 23, 0);
+    final turno = DailyRituals.dawnMaestro(now);
+    await tester.pumpWidget(EsotericCircleApp(
+      services: AppServices.offline(),
+      clock: () => now,
+    ));
+    await step(tester);
+
+    expect(find.text(turno.domainInvite), findsOneWidget);
+    expect(find.text(turno.domainArts), findsOneWidget);
+    expect(find.text('Entra nel Dominio di ${turno.displayName}'),
+        findsOneWidget);
+  });
+
+  testWidgets('L\'icona Utente apre l\'area account, distinta dal Passport',
+      (tester) async {
+    silenceSensors();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(EsotericCircleApp(
+      services: AppServices.offline(),
+      clock: () => DateTime(2026, 7, 14, 13, 0),
+    ));
+    await step(tester);
+
+    expect(find.byKey(const Key('santuario_user_avatar')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('santuario_user_avatar')));
+    await step(tester);
+    await step(tester);
+
+    // L'area account con le sue voci, il Passport resta un'altra cosa.
+    expect(find.byKey(const Key('account_list')), findsOneWidget);
+    for (final id in const [
+      'profilo',
+      'impostazioni',
+      'abbonamento',
+      'notifiche',
+      'privacy',
+    ]) {
+      expect(find.byKey(Key('account_$id')), findsOneWidget);
+    }
   });
 }

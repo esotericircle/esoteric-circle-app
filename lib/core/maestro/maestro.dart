@@ -15,6 +15,8 @@ enum Maestro {
     displayName: 'Medora',
     domainTitle: 'Astrologia e Destino',
     tagline: 'Legge le stelle e le carte del tuo cammino',
+    domainInvite: 'Il cielo che ti disegna, le carte che ti rispondono',
+    domainArts: 'Astrologia, Cartomanzia, Destino',
     icon: Icons.auto_awesome_outlined,
     avatarAsset: 'brand_assets/avatars/Medora-1.png',
   ),
@@ -25,6 +27,8 @@ enum Maestro {
     displayName: 'Aura',
     domainTitle: 'Energia e Benessere',
     tagline: 'Accompagna il respiro e l\'equilibrio interiore',
+    domainInvite: 'Il respiro, l\'energia, gli archetipi che ti abitano',
+    domainArts: 'Chakra, Energia, Archetipi',
     icon: Icons.spa_outlined,
     avatarAsset: 'brand_assets/avatars/Aura-1.png',
   ),
@@ -35,6 +39,8 @@ enum Maestro {
     displayName: 'Caligo',
     domainTitle: 'Rune e Simboli',
     tagline: 'Custode delle rune e dei riti antichi',
+    domainInvite: 'I segni antichi, i riti, l\'albero dei misteri',
+    domainArts: 'Rune, Rituali, Cabala',
     icon: Icons.local_fire_department_outlined,
     avatarAsset: 'brand_assets/avatars/Caligo-1.png',
   );
@@ -44,6 +50,8 @@ enum Maestro {
     required this.displayName,
     required this.domainTitle,
     required this.tagline,
+    required this.domainInvite,
+    required this.domainArts,
     required this.icon,
     required this.avatarAsset,
   });
@@ -52,6 +60,13 @@ enum Maestro {
   final String displayName;
   final String domainTitle;
   final String tagline;
+
+  /// Invito breve di due righe su cosa si trova nel dominio del Maestro,
+  /// mostrato nella bolla di ingresso della home.
+  final String domainInvite;
+
+  /// Le tre arti del Maestro, in riga sotto il pulsante di ingresso al dominio.
+  final String domainArts;
 
   /// Icona lineare del Maestro (placeholder in attesa del brand).
   final IconData icon;

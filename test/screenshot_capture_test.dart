@@ -179,7 +179,8 @@ void main() {
     );
   }
 
-  Future<GlobalKey> mount(WidgetTester tester, AppServices services) async {
+  Future<GlobalKey> mount(WidgetTester tester, AppServices services,
+      {DateTime Function()? clock}) async {
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(390, 844);
     addTearDown(tester.view.resetPhysicalSize);
@@ -189,7 +190,7 @@ void main() {
     await tester.pumpWidget(
       RepaintBoundary(
         key: rootKey,
-        child: EsotericCircleApp(services: services),
+        child: EsotericCircleApp(services: services, clock: clock),
       ),
     );
     await step(tester);
@@ -199,6 +200,20 @@ void main() {
         .setTier(QualityTier.medium);
     await step(tester);
     return rootKey;
+  }
+
+  // La fascia oraria in cui il Maestro dato e' quello attivo della striscia,
+  // cosi' striscia ed eroe della home derivano dallo stesso istante e mostrano
+  // un momento coerente: Soffio per Aura, Oracolo per Medora, Runa per Caligo.
+  DateTime Function() clockFor(Maestro maestro) {
+    switch (maestro) {
+      case Maestro.aura:
+        return () => DateTime(2026, 7, 14, 11, 0);
+      case Maestro.medora:
+        return () => DateTime(2026, 7, 14, 13, 0);
+      case Maestro.caligo:
+        return () => DateTime(2026, 7, 14, 19, 0);
+    }
   }
 
   void selectCentral(WidgetTester tester, Maestro maestro) {
@@ -257,8 +272,10 @@ void main() {
     testWidgets('Cattura il Santuario, ${maestro.id}', (tester) async {
       silenceSensors();
       await loadFonts();
-      final rootKey =
-          await mount(tester, await buildServices(maestro, seeded: false));
+      // Istante forzato nella fascia del Maestro: striscia ed eroe coerenti.
+      final rootKey = await mount(
+          tester, await buildServices(maestro, seeded: false),
+          clock: clockFor(maestro));
       selectCentral(tester, maestro);
       await step(tester);
       await precacheFaces(tester);
@@ -270,8 +287,9 @@ void main() {
   testWidgets('Cattura il Santuario con l\'invito al cielo', (tester) async {
     silenceSensors();
     await loadFonts();
-    final rootKey =
-        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
     selectCentral(tester, Maestro.medora);
     await step(tester);
     await precacheFaces(tester);
@@ -504,8 +522,9 @@ void main() {
   testWidgets('Cattura il Santuario, alto pulito', (tester) async {
     silenceSensors();
     await loadFonts();
-    final rootKey =
-        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
     selectCentral(tester, Maestro.medora);
     await step(tester);
     await precacheFaces(tester);
@@ -516,8 +535,9 @@ void main() {
   testWidgets('Cattura il Santuario, scaffale funzioni', (tester) async {
     silenceSensors();
     await loadFonts();
-    final rootKey =
-        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
     selectCentral(tester, Maestro.medora);
     await step(tester);
     await precacheFaces(tester);

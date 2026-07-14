@@ -22,6 +22,18 @@ class DailyRituals {
     return pool[(_dayOfYear(date) ~/ 3) % pool.length];
   }
 
+  /// Il Maestro del Rito della Buonanotte di oggi. Ruota come il Rito dell'Alba,
+  /// quindi lo stesso giorno condivide lo stesso Maestro di turno.
+  static Maestro nightMaestro(DateTime date) => dawnMaestro(date);
+
+  /// Il messaggio della buonanotte, nella voce del Maestro di turno: una parola
+  /// calmante per lasciare andare il giorno.
+  static String nightMessage(DateTime date) {
+    final maestro = nightMaestro(date);
+    final pool = _nightPools[maestro]!;
+    return pool[(_dayOfYear(date) ~/ 3) % pool.length];
+  }
+
   /// Il frammento del Soffio del Destino, nella voce di Aura.
   static String destinyFragment(DateTime date) =>
       _destiny[_dayOfYear(date) % _destiny.length];
@@ -52,6 +64,27 @@ class DailyRituals {
       'Il fuoco del mattino chiede un gesto: scegli una cosa da onorare oggi.',
       'La nebbia si dirada: cammina deciso, la giornata riconosce chi ha una meta.',
       'Accendi dentro una brace piccola e salda: basta quella a reggere il giorno.',
+    ],
+  };
+
+  static const Map<Maestro, List<String>> _nightPools = {
+    Maestro.medora: [
+      'Il cielo si chiude piano: lascia al domani una sola cosa, il resto posala.',
+      'Le stelle vegliano al posto tuo: chiudi gli occhi, la volta ti tiene.',
+      'La notte archivia il giorno: una gratitudine breve, poi il respiro lento.',
+      'Un transito si acquieta: sciogli la presa, il sonno riordina da sé.',
+    ],
+    Maestro.aura: [
+      'Allunga l\'espirazione più dell\'inspiro: il corpo capisce che è ora.',
+      'Sciogli le spalle, ammorbidisci la mascella: lascia andare, un respiro.',
+      'Posa una mano sul petto: sei al sicuro, il giorno può finire qui.',
+      'Tre respiri lenti e profondi: a ogni uscita, un peso in meno.',
+    ],
+    Maestro.caligo: [
+      'Spegni la brace con calma: hai fatto abbastanza, la notte custodisce.',
+      'Chiudi il cerchio del giorno: un gesto, un respiro, poi il silenzio.',
+      'Lascia il giorno alla soglia: dentro la notte non ti serve portarlo.',
+      'La runa della sera si posa: quieta la mente, domani si riaccende.',
     ],
   };
 

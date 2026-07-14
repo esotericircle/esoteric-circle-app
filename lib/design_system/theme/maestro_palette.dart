@@ -108,7 +108,7 @@ class MaestroPalette {
 
   static const MaestroPalette neutral = MaestroPalette(
     key: ThemeKey.neutral(),
-    label: 'Il Santuario',
+    label: 'Il Cerchio',
     backgroundGradient: [
       ColorTokens.neutralDeepest,
       ColorTokens.neutralDeep,

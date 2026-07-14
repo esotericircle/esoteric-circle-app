@@ -105,7 +105,7 @@ class PlanCatalog {
       name: 'Viandante',
       identity: 'Esplora la soglia.',
       highlights: [
-        'Accesso al Santuario con i tre Maestri',
+        'Accesso al Cerchio con i tre Maestri',
         'I quattro elementi giornalieri: Rito dell\'Alba, Soffio del Destino, Oracolo del Giorno, Runa del Tramonto',
         'Carta natale occidentale in lettura base',
         'Una domanda al giorno a un Maestro, senza memoria',
