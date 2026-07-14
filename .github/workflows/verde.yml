@@ -1,0 +1,43 @@
+# Il verde di base, certificato dal repository.
+#
+# A ogni push sul branch di lavoro esegue soltanto i tre comandi che dichiarano
+# sana la base: risoluzione delle dipendenze, analisi statica, test. Nessuna
+# build, nessun deploy, nessun secret. Serve a rispondere a una sola domanda,
+# leggibile anche dal telefono guardando la spunta verde su GitHub: il codice
+# sul branch e' ancora sano?
+#
+# La build dell'APK resta in android-build.yml, le anteprime in
+# chat-screenshot.yml. Qui non si tocca l'albero: i test di cattura scrivono in
+# build/preview, che non e' versionata.
+name: Verde di base (analyze e test)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - claude/esoteric-circle-master-order-e798aj
+  pull_request:
+    branches:
+      - claude/esoteric-circle-master-order-e798aj
+
+jobs:
+  verde:
+    name: analyze e test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v4
+
+      - name: Flutter stable
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Dipendenze
+        run: flutter pub get
+
+      - name: Analisi statica
+        run: flutter analyze
+
+      - name: Test
+        run: flutter test

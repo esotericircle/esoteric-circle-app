@@ -37,7 +37,13 @@ jobs:
       - name: Dipendenze
         run: flutter pub get
 
+      # AGGIORNA_ANTEPRIME e' la richiesta esplicita di scrivere in docs/preview.
+      # Senza, le catture finiscono in build/preview e l'albero resta pulito, che
+      # e' quel che si vuole in locale e nella CI di controllo. Qui invece le
+      # anteprime vanno proprio aggiornate, quindi si valorizza.
       - name: Genera gli screenshot (widget test headless)
+        env:
+          AGGIORNA_ANTEPRIME: "1"
         run: flutter test test/screenshot_capture_test.dart
 
       - name: Committa gli screenshot a percorso fisso
