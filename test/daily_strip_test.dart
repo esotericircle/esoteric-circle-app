@@ -64,6 +64,30 @@ void main() {
     expect((headerX - stripX).abs(), lessThan(1.0));
   });
 
+  testWidgets('All\'apertura la striscia porta in vista l\'elemento attivo',
+      (tester) async {
+    // Schermo stretto: i cinque elementi non stanno tutti in vista, la Notte
+    // resta oltre il bordo destro.
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    // Fascia della Notte (dopo le 22:30): l'elemento attivo e' l'ultimo.
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 23, 0))));
+    await tester.pump();
+    // Lascia completare lo scorrimento automatico.
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.pump(const Duration(milliseconds: 100));
+
+    final nightRect =
+        tester.getRect(find.byKey(const Key('daily_element_night')));
+    // L'elemento attivo e' entrato nella vista orizzontale.
+    expect(nightRect.left, greaterThanOrEqualTo(-0.5));
+    expect(nightRect.right, lessThanOrEqualTo(390.5));
+  });
+
   testWidgets('Le cinque icone sono distinte, il Tramonto non e\' una luna',
       (tester) async {
     await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));

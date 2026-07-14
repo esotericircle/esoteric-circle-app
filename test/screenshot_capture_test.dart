@@ -180,7 +180,8 @@ void main() {
   }
 
   Future<GlobalKey> mount(WidgetTester tester, AppServices services,
-      {DateTime Function()? clock}) async {
+      {DateTime Function()? clock,
+      QualityTier quality = QualityTier.medium}) async {
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(390, 844);
     addTearDown(tester.view.resetPhysicalSize);
@@ -197,9 +198,18 @@ void main() {
     tester
         .element(find.byType(MaterialApp))
         .read<QualityTierController>()
-        .setTier(QualityTier.medium);
+        .setTier(quality);
     await step(tester);
     return rootKey;
+  }
+
+  // Avanza le animazioni del cosmo a un fotogramma vivo, con lo scintillio delle
+  // stelle a fasi diverse e le nebulose in deriva, senza superare i tre secondi
+  // che farebbero comparire l'invito al cielo sulle viste pulite. In qualita'
+  // alta stelle e nebulose si vedono comunque a pieno: qui il tempo serve solo a
+  // rendere il fotogramma non statico.
+  Future<void> midAnimationFrame(WidgetTester tester) async {
+    await tester.pump(const Duration(milliseconds: 800));
   }
 
   // La fascia oraria in cui il Maestro dato e' quello attivo della striscia,
@@ -273,12 +283,14 @@ void main() {
       silenceSensors();
       await loadFonts();
       // Istante forzato nella fascia del Maestro: striscia ed eroe coerenti.
+      // Qualita' alta e fotogramma a meta' animazione, cosi' il cosmo si vede.
       final rootKey = await mount(
           tester, await buildServices(maestro, seeded: false),
-          clock: clockFor(maestro));
+          clock: clockFor(maestro), quality: QualityTier.high);
       selectCentral(tester, maestro);
       await step(tester);
       await precacheFaces(tester);
+      await midAnimationFrame(tester);
       await capture(tester, rootKey, 'santuario-${maestro.id}.png');
     });
   }
@@ -289,7 +301,7 @@ void main() {
     await loadFonts();
     final rootKey = await mount(
         tester, await buildServices(Maestro.medora, seeded: false),
-        clock: clockFor(Maestro.medora));
+        clock: clockFor(Maestro.medora), quality: QualityTier.high);
     selectCentral(tester, Maestro.medora);
     await step(tester);
     await precacheFaces(tester);
@@ -524,10 +536,11 @@ void main() {
     await loadFonts();
     final rootKey = await mount(
         tester, await buildServices(Maestro.medora, seeded: false),
-        clock: clockFor(Maestro.medora));
+        clock: clockFor(Maestro.medora), quality: QualityTier.high);
     selectCentral(tester, Maestro.medora);
     await step(tester);
     await precacheFaces(tester);
+    await midAnimationFrame(tester);
     await capture(tester, rootKey, 'santuario-alto.png');
   });
 
@@ -537,7 +550,7 @@ void main() {
     await loadFonts();
     final rootKey = await mount(
         tester, await buildServices(Maestro.medora, seeded: false),
-        clock: clockFor(Maestro.medora));
+        clock: clockFor(Maestro.medora), quality: QualityTier.high);
     selectCentral(tester, Maestro.medora);
     await step(tester);
     await precacheFaces(tester);
@@ -553,7 +566,7 @@ void main() {
     await loadFonts();
     final rootKey = await mount(
         tester, await buildServices(Maestro.medora, seeded: false),
-        clock: clockFor(Maestro.medora));
+        clock: clockFor(Maestro.medora), quality: QualityTier.high);
     selectCentral(tester, Maestro.medora);
     await step(tester);
     await precacheFaces(tester);

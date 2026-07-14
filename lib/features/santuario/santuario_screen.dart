@@ -14,6 +14,7 @@ import '../../core/maestro/maestro_controller.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/santuario/function_shelf.dart';
+import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -1232,6 +1233,11 @@ class _SkyAccentsPainter extends CustomPainter {
   final Animation<double> drift;
   final bool reduceMotion;
 
+  // Tinte fredde delle nebulose, condivise col cosmo dello shell.
+  static const Color _nebCore = CosmosNebula.core;
+  static const Color _nebMid = CosmosNebula.mid;
+  static const Color _nebCool = CosmosNebula.cool;
+
   /// Offset di un piano, dal giroscopio se attivo, altrimenti dalla deriva
   /// automatica lenta, cosi' il moto non si spegne mai (salvo Riduci Movimento).
   Offset _layer(double depth, double t) {
@@ -1251,22 +1257,22 @@ class _SkyAccentsPainter extends CustomPainter {
     final midOffset = _layer(0.16, t);
     final nearOffset = _layer(0.5, t);
 
-    // Piano profondo: nebulose ampie e tenui che sciolgono il fondo e danno
-    // profondita' dietro le carte, senza competere con loro.
+    // Piano profondo: nebulose ampie e fredde che sciolgono il fondo e danno
+    // profondita' dietro le carte, staccando dall'accento del dominio.
     canvas.save();
     canvas.translate(deepOffset.dx, deepOffset.dy);
     canvas.drawCircle(
       Offset(w * 0.5, h * 0.62),
       w * 0.9,
       Paint()
-        ..color = primary.withValues(alpha: 0.07)
+        ..color = _nebCool.withValues(alpha: 0.09)
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 90),
     );
     canvas.drawCircle(
       Offset(w * 0.26, h * 0.4),
       w * 0.55,
       Paint()
-        ..color = glow.withValues(alpha: 0.06)
+        ..color = _nebMid.withValues(alpha: 0.10)
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 80),
     );
     canvas.restore();
@@ -1274,7 +1280,8 @@ class _SkyAccentsPainter extends CustomPainter {
     canvas.save();
     canvas.translate(midOffset.dx, midOffset.dy);
 
-    // Nebulose soffuse, ai lati della Luna, tinte sull'accento, piu' percepibili.
+    // Nebulose ai lati della Luna: nubi di luce fredda con nucleo chiaro, che
+    // contrastano davvero col fondo tinto del Maestro.
     const nebulae = [
       (Offset(0.18, 0.12), 0.30),
       (Offset(0.86, 0.13), 0.26),
@@ -1284,13 +1291,19 @@ class _SkyAccentsPainter extends CustomPainter {
       final (pos, rf) = nebulae[i];
       final center = Offset(pos.dx * w, pos.dy * h);
       final radius = w * rf;
-      final color = i.isEven ? glow : primary;
       canvas.drawCircle(
         center,
         radius,
         Paint()
-          ..color = color.withValues(alpha: 0.08)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 60),
+          ..shader = RadialGradient(
+            colors: [
+              _nebCore.withValues(alpha: 0.24),
+              (i.isEven ? _nebMid : _nebCool).withValues(alpha: 0.14),
+              Colors.transparent,
+            ],
+            stops: const [0.0, 0.45, 1.0],
+          ).createShader(Rect.fromCircle(center: center, radius: radius))
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 30),
       );
     }
 
