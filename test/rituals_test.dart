@@ -74,7 +74,8 @@ void main() {
         (tester) async {
       await tester.pumpWidget(MaterialApp(home: DayOracleScreen(now: date)));
       await tester.pump();
-      expect(find.textContaining('giroscopio'), findsOneWidget);
+      // La riga dichiara il gesto sul sensore e il ripiego tattile.
+      expect(find.textContaining('ripiego tattile'), findsOneWidget);
 
       await tester.drag(
           find.byKey(const Key('ritual_gesture')), const Offset(250, 0));

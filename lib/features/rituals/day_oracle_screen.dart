@@ -38,8 +38,6 @@ class DayOracleScreen extends StatelessWidget {
       prompt: 'Inclina o scorri per rivelare',
       sensorHint:
           'Inclina il telefono, oppure scorri col dito: il ripiego tattile vale sempre.',
-      footnote:
-          'Il giroscopio guida la rivelazione sul device. Qui la guida lo scorrimento.',
       visualBuilder: (context, revealed, t) => CustomPaint(
         painter: _OraclePainter(palette: palette, t: t, revealed: revealed),
       ),
