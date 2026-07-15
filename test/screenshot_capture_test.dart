@@ -440,7 +440,7 @@ void main() {
     await capture(tester, rootKey, name);
   }
 
-  testWidgets('Cattura il Rito dell\'Alba', (tester) async {
+  testWidgets('Cattura il Rito dell\'Alba, velato e col dono', (tester) async {
     silenceSensors();
     await loadFonts();
     final rootKey =
@@ -455,13 +455,21 @@ void main() {
       );
     });
     await step(tester);
-    await captureRitual(
-      tester,
-      rootKey,
-      DawnRiteScreen.route(now: DateTime(2026, 7, 13)),
-      () async => tester.tap(find.byKey(const Key('ritual_gesture'))),
-      'rito-alba.png',
-    );
+
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(DawnRiteScreen.route(now: DateTime(2026, 7, 13))));
+    await step(tester);
+    await step(tester);
+    // Stato velato: la foto reale con l'invito a sollevare l'alba.
+    await capture(tester, rootKey, 'rito-alba.png');
+
+    // Il gesto tattile solleva l'alba e porge il dono del giorno.
+    await tester.tap(find.byKey(const Key('ritual_gesture')));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    await step(tester);
+    await capture(tester, rootKey, 'rito-alba-dono.png');
   });
 
   testWidgets('Cattura il Soffio del Destino', (tester) async {
