@@ -445,6 +445,16 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Il Rito dell'Alba ha un fondale reale nello slot: lo si precarica, cosi'
+    // nella cattura headless e' gia' decodificato e appare, senza restare in
+    // caricamento.
+    await tester.runAsync(() async {
+      await precacheImage(
+        const AssetImage('assets/ritual_backgrounds/dawn.png'),
+        tester.element(find.byType(MaterialApp)),
+      );
+    });
+    await step(tester);
     await captureRitual(
       tester,
       rootKey,

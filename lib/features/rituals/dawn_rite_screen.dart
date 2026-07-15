@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
 import '../../core/maestro/maestro.dart';
@@ -35,15 +33,18 @@ class DawnRiteScreen extends StatelessWidget {
     return RitualView(
       title: 'Rito dell\'Alba',
       palette: palette,
-      // Slot del fondale condiviso: qui si cabla il PNG dell'alba quando
-      // arrivera'. Per ora null, fondo procedurale coerente col cosmo.
-      backgroundAsset: null,
+      // Fondale reale dell'alba, cablato nello slot condiviso: mare all'alba
+      // con filigrana zodiacale. In sua assenza lo slot ripiega sul fondo
+      // procedurale. Gli altri quattro riti restano ancora procedurali.
+      backgroundAsset: 'assets/ritual_backgrounds/dawn.png',
       gesture: RitualGesture.tap,
       prompt: 'Tocca per ricevere il rito',
       sensorHint: 'Un gesto solo: tocca la scena per accogliere l\'alba.',
-      visualBuilder: (context, revealed, t) => CustomPaint(
-        painter: _DawnPainter(palette: palette, t: t, revealed: revealed),
-      ),
+      // Il livello visivo dell'alba e' ora la foto reale nello slot fondale:
+      // la scena resta trasparente, cosi' l'immagine non e' coperta e non si
+      // sovrappone un secondo sole procedurale. Il gesto e la rivelazione del
+      // responso restano invariati.
+      visualBuilder: (context, revealed, t) => const SizedBox.expand(),
       revealed: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -58,77 +59,4 @@ class DawnRiteScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class _DawnPainter extends CustomPainter {
-  _DawnPainter({required this.palette, required this.t, required this.revealed});
-
-  final MaestroPalette palette;
-  final double t;
-  final bool revealed;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final rect = Offset.zero & size;
-    // Cielo dell'alba: dal profondo del Maestro all'oro caldo sull'orizzonte.
-    canvas.drawRect(
-      rect,
-      Paint()
-        ..shader = _sky(size, [
-          palette.deepest,
-          palette.primary.withValues(alpha: 0.7),
-          palette.gold.withValues(alpha: 0.5),
-        ]),
-    );
-
-    // Il sole che sorge, piu' alto e luminoso dopo il rito.
-    final horizon = size.height * 0.78;
-    final rise = revealed ? 0.16 : 0.06;
-    final sunY = horizon - size.height * (rise + 0.02 * math.sin(t * math.pi));
-    final sunC = Offset(size.width / 2, sunY);
-    final sunR = size.width * 0.14;
-    canvas.drawCircle(
-      sunC,
-      sunR * 2.6,
-      Paint()
-        ..shader = _glow(sunC, sunR * 2.6, [
-          palette.goldSoft.withValues(alpha: revealed ? 0.5 : 0.28),
-          const Color(0x00000000),
-        ]),
-    );
-    canvas.drawCircle(
-        sunC, sunR, Paint()..color = palette.goldSoft.withValues(alpha: 0.9));
-
-    // Riga d'orizzonte dorata.
-    canvas.drawLine(
-      Offset(0, horizon),
-      Offset(size.width, horizon),
-      Paint()
-        ..strokeWidth = 1.2
-        ..color = palette.gold.withValues(alpha: 0.5),
-    );
-
-    // Qualche stella che si spegne in alto.
-    final rng = math.Random(7);
-    for (var i = 0; i < 40; i++) {
-      final x = rng.nextDouble() * size.width;
-      final y = rng.nextDouble() * horizon * 0.7;
-      canvas.drawCircle(Offset(x, y), rng.nextDouble() * 1.2 + 0.3,
-          Paint()..color = Colors.white.withValues(alpha: 0.35 * (1 - t)));
-    }
-  }
-
-  Shader _sky(Size size, List<Color> colors) => LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: colors,
-      ).createShader(Offset.zero & size);
-
-  Shader _glow(Offset c, double r, List<Color> colors) =>
-      RadialGradient(colors: colors)
-          .createShader(Rect.fromCircle(center: c, radius: r));
-
-  @override
-  bool shouldRepaint(_DawnPainter old) =>
-      old.t != t || old.revealed != revealed || old.palette != palette;
 }
