@@ -35,6 +35,9 @@ class SunsetRuneScreen extends StatelessWidget {
     return RitualView(
       title: 'La Runa del Tramonto',
       palette: palette,
+      // Slot del fondale condiviso: qui si cabla il PNG del tramonto quando
+      // arrivera'. Per ora null, fondo procedurale coerente col cosmo.
+      backgroundAsset: null,
       gesture: RitualGesture.shake,
       prompt: 'Scuoti per svelare la runa',
       sensorHint:

@@ -35,6 +35,9 @@ class DawnRiteScreen extends StatelessWidget {
     return RitualView(
       title: 'Rito dell\'Alba',
       palette: palette,
+      // Slot del fondale condiviso: qui si cabla il PNG dell'alba quando
+      // arrivera'. Per ora null, fondo procedurale coerente col cosmo.
+      backgroundAsset: null,
       gesture: RitualGesture.tap,
       prompt: 'Tocca per ricevere il rito',
       sensorHint: 'Un gesto solo: tocca la scena per accogliere l\'alba.',

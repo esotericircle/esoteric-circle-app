@@ -34,6 +34,9 @@ class BreathDestinyScreen extends StatelessWidget {
     return RitualView(
       title: 'Soffio del Destino',
       palette: palette,
+      // Slot del fondale condiviso: qui si cabla il PNG del soffio quando
+      // arrivera'. Per ora null, fondo procedurale coerente col cosmo.
+      backgroundAsset: null,
       gesture: RitualGesture.hold,
       prompt: 'Tieni premuto e soffia',
       sensorHint:

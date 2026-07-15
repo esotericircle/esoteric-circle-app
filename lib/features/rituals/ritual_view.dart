@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
+import '../../design_system/components/ritual_backdrop.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -31,11 +32,18 @@ class RitualView extends StatefulWidget {
     required this.revealed,
     this.footnote,
     this.onReveal,
+    this.backgroundAsset,
   });
 
   final String title;
   final MaestroPalette palette;
   final RitualGesture gesture;
+
+  /// Slot del fondale condiviso. Percorso di un asset PNG di fondale quando
+  /// disponibile; null ripiega sul fondo procedurale coerente col cosmo della
+  /// home. Ogni rito lo predispone: quando arriva il PNG definitivo basta
+  /// cablarlo qui, senza toccare scena, stati e interazioni.
+  final String? backgroundAsset;
 
   /// Invito al gesto, mostrato prima della rivelazione.
   final String prompt;
@@ -152,61 +160,68 @@ class _RitualViewState extends State<RitualView>
         ),
         title: Text(widget.title, style: TypographyTokens.display(size: 20)),
       ),
-      body: SafeArea(
-        top: false,
-        child: Column(
-          children: [
-            // Livello visivo, prima del testo.
-            Expanded(
-              flex: 5,
-              child: gestureWrap(
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Positioned.fill(
-                      child: AnimatedBuilder(
-                        animation: _pulse,
-                        builder: (context, _) => widget.visualBuilder(
-                            context, _revealed, _pulse.value),
+      body: RitualBackdrop(
+        palette: palette,
+        assetPath: widget.backgroundAsset,
+        child: SafeArea(
+          top: false,
+          child: Column(
+            children: [
+              // Livello visivo, prima del testo.
+              Expanded(
+                flex: 5,
+                child: gestureWrap(
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Positioned.fill(
+                        child: AnimatedBuilder(
+                          animation: _pulse,
+                          builder: (context, _) => widget.visualBuilder(
+                              context, _revealed, _pulse.value),
+                        ),
                       ),
-                    ),
-                    if (!_revealed)
-                      Positioned(
-                        bottom: SpacingTokens.lg,
-                        child: _PromptPill(
-                            label: widget.prompt, palette: palette),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-            // Responso, rivelato dopo il gesto.
-            Expanded(
-              flex: 4,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
-                    SpacingTokens.lg, SpacingTokens.lg),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (_revealed)
-                      Container(
-                          key: const Key('ritual_content'),
-                          child: widget.revealed),
-                    const SizedBox(height: SpacingTokens.md),
-                    _HintRow(icon: Icons.touch_app_outlined, text: widget.sensorHint, palette: palette),
-                    if (widget.footnote != null) ...[
-                      const SizedBox(height: SpacingTokens.sm),
-                      _HintRow(
-                          icon: Icons.auto_awesome,
-                          text: widget.footnote!,
-                          palette: palette),
+                      if (!_revealed)
+                        Positioned(
+                          bottom: SpacingTokens.lg,
+                          child: _PromptPill(
+                              label: widget.prompt, palette: palette),
+                        ),
                     ],
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ],
+              // Responso, rivelato dopo il gesto.
+              Expanded(
+                flex: 4,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(
+                      SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.lg),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (_revealed)
+                        Container(
+                            key: const Key('ritual_content'),
+                            child: widget.revealed),
+                      const SizedBox(height: SpacingTokens.md),
+                      _HintRow(
+                          icon: Icons.touch_app_outlined,
+                          text: widget.sensorHint,
+                          palette: palette),
+                      if (widget.footnote != null) ...[
+                        const SizedBox(height: SpacingTokens.sm),
+                        _HintRow(
+                            icon: Icons.auto_awesome,
+                            text: widget.footnote!,
+                            palette: palette),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

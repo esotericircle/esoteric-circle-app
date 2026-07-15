@@ -34,6 +34,9 @@ class DayOracleScreen extends StatelessWidget {
     return RitualView(
       title: 'Oracolo del Giorno',
       palette: palette,
+      // Slot del fondale condiviso: qui si cabla il PNG dell'oracolo quando
+      // arrivera'. Per ora null, fondo procedurale coerente col cosmo.
+      backgroundAsset: null,
       gesture: RitualGesture.swipe,
       prompt: 'Inclina o scorri per rivelare',
       sensorHint:

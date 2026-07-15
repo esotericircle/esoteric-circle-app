@@ -37,6 +37,9 @@ class NightRiteScreen extends StatelessWidget {
     return RitualView(
       title: 'Rito della Buonanotte',
       palette: palette,
+      // Slot del fondale condiviso: qui si cabla il PNG della notte quando
+      // arrivera'. Per ora null, fondo procedurale coerente col cosmo.
+      backgroundAsset: null,
       gesture: RitualGesture.tap,
       prompt: 'Tocca per lasciare andare il giorno',
       sensorHint:
