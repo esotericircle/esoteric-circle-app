@@ -252,24 +252,61 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
                 ),
                 Expanded(
                   flex: 4,
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
-                        SpacingTokens.lg, SpacingTokens.lg),
-                    child: (_revealed && _gift != null)
-                        ? _DawnGiftCard(
-                            key: const Key('ritual_content'),
-                            gift: _gift!,
-                            palette: palette,
-                            streak: _streak,
-                            onShare: () => _shareWord(_gift!),
-                          )
-                        : const SizedBox.shrink(),
+                  child: Stack(
+                    children: [
+                      // Velo scuro morbido dietro il dono: tiene il testo
+                      // leggibile anche col bagliore al massimo, coprendo il
+                      // testo e non la scena. Sfuma verso l'alto, cosi' non
+                      // taglia un bordo netto sulla foto.
+                      if (_revealed)
+                        const Positioned.fill(
+                          child: IgnorePointer(child: _GiftVeil()),
+                        ),
+                      SingleChildScrollView(
+                        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
+                            SpacingTokens.lg, SpacingTokens.lg),
+                        child: (_revealed && _gift != null)
+                            ? _DawnGiftCard(
+                                key: const Key('ritual_content'),
+                                gift: _gift!,
+                                palette: palette,
+                                streak: _streak,
+                                onShare: () => _shareWord(_gift!),
+                              )
+                            : const SizedBox.shrink(),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Velo scuro morbido dietro il blocco del dono. Sfuma dall'alto trasparente al
+/// fondo scuro, cosi' copre il testo e non la scena, e regge la lettura anche
+/// col bagliore del sollevamento al massimo.
+class _GiftVeil extends StatelessWidget {
+  const _GiftVeil();
+
+  @override
+  Widget build(BuildContext context) {
+    return const DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0x00000000),
+            Color(0x59000000),
+            Color(0x8C000000),
+          ],
+          stops: [0.0, 0.35, 1.0],
+        ),
       ),
     );
   }
@@ -284,36 +321,52 @@ class _LiftPrompt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(Icons.keyboard_double_arrow_up_rounded,
-            color: palette.goldSoft.withValues(alpha: 0.6 + 0.4 * progress),
-            size: 26),
-        const SizedBox(height: SpacingTokens.sm),
-        Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-            color: palette.deepest.withValues(alpha: 0.5),
-            border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
-          ),
-          child: Text(
-            'Trascina verso l\'alto per sollevare l\'alba',
-            style: TypographyTokens.label(size: 12)
-                .copyWith(color: palette.goldSoft, letterSpacing: 0.8),
-          ),
+    // Velo scuro morbido dietro il sotto invito: un alone che sfuma ai bordi,
+    // cosi' il testo resta leggibile sul riflesso luminoso senza tagliare un
+    // riquadro sulla scena.
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.lg, vertical: SpacingTokens.md),
+      decoration: BoxDecoration(
+        gradient: RadialGradient(
+          radius: 0.95,
+          colors: [
+            Colors.black.withValues(alpha: 0.34),
+            Colors.black.withValues(alpha: 0.0),
+          ],
         ),
-        const SizedBox(height: SpacingTokens.sm),
-        Text(
-          'Oppure tocca, o tieni premuto',
-          style: TypographyTokens.label(size: 10).copyWith(
-            color: palette.goldSoft.withValues(alpha: 0.7),
-            letterSpacing: 0.3,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.keyboard_double_arrow_up_rounded,
+              color: palette.goldSoft.withValues(alpha: 0.6 + 0.4 * progress),
+              size: 26),
+          const SizedBox(height: SpacingTokens.sm),
+          Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+              color: palette.deepest.withValues(alpha: 0.5),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
+            ),
+            child: Text(
+              'Trascina verso l\'alto per sollevare l\'alba',
+              style: TypographyTokens.label(size: 12)
+                  .copyWith(color: palette.goldSoft, letterSpacing: 0.8),
+            ),
           ),
-        ),
-      ],
+          const SizedBox(height: SpacingTokens.sm),
+          Text(
+            'Oppure tocca o tieni premuto',
+            style: TypographyTokens.label(size: 10).copyWith(
+              color: palette.goldSoft.withValues(alpha: 0.85),
+              letterSpacing: 0.3,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
