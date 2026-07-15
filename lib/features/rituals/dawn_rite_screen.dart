@@ -285,30 +285,17 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
                 ),
                 Expanded(
                   flex: 4,
-                  child: Stack(
-                    children: [
-                      // Velo scuro morbido dietro il dono: tiene il testo
-                      // leggibile anche col bagliore al massimo, coprendo il
-                      // testo e non la scena. Sfuma verso l'alto, cosi' non
-                      // taglia un bordo netto sulla foto.
-                      if (_revealed)
-                        const Positioned.fill(
-                          child: IgnorePointer(child: _GiftVeil()),
-                        ),
-                      SingleChildScrollView(
-                        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
-                            SpacingTokens.lg, SpacingTokens.lg),
-                        child: (_revealed && _gift != null)
-                            ? _DawnGiftCard(
-                                key: const Key('ritual_content'),
-                                gift: _gift!,
-                                palette: palette,
-                                streak: _streak,
-                                onShare: () => _shareWord(_gift!),
-                              )
-                            : const SizedBox.shrink(),
-                      ),
-                    ],
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
+                        SpacingTokens.lg, SpacingTokens.lg),
+                    child: (_revealed && _gift != null)
+                        ? _DawnGiftCard(
+                            key: const Key('ritual_content'),
+                            gift: _gift!,
+                            streak: _streak,
+                            onShare: () => _shareWord(_gift!),
+                          )
+                        : const SizedBox.shrink(),
                   ),
                 ),
               ],
@@ -320,30 +307,15 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
   }
 }
 
-/// Velo scuro morbido dietro il blocco del dono. Sfuma dall'alto trasparente al
-/// fondo scuro, cosi' copre il testo e non la scena, e regge la lettura anche
-/// col bagliore del sollevamento al massimo.
-class _GiftVeil extends StatelessWidget {
-  const _GiftVeil();
-
-  @override
-  Widget build(BuildContext context) {
-    return const DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0x00000000),
-            Color(0x59000000),
-            Color(0x8C000000),
-          ],
-          stops: [0.0, 0.35, 1.0],
-        ),
-      ),
-    );
-  }
-}
+// Colori del dono nello stato illuminato. A gesto completato la scena e' giorno
+// pieno: il dono usa testo scuro su una bolla chiara, per la leggibilita' piena
+// sulla luce. E' il rovescio dell'invito notturno, chiaro sul buio.
+const Color _dayInk = Color(0xFF2A2213); // testo forte
+const Color _dayInkSoft = Color(0xFF6E5B33); // etichette e testo secondario
+const Color _dayAccent = Color(0xFF7A5E1E); // oro scuro, accenti e parola
+const Color _dayBubble = Color(0xF2FCF5E4); // superficie chiara calda della bolla
+const Color _dayBubbleBorder = Color(0x22000000);
+const Color _dayInset = Color(0x14000000); // superfici interne, un velo caldo
 
 /// L'invito al gesto, che si accende man mano che l'alba si solleva.
 class _LiftPrompt extends StatelessWidget {
@@ -412,13 +384,11 @@ class _DawnGiftCard extends StatefulWidget {
   const _DawnGiftCard({
     super.key,
     required this.gift,
-    required this.palette,
     required this.streak,
     required this.onShare,
   });
 
   final DawnGift gift;
-  final MaestroPalette palette;
   final int streak;
   final VoidCallback onShare;
 
@@ -432,88 +402,103 @@ class _DawnGiftCardState extends State<_DawnGiftCard> {
   @override
   Widget build(BuildContext context) {
     final gift = widget.gift;
-    final palette = widget.palette;
     final word = gift.word;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Livello uno: il tipo di dono e l'orientamento del giorno.
-        Row(
-          children: [
-            Flexible(
-              child: Text(
-                gift.kind.label.toUpperCase(),
-                style: TypographyTokens.label(size: 11).copyWith(
-                  color: palette.goldSoft,
-                  letterSpacing: 2.4,
+    // La bolla chiara adattata alla scena a giorno pieno: testo scuro sopra, per
+    // la leggibilita' piena sulla luce.
+    return Container(
+      decoration: BoxDecoration(
+        color: _dayBubble,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: _dayBubbleBorder),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.18),
+            blurRadius: 24,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Livello uno: il tipo di dono e l'orientamento del giorno.
+          Row(
+            children: [
+              Flexible(
+                child: Text(
+                  gift.kind.label.toUpperCase(),
+                  style: TypographyTokens.label(size: 11).copyWith(
+                    color: _dayAccent,
+                    letterSpacing: 2.4,
+                  ),
                 ),
               ),
-            ),
-            if (gift.provisional) ...[
-              const SizedBox(width: SpacingTokens.sm),
-              const _ProvisionalTag(),
+              if (gift.provisional) ...[
+                const SizedBox(width: SpacingTokens.sm),
+                const _ProvisionalTag(),
+              ],
             ],
-          ],
-        ),
-        const SizedBox(height: SpacingTokens.sm),
-        Text(
-          gift.orientation,
-          style: TypographyTokens.body(size: 16)
-              .copyWith(color: ColorTokens.textPrimary, height: 1.5),
-        ),
-        const SizedBox(height: SpacingTokens.lg),
-        // Livello due: la parola del giorno, in risalto, o il suo segnaposto.
-        Text(
-          'PAROLA DEL GIORNO',
-          style: TypographyTokens.label(size: 10).copyWith(
-            color: palette.goldSoft.withValues(alpha: 0.7),
-            letterSpacing: 3,
           ),
-        ),
-        const SizedBox(height: SpacingTokens.xs),
-        if (word != null)
+          const SizedBox(height: SpacingTokens.sm),
           Text(
-            word,
-            style: TypographyTokens.display(size: 32).copyWith(
-              color: palette.goldSoft,
-              letterSpacing: 1.4,
-            ),
-          )
-        else
+            gift.orientation,
+            style: TypographyTokens.body(size: 16)
+                .copyWith(color: _dayInk, height: 1.5),
+          ),
+          const SizedBox(height: SpacingTokens.lg),
+          // Livello due: la parola del giorno, in risalto, o il suo segnaposto.
           Text(
-            'In arrivo',
-            style: TypographyTokens.display(size: 24).copyWith(
-              color: palette.goldSoft.withValues(alpha: 0.55),
-              letterSpacing: 1.2,
+            'PAROLA DEL GIORNO',
+            style: TypographyTokens.label(size: 10).copyWith(
+              color: _dayInkSoft,
+              letterSpacing: 3,
             ),
           ),
-        const SizedBox(height: SpacingTokens.md),
-        // Livello tre: la base apribile, da dove nasce il dono.
-        _BaseToggle(
-          palette: palette,
-          open: _baseOpen,
-          onTap: () => setState(() => _baseOpen = !_baseOpen),
-        ),
-        AnimatedSize(
-          duration: const Duration(milliseconds: 200),
-          alignment: Alignment.topCenter,
-          child: _baseOpen
-              ? _BasePanel(source: gift.source, palette: palette)
-              : const SizedBox(width: double.infinity),
-        ),
-        const SizedBox(height: SpacingTokens.md),
-        Row(
-          children: [
-            // La condivisione della parola torna quando la parola e' reale.
-            if (word != null) _ShareWordButton(palette: palette, onShare: widget.onShare),
-            if (widget.streak >= 1) ...[
-              if (word != null) const SizedBox(width: SpacingTokens.md),
-              _StreakChip(palette: palette, days: widget.streak),
+          const SizedBox(height: SpacingTokens.xs),
+          if (word != null)
+            Text(
+              word,
+              style: TypographyTokens.display(size: 32).copyWith(
+                color: _dayAccent,
+                letterSpacing: 1.4,
+              ),
+            )
+          else
+            Text(
+              'In arrivo',
+              style: TypographyTokens.display(size: 24).copyWith(
+                color: _dayInkSoft.withValues(alpha: 0.7),
+                letterSpacing: 1.2,
+              ),
+            ),
+          const SizedBox(height: SpacingTokens.md),
+          // Livello tre: la base apribile, da dove nasce il dono.
+          _BaseToggle(
+            open: _baseOpen,
+            onTap: () => setState(() => _baseOpen = !_baseOpen),
+          ),
+          AnimatedSize(
+            duration: const Duration(milliseconds: 200),
+            alignment: Alignment.topCenter,
+            child: _baseOpen
+                ? _BasePanel(source: gift.source)
+                : const SizedBox(width: double.infinity),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          Row(
+            children: [
+              // La condivisione della parola torna quando la parola e' reale.
+              if (word != null) _ShareWordButton(onShare: widget.onShare),
+              if (widget.streak >= 1) ...[
+                if (word != null) const SizedBox(width: SpacingTokens.md),
+                _StreakChip(days: widget.streak),
+              ],
             ],
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -528,12 +513,12 @@ class _ProvisionalTag extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        border: Border.all(color: const Color(0x66FFFFFF)),
+        border: Border.all(color: _dayInkSoft.withValues(alpha: 0.5)),
       ),
       child: Text(
         'PROVVISORIO',
         style: TypographyTokens.label(size: 9).copyWith(
-          color: const Color(0xB3FFFFFF),
+          color: _dayInkSoft,
           letterSpacing: 1.6,
         ),
       ),
@@ -543,10 +528,8 @@ class _ProvisionalTag extends StatelessWidget {
 
 /// La riga che apre e chiude la base del dono.
 class _BaseToggle extends StatelessWidget {
-  const _BaseToggle(
-      {required this.palette, required this.open, required this.onTap});
+  const _BaseToggle({required this.open, required this.onTap});
 
-  final MaestroPalette palette;
   final bool open;
   final VoidCallback onTap;
 
@@ -561,18 +544,17 @@ class _BaseToggle extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.info_outline_rounded,
-                size: 15, color: palette.goldSoft.withValues(alpha: 0.85)),
+            const Icon(Icons.info_outline_rounded, size: 15, color: _dayAccent),
             const SizedBox(width: 6),
             Text(
               'Da dove nasce questo dono',
               style: TypographyTokens.label(size: 11).copyWith(
-                color: palette.goldSoft.withValues(alpha: 0.85),
+                color: _dayAccent,
                 letterSpacing: 0.4,
               ),
             ),
             Icon(open ? Icons.expand_less_rounded : Icons.expand_more_rounded,
-                size: 18, color: palette.goldSoft.withValues(alpha: 0.85)),
+                size: 18, color: _dayAccent),
           ],
         ),
       ),
@@ -583,10 +565,9 @@ class _BaseToggle extends StatelessWidget {
 /// Il pannello della base: ancora natale reale, transito e tradizione, con la
 /// provvisorieta' dichiarata dove il contenuto verificato manca.
 class _BasePanel extends StatelessWidget {
-  const _BasePanel({required this.source, required this.palette});
+  const _BasePanel({required this.source});
 
   final GiftSource source;
-  final MaestroPalette palette;
 
   @override
   Widget build(BuildContext context) {
@@ -597,21 +578,19 @@ class _BasePanel extends StatelessWidget {
       padding: const EdgeInsets.all(SpacingTokens.md),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        color: Colors.black.withValues(alpha: 0.35),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.28)),
+        color: _dayInset,
+        border: Border.all(color: _dayInkSoft.withValues(alpha: 0.28)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _BaseRow(
-            palette: palette,
             label: 'Ancora natale',
             value: source.natalDescription,
             provisional: false,
           ),
           const SizedBox(height: SpacingTokens.sm),
           _BaseRow(
-            palette: palette,
             label: 'Transito attivo oggi',
             value: source.transit ??
                 'In attesa dei contenuti astrologici verificati.',
@@ -619,7 +598,6 @@ class _BasePanel extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.sm),
           _BaseRow(
-            palette: palette,
             label: 'Nella tradizione',
             value: source.tradition ??
                 'In attesa dei contenuti astrologici verificati.',
@@ -633,13 +611,11 @@ class _BasePanel extends StatelessWidget {
 
 class _BaseRow extends StatelessWidget {
   const _BaseRow({
-    required this.palette,
     required this.label,
     required this.value,
     required this.provisional,
   });
 
-  final MaestroPalette palette;
   final String label;
   final String value;
   final bool provisional;
@@ -651,11 +627,13 @@ class _BaseRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text(
-              label.toUpperCase(),
-              style: TypographyTokens.label(size: 9).copyWith(
-                color: palette.goldSoft.withValues(alpha: 0.7),
-                letterSpacing: 1.6,
+            Flexible(
+              child: Text(
+                label.toUpperCase(),
+                style: TypographyTokens.label(size: 9).copyWith(
+                  color: _dayInkSoft,
+                  letterSpacing: 1.6,
+                ),
               ),
             ),
             if (provisional) ...[
@@ -668,9 +646,7 @@ class _BaseRow extends StatelessWidget {
         Text(
           value,
           style: TypographyTokens.body(size: 14).copyWith(
-            color: provisional
-                ? ColorTokens.textSecondary
-                : ColorTokens.textPrimary,
+            color: provisional ? _dayInkSoft : _dayInk,
             height: 1.4,
             fontStyle: provisional ? FontStyle.italic : FontStyle.normal,
           ),
@@ -683,9 +659,8 @@ class _BaseRow extends StatelessWidget {
 /// Pulsante discreto per condividere la parola del giorno con la condivisione
 /// nativa del sistema.
 class _ShareWordButton extends StatelessWidget {
-  const _ShareWordButton({required this.palette, required this.onShare});
+  const _ShareWordButton({required this.onShare});
 
-  final MaestroPalette palette;
   final VoidCallback onShare;
 
   @override
@@ -694,19 +669,19 @@ class _ShareWordButton extends StatelessWidget {
       key: const Key('dawn_share_word'),
       onPressed: onShare,
       style: TextButton.styleFrom(
-        foregroundColor: palette.goldSoft,
+        foregroundColor: _dayAccent,
         padding: const EdgeInsets.symmetric(
             horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-          side: BorderSide(color: palette.gold.withValues(alpha: 0.5)),
+          side: BorderSide(color: _dayAccent.withValues(alpha: 0.5)),
         ),
       ),
       icon: const Icon(Icons.ios_share_rounded, size: 16),
       label: Text(
         'Condividi la parola',
         style: TypographyTokens.label(size: 12)
-            .copyWith(color: palette.goldSoft, letterSpacing: 0.5),
+            .copyWith(color: _dayAccent, letterSpacing: 0.5),
       ),
     );
   }
@@ -714,9 +689,8 @@ class _ShareWordButton extends StatelessWidget {
 
 /// Indicatore discreto dei giorni consecutivi di rito compiuto.
 class _StreakChip extends StatelessWidget {
-  const _StreakChip({required this.palette, required this.days});
+  const _StreakChip({required this.days});
 
-  final MaestroPalette palette;
   final int days;
 
   @override
@@ -728,18 +702,17 @@ class _StreakChip extends StatelessWidget {
           horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        color: palette.deepest.withValues(alpha: 0.4),
+        color: _dayInset,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.wb_twilight_rounded,
-              size: 14, color: palette.goldSoft.withValues(alpha: 0.85)),
+          const Icon(Icons.wb_twilight_rounded, size: 14, color: _dayAccent),
           const SizedBox(width: 6),
           Text(
             label,
             style: TypographyTokens.label(size: 11).copyWith(
-              color: palette.goldSoft.withValues(alpha: 0.85),
+              color: _dayAccent,
               letterSpacing: 0.4,
             ),
           ),
@@ -771,6 +744,23 @@ class _DawnLightPainter extends CustomPainter {
   final MaestroPalette palette;
   final bool reduceMotion;
 
+  // Misure della foto notturna, per allineare il sole disegnato alla linea del
+  // mare reale con la stessa matematica del BoxFit.cover, a ogni dimensione.
+  static const double _imgW = 704;
+  static const double _imgH = 1520;
+  static const double _horizonFrac = 0.637;
+
+  double _horizonY(Size size) {
+    final scale = math.max(size.width / _imgW, size.height / _imgH);
+    final scaledH = _imgH * scale;
+    final offsetY = (size.height - scaledH) / 2;
+    return offsetY + _horizonFrac * _imgH * scale;
+  }
+
+  static const _daySky = Color(0xFFC3D8EE);
+  static const _dawnWarm = Color(0xFFFFE3A6);
+  static const _seaLit = Color(0xFF8BA0AB);
+
   @override
   void paint(Canvas canvas, Size size) {
     final p = progress.clamp(0.0, 1.0);
@@ -778,63 +768,104 @@ class _DawnLightPainter extends CustomPainter {
 
     final w = size.width;
     final h = size.height;
-    // Allineati alla foto: sole sull'orizzonte al centro.
-    final horizonY = h * 0.5;
-    final sunCenter = Offset(w * 0.5, horizonY);
+    final horizonY = _horizonY(size);
+    final rect = Offset.zero & size;
+    final rise = Curves.easeOutCubic.transform(p);
 
-    // Il cielo si scalda: velo caldo che cresce, piu' denso verso l'orizzonte.
+    // 1) La scena passa dalla notte al giorno: un velo di luce calda cresce su
+    // tutto, piu' intenso verso l'orizzonte. Copre cielo e mare e assorbe la
+    // luna e le costellazioni nel chiarore.
+    final horizonStop = (horizonY / h).clamp(0.05, 0.95);
     canvas.drawRect(
-      Offset.zero & size,
+      rect,
       Paint()
         ..shader = LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            palette.primary.withValues(alpha: 0.05 * p),
-            palette.gold.withValues(alpha: 0.20 * p),
-            palette.primary.withValues(alpha: 0.05 * p),
+            _daySky.withValues(alpha: 1.0 * p),
+            _dawnWarm.withValues(alpha: 0.93 * p),
+            _seaLit.withValues(alpha: 0.72 * p),
           ],
-          stops: const [0.0, 0.5, 1.0],
-        ).createShader(Offset.zero & size),
+          stops: [0.0, horizonStop, 1.0],
+        ).createShader(rect),
     );
 
-    // Le costellazioni in alto si spengono sotto una luce che sale dall'alba.
+    // 2) Bagliore dell'alba sull'orizzonte, un'ampia luce calda che si diffonde.
+    final glowR = w * (0.5 + 0.5 * p);
+    final glowC = Offset(w * 0.5, horizonY);
     canvas.drawRect(
-      Rect.fromLTWH(0, 0, w, h * 0.42),
+      rect,
       Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
+        ..shader = RadialGradient(
+          center: Alignment(0, (horizonY / h) * 2 - 1),
+          radius: 0.9,
           colors: [
-            palette.goldSoft.withValues(alpha: 0.30 * p),
-            palette.deepest.withValues(alpha: 0.0),
+            _dawnWarm.withValues(alpha: 0.55 * p),
+            const Color(0x00000000),
           ],
-        ).createShader(Rect.fromLTWH(0, 0, w, h * 0.42)),
+        ).createShader(Rect.fromCircle(center: glowC, radius: glowR)),
     );
 
-    // Alone del sole allineato alla foto, che si diffonde dall'orizzonte.
-    final sunR = w * (0.22 + 0.4 * p);
+    // 3) Il sole, elemento disegnato: un ampio disco luminoso che emerge dal
+    // mare. Sale di poco, restando sulla linea del mare, che ne nasconde la
+    // parte sotto l'orizzonte, cosi' sembra sorgere dall'acqua.
+    final sunR = w * 0.17;
+    final sunCenter = Offset(w * 0.5, horizonY + sunR - sunR * 1.15 * rise);
+
+    // Alone ampio attorno al sole, non tagliato: bagliore che invade il cielo.
+    canvas.drawCircle(
+      sunCenter,
+      sunR * (2.4 + 0.8 * p),
+      Paint()
+        ..shader = RadialGradient(
+          colors: [
+            _dawnWarm.withValues(alpha: 0.6 * p),
+            const Color(0x00000000),
+          ],
+        ).createShader(
+            Rect.fromCircle(center: sunCenter, radius: sunR * (2.4 + 0.8 * p))),
+    );
+
+    // Sole e raggi solo sopra l'orizzonte: il mare copre il resto.
+    canvas.save();
+    canvas.clipRect(Rect.fromLTWH(0, 0, w, horizonY));
+
+    // Raggi lenti che si aprono col sorgere.
+    final rayPaint = Paint()
+      ..strokeCap = StrokeCap.round
+      ..color = palette.goldSoft.withValues(alpha: 0.22 * p);
+    for (var i = 0; i < 16; i++) {
+      final a = 2 * math.pi * i / 16;
+      final dir = Offset(math.cos(a), math.sin(a));
+      rayPaint.strokeWidth = i.isEven ? 3.0 : 1.5;
+      canvas.drawLine(sunCenter + dir * sunR * 1.15,
+          sunCenter + dir * sunR * (1.7 + 0.6 * p), rayPaint);
+    }
+
+    // Il disco: cuore bianco caldo, bordo dorato.
     canvas.drawCircle(
       sunCenter,
       sunR,
       Paint()
         ..shader = RadialGradient(
           colors: [
-            palette.goldSoft.withValues(alpha: 0.55 * p),
-            const Color(0x00000000),
+            const Color(0xFFFFFDF3),
+            palette.goldSoft,
+            palette.gold,
           ],
+          stops: const [0.0, 0.7, 1.0],
         ).createShader(Rect.fromCircle(center: sunCenter, radius: sunR)),
     );
+    canvas.restore();
 
-    // Il riflesso sul mare si allunga verso il basso, con un brillio d'ambiente.
+    // 4) Il riflesso dorato sul mare si accende e si allunga sotto il sole, con
+    // un brillio d'ambiente fermo sotto Riduci Movimento.
     final shimmer = reduceMotion ? 0.0 : math.sin(2 * math.pi * ambient);
-    final beamHalf = w * (0.04 + 0.09 * p) * (1 + 0.06 * shimmer);
-    final beamRect = Rect.fromLTRB(
-      sunCenter.dx - beamHalf,
-      horizonY,
-      sunCenter.dx + beamHalf,
-      h,
-    );
+    final beamHalf = w * (0.05 + 0.10 * p) * (1 + 0.06 * shimmer);
+    final beamBottom = horizonY + (h - horizonY) * (0.35 + 0.65 * p);
+    final beamRect =
+        Rect.fromLTRB(w * 0.5 - beamHalf, horizonY, w * 0.5 + beamHalf, beamBottom);
     canvas.drawRect(
       beamRect,
       Paint()
@@ -842,11 +873,11 @@ class _DawnLightPainter extends CustomPainter {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            palette.goldSoft.withValues(alpha: 0.5 * p),
+            const Color(0xFFFFF3D6).withValues(alpha: 0.75 * p),
             palette.goldSoft.withValues(alpha: 0.0),
           ],
         ).createShader(beamRect)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 18),
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 16),
     );
   }
 
