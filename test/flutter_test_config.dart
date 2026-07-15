@@ -20,7 +20,19 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async {
 
   Future<void> loadFont(String family, String path) async {
     final file = File(path);
-    if (!file.existsSync()) return;
+    if (!file.existsSync()) {
+      // Fallimento forte e chiaro: se il path si rompe in futuro, la suite non
+      // deve tornare in silenzio al font di ripiego con metriche diverse dal
+      // device. Meglio spezzare subito, con un messaggio che dice quale font e
+      // quale path, cosi' l'errore si diagnostica a colpo d'occhio.
+      throw StateError(
+        'Setup font della suite: font "$family" non trovato al path atteso '
+        '"$path" (assoluto: "${file.absolute.path}"). Verifica che l\'asset '
+        'esista e che il path corrisponda a quello dichiarato nel pubspec. '
+        'Senza questo font i test di layout misurerebbero il ripiego, non il '
+        'device.',
+      );
+    }
     final loader = FontLoader(family);
     final bytes = file.readAsBytesSync();
     loader.addFont(Future.value(ByteData.view(bytes.buffer)));
