@@ -470,6 +470,15 @@ void main() {
     }
     await step(tester);
     await capture(tester, rootKey, 'rito-alba-dono.png');
+
+    // La base apribile del dono: da dove nasce, con l'ancora natale reale e i
+    // livelli provvisori chiaramente marcati. Superficie piu' alta, cosi'
+    // l'anteprima mostra il pannello intero, che sul device e' scorrevole.
+    await tester.tap(find.byKey(const Key('dawn_base_toggle')));
+    await step(tester);
+    tester.view.physicalSize = const Size(390, 1150);
+    await step(tester);
+    await capture(tester, rootKey, 'rito-alba-base.png');
   });
 
   testWidgets('Cattura il Soffio del Destino', (tester) async {

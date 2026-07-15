@@ -1,12 +1,14 @@
+import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
+import '../identity/birth_identity.dart';
 import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
 
 /// Il tipo di dono del Rito dell'Alba cambia col Maestro di turno.
 ///
 /// Medora orienta con il cielo del giorno, Aura offre un'intenzione energetica,
-/// Caligo lascia un monito o un simbolo. L'etichetta rende esplicito il tipo di
-/// dono in cima allo stato rivelato.
+/// Caligo lascia un monito o un simbolo. E' struttura, non contenuto: l'etichetta
+/// rende esplicito il tipo di dono, senza affermare nulla di astrologico.
 enum DawnGiftKind {
   orientamento('Orientamento del giorno'),
   intenzione('Intenzione del giorno'),
@@ -17,23 +19,61 @@ enum DawnGiftKind {
   final String label;
 }
 
-/// Il dono del giorno del Rito dell'Alba, in forma strutturata e deterministica.
+/// La base di un dono: da dove nasce, la sua fondazione sulla carta dell'utente.
 ///
-/// Nasce dalla data, quindi lo stesso giorno rende sempre lo stesso dono e a
-/// mezzanotte cambia. Il messaggio usa il segno dell'utente quando disponibile,
-/// con un ripiego generico quando manca. La parola del giorno e' breve e
-/// memorabile, pensata per essere messa in risalto e condivisa.
+/// Regola non negoziabile: un dono non puo' esistere senza la sua base. Per
+/// questo [DawnGift] la richiede come campo obbligatorio.
 ///
-/// L'aggancio a Gemini a runtime, per un dono davvero personale, sara' un layer
-/// successivo dietro questa stessa forma: qui resta tutto deterministico, con
-/// tabelle per Maestro e per giorno.
+/// L'unico dato reale e deterministico disponibile oggi nel repo e' il segno
+/// solare natale, calcolato dalla data di nascita. Non esiste ancora un motore
+/// a effemeridi con i transiti planetari reali: percio' quale transito sia
+/// attivo oggi, e cosa significhi nella tradizione, restano vuoti e marcati come
+/// provvisori. Non si inventano ne posizioni planetarie ne interpretazioni: il
+/// contenuto reale arrivera' da un file di contenuti verificati.
+class GiftSource {
+  const GiftSource({
+    required this.natalSunSign,
+    required this.transit,
+    required this.tradition,
+    required this.provisional,
+  });
+
+  /// Segno solare natale dell'utente, dato reale dalla data di nascita. Null se
+  /// il profilo non porta ancora un'identita' di nascita.
+  final Zodiac? natalSunSign;
+
+  /// Quale transito e' attivo oggi sulla carta dell'utente. Null finche' non
+  /// arriva dal file di contenuti verificati: qui non si inventa nulla.
+  final String? transit;
+
+  /// Cosa significa nella tradizione. Null finche' non arriva dai contenuti
+  /// verificati.
+  final String? tradition;
+
+  /// Vero finche' la base non e' fondata su contenuti verificati.
+  final bool provisional;
+
+  /// L'ancora natale in chiaro, dato reale. Frase neutra se il segno non c'e'.
+  String get natalDescription => natalSunSign == null
+      ? 'Segno solare non ancora noto'
+      : 'Il tuo Sole in ${natalSunSign!.italianName}';
+}
+
+/// Il dono del giorno del Rito dell'Alba, in forma strutturata e fondata.
+///
+/// La UI ne porge tre livelli: l'orientamento del giorno, la parola del giorno e
+/// la base apribile che spiega da dove nasce. Nessun contenuto astrologico e'
+/// generato qui: [orientation] e [word] restano provvisori e chiaramente marcati
+/// finche' non arriva il file di contenuti verificati. Il modello resta gia'
+/// collegato alla carta natale dell'utente tramite [source].
 class DawnGift {
   const DawnGift({
     required this.maestro,
     required this.kind,
-    required this.message,
+    required this.source,
+    required this.orientation,
     required this.word,
-    required this.personalized,
+    required this.provisional,
   });
 
   /// Il Maestro di turno che porge il dono.
@@ -42,86 +82,55 @@ class DawnGift {
   /// Il tipo di dono, coerente col Maestro.
   final DawnGiftKind kind;
 
-  /// Il messaggio breve e personale del giorno.
-  final String message;
+  /// La base del dono. Obbligatoria: nessun dono senza la sua fondazione.
+  final GiftSource source;
 
-  /// La parola del giorno, breve, da mettere in risalto e condividere.
-  final String word;
+  /// L'orientamento del giorno. Provvisorio finche' non arriva il contenuto
+  /// verificato: mai una frase astrologica inventata.
+  final String orientation;
 
-  /// Vero se il messaggio usa il segno dell'utente, falso se e' il ripiego
-  /// generico.
-  final bool personalized;
+  /// La parola del giorno, breve, da mettere in risalto. Null finche' non
+  /// arriva dai contenuti verificati.
+  final String? word;
 
-  /// Il dono di [date], col segno [sign] dell'utente se disponibile.
-  static DawnGift of(DateTime date, {Zodiac? sign}) {
+  /// Vero finche' il dono non e' fondato su contenuti verificati.
+  final bool provisional;
+
+  /// Costruisce il dono di [date] a partire dalla carta natale dell'utente.
+  ///
+  /// Collega il modello alla carta natale tramite il segno solare natale, dato
+  /// reale. Non essendoci un motore di transiti reali nel repo, la base resta
+  /// provvisoria e i testi restano segnaposto marcati: il contenuto verificato
+  /// li sostituira' senza cambiare questa forma.
+  static DawnGift forChart(DateTime date, {BirthIdentity? identity}) {
     final maestro = DailyRituals.dawnMaestro(date);
-    final day = date.difference(DateTime(date.year)).inDays;
-    final pool = _pools[maestro]!;
-    final entry = pool[day % pool.length];
-    final personalized = sign != null;
-    final message = personalized
-        ? _weave(maestro, sign, entry.body)
-        : _capitalize(entry.body);
+    final natalSun =
+        identity == null ? null : NightSky.sunSign(identity.birthMoment);
     return DawnGift(
       maestro: maestro,
-      kind: _kinds[maestro]!,
-      message: message,
-      word: entry.word,
-      personalized: personalized,
+      kind: _kindFor(maestro),
+      source: GiftSource(
+        natalSunSign: natalSun,
+        transit: null,
+        tradition: null,
+        provisional: true,
+      ),
+      orientation: provisionalOrientation,
+      word: null,
+      provisional: true,
     );
   }
 
-  // Intreccia il segno nel corpo, con un attacco coerente col Maestro. I corpi
-  // sono scritti in minuscolo iniziale, cosi' l'attacco personale scorre; senza
-  // segno, il corpo si presenta con l'iniziale maiuscola.
-  static String _weave(Maestro maestro, Zodiac sign, String body) {
-    switch (maestro) {
-      case Maestro.medora:
-        return 'Per il tuo ${sign.italianName}, $body';
-      case Maestro.aura:
-        return '${sign.italianName}, $body';
-      case Maestro.caligo:
-        return '${sign.italianName}, ascolta bene: $body';
-    }
-  }
+  /// Testo dell'orientamento quando il contenuto verificato non c'e' ancora.
+  /// Chiaro sul fatto che e' provvisorio, senza fingere una lettura del cielo.
+  static const String provisionalOrientation =
+      'L\'orientamento del giorno arriverà dai contenuti astrologici '
+      'verificati, fondato sui transiti reali della tua carta. Qui non si '
+      'inventa nulla.';
 
-  static String _capitalize(String s) =>
-      s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';
-
-  static const Map<Maestro, DawnGiftKind> _kinds = {
-    Maestro.medora: DawnGiftKind.orientamento,
-    Maestro.aura: DawnGiftKind.intenzione,
-    Maestro.caligo: DawnGiftKind.monito,
-  };
-
-  // Tabelle per Maestro e per giorno. Corpo in minuscolo iniziale, parola del
-  // giorno breve. Nessun trattino lungo nei testi.
-  static const Map<Maestro, List<_GiftEntry>> _pools = {
-    Maestro.medora: [
-      _GiftEntry('oggi il cielo favorisce le scelte nette: una sola, chiara, vale più di mille pensieri.', 'Chiarezza'),
-      _GiftEntry('un transito lento ti sostiene: fidati del lavoro già fatto, i frutti stanno arrivando.', 'Fiducia'),
-      _GiftEntry('la Luna orienta un legame: una parola sincera, detta oggi, apre più di un discorso lungo.', 'Sincerità'),
-      _GiftEntry('il Sole scalda un progetto: dagli luce oggi, senza pretendere tutto subito.', 'Slancio'),
-    ],
-    Maestro.aura: [
-      _GiftEntry('porta oggi una sola intenzione nel respiro: rallenta e lascia che la strada si mostri.', 'Respiro'),
-      _GiftEntry('la tua energia chiede dolcezza: un sorso d\'acqua, tre respiri, poi il mondo.', 'Dolcezza'),
-      _GiftEntry('posa una mano sul cuore e va\' al tuo ritmo: oggi non a quello della fretta.', 'Ritmo'),
-      _GiftEntry('apri il petto e le spalle: fai spazio dentro e qualcosa di sopito si rimette in moto.', 'Apertura'),
-    ],
-    Maestro.caligo: [
-      _GiftEntry('varca la soglia del giorno con fermezza: scegli una cosa da onorare e onorala.', 'Soglia'),
-      _GiftEntry('non disperdere il fuoco: un gesto solo, deciso, prima di sera e basta quello.', 'Fuoco'),
-      _GiftEntry('la nebbia premia chi ha una meta: cammina deciso, il giorno riconosce il passo saldo.', 'Meta'),
-      _GiftEntry('custodisci una brace piccola e salda: non serve un incendio a reggere la giornata.', 'Brace'),
-    ],
-  };
-}
-
-/// Una voce delle tabelle: il corpo del messaggio e la parola del giorno.
-class _GiftEntry {
-  const _GiftEntry(this.body, this.word);
-
-  final String body;
-  final String word;
+  static DawnGiftKind _kindFor(Maestro maestro) => switch (maestro) {
+        Maestro.medora => DawnGiftKind.orientamento,
+        Maestro.aura => DawnGiftKind.intenzione,
+        Maestro.caligo => DawnGiftKind.monito,
+      };
 }

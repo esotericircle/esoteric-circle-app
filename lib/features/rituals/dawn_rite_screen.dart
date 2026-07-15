@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../core/astro/night_sky.dart';
-import '../../core/astro/zodiac.dart';
+import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
@@ -85,12 +84,12 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
 
   bool get _reduceMotion => MediaQuery.of(context).disableAnimations;
 
-  // Segno dell'utente dal profilo, se disponibile. Senza ProfileController, per
-  // esempio montando lo screen da solo in un test, si ripiega su null.
-  Zodiac? _userSign() {
+  // Carta natale dell'utente dal profilo, se disponibile. Senza
+  // ProfileController, per esempio montando lo screen da solo in un test, si
+  // ripiega su null e il dono resta fondato ma senza ancora natale.
+  BirthIdentity? _identity() {
     try {
-      final identity = context.read<ProfileController>().identity;
-      return NightSky.sunSign(identity.birthMoment);
+      return context.read<ProfileController>().identity;
     } catch (_) {
       return null;
     }
@@ -143,7 +142,7 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     final date = widget.now ?? DateTime.now();
     setState(() {
       _revealed = true;
-      _gift = DawnGift.of(date, sign: _userSign());
+      _gift = DawnGift.forChart(date, identity: _identity());
     });
     _recordStreak(date);
   }
@@ -155,11 +154,13 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
   }
 
   Future<void> _shareWord(DawnGift gift) async {
+    final word = gift.word;
+    if (word == null) return;
     try {
       await SharePlus.instance.share(
         ShareParams(
-          text: 'La mia parola del giorno dal Rito dell\'Alba: ${gift.word}. '
-              '${gift.message} Con Esoteric Circle.',
+          text: 'La mia parola del giorno dal Rito dell\'Alba: $word. '
+              '${gift.orientation} Con Esoteric Circle.',
         ),
       );
     } catch (_) {
@@ -371,9 +372,11 @@ class _LiftPrompt extends StatelessWidget {
   }
 }
 
-/// Il dono del giorno, in forma strutturata: tipo di dono, messaggio personale,
-/// parola del giorno in risalto, condivisione e filo di continuita'.
-class _DawnGiftCard extends StatelessWidget {
+/// Il dono del giorno, in forma strutturata e fondata. Porge tre livelli:
+/// l'orientamento del giorno, la parola del giorno e la base apribile che
+/// spiega da dove nasce. Finche' i contenuti verificati non arrivano, i testi
+/// del cielo restano provvisori e marcati, mai inventati.
+class _DawnGiftCard extends StatefulWidget {
   const _DawnGiftCard({
     super.key,
     required this.gift,
@@ -388,25 +391,47 @@ class _DawnGiftCard extends StatelessWidget {
   final VoidCallback onShare;
 
   @override
+  State<_DawnGiftCard> createState() => _DawnGiftCardState();
+}
+
+class _DawnGiftCardState extends State<_DawnGiftCard> {
+  bool _baseOpen = false;
+
+  @override
   Widget build(BuildContext context) {
+    final gift = widget.gift;
+    final palette = widget.palette;
+    final word = gift.word;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          gift.kind.label.toUpperCase(),
-          style: TypographyTokens.label(size: 11).copyWith(
-            color: palette.goldSoft,
-            letterSpacing: 2.4,
-          ),
+        // Livello uno: il tipo di dono e l'orientamento del giorno.
+        Row(
+          children: [
+            Flexible(
+              child: Text(
+                gift.kind.label.toUpperCase(),
+                style: TypographyTokens.label(size: 11).copyWith(
+                  color: palette.goldSoft,
+                  letterSpacing: 2.4,
+                ),
+              ),
+            ),
+            if (gift.provisional) ...[
+              const SizedBox(width: SpacingTokens.sm),
+              const _ProvisionalTag(),
+            ],
+          ],
         ),
         const SizedBox(height: SpacingTokens.sm),
         Text(
-          gift.message,
+          gift.orientation,
           style: TypographyTokens.body(size: 16)
               .copyWith(color: ColorTokens.textPrimary, height: 1.5),
         ),
         const SizedBox(height: SpacingTokens.lg),
-        // La parola del giorno, messa tipograficamente in risalto.
+        // Livello due: la parola del giorno, in risalto, o il suo segnaposto.
         Text(
           'PAROLA DEL GIORNO',
           style: TypographyTokens.label(size: 10).copyWith(
@@ -415,22 +440,208 @@ class _DawnGiftCard extends StatelessWidget {
           ),
         ),
         const SizedBox(height: SpacingTokens.xs),
-        Text(
-          gift.word,
-          style: TypographyTokens.display(size: 32).copyWith(
-            color: palette.goldSoft,
-            letterSpacing: 1.4,
+        if (word != null)
+          Text(
+            word,
+            style: TypographyTokens.display(size: 32).copyWith(
+              color: palette.goldSoft,
+              letterSpacing: 1.4,
+            ),
+          )
+        else
+          Text(
+            'In arrivo',
+            style: TypographyTokens.display(size: 24).copyWith(
+              color: palette.goldSoft.withValues(alpha: 0.55),
+              letterSpacing: 1.2,
+            ),
           ),
+        const SizedBox(height: SpacingTokens.md),
+        // Livello tre: la base apribile, da dove nasce il dono.
+        _BaseToggle(
+          palette: palette,
+          open: _baseOpen,
+          onTap: () => setState(() => _baseOpen = !_baseOpen),
+        ),
+        AnimatedSize(
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.topCenter,
+          child: _baseOpen
+              ? _BasePanel(source: gift.source, palette: palette)
+              : const SizedBox(width: double.infinity),
         ),
         const SizedBox(height: SpacingTokens.md),
         Row(
           children: [
-            _ShareWordButton(palette: palette, onShare: onShare),
-            if (streak >= 1) ...[
-              const SizedBox(width: SpacingTokens.md),
-              _StreakChip(palette: palette, days: streak),
+            // La condivisione della parola torna quando la parola e' reale.
+            if (word != null) _ShareWordButton(palette: palette, onShare: widget.onShare),
+            if (widget.streak >= 1) ...[
+              if (word != null) const SizedBox(width: SpacingTokens.md),
+              _StreakChip(palette: palette, days: widget.streak),
             ],
           ],
+        ),
+      ],
+    );
+  }
+}
+
+/// Marcatore discreto che dichiara un contenuto provvisorio.
+class _ProvisionalTag extends StatelessWidget {
+  const _ProvisionalTag();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+        border: Border.all(color: const Color(0x66FFFFFF)),
+      ),
+      child: Text(
+        'PROVVISORIO',
+        style: TypographyTokens.label(size: 9).copyWith(
+          color: const Color(0xB3FFFFFF),
+          letterSpacing: 1.6,
+        ),
+      ),
+    );
+  }
+}
+
+/// La riga che apre e chiude la base del dono.
+class _BaseToggle extends StatelessWidget {
+  const _BaseToggle(
+      {required this.palette, required this.open, required this.onTap});
+
+  final MaestroPalette palette;
+  final bool open;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      key: const Key('dawn_base_toggle'),
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.info_outline_rounded,
+                size: 15, color: palette.goldSoft.withValues(alpha: 0.85)),
+            const SizedBox(width: 6),
+            Text(
+              'Da dove nasce questo dono',
+              style: TypographyTokens.label(size: 11).copyWith(
+                color: palette.goldSoft.withValues(alpha: 0.85),
+                letterSpacing: 0.4,
+              ),
+            ),
+            Icon(open ? Icons.expand_less_rounded : Icons.expand_more_rounded,
+                size: 18, color: palette.goldSoft.withValues(alpha: 0.85)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Il pannello della base: ancora natale reale, transito e tradizione, con la
+/// provvisorieta' dichiarata dove il contenuto verificato manca.
+class _BasePanel extends StatelessWidget {
+  const _BasePanel({required this.source, required this.palette});
+
+  final GiftSource source;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('dawn_base_panel'),
+      width: double.infinity,
+      margin: const EdgeInsets.only(top: SpacingTokens.sm),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        color: Colors.black.withValues(alpha: 0.35),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.28)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _BaseRow(
+            palette: palette,
+            label: 'Ancora natale',
+            value: source.natalDescription,
+            provisional: false,
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          _BaseRow(
+            palette: palette,
+            label: 'Transito attivo oggi',
+            value: source.transit ??
+                'In attesa dei contenuti astrologici verificati.',
+            provisional: source.transit == null,
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          _BaseRow(
+            palette: palette,
+            label: 'Nella tradizione',
+            value: source.tradition ??
+                'In attesa dei contenuti astrologici verificati.',
+            provisional: source.tradition == null,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BaseRow extends StatelessWidget {
+  const _BaseRow({
+    required this.palette,
+    required this.label,
+    required this.value,
+    required this.provisional,
+  });
+
+  final MaestroPalette palette;
+  final String label;
+  final String value;
+  final bool provisional;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              label.toUpperCase(),
+              style: TypographyTokens.label(size: 9).copyWith(
+                color: palette.goldSoft.withValues(alpha: 0.7),
+                letterSpacing: 1.6,
+              ),
+            ),
+            if (provisional) ...[
+              const SizedBox(width: SpacingTokens.sm),
+              const _ProvisionalTag(),
+            ],
+          ],
+        ),
+        const SizedBox(height: 2),
+        Text(
+          value,
+          style: TypographyTokens.body(size: 14).copyWith(
+            color: provisional
+                ? ColorTokens.textSecondary
+                : ColorTokens.textPrimary,
+            height: 1.4,
+            fontStyle: provisional ? FontStyle.italic : FontStyle.normal,
+          ),
         ),
       ],
     );

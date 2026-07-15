@@ -1,4 +1,5 @@
 import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/dawn_gift.dart';
@@ -48,10 +49,8 @@ void main() {
   });
 
   group('Il dono del Rito dell\'Alba', () {
-    test('Deterministico e coerente col tipo di dono del Maestro', () {
-      final gift = DawnGift.of(date);
-      expect(gift.word, DawnGift.of(date).word);
-      expect(gift.message, DawnGift.of(date).message);
+    test('Ogni dono ha per costruzione la sua base', () {
+      final gift = DawnGift.forChart(date);
       // Il tipo di dono corrisponde al Maestro di turno.
       final maestro = DailyRituals.dawnMaestro(date);
       final expectedKind = {
@@ -60,18 +59,26 @@ void main() {
         Maestro.caligo: DawnGiftKind.monito,
       }[maestro];
       expect(gift.kind, expectedKind);
+      // La base esiste sempre. Senza motore di transiti reali resta provvisoria
+      // e non inventa nulla: transito e tradizione nulli, orientamento marcato.
+      expect(gift.source, isNotNull);
+      expect(gift.provisional, isTrue);
+      expect(gift.source.provisional, isTrue);
+      expect(gift.source.transit, isNull);
+      expect(gift.source.tradition, isNull);
+      expect(gift.word, isNull);
+      expect(gift.orientation, DawnGift.provisionalOrientation);
     });
 
-    test('Usa il segno se disponibile, con ripiego generico se manca', () {
-      final generic = DawnGift.of(date);
-      final personal = DawnGift.of(date, sign: Zodiac.leo);
-      expect(generic.personalized, isFalse);
-      expect(personal.personalized, isTrue);
-      // La versione personale nomina il segno; la generica no.
-      expect(personal.message.contains('Leone'), isTrue);
-      expect(generic.message.contains('Leone'), isFalse);
-      // La parola del giorno non cambia con il segno.
-      expect(personal.word, generic.word);
+    test('La base si collega alla carta natale col segno solare reale', () {
+      // Nata il 15 giugno: Sole in Gemelli, dato reale e deterministico.
+      final identity = BirthIdentity(birthMoment: DateTime(1990, 6, 15));
+      final gift = DawnGift.forChart(date, identity: identity);
+      expect(gift.source.natalSunSign, Zodiac.gemini);
+      expect(gift.source.natalDescription, contains('Gemelli'));
+      // Senza identita', l'ancora natale non c'e' ma la base resta.
+      final orphan = DawnGift.forChart(date);
+      expect(orphan.source.natalSunSign, isNull);
     });
   });
 
@@ -119,13 +126,19 @@ void main() {
       }
       expect(find.byKey(const Key('ritual_content')), findsOneWidget);
 
-      // Nello stato rivelato compare il dono del giorno, con la parola in
-      // risalto e il pulsante di condivisione.
-      final gift = DawnGift.of(date);
+      // Nello stato rivelato compare il dono, col tipo di dono e la base
+      // apribile. Senza contenuti verificati, l'orientamento e' provvisorio.
+      final gift = DawnGift.forChart(date);
       expect(find.text(gift.kind.label.toUpperCase()), findsOneWidget);
-      expect(find.text(gift.message), findsOneWidget);
-      expect(find.text(gift.word), findsOneWidget);
-      expect(find.byKey(const Key('dawn_share_word')), findsOneWidget);
+      expect(find.text(gift.orientation), findsOneWidget);
+      expect(find.byKey(const Key('dawn_base_toggle')), findsOneWidget);
+
+      // La base si apre e mostra l'ancora natale, dato reale.
+      expect(find.byKey(const Key('dawn_base_panel')), findsNothing);
+      await tester.tap(find.byKey(const Key('dawn_base_toggle')));
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(find.byKey(const Key('dawn_base_panel')), findsOneWidget);
+      expect(find.text('Ancora natale'.toUpperCase()), findsOneWidget);
     });
 
     testWidgets('Soffio del Destino: ripiego tattile tenendo premuto',
