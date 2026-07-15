@@ -363,7 +363,7 @@ class _DailyStripState extends State<DailyStrip>
           const SizedBox(height: 8),
           // Riga sottile che annuncia la striscia, centrata.
           Text(
-            'I tuoi appuntamenti quotidiani',
+            'I tuoi doni del giorno',
             textAlign: TextAlign.center,
             style: TypographyTokens.label(size: 10).copyWith(
               color: ColorTokens.textSecondary,

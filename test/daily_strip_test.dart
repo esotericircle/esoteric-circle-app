@@ -35,7 +35,7 @@ void main() {
     await tester.pump();
     expect(find.byKey(const Key('santuario_daily_strip')), findsOneWidget);
     // La riga sottile che annuncia la striscia.
-    expect(find.text('I tuoi appuntamenti quotidiani'), findsOneWidget);
+    expect(find.text('I tuoi doni del giorno'), findsOneWidget);
     expect(DailyElement.values.length, 5);
     for (final e in DailyElement.values) {
       expect(find.byKey(Key('daily_element_${e.name}')), findsOneWidget);
@@ -58,7 +58,7 @@ void main() {
     await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();
     final headerX =
-        tester.getCenter(find.text('I tuoi appuntamenti quotidiani')).dx;
+        tester.getCenter(find.text('I tuoi doni del giorno')).dx;
     final stripX =
         tester.getCenter(find.byKey(const Key('santuario_daily_strip'))).dx;
     expect((headerX - stripX).abs(), lessThan(1.0));
