@@ -16,9 +16,10 @@ import '../../core/astro/zodiac.dart';
 /// I dodici simboli sono tracciati vettoriali, non caratteri di un font, cosi'
 /// la ruota si rende identica ovunque, senza dipendere dai glifi disponibili.
 ///
-/// Nota d'uso: non e' ancora montata sul fondale del Rito dell'Alba, che porta
-/// una ruota dipinta nella foto. Quando quel fondale sara' rigenerato senza la
-/// ruota dipinta, questo componente prende il suo posto, senza doppioni.
+/// Nota d'uso: e' montata come firma in basso sul fondale del Rito dell'Alba,
+/// ora rigenerato senza la ruota dipinta nella foto, cosi' non ci sono doppioni.
+/// La' l'opacita' e' pilotata dall'esterno perche' la ruota si attenui mentre la
+/// luce del sollevamento cresce e torni quando la scena si calma.
 class ZodiacWheel extends StatefulWidget {
   const ZodiacWheel({
     super.key,

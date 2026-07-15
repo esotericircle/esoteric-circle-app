@@ -31,6 +31,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -48,6 +49,16 @@ void main() {
   final aggiornaAnteprime =
       Platform.environment['AGGIORNA_ANTEPRIME'] == '1';
   final previewDir = aggiornaAnteprime ? 'docs/preview' : 'build/preview';
+
+  // Ogni cattura parte da uno store locale noto e ripulito, quello di chi torna:
+  // risveglio gia' fatto, cosi' si apre il Santuario e non l'onboarding, e saluto
+  // della prima volta gia' visto, cosi' non compare a coprire la scena. Nessuna
+  // continuita' di rito e' seminata se non dove serve. Senza questo ripristino
+  // prima di ogni test, il mock di SharedPreferences di una cattura si
+  // trascinerebbe nelle successive e ne cambierebbe il rendering.
+  setUp(() => SharedPreferences.setMockInitialValues(
+        const {'onboarding.done': true, 'santuario.greeted': true},
+      ));
 
   Future<void> loadFont(String family, String path) async {
     final loader = FontLoader(family);
@@ -442,6 +453,17 @@ void main() {
 
   testWidgets('Cattura il Rito dell\'Alba, velato e col dono', (tester) async {
     silenceSensors();
+    // Semina la continuita' in locale cosi' la cattura del dono mostra il chip
+    // dei giorni consecutivi e se ne validano posizione e stile. Ieri l'ultimo
+    // rito, sei di fila: il gesto di oggi lo porta a sette, come sul device di
+    // chi torna ogni mattina. La logica dello streak non cambia, si prepara solo
+    // lo stato di partenza che sul device arriva dai giorni precedenti.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'ritual.dawn.lastDay': '2026-07-12',
+      'ritual.dawn.streak': 6,
+    });
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));

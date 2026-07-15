@@ -11,6 +11,7 @@ import '../../core/rituals/daily_rituals.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/ritual_streak.dart';
 import '../../design_system/components/ritual_backdrop.dart';
+import '../../design_system/components/zodiac_wheel.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -201,6 +202,37 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
             palette: palette,
             assetPath: 'assets/ritual_backgrounds/dawn.png',
             child: const SizedBox.expand(),
+          ),
+          // La ruota zodiacale come firma disegnata dal codice, in basso sul
+          // fondale, la' dove prima stava la ruota dipinta nella foto. Si tinge
+          // dell'oro dell'Alba e reagisce alla luce del gesto: si attenua mentre
+          // l'utente solleva l'alba e il bagliore cresce, torna quando la scena
+          // si calma. Sotto Riduci Movimento resta la sua versione statica, per
+          // conto del componente stesso. Non ruba leggibilita' al dono: quando il
+          // dono si rivela il sollevamento e' al massimo e la ruota e' gia'
+          // svanita, e la bolla scura del velo le resta comunque sopra.
+          Positioned.fill(
+            child: IgnorePointer(
+              child: LayoutBuilder(
+                builder: (context, c) {
+                  final side = c.maxWidth * 0.84;
+                  return Stack(
+                    children: [
+                      Positioned(
+                        left: (c.maxWidth - side) / 2,
+                        top: c.maxHeight * 0.86 - side / 2,
+                        width: side,
+                        height: side,
+                        child: ZodiacWheel(
+                          color: palette.gold,
+                          opacity: (0.6 * (1 - _progress)).clamp(0.0, 1.0),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
           ),
           // Livello di luce del sollevamento, sopra la foto, mai un secondo sole.
           Positioned.fill(
@@ -721,9 +753,11 @@ class _StreakChip extends StatelessWidget {
 ///
 /// Tutto e' modulato dal progresso: a zero non disegna nulla e resta la sola
 /// foto; salendo, il bagliore si diffonde dall'orizzonte, il riflesso sul mare
-/// si allunga, il cielo si scalda, le costellazioni in alto si spengono sotto la
-/// luce e il cerchio zodiacale in filigrana si accende e ruota di pochi gradi.
-/// Il sole non e' un secondo disco: solo un alone allineato al sole della foto.
+/// si allunga, il cielo si scalda e le costellazioni in alto si spengono sotto
+/// la luce. La ruota zodiacale, invece, non la disegna questo livello: e' il
+/// componente [ZodiacWheel] montato sul fondale, che si attenua proprio mentre
+/// questa luce cresce. Il sole non e' un secondo disco: solo un alone allineato
+/// al sole della foto.
 class _DawnLightPainter extends CustomPainter {
   _DawnLightPainter({
     required this.progress,
@@ -744,11 +778,9 @@ class _DawnLightPainter extends CustomPainter {
 
     final w = size.width;
     final h = size.height;
-    // Allineati alla foto: sole sull'orizzonte al centro, ruota in basso.
+    // Allineati alla foto: sole sull'orizzonte al centro.
     final horizonY = h * 0.5;
     final sunCenter = Offset(w * 0.5, horizonY);
-    final wheelCenter = Offset(w * 0.5, h * 0.86);
-    final wheelRadius = w * 0.42;
 
     // Il cielo si scalda: velo caldo che cresce, piu' denso verso l'orizzonte.
     canvas.drawRect(
@@ -816,37 +848,6 @@ class _DawnLightPainter extends CustomPainter {
         ).createShader(beamRect)
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 18),
     );
-
-    // Il cerchio zodiacale in filigrana si accende e ruota di pochi gradi.
-    _paintWheel(canvas, wheelCenter, wheelRadius, p);
-  }
-
-  void _paintWheel(Canvas canvas, Offset center, double radius, double p) {
-    canvas.save();
-    canvas.translate(center.dx, center.dy);
-    // Pochi gradi di rotazione col progresso.
-    canvas.rotate(p * 8 * math.pi / 180);
-
-    final alpha = 0.5 * p;
-    final line = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0
-      ..color = palette.gold.withValues(alpha: alpha);
-
-    // Due anelli concentrici.
-    canvas.drawCircle(Offset.zero, radius, line);
-    canvas.drawCircle(Offset.zero, radius * 0.72, line);
-
-    // Dodici raggi con una piccola stella al vertice esterno.
-    final dot = Paint()
-      ..color = palette.goldSoft.withValues(alpha: 0.7 * p);
-    for (var i = 0; i < 12; i++) {
-      final a = 2 * math.pi * i / 12 - math.pi / 2;
-      final dir = Offset(math.cos(a), math.sin(a));
-      canvas.drawLine(dir * radius * 0.72, dir * radius, line);
-      canvas.drawCircle(dir * radius, 1.6, dot);
-    }
-    canvas.restore();
   }
 
   @override
