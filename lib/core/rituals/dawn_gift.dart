@@ -102,8 +102,13 @@ class DawnGift {
   /// reale. Non essendoci un motore di transiti reali nel repo, la base resta
   /// provvisoria e i testi restano segnaposto marcati: il contenuto verificato
   /// li sostituira' senza cambiare questa forma.
-  static DawnGift forChart(DateTime date, {BirthIdentity? identity}) {
-    final maestro = DailyRituals.dawnMaestro(date);
+  static DawnGift forChart(DateTime date, {BirthIdentity? identity}) =>
+      forMaestro(date, DailyRituals.dawnMaestro(date), identity: identity);
+
+  /// Come [forChart] ma per un Maestro dato, non quello a rotazione. Serve ai
+  /// riti legati a un solo Maestro, come il Soffio del Destino di Aura.
+  static DawnGift forMaestro(DateTime date, Maestro maestro,
+      {BirthIdentity? identity}) {
     final natalSun =
         identity == null ? null : NightSky.sunSign(identity.birthMoment);
     return DawnGift(

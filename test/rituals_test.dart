@@ -131,27 +131,32 @@ void main() {
       final gift = DawnGift.forChart(date);
       expect(find.text(gift.kind.label.toUpperCase()), findsOneWidget);
       expect(find.text(gift.orientation), findsOneWidget);
-      expect(find.byKey(const Key('dawn_base_toggle')), findsOneWidget);
+      expect(find.byKey(const Key('gift_base_toggle')), findsOneWidget);
 
       // La base si apre e mostra l'ancora natale, dato reale.
-      expect(find.byKey(const Key('dawn_base_panel')), findsNothing);
-      await tester.tap(find.byKey(const Key('dawn_base_toggle')));
+      expect(find.byKey(const Key('gift_base_panel')), findsNothing);
+      await tester.tap(find.byKey(const Key('gift_base_toggle')));
       await tester.pump(const Duration(milliseconds: 300));
-      expect(find.byKey(const Key('dawn_base_panel')), findsOneWidget);
+      expect(find.byKey(const Key('gift_base_panel')), findsOneWidget);
       expect(find.text('Ancora natale'.toUpperCase()), findsOneWidget);
     });
 
-    testWidgets('Soffio del Destino: ripiego tattile tenendo premuto',
+    testWidgets('Soffio del Destino: il ripiego libera i semi e porge il dono',
         (tester) async {
       await tester.pumpWidget(MaterialApp(home: BreathDestinyScreen(now: date)));
       await tester.pump();
-      // La riga dichiara il microfono e il ripiego tattile.
-      expect(find.textContaining('microfono'), findsWidgets);
+      // L'invito al soffio e il suo ripiego, il dono non c'e' ancora.
+      expect(find.text('Soffia per liberare il tuo destino'), findsOneWidget);
       expect(find.byKey(const Key('ritual_content')), findsNothing);
 
+      // Ripiego a tocco prolungato: disperde i semi e rivela il dono di Aura.
       await tester.longPress(find.byKey(const Key('ritual_gesture')));
-      await tester.pump(const Duration(milliseconds: 600));
-      expect(find.text(DailyRituals.destinyFragment(date)), findsOneWidget);
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      expect(find.byKey(const Key('ritual_content')), findsOneWidget);
+      final gift = DawnGift.forMaestro(date, Maestro.aura);
+      expect(find.text(gift.kind.label.toUpperCase()), findsOneWidget);
     });
 
     testWidgets('Oracolo del Giorno: ripiego allo scorrimento del dito',

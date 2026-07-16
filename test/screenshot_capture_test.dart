@@ -506,25 +506,57 @@ void main() {
     // La base apribile del dono: da dove nasce, con l'ancora natale reale e i
     // livelli provvisori chiaramente marcati. Superficie piu' alta, cosi'
     // l'anteprima mostra il pannello intero, che sul device e' scorrevole.
-    await tester.tap(find.byKey(const Key('dawn_base_toggle')));
+    await tester.tap(find.byKey(const Key('gift_base_toggle')));
     await step(tester);
     tester.view.physicalSize = const Size(390, 1150);
     await step(tester);
     await capture(tester, rootKey, 'rito-alba-base.png');
   });
 
-  testWidgets('Cattura il Soffio del Destino', (tester) async {
+  testWidgets('Cattura il Soffio del Destino, testa piena e col dono',
+      (tester) async {
     silenceSensors();
+    // Continuita' seminata, cosi' la cattura del dono mostra il chip.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'ritual.breath.lastDay': '2026-07-12',
+      'ritual.breath.streak': 4,
+    });
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.aura, seeded: false));
-    await captureRitual(
-      tester,
-      rootKey,
-      BreathDestinyScreen.route(now: DateTime(2026, 7, 13)),
-      () async => tester.longPress(find.byKey(const Key('ritual_gesture'))),
-      'soffio-destino.png',
-    );
+    // I due livelli reali del Soffio: prato e soffione. Si precaricano.
+    final element = tester.element(find.byType(MaterialApp));
+    await tester.runAsync(() async {
+      for (final a in const [
+        'assets/ritual_backgrounds/breath_meadow.png',
+        'assets/ritual_backgrounds/breath_dandelion.png',
+      ]) {
+        await precacheImage(AssetImage(a), element);
+      }
+    });
+    await step(tester);
+
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(BreathDestinyScreen.route(now: DateTime(2026, 7, 13))));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      await Future<void>.delayed(const Duration(milliseconds: 60));
+    });
+    await step(tester);
+    await step(tester);
+    // Stato di partenza: testa piena col soffione e l'invito.
+    await capture(tester, rootKey, 'soffio-destino.png');
+
+    // Ripiego tattile per la cattura, dato che in headless il microfono non c'e'.
+    await tester.longPress(find.byKey(const Key('ritual_gesture')));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    await step(tester);
+    await capture(tester, rootKey, 'soffio-destino-dono.png');
   });
 
   testWidgets('Cattura l\'Oracolo del Giorno', (tester) async {

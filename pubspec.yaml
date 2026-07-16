@@ -59,6 +59,11 @@ dependencies:
   path_provider: ^2.1.6
   geolocator: ^14.0.3
 
+  # Microfono: coglie il soffio nel Soffio del Destino leggendo il livello
+  # audio. Con ripiego tattile se il permesso manca o il device non ha il
+  # microfono. Nessuna registrazione salvata, solo l'ampiezza in tempo reale.
+  record: 5.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

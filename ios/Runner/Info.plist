@@ -28,6 +28,8 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>La posizione serve solo a orientare il cielo sopra di te sul luogo reale in cui ti trovi. Resta sul dispositivo.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Il microfono coglie il tuo soffio nel Soffio del Destino, per liberare i semi. Resta sul dispositivo, con ripiego tattile se preferisci.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

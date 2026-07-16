@@ -4,6 +4,9 @@
          permesso manca. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- Microfono: coglie il soffio nel Soffio del Destino. Con ripiego
+         tattile elegante se il permesso manca. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <application
         android:label="Esoteric Circle"
         android:name="${applicationName}"
