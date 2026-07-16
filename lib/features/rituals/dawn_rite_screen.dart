@@ -6,15 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../core/astro/night_sky.dart';
-import '../../core/astro/zodiac.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/ritual_streak.dart';
-import '../../design_system/components/zodiac_wheel.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -136,12 +133,6 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
   }
 
   bool get _reduceMotion => MediaQuery.of(context).disableAnimations;
-
-  // Segno solare dell'utente, se disponibile, per evidenziarlo nella corona.
-  Zodiac? _userSign() {
-    final id = _identity();
-    return id == null ? null : NightSky.sunSign(id.birthMoment);
-  }
 
   // Carta natale dell'utente dal profilo, se disponibile. Senza
   // ProfileController, per esempio montando lo screen da solo in un test, si
@@ -271,7 +262,6 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
                     night: _nightImg,
                     day: _dayImg,
                     sun: _sunImg,
-                    highlight: _userSign(),
                   ),
                 ),
               ),
@@ -769,7 +759,6 @@ class _DawnScenePainter extends CustomPainter {
     required this.night,
     required this.day,
     required this.sun,
-    required this.highlight,
   });
 
   final double progress;
@@ -778,7 +767,6 @@ class _DawnScenePainter extends CustomPainter {
   final ui.Image? night;
   final ui.Image? day;
   final ui.Image? sun;
-  final Zodiac? highlight;
 
   // Notte e giorno hanno lo stesso formato e lo stesso orizzonte; la luna sta al
   // punto dove il sole si ferma.
@@ -788,7 +776,7 @@ class _DawnScenePainter extends CustomPainter {
   static const double _moonFx = 0.462;
   static const double _moonFy = 0.210;
   // Frazione della larghezza dell'immagine del sole occupata dal disco.
-  static const double _sunDiscFrac = 0.15;
+  static const double _sunDiscFrac = 0.171;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -824,7 +812,6 @@ class _DawnScenePainter extends CustomPainter {
 
     // --- Sole: additivo, il nero sparisce e l'aura si fonde ---
     _paintSun(canvas, sun, sunCenter, discR);
-    _paintCrown(canvas, sunCenter, discR, p);
 
     // --- Mare: sotto l'orizzonte, davanti al sole, notte verso giorno ---
     canvas.save();
@@ -839,51 +826,40 @@ class _DawnScenePainter extends CustomPainter {
   }
 
   void _paintSun(Canvas canvas, ui.Image sun, Offset center, double discR) {
+    // Abbassa il cielo sotto il disco con un velo scuro morbido, che sfuma al
+    // bordo: cosi' l'additivo dorato ci si posa sopra e il disco resta caldo e
+    // non satura a bianco sul cielo diurno luminoso. Il velo sta tutto sotto il
+    // disco, non lascia aloni scuri fuori.
+    canvas.drawCircle(
+      center,
+      discR * 1.02,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [
+            Colors.black.withValues(alpha: 0.5),
+            Colors.black.withValues(alpha: 0.5),
+            Colors.black.withValues(alpha: 0.0),
+          ],
+          stops: const [0.0, 0.7, 1.0],
+        ).createShader(Rect.fromCircle(center: center, radius: discR * 1.02)),
+    );
+
     final sw = sun.width.toDouble(), sh = sun.height.toDouble();
-    // Scala l'immagine cosi' il disco ha raggio discR sullo schermo.
+    // Scala l'immagine cosi' il disco ha raggio discR sullo schermo. Il margine
+    // nero ampio lascia i raggi liberi di estendersi senza taglio.
     final s = discR / (_sunDiscFrac * sw);
     final dst = Rect.fromCenter(center: center, width: sw * s, height: sh * s);
+    // Additivo a intensita' ridotta: il nero sparisce e l'aura si fonde da sola,
+    // ma sul cielo gia' abbassato il disco resta dorato, mantenendo comunque il
+    // bagliore del sorgere.
     canvas.drawImageRect(
       sun,
       Rect.fromLTWH(0, 0, sw, sh),
       dst,
-      Paint()..blendMode = BlendMode.plus,
-    );
-  }
-
-  void _paintCrown(Canvas canvas, Offset center, double discR, double p) {
-    // La corona vive sul bordo del disco, stagliata e non annegata nel bagliore:
-    // un anello sottile e i dodici simboli in bronzo scuro, che spiccano da soli
-    // sul disco luminoso senza dischetti di fondo.
-    final ringR = discR * 1.06;
-    const bronze = Color(0xFF5A3F0E);
-    canvas.drawCircle(
-      center,
-      ringR,
       Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = math.max(1.0, discR * 0.01)
-        ..color = bronze.withValues(alpha: 0.85),
+        ..blendMode = BlendMode.plus
+        ..color = Colors.white.withValues(alpha: 0.78),
     );
-
-    final gs = discR * 0.085;
-    for (var i = 0; i < 12; i++) {
-      final a = 2 * math.pi * i / 12 - math.pi / 2;
-      final g = center + Offset(math.cos(a), math.sin(a)) * ringR;
-      final sign = Zodiac.values[i];
-      final lit = sign == highlight;
-      drawZodiacGlyph(
-        canvas,
-        sign,
-        g,
-        gs,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = math.max(1.4, discR * 0.018)
-          ..strokeCap = StrokeCap.round
-          ..color = lit ? const Color(0xFFB8860B) : bronze,
-      );
-    }
   }
 
   void _paintReflection(
@@ -916,6 +892,5 @@ class _DawnScenePainter extends CustomPainter {
       old.reduceMotion != reduceMotion ||
       old.night != night ||
       old.day != day ||
-      old.sun != sun ||
-      old.highlight != highlight;
+      old.sun != sun;
 }
