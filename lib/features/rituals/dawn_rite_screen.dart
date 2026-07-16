@@ -1,16 +1,19 @@
+import 'dart:async';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../core/astro/night_sky.dart';
+import '../../core/astro/zodiac.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/ritual_streak.dart';
-import '../../design_system/components/ritual_backdrop.dart';
 import '../../design_system/components/zodiac_wheel.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -55,6 +58,12 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
   // Deriva lenta e brillio del riflesso, ambiente, ferma sotto Riduci Movimento.
   late final AnimationController _ambient;
 
+  // I tre livelli del motore del sorgere, decodificati come immagini vere per
+  // comporli in un solo canvas con i blend giusti (il sole in additivo).
+  ui.Image? _nightImg;
+  ui.Image? _dayImg;
+  ui.Image? _sunImg;
+
   // Distanza di trascinamento verso l'alto che solleva del tutto l'alba.
   static const double _dragSpan = 220;
   // Oltre questa soglia, al rilascio, l'alba si compie da sola.
@@ -74,16 +83,65 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
       vsync: this,
       duration: const Duration(seconds: 7),
     )..repeat();
+    _loadLayers();
+  }
+
+  Future<void> _loadLayers() async {
+    try {
+      final imgs = await Future.wait([
+        _resolveAsset('assets/ritual_backgrounds/dawn_sky_night.png'),
+        _resolveAsset('assets/ritual_backgrounds/dawn_sky_day.png'),
+        _resolveAsset('assets/ritual_backgrounds/dawn_sun.png'),
+      ]);
+      if (!mounted) return;
+      setState(() {
+        _nightImg = imgs[0];
+        _dayImg = imgs[1];
+        _sunImg = imgs[2];
+      });
+    } catch (_) {
+      // Se un asset non si decodifica, il motore resta senza livelli e non
+      // disegna nulla: nessun crash.
+    }
+  }
+
+  // Risolve un asset in una ui.Image passando dal framework, cosi' sfrutta la
+  // cache immagini e resta decodificabile anche in un test dopo precacheImage.
+  Future<ui.Image> _resolveAsset(String asset) {
+    final completer = Completer<ui.Image>();
+    final stream = AssetImage(asset).resolve(const ImageConfiguration());
+    late final ImageStreamListener listener;
+    listener = ImageStreamListener(
+      (info, _) {
+        if (!completer.isCompleted) completer.complete(info.image);
+        stream.removeListener(listener);
+      },
+      onError: (error, stack) {
+        if (!completer.isCompleted) completer.completeError(error);
+        stream.removeListener(listener);
+      },
+    );
+    stream.addListener(listener);
+    return completer.future;
   }
 
   @override
   void dispose() {
     _lift.dispose();
     _ambient.dispose();
+    _nightImg?.dispose();
+    _dayImg?.dispose();
+    _sunImg?.dispose();
     super.dispose();
   }
 
   bool get _reduceMotion => MediaQuery.of(context).disableAnimations;
+
+  // Segno solare dell'utente, se disponibile, per evidenziarlo nella corona.
+  Zodiac? _userSign() {
+    final id = _identity();
+    return id == null ? null : NightSky.sunSign(id.birthMoment);
+  }
 
   // Carta natale dell'utente dal profilo, se disponibile. Senza
   // ProfileController, per esempio montando lo screen da solo in un test, si
@@ -101,7 +159,8 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     _lift.stop();
     setState(() {
       // Trascinare verso l'alto (delta negativo) solleva l'alba.
-      _progress = (_progress - (d.primaryDelta ?? 0) / _dragSpan).clamp(0.0, 1.0);
+      _progress =
+          (_progress - (d.primaryDelta ?? 0) / _dragSpan).clamp(0.0, 1.0);
     });
   }
 
@@ -189,62 +248,30 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Rito dell\'Alba',
-            style: TypographyTokens.display(size: 20)),
+        title:
+            Text('Rito dell\'Alba', style: TypographyTokens.display(size: 20)),
       ),
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Fondale reale dell'alba, gia' cablato nello slot condiviso. La
-          // palette del Maestro di turno conta solo per l'eventuale ripiego
-          // procedurale, l'immagine reale non ne dipende.
-          RitualBackdrop(
-            palette: palette,
-            assetPath: 'assets/ritual_backgrounds/dawn.png',
-            child: const SizedBox.expand(),
-          ),
-          // La ruota zodiacale come firma disegnata dal codice, in basso sul
-          // fondale, la' dove prima stava la ruota dipinta nella foto. Si tinge
-          // dell'oro dell'Alba e reagisce alla luce del gesto: si attenua mentre
-          // l'utente solleva l'alba e il bagliore cresce, torna quando la scena
-          // si calma. Sotto Riduci Movimento resta la sua versione statica, per
-          // conto del componente stesso. Non ruba leggibilita' al dono: quando il
-          // dono si rivela il sollevamento e' al massimo e la ruota e' gia'
-          // svanita, e la bolla scura del velo le resta comunque sopra.
-          Positioned.fill(
-            child: IgnorePointer(
-              child: LayoutBuilder(
-                builder: (context, c) {
-                  final side = c.maxWidth * 0.84;
-                  return Stack(
-                    children: [
-                      Positioned(
-                        left: (c.maxWidth - side) / 2,
-                        top: c.maxHeight * 0.86 - side / 2,
-                        width: side,
-                        height: side,
-                        child: ZodiacWheel(
-                          color: palette.gold,
-                          opacity: (0.6 * (1 - _progress)).clamp(0.0, 1.0),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ),
-          // Livello di luce del sollevamento, sopra la foto, mai un secondo sole.
+          // Il motore del sorgere a livelli, composto in un solo canvas cosi' i
+          // blend sono corretti: cielo notte-giorno in dissolvenza, sole in
+          // additivo con la sua corona zodiacale, mare davanti che lo copre
+          // sull'orizzonte, riflesso e luna che svanisce. La vecchia ruota in
+          // basso non c'e' piu': la ruota ora e' la corona del sole.
           Positioned.fill(
             child: IgnorePointer(
               child: AnimatedBuilder(
                 animation: Listenable.merge([_lift, _ambient]),
                 builder: (context, _) => CustomPaint(
-                  painter: _DawnLightPainter(
+                  painter: _DawnScenePainter(
                     progress: _progress,
                     ambient: _reduceMotion ? 0 : _ambient.value,
-                    palette: palette,
                     reduceMotion: _reduceMotion,
+                    night: _nightImg,
+                    day: _dayImg,
+                    sun: _sunImg,
+                    highlight: _userSign(),
                   ),
                 ),
               ),
@@ -273,8 +300,10 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
                         alignment: Alignment.center,
                         children: [
                           if (!_revealed)
-                            Positioned(
-                              bottom: SpacingTokens.lg,
+                            Align(
+                              // In alto sul cielo notturno, libero dal sole che
+                              // invita a sorgere sull'orizzonte, in basso.
+                              alignment: const Alignment(0, -0.4),
                               child: _LiftPrompt(
                                   palette: palette, progress: _progress),
                             ),
@@ -313,9 +342,11 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
 const Color _dayInk = Color(0xFF2A2213); // testo forte
 const Color _dayInkSoft = Color(0xFF6E5B33); // etichette e testo secondario
 const Color _dayAccent = Color(0xFF7A5E1E); // oro scuro, accenti e parola
-const Color _dayBubble = Color(0xF2FCF5E4); // superficie chiara calda della bolla
-const Color _dayBubbleBorder = Color(0x22000000);
 const Color _dayInset = Color(0x14000000); // superfici interne, un velo caldo
+// La bolla e' un vetro smerigliato: semitrasparente e sfocata, lascia intravedere
+// la scena sotto ma tiene il testo scuro leggibile sul chiaro.
+const Color _dayGlass = Color(0xC7FBF4E2); // bianco caldo, alpha circa 0.78
+const Color _dayGlassBorder = Color(0x4DFFFFFF);
 
 /// L'invito al gesto, che si accende man mano che l'alba si solleva.
 class _LiftPrompt extends StatelessWidget {
@@ -404,100 +435,99 @@ class _DawnGiftCardState extends State<_DawnGiftCard> {
     final gift = widget.gift;
     final word = gift.word;
 
-    // La bolla chiara adattata alla scena a giorno pieno: testo scuro sopra, per
-    // la leggibilita' piena sulla luce.
-    return Container(
-      decoration: BoxDecoration(
-        color: _dayBubble,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: _dayBubbleBorder),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.18),
-            blurRadius: 24,
-            offset: const Offset(0, 10),
+    // La bolla di vetro smerigliato: lascia intravedere la scena sotto, cosi' il
+    // sole resta grande sopra, e tiene il testo scuro leggibile sul chiaro.
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: BackdropFilter(
+        filter: ui.ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+        child: Container(
+          decoration: BoxDecoration(
+            color: _dayGlass,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: _dayGlassBorder),
           ),
-        ],
-      ),
-      padding: const EdgeInsets.all(SpacingTokens.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Livello uno: il tipo di dono e l'orientamento del giorno.
-          Row(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(
-                child: Text(
-                  gift.kind.label.toUpperCase(),
-                  style: TypographyTokens.label(size: 11).copyWith(
-                    color: _dayAccent,
-                    letterSpacing: 2.4,
+              // Livello uno: il tipo di dono e l'orientamento del giorno.
+              Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      gift.kind.label.toUpperCase(),
+                      style: TypographyTokens.label(size: 11).copyWith(
+                        color: _dayAccent,
+                        letterSpacing: 2.4,
+                      ),
+                    ),
                   ),
+                  if (gift.provisional) ...[
+                    const SizedBox(width: SpacingTokens.sm),
+                    const _ProvisionalTag(),
+                  ],
+                ],
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              Text(
+                gift.orientation,
+                style: TypographyTokens.body(size: 16)
+                    .copyWith(color: _dayInk, height: 1.5),
+              ),
+              const SizedBox(height: SpacingTokens.lg),
+              // Livello due: la parola del giorno, in risalto, o il suo segnaposto.
+              Text(
+                'PAROLA DEL GIORNO',
+                style: TypographyTokens.label(size: 10).copyWith(
+                  color: _dayInkSoft,
+                  letterSpacing: 3,
                 ),
               ),
-              if (gift.provisional) ...[
-                const SizedBox(width: SpacingTokens.sm),
-                const _ProvisionalTag(),
-              ],
+              const SizedBox(height: SpacingTokens.xs),
+              if (word != null)
+                Text(
+                  word,
+                  style: TypographyTokens.display(size: 32).copyWith(
+                    color: _dayAccent,
+                    letterSpacing: 1.4,
+                  ),
+                )
+              else
+                Text(
+                  'In arrivo',
+                  style: TypographyTokens.display(size: 24).copyWith(
+                    color: _dayInkSoft.withValues(alpha: 0.7),
+                    letterSpacing: 1.2,
+                  ),
+                ),
+              const SizedBox(height: SpacingTokens.md),
+              // Livello tre: la base apribile, da dove nasce il dono.
+              _BaseToggle(
+                open: _baseOpen,
+                onTap: () => setState(() => _baseOpen = !_baseOpen),
+              ),
+              AnimatedSize(
+                duration: const Duration(milliseconds: 200),
+                alignment: Alignment.topCenter,
+                child: _baseOpen
+                    ? _BasePanel(source: gift.source)
+                    : const SizedBox(width: double.infinity),
+              ),
+              const SizedBox(height: SpacingTokens.md),
+              Row(
+                children: [
+                  // La condivisione della parola torna quando la parola e' reale.
+                  if (word != null) _ShareWordButton(onShare: widget.onShare),
+                  if (widget.streak >= 1) ...[
+                    if (word != null) const SizedBox(width: SpacingTokens.md),
+                    _StreakChip(days: widget.streak),
+                  ],
+                ],
+              ),
             ],
           ),
-          const SizedBox(height: SpacingTokens.sm),
-          Text(
-            gift.orientation,
-            style: TypographyTokens.body(size: 16)
-                .copyWith(color: _dayInk, height: 1.5),
-          ),
-          const SizedBox(height: SpacingTokens.lg),
-          // Livello due: la parola del giorno, in risalto, o il suo segnaposto.
-          Text(
-            'PAROLA DEL GIORNO',
-            style: TypographyTokens.label(size: 10).copyWith(
-              color: _dayInkSoft,
-              letterSpacing: 3,
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.xs),
-          if (word != null)
-            Text(
-              word,
-              style: TypographyTokens.display(size: 32).copyWith(
-                color: _dayAccent,
-                letterSpacing: 1.4,
-              ),
-            )
-          else
-            Text(
-              'In arrivo',
-              style: TypographyTokens.display(size: 24).copyWith(
-                color: _dayInkSoft.withValues(alpha: 0.7),
-                letterSpacing: 1.2,
-              ),
-            ),
-          const SizedBox(height: SpacingTokens.md),
-          // Livello tre: la base apribile, da dove nasce il dono.
-          _BaseToggle(
-            open: _baseOpen,
-            onTap: () => setState(() => _baseOpen = !_baseOpen),
-          ),
-          AnimatedSize(
-            duration: const Duration(milliseconds: 200),
-            alignment: Alignment.topCenter,
-            child: _baseOpen
-                ? _BasePanel(source: gift.source)
-                : const SizedBox(width: double.infinity),
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          Row(
-            children: [
-              // La condivisione della parola torna quando la parola e' reale.
-              if (word != null) _ShareWordButton(onShare: widget.onShare),
-              if (widget.streak >= 1) ...[
-                if (word != null) const SizedBox(width: SpacingTokens.md),
-                _StreakChip(days: widget.streak),
-              ],
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -722,169 +752,170 @@ class _StreakChip extends StatelessWidget {
   }
 }
 
-/// Il livello di luce del sollevamento dell'alba, disegnato sopra la foto.
+/// Il motore del sorgere del Rito dell'Alba, a livelli, composto in un solo
+/// canvas cosi' i blend restano corretti.
 ///
-/// Tutto e' modulato dal progresso: a zero non disegna nulla e resta la sola
-/// foto; salendo, il bagliore si diffonde dall'orizzonte, il riflesso sul mare
-/// si allunga, il cielo si scalda e le costellazioni in alto si spengono sotto
-/// la luce. La ruota zodiacale, invece, non la disegna questo livello: e' il
-/// componente [ZodiacWheel] montato sul fondale, che si attenua proprio mentre
-/// questa luce cresce. Il sole non e' un secondo disco: solo un alone allineato
-/// al sole della foto.
-class _DawnLightPainter extends CustomPainter {
-  _DawnLightPainter({
+/// Dal fondo alla superficie: il cielo che passa in dissolvenza dalla scena
+/// notturna a quella diurna, e con esso la luna svanisce; il sole in blend
+/// additivo che emerge dall'orizzonte e sale fino al posto della luna con la
+/// sua corona zodiacale; il mare davanti che ne copre la parte bassa e passa
+/// anch'esso da notte a giorno; il riflesso dorato che si accende sul mare. A
+/// progresso zero mostra solo mezzo disco sull'orizzonte, come invito.
+class _DawnScenePainter extends CustomPainter {
+  _DawnScenePainter({
     required this.progress,
     required this.ambient,
-    required this.palette,
     required this.reduceMotion,
+    required this.night,
+    required this.day,
+    required this.sun,
+    required this.highlight,
   });
 
   final double progress;
   final double ambient;
-  final MaestroPalette palette;
   final bool reduceMotion;
+  final ui.Image? night;
+  final ui.Image? day;
+  final ui.Image? sun;
+  final Zodiac? highlight;
 
-  // Misure della foto notturna, per allineare il sole disegnato alla linea del
-  // mare reale con la stessa matematica del BoxFit.cover, a ogni dimensione.
-  static const double _imgW = 704;
-  static const double _imgH = 1520;
-  static const double _horizonFrac = 0.637;
-
-  double _horizonY(Size size) {
-    final scale = math.max(size.width / _imgW, size.height / _imgH);
-    final scaledH = _imgH * scale;
-    final offsetY = (size.height - scaledH) / 2;
-    return offsetY + _horizonFrac * _imgH * scale;
-  }
-
-  static const _daySky = Color(0xFFC3D8EE);
-  static const _dawnWarm = Color(0xFFFFE3A6);
-  static const _seaLit = Color(0xFF8BA0AB);
+  // Notte e giorno hanno lo stesso formato e lo stesso orizzonte; la luna sta al
+  // punto dove il sole si ferma.
+  static const double _sceneW = 704;
+  static const double _sceneH = 1520;
+  static const double _horizonFrac = 0.4993;
+  static const double _moonFx = 0.462;
+  static const double _moonFy = 0.210;
+  // Frazione della larghezza dell'immagine del sole occupata dal disco.
+  static const double _sunDiscFrac = 0.15;
 
   @override
   void paint(Canvas canvas, Size size) {
+    final night = this.night, day = this.day, sun = this.sun;
+    if (night == null || day == null || sun == null) return;
     final p = progress.clamp(0.0, 1.0);
-    if (p <= 0.001) return;
+    final w = size.width, h = size.height;
 
-    final w = size.width;
-    final h = size.height;
-    final horizonY = _horizonY(size);
-    final rect = Offset.zero & size;
-    final rise = Curves.easeOutCubic.transform(p);
+    final scale = math.max(w / _sceneW, h / _sceneH);
+    final dstW = _sceneW * scale, dstH = _sceneH * scale;
+    final dstL = (w - dstW) / 2, dstT = (h - dstH) / 2;
+    const sceneSrc = Rect.fromLTWH(0, 0, _sceneW, _sceneH);
+    final sceneDst = Rect.fromLTWH(dstL, dstT, dstW, dstH);
+    final horizonY = dstT + _horizonFrac * dstH;
+    Offset scenePoint(double fx, double fy) =>
+        Offset(dstL + fx * dstW, dstT + fy * dstH);
 
-    // 1) La scena passa dalla notte al giorno: un velo di luce calda cresce su
-    // tutto, piu' intenso verso l'orizzonte. Copre cielo e mare e assorbe la
-    // luna e le costellazioni nel chiarore.
-    final horizonStop = (horizonY / h).clamp(0.05, 0.95);
-    canvas.drawRect(
-      rect,
-      Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            _daySky.withValues(alpha: 1.0 * p),
-            _dawnWarm.withValues(alpha: 0.93 * p),
-            _seaLit.withValues(alpha: 0.72 * p),
-          ],
-          stops: [0.0, horizonStop, 1.0],
-        ).createShader(rect),
-    );
+    // Il sole sale dall'orizzonte al posto della luna.
+    final rise = reduceMotion ? p : Curves.easeOutCubic.transform(p);
+    final moon = scenePoint(_moonFx, _moonFy);
+    final sunCenter = Offset(moon.dx, horizonY + (moon.dy - horizonY) * rise);
+    final discR = w * (0.135 + 0.055 * p);
 
-    // 2) Bagliore dell'alba sull'orizzonte, un'ampia luce calda che si diffonde.
-    final glowR = w * (0.5 + 0.5 * p);
-    final glowC = Offset(w * 0.5, horizonY);
-    canvas.drawRect(
-      rect,
-      Paint()
-        ..shader = RadialGradient(
-          center: Alignment(0, (horizonY / h) * 2 - 1),
-          radius: 0.9,
-          colors: [
-            _dawnWarm.withValues(alpha: 0.55 * p),
-            const Color(0x00000000),
-          ],
-        ).createShader(Rect.fromCircle(center: glowC, radius: glowR)),
-    );
-
-    // 3) Il sole, elemento disegnato: un ampio disco luminoso che emerge dal
-    // mare. Sale di poco, restando sulla linea del mare, che ne nasconde la
-    // parte sotto l'orizzonte, cosi' sembra sorgere dall'acqua.
-    final sunR = w * 0.17;
-    final sunCenter = Offset(w * 0.5, horizonY + sunR - sunR * 1.15 * rise);
-
-    // Alone ampio attorno al sole, non tagliato: bagliore che invade il cielo.
-    canvas.drawCircle(
-      sunCenter,
-      sunR * (2.4 + 0.8 * p),
-      Paint()
-        ..shader = RadialGradient(
-          colors: [
-            _dawnWarm.withValues(alpha: 0.6 * p),
-            const Color(0x00000000),
-          ],
-        ).createShader(
-            Rect.fromCircle(center: sunCenter, radius: sunR * (2.4 + 0.8 * p))),
-    );
-
-    // Sole e raggi solo sopra l'orizzonte: il mare copre il resto.
+    // --- Cielo: sopra l'orizzonte, notte in dissolvenza verso il giorno ---
     canvas.save();
     canvas.clipRect(Rect.fromLTWH(0, 0, w, horizonY));
-
-    // Raggi lenti che si aprono col sorgere.
-    final rayPaint = Paint()
-      ..strokeCap = StrokeCap.round
-      ..color = palette.goldSoft.withValues(alpha: 0.22 * p);
-    for (var i = 0; i < 16; i++) {
-      final a = 2 * math.pi * i / 16;
-      final dir = Offset(math.cos(a), math.sin(a));
-      rayPaint.strokeWidth = i.isEven ? 3.0 : 1.5;
-      canvas.drawLine(sunCenter + dir * sunR * 1.15,
-          sunCenter + dir * sunR * (1.7 + 0.6 * p), rayPaint);
+    canvas.drawImageRect(night, sceneSrc, sceneDst, Paint());
+    if (p > 0) {
+      canvas.drawImageRect(day, sceneSrc, sceneDst,
+          Paint()..color = Colors.white.withValues(alpha: p));
     }
-
-    // Il disco: cuore bianco caldo, bordo dorato.
-    canvas.drawCircle(
-      sunCenter,
-      sunR,
-      Paint()
-        ..shader = RadialGradient(
-          colors: [
-            const Color(0xFFFFFDF3),
-            palette.goldSoft,
-            palette.gold,
-          ],
-          stops: const [0.0, 0.7, 1.0],
-        ).createShader(Rect.fromCircle(center: sunCenter, radius: sunR)),
-    );
     canvas.restore();
 
-    // 4) Il riflesso dorato sul mare si accende e si allunga sotto il sole, con
-    // un brillio d'ambiente fermo sotto Riduci Movimento.
+    // --- Sole: additivo, il nero sparisce e l'aura si fonde ---
+    _paintSun(canvas, sun, sunCenter, discR);
+    _paintCrown(canvas, sunCenter, discR, p);
+
+    // --- Mare: sotto l'orizzonte, davanti al sole, notte verso giorno ---
+    canvas.save();
+    canvas.clipRect(Rect.fromLTWH(0, horizonY, w, h - horizonY));
+    canvas.drawImageRect(night, sceneSrc, sceneDst, Paint());
+    if (p > 0) {
+      canvas.drawImageRect(day, sceneSrc, sceneDst,
+          Paint()..color = Colors.white.withValues(alpha: p));
+    }
+    _paintReflection(canvas, w, h, horizonY, sunCenter.dx, p);
+    canvas.restore();
+  }
+
+  void _paintSun(Canvas canvas, ui.Image sun, Offset center, double discR) {
+    final sw = sun.width.toDouble(), sh = sun.height.toDouble();
+    // Scala l'immagine cosi' il disco ha raggio discR sullo schermo.
+    final s = discR / (_sunDiscFrac * sw);
+    final dst = Rect.fromCenter(center: center, width: sw * s, height: sh * s);
+    canvas.drawImageRect(
+      sun,
+      Rect.fromLTWH(0, 0, sw, sh),
+      dst,
+      Paint()..blendMode = BlendMode.plus,
+    );
+  }
+
+  void _paintCrown(Canvas canvas, Offset center, double discR, double p) {
+    // La corona vive sul bordo del disco, stagliata e non annegata nel bagliore:
+    // un anello sottile e i dodici simboli in bronzo scuro, che spiccano da soli
+    // sul disco luminoso senza dischetti di fondo.
+    final ringR = discR * 1.06;
+    const bronze = Color(0xFF5A3F0E);
+    canvas.drawCircle(
+      center,
+      ringR,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = math.max(1.0, discR * 0.01)
+        ..color = bronze.withValues(alpha: 0.85),
+    );
+
+    final gs = discR * 0.085;
+    for (var i = 0; i < 12; i++) {
+      final a = 2 * math.pi * i / 12 - math.pi / 2;
+      final g = center + Offset(math.cos(a), math.sin(a)) * ringR;
+      final sign = Zodiac.values[i];
+      final lit = sign == highlight;
+      drawZodiacGlyph(
+        canvas,
+        sign,
+        g,
+        gs,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = math.max(1.4, discR * 0.018)
+          ..strokeCap = StrokeCap.round
+          ..color = lit ? const Color(0xFFB8860B) : bronze,
+      );
+    }
+  }
+
+  void _paintReflection(
+      Canvas canvas, double w, double h, double horizonY, double cx, double p) {
+    if (p <= 0.001) return;
     final shimmer = reduceMotion ? 0.0 : math.sin(2 * math.pi * ambient);
-    final beamHalf = w * (0.05 + 0.10 * p) * (1 + 0.06 * shimmer);
-    final beamBottom = horizonY + (h - horizonY) * (0.35 + 0.65 * p);
-    final beamRect =
-        Rect.fromLTRB(w * 0.5 - beamHalf, horizonY, w * 0.5 + beamHalf, beamBottom);
+    final half = w * (0.03 + 0.06 * p) * (1 + 0.06 * shimmer);
+    final bottom = horizonY + (h - horizonY) * (0.4 + 0.6 * p);
+    final rect = Rect.fromLTRB(cx - half, horizonY, cx + half, bottom);
     canvas.drawRect(
-      beamRect,
+      rect,
       Paint()
         ..shader = LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            const Color(0xFFFFF3D6).withValues(alpha: 0.75 * p),
-            palette.goldSoft.withValues(alpha: 0.0),
+            const Color(0xFFFFE2A6).withValues(alpha: 0.6 * p),
+            const Color(0x00FFE2A6),
           ],
-        ).createShader(beamRect)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 16),
+        ).createShader(rect)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 14)
+        ..blendMode = BlendMode.plus,
     );
   }
 
   @override
-  bool shouldRepaint(_DawnLightPainter old) =>
+  bool shouldRepaint(_DawnScenePainter old) =>
       old.progress != progress ||
       old.ambient != ambient ||
-      old.palette != palette ||
-      old.reduceMotion != reduceMotion;
+      old.reduceMotion != reduceMotion ||
+      old.night != night ||
+      old.day != day ||
+      old.sun != sun ||
+      old.highlight != highlight;
 }

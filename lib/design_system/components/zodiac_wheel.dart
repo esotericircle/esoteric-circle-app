@@ -170,7 +170,7 @@ class _ZodiacWheelPainter extends CustomPainter {
       final gpos = Offset(math.cos(mid), math.sin(mid)) * r * 0.78;
       final lit = sign == highlight;
       final gs = r * 0.058;
-      _drawGlyph(canvas, sign, gpos, gs,
+      drawZodiacGlyph(canvas, sign, gpos, gs,
           stroke(r * 0.010, lit ? 0.95 : 0.7)..color = c(lit ? 0.95 : 0.7));
       if (lit) {
         canvas.drawCircle(gpos, gs * 1.7, stroke(r * 0.005, 0.5));
@@ -193,10 +193,21 @@ class _ZodiacWheelPainter extends CustomPainter {
     canvas.restore();
   }
 
-  // Disegna il simbolo del segno come tracciato vettoriale, centrato in [g],
-  // entro un raggio [s]. Forme stilizzate ma riconoscibili.
-  void _drawGlyph(
-      Canvas canvas, Zodiac sign, Offset g, double s, Paint paint) {
+  @override
+  bool shouldRepaint(_ZodiacWheelPainter old) =>
+      old.color != color ||
+      old.opacity != opacity ||
+      old.rotation != rotation ||
+      old.highlight != highlight;
+}
+
+/// Disegna il simbolo di un segno come tracciato vettoriale, centrato in [g],
+/// entro un raggio [s]. Forme stilizzate ma riconoscibili, indipendenti dal
+/// font. Riutilizzabile ovunque serva un glifo zodiacale disegnato dal codice,
+/// per esempio nella corona del sole del Rito dell'Alba.
+void drawZodiacGlyph(
+    Canvas canvas, Zodiac sign, Offset g, double s, Paint paint) {
+  {
     final path = Path();
     switch (sign) {
       case Zodiac.aries:
@@ -348,11 +359,4 @@ class _ZodiacWheelPainter extends CustomPainter {
     }
     canvas.drawPath(path, paint);
   }
-
-  @override
-  bool shouldRepaint(_ZodiacWheelPainter old) =>
-      old.color != color ||
-      old.opacity != opacity ||
-      old.rotation != rotation ||
-      old.highlight != highlight;
 }

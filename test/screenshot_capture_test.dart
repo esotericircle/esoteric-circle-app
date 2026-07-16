@@ -467,14 +467,18 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    // Il Rito dell'Alba ha un fondale reale nello slot: lo si precarica, cosi'
-    // nella cattura headless e' gia' decodificato e appare, senza restare in
-    // caricamento.
+    // Il Rito dell'Alba compone tre livelli reali: si precaricano cosi' nella
+    // cattura headless sono gia' decodificati e la scena appare, senza restare
+    // in caricamento.
+    final element = tester.element(find.byType(MaterialApp));
     await tester.runAsync(() async {
-      await precacheImage(
-        const AssetImage('assets/ritual_backgrounds/dawn.png'),
-        tester.element(find.byType(MaterialApp)),
-      );
+      for (final a in const [
+        'assets/ritual_backgrounds/dawn_sky_night.png',
+        'assets/ritual_backgrounds/dawn_sky_day.png',
+        'assets/ritual_backgrounds/dawn_sun.png',
+      ]) {
+        await precacheImage(AssetImage(a), element);
+      }
     });
     await step(tester);
 
@@ -482,7 +486,13 @@ void main() {
     unawaited(nav.push(DawnRiteScreen.route(now: DateTime(2026, 7, 13))));
     await step(tester);
     await step(tester);
-    // Stato velato: la foto reale con l'invito a sollevare l'alba.
+    // Lascia che lo screen risolva i tre livelli dalla cache immagini.
+    await tester.runAsync(() async {
+      await Future<void>.delayed(const Duration(milliseconds: 60));
+    });
+    await step(tester);
+    await step(tester);
+    // Stato velato: la notte con la luna e mezzo sole sull'orizzonte, l'invito.
     await capture(tester, rootKey, 'rito-alba.png');
 
     // Il gesto tattile solleva l'alba e porge il dono del giorno.
