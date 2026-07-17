@@ -450,7 +450,6 @@ class _BreathScenePainter extends CustomPainter {
     final headCenter = Offset(w * 0.5, h * 0.52);
     final dstTop = headCenter.dy - _headFy * dstH;
     final dstLeft = w * 0.5 - _headFx * dstW;
-    final dandDst = Rect.fromLTWH(dstLeft, dstTop, dstW, dstH);
     final headR = _headRFrac * dstW;
     final giftCenter = Offset(w * 0.5, h * 0.26);
 
@@ -459,16 +458,45 @@ class _BreathScenePainter extends CustomPainter {
     // verra' dal cantiere.
     _paintGiftForm(canvas, giftCenter, w, p);
 
-    // --- Soffione, additivo: i pappi luminosi. La testa si dirada col soffio ---
-    final headAlpha = (0.9 - 0.72 * p).clamp(0.0, 1.0);
+    // --- Alone morbido d'aria attorno al soffione, appena un respiro ---
+    final auraR = headR * 1.9;
+    canvas.drawCircle(
+      headCenter,
+      auraR,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [
+            palette.goldSoft.withValues(alpha: 0.16),
+            palette.glow.withValues(alpha: 0.06),
+            const Color(0x00000000),
+          ],
+          stops: const [0.0, 0.55, 1.0],
+        ).createShader(Rect.fromCircle(center: headCenter, radius: auraR)),
+    );
+
+    // --- Soffione in composizione normale: l'alpha cotto dal fondo nero tiene
+    // il dettaglio reale, i pappi coi bordi morbidi e lo stelo piantato. Niente
+    // additivo, niente bruciatura a bianco. In due parti: lo stelo col
+    // ricettacolo resta sempre, la testa si svuota progressivamente col soffio.
+    const headBottomFy = 0.63, stemTopFy = 0.60;
+    // Lo stelo col ricettacolo, sempre piantato nel prato.
     canvas.drawImageRect(
       dandelion,
-      Rect.fromLTWH(0, 0, dw, dh),
-      dandDst,
-      Paint()
-        ..blendMode = BlendMode.plus
-        ..color = Colors.white.withValues(alpha: headAlpha),
+      Rect.fromLTWH(0, stemTopFy * dh, dw, dh * (1 - stemTopFy)),
+      Rect.fromLTWH(
+          dstLeft, dstTop + stemTopFy * dstH, dstW, dstH * (1 - stemTopFy)),
+      Paint(),
     );
+    // La testa, che si dirada fino allo spoglio col progredire del soffio.
+    final headOpacity = (1 - p).clamp(0.0, 1.0);
+    if (headOpacity > 0.01) {
+      canvas.drawImageRect(
+        dandelion,
+        Rect.fromLTWH(0, 0, dw, dh * headBottomFy),
+        Rect.fromLTWH(dstLeft, dstTop, dstW, dstH * headBottomFy),
+        Paint()..color = Colors.white.withValues(alpha: headOpacity),
+      );
+    }
 
     // --- Semi che volano via verso l'alto come scintille, con deriva di vento --
     _paintSeeds(canvas, headCenter, headR, giftCenter, p);
@@ -483,35 +511,75 @@ class _BreathScenePainter extends CustomPainter {
     canvas.drawImageRect(img, Rect.fromLTWH(0, 0, iw, ih), dst, paint);
   }
 
+  // Il visivo del dono, provvisorio ma costruito: un soffione di luce, non una
+  // palla sfocata. Cuore definito, raggi che terminano in nodi luminosi, due
+  // anelli fini e un alone verde-oro. Si accende col salire delle scintille. La
+  // forma definitiva verra' dal cantiere.
   void _paintGiftForm(Canvas canvas, Offset center, double w, double p) {
     if (p <= 0.02) return;
-    // Alone morbido che cresce e si scalda con le scintille in arrivo.
-    final r = w * (0.12 + 0.14 * p);
+    final breathe = reduceMotion ? 0.0 : math.sin(2 * math.pi * ambient);
+    final r = w * (0.13 + 0.10 * p) * (1 + 0.025 * breathe);
+
+    // Alone verde-oro d'aria, morbido, dietro alla forma.
     canvas.drawCircle(
       center,
-      r,
+      r * 1.7,
       Paint()
         ..blendMode = BlendMode.plus
         ..shader = RadialGradient(
           colors: [
-            palette.goldSoft.withValues(alpha: 0.5 * p),
-            palette.glow.withValues(alpha: 0.22 * p),
+            palette.glow.withValues(alpha: 0.26 * p),
             const Color(0x00000000),
           ],
-          stops: const [0.0, 0.5, 1.0],
-        ).createShader(Rect.fromCircle(center: center, radius: r)),
+        ).createShader(Rect.fromCircle(center: center, radius: r * 1.7)),
     );
-    // Un anello tenue che pulsa, segnaposto della forma del dono.
-    final breathe = reduceMotion ? 0.5 : 0.5 + 0.5 * math.sin(2 * math.pi * ambient);
+
+    // Due anelli fini che danno struttura.
+    Paint ring(double a, double sw) => Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = sw
+      ..color = palette.gold.withValues(alpha: a * p);
+    canvas.drawCircle(center, r, ring(0.5, 1.2));
+    canvas.drawCircle(center, r * 0.5, ring(0.4, 1.0));
+
+    // Raggi che terminano in nodi luminosi, come un soffione di luce.
+    const n = 24;
+    final ray = Paint()
+      ..strokeWidth = 0.9
+      ..strokeCap = StrokeCap.round
+      ..color = palette.gold.withValues(alpha: 0.42 * p);
+    for (var i = 0; i < n; i++) {
+      final a = 2 * math.pi * i / n - math.pi / 2;
+      final dir = Offset(math.cos(a), math.sin(a));
+      final outer = center + dir * r * 0.92;
+      canvas.drawLine(center + dir * r * 0.5, outer, ray);
+      // Bagliore additivo e nodo definito al vertice.
+      canvas.drawCircle(
+        outer,
+        3.4,
+        Paint()
+          ..blendMode = BlendMode.plus
+          ..color = palette.goldSoft.withValues(alpha: 0.22 * p),
+      );
+      canvas.drawCircle(outer, 1.7,
+          Paint()..color = palette.goldSoft.withValues(alpha: 0.85 * p));
+    }
+
+    // Cuore definito e luminoso.
     canvas.drawCircle(
       center,
-      r * (0.62 + 0.06 * breathe),
+      r * 0.4,
       Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.4
         ..blendMode = BlendMode.plus
-        ..color = palette.goldSoft.withValues(alpha: 0.4 * p),
+        ..shader = RadialGradient(
+          colors: [
+            const Color(0xFFFFF6DC).withValues(alpha: 0.85 * p),
+            const Color(0x00FFF6DC),
+          ],
+        ).createShader(Rect.fromCircle(center: center, radius: r * 0.4)),
     );
+    canvas.drawCircle(center, r * 0.09,
+        Paint()..color = const Color(0xFFFFF9E8).withValues(alpha: 0.95 * p));
   }
 
   void _paintSeeds(Canvas canvas, Offset head, double headR, Offset gift,
