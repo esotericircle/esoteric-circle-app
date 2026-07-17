@@ -177,5 +177,5 @@ String _reason(Maestro winner, String deciding, bool nearTie) {
   if (nearTie) {
     return 'Le tre voci sono vicine, ma $deciding fa pendere la bilancia verso $voice.';
   }
-  return '${_cap(deciding)} chiama piu\' forte la voce di $voice.';
+  return '${_cap(deciding)} chiama più forte la voce di $voice.';
 }

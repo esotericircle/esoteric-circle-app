@@ -14,15 +14,15 @@ class NatalPoetics {
 
   /// Significato breve di ciascun pianeta o punto.
   static const Map<String, String> meaning = {
-    'sun': 'la tua essenza e la volonta\'',
-    'moon': 'l\'emotivita\' e i bisogni',
+    'sun': 'la tua essenza e la volontà',
+    'moon': 'l\'emotività e i bisogni',
     'mercury': 'la mente e la parola',
     'venus': 'l\'amore e il piacere',
     'mars': 'l\'azione e il desiderio',
     'jupiter': 'l\'espansione e la fortuna',
     'saturn': 'la disciplina e il limite',
-    'uranus': 'il cambiamento e la liberta\'',
-    'neptune': 'il sogno e la spiritualita\'',
+    'uranus': 'il cambiamento e la libertà',
+    'neptune': 'il sogno e la spiritualità',
     'pluto': 'la trasformazione profonda',
     'north_node': 'la direzione dell\'anima',
     'chiron': 'la ferita che guarisce',
@@ -83,11 +83,11 @@ class NatalPoetics {
     final greetingName = identity.hasName ? ', ${identity.name}' : '';
     switch (maestro) {
       case Maestro.medora:
-        return 'Ti leggo negli astri$greetingName. Con il Sole in $sun, oggi le stelle ti invitano a fidarti del primo passo: una carta gia\' ti attende quando vorrai.';
+        return 'Ti leggo negli astri$greetingName. Con il Sole in $sun, oggi le stelle ti invitano a fidarti del primo passo: una carta già ti attende quando vorrai.';
       case Maestro.aura:
         return 'Respira con me$greetingName. Il tuo cielo, acceso in $sun, chiede equilibrio: posa una mano sul petto e lascia che il respiro trovi il suo ritmo.';
       case Maestro.caligo:
-        return 'Ascolta il silenzio$greetingName. Con il Sole in $sun, una runa vibra gia\' per te: la lanceremo insieme quando la notte chiamera\'.';
+        return 'Ascolta il silenzio$greetingName. Con il Sole in $sun, una runa vibra già per te: la lanceremo insieme quando la notte chiamerà.';
     }
   }
 }

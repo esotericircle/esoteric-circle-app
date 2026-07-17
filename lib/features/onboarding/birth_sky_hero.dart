@@ -92,9 +92,9 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
     final snap = _snapshot;
 
     final born = identity.pick(
-      masculine: 'Questo e\' il cielo della notte in cui sei nato.',
-      feminine: 'Questo e\' il cielo della notte in cui sei nata.',
-      neutral: 'Questo e\' il cielo della notte della tua nascita.',
+      masculine: 'Questo è il cielo della notte in cui sei nato.',
+      feminine: 'Questo è il cielo della notte in cui sei nata.',
+      neutral: 'Questo è il cielo della notte della tua nascita.',
     );
 
     return GestureDetector(
@@ -141,7 +141,7 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
                         .copyWith(height: 1.25)),
                 if (snap != null && !snap.hasTime) ...[
                   const SizedBox(height: SpacingTokens.sm),
-                  Text('Manca l\'ora esatta: e\' la notte simbolica del tuo giorno.',
+                  Text('Manca l\'ora esatta: è la notte simbolica del tuo giorno.',
                       textAlign: TextAlign.center,
                       style: TypographyTokens.body(size: TypographyTokens.guide)
                           .copyWith(

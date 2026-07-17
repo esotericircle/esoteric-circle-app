@@ -60,8 +60,8 @@ class NatalChartController extends ChangeNotifier {
         hasTime: details.hasTime,
       );
       note = _client.hasKey
-          ? 'Ho tracciato il tuo cielo essenziale. Completero\' la mappa dei pianeti appena le stelle torneranno raggiungibili.'
-          : 'Per ora leggo il tuo cielo essenziale. La mappa completa dei pianeti si aprira\' quando il motore astrologico sara\' collegato.';
+          ? 'Ho tracciato il tuo cielo essenziale. Completerò la mappa dei pianeti appena le stelle torneranno raggiungibili.'
+          : 'Per ora leggo il tuo cielo essenziale. La mappa completa dei pianeti si aprirà quando il motore astrologico sarà collegato.';
     }
     status = ChartStatus.ready;
     notifyListeners();
