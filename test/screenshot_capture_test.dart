@@ -16,6 +16,7 @@ import 'package:esoteric_circle/core/identity/birth_place.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -23,6 +24,8 @@ import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
 import 'package:esoteric_circle/features/onboarding/reveal_screen.dart';
+import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
@@ -979,6 +982,46 @@ void main() {
     });
     await tester.pumpAndSettle();
     await capture(tester, rootKey, 'risveglio-rivelazione.png');
+  });
+
+  testWidgets('Cattura il cielo reale di nascita a tutto schermo',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    // Il cielo di nascita e' lo stesso motore del cielo di stanotte: MaestroScope
+    // con controller neutro (nessun Maestro), parallasse ferma sotto Riduci
+    // Movimento. Momento fisso per una cattura deterministica.
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: child!,
+            ),
+            home: MaestroScope(
+              child: SkyOverviewScreen(
+                now: DateTime(1990, 6, 15, 2, 30),
+                birth: true,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'cielo-nascita.png');
   });
 }
 

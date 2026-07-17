@@ -77,10 +77,12 @@ void main() {
     await tester.longPress(find.byKey(const Key('risveglio_sigillo')));
     await settle(tester);
 
-    // La rivelazione chiama per nome e mostra il cielo coi tre pilastri.
+    // La rivelazione chiama per nome, apre il portale del cielo reale di
+    // nascita e mostra i tre pilastri.
     expect(find.byKey(const Key('reveal_screen')), findsOneWidget);
     expect(find.textContaining('Marco'), findsWidgets);
-    expect(find.text('Questo cielo e\' solo tuo.'), findsOneWidget);
+    expect(find.byKey(const Key('reveal_birth_sky')), findsOneWidget);
+    expect(find.text('Questo cielo è solo tuo.'), findsOneWidget);
 
     // Entra nel Cerchio: si approda al Santuario, il rito non c'e' piu'.
     await tester.tap(find.byKey(const Key('onboarding_enter')));

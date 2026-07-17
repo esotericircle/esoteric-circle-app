@@ -2,27 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/night_sky.dart';
-import '../../core/astro/zodiac.dart';
+import '../../core/identity/birth_identity.dart';
 import '../../core/identity/circle_seal.dart';
 import '../../core/identity/profile_controller.dart';
-import '../../core/maestro/maestro.dart';
 import '../../core/onboarding/onboarding_controller.dart';
-import '../../core/rituals/daily_rituals.dart';
-import '../../design_system/components/zodiac_wheel.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../santuario/sky_overview_screen.dart';
 
-/// La rivelazione, ultimo atto del Risveglio: la Guida chiama la persona per
-/// nome, col vocativo giusto, e le mostra il cielo che l'ha vista nascere.
+/// La rivelazione, ultimo atto del Risveglio: il Cerchio chiama la persona per
+/// nome, col vocativo giusto, e le apre il cielo reale che l'ha vista nascere.
 ///
-/// La carta e' disegnata dal codice, riusando la ruota gia' esistente, con i tre
-/// pilastri Sole, Luna e Ascendente. Il Sole e' reale, dal segno ricavato dalla
-/// data. Luna e Ascendente richiedono il calcolo a effemeridi, quindi restano
-/// marcati provvisori: nessuna invenzione. Il contenuto verificato di Luna,
-/// Ascendente e letture arrivera' da FreeAstroAPI in un secondo anello, tramite
-/// un backend che tiene la chiave, mai nel client.
+/// Il cielo non e' una ruota astratta: e' lo stesso motore immersivo del cielo
+/// di stanotte (`SkyOverviewScreen`), ancorato alla notte di nascita, con
+/// costellazioni reali dal catalogo, Luna in fase reale e parallasse a tre
+/// piani. Un portale lo riapre a tutto schermo, esplorabile e cliccabile.
+///
+/// Sotto, i tre pilastri: il Sole e' reale, dal segno ricavato dalla data; Luna
+/// e Ascendente richiedono il calcolo a effemeridi e restano marcati provvisori,
+/// nessuna invenzione. Il contenuto verificato arrivera' da FreeAstroAPI in un
+/// secondo anello, tramite un backend che tiene la chiave, mai nel client.
+///
+/// Nessun colore di Maestro: al Risveglio non e' ancora scelto. La base e' la
+/// tavolozza cosmica neutra del Cerchio (fondo nero, oro, alone viola).
 class RevealScreen extends StatefulWidget {
   const RevealScreen({super.key, this.clock});
 
@@ -41,15 +45,13 @@ class RevealScreen extends StatefulWidget {
 class _RevealScreenState extends State<RevealScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _enter;
-  late final Maestro _maestro;
-  late final MaestroPalette _palette;
+
+  // Tavolozza cosmica neutra: nessun accento di Maestro, non ancora scelto.
+  static const MaestroPalette _palette = MaestroPalette.neutral;
 
   @override
   void initState() {
     super.initState();
-    final now = (widget.clock ?? DateTime.now)();
-    _maestro = DailyRituals.dawnMaestro(now);
-    _palette = MaestroPalette.forKey(ThemeKey.of(_maestro));
     _enter = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1100),
@@ -77,6 +79,15 @@ class _RevealScreenState extends State<RevealScreen>
     Navigator.of(context).maybePop();
   }
 
+  // Il momento del cielo di nascita: data piu' ora se nota, altrimenti la
+  // mezzanotte simbolica di quel giorno. Il cielo esatto con l'ora arriva col
+  // motore a effemeridi.
+  DateTime _birthMoment(BirthIdentity identity) {
+    if (identity.hasBirthTime) return identity.birthMoment;
+    final d = identity.birthDate;
+    return DateTime(d.year, d.month, d.day);
+  }
+
   @override
   Widget build(BuildContext context) {
     final profile = context.watch<ProfileController>();
@@ -85,8 +96,9 @@ class _RevealScreenState extends State<RevealScreen>
     final courtesy = profile.courtesy;
     final sign = NightSky.sunSign(identity.birthDate);
     final element = SealElement.of(sign);
+    final birthMoment = _birthMoment(identity);
 
-    // La frase della Guida, concordata al vocativo. Il neutro evita la
+    // La frase che chiama per nome, concordata al vocativo. Il neutro evita la
     // desinenza di genere.
     final line = courtesy.agree(
       masculine: '$name, ecco il cielo che ti ha visto nascere.',
@@ -114,7 +126,7 @@ class _RevealScreenState extends State<RevealScreen>
               key: const Key('reveal_screen'),
               children: [
                 const SizedBox(height: SpacingTokens.lg),
-                _GuidaLine(maestro: _maestro, palette: _palette, line: line),
+                _RevealVoice(palette: _palette, line: line),
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(
@@ -122,10 +134,9 @@ class _RevealScreenState extends State<RevealScreen>
                     child: Column(
                       children: [
                         const SizedBox(height: SpacingTokens.md),
-                        _SkyCard(
-                          sign: sign,
+                        _BirthSkyPortal(
+                          birthMoment: birthMoment,
                           palette: _palette,
-                          enter: _enter,
                         ),
                         const SizedBox(height: SpacingTokens.lg),
                         _Pillar(
@@ -136,7 +147,7 @@ class _RevealScreenState extends State<RevealScreen>
                           provvisorio: false,
                         ),
                         const SizedBox(height: SpacingTokens.md),
-                        _Pillar(
+                        const _Pillar(
                           icon: Icons.nightlight_round,
                           title: 'Luna',
                           line:
@@ -159,7 +170,7 @@ class _RevealScreenState extends State<RevealScreen>
                         ),
                         const SizedBox(height: SpacingTokens.xl),
                         Text(
-                          'Questo cielo e\' solo tuo.',
+                          'Questo cielo è solo tuo.',
                           textAlign: TextAlign.center,
                           style: TypographyTokens.display(size: 20)
                               .copyWith(color: _palette.goldSoft),
@@ -183,15 +194,11 @@ class _RevealScreenState extends State<RevealScreen>
   }
 }
 
-/// La riga della Guida, col volto e il nome della persona.
-class _GuidaLine extends StatelessWidget {
-  const _GuidaLine({
-    required this.maestro,
-    required this.palette,
-    required this.line,
-  });
+/// La voce del Cerchio che chiama per nome. Nessun volto di Maestro, non ancora
+/// scelto: solo un segno di luce dorato accanto alla frase.
+class _RevealVoice extends StatelessWidget {
+  const _RevealVoice({required this.palette, required this.line});
 
-  final Maestro maestro;
   final MaestroPalette palette;
   final String line;
 
@@ -205,18 +212,17 @@ class _GuidaLine extends StatelessWidget {
           Container(
             width: 44,
             height: 44,
-            clipBehavior: Clip.antiAlias,
+            alignment: Alignment.center,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
+              gradient: RadialGradient(colors: [
+                palette.primary.withValues(alpha: 0.4),
+                palette.deepest.withValues(alpha: 0.2),
+              ]),
               border: Border.all(
-                  color: palette.gold.withValues(alpha: 0.7), width: 1.5),
+                  color: palette.gold.withValues(alpha: 0.6), width: 1.5),
             ),
-            child: Image.asset(
-              maestro.avatarAsset,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) =>
-                  Icon(Icons.auto_awesome, color: palette.goldSoft, size: 22),
-            ),
+            child: Icon(Icons.auto_awesome, color: palette.goldSoft, size: 22),
           ),
           const SizedBox(width: SpacingTokens.md),
           Expanded(
@@ -235,43 +241,74 @@ class _GuidaLine extends StatelessWidget {
   }
 }
 
-/// La carta del cielo: la ruota zodiacale disegnata dal codice, col segno solare
-/// acceso, dentro una cornice tonda.
-class _SkyCard extends StatelessWidget {
-  const _SkyCard({
-    required this.sign,
-    required this.palette,
-    required this.enter,
-  });
+/// Il portale del cielo reale di nascita: apre a tutto schermo la volta
+/// immersiva ancorata alla notte di nascita (`SkyOverviewScreen`), lo stesso
+/// motore del cielo di stanotte, esplorabile e cliccabile. Niente ruota
+/// astratta: costellazioni reali, Luna in fase reale, parallasse a tre piani.
+class _BirthSkyPortal extends StatelessWidget {
+  const _BirthSkyPortal({required this.birthMoment, required this.palette});
 
-  final Zodiac sign;
+  final DateTime birthMoment;
   final MaestroPalette palette;
-  final Animation<double> enter;
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: DecoratedBox(
+    return GestureDetector(
+      key: const Key('reveal_birth_sky'),
+      behavior: HitTestBehavior.opaque,
+      onTap: () => Navigator.of(context).push(
+        SkyOverviewScreen.birthRoute(birthMoment: birthMoment),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(SpacingTokens.lg),
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          gradient: RadialGradient(colors: [
-            palette.deepest.withValues(alpha: 0.5),
-            ColorTokens.neutralDeepest.withValues(alpha: 0.0),
-          ]),
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+          gradient: RadialGradient(
+            center: const Alignment(-0.3, -0.4),
+            radius: 1.3,
+            colors: [
+              palette.surfaceElevated.withValues(alpha: 0.55),
+              palette.deepest.withValues(alpha: 0.4),
+            ],
+          ),
           border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(SpacingTokens.md),
-          child: ScaleTransition(
-            scale: Tween<double>(begin: 0.92, end: 1.0).animate(
-              CurvedAnimation(parent: enter, curve: Curves.easeOutCubic),
+        child: Row(
+          children: [
+            Container(
+              width: 46,
+              height: 46,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: palette.primary.withValues(alpha: 0.4),
+                border:
+                    Border.all(color: palette.gold.withValues(alpha: 0.6)),
+              ),
+              child: Icon(Icons.nights_stay_rounded,
+                  color: palette.goldSoft, size: 26),
             ),
-            child: ZodiacWheel(
-              color: palette.goldSoft,
-              highlight: sign,
+            const SizedBox(width: SpacingTokens.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Il tuo cielo di nascita',
+                      style: TypographyTokens.display(size: 18)
+                          .copyWith(color: palette.goldSoft)),
+                  const SizedBox(height: 2),
+                  Text(
+                    'La volta della tua prima notte, reale ed esplorabile. '
+                    'Tocca per aprirla a tutto schermo.',
+                    style: TypographyTokens.body(size: 13).copyWith(
+                        color: ColorTokens.textSecondary, height: 1.35),
+                  ),
+                ],
+              ),
             ),
-          ),
+            const SizedBox(width: SpacingTokens.sm),
+            Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+          ],
         ),
       ),
     );

@@ -51,7 +51,8 @@ void main() {
     expect(find.text('Sole in Gemelli'), findsOneWidget);
     // Luna e Ascendente entrambi provvisori.
     expect(find.byKey(const Key('reveal_provvisorio')), findsNWidgets(2));
-    expect(find.text('Questo cielo e\' solo tuo.'), findsOneWidget);
+    expect(find.text('Questo cielo è solo tuo.'), findsOneWidget);
+    expect(find.byKey(const Key('reveal_birth_sky')), findsOneWidget);
     expect(find.byKey(const Key('onboarding_enter')), findsOneWidget);
   });
 

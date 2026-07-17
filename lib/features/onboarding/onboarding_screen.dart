@@ -9,28 +9,29 @@ import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_place.dart';
 import '../../core/identity/circle_seal.dart';
 import '../../core/identity/profile_controller.dart';
-import '../../core/maestro/maestro.dart';
-import '../../core/rituals/daily_rituals.dart';
 import '../../design_system/components/zodiac_wheel.dart' show drawZodiacGlyph;
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../identity/seal_painter.dart';
-import '../santuario/greeting_controller.dart';
 import 'reveal_screen.dart';
 import 'risveglio_ignitions.dart';
 
 /// "Il Risveglio": la primissima soglia del cerchio, un rituale a passi sul
 /// cosmo, mostrato una sola volta al primo avvio prima del Santuario.
 ///
-/// Non piu' un semplice saluto: la Guida di turno del giorno accoglie, poi la
-/// persona attraversa i passi che compongono il suo cielo. La data, e nasce il
-/// Sole nel segno (reale, dalla tavola tropicale). L'ora, e sorge l'Ascendente
-/// (segnaposto dichiarato: il calcolo vero arrivera' dal motore a effemeridi);
-/// se non la sa, si salta con grazia. Il luogo, e il cielo si ancora alla Terra.
-/// Il nome. Il vocativo. Infine il sigillo, che pulsa come un cuore. Ogni passo
-/// ha la sua accensione disegnata dal codice, ridotta sotto Riduci Movimento.
+/// Non piu' un semplice saluto: il Cerchio accoglie, poi la persona attraversa i
+/// passi che compongono il suo cielo. La data, e nasce il Sole nel segno (reale,
+/// dalla tavola tropicale). L'ora, e sorge l'Ascendente (segnaposto dichiarato:
+/// il calcolo vero arrivera' dal motore a effemeridi); se non la sa, si salta con
+/// grazia. Il luogo, e il cielo si ancora alla Terra. Il nome. Il vocativo.
+/// Infine il sigillo, che pulsa come un cuore. Ogni passo ha la sua accensione
+/// disegnata dal codice, ridotta sotto Riduci Movimento.
+///
+/// Nessun Maestro compare qui: al Risveglio non e' ancora stato scelto, quindi
+/// nessun colore di Maestro. La base e' la tavolozza cosmica neutra del Cerchio
+/// (fondo nero, oro, nebulose viola): il Maestro si rivela solo alla fine.
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key, this.clock});
 
@@ -54,8 +55,10 @@ enum _Step { accoglienza, data, ora, luogo, nome, vocativo, sigillo }
 class _OnboardingScreenState extends State<OnboardingScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ignite;
-  late final Maestro _maestro;
-  late final MaestroPalette _palette;
+
+  // La tavolozza cosmica neutra del Cerchio: nessun accento di Maestro, che al
+  // Risveglio non e' ancora scelto. Fondo nero, oro, alone viola desaturato.
+  static const MaestroPalette _palette = MaestroPalette.neutral;
 
   _Step _step = _Step.accoglienza;
 
@@ -73,9 +76,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   void initState() {
     super.initState();
-    final now = (widget.clock ?? DateTime.now)();
-    _maestro = DailyRituals.dawnMaestro(now);
-    _palette = MaestroPalette.forKey(ThemeKey.of(_maestro));
     _ignite = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
@@ -177,15 +177,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               key: const Key('onboarding_risveglio'),
               children: [
                 const SizedBox(height: SpacingTokens.lg),
-                _Header(maestro: _maestro, palette: _palette),
-                if (_step != _Step.accoglienza) ...[
-                  const SizedBox(height: SpacingTokens.md),
+                if (_step != _Step.accoglienza)
                   _StepDots(
                     total: _Step.values.length - 1,
                     current: _step.index - 1,
                     palette: _palette,
                   ),
-                ],
                 Expanded(
                   child: AnimatedSwitcher(
                     duration: Duration(
@@ -224,19 +221,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     }
   }
 
-  // --- Passo 0: l'accoglienza della Guida di turno ---
+  // --- Passo 0: l'accoglienza del Cerchio, senza Maestro ---
   Widget _accoglienza() {
-    final greeting =
-        GreetingController.greetingFor(_maestro, 'Anima del Cerchio')
-            .replaceFirst('Anima del Cerchio, ', '');
     return _StepBody(
-      visual: _GuidaGlow(maestro: _maestro, palette: _palette, ignite: _ignite),
+      visual: _CosmicGlow(palette: _palette, ignite: _ignite),
       title: 'Il Risveglio',
       subtitle:
-          '${_maestro.displayName} ti accoglie sulla soglia. ${_capitalize(greeting)}',
+          'Sei sulla soglia del Cerchio. Comporremo insieme il tuo cielo, un '
+          'passo alla volta.',
       content: Text(
-        'Comporremo insieme il tuo cielo, un passo alla volta. Nulla di '
-        'inventato: quel che non si puo\' ancora calcolare resta marcato.',
+        'Nulla di inventato: quel che non si può ancora calcolare resta '
+        'marcato. La tua Guida si rivelerà solo alla fine.',
         textAlign: TextAlign.center,
         style: TypographyTokens.body(size: 14).copyWith(
           color: ColorTokens.textSecondary,
@@ -262,7 +257,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ),
       title: 'Quando hai visto la luce',
       subtitle:
-          'Dalla tua data nasce il Sole nel segno. Questo e\' reale, dalla '
+          'Dalla tua data nasce il Sole nel segno. Questo è reale, dalla '
           'tavola dei segni.',
       content: Column(
         children: [
@@ -295,7 +290,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       title: 'A che ora, se lo sai',
       subtitle:
           'Con l\'ora sorge l\'Ascendente all\'orizzonte. Il suo calcolo esatto '
-          'arriva dal motore a effemeridi, quindi per ora e\' un segnaposto.',
+          'arriva dal motore a effemeridi, quindi per ora è un segnaposto.',
       content: Column(
         children: [
           AnimatedOpacity(
@@ -325,7 +320,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             const SizedBox(height: SpacingTokens.sm),
             const _ProvvisorioNote(
               text:
-                  'Va bene cosi\'. Senza l\'ora l\'Ascendente si salta: il resto '
+                  'Va bene così. Senza l\'ora l\'Ascendente si salta: il resto '
                   'del tuo cielo resta saldo.',
             ),
           ] else
@@ -377,7 +372,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         ignite: _ignite,
       ),
       title: 'Come ti chiami',
-      subtitle: 'Il cerchio ti chiamera\' per nome, non con un\'etichetta.',
+      subtitle: 'Il cerchio ti chiamerà per nome, non con un\'etichetta.',
       content: TextField(
         key: const Key('risveglio_nome_field'),
         controller: _nameCtrl,
@@ -411,7 +406,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // --- Passo 5: il vocativo ---
   Widget _vocativoStep() {
     return _StepBody(
-      visual: _GuidaGlow(maestro: _maestro, palette: _palette, ignite: _ignite),
+      visual: _CosmicGlow(palette: _palette, ignite: _ignite),
       title: 'Come vuoi che ti parli',
       subtitle:
           'Sceglilo tu: accorderemo ogni frase al vocativo che preferisci.',
@@ -447,9 +442,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       cta: null,
     );
   }
-
-  static String _capitalize(String s) =>
-      s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';
 }
 
 // ------------------------------------------------------------------
@@ -520,45 +512,6 @@ class _StepBody extends StatelessWidget {
   }
 }
 
-/// L'intestazione col volto della Guida di turno, sempre presente.
-class _Header extends StatelessWidget {
-  const _Header({required this.maestro, required this.palette});
-
-  final Maestro maestro;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 40,
-          height: 40,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border:
-                Border.all(color: palette.gold.withValues(alpha: 0.7), width: 1.5),
-          ),
-          child: Image.asset(
-            maestro.avatarAsset,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) =>
-                Icon(Icons.auto_awesome, color: palette.goldSoft, size: 20),
-          ),
-        ),
-        const SizedBox(width: SpacingTokens.sm),
-        Text(
-          'La tua Guida, ${maestro.displayName}',
-          style: TypographyTokens.body(size: 13)
-              .copyWith(color: ColorTokens.textSecondary),
-        ),
-      ],
-    );
-  }
-}
-
 /// I pallini di avanzamento del rituale.
 class _StepDots extends StatelessWidget {
   const _StepDots({
@@ -593,15 +546,12 @@ class _StepDots extends StatelessWidget {
   }
 }
 
-/// Il volto della Guida in un alone che respira con l'accensione del passo.
-class _GuidaGlow extends StatelessWidget {
-  const _GuidaGlow({
-    required this.maestro,
-    required this.palette,
-    required this.ignite,
-  });
+/// Una soglia cosmica neutra che respira con l'accensione del passo: un cerchio
+/// d'oro con un alone viola desaturato e poche stelle. Nessun volto di Maestro,
+/// che al Risveglio non e' ancora scelto.
+class _CosmicGlow extends StatelessWidget {
+  const _CosmicGlow({required this.palette, required this.ignite});
 
-  final Maestro maestro;
   final MaestroPalette palette;
   final Animation<double> ignite;
 
@@ -610,37 +560,93 @@ class _GuidaGlow extends StatelessWidget {
     return Center(
       child: AnimatedBuilder(
         animation: ignite,
-        builder: (_, child) => Container(
-          width: 128,
-          height: 128,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: RadialGradient(colors: [
-              palette.primary.withValues(alpha: 0.6),
-              palette.deepest.withValues(alpha: 0.5),
-            ]),
-            border: Border.all(
-                color: palette.gold.withValues(alpha: 0.7), width: 2),
-            boxShadow: [
-              BoxShadow(
-                color: palette.glow.withValues(alpha: 0.4 * ignite.value),
-                blurRadius: 30,
-                spreadRadius: -6,
-              ),
-            ],
+        builder: (_, __) => SizedBox(
+          width: 150,
+          height: 150,
+          child: CustomPaint(
+            painter: _CosmicGlowPainter(palette: palette, t: ignite.value),
           ),
-          clipBehavior: Clip.antiAlias,
-          child: child,
-        ),
-        child: Image.asset(
-          maestro.avatarAsset,
-          fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) =>
-              Icon(Icons.auto_awesome, color: palette.goldSoft, size: 48),
         ),
       ),
     );
   }
+}
+
+/// Disegna la soglia cosmica: un anello d'oro, un alone viola desaturato che
+/// cresce con l'accensione, e poche stelle sparse. Base cosmica neutra, mai un
+/// colore di Maestro.
+class _CosmicGlowPainter extends CustomPainter {
+  _CosmicGlowPainter({required this.palette, required this.t});
+
+  final MaestroPalette palette;
+  final double t;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    final r = size.shortestSide * 0.34;
+
+    // Alone viola desaturato che respira con l'accensione.
+    canvas.drawCircle(
+      c,
+      r * 2.1,
+      Paint()
+        ..shader = RadialGradient(colors: [
+          palette.glow.withValues(alpha: 0.32 * t),
+          palette.primary.withValues(alpha: 0.12 * t),
+          const Color(0x00000000),
+        ], stops: const [
+          0.0,
+          0.5,
+          1.0
+        ]).createShader(Rect.fromCircle(center: c, radius: r * 2.1)),
+    );
+
+    // Poche stelle attorno, la volta che si intuisce.
+    final starPaint = Paint()..color = Colors.white.withValues(alpha: 0.8);
+    const stars = [
+      Offset(-0.9, -0.5), Offset(0.8, -0.7), Offset(1.05, 0.35),
+      Offset(-1.1, 0.4), Offset(0.2, -1.05), Offset(-0.35, 1.05),
+      Offset(0.75, 0.9),
+    ];
+    for (var i = 0; i < stars.length; i++) {
+      final p = c + stars[i] * r;
+      canvas.drawCircle(p, (i.isEven ? 1.4 : 0.9), starPaint);
+    }
+
+    // L'anello d'oro portante.
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..color = palette.gold.withValues(alpha: 0.85),
+    );
+    canvas.drawCircle(
+      c,
+      r * 0.72,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1
+        ..color = palette.goldSoft.withValues(alpha: 0.4),
+    );
+
+    // Un piccolo cuore di luce dorata al centro, che si accende.
+    canvas.drawCircle(
+      c,
+      r * 0.18,
+      Paint()
+        ..shader = RadialGradient(colors: [
+          palette.goldSoft.withValues(alpha: 0.9 * t),
+          palette.gold.withValues(alpha: 0.0),
+        ]).createShader(Rect.fromCircle(center: c, radius: r * 0.18)),
+    );
+  }
+
+  @override
+  bool shouldRepaint(_CosmicGlowPainter old) =>
+      old.t != t || old.palette != palette;
 }
 
 /// Il nome che si accende, come inciso.
@@ -942,7 +948,7 @@ class _AscendantProvvisorio extends StatelessWidget {
   Widget build(BuildContext context) {
     return const _ProvvisorioNote(
       text:
-          'L\'Ascendente esatto arriva col motore a effemeridi. Per ora e\' un '
+          'L\'Ascendente esatto arriva col motore a effemeridi. Per ora è un '
           'segnaposto, non una posizione vera.',
     );
   }
@@ -1022,7 +1028,7 @@ class _PlaceField extends StatelessWidget {
               .copyWith(color: palette.goldSoft),
           cursorColor: palette.goldSoft,
           decoration: InputDecoration(
-            hintText: 'Cerca la tua citta\'',
+            hintText: 'Cerca la tua città',
             hintStyle: TypographyTokens.body(size: 16)
                 .copyWith(color: ColorTokens.textSecondary),
             prefixIcon: Icon(Icons.search_rounded, color: palette.goldSoft),
@@ -1095,7 +1101,7 @@ class _PlaceField extends StatelessWidget {
             controller.text.trim().length >= 2) ...[
           const SizedBox(height: SpacingTokens.sm),
           Text(
-            'Non e\' in elenco? Scegli la citta\' grande piu\' vicina: '
+            'Non è in elenco? Scegli la città grande più vicina: '
             'il cielo si ancora comunque.',
             textAlign: TextAlign.center,
             style: TypographyTokens.body(size: 12)
