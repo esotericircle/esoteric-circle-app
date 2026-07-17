@@ -17,7 +17,7 @@ const FREEASTRO_API_KEY = defineSecret("FREEASTRO_API_KEY");
  * (freeastroapi.com oppure api.freeastroapi.com): sta in un'unica costante,
  * cosi' si aggiorna in un punto solo.
  */
-const FREEASTRO_BASE_URL = "https://freeastroapi.com";
+const FREEASTRO_BASE_URL = "https://api.freeastroapi.com";
 const NATAL_PATH = "/api/v1/natal/calculate";
 
 /** Timeout della chiamata verso FreeAstroAPI. */
