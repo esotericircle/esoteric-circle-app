@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:cloud_functions/cloud_functions.dart';
 
-import '../core/astro/api_config.dart';
 import '../core/astro/birth_details.dart';
 import '../core/astro/natal_chart.dart';
 import '../core/astro/zodiac.dart';
@@ -17,40 +16,45 @@ class AstroApiException implements Exception {
   String toString() => 'AstroApiException($statusCode): $message';
 }
 
+/// Trasporto verso il motore astrologico: prende il payload dei dati di nascita
+/// e restituisce il JSON grezzo della carta. In produzione e' la callable
+/// Firebase; nei test si inietta una funzione finta, senza rete ne Firebase.
+typedef NatalChartCaller = Future<Object?> Function(Map<String, Object?> data);
+
 /// Client del motore astrologico su effemeridi svizzere (FreeAstroAPI).
 ///
-/// Endpoint reale: POST /api/v1/natal/calculate su api.freeastroapi.com, con
-/// la chiave nell'header `x-api-key`. La chiave si legge da `AstroApiConfig`
-/// (variabile d'ambiente), mai dal codice. Il client e' iniettabile con un
-/// `http.Client` per i test con API simulata.
+/// La chiave NON vive piu' nel client: la carta passa dalla callable Firebase
+/// "natalChart" in europe-west1, che tiene la chiave in Secret Manager ed e'
+/// protetta da App Check. Il client invia i dati di nascita e riceve il JSON di
+/// FreeAstroAPI, che interpreta con lo stesso parsing di prima. Il trasporto e'
+/// iniettabile ([caller]) per i test con callable simulata.
 class FreeAstroClient {
-  FreeAstroClient({
-    http.Client? httpClient,
-    String? apiKey,
-    String baseUrl = AstroApiConfig.baseUrl,
-    this.endpointPath = '/api/v1/natal/calculate',
-    this.timeout = const Duration(seconds: 15),
-  })  : _http = httpClient ?? http.Client(),
-        _apiKey = apiKey ?? AstroApiConfig.apiKey,
-        _baseUrl = baseUrl;
+  FreeAstroClient({NatalChartCaller? caller})
+      : _caller = caller ?? _firebaseCaller;
 
-  final http.Client _http;
-  final String? _apiKey;
-  final String _baseUrl;
-  final String endpointPath;
-  final Duration timeout;
+  final NatalChartCaller _caller;
 
-  bool get hasKey => _apiKey != null && _apiKey.isNotEmpty;
+  /// La chiave e' lato server: dal punto di vista dell'app il servizio e'
+  /// configurato, e un eventuale fallimento e' transitorio (rete o motore).
+  bool get hasKey => true;
 
-  /// Calcola la carta natale chiamando l'API. Solleva `AstroApiException` se la
-  /// chiave manca, la rete fallisce o la risposta non e' interpretabile.
+  /// Chiamata reale: la callable Firebase in europe-west1. La regione e' fissa e
+  /// coincide con quella della function; App Check e' imposto lato server.
+  static Future<Object?> _firebaseCaller(Map<String, Object?> data) async {
+    final callable = FirebaseFunctions.instanceFor(region: 'europe-west1')
+        .httpsCallable(
+      'natalChart',
+      options: HttpsCallableOptions(timeout: const Duration(seconds: 20)),
+    );
+    final res = await callable.call<Object?>(data);
+    return res.data;
+  }
+
+  /// Calcola la carta natale via callable. Solleva `AstroApiException` se la
+  /// chiamata fallisce o la risposta non e' interpretabile, cosi' il controller
+  /// puo' ripiegare sul cielo essenziale.
   Future<NatalChart> fetchNatalChart(BirthDetails details) async {
-    final key = _apiKey;
-    if (key == null || key.isEmpty) {
-      throw const AstroApiException('Chiave API non configurata.');
-    }
-
-    final body = jsonEncode({
+    final payload = <String, Object?>{
       'year': details.date.year,
       'month': details.date.month,
       'day': details.date.day,
@@ -59,34 +63,23 @@ class FreeAstroClient {
       'lat': details.place.latitude,
       'lng': details.place.longitude,
       'tz_str': details.place.timezone,
-    });
+    };
 
-    late http.Response res;
+    Object? raw;
     try {
-      res = await _http
-          .post(
-            Uri.parse('$_baseUrl$endpointPath'),
-            headers: {
-              'x-api-key': key,
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-            },
-            body: body,
-          )
-          .timeout(timeout);
+      raw = await _caller(payload);
     } catch (_) {
       throw const AstroApiException('Il cielo non risponde in questo momento.');
     }
 
-    if (res.statusCode != 200) {
-      throw AstroApiException(
-        'Il motore astrologico ha risposto con un imprevisto.',
-        statusCode: res.statusCode,
-      );
-    }
-
     try {
-      return _parse(jsonDecode(res.body) as Map<String, dynamic>, details);
+      // La callable puo' restituire mappe con chiavi dinamiche: si normalizza
+      // via JSON alla forma Map<String, dynamic> attesa dal parsing.
+      final json = jsonDecode(jsonEncode(raw));
+      if (json is! Map<String, dynamic>) {
+        throw const AstroApiException('La risposta del cielo non e\' leggibile.');
+      }
+      return _parse(json, details);
     } catch (e) {
       if (e is AstroApiException) rethrow;
       throw const AstroApiException('La risposta del cielo non e\' leggibile.');
@@ -263,6 +256,4 @@ class FreeAstroClient {
     'chiron': ('Chirone', '⚷'),
     'lilith': ('Lilith', '⚸'),
   };
-
-  void dispose() => _http.close();
 }

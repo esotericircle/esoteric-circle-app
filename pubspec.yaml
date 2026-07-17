@@ -52,6 +52,12 @@ dependencies:
   # astrazione del repository di memoria.
   cloud_firestore: 6.6.0
 
+  # Cloud Functions: la carta natale passa dalla callable "natalChart" in
+  # europe-west1, che tiene la chiave FreeAstroAPI in Secret Manager (mai nel
+  # client) ed e' protetta da App Check. Versione fissata come gli altri plugin
+  # Firebase per restare sul platform interface 7.x.
+  cloud_functions: 6.3.3
+
   # Preferenze locali del dispositivo: qui tiene stabile il token di debug di
   # App Check, cosi' resta lo stesso fra un avvio e l'altro.
   shared_preferences: ^2.5.5
@@ -63,11 +69,6 @@ dependencies:
   # audio. Con ripiego tattile se il permesso manca o il device non ha il
   # microfono. Nessuna registrazione salvata, solo l'ampiezza in tempo reale.
   record: 5.2.1
-
-  # HTTP: usato dal client FreeAstroAPI per la carta natale reale. La chiave sta
-  # nell'ambiente (FREEASTRO_API_KEY), mai nel codice; senza chiave si ripiega
-  # sul cielo essenziale, senza rete.
-  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
