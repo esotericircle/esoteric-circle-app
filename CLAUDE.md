@@ -2,6 +2,17 @@
 
 Questo file e' letto automaticamente da Claude Code all'apertura del repository. Definisce come si lavora su questo progetto. La fonte di verita' completa sono i quattro briefing in `docs/`. In caso di dubbio, i briefing prevalgono su questo riassunto e non vanno mai condensati ne modificati senza conferma esplicita di Mauro.
 
+## Protocollo Verita' e Memoria, si applica sempre, prima di tutto
+
+Questa e' la regola che viene prima di ogni altra, per Claude Code e per l'Architetto in Cowork. Serve a chiudere per sempre il problema delle dimenticanze e delle affermazioni a memoria.
+
+1. All'apertura, leggi `docs/STATO_VIVO.md`. E' lo stato vivo del progetto, la fonte mutabile canonica. La sua copia gemella e' MEMORIA_E_STATO nel Project di Mauro. Le due copie vanno tenute allineate.
+2. Prima di affermare cosa e' fatto, cosa manca, cosa esiste o quanti sono, VERIFICA sul filesystem e sul repo. Apri il file, conta la cartella, guarda il branch. Non rispondere mai a memoria ne a stima. Quando dai un dato, sappi da dove viene.
+3. Distingui sempre tre stati per un asset o una funzione: prodotto, agganciato al codice, verificato a video. Non confonderli.
+4. Se un lavoro sembra perso, cercalo sugli altri branch prima di dire che non esiste o di reimplementarlo.
+5. Al termine di un task, aggiorna `docs/STATO_VIVO.md` integrando la novita' nella sezione giusta, mai come addendum, senza condensare il resto.
+6. Per i controlli di stato pesanti esiste l'agente `custode-memoria` in `.claude/agents/`. Invocalo all'inizio per farti dare lo stato reale verificato, e alla fine per far aggiornare STATO_VIVO. Il suo unico compito e' tenere vera la memoria.
+
 ## Cosa stai costruendo
 
 Esoteric Circle, app nativa Flutter con un solo codebase per iOS e Android, primo ecosistema esoterico completo (astrologia, cartomanzia, chakra, rituali, rune, Cabala) guidato da tre Maestri AI con memoria persistente. Non esiste una demo separata: si sviluppa direttamente l'app definitiva con il pattern del feature flagging. Le funzioni non ancora pronte restano visibili ma in grigio con badge Coming soon. Lo stato dell'app a un certo punto dello sviluppo (checkpoint C6) e' cio' che si presenta a Google, ed e' gia' il codice della nativa finale.
@@ -56,5 +67,6 @@ C1. Vedi lo scope dettagliato e la mappa completa dei checkpoint in `docs/HANDOF
 
 ## Dove guardare
 
+- `docs/STATO_VIVO.md`: lo stato vivo del progetto, da leggere per primo e aggiornare dopo ogni task.
 - `docs/HANDOFF_FASE_C.md`: dossier operativo di handoff (repo, feature flag, manifest asset, scope C1, stato Fasi A e B).
 - `docs/` i quattro briefing definitivi, fonte di verita' assoluta.
