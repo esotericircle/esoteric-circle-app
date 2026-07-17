@@ -11,8 +11,12 @@ import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
-import 'package:esoteric_circle/core/identity/birth_identity.dart';
-import 'package:esoteric_circle/core/identity/birth_place.dart';
+import 'package:esoteric_circle/core/astro/birth_details.dart';
+import 'package:esoteric_circle/core/astro/birth_place.dart' as astro;
+import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
+import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/identity/identity_controller.dart';
+import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -21,10 +25,11 @@ import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/design_system/components/immersive_scaffold.dart';
 import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
+import 'package:esoteric_circle/features/onboarding/birth_sky_hero.dart';
+import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
-import 'package:esoteric_circle/features/onboarding/reveal_screen.dart';
-import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
@@ -849,12 +854,18 @@ void main() {
           providers: [
             ChangeNotifierProvider(create: (_) => ProfileController()),
             ChangeNotifierProvider(create: (_) => OnboardingController()),
+            // Il Risveglio ora poggia sul cosmo profondo: servono i controller
+            // che lo animano (fermo sotto Riduci Movimento) e il tema neutro.
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ZodiacController()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             builder: (ctx, child) => MediaQuery(
               data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
-              child: child!,
+              child: MaestroScope(child: child!),
             ),
             home: OnboardingScreen(clock: clock),
           ),
@@ -930,98 +941,119 @@ void main() {
     await capture(tester, rootKey, 'risveglio-sigillo.png');
   });
 
-  testWidgets('Cattura la rivelazione del cielo', (tester) async {
+  // Il ponte per le catture della coda: dai dati di nascita nascono la carta
+  // (essenziale senza chiave API) e i fatti identitari, come nel Risveglio.
+  Future<
+      ({
+        NatalChartController chart,
+        IdentityController ident,
+        BirthIdentityController birth,
+        BirthDetails details,
+      })> natalBridge(WidgetTester tester) async {
+    final details = BirthDetails(
+      date: DateTime(1990, 6, 15),
+      time: const TimeOfDay(hour: 2, minute: 30),
+      place: const astro.BirthPlace(
+        label: 'Roma',
+        latitude: 41.9,
+        longitude: 12.5,
+        timezone: 'Europe/Rome',
+      ),
+      gender: Gender.female,
+    );
+    final chart = NatalChartController();
+    await tester.runAsync(() => chart.compute(details));
+    final birth = BirthIdentityController()..setBirth(details, chart.chart);
+    final ident = IdentityController()
+      ..setName('Sofia')
+      ..setForm(AddressForm.feminine);
+    return (chart: chart, ident: ident, birth: birth, details: details);
+  }
+
+  Widget natalHost({required Widget home}) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      builder: (ctx, child) => MediaQuery(
+        data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+        child: MaestroScope(child: child!),
+      ),
+      home: home,
+    );
+  }
+
+  testWidgets('Cattura il cielo reale di nascita', (tester) async {
     silenceSensors();
     await loadFonts();
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(390, 844);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    final profile = ProfileController(
-      profile: const UserProfile(
-          displayName: 'Sofia', courtesyForm: CourtesyForm.feminine),
-      identity: BirthIdentity.fromParts(
-        birthDate: DateTime(1990, 6, 15),
-        birthHour: 2,
-        birthMinute: 30,
-        birthPlace: const BirthPlace(
-          city: 'Roma',
-          latitude: 41.9,
-          longitude: 12.5,
-          timeZoneId: 'Europe/Rome',
-          utcOffsetMinutes: 60,
-        ),
-      ),
-    );
+    final b = await natalBridge(tester);
     final rootKey = GlobalKey();
     await tester.pumpWidget(
       RepaintBoundary(
         key: rootKey,
         child: MultiProvider(
           providers: [
-            ChangeNotifierProvider<ProfileController>.value(value: profile),
-            ChangeNotifierProvider(create: (_) => OnboardingController()),
+            ChangeNotifierProvider<IdentityController>.value(value: b.ident),
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ZodiacController()),
           ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            builder: (ctx, child) => MediaQuery(
-              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
-              child: child!,
+          child: natalHost(
+            home: ImmersiveScaffold(
+              child: BirthSkyHero(details: b.details, onContinue: () {}),
             ),
-            home: RevealScreen(clock: () => DateTime(2026, 7, 15)),
           ),
         ),
       ),
     );
-    await tester.pumpAndSettle();
-    await tester.runAsync(() async {
-      final element = tester.element(find.byType(MaterialApp));
-      for (final m in Maestro.values) {
-        await precacheImage(AssetImage(m.avatarAsset), element);
-      }
-    });
-    await tester.pumpAndSettle();
-    await capture(tester, rootKey, 'risveglio-rivelazione.png');
+    // BirthSkyHero pulsa in continuo: non si attende l'idle, si pompano pochi
+    // frame per far posare la scena, poi si cattura.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await capture(tester, rootKey, 'cielo-nascita.png');
   });
 
-  testWidgets('Cattura il cielo reale di nascita a tutto schermo',
+  testWidgets('Cattura la carta natale, ruota ornata e legenda',
       (tester) async {
     silenceSensors();
     await loadFonts();
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(390, 844);
+    tester.view.physicalSize = const Size(390, 900);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    // Il cielo di nascita e' lo stesso motore del cielo di stanotte: MaestroScope
-    // con controller neutro (nessun Maestro), parallasse ferma sotto Riduci
-    // Movimento. Momento fisso per una cattura deterministica.
+    final b = await natalBridge(tester);
     final rootKey = GlobalKey();
     await tester.pumpWidget(
       RepaintBoundary(
         key: rootKey,
         child: MultiProvider(
           providers: [
+            ChangeNotifierProvider<NatalChartController>.value(value: b.chart),
+            ChangeNotifierProvider<BirthIdentityController>.value(
+                value: b.birth),
+            ChangeNotifierProvider<IdentityController>.value(value: b.ident),
             ChangeNotifierProvider(create: (_) => MaestroController()),
             ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ZodiacController()),
           ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            builder: (ctx, child) => MediaQuery(
-              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
-              child: child!,
-            ),
-            home: MaestroScope(
-              child: SkyOverviewScreen(
-                now: DateTime(1990, 6, 15, 2, 30),
-                birth: true,
-              ),
+          child: natalHost(
+            home: ImmersiveScaffold(
+              child: NatalChartReveal(onContinue: () {}),
             ),
           ),
         ),
       ),
     );
-    await tester.pumpAndSettle();
-    await capture(tester, rootKey, 'cielo-nascita.png');
+    // La legenda ha micro-animazioni: pochi frame invece dell'idle.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await capture(tester, rootKey, 'carta-natale.png');
   });
 }
 

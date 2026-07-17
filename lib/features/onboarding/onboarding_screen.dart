@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/astro/birth_details.dart';
+import '../../core/astro/birth_place.dart' as astro;
 import '../../core/astro/city_catalog.dart';
 import '../../core/astro/night_sky.dart';
 import '../../core/astro/zodiac.dart';
@@ -8,15 +10,18 @@ import '../../core/chat/user_profile.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_place.dart';
 import '../../core/identity/circle_seal.dart';
+import '../../core/identity/identity_controller.dart';
 import '../../core/identity/profile_controller.dart';
+import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/zodiac_wheel.dart' show drawZodiacGlyph;
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../identity/seal_painter.dart';
-import 'reveal_screen.dart';
 import 'risveglio_ignitions.dart';
+import 'risveglio_journey.dart';
 
 /// "Il Risveglio": la primissima soglia del cerchio, un rituale a passi sul
 /// cosmo, mostrato una sola volta al primo avvio prima del Santuario.
@@ -39,8 +44,10 @@ class OnboardingScreen extends StatefulWidget {
   final DateTime Function()? clock;
 
   static Route<void> route({DateTime Function()? clock}) {
+    // Il cosmo di fondo legge la palette dal MaestroScope: la rotta lo porta con
+    // se', cosi' vive anche fuori dalla home (dove sta l'altro MaestroScope).
     return MaterialPageRoute<void>(
-      builder: (_) => OnboardingScreen(clock: clock),
+      builder: (_) => MaestroScope(child: OnboardingScreen(clock: clock)),
       fullscreenDialog: false,
     );
   }
@@ -129,17 +136,79 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     }
   }
 
-  /// Sigilla il rito: salva profilo e identita', poi mostra la rivelazione del
-  /// cielo, che a sua volta entra nel Cerchio.
+  /// Sigilla il rito: salva il profilo (fonte unica), costruisce il ponte verso
+  /// il motore della carta natale e apre la coda del Risveglio (cielo reale,
+  /// carta, risonanza, rivelazione del Maestro).
   void _finish() {
+    final courtesy = _courtesy ?? CourtesyForm.neutral;
+    final name = _nameCtrl.text.trim();
+
+    // Fonte unica d'identita': il Risveglio scrive nel ProfileController e nel
+    // IdentityController (nome e forma), senza raccogliere nulla due volte.
     final profile = context.read<ProfileController>();
     profile.setProfile(UserProfile(
-      displayName: _nameCtrl.text.trim().isEmpty ? null : _nameCtrl.text.trim(),
-      courtesyForm: _courtesy ?? CourtesyForm.neutral,
+      displayName: name.isEmpty ? null : name,
+      courtesyForm: courtesy,
     ));
     profile.setIdentity(_identity);
+
+    final ident = context.read<IdentityController>();
+    ident.setName(name);
+    ident.setForm(_addressForm(courtesy));
+
+    // Ponte: dai dati raccolti nasce il BirthDetails che alimenta la carta.
+    final details = BirthDetails(
+      date: _birthDate,
+      time: _timeKnown ? TimeOfDay(hour: _hour, minute: _minute) : null,
+      place: _placeForChart(),
+      gender: _genderFor(courtesy),
+    );
     Navigator.of(context)
-        .pushReplacement(RevealScreen.route(clock: widget.clock));
+        .pushReplacement(RisveglioJourney.route(details: details));
+  }
+
+  // Il luogo per la carta: quello scelto, o un ripiego neutro sul meridiano
+  // zero, cosi' la carta essenziale (Sole dalla data) si calcola comunque.
+  astro.BirthPlace _placeForChart() {
+    final p = _place;
+    if (p != null) {
+      return astro.BirthPlace(
+        label: p.city,
+        latitude: p.latitude,
+        longitude: p.longitude,
+        timezone: p.timeZoneId,
+      );
+    }
+    return const astro.BirthPlace(
+      label: 'Luogo non indicato',
+      latitude: 0,
+      longitude: 0,
+      timezone: 'UTC',
+    );
+  }
+
+  static AddressForm _addressForm(CourtesyForm c) {
+    switch (c) {
+      case CourtesyForm.feminine:
+        return AddressForm.feminine;
+      case CourtesyForm.masculine:
+        return AddressForm.masculine;
+      case CourtesyForm.neutral:
+      case CourtesyForm.unknown:
+        return AddressForm.neutral;
+    }
+  }
+
+  static Gender _genderFor(CourtesyForm c) {
+    switch (c) {
+      case CourtesyForm.feminine:
+        return Gender.female;
+      case CourtesyForm.masculine:
+        return Gender.male;
+      case CourtesyForm.neutral:
+      case CourtesyForm.unknown:
+        return Gender.unspecified;
+    }
   }
 
   void _searchPlace(String query) {
@@ -159,17 +228,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorTokens.neutralDeepest,
-      body: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: RadialGradient(
-            center: const Alignment(0, -0.4),
-            radius: 1.2,
-            colors: [
-              _palette.surfaceElevated.withValues(alpha: 0.55),
-              ColorTokens.neutralDeepest,
-            ],
-          ),
-        ),
+      // Il fondo di tutto e' il cosmo profondo, neutro al Risveglio: nessun
+      // colore di Maestro, che si sceglie solo alla risonanza. Le costellazioni
+      // zodiacali restano spente qui, per non affollare i passi del rito.
+      body: CosmosBackground(
+        showZodiac: false,
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xl),

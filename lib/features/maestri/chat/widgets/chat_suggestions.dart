@@ -255,17 +255,20 @@ class _SegmentedControl extends StatelessWidget {
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
         border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          for (final group in SuggestionGroup.values)
-            _Segment(
-              label: group.label,
-              selected: group == value,
-              onTap: () => onChanged(group),
-              palette: palette,
-            ),
-        ],
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final group in SuggestionGroup.values)
+              _Segment(
+                label: group.label,
+                selected: group == value,
+                onTap: () => onChanged(group),
+                palette: palette,
+              ),
+          ],
+        ),
       ),
     );
   }

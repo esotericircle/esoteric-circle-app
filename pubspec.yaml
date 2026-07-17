@@ -64,6 +64,11 @@ dependencies:
   # microfono. Nessuna registrazione salvata, solo l'ampiezza in tempo reale.
   record: 5.2.1
 
+  # HTTP: usato dal client FreeAstroAPI per la carta natale reale. La chiave sta
+  # nell'ambiente (FREEASTRO_API_KEY), mai nel codice; senza chiave si ripiega
+  # sul cielo essenziale, senza rete.
+  http: ^1.2.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -78,6 +83,7 @@ flutter:
   # Asset consumati a runtime.
   assets:
     - assets/
+    - assets/data/
     - assets/fonts/
     - assets/ritual_backgrounds/
     - brand_assets/avatars/

@@ -42,7 +42,7 @@ void main() {
     await settle(tester);
   }
 
-  testWidgets('Primo avvio: attraversa Il Risveglio ed entra nel Santuario',
+  testWidgets('Primo avvio: attraversa Il Risveglio e apre il cielo di nascita',
       (tester) async {
     silenceSensors();
     // Nessun flag salvato: e' la primissima apertura.
@@ -72,23 +72,16 @@ void main() {
     await settle(tester);
     await tapContinua(tester); // vocativo -> sigillo
 
-    // Il sigillo si tiene premuto per sigillare il rito e aprire la rivelazione.
+    // Il sigillo si tiene premuto per sigillare il rito: si apre la coda del
+    // Risveglio col cielo reale di nascita (BirthSkyHero), da cui si legge la
+    // carta natale ornata.
     expect(find.byKey(const Key('risveglio_sigillo')), findsOneWidget);
     await tester.longPress(find.byKey(const Key('risveglio_sigillo')));
     await settle(tester);
 
-    // La rivelazione chiama per nome, apre il portale del cielo reale di
-    // nascita e mostra i tre pilastri.
-    expect(find.byKey(const Key('reveal_screen')), findsOneWidget);
-    expect(find.textContaining('Marco'), findsWidgets);
-    expect(find.byKey(const Key('reveal_birth_sky')), findsOneWidget);
-    expect(find.text('Questo cielo è solo tuo.'), findsOneWidget);
-
-    // Entra nel Cerchio: si approda al Santuario, il rito non c'e' piu'.
-    await tester.tap(find.byKey(const Key('onboarding_enter')));
-    await settle(tester);
-    expect(find.byKey(const Key('reveal_screen')), findsNothing);
-    expect(find.byType(SantuarioScreen), findsOneWidget);
+    // Il rito a passi non c'e' piu'; il cielo reale di nascita e' in scena.
+    expect(find.byKey(const Key('onboarding_risveglio')), findsNothing);
+    expect(find.text('Leggi la tua carta'), findsOneWidget);
   });
 
   testWidgets('Aperture successive vanno dirette al Santuario', (tester) async {
