@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Il primo avvio mostra l'onboarding "Il Risveglio", poi il Santuario come
-/// home; le aperture successive vanno dirette al Santuario.
+/// Il primo avvio mostra il rituale "Il Risveglio" a passi, poi il Santuario
+/// come home; le aperture successive vanno dirette al Santuario.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -36,7 +36,13 @@ void main() {
     }
   }
 
-  testWidgets('Primo avvio: mostra Il Risveglio, poi entra nel Santuario',
+  // Avanza di un passo toccando l'invito a proseguire.
+  Future<void> tapContinua(WidgetTester tester) async {
+    await tester.tap(find.byKey(const Key('onboarding_continue')));
+    await settle(tester);
+  }
+
+  testWidgets('Primo avvio: attraversa Il Risveglio ed entra nel Santuario',
       (tester) async {
     silenceSensors();
     // Nessun flag salvato: e' la primissima apertura.
@@ -44,15 +50,42 @@ void main() {
     await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
     await settle(tester);
 
-    // L'onboarding e' in cima, sopra la home.
+    // Il rituale e' in cima, sopra la home, e apre con l'accoglienza.
     expect(find.byKey(const Key('onboarding_risveglio')), findsOneWidget);
     expect(find.text('Il Risveglio'), findsOneWidget);
 
-    // Un tocco entra nel Santuario, che resta la home.
-    await tester.tap(find.byKey(const Key('onboarding_enter')));
+    // Accoglienza -> data -> ora -> luogo (saltato) -> nome.
+    await tapContinua(tester); // dall'accoglienza alla data
+    expect(find.textContaining('Sole in'), findsOneWidget); // segno reale
+    await tapContinua(tester); // data -> ora
+    await tapContinua(tester); // ora -> luogo
+    await tapContinua(tester); // luogo saltato -> nome
+
+    // Il nome sblocca il proseguimento.
+    await tester.enterText(
+        find.byKey(const Key('risveglio_nome_field')), 'Marco');
+    await settle(tester);
+    await tapContinua(tester); // nome -> vocativo
+
+    // Il vocativo.
+    await tester.tap(find.byKey(const Key('vocativo_lui')));
+    await settle(tester);
+    await tapContinua(tester); // vocativo -> sigillo
+
+    // Il sigillo si tiene premuto per sigillare il rito e aprire la rivelazione.
+    expect(find.byKey(const Key('risveglio_sigillo')), findsOneWidget);
+    await tester.longPress(find.byKey(const Key('risveglio_sigillo')));
     await settle(tester);
 
-    expect(find.byKey(const Key('onboarding_risveglio')), findsNothing);
+    // La rivelazione chiama per nome e mostra il cielo coi tre pilastri.
+    expect(find.byKey(const Key('reveal_screen')), findsOneWidget);
+    expect(find.textContaining('Marco'), findsWidgets);
+    expect(find.text('Questo cielo e\' solo tuo.'), findsOneWidget);
+
+    // Entra nel Cerchio: si approda al Santuario, il rito non c'e' piu'.
+    await tester.tap(find.byKey(const Key('onboarding_enter')));
+    await settle(tester);
+    expect(find.byKey(const Key('reveal_screen')), findsNothing);
     expect(find.byType(SantuarioScreen), findsOneWidget);
   });
 

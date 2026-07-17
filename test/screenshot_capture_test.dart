@@ -11,12 +11,18 @@ import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'package:esoteric_circle/core/identity/birth_identity.dart';
+import 'package:esoteric_circle/core/identity/birth_place.dart';
+import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
+import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
+import 'package:esoteric_circle/features/onboarding/reveal_screen.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
@@ -822,6 +828,158 @@ void main() {
       await capture(tester, rootKey, '$id-chat-vuoto.png');
     });
   }
+
+  // --- Il Risveglio, rituale a passi, e la rivelazione del cielo ---
+  // Riduci Movimento attivo su tutte le route: accensioni e ruota gia' compiute
+  // e ferme alla cattura, cosi' l'anteprima e' netta e deterministica.
+  Future<GlobalKey> mountRisveglio(WidgetTester tester,
+      {DateTime Function()? clock}) async {
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => ProfileController()),
+            ChangeNotifierProvider(create: (_) => OnboardingController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: child!,
+            ),
+            home: OnboardingScreen(clock: clock),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      for (final m in Maestro.values) {
+        await precacheImage(AssetImage(m.avatarAsset), element);
+      }
+    });
+    await tester.pumpAndSettle();
+    return rootKey;
+  }
+
+  Future<void> continua(WidgetTester tester) async {
+    await tester.tap(find.byKey(const Key('onboarding_continue')));
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('Cattura il Risveglio, la data col Sole nel segno',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    await continua(tester); // accoglienza -> data
+    await capture(tester, rootKey, 'risveglio-data.png');
+  });
+
+  testWidgets('Cattura il Risveglio, l\'ora e l\'Ascendente', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    await continua(tester); // -> data
+    await continua(tester); // -> ora
+    await capture(tester, rootKey, 'risveglio-ora.png');
+  });
+
+  testWidgets('Cattura il Risveglio, il luogo offline', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    await continua(tester); // -> data
+    await continua(tester); // -> ora
+    await continua(tester); // -> luogo
+    await tester.enterText(
+        find.byKey(const Key('risveglio_luogo_field')), 'Roma');
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'risveglio-luogo.png');
+  });
+
+  testWidgets('Cattura il Risveglio, il sigillo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    await continua(tester); // -> data
+    await continua(tester); // -> ora
+    await continua(tester); // -> luogo
+    await continua(tester); // -> nome
+    await tester.enterText(
+        find.byKey(const Key('risveglio_nome_field')), 'Sofia');
+    await tester.pumpAndSettle();
+    await continua(tester); // -> vocativo
+    await tester.tap(find.byKey(const Key('vocativo_lei')));
+    await tester.pumpAndSettle();
+    await continua(tester); // -> sigillo
+    await capture(tester, rootKey, 'risveglio-sigillo.png');
+  });
+
+  testWidgets('Cattura la rivelazione del cielo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final profile = ProfileController(
+      profile: const UserProfile(
+          displayName: 'Sofia', courtesyForm: CourtesyForm.feminine),
+      identity: BirthIdentity.fromParts(
+        birthDate: DateTime(1990, 6, 15),
+        birthHour: 2,
+        birthMinute: 30,
+        birthPlace: const BirthPlace(
+          city: 'Roma',
+          latitude: 41.9,
+          longitude: 12.5,
+          timeZoneId: 'Europe/Rome',
+          utcOffsetMinutes: 60,
+        ),
+      ),
+    );
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider<ProfileController>.value(value: profile),
+            ChangeNotifierProvider(create: (_) => OnboardingController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: child!,
+            ),
+            home: RevealScreen(clock: () => DateTime(2026, 7, 15)),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      for (final m in Maestro.values) {
+        await precacheImage(AssetImage(m.avatarAsset), element);
+      }
+    });
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'risveglio-rivelazione.png');
+  });
 }
 
 /// Maestro offline: risponde con un testo fisso, senza rete.

@@ -21,6 +21,48 @@ enum CourtesyForm {
     }
     return CourtesyForm.unknown;
   }
+
+  /// Etichetta della scelta all'onboarding, come la vede la persona.
+  String get vocativeLabel {
+    switch (this) {
+      case CourtesyForm.masculine:
+        return 'Lui';
+      case CourtesyForm.feminine:
+        return 'Lei';
+      case CourtesyForm.neutral:
+      case CourtesyForm.unknown:
+        return 'Neutro';
+    }
+  }
+
+  /// Concorda un testo al vocativo scelto. Al maschile usa [masculine], al
+  /// femminile [feminine]; per il neutro e per la scelta non ancora fatta usa
+  /// [neutral], una forma senza desinenza di genere (per esempio "ti do il
+  /// benvenuto" invece di "benvenuto/benvenuta"). Cosi' il vocativo pilota le
+  /// concordanze dei testi in tutta l'app.
+  String agree({
+    required String masculine,
+    required String feminine,
+    required String neutral,
+  }) {
+    switch (this) {
+      case CourtesyForm.masculine:
+        return masculine;
+      case CourtesyForm.feminine:
+        return feminine;
+      case CourtesyForm.neutral:
+      case CourtesyForm.unknown:
+        return neutral;
+    }
+  }
+
+  /// Il benvenuto concordato: "Benvenuto", "Benvenuta", o la forma neutra "Ti
+  /// do il benvenuto". Scorciatoia dell'uso piu' frequente di [agree].
+  String get welcome => agree(
+        masculine: 'Benvenuto',
+        feminine: 'Benvenuta',
+        neutral: 'Ti do il benvenuto',
+      );
 }
 
 /// Profilo persistente dell'utente, condiviso fra tutti i Maestri.

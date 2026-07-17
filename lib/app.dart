@@ -42,7 +42,7 @@ class EsotericCircleApp extends StatelessWidget {
       providers: [
         Provider<AppServices>.value(value: runtime),
         ChangeNotifierProvider(create: (_) => MaestroController()),
-        ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()..load()),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()..load()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
