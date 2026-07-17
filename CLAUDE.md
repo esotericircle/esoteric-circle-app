@@ -6,7 +6,7 @@ Questo file e' letto automaticamente da Claude Code all'apertura del repository.
 
 Questa e' la regola che viene prima di ogni altra, per Claude Code e per l'Architetto in Cowork. Serve a chiudere per sempre il problema delle dimenticanze e delle affermazioni a memoria.
 
-1. All'apertura, leggi `docs/STATO_VIVO.md`. E' lo stato vivo del progetto, la fonte mutabile canonica. La sua copia gemella e' MEMORIA_E_STATO nel Project di Mauro. Le due copie vanno tenute allineate.
+1. All'apertura, leggi `docs/STATO_VIVO.md`. E' lo stato vivo del progetto, la fonte mutabile canonica, e la fonte sovrana unica dello stato: la copia MEMORIA_E_STATO nel Project di Mauro e' solo uno specchio, e in caso di conflitto fra le due vince sempre STATO_VIVO. Le due copie vanno tenute allineate. Sopra STATO_VIVO c'e' solo la realta' del codice.
 2. Prima di affermare cosa e' fatto, cosa manca, cosa esiste o quanti sono, VERIFICA sul filesystem e sul repo. Apri il file, conta la cartella, guarda il branch. Non rispondere mai a memoria ne a stima. Quando dai un dato, sappi da dove viene.
 3. Distingui sempre tre stati per un asset o una funzione: prodotto, agganciato al codice, verificato a video. Non confonderli.
 4. Se un lavoro sembra perso, cercalo sugli altri branch prima di dire che non esiste o di reimplementarlo.

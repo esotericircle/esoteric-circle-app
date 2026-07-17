@@ -1,6 +1,7 @@
 {
   "hooks": {
     "SessionStart": [ { "hooks": [ { "type": "command", "command": "node .claude/hooks/inietta_stato.js full" } ] } ],
-    "UserPromptSubmit": [ { "hooks": [ { "type": "command", "command": "node .claude/hooks/inietta_stato.js reminder" } ] } ]
+    "UserPromptSubmit": [ { "hooks": [ { "type": "command", "command": "node .claude/hooks/inietta_stato.js reminder" } ] } ],
+    "Stop": [ { "hooks": [ { "type": "command", "command": "node .claude/hooks/inietta_stato.js chiusura" } ] } ]
   }
 }

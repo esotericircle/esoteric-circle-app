@@ -1,6 +1,6 @@
 # STATO VIVO, Esoteric Circle
 
-Questo e' lo stato vivo del progetto, la fonte mutabile canonica. Chiunque lavori qui, Claude Code o l'Architetto in Cowork, lo legge per primo e lo aggiorna dopo aver lavorato. La copia gemella vive nel Project di Mauro come MEMORIA_E_STATO. Le due copie vanno tenute allineate. In caso di dubbio prevale il codice reale, non questo file: quando affermi qualcosa, prima verifica sul filesystem e sul repo.
+Questo file, `docs/STATO_VIVO.md`, e' la fonte sovrana unica dello stato del progetto, la fonte mutabile canonica. La copia MEMORIA_E_STATO nel Project di Mauro e' solo uno specchio: in caso di conflitto fra le due, vince sempre STATO_VIVO. Le due copie vanno tenute allineate, ma la sovranita' sta qui. Chiunque lavori, Claude Code o l'Architetto in Cowork, lo legge per primo e lo aggiorna dopo aver lavorato. Sopra STATO_VIVO c'e' solo la realta': in caso di dubbio prevale il codice reale, non questo file: quando affermi qualcosa, prima verifica sul filesystem e sul repo.
 
 Regola numero uno: prima di dire cosa e' fatto, cosa manca o quanti sono, VERIFICA. Leggi il file, conta la cartella, guarda il branch. Non parlare a memoria. Questo file esiste perche' due errori non si ripetano: la perdita del recupero carta natale per lavoro su branch divergenti, e l'aver parlato a stima invece di leggere lo stato reale.
 
@@ -30,13 +30,13 @@ Asset ancora da produrre davvero: i mezzi busti animati dei tre Maestri per il S
 - Onboarding Il Risveglio: fatto (carta natale ornata, cielo di nascita J2000, cosmo profondo, risonanza, rito del soffio, ponte identita' con NatalFacts, accenti corretti a ce5b75e).
 - Cosmo profondo: fatto. Santuario Il Cerchio: fatto nella messa in scena base.
 - Doni del Giorno: Alba e Soffio validati; Oracolo, Runa, Sogno presenti.
-- Funzioni live nel function_shelf: Sinastria VIP, Oracolo del Giorno, Runa del Tramonto, Meditazione. Non ancora live: Stesa a Tre Carte, Test Archetipo, Costellazione del Viso.
-- Backend carta natale FreeAstroAPI: callable Firebase natalChart costruita (162b94b), non deployata. Base URL da correggere a `https://api.freeastroapi.com`.
+- Funzioni live nel function_shelf: Sinastria VIP, Oracolo del Giorno, Runa del Tramonto, Meditazione. Non ancora live: Stesa a Tre Carte, Test Archetipo, Costellazione del Viso. La fonte macchina di questo stato e' `docs/stato_funzioni.json`, allineata al codice da `test/stato_funzioni_test.dart` nel verde della CI: se il manifest e `lib/core/santuario/function_shelf.dart` divergono, la spunta verde cade.
+- Backend carta natale FreeAstroAPI: callable Firebase natalChart costruita (162b94b), con base URL gia' corretto a `https://api.freeastroapi.com` (340fd4a). Non ancora deployata: secret in Secret Manager, App Check e `firebase deploy --only functions` restano da fare a mano dal PC di Mauro.
 - Contenuti testuali: undici Corpus scritti nel Project, circa 620 voci verificate sulle tradizioni, non ancora agganciati al codice. Mancano i rovesciati dei tarocchi, i merkstave delle rune, il dettaglio per singolo angelo.
 
 ## Fronti aperti, in ordine
 
-1. FreeAstroAPI: correggere il base URL (una riga), poi secret, App Check, `firebase deploy --only functions` dal PC di Mauro.
+1. FreeAstroAPI: base URL gia' corretto (340fd4a); restano il secret in Secret Manager, App Check e `firebase deploy --only functions` dal PC di Mauro.
 2. Import asset: da `output/` a `brand_assets/` piu' pubspec e aggancio. Regole: rune_bone non rune; non il contact sheet VIP; fronti delle carte; nomi minuscoli; ridimensionare i pesanti.
 3. Contenuti mancanti: rovesciati dei tarocchi, merkstave delle rune, dettaglio dei 72 angeli da fonte verificata.
 4. Aggancio dei Corpus e degli asset ai widget (NatalPoetics, Oracolo, domini dei Maestri).
