@@ -292,25 +292,25 @@ class _PlanetTile extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
+                      // Wrap, non Row: su schermo stretto la riga va a capo
+                      // invece di sforare, senza cambiare gli elementi.
+                      Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: 6,
+                        runSpacing: 2,
                         children: [
                           _sym(planet.glyph, palette.goldSoft, 16),
-                          const SizedBox(width: 6),
                           Text(planet.name,
                               style: TypographyTokens.display(size: 16)),
-                          const SizedBox(width: 8),
                           _sym(planet.sign.symbol, palette.goldSoft, 14),
-                          const SizedBox(width: 4),
                           Text(planet.sign.italianName,
                               style: TypographyTokens.body(size: 13).copyWith(
                                   color: ColorTokens.textSecondary)),
-                          if (planet.retrograde) ...[
-                            const SizedBox(width: 6),
+                          if (planet.retrograde)
                             Text('R',
                                 style: TypographyTokens.body(size: 12).copyWith(
                                     color: const Color(0xFFE0733A),
                                     fontWeight: FontWeight.w700)),
-                          ],
                         ],
                       ),
                       const SizedBox(height: 3),

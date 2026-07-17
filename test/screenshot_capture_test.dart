@@ -1022,7 +1022,9 @@ void main() {
     silenceSensors();
     await loadFonts();
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(390, 900);
+    // Alta abbastanza da mostrare la ruota ornata e la legenda viva a tessere
+    // (una tessera per pianeta) sotto di essa, senza scorrere.
+    tester.view.physicalSize = const Size(390, 1600);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final b = await natalBridge(tester);
