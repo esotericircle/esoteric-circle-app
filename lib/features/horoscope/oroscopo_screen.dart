@@ -248,8 +248,13 @@ class _Headline extends StatelessWidget {
                       ]),
                     ),
                   ),
+                  // L'emblema grande usa il simbolo completo 3D (asset in
+                  // assets/img/zodiac/), soggetto diverso dalla figura dei chip.
                   ZodiacEmblem(
-                      sign: sign, size: 96, color: palette.goldSoft),
+                      sign: sign,
+                      size: 96,
+                      art: ZodiacEmblemArt.symbol,
+                      color: palette.goldSoft),
                 ],
               );
             },
@@ -304,10 +309,12 @@ class _SignChip extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // La miniatura del chip usa la figura del segno (asset suo, in
+            // assets/img_thumb/zodiac/), non l'emblema scalato.
             ZodiacEmblem(
               sign: zodiac,
               size: 28,
-              thumb: true,
+              art: ZodiacEmblemArt.figure,
               color: selected ? palette.goldSoft : ColorTokens.textSecondary,
             ),
             const SizedBox(height: 2),

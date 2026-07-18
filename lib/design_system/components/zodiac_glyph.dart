@@ -4,31 +4,55 @@ import 'package:flutter/material.dart';
 
 import '../../core/astro/zodiac.dart';
 
+/// Le due arti distinte del segno, con SOGGETTO diverso, non la stessa immagine
+/// scalata.
+///
+/// - [symbol]: il simbolo completo del segno in 3D metallico multicolore, per il
+///   grande emblema in testa alla schermata. Sta in `assets/img/zodiac/`.
+/// - [figure]: la rappresentazione figurativa del segno (la testa d'ariete, la
+///   testa di toro, la silhouette del granchio e cosi' via), per la miniatura dei
+///   chip del selettore. Sta in `assets/img_thumb/zodiac/`.
+///
+/// Sono due immagini sorgenti diverse, entrambe fornite da Mauro: la miniatura
+/// NON si ricava riducendo l'emblema, si carica il suo asset.
+enum ZodiacEmblemArt { symbol, figure }
+
 /// L'arte dei dodici simboli zodiacali brandizzati.
 ///
-/// Quando l'asset di Mauro c'e' si mostra quello (stem `zod_<segno>`, piena in
-/// `assets/img/zodiac/`, miniatura in `assets/img_thumb/zodiac/`); finche' non
-/// c'e', si dipinge un glifo dorato a vettori. Mai il carattere di sistema, cosi'
-/// non compare piu' il quadratino vuoto.
+/// Due asset distinti per segno, stesso stem `zod_<segno>` ma soggetto diverso:
+/// il simbolo 3D in `assets/img/zodiac/` ([symbolPath]) e la figura in
+/// `assets/img_thumb/zodiac/` ([figurePath]). Finche' un asset non c'e', si
+/// dipinge un glifo dorato a vettori. Mai il carattere di sistema, cosi' non
+/// compare piu' il quadratino vuoto.
 class ZodiacArt {
   const ZodiacArt._();
 
   static String stem(Zodiac z) => 'zod_${z.italianName.toLowerCase()}';
 
-  static String fullPath(Zodiac z) => 'assets/img/zodiac/${stem(z)}.webp';
+  /// Il simbolo completo 3D metallico, per l'emblema grande.
+  static String symbolPath(Zodiac z) => 'assets/img/zodiac/${stem(z)}.webp';
 
-  static String thumbPath(Zodiac z) => 'assets/img_thumb/zodiac/${stem(z)}.webp';
+  /// La figura del segno, per la miniatura dei chip.
+  static String figurePath(Zodiac z) =>
+      'assets/img_thumb/zodiac/${stem(z)}.webp';
+
+  static String pathFor(Zodiac z, ZodiacEmblemArt art) =>
+      art == ZodiacEmblemArt.symbol ? symbolPath(z) : figurePath(z);
 }
 
-/// L'emblema di un segno: l'immagine brandizzata se presente, altrimenti il
-/// glifo dorato dipinto a vettori. Mai il glifo di sistema.
+/// L'emblema di un segno: l'immagine brandizzata dell'arte richiesta se presente,
+/// altrimenti il glifo dorato dipinto a vettori. Mai il glifo di sistema.
+///
+/// [art] sceglie il soggetto: [ZodiacEmblemArt.symbol] carica il simbolo 3D,
+/// [ZodiacEmblemArt.figure] carica la figura del segno, che e' un'immagine
+/// diversa e non l'emblema scalato.
 class ZodiacEmblem extends StatelessWidget {
   const ZodiacEmblem({
     super.key,
     required this.sign,
     required this.size,
     required this.color,
-    this.thumb = false,
+    this.art = ZodiacEmblemArt.symbol,
     this.assetPath,
   });
 
@@ -36,16 +60,15 @@ class ZodiacEmblem extends StatelessWidget {
   final double size;
   final Color color;
 
-  /// Usa la miniatura invece della piena.
-  final bool thumb;
+  /// Quale delle due arti del segno mostrare (simbolo o figura).
+  final ZodiacEmblemArt art;
 
   /// Percorso dell'asset, per i test. Se nullo si risolve da [ZodiacArt].
   final String? assetPath;
 
   @override
   Widget build(BuildContext context) {
-    final path =
-        assetPath ?? (thumb ? ZodiacArt.thumbPath(sign) : ZodiacArt.fullPath(sign));
+    final path = assetPath ?? ZodiacArt.pathFor(sign, art);
     final fallback = CustomPaint(
       size: Size.square(size),
       painter: ZodiacGlyphPainter(sign: sign, color: color),

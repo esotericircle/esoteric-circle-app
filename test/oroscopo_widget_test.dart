@@ -34,6 +34,46 @@ void main() {
       .widgetList(find.byType(CustomPaint))
       .any((w) => (w as CustomPaint).painter is ZodiacGlyphPainter);
 
+  group('Emblema e figura, due asset distinti', () {
+    test('Simbolo e figura sono due percorsi diversi per ogni segno', () {
+      for (final z in Zodiac.values) {
+        final symbol = ZodiacArt.symbolPath(z);
+        final figure = ZodiacArt.figurePath(z);
+        expect(symbol, startsWith('assets/img/zodiac/'));
+        expect(figure, startsWith('assets/img_thumb/zodiac/'));
+        expect(symbol, isNot(equals(figure)),
+            reason: 'simbolo e figura coincidono per ${z.id}');
+      }
+    });
+
+    testWidgets('L\'emblema carica il simbolo, il chip carica la figura',
+        (tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: Column(
+            children: [
+              ZodiacEmblem(
+                  sign: Zodiac.leo, size: 60, color: palette.goldSoft),
+              ZodiacEmblem(
+                  sign: Zodiac.leo,
+                  size: 30,
+                  color: palette.goldSoft,
+                  art: ZodiacEmblemArt.figure),
+            ],
+          ),
+        ),
+      ));
+      await tester.pump();
+      final names = tester
+          .widgetList<Image>(find.byType(Image))
+          .map((i) => (i.image as AssetImage).assetName)
+          .toList();
+      // Due immagini distinte, la miniatura non e' l'emblema scalato.
+      expect(names, contains(ZodiacArt.symbolPath(Zodiac.leo)));
+      expect(names, contains(ZodiacArt.figurePath(Zodiac.leo)));
+    });
+  });
+
   group('Emblema zodiacale, mai il glifo di sistema', () {
     testWidgets('Con asset assente si usa il ripiego dipinto', (tester) async {
       await tester.pumpWidget(MaterialApp(
