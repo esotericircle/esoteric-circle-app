@@ -36,7 +36,9 @@ import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
+import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
+import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -651,6 +653,25 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'sinastria-vip.png');
+  });
+
+  // --- L'Oroscopo a quattro schede, la headline di Medora ---
+  testWidgets('Cattura l\'Oroscopo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // Un segno mostrato per intero, giorno fisso per un'anteprima stabile.
+    unawaited(nav.push(OroscopoScreen.route(
+        userSign: Zodiac.leo, now: DateTime(2026, 7, 19))));
+    await step(tester);
+    await step(tester);
+    // Superficie alta: l'anteprima mostra il segno per intero, tutte e quattro
+    // le schede piu' il disclaimer, senza scorrere.
+    tester.view.physicalSize = const Size(390, 2400);
+    await step(tester);
+    await capture(tester, rootKey, 'oroscopo.png');
   });
 
   // --- Il Santuario, alto pulito senza bolle sopra l'immagine ---

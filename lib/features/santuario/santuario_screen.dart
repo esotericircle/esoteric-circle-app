@@ -22,6 +22,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../account/account_screen.dart';
+import '../horoscope/oroscopo_screen.dart';
 import '../maestri/aura/meditation/meditation_screen.dart';
 import '../maestri/domain_screen.dart';
 import '../rituals/day_oracle_screen.dart';
@@ -171,6 +172,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         return SinastriaVipScreen.route(userSign: userSign);
       case 'day_oracle':
         return DayOracleScreen.route();
+      case 'horoscope':
+        return OroscopoScreen.route(userSign: userSign);
       case 'sunset_rune':
         return SunsetRuneScreen.route();
       case 'meditation':

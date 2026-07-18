@@ -76,6 +76,14 @@ class FunctionShelf {
       live: true,
     ),
     ShelfFunction(
+      id: 'horoscope',
+      title: 'Oroscopo',
+      teaser: 'Le quattro schede del tuo giorno, nella voce di Medora.',
+      icon: Icons.auto_awesome,
+      maestro: Maestro.medora,
+      live: true,
+    ),
+    ShelfFunction(
       id: 'sunset_rune',
       title: 'Runa del Tramonto',
       teaser: 'La runa che scende con la sera, da svelare.',
