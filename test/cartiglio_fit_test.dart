@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Il testo dei cartigli VIP entra sempre su una riga, dentro la larghezza del
-/// cartiglio, senza troncare, andare a capo o sbordare. Qui si verifica la scala
-/// progressiva coi casi peggiori, misurando col font reale Cinzel.
+/// Il testo dei cartigli VIP entra sempre su una riga, dentro la banda blu
+/// piatta reale della cornice, senza toccare l'oro ai lati ne sopra e sotto,
+/// senza troncare ne andare a capo. L'area consentita e' la banda misurata
+/// dall'immagine (`VipFrame.flatBand*`), non un rettangolo largo indovinato.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -51,62 +52,87 @@ void main() {
     return tp.height;
   }
 
-  void expectFits(String text, double maxWidth, double maxHeight) {
+  // Un polo rappresentativo, piu' stretto di quello a schermo, dal lato
+  // conservativo. La cornice e' 2:3.
+  const frameWidth = 140.0;
+  const frameHeight = frameWidth / VipFrame.aspect;
+
+  Rect pxOf(Rect n) => Rect.fromLTRB(
+      n.left * frameWidth, n.top * frameHeight, n.right * frameWidth, n.bottom * frameHeight);
+
+  // Il testo, centrato nel cartiglio, non deve mai uscire dalla banda blu piatta
+  // (il confine dell'oro): ne ai lati ne sopra e sotto.
+  void expectInsideBand(
+      String text, Rect cartiglioN, Rect flatBandN) {
+    final cart = pxOf(cartiglioN);
+    final band = pxOf(flatBandN);
+
+    // Il cartiglio del testo sta dentro la banda piatta, con margine.
+    expect(cart.left, greaterThanOrEqualTo(band.left - 1e-6),
+        reason: 'cartiglio sfora l\'oro a sinistra');
+    expect(cart.right, lessThanOrEqualTo(band.right + 1e-6),
+        reason: 'cartiglio sfora l\'oro a destra');
+    expect(cart.top, greaterThanOrEqualTo(band.top - 1e-6),
+        reason: 'cartiglio sfora l\'oro in alto');
+    expect(cart.bottom, lessThanOrEqualTo(band.bottom + 1e-6),
+        reason: 'cartiglio sfora l\'oro in basso');
+
     final fit = resolveCartiglioFit(
         text: text.toUpperCase(),
         base: base,
-        maxWidth: maxWidth,
-        maxHeight: maxHeight);
+        maxWidth: cart.width,
+        maxHeight: cart.height);
     final w = measuredWidth(text, fit);
     final h = measuredHeight(text, fit);
-    // Entra in larghezza, una riga, con un filo di tolleranza sub-pixel.
-    expect(w, lessThanOrEqualTo(maxWidth + 0.5),
-        reason: '"$text" largo $w oltre $maxWidth (fit: fs ${fit.fontSize.toStringAsFixed(1)} ls ${fit.letterSpacing.toStringAsFixed(2)} ws ${fit.wordSpacing.toStringAsFixed(2)} xs ${fit.scaleX.toStringAsFixed(2)})');
-    expect(h, lessThanOrEqualTo(maxHeight + 0.5),
-        reason: '"$text" alto $h oltre $maxHeight');
+
+    // Il testo entra nel cartiglio, su una riga.
+    expect(w, lessThanOrEqualTo(cart.width + 0.5),
+        reason: '"$text" largo $w oltre ${cart.width} (fs ${fit.fontSize.toStringAsFixed(1)} ls ${fit.letterSpacing.toStringAsFixed(2)} ws ${fit.wordSpacing.toStringAsFixed(2)} xs ${fit.scaleX.toStringAsFixed(2)})');
+    expect(h, lessThanOrEqualTo(cart.height + 0.5),
+        reason: '"$text" alto $h oltre ${cart.height}');
+
+    // Il testo centrato nel cartiglio resta dentro la banda blu, non sull'oro.
+    final cx = cart.center.dx;
+    expect(cx - w / 2, greaterThanOrEqualTo(band.left - 0.5),
+        reason: '"$text" tocca l\'oro a sinistra');
+    expect(cx + w / 2, lessThanOrEqualTo(band.right + 0.5),
+        reason: '"$text" tocca l\'oro a destra');
+
     // I limiti della scala progressiva sono rispettati.
     expect(fit.scaleX, greaterThanOrEqualTo(0.80 - 1e-6));
     expect(fit.letterSpacing, greaterThanOrEqualTo(-1.0 - 1e-6));
     expect(fit.letterSpacing, lessThanOrEqualTo(1.0 + 1e-6));
   }
 
-  // Dimensioni reali dei due cartigli a una larghezza di polo rappresentativa,
-  // piu' stretta di quella a schermo, per stare dal lato conservativo.
-  const frameWidth = 140.0;
-  const frameHeight = frameWidth / VipFrame.aspect;
-  final nomeW = (VipFrame.cartiglioNome.right - VipFrame.cartiglioNome.left) *
-      frameWidth;
-  final nomeH = (VipFrame.cartiglioNome.bottom - VipFrame.cartiglioNome.top) *
-      frameHeight;
-  final dataW = (VipFrame.cartiglioData.right - VipFrame.cartiglioData.left) *
-      frameWidth;
-  final dataH = (VipFrame.cartiglioData.bottom - VipFrame.cartiglioData.top) *
-      frameHeight;
-
-  group('Nomi nel cartiglio alto, sempre su una riga', () {
+  group('Nomi nel cartiglio alto, dentro la banda blu', () {
     for (final name in const [
       'ANGELINA JOLIE',
       'SCARLETT JOHANSSON',
       'TIMOTHEE CHALAMET',
       'TU',
     ]) {
-      test('"$name" entra', () => expectFits(name, nomeW, nomeH));
+      test('"$name" resta sul blu', () {
+        expectInsideBand(name, VipFrame.cartiglioNome, VipFrame.flatBandNome);
+      });
     }
   });
 
-  group('Date nel cartiglio basso, sempre su una riga', () {
+  group('Date nel cartiglio basso, dentro la banda blu', () {
     for (final date in const [
       '15 SETTEMBRE 1990',
       '30 SETTEMBRE 1964',
       '4 GIUGNO 1975',
     ]) {
-      test('"$date" entra', () => expectFits(date, dataW, dataH));
+      test('"$date" resta sul blu', () {
+        expectInsideBand(date, VipFrame.cartiglioData, VipFrame.flatBandData);
+      });
     }
   });
 
   test('Un testo corto non viene compresso senza motivo', () {
+    final cart = pxOf(VipFrame.cartiglioNome);
     final fit = resolveCartiglioFit(
-        text: 'TU', base: base, maxWidth: nomeW, maxHeight: nomeH);
+        text: 'TU', base: base, maxWidth: cart.width, maxHeight: cart.height);
     expect(fit.scaleX, 1.0);
     expect(fit.letterSpacing, 1.0);
     expect(fit.wordSpacing, 0.0);

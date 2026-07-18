@@ -180,7 +180,9 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
                 key: const Key('sinastria_pole_user'),
                 palette: palette,
                 sign: _userSign,
-                hint: _photo.hasPhoto ? 'Tocca per cambiare' : 'Tocca, la tua foto',
+                hint: _photo.hasPhoto
+                    ? 'Modifica la tua foto'
+                    : 'Aggiungi la tua foto',
                 onTap: _openPhotoSheet,
                 portrait: VipFramedPortrait(
                   palette: palette,

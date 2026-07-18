@@ -26,12 +26,25 @@ class VipFrame {
   /// normalizzati sull'alpha della cornice).
   static const Rect window = Rect.fromLTRB(0.2087, 0.2089, 0.7877, 0.7239);
 
-  /// Cartiglio alto, per il nome per esteso. Larghezza presa dalla banda blu
-  /// piatta reale (x 0.162..0.821 nell'alpha), con un filo di margine interno.
-  static const Rect cartiglioNome = Rect.fromLTRB(0.185, 0.050, 0.815, 0.099);
+  // Le due bande blu piatte, misurate dall'alpha e dal colore di
+  // `assets/vip_cornice.webp`: sono le zone di blu uniforme fra le estremita'
+  // dorate ornate. Il testo dei cartigli vive dentro queste bande, con un
+  // margine di sicurezza verso l'interno, cosi' non tocca mai l'oro.
+  //
+  // Banda piatta misurata: nome x 0.278..0.719 y 0.044..0.100; data x
+  // 0.251..0.744 y 0.903..0.960. I rettangoli qui sotto sono gia' rientrati.
 
-  /// Cartiglio basso, per la data di nascita (banda x 0.249..0.742 reale).
-  static const Rect cartiglioData = Rect.fromLTRB(0.255, 0.906, 0.745, 0.956);
+  /// Cartiglio alto, per il nome per esteso.
+  static const Rect cartiglioNome = Rect.fromLTRB(0.296, 0.050, 0.701, 0.095);
+
+  /// Cartiglio basso, per la data di nascita.
+  static const Rect cartiglioData = Rect.fromLTRB(0.271, 0.909, 0.724, 0.954);
+
+  /// Banda blu piatta reale del cartiglio alto (senza margine), confine dell'oro.
+  static const Rect flatBandNome = Rect.fromLTRB(0.278, 0.044, 0.719, 0.100);
+
+  /// Banda blu piatta reale del cartiglio basso (senza margine), confine dell'oro.
+  static const Rect flatBandData = Rect.fromLTRB(0.251, 0.903, 0.744, 0.960);
 }
 
 /// Un ritratto dentro la cornice VIP, col nome nel cartiglio alto e la data nel
