@@ -125,7 +125,8 @@ class VipFramedPortrait extends StatelessWidget {
           // si adatta alla larghezza del cartiglio, sempre su una riga.
           layers.add(Positioned.fromRect(
             rect: px(VipFrame.cartiglioNome),
-            child: CartiglioText(text: name, palette: palette),
+            child: CartiglioText(
+                text: name, palette: palette, preserveWordGap: true),
           ));
           if (date.isNotEmpty) {
             layers.add(Positioned.fromRect(
@@ -142,28 +143,37 @@ class VipFramedPortrait extends StatelessWidget {
 }
 
 /// I parametri di adattamento del testo del cartiglio: dimensione del font,
-/// spazio tra le lettere, spazio tra le parole e restringimento orizzontale.
+/// spazio tra le lettere, spazio tra le parole, restringimento orizzontale e il
+/// pavimento di spazio tra le parole sotto cui il fitter non e' sceso.
 class CartiglioFit {
   const CartiglioFit({
     required this.fontSize,
     required this.letterSpacing,
     required this.wordSpacing,
     required this.scaleX,
+    required this.wordSpacingFloor,
   });
 
   final double fontSize;
   final double letterSpacing;
   final double wordSpacing;
   final double scaleX;
+
+  /// Il valore minimo che [wordSpacing] poteva assumere: garanzia che tra due
+  /// parole resti uno stacco leggibile.
+  final double wordSpacingFloor;
 }
 
-/// Limiti della scala progressiva, nell'ordine richiesto.
+/// Limiti della scala progressiva.
 const double _lsBase = 1.0; // spazio tra le lettere di partenza
 const double _lsMin = -1.0; // fino a circa -1,0
 const double _xsMin = 0.80; // restringimento orizzontale minimo
 const double _fontFloor = 0.85; // il font puo' calare al massimo del 15 per cento
 const double _heightFactor = 0.86; // quanto il font riempie l'altezza del cartiglio
-double _wsMin(double fs) => -fs * 0.16; // spazio tra le parole minimo
+
+// Pavimento dello spazio tra le parole in modo normale (le date), come frazione
+// del font di partenza. Coi nomi il divario e' protetto e non si sottrae mai.
+const double _wsFloorNormal = 0.16;
 
 double _measureWidth(String t, TextStyle base, double fs, double ls, double ws) {
   final tp = TextPainter(
@@ -204,14 +214,23 @@ double _leastCompression(
 }
 
 /// Calcola come far entrare [text] (gia' maiuscolo) nella larghezza [maxWidth],
-/// alto quanto [maxHeight], su una sola riga. Applica solo lo stretto necessario,
-/// nell'ordine: spazio tra le parole, spazio tra le lettere, larghezza dei
-/// caratteri, e solo come estremo la dimensione del font (fino al 15 per cento).
+/// alto quanto [maxHeight], su una sola riga, applicando solo lo stretto
+/// necessario.
+///
+/// Con [preserveWordGap] falso (le date) l'ordine e': spazio tra le parole,
+/// spazio tra le lettere, larghezza dei caratteri, poi come estremo il font.
+///
+/// Con [preserveWordGap] vero (i nomi) l'ordine e' invertito, cosi' il divario
+/// tra parole resta sempre percepibile: prima e di piu' lo spazio tra le lettere,
+/// poi il restringimento orizzontale, poi lo spazio tra le parole ma solo fino a
+/// un pavimento leggibile, e solo come estremo il font. Il pavimento dello spazio
+/// tra le parole non viene mai superato.
 CartiglioFit resolveCartiglioFit({
   required String text,
   required TextStyle base,
   required double maxWidth,
   required double maxHeight,
+  bool preserveWordGap = false,
 }) {
   // Font di partenza: riempie l'altezza del cartiglio.
   const probe = 100.0;
@@ -224,34 +243,68 @@ CartiglioFit resolveCartiglioFit({
   var ls = _lsBase;
   var ws = 0.0;
   var xs = 1.0;
+  double wsFloor;
 
-  double widthNow() => _measureWidth(text, base, fs, ls, ws);
   final hasSpace = text.contains(' ');
+  double mw(double f, double l, double w) => _measureWidth(text, base, f, l, w);
 
-  // 1) spazio tra le parole.
-  if (widthNow() > maxWidth && hasSpace) {
-    ws = _leastCompression(
-        (v) => _measureWidth(text, base, fs, ls, v), maxWidth, _wsMin(fs), 0.0);
-  }
-  // 2) spazio tra le lettere.
-  if (widthNow() > maxWidth) {
-    ls = _leastCompression(
-        (v) => _measureWidth(text, base, fs, v, ws), maxWidth, _lsMin, _lsBase);
-  }
-  // 3) larghezza dei caratteri.
-  final w = widthNow();
-  if (w > maxWidth) {
-    xs = (maxWidth / w).clamp(_xsMin, 1.0);
-  }
-  // 4) come estremo, la dimensione del font, al massimo meno 15 per cento.
-  if (widthNow() * xs > maxWidth) {
-    final floor = baseFont * _fontFloor;
-    fs = _leastCompression(
-        (v) => _measureWidth(text, base, v, ls, ws) * xs, maxWidth, floor, fs);
+  if (preserveWordGap) {
+    // Divario tra parole protetto. Lo spazio tra le parole non viene mai
+    // sottratto (pavimento a zero): anzi, quando le lettere si stringono
+    // (letter-spacing negativo) lo spazio compensa quel negativo, cosi' il vuoto
+    // fra due parole resta largo come il suo spazio naturale, mai attaccate.
+    double wsFor(double lsv) => lsv < 0 ? -lsv : 0.0;
+    wsFloor = 0.0;
+
+    // 1) spazio tra le lettere, per primo e di piu' (lo spazio parole compensa).
+    double widthAtLs(double lsv) => mw(fs, lsv, wsFor(lsv));
+    if (widthAtLs(_lsBase) > maxWidth) {
+      ls = _leastCompression(widthAtLs, maxWidth, _lsMin, _lsBase);
+    }
+    ws = wsFor(ls);
+
+    // 2) restringimento orizzontale (comprime lettere e spazi insieme, il
+    // divario resta proporzionato).
+    final w = mw(fs, ls, ws);
+    if (w > maxWidth) {
+      xs = (maxWidth / w).clamp(_xsMin, 1.0);
+    }
+    // 3) come estremo, la dimensione del font, al massimo meno 15 per cento.
+    if (mw(fs, ls, ws) * xs > maxWidth) {
+      fs = _leastCompression(
+          (v) => mw(v, ls, ws) * xs, maxWidth, baseFont * _fontFloor, fs);
+    }
+  } else {
+    wsFloor = -_wsFloorNormal * baseFont;
+    double widthNow() => mw(fs, ls, ws);
+
+    // 1) spazio tra le parole.
+    if (widthNow() > maxWidth && hasSpace) {
+      ws = _leastCompression((v) => mw(fs, ls, v), maxWidth, wsFloor, 0.0);
+    }
+    // 2) spazio tra le lettere.
+    if (widthNow() > maxWidth) {
+      ls = _leastCompression((v) => mw(fs, v, ws), maxWidth, _lsMin, _lsBase);
+    }
+    // 3) larghezza dei caratteri.
+    final w = widthNow();
+    if (w > maxWidth) {
+      xs = (maxWidth / w).clamp(_xsMin, 1.0);
+    }
+    // 4) come estremo, la dimensione del font.
+    if (widthNow() * xs > maxWidth) {
+      fs = _leastCompression(
+          (v) => mw(v, ls, ws) * xs, maxWidth, baseFont * _fontFloor, fs);
+    }
   }
 
   return CartiglioFit(
-      fontSize: fs, letterSpacing: ls, wordSpacing: ws, scaleX: xs);
+    fontSize: fs,
+    letterSpacing: ls,
+    wordSpacing: ws,
+    scaleX: xs,
+    wordSpacingFloor: wsFloor,
+  );
 }
 
 /// Testo di un cartiglio VIP: maiuscolo, oro, centrato, sempre su una riga.
@@ -260,10 +313,20 @@ CartiglioFit resolveCartiglioFit({
 /// cartiglio con la scala progressiva di [resolveCartiglioFit], applicando solo
 /// lo stretto necessario. La cornice e il cartiglio restano quelli veri.
 class CartiglioText extends StatelessWidget {
-  const CartiglioText({super.key, required this.text, required this.palette});
+  const CartiglioText({
+    super.key,
+    required this.text,
+    required this.palette,
+    this.preserveWordGap = false,
+  });
 
   final String text;
   final MaestroPalette palette;
+
+  /// Se vero (il cartiglio del nome) protegge il divario tra parole: comprime
+  /// prima lettere e larghezza, e lo spazio tra parole solo fino a un pavimento
+  /// leggibile, cosi' due parole non si attaccano mai.
+  final bool preserveWordGap;
 
   @override
   Widget build(BuildContext context) {
@@ -281,6 +344,7 @@ class CartiglioText extends StatelessWidget {
           base: base,
           maxWidth: constraints.maxWidth,
           maxHeight: constraints.maxHeight,
+          preserveWordGap: preserveWordGap,
         );
 
         Widget label = Text(
