@@ -36,6 +36,7 @@ import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
+import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -629,6 +630,22 @@ void main() {
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(SinastriaVipScreen.route()));
+    await step(tester);
+    await step(tester);
+    // Decodifica il ritratto pieno del VIP in testa e le prime miniature del
+    // selettore, cosi' l'anteprima mostra l'arte reale e non i ripieghi.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(SinastriaVipScreen));
+      final first = VipCatalog.first;
+      if (first.fullPath != null) {
+        await precacheImage(AssetImage(first.fullPath!), element);
+      }
+      for (final vip in VipCatalog.vips.take(4)) {
+        if (vip.thumbPath != null) {
+          await precacheImage(AssetImage(vip.thumbPath!), element);
+        }
+      }
+    });
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'sinastria-vip.png');

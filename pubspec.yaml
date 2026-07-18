@@ -69,6 +69,7 @@ dependencies:
   # audio. Con ripiego tattile se il permesso manca o il device non ha il
   # microfono. Nessuna registrazione salvata, solo l'ampiezza in tempo reale.
   record: 5.2.1
+  image_picker: ^1.2.3
 
 dev_dependencies:
   flutter_test:
