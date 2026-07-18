@@ -51,20 +51,35 @@ class SunsetRuneScreen extends StatelessWidget {
             ),
           ),
           if (revealed)
-            // Il glifo runico disegnato a tratti, non un carattere di font:
-            // cosi' e' sempre leggibile, senza dipendere dal blocco Unicode.
+            // Svelata, la runa mostra l'arte incisa reale della sua pietra
+            // (famiglia rune_bone, misura piena perche' e' a fuoco). Se l'arte
+            // manca o non carica, ripiega sul glifo disegnato a tratti, sempre
+            // leggibile senza dipendere dal blocco Unicode.
             SizedBox(
-              width: 190,
-              height: 190,
-              child: CustomPaint(
-                key: const Key('rune_glyph'),
-                painter: RunePainter(
-                  runeName: rune.name,
-                  color: Colors.white,
-                  glow: palette.goldSoft,
-                  intensity: 1.0,
-                ),
-              ),
+              key: const Key('rune_glyph'),
+              width: 220,
+              height: 260,
+              child: rune.hasImage
+                  ? Image.asset(
+                      rune.fullPath!,
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, __, ___) => CustomPaint(
+                        painter: RunePainter(
+                          runeName: rune.name,
+                          color: Colors.white,
+                          glow: palette.goldSoft,
+                          intensity: 1.0,
+                        ),
+                      ),
+                    )
+                  : CustomPaint(
+                      painter: RunePainter(
+                        runeName: rune.name,
+                        color: Colors.white,
+                        glow: palette.goldSoft,
+                        intensity: 1.0,
+                      ),
+                    ),
             )
           else
             // Stato chiuso: una pietra runica velata con un bagliore, non un
