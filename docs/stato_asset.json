@@ -7,8 +7,10 @@
       "assets/img/mazzo-tarocchi/", "assets/img/angeli/", "assets/img/ritratti-vip/",
       "assets/img/rune_bone/", "assets/img/animali/", "assets/img/cristalli/",
       "assets/img_thumb/mazzo-tarocchi/", "assets/img_thumb/angeli/", "assets/img_thumb/ritratti-vip/",
-      "assets/img_thumb/rune_bone/", "assets/img_thumb/animali/", "assets/img_thumb/cristalli/"
+      "assets/img_thumb/rune_bone/", "assets/img_thumb/animali/", "assets/img_thumb/cristalli/",
+      "assets/img/zodiac/", "assets/img_thumb/zodiac/"
     ],
+    "nota_zodiac": "assets/img/zodiac/ e assets/img_thumb/zodiac/ ospitano i dodici simboli zodiacali brandizzati (stem zod_<segno>, piena circa 512 e miniatura circa 96). Non sono una delle sei famiglie e non hanno conteggio bloccato: finche' i webp non arrivano da Mauro le cartelle restano col solo segnaposto e il codice usa il ripiego a vettori. Quando gli asset arrivano prendono il posto del ripiego in automatico.",
     "brand_assets_conteggi": { "avatars": 3, "santuario": 1, "intro": 1 },
     "nota_intro": "brand_assets/intro/ esiste nel repo (Intro-Test-1.mp4) ma non e' dichiarato tra gli asset nel pubspec: presente, non bundlato. Se serve nel bundle, va aggiunto al pubspec e a pubspec_asset_attesi insieme.",
     "famiglie_conteggi": { "mazzo-tarocchi": 79, "angeli": 73, "ritratti-vip": 50, "rune_bone": 24, "animali": 12, "cristalli": 12 },

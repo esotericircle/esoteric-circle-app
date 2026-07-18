@@ -109,6 +109,11 @@ flutter:
     - assets/img_thumb/rune_bone/
     - assets/img_thumb/animali/
     - assets/img_thumb/cristalli/
+    # Simboli zodiacali brandizzati: arte di Mauro quando arriva, ripiego a
+    # vettori nel codice finche' l'asset non c'e'. Cartelle dichiarate anche se
+    # ancora senza webp, cosi' il percorso e' pronto.
+    - assets/img/zodiac/
+    - assets/img_thumb/zodiac/
 
   # Tipografia del design system, inclusa nel bundle come asset locale, cosi'
   # il testo si legge sempre, anche offline e nell'anteprima headless. Sono

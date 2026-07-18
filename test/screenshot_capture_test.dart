@@ -37,8 +37,10 @@ import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
+import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -663,15 +665,49 @@ void main() {
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Un segno mostrato per intero, giorno fisso per un'anteprima stabile.
+    // Superficie alta quanto basta prima di aprire, cosi' le forme a tema
+    // finiscono il riempimento una volta sola: il segno per intero, quattro
+    // schede piu' il tasto Condividi e il disclaimer, senza troppo vuoto.
+    tester.view.physicalSize = const Size(390, 1560);
+    // Ariete al 10 luglio 2026: valori variati tra le schede (2, 4, 5, 3), cosi'
+    // si vede la differenza tra le quattro forme a tema.
     unawaited(nav.push(OroscopoScreen.route(
-        userSign: Zodiac.leo, now: DateTime(2026, 7, 19))));
+        userSign: Zodiac.aries, now: DateTime(2026, 7, 10))));
     await step(tester);
     await step(tester);
-    // Superficie alta: l'anteprima mostra il segno per intero, tutte e quattro
-    // le schede piu' il disclaimer, senza scorrere.
-    tester.view.physicalSize = const Size(390, 2400);
-    await step(tester);
+    // Lascia completare la micro-animazione di riempimento delle forme.
+    await tester.pump(const Duration(seconds: 2));
     await capture(tester, rootKey, 'oroscopo.png');
+  });
+
+  // --- La card condivisibile dell'Oroscopo ---
+  testWidgets('Cattura la card Oroscopo', (tester) async {
+    await loadFonts();
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    final cards =
+        Horoscope.forSign(sign: Zodiac.aries, dayOfYear: 190, year: 2026);
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(400, 900);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: const Color(0xFF0A0E24),
+          body: Center(
+            child: SingleChildScrollView(
+              child: OroscopoShareCard(
+                  sign: Zodiac.aries, cards: cards, palette: palette),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'oroscopo-card.png');
   });
 
   // --- Il Santuario, alto pulito senza bolle sopra l'immagine ---
