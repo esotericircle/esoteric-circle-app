@@ -23,12 +23,16 @@ Prodotti da Mauro, in `output/`, pubblicati su CDN dagli script publish. Contegg
 
 Cosa e' davvero nel bundle dell'app: il `pubspec.yaml` dichiara come asset solo `assets/`, `assets/data/`, `assets/fonts/`, `assets/ritual_backgrounds/`, `brand_assets/avatars/`, `brand_assets/santuario/`. In `brand_assets/` ci sono i tre avatar dei Maestri (una posa ciascuno), il tempio del Santuario, un intro di prova, i fondali dei riti. Nessuna famiglia esoterica e' dentro il bundle. Quindi il lavoro che resta sugli asset non e' disegnare, e' importare da `output/` a `brand_assets/`, dichiarare nel pubspec, agganciare ai widget, oppure servire dal CDN a runtime.
 
+La fonte macchina dello stato asset e' `docs/stato_asset.json`. La sua parte bundle_versionato e' sotto lucchetto di CI: `test/stato_asset_test.dart` verifica che le cartelle asset dichiarate nel pubspec e i conteggi dei file in `brand_assets/` coincidano col manifest, e la spunta verde cade se divergono. La parte output_non_versionato non e' verificabile in CI, perche' `output/` non e' su Git: la controlla l'agente revisore-stato dal ponte col PC di Mauro.
+
 Asset ancora da produrre davvero: i mezzi busti animati dei tre Maestri per il Santuario, il gatto grigio di Medora.
 
 ## Stato per area
 
-- Onboarding Il Risveglio: fatto (carta natale ornata, cielo di nascita J2000, cosmo profondo, risonanza, rito del soffio, ponte identita' con NatalFacts, accenti corretti a ce5b75e).
-- Cosmo profondo: fatto. Santuario Il Cerchio: fatto nella messa in scena base.
+Legenda stato: prodotto (esiste), agganciato (collegato e gira nell'app), verificato a video (guardato su device o simulatore in questa fase). Le voci "fatto" qui sotto sono prodotte e agganciate secondo i report di Code, la conferma a video su device resta da rifare al prossimo checkpoint visivo.
+
+- Onboarding Il Risveglio: fatto (carta natale ornata, cielo di nascita J2000, cosmo profondo, risonanza, rito del soffio, ponte identita' con NatalFacts, accenti corretti a ce5b75e). Prodotto e agganciato; da riconfermare a video al prossimo checkpoint visivo.
+- Cosmo profondo: fatto. Santuario Il Cerchio: fatto nella messa in scena base. Prodotto e agganciato; da riconfermare a video al prossimo checkpoint visivo.
 - Doni del Giorno: Alba e Soffio validati; Oracolo, Runa, Sogno presenti.
 - Funzioni live nel function_shelf: Sinastria VIP, Oracolo del Giorno, Runa del Tramonto, Meditazione. Non ancora live: Stesa a Tre Carte, Test Archetipo, Costellazione del Viso. La fonte macchina di questo stato e' `docs/stato_funzioni.json`, allineata al codice da `test/stato_funzioni_test.dart` nel verde della CI: se il manifest e `lib/core/santuario/function_shelf.dart` divergono, la spunta verde cade.
 - Backend carta natale FreeAstroAPI: callable Firebase natalChart costruita (162b94b), con base URL gia' corretto a `https://api.freeastroapi.com` (340fd4a). Non ancora deployata: secret in Secret Manager, App Check e `firebase deploy --only functions` restano da fare a mano dal PC di Mauro.

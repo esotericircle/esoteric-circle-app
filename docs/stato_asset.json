@@ -1,0 +1,15 @@
+{
+  "descrizione": "Fonte macchina dello stato asset di Esoteric Circle. Ha due parti, con garanzie diverse e dichiarate. La parte bundle_versionato e' sotto lucchetto di macchina: test/stato_asset_test.dart, dentro il verde della CI, verifica che le cartelle asset dichiarate in pubspec.yaml coincidano con pubspec_asset_attesi, e che i conteggi dei file in brand_assets/ coincidano con brand_assets_conteggi. La parte output_non_versionato NON e' verificabile in CI, perche' output/ non e' su Git: la controlla l'agente revisore-stato dal ponte col computer di Mauro. STATO_VIVO.md cita questo manifest.",
+  "bundle_versionato": {
+    "pubspec_asset_attesi": [
+      "assets/", "assets/data/", "assets/fonts/", "assets/ritual_backgrounds/",
+      "brand_assets/avatars/", "brand_assets/santuario/"
+    ],
+    "brand_assets_conteggi": { "avatars": 3, "santuario": 1, "intro": 1 },
+    "nota_intro": "brand_assets/intro/ esiste nel repo (Intro-Test-1.mp4) ma non e' dichiarato tra gli asset nel pubspec: presente, non bundlato. Se serve nel bundle, va aggiunto al pubspec e a pubspec_asset_attesi insieme."
+  },
+  "output_non_versionato": {
+    "nota": "Questi file stanno in output/ sul PC di Mauro, non su Git. Non li conta la CI. Li verifica il Revisore dal ponte. Conteggio a mano del 17 luglio 2026.",
+    "mazzo-tarocchi": 78, "angeli": 72, "ritratti-vip": 50, "rune_bone": 24, "animali": 12, "cristalli": 12, "rune_vecchie_da_non_usare": 24
+  }
+}
