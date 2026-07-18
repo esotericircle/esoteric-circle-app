@@ -1,0 +1,305 @@
+{
+  "descrizione": "Catalogo VIP per la Sinastria. stem e' il file senza estensione in assets/img/ritratti-vip. Il segno solare deriva dalla data, fonte verificabile. Funzione di intrattenimento.",
+  "voci": [
+    {
+      "stem": "vip_angelina-jolie_v1",
+      "nome": "Angelina Jolie",
+      "segno": "Gemelli",
+      "data": "4 giugno 1975"
+    },
+    {
+      "stem": "vip_ariana-grande_v1",
+      "nome": "Ariana Grande",
+      "segno": "Cancro",
+      "data": "26 giugno 1993"
+    },
+    {
+      "stem": "vip_bad-bunny_v1",
+      "nome": "Bad Bunny",
+      "segno": "Pesci",
+      "data": "10 marzo 1994"
+    },
+    {
+      "stem": "vip_beyonce_v1",
+      "nome": "Beyonce",
+      "segno": "Vergine",
+      "data": "4 settembre 1981"
+    },
+    {
+      "stem": "vip_bill-gates_v1",
+      "nome": "Bill Gates",
+      "segno": "Scorpione",
+      "data": "28 ottobre 1955"
+    },
+    {
+      "stem": "vip_billie-eilish_v1",
+      "nome": "Billie Eilish",
+      "segno": "Sagittario",
+      "data": "18 dicembre 2001"
+    },
+    {
+      "stem": "vip_brad-pitt_v1",
+      "nome": "Brad Pitt",
+      "segno": "Sagittario",
+      "data": "18 dicembre 1963"
+    },
+    {
+      "stem": "vip_chiara-ferragni_v1",
+      "nome": "Chiara Ferragni",
+      "segno": "Toro",
+      "data": "7 maggio 1987"
+    },
+    {
+      "stem": "vip_damiano-david_v1",
+      "nome": "Damiano David",
+      "segno": "Capricorno",
+      "data": "8 gennaio 1999"
+    },
+    {
+      "stem": "vip_dicaprio_v1",
+      "nome": "Leonardo DiCaprio",
+      "segno": "Scorpione",
+      "data": "11 novembre 1974"
+    },
+    {
+      "stem": "vip_drake_v1",
+      "nome": "Drake",
+      "segno": "Scorpione",
+      "data": "24 ottobre 1986"
+    },
+    {
+      "stem": "vip_dwayne-johnson_v1",
+      "nome": "Dwayne Johnson",
+      "segno": "Toro",
+      "data": "2 maggio 1972"
+    },
+    {
+      "stem": "vip_elon-musk_v1",
+      "nome": "Elon Musk",
+      "segno": "Cancro",
+      "data": "28 giugno 1971"
+    },
+    {
+      "stem": "vip_emma-watson_v1",
+      "nome": "Emma Watson",
+      "segno": "Ariete",
+      "data": "15 aprile 1990"
+    },
+    {
+      "stem": "vip_federer_v1",
+      "nome": "Roger Federer",
+      "segno": "Leone",
+      "data": "8 agosto 1981"
+    },
+    {
+      "stem": "vip_fedez_v1",
+      "nome": "Fedez",
+      "segno": "Bilancia",
+      "data": "15 ottobre 1989"
+    },
+    {
+      "stem": "vip_giorgio-armani_v1",
+      "nome": "Giorgio Armani",
+      "segno": "Cancro",
+      "data": "11 luglio 1934"
+    },
+    {
+      "stem": "vip_jeff-bezos_v1",
+      "nome": "Jeff Bezos",
+      "segno": "Capricorno",
+      "data": "12 gennaio 1964"
+    },
+    {
+      "stem": "vip_kanye-west_v1",
+      "nome": "Kanye West",
+      "segno": "Gemelli",
+      "data": "8 giugno 1977"
+    },
+    {
+      "stem": "vip_keanu-reeves_v1",
+      "nome": "Keanu Reeves",
+      "segno": "Vergine",
+      "data": "2 settembre 1964"
+    },
+    {
+      "stem": "vip_kim-kardashian_v1",
+      "nome": "Kim Kardashian",
+      "segno": "Bilancia",
+      "data": "21 ottobre 1980"
+    },
+    {
+      "stem": "vip_kylie-jenner_v1",
+      "nome": "Kylie Jenner",
+      "segno": "Leone",
+      "data": "10 agosto 1997"
+    },
+    {
+      "stem": "vip_lady-gaga_v1",
+      "nome": "Lady Gaga",
+      "segno": "Ariete",
+      "data": "28 marzo 1986"
+    },
+    {
+      "stem": "vip_lebron-james_v1",
+      "nome": "LeBron James",
+      "segno": "Capricorno",
+      "data": "30 dicembre 1984"
+    },
+    {
+      "stem": "vip_margot-robbie_v1",
+      "nome": "Margot Robbie",
+      "segno": "Cancro",
+      "data": "2 luglio 1990"
+    },
+    {
+      "stem": "vip_mark-zuckerberg_v1",
+      "nome": "Mark Zuckerberg",
+      "segno": "Toro",
+      "data": "14 maggio 1984"
+    },
+    {
+      "stem": "vip_mbappe_v1",
+      "nome": "Kylian Mbappe",
+      "segno": "Sagittario",
+      "data": "20 dicembre 1998"
+    },
+    {
+      "stem": "vip_messi_v1",
+      "nome": "Lionel Messi",
+      "segno": "Cancro",
+      "data": "24 giugno 1987"
+    },
+    {
+      "stem": "vip_michelle-obama_v1",
+      "nome": "Michelle Obama",
+      "segno": "Capricorno",
+      "data": "17 gennaio 1964"
+    },
+    {
+      "stem": "vip_monica-bellucci_v1",
+      "nome": "Monica Bellucci",
+      "segno": "Bilancia",
+      "data": "30 settembre 1964"
+    },
+    {
+      "stem": "vip_nadal_v1",
+      "nome": "Rafael Nadal",
+      "segno": "Gemelli",
+      "data": "3 giugno 1986"
+    },
+    {
+      "stem": "vip_oprah-winfrey_v1",
+      "nome": "Oprah Winfrey",
+      "segno": "Acquario",
+      "data": "29 gennaio 1954"
+    },
+    {
+      "stem": "vip_priyanka-chopra_v1",
+      "nome": "Priyanka Chopra",
+      "segno": "Cancro",
+      "data": "18 luglio 1982"
+    },
+    {
+      "stem": "vip_rihanna_v1",
+      "nome": "Rihanna",
+      "segno": "Pesci",
+      "data": "20 febbraio 1988"
+    },
+    {
+      "stem": "vip_ronaldo_v1",
+      "nome": "Cristiano Ronaldo",
+      "segno": "Acquario",
+      "data": "5 febbraio 1985"
+    },
+    {
+      "stem": "vip_scarlett-johansson_v1",
+      "nome": "Scarlett Johansson",
+      "segno": "Sagittario",
+      "data": "22 novembre 1984"
+    },
+    {
+      "stem": "vip_selena-gomez_v1",
+      "nome": "Selena Gomez",
+      "segno": "Cancro",
+      "data": "22 luglio 1992"
+    },
+    {
+      "stem": "vip_serena-williams_v1",
+      "nome": "Serena Williams",
+      "segno": "Bilancia",
+      "data": "26 settembre 1981"
+    },
+    {
+      "stem": "vip_shakira_v1",
+      "nome": "Shakira",
+      "segno": "Acquario",
+      "data": "2 febbraio 1977"
+    },
+    {
+      "stem": "vip_sinner_v1",
+      "nome": "Jannik Sinner",
+      "segno": "Leone",
+      "data": "16 agosto 2001"
+    },
+    {
+      "stem": "vip_snoop-dogg_v1",
+      "nome": "Snoop Dogg",
+      "segno": "Bilancia",
+      "data": "20 ottobre 1971"
+    },
+    {
+      "stem": "vip_steve-jobs_v1",
+      "nome": "Steve Jobs",
+      "segno": "Pesci",
+      "data": "24 febbraio 1955"
+    },
+    {
+      "stem": "vip_taylor-swift_v1",
+      "nome": "Taylor Swift",
+      "segno": "Sagittario",
+      "data": "13 dicembre 1989"
+    },
+    {
+      "stem": "vip_the-weeknd_v1",
+      "nome": "The Weeknd",
+      "segno": "Acquario",
+      "data": "16 febbraio 1990"
+    },
+    {
+      "stem": "vip_timothee-chalamet_v1",
+      "nome": "Timothee Chalamet",
+      "segno": "Capricorno",
+      "data": "27 dicembre 1995"
+    },
+    {
+      "stem": "vip_tom-cruise_v1",
+      "nome": "Tom Cruise",
+      "segno": "Cancro",
+      "data": "3 luglio 1962"
+    },
+    {
+      "stem": "vip_usain-bolt_v1",
+      "nome": "Usain Bolt",
+      "segno": "Leone",
+      "data": "21 agosto 1986"
+    },
+    {
+      "stem": "vip_valentino-rossi_v1",
+      "nome": "Valentino Rossi",
+      "segno": "Acquario",
+      "data": "16 febbraio 1979"
+    },
+    {
+      "stem": "vip_warren-buffett_v1",
+      "nome": "Warren Buffett",
+      "segno": "Vergine",
+      "data": "30 agosto 1930"
+    },
+    {
+      "stem": "vip_zendaya_v1",
+      "nome": "Zendaya",
+      "segno": "Vergine",
+      "data": "1 settembre 1996"
+    }
+  ]
+}

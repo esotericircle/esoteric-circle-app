@@ -81,7 +81,8 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen> {
                         title: _vip.name,
                         sign: _vip.sign.italianName,
                         palette: palette,
-                        imagePath: _vip.thumbPath)),
+                        // Il VIP a fuoco: ritratto pieno.
+                        imagePath: _vip.fullPath)),
               ],
             ),
             const SizedBox(height: SpacingTokens.lg),
@@ -125,9 +126,9 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen> {
                 style: TypographyTokens.display(size: 16)
                     .copyWith(color: palette.goldSoft)),
             const SizedBox(height: SpacingTokens.sm),
-            // Selettore dei VIP precaricati.
+            // Selettore dei VIP precaricati, con la miniatura del ritratto.
             SizedBox(
-              height: 116,
+              height: 170,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: VipCatalog.vips.length,
@@ -246,6 +247,24 @@ class _VipChip extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Miniatura del ritratto nel picker: la misura leggera, e' una vista
+            // con piu' voci.
+            if (vip.hasImage) ...[
+              Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+                  child: Image.asset(
+                    vip.thumbPath!,
+                    width: 44,
+                    height: 44,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Icon(Icons.auto_awesome,
+                        color: palette.goldSoft, size: 22),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 4),
+            ],
             Text(vip.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
