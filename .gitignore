@@ -147,3 +147,8 @@ android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 macos/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
+
+# Asset sorgente e derivati generati sul PC di Mauro: master, WebP convertiti e
+# script di generazione. Non vanno mai su Git, si servono da CDN o si importano
+# selettivamente in brand_assets/.
+output/
