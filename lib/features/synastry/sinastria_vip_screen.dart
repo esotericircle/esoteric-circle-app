@@ -81,7 +81,7 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen> {
                         title: _vip.name,
                         sign: _vip.sign.italianName,
                         palette: palette,
-                        imagePath: _vip.imagePath)),
+                        imagePath: _vip.thumbPath)),
               ],
             ),
             const SizedBox(height: SpacingTokens.lg),

@@ -63,26 +63,33 @@ void main() {
       expect(VipCatalog.first, VipCatalog.vips.first);
     });
 
-    test('Il modello VIP porta il ritratto, con hasImage coerente', () {
+    test('Il modello VIP risolve il ritratto bundlato dallo stem', () {
       const senza = Vip(name: 'X', sign: Zodiac.leo, note: 'n');
-      expect(senza.imagePath, isNull);
       expect(senza.hasImage, isFalse);
+      expect(senza.thumbPath, isNull);
+      expect(senza.fullPath, isNull);
       const con = Vip(
           name: 'Y',
           sign: Zodiac.leo,
           note: 'n',
-          imagePath: 'brand_assets/vip/y.png');
+          stem: 'vip_angelina-jolie_v1');
       expect(con.hasImage, isTrue);
+      expect(con.thumbPath, 'assets/img_thumb/ritratti-vip/vip_angelina-jolie_v1.webp');
+      expect(con.fullPath, 'assets/img/ritratti-vip/vip_angelina-jolie_v1.webp');
     });
 
-    test('Ogni ritratto dichiarato esiste come file nel repo', () {
+    test('Ogni ritratto agganciato esiste come file bundlato, piena e miniatura',
+        () {
       // Presenza immagini: nessun percorso pendente. Oggi i VIP d'esempio non
-      // hanno ritratto (output/ritratti-vip non è nel repo), quindi nessun path
-      // da verificare; appena Mauro valorizza imagePath, il file deve esistere.
+      // hanno stem (i loro nomi e segni reali sono contenuto ancora da
+      // compilare), quindi il ciclo e' vuoto; appena una voce porta il suo stem,
+      // sia la miniatura sia la piena devono esistere nel bundle.
       for (final vip in VipCatalog.vips) {
         if (vip.hasImage) {
-          expect(File(vip.imagePath!).existsSync(), isTrue,
-              reason: 'Ritratto mancante per ${vip.name}: ${vip.imagePath}');
+          expect(File(vip.thumbPath!).existsSync(), isTrue,
+              reason: 'Miniatura mancante per ${vip.name}: ${vip.thumbPath}');
+          expect(File(vip.fullPath!).existsSync(), isTrue,
+              reason: 'Ritratto pieno mancante per ${vip.name}: ${vip.fullPath}');
         }
       }
     });

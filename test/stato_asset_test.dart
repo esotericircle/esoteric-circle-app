@@ -22,4 +22,17 @@ void main() {
       expect(reale, atteso as int, reason: 'brand_assets/$cartella ha $reale file, il manifest ne dichiara $atteso. Aggiorna docs/stato_asset.json.');
     });
   });
+
+  test('i conteggi delle sei famiglie coincidono in piena e miniatura', () {
+    final famiglie = bundle['famiglie_conteggi'] as Map<String, dynamic>;
+    famiglie.forEach((famiglia, atteso) {
+      for (final base in const ['assets/img', 'assets/img_thumb']) {
+        final dir = Directory('$base/$famiglia');
+        final reale = dir.existsSync()
+            ? dir.listSync().whereType<File>().where((f) => f.path.endsWith('.webp')).length
+            : -1;
+        expect(reale, atteso as int, reason: '$base/$famiglia ha $reale file webp, il manifest ne dichiara $atteso. Se hai spostato o tolto un asset, aggiorna docs/stato_asset.json e le cartelle insieme.');
+      }
+    });
+  });
 }

@@ -92,6 +92,22 @@ flutter:
     - assets/ritual_backgrounds/
     - brand_assets/avatars/
     - brand_assets/santuario/
+    # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o
+    # ingrandita) e miniatura (viste con piu' carte). Bundlate in-app per la
+    # Demo, niente streaming. I conteggi sono sotto il lucchetto della CI in
+    # docs/stato_asset.json, verificati da test/stato_asset_test.dart.
+    - assets/img/mazzo-tarocchi/
+    - assets/img/angeli/
+    - assets/img/ritratti-vip/
+    - assets/img/rune_bone/
+    - assets/img/animali/
+    - assets/img/cristalli/
+    - assets/img_thumb/mazzo-tarocchi/
+    - assets/img_thumb/angeli/
+    - assets/img_thumb/ritratti-vip/
+    - assets/img_thumb/rune_bone/
+    - assets/img_thumb/animali/
+    - assets/img_thumb/cristalli/
 
   # Tipografia del design system, inclusa nel bundle come asset locale, cosi'
   # il testo si legge sempre, anche offline e nell'anteprima headless. Sono
