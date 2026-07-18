@@ -26,11 +26,12 @@ class VipFrame {
   /// normalizzati sull'alpha della cornice).
   static const Rect window = Rect.fromLTRB(0.2087, 0.2089, 0.7877, 0.7239);
 
-  /// Cartiglio alto, per il nome per esteso.
-  static const Rect cartiglioNome = Rect.fromLTRB(0.22, 0.048, 0.78, 0.100);
+  /// Cartiglio alto, per il nome per esteso. Larghezza presa dalla banda blu
+  /// piatta reale (x 0.162..0.821 nell'alpha), con un filo di margine interno.
+  static const Rect cartiglioNome = Rect.fromLTRB(0.185, 0.050, 0.815, 0.099);
 
-  /// Cartiglio basso, per la data di nascita.
-  static const Rect cartiglioData = Rect.fromLTRB(0.26, 0.905, 0.74, 0.958);
+  /// Cartiglio basso, per la data di nascita (banda x 0.249..0.742 reale).
+  static const Rect cartiglioData = Rect.fromLTRB(0.255, 0.906, 0.745, 0.956);
 }
 
 /// Un ritratto dentro la cornice VIP, col nome nel cartiglio alto e la data nel
@@ -107,16 +108,17 @@ class VipFramedPortrait extends StatelessWidget {
             ));
           }
 
-          // I cartigli, scritti a runtime: nome in alto, data in basso.
-          layers.add(_Cartiglio(
-              rect: px(VipFrame.cartiglioNome),
-              text: name,
-              palette: palette));
+          // I cartigli, scritti a runtime: nome in alto, data in basso. Il testo
+          // si adatta alla larghezza del cartiglio, sempre su una riga.
+          layers.add(Positioned.fromRect(
+            rect: px(VipFrame.cartiglioNome),
+            child: CartiglioText(text: name, palette: palette),
+          ));
           if (date.isNotEmpty) {
-            layers.add(_Cartiglio(
-                rect: px(VipFrame.cartiglioData),
-                text: date,
-                palette: palette));
+            layers.add(Positioned.fromRect(
+              rect: px(VipFrame.cartiglioData),
+              child: CartiglioText(text: date, palette: palette),
+            ));
           }
 
           return Stack(fit: StackFit.expand, children: layers);
@@ -126,34 +128,179 @@ class VipFramedPortrait extends StatelessWidget {
   }
 }
 
-class _Cartiglio extends StatelessWidget {
-  const _Cartiglio(
-      {required this.rect, required this.text, required this.palette});
+/// I parametri di adattamento del testo del cartiglio: dimensione del font,
+/// spazio tra le lettere, spazio tra le parole e restringimento orizzontale.
+class CartiglioFit {
+  const CartiglioFit({
+    required this.fontSize,
+    required this.letterSpacing,
+    required this.wordSpacing,
+    required this.scaleX,
+  });
 
-  final Rect rect;
+  final double fontSize;
+  final double letterSpacing;
+  final double wordSpacing;
+  final double scaleX;
+}
+
+/// Limiti della scala progressiva, nell'ordine richiesto.
+const double _lsBase = 1.0; // spazio tra le lettere di partenza
+const double _lsMin = -1.0; // fino a circa -1,0
+const double _xsMin = 0.80; // restringimento orizzontale minimo
+const double _fontFloor = 0.85; // il font puo' calare al massimo del 15 per cento
+const double _heightFactor = 0.86; // quanto il font riempie l'altezza del cartiglio
+double _wsMin(double fs) => -fs * 0.16; // spazio tra le parole minimo
+
+double _measureWidth(String t, TextStyle base, double fs, double ls, double ws) {
+  final tp = TextPainter(
+    text: TextSpan(
+        text: t,
+        style: base.copyWith(fontSize: fs, letterSpacing: ls, wordSpacing: ws)),
+    textDirection: TextDirection.ltr,
+    maxLines: 1,
+  )..layout();
+  return tp.width;
+}
+
+double _measureHeight(String t, TextStyle base, double fs) {
+  final tp = TextPainter(
+    text: TextSpan(text: t, style: base.copyWith(fontSize: fs)),
+    textDirection: TextDirection.ltr,
+    maxLines: 1,
+  )..layout();
+  return tp.height;
+}
+
+// Cerca il valore meno compresso (piu' vicino a hi) che fa stare il testo entro
+// target. Se nemmeno la compressione piena (lo) basta, ritorna lo e si passa
+// allo stadio successivo. La larghezza cresce in modo monotono col parametro.
+double _leastCompression(
+    double Function(double) widthOf, double target, double lo, double hi) {
+  if (widthOf(lo) > target) return lo;
+  if (widthOf(hi) <= target) return hi;
+  for (var i = 0; i < 30; i++) {
+    final mid = (lo + hi) / 2;
+    if (widthOf(mid) <= target) {
+      lo = mid;
+    } else {
+      hi = mid;
+    }
+  }
+  return lo;
+}
+
+/// Calcola come far entrare [text] (gia' maiuscolo) nella larghezza [maxWidth],
+/// alto quanto [maxHeight], su una sola riga. Applica solo lo stretto necessario,
+/// nell'ordine: spazio tra le parole, spazio tra le lettere, larghezza dei
+/// caratteri, e solo come estremo la dimensione del font (fino al 15 per cento).
+CartiglioFit resolveCartiglioFit({
+  required String text,
+  required TextStyle base,
+  required double maxWidth,
+  required double maxHeight,
+}) {
+  // Font di partenza: riempie l'altezza del cartiglio.
+  const probe = 100.0;
+  final probeHeight = _measureHeight(text, base, probe);
+  final baseFont = probeHeight <= 0
+      ? maxHeight
+      : probe * (maxHeight * _heightFactor) / probeHeight;
+
+  var fs = baseFont;
+  var ls = _lsBase;
+  var ws = 0.0;
+  var xs = 1.0;
+
+  double widthNow() => _measureWidth(text, base, fs, ls, ws);
+  final hasSpace = text.contains(' ');
+
+  // 1) spazio tra le parole.
+  if (widthNow() > maxWidth && hasSpace) {
+    ws = _leastCompression(
+        (v) => _measureWidth(text, base, fs, ls, v), maxWidth, _wsMin(fs), 0.0);
+  }
+  // 2) spazio tra le lettere.
+  if (widthNow() > maxWidth) {
+    ls = _leastCompression(
+        (v) => _measureWidth(text, base, fs, v, ws), maxWidth, _lsMin, _lsBase);
+  }
+  // 3) larghezza dei caratteri.
+  final w = widthNow();
+  if (w > maxWidth) {
+    xs = (maxWidth / w).clamp(_xsMin, 1.0);
+  }
+  // 4) come estremo, la dimensione del font, al massimo meno 15 per cento.
+  if (widthNow() * xs > maxWidth) {
+    final floor = baseFont * _fontFloor;
+    fs = _leastCompression(
+        (v) => _measureWidth(text, base, v, ls, ws) * xs, maxWidth, floor, fs);
+  }
+
+  return CartiglioFit(
+      fontSize: fs, letterSpacing: ls, wordSpacing: ws, scaleX: xs);
+}
+
+/// Testo di un cartiglio VIP: maiuscolo, oro, centrato, sempre su una riga.
+///
+/// Non tronca mai, non va a capo, non sborda: adatta il testo alla larghezza del
+/// cartiglio con la scala progressiva di [resolveCartiglioFit], applicando solo
+/// lo stretto necessario. La cornice e il cartiglio restano quelli veri.
+class CartiglioText extends StatelessWidget {
+  const CartiglioText({super.key, required this.text, required this.palette});
+
   final String text;
   final MaestroPalette palette;
 
   @override
   Widget build(BuildContext context) {
-    return Positioned.fromRect(
-      rect: rect,
-      child: Center(
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            text.toUpperCase(),
-            maxLines: 1,
-            style: TypographyTokens.display(size: 40).copyWith(
-              color: palette.goldSoft,
-              letterSpacing: 1.0,
-              shadows: [
-                Shadow(color: palette.deepest, blurRadius: 2),
-              ],
-            ),
+    final upper = text.toUpperCase();
+    final base = TypographyTokens.display(size: 40).copyWith(
+      color: palette.goldSoft,
+      letterSpacing: _lsBase,
+      shadows: [Shadow(color: palette.deepest, blurRadius: 2)],
+    );
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final fit = resolveCartiglioFit(
+          text: upper,
+          base: base,
+          maxWidth: constraints.maxWidth,
+          maxHeight: constraints.maxHeight,
+        );
+
+        Widget label = Text(
+          upper,
+          maxLines: 1,
+          softWrap: false,
+          overflow: TextOverflow.visible,
+          textAlign: TextAlign.center,
+          style: base.copyWith(
+            fontSize: fit.fontSize,
+            letterSpacing: fit.letterSpacing,
+            wordSpacing: fit.wordSpacing,
           ),
-        ),
-      ),
+        );
+        if (fit.scaleX < 0.999) {
+          label = Transform.scale(
+            scaleX: fit.scaleX,
+            scaleY: 1.0,
+            alignment: Alignment.center,
+            child: label,
+          );
+        }
+        // OverflowBox: il testo puo' essere piu' largo del vincolo interno, tanto
+        // lo comprimiamo noi con lo scaleX; cosi' non va mai a capo ne tronca.
+        return Center(
+          child: OverflowBox(
+            minWidth: 0,
+            maxWidth: double.infinity,
+            alignment: Alignment.center,
+            child: label,
+          ),
+        );
+      },
     );
   }
 }
