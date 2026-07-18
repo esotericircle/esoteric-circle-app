@@ -1,6 +1,6 @@
 # Testi della Sinastria VIP, Esoteric Circle
 
-Il responso e' composto da tre pezzi concatenati: una riga sulla relazione tra i segni, una riga sul carattere del VIP, una chiusura ironica sull'incontro. Cosi' un solo set copre tutte le combinazioni. Testo medio, ironico, orientato alla condivisione. Accenti veri a runtime.
+Il responso è composto da tre pezzi concatenati: una riga sulla relazione tra i segni, una riga sul carattere del VIP, una chiusura ironica sull'incontro. Così un solo set copre tutte le combinazioni. Testo medio, ironico, orientato alla condivisione. Accenti veri a runtime.
 
 ## Righe per relazione tra i segni
 
@@ -18,16 +18,16 @@ Code sceglie in base al segno dell'utente e a quello del VIP. Elementi: Fuoco Ar
 
 Code ne pesca una a rotazione, senza ripetere la stessa due volte di fila.
 
-- "Che finiate allo stesso tavolo e' tutto da vedere, ma il cielo ogni tanto ci prova."
+- "Che finiate allo stesso tavolo è tutto da vedere, ma il cielo ogni tanto ci prova."
 - "Il destino ha i suoi tempi, ma un colpo di scena non si nega a nessuno."
-- "Tra voi, per ora, c'e' di mezzo solo qualche milione di follower."
-- "Mai dire mai: le storie migliori iniziano con un caffe' inaspettato."
+- "Tra voi, per ora, c'è di mezzo solo qualche milione di follower."
+- "Mai dire mai: le storie migliori iniziano con un caffè inaspettato."
 
-Nota: nessuna chiusura da' per scontata la distanza fisica, perche' l'utente e il VIP potrebbero anche vivere vicini.
+Nota: nessuna chiusura da' per scontata la distanza fisica, perché l'utente e il VIP potrebbero anche vivere vicini.
 
 ## I cinquanta caratteri VIP
 
-Chiave lo stem, cosi' Code lega la riga al personaggio.
+Chiave lo stem, così Code lega la riga al personaggio.
 
 - vip_angelina-jolie: lei divisa tra un set di Hollywood e mezzo mondo da salvare
 - vip_ariana-grande: lei che arriva a note che tu nemmeno immagini
@@ -40,11 +40,11 @@ Chiave lo stem, cosi' Code lega la riga al personaggio.
 - vip_damiano-david: lui che sul palco perde la camicia ma mai il ritmo
 - vip_dicaprio: lui che colleziona Oscar e tramonti
 - vip_drake: lui che trasforma ogni dispiacere in disco di platino
-- vip_dwayne-johnson: lui che solleva piu' peso del tuo intero condominio
+- vip_dwayne-johnson: lui che solleva più peso del tuo intero condominio
 - vip_elon-musk: lui che twitta a mezzanotte e sposta i mercati
-- vip_emma-watson: lei che dai libri di magia e' passata a quelli veri
+- vip_emma-watson: lei che dai libri di magia è passata a quelli veri
 - vip_federer: lui che perdeva con eleganza pure quando vinceva
-- vip_fedez: lui che fa notizia piu' di un telegiornale
+- vip_fedez: lui che fa notizia più di un telegiornale
 - vip_giorgio-armani: lui che ha vestito il mondo di grigio elegante
 - vip_jeff-bezos: lui che ti consegna tutto tranne il suo tempo libero
 - vip_kanye-west: lui che una ne fa e cento ne pensa
@@ -55,7 +55,7 @@ Chiave lo stem, cosi' Code lega la riga al personaggio.
 - vip_lebron-james: lui che a quarant'anni vola ancora
 - vip_margot-robbie: lei che ha reso una bambola un fenomeno mondiale
 - vip_mark-zuckerberg: lui che sa tutto di te ma non risponde ai messaggi
-- vip_mbappe: lui che corre piu' veloce del tuo wifi
+- vip_mbappe: lui che corre più veloce del tuo wifi
 - vip_messi: lui che parla poco e segna sempre
 - vip_michelle-obama: lei che ha rimesso di moda l'intelligenza
 - vip_monica-bellucci: lei che il tempo lo guarda passare senza farsi toccare
@@ -66,7 +66,7 @@ Chiave lo stem, cosi' Code lega la riga al personaggio.
 - vip_ronaldo: lui che si allena mentre tu dormi
 - vip_scarlett-johansson: lei che ha dato la voce persino ai robot
 - vip_selena-gomez: lei che sopravvive a Hollywood col sorriso
-- vip_serena-williams: lei che serve piu' forte di quanto tu discuti
+- vip_serena-williams: lei che serve più forte di quanto tu discuti
 - vip_shakira: lei che con i fianchi non sa mentire
 - vip_sinner: lui che resta di ghiaccio anche a Wimbledon
 - vip_snoop-dogg: lui che se la prende comoda da trent'anni
@@ -76,10 +76,10 @@ Chiave lo stem, cosi' Code lega la riga al personaggio.
 - vip_timothee-chalamet: lui che fa sospirare due generazioni insieme
 - vip_tom-cruise: lui che gli stunt se li fa da solo
 - vip_usain-bolt: lui che ha corso piano solo per salutare
-- vip_valentino-rossi: lui che in curva piega piu' di te sotto le scadenze
+- vip_valentino-rossi: lui che in curva piega più di te sotto le scadenze
 - vip_warren-buffett: lui che a colazione compra aziende
 - vip_zendaya: lei che a ogni red carpet manda in tilt internet
 
 ## Esempio composto, utente Gemelli con Angelina Gemelli
 
-"Stesso segno, stessa lunghezza d'onda: Angelina divisa tra un set di Hollywood e mezzo mondo da salvare. Che finiate allo stesso tavolo e' improbabile, ma il cielo ogni tanto ci prova."
+"Stesso segno, stessa lunghezza d'onda: Angelina divisa tra un set di Hollywood e mezzo mondo da salvare. Che finiate allo stesso tavolo è improbabile, ma il cielo ogni tanto ci prova."

@@ -11,113 +11,33 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/synastry/synastry_report.dart';
 import '../../core/synastry/vip_catalog.dart';
-import '../../design_system/components/vip_arch_frame.dart';
+import '../../design_system/components/vip_frame.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 
-/// Un volto della Sinastria dentro la cornice ad arco dei ritratti VIP.
-///
-/// Regola del contenuto, in ordine: se c'e' la foto dell'utente la incornicia
-/// con filtro dorato, altrimenti il ritratto illustrato del VIP, altrimenti il
-/// segnaposto a costellazione. Cosi' il polo del VIP mostra sempre il suo
-/// ritratto pieno, mai un cerchio vuoto.
-class SinastriaFace extends StatelessWidget {
-  const SinastriaFace({
-    super.key,
-    required this.palette,
-    required this.sign,
-    this.photoBytes,
-    this.vipImagePath,
-    this.borderWidth = 4,
-  });
-
-  final MaestroPalette palette;
-  final Zodiac sign;
-  final Uint8List? photoBytes;
-  final String? vipImagePath;
-  final double borderWidth;
-
-  @override
-  Widget build(BuildContext context) {
-    final Widget inner;
-    if (photoBytes != null) {
-      inner = GoldenCosmicPhoto(
-        bytes: photoBytes!,
-        gold: palette.gold,
-        blue: palette.primary,
-      );
-    } else if (vipImagePath != null) {
-      inner = Image.asset(
-        vipImagePath!,
-        fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => _Constellation(palette: palette, sign: sign),
-      );
-    } else {
-      inner = _Constellation(palette: palette, sign: sign);
-    }
-    return VipArchFrame(
-      gold: palette.gold,
-      goldSoft: palette.goldSoft,
-      blue: palette.primary,
-      borderWidth: borderWidth,
-      child: inner,
-    );
-  }
-}
-
-/// Il segnaposto a costellazione: un cielo profondo col simbolo del segno e una
-/// scintilla, mai un vuoto piatto.
-class _Constellation extends StatelessWidget {
-  const _Constellation({required this.palette, required this.sign});
-
-  final MaestroPalette palette;
-  final Zodiac sign;
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: RadialGradient(
-          colors: [
-            palette.primary.withValues(alpha: 0.7),
-            palette.deepest.withValues(alpha: 0.9),
-          ],
-        ),
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Text(sign.symbol,
-              style: TextStyle(
-                  fontSize: 34,
-                  color: palette.goldSoft.withValues(alpha: 0.5))),
-          Icon(Icons.auto_awesome,
-              color: palette.goldSoft.withValues(alpha: 0.9), size: 20),
-        ],
-      ),
-    );
-  }
-}
-
-/// La card condivisibile della Sinastria: i due volti col cuore, il cerchio
-/// dell'affinita', le quattro barre, la cornice oro e blu di Medora e il rilancio
-/// "sfida i tuoi amici". Snapshot statico, pronto per i social.
+/// La card condivisibile della Sinastria: i due volti nella cornice VIP col
+/// cuore, il cerchio dell'affinita', le quattro barre, la cornice oro e blu di
+/// Medora e il rilancio "sfida i tuoi amici". Snapshot statico per i social.
 class SinastriaShareCard extends StatelessWidget {
   const SinastriaShareCard({
     super.key,
     required this.report,
     required this.vip,
     required this.userSign,
+    required this.userName,
+    required this.userDate,
     required this.palette,
     this.userPhoto,
-    this.width = 340,
+    this.width = 360,
   });
 
   final SynastryReport report;
   final Vip vip;
   final Zodiac userSign;
+  final String userName;
+  final String userDate;
   final MaestroPalette palette;
   final Uint8List? userPhoto;
   final double width;
@@ -150,40 +70,48 @@ class SinastriaShareCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text('SINASTRIA',
-              style: TypographyTokens.label(size: 12).copyWith(
-                  color: palette.goldSoft, letterSpacing: 3.0)),
+              style: TypographyTokens.label(size: 12)
+                  .copyWith(color: palette.goldSoft, letterSpacing: 3.0)),
           const SizedBox(height: SpacingTokens.md),
-          // I due volti col cuore.
+          // I due volti nella cornice VIP col cuore.
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                  child: _CardPole(
-                      palette: palette,
-                      name: 'Tu',
-                      sign: userSign,
-                      face: SinastriaFace(
-                          palette: palette,
-                          sign: userSign,
-                          photoBytes: userPhoto))),
+                child: _CardPole(
+                  palette: palette,
+                  sign: userSign,
+                  portrait: VipFramedPortrait(
+                    palette: palette,
+                    name: userName,
+                    date: userDate,
+                    sign: userSign.symbol,
+                    photo: userPhoto,
+                  ),
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.only(top: 34),
-                child: Icon(Icons.favorite_rounded,
-                    color: palette.gold, size: 22),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.sm, vertical: 60),
+                child:
+                    Icon(Icons.favorite_rounded, color: palette.gold, size: 22),
               ),
               Expanded(
-                  child: _CardPole(
-                      palette: palette,
-                      name: vip.name,
-                      sign: vip.sign,
-                      face: SinastriaFace(
-                          palette: palette,
-                          sign: vip.sign,
-                          vipImagePath: vip.fullPath))),
+                child: _CardPole(
+                  palette: palette,
+                  sign: vip.sign,
+                  portrait: VipFramedPortrait(
+                    palette: palette,
+                    name: vip.name,
+                    date: vip.note,
+                    sign: vip.sign.symbol,
+                    vipAsset: vip.fullPath,
+                  ),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: SpacingTokens.md),
-          // Il cerchio dell'affinita'.
           SizedBox(
             width: 120,
             height: 120,
@@ -208,11 +136,13 @@ class SinastriaShareCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.md),
-          // Le quattro barre.
           ...report.bars.map((b) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: SynastryBarRow(
-                    bar: b, palette: palette, progress: 1, meetingReport: report),
+                    bar: b,
+                    palette: palette,
+                    progress: 1,
+                    meetingReport: report),
               )),
           const SizedBox(height: SpacingTokens.md),
           Text(SynastryReport.challengeLine(vip.name),
@@ -232,29 +162,22 @@ class SinastriaShareCard extends StatelessWidget {
 class _CardPole extends StatelessWidget {
   const _CardPole({
     required this.palette,
-    required this.name,
     required this.sign,
-    required this.face,
+    required this.portrait,
   });
 
   final MaestroPalette palette;
-  final String name;
   final Zodiac sign;
-  final Widget face;
+  final Widget portrait;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(width: 78, height: 96, child: face),
+        portrait,
         const SizedBox(height: 6),
-        Text(name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TypographyTokens.display(size: 14)),
         Text(sign.italianName,
-            style: TypographyTokens.label(size: 9)
+            style: TypographyTokens.label(size: 10)
                 .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
       ],
     );
@@ -333,8 +256,7 @@ class SynastryBarRow extends StatelessWidget {
     // reale minima, non il valore intero, cosi' resta un filo di riempimento.
     final fraction =
         isMeeting ? (meetingReport.meetingPercent / 100) : (bar.value / 100);
-    final valueText =
-        isMeeting ? meetingReport.meetingLabel : '${bar.value}%';
+    final valueText = isMeeting ? meetingReport.meetingLabel : '${bar.value}%';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

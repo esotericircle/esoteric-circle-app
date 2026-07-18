@@ -1,11 +1,11 @@
 # Corpus dei tarocchi, Medora, Esoteric Circle
 
-Il mazzo completo, settantotto carte, nella voce di Medora: ventidue Arcani Maggiori e cinquantasei Minori nei quattro semi. Contenuto curato, deterministico, su dispositivo: base che a runtime Gemini personalizza sul cielo e sul momento della persona. Tradizione reale dei tarocchi, per intrattenimento e crescita, mai promesse deterministiche sul futuro, sempre cornice di consapevolezza e scelta. Medora ha voce elegante e materna, immagini celesti, e ancora sempre al senso. Ogni carta ha una sintesi e una riga nel verso dritto, con sotto il verso rovesciato. Il rovesciato non e' mai una condanna: e' un blocco da sciogliere, un eccesso da ridosare, un invito a guardare dentro, sempre con margine di scelta. I semi seguono gli elementi: Bastoni il fuoco, Coppe l'acqua, Denari la terra, Spade l'aria. Ordine tradizionale dei Maggiori, con la Giustizia all'ottavo posto e la Forza all'undicesimo.
+Il mazzo completo, settantotto carte, nella voce di Medora: ventidue Arcani Maggiori e cinquantasei Minori nei quattro semi. Contenuto curato, deterministico, su dispositivo: base che a runtime Gemini personalizza sul cielo e sul momento della persona. Tradizione reale dei tarocchi, per intrattenimento e crescita, mai promesse deterministiche sul futuro, sempre cornice di consapevolezza e scelta. Medora ha voce elegante e materna, immagini celesti, e ancora sempre al senso. Ogni carta ha una sintesi e una riga nel verso dritto, con sotto il verso rovesciato. Il rovesciato non è mai una condanna: è un blocco da sciogliere, un eccesso da ridosare, un invito a guardare dentro, sempre con margine di scelta. I semi seguono gli elementi: Bastoni il fuoco, Coppe l'acqua, Denari la terra, Spade l'aria. Ordine tradizionale dei Maggiori, con la Giustizia all'ottavo posto e la Forza all'undicesimo.
 
 ## Arcani Maggiori
 
 - 0 Il Matto · "Il salto nel vuoto." Un nuovo inizio ti chiama: parti leggero, con fiducia e cuore aperto, anche senza vedere tutta la strada.
-- 0 Il Matto rovesciato · "Il passo avventato." Slancio senza direzione, o timore che ti trattiene sull'orlo: prima di partire, senti se e' coraggio o fuga.
+- 0 Il Matto rovesciato · "Il passo avventato." Slancio senza direzione, o timore che ti trattiene sull'orlo: prima di partire, senti se è coraggio o fuga.
 - I Il Mago · "Il potere di creare." Hai gli strumenti e la volontà: è il momento di manifestare, di trasformare l'idea in gesto.
 - I Il Mago rovesciato · "Il potere sprecato." Talento che resta inusato, o parole che promettono più di quanto mantieni: riporta l'intenzione al gesto onesto.
 - II La Papessa · "Il sapere del silenzio." Ascolta l'intuizione, ciò che sai senza spiegarlo: un mistero si svela solo alla mente quieta.
@@ -34,7 +34,7 @@ Il mazzo completo, settantotto carte, nella voce di Medora: ventidue Arcani Magg
 - XIII La Morte rovesciata · "La fine trattenuta." Resisti a un cambiamento già arrivato: lasciare andare fa meno male dell'aggrapparsi, la vita vuole scorrere.
 - XIV La Temperanza · "La misura che guarisce." Armonia, pazienza, giusto dosaggio: unisci gli opposti con calma e ritrova l'equilibrio.
 - XIV La Temperanza rovesciata · "La misura perduta." Eccessi, fretta, opposti che non si parlano: rallenta, ridosa, ritrova il ritmo che guarisce.
-- XV Il Diavolo · "L'ombra da guardare." Catene, tentazioni, attaccamenti: riconosci ciò che ti lega e la sua presa si allenta.
+- XV Il Diavolo · "L'ombra da guardare." Catene, tentazioni, attaccamenti: riconosci ciò che ti lega, e la sua presa si allenta.
 - XV Il Diavolo rovesciato · "La catena che si spezza." Ti accorgi di un legame che ti tratteneva: il primo passo per liberarti è averlo visto, adesso scioglilo.
 - XVI La Torre · "Il crollo che rivela." Cade all'improvviso ciò che era falso: doloroso, ma ti libera per costruire sul vero.
 - XVI La Torre rovesciata · "Il crollo evitato." Rimandi una scossa necessaria, oppure ne esci a fatica: meglio un vero che vacilla che un falso che regge.
@@ -175,7 +175,7 @@ Il mazzo completo, settantotto carte, nella voce di Medora: ventidue Arcani Magg
 
 ## Legatura agli stem, importante
 
-I file d'arte usano l'ordine Rider-Waite, dove La Forza e' l'VIII e La Giustizia l'XI, l'opposto della numerazione di questo corpus. Quindi lega i significati alla carta per NOME, non per numero. Il quinto Arcano nel file si chiama l-ierofante, che qui e' Il Papa.
+I file d'arte usano l'ordine Rider-Waite, dove La Forza è l'VIII e La Giustizia l'XI, l'opposto della numerazione di questo corpus. Quindi lega i significati alla carta per NOME, non per numero. Il quinto Arcano nel file si chiama l-ierofante, che qui è Il Papa.
 
 Maggiori, nome verso stem file (senza estensione):
 Il Matto tar_rw_00_il-matto_v1, Il Mago tar_rw_01_il-mago_v1, La Papessa tar_rw_02_la-papessa_v1, L'Imperatrice tar_rw_03_l-imperatrice_v1, L'Imperatore tar_rw_04_l-imperatore_v1, Il Papa tar_rw_05_l-ierofante_v1, Gli Amanti tar_rw_06_gli-amanti_v1, Il Carro tar_rw_07_il-carro_v1, La Forza tar_rw_08_la-forza_v1, L'Eremita tar_rw_09_l-eremita_v1, La Ruota della Fortuna tar_rw_10_la-ruota-della-fortuna_v1, La Giustizia tar_rw_11_la-giustizia_v1, L'Appeso tar_rw_12_l-appeso_v1, La Morte tar_rw_13_la-morte_v1, La Temperanza tar_rw_14_la-temperanza_v1, Il Diavolo tar_rw_15_il-diavolo_v1, La Torre tar_rw_16_la-torre_v1, La Stella tar_rw_17_le-stelle_v1, La Luna tar_rw_18_la-luna_v1, Il Sole tar_rw_19_il-sole_v1, Il Giudizio tar_rw_20_il-giudizio_v1, Il Mondo tar_rw_21_il-mondo_v1.

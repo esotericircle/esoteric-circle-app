@@ -7,6 +7,7 @@ import '../../core/synastry/synastry_report.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
+import '../../design_system/components/vip_frame.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -15,6 +16,15 @@ import '../../design_system/tokens/typography_tokens.dart';
 import 'sinastria_share_card.dart';
 import 'user_photo.dart';
 
+const List<String> _mesiItaliani = [
+  'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
+  'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'
+];
+
+/// Data di nascita per esteso, in italiano, per il cartiglio basso.
+String italianLongDate(DateTime d) =>
+    '${d.day} ${_mesiItaliani[d.month - 1]} ${d.year}';
+
 /// Sinastria VIP: l'affinita' fra il tuo cielo e quello di un VIP.
 ///
 /// Un VIP e' sempre precaricato, cosi' la Demo puo' aprirsi da qui in un tap dal
@@ -22,9 +32,21 @@ import 'user_photo.dart';
 /// a parita' di segni il responso e le quattro barre non cambiano. E' un gioco
 /// simbolico di intrattenimento, non una previsione.
 class SinastriaVipScreen extends StatefulWidget {
-  const SinastriaVipScreen({super.key, this.userSign, this.photoController});
+  const SinastriaVipScreen({
+    super.key,
+    this.userSign,
+    this.userName = 'Tu',
+    this.userBirth,
+    this.photoController,
+  });
 
   final Zodiac? userSign;
+
+  /// Nome dell'utente nel cartiglio del suo polo.
+  final String userName;
+
+  /// Data di nascita dell'utente, per il cartiglio. Se nulla, usa l'esempio.
+  final DateTime? userBirth;
 
   /// Iniettabile nei test, cosi' la scelta foto non tocca camera ne galleria.
   final UserPhotoController? photoController;
@@ -55,6 +77,11 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
 
   Zodiac get _userSign =>
       widget.userSign ?? NightSky.sunSign(BirthIdentity.example.birthMoment);
+
+  DateTime get _userBirth =>
+      widget.userBirth ?? BirthIdentity.example.birthMoment;
+
+  String get _userDate => italianLongDate(_userBirth);
 
   @override
   void initState() {
@@ -101,11 +128,13 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title:
-            Text('Sinastria VIP', style: TypographyTokens.display(size: 20)),
+        title: Text('Sinastria VIP', style: TypographyTokens.display(size: 20)),
       ),
-      // Il cosmo profondo avvolge la schermata, non il nero piatto.
+      // Il cosmo profondo avvolge la schermata, senza le figure di costellazione
+      // a linee che finivano coperte dalle cornici: qui restano stelle,
+      // nebulose, parallasse e stella cadente, un cielo pulito.
       body: CosmosBackground(
+        showZodiac: false,
         child: SafeArea(
           child: Stack(
             children: [
@@ -122,6 +151,8 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
                       report: report,
                       vip: _vip,
                       userSign: _userSign,
+                      userName: widget.userName,
+                      userDate: _userDate,
                       palette: palette,
                       userPhoto: _photo.bytes,
                     ),
@@ -140,7 +171,7 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, kToolbarHeight,
           SpacingTokens.lg, SpacingTokens.xxxl),
       children: [
-        // I due poli col cuore.
+        // I due poli nella cornice VIP col cuore.
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -148,32 +179,36 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
               child: _Pole(
                 key: const Key('sinastria_pole_user'),
                 palette: palette,
-                name: 'Tu',
                 sign: _userSign,
-                face: SinastriaFace(
-                    palette: palette,
-                    sign: _userSign,
-                    photoBytes: _photo.bytes),
                 hint: _photo.hasPhoto ? 'Tocca per cambiare' : 'Tocca, la tua foto',
                 onTap: _openPhotoSheet,
+                portrait: VipFramedPortrait(
+                  palette: palette,
+                  name: widget.userName,
+                  date: _userDate,
+                  sign: _userSign.symbol,
+                  photo: _photo.bytes,
+                ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 90),
               child: Icon(Icons.favorite_rounded,
-                  color: palette.goldSoft, size: 24),
+                  color: palette.goldSoft, size: 26),
             ),
             Expanded(
               child: _Pole(
                 key: const Key('sinastria_pole_vip'),
                 palette: palette,
-                name: _vip.name,
                 sign: _vip.sign,
-                // Il ritratto pieno del VIP, stem gia' legato.
-                face: SinastriaFace(
-                    palette: palette,
-                    sign: _vip.sign,
-                    vipImagePath: _vip.fullPath),
+                // Il ritratto VIP con la sua cornice originale, senza aggiunte.
+                portrait: VipFramedPortrait(
+                  palette: palette,
+                  name: _vip.name,
+                  date: _vip.note,
+                  sign: _vip.sign.symbol,
+                  vipAsset: _vip.fullPath,
+                ),
               ),
             ),
           ],
@@ -220,8 +255,8 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
           padding: const EdgeInsets.all(SpacingTokens.lg),
           child: Text(report.reading,
               key: const Key('sinastria_reading'),
-              style: TypographyTokens.body(size: 16).copyWith(
-                  color: ColorTokens.textPrimary, height: 1.5)),
+              style: TypographyTokens.body(size: 16)
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
         ),
         const SizedBox(height: SpacingTokens.md),
         // Le quattro barre infografica animate.
@@ -251,8 +286,8 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
         // Il rilancio e il tasto Condividi.
         Text(SynastryReport.challengeLine(_vip.name),
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 14).copyWith(
-                color: ColorTokens.textSecondary, height: 1.4)),
+            style: TypographyTokens.body(size: 14)
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
         const SizedBox(height: SpacingTokens.sm),
         Center(
           child: FilledButton.icon(
@@ -308,10 +343,13 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
       _renderCard = true;
     });
     try {
-      // Assicura il ritratto del VIP decodificato, poi lascia un paio di frame
-      // perche' la card fuori campo sia disegnata prima dello scatto.
+      // Assicura il ritratto del VIP e la cornice decodificati, poi lascia un
+      // paio di frame perche' la card fuori campo sia disegnata prima dello scatto.
       if (_vip.fullPath != null) {
         await precacheImage(AssetImage(_vip.fullPath!), context);
+      }
+      if (mounted) {
+        await precacheImage(const AssetImage(VipFrame.asset), context);
       }
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
@@ -354,7 +392,7 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('La tua foto nella card',
+                Text('La tua foto nella cornice',
                     style: TypographyTokens.display(size: 18)
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
@@ -416,17 +454,15 @@ class _Pole extends StatelessWidget {
   const _Pole({
     super.key,
     required this.palette,
-    required this.name,
     required this.sign,
-    required this.face,
+    required this.portrait,
     this.hint,
     this.onTap,
   });
 
   final MaestroPalette palette;
-  final String name;
   final Zodiac sign;
-  final Widget face;
+  final Widget portrait;
 
   /// Suggerimento sotto il polo dell'utente, per invitare alla foto.
   final String? hint;
@@ -439,13 +475,8 @@ class _Pole extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: Column(
         children: [
-          SizedBox(width: 84, height: 104, child: face),
+          portrait,
           const SizedBox(height: SpacingTokens.sm),
-          Text(name,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TypographyTokens.display(size: 16)),
           Text(sign.italianName,
               style: TypographyTokens.label(size: 11)
                   .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),

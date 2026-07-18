@@ -636,6 +636,8 @@ void main() {
     // selettore, cosi' l'anteprima mostra l'arte reale e non i ripieghi.
     await tester.runAsync(() async {
       final element = tester.element(find.byType(SinastriaVipScreen));
+      // La cornice VIP per il polo dell'utente.
+      await precacheImage(const AssetImage('assets/vip_cornice.webp'), element);
       final first = VipCatalog.first;
       if (first.fullPath != null) {
         await precacheImage(AssetImage(first.fullPath!), element);

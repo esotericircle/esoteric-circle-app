@@ -60,11 +60,11 @@ class SynastryReport {
 
   /// Le quattro barre pronte per l'infografica, nell'ordine di layout.
   List<SynastryBar> get bars => [
-        SynastryBar(label: 'Affinita\' d\'amore', value: love),
+        SynastryBar(label: 'Affinità d\'amore', value: love),
         SynastryBar(label: 'Intesa mentale', value: mental),
         SynastryBar(label: 'Scintille', value: sparks),
         SynastryBar(
-          label: 'Possibilita\' di incontro',
+          label: 'Possibilità di incontro',
           value: meetingPercent.floor(),
           quip: meetingQuip,
         ),
@@ -237,7 +237,7 @@ class SynastryReport {
     final key = vip.stem == null
         ? ''
         : vip.stem!.replaceAll(RegExp(r'_v\d+$'), '');
-    var line = _vipCharacters[key] ?? 'che porta con se\' il suo mondo';
+    var line = _vipCharacters[key] ?? 'che porta con sé il suo mondo';
     line = line.replaceFirst(RegExp(r'^(lei|lui)\s+'), '');
     return '${vip.name} $line';
   }
@@ -245,10 +245,10 @@ class SynastryReport {
   /// Le chiusure ironiche sull'incontro, dal corpus. Se ne sceglie una in modo
   /// deterministico per coppia, cosi' la card resta stabile.
   static const List<String> _ironicClosers = [
-    'Che finiate allo stesso tavolo e\' tutto da vedere, ma il cielo ogni tanto ci prova.',
+    'Che finiate allo stesso tavolo è tutto da vedere, ma il cielo ogni tanto ci prova.',
     'Il destino ha i suoi tempi, ma un colpo di scena non si nega a nessuno.',
-    'Tra voi, per ora, c\'e\' di mezzo solo qualche milione di follower.',
-    'Mai dire mai: le storie migliori iniziano con un caffe\' inaspettato.',
+    'Tra voi, per ora, c\'è di mezzo solo qualche milione di follower.',
+    'Mai dire mai: le storie migliori iniziano con un caffè inaspettato.',
   ];
 
   /// Micro battute sulla barra dell'incontro, deterministiche per coppia.
@@ -273,11 +273,11 @@ class SynastryReport {
     'vip_damiano-david': 'che sul palco perde la camicia ma mai il ritmo',
     'vip_dicaprio': 'che colleziona Oscar e tramonti',
     'vip_drake': 'che trasforma ogni dispiacere in disco di platino',
-    'vip_dwayne-johnson': 'che solleva piu\' peso del tuo intero condominio',
+    'vip_dwayne-johnson': 'che solleva più peso del tuo intero condominio',
     'vip_elon-musk': 'che twitta a mezzanotte e sposta i mercati',
-    'vip_emma-watson': 'che dai libri di magia e\' passata a quelli veri',
+    'vip_emma-watson': 'che dai libri di magia è passata a quelli veri',
     'vip_federer': 'che perdeva con eleganza pure quando vinceva',
-    'vip_fedez': 'che fa notizia piu\' di un telegiornale',
+    'vip_fedez': 'che fa notizia più di un telegiornale',
     'vip_giorgio-armani': 'che ha vestito il mondo di grigio elegante',
     'vip_jeff-bezos': 'che ti consegna tutto tranne il suo tempo libero',
     'vip_kanye-west': 'che una ne fa e cento ne pensa',
@@ -288,7 +288,7 @@ class SynastryReport {
     'vip_lebron-james': 'che a quarant\'anni vola ancora',
     'vip_margot-robbie': 'che ha reso una bambola un fenomeno mondiale',
     'vip_mark-zuckerberg': 'che sa tutto di te ma non risponde ai messaggi',
-    'vip_mbappe': 'che corre piu\' veloce del tuo wifi',
+    'vip_mbappe': 'che corre più veloce del tuo wifi',
     'vip_messi': 'che parla poco e segna sempre',
     'vip_michelle-obama': 'che ha rimesso di moda l\'intelligenza',
     'vip_monica-bellucci': 'che il tempo lo guarda passare senza farsi toccare',
@@ -300,7 +300,7 @@ class SynastryReport {
     'vip_ronaldo': 'che si allena mentre tu dormi',
     'vip_scarlett-johansson': 'che ha dato la voce persino ai robot',
     'vip_selena-gomez': 'che sopravvive a Hollywood col sorriso',
-    'vip_serena-williams': 'che serve piu\' forte di quanto tu discuti',
+    'vip_serena-williams': 'che serve più forte di quanto tu discuti',
     'vip_shakira': 'che con i fianchi non sa mentire',
     'vip_sinner': 'che resta di ghiaccio anche a Wimbledon',
     'vip_snoop-dogg': 'che se la prende comoda da trent\'anni',
@@ -310,7 +310,7 @@ class SynastryReport {
     'vip_timothee-chalamet': 'che fa sospirare due generazioni insieme',
     'vip_tom-cruise': 'che gli stunt se li fa da solo',
     'vip_usain-bolt': 'che ha corso piano solo per salutare',
-    'vip_valentino-rossi': 'che in curva piega piu\' di te sotto le scadenze',
+    'vip_valentino-rossi': 'che in curva piega più di te sotto le scadenze',
     'vip_warren-buffett': 'che a colazione compra aziende',
     'vip_zendaya': 'che a ogni red carpet manda in tilt internet',
   };
