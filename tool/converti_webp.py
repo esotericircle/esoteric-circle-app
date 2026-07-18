@@ -1,15 +1,11 @@
-# Converte i master PNG in derivati WebP ottimizzati per l'app.
-# Non tocca mai gli originali: legge da output/<famiglia>/ e scrive in
-# output/derivati/webp/<famiglia>/. Ridimensiona al lato lungo target per
-# famiglia (solo se il master e' piu' grande, mai upscale), poi salva WebP a
-# qualita' alta con l'alpha preservato. Elabora solo i file .png al primo
-# livello che non iniziano con "_" (salta report, sheet, cartelle interni e _raw).
+# Converte i master PNG in derivati WebP ottimizzati per l'app, in due misure.
 import os
 import sys
 from PIL import Image
 
 SRC = "output"
-DST = os.path.join("output", "derivati", "webp")
+DST_FULL = os.path.join("output", "derivati", "webp")
+DST_THUMB = os.path.join("output", "derivati", "webp_thumb")
 TARGET = {
     "mazzo-tarocchi": 1400,
     "angeli": 1400,
@@ -19,6 +15,8 @@ TARGET = {
     "cristalli": 1000,
 }
 QUALITY = 88
+THUMB_LONG = 500
+THUMB_QUALITY = 82
 CAMPIONE = ("mazzo-tarocchi", "tar_rw_00_il-matto_v1.png")
 
 def file_png(famiglia):
@@ -32,7 +30,7 @@ def file_png(famiglia):
             out.append(n)
     return out
 
-def converti(src_path, dst_path, target_long):
+def converti(src_path, dst_path, target_long, quality):
     img = Image.open(src_path)
     if img.mode not in ("RGB", "RGBA"):
         img = img.convert("RGBA")
@@ -42,12 +40,12 @@ def converti(src_path, dst_path, target_long):
         scala = target_long / lung
         img = img.resize((round(w * scala), round(h * scala)), Image.LANCZOS)
     os.makedirs(os.path.dirname(dst_path), exist_ok=True)
-    img.save(dst_path, "WEBP", quality=QUALITY, method=6)
-    return img.size
+    img.save(dst_path, "WEBP", quality=quality, method=6)
+    return os.path.getsize(dst_path)
 
-def dst_di(famiglia, nome_png):
+def dst_di(base, famiglia, nome_png):
     stem = os.path.splitext(nome_png)[0].lower()
-    return os.path.join(DST, famiglia, stem + ".webp")
+    return os.path.join(base, famiglia, stem + ".webp")
 
 def misura():
     for fam in TARGET:
@@ -64,32 +62,34 @@ def misura():
                 lung = max(im.size)
                 pmax = lung if pmax is None else max(pmax, lung)
                 pmin = lung if pmin is None else min(pmin, lung)
-        print(f"{fam}: {len(nomi)} file, lato lungo da {pmin} a {pmax} px, peso totale {peso_tot / 1048576:.1f} MB, target {TARGET[fam]} px")
+        print(f"{fam}: {len(nomi)} file, lato lungo da {pmin} a {pmax} px, peso totale {peso_tot / 1048576:.1f} MB, piena {TARGET[fam]} px, miniatura {THUMB_LONG} px")
 
 def campione():
     fam, nome = CAMPIONE
     src = os.path.join(SRC, fam, nome)
-    dst = dst_di(fam, nome)
-    size = converti(src, dst, TARGET[fam])
-    vecchio = os.path.getsize(src)
-    nuovo = os.path.getsize(dst)
-    print(f"campione {fam}/{nome}")
-    print(f"  master: {vecchio / 1048576:.2f} MB")
-    print(f"  webp:   {nuovo / 1024:.0f} KB, {size[0]}x{size[1]} px")
-    print(f"  scritto in {dst}")
+    p_full = converti(src, dst_di(DST_FULL, fam, nome), TARGET[fam], QUALITY)
+    p_thumb = converti(src, dst_di(DST_THUMB, fam, nome), THUMB_LONG, THUMB_QUALITY)
+    print(f"campione {fam}/{nome}, master {os.path.getsize(src) / 1048576:.2f} MB")
+    print(f"  piena:     {p_full / 1024:.0f} KB")
+    print(f"  miniatura: {p_thumb / 1024:.0f} KB")
 
 def batch():
-    tot_v = tot_n = n_file = 0
+    n_file = 0
+    tot_master = tot_full = tot_thumb = 0
     for fam in TARGET:
-        for nome in file_png(fam):
+        f_full = f_thumb = 0
+        nomi = file_png(fam)
+        for nome in nomi:
             src = os.path.join(SRC, fam, nome)
-            dst = dst_di(fam, nome)
-            converti(src, dst, TARGET[fam])
-            tot_v += os.path.getsize(src)
-            tot_n += os.path.getsize(dst)
+            tot_master += os.path.getsize(src)
+            f_full += converti(src, dst_di(DST_FULL, fam, nome), TARGET[fam], QUALITY)
+            f_thumb += converti(src, dst_di(DST_THUMB, fam, nome), THUMB_LONG, THUMB_QUALITY)
             n_file += 1
-        print(f"{fam}: convertito")
-    print(f"Totale: {n_file} file, da {tot_v / 1048576:.0f} MB a {tot_n / 1048576:.1f} MB in WebP")
+        tot_full += f_full
+        tot_thumb += f_thumb
+        print(f"{fam}: {len(nomi)} file, piena {f_full / 1048576:.1f} MB, miniatura {f_thumb / 1048576:.1f} MB")
+    print("---")
+    print(f"Totale {n_file} file. Master {tot_master / 1048576:.0f} MB. Piena {tot_full / 1048576:.1f} MB. Miniatura {tot_thumb / 1048576:.1f} MB. Bundle app (piena piu' miniatura) {(tot_full + tot_thumb) / 1048576:.1f} MB")
 
 def main():
     modo = sys.argv[1] if len(sys.argv) > 1 else "misura"
