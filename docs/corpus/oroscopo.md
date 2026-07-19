@@ -27,6 +27,19 @@ Gli indicatori sono quattro icone diverse per dominio, riempite da due a cinque:
 
 Il cielo inclina, non obbliga: nessun destino è scritto, la scelta resta tua.
 
+## Aperture personalizzate
+
+L'oroscopo e' personalizzato: il primo testo apre col nome della persona e sta prima del testo della Generale. Il vocativo lo decide la forma di cortesia scelta all'onboarding: Caro o Cara piu' il nome quando il genere e' noto, altrimenti Ciao piu' il nome. Il segnaposto [Nome] si sostituisce con quel vocativo completo.
+
+Il seme e' lo stesso del giorno, quindi l'apertura e' deterministica e riproducibile. A runtime, quando Gemini e' acceso, l'apertura la personalizza lui sul cielo reale e sulla memoria della persona: questo resta il fallback su dispositivo.
+
+1. [Nome], oggi il cielo ha qualcosa da dirti.
+2. [Nome], le stelle di oggi ti guardano con favore.
+3. [Nome], oggi Medora ti accompagna passo dopo passo.
+4. [Nome], c'è un buon vento nelle stelle di oggi.
+5. [Nome], oggi il tuo cielo si accende.
+6. [Nome], lascia che il cielo di oggi ti sorprenda.
+
 ## Le ancore dei dodici segni
 
 ### Ariete, fuoco cardinale, Marte

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -8,6 +7,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../core/horoscope/horoscope_data.dart';
+import '../../design_system/components/brand_mark.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -19,8 +19,9 @@ import 'oroscopo_colors.dart';
 
 /// La card verticale condivisibile dell'Oroscopo, formato storia social:
 /// emblema e nome del segno, la riga di sintesi (ancora del Generale), le quattro
-/// schede in forma compatta con la loro forma a tema, numero fortunato e colore
-/// del giorno, sigillo di Medora, watermark e deep link. Tutto deterministico.
+/// schede in forma compatta con la loro forma a tema e il livello col numero,
+/// numero fortunato e colore del giorno, marchio e deep link. Tutto
+/// deterministico.
 class OroscopoShareCard extends StatelessWidget {
   const OroscopoShareCard({
     super.key,
@@ -66,24 +67,23 @@ class OroscopoShareCard extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TypographyTokens.label(size: 12)
                   .copyWith(color: palette.goldSoft, letterSpacing: 4.0)),
-          const SizedBox(height: SpacingTokens.md),
-          // Emblema e nome del segno.
+          const SizedBox(height: SpacingTokens.sm),
           Center(
             child: Column(
               children: [
                 Container(
-                  width: 96,
-                  height: 96,
+                  width: 104,
+                  height: 104,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: RadialGradient(colors: [
-                      palette.gold.withValues(alpha: 0.28),
+                      palette.gold.withValues(alpha: 0.26),
                       Colors.transparent,
                     ]),
                   ),
                   child: ZodiacEmblem(
-                      sign: sign, size: 78, art: ZodiacEmblemArt.emblem),
+                      sign: sign, size: 92, art: ZodiacEmblemArt.emblem),
                 ),
                 Text(sign.italianName,
                     style: TypographyTokens.display(size: 26)
@@ -91,7 +91,7 @@ class OroscopoShareCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: SpacingTokens.md),
+          const SizedBox(height: SpacingTokens.sm),
           // Riga di sintesi in evidenza: l'ancora del Generale.
           Container(
             padding: const EdgeInsets.all(SpacingTokens.md),
@@ -102,37 +102,88 @@ class OroscopoShareCard extends StatelessWidget {
             ),
             child: Text(synthesis,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 15).copyWith(
-                    color: ColorTokens.textPrimary, height: 1.4)),
+                style: TypographyTokens.body(size: 14)
+                    .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
           ),
           const SizedBox(height: SpacingTokens.md),
-          // Le quattro schede in forma compatta, ognuna con la sua forma a tema.
-          Row(children: [
-            for (final c in cards.take(2))
-              Expanded(
-                  child: _CompactTile(card: c, palette: palette, pulse: still)),
-          ]),
+          // Le quattro bolle, ognuna con la sua forma a tema e il livello.
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (final c in cards.take(2))
+                  Expanded(
+                      child:
+                          _LevelTile(card: c, palette: palette, pulse: still)),
+              ],
+            ),
+          ),
           const SizedBox(height: SpacingTokens.sm),
-          Row(children: [
-            for (final c in cards.skip(2))
-              Expanded(
-                  child: _CompactTile(card: c, palette: palette, pulse: still)),
-          ]),
-          const SizedBox(height: SpacingTokens.md),
-          // Numero fortunato e colore del giorno.
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _fortunaChip('Numero', '${fortuna.luckyNumber}', palette),
-              const SizedBox(width: SpacingTokens.sm),
-              _colorChip(fortuna.dayColor, palette),
-            ],
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (final c in cards.skip(2))
+                  Expanded(
+                      child:
+                          _LevelTile(card: c, palette: palette, pulse: still)),
+              ],
+            ),
           ),
           const SizedBox(height: SpacingTokens.md),
-          // Sigillo di Medora, watermark e deep link.
-          const _MedoraSeal(),
+          // Numero e Colore: due bolle della stessa misura, col titolo sopra.
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: _InfoBubble(
+                    label: 'Numero',
+                    palette: palette,
+                    child: Text('${fortuna.luckyNumber}',
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.display(size: 22)
+                            .copyWith(color: palette.goldSoft)),
+                  ),
+                ),
+                const SizedBox(width: SpacingTokens.sm),
+                Expanded(
+                  child: _InfoBubble(
+                    label: 'Colore',
+                    palette: palette,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 14,
+                          height: 14,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: oroscopoColor(fortuna.dayColor) ??
+                                palette.goldSoft,
+                            border: Border.all(
+                                color: palette.gold.withValues(alpha: 0.6)),
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Flexible(
+                          child: Text(fortuna.dayColor ?? '',
+                              maxLines: 1,
+                              style: TypographyTokens.body(size: 13)
+                                  .copyWith(color: ColorTokens.textPrimary)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          // Marchio: il logo vero se c'e', altrimenti il sigillo provvisorio.
+          const Center(child: BrandLogo(size: 42)),
           const SizedBox(height: 4),
-          Text('ESOTERIC CIRCLE',
+          Text(BrandMark.wordmark,
               textAlign: TextAlign.center,
               style: TypographyTokens.label(size: 10)
                   .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
@@ -144,63 +195,12 @@ class OroscopoShareCard extends StatelessWidget {
       ),
     );
   }
-
-  Widget _fortunaChip(String label, String value, MaestroPalette palette) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
-        color: palette.primary.withValues(alpha: 0.4),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(label.toUpperCase(),
-              style: TypographyTokens.label(size: 8).copyWith(
-                  color: ColorTokens.textSecondary, letterSpacing: 0.8)),
-          Text(value,
-              style: TypographyTokens.display(size: 20)
-                  .copyWith(color: palette.goldSoft)),
-        ],
-      ),
-    );
-  }
-
-  Widget _colorChip(String? name, MaestroPalette palette) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
-        color: palette.primary.withValues(alpha: 0.4),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 16,
-            height: 16,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: oroscopoColor(name) ?? palette.goldSoft,
-              border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
-            ),
-          ),
-          const SizedBox(width: 6),
-          Text(name ?? '',
-              style: TypographyTokens.body(size: 13)
-                  .copyWith(color: ColorTokens.textPrimary)),
-        ],
-      ),
-    );
-  }
 }
 
-class _CompactTile extends StatelessWidget {
-  const _CompactTile(
+/// Una bolla di scheda: la forma a tema col livello e il titolo per intero, mai
+/// troncato coi puntini.
+class _LevelTile extends StatelessWidget {
+  const _LevelTile(
       {required this.card, required this.palette, required this.pulse});
 
   final HoroscopeCard card;
@@ -219,75 +219,70 @@ class _CompactTile extends StatelessWidget {
         border: Border.all(color: palette.gold.withValues(alpha: 0.2)),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          DomainVisual(
+          DomainLevel(
             domain: card.domain,
             value: card.indicator,
             palette: palette,
             pulse: pulse,
-            size: 40,
+            size: 38,
             animateFill: false,
+            numberSize: 10,
           ),
           const SizedBox(height: 4),
           Text(card.domain.label.toUpperCase(),
               maxLines: 1,
-              overflow: TextOverflow.ellipsis,
               style: TypographyTokens.label(size: 8).copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.8)),
+          // Titolo intero: va a capo e si rimpicciolisce, nessuna ellissi.
           Text(card.title,
-              maxLines: 2,
               textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: TypographyTokens.display(size: 12)
-                  .copyWith(color: palette.goldSoft)),
+              maxLines: 3,
+              softWrap: true,
+              overflow: TextOverflow.visible,
+              style: TypographyTokens.display(size: 11)
+                  .copyWith(color: palette.goldSoft, height: 1.15)),
         ],
       ),
     );
   }
 }
 
-/// Un piccolo sigillo di Medora disegnato a vettori: un medaglione dorato con la
-/// stella, sempre disponibile, senza dipendere da un asset.
-class _MedoraSeal extends StatelessWidget {
-  const _MedoraSeal();
+/// Una bolla informativa col titolo sopra e il contenuto sotto, di misura
+/// uguale alle sue sorelle.
+class _InfoBubble extends StatelessWidget {
+  const _InfoBubble(
+      {required this.label, required this.child, required this.palette});
+
+  final String label;
+  final Widget child;
+  final MaestroPalette palette;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: 44,
-        height: 44,
-        child: CustomPaint(painter: _SealPainter()),
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.sm, vertical: SpacingTokens.sm),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+        color: palette.primary.withValues(alpha: 0.4),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(label.toUpperCase(),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.label(size: 8).copyWith(
+                  color: ColorTokens.textSecondary, letterSpacing: 0.8)),
+          const SizedBox(height: 4),
+          Center(child: child),
+        ],
       ),
     );
   }
-}
-
-class _SealPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final c = size.center(Offset.zero);
-    final r = size.shortestSide * 0.46;
-    const gold = Color(0xFFE9C46A);
-    canvas.drawCircle(
-        c,
-        r,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = size.shortestSide * 0.06
-          ..color = gold);
-    // Stella a otto punte.
-    final star = Paint()..color = gold;
-    for (var k = 0; k < 8; k++) {
-      final a = k * math.pi / 4;
-      final tip = c + Offset(math.cos(a), math.sin(a)) * r * 0.62;
-      canvas.drawCircle(tip, size.shortestSide * 0.03, star);
-    }
-    canvas.drawCircle(c, size.shortestSide * 0.1, star);
-  }
-
-  @override
-  bool shouldRepaint(_SealPainter old) => false;
 }
 
 /// Genera la card come immagine dal boundary e apre il foglio di condivisione.

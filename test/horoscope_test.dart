@@ -1,5 +1,6 @@
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -102,6 +103,58 @@ void main() {
     });
   });
 
+  group('Apertura personalizzata', () {
+    test('Il vocativo segue la forma di cortesia', () {
+      expect(Horoscope.vocativeFor('Sofia', CourtesyForm.feminine),
+          'Cara Sofia');
+      expect(Horoscope.vocativeFor('Marco', CourtesyForm.masculine),
+          'Caro Marco');
+      expect(Horoscope.vocativeFor('Alex', CourtesyForm.neutral), 'Ciao Alex');
+      expect(Horoscope.vocativeFor('Alex', CourtesyForm.unknown), 'Ciao Alex');
+    });
+
+    test('L\'apertura porta il nome e viene dal pool del corpus', () {
+      for (final sign in Zodiac.values) {
+        for (var day = 0; day <= 365; day += 7) {
+          final opening = Horoscope.openingFor(
+              sign: sign,
+              dayOfYear: day,
+              year: 2026,
+              vocative: 'Cara Sofia');
+          expect(opening, contains('Cara Sofia'));
+          final atteso = HoroscopeData.openings.map((o) =>
+              o.replaceAll(HoroscopeData.namePlaceholder, 'Cara Sofia'));
+          expect(atteso.contains(opening), isTrue,
+              reason: 'apertura fuori pool: $opening');
+        }
+      }
+    });
+
+    test('L\'apertura e\' deterministica a seme fisso', () {
+      final a = Horoscope.openingFor(
+          sign: Zodiac.leo, dayOfYear: 200, year: 2026, vocative: 'Caro Marco');
+      final b = Horoscope.openingFor(
+          sign: Zodiac.leo, dayOfYear: 200, year: 2026, vocative: 'Caro Marco');
+      expect(a, b);
+    });
+
+    test('L\'apertura sta solo sulla scheda Generale', () {
+      final cards = Horoscope.forSign(
+          sign: Zodiac.aries,
+          dayOfYear: 190,
+          year: 2026,
+          opening: 'Cara Sofia, oggi il tuo cielo si accende.');
+      expect(cards[0].opening, isNotNull);
+      for (final c in cards.skip(1)) {
+        expect(c.opening, isNull);
+      }
+      // Senza apertura la Generale resta senza.
+      final senza =
+          Horoscope.forSign(sign: Zodiac.aries, dayOfYear: 190, year: 2026);
+      expect(senza[0].opening, isNull);
+    });
+  });
+
   group('Completezza del catalogo', () {
     test('Tutti i dodici segni, tutti e quattro i domini, titolo e ancora', () {
       expect(HoroscopeData.anchors.length, 12);
@@ -157,6 +210,7 @@ void main() {
 
     test('Nessun apostrofo-accento nei testi del corpus modellato', () {
       final strings = <String>[HoroscopeData.disclaimer];
+      strings.addAll(HoroscopeData.openings);
       for (final anchors in HoroscopeData.anchors.values) {
         for (final a in anchors) {
           strings.add(a[0]);

@@ -1,15 +1,28 @@
 // GENERATO da tool/_gen_oroscopo.py a partire da docs/corpus/oroscopo.md.
 // Fonte di verita': il corpus. Non modificare a mano: rigenerare dal corpus.
 //
-// I dati su dispositivo dell'Oroscopo a quattro schede di Medora: le ancore dei
-// dodici segni per i quattro domini, i pool della corrente del giorno, le
-// palette del colore del giorno e la riga di disclaimer.
+// I dati su dispositivo dell'Oroscopo a quattro schede di Medora: le aperture
+// personalizzate, le ancore dei dodici segni per i quattro domini, i pool della
+// corrente del giorno, le palette del colore del giorno e la riga di disclaimer.
 
 /// Dati dell'Oroscopo, trascritti dal corpus. Chiavi per id del segno
 /// (`Zodiac.id`) e per indice del dominio (Generale 0, Amore 1, Carriera 2,
 /// Fortuna 3).
 class HoroscopeData {
   const HoroscopeData._();
+
+  /// Le aperture personalizzate. Il segnaposto `[Nome]` si sostituisce col
+  /// vocativo completo (Caro o Cara piu' il nome, altrimenti Ciao piu' il nome).
+  static const String namePlaceholder = '[Nome]';
+
+  static const List<String> openings = [
+    '[Nome], oggi il cielo ha qualcosa da dirti.',
+    '[Nome], le stelle di oggi ti guardano con favore.',
+    '[Nome], oggi Medora ti accompagna passo dopo passo.',
+    '[Nome], c\'è un buon vento nelle stelle di oggi.',
+    '[Nome], oggi il tuo cielo si accende.',
+    '[Nome], lascia che il cielo di oggi ti sorprenda.',
+  ];
 
   /// Per ogni segno, quattro ancore in ordine di dominio: ognuna [titolo, testo].
   static const Map<String, List<List<String>>> anchors = {

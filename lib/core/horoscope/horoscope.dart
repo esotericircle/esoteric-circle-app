@@ -1,4 +1,5 @@
 import '../astro/zodiac.dart';
+import '../chat/user_profile.dart';
 import 'horoscope_data.dart';
 
 /// I quattro domini dell'Oroscopo, nell'ordine di layout. L'indice enum e' anche
@@ -23,6 +24,7 @@ class HoroscopeCard {
     required this.title,
     required this.text,
     required this.indicator,
+    this.opening,
     this.luckyNumber,
     this.dayColor,
   });
@@ -30,6 +32,10 @@ class HoroscopeCard {
   final HoroscopeDomain domain;
   final String title;
   final String text;
+
+  /// L'apertura personalizzata col nome, solo sulla scheda Generale: si mostra
+  /// prima del testo. Null sulle altre schede.
+  final String? opening;
 
   /// Unita' piene dell'indicatore, sempre da 2 a 5.
   final int indicator;
@@ -89,12 +95,38 @@ class Horoscope {
           int signIndex, int dayOfYear, int year, int domainIndex) =>
       _fnv1a([signIndex, dayOfYear, year, domainIndex]);
 
+  /// Il vocativo con cui aprire l'oroscopo: Caro o Cara piu' il nome quando il
+  /// genere e' noto dall'onboarding, altrimenti Ciao piu' il nome.
+  static String vocativeFor(String name, CourtesyForm courtesy) =>
+      courtesy.agree(
+        masculine: 'Caro $name',
+        feminine: 'Cara $name',
+        neutral: 'Ciao $name',
+      );
+
+  /// L'apertura personalizzata del giorno, pescata dal pool del corpus con lo
+  /// stesso seme del giorno: deterministica e riproducibile. Quando Gemini e'
+  /// acceso l'apertura la personalizza lui, questa resta il fallback.
+  static String openingFor({
+    required Zodiac sign,
+    required int dayOfYear,
+    required int year,
+    required String vocative,
+  }) {
+    final base = baseSeed(sign.index, dayOfYear, year, 0);
+    final seed = _fnv1a([base, 0x55]);
+    final template =
+        HoroscopeData.openings[seed % HoroscopeData.openings.length];
+    return template.replaceAll(HoroscopeData.namePlaceholder, vocative);
+  }
+
   /// Compone la scheda di un dominio per il segno e il giorno dati.
   static HoroscopeCard cardFor({
     required Zodiac sign,
     required int dayOfYear,
     required int year,
     required HoroscopeDomain domain,
+    String? opening,
   }) {
     final d = domain.index;
     final base = baseSeed(sign.index, dayOfYear, year, d);
@@ -113,6 +145,9 @@ class Horoscope {
     final text = '${anchor[1]} $current';
     final indicator = 2 + (seedIndicator % 4); // pavimento a 2, mai sotto
 
+    // L'apertura personalizzata vive solo sulla scheda Generale.
+    final cardOpening = domain == HoroscopeDomain.generale ? opening : null;
+
     if (domain == HoroscopeDomain.fortuna) {
       final palette = HoroscopeData.palettes[sign.id]!;
       return HoroscopeCard(
@@ -129,18 +164,26 @@ class Horoscope {
       title: title,
       text: text,
       indicator: indicator,
+      opening: cardOpening,
     );
   }
 
-  /// Le quattro schede del segno per il giorno dato, nell'ordine di layout.
+  /// Le quattro schede del segno per il giorno dato, nell'ordine di layout. Con
+  /// [opening] la scheda Generale porta l'apertura personalizzata col nome.
   static List<HoroscopeCard> forSign({
     required Zodiac sign,
     required int dayOfYear,
     required int year,
+    String? opening,
   }) =>
       [
         for (final domain in HoroscopeDomain.values)
-          cardFor(sign: sign, dayOfYear: dayOfYear, year: year, domain: domain),
+          cardFor(
+              sign: sign,
+              dayOfYear: dayOfYear,
+              year: year,
+              domain: domain,
+              opening: opening),
       ];
 
   /// La riga di disclaimer, una sola volta nella schermata.

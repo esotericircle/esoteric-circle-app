@@ -682,9 +682,6 @@ void main() {
       final element = tester.element(find.byType(OroscopoScreen));
       await precacheImage(
           AssetImage(ZodiacArt.emblemPath(Zodiac.aries)), element);
-      for (final z in Zodiac.values) {
-        await precacheImage(AssetImage(ZodiacArt.symbolPath(z)), element);
-      }
     });
     await step(tester);
     // Lascia completare la micro-animazione di riempimento delle forme.

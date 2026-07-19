@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 
 import '../../core/horoscope/horoscope.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
 
-/// Una forma viva per ogni dominio, diversa dalle altre, che rende il valore
-/// deterministico da due a cinque senza ripetere la stessa grafica (regola 21
-/// delle Linee Guida UX). Il valore resta il dato interno; qui cambia solo la
-/// resa: energia ad anello, affinita' a orbite, spinta a scia di stelle, sorte a
-/// quadrifoglio.
-class DomainVisual extends StatefulWidget {
-  const DomainVisual({
+/// L'indicatore a livello di una scheda: la forma a tema del dominio piu' il
+/// numero esplicito, per esempio "4 su 5".
+///
+/// La scala e' la stessa su tutte e quattro le schede (da 1 a 5), la forma no:
+/// anello per la Generale, cuori per l'Amore, barre crescenti per la Carriera,
+/// quadrifoglio per la Fortuna. Cosi' il livello si legge subito e il visivo non
+/// ripete mai la stessa grafica (regola 21 delle Linee Guida UX).
+class DomainLevel extends StatelessWidget {
+  const DomainLevel({
     super.key,
     required this.domain,
     required this.value,
@@ -19,11 +23,13 @@ class DomainVisual extends StatefulWidget {
     required this.pulse,
     this.size = 46,
     this.animateFill = true,
+    this.showNumber = true,
+    this.numberSize = 12,
   });
 
   final HoroscopeDomain domain;
 
-  /// Il valore deterministico da 2 a 5.
+  /// Il livello deterministico, da 1 a 5.
   final int value;
   final MaestroPalette palette;
 
@@ -33,34 +39,38 @@ class DomainVisual extends StatefulWidget {
 
   /// Se falso la forma parte gia' piena (per la card statica).
   final bool animateFill;
+  final bool showNumber;
+  final double numberSize;
 
-  @override
-  State<DomainVisual> createState() => _DomainVisualState();
-}
-
-class _DomainVisualState extends State<DomainVisual> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.size,
-      height: widget.size,
+    final shape = SizedBox(
+      width: size,
+      height: size,
       child: TweenAnimationBuilder<double>(
-        // Micro-animazione di riempimento all'apertura.
-        key: ValueKey(widget.value),
-        tween: Tween(begin: widget.animateFill ? 0.0 : 1.0, end: 1.0),
+        key: ValueKey(value),
+        tween: Tween(begin: animateFill ? 0.0 : 1.0, end: 1.0),
         duration: const Duration(milliseconds: 900),
         curve: Curves.easeOutCubic,
-        builder: (context, fill, _) {
-          return AnimatedBuilder(
-            animation: widget.pulse,
-            builder: (context, __) => CustomPaint(
-              painter: _painterFor(
-                  widget.domain, widget.value, fill, widget.pulse.value,
-                  widget.palette),
-            ),
-          );
-        },
+        builder: (context, fill, _) => AnimatedBuilder(
+          animation: pulse,
+          builder: (context, __) => CustomPaint(
+            painter: _painterFor(domain, value, fill, pulse.value, palette),
+          ),
+        ),
       ),
+    );
+    if (!showNumber) return shape;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        shape,
+        const SizedBox(width: 6),
+        Text('$value su ${Horoscope.indicatorMax}',
+            style: TypographyTokens.label(size: numberSize).copyWith(
+                color: ColorTokens.textSecondary, letterSpacing: 0.4)),
+      ],
     );
   }
 }
@@ -69,18 +79,22 @@ CustomPainter _painterFor(HoroscopeDomain domain, int value, double fill,
     double pulse, MaestroPalette palette) {
   switch (domain) {
     case HoroscopeDomain.generale:
-      return _AuraPainter(value: value, fill: fill, pulse: pulse, palette: palette);
+      return _RingPainter(
+          value: value, fill: fill, pulse: pulse, palette: palette);
     case HoroscopeDomain.amore:
-      return _OrbitsPainter(value: value, fill: fill, pulse: pulse, palette: palette);
+      return _HeartsPainter(
+          value: value, fill: fill, pulse: pulse, palette: palette);
     case HoroscopeDomain.carriera:
-      return _TrailPainter(value: value, fill: fill, pulse: pulse, palette: palette);
+      return _BarsPainter(
+          value: value, fill: fill, pulse: pulse, palette: palette);
     case HoroscopeDomain.fortuna:
-      return _BloomPainter(value: value, fill: fill, pulse: pulse, palette: palette);
+      return _CloverPainter(
+          value: value, fill: fill, pulse: pulse, palette: palette);
   }
 }
 
-abstract class _VisualPainter extends CustomPainter {
-  _VisualPainter(
+abstract class _LevelPainter extends CustomPainter {
+  _LevelPainter(
       {required this.value,
       required this.fill,
       required this.pulse,
@@ -91,19 +105,21 @@ abstract class _VisualPainter extends CustomPainter {
   final double pulse;
   final MaestroPalette palette;
 
-  double get ratio => (value / Horoscope.indicatorMax).clamp(0.0, 1.0);
+  /// Il livello come frazione, un quinto per grado.
+  double get ratio =>
+      (value / Horoscope.indicatorMax).clamp(0.0, 1.0);
 
   @override
-  bool shouldRepaint(_VisualPainter old) =>
+  bool shouldRepaint(_LevelPainter old) =>
       old.value != value ||
       old.fill != fill ||
       old.pulse != pulse ||
       old.palette != palette;
 }
 
-/// Generale, energia: un anello che si riempie fino al valore e pulsa piano.
-class _AuraPainter extends _VisualPainter {
-  _AuraPainter(
+/// Generale, energia: un anello che si riempie di un quinto per grado.
+class _RingPainter extends _LevelPainter {
+  _RingPainter(
       {required super.value,
       required super.fill,
       required super.pulse,
@@ -113,26 +129,26 @@ class _AuraPainter extends _VisualPainter {
   void paint(Canvas canvas, Size size) {
     final c = size.center(Offset.zero);
     final r = size.shortestSide * 0.36;
+    final w = size.shortestSide * 0.13;
     final breathe = 0.85 + 0.15 * math.sin(pulse * 2 * math.pi);
 
-    // Alone che respira.
     canvas.drawCircle(
       c,
-      r * (1.2 + 0.15 * breathe),
+      r * 1.32,
       Paint()
-        ..color = palette.goldSoft.withValues(alpha: 0.18 * breathe)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8),
+        ..color = palette.goldSoft.withValues(alpha: 0.14 * breathe)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 7),
     );
-    // Traccia di fondo.
+    // Traccia con le cinque tacche, cosi' i quinti si leggono.
     canvas.drawCircle(
       c,
       r,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = size.shortestSide * 0.08
-        ..color = palette.gold.withValues(alpha: 0.22),
+        ..strokeWidth = w
+        ..color = palette.gold.withValues(alpha: 0.20),
     );
-    // Arco che si riempie fino al valore.
+    // Arco pieno fino al livello.
     canvas.drawArc(
       Rect.fromCircle(center: c, radius: r),
       -math.pi / 2,
@@ -140,71 +156,30 @@ class _AuraPainter extends _VisualPainter {
       false,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = size.shortestSide * 0.08
+        ..strokeWidth = w
         ..strokeCap = StrokeCap.round
         ..shader = SweepGradient(
           colors: [palette.gold, palette.goldSoft, palette.gold],
         ).createShader(Rect.fromCircle(center: c, radius: r)),
     );
-    // Nucleo caldo.
-    canvas.drawCircle(
-        c,
-        r * 0.32 * breathe,
+    // Tacche di separazione dei quinti.
+    for (var i = 0; i < Horoscope.indicatorMax; i++) {
+      final a = -math.pi / 2 + 2 * math.pi * i / Horoscope.indicatorMax;
+      final dir = Offset(math.cos(a), math.sin(a));
+      canvas.drawLine(
+        c + dir * (r - w / 2),
+        c + dir * (r + w / 2),
         Paint()
-          ..color = palette.goldSoft.withValues(alpha: 0.5 + 0.3 * ratio));
-  }
-}
-
-/// Amore, affinita': due orbite che si incrociano, con un nodo a cuore che si
-/// accende in proporzione al valore.
-class _OrbitsPainter extends _VisualPainter {
-  _OrbitsPainter(
-      {required super.value,
-      required super.fill,
-      required super.pulse,
-      required super.palette});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final c = size.center(Offset.zero);
-    final rx = size.width * 0.36;
-    final ry = size.height * 0.2;
-    final orbit = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = size.shortestSide * 0.05
-      ..color = palette.gold.withValues(alpha: 0.5);
-
-    for (final sign in const [1.0, -1.0]) {
-      canvas.save();
-      canvas.translate(c.dx, c.dy);
-      canvas.rotate(sign * math.pi / 5);
-      canvas.drawOval(
-          Rect.fromCenter(center: Offset.zero, width: rx * 2, height: ry * 2),
-          orbit);
-      canvas.restore();
+          ..strokeWidth = 1.2
+          ..color = palette.deepest.withValues(alpha: 0.85),
+      );
     }
-
-    // Nodo a cuore al centro, acceso in proporzione al valore.
-    final beat = 0.9 + 0.1 * math.sin(pulse * 2 * math.pi);
-    final scale = fill * beat * (0.7 + 0.3 * ratio);
-    final heartAlpha = (0.35 + 0.65 * ratio).clamp(0.0, 1.0);
-    final hs = size.shortestSide * 0.22 * scale;
-    final path = Path()
-      ..moveTo(c.dx, c.dy + hs * 0.9)
-      ..cubicTo(c.dx - hs * 1.4, c.dy - hs * 0.2, c.dx - hs * 0.5,
-          c.dy - hs * 1.1, c.dx, c.dy - hs * 0.35)
-      ..cubicTo(c.dx + hs * 0.5, c.dy - hs * 1.1, c.dx + hs * 1.4,
-          c.dy - hs * 0.2, c.dx, c.dy + hs * 0.9)
-      ..close();
-    canvas.drawPath(
-        path, Paint()..color = palette.goldSoft.withValues(alpha: heartAlpha));
   }
 }
 
-/// Carriera, spinta: una scia di stelle che sale, il numero di stelle accese
-/// segue il valore.
-class _TrailPainter extends _VisualPainter {
-  _TrailPainter(
+/// Amore, affinita': cinque cuori, accesi fino al livello.
+class _HeartsPainter extends _LevelPainter {
+  _HeartsPainter(
       {required super.value,
       required super.fill,
       required super.pulse,
@@ -213,51 +188,48 @@ class _TrailPainter extends _VisualPainter {
   @override
   void paint(Canvas canvas, Size size) {
     const total = Horoscope.indicatorMax;
+    final slot = size.width / total;
+    final hs = math.min(slot * 0.42, size.height * 0.30);
+    final beat = 0.94 + 0.06 * math.sin(pulse * 2 * math.pi);
+
     for (var i = 0; i < total; i++) {
-      final t = i / (total - 1);
-      // Dal basso-sinistra all'alto-destra.
-      final pos = Offset(
-        size.width * (0.2 + 0.6 * t),
-        size.height * (0.82 - 0.64 * t),
-      );
       final lit = i < value;
-      // Comparsa progressiva con il riempimento, ma le stelle accese hanno un
-      // minimo di presenza: non spariscono mai del tutto, cosi' il valore si
-      // legge anche a riposo.
       final appear = ((fill * total) - i).clamp(0.0, 1.0);
-      final twinkle = 0.85 + 0.15 * math.sin(pulse * 2 * math.pi + i);
-      final r =
-          size.shortestSide * (lit ? 0.11 : 0.07) * (0.7 + 0.3 * appear);
-      final color = lit
-          ? palette.goldSoft.withValues(alpha: (0.45 + 0.55 * appear) * twinkle)
-          : palette.gold.withValues(alpha: 0.18);
-      _star(canvas, pos, r, color);
+      final cx = slot * (i + 0.5);
+      final cy = size.height / 2;
+      final s = hs * (lit ? beat : 1.0) * (0.75 + 0.25 * appear);
+      final paint = Paint()
+        ..color = lit
+            ? palette.goldSoft.withValues(alpha: 0.55 + 0.45 * appear)
+            : palette.gold.withValues(alpha: 0.20);
+      _heart(canvas, Offset(cx, cy), s, paint, filled: lit);
     }
   }
 
-  void _star(Canvas canvas, Offset c, double r, Color color) {
-    final path = Path();
-    for (var k = 0; k < 5; k++) {
-      final ao = -math.pi / 2 + k * 2 * math.pi / 5;
-      final ai = ao + math.pi / 5;
-      final outer = c + Offset(math.cos(ao), math.sin(ao)) * r;
-      final inner = c + Offset(math.cos(ai), math.sin(ai)) * r * 0.45;
-      if (k == 0) {
-        path.moveTo(outer.dx, outer.dy);
-      } else {
-        path.lineTo(outer.dx, outer.dy);
-      }
-      path.lineTo(inner.dx, inner.dy);
+  void _heart(Canvas canvas, Offset c, double s, Paint paint,
+      {required bool filled}) {
+    final path = Path()
+      ..moveTo(c.dx, c.dy + s * 0.85)
+      ..cubicTo(c.dx - s * 1.5, c.dy - s * 0.25, c.dx - s * 0.55,
+          c.dy - s * 1.15, c.dx, c.dy - s * 0.35)
+      ..cubicTo(c.dx + s * 0.55, c.dy - s * 1.15, c.dx + s * 1.5,
+          c.dy - s * 0.25, c.dx, c.dy + s * 0.85)
+      ..close();
+    if (filled) {
+      canvas.drawPath(path, paint);
+    } else {
+      canvas.drawPath(
+          path,
+          paint
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = s * 0.22);
     }
-    path.close();
-    canvas.drawPath(path, Paint()..color = color);
   }
 }
 
-/// Fortuna, sorte: un quadrifoglio che sboccia e ruota dolcemente, l'intensita'
-/// segue il valore.
-class _BloomPainter extends _VisualPainter {
-  _BloomPainter(
+/// Carriera, spinta: il grafico a barre crescenti, accese fino al livello.
+class _BarsPainter extends _LevelPainter {
+  _BarsPainter(
       {required super.value,
       required super.fill,
       required super.pulse,
@@ -265,28 +237,99 @@ class _BloomPainter extends _VisualPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final c = size.center(Offset.zero);
-    final r = size.shortestSide * 0.2 * (0.5 + 0.5 * fill);
-    final rot = pulse * 2 * math.pi * 0.15; // rotazione lenta
-    final alpha = (0.4 + 0.6 * ratio).clamp(0.0, 1.0);
-    final paint = Paint()..color = palette.goldSoft.withValues(alpha: alpha);
+    const total = Horoscope.indicatorMax;
+    final slot = size.width / total;
+    final barW = slot * 0.56;
+    final baseY = size.height * 0.86;
+    final maxH = size.height * 0.66;
 
+    for (var i = 0; i < total; i++) {
+      final lit = i < value;
+      final appear = ((fill * total) - i).clamp(0.0, 1.0);
+      // Barre crescenti: la prima bassa, l'ultima alta.
+      final h = maxH * (0.28 + 0.72 * (i / (total - 1))) * appear;
+      final rect = RRect.fromRectAndRadius(
+        Rect.fromLTWH(slot * i + (slot - barW) / 2, baseY - h, barW, h),
+        Radius.circular(barW * 0.28),
+      );
+      canvas.drawRRect(
+        rect,
+        Paint()
+          ..shader = lit
+              ? LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [palette.gold, palette.goldSoft],
+                ).createShader(rect.outerRect)
+              : null
+          ..color = lit
+              ? palette.gold
+              : palette.gold.withValues(alpha: 0.18),
+      );
+    }
+    // Linea di base.
+    canvas.drawLine(
+      Offset(size.width * 0.04, baseY + 1.5),
+      Offset(size.width * 0.96, baseY + 1.5),
+      Paint()
+        ..strokeWidth = 1.4
+        ..strokeCap = StrokeCap.round
+        ..color = palette.gold.withValues(alpha: 0.35),
+    );
+  }
+}
+
+/// Fortuna, sorte: il quadrifoglio, quattro foglie nette a cuore piu' lo stelo.
+/// L'intensita' e il numero di foglie accese seguono il livello.
+class _CloverPainter extends _LevelPainter {
+  _CloverPainter(
+      {required super.value,
+      required super.fill,
+      required super.pulse,
+      required super.palette});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = Offset(size.width / 2, size.height * 0.42);
+    final leaf = size.shortestSide * 0.30 * (0.6 + 0.4 * fill);
+    final sway = math.sin(pulse * 2 * math.pi) * 0.05;
+    final alpha = (0.45 + 0.55 * ratio).clamp(0.0, 1.0);
+
+    // Quattro foglie nette a cuore, ai quattro angoli.
     for (var i = 0; i < 4; i++) {
-      final a = math.pi / 2 * i + math.pi / 4 + rot;
-      final petal = c + Offset(math.cos(a), math.sin(a)) * r;
-      canvas.drawCircle(petal, r * 1.05, paint);
+      final a = math.pi / 2 * i + math.pi / 4 + sway;
+      _leaf(canvas, c, a, leaf,
+          Paint()..color = palette.goldSoft.withValues(alpha: alpha));
     }
     // Cuore del fiore.
-    canvas.drawCircle(
-        c, r * 0.5, Paint()..color = palette.gold.withValues(alpha: alpha));
+    canvas.drawCircle(c, leaf * 0.22,
+        Paint()..color = palette.gold.withValues(alpha: alpha));
     // Stelo.
-    canvas.drawLine(
-      c + Offset(0, r * 0.4),
-      c + Offset(0, size.height * 0.4),
+    final stem = Path()
+      ..moveTo(c.dx, c.dy + leaf * 0.35)
+      ..quadraticBezierTo(c.dx + leaf * 0.18, c.dy + leaf * 0.95, c.dx,
+          size.height * 0.94);
+    canvas.drawPath(
+      stem,
       Paint()
-        ..color = palette.gold.withValues(alpha: alpha * 0.8)
-        ..strokeWidth = size.shortestSide * 0.05
-        ..strokeCap = StrokeCap.round,
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = size.shortestSide * 0.055
+        ..strokeCap = StrokeCap.round
+        ..color = palette.gold.withValues(alpha: alpha * 0.85),
     );
+  }
+
+  // Una foglia a cuore, con la punta verso il centro.
+  void _leaf(Canvas canvas, Offset c, double angle, double r, Paint paint) {
+    canvas.save();
+    canvas.translate(c.dx, c.dy);
+    canvas.rotate(angle);
+    final path = Path()
+      ..moveTo(0, 0)
+      ..cubicTo(r * 0.15, -r * 0.55, r * 1.15, -r * 0.55, r * 1.0, 0)
+      ..cubicTo(r * 1.15, r * 0.55, r * 0.15, r * 0.55, 0, 0)
+      ..close();
+    canvas.drawPath(path, paint);
+    canvas.restore();
   }
 }
