@@ -188,13 +188,10 @@ void main() {
             base: base,
             maxWidth: maxW,
             maxHeight: maxH);
-        // Il vuoto fra l'inchiostro di due righe vicine e' la banda meno
-        // l'inchiostro della riga piu' alta.
-        final inchiostro = righe
-            .map((r) => inkExtentOf(r, fit.fontSize).height)
-            .reduce((a, b) => a > b ? a : b);
-        final banda = maxH / righe.length;
-        final interlinea = banda - inchiostro;
+        // Il vuoto fra l'inchiostro di due righe vicine, con le stesse
+        // funzioni che usa il codice per disporle.
+        final inchiostro = unitaInchiostro(righe, fit.fontSize);
+        final interlinea = inchiostro * kInterlinea;
         // La soglia e' relativa all'inchiostro: su una placca cosi' bassa un
         // minimo in pixel non direbbe nulla, il rapporto si'.
         expect(interlinea / inchiostro, greaterThan(0.10),
@@ -203,6 +200,11 @@ void main() {
         expect(altezzaOccupata(righe, fit.fontSize),
             lessThanOrEqualTo(maxH + 0.5),
             reason: 'il nome di ${card.name} esce in altezza');
+        // Riempie l'altezza: e' il caso a due righe, dove ogni riga e' corta e
+        // quindi a comandare deve essere l'altezza, non la larghezza.
+        expect(altezzaOccupata(righe, fit.fontSize),
+            greaterThan(maxH - 0.5),
+            reason: 'il nome di ${card.name} lascia vuoto in altezza');
       }
     });
 
@@ -270,6 +272,47 @@ void main() {
       expect(fit.fontSize, greaterThan(0));
       for (final r in righe) {
         expect(larghezza(r, base, fit), lessThanOrEqualTo(maxW + 0.5));
+      }
+    });
+
+    test('I nomi su due righe riempiono l\'altezza della placca', () {
+      final base = cartiglioBaseStyle(palette);
+      final rect = TarotFrame.cartiglioNome;
+      final maxW = (rect.right - rect.left) * cardW;
+      final maxH = (rect.bottom - rect.top) * cardH;
+
+      for (final nome in const [
+        'Cavaliere di Bastoni',
+        'Regina di Denari',
+        'Quattro di Denari',
+      ]) {
+        final righe = splitNomeCartiglio(nome);
+        expect(righe.length, 2, reason: '$nome non va su due righe');
+        final fit = resolveCartiglioArea(
+            righe: [for (final r in righe) r.toUpperCase()],
+            base: base,
+            maxWidth: maxW,
+            maxHeight: maxH);
+
+        // Il blocco delle due righe riempie l'altezza utile: e' l'altezza a
+        // comandare, perche' spezzato in due ogni pezzo e' corto e la
+        // larghezza avanza.
+        final blocco = altezzaOccupata(righe, fit.fontSize);
+        expect(blocco, closeTo(maxH, 0.5),
+            reason: '$nome non riempie: $blocco su $maxH');
+
+        // E il cinque per cento in piu' sfonderebbe.
+        final piuGrande = fit.fontSize * 1.05;
+        final sfondaAltezza = altezzaOccupata(righe, piuGrande) > maxH;
+        final sfondaLarghezza = righe.any((r) =>
+            larghezzaInchiostro(
+                testo: r.toUpperCase(),
+                base: base,
+                fontSize: piuGrande,
+                letterSpacing: fit.letterSpacing * 1.05) >
+            maxW);
+        expect(sfondaAltezza || sfondaLarghezza, isTrue,
+            reason: '$nome si poteva ingrandire ancora');
       }
     });
 
@@ -534,6 +577,7 @@ void main() {
         (tester) async {
       // Un nome corto (una riga) e uno lungo (due righe).
       for (final nome in ['Il Matto', 'Cavaliere di Bastoni']) {
+        final aDueRighe = splitNomeCartiglio(nome).length > 1;
         final card = TarotDeck.cards.firstWhere((c) => c.name == nome);
         final r = await inchiostro(
           tester,
@@ -560,6 +604,13 @@ void main() {
         expect(pienoInAltezza || pienoInLarghezza, isTrue,
             reason: '$nome galleggia: $sopra px vuoti sopra e $sx a sinistra, '
                 'col margine a ${margineY.toStringAsFixed(1)}');
+        // Su due righe deve essere proprio l'altezza a riempire: ogni riga e'
+        // corta, quindi la larghezza non puo' essere il vincolo.
+        if (aDueRighe) {
+          expect(pienoInAltezza, isTrue,
+              reason: '$nome su due righe lascia $sopra px vuoti sopra, '
+                  'col margine a ${margineY.toStringAsFixed(1)}');
+        }
       }
     });
   });

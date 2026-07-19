@@ -100,20 +100,25 @@ double larghezzaInchiostro({
 /// solo che le due righe di un nome lungo non si tocchino fra loro.
 const double kInterlinea = 0.14;
 
-/// Quanto occupa in altezza il blocco di [righe] a questo corpo, contando
-/// l'inchiostro vero e le interlinee.
+/// L'altezza dell'inchiostro della riga piu' alta, a questo corpo.
+double unitaInchiostro(List<String> righe, double fontSize) => righe.isEmpty
+    ? 0
+    : righe
+        .map((r) => inkExtentOf(r, fontSize).height)
+        .reduce((a, b) => math.max(a, b));
+
+/// Quanto occupa in altezza il blocco di [righe] a questo corpo: l'inchiostro
+/// delle righe piu' le interlinee che stanno FRA loro.
 ///
-/// Ogni riga vive in una banda uguale e il suo inchiostro vi sta centrato,
-/// quindi il vuoto fra l'inchiostro di due righe vicine e' la banda meno
-/// l'inchiostro. Perche' quel vuoto valga davvero [kInterlinea] volte
-/// l'inchiostro, la banda deve essere l'inchiostro piu' l'interlinea.
+/// Le interlinee sono una in meno delle righe. La formula precedente contava
+/// un'interlinea per riga, quindi ne metteva mezza anche sopra la prima e sotto
+/// l'ultima: il blocco risultava piu' alto del vero e il testo su due righe si
+/// fermava prima di riempire la placca.
 double altezzaOccupata(List<String> righe, double fontSize) {
   if (righe.isEmpty) return 0;
-  final unita = righe
-      .map((r) => inkExtentOf(r, fontSize).height)
-      .reduce((a, b) => math.max(a, b));
+  final unita = unitaInchiostro(righe, fontSize);
   final n = righe.length;
-  return unita * n * (n > 1 ? 1 + kInterlinea : 1);
+  return unita * n + unita * kInterlinea * (n - 1);
 }
 
 /// L'emblema del seme e' una forma piena, non una lettera: un filo di respiro

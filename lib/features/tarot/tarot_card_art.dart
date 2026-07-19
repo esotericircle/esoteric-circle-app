@@ -124,17 +124,24 @@ class CartiglioTesto extends StatelessWidget {
           maxWidth: constraints.maxWidth,
           maxHeight: constraints.maxHeight,
         );
-        final banda = constraints.maxHeight / maiuscole.length;
+        // Ogni riga sta in una banda alta quanto il suo inchiostro, e fra due
+        // righe c'e' l'interlinea, niente di piu'. Dividere l'altezza in bande
+        // uguali lasciava mezza interlinea anche sopra e sotto il blocco.
+        final unita = unitaInchiostro(maiuscole, fit.fontSize);
+        final interlinea = unita * kInterlinea;
         return Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (final riga in maiuscole)
+            for (var i = 0; i < maiuscole.length; i++) ...[
+              if (i > 0) SizedBox(height: interlinea),
               CartiglioRiga(
-                testo: riga,
+                testo: maiuscole[i],
                 fit: fit,
                 base: base,
-                bandaHeight: banda,
+                bandaHeight: unita,
               ),
+            ],
           ],
         );
       },
