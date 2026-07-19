@@ -11,8 +11,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// I cartigli delle carte, riempiti a runtime: numerale in alto e nome in basso,
-/// sempre dentro il blu piatto, mai sull'oro, e sempre dritti anche quando la
-/// carta e' rovesciata.
+/// sempre dentro il blu piatto, mai sull'oro. Quando la carta e' rovesciata gira
+/// tutta la carta, cartigli inclusi, come una carta vera girata in mano.
+/// Quante rotazioni di mezzo giro avvolgono il cartiglio del nome.
+int _cartigliRuotati(WidgetTester tester) {
+  return tester
+      .widgetList<Transform>(find.ancestor(
+          of: find.byType(CartiglioNome), matching: find.byType(Transform)))
+      .where((t) {
+        // Mezzo giro: il seno e' nullo e il coseno vale meno uno.
+        final m = t.transform;
+        return (m.storage[0] + 1).abs() < 1e-6 &&
+            (m.storage[5] + 1).abs() < 1e-6;
+      })
+      .length;
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -156,31 +170,107 @@ void main() {
       await tester.pump();
     }
 
-    testWidgets('I cartigli ci sono, dritti, anche sulla carta rovesciata',
+    testWidgets('Sul rovesciato ruota tutta la carta, cartigli inclusi',
         (tester) async {
-      for (final reversed in [false, true]) {
-        await pumpCard(tester, reversed: reversed);
-        // I due cartigli sono in campo.
-        expect(find.byType(CartiglioText), findsNWidgets(2));
-        // E nessuno dei due sta dentro una rotazione: restano sempre dritti.
-        expect(
-          find.descendant(
-              of: find.byType(Transform), matching: find.byType(CartiglioText)),
-          findsNothing,
-          reason: reversed
-              ? 'i cartigli ruotano con la carta rovesciata'
-              : 'i cartigli sono dentro una rotazione',
-        );
+      // Dritta: nessun cartiglio dentro una rotazione di mezzo giro.
+      await pumpCard(tester, reversed: false);
+      expect(find.byType(CartiglioNome), findsOneWidget);
+      expect(_cartigliRuotati(tester), 0,
+          reason: 'la carta dritta ruota qualcosa');
+
+      // Rovesciata: entrambi i cartigli girano con la carta.
+      await pumpCard(tester, reversed: true);
+      expect(find.byType(CartiglioNome), findsOneWidget);
+      expect(_cartigliRuotati(tester), 1,
+          reason: 'i cartigli non girano con la carta rovesciata');
+    });
+
+    testWidgets('Il numerale sta centrato nel cartiglio alto', (tester) async {
+      await pumpCard(tester, reversed: false);
+      final carta = tester.getRect(find.byType(TarotCardArt));
+      // Il centro della banda misurata, in pixel.
+      final centroBanda = carta.left +
+          carta.width *
+              (TarotFrame.cartiglioNumero.left +
+                      TarotFrame.cartiglioNumero.right) /
+                  2;
+      final numerale = tester.getRect(find.descendant(
+          of: find.byType(TarotCardArt),
+          matching: find.text(TarotDeck.cards.first.numeral.toUpperCase())));
+      expect((numerale.center.dx - centroBanda).abs(), lessThan(1.5),
+          reason: 'il numerale non risulta centrato nella placca');
+    });
+  });
+
+  group('Nome su due righe', () {
+    test('I nomi corti restano su una riga', () {
+      expect(splitNomeCartiglio('Il Matto'), ['Il Matto']);
+      expect(splitNomeCartiglio('La Morte'), ['La Morte']);
+    });
+
+    test('I nomi lunghi si spezzano sul di', () {
+      expect(splitNomeCartiglio('Cavaliere di Bastoni'),
+          ['Cavaliere', 'di Bastoni']);
+      expect(splitNomeCartiglio('Regina di Denari'), ['Regina', 'di Denari']);
+      expect(splitNomeCartiglio('Quattro di Denari'), ['Quattro', 'di Denari']);
+    });
+
+    test('Nessuna riga resta compressa oltre il lecito', () {
+      const cardW = 150.0;
+      const cardH = cardW / TarotFrame.aspect;
+      final base = TypographyTokens.display(size: 40)
+          .copyWith(letterSpacing: 1.0, color: const Color(0xFFFFFFFF));
+      const rect = TarotFrame.cartiglioNome;
+      final maxW = (rect.right - rect.left) * cardW;
+      // Su due righe ogni riga ha meta' altezza.
+      for (final card in TarotDeck.cards) {
+        final righe = splitNomeCartiglio(card.name);
+        final maxH = (rect.bottom - rect.top) * cardH / righe.length;
+        for (final riga in righe) {
+          final fit = resolveCartiglioFit(
+              text: riga.toUpperCase(),
+              base: base,
+              maxWidth: maxW,
+              maxHeight: maxH,
+              preserveWordGap: true);
+          final tp = TextPainter(
+            text: TextSpan(
+                text: riga.toUpperCase(),
+                style: base.copyWith(
+                    fontSize: fit.fontSize,
+                    letterSpacing: fit.letterSpacing,
+                    wordSpacing: fit.wordSpacing)),
+            textDirection: TextDirection.ltr,
+            maxLines: 1,
+          )..layout();
+          // Dentro la placca, e mai schiacciato sotto lo 0.80.
+          expect(tp.width * fit.scaleX, lessThanOrEqualTo(maxW + 0.5),
+              reason: '"$riga" esce dal cartiglio di ${card.name}');
+          expect(fit.scaleX, greaterThanOrEqualTo(0.80 - 1e-6),
+              reason: '"$riga" risulta compresso troppo');
+        }
       }
     });
 
-    testWidgets('Solo la carta rovesciata ruota l\'artwork', (tester) async {
-      await pumpCard(tester, reversed: false);
-      final dritta = tester.widgetList(find.byType(Transform)).length;
-      await pumpCard(tester, reversed: true);
-      final rovesciata = tester.widgetList(find.byType(Transform)).length;
-      expect(rovesciata, greaterThan(dritta),
-          reason: 'la rovesciata non aggiunge la rotazione dell\'artwork');
+    testWidgets('I nomi lunghi vanno a capo davvero', (tester) async {
+      // Quattro di Denari: nome lungo, e il numerale resta una cifra, cosi'
+      // le due righe del nome non si confondono col cartiglio alto.
+      final carta = TarotDeck.cards
+          .firstWhere((c) => c.name == 'Quattro di Denari');
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: SizedBox(
+              width: 200,
+              height: 300,
+              child: TarotCardArt(card: carta, palette: palette),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      expect(find.text('QUATTRO'), findsOneWidget);
+      expect(find.text('DI DENARI'), findsOneWidget);
     });
   });
 }

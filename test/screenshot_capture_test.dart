@@ -733,7 +733,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(390, 1500);
+    tester.view.physicalSize = const Size(390, 1390);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Seme 2: Cinque di Spade, Quattro di Denari, Il Matto rovesciato.
     const spread = TarotSpread.reversedChance; // documenta la meccanica

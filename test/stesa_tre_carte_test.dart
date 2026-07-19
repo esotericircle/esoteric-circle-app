@@ -4,10 +4,21 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/motion/parallax_controller.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
+import 'package:esoteric_circle/features/tarot/medora_stage.dart';
+import 'package:esoteric_circle/features/tarot/spread_signature.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
+import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
+import 'package:esoteric_circle/features/tarot/tarot_selectors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 
 /// Stesa a Tre Carte: pescaggio distinto e riproducibile, versi coerenti col
 /// testo del corpus, arte mappata per ogni carta, card condivisibile solida.
@@ -212,6 +223,173 @@ void main() {
         }
         expect(find.text(spread.synthesis), findsOneWidget);
       }
+    });
+  });
+
+  group('Firma della stesa', () {
+    test('E\' deterministica dalle stesse tre carte nello stesso verso', () {
+      for (final seme in [0, 2, 77, 1234]) {
+        final a = SpreadSignature.of(TarotSpread.draw(seed: seme));
+        final b = SpreadSignature.of(TarotSpread.draw(seed: seme));
+        expect(a.seed, b.seed);
+        expect(a.code, b.code);
+        expect(a.nodes, b.nodes);
+      }
+    });
+
+    test('Stese diverse danno firme diverse', () {
+      final codici = <String>{};
+      for (var seme = 0; seme < 120; seme++) {
+        codici.add(SpreadSignature.of(TarotSpread.draw(seed: seme)).code);
+      }
+      // Non serve l'unicita' assoluta, serve che la firma discrimini davvero.
+      expect(codici.length, greaterThan(110));
+    });
+
+    test('Il verso cambia la firma', () {
+      final spread = TarotSpread.draw(seed: 2);
+      final girata = TarotSpread([
+        for (final d in spread.cards)
+          DrawnCard(
+              card: d.card, position: d.position, reversed: !d.reversed),
+      ]);
+      expect(SpreadSignature.of(girata).seed,
+          isNot(SpreadSignature.of(spread).seed));
+    });
+  });
+
+  group('Espressione di Medora', () {
+    test('Nasce in modo deterministico dalla carta attiva', () {
+      final maggiore =
+          TarotDeck.cards.firstWhere((c) => c.arcana == TarotArcana.maggiore);
+      final minore =
+          TarotDeck.cards.firstWhere((c) => c.arcana == TarotArcana.minore);
+      DrawnCard d(TarotCard c, bool r) => DrawnCard(
+          card: c, position: SpreadPosition.presente, reversed: r);
+
+      expect(MedoraExpression.forCard(null), MedoraExpression.serena);
+      expect(MedoraExpression.forCard(d(maggiore, false)),
+          MedoraExpression.sorrisoCaldo);
+      expect(MedoraExpression.forCard(d(minore, false)),
+          MedoraExpression.serena);
+      // Il rovesciato porta ombra, Maggiore o Minore che sia.
+      expect(MedoraExpression.forCard(d(maggiore, true)),
+          MedoraExpression.sguardoGrave);
+      expect(MedoraExpression.forCard(d(minore, true)),
+          MedoraExpression.sguardoGrave);
+      // E resta stabile a ogni chiamata.
+      expect(MedoraExpression.forCard(d(maggiore, false)),
+          MedoraExpression.forCard(d(maggiore, false)));
+    });
+  });
+
+  group('Selettori prima della stesa', () {
+    test('Le voci pronte e quelle in arrivo sono quelle giuste', () {
+      expect(ReadingKey.predittiva.available, isTrue);
+      expect(ReadingKey.riflessione.available, isFalse);
+      expect(ReadingKey.esoterica.available, isFalse);
+      expect(TarotDeckStyle.riderWaite.available, isTrue);
+      expect(TarotDeckStyle.marsiglia.available, isFalse);
+      expect(TarotDeckStyle.thoth.available, isFalse);
+      // Jodorowsky e' citato come ispirazione, mai come marchio.
+      final nota = ReadingKey.riflessione.note!;
+      expect(nota.toLowerCase(), contains('ispirata'));
+      expect(nota.toLowerCase(), contains('senza rapporto ufficiale'));
+    });
+
+    test('Le impostazioni di partenza sono quelle del gratuito', () {
+      const setup = TarotSetup();
+      expect(setup.key, ReadingKey.predittiva);
+      expect(setup.deck, TarotDeckStyle.riderWaite);
+      expect(setup.depth, AnswerDepth.free);
+      // Le carte rovesciate sono incluse di default.
+      expect(setup.includeReversed, isTrue);
+    });
+
+    testWidgets('Il pannello mostra i lucchetti e il Coming soon',
+        (tester) async {
+      await loadFonts();
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: TarotSetupPanel(
+              setup: const TarotSetup(),
+              palette: palette,
+              onChanged: (_) {},
+              onLocked: (_) {},
+            ),
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      // Le voci non pronte restano visibili, col loro badge.
+      expect(find.text('Riflessione Jodorowsky'), findsOneWidget);
+      expect(find.text('Esoterica Caligo'), findsOneWidget);
+      expect(find.text('Marsiglia'), findsOneWidget);
+      expect(find.text('Thoth'), findsOneWidget);
+      // Quattro voci in arrivo, quattro badge.
+      expect(find.text('Coming soon'), findsNWidgets(4));
+      // La profondita' parte da Breve, col lucchetto del gratuito.
+      expect(find.text(AnswerDepth.breve.label), findsOneWidget);
+      // Lo switch delle rovesciate e' acceso.
+      final sw = tester.widget<Switch>(
+          find.byKey(const Key('stesa_reversed_switch')));
+      expect(sw.value, isTrue);
+    });
+  });
+
+  group('Schermata della stesa', () {
+    Future<void> pumpScreen(WidgetTester tester, {int seed = 2}) async {
+      await loadFonts();
+      tester.view.physicalSize = const Size(390, 2600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+        ],
+        child: MaterialApp(
+          home: MaestroScope(
+            child: StesaTreCarteScreen(seed: seed, revealAll: true),
+          ),
+        ),
+      ));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 3));
+    }
+
+    testWidgets('Medora presiede, i nomi sono grandi, la firma c\'e\'',
+        (tester) async {
+      await pumpScreen(tester);
+      expect(tester.takeException(), isNull);
+      // Medora in scena.
+      expect(find.byKey(const Key('medora_stage')), findsOneWidget);
+      expect(find.byType(MedoraStage), findsOneWidget);
+      // Sotto ogni carta: la posizione, poi il nome grande in chiaro.
+      final spread = TarotSpread.draw(seed: 2);
+      for (final drawn in spread.cards) {
+        expect(find.byKey(Key('stesa_name_${drawn.position.name}')),
+            findsOneWidget);
+        final testo = tester.widget<Text>(
+            find.byKey(Key('stesa_name_${drawn.position.name}')));
+        // Il nome grande porta la stessa spezzatura del cartiglio.
+        expect(testo.data!.replaceAll('\n', ' '), drawn.card.name);
+        // Grande davvero, non la misura del cartiglio.
+        expect(testo.style!.fontSize, greaterThanOrEqualTo(15.0));
+        // La posizione e' scritta in maiuscoletto sopra il nome.
+        expect(find.text(drawn.position.label.toUpperCase()), findsWidgets);
+        if (drawn.reversed) {
+          expect(find.byKey(Key('stesa_reversed_${drawn.position.name}')),
+              findsOneWidget);
+        }
+      }
+      // La firma in piccolo a fine schermata.
+      expect(find.byKey(const Key('stesa_signature')), findsOneWidget);
     });
   });
 }

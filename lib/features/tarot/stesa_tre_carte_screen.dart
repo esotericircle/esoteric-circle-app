@@ -12,7 +12,10 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'stesa_share_card.dart';
+import 'medora_stage.dart';
+import 'spread_signature.dart';
 import 'tarot_card_art.dart';
+import 'tarot_selectors.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
 const double kTarotAspect = 2 / 3;
@@ -53,6 +56,12 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
   final GlobalKey _cardKey = GlobalKey();
   bool _sharing = false;
   bool _renderCard = false;
+
+  /// I selettori prima della stesa. Le voci non pronte restano Coming soon.
+  TarotSetup _setup = const TarotSetup();
+
+  /// L'ultima carta scoperta: e' quella su cui Medora posa lo sguardo.
+  DrawnCard? get _active => _drawn == 0 ? null : _spread.cards[_drawn - 1];
 
   bool get _complete => _drawn >= SpreadPosition.values.length;
 
@@ -112,6 +121,19 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, kToolbarHeight,
           SpacingTokens.lg, SpacingTokens.lg),
       children: [
+        // Medora presiede la stesa, con le carte davanti a lei.
+        MedoraStage(palette: palette, active: _active),
+        const SizedBox(height: SpacingTokens.md),
+        // I selettori prima della stesa.
+        if (!_complete) ...[
+          TarotSetupPanel(
+            setup: _setup,
+            palette: palette,
+            onChanged: (s) => setState(() => _setup = s),
+            onLocked: _showComingSoon,
+          ),
+          const SizedBox(height: SpacingTokens.md),
+        ],
         // Colpo d'occhio: il ventaglio coperto, finche' restano carte da pescare.
         if (!_complete) ...[
           Text(
@@ -215,7 +237,20 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
             ),
           ),
         ],
-        const SizedBox(height: SpacingTokens.md),
+        if (_complete) ...[
+          const SizedBox(height: SpacingTokens.md),
+          // La firma della stesa, in piccolo a fine schermata.
+          Center(
+            child: SpreadSignatureMark(
+              key: const Key('stesa_signature'),
+              signature: SpreadSignature.of(_spread),
+              palette: palette,
+              size: 54,
+              showCode: true,
+            ),
+          ),
+        ],
+        const SizedBox(height: SpacingTokens.sm),
         // Disclaimer, una sola volta.
         Text(TarotSpread.disclaimer,
             key: const Key('stesa_disclaimer'),
@@ -225,6 +260,12 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
                 height: 1.4,
                 fontStyle: FontStyle.italic)),
       ],
+    );
+  }
+
+  void _showComingSoon(String voce) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('$voce arriva presto nel Cerchio.')),
     );
   }
 
@@ -391,8 +432,19 @@ class _Slot extends StatelessWidget {
             style: TypographyTokens.label(size: 9).copyWith(
                 color: palette.goldSoft, letterSpacing: 1.2)),
         if (drawn != null) ...[
-          // Il nome sta nel cartiglio della carta: qui sotto resta solo il
-          // verso, quando serve, e la riga di significato.
+          // Il nome in chiaro, grande e leggibile: nel cartiglio resta piccolo
+          // e decorativo.
+          // Il minimo tipografico non scende sotto una certa misura: qui si
+          // rimpicciolisce la riga intera, cosi' il nome resta su due righe e
+          // nessuna parola va a capo da sola.
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(splitNomeCartiglio(drawn!.card.name).join('\n'),
+                key: Key('stesa_name_${position.name}'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.display(size: 15)
+                    .copyWith(color: ColorTokens.textPrimary, height: 1.15)),
+          ),
           if (drawn!.reversed)
             Text('rovesciato',
                 key: Key('stesa_reversed_${position.name}'),
@@ -521,27 +573,6 @@ class _CardFace extends StatelessWidget {
   }
 }
 
-/// Ripiego dipinto per una carta senza arte: cornice e nome, mai un vuoto.
-class _PaintedFace extends StatelessWidget {
-  const _PaintedFace({required this.drawn, required this.palette});
-
-  final DrawnCard drawn;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: palette.surfaceElevated,
-      padding: const EdgeInsets.all(6),
-      child: Center(
-        child: Text(drawn.card.name,
-            textAlign: TextAlign.center,
-            style: TypographyTokens.display(size: 12)
-                .copyWith(color: palette.goldSoft)),
-      ),
-    );
-  }
-}
 
 /// Dorso dipinto di ripiego: un cielo con la stella di Medora.
 class _PaintedBackPainter extends CustomPainter {

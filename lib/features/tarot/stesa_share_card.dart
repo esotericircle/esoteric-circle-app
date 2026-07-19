@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,6 +11,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../synastry/sinastria_share_card.dart' show captureBoundaryPng;
+import 'spread_signature.dart';
 import 'tarot_card_art.dart';
 
 /// La card verticale condivisibile della Stesa a Tre Carte, nel formato unico:
@@ -85,7 +85,7 @@ class StesaShareCard extends StatelessWidget {
                   Expanded(
                     child: Text(drawn.displayName,
                         maxLines: 2,
-                        style: TypographyTokens.display(size: 13).copyWith(
+                        style: TypographyTokens.display(size: 17).copyWith(
                             color: ColorTokens.textPrimary, height: 1.15)),
                   ),
                 ],
@@ -113,6 +113,17 @@ class StesaShareCard extends StatelessWidget {
                   height: 1.35,
                   fontStyle: FontStyle.italic)),
           const SizedBox(height: SpacingTokens.md),
+          // La firma della stesa, unica per queste tre carte in questo verso.
+          Center(
+            child: SpreadSignatureMark(
+              key: const Key('share_signature'),
+              signature: SpreadSignature.of(spread),
+              palette: palette,
+              size: 58,
+              showCode: true,
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
           const Center(child: BrandLogo(size: 40)),
           const SizedBox(height: 4),
           Text(BrandMark.wordmark,
