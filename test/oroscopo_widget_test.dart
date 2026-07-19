@@ -217,30 +217,83 @@ void main() {
       }
     });
 
-    testWidgets('Ogni bolla ha il selettore di profondita\' bloccato',
+    test('Le tre voci sono Breve, Media, Lunga, con Breve libera', () {
+      expect(AnswerDepth.values.map((d) => d.label).toList(),
+          ['Breve', 'Media', 'Lunga']);
+      expect(AnswerDepth.free, AnswerDepth.breve);
+      expect(AnswerDepth.breve.premium, isFalse);
+      expect(AnswerDepth.media.premium, isTrue);
+      expect(AnswerDepth.lunga.premium, isTrue);
+    });
+
+    testWidgets('Ogni bolla ha il selettore, chiuso su Breve e bloccato',
         (tester) async {
       await pumpScreen(tester);
       for (final domain in HoroscopeDomain.values) {
         final card = find.byKey(Key('oroscopo_card_${domain.name}'));
         final selector = find.byKey(Key('oroscopo_depth_${domain.name}'));
         expect(selector, findsOneWidget);
-        // Le tre voci ci sono tutte.
-        for (final depth in AnswerDepth.values) {
-          expect(find.descendant(of: card, matching: find.text(depth.label)),
-              findsOneWidget,
-              reason: '${depth.label} manca su ${domain.label}');
-        }
+        // Il selettore mostra il titolo e la voce corrente, che nel gratuito
+        // e' Breve, non Media.
+        expect(find.descendant(of: selector, matching: find.text('PROFONDITÀ')),
+            findsOneWidget);
+        expect(find.descendant(of: selector, matching: find.text('Breve')),
+            findsOneWidget);
+        expect(find.descendant(of: selector, matching: find.text('Media')),
+            findsNothing);
         // Ed e' bloccato: lucchetto presente.
         expect(
             find.descendant(
                 of: selector, matching: find.byIcon(Icons.lock_rounded)),
             findsOneWidget);
-        // Il selettore sta in alto a destra, oltre la meta' della bolla.
+        // Sta in alto a destra della bolla.
         final cardRect = tester.getRect(card);
         final selRect = tester.getRect(selector);
         expect(selRect.center.dx, greaterThan(cardRect.center.dx));
         expect(selRect.top - cardRect.top, lessThan(cardRect.height / 2));
       }
+    });
+
+    testWidgets('La tendina si apre con Media e Lunga bloccate',
+        (tester) async {
+      await pumpScreen(tester);
+      await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+
+      // Le tre voci sono nell'elenco aperto.
+      for (final depth in AnswerDepth.values) {
+        expect(find.text(depth.label), findsWidgets,
+            reason: '${depth.label} manca nella tendina');
+      }
+      // Due lucchetti nell'elenco, uno per Media e uno per Lunga.
+      final lucchettiNellaTendina = find.descendant(
+        of: find.byType(PopupMenuItem<AnswerDepth>),
+        matching: find.byIcon(Icons.lock_rounded),
+      );
+      expect(tester.widgetList(lucchettiNellaTendina).length, 2);
+    });
+
+    testWidgets('Nella Demo il controllo non cambia la profondita\'',
+        (tester) async {
+      await pumpScreen(tester);
+      await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      // Si tocca Lunga, che e' bloccata.
+      await tester.tap(find.descendant(
+          of: find.byType(PopupMenuItem<AnswerDepth>),
+          matching: find.text('Lunga')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+
+      // La profondita' resta Breve e arriva l'invito ad abbonarsi.
+      expect(
+          find.descendant(
+              of: find.byKey(const Key('oroscopo_depth_generale')),
+              matching: find.text('Breve')),
+          findsOneWidget);
+      expect(find.byType(SnackBar), findsOneWidget);
     });
 
     testWidgets('Le bolle sono nel blu di Medora, non nel viola neutro',

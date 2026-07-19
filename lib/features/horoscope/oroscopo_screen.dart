@@ -84,10 +84,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   bool _sharing = false;
   bool _renderCard = false;
 
-  /// Profondita' scelta per ogni scheda. Gia' predisposta anche se il controllo
-  /// e' bloccato dietro l'abbonamento: quando si apre, basta collegarla.
+  /// Profondita' scelta per ogni scheda. Nel gratuito e nella Demo resta la
+  /// profondita' libera, Breve: Media e Lunga sono del Premium. Lo stato per
+  /// scheda e' gia' predisposto, cosi' quando il gating si apre basta
+  /// collegarlo.
   final Map<HoroscopeDomain, AnswerDepth> _depth = {
-    for (final d in HoroscopeDomain.values) d: AnswerDepth.media,
+    for (final d in HoroscopeDomain.values) d: AnswerDepth.free,
   };
 
   @override
@@ -154,7 +156,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       palette: palette,
                       pulse: _pulse,
                       depth: _depth[card.domain]!,
-                      onDepthLocked: () => _showDepthLocked(card.domain),
+                      onDepthLocked: (depth) => _showDepthLocked(card.domain, depth),
                     ),
                     const SizedBox(height: SpacingTokens.md),
                   ],
@@ -192,11 +194,11 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     );
   }
 
-  void _showDepthLocked(HoroscopeDomain domain) {
+  void _showDepthLocked(HoroscopeDomain domain, AnswerDepth depth) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-            'Con il Cerchio Premium scegli quanto approfondire ${domain.label}, scheda per scheda.'),
+            'La profondità ${depth.label} è del Cerchio Premium. Abbonati per approfondire ${domain.label}.'),
       ),
     );
   }
@@ -441,7 +443,7 @@ class _HoroscopeCardView extends StatelessWidget {
   final MaestroPalette palette;
   final Animation<double> pulse;
   final AnswerDepth depth;
-  final VoidCallback onDepthLocked;
+  final ValueChanged<AnswerDepth> onDepthLocked;
 
   @override
   Widget build(BuildContext context) {
@@ -491,21 +493,14 @@ class _HoroscopeCardView extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: SpacingTokens.xs),
-              // Il selettore resta compatto: il titolo deve avere spazio per
-              // andare a capo sulle parole, mai spezzarsi a meta'.
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 138),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.centerRight,
-                  child: AnswerDepthSelector(
-                    key: Key('oroscopo_depth_${card.domain.name}'),
-                    current: depth,
-                    palette: palette,
-                    onLockedTap: onDepthLocked,
-                  ),
-                ),
+              const SizedBox(width: SpacingTokens.sm),
+              // Menu a tendina compatto: ora le etichette sono corte, quindi
+              // resta leggibile senza rubare spazio al titolo.
+              AnswerDepthSelector(
+                key: Key('oroscopo_depth_${card.domain.name}'),
+                current: depth,
+                palette: palette,
+                onLockedTap: onDepthLocked,
               ),
             ],
           ),

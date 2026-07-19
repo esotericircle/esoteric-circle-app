@@ -10,83 +10,140 @@ import '../../design_system/tokens/typography_tokens.dart';
 /// Sta su ogni scheda e non e' un controllo unico: cosi' si potra' approfondire
 /// solo le categorie che interessano, e a runtime i testi lunghi si generano
 /// soltanto dove servono, senza bruciare token dove non serve.
+///
+/// Nel gratuito e nella Demo la profondita' e' fissa su [breve]: [media] e
+/// [lunga] sono del Cerchio Premium.
 enum AnswerDepth {
-  breve('Breve'),
-  media('Media'),
-  approfondita('Approfondita');
+  breve('Breve', premium: false),
+  media('Media', premium: true),
+  lunga('Lunga', premium: true);
 
-  const AnswerDepth(this.label);
+  const AnswerDepth(this.label, {required this.premium});
 
   final String label;
+
+  /// Vero se la voce richiede l'abbonamento.
+  final bool premium;
+
+  /// La profondita' del gratuito, quella su cui si resta senza Premium.
+  static const AnswerDepth free = AnswerDepth.breve;
 }
 
 /// Il selettore di profondita' della risposta, in alto a destra di ogni scheda.
 ///
-/// Nella Demo e' bloccato dietro l'abbonamento: si vede, mostra il lucchetto e
-/// invita con un tooltip, ma non cambia nulla. Lo stato per scheda e' gia'
-/// predisposto in [current], cosi' quando il gating si apre basta accendere
-/// [locked] a falso e collegare [onSelect].
+/// E' un menu a tendina compatto: mostra il titolo "Profondità" e la voce
+/// corrente, col lucchetto quando non si e' Premium. Al tocco apre l'elenco
+/// Breve, Media, Lunga: senza abbonamento solo Breve e' selezionabile, le altre
+/// due portano il lucchetto e l'invito ad abbonarsi.
 class AnswerDepthSelector extends StatelessWidget {
   const AnswerDepthSelector({
     super.key,
     required this.current,
     required this.palette,
-    this.locked = true,
+    this.premiumUnlocked = false,
     this.onSelect,
     this.onLockedTap,
   });
 
   final AnswerDepth current;
   final MaestroPalette palette;
-  final bool locked;
+
+  /// Vero quando l'abbonamento e' attivo e le voci lunghe si sbloccano.
+  final bool premiumUnlocked;
+
   final ValueChanged<AnswerDepth>? onSelect;
-  final VoidCallback? onLockedTap;
+
+  /// Invito all'abbonamento, quando si tocca una voce bloccata.
+  final ValueChanged<AnswerDepth>? onLockedTap;
+
+  bool _locked(AnswerDepth depth) => depth.premium && !premiumUnlocked;
 
   @override
   Widget build(BuildContext context) {
-    final control = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        color: palette.deepest.withValues(alpha: 0.45),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.28)),
+    return PopupMenuButton<AnswerDepth>(
+      tooltip: premiumUnlocked
+          ? 'Scegli quanto approfondire questa scheda'
+          : 'La profondità della risposta è del Cerchio Premium. Abbonati per scegliere quanto approfondire, scheda per scheda.',
+      position: PopupMenuPosition.under,
+      color: palette.surfaceElevated,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        side: BorderSide(color: palette.gold.withValues(alpha: 0.35)),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          for (final depth in AnswerDepth.values) ...[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 3),
-              child: Text(
-                depth.label,
-                style: TypographyTokens.label(size: 8).copyWith(
+      onSelected: (depth) {
+        if (_locked(depth)) {
+          onLockedTap?.call(depth);
+          return;
+        }
+        onSelect?.call(depth);
+      },
+      itemBuilder: (context) => [
+        for (final depth in AnswerDepth.values)
+          PopupMenuItem<AnswerDepth>(
+            value: depth,
+            height: 40,
+            child: Row(
+              children: [
+                Icon(
+                  depth == current
+                      ? Icons.radio_button_checked_rounded
+                      : Icons.radio_button_unchecked_rounded,
+                  size: 15,
                   color: depth == current
-                      ? palette.goldSoft.withValues(alpha: locked ? 0.7 : 1.0)
-                      : ColorTokens.textSecondary
-                          .withValues(alpha: locked ? 0.45 : 0.8),
-                  letterSpacing: 0.2,
+                      ? palette.goldSoft
+                      : ColorTokens.textSecondary.withValues(alpha: 0.7),
                 ),
-              ),
+                const SizedBox(width: SpacingTokens.xs),
+                Expanded(
+                  child: Text(depth.label,
+                      style: TypographyTokens.body(size: 14).copyWith(
+                        color: _locked(depth)
+                            ? ColorTokens.textSecondary
+                            : ColorTokens.textPrimary,
+                      )),
+                ),
+                if (_locked(depth))
+                  Icon(Icons.lock_rounded,
+                      size: 14,
+                      color: palette.goldSoft.withValues(alpha: 0.75)),
+              ],
+            ),
+          ),
+      ],
+      padding: EdgeInsets.zero,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+          color: palette.deepest.withValues(alpha: 0.5),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('PROFONDITÀ',
+                style: TypographyTokens.label(size: 8).copyWith(
+                    color: ColorTokens.textSecondary, letterSpacing: 0.8)),
+            const SizedBox(height: 2),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(current.label,
+                    style: TypographyTokens.body(size: 14)
+                        .copyWith(color: palette.goldSoft)),
+                const SizedBox(width: 4),
+                if (!premiumUnlocked)
+                  Icon(Icons.lock_rounded,
+                      size: 12,
+                      color: palette.goldSoft.withValues(alpha: 0.7)),
+                Icon(Icons.arrow_drop_down_rounded,
+                    size: 16,
+                    color: ColorTokens.textSecondary.withValues(alpha: 0.9)),
+              ],
             ),
           ],
-          if (locked)
-            Padding(
-              padding: const EdgeInsets.only(left: 2),
-              child: Icon(Icons.lock_rounded,
-                  size: 10, color: palette.goldSoft.withValues(alpha: 0.65)),
-            ),
-        ],
-      ),
-    );
-
-    if (!locked) return control;
-    return Tooltip(
-      message:
-          'La profondita\' della risposta e\' del Cerchio Premium. Abbonati per scegliere quanto approfondire, scheda per scheda.',
-      child: GestureDetector(
-        onTap: onLockedTap,
-        behavior: HitTestBehavior.opaque,
-        child: control,
+        ),
       ),
     );
   }
