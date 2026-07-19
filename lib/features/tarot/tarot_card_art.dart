@@ -40,7 +40,12 @@ class TarotFrame {
   ///
   /// Proporzionale e non assoluto: un valore fisso mangerebbe una fetta enorme
   /// della placca bassa, che e' molto piu' schiacciata di quella alta.
-  static const double margineTesto = 0.08;
+  ///
+  /// Vale per lato, quindi all'otto per cento se ne perdeva il sedici: misurando
+  /// i pixel dipinti dentro la banda blu, il nome ne copriva l'ottantuno per
+  /// cento. Al quattro per cento resta un respiro visibile e il testo arriva
+  /// vicino al bordo.
+  static const double margineTesto = 0.04;
 
   /// L'area utile di una placca: la placca meno il respiro, uguale sui quattro
   /// lati in pixel.
@@ -162,39 +167,16 @@ class CartiglioNome extends StatelessWidget {
       CartiglioTesto(righe: splitNomeCartiglio(nome), palette: palette);
 }
 
-/// Il contenuto del cartiglio superiore: il numerale, oppure l'emblema del seme
-/// per le carte di corte.
+/// Il contenuto del cartiglio superiore: il numerale della carta.
 class CartiglioNumero extends StatelessWidget {
   const CartiglioNumero({super.key, required this.card, required this.palette});
 
   final TarotCard card;
   final MaestroPalette palette;
 
-  /// L'emblema che spetta a una carta di corte, dal suo seme.
-  static SuitEmblem? emblemFor(TarotCard card) {
-    if (!card.isCorte) return null;
-    switch (card.seme) {
-      case TarotSeme.bastoni:
-        return SuitEmblem.bastoni;
-      case TarotSeme.coppe:
-        return SuitEmblem.coppe;
-      case TarotSeme.denari:
-        return SuitEmblem.denari;
-      case TarotSeme.spade:
-        return SuitEmblem.spade;
-      case null:
-        return null;
-    }
-  }
-
   @override
-  Widget build(BuildContext context) {
-    final emblem = emblemFor(card);
-    if (emblem != null) {
-      return SuitEmblemMark(emblem: emblem, palette: palette);
-    }
-    return CartiglioTesto(righe: [card.numeral], palette: palette);
-  }
+  Widget build(BuildContext context) =>
+      CartiglioTesto(righe: [card.numeral], palette: palette);
 }
 
 /// Una carta del mazzo con i cartigli riempiti a runtime: il numerale in alto e

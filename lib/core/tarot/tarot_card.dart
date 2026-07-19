@@ -56,30 +56,20 @@ class TarotCard {
   }
 
   /// Vero per le quattro carte di corte di ogni seme: Fante, Cavaliere, Regina,
-  /// Re. Nel cartiglio superiore al loro posto va l'emblema del seme, perche' la
-  /// parola per esteso in quella placca stretta risulterebbe illeggibile.
+  /// Re. Il loro grado per esteso non entra leggibile nella placca stretta in
+  /// alto, quindi la' va il numero.
   bool get isCorte =>
       arcana == TarotArcana.minore && number != null && number! >= 11;
 
   /// Il numerale del cartiglio superiore: romano per i Maggiori, arabo per i
-  /// Minori numerati, il nome della figura per le carte di corte.
-  String get numeral {
-    if (arcana == TarotArcana.maggiore) {
-      return _romani[majorNumber ?? 0];
-    }
-    switch (number) {
-      case 11:
-        return 'Fante';
-      case 12:
-        return 'Cavaliere';
-      case 13:
-        return 'Regina';
-      case 14:
-        return 'Re';
-      default:
-        return '${number ?? ''}';
-    }
-  }
+  /// Minori, corti comprese (Fante 11, Cavaliere 12, Regina 13, Re 14).
+  ///
+  /// Le corti portano il numero e non il grado scritto: la parola per esteso in
+  /// quella placca stretta scendeva a una misura illeggibile. Il grado resta nel
+  /// cartiglio inferiore e nel nome grande sotto la carta.
+  String get numeral => arcana == TarotArcana.maggiore
+      ? _romani[majorNumber ?? 0]
+      : '${number ?? ''}';
 
   static const List<String> _romani = [
     '0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', //

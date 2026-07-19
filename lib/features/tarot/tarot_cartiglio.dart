@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../design_system/theme/maestro_palette.dart';
 import 'cinzel_ink_metrics.dart';
 
 /// I limiti dell'inchiostro di un testo: dove cominciano e dove finiscono i
@@ -120,10 +119,6 @@ double altezzaOccupata(List<String> righe, double fontSize) {
   final n = righe.length;
   return unita * n + unita * kInterlinea * (n - 1);
 }
-
-/// L'emblema del seme e' una forma piena, non una lettera: un filo di respiro
-/// dentro la banda gli serve.
-const double _riempimentoEmblema = 0.88;
 
 /// Rapporto fra spazio tra le lettere e dimensione del font, cosi' la misura
 /// scala insieme al testo e la larghezza resta lineare nel font.
@@ -256,168 +251,4 @@ class CartiglioRiga extends StatelessWidget {
       ),
     );
   }
-}
-
-/// L'emblema del seme, inciso in oro, per il cartiglio superiore delle carte di
-/// corte.
-///
-/// Fante, Cavaliere, Regina e Re sono parole troppo lunghe per quella placca
-/// stretta: ridotte per entrarci diventavano illeggibili. Il simbolo del seme si
-/// legge a colpo d'occhio ed e' la lettura tradizionale del mazzo. Il grado per
-/// esteso resta nel cartiglio inferiore e nel nome grande sotto la carta.
-enum SuitEmblem { bastoni, coppe, denari, spade }
-
-class SuitEmblemMark extends StatelessWidget {
-  const SuitEmblemMark({
-    super.key,
-    required this.emblem,
-    required this.palette,
-  });
-
-  final SuitEmblem emblem;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // Quadrato, alto quanto la banda, cosi' resta centrato nella placca.
-        final lato = math.min(constraints.maxWidth, constraints.maxHeight) *
-            _riempimentoEmblema;
-        return Center(
-          child: SizedBox(
-            width: lato,
-            height: lato,
-            child: CustomPaint(
-              painter: _SuitPainter(emblem: emblem, palette: palette),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-/// Un tratto dell'emblema: il suo percorso e quanto e' spesso il segno.
-///
-/// Lo spessore serve per sapere dove arriva davvero l'inchiostro: un percorso
-/// disegnato a linea sporge di mezzo tratto oltre il suo profilo.
-class _Segno {
-  const _Segno(this.path, {this.spessore = 0});
-
-  final Path path;
-
-  /// Zero per le forme piene, la larghezza del segno per quelle a linea.
-  final double spessore;
-
-  Rect get inchiostro => path.getBounds().inflate(spessore / 2);
-}
-
-/// I tratti di un emblema, in coordinate di comodo. Non serve che stiano in un
-/// riquadro preciso: ci pensa [_SuitPainter] a centrarli sul loro inchiostro.
-List<_Segno> _segniDi(SuitEmblem emblem, double spessore) {
-  switch (emblem) {
-    case SuitEmblem.bastoni:
-      // Un bastone in diagonale con un solo germoglio: a questa misura due
-      // germogli si leggevano come una croce di Sant'Andrea.
-      return [
-        _Segno(Path()..moveTo(0.18, 0.86)..lineTo(0.82, 0.14),
-            spessore: spessore),
-        _Segno(Path()..moveTo(0.46, 0.54)..lineTo(0.24, 0.40),
-            spessore: spessore),
-      ];
-    case SuitEmblem.coppe:
-      // Una coppa: calice, stelo e piede.
-      return [
-        _Segno(Path()
-          ..moveTo(0.22, 0.16)
-          ..lineTo(0.78, 0.16)
-          ..quadraticBezierTo(0.74, 0.58, 0.50, 0.60)
-          ..quadraticBezierTo(0.26, 0.58, 0.22, 0.16)
-          ..close()),
-        _Segno(Path()..moveTo(0.50, 0.60)..lineTo(0.50, 0.80),
-            spessore: spessore),
-        _Segno(Path()..moveTo(0.30, 0.86)..lineTo(0.70, 0.86),
-            spessore: spessore),
-      ];
-    case SuitEmblem.denari:
-      // Una moneta: cerchio inciso col punto al centro.
-      return [
-        _Segno(Path()..addOval(Rect.fromCircle(center: const Offset(0.5, 0.5), radius: 0.40)),
-            spessore: spessore),
-        _Segno(Path()
-          ..addOval(Rect.fromCircle(center: const Offset(0.5, 0.5), radius: 0.136))),
-      ];
-    case SuitEmblem.spade:
-      // Una spada con la lama piena e la punta in alto: la sola linea con la
-      // traversa si leggeva come una croce.
-      return [
-        _Segno(Path()
-          ..moveTo(0.50, 0.04)
-          ..lineTo(0.68, 0.34)
-          ..lineTo(0.63, 0.68)
-          ..lineTo(0.37, 0.68)
-          ..lineTo(0.32, 0.34)
-          ..close()),
-        // L'elsa, corta, cosi' non prevale sulla lama.
-        _Segno(Path()..moveTo(0.28, 0.72)..lineTo(0.72, 0.72),
-            spessore: spessore),
-      ];
-  }
-}
-
-class _SuitPainter extends CustomPainter {
-  _SuitPainter({required this.emblem, required this.palette});
-
-  final SuitEmblem emblem;
-  final MaestroPalette palette;
-
-  /// Lo spessore del segno, in coordinate di comodo.
-  static const double _spessore = 0.10;
-
-  /// Il riquadro dell'inchiostro dell'emblema, in coordinate di comodo.
-  ///
-  /// Come per il testo, si centra e si dimensiona su questo, non sul riquadro
-  /// di comodo: i tratti non riempiono mai il loro quadrato, quindi centrare il
-  /// quadrato lascerebbe l'emblema fuori asse.
-  static Rect inchiostroDi(SuitEmblem emblem) {
-    Rect? r;
-    for (final s in _segniDi(emblem, _spessore)) {
-      r = r == null ? s.inchiostro : r.expandToInclude(s.inchiostro);
-    }
-    return r ?? const Rect.fromLTRB(0, 0, 1, 1);
-  }
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final ink = inchiostroDi(emblem);
-    // Porta l'inchiostro a riempire il riquadro dato, centrato nei due sensi.
-    final scala = math.min(size.width / ink.width, size.height / ink.height);
-    canvas.save();
-    canvas.translate(
-      size.width / 2 - ink.center.dx * scala,
-      size.height / 2 - ink.center.dy * scala,
-    );
-    canvas.scale(scala);
-
-    for (final segno in _segniDi(emblem, _spessore)) {
-      final paint = Paint()..color = palette.goldSoft;
-      if (segno.spessore > 0) {
-        paint
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = segno.spessore
-          ..strokeCap = StrokeCap.round
-          ..strokeJoin = StrokeJoin.round;
-      } else {
-        paint.style = PaintingStyle.fill;
-      }
-      canvas.drawPath(segno.path, paint);
-    }
-    canvas.restore();
-  }
-
-  @override
-  bool shouldRepaint(_SuitPainter old) =>
-      old.emblem != emblem || old.palette != palette;
-
 }

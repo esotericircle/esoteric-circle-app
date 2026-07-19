@@ -11,9 +11,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// I cartigli delle carte, riempiti a runtime: numerale (o emblema del seme) in
-/// alto e nome in basso, sempre dentro il blu piatto, mai sull'oro, alla massima
-/// misura che ci sta. Quando la carta e' rovesciata gira tutta la carta,
+/// I cartigli delle carte, riempiti a runtime: numerale in alto e nome in
+/// basso, sempre dentro il blu piatto, mai sull'oro, alla massima misura che ci
+/// sta. Quando la carta e' rovesciata gira tutta la carta,
 /// cartigli inclusi, come una carta vera girata in mano.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -71,17 +71,11 @@ void main() {
       expect(numeraliMaggiori.length, 22);
     });
 
-    test('I Minori usano l\'arabo, le corti la figura', () {
-      const corti = {11: 'Fante', 12: 'Cavaliere', 13: 'Regina', 14: 'Re'};
+    test('I Minori usano il numero arabo, corti comprese', () {
       for (final card in TarotDeck.cards) {
         if (card.arcana != TarotArcana.minore) continue;
-        final n = card.number!;
-        if (corti.containsKey(n)) {
-          expect(card.numeral, corti[n]);
-        } else {
-          expect(card.numeral, '$n');
-          expect(int.tryParse(card.numeral), inInclusiveRange(1, 10));
-        }
+        expect(card.numeral, '${card.number}');
+        expect(int.tryParse(card.numeral), inInclusiveRange(1, 14));
       }
     });
   });
@@ -92,28 +86,20 @@ void main() {
       expect(corti.length, 16, reason: 'quattro figure per quattro semi');
       for (final c in corti) {
         expect(c.number, inInclusiveRange(11, 14));
-        expect(CartiglioNumero.emblemFor(c), isNotNull,
-            reason: '${c.name} senza emblema del seme');
-      }
-      for (final c in TarotDeck.cards.where((c) => !c.isCorte)) {
-        expect(CartiglioNumero.emblemFor(c), isNull,
-            reason: '${c.name} non e\' una carta di corte');
       }
     });
 
-    test('L\'emblema segue il seme della carta', () {
-      const atteso = {
-        TarotSeme.bastoni: SuitEmblem.bastoni,
-        TarotSeme.coppe: SuitEmblem.coppe,
-        TarotSeme.denari: SuitEmblem.denari,
-        TarotSeme.spade: SuitEmblem.spade,
-      };
+    test('Nel cartiglio superiore le corti portano il numero', () {
+      const atteso = {11: '11', 12: '12', 13: '13', 14: '14'};
       for (final c in TarotDeck.cards.where((c) => c.isCorte)) {
-        expect(CartiglioNumero.emblemFor(c), atteso[c.seme!]);
+        expect(c.numeral, atteso[c.number],
+            reason: '${c.name} non porta il suo numero');
+        // Mai il grado scritto: in quella placca stretta non si leggerebbe.
+        expect(int.tryParse(c.numeral), isNotNull);
       }
     });
 
-    testWidgets('Nel cartiglio alto c\'e\' l\'emblema, non la parola',
+    testWidgets('Nel cartiglio alto va il numero, non la parola',
         (tester) async {
       final cavaliere =
           TarotDeck.cards.firstWhere((c) => c.name == 'Cavaliere di Bastoni');
@@ -129,18 +115,34 @@ void main() {
         ),
       ));
       await tester.pump();
-      expect(find.byType(SuitEmblemMark), findsOneWidget);
-      // La parola CAVALIERE compare solo nel cartiglio basso, come grado, e non
-      // nella placca stretta in alto dove risulterebbe illeggibile.
-      expect(find.text('CAVALIERE'), findsOneWidget);
+      // Il numero e' in campo, in alto.
+      final numero = find.descendant(
+          of: find.byType(CartiglioNumero), matching: find.text('12'));
+      expect(numero, findsOneWidget);
       final rettCarta = tester.getRect(find.byType(TarotCardArt));
-      final rettParola = tester.getRect(find.text('CAVALIERE'));
-      expect(rettParola.center.dy, greaterThan(rettCarta.center.dy),
-          reason: 'la parola sta in alto invece che nel cartiglio del nome');
+      expect(tester.getRect(numero).center.dy,
+          lessThan(rettCarta.center.dy));
+      // La parola CAVALIERE resta solo nel cartiglio del nome, in basso.
+      expect(find.text('CAVALIERE'), findsOneWidget);
+      expect(tester.getRect(find.text('CAVALIERE')).center.dy,
+          greaterThan(rettCarta.center.dy));
     });
   });
 
   group('Cartigli dentro il blu, mai sull\'oro', () {
+    test('Il rettangolo di layout e la placca disegnata hanno una sola '
+        'sorgente', () {
+      // Il rettangolo in cui il testo viene disposto e dimensionato non e' un
+      // riquadro a parte: e' la placca blu misurata sull'artwork meno il
+      // respiro, ricavata dalla stessa funzione. Se qualcuno reintroducesse un
+      // riquadro piu' piccolo, il testo riempirebbe quello invece della placca
+      // che si vede, e qui cadrebbe.
+      expect(TarotFrame.cartiglioNome,
+          TarotFrame.areaUtile(TarotFrame.placcaNome));
+      expect(TarotFrame.cartiglioNumero,
+          TarotFrame.areaUtile(TarotFrame.placcaNumero));
+    });
+
     test('Ogni cartiglio lascia lo stesso respiro sui quattro lati', () {
       for (final coppia in [
         [TarotFrame.cartiglioNumero, TarotFrame.placcaNumero],
@@ -200,11 +202,16 @@ void main() {
         expect(altezzaOccupata(righe, fit.fontSize),
             lessThanOrEqualTo(maxH + 0.5),
             reason: 'il nome di ${card.name} esce in altezza');
-        // Riempie l'altezza: e' il caso a due righe, dove ogni riga e' corta e
-        // quindi a comandare deve essere l'altezza, non la larghezza.
-        expect(altezzaOccupata(righe, fit.fontSize),
-            greaterThan(maxH - 0.5),
-            reason: 'il nome di ${card.name} lascia vuoto in altezza');
+        // Riempie su almeno uno dei due assi. Di solito su due righe comanda
+        // l'altezza, perche' ogni pezzo e' corto, ma qualche nome molto lungo
+        // resta largo anche spezzato e allora comanda la larghezza.
+        final pienoInAltezza =
+            altezzaOccupata(righe, fit.fontSize) > maxH - 0.5;
+        final pienoInLarghezza = righe.any(
+            (r) => larghezza(r, base, fit) > maxW - 0.5);
+        expect(pienoInAltezza || pienoInLarghezza, isTrue,
+            reason: 'il nome di ${card.name} lascia vuoto su tutti e due gli '
+                'assi');
       }
     });
 
@@ -412,22 +419,6 @@ void main() {
           reason: 'il numerale non e centrato in verticale');
     });
 
-    testWidgets('L\'emblema di corte e centrato nella placca', (tester) async {
-      final regina =
-          TarotDeck.cards.firstWhere((c) => c.name == 'Regina di Denari');
-      await pumpCard(tester, reversed: false, card: regina);
-      final carta = tester.getRect(find.byType(TarotCardArt));
-      final area = Rect.fromLTRB(
-        carta.left + TarotFrame.cartiglioNumero.left * carta.width,
-        carta.top + TarotFrame.cartiglioNumero.top * carta.height,
-        carta.left + TarotFrame.cartiglioNumero.right * carta.width,
-        carta.top + TarotFrame.cartiglioNumero.bottom * carta.height,
-      );
-      final emblema = tester.getRect(find.descendant(
-          of: find.byType(SuitEmblemMark), matching: find.byType(CustomPaint)));
-      expect((emblema.center.dx - area.center.dx).abs(), lessThan(2.0));
-      expect((emblema.center.dy - area.center.dy).abs(), lessThan(2.0));
-    });
   });
 
   group('Inchiostro davvero dipinto', () {
