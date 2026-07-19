@@ -248,13 +248,10 @@ class _Headline extends StatelessWidget {
                       ]),
                     ),
                   ),
-                  // L'emblema grande usa il simbolo completo 3D (asset in
-                  // assets/img/zodiac/), soggetto diverso dalla figura dei chip.
+                  // Il colpo d'occhio: l'emblema grande 3D metallico del segno
+                  // (asset in assets/img/zodiac/).
                   ZodiacEmblem(
-                      sign: sign,
-                      size: 96,
-                      art: ZodiacEmblemArt.symbol,
-                      color: palette.goldSoft),
+                      sign: sign, size: 104, art: ZodiacEmblemArt.emblem),
                 ],
               );
             },
@@ -309,13 +306,13 @@ class _SignChip extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // La miniatura del chip usa la figura del segno (asset suo, in
-            // assets/img_thumb/zodiac/), non l'emblema scalato.
-            ZodiacEmblem(
-              sign: zodiac,
-              size: 28,
-              art: ZodiacEmblemArt.figure,
-              color: selected ? palette.goldSoft : ColorTokens.textSecondary,
+            // Il chip usa il simbolo in miniatura (asset suo, in
+            // assets/img_thumb/zodiac/), non l'emblema scalato. Il segno scelto
+            // resta pieno, gli altri appena smorzati.
+            Opacity(
+              opacity: selected ? 1.0 : 0.55,
+              child: ZodiacEmblem(
+                  sign: zodiac, size: 30, art: ZodiacEmblemArt.symbol),
             ),
             const SizedBox(height: 2),
             Text(zodiac.italianName,

@@ -83,7 +83,7 @@ class OroscopoShareCard extends StatelessWidget {
                     ]),
                   ),
                   child: ZodiacEmblem(
-                      sign: sign, size: 72, color: palette.goldSoft),
+                      sign: sign, size: 78, art: ZodiacEmblemArt.emblem),
                 ),
                 Text(sign.italianName,
                     style: TypographyTokens.display(size: 26)

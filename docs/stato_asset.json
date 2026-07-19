@@ -10,10 +10,10 @@
       "assets/img_thumb/rune_bone/", "assets/img_thumb/animali/", "assets/img_thumb/cristalli/",
       "assets/img/zodiac/", "assets/img_thumb/zodiac/"
     ],
-    "nota_zodiac": "assets/img/zodiac/ e assets/img_thumb/zodiac/ ospitano i dodici simboli zodiacali brandizzati (stem zod_<segno>, piena circa 512 e miniatura circa 96). Non sono una delle sei famiglie e non hanno conteggio bloccato: finche' i webp non arrivano da Mauro le cartelle restano col solo segnaposto e il codice usa il ripiego a vettori. Quando gli asset arrivano prendono il posto del ripiego in automatico.",
+    "nota_zodiac": "assets/img/zodiac/ e assets/img_thumb/zodiac/ ospitano lo zodiaco brandizzato, due asset DISTINTI per segno con lo stesso stem zod_<segno>: in assets/img/zodiac/ l'emblema grande in 3D metallico multicolore (lato lungo 820, per la testa della schermata), in assets/img_thumb/zodiac/ il simbolo in miniatura (lato lungo circa 256, per i chip del selettore). La miniatura non si ricava riducendo l'emblema, e' un'immagine sua. Ventiquattro file consegnati da Mauro, gia' scontornati dal magenta con alpha reale: il ripiego dipinto a vettori e' stato tolto. Il conteggio zodiac e' ora bloccato in CI come le sei famiglie, 12 per cartella.",
     "brand_assets_conteggi": { "avatars": 3, "santuario": 1, "intro": 1 },
     "nota_intro": "brand_assets/intro/ esiste nel repo (Intro-Test-1.mp4) ma non e' dichiarato tra gli asset nel pubspec: presente, non bundlato. Se serve nel bundle, va aggiunto al pubspec e a pubspec_asset_attesi insieme.",
-    "famiglie_conteggi": { "mazzo-tarocchi": 79, "angeli": 73, "ritratti-vip": 50, "rune_bone": 24, "animali": 12, "cristalli": 12 },
+    "famiglie_conteggi": { "mazzo-tarocchi": 79, "angeli": 73, "ritratti-vip": 50, "rune_bone": 24, "animali": 12, "cristalli": 12, "zodiac": 12 },
     "nota_famiglie": "Le sei famiglie esoteriche sono bundlate in WebP a due misure: piena in assets/img/<famiglia>/ (lato lungo per famiglia, qualita' 88) e miniatura in assets/img_thumb/<famiglia>/ (lato lungo 500, qualita' 82). I dorsi sono inclusi: 79 tarocchi e 73 angeli comprendono il dorso. Ogni conteggio vale identico per la piena e per la miniatura."
   },
   "output_non_versionato": {

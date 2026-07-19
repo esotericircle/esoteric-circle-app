@@ -30,35 +30,37 @@ void main() {
 
   final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
 
-  bool hasGlyphPainter(WidgetTester tester) => tester
-      .widgetList(find.byType(CustomPaint))
-      .any((w) => (w as CustomPaint).painter is ZodiacGlyphPainter);
-
-  group('Emblema e figura, due asset distinti', () {
-    test('Simbolo e figura sono due percorsi diversi per ogni segno', () {
+  group('Zodiaco brandizzato, due asset distinti per segno', () {
+    test('Emblema e simbolo sono due percorsi diversi per ogni segno', () {
       for (final z in Zodiac.values) {
+        final emblem = ZodiacArt.emblemPath(z);
         final symbol = ZodiacArt.symbolPath(z);
-        final figure = ZodiacArt.figurePath(z);
-        expect(symbol, startsWith('assets/img/zodiac/'));
-        expect(figure, startsWith('assets/img_thumb/zodiac/'));
-        expect(symbol, isNot(equals(figure)),
-            reason: 'simbolo e figura coincidono per ${z.id}');
+        expect(emblem, startsWith('assets/img/zodiac/'));
+        expect(symbol, startsWith('assets/img_thumb/zodiac/'));
+        expect(emblem, isNot(equals(symbol)),
+            reason: 'emblema e simbolo coincidono per ${z.id}');
       }
     });
 
-    testWidgets('L\'emblema carica il simbolo, il chip carica la figura',
+    test('Tutti i ventiquattro asset esistono nel bundle', () {
+      for (final z in Zodiac.values) {
+        expect(File(ZodiacArt.emblemPath(z)).existsSync(), isTrue,
+            reason: 'emblema mancante: ${ZodiacArt.emblemPath(z)}');
+        expect(File(ZodiacArt.symbolPath(z)).existsSync(), isTrue,
+            reason: 'simbolo mancante: ${ZodiacArt.symbolPath(z)}');
+      }
+    });
+
+    testWidgets('La testa carica l\'emblema, il chip carica il simbolo',
         (tester) async {
-      await tester.pumpWidget(MaterialApp(
+      await tester.pumpWidget(const MaterialApp(
         home: Scaffold(
           body: Column(
             children: [
               ZodiacEmblem(
-                  sign: Zodiac.leo, size: 60, color: palette.goldSoft),
+                  sign: Zodiac.leo, size: 60, art: ZodiacEmblemArt.emblem),
               ZodiacEmblem(
-                  sign: Zodiac.leo,
-                  size: 30,
-                  color: palette.goldSoft,
-                  art: ZodiacEmblemArt.figure),
+                  sign: Zodiac.leo, size: 30, art: ZodiacEmblemArt.symbol),
             ],
           ),
         ),
@@ -69,48 +71,8 @@ void main() {
           .map((i) => (i.image as AssetImage).assetName)
           .toList();
       // Due immagini distinte, la miniatura non e' l'emblema scalato.
+      expect(names, contains(ZodiacArt.emblemPath(Zodiac.leo)));
       expect(names, contains(ZodiacArt.symbolPath(Zodiac.leo)));
-      expect(names, contains(ZodiacArt.figurePath(Zodiac.leo)));
-    });
-  });
-
-  group('Emblema zodiacale, mai il glifo di sistema', () {
-    testWidgets('Con asset assente si usa il ripiego dipinto', (tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: ZodiacEmblem(
-                sign: Zodiac.leo,
-                size: 80,
-                color: palette.goldSoft,
-                assetPath: 'assets/img/zodiac/zod_inesistente.webp'),
-          ),
-        ),
-      ));
-      await tester.pumpAndSettle();
-      // Nessun Text con glifo di sistema, ma il glifo dipinto a vettori.
-      expect(hasGlyphPainter(tester), isTrue);
-      expect(find.byType(Text), findsNothing);
-    });
-
-    testWidgets('Con asset presente si usa l\'immagine', (tester) async {
-      // Un asset realmente bundlato (un ritratto VIP) prova il ramo immagine.
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: ZodiacEmblem(
-                sign: Zodiac.leo,
-                size: 80,
-                color: palette.goldSoft,
-                assetPath:
-                    'assets/img/ritratti-vip/vip_angelina-jolie_v1.webp'),
-          ),
-        ),
-      ));
-      await tester.pump();
-      // L'immagine e' in campo, il ripiego dipinto no.
-      expect(find.byType(Image), findsOneWidget);
-      expect(hasGlyphPainter(tester), isFalse);
     });
   });
 

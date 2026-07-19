@@ -38,6 +38,7 @@ import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
+import 'package:esoteric_circle/design_system/components/zodiac_glyph.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
@@ -675,6 +676,17 @@ void main() {
         userSign: Zodiac.aries, now: DateTime(2026, 7, 10))));
     await step(tester);
     await step(tester);
+    // Decodifica l'emblema 3D del segno e i simboli dei chip, cosi' l'anteprima
+    // mostra l'arte vera e non un posto vuoto.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(OroscopoScreen));
+      await precacheImage(
+          AssetImage(ZodiacArt.emblemPath(Zodiac.aries)), element);
+      for (final z in Zodiac.values) {
+        await precacheImage(AssetImage(ZodiacArt.symbolPath(z)), element);
+      }
+    });
+    await step(tester);
     // Lascia completare la micro-animazione di riempimento delle forme.
     await tester.pump(const Duration(seconds: 2));
     await capture(tester, rootKey, 'oroscopo.png');
@@ -706,6 +718,11 @@ void main() {
         ),
       ),
     ));
+    await tester.pumpAndSettle();
+    // L'emblema del segno decodificato anche nella card.
+    await tester.runAsync(() async => precacheImage(
+        AssetImage(ZodiacArt.emblemPath(Zodiac.aries)),
+        tester.element(find.byType(OroscopoShareCard))));
     await tester.pumpAndSettle();
     await capture(tester, rootKey, 'oroscopo-card.png');
   });

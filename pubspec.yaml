@@ -109,9 +109,10 @@ flutter:
     - assets/img_thumb/rune_bone/
     - assets/img_thumb/animali/
     - assets/img_thumb/cristalli/
-    # Simboli zodiacali brandizzati: arte di Mauro quando arriva, ripiego a
-    # vettori nel codice finche' l'asset non c'e'. Cartelle dichiarate anche se
-    # ancora senza webp, cosi' il percorso e' pronto.
+    # Zodiaco brandizzato, due asset distinti per segno: l'emblema 3D metallico
+    # in assets/img/zodiac/ (testa della schermata) e il simbolo in miniatura in
+    # assets/img_thumb/zodiac/ (chip del selettore). Ventiquattro file, tutti
+    # presenti: nessun ripiego dipinto.
     - assets/img/zodiac/
     - assets/img_thumb/zodiac/
 
