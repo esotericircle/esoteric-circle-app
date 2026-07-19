@@ -3,10 +3,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../core/tarot/tarot_card.dart';
-import '../../design_system/components/vip_frame.dart'
-    show CartiglioFit, resolveCartiglioFit;
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import 'tarot_cartiglio.dart';
 
 /// Le misure della cornice madre delle carte, identica su tutte e settantotto.
 ///
@@ -60,80 +59,60 @@ List<String> splitNomeCartiglio(String nome, {int sogliaCaratteri = 13}) {
   return [testo.substring(0, scelto), testo.substring(scelto + 1)];
 }
 
-/// Una riga di cartiglio adattata alla sua banda, in oro, centrata.
-///
-/// Riusa l'adattamento progressivo della cornice VIP e compensa lo spazio che il
-/// letter-spacing lascia dopo l'ultima lettera, altrimenti il testo centrato
-/// appare spostato a sinistra.
-class _RigaCartiglio extends StatelessWidget {
-  const _RigaCartiglio({
-    required this.text,
-    required this.palette,
-    this.preserveWordGap = false,
-  });
-
-  final String text;
-  final MaestroPalette palette;
-  final bool preserveWordGap;
-
-  @override
-  Widget build(BuildContext context) {
-    final upper = text.toUpperCase();
-    final base = TypographyTokens.display(size: 40).copyWith(
+/// Lo stile di partenza dei cartigli: oro del Maestro, inciso sul blu.
+TextStyle cartiglioBaseStyle(MaestroPalette palette) =>
+    TypographyTokens.display(size: 40).copyWith(
       color: palette.goldSoft,
-      letterSpacing: 1.0,
       shadows: [Shadow(color: palette.deepest, blurRadius: 2)],
     );
 
+/// Il testo di un cartiglio, alla massima misura che riempie l'area utile.
+///
+/// Una riga sola per i testi corti, due righe per i nomi lunghi: in ogni caso il
+/// testo occupa il cartiglio, non ci galleggia dentro piccolo.
+class CartiglioTesto extends StatelessWidget {
+  const CartiglioTesto({
+    super.key,
+    required this.righe,
+    required this.palette,
+  });
+
+  final List<String> righe;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final maiuscole = [for (final r in righe) r.toUpperCase()];
+    final base = cartiglioBaseStyle(palette);
+
     return LayoutBuilder(
       builder: (context, constraints) {
-        final CartiglioFit fit = resolveCartiglioFit(
-          text: upper,
+        final fit = resolveCartiglioArea(
+          righe: maiuscole,
           base: base,
           maxWidth: constraints.maxWidth,
           maxHeight: constraints.maxHeight,
-          preserveWordGap: preserveWordGap,
         );
-
-        Widget riga = Text(
-          upper,
-          maxLines: 1,
-          softWrap: false,
-          overflow: TextOverflow.visible,
-          textAlign: TextAlign.center,
-          style: base.copyWith(
-            fontSize: fit.fontSize,
-            letterSpacing: fit.letterSpacing,
-            wordSpacing: fit.wordSpacing,
-          ),
-        );
-        // Compensazione della coda del letter-spacing, per una centratura vera.
-        if (fit.letterSpacing.abs() > 0.01) {
-          riga = Transform.translate(
-              offset: Offset(fit.letterSpacing / 2, 0), child: riga);
-        }
-        if (fit.scaleX < 0.999) {
-          riga = Transform.scale(
-              scaleX: fit.scaleX,
-              scaleY: 1.0,
-              alignment: Alignment.center,
-              child: riga);
-        }
-        return Center(
-          child: OverflowBox(
-            minWidth: 0,
-            maxWidth: double.infinity,
-            alignment: Alignment.center,
-            child: riga,
-          ),
+        final banda = constraints.maxHeight / maiuscole.length;
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (final riga in maiuscole)
+              CartiglioRiga(
+                testo: riga,
+                fit: fit,
+                base: base,
+                bandaHeight: banda,
+              ),
+          ],
         );
       },
     );
   }
 }
 
-/// Il nome nel cartiglio inferiore: una riga se corto, due righe se lungo, mai
-/// compresso fino a sembrare un errore.
+/// Il nome nel cartiglio inferiore: una riga se corto, due righe se lungo, alla
+/// misura piu' grande che entra nel blu.
 class CartiglioNome extends StatelessWidget {
   const CartiglioNome({super.key, required this.nome, required this.palette});
 
@@ -141,21 +120,42 @@ class CartiglioNome extends StatelessWidget {
   final MaestroPalette palette;
 
   @override
-  Widget build(BuildContext context) {
-    final righe = splitNomeCartiglio(nome);
-    if (righe.length == 1) {
-      return _RigaCartiglio(
-          text: righe.first, palette: palette, preserveWordGap: true);
+  Widget build(BuildContext context) =>
+      CartiglioTesto(righe: splitNomeCartiglio(nome), palette: palette);
+}
+
+/// Il contenuto del cartiglio superiore: il numerale, oppure l'emblema del seme
+/// per le carte di corte.
+class CartiglioNumero extends StatelessWidget {
+  const CartiglioNumero({super.key, required this.card, required this.palette});
+
+  final TarotCard card;
+  final MaestroPalette palette;
+
+  /// L'emblema che spetta a una carta di corte, dal suo seme.
+  static SuitEmblem? emblemFor(TarotCard card) {
+    if (!card.isCorte) return null;
+    switch (card.seme) {
+      case TarotSeme.bastoni:
+        return SuitEmblem.bastoni;
+      case TarotSeme.coppe:
+        return SuitEmblem.coppe;
+      case TarotSeme.denari:
+        return SuitEmblem.denari;
+      case TarotSeme.spade:
+        return SuitEmblem.spade;
+      case null:
+        return null;
     }
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (final r in righe)
-          Expanded(
-              child: _RigaCartiglio(
-                  text: r, palette: palette, preserveWordGap: true)),
-      ],
-    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final emblem = emblemFor(card);
+    if (emblem != null) {
+      return SuitEmblemMark(emblem: emblem, palette: palette);
+    }
+    return CartiglioTesto(righe: [card.numeral], palette: palette);
   }
 }
 
@@ -207,7 +207,7 @@ class TarotCardArt extends StatelessWidget {
             if (showCartigli) ...[
               Positioned.fromRect(
                 rect: px(TarotFrame.cartiglioNumero),
-                child: _RigaCartiglio(text: card.numeral, palette: palette),
+                child: CartiglioNumero(card: card, palette: palette),
               ),
               Positioned.fromRect(
                 rect: px(TarotFrame.cartiglioNome),
@@ -227,9 +227,8 @@ class TarotCardArt extends StatelessWidget {
           border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
         ),
         // La rovesciata gira per intero, cartigli inclusi.
-        child: reversed
-            ? Transform.rotate(angle: math.pi, child: carta)
-            : carta,
+        child:
+            reversed ? Transform.rotate(angle: math.pi, child: carta) : carta,
       ),
     );
   }

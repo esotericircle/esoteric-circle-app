@@ -392,4 +392,48 @@ void main() {
       expect(find.byKey(const Key('stesa_signature')), findsOneWidget);
     });
   });
+
+  group('Firma e presenza, rifiniture', () {
+    testWidgets('La firma porta l\'etichetta Sigillo davanti al codice',
+        (tester) async {
+      await loadFonts();
+      final signature = SpreadSignature.of(TarotSpread.draw(seed: 2));
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: SpreadSignatureMark(
+              signature: signature,
+              palette: palette,
+              showCode: true,
+            ),
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      // L'etichetta dice che cos'e', cosi' il codice non sembra una stringa
+      // tecnica ma la firma della stesa.
+      expect(find.byKey(const Key('firma_etichetta')), findsOneWidget);
+      expect(find.text('SIGILLO'), findsOneWidget);
+      expect(find.text(signature.code), findsOneWidget);
+      // L'etichetta sta sopra il codice.
+      final etichetta = tester.getRect(find.byKey(const Key('firma_etichetta')));
+      final codice = tester.getRect(find.byKey(const Key('firma_codice')));
+      expect(etichetta.center.dy, lessThan(codice.center.dy));
+    });
+
+    test('Medora e piu grande, con l\'innesto intatto', () {
+      // La scala e cresciuta: il mezzo busto riempie la scena.
+      const stage = MedoraStage(palette: MaestroPalette.neutral);
+      expect(stage.height, greaterThanOrEqualTo(300.0),
+          reason: 'il mezzo busto e tornato piccolo');
+      // L'innesto non e stato toccato: stesso asset segnaposto, stesso respiro,
+      // stessa mappa delle espressioni. Qui cambia solo la scala, perche'
+      // l'animazione Rive prendera' il posto del segnaposto senza rifare nulla.
+      expect(MedoraStage.placeholderAsset,
+          'brand_assets/avatars/Medora-1.png');
+      expect(stage.breathe, isTrue);
+      expect(stage.active, isNull);
+      expect(MedoraExpression.values.length, 3);
+    });
+  });
 }

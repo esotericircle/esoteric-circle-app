@@ -2,31 +2,17 @@ import 'dart:io';
 
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
-import 'package:esoteric_circle/design_system/components/vip_frame.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
-import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
+import 'package:esoteric_circle/features/tarot/tarot_cartiglio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// I cartigli delle carte, riempiti a runtime: numerale in alto e nome in basso,
-/// sempre dentro il blu piatto, mai sull'oro. Quando la carta e' rovesciata gira
-/// tutta la carta, cartigli inclusi, come una carta vera girata in mano.
-/// Quante rotazioni di mezzo giro avvolgono il cartiglio del nome.
-int _cartigliRuotati(WidgetTester tester) {
-  return tester
-      .widgetList<Transform>(find.ancestor(
-          of: find.byType(CartiglioNome), matching: find.byType(Transform)))
-      .where((t) {
-        // Mezzo giro: il seno e' nullo e il coseno vale meno uno.
-        final m = t.transform;
-        return (m.storage[0] + 1).abs() < 1e-6 &&
-            (m.storage[5] + 1).abs() < 1e-6;
-      })
-      .length;
-}
-
+/// I cartigli delle carte, riempiti a runtime: numerale (o emblema del seme) in
+/// alto e nome in basso, sempre dentro il blu piatto, mai sull'oro, alla massima
+/// misura che ci sta. Quando la carta e' rovesciata gira tutta la carta,
+/// cartigli inclusi, come una carta vera girata in mano.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -43,6 +29,24 @@ void main() {
   });
 
   final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+
+  // Misura di riferimento della carta a schermo, dal lato conservativo.
+  const cardW = 150.0;
+  const cardH = cardW / TarotFrame.aspect;
+
+  /// La larghezza del testo alla misura scelta.
+  double larghezza(String testo, TextStyle base, CartiglioAreaFit fit) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: testo.toUpperCase(),
+        style: base.copyWith(
+            fontSize: fit.fontSize, letterSpacing: fit.letterSpacing),
+      ),
+      textDirection: TextDirection.ltr,
+      maxLines: 1,
+    )..layout();
+    return tp.width;
+  }
 
   group('Numerali', () {
     test('Ogni carta ha un numerale, romano ai Maggiori', () {
@@ -62,7 +66,6 @@ void main() {
         }
       }
       expect(maggiori, 22);
-      // I ventidue romani sono tutti diversi fra loro.
       final numeraliMaggiori = TarotDeck.cards
           .where((c) => c.arcana == TarotArcana.maggiore)
           .map((c) => c.numeral)
@@ -85,6 +88,60 @@ void main() {
     });
   });
 
+  group('Carte di corte', () {
+    test('Le sedici carte di corte sono riconosciute, e solo quelle', () {
+      final corti = TarotDeck.cards.where((c) => c.isCorte).toList();
+      expect(corti.length, 16, reason: 'quattro figure per quattro semi');
+      for (final c in corti) {
+        expect(c.number, inInclusiveRange(11, 14));
+        expect(CartiglioNumero.emblemFor(c), isNotNull,
+            reason: '${c.name} senza emblema del seme');
+      }
+      for (final c in TarotDeck.cards.where((c) => !c.isCorte)) {
+        expect(CartiglioNumero.emblemFor(c), isNull,
+            reason: '${c.name} non e\' una carta di corte');
+      }
+    });
+
+    test('L\'emblema segue il seme della carta', () {
+      const atteso = {
+        TarotSeme.bastoni: SuitEmblem.bastoni,
+        TarotSeme.coppe: SuitEmblem.coppe,
+        TarotSeme.denari: SuitEmblem.denari,
+        TarotSeme.spade: SuitEmblem.spade,
+      };
+      for (final c in TarotDeck.cards.where((c) => c.isCorte)) {
+        expect(CartiglioNumero.emblemFor(c), atteso[c.seme!]);
+      }
+    });
+
+    testWidgets('Nel cartiglio alto c\'e\' l\'emblema, non la parola',
+        (tester) async {
+      final cavaliere =
+          TarotDeck.cards.firstWhere((c) => c.name == 'Cavaliere di Bastoni');
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: SizedBox(
+              width: 200,
+              height: 300,
+              child: TarotCardArt(card: cavaliere, palette: palette),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      expect(find.byType(SuitEmblemMark), findsOneWidget);
+      // La parola CAVALIERE compare solo nel cartiglio basso, come grado, e non
+      // nella placca stretta in alto dove risulterebbe illeggibile.
+      expect(find.text('CAVALIERE'), findsOneWidget);
+      final rettCarta = tester.getRect(find.byType(TarotCardArt));
+      final rettParola = tester.getRect(find.text('CAVALIERE'));
+      expect(rettParola.center.dy, greaterThan(rettCarta.center.dy),
+          reason: 'la parola sta in alto invece che nel cartiglio del nome');
+    });
+  });
+
   group('Cartigli dentro il blu, mai sull\'oro', () {
     test('I riquadri di testo stanno dentro le placche misurate', () {
       for (final coppia in [
@@ -97,61 +154,91 @@ void main() {
         expect(testo.right, lessThanOrEqualTo(placca.right));
         expect(testo.top, greaterThanOrEqualTo(placca.top));
         expect(testo.bottom, lessThanOrEqualTo(placca.bottom));
-        // E c'e' davvero un margine, non e' a filo dell'oro.
         expect(testo.left - placca.left, greaterThan(0));
         expect(placca.right - testo.right, greaterThan(0));
       }
     });
 
-    test('Nome e numerale entrano nel cartiglio per tutte e 78 le carte', () {
-      // Misura di riferimento della carta a schermo, dal lato conservativo.
-      const cardW = 150.0;
-      const cardH = cardW / TarotFrame.aspect;
-      final base = TypographyTokens.display(size: 40)
-          .copyWith(letterSpacing: 1.0, color: const Color(0xFFFFFFFF));
-
-      double larghezza(String testo, CartiglioFit fit) {
-        final tp = TextPainter(
-          text: TextSpan(
-            text: testo.toUpperCase(),
-            style: base.copyWith(
-                fontSize: fit.fontSize,
-                letterSpacing: fit.letterSpacing,
-                wordSpacing: fit.wordSpacing),
-          ),
-          textDirection: TextDirection.ltr,
-          maxLines: 1,
-        )..layout();
-        return tp.width * fit.scaleX;
-      }
+    test('Il testo riempie l\'area utile e non esce, su una e due righe', () {
+      final base = cartiglioBaseStyle(palette);
 
       for (final card in TarotDeck.cards) {
-        for (final prova in [
-          [card.numeral, TarotFrame.cartiglioNumero, false],
-          [card.name, TarotFrame.cartiglioNome, true],
-        ]) {
-          final testo = prova[0] as String;
+        final prove = <List<Object>>[
+          [splitNomeCartiglio(card.name), TarotFrame.cartiglioNome],
+          if (!card.isCorte) [
+              <String>[card.numeral],
+              TarotFrame.cartiglioNumero
+            ],
+        ];
+        for (final prova in prove) {
+          final righe = prova[0] as List<String>;
           final rect = prova[1] as Rect;
-          final gap = prova[2] as bool;
           final maxW = (rect.right - rect.left) * cardW;
           final maxH = (rect.bottom - rect.top) * cardH;
-          final fit = resolveCartiglioFit(
-              text: testo.toUpperCase(),
+          final fit = resolveCartiglioArea(
+              righe: [for (final r in righe) r.toUpperCase()],
               base: base,
               maxWidth: maxW,
-              maxHeight: maxH,
-              preserveWordGap: gap);
-          expect(larghezza(testo, fit), lessThanOrEqualTo(maxW + 0.5),
-              reason: '"$testo" non entra nel cartiglio di ${card.name}');
-          expect(fit.scaleX, greaterThanOrEqualTo(0.80 - 1e-6));
+              maxHeight: maxH);
+
+          // 1. Non esce in larghezza.
+          for (final r in righe) {
+            expect(larghezza(r, base, fit), lessThanOrEqualTo(maxW + 0.5),
+                reason: '"$r" esce dal cartiglio di ${card.name}');
+          }
+          // 2. Non esce in altezza: le lettere di tutte le righe ci stanno.
+          expect(fit.fontSize * kCapRatio * righe.length,
+              lessThanOrEqualTo(maxH + 0.5),
+              reason: 'le lettere di ${card.name} escono in altezza');
+
+          // 3. Riempie: la misura e' massimale, il dieci per cento in piu'
+          // sfonderebbe uno dei due limiti. E' questo che distingue un testo che
+          // riempie il cartiglio da uno che ci galleggia dentro piccolo.
+          final cresciuto = CartiglioAreaFit(
+              fontSize: fit.fontSize * 1.10,
+              letterSpacing: fit.letterSpacing * 1.10);
+          final sfondaAltezza =
+              cresciuto.fontSize * kCapRatio * righe.length > maxH;
+          final sfondaLarghezza =
+              righe.any((r) => larghezza(r, base, cresciuto) > maxW);
+          expect(sfondaAltezza || sfondaLarghezza, isTrue,
+              reason: 'il testo di ${card.name} sta piccolo, si poteva '
+                  'ingrandire ancora');
         }
       }
     });
+
+    test('Le due righe di un nome lungo condividono la stessa misura', () {
+      final base = cartiglioBaseStyle(palette);
+      const rect = TarotFrame.cartiglioNome;
+      final maxW = (rect.right - rect.left) * cardW;
+      final maxH = (rect.bottom - rect.top) * cardH;
+      final righe = splitNomeCartiglio('Cavaliere di Bastoni');
+      expect(righe.length, 2);
+      final fit = resolveCartiglioArea(
+          righe: [for (final r in righe) r.toUpperCase()],
+          base: base,
+          maxWidth: maxW,
+          maxHeight: maxH);
+      expect(fit.fontSize, greaterThan(0));
+      for (final r in righe) {
+        expect(larghezza(r, base, fit), lessThanOrEqualTo(maxW + 0.5));
+      }
+    });
+
+    test('I nomi corti restano su una riga, i lunghi si spezzano sul di', () {
+      expect(splitNomeCartiglio('Il Matto'), ['Il Matto']);
+      expect(splitNomeCartiglio('La Morte'), ['La Morte']);
+      expect(splitNomeCartiglio('Cavaliere di Bastoni'),
+          ['Cavaliere', 'di Bastoni']);
+      expect(splitNomeCartiglio('Regina di Denari'), ['Regina', 'di Denari']);
+      expect(splitNomeCartiglio('Quattro di Denari'), ['Quattro', 'di Denari']);
+    });
   });
 
-  group('Orientamento', () {
+  group('Orientamento e centratura', () {
     Future<void> pumpCard(WidgetTester tester,
-        {required bool reversed}) async {
+        {required bool reversed, TarotCard? card}) async {
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
           body: Center(
@@ -159,7 +246,7 @@ void main() {
               width: 200,
               height: 300,
               child: TarotCardArt(
-                card: TarotDeck.cards.first,
+                card: card ?? TarotDeck.cards.first,
                 palette: palette,
                 reversed: reversed,
               ),
@@ -170,107 +257,86 @@ void main() {
       await tester.pump();
     }
 
+    /// Quante rotazioni di mezzo giro avvolgono il cartiglio del nome.
+    int cartigliRuotati(WidgetTester tester) {
+      return tester
+          .widgetList<Transform>(find.ancestor(
+              of: find.byType(CartiglioNome), matching: find.byType(Transform)))
+          .where((t) {
+        final m = t.transform;
+        return (m.storage[0] + 1).abs() < 1e-6 &&
+            (m.storage[5] + 1).abs() < 1e-6;
+      }).length;
+    }
+
     testWidgets('Sul rovesciato ruota tutta la carta, cartigli inclusi',
         (tester) async {
-      // Dritta: nessun cartiglio dentro una rotazione di mezzo giro.
       await pumpCard(tester, reversed: false);
       expect(find.byType(CartiglioNome), findsOneWidget);
-      expect(_cartigliRuotati(tester), 0,
+      expect(cartigliRuotati(tester), 0,
           reason: 'la carta dritta ruota qualcosa');
 
-      // Rovesciata: entrambi i cartigli girano con la carta.
       await pumpCard(tester, reversed: true);
       expect(find.byType(CartiglioNome), findsOneWidget);
-      expect(_cartigliRuotati(tester), 1,
+      expect(cartigliRuotati(tester), 1,
           reason: 'i cartigli non girano con la carta rovesciata');
     });
 
-    testWidgets('Il numerale sta centrato nel cartiglio alto', (tester) async {
-      await pumpCard(tester, reversed: false);
+    testWidgets(
+        'Il numerale e centrato nella placca, in orizzontale e in verticale',
+        (tester) async {
+      final card = TarotDeck.cards.first;
+      await pumpCard(tester, reversed: false, card: card);
+
       final carta = tester.getRect(find.byType(TarotCardArt));
-      // Il centro della banda misurata, in pixel.
-      final centroBanda = carta.left +
-          carta.width *
-              (TarotFrame.cartiglioNumero.left +
-                      TarotFrame.cartiglioNumero.right) /
-                  2;
-      final numerale = tester.getRect(find.descendant(
-          of: find.byType(TarotCardArt),
-          matching: find.text(TarotDeck.cards.first.numeral.toUpperCase())));
-      expect((numerale.center.dx - centroBanda).abs(), lessThan(1.5),
-          reason: 'il numerale non risulta centrato nella placca');
-    });
-  });
+      final area = Rect.fromLTRB(
+        carta.left + TarotFrame.cartiglioNumero.left * carta.width,
+        carta.top + TarotFrame.cartiglioNumero.top * carta.height,
+        carta.left + TarotFrame.cartiglioNumero.right * carta.width,
+        carta.top + TarotFrame.cartiglioNumero.bottom * carta.height,
+      );
 
-  group('Nome su due righe', () {
-    test('I nomi corti restano su una riga', () {
-      expect(splitNomeCartiglio('Il Matto'), ['Il Matto']);
-      expect(splitNomeCartiglio('La Morte'), ['La Morte']);
-    });
+      final testo = find.descendant(
+          of: find.byType(CartiglioNumero),
+          matching: find.text(card.numeral.toUpperCase()));
+      expect(testo, findsOneWidget);
+      final riga = tester.getRect(testo);
+      final style = tester.widget<Text>(testo).style!;
 
-    test('I nomi lunghi si spezzano sul di', () {
-      expect(splitNomeCartiglio('Cavaliere di Bastoni'),
-          ['Cavaliere', 'di Bastoni']);
-      expect(splitNomeCartiglio('Regina di Denari'), ['Regina', 'di Denari']);
-      expect(splitNomeCartiglio('Quattro di Denari'), ['Quattro', 'di Denari']);
-    });
+      // Orizzontale: il centro della riga sul centro della placca.
+      expect((riga.center.dx - area.center.dx).abs(), lessThan(2.0),
+          reason: 'il numerale non e centrato in orizzontale');
 
-    test('Nessuna riga resta compressa oltre il lecito', () {
-      const cardW = 150.0;
-      const cardH = cardW / TarotFrame.aspect;
-      final base = TypographyTokens.display(size: 40)
-          .copyWith(letterSpacing: 1.0, color: const Color(0xFFFFFFFF));
-      const rect = TarotFrame.cartiglioNome;
-      final maxW = (rect.right - rect.left) * cardW;
-      // Su due righe ogni riga ha meta' altezza.
-      for (final card in TarotDeck.cards) {
-        final righe = splitNomeCartiglio(card.name);
-        final maxH = (rect.bottom - rect.top) * cardH / righe.length;
-        for (final riga in righe) {
-          final fit = resolveCartiglioFit(
-              text: riga.toUpperCase(),
-              base: base,
-              maxWidth: maxW,
-              maxHeight: maxH,
-              preserveWordGap: true);
-          final tp = TextPainter(
-            text: TextSpan(
-                text: riga.toUpperCase(),
-                style: base.copyWith(
-                    fontSize: fit.fontSize,
-                    letterSpacing: fit.letterSpacing,
-                    wordSpacing: fit.wordSpacing)),
-            textDirection: TextDirection.ltr,
-            maxLines: 1,
-          )..layout();
-          // Dentro la placca, e mai schiacciato sotto lo 0.80.
-          expect(tp.width * fit.scaleX, lessThanOrEqualTo(maxW + 0.5),
-              reason: '"$riga" esce dal cartiglio di ${card.name}');
-          expect(fit.scaleX, greaterThanOrEqualTo(0.80 - 1e-6),
-              reason: '"$riga" risulta compresso troppo');
-        }
-      }
+      // Verticale: conta il centro della LETTERA, non quello della riga di
+      // testo, che include ascendenti e discendenti qui mai usati.
+      final tp = TextPainter(
+        text: TextSpan(text: card.numeral.toUpperCase(), style: style),
+        textDirection: TextDirection.ltr,
+        maxLines: 1,
+      )..layout();
+      final baseline =
+          tp.computeDistanceToActualBaseline(TextBaseline.alphabetic);
+      final cap = style.fontSize! * kCapRatio;
+      final centroLettera = riga.top + baseline - cap / 2;
+      expect((centroLettera - area.center.dy).abs(), lessThan(2.0),
+          reason: 'il numerale non e centrato in verticale');
     });
 
-    testWidgets('I nomi lunghi vanno a capo davvero', (tester) async {
-      // Quattro di Denari: nome lungo, e il numerale resta una cifra, cosi'
-      // le due righe del nome non si confondono col cartiglio alto.
-      final carta = TarotDeck.cards
-          .firstWhere((c) => c.name == 'Quattro di Denari');
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: SizedBox(
-              width: 200,
-              height: 300,
-              child: TarotCardArt(card: carta, palette: palette),
-            ),
-          ),
-        ),
-      ));
-      await tester.pump();
-      expect(find.text('QUATTRO'), findsOneWidget);
-      expect(find.text('DI DENARI'), findsOneWidget);
+    testWidgets('L\'emblema di corte e centrato nella placca', (tester) async {
+      final regina =
+          TarotDeck.cards.firstWhere((c) => c.name == 'Regina di Denari');
+      await pumpCard(tester, reversed: false, card: regina);
+      final carta = tester.getRect(find.byType(TarotCardArt));
+      final area = Rect.fromLTRB(
+        carta.left + TarotFrame.cartiglioNumero.left * carta.width,
+        carta.top + TarotFrame.cartiglioNumero.top * carta.height,
+        carta.left + TarotFrame.cartiglioNumero.right * carta.width,
+        carta.top + TarotFrame.cartiglioNumero.bottom * carta.height,
+      );
+      final emblema = tester.getRect(find.descendant(
+          of: find.byType(SuitEmblemMark), matching: find.byType(CustomPaint)));
+      expect((emblema.center.dx - area.center.dx).abs(), lessThan(2.0));
+      expect((emblema.center.dy - area.center.dy).abs(), lessThan(2.0));
     });
   });
 }

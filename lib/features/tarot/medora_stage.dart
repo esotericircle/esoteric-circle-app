@@ -48,7 +48,7 @@ class MedoraStage extends StatefulWidget {
     super.key,
     required this.palette,
     this.active,
-    this.height = 240,
+    this.height = 320,
     this.breathe = true,
   });
 
@@ -68,7 +68,7 @@ class MedoraStage extends StatefulWidget {
 
   /// Quanta parte dell'avatar a figura intera resta in scena: dalla testa fino
   /// sotto le mani che reggono le carte.
-  static const double bustoFactor = 0.52;
+  static const double bustoFactor = 0.58;
 
   @override
   State<MedoraStage> createState() => _MedoraStageState();

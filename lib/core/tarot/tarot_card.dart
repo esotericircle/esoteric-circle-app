@@ -55,6 +55,12 @@ class TarotCard {
     return m == null ? null : int.parse(m.group(1)!);
   }
 
+  /// Vero per le quattro carte di corte di ogni seme: Fante, Cavaliere, Regina,
+  /// Re. Nel cartiglio superiore al loro posto va l'emblema del seme, perche' la
+  /// parola per esteso in quella placca stretta risulterebbe illeggibile.
+  bool get isCorte =>
+      arcana == TarotArcana.minore && number != null && number! >= 11;
+
   /// Il numerale del cartiglio superiore: romano per i Maggiori, arabo per i
   /// Minori numerati, il nome della figura per le carte di corte.
   String get numeral {

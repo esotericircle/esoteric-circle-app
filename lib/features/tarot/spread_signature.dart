@@ -109,9 +109,19 @@ class SpreadSignatureMark extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         mark,
-        const SizedBox(height: 2),
+        const SizedBox(height: 3),
+        // L'etichetta dice che cos'e': senza, il codice sembrerebbe una stringa
+        // tecnica invece della firma della stesa.
+        Text('SIGILLO',
+            key: const Key('firma_etichetta'),
+            style: TypographyTokens.label(size: 7).copyWith(
+              letterSpacing: 2.4,
+              color: palette.goldSoft.withValues(alpha: 0.55),
+            )),
+        const SizedBox(height: 1),
         // Col font di brand: uno stile nudo cadrebbe sul carattere di sistema.
         Text(signature.code,
+            key: const Key('firma_codice'),
             style: TypographyTokens.label(size: 9).copyWith(
               letterSpacing: 2.0,
               color: palette.goldSoft.withValues(alpha: 0.85),
