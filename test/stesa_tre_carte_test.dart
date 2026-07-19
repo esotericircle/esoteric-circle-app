@@ -10,6 +10,8 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
+import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
+import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/features/tarot/medora_stage.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
@@ -37,6 +39,34 @@ void main() {
   }
 
   final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+
+  /// Monta la schermata con tutti i controller che il cosmo richiede.
+  Future<void> pumpScreen(WidgetTester tester, {int seed = 2}) async {
+    await loadFonts();
+    // Alta abbastanza da tenere in campo tutti e sette gli strati: quel che
+    // la lista non costruisce, il test non lo troverebbe.
+    tester.view.physicalSize = const Size(390, 4400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+      ],
+      child: MaterialApp(
+        home: MaestroScope(
+          child: StesaTreCarteScreen(seed: seed, revealAll: true),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
+  }
+
+
 
   group('Pescaggio', () {
     test('La stesa pesca tre carte distinte', () {
@@ -217,7 +247,9 @@ void main() {
         // I tre arcani col loro verso e la loro posizione ci sono. Il nome sta
         // su una riga sua e il verso sotto, cosi' nessuna parola si spezza.
         for (final drawn in spread.cards) {
-          expect(find.text(drawn.displayName), findsOneWidget);
+          // Il nome puo' comparire due volte: nella lista delle tre posizioni
+          // e, se e' lei, come carta chiave in evidenza.
+          expect(find.text(drawn.displayName), findsWidgets);
           expect(find.text(drawn.position.label.toUpperCase()), findsWidgets);
         }
         expect(find.text(spread.synthesis), findsOneWidget);
@@ -307,29 +339,6 @@ void main() {
   });
 
   group('Schermata della stesa', () {
-    Future<void> pumpScreen(WidgetTester tester, {int seed = 2}) async {
-      await loadFonts();
-      tester.view.physicalSize = const Size(390, 2600);
-      tester.view.devicePixelRatio = 1.0;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
-      await tester.pumpWidget(MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => MaestroController()),
-          ChangeNotifierProvider(create: (_) => ParallaxController()),
-          ChangeNotifierProvider(create: (_) => QualityTierController()),
-          ChangeNotifierProvider(create: (_) => ZodiacController()),
-        ],
-        child: MaterialApp(
-          home: MaestroScope(
-            child: StesaTreCarteScreen(seed: seed, revealAll: true),
-          ),
-        ),
-      ));
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 3));
-    }
-
     testWidgets('Medora presiede, i nomi sono grandi, la firma c\'e\'',
         (tester) async {
       await pumpScreen(tester);
@@ -376,6 +385,91 @@ void main() {
       expect(stage.breathe, isTrue);
       expect(stage.active, isNull);
       expect(MedoraExpression.values.length, 3);
+    });
+  });
+
+  group('Argomento e profondita nella schermata', () {
+    testWidgets('Il selettore argomento mostra i sedici in tre gruppi',
+        (tester) async {
+      await loadFonts();
+      var scelto = TarotTopic.predefinito;
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: TopicSelector(
+              current: scelto,
+              palette: palette,
+              onSelect: (t) => scelto = t,
+            ),
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      // La voce corrente si legge senza aprire il menu.
+      expect(find.text(TarotTopic.predefinito.label), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('stesa_topic')));
+      await tester.pumpAndSettle();
+      // I tre gruppi fanno da intestazione.
+      for (final g in TarotTopicGroup.values) {
+        expect(find.text(g.label.toUpperCase()), findsOneWidget);
+      }
+      // E ci sono tutte e sedici le voci.
+      for (final t in TarotTopic.values) {
+        expect(find.text(t.label), findsWidgets,
+            reason: 'manca l\'argomento ${t.label}');
+      }
+      // Salute e legale non compaiono in nessuna forma.
+      for (final vietato in const ['Salute', 'Legale', 'Malattia']) {
+        expect(find.text(vietato), findsNothing);
+      }
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('Ogni posizione ha la sua profondita, Breve libera',
+        (tester) async {
+      await pumpScreen(tester);
+      for (final p in SpreadPosition.values) {
+        final sel = find.byKey(Key('stesa_depth_${p.name}'));
+        expect(sel, findsOneWidget, reason: 'manca la profondita in ${p.label}');
+        final widget = tester.widget<AnswerDepthSelector>(sel);
+        // Nel gratuito la profondita' parte da Breve, la sola libera.
+        expect(widget.current, AnswerDepth.free);
+        expect(widget.premiumUnlocked, isFalse);
+      }
+      // Le tre sono indipendenti: lo stato e' per posizione.
+      expect(find.byType(AnswerDepthSelector), findsNWidgets(3));
+    });
+
+    testWidgets('La schermata mostra i sette strati', (tester) async {
+      await pumpScreen(tester);
+      final spread = TarotSpread.draw(seed: 2);
+      final reading = TarotReading.of(spread, TarotTopic.predefinito);
+
+      // 1. Sintesi forte, dal Presente.
+      expect(find.byKey(const Key('stesa_synthesis')), findsOneWidget);
+      expect(
+          tester
+              .widget<Text>(find.byKey(const Key('stesa_synthesis')))
+              .data,
+          reading.sintesi);
+      // 2. Le tre posizioni col testo ricco.
+      for (final p in SpreadPosition.values) {
+        expect(find.byKey(Key('stesa_letta_${p.name}')), findsOneWidget);
+      }
+      // 3, 4, 5, 6. Dialogo, chiave, consiglio, domanda.
+      for (final chiave in const [
+        'stesa_dialogo',
+        'stesa_chiave',
+        'stesa_consiglio',
+        'stesa_domanda',
+      ]) {
+        expect(find.byKey(Key(chiave)), findsOneWidget, reason: 'manca $chiave');
+      }
+      // 7. Azioni piu' disclaimer, una sola volta.
+      expect(find.byKey(const Key('stesa_share')), findsOneWidget);
+      expect(find.byKey(const Key('stesa_disclaimer')), findsOneWidget);
+      expect(tester.takeException(), isNull);
     });
   });
 }

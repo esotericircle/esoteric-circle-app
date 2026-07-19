@@ -4,6 +4,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/tarot/tarot_topic.dart';
 import '../horoscope/answer_depth.dart';
 
 /// La chiave con cui si legge la stesa.
@@ -44,12 +45,16 @@ class TarotSetup {
     this.key = ReadingKey.predittiva,
     this.deck = TarotDeckStyle.riderWaite,
     this.depth = AnswerDepth.breve,
+    this.topic = TarotTopic.predefinito,
     this.includeReversed = true,
   });
 
   final ReadingKey key;
   final TarotDeckStyle deck;
   final AnswerDepth depth;
+
+  /// L'argomento su cui si direziona la lettura.
+  final TarotTopic topic;
 
   /// Includi carte rovesciate: attivo di default nelle impostazioni della
   /// cartomanzia.
@@ -59,12 +64,14 @@ class TarotSetup {
     ReadingKey? key,
     TarotDeckStyle? deck,
     AnswerDepth? depth,
+    TarotTopic? topic,
     bool? includeReversed,
   }) =>
       TarotSetup(
         key: key ?? this.key,
         deck: deck ?? this.deck,
         depth: depth ?? this.depth,
+        topic: topic ?? this.topic,
         includeReversed: includeReversed ?? this.includeReversed,
       );
 }
@@ -101,6 +108,16 @@ class TarotSetupPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          _Riga(
+            titolo: 'Scegli argomento',
+            palette: palette,
+            child: TopicSelector(
+              current: setup.topic,
+              palette: palette,
+              onSelect: (t) => onChanged(setup.copyWith(topic: t)),
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
           _Riga(
             titolo: 'Chiave di lettura',
             palette: palette,
@@ -216,6 +233,94 @@ class _Riga extends StatelessWidget {
 
 /// Una voce del selettore. Se non e' disponibile resta visibile col badge
 /// Coming soon e il lucchetto.
+/// Il menu a tendina dell'argomento: sedici voci nei tre gruppi del corpus.
+///
+/// Salute, medico, legale e domande fataliste non compaiono affatto, ne' come
+/// voci bloccate: per etica quelle letture non si fanno.
+class TopicSelector extends StatelessWidget {
+  const TopicSelector({
+    super.key,
+    required this.current,
+    required this.palette,
+    required this.onSelect,
+  });
+
+  final TarotTopic current;
+  final MaestroPalette palette;
+  final ValueChanged<TarotTopic> onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<TarotTopic>(
+      key: const Key('stesa_topic'),
+      tooltip: 'Scegli l\'argomento su cui direzionare la lettura',
+      position: PopupMenuPosition.under,
+      color: palette.surfaceElevated,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        side: BorderSide(color: palette.gold.withValues(alpha: 0.35)),
+      ),
+      onSelected: onSelect,
+      itemBuilder: (context) => [
+        for (final gruppo in TarotTopicGroup.values) ...[
+          PopupMenuItem<TarotTopic>(
+            enabled: false,
+            height: 30,
+            child: Text(gruppo.label.toUpperCase(),
+                style: TypographyTokens.label(size: 9).copyWith(
+                    color: palette.goldSoft.withValues(alpha: 0.8),
+                    letterSpacing: 1.4)),
+          ),
+          for (final t in TarotTopic.of(gruppo))
+            PopupMenuItem<TarotTopic>(
+              value: t,
+              height: 40,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 20,
+                    child: t == current
+                        ? Icon(Icons.check_rounded,
+                            size: 14, color: palette.goldSoft)
+                        : null,
+                  ),
+                  Expanded(
+                    child: Text(t.label,
+                        style: TypographyTokens.body(size: 14).copyWith(
+                            color: t == current
+                                ? palette.goldSoft
+                                : ColorTokens.textPrimary)),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ],
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+          color: palette.primary.withValues(alpha: 0.5),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: Text(current.label,
+                  overflow: TextOverflow.ellipsis,
+                  style: TypographyTokens.body(size: 14)
+                      .copyWith(color: palette.goldSoft)),
+            ),
+            const SizedBox(width: 4),
+            Icon(Icons.expand_more_rounded, size: 16, color: palette.goldSoft),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _Voce extends StatelessWidget {
   const _Voce({
     super.key,

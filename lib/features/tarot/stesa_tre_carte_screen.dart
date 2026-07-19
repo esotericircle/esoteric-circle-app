@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 
 import '../../core/maestro/maestro.dart';
 import '../../core/tarot/tarot_card.dart';
+import '../../core/tarot/tarot_reading.dart';
 import '../../core/tarot/tarot_spread.dart';
+import '../../core/tarot/tarot_topic.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../horoscope/answer_depth.dart';
 import 'stesa_share_card.dart';
 import 'medora_stage.dart';
 import 'tarot_card_art.dart';
@@ -27,7 +30,17 @@ const double kTarotAspect = 2 / 3;
 /// cui e' uscita. Il pescaggio passa da un seme opzionale, cosi' test e anteprima
 /// sono riproducibili.
 class StesaTreCarteScreen extends StatefulWidget {
-  const StesaTreCarteScreen({super.key, this.seed, this.revealAll = false});
+  const StesaTreCarteScreen({
+    super.key,
+    this.seed,
+    this.revealAll = false,
+    this.topic,
+  });
+
+  /// L'argomento di partenza. Se nullo si parte da quello predefinito, la
+  /// lettura generale. Serve all'anteprima e, in futuro, al deep link che
+  /// arriva gia' con la domanda scelta.
+  final TarotTopic? topic;
 
   /// Seme del pescaggio. Se nullo, ogni apertura e' una stesa nuova.
   final int? seed;
@@ -57,7 +70,20 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
   bool _renderCard = false;
 
   /// I selettori prima della stesa. Le voci non pronte restano Coming soon.
-  TarotSetup _setup = const TarotSetup();
+  late TarotSetup _setup = TarotSetup(
+      topic: widget.topic ?? TarotTopic.predefinito);
+
+  /// La lettura a sette strati, letta dentro l'argomento scelto. E'
+  /// deterministica: stesse carte e stesso argomento danno sempre lo stesso
+  /// testo, quindi si puo' mettere in cache senza toccare l'LLM.
+  TarotReading get _reading => TarotReading.of(_spread, _setup.topic);
+
+  /// La profondita' scelta per ogni posizione. Nel gratuito resta Breve
+  /// ovunque, ma lo stato e' gia' per posizione: a runtime si generera' il
+  /// testo lungo solo dove la persona lo chiede, senza bruciare token altrove.
+  final Map<SpreadPosition, AnswerDepth> _depths = {
+    for (final p in SpreadPosition.values) p: AnswerDepth.free,
+  };
 
   /// L'ultima carta scoperta: e' quella su cui Medora posa lo sguardo.
   DrawnCard? get _active => _drawn == 0 ? null : _spread.cards[_drawn - 1];
@@ -104,7 +130,11 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
                   top: 0,
                   child: RepaintBoundary(
                     key: _cardKey,
-                    child: StesaShareCard(spread: _spread, palette: palette),
+                    child: StesaShareCard(
+                      spread: _spread,
+                      palette: palette,
+                      topic: _setup.topic,
+                    ),
                   ),
                 ),
             ],
@@ -154,7 +184,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
         ],
         // La sintesi memorabile, sopra le tre carte.
         if (_complete) ...[
-          Text(_spread.synthesis,
+          Text(_reading.sintesi,
               key: const Key('stesa_synthesis'),
               textAlign: TextAlign.center,
               style: TypographyTokens.display(size: 22)
@@ -171,6 +201,10 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
                   position: SpreadPosition.values[i],
                   drawn: i < _drawn ? _spread.cards[i] : null,
                   palette: palette,
+                  depth: _depths[SpreadPosition.values[i]]!,
+                  onDepth: (d) => setState(
+                      () => _depths[SpreadPosition.values[i]] = d),
+                  onLocked: _showComingSoon,
                 ),
               ),
               if (i < SpreadPosition.values.length - 1)
@@ -180,39 +214,66 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
         ),
         if (_complete) ...[
           const SizedBox(height: SpacingTokens.lg),
-          // La lettura che unisce le tre posizioni.
-          Container(
-            padding: const EdgeInsets.all(SpacingTokens.lg),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  palette.surfaceElevated.withValues(alpha: 0.95),
-                  Color.lerp(palette.surface, palette.deepest, 0.35)!
-                      .withValues(alpha: 0.92),
-                ],
-              ),
-              border: Border.all(color: palette.gold.withValues(alpha: 0.32)),
+          // Strato 2, le tre posizioni col testo ricco letto nell'argomento.
+          // La lente sta qui una volta sola: ripeterla su ogni posizione la
+          // rendeva una formula.
+          Text('${_reading.posizioni.first.apertura}, carta per carta',
+              key: const Key('stesa_lente'),
+              style: TypographyTokens.label(size: 10).copyWith(
+                  color: palette.goldSoft.withValues(alpha: 0.9),
+                  letterSpacing: 1.2)),
+          const SizedBox(height: SpacingTokens.xs),
+          for (final letta in _reading.posizioni) ...[
+            _StratoPosizione(
+              key: Key('stesa_letta_${letta.drawn.position.name}'),
+              letta: letta,
+              palette: palette,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(_spread.reading,
-                    key: const Key('stesa_reading'),
-                    style: TypographyTokens.body(size: 17).copyWith(
-                        color: ColorTokens.textPrimary, height: 1.55)),
-                const SizedBox(height: SpacingTokens.md),
-                Text(TarotSpread.closing,
-                    key: const Key('stesa_closing'),
-                    style: TypographyTokens.body(size: 15).copyWith(
-                        color: palette.goldSoft,
-                        height: 1.4,
-                        fontStyle: FontStyle.italic)),
-              ],
-            ),
+            const SizedBox(height: SpacingTokens.sm),
+          ],
+          const SizedBox(height: SpacingTokens.xs),
+          // Strato 3, le carte che dialogano.
+          _Strato(
+            key: const Key('stesa_dialogo'),
+            titolo: 'Le carte che dialogano',
+            testo: _reading.dialogo.text,
+            palette: palette,
           ),
+          const SizedBox(height: SpacingTokens.sm),
+          // Strato 4, la carta chiave.
+          _Strato(
+            key: const Key('stesa_chiave'),
+            titolo: 'La carta chiave',
+            occhiello: _reading.chiave.drawn.displayName,
+            testo: _reading.chiave.perche,
+            palette: palette,
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          // Strato 5, il consiglio di Medora.
+          _Strato(
+            key: const Key('stesa_consiglio'),
+            titolo: 'Il consiglio di Medora',
+            testo: _reading.consiglio,
+            palette: palette,
+            inEvidenza: true,
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          // Strato 6, la domanda che apre a Chiedi ai Maestri.
+          _Strato(
+            key: const Key('stesa_domanda'),
+            titolo: 'La domanda che ti lascio',
+            testo: _reading.domanda,
+            palette: palette,
+            corsivo: true,
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          Text(TarotSpread.closing,
+              key: const Key('stesa_closing'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.body(size: 15).copyWith(
+                  color: palette.goldSoft,
+                  height: 1.4,
+                  fontStyle: FontStyle.italic)),
           const SizedBox(height: SpacingTokens.lg),
           Center(
             child: FilledButton.icon(
@@ -391,26 +452,55 @@ class _CardBack extends StatelessWidget {
 
 /// Uno dei tre slot della stesa: vuoto, oppure la carta che si gira.
 class _Slot extends StatelessWidget {
-  const _Slot(
-      {required this.position, required this.drawn, required this.palette});
+  const _Slot({
+    required this.position,
+    required this.drawn,
+    required this.palette,
+    required this.depth,
+    required this.onDepth,
+    required this.onLocked,
+  });
 
   final SpreadPosition position;
   final DrawnCard? drawn;
   final MaestroPalette palette;
+
+  /// La profondita' di questa posizione, col suo menu a tendina.
+  final AnswerDepth depth;
+  final ValueChanged<AnswerDepth> onDepth;
+  final ValueChanged<String> onLocked;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AspectRatio(
-          aspectRatio: kTarotAspect,
-          child: drawn == null
-              ? _EmptySlot(palette: palette)
-              : _FlipCard(
-                  key: ValueKey('${position.name}_${drawn!.card.stem}'),
-                  drawn: drawn!,
-                  palette: palette),
+        Stack(
+          children: [
+            AspectRatio(
+              aspectRatio: kTarotAspect,
+              child: drawn == null
+                  ? _EmptySlot(palette: palette)
+                  : _FlipCard(
+                      key: ValueKey('${position.name}_${drawn!.card.stem}'),
+                      drawn: drawn!,
+                      palette: palette),
+            ),
+            // La profondita' della risposta, per posizione: nel gratuito resta
+            // Breve, le altre due portano il lucchetto del Cerchio Premium.
+            if (drawn != null)
+              Positioned(
+                top: -2,
+                right: -6,
+                child: AnswerDepthSelector(
+                  key: Key('stesa_depth_${position.name}'),
+                  current: depth,
+                  palette: palette,
+                  onSelect: onDepth,
+                  onLockedTap: (d) => onLocked(d.label),
+                ),
+              ),
+          ],
         ),
         const SizedBox(height: SpacingTokens.xs),
         Text(position.label.toUpperCase(),
@@ -438,7 +528,10 @@ class _Slot extends StatelessWidget {
                 style: TypographyTokens.label(size: 9).copyWith(
                     color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: 2),
-          Text(drawn!.meaning,
+          // Sotto la carta resta la sintesi breve: il testo ricco ha il suo
+          // strato piu' sotto, ripeterlo qui in colonna stretta lo rendeva
+          // illeggibile.
+          Text(drawn!.summary,
               key: Key('stesa_meaning_${position.name}'),
               textAlign: TextAlign.center,
               style: TypographyTokens.body(size: 12).copyWith(
@@ -590,4 +683,109 @@ class _PaintedBackPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_PaintedBackPainter old) => old.palette != palette;
+}
+
+/// Uno strato della lettura: titolo in maiuscoletto, poi il testo.
+class _Strato extends StatelessWidget {
+  const _Strato({
+    super.key,
+    required this.titolo,
+    required this.testo,
+    required this.palette,
+    this.occhiello,
+    this.inEvidenza = false,
+    this.corsivo = false,
+  });
+
+  final String titolo;
+  final String testo;
+  final MaestroPalette palette;
+
+  /// Una riga forte sopra il testo, come il nome della carta chiave.
+  final String? occhiello;
+
+  /// Il consiglio si stacca dagli altri strati, e' quello che si porta a casa.
+  final bool inEvidenza;
+  final bool corsivo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+        color: inEvidenza
+            ? palette.primary.withValues(alpha: 0.42)
+            : palette.surfaceElevated.withValues(alpha: 0.55),
+        border: Border.all(
+            color: palette.gold.withValues(alpha: inEvidenza ? 0.55 : 0.25)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(titolo.toUpperCase(),
+              style: TypographyTokens.label(size: 9).copyWith(
+                  color: palette.goldSoft.withValues(alpha: 0.85),
+                  letterSpacing: 1.4)),
+          const SizedBox(height: 6),
+          if (occhiello != null) ...[
+            Text(occhiello!,
+                style: TypographyTokens.display(size: 17)
+                    .copyWith(color: palette.goldSoft, height: 1.2)),
+            const SizedBox(height: 4),
+          ],
+          Text(testo,
+              style: TypographyTokens.body(size: 16).copyWith(
+                color: inEvidenza ? palette.goldSoft : ColorTokens.textPrimary,
+                height: 1.5,
+                fontStyle: corsivo ? FontStyle.italic : FontStyle.normal,
+              )),
+        ],
+      ),
+    );
+  }
+}
+
+/// Una posizione letta dentro l'argomento: apertura, nome della carta, testo
+/// ricco dal corpus.
+class _StratoPosizione extends StatelessWidget {
+  const _StratoPosizione({
+    super.key,
+    required this.letta,
+    required this.palette,
+  });
+
+  final PosizioneLetta letta;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+        color: palette.surfaceElevated.withValues(alpha: 0.55),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(letta.drawn.position.label.toUpperCase(),
+              style: TypographyTokens.label(size: 9).copyWith(
+                  color: palette.goldSoft.withValues(alpha: 0.85),
+                  letterSpacing: 1.4)),
+          const SizedBox(height: 4),
+          Text(letta.drawn.displayName,
+              style: TypographyTokens.display(size: 17)
+                  .copyWith(color: palette.goldSoft, height: 1.2)),
+          const SizedBox(height: 6),
+          Text(letta.testo,
+              style: TypographyTokens.body(size: 16).copyWith(
+                  color: ColorTokens.textPrimary, height: 1.5)),
+        ],
+      ),
+    );
+  }
 }

@@ -41,6 +41,7 @@ import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_glyph.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
+import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
@@ -733,17 +734,22 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(390, 1390);
+    // La schermata e' lunga: sintesi, tre posizioni lette, dialogo, carta
+    // chiave, consiglio, domanda, azioni e disclaimer.
+    tester.view.physicalSize = const Size(390, 2360);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Seme 1: Fante di Bastoni rovesciato, Dieci di Coppe, La Luna rovesciata.
-    // Scelto perche' contiene una carta di corte, cosi' nell'anteprima si vede
-    // l'emblema del seme al posto del numerale, piu' un numerale arabo e uno
-    // romano, piu' due rovesciate.
+    // Scelto perche' contiene una carta di corte col suo numero, un nome su due
+    // righe e due rovesciate.
     const spread = TarotSpread.reversedChance; // documenta la meccanica
     assert(spread > 0);
     unawaited(nav.push(MaterialPageRoute<void>(
       builder: (_) => const MaestroScope(
-        child: StesaTreCarteScreen(seed: 1, revealAll: true),
+        child: StesaTreCarteScreen(
+          seed: 1,
+          revealAll: true,
+          topic: TarotTopic.bivio,
+        ),
       ),
     )));
     await step(tester);
@@ -766,7 +772,9 @@ void main() {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final spread = TarotSpread.draw(seed: 1);
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(400, 820);
+    // La card e' cresciuta: argomento, estratto della lettura, carta chiave e
+    // consiglio oltre alla sintesi.
+    tester.view.physicalSize = const Size(420, 1080);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -778,7 +786,11 @@ void main() {
           backgroundColor: const Color(0xFF0A0E24),
           body: Center(
             child: SingleChildScrollView(
-              child: StesaShareCard(spread: spread, palette: palette),
+              child: StesaShareCard(
+              spread: spread,
+              palette: palette,
+              topic: TarotTopic.bivio,
+            ),
             ),
           ),
         ),

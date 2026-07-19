@@ -1,185 +1,184 @@
-# Corpus dei tarocchi, Medora, Esoteric Circle
+# Corpus dei tarocchi esteso, Medora, Esoteric Circle
 
-Il mazzo completo, settantotto carte, nella voce di Medora: ventidue Arcani Maggiori e cinquantasei Minori nei quattro semi. Contenuto curato, deterministico, su dispositivo: base che a runtime Gemini personalizza sul cielo e sul momento della persona. Tradizione reale dei tarocchi, per intrattenimento e crescita, mai promesse deterministiche sul futuro, sempre cornice di consapevolezza e scelta. Medora ha voce elegante e materna, immagini celesti, e ancora sempre al senso. Ogni carta ha una sintesi e una riga nel verso dritto, con sotto il verso rovesciato. Il rovesciato non è mai una condanna: è un blocco da sciogliere, un eccesso da ridosare, un invito a guardare dentro, sempre con margine di scelta. I semi seguono gli elementi: Bastoni il fuoco, Coppe l'acqua, Denari la terra, Spade l'aria. Ordine tradizionale dei Maggiori, con la Giustizia all'ottavo posto e la Forza all'undicesimo.
+Versione a testo ricco del mazzo, settantotto carte nei due versi. Ogni carta passa dalla riga singola a due o tre frasi piene nella voce di Medora, elegante e materna, ancorata al senso, mai promesse deterministiche sul futuro, sempre consapevolezza e scelta. Il rovesciato non è condanna, è un nodo da sciogliere. È la base deterministica su dispositivo, cacheabile per profilo e argomento, che a runtime Gemini rifinisce sull'argomento scelto e sulla persona. Espandere questo corpus alza la qualità e abbassa il costo a runtime. I semi seguono gli elementi: Bastoni fuoco, Coppe acqua, Denari terra, Spade aria.
 
 ## Arcani Maggiori
 
-- 0 Il Matto · "Il salto nel vuoto." Un nuovo inizio ti chiama: parti leggero, con fiducia e cuore aperto, anche senza vedere tutta la strada.
-- 0 Il Matto rovesciato · "Il passo avventato." Slancio senza direzione, o timore che ti trattiene sull'orlo: prima di partire, senti se è coraggio o fuga.
-- I Il Mago · "Il potere di creare." Hai gli strumenti e la volontà: è il momento di manifestare, di trasformare l'idea in gesto.
-- I Il Mago rovesciato · "Il potere sprecato." Talento che resta inusato, o parole che promettono più di quanto mantieni: riporta l'intenzione al gesto onesto.
-- II La Papessa · "Il sapere del silenzio." Ascolta l'intuizione, ciò che sai senza spiegarlo: un mistero si svela solo alla mente quieta.
-- II La Papessa rovesciata · "L'intuito messo a tacere." Stai coprendo una voce interiore che sa: torna al silenzio, il segreto aspetta solo di essere ascoltato.
-- III L'Imperatrice · "La forza che genera." Abbondanza, creatività, cura: qualcosa fiorisce nelle tue mani, lascialo crescere con dolcezza.
-- III L'Imperatrice rovesciata · "La cura dimenticata." Creatività bloccata, o attenzione che scordi di dare a te stessa: rifiorisci nutrendo prima la tua radice.
-- IV L'Imperatore · "La struttura che protegge." Ordine, autorità, fondamenta solide: è tempo di dare forma e regola a ciò che costruisci.
-- IV L'Imperatore rovesciato · "La regola che soffoca." Controllo troppo stretto, oppure fondamenta che mancano: cerca l'ordine che protegge, non quello che imprigiona.
-- V Il Papa · "La guida antica." Tradizione, insegnamento, senso condiviso: cerca un maestro, oppure diventa maestro di te stesso.
-- V Il Papa rovesciato · "La regola da rivedere." Un sapere ricevuto che non ti appartiene più: cerca il tuo senso, anche fuori dal sentiero già tracciato.
-- VI Gli Amanti · "La scelta del cuore." Amore e bivio: una decisione che riguarda i tuoi valori più veri. Scegli con tutto te stesso.
-- VI Gli Amanti rovesciati · "La scelta rimandata." Dubbio, disaccordo, valori in conflitto: la decisione chiede sincerità con te prima che con gli altri.
-- VII Il Carro · "La volontà che vince." Direzione, slancio, controllo: tieni le redini delle tue forze opposte e vai avanti.
-- VII Il Carro rovesciato · "Le redini allentate." Forze che tirano in versi opposti: fermati, ritrova il centro, poi riprendi la guida.
-- VIII La Giustizia · "La bilancia della verità." Equilibrio, causa ed effetto, responsabilità: raccogli ciò che hai seminato, con lucidità.
-- VIII La Giustizia rovesciata · "Il conto sospeso." Una verità evitata, oppure una responsabilità rimandata: guardala in faccia, l'equilibrio torna quando sei onesto.
-- IX L'Eremita · "La luce interiore." Ritiro, ricerca, saggezza: rallenta e cerca dentro, la tua lanterna illumina un passo alla volta.
-- IX L'Eremita rovesciato · "Il ritiro che isola." Una solitudine che pesa invece di illuminare: la tua lanterna serve anche per tornare tra gli altri.
-- X La Ruota della Fortuna · "Il giro del destino." I cicli girano, qualcosa cambia: accogli la svolta, nulla resta fermo per sempre.
-- X La Ruota della Fortuna rovesciata · "Il giro che resiste." Un ciclo sembra bloccato, o gira storto: anche la sosta è parte del moto, presto la ruota riparte.
-- XI La Forza · "La forza gentile." Coraggio dolce: domini l'istinto con la mano ferma e il cuore mite, non con la violenza.
-- XI La Forza rovesciata · "Il dominio perso." Un dubbio sulla tua tenuta, o una durezza con te stessa: la vera forza è la mano gentile, torna a trattarti con mitezza.
-- XII L'Appeso · "Il dono della sospensione." Fermati e capovolgi lo sguardo: da un'attesa apparente nasce una comprensione nuova.
-- XII L'Appeso rovesciato · "La sospensione che pesa." Un'attesa che sa di stallo, un sacrificio senza senso: cambia lo sguardo, oppure scendi dall'albero e agisci.
-- XIII La Morte · "La fine che libera." Qualcosa si chiude perché altro nasca: lascia andare senza paura, la trasformazione è vita.
-- XIII La Morte rovesciata · "La fine trattenuta." Resisti a un cambiamento già arrivato: lasciare andare fa meno male dell'aggrapparsi, la vita vuole scorrere.
-- XIV La Temperanza · "La misura che guarisce." Armonia, pazienza, giusto dosaggio: unisci gli opposti con calma e ritrova l'equilibrio.
-- XIV La Temperanza rovesciata · "La misura perduta." Eccessi, fretta, opposti che non si parlano: rallenta, ridosa, ritrova il ritmo che guarisce.
-- XV Il Diavolo · "L'ombra da guardare." Catene, tentazioni, attaccamenti: riconosci ciò che ti lega e la sua presa si allenta.
-- XV Il Diavolo rovesciato · "La catena che si spezza." Ti accorgi di un legame che ti tratteneva: il primo passo per liberarti è averlo visto, adesso scioglilo.
-- XVI La Torre · "Il crollo che rivela." Cade all'improvviso ciò che era falso: doloroso, ma ti libera per costruire sul vero.
-- XVI La Torre rovesciata · "Il crollo evitato." Rimandi una scossa necessaria, oppure ne esci a fatica: meglio un vero che vacilla che un falso che regge.
-- XVII La Stella · "La speranza ritrovata." Dopo la tempesta, una luce dolce: fiducia, ispirazione, la promessa che guarirai.
-- XVII La Stella rovesciata · "La speranza offuscata." Una fiducia stanca, un'ispirazione lontana: la luce non è spenta, solo velata, concediti di crederci ancora.
-- XVIII La Luna · "Il velo dei sogni." Inconscio, illusioni, paure notturne: non tutto è chiaro, procedi con intuito e prudenza.
-- XVIII La Luna rovesciata · "Il velo che si dirada." Paure che perdono forza, una confusione che si chiarisce: ciò che temevi al buio si mostra più piccolo alla luce.
-- XIX Il Sole · "La gioia piena." Chiarezza, calore, successo: un tempo luminoso in cui le cose fioriscono e il cuore ride.
-- XIX Il Sole rovesciato · "La gioia velata." Un entusiasmo trattenuto, una luce che fatichi a sentire: il sole c'è, lascia cadere ciò che lo copre.
-- XX Il Giudizio · "La chiamata al risveglio." Un bilancio, una rinascita: rispondi alla voce che ti chiama a una vita più vera.
-- XX Il Giudizio rovesciato · "La chiamata inascoltata." Rimandi un bilancio, oppure giudichi te con durezza: la rinascita chiede ascolto e perdono, non condanna.
-- XXI Il Mondo · "Il cerchio che si compie." Pienezza, traguardo, integrazione: un ciclo si chiude in armonia, sei arrivato.
-- XXI Il Mondo rovesciato · "Il cerchio quasi chiuso." Un traguardo a un passo, un pezzo ancora da integrare: non fermarti adesso, la pienezza chiede l'ultimo tratto.
+- 0 Il Matto · "Il salto nel vuoto." Un nuovo inizio ti chiama e il cielo ti chiede di partire leggero, con fiducia e cuore aperto, anche senza vedere tutta la strada. Il Matto non è ingenuo, è libero e la sua leggerezza è una forma di coraggio. Fidati del primo passo, il resto si mostra cammin facendo.
+- 0 Il Matto rovesciato · "Il passo avventato." C'è uno slancio senza direzione, oppure un timore che ti trattiene sull'orlo proprio mentre vorresti spiccare il volo. Prima di partire fermati un istante e senti da dove nasce l'impulso: è coraggio che ti spinge, o è fuga da qualcosa che non hai guardato? La strada resta aperta, ma questa volta scegli con gli occhi aperti.
+- I Il Mago · "Il potere di creare." Hai tra le mani tutti gli strumenti e la volontà per usarli e il momento chiede di manifestare. Ciò che finora era solo idea vuole diventare gesto concreto, parola detta, passo fatto. Non aspettare le condizioni perfette, il tuo potere è reale adesso.
+- I Il Mago rovesciato · "Il potere sprecato." Un talento resta chiuso nel cassetto, oppure le parole promettono più di quanto le mani mantengono. Non è mancanza di dono, è scollamento tra intenzione e azione. Riporta ciò che dici a ciò che fai e la magia torna vera.
+- II La Papessa · "Il sapere del silenzio." C'è una conoscenza che non passa dalle parole, la senti prima di poterla spiegare. Un mistero si svela solo alla mente quieta, quindi fai spazio al silenzio e alla tua intuizione. Non tutto va deciso ora, certe risposte maturano nell'attesa.
+- II La Papessa rovesciata · "L'intuito messo a tacere." Stai coprendo con la ragione o col rumore una voce interiore che invece sa. Forse temi ciò che sentiresti se ti fermassi ad ascoltare. Torna al silenzio senza fretta, il segreto che cerchi aspetta solo di essere accolto.
+- III L'Imperatrice · "La forza che genera." Abbondanza, creatività e cura fioriscono nelle tue mani e qualcosa di vivo prende forma, un progetto, un legame, un'idea. Il tuo compito ora è nutrirlo con dolcezza, senza forzarne i tempi. La terra fertile non tira le piante per farle crescere, le lascia sbocciare.
+- III L'Imperatrice rovesciata · "La cura dimenticata." La creatività sembra bloccata, oppure ti sei scordata di rivolgere a te stessa l'attenzione che dai a tutto il resto. Prima di far fiorire fuori, torna a nutrire la tua radice. Rifiorisce dentro ciò che curi con gentilezza.
+- IV L'Imperatore · "La struttura che protegge." È tempo di ordine e di fondamenta solide, di dare forma e regola a ciò che costruisci. L'Imperatore non soffoca, sostiene: qui la disciplina è la cornice dentro cui la tua vita cresce sicura. Prendi le tue responsabilità con fermezza e ciò che edifichi durerà.
+- IV L'Imperatore rovesciato · "La regola che soffoca." O il controllo si è fatto troppo stretto e toglie il respiro, oppure mancano proprio le fondamenta e tutto vacilla. Cerca l'ordine che protegge, non quello che imprigiona. Una struttura è buona quando ti tiene in piedi, non quando ti tiene fermo.
+- V Il Papa · "La guida antica." Tradizione, insegnamento e senso condiviso ti sono vicini e vale la pena cercare un maestro, un consiglio, una sapienza più grande di te. C'è forza nell'appartenere a qualcosa che viene da lontano. Ma la guida vera non ti sostituisce, ti aiuta a diventare maestro di te stesso.
+- V Il Papa rovesciato · "La regola da rivedere." Un sapere ricevuto, una convenzione, un dover essere non ti appartiene più. Non è ribellione, è crescita: cerca il tuo senso anche fuori dal sentiero già tracciato. Ciò che è tuo davvero lo riconosci perché ti fa respirare.
+- VI Gli Amanti · "La scelta del cuore." C'è amore e c'è un bivio: una decisione che tocca i tuoi valori più veri, non solo il desiderio del momento. Il cielo ti chiede di scegliere con tutto te stesso, testa e cuore insieme. Quando l'amore è allineato a ciò che sei, la strada si fa chiara.
+- VI Gli Amanti rovesciati · "La scelta rimandata." Dubbio, disaccordo, valori che si contendono il campo: qualcosa dentro non è ancora sincero con sé stesso. Prima di decidere con l'altro, mettiti d'accordo con te. La scelta giusta pesa meno quando smetti di mentirti.
+- VII Il Carro · "La volontà che vince." Hai direzione, slancio e la forza per tenere insieme spinte contrarie: è il momento di prendere le redini e andare avanti. La vittoria qui non è fortuna, è padronanza. Tieni fermo lo sguardo sulla meta e le tue energie opposte lavoreranno per te.
+- VII Il Carro rovesciato · "Le redini allentate." Forze che tirano in versi opposti ti fanno sbandare, o corri senza sapere bene dove. Fermati un attimo, ritrova il tuo centro, poi riprendi la guida. Non è debolezza rallentare per non perdere la strada.
+- VIII La Giustizia · "La bilancia della verità." Equilibrio, causa ed effetto, responsabilità: raccogli con lucidità ciò che hai seminato, senza sconti e senza colpe inutili. È un tempo di verità e di scelte giuste. Agisci con onestà e la bilancia peserà a tuo favore.
+- VIII La Giustizia rovesciata · "Il conto sospeso." C'è una verità che eviti, oppure una responsabilità che continui a rimandare. Finché resta in ombra, pesa. Guardala in faccia con calma, l'equilibrio torna nel momento in cui sei onesto con te stesso.
+- IX L'Eremita · "La luce interiore." È tempo di ritiro e di ricerca, di rallentare e cercare dentro invece che fuori. La tua lanterna non illumina tutta la strada in una volta, ma un passo alla volta è abbastanza. Concediti il silenzio, le risposte più vere arrivano quando fai spazio.
+- IX L'Eremita rovesciato · "Il ritiro che isola." Una solitudine che doveva illuminare si è fatta peso e ti allontana invece di chiarirti. La tua lanterna serve anche a ritrovare la strada verso gli altri. Un conto è raccogliersi, un altro è nascondersi.
+- X La Ruota della Fortuna · "Il giro del destino." I cicli girano e qualcosa cambia, spesso quando meno te lo aspetti. Accogli la svolta senza aggrapparti a com'era, nulla resta fermo per sempre e questo vale anche quando sei in basso. Muoviti con la ruota, non contro.
+- X La Ruota della Fortuna rovesciata · "Il giro che resiste." Un ciclo sembra bloccato, oppure gira storto e ti pare di non avere presa. Anche la sosta è parte del movimento: raccogli le forze, la ruota riprende presto a girare. Ciò che ora frena, domani spinge.
+- XI La Forza · "La forza gentile." Il coraggio vero qui è dolce: domini l'istinto con la mano ferma e il cuore mite, non con la violenza. La Forza non doma la belva con la lotta, la addomestica con la calma. Ciò che ti agita dentro si placa se lo tratti con fermezza tenera.
+- XI La Forza rovesciata · "Il dominio perso." Forse dubiti della tua tenuta, o forse sei diventata dura con te stessa. La vera forza non è la stretta, è la mano gentile. Torna a trattarti con mitezza e ritrovi il controllo che credevi perso.
+- XII L'Appeso · "Il dono della sospensione." C'è un tempo in cui fermarsi e capovolgere lo sguardo vale più di ogni azione. Da un'attesa che sembra vuota nasce una comprensione nuova. Lascia andare il bisogno di fare e vedrai la situazione da un'angolazione che prima ti sfuggiva.
+- XII L'Appeso rovesciato · "La sospensione che pesa." L'attesa ha smesso di insegnare e sa di stallo, o ti sei imposta un sacrificio che non serve a nessuno. Cambia lo sguardo, oppure scendi dall'albero e torna ad agire. Non ogni rinuncia è nobile, alcune sono solo paura travestita.
+- XIII La Morte · "La fine che libera." Qualcosa si chiude perché qualcos'altro possa nascere e non c'è nulla da temere in questo. La Morte dei tarocchi non è fine, è trasformazione: lascia andare ciò che è giunto al suo termine. Dove qualcosa muore, la vita fa spazio al nuovo.
+- XIII La Morte rovesciata · "La fine trattenuta." Resisti a un cambiamento che è già arrivato, ti aggrappi a ciò che sta finendo. Ma trattenere fa più male del lasciare, la vita vuole scorrere e tu con lei. Apri la mano e il dolore diventa passaggio.
+- XIV La Temperanza · "La misura che guarisce." Armonia, pazienza e giusto dosaggio: è il tempo di unire gli opposti con calma e di ritrovare l'equilibrio. La Temperanza mescola con arte ciò che sembrava inconciliabile. Vai piano, misura e ciò che era ferita torna intero.
+- XIV La Temperanza rovesciata · "La misura perduta." Eccessi, fretta, o due parti di te che non si parlano più. Il rimedio è semplice ma chiede volontà: rallenta, ridosa, ritrova il ritmo che guarisce. L'equilibrio non è un colpo di fortuna, è una pratica quotidiana.
+- XV Il Diavolo · "L'ombra da guardare." Catene, tentazioni, attaccamenti che ti legano più di quanto ammetti. Il primo passo per allentare la presa è riconoscerla, non c'è vergogna nell'ombra, solo verità da vedere. Ciò che nomini, smette di comandarti nel buio.
+- XV Il Diavolo rovesciato · "La catena che si spezza." Ti accorgi di un legame che ti tratteneva e già questo cambia tutto. Vederlo è metà della libertà: adesso, con dolcezza, sciogli il nodo che hai finalmente riconosciuto. Ciò che ti teneva non era più forte di te, solo più nascosto.
+- XVI La Torre · "Il crollo che rivela." Cade all'improvviso ciò che era costruito sul falso e sul momento fa male. Ma la Torre non abbatte il vero, solo l'illusione: ciò che resta in piedi è ciò su cui puoi davvero contare. Da queste macerie nasce una base più onesta.
+- XVI La Torre rovesciata · "Il crollo evitato." Rimandi una scossa che sarebbe necessaria, oppure ne stai uscendo a fatica. Meglio un vero che vacilla che un falso che regge in apparenza. Se qualcosa deve cadere, lasciarlo cadere ora ti risparmia un crollo peggiore domani.
+- XVII La Stella · "La speranza ritrovata." Dopo la tempesta arriva una luce dolce e con lei fiducia, ispirazione, la promessa che guarirai. La Stella non urla, rassicura: sei sulla strada giusta anche se sei stanco. Lasciati guidare da questa quiete luminosa, il peggio è passato.
+- XVII La Stella rovesciata · "La speranza offuscata." La fiducia è stanca, l'ispirazione sembra lontana e fatichi a credere che le cose miglioreranno. Ma la luce non è spenta, solo velata da una nube passeggera. Concediti di sperare ancora, la Stella è lì anche quando non la vedi.
+- XVIII La Luna · "Il velo dei sogni." Non tutto è chiaro in questo momento: l'inconscio parla, le paure notturne si affacciano, le cose non sono come sembrano alla prima occhiata. Procedi con intuito e prudenza, senza pretendere subito ogni certezza. Alcuni passaggi vanno attraversati al buio, fidandoti del passo.
+- XVIII La Luna rovesciata · "Il velo che si dirada." Le paure perdono forza, una confusione si sta chiarendo e ciò che al buio sembrava enorme si mostra più piccolo alla luce. Stai uscendo dalla nebbia. Guarda con occhi nuovi ciò che ti spaventava, aveva più ombra che sostanza.
+- XIX Il Sole · "La gioia piena." Chiarezza, calore e successo: è un tempo luminoso in cui le cose fioriscono e il cuore ride senza doversi nascondere. Il Sole non lascia zone d'ombra, illumina ciò che sei. Goditi questo momento e lascia che la tua luce scaldi anche chi ti sta vicino.
+- XIX Il Sole rovesciato · "La gioia velata." L'entusiasmo è trattenuto, la luce c'è ma fatichi a sentirla sulla pelle. Non è che il sole se ne sia andato, è che qualcosa lo copre. Lascia cadere quella nube, spesso è un pensiero vecchio e la gioia torna a scaldarti.
+- XX Il Giudizio · "La chiamata al risveglio." È tempo di un bilancio e di una rinascita: una voce ti chiama a una vita più vera, più tua. Il Giudizio non condanna, risveglia. Ascolta quella chiamata e rispondi, anche se ti chiede di lasciare la persona che eri per quella che stai diventando.
+- XX Il Giudizio rovesciato · "La chiamata inascoltata." Rimandi un bilancio che senti necessario, oppure ti giudichi con una durezza che non ti aiuta. La rinascita non nasce dalla condanna, ma dall'ascolto e dal perdono. Sii con te stesso il giudice giusto, quello che comprende prima di sentenziare.
+- XXI Il Mondo · "Il cerchio che si compie." Pienezza, traguardo, integrazione: un ciclo si chiude in armonia e tu sei arrivato dove dovevi. È un momento di compimento, goditelo prima di aprire il prossimo cerchio. Ciò che hai attraversato ora è parte di te, intero.
+- XXI Il Mondo rovesciato · "Il cerchio quasi chiuso." Il traguardo è a un passo, ma manca ancora un pezzo da integrare, un dettaglio da sciogliere. Non fermarti proprio adesso. La pienezza chiede l'ultimo tratto e sarebbe un peccato lasciarla incompiuta così vicino alla fine.
 
 ## Arcani Minori, Bastoni, il fuoco
 
-- Asso di Bastoni · "La scintilla che accende." Un impulso nuovo, un'ispirazione ardente: afferra la fiamma, è il momento di iniziare.
-- Asso di Bastoni rovesciato · "La scintilla che tarda." Slancio bloccato, o una partenza rimandata: ritrova il desiderio prima di accendere.
-- Due di Bastoni · "Lo sguardo lontano." Un progetto che prende forma, una scelta di direzione: guarda l'orizzonte e decidi la rotta.
-- Due di Bastoni rovesciato · "Il piano incerto." Paura di osare, o direzione confusa: chiarisci cosa vuoi davvero prima di muoverti.
-- Tre di Bastoni · "Le navi in mare." L'attesa dei frutti, l'espansione avviata: hai seminato, ora guarda arrivare ciò che hai messo in moto.
-- Tre di Bastoni rovesciato · "L'attesa che pesa." Ritardi, o aspettative deluse: pazienta, oppure correggi la rotta senza scoraggiarti.
-- Quattro di Bastoni · "La festa della soglia." Stabilità, celebrazione, un traguardo condiviso: gioisci di ciò che hai costruito.
-- Quattro di Bastoni rovesciato · "La festa sospesa." Un'armonia da ritrovare, radici ancora incerte: cura le fondamenta prima di festeggiare.
-- Cinque di Bastoni · "La sfida vivace." Attriti, gara, confronto di idee: l'energia si scontra, usala per crescere, non per ferire.
-- Cinque di Bastoni rovesciato · "Il conflitto che stanca." Tensioni inutili, o evitate: scegli le battaglie, lascia cadere il resto.
-- Sei di Bastoni · "La vittoria che sfila." Riconoscimento, successo meritato: il tuo sforzo è visto, accogli l'onore con misura.
-- Sei di Bastoni rovesciato · "Il merito non visto." Un riconoscimento che tarda, un dubbio su di te: il valore resta anche quando l'applauso non arriva.
-- Sette di Bastoni · "La posizione difesa." Tenere il punto, coraggio sotto pressione: difendi ciò in cui credi, hai la forza per reggere.
-- Sette di Bastoni rovesciato · "La guardia stanca." Ti senti sopraffatto, o troppo sulla difensiva: scegli dove vale resistere e dove lasciare.
-- Otto di Bastoni · "Le frecce nell'aria." Velocità, notizie, eventi che accelerano: le cose si muovono in fretta, cavalca il ritmo.
-- Otto di Bastoni rovesciato · "La corsa frenata." Ritardi, o una fretta mal riposta: rallenta quel tanto che basta per non inciampare.
-- Nove di Bastoni · "L'ultima resistenza." Tenacia, quasi al traguardo: sei stanco ma vicino, non mollare l'ultimo tratto.
-- Nove di Bastoni rovesciato · "La difesa irrigidita." Diffidenza, o stanchezza che chiude: abbassa un poco lo scudo, non tutto è minaccia.
-- Dieci di Bastoni · "Il peso portato." Responsabilità, carico pesante: hai molto sulle spalle, chiediti cosa puoi posare.
-- Dieci di Bastoni rovesciato · "Il carico da alleggerire." Un fardello che non è tuo: lascia andare ciò che porti per abitudine.
-- Fante di Bastoni · "Il messaggero ardente." Curiosità, entusiasmo nuovo: un'idea giovane bussa, seguila con slancio.
-- Fante di Bastoni rovesciato · "L'entusiasmo disperso." Impulsività, o uno slancio che si spegne: dai forma all'energia prima che svanisca.
-- Cavaliere di Bastoni · "La corsa audace." Passione, azione, avventura: parti con coraggio, ma tieni un occhio alla meta.
-- Cavaliere di Bastoni rovesciato · "La foga incauta." Impazienza, o slancio senza rotta: incanala l'ardore, non bruciarlo.
-- Regina di Bastoni · "Il carisma caldo." Sicurezza, calore, magnetismo: brilla con generosità, la tua fiamma scalda gli altri.
-- Regina di Bastoni rovesciata · "La fiamma insicura." Un dubbio, o una gelosia che offusca: torna al tuo centro, la tua luce non ha rivali.
-- Re di Bastoni · "La visione che guida." Guida, ispirazione, volontà matura: apri strade con l'esempio, la tua fiamma indica il cammino.
-- Re di Bastoni rovesciato · "Il comando impaziente." Autorità rigida, o impulsiva: guida con ascolto, non solo con la forza.
+- Asso di Bastoni · "La scintilla che accende." Un impulso nuovo, un'ispirazione ardente ti attraversa ed è il momento giusto per iniziare. Afferra la fiamma finché è viva, non aspettare che il fuoco si raffreddi nei ripensamenti. Ogni grande cosa parte da una scintilla come questa.
+- Asso di Bastoni rovesciato · "La scintilla che tarda." Lo slancio è bloccato, oppure una partenza continua a essere rimandata. Non è che il fuoco manchi, è che qualcosa lo soffoca, forse la paura di sbagliare. Ritrova il desiderio prima di accendere e la fiamma tornerà da sola.
+- Due di Bastoni · "Lo sguardo lontano." Un progetto prende forma e ti chiede di scegliere una direzione, di guardare oltre il confine di ciò che già conosci. Hai il mondo in mano, ora decidi la rotta. È il tempo di pianificare con ambizione, non di restare fermo dove sei.
+- Due di Bastoni rovesciato · "Il piano incerto." C'è paura di osare, o una direzione ancora confusa che ti tiene sulla soglia. Prima di muoverti, chiarisci a te stesso cosa vuoi davvero. Un passo deciso vale più di dieci fatti nel dubbio.
+- Tre di Bastoni · "Le navi in mare." Hai seminato e messo in moto qualcosa e ora comincia l'attesa dei frutti, l'espansione avviata. Guarda arrivare ciò che hai lanciato, con fiducia. I risultati sono in viaggio verso di te, tienti pronto ad accoglierli.
+- Tre di Bastoni rovesciato · "L'attesa che pesa." Arrivano ritardi, o le aspettative non tornano come speravi. Puoi pazientare ancora un poco, oppure correggere la rotta con lucidità, senza scoraggiarti. Un ritardo non è un no, spesso è solo un tempo diverso.
+- Quattro di Bastoni · "La festa della soglia." Stabilità, celebrazione, un traguardo raggiunto che si condivide: è tempo di gioire di ciò che hai costruito. Le fondamenta reggono e questo va festeggiato. Concediti di riconoscere il bello che c'è, senza correre già al prossimo.
+- Quattro di Bastoni rovesciato · "La festa sospesa." C'è un'armonia da ritrovare, o radici ancora un po' incerte sotto la superficie. Prima di festeggiare, cura le fondamenta perché reggano davvero. La gioia piena arriva quando la base è solida.
+- Cinque di Bastoni · "La sfida vivace." Attriti, competizione, un confronto acceso di idee: l'energia si scontra e ribolle. Usala per crescere e per misurarti, non per ferire o per vincere a ogni costo. Da una sfida ben giocata si esce più forti.
+- Cinque di Bastoni rovesciato · "Il conflitto che stanca." Ci sono tensioni inutili, oppure attriti che eviti lasciandoli covare. Scegli le battaglie che contano davvero e lascia cadere il resto. Non tutto merita la tua energia.
+- Sei di Bastoni · "La vittoria che sfila." Arriva un riconoscimento, un successo meritato che gli altri finalmente vedono. Accogli l'onore con misura, senza montarti la testa né sminuirti. Hai lavorato per questo, goditelo.
+- Sei di Bastoni rovesciato · "Il merito non visto." Un riconoscimento tarda ad arrivare, o un dubbio su di te ti fa sentire poco valido. Ma il tuo valore resta anche quando l'applauso non c'è. Non legare ciò che vali solo a chi te lo conferma.
+- Sette di Bastoni · "La posizione difesa." È tempo di tenere il punto, di avere coraggio sotto pressione e difendere ciò in cui credi. Sei in vantaggio, anche se ti senti assediato. Hai la forza per reggere, non cedere proprio adesso.
+- Sette di Bastoni rovesciato · "La guardia stanca." Ti senti sopraffatto, o troppo sulla difensiva anche quando non serve. Scegli con lucidità dove vale la pena resistere e dove invece puoi lasciare. Non devi difendere ogni collina.
+- Otto di Bastoni · "Le frecce nell'aria." Velocità, notizie, eventi che accelerano tutti insieme: le cose si muovono in fretta. Cavalca il ritmo invece di frenarlo, è un momento di movimento e di risposte rapide. Ciò che aspettavi sta arrivando.
+- Otto di Bastoni rovesciato · "La corsa frenata." Ci sono ritardi, oppure una fretta mal riposta che ti fa inciampare. Rallenta quel tanto che basta per ritrovare l'ordine. La velocità serve solo quando sai dove stai andando.
+- Nove di Bastoni · "L'ultima resistenza." Sei stanco ma vicino al traguardo e la tenacia ora è tutto. Hai già fatto il più, non mollare proprio l'ultimo tratto. Un'ultima prova, poi potrai posare lo scudo.
+- Nove di Bastoni rovesciato · "La difesa irrigidita." Una diffidenza di troppo, o una stanchezza che ti fa chiudere a riccio. Abbassa un poco lo scudo, non tutto ciò che arriva è una minaccia. Ti difendi anche da chi vorrebbe solo avvicinarsi.
+- Dieci di Bastoni · "Il peso portato." Hai molte responsabilità sulle spalle, un carico che ti curva. Chiediti con onestà cosa è davvero tuo da portare e cosa puoi posare. Non è forza tenere tutto, è saggezza scegliere cosa.
+- Dieci di Bastoni rovesciato · "Il carico da alleggerire." Porti un fardello che forse non ti appartiene, per abitudine o per senso del dovere. Lascia andare ciò che ti sei caricato senza necessità. Alleggerirti non è tradire nessuno, è respirare.
+- Fante di Bastoni · "Il messaggero ardente." Curiosità, entusiasmo fresco, un'idea giovane che bussa alla porta. Seguila con slancio, è il tempo di esplorare e di provare. Le grandi avventure iniziano da una scintilla curiosa come questa.
+- Fante di Bastoni rovesciato · "L'entusiasmo disperso." Un'impulsività che si accende e si spegne, uno slancio che svanisce prima di dare frutti. Dai forma all'energia prima che si disperda. L'entusiasmo diventa qualcosa solo se lo incanali.
+- Cavaliere di Bastoni · "La corsa audace." Passione, azione, avventura: parti con coraggio verso ciò che desideri. Tieni però un occhio alla meta, così l'ardore non si perde per strada. È un tempo per osare, non per esitare.
+- Cavaliere di Bastoni rovesciato · "La foga incauta." Impazienza, o uno slancio senza rotta che rischia di bruciarti. Incanala l'ardore invece di sprecarlo in mille direzioni. La stessa energia, con una meta, diventa forza.
+- Regina di Bastoni · "Il carisma caldo." Sicurezza, calore, magnetismo: brilli con generosità e la tua fiamma scalda chi ti sta intorno. Sii pienamente te stessa, è proprio questo che attrae. La tua luce non toglie spazio a nessuno.
+- Regina di Bastoni rovesciata · "La fiamma insicura." Un dubbio su di te, o una gelosia che offusca la tua luce. Torna al tuo centro, la tua fiamma non ha rivali da temere. Quando ti riconosci, l'insicurezza si spegne da sola.
+- Re di Bastoni · "La visione che guida." Guida matura, ispirazione, una volontà che apre strade con l'esempio. La tua fiamma indica il cammino anche agli altri. È il momento di prendere in mano la direzione con generosità.
+- Re di Bastoni rovesciato · "Il comando impaziente." Un'autorità rigida, o troppo impulsiva, che spinge senza ascoltare. Guida con l'ascolto oltre che con la forza. Il vero capo accende gli altri, non li travolge.
 
 ## Arcani Minori, Coppe, l'acqua
 
-- Asso di Coppe · "Il cuore che trabocca." Un amore nuovo, un'emozione pura: apri il cuore, una fonte di sentimento sgorga.
-- Asso di Coppe rovesciato · "Il cuore trattenuto." Emozioni chiuse, o un amore rimandato: concediti di sentire, l'acqua vuole scorrere.
-- Due di Coppe · "L'incontro dei cuori." Unione, patto d'amore, armonia a due: un legame si sigilla, coltivalo con cura.
-- Due di Coppe rovesciato · "L'armonia incrinata." Un malinteso, un equilibrio da ritrovare: parlatevi con il cuore, il legame si ricuce.
-- Tre di Coppe · "Il brindisi degli amici." Amicizia, festa, comunità: celebra insieme, la gioia condivisa raddoppia.
-- Tre di Coppe rovesciato · "La festa da riequilibrare." Eccessi, o un cerchio da curare: torna alle amicizie vere, senza dispersione.
-- Quattro di Coppe · "L'offerta non vista." Apatia, noia, un dono ignorato: alza lo sguardo, qualcosa di buono ti è teso.
-- Quattro di Coppe rovesciato · "Il risveglio dell'interesse." Esci dal torpore, torni a sentire: una nuova apertura ti chiama, accoglila.
-- Cinque di Coppe · "Le coppe versate." Perdita, rimpianto, sguardo al passato: due coppe restano in piedi, voltati e vedile.
-- Cinque di Coppe rovesciato · "Lo sguardo che si rialza." Accettazione, perdono, ripresa: il dolore lascia posto alla speranza.
-- Sei di Coppe · "Il dono dell'infanzia." Nostalgia, dolcezza, ricordi cari: un affetto sincero dal passato ti scalda.
-- Sei di Coppe rovesciato · "Il passato che trattiene." Vivere di ricordi: onora ciò che è stato, poi torna al presente.
-- Sette di Coppe · "Le coppe dei sogni." Fantasie, molte scelte, illusioni: sogna pure, poi scegli con i piedi a terra.
-- Sette di Coppe rovesciato · "La nebbia che si dirada." Chiarezza dopo la confusione: metti a fuoco un desiderio vero e seguilo.
-- Otto di Coppe · "La partenza silenziosa." Lasciare ciò che non nutre più, cercare un senso più alto: parti, il cuore sa dove.
-- Otto di Coppe rovesciato · "Il piede sulla soglia." Indecisione tra restare e andare: ascoltati, saprai se è tempo di lasciare.
-- Nove di Coppe · "Il desiderio appagato." Soddisfazione, benessere, un augurio esaudito: goditi ciò che hai ottenuto.
-- Nove di Coppe rovesciato · "L'appagamento vuoto." Piaceri che non colmano: cerca la gioia vera, non solo quella di facciata.
-- Dieci di Coppe · "L'arcobaleno della famiglia." Armonia affettiva, pienezza condivisa: l'amore attorno a te è la tua ricchezza.
-- Dieci di Coppe rovesciato · "L'armonia da ricucire." Tensioni negli affetti: torna al legame, la casa si ricompone col dialogo.
-- Fante di Coppe · "Il sognatore gentile." Sensibilità, un messaggio d'amore, creatività: ascolta un'emozione nuova che affiora.
-- Fante di Coppe rovesciato · "La sensibilità ferita." Emotività fragile, o chiusa: proteggi il cuore senza murarlo.
-- Cavaliere di Coppe · "Il cuore in viaggio." Romanticismo, proposta, invito: segui il sentimento con grazia, offri il tuo cuore.
-- Cavaliere di Coppe rovesciato · "Il sentimento incostante." Promesse vaghe, o illusioni: verifica che le parole abbiano radici.
-- Regina di Coppe · "La cura profonda." Empatia, intuito, tenerezza: accogli e comprendi, la tua sensibilità è forza.
-- Regina di Coppe rovesciata · "L'emozione che sommerge." Ti perdi negli altri: riporta un poco di cura anche a te stessa.
-- Re di Coppe · "La calma del cuore." Equilibrio emotivo, saggezza affettiva: guida i sentimenti con serenità matura.
-- Re di Coppe rovesciato · "L'onda trattenuta." Emozioni represse, o instabili: dai voce a ciò che senti, senza temerlo.
+- Asso di Coppe · "Il cuore che trabocca." Un amore nuovo, un'emozione pura sgorga come una fonte: apri il cuore e lascia scorrere. È un tempo di apertura sentimentale, di grazia e di dolcezza. Accogli ciò che senti senza difenderti da esso.
+- Asso di Coppe rovesciato · "Il cuore trattenuto." Emozioni chiuse a chiave, o un amore rimandato per timore di soffrire. Concediti di sentire, l'acqua vuole scorrere e ristagna se la trattieni. Aprirsi è un rischio, ma è anche l'unica via alla gioia.
+- Due di Coppe · "L'incontro dei cuori." Un'unione, un patto d'amore, un'armonia a due che si sigilla. Coltiva questo legame con cura, perché ciò che nasce ora è prezioso. Quando due cuori si riconoscono, la loro forza si moltiplica.
+- Due di Coppe rovesciato · "L'armonia incrinata." Un malinteso, un equilibrio da ritrovare tra due persone che si vogliono bene. Parlatevi con il cuore aperto e il legame si ricuce. Spesso basta ascoltare davvero per sciogliere la distanza.
+- Tre di Coppe · "Il brindisi degli amici." Amicizia, festa, comunità: è il tempo di celebrare insieme. La gioia condivisa raddoppia, quindi circondati di chi ti vuole bene. C'è qualcosa da festeggiare, non farlo da solo.
+- Tre di Coppe rovesciato · "La festa da riequilibrare." Forse un eccesso, o un cerchio di persone che va curato meglio. Torna alle amicizie vere, quelle che nutrono, senza disperderti. Meglio pochi legami sinceri che tanti di facciata.
+- Quattro di Coppe · "L'offerta non vista." Apatia, noia, un dono che ti viene teso ma che non stai guardando. Alza lo sguardo, qualcosa di buono ti aspetta proprio accanto. A volte la fortuna bussa mentre fissi altrove.
+- Quattro di Coppe rovesciato · "Il risveglio dell'interesse." Esci dal torpore e torni a sentire, una nuova apertura ti chiama. Accoglila, il cuore si sta ridestando. Dopo la noia arriva sempre una curiosità nuova, seguila.
+- Cinque di Coppe · "Le coppe versate." Una perdita, un rimpianto, lo sguardo fisso su ciò che è andato. Ma due coppe restano ancora in piedi dietro di te: voltati e vedile. Il dolore è reale e non è tutto ciò che ti resta.
+- Cinque di Coppe rovesciato · "Lo sguardo che si rialza." Arriva l'accettazione, il perdono, la ripresa dopo il lutto. Il dolore lascia posto alla speranza, piano. Ti stai voltando verso ciò che c'è ancora ed è un buon segno.
+- Sei di Coppe · "Il dono dell'infanzia." Nostalgia dolce, ricordi cari, un affetto sincero che dal passato torna a scaldarti. Lascia che questa tenerezza ti nutra. C'è innocenza e bontà in ciò che ricordi con amore.
+- Sei di Coppe rovesciato · "Il passato che trattiene." Il rischio è vivere di ricordi, restare aggrappato a un tempo che non c'è più. Onora ciò che è stato, poi torna con dolcezza al presente. La vita ti aspetta adesso, non solo nella memoria.
+- Sette di Coppe · "Le coppe dei sogni." Fantasie, molte possibilità, illusioni che si affollano davanti a te. Sogna pure in grande, poi scegli con i piedi a terra. Non tutte le coppe contengono ciò che promettono.
+- Sette di Coppe rovesciato · "La nebbia che si dirada." Dopo la confusione arriva la chiarezza, metti a fuoco un desiderio vero tra i tanti. Ora sai quale strada vuoi. Scegliere una cosa è rinunciare alle altre ed è proprio questo che ti rende libero.
+- Otto di Coppe · "La partenza silenziosa." Lasci ciò che non ti nutre più per cercare un senso più alto e parti in silenzio. Il cuore sa già dove ti sta portando, anche se la mente non ha ancora tutte le risposte. A volte andarsene è l'atto più onesto.
+- Otto di Coppe rovesciato · "Il piede sulla soglia." Un'indecisione tra restare e andare ti tiene sulla porta. Ascoltati con sincerità e saprai se è davvero tempo di lasciare. Non c'è fretta, ma non ingannarti nemmeno.
+- Nove di Coppe · "Il desiderio appagato." Soddisfazione, benessere, un augurio che si è avverato: goditi ciò che hai ottenuto. È la carta del cuore contento, riconosci la tua fortuna. Concediti di essere felice senza sentirti in colpa.
+- Nove di Coppe rovesciato · "L'appagamento vuoto." Piaceri che non colmano davvero, una soddisfazione solo di facciata. Cerca la gioia vera, quella che tocca il profondo. Chiediti se ciò che desideri ti renderà pieno o solo distratto.
+- Dieci di Coppe · "L'arcobaleno della famiglia." Armonia affettiva, pienezza condivisa, l'amore attorno a te che diventa la tua ricchezza. È un tempo di gratitudine per i legami che hai. La felicità qui non è un traguardo solitario, è condivisa.
+- Dieci di Coppe rovesciato · "L'armonia da ricucire." Tensioni negli affetti, una distanza in famiglia o nella coppia. Torna al legame con dialogo e pazienza, la casa si ricompone. Le crepe negli affetti si riparano parlando, non tacendo.
+- Fante di Coppe · "Il sognatore gentile." Sensibilità, creatività, un messaggio d'amore che affiora. Ascolta l'emozione nuova che nasce, anche se è fragile. C'è poesia in ciò che senti, dalle spazio.
+- Fante di Coppe rovesciato · "La sensibilità ferita." Un'emotività fragile, o un cuore che si è chiuso per proteggersi. Custodisci la tua sensibilità senza murarla del tutto. Sentire molto è un dono, non un difetto da nascondere.
+- Cavaliere di Coppe · "Il cuore in viaggio." Romanticismo, una proposta, un invito che arriva con grazia. Segui il sentimento e offri il tuo cuore, è un tempo di aperture affettuose. Lasciati corteggiare dalla bellezza, o offrila tu.
+- Cavaliere di Coppe rovesciato · "Il sentimento incostante." Promesse vaghe, o illusioni che non trovano radici. Verifica che alle parole seguano i gesti, tuoi o dell'altro. Un sentimento vero si vede in ciò che dura, non solo in ciò che si dice.
+- Regina di Coppe · "La cura profonda." Empatia, intuito, tenerezza: accogli e comprendi con il cuore. La tua sensibilità è una forza, non una debolezza. Sai leggere gli altri in profondità, usa questo dono anche per te.
+- Regina di Coppe rovesciata · "L'emozione che sommerge." Ti perdi negli altri, assorbi ogni loro stato d'animo fino a smarrire il tuo. Riporta un poco di cura anche a te stessa. Puoi amare senza annegare.
+- Re di Coppe · "La calma del cuore." Equilibrio emotivo, saggezza affettiva, la capacità di guidare i sentimenti con serenità matura. Sei il porto sicuro, per te e per gli altri. La padronanza qui non è freddezza, è calma profonda.
+- Re di Coppe rovesciato · "L'onda trattenuta." Emozioni represse, o al contrario instabili, che fatichi a governare. Dai voce a ciò che senti senza temerlo. Il controllo vero non è soffocare l'onda, è saperla cavalcare.
 
 ## Arcani Minori, Denari, la terra
 
-- Asso di Denari · "Il seme d'oro." Un'opportunità concreta, un inizio prospero: pianta il seme, il terreno è fertile.
-- Asso di Denari rovesciato · "L'occasione trascurata." Un'apertura persa, o un rischio mal valutato: guarda meglio ciò che hai davanti.
-- Due di Denari · "Il gioco d'equilibrio." Gestire più cose, adattarsi: tieni il ritmo tra gli impegni con leggerezza.
-- Due di Denari rovesciato · "L'equilibrio perso." Troppe cose insieme: scegli le priorità prima di far cadere tutto.
-- Tre di Denari · "L'opera comune." Collaborazione, competenza, primi risultati: costruisci insieme, il tuo lavoro è apprezzato.
-- Tre di Denari rovesciato · "La collaborazione stonata." Ruoli confusi, o poca sintonia: chiarite i compiti e l'opera riparte.
-- Quattro di Denari · "La mano che stringe." Sicurezza, risparmio, controllo: proteggi ciò che hai, senza chiuderti troppo.
-- Quattro di Denari rovesciato · "La presa da allentare." Attaccamento, o paura di perdere: apri la mano, il denaro serve per fluire.
-- Cinque di Denari · "Il freddo fuori dalla porta." Difficoltà, mancanza, senso di esclusione: la luce è vicina, chiedi aiuto senza vergogna.
-- Cinque di Denari rovesciato · "Il ritorno al caldo." Ripresa, un sostegno ritrovato: il periodo duro si allenta, riaccogli la fiducia.
-- Sei di Denari · "La bilancia del dare." Generosità, scambio equo, aiuto: dai e ricevi con giustizia, l'equilibrio guarisce.
-- Sei di Denari rovesciato · "Il dare sbilanciato." Debiti, o una generosità mal riposta: verifica che lo scambio sia davvero equo.
-- Sette di Denari · "L'attesa del raccolto." Pazienza, valutazione, investimento lento: hai coltivato, ora aspetta il tempo giusto.
-- Sette di Denari rovesciato · "La fretta del raccolto." Impazienza, o uno sforzo mal ripagato: rivedi dove metti energia, senza scoraggiarti.
-- Otto di Denari · "La mano che affina." Impegno, mestiere, dedizione: perfeziona con cura, la maestria nasce dalla pratica.
-- Otto di Denari rovesciato · "Il lavoro senz'anima." Monotonia, o poca cura: ritrova il senso di ciò che fai, oppure cambia direzione.
-- Nove di Denari · "Il giardino conquistato." Autonomia, agiatezza, frutti meritati: goditi ciò che hai costruito da te.
-- Nove di Denari rovesciato · "L'indipendenza da curare." Insicurezza, o eccessi: ritrova l'equilibrio tra il valore di te e quello del lavoro.
-- Dieci di Denari · "L'eredità della casa." Ricchezza duratura, famiglia, radici solide: ciò che costruisci resta e nutre chi verrà.
-- Dieci di Denari rovesciato · "Le radici da rassodare." Tensioni su beni, o in famiglia: cura ciò che dura, oltre il guadagno di oggi.
-- Fante di Denari · "Lo studente diligente." Apprendimento, un progetto concreto, una promessa: coltiva un'idea nuova con serietà.
-- Fante di Denari rovesciato · "La promessa rimandata." Distrazione, o un progetto fermo: rimettiti al lavoro un passo alla volta.
-- Cavaliere di Denari · "Il passo costante." Metodo, affidabilità, impegno paziente: avanza con costanza, qui la lentezza è forza.
-- Cavaliere di Denari rovesciato · "Il passo bloccato." Stallo, o eccesso di prudenza: muovi qualcosa, anche piccolo, per ripartire.
-- Regina di Denari · "La cura concreta." Accoglienza, praticità, abbondanza generosa: nutri chi ami e i tuoi progetti con i piedi a terra.
-- Regina di Denari rovesciata · "La cura dispersa." Ti dimentichi di te per gli altri: rimetti equilibrio tra dare e ricevere.
-- Re di Denari · "La prosperità sicura." Successo concreto, stabilità, generosità matura: guida con abbondanza e misura.
-- Re di Denari rovesciato · "Il possesso che irrigidisce." Attaccamento, o rigidità: la vera ricchezza è anche saperla condividere.
+- Asso di Denari · "Il seme d'oro." Un'opportunità concreta, un inizio prospero: il terreno è fertile, pianta il seme. È il momento giusto per qualcosa di materiale e solido, un lavoro, un progetto, una base. Ciò che avvii ora ha buone radici.
+- Asso di Denari rovesciato · "L'occasione trascurata." Un'apertura che rischi di perdere, o un rischio valutato male. Guarda meglio ciò che hai davanti prima che sfumi. Non tutte le occasioni tornano, questa merita attenzione.
+- Due di Denari · "Il gioco d'equilibrio." Gestisci più cose insieme, ti adatti, tieni il ritmo tra impegni diversi. Fallo con leggerezza, come un giocoliere, senza irrigidirti. La flessibilità qui è la tua alleata.
+- Due di Denari rovesciato · "L'equilibrio perso." Troppe cose insieme minacciano di farti cadere tutto. Scegli le priorità prima che il gioco ti sfugga di mano. Meglio poche cose tenute bene che tante lasciate cadere.
+- Tre di Denari · "L'opera comune." Collaborazione, competenza, primi risultati concreti: costruisci insieme agli altri. Il tuo lavoro è visto e apprezzato e questo è solo l'inizio. Da soli si va veloci, insieme si va lontano.
+- Tre di Denari rovesciato · "La collaborazione stonata." Ruoli confusi, poca sintonia, un lavoro comune che non ingrana. Chiarite i compiti e le aspettative e l'opera riparte. Spesso il problema non è la volontà, ma la comunicazione.
+- Quattro di Denari · "La mano che stringe." Sicurezza, risparmio, controllo su ciò che possiedi: proteggi ciò che hai. Attento però a non chiuderti troppo, la mano stretta non riceve. La stabilità è buona, l'attaccamento un po' meno.
+- Quattro di Denari rovesciato · "La presa da allentare." Un attaccamento eccessivo, o la paura di perdere che ti irrigidisce. Apri la mano, il denaro e le energie servono per fluire, non per essere trattenuti. Ciò che stringi troppo, ti stringe a sua volta.
+- Cinque di Denari · "Il freddo fuori dalla porta." Una difficoltà, una mancanza, un senso di esclusione o di solitudine. Ma la luce calda è più vicina di quanto credi: chiedi aiuto senza vergogna. Nessuno deve attraversare l'inverno da solo.
+- Cinque di Denari rovesciato · "Il ritorno al caldo." Una ripresa, un sostegno ritrovato: il periodo duro comincia ad allentarsi. Riaccogli la fiducia, stai uscendo dal freddo. Dopo la mancanza torna l'abbondanza, un passo alla volta.
+- Sei di Denari · "La bilancia del dare." Generosità, uno scambio equo, un aiuto che va e viene con giustizia. Dai e ricevi mantenendo l'equilibrio e tutto guarisce. La vera abbondanza circola, non si accumula soltanto.
+- Sei di Denari rovesciato · "Il dare sbilanciato." Debiti, o una generosità mal riposta che ti svuota. Verifica che lo scambio sia davvero equo, in entrambe le direzioni. Dare troppo a chi non ricambia non è bontà, è squilibrio.
+- Sette di Denari · "L'attesa del raccolto." Pazienza, valutazione, un investimento che matura lentamente: hai coltivato, ora aspetta il tempo giusto. Non strappare i frutti prima che siano pronti. Ciò che cresce bene, cresce senza fretta.
+- Sette di Denari rovesciato · "La fretta del raccolto." Impazienza, o uno sforzo che sembra mal ripagato. Rivedi con calma dove metti la tua energia, senza scoraggiarti. A volte il raccolto tarda perché il seme era quello sbagliato, non il tempo.
+- Otto di Denari · "La mano che affina." Impegno, mestiere, dedizione: perfezioni con cura, un dettaglio alla volta. La maestria nasce proprio da questa pratica paziente. Ciò che fai bene oggi diventa il tuo talento domani.
+- Otto di Denari rovesciato · "Il lavoro senz'anima." Monotonia, o una cura che si è persa per strada. Ritrova il senso di ciò che fai, oppure abbi il coraggio di cambiare direzione. Il mestiere senza passione diventa una gabbia.
+- Nove di Denari · "Il giardino conquistato." Autonomia, agiatezza, frutti meritati con le tue mani: goditi ciò che hai costruito da te. È la carta dell'indipendenza serena. Ti sei guadagnata il tuo spazio, abitalo con piacere.
+- Nove di Denari rovesciato · "L'indipendenza da curare." Un'insicurezza, o eccessi che minano la tua serenità. Ritrova l'equilibrio tra il valore di te e quello di ciò che possiedi. Non sei ciò che hai, sei molto di più.
+- Dieci di Denari · "L'eredità della casa." Ricchezza duratura, famiglia, radici solide: ciò che costruisci resta e nutrirà chi verrà dopo di te. È un tempo di stabilità profonda. Stai piantando qualcosa che dura oltre te.
+- Dieci di Denari rovesciato · "Le radici da rassodare." Tensioni sui beni, o in famiglia, che scuotono le fondamenta. Cura ciò che dura davvero, oltre il guadagno di oggi. La ricchezza vera è anche l'armonia di chi ti sta intorno.
+- Fante di Denari · "Lo studente diligente." Apprendimento, un progetto concreto, una promessa che chiede impegno. Coltiva questa idea nuova con serietà e pazienza. I sogni pratici si realizzano un passo studiato dopo l'altro.
+- Fante di Denari rovesciato · "La promessa rimandata." Distrazione, o un progetto che si è fermato a metà. Rimettiti al lavoro un passo alla volta, senza voler recuperare tutto subito. Anche un piccolo gesto rimette in moto ciò che era fermo.
+- Cavaliere di Denari · "Il passo costante." Metodo, affidabilità, impegno paziente: avanzi con costanza verso la meta. Qui la lentezza non è un limite, è la tua forza. Chi va piano e non si ferma, arriva sempre.
+- Cavaliere di Denari rovesciato · "Il passo bloccato." Uno stallo, o un eccesso di prudenza che ti tiene immobile. Muovi qualcosa, anche di piccolo, per ripartire. La perfezione dell'attesa a volte è solo paura di sbagliare.
+- Regina di Denari · "La cura concreta." Accoglienza, praticità, un'abbondanza generosa: nutri chi ami e i tuoi progetti con i piedi a terra. Sai unire il cuore e la concretezza ed è un dono raro. La tua casa e il tuo lavoro fioriscono nelle tue mani.
+- Regina di Denari rovesciata · "La cura dispersa." Ti dimentichi di te mentre ti prendi cura di tutto e di tutti. Rimetti equilibrio tra dare e ricevere. Anche il giardino più generoso ha bisogno di essere annaffiato.
+- Re di Denari · "La prosperità sicura." Successo concreto, stabilità, una generosità matura: guidi con abbondanza e misura. Hai costruito qualcosa di solido e sai condividerlo. La ricchezza qui è anche saggezza nel gestirla.
+- Re di Denari rovesciato · "Il possesso che irrigidisce." Un attaccamento, o una rigidità legata a ciò che hai. La vera ricchezza è anche saperla lasciare circolare. Ciò che possiedi non deve possederti.
 
 ## Arcani Minori, Spade, l'aria
 
-- Asso di Spade · "La lama della verità." Chiarezza, un'idea netta, un taglio deciso: vedi con lucidità, è il momento di dire il vero.
-- Asso di Spade rovesciato · "La lama confusa." Idee annebbiate, o parole taglienti: rischiara la mente prima di decidere.
-- Due di Spade · "La scelta bendata." Indecisione, stallo, equilibrio precario: togli la benda, guarda ciò che eviti.
-- Due di Spade rovesciato · "La verità che riaffiora." Un blocco che si scioglie: la decisione rimandata torna a chiederti una risposta.
-- Tre di Spade · "Il cuore trafitto." Dolore, delusione, una ferita: lascia scorrere le lacrime, il dolore attraversato guarisce.
-- Tre di Spade rovesciato · "La ferita che rimargina." Perdono, ripresa, un dolore che sfuma: la pioggia passa, il cuore torna a respirare.
-- Quattro di Spade · "Il riposo del guerriero." Pausa, recupero, silenzio: fermati e ricarica, la mente ha bisogno di quiete.
-- Quattro di Spade rovesciato · "Il risveglio dalla sosta." Tempo di rimettersi in moto: hai riposato, ora torna con calma all'azione.
-- Cinque di Spade · "La vittoria amara." Conflitto, orgoglio, un successo che costa: chiediti se vale ciò che perdi per vincere.
-- Cinque di Spade rovesciato · "La pace da ricucire." Voglia di riconciliazione: deponi le armi, il perdono libera più della ragione.
-- Sei di Spade · "La traversata calma." Transizione, allontanarsi dalle acque agitate: verso una sponda più serena, un passo alla volta.
-- Sei di Spade rovesciato · "La partenza difficile." Fatica a lasciare il passato: il viaggio è possibile, anche se il distacco pesa.
-- Sette di Spade · "La strategia silenziosa." Astuzia, prudenza, agire con tatto: usa l'ingegno, ma resta onesto con te stesso.
-- Sette di Spade rovesciato · "Il gioco da chiarire." Un inganno che pesa, o che si svela: torna alla trasparenza, libera la coscienza.
-- Otto di Spade · "La prigione dei pensieri." Sentirsi bloccato, limiti nella mente: le corde sono più larghe di quel che credi, muoviti.
-- Otto di Spade rovesciato · "Le corde che cadono." Liberazione, una via che si apre: riconosci la tua forza e fai il primo passo.
-- Nove di Spade · "L'angoscia della notte." Ansia, pensieri cupi, insonnia: le paure crescono al buio, alla luce si ridimensionano.
-- Nove di Spade rovesciato · "L'alba dopo l'incubo." La paura che allenta la presa: parlane, condividi, il peso si dimezza.
-- Dieci di Spade · "La fine e la resa." Un ciclo doloroso che si chiude: hai toccato il fondo, da qui si può solo risalire.
-- Dieci di Spade rovesciato · "La risalita." Ripresa, sollievo, il peggio alle spalle: l'alba torna, rialzati con dolcezza.
-- Fante di Spade · "La mente curiosa." Vigilanza, idee acute, verità da cercare: osserva e informati, ma scegli le parole.
-- Fante di Spade rovesciato · "La parola pungente." Pettegolezzo, o pensieri sparsi: modera la lingua, verifica prima di parlare.
-- Cavaliere di Spade · "La carica del pensiero." Determinazione, azione rapida, idee decise: vai dritto allo scopo, senza travolgere.
-- Cavaliere di Spade rovesciato · "La foga imprudente." Fretta, o parole affilate: rallenta, la lucidità vale più della velocità.
-- Regina di Spade · "La lucidità sincera." Intelligenza, onestà, confini chiari: pensa con nitore, la tua franchezza è un dono.
-- Regina di Spade rovesciata · "La freddezza difensiva." Durezza, o una solitudine scelta: ammorbidisci il giudizio, prima verso te stessa.
-- Re di Spade · "Il giudizio giusto." Autorità mentale, etica, verità: decidi con equità, la ragione al servizio del cuore.
-- Re di Spade rovesciato · "Il rigore senza cuore." Freddezza, o autorità dura: unisci alla logica la compassione.
+- Asso di Spade · "La lama della verità." Chiarezza, un'idea netta, un taglio deciso: vedi con lucidità e distingui il vero dal falso. È il momento di dire le cose come stanno, con onestà. Una verità detta bene apre più di quanto ferisca.
+- Asso di Spade rovesciato · "La lama confusa." Idee annebbiate, o parole taglienti usate male. Rischiara la mente prima di decidere o di parlare. La stessa lama può liberare o ferire, dipende da come la impugni.
+- Due di Spade · "La scelta bendata." Indecisione, uno stallo, un equilibrio precario tenuto a occhi chiusi. Togli la benda e guarda ciò che stai evitando. La decisione che rimandi non sparisce, ti aspetta.
+- Due di Spade rovesciato · "La verità che riaffiora." Un blocco che si scioglie, una scelta rimandata che torna a chiederti una risposta. Ora puoi vedere ciò che prima coprivi. Affrontarla adesso pesa meno che continuare a girarci intorno.
+- Tre di Spade · "Il cuore trafitto." Un dolore, una delusione, una ferita che attraversa il petto. Lascia scorrere le lacrime, perché il dolore attraversato guarisce, quello negato resta. Anche la pioggia più fitta, prima o poi, passa.
+- Tre di Spade rovesciato · "La ferita che rimargina." Il perdono, la ripresa, un dolore che comincia a sfumare. La pioggia sta passando e il cuore torna a respirare. Guarire non significa dimenticare, ma smettere di sanguinare.
+- Quattro di Spade · "Il riposo del guerriero." Una pausa, un recupero, il silenzio necessario dopo la fatica. Fermati e ricarica, la mente ha bisogno di quiete quanto il corpo. Non è tempo perso, è tempo che ti restituisce forza.
+- Quattro di Spade rovesciato · "Il risveglio dalla sosta." Hai riposato abbastanza, è tempo di rimetterti in moto con calma. Torna all'azione senza strafare al primo passo. La quiete ha fatto il suo lavoro, ora tocca a te.
+- Cinque di Spade · "La vittoria amara." Un conflitto, l'orgoglio, un successo che costa più di quanto valga. Chiediti con sincerità se merita ciò che perdi per ottenerlo. Non tutte le battaglie vinte sono guadagni.
+- Cinque di Spade rovesciato · "La pace da ricucire." Nasce la voglia di riconciliazione, di deporre le armi. Il perdono libera più della ragione, anche quando avresti ragione. Fare il primo passo verso la pace non è perdere, è scegliere meglio.
+- Sei di Spade · "La traversata calma." Una transizione, l'allontanarsi dalle acque agitate verso una sponda più serena. Vai un passo alla volta, il mare si sta calmando. Lasciare la tempesta alle spalle è già metà del viaggio.
+- Sei di Spade rovesciato · "La partenza difficile." Fatichi a lasciare il passato, il distacco pesa più del previsto. Il viaggio è comunque possibile, anche se il cuore resta un po' indietro. Si può partire anche con la valigia pesante.
+- Sette di Spade · "La strategia silenziosa." Astuzia, prudenza, agire con tatto invece che di forza. Usa l'ingegno, ma resta onesto con te stesso su cosa stai facendo. La furbizia è un'arte, l'inganno una trappola anche per chi lo tende.
+- Sette di Spade rovesciato · "Il gioco da chiarire." Un inganno che pesa sulla coscienza, tuo o di qualcun altro, che sta venendo a galla. Torna alla trasparenza, libera la coscienza. La verità costa meno di una bugia da mantenere.
+- Otto di Spade · "La prigione dei pensieri." Ti senti bloccato, ma i limiti sono soprattutto nella tua mente. Le corde sono più larghe di quanto credi e la benda te la puoi togliere. Il primo passo verso l'uscita è capire che c'è.
+- Otto di Spade rovesciato · "Le corde che cadono." Una liberazione, una via che si apre dopo il senso di trappola. Riconosci la tua forza e fai il primo passo fuori. Eri più libero di quanto la paura ti diceva.
+- Nove di Spade · "L'angoscia della notte." Ansia, pensieri cupi, notti insonni: le paure crescono al buio. Ma alla luce del giorno si ridimensionano quasi sempre. Non credere a tutto ciò che la mente ti racconta alle tre di notte.
+- Nove di Spade rovesciato · "L'alba dopo l'incubo." La paura comincia ad allentare la presa, il peggio della notte è passato. Parlane, condividi ciò che ti angoscia e il peso si dimezza. Ciò che si dice a voce fa meno paura di ciò che si rimugina.
+- Dieci di Spade · "La fine e la resa." Un ciclo doloroso si chiude, hai toccato il fondo. Ma proprio da qui si può solo risalire, più in basso non si va. Ogni notte più nera annuncia l'alba.
+- Dieci di Spade rovesciato · "La risalita." Una ripresa, un sollievo, il peggio ormai alle spalle. L'alba torna, rialzati con dolcezza e senza fretta. Hai superato la parte più dura, ora si ricomincia.
+- Fante di Spade · "La mente curiosa." Vigilanza, idee acute, una verità da cercare con occhi attenti. Osserva e informati, ma scegli con cura le parole. La curiosità è preziosa, la lingua affilata va usata con misura.
+- Fante di Spade rovesciato · "La parola pungente." Pettegolezzo, o pensieri sparsi che feriscono senza costruire. Modera la lingua e verifica prima di parlare. Le parole dette a vanvera tornano sempre indietro.
+- Cavaliere di Spade · "La carica del pensiero." Determinazione, azione rapida, idee decise: vai dritto allo scopo. Fai attenzione però a non travolgere chi ti sta accanto. La velocità della mente è un dono se non diventa fretta cieca.
+- Cavaliere di Spade rovesciato · "La foga imprudente." Fretta, o parole affilate lanciate senza pensare. Rallenta, la lucidità vale molto più della velocità. Un istante di pausa ti risparmia molti passi indietro.
+- Regina di Spade · "La lucidità sincera." Intelligenza, onestà, confini chiari: pensi con nitore e dici il vero senza giri. La tua franchezza è un dono, anche quando non è comoda. Sai distinguere e questo ti protegge.
+- Regina di Spade rovesciata · "La freddezza difensiva." Una durezza, o una solitudine scelta come corazza. Ammorbidisci il giudizio, a partire da quello verso te stessa. La lama più affilata non deve rivolgersi contro chi la porta.
+- Re di Spade · "Il giudizio giusto." Autorità mentale, etica, verità: decidi con equità e con la ragione al servizio del cuore. Sei un punto di riferimento lucido e onesto. Il vero potere della mente è metterla al servizio del bene.
+- Re di Spade rovesciato · "Il rigore senza cuore." Freddezza, o un'autorità dura che dimentica le persone. Unisci alla logica la compassione. La ragione senza cuore vince le discussioni e perde i legami.
 
 ## Legatura agli stem, importante
 
-I file d'arte usano l'ordine Rider-Waite, dove La Forza è l'VIII e La Giustizia l'XI, l'opposto della numerazione di questo corpus. Quindi lega i significati alla carta per NOME, non per numero. Il quinto Arcano nel file si chiama l-ierofante, che qui è Il Papa.
+I file d'arte usano l'ordine Rider-Waite, dove La Forza è l'VIII e La Giustizia l'XI, l'opposto della numerazione dei Maggiori qui sopra. Lega i significati alla carta per NOME, non per numero. Il quinto Arcano nel file si chiama l-ierofante, che qui è Il Papa.
 
-Maggiori, nome verso stem file (senza estensione):
-Il Matto tar_rw_00_il-matto_v1, Il Mago tar_rw_01_il-mago_v1, La Papessa tar_rw_02_la-papessa_v1, L'Imperatrice tar_rw_03_l-imperatrice_v1, L'Imperatore tar_rw_04_l-imperatore_v1, Il Papa tar_rw_05_l-ierofante_v1, Gli Amanti tar_rw_06_gli-amanti_v1, Il Carro tar_rw_07_il-carro_v1, La Forza tar_rw_08_la-forza_v1, L'Eremita tar_rw_09_l-eremita_v1, La Ruota della Fortuna tar_rw_10_la-ruota-della-fortuna_v1, La Giustizia tar_rw_11_la-giustizia_v1, L'Appeso tar_rw_12_l-appeso_v1, La Morte tar_rw_13_la-morte_v1, La Temperanza tar_rw_14_la-temperanza_v1, Il Diavolo tar_rw_15_il-diavolo_v1, La Torre tar_rw_16_la-torre_v1, La Stella tar_rw_17_le-stelle_v1, La Luna tar_rw_18_la-luna_v1, Il Sole tar_rw_19_il-sole_v1, Il Giudizio tar_rw_20_il-giudizio_v1, Il Mondo tar_rw_21_il-mondo_v1.
+Maggiori, nome verso stem file senza estensione: Il Matto tar_rw_00_il-matto_v1, Il Mago tar_rw_01_il-mago_v1, La Papessa tar_rw_02_la-papessa_v1, L'Imperatrice tar_rw_03_l-imperatrice_v1, L'Imperatore tar_rw_04_l-imperatore_v1, Il Papa tar_rw_05_l-ierofante_v1, Gli Amanti tar_rw_06_gli-amanti_v1, Il Carro tar_rw_07_il-carro_v1, La Forza tar_rw_08_la-forza_v1, L'Eremita tar_rw_09_l-eremita_v1, La Ruota della Fortuna tar_rw_10_la-ruota-della-fortuna_v1, La Giustizia tar_rw_11_la-giustizia_v1, L'Appeso tar_rw_12_l-appeso_v1, La Morte tar_rw_13_la-morte_v1, La Temperanza tar_rw_14_la-temperanza_v1, Il Diavolo tar_rw_15_il-diavolo_v1, La Torre tar_rw_16_la-torre_v1, La Stella tar_rw_17_le-stelle_v1, La Luna tar_rw_18_la-luna_v1, Il Sole tar_rw_19_il-sole_v1, Il Giudizio tar_rw_20_il-giudizio_v1, Il Mondo tar_rw_21_il-mondo_v1.
 
-Minori, stem tar_rw_<seme>_<NN>_v1 con seme tra bastoni, coppe, denari, spade, e NN dall'01 al 14: 01 Asso, dal 02 al 10 i numeri, 11 Fante, 12 Cavaliere, 13 Regina, 14 Re.
+Minori, stem tar_rw_<seme>_<NN>_v1 con seme tra bastoni, coppe, denari, spade e NN dall'01 al 14: 01 Asso, dal 02 al 10 i numeri, 11 Fante, 12 Cavaliere, 13 Regina, 14 Re.
 
 Dorso del mazzo: tar_rw_dorso_medora_v1.
