@@ -19,18 +19,49 @@ class TarotFrame {
   /// Rapporto della carta, due a tre come l'artwork.
   static const double aspect = 2 / 3;
 
-  // Placche blu misurate: alta x 0.395..0.603 y 0.017..0.069,
-  // bassa x 0.352..0.678 y 0.924..0.965. Qui sotto, gia' rientrate.
+  // Le due placche blu, misurate sull'artwork reale (853 per 1280) su dodici
+  // carte diverse: i valori coincidono, la cornice madre e' la stessa su tutte.
+  // Si cerca la banda di blu piatto e si prende il suo bordo vero.
 
-  /// Cartiglio superiore, per il numerale. Simmetrico sul centro della placca.
-  static const Rect cartiglioNumero = Rect.fromLTRB(0.403, 0.021, 0.595, 0.065);
+  /// La placca del numerale: il confine dell'oro.
+  ///
+  /// La misura precedente partiva da 0,017 e comprendeva anche la modanatura
+  /// dorata che corre a 0,022..0,026: e' per quello che il numero sembrava
+  /// toccare il bordo alto, gli veniva dato spazio che non era suo.
+  static const Rect placcaNumero = Rect.fromLTRB(0.393, 0.031, 0.604, 0.069);
+
+  /// La placca del nome: il confine dell'oro.
+  ///
+  /// Anche questa era stretta rispetto al vero, di circa 0,008 in alto e di
+  /// 0,03 in larghezza: da qui lo spazio ritrovato per il nome su due righe.
+  static const Rect placcaNome = Rect.fromLTRB(0.321, 0.918, 0.679, 0.966);
+
+  /// Il respiro fra il testo e l'oro, in frazione dell'altezza della placca.
+  ///
+  /// Proporzionale e non assoluto: un valore fisso mangerebbe una fetta enorme
+  /// della placca bassa, che e' molto piu' schiacciata di quella alta.
+  static const double margineTesto = 0.08;
+
+  /// L'area utile di una placca: la placca meno il respiro, uguale sui quattro
+  /// lati in pixel.
+  static Rect areaUtile(Rect placca) {
+    final my = placca.height * margineTesto;
+    // La carta e' piu' alta che larga: per un respiro uguale in pixel, in
+    // frazione l'orizzontale e' piu' grande del verticale.
+    final mx = my / aspect;
+    return Rect.fromLTRB(
+      placca.left + mx,
+      placca.top + my,
+      placca.right - mx,
+      placca.bottom - my,
+    );
+  }
+
+  /// Cartiglio superiore, per il numerale.
+  static final Rect cartiglioNumero = areaUtile(placcaNumero);
 
   /// Cartiglio inferiore, per il nome della carta.
-  static const Rect cartiglioNome = Rect.fromLTRB(0.365, 0.927, 0.665, 0.962);
-
-  /// Le placche blu grezze, senza margine: confine dell'oro, per i test.
-  static const Rect placcaNumero = Rect.fromLTRB(0.395, 0.017, 0.603, 0.069);
-  static const Rect placcaNome = Rect.fromLTRB(0.352, 0.924, 0.678, 0.965);
+  static final Rect cartiglioNome = areaUtile(placcaNome);
 }
 
 /// Divide il nome della carta in due righe quando e' lungo.

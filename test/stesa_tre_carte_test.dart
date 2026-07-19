@@ -11,7 +11,6 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
 import 'package:esoteric_circle/features/tarot/medora_stage.dart';
-import 'package:esoteric_circle/features/tarot/spread_signature.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/features/tarot/tarot_selectors.dart';
@@ -226,38 +225,6 @@ void main() {
     });
   });
 
-  group('Firma della stesa', () {
-    test('E\' deterministica dalle stesse tre carte nello stesso verso', () {
-      for (final seme in [0, 2, 77, 1234]) {
-        final a = SpreadSignature.of(TarotSpread.draw(seed: seme));
-        final b = SpreadSignature.of(TarotSpread.draw(seed: seme));
-        expect(a.seed, b.seed);
-        expect(a.code, b.code);
-        expect(a.nodes, b.nodes);
-      }
-    });
-
-    test('Stese diverse danno firme diverse', () {
-      final codici = <String>{};
-      for (var seme = 0; seme < 120; seme++) {
-        codici.add(SpreadSignature.of(TarotSpread.draw(seed: seme)).code);
-      }
-      // Non serve l'unicita' assoluta, serve che la firma discrimini davvero.
-      expect(codici.length, greaterThan(110));
-    });
-
-    test('Il verso cambia la firma', () {
-      final spread = TarotSpread.draw(seed: 2);
-      final girata = TarotSpread([
-        for (final d in spread.cards)
-          DrawnCard(
-              card: d.card, position: d.position, reversed: !d.reversed),
-      ]);
-      expect(SpreadSignature.of(girata).seed,
-          isNot(SpreadSignature.of(spread).seed));
-    });
-  });
-
   group('Espressione di Medora', () {
     test('Nasce in modo deterministico dalla carta attiva', () {
       final maggiore =
@@ -388,39 +355,14 @@ void main() {
               findsOneWidget);
         }
       }
-      // La firma in piccolo a fine schermata.
-      expect(find.byKey(const Key('stesa_signature')), findsOneWidget);
+      // Il sigillo e' stato tolto: era un abbellimento senza valore per chi
+      // legge, ne' un consiglio ne' una sua caratteristica.
+      expect(find.byKey(const Key('stesa_signature')), findsNothing);
+      expect(find.text('SIGILLO'), findsNothing);
     });
   });
 
-  group('Firma e presenza, rifiniture', () {
-    testWidgets('La firma porta l\'etichetta Sigillo davanti al codice',
-        (tester) async {
-      await loadFonts();
-      final signature = SpreadSignature.of(TarotSpread.draw(seed: 2));
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: SpreadSignatureMark(
-              signature: signature,
-              palette: palette,
-              showCode: true,
-            ),
-          ),
-        ),
-      ));
-      await tester.pumpAndSettle();
-      // L'etichetta dice che cos'e', cosi' il codice non sembra una stringa
-      // tecnica ma la firma della stesa.
-      expect(find.byKey(const Key('firma_etichetta')), findsOneWidget);
-      expect(find.text('SIGILLO'), findsOneWidget);
-      expect(find.text(signature.code), findsOneWidget);
-      // L'etichetta sta sopra il codice.
-      final etichetta = tester.getRect(find.byKey(const Key('firma_etichetta')));
-      final codice = tester.getRect(find.byKey(const Key('firma_codice')));
-      expect(etichetta.center.dy, lessThan(codice.center.dy));
-    });
-
+  group('Presenza di Medora, rifiniture', () {
     test('Medora e piu grande, con l\'innesto intatto', () {
       // La scala e cresciuta: il mezzo busto riempie la scena.
       const stage = MedoraStage(palette: MaestroPalette.neutral);

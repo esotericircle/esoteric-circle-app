@@ -13,13 +13,20 @@ import '../../design_system/theme/maestro_palette.dart';
 /// dentro il cartiglio, dimensionando sulla lettera lo riempie davvero.
 const double kCapRatio = 0.70;
 
-/// Quanta parte della banda occupa la lettera.
+/// Lo spazio fra due righe, in frazione dell'altezza della lettera.
 ///
-/// Il margine di sicurezza verso l'oro sta gia' nel rettangolo del cartiglio,
-/// rientrato rispetto alla placca blu, quindi qui si toglie pochissimo: solo il
-/// filo che evita alle lettere di sfiorare il bordo del blu. Un margine piu'
-/// largo farebbe galleggiare il testo piccolo dentro il suo spazio.
-const double _riempimentoLettera = 0.94;
+/// Il respiro verso l'oro lo da' gia' il rettangolo del cartiglio: qui serve
+/// solo che le due righe di un nome lungo non si tocchino fra loro.
+const double kInterlinea = 0.14;
+
+/// Quanto occupa in altezza un testo di [righe] righe a questo corpo.
+///
+/// Ogni riga vive in una banda uguale e la lettera vi sta centrata, quindi il
+/// vuoto fra due lettere vicine e' la banda meno la lettera. Perche' quel vuoto
+/// valga davvero [kInterlinea] volte la lettera, la banda deve essere la
+/// lettera piu' l'interlinea: da qui il fattore.
+double altezzaOccupata(double fontSize, int righe) =>
+    fontSize * kCapRatio * righe * (righe > 1 ? 1 + kInterlinea : 1);
 
 /// L'emblema del seme e' una forma piena, non una lettera: un filo di respiro
 /// dentro la banda gli serve.
@@ -40,8 +47,8 @@ class CartiglioAreaFit {
 /// La dimensione piu' grande possibile per cui tutte le [righe] stanno dentro
 /// l'area utile del cartiglio, sia in larghezza sia in altezza.
 ///
-/// L'altezza si divide in bande uguali, una per riga, e la lettera riempie la
-/// sua banda. La larghezza la comanda la riga piu' larga. Vince il vincolo piu'
+/// In altezza ci stanno le lettere di tutte le righe piu' le interlinee fra
+/// esse. La larghezza la comanda la riga piu' larga. Vince il vincolo piu'
 /// stretto dei due, cosi' il testo riempie il cartiglio senza mai uscirne.
 CartiglioAreaFit resolveCartiglioArea({
   required List<String> righe,
@@ -66,9 +73,9 @@ CartiglioAreaFit resolveCartiglioArea({
     return tp.width;
   }
 
-  // Vincolo di altezza: la lettera riempie la sua banda.
-  final banda = maxHeight / righe.length;
-  var fs = banda * _riempimentoLettera / kCapRatio;
+  // Vincolo di altezza: le lettere piu' le interlinee riempiono l'area utile.
+  final n = righe.length;
+  var fs = maxHeight / (kCapRatio * n * (n > 1 ? 1 + kInterlinea : 1));
 
   // Vincolo di larghezza: comanda la riga piu' larga.
   for (final riga in righe) {

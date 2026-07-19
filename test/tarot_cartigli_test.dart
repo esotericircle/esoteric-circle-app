@@ -143,19 +143,66 @@ void main() {
   });
 
   group('Cartigli dentro il blu, mai sull\'oro', () {
-    test('I riquadri di testo stanno dentro le placche misurate', () {
+    test('Ogni cartiglio lascia lo stesso respiro sui quattro lati', () {
       for (final coppia in [
         [TarotFrame.cartiglioNumero, TarotFrame.placcaNumero],
         [TarotFrame.cartiglioNome, TarotFrame.placcaNome],
       ]) {
         final testo = coppia[0];
         final placca = coppia[1];
+        // Dentro la placca, mai oltre.
         expect(testo.left, greaterThanOrEqualTo(placca.left));
         expect(testo.right, lessThanOrEqualTo(placca.right));
         expect(testo.top, greaterThanOrEqualTo(placca.top));
         expect(testo.bottom, lessThanOrEqualTo(placca.bottom));
-        expect(testo.left - placca.left, greaterThan(0));
-        expect(placca.right - testo.right, greaterThan(0));
+
+        // Il respiro c'e' su tutti e quattro i lati, ed e' simmetrico. In
+        // pixel vale uguale sopra, sotto e ai lati: in frazione l'orizzontale
+        // e' piu' piccolo perche' la carta e' piu' alta che larga.
+        final sopra = testo.top - placca.top;
+        final sotto = placca.bottom - testo.bottom;
+        final sx = testo.left - placca.left;
+        final dx = placca.right - testo.right;
+        for (final m in [sopra, sotto, sx, dx]) {
+          expect(m, greaterThan(0), reason: 'un lato resta a filo dell\'oro');
+        }
+        expect((sopra - sotto).abs(), lessThan(1e-6));
+        expect((sx - dx).abs(), lessThan(1e-6));
+        // Il respiro e' proporzionale all'altezza della placca, non fisso.
+        expect(sopra, closeTo(placca.height * TarotFrame.margineTesto, 1e-6));
+        // In pixel su una carta 150 x 225, il respiro orizzontale e' quello
+        // verticale, non di piu'.
+        expect(sx * cardW, closeTo(sopra * cardH, 0.01));
+      }
+    });
+
+    test('Le due righe di un nome lungo non si toccano', () {
+      final base = cartiglioBaseStyle(palette);
+      final rect = TarotFrame.cartiglioNome;
+      final maxW = (rect.right - rect.left) * cardW;
+      final maxH = (rect.bottom - rect.top) * cardH;
+
+      for (final card in TarotDeck.cards) {
+        final righe = splitNomeCartiglio(card.name);
+        if (righe.length < 2) continue;
+        final fit = resolveCartiglioArea(
+            righe: [for (final r in righe) r.toUpperCase()],
+            base: base,
+            maxWidth: maxW,
+            maxHeight: maxH);
+        final cap = fit.fontSize * kCapRatio;
+        // Ogni riga sta nella sua banda: il vuoto fra le lettere di due righe
+        // vicine e' la banda meno la lettera.
+        final banda = maxH / righe.length;
+        final interlinea = banda - cap;
+        // La soglia e' relativa alla lettera: su una placca cosi' bassa un
+        // minimo in pixel non direbbe nulla, il rapporto si'.
+        expect(interlinea / cap, greaterThan(0.10),
+            reason: 'le due righe di ${card.name} si toccano');
+        // E il testo intero, interlinee comprese, sta nell'area.
+        expect(altezzaOccupata(fit.fontSize, righe.length),
+            lessThanOrEqualTo(maxH + 0.5),
+            reason: 'il nome di ${card.name} esce in altezza');
       }
     });
 
@@ -186,8 +233,8 @@ void main() {
             expect(larghezza(r, base, fit), lessThanOrEqualTo(maxW + 0.5),
                 reason: '"$r" esce dal cartiglio di ${card.name}');
           }
-          // 2. Non esce in altezza: le lettere di tutte le righe ci stanno.
-          expect(fit.fontSize * kCapRatio * righe.length,
+          // 2. Non esce in altezza: lettere piu' interlinee stanno nell'area.
+          expect(altezzaOccupata(fit.fontSize, righe.length),
               lessThanOrEqualTo(maxH + 0.5),
               reason: 'le lettere di ${card.name} escono in altezza');
 
@@ -198,7 +245,7 @@ void main() {
               fontSize: fit.fontSize * 1.10,
               letterSpacing: fit.letterSpacing * 1.10);
           final sfondaAltezza =
-              cresciuto.fontSize * kCapRatio * righe.length > maxH;
+              altezzaOccupata(cresciuto.fontSize, righe.length) > maxH;
           final sfondaLarghezza =
               righe.any((r) => larghezza(r, base, cresciuto) > maxW);
           expect(sfondaAltezza || sfondaLarghezza, isTrue,
@@ -210,7 +257,7 @@ void main() {
 
     test('Le due righe di un nome lungo condividono la stessa misura', () {
       final base = cartiglioBaseStyle(palette);
-      const rect = TarotFrame.cartiglioNome;
+      final rect = TarotFrame.cartiglioNome;
       final maxW = (rect.right - rect.left) * cardW;
       final maxH = (rect.bottom - rect.top) * cardH;
       final righe = splitNomeCartiglio('Cavaliere di Bastoni');

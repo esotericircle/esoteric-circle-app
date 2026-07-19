@@ -13,7 +13,6 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'stesa_share_card.dart';
 import 'medora_stage.dart';
-import 'spread_signature.dart';
 import 'tarot_card_art.dart';
 import 'tarot_selectors.dart';
 
@@ -234,19 +233,6 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
               label: Text(_sharing ? 'Preparo la card' : 'Condividi',
                   style: TypographyTokens.label(size: 13)
                       .copyWith(letterSpacing: 0.6)),
-            ),
-          ),
-        ],
-        if (_complete) ...[
-          const SizedBox(height: SpacingTokens.md),
-          // La firma della stesa, in piccolo a fine schermata.
-          Center(
-            child: SpreadSignatureMark(
-              key: const Key('stesa_signature'),
-              signature: SpreadSignature.of(_spread),
-              palette: palette,
-              size: 54,
-              showCode: true,
             ),
           ),
         ],
