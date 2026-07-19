@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
@@ -6,6 +7,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
 import 'package:esoteric_circle/features/tarot/tarot_cartiglio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -34,19 +36,15 @@ void main() {
   const cardW = 150.0;
   const cardH = cardW / TarotFrame.aspect;
 
-  /// La larghezza del testo alla misura scelta.
-  double larghezza(String testo, TextStyle base, CartiglioAreaFit fit) {
-    final tp = TextPainter(
-      text: TextSpan(
-        text: testo.toUpperCase(),
-        style: base.copyWith(
-            fontSize: fit.fontSize, letterSpacing: fit.letterSpacing),
-      ),
-      textDirection: TextDirection.ltr,
-      maxLines: 1,
-    )..layout();
-    return tp.width;
-  }
+  /// La larghezza del solo inchiostro alla misura scelta. Usa la stessa
+  /// funzione del codice, cosi' misura e resa non possono divergere.
+  double larghezza(String testo, TextStyle base, CartiglioAreaFit fit) =>
+      larghezzaInchiostro(
+        testo: testo.toUpperCase(),
+        base: base,
+        fontSize: fit.fontSize,
+        letterSpacing: fit.letterSpacing,
+      );
 
   group('Numerali', () {
     test('Ogni carta ha un numerale, romano ai Maggiori', () {
@@ -190,17 +188,19 @@ void main() {
             base: base,
             maxWidth: maxW,
             maxHeight: maxH);
-        final cap = fit.fontSize * kCapRatio;
-        // Ogni riga sta nella sua banda: il vuoto fra le lettere di due righe
-        // vicine e' la banda meno la lettera.
+        // Il vuoto fra l'inchiostro di due righe vicine e' la banda meno
+        // l'inchiostro della riga piu' alta.
+        final inchiostro = righe
+            .map((r) => inkExtentOf(r, fit.fontSize).height)
+            .reduce((a, b) => a > b ? a : b);
         final banda = maxH / righe.length;
-        final interlinea = banda - cap;
-        // La soglia e' relativa alla lettera: su una placca cosi' bassa un
+        final interlinea = banda - inchiostro;
+        // La soglia e' relativa all'inchiostro: su una placca cosi' bassa un
         // minimo in pixel non direbbe nulla, il rapporto si'.
-        expect(interlinea / cap, greaterThan(0.10),
+        expect(interlinea / inchiostro, greaterThan(0.10),
             reason: 'le due righe di ${card.name} si toccano');
         // E il testo intero, interlinee comprese, sta nell'area.
-        expect(altezzaOccupata(fit.fontSize, righe.length),
+        expect(altezzaOccupata(righe, fit.fontSize),
             lessThanOrEqualTo(maxH + 0.5),
             reason: 'il nome di ${card.name} esce in altezza');
       }
@@ -233,19 +233,19 @@ void main() {
             expect(larghezza(r, base, fit), lessThanOrEqualTo(maxW + 0.5),
                 reason: '"$r" esce dal cartiglio di ${card.name}');
           }
-          // 2. Non esce in altezza: lettere piu' interlinee stanno nell'area.
-          expect(altezzaOccupata(fit.fontSize, righe.length),
+          // 2. Non esce in altezza: inchiostro piu' interlinee stanno nell'area.
+          expect(altezzaOccupata(righe, fit.fontSize),
               lessThanOrEqualTo(maxH + 0.5),
               reason: 'le lettere di ${card.name} escono in altezza');
 
-          // 3. Riempie: la misura e' massimale, il dieci per cento in piu'
+          // 3. Riempie: la misura e' massimale, il cinque per cento in piu'
           // sfonderebbe uno dei due limiti. E' questo che distingue un testo che
           // riempie il cartiglio da uno che ci galleggia dentro piccolo.
           final cresciuto = CartiglioAreaFit(
-              fontSize: fit.fontSize * 1.10,
-              letterSpacing: fit.letterSpacing * 1.10);
+              fontSize: fit.fontSize * 1.05,
+              letterSpacing: fit.letterSpacing * 1.05);
           final sfondaAltezza =
-              altezzaOccupata(cresciuto.fontSize, righe.length) > maxH;
+              altezzaOccupata(righe, cresciuto.fontSize) > maxH;
           final sfondaLarghezza =
               righe.any((r) => larghezza(r, base, cresciuto) > maxW);
           expect(sfondaAltezza || sfondaLarghezza, isTrue,
@@ -354,7 +354,7 @@ void main() {
       expect((riga.center.dx - area.center.dx).abs(), lessThan(2.0),
           reason: 'il numerale non e centrato in orizzontale');
 
-      // Verticale: conta il centro della LETTERA, non quello della riga di
+      // Verticale: conta il centro dell'INCHIOSTRO, non quello della riga di
       // testo, che include ascendenti e discendenti qui mai usati.
       final tp = TextPainter(
         text: TextSpan(text: card.numeral.toUpperCase(), style: style),
@@ -363,9 +363,9 @@ void main() {
       )..layout();
       final baseline =
           tp.computeDistanceToActualBaseline(TextBaseline.alphabetic);
-      final cap = style.fontSize! * kCapRatio;
-      final centroLettera = riga.top + baseline - cap / 2;
-      expect((centroLettera - area.center.dy).abs(), lessThan(2.0),
+      final ink = inkExtentOf(card.numeral, style.fontSize!);
+      final centroInchiostro = riga.top + baseline + ink.center;
+      expect((centroInchiostro - area.center.dy).abs(), lessThan(1.0),
           reason: 'il numerale non e centrato in verticale');
     });
 
@@ -384,6 +384,183 @@ void main() {
           of: find.byType(SuitEmblemMark), matching: find.byType(CustomPaint)));
       expect((emblema.center.dx - area.center.dx).abs(), lessThan(2.0));
       expect((emblema.center.dy - area.center.dy).abs(), lessThan(2.0));
+    });
+  });
+
+  group('Inchiostro davvero dipinto', () {
+    // Questi controlli non si fidano delle formule: disegnano il cartiglio e
+    // contano i pixel accesi. Se la misura e la centratura divergessero dalla
+    // resa, qui si vedrebbe.
+
+    // Il cartiglio si disegna otto volte piu' grande del vero, cosi' si legge
+    // un ottavo di pixel. La tolleranza di tre pixel di prova vale meno di
+    // quattro decimi di pixel sulla carta reale: quel che resta e' sfumatura
+    // dei bordi e arrotondamento del layout, non disallineamento.
+    const scala = 8.0;
+    const tolleranza = 3;
+
+    /// Disegna un cartiglio dentro la sua placca, su fondo nero, e ritorna le
+    /// righe di pixel accese (quelle con dell'oro).
+    Future<
+        ({
+          int primaRiga,
+          int ultimaRiga,
+          int altezzaBanda,
+          int primaColonna,
+          int ultimaColonna,
+          int larghezzaBanda
+        })> inchiostro(
+      WidgetTester tester,
+      Widget cartiglio,
+      Rect placca,
+    ) async {
+      // La placca alla scala di prova, col cartiglio nella sua area utile.
+      const cardW = 150.0;
+      const cardH = cardW / TarotFrame.aspect;
+      final area = TarotFrame.areaUtile(placca);
+      final pw = placca.width * cardW * scala;
+      final ph = placca.height * cardH * scala;
+      final ax = (area.left - placca.left) * cardW * scala;
+      final ay = (area.top - placca.top) * cardH * scala;
+      final aw = area.width * cardW * scala;
+      final ah = area.height * cardH * scala;
+
+      final key = GlobalKey();
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          backgroundColor: const Color(0xFF000000),
+          body: Center(
+            child: RepaintBoundary(
+              key: key,
+              child: Container(
+                width: pw,
+                height: ph,
+                color: const Color(0xFF000000),
+                child: Stack(children: [
+                  Positioned(
+                      left: ax,
+                      top: ay,
+                      width: aw,
+                      height: ah,
+                      child: cartiglio),
+                ]),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+
+      late List<int> righeAccese;
+      late List<int> colonneAccese;
+      await tester.runAsync(() async {
+        final boundary =
+            key.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+        final image = await boundary.toImage(pixelRatio: 1.0);
+        final data = await image.toByteData(format: ui.ImageByteFormat.rawRgba);
+        final bytes = data!.buffer.asUint8List();
+        final w = image.width;
+        // Fondo nero: qualunque cosa sopra soglia e' inchiostro.
+        bool acceso(int x, int y) {
+          final i = (y * w + x) * 4;
+          return bytes[i] > 40 || bytes[i + 1] > 40 || bytes[i + 2] > 40;
+        }
+
+        righeAccese = <int>[];
+        for (var y = 0; y < image.height; y++) {
+          for (var x = 0; x < w; x++) {
+            if (acceso(x, y)) {
+              righeAccese.add(y);
+              break;
+            }
+          }
+        }
+        colonneAccese = <int>[];
+        for (var x = 0; x < w; x++) {
+          for (var y = 0; y < image.height; y++) {
+            if (acceso(x, y)) {
+              colonneAccese.add(x);
+              break;
+            }
+          }
+        }
+      });
+      expect(righeAccese, isNotEmpty, reason: 'nessun inchiostro dipinto');
+      return (
+        primaRiga: righeAccese.first,
+        ultimaRiga: righeAccese.last,
+        altezzaBanda: (placca.height * cardH * scala).round(),
+        primaColonna: colonneAccese.first,
+        ultimaColonna: colonneAccese.last,
+        larghezzaBanda: (placca.width * cardW * scala).round(),
+      );
+    }
+
+    testWidgets('Il numerale ha lo stesso spazio sopra e sotto', (tester) async {
+      // Campione ampio: tutti i Maggiori, coi romani piu' diversi fra loro, e
+      // una manciata di Minori numerati.
+      final campione = [
+        ...TarotDeck.cards.where((c) => c.arcana == TarotArcana.maggiore),
+        ...TarotDeck.cards.where((c) => !c.isCorte).take(6),
+      ];
+      for (final card in campione) {
+        final r = await inchiostro(
+          tester,
+          CartiglioNumero(card: card, palette: palette),
+          TarotFrame.placcaNumero,
+        );
+        final sopra = r.primaRiga;
+        final sotto = r.altezzaBanda - 1 - r.ultimaRiga;
+        expect((sopra - sotto).abs(), lessThanOrEqualTo(tolleranza),
+            reason: '${card.name}: sopra $sopra, sotto $sotto');
+      }
+    });
+
+    testWidgets('Anche l\'emblema delle corti e centrato', (tester) async {
+      for (final card in TarotDeck.cards.where((c) => c.isCorte)) {
+        final r = await inchiostro(
+          tester,
+          CartiglioNumero(card: card, palette: palette),
+          TarotFrame.placcaNumero,
+        );
+        final sopra = r.primaRiga;
+        final sotto = r.altezzaBanda - 1 - r.ultimaRiga;
+        expect((sopra - sotto).abs(), lessThanOrEqualTo(tolleranza),
+            reason: '${card.name}: sopra $sopra, sotto $sotto');
+      }
+    });
+
+    testWidgets('Il nome riempie la banda, su una e su due righe',
+        (tester) async {
+      // Un nome corto (una riga) e uno lungo (due righe).
+      for (final nome in ['Il Matto', 'Cavaliere di Bastoni']) {
+        final card = TarotDeck.cards.firstWhere((c) => c.name == nome);
+        final r = await inchiostro(
+          tester,
+          CartiglioNome(nome: card.name, palette: palette),
+          TarotFrame.placcaNome,
+        );
+        final sopra = r.primaRiga;
+        final sotto = r.altezzaBanda - 1 - r.ultimaRiga;
+        // Centrato nella banda.
+        expect((sopra - sotto).abs(), lessThanOrEqualTo(tolleranza),
+            reason: '$nome: sopra $sopra, sotto $sotto');
+        // E riempie. La misura e' massimale, quindi il testo arriva al margine
+        // su almeno uno dei due assi: in altezza per i nomi che ci stanno larghi,
+        // in larghezza per quelli lunghi. Pretendere sempre l'altezza sarebbe
+        // sbagliato, perche' un nome corto e largo non puo' crescere oltre il
+        // fianco della placca.
+        final margineY = TarotFrame.placcaNome.height *
+            (cardH * scala) *
+            TarotFrame.margineTesto;
+        final margineX = margineY;
+        final sx = r.primaColonna;
+        final pienoInAltezza = sopra <= margineY + tolleranza;
+        final pienoInLarghezza = sx <= margineX + tolleranza;
+        expect(pienoInAltezza || pienoInLarghezza, isTrue,
+            reason: '$nome galleggia: $sopra px vuoti sopra e $sx a sinistra, '
+                'col margine a ${margineY.toStringAsFixed(1)}');
+      }
     });
   });
 }

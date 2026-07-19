@@ -735,12 +735,15 @@ void main() {
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     tester.view.physicalSize = const Size(390, 1390);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-    // Seme 2: Cinque di Spade, Quattro di Denari, Il Matto rovesciato.
+    // Seme 1: Fante di Bastoni rovesciato, Dieci di Coppe, La Luna rovesciata.
+    // Scelto perche' contiene una carta di corte, cosi' nell'anteprima si vede
+    // l'emblema del seme al posto del numerale, piu' un numerale arabo e uno
+    // romano, piu' due rovesciate.
     const spread = TarotSpread.reversedChance; // documenta la meccanica
     assert(spread > 0);
     unawaited(nav.push(MaterialPageRoute<void>(
       builder: (_) => const MaestroScope(
-        child: StesaTreCarteScreen(seed: 2, revealAll: true),
+        child: StesaTreCarteScreen(seed: 1, revealAll: true),
       ),
     )));
     await step(tester);
@@ -748,7 +751,7 @@ void main() {
     // Decodifica l'arte delle tre carte, cosi' l'anteprima mostra le carte vere.
     await tester.runAsync(() async {
       final element = tester.element(find.byType(StesaTreCarteScreen));
-      for (final drawn in TarotSpread.draw(seed: 2).cards) {
+      for (final drawn in TarotSpread.draw(seed: 1).cards) {
         await precacheImage(AssetImage(drawn.card.fullPath), element);
       }
     });
@@ -761,7 +764,7 @@ void main() {
   testWidgets('Cattura la card Stesa', (tester) async {
     await loadFonts();
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    final spread = TarotSpread.draw(seed: 2);
+    final spread = TarotSpread.draw(seed: 1);
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(400, 820);
     addTearDown(tester.view.resetPhysicalSize);
