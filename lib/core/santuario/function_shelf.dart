@@ -44,6 +44,7 @@ class FunctionShelf {
       teaser: 'Passato, presente e futuro nel ventaglio di Medora.',
       icon: Icons.style,
       maestro: Maestro.medora,
+      live: true,
     ),
     ShelfFunction(
       id: 'synastry_vip',

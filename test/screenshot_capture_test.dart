@@ -40,6 +40,9 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_glyph.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
+import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
+import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
+import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
@@ -722,6 +725,71 @@ void main() {
         tester.element(find.byType(OroscopoShareCard))));
     await tester.pumpAndSettle();
     await capture(tester, rootKey, 'oroscopo-card.png');
+  });
+
+  // --- La Stesa a Tre Carte, con una carta rovesciata ---
+  testWidgets('Cattura la Stesa a Tre Carte', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    tester.view.physicalSize = const Size(390, 1500);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // Seme 2: Cinque di Spade, Quattro di Denari, Il Matto rovesciato.
+    const spread = TarotSpread.reversedChance; // documenta la meccanica
+    assert(spread > 0);
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(seed: 2, revealAll: true),
+      ),
+    )));
+    await step(tester);
+    await step(tester);
+    // Decodifica l'arte delle tre carte, cosi' l'anteprima mostra le carte vere.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      for (final drawn in TarotSpread.draw(seed: 2).cards) {
+        await precacheImage(AssetImage(drawn.card.fullPath), element);
+      }
+    });
+    await step(tester);
+    await tester.pump(const Duration(seconds: 2));
+    await capture(tester, rootKey, 'stesa-tre-carte.png');
+  });
+
+  // --- La card condivisibile della Stesa ---
+  testWidgets('Cattura la card Stesa', (tester) async {
+    await loadFonts();
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    final spread = TarotSpread.draw(seed: 2);
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(400, 820);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: const Color(0xFF0A0E24),
+          body: Center(
+            child: SingleChildScrollView(
+              child: StesaShareCard(spread: spread, palette: palette),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaShareCard));
+      for (final drawn in spread.cards) {
+        await precacheImage(AssetImage(drawn.card.fullPath), element);
+      }
+    });
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'stesa-card.png');
   });
 
   // --- Il Santuario, alto pulito senza bolle sopra l'immagine ---

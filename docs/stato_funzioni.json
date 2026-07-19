@@ -2,7 +2,7 @@
   "descrizione": "Fonte macchina delle funzioni dello scaffale del Santuario e del loro stato live. E' la verita' leggibile a codice: il test test/stato_funzioni_test.dart confronta questo manifest con lib/core/santuario/function_shelf.dart e fallisce, dentro il verde della CI, se divergono. STATO_VIVO.md cita questo manifest per lo stato live. Quando cambi lo stato di una funzione, cambialo qui e nel function_shelf insieme.",
   "fonte_codice": "lib/core/santuario/function_shelf.dart",
   "funzioni": {
-    "tarot_spread_three": false,
+    "tarot_spread_three": true,
     "synastry_vip": true,
     "archetype_test": false,
     "face_constellation": false,

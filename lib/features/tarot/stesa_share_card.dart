@@ -1,0 +1,191 @@
+import 'dart:io';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+
+import '../../core/tarot/tarot_spread.dart';
+import '../../design_system/components/brand_mark.dart';
+import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
+import '../synastry/sinastria_share_card.dart' show captureBoundaryPng;
+
+/// La card verticale condivisibile della Stesa a Tre Carte, nel formato unico:
+/// sfondo blu e oro di Medora, i tre arcani con la loro posizione, la sintesi,
+/// il sigillo di Medora, watermark e deep link.
+class StesaShareCard extends StatelessWidget {
+  const StesaShareCard({
+    super.key,
+    required this.spread,
+    required this.palette,
+    this.width = 360,
+  });
+
+  final TarotSpread spread;
+  final MaestroPalette palette;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            palette.deepest,
+            Color.lerp(palette.deepest, palette.primary, 0.55)!,
+            palette.deepest,
+          ],
+        ),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.8), width: 2),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text('STESA A TRE CARTE',
+              textAlign: TextAlign.center,
+              style: TypographyTokens.label(size: 11)
+                  .copyWith(color: palette.goldSoft, letterSpacing: 3.0)),
+          const SizedBox(height: SpacingTokens.md),
+          // I tre arcani, ognuno con la sua posizione.
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (var i = 0; i < spread.cards.length; i++) ...[
+                Expanded(child: _CardTile(drawn: spread.cards[i], palette: palette)),
+                if (i < spread.cards.length - 1) const SizedBox(width: 6),
+              ],
+            ],
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          // I nomi a tutta larghezza: nella colonna della carta il minimo
+          // tipografico li spezzerebbe a meta' parola.
+          for (final drawn in spread.cards)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 2),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  SizedBox(
+                    width: 74,
+                    child: Text(drawn.position.label.toUpperCase(),
+                        style: TypographyTokens.label(size: 9).copyWith(
+                            color: palette.goldSoft, letterSpacing: 0.8)),
+                  ),
+                  Expanded(
+                    child: Text(drawn.displayName,
+                        maxLines: 2,
+                        style: TypographyTokens.display(size: 13).copyWith(
+                            color: ColorTokens.textPrimary, height: 1.15)),
+                  ),
+                ],
+              ),
+            ),
+          const SizedBox(height: SpacingTokens.md),
+          // La sintesi in evidenza.
+          Container(
+            padding: const EdgeInsets.all(SpacingTokens.md),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+              color: palette.primary.withValues(alpha: 0.4),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+            ),
+            child: Text(spread.synthesis,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.display(size: 17)
+                    .copyWith(color: palette.goldSoft, height: 1.25)),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          Text(TarotSpread.closing,
+              textAlign: TextAlign.center,
+              style: TypographyTokens.body(size: 12).copyWith(
+                  color: ColorTokens.textSecondary,
+                  height: 1.35,
+                  fontStyle: FontStyle.italic)),
+          const SizedBox(height: SpacingTokens.md),
+          const Center(child: BrandLogo(size: 40)),
+          const SizedBox(height: 4),
+          Text(BrandMark.wordmark,
+              textAlign: TextAlign.center,
+              style: TypographyTokens.label(size: 10)
+                  .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
+          Text('esotericircle.com/tarocchi',
+              textAlign: TextAlign.center,
+              style: TypographyTokens.label(size: 8).copyWith(
+                  color: ColorTokens.textSecondary, letterSpacing: 0.6)),
+        ],
+      ),
+    );
+  }
+}
+
+/// Un arcano nella card: l'arte, la posizione e il nome col verso.
+class _CardTile extends StatelessWidget {
+  const _CardTile({required this.drawn, required this.palette});
+
+  final DrawnCard drawn;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final art = Image.asset(
+      drawn.card.fullPath,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) => Container(
+        color: palette.surfaceElevated,
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(4),
+        child: Text(drawn.card.name,
+            textAlign: TextAlign.center,
+            style: TypographyTokens.display(size: 10)
+                .copyWith(color: palette.goldSoft)),
+      ),
+    );
+    return Column(
+      children: [
+        AspectRatio(
+          aspectRatio: 2 / 3,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                border:
+                    Border.all(color: palette.gold.withValues(alpha: 0.5)),
+              ),
+              child: drawn.reversed
+                  ? Transform.rotate(angle: math.pi, child: art)
+                  : art,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Genera la card come immagine dal boundary e apre il foglio di condivisione.
+/// Il PNG va in un file temporaneo del dispositivo, non su un server.
+Future<bool> shareStesaCard({
+  required GlobalKey boundaryKey,
+  required String text,
+}) async {
+  final png = await captureBoundaryPng(boundaryKey);
+  if (png == null) return false;
+  final dir = await getTemporaryDirectory();
+  final file = File('${dir.path}/stesa_tre_carte.png');
+  await file.writeAsBytes(png, flush: true);
+  await SharePlus.instance.share(
+    ShareParams(files: [XFile(file.path)], text: text),
+  );
+  return true;
+}

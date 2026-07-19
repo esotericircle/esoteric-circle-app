@@ -26,6 +26,7 @@ import '../horoscope/oroscopo_screen.dart';
 import '../maestri/aura/meditation/meditation_screen.dart';
 import '../maestri/domain_screen.dart';
 import '../rituals/day_oracle_screen.dart';
+import '../tarot/stesa_tre_carte_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
 import '../synastry/sinastria_vip_screen.dart';
 import 'daily_strip.dart';
@@ -174,6 +175,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         return DayOracleScreen.route();
       case 'horoscope':
         return OroscopoScreen.route(userSign: userSign);
+      case 'tarot_spread_three':
+        return StesaTreCarteScreen.route();
       case 'sunset_rune':
         return SunsetRuneScreen.route();
       case 'meditation':

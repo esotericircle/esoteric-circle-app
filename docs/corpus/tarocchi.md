@@ -34,7 +34,7 @@ Il mazzo completo, settantotto carte, nella voce di Medora: ventidue Arcani Magg
 - XIII La Morte rovesciata · "La fine trattenuta." Resisti a un cambiamento già arrivato: lasciare andare fa meno male dell'aggrapparsi, la vita vuole scorrere.
 - XIV La Temperanza · "La misura che guarisce." Armonia, pazienza, giusto dosaggio: unisci gli opposti con calma e ritrova l'equilibrio.
 - XIV La Temperanza rovesciata · "La misura perduta." Eccessi, fretta, opposti che non si parlano: rallenta, ridosa, ritrova il ritmo che guarisce.
-- XV Il Diavolo · "L'ombra da guardare." Catene, tentazioni, attaccamenti: riconosci ciò che ti lega, e la sua presa si allenta.
+- XV Il Diavolo · "L'ombra da guardare." Catene, tentazioni, attaccamenti: riconosci ciò che ti lega e la sua presa si allenta.
 - XV Il Diavolo rovesciato · "La catena che si spezza." Ti accorgi di un legame che ti tratteneva: il primo passo per liberarti è averlo visto, adesso scioglilo.
 - XVI La Torre · "Il crollo che rivela." Cade all'improvviso ciò che era falso: doloroso, ma ti libera per costruire sul vero.
 - XVI La Torre rovesciata · "Il crollo evitato." Rimandi una scossa necessaria, oppure ne esci a fatica: meglio un vero che vacilla che un falso che regge.
