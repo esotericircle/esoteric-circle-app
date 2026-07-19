@@ -221,14 +221,16 @@ class _LevelTile extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // Stesso linguaggio della schermata: cinque icone col numero.
           DomainLevel(
             domain: card.domain,
             value: card.indicator,
             palette: palette,
             pulse: pulse,
-            size: 38,
+            iconSize: 13,
+            gap: 2,
             animateFill: false,
-            numberSize: 10,
+            numberSize: 9,
           ),
           const SizedBox(height: 4),
           Text(card.domain.label.toUpperCase(),

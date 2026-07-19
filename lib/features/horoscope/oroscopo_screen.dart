@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../core/identity/profile_controller.dart';
+import '../../core/maestro/maestro.dart';
 import '../../design_system/components/cosmos_background.dart';
-import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/entrance_cascade.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -13,6 +13,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import 'answer_depth.dart';
 import 'horoscope_visuals.dart';
 import 'oroscopo_colors.dart';
 import 'oroscopo_share_card.dart';
@@ -83,6 +84,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   bool _sharing = false;
   bool _renderCard = false;
 
+  /// Profondita' scelta per ogni scheda. Gia' predisposta anche se il controllo
+  /// e' bloccato dietro l'abbonamento: quando si apre, basta collegarla.
+  final Map<HoroscopeDomain, AnswerDepth> _depth = {
+    for (final d in HoroscopeDomain.values) d: AnswerDepth.media,
+  };
+
   @override
   void dispose() {
     _pulse.dispose();
@@ -91,7 +98,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.palette;
+    // L'Oroscopo e' di Medora: blu e oro suoi, sempre, anche se il Maestro
+    // attivo altrove fosse un altro. Lo sfondo resta il cosmo ambientale.
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final profile = context.watch<ProfileController>();
     final vocative =
         Horoscope.vocativeFor(profile.vocative, profile.courtesy);
@@ -126,8 +135,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             children: [
               EntranceCascade(
                 listKey: const Key('oroscopo_list'),
-                padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
-                    SpacingTokens.xs, SpacingTokens.lg, SpacingTokens.lg),
+                // Nessun vuoto sopra l'eroe: il segno parte in alto.
+                padding: const EdgeInsets.fromLTRB(
+                    SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.lg),
                 hero: _Hero(sign: widget.userSign, palette: palette, pulse: _pulse),
                 items: [
                   _Heading(sign: widget.userSign, date: _date, palette: palette),
@@ -140,7 +150,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                   const SizedBox(height: SpacingTokens.md),
                   for (final card in cards) ...[
                     _HoroscopeCardView(
-                        card: card, palette: palette, pulse: _pulse),
+                      card: card,
+                      palette: palette,
+                      pulse: _pulse,
+                      depth: _depth[card.domain]!,
+                      onDepthLocked: () => _showDepthLocked(card.domain),
+                    ),
                     const SizedBox(height: SpacingTokens.md),
                   ],
                   _ShareBlock(
@@ -173,6 +188,15 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _showDepthLocked(HoroscopeDomain domain) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+            'Con il Cerchio Premium scegli quanto approfondire ${domain.label}, scheda per scheda.'),
       ),
     );
   }
@@ -233,7 +257,7 @@ class _Hero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 236,
+      height: 268,
       child: AnimatedBuilder(
         animation: pulse,
         builder: (context, _) {
@@ -242,8 +266,8 @@ class _Hero extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               Container(
-                width: 220 + 26 * breathe,
-                height: 220 + 26 * breathe,
+                width: 250 + 28 * breathe,
+                height: 250 + 28 * breathe,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(colors: [
@@ -260,7 +284,7 @@ class _Hero extends StatelessWidget {
               ZodiacEmblem(
                   key: const Key('oroscopo_emblem'),
                   sign: sign,
-                  size: 200,
+                  size: 264,
                   art: ZodiacEmblemArt.emblem),
             ],
           );
@@ -405,33 +429,61 @@ class _PeriodTab extends StatelessWidget {
 }
 
 class _HoroscopeCardView extends StatelessWidget {
-  const _HoroscopeCardView(
-      {required this.card, required this.palette, required this.pulse});
+  const _HoroscopeCardView({
+    required this.card,
+    required this.palette,
+    required this.pulse,
+    required this.depth,
+    required this.onDepthLocked,
+  });
 
   final HoroscopeCard card;
   final MaestroPalette palette;
   final Animation<double> pulse;
+  final AnswerDepth depth;
+  final VoidCallback onDepthLocked;
 
   @override
   Widget build(BuildContext context) {
-    return DepthCard(
+    return Container(
       key: Key('oroscopo_card_${card.domain.name}'),
-      raised: true,
       padding: const EdgeInsets.all(SpacingTokens.lg),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+        // Blu e oro di Medora, come la card di condivisione.
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            palette.surfaceElevated.withValues(alpha: 0.95),
+            Color.lerp(palette.surface, palette.deepest, 0.35)!
+                .withValues(alpha: 0.92),
+          ],
+        ),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.32)),
+        boxShadow: [
+          BoxShadow(
+            color: palette.glow.withValues(alpha: 0.16),
+            blurRadius: 22,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Livello visivo prima del testo: la forma a tema col numero.
+          // In alto a sinistra titolo e categoria, in alto a destra la
+          // profondita' della risposta.
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(card.title,
-                        style: TypographyTokens.display(size: 19)
-                            .copyWith(color: palette.goldSoft)),
+                        style: TypographyTokens.display(size: 18)
+                            .copyWith(color: palette.goldSoft, height: 1.1)),
                     Text(card.domain.label.toUpperCase(),
                         style: TypographyTokens.label(size: 9).copyWith(
                             color: ColorTokens.textSecondary,
@@ -439,14 +491,31 @@ class _HoroscopeCardView extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: SpacingTokens.sm),
-              DomainLevel(
-                domain: card.domain,
-                value: card.indicator,
-                palette: palette,
-                pulse: pulse,
+              const SizedBox(width: SpacingTokens.xs),
+              // Il selettore resta compatto: il titolo deve avere spazio per
+              // andare a capo sulle parole, mai spezzarsi a meta'.
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 138),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerRight,
+                  child: AnswerDepthSelector(
+                    key: Key('oroscopo_depth_${card.domain.name}'),
+                    current: depth,
+                    palette: palette,
+                    onLockedTap: onDepthLocked,
+                  ),
+                ),
               ),
             ],
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          // Poi l'infografica a cinque icone col numero, sotto il titolo.
+          DomainLevel(
+            domain: card.domain,
+            value: card.indicator,
+            palette: palette,
+            pulse: pulse,
           ),
           const SizedBox(height: SpacingTokens.md),
           // L'apertura personalizzata col nome, prima del testo della Generale.

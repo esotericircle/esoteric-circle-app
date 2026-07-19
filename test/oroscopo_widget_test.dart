@@ -12,6 +12,7 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_glyph.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
 import 'package:esoteric_circle/features/horoscope/horoscope_visuals.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
@@ -181,6 +182,92 @@ void main() {
     testWidgets('Il disclaimer compare una volta sola', (tester) async {
       await pumpScreen(tester);
       expect(find.byKey(const Key('oroscopo_disclaimer')), findsOneWidget);
+    });
+
+    testWidgets('Cinque icone di livello riempite da sinistra, col numero',
+        (tester) async {
+      await pumpScreen(tester);
+      final levels =
+          tester.widgetList<DomainLevel>(find.byType(DomainLevel)).toList();
+      expect(levels.length, 4);
+      for (final l in levels) {
+        expect(l.value, inInclusiveRange(1, 5));
+        expect(find.text('${l.value} su 5'), findsWidgets);
+        // Cinque icone per scheda, sempre, qualunque sia il livello.
+        final icone = find.descendant(
+          of: find.byWidget(l),
+          matching: find.byType(CustomPaint),
+        );
+        expect(tester.widgetList(icone).length,
+            greaterThanOrEqualTo(Horoscope.indicatorMax));
+      }
+    });
+
+    testWidgets('L\'infografica sta sotto titolo e categoria', (tester) async {
+      await pumpScreen(tester);
+      for (final domain in HoroscopeDomain.values) {
+        final card = find.byKey(Key('oroscopo_card_${domain.name}'));
+        final categoria = tester.getTopLeft(find.descendant(
+            of: card, matching: find.text(domain.label.toUpperCase())));
+        final livello = tester.getTopLeft(find.descendant(
+            of: card, matching: find.byType(DomainLevel)));
+        expect(livello.dy, greaterThan(categoria.dy),
+            reason:
+                'l\'infografica di ${domain.label} non sta sotto la categoria');
+      }
+    });
+
+    testWidgets('Ogni bolla ha il selettore di profondita\' bloccato',
+        (tester) async {
+      await pumpScreen(tester);
+      for (final domain in HoroscopeDomain.values) {
+        final card = find.byKey(Key('oroscopo_card_${domain.name}'));
+        final selector = find.byKey(Key('oroscopo_depth_${domain.name}'));
+        expect(selector, findsOneWidget);
+        // Le tre voci ci sono tutte.
+        for (final depth in AnswerDepth.values) {
+          expect(find.descendant(of: card, matching: find.text(depth.label)),
+              findsOneWidget,
+              reason: '${depth.label} manca su ${domain.label}');
+        }
+        // Ed e' bloccato: lucchetto presente.
+        expect(
+            find.descendant(
+                of: selector, matching: find.byIcon(Icons.lock_rounded)),
+            findsOneWidget);
+        // Il selettore sta in alto a destra, oltre la meta' della bolla.
+        final cardRect = tester.getRect(card);
+        final selRect = tester.getRect(selector);
+        expect(selRect.center.dx, greaterThan(cardRect.center.dx));
+        expect(selRect.top - cardRect.top, lessThan(cardRect.height / 2));
+      }
+    });
+
+    testWidgets('Le bolle sono nel blu di Medora, non nel viola neutro',
+        (tester) async {
+      await pumpScreen(tester);
+      final medora = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+      const neutro = MaestroPalette.neutral;
+      final container = tester
+          .widget<Container>(find.byKey(const Key('oroscopo_card_generale')));
+      final deco = container.decoration! as BoxDecoration;
+      final tinta = (deco.gradient! as LinearGradient).colors.first;
+      expect(tinta.toARGB32(),
+          medora.surfaceElevated.withValues(alpha: 0.95).toARGB32());
+      expect(tinta.toARGB32(),
+          isNot(neutro.surfaceElevated.withValues(alpha: 0.95).toARGB32()));
+    });
+
+    testWidgets('L\'emblema e\' grande e il blocco parte in alto',
+        (tester) async {
+      await pumpScreen(tester);
+      final emblema = tester.getRect(find.byKey(const Key('oroscopo_emblem')));
+      expect(emblema.width, greaterThanOrEqualTo(240),
+          reason: 'emblema troppo piccolo');
+      // Nessun vuoto sopra: il blocco eroe parte vicino al bordo alto.
+      final lista = tester.getRect(find.byKey(const Key('oroscopo_list')));
+      expect(emblema.top - lista.top, lessThan(40),
+          reason: 'troppo vuoto sopra l\'emblema');
     });
   });
 
