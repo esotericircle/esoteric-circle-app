@@ -12,6 +12,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../synastry/sinastria_share_card.dart' show captureBoundaryPng;
+import 'tarot_card_art.dart';
 
 /// La card verticale condivisibile della Stesa a Tre Carte, nel formato unico:
 /// sfondo blu e oro di Medora, i tre arcani con la loro posizione, la sintesi,
@@ -137,35 +138,16 @@ class _CardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final art = Image.asset(
-      drawn.card.fullPath,
-      fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => Container(
-        color: palette.surfaceElevated,
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(4),
-        child: Text(drawn.card.name,
-            textAlign: TextAlign.center,
-            style: TypographyTokens.display(size: 10)
-                .copyWith(color: palette.goldSoft)),
-      ),
-    );
     return Column(
       children: [
         AspectRatio(
-          aspectRatio: 2 / 3,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border:
-                    Border.all(color: palette.gold.withValues(alpha: 0.5)),
-              ),
-              child: drawn.reversed
-                  ? Transform.rotate(angle: math.pi, child: art)
-                  : art,
-            ),
+          aspectRatio: TarotFrame.aspect,
+          // Stessa carta della schermata, coi cartigli riempiti a runtime.
+          child: TarotCardArt(
+            card: drawn.card,
+            palette: palette,
+            reversed: drawn.reversed,
+            borderRadius: 5,
           ),
         ),
       ],

@@ -12,6 +12,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'stesa_share_card.dart';
+import 'tarot_card_art.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
 const double kTarotAspect = 2 / 3;
@@ -390,13 +391,8 @@ class _Slot extends StatelessWidget {
             style: TypographyTokens.label(size: 9).copyWith(
                 color: palette.goldSoft, letterSpacing: 1.2)),
         if (drawn != null) ...[
-          // Nome su una riga e il verso sotto: cosi' "rovesciato" non si spezza
-          // mai a meta' parola nella colonna stretta.
-          Text(drawn!.card.name,
-              key: Key('stesa_name_${position.name}'),
-              textAlign: TextAlign.center,
-              style: TypographyTokens.display(size: 13)
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.15)),
+          // Il nome sta nel cartiglio della carta: qui sotto resta solo il
+          // verso, quando serve, e la riga di significato.
           if (drawn!.reversed)
             Text('rovesciato',
                 key: Key('stesa_reversed_${position.name}'),
@@ -491,23 +487,24 @@ class _FlipCardState extends State<_FlipCard>
           transform: Matrix4.identity()
             ..setEntry(3, 2, 0.0012)
             ..rotateY(angle),
+          // A meta' giro il contenuto e' specchiato: va contro-ruotato il DORSO,
+          // che si vede quando l'angolo e' oltre il quarto di giro. La faccia,
+          // che si vede ad angolo zero, non va toccata, altrimenti resterebbe
+          // specchiata a riposo e i cartigli si leggerebbero al contrario.
           child: showBack
-              ? _CardBack(palette: widget.palette)
-              // La faccia va contro-ruotata, altrimenti si vedrebbe a specchio.
-              : Transform(
+              ? Transform(
                   alignment: Alignment.center,
                   transform: Matrix4.identity()..rotateY(math.pi),
-                  child: _CardFace(
-                      drawn: widget.drawn, palette: widget.palette),
-                ),
+                  child: _CardBack(palette: widget.palette),
+                )
+              : _CardFace(drawn: widget.drawn, palette: widget.palette),
         );
       },
     );
   }
 }
 
-/// La faccia della carta. Se l'arte manca, un ripiego dipinto col nome, mai una
-/// carta vuota.
+/// La faccia della carta, con i cartigli riempiti a runtime.
 class _CardFace extends StatelessWidget {
   const _CardFace({required this.drawn, required this.palette});
 
@@ -516,24 +513,10 @@ class _CardFace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final art = Image.asset(
-      drawn.card.fullPath,
-      fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) =>
-          _PaintedFace(drawn: drawn, palette: palette),
-    );
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(6),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
-        ),
-        // La rovesciata si mostra girata di mezzo giro.
-        child: drawn.reversed
-            ? Transform.rotate(angle: math.pi, child: art)
-            : art,
-      ),
+    return TarotCardArt(
+      card: drawn.card,
+      palette: palette,
+      reversed: drawn.reversed,
     );
   }
 }

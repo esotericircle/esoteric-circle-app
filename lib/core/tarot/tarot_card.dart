@@ -46,6 +46,39 @@ class TarotCard {
 
   String get thumbPath => FamilyImage.thumb(AssetFamily.tarocchi, stem);
   String get fullPath => FamilyImage.full(AssetFamily.tarocchi, stem);
+
+  /// Il numero d'ordine di un Arcano Maggiore, da 0 a 21, letto dallo stem.
+  /// Null per i Minori.
+  int? get majorNumber {
+    if (arcana != TarotArcana.maggiore) return null;
+    final m = RegExp(r'^tar_rw_(\d{2})_').firstMatch(stem);
+    return m == null ? null : int.parse(m.group(1)!);
+  }
+
+  /// Il numerale del cartiglio superiore: romano per i Maggiori, arabo per i
+  /// Minori numerati, il nome della figura per le carte di corte.
+  String get numeral {
+    if (arcana == TarotArcana.maggiore) {
+      return _romani[majorNumber ?? 0];
+    }
+    switch (number) {
+      case 11:
+        return 'Fante';
+      case 12:
+        return 'Cavaliere';
+      case 13:
+        return 'Regina';
+      case 14:
+        return 'Re';
+      default:
+        return '${number ?? ''}';
+    }
+  }
+
+  static const List<String> _romani = [
+    '0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', //
+    'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI'
+  ];
 }
 
 /// Il mazzo completo dei 78 Arcani, dal corpus `docs/corpus/tarocchi.md`, legati
