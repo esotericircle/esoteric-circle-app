@@ -1,27 +1,35 @@
 import '../../core/maestro/maestro.dart';
+import '../../core/maestro/maestro_reply.dart';
 
 /// La lettura di un singolo Maestro su un tema, nella sua lente di dominio.
 ///
-/// Segue l'anatomia del responso a quattro strati: il livello visivo lo dà la
-/// UI, qui vivono la sintesi (colpo d'occhio), il testo narrato e l'invito.
+/// Lega un Maestro ai tre strati testuali della sua risposta ([MaestroReply]):
+/// il livello visivo lo dà la UI, qui vivono il colpo d'occhio, il testo narrato
+/// e l'invito. I tre strati sono lo stesso modello che produce anche Gemini,
+/// cosi' la card della schermata mostra allo stesso modo la risposta viva e
+/// quella di ripiego.
 class MaestroLens {
-  const MaestroLens({
+  const MaestroLens({required this.maestro, required this.reply});
+
+  /// Costruisce la lente dai tre strati direttamente, comodo per l'oracolo.
+  MaestroLens.strati({
     required this.maestro,
-    required this.glance,
-    required this.reading,
-    required this.invite,
-  });
+    required String glance,
+    required String reading,
+    required String invite,
+  }) : reply = MaestroReply(glance: glance, reading: reading, invite: invite);
 
   final Maestro maestro;
+  final MaestroReply reply;
 
   /// Sintesi in una riga, il colpo d'occhio.
-  final String glance;
+  String get glance => reply.glance;
 
   /// Testo narrato nel tono del Maestro, poche righe.
-  final String reading;
+  String get reading => reply.reading;
 
   /// Invito o domanda sola per il passo successivo.
-  final String invite;
+  String get invite => reply.invite;
 }
 
 /// L'esito di "Chiedi ai Maestri": una lente per Maestro interpellato e, quando
@@ -78,7 +86,7 @@ class MaestroOracle {
     final v = _seed(theme) % 3; // variante stabile dal tema
     switch (maestro) {
       case Maestro.medora:
-        return MaestroLens(
+        return MaestroLens.strati(
           maestro: maestro,
           glance: '${const [
             'Sul tema di',
@@ -96,7 +104,7 @@ class MaestroOracle {
           ][v],
         );
       case Maestro.aura:
-        return MaestroLens(
+        return MaestroLens.strati(
           maestro: maestro,
           glance: '${const [
             'Prima di pensare a',
@@ -114,7 +122,7 @@ class MaestroOracle {
           ][v],
         );
       case Maestro.caligo:
-        return MaestroLens(
+        return MaestroLens.strati(
           maestro: maestro,
           glance: '${const [
             'Getto una runa su',

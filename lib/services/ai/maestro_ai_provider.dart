@@ -2,6 +2,8 @@ import '../../core/chat/chat_message.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/maestro/maestro_reply.dart';
+import '../../core/maestro/natal_context.dart';
 
 /// Confine astratto verso l'AI a runtime dei Maestri.
 ///
@@ -31,6 +33,28 @@ abstract interface class MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+  });
+
+  /// Consulta UN Maestro su un [theme], a domanda singola, e restituisce i tre
+  /// strati della sua risposta ([MaestroReply]).
+  ///
+  /// E' la via di "Chiedi ai Maestri", distinta dalla chat: niente storia di
+  /// conversazione, una sola domanda e una sola risposta nella lente del
+  /// dominio. La composizione del prompt (persona, regole di lingua, contesto di
+  /// memoria e, quando ci sara', il [natal]) e' dell'implementazione: chi chiama
+  /// passa i fatti, non il prompt gia' cotto. La firma prevede gia' la
+  /// personalizzazione natale, oggi inerte con [natal] a null, cosi' non andra'
+  /// riscritta quando arrivera'.
+  ///
+  /// Se il provider non e' pronto o non trova le parole, solleva
+  /// [MaestroAiUnavailable]: chi chiama cade sul ripiego deterministico, mai un
+  /// errore crudo a video.
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
   });
 
   /// Distilla la conversazione in una sintesi piu' pochi fatti stabili, per
@@ -70,6 +94,17 @@ class UnavailableMaestroAiProvider implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+  }) async {
+    throw const MaestroAiUnavailable();
+  }
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
   }) async {
     throw const MaestroAiUnavailable();
   }

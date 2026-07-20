@@ -3,6 +3,8 @@ import 'package:esoteric_circle/core/chat/intent_classifier.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
+import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
@@ -105,6 +107,21 @@ class _RecordingAi implements MaestroAiProvider {
   }) async {
     replies++;
     return 'Una risposta a testo.';
+  }
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+  }) async {
+    return const MaestroReply(
+      glance: 'Un colpo d\'occhio.',
+      reading: 'Il testo narrato.',
+      invite: 'Un invito.',
+    );
   }
 
   @override

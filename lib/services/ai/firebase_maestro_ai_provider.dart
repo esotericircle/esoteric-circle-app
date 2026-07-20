@@ -6,6 +6,8 @@ import '../../core/chat/chat_message.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/maestro/maestro_reply.dart';
+import '../../core/maestro/natal_context.dart';
 import 'maestro_ai_provider.dart';
 import 'maestro_persona.dart';
 
@@ -81,6 +83,54 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   }
 
   @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+  }) async {
+    final t = theme.trim();
+    if (t.isEmpty) {
+      throw const MaestroAiUnavailable('Nessuna domanda da porre.');
+    }
+
+    final model = _ai.generativeModel(
+      model: chatModel,
+      systemInstruction: Content.system(
+        MaestroPersona.consultInstruction(
+          maestro: maestro,
+          profile: profile,
+          memory: memory,
+          natal: natal,
+        ),
+      ),
+      generationConfig: GenerationConfig(
+        temperature: 0.9,
+        topP: 0.95,
+        maxOutputTokens: 800,
+        // Uscita nei tre strati come JSON, cosi' l'app la mostra come qualunque
+        // altra risposta. Parsing difensivo, come nel distillato.
+        responseMimeType: 'application/json',
+      ),
+    );
+
+    final response = await model.generateContent([
+      Content.text('La persona chiede, sul tema: «$t». '
+          'Rispondi solo su questo tema, nella tua lente di dominio.'),
+    ]);
+    final raw = response.text?.trim();
+    if (raw == null || raw.isEmpty) {
+      throw const MaestroAiUnavailable('Il Maestro non ha trovato le parole.');
+    }
+    final reply = _parseReply(raw);
+    if (reply == null || !reply.isComplete) {
+      throw const MaestroAiUnavailable('Il Maestro non ha trovato le parole.');
+    }
+    return reply;
+  }
+
+  @override
   Future<MemoryDigest?> distill({
     required Maestro maestro,
     required UserProfile profile,
@@ -136,6 +186,25 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
             ? Content.text(m.text)
             : Content.model([TextPart(m.text)]),
     ];
+  }
+
+  /// Estrae i tre strati dal JSON del modello, in modo difensivo: qualunque
+  /// forma inattesa torna null, e chi chiama cade sul ripiego. Mai un'eccezione
+  /// di parsing che arrivi cruda a video.
+  MaestroReply? _parseReply(String raw) {
+    try {
+      final start = raw.indexOf('{');
+      final end = raw.lastIndexOf('}');
+      if (start < 0 || end <= start) return null;
+      final decoded = jsonDecode(raw.substring(start, end + 1));
+      if (decoded is! Map) return null;
+      final glance = (decoded['glance'] as Object?)?.toString().trim() ?? '';
+      final reading = (decoded['reading'] as Object?)?.toString().trim() ?? '';
+      final invite = (decoded['invite'] as Object?)?.toString().trim() ?? '';
+      return MaestroReply(glance: glance, reading: reading, invite: invite);
+    } catch (_) {
+      return null;
+    }
   }
 
   /// Estrae il distillato dal JSON del modello, in modo difensivo: qualunque

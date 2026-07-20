@@ -20,6 +20,8 @@ import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
+import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
@@ -1386,6 +1388,21 @@ class _ScriptedMaestro implements MaestroAiProvider {
     required String userMessage,
   }) async {
     return 'Le stelle ti ascoltano. Dimmi ancora, cerchiamo insieme il filo.';
+  }
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+  }) async {
+    return const MaestroReply(
+      glance: 'Le stelle ti ascoltano.',
+      reading: 'Un transito passa, non una sentenza.',
+      invite: 'Qual è la prima piccola mossa che senti giusta ora?',
+    );
   }
 
   @override

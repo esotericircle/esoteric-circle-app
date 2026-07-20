@@ -1,6 +1,7 @@
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/maestro/natal_context.dart';
 
 /// Costruisce le istruzioni di sistema (la persona) di un Maestro per Gemini.
 ///
@@ -162,6 +163,63 @@ MODO:
       _commonRules(profile),
       '',
       _memoryContext(memory),
+    ].join('\n');
+  }
+
+  /// Contesto natale per una consultazione, quando i dati ci sono. Solo fatti
+  /// gia' calcolati dal motore dell'app: il Maestro li interpreta, non li
+  /// inventa. Vuoto o assente, non aggiunge nulla e la risposta resta sul tema.
+  static String _natalContext(NatalContext? natal) {
+    if (natal == null || natal.isEmpty) return '';
+    final buffer = StringBuffer(
+        'DATI NATALI DELLA PERSONA (calcolati dal motore, interpretali, non inventarne altri):\n');
+    if (natal.sunSign != null && natal.sunSign!.trim().isNotEmpty) {
+      buffer.writeln('- Segno solare: ${natal.sunSign!.trim()}.');
+    }
+    if (natal.moonSign != null && natal.moonSign!.trim().isNotEmpty) {
+      buffer.writeln('- Segno lunare: ${natal.moonSign!.trim()}.');
+    }
+    if (natal.ascendant != null && natal.ascendant!.trim().isNotEmpty) {
+      buffer.writeln('- Ascendente: ${natal.ascendant!.trim()}.');
+    }
+    if (natal.lifeNumber != null) {
+      final titolo =
+          (natal.lifeNumberTitle != null && natal.lifeNumberTitle!.trim().isNotEmpty)
+              ? ', ${natal.lifeNumberTitle!.trim()}'
+              : '';
+      buffer.writeln('- Numero della vita: ${natal.lifeNumber}$titolo.');
+    }
+    if (natal.moonPhase != null && natal.moonPhase!.trim().isNotEmpty) {
+      buffer.writeln('- Fase lunare di oggi: ${natal.moonPhase!.trim()}.');
+    }
+    return buffer.toString();
+  }
+
+  /// Istruzione di sistema per una consultazione a domanda singola di "Chiedi ai
+  /// Maestri". Riusa voce, regole di lingua, anatomia a quattro strati e memoria
+  /// del Maestro, poi chiede l'uscita nei tre strati come JSON stretto, cosi'
+  /// l'app la mostra come qualunque altra risposta. Il [natal], quando ci sara',
+  /// personalizza senza cambiare nulla del resto.
+  static String consultInstruction({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    NatalContext? natal,
+  }) {
+    final natalBlock = _natalContext(natal);
+    return [
+      _voice(maestro),
+      '',
+      _commonRules(profile),
+      '',
+      if (natalBlock.isNotEmpty) ...[natalBlock, ''],
+      _memoryContext(memory),
+      '',
+      'FORMA DELL\'USCITA, PER QUESTA CONSULTAZIONE:',
+      '- La persona pone una domanda sola. Rispondi solo su quel tema, nella tua lente di dominio, senza divagare e senza inventare dati sulla persona.',
+      '- Restituisci solo un oggetto JSON valido, senza testo attorno, con questa forma esatta:',
+      '{"glance": "il colpo d\'occhio in una riga", "reading": "il testo narrato nel tuo tono, poche righe", "invite": "un invito o una domanda sola per il passo successivo"}',
+      '- I tre campi in italiano, accenti veri, niente trattino lungo, nessun campo vuoto. Nessun commento fuori dal JSON.',
     ].join('\n');
   }
 
