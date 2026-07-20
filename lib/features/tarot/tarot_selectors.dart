@@ -150,7 +150,7 @@ class TarotSetupPanel extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.sm),
           _Riga(
-            titolo: 'Profondita\'',
+            titolo: 'Profondità',
             palette: palette,
             child: Align(
               alignment: Alignment.centerLeft,
@@ -158,6 +158,9 @@ class TarotSetupPanel extends StatelessWidget {
                 key: const Key('stesa_depth'),
                 current: setup.depth,
                 palette: palette,
+                // Il titolo della riga dice gia' di cosa si tratta: il chip
+                // ripeteva la stessa parola due volte di fila.
+                compact: true,
                 onSelect: (d) => onChanged(setup.copyWith(depth: d)),
                 onLockedTap: (d) => onLocked(d.label),
               ),

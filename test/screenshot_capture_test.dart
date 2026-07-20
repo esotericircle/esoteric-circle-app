@@ -40,6 +40,7 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_glyph.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
+import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
@@ -764,6 +765,36 @@ void main() {
     await step(tester);
     await tester.pump(const Duration(seconds: 2));
     await capture(tester, rootKey, 'stesa-tre-carte.png');
+  });
+
+  // --- La scena della Stesa a riposo, prima della scelta ---
+  testWidgets('Cattura la scena della Stesa a riposo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    tester.view.physicalSize = const Size(390, 1500);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // Senza intro e senza carte gia' scelte: e' il ventaglio che aspetta, con
+    // Medora sopra e i gesti del mazzo sotto.
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(seed: 1, skipIntro: true),
+      ),
+    )));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), element);
+    });
+    // Si lascia finire l'ingresso a spirale e ci si ferma sul respiro. Serve
+    // un secondo battito: la scena passa a riposo quando la Future
+    // dell'ingresso si risolve, non nello stesso fotogramma.
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump(const Duration(milliseconds: 100));
+    await capture(tester, rootKey, 'stesa-scena.png');
   });
 
   // --- La card condivisibile della Stesa ---

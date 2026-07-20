@@ -62,9 +62,26 @@ class MedoraStage extends StatefulWidget {
   /// Respiro e pulsazione. Con Riduci Movimento la scena resta ferma.
   final bool breathe;
 
-  /// L'asset del segnaposto. Quando arrivera' l'animazione finale, questo e'
-  /// l'unico punto da cambiare.
+  /// Il ritratto unico, che c'e' sempre. E' il ripiego: se i tre ritratti
+  /// d'espressione non sono ancora stati prodotti, la scena usa questo e non
+  /// resta mai vuota.
   static const String placeholderAsset = 'brand_assets/avatars/Medora-1.png';
+
+  /// I tre ritratti d'espressione, che Mauro produrra'.
+  ///
+  /// Stanno nella cartella gia' dichiarata nel pubspec, quindi entrano nel
+  /// bundle appena compaiono, senza toccare il codice. Finche' mancano,
+  /// `Image.asset` finisce nel suo ripiego e si vede il ritratto unico: mai un
+  /// vuoto, mai un errore a video.
+  static const Map<MedoraExpression, String> ritratti = {
+    MedoraExpression.serena: 'brand_assets/avatars/Medora-serena.png',
+    MedoraExpression.sorrisoCaldo: 'brand_assets/avatars/Medora-sorriso.png',
+    MedoraExpression.sguardoGrave: 'brand_assets/avatars/Medora-grave.png',
+  };
+
+  /// Il ritratto che spetta a un'espressione.
+  static String assetFor(MedoraExpression e) =>
+      ritratti[e] ?? placeholderAsset;
 
   /// Quanta parte dell'avatar a figura intera resta in scena: dalla testa fino
   /// sotto le mani che reggono le carte.

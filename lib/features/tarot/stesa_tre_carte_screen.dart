@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../core/maestro/maestro.dart';
-import '../../core/tarot/tarot_card.dart';
 import '../../core/tarot/tarot_reading.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
@@ -14,6 +13,9 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../horoscope/answer_depth.dart';
+import 'stesa_choreography.dart';
+import 'stesa_fan.dart';
+import 'stesa_handoff.dart';
 import 'stesa_share_card.dart';
 import 'medora_stage.dart';
 import 'tarot_card_art.dart';
@@ -35,6 +37,7 @@ class StesaTreCarteScreen extends StatefulWidget {
     this.seed,
     this.revealAll = false,
     this.topic,
+    this.skipIntro = false,
   });
 
   /// L'argomento di partenza. Se nullo si parte da quello predefinito, la
@@ -48,6 +51,14 @@ class StesaTreCarteScreen extends StatefulWidget {
   /// Per l'anteprima e i test: parte con le tre carte gia' rivelate.
   final bool revealAll;
 
+  /// Salta il bianco iniziale, quando la schermata si apre senza intro.
+  ///
+  /// L'intro cinematografica finisce in bianco pieno e la scena parte da li'
+  /// per coprire il taglio. Arrivando da altrove quel bianco sarebbe un lampo
+  /// senza motivo, quindi si salta: e' anche il modo in cui girano i test e
+  /// l'anteprima.
+  final bool skipIntro;
+
   static Route<void> route({int? seed}) => MaterialPageRoute<void>(
         builder: (_) => MaestroScope(child: StesaTreCarteScreen(seed: seed)),
       );
@@ -56,8 +67,43 @@ class StesaTreCarteScreen extends StatefulWidget {
   State<StesaTreCarteScreen> createState() => _StesaTreCarteScreenState();
 }
 
-class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
+class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
+    with TickerProviderStateMixin {
   late final TarotSpread _spread = TarotSpread.draw(seed: widget.seed);
+
+  // --- La regia della scena ---
+
+  /// La scena corrente. Ogni scena sa cosa mostrare e quali gesti accettare.
+  late StesaScene _scene =
+      widget.revealAll ? StesaScene.completa : StesaScene.handoff;
+
+  late final AnimationController _handoff = AnimationController(
+      vsync: this, duration: StesaTiming.handoff);
+  late final AnimationController _ingresso = AnimationController(
+      vsync: this, duration: StesaTiming.ingresso);
+  late final AnimationController _respiro = AnimationController(
+      vsync: this, duration: StesaTiming.respiro);
+  late final AnimationController _taglio = AnimationController(
+      vsync: this, duration: StesaTiming.taglio);
+  late final AnimationController _mescola = AnimationController(
+      vsync: this, duration: StesaTiming.mescolamento);
+  late final AnimationController _volo = AnimationController(
+      vsync: this, duration: StesaTiming.volo);
+
+  /// Dove il mazzo e' stato tagliato l'ultima volta.
+  int _taglioIndice = TarotSpread.fanSize ~/ 2;
+
+  /// La carta del ventaglio che sta volando verso il suo slot.
+  int? _inVolo;
+
+  /// Lo scuotimento del telefono, quando c'e' l'accelerometro.
+  ShakeListener? _shake;
+
+  /// Vero quando le animazioni di sistema sono spente: tutto arriva subito
+  /// allo stato finale, senza moto.
+  bool _reduceMotion = false;
+
+  bool _avviata = false;
 
   /// Quante carte sono gia' state pescate, da 0 a 3.
   late int _drawn = widget.revealAll ? SpreadPosition.values.length : 0;
@@ -85,16 +131,108 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
     for (final p in SpreadPosition.values) p: AnswerDepth.free,
   };
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _reduceMotion = MediaQuery.of(context).disableAnimations;
+    if (_avviata) return;
+    _avviata = true;
+    _shake = ShakeListener(onShake: _mischia)..start();
+    _apriScena();
+  }
+
+  /// L'apertura: dal bianco dell'intro alla scena viva, poi le carte che
+  /// nascono dal cosmo.
+  Future<void> _apriScena() async {
+    if (widget.revealAll) {
+      // La stesa e' gia' fatta: nessuna coreografia da suonare.
+      _handoff.value = 1;
+      _ingresso.value = 1;
+      return;
+    }
+    if (_reduceMotion) {
+      // Riduci Movimento: si arriva subito alla posa di riposo.
+      _handoff.value = 1;
+      _ingresso.value = 1;
+      if (mounted) setState(() => _scene = StesaScene.riposo);
+      return;
+    }
+    if (widget.skipIntro) {
+      _handoff.value = 1;
+    } else {
+      setState(() => _scene = StesaScene.handoff);
+      await _handoff.forward();
+      if (!mounted) return;
+    }
+    setState(() => _scene = StesaScene.ingresso);
+    await _ingresso.forward();
+    if (!mounted) return;
+    setState(() => _scene = StesaScene.riposo);
+    _respiro.repeat();
+  }
+
+  /// Il taglio del mazzo, prima di mescolare.
+  Future<void> _taglia() async {
+    if (!_scene.accettaGesti) return;
+    setState(() {
+      _scene = StesaScene.taglio;
+      // Il punto di taglio cambia a ogni gesto, ma resta dentro il mazzo.
+      _taglioIndice = 2 + (_taglioIndice + 3) % (TarotSpread.fanSize - 3);
+    });
+    if (!_reduceMotion) {
+      await _taglio.forward(from: 0);
+      if (!mounted) return;
+    }
+    _taglio.value = 0;
+    setState(() => _scene = StesaScene.riposo);
+  }
+
+  /// Il mescolamento a vortice, da scuotimento o dal tasto.
+  Future<void> _mischia() async {
+    if (!mounted || !_scene.accettaGesti) return;
+    setState(() => _scene = StesaScene.mescolamento);
+    if (!_reduceMotion) {
+      await _mescola.forward(from: 0);
+      if (!mounted) return;
+    }
+    _mescola.value = 0;
+    setState(() => _scene = StesaScene.riposo);
+  }
+
+  @override
+  void dispose() {
+    _shake?.dispose();
+    _handoff.dispose();
+    _ingresso.dispose();
+    _respiro.dispose();
+    _taglio.dispose();
+    _mescola.dispose();
+    _volo.dispose();
+    super.dispose();
+  }
+
   /// L'ultima carta scoperta: e' quella su cui Medora posa lo sguardo.
   DrawnCard? get _active => _drawn == 0 ? null : _spread.cards[_drawn - 1];
 
   bool get _complete => _drawn >= SpreadPosition.values.length;
 
-  void _pick(int fanIndex) {
+  /// La scelta: la carta si stacca dal ventaglio, vola nel suo slot con una
+  /// scia di stelle, poi il flip la gira sulla faccia.
+  Future<void> _pick(int fanIndex) async {
     if (_complete || _taken.contains(fanIndex)) return;
+    if (!_scene.accettaGesti) return;
     setState(() {
       _taken.add(fanIndex);
+      _inVolo = fanIndex;
+    });
+    if (!_reduceMotion) {
+      await _volo.forward(from: 0);
+      if (!mounted) return;
+    }
+    setState(() {
+      _inVolo = null;
       _drawn++;
+      if (_complete) _scene = StesaScene.completa;
     });
   }
 
@@ -124,6 +262,27 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
           child: Stack(
             children: [
               _content(palette),
+              // Il bianco con cui l'intro passa la mano: sta sopra la scena e
+              // dissolve, cosi' il taglio fra video e app non si vede.
+              AnimatedBuilder(
+                animation: _handoff,
+                builder: (context, _) => HandoffVeil(
+                  key: const Key('stesa_handoff'),
+                  opacity: 1 - _handoff.value,
+                ),
+              ),
+              // La carta che vola dal ventaglio al suo slot, con la scia.
+              if (_inVolo != null)
+                AnimatedBuilder(
+                  animation: _volo,
+                  builder: (context, _) => _CartaInVolo(
+                    key: const Key('stesa_volo'),
+                    progress: _volo.value,
+                    destinazione: _drawn,
+                    palette: palette,
+                    seed: _inVolo!,
+                  ),
+                ),
               if (_renderCard)
                 Positioned(
                   left: -3000,
@@ -175,10 +334,58 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
                 color: ColorTokens.textSecondary, letterSpacing: 1.2),
           ),
           const SizedBox(height: SpacingTokens.md),
-          _Fan(
-            palette: palette,
-            taken: _taken,
-            onPick: _pick,
+          // Il ventaglio con la sua regia: ingresso a spirale, respiro,
+          // taglio e vortice. Si ridisegna col battito delle quattro fasi.
+          AnimatedBuilder(
+            animation: Listenable.merge(
+                [_ingresso, _respiro, _taglio, _mescola]),
+            builder: (context, _) => StesaFan(
+              palette: palette,
+              taken: _taken,
+              onPick: _pick,
+              scene: _scene,
+              ingresso: _ingresso.value,
+              respiro: _respiro.value,
+              taglio: _taglio.value,
+              mescolamento: _mescola.value,
+              taglioIndice: _taglioIndice,
+              reduceMotion: _reduceMotion,
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          // I gesti del mazzo. Lo scuotimento e' un di piu': questi tasti ci
+          // sono sempre, cosi' chi non ha l'accelerometro non resta fuori.
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _GestoMazzo(
+                key: const Key('stesa_taglia'),
+                icona: Icons.content_cut_rounded,
+                label: 'Taglia',
+                palette: palette,
+                attivo: _scene.accettaGesti,
+                onTap: _taglia,
+              ),
+              const SizedBox(width: SpacingTokens.sm),
+              _GestoMazzo(
+                key: const Key('stesa_mischia'),
+                icona: Icons.casino_rounded,
+                label: 'Mischia',
+                palette: palette,
+                attivo: _scene.accettaGesti,
+                onTap: _mischia,
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            _shake?.attivo ?? false
+                ? 'Scuoti il telefono per mischiare'
+                : 'Tocca Mischia per mescolare il mazzo',
+            key: const Key('stesa_suggerimento_gesto'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.label(size: 9).copyWith(
+                color: ColorTokens.textSecondary, letterSpacing: 0.8),
           ),
           const SizedBox(height: SpacingTokens.lg),
         ],
@@ -346,111 +553,6 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen> {
 }
 
 /// Il ventaglio di carte coperte, col dorso di Medora.
-class _Fan extends StatelessWidget {
-  const _Fan(
-      {required this.palette, required this.taken, required this.onPick});
-
-  final MaestroPalette palette;
-  final Set<int> taken;
-  final ValueChanged<int> onPick;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 150,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          const n = TarotSpread.fanSize;
-          final w = constraints.maxWidth;
-          final cardW = math.min(74.0, w / (n * 0.62));
-          final step = (w - cardW) / (n - 1);
-          return Stack(
-            clipBehavior: Clip.none,
-            children: [
-              for (var i = 0; i < n; i++)
-                Positioned(
-                  left: step * i,
-                  top: (i - (n - 1) / 2).abs() * 4,
-                  child: Transform.rotate(
-                    // Ventaglio: le carte ai lati inclinano verso l'esterno.
-                    angle: (i - (n - 1) / 2) * 0.055,
-                    child: _FanCard(
-                      key: Key('stesa_fan_$i'),
-                      width: cardW,
-                      palette: palette,
-                      taken: taken.contains(i),
-                      onTap: () => onPick(i),
-                    ),
-                  ),
-                ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
-
-class _FanCard extends StatelessWidget {
-  const _FanCard({
-    super.key,
-    required this.width,
-    required this.palette,
-    required this.taken,
-    required this.onTap,
-  });
-
-  final double width;
-  final MaestroPalette palette;
-  final bool taken;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: taken ? null : onTap,
-      child: AnimatedOpacity(
-        opacity: taken ? 0.25 : 1.0,
-        duration: const Duration(milliseconds: 250),
-        child: SizedBox(
-          width: width,
-          height: width / kTarotAspect,
-          child: _CardBack(palette: palette),
-        ),
-      ),
-    );
-  }
-}
-
-/// Il dorso di Medora. Se l'arte manca, un dorso dipinto, mai un vuoto.
-class _CardBack extends StatelessWidget {
-  const _CardBack({required this.palette});
-
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(6),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: palette.gold.withValues(alpha: 0.55)),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Image.asset(
-          TarotDeck.dorsoFull,
-          fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => CustomPaint(
-            painter: _PaintedBackPainter(palette: palette),
-            child: const SizedBox.expand(),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Uno dei tre slot della stesa: vuoto, oppure la carta che si gira.
 class _Slot extends StatelessWidget {
   const _Slot({
     required this.position,
@@ -622,7 +724,7 @@ class _FlipCardState extends State<_FlipCard>
               ? Transform(
                   alignment: Alignment.center,
                   transform: Matrix4.identity()..rotateY(math.pi),
-                  child: _CardBack(palette: widget.palette),
+                  child: CardBack(palette: widget.palette),
                 )
               : _CardFace(drawn: widget.drawn, palette: widget.palette),
         );
@@ -650,36 +752,6 @@ class _CardFace extends StatelessWidget {
 
 
 /// Dorso dipinto di ripiego: un cielo con la stella di Medora.
-class _PaintedBackPainter extends CustomPainter {
-  _PaintedBackPainter({required this.palette});
-
-  final MaestroPalette palette;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    canvas.drawRect(
-      Offset.zero & size,
-      Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [palette.surfaceElevated, palette.deepest],
-        ).createShader(Offset.zero & size),
-    );
-    final c = size.center(Offset.zero);
-    final r = size.shortestSide * 0.26;
-    final gold = Paint()..color = palette.gold.withValues(alpha: 0.75);
-    for (var k = 0; k < 8; k++) {
-      final a = k * math.pi / 4;
-      canvas.drawCircle(
-          c + Offset(math.cos(a), math.sin(a)) * r, size.shortestSide * 0.03, gold);
-    }
-    canvas.drawCircle(c, size.shortestSide * 0.07, gold);
-  }
-
-  @override
-  bool shouldRepaint(_PaintedBackPainter old) => old.palette != palette;
-}
 
 /// Uno strato della lettura: titolo in maiuscoletto, poi il testo.
 class _Strato extends StatelessWidget {
@@ -781,6 +853,157 @@ class _StratoPosizione extends StatelessWidget {
               style: TypographyTokens.body(size: 16).copyWith(
                   color: ColorTokens.textPrimary, height: 1.5)),
         ],
+      ),
+    );
+  }
+}
+
+/// Un gesto sul mazzo: taglia o mischia.
+///
+/// Resta sempre in campo, anche quando il telefono ha l'accelerometro: lo
+/// scuotimento e' un di piu', mai l'unica strada per mescolare.
+class _GestoMazzo extends StatelessWidget {
+  const _GestoMazzo({
+    super.key,
+    required this.icona,
+    required this.label,
+    required this.palette,
+    required this.attivo,
+    required this.onTap,
+  });
+
+  final IconData icona;
+  final String label;
+  final MaestroPalette palette;
+  final bool attivo;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      enabled: attivo,
+      label: label,
+      child: GestureDetector(
+        onTap: attivo ? onTap : null,
+        child: AnimatedOpacity(
+          opacity: attivo ? 1 : 0.4,
+          duration: const Duration(milliseconds: 200),
+          child: Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+              color: palette.surfaceElevated.withValues(alpha: 0.6),
+              border:
+                  Border.all(color: palette.gold.withValues(alpha: 0.45)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icona, size: 15, color: palette.goldSoft),
+                const SizedBox(width: 6),
+                Text(label,
+                    style: TypographyTokens.body(size: 14)
+                        .copyWith(color: palette.goldSoft)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// La carta che si stacca dal ventaglio e vola nel suo slot.
+///
+/// Sale dal ventaglio verso Passato, Presente o Futuro, si illumina lungo la
+/// strada e lascia dietro di se' una scia di stelle. Arrivata a destinazione
+/// sparisce, e il flip dello slot la gira sulla faccia.
+class _CartaInVolo extends StatelessWidget {
+  const _CartaInVolo({
+    super.key,
+    required this.progress,
+    required this.destinazione,
+    required this.palette,
+    required this.seed,
+  });
+
+  /// Il punto del volo, da 0 a 1.
+  final double progress;
+
+  /// L'indice dello slot verso cui va, da 0 a 2.
+  final int destinazione;
+
+  final MaestroPalette palette;
+
+  /// La carta del ventaglio da cui e' partita: da qui nasce la sua scia.
+  final int seed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.fill(
+      child: IgnorePointer(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final w = constraints.maxWidth;
+            final h = constraints.maxHeight;
+            // Gli slot stanno in tre colonne, il ventaglio in basso.
+            final colonna = (destinazione.clamp(0, 2) * 2 + 1) / 6;
+            final e = Curves.easeInOutCubic.transform(progress.clamp(0.0, 1.0));
+            final partenzaX = w * (0.2 + 0.6 * ((seed % 9) / 8));
+            final x = partenzaX + (w * colonna - partenzaX) * e;
+            final y = h * 0.72 + (h * 0.34 - h * 0.72) * e;
+            const cardW = 66.0;
+
+            return Stack(
+              children: [
+                Positioned(
+                  left: x - cardW / 2,
+                  top: y,
+                  width: cardW,
+                  child: Opacity(
+                    // Sfuma sul finire: lo slot prende il testimone col flip.
+                    opacity: progress > 0.88 ? (1 - progress) / 0.12 : 1,
+                    child: Transform.scale(
+                      // Si alza dal ventaglio, quindi cresce appena.
+                      scale: 1 + 0.12 * math.sin(e * math.pi),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          boxShadow: [
+                            BoxShadow(
+                              color: palette.goldSoft.withValues(
+                                  alpha: 0.45 * math.sin(e * math.pi)),
+                              blurRadius: 18,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: AspectRatio(
+                          aspectRatio: kTarotAspect,
+                          child: CardBack(palette: palette),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // La scia di stelle, dietro la carta.
+                Positioned(
+                  left: x - cardW,
+                  top: y,
+                  width: cardW * 2,
+                  height: h * 0.4,
+                  child: StardustTrail(
+                    progress: e,
+                    palette: palette,
+                    seed: seed,
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
