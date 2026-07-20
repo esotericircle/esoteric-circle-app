@@ -14,6 +14,7 @@ import '../../../services/ai/maestro_ai_provider.dart';
 import '../../../services/ai/maestro_oracle.dart';
 import '../../../services/app_services.dart';
 import '../../pricing/upgrade_invite.dart';
+import '../widgets/maestro_bust.dart';
 
 /// "Chiedi ai Maestri", dentro il dominio di un Maestro.
 ///
@@ -581,16 +582,10 @@ class _LensCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border:
-                      Border.all(color: palette.gold.withValues(alpha: 0.6)),
-                ),
-                child:
-                    Icon(lens.maestro.icon, size: 18, color: palette.goldSoft),
-              ),
+              // Il mezzo busto del Maestro che sfonda il cerchio, al posto
+              // dell'icona nuda: qui c'e' spazio, quindi anello e sporgenza
+              // pieni.
+              MaestroBust(maestro: lens.maestro, ring: 46, popFactor: 0.42),
               const SizedBox(width: SpacingTokens.sm),
               Text(lens.maestro.displayName,
                   style: TypographyTokens.display(size: 18)),

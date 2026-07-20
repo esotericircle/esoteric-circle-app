@@ -21,8 +21,8 @@ import 'widgets/chat_composer.dart';
 import 'widgets/chat_empty_state.dart';
 import 'widgets/chat_suggestions.dart';
 import 'widgets/diagnostics_dialog.dart';
-import 'widgets/maestro_avatar.dart';
 import 'widgets/maestro_disclaimer.dart';
+import '../widgets/maestro_bust.dart';
 
 /// La conversazione testuale con un Maestro.
 ///
@@ -343,9 +343,16 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Slot dell'avatar tondo di Medora accanto al nome. Segnaposto.
+            // Il mezzo busto del Maestro che sfonda il cerchio, accanto al nome,
+            // a conversazione avviata. Anello contenuto e sporgenza ridotta,
+            // cosi' la testa non finisce sotto la barra del titolo.
             if (showAvatar) ...[
-              MaestroAvatar(maestro: maestro, size: 38, speaking: speaking),
+              MaestroBust(
+                maestro: maestro,
+                ring: 40,
+                popFactor: 0.2,
+                speaking: speaking,
+              ),
               const SizedBox(width: SpacingTokens.sm),
             ],
             Column(

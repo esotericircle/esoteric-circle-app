@@ -437,6 +437,9 @@ void main() {
     await tester.tap(find.byKey(const Key('ask_add_aura')));
     await step(tester);
     await step(tester);
+    // Decodifica gli avatar, cosi' i mezzi busti delle lenti si vedono nel
+    // preview invece dell'icona di ripiego che sta dietro l'anello.
+    await precacheFaces(tester);
     await capture(tester, rootKey, 'chiedi-ai-maestri.png');
   });
 

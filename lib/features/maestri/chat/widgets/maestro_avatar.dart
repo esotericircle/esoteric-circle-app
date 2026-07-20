@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
 
-/// Avatar tondo del Maestro, segnaposto pronto al vero asset.
+/// Avatar tondo del Maestro accanto alla bolla: un ritratto pulito e contenuto
+/// nel cerchio.
 ///
-/// Per ora mostra il master full body ritagliato sul volto dentro un cerchio
-/// con cornice d'oro; se l'immagine non e' disponibile ripiega sull'icona
-/// lineare. Quando arrivera' il crop dedicato a mezzo busto, bastera' cambiare
-/// la sorgente qui. In chat non c'e' lip sync ne' animazioni firma: solo un
-/// cenno di speaking, l'aura che pulsa quando il Maestro risponde.
+/// Mostra il master full body ritagliato sul volto dentro un cerchio con
+/// cornice d'oro. L'icona lineare di riferimento non e' piu' un fondale fisso:
+/// resta solo come ultimo ripiego se l'immagine mancasse (`errorBuilder`), mai
+/// visibile quando il volto c'e'. A questa misura il ritratto resta dentro il
+/// tondo, senza sfondare, per non affollare il testo. In chat non c'e' lip sync
+/// ne' animazioni firma: solo un cenno di speaking, l'aura che pulsa quando il
+/// Maestro risponde.
 class MaestroAvatar extends StatefulWidget {
   const MaestroAvatar({
     super.key,
@@ -86,28 +89,20 @@ class _MaestroAvatarState extends State<MaestroAvatar>
             ],
           ),
           clipBehavior: Clip.antiAlias,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              // L'icona lineare dorata sta sempre dietro: cosi' non c'e' mai un
-              // cerchio blu vuoto mentre il volto carica o dove il master e'
-              // trasparente. Il volto, quando c'e', la copre.
-              Center(
-                child: Icon(
-                  widget.maestro.icon,
-                  color: palette.goldSoft,
-                  size: widget.size * 0.5,
-                ),
+          child: Image.asset(
+            widget.maestro.avatarAsset,
+            fit: BoxFit.cover,
+            // Bias verso l'alto: sul master full body cade sul volto.
+            alignment: const Alignment(0, -0.7),
+            // Ripiego solo su errore: l'icona lineare dorata al centro del
+            // tondo, mai visibile quando il volto c'e'.
+            errorBuilder: (context, error, stack) => Center(
+              child: Icon(
+                widget.maestro.icon,
+                color: palette.goldSoft,
+                size: widget.size * 0.5,
               ),
-              Image.asset(
-                widget.maestro.avatarAsset,
-                fit: BoxFit.cover,
-                // Bias verso l'alto: sul master full body cade sul volto.
-                alignment: const Alignment(0, -0.7),
-                errorBuilder: (context, error, stack) =>
-                    const SizedBox.shrink(),
-              ),
-            ],
+            ),
           ),
         );
       },
