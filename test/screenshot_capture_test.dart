@@ -44,6 +44,8 @@ import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
+import 'package:esoteric_circle/features/tarot/stesa_reveal.dart';
+import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
@@ -832,6 +834,76 @@ void main() {
     await tester.pump(const Duration(seconds: 2));
     await tester.pump(const Duration(milliseconds: 200));
     await capture(tester, rootKey, 'stesa-in-corso.png');
+  });
+
+  // --- L'aura elementale delle quattro carte, ferma a meta' fioritura ---
+  testWidgets('Cattura il reveal elementale', (tester) async {
+    await loadFonts();
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    // Una carta per elemento, piu' un Maggiore per la fioritura solenne.
+    final carte = [
+      'Asso di Bastoni',
+      'Asso di Coppe',
+      'Asso di Denari',
+      'Asso di Spade',
+      'Il Mondo',
+    ].map((n) => TarotDeck.cards.firstWhere((c) => c.name == n)).toList();
+
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(600, 250);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: const Color(0xFF0A0E24),
+          body: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                for (final c in carte)
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.none,
+                        children: [
+                          AspectRatio(
+                            aspectRatio: TarotFrame.aspect,
+                            child: TarotCardArt(card: c, palette: palette),
+                          ),
+                          Positioned.fill(
+                            child: ElementalReveal(
+                              spec: RevealSpec.of(c),
+                              // Fermi a meta' fioritura: e' li' che l'aura si
+                              // vede al suo pieno.
+                              progress: 0.5,
+                              palette: palette,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.runAsync(() async {
+      final el = tester.element(find.byType(TarotCardArt).first);
+      for (final c in carte) {
+        await precacheImage(AssetImage(c.fullPath), el);
+      }
+    });
+    await tester.pump();
+    await capture(tester, rootKey, 'stesa-reveal.png');
   });
 
   // --- La card condivisibile della Stesa ---

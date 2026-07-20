@@ -15,6 +15,8 @@ import '../../design_system/tokens/typography_tokens.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
 import 'stesa_handoff.dart';
+import 'stesa_reveal.dart';
+import 'stesa_senses.dart';
 import 'stesa_share_card.dart';
 import 'medora_stage.dart';
 import 'tarot_card_art.dart';
@@ -99,6 +101,28 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// La carta del ventaglio che sta volando verso il suo slot.
   int? _inVolo;
 
+  /// Suono e vibrazione, dietro un solo interruttore di silenzio.
+  final SensiDellaStesa _sensi = SensiDellaStesa();
+
+  /// L'interruttore di silenzio, che governa suono e vibrazione insieme.
+  bool _silenzio = false;
+
+  /// L'inclinazione delle carte posate, dal giroscopio. Senza sensore le
+  /// carte restano ferme e composte, senza errori.
+  final TiltListener _tilt = TiltListener();
+
+  /// L'aura elementale della carta appena scoperta.
+  late final AnimationController _reveal = AnimationController(
+      vsync: this, duration: const Duration(milliseconds: 1100));
+
+  /// Quale posizione sta fiorendo, e con quale resa.
+  int? _revealSlot;
+  RevealSpec? _revealSpec;
+
+  /// Il galleggiamento lento delle carte posate.
+  late final AnimationController _galleggio = AnimationController(
+      vsync: this, duration: const Duration(seconds: 6));
+
   /// Lo scuotimento del telefono, quando c'e' l'accelerometro.
   ShakeListener? _shake;
 
@@ -135,6 +159,12 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     if (_avviata) return;
     _avviata = true;
     _shake = ShakeListener(onShake: _mischia)..start();
+    // Il giroscopio e il galleggiamento solo se il moto e' concesso: con
+    // Riduci Movimento le carte stanno ferme e composte.
+    if (!_reduceMotion) {
+      _tilt.start();
+      _galleggio.repeat();
+    }
     _apriScena();
   }
 
@@ -171,6 +201,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// Il taglio del mazzo, prima di mescolare.
   Future<void> _taglia() async {
     if (!_scene.accettaGesti) return;
+    _sensi.momento(MomentoSensoriale.taglio);
     setState(() {
       _scene = StesaScene.taglio;
       // Il punto di taglio cambia a ogni gesto, ma resta dentro il mazzo.
@@ -187,6 +218,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// Il mescolamento a vortice, da scuotimento o dal tasto.
   Future<void> _mischia() async {
     if (!mounted || !_scene.accettaGesti) return;
+    _sensi.momento(MomentoSensoriale.mescolamento);
     setState(() => _scene = StesaScene.mescolamento);
     if (!_reduceMotion) {
       await _mescola.forward(from: 0);
@@ -198,6 +230,9 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
 
   @override
   void dispose() {
+    _tilt.dispose();
+    _reveal.dispose();
+    _galleggio.dispose();
     _shake?.dispose();
     _handoff.dispose();
     _ingresso.dispose();
@@ -218,6 +253,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Future<void> _pick(int fanIndex) async {
     if (_complete || _taken.contains(fanIndex)) return;
     if (!_scene.accettaGesti) return;
+    _sensi.momento(MomentoSensoriale.volo);
     setState(() {
       _taken.add(fanIndex);
       _inVolo = fanIndex;
@@ -226,10 +262,39 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       await _volo.forward(from: 0);
       if (!mounted) return;
     }
+    final slot = _drawn;
     setState(() {
       _inVolo = null;
       _drawn++;
       if (_complete) _scene = StesaScene.completa;
+    });
+    // Il flip, poi la fioritura dell'elemento: la carta si scopre e il suo
+    // seme parla un istante, prima di lasciarla pulita e leggibile.
+    _sensi.momento(MomentoSensoriale.flip);
+    await _fiorisci(slot);
+  }
+
+  /// L'aura elementale della carta appena scoperta.
+  ///
+  /// Con Riduci Movimento non c'e' nessun moto: la carta appare gia' composta,
+  /// e il momento sensoriale resta comunque, perche' il silenzio ha il suo
+  /// interruttore e non si spegne col movimento.
+  Future<void> _fiorisci(int slot) async {
+    if (slot < 0 || slot >= _spread.cards.length) return;
+    final spec = RevealSpec.of(_spread.cards[slot].card);
+    _sensi.momento(MomentoSensoriale.reveal, solenne: spec.solenne);
+    if (_reduceMotion) return;
+    setState(() {
+      _revealSlot = slot;
+      _revealSpec = spec;
+    });
+    _reveal.duration = spec.durata;
+    await _reveal.forward(from: 0);
+    if (!mounted) return;
+    // Finita la fioritura non resta nulla sopra la carta.
+    setState(() {
+      _revealSlot = null;
+      _revealSpec = null;
     });
   }
 
@@ -309,6 +374,13 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// Stanno sopra il ventaglio mentre si pesca e sopra la lettura quando la
   /// stesa e' fatta: e' lo stesso blocco, cambia solo dove si trova.
   Widget _slots(MaestroPalette palette) {
+    return AnimatedBuilder(
+      animation: Listenable.merge([_reveal, _galleggio, _tilt]),
+      builder: (context, _) => _slotsRow(palette),
+    );
+  }
+
+  Widget _slotsRow(MaestroPalette palette) {
     return Row(
       key: const Key('stesa_slots'),
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -319,6 +391,13 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               position: SpreadPosition.values[i],
               drawn: i < _drawn ? _spread.cards[i] : null,
               palette: palette,
+              revealSpec: _revealSlot == i ? _revealSpec : null,
+              revealProgress: _revealSlot == i ? _reveal.value : 0,
+              tiltX: _tilt.x,
+              tiltY: _tilt.y,
+              galleggio: _reduceMotion
+                  ? 0
+                  : TiltListener.fluttuazioneDi(i, _galleggio.value),
             ),
           ),
           if (i < SpreadPosition.values.length - 1)
@@ -420,6 +499,22 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 palette: palette,
                 attivo: _scene.accettaGesti,
                 onTap: _mischia,
+              ),
+              const SizedBox(width: SpacingTokens.sm),
+              // Un solo interruttore per suono e vibrazione: chi zittisce
+              // l'app non si aspetta di sentirla ancora vibrare in mano.
+              _GestoMazzo(
+                key: const Key('stesa_silenzio'),
+                icona: _silenzio
+                    ? Icons.volume_off_rounded
+                    : Icons.volume_up_rounded,
+                label: _silenzio ? 'Muto' : 'Suono',
+                palette: palette,
+                attivo: true,
+                onTap: () => setState(() {
+                  _silenzio = !_silenzio;
+                  _sensi.silenzio = _silenzio;
+                }),
               ),
             ],
           ),
@@ -584,25 +679,71 @@ class _Slot extends StatelessWidget {
     required this.position,
     required this.drawn,
     required this.palette,
+    this.revealSpec,
+    this.revealProgress = 0,
+    this.tiltX = 0,
+    this.tiltY = 0,
+    this.galleggio = 0,
   });
 
   final SpreadPosition position;
   final DrawnCard? drawn;
   final MaestroPalette palette;
 
+  /// L'aura elementale, quando questa carta si sta scoprendo.
+  final RevealSpec? revealSpec;
+  final double revealProgress;
+
+  /// L'inclinazione dal giroscopio e il galleggiamento lento. A zero la carta
+  /// resta ferma e composta: e' il ripiego statico.
+  final double tiltX;
+  final double tiltY;
+  final double galleggio;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AspectRatio(
-          aspectRatio: kTarotAspect,
-          child: drawn == null
-              ? _EmptySlot(palette: palette)
-              : _FlipCard(
-                  key: ValueKey('${position.name}_${drawn!.card.stem}'),
-                  drawn: drawn!,
-                  palette: palette),
+        // La carta posata fluttua piano e si inclina col giroscopio, come
+        // sospesa davanti a chi guarda. E' un effetto di superficie: non tocca
+        // il testo sotto ne' il pescaggio.
+        Transform.translate(
+          offset: Offset(0, galleggio),
+          child: Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.0012)
+              ..rotateX(tiltY)
+              ..rotateY(tiltX),
+            child: Stack(
+              alignment: Alignment.center,
+              // L'aura deve poter uscire dal bordo della carta: e' attorno a
+              // lei che l'elemento fiorisce, non dentro.
+              clipBehavior: Clip.none,
+              children: [
+                AspectRatio(
+                  aspectRatio: kTarotAspect,
+                  child: drawn == null
+                      ? _EmptySlot(palette: palette)
+                      : _FlipCard(
+                          key: ValueKey('${position.name}_${drawn!.card.stem}'),
+                          drawn: drawn!,
+                          palette: palette),
+                ),
+                // L'aura elementale, mentre la carta si scopre.
+                if (revealSpec != null && revealProgress > 0)
+                  Positioned.fill(
+                    child: ElementalReveal(
+                      key: Key('stesa_reveal_${position.name}'),
+                      spec: revealSpec!,
+                      progress: revealProgress,
+                      palette: palette,
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ),
         const SizedBox(height: SpacingTokens.xs),
         Text(position.label.toUpperCase(),
