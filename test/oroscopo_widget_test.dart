@@ -241,11 +241,13 @@ void main() {
             findsOneWidget);
         expect(find.descendant(of: selector, matching: find.text('Media')),
             findsNothing);
-        // Ed e' bloccato: lucchetto presente.
+        // Sul chip NON c'e' il lucchetto: la voce mostrata e' Breve, che e'
+        // gratuita. Il lucchetto sta sulle due voci Premium dentro la tendina,
+        // come si verifica nel test che la apre.
         expect(
             find.descendant(
                 of: selector, matching: find.byIcon(Icons.lock_rounded)),
-            findsOneWidget);
+            findsNothing);
         // Sta in alto a destra della bolla.
         final cardRect = tester.getRect(card);
         final selRect = tester.getRect(selector);

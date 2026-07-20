@@ -115,12 +115,14 @@ void main() {
           if (drawn.reversed) {
             expect(drawn.meaning, drawn.card.reversed);
             expect(drawn.summary, drawn.card.reversedSummary);
-            expect(drawn.displayName, '${drawn.card.name} rovesciato');
+            // La parola del rovescio e' accordata alla carta, dal catalogo.
+            expect(drawn.displayName,
+                '${drawn.card.name} ${drawn.card.reversedWord}');
           } else {
             expect(drawn.meaning, drawn.card.upright);
             expect(drawn.summary, drawn.card.uprightSummary);
             expect(drawn.displayName, drawn.card.name);
-            expect(drawn.displayName, isNot(contains('rovesciato')));
+            expect(drawn.displayName, drawn.card.name);
           }
         }
       }

@@ -475,32 +475,14 @@ class _Slot extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Stack(
-          children: [
-            AspectRatio(
-              aspectRatio: kTarotAspect,
-              child: drawn == null
-                  ? _EmptySlot(palette: palette)
-                  : _FlipCard(
-                      key: ValueKey('${position.name}_${drawn!.card.stem}'),
-                      drawn: drawn!,
-                      palette: palette),
-            ),
-            // La profondita' della risposta, per posizione: nel gratuito resta
-            // Breve, le altre due portano il lucchetto del Cerchio Premium.
-            if (drawn != null)
-              Positioned(
-                top: -2,
-                right: -6,
-                child: AnswerDepthSelector(
-                  key: Key('stesa_depth_${position.name}'),
-                  current: depth,
-                  palette: palette,
-                  onSelect: onDepth,
-                  onLockedTap: (d) => onLocked(d.label),
-                ),
-              ),
-          ],
+        AspectRatio(
+          aspectRatio: kTarotAspect,
+          child: drawn == null
+              ? _EmptySlot(palette: palette)
+              : _FlipCard(
+                  key: ValueKey('${position.name}_${drawn!.card.stem}'),
+                  drawn: drawn!,
+                  palette: palette),
         ),
         const SizedBox(height: SpacingTokens.xs),
         Text(position.label.toUpperCase(),
@@ -522,12 +504,26 @@ class _Slot extends StatelessWidget {
                     .copyWith(color: ColorTokens.textPrimary, height: 1.15)),
           ),
           if (drawn!.reversed)
-            Text('rovesciato',
+            Text(drawn!.versoLabel,
                 key: Key('stesa_reversed_${position.name}'),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.label(size: 9).copyWith(
                     color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: 2),
+          // La profondita' della risposta, per posizione. Sta FUORI dalla
+          // cornice: sovrapposta alla carta copriva il cartiglio superiore e
+          // nascondeva il numero.
+          Center(
+            child: AnswerDepthSelector(
+              key: Key('stesa_depth_${position.name}'),
+              current: depth,
+              palette: palette,
+              compact: true,
+              onSelect: onDepth,
+              onLockedTap: (d) => onLocked(d.label),
+            ),
+          ),
+          const SizedBox(height: 4),
           // Sotto la carta resta la sintesi breve: il testo ricco ha il suo
           // strato piu' sotto, ripeterlo qui in colonna stretta lo rendeva
           // illeggibile.

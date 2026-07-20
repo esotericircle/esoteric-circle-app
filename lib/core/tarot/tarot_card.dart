@@ -15,6 +15,27 @@ enum TarotSeme {
 /// Il tipo di Arcano.
 enum TarotArcana { maggiore, minore }
 
+/// Come si accorda la parola del rovescio al nome della carta.
+///
+/// Non e' un dettaglio di stile: "La Papessa rovesciato" e' un errore che si
+/// legge subito. L'accordo di ogni carta viene dalle intestazioni rovesciate
+/// del corpus `docs/corpus/tarocchi.md`, che ne e' la fonte di verita'.
+enum ReversedAgreement {
+  /// La gran parte delle carte: Il Matto, Asso di Coppe, Re di Spade.
+  maschile('rovesciato'),
+
+  /// Le dieci Maggiori femminili piu' le quattro Regine.
+  femminile('rovesciata'),
+
+  /// Solo Gli Amanti, il solo nome plurale del mazzo.
+  maschilePlurale('rovesciati');
+
+  const ReversedAgreement(this.word);
+
+  /// La parola del rovescio, esattamente come sta nel corpus.
+  final String word;
+}
+
 /// Una carta dei tarocchi, nella voce di Medora: nome, tipo, seme e numero se
 /// Minore, il verso dritto e il verso rovesciato (sintesi piu' riga ciascuno) e
 /// l'arte bundlata (famiglia `mazzo-tarocchi`).
@@ -29,6 +50,7 @@ class TarotCard {
     required this.reversedSummary,
     required this.reversed,
     required this.stem,
+    this.reversedAgreement = ReversedAgreement.maschile,
   });
 
   final String name;
@@ -43,6 +65,15 @@ class TarotCard {
   final String reversedSummary;
   final String reversed;
   final String stem;
+
+  /// L'accordo della parola del rovescio, dal corpus.
+  final ReversedAgreement reversedAgreement;
+
+  /// La parola del rovescio accordata a questa carta.
+  ///
+  /// Unico punto in cui la parola si ricava: nessuna schermata la scrive a
+  /// mano, altrimenti il maschile fisso rientrerebbe di nascosto.
+  String get reversedWord => reversedAgreement.word;
 
   String get thumbPath => FamilyImage.thumb(AssetFamily.tarocchi, stem);
   String get fullPath => FamilyImage.full(AssetFamily.tarocchi, stem);
@@ -134,6 +165,7 @@ class TarotDeck {
       reversed:
           'Stai coprendo con la ragione o col rumore una voce interiore che invece sa. Forse temi ciò che sentiresti se ti fermassi ad ascoltare. Torna al silenzio senza fretta, il segreto che cerchi aspetta solo di essere accolto.',
       stem: 'tar_rw_02_la-papessa_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'L\'Imperatrice',
@@ -147,6 +179,7 @@ class TarotDeck {
       reversed:
           'La creatività sembra bloccata, oppure ti sei scordata di rivolgere a te stessa l\'attenzione che dai a tutto il resto. Prima di far fiorire fuori, torna a nutrire la tua radice. Rifiorisce dentro ciò che curi con gentilezza.',
       stem: 'tar_rw_03_l-imperatrice_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'L\'Imperatore',
@@ -186,6 +219,7 @@ class TarotDeck {
       reversed:
           'Dubbio, disaccordo, valori che si contendono il campo: qualcosa dentro non è ancora sincero con sé stesso. Prima di decidere con l\'altro, mettiti d\'accordo con te. La scelta giusta pesa meno quando smetti di mentirti.',
       stem: 'tar_rw_06_gli-amanti_v1',
+      reversedAgreement: ReversedAgreement.maschilePlurale,
     ),
     TarotCard(
       name: 'Il Carro',
@@ -212,6 +246,7 @@ class TarotDeck {
       reversed:
           'C\'è una verità che eviti, oppure una responsabilità che continui a rimandare. Finché resta in ombra, pesa. Guardala in faccia con calma, l\'equilibrio torna nel momento in cui sei onesto con te stesso.',
       stem: 'tar_rw_11_la-giustizia_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'L\'Eremita',
@@ -238,6 +273,7 @@ class TarotDeck {
       reversed:
           'Un ciclo sembra bloccato, oppure gira storto e ti pare di non avere presa. Anche la sosta è parte del movimento: raccogli le forze, la ruota riprende presto a girare. Ciò che ora frena, domani spinge.',
       stem: 'tar_rw_10_la-ruota-della-fortuna_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'La Forza',
@@ -251,6 +287,7 @@ class TarotDeck {
       reversed:
           'Forse dubiti della tua tenuta, o forse sei diventata dura con te stessa. La vera forza non è la stretta, è la mano gentile. Torna a trattarti con mitezza e ritrovi il controllo che credevi perso.',
       stem: 'tar_rw_08_la-forza_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'L\'Appeso',
@@ -277,6 +314,7 @@ class TarotDeck {
       reversed:
           'Resisti a un cambiamento che è già arrivato, ti aggrappi a ciò che sta finendo. Ma trattenere fa più male del lasciare, la vita vuole scorrere e tu con lei. Apri la mano e il dolore diventa passaggio.',
       stem: 'tar_rw_13_la-morte_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'La Temperanza',
@@ -290,6 +328,7 @@ class TarotDeck {
       reversed:
           'Eccessi, fretta, o due parti di te che non si parlano più. Il rimedio è semplice ma chiede volontà: rallenta, ridosa, ritrova il ritmo che guarisce. L\'equilibrio non è un colpo di fortuna, è una pratica quotidiana.',
       stem: 'tar_rw_14_la-temperanza_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'Il Diavolo',
@@ -316,6 +355,7 @@ class TarotDeck {
       reversed:
           'Rimandi una scossa che sarebbe necessaria, oppure ne stai uscendo a fatica. Meglio un vero che vacilla che un falso che regge in apparenza. Se qualcosa deve cadere, lasciarlo cadere ora ti risparmia un crollo peggiore domani.',
       stem: 'tar_rw_16_la-torre_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'La Stella',
@@ -329,6 +369,7 @@ class TarotDeck {
       reversed:
           'La fiducia è stanca, l\'ispirazione sembra lontana e fatichi a credere che le cose miglioreranno. Ma la luce non è spenta, solo velata da una nube passeggera. Concediti di sperare ancora, la Stella è lì anche quando non la vedi.',
       stem: 'tar_rw_17_le-stelle_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'La Luna',
@@ -342,6 +383,7 @@ class TarotDeck {
       reversed:
           'Le paure perdono forza, una confusione si sta chiarendo e ciò che al buio sembrava enorme si mostra più piccolo alla luce. Stai uscendo dalla nebbia. Guarda con occhi nuovi ciò che ti spaventava, aveva più ombra che sostanza.',
       stem: 'tar_rw_18_la-luna_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'Il Sole',
@@ -550,6 +592,7 @@ class TarotDeck {
       reversed:
           'Un dubbio su di te, o una gelosia che offusca la tua luce. Torna al tuo centro, la tua fiamma non ha rivali da temere. Quando ti riconosci, l\'insicurezza si spegne da sola.',
       stem: 'tar_rw_bastoni_13_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'Re di Bastoni',
@@ -732,6 +775,7 @@ class TarotDeck {
       reversed:
           'Ti perdi negli altri, assorbi ogni loro stato d\'animo fino a smarrire il tuo. Riporta un poco di cura anche a te stessa. Puoi amare senza annegare.',
       stem: 'tar_rw_coppe_13_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'Re di Coppe',
@@ -914,6 +958,7 @@ class TarotDeck {
       reversed:
           'Ti dimentichi di te mentre ti prendi cura di tutto e di tutti. Rimetti equilibrio tra dare e ricevere. Anche il giardino più generoso ha bisogno di essere annaffiato.',
       stem: 'tar_rw_denari_13_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'Re di Denari',
@@ -1096,6 +1141,7 @@ class TarotDeck {
       reversed:
           'Una durezza, o una solitudine scelta come corazza. Ammorbidisci il giudizio, a partire da quello verso te stessa. La lama più affilata non deve rivolgersi contro chi la porta.',
       stem: 'tar_rw_spade_13_v1',
+      reversedAgreement: ReversedAgreement.femminile,
     ),
     TarotCard(
       name: 'Re di Spade',

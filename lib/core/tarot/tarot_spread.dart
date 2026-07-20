@@ -28,9 +28,17 @@ class DrawnCard {
   final SpreadPosition position;
   final bool reversed;
 
-  /// Il nome come si legge sotto la carta, con la parola rovesciato se lo e'.
+  /// La parola del rovescio accordata alla carta, vuota se la carta e' dritta.
+  ///
+  /// E' l'unico punto da cui la parola si prende, in tutta l'app: sotto la
+  /// miniatura, nelle intestazioni degli strati, sulla carta chiave e nella
+  /// card condivisibile. Scritta a mano da qualche parte, tornerebbe il
+  /// maschile fisso su "La Papessa" o su "Gli Amanti".
+  String get versoLabel => reversed ? card.reversedWord : '';
+
+  /// Il nome come si legge sotto la carta, con la parola del rovescio accordata.
   String get displayName =>
-      reversed ? '${card.name} rovesciato' : card.name;
+      reversed ? '${card.name} ${card.reversedWord}' : card.name;
 
   /// La riga di significato dal corpus, del verso giusto.
   String get meaning => reversed ? card.reversed : card.upright;

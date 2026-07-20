@@ -43,6 +43,7 @@ class AnswerDepthSelector extends StatelessWidget {
     this.premiumUnlocked = false,
     this.onSelect,
     this.onLockedTap,
+    this.compact = false,
   });
 
   final AnswerDepth current;
@@ -55,6 +56,14 @@ class AnswerDepthSelector extends StatelessWidget {
 
   /// Invito all'abbonamento, quando si tocca una voce bloccata.
   final ValueChanged<AnswerDepth>? onLockedTap;
+
+  /// In colonna stretta l'etichetta si toglie e resta la sola voce corrente.
+  ///
+  /// Serve dove la colonna e' larga poco piu' di cento punti, come sotto le
+  /// carte della stesa: la parola PROFONDITÀ e' chiesta a corpo 8 ma il design
+  /// system non scende sotto `minLabel`, quindi andava a capo spezzata. Il
+  /// tooltip continua a dire di cosa si tratta, e il menu resta identico.
+  final bool compact;
 
   bool _locked(AnswerDepth depth) => depth.premium && !premiumUnlocked;
 
@@ -122,10 +131,12 @@ class AnswerDepthSelector extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('PROFONDITÀ',
-                style: TypographyTokens.label(size: 8).copyWith(
-                    color: ColorTokens.textSecondary, letterSpacing: 0.8)),
-            const SizedBox(height: 2),
+            if (!compact) ...[
+              Text('PROFONDITÀ',
+                  style: TypographyTokens.label(size: 8).copyWith(
+                      color: ColorTokens.textSecondary, letterSpacing: 0.8)),
+              const SizedBox(height: 2),
+            ],
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -133,7 +144,11 @@ class AnswerDepthSelector extends StatelessWidget {
                     style: TypographyTokens.body(size: 14)
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(width: 4),
-                if (!premiumUnlocked)
+                // Il lucchetto sul chip solo se la voce MOSTRATA e' bloccata.
+                // Breve e' gratuita: mettercelo sopra faceva sembrare bloccata
+                // anche lei, quando invece e' quella che si sta usando. Le voci
+                // Premium il lucchetto ce l'hanno dentro il menu aperto.
+                if (_locked(current))
                   Icon(Icons.lock_rounded,
                       size: 12,
                       color: palette.goldSoft.withValues(alpha: 0.7)),
