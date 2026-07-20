@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../core/tarot/tarot_spread_type.dart';
+import '../../core/tarot/tarot_topic.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import '../../core/tarot/tarot_topic.dart';
 import '../horoscope/answer_depth.dart';
 
 /// La chiave con cui si legge la stesa.
@@ -42,6 +43,7 @@ enum TarotDeckStyle {
 /// Lo stato dei selettori prima della stesa.
 class TarotSetup {
   const TarotSetup({
+    this.tipo = TarotSpreadType.predefinita,
     this.key = ReadingKey.predittiva,
     this.deck = TarotDeckStyle.riderWaite,
     this.depth = AnswerDepth.breve,
@@ -49,8 +51,13 @@ class TarotSetup {
     this.includeReversed = true,
   });
 
+  /// Quale stesa si sta facendo. Da qui viene anche il titolo in alto.
+  final TarotSpreadType tipo;
+
   final ReadingKey key;
   final TarotDeckStyle deck;
+
+  /// La profondita' di TUTTA la lettura, non di una posizione sola.
   final AnswerDepth depth;
 
   /// L'argomento su cui si direziona la lettura.
@@ -72,6 +79,7 @@ class TarotSetup {
       ].join('  ·  ');
 
   TarotSetup copyWith({
+    TarotSpreadType? tipo,
     ReadingKey? key,
     TarotDeckStyle? deck,
     AnswerDepth? depth,
@@ -79,6 +87,7 @@ class TarotSetup {
     bool? includeReversed,
   }) =>
       TarotSetup(
+        tipo: tipo ?? this.tipo,
         key: key ?? this.key,
         deck: deck ?? this.deck,
         depth: depth ?? this.depth,
@@ -87,9 +96,13 @@ class TarotSetup {
       );
 }
 
-/// Il pannello dei selettori prima della stesa: chiave di lettura, profondita',
-/// mazzo, carte rovesciate. Le voci non ancora pronte restano visibili col badge
-/// Coming soon, mai un vicolo cieco.
+/// Il pannello dei selettori prima della stesa.
+///
+/// Sta richiuso in una riga di riepilogo e si apre al tocco. Dentro, ogni
+/// scelta e' una tendina compatta, due per riga dove entrano: prima le voci non
+/// pronte erano chip impilati, e Chiave e Mazzo si mangiavano tre righe
+/// ciascuno. Le voci in arrivo ora stanno dentro la loro tendina, col lucchetto
+/// e l'invito ad abbonarsi.
 class TarotSetupPanel extends StatelessWidget {
   const TarotSetupPanel({
     super.key,
@@ -111,17 +124,14 @@ class TarotSetupPanel extends StatelessWidget {
   /// Se il pannello e' aperto o richiuso nella sua riga di riepilogo.
   ///
   /// Di base sta richiuso: aperto spingeva il ventaglio sotto la piega, e per
-  /// pescare bisognava scorrere oltre tutta la configurazione. Chiuso, Medora
-  /// e il ventaglio si vedono insieme senza scorrere.
+  /// pescare bisognava scorrere oltre tutta la configurazione.
   final bool aperto;
 
   final VoidCallback? onToggle;
 
   @override
-  Widget build(BuildContext context) {
-    if (!aperto) return _riga(context);
-    return _pannello(context);
-  }
+  Widget build(BuildContext context) =>
+      aperto ? _pannello(context) : _riga(context);
 
   /// La riga richiusa: il riepilogo, tappabile per aprire.
   Widget _riga(BuildContext context) {
@@ -134,7 +144,7 @@ class TarotSetupPanel extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         child: Container(
           padding: const EdgeInsets.symmetric(
-              horizontal: SpacingTokens.md, vertical: 10),
+              horizontal: SpacingTokens.md, vertical: 9),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
             color: palette.surfaceElevated.withValues(alpha: 0.45),
@@ -189,102 +199,109 @@ class TarotSetupPanel extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.sm),
-          _Riga(
-            titolo: 'Scegli argomento',
-            palette: palette,
-            child: TopicSelector(
-              current: setup.topic,
-              palette: palette,
-              onSelect: (t) => onChanged(setup.copyWith(topic: t)),
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          _Riga(
-            titolo: 'Chiave di lettura',
-            palette: palette,
-            child: Wrap(
-              spacing: SpacingTokens.xs,
-              runSpacing: SpacingTokens.xs,
-              children: [
-                for (final k in ReadingKey.values)
-                  _Voce(
-                    key: Key('stesa_key_${k.name}'),
-                    label: k.label,
-                    selected: k == setup.key,
-                    available: k.available,
-                    palette: palette,
-                    onTap: () => k.available
-                        ? onChanged(setup.copyWith(key: k))
-                        : onLocked(k.label),
+          // Le tendine, affiancate due per riga dove entrano.
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final larga = constraints.maxWidth >= 300;
+              final w = larga
+                  ? (constraints.maxWidth - SpacingTokens.xs) / 2
+                  : constraints.maxWidth;
+              return Wrap(
+                spacing: SpacingTokens.xs,
+                runSpacing: SpacingTokens.xs,
+                children: [
+                  // Il tipo di stesa: da qui viene anche il titolo in alto.
+                  SizedBox(
+                    width: w,
+                    child: TendinaSelettore<TarotSpreadType>(
+                      chiave: const Key('stesa_tipo'),
+                      titolo: 'Tipo di stesa',
+                      corrente: setup.tipo,
+                      voci: TarotSpreadType.values,
+                      palette: palette,
+                      etichetta: (t) => t.breve,
+                      sottotitolo: (t) => t.descrizione,
+                      bloccata: (t) => !t.disponibile,
+                      onSelect: (t) => onChanged(setup.copyWith(tipo: t)),
+                      onLocked: (t) => onLocked(t.nome),
+                    ),
                   ),
-              ],
-            ),
-          ),
-          // Il credito a Jodorowsky, sempre come ispirazione, mai come marchio.
-          Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Text(ReadingKey.riflessione.note!,
-                key: const Key('stesa_jodorowsky_nota'),
-                style: TypographyTokens.body(size: 11).copyWith(
-                    color: ColorTokens.textSecondary,
-                    fontStyle: FontStyle.italic)),
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          _Riga(
-            titolo: 'Profondità',
-            palette: palette,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: AnswerDepthSelector(
-                key: const Key('stesa_depth'),
-                current: setup.depth,
-                palette: palette,
-                // Il titolo della riga dice gia' di cosa si tratta: il chip
-                // ripeteva la stessa parola due volte di fila.
-                compact: true,
-                onSelect: (d) => onChanged(setup.copyWith(depth: d)),
-                onLockedTap: (d) => onLocked(d.label),
-              ),
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          _Riga(
-            titolo: 'Mazzo',
-            palette: palette,
-            child: Wrap(
-              spacing: SpacingTokens.xs,
-              runSpacing: SpacingTokens.xs,
-              children: [
-                for (final d in TarotDeckStyle.values)
-                  _Voce(
-                    key: Key('stesa_deck_${d.name}'),
-                    label: d.label,
-                    selected: d == setup.deck,
-                    available: d.available,
-                    palette: palette,
-                    onTap: () => d.available
-                        ? onChanged(setup.copyWith(deck: d))
-                        : onLocked(d.label),
+                  SizedBox(
+                    width: w,
+                    child: TendinaSelettore<TarotTopic>(
+                      chiave: const Key('stesa_topic'),
+                      titolo: 'Scegli argomento',
+                      corrente: setup.topic,
+                      voci: TarotTopic.values,
+                      palette: palette,
+                      etichetta: (t) => t.label,
+                      gruppo: (t) => t.group.label,
+                      bloccata: (_) => false,
+                      onSelect: (t) => onChanged(setup.copyWith(topic: t)),
+                      onLocked: (_) {},
+                    ),
                   ),
-              ],
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.xs),
-          Row(
-            children: [
-              Expanded(
-                child: Text('Includi carte rovesciate',
-                    style: TypographyTokens.body(size: 14)
-                        .copyWith(color: ColorTokens.textPrimary)),
-              ),
-              Switch(
-                key: const Key('stesa_reversed_switch'),
-                value: setup.includeReversed,
-                activeThumbColor: palette.gold,
-                onChanged: (v) =>
-                    onChanged(setup.copyWith(includeReversed: v)),
-              ),
-            ],
+                  SizedBox(
+                    width: w,
+                    child: TendinaSelettore<ReadingKey>(
+                      chiave: const Key('stesa_chiave'),
+                      titolo: 'Chiave di lettura',
+                      corrente: setup.key,
+                      voci: ReadingKey.values,
+                      palette: palette,
+                      etichetta: (k) => k.label,
+                      // La nota etica su Jodorowsky compare solo sulla sua
+                      // voce, dentro la tendina, dove sta in contesto.
+                      sottotitolo: (k) => k.note,
+                      bloccata: (k) => !k.available,
+                      onSelect: (k) => onChanged(setup.copyWith(key: k)),
+                      onLocked: (k) => onLocked(k.label),
+                    ),
+                  ),
+                  SizedBox(
+                    width: w,
+                    child: TendinaSelettore<TarotDeckStyle>(
+                      chiave: const Key('stesa_mazzo'),
+                      titolo: 'Mazzo',
+                      corrente: setup.deck,
+                      voci: TarotDeckStyle.values,
+                      palette: palette,
+                      etichetta: (d) => d.label,
+                      bloccata: (d) => !d.available,
+                      onSelect: (d) => onChanged(setup.copyWith(deck: d)),
+                      onLocked: (d) => onLocked(d.label),
+                    ),
+                  ),
+                  // Una sola profondita' per tutta la lettura.
+                  SizedBox(
+                    width: w,
+                    child: TendinaSelettore<AnswerDepth>(
+                      chiave: const Key('stesa_depth'),
+                      titolo: 'Profondità della lettura',
+                      corrente: setup.depth,
+                      voci: AnswerDepth.values,
+                      palette: palette,
+                      etichetta: (d) => d.label,
+                      bloccata: (d) => d.premium,
+                      onSelect: (d) => onChanged(setup.copyWith(depth: d)),
+                      onLocked: (d) => onLocked(d.label),
+                    ),
+                  ),
+                  // L'interruttore resta un interruttore, in linea con le
+                  // tendine.
+                  SizedBox(
+                    width: w,
+                    child: _Interruttore(
+                      titolo: 'Carte rovesciate',
+                      acceso: setup.includeReversed,
+                      palette: palette,
+                      onChanged: (v) =>
+                          onChanged(setup.copyWith(includeReversed: v)),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),
@@ -292,171 +309,104 @@ class TarotSetupPanel extends StatelessWidget {
   }
 }
 
-class _Riga extends StatelessWidget {
-  const _Riga(
-      {required this.titolo, required this.child, required this.palette});
-
-  final String titolo;
-  final Widget child;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(titolo.toUpperCase(),
-            style: TypographyTokens.label(size: 9).copyWith(
-                color: ColorTokens.textSecondary, letterSpacing: 1.2)),
-        const SizedBox(height: 4),
-        child,
-      ],
-    );
-  }
-}
-
-/// Una voce del selettore. Se non e' disponibile resta visibile col badge
-/// Coming soon e il lucchetto.
-/// Il menu a tendina dell'argomento: sedici voci nei tre gruppi del corpus.
+/// Una tendina compatta della configurazione.
 ///
-/// Salute, medico, legale e domande fataliste non compaiono affatto, ne' come
-/// voci bloccate: per etica quelle letture non si fanno.
-class TopicSelector extends StatelessWidget {
-  const TopicSelector({
+/// Sopra il titolo in maiuscoletto, sotto la voce corrente con la freccia. Le
+/// voci non ancora pronte restano nell'elenco col lucchetto, non spariscono:
+/// si vede che esistono e che arrivano, senza occupare spazio da chiuse.
+class TendinaSelettore<T> extends StatelessWidget {
+  const TendinaSelettore({
     super.key,
-    required this.current,
+    required this.chiave,
+    required this.titolo,
+    required this.corrente,
+    required this.voci,
     required this.palette,
+    required this.etichetta,
+    required this.bloccata,
     required this.onSelect,
+    required this.onLocked,
+    this.sottotitolo,
+    this.gruppo,
   });
 
-  final TarotTopic current;
+  /// La chiave del bottone, per i test.
+  final Key chiave;
+
+  final String titolo;
+  final T corrente;
+  final List<T> voci;
   final MaestroPalette palette;
-  final ValueChanged<TarotTopic> onSelect;
+
+  final String Function(T) etichetta;
+
+  /// Una riga di spiegazione sotto la voce, dove serve.
+  final String? Function(T)? sottotitolo;
+
+  /// Se le voci vanno raccolte per gruppi, il nome del gruppo.
+  final String Function(T)? gruppo;
+
+  final bool Function(T) bloccata;
+  final ValueChanged<T> onSelect;
+  final ValueChanged<T> onLocked;
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<TarotTopic>(
-      key: const Key('stesa_topic'),
-      tooltip: 'Scegli l\'argomento su cui direzionare la lettura',
-      position: PopupMenuPosition.under,
-      color: palette.surfaceElevated,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-        side: BorderSide(color: palette.gold.withValues(alpha: 0.35)),
-      ),
-      onSelected: onSelect,
-      itemBuilder: (context) => [
-        for (final gruppo in TarotTopicGroup.values) ...[
-          PopupMenuItem<TarotTopic>(
-            enabled: false,
-            height: 30,
-            child: Text(gruppo.label.toUpperCase(),
-                style: TypographyTokens.label(size: 9).copyWith(
-                    color: palette.goldSoft.withValues(alpha: 0.8),
-                    letterSpacing: 1.4)),
-          ),
-          for (final t in TarotTopic.of(gruppo))
-            PopupMenuItem<TarotTopic>(
-              value: t,
-              height: 40,
-              child: Row(
+    final items = <PopupMenuEntry<T>>[];
+    String? gruppoCorrente;
+    for (final v in voci) {
+      if (gruppo != null && gruppo!(v) != gruppoCorrente) {
+        gruppoCorrente = gruppo!(v);
+        items.add(PopupMenuItem<T>(
+          enabled: false,
+          height: 28,
+          child: Text(gruppoCorrente.toUpperCase(),
+              style: TypographyTokens.label(size: 9).copyWith(
+                  color: palette.goldSoft.withValues(alpha: 0.8),
+                  letterSpacing: 1.4)),
+        ));
+      }
+      final bloccato = bloccata(v);
+      final nota = sottotitolo?.call(v);
+      items.add(PopupMenuItem<T>(
+        value: v,
+        height: nota == null ? 42 : 58,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 20,
+              child: v == corrente
+                  ? Icon(Icons.check_rounded, size: 14, color: palette.goldSoft)
+                  : null,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(
-                    width: 20,
-                    child: t == current
-                        ? Icon(Icons.check_rounded,
-                            size: 14, color: palette.goldSoft)
-                        : null,
-                  ),
-                  Expanded(
-                    child: Text(t.label,
-                        style: TypographyTokens.body(size: 14).copyWith(
-                            color: t == current
+                  Text(etichetta(v),
+                      style: TypographyTokens.body(size: 14).copyWith(
+                        color: bloccato
+                            ? ColorTokens.textSecondary
+                            : (v == corrente
                                 ? palette.goldSoft
-                                : ColorTokens.textPrimary)),
-                  ),
+                                : ColorTokens.textPrimary),
+                      )),
+                  if (nota != null)
+                    Text(nota,
+                        maxLines: 2,
+                        style: TypographyTokens.body(size: 10).copyWith(
+                            color: ColorTokens.textSecondary,
+                            fontStyle: FontStyle.italic)),
                 ],
               ),
             ),
-        ],
-      ],
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-          color: palette.primary.withValues(alpha: 0.5),
-          border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: Text(current.label,
-                  overflow: TextOverflow.ellipsis,
-                  style: TypographyTokens.body(size: 14)
-                      .copyWith(color: palette.goldSoft)),
-            ),
-            const SizedBox(width: 4),
-            Icon(Icons.expand_more_rounded, size: 16, color: palette.goldSoft),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _Voce extends StatelessWidget {
-  const _Voce({
-    super.key,
-    required this.label,
-    required this.selected,
-    required this.available,
-    required this.palette,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool selected;
-  final bool available;
-  final MaestroPalette palette;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-          gradient: selected
-              ? LinearGradient(colors: [
-                  palette.primary.withValues(alpha: 0.85),
-                  palette.surfaceElevated.withValues(alpha: 0.85),
-                ])
-              : null,
-          border: Border.all(
-              color: selected
-                  ? palette.gold.withValues(alpha: 0.65)
-                  : palette.gold.withValues(alpha: 0.22)),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(label,
-                style: TypographyTokens.body(size: 13).copyWith(
-                  color: selected
-                      ? palette.goldSoft
-                      : ColorTokens.textSecondary
-                          .withValues(alpha: available ? 1.0 : 0.65),
-                )),
-            if (!available) ...[
-              const SizedBox(width: 5),
+            if (bloccato) ...[
+              const SizedBox(width: 6),
               Icon(Icons.lock_rounded,
-                  size: 11,
-                  color: palette.goldSoft.withValues(alpha: 0.65)),
-              const SizedBox(width: 3),
+                  size: 13, color: palette.goldSoft.withValues(alpha: 0.75)),
+              const SizedBox(width: 4),
               Text('Coming soon',
                   style: TypographyTokens.label(size: 7).copyWith(
                       color: palette.goldSoft.withValues(alpha: 0.75),
@@ -464,6 +414,104 @@ class _Voce extends StatelessWidget {
             ],
           ],
         ),
+      ));
+    }
+
+    return PopupMenuButton<T>(
+      key: chiave,
+      tooltip: titolo,
+      position: PopupMenuPosition.under,
+      color: palette.surfaceElevated,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        side: BorderSide(color: palette.gold.withValues(alpha: 0.35)),
+      ),
+      padding: EdgeInsets.zero,
+      onSelected: (v) => bloccata(v) ? onLocked(v) : onSelect(v),
+      itemBuilder: (context) => items,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+          color: palette.deepest.withValues(alpha: 0.45),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(titolo.toUpperCase(),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TypographyTokens.label(size: 8).copyWith(
+                    color: ColorTokens.textSecondary, letterSpacing: 0.8)),
+            const SizedBox(height: 2),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(etichetta(corrente),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TypographyTokens.body(size: 13)
+                          .copyWith(color: palette.goldSoft)),
+                ),
+                // Il lucchetto sul chip solo se la voce MOSTRATA e' bloccata.
+                if (bloccata(corrente))
+                  Icon(Icons.lock_rounded,
+                      size: 12,
+                      color: palette.goldSoft.withValues(alpha: 0.7)),
+                Icon(Icons.arrow_drop_down_rounded,
+                    size: 18, color: palette.goldSoft),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Un interruttore della configurazione, alto quanto una tendina.
+class _Interruttore extends StatelessWidget {
+  const _Interruttore({
+    required this.titolo,
+    required this.acceso,
+    required this.palette,
+    required this.onChanged,
+  });
+
+  final String titolo;
+  final bool acceso;
+  final MaestroPalette palette;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        color: palette.deepest.withValues(alpha: 0.45),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(titolo.toUpperCase(),
+                maxLines: 2,
+                style: TypographyTokens.label(size: 8).copyWith(
+                    color: ColorTokens.textSecondary, letterSpacing: 0.8)),
+          ),
+          Transform.scale(
+            scale: 0.8,
+            child: Switch(
+              key: const Key('stesa_reversed_switch'),
+              value: acceso,
+              activeThumbColor: palette.gold,
+              onChanged: onChanged,
+            ),
+          ),
+        ],
       ),
     );
   }

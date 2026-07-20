@@ -773,7 +773,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(390, 1015);
+    tester.view.physicalSize = const Size(390, 910);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Senza intro e senza carte gia' scelte: e' il ventaglio che aspetta, con
     // Medora sopra e i gesti del mazzo sotto.
@@ -803,7 +803,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(390, 1135);
+    tester.view.physicalSize = const Size(390, 1020);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(MaterialPageRoute<void>(
       builder: (_) => const MaestroScope(
@@ -823,7 +823,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
     // Si pesca una carta: cosi' si vede il rapporto fra slot e ventaglio, col
     // primo slot gia' scoperto e gli altri due che aspettano.
-    await tester.tap(find.byKey(const Key('stesa_fan_4')));
+    await tester.tap(find.byKey(const Key('stesa_fan_38')));
     await tester.pump();
     // Il volo, poi il flip: servono due attese distinte, perche' il flip
     // parte solo quando la carta e' arrivata nel suo slot.

@@ -1,5 +1,6 @@
 import 'tarot_card.dart';
 import 'tarot_spread.dart';
+import '../../features/horoscope/answer_depth.dart';
 import 'tarot_topic.dart';
 
 /// La regola che ha fatto parlare fra loro le tre carte.
@@ -47,6 +48,7 @@ class TarotReading {
   const TarotReading({
     required this.spread,
     required this.topic,
+    required this.depth,
     required this.sintesi,
     required this.posizioni,
     required this.dialogo,
@@ -57,6 +59,14 @@ class TarotReading {
 
   final TarotSpread spread;
   final TarotTopic topic;
+
+  /// La profondita' di TUTTA la lettura, non di una posizione sola.
+  ///
+  /// Le tre posizioni sono una lettura unica e continua: una profondita' per
+  /// posizione darebbe un racconto sbilanciato, lungo in un punto e stretto in
+  /// quello dopo. A runtime questa e' il tetto di lunghezza di ogni testo di
+  /// responso, e i testi lunghi si generano solo quando la persona li chiede.
+  final AnswerDepth depth;
 
   /// Strato 1: una riga forte, dalla sintesi della carta del Presente.
   final String sintesi;
@@ -78,11 +88,16 @@ class TarotReading {
 
   /// Strato 7: le azioni e il disclaimer stanno nella schermata, una sola volta.
 
-  /// Compone la lettura di [spread] dentro [topic].
-  static TarotReading of(TarotSpread spread, TarotTopic topic) {
+  /// Compone la lettura di [spread] dentro [topic], alla profondita' [depth].
+  static TarotReading of(
+    TarotSpread spread,
+    TarotTopic topic, {
+    AnswerDepth depth = AnswerDepth.free,
+  }) {
     return TarotReading(
       spread: spread,
       topic: topic,
+      depth: depth,
       sintesi: spread.presente.summary,
       posizioni: [
         for (final drawn in spread.cards) PosizioneLetta.of(drawn, topic),

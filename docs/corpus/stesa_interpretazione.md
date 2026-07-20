@@ -56,6 +56,6 @@ Code ne pesca una coerente con l'argomento.
 - Qual e' la verita' che stai rimandando di dirti?
 - Di cosa hai davvero bisogno, oltre a cio' che chiedi?
 
-## Profondita' per posizione
+## Profondita' della lettura
 
-Come nell'Oroscopo, ogni posizione ha il selettore Breve Media Lunga, Premium bloccato, con Breve libera nella Demo. A runtime la profondita' scelta e' il tetto di lunghezza del testo, e i testi lunghi si generano solo dove serve, per risparmiare token.
+UN SOLO selettore Breve Media Lunga per l'intera lettura, Premium bloccato, con Breve libera nella Demo. Governa la lunghezza di tutti i testi di responso: le tre posizioni sono una lettura unica e continua, e una profondita' diversa per posizione darebbe un racconto sbilanciato, lungo in un punto e stretto in quello dopo. A runtime la profondita' scelta e' il tetto di lunghezza del testo, e i testi lunghi si generano solo quando la persona li chiede, per risparmiare token.

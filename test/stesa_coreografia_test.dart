@@ -25,8 +25,9 @@ void main() {
     bool skipIntro = true,
     bool reduceMotion = false,
     bool revealAll = false,
+    double altezza = 2600,
   }) async {
-    tester.view.physicalSize = const Size(390, 2600);
+    tester.view.physicalSize = Size(390, altezza);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -130,15 +131,38 @@ void main() {
     });
   });
 
-  group('Il ventaglio', () {
-    test('In larghezza stretta passa a due file', () {
-      // Su schermo largo resta una fila sola.
-      expect(StesaFan.fileFor(400).length, 1);
-      expect(StesaFan.fileFor(400).first, TarotSpread.fanSize);
-      // Su schermo stretto due file, che insieme fanno tutto il mazzo.
-      final strette = StesaFan.fileFor(300);
-      expect(strette.length, 2);
-      expect(strette.reduce((a, b) => a + b), TarotSpread.fanSize);
+  group('Arco sfogliabile', () {
+    test('Si costruiscono solo le carte in vista, non tutte e settantotto', () {
+      // La finestra si muove, il costo resta lo stesso: e' questo che tiene
+      // l'arco fluido con un mazzo intero dentro.
+      for (final centro in [0.0, 12.0, 39.0, 77.0]) {
+        final visibili = StesaFan.indiciVisibili(centro, 78);
+        expect(visibili.length,
+            lessThanOrEqualTo(StesaFan.inVista + StesaFan.margine * 2 + 1));
+        expect(visibili.length, greaterThan(3));
+        // Restano dentro il mazzo, mai indici inventati.
+        expect(visibili.first, greaterThanOrEqualTo(0));
+        expect(visibili.last, lessThan(78));
+      }
+    });
+
+    test('Sfogliando si arriva a coprire tutto il mazzo', () {
+      // Scorrendo la finestra da un capo all'altro si tocca ogni carta.
+      final visti = <int>{};
+      for (var c = 0.0; c <= 77; c += 1) {
+        visti.addAll(StesaFan.indiciVisibili(c, 78));
+      }
+      expect(visti.length, 78, reason: 'qualche carta non si raggiunge mai');
+    });
+
+    test('Resta curvo, non una striscia piatta', () {
+      // Al centro la carta e' alla sua quota, ai lati scende lungo la curva.
+      expect(StesaFan.arcoDi(0), 0);
+      expect(StesaFan.arcoDi(1), lessThan(StesaFan.arcoDi(0.5)));
+      expect(StesaFan.arcoDi(-1), StesaFan.arcoDi(1));
+      // E si inclina verso l'esterno, in versi opposti ai due capi.
+      expect(StesaFan.inclinazioneDi(1).sign,
+          isNot(StesaFan.inclinazioneDi(-1).sign));
     });
   });
 
@@ -208,8 +232,10 @@ void main() {
       final velo = tester.widget<HandoffVeil>(
           find.byKey(const Key('stesa_handoff')));
       expect(velo.opacity, 0);
-      // Il ventaglio risponde subito al tocco.
-      await tester.tap(find.byKey(const Key('stesa_fan_0')));
+      // Il ventaglio risponde subito al tocco. Si tocca una carta al centro
+      // dell'arco: l'arco parte centrato sul mazzo, quindi la prima carta non
+      // e' fra quelle costruite.
+      await tester.tap(find.byKey(const Key('stesa_fan_38')));
       await tester.pump();
       expect(tester.takeException(), isNull);
     });
@@ -286,7 +312,7 @@ void main() {
       // tiene in mano resta un dettaglio del ritratto, non un secondo invito
       // in gara col ventaglio interattivo.
       expect(pescando.bustoFactor, lessThan(MedoraStage.bustoPieno));
-      expect(pescando.height, lessThan(320));
+      expect(pescando.height, lessThan(300));
     });
 
     testWidgets('A stesa fatta Medora torna in primo piano', (tester) async {
@@ -296,7 +322,33 @@ void main() {
       await tester.pump();
       final completa = tester.widget<MedoraStage>(find.byType(MedoraStage));
       expect(completa.bustoFactor, MedoraStage.bustoPieno);
-      expect(completa.height, 320);
+      expect(completa.height, 300);
+    });
+
+
+    testWidgets('Il ventaglio resta a portata anche dopo il secondo pescaggio',
+        (tester) async {
+      // Su uno schermo di telefono vero, non su una finestra alta da test:
+      // e' li' che il ventaglio rischia di scendere fuori campo.
+      await pump(tester, reduceMotion: true, altezza: 844);
+      await tester.pump();
+      final schermo =
+          tester.view.physicalSize.height / tester.view.devicePixelRatio;
+
+      // Si pescano due carte: sotto gli slot si accumulano nome e sintesi, e
+      // il ventaglio rischia di scendere fuori campo proprio mentre serve.
+      for (final indice in [38, 39]) {
+        await tester.tap(find.byKey(Key('stesa_fan_$indice')));
+        await tester.pump();
+        await tester.pump(StesaTiming.volo);
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+
+      final ventaglio = tester.getRect(find.byKey(const Key('stesa_fan')));
+      expect(ventaglio.top, lessThan(schermo),
+          reason: 'dopo due pescaggi il ventaglio comincia fuori campo');
+      expect(ventaglio.bottom, lessThan(schermo),
+          reason: 'dopo due pescaggi il ventaglio finisce fuori campo');
     });
 
     testWidgets('La configurazione parte richiusa', (tester) async {

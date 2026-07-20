@@ -12,7 +12,6 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import '../horoscope/answer_depth.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
 import 'stesa_handoff.dart';
@@ -126,14 +125,8 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// La lettura a sette strati, letta dentro l'argomento scelto. E'
   /// deterministica: stesse carte e stesso argomento danno sempre lo stesso
   /// testo, quindi si puo' mettere in cache senza toccare l'LLM.
-  TarotReading get _reading => TarotReading.of(_spread, _setup.topic);
-
-  /// La profondita' scelta per ogni posizione. Nel gratuito resta Breve
-  /// ovunque, ma lo stato e' gia' per posizione: a runtime si generera' il
-  /// testo lungo solo dove la persona lo chiede, senza bruciare token altrove.
-  final Map<SpreadPosition, AnswerDepth> _depths = {
-    for (final p in SpreadPosition.values) p: AnswerDepth.free,
-  };
+  TarotReading get _reading =>
+      TarotReading.of(_spread, _setup.topic, depth: _setup.depth);
 
   @override
   void didChangeDependencies() {
@@ -257,7 +250,11 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Stesa a Tre Carte',
+        // Il titolo legge il nome della stesa attiva: e' un dato della sua
+        // definizione, non una stringa scritta qui. Quando arriveranno le
+        // stese da sette e dieci carte il titolo cambiera' da solo.
+        title: Text(_setup.tipo.nome,
+            key: const Key('stesa_titolo'),
             style: TypographyTokens.display(size: 20)),
       ),
       body: CosmosBackground(
@@ -322,10 +319,6 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               position: SpreadPosition.values[i],
               drawn: i < _drawn ? _spread.cards[i] : null,
               palette: palette,
-              depth: _depths[SpreadPosition.values[i]]!,
-              onDepth: (d) =>
-                  setState(() => _depths[SpreadPosition.values[i]] = d),
-              onLocked: _showComingSoon,
             ),
           ),
           if (i < SpreadPosition.values.length - 1)
@@ -338,7 +331,10 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Widget _content(MaestroPalette palette) {
     return ListView(
       key: const Key('stesa_list'),
-      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, kToolbarHeight,
+      // Sopra Medora c'era una fascia vuota che sprecava la parte migliore
+      // dello schermo: il margine alto ora e' appena quello che serve a non
+      // finire sotto la barra del titolo.
+      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.xs,
           SpacingTokens.lg, SpacingTokens.lg),
       children: [
         // Medora presiede la stesa. Finche' si pesca sta piu' raccolta: il
@@ -348,8 +344,9 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         MedoraStage(
           palette: palette,
           active: _active,
-          height: _complete ? 320 : 210,
-          bustoFactor: _complete ? MedoraStage.bustoPieno : 0.44,
+          height: _complete ? 300 : 170,
+          bustoFactor: _complete ? MedoraStage.bustoPieno : 0.34,
+          bustoLarghezza: _complete ? 1.0 : 0.72,
         ),
         const SizedBox(height: SpacingTokens.sm),
         // La configurazione, richiusa nella sua riga di riepilogo.
@@ -587,19 +584,11 @@ class _Slot extends StatelessWidget {
     required this.position,
     required this.drawn,
     required this.palette,
-    required this.depth,
-    required this.onDepth,
-    required this.onLocked,
   });
 
   final SpreadPosition position;
   final DrawnCard? drawn;
   final MaestroPalette palette;
-
-  /// La profondita' di questa posizione, col suo menu a tendina.
-  final AnswerDepth depth;
-  final ValueChanged<AnswerDepth> onDepth;
-  final ValueChanged<String> onLocked;
 
   @override
   Widget build(BuildContext context) {
@@ -641,20 +630,6 @@ class _Slot extends StatelessWidget {
                 style: TypographyTokens.label(size: 9).copyWith(
                     color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: 2),
-          // La profondita' della risposta, per posizione. Sta FUORI dalla
-          // cornice: sovrapposta alla carta copriva il cartiglio superiore e
-          // nascondeva il numero.
-          Center(
-            child: AnswerDepthSelector(
-              key: Key('stesa_depth_${position.name}'),
-              current: depth,
-              palette: palette,
-              compact: true,
-              onSelect: onDepth,
-              onLockedTap: (d) => onLocked(d.label),
-            ),
-          ),
-          const SizedBox(height: 4),
           // Sotto la carta resta la sintesi breve: il testo ricco ha il suo
           // strato piu' sotto, ripeterlo qui in colonna stretta lo rendeva
           // illeggibile.

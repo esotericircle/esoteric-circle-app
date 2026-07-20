@@ -51,6 +51,7 @@ class MedoraStage extends StatefulWidget {
     this.height = 320,
     this.breathe = true,
     double? bustoFactor,
+    this.bustoLarghezza = 1.0,
   }) : bustoFactor = bustoFactor ?? bustoPieno;
 
   final MaestroPalette palette;
@@ -62,6 +63,13 @@ class MedoraStage extends StatefulWidget {
 
   /// Respiro e pulsazione. Con Riduci Movimento la scena resta ferma.
   final bool breathe;
+
+  /// Quanta parte della larghezza resta in scena, centrata sul volto.
+  ///
+  /// Serve mentre si pesca: il ventaglio che Medora tiene in mano sta di lato,
+  /// e stringendo solo in altezza restava comunque un frammento appeso al
+  /// bordo. Stringendo anche in larghezza esce dal quadro per intero.
+  final double bustoLarghezza;
 
   /// Quanta parte dell'avatar resta in scena, per questa messa in scena.
   ///
@@ -198,6 +206,10 @@ class _MedoraStageState extends State<MedoraStage>
                   // del ritaglio, e resterebbe una figura intera rimpicciolita.
                   child: SizedBox(
                     height: widget.height,
+                    // La larghezza si stringe sul volto quando serve.
+                    width: widget.bustoLarghezza < 1
+                        ? widget.height * widget.bustoLarghezza
+                        : null,
                     // Il taglio del busto sfuma, non e' una linea netta.
                     child: ShaderMask(
                       blendMode: BlendMode.dstIn,
@@ -214,6 +226,8 @@ class _MedoraStageState extends State<MedoraStage>
                       child: ClipRect(
                         child: OverflowBox(
                           alignment: Alignment.topCenter,
+                          minWidth: 0,
+                          maxWidth: double.infinity,
                           minHeight: widget.height / widget.bustoFactor,
                           maxHeight: widget.height / widget.bustoFactor,
                           child: Image.asset(

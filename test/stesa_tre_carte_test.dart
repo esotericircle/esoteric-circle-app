@@ -11,6 +11,7 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
+import 'package:esoteric_circle/core/tarot/tarot_spread_type.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/features/tarot/medora_stage.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
@@ -333,8 +334,7 @@ void main() {
       // Richiusa: si vede il riepilogo, non i selettori.
       expect(find.byKey(const Key('stesa_setup_riga')), findsOneWidget);
       expect(find.byKey(const Key('stesa_setup')), findsNothing);
-      expect(find.text('Riflessione Jodorowsky'), findsNothing);
-      // Il riepilogo dice comunque tutto quello che serve.
+      expect(find.byKey(const Key('stesa_chiave')), findsNothing);
       const setup = TarotSetup();
       for (final pezzo in [
         setup.topic.label.split(',').first,
@@ -348,9 +348,17 @@ void main() {
       await tester.tap(find.byKey(const Key('stesa_setup_riga')));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('stesa_setup')), findsOneWidget);
-      expect(find.text('Riflessione Jodorowsky'), findsOneWidget);
-      expect(find.byKey(const Key('stesa_topic')), findsOneWidget);
-      expect(find.byKey(const Key('stesa_reversed_switch')), findsOneWidget);
+      for (final chiave in const [
+        'stesa_tipo',
+        'stesa_topic',
+        'stesa_chiave',
+        'stesa_mazzo',
+        'stesa_depth',
+        'stesa_reversed_switch',
+      ]) {
+        expect(find.byKey(Key(chiave)), findsOneWidget,
+            reason: 'manca il selettore $chiave');
+      }
 
       // E si richiude.
       await tester.tap(find.byKey(const Key('stesa_setup_chiudi')));
@@ -358,7 +366,7 @@ void main() {
       expect(find.byKey(const Key('stesa_setup_riga')), findsOneWidget);
     });
 
-    testWidgets('Il pannello mostra i lucchetti e il Coming soon',
+    testWidgets('Le voci in arrivo stanno dentro la loro tendina',
         (tester) async {
       await loadFonts();
       await tester.pumpWidget(MaterialApp(
@@ -367,8 +375,6 @@ void main() {
             child: TarotSetupPanel(
               setup: const TarotSetup(),
               palette: palette,
-              // Aperto: qui si controlla il pannello pieno. Che di base stia
-              // richiuso e' verificato dal test della riga di riepilogo.
               aperto: true,
               onChanged: (_) {},
               onLocked: (_) {},
@@ -377,20 +383,30 @@ void main() {
         ),
       ));
       await tester.pumpAndSettle();
-      expect(tester.takeException(), isNull);
-      // Le voci non pronte restano visibili, col loro badge.
+      // Da chiuse, le tendine non occupano righe con le voci bloccate: prima
+      // Chiave e Mazzo si mangiavano tre righe ciascuno.
+      expect(find.text('Riflessione Jodorowsky'), findsNothing);
+      expect(find.text('Marsiglia'), findsNothing);
+
+      // Aperta la Chiave, le voci in arrivo sono li' col lucchetto e la nota.
+      await tester.tap(find.byKey(const Key('stesa_chiave')));
+      await tester.pumpAndSettle();
       expect(find.text('Riflessione Jodorowsky'), findsOneWidget);
       expect(find.text('Esoterica Caligo'), findsOneWidget);
+      expect(find.text('Coming soon'), findsNWidgets(2));
+      // La nota etica compare in contesto, sulla sua voce.
+      expect(find.textContaining('Jodorowsky, senza rapporto ufficiale'),
+          findsOneWidget);
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+
+      // E il Mazzo si comporta allo stesso modo.
+      await tester.tap(find.byKey(const Key('stesa_mazzo')));
+      await tester.pumpAndSettle();
       expect(find.text('Marsiglia'), findsOneWidget);
       expect(find.text('Thoth'), findsOneWidget);
-      // Quattro voci in arrivo, quattro badge.
-      expect(find.text('Coming soon'), findsNWidgets(4));
-      // La profondita' parte da Breve, col lucchetto del gratuito.
-      expect(find.text(AnswerDepth.breve.label), findsOneWidget);
-      // Lo switch delle rovesciate e' acceso.
-      final sw = tester.widget<Switch>(
-          find.byKey(const Key('stesa_reversed_switch')));
-      expect(sw.value, isTrue);
+      expect(find.text('Coming soon'), findsNWidgets(2));
+      expect(tester.takeException(), isNull);
     });
   });
 
@@ -445,56 +461,98 @@ void main() {
   });
 
   group('Argomento e profondita nella schermata', () {
-    testWidgets('Il selettore argomento mostra i sedici in tre gruppi',
+    testWidgets('La tendina argomento mostra i sedici in tre gruppi',
         (tester) async {
       await loadFonts();
       var scelto = TarotTopic.predefinito;
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
           body: Center(
-            child: TopicSelector(
-              current: scelto,
+            child: TendinaSelettore<TarotTopic>(
+              chiave: const Key('stesa_topic'),
+              titolo: 'Scegli argomento',
+              corrente: scelto,
+              voci: TarotTopic.values,
               palette: palette,
+              etichetta: (t) => t.label,
+              gruppo: (t) => t.group.label,
+              bloccata: (_) => false,
               onSelect: (t) => scelto = t,
+              onLocked: (_) {},
             ),
           ),
         ),
       ));
       await tester.pumpAndSettle();
-      // La voce corrente si legge senza aprire il menu.
       expect(find.text(TarotTopic.predefinito.label), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('stesa_topic')));
       await tester.pumpAndSettle();
-      // I tre gruppi fanno da intestazione.
       for (final g in TarotTopicGroup.values) {
         expect(find.text(g.label.toUpperCase()), findsOneWidget);
       }
-      // E ci sono tutte e sedici le voci.
       for (final t in TarotTopic.values) {
         expect(find.text(t.label), findsWidgets,
-            reason: 'manca l\'argomento ${t.label}');
+            reason: 'manca l argomento ${t.label}');
       }
-      // Salute e legale non compaiono in nessuna forma.
       for (final vietato in const ['Salute', 'Legale', 'Malattia']) {
         expect(find.text(vietato), findsNothing);
       }
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('Ogni posizione ha la sua profondita, Breve libera',
+    testWidgets('La profondita e una sola per tutta la lettura',
         (tester) async {
       await pumpScreen(tester);
+      // Nessun selettore per posizione: le tre posizioni sono una lettura
+      // unica e continua, e una profondita' per posizione darebbe un racconto
+      // sbilanciato.
       for (final p in SpreadPosition.values) {
-        final sel = find.byKey(Key('stesa_depth_${p.name}'));
-        expect(sel, findsOneWidget, reason: 'manca la profondita in ${p.label}');
-        final widget = tester.widget<AnswerDepthSelector>(sel);
-        // Nel gratuito la profondita' parte da Breve, la sola libera.
-        expect(widget.current, AnswerDepth.free);
-        expect(widget.premiumUnlocked, isFalse);
+        expect(find.byKey(Key('stesa_depth_${p.name}')), findsNothing,
+            reason: 'e rimasta una profondita in ${p.label}');
       }
-      // Le tre sono indipendenti: lo stato e' per posizione.
-      expect(find.byType(AnswerDepthSelector), findsNWidgets(3));
+      // Quella che governa tutto vive nella configurazione, con Breve libera.
+      const setup = TarotSetup();
+      expect(setup.depth, AnswerDepth.free);
+      expect(AnswerDepth.free.premium, isFalse);
+      for (final d in AnswerDepth.values.where((d) => d != AnswerDepth.free)) {
+        expect(d.premium, isTrue, reason: '${d.label} dovrebbe essere Premium');
+      }
+      // E la lettura la porta con se', una sola per tutti i testi.
+      final reading = TarotReading.of(
+          TarotSpread.draw(seed: 2), TarotTopic.predefinito,
+          depth: AnswerDepth.lunga);
+      expect(reading.depth, AnswerDepth.lunga);
+    });
+
+    testWidgets('Il titolo segue la stesa attiva', (tester) async {
+      await pumpScreen(tester);
+      // Il nome non e' scritto a mano nella schermata: viene dalla
+      // definizione della stesa, quindi cambiera' da solo quando arriveranno
+      // quelle da sette e dieci carte.
+      expect(find.byKey(const Key('stesa_titolo')), findsOneWidget);
+      final titolo =
+          tester.widget<Text>(find.byKey(const Key('stesa_titolo')));
+      expect(titolo.data, TarotSpreadType.predefinita.nome);
+      expect(titolo.data, 'Stesa a Tre Carte');
+    });
+
+    test('Le tre stese esistono, solo la prima e aperta', () {
+      expect(TarotSpreadType.values.length, 3);
+      expect(TarotSpreadType.treCarte.disponibile, isTrue);
+      expect(TarotSpreadType.treCarte.carte, 3);
+      for (final t in const [
+        TarotSpreadType.setteCarte,
+        TarotSpreadType.dieciCarte,
+      ]) {
+        expect(t.disponibile, isFalse, reason: '${t.nome} non e Coming soon');
+      }
+      // Ogni stesa porta il proprio nome, e sono tutti diversi.
+      expect(TarotSpreadType.values.map((t) => t.nome).toSet().length, 3);
+      for (final t in TarotSpreadType.values) {
+        expect(t.nome, contains('Stesa'));
+        expect(t.carte, greaterThan(0));
+      }
     });
 
     testWidgets('La schermata mostra i sette strati', (tester) async {
