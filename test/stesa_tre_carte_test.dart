@@ -307,6 +307,57 @@ void main() {
       expect(setup.includeReversed, isTrue);
     });
 
+
+    testWidgets('Di base la configurazione sta richiusa in una riga',
+        (tester) async {
+      await loadFonts();
+      var aperto = false;
+      await tester.pumpWidget(StatefulBuilder(
+        builder: (context, setState) => MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: TarotSetupPanel(
+                setup: const TarotSetup(),
+                palette: palette,
+                aperto: aperto,
+                onToggle: () => setState(() => aperto = !aperto),
+                onChanged: (_) {},
+                onLocked: (_) {},
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+
+      // Richiusa: si vede il riepilogo, non i selettori.
+      expect(find.byKey(const Key('stesa_setup_riga')), findsOneWidget);
+      expect(find.byKey(const Key('stesa_setup')), findsNothing);
+      expect(find.text('Riflessione Jodorowsky'), findsNothing);
+      // Il riepilogo dice comunque tutto quello che serve.
+      const setup = TarotSetup();
+      for (final pezzo in [
+        setup.topic.label.split(',').first,
+        setup.deck.label,
+      ]) {
+        expect(find.textContaining(pezzo), findsOneWidget,
+            reason: 'il riepilogo non dice $pezzo');
+      }
+
+      // Al tocco si apre, e nessun selettore e' andato perso.
+      await tester.tap(find.byKey(const Key('stesa_setup_riga')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('stesa_setup')), findsOneWidget);
+      expect(find.text('Riflessione Jodorowsky'), findsOneWidget);
+      expect(find.byKey(const Key('stesa_topic')), findsOneWidget);
+      expect(find.byKey(const Key('stesa_reversed_switch')), findsOneWidget);
+
+      // E si richiude.
+      await tester.tap(find.byKey(const Key('stesa_setup_chiudi')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('stesa_setup_riga')), findsOneWidget);
+    });
+
     testWidgets('Il pannello mostra i lucchetti e il Coming soon',
         (tester) async {
       await loadFonts();
@@ -316,6 +367,9 @@ void main() {
             child: TarotSetupPanel(
               setup: const TarotSetup(),
               palette: palette,
+              // Aperto: qui si controlla il pannello pieno. Che di base stia
+              // richiuso e' verificato dal test della riga di riepilogo.
+              aperto: true,
               onChanged: (_) {},
               onLocked: (_) {},
             ),

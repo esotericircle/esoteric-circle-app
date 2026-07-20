@@ -773,7 +773,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(390, 1500);
+    tester.view.physicalSize = const Size(390, 1015);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Senza intro e senza carte gia' scelte: e' il ventaglio che aspetta, con
     // Medora sopra e i gesti del mazzo sotto.
@@ -795,6 +795,43 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
     await tester.pump(const Duration(milliseconds: 100));
     await capture(tester, rootKey, 'stesa-scena.png');
+  });
+
+  // --- La Stesa con una carta gia' scelta, per vedere slot e ventaglio ---
+  testWidgets('Cattura la Stesa in corso', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    tester.view.physicalSize = const Size(390, 1135);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(seed: 1, skipIntro: true),
+      ),
+    )));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), element);
+      for (final drawn in TarotSpread.draw(seed: 1).cards) {
+        await precacheImage(AssetImage(drawn.card.fullPath), element);
+      }
+    });
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 100));
+    // Si pesca una carta: cosi' si vede il rapporto fra slot e ventaglio, col
+    // primo slot gia' scoperto e gli altri due che aspettano.
+    await tester.tap(find.byKey(const Key('stesa_fan_4')));
+    await tester.pump();
+    // Il volo, poi il flip: servono due attese distinte, perche' il flip
+    // parte solo quando la carta e' arrivata nel suo slot.
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pump(const Duration(milliseconds: 200));
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pump(const Duration(milliseconds: 200));
+    await capture(tester, rootKey, 'stesa-in-corso.png');
   });
 
   // --- La card condivisibile della Stesa ---

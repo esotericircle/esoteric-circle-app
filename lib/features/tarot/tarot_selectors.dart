@@ -60,6 +60,17 @@ class TarotSetup {
   /// cartomanzia.
   final bool includeReversed;
 
+  /// Il riepilogo in poche parole, per la riga richiusa.
+  ///
+  /// Dice tutto quello che serve sapere a colpo d'occhio, senza aprire nulla:
+  /// chi non tocca la configurazione non ha motivo di espanderla.
+  String get riepilogo => [
+        topic.label.split(',').first,
+        key.label.split(' ').first,
+        deck.label,
+        includeReversed ? 'con rovesciate' : 'solo dritte',
+      ].join('  ·  ');
+
   TarotSetup copyWith({
     ReadingKey? key,
     TarotDeckStyle? deck,
@@ -86,6 +97,8 @@ class TarotSetupPanel extends StatelessWidget {
     required this.palette,
     required this.onChanged,
     required this.onLocked,
+    this.aperto = false,
+    this.onToggle,
   });
 
   final TarotSetup setup;
@@ -95,8 +108,59 @@ class TarotSetupPanel extends StatelessWidget {
   /// Invito quando si tocca una voce non disponibile.
   final ValueChanged<String> onLocked;
 
+  /// Se il pannello e' aperto o richiuso nella sua riga di riepilogo.
+  ///
+  /// Di base sta richiuso: aperto spingeva il ventaglio sotto la piega, e per
+  /// pescare bisognava scorrere oltre tutta la configurazione. Chiuso, Medora
+  /// e il ventaglio si vedono insieme senza scorrere.
+  final bool aperto;
+
+  final VoidCallback? onToggle;
+
   @override
   Widget build(BuildContext context) {
+    if (!aperto) return _riga(context);
+    return _pannello(context);
+  }
+
+  /// La riga richiusa: il riepilogo, tappabile per aprire.
+  Widget _riga(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: 'Configurazione della stesa, tocca per aprire',
+      child: GestureDetector(
+        key: const Key('stesa_setup_riga'),
+        onTap: onToggle,
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.md, vertical: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+            color: palette.surfaceElevated.withValues(alpha: 0.45),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.22)),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.tune_rounded, size: 15, color: palette.goldSoft),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(setup.riepilogo,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TypographyTokens.body(size: 13)
+                        .copyWith(color: ColorTokens.textSecondary)),
+              ),
+              Icon(Icons.expand_more_rounded,
+                  size: 18, color: palette.goldSoft),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _pannello(BuildContext context) {
     return Container(
       key: const Key('stesa_setup'),
       padding: const EdgeInsets.all(SpacingTokens.md),
@@ -108,6 +172,23 @@ class TarotSetupPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          GestureDetector(
+            key: const Key('stesa_setup_chiudi'),
+            onTap: onToggle,
+            behavior: HitTestBehavior.opaque,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text('LA TUA STESA',
+                      style: TypographyTokens.label(size: 9).copyWith(
+                          color: palette.goldSoft, letterSpacing: 1.4)),
+                ),
+                Icon(Icons.expand_less_rounded,
+                    size: 18, color: palette.goldSoft),
+              ],
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
           _Riga(
             titolo: 'Scegli argomento',
             palette: palette,

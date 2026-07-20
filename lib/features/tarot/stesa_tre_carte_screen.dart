@@ -90,6 +90,10 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   late final AnimationController _volo = AnimationController(
       vsync: this, duration: StesaTiming.volo);
 
+  /// Se il pannello dei selettori e' aperto. Parte richiuso, cosi' il
+  /// ventaglio resta a portata senza scorrere oltre la configurazione.
+  bool _setupAperto = false;
+
   /// Dove il mazzo e' stato tagliato l'ultima volta.
   int _taglioIndice = TarotSpread.fanSize ~/ 2;
 
@@ -303,24 +307,69 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     );
   }
 
+  /// I tre slot Passato Presente Futuro.
+  ///
+  /// Stanno sopra il ventaglio mentre si pesca e sopra la lettura quando la
+  /// stesa e' fatta: e' lo stesso blocco, cambia solo dove si trova.
+  Widget _slots(MaestroPalette palette) {
+    return Row(
+      key: const Key('stesa_slots'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (var i = 0; i < SpreadPosition.values.length; i++) ...[
+          Expanded(
+            child: _Slot(
+              position: SpreadPosition.values[i],
+              drawn: i < _drawn ? _spread.cards[i] : null,
+              palette: palette,
+              depth: _depths[SpreadPosition.values[i]]!,
+              onDepth: (d) =>
+                  setState(() => _depths[SpreadPosition.values[i]] = d),
+              onLocked: _showComingSoon,
+            ),
+          ),
+          if (i < SpreadPosition.values.length - 1)
+            const SizedBox(width: SpacingTokens.xs),
+        ],
+      ],
+    );
+  }
+
   Widget _content(MaestroPalette palette) {
     return ListView(
       key: const Key('stesa_list'),
       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, kToolbarHeight,
           SpacingTokens.lg, SpacingTokens.lg),
       children: [
-        // Medora presiede la stesa, con le carte davanti a lei.
-        MedoraStage(palette: palette, active: _active),
-        const SizedBox(height: SpacingTokens.md),
-        // I selettori prima della stesa.
+        // Medora presiede la stesa. Finche' si pesca sta piu' raccolta: il
+        // protagonista in quel momento e' il ventaglio interattivo, e il
+        // ventaglio che lei tiene in mano deve restare un dettaglio del
+        // ritratto, non un secondo invito in gara col primo.
+        MedoraStage(
+          palette: palette,
+          active: _active,
+          height: _complete ? 320 : 210,
+          bustoFactor: _complete ? MedoraStage.bustoPieno : 0.44,
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        // La configurazione, richiusa nella sua riga di riepilogo.
         if (!_complete) ...[
           TarotSetupPanel(
             setup: _setup,
             palette: palette,
+            aperto: _setupAperto,
+            onToggle: () => setState(() => _setupAperto = !_setupAperto),
             onChanged: (s) => setState(() => _setup = s),
             onLocked: _showComingSoon,
           ),
-          const SizedBox(height: SpacingTokens.md),
+          const SizedBox(height: SpacingTokens.sm),
+        ],
+        // Mentre si pesca, gli slot stanno appena SOPRA il ventaglio: cosi'
+        // partenza e arrivo del volo sono nello stesso campo visivo e la carta
+        // non vola mai verso uno slot fuori schermo.
+        if (!_complete) ...[
+          _slots(palette),
+          const SizedBox(height: SpacingTokens.sm),
         ],
         // Colpo d'occhio: il ventaglio coperto, finche' restano carte da pescare.
         if (!_complete) ...[
@@ -398,27 +447,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                   .copyWith(color: palette.goldSoft, height: 1.25)),
           const SizedBox(height: SpacingTokens.md),
         ],
-        // I tre slot, che si girano man mano.
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            for (var i = 0; i < SpreadPosition.values.length; i++) ...[
-              Expanded(
-                child: _Slot(
-                  position: SpreadPosition.values[i],
-                  drawn: i < _drawn ? _spread.cards[i] : null,
-                  palette: palette,
-                  depth: _depths[SpreadPosition.values[i]]!,
-                  onDepth: (d) => setState(
-                      () => _depths[SpreadPosition.values[i]] = d),
-                  onLocked: _showComingSoon,
-                ),
-              ),
-              if (i < SpreadPosition.values.length - 1)
-                const SizedBox(width: SpacingTokens.xs),
-            ],
-          ],
-        ),
+        if (_complete) _slots(palette),
         if (_complete) ...[
           const SizedBox(height: SpacingTokens.lg),
           // Strato 2, le tre posizioni col testo ricco letto nell'argomento.

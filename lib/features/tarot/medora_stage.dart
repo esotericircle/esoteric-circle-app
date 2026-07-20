@@ -50,7 +50,8 @@ class MedoraStage extends StatefulWidget {
     this.active,
     this.height = 320,
     this.breathe = true,
-  });
+    double? bustoFactor,
+  }) : bustoFactor = bustoFactor ?? bustoPieno;
 
   final MaestroPalette palette;
 
@@ -61,6 +62,14 @@ class MedoraStage extends StatefulWidget {
 
   /// Respiro e pulsazione. Con Riduci Movimento la scena resta ferma.
   final bool breathe;
+
+  /// Quanta parte dell'avatar resta in scena, per questa messa in scena.
+  ///
+  /// Piu' piccolo vuol dire ritaglio piu' stretto sul volto: serve mentre si
+  /// pesca, perche' il ventaglio che Medora tiene in mano esca dal quadro e
+  /// non faccia concorrenza al ventaglio interattivo, che li' e' il
+  /// protagonista.
+  final double bustoFactor;
 
   /// Il ritratto unico, che c'e' sempre. E' il ripiego: se i tre ritratti
   /// d'espressione non sono ancora stati prodotti, la scena usa questo e non
@@ -83,9 +92,9 @@ class MedoraStage extends StatefulWidget {
   static String assetFor(MedoraExpression e) =>
       ritratti[e] ?? placeholderAsset;
 
-  /// Quanta parte dell'avatar a figura intera resta in scena: dalla testa fino
-  /// sotto le mani che reggono le carte.
-  static const double bustoFactor = 0.58;
+  /// Quanta parte dell'avatar a figura intera resta in scena quando Medora ha
+  /// tutto il suo spazio: dalla testa fino sotto le mani che reggono le carte.
+  static const double bustoPieno = 0.58;
 
   @override
   State<MedoraStage> createState() => _MedoraStageState();
@@ -205,8 +214,8 @@ class _MedoraStageState extends State<MedoraStage>
                       child: ClipRect(
                         child: OverflowBox(
                           alignment: Alignment.topCenter,
-                          minHeight: widget.height / MedoraStage.bustoFactor,
-                          maxHeight: widget.height / MedoraStage.bustoFactor,
+                          minHeight: widget.height / widget.bustoFactor,
+                          maxHeight: widget.height / widget.bustoFactor,
                           child: Image.asset(
                             MedoraStage.placeholderAsset,
                             fit: BoxFit.contain,

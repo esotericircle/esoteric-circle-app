@@ -242,4 +242,73 @@ void main() {
       }
     });
   });
+
+  group('La composizione verticale', () {
+    testWidgets('Medora e il ventaglio si vedono insieme, senza scorrere',
+        (tester) async {
+      await pump(tester, reduceMotion: true);
+      await tester.pump();
+      // Il ventaglio deve stare dentro la prima schermata, non oltre la
+      // piega: se la configurazione lo spingesse giu', per pescare si
+      // dovrebbe scorrere oltre un muro di controlli.
+      final schermo = tester.view.physicalSize.height /
+          tester.view.devicePixelRatio;
+      final medora = tester.getRect(find.byKey(const Key('medora_stage')));
+      final ventaglio = tester.getRect(find.byKey(const Key('stesa_fan')));
+      expect(medora.top, lessThan(schermo));
+      expect(ventaglio.bottom, lessThan(schermo),
+          reason: 'il ventaglio finisce sotto la piega');
+    });
+
+    testWidgets('Gli slot stanno sopra il ventaglio mentre si pesca',
+        (tester) async {
+      await pump(tester, reduceMotion: true);
+      await tester.pump();
+      final slots = tester.getRect(find.byKey(const Key('stesa_slots')));
+      final ventaglio = tester.getRect(find.byKey(const Key('stesa_fan')));
+      // Partenza e arrivo del volo nello stesso campo visivo, con gli slot
+      // sopra: cosi' la carta non vola mai verso uno slot fuori schermo.
+      expect(slots.bottom, lessThanOrEqualTo(ventaglio.top + 1),
+          reason: 'gli slot non stanno sopra il ventaglio');
+      final schermo = tester.view.physicalSize.height /
+          tester.view.devicePixelRatio;
+      expect(slots.top, greaterThanOrEqualTo(0));
+      expect(ventaglio.bottom - slots.top, lessThan(schermo),
+          reason: 'slot e ventaglio non stanno nello stesso campo visivo');
+    });
+
+    testWidgets('Mentre si pesca Medora e piu raccolta', (tester) async {
+      await pump(tester, reduceMotion: true);
+      await tester.pump();
+      final pescando =
+          tester.widget<MedoraStage>(find.byType(MedoraStage));
+      // Ritaglio piu' stretto e scena piu' bassa: il ventaglio che Medora
+      // tiene in mano resta un dettaglio del ritratto, non un secondo invito
+      // in gara col ventaglio interattivo.
+      expect(pescando.bustoFactor, lessThan(MedoraStage.bustoPieno));
+      expect(pescando.height, lessThan(320));
+    });
+
+    testWidgets('A stesa fatta Medora torna in primo piano', (tester) async {
+      // Test a se': rimontare nello stesso test riuserebbe lo State, e
+      // revealAll si legge una volta sola alla nascita.
+      await pump(tester, reduceMotion: true, revealAll: true);
+      await tester.pump();
+      final completa = tester.widget<MedoraStage>(find.byType(MedoraStage));
+      expect(completa.bustoFactor, MedoraStage.bustoPieno);
+      expect(completa.height, 320);
+    });
+
+    testWidgets('La configurazione parte richiusa', (tester) async {
+      await pump(tester, reduceMotion: true);
+      await tester.pump();
+      expect(find.byKey(const Key('stesa_setup_riga')), findsOneWidget);
+      expect(find.byKey(const Key('stesa_setup')), findsNothing);
+      // Al tocco si apre, senza perdere nulla.
+      await tester.tap(find.byKey(const Key('stesa_setup_riga')));
+      await tester.pump();
+      expect(find.byKey(const Key('stesa_setup')), findsOneWidget);
+      expect(find.byKey(const Key('stesa_topic')), findsOneWidget);
+    });
+  });
 }
