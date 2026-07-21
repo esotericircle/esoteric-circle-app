@@ -41,6 +41,10 @@ class MaestroChatController extends ChangeNotifier {
 
   MaestroMemory _memoryState = MaestroMemory.empty;
 
+  /// La memoria del Maestro caricata, per il benvenuto deterministico del
+  /// Premium, che riprende dalla sintesi di sessione.
+  MaestroMemory get memory => _memoryState;
+
   bool _loading = true;
   bool get loading => _loading;
 

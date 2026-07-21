@@ -1,6 +1,7 @@
 import '../../core/chat/chat_message.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
+import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
 import '../../core/maestro/natal_context.dart';
@@ -55,6 +56,7 @@ abstract interface class MaestroAiProvider {
     required UserProfile profile,
     MaestroMemory memory = MaestroMemory.empty,
     NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
   });
 
   /// Distilla la conversazione in una sintesi piu' pochi fatti stabili, per
@@ -105,6 +107,7 @@ class UnavailableMaestroAiProvider implements MaestroAiProvider {
     required UserProfile profile,
     MaestroMemory memory = MaestroMemory.empty,
     NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
   }) async {
     throw const MaestroAiUnavailable();
   }

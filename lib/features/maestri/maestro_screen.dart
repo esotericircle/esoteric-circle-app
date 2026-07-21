@@ -204,7 +204,7 @@ class _AskMaestroCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Chiedi a ${maestro.displayName}',
+                  'Consulta ${maestro.displayName}',
                   style: TypographyTokens.display(size: 18),
                 ),
                 const SizedBox(height: 2),

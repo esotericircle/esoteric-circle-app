@@ -4,6 +4,7 @@ import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
+import 'package:esoteric_circle/core/maestro/consult_depth.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
@@ -116,6 +117,7 @@ class _RecordingAi implements MaestroAiProvider {
     required UserProfile profile,
     MaestroMemory memory = MaestroMemory.empty,
     NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
   }) async {
     return const MaestroReply(
       glance: 'Un colpo d\'occhio.',

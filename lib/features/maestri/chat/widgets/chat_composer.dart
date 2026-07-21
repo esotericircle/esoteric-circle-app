@@ -15,6 +15,7 @@ class ChatComposer extends StatefulWidget {
     required this.onSend,
     this.onSuggestions,
     this.hintText = 'Scrivi a Medora',
+    this.initialText,
   });
 
   final bool enabled;
@@ -25,6 +26,10 @@ class ChatComposer extends StatefulWidget {
   final VoidCallback? onSuggestions;
 
   final String hintText;
+
+  /// Testo con cui il campo si apre gia' scritto, quando si arriva dalla
+  /// chiusura del cerchio del Consulta col tema.
+  final String? initialText;
 
   @override
   State<ChatComposer> createState() => _ChatComposerState();
@@ -38,6 +43,11 @@ class _ChatComposerState extends State<ChatComposer> {
   @override
   void initState() {
     super.initState();
+    final seed = widget.initialText?.trim() ?? '';
+    if (seed.isNotEmpty) {
+      _controller.text = seed;
+      _hasText = true;
+    }
     _controller.addListener(() {
       final has = _controller.text.trim().isNotEmpty;
       if (has != _hasText) setState(() => _hasText = has);

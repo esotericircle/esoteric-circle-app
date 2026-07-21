@@ -217,13 +217,17 @@ void main() {
       }
     });
 
-    test('Le tre voci sono Breve, Media, Lunga, con Breve libera', () {
-      expect(AnswerDepth.values.map((d) => d.label).toList(),
-          ['Breve', 'Media', 'Lunga']);
+    test('Le due voci mostrate sono Breve e Profonda, con Media latente', () {
+      expect(AnswerDepth.shown.map((d) => d.label).toList(),
+          ['Breve', 'Profonda']);
       expect(AnswerDepth.free, AnswerDepth.breve);
       expect(AnswerDepth.breve.premium, isFalse);
+      expect(AnswerDepth.profonda.premium, isTrue);
+      // La Media resta nel codice ma spenta, fuori dalla vista.
       expect(AnswerDepth.media.premium, isTrue);
-      expect(AnswerDepth.lunga.premium, isTrue);
+      expect(AnswerDepth.media.visible, isFalse);
+      expect(AnswerDepth.breve.visible, isTrue);
+      expect(AnswerDepth.profonda.visible, isTrue);
     });
 
     testWidgets('Ogni bolla ha il selettore, chiuso su Breve e bloccato',
@@ -256,24 +260,26 @@ void main() {
       }
     });
 
-    testWidgets('La tendina si apre con Media e Lunga bloccate',
+    testWidgets('La tendina si apre con la sola Profonda bloccata, senza Media',
         (tester) async {
       await pumpScreen(tester);
       await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
 
-      // Le tre voci sono nell'elenco aperto.
-      for (final depth in AnswerDepth.values) {
+      // Le due voci mostrate sono nell'elenco aperto.
+      for (final depth in AnswerDepth.shown) {
         expect(find.text(depth.label), findsWidgets,
             reason: '${depth.label} manca nella tendina');
       }
-      // Due lucchetti nell'elenco, uno per Media e uno per Lunga.
+      // La Media latente non compare nella tendina.
+      expect(find.text('Media'), findsNothing);
+      // Un solo lucchetto nell'elenco, per la Profonda.
       final lucchettiNellaTendina = find.descendant(
         of: find.byType(PopupMenuItem<AnswerDepth>),
         matching: find.byIcon(Icons.lock_rounded),
       );
-      expect(tester.widgetList(lucchettiNellaTendina).length, 2);
+      expect(tester.widgetList(lucchettiNellaTendina).length, 1);
     });
 
     testWidgets('Nella Demo il controllo non cambia la profondita\'',
@@ -282,10 +288,10 @@ void main() {
       await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
-      // Si tocca Lunga, che e' bloccata.
+      // Si tocca Profonda, che e' bloccata.
       await tester.tap(find.descendant(
           of: find.byType(PopupMenuItem<AnswerDepth>),
-          matching: find.text('Lunga')));
+          matching: find.text('Profonda')));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
 

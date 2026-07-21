@@ -1,5 +1,6 @@
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
+import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/natal_context.dart';
 
@@ -190,7 +191,7 @@ MODO:
       buffer.writeln('- Numero della vita: ${natal.lifeNumber}$titolo.');
     }
     if (natal.moonPhase != null && natal.moonPhase!.trim().isNotEmpty) {
-      buffer.writeln('- Fase lunare di oggi: ${natal.moonPhase!.trim()}.');
+      buffer.writeln('- Fase lunare di nascita: ${natal.moonPhase!.trim()}.');
     }
     return buffer.toString();
   }
@@ -205,8 +206,12 @@ MODO:
     required UserProfile profile,
     required MaestroMemory memory,
     NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
   }) {
     final natalBlock = _natalContext(natal);
+    final rigaProfondita = depth == ConsultDepth.profonda
+        ? '- Profondita\' Profonda: nel campo reading approfondisci quanto serve al senso, fino a esaurirlo, senza gonfiare per allungare. Il colpo d\'occhio e l\'invito restano brevi.'
+        : '- Profondita\' Breve: il campo reading e\' poche righe dense, nessun giro di parole. Il colpo d\'occhio e l\'invito una riga ciascuno.';
     return [
       _voice(maestro),
       '',
@@ -217,8 +222,9 @@ MODO:
       '',
       'FORMA DELL\'USCITA, PER QUESTA CONSULTAZIONE:',
       '- La persona pone una domanda sola. Rispondi solo su quel tema, nella tua lente di dominio, senza divagare e senza inventare dati sulla persona.',
+      rigaProfondita,
       '- Restituisci solo un oggetto JSON valido, senza testo attorno, con questa forma esatta:',
-      '{"glance": "il colpo d\'occhio in una riga", "reading": "il testo narrato nel tuo tono, poche righe", "invite": "un invito o una domanda sola per il passo successivo"}',
+      '{"glance": "il colpo d\'occhio in una riga", "reading": "il testo narrato nel tuo tono", "invite": "un invito o una domanda sola per il passo successivo"}',
       '- I tre campi in italiano, accenti veri, niente trattino lungo, nessun campo vuoto. Nessun commento fuori dal JSON.',
     ].join('\n');
   }

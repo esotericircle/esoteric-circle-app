@@ -5,6 +5,7 @@ import 'package:firebase_ai/firebase_ai.dart';
 import '../../core/chat/chat_message.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
+import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
 import '../../core/maestro/natal_context.dart';
@@ -37,6 +38,38 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   /// Modello per il distillato di memoria: task ripetitivo e breve, sempre
   /// Flash.
   static const String kMaestroDistillModel = 'gemini-2.5-flash';
+
+  /// Modello per le risposte Breve e per il Free: Flash-Lite, il piu' economico,
+  /// per le tante risposte a costo basso.
+  static const String kMaestroBreveModel = 'gemini-2.5-flash-lite';
+
+  /// Modello per la risposta Profonda del Premium: Flash, piu' ricco.
+  static const String kMaestroProfondaModel = 'gemini-2.5-flash';
+
+  /// Tetto duro di token in uscita per profondita': la Breve contenuta, la
+  /// Profonda circa il triplo, adattiva ma mai oltre.
+  static const int kBreveMaxTokens = 260;
+  static const int kProfondaMaxTokens = 780;
+
+  /// Ragionamento interno del modello per profondita': spento sulle Breve, cosi'
+  /// non si spende in pensiero dove serve una risposta rapida; un margine minimo
+  /// sulla Profonda.
+  static const int kBreveThinkingBudget = 0;
+  static const int kProfondaThinkingBudget = 512;
+
+  /// Il modello giusto per la profondita', in un punto solo.
+  static String modelForDepth(ConsultDepth depth) =>
+      depth == ConsultDepth.profonda ? kMaestroProfondaModel : kMaestroBreveModel;
+
+  /// Il tetto di token per la profondita'.
+  static int maxTokensForDepth(ConsultDepth depth) =>
+      depth == ConsultDepth.profonda ? kProfondaMaxTokens : kBreveMaxTokens;
+
+  /// Il budget di ragionamento per la profondita'.
+  static int thinkingBudgetForDepth(ConsultDepth depth) =>
+      depth == ConsultDepth.profonda
+          ? kProfondaThinkingBudget
+          : kBreveThinkingBudget;
 
   /// Quanti messaggi recenti passare come storia al modello. Oltre questa
   /// soglia il filo lo tiene la sintesi di sessione, non la cronologia piena.
@@ -89,26 +122,32 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     required UserProfile profile,
     MaestroMemory memory = MaestroMemory.empty,
     NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
   }) async {
     final t = theme.trim();
     if (t.isEmpty) {
       throw const MaestroAiUnavailable('Nessuna domanda da porre.');
     }
 
+    // Modello, tetto di token e ragionamento seguono la profondita', in un punto
+    // solo: Flash-Lite e ragionamento spento per la Breve, Flash per la Profonda.
     final model = _ai.generativeModel(
-      model: chatModel,
+      model: modelForDepth(depth),
       systemInstruction: Content.system(
         MaestroPersona.consultInstruction(
           maestro: maestro,
           profile: profile,
           memory: memory,
           natal: natal,
+          depth: depth,
         ),
       ),
       generationConfig: GenerationConfig(
         temperature: 0.9,
         topP: 0.95,
-        maxOutputTokens: 800,
+        maxOutputTokens: maxTokensForDepth(depth),
+        thinkingConfig: ThinkingConfig.withThinkingBudget(
+            thinkingBudgetForDepth(depth)),
         // Uscita nei tre strati come JSON, cosi' l'app la mostra come qualunque
         // altra risposta. Parsing difensivo, come nel distillato.
         responseMimeType: 'application/json',

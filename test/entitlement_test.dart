@@ -6,21 +6,23 @@ import 'package:flutter_test/flutter_test.dart';
 /// Entitlement: il contatore giornaliero delle domande per tier e i piani.
 void main() {
   group('Contatore delle domande', () {
-    test('Il limite giornaliero segue i tier: 1, 5, 10, illimitate', () {
+    test('Il limite giornaliero segue i tier: 3, 5, 10, illimitate', () {
       final a = QuestionAllowance(clock: () => DateTime(2026, 7, 13));
-      expect(a.dailyLimit(Tier.free), 1);
+      expect(a.dailyLimit(Tier.free), 3);
       expect(a.dailyLimit(Tier.tier1), 5);
       expect(a.dailyLimit(Tier.tier2), 10);
       expect(a.dailyLimit(Tier.tier3), isNull);
     });
 
-    test('Viandante ha una domanda al giorno, si azzera il giorno dopo', () {
+    test('Viandante ha tre risposte al giorno, si azzera il giorno dopo', () {
       var now = DateTime(2026, 7, 13, 10);
       final allowance = QuestionAllowance(clock: () => now);
 
-      expect(allowance.canAsk(Tier.free), isTrue);
-      expect(allowance.remaining(Tier.free), 1);
-      allowance.record(Tier.free);
+      expect(allowance.remaining(Tier.free), 3);
+      for (var i = 0; i < 3; i++) {
+        expect(allowance.canAsk(Tier.free), isTrue);
+        allowance.record(Tier.free);
+      }
       expect(allowance.canAsk(Tier.free), isFalse);
       expect(allowance.remaining(Tier.free), 0);
 

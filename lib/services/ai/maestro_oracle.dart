@@ -151,6 +151,39 @@ class MaestroOracle {
         'hai più strade tra cui scegliere.';
   }
 
+  /// Sintesi comparativa DETERMINISTICA dalle lenti gia' ottenute, viva o di
+  /// ripiego: intreccia le prese di posizione dei Maestri interpellati (il colpo
+  /// d'occhio di ciascuno) e chiude con la regola. Non chiama Gemini, cosi' il
+  /// confronto non costa una richiesta in piu'. Le lenti si ordinano sempre
+  /// nell'ordine fisso del cerchio, cosi' la sintesi e' stabile.
+  String synthesisFor(String theme, List<MaestroLens> lenses) {
+    if (lenses.length < 2) return '';
+    final ordered = [
+      for (final m in Maestro.fixedOrder)
+        ...lenses.where((l) => l.maestro == m),
+    ];
+    // Una frase per Maestro, la sua presa di posizione dal colpo d'occhio.
+    final prese = ordered
+        .map((l) =>
+            '${l.maestro.displayName} ${_lowerFirst(_stripEnd(l.glance.trim()))}.')
+        .join(' ');
+    return 'Stessa domanda, ${_quote(theme.trim())}, sotto sguardi diversi. '
+        '$prese Dove le voci concordano, ascolta con più fiducia; dove '
+        'divergono, hai più strade tra cui scegliere.';
+  }
+
+  /// Abbassa la prima lettera, cosi' il nome del Maestro scorre nella frase
+  /// senza una maiuscola a meta'. Rispetta le lettere accentate.
+  static String _lowerFirst(String s) {
+    if (s.isEmpty) return s;
+    return s[0].toLowerCase() + s.substring(1);
+  }
+
+  /// Toglie un punto finale, cosi' la presa di posizione si chiude con la
+  /// punteggiatura della sintesi, non con due punti di fila.
+  static String _stripEnd(String s) =>
+      s.endsWith('.') ? s.substring(0, s.length - 1) : s;
+
   String _lensLabel(Maestro maestro) {
     switch (maestro) {
       case Maestro.medora:

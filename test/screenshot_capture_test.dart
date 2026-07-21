@@ -21,6 +21,7 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
+import 'package:esoteric_circle/core/maestro/consult_depth.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
@@ -1400,12 +1401,32 @@ class _ScriptedMaestro implements MaestroAiProvider {
     required UserProfile profile,
     MaestroMemory memory = MaestroMemory.empty,
     NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
   }) async {
-    return const MaestroReply(
-      glance: 'Le stelle ti ascoltano.',
-      reading: 'Un transito passa, non una sentenza.',
-      invite: 'Qual è la prima piccola mossa che senti giusta ora?',
-    );
+    // Testo per Maestro, cosi' l'anteprima del confronto mostra sguardi diversi.
+    switch (maestro) {
+      case Maestro.medora:
+        return const MaestroReply(
+          glance: 'Le stelle segnano un tempo di scelta.',
+          reading: 'Un transito passa, non una sentenza: le posizioni invitano, '
+              'non obbligano.',
+          invite: 'Qual è la prima piccola mossa che senti giusta ora?',
+        );
+      case Maestro.aura:
+        return const MaestroReply(
+          glance: 'Il corpo sa già qualcosa su questo.',
+          reading: 'Se stringe la gola o il petto, chiede ascolto, non '
+              'battaglia. Accolgo l\'emozione senza gonfiarla.',
+          invite: 'Fai un respiro lento, una mano sul cuore: cosa si scioglie?',
+        );
+      case Maestro.caligo:
+        return const MaestroReply(
+          glance: 'La runa indica una soglia da varcare.',
+          reading: 'Un passaggio di crescita e protezione, mai potere sugli '
+              'altri: il simbolo mostra la via, non forza la mano.',
+          invite: 'Quale gesto semplice segnerebbe il tuo passo, stasera?',
+        );
+    }
   }
 
   @override

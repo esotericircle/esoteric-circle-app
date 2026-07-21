@@ -5,22 +5,24 @@ import 'tier.dart';
 
 /// Contatore locale delle domande ai Maestri, per tier.
 ///
-/// Il limite giornaliero di domande singole a un Maestro segue la mappa dei
-/// piani: Viandante 1, Iniziato 5, Adepto 10, Illuminato illimitate. Il
-/// conteggio si azzera al cambio di giorno. Il confronto a piu' Maestri (sintesi
-/// comparativa) resta riservato al Tier a pagamento.
+/// Il limite giornaliero di risposte Breve a un Maestro segue la mappa dei
+/// piani: Viandante 3, Iniziato 5, Adepto 10, Illuminato illimitate. Le tre del
+/// Free sono spendibili anche su Maestri diversi. Il conteggio si azzera al
+/// cambio di giorno. Il confronto a piu' Maestri (sintesi comparativa) resta
+/// riservato al Tier a pagamento.
 ///
 /// L'orologio e' iniettabile per i test; la persistenza e' best effort su
 /// `SharedPreferences`, senza crash se non e' disponibile.
 class QuestionAllowance extends ChangeNotifier {
   QuestionAllowance({
     DateTime Function()? clock,
-    this.freeDailyLimit = 1,
+    this.freeDailyLimit = 3,
   }) : _clock = clock ?? DateTime.now;
 
   final DateTime Function() _clock;
 
-  /// Quante domande singole al giorno per l'utente Free (Viandante).
+  /// Quante risposte Breve al giorno per l'utente Free (Viandante). Tre,
+  /// spendibili anche su Maestri diversi.
   final int freeDailyLimit;
 
   /// Il limite giornaliero per tier, oppure null se illimitato.

@@ -279,7 +279,7 @@ class TarotSetupPanel extends StatelessWidget {
                       chiave: const Key('stesa_depth'),
                       titolo: 'Profondità della lettura',
                       corrente: setup.depth,
-                      voci: AnswerDepth.values,
+                      voci: AnswerDepth.shown,
                       palette: palette,
                       etichetta: (d) => d.label,
                       bloccata: (d) => d.premium,

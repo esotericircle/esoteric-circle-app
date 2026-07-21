@@ -11,30 +11,45 @@ import '../../design_system/tokens/typography_tokens.dart';
 /// solo le categorie che interessano, e a runtime i testi lunghi si generano
 /// soltanto dove servono, senza bruciare token dove non serve.
 ///
-/// Nel gratuito e nella Demo la profondita' e' fissa su [breve]: [media] e
-/// [lunga] sono del Cerchio Premium.
+/// Nel gratuito e nella Demo la profondita' e' fissa su [breve]: la [profonda]
+/// e' del Cerchio Premium. La [media] resta latente e spenta, fuori dalla vista,
+/// pronta a riaccendersi un giorno: l'app dice due voci ovunque.
+///
+/// La [profonda] e' adattiva, lunga quanto serve fino al tetto di token, non
+/// gonfiata a forza: il tetto vive nel provider AI, non qui.
 enum AnswerDepth {
-  breve('Breve', premium: false),
-  media('Media', premium: true),
-  lunga('Lunga', premium: true);
+  breve('Breve', premium: false, visible: true),
 
-  const AnswerDepth(this.label, {required this.premium});
+  /// Gradino intermedio tenuto latente e spento: non compare nel selettore, ma
+  /// resta nel codice per riaccenderlo senza rifare l'impianto.
+  media('Media', premium: true, visible: false),
+
+  profonda('Profonda', premium: true, visible: true);
+
+  const AnswerDepth(this.label, {required this.premium, required this.visible});
 
   final String label;
 
   /// Vero se la voce richiede l'abbonamento.
   final bool premium;
 
+  /// Vero se la voce si mostra nel selettore. La [media] e' latente, quindi no.
+  final bool visible;
+
   /// La profondita' del gratuito, quella su cui si resta senza Premium.
   static const AnswerDepth free = AnswerDepth.breve;
+
+  /// Le voci mostrate nel selettore, due sole: Breve e Profonda.
+  static List<AnswerDepth> get shown =>
+      values.where((d) => d.visible).toList();
 }
 
 /// Il selettore di profondita' della risposta, in alto a destra di ogni scheda.
 ///
 /// E' un menu a tendina compatto: mostra il titolo "Profondità" e la voce
-/// corrente, col lucchetto quando non si e' Premium. Al tocco apre l'elenco
-/// Breve, Media, Lunga: senza abbonamento solo Breve e' selezionabile, le altre
-/// due portano il lucchetto e l'invito ad abbonarsi.
+/// corrente, col lucchetto quando non si e' Premium. Al tocco apre le due voci
+/// Breve e Profonda: senza abbonamento solo Breve e' selezionabile, la Profonda
+/// porta il lucchetto e l'invito ad abbonarsi.
 class AnswerDepthSelector extends StatelessWidget {
   const AnswerDepthSelector({
     super.key,
@@ -87,7 +102,7 @@ class AnswerDepthSelector extends StatelessWidget {
         onSelect?.call(depth);
       },
       itemBuilder: (context) => [
-        for (final depth in AnswerDepth.values)
+        for (final depth in AnswerDepth.shown)
           PopupMenuItem<AnswerDepth>(
             value: depth,
             height: 40,

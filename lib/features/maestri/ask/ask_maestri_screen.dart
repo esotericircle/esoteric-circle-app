@@ -3,8 +3,11 @@ import 'package:provider/provider.dart';
 
 import '../../../core/entitlement/entitlement_service.dart';
 import '../../../core/entitlement/question_allowance.dart';
+import '../../../core/identity/natal_identity.dart';
 import '../../../core/identity/profile_controller.dart';
+import '../../../core/maestro/consult_depth.dart';
 import '../../../core/maestro/maestro.dart';
+import '../../../core/maestro/natal_context.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -14,21 +17,23 @@ import '../../../services/ai/maestro_ai_provider.dart';
 import '../../../services/ai/maestro_oracle.dart';
 import '../../../services/app_services.dart';
 import '../../pricing/upgrade_invite.dart';
+import '../chat/maestro_chat_screen.dart';
 import '../widgets/maestro_bust.dart';
 
-/// "Chiedi ai Maestri", dentro il dominio di un Maestro.
+/// "Consulta un Maestro", a domanda singola dentro il dominio di un Maestro.
 ///
-/// Il chiedere parte singolarmente dal Maestro del dominio: una domanda, la sua
-/// risposta. Sotto la risposta, l'invito "Chiedi anche a un altro Maestro" porta
-/// lo stesso tema allo sguardo di un secondo o terzo Maestro e mostra in cima la
-/// sintesi comparativa degli sguardi. Regole di accesso: il Free ha una sola
-/// domanda singola al giorno; il confronto a piu' Maestri e le domande oltre la
-/// prima sono del Tier a pagamento, con l'invito gentile all'upgrade quando il
-/// limite e' raggiunto. La risposta del Maestro del dominio passa da Gemini su
-/// Vertex tramite il provider AI condiviso con la chat; quando l'AI non e'
-/// pronta o non trova le parole, si cade sull'oracolo locale deterministico,
-/// senza mai un errore a video. Gli eventuali Maestri aggiunti oltre il primo e
-/// la sintesi comparativa restano sull'oracolo in questa fetta.
+/// Il consultare parte dal Maestro del dominio: una domanda, la sua risposta.
+/// Sotto la risposta, l'invito "Consulta anche un altro Maestro" porta lo stesso
+/// tema allo sguardo di un secondo o terzo Maestro e mostra in cima la sintesi
+/// comparativa degli sguardi. Regole di accesso: il Free ha tre risposte Breve
+/// al giorno, spendibili anche su Maestri diversi; il confronto a piu' Maestri e
+/// le domande oltre il limite sono del Tier a pagamento, con l'invito gentile
+/// all'upgrade. Ogni risposta, quella del dominio e ogni lente aggiunta, passa
+/// da Gemini su Vertex tramite il provider AI condiviso con la chat, con la
+/// personalizzazione natale; quando l'AI non e' pronta o non trova le parole, si
+/// cade sull'oracolo locale deterministico, senza mai un errore a video. La
+/// sintesi comparativa si compone in modo deterministico dalle lenti gia'
+/// ottenute, senza una chiamata Gemini in piu'.
 class AskMaestriScreen extends StatefulWidget {
   const AskMaestriScreen({
     super.key,
@@ -53,17 +58,17 @@ class AskMaestriScreen extends StatefulWidget {
 
 class _AskMaestriScreenState extends State<AskMaestriScreen> {
   final TextEditingController _composer = TextEditingController();
+
+  /// I Maestri interpellati, nell'ordine in cui sono stati aggiunti.
   final List<Maestro> _responders = [];
+
+  /// La lente risolta per ciascun Maestro, viva da Gemini o di ripiego.
+  final Map<Maestro, MaestroLens> _lenses = {};
+
+  /// I Maestri per cui si sta ancora attendendo la risposta.
+  final Set<Maestro> _loading = {};
+
   String? _theme;
-  MaestriConsultation? _result;
-
-  /// Vero mentre si attende la risposta viva del Maestro del dominio da Gemini.
-  bool _loadingStarter = false;
-
-  /// La lente del Maestro del dominio ottenuta da Gemini, quando c'e'. Null se
-  /// l'AI non e' pronta o non ha risposto: in quel caso si mostra la lente
-  /// dell'oracolo, gia' pronta in [_result].
-  MaestroLens? _aiStarterLens;
 
   @override
   void dispose() {
@@ -71,8 +76,20 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     super.dispose();
   }
 
-  void _recompute() {
-    _result = widget.oracle.consult(theme: _theme!, maestri: _responders);
+  bool get _hasAsked => _theme != null;
+
+  /// Le lenti risolte, nell'ordine fisso del cerchio.
+  List<MaestroLens> get _orderedLenses => [
+        for (final m in Maestro.fixedOrder)
+          if (_lenses[m] != null) _lenses[m]!,
+      ];
+
+  /// Il contesto natale reale, dai dati di nascita. Vuoto se la carta manca:
+  /// personalizzazione col solo nome.
+  NatalContext _natal() {
+    final birth = context.read<BirthIdentityController>();
+    if (!birth.hasBirth) return NatalContext.none;
+    return NatalContext.fromNatal(chart: birth.chart, facts: birth.facts);
   }
 
   Future<void> _ask() async {
@@ -82,11 +99,11 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     final allowance = context.read<QuestionAllowance>();
 
     if (!allowance.canAsk(tier)) {
-      // Free: la domanda di oggi e' gia' stata posta.
+      // Free: le risposte di oggi sono esaurite.
       FocusScope.of(context).unfocus();
       await showUpgradeInvite(
         context,
-        title: 'Hai posto la tua domanda di oggi',
+        title: 'Hai posto le tue domande di oggi',
         message:
             'Col Cerchio le domande ai Maestri sono senza limiti e puoi metterne '
             'a confronto gli sguardi.',
@@ -94,51 +111,97 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       return;
     }
 
-    allowance.record(tier);
     FocusScope.of(context).unfocus();
-    // Il ripiego dell'oracolo e' gia' pronto in _result: se l'AI non risponde,
-    // la card del Maestro del dominio esce comunque, senza attese ne' errori.
+    // La domanda si conta solo a risposta consegnata: si registra dentro
+    // _fetchLens, quando la lente (viva o di ripiego) e' pronta.
     setState(() {
       _theme = theme;
       _responders
         ..clear()
         ..add(widget.starter);
-      _aiStarterLens = null;
-      _loadingStarter = true;
-      _recompute();
+      _lenses.clear();
+      _loading
+        ..clear()
+        ..add(widget.starter);
     });
-    await _fetchStarter(theme);
+    await _fetchLens(widget.starter, theme, countsAgainstAllowance: true);
   }
 
-  /// Chiede la risposta viva del Maestro del dominio a Gemini. Cade sull'oracolo
-  /// (lente gia' in [_result]) se il provider non e' pronto o solleva
-  /// [MaestroAiUnavailable], e comunque a ogni imprevisto: mai un errore crudo a
-  /// video. Legge provider e profilo prima del primo await, poi si protegge con
-  /// [mounted].
-  Future<void> _fetchStarter(String theme) async {
+  /// Ottiene la lente di un Maestro sul tema: prova Gemini con profilo e dati
+  /// natali, e cade sull'oracolo locale se il provider non e' pronto o solleva
+  /// [MaestroAiUnavailable], e comunque a ogni imprevisto. Mai un errore a video.
+  /// La domanda si conta solo qui, a risposta consegnata.
+  Future<void> _fetchLens(
+    Maestro maestro,
+    String theme, {
+    required bool countsAgainstAllowance,
+  }) async {
     final services = context.read<AppServices>();
     final profile = context.read<ProfileController>().profile;
+    final tier = context.read<EntitlementService>().tier;
+    final allowance = context.read<QuestionAllowance>();
+    final natal = _natal();
+
     MaestroLens? lens;
     if (services.ai.isReady) {
       try {
         final reply = await services.ai.consult(
-          maestro: widget.starter,
+          maestro: maestro,
           theme: theme,
           profile: profile,
+          natal: natal,
+          depth: ConsultDepth.breve,
         );
-        lens = MaestroLens(maestro: widget.starter, reply: reply);
+        lens = MaestroLens(maestro: maestro, reply: reply);
       } on MaestroAiUnavailable {
         lens = null;
       } catch (_) {
-        // Qualunque guasto (rete, backend) cade sul ripiego, in silenzio.
         lens = null;
       }
     }
+    // Ripiego deterministico dall'oracolo, sempre disponibile.
+    lens ??= widget.oracle
+        .consult(theme: theme, maestri: [maestro])
+        .lenses
+        .single;
+
     if (!mounted) return;
+    // La risposta e' consegnata: solo ora si conta la domanda del giorno.
+    if (countsAgainstAllowance) allowance.record(tier);
     setState(() {
-      _loadingStarter = false;
-      _aiStarterLens = lens;
+      _lenses[maestro] = lens!;
+      _loading.remove(maestro);
     });
+  }
+
+  /// Chiude il cerchio: salva tema ed esito nella memoria condivisa del Maestro,
+  /// cosi' la conversazione ricorda, poi apre la chat col tema gia' in composer.
+  Future<void> _openChat() async {
+    final services = context.read<AppServices>();
+    final maestro = widget.starter;
+    final theme = _theme!;
+    final esito = _lenses[maestro]?.reading.trim() ?? '';
+    try {
+      final mem = await services.memory.loadMemory(maestro);
+      final nota = esito.isEmpty
+          ? 'Nel Consulta la persona ti ha chiesto: «$theme».'
+          : 'Nel Consulta la persona ti ha chiesto: «$theme». In sintesi le hai risposto: $esito';
+      final summary = mem.sessionSummary.trim().isEmpty
+          ? nota
+          : '${mem.sessionSummary.trim()} $nota';
+      await services.memory.saveMemory(
+          maestro, mem.copyWith(sessionSummary: summary));
+    } catch (_) {
+      // Il salvataggio e' un di piu': un errore non impedisce di continuare.
+    }
+    if (!mounted) return;
+    await Navigator.of(context).push(
+      MaestroChatScreen.route(
+        maestro: maestro,
+        services: services,
+        initialTheme: theme,
+      ),
+    );
   }
 
   Future<void> _addResponder(Maestro maestro) async {
@@ -156,8 +219,11 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     }
     setState(() {
       _responders.add(maestro);
-      _recompute();
+      _loading.add(maestro);
     });
+    // Anche la lente aggiunta viene da Gemini, con lo stesso ripiego. Il
+    // confronto non intacca il limite giornaliero delle risposte singole.
+    await _fetchLens(maestro, _theme!, countsAgainstAllowance: false);
   }
 
   @override
@@ -167,6 +233,10 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       for (final m in Maestro.fixedOrder)
         if (!_responders.contains(m)) m,
     ];
+    final resolved = _orderedLenses;
+    final synthesis = resolved.length > 1
+        ? widget.oracle.synthesisFor(_theme!, resolved)
+        : null;
 
     return Scaffold(
       backgroundColor: ColorTokens.neutralDeepest,
@@ -179,7 +249,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Chiedi a ${widget.starter.displayName}',
+        title: Text('Consulta ${widget.starter.displayName}',
             style: TypographyTokens.display(size: 20)),
       ),
       body: SafeArea(
@@ -198,25 +268,32 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
               ),
             ),
             Expanded(
-              child: _result == null
+              child: !_hasAsked
                   ? _EmptyState(starter: widget.starter, palette: palette)
                   : ListView(
                       key: const Key('ask_results'),
                       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
                           SpacingTokens.lg, SpacingTokens.xxxl),
                       children: [
-                        if (_result!.synthesis != null) ...[
-                          _SynthesisCard(synthesis: _result!.synthesis!),
+                        if (synthesis != null) ...[
+                          _SynthesisCard(synthesis: synthesis),
                           const SizedBox(height: SpacingTokens.md),
                         ],
-                        for (final lens in _result!.lenses) ...[
-                          if (lens.maestro == widget.starter &&
-                              _loadingStarter)
-                            _StarterLoadingCard(maestro: widget.starter)
-                          else if (lens.maestro == widget.starter)
-                            _LensCard(lens: _aiStarterLens ?? lens)
-                          else
-                            _LensCard(lens: lens),
+                        for (final m in Maestro.fixedOrder)
+                          if (_responders.contains(m)) ...[
+                            if (_loading.contains(m))
+                              _LensLoadingCard(maestro: m)
+                            else if (_lenses[m] != null)
+                              _LensCard(lens: _lenses[m]!),
+                            const SizedBox(height: SpacingTokens.sm),
+                          ],
+                        // Chiusura del cerchio: porta il tema in conversazione.
+                        if (_lenses[widget.starter] != null) ...[
+                          const SizedBox(height: SpacingTokens.xs),
+                          _ContinueInChat(
+                            maestro: widget.starter,
+                            onContinue: _openChat,
+                          ),
                           const SizedBox(height: SpacingTokens.sm),
                         ],
                         if (others.isNotEmpty) ...[
@@ -269,7 +346,7 @@ class _Composer extends StatelessWidget {
             style: TypographyTokens.body(size: 15)
                 .copyWith(color: ColorTokens.textPrimary),
             decoration: InputDecoration(
-              hintText: 'Chiedi a ${starter.displayName}...',
+              hintText: 'Consulta ${starter.displayName}...',
               hintStyle: TypographyTokens.body(size: 15)
                   .copyWith(color: ColorTokens.textSecondary),
               filled: true,
@@ -301,7 +378,7 @@ class _Composer extends StatelessWidget {
           icon: const Icon(Icons.auto_awesome),
           color: palette.goldSoft,
           disabledColor: ColorTokens.textSecondary.withValues(alpha: 0.4),
-          tooltip: 'Chiedi',
+          tooltip: 'Consulta',
         ),
       ],
     );
@@ -361,7 +438,7 @@ class _AnotherMaestroInvite extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Chiedi anche a un altro Maestro',
+          Text('Consulta anche un altro Maestro',
               style: TypographyTokens.display(size: 16)
                   .copyWith(color: palette.goldSoft)),
           const SizedBox(height: 4),
@@ -426,6 +503,49 @@ class _OtherMaestroChip extends StatelessWidget {
   }
 }
 
+/// Il ponte alla conversazione: chiude il cerchio portando il tema in chat, dove
+/// il Maestro riprende da li'.
+class _ContinueInChat extends StatelessWidget {
+  const _ContinueInChat({required this.maestro, required this.onContinue});
+
+  final Maestro maestro;
+  final Future<void> Function() onContinue;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return GestureDetector(
+      key: const Key('ask_continue_chat'),
+      onTap: onContinue,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.lg, vertical: SpacingTokens.md),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+          gradient: LinearGradient(colors: [
+            palette.primary.withValues(alpha: 0.55),
+            palette.surfaceElevated.withValues(alpha: 0.55),
+          ]),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.55)),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.forum_rounded, size: 18, color: palette.goldSoft),
+            const SizedBox(width: SpacingTokens.sm),
+            Expanded(
+              child: Text('Continua con ${maestro.displayName}',
+                  style: TypographyTokens.display(size: 16)
+                      .copyWith(color: palette.goldSoft)),
+            ),
+            Icon(Icons.arrow_forward_rounded, size: 16, color: palette.goldSoft),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 /// La sintesi comparativa degli sguardi, in cima quando i Maestri sono piu' di
 /// uno.
 class _SynthesisCard extends StatelessWidget {
@@ -481,16 +601,16 @@ class _SynthesisCard extends StatelessWidget {
 ///
 /// Nella palette del Maestro, con un cenno di movimento che rispetta Riduci
 /// Movimento: se le animazioni sono spente resta un punto fermo, mai un vuoto.
-class _StarterLoadingCard extends StatefulWidget {
-  const _StarterLoadingCard({required this.maestro});
+class _LensLoadingCard extends StatefulWidget {
+  const _LensLoadingCard({required this.maestro});
 
   final Maestro maestro;
 
   @override
-  State<_StarterLoadingCard> createState() => _StarterLoadingCardState();
+  State<_LensLoadingCard> createState() => _LensLoadingCardState();
 }
 
-class _StarterLoadingCardState extends State<_StarterLoadingCard>
+class _LensLoadingCardState extends State<_LensLoadingCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,

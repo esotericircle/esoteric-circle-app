@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/chat/immersive_intents.dart';
+import '../../../core/entitlement/entitlement_service.dart';
+import '../../../core/entitlement/tier.dart';
+import '../../../core/identity/natal_identity.dart';
 import '../../../core/lang/euphonic.dart';
 import '../../../core/maestro/maestro.dart';
+import '../../../core/maestro/maestro_welcome.dart';
+import '../../../core/maestro/natal_context.dart';
 import '../../../design_system/components/cosmos_background.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
@@ -30,15 +36,20 @@ import '../widgets/maestro_bust.dart';
 /// via Firebase AI Logic, con memoria persistente per la Demo. Voce, avatar
 /// animati e funzioni Coming soon sono i passi successivi.
 class MaestroChatScreen extends StatefulWidget {
-  const MaestroChatScreen({super.key, required this.maestro});
+  const MaestroChatScreen({super.key, required this.maestro, this.initialTheme});
 
   final Maestro maestro;
+
+  /// Tema con cui si arriva dalla chiusura del cerchio del Consulta: il campo
+  /// della domanda si apre gia' scritto, cosi' la conversazione riprende da li'.
+  final String? initialTheme;
 
   /// Route pronta all'uso: monta il controller con i servizi e la palette del
   /// Maestro, cosi' la chat vive con il suo tema anche sopra la MaterialApp.
   static Route<void> route({
     required Maestro maestro,
     required AppServices services,
+    String? initialTheme,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => ChangeNotifierProvider<MaestroChatController>(
@@ -47,7 +58,12 @@ class MaestroChatScreen extends StatefulWidget {
           ai: services.ai,
           memory: services.memory,
         )..init(),
-        child: MaestroScope(child: MaestroChatScreen(maestro: maestro)),
+        child: MaestroScope(
+          child: MaestroChatScreen(
+            maestro: maestro,
+            initialTheme: initialTheme,
+          ),
+        ),
       ),
     );
   }
@@ -60,6 +76,30 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   final ScrollController _scroll = ScrollController();
   bool _disclaimerHandled = false;
   int _lastCount = 0;
+
+  /// Contatore delle aperture, persistito, cosi' due benvenuti vicini non
+  /// ripetono la stessa formula. Chiave per Maestro.
+  static const String _kRotationPrefix = 'maestro.welcome.rotation.';
+  int _welcomeRotation = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWelcomeRotation();
+  }
+
+  Future<void> _loadWelcomeRotation() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final key = '$_kRotationPrefix${widget.maestro.id}';
+      final current = prefs.getInt(key) ?? 0;
+      if (mounted) setState(() => _welcomeRotation = current);
+      // Prepara la prossima apertura su una formula diversa.
+      await prefs.setInt(key, current + 1);
+    } catch (_) {
+      // Senza persistenza si resta sulla prima formula, senza crash.
+    }
+  }
 
   @override
   void dispose() {
@@ -140,6 +180,9 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                 enabled: controller.aiReady && !controller.sending,
                 hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
                     '${widget.maestro.displayName}',
+                // A chat vuota, se si arriva dalla chiusura del cerchio, il
+                // campo si apre gia' col tema del Consulta.
+                initialText: hasMessages ? null : widget.initialTheme,
                 onSend: controller.send,
                 // A conversazione avviata, un solo controllo discreto apre il
                 // pannello dei suggerimenti. A chat vuota gli spunti sono i chip
@@ -166,7 +209,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     if (controller.messages.isEmpty) {
       return ChatEmptyState(
         maestro: widget.maestro,
-        greeting: _greetingFor(widget.maestro),
+        greeting: _welcomeFor(controller),
         starters: SuggestionSets.starters(widget.maestro),
         onStarter: controller.send,
         enabled: controller.aiReady,
@@ -279,17 +322,23 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     );
   }
 
-  String _greetingFor(Maestro maestro) {
-    switch (maestro) {
-      case Maestro.medora:
-        return 'Sono Medora. Le stelle e le carte sanno raccontarti, se le '
-            'ascolti. Da dove vuoi cominciare?';
-      case Maestro.aura:
-        return 'Sono Aura. Respira con me. Cosa senti il bisogno di sciogliere?';
-      case Maestro.caligo:
-        return 'Sono Caligo. Le rune tacciono, finché non le interroghi. '
-            'Cosa cerchi?';
-    }
+  /// Il benvenuto deterministico: vocativo dell'onboarding, un contesto (dati
+  /// natali nel Free, sintesi di memoria nel Premium) e una formula a rotazione,
+  /// piu' una domanda che spinge all'azione. Nessuna chiamata a Gemini.
+  String _welcomeFor(MaestroChatController controller) {
+    final birth = context.read<BirthIdentityController>();
+    final natal = birth.hasBirth
+        ? NatalContext.fromNatal(chart: birth.chart, facts: birth.facts)
+        : NatalContext.none;
+    final premium = context.read<EntitlementService>().tier != Tier.free;
+    return MaestroWelcome.compose(
+      maestro: widget.maestro,
+      profile: controller.profile,
+      natal: natal,
+      memory: controller.memory,
+      premium: premium,
+      rotation: _welcomeRotation,
+    );
   }
 }
 

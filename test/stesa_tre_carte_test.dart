@@ -521,8 +521,8 @@ void main() {
       // E la lettura la porta con se', una sola per tutti i testi.
       final reading = TarotReading.of(
           TarotSpread.draw(seed: 2), TarotTopic.predefinito,
-          depth: AnswerDepth.lunga);
-      expect(reading.depth, AnswerDepth.lunga);
+          depth: AnswerDepth.profonda);
+      expect(reading.depth, AnswerDepth.profonda);
     });
 
     testWidgets('Il titolo segue la stesa attiva', (tester) async {
