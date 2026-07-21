@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
-/// Il mezzo busto che sfonda il cerchio nelle conversazioni dei Maestri: disegna
-/// l'asset dell'avatar, e cade sull'icona lineare solo quando l'immagine manca.
+/// Il volto del Maestro che rompe il cerchio: dipinge l'immagine dell'avatar, e
+/// mostra l'icona lineare solo quando l'immagine fallisce davvero, mai come
+/// fondale mentre il volto c'e'.
 ///
 /// MaestroBust ricava la palette dal proprio Maestro, quindi non serve il
 /// MaestroScope: basta il QualityTierController che governa il fermo su Tier
@@ -26,34 +27,61 @@ void main() {
         ),
       );
 
-  testWidgets('Disegna l\'asset dell\'avatar del Maestro', (tester) async {
+  testWidgets('Dipinge davvero l\'immagine dell\'avatar, senza icona',
+      (tester) async {
     await tester.pumpWidget(host(const MaestroBust(maestro: Maestro.medora)));
+    // Decodifica l'asset reale, come fa la schermata col precache.
+    await tester.runAsync(() async {
+      await precacheImage(
+        AssetImage(Maestro.medora.avatarAsset),
+        tester.element(find.byType(MaestroBust)),
+      );
+    });
+    await tester.pump();
     await tester.pump();
 
-    // C'e' un'immagine, e la sua sorgente e' l'avatar del Maestro.
+    // Il volto e' in scena: un'immagine con la sorgente dell'avatar, e la sua
+    // RawImage porta un'immagine decodificata (dipinge davvero, non e' vuota).
     final immagini = tester.widgetList<Image>(find.byType(Image));
-    expect(immagini, isNotEmpty);
     expect(
       immagini
           .any((i) => i.image == AssetImage(Maestro.medora.avatarAsset)),
       isTrue,
     );
+    final raw = tester.widgetList<RawImage>(find.byType(RawImage));
+    expect(raw.any((r) => r.image != null), isTrue,
+        reason: 'L\'immagine dell\'avatar deve essere dipinta, non solo il ripiego.');
+
+    // Nessuna icona di ripiego mentre il volto c'e'.
+    expect(find.byKey(const Key('maestro_bust_icon_medora')), findsNothing);
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('Se l\'immagine manca, cade sull\'icona lineare del Maestro',
+  testWidgets('Default: la sorgente e\' l\'avatar del Maestro', (tester) async {
+    await tester.pumpWidget(host(const MaestroBust(maestro: Maestro.aura)));
+    await tester.pump();
+    final immagini = tester.widgetList<Image>(find.byType(Image));
+    expect(
+      immagini.any((i) => i.image == AssetImage(Maestro.aura.avatarAsset)),
+      isTrue,
+    );
+  });
+
+  testWidgets('Se l\'immagine fallisce, cade sull\'icona lineare del Maestro',
       (tester) async {
     await tester.pumpWidget(host(
       const MaestroBust(maestro: Maestro.caligo, image: _FailingImage()),
     ));
-    // L'errorBuilder scatta e mostra il vuoto al posto del busto: resta a vista
-    // l'icona dietro l'anello.
+    // Il fallimento arriva sull'ImageStream: qualche pump per processarlo.
+    await tester.pump();
     await tester.pump();
     await tester.pump();
 
     final iconFinder = find.byKey(const Key('maestro_bust_icon_caligo'));
     expect(iconFinder, findsOneWidget);
     expect(tester.widget<Icon>(iconFinder).icon, Maestro.caligo.icon);
+    // Col ripiego attivo non resta in scena un'immagine del volto.
+    expect(find.byType(Image), findsNothing);
     expect(tester.takeException(), isNull);
   });
 
@@ -71,7 +99,7 @@ void main() {
 }
 
 /// Provider d'immagine che fallisce sempre, per esercitare il ripiego. Non tocca
-/// la rete ne' il disco: solleva subito, cosi' l'errorBuilder scatta.
+/// la rete ne' il disco: solleva subito, cosi' l'ImageStream porta un errore.
 class _FailingImage extends ImageProvider<_FailingImage> {
   const _FailingImage();
 

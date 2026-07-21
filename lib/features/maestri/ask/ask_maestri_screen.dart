@@ -582,19 +582,20 @@ class _LensCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              // Il mezzo busto del Maestro che sfonda il cerchio, al posto
-              // dell'icona nuda: qui c'e' spazio, quindi anello e sporgenza
-              // pieni.
-              MaestroBust(maestro: lens.maestro, ring: 46, popFactor: 0.42),
+              // Il volto del Maestro che sfonda il cerchio, al posto dell'icona
+              // nuda: qui c'e' spazio, quindi anello e sporgenza pieni.
+              MaestroBust(maestro: lens.maestro, ring: 48, popFactor: 0.55),
               const SizedBox(width: SpacingTokens.sm),
               Text(lens.maestro.displayName,
                   style: TypographyTokens.display(size: 18)),
               const SizedBox(width: SpacingTokens.sm),
+              // Il dominio entra per intero: si rimpicciolisce fin dove serve e
+              // va a capo, mai troncato con l'ellissi.
               Expanded(
                 child: Text(lens.maestro.domainTitle,
                     textAlign: TextAlign.right,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    softWrap: true,
                     style: TypographyTokens.label(size: 10).copyWith(
                       color: palette.goldSoft.withValues(alpha: 0.8),
                       letterSpacing: 0.8,

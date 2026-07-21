@@ -343,14 +343,15 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Il mezzo busto del Maestro che sfonda il cerchio, accanto al nome,
-            // a conversazione avviata. Anello contenuto e sporgenza ridotta,
-            // cosi' la testa non finisce sotto la barra del titolo.
+            // Il volto del Maestro che sfonda il cerchio, accanto al nome, a
+            // conversazione avviata. La testa esce visibile sopra l'anello con
+            // clip none; l'anello resta contenuto perche' la testa che sporge
+            // non finisca tranciata dalla barra del titolo.
             if (showAvatar) ...[
               MaestroBust(
                 maestro: maestro,
-                ring: 40,
-                popFactor: 0.2,
+                ring: 38,
+                popFactor: 0.5,
                 speaking: speaking,
               ),
               const SizedBox(width: SpacingTokens.sm),
