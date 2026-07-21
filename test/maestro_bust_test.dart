@@ -96,6 +96,62 @@ void main() {
     // l'aura non pulsa.
     expect(tester.binding.hasScheduledFrame, isFalse);
   });
+
+  test('L\'inquadratura del volto e\' la stessa in proporzione a ogni misura',
+      () {
+    const sizes = [34.0, 44.0, 80.0];
+    for (final maestro in Maestro.values) {
+      for (final popOut in const [true, false]) {
+        final f = [
+          for (final r in sizes)
+            MaestroBust.framingFor(maestro: maestro, ring: r, popOut: popOut),
+        ];
+
+        // La fascia dal capo al collo riempie l'80 per cento del diametro, a
+        // ogni misura: mai i soli occhi, mai la figura intera.
+        for (var i = 0; i < sizes.length; i++) {
+          expect(f[i].bandBottom - f[i].bandTop, closeTo(0.8 * sizes[i], 1e-9),
+              reason: 'banda 80% del diametro per $maestro a ${sizes[i]}');
+        }
+
+        // Stesso taglio in proporzione: ogni misura assoluta scala col diametro,
+        // quindi il rapporto valore su diametro e' costante fra le misure. La
+        // correzione orizzontale e' gia' una frazione, quindi identica.
+        for (var i = 1; i < sizes.length; i++) {
+          expect(f[i].imageHeight / sizes[i],
+              closeTo(f[0].imageHeight / sizes[0], 1e-9));
+          expect(f[i].verticalOffset / sizes[i],
+              closeTo(f[0].verticalOffset / sizes[0], 1e-9));
+          expect(
+              f[i].bandTop / sizes[i], closeTo(f[0].bandTop / sizes[0], 1e-9));
+          expect(f[i].bandBottom / sizes[i],
+              closeTo(f[0].bandBottom / sizes[0], 1e-9));
+          expect(f[i].boxHeight / sizes[i],
+              closeTo(f[0].boxHeight / sizes[0], 1e-9));
+          expect(f[i].faceDx, closeTo(f[0].faceDx, 1e-12));
+        }
+      }
+    }
+  });
+
+  testWidgets('Disegna i tre Maestri a tre misure senza errori', (tester) async {
+    for (final maestro in Maestro.values) {
+      for (final ring in const [34.0, 44.0, 80.0]) {
+        await tester.pumpWidget(host(MaestroBust(maestro: maestro, ring: ring)));
+        await tester.runAsync(() async {
+          await precacheImage(
+            AssetImage(maestro.avatarAsset),
+            tester.element(find.byType(MaestroBust)),
+          );
+        });
+        await tester.pump();
+        await tester.pump();
+        expect(find.byType(Image), findsOneWidget);
+        expect(find.byKey(Key('maestro_bust_icon_${maestro.id}')), findsNothing);
+        expect(tester.takeException(), isNull);
+      }
+    }
+  });
 }
 
 /// Provider d'immagine che fallisce sempre, per esercitare il ripiego. Non tocca

@@ -350,8 +350,7 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (showAvatar) ...[
               MaestroBust(
                 maestro: maestro,
-                ring: 38,
-                popFactor: 0.62,
+                ring: 40,
                 speaking: speaking,
               ),
               const SizedBox(width: SpacingTokens.sm),

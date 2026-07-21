@@ -583,8 +583,8 @@ class _LensCard extends StatelessWidget {
           Row(
             children: [
               // Il volto del Maestro che sfonda il cerchio, al posto dell'icona
-              // nuda: qui c'e' spazio, quindi anello e sporgenza pieni.
-              MaestroBust(maestro: lens.maestro, ring: 48, popFactor: 0.55),
+              // nuda: qui c'e' spazio, quindi anello pieno.
+              MaestroBust(maestro: lens.maestro, ring: 48),
               const SizedBox(width: SpacingTokens.sm),
               Text(lens.maestro.displayName,
                   style: TypographyTokens.display(size: 18)),

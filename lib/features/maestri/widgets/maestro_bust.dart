@@ -5,31 +5,88 @@ import '../../../core/maestro/maestro.dart';
 import '../../../core/quality/quality_tier.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 
+/// Punto del volto di un Maestro, in coordinate normalizzate 0..1 sull'immagine
+/// intera dell'avatar (origine in alto a sinistra). Misurato sugli asset reali.
+@immutable
+class MaestroFacePoint {
+  const MaestroFacePoint({
+    required this.centerX,
+    required this.headTopY,
+    required this.collarY,
+  });
+
+  /// Ascissa del centro del volto, frazione della larghezza.
+  final double centerX;
+
+  /// Ordinata della sommita' del capo, frazione dell'altezza.
+  final double headTopY;
+
+  /// Ordinata della linea del collo, frazione dell'altezza.
+  final double collarY;
+}
+
+/// L'inquadratura calcolata del volto dentro il cerchio, in pixel logici. Tutti
+/// i valori scalano in proporzione al diametro dell'anello, cosi' header, lente
+/// e bolla mostrano lo stesso identico taglio a misure diverse.
+@immutable
+class BustFraming {
+  const BustFraming({
+    required this.imageHeight,
+    required this.verticalOffset,
+    required this.faceDx,
+    required this.boxHeight,
+    required this.bandTop,
+    required this.bandBottom,
+  });
+
+  /// Altezza a cui disegnare l'immagine intera dell'avatar.
+  final double imageHeight;
+
+  /// Traslazione verticale dell'immagine, dopo l'allineamento in alto.
+  final double verticalOffset;
+
+  /// Correzione orizzontale, frazione della larghezza dell'immagine, per portare
+  /// il centro del volto al centro del cerchio.
+  final double faceDx;
+
+  /// Altezza del riquadro del widget: il diametro piu' lo spazio sopra l'anello
+  /// dove la testa sporge.
+  final double boxHeight;
+
+  /// Ordinata della sommita' del capo nel riquadro.
+  final double bandTop;
+
+  /// Ordinata della linea del collo nel riquadro.
+  final double bandBottom;
+}
+
 /// Il volto del Maestro che rompe il cerchio, in chiave 2.5D.
 ///
-/// Alla base un anello dorato con l'aura nel colore del Maestro; davanti, un
-/// ritaglio STRETTO sul volto (la testa e poco piu'), ingrandito e posizionato
-/// perche' la sommita' del capo e la chioma escano SOPRA il bordo dell'anello,
-/// con `clipBehavior` a nessuno cosi' la testa non viene tagliata. Un'ombra di
-/// contatto morbida sotto il mento da' la profondita' del pop-out. E' la scelta
-/// esplicita di Mauro: il volto o poco piu' che sfonda il cerchio.
+/// L'inquadratura non usa piu' una frazione di ritaglio unica sui tre avatar,
+/// che dava tagli incoerenti (a volte i soli occhi, a volte la figura intera),
+/// ma un punto del volto misurato per Maestro (`MaestroBust.facePoints`) piu' una
+/// regola indipendente dalla dimensione: la fascia dal capo al collo riempie
+/// circa l'80 per cento del diametro del cerchio, centrata sul centro del volto.
+/// Cosi' il taglio e' identico in header, lente e bolla, cambia solo la misura e
+/// se la testa sporge sopra l'anello o resta contenuta nel tondo.
 ///
-/// Robustezza: il volto e' un `Image.asset` con `errorBuilder`, lo stesso schema
-/// solido della bolla della chat, quindi si disegna appena l'immagine e'
-/// decodificata, in qualunque contesto. L'icona lineare di riferimento compare
-/// solo se l'asset manca DAVVERO (l'`errorBuilder` scatta), mai come fondale e
-/// mai durante il caricamento.
+/// Con [popOut] vero (header e lente) la sommita' del capo esce appena sopra
+/// l'anello; con [popOut] falso (bolla della chat) lo stesso volto resta tutto
+/// dentro il cerchio, senza sporgenza.
 ///
-/// Movimento: il cenno di speaking fa pulsare l'aura e il bordo. Con Riduci
-/// Movimento (`MediaQuery.disableAnimations`) o su Quality Tier basso il moto si
-/// ferma del tutto e resta la presenza statica.
+/// Robustezza: il volto e' un `Image` con `errorBuilder`, lo stesso schema
+/// solido della bolla, quindi si disegna appena l'immagine e' decodificata.
+/// L'icona lineare di riferimento compare solo se l'`errorBuilder` scatta per un
+/// asset davvero mancante, mai come fondale e mai durante il caricamento.
+///
+/// Movimento: il cenno di speaking fa pulsare l'aura. Con Riduci Movimento o su
+/// Quality Tier basso la presenza resta statica.
 class MaestroBust extends StatefulWidget {
   const MaestroBust({
     super.key,
     required this.maestro,
     this.ring = 44,
-    this.popFactor = 0.55,
-    this.faceFraction = 0.17,
+    this.popOut = true,
     this.speaking = false,
     this.image,
   });
@@ -39,23 +96,65 @@ class MaestroBust extends StatefulWidget {
   /// Diametro dell'anello alla base.
   final double ring;
 
-  /// Quanto la testa sale sopra il bordo dell'anello, in frazione del diametro.
-  /// Piu' alto vuol dire piu' pop-out.
-  final double popFactor;
-
-  /// Frazione superiore dell'avatar a figura intera che riempie il riquadro:
-  /// piccola vuol dire ritaglio stretto e ingrandito sul volto. La testa di una
-  /// figura intera sta grosso modo nel primo sesto dell'immagine, quindi valori
-  /// intorno a 0,17 tengono il volto e la chioma, non il busto.
-  final double faceFraction;
+  /// Vero: la testa sporge appena sopra l'anello (header, lente). Falso: il
+  /// volto resta contenuto nel tondo (bolla), stesso taglio, senza sporgenza.
+  final bool popOut;
 
   /// Quando vero, l'aura pulsa: il cenno di speaking mentre il Maestro risponde.
   final bool speaking;
 
   /// Sorgente dell'immagine. In produzione resta null e si usa l'avatar del
-  /// Maestro; i test possono iniettare un provider che fallisce per esercitare
-  /// il ripiego sull'icona, o uno che dipinge per verificare il volto.
+  /// Maestro; i test possono iniettare un provider che fallisce o che dipinge.
   final ImageProvider? image;
+
+  /// Il punto del volto misurato per ciascun Maestro. Valori affinabili a
+  /// occhio, ma partono giusti sugli asset reali.
+  static const Map<Maestro, MaestroFacePoint> facePoints = {
+    Maestro.medora:
+        MaestroFacePoint(centerX: 0.52, headTopY: 0.05, collarY: 0.23),
+    Maestro.aura: MaestroFacePoint(centerX: 0.49, headTopY: 0.03, collarY: 0.22),
+    Maestro.caligo:
+        MaestroFacePoint(centerX: 0.48, headTopY: 0.04, collarY: 0.23),
+  };
+
+  /// Quanta parte del diametro riempie la fascia del volto, dal capo al collo.
+  static const double kBandOfDiameter = 0.8;
+
+  /// Spazio sopra l'anello, in frazione del diametro, dove la testa sporge.
+  static const double kTopPad = 0.32;
+
+  /// Di quanto la sommita' del capo esce sopra il bordo dell'anello (popOut) o
+  /// resta sotto di esso, cioe' contenuta (non popOut), in frazione del diametro.
+  static const double kCrestOut = 0.05;
+  static const double kCrestIn = -0.10;
+
+  /// Calcola l'inquadratura per un Maestro a un dato diametro. E' la regola
+  /// dell'inquadratura, in un punto solo, cosi' i test la verificano e il build
+  /// la usa senza divergere. Tutti i valori scalano linearmente col diametro.
+  static BustFraming framingFor({
+    required Maestro maestro,
+    required double ring,
+    required bool popOut,
+  }) {
+    final p = facePoints[maestro]!;
+    final band = p.collarY - p.headTopY;
+    final imageHeight = kBandOfDiameter * ring / band;
+    final topPad = popOut ? kTopPad * ring : 0.0;
+    final boxHeight = ring + topPad;
+    final ringTopY = topPad;
+    final crest = (popOut ? kCrestOut : kCrestIn) * ring;
+    final bandTop = ringTopY - crest;
+    final verticalOffset = bandTop - p.headTopY * imageHeight;
+    final bandBottom = verticalOffset + p.collarY * imageHeight;
+    return BustFraming(
+      imageHeight: imageHeight,
+      verticalOffset: verticalOffset,
+      faceDx: 0.5 - p.centerX,
+      boxHeight: boxHeight,
+      bandTop: bandTop,
+      bandBottom: bandBottom,
+    );
+  }
 
   @override
   State<MaestroBust> createState() => _MaestroBustState();
@@ -69,8 +168,8 @@ class _MaestroBustState extends State<MaestroBust>
   );
 
   /// Vero solo quando l'immagine dell'avatar ha fallito il caricamento, saputo
-  /// dall'`errorBuilder` dell'Image. Solo allora si mostra l'icona di ripiego.
-  /// Mai come fondale, mai durante il caricamento.
+  /// dall'`errorBuilder`. Allora si mostra l'icona di ripiego. Mai come fondale,
+  /// mai durante il caricamento.
   bool _failed = false;
 
   ImageProvider get _provider =>
@@ -79,15 +178,12 @@ class _MaestroBustState extends State<MaestroBust>
   @override
   void didUpdateWidget(MaestroBust oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Cambiato Maestro o sorgente: si riprova a disegnare il volto.
     if (oldWidget.maestro != widget.maestro || oldWidget.image != widget.image) {
       _failed = false;
     }
   }
 
   void _markFailed() {
-    // L'errorBuilder e' chiamato durante il build: si rimanda il setState al
-    // frame dopo, cosi' non si tocca lo stato mentre si costruisce l'albero.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted && !_failed) setState(() => _failed = true);
     });
@@ -105,7 +201,6 @@ class _MaestroBustState extends State<MaestroBust>
     final tier = context.watch<QualityTierController>().tier;
     final reduceMotion = MediaQuery.of(context).disableAnimations;
     final motion = !reduceMotion && tier != QualityTier.low;
-    // Il pulsare vive solo quando parla e il movimento e' consentito.
     final pulsa = widget.speaking && motion;
     if (pulsa && !_controller.isAnimating) {
       _controller.repeat(reverse: true);
@@ -116,8 +211,11 @@ class _MaestroBustState extends State<MaestroBust>
     }
 
     final ring = widget.ring;
-    final pop = ring * widget.popFactor;
-    final boxH = ring + pop;
+    final framing = MaestroBust.framingFor(
+      maestro: widget.maestro,
+      ring: ring,
+      popOut: widget.popOut,
+    );
 
     return AnimatedBuilder(
       animation: _controller,
@@ -125,13 +223,13 @@ class _MaestroBustState extends State<MaestroBust>
         final pulse = pulsa ? _controller.value : 0.0;
         return SizedBox(
           width: ring,
-          height: boxH,
+          height: framing.boxHeight,
           child: Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.bottomCenter,
             children: [
-              // L'anello alla base, con l'aura che pulsa. L'icona di ripiego
-              // vive qui, ma solo quando l'immagine ha fallito davvero.
+              // L'anello alla base, con l'aura che pulsa. L'icona di ripiego vive
+              // qui, ma solo quando l'immagine ha fallito davvero.
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -167,9 +265,9 @@ class _MaestroBustState extends State<MaestroBust>
               ),
               // L'ombra di contatto: una macchia morbida sotto il mento, sul
               // piano dell'anello, che stacca il volto e lo fa sporgere.
-              if (!_failed)
+              if (!_failed && widget.popOut)
                 Positioned(
-                  bottom: ring * 0.42,
+                  bottom: ring * 0.36,
                   child: Container(
                     width: ring * 0.62,
                     height: ring * 0.15,
@@ -185,17 +283,15 @@ class _MaestroBustState extends State<MaestroBust>
                     ),
                   ),
                 ),
-              // Il volto che sfonda il cerchio. clipBehavior none piu' in alto
-              // lascia uscire la testa e la chioma oltre l'anello.
+              // Il volto inquadrato. Copre l'intero riquadro; nel popOut la testa
+              // esce sopra l'anello, nella bolla resta dentro il tondo.
               if (!_failed)
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: boxH,
-                  child: _FaceCrop(
+                Positioned.fill(
+                  child: _FaceView(
                     provider: _provider,
-                    faceFraction: widget.faceFraction,
+                    framing: framing,
+                    ring: ring,
+                    popOut: widget.popOut,
                     onError: _markFailed,
                   ),
                 ),
@@ -207,65 +303,76 @@ class _MaestroBustState extends State<MaestroBust>
   }
 }
 
-/// Il ritaglio stretto sul volto dell'avatar a figura intera: l'immagine si
-/// ingrandisce finche' la testa riempie il riquadro, allineata in alto e
-/// tagliata sotto con una sfumatura, cosi' il volto rompe l'anello e sfuma verso
-/// il collo. La testa di una figura intera sta nel primo sesto circa
-/// dell'immagine: con `faceFraction` piccolo resta il volto, non il busto.
-///
-/// L'immagine e' un `Image` con `errorBuilder`, come la bolla della chat: se
-/// l'asset manca davvero, avvisa `onError` e lascia il vuoto, cosi' MaestroBust
-/// accende l'icona di ripiego nell'anello.
-class _FaceCrop extends StatelessWidget {
-  const _FaceCrop({
+/// Disegna l'avatar inquadrato sul volto secondo [framing]. Nel popOut ritaglia
+/// a rettangolo e sfuma in basso verso il collo; nella bolla ritaglia al tondo
+/// dell'anello. Il centro del volto va al centro del cerchio con una traslazione
+/// frazionaria, indipendente dalle proporzioni dell'immagine.
+class _FaceView extends StatelessWidget {
+  const _FaceView({
     required this.provider,
-    required this.faceFraction,
+    required this.framing,
+    required this.ring,
+    required this.popOut,
     required this.onError,
   });
 
   final ImageProvider provider;
-  final double faceFraction;
+  final BustFraming framing;
+  final double ring;
+  final bool popOut;
   final VoidCallback onError;
 
   @override
   Widget build(BuildContext context) {
-    return ShaderMask(
-      blendMode: BlendMode.dstIn,
-      shaderCallback: (rect) => const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [Colors.white, Colors.white, Colors.transparent],
-        stops: [0.0, 0.78, 1.0],
-      ).createShader(rect),
-      child: ClipRect(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            // L'immagine si scala su un'altezza pari al riquadro diviso la
-            // frazione: piccola vuol dire immagine molto piu' alta del riquadro,
-            // quindi solo la parte alta (il volto) resta in vista. L'OverflowBox
-            // serve perche' altrimenti il riquadro schiaccerebbe l'immagine
-            // prima del ritaglio, lasciando una figura intera rimpicciolita.
-            final scaled = constraints.maxHeight / faceFraction;
-            return OverflowBox(
-              alignment: Alignment.topCenter,
-              minWidth: 0,
-              maxWidth: double.infinity,
-              minHeight: 0,
-              maxHeight: double.infinity,
-              child: Image(
-                image: provider,
-                height: scaled,
-                fit: BoxFit.fitHeight,
-                alignment: Alignment.topCenter,
-                filterQuality: FilterQuality.medium,
-                errorBuilder: (_, __, ___) {
-                  onError();
-                  return const SizedBox.shrink();
-                },
-              ),
-            );
-          },
+    Widget image = OverflowBox(
+      alignment: Alignment.topCenter,
+      minWidth: 0,
+      maxWidth: double.infinity,
+      minHeight: 0,
+      maxHeight: double.infinity,
+      child: Transform.translate(
+        offset: Offset(0, framing.verticalOffset),
+        child: FractionalTranslation(
+          // Sposta il centro del volto al centro del cerchio, in frazione della
+          // larghezza dell'immagine: aspetto-indipendente.
+          translation: Offset(framing.faceDx, 0),
+          child: Image(
+            image: provider,
+            height: framing.imageHeight,
+            fit: BoxFit.fitHeight,
+            alignment: Alignment.topCenter,
+            filterQuality: FilterQuality.medium,
+            errorBuilder: (_, __, ___) {
+              onError();
+              return const SizedBox.shrink();
+            },
+          ),
         ),
+      ),
+    );
+
+    if (!popOut) {
+      // Bolla: il volto contenuto nel tondo dell'anello.
+      return ClipOval(child: image);
+    }
+
+    // Header e lente: rettangolo, con la base che sfuma nel collo cosi' il volto
+    // si posa sull'anello senza una linea netta.
+    return ClipRect(
+      child: ShaderMask(
+        blendMode: BlendMode.dstIn,
+        shaderCallback: (rect) {
+          // La sfumatura parte appena sotto il collo, in proporzione al riquadro.
+          final fadeStart =
+              (framing.bandBottom / framing.boxHeight).clamp(0.0, 1.0);
+          return LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: const [Colors.white, Colors.white, Colors.transparent],
+            stops: [0.0, fadeStart, (fadeStart + 0.14).clamp(0.0, 1.0)],
+          ).createShader(rect);
+        },
+        child: image,
       ),
     );
   }

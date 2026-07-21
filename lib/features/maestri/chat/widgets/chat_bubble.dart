@@ -8,8 +8,8 @@ import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../widgets/maestro_bust.dart';
 import 'astral_typing_indicator.dart';
-import 'maestro_avatar.dart';
 
 /// Una bolla della conversazione.
 ///
@@ -127,7 +127,9 @@ class ChatBubble extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MaestroAvatar(maestro: maestro, size: 34),
+          // Stesso volto inquadrato di header e lente, ma contenuto nel tondo,
+          // senza sporgenza, per non affollare il testo.
+          MaestroBust(maestro: maestro, ring: 34, popOut: false),
           const SizedBox(width: SpacingTokens.xs),
           Flexible(child: bubble),
         ],

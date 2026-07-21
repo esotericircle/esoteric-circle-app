@@ -1,6 +1,7 @@
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_bubble.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ void main() {
         providers: [
           ChangeNotifierProvider(
               create: (_) => MaestroController()..selectMaestro(maestro)),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
         ],
         child: MaterialApp(
           home: MaestroScope(
