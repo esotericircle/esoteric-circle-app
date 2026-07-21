@@ -26,7 +26,7 @@ class AppStrings {
 
   /// I nomi delle funzioni, per id dello scaffale del Santuario.
   static const Map<String, Map<String, String>> _functions = {
-    'tarot_spread_three': {'it': 'Stesa a Tre Carte', 'en': 'Three Card Spread'},
+    'tarot_spread_three': {'it': 'Stesa di Tarocchi', 'en': 'Tarot Spread'},
     'synastry_vip': {'it': 'Sinastria VIP', 'en': 'VIP Synastry'},
     'archetype_test': {'it': 'Test Archetipo', 'en': 'Archetype Test'},
     'face_constellation': {'it': 'Costellazione del Viso', 'en': 'Face Constellation'},

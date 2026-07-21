@@ -40,7 +40,7 @@ class FunctionShelf {
   static const List<ShelfFunction> functions = [
     ShelfFunction(
       id: 'tarot_spread_three',
-      title: 'Stesa a Tre Carte',
+      title: 'Stesa di Tarocchi',
       teaser: 'Passato, presente e futuro nel ventaglio di Medora.',
       icon: Icons.style,
       maestro: Maestro.medora,

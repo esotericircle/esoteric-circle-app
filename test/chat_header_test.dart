@@ -57,7 +57,7 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
-    await tester.tap(find.text('Parla con ${maestro.displayName}'));
+    await tester.tap(find.text('Consulta ${maestro.displayName}'));
     await step(tester);
   }
 

@@ -17,6 +17,7 @@ import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../services/app_services.dart';
+import '../ask/ask_maestri_screen.dart';
 import '../immersive_navigation.dart';
 import 'maestro_chat_controller.dart';
 import 'widgets/chat_bubble.dart';
@@ -161,6 +162,11 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           memoryPersistent: services.memoryPersistent,
           appCheckDebugToken: services.appCheckDebugToken,
         ),
+        // La seconda superficie della Consulta, il confronto a piu' voci, vive
+        // qui dentro: una sola voce nel dominio, due modi di consultare. Da qui
+        // si porta la domanda anche agli altri Maestri, con la sintesi.
+        onCompare: () => Navigator.of(context)
+            .push(AskMaestriScreen.route(starter: widget.maestro)),
       ),
       // La chat e' una superficie di lettura: cosmo senza costellazioni, cosi'
       // nessuna forma stilizzata ne' rettangolo a portale trapela dietro
@@ -322,12 +328,16 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   const _ChatAppBar({
     required this.maestro,
     required this.onDiagnostics,
+    required this.onCompare,
     this.showAvatar = false,
     this.speaking = false,
   });
 
   final Maestro maestro;
   final VoidCallback onDiagnostics;
+
+  /// Apre il confronto a piu' voci sulla stessa domanda.
+  final VoidCallback onCompare;
 
   /// Mostra l'avatar tondo del Maestro accanto al nome, a conversazione avviata.
   final bool showAvatar;
@@ -365,6 +375,17 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         tooltip: 'Indietro',
         onPressed: () => Navigator.of(context).maybePop(),
       ),
+      // Una sola azione, simmetrica alla freccia: porta la stessa domanda agli
+      // altri Maestri e ne mette a confronto gli sguardi. L'header resta
+      // bilanciato e il titolo centrato.
+      actions: [
+        IconButton(
+          key: const Key('chat_compare'),
+          icon: const Icon(Icons.balance_rounded),
+          tooltip: 'Metti a confronto le voci del Cerchio',
+          onPressed: onCompare,
+        ),
+      ],
       // Nessun simbolo da sviluppatore nell'header. La messa a punto (token di
       // debug di App Check) resta raggiungibile con un gesto nascosto: una
       // pressione prolungata sul nome del Maestro. Cosi' l'header e' pulito

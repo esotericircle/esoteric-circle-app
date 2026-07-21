@@ -303,7 +303,7 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
-    await tester.tap(find.text('Parla con ${maestro.displayName}'));
+    await tester.tap(find.text('Consulta ${maestro.displayName}'));
     await step(tester);
     await step(tester);
   }
@@ -425,10 +425,19 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
-    // Dal dominio si apre "Chiedi a Medora".
-    await tester.ensureVisible(find.byKey(const Key('domain_ask_card')));
+    // Dal dominio si entra nella Consulta, poi dall'header della chat si apre
+    // il confronto a piu' voci.
+    await tester.ensureVisible(find.byKey(const Key('domain_consulta_card')));
     await step(tester);
-    await tester.tap(find.byKey(const Key('domain_ask_card')));
+    await tester.tap(find.byKey(const Key('domain_consulta_card')));
+    await step(tester);
+    await step(tester);
+    final accept = find.text('Ho capito, entriamo');
+    if (accept.evaluate().isNotEmpty) {
+      await tester.tap(accept);
+      await step(tester);
+    }
+    await tester.tap(find.byKey(const Key('chat_compare')));
     await step(tester);
     await step(tester);
     await tester.enterText(
@@ -458,10 +467,15 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
-    // Nel dominio di Aura, la tessera della Meditazione apre la schermata.
-    await tester.ensureVisible(find.byKey(const Key('aura_meditation_card')));
+    // Nel dominio di Aura, la card della Meditazione nel riquadro Energia apre
+    // la schermata.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('art_meditation')),
+      220,
+      scrollable: find.byType(Scrollable).first,
+    );
     await step(tester);
-    await tester.tap(find.byKey(const Key('aura_meditation_card')));
+    await tester.tap(find.byKey(const Key('art_meditation')));
     await step(tester);
     await step(tester);
     // Avvio il suono e porto il respiro verso il pieno: il mandala si apre.
@@ -1003,8 +1017,12 @@ void main() {
     await capture(tester, rootKey, 'santuario-scaffale.png');
   });
 
-  // --- La card Rito dell'Alba, col Maestro di turno del giorno ---
-  testWidgets('Cattura la card Rito dell\'Alba', (tester) async {
+  // --- La striscia del giorno, dove ora vivono i quattro riti ---
+  //
+  // La card del Rito dell'Alba non sta piu' nel dominio del Maestro: il dominio
+  // e' il luogo delle arti, i riti del giorno appartengono alla striscia del
+  // Santuario. L'anteprima segue il posto vero.
+  testWidgets('Cattura la striscia del giorno', (tester) async {
     silenceSensors();
     await loadFonts();
     final dawn = DailyRituals.dawnMaestro(DateTime.now());
@@ -1012,13 +1030,10 @@ void main() {
         await mount(tester, await buildServices(dawn, seeded: false));
     selectCentral(tester, dawn);
     await step(tester);
-    await tester.tap(find.byKey(const Key('santuario_central_bust')));
-    await step(tester);
-    await step(tester);
     await precacheFaces(tester);
-    await tester.ensureVisible(find.byKey(const Key('ritual_dawn')));
+    await tester.ensureVisible(find.byKey(const Key('santuario_daily_strip')));
     await step(tester);
-    await capture(tester, rootKey, 'card-rito-alba.png');
+    await capture(tester, rootKey, 'striscia-del-giorno.png');
   });
 
   // --- L'hub di dominio e il Cosmic Passport ---
@@ -1033,11 +1048,20 @@ void main() {
     await step(tester);
     await step(tester);
     await precacheFaces(tester);
-    // Superficie alta, cosi' l'anteprima mostra anche la striscia "Scopri altre
-    // arti del Cerchio" in fondo, oltre le funzioni del dominio.
+    // Superficie alta, cosi' l'anteprima mostra la presenza, la Consulta e il
+    // primo riquadro di sottocategoria per intero.
     tester.view.physicalSize = const Size(390, 2800);
     await step(tester);
     await capture(tester, rootKey, 'dominio-medora.png');
+
+    // Il fondo del dominio: gli ultimi riquadri e la striscia "Scopri altre
+    // arti del Cerchio", che col catalogo completo di Medora sta molto in basso.
+    final position =
+        tester.state<ScrollableState>(find.byType(Scrollable).first).position;
+    position.jumpTo(position.maxScrollExtent);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-medora-fondo.png');
   });
 
   testWidgets('Cattura il Cosmic Passport', (tester) async {

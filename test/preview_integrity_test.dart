@@ -10,7 +10,7 @@ void main() {
   // I preview obbligatori della Demo, per nome file.
   const required = <String>[
     'piani.png', // schermata prezzi, quattro livelli piu' la card Demo
-    'card-rito-alba.png', // card Rito dell'Alba col Maestro di turno
+    'striscia-del-giorno.png', // i quattro riti nella striscia del Santuario
     'runa-tramonto-chiusa.png', // Runa del Tramonto, stato chiuso
     'runa-tramonto.png', // Runa del Tramonto, stato estratto
     'sigillo-cerchio.png', // Sigillo del Cerchio, nuova esperienza
@@ -18,6 +18,8 @@ void main() {
     'santuario-scaffale.png', // Santuario, scaffale funzioni a scorrimento
     'chat-instradamento.png', // instradamento della chat verso una funzione
     'sinastria-vip.png', // Sinastria VIP, risultato
+    'dominio-medora.png', // dominio, presenza, Consulta e prime sottocategorie
+    'dominio-medora-fondo.png', // dominio, fondo con la striscia delle altre arti
   ];
 
   test('Tutti i preview obbligatori esistono in docs/preview', () {

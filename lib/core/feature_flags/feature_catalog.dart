@@ -29,7 +29,7 @@ class FeatureCatalog {
     ),
     FeatureDefinition(
       id: 'tarot_spread_three',
-      title: 'Stesa a Tre Carte',
+      title: 'Stesa di Tarocchi',
       teaser: 'Passato, Presente e Futuro nel ventaglio di Medora.',
       icon: Icons.style,
       owner: Maestro.medora,

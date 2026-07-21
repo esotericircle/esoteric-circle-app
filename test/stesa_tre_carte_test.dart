@@ -534,7 +534,7 @@ void main() {
       final titolo =
           tester.widget<Text>(find.byKey(const Key('stesa_titolo')));
       expect(titolo.data, TarotSpreadType.predefinita.nome);
-      expect(titolo.data, 'Stesa a Tre Carte');
+      expect(titolo.data, 'Stesa di Tarocchi');
     });
 
     test('Le tre stese esistono, solo la prima e aperta', () {

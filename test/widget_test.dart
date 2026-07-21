@@ -70,7 +70,7 @@ void main() {
     await tester.tap(find.text('Caligo'));
     await step(tester);
     await step(tester);
-    expect(find.text('Parla con Caligo'), findsOneWidget);
+    expect(find.text('Consulta Caligo'), findsOneWidget);
     expect(ctx.read<MaestroController>().activeMaestro, Maestro.caligo);
   });
 

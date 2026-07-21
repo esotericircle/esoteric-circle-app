@@ -108,7 +108,7 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_enter_domain')));
     await step(tester);
     await step(tester);
-    expect(find.text('Parla con Medora'), findsOneWidget);
+    expect(find.text('Consulta Medora'), findsOneWidget);
   });
 
   testWidgets('L\'eroe centrale segue il Maestro dell\'elemento attivo',

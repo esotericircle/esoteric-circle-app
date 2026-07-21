@@ -22,13 +22,8 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../account/account_screen.dart';
-import '../horoscope/oroscopo_screen.dart';
-import '../maestri/aura/meditation/meditation_screen.dart';
+import '../maestri/art_navigation.dart';
 import '../maestri/domain_screen.dart';
-import '../rituals/day_oracle_screen.dart';
-import '../tarot/stesa_tre_carte_screen.dart';
-import '../rituals/sunset_rune_screen.dart';
-import '../synastry/sinastria_vip_screen.dart';
 import 'daily_strip.dart';
 import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
@@ -167,24 +162,10 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     _showShelfAnticipo(context, fn);
   }
 
-  Route<void>? _shelfRoute(ShelfFunction fn, Zodiac userSign) {
-    switch (fn.id) {
-      case 'synastry_vip':
-        return SinastriaVipScreen.route(userSign: userSign);
-      case 'day_oracle':
-        return DayOracleScreen.route();
-      case 'horoscope':
-        return OroscopoScreen.route(userSign: userSign);
-      case 'tarot_spread_three':
-        return StesaTreCarteScreen.route();
-      case 'sunset_rune':
-        return SunsetRuneScreen.route();
-      case 'meditation':
-        return MeditationScreen.route();
-      default:
-        return null; // ancora dietro il velo
-    }
-  }
+  /// La rotta di una funzione dello scaffale: la stessa mappa unica del dominio
+  /// (`artRouteFor`), cosi' la stessa arte si apre sempre alla stessa schermata.
+  Route<void>? _shelfRoute(ShelfFunction fn, Zodiac userSign) =>
+      artRouteFor(fn.id, userSign: userSign);
 
   void _showShelfAnticipo(BuildContext context, ShelfFunction fn) {
     final palette = MaestroPalette.forKey(ThemeKey.of(fn.maestro));

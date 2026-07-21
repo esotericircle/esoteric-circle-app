@@ -1,6 +1,9 @@
+import 'package:esoteric_circle/core/arts/art_catalog.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
+import 'package:esoteric_circle/features/santuario/daily_strip.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/meditation_audio.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/meditation_screen.dart';
 import 'package:esoteric_circle/features/maestri/aura/meditation/tone_generator.dart';
@@ -149,16 +152,33 @@ void main() {
           ),
         );
 
+    // Nel catalogo la Meditazione sta sotto Aura, in Energia, e solo li'.
+    expect(
+      ArtCatalog.activeOf(Maestro.aura).map((a) => a.id),
+      contains('meditation'),
+    );
+    for (final altro in [Maestro.medora, Maestro.caligo]) {
+      expect(
+        ArtCatalog.forMaestro(altro).expand((s) => s.arts).map((a) => a.id),
+        isNot(contains('meditation')),
+      );
+    }
+
     await tester.pumpWidget(domain(Maestro.aura));
     await tester.pump();
-    expect(find.byKey(const Key('aura_meditation_card')), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('art_meditation')),
+      220,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.byKey(const Key('art_meditation')), findsOneWidget);
 
     await tester.pumpWidget(domain(Maestro.medora));
     await tester.pump();
-    expect(find.byKey(const Key('aura_meditation_card')), findsNothing);
+    expect(find.byKey(const Key('art_meditation')), findsNothing);
   });
 
-  testWidgets('La card Rito dell\'Alba mostra il Maestro di turno del giorno',
+  testWidgets('I riti del giorno non stanno nel dominio, ne restano orfani',
       (tester) async {
     Widget domain(Maestro m) => MultiProvider(
           providers: [
@@ -176,18 +196,28 @@ void main() {
           ),
         );
 
-    final dawn = DailyRituals.dawnMaestro(DateTime.now());
-    await tester.pumpWidget(domain(dawn));
-    await tester.pump();
-    // Nel dominio del Maestro di turno la card compare e lo nomina.
-    expect(find.byKey(const Key('ritual_dawn')), findsOneWidget);
-    expect(find.text('Oggi la guida è di ${dawn.displayName}.'), findsOneWidget);
+    // Il dominio e' il luogo delle arti, non dei riti del giorno: nessuna card
+    // di rito ci compare piu', in nessuno dei tre domini.
+    for (final m in Maestro.values) {
+      await tester.pumpWidget(domain(m));
+      await tester.pump();
+      for (final k in const [
+        'ritual_dawn',
+        'ritual_oracle',
+        'ritual_rune',
+        'ritual_breath',
+      ]) {
+        expect(find.byKey(Key(k)), findsNothing);
+      }
+    }
 
-    // In un altro dominio la card del Rito dell'Alba non c'e'.
-    final other = Maestro.values.firstWhere((m) => m != dawn);
-    await tester.pumpWidget(domain(other));
-    await tester.pump();
-    expect(find.byKey(const Key('ritual_dawn')), findsNothing);
+    // Restano pero' raggiungibili, tutti, dalla striscia del giorno nel
+    // Santuario: ogni elemento ha ancora la sua rotta viva.
+    for (final e in DailyElement.values) {
+      expect(dailyElementRoute(e), isNotNull);
+    }
+    // E il Maestro di turno resta quello del giorno, dove serve.
+    expect(DailyRituals.dawnMaestro(DateTime(2026, 7, 20)), isA<Maestro>());
   });
 }
 

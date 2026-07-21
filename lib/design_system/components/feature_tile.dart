@@ -28,20 +28,16 @@ class FeatureTile extends StatelessWidget {
     super.key,
     required this.feature,
     this.onOpen,
-    this.forceComingSoon = false,
   });
 
   final FeatureDefinition feature;
   final VoidCallback? onOpen;
 
-  /// Forza lo stato Coming soon senza toccare la leva remota reale.
-  final bool forceComingSoon;
-
   @override
   Widget build(BuildContext context) {
     final flags = context.watch<FeatureFlagService>();
     final status =
-        forceComingSoon ? FeatureStatus.comingSoon : flags.statusOf(feature);
+        flags.statusOf(feature);
     final palette = context.palette;
 
     final bool isActive = status == FeatureStatus.active;

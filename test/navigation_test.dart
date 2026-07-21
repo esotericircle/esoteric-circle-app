@@ -57,13 +57,13 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
-    expect(find.text('Parla con Medora'), findsOneWidget);
+    expect(find.text('Consulta Medora'), findsOneWidget);
     // Il dominio ha la sua freccia Indietro.
     expect(find.byIcon(Icons.arrow_back_rounded), findsOneWidget);
     expect(navOf(tester).canPop(), isTrue);
 
     // Dal dominio entra nella chat.
-    await tester.tap(find.text('Parla con Medora'));
+    await tester.tap(find.text('Consulta Medora'));
     await step(tester);
     await step(tester);
     // Il disclaimer si apre come foglio una volta sola: chiudilo, cosi' il
@@ -82,14 +82,14 @@ void main() {
     await navOf(tester).maybePop();
     await step(tester);
     await step(tester);
-    expect(find.text('Parla con Medora'), findsOneWidget);
+    expect(find.text('Consulta Medora'), findsOneWidget);
     expect(find.text('Scrivi a Medora'), findsNothing);
 
     // Dal dominio si torna al Santuario.
     await navOf(tester).maybePop();
     await step(tester);
     await step(tester);
-    expect(find.text('Parla con Medora'), findsNothing);
+    expect(find.text('Consulta Medora'), findsNothing);
     expect(find.text('Passport'), findsWidgets);
     expect(navOf(tester).canPop(), isFalse);
   });
@@ -106,7 +106,7 @@ void main() {
     await tester.tap(find.text('Aura'));
     await step(tester);
     await step(tester);
-    expect(find.text('Parla con Aura'), findsOneWidget);
+    expect(find.text('Consulta Aura'), findsOneWidget);
     expect(maestro.activeMaestro, Maestro.aura);
   });
 
@@ -131,7 +131,7 @@ void main() {
     await step(tester);
     expect(maestro.activeMaestro, Maestro.caligo);
     expect(find.byType(SantuarioBottomBar), findsOneWidget);
-    expect(find.text('Parla con Caligo'), findsNothing);
+    expect(find.text('Consulta Caligo'), findsNothing);
   });
 
   testWidgets('I tre Maestri nella bottom bar rispettano l\'ordine fisso',

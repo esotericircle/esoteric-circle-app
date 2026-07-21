@@ -6,7 +6,7 @@
 /// ricordarsi di cambiare anche il titolo.
 enum TarotSpreadType {
   treCarte(
-    nome: 'Stesa a Tre Carte',
+    nome: 'Stesa di Tarocchi',
     breve: 'Tre Carte',
     carte: 3,
     descrizione: 'Passato, Presente, Futuro',
