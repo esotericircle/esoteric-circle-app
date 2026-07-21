@@ -77,6 +77,16 @@ class UserPhotoController extends ChangeNotifier {
     return _bytes != null;
   }
 
+  /// Precarica la foto dal profilo dell'utente (avatar gia' scelto e tenuto in
+  /// locale), cosi' la Sinastria parte col volto gia' pronto invece che dal solo
+  /// segnaposto. Non sovrascrive una foto gia' scelta in questa schermata.
+  void seed(Uint8List? bytes) {
+    if (_bytes != null) return;
+    if (bytes == null || bytes.isEmpty) return;
+    _bytes = bytes;
+    notifyListeners();
+  }
+
   /// Toglie la foto e torna al segnaposto a costellazione.
   void clear() {
     if (_bytes == null) return;

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/chat/chat_message.dart';
 import '../../../../core/chat/immersive_intents.dart';
 import '../../../../core/maestro/maestro.dart';
+import '../../../../design_system/components/user_avatar.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
@@ -104,15 +105,23 @@ class ChatBubble extends StatelessWidget {
     );
 
     if (isUser) {
-      return Align(
-        alignment: Alignment.centerRight,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: SpacingTokens.xl,
-            top: SpacingTokens.xs,
-            bottom: SpacingTokens.xs,
-          ),
-          child: bubble,
+      // Il volto dell'utente, piccolo e discreto, sul lato destro della sua
+      // bolla: la sua foto, o l'emblema del segno, o le iniziali, o il sigillo
+      // neutro. Mai un tondo vuoto.
+      return Padding(
+        padding: const EdgeInsets.only(
+          left: SpacingTokens.xl,
+          top: SpacingTokens.xs,
+          bottom: SpacingTokens.xs,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(child: bubble),
+            const SizedBox(width: SpacingTokens.xs),
+            UserAvatar.forUser(context, size: 28, key: const Key('chat_user_avatar')),
+          ],
         ),
       );
     }

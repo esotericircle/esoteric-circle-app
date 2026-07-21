@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/astro/night_sky.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/identity/birth_identity.dart';
+import '../../core/identity/profile_controller.dart';
 import '../../core/synastry/synastry_report.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -83,6 +85,8 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
 
   String get _userDate => italianLongDate(_userBirth);
 
+  bool _seededFromProfile = false;
+
   @override
   void initState() {
     super.initState();
@@ -91,6 +95,21 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
       duration: const Duration(milliseconds: 1100),
     )..forward();
     _photo.addListener(_onPhotoChanged);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Il precompilato della foto legge l'avatar dal profilo, non solo la memoria
+    // di questa schermata: se l'utente ha gia' un suo volto nel Cerchio, parte
+    // da quello. Solo se il controller non e' iniettato dai test.
+    if (_seededFromProfile || widget.photoController != null) return;
+    _seededFromProfile = true;
+    // Se il profilo non e' nell'albero (in alcuni test isolati), niente seed:
+    // si resta al segnaposto, senza schianti.
+    try {
+      _photo.seed(context.read<ProfileController>().avatarPhoto);
+    } catch (_) {}
   }
 
   void _onPhotoChanged() {

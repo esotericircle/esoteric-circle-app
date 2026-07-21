@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,6 +34,7 @@ class ProfileStore {
   static const _kHour = 'profile.birthHour';
   static const _kMinute = 'profile.birthMinute';
   static const _kPlace = 'profile.place'; // JSON
+  static const _kAvatarPhoto = 'profile.avatarPhoto'; // base64 dei byte
 
   static String _stampDate(DateTime d) =>
       '${d.year.toString().padLeft(4, '0')}-'
@@ -104,6 +106,36 @@ class ProfileStore {
         await prefs.setString(_kName, profile.displayName!.trim());
       }
       await prefs.setString(_kCourtesy, profile.courtesyForm.name);
+    } catch (_) {
+      // Best effort.
+    }
+  }
+
+  /// Ritrova la foto dell'avatar dell'utente, tenuta SOLO in locale (base64 su
+  /// `SharedPreferences`), mai caricata da nessuna parte. Null se non c'e' o se
+  /// la persistenza manca.
+  Future<Uint8List?> loadAvatarPhoto() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getString(_kAvatarPhoto);
+      if (raw == null || raw.isEmpty) return null;
+      return base64Decode(raw);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Salva o rimuove la foto dell'avatar in locale. Con [bytes] a null la
+  /// toglie, tornando all'avatar di default. Best effort: la foto non lascia
+  /// mai il dispositivo.
+  Future<void> saveAvatarPhoto(Uint8List? bytes) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (bytes == null || bytes.isEmpty) {
+        await prefs.remove(_kAvatarPhoto);
+      } else {
+        await prefs.setString(_kAvatarPhoto, base64Encode(bytes));
+      }
     } catch (_) {
       // Best effort.
     }

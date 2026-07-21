@@ -360,8 +360,14 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// Cenno di speaking: l'aura dell'avatar pulsa mentre il Maestro risponde.
   final bool speaking;
 
+  /// Altezza dell'header: piu' alta quando l'avatar che sfonda il cerchio sta
+  /// sopra il nome, cosi' la colonna centrata (avatar, nome, sottotitolo) ci sta
+  /// senza tagli; piu' bassa a conversazione vuota, dove ci sono solo nome e
+  /// sottotitolo.
+  double get _barHeight => showAvatar ? 116 : 68;
+
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(_barHeight);
 
   @override
   Widget build(BuildContext context) {
@@ -371,6 +377,8 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       titleSpacing: 0,
+      toolbarHeight: _barHeight,
+      centerTitle: true,
       iconTheme: IconThemeData(color: palette.goldSoft),
       // Freccia Indietro esplicita che riavvolge la pila. Nessuna X, nessuna
       // freccia Avanti. Il tasto di sistema Android e lo scorrimento dal bordo
@@ -389,33 +397,30 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: GestureDetector(
         onLongPress: onDiagnostics,
         behavior: HitTestBehavior.opaque,
-        child: Row(
+        // Tutto centrato in colonna: il volto del Maestro che sfonda il cerchio
+        // sopra (a conversazione avviata), poi il nome, poi il sottotitolo con
+        // le tre arti. Cosi' l'header resta simmetrico in entrambe le fasi.
+        child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Il volto del Maestro che sfonda il cerchio, accanto al nome, a
-            // conversazione avviata. La testa esce visibile sopra l'anello con
-            // clip none; l'anello resta contenuto perche' la testa che sporge
-            // non finisca tranciata dalla barra del titolo.
             if (showAvatar) ...[
               MaestroBust(
                 maestro: maestro,
                 ring: 40,
                 speaking: speaking,
               ),
-              const SizedBox(width: SpacingTokens.sm),
+              const SizedBox(height: 2),
             ],
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(maestro.displayName,
-                    style: TypographyTokens.display(size: 20)),
-                Text(
-                  maestro.domainTitle,
-                  style: TypographyTokens.body(size: 12)
-                      .copyWith(color: palette.goldSoft),
-                ),
-              ],
+            Text(maestro.displayName,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.display(size: 20)),
+            Text(
+              maestro.domainArtsPhrase,
+              textAlign: TextAlign.center,
+              style: TypographyTokens.body(size: 12)
+                  .copyWith(color: palette.goldSoft),
             ),
           ],
         ),

@@ -2,6 +2,7 @@ import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/identity/birth_moon.dart';
 import 'package:esoteric_circle/core/identity/numerology.dart';
+import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -19,6 +20,7 @@ void main() {
           ChangeNotifierProvider(create: (_) => MaestroController()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
         ],
         child: MaterialApp(home: MaestroScope(child: Scaffold(body: child))),
       );

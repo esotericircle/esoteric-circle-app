@@ -68,6 +68,17 @@ enum Maestro {
   /// Le tre arti del Maestro, in riga sotto il pulsante di ingresso al dominio.
   final String domainArts;
 
+  /// Le tre arti come frase, con la "e" prima dell'ultima e senza virgola
+  /// davanti alla congiunzione: "Astrologia, Cartomanzia e Destino". Un solo
+  /// punto per la formattazione, cosi' ogni schermata la mostra uguale.
+  String get domainArtsPhrase {
+    final arti =
+        domainArts.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
+    if (arti.length <= 1) return arti.isEmpty ? '' : arti.first;
+    final tutte = arti.sublist(0, arti.length - 1).join(', ');
+    return '$tutte e ${arti.last}';
+  }
+
   /// Icona lineare del Maestro (placeholder in attesa del brand).
   final IconData icon;
 

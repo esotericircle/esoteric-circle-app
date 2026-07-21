@@ -5,6 +5,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../pricing/pricing_screen.dart';
 import '../settings/settings_screen.dart';
+import 'profile_screen.dart';
 
 /// L'area account, aperta dall'icona Utente in alto a destra nel Cerchio.
 ///
@@ -22,11 +23,12 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = <_AccountEntry>[
-      const _AccountEntry(
+      _AccountEntry(
         id: 'profilo',
         title: 'Profilo',
         subtitle: 'Nome, avatar e dati personali',
         icon: Icons.person_outline_rounded,
+        onTap: (context) => Navigator.of(context).push(ProfileScreen.route()),
       ),
       _AccountEntry(
         id: 'impostazioni',

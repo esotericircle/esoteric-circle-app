@@ -92,7 +92,35 @@ void main() {
       // da sviluppatore nella build normale o da Demo.
       expect(find.byIcon(Icons.tune_rounded), findsNothing);
     });
+
+    testWidgets(
+        'L\'header di ${maestro.id} e\' centrato e mostra le tre arti',
+        (tester) async {
+      silenceSensors();
+      await openChat(tester, maestro);
+
+      // Il sottotitolo dell'header della chat mostra le tre arti col formato
+      // giusto, non piu' la coppia del domainTitle.
+      expect(
+          find.descendant(
+              of: find.byType(MaestroChatScreen),
+              matching: find.text(maestro.domainArtsPhrase)),
+          findsOneWidget);
+      expect(
+          find.descendant(
+              of: find.byType(MaestroChatScreen),
+              matching: find.text(maestro.domainTitle)),
+          findsNothing);
+
+      // Il titolo dell'AppBar della chat e' centrato.
+      final appBar = tester.widget<AppBar>(find.descendant(
+        of: find.byType(MaestroChatScreen),
+        matching: find.byType(AppBar),
+      ));
+      expect(appBar.centerTitle, isTrue);
+    });
   }
+
 
   testWidgets('Nemmeno il Santuario disegna le costellazioni zodiacali',
       (tester) async {

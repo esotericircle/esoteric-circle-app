@@ -3,11 +3,13 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/astro/night_sky.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_moon.dart';
 import '../../core/identity/numerology.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../design_system/components/depth_card.dart';
+import '../../design_system/components/user_avatar.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -43,6 +45,7 @@ class CosmicPassport extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     final id = identity ?? BirthIdentity.example;
+    final profile = context.watch<ProfileController>();
 
     return SafeArea(
       child: CustomScrollView(
@@ -64,8 +67,23 @@ class CosmicPassport extends StatelessWidget {
                   // Header cerimoniale: titolo e ingresso pulito alle
                   // Impostazioni, nell'angolo del documento.
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      // Il volto dell'utente in testa al suo passaporto: la foto,
+                      // o l'emblema del suo segno solare (sempre noto qui dalla
+                      // data), o le iniziali, o il sigillo neutro.
+                      UserAvatar(
+                        key: const Key('passport_user_avatar'),
+                        photo: profile.hasAvatarPhoto
+                            ? MemoryImage(profile.avatarPhoto!)
+                            : null,
+                        sign: NightSky.sunSign(id.birthMoment),
+                        name: profile.hasName
+                            ? profile.profile.displayName
+                            : null,
+                        size: 52,
+                      ),
+                      const SizedBox(width: SpacingTokens.md),
                       Expanded(
                         child: Text(
                           'Cosmic Passport',

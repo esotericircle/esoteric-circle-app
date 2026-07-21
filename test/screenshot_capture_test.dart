@@ -16,8 +16,10 @@ import 'package:esoteric_circle/core/astro/birth_place.dart' as astro;
 import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/identity/identity_controller.dart';
+import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
+import 'package:esoteric_circle/features/account/profile_screen.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
@@ -1070,6 +1072,61 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'impostazioni.png');
+  });
+
+  // --- La sezione Profilo dell'Area Utente, col volto dell'utente ---
+  testWidgets('Cattura il Profilo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    // Un segno impostato, cosi' l'avatar di default mostra l'emblema del segno.
+    final birth = BirthIdentityController()
+      ..setBirth(
+        BirthDetails(
+          date: DateTime(1990, 8, 10),
+          time: const TimeOfDay(hour: 12, minute: 0),
+          place: const astro.BirthPlace(
+              label: 'Roma',
+              latitude: 41.9,
+              longitude: 12.5,
+              timezone: 'Europe/Rome'),
+        ),
+        NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+      );
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => ProfileController()),
+            ChangeNotifierProvider<BirthIdentityController>.value(value: birth),
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: MaestroScope(child: child!),
+            ),
+            home: const ProfileScreen(),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      await precacheImage(
+          const AssetImage('assets/img/zodiac/zod_leone.webp'), element);
+    });
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'profilo.png');
   });
 
   // --- I piani del Cerchio, aperti dalle Impostazioni ---
