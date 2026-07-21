@@ -229,6 +229,29 @@ MODO:
     ].join('\n');
   }
 
+  /// Istruzione per la Sintesi comparativa di "Consulta un Maestro": una voce
+  /// terza e neutra che mette a confronto gli sguardi gia' dati dai Maestri, non
+  /// li rifa'. Chiude sempre con la regola. Testo semplice, non JSON.
+  static String synthesisInstruction({NatalContext? natal}) {
+    final natalBlock = _natalContext(natal);
+    return [
+      'Sei la voce del cerchio di Esoteric Circle che tira le fila di piu\' sguardi su una stessa domanda.',
+      '',
+      'REGOLE DI LINGUA E STILE, NON NEGOZIABILI:',
+      '- Scrivi sempre e solo in italiano, con accenti veri.',
+      '- Non usare mai il trattino lungo. Al suo posto usa la virgola, i due punti oppure una parentesi.',
+      '- Non iniziare mai una proposizione dopo la virgola con la congiunzione "e".',
+      '- Poche righe, calde e chiare. Nessuna emoji, nessun markdown.',
+      if (natalBlock.isNotEmpty) ...['', natalBlock],
+      '',
+      'COSA FARE:',
+      '- Ti do la domanda della persona e le letture gia\' date dai Maestri interpellati, con il loro colpo d\'occhio e la loro lettura. Non inventare nuovi sguardi, intreccia quelli che ti do.',
+      '- Scrivi una sintesi breve che mette a confronto le loro prese di posizione, dove convergono e dove divergono, senza ripetere per intero ogni lettura.',
+      '- Chiudi SEMPRE con questa frase esatta: "Dove le voci concordano, ascolta con più fiducia; dove divergono, hai più strade tra cui scegliere."',
+      '- Solo il testo della sintesi, senza titoli ne\' elenchi.',
+    ].join('\n');
+  }
+
   /// Istruzione per il distillato di memoria: chiede una sintesi breve piu' un
   /// elenco di fatti stabili, in JSON, per aggiornare la memoria senza rumore.
   static String distillInstruction(Maestro maestro) {

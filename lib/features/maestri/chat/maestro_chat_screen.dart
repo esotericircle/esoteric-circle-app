@@ -17,10 +17,7 @@ import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../services/app_services.dart';
-import '../../rituals/day_oracle_screen.dart';
-import '../../rituals/sunset_rune_screen.dart';
-import '../../synastry/sinastria_vip_screen.dart';
-import '../aura/meditation/meditation_screen.dart';
+import '../immersive_navigation.dart';
 import 'maestro_chat_controller.dart';
 import 'widgets/chat_bubble.dart';
 import 'widgets/chat_composer.dart';
@@ -245,29 +242,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     _showComingSoon(context, intentId);
   }
 
-  Route<void>? _routeFor(ImmersiveTarget target) {
-    switch (target) {
-      case ImmersiveTarget.oroscopoGiorno:
-        return DayOracleScreen.route();
-      case ImmersiveTarget.meditazione:
-      case ImmersiveTarget.breathwork:
-      case ImmersiveTarget.frequenze:
-        return MeditationScreen.route();
-      case ImmersiveTarget.lancioRune:
-        return SunsetRuneScreen.route();
-      case ImmersiveTarget.sinastriaVip:
-        return SinastriaVipScreen.route();
-      case ImmersiveTarget.tarocchiStesa:
-      case ImmersiveTarget.cartaNatale:
-      case ImmersiveTarget.costellazioneViso:
-      case ImmersiveTarget.scanChakra:
-      case ImmersiveTarget.sigilloMagico:
-      case ImmersiveTarget.iChing:
-      case ImmersiveTarget.pendolo:
-      case ImmersiveTarget.ritualeCandela:
-        return null; // ancora dietro il velo
-    }
-  }
+  Route<void>? _routeFor(ImmersiveTarget target) => immersiveRouteFor(target);
 
   void _showComingSoon(BuildContext context, String intentId) {
     final intent = ImmersiveIntents.all.firstWhere((i) => i.id == intentId);

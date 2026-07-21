@@ -68,6 +68,11 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
   /// I Maestri per cui si sta ancora attendendo la risposta.
   final Set<Maestro> _loading = {};
 
+  /// La Sintesi comparativa generata da Gemini dalle lenti gia' ottenute. Null
+  /// finche' non arriva o se il provider non e' pronto: allora si mostra la
+  /// sintesi deterministica di ripiego (`MaestroOracle.synthesisFor`).
+  String? _aiSynthesis;
+
   String? _theme;
 
   @override
@@ -120,6 +125,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
         ..clear()
         ..add(widget.starter);
       _lenses.clear();
+      _aiSynthesis = null;
       _loading
         ..clear()
         ..add(widget.starter);
@@ -172,6 +178,37 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       _lenses[maestro] = lens!;
       _loading.remove(maestro);
     });
+    // Quando gli sguardi sono piu' di uno, la Sintesi comparativa in cima la
+    // genera Gemini dalle lenti gia' ottenute, con ripiego deterministico.
+    if (_orderedLenses.length > 1) {
+      await _fetchSynthesis();
+    }
+  }
+
+  /// Chiede a Gemini la Sintesi comparativa dalle lenti gia' ottenute; su
+  /// provider non pronto o errore resta null e il build usa la deterministica.
+  Future<void> _fetchSynthesis() async {
+    final services = context.read<AppServices>();
+    final lenses = _orderedLenses;
+    final theme = _theme!;
+    final natal = _natal();
+    if (!services.ai.isReady || lenses.length < 2) return;
+    try {
+      final text = await services.ai.synthesize(
+        theme: theme,
+        lenses: lenses,
+        natal: natal,
+      );
+      if (!mounted) return;
+      // Vale solo se le lenti nel frattempo non sono cambiate di numero.
+      if (_orderedLenses.length == lenses.length) {
+        setState(() => _aiSynthesis = text);
+      }
+    } on MaestroAiUnavailable {
+      // Ripiego sulla sintesi deterministica, nessun errore a video.
+    } catch (_) {
+      // Qualunque guasto cade sul ripiego, in silenzio.
+    }
   }
 
   /// Chiude il cerchio: salva tema ed esito nella memoria condivisa del Maestro,
@@ -220,6 +257,8 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     setState(() {
       _responders.add(maestro);
       _loading.add(maestro);
+      // La sintesi va ricalcolata sulle nuove lenti: intanto ripiego.
+      _aiSynthesis = null;
     });
     // Anche la lente aggiunta viene da Gemini, con lo stesso ripiego. Il
     // confronto non intacca il limite giornaliero delle risposte singole.
@@ -234,8 +273,10 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
         if (!_responders.contains(m)) m,
     ];
     final resolved = _orderedLenses;
+    // La Sintesi comparativa: viva da Gemini quando c'e', altrimenti la
+    // deterministica di ripiego.
     final synthesis = resolved.length > 1
-        ? widget.oracle.synthesisFor(_theme!, resolved)
+        ? (_aiSynthesis ?? widget.oracle.synthesisFor(_theme!, resolved))
         : null;
 
     return Scaffold(

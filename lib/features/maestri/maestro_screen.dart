@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/chat/immersive_intents.dart';
 import '../../core/feature_flags/feature_catalog.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/maestro/maestro_controller.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/feature_grid.dart';
 import '../../design_system/components/section_title.dart';
@@ -21,6 +23,7 @@ import 'ask/ask_maestri_screen.dart';
 import 'aura/meditation/meditation_screen.dart';
 import 'chat/maestro_chat_screen.dart';
 import 'chat/widgets/maestro_avatar.dart';
+import 'immersive_navigation.dart';
 import 'widgets/maestro_presence.dart';
 
 /// Sezione di un Maestro.
@@ -160,10 +163,201 @@ class MaestroScreen extends StatelessWidget {
               child: FeatureGrid(features: features, forceComingSoon: true),
             ),
           ),
+          // In fondo, oltre il dominio del Maestro, il ponte al cerchio
+          // condiviso: le arti degli altri Maestri, nella palette neutra.
+          SliverToBoxAdapter(
+            child: _OtherArtsStrip(current: maestro),
+          ),
           const SliverToBoxAdapter(
             child: SizedBox(height: SpacingTokens.xxxl),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Un'arte del cerchio nella striscia "Scopri altre arti del Cerchio": il
+/// Maestro a cui appartiene, la funzione immersiva che apre, l'icona e il nome.
+class _CircleArt {
+  const _CircleArt({
+    required this.maestro,
+    required this.target,
+    required this.icon,
+    required this.title,
+  });
+
+  final Maestro maestro;
+  final ImmersiveTarget target;
+  final IconData icon;
+  final String title;
+}
+
+/// La selezione curata delle arti vive del cerchio, una per arte. Non e' un
+/// ordinamento per popolarita' reale, che alla Demo non esiste: e' una scelta
+/// curata; la telemetria un giorno la riordinera'. Ogni voce apre una funzione
+/// gia' viva, con la sua rotta condivisa (`immersiveRouteFor`).
+const List<_CircleArt> _curatedArts = [
+  _CircleArt(
+    maestro: Maestro.medora,
+    target: ImmersiveTarget.oroscopoGiorno,
+    icon: Icons.brightness_3_rounded,
+    title: 'Oracolo del Giorno',
+  ),
+  _CircleArt(
+    maestro: Maestro.medora,
+    target: ImmersiveTarget.sinastriaVip,
+    icon: Icons.favorite_rounded,
+    title: 'Sinastria VIP',
+  ),
+  _CircleArt(
+    maestro: Maestro.aura,
+    target: ImmersiveTarget.meditazione,
+    icon: Icons.self_improvement_rounded,
+    title: 'Meditazione',
+  ),
+  _CircleArt(
+    maestro: Maestro.aura,
+    target: ImmersiveTarget.breathwork,
+    icon: Icons.air_rounded,
+    title: 'Respiro guidato',
+  ),
+  _CircleArt(
+    maestro: Maestro.caligo,
+    target: ImmersiveTarget.lancioRune,
+    icon: Icons.change_history_rounded,
+    title: 'Runa del Tramonto',
+  ),
+];
+
+/// La striscia orizzontale "Scopri altre arti del Cerchio": le arti degli altri
+/// Maestri, nella palette NEUTRA viola scuro che segnala l'uscita dal mondo del
+/// proprio Maestro verso il cerchio condiviso. Scorre in orizzontale, con un
+/// accenno di contenuto oltre il bordo.
+class _OtherArtsStrip extends StatelessWidget {
+  const _OtherArtsStrip({required this.current});
+
+  final Maestro current;
+
+  @override
+  Widget build(BuildContext context) {
+    final neutral = MaestroPalette.forKey(const ThemeKey.neutral());
+    final arts =
+        _curatedArts.where((a) => a.maestro != current).toList(growable: false);
+
+    return Column(
+      key: const Key('other_arts_strip'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: SpacingTokens.xl),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+          child: SectionTitle(
+            title: 'Scopri altre arti del Cerchio',
+            subtitle: 'Le arti degli altri Maestri, oltre il tuo dominio.',
+          ),
+        ),
+        const SizedBox(height: SpacingTokens.md),
+        SizedBox(
+          height: 148,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding:
+                const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+            itemCount: arts.length,
+            separatorBuilder: (_, __) =>
+                const SizedBox(width: SpacingTokens.sm),
+            itemBuilder: (context, i) =>
+                _CircleArtTile(art: arts[i], palette: neutral),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Una tessera della striscia, nella palette neutra. Al tocco apre la funzione e
+/// vira il tema sul Maestro di quell'arte, poi lo ripristina al ritorno.
+class _CircleArtTile extends StatelessWidget {
+  const _CircleArtTile({required this.art, required this.palette});
+
+  final _CircleArt art;
+  final MaestroPalette palette;
+
+  Future<void> _open(BuildContext context) async {
+    final route = immersiveRouteFor(art.target);
+    if (route == null) return;
+    final controller = context.read<MaestroController>();
+    final previous = controller.activeMaestro;
+    // Il tema vira sul Maestro dell'arte per la durata della funzione.
+    controller.selectMaestro(art.maestro);
+    await Navigator.of(context).push(route);
+    // Al ritorno, il dominio riprende il suo tema.
+    if (context.mounted && previous != null) {
+      controller.selectMaestro(previous);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Palette neutra esplicita: la tessera non segue il tema del Maestro del
+    // dominio, ma il viola scuro del cerchio condiviso.
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: Key('other_art_${art.target.name}'),
+        onTap: () => _open(context),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+        child: Container(
+          width: 172,
+          padding: const EdgeInsets.all(SpacingTokens.md),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                palette.surfaceElevated.withValues(alpha: 0.92),
+                palette.surface.withValues(alpha: 0.78),
+              ],
+            ),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: palette.primary.withValues(alpha: 0.5),
+                  border:
+                      Border.all(color: palette.gold.withValues(alpha: 0.6)),
+                ),
+                alignment: Alignment.center,
+                child: Icon(art.icon, color: palette.goldSoft, size: 22),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(art.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TypographyTokens.display(size: 13)
+                          .copyWith(color: palette.textPrimary)),
+                  const SizedBox(height: 2),
+                  Text(art.maestro.displayName,
+                      style: TypographyTokens.label(size: 10).copyWith(
+                        color: palette.goldSoft.withValues(alpha: 0.85),
+                        letterSpacing: 0.6,
+                      )),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

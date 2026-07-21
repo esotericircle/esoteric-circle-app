@@ -56,6 +56,7 @@ import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
+import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter/material.dart';
@@ -1032,6 +1033,10 @@ void main() {
     await step(tester);
     await step(tester);
     await precacheFaces(tester);
+    // Superficie alta, cosi' l'anteprima mostra anche la striscia "Scopri altre
+    // arti del Cerchio" in fondo, oltre le funzioni del dominio.
+    tester.view.physicalSize = const Size(390, 2800);
+    await step(tester);
     await capture(tester, rootKey, 'dominio-medora.png');
   });
 
@@ -1485,6 +1490,14 @@ class _ScriptedMaestro implements MaestroAiProvider {
         );
     }
   }
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async =>
+      throw const MaestroAiUnavailable();
 
   @override
   Future<MemoryDigest?> distill({

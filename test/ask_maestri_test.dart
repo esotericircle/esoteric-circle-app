@@ -22,6 +22,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
+import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter/material.dart';
@@ -136,8 +137,8 @@ void main() {
         findsOneWidget);
   });
 
-  testWidgets('Confronto Premium: la lente aggiunta viene dal provider e la '
-      'sintesi e\' deterministica', (tester) async {
+  testWidgets('Confronto Premium: lenti dal provider e sintesi viva da Gemini',
+      (tester) async {
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(430, 2200);
     addTearDown(tester.view.resetPhysicalSize);
@@ -158,8 +159,8 @@ void main() {
     expect(find.textContaining('Medora vede una scelta'), findsOneWidget);
     expect(find.textContaining('Aura sente una scelta'), findsOneWidget);
 
-    // La sintesi comparativa intreccia le due prese di posizione e chiude con la
-    // regola, senza una chiamata al provider in piu' (il fake conta le chiamate).
+    // La Sintesi comparativa viene dal provider (testo distintivo), non dalla
+    // deterministica, e chiude con la regola.
     final sintesi = tester
         .widgetList<Text>(find.descendant(
             of: find.byKey(const Key('ask_synthesis')),
@@ -167,8 +168,38 @@ void main() {
         .map((t) => t.data)
         .whereType<String>()
         .join(' ');
+    expect(sintesi, contains('Sintesi viva dal provider'));
     expect(sintesi, contains('Medora'));
     expect(sintesi, contains('Aura'));
+    expect(sintesi,
+        contains('Dove le voci concordano, ascolta con più fiducia'));
+    expect(sintesi, isNot(contains('Stessa domanda')));
+  });
+
+  testWidgets('Sintesi comparativa: cade sulla deterministica se non pronto',
+      (tester) async {
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(430, 2200);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    // Provider non pronto (offline): lenti dall'oracolo e sintesi deterministica.
+    await tester.pumpWidget(host(tier: Tier.tier1, starter: Maestro.medora));
+    await ask(tester, 'una scelta');
+    await tester.tap(find.byKey(const Key('ask_add_aura')));
+    await tester.pumpAndSettle();
+
+    final sintesi = tester
+        .widgetList<Text>(find.descendant(
+            of: find.byKey(const Key('ask_synthesis')),
+            matching: find.byType(Text)))
+        .map((t) => t.data)
+        .whereType<String>()
+        .join(' ');
+    // La deterministica (synthesisFor) apre con "Stessa domanda" e non e' quella
+    // viva del provider.
+    expect(sintesi, contains('Stessa domanda'));
+    expect(sintesi, isNot(contains('Sintesi viva dal provider')));
     expect(sintesi,
         contains('Dove le voci concordano, ascolta con più fiducia'));
   });
@@ -337,6 +368,18 @@ class _ReadyAi implements MaestroAiProvider {
       'Le stelle ti ascoltano.';
 
   @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async {
+    final nomi = lenses.map((l) => l.maestro.displayName).join(' e ');
+    return 'Sintesi viva dal provider di $nomi su $theme. Dove le voci '
+        'concordano, ascolta con più fiducia; dove divergono, hai più strade '
+        'tra cui scegliere.';
+  }
+
+  @override
   Future<MemoryDigest?> distill({
     required Maestro maestro,
     required UserProfile profile,
@@ -383,6 +426,14 @@ class _CapturingAi implements MaestroAiProvider {
       throw UnimplementedError();
 
   @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
   Future<MemoryDigest?> distill({
     required Maestro maestro,
     required UserProfile profile,
@@ -418,6 +469,14 @@ class _UnavailableAi implements MaestroAiProvider {
     required String userMessage,
   }) async =>
       throw UnimplementedError();
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async =>
+      throw const MaestroAiUnavailable();
 
   @override
   Future<MemoryDigest?> distill({

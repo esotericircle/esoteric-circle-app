@@ -5,6 +5,7 @@ import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
 import '../../core/maestro/natal_context.dart';
+import 'maestro_oracle.dart';
 
 /// Confine astratto verso l'AI a runtime dei Maestri.
 ///
@@ -59,6 +60,21 @@ abstract interface class MaestroAiProvider {
     ConsultDepth depth = ConsultDepth.breve,
   });
 
+  /// Genera la Sintesi comparativa di "Consulta un Maestro" quando i Maestri
+  /// interpellati sono piu' di uno: mette a confronto le [lenses] gia' ottenute
+  /// sul [theme] (le stesse tre strati per Maestro gia' vive, non le rifa'), col
+  /// [natal] a personalizzare, e chiude con la regola dove le voci concordano
+  /// ascolta con piu' fiducia, dove divergono hai piu' strade.
+  ///
+  /// Se il provider non e' pronto o non trova le parole, solleva
+  /// [MaestroAiUnavailable]: chi chiama cade sulla sintesi deterministica
+  /// (`MaestroOracle.synthesisFor`), mai un errore crudo a video.
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  });
+
   /// Distilla la conversazione in una sintesi piu' pochi fatti stabili, per
   /// aggiornare la memoria. E' un'operazione a basso costo e best effort: se
   /// fallisce restituisce null e la memoria precedente resta valida.
@@ -108,6 +124,15 @@ class UnavailableMaestroAiProvider implements MaestroAiProvider {
     MaestroMemory memory = MaestroMemory.empty,
     NatalContext? natal,
     ConsultDepth depth = ConsultDepth.breve,
+  }) async {
+    throw const MaestroAiUnavailable();
+  }
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
   }) async {
     throw const MaestroAiUnavailable();
   }

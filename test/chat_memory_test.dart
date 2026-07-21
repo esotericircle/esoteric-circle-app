@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/maestro/consult_depth.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
+import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -50,6 +51,14 @@ class _CapturingAi implements MaestroAiProvider {
       invite: 'Un invito.',
     );
   }
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async =>
+      throw const MaestroAiUnavailable();
 
   @override
   Future<MemoryDigest?> distill({

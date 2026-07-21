@@ -10,6 +10,7 @@ import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
 import '../../core/maestro/natal_context.dart';
 import 'maestro_ai_provider.dart';
+import 'maestro_oracle.dart';
 import 'maestro_persona.dart';
 
 /// Implementazione dell'AI dei Maestri su Gemini via Firebase AI Logic.
@@ -56,6 +57,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   /// sulla Profonda.
   static const int kBreveThinkingBudget = 0;
   static const int kProfondaThinkingBudget = 512;
+
+  /// Tetto di token per la Sintesi comparativa: contenuta, in linea con la Breve.
+  static const int kSynthesisMaxTokens = 260;
 
   /// Il modello giusto per la profondita', in un punto solo.
   static String modelForDepth(ConsultDepth depth) =>
@@ -167,6 +171,50 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       throw const MaestroAiUnavailable('Il Maestro non ha trovato le parole.');
     }
     return reply;
+  }
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async {
+    final t = theme.trim();
+    if (t.isEmpty || lenses.length < 2) {
+      throw const MaestroAiUnavailable('Niente da mettere a confronto.');
+    }
+
+    // Flash, ragionamento spento, tetto contenuto: la sintesi e' breve.
+    final model = _ai.generativeModel(
+      model: kMaestroProfondaModel,
+      systemInstruction: Content.system(
+        MaestroPersona.synthesisInstruction(natal: natal),
+      ),
+      generationConfig: GenerationConfig(
+        temperature: 0.7,
+        topP: 0.95,
+        maxOutputTokens: kSynthesisMaxTokens,
+        thinkingConfig: ThinkingConfig.withThinkingBudget(0),
+      ),
+    );
+
+    // Le lenti gia' ottenute, nell'ordine fisso del cerchio, come materiale.
+    final buffer = StringBuffer('Domanda della persona: «$t».\n\n');
+    for (final l in lenses) {
+      buffer
+        ..writeln('${l.maestro.displayName} (${l.maestro.domainTitle}):')
+        ..writeln('- Colpo d\'occhio: ${l.glance.trim()}')
+        ..writeln('- Lettura: ${l.reading.trim()}')
+        ..writeln();
+    }
+
+    final response =
+        await model.generateContent([Content.text(buffer.toString())]);
+    final text = response.text?.trim();
+    if (text == null || text.isEmpty) {
+      throw const MaestroAiUnavailable('La sintesi non ha trovato le parole.');
+    }
+    return text;
   }
 
   @override
