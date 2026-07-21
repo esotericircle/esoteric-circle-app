@@ -14,10 +14,11 @@ import '../../../design_system/theme/maestro_palette.dart';
 /// contatto morbida sotto il mento da' la profondita' del pop-out. E' la scelta
 /// esplicita di Mauro: il volto o poco piu' che sfonda il cerchio.
 ///
-/// L'icona lineare di riferimento non e' mai un fondale: si mostra solo se
-/// l'immagine dell'avatar fallisce davvero (rilevato sull'`ImageStream`), mai
-/// mentre il volto c'e' o mentre carica. Cosi' nella vista normale si vede il
-/// volto e mai l'icona.
+/// Robustezza: il volto e' un `Image.asset` con `errorBuilder`, lo stesso schema
+/// solido della bolla della chat, quindi si disegna appena l'immagine e'
+/// decodificata, in qualunque contesto. L'icona lineare di riferimento compare
+/// solo se l'asset manca DAVVERO (l'`errorBuilder` scatta), mai come fondale e
+/// mai durante il caricamento.
 ///
 /// Movimento: il cenno di speaking fa pulsare l'aura e il bordo. Con Riduci
 /// Movimento (`MediaQuery.disableAnimations`) o su Quality Tier basso il moto si
@@ -27,7 +28,7 @@ class MaestroBust extends StatefulWidget {
     super.key,
     required this.maestro,
     this.ring = 44,
-    this.popFactor = 0.5,
+    this.popFactor = 0.55,
     this.faceFraction = 0.17,
     this.speaking = false,
     this.image,
@@ -67,61 +68,33 @@ class _MaestroBustState extends State<MaestroBust>
     duration: const Duration(milliseconds: 1500),
   );
 
-  ImageProvider? _provider;
-  ImageStream? _stream;
-  ImageStreamListener? _listener;
-
-  /// Vero solo quando l'immagine dell'avatar ha fallito il caricamento: allora,
-  /// e solo allora, si mostra l'icona di ripiego. Mai come fondale.
+  /// Vero solo quando l'immagine dell'avatar ha fallito il caricamento, saputo
+  /// dall'`errorBuilder` dell'Image. Solo allora si mostra l'icona di ripiego.
+  /// Mai come fondale, mai durante il caricamento.
   bool _failed = false;
 
-  ImageProvider get _effectiveProvider =>
+  ImageProvider get _provider =>
       widget.image ?? AssetImage(widget.maestro.avatarAsset);
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _resolveImage();
-  }
 
   @override
   void didUpdateWidget(MaestroBust oldWidget) {
     super.didUpdateWidget(oldWidget);
+    // Cambiato Maestro o sorgente: si riprova a disegnare il volto.
     if (oldWidget.maestro != widget.maestro || oldWidget.image != widget.image) {
-      _resolveImage();
+      _failed = false;
     }
   }
 
-  /// Ascolta l'immagine per sapere se dipinge o fallisce, cosi' l'icona di
-  /// ripiego compare solo sul fallimento vero e non mentre carica.
-  void _resolveImage() {
-    final provider = _effectiveProvider;
-    if (provider == _provider && _stream != null) return;
-    _provider = provider;
-    _detach();
-    final stream = provider.resolve(createLocalImageConfiguration(context));
-    _stream = stream;
-    _listener = ImageStreamListener(
-      (image, sync) {
-        if (mounted && _failed) setState(() => _failed = false);
-      },
-      onError: (error, stack) {
-        if (mounted && !_failed) setState(() => _failed = true);
-      },
-    );
-    stream.addListener(_listener!);
-  }
-
-  void _detach() {
-    if (_stream != null && _listener != null) {
-      _stream!.removeListener(_listener!);
-    }
-    _listener = null;
+  void _markFailed() {
+    // L'errorBuilder e' chiamato durante il build: si rimanda il setState al
+    // frame dopo, cosi' non si tocca lo stato mentre si costruisce l'albero.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && !_failed) setState(() => _failed = true);
+    });
   }
 
   @override
   void dispose() {
-    _detach();
     _controller.dispose();
     super.dispose();
   }
@@ -158,7 +131,7 @@ class _MaestroBustState extends State<MaestroBust>
             alignment: Alignment.bottomCenter,
             children: [
               // L'anello alla base, con l'aura che pulsa. L'icona di ripiego
-              // vive qui, ma solo quando l'immagine ha fallito.
+              // vive qui, ma solo quando l'immagine ha fallito davvero.
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -221,8 +194,9 @@ class _MaestroBustState extends State<MaestroBust>
                   right: 0,
                   height: boxH,
                   child: _FaceCrop(
-                    provider: _effectiveProvider,
+                    provider: _provider,
                     faceFraction: widget.faceFraction,
+                    onError: _markFailed,
                   ),
                 ),
             ],
@@ -238,11 +212,20 @@ class _MaestroBustState extends State<MaestroBust>
 /// tagliata sotto con una sfumatura, cosi' il volto rompe l'anello e sfuma verso
 /// il collo. La testa di una figura intera sta nel primo sesto circa
 /// dell'immagine: con `faceFraction` piccolo resta il volto, non il busto.
+///
+/// L'immagine e' un `Image` con `errorBuilder`, come la bolla della chat: se
+/// l'asset manca davvero, avvisa `onError` e lascia il vuoto, cosi' MaestroBust
+/// accende l'icona di ripiego nell'anello.
 class _FaceCrop extends StatelessWidget {
-  const _FaceCrop({required this.provider, required this.faceFraction});
+  const _FaceCrop({
+    required this.provider,
+    required this.faceFraction,
+    required this.onError,
+  });
 
   final ImageProvider provider;
   final double faceFraction;
+  final VoidCallback onError;
 
   @override
   Widget build(BuildContext context) {
@@ -275,9 +258,10 @@ class _FaceCrop extends StatelessWidget {
                 fit: BoxFit.fitHeight,
                 alignment: Alignment.topCenter,
                 filterQuality: FilterQuality.medium,
-                // Il fallimento lo gestisce MaestroBust sull'ImageStream: qui, se
-                // capitasse, meglio il vuoto che un'icona fuori posto.
-                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                errorBuilder: (_, __, ___) {
+                  onError();
+                  return const SizedBox.shrink();
+                },
               ),
             );
           },

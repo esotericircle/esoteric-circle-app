@@ -351,7 +351,7 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               MaestroBust(
                 maestro: maestro,
                 ring: 38,
-                popFactor: 0.5,
+                popFactor: 0.62,
                 speaking: speaking,
               ),
               const SizedBox(width: SpacingTokens.sm),
