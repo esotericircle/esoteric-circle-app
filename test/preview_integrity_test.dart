@@ -19,7 +19,7 @@ void main() {
     'chat-instradamento.png', // instradamento della chat verso una funzione
     'sinastria-vip.png', // Sinastria VIP, risultato
     'dominio-medora.png', // dominio, presenza, Consulta e prime sottocategorie
-    'dominio-medora-fondo.png', // dominio, fondo con la striscia delle altre arti
+    'dominio-medora-aperto.png', // dominio coi gruppi aperti, le arti in cammino
   ];
 
   test('Tutti i preview obbligatori esistono in docs/preview', () {

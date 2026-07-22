@@ -1054,14 +1054,29 @@ void main() {
     await step(tester);
     await capture(tester, rootKey, 'dominio-medora.png');
 
-    // Il fondo del dominio: gli ultimi riquadri e la striscia "Scopri altre
-    // arti del Cerchio", che col catalogo completo di Medora sta molto in basso.
+    // Lo stesso dominio coi gruppi APERTI: il collasso raccoglie le arti in
+    // cammino, quindi la seconda anteprima mostra cosa c'e' dietro. Si aprono
+    // gli apri e chiudi delle sottocategorie vive e le intestazioni di quelle
+    // tutte in arrivo, poi si cattura.
+    for (final chiave in const [
+      'art_soon_toggle_astrologia',
+      'art_soon_toggle_cartomanzia',
+      'art_section_header_lunologia',
+      'art_section_header_destino',
+    ]) {
+      final f = find.byKey(Key(chiave));
+      if (f.evaluate().isEmpty) continue;
+      await tester.ensureVisible(f);
+      await step(tester);
+      await tester.tap(f);
+      await step(tester);
+      await step(tester);
+    }
     final position =
         tester.state<ScrollableState>(find.byType(Scrollable).first).position;
-    position.jumpTo(position.maxScrollExtent);
+    position.jumpTo(0);
     await step(tester);
-    await step(tester);
-    await capture(tester, rootKey, 'dominio-medora-fondo.png');
+    await capture(tester, rootKey, 'dominio-medora-aperto.png');
   });
 
   testWidgets('Cattura il Cosmic Passport', (tester) async {

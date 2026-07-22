@@ -29,7 +29,7 @@ import 'package:provider/provider.dart';
 /// attive si aprono davvero, le Premium mostrano il lucchetto, quelle in arrivo
 /// restano leggibili e dicono la loro fase.
 void main() {
-  Widget domain(Maestro m) => MultiProvider(
+  Widget domain(Maestro m, {bool demo = true}) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
@@ -43,9 +43,24 @@ void main() {
           ),
         ],
         child: MaterialApp(
-          home: MaestroScope(child: Scaffold(body: MaestroScreen(maestro: m))),
+          home: MaestroScope(
+            child: Scaffold(body: MaestroScreen(maestro: m, demo: demo)),
+          ),
         ),
       );
+
+  /// Porta un comando dentro la finestra e lo tocca: la lista del dominio e'
+  /// piu' alta della viewport dei test, quindi senza questo il tocco cade fuori.
+  Future<void> tocca(WidgetTester tester, Key chiave) async {
+    await tester.scrollUntilVisible(
+      find.byKey(chiave),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.byKey(chiave));
+    await tester.pump();
+    await tester.tap(find.byKey(chiave));
+  }
 
   group('Catalogo delle arti', () {
     test('Ogni Maestro ha le sue sottocategorie, nell\'ordine', () {
@@ -130,6 +145,69 @@ void main() {
       }
       expect(AstroTradition.predefinita, AstroTradition.occidentale);
       expect(AstroTradition.occidentale.unlocked, isTrue);
+    });
+
+    test('Ogni fase usata nel catalogo e\' una di quelle dichiarate', () {
+      for (final a in ArtCatalog.all) {
+        if (a.phase == null) continue;
+        expect(ArtPhase.ordine, contains(a.phase),
+            reason: '${a.id} usa una fase sconosciuta: ${a.phase}');
+      }
+      // L'ordine delle fasi e' quello che decide cosa si mostra.
+      expect(ArtPhase.rank(ArtPhase.mvp), lessThan(ArtPhase.rank(ArtPhase.fase2)));
+      expect(ArtPhase.rank(ArtPhase.fase2),
+          lessThan(ArtPhase.rank(ArtPhase.faseSuccessiva)));
+      expect(ArtPhase.rank(ArtPhase.faseSuccessiva),
+          lessThan(ArtPhase.rank(ArtPhase.fase3)));
+      expect(ArtPhase.rank(ArtPhase.fase3), lessThan(ArtPhase.rank(ArtPhase.fase4)));
+      expect(ArtPhase.rank(ArtPhase.fase4),
+          lessThan(ArtPhase.rank(ArtPhase.viralita)));
+      // Una fase sconosciuta finisce in fondo, quindi resta nascosta.
+      expect(ArtPhase.rank('Fase inventata'),
+          greaterThan(ArtPhase.rank(ArtPhase.viralita)));
+    });
+
+    test('Alla persona si mostra fino alla Fase 2, in Demo tutto', () {
+      ArtEntry find(String id) => ArtCatalog.all.firstWhere((a) => a.id == id);
+
+      // Attive e Premium non hanno fase e si vedono sempre.
+      expect(ArtCatalog.isVisible(find('horoscope'), demo: false), isTrue);
+      expect(ArtCatalog.isVisible(find('synastry_depth'), demo: false), isTrue);
+      // Fino alla soglia si vedono.
+      expect(ArtCatalog.isVisible(find('natal_chart'), demo: false), isTrue);
+      expect(ArtCatalog.isVisible(find('planetary_returns'), demo: false), isTrue);
+      expect(ArtCatalog.isVisible(find('pet_astrology'), demo: false), isTrue);
+      // Oltre la soglia no, ma restano tutte nel catalogo.
+      for (final id in const [
+        'astrocartography',
+        'friends_compatibility',
+        'fertility_windows',
+        'lunar_calendar',
+        'angel_cards',
+      ]) {
+        expect(ArtCatalog.isVisible(find(id), demo: false), isFalse, reason: id);
+        expect(ArtCatalog.isVisible(find(id), demo: true), isTrue, reason: id);
+        expect(ArtCatalog.all.map((a) => a.id), contains(id));
+      }
+    });
+
+    test('Le sottocategorie visibili cambiano col punto di vista', () {
+      Map<String, int> conta(bool demo) => {
+            for (final s in ArtCatalog.visibleFor(Maestro.medora, demo: demo))
+              s.title: s.arts.length,
+          };
+      expect(conta(true),
+          {'Astrologia': 8, 'Cartomanzia': 3, 'Lunologia': 4, 'Destino': 2});
+      expect(conta(false),
+          {'Astrologia': 6, 'Cartomanzia': 2, 'Lunologia': 2, 'Destino': 2});
+      // Nessuna sottocategoria vuota arriva a video.
+      for (final m in Maestro.values) {
+        for (final demo in const [true, false]) {
+          for (final s in ArtCatalog.visibleFor(m, demo: demo)) {
+            expect(s.arts, isNotEmpty, reason: '${s.title} vuota');
+          }
+        }
+      }
     });
 
     test('Il nome del livello si accorda alla preposizione', () {
@@ -219,6 +297,29 @@ void main() {
       }
     });
 
+    testWidgets('Nella vista utente le fasi lontane non compaiono',
+        (tester) async {
+      await tester.pumpWidget(domain(Maestro.medora, demo: false));
+      await tester.pump();
+      // Il contatore conta quel che si vede davvero in questa vista.
+      expect(
+        tester
+            .widget<Text>(find.byKey(const Key('art_section_count_astrologia')))
+            .data,
+        '· 6',
+      );
+      // Aprendo il gruppo delle in cammino non spuntano le fasi lontane.
+      await tocca(tester, const Key('art_soon_toggle_astrologia'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(find.byKey(const Key('art_natal_chart')), findsOneWidget);
+      expect(find.byKey(const Key('art_astrocartography')), findsNothing);
+      expect(find.byKey(const Key('art_friends_compatibility')), findsNothing);
+      // E la fase non si scrive da nessuna parte.
+      expect(find.textContaining('Fase '), findsNothing);
+      expect(find.text('In arrivo'), findsWidgets);
+    });
+
     testWidgets('Ogni sottocategoria conta le arti che contiene',
         (tester) async {
       await tester.pumpWidget(domain(Maestro.medora));
@@ -241,6 +342,102 @@ void main() {
             .data,
         '· 4',
       );
+    });
+
+    testWidgets('Stati di partenza: le vive aperte, le altre chiuse',
+        (tester) async {
+      await tester.pumpWidget(domain(Maestro.medora));
+      await tester.pump();
+
+      // Astrologia e Cartomanzia hanno del vivo: le attive e la Premium si
+      // vedono subito, le in cammino stanno dietro il loro apri e chiudi.
+      expect(find.byKey(const Key('art_horoscope')), findsOneWidget);
+      expect(find.byKey(const Key('art_synastry_vip')), findsOneWidget);
+      expect(find.byKey(const Key('art_synastry_depth')), findsOneWidget);
+      expect(find.byKey(const Key('art_natal_chart')), findsNothing);
+      expect(find.byKey(const Key('art_soon_toggle_astrologia')),
+          findsOneWidget);
+      // Un'intestazione senza freccetta: le sezioni vive non si richiudono.
+      expect(find.byKey(const Key('art_section_header_astrologia')),
+          findsNothing);
+      expect(find.byKey(const Key('art_section_soon_astrologia')), findsNothing);
+
+      // Lunologia e Destino non hanno nulla di vivo: chiuse, con la dicitura.
+      for (final t in const ['lunologia', 'destino']) {
+        await tester.scrollUntilVisible(
+          find.byKey(Key('art_section_$t')),
+          260,
+          scrollable: find.byType(Scrollable).first,
+        );
+        expect(find.byKey(Key('art_section_soon_$t')), findsOneWidget);
+        expect(find.byKey(Key('art_section_header_$t')), findsOneWidget);
+      }
+      expect(find.byKey(const Key('art_lunology')), findsNothing);
+      expect(find.byKey(const Key('art_guardian_angel')), findsNothing);
+
+      // Al tocco dell'intestazione la sottocategoria si apre.
+      await tocca(tester, const Key('art_section_header_lunologia'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(find.byKey(const Key('art_lunology')), findsOneWidget);
+    });
+
+    testWidgets('Le sottocategorie vive vengono prima di quelle in cammino',
+        (tester) async {
+      // L'ordine e' del catalogo, non della schermata: si verifica li'.
+      expect(
+        ArtCatalog.visibleFor(Maestro.medora, demo: true).map((s) => s.title),
+        ['Astrologia', 'Cartomanzia', 'Lunologia', 'Destino'],
+      );
+      for (final m in Maestro.values) {
+        final sezioni = ArtCatalog.visibleFor(m, demo: true);
+        var vistaUnaSenzaVivo = false;
+        for (final s in sezioni) {
+          if (!ArtCatalog.hasActive(s)) {
+            vistaUnaSenzaVivo = true;
+          } else {
+            expect(vistaUnaSenzaVivo, isFalse,
+                reason: '${s.title} viva dopo una tutta in cammino');
+          }
+        }
+      }
+    });
+
+    testWidgets('Il tocco su un pilastro apre la sua sottocategoria',
+        (tester) async {
+      await tester.pumpWidget(domain(Maestro.medora));
+      await tester.pump();
+
+      // I pilastri sono i tre del Maestro, non le sottocategorie: la Lunologia
+      // e' una specializzazione e non ne ha uno.
+      expect(find.byKey(const Key('domain_pillars')), findsOneWidget);
+      for (final p in const ['astrologia', 'cartomanzia', 'destino']) {
+        expect(find.byKey(Key('domain_pillar_$p')), findsOneWidget);
+      }
+      expect(find.byKey(const Key('domain_pillar_lunologia')), findsNothing);
+
+      // Destino e' chiusa: il tocco del pilastro la apre e ce la porta sotto.
+      expect(find.byKey(const Key('art_guardian_angel')), findsNothing);
+      await tocca(tester, const Key('domain_pillar_destino'));
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
+      expect(find.byKey(const Key('art_guardian_angel')), findsOneWidget);
+    });
+
+    testWidgets('Ogni Maestro ha i suoi tre pilastri, nessuno cablato',
+        (tester) async {
+      for (final m in Maestro.values) {
+        await tester.pumpWidget(domain(m));
+        await tester.pump();
+        for (final nome in m.domainArts.split(',')) {
+          expect(
+            find.byKey(Key('domain_pillar_${nome.trim().toLowerCase()}')),
+            findsOneWidget,
+            reason: 'manca il pilastro ${nome.trim()} di ${m.displayName}',
+          );
+        }
+      }
     });
 
     testWidgets('Consulta e\' una voce sola, e non c\'e\' piu\' Parla con',
@@ -277,6 +474,10 @@ void main() {
     testWidgets('L\'arte in arrivo resta leggibile', (tester) async {
       await tester.pumpWidget(domain(Maestro.medora));
       await tester.pump();
+      // Le arti in cammino stanno dietro il loro apri e chiudi: prima si apre.
+      await tocca(tester, const Key('art_soon_toggle_astrologia'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
       await tester.scrollUntilVisible(
         find.byKey(const Key('art_natal_chart')),
         260,
@@ -359,7 +560,7 @@ void main() {
               data: MediaQuery.of(context).copyWith(disableAnimations: true),
               child: const MaestroScope(
                 child: Scaffold(
-                    body: MaestroScreen(maestro: Maestro.medora)),
+                    body: MaestroScreen(maestro: Maestro.medora, demo: true)),
               ),
             ),
           ),
@@ -383,6 +584,21 @@ void main() {
         ),
         findsWidgets,
       );
+
+      // E l'apertura di un gruppo e' istantanea: un solo frame, senza aspettare
+      // la durata di nessuna animazione.
+      expect(find.byKey(const Key('art_natal_chart')), findsNothing);
+      await tocca(tester, const Key('art_soon_toggle_astrologia'));
+      await tester.pump();
+      expect(find.byKey(const Key('art_natal_chart')), findsOneWidget);
+      final freccia = tester.widget<AnimatedRotation>(find
+          .descendant(
+            of: find.byKey(const Key('art_soon_toggle_astrologia')),
+            matching: find.byType(AnimatedRotation),
+          )
+          .first);
+      expect(freccia.duration, Duration.zero);
+      expect(freccia.turns, 0.5);
     });
   });
 }

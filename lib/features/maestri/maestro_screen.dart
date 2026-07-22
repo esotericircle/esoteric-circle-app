@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,18 +34,98 @@ import 'widgets/maestro_presence.dart';
 /// In C1 e' una schermata di dominio navigabile: intestazione cerimoniale del
 /// Maestro e le sue funzioni nei tre stati. Le esperienze vere (chat, oracoli,
 /// avatar animati) arrivano nei checkpoint successivi.
-class MaestroScreen extends StatelessWidget {
-  const MaestroScreen({super.key, required this.maestro});
+///
+/// Niente qui e' cablato su un Maestro: pilastri, sottocategorie, stati di
+/// apertura e conteggi nascono tutti dal catalogo, quindi la stessa struttura
+/// vale identica per Medora, Aura e Caligo.
+class MaestroScreen extends StatefulWidget {
+  const MaestroScreen({
+    super.key,
+    required this.maestro,
+    this.demo = AppFlags.isDemo,
+  });
 
   final Maestro maestro;
 
+  /// La vista: quella Demo per gli investitori mostra tutto il piano, quella
+  /// della persona si ferma alla soglia delle fasi. Iniettabile per i test.
+  final bool demo;
+
+  @override
+  State<MaestroScreen> createState() => _MaestroScreenState();
+}
+
+class _MaestroScreenState extends State<MaestroScreen> {
+  final ScrollController _scroll = ScrollController();
+
+  /// Una chiave per sottocategoria, per poterci scorrere sopra dal pilastro.
+  final Map<String, GlobalKey> _keys = {};
+
+  /// Se il corpo della sottocategoria e' aperto. Una sottocategoria con almeno
+  /// un'arte viva nasce aperta, una tutta in cammino nasce chiusa.
+  final Map<String, bool> _open = {};
+
+  /// Se dentro una sottocategoria mista e' aperto il gruppo delle arti in
+  /// arrivo, che di suo nasce chiuso.
+  final Map<String, bool> _soon = {};
+
+  List<ArtSection> get _sections =>
+      ArtCatalog.visibleFor(widget.maestro, demo: widget.demo);
+
+  @override
+  void initState() {
+    super.initState();
+    for (final s in _sections) {
+      _keys[s.title] = GlobalKey();
+      _open[s.title] = ArtCatalog.hasActive(s);
+      _soon[s.title] = false;
+    }
+  }
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  /// Porta la sottocategoria sotto gli occhi e la apre se era chiusa.
+  ///
+  /// La lista e' pigra, quindi una sottocategoria lontana puo' non essere
+  /// ancora costruita e non avere un contesto su cui puntare: in quel caso si
+  /// avanza di una finestra e si riprova, invece di non fare nulla.
+  Future<void> _goToSection(String title) async {
+    if (_open[title] == false) setState(() => _open[title] = true);
+    // Fuori da un build non ci si puo' iscrivere ai cambi: qui basta leggere.
+    final immobile = ScrollReveal.motionOff(context, listen: false);
+    for (var tentativo = 0; tentativo < 6; tentativo++) {
+      await WidgetsBinding.instance.endOfFrame;
+      if (!mounted) return;
+      final ctx = _keys[title]?.currentContext;
+      if (ctx != null && ctx.mounted) {
+        await Scrollable.ensureVisible(
+          ctx,
+          alignment: 0.06,
+          duration: immobile ? Duration.zero : const Duration(milliseconds: 420),
+          curve: Curves.easeOutCubic,
+        );
+        return;
+      }
+      if (!_scroll.hasClients) return;
+      final pos = _scroll.position;
+      if (pos.pixels >= pos.maxScrollExtent) return;
+      pos.jumpTo(math.min(
+          pos.pixels + pos.viewportDimension * 0.9, pos.maxScrollExtent));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final sections = ArtCatalog.forMaestro(maestro);
+    final sections = _sections;
 
     return SafeArea(
       bottom: false,
       child: CustomScrollView(
+        controller: _scroll,
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
@@ -58,18 +140,26 @@ class MaestroScreen extends StatelessWidget {
                 children: [
                   // In cima la presenza del Maestro: il nome e' gia' nella barra
                   // e nell'immagine, quindi nessuna carta identitaria ridondante.
-                  MaestroPresence(maestro: maestro, height: 250),
+                  MaestroPresence(maestro: widget.maestro, height: 250),
+                  const SizedBox(height: SpacingTokens.sm),
+                  // Sotto la presenza, i tre pilastri del dominio come parole
+                  // toccabili: sono la mappa del Maestro in una riga sola.
+                  _PillarsRow(
+                    maestro: widget.maestro,
+                    sections: sections,
+                    onTap: _goToSection,
+                  ),
                   const SizedBox(height: SpacingTokens.md),
-                  // Subito il titolo del dominio, poi l'azione principale.
+                  // Poi il titolo del dominio, poi l'azione principale.
                   SectionTitle(
-                    title: 'Le Arti di ${maestro.displayName}',
+                    title: 'Le Arti di ${widget.maestro.displayName}',
                     subtitle:
                         'Il suo dominio, dalle arti vive a quelle in cammino.',
                   ),
                   const SizedBox(height: SpacingTokens.md),
                   // Una sola voce per la conversazione: la chat, dove si dialoga
                   // e dove il confronto a piu' voci vive dentro l'esperienza.
-                  _ConsultaMaestroCard(maestro: maestro),
+                  _ConsultaMaestroCard(maestro: widget.maestro),
                   const SizedBox(height: SpacingTokens.lg),
                 ],
               ),
@@ -84,14 +174,27 @@ class MaestroScreen extends StatelessWidget {
               itemCount: sections.length,
               separatorBuilder: (_, __) =>
                   const SizedBox(height: SpacingTokens.lg),
-              itemBuilder: (context, i) =>
-                  _ArtSectionBox(maestro: maestro, section: sections[i]),
+              itemBuilder: (context, i) {
+                final s = sections[i];
+                return _ArtSectionBox(
+                  key: _keys[s.title],
+                  maestro: widget.maestro,
+                  section: s,
+                  demo: widget.demo,
+                  open: _open[s.title] ?? true,
+                  soonOpen: _soon[s.title] ?? false,
+                  onToggleSection: () =>
+                      setState(() => _open[s.title] = !(_open[s.title] ?? true)),
+                  onToggleSoon: () =>
+                      setState(() => _soon[s.title] = !(_soon[s.title] ?? false)),
+                );
+              },
             ),
           ),
           // In fondo, oltre il dominio del Maestro, il ponte al cerchio
           // condiviso: le arti degli altri Maestri.
           SliverToBoxAdapter(
-            child: _OtherArtsStrip(current: maestro),
+            child: _OtherArtsStrip(current: widget.maestro),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: SpacingTokens.xxxl),
@@ -102,13 +205,108 @@ class MaestroScreen extends StatelessWidget {
   }
 }
 
+/// I tre pilastri del dominio sotto la presenza del Maestro.
+///
+/// Sono le tre arti principali dichiarate dal Maestro stesso
+/// (`Maestro.domainArts`), non un elenco scritto a mano: per Medora Astrologia,
+/// Cartomanzia e Destino, per Aura e Caligo i loro. Al tocco la schermata
+/// scorre alla sottocategoria e la apre se era chiusa. Le specializzazioni, per
+/// esempio la Lunologia che e' un ramo del cielo, non hanno un pilastro proprio
+/// e si raggiungono scorrendo.
+class _PillarsRow extends StatelessWidget {
+  const _PillarsRow({
+    required this.maestro,
+    required this.sections,
+    required this.onTap,
+  });
+
+  final Maestro maestro;
+  final List<ArtSection> sections;
+  final ValueChanged<String> onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final titoli = sections.map((s) => s.title).toSet();
+    final pilastri = [
+      for (final nome in maestro.domainArts.split(','))
+        if (titoli.contains(nome.trim())) nome.trim(),
+    ];
+    if (pilastri.isEmpty) return const SizedBox.shrink();
+
+    return Wrap(
+      key: const Key('domain_pillars'),
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (var i = 0; i < pilastri.length; i++) ...[
+          if (i > 0)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              child: Text('·',
+                  style: TypographyTokens.label(size: 13)
+                      .copyWith(color: palette.goldSoft.withValues(alpha: 0.6))),
+            ),
+          InkWell(
+            key: Key('domain_pillar_${pilastri[i].toLowerCase()}'),
+            onTap: () => onTap(pilastri[i]),
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
+              child: Text(
+                pilastri[i],
+                style: TypographyTokens.label(size: 13).copyWith(
+                  color: palette.goldSoft,
+                  letterSpacing: 0.7,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
 /// Il riquadro di una sottocategoria: il suo titolo e le arti che contiene, coi
 /// tre stati. Un solo linguaggio di card, lo stato le distingue.
+///
+/// Il collasso lo guida lo STATO delle arti, non una scelta scritta a mano.
+/// Dove c'e' qualcosa di vivo, le arti attive e le Premium restano sempre in
+/// vista e solo quelle in cammino si raccolgono dietro un apri e chiudi. Dove
+/// non c'e' ancora nulla di vivo, l'intera sottocategoria nasce chiusa e si
+/// annuncia per quel che e'.
 class _ArtSectionBox extends StatelessWidget {
-  const _ArtSectionBox({required this.maestro, required this.section});
+  const _ArtSectionBox({
+    super.key,
+    required this.maestro,
+    required this.section,
+    required this.demo,
+    required this.open,
+    required this.soonOpen,
+    required this.onToggleSection,
+    required this.onToggleSoon,
+  });
 
   final Maestro maestro;
   final ArtSection section;
+  final bool demo;
+  final bool open;
+  final bool soonOpen;
+  final VoidCallback onToggleSection;
+  final VoidCallback onToggleSoon;
+
+  String get _slug => section.title.toLowerCase();
+  bool get _hasActive => ArtCatalog.hasActive(section);
+
+  List<ArtEntry> get _subito => [
+        for (final a in section.arts)
+          if (a.state != ArtState.inArrivo) a,
+      ];
+
+  List<ArtEntry> get _inCammino => [
+        for (final a in section.arts)
+          if (a.state == ArtState.inArrivo) a,
+      ];
 
   /// Il segno solare della persona, che serve alle arti che lo chiedono.
   Zodiac _userSign(BuildContext context) {
@@ -119,7 +317,7 @@ class _ArtSectionBox extends StatelessWidget {
         context.read<ProfileController>().identity.birthMoment);
   }
 
-  Future<void> _open(BuildContext context, ArtEntry art) async {
+  Future<void> _openArt(BuildContext context, ArtEntry art) async {
     final route = artRouteFor(art.id, userSign: _userSign(context));
     if (route != null) {
       await Navigator.of(context).push(route);
@@ -130,11 +328,23 @@ class _ArtSectionBox extends StatelessWidget {
     await showArtPreview(context, art: art, maestro: maestro);
   }
 
+  Widget _card(BuildContext context, ArtEntry art) => ScrollReveal(
+        depth: 1,
+        child: ArtCard(
+          art: art,
+          palette: context.palette,
+          showPhase: demo,
+          onTap: () => _openArt(context, art),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    final subito = _subito;
+    final inCammino = _inCammino;
     return Container(
-      key: Key('art_section_${section.title.toLowerCase()}'),
+      key: Key('art_section_$_slug'),
       padding: const EdgeInsets.all(SpacingTokens.md),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusXl),
@@ -144,49 +354,193 @@ class _ArtSectionBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-                left: SpacingTokens.xs, bottom: SpacingTokens.sm),
-            child: ScrollReveal(
-              child: Row(
+          ScrollReveal(child: _header(context, palette)),
+          // Dove c'e' del vivo, quel che si puo' fare adesso resta sempre in
+          // vista: nel collasso finiscono soltanto le arti in cammino.
+          if (_hasActive) ...[
+            for (var i = 0; i < subito.length; i++) ...[
+              if (i > 0) const SizedBox(height: SpacingTokens.sm),
+              _card(context, subito[i]),
+            ],
+            if (inCammino.isNotEmpty) ...[
+              const SizedBox(height: SpacingTokens.sm),
+              _soonToggle(context, palette, inCammino.length),
+              _Collassabile(
+                aperto: soonOpen,
+                child: Column(
+                  children: [
+                    for (final a in inCammino) ...[
+                      const SizedBox(height: SpacingTokens.sm),
+                      _card(context, a),
+                    ],
+                  ],
+                ),
+              ),
+            ],
+          ] else
+            // Nessuna arte viva: tutta la sottocategoria sta dietro il collasso.
+            _Collassabile(
+              aperto: open,
+              child: Column(
                 children: [
-                  Flexible(
-                    child: Text(
-                      section.title,
-                      style: TypographyTokens.display(size: 18)
-                          .copyWith(color: palette.goldSoft),
-                    ),
-                  ),
-                  const SizedBox(width: SpacingTokens.xs),
-                  // Il contatore delle arti della sottocategoria: dice a colpo
-                  // d'occhio quanto e' ampio il territorio.
-                  Text(
-                    '· ${section.arts.length}',
-                    key: Key('art_section_count_${section.title.toLowerCase()}'),
-                    style: TypographyTokens.label(size: 13).copyWith(
-                      color: palette.goldSoft.withValues(alpha: 0.75),
-                      letterSpacing: 0.4,
-                    ),
-                  ),
+                  for (final a in section.arts) ...[
+                    const SizedBox(height: SpacingTokens.sm),
+                    _card(context, a),
+                  ],
                 ],
               ),
             ),
-          ),
-          for (var i = 0; i < section.arts.length; i++) ...[
-            if (i > 0) const SizedBox(height: SpacingTokens.sm),
-            // Strato piu' interno: sale un po' di piu' e parte un soffio dopo
-            // del titolo, ed e' da qui che nasce la parallasse leggera.
-            ScrollReveal(
-              depth: 1,
-              child: ArtCard(
-                art: section.arts[i],
-                palette: palette,
-                onTap: () => _open(context, section.arts[i]),
-              ),
-            ),
-          ],
         ],
       ),
+    );
+  }
+
+  /// L'intestazione: titolo, contatore delle arti visibili nella vista corrente
+  /// e, quando non c'e' nulla di vivo, la dicitura onesta piu' la freccetta.
+  /// Tutta la riga e' area di tocco, non la sola freccetta.
+  Widget _header(BuildContext context, MaestroPalette palette) {
+    final riga = Row(
+      children: [
+        // Il titolo si rimpicciolisce invece di spezzarsi a meta' parola: in
+        // Cinzel, tutto maiuscolo, "Lunologia" andava a capo come LUNOL OGIA.
+        Flexible(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              section.title,
+              maxLines: 1,
+              style: TypographyTokens.display(size: 18)
+                  .copyWith(color: palette.goldSoft),
+            ),
+          ),
+        ),
+        const SizedBox(width: SpacingTokens.xs),
+        // Il contatore delle arti della sottocategoria: dice a colpo d'occhio
+        // quanto e' ampio il territorio, contando quel che si vede davvero.
+        Text(
+          '· ${section.arts.length}',
+          key: Key('art_section_count_$_slug'),
+          style: TypographyTokens.label(size: 13).copyWith(
+            color: palette.goldSoft.withValues(alpha: 0.75),
+            letterSpacing: 0.4,
+          ),
+        ),
+        if (!_hasActive) ...[
+          const SizedBox(width: SpacingTokens.xs),
+          Text(
+            '· In arrivo',
+            key: Key('art_section_soon_$_slug'),
+            style: TypographyTokens.label(size: 12).copyWith(
+              color: ColorTokens.textSecondary,
+              letterSpacing: 0.4,
+            ),
+          ),
+          const Spacer(),
+          _Freccetta(aperto: open, color: palette.goldSoft),
+        ],
+      ],
+    );
+    if (_hasActive) {
+      return Padding(
+        padding: const EdgeInsets.only(
+            left: SpacingTokens.xs, bottom: SpacingTokens.sm),
+        child: riga,
+      );
+    }
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: Key('art_section_header_$_slug'),
+        onTap: onToggleSection,
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.xs, vertical: 4),
+          child: riga,
+        ),
+      ),
+    );
+  }
+
+  /// L'apri e chiudi delle sole arti in cammino, dentro una sottocategoria che
+  /// ha gia' qualcosa di vivo.
+  Widget _soonToggle(
+      BuildContext context, MaestroPalette palette, int quante) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: Key('art_soon_toggle_$_slug'),
+        onTap: onToggleSoon,
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.xs, vertical: 6),
+          child: Row(
+            children: [
+              Text(
+                'Altre arti in arrivo · $quante',
+                style: TypographyTokens.label(size: 12).copyWith(
+                  color: ColorTokens.textSecondary,
+                  letterSpacing: 0.5,
+                ),
+              ),
+              const Spacer(),
+              _Freccetta(aperto: soonOpen, color: palette.goldSoft),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// La freccetta che ruota per dire aperto o chiuso. Con movimento spento cambia
+/// verso all'istante, senza rotazione.
+class _Freccetta extends StatelessWidget {
+  const _Freccetta({required this.aperto, required this.color});
+
+  final bool aperto;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final immobile = ScrollReveal.motionOff(context);
+    return AnimatedRotation(
+      turns: aperto ? 0.5 : 0,
+      duration: immobile ? Duration.zero : const Duration(milliseconds: 200),
+      curve: Curves.easeOutCubic,
+      child: Icon(Icons.expand_more_rounded, size: 22, color: color),
+    );
+  }
+}
+
+/// Il contenuto di un gruppo che si apre e si chiude.
+///
+/// L'apertura e' breve e coerente col resto; con Riduci Movimento di sistema o
+/// con Quality Tier basso non c'e' animazione, il gruppo appare e sparisce
+/// all'istante. La regola e' la stessa di `ScrollReveal.motionOff`, letta da un
+/// punto solo.
+class _Collassabile extends StatelessWidget {
+  const _Collassabile({required this.aperto, required this.child});
+
+  final bool aperto;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    // A movimento spento non si mette nemmeno in mezzo il riquadro animato: il
+    // gruppo c'e' o non c'e', senza nessuna misura da interpolare.
+    if (ScrollReveal.motionOff(context)) {
+      return aperto ? child : const SizedBox.shrink();
+    }
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 220),
+      curve: Curves.easeOutCubic,
+      alignment: Alignment.topCenter,
+      child: aperto
+          ? child
+          : const SizedBox(width: double.infinity, height: 0),
     );
   }
 }

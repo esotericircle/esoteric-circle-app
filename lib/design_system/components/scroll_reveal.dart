@@ -50,11 +50,15 @@ class ScrollReveal extends StatefulWidget {
 
   /// Se il movimento va spento: Riduci Movimento di sistema oppure Quality Tier
   /// basso. Sta qui, in un punto solo, cosi' i test la verificano.
-  static bool motionOff(BuildContext context) {
+  ///
+  /// Con [listen] falso non si iscrive ai cambi, e allora si puo' chiamare
+  /// anche fuori da un build, per esempio dentro un gestore di tocco.
+  static bool motionOff(BuildContext context, {bool listen = true}) {
     if (MediaQuery.of(context).disableAnimations) return true;
     // Il controller puo' mancare in una superficie montata da sola: la lettura
     // nullabile torna null invece di sollevare, e il movimento resta acceso.
-    return context.watch<QualityTierController?>()?.tier == QualityTier.low;
+    return Provider.of<QualityTierController?>(context, listen: listen)?.tier ==
+        QualityTier.low;
   }
 
   @override
