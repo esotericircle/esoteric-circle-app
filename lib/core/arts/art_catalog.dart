@@ -227,36 +227,12 @@ class ArtCatalog {
         state: ArtState.attiva,
       ),
       ArtEntry(
-        id: 'synastry_vip',
-        title: 'Sinastria VIP',
-        teaser: 'La tua affinità con una stella, calcolata dal cielo.',
-        icon: Icons.favorite_rounded,
-        state: ArtState.attiva,
-      ),
-      ArtEntry(
         id: 'natal_chart',
         title: 'Carta Natale interattiva',
         teaser: 'La tua mappa celeste coi transiti, da esplorare al tocco.',
         icon: Icons.explore_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.mvp,
-      ),
-      ArtEntry(
-        id: 'synastry_depth',
-        title: 'Sinastria Approfondita',
-        teaser:
-            'La lettura di coppia completa, aspetto per aspetto, con i tempi del legame.',
-        icon: Icons.favorite_border_rounded,
-        state: ArtState.premium,
-        requiredTier: Tier.tier2,
-      ),
-      ArtEntry(
-        id: 'friends_compatibility',
-        title: 'Compatibilità tra Amici',
-        teaser: 'La sinastria fra te e le persone vere del tuo cerchio.',
-        icon: Icons.group_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.viralita,
       ),
       ArtEntry(
         id: 'planetary_returns',
@@ -284,6 +260,35 @@ class ArtCatalog {
         icon: Icons.map_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase4,
+      ),
+    ]),
+    ArtSection(title: 'Compatibilità', arts: [
+      ArtEntry(
+        id: 'synastry_vip',
+        title: 'Sinastria VIP',
+        teaser: 'La tua affinità con una stella, calcolata dal cielo.',
+        icon: Icons.favorite_rounded,
+        state: ArtState.attiva,
+      ),
+      // La compatibilita' unificata: i tre livelli, astrale, angelico e
+      // archetipico, vivono qui dentro e non piu' come tre card sparse su tre
+      // Maestri.
+      ArtEntry(
+        id: 'synastry_depth',
+        title: 'Sinastria Approfondita',
+        teaser:
+            'La lettura di coppia completa sui tre livelli, astrale, angelico e archetipico.',
+        icon: Icons.favorite_border_rounded,
+        state: ArtState.premium,
+        requiredTier: Tier.tier2,
+      ),
+      ArtEntry(
+        id: 'friends_compatibility',
+        title: 'Compatibilità tra Amici',
+        teaser: 'La sinastria fra te e le persone vere del tuo cerchio.',
+        icon: Icons.group_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.viralita,
       ),
     ]),
     ArtSection(title: 'Cartomanzia', arts: [
@@ -552,15 +557,8 @@ class ArtCatalog {
         phase: ArtPhase.fase2,
         cornice: true,
       ),
-      ArtEntry(
-        id: 'archetype_affinity',
-        title: 'Compatibilità Archetipica',
-        teaser: 'L\'affinità fra le vostre anime, sul piano degli archetipi.',
-        icon: Icons.diversity_1_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.fase2,
-        cornice: true,
-      ),
+      // La Compatibilita' Archetipica non vive piu' qui: il suo contenuto e' il
+      // livello archetipico dentro la Sinastria Approfondita di Medora.
       ArtEntry(
         id: 'graphology',
         title: 'Grafologia Esoterica',
@@ -690,6 +688,8 @@ class ArtCatalog {
       ),
     ]),
     ArtSection(title: 'Cabala', arts: [
+      // I settantadue nomi dello Shem non sono una card a se': sono contenuto
+      // dell'Albero della Vita, dentro il suo sistema cabalistico.
       ArtEntry(
         id: 'tree_of_life',
         title: 'Albero della Vita',
@@ -700,22 +700,15 @@ class ArtCatalog {
       ),
       ArtEntry(
         id: 'angel_numbers',
-        title: 'Angel Numbers',
+        title: 'Numeri Ricorrenti',
         teaser: 'I numeri ricorrenti e il messaggio che portano.',
         icon: Icons.repeat_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.mvp,
         cornice: true,
       ),
-      ArtEntry(
-        id: 'angel_compatibility',
-        title: 'Compatibilità Angelica',
-        teaser: 'L\'affinità fra i vostri Angeli Custodi.',
-        icon: Icons.diversity_3_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.fase2,
-        cornice: true,
-      ),
+      // La Compatibilita' Angelica non vive piu' qui: il suo contenuto e' il
+      // livello angelico dentro la Sinastria Approfondita di Medora.
       ArtEntry(
         id: 'numerology',
         title: 'Numerologia del Destino',
@@ -741,15 +734,6 @@ class ArtCatalog {
         icon: Icons.card_giftcard_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase3,
-        cornice: true,
-      ),
-      ArtEntry(
-        id: 'angels_72',
-        title: 'I 72 Angeli della Cabala',
-        teaser: 'I settantadue nomi dello Shem e i loro cori.',
-        icon: Icons.grid_view_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.fase4,
         cornice: true,
       ),
     ]),

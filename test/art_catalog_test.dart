@@ -74,7 +74,7 @@ void main() {
   group('Catalogo delle arti', () {
     test('Ogni Maestro ha le sue sottocategorie, nell\'ordine', () {
       expect(ArtCatalog.forMaestro(Maestro.medora).map((s) => s.title),
-          ['Astrologia', 'Cartomanzia', 'Lunologia', 'Destino']);
+          ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Lunologia', 'Destino']);
       expect(ArtCatalog.forMaestro(Maestro.aura).map((s) => s.title),
           ['Chakra', 'Energia', 'Archetipi']);
       expect(ArtCatalog.forMaestro(Maestro.caligo).map((s) => s.title),
@@ -154,8 +154,8 @@ void main() {
           ['Energia', 'Archetipi', 'Chakra']);
       // In Demo tutto; alla persona si accorciano solo le due miste, mentre
       // Chakra resta intera perche' e' tutta in cammino, quindi esente.
-      expect(conta(true), {'Energia': 8, 'Archetipi': 7, 'Chakra': 6});
-      expect(conta(false), {'Energia': 7, 'Archetipi': 5, 'Chakra': 6});
+      expect(conta(true), {'Energia': 8, 'Archetipi': 6, 'Chakra': 6});
+      expect(conta(false), {'Energia': 7, 'Archetipi': 4, 'Chakra': 6});
 
       List<ArtEntry> arti(String titolo) => ArtCatalog.forMaestro(Maestro.aura)
           .firstWhere((s) => s.title == titolo)
@@ -193,10 +193,12 @@ void main() {
         'face_constellation',
         'mood_tracker',
         'palmistry',
-        'archetype_affinity',
         'graphology',
         'voice_analysis',
       ]);
+      // La Compatibilita' Archetipica e' passata dentro la Sinastria
+      // Approfondita di Medora, come livello archetipico.
+      expect(archetipi.map((a) => a.id), isNot(contains('archetype_affinity')));
 
       // Chakra: sei arti, nessuna viva, quindi chiusa ed esente.
       final chakra = arti('Chakra');
@@ -251,11 +253,11 @@ void main() {
       expect(
           ArtCatalog.visibleFor(Maestro.caligo, demo: true).map((s) => s.title),
           ['Rune', 'Rituali', 'Cabala']);
-      expect(conta(true), {'Rune': 5, 'Rituali': 6, 'Cabala': 7});
+      expect(conta(true), {'Rune': 5, 'Rituali': 6, 'Cabala': 5});
       // Nella vista della persona cadono le fasi oltre la Fase 2: i Rituali
       // perdono i Rituali Guidati, la Cabala perde Numerologia, Human Design,
       // Cosmic Wrapped e i 72 Angeli.
-      expect(conta(false), {'Rune': 5, 'Rituali': 5, 'Cabala': 3});
+      expect(conta(false), {'Rune': 5, 'Rituali': 5, 'Cabala': 2});
 
       List<ArtEntry> arti(String titolo) => ArtCatalog.forMaestro(Maestro.caligo)
           .firstWhere((s) => s.title == titolo)
@@ -284,12 +286,22 @@ void main() {
       expect(arti('Cabala').map((a) => a.id), [
         'tree_of_life',
         'angel_numbers',
-        'angel_compatibility',
         'numerology',
         'human_design',
         'cosmic_wrapped',
-        'angels_72',
       ]);
+      // I settantadue nomi sono contenuto dell'Albero della Vita, non una card,
+      // e la Compatibilita' Angelica e' passata alla Sinastria Approfondita.
+      expect(arti('Cabala').map((a) => a.id), isNot(contains('angels_72')));
+      expect(
+          arti('Cabala').map((a) => a.id), isNot(contains('angel_compatibility')));
+      expect(arti('Cabala').firstWhere((a) => a.id == 'angel_numbers').title,
+          'Numeri Ricorrenti');
+      // Nessuna arte di Caligo nomina piu' gli Angeli.
+      for (final a in ArtCatalog.forMaestro(Maestro.caligo).expand((s) => s.arts)) {
+        expect('${a.title} ${a.teaser}'.toLowerCase(), isNot(contains('angel')),
+            reason: a.id);
+      }
       // Le vecchie voci scheletriche non esistono piu'.
       final ids = ArtCatalog.all.map((a) => a.id);
       expect(ids, isNot(contains('extended_oracles')));
@@ -310,17 +322,42 @@ void main() {
       }
     });
 
-    test('Compatibilità tra Amici sta in Astrologia, distinta dalle altre', () {
-      final astro = ArtCatalog.forMaestro(Maestro.medora)
-          .firstWhere((s) => s.title == 'Astrologia');
+    test('La Compatibilità di Medora raccoglie le tre sinastrie', () {
+      final comp = ArtCatalog.forMaestro(Maestro.medora)
+          .firstWhere((s) => s.title == 'Compatibilità');
+      expect(comp.arts.map((a) => a.id),
+          ['synastry_vip', 'synastry_depth', 'friends_compatibility']);
+      expect(comp.arts[0].state, ArtState.attiva);
+      expect(comp.arts[1].state, ArtState.premium);
+
       final amici =
-          astro.arts.firstWhere((a) => a.id == 'friends_compatibility');
+          comp.arts.firstWhere((a) => a.id == 'friends_compatibility');
       expect(amici.title, 'Compatibilità tra Amici');
       expect(amici.state, ArtState.inArrivo);
-      expect(amici.phase, 'Fase viralità sociale');
-      // Non e' la Sinastria VIP e non e' l'Affinità Lunare.
-      expect(astro.arts.map((a) => a.id), contains('synastry_vip'));
-      expect(astro.arts.map((a) => a.id), isNot(contains('lunar_affinity')));
+      expect(amici.phase, ArtPhase.viralita);
+
+      // La Sinastria Approfondita e' la compatibilita' unificata: i tre livelli
+      // stanno dentro di lei, non piu' sparsi su tre Maestri.
+      final profonda = comp.arts.firstWhere((a) => a.id == 'synastry_depth');
+      for (final livello in const ['astrale', 'angelico', 'archetipico']) {
+        expect(profonda.teaser.toLowerCase(), contains(livello));
+      }
+
+      // Astrologia non tiene piu' nessuna sinastria, e l'Affinità Lunare resta
+      // dove e' sempre stata, in Lunologia.
+      final astro = ArtCatalog.forMaestro(Maestro.medora)
+          .firstWhere((s) => s.title == 'Astrologia');
+      for (final id in const [
+        'synastry_vip',
+        'synastry_depth',
+        'friends_compatibility',
+        'lunar_affinity',
+      ]) {
+        expect(astro.arts.map((a) => a.id), isNot(contains(id)), reason: id);
+      }
+      expect(astro.arts.map((a) => a.id),
+          ['horoscope', 'natal_chart', 'planetary_returns', 'pet_astrology',
+           'astrocartography']);
     });
 
     test('Le astrologie non occidentali non hanno una card propria', () {
@@ -425,11 +462,21 @@ void main() {
             for (final s in ArtCatalog.visibleFor(Maestro.medora, demo: demo))
               s.title: s.arts.length,
           };
-      expect(conta(true),
-          {'Astrologia': 8, 'Cartomanzia': 3, 'Lunologia': 4, 'Destino': 3});
+      expect(conta(true), {
+        'Astrologia': 5,
+        'Compatibilità': 3,
+        'Cartomanzia': 3,
+        'Lunologia': 4,
+        'Destino': 3,
+      });
       // Solo le miste si accorciano: le tutte in cammino restano intere.
-      expect(conta(false),
-          {'Astrologia': 6, 'Cartomanzia': 2, 'Lunologia': 4, 'Destino': 3});
+      expect(conta(false), {
+        'Astrologia': 4,
+        'Compatibilità': 2,
+        'Cartomanzia': 2,
+        'Lunologia': 4,
+        'Destino': 3,
+      });
       // Nessuna sottocategoria vuota arriva a video.
       for (final m in Maestro.values) {
         for (final demo in const [true, false]) {
@@ -536,7 +583,7 @@ void main() {
         tester
             .widget<Text>(find.byKey(const Key('art_section_count_astrologia')))
             .data,
-        '· 6',
+        '· 4',
       );
       // Aprendo il gruppo delle in cammino non spuntano le fasi lontane.
       await tocca(tester, const Key('art_soon_toggle_astrologia'));
@@ -579,12 +626,18 @@ void main() {
       await tester.pumpWidget(domain(Maestro.medora));
       await tester.pump();
 
-      // Astrologia e Cartomanzia hanno del vivo: le attive e la Premium si
-      // vedono subito, le in cammino stanno dietro il loro apri e chiudi.
+      // Astrologia, Compatibilità e Cartomanzia hanno del vivo: le attive e la
+      // Premium si vedono subito, le in cammino stanno dietro l'apri e chiudi.
       expect(find.byKey(const Key('art_horoscope')), findsOneWidget);
+      expect(find.byKey(const Key('art_natal_chart')), findsNothing);
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('art_section_compatibilità')),
+        260,
+        scrollable: find.byType(Scrollable).first,
+      );
       expect(find.byKey(const Key('art_synastry_vip')), findsOneWidget);
       expect(find.byKey(const Key('art_synastry_depth')), findsOneWidget);
-      expect(find.byKey(const Key('art_natal_chart')), findsNothing);
+      expect(find.byKey(const Key('art_friends_compatibility')), findsNothing);
       expect(find.byKey(const Key('art_soon_toggle_astrologia')),
           findsOneWidget);
       // Un'intestazione senza freccetta: le sezioni vive non si richiudono.
@@ -617,7 +670,7 @@ void main() {
       // L'ordine e' del catalogo, non della schermata: si verifica li'.
       expect(
         ArtCatalog.visibleFor(Maestro.medora, demo: true).map((s) => s.title),
-        ['Astrologia', 'Cartomanzia', 'Lunologia', 'Destino'],
+        ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Lunologia', 'Destino'],
       );
       for (final m in Maestro.values) {
         final sezioni = ArtCatalog.visibleFor(m, demo: true);
