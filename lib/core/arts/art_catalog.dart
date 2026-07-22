@@ -130,20 +130,12 @@ class ArtCatalog {
         requiredTier: Tier.tier2,
       ),
       ArtEntry(
-        id: 'lunology',
-        title: 'Il Respiro della Luna',
-        teaser: 'Lunologia: le fasi che accompagnano il tuo mese.',
-        icon: Icons.nightlight_round,
+        id: 'friends_compatibility',
+        title: 'Compatibilità tra Amici',
+        teaser: 'La sinastria fra te e le persone vere del tuo cerchio.',
+        icon: Icons.group_rounded,
         state: ArtState.inArrivo,
-        phase: 'Fase 2',
-      ),
-      ArtEntry(
-        id: 'lunar_affinity',
-        title: 'Affinità Lunare',
-        teaser: 'L\'intesa fra due Lune, oltre il segno solare.',
-        icon: Icons.brightness_2_rounded,
-        state: ArtState.inArrivo,
-        phase: 'Fase 2',
+        phase: 'Fase viralità sociale',
       ),
       ArtEntry(
         id: 'planetary_returns',
@@ -161,31 +153,9 @@ class ArtCatalog {
         state: ArtState.inArrivo,
         phase: 'Fase 2',
       ),
-      ArtEntry(
-        id: 'vedic_astrology',
-        title: 'Astrologia Vedica',
-        teaser: 'Le tradizioni siderali, coi loro tempi e le loro case.',
-        icon: Icons.brightness_7,
-        state: ArtState.inArrivo,
-        phase: 'Fase 3',
-        requiredTier: Tier.tier3,
-      ),
-      ArtEntry(
-        id: 'bazi',
-        title: 'Astrologia Cinese Ba Zi',
-        teaser: 'I quattro pilastri del destino, dalla tua ora di nascita.',
-        icon: Icons.grid_view_rounded,
-        state: ArtState.inArrivo,
-        phase: 'Fase 3',
-      ),
-      ArtEntry(
-        id: 'other_traditions',
-        title: 'Maya, celtica, egizia, araba',
-        teaser: 'Le altre tradizioni del cielo, ciascuna con la sua voce.',
-        icon: Icons.public_rounded,
-        state: ArtState.inArrivo,
-        phase: 'Fase 4',
-      ),
+      // Le astrologie non occidentali (vedica, cinese, maya, celtica, egizia,
+      // araba) non hanno una card propria: vivono come tradizioni dentro
+      // l'Oroscopo Personalizzato, cosi' non occupano spazio nel dominio.
       ArtEntry(
         id: 'astrocartography',
         title: 'Astrocartografia',
@@ -218,6 +188,44 @@ class ArtCatalog {
         icon: Icons.filter_drama_rounded,
         state: ArtState.inArrivo,
         phase: 'Fase 4',
+      ),
+    ]),
+    ArtSection(title: 'Lunologia', arts: [
+      ArtEntry(
+        id: 'lunology',
+        title: 'Il Respiro della Luna',
+        teaser:
+            'Il cruscotto lunare del presente: fase con la percentuale reale, Luna nel segno, i trenta giorni lunari, il calendario biodinamico, la Luna fuori corso e i consigli per categoria.',
+        icon: Icons.nightlight_round,
+        state: ArtState.inArrivo,
+        phase: 'Fase 2',
+      ),
+      ArtEntry(
+        id: 'fertility_windows',
+        title: 'Finestre Fertili',
+        teaser:
+            'Il calcolo della fertilità su base lunare col metodo Jonas, in un calendario visivo.',
+        icon: Icons.spa_rounded,
+        state: ArtState.inArrivo,
+        phase: 'Fase successiva',
+      ),
+      ArtEntry(
+        id: 'lunar_affinity',
+        title: 'Affinità Lunare',
+        teaser:
+            'La compatibilità di fase lunare fra due persone, con la card da condividere.',
+        icon: Icons.brightness_2_rounded,
+        state: ArtState.inArrivo,
+        phase: 'Fase 2',
+      ),
+      ArtEntry(
+        id: 'lunar_calendar',
+        title: 'Calendario Lunare Personale',
+        teaser:
+            'La vista mensile a calendario, coi rituali e le indicazioni per ogni fase.',
+        icon: Icons.calendar_month_rounded,
+        state: ArtState.inArrivo,
+        phase: 'Fase successiva',
       ),
     ]),
     ArtSection(title: 'Destino', arts: [

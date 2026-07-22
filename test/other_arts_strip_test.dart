@@ -72,6 +72,10 @@ void main() {
         matching: find.byType(Scrollable),
       ),
     );
+    // Col catalogo di Medora cresciuto, la striscia comincia sotto la piega:
+    // portare la tessera dentro la finestra anche in verticale.
+    await tester.ensureVisible(find.byKey(Key('other_art_$targetName')));
+    await tester.pump();
   }
 
   testWidgets('Nel dominio di Medora la striscia mostra arti di altri Maestri',

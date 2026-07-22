@@ -5,13 +5,16 @@ import '../../core/arts/art_catalog.dart';
 import '../../core/astro/night_sky.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/chat/immersive_intents.dart';
+import '../../core/config/app_flags.dart';
 import '../../core/entitlement/plan_catalog.dart';
+import '../../core/lang/euphonic.dart';
 import '../../core/identity/natal_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../design_system/components/art_card.dart';
 import '../../design_system/components/depth_card.dart';
+import '../../design_system/components/scroll_reveal.dart';
 import '../../design_system/components/section_title.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -144,18 +147,42 @@ class _ArtSectionBox extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(
                 left: SpacingTokens.xs, bottom: SpacingTokens.sm),
-            child: Text(
-              section.title,
-              style: TypographyTokens.display(size: 18)
-                  .copyWith(color: palette.goldSoft),
+            child: ScrollReveal(
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      section.title,
+                      style: TypographyTokens.display(size: 18)
+                          .copyWith(color: palette.goldSoft),
+                    ),
+                  ),
+                  const SizedBox(width: SpacingTokens.xs),
+                  // Il contatore delle arti della sottocategoria: dice a colpo
+                  // d'occhio quanto e' ampio il territorio.
+                  Text(
+                    '· ${section.arts.length}',
+                    key: Key('art_section_count_${section.title.toLowerCase()}'),
+                    style: TypographyTokens.label(size: 13).copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.75),
+                      letterSpacing: 0.4,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           for (var i = 0; i < section.arts.length; i++) ...[
             if (i > 0) const SizedBox(height: SpacingTokens.sm),
-            ArtCard(
-              art: section.arts[i],
-              palette: palette,
-              onTap: () => _open(context, section.arts[i]),
+            // Strato piu' interno: sale un po' di piu' e parte un soffio dopo
+            // del titolo, ed e' da qui che nasce la parallasse leggera.
+            ScrollReveal(
+              depth: 1,
+              child: ArtCard(
+                art: section.arts[i],
+                palette: palette,
+                onTap: () => _open(context, section.arts[i]),
+              ),
             ),
           ],
         ],
@@ -432,11 +459,15 @@ Future<void> showArtPreview(
   required Maestro maestro,
 }) {
   final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
+  // La fase e' un dato di piano: alla persona si dice soltanto che l'arte sta
+  // arrivando, il dettaglio resta nella vista Demo per gli investitori.
+  final fase = AppFlags.isDemo && art.phase != null
+      ? ' La sua fase di lavorazione è ${art.phase}.'
+      : '';
   final riga = art.state == ArtState.premium
-      ? 'Questa arte e\' pronta e vive nel Cerchio: si apre con '
-          '${art.requiredTier == null ? 'l\'abbonamento' : PlanCatalog.forTier(art.requiredTier!).name}.'
-      : 'Questa arte e\' in cammino, pianificata per ${art.phase ?? 'una fase futura'}. '
-          'Quando sara\' pronta la troverai qui.';
+      ? 'Questa arte è pronta e vive nel Cerchio: si apre '
+          '${art.requiredTier == null ? 'con l\'abbonamento' : conPiano(PlanCatalog.forTier(art.requiredTier!).name)}.'
+      : 'Questa arte è in cammino. Quando sarà pronta la troverai qui.$fase';
   return showModalBottomSheet<void>(
     context: context,
     backgroundColor: Colors.transparent,

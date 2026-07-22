@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../core/arts/art_catalog.dart';
+import '../../core/config/app_flags.dart';
 import '../../core/entitlement/plan_catalog.dart';
+import '../../core/lang/euphonic.dart';
 import '../theme/maestro_palette.dart';
 import '../tokens/color_tokens.dart';
 import '../tokens/spacing_tokens.dart';
@@ -20,6 +22,7 @@ class ArtCard extends StatelessWidget {
     required this.art,
     required this.palette,
     this.onTap,
+    this.showPhase = AppFlags.isDemo,
   });
 
   final ArtEntry art;
@@ -29,6 +32,13 @@ class ArtCard extends StatelessWidget {
   /// mai un vicolo cieco: lo decide chi la usa.
   final VoidCallback? onTap;
 
+  /// Se mostrare la fase di pianificazione accanto a "In arrivo".
+  ///
+  /// La fase e' un dato di piano, non un'informazione per chi usa l'app: alla
+  /// persona basta sapere che l'arte sta arrivando. Si vede solo nella vista
+  /// Demo per gli investitori, dietro il flag gia' esistente.
+  final bool showPhase;
+
   /// Quanto e' velata la card: nulla sull'attiva, appena un soffio sulle altre,
   /// cosi' il testo resta nitido.
   double get _veil => art.state == ArtState.attiva ? 1.0 : 0.86;
@@ -36,6 +46,19 @@ class ArtCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final attiva = art.state == ArtState.attiva;
+    // L'accento cromatico del Maestro (il blu di Medora, il verde di Aura, il
+    // rosso di Caligo) e' il segno di quel che si puo' vivere adesso: lo
+    // portano solo le arti attive. Le altre restano su una superficie neutra,
+    // ben leggibile, con l'oro del Cerchio a tenerle nel linguaggio comune.
+    final sfondo = attiva
+        ? [
+            palette.surfaceElevated.withValues(alpha: 0.95),
+            palette.surface.withValues(alpha: 0.80),
+          ]
+        : [
+            ColorTokens.neutralSurface.withValues(alpha: 0.42),
+            ColorTokens.neutralDeep.withValues(alpha: 0.55),
+          ];
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -49,11 +72,7 @@ class ArtCard extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                palette.surfaceElevated
-                    .withValues(alpha: attiva ? 0.95 : 0.72),
-                palette.surface.withValues(alpha: attiva ? 0.80 : 0.60),
-              ],
+              colors: sfondo,
             ),
             border: Border.all(
               color: palette.gold.withValues(alpha: attiva ? 0.45 : 0.26),
@@ -98,7 +117,7 @@ class ArtCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: SpacingTokens.sm),
-                _StateLine(art: art, palette: palette),
+                _StateLine(art: art, palette: palette, showPhase: showPhase),
               ],
             ),
           ),
@@ -110,10 +129,15 @@ class ArtCard extends StatelessWidget {
 
 /// La riga di stato in fondo alla card: che cosa e' questa arte, adesso.
 class _StateLine extends StatelessWidget {
-  const _StateLine({required this.art, required this.palette});
+  const _StateLine({
+    required this.art,
+    required this.palette,
+    required this.showPhase,
+  });
 
   final ArtEntry art;
   final MaestroPalette palette;
+  final bool showPhase;
 
   @override
   Widget build(BuildContext context) {
@@ -128,20 +152,22 @@ class _StateLine extends StatelessWidget {
         );
       case ArtState.premium:
         final piano = art.requiredTier == null
-            ? 'il Cerchio'
-            : PlanCatalog.forTier(art.requiredTier!).name;
+            ? 'con il Cerchio'
+            : conPiano(PlanCatalog.forTier(art.requiredTier!).name);
         return _Badge(
           key: Key('art_state_premium_${art.id}'),
-          label: 'Si apre col $piano',
+          label: 'Si apre $piano',
           icon: Icons.workspace_premium_outlined,
           palette: palette,
           strong: true,
         );
       case ArtState.inArrivo:
-        final fase = art.phase ?? 'presto';
+        // Alla persona si dice soltanto "In arrivo". La fase e' un dato di
+        // piano e resta nella sola vista Demo.
+        final fase = art.phase;
         return _Badge(
           key: Key('art_state_arrivo_${art.id}'),
-          label: 'In arrivo, $fase',
+          label: showPhase && fase != null ? 'In arrivo, $fase' : 'In arrivo',
           icon: Icons.schedule_rounded,
           palette: palette,
           strong: false,

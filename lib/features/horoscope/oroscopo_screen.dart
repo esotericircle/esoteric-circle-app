@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/zodiac.dart';
+import '../../core/config/app_flags.dart';
+import '../../core/horoscope/astro_tradition.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
@@ -17,6 +19,7 @@ import 'answer_depth.dart';
 import 'horoscope_visuals.dart';
 import 'oroscopo_colors.dart';
 import 'oroscopo_share_card.dart';
+import 'tradition_glyph.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -73,6 +76,15 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   late final int _year = _date.year;
 
   HoroscopePeriod _period = HoroscopePeriod.giorno;
+
+  // La tradizione scelta e il micro messaggio del Maestro sull'ultima
+  // tradizione ancora chiusa che e' stata toccata.
+  AstroTradition _tradition = AstroTradition.predefinita;
+  AstroTradition? _traditionMessage;
+
+  // Rivelazione una volta sola: la prima volta il messaggio entra in
+  // dissolvenza, dalla seconda in poi compare gia' posato.
+  final Set<AstroTradition> _traditionRevealed = <AstroTradition>{};
 
   // Pulsazione lenta condivisa: respiro dell'emblema e delle forme a tema.
   late final AnimationController _pulse = AnimationController(
@@ -149,6 +161,22 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                     palette: palette,
                     onSelect: _selectPeriod,
                   ),
+                  const SizedBox(height: SpacingTokens.sm),
+                  // Accanto al periodo, la tradizione: lo stesso cielo letto con
+                  // occhi diversi. Aperta l'Occidentale, le altre col lucchetto.
+                  _TraditionTabs(
+                    current: _tradition,
+                    palette: palette,
+                    onSelect: _selectTradition,
+                  ),
+                  _TraditionInvite(
+                    tradition: _traditionMessage,
+                    maestro: Maestro.medora,
+                    palette: palette,
+                    // Rivelazione una volta sola per tradizione.
+                    animate: _traditionMessage != null &&
+                        !_traditionRevealed.contains(_traditionMessage),
+                  ),
                   const SizedBox(height: SpacingTokens.md),
                   for (final card in cards) ...[
                     _HoroscopeCardView(
@@ -215,6 +243,26 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             'L\'oroscopo della ${period.label.toLowerCase()} arriva col Cerchio Premium.'),
       ),
     );
+  }
+
+  /// La tradizione: se e' aperta si sceglie, se e' chiusa risponde il Maestro.
+  ///
+  /// Al posto del solito lucchetto muto compare un micro messaggio di Medora in
+  /// prima persona, che racconta cosa sara' quella tradizione. La prima volta
+  /// entra in dissolvenza, poi resta posato: e' la rivelazione una volta sola.
+  void _selectTradition(AstroTradition tradition) {
+    if (tradition.unlocked) {
+      setState(() {
+        _tradition = tradition;
+        _traditionMessage = null;
+      });
+      return;
+    }
+    setState(() => _traditionMessage = tradition);
+    // Segna la rivelazione dopo il frame in cui l'animazione e' partita.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _traditionRevealed.add(tradition);
+    });
   }
 
   Future<void> _onShare() async {
@@ -361,6 +409,200 @@ class _PeriodTabs extends StatelessWidget {
             ),
         ],
       ),
+    );
+  }
+}
+
+/// Il selettore della tradizione: Occidentale aperta, le altre col lucchetto.
+///
+/// Le astrologie non occidentali non hanno una card nel dominio ne' una
+/// schermata propria: vivono qui, come modo diverso di leggere lo stesso cielo.
+/// Ogni voce porta il suo glifo disegnato, cosi' si riconosce prima di leggerla.
+class _TraditionTabs extends StatelessWidget {
+  const _TraditionTabs(
+      {required this.current, required this.palette, required this.onSelect});
+
+  final AstroTradition current;
+  final MaestroPalette palette;
+  final ValueChanged<AstroTradition> onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      key: const Key('oroscopo_tradition_tabs'),
+      // Alta quanto serve al glifo, al nome e al badge "In arrivo", che sulla
+      // voce bloccata sta su una terza riga.
+      height: 80,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: AstroTradition.values.length,
+        separatorBuilder: (_, __) => const SizedBox(width: SpacingTokens.xs),
+        itemBuilder: (context, i) {
+          final t = AstroTradition.values[i];
+          return _TraditionChip(
+            tradition: t,
+            selected: t == current,
+            palette: palette,
+            onTap: () => onSelect(t),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _TraditionChip extends StatelessWidget {
+  const _TraditionChip({
+    required this.tradition,
+    required this.selected,
+    required this.palette,
+    required this.onTap,
+  });
+
+  final AstroTradition tradition;
+  final bool selected;
+  final MaestroPalette palette;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final locked = !tradition.unlocked;
+    // Alla persona si dice soltanto "In arrivo": la fase e' un dato di piano e
+    // resta nella sola vista Demo per gli investitori.
+    final fase =
+        AppFlags.isDemo && tradition.phase != null ? ', ${tradition.phase}' : '';
+    return GestureDetector(
+      key: Key('oroscopo_tradition_${tradition.name}'),
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.sm, vertical: 6),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+          // L'accento del Maestro solo su quella scelta e viva: le altre
+          // restano su una superficie sobria, comunque ben leggibile.
+          gradient: selected
+              ? LinearGradient(colors: [
+                  palette.primary.withValues(alpha: 0.85),
+                  palette.surfaceElevated.withValues(alpha: 0.85),
+                ])
+              : null,
+          color: selected
+              ? null
+              : palette.surfaceElevated.withValues(alpha: 0.35),
+          border: Border.all(
+            color: palette.gold.withValues(alpha: selected ? 0.6 : 0.25),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TraditionGlyph(
+              tradition: tradition,
+              color: palette.goldSoft.withValues(alpha: locked ? 0.7 : 1.0),
+              size: 22,
+            ),
+            const SizedBox(height: 3),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  tradition.label,
+                  style: TypographyTokens.label(size: 10).copyWith(
+                    color: selected
+                        ? palette.goldSoft
+                        : ColorTokens.textSecondary
+                            .withValues(alpha: locked ? 0.75 : 1.0),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                if (locked) ...[
+                  const SizedBox(width: 3),
+                  Icon(Icons.lock_rounded,
+                      key: Key('oroscopo_tradition_lock_${tradition.name}'),
+                      size: 10,
+                      color: palette.goldSoft.withValues(alpha: 0.65)),
+                ],
+              ],
+            ),
+            if (locked)
+              Text(
+                'In arrivo$fase',
+                key: Key('oroscopo_tradition_soon_${tradition.name}'),
+                style: TypographyTokens.label(size: 8).copyWith(
+                  color: palette.goldSoft.withValues(alpha: 0.6),
+                  letterSpacing: 0.3,
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Il micro messaggio del Maestro su una tradizione ancora chiusa.
+///
+/// Al posto del lucchetto muto risponde Medora in prima persona. Con Riduci
+/// Movimento compare gia' posato, e dalla seconda volta in poi anche.
+class _TraditionInvite extends StatelessWidget {
+  const _TraditionInvite({
+    required this.tradition,
+    required this.maestro,
+    required this.palette,
+    required this.animate,
+  });
+
+  final AstroTradition? tradition;
+  final Maestro maestro;
+  final MaestroPalette palette;
+  final bool animate;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = tradition;
+    if (t == null) return const SizedBox.shrink();
+    final immobile = MediaQuery.of(context).disableAnimations || !animate;
+    final riga = Container(
+      key: Key('tradition_invite_${t.name}'),
+      margin: const EdgeInsets.only(top: SpacingTokens.sm),
+      padding: const EdgeInsets.all(SpacingTokens.sm),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        color: palette.surfaceElevated.withValues(alpha: 0.5),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TraditionGlyph(tradition: t, color: palette.goldSoft, size: 20),
+          const SizedBox(width: SpacingTokens.sm),
+          Expanded(
+            child: Text(
+              t.invito,
+              style: TypographyTokens.body(size: 13).copyWith(
+                color: ColorTokens.textPrimary,
+                height: 1.35,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    if (immobile) return riga;
+    return TweenAnimationBuilder<double>(
+      key: ValueKey('tradition_invite_anim_${t.name}'),
+      tween: Tween<double>(begin: 0, end: 1),
+      duration: const Duration(milliseconds: 240),
+      curve: Curves.easeOutCubic,
+      builder: (context, v, child) => Opacity(
+        opacity: v,
+        child: Transform.translate(offset: Offset(0, (1 - v) * 8), child: child),
+      ),
+      child: riga,
     );
   }
 }
