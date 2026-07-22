@@ -20,6 +20,7 @@ import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/features/account/profile_screen.dart';
+import 'package:esoteric_circle/core/archetypes/archetype.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
@@ -454,6 +455,51 @@ void main() {
     // preview invece dell'icona di ripiego che sta dietro l'anello.
     await precacheFaces(tester);
     await capture(tester, rootKey, 'chiedi-ai-maestri.png');
+  });
+
+  // --- Il Test Archetipo di Aura: il responso, visivo prima del testo ---
+  testWidgets('Cattura il Test Archetipo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    selectCentral(tester, Maestro.aura);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    // Dal dominio di Aura si apre il Test Archetipo, che ora ha la sua
+    // esperienza vera e non piu' la soglia dell'arte.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('art_archetype_test')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('archetype_start')));
+    await step(tester);
+    // Le dodici risposte: sempre la quarta, che porta al Realista.
+    for (var i = 0; i < 12; i++) {
+      await tester.tap(find.byKey(const Key('archetype_answer_3')));
+      await step(tester);
+    }
+    // Le catture locali non decodificano gli asset da sole: si precarica la
+    // statua del dominante, altrimenti nell'anteprima resta il ripiego.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      await precacheImage(
+          AssetImage(Archetype.realista.artePiena), element);
+    });
+    await step(tester);
+    // Superficie alta, cosi' l'anteprima mostra la ruota, la statua e i testi.
+    tester.view.physicalSize = const Size(390, 2400);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'test-archetipo.png');
   });
 
   // --- La Meditazione di Aura: cimatica, respiro e suono generato a runtime ---
