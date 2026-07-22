@@ -21,6 +21,8 @@ import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/features/account/profile_screen.dart';
 import 'package:esoteric_circle/core/archetypes/archetype.dart';
+import 'package:esoteric_circle/core/archetypes/archetype_scoring.dart';
+import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_share_card.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
@@ -500,6 +502,98 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo.png');
+
+    // La statua nell'Ombra: al tocco sulla statua in cima si volta.
+    await tester.tap(
+        find.byKey(const Key('archetype_statue_realista')).first);
+    await step(tester);
+  });
+
+  testWidgets('Cattura la card del Test Archetipo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    tester.view.physicalSize = const Size(440, 700);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final rootKey = GlobalKey();
+    final profilo = ArchetypeScoring.calcola(List.filled(12, 3));
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        backgroundColor: const Color(0xFF03140F),
+        body: Center(
+          child: RepaintBoundary(
+            key: rootKey,
+            child: ArchetypeShareCard(profilo: profilo),
+          ),
+        ),
+      ),
+    ));
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      await precacheImage(
+          AssetImage(profilo.dominante.artePiena), element);
+    });
+    await step(tester);
+    await capture(tester, rootKey, 'test-archetipo-card.png');
+  });
+
+  testWidgets('Cattura la faccia archetipo nel Passport', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+
+    // Si fa davvero un test archetipo, cosi' lo storico si popola nella stessa
+    // istanza di memoria che poi legge la faccia del Passport: nessun seme che
+    // rischia di non sopravvivere al setup dei servizi.
+    selectCentral(tester, Maestro.aura);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('art_archetype_test')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('archetype_start')));
+    await step(tester);
+    for (var i = 0; i < 12; i++) {
+      await tester.tap(find.byKey(const Key('archetype_answer_3')));
+      await step(tester);
+    }
+    // Torna al Santuario: due passi indietro, dal test al dominio e dal
+    // dominio al Santuario, poi apre il Passport.
+    await tester.tap(find.byIcon(Icons.arrow_back_rounded).first);
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byIcon(Icons.arrow_back_rounded).first);
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.text('Passport'), warnIfMissed: false);
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      await precacheImage(
+          AssetImage(Archetype.realista.artePiena), element);
+    });
+    await step(tester);
+    tester.view.physicalSize = const Size(390, 2000);
+    await step(tester);
+    final face = find.byKey(const Key('passport_archetype_face'));
+    if (face.evaluate().isNotEmpty) {
+      await tester.ensureVisible(face);
+      await step(tester);
+    }
+    await capture(tester, rootKey, 'passport-archetipo.png');
   });
 
   // --- La Meditazione di Aura: cimatica, respiro e suono generato a runtime ---

@@ -9,23 +9,28 @@
 /// viene prima, quindi `Archetype.values` va letto come una graduatoria e non
 /// va riordinato senza sapere che si cambia il risultato dei pareggi.
 enum Archetype {
-  innocente('Innocente'),
-  esploratore('Esploratore'),
-  saggio('Saggio'),
-  eroe('Eroe'),
-  ribelle('Ribelle'),
-  mago('Mago'),
-  realista('Realista'),
-  amante('Amante'),
-  giullare('Giullare'),
-  custode('Custode'),
-  sovrano('Sovrano'),
-  creatore('Creatore');
+  innocente('Innocente', 'L\'Innocente'),
+  esploratore('Esploratore', 'L\'Esploratore'),
+  saggio('Saggio', 'Il Saggio'),
+  eroe('Eroe', 'L\'Eroe'),
+  ribelle('Ribelle', 'Il Ribelle'),
+  mago('Mago', 'Il Mago'),
+  realista('Realista', 'Il Realista'),
+  amante('Amante', 'L\'Amante'),
+  giullare('Giullare', 'Il Giullare'),
+  custode('Custode', 'Il Custode'),
+  sovrano('Sovrano', 'Il Sovrano'),
+  creatore('Creatore', 'Il Creatore');
 
-  const Archetype(this.nome);
+  const Archetype(this.nome, this.conArticolo);
 
   /// Il nome a video, con l'iniziale maiuscola.
   final String nome;
+
+  /// Il nome con l'articolo determinativo, elisione compresa: "Il Realista",
+  /// "L'Eroe". E' un dato per archetipo e non una regola calcolata, perche'
+  /// l'elisione italiana ha eccezioni che una regola generica sbaglierebbe.
+  final String conArticolo;
 
   /// Lo stem dell'arte nel bundle, senza cartella ne' estensione.
   ///

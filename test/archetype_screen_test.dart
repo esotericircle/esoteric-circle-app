@@ -12,9 +12,12 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
 import 'package:esoteric_circle/features/maestri/art_navigation.dart';
 import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_test_screen.dart';
+import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_share_card.dart';
 import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_wheel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -97,7 +100,7 @@ void main() {
     final atteso = ArchetypeScoring.calcola(List.filled(12, 3));
     expect(atteso.dominante, Archetype.realista);
     expect(tester.widget<Text>(find.byKey(const Key('archetype_name'))).data,
-        'Realista');
+        'IL REALISTA');
   });
 
   testWidgets('Il visivo viene prima del testo, e la ruota ha dodici raggi',
@@ -113,17 +116,24 @@ void main() {
     await passo(tester);
     await rispondiTutte(tester, 3);
 
+    final statua = find.byKey(const Key('archetype_statue_realista'));
     final ruota = find.byKey(const Key('archetype_wheel'));
     final nome = find.byKey(const Key('archetype_name'));
     final luce = find.byKey(const Key('archetype_luce'));
     expect(ruota, findsOneWidget);
-    // La ruota sta sopra il nome, il nome sopra il primo testo: e' la legge del
-    // livello visivo prima della parola.
+    // L'ordine e' statua, ruota, nome, primo testo: il visivo prima della
+    // parola, e la statua NON e' dentro la ruota ma sopra.
+    expect(tester.getCenter(statua.first).dy,
+        lessThan(tester.getCenter(ruota).dy));
     expect(tester.getCenter(ruota).dy, lessThan(tester.getCenter(nome).dy));
     expect(tester.getCenter(nome).dy, lessThan(tester.getCenter(luce).dy));
-
-    // La statua del dominante e' quella giusta, dalla famiglia bundlata.
-    expect(find.byKey(const Key('archetype_statue_realista')), findsWidgets);
+    // La ruota non contiene la statua.
+    expect(
+      find.descendant(
+          of: ruota,
+          matching: find.byKey(const Key('archetype_statue_realista'))),
+      findsNothing,
+    );
 
     // I dodici raggi sono i dodici archetipi: la ruota li disegna tutti.
     expect(Archetype.values.length, 12);
@@ -245,7 +255,7 @@ void main() {
     expect(find.byKey(const Key('archetype_start')), findsNothing);
     expect(find.byKey(const Key('archetype_blocked')), findsOneWidget);
     expect(find.byKey(const Key('archetype_last_saved')), findsOneWidget);
-    expect(find.text('Realista'), findsWidgets);
+    expect(find.text('Il Realista'), findsWidgets);
   });
 
   testWidgets('Alla seconda volta compare il confronto con la precedente',
@@ -304,5 +314,128 @@ void main() {
     // Deterministico sul giorno: l'ora non cambia l'esito.
     expect(ArchetypeSky.pianetiDelGiorno(DateTime(2026, 7, 22, 3)),
         ArchetypeSky.pianetiDelGiorno(DateTime(2026, 7, 22, 23)));
+  });
+
+  test('Ogni archetipo ha il nome con l\'articolo giusto', () {
+    expect(Archetype.innocente.conArticolo, 'L\'Innocente');
+    expect(Archetype.eroe.conArticolo, 'L\'Eroe');
+    expect(Archetype.amante.conArticolo, 'L\'Amante');
+    expect(Archetype.esploratore.conArticolo, 'L\'Esploratore');
+    expect(Archetype.realista.conArticolo, 'Il Realista');
+    expect(Archetype.saggio.conArticolo, 'Il Saggio');
+    expect(Archetype.sovrano.conArticolo, 'Il Sovrano');
+    // Tutti coprono l'elisione o l'articolo pieno, nessuno vuoto.
+    for (final a in Archetype.values) {
+      expect(a.conArticolo.endsWith(a.nome), isTrue, reason: a.name);
+    }
+  });
+
+  test('La Luce del corpus e\' il testo lungo arricchito', () {
+    for (final a in Archetype.values) {
+      expect(ArchetypeCorpus.di(a).luce.length, greaterThan(180),
+          reason: a.name);
+    }
+    expect(ArchetypeCorpus.di(Archetype.realista).luce,
+        contains('senza smettere di essere umano'));
+  });
+
+  testWidgets('La scelta del cielo sta sulla soglia, prima delle domande',
+      (tester) async {
+    await tester.pumpWidget(host());
+    await passo(tester);
+    // L'interruttore del cielo si vede prima di cominciare.
+    expect(find.byKey(const Key('archetype_sky_setting')), findsOneWidget);
+    expect(find.byKey(const Key('archetype_question')), findsNothing);
+  });
+
+  testWidgets('Sul responso l\'interruttore vivo rilegge col cielo',
+      (tester) async {
+    tester.view.physicalSize = const Size(430, 2200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host(pianeti: (_) => {Pianeta.marte, Pianeta.urano}));
+    await passo(tester);
+    await tester.tap(find.byKey(const Key('archetype_start')));
+    await passo(tester);
+    await rispondiTutte(tester, 3);
+
+    // Nasce senza cielo, e lo dichiara il sottotitolo.
+    expect(tester.widget<Text>(find.byKey(const Key('archetype_mode_subtitle'))).data,
+        'Senza il cielo di oggi');
+    final sw = find.byKey(const Key('archetype_transits_switch'));
+    await tester.ensureVisible(sw);
+    await tester.pump();
+    await tester.tap(sw);
+    await passo(tester);
+    // Ora rilegge col cielo, senza rifare il test.
+    expect(tester.widget<Text>(find.byKey(const Key('archetype_mode_subtitle'))).data,
+        'Con il cielo di oggi');
+    expect(find.byKey(const Key('archetype_transit_marte')), findsOneWidget);
+  });
+
+  testWidgets('Il pulsante Parlane con Aura e\' nel verde di Aura',
+      (tester) async {
+    tester.view.physicalSize = const Size(430, 2200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await tester.tap(find.byKey(const Key('archetype_start')));
+    await passo(tester);
+    await rispondiTutte(tester, 3);
+
+    final verde = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
+    final btn = tester.widget<FilledButton>(
+        find.byKey(const Key('archetype_consulta')));
+    final bg = btn.style!.backgroundColor!.resolve({});
+    expect(bg, verde.primary);
+    // Il verde di Aura non e' il viola neutro.
+    expect(bg, isNot(ColorTokens.neutralPrimary));
+  });
+
+  testWidgets('La statua si volta nell\'Ombra al tocco', (tester) async {
+    tester.view.physicalSize = const Size(430, 2200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await tester.tap(find.byKey(const Key('archetype_start')));
+    await passo(tester);
+    await rispondiTutte(tester, 3);
+
+    // In cima la statua piena; toccandola diventa la stessa in Ombra.
+    expect(find.byKey(const Key('archetype_statue_realista')), findsWidgets);
+    await tester.tap(find.byKey(const Key('archetype_statue_realista')).first);
+    await passo(tester);
+    // Ora in cima c'e' la versione in ombra (oltre a quella fissa della card Ombra).
+    expect(find.byKey(const Key('archetype_shadow_statue_realista')),
+        findsWidgets);
+  });
+
+  testWidgets('La card condivisibile si genera col dominante', (tester) async {
+    tester.view.physicalSize = const Size(500, 720);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(MaterialApp(
+      home: RepaintBoundary(
+        child: ArchetypeShareCard(
+            profilo: ArchetypeScoring.calcola(List.filled(12, 3))),
+      ),
+    ));
+    await tester.pump();
+    expect(find.byKey(const Key('archetype_share_card')), findsOneWidget);
+    expect(find.text('IL REALISTA'), findsOneWidget);
+    expect(find.text(ArchetypeCorpus.di(Archetype.realista).essenza),
+        findsOneWidget);
+    // La mini-ruota c'e' ma senza etichette.
+    final ruota = tester.widget<ArchetypeWheel>(find.byType(ArchetypeWheel));
+    expect(ruota.etichette, isFalse);
   });
 }

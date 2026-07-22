@@ -25,6 +25,8 @@ void main() {
     'dominio-caligo.png', // dominio di Caligo, stato di partenza
     'dominio-caligo-aperto.png', // dominio di Caligo coi gruppi aperti
     'test-archetipo.png', // Test Archetipo, il responso
+    'test-archetipo-card.png', // Test Archetipo, card condivisibile
+    'passport-archetipo.png', // faccia archetipo nel Passport
   ];
 
   test('Tutti i preview obbligatori esistono in docs/preview', () {

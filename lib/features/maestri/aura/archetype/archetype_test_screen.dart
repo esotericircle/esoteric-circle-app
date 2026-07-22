@@ -22,19 +22,21 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/app_services.dart';
 import '../../chat/maestro_chat_screen.dart';
+import 'archetype_share_card.dart';
 import 'archetype_wheel.dart';
 
 /// Il Test Archetipo, dominio Aura.
 ///
-/// Dodici domande una alla volta, poi il responso: prima la ruota e la statua,
-/// poi le parole. Il calcolo e' tutto nel cuore deterministico
-/// (`ArchetypeScoring`, `ArchetypeTransits`, `ArchetypeAllowance`), qui c'e'
-/// solo la messa in scena: nessuna AI, nessuna casualita'.
+/// Il calcolo e' tutto nel cuore deterministico (`ArchetypeScoring`,
+/// `ArchetypeTransits`, `ArchetypeAllowance`), qui c'e' solo la messa in scena:
+/// nessuna AI, nessuna casualita'. La schermata sta sul cosmo condiviso in
+/// parallasse, come i domini, e gli elementi si rivelano scorrendo.
 class ArchetypeTestScreen extends StatefulWidget {
   const ArchetypeTestScreen({
     super.key,
     this.clock,
     this.pianetiDelGiorno,
+    this.riapriUltimo = false,
   });
 
   /// Orologio iniettabile per i test.
@@ -44,15 +46,21 @@ class ArchetypeTestScreen extends StatefulWidget {
   /// vero, che oggi sa calcolare Sole e Luna.
   final Set<Pianeta> Function(DateTime)? pianetiDelGiorno;
 
+  /// Se aprire direttamente sull'ultimo responso salvato, invece che dalla
+  /// soglia: lo usa la faccia archetipo del Cosmic Passport.
+  final bool riapriUltimo;
+
   static Route<void> route({
     DateTime Function()? clock,
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
+    bool riapriUltimo = false,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
         child: ArchetypeTestScreen(
           clock: clock,
           pianetiDelGiorno: pianetiDelGiorno,
+          riapriUltimo: riapriUltimo,
         ),
       ),
     );
@@ -74,14 +82,27 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
 
   ArchetypeProfile? _profilo;
   ArchetypeEsito? _precedente;
-  bool _transiti = false;
+
+  /// La scelta col cielo di oggi: si fa PRIMA delle domande, come impostazione
+  /// del test, e poi si puo' ribaltare a vivo sul responso.
+  bool _conCielo = false;
   bool _pronto = false;
 
   @override
   void initState() {
     super.initState();
     _storico.carica().then((_) {
-      if (mounted) setState(() => _pronto = true);
+      if (!mounted) return;
+      if (widget.riapriUltimo && _storico.ultimo != null) {
+        setState(() {
+          _profilo = _storico.ultimo!.profilo;
+          _precedente = _storico.esiti.length > 1 ? _storico.esiti[1] : null;
+          _fase = _Fase.risultato;
+          _pronto = true;
+        });
+      } else {
+        setState(() => _pronto = true);
+      }
     });
   }
 
@@ -105,7 +126,6 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
       _scelte.clear();
       _indice = 0;
       _profilo = null;
-      _transiti = false;
       _fase = _Fase.domande;
     });
   }
@@ -140,6 +160,7 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
         backgroundColor: palette.deepest.withValues(alpha: 0.35),
         elevation: 0,
         scrolledUnderElevation: 0,
+        centerTitle: true,
         iconTheme: IconThemeData(color: palette.goldSoft),
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -158,6 +179,7 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
           ),
         ],
       ),
+      // Il cosmo condiviso in parallasse, non un fondale suo. Verde di Aura.
       body: CosmosBackground(
         showZodiac: false,
         child: SafeArea(
@@ -167,10 +189,11 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
                   _Fase.soglia => _Soglia(
                       palette: palette,
                       consentito: _consentito,
-                      tier: _tier,
                       rimanenti: ArchetypeAllowance.rimanenti(
                           fattiOggi: _storico.fattiOggi, tier: _tier),
                       ultimo: _storico.ultimo,
+                      conCielo: _conCielo,
+                      onCielo: (v) => setState(() => _conCielo = v),
                       onInizia: _inizia,
                     ),
                   _Fase.domande => _Domande(
@@ -183,9 +206,9 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
                       profilo: _profilo!,
                       precedente: _precedente,
                       storico: _storico,
-                      transiti: _transiti,
+                      conCielo: _conCielo,
                       pianeti: _pianeti,
-                      onTransiti: (v) => setState(() => _transiti = v),
+                      onCielo: (v) => setState(() => _conCielo = v),
                     ),
                 },
         ),
@@ -242,22 +265,25 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
   }
 }
 
-/// La soglia: si entra da qui, e da qui si vede se oggi il test e' consentito.
+/// La soglia: si entra da qui, si sceglie il cielo di oggi PRIMA di iniziare, e
+/// da qui si vede se il test e' consentito.
 class _Soglia extends StatelessWidget {
   const _Soglia({
     required this.palette,
     required this.consentito,
-    required this.tier,
     required this.rimanenti,
     required this.ultimo,
+    required this.conCielo,
+    required this.onCielo,
     required this.onInizia,
   });
 
   final MaestroPalette palette;
   final bool consentito;
-  final Tier tier;
   final int? rimanenti;
   final ArchetypeEsito? ultimo;
+  final bool conCielo;
+  final ValueChanged<bool> onCielo;
   final VoidCallback onInizia;
 
   @override
@@ -278,25 +304,45 @@ class _Soglia extends StatelessWidget {
             style: TypographyTokens.body(size: 16)
                 .copyWith(color: ColorTokens.textPrimary, height: 1.5),
           ),
-          const SizedBox(height: SpacingTokens.xl),
+          const SizedBox(height: SpacingTokens.lg),
+          // La scelta del cielo, PRIMA delle domande, come impostazione del test.
+          DepthCard(
+            padding: const EdgeInsets.symmetric(
+                horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
+            child: SwitchListTile(
+              key: const Key('archetype_sky_setting'),
+              value: conCielo,
+              onChanged: onCielo,
+              contentPadding: EdgeInsets.zero,
+              activeThumbColor: palette.goldSoft,
+              title: Text('Lega al cielo di oggi',
+                  style: TypographyTokens.display(size: 16)
+                      .copyWith(color: ColorTokens.textPrimary)),
+              subtitle: Text(
+                  'I transiti del giorno si accostano al tuo profilo, come '
+                  'sincronicità.',
+                  style: TypographyTokens.body(size: 13)
+                      .copyWith(color: ColorTokens.textSecondary)),
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.lg),
           if (consentito)
             FilledButton.icon(
               key: const Key('archetype_start'),
+              style: FilledButton.styleFrom(
+                  backgroundColor: palette.primary,
+                  foregroundColor: palette.onPrimary),
               onPressed: onInizia,
               icon: const Icon(Icons.play_arrow_rounded),
               label: const Text('Comincia'),
             )
           else
-            _Bloccato(palette: palette, tier: tier, ultimo: ultimo),
+            _Bloccato(palette: palette, ultimo: ultimo),
           if (consentito && rimanenti != null) ...[
             const SizedBox(height: SpacingTokens.sm),
-            Text(
-              rimanenti == 1
-                  ? 'Ne hai uno oggi.'
-                  : 'Ne hai $rimanenti oggi.',
-              style: TypographyTokens.label(size: 12)
-                  .copyWith(color: ColorTokens.textSecondary),
-            ),
+            Text(rimanenti == 1 ? 'Ne hai uno oggi.' : 'Ne hai $rimanenti oggi.',
+                style: TypographyTokens.label(size: 12)
+                    .copyWith(color: ColorTokens.textSecondary)),
           ],
         ],
       ),
@@ -306,11 +352,9 @@ class _Soglia extends StatelessWidget {
 
 /// Limite raggiunto: mai un vicolo cieco, si mostra l'ultimo esito salvato.
 class _Bloccato extends StatelessWidget {
-  const _Bloccato(
-      {required this.palette, required this.tier, required this.ultimo});
+  const _Bloccato({required this.palette, required this.ultimo});
 
   final MaestroPalette palette;
-  final Tier tier;
   final ArchetypeEsito? ultimo;
 
   @override
@@ -335,8 +379,8 @@ class _Bloccato extends StatelessWidget {
         if (ultimo != null) ...[
           const SizedBox(height: SpacingTokens.lg),
           Text('Il tuo ultimo responso',
-              style: TypographyTokens.label(size: 12).copyWith(
-                  color: palette.goldSoft, letterSpacing: 0.6)),
+              style: TypographyTokens.label(size: 12)
+                  .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: SpacingTokens.sm),
           DepthCard(
             key: const Key('archetype_last_saved'),
@@ -350,7 +394,7 @@ class _Bloccato extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(ultimo!.dominante.nome,
+                      Text(ultimo!.dominante.conArticolo,
                           style: TypographyTokens.display(size: 20)
                               .copyWith(color: palette.goldSoft)),
                       const SizedBox(height: 2),
@@ -393,8 +437,8 @@ class _Domande extends StatelessWidget {
           const SizedBox(height: SpacingTokens.lg),
           Text('${indice + 1} di $quante',
               key: const Key('archetype_progress'),
-              style: TypographyTokens.label(size: 12).copyWith(
-                  color: palette.goldSoft, letterSpacing: 1.0)),
+              style: TypographyTokens.label(size: 12)
+                  .copyWith(color: palette.goldSoft, letterSpacing: 1.0)),
           const SizedBox(height: SpacingTokens.xs),
           ClipRRect(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
@@ -411,8 +455,8 @@ class _Domande extends StatelessWidget {
               style: TypographyTokens.display(size: 22)
                   .copyWith(color: ColorTokens.textPrimary, height: 1.3)),
           const SizedBox(height: SpacingTokens.lg),
-          // Solo il testo della risposta: l'etichetta archetipo non si vede
-          // mai, perche' vederla cambierebbe la scelta.
+          // Solo il testo della risposta: l'etichetta archetipo non si vede mai,
+          // perche' vederla cambierebbe la scelta.
           for (var i = 0; i < d.risposte.length; i++) ...[
             if (i > 0) const SizedBox(height: SpacingTokens.sm),
             DepthCard(
@@ -440,8 +484,8 @@ class _Domande extends StatelessWidget {
 /// La statua dell'archetipo, dalla famiglia gia' bundlata.
 ///
 /// Con [ombra] vera e' la STESSA statua trattata: patina scurita e virata al
-/// freddo, con un velo di eclissi. Non e' un'immagine nuova, perche' l'Ombra
-/// non e' un personaggio nuovo ma lo stesso archetipo nel suo lato distorto.
+/// freddo. Non e' un'immagine nuova, perche' l'Ombra non e' un personaggio
+/// nuovo ma lo stesso archetipo nel suo lato distorto.
 class _Statua extends StatelessWidget {
   const _Statua({
     required this.archetipo,
@@ -475,8 +519,6 @@ class _Statua extends StatelessWidget {
       key: Key('archetype_shadow_statue_${archetipo.name}'),
       height: lato,
       child: ColorFiltered(
-        // Matrice deterministica: si abbassa la luce e si spegne il caldo,
-        // cosi' il bronzo diventa una patina scura. Nessun asset in piu'.
         colorFilter: const ColorFilter.matrix(<double>[
           0.30, 0.10, 0.10, 0, -14,
           0.10, 0.28, 0.12, 0, -14,
@@ -489,25 +531,26 @@ class _Statua extends StatelessWidget {
   }
 }
 
-/// Il responso: prima la ruota e la statua, poi le parole.
+/// Il responso. L'ordine dall'alto: titolo di modalita', statua, ruota, nome,
+/// essenza, Luce, Ombra, Amore, Lavoro. Il visivo prima del testo.
 class _Risultato extends StatefulWidget {
   const _Risultato({
     required this.palette,
     required this.profilo,
     required this.precedente,
     required this.storico,
-    required this.transiti,
+    required this.conCielo,
     required this.pianeti,
-    required this.onTransiti,
+    required this.onCielo,
   });
 
   final MaestroPalette palette;
   final ArchetypeProfile profilo;
   final ArchetypeEsito? precedente;
   final ArchetypeHistory storico;
-  final bool transiti;
+  final bool conCielo;
   final Set<Pianeta> pianeti;
-  final ValueChanged<bool> onTransiti;
+  final ValueChanged<bool> onCielo;
 
   @override
   State<_Risultato> createState() => _RisultatoState();
@@ -520,6 +563,13 @@ class _RisultatoState extends State<_Risultato>
     duration: const Duration(milliseconds: 900),
   );
 
+  final GlobalKey _cardBoundary = GlobalKey();
+
+  /// La statua voltata nella sua Ombra al tocco, come rivelazione tattile.
+  bool _statuaVoltata = false;
+  bool _condividendo = false;
+  bool _renderCard = false;
+
   @override
   void dispose() {
     _disegno.dispose();
@@ -529,8 +579,6 @@ class _RisultatoState extends State<_Risultato>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Il profilo si disegna una volta sola. Con Riduci Movimento o Quality Tier
-    // basso e' gia' tutto in posizione, senza animazione.
     if (ScrollReveal.motionOff(context)) {
       _disegno.value = 1.0;
     } else if (!_disegno.isAnimating && _disegno.value == 0) {
@@ -538,9 +586,24 @@ class _RisultatoState extends State<_Risultato>
     }
   }
 
-  ArchetypeModulazione? get _modulazione => widget.transiti
+  ArchetypeModulazione? get _modulazione => widget.conCielo
       ? ArchetypeTransits.applica(widget.profilo, widget.pianeti)
       : null;
+
+  Future<void> _condividi(ArchetypeProfile profilo) async {
+    setState(() {
+      _condividendo = true;
+      _renderCard = true;
+    });
+    try {
+      await WidgetsBinding.instance.endOfFrame;
+      await Future<void>.delayed(const Duration(milliseconds: 80));
+      await shareArchetypeCard(
+          boundaryKey: _cardBoundary, dominante: profilo.dominante);
+    } finally {
+      if (mounted) setState(() => _condividendo = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -550,141 +613,222 @@ class _RisultatoState extends State<_Risultato>
     final dom = mostrato.dominante;
     final ritratto = ArchetypeCorpus.di(dom);
 
-    return SingleChildScrollView(
-      key: const Key('archetype_result'),
-      padding: const EdgeInsets.all(SpacingTokens.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // IL VISIVO PRIMA DEL TESTO: la ruota e la statua, poi il nome.
-          Center(
-            child: AnimatedBuilder(
-              animation: _disegno,
-              builder: (context, _) => Stack(
-                alignment: Alignment.center,
-                children: [
-                  ArchetypeWheel(
-                    profilo: mostrato,
-                    palette: palette,
-                    avanzamento: _disegno.value,
-                    lato: 320,
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          key: const Key('archetype_result'),
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Il sottotitolo che dichiara la modalita'.
+              Center(
+                child: Text(
+                  widget.conCielo ? 'Con il cielo di oggi' : 'Senza il cielo di oggi',
+                  key: const Key('archetype_mode_subtitle'),
+                  style: TypographyTokens.label(size: 12).copyWith(
+                      color: palette.goldSoft, letterSpacing: 1.0),
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.md),
+
+              // LA STATUA, sopra la ruota. Al tocco si volta nell'Ombra.
+              ScrollReveal(
+                child: Center(
+                  child: GestureDetector(
+                    onTap: () =>
+                        setState(() => _statuaVoltata = !_statuaVoltata),
+                    child: _Statua(
+                      archetipo: dom,
+                      lato: 180,
+                      palette: palette,
+                      ombra: _statuaVoltata,
+                    ),
                   ),
-                  _Statua(archetipo: dom, lato: 150, palette: palette),
-                ],
+                ),
               ),
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          Center(
-            child: Text(dom.nome,
-                key: const Key('archetype_name'),
-                style: TypographyTokens.display(size: 30)
-                    .copyWith(color: palette.goldSoft)),
-          ),
-          Center(
-            child: Text(ritratto.essenza,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 16).copyWith(
-                    color: ColorTokens.textSecondary,
-                    fontStyle: FontStyle.italic)),
-          ),
-          if (mostrato.secondo != null) ...[
-            const SizedBox(height: SpacingTokens.sm),
-            Center(
-              child: Text(
-                'Accanto a lui, in tono minore, ${mostrato.secondo!.nome}.',
-                key: const Key('archetype_second'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 14)
-                    .copyWith(color: ColorTokens.textSecondary),
+
+              // LA RUOTA, senza statua dentro.
+              ScrollReveal(
+                child: Center(
+                  child: AnimatedBuilder(
+                    animation: _disegno,
+                    builder: (context, _) => ArchetypeWheel(
+                      profilo: mostrato,
+                      palette: palette,
+                      avanzamento: _disegno.value,
+                      lato: 340,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ],
-          const SizedBox(height: SpacingTokens.lg),
+              const SizedBox(height: SpacingTokens.md),
 
-          _Paragrafo(
-            chiave: 'archetype_luce',
-            titolo: 'La sua luce',
-            testo: ritratto.luce,
-            palette: palette,
-          ),
+              // IL NOME con l'articolo, poi l'essenza, poi il co-dominante.
+              Center(
+                child: Text(dom.conArticolo.toUpperCase(),
+                    key: const Key('archetype_name'),
+                    style: TypographyTokens.display(size: 30)
+                        .copyWith(color: palette.goldSoft)),
+              ),
+              Center(
+                child: Text(ritratto.essenza,
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.body(size: 16).copyWith(
+                        color: ColorTokens.textSecondary,
+                        fontStyle: FontStyle.italic)),
+              ),
+              if (mostrato.secondo != null) ...[
+                const SizedBox(height: SpacingTokens.xs),
+                Center(
+                  child: Text('Accanto, in tono minore, ${mostrato.secondo!.conArticolo}.',
+                      key: const Key('archetype_second'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.body(size: 14)
+                          .copyWith(color: ColorTokens.textSecondary)),
+                ),
+              ],
+              const SizedBox(height: SpacingTokens.lg),
 
-          // L'Ombra: la stessa statua, trattata.
-          const SizedBox(height: SpacingTokens.md),
-          DepthCard(
-            key: const Key('archetype_ombra'),
-            padding: const EdgeInsets.all(SpacingTokens.md),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _Statua(
-                    archetipo: dom, lato: 110, palette: palette, ombra: true),
-                const SizedBox(width: SpacingTokens.md),
-                Expanded(
+              // LA LUCE, testo lungo in una bolla.
+              ScrollReveal(
+                depth: 1,
+                child: DepthCard(
+                  key: const Key('archetype_luce'),
+                  raised: true,
+                  padding: const EdgeInsets.all(SpacingTokens.md),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('La sua ombra',
+                      Text('La sua luce',
                           style: TypographyTokens.label(size: 12).copyWith(
                               color: palette.goldSoft, letterSpacing: 0.6)),
                       const SizedBox(height: SpacingTokens.xs),
-                      Text(ritratto.ombra,
-                          style: TypographyTokens.body(size: 15).copyWith(
-                              color: ColorTokens.textPrimary, height: 1.45)),
+                      Text(ritratto.luce,
+                          style: TypographyTokens.body(size: 16).copyWith(
+                              color: ColorTokens.textPrimary, height: 1.55)),
                     ],
                   ),
                 ),
+              ),
+
+              // L'OMBRA, la stessa statua trattata.
+              const SizedBox(height: SpacingTokens.md),
+              ScrollReveal(
+                depth: 1,
+                child: DepthCard(
+                  key: const Key('archetype_ombra'),
+                  padding: const EdgeInsets.all(SpacingTokens.md),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _Statua(
+                          archetipo: dom,
+                          lato: 110,
+                          palette: palette,
+                          ombra: true),
+                      const SizedBox(width: SpacingTokens.md),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('La sua ombra',
+                                style: TypographyTokens.label(size: 12).copyWith(
+                                    color: palette.goldSoft, letterSpacing: 0.6)),
+                            const SizedBox(height: SpacingTokens.xs),
+                            Text(ritratto.ombra,
+                                style: TypographyTokens.body(size: 15).copyWith(
+                                    color: ColorTokens.textPrimary, height: 1.45)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: SpacingTokens.md),
+              ScrollReveal(
+                depth: 1,
+                child: _Paragrafo(
+                  chiave: 'archetype_amore',
+                  titolo: 'In amore',
+                  testo: ritratto.amore,
+                  palette: palette,
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.md),
+              ScrollReveal(
+                depth: 1,
+                child: _Paragrafo(
+                  chiave: 'archetype_lavoro',
+                  titolo: 'Nel lavoro',
+                  testo: ritratto.lavoro,
+                  palette: palette,
+                ),
+              ),
+
+              const SizedBox(height: SpacingTokens.lg),
+              // L'interruttore vivo: rilegge il profilo col cielo o senza, senza
+              // rifare il test, perche' la modulazione e' deterministica.
+              _Transiti(
+                palette: palette,
+                acceso: widget.conCielo,
+                onCambia: widget.onCielo,
+                modulazione: mod,
+              ),
+
+              if (widget.precedente != null) ...[
+                const SizedBox(height: SpacingTokens.lg),
+                _Confronto(
+                  palette: palette,
+                  storico: widget.storico,
+                  precedente: widget.precedente!,
+                  adesso: widget.profilo,
+                ),
               ],
+
+              const SizedBox(height: SpacingTokens.lg),
+              OutlinedButton.icon(
+                key: const Key('archetype_share'),
+                style: OutlinedButton.styleFrom(
+                    foregroundColor: palette.goldSoft,
+                    side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
+                onPressed:
+                    _condividendo ? null : () => _condividi(mostrato),
+                icon: const Icon(Icons.ios_share_rounded),
+                label: const Text('Condividi'),
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              // Il pulsante alla Consulta, nel VERDE di Aura.
+              FilledButton.icon(
+                key: const Key('archetype_consulta'),
+                style: FilledButton.styleFrom(
+                    backgroundColor: palette.primary,
+                    foregroundColor: palette.onPrimary),
+                onPressed: () {
+                  final services = context.read<AppServices>();
+                  Navigator.of(context).push(MaestroChatScreen.route(
+                      maestro: Maestro.aura, services: services));
+                },
+                icon: const Icon(Icons.forum_outlined),
+                label: const Text('Parlane con Aura'),
+              ),
+              const SizedBox(height: SpacingTokens.xxxl),
+            ],
+          ),
+        ),
+        // La card da condividere, fuori campo: si renderizza solo al bisogno.
+        if (_renderCard)
+          Positioned(
+            left: -3000,
+            top: 0,
+            child: RepaintBoundary(
+              key: _cardBoundary,
+              child: ArchetypeShareCard(profilo: mostrato),
             ),
           ),
-
-          const SizedBox(height: SpacingTokens.md),
-          _Paragrafo(
-            chiave: 'archetype_amore',
-            titolo: 'In amore',
-            testo: ritratto.amore,
-            palette: palette,
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          _Paragrafo(
-            chiave: 'archetype_lavoro',
-            titolo: 'Nel lavoro',
-            testo: ritratto.lavoro,
-            palette: palette,
-          ),
-
-          const SizedBox(height: SpacingTokens.lg),
-          _Transiti(
-            palette: palette,
-            acceso: widget.transiti,
-            onCambia: widget.onTransiti,
-            modulazione: mod,
-          ),
-
-          if (widget.precedente != null) ...[
-            const SizedBox(height: SpacingTokens.lg),
-            _Confronto(
-              palette: palette,
-              storico: widget.storico,
-              precedente: widget.precedente!,
-              adesso: widget.profilo,
-            ),
-          ],
-
-          const SizedBox(height: SpacingTokens.lg),
-          FilledButton.icon(
-            key: const Key('archetype_consulta'),
-            onPressed: () {
-              final services = context.read<AppServices>();
-              Navigator.of(context).push(MaestroChatScreen.route(
-                  maestro: Maestro.aura, services: services));
-            },
-            icon: const Icon(Icons.forum_outlined),
-            label: const Text('Parlane con Aura'),
-          ),
-          const SizedBox(height: SpacingTokens.xxxl),
-        ],
-      ),
+      ],
     );
   }
 }
@@ -720,7 +864,7 @@ class _Paragrafo extends StatelessWidget {
   }
 }
 
-/// L'interruttore dei transiti, spento di partenza.
+/// L'interruttore vivo dei transiti, sul responso.
 class _Transiti extends StatelessWidget {
   const _Transiti({
     required this.palette,
@@ -761,7 +905,7 @@ class _Transiti extends StatelessWidget {
                   height: 1.4,
                   fontStyle: FontStyle.italic)),
           const SizedBox(height: SpacingTokens.sm),
-          for (final r in mod.motivazioni) ...[
+          for (final r in mod.motivazioni)
             Padding(
               key: Key('archetype_transit_${r.pianeta.name}'),
               padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
@@ -778,7 +922,6 @@ class _Transiti extends StatelessWidget {
                 ],
               ),
             ),
-          ],
         ],
       ],
     );
@@ -830,8 +973,8 @@ class _Confronto extends StatelessWidget {
                     _Statua(archetipo: e.dominante, lato: 44, palette: palette),
                     const SizedBox(height: 2),
                     Text('${e.quando.day}/${e.quando.month}',
-                        style: TypographyTokens.label(size: 10).copyWith(
-                            color: ColorTokens.textSecondary)),
+                        style: TypographyTokens.label(size: 10)
+                            .copyWith(color: ColorTokens.textSecondary)),
                   ],
                 );
               },
