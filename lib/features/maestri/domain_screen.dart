@@ -6,6 +6,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import 'maestro_screen.dart';
+import 'widgets/domain_pillars.dart';
 
 /// Il dominio di un Maestro, come route spinta sopra il Santuario.
 ///
@@ -45,8 +46,19 @@ class DomainScreen extends StatelessWidget {
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text(maestro.displayName,
-            style: TypographyTokens.display(size: 20)),
+        // Il nome del Maestro e, come seconda riga, i tre pilastri del suo
+        // dominio: si sa di che cosa e' fatto prima ancora di scorrere.
+        toolbarHeight: 74,
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(maestro.displayName,
+                style: TypographyTokens.display(size: 20)),
+            const SizedBox(height: 2),
+            DomainPillars(maestro: maestro),
+          ],
+        ),
       ),
       // Cosmo senza costellazioni anche qui: superficie calma, nessun
       // rettangolo a portale dietro l'header.

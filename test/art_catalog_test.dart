@@ -1,5 +1,6 @@
 import 'package:esoteric_circle/core/arts/art_catalog.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
@@ -10,6 +11,7 @@ import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/santuario/function_shelf.dart';
 import 'package:esoteric_circle/design_system/components/art_card.dart';
@@ -17,7 +19,10 @@ import 'package:esoteric_circle/design_system/components/scroll_reveal.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/art_navigation.dart';
+import 'package:esoteric_circle/features/maestri/domain_screen.dart';
 import 'package:esoteric_circle/features/maestri/maestro_screen.dart';
+import 'package:esoteric_circle/features/maestri/widgets/domain_pillars.dart';
+import 'package:esoteric_circle/features/maestri/widgets/maestro_presence.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -189,6 +194,39 @@ void main() {
         expect(ArtCatalog.isVisible(find(id), demo: true), isTrue, reason: id);
         expect(ArtCatalog.all.map((a) => a.id), contains(id));
       }
+      // L'esenzione toglie di mezzo la soglia: e' quel che vale dentro una
+      // sottocategoria dove non c'e' ancora nulla di vivo.
+      expect(
+        ArtCatalog.isVisible(find('fertility_windows'),
+            demo: false, esente: true),
+        isTrue,
+      );
+    });
+
+    test('Una sottocategoria tutta in cammino si mostra intera', () {
+      List<String> arti(String titolo, bool demo) => ArtCatalog.visibleArts(
+            ArtCatalog.forMaestro(Maestro.medora)
+                .firstWhere((s) => s.title == titolo),
+            demo: demo,
+          ).map((a) => a.id).toList();
+
+      // Lunologia non ha nulla di vivo: sta chiusa dietro un tocco, quindi si
+      // mostra intera anche alla persona, fasi lontane comprese.
+      const tutta = [
+        'lunology',
+        'fertility_windows',
+        'lunar_affinity',
+        'lunar_calendar',
+      ];
+      expect(arti('Lunologia', true), tutta);
+      expect(arti('Lunologia', false), tutta);
+      expect(arti('Destino', false), ['guardian_angel', 'karmic_reading']);
+
+      // Astrologia e Cartomanzia hanno del vivo: li' la soglia vale ancora.
+      expect(arti('Astrologia', false), isNot(contains('astrocartography')));
+      expect(arti('Astrologia', false),
+          isNot(contains('friends_compatibility')));
+      expect(arti('Cartomanzia', false), isNot(contains('angel_cards')));
     });
 
     test('Le sottocategorie visibili cambiano col punto di vista', () {
@@ -198,8 +236,9 @@ void main() {
           };
       expect(conta(true),
           {'Astrologia': 8, 'Cartomanzia': 3, 'Lunologia': 4, 'Destino': 2});
+      // Solo le miste si accorciano: le tutte in cammino restano intere.
       expect(conta(false),
-          {'Astrologia': 6, 'Cartomanzia': 2, 'Lunologia': 2, 'Destino': 2});
+          {'Astrologia': 6, 'Cartomanzia': 2, 'Lunologia': 4, 'Destino': 2});
       // Nessuna sottocategoria vuota arriva a video.
       for (final m in Maestro.values) {
         for (final demo in const [true, false]) {
@@ -403,41 +442,71 @@ void main() {
       }
     });
 
-    testWidgets('Il tocco su un pilastro apre la sua sottocategoria',
-        (tester) async {
-      await tester.pumpWidget(domain(Maestro.medora));
-      await tester.pump();
-
-      // I pilastri sono i tre del Maestro, non le sottocategorie: la Lunologia
-      // e' una specializzazione e non ne ha uno.
-      expect(find.byKey(const Key('domain_pillars')), findsOneWidget);
-      for (final p in const ['astrologia', 'cartomanzia', 'destino']) {
-        expect(find.byKey(Key('domain_pillar_$p')), findsOneWidget);
-      }
-      expect(find.byKey(const Key('domain_pillar_lunologia')), findsNothing);
-
-      // Destino e' chiusa: il tocco del pilastro la apre e ce la porta sotto.
-      expect(find.byKey(const Key('art_guardian_angel')), findsNothing);
-      await tocca(tester, const Key('domain_pillar_destino'));
-      for (var i = 0; i < 12; i++) {
-        await tester.pump(const Duration(milliseconds: 120));
-      }
-      expect(find.byKey(const Key('art_guardian_angel')), findsOneWidget);
-    });
-
-    testWidgets('Ogni Maestro ha i suoi tre pilastri, nessuno cablato',
+    testWidgets('I pilastri sono un sottotitolo, non un comando',
         (tester) async {
       for (final m in Maestro.values) {
-        await tester.pumpWidget(domain(m));
+        await tester.pumpWidget(ChangeNotifierProvider(
+          create: (_) => MaestroController(),
+          child: MaterialApp(
+            home: MaestroScope(
+              child: Scaffold(body: Center(child: DomainPillars(maestro: m))),
+            ),
+          ),
+        ));
         await tester.pump();
-        for (final nome in m.domainArts.split(',')) {
+        final riga = find.byKey(const Key('domain_pillars'));
+        expect(riga, findsOneWidget);
+        // I tre pilastri del Maestro, separati dal punto mediano.
+        expect(tester.widget<Text>(riga).data,
+            m.domainArts.split(',').map((s) => s.trim()).join(' · '));
+        // Nessun comando dentro: e' testo e basta.
+        for (final tipo in [InkWell, GestureDetector, TextButton]) {
           expect(
-            find.byKey(Key('domain_pillar_${nome.trim().toLowerCase()}')),
-            findsOneWidget,
-            reason: 'manca il pilastro ${nome.trim()} di ${m.displayName}',
+            find.descendant(of: riga, matching: find.byType(tipo)),
+            findsNothing,
+            reason: '${m.displayName}: i pilastri non si toccano',
           );
         }
       }
+    });
+
+    testWidgets('I pilastri stanno sotto il nome, in cima alla schermata',
+        (tester) async {
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+          ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(
+            create: (ctx) =>
+                FeatureFlagService(entitlement: ctx.read<EntitlementService>())
+                  ..initialize(),
+          ),
+        ],
+        child: const MaterialApp(
+          home: MaestroScope(child: DomainScreen(maestro: Maestro.medora)),
+        ),
+      ));
+      await tester.pump();
+
+      // Dentro la barra in cima: il nome, e sotto di lui i pilastri.
+      final barra = find.byType(AppBar);
+      expect(
+        find.descendant(of: barra, matching: find.text('Medora')),
+        findsOneWidget,
+      );
+      final pilastri = find.descendant(
+          of: barra, matching: find.byKey(const Key('domain_pillars')));
+      expect(pilastri, findsOneWidget);
+      expect(tester.getCenter(pilastri).dy,
+          greaterThan(tester.getCenter(find.text('Medora')).dy));
+      // E sopra l'immagine dell'eroe.
+      expect(tester.getBottomLeft(pilastri).dy,
+          lessThan(tester.getTopLeft(find.byType(MaestroPresence)).dy));
     });
 
     testWidgets('Consulta e\' una voce sola, e non c\'e\' piu\' Parla con',

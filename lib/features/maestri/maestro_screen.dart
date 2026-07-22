@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,11 +54,6 @@ class MaestroScreen extends StatefulWidget {
 }
 
 class _MaestroScreenState extends State<MaestroScreen> {
-  final ScrollController _scroll = ScrollController();
-
-  /// Una chiave per sottocategoria, per poterci scorrere sopra dal pilastro.
-  final Map<String, GlobalKey> _keys = {};
-
   /// Se il corpo della sottocategoria e' aperto. Una sottocategoria con almeno
   /// un'arte viva nasce aperta, una tutta in cammino nasce chiusa.
   final Map<String, bool> _open = {};
@@ -76,45 +69,8 @@ class _MaestroScreenState extends State<MaestroScreen> {
   void initState() {
     super.initState();
     for (final s in _sections) {
-      _keys[s.title] = GlobalKey();
       _open[s.title] = ArtCatalog.hasActive(s);
       _soon[s.title] = false;
-    }
-  }
-
-  @override
-  void dispose() {
-    _scroll.dispose();
-    super.dispose();
-  }
-
-  /// Porta la sottocategoria sotto gli occhi e la apre se era chiusa.
-  ///
-  /// La lista e' pigra, quindi una sottocategoria lontana puo' non essere
-  /// ancora costruita e non avere un contesto su cui puntare: in quel caso si
-  /// avanza di una finestra e si riprova, invece di non fare nulla.
-  Future<void> _goToSection(String title) async {
-    if (_open[title] == false) setState(() => _open[title] = true);
-    // Fuori da un build non ci si puo' iscrivere ai cambi: qui basta leggere.
-    final immobile = ScrollReveal.motionOff(context, listen: false);
-    for (var tentativo = 0; tentativo < 6; tentativo++) {
-      await WidgetsBinding.instance.endOfFrame;
-      if (!mounted) return;
-      final ctx = _keys[title]?.currentContext;
-      if (ctx != null && ctx.mounted) {
-        await Scrollable.ensureVisible(
-          ctx,
-          alignment: 0.06,
-          duration: immobile ? Duration.zero : const Duration(milliseconds: 420),
-          curve: Curves.easeOutCubic,
-        );
-        return;
-      }
-      if (!_scroll.hasClients) return;
-      final pos = _scroll.position;
-      if (pos.pixels >= pos.maxScrollExtent) return;
-      pos.jumpTo(math.min(
-          pos.pixels + pos.viewportDimension * 0.9, pos.maxScrollExtent));
     }
   }
 
@@ -125,7 +81,6 @@ class _MaestroScreenState extends State<MaestroScreen> {
     return SafeArea(
       bottom: false,
       child: CustomScrollView(
-        controller: _scroll,
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
@@ -138,17 +93,10 @@ class _MaestroScreenState extends State<MaestroScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // In cima la presenza del Maestro: il nome e' gia' nella barra
-                  // e nell'immagine, quindi nessuna carta identitaria ridondante.
+                  // In cima la presenza del Maestro: il nome e i tre pilastri
+                  // del dominio stanno gia' nella barra, quindi qui nessuna
+                  // carta identitaria ridondante.
                   MaestroPresence(maestro: widget.maestro, height: 250),
-                  const SizedBox(height: SpacingTokens.sm),
-                  // Sotto la presenza, i tre pilastri del dominio come parole
-                  // toccabili: sono la mappa del Maestro in una riga sola.
-                  _PillarsRow(
-                    maestro: widget.maestro,
-                    sections: sections,
-                    onTap: _goToSection,
-                  ),
                   const SizedBox(height: SpacingTokens.md),
                   // Poi il titolo del dominio, poi l'azione principale.
                   SectionTitle(
@@ -177,7 +125,6 @@ class _MaestroScreenState extends State<MaestroScreen> {
               itemBuilder: (context, i) {
                 final s = sections[i];
                 return _ArtSectionBox(
-                  key: _keys[s.title],
                   maestro: widget.maestro,
                   section: s,
                   demo: widget.demo,
@@ -205,68 +152,6 @@ class _MaestroScreenState extends State<MaestroScreen> {
   }
 }
 
-/// I tre pilastri del dominio sotto la presenza del Maestro.
-///
-/// Sono le tre arti principali dichiarate dal Maestro stesso
-/// (`Maestro.domainArts`), non un elenco scritto a mano: per Medora Astrologia,
-/// Cartomanzia e Destino, per Aura e Caligo i loro. Al tocco la schermata
-/// scorre alla sottocategoria e la apre se era chiusa. Le specializzazioni, per
-/// esempio la Lunologia che e' un ramo del cielo, non hanno un pilastro proprio
-/// e si raggiungono scorrendo.
-class _PillarsRow extends StatelessWidget {
-  const _PillarsRow({
-    required this.maestro,
-    required this.sections,
-    required this.onTap,
-  });
-
-  final Maestro maestro;
-  final List<ArtSection> sections;
-  final ValueChanged<String> onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    final titoli = sections.map((s) => s.title).toSet();
-    final pilastri = [
-      for (final nome in maestro.domainArts.split(','))
-        if (titoli.contains(nome.trim())) nome.trim(),
-    ];
-    if (pilastri.isEmpty) return const SizedBox.shrink();
-
-    return Wrap(
-      key: const Key('domain_pillars'),
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        for (var i = 0; i < pilastri.length; i++) ...[
-          if (i > 0)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6),
-              child: Text('·',
-                  style: TypographyTokens.label(size: 13)
-                      .copyWith(color: palette.goldSoft.withValues(alpha: 0.6))),
-            ),
-          InkWell(
-            key: Key('domain_pillar_${pilastri[i].toLowerCase()}'),
-            onTap: () => onTap(pilastri[i]),
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
-              child: Text(
-                pilastri[i],
-                style: TypographyTokens.label(size: 13).copyWith(
-                  color: palette.goldSoft,
-                  letterSpacing: 0.7,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ],
-    );
-  }
-}
-
 /// Il riquadro di una sottocategoria: il suo titolo e le arti che contiene, coi
 /// tre stati. Un solo linguaggio di card, lo stato le distingue.
 ///
@@ -277,7 +162,6 @@ class _PillarsRow extends StatelessWidget {
 /// annuncia per quel che e'.
 class _ArtSectionBox extends StatelessWidget {
   const _ArtSectionBox({
-    super.key,
     required this.maestro,
     required this.section,
     required this.demo,

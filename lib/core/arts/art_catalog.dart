@@ -147,8 +147,13 @@ class ArtCatalog {
   /// contenuto. Nella vista della persona si mostrano le attive, le Premium e
   /// le in arrivo fino alla soglia ([ArtPhase.sogliaUtente]): quel che sta
   /// oltre non si cancella dal catalogo, semplicemente non si racconta ancora.
-  static bool isVisible(ArtEntry art, {bool demo = AppFlags.isDemo}) {
-    if (demo) return true;
+  ///
+  /// Con [esente] la soglia non si applica: e' il caso di una sottocategoria
+  /// tutta in cammino, che sta gia' chiusa dietro un tocco e quindi puo'
+  /// mostrarsi intera senza allungare l'elenco di quel che si puo' fare adesso.
+  static bool isVisible(ArtEntry art,
+      {bool demo = AppFlags.isDemo, bool esente = false}) {
+    if (demo || esente) return true;
     if (art.state != ArtState.inArrivo) return true;
     return ArtPhase.rank(art.phase) <=
         ArtPhase.rank(ArtPhase.sogliaUtente);
@@ -157,6 +162,21 @@ class ArtCatalog {
   /// Se una sottocategoria ha almeno un'arte viva adesso.
   static bool hasActive(ArtSection section) =>
       section.arts.any((a) => a.state == ArtState.attiva);
+
+  /// Le arti di una sottocategoria come si mostrano nella vista corrente.
+  ///
+  /// La soglia delle fasi vale dove c'e' qualcosa di vivo, perche' li' ogni
+  /// riga in piu' allontana la cosa che si puo' fare adesso. Dove non c'e'
+  /// nulla di vivo il gruppo e' gia' raccolto dietro un tocco, quindi si mostra
+  /// intero: e' un assaggio di strada, non rumore.
+  static List<ArtEntry> visibleArts(ArtSection section,
+      {bool demo = AppFlags.isDemo}) {
+    final esente = !hasActive(section);
+    return [
+      for (final a in section.arts)
+        if (isVisible(a, demo: demo, esente: esente)) a,
+    ];
+  }
 
   /// Le sottocategorie di un Maestro come si mostrano davvero.
   ///
@@ -171,10 +191,7 @@ class ArtCatalog {
     final piene = <ArtSection>[];
     final inCammino = <ArtSection>[];
     for (final s in forMaestro(maestro)) {
-      final arti = [
-        for (final a in s.arts)
-          if (isVisible(a, demo: demo)) a,
-      ];
+      final arti = visibleArts(s, demo: demo);
       if (arti.isEmpty) continue;
       final sezione = ArtSection(title: s.title, arts: arti);
       (hasActive(sezione) ? piene : inCammino).add(sezione);
