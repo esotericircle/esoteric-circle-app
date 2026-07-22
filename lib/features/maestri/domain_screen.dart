@@ -41,23 +41,42 @@ class DomainScreen extends StatelessWidget {
         scrolledUnderElevation: 0,
         iconTheme: IconThemeData(color: palette.goldSoft),
         automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          tooltip: 'Indietro',
-          onPressed: () => Navigator.of(context).maybePop(),
-        ),
         // Il nome del Maestro e, come seconda riga, i tre pilastri del suo
         // dominio: si sa di che cosa e' fatto prima ancora di scorrere.
+        //
+        // La colonna e' centrata sulla larghezza della SCHERMATA, non sullo
+        // spazio che avanza accanto alla freccia: per questo la freccia non e'
+        // un `leading` ma sta dentro il titolo, sovrapposta a sinistra, e il
+        // titolo occupa tutta la barra (`titleSpacing` a zero). Cosi' il nome
+        // resta esattamente al centro in tutti e tre i domini.
         toolbarHeight: 74,
-        title: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(maestro.displayName,
-                style: TypographyTokens.display(size: 20)),
-            const SizedBox(height: 2),
-            DomainPillars(maestro: maestro),
-          ],
+        titleSpacing: 0,
+        title: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(maestro.displayName,
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.display(size: 20)),
+                  const SizedBox(height: 2),
+                  DomainPillars(maestro: maestro),
+                ],
+              ),
+              Positioned(
+                left: 0,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back_rounded),
+                  tooltip: 'Indietro',
+                  onPressed: () => Navigator.of(context).maybePop(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       // Cosmo senza costellazioni anche qui: superficie calma, nessun

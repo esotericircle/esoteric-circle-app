@@ -1058,6 +1058,8 @@ void main() {
     // cammino, quindi la seconda anteprima mostra cosa c'e' dietro. Si aprono
     // gli apri e chiudi delle sottocategorie vive e le intestazioni di quelle
     // tutte in arrivo, poi si cattura.
+    // La lista e' pigra e le sottocategorie in fondo non sono ancora costruite:
+    // si scorre fino a ciascuna prima di toccarla, nell'ordine in cui stanno.
     for (final chiave in const [
       'art_soon_toggle_astrologia',
       'art_soon_toggle_cartomanzia',
@@ -1065,16 +1067,20 @@ void main() {
       'art_section_header_destino',
     ]) {
       final f = find.byKey(Key(chiave));
-      if (f.evaluate().isEmpty) continue;
+      await tester.scrollUntilVisible(f, 300,
+          scrollable: find.byType(Scrollable).first);
       await tester.ensureVisible(f);
       await step(tester);
       await tester.tap(f);
       await step(tester);
       await step(tester);
     }
+    // Coi gruppi aperti la lista cresce oltre la finestra della cattura: si
+    // guarda il fondo, dove stanno le sottocategorie tutte in cammino.
     final position =
         tester.state<ScrollableState>(find.byType(Scrollable).first).position;
-    position.jumpTo(0);
+    position.jumpTo(position.maxScrollExtent);
+    await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'dominio-medora-aperto.png');
   });

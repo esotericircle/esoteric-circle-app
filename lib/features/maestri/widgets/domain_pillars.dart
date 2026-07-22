@@ -34,6 +34,7 @@ class DomainPillars extends StatelessWidget {
       key: const Key('domain_pillars'),
       pilastri.join(' · '),
       maxLines: 1,
+      textAlign: TextAlign.center,
       overflow: TextOverflow.ellipsis,
       style: TypographyTokens.label(size: 11).copyWith(
         color: palette.goldSoft.withValues(alpha: 0.85),

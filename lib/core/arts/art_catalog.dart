@@ -349,6 +349,15 @@ class ArtCatalog {
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
       ),
+      ArtEntry(
+        id: 'narrative_destiny',
+        title: 'Destino Narrativo',
+        teaser:
+            'Il tuo cammino verso l\'anima e il destino, raccontato in tappe, ognuna con la sua immagine.',
+        icon: Icons.menu_book_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.faseSuccessiva,
+      ),
     ]),
   ];
 

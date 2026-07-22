@@ -123,6 +123,23 @@ void main() {
           luna.arts.firstWhere((a) => a.id == 'lunar_affinity').phase, 'Fase 2');
     });
 
+    test('Il Destino di Medora ha tre arti, col Destino Narrativo', () {
+      final destino = ArtCatalog.forMaestro(Maestro.medora)
+          .firstWhere((s) => s.title == 'Destino');
+      expect(destino.arts.length, 3);
+      expect(destino.arts.map((a) => a.id),
+          ['guardian_angel', 'karmic_reading', 'narrative_destiny']);
+      final narrativo =
+          destino.arts.firstWhere((a) => a.id == 'narrative_destiny');
+      expect(narrativo.title, 'Destino Narrativo');
+      expect(narrativo.state, ArtState.inArrivo);
+      expect(narrativo.phase, ArtPhase.faseSuccessiva);
+      // Nessuna schermata vera dietro: la rotta cade sull'anticipo.
+      expect(artRouteFor(narrativo.id, userSign: Zodiac.aries), isNull);
+      // La sottocategoria resta tutta in cammino, quindi chiusa ed esente.
+      expect(ArtCatalog.hasActive(destino), isFalse);
+    });
+
     test('Compatibilità tra Amici sta in Astrologia, distinta dalle altre', () {
       final astro = ArtCatalog.forMaestro(Maestro.medora)
           .firstWhere((s) => s.title == 'Astrologia');
@@ -220,7 +237,11 @@ void main() {
       ];
       expect(arti('Lunologia', true), tutta);
       expect(arti('Lunologia', false), tutta);
-      expect(arti('Destino', false), ['guardian_angel', 'karmic_reading']);
+      // Anche il Destino, dove il Destino Narrativo e' di fase successiva e
+      // senza l'esenzione sparirebbe alla persona.
+      const destino = ['guardian_angel', 'karmic_reading', 'narrative_destiny'];
+      expect(arti('Destino', true), destino);
+      expect(arti('Destino', false), destino);
 
       // Astrologia e Cartomanzia hanno del vivo: li' la soglia vale ancora.
       expect(arti('Astrologia', false), isNot(contains('astrocartography')));
@@ -235,10 +256,10 @@ void main() {
               s.title: s.arts.length,
           };
       expect(conta(true),
-          {'Astrologia': 8, 'Cartomanzia': 3, 'Lunologia': 4, 'Destino': 2});
+          {'Astrologia': 8, 'Cartomanzia': 3, 'Lunologia': 4, 'Destino': 3});
       // Solo le miste si accorciano: le tutte in cammino restano intere.
       expect(conta(false),
-          {'Astrologia': 6, 'Cartomanzia': 2, 'Lunologia': 4, 'Destino': 2});
+          {'Astrologia': 6, 'Cartomanzia': 2, 'Lunologia': 4, 'Destino': 3});
       // Nessuna sottocategoria vuota arriva a video.
       for (final m in Maestro.values) {
         for (final demo in const [true, false]) {
@@ -507,6 +528,52 @@ void main() {
       // E sopra l'immagine dell'eroe.
       expect(tester.getBottomLeft(pilastri).dy,
           lessThan(tester.getTopLeft(find.byType(MaestroPresence)).dy));
+
+      // Centrati sulla larghezza della SCHERMATA, non sullo spazio che avanza
+      // accanto alla freccia: il centro dei due testi cade sulla meta' esatta.
+      final meta = tester.view.physicalSize.width / tester.view.devicePixelRatio / 2;
+      expect(tester.getCenter(find.text('Medora')).dx, closeTo(meta, 1.0));
+      expect(tester.getCenter(pilastri).dx, closeTo(meta, 1.0));
+
+      // La freccia sta a sinistra, sovrapposta, e non sposta il centro.
+      final freccia = find.byIcon(Icons.arrow_back_rounded);
+      expect(freccia, findsOneWidget);
+      expect(tester.getCenter(freccia).dx, lessThan(meta / 2));
+    });
+
+    testWidgets('La barra centrata vale per tutti e tre i domini',
+        (tester) async {
+      for (final m in Maestro.values) {
+        await tester.pumpWidget(MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => EntitlementService()),
+            ChangeNotifierProvider(create: (_) => ProfileController()),
+            ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ChangeNotifierProvider(create: (_) => ZodiacController()),
+            ChangeNotifierProvider(
+              create: (ctx) =>
+                  FeatureFlagService(entitlement: ctx.read<EntitlementService>())
+                    ..initialize(),
+            ),
+          ],
+          child: MaterialApp(
+            home: MaestroScope(child: DomainScreen(maestro: m)),
+          ),
+        ));
+        await tester.pump();
+        final meta =
+            tester.view.physicalSize.width / tester.view.devicePixelRatio / 2;
+        expect(tester.getCenter(find.text(m.displayName)).dx, closeTo(meta, 1.0),
+            reason: 'il nome di ${m.displayName} non e\' centrato');
+        expect(
+          tester.getCenter(find.byKey(const Key('domain_pillars'))).dx,
+          closeTo(meta, 1.0),
+          reason: 'i pilastri di ${m.displayName} non sono centrati',
+        );
+      }
     });
 
     testWidgets('Consulta e\' una voce sola, e non c\'e\' piu\' Parla con',
