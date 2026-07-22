@@ -103,12 +103,14 @@ flutter:
     - assets/img/rune_bone/
     - assets/img/animali/
     - assets/img/cristalli/
+    - assets/img/archetipi/
     - assets/img_thumb/mazzo-tarocchi/
     - assets/img_thumb/angeli/
     - assets/img_thumb/ritratti-vip/
     - assets/img_thumb/rune_bone/
     - assets/img_thumb/animali/
     - assets/img_thumb/cristalli/
+    - assets/img_thumb/archetipi/
     # Zodiaco brandizzato, due asset distinti per segno: l'emblema 3D metallico
     # in assets/img/zodiac/ (testa della schermata) e il simbolo in miniatura in
     # assets/img_thumb/zodiac/ (chip del selettore). Ventiquattro file, tutti
