@@ -83,7 +83,7 @@ class ArtEntry {
     required this.state,
     this.requiredTier,
     this.phase,
-    this.benessere = false,
+    this.cornice = false,
   });
 
   final String id;
@@ -100,10 +100,10 @@ class ArtEntry {
   /// esempio "MVP", "Fase 2". E' l'etichetta onesta che si mostra sulla card.
   final String? phase;
 
-  /// Se l'arte tocca il benessere della persona (respiro, sonno, umore, corpo,
-  /// energia). Dove e' vero si mostra sempre la cornice onesta: intrattenimento
-  /// e crescita personale, mai cura.
-  final bool benessere;
+  /// Se l'arte mostra la CORNICE onesta di quel che e': un cammino di
+  /// intrattenimento e crescita personale, mai una cura e mai una previsione
+  /// certa. Vale per il benessere di Aura come per gli oracoli di Caligo.
+  final bool cornice;
 }
 
 /// Una sottocategoria del dominio di un Maestro: il riquadro col suo titolo, con
@@ -124,14 +124,14 @@ class ArtSection {
 class ArtCatalog {
   const ArtCatalog._();
 
-  /// La cornice onesta delle arti del benessere, in un punto solo.
+  /// La cornice onesta delle arti, in un punto solo.
   ///
-  /// Accompagnano il respiro, il sonno, l'umore e l'energia come cammino di
-  /// consapevolezza: non sono una cura e non sostituiscono un medico. Si mostra
-  /// dovunque un'arte con [ArtEntry.benessere] si presenti.
-  static const String disclaimerBenessere =
-      'Cornice di intrattenimento e crescita personale, per il tuo benessere, '
-      'non cura medica. Per la salute parla sempre con un medico.';
+  /// Accompagnano il respiro, l'umore, il presagio e il simbolo come cammino di
+  /// consapevolezza: non sono una cura e non sono una previsione certa. Si
+  /// mostra dovunque un'arte con [ArtEntry.cornice] si presenti.
+  static const String disclaimerCornice =
+      'Cornice di intrattenimento e crescita personale, non cura medica né '
+      'previsione certa del futuro. Le scelte importanti restano sempre tue.';
 
   /// Le sottocategorie di un Maestro, nell'ordine in cui si mostrano.
   static List<ArtSection> forMaestro(Maestro maestro) {
@@ -391,7 +391,7 @@ class ArtCatalog {
         icon: Icons.blur_circular_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.mvp,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'crystal_therapy',
@@ -400,7 +400,7 @@ class ArtCatalog {
         icon: Icons.diamond_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.mvp,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'crystal_oracle',
@@ -409,7 +409,7 @@ class ArtCatalog {
         icon: Icons.auto_awesome_outlined,
         state: ArtState.inArrivo,
         phase: ArtPhase.mvp,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'crystal_ball',
@@ -418,7 +418,7 @@ class ArtCatalog {
         icon: Icons.panorama_fish_eye,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'energy_cleansing',
@@ -427,7 +427,7 @@ class ArtCatalog {
         icon: Icons.water_drop_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.mvp,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'aura_analysis',
@@ -436,7 +436,7 @@ class ArtCatalog {
         icon: Icons.brightness_7,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase4,
-        benessere: true,
+        cornice: true,
       ),
     ]),
     ArtSection(title: 'Energia', arts: [
@@ -446,7 +446,7 @@ class ArtCatalog {
         teaser: 'La voce di Aura ti guida nel respiro e nella quiete.',
         icon: Icons.self_improvement,
         state: ArtState.attiva,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'frequencies',
@@ -456,7 +456,7 @@ class ArtCatalog {
         icon: Icons.graphic_eq_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.mvp,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'sleep_stories',
@@ -465,7 +465,7 @@ class ArtCatalog {
         icon: Icons.bedtime_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.mvp,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'daily_affirmations',
@@ -474,7 +474,7 @@ class ArtCatalog {
         icon: Icons.format_quote_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.mvp,
-        benessere: true,
+        cornice: true,
       ),
       // Nota per il team, mai a video: contenuti e grafiche dei mudra vanno
       // disegnati e scritti da noi, mai ripresi da fonti terze, per il diritto
@@ -486,7 +486,7 @@ class ArtCatalog {
         icon: Icons.waving_hand_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'belief_art',
@@ -495,7 +495,7 @@ class ArtCatalog {
         icon: Icons.psychology_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'biorhythm',
@@ -504,7 +504,7 @@ class ArtCatalog {
         icon: Icons.show_chart_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'lucid_dreams',
@@ -513,7 +513,7 @@ class ArtCatalog {
         icon: Icons.nights_stay_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase5,
-        benessere: true,
+        cornice: true,
       ),
     ]),
     ArtSection(title: 'Archetipi', arts: [
@@ -523,7 +523,7 @@ class ArtCatalog {
         teaser: 'Scopri quale dei dodici archetipi ti guida.',
         icon: Icons.psychology_alt,
         state: ArtState.attiva,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'face_constellation',
@@ -532,7 +532,7 @@ class ArtCatalog {
             'La videocamera legge i tuoi tratti e li unisce in una costellazione.',
         icon: Icons.face_retouching_natural,
         state: ArtState.attiva,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'mood_tracker',
@@ -541,7 +541,7 @@ class ArtCatalog {
         icon: Icons.mood_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.mvp,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'palmistry',
@@ -550,7 +550,7 @@ class ArtCatalog {
         icon: Icons.back_hand,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'archetype_affinity',
@@ -559,7 +559,7 @@ class ArtCatalog {
         icon: Icons.diversity_1_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'graphology',
@@ -568,7 +568,7 @@ class ArtCatalog {
         icon: Icons.draw_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase4,
-        benessere: true,
+        cornice: true,
       ),
       ArtEntry(
         id: 'voice_analysis',
@@ -577,66 +577,180 @@ class ArtCatalog {
         icon: Icons.mic_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase4,
-        benessere: true,
+        cornice: true,
       ),
     ]),
   ];
 
   // --- Caligo: Rune, Rituali, Cabala ---
-  // Anche qui il catalogo completo arriva dopo: per ora le funzioni gia' note.
+  //
+  // Vincolo di contenuto, mai a video: i riti attingono soltanto a pratiche
+  // reali e documentate, mai inventate, e restano fuori i riti sulla volonta'
+  // di terzi. Il Cerchio accompagna chi lo chiede, non agisce su altri.
   static const List<ArtSection> _caligo = [
     ArtSection(title: 'Rune', arts: [
       ArtEntry(
         id: 'rune_draw',
         title: 'Estrazione Rune',
-        teaser: 'Getta le rune dell\'antico Futhark e leggi il presagio.',
+        teaser: 'Scuoti e lancia le pietre, leggi il presagio di Caligo.',
         icon: Icons.casino,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.mvp,
+        state: ArtState.attiva,
+        cornice: true,
       ),
       ArtEntry(
-        id: 'extended_oracles',
-        title: 'Oracoli Estesi',
-        teaser: 'I-Ching, pendolo e altri modi di interrogare il profondo.',
-        icon: Icons.blur_on,
+        id: 'i_ching',
+        title: 'I-Ching',
+        teaser: 'I sessantaquattro esagrammi del Libro dei Mutamenti.',
+        icon: Icons.view_headline_rounded,
         state: ArtState.inArrivo,
-        phase: ArtPhase.fase3,
+        phase: ArtPhase.fase2,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'pendulum',
+        title: 'Pendolo',
+        teaser: 'Poni la domanda, il pendolo oscilla la risposta.',
+        icon: Icons.swap_vert_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'coffee_reading',
+        title: 'Lettura dei Fondi di Caffè',
+        teaser: 'Le figure nella tazza raccontano il tuo domani.',
+        icon: Icons.local_cafe_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'dream_reading',
+        title: 'Interpretazione dei Sogni',
+        teaser: 'Racconta il sogno, i suoi simboli ti parlano.',
+        icon: Icons.cloud_queue_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        cornice: true,
       ),
     ]),
     ArtSection(title: 'Rituali', arts: [
       ArtEntry(
-        id: 'magic_sigil',
-        title: 'Sigillo Magico',
-        teaser: 'Traccia il tuo sigillo e dagli un\'intenzione.',
-        icon: Icons.gesture_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.fase2,
+        id: 'guide_animal',
+        title: 'Animale Guida',
+        teaser: 'Il tuo animale di potere emerge dalla nebbia.',
+        icon: Icons.pets_rounded,
+        state: ArtState.attiva,
+        cornice: true,
       ),
       ArtEntry(
-        id: 'candle_ritual',
-        title: 'Rito della Candela',
-        teaser: 'Un rito semplice, che si accende e si accompagna.',
+        id: 'animal_message',
+        title: 'Messaggio dall\'Animale',
+        teaser: 'La voce del tuo animale, giorno per giorno.',
+        icon: Icons.record_voice_over_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'magic_sigil',
+        title: 'Sigillo Magico Personale',
+        teaser: 'Trasforma la tua intenzione in un sigillo da caricare.',
+        icon: Icons.gesture_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'micro_rituals',
+        title: 'Micro-rituali',
+        teaser: 'Candela, mantra e parola d\'intenzione, riti brevi e veri.',
         icon: Icons.local_fire_department_rounded,
         state: ArtState.inArrivo,
-        phase: ArtPhase.fase3,
+        phase: ArtPhase.mvp,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'daily_invocation',
+        title: 'Invocazione del Giorno',
+        teaser: 'L\'invocazione quotidiana nella voce di Caligo.',
+        icon: Icons.campaign_outlined,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'guided_rituals',
+        title: 'Rituali Guidati Interattivi',
+        teaser: 'Riti guidati passo passo, più profondi.',
+        icon: Icons.route_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase4,
+        cornice: true,
       ),
     ]),
     ArtSection(title: 'Cabala', arts: [
       ArtEntry(
         id: 'tree_of_life',
         title: 'Albero della Vita',
-        teaser: 'Le dieci sfere e i sentieri che le uniscono.',
+        teaser: 'Dieci Sefirot e ventidue sentieri, da percorrere.',
         icon: Icons.account_tree_rounded,
+        state: ArtState.attiva,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'angel_numbers',
+        title: 'Angel Numbers',
+        teaser: 'I numeri ricorrenti e il messaggio che portano.',
+        icon: Icons.repeat_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'angel_compatibility',
+        title: 'Compatibilità Angelica',
+        teaser: 'L\'affinità fra i vostri Angeli Custodi.',
+        icon: Icons.diversity_3_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
+        cornice: true,
       ),
       ArtEntry(
         id: 'numerology',
         title: 'Numerologia del Destino',
-        teaser: 'Il tuo numero della vita e i numeri che ti accompagnano.',
+        teaser: 'Il numero della tua vita e della tua anima.',
         icon: Icons.pin_rounded,
         state: ArtState.inArrivo,
-        phase: ArtPhase.fase2,
+        phase: ArtPhase.fase3,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'human_design',
+        title: 'Human Design',
+        teaser: 'Il tuo schema energetico, tipo e autorità.',
+        icon: Icons.hub_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase3,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'cosmic_wrapped',
+        title: 'Cosmic Wrapped',
+        teaser: 'Il tuo anno esoterico raccolto in una sintesi.',
+        icon: Icons.card_giftcard_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase3,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'angels_72',
+        title: 'I 72 Angeli della Cabala',
+        teaser: 'I settantadue nomi dello Shem e i loro cori.',
+        icon: Icons.grid_view_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase4,
+        cornice: true,
       ),
     ]),
   ];

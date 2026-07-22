@@ -1124,6 +1124,44 @@ void main() {
     await capture(tester, rootKey, 'dominio-aura-aperto.png');
   });
 
+  // Caligo: tre sottocategorie tutte miste, ciascuna con la sua distintiva.
+  testWidgets('Cattura l\'hub di dominio, caligo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    selectCentral(tester, Maestro.caligo);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await precacheFaces(tester);
+    tester.view.physicalSize = const Size(390, 2800);
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-caligo.png');
+
+    for (final chiave in const [
+      'art_soon_toggle_rune',
+      'art_soon_toggle_rituali',
+      'art_soon_toggle_cabala',
+    ]) {
+      final f = find.byKey(Key(chiave));
+      await tester.scrollUntilVisible(f, 300,
+          scrollable: find.byType(Scrollable).first);
+      await tester.ensureVisible(f);
+      await step(tester);
+      await tester.tap(f);
+      await step(tester);
+      await step(tester);
+    }
+    final posCaligo =
+        tester.state<ScrollableState>(find.byType(Scrollable).first).position;
+    posCaligo.jumpTo(posCaligo.maxScrollExtent);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-caligo-aperto.png');
+  });
+
   testWidgets('Cattura il Cosmic Passport', (tester) async {
     silenceSensors();
     await loadFonts();

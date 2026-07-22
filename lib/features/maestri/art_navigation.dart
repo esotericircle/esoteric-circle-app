@@ -21,16 +21,27 @@ import '../tarot/stesa_tre_carte_screen.dart';
 /// sempre alla stessa schermata, senza mappe duplicate che possono divergere.
 /// Un test verifica che ogni arte dichiarata attiva nel catalogo abbia qui una
 /// rotta vera.
+/// Le arti dichiarate vive che non hanno ancora la loro esperienza scritta.
+///
+/// Si aprono sulla SOGLIA dell'arte, che le presenta e porta alla Consulta del
+/// Maestro che le custodisce: una destinazione vera, mai un vicolo cieco. Ogni
+/// riga qui e' un debito dichiarato, e sparisce da sola il giorno in cui
+/// l'esperienza arriva e prende il suo posto nello switch qui sotto.
+const Map<String, Maestro> artiSullaSoglia = {
+  'archetype_test': Maestro.aura,
+  'face_constellation': Maestro.aura,
+  'rune_draw': Maestro.caligo,
+  'guide_animal': Maestro.caligo,
+  'tree_of_life': Maestro.caligo,
+};
+
 Route<void>? artRouteFor(String id, {required Zodiac userSign}) {
+  final sullaSoglia = artiSullaSoglia[id];
+  if (sullaSoglia != null) {
+    final art = ArtCatalog.all.firstWhere((a) => a.id == id);
+    return ArtIntroScreen.route(art: art, maestro: sullaSoglia);
+  }
   switch (id) {
-    // Due arti di Aura sono dichiarate vive ma la loro esperienza piena non e'
-    // ancora scritta: si aprono sulla soglia dell'arte, che le presenta e
-    // porta alla Consulta. E' una destinazione vera, non un vicolo cieco, e
-    // quando le esperienze arriveranno bastera' cambiare queste due righe.
-    case 'archetype_test':
-    case 'face_constellation':
-      final art = ArtCatalog.all.firstWhere((a) => a.id == id);
-      return ArtIntroScreen.route(art: art, maestro: Maestro.aura);
     case 'horoscope':
       return OroscopoScreen.route(userSign: userSign);
     case 'synastry_vip':

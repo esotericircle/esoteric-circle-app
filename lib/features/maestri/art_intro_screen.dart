@@ -112,9 +112,9 @@ class ArtIntroScreen extends StatelessWidget {
                   icon: const Icon(Icons.forum_outlined),
                   label: Text('Consulta ${maestro.displayName}'),
                 ),
-                if (art.benessere) ...[
+                if (art.cornice) ...[
                   const SizedBox(height: SpacingTokens.xl),
-                  _CorniceBenessere(palette: palette),
+                  _CorniceOnesta(palette: palette),
                 ],
               ],
             ),
@@ -125,23 +125,23 @@ class ArtIntroScreen extends StatelessWidget {
   }
 }
 
-/// La cornice onesta delle arti del benessere, sempre uguale a se stessa.
-class _CorniceBenessere extends StatelessWidget {
-  const _CorniceBenessere({required this.palette});
+/// La cornice onesta delle arti, sempre uguale a se stessa.
+class _CorniceOnesta extends StatelessWidget {
+  const _CorniceOnesta({required this.palette});
 
   final MaestroPalette palette;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      key: const Key('art_disclaimer_benessere'),
+      key: const Key('art_disclaimer_cornice'),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(Icons.eco_outlined, size: 15, color: palette.goldSoft),
         const SizedBox(width: 6),
         Expanded(
           child: Text(
-            ArtCatalog.disclaimerBenessere,
+            ArtCatalog.disclaimerCornice,
             style: TypographyTokens.body(size: 12).copyWith(
               color: ColorTokens.textSecondary,
               height: 1.4,

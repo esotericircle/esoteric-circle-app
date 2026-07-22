@@ -216,17 +216,97 @@ void main() {
       ]);
     });
 
-    test('Ogni arte di Aura porta la cornice del benessere', () {
-      for (final a in ArtCatalog.forMaestro(Maestro.aura).expand((s) => s.arts)) {
-        expect(a.benessere, isTrue, reason: a.id);
+    test('Le arti di Aura e di Caligo portano la cornice onesta', () {
+      for (final m in const [Maestro.aura, Maestro.caligo]) {
+        for (final a in ArtCatalog.forMaestro(m).expand((s) => s.arts)) {
+          expect(a.cornice, isTrue, reason: a.id);
+        }
       }
-      expect(ArtCatalog.disclaimerBenessere, contains('non cura medica'));
-      // Nessuna promessa di guarigione nel testo che si mostra.
+      expect(ArtCatalog.disclaimerCornice, contains('non cura medica'));
+      expect(ArtCatalog.disclaimerCornice, contains('previsione certa'));
+      // Nessuna promessa di guarigione ne' di potere su altri nel testo che si
+      // mostra: i riti accompagnano chi li chiede, non agiscono su terzi.
       for (final a in ArtCatalog.all) {
         final testo = '${a.title} ${a.teaser}'.toLowerCase();
-        for (final parola in const ['guarisc', 'terapia medica', 'diagnos']) {
+        for (final parola in const [
+          'guarisc',
+          'terapia medica',
+          'diagnos',
+          'legamento',
+          'malocchio',
+          'fattura',
+        ]) {
           expect(testo, isNot(contains(parola)), reason: a.id);
         }
+      }
+    });
+
+    test('Il dominio di Caligo ha le sue tre sottocategorie piene', () {
+      Map<String, int> conta(bool demo) => {
+            for (final s in ArtCatalog.visibleFor(Maestro.caligo, demo: demo))
+              s.title: s.arts.length,
+          };
+      // Ogni sottocategoria ha la sua distintiva viva, quindi sono tutte miste
+      // e restano nell'ordine dichiarato.
+      expect(
+          ArtCatalog.visibleFor(Maestro.caligo, demo: true).map((s) => s.title),
+          ['Rune', 'Rituali', 'Cabala']);
+      expect(conta(true), {'Rune': 5, 'Rituali': 6, 'Cabala': 7});
+      // Nella vista della persona cadono le fasi oltre la Fase 2: i Rituali
+      // perdono i Rituali Guidati, la Cabala perde Numerologia, Human Design,
+      // Cosmic Wrapped e i 72 Angeli.
+      expect(conta(false), {'Rune': 5, 'Rituali': 5, 'Cabala': 3});
+
+      List<ArtEntry> arti(String titolo) => ArtCatalog.forMaestro(Maestro.caligo)
+          .firstWhere((s) => s.title == titolo)
+          .arts;
+
+      // Una sola distintiva viva per sottocategoria.
+      for (final t in const ['Rune', 'Rituali', 'Cabala']) {
+        expect(arti(t).where((a) => a.state == ArtState.attiva).length, 1,
+            reason: t);
+      }
+      expect(arti('Rune').map((a) => a.id), [
+        'rune_draw',
+        'i_ching',
+        'pendulum',
+        'coffee_reading',
+        'dream_reading',
+      ]);
+      expect(arti('Rituali').map((a) => a.id), [
+        'guide_animal',
+        'animal_message',
+        'magic_sigil',
+        'micro_rituals',
+        'daily_invocation',
+        'guided_rituals',
+      ]);
+      expect(arti('Cabala').map((a) => a.id), [
+        'tree_of_life',
+        'angel_numbers',
+        'angel_compatibility',
+        'numerology',
+        'human_design',
+        'cosmic_wrapped',
+        'angels_72',
+      ]);
+      // Le vecchie voci scheletriche non esistono piu'.
+      final ids = ArtCatalog.all.map((a) => a.id);
+      expect(ids, isNot(contains('extended_oracles')));
+      expect(ids, isNot(contains('candle_ritual')));
+    });
+
+    test('Le arti vive senza esperienza aprono la soglia, non il vuoto', () {
+      // Ogni voce dichiarata viva ha una rotta: o la sua schermata, o la
+      // soglia dell'arte. Il debito e' dichiarato in un punto solo.
+      for (final id in artiSullaSoglia.keys) {
+        final art = ArtCatalog.all.firstWhere((a) => a.id == id);
+        expect(art.state, ArtState.attiva, reason: id);
+        expect(artRouteFor(id, userSign: Zodiac.aries), isNotNull, reason: id);
+      }
+      // Le tre distintive di Caligo stanno tutte sulla soglia, per ora.
+      for (final id in const ['rune_draw', 'guide_animal', 'tree_of_life']) {
+        expect(artiSullaSoglia[id], Maestro.caligo, reason: id);
       }
     });
 
@@ -737,6 +817,58 @@ void main() {
           ColorTokens.neutralSurface.withValues(alpha: 0.42).toARGB32());
       expect(sfondoDi('sleep_stories').first.toARGB32(),
           isNot(verde.surfaceElevated.withValues(alpha: 0.95).toARGB32()));
+    });
+
+    testWidgets('Il dominio di Caligo mostra le sue tre distintive',
+        (tester) async {
+      await tester.pumpWidget(domain(Maestro.caligo));
+      await tester.pump();
+
+      expect(DomainPillars.of(Maestro.caligo).join(' · '),
+          'Rune · Rituali · Cabala');
+
+      final rosso = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
+      List<Color> sfondoDi(String id) {
+        final box = tester.widget<Container>(find.byKey(Key('art_surface_$id')));
+        final deco = box.decoration! as BoxDecoration;
+        return (deco.gradient! as LinearGradient).colors;
+      }
+
+      // Rune: la distintiva viva col rosso di Caligo, le altre raccolte.
+      expect(find.byKey(const Key('art_rune_draw')), findsOneWidget);
+      expect(find.byKey(const Key('art_state_attiva_rune_draw')),
+          findsOneWidget);
+      expect(sfondoDi('rune_draw').first.toARGB32(),
+          rosso.surfaceElevated.withValues(alpha: 0.95).toARGB32());
+      expect(find.byKey(const Key('art_i_ching')), findsNothing);
+      expect(find.byKey(const Key('art_soon_toggle_rune')), findsOneWidget);
+
+      // Rituali e Cabala, ciascuna con la sua viva in mostra.
+      for (final voce in const [
+        ('rituali', 'guide_animal'),
+        ('cabala', 'tree_of_life'),
+      ]) {
+        await tester.scrollUntilVisible(
+          find.byKey(Key('art_section_${voce.$1}')),
+          260,
+          scrollable: find.byType(Scrollable).first,
+        );
+        expect(find.byKey(Key('art_${voce.$2}')), findsOneWidget,
+            reason: voce.$2);
+        expect(find.byKey(Key('art_state_attiva_${voce.$2}')), findsOneWidget);
+        expect(find.byKey(Key('art_soon_toggle_${voce.$1}')), findsOneWidget);
+      }
+      // Nessuna sottocategoria di Caligo e' tutta in cammino: nessuna dicitura.
+      for (final t in const ['rune', 'rituali', 'cabala']) {
+        expect(find.byKey(Key('art_section_soon_$t')), findsNothing);
+      }
+
+      // Un'arte in cammino non porta l'accento del Maestro.
+      await tocca(tester, const Key('art_soon_toggle_cabala'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(sfondoDi('angel_numbers').first.toARGB32(),
+          ColorTokens.neutralSurface.withValues(alpha: 0.42).toARGB32());
     });
 
     testWidgets('Consulta e\' una voce sola, e non c\'e\' piu\' Parla con',
