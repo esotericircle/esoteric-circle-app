@@ -23,6 +23,7 @@ class ArtPhase {
   static const String faseSuccessiva = 'Fase successiva';
   static const String fase3 = 'Fase 3';
   static const String fase4 = 'Fase 4';
+  static const String fase5 = 'Fase 5';
   static const String viralita = 'Fase viralità sociale';
 
   /// Dalla piu' vicina alla piu' lontana. "Fase successiva" sta subito dopo la
@@ -33,6 +34,7 @@ class ArtPhase {
     faseSuccessiva,
     fase3,
     fase4,
+    fase5,
     viralita,
   ];
 
@@ -81,6 +83,7 @@ class ArtEntry {
     required this.state,
     this.requiredTier,
     this.phase,
+    this.benessere = false,
   });
 
   final String id;
@@ -96,6 +99,11 @@ class ArtEntry {
   /// La fase in cui l'arte e' pianificata, quando e' [ArtState.inArrivo]: per
   /// esempio "MVP", "Fase 2". E' l'etichetta onesta che si mostra sulla card.
   final String? phase;
+
+  /// Se l'arte tocca il benessere della persona (respiro, sonno, umore, corpo,
+  /// energia). Dove e' vero si mostra sempre la cornice onesta: intrattenimento
+  /// e crescita personale, mai cura.
+  final bool benessere;
 }
 
 /// Una sottocategoria del dominio di un Maestro: il riquadro col suo titolo, con
@@ -115,6 +123,15 @@ class ArtSection {
 /// sottocategoria e lo stato vero. Il dominio del Maestro legge solo di qui.
 class ArtCatalog {
   const ArtCatalog._();
+
+  /// La cornice onesta delle arti del benessere, in un punto solo.
+  ///
+  /// Accompagnano il respiro, il sonno, l'umore e l'energia come cammino di
+  /// consapevolezza: non sono una cura e non sostituiscono un medico. Si mostra
+  /// dovunque un'arte con [ArtEntry.benessere] si presenti.
+  static const String disclaimerBenessere =
+      'Cornice di intrattenimento e crescita personale, per il tuo benessere, '
+      'non cura medica. Per la salute parla sempre con un medico.';
 
   /// Le sottocategorie di un Maestro, nell'ordine in cui si mostrano.
   static List<ArtSection> forMaestro(Maestro maestro) {
@@ -362,60 +379,205 @@ class ArtCatalog {
   ];
 
   // --- Aura: Chakra, Energia, Archetipi ---
-  // Il catalogo completo di Aura arriva in un passaggio successivo: qui ci sono
-  // le funzioni gia' note, mappate nelle sue tre arti.
+  //
+  // Tutte le arti di Aura toccano il benessere della persona, quindi portano la
+  // cornice onesta: intrattenimento e crescita personale, mai cura.
   static const List<ArtSection> _aura = [
     ArtSection(title: 'Chakra', arts: [
       ArtEntry(
         id: 'chakra_scan',
         title: 'Scan dei Chakra',
-        teaser: 'I sette centri, uno per uno, con quel che chiedono.',
+        teaser: 'I sette centri che si illuminano col loro livello.',
         icon: Icons.blur_circular_rounded,
         state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'crystal_therapy',
+        title: 'Cristalloterapia',
+        teaser: 'Le pietre giuste per riequilibrare la tua energia.',
+        icon: Icons.diamond_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'crystal_oracle',
+        title: 'Oracolo dei Cristalli',
+        teaser: 'Estrai la pietra che ti parla oggi.',
+        icon: Icons.auto_awesome_outlined,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'crystal_ball',
+        title: 'Sfera di Cristallo',
+        teaser: 'Uno sguardo intuitivo dentro la sfera.',
+        icon: Icons.panorama_fish_eye,
+        state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'energy_cleansing',
+        title: 'Purificazione Energetica',
+        teaser: 'Un gesto per liberare il campo da ciò che pesa.',
+        icon: Icons.water_drop_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'aura_analysis',
+        title: 'Analisi dell\'Aura',
+        teaser: 'I colori della tua aura e cosa raccontano.',
+        icon: Icons.brightness_7,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase4,
+        benessere: true,
       ),
     ]),
     ArtSection(title: 'Energia', arts: [
       ArtEntry(
         id: 'meditation',
-        title: 'Meditazione',
-        teaser: 'Suono generato e respiro guidato, con la cimatica.',
+        title: 'Meditazione con Voce',
+        teaser: 'La voce di Aura ti guida nel respiro e nella quiete.',
         icon: Icons.self_improvement,
         state: ArtState.attiva,
+        benessere: true,
       ),
       ArtEntry(
         id: 'frequencies',
-        title: 'Frequenze',
-        teaser: 'Campane, mantra e battiti binaurali, da ascoltare.',
+        title: 'Frequenze Sonore e Sound Healing',
+        teaser:
+            '432 e 528, battiti binaurali e un mandala di suono per rilassarti.',
         icon: Icons.graphic_eq_rounded,
         state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'sleep_stories',
+        title: 'Sleep Stories',
+        teaser: 'Racconti dolci che accompagnano il tuo sonno.',
+        icon: Icons.bedtime_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'daily_affirmations',
+        title: 'Affermazioni del Giorno',
+        teaser: 'Una parola potenziante, cucita sul tuo cielo del giorno.',
+        icon: Icons.format_quote_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        benessere: true,
+      ),
+      // Nota per il team, mai a video: contenuti e grafiche dei mudra vanno
+      // disegnati e scritti da noi, mai ripresi da fonti terze, per il diritto
+      // d'autore.
+      ArtEntry(
+        id: 'mudra',
+        title: 'Mudra',
+        teaser: 'Gesti delle mani che orientano la tua energia.',
+        icon: Icons.waving_hand_rounded,
+        state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'belief_art',
+        title: 'Arte delle Convinzioni',
+        teaser: 'Un percorso guidato per radicare pensieri che ti sostengono.',
+        icon: Icons.psychology_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'biorhythm',
+        title: 'Bioritmo',
+        teaser: 'Le tue tre onde, fisica, emotiva e mentale, dal giorno di nascita.',
+        icon: Icons.show_chart_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'lucid_dreams',
+        title: 'Sogni Lucidi',
+        teaser: 'Tecniche per riconoscere il sogno e viverlo da protagonista.',
+        icon: Icons.nights_stay_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase5,
+        benessere: true,
       ),
     ]),
     ArtSection(title: 'Archetipi', arts: [
       ArtEntry(
         id: 'archetype_test',
         title: 'Test Archetipo',
-        teaser: 'L\'archetipo junghiano che ti muove, in poche domande.',
+        teaser: 'Scopri quale dei dodici archetipi ti guida.',
         icon: Icons.psychology_alt,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.mvp,
+        state: ArtState.attiva,
+        benessere: true,
       ),
       ArtEntry(
         id: 'face_constellation',
         title: 'Costellazione del Viso',
-        teaser: 'I tratti del tuo volto diventano una costellazione.',
+        teaser:
+            'La videocamera legge i tuoi tratti e li unisce in una costellazione.',
         icon: Icons.face_retouching_natural,
+        state: ArtState.attiva,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'mood_tracker',
+        title: 'Mood Tracker',
+        teaser: 'Il tuo umore giorno per giorno, in dialogo coi transiti.',
+        icon: Icons.mood_rounded,
         state: ArtState.inArrivo,
-        phase: ArtPhase.fase2,
+        phase: ArtPhase.mvp,
+        benessere: true,
       ),
       ArtEntry(
         id: 'palmistry',
-        title: 'Chiromanzia',
-        teaser: 'La mano che unisce i tratti stabili ai transiti del giorno.',
+        title: 'Chiromanzia Ibrida',
+        teaser: 'Le linee della mano lette insieme al tuo cielo.',
         icon: Icons.back_hand,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'archetype_affinity',
+        title: 'Compatibilità Archetipica',
+        teaser: 'L\'affinità fra le vostre anime, sul piano degli archetipi.',
+        icon: Icons.diversity_1_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'graphology',
+        title: 'Grafologia Esoterica',
+        teaser: 'La tua scrittura col dito rivela chi sei.',
+        icon: Icons.draw_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase4,
+        benessere: true,
+      ),
+      ArtEntry(
+        id: 'voice_analysis',
+        title: 'Cosmic Voice Analysis',
+        teaser: 'La tua voce racconta il tuo stato energetico.',
+        icon: Icons.mic_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase4,
+        benessere: true,
       ),
     ]),
   ];

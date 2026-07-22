@@ -20,6 +20,8 @@ void main() {
     'sinastria-vip.png', // Sinastria VIP, risultato
     'dominio-medora.png', // dominio, presenza, Consulta e prime sottocategorie
     'dominio-medora-aperto.png', // dominio coi gruppi aperti, le arti in cammino
+    'dominio-aura.png', // dominio di Aura, stato di partenza
+    'dominio-aura-aperto.png', // dominio di Aura coi gruppi aperti
   ];
 
   test('Tutti i preview obbligatori esistono in docs/preview', () {

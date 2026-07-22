@@ -748,6 +748,28 @@ Future<void> showArtPreview(
             Text(riga,
                 style: TypographyTokens.body(size: 14)
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+            // Le arti del benessere portano sempre la loro cornice onesta.
+            if (art.benessere) ...[
+              const SizedBox(height: SpacingTokens.sm),
+              Row(
+                key: const Key('art_disclaimer_benessere'),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.eco_outlined, size: 15, color: palette.goldSoft),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      ArtCatalog.disclaimerBenessere,
+                      style: TypographyTokens.body(size: 12).copyWith(
+                        color: ColorTokens.textSecondary,
+                        height: 1.4,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
             const SizedBox(height: SpacingTokens.lg),
             Align(
               alignment: Alignment.centerRight,

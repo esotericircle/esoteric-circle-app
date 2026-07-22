@@ -1085,6 +1085,45 @@ void main() {
     await capture(tester, rootKey, 'dominio-medora-aperto.png');
   });
 
+  // Lo stesso impianto generico visto dal dominio di Aura: nessun codice suo,
+  // solo il catalogo diverso, quindi l'anteprima serve a verificarlo a video.
+  testWidgets('Cattura l\'hub di dominio, aura', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    selectCentral(tester, Maestro.aura);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await precacheFaces(tester);
+    tester.view.physicalSize = const Size(390, 2800);
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-aura.png');
+
+    for (final chiave in const [
+      'art_soon_toggle_energia',
+      'art_soon_toggle_archetipi',
+      'art_section_header_chakra',
+    ]) {
+      final f = find.byKey(Key(chiave));
+      await tester.scrollUntilVisible(f, 300,
+          scrollable: find.byType(Scrollable).first);
+      await tester.ensureVisible(f);
+      await step(tester);
+      await tester.tap(f);
+      await step(tester);
+      await step(tester);
+    }
+    final posAura =
+        tester.state<ScrollableState>(find.byType(Scrollable).first).position;
+    posAura.jumpTo(posAura.maxScrollExtent);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'dominio-aura-aperto.png');
+  });
+
   testWidgets('Cattura il Cosmic Passport', (tester) async {
     silenceSensors();
     await loadFonts();

@@ -66,6 +66,9 @@ class ArtCard extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
         child: Container(
+          // La superficie della card, con una chiave sua: e' qui che si legge
+          // se l'arte porta il colore del Maestro o il neutro.
+          key: Key('art_surface_${art.id}'),
           padding: const EdgeInsets.all(SpacingTokens.md),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),

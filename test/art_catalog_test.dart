@@ -17,6 +17,7 @@ import 'package:esoteric_circle/core/santuario/function_shelf.dart';
 import 'package:esoteric_circle/design_system/components/art_card.dart';
 import 'package:esoteric_circle/design_system/components/scroll_reveal.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/art_navigation.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
@@ -34,9 +35,12 @@ import 'package:provider/provider.dart';
 /// attive si aprono davvero, le Premium mostrano il lucchetto, quelle in arrivo
 /// restano leggibili e dicono la loro fase.
 void main() {
+  // Il tema del dominio lo decide il Maestro attivo, come nell'app vera, dove
+  // si entra nel dominio dopo aver selezionato il Maestro nel Santuario.
   Widget domain(Maestro m, {bool demo = true}) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(
+              create: (_) => MaestroController(initial: ThemeKey.of(m))),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => ProfileController()),
@@ -138,6 +142,92 @@ void main() {
       expect(artRouteFor(narrativo.id, userSign: Zodiac.aries), isNull);
       // La sottocategoria resta tutta in cammino, quindi chiusa ed esente.
       expect(ArtCatalog.hasActive(destino), isFalse);
+    });
+
+    test('Il dominio di Aura ha le sue tre sottocategorie piene', () {
+      Map<String, int> conta(bool demo) => {
+            for (final s in ArtCatalog.visibleFor(Maestro.aura, demo: demo))
+              s.title: s.arts.length,
+          };
+      // Le vive davanti, la sottocategoria tutta in cammino in fondo.
+      expect(ArtCatalog.visibleFor(Maestro.aura, demo: true).map((s) => s.title),
+          ['Energia', 'Archetipi', 'Chakra']);
+      // In Demo tutto; alla persona si accorciano solo le due miste, mentre
+      // Chakra resta intera perche' e' tutta in cammino, quindi esente.
+      expect(conta(true), {'Energia': 8, 'Archetipi': 7, 'Chakra': 6});
+      expect(conta(false), {'Energia': 7, 'Archetipi': 5, 'Chakra': 6});
+
+      List<ArtEntry> arti(String titolo) => ArtCatalog.forMaestro(Maestro.aura)
+          .firstWhere((s) => s.title == titolo)
+          .arts;
+
+      // Energia: una sola viva, la Meditazione con Voce.
+      final energia = arti('Energia');
+      expect(
+        energia.where((a) => a.state == ArtState.attiva).map((a) => a.id),
+        ['meditation'],
+      );
+      expect(energia.firstWhere((a) => a.id == 'meditation').title,
+          'Meditazione con Voce');
+      expect(energia.map((a) => a.id), [
+        'meditation',
+        'frequencies',
+        'sleep_stories',
+        'daily_affirmations',
+        'mudra',
+        'belief_art',
+        'biorhythm',
+        'lucid_dreams',
+      ]);
+      expect(energia.firstWhere((a) => a.id == 'lucid_dreams').phase,
+          ArtPhase.fase5);
+
+      // Archetipi: due vive.
+      final archetipi = arti('Archetipi');
+      expect(
+        archetipi.where((a) => a.state == ArtState.attiva).map((a) => a.id),
+        ['archetype_test', 'face_constellation'],
+      );
+      expect(archetipi.map((a) => a.id), [
+        'archetype_test',
+        'face_constellation',
+        'mood_tracker',
+        'palmistry',
+        'archetype_affinity',
+        'graphology',
+        'voice_analysis',
+      ]);
+
+      // Chakra: sei arti, nessuna viva, quindi chiusa ed esente.
+      final chakra = arti('Chakra');
+      expect(chakra.length, 6);
+      expect(
+        ArtCatalog.hasActive(ArtCatalog.forMaestro(Maestro.aura)
+            .firstWhere((s) => s.title == 'Chakra')),
+        isFalse,
+      );
+      expect(chakra.map((a) => a.id), [
+        'chakra_scan',
+        'crystal_therapy',
+        'crystal_oracle',
+        'crystal_ball',
+        'energy_cleansing',
+        'aura_analysis',
+      ]);
+    });
+
+    test('Ogni arte di Aura porta la cornice del benessere', () {
+      for (final a in ArtCatalog.forMaestro(Maestro.aura).expand((s) => s.arts)) {
+        expect(a.benessere, isTrue, reason: a.id);
+      }
+      expect(ArtCatalog.disclaimerBenessere, contains('non cura medica'));
+      // Nessuna promessa di guarigione nel testo che si mostra.
+      for (final a in ArtCatalog.all) {
+        final testo = '${a.title} ${a.teaser}'.toLowerCase();
+        for (final parola in const ['guarisc', 'terapia medica', 'diagnos']) {
+          expect(testo, isNot(contains(parola)), reason: a.id);
+        }
+      }
     });
 
     test('Compatibilità tra Amici sta in Astrologia, distinta dalle altre', () {
@@ -574,6 +664,79 @@ void main() {
           reason: 'i pilastri di ${m.displayName} non sono centrati',
         );
       }
+    });
+
+    testWidgets('Il dominio di Aura si compone da solo, senza nulla di cablato',
+        (tester) async {
+      await tester.pumpWidget(domain(Maestro.aura));
+      await tester.pump();
+
+      // Il sottotitolo dei pilastri e' quello di Aura.
+      expect(DomainPillars.of(Maestro.aura).join(' · '),
+          'Chakra · Energia · Archetipi');
+
+      // Energia per prima, con la sola Meditazione in vista.
+      expect(find.byKey(const Key('art_section_energia')), findsOneWidget);
+      expect(find.byKey(const Key('art_meditation')), findsOneWidget);
+      expect(find.byKey(const Key('art_state_attiva_meditation')),
+          findsOneWidget);
+      expect(find.byKey(const Key('art_sleep_stories')), findsNothing);
+      expect(find.byKey(const Key('art_soon_toggle_energia')), findsOneWidget);
+
+      // Archetipi: due vive in mostra, le altre raccolte.
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('art_section_archetipi')),
+        260,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(find.byKey(const Key('art_archetype_test')), findsOneWidget);
+      expect(find.byKey(const Key('art_face_constellation')), findsOneWidget);
+      expect(find.byKey(const Key('art_mood_tracker')), findsNothing);
+
+      // Chakra in fondo, chiusa, con la dicitura e il contatore a sei.
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('art_section_chakra')),
+        260,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(find.byKey(const Key('art_section_soon_chakra')), findsOneWidget);
+      expect(
+        tester
+            .widget<Text>(find.byKey(const Key('art_section_count_chakra')))
+            .data,
+        '· 6',
+      );
+      expect(find.byKey(const Key('art_chakra_scan')), findsNothing);
+      await tocca(tester, const Key('art_section_header_chakra'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(find.byKey(const Key('art_chakra_scan')), findsOneWidget);
+      expect(find.byKey(const Key('art_aura_analysis')), findsOneWidget);
+    });
+
+    testWidgets('Il verde di Aura cade solo sulle arti vive', (tester) async {
+      await tester.pumpWidget(domain(Maestro.aura));
+      await tester.pump();
+      final verde = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
+
+      List<Color> sfondoDi(String id) {
+        final box = tester.widget<Container>(find.byKey(Key('art_surface_$id')));
+        final deco = box.decoration! as BoxDecoration;
+        return (deco.gradient! as LinearGradient).colors;
+      }
+
+      // L'attiva porta il verde smeraldo di Aura.
+      expect(sfondoDi('meditation').first.toARGB32(),
+          verde.surfaceElevated.withValues(alpha: 0.95).toARGB32());
+
+      // Un'arte in cammino no: sta sulla superficie neutra.
+      await tocca(tester, const Key('art_soon_toggle_energia'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(sfondoDi('sleep_stories').first.toARGB32(),
+          ColorTokens.neutralSurface.withValues(alpha: 0.42).toARGB32());
+      expect(sfondoDi('sleep_stories').first.toARGB32(),
+          isNot(verde.surfaceElevated.withValues(alpha: 0.95).toARGB32()));
     });
 
     testWidgets('Consulta e\' una voce sola, e non c\'e\' piu\' Parla con',

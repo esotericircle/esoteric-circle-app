@@ -1,6 +1,9 @@
 import 'package:flutter/widgets.dart';
 
+import '../../core/arts/art_catalog.dart';
 import '../../core/astro/zodiac.dart';
+import '../../core/maestro/maestro.dart';
+import 'art_intro_screen.dart';
 import '../horoscope/oroscopo_screen.dart';
 import '../maestri/aura/meditation/meditation_screen.dart';
 import '../rituals/breath_destiny_screen.dart';
@@ -20,6 +23,14 @@ import '../tarot/stesa_tre_carte_screen.dart';
 /// rotta vera.
 Route<void>? artRouteFor(String id, {required Zodiac userSign}) {
   switch (id) {
+    // Due arti di Aura sono dichiarate vive ma la loro esperienza piena non e'
+    // ancora scritta: si aprono sulla soglia dell'arte, che le presenta e
+    // porta alla Consulta. E' una destinazione vera, non un vicolo cieco, e
+    // quando le esperienze arriveranno bastera' cambiare queste due righe.
+    case 'archetype_test':
+    case 'face_constellation':
+      final art = ArtCatalog.all.firstWhere((a) => a.id == id);
+      return ArtIntroScreen.route(art: art, maestro: Maestro.aura);
     case 'horoscope':
       return OroscopoScreen.route(userSign: userSign);
     case 'synastry_vip':
