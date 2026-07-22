@@ -145,6 +145,63 @@ def togli_watermark(alpha, soglia_area=20000, angolo=0.83):
     return alpha, len(comp)
 
 
+# --- ritocchi mirati, uno per figura -------------------------------------------
+#
+# Non sono regole generali travestite da eccezioni: sono correzioni dichiarate
+# per una singola statua, perche' una regola generale qui farebbe danni. Per
+# esempio "togli tutte le componenti staccate" cancellerebbe le sfere che il
+# Giullare tiene in aria, che sono volute.
+
+# Il Mago ha quattro refusi fluttuanti in alto a sinistra, non attaccati a lui:
+# una cima di bastone coi cristalli e tre dischi-sigillo. I due bastoni che
+# impugna davvero, quello con la sfera armillare e quello coi cristalli in
+# basso, sono attaccati alle mani e fanno parte della sua componente.
+ZONA_REFUSI_MAGO = (0.0, 0.0, 0.46, 0.36)  # x0, y0, x1, y1 in frazione
+
+# Sovrano e Amante hanno l'ombra di contatto a terra, magenta scurito: sta sotto
+# il contorno vero della figura e va tolta senza intaccare stivali e orlo.
+BANDA_BASE = 0.78          # da dove comincia la banda bassa, in frazione
+T_CRESCITA_BASE = 125      # tolleranza della crescita, solo dentro la banda
+
+
+def togli_refusi_staccati(alpha, zona):
+    """Cancella le componenti opache interamente contenute in [zona].
+
+    Chi tocca il bordo della zona non si tocca: e' la figura che ci passa
+    dentro. Cosi' la cancellazione non puo' mangiare un pezzo di statua.
+    """
+    h, w = alpha.shape
+    x0, y0, x1, y1 = (int(zona[0] * w), int(zona[1] * h),
+                      int(zona[2] * w), int(zona[3] * h))
+    opaco = alpha > 40
+    visti = np.zeros((h, w), dtype=bool)
+    tolti = 0
+    for sy in range(y0, y1):
+        for sx in range(x0, x1):
+            if not opaco[sy, sx] or visti[sy, sx]:
+                continue
+            comp = []
+            fuori = False
+            coda = deque([(sy, sx)])
+            visti[sy, sx] = True
+            while coda:
+                y, x = coda.popleft()
+                comp.append((y, x))
+                if not (x0 <= x < x1 and y0 <= y < y1):
+                    fuori = True
+                for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    yy, xx = y + dy, x + dx
+                    if (0 <= yy < h and 0 <= xx < w and opaco[yy, xx]
+                            and not visti[yy, xx]):
+                        visti[yy, xx] = True
+                        coda.append((yy, xx))
+            if not fuori:
+                for y, x in comp:
+                    alpha[y, x] = 0
+                tolti += len(comp)
+    return alpha, tolti
+
+
 def deviazione_locale(canale, raggio=3):
     """Deviazione standard su una finestra quadrata, con immagini integrali."""
     h, w = canale.shape
@@ -163,7 +220,7 @@ def deviazione_locale(canale, raggio=3):
     return np.sqrt(var)
 
 
-def scontorna(percorso):
+def scontorna(percorso, *, refusi=None, base_larga=False):
     im = Image.open(percorso).convert('RGB')
     a = np.asarray(im).astype(np.float32)
     bg = colore_fondo(a)
@@ -207,7 +264,31 @@ def scontorna(percorso):
     alpha = np.where(fondo, ramp, 1.0)
     alpha = (alpha * 255).astype(np.uint8)
 
+    # Ombra di contatto a terra: solo dentro la banda bassa la crescita puo'
+    # allargarsi molto, perche' li' il magenta e' scurito dall'ombra e quindi
+    # lontano dal colore campionato. Resta contigua, quindi non puo' saltare
+    # dentro la figura: si ferma sul bronzo degli stivali e sull'orlo.
+    if base_larga:
+        banda = np.zeros_like(fondo)
+        banda[int(fondo.shape[0] * BANDA_BASE):] = True
+        vicino_base = (dist < T_CRESCITA_BASE) & banda
+        for _ in range(PASSI_CRESCITA):
+            avanti = fondo.copy()
+            avanti[1:, :] |= fondo[:-1, :]
+            avanti[:-1, :] |= fondo[1:, :]
+            avanti[:, 1:] |= fondo[:, :-1]
+            avanti[:, :-1] |= fondo[:, 1:]
+            nuovo = (avanti & vicino_base) | fondo
+            if (nuovo == fondo).all():
+                break
+            fondo = nuovo
+        ramp = np.clip((dist - T_LO) / (T_HI - T_LO), 0.0, 1.0)
+        alpha = ((np.where(fondo, ramp, 1.0)) * 255).astype(np.uint8)
+
     alpha, tolti = togli_watermark(alpha)
+    if refusi is not None:
+        alpha, quanti = togli_refusi_staccati(alpha, refusi)
+        print(f'      refusi fluttuanti tolti: {quanti} px')
 
     # despill: sui pixel di bordo si toglie il contributo del fondo, cosi' non
     # resta l'alone magenta attorno alla figura
@@ -232,6 +313,30 @@ def ritaglia(im, pad=6):
     return im.crop((x0, y0, x1, y1))
 
 
+
+# L'ombra di contatto a terra che resta dopo la crescita, per le due figure che
+# ce l'hanno piu' marcata. Si toglie sul RITAGLIATO, in frazioni dell'asset
+# finale, e solo dove il pixel porta la tinta del fondo (rosso E blu sopra il
+# verde): il bronzo degli stivali e l'oro dell'orlo sono caldi, quindi il blu
+# sta sotto il verde e non vengono mai toccati.
+OMBRA_A_TERRA = {
+    'Sovrano': (0.00, 0.915, 1.00, 1.00),
+    'Amante': (0.00, 0.915, 1.00, 1.00),
+}
+
+
+def togli_ombra_a_terra(im, zona):
+    """Cancella la tinta di fondo dentro la zona indicata, sul ritagliato."""
+    a = np.asarray(im).astype(np.int16).copy()
+    r, g, b, al = a[..., 0], a[..., 1], a[..., 2], a[..., 3]
+    h, w = al.shape
+    dentro = np.zeros((h, w), dtype=bool)
+    dentro[int(zona[1] * h):int(zona[3] * h), int(zona[0] * w):int(zona[2] * w)] = True
+    tinta = (b > g + 4) & (r > g + 4) & (al > 0)
+    m = dentro & tinta
+    a[..., 3] = np.where(m, 0, al)
+    return Image.fromarray(a.astype(np.uint8), 'RGBA'), int(m.sum())
+
 def a_lato(im, lato):
     k = lato / max(im.width, im.height)
     return im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))),
@@ -255,8 +360,15 @@ def main():
         os.makedirs(d, exist_ok=True)
     provini = []
     for nome in ARCHETIPI:
-        im, tolti = scontorna(os.path.join(SORGENTI, f'{nome}.png'))
+        im, tolti = scontorna(
+            os.path.join(SORGENTI, f'{nome}.png'),
+            refusi=ZONA_REFUSI_MAGO if nome == 'Mago' else None,
+            base_larga=nome in ('Sovrano', 'Amante'),
+        )
         im = ritaglia(im)
+        if nome in OMBRA_A_TERRA:
+            im, tolti_ombra = togli_ombra_a_terra(im, OMBRA_A_TERRA[nome])
+            print(f'      ombra a terra tolta: {tolti_ombra} px')
         stem = f'arc_{nome.lower()}_v1'
         p1 = a_lato(im, LATO_PIENA)
         p2 = a_lato(im, LATO_THUMB)
