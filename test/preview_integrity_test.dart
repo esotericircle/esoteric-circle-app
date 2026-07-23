@@ -17,6 +17,7 @@ void main() {
     'santuario-alto.png', // Santuario, alto pulito
     'santuario-scaffale.png', // Santuario, scaffale funzioni a scorrimento
     'chat-instradamento.png', // instradamento della chat verso una funzione
+    'sinastria-galleria.png', // Sinastria VIP, galleria di scelta del VIP
     'sinastria-vip.png', // Sinastria VIP, risultato
     'sinastria-vip-personale.png', // Sinastria VIP, col nome utente reale
     'dominio-medora.png', // dominio, presenza, Consulta e prime sottocategorie

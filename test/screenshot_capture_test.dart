@@ -63,6 +63,7 @@ import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_gallery_screen.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
@@ -931,8 +932,8 @@ void main() {
 
   // --- La Sinastria VIP, raggiungibile dallo scaffale del Santuario ---
   Future<void> precacheSinastria(WidgetTester tester) async {
-    // Decodifica il ritratto pieno del VIP in testa e le prime miniature del
-    // selettore, cosi' l'anteprima mostra l'arte reale e non i ripieghi.
+    // Decodifica la cornice VIP e il ritratto pieno del VIP in testa, cosi'
+    // l'anteprima del responso mostra l'arte reale e non il ripiego.
     await tester.runAsync(() async {
       final element = tester.element(find.byType(SinastriaVipScreen));
       await precacheImage(const AssetImage('assets/vip_cornice.webp'), element);
@@ -940,7 +941,28 @@ void main() {
       if (first.fullPath != null) {
         await precacheImage(AssetImage(first.fullPath!), element);
       }
-      for (final vip in VipCatalog.vips.take(4)) {
+    });
+    await step(tester);
+    await step(tester);
+  }
+
+  testWidgets('Cattura la galleria di scelta della Sinastria VIP',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Superficie alta, cosi' la galleria mostra ricerca, filtri, In evidenza col
+    // tasto A caso e le prime righe della griglia dei volti.
+    tester.view.physicalSize = const Size(390, 1720);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SinastriaGalleryScreen.route(userSign: Zodiac.gemini)));
+    await step(tester);
+    await step(tester);
+    // Decodifica tutte le miniature, cosi' le tessere mostrano i volti.
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(SinastriaGalleryScreen));
+      for (final vip in VipCatalog.vips) {
         if (vip.thumbPath != null) {
           await precacheImage(AssetImage(vip.thumbPath!), element);
         }
@@ -948,7 +970,8 @@ void main() {
     });
     await step(tester);
     await step(tester);
-  }
+    await capture(tester, rootKey, 'sinastria-galleria.png');
+  });
 
   testWidgets('Cattura la Sinastria VIP', (tester) async {
     silenceSensors();
@@ -956,9 +979,9 @@ void main() {
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     // Superficie alta quanto basta perche' l'anteprima mostri, oltre ai due
-    // poli, anche le quattro barre, la riga di sfida e il tasto Condividi, senza
-    // tagliarli fuori come faceva la superficie di default.
-    tester.view.physicalSize = const Size(390, 1620);
+    // poli, anche le quattro barre, la riga di sfida, il tasto Condividi e il
+    // tasto Cambia VIP che ha preso il posto del selettore in fondo.
+    tester.view.physicalSize = const Size(390, 1340);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(SinastriaVipScreen.route()));
     await step(tester);
@@ -972,7 +995,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(390, 1620);
+    tester.view.physicalSize = const Size(390, 1340);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Nome e data reali sul polo di sinistra, cosi' si vede l'effetto personale.
     unawaited(nav.push(SinastriaVipScreen.route(

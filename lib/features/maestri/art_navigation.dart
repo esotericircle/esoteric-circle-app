@@ -11,7 +11,7 @@ import '../maestri/aura/meditation/meditation_screen.dart';
 import '../rituals/breath_destiny_screen.dart';
 import '../rituals/day_oracle_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
-import '../synastry/sinastria_vip_screen.dart';
+import '../synastry/sinastria_gallery_screen.dart';
 import '../tarot/stesa_tre_carte_screen.dart';
 
 /// La navigazione condivisa verso le arti del Cerchio: mappa l'id di un'arte
@@ -55,8 +55,10 @@ Route<void>? artRouteFor(
       return FaceConstellationScreen.route();
     case 'horoscope':
       return OroscopoScreen.route(userSign: userSign);
+    // La Sinastria VIP apre sulla galleria di scelta del VIP, non piu' su un
+    // risultato precaricato: si sceglie, poi si vede il responso.
     case 'synastry_vip':
-      return SinastriaVipScreen.route(
+      return SinastriaGalleryScreen.route(
           userSign: userSign, userBirth: userBirth, userName: userName);
     case 'tarot_spread_three':
       return StesaTreCarteScreen.route();

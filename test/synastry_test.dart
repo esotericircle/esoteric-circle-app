@@ -202,7 +202,8 @@ void main() {
       {Zodiac userSign = Zodiac.gemini,
       UserPhotoController? photo,
       String userName = 'Tu',
-      DateTime? userBirth}) async {
+      DateTime? userBirth,
+      Vip? vip}) async {
     silenceSensors();
     // Superficie alta, cosi' l'intera colonna scorrevole (barre, tasto, picker)
     // e' costruita e trovabile senza scroll manuale.
@@ -226,7 +227,8 @@ void main() {
             userSign: userSign,
             photoController: photo,
             userName: userName,
-            userBirth: userBirth),
+            userBirth: userBirth,
+            vip: vip),
       ),
     ));
     await tester.pumpAndSettle();
@@ -240,8 +242,9 @@ void main() {
     expect(find.byKey(const Key('sinastria_pole_vip')), findsOneWidget);
     expect(find.byKey(const Key('sinastria_reading')), findsOneWidget);
     expect(find.byKey(const Key('sinastria_share')), findsOneWidget);
-    expect(
-        find.byKey(Key('vip_${VipCatalog.first.name}')), findsOneWidget);
+    // Il selettore in fondo non c'e' piu': al suo posto il tasto Cambia VIP.
+    expect(find.byKey(const Key('sinastria_change_vip')), findsOneWidget);
+    expect(find.text('Il tuo VIP'), findsNothing);
   });
 
   testWidgets('Il responso viene prima delle barre', (tester) async {
@@ -280,16 +283,20 @@ void main() {
     expect(ritratto.name, 'Tu');
   });
 
-  testWidgets('Cambiare VIP aggiorna il cerchio', (tester) async {
-    await pumpScreen(tester);
-    final other = VipCatalog.vips[2];
-    final chip = find.byKey(Key('vip_${other.name}'));
-    await tester.ensureVisible(chip);
-    await tester.pumpAndSettle();
-    await tester.tap(chip);
-    await tester.pumpAndSettle();
+  testWidgets('Il responso apre sul VIP passato, non sul primo del catalogo',
+      (tester) async {
+    final scelto = VipCatalog.vips[2];
+    await pumpScreen(tester, vip: scelto);
 
-    final expected = SynastryReport.forPair(Zodiac.gemini, other);
+    // Il polo VIP mostra il VIP scelto, e il cerchio la sua percentuale.
+    final ritratto = tester.widget<VipFramedPortrait>(
+      find.descendant(
+        of: find.byKey(const Key('sinastria_pole_vip')),
+        matching: find.byType(VipFramedPortrait),
+      ),
+    );
+    expect(ritratto.name, scelto.name);
+    final expected = SynastryReport.forPair(Zodiac.gemini, scelto);
     expect(
       find.descendant(
         of: find.byKey(const Key('sinastria_gauge')),

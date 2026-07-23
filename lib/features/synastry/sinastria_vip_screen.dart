@@ -39,10 +39,15 @@ class SinastriaVipScreen extends StatefulWidget {
     this.userSign,
     this.userName = 'Tu',
     this.userBirth,
+    this.vip,
     this.photoController,
   });
 
   final Zodiac? userSign;
+
+  /// Il VIP scelto nella galleria di apertura. Se nullo, apre sul primo del
+  /// catalogo (per i test isolati che non passano dalla galleria).
+  final Vip? vip;
 
   /// Nome dell'utente nel cartiglio del suo polo.
   final String userName;
@@ -57,6 +62,7 @@ class SinastriaVipScreen extends StatefulWidget {
     Zodiac? userSign,
     String? userName,
     DateTime? userBirth,
+    Vip? vip,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
@@ -64,6 +70,7 @@ class SinastriaVipScreen extends StatefulWidget {
           userSign: userSign,
           userName: userName ?? 'Tu',
           userBirth: userBirth,
+          vip: vip,
         ),
       ),
     );
@@ -75,7 +82,7 @@ class SinastriaVipScreen extends StatefulWidget {
 
 class _SinastriaVipScreenState extends State<SinastriaVipScreen>
     with SingleTickerProviderStateMixin {
-  late Vip _vip = VipCatalog.first;
+  late final Vip _vip = widget.vip ?? VipCatalog.first;
   late final UserPhotoController _photo =
       widget.photoController ?? UserPhotoController();
   final GlobalKey _cardKey = GlobalKey();
@@ -132,11 +139,6 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
     if (widget.photoController == null) _photo.dispose();
     _anim.dispose();
     super.dispose();
-  }
-
-  void _selectVip(Vip vip) {
-    setState(() => _vip = vip);
-    _anim.forward(from: 0);
   }
 
   @override
@@ -341,26 +343,22 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
           ),
         ),
         const SizedBox(height: SpacingTokens.lg),
-        Text('Il tuo VIP',
-            style: TypographyTokens.display(size: 16)
-                .copyWith(color: palette.goldSoft)),
-        const SizedBox(height: SpacingTokens.sm),
-        // Selettore dei VIP precaricati, con la miniatura del ritratto.
-        SizedBox(
-          height: 170,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: VipCatalog.vips.length,
-            separatorBuilder: (_, __) => const SizedBox(width: SpacingTokens.sm),
-            itemBuilder: (context, i) {
-              final vip = VipCatalog.vips[i];
-              return _VipChip(
-                vip: vip,
-                selected: vip.name == _vip.name,
-                palette: palette,
-                onTap: () => _selectVip(vip),
-              );
-            },
+        // Il selettore in fondo non c'e' piu': la scelta del VIP si fa nella
+        // galleria di apertura. Da qui un tasto per tornarci e cambiare VIP.
+        Center(
+          child: OutlinedButton.icon(
+            key: const Key('sinastria_change_vip'),
+            onPressed: () => Navigator.of(context).maybePop(),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: palette.goldSoft,
+              side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: SpacingTokens.xl, vertical: SpacingTokens.sm),
+            ),
+            icon: const Icon(Icons.swap_horiz_rounded, size: 18),
+            label: Text('Cambia VIP',
+                style: TypographyTokens.label(size: 13)
+                    .copyWith(letterSpacing: 0.6)),
           ),
         ),
       ],
@@ -518,103 +516,6 @@ class _Pole extends StatelessWidget {
                     color: ColorTokens.textSecondary, letterSpacing: 0.3)),
           ],
         ],
-      ),
-    );
-  }
-}
-
-class _VipChip extends StatelessWidget {
-  const _VipChip({
-    required this.vip,
-    required this.selected,
-    required this.palette,
-    required this.onTap,
-  });
-
-  final Vip vip;
-  final bool selected;
-  final MaestroPalette palette;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      key: Key('vip_${vip.name}'),
-      onTap: onTap,
-      child: Container(
-        width: 140,
-        padding: const EdgeInsets.all(SpacingTokens.sm),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          gradient: selected
-              ? LinearGradient(colors: [
-                  palette.primary.withValues(alpha: 0.6),
-                  palette.surfaceElevated.withValues(alpha: 0.6),
-                ])
-              : null,
-          border: Border.all(
-              color: selected
-                  ? palette.gold.withValues(alpha: 0.7)
-                  : palette.gold.withValues(alpha: 0.22)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Miniatura del ritratto nel picker: la misura leggera, e' una vista
-            // con piu' voci.
-            if (vip.hasImage) ...[
-              Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
-                  child: Image.asset(
-                    vip.thumbPath!,
-                    width: 44,
-                    height: 44,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Icon(Icons.auto_awesome,
-                        color: palette.goldSoft, size: 22),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 4),
-            ],
-            Text(vip.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TypographyTokens.display(size: 14).copyWith(
-                    color:
-                        selected ? palette.goldSoft : ColorTokens.textPrimary)),
-            Text(vip.sign.italianName,
-                style: TypographyTokens.label(size: 9)
-                    .copyWith(color: palette.goldSoft, letterSpacing: 0.4)),
-            const SizedBox(height: 2),
-            Expanded(
-              child: Text(vip.note,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TypographyTokens.body(size: 11)
-                      .copyWith(color: ColorTokens.textSecondary, height: 1.2)),
-            ),
-            if (vip.hasCategory) ...[
-              const SizedBox(height: 6),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
-                  color: palette.primary.withValues(alpha: 0.5),
-                  border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
-                ),
-                child: Text(vip.category.toUpperCase(),
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TypographyTokens.label(size: 9).copyWith(
-                        color: palette.goldSoft, letterSpacing: 0.8)),
-              ),
-            ],
-          ],
-        ),
       ),
     );
   }
