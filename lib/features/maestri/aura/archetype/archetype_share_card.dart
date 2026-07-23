@@ -16,23 +16,29 @@ import 'archetype_wheel.dart';
 
 /// La card condivisibile del Test Archetipo, nella cornice verde e oro di Aura.
 ///
-/// Statua del dominante, nome con l'articolo, essenza e una mini-ruota. Il testo
-/// e' tutto dal corpus, quindi la card e' deterministica: stesso profilo, stessa
-/// immagine. Si cattura come PNG da un `RepaintBoundary` e si apre col foglio di
-/// condivisione, come le altre card del progetto.
+/// La statua del dominante resta protagonista, con la mini-ruota dietro. Attorno
+/// racconta il responso vero: provenienza in alto, il nome con l'articolo, la
+/// percentuale del dominante, il co-dominante, l'essenza dal corpus e una
+/// classifica compatta dei primi tre col cerchio della miniatura. In fondo, oltre
+/// alla firma, un invito a scoprire il proprio archetipo. Il testo e le
+/// percentuali vengono tutti dallo stesso profilo mostrato nel responso, quindi
+/// la card e' deterministica: stesso profilo, stessa immagine. Si cattura come
+/// PNG da un `RepaintBoundary` e si apre col foglio di condivisione.
 class ArchetypeShareCard extends StatelessWidget {
   const ArchetypeShareCard({super.key, required this.profilo});
 
   final ArchetypeProfile profilo;
 
   static const double larghezza = 400;
-  static const double altezza = 620;
+  static const double altezza = 760;
 
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
     final dom = profilo.dominante;
     final ritratto = ArchetypeCorpus.di(dom);
+    final secondo = profilo.secondo;
+    final primiTre = profilo.graduatoria.take(3).toList();
     return Container(
       key: const Key('archetype_share_card'),
       width: larghezza,
@@ -49,10 +55,12 @@ class ArchetypeShareCard extends StatelessWidget {
         padding: const EdgeInsets.all(SpacingTokens.lg),
         child: Column(
           children: [
-            Text('IL TUO ARCHETIPO',
+            // Provenienza in alto: da dove arriva l'immagine.
+            Text('TEST ARCHETIPO',
                 style: TypographyTokens.label(size: 12).copyWith(
                     color: palette.goldSoft, letterSpacing: 2.0)),
-            const SizedBox(height: SpacingTokens.md),
+            const SizedBox(height: SpacingTokens.sm),
+            // La statua protagonista, con la mini-ruota del profilo dietro.
             Expanded(
               child: Stack(
                 alignment: Alignment.center,
@@ -62,36 +70,125 @@ class ArchetypeShareCard extends StatelessWidget {
                     child: ArchetypeWheel(
                       profilo: profilo,
                       palette: palette,
-                      lato: 300,
+                      lato: 270,
                       etichette: false,
                     ),
                   ),
                   Image.asset(dom.artePiena,
-                      height: 300,
+                      height: 270,
                       fit: BoxFit.contain,
                       errorBuilder: (_, __, ___) => Icon(
                           Icons.person_outline_rounded,
-                          size: 180,
+                          size: 170,
                           color: palette.goldSoft)),
                 ],
               ),
             ),
             Text(dom.conArticolo.toUpperCase(),
-                style: TypographyTokens.display(size: 28)
+                style: TypographyTokens.display(size: 26)
                     .copyWith(color: palette.goldSoft)),
+            const SizedBox(height: 2),
+            // La percentuale del dominante e il co-dominante, quando c'e'.
+            Text(
+              secondo != null
+                  ? '${profilo.percentualeDi(dom).round()}% · accanto ${secondo.conArticolo}'
+                  : '${profilo.percentualeDi(dom).round()}%',
+              style: TypographyTokens.label(size: 12).copyWith(
+                  color: palette.textPrimary.withValues(alpha: 0.85),
+                  letterSpacing: 0.5),
+            ),
             const SizedBox(height: SpacingTokens.xs),
             Text(ritratto.essenza,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 15).copyWith(
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TypographyTokens.body(size: 14).copyWith(
                     color: palette.textPrimary, fontStyle: FontStyle.italic)),
             const SizedBox(height: SpacingTokens.md),
+            // La classifica compatta dei primi tre: cerchio, nome, percentuale.
+            for (final a in primiTre)
+              Padding(
+                padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
+                child: _RigaTre(
+                  archetipo: a,
+                  percentuale: profilo.percentualeDi(a).round(),
+                  dominante: a == dom,
+                  palette: palette,
+                ),
+              ),
+            const SizedBox(height: SpacingTokens.sm),
             Text('Esoteric Circle · Aura',
                 style: TypographyTokens.label(size: 10).copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.7),
                     letterSpacing: 1.0)),
+            const SizedBox(height: 2),
+            Text('Scopri il tuo archetipo su Esoteric Circle',
+                style: TypographyTokens.label(size: 10).copyWith(
+                    color: palette.textPrimary.withValues(alpha: 0.6),
+                    letterSpacing: 0.4)),
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Una riga della classifica compatta sulla card: cerchio con la miniatura,
+/// nome e percentuale. Il dominante e' acceso in oro.
+class _RigaTre extends StatelessWidget {
+  const _RigaTre({
+    required this.archetipo,
+    required this.percentuale,
+    required this.dominante,
+    required this.palette,
+  });
+
+  final Archetype archetipo;
+  final int percentuale;
+  final bool dominante;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 30,
+          height: 30,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: palette.surface.withValues(alpha: 0.6),
+            border: Border.all(
+              color: dominante
+                  ? palette.goldSoft
+                  : palette.gold.withValues(alpha: 0.3),
+              width: dominante ? 1.5 : 1,
+            ),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Image.asset(
+            archetipo.arteThumb,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) => Icon(Icons.person_outline_rounded,
+                size: 16, color: palette.goldSoft),
+          ),
+        ),
+        const SizedBox(width: SpacingTokens.sm),
+        Expanded(
+          child: Text(archetipo.nome,
+              style: TypographyTokens.body(size: 14).copyWith(
+                  color:
+                      dominante ? palette.goldSoft : palette.textPrimary,
+                  fontWeight:
+                      dominante ? FontWeight.w700 : FontWeight.w400)),
+        ),
+        Text('$percentuale%',
+            style: TypographyTokens.label(size: 12).copyWith(
+                color: dominante
+                    ? palette.goldSoft
+                    : palette.textPrimary.withValues(alpha: 0.7),
+                letterSpacing: 0.5)),
+      ],
     );
   }
 }

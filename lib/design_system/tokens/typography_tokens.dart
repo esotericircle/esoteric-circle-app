@@ -16,7 +16,12 @@ import 'color_tokens.dart';
 class TypographyTokens {
   TypographyTokens._();
 
-  static const String _display = 'Cinzel';
+  /// Famiglia cerimoniale (Cinzel). Pubblica perche' l'anello curvo della ruota
+  /// archetipica costruisce uno stile su misura, con una dimensione calcolata
+  /// per far stare i dodici nomi sull'arco, e quindi non passa da `label()` che
+  /// imporrebbe il minimo leggibile pensato per il testo dritto.
+  static const String displayFamily = 'Cinzel';
+  static const String _display = displayFamily;
   static const String _body = 'EBGaramond';
 
   /// Minimi leggibili non negoziabili: nessun testo scende sotto queste soglie,

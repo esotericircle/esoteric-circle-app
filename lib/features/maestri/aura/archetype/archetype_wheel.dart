@@ -151,25 +151,64 @@ class _AstrolabioPainter extends CustomPainter {
 
     // L'anello esterno: i dodici nomi curvati lungo la circonferenza, ognuno
     // centrato sulla sua fetta. La meta' inferiore si capovolge di mezzo giro
-    // per restare leggibile.
-    final rTesto = (rDisco + rEsterno) / 2;
+    // per restare leggibile. I nomi stanno vicino al bordo esterno, dove l'arco
+    // e' piu' lungo, e la taglia del carattere e' UNA sola per tutti e dodici:
+    // si prende la piu' grande che tiene il nome piu' lungo (Esploratore) dentro
+    // la sua fetta con un margine visibile sui due lati, cosi' nessun nome tocca
+    // i vicini, ne' in alto ne' in basso.
+    final rTesto = rEsterno - 7;
+    const riempi = 0.84; // quota della fetta occupata dal testo, resto a margine
+    final arcoMax = _passo * riempi * rTesto;
+    // Misura il nome piu' largo a una taglia di riferimento, poi scala: con la
+    // spaziatura proporzionale alla taglia la larghezza cresce in modo lineare,
+    // quindi una sola scalatura basta.
+    const riferimento = 12.0;
+    var largMax = 0.0;
+    for (final a in Archetype.values) {
+      largMax = math.max(largMax,
+          _larghezzaTesto(a.nome.toUpperCase(), _stileAnello(riferimento)));
+    }
+    final taglia = (riferimento * arcoMax / largMax).clamp(7.0, 12.0).toDouble();
     for (var i = 0; i < n; i++) {
-      final dom = i == iDom;
       _nomeCurvo(
         canvas,
         c,
         rTesto,
         _angoloFetta(i),
         Archetype.values[i].nome.toUpperCase(),
-        TypographyTokens.label(size: dom ? 12 : 10.5).copyWith(
-          color: dom
-              ? palette.goldSoft
-              : palette.textSecondary.withValues(alpha: 0.9),
-          letterSpacing: 1.2,
-          fontWeight: dom ? FontWeight.w700 : FontWeight.w600,
-        ),
+        _stileAnello(taglia, dom: i == iDom),
       );
     }
+  }
+
+  /// Lo stile di un nome sull'anello: taglia unica, spaziatura proporzionale
+  /// (cosi' la larghezza scala lineare con la taglia) e peso uguale per tutti.
+  /// Il dominante si distingue solo per il colore oro, mai per la dimensione.
+  /// Si costruisce a mano, senza passare da `label()`, perche' quello imporrebbe
+  /// il minimo leggibile del testo dritto e i dodici nomi non starebbero.
+  TextStyle _stileAnello(double taglia, {bool dom = false}) => TextStyle(
+        fontFamily: TypographyTokens.displayFamily,
+        fontSize: taglia,
+        fontVariations: const [FontVariation('wght', 600)],
+        fontWeight: FontWeight.w600,
+        letterSpacing: taglia * 0.08,
+        color: dom
+            ? palette.goldSoft
+            : palette.textSecondary.withValues(alpha: 0.9),
+      );
+
+  /// La larghezza del testo come somma delle larghezze dei singoli glifi, lo
+  /// stesso conto che fa `_nomeCurvo` quando li dispone sull'arco.
+  double _larghezzaTesto(String testo, TextStyle stile) {
+    var w = 0.0;
+    for (final ch in testo.characters) {
+      final tp = TextPainter(
+        text: TextSpan(text: ch, style: stile),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      w += tp.width;
+    }
+    return w;
   }
 
   /// Disegna [testo] curvato su un arco di raggio [r] centrato sull'angolo

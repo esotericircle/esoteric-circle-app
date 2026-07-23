@@ -501,9 +501,9 @@ void main() {
       }
     });
     await step(tester);
-    // Superficie alta, cosi' l'anteprima mostra la ruota, la statua, i testi e
-    // la classifica dei dodici.
-    tester.view.physicalSize = const Size(390, 3000);
+    // Superficie alta, cosi' l'anteprima mostra la ruota, la statua, i testi,
+    // la classifica dei dodici e i due pulsanti in fondo.
+    tester.view.physicalSize = const Size(390, 3600);
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo.png');
@@ -517,7 +517,7 @@ void main() {
   testWidgets('Cattura la card del Test Archetipo', (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.physicalSize = const Size(440, 700);
+    tester.view.physicalSize = const Size(440, 840);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -535,10 +535,14 @@ void main() {
         ),
       ),
     ));
+    // La statua del dominante e le miniature della classifica compatta.
     await tester.runAsync(() async {
       final element = tester.element(find.byType(MaterialApp));
       await precacheImage(
           AssetImage(profilo.dominante.artePiena), element);
+      for (final a in profilo.graduatoria.take(3)) {
+        await precacheImage(AssetImage(a.arteThumb), element);
+      }
     });
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo-card.png');

@@ -470,6 +470,7 @@ void main() {
       ),
     ));
     await tester.pump();
+    final profilo = ArchetypeScoring.calcola(List.filled(12, 3));
     expect(find.byKey(const Key('archetype_share_card')), findsOneWidget);
     expect(find.text('IL REALISTA'), findsOneWidget);
     expect(find.text(ArchetypeCorpus.di(Archetype.realista).essenza),
@@ -477,5 +478,24 @@ void main() {
     // La mini-ruota c'e' ma senza etichette.
     final ruota = tester.widget<ArchetypeWheel>(find.byType(ArchetypeWheel));
     expect(ruota.etichette, isFalse);
+
+    // Provenienza in alto e invito in fondo, senza indirizzi web inventati.
+    expect(find.text('TEST ARCHETIPO'), findsOneWidget);
+    expect(find.text('Scopri il tuo archetipo su Esoteric Circle'),
+        findsOneWidget);
+    expect(find.text('Esoteric Circle · Aura'), findsOneWidget);
+
+    // Il responso sulla card: percentuale del dominante e co-dominante.
+    final pct = profilo.percentualeDi(Archetype.realista).round();
+    expect(profilo.secondo, isNotNull);
+    expect(
+        find.text('$pct% · accanto ${profilo.secondo!.conArticolo}'),
+        findsOneWidget);
+
+    // La classifica compatta dei primi tre: nome e percentuale per ciascuno.
+    for (final a in profilo.graduatoria.take(3)) {
+      expect(find.text(a.nome), findsWidgets);
+      expect(find.text('${profilo.percentualeDi(a).round()}%'), findsWidgets);
+    }
   });
 }
