@@ -36,7 +36,6 @@ class ArchetypeTestScreen extends StatefulWidget {
     super.key,
     this.clock,
     this.pianetiDelGiorno,
-    this.riapriUltimo = false,
   });
 
   /// Orologio iniettabile per i test.
@@ -46,21 +45,15 @@ class ArchetypeTestScreen extends StatefulWidget {
   /// vero, che oggi sa calcolare Sole e Luna.
   final Set<Pianeta> Function(DateTime)? pianetiDelGiorno;
 
-  /// Se aprire direttamente sull'ultimo responso salvato, invece che dalla
-  /// soglia: lo usa la faccia archetipo del Cosmic Passport.
-  final bool riapriUltimo;
-
   static Route<void> route({
     DateTime Function()? clock,
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
-    bool riapriUltimo = false,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
         child: ArchetypeTestScreen(
           clock: clock,
           pianetiDelGiorno: pianetiDelGiorno,
-          riapriUltimo: riapriUltimo,
         ),
       ),
     );
@@ -93,16 +86,7 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
     super.initState();
     _storico.carica().then((_) {
       if (!mounted) return;
-      if (widget.riapriUltimo && _storico.ultimo != null) {
-        setState(() {
-          _profilo = _storico.ultimo!.profilo;
-          _precedente = _storico.esiti.length > 1 ? _storico.esiti[1] : null;
-          _fase = _Fase.risultato;
-          _pronto = true;
-        });
-      } else {
-        setState(() => _pronto = true);
-      }
+      setState(() => _pronto = true);
     });
   }
 
@@ -531,8 +515,10 @@ class _Statua extends StatelessWidget {
   }
 }
 
-/// Il responso. L'ordine dall'alto: titolo di modalita', statua, ruota, nome,
-/// essenza, Luce, Ombra, Amore, Lavoro. Il visivo prima del testo.
+/// Il responso. L'ordine dall'alto: sottotitolo di modalita', statua, ruota,
+/// nome, essenza, co-dominante, Luce, le tre stanze (Amore, Lavoro,
+/// Quotidianita'), Ombra, transiti, classifica dei dodici, pulsanti. Il visivo
+/// prima del testo.
 class _Risultato extends StatefulWidget {
   const _Risultato({
     required this.palette,
@@ -621,11 +607,15 @@ class _RisultatoState extends State<_Risultato>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Il sottotitolo che dichiara la modalita'.
+              // Il sottotitolo che dichiara la modalita', legato all'interruttore
+              // dei transiti: dice solo se il responso e' legato al cielo o no.
               Center(
                 child: Text(
-                  widget.conCielo ? 'Con il cielo di oggi' : 'Senza il cielo di oggi',
+                  widget.conCielo
+                      ? 'legato ai transiti astrologici di oggi'
+                      : 'non legato ai transiti astrologici',
                   key: const Key('archetype_mode_subtitle'),
+                  textAlign: TextAlign.center,
                   style: TypographyTokens.label(size: 12).copyWith(
                       color: palette.goldSoft, letterSpacing: 1.0),
                 ),
@@ -712,6 +702,40 @@ class _RisultatoState extends State<_Risultato>
                 ),
               ),
 
+              // LE TRE STANZE DELLA VITA, sopra l'Ombra: come l'archetipo vive
+              // in amore, nel lavoro, nella quotidianita'. Ognuna una bolla con
+              // etichetta oro.
+              const SizedBox(height: SpacingTokens.md),
+              ScrollReveal(
+                depth: 1,
+                child: _Bolla(
+                  chiave: 'archetype_amore',
+                  titolo: 'In amore',
+                  testo: ritratto.amore,
+                  palette: palette,
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.md),
+              ScrollReveal(
+                depth: 1,
+                child: _Bolla(
+                  chiave: 'archetype_lavoro',
+                  titolo: 'Nel lavoro',
+                  testo: ritratto.lavoro,
+                  palette: palette,
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.md),
+              ScrollReveal(
+                depth: 1,
+                child: _Bolla(
+                  chiave: 'archetype_quotidianita',
+                  titolo: 'Nella quotidianità',
+                  testo: ritratto.quotidianita,
+                  palette: palette,
+                ),
+              ),
+
               // L'OMBRA, la stessa statua trattata.
               const SizedBox(height: SpacingTokens.md),
               ScrollReveal(
@@ -747,27 +771,6 @@ class _RisultatoState extends State<_Risultato>
                 ),
               ),
 
-              const SizedBox(height: SpacingTokens.md),
-              ScrollReveal(
-                depth: 1,
-                child: _Paragrafo(
-                  chiave: 'archetype_amore',
-                  titolo: 'In amore',
-                  testo: ritratto.amore,
-                  palette: palette,
-                ),
-              ),
-              const SizedBox(height: SpacingTokens.md),
-              ScrollReveal(
-                depth: 1,
-                child: _Paragrafo(
-                  chiave: 'archetype_lavoro',
-                  titolo: 'Nel lavoro',
-                  testo: ritratto.lavoro,
-                  palette: palette,
-                ),
-              ),
-
               const SizedBox(height: SpacingTokens.lg),
               // L'interruttore vivo: rilegge il profilo col cielo o senza, senza
               // rifare il test, perche' la modulazione e' deterministica.
@@ -787,6 +790,15 @@ class _RisultatoState extends State<_Risultato>
                   adesso: widget.profilo,
                 ),
               ],
+
+              // La classifica dei dodici, discreta, appena sopra i pulsanti:
+              // ogni archetipo con la sua percentuale e la statuina nel cerchio.
+              const SizedBox(height: SpacingTokens.lg),
+              ScrollReveal(
+                depth: 1,
+                child: _ClassificaPercentuali(
+                    profilo: mostrato, palette: palette),
+              ),
 
               const SizedBox(height: SpacingTokens.lg),
               OutlinedButton.icon(
@@ -833,8 +845,9 @@ class _RisultatoState extends State<_Risultato>
   }
 }
 
-class _Paragrafo extends StatelessWidget {
-  const _Paragrafo({
+/// Una bolla di vita: etichetta oro e testo lungo, come la bolla della Luce.
+class _Bolla extends StatelessWidget {
+  const _Bolla({
     required this.chiave,
     required this.titolo,
     required this.testo,
@@ -848,18 +861,122 @@ class _Paragrafo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return DepthCard(
       key: Key(chiave),
+      raised: true,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(titolo,
+              style: TypographyTokens.label(size: 12)
+                  .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
+          const SizedBox(height: SpacingTokens.xs),
+          Text(testo,
+              style: TypographyTokens.body(size: 16)
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.55)),
+        ],
+      ),
+    );
+  }
+}
+
+/// La classifica dei dodici archetipi, per percentuale decrescente. Sola
+/// lettura: nessuna freccia, nessun tap, solo il quadro d'insieme del test. La
+/// statuina sta in un cerchio prima del nome, e a destra la percentuale.
+class _ClassificaPercentuali extends StatelessWidget {
+  const _ClassificaPercentuali({required this.profilo, required this.palette});
+
+  final ArchetypeProfile profilo;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final ordinati = profilo.graduatoria;
+    return Column(
+      key: const Key('archetype_ranking'),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(titolo,
+        Text('I dodici in te',
             style: TypographyTokens.label(size: 12)
                 .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
-        const SizedBox(height: SpacingTokens.xs),
-        Text(testo,
-            style: TypographyTokens.body(size: 16)
-                .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
+        const SizedBox(height: SpacingTokens.sm),
+        for (final a in ordinati) ...[
+          _RigaClassifica(
+            archetipo: a,
+            percentuale: profilo.percentualeDi(a).round(),
+            dominante: a == profilo.dominante,
+            palette: palette,
+          ),
+          if (a != ordinati.last) const SizedBox(height: SpacingTokens.xs),
+        ],
       ],
+    );
+  }
+}
+
+/// Una riga della classifica: cerchio con statuina, nome, percentuale. Riga
+/// singola, non interattiva.
+class _RigaClassifica extends StatelessWidget {
+  const _RigaClassifica({
+    required this.archetipo,
+    required this.percentuale,
+    required this.dominante,
+    required this.palette,
+  });
+
+  final Archetype archetipo;
+  final int percentuale;
+  final bool dominante;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return DepthCard(
+      key: Key('archetype_rank_${archetipo.name}'),
+      padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.sm, vertical: SpacingTokens.xs),
+      child: Row(
+        children: [
+          Container(
+            width: 34,
+            height: 34,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: palette.surface.withValues(alpha: 0.6),
+              border: Border.all(
+                color: dominante
+                    ? palette.goldSoft
+                    : palette.gold.withValues(alpha: 0.3),
+                width: dominante ? 1.5 : 1,
+              ),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Image.asset(
+              archetipo.arteThumb,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => Icon(Icons.person_outline_rounded,
+                  size: 18, color: palette.goldSoft),
+            ),
+          ),
+          const SizedBox(width: SpacingTokens.sm),
+          Expanded(
+            child: Text(archetipo.nome,
+                style: TypographyTokens.body(size: 15).copyWith(
+                    color: dominante
+                        ? palette.goldSoft
+                        : ColorTokens.textPrimary,
+                    fontWeight:
+                        dominante ? FontWeight.w700 : FontWeight.w400)),
+          ),
+          Text('$percentuale%',
+              style: TypographyTokens.label(size: 13).copyWith(
+                  color: dominante
+                      ? palette.goldSoft
+                      : ColorTokens.textSecondary,
+                  letterSpacing: 0.5)),
+        ],
+      ),
     );
   }
 }

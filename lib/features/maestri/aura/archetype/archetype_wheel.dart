@@ -6,7 +6,6 @@ import '../../../../core/archetypes/archetype.dart';
 import '../../../../core/archetypes/archetype_scoring.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
-import 'archetype_glyphs.dart';
 
 /// La ruota astrolabio del profilo archetipico.
 ///
@@ -15,16 +14,18 @@ import 'archetype_glyphs.dart';
 /// sola parola. La statua NON sta dentro la ruota, sta sopra: qui c'e' solo il
 /// cielo dei dodici.
 ///
-/// Divisa in dodici fette. L'anello esterno porta i dodici nomi, ognuno nel suo
-/// slot, col testo tenuto sempre DRITTO e leggibile: le etichette della meta'
-/// bassa non si capovolgono. Accanto a ogni nome un piccolo glifo essenziale.
+/// L'anello esterno porta i dodici nomi, ognuno sopra la sua fetta, col testo
+/// CURVATO che segue la circonferenza. I nomi della meta' inferiore sono
+/// capovolti di mezzo giro, cosi' restano leggibili e mai a testa in giu'.
+/// Nessun glifo: l'anello porta solo i nomi. Il poligono verde del profilo e'
+/// grande, riempie il disco interno, ma resta dentro l'anello senza coprirlo.
 class ArchetypeWheel extends StatelessWidget {
   const ArchetypeWheel({
     super.key,
     required this.profilo,
     required this.palette,
     this.avanzamento = 1.0,
-    this.lato = 340,
+    this.lato = 360,
     this.etichette = true,
   });
 
@@ -37,7 +38,7 @@ class ArchetypeWheel extends StatelessWidget {
 
   final double lato;
 
-  /// Le etichette esterne coi glifi. Si spengono nella mini-ruota della card.
+  /// I nomi sull'anello esterno. Si spengono nella mini-ruota della card.
   final bool etichette;
 
   @override
@@ -77,24 +78,26 @@ class _AstrolabioPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final c = Offset(size.width / 2, size.height / 2);
-    final margine = etichette ? size.shortestSide * 0.19 : size.shortestSide * 0.04;
-    final r = size.shortestSide / 2 - margine;
-    if (r <= 0) return;
+    // L'anello dei nomi occupa la corona esterna; il disco del profilo sta
+    // dentro. Con le etichette si lascia spazio all'anello, senza si usa quasi
+    // tutto il raggio.
+    final rEsterno = size.shortestSide / 2 - 2;
+    final rDisco = etichette ? rEsterno * 0.80 : rEsterno * 0.94;
 
     final iDom = profilo.dominante.ordineCanonico;
 
-    // La fetta del dominante, accesa in oro, disegnata per prima cosi' sta
-    // sotto le linee. Cresce col posarsi dell'astrolabio.
+    // La fetta del dominante, accesa in oro sotto le linee. Cresce col posarsi
+    // dell'astrolabio.
     final aStart = _angoloFetta(iDom) - _passo / 2;
     canvas.drawPath(
       Path()
         ..moveTo(c.dx, c.dy)
-        ..arcTo(Rect.fromCircle(center: c, radius: r), aStart,
+        ..arcTo(Rect.fromCircle(center: c, radius: rDisco), aStart,
             _passo * avanzamento, false)
         ..close(),
       Paint()
         ..style = PaintingStyle.fill
-        ..color = palette.gold.withValues(alpha: 0.20 * avanzamento),
+        ..color = palette.gold.withValues(alpha: 0.22 * avanzamento),
     );
 
     // Le tre corone di riferimento: danno la scala senza numeri.
@@ -103,7 +106,7 @@ class _AstrolabioPainter extends CustomPainter {
       ..strokeWidth = 1
       ..color = palette.gold.withValues(alpha: 0.22);
     for (final q in [0.34, 0.67, 1.0]) {
-      canvas.drawCircle(c, r * q, filo);
+      canvas.drawCircle(c, rDisco * q, filo);
     }
 
     // Le dodici linee di divisione delle fette.
@@ -113,16 +116,18 @@ class _AstrolabioPainter extends CustomPainter {
       ..color = palette.gold.withValues(alpha: 0.16);
     for (var i = 0; i < n; i++) {
       final a = _angoloFetta(i) - _passo / 2;
-      canvas.drawLine(c, c + Offset(math.cos(a), math.sin(a)) * r, divisione);
+      canvas.drawLine(c, c + Offset(math.cos(a), math.sin(a)) * rDisco, divisione);
     }
 
-    // Il profilo, poligono a dodici vertici sulle fette.
+    // Il profilo, poligono a dodici vertici sulle fette. Grande: parte da una
+    // base piu' alta e usa quasi tutto il disco, cosi' la distribuzione del
+    // test si legge con forza.
     final massimo =
         Archetype.values.map(profilo.percentualeDi).fold<double>(0.0001, math.max);
     final punti = <Offset>[];
     for (var i = 0; i < n; i++) {
       final quota = profilo.percentualeDi(Archetype.values[i]) / massimo;
-      final lung = r * (0.10 + 0.90 * quota) * avanzamento;
+      final lung = rDisco * (0.22 + 0.78 * quota) * avanzamento;
       final a = _angoloFetta(i);
       punti.add(c + Offset(math.cos(a), math.sin(a)) * lung);
     }
@@ -131,69 +136,79 @@ class _AstrolabioPainter extends CustomPainter {
       forma,
       Paint()
         ..style = PaintingStyle.fill
-        ..color = palette.primary.withValues(alpha: 0.28 * avanzamento),
+        ..color = palette.primary.withValues(alpha: 0.34 * avanzamento),
     );
     canvas.drawPath(
       forma,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 2
-        ..color = palette.glow.withValues(alpha: 0.85 * avanzamento),
+        ..strokeWidth = 2.5
+        ..color = palette.glow.withValues(alpha: 0.90 * avanzamento),
     );
-
-    // Il vertice del dominante, un punto d'oro sulla sua fetta.
-    canvas.drawCircle(punti[iDom], 5.5 * avanzamento, Paint()..color = palette.goldSoft);
+    canvas.drawCircle(punti[iDom], 6 * avanzamento, Paint()..color = palette.goldSoft);
 
     if (!etichette) return;
 
-    // L'anello esterno: nome e glifo per ogni slot, testo sempre dritto.
+    // L'anello esterno: i dodici nomi curvati lungo la circonferenza, ognuno
+    // centrato sulla sua fetta. La meta' inferiore si capovolge di mezzo giro
+    // per restare leggibile.
+    final rTesto = (rDisco + rEsterno) / 2;
     for (var i = 0; i < n; i++) {
-      final a = _angoloFetta(i);
-      final dir = Offset(math.cos(a), math.sin(a));
       final dom = i == iDom;
-      final ancora = c + dir * (r + margine * 0.52);
-
-      // Il glifo, appena sopra il nome verso il centro.
-      _disegnaGlifo(canvas, Archetype.values[i],
-          c + dir * (r + margine * 0.16),
-          margine * 0.34,
-          (dom ? palette.goldSoft : palette.textSecondary)
-              .withValues(alpha: dom ? 1.0 : 0.85));
-
-      final tp = TextPainter(
-        text: TextSpan(
-          text: Archetype.values[i].nome.toUpperCase(),
-          style: TypographyTokens.label(size: dom ? 10 : 9).copyWith(
-            color: dom
-                ? palette.goldSoft
-                : palette.textSecondary.withValues(alpha: 0.85),
-            letterSpacing: 0.5,
-          ),
+      _nomeCurvo(
+        canvas,
+        c,
+        rTesto,
+        _angoloFetta(i),
+        Archetype.values[i].nome.toUpperCase(),
+        TypographyTokens.label(size: dom ? 12 : 10.5).copyWith(
+          color: dom
+              ? palette.goldSoft
+              : palette.textSecondary.withValues(alpha: 0.9),
+          letterSpacing: 1.2,
+          fontWeight: dom ? FontWeight.w700 : FontWeight.w600,
         ),
-        textDirection: TextDirection.ltr,
-        textAlign: TextAlign.center,
-      )..layout(maxWidth: margine * 2.6);
-      // Il testo resta orizzontale, mai capovolto: le etichette della meta'
-      // bassa NON si girano sottosopra.
-      canvas.save();
-      canvas.translate(ancora.dx, ancora.dy);
-      tp.paint(canvas, Offset(-tp.width / 2, -tp.height / 2));
-      canvas.restore();
+      );
     }
   }
 
-  void _disegnaGlifo(
-      Canvas canvas, Archetype a, Offset centro, double raggio, Color colore) {
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = math.max(1.0, raggio * 0.16)
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round
-      ..color = colore;
-    final fill = Paint()
-      ..style = PaintingStyle.fill
-      ..color = colore;
-    ArchetypeGlyphs.disegna(a, canvas, centro, raggio, paint, fill);
+  /// Disegna [testo] curvato su un arco di raggio [r] centrato sull'angolo
+  /// [centro]. Lettera per lettera, tangente alla circonferenza. Se il centro
+  /// sta nella meta' bassa, il testo si capovolge cosi' resta dritto.
+  void _nomeCurvo(Canvas canvas, Offset c, double r, double centro, String testo,
+      TextStyle stile) {
+    // Larghezze delle lettere, per distribuirle sull'arco simmetricamente.
+    final glifi = <TextPainter>[];
+    var larghezzaTot = 0.0;
+    for (final ch in testo.characters) {
+      final tp = TextPainter(
+        text: TextSpan(text: ch, style: stile),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      glifi.add(tp);
+      larghezzaTot += tp.width;
+    }
+    if (larghezzaTot == 0) return;
+
+    // L'angolo totale occupato dal testo, e da dove parte.
+    final angoloTot = larghezzaTot / r;
+    // Meta' bassa: sin(centro) > 0 nel sistema con y verso il basso e centro a
+    // partire da -pi/2 in alto. Si capovolge il testo.
+    final capovolto = math.sin(centro) > 0.02;
+
+    var ang = capovolto ? centro + angoloTot / 2 : centro - angoloTot / 2;
+    for (final tp in glifi) {
+      final dAng = tp.width / r;
+      final aCar = ang + (capovolto ? -dAng / 2 : dAng / 2);
+      final pos = c + Offset(math.cos(aCar), math.sin(aCar)) * r;
+      canvas.save();
+      canvas.translate(pos.dx, pos.dy);
+      // Tangente: il testo segue la curva. Capovolto aggiunge mezzo giro.
+      canvas.rotate(aCar + math.pi / 2 + (capovolto ? math.pi : 0));
+      tp.paint(canvas, Offset(-tp.width / 2, -tp.height / 2));
+      canvas.restore();
+      ang += capovolto ? -dAng : dAng;
+    }
   }
 
   /// L'angolo del centro della fetta i, in senso orario dall'alto.

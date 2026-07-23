@@ -1,10 +1,4 @@
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
-import 'dart:convert';
-
-import 'package:esoteric_circle/core/archetypes/archetype.dart';
-import 'package:esoteric_circle/core/archetypes/archetype_corpus.dart';
-import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
-import 'package:esoteric_circle/core/archetypes/archetype_scoring.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/identity/birth_moon.dart';
 import 'package:esoteric_circle/core/identity/numerology.dart';
@@ -16,7 +10,6 @@ import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// Il Cosmic Passport mostra vivi i due fatti deterministici (Numero della vita
 /// e Fase lunare di nascita), col valore reale calcolato, e tiene dietro il velo
@@ -70,36 +63,14 @@ void main() {
     expect(find.text('${lp.number} · ${lp.title}'), findsOneWidget);
   });
 
-  testWidgets('Senza risultati, la faccia archetipo invita al test',
+  testWidgets('L\'Archetipo e\' una voce dietro il velo, non una faccia viva',
       (tester) async {
-    SharedPreferences.setMockInitialValues({});
+    // L'archetipo cambia rifacendo il test, quindi non e' un fatto fisso di
+    // nascita: nel passaporto resta un segnaposto dietro il velo, senza faccia.
     await tester.pumpWidget(wrap(const CosmicPassport()));
     await tester.pump();
-    await tester.pump();
-    expect(find.byKey(const Key('passport_archetype_invite')), findsOneWidget);
+    expect(find.text('Archetipo'), findsOneWidget);
     expect(find.byKey(const Key('passport_archetype_face')), findsNothing);
-  });
-
-  testWidgets('Con un risultato salvato, la faccia mostra il dominante',
-      (tester) async {
-    // Si semina lo storico come farebbe il test: profilo tutto per quarta,
-    // dominante il Realista.
-    final esito = ArchetypeEsito(
-      quando: DateTime(2026, 7, 22, 10),
-      percentuali: ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
-      dominante: Archetype.realista,
-    );
-    SharedPreferences.setMockInitialValues({
-      'archetipo.storico': [jsonEncode(esito.toJson())],
-    });
-    await tester.pumpWidget(wrap(const CosmicPassport()));
-    await tester.pump();
-    await tester.pump();
-
-    expect(find.byKey(const Key('passport_archetype_face')), findsOneWidget);
     expect(find.byKey(const Key('passport_archetype_invite')), findsNothing);
-    expect(find.text('Il Realista'), findsOneWidget);
-    expect(find.text(ArchetypeCorpus.di(Archetype.realista).essenza),
-        findsOneWidget);
   });
 }

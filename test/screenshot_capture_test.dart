@@ -490,15 +490,20 @@ void main() {
       await step(tester);
     }
     // Le catture locali non decodificano gli asset da sole: si precarica la
-    // statua del dominante, altrimenti nell'anteprima resta il ripiego.
+    // statua del dominante e le dodici miniature della classifica, altrimenti
+    // nell'anteprima resta il ripiego.
     await tester.runAsync(() async {
       final element = tester.element(find.byType(MaterialApp));
       await precacheImage(
           AssetImage(Archetype.realista.artePiena), element);
+      for (final a in Archetype.values) {
+        await precacheImage(AssetImage(a.arteThumb), element);
+      }
     });
     await step(tester);
-    // Superficie alta, cosi' l'anteprima mostra la ruota, la statua e i testi.
-    tester.view.physicalSize = const Size(390, 2400);
+    // Superficie alta, cosi' l'anteprima mostra la ruota, la statua, i testi e
+    // la classifica dei dodici.
+    tester.view.physicalSize = const Size(390, 3000);
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo.png');
@@ -539,15 +544,41 @@ void main() {
     await capture(tester, rootKey, 'test-archetipo-card.png');
   });
 
-  testWidgets('Cattura la faccia archetipo nel Passport', (tester) async {
+  // La soglia del Test, col selettore dei transiti prima delle domande.
+  testWidgets('Cattura la soglia del Test Archetipo', (tester) async {
     silenceSensors();
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    selectCentral(tester, Maestro.aura);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    await step(tester);
+    await step(tester);
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('art_archetype_test')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('art_archetype_test')));
+    await step(tester);
+    await step(tester);
+    // La soglia mostra il selettore del cielo prima di cominciare.
+    expect(find.byKey(const Key('archetype_sky_setting')), findsOneWidget);
+    tester.view.physicalSize = const Size(390, 640);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'test-archetipo-soglia.png');
+  });
 
-    // Si fa davvero un test archetipo, cosi' lo storico si popola nella stessa
-    // istanza di memoria che poi legge la faccia del Passport: nessun seme che
-    // rischia di non sopravvivere al setup dei servizi.
+  // Una domanda in corso, con l'avanzamento in chiaro.
+  testWidgets('Cattura una domanda del Test Archetipo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
     selectCentral(tester, Maestro.aura);
     await step(tester);
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
@@ -565,35 +596,16 @@ void main() {
     await step(tester);
     await tester.tap(find.byKey(const Key('archetype_start')));
     await step(tester);
-    for (var i = 0; i < 12; i++) {
-      await tester.tap(find.byKey(const Key('archetype_answer_3')));
+    // Qualche risposta, cosi' l'avanzamento non e' alla prima domanda.
+    for (var i = 0; i < 3; i++) {
+      await tester.tap(find.byKey(const Key('archetype_answer_1')));
       await step(tester);
     }
-    // Torna al Santuario: due passi indietro, dal test al dominio e dal
-    // dominio al Santuario, poi apre il Passport.
-    await tester.tap(find.byIcon(Icons.arrow_back_rounded).first);
+    expect(find.byKey(const Key('archetype_question')), findsOneWidget);
+    tester.view.physicalSize = const Size(390, 700);
     await step(tester);
     await step(tester);
-    await tester.tap(find.byIcon(Icons.arrow_back_rounded).first);
-    await step(tester);
-    await step(tester);
-    await tester.tap(find.text('Passport'), warnIfMissed: false);
-    await step(tester);
-    await step(tester);
-    await tester.runAsync(() async {
-      final element = tester.element(find.byType(MaterialApp));
-      await precacheImage(
-          AssetImage(Archetype.realista.artePiena), element);
-    });
-    await step(tester);
-    tester.view.physicalSize = const Size(390, 2000);
-    await step(tester);
-    final face = find.byKey(const Key('passport_archetype_face'));
-    if (face.evaluate().isNotEmpty) {
-      await tester.ensureVisible(face);
-      await step(tester);
-    }
-    await capture(tester, rootKey, 'passport-archetipo.png');
+    await capture(tester, rootKey, 'test-archetipo-domanda.png');
   });
 
   // --- La Meditazione di Aura: cimatica, respiro e suono generato a runtime ---

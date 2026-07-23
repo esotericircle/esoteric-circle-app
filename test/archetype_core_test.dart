@@ -49,8 +49,20 @@ void main() {
       for (final a in Archetype.values) {
         final r = ArchetypeCorpus.di(a);
         expect(r.archetipo, a);
-        for (final campo in [r.essenza, r.luce, r.ombra, r.amore, r.lavoro]) {
+        for (final campo in [
+          r.essenza,
+          r.luce,
+          r.ombra,
+          r.amore,
+          r.lavoro,
+          r.quotidianita,
+        ]) {
           expect(campo.trim(), isNotEmpty, reason: a.name);
+        }
+        // Le tre stanze della vita sono testi lunghi, almeno cinque righe:
+        // qui si tiene la soglia in caratteri come misura minima.
+        for (final campo in [r.amore, r.lavoro, r.quotidianita]) {
+          expect(campo.length, greaterThan(240), reason: a.name);
         }
       }
       // L'ordine canonico e' quello dichiarato, e non e' decorativo: scioglie

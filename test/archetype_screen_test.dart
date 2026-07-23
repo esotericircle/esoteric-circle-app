@@ -142,9 +142,9 @@ void main() {
     expect(w.profilo.dominante, Archetype.realista);
   });
 
-  testWidgets('I quattro testi vengono dal corpus, nell\'ordine giusto',
+  testWidgets('I cinque testi vengono dal corpus, nell\'ordine giusto',
       (tester) async {
-    tester.view.physicalSize = const Size(430, 1800);
+    tester.view.physicalSize = const Size(430, 2400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -160,15 +160,55 @@ void main() {
     expect(find.text(r.ombra), findsOneWidget);
     expect(find.text(r.amore), findsOneWidget);
     expect(find.text(r.lavoro), findsOneWidget);
+    expect(find.text(r.quotidianita), findsOneWidget);
     expect(find.text(r.essenza), findsOneWidget);
 
+    // Ordine dall'alto: Luce, le tre stanze della vita, poi l'Ombra.
     final luce = tester.getCenter(find.byKey(const Key('archetype_luce'))).dy;
-    final ombra = tester.getCenter(find.byKey(const Key('archetype_ombra'))).dy;
     final amore = tester.getCenter(find.byKey(const Key('archetype_amore'))).dy;
     final lavoro = tester.getCenter(find.byKey(const Key('archetype_lavoro'))).dy;
-    expect(luce, lessThan(ombra));
-    expect(ombra, lessThan(amore));
+    final quot =
+        tester.getCenter(find.byKey(const Key('archetype_quotidianita'))).dy;
+    final ombra = tester.getCenter(find.byKey(const Key('archetype_ombra'))).dy;
+    expect(luce, lessThan(amore));
     expect(amore, lessThan(lavoro));
+    expect(lavoro, lessThan(quot));
+    expect(quot, lessThan(ombra));
+  });
+
+  testWidgets('La classifica dei dodici sta prima dei pulsanti, ordinata',
+      (tester) async {
+    tester.view.physicalSize = const Size(430, 2600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await tester.tap(find.byKey(const Key('archetype_start')));
+    await passo(tester);
+    await rispondiTutte(tester, 3);
+
+    // Dodici righe, una per archetipo, sola lettura.
+    expect(find.byKey(const Key('archetype_ranking')), findsOneWidget);
+    for (final a in Archetype.values) {
+      expect(find.byKey(Key('archetype_rank_${a.name}')), findsOneWidget);
+    }
+
+    // Il primo della classifica e' il dominante, e sta sopra gli altri.
+    final profilo = ArchetypeScoring.calcola(List.filled(12, 3));
+    final ordinati = profilo.graduatoria;
+    final primo =
+        tester.getCenter(find.byKey(Key('archetype_rank_${ordinati.first.name}'))).dy;
+    final secondo =
+        tester.getCenter(find.byKey(Key('archetype_rank_${ordinati[1].name}'))).dy;
+    expect(ordinati.first, Archetype.realista);
+    expect(primo, lessThan(secondo));
+
+    // La classifica sta sopra i due pulsanti finali.
+    final ranking = tester.getCenter(find.byKey(const Key('archetype_ranking'))).dy;
+    final share = tester.getCenter(find.byKey(const Key('archetype_share'))).dy;
+    expect(ranking, lessThan(share));
   });
 
   testWidgets('L\'Ombra e\' la stessa statua, trattata', (tester) async {
@@ -363,7 +403,7 @@ void main() {
 
     // Nasce senza cielo, e lo dichiara il sottotitolo.
     expect(tester.widget<Text>(find.byKey(const Key('archetype_mode_subtitle'))).data,
-        'Senza il cielo di oggi');
+        'non legato ai transiti astrologici');
     final sw = find.byKey(const Key('archetype_transits_switch'));
     await tester.ensureVisible(sw);
     await tester.pump();
@@ -371,7 +411,7 @@ void main() {
     await passo(tester);
     // Ora rilegge col cielo, senza rifare il test.
     expect(tester.widget<Text>(find.byKey(const Key('archetype_mode_subtitle'))).data,
-        'Con il cielo di oggi');
+        'legato ai transiti astrologici di oggi');
     expect(find.byKey(const Key('archetype_transit_marte')), findsOneWidget);
   });
 

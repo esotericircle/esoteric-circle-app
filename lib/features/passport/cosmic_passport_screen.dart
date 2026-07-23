@@ -3,8 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/archetypes/archetype_corpus.dart';
-import '../../core/archetypes/archetype_history.dart';
 import '../../core/astro/night_sky.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_moon.dart';
@@ -18,7 +16,6 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../identity/circle_seal_screen.dart';
-import '../maestri/aura/archetype/archetype_test_screen.dart';
 import '../santuario/sky_overview_screen.dart';
 import '../santuario/widgets/moon_widget.dart';
 import '../settings/settings_screen.dart';
@@ -136,9 +133,6 @@ class CosmicPassport extends StatelessWidget {
                   _LifePathCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   _BirthMoonCard(identity: id),
-                  const SizedBox(height: SpacingTokens.sm),
-                  // La faccia archetipo, viva quando c'e' un risultato salvato.
-                  const _ArchetypeFaceCard(),
                   const SizedBox(height: SpacingTokens.sm),
                   for (final entry in _passportEntries) ...[
                     _PassportEntryCard(entry: entry),
@@ -498,118 +492,17 @@ const List<_PassportEntry> _passportEntries = [
     title: 'Angelo custode',
     description: 'Il tuo Angelo nella tradizione dei settantadue nomi.',
   ),
-  // L'Archetipo non e' piu' qui: ha la sua faccia viva (_ArchetypeFaceCard).
+  _PassportEntry(
+    icon: Icons.psychology_alt,
+    title: 'Archetipo',
+    description: 'La figura profonda che ti accompagna.',
+  ),
   _PassportEntry(
     icon: Icons.pets,
     title: 'Animale guida',
     description: 'Il tuo alleato fra i dodici archetipi.',
   ),
 ];
-
-/// La faccia archetipo del passaporto.
-///
-/// Legge l'ultimo risultato del Test Archetipo dallo storico locale: se c'e',
-/// mostra il dominante con la sua statua, il nome e l'essenza, e al tocco
-/// riapre l'ultimo responso. Senza risultati, un invito garbato a fare il test.
-class _ArchetypeFaceCard extends StatefulWidget {
-  const _ArchetypeFaceCard();
-
-  @override
-  State<_ArchetypeFaceCard> createState() => _ArchetypeFaceCardState();
-}
-
-class _ArchetypeFaceCardState extends State<_ArchetypeFaceCard> {
-  final ArchetypeHistory _storico = ArchetypeHistory();
-  bool _pronto = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _storico.carica().then((_) {
-      if (mounted) setState(() => _pronto = true);
-    });
-  }
-
-  @override
-  void dispose() {
-    _storico.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    final ultimo = _pronto ? _storico.ultimo : null;
-
-    if (ultimo == null) {
-      // Senza risultati: invito garbato, non un vicolo cieco.
-      return DepthCard(
-        key: const Key('passport_archetype_invite'),
-        opacity: 0.6,
-        onTap: () =>
-            Navigator.of(context).push(ArchetypeTestScreen.route()),
-        padding: const EdgeInsets.all(SpacingTokens.md),
-        child: Row(
-          children: [
-            Icon(Icons.psychology_alt, color: palette.goldSoft, size: 28),
-            const SizedBox(width: SpacingTokens.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Archetipo',
-                      style: TypographyTokens.display(size: 18)),
-                  const SizedBox(height: 2),
-                  Text('Fai il Test Archetipo con Aura per scoprire la figura '
-                      'che ti guida.',
-                      style: TypographyTokens.body(size: 14)
-                          .copyWith(color: ColorTokens.textSecondary)),
-                ],
-              ),
-            ),
-            Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
-          ],
-        ),
-      );
-    }
-
-    final dom = ultimo.dominante;
-    return DepthCard(
-      key: const Key('passport_archetype_face'),
-      onTap: () => Navigator.of(context)
-          .push(ArchetypeTestScreen.route(riapriUltimo: true)),
-      padding: const EdgeInsets.all(SpacingTokens.md),
-      child: Row(
-        children: [
-          SizedBox(
-            height: 64,
-            child: Image.asset(dom.artePiena,
-                key: Key('passport_archetype_statue_${dom.name}'),
-                fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => Icon(Icons.psychology_alt,
-                    color: palette.goldSoft, size: 28)),
-          ),
-          const SizedBox(width: SpacingTokens.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(dom.conArticolo,
-                    style: TypographyTokens.display(size: 18)
-                        .copyWith(color: palette.goldSoft)),
-                const SizedBox(height: 2),
-                Text(ArchetypeCorpus.di(dom).essenza,
-                    style: TypographyTokens.body(size: 14)
-                        .copyWith(color: ColorTokens.textSecondary)),
-              ],
-            ),
-          ),
-          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
-        ],
-      ),
-    );
-  }
-}
 
 /// Tessera "in arrivo" di un singolo fatto identitario del passaporto.
 class _PassportEntryCard extends StatelessWidget {
