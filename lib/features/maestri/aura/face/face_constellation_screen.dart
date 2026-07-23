@@ -157,8 +157,13 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Costellazione del Viso',
-            style: TypographyTokens.display(size: 19)),
+        // FittedBox cosi' "Costellazione del Viso" entra intero nella barra,
+        // rimpicciolendosi se serve invece di troncarsi coi puntini.
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text('Costellazione del Viso',
+              maxLines: 1, style: TypographyTokens.display(size: 19)),
+        ),
         actions: [
           IconButton(
             key: const Key('face_sources'),

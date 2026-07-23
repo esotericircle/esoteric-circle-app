@@ -632,6 +632,7 @@ void main() {
           ChangeNotifierProvider(create: (_) => ZodiacController()),
         ],
         child: MaterialApp(
+            debugShowCheckedModeBanner: false,
             theme: AppTheme.dark(),
             home: MaestroScope(child: schermata)),
       );
