@@ -36,9 +36,12 @@ void main() {
     'costellazione-viso-card.png', // Costellazione del Viso, card condivisibile
     'costellazione-viso-ripiego.png', // Costellazione del Viso, ripiego tattile
     'guide-animale-popup.png', // Animale Guida, popup del Test Archetipo
+    'guide-animale-viaggio.png', // Animale Guida, il viaggio col tamburo
     'guide-animale-rivelazione.png', // Animale Guida, la rivelazione nella nebbia
-    'guide-animale.png', // Animale Guida, il responso
+    'guide-animale.png', // Animale Guida, il responso coi pulsanti centrati
     'guide-animale-card.png', // Animale Guida, card condivisibile
+    'guide-animale-passport.png', // Animale Guida, la faccia nel Cosmic Passport
+    'guide-animale-chat.png', // Animale Guida, chat aperta con la domanda scritta
   ];
 
   test('Tutti i preview obbligatori esistono in docs/preview', () {

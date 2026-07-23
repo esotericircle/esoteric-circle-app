@@ -29,8 +29,12 @@ import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_share_
 import 'package:esoteric_circle/features/maestri/aura/face/face_constellation.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_constellation_screen.dart';
+import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/features/maestri/caligo/animal/guide_animal_screen.dart';
 import 'package:esoteric_circle/features/maestri/caligo/animal/guide_animal_share_card.dart';
+import 'package:esoteric_circle/features/maestri/chat/chat_openers.dart';
+import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
+import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -1051,6 +1055,17 @@ void main() {
     await step(tester);
   }
 
+  void seedArchetipoCaligo() {
+    final esito = ArchetypeEsito(
+      quando: DateTime(2026, 7, 22, 10),
+      percentuali: ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
+      dominante: Archetype.realista,
+    );
+    SharedPreferences.setMockInitialValues({
+      'archetipo.storico': [jsonEncode(esito.toJson())],
+    });
+  }
+
   testWidgets('Cattura il popup dell\'Animale Guida', (tester) async {
     silenceSensors();
     await loadFonts();
@@ -1064,20 +1079,30 @@ void main() {
     await capture(tester, rootKey, 'guide-animale-popup.png');
   });
 
+  testWidgets('Cattura il viaggio col tamburo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Con un archetipo salvato niente popup: si vede il viaggio col tamburo.
+    seedArchetipoCaligo();
+    final rootKey = await mountAnimal(
+        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
+        size: const Size(390, 900));
+    expect(find.byKey(const Key('animal_journey')), findsOneWidget);
+    // Un paio di battiti, cosi' i pallini si accendono e gli occhi affiorano.
+    await tester.tap(find.byKey(const Key('animal_drum')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('animal_drum')));
+    await step(tester);
+    await capture(tester, rootKey, 'guide-animale-viaggio.png');
+  });
+
   testWidgets('Cattura la rivelazione nella nebbia', (tester) async {
     silenceSensors();
     await loadFonts();
-    // Con un archetipo salvato niente popup, cosi' si vede solo la rivelazione.
-    final esito = ArchetypeEsito(
-      quando: DateTime(2026, 7, 22, 10),
-      percentuali: ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
-      dominante: Archetype.realista,
-    );
-    SharedPreferences.setMockInitialValues({
-      'archetipo.storico': [jsonEncode(esito.toJson())],
-    });
-    final rootKey = await mountAnimal(
-        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
+    seedArchetipoCaligo();
+    // saltaViaggio, cosi' si va dritti alla rivelazione, senza il tamburo.
+    final rootKey = await mountAnimal(tester,
+        const GuideAnimalScreen(userSign: Zodiac.cancer, saltaViaggio: true),
         size: const Size(390, 900));
     await precacheTotem(tester);
     // Un istante fisso della dissolvenza: la nebbia e' ancora densa, gli occhi
@@ -1089,16 +1114,9 @@ void main() {
   testWidgets('Cattura il responso dell\'Animale Guida', (tester) async {
     silenceSensors();
     await loadFonts();
-    final esito = ArchetypeEsito(
-      quando: DateTime(2026, 7, 22, 10),
-      percentuali: ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
-      dominante: Archetype.realista,
-    );
-    SharedPreferences.setMockInitialValues({
-      'archetipo.storico': [jsonEncode(esito.toJson())],
-    });
-    final rootKey = await mountAnimal(
-        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
+    seedArchetipoCaligo();
+    final rootKey = await mountAnimal(tester,
+        const GuideAnimalScreen(userSign: Zodiac.cancer, saltaViaggio: true),
         size: const Size(390, 1980));
     await precacheTotem(tester);
     // Lascia posare la rivelazione, cosi' il totem e' pieno.
@@ -1136,6 +1154,94 @@ void main() {
     });
     await step(tester);
     await capture(tester, rootKey, 'guide-animale-card.png');
+  });
+
+  testWidgets('Cattura la faccia dell\'Animale Guida nel Passport',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.physicalSize = const Size(390, 1500);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(
+              create: (_) => QualityTierController()..setTier(QualityTier.medium)),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.dark(),
+          home: const MaestroScope(child: CosmicPassport()),
+        ),
+      ),
+    ));
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(CosmicPassport));
+      final animal = GuideAnimalDerivation.forSign(
+          NightSky.sunSign(BirthIdentity.example.birthMoment));
+      await precacheImage(AssetImage(animal.thumbPath), element);
+    });
+    await step(tester);
+    await tester.ensureVisible(find.byKey(const Key('passport_guide_animal')));
+    await step(tester);
+    await capture(tester, rootKey, 'guide-animale-passport.png');
+  });
+
+  testWidgets('Cattura la chat aperta con la domanda gia\' scritta',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final services = await buildServices(Maestro.caligo, seeded: false);
+    tester.view.physicalSize = const Size(390, 1000);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          Provider<AppServices>.value(value: services),
+          ChangeNotifierProvider(
+              create: (_) =>
+                  MaestroController(initial: const ThemeKey.of(Maestro.caligo))),
+          ChangeNotifierProvider(
+              create: (_) => QualityTierController()..setTier(QualityTier.medium)),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.dark(),
+          home: Navigator(
+            onGenerateRoute: (_) => MaestroChatScreen.route(
+              maestro: Maestro.caligo,
+              services: services,
+              initialUserMessage:
+                  ChatOpeners.animale(GuideAnimalDerivation.forSign(Zodiac.cancer).name),
+            ),
+          ),
+        ),
+      ),
+    ));
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'guide-animale-chat.png');
   });
 
   // --- L'Oroscopo a quattro schede, la headline di Medora ---

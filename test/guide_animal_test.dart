@@ -1,5 +1,4 @@
 import 'package:esoteric_circle/core/archetypes/archetype.dart';
-import 'package:esoteric_circle/core/archetypes/archetype_corpus.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_transits.dart'
     show Pianeta;
 import 'package:esoteric_circle/core/astro/zodiac.dart';
@@ -82,7 +81,7 @@ void main() {
     });
 
     test('Fonti e metodo cita le opere e dichiara la curatela', () {
-      final f = GuideAnimalCorpus.fontiEMetodo;
+      const f = GuideAnimalCorpus.fontiEMetodo;
       expect(f, contains('Harner'));
       expect(f, contains('Andrews'));
       expect(f, contains('Farmer'));

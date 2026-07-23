@@ -34,7 +34,12 @@ import '../widgets/maestro_bust.dart';
 /// via Firebase AI Logic, con memoria persistente per la Demo. Voce, avatar
 /// animati e funzioni Coming soon sono i passi successivi.
 class MaestroChatScreen extends StatefulWidget {
-  const MaestroChatScreen({super.key, required this.maestro, this.initialTheme});
+  const MaestroChatScreen({
+    super.key,
+    required this.maestro,
+    this.initialTheme,
+    this.initialUserMessage,
+  });
 
   final Maestro maestro;
 
@@ -42,12 +47,19 @@ class MaestroChatScreen extends StatefulWidget {
   /// della domanda si apre gia' scritto, cosi' la conversazione riprende da li'.
   final String? initialTheme;
 
+  /// Una prima domanda contestuale, gia' inviata come turno dell'utente appena
+  /// la chat e' pronta: si arriva qui da un pulsante "Parlane con il Maestro" dal
+  /// responso di un'arte, e il Maestro risponde subito su quel tema. Se il
+  /// Maestro e' offline la chat resta normale, senza rompersi.
+  final String? initialUserMessage;
+
   /// Route pronta all'uso: monta il controller con i servizi e la palette del
   /// Maestro, cosi' la chat vive con il suo tema anche sopra la MaterialApp.
   static Route<void> route({
     required Maestro maestro,
     required AppServices services,
     String? initialTheme,
+    String? initialUserMessage,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => ChangeNotifierProvider<MaestroChatController>(
@@ -60,6 +72,7 @@ class MaestroChatScreen extends StatefulWidget {
           child: MaestroChatScreen(
             maestro: maestro,
             initialTheme: initialTheme,
+            initialUserMessage: initialUserMessage,
           ),
         ),
       ),
@@ -73,6 +86,7 @@ class MaestroChatScreen extends StatefulWidget {
 class _MaestroChatScreenState extends State<MaestroChatScreen> {
   final ScrollController _scroll = ScrollController();
   bool _disclaimerHandled = false;
+  bool _initialSent = false;
   int _lastCount = 0;
 
   /// Contatore delle aperture, persistito, cosi' due benvenuti vicini non
@@ -116,6 +130,18 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     });
   }
 
+  void _maybeSendInitial(MaestroChatController controller) {
+    if (_initialSent || controller.loading) return;
+    final testo = widget.initialUserMessage?.trim();
+    if (testo == null || testo.isEmpty) return;
+    _initialSent = true;
+    // Solo su una conversazione nuova, cosi' non si sovrascrive uno storico.
+    if (controller.messages.isNotEmpty) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) controller.send(testo);
+    });
+  }
+
   Future<void> _maybeShowDisclaimer(MaestroChatController controller) async {
     if (_disclaimerHandled || controller.loading) return;
     _disclaimerHandled = true;
@@ -137,6 +163,11 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
 
     // Mostra il disclaimer una sola volta, appena la memoria e' caricata.
     _maybeShowDisclaimer(controller);
+
+    // La prima domanda contestuale, inviata una sola volta quando la chat e'
+    // pronta e la conversazione e' ancora vuota: si arriva da "Parlane con il
+    // Maestro" con la domanda sulla fonte gia' pronta.
+    _maybeSendInitial(controller);
 
     // Auto scroll quando arrivano nuovi messaggi.
     if (controller.messages.length != _lastCount) {

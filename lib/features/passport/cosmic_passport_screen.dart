@@ -9,6 +9,8 @@ import '../../core/identity/birth_moon.dart';
 import '../../core/identity/numerology.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/rituals/guide_animal_derivation.dart';
+import '../../core/rituals/guide_animal_discovery.dart';
+import '../maestri/caligo/animal/guide_animal_screen.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/user_avatar.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -331,6 +333,14 @@ class _GuideAnimalCard extends StatelessWidget {
       value: animal.name,
       meaning: animal.summary,
       isExample: identity.isExample,
+      // Al tocco si apre la lettura: diretta se l'animale e' gia' stato trovato
+      // col viaggio, altrimenti si avvia il viaggio come dal dominio di Caligo.
+      onTap: () async {
+        final trovato = await GuideAnimalDiscovery.trovato();
+        if (!context.mounted) return;
+        Navigator.of(context).push(GuideAnimalScreen.route(
+            userSign: segno, saltaViaggio: trovato));
+      },
       emblem: Container(
         width: 52,
         height: 52,
@@ -362,6 +372,7 @@ class _ActiveFactCard extends StatelessWidget {
     required this.meaning,
     required this.emblem,
     required this.isExample,
+    this.onTap,
   });
 
   final Key cardKey;
@@ -371,11 +382,15 @@ class _ActiveFactCard extends StatelessWidget {
   final Widget emblem;
   final bool isExample;
 
+  /// Se la tessera apre qualcosa al tocco, la freccia lo dice.
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
     return DepthCard(
       key: cardKey,
+      onTap: onTap,
       padding: const EdgeInsets.all(SpacingTokens.md),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -408,6 +423,8 @@ class _ActiveFactCard extends StatelessWidget {
               ],
             ),
           ),
+          if (onTap != null)
+            Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
         ],
       ),
     );

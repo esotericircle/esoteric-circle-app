@@ -4,12 +4,14 @@ import 'package:esoteric_circle/core/identity/birth_moon.dart';
 import 'package:esoteric_circle/core/identity/numerology.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Il Cosmic Passport mostra vivi i due fatti deterministici (Numero della vita
 /// e Fase lunare di nascita), col valore reale calcolato, e tiene dietro il velo
@@ -21,8 +23,15 @@ void main() {
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
           ChangeNotifierProvider(create: (_) => ProfileController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
         ],
-        child: MaterialApp(home: MaestroScope(child: Scaffold(body: child))),
+        child: MaterialApp(
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(body: child),
+        ),
       );
 
   testWidgets('Mostra Numero della vita e Fase lunare col valore reale',
@@ -64,6 +73,28 @@ void main() {
     expect(find.textContaining('Valore d\'esempio'), findsNothing);
     final lp = LifePath.forDate(real.birthMoment);
     expect(find.text('${lp.number} · ${lp.title}'), findsOneWidget);
+  });
+
+  testWidgets('Toccando l\'Animale guida nel Passport si apre la sua lettura',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    tester.view.physicalSize = const Size(430, 2000);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(wrap(const CosmicPassport()));
+    await tester.pump();
+
+    final card = find.byKey(const Key('passport_guide_animal'));
+    expect(card, findsOneWidget);
+    await tester.ensureVisible(card);
+    await tester.pump();
+    await tester.tap(card);
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    // Non ancora trovato: il tocco avvia il viaggio come dal dominio di Caligo.
+    expect(find.byKey(const Key('animal_journey')), findsOneWidget);
   });
 
   testWidgets('L\'Archetipo e\' una voce dietro il velo, non una faccia viva',

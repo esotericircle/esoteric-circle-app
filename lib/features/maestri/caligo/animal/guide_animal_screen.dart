@@ -10,6 +10,7 @@ import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/rituals/guide_animal_corpus.dart';
 import '../../../../core/rituals/guide_animal_derivation.dart';
+import '../../../../core/rituals/guide_animal_discovery.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
@@ -20,7 +21,9 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/app_services.dart';
 import '../../../maestri/aura/archetype/archetype_test_screen.dart';
+import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
+import 'animal_journey.dart';
 import 'animal_reveal.dart';
 import 'guide_animal_share_card.dart';
 
@@ -37,16 +40,22 @@ class GuideAnimalScreen extends StatefulWidget {
     required this.userSign,
     this.clock,
     this.pianetiDelGiorno,
+    this.saltaViaggio = false,
   });
 
   final Zodiac userSign;
   final DateTime Function()? clock;
   final Set<Pianeta> Function(DateTime)? pianetiDelGiorno;
 
+  /// Se saltare il viaggio col tamburo e aprire direttamente la lettura. Vero
+  /// quando si arriva dal Cosmic Passport e l'animale e' gia' stato trovato.
+  final bool saltaViaggio;
+
   static Route<void> route({
     required Zodiac userSign,
     DateTime Function()? clock,
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
+    bool saltaViaggio = false,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
@@ -54,6 +63,7 @@ class GuideAnimalScreen extends StatefulWidget {
           userSign: userSign,
           clock: clock,
           pianetiDelGiorno: pianetiDelGiorno,
+          saltaViaggio: saltaViaggio,
         ),
       ),
     );
@@ -63,6 +73,8 @@ class GuideAnimalScreen extends StatefulWidget {
   State<GuideAnimalScreen> createState() => _GuideAnimalScreenState();
 }
 
+enum _Fase { viaggio, responso }
+
 class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   late final DateTime Function() _clock = widget.clock ?? DateTime.now;
   late final ArchetypeHistory _storico = ArchetypeHistory(clock: _clock);
@@ -70,8 +82,15 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   bool _pronto = false;
   bool _popupFatto = false;
   Archetype? _archetipo;
+  late _Fase _fase =
+      widget.saltaViaggio ? _Fase.responso : _Fase.viaggio;
 
   GuideAnimal get _animal => GuideAnimalDerivation.forSign(widget.userSign);
+
+  void _viaggioCompiuto() {
+    GuideAnimalDiscovery.segnaTrovato();
+    if (mounted) setState(() => _fase = _Fase.responso);
+  }
 
   @override
   void initState() {
@@ -140,14 +159,18 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
         child: SafeArea(
           child: !_pronto
               ? const SizedBox.shrink()
-              : _Responso(
-                  palette: palette,
-                  animal: _animal,
-                  userSign: widget.userSign,
-                  archetipo: _archetipo,
-                  messaggio: GuideAnimalCorpus.messaggioDelGiorno(
-                      _animal, _clock(), _pianeti),
-                ),
+              : switch (_fase) {
+                  _Fase.viaggio => AnimalJourney(
+                      palette: palette, onComplete: _viaggioCompiuto),
+                  _Fase.responso => _Responso(
+                      palette: palette,
+                      animal: _animal,
+                      userSign: widget.userSign,
+                      archetipo: _archetipo,
+                      messaggio: GuideAnimalCorpus.messaggioDelGiorno(
+                          _animal, _clock(), _pianeti),
+                    ),
+                },
         ),
       ),
     );
@@ -472,32 +495,42 @@ class _AzioniState extends State<_Azioni> {
     final palette = widget.palette;
     return Stack(
       children: [
-        Column(
-          children: [
-            OutlinedButton.icon(
-              key: const Key('animal_share'),
-              style: OutlinedButton.styleFrom(
-                  foregroundColor: palette.goldSoft,
-                  side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
-              onPressed: _condividendo ? null : _condividi,
-              icon: const Icon(Icons.ios_share_rounded),
-              label: const Text('Condividi'),
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            FilledButton.icon(
-              key: const Key('animal_consulta'),
-              style: FilledButton.styleFrom(
-                  backgroundColor: palette.primary,
-                  foregroundColor: palette.onPrimary),
-              onPressed: () {
-                final services = context.read<AppServices>();
-                Navigator.of(context).push(MaestroChatScreen.route(
-                    maestro: Maestro.caligo, services: services));
-              },
-              icon: const Icon(Icons.forum_outlined),
-              label: const Text('Parlane con Caligo'),
-            ),
-          ],
+        // Larghezza piena e pulsanti stirati, cosi' sono centrati orizzontalmente
+        // come negli altri responsi, non piu' a sinistra col Column a contenuto.
+        SizedBox(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              OutlinedButton.icon(
+                key: const Key('animal_share'),
+                style: OutlinedButton.styleFrom(
+                    foregroundColor: palette.goldSoft,
+                    side:
+                        BorderSide(color: palette.gold.withValues(alpha: 0.6))),
+                onPressed: _condividendo ? null : _condividi,
+                icon: const Icon(Icons.ios_share_rounded),
+                label: const Text('Condividi'),
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              FilledButton.icon(
+                key: const Key('animal_consulta'),
+                style: FilledButton.styleFrom(
+                    backgroundColor: palette.primary,
+                    foregroundColor: palette.onPrimary),
+                onPressed: () {
+                  final services = context.read<AppServices>();
+                  Navigator.of(context).push(MaestroChatScreen.route(
+                      maestro: Maestro.caligo,
+                      services: services,
+                      initialUserMessage:
+                          ChatOpeners.animale(widget.animal.name)));
+                },
+                icon: const Icon(Icons.forum_outlined),
+                label: const Text('Parlane con Caligo'),
+              ),
+            ],
+          ),
         ),
         if (_renderCard)
           Positioned(

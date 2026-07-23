@@ -26,6 +26,7 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/app_services.dart';
+import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
 import 'face_constellation.dart';
 import 'face_constellation_painter.dart';
@@ -882,7 +883,10 @@ class _RisultatoState extends State<_Risultato>
                 onPressed: () {
                   final services = context.read<AppServices>();
                   Navigator.of(context).push(MaestroChatScreen.route(
-                      maestro: Maestro.aura, services: services));
+                      maestro: Maestro.aura,
+                      services: services,
+                      initialUserMessage: ChatOpeners.viso(
+                          dom.categoria.name, dom.nome)));
                 },
                 icon: const Icon(Icons.forum_outlined),
                 label: const Text('Parlane con Aura'),
