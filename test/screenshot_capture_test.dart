@@ -930,20 +930,11 @@ void main() {
   });
 
   // --- La Sinastria VIP, raggiungibile dallo scaffale del Santuario ---
-  testWidgets('Cattura la Sinastria VIP', (tester) async {
-    silenceSensors();
-    await loadFonts();
-    final rootKey =
-        await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-    unawaited(nav.push(SinastriaVipScreen.route()));
-    await step(tester);
-    await step(tester);
+  Future<void> precacheSinastria(WidgetTester tester) async {
     // Decodifica il ritratto pieno del VIP in testa e le prime miniature del
     // selettore, cosi' l'anteprima mostra l'arte reale e non i ripieghi.
     await tester.runAsync(() async {
       final element = tester.element(find.byType(SinastriaVipScreen));
-      // La cornice VIP per il polo dell'utente.
       await precacheImage(const AssetImage('assets/vip_cornice.webp'), element);
       final first = VipCatalog.first;
       if (first.fullPath != null) {
@@ -957,7 +948,39 @@ void main() {
     });
     await step(tester);
     await step(tester);
+  }
+
+  testWidgets('Cattura la Sinastria VIP', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // Superficie alta quanto basta perche' l'anteprima mostri, oltre ai due
+    // poli, anche le quattro barre, la riga di sfida e il tasto Condividi, senza
+    // tagliarli fuori come faceva la superficie di default.
+    tester.view.physicalSize = const Size(390, 1620);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SinastriaVipScreen.route()));
+    await step(tester);
+    await step(tester);
+    await precacheSinastria(tester);
     await capture(tester, rootKey, 'sinastria-vip.png');
+  });
+
+  testWidgets('Cattura la Sinastria VIP col nome utente reale', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    tester.view.physicalSize = const Size(390, 1620);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    // Nome e data reali sul polo di sinistra, cosi' si vede l'effetto personale.
+    unawaited(nav.push(SinastriaVipScreen.route(
+        userName: 'Sofia', userBirth: DateTime(1993, 4, 12))));
+    await step(tester);
+    await step(tester);
+    await precacheSinastria(tester);
+    await capture(tester, rootKey, 'sinastria-vip-personale.png');
   });
 
   // --- L'Oroscopo a quattro schede, la headline di Medora ---

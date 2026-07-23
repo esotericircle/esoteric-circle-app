@@ -35,7 +35,12 @@ const Map<String, Maestro> artiSullaSoglia = {
   'tree_of_life': Maestro.caligo,
 };
 
-Route<void>? artRouteFor(String id, {required Zodiac userSign}) {
+Route<void>? artRouteFor(
+  String id, {
+  required Zodiac userSign,
+  DateTime? userBirth,
+  String? userName,
+}) {
   final sullaSoglia = artiSullaSoglia[id];
   if (sullaSoglia != null) {
     final art = ArtCatalog.all.firstWhere((a) => a.id == id);
@@ -51,7 +56,8 @@ Route<void>? artRouteFor(String id, {required Zodiac userSign}) {
     case 'horoscope':
       return OroscopoScreen.route(userSign: userSign);
     case 'synastry_vip':
-      return SinastriaVipScreen.route(userSign: userSign);
+      return SinastriaVipScreen.route(
+          userSign: userSign, userBirth: userBirth, userName: userName);
     case 'tarot_spread_three':
       return StesaTreCarteScreen.route();
     case 'meditation':

@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/synastry/synastry_report.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
+import 'package:esoteric_circle/design_system/components/vip_frame.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_vip_screen.dart';
 import 'package:esoteric_circle/features/synastry/user_photo.dart';
@@ -198,7 +199,10 @@ void main() {
   });
 
   Future<void> pumpScreen(WidgetTester tester,
-      {Zodiac userSign = Zodiac.gemini, UserPhotoController? photo}) async {
+      {Zodiac userSign = Zodiac.gemini,
+      UserPhotoController? photo,
+      String userName = 'Tu',
+      DateTime? userBirth}) async {
     silenceSensors();
     // Superficie alta, cosi' l'intera colonna scorrevole (barre, tasto, picker)
     // e' costruita e trovabile senza scroll manuale.
@@ -218,7 +222,11 @@ void main() {
           data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
           child: MaestroScope(child: child!),
         ),
-        home: SinastriaVipScreen(userSign: userSign, photoController: photo),
+        home: SinastriaVipScreen(
+            userSign: userSign,
+            photoController: photo,
+            userName: userName,
+            userBirth: userBirth),
       ),
     ));
     await tester.pumpAndSettle();
@@ -243,6 +251,33 @@ void main() {
         .dy;
     final barsY = tester.getTopLeft(find.text('Scintille')).dy;
     expect(readingY, lessThan(barsY));
+  });
+
+  testWidgets('Col nome e la data reali, il cartiglio del polo utente li mostra',
+      (tester) async {
+    await pumpScreen(tester,
+        userName: 'Sofia', userBirth: DateTime(1993, 4, 12));
+    final ritratto = tester.widget<VipFramedPortrait>(
+      find.descendant(
+        of: find.byKey(const Key('sinastria_pole_user')),
+        matching: find.byType(VipFramedPortrait),
+      ),
+    );
+    expect(ritratto.name, 'Sofia');
+    expect(ritratto.name, isNot('Tu'));
+    expect(ritratto.date, italianLongDate(DateTime(1993, 4, 12)));
+  });
+
+  testWidgets('Senza nome reale, il cartiglio del polo utente resta Tu',
+      (tester) async {
+    await pumpScreen(tester);
+    final ritratto = tester.widget<VipFramedPortrait>(
+      find.descendant(
+        of: find.byKey(const Key('sinastria_pole_user')),
+        matching: find.byType(VipFramedPortrait),
+      ),
+    );
+    expect(ritratto.name, 'Tu');
   });
 
   testWidgets('Cambiare VIP aggiorna il cerchio', (tester) async {

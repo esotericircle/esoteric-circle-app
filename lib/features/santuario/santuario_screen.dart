@@ -154,7 +154,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   // schermata (deep link interno); quelle ancora in arrivo mostrano un anticipo
   // elegante, mai un vicolo cieco.
   void _openShelf(BuildContext context, ShelfFunction fn, Zodiac userSign) {
-    final route = _shelfRoute(fn, userSign);
+    final route = _shelfRoute(context, fn, userSign);
     if (route != null) {
       Navigator.of(context).push(route);
       return;
@@ -164,8 +164,19 @@ class _SantuarioScreenState extends State<SantuarioScreen>
 
   /// La rotta di una funzione dello scaffale: la stessa mappa unica del dominio
   /// (`artRouteFor`), cosi' la stessa arte si apre sempre alla stessa schermata.
-  Route<void>? _shelfRoute(ShelfFunction fn, Zodiac userSign) =>
-      artRouteFor(fn.id, userSign: userSign);
+  /// Porta anche nome e data reali del profilo, quando ci sono, cosi' la
+  /// Sinastria VIP mostra la persona vera invece del segnaposto.
+  Route<void>? _shelfRoute(
+      BuildContext context, ShelfFunction fn, Zodiac userSign) {
+    final profile = context.read<ProfileController>();
+    return artRouteFor(
+      fn.id,
+      userSign: userSign,
+      userBirth:
+          profile.identity.isExample ? null : profile.identity.birthMoment,
+      userName: profile.hasName ? profile.vocative : null,
+    );
+  }
 
   void _showShelfAnticipo(BuildContext context, ShelfFunction fn) {
     final palette = MaestroPalette.forKey(ThemeKey.of(fn.maestro));

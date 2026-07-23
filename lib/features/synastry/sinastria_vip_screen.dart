@@ -53,10 +53,19 @@ class SinastriaVipScreen extends StatefulWidget {
   /// Iniettabile nei test, cosi' la scelta foto non tocca camera ne galleria.
   final UserPhotoController? photoController;
 
-  static Route<void> route({Zodiac? userSign}) {
+  static Route<void> route({
+    Zodiac? userSign,
+    String? userName,
+    DateTime? userBirth,
+  }) {
     return MaterialPageRoute<void>(
-      builder: (_) =>
-          MaestroScope(child: SinastriaVipScreen(userSign: userSign)),
+      builder: (_) => MaestroScope(
+        child: SinastriaVipScreen(
+          userSign: userSign,
+          userName: userName ?? 'Tu',
+          userBirth: userBirth,
+        ),
+      ),
     );
   }
 

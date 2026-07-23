@@ -202,7 +202,14 @@ class _ArtSectionBox extends StatelessWidget {
   }
 
   Future<void> _openArt(BuildContext context, ArtEntry art) async {
-    final route = artRouteFor(art.id, userSign: _userSign(context));
+    final profile = context.read<ProfileController>();
+    final route = artRouteFor(
+      art.id,
+      userSign: _userSign(context),
+      userBirth:
+          profile.identity.isExample ? null : profile.identity.birthMoment,
+      userName: profile.hasName ? profile.vocative : null,
+    );
     if (route != null) {
       await Navigator.of(context).push(route);
       return;
