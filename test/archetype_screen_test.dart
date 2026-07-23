@@ -459,7 +459,7 @@ void main() {
   });
 
   testWidgets('La card condivisibile si genera col dominante', (tester) async {
-    tester.view.physicalSize = const Size(500, 720);
+    tester.view.physicalSize = const Size(500, 1200);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -475,9 +475,14 @@ void main() {
     expect(find.text('IL REALISTA'), findsOneWidget);
     expect(find.text(ArchetypeCorpus.di(Archetype.realista).essenza),
         findsOneWidget);
-    // La mini-ruota c'e' ma senza etichette.
+    // La ruota e' quella vera del risultato, coi nomi e col co-dominante acceso.
     final ruota = tester.widget<ArchetypeWheel>(find.byType(ArchetypeWheel));
-    expect(ruota.etichette, isFalse);
+    expect(ruota.etichette, isTrue);
+    expect(ruota.accendiSecondo, isTrue);
+    // La bolla della Luce col testo dal corpus.
+    expect(find.text('La sua luce'), findsOneWidget);
+    expect(find.text(ArchetypeCorpus.di(Archetype.realista).luce),
+        findsOneWidget);
 
     // Provenienza in alto e invito in fondo, senza indirizzi web inventati.
     expect(find.text('TEST ARCHETIPO'), findsOneWidget);

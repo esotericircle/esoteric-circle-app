@@ -27,6 +27,7 @@ class ArchetypeWheel extends StatelessWidget {
     this.avanzamento = 1.0,
     this.lato = 360,
     this.etichette = true,
+    this.accendiSecondo = false,
   });
 
   final ArchetypeProfile profilo;
@@ -41,6 +42,11 @@ class ArchetypeWheel extends StatelessWidget {
   /// I nomi sull'anello esterno. Si spengono nella mini-ruota della card.
   final bool etichette;
 
+  /// Accende anche la fetta del co-dominante, in un tono piu' tenue, cosi' il
+  /// legame "accanto Il Ribelle" si legge nella ruota. Spento sul responso, dove
+  /// il co-dominante e' gia' scritto sotto il nome, acceso sulla card.
+  final bool accendiSecondo;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -53,6 +59,7 @@ class ArchetypeWheel extends StatelessWidget {
           palette: palette,
           avanzamento: avanzamento.clamp(0.0, 1.0),
           etichette: etichette,
+          accendiSecondo: accendiSecondo,
         ),
       ),
     );
@@ -65,12 +72,14 @@ class _AstrolabioPainter extends CustomPainter {
     required this.palette,
     required this.avanzamento,
     required this.etichette,
+    required this.accendiSecondo,
   });
 
   final ArchetypeProfile profilo;
   final MaestroPalette palette;
   final double avanzamento;
   final bool etichette;
+  final bool accendiSecondo;
 
   static const int n = 12;
   static const double _passo = 2 * math.pi / n;
@@ -86,19 +95,29 @@ class _AstrolabioPainter extends CustomPainter {
 
     final iDom = profilo.dominante.ordineCanonico;
 
-    // La fetta del dominante, accesa in oro sotto le linee. Cresce col posarsi
-    // dell'astrolabio.
-    final aStart = _angoloFetta(iDom) - _passo / 2;
-    canvas.drawPath(
-      Path()
-        ..moveTo(c.dx, c.dy)
-        ..arcTo(Rect.fromCircle(center: c, radius: rDisco), aStart,
-            _passo * avanzamento, false)
-        ..close(),
-      Paint()
-        ..style = PaintingStyle.fill
-        ..color = palette.gold.withValues(alpha: 0.22 * avanzamento),
-    );
+    // Disegna la fetta i, dal centro all'arco, in oro con l'alpha dato. Cresce
+    // col posarsi dell'astrolabio.
+    void fetta(int i, double alpha) {
+      final aStart = _angoloFetta(i) - _passo / 2;
+      canvas.drawPath(
+        Path()
+          ..moveTo(c.dx, c.dy)
+          ..arcTo(Rect.fromCircle(center: c, radius: rDisco), aStart,
+              _passo * avanzamento, false)
+          ..close(),
+        Paint()
+          ..style = PaintingStyle.fill
+          ..color = palette.gold.withValues(alpha: alpha * avanzamento),
+      );
+    }
+
+    // Sul responso (senza accendiSecondo) la fetta del dominante sta SOTTO il
+    // poligono, come e' sempre stata. Sulla card le fette accese si disegnano
+    // invece SOPRA il poligono, piu' avanti, cosi' restano leggibili anche dove
+    // il verde le coprirebbe.
+    if (!accendiSecondo) {
+      fetta(iDom, 0.22);
+    }
 
     // Le tre corone di riferimento: danno la scala senza numeri.
     final filo = Paint()
@@ -145,6 +164,14 @@ class _AstrolabioPainter extends CustomPainter {
         ..strokeWidth = 2.5
         ..color = palette.glow.withValues(alpha: 0.90 * avanzamento),
     );
+    // Sulla card: le fette accese SOPRA il poligono. Il co-dominante in tono
+    // tenue, il dominante in oro pieno sopra di lui, cosi' l'oro resta il piu'
+    // acceso e il legame "accanto" si legge anche dove il verde copre.
+    if (accendiSecondo) {
+      if (profilo.secondo != null) fetta(profilo.secondo!.ordineCanonico, 0.16);
+      fetta(iDom, 0.24);
+    }
+
     canvas.drawCircle(punti[iDom], 6 * avanzamento, Paint()..color = palette.goldSoft);
 
     if (!etichette) return;
@@ -257,5 +284,7 @@ class _AstrolabioPainter extends CustomPainter {
   bool shouldRepaint(_AstrolabioPainter old) =>
       old.avanzamento != avanzamento ||
       old.profilo.dominante != profilo.dominante ||
-      old.etichette != etichette;
+      old.profilo.secondo != profilo.secondo ||
+      old.etichette != etichette ||
+      old.accendiSecondo != accendiSecondo;
 }

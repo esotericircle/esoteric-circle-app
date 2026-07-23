@@ -517,7 +517,7 @@ void main() {
   testWidgets('Cattura la card del Test Archetipo', (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.physicalSize = const Size(440, 840);
+    tester.view.physicalSize = const Size(460, 1160);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);

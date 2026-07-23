@@ -16,21 +16,29 @@ import 'archetype_wheel.dart';
 
 /// La card condivisibile del Test Archetipo, nella cornice verde e oro di Aura.
 ///
-/// La statua del dominante resta protagonista, con la mini-ruota dietro. Attorno
-/// racconta il responso vero: provenienza in alto, il nome con l'articolo, la
-/// percentuale del dominante, il co-dominante, l'essenza dal corpus e una
-/// classifica compatta dei primi tre col cerchio della miniatura. In fondo, oltre
-/// alla firma, un invito a scoprire il proprio archetipo. Il testo e le
-/// percentuali vengono tutti dallo stesso profilo mostrato nel responso, quindi
-/// la card e' deterministica: stesso profilo, stessa immagine. Si cattura come
-/// PNG da un `RepaintBoundary` e si apre col foglio di condivisione.
+/// In alto la ruota vera del risultato, l'astrolabio del responso coi dodici
+/// nomi e il poligono verde, con la fetta del dominante accesa in oro e quella
+/// del co-dominante in un tono piu' tenue, e la statua del dominante al centro,
+/// dentro il disco interno senza coprire i nomi. Sotto, in colonna: il nome con
+/// l'articolo, la percentuale e il co-dominante, il motto, la bolla della Luce
+/// col testo dal corpus, la classifica compatta dei primi tre col cerchio della
+/// miniatura, e in fondo la firma piu' l'invito. Testo e percentuali vengono
+/// tutti dallo stesso profilo mostrato nel responso, quindi la card e'
+/// deterministica: stesso profilo, stessa immagine. Si cattura come PNG da un
+/// `RepaintBoundary` e si apre col foglio di condivisione. L'altezza si adatta
+/// al contenuto, cosi' nessun archetipo, per quanto lunga sia la sua Luce, va in
+/// overflow.
 class ArchetypeShareCard extends StatelessWidget {
   const ArchetypeShareCard({super.key, required this.profilo});
 
   final ArchetypeProfile profilo;
 
   static const double larghezza = 400;
-  static const double altezza = 760;
+
+  /// Lato della ruota sulla card. La statua sta al centro, alta abbastanza da
+  /// restare dentro il disco interno (l'ottanta per cento del raggio) senza
+  /// arrivare all'anello dei nomi.
+  static const double _latoRuota = 300;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +50,6 @@ class ArchetypeShareCard extends StatelessWidget {
     return Container(
       key: const Key('archetype_share_card'),
       width: larghezza,
-      height: altezza,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -54,36 +61,40 @@ class ArchetypeShareCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(SpacingTokens.lg),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             // Provenienza in alto: da dove arriva l'immagine.
             Text('TEST ARCHETIPO',
                 style: TypographyTokens.label(size: 12).copyWith(
                     color: palette.goldSoft, letterSpacing: 2.0)),
-            const SizedBox(height: SpacingTokens.sm),
-            // La statua protagonista, con la mini-ruota del profilo dietro.
-            Expanded(
+            const SizedBox(height: SpacingTokens.md),
+            // La ruota vera del risultato, grande, con la statua al centro. La
+            // fetta del dominante e' in oro, quella del co-dominante piu' tenue.
+            SizedBox(
+              width: _latoRuota,
+              height: _latoRuota,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Opacity(
-                    opacity: 0.5,
-                    child: ArchetypeWheel(
-                      profilo: profilo,
-                      palette: palette,
-                      lato: 270,
-                      etichette: false,
-                    ),
+                  ArchetypeWheel(
+                    profilo: profilo,
+                    palette: palette,
+                    lato: _latoRuota,
+                    accendiSecondo: true,
                   ),
+                  // La statua sopra il poligono, dentro il disco, dimensionata
+                  // per non toccare l'anello dei nomi.
                   Image.asset(dom.artePiena,
-                      height: 270,
+                      height: _latoRuota * 0.66,
                       fit: BoxFit.contain,
                       errorBuilder: (_, __, ___) => Icon(
                           Icons.person_outline_rounded,
-                          size: 170,
+                          size: 150,
                           color: palette.goldSoft)),
                 ],
               ),
             ),
+            const SizedBox(height: SpacingTokens.sm),
             Text(dom.conArticolo.toUpperCase(),
                 style: TypographyTokens.display(size: 26)
                     .copyWith(color: palette.goldSoft)),
@@ -98,12 +109,18 @@ class ArchetypeShareCard extends StatelessWidget {
                   letterSpacing: 0.5),
             ),
             const SizedBox(height: SpacingTokens.xs),
+            // Il motto, cioe' l'essenza dal corpus.
             Text(ritratto.essenza,
                 textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
                 style: TypographyTokens.body(size: 14).copyWith(
                     color: palette.textPrimary, fontStyle: FontStyle.italic)),
+            const SizedBox(height: SpacingTokens.md),
+            // La prima bolla del responso, "La sua luce", nello stesso stile.
+            _Bolla(
+              titolo: 'La sua luce',
+              testo: ritratto.luce,
+              palette: palette,
+            ),
             const SizedBox(height: SpacingTokens.md),
             // La classifica compatta dei primi tre: cerchio, nome, percentuale.
             for (final a in primiTre)
@@ -128,6 +145,54 @@ class ArchetypeShareCard extends StatelessWidget {
                     letterSpacing: 0.4)),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// La bolla della Luce sulla card, nello stesso linguaggio della bolla del
+/// responso: etichetta oro e testo lungo, su una superficie elevata col filo
+/// d'oro. Costruita a mano, senza `DepthCard`, perche' la card si cattura da
+/// sola, fuori da MaestroScope e senza il controller della qualita'.
+class _Bolla extends StatelessWidget {
+  const _Bolla({
+    required this.titolo,
+    required this.testo,
+    required this.palette,
+  });
+
+  final String titolo;
+  final String testo;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            palette.surfaceElevated.withValues(alpha: 0.92),
+            palette.surface.withValues(alpha: 0.78),
+          ],
+        ),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.28)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(titolo,
+              style: TypographyTokens.label(size: 12)
+                  .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
+          const SizedBox(height: SpacingTokens.xs),
+          Text(testo,
+              style: TypographyTokens.body(size: 15)
+                  .copyWith(color: palette.textPrimary, height: 1.55)),
+        ],
       ),
     );
   }
