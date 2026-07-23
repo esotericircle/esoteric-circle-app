@@ -73,7 +73,9 @@ void main() {
           expect(campo.trim(), isNotEmpty, reason: a.name);
           expect(campo.length, greaterThan(40), reason: a.name);
         }
-        expect(r.messaggi.length, greaterThanOrEqualTo(3), reason: a.name);
+        // Repertorio ricco: almeno dodici segni per ogni animale, cosi' il
+        // viaggio ripetibile ha sempre qualcosa di nuovo da portare.
+        expect(r.messaggi.length, greaterThanOrEqualTo(12), reason: a.name);
         for (final m in r.messaggi) {
           expect(m.trim(), isNotEmpty, reason: a.name);
         }
@@ -115,6 +117,30 @@ void main() {
           animal, giorno, {Pianeta.sole, Pianeta.luna});
       expect(soloSole, contains('Sole'));
       expect(conLuna, contains('Luna'));
+    });
+
+    test('Chiedi ancora avanza al segno successivo, in modo deterministico', () {
+      final animal = GuideAnimalDerivation.forSign(Zodiac.cancer); // Lupo
+      final giorno = DateTime(2026, 7, 22);
+      final primo = GuideAnimalCorpus.messaggioDelGiorno(
+          animal, giorno, {Pianeta.sole});
+      final secondo = GuideAnimalCorpus.messaggioDelGiorno(
+          animal, giorno, {Pianeta.sole},
+          tiro: 1);
+      // Il tiro successivo porta un segno diverso, ma sempre stabile in se.
+      expect(secondo, isNot(primo));
+      expect(
+          secondo,
+          GuideAnimalCorpus.messaggioDelGiorno(animal, giorno, {Pianeta.sole},
+              tiro: 1));
+      // Entro il piccolo limite ogni tiro resta nel repertorio, mai fuori.
+      final r = GuideAnimalCorpus.di(animal.name);
+      for (var t = 0; t <= GuideAnimalCorpus.maxTiri; t++) {
+        final m = GuideAnimalCorpus.messaggioDelGiorno(
+            animal, giorno, {Pianeta.sole},
+            tiro: t);
+        expect(r.messaggi.any(m.contains), isTrue, reason: 'tiro $t');
+      }
     });
   });
 

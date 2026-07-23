@@ -10,7 +10,6 @@ import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/rituals/guide_animal_corpus.dart';
 import '../../../../core/rituals/guide_animal_derivation.dart';
-import '../../../../core/rituals/guide_animal_discovery.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
@@ -27,35 +26,43 @@ import 'animal_journey.dart';
 import 'animal_reveal.dart';
 import 'guide_animal_share_card.dart';
 
+/// Come si entra nell'Animale Guida.
+///
+/// `viaggio`, dal dominio di Caligo: il viaggio col tamburo, poi il messaggio
+/// del momento, sempre nuovo, con Chiedi ancora. E' l'esperienza ripetibile, il
+/// motivo per tornare. `identita`, dal Cosmic Passport: la lettura fissa di chi
+/// e' il tuo animale, natura dono lezione, che non cambia mai.
+enum GuideAnimalMode { viaggio, identita }
+
 /// L'Animale Guida, dominio Caligo.
 ///
 /// L'animale si deriva dal segno solare, deterministico e fisso per persona
 /// (`GuideAnimalDerivation`), col cielo come ponte di curatela dichiarato.
 /// Se manca il Test Archetipo, all'ingresso un popup evocativo invita al Test ma
-/// lascia proseguire. Se un archetipo c'e', alla lettura si aggiunge la sezione
-/// che lo intreccia col totem, senza cambiare l'animale. Nessuna AI a runtime.
+/// lascia proseguire. Se un archetipo c'e', alla lettura di identita' si aggiunge
+/// la sezione che lo intreccia col totem, senza cambiare l'animale. Il messaggio
+/// del momento e' scelto dal giorno e dal cielo, deterministico, nessuna AI.
 class GuideAnimalScreen extends StatefulWidget {
   const GuideAnimalScreen({
     super.key,
     required this.userSign,
     this.clock,
     this.pianetiDelGiorno,
-    this.saltaViaggio = false,
+    this.modo = GuideAnimalMode.viaggio,
   });
 
   final Zodiac userSign;
   final DateTime Function()? clock;
   final Set<Pianeta> Function(DateTime)? pianetiDelGiorno;
 
-  /// Se saltare il viaggio col tamburo e aprire direttamente la lettura. Vero
-  /// quando si arriva dal Cosmic Passport e l'animale e' gia' stato trovato.
-  final bool saltaViaggio;
+  /// Da dove si entra: il viaggio ripetibile o la lettura fissa di identita'.
+  final GuideAnimalMode modo;
 
   static Route<void> route({
     required Zodiac userSign,
     DateTime Function()? clock,
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
-    bool saltaViaggio = false,
+    GuideAnimalMode modo = GuideAnimalMode.viaggio,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
@@ -63,7 +70,7 @@ class GuideAnimalScreen extends StatefulWidget {
           userSign: userSign,
           clock: clock,
           pianetiDelGiorno: pianetiDelGiorno,
-          saltaViaggio: saltaViaggio,
+          modo: modo,
         ),
       ),
     );
@@ -73,7 +80,7 @@ class GuideAnimalScreen extends StatefulWidget {
   State<GuideAnimalScreen> createState() => _GuideAnimalScreenState();
 }
 
-enum _Fase { viaggio, responso }
+enum _Fase { viaggio, messaggio }
 
 class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   late final DateTime Function() _clock = widget.clock ?? DateTime.now;
@@ -82,14 +89,31 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   bool _pronto = false;
   bool _popupFatto = false;
   Archetype? _archetipo;
-  late _Fase _fase =
-      widget.saltaViaggio ? _Fase.responso : _Fase.viaggio;
+
+  /// La fase vale solo nel modo viaggio. In identita' si va dritti alla lettura.
+  late _Fase _fase = _Fase.viaggio;
+
+  /// Quante volte l'utente ha chiesto ancora, entro il piccolo limite del corpus.
+  int _tiro = 0;
 
   GuideAnimal get _animal => GuideAnimalDerivation.forSign(widget.userSign);
 
   void _viaggioCompiuto() {
-    GuideAnimalDiscovery.segnaTrovato();
-    if (mounted) setState(() => _fase = _Fase.responso);
+    if (mounted) setState(() => _fase = _Fase.messaggio);
+  }
+
+  void _chiediAncora() {
+    if (_tiro >= GuideAnimalCorpus.maxTiri) return;
+    setState(() => _tiro++);
+  }
+
+  void _apriIdentita() {
+    Navigator.of(context).push(GuideAnimalScreen.route(
+      userSign: widget.userSign,
+      clock: widget.clock,
+      pianetiDelGiorno: widget.pianetiDelGiorno,
+      modo: GuideAnimalMode.identita,
+    ));
   }
 
   @override
@@ -121,6 +145,10 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
     final f = widget.pianetiDelGiorno ?? ArchetypeSky.pianetiDelGiorno;
     return f(_clock());
   }
+
+  String get _origine => _archetipo != null
+      ? 'Dal tuo cielo, ${widget.userSign.italianName}, intrecciato col tuo archetipo'
+      : 'Dal tuo cielo, ${widget.userSign.italianName}';
 
   @override
   Widget build(BuildContext context) {
@@ -159,18 +187,29 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
         child: SafeArea(
           child: !_pronto
               ? const SizedBox.shrink()
-              : switch (_fase) {
-                  _Fase.viaggio => AnimalJourney(
-                      palette: palette, onComplete: _viaggioCompiuto),
-                  _Fase.responso => _Responso(
+              : widget.modo == GuideAnimalMode.identita
+                  ? _Identita(
                       palette: palette,
                       animal: _animal,
                       userSign: widget.userSign,
                       archetipo: _archetipo,
-                      messaggio: GuideAnimalCorpus.messaggioDelGiorno(
-                          _animal, _clock(), _pianeti),
-                    ),
-                },
+                      origine: _origine,
+                    )
+                  : switch (_fase) {
+                      _Fase.viaggio => AnimalJourney(
+                          palette: palette, onComplete: _viaggioCompiuto),
+                      _Fase.messaggio => _Messaggio(
+                          palette: palette,
+                          animal: _animal,
+                          origine: _origine,
+                          messaggio: GuideAnimalCorpus.messaggioDelGiorno(
+                              _animal, _clock(), _pianeti,
+                              tiro: _tiro),
+                          puoAncora: _tiro < GuideAnimalCorpus.maxTiri,
+                          onAncora: _chiediAncora,
+                          onIdentita: _apriIdentita,
+                        ),
+                    },
         ),
       ),
     );
@@ -301,28 +340,31 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   }
 }
 
-/// Il responso: la rivelazione del totem nella nebbia, poi la lettura piena.
-class _Responso extends StatelessWidget {
-  const _Responso({
+/// Il messaggio del momento, dopo il viaggio col tamburo: il totem affiora dalla
+/// nebbia e l'animale porta un segno sempre nuovo. Sotto, Chiedi ancora per un
+/// secondo tiro, il rimando alla lettura di chi e' il tuo animale, poi Condividi
+/// e Parlane con Caligo. E' l'esperienza ripetibile, il motivo per tornare.
+class _Messaggio extends StatelessWidget {
+  const _Messaggio({
     required this.palette,
     required this.animal,
-    required this.userSign,
-    required this.archetipo,
+    required this.origine,
     required this.messaggio,
+    required this.puoAncora,
+    required this.onAncora,
+    required this.onIdentita,
   });
 
   final MaestroPalette palette;
   final GuideAnimal animal;
-  final Zodiac userSign;
-  final Archetype? archetipo;
+  final String origine;
   final String messaggio;
+  final bool puoAncora;
+  final VoidCallback onAncora;
+  final VoidCallback onIdentita;
 
   @override
   Widget build(BuildContext context) {
-    final r = GuideAnimalCorpus.di(animal.name);
-    final origine = archetipo != null
-        ? 'Dal tuo cielo, ${userSign.italianName}, intrecciato col tuo archetipo'
-        : 'Dal tuo cielo, ${userSign.italianName}';
     return SingleChildScrollView(
       key: const Key('animal_result'),
       padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -331,6 +373,118 @@ class _Responso extends StatelessWidget {
         children: [
           const SizedBox(height: SpacingTokens.sm),
           // LA RIVELAZIONE del totem nella nebbia.
+          Center(
+            child: AnimalReveal(
+                assetTotem: animal.fullPath, palette: palette, lato: 300),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          Center(
+            child: Text(animal.name.toUpperCase(),
+                key: const Key('animal_name'),
+                style: TypographyTokens.display(size: 30)
+                    .copyWith(color: palette.goldSoft)),
+          ),
+          Center(
+            child: Text(animal.summary,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.body(size: 16).copyWith(
+                    color: ColorTokens.textSecondary,
+                    fontStyle: FontStyle.italic)),
+          ),
+          const SizedBox(height: SpacingTokens.lg),
+          // IL MESSAGGIO DEL MOMENTO, il segno che l'animale porta ora.
+          ScrollReveal(
+            depth: 1,
+            child: DepthCard(
+              key: const Key('animal_daily_message'),
+              raised: true,
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.nightlight_round,
+                          size: 16, color: palette.goldSoft),
+                      const SizedBox(width: SpacingTokens.xs),
+                      Text('Messaggio dall\'Animale',
+                          style: TypographyTokens.label(size: 12).copyWith(
+                              color: palette.goldSoft, letterSpacing: 0.6)),
+                    ],
+                  ),
+                  const SizedBox(height: SpacingTokens.xs),
+                  Text(messaggio,
+                      key: const Key('animal_message_text'),
+                      style: TypographyTokens.body(size: 16).copyWith(
+                          color: ColorTokens.textPrimary, height: 1.5)),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          // CHIEDI ANCORA, per un altro tiro dal repertorio, entro il limite.
+          OutlinedButton.icon(
+            key: const Key('animal_ask_again'),
+            style: OutlinedButton.styleFrom(
+                foregroundColor: palette.goldSoft,
+                side: BorderSide(
+                    color: palette.gold
+                        .withValues(alpha: puoAncora ? 0.6 : 0.2))),
+            onPressed: puoAncora ? onAncora : null,
+            icon: const Icon(Icons.refresh_rounded),
+            label: Text(puoAncora
+                ? 'Chiedi ancora'
+                : 'Torna domani per un nuovo segno'),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          // CHI E' IL TUO ANIMALE, il rimando alla lettura fissa di identita'.
+          TextButton.icon(
+            key: const Key('animal_identity_link'),
+            onPressed: onIdentita,
+            icon: Icon(Icons.auto_stories_outlined,
+                size: 18, color: palette.goldSoft),
+            label: Text("Chi è il tuo animale",
+                style: TypographyTokens.label(size: 13)
+                    .copyWith(color: palette.goldSoft)),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          _Azioni(palette: palette, animal: animal, origine: origine),
+          const SizedBox(height: SpacingTokens.xxxl),
+        ],
+      ),
+    );
+  }
+}
+
+/// La lettura fissa di identita': chi e' il tuo animale, natura dono lezione,
+/// quando ti guida, l'invito, e se c'e' il Test, l'intreccio con l'archetipo.
+/// Non cambia mai, e' la carta d'identita' del tuo totem. Si apre dal Cosmic
+/// Passport e dal rimando nel messaggio del momento.
+class _Identita extends StatelessWidget {
+  const _Identita({
+    required this.palette,
+    required this.animal,
+    required this.userSign,
+    required this.archetipo,
+    required this.origine,
+  });
+
+  final MaestroPalette palette;
+  final GuideAnimal animal;
+  final Zodiac userSign;
+  final Archetype? archetipo;
+  final String origine;
+
+  @override
+  Widget build(BuildContext context) {
+    final r = GuideAnimalCorpus.di(animal.name);
+    return SingleChildScrollView(
+      key: const Key('animal_identity'),
+      padding: const EdgeInsets.all(SpacingTokens.lg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: SpacingTokens.sm),
           Center(
             child: AnimalReveal(
                 assetTotem: animal.fullPath, palette: palette, lato: 300),
@@ -380,35 +534,6 @@ class _Responso extends StatelessWidget {
               palette: palette,
             ),
           ],
-
-          const SizedBox(height: SpacingTokens.lg),
-          // IL MESSAGGIO DALL'ANIMALE del giorno.
-          ScrollReveal(
-            depth: 1,
-            child: DepthCard(
-              key: const Key('animal_daily_message'),
-              raised: true,
-              padding: const EdgeInsets.all(SpacingTokens.md),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.nightlight_round, size: 16, color: palette.goldSoft),
-                      const SizedBox(width: SpacingTokens.xs),
-                      Text('Messaggio dall\'Animale',
-                          style: TypographyTokens.label(size: 12).copyWith(
-                              color: palette.goldSoft, letterSpacing: 0.6)),
-                    ],
-                  ),
-                  const SizedBox(height: SpacingTokens.xs),
-                  Text(messaggio,
-                      style: TypographyTokens.body(size: 16).copyWith(
-                          color: ColorTokens.textPrimary, height: 1.5)),
-                ],
-              ),
-            ),
-          ),
 
           const SizedBox(height: SpacingTokens.lg),
           _Azioni(palette: palette, animal: animal, origine: origine),

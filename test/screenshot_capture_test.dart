@@ -1100,31 +1100,54 @@ void main() {
     silenceSensors();
     await loadFonts();
     seedArchetipoCaligo();
-    // saltaViaggio, cosi' si va dritti alla rivelazione, senza il tamburo.
-    final rootKey = await mountAnimal(tester,
-        const GuideAnimalScreen(userSign: Zodiac.cancer, saltaViaggio: true),
+    final rootKey = await mountAnimal(
+        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
         size: const Size(390, 900));
     await precacheTotem(tester);
-    // Un istante fisso della dissolvenza: la nebbia e' ancora densa, gli occhi
-    // accesi, il totem appena affiora.
-    await tester.pump(const Duration(milliseconds: 600));
+    // Compie il viaggio col tasto di ripiego, poi coglie un istante fisso della
+    // dissolvenza: la nebbia e' ancora densa, gli occhi accesi, il totem affiora.
+    await tester.tap(find.byKey(const Key('animal_journey_skip')));
+    await tester.pump(const Duration(milliseconds: 400)); // supera il ritardo
+    await tester.pump(const Duration(milliseconds: 600)); // dentro la nebbia
     await capture(tester, rootKey, 'guide-animale-rivelazione.png');
   });
 
-  testWidgets('Cattura il responso dell\'Animale Guida', (tester) async {
+  testWidgets('Cattura il messaggio del momento dopo il viaggio', (tester) async {
     silenceSensors();
     await loadFonts();
     seedArchetipoCaligo();
-    final rootKey = await mountAnimal(tester,
-        const GuideAnimalScreen(userSign: Zodiac.cancer, saltaViaggio: true),
-        size: const Size(390, 1980));
+    final rootKey = await mountAnimal(
+        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
+        size: const Size(390, 1780));
     await precacheTotem(tester);
-    // Lascia posare la rivelazione, cosi' il totem e' pieno.
+    // Compie il viaggio, poi lascia posare la rivelazione, cosi' il totem e'
+    // pieno e si vede il messaggio del momento coi comandi ripetibili.
+    await tester.tap(find.byKey(const Key('animal_journey_skip')));
+    await tester.pump(const Duration(milliseconds: 400));
     for (var i = 0; i < 4; i++) {
       await tester.pump(const Duration(milliseconds: 800));
     }
     expect(find.byKey(const Key('animal_result')), findsOneWidget);
     await capture(tester, rootKey, 'guide-animale.png');
+  });
+
+  testWidgets('Cattura la lettura di identita\' dell\'Animale Guida',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    seedArchetipoCaligo();
+    // La lettura fissa di identita', come si apre dal Cosmic Passport.
+    final rootKey = await mountAnimal(
+        tester,
+        const GuideAnimalScreen(
+            userSign: Zodiac.cancer, modo: GuideAnimalMode.identita),
+        size: const Size(390, 1980));
+    await precacheTotem(tester);
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 800));
+    }
+    expect(find.byKey(const Key('animal_identity')), findsOneWidget);
+    await capture(tester, rootKey, 'guide-animale-identita.png');
   });
 
   testWidgets('Cattura la card dell\'Animale Guida', (tester) async {

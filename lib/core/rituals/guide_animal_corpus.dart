@@ -57,6 +57,15 @@ class GuideAnimalCorpus {
         "guarda piu' in alto, il quadro intero ti aspetta.",
         "un segno ti sta arrivando, tieni gli occhi aperti.",
         "scegli un bersaglio e non mollarlo.",
+        "sali sopra il rumore, da lassu' si vede chiaro.",
+        "cio' che cerchi e' gia' in vista, aguzza lo sguardo.",
+        "un solo colpo ben mirato vale mille tentativi.",
+        "leggi il messaggio nascosto in un incontro di oggi.",
+        "la fretta acceca, la mira paziente colpisce.",
+        "alza lo sguardo dal dettaglio, torna alla rotta.",
+        "una notizia arriva dall'alto, accoglila senza paura.",
+        "concentra la forza dove conta, lascia cadere il resto.",
+        "il cielo ti chiama a osare un volo piu' ampio.",
       ],
     ),
     "Orso": AnimalRitratto(
@@ -74,6 +83,15 @@ class GuideAnimalCorpus {
         "rallenta, la forza vera nasce nella calma.",
         "un ritiro ti rimette al centro, concediti la tana.",
         "guarisci prima di ripartire, non c'e' fretta.",
+        "la tua potenza non ha bisogno di gridare.",
+        "entra nel silenzio, li' trovi la risposta.",
+        "ascolta il corpo, ti dice quando fermarti.",
+        "c'e' un tempo per dormire e un tempo per agire.",
+        "una ferita chiede cura, non un'altra corsa.",
+        "torna alle radici, la terra ti sostiene.",
+        "la pazienza dell'inverno prepara la primavera.",
+        "difendi il tuo spazio con calma, senza rabbia.",
+        "la solitudine scelta e' medicina, non fuga.",
       ],
     ),
     "Volpe": AnimalRitratto(
@@ -91,6 +109,15 @@ class GuideAnimalCorpus {
         "cambia strada, la via laterale e' libera.",
         "usa l'ingegno, non la forza.",
         "osserva prima di muoverti, poi scatta.",
+        "mimetizzati oggi, il momento giusto verra'.",
+        "la furbizia gentile apre cio' che la forza chiude.",
+        "leggi il terreno prima di ogni passo.",
+        "un problema ha sempre una porta di servizio.",
+        "sii veloce nel pensiero, lento nel giudizio.",
+        "non mostrare tutte le carte, tieni un asso.",
+        "l'ostacolo si aggira, raramente si sfonda.",
+        "adattati alla corrente senza perdere la meta.",
+        "una piccola astuzia oggi ti risparmia una fatica domani.",
       ],
     ),
     "Lupo": AnimalRitratto(
@@ -108,6 +135,15 @@ class GuideAnimalCorpus {
         "fidati dell'istinto, sa gia' la strada.",
         "torna ai tuoi, il branco ti aspetta.",
         "difendi cio' che conta, con lealta'.",
+        "la liberta' vera sceglie i suoi legami.",
+        "ascolta il primo sentire, prima che la mente parli.",
+        "insegna con l'esempio, il branco impara guardando.",
+        "corri libero, ma non dimenticare chi ami.",
+        "un confine chiaro protegge il legame.",
+        "la fedelta' non e' catena ma scelta.",
+        "annusa il pericolo, la prudenza e' saggezza.",
+        "la tua voce chiama i tuoi, non aver paura di alzarla.",
+        "cammina in gruppo senza sciogliere te stesso.",
       ],
     ),
     "Aquila": AnimalRitratto(
@@ -125,6 +161,15 @@ class GuideAnimalCorpus {
         "sali piu' in alto, la vista cambia tutto.",
         "osa la vetta, lo spirito ti regge.",
         "guarda il disegno intero, non il dettaglio.",
+        "lo spirito ti chiama, non abbassare lo sguardo.",
+        "dall'alto ogni cosa trova il suo posto.",
+        "governa te stesso prima di guidare gli altri.",
+        "il sole non teme l'altezza, tu come lui.",
+        "lascia la valle stretta, allarga l'orizzonte.",
+        "la nobilta' e' un modo di stare, non un trono.",
+        "cio' che pesa in basso si alleggerisce in volo.",
+        "una visione grande merita un passo coraggioso.",
+        "spicca il volo anche col vuoto sotto le ali.",
       ],
     ),
     "Gufo": AnimalRitratto(
@@ -142,6 +187,15 @@ class GuideAnimalCorpus {
         "guarda oltre l'apparenza, la verita' e' sotto.",
         "il silenzio ti parla, ascoltalo.",
         "fidati di cio' che intuisci nel buio.",
+        "una verita' scomoda chiede di essere guardata.",
+        "non farti ingannare dalle luci, cerca l'ombra.",
+        "sai gia' la risposta, smetti di negarla.",
+        "la saggezza tace e osserva, poi parla.",
+        "distingui il vero dal comodo, poi scegli il vero.",
+        "vola in silenzio, la preda del sapere e' timida.",
+        "la notte rivela cio' che il giorno nasconde.",
+        "una domanda giusta vale piu' di cento risposte.",
+        "guarda dentro, li' e' custodito il segreto.",
       ],
     ),
     "Cervo": AnimalRitratto(
@@ -159,6 +213,15 @@ class GuideAnimalCorpus {
         "la dolcezza apre porte che la forza chiude.",
         "muoviti con grazia, senza fretta.",
         "ascolta il cuore, tuo e degli altri.",
+        "la mitezza non e' debolezza ma forza quieta.",
+        "tocca chi soffre con delicatezza, non ferire.",
+        "la tua sensibilita' e' un dono, non un difetto.",
+        "resta gentile anche quando intorno si indurisce.",
+        "la grazia trova la via dove la durezza si blocca.",
+        "avvicina l'altro con calma, come al cervo si va piano.",
+        "proteggi la tua tenerezza, non e' ingenuita'.",
+        "un gesto gentile oggi cura piu' di mille parole.",
+        "cammina leggero, lascia il mondo un po' piu' dolce.",
       ],
     ),
     "Serpente": AnimalRitratto(
@@ -176,6 +239,15 @@ class GuideAnimalCorpus {
         "lascia la vecchia pelle, adesso e' tempo.",
         "una fase muore perche' un'altra nasca.",
         "l'energia torna quando lasci andare.",
+        "cio' che trattieni ti blocca, sciogli la presa.",
+        "la ferita che curi diventa forza.",
+        "rinnovati senza rimpianto, la muta e' vita.",
+        "scendi in profondita', li' rinasce la potenza.",
+        "un veleno conosciuto diventa medicina.",
+        "non temere la fine, dietro c'e' il nuovo.",
+        "striscia fuori dal vecchio, la terra e' calda.",
+        "la trasformazione chiede coraggio, non fretta.",
+        "lascia morire cio' che non sei piu'.",
       ],
     ),
     "Cavallo": AnimalRitratto(
@@ -193,6 +265,15 @@ class GuideAnimalCorpus {
         "parti, l'orizzonte ti chiama.",
         "porta la tua energia lontano.",
         "scegli la direzione, poi corri.",
+        "la corsa senza meta stanca, dalle uno scopo.",
+        "rompi le briglie che spengono il tuo slancio.",
+        "il movimento scioglie cio' che il fermo blocca.",
+        "hai la forza per arrivare, manca solo il primo passo.",
+        "cerca spazio e aria, non sopporti le gabbie.",
+        "cavalca la tua potenza, non lasciarla ferma.",
+        "un viaggio chiama, non rimandarlo ancora.",
+        "la liberta' vera ha una rotta, scegli la tua.",
+        "slancia il cuore avanti, il corpo segue.",
       ],
     ),
     "Tartaruga": AnimalRitratto(
@@ -210,6 +291,15 @@ class GuideAnimalCorpus {
         "va' piano, arriverai lo stesso.",
         "la costanza batte la fretta.",
         "porta con te la tua casa, sei protetto.",
+        "un passo piccolo, ripetuto, muove montagne.",
+        "non gareggiare col tempo, camminaci insieme.",
+        "la lentezza saggia vede cio' che la corsa perde.",
+        "radicati, la terra non ti abbandona.",
+        "proteggi cio' che e' tenero sotto il guscio.",
+        "la pazienza e' una forza, non una resa.",
+        "costruisci basi solide, il resto verra'.",
+        "quando tutto corre, tu tieni il passo giusto.",
+        "il guscio non e' prigione ma riparo.",
       ],
     ),
     "Corvo": AnimalRitratto(
@@ -227,6 +317,15 @@ class GuideAnimalCorpus {
         "un segno ti cerca, non ignorarlo.",
         "sei a una soglia, attraversala.",
         "dal vuoto nasce il nuovo, fidati.",
+        "una coincidenza ti parla, ascoltala.",
+        "il mondo e' piu' vasto di quanto sembra.",
+        "cio' che sembra caso e' un messaggio.",
+        "attraversa il buio, dall'altra parte c'e' luce.",
+        "la magia vive ai bordi, non al centro.",
+        "lascia andare il vecchio mondo, si apre un varco.",
+        "custodisci il tuo segreto, dentro c'e' potere.",
+        "un sogno di stanotte porta una risposta.",
+        "il corvo posa dove c'e' un passaggio, guardalo.",
       ],
     ),
     "Lince": AnimalRitratto(
@@ -244,6 +343,15 @@ class GuideAnimalCorpus {
         "fidati del sesto senso, vede giusto.",
         "un segreto ti si sta svelando.",
         "cio' che senti conta, ascoltalo.",
+        "guarda cio' che gli altri non colgono.",
+        "il silenzio custodisce cio' che sai.",
+        "una verita' nascosta chiede i tuoi occhi.",
+        "non spiegare tutto, alcune cose si sentono.",
+        "la percezione sottile precede le parole.",
+        "osserva appartato, li' cogli il vero.",
+        "un sospetto giusto merita ascolto, non prova.",
+        "cio' che intravedi nell'ombra e' reale.",
+        "custodisci il segreto altrui come il tuo.",
       ],
     ),
   };
@@ -265,16 +373,32 @@ class GuideAnimalCorpus {
         "strada, l'animale ti da' la forza di percorrerla. ${animal.summary}";
   }
 
-  /// Il Messaggio dall'Animale del giorno: deterministico dal giorno e dai
-  /// pianeti (Sole sempre, Luna quando e' abbastanza piena), come i Doni del
-  /// Giorno. Non una promessa, un'intenzione o un segno nella voce dell'animale.
-  static String messaggioDelGiorno(
-      GuideAnimal animal, DateTime giorno, Set<Pianeta> pianeti) {
+  /// Quanti tiri in piu' del giorno si possono chiedere col tamburo prima che
+  /// taccia. Piccolo limite: il messaggio del giorno piu' qualche richiesta.
+  static const int maxTiri = 4;
+
+  /// L'indice del repertorio per il giorno e il cielo, deterministico: il giorno
+  /// ordinale piu' la presenza della Luna. Cambia ogni giorno, resta stabile
+  /// nella stessa giornata.
+  static int _indiceBase(GuideAnimal animal, DateTime giorno, Set<Pianeta> pianeti) {
     final r = di(animal.name);
     final ordinale = DateTime.utc(giorno.year, giorno.month, giorno.day)
             .millisecondsSinceEpoch ~/
         Duration.millisecondsPerDay;
-    final scelto = r.messaggi[ordinale % r.messaggi.length];
+    final semeCielo = pianeti.contains(Pianeta.luna) ? 1 : 0;
+    return (ordinale * 2 + semeCielo) % r.messaggi.length;
+  }
+
+  /// Il Messaggio dall'Animale, deterministico dal giorno e dai pianeti (Sole
+  /// sempre, Luna quando e' abbastanza piena), come i Doni del Giorno. Non una
+  /// promessa, un'intenzione o un segno nella voce dell'animale. Con [tiro] > 0
+  /// avanza al messaggio successivo del repertorio, per il "Chiedi ancora".
+  static String messaggioDelGiorno(
+      GuideAnimal animal, DateTime giorno, Set<Pianeta> pianeti,
+      {int tiro = 0}) {
+    final r = di(animal.name);
+    final indice = (_indiceBase(animal, giorno, pianeti) + tiro) % r.messaggi.length;
+    final scelto = r.messaggi[indice];
     final cielo = pianeti.contains(Pianeta.luna)
         ? "Con la Luna che veglia stanotte"
         : "Con il Sole a scaldare il giorno";

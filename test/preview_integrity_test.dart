@@ -38,7 +38,8 @@ void main() {
     'guide-animale-popup.png', // Animale Guida, popup del Test Archetipo
     'guide-animale-viaggio.png', // Animale Guida, il viaggio col tamburo
     'guide-animale-rivelazione.png', // Animale Guida, la rivelazione nella nebbia
-    'guide-animale.png', // Animale Guida, il responso coi pulsanti centrati
+    'guide-animale.png', // Animale Guida, il messaggio del momento dopo il viaggio
+    'guide-animale-identita.png', // Animale Guida, la lettura fissa di identita'
     'guide-animale-card.png', // Animale Guida, card condivisibile
     'guide-animale-passport.png', // Animale Guida, la faccia nel Cosmic Passport
     'guide-animale-chat.png', // Animale Guida, chat aperta con la domanda scritta

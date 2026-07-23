@@ -20,7 +20,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   // Con disableAnimations, il viaggio col tamburo basta un tocco (ripiego) e le
   // animazioni non girano: il test resta stabile.
-  Widget host({Zodiac userSign = Zodiac.cancer, bool saltaViaggio = false}) =>
+  Widget host({
+    Zodiac userSign = Zodiac.cancer,
+    GuideAnimalMode modo = GuideAnimalMode.viaggio,
+  }) =>
       MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -35,8 +38,7 @@ void main() {
             data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
             child: MaestroScope(child: child!),
           ),
-          home: GuideAnimalScreen(
-              userSign: userSign, saltaViaggio: saltaViaggio),
+          home: GuideAnimalScreen(userSign: userSign, modo: modo),
         ),
       );
 
@@ -86,21 +88,24 @@ void main() {
     expect(find.byKey(const Key('animal_test_popup')), findsNothing);
     expect(find.byKey(const Key('animal_journey')), findsOneWidget);
 
-    // Il viaggio porta alla rivelazione e alla lettura.
+    // Il viaggio porta al messaggio del momento, non alla lettura di identita'.
     await viaggia(tester);
     expect(find.byKey(const Key('animal_result')), findsOneWidget);
     // Cancro da' il Lupo.
     expect(tester.widget<Text>(find.byKey(const Key('animal_name'))).data,
         'LUPO');
-    // Senza il Test, la sezione dell'archetipo non compare.
-    expect(find.byKey(const Key('animal_archetipo')), findsNothing);
-    expect(find.byKey(const Key('animal_natura')), findsOneWidget);
+    // Il messaggio del momento coi suoi comandi ripetibili.
     expect(find.byKey(const Key('animal_daily_message')), findsOneWidget);
+    expect(find.byKey(const Key('animal_ask_again')), findsOneWidget);
+    expect(find.byKey(const Key('animal_identity_link')), findsOneWidget);
     expect(find.byKey(const Key('animal_share')), findsOneWidget);
     expect(find.byKey(const Key('animal_consulta')), findsOneWidget);
+    // Le bolle di identita' NON stanno nel viaggio: sono nella lettura fissa.
+    expect(find.byKey(const Key('animal_natura')), findsNothing);
   });
 
-  testWidgets('Il viaggio col tamburo porta alla rivelazione', (tester) async {
+  testWidgets('Il viaggio col tamburo porta al messaggio del momento',
+      (tester) async {
     seedArchetipo();
     tester.view.physicalSize = const Size(430, 2600);
     tester.view.devicePixelRatio = 1.0;
@@ -116,11 +121,47 @@ void main() {
 
     await viaggia(tester);
     expect(find.byKey(const Key('animal_result')), findsOneWidget);
-    // La sezione che intreccia l'archetipo compare.
-    expect(find.byKey(const Key('animal_archetipo')), findsOneWidget);
     // L'animale non cambia col Test: Cancro resta Lupo.
     expect(tester.widget<Text>(find.byKey(const Key('animal_name'))).data,
         'LUPO');
+  });
+
+  testWidgets('Chiedi ancora cambia il segno del momento', (tester) async {
+    seedArchetipo();
+    tester.view.physicalSize = const Size(430, 2600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await viaggia(tester);
+
+    final primo =
+        tester.widget<Text>(find.byKey(const Key('animal_message_text'))).data;
+    await tester.tap(find.byKey(const Key('animal_ask_again')));
+    await passo(tester);
+    final secondo =
+        tester.widget<Text>(find.byKey(const Key('animal_message_text'))).data;
+    expect(secondo, isNot(primo));
+  });
+
+  testWidgets('Chi e\' il tuo animale apre la lettura fissa di identita\'',
+      (tester) async {
+    seedArchetipo();
+    tester.view.physicalSize = const Size(430, 2600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await viaggia(tester);
+    await tester.tap(find.byKey(const Key('animal_identity_link')));
+    await passo(tester);
+    // Si apre l'identita', con le bolle di lettura.
+    expect(find.byKey(const Key('animal_identity')), findsOneWidget);
+    expect(find.byKey(const Key('animal_natura')), findsOneWidget);
   });
 
   testWidgets('Il ripiego del viaggio, il tasto salta, porta comunque su',
@@ -139,7 +180,7 @@ void main() {
     expect(find.byKey(const Key('animal_result')), findsOneWidget);
   });
 
-  testWidgets('Con saltaViaggio si apre diretta la lettura, senza tamburo',
+  testWidgets('In modo identita\' si apre la lettura fissa, senza tamburo',
       (tester) async {
     seedArchetipo();
     tester.view.physicalSize = const Size(430, 2600);
@@ -147,12 +188,19 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(host(saltaViaggio: true));
+    await tester.pumpWidget(host(modo: GuideAnimalMode.identita));
     await passo(tester);
-    // Nessun viaggio: subito la lettura.
+    // Nessun viaggio ne messaggio del momento: subito la lettura fissa.
     expect(find.byKey(const Key('animal_journey')), findsNothing);
-    expect(find.byKey(const Key('animal_result')), findsOneWidget);
+    expect(find.byKey(const Key('animal_result')), findsNothing);
+    expect(find.byKey(const Key('animal_identity')), findsOneWidget);
+    expect(find.byKey(const Key('animal_natura')), findsOneWidget);
+    // Col Test salvato, l'intreccio con l'archetipo compare.
+    expect(find.byKey(const Key('animal_archetipo')), findsOneWidget);
     expect(tester.widget<Text>(find.byKey(const Key('animal_name'))).data,
         'LUPO');
+    // L'identita' non porta i comandi del momento.
+    expect(find.byKey(const Key('animal_daily_message')), findsNothing);
+    expect(find.byKey(const Key('animal_ask_again')), findsNothing);
   });
 }

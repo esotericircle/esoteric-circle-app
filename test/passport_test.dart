@@ -93,8 +93,11 @@ void main() {
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
-    // Non ancora trovato: il tocco avvia il viaggio come dal dominio di Caligo.
-    expect(find.byKey(const Key('animal_journey')), findsOneWidget);
+    // Dal Passport si apre la lettura fissa di identita', chi e' il tuo animale,
+    // non il viaggio col tamburo, che resta nel dominio di Caligo.
+    expect(find.byKey(const Key('animal_identity')), findsOneWidget);
+    expect(find.byKey(const Key('animal_journey')), findsNothing);
+    expect(find.byKey(const Key('animal_natura')), findsOneWidget);
   });
 
   testWidgets('L\'Archetipo e\' una voce dietro il velo, non una faccia viva',

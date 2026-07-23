@@ -9,7 +9,6 @@ import '../../core/identity/birth_moon.dart';
 import '../../core/identity/numerology.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/rituals/guide_animal_derivation.dart';
-import '../../core/rituals/guide_animal_discovery.dart';
 import '../maestri/caligo/animal/guide_animal_screen.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/user_avatar.dart';
@@ -333,13 +332,11 @@ class _GuideAnimalCard extends StatelessWidget {
       value: animal.name,
       meaning: animal.summary,
       isExample: identity.isExample,
-      // Al tocco si apre la lettura: diretta se l'animale e' gia' stato trovato
-      // col viaggio, altrimenti si avvia il viaggio come dal dominio di Caligo.
-      onTap: () async {
-        final trovato = await GuideAnimalDiscovery.trovato();
-        if (!context.mounted) return;
+      // Al tocco si apre la lettura fissa di identita', chi e' il tuo animale.
+      // Il viaggio ripetibile col tamburo sta invece nel dominio di Caligo.
+      onTap: () {
         Navigator.of(context).push(GuideAnimalScreen.route(
-            userSign: segno, saltaViaggio: trovato));
+            userSign: segno, modo: GuideAnimalMode.identita));
       },
       emblem: Container(
         width: 52,
