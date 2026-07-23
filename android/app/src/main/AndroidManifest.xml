@@ -7,6 +7,16 @@
     <!-- Microfono: coglie il soffio nel Soffio del Destino. Con ripiego
          tattile elegante se il permesso manca. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- Fotocamera: legge i tratti del volto on-device nella Costellazione del
+         Viso. Nessuna immagine lascia il dispositivo. Con ripiego tattile se il
+         permesso manca o la fotocamera non c'e'. -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false"/>
     <application
         android:label="Esoteric Circle"
         android:name="${applicationName}"

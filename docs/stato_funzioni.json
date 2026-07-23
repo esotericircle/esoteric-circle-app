@@ -4,8 +4,8 @@
   "funzioni": {
     "tarot_spread_three": true,
     "synastry_vip": true,
-    "archetype_test": false,
-    "face_constellation": false,
+    "archetype_test": true,
+    "face_constellation": true,
     "day_oracle": true,
     "horoscope": true,
     "sunset_rune": true,

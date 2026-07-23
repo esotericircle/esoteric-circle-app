@@ -5,6 +5,7 @@ import '../../core/astro/zodiac.dart';
 import '../../core/maestro/maestro.dart';
 import 'art_intro_screen.dart';
 import 'aura/archetype/archetype_test_screen.dart';
+import 'aura/face/face_constellation_screen.dart';
 import '../horoscope/oroscopo_screen.dart';
 import '../maestri/aura/meditation/meditation_screen.dart';
 import '../rituals/breath_destiny_screen.dart';
@@ -29,7 +30,6 @@ import '../tarot/stesa_tre_carte_screen.dart';
 /// riga qui e' un debito dichiarato, e sparisce da sola il giorno in cui
 /// l'esperienza arriva e prende il suo posto nello switch qui sotto.
 const Map<String, Maestro> artiSullaSoglia = {
-  'face_constellation': Maestro.aura,
   'rune_draw': Maestro.caligo,
   'guide_animal': Maestro.caligo,
   'tree_of_life': Maestro.caligo,
@@ -45,6 +45,9 @@ Route<void>? artRouteFor(String id, {required Zodiac userSign}) {
     // Il Test Archetipo ha ora la sua esperienza vera, non piu' la soglia.
     case 'archetype_test':
       return ArchetypeTestScreen.route();
+    // La Costellazione del Viso ha ora la sua esperienza vera, non piu' la soglia.
+    case 'face_constellation':
+      return FaceConstellationScreen.route();
     case 'horoscope':
       return OroscopoScreen.route(userSign: userSign);
     case 'synastry_vip':

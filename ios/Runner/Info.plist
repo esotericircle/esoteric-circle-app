@@ -31,7 +31,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Il microfono coglie il tuo soffio nel Soffio del Destino, per liberare i semi. Resta sul dispositivo, con ripiego tattile se preferisci.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>La fotocamera serve solo se scegli di mettere il tuo volto nella card della Sinastria. La foto resta sul dispositivo, entra solo nella card che decidi di condividere, senza mai essere caricata da nessuna parte.</string>
+	<string>La fotocamera serve se scegli di mettere il tuo volto nella card della Sinastria o di leggere i tuoi tratti nella Costellazione del Viso. Tutto resta sul dispositivo: nessuna immagine viene caricata, nessuna foto viene salvata oltre l'uso del momento.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>La galleria serve solo se scegli una tua foto per la card della Sinastria. La foto resta sul dispositivo, entra solo nella card che decidi di condividere, senza mai essere caricata da nessuna parte.</string>
 	<key>UIApplicationSceneManifest</key>

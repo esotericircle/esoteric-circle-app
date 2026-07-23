@@ -60,6 +60,7 @@ class FunctionShelf {
       teaser: 'Scopri il tuo archetipo junghiano con Aura.',
       icon: Icons.psychology_alt,
       maestro: Maestro.aura,
+      live: true,
     ),
     ShelfFunction(
       id: 'face_constellation',
@@ -67,6 +68,7 @@ class FunctionShelf {
       teaser: 'I tratti del tuo volto diventano una costellazione.',
       icon: Icons.face_retouching_natural,
       maestro: Maestro.aura,
+      live: true,
     ),
     ShelfFunction(
       id: 'day_oracle',

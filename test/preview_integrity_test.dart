@@ -28,6 +28,11 @@ void main() {
     'test-archetipo-card.png', // Test Archetipo, card condivisibile
     'test-archetipo-soglia.png', // Test Archetipo, soglia col selettore transiti
     'test-archetipo-domanda.png', // Test Archetipo, una domanda in corso
+    'costellazione-viso-soglia.png', // Costellazione del Viso, soglia col selettore
+    'costellazione-viso-sagoma.png', // Costellazione del Viso, costellazione sulla sagoma
+    'costellazione-viso.png', // Costellazione del Viso, il responso
+    'costellazione-viso-card.png', // Costellazione del Viso, card condivisibile
+    'costellazione-viso-ripiego.png', // Costellazione del Viso, ripiego tattile
   ];
 
   test('Tutti i preview obbligatori esistono in docs/preview', () {

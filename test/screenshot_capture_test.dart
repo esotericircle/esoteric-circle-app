@@ -22,7 +22,12 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/features/account/profile_screen.dart';
 import 'package:esoteric_circle/core/archetypes/archetype.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_scoring.dart';
+import 'package:esoteric_circle/core/face/face_classifier.dart';
 import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_share_card.dart';
+import 'package:esoteric_circle/features/maestri/aura/face/face_constellation.dart';
+import 'package:esoteric_circle/features/maestri/aura/face/face_constellation_screen.dart';
+import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart';
+import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
@@ -32,6 +37,7 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/components/immersive_scaffold.dart';
 import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
@@ -610,6 +616,115 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo-domanda.png');
+  });
+
+  // --- La Costellazione del Viso di Aura: la fotocamera dal vivo non si cattura
+  // in headless, quindi si usa la sagoma neutra come stand-in deterministico. ---
+  Widget faceApp(Widget schermata) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (_) =>
+                  MaestroController(initial: const ThemeKey.of(Maestro.aura))),
+          ChangeNotifierProvider(
+              create: (_) => QualityTierController()..setTier(QualityTier.medium)),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+        ],
+        child: MaterialApp(
+            theme: AppTheme.dark(),
+            home: MaestroScope(child: schermata)),
+      );
+
+  Future<GlobalKey> mountFace(WidgetTester tester, Widget schermata,
+      {required Size size}) async {
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = size;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+        RepaintBoundary(key: rootKey, child: faceApp(schermata)));
+    await step(tester);
+    await step(tester);
+    return rootKey;
+  }
+
+  testWidgets('Cattura la soglia della Costellazione del Viso', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountFace(tester, const FaceConstellationScreen(),
+        size: const Size(390, 820));
+    expect(find.byKey(const Key('face_sky_setting')), findsOneWidget);
+    await capture(tester, rootKey, 'costellazione-viso-soglia.png');
+  });
+
+  testWidgets('Cattura la costellazione sulla sagoma', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountFace(tester, const FaceConstellationScreen(),
+        size: const Size(390, 1400));
+    // Si entra nella cattura: senza fotocamera resta la sagoma neutra con la
+    // costellazione sopra, che e' proprio lo stand-in deterministico.
+    await tester.tap(find.byKey(const Key('face_start')));
+    await step(tester);
+    await step(tester);
+    expect(find.byKey(const Key('face_constellation_live')), findsOneWidget);
+    await capture(tester, rootKey, 'costellazione-viso-sagoma.png');
+  });
+
+  testWidgets('Cattura il responso della Costellazione del Viso',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountFace(tester, const FaceConstellationScreen(),
+        size: const Size(390, 2200));
+    // Percorso deterministico: si entra nella cattura e si scatta sulla sagoma.
+    await tester.tap(find.byKey(const Key('face_start')));
+    await step(tester);
+    await step(tester);
+    await tester.tap(find.byKey(const Key('face_shutter')));
+    await step(tester);
+    await step(tester);
+    expect(find.byKey(const Key('face_result')), findsOneWidget);
+    await capture(tester, rootKey, 'costellazione-viso.png');
+  });
+
+  testWidgets('Cattura la card della Costellazione del Viso', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    tester.view.physicalSize = const Size(460, 1100);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final contorni = FaceSilhouette.contorni();
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        backgroundColor: const Color(0xFF03140F),
+        body: Center(
+          child: RepaintBoundary(
+            key: rootKey,
+            child: FaceShareCard(
+              reading: FaceClassifier.leggi(contorni),
+              costellazione: FaceConstellation.da(contorni),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await capture(tester, rootKey, 'costellazione-viso-card.png');
+  });
+
+  testWidgets('Cattura il ripiego della Costellazione del Viso', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountFace(
+        tester, const FaceConstellationScreen(partiDalRipiego: true),
+        size: const Size(390, 1080));
+    expect(find.byKey(const Key('face_fallback')), findsOneWidget);
+    await capture(tester, rootKey, 'costellazione-viso-ripiego.png');
   });
 
   // --- La Meditazione di Aura: cimatica, respiro e suono generato a runtime ---
