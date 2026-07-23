@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -21,11 +22,15 @@ import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/features/account/profile_screen.dart';
 import 'package:esoteric_circle/core/archetypes/archetype.dart';
+import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_scoring.dart';
 import 'package:esoteric_circle/core/face/face_classifier.dart';
 import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_share_card.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_constellation.dart';
+import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_constellation_screen.dart';
+import 'package:esoteric_circle/features/maestri/caligo/animal/guide_animal_screen.dart';
+import 'package:esoteric_circle/features/maestri/caligo/animal/guide_animal_share_card.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -1004,6 +1009,133 @@ void main() {
     await step(tester);
     await precacheSinastria(tester);
     await capture(tester, rootKey, 'sinastria-vip-personale.png');
+  });
+
+  // --- L'Animale Guida di Caligo: popup, rivelazione, responso, card ---
+  Widget caligoApp(Widget schermata) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (_) =>
+                  MaestroController(initial: const ThemeKey.of(Maestro.caligo))),
+          ChangeNotifierProvider(
+              create: (_) => QualityTierController()..setTier(QualityTier.medium)),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+        ],
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.dark(),
+            home: MaestroScope(child: schermata)),
+      );
+
+  Future<GlobalKey> mountAnimal(WidgetTester tester, Widget schermata,
+      {required Size size}) async {
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = size;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+        RepaintBoundary(key: rootKey, child: caligoApp(schermata)));
+    await step(tester);
+    await step(tester);
+    return rootKey;
+  }
+
+  Future<void> precacheTotem(WidgetTester tester) async {
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(GuideAnimalScreen));
+      final animal = GuideAnimalDerivation.forSign(Zodiac.cancer);
+      await precacheImage(AssetImage(animal.fullPath), element);
+    });
+    await step(tester);
+  }
+
+  testWidgets('Cattura il popup dell\'Animale Guida', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Senza Test Archetipo, il popup evocativo compare all'ingresso.
+    SharedPreferences.setMockInitialValues({});
+    final rootKey = await mountAnimal(
+        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
+        size: const Size(390, 900));
+    await precacheTotem(tester);
+    expect(find.byKey(const Key('animal_test_popup')), findsOneWidget);
+    await capture(tester, rootKey, 'guide-animale-popup.png');
+  });
+
+  testWidgets('Cattura la rivelazione nella nebbia', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Con un archetipo salvato niente popup, cosi' si vede solo la rivelazione.
+    final esito = ArchetypeEsito(
+      quando: DateTime(2026, 7, 22, 10),
+      percentuali: ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
+      dominante: Archetype.realista,
+    );
+    SharedPreferences.setMockInitialValues({
+      'archetipo.storico': [jsonEncode(esito.toJson())],
+    });
+    final rootKey = await mountAnimal(
+        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
+        size: const Size(390, 900));
+    await precacheTotem(tester);
+    // Un istante fisso della dissolvenza: la nebbia e' ancora densa, gli occhi
+    // accesi, il totem appena affiora.
+    await tester.pump(const Duration(milliseconds: 600));
+    await capture(tester, rootKey, 'guide-animale-rivelazione.png');
+  });
+
+  testWidgets('Cattura il responso dell\'Animale Guida', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final esito = ArchetypeEsito(
+      quando: DateTime(2026, 7, 22, 10),
+      percentuali: ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
+      dominante: Archetype.realista,
+    );
+    SharedPreferences.setMockInitialValues({
+      'archetipo.storico': [jsonEncode(esito.toJson())],
+    });
+    final rootKey = await mountAnimal(
+        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
+        size: const Size(390, 1980));
+    await precacheTotem(tester);
+    // Lascia posare la rivelazione, cosi' il totem e' pieno.
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 800));
+    }
+    expect(find.byKey(const Key('animal_result')), findsOneWidget);
+    await capture(tester, rootKey, 'guide-animale.png');
+  });
+
+  testWidgets('Cattura la card dell\'Animale Guida', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    tester.view.physicalSize = const Size(460, 900);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final animal = GuideAnimalDerivation.forSign(Zodiac.cancer);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        backgroundColor: const Color(0xFF14060A),
+        body: Center(
+          child: RepaintBoundary(
+            key: rootKey,
+            child: GuideAnimalShareCard(
+                animal: animal, origine: 'Dal tuo cielo, Cancro'),
+          ),
+        ),
+      ),
+    ));
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      await precacheImage(AssetImage(animal.fullPath), element);
+    });
+    await step(tester);
+    await capture(tester, rootKey, 'guide-animale-card.png');
   });
 
   // --- L'Oroscopo a quattro schede, la headline di Medora ---

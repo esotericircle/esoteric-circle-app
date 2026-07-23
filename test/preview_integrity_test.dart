@@ -35,6 +35,10 @@ void main() {
     'costellazione-viso.png', // Costellazione del Viso, il responso
     'costellazione-viso-card.png', // Costellazione del Viso, card condivisibile
     'costellazione-viso-ripiego.png', // Costellazione del Viso, ripiego tattile
+    'guide-animale-popup.png', // Animale Guida, popup del Test Archetipo
+    'guide-animale-rivelazione.png', // Animale Guida, la rivelazione nella nebbia
+    'guide-animale.png', // Animale Guida, il responso
+    'guide-animale-card.png', // Animale Guida, card condivisibile
   ];
 
   test('Tutti i preview obbligatori esistono in docs/preview', () {

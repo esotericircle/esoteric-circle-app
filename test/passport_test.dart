@@ -33,6 +33,8 @@ void main() {
     // Le due tessere vive sono presenti.
     expect(find.byKey(const Key('passport_life_path')), findsOneWidget);
     expect(find.byKey(const Key('passport_birth_moon')), findsOneWidget);
+    // L'Animale guida e' ora un fatto vivo dal segno, non piu' un segnaposto.
+    expect(find.byKey(const Key('passport_guide_animal')), findsOneWidget);
 
     // Mostrano il valore reale calcolato dal dato d'esempio.
     final id = BirthIdentity.example;
@@ -41,9 +43,10 @@ void main() {
     expect(find.text('${lp.number} · ${lp.title}'), findsOneWidget);
     expect(find.text(moon.label), findsOneWidget);
 
-    // Il dato d'esempio e' dichiarato in-world (due tessere).
+    // Il dato d'esempio e' dichiarato in-world (tre tessere vive: Numero della
+    // vita, Fase lunare e Animale guida).
     expect(
-        find.textContaining('Valore d\'esempio'), findsNWidgets(2));
+        find.textContaining('Valore d\'esempio'), findsNWidgets(3));
 
     // Le voci che richiedono servizi esterni restano dietro il velo.
     expect(find.text('Dietro il velo'), findsWidgets);

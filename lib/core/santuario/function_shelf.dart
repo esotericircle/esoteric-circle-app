@@ -95,6 +95,14 @@ class FunctionShelf {
       live: true,
     ),
     ShelfFunction(
+      id: 'guide_animal',
+      title: 'Animale Guida',
+      teaser: 'Il tuo totem dal cielo, nella voce di Caligo.',
+      icon: Icons.pets,
+      maestro: Maestro.caligo,
+      live: true,
+    ),
+    ShelfFunction(
       id: 'meditation',
       title: 'Meditazione',
       teaser: 'Suono generato e respiro guidato, con Aura.',

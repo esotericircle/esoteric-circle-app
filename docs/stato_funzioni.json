@@ -9,6 +9,7 @@
     "day_oracle": true,
     "horoscope": true,
     "sunset_rune": true,
+    "guide_animal": true,
     "meditation": true
   }
 }

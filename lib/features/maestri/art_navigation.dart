@@ -6,6 +6,7 @@ import '../../core/maestro/maestro.dart';
 import 'art_intro_screen.dart';
 import 'aura/archetype/archetype_test_screen.dart';
 import 'aura/face/face_constellation_screen.dart';
+import 'caligo/animal/guide_animal_screen.dart';
 import '../horoscope/oroscopo_screen.dart';
 import '../maestri/aura/meditation/meditation_screen.dart';
 import '../rituals/breath_destiny_screen.dart';
@@ -31,7 +32,6 @@ import '../tarot/stesa_tre_carte_screen.dart';
 /// l'esperienza arriva e prende il suo posto nello switch qui sotto.
 const Map<String, Maestro> artiSullaSoglia = {
   'rune_draw': Maestro.caligo,
-  'guide_animal': Maestro.caligo,
   'tree_of_life': Maestro.caligo,
 };
 
@@ -53,6 +53,10 @@ Route<void>? artRouteFor(
     // La Costellazione del Viso ha ora la sua esperienza vera, non piu' la soglia.
     case 'face_constellation':
       return FaceConstellationScreen.route();
+    // L'Animale Guida ha ora la sua esperienza vera, non piu' la soglia. Nasce
+    // dal segno; l'archetipo, se c'e', lo legge da se' dallo storico locale.
+    case 'guide_animal':
+      return GuideAnimalScreen.route(userSign: userSign);
     case 'horoscope':
       return OroscopoScreen.route(userSign: userSign);
     // La Sinastria VIP apre sulla galleria di scelta del VIP, non piu' su un

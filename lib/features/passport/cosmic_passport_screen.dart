@@ -8,6 +8,7 @@ import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_moon.dart';
 import '../../core/identity/numerology.dart';
 import '../../core/identity/profile_controller.dart';
+import '../../core/rituals/guide_animal_derivation.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/user_avatar.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -133,6 +134,8 @@ class CosmicPassport extends StatelessWidget {
                   _LifePathCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   _BirthMoonCard(identity: id),
+                  const SizedBox(height: SpacingTokens.sm),
+                  _GuideAnimalCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   for (final entry in _passportEntries) ...[
                     _PassportEntryCard(entry: entry),
@@ -304,6 +307,45 @@ class _BirthMoonCard extends StatelessWidget {
         width: 52,
         height: 52,
         child: Center(child: MoonWidget(phase: moon.phase, size: 24)),
+      ),
+    );
+  }
+}
+
+/// Tessera dell'Animale Guida: il totem deriva dal segno solare, deterministico
+/// e fisso, quindi e' un fatto identitario vivo dalla sola data di nascita, come
+/// la fase lunare. Emblema con la miniatura del totem, nome e sintesi.
+class _GuideAnimalCard extends StatelessWidget {
+  const _GuideAnimalCard({required this.identity});
+
+  final BirthIdentity identity;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final segno = NightSky.sunSign(identity.birthMoment);
+    final animal = GuideAnimalDerivation.forSign(segno);
+    return _ActiveFactCard(
+      cardKey: const Key('passport_guide_animal'),
+      overline: 'Animale guida',
+      value: animal.name,
+      meaning: animal.summary,
+      isExample: identity.isExample,
+      emblem: Container(
+        width: 52,
+        height: 52,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: palette.surface.withValues(alpha: 0.5),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Image.asset(
+          animal.thumbPath,
+          fit: BoxFit.cover,
+          errorBuilder: (_, __, ___) =>
+              Icon(Icons.pets, color: palette.goldSoft, size: 24),
+        ),
       ),
     );
   }
@@ -496,11 +538,6 @@ const List<_PassportEntry> _passportEntries = [
     icon: Icons.psychology_alt,
     title: 'Archetipo',
     description: 'La figura profonda che ti accompagna.',
-  ),
-  _PassportEntry(
-    icon: Icons.pets,
-    title: 'Animale guida',
-    description: 'Il tuo alleato fra i dodici archetipi.',
   ),
 ];
 
