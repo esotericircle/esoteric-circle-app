@@ -1055,6 +1055,17 @@ void main() {
     await step(tester);
   }
 
+  // Precarica l'arte di scena del tamburo, cosi' l'immagine compare nel viaggio.
+  Future<void> precacheTamburo(WidgetTester tester) async {
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(GuideAnimalScreen));
+      await precacheImage(
+          const AssetImage('assets/img/caligo/tamburo_sciamanico_v1.webp'),
+          element);
+    });
+    await step(tester);
+  }
+
   void seedArchetipoCaligo() {
     final esito = ArchetypeEsito(
       quando: DateTime(2026, 7, 22, 10),
@@ -1087,6 +1098,7 @@ void main() {
     final rootKey = await mountAnimal(
         tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
         size: const Size(390, 900));
+    await precacheTamburo(tester);
     expect(find.byKey(const Key('animal_journey')), findsOneWidget);
     // Un paio di battiti, cosi' i pallini si accendono e gli occhi affiorano.
     await tester.tap(find.byKey(const Key('animal_drum')));
@@ -1112,22 +1124,27 @@ void main() {
     await capture(tester, rootKey, 'guide-animale-rivelazione.png');
   });
 
-  testWidgets('Cattura il messaggio del momento dopo il viaggio', (tester) async {
+  testWidgets('Cattura il Messaggio del Giorno col blocco di trasparenza',
+      (tester) async {
     silenceSensors();
     await loadFonts();
     seedArchetipoCaligo();
+    // Con la data di nascita la trasparenza mostra anche la Luna natale.
     final rootKey = await mountAnimal(
-        tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
-        size: const Size(390, 1780));
+        tester,
+        GuideAnimalScreen(
+            userSign: Zodiac.cancer, userBirth: DateTime(1988, 7, 5, 9, 30)),
+        size: const Size(390, 2000));
     await precacheTotem(tester);
     // Compie il viaggio, poi lascia posare la rivelazione, cosi' il totem e'
-    // pieno e si vede il messaggio del momento coi comandi ripetibili.
+    // pieno e si vede il Messaggio del Giorno col blocco di trasparenza.
     await tester.tap(find.byKey(const Key('animal_journey_skip')));
     await tester.pump(const Duration(milliseconds: 400));
     for (var i = 0; i < 4; i++) {
       await tester.pump(const Duration(milliseconds: 800));
     }
     expect(find.byKey(const Key('animal_result')), findsOneWidget);
+    expect(find.byKey(const Key('animal_transparency')), findsOneWidget);
     await capture(tester, rootKey, 'guide-animale.png');
   });
 

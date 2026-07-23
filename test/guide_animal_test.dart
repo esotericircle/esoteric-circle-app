@@ -1,9 +1,8 @@
 import 'package:esoteric_circle/core/archetypes/archetype.dart';
-import 'package:esoteric_circle/core/archetypes/archetype_transits.dart'
-    show Pianeta;
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_corpus.dart';
+import 'package:esoteric_circle/core/rituals/guide_animal_day.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -92,55 +91,73 @@ void main() {
     });
   });
 
-  group('Messaggio dall\'Animale', () {
-    test('E\' deterministico sul giorno e cambia coi giorni', () {
-      final animal = GuideAnimalDerivation.forSign(Zodiac.cancer); // Lupo
-      final giorno = DateTime(2026, 7, 22);
-      final a =
-          GuideAnimalCorpus.messaggioDelGiorno(animal, giorno, {Pianeta.sole});
-      final b =
-          GuideAnimalCorpus.messaggioDelGiorno(animal, giorno, {Pianeta.sole});
-      expect(a, b);
-      // In un altro giorno la riga scelta puo' cambiare, ma resta stabile in se.
-      final domani = DateTime(2026, 7, 23);
-      final c =
-          GuideAnimalCorpus.messaggioDelGiorno(animal, domani, {Pianeta.sole});
-      expect(c, GuideAnimalCorpus.messaggioDelGiorno(animal, domani, {Pianeta.sole}));
+  group('Messaggio del Giorno', () {
+    final lupo = GuideAnimalDerivation.forSign(Zodiac.cancer); // Sole in Cancro
+    final base = DateTime(2026, 7, 22);
+
+    test('Stabile nello stesso giorno e con la stessa carta', () {
+      final a = GuideAnimalDay.per(
+          animale: lupo, soleNatale: Zodiac.cancer, giorno: base);
+      final b = GuideAnimalDay.per(
+          animale: lupo, soleNatale: Zodiac.cancer, giorno: base);
+      expect(a.testo, b.testo);
+      expect(a.transito, b.transito);
+      expect(a.datiNatali, b.datiNatali);
     });
 
-    test('La cornice viene dal Sole e dalla Luna', () {
-      final animal = GuideAnimalDerivation.forSign(Zodiac.leo);
-      final giorno = DateTime(2026, 7, 22);
-      final soloSole =
-          GuideAnimalCorpus.messaggioDelGiorno(animal, giorno, {Pianeta.sole});
-      final conLuna = GuideAnimalCorpus.messaggioDelGiorno(
-          animal, giorno, {Pianeta.sole, Pianeta.luna});
-      expect(soloSole, contains('Sole'));
-      expect(conLuna, contains('Luna'));
-    });
-
-    test('Chiedi ancora avanza al segno successivo, in modo deterministico', () {
-      final animal = GuideAnimalDerivation.forSign(Zodiac.cancer); // Lupo
-      final giorno = DateTime(2026, 7, 22);
-      final primo = GuideAnimalCorpus.messaggioDelGiorno(
-          animal, giorno, {Pianeta.sole});
-      final secondo = GuideAnimalCorpus.messaggioDelGiorno(
-          animal, giorno, {Pianeta.sole},
-          tiro: 1);
-      // Il tiro successivo porta un segno diverso, ma sempre stabile in se.
-      expect(secondo, isNot(primo));
-      expect(
-          secondo,
-          GuideAnimalCorpus.messaggioDelGiorno(animal, giorno, {Pianeta.sole},
-              tiro: 1));
-      // Entro il piccolo limite ogni tiro resta nel repertorio, mai fuori.
-      final r = GuideAnimalCorpus.di(animal.name);
-      for (var t = 0; t <= GuideAnimalCorpus.maxTiri; t++) {
-        final m = GuideAnimalCorpus.messaggioDelGiorno(
-            animal, giorno, {Pianeta.sole},
-            tiro: t);
-        expect(r.messaggi.any(m.contains), isTrue, reason: 'tiro $t');
+    test('Cambia al cambio di data', () {
+      final oggi = GuideAnimalDay.per(
+              animale: lupo, soleNatale: Zodiac.cancer, giorno: base)
+          .testo;
+      // In un mese la Luna passa tutti i segni: il transito e quindi il
+      // messaggio devono cambiare almeno una volta.
+      var cambia = false;
+      for (var g = 1; g <= 40 && !cambia; g++) {
+        final t = GuideAnimalDay.per(
+                animale: lupo,
+                soleNatale: Zodiac.cancer,
+                giorno: base.add(Duration(days: g)))
+            .testo;
+        if (t != oggi) cambia = true;
       }
+      expect(cambia, isTrue,
+          reason: 'in 40 giorni il messaggio deve cambiare almeno una volta');
+    });
+
+    test('Differisce per totem, a parita\' di giorno e carta', () {
+      // Stesso Sole natale e stesso giorno: cambia solo il totem, cosi' si
+      // isola che il messaggio dipende davvero dall'animale.
+      final aquila = GuideAnimalDerivation.forSign(Zodiac.leo);
+      final delLupo = GuideAnimalDay.per(
+              animale: lupo, soleNatale: Zodiac.cancer, giorno: base)
+          .testo;
+      final dellAquila = GuideAnimalDay.per(
+              animale: aquila, soleNatale: Zodiac.cancer, giorno: base)
+          .testo;
+      expect(delLupo, isNot(dellAquila));
+    });
+
+    test('La trasparenza riporta transito e dati natali non vuoti', () {
+      final nascita = DateTime(1988, 7, 5, 9, 30); // Sole in Cancro
+      final m = GuideAnimalDay.per(
+          animale: lupo,
+          soleNatale: Zodiac.cancer,
+          giorno: base,
+          nascita: nascita);
+      expect(m.transito.trim(), isNotEmpty);
+      expect(m.transito, contains('Luna')); // la Luna di transito
+      expect(m.transito, contains('Sole')); // il Sole natale toccato
+      expect(m.transito, contains('Cancro')); // il segno del Sole natale
+      expect(m.datiNatali, contains('Sole in Cancro'));
+      expect(m.datiNatali, contains('Luna in')); // la Luna natale, con la data
+    });
+
+    test('Senza data di nascita, i dati natali mostrano il solo Sole', () {
+      final m = GuideAnimalDay.per(
+          animale: lupo, soleNatale: Zodiac.cancer, giorno: base);
+      expect(m.datiNatali, contains('Sole in Cancro'));
+      // L'Ascendente non si inventa e la Luna natale serve la data di nascita.
+      expect(m.datiNatali.contains('Luna'), isFalse);
     });
   });
 

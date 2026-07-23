@@ -22,6 +22,7 @@ void main() {
   // animazioni non girano: il test resta stabile.
   Widget host({
     Zodiac userSign = Zodiac.cancer,
+    DateTime? userBirth,
     GuideAnimalMode modo = GuideAnimalMode.viaggio,
   }) =>
       MultiProvider(
@@ -38,7 +39,8 @@ void main() {
             data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
             child: MaestroScope(child: child!),
           ),
-          home: GuideAnimalScreen(userSign: userSign, modo: modo),
+          home: GuideAnimalScreen(
+              userSign: userSign, userBirth: userBirth, modo: modo),
         ),
       );
 
@@ -68,7 +70,7 @@ void main() {
   testWidgets('Senza Test Archetipo, il popup invita ma lascia proseguire',
       (tester) async {
     SharedPreferences.setMockInitialValues({});
-    tester.view.physicalSize = const Size(430, 2200);
+    tester.view.physicalSize = const Size(430, 2400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -88,23 +90,25 @@ void main() {
     expect(find.byKey(const Key('animal_test_popup')), findsNothing);
     expect(find.byKey(const Key('animal_journey')), findsOneWidget);
 
-    // Il viaggio porta al messaggio del momento, non alla lettura di identita'.
+    // Il viaggio porta al Messaggio del Giorno, non alla lettura di identita'.
     await viaggia(tester);
     expect(find.byKey(const Key('animal_result')), findsOneWidget);
     // Cancro da' il Lupo.
     expect(tester.widget<Text>(find.byKey(const Key('animal_name'))).data,
         'LUPO');
-    // Il messaggio del momento coi suoi comandi ripetibili.
+    // Il Messaggio del Giorno, il blocco di trasparenza e i comandi.
     expect(find.byKey(const Key('animal_daily_message')), findsOneWidget);
-    expect(find.byKey(const Key('animal_ask_again')), findsOneWidget);
+    expect(find.byKey(const Key('animal_transparency')), findsOneWidget);
     expect(find.byKey(const Key('animal_identity_link')), findsOneWidget);
     expect(find.byKey(const Key('animal_share')), findsOneWidget);
     expect(find.byKey(const Key('animal_consulta')), findsOneWidget);
+    // Non c'e' piu' il Chiedi ancora: un solo messaggio al giorno.
+    expect(find.byKey(const Key('animal_ask_again')), findsNothing);
     // Le bolle di identita' NON stanno nel viaggio: sono nella lettura fissa.
     expect(find.byKey(const Key('animal_natura')), findsNothing);
   });
 
-  testWidgets('Il viaggio col tamburo porta al messaggio del momento',
+  testWidgets('Il viaggio col tamburo porta al Messaggio del Giorno',
       (tester) async {
     seedArchetipo();
     tester.view.physicalSize = const Size(430, 2600);
@@ -126,24 +130,27 @@ void main() {
         'LUPO');
   });
 
-  testWidgets('Chiedi ancora cambia il segno del momento', (tester) async {
+  testWidgets('La trasparenza dichiara il transito e i dati natali',
+      (tester) async {
     seedArchetipo();
     tester.view.physicalSize = const Size(430, 2600);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(host());
+    // Con la data di nascita, i dati natali mostrano anche la Luna natale.
+    await tester.pumpWidget(host(userBirth: DateTime(1988, 7, 5, 9, 30)));
     await passo(tester);
     await viaggia(tester);
 
-    final primo =
-        tester.widget<Text>(find.byKey(const Key('animal_message_text'))).data;
-    await tester.tap(find.byKey(const Key('animal_ask_again')));
-    await passo(tester);
-    final secondo =
-        tester.widget<Text>(find.byKey(const Key('animal_message_text'))).data;
-    expect(secondo, isNot(primo));
+    final transito =
+        tester.widget<Text>(find.byKey(const Key('animal_transit'))).data!;
+    final natali =
+        tester.widget<Text>(find.byKey(const Key('animal_natal_data'))).data!;
+    expect(transito, contains('Luna'));
+    expect(transito, contains('Sole'));
+    expect(natali, contains('Sole in Cancro'));
+    expect(natali, contains('Luna in'));
   });
 
   testWidgets('Chi e\' il tuo animale apre la lettura fissa di identita\'',
@@ -190,7 +197,7 @@ void main() {
 
     await tester.pumpWidget(host(modo: GuideAnimalMode.identita));
     await passo(tester);
-    // Nessun viaggio ne messaggio del momento: subito la lettura fissa.
+    // Nessun viaggio ne Messaggio del Giorno: subito la lettura fissa.
     expect(find.byKey(const Key('animal_journey')), findsNothing);
     expect(find.byKey(const Key('animal_result')), findsNothing);
     expect(find.byKey(const Key('animal_identity')), findsOneWidget);
@@ -199,8 +206,8 @@ void main() {
     expect(find.byKey(const Key('animal_archetipo')), findsOneWidget);
     expect(tester.widget<Text>(find.byKey(const Key('animal_name'))).data,
         'LUPO');
-    // L'identita' non porta i comandi del momento.
+    // L'identita' non porta il Messaggio del Giorno ne la sua trasparenza.
     expect(find.byKey(const Key('animal_daily_message')), findsNothing);
-    expect(find.byKey(const Key('animal_ask_again')), findsNothing);
+    expect(find.byKey(const Key('animal_transparency')), findsNothing);
   });
 }

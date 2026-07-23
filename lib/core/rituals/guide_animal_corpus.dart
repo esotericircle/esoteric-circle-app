@@ -1,6 +1,5 @@
 import '../archetypes/archetype.dart';
 import '../archetypes/archetype_corpus.dart';
-import '../archetypes/archetype_transits.dart' show Pianeta;
 import 'animal_catalog.dart';
 
 /// La lettura piena di un animale guida, nella voce grave di Caligo.
@@ -371,38 +370,6 @@ class GuideAnimalCorpus {
     return "Nel Test Archetipo e' emerso ${dominante.conArticolo}, $chiusa "
         "Il tuo totem ne raccoglie la medicina: dove l'archetipo ti indica la "
         "strada, l'animale ti da' la forza di percorrerla. ${animal.summary}";
-  }
-
-  /// Quanti tiri in piu' del giorno si possono chiedere col tamburo prima che
-  /// taccia. Piccolo limite: il messaggio del giorno piu' qualche richiesta.
-  static const int maxTiri = 4;
-
-  /// L'indice del repertorio per il giorno e il cielo, deterministico: il giorno
-  /// ordinale piu' la presenza della Luna. Cambia ogni giorno, resta stabile
-  /// nella stessa giornata.
-  static int _indiceBase(GuideAnimal animal, DateTime giorno, Set<Pianeta> pianeti) {
-    final r = di(animal.name);
-    final ordinale = DateTime.utc(giorno.year, giorno.month, giorno.day)
-            .millisecondsSinceEpoch ~/
-        Duration.millisecondsPerDay;
-    final semeCielo = pianeti.contains(Pianeta.luna) ? 1 : 0;
-    return (ordinale * 2 + semeCielo) % r.messaggi.length;
-  }
-
-  /// Il Messaggio dall'Animale, deterministico dal giorno e dai pianeti (Sole
-  /// sempre, Luna quando e' abbastanza piena), come i Doni del Giorno. Non una
-  /// promessa, un'intenzione o un segno nella voce dell'animale. Con [tiro] > 0
-  /// avanza al messaggio successivo del repertorio, per il "Chiedi ancora".
-  static String messaggioDelGiorno(
-      GuideAnimal animal, DateTime giorno, Set<Pianeta> pianeti,
-      {int tiro = 0}) {
-    final r = di(animal.name);
-    final indice = (_indiceBase(animal, giorno, pianeti) + tiro) % r.messaggi.length;
-    final scelto = r.messaggi[indice];
-    final cielo = pianeti.contains(Pianeta.luna)
-        ? "Con la Luna che veglia stanotte"
-        : "Con il Sole a scaldare il giorno";
-    return "$cielo, il tuo totem ti porta un segno: $scelto";
   }
 
   /// Il testo del pannello "Fonti e metodo", che cita le opere e distingue

@@ -51,10 +51,11 @@ parametro `GuideAnimalMode`.
   c'e' il Test l'intreccio con l'archetipo. Non cambia mai, e' la carta
   d'identita' del totem.
 - Viaggio, dal dominio di Caligo (`GuideAnimalMode.viaggio`, il default): il
-  viaggio col tamburo, poi il messaggio del momento, sempre nuovo. E'
-  l'esperienza ripetibile, il motivo per tornare. Sotto il messaggio ci sono
-  Chiedi ancora, il rimando alla lettura di identita', poi Condividi e Parlane
-  con Caligo. Le bolle di identita' NON stanno nel viaggio, per non ripetere.
+  viaggio col tamburo, poi il Messaggio del Giorno, uno solo al giorno, dal
+  transito reale che tocca la carta. Sotto il messaggio c'e' il blocco di
+  trasparenza che dichiara come nasce, il rimando alla lettura di identita', poi
+  Condividi e Parlane con Caligo. Le bolle di identita' NON stanno nel viaggio,
+  per non ripetere.
 
 ## Le letture
 
@@ -67,9 +68,9 @@ senza inventare tratti fuori tradizione. I campi in
 - lezione: la lezione che insegna.
 - quando: quando si presenta come guida.
 - invito: un invito concreto, per oggi.
-- messaggi: il repertorio del Messaggio dall'Animale, almeno dodici righe per
-  animale, nella voce grave dell'animale e di Caligo, che ruotano coi giorni e
-  col Chiedi ancora.
+- messaggi: il repertorio del Messaggio del Giorno, almeno dodici righe per
+  animale, nella voce grave dell'animale e di Caligo. Dal repertorio si sceglie
+  la riga del giorno in base al tema del transito.
 
 ## Arricchimento con l'archetipo
 
@@ -79,17 +80,35 @@ che intreccia la medicina dell'animale con l'archetipo dominante
 Senza il Test la sezione non compare e l'animale resta pieno lo stesso.
 L'animale NON cambia col Test, per fedelta' e per evitare accoppiamenti forzati.
 
-## Messaggio dall'Animale
+## Messaggio del Giorno, dal transito reale
 
-Il segno del momento nella voce dell'animale, che cambia sui transiti
-(`messaggioDelGiorno`): deterministico dal giorno e dai pianeti che il
-dispositivo sa calcolare, il Sole sempre e la Luna quando e' abbastanza piena,
-come i Doni del Giorno. Non una promessa, un'intenzione o un segno. Nessun motore
-di effemeridi nuovo: i pianeti arrivano da `ArchetypeSky`.
+Uno solo al giorno, nella voce dell'animale, dal transito che tocca la carta
+dell'utente. Il motore e' `lib/core/rituals/guide_animal_day.dart`
+(`GuideAnimalDay.per`), che riusa `NightSky`, lo stesso cielo su cui poggiano
+l'Oroscopo e i Doni del Giorno, senza un secondo motore di effemeridi.
 
-La riga si sceglie deterministica dal repertorio: `_indiceBase` piega l'ordinale
-del giorno con la presenza della Luna, modulo la lunghezza del repertorio, cosi'
-cambia ogni giorno ma resta stabile nello stesso giorno. Chiedi ancora aggiunge
-un offset `tiro`, per scorrere il repertorio, entro un piccolo limite
-(`maxTiri`), oltre il quale l'invito diventa tornare domani. Tutto deterministico,
-zero AI, zero costo a runtime.
+Composizione, tutta deterministica, zero AI, zero costo a runtime:
+
+- Transito primario: la Luna di transito di oggi (`NightSky.moonSign`, l'unico
+  pianeta veloce calcolabile offline con il Sole) e il suo aspetto PER SEGNO al
+  Sole natale (il segno solare dell'utente, l'unico punto natale garantito
+  offline). L'aspetto si ricava dalla distanza fra i due segni: congiunzione,
+  sestile, quadrato, trigono, opposizione o nessun aspetto maggiore. Niente orbo
+  fine, per onesta' con cio' che il dispositivo sa davvero.
+- Tema: la natura dell'aspetto diventa un tema (armonia, sfida, intensita',
+  quiete). Dal tema piu' il totem si sceglie in modo deterministico la riga dal
+  repertorio dell'animale, con la stessa hash FNV-1a a 32 bit dell'Oroscopo.
+- Stabilita': ancorato al mezzogiorno del giorno locale, resta fisso fino alla
+  mezzanotte e si ricalcola dopo, come l'Oroscopo e i Doni. Nessuna casualita'.
+
+## Trasparenza, come nasce il messaggio di oggi
+
+Sotto il messaggio, un blocco dichiarato in chiaro (`_Trasparenza`) mostra due
+cose, generate dagli stessi dati del calcolo, non scritte a mano caso per caso:
+
+- Il transito di oggi in parole, es. "Oggi la Luna in Sagittario passa lontana
+  dal tuo Sole in Cancro".
+- I dati della carta natale usati: il Sole natale (sempre, dal segno) e la Luna
+  natale quando la data di nascita e' nota (`NightSky.moonSign` sul momento di
+  nascita). L'Ascendente NON compare: senza il motore a effemeridi completo non
+  e' calcolabile offline, e non si inventa, per il Protocollo Verita'.

@@ -56,7 +56,7 @@ Route<void>? artRouteFor(
     // L'Animale Guida ha ora la sua esperienza vera, non piu' la soglia. Nasce
     // dal segno; l'archetipo, se c'e', lo legge da se' dallo storico locale.
     case 'guide_animal':
-      return GuideAnimalScreen.route(userSign: userSign);
+      return GuideAnimalScreen.route(userSign: userSign, userBirth: userBirth);
     case 'horoscope':
       return OroscopoScreen.route(userSign: userSign);
     // La Sinastria VIP apre sulla galleria di scelta del VIP, non piu' su un

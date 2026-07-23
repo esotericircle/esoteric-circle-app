@@ -3,12 +3,11 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/archetypes/archetype.dart';
 import '../../../../core/archetypes/archetype_history.dart';
-import '../../../../core/archetypes/archetype_sky.dart';
-import '../../../../core/archetypes/archetype_transits.dart' show Pianeta;
 import '../../../../core/astro/zodiac.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/rituals/guide_animal_corpus.dart';
+import '../../../../core/rituals/guide_animal_day.dart';
 import '../../../../core/rituals/guide_animal_derivation.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
@@ -28,10 +27,10 @@ import 'guide_animal_share_card.dart';
 
 /// Come si entra nell'Animale Guida.
 ///
-/// `viaggio`, dal dominio di Caligo: il viaggio col tamburo, poi il messaggio
-/// del momento, sempre nuovo, con Chiedi ancora. E' l'esperienza ripetibile, il
-/// motivo per tornare. `identita`, dal Cosmic Passport: la lettura fissa di chi
-/// e' il tuo animale, natura dono lezione, che non cambia mai.
+/// `viaggio`, dal dominio di Caligo: il viaggio col tamburo, poi il Messaggio
+/// del Giorno, uno al giorno dal transito reale che tocca la carta, col blocco
+/// di trasparenza che dichiara come nasce. `identita`, dal Cosmic Passport: la
+/// lettura fissa di chi e' il tuo animale, natura dono lezione, che non cambia.
 enum GuideAnimalMode { viaggio, identita }
 
 /// L'Animale Guida, dominio Caligo.
@@ -46,30 +45,33 @@ class GuideAnimalScreen extends StatefulWidget {
   const GuideAnimalScreen({
     super.key,
     required this.userSign,
+    this.userBirth,
     this.clock,
-    this.pianetiDelGiorno,
     this.modo = GuideAnimalMode.viaggio,
   });
 
   final Zodiac userSign;
+
+  /// La data di nascita, se nota: serve solo a mostrare la Luna natale nella
+  /// trasparenza del Messaggio del Giorno. Il Sole natale e' gia' `userSign`.
+  final DateTime? userBirth;
   final DateTime Function()? clock;
-  final Set<Pianeta> Function(DateTime)? pianetiDelGiorno;
 
   /// Da dove si entra: il viaggio ripetibile o la lettura fissa di identita'.
   final GuideAnimalMode modo;
 
   static Route<void> route({
     required Zodiac userSign,
+    DateTime? userBirth,
     DateTime Function()? clock,
-    Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
     GuideAnimalMode modo = GuideAnimalMode.viaggio,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
         child: GuideAnimalScreen(
           userSign: userSign,
+          userBirth: userBirth,
           clock: clock,
-          pianetiDelGiorno: pianetiDelGiorno,
           modo: modo,
         ),
       ),
@@ -93,25 +95,17 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   /// La fase vale solo nel modo viaggio. In identita' si va dritti alla lettura.
   late _Fase _fase = _Fase.viaggio;
 
-  /// Quante volte l'utente ha chiesto ancora, entro il piccolo limite del corpus.
-  int _tiro = 0;
-
   GuideAnimal get _animal => GuideAnimalDerivation.forSign(widget.userSign);
 
   void _viaggioCompiuto() {
     if (mounted) setState(() => _fase = _Fase.messaggio);
   }
 
-  void _chiediAncora() {
-    if (_tiro >= GuideAnimalCorpus.maxTiri) return;
-    setState(() => _tiro++);
-  }
-
   void _apriIdentita() {
     Navigator.of(context).push(GuideAnimalScreen.route(
       userSign: widget.userSign,
+      userBirth: widget.userBirth,
       clock: widget.clock,
-      pianetiDelGiorno: widget.pianetiDelGiorno,
       modo: GuideAnimalMode.identita,
     ));
   }
@@ -139,11 +133,6 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   void dispose() {
     _storico.dispose();
     super.dispose();
-  }
-
-  Set<Pianeta> get _pianeti {
-    final f = widget.pianetiDelGiorno ?? ArchetypeSky.pianetiDelGiorno;
-    return f(_clock());
   }
 
   String get _origine => _archetipo != null
@@ -202,11 +191,12 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
                           palette: palette,
                           animal: _animal,
                           origine: _origine,
-                          messaggio: GuideAnimalCorpus.messaggioDelGiorno(
-                              _animal, _clock(), _pianeti,
-                              tiro: _tiro),
-                          puoAncora: _tiro < GuideAnimalCorpus.maxTiri,
-                          onAncora: _chiediAncora,
+                          messaggio: GuideAnimalDay.per(
+                            animale: _animal,
+                            soleNatale: widget.userSign,
+                            giorno: _clock(),
+                            nascita: widget.userBirth,
+                          ),
                           onIdentita: _apriIdentita,
                         ),
                     },
@@ -340,27 +330,24 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   }
 }
 
-/// Il messaggio del momento, dopo il viaggio col tamburo: il totem affiora dalla
-/// nebbia e l'animale porta un segno sempre nuovo. Sotto, Chiedi ancora per un
-/// secondo tiro, il rimando alla lettura di chi e' il tuo animale, poi Condividi
-/// e Parlane con Caligo. E' l'esperienza ripetibile, il motivo per tornare.
+/// Il Messaggio del Giorno, dopo il viaggio col tamburo: il totem affiora dalla
+/// nebbia e l'animale porta un segno, uno solo al giorno, dal transito reale che
+/// tocca la carta dell'utente. Sotto il messaggio, il blocco di trasparenza che
+/// dichiara come nasce, poi il rimando alla lettura di identita', Condividi e
+/// Parlane con Caligo. Deterministico dalla data e dalla carta, nessuna AI.
 class _Messaggio extends StatelessWidget {
   const _Messaggio({
     required this.palette,
     required this.animal,
     required this.origine,
     required this.messaggio,
-    required this.puoAncora,
-    required this.onAncora,
     required this.onIdentita,
   });
 
   final MaestroPalette palette;
   final GuideAnimal animal;
   final String origine;
-  final String messaggio;
-  final bool puoAncora;
-  final VoidCallback onAncora;
+  final MessaggioDelGiorno messaggio;
   final VoidCallback onIdentita;
 
   @override
@@ -392,7 +379,7 @@ class _Messaggio extends StatelessWidget {
                     fontStyle: FontStyle.italic)),
           ),
           const SizedBox(height: SpacingTokens.lg),
-          // IL MESSAGGIO DEL MOMENTO, il segno che l'animale porta ora.
+          // IL MESSAGGIO DEL GIORNO, il segno che l'animale porta oggi.
           ScrollReveal(
             depth: 1,
             child: DepthCard(
@@ -407,13 +394,13 @@ class _Messaggio extends StatelessWidget {
                       Icon(Icons.nightlight_round,
                           size: 16, color: palette.goldSoft),
                       const SizedBox(width: SpacingTokens.xs),
-                      Text('Messaggio dall\'Animale',
+                      Text('Messaggio del Giorno',
                           style: TypographyTokens.label(size: 12).copyWith(
                               color: palette.goldSoft, letterSpacing: 0.6)),
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.xs),
-                  Text(messaggio,
+                  Text(messaggio.testo,
                       key: const Key('animal_message_text'),
                       style: TypographyTokens.body(size: 16).copyWith(
                           color: ColorTokens.textPrimary, height: 1.5)),
@@ -422,21 +409,9 @@ class _Messaggio extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.md),
-          // CHIEDI ANCORA, per un altro tiro dal repertorio, entro il limite.
-          OutlinedButton.icon(
-            key: const Key('animal_ask_again'),
-            style: OutlinedButton.styleFrom(
-                foregroundColor: palette.goldSoft,
-                side: BorderSide(
-                    color: palette.gold
-                        .withValues(alpha: puoAncora ? 0.6 : 0.2))),
-            onPressed: puoAncora ? onAncora : null,
-            icon: const Icon(Icons.refresh_rounded),
-            label: Text(puoAncora
-                ? 'Chiedi ancora'
-                : 'Torna domani per un nuovo segno'),
-          ),
-          const SizedBox(height: SpacingTokens.sm),
+          // LA TRASPARENZA: come nasce il messaggio di oggi, in chiaro.
+          _Trasparenza(palette: palette, messaggio: messaggio),
+          const SizedBox(height: SpacingTokens.md),
           // CHI E' IL TUO ANIMALE, il rimando alla lettura fissa di identita'.
           TextButton.icon(
             key: const Key('animal_identity_link'),
@@ -450,6 +425,51 @@ class _Messaggio extends StatelessWidget {
           const SizedBox(height: SpacingTokens.md),
           _Azioni(palette: palette, animal: animal, origine: origine),
           const SizedBox(height: SpacingTokens.xxxl),
+        ],
+      ),
+    );
+  }
+}
+
+/// Il blocco di trasparenza, dichiarato in chiaro: da dove nasce il messaggio di
+/// oggi. Il transito in parole e i dati della carta natale usati nel calcolo,
+/// generati dagli stessi dati, non scritti a mano caso per caso.
+class _Trasparenza extends StatelessWidget {
+  const _Trasparenza({required this.palette, required this.messaggio});
+
+  final MaestroPalette palette;
+  final MessaggioDelGiorno messaggio;
+
+  @override
+  Widget build(BuildContext context) {
+    final etichetta = TypographyTokens.label(size: 11)
+        .copyWith(color: palette.goldSoft, letterSpacing: 0.5);
+    final corpo = TypographyTokens.body(size: 14)
+        .copyWith(color: ColorTokens.textPrimary, height: 1.4);
+    return DepthCard(
+      key: const Key('animal_transparency'),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.public_outlined, size: 15, color: palette.goldSoft),
+              const SizedBox(width: SpacingTokens.xs),
+              Text('Come nasce il messaggio di oggi',
+                  style: TypographyTokens.label(size: 12).copyWith(
+                      color: palette.goldSoft, letterSpacing: 0.6)),
+            ],
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          Text('Il transito di oggi', style: etichetta),
+          const SizedBox(height: 2),
+          Text(messaggio.transito, key: const Key('animal_transit'), style: corpo),
+          const SizedBox(height: SpacingTokens.sm),
+          Text('Dalla tua carta natale', style: etichetta),
+          const SizedBox(height: 2),
+          Text(messaggio.datiNatali,
+              key: const Key('animal_natal_data'), style: corpo),
         ],
       ),
     );
