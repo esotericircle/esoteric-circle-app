@@ -1,4 +1,6 @@
+import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
@@ -15,6 +17,9 @@ Widget _host(Widget child) => MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
+        // Il cosmo condiviso del Rito del Sogno chiede parallasse e zodiaco.
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
       ],
       child: MaterialApp(home: Scaffold(body: child)),
     );

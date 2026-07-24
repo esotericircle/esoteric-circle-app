@@ -3,11 +3,12 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../core/astro/moon_phase.dart';
 import '../../core/identity/birth_moon.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
 import '../../core/rituals/dream_rite_corpus.dart';
-import '../../design_system/components/ritual_backdrop.dart';
+import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/zodiac_figures.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -23,11 +24,15 @@ import 'dream_rite_card.dart';
 /// giorno in giorno, come il Rito dell'Alba.
 ///
 /// Guarda al passato e al presente della giornata appena conclusa, mai al
-/// futuro. Si apre nella nebbia, che si dirada col fiato; emergono le stelle
-/// del cielo notturno reale di questo momento; si uniscono le stelle della
-/// costellazione del segno in cui si trova la Luna adesso, letta da NightSky;
-/// dalla figura unita scende il saluto della notte, ancorato a segno e fase
-/// reali. Deterministico, nessuna AI a runtime.
+/// futuro. Si apre nella foschia, che si dirada col fiato; emerge il cosmo
+/// notturno reale di questo momento; si uniscono le stelle della costellazione
+/// del segno in cui si trova la Luna adesso, letta da NightSky; dalla figura
+/// unita scende il saluto della notte, ancorato a segno e fase reali.
+/// Deterministico, nessuna AI a runtime.
+///
+/// La scena vive DENTRO il cosmo condiviso a tutto schermo (`CosmosBackground`),
+/// non dentro un riquadro: la Luna, le stelle vicine e la costellazione stanno
+/// su piani di parallasse diversi sopra quel cielo.
 class DreamRiteScreen extends StatefulWidget {
   const DreamRiteScreen({
     super.key,
@@ -65,10 +70,17 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   late final ZodiacConstellation _figura =
       kZodiacConstellations.firstWhere((c) => c.sign == _luna.sign);
 
+  /// Il respiro lento del cielo: pulsazione delle stelle e scintillio dei fili.
   late final AnimationController _pulse = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 2600),
-  )..repeat(reverse: true);
+    duration: const Duration(seconds: 12),
+  )..repeat();
+
+  /// Il lampo morbido quando una stella si unisce.
+  late final AnimationController _lampo = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 620),
+  );
 
   final BreathDetector _fiato = BreathDetector();
   final TiltListener _tilt = TiltListener();
@@ -77,7 +89,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
 
   _Fase _fase = _Fase.nebbia;
 
-  /// Quanto la nebbia si e' diradata, da 0 (fitta) a 1 (aperta).
+  /// Quanto la foschia si e' diradata, da 0 (fitta) a 1 (aperta).
   double _nebbia = 0;
   double _micLivello = 0;
   double _spintaDito = 0;
@@ -105,6 +117,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     _riduciMovimento = MediaQuery.of(context).disableAnimations;
+    if (_riduciMovimento && _pulse.isAnimating) _pulse.stop();
   }
 
   @override
@@ -114,6 +127,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     _fiato.dispose();
     _tilt.removeListener(_ridisegna);
     _tilt.dispose();
+    _lampo.dispose();
     _pulse.dispose();
     if (_suono) widget.player.stop();
     super.dispose();
@@ -166,6 +180,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     if (_fase != _Fase.cielo || _completa) return;
     if (indice != _accese.length) return; // si uniscono in sequenza
     setState(() => _accese.add(indice));
+    if (!_riduciMovimento) _lampo.forward(from: 0);
     if (_accese.length == _figura.points.length) {
       _completa = true;
       Future<void>.delayed(const Duration(milliseconds: 900), () {
@@ -185,16 +200,20 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
 
   Offset get _spostamento {
     if (_riduciMovimento) return Offset.zero;
-    return Offset(_tilt.x, _tilt.y) * 300 + _panDito;
+    return Offset(_tilt.x, _tilt.y) * 320 + _panDito;
   }
+
+  /// La fascia di cielo in cui vive la costellazione, dall'alto dello schermo.
+  static const double _fasciaCielo = 0.46;
 
   @override
   Widget build(BuildContext context) {
     final saluto = DreamRiteCorpus.saluto(_date);
     return Scaffold(
-      backgroundColor: ColorTokens.neutralDeepest,
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: _palette.deepest.withValues(alpha: 0.4),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         iconTheme: IconThemeData(color: _palette.goldSoft),
@@ -214,162 +233,152 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           ),
         ],
       ),
-      body: RitualBackdrop(
-        palette: _palette,
-        child: SafeArea(
-          top: false,
-          child: SingleChildScrollView(
-            key: const Key('dream_rite'),
-            padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
-                SpacingTokens.lg, SpacingTokens.xl),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+      // Il cosmo condiviso a tutto schermo: nero profondo verso l'indaco, campo
+      // stellare denso, nebulose soffuse, parallasse a piu' piani. La scena del
+      // Sogno vive dentro questo cielo, non sopra un riquadro.
+      body: CosmosBackground(
+        showZodiac: false,
+        child: LayoutBuilder(
+          builder: (context, box) {
+            final w = box.maxWidth;
+            final h = box.maxHeight;
+            return Stack(
               children: [
-                _scena(),
-                const SizedBox(height: SpacingTokens.md),
-                if (_fase == _Fase.nebbia) ..._nelBuio(),
-                if (_fase == _Fase.cielo) ..._sottoIlCielo(),
-                if (_fase == _Fase.messaggio) ..._ilSaluto(saluto),
+                // Luna reale e stelle vicine, su piani di parallasse diversi.
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: AnimatedBuilder(
+                      animation: _pulse,
+                      builder: (context, _) => CustomPaint(
+                        painter: _ScenaPainter(
+                          palette: _palette,
+                          fase: _luna.phase,
+                          t: _riduciMovimento ? 0.22 : _pulse.value,
+                          luce: _nebbia,
+                          quieta: _fase == _Fase.messaggio,
+                          spostamento: _spostamento,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // La costellazione del segno della Luna, coi fili di luce.
+                if (_fase != _Fase.nebbia) ..._costellazione(w, h),
+                // La foschia cosmica dell'apertura, che si dirada.
+                if (_fase == _Fase.nebbia)
+                  Positioned.fill(
+                    child: GestureDetector(
+                      key: const Key('dream_fog'),
+                      behavior: HitTestBehavior.opaque,
+                      onPanUpdate: (d) => _spintaDito =
+                          (_spintaDito + d.delta.distance / 90).clamp(0.0, 1.0),
+                      child: AnimatedBuilder(
+                        animation: _pulse,
+                        builder: (context, _) => CustomPaint(
+                          painter: _FoschiaPainter(
+                            palette: _palette,
+                            apertura: _nebbia,
+                            t: _riduciMovimento ? 0.22 : _pulse.value,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                // Il testo del rito, sotto la fascia di cielo.
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: h * _fasciaCielo,
+                  bottom: 0,
+                  child: SafeArea(
+                    top: false,
+                    child: SingleChildScrollView(
+                      key: const Key('dream_rite'),
+                      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
+                          SpacingTokens.lg, SpacingTokens.xl),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (_fase == _Fase.nebbia) ..._nelBuio(),
+                          if (_fase == _Fase.cielo) ..._sottoIlCielo(),
+                          if (_fase == _Fase.messaggio) ..._ilSaluto(saluto),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
   }
 
-  // --- La scena: cielo, nebbia, costellazione ---
+  // --- La costellazione: fili di luce e stelle toccabili ---
 
-  Widget _scena() {
-    const alto = 380.0;
-    return SizedBox(
-      height: alto,
-      child: LayoutBuilder(
-        builder: (context, box) {
-          final w = box.maxWidth;
-          return AnimatedBuilder(
-            animation: _pulse,
-            builder: (context, _) {
-              final t = _riduciMovimento ? 0.5 : _pulse.value;
-              return Stack(
-                children: [
-                  Positioned.fill(
-                    child: CustomPaint(
-                      painter: _CieloPainter(
-                        palette: _palette,
-                        t: t,
-                        luce: _nebbia,
-                        quieta: _fase == _Fase.messaggio,
-                      ),
-                    ),
-                  ),
-                  // La costellazione, che si muove col telefono o col dito.
-                  if (_fase != _Fase.nebbia)
-                    Positioned.fill(
-                      child: Transform.translate(
-                        offset: _spostamento,
-                        child: Stack(
-                          children: [
-                            Positioned.fill(
-                              child: CustomPaint(
-                                painter: _FiguraPainter(
-                                  figura: _figura,
-                                  palette: _palette,
-                                  accese: _accese,
-                                  completa: _completa,
-                                  t: t,
-                                ),
-                              ),
-                            ),
-                            for (var i = 0; i < _figura.points.length; i++)
-                              _stellaToccabile(i, w, alto, t),
-                          ],
-                        ),
-                      ),
-                    ),
-                  // La nebbia, fitta all'inizio, che si apre col fiato.
-                  if (_fase == _Fase.nebbia)
-                    Positioned.fill(
-                      child: GestureDetector(
-                        key: const Key('dream_fog'),
-                        behavior: HitTestBehavior.opaque,
-                        onPanUpdate: (d) =>
-                            _spintaDito = (_spintaDito + d.delta.distance / 90)
-                                .clamp(0.0, 1.0),
-                        child: CustomPaint(
-                          painter: _NebbiaPainter(
-                            palette: _palette,
-                            apertura: _nebbia,
-                            t: t,
-                          ),
-                        ),
-                      ),
-                    ),
-                  // Il cielo si sposta anche col dito, quando serve.
-                  if (_fase == _Fase.cielo && !_riduciMovimento)
-                    Positioned.fill(
-                      child: GestureDetector(
-                        key: const Key('dream_pan'),
-                        behavior: HitTestBehavior.translucent,
-                        onPanUpdate: (d) => setState(() {
-                          _panDito = Offset(
-                            (_panDito.dx + d.delta.dx).clamp(-40.0, 40.0),
-                            (_panDito.dy + d.delta.dy).clamp(-40.0, 40.0),
-                          );
-                        }),
-                      ),
-                    ),
-                ],
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
-
-  /// Una stella toccabile della figura. La prossima da unire pulsa.
-  Widget _stellaToccabile(int i, double w, double h, double t) {
-    final p = _figura.points[i];
-    final x = (0.12 + p.dx * 0.76) * w;
-    final y = (0.14 + p.dy * 0.70) * h;
-    final unita = _accese.contains(i);
-    final prossima = !_completa && i == _accese.length;
-    final battito = prossima ? 0.7 + 0.3 * math.sin(t * math.pi * 2) : 1.0;
-    return Positioned(
-      left: x - 22,
-      top: y - 22,
-      child: GestureDetector(
-        key: Key('dream_star_$i'),
-        behavior: HitTestBehavior.opaque,
-        onTap: () => _tocca(i),
-        child: SizedBox(
-          width: 44,
-          height: 44,
-          child: Center(
-            child: Container(
-              width: unita ? 13 : 11 * battito,
-              height: unita ? 13 : 11 * battito,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: unita ? Colors.white : Colors.white.withValues(alpha: 0.75),
-                boxShadow: [
-                  BoxShadow(
-                    color: (unita ? _palette.goldSoft : _palette.gold)
-                        .withValues(alpha: prossima ? 0.8 : 0.45),
-                    blurRadius: prossima ? 18 : 10,
-                    spreadRadius: prossima ? 3 : 1,
-                  ),
-                ],
+  List<Widget> _costellazione(double w, double h) {
+    // Il piano della costellazione si muove meno del primo piano.
+    final off = _spostamento * 0.55;
+    return [
+      Positioned.fill(
+        child: IgnorePointer(
+          child: AnimatedBuilder(
+            animation: Listenable.merge([_pulse, _lampo]),
+            builder: (context, _) => CustomPaint(
+              painter: _FigureLuminosePainter(
+                figura: _figura,
+                palette: _palette,
+                accese: _accese,
+                completa: _completa,
+                t: _riduciMovimento ? 0.22 : _pulse.value,
+                lampo: _lampo.isAnimating ? _lampo.value : -1,
+                spostamento: off,
+                fascia: _fasciaCielo,
               ),
             ),
           ),
         ),
       ),
+      // Il ripiego a dito: si sposta la vista trascinando, quando il giroscopio
+      // non c'e'. Sta sotto le stelle, cosi' il tocco sulla stella vince.
+      if (!_riduciMovimento)
+        Positioned.fill(
+          child: GestureDetector(
+            key: const Key('dream_pan'),
+            behavior: HitTestBehavior.translucent,
+            onPanUpdate: (d) => setState(() {
+              _panDito = Offset(
+                (_panDito.dx + d.delta.dx).clamp(-46.0, 46.0),
+                (_panDito.dy + d.delta.dy).clamp(-46.0, 46.0),
+              );
+            }),
+          ),
+        ),
+      // Le zone toccabili delle stelle, sullo stesso piano dei fili.
+      for (var i = 0; i < _figura.points.length; i++)
+        _stellaToccabile(i, w, h, off),
+    ];
+  }
+
+  /// Il punto toccabile di una stella. Il disegno lo fa il painter.
+  Widget _stellaToccabile(int i, double w, double h, Offset off) {
+    final p = _figura.points[i];
+    final x = (0.12 + p.dx * 0.76) * w + off.dx;
+    final y = (0.13 + p.dy * 0.30) * h + off.dy;
+    return Positioned(
+      left: x - 26,
+      top: y - 26,
+      child: GestureDetector(
+        key: Key('dream_star_$i'),
+        behavior: HitTestBehavior.opaque,
+        onTap: () => _tocca(i),
+        child: const SizedBox(width: 52, height: 52),
+      ),
     );
   }
 
-  // --- I tre momenti sotto la scena ---
+  // --- I tre momenti sotto la fascia di cielo ---
 
   List<Widget> _nelBuio() => [
         Text(DreamRiteCorpus.invitoNebbia(_maestro),
@@ -382,10 +391,9 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           palette: _palette,
           icona: Icons.air,
           testo: 'Respira piano verso il telefono, oppure passa il dito sulla '
-              'nebbia: il ripiego vale sempre.',
+              'foschia: il ripiego vale sempre.',
         ),
         const SizedBox(height: SpacingTokens.sm),
-        // La barra del fiato, che dice quanto si e' aperto.
         ClipRRect(
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
           child: LinearProgressIndicator(
@@ -633,66 +641,250 @@ class _AzioniState extends State<_Azioni> {
   }
 }
 
-/// Il cielo notturno: campo di stelle che emerge col diradarsi della nebbia, e
-/// che alla fine si acquieta, con le stelle che calano di luce.
-class _CieloPainter extends CustomPainter {
-  _CieloPainter({
+// ---------------------------------------------------------------------------
+// I painter della scena: Luna reale, stelle vicine, foschia, fili di luce.
+// ---------------------------------------------------------------------------
+
+/// Disegna una stella premium: alone a gradiente, nucleo e una piccola raggiera.
+void _stellaPremium(
+  Canvas canvas,
+  Offset c,
+  double raggio,
+  double alfa, {
+  Color colore = Colors.white,
+  bool raggiera = false,
+}) {
+  final a = alfa.clamp(0.0, 1.0);
+  if (a <= 0.01) return;
+  // Alone morbido.
+  canvas.drawCircle(
+    c,
+    raggio * 7,
+    Paint()
+      ..shader = RadialGradient(colors: [
+        colore.withValues(alpha: 0.32 * a),
+        colore.withValues(alpha: 0.0),
+      ]).createShader(Rect.fromCircle(center: c, radius: raggio * 7)),
+  );
+  // Raggiera sottile, solo per le piu' luminose.
+  if (raggiera) {
+    final r = raggio * 8.5;
+    final penna = Paint()
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = raggio * 0.55
+      ..color = colore.withValues(alpha: 0.30 * a)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, raggio * 0.8);
+    canvas.drawLine(c.translate(-r, 0), c.translate(r, 0), penna);
+    canvas.drawLine(c.translate(0, -r), c.translate(0, r), penna);
+  }
+  // Nucleo.
+  canvas.drawCircle(c, raggio * 1.6,
+      Paint()..color = colore.withValues(alpha: 0.55 * a));
+  canvas.drawCircle(c, raggio, Paint()..color = colore.withValues(alpha: a));
+}
+
+/// La Luna reale e le stelle vicine, sopra il cosmo condiviso. Piani diversi di
+/// parallasse: le stelle lontane si muovono poco, la Luna un poco di piu', le
+/// stelle vicine molto. Una nota tenue del Maestro resta solo ai margini.
+class _ScenaPainter extends CustomPainter {
+  _ScenaPainter({
     required this.palette,
+    required this.fase,
     required this.t,
     required this.luce,
     required this.quieta,
+    required this.spostamento,
   });
 
   final MaestroPalette palette;
+  final MoonPhase fase;
   final double t;
 
-  /// Quanto il cielo e' emerso, da 0 a 1.
+  /// Quanto il cielo e' emerso dalla foschia, da 0 a 1.
   final double luce;
 
-  /// Vero a rito concluso: il cielo si acquieta.
+  /// Vero a rito concluso: il cielo si acquieta, le stelle calano di luce.
   final bool quieta;
+
+  final Offset spostamento;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Offset.zero & size;
-    canvas.drawRect(
-      rect,
-      Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            palette.primary.withValues(alpha: 0.28 * luce),
-            palette.deepest,
-            const Color(0xFF010208),
-          ],
-        ).createShader(rect),
-    );
+    final calo = quieta ? 0.7 : 1.0;
 
-    final calo = quieta ? 0.55 : 1.0;
-    final rng = math.Random(23);
-    for (var i = 0; i < 90; i++) {
-      final x = rng.nextDouble() * size.width;
-      final y = rng.nextDouble() * size.height;
-      final brillio = 0.35 + 0.4 * math.sin((t + rng.nextDouble()) * math.pi * 2);
-      canvas.drawCircle(
-        Offset(x, y),
-        rng.nextDouble() * 1.2 + 0.3,
-        Paint()
-          ..color = Colors.white
-              .withValues(alpha: (brillio * 0.7 * luce * calo).clamp(0.0, 1.0)),
+    // Nota tenue del Maestro di turno, solo ai margini, mai sopra il cosmo.
+    final bordo = Paint()
+      ..shader = RadialGradient(
+        center: Alignment.center,
+        radius: 0.95,
+        colors: [
+          palette.primary.withValues(alpha: 0.0),
+          palette.primary.withValues(alpha: 0.10 * luce),
+        ],
+        stops: const [0.62, 1.0],
+      ).createShader(Offset.zero & size);
+    canvas.drawRect(Offset.zero & size, bordo);
+
+    // Stelle vicine, primo piano: poche, grandi, con raggiera e battito sfasato.
+    final vicine = spostamento * 0.9;
+    final rng = math.Random(41);
+    for (var i = 0; i < 16; i++) {
+      final bx = rng.nextDouble();
+      final by = rng.nextDouble() * 0.72;
+      final base = 0.9 + rng.nextDouble() * 1.1;
+      final sfasa = rng.nextDouble();
+      final battito = 0.55 + 0.45 * math.sin((t + sfasa) * math.pi * 2);
+      _stellaPremium(
+        canvas,
+        Offset(bx * size.width + vicine.dx, by * size.height + vicine.dy),
+        base,
+        battito * luce * calo,
+        colore: const Color(0xFFEAF0FF),
+        raggiera: base > 1.5,
       );
     }
+
+    // Stelle intermedie, piano di mezzo: piu' fitte, piu' piccole.
+    final medie = spostamento * 0.45;
+    for (var i = 0; i < 46; i++) {
+      final bx = rng.nextDouble();
+      final by = rng.nextDouble() * 0.8;
+      final base = 0.4 + rng.nextDouble() * 0.6;
+      final sfasa = rng.nextDouble();
+      final battito = 0.4 + 0.5 * math.sin((t + sfasa) * math.pi * 2);
+      _stellaPremium(
+        canvas,
+        Offset(bx * size.width + medie.dx, by * size.height + medie.dy),
+        base,
+        battito * 0.8 * luce * calo,
+        colore: const Color(0xFFDCE6FF),
+      );
+    }
+
+    // La Luna, sul suo piano, nella fase reale di stanotte.
+    _luna(canvas, size, spostamento * 0.28, calo);
+  }
+
+  void _luna(Canvas canvas, Size size, Offset off, double calo) {
+    final c = Offset(size.width * 0.74, size.height * 0.17) + off;
+    final r = size.shortestSide * 0.078;
+    final vis = luce * calo;
+    if (vis <= 0.01) return;
+
+    // Alone a piu' strati, morbido, che fa da luce.
+    for (final s in const [4.6, 3.0, 1.9]) {
+      canvas.drawCircle(
+        c,
+        r * s,
+        Paint()
+          ..shader = RadialGradient(colors: [
+            const Color(0xFFCFDDFF).withValues(alpha: 0.15 * vis),
+            const Color(0x00000000),
+          ]).createShader(Rect.fromCircle(center: c, radius: r * s)),
+      );
+    }
+
+    final disco = Path()..addOval(Rect.fromCircle(center: c, radius: r));
+
+    // Luce cinerea: il disco in ombra resta appena illuminato, cosi' anche la
+    // Luna nuova si vede. Nessun contorno netto, solo un bordo sfumato.
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..shader = RadialGradient(
+          center: const Alignment(-0.25, -0.3),
+          colors: [
+            const Color(0xFF9DAFD8).withValues(alpha: 0.24 * vis),
+            const Color(0xFF56668F).withValues(alpha: 0.10 * vis),
+          ],
+        ).createShader(Rect.fromCircle(center: c, radius: r)),
+    );
+    canvas.drawCircle(
+      c,
+      r * 0.97,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = r * 0.12
+        ..color = const Color(0xFFB9CBF2).withValues(alpha: 0.18 * vis)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.12),
+    );
+
+    // La parte illuminata, dalla fase reale: mezzo disco combinato con
+    // l'ellisse del terminatore.
+    final ill = fase.illumination.clamp(0.0, 1.0);
+    var a = r * (2 * ill - 1).abs();
+    // A Luna nuova la falce sarebbe sotto il pixel: le si lascia uno spessore
+    // minimo, cosi' resta una falce sottile invece di sparire del tutto.
+    if (ill < 0.5) {
+      final minimo = math.max(2.0, r * 0.07);
+      a = math.min(a, r - minimo);
+    }
+    final meta = Path()
+      ..addRect(Rect.fromLTRB(
+        fase.waxing ? c.dx : c.dx - r,
+        c.dy - r,
+        fase.waxing ? c.dx + r : c.dx,
+        c.dy + r,
+      ));
+    final metaDisco = Path.combine(PathOperation.intersect, disco, meta);
+    final ellisse = Path()
+      ..addOval(Rect.fromCenter(center: c, width: 2 * a, height: 2 * r));
+    final ellisseDisco = Path.combine(PathOperation.intersect, disco, ellisse);
+    final illuminata = ill >= 0.5
+        ? Path.combine(PathOperation.union, metaDisco, ellisseDisco)
+        : Path.combine(PathOperation.difference, metaDisco, ellisseDisco);
+
+    canvas.drawPath(
+      illuminata,
+      Paint()
+        ..shader = RadialGradient(
+          center: const Alignment(-0.2, -0.3),
+          colors: [
+            const Color(0xFFFFFDF6).withValues(alpha: 0.98 * vis),
+            const Color(0xFFDCE3F4).withValues(alpha: 0.88 * vis),
+          ],
+        ).createShader(Rect.fromCircle(center: c, radius: r)),
+    );
+    // Bagliore sopra la parte illuminata.
+    canvas.drawPath(
+      illuminata,
+      Paint()
+        ..color = Colors.white.withValues(alpha: 0.22 * vis)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.28),
+    );
+
+    // Qualche mare lunare appena accennato, dentro il disco.
+    canvas.save();
+    canvas.clipPath(disco);
+    final mari = math.Random(9);
+    for (var i = 0; i < 5; i++) {
+      final mc = c +
+          Offset((mari.nextDouble() - 0.5) * 1.4 * r,
+              (mari.nextDouble() - 0.5) * 1.4 * r);
+      canvas.drawCircle(
+        mc,
+        r * (0.16 + mari.nextDouble() * 0.2),
+        Paint()
+          ..color = const Color(0xFF9AA8C8).withValues(alpha: 0.16 * vis)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.14),
+      );
+    }
+    canvas.restore();
   }
 
   @override
-  bool shouldRepaint(_CieloPainter old) =>
-      old.t != t || old.luce != luce || old.quieta != quieta;
+  bool shouldRepaint(_ScenaPainter old) =>
+      old.t != t ||
+      old.luce != luce ||
+      old.quieta != quieta ||
+      old.spostamento != spostamento;
 }
 
-/// La nebbia fitta dell'apertura, che si apre dal centro col fiato.
-class _NebbiaPainter extends CustomPainter {
-  _NebbiaPainter(
+/// La foschia cosmica dell'apertura: volute morbide sopra il cielo profondo,
+/// che si diradano e rivelano il cosmo. Non un riquadro, un velo su tutto.
+class _FoschiaPainter extends CustomPainter {
+  _FoschiaPainter(
       {required this.palette, required this.apertura, required this.t});
 
   final MaestroPalette palette;
@@ -701,44 +893,71 @@ class _NebbiaPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Offset.zero & size;
     final velo = (1 - apertura).clamp(0.0, 1.0);
-    // Il buio ovattato che copre il cielo.
+    if (velo <= 0.01) return;
+    final rect = Offset.zero & size;
+
+    // Il buio ovattato, che lascia intravedere il cosmo sotto.
     canvas.drawRect(
       rect,
-      Paint()..color = const Color(0xFF05060C).withValues(alpha: 0.92 * velo),
+      Paint()..color = const Color(0xFF04060E).withValues(alpha: 0.80 * velo),
     );
-    // Banchi di nebbia che respirano, sempre piu' radi.
-    final rng = math.Random(7);
-    for (var i = 0; i < 9; i++) {
-      final cx = rng.nextDouble() * size.width;
-      final cy = rng.nextDouble() * size.height;
-      final r = size.width * (0.2 + rng.nextDouble() * 0.28);
-      final onda = 0.9 + 0.1 * math.sin((t + i / 9) * math.pi * 2);
+
+    // Volute di foschia, fredde, che respirano e si aprono dal centro.
+    final rng = math.Random(17);
+    for (var i = 0; i < 11; i++) {
+      final bx = rng.nextDouble();
+      final by = rng.nextDouble();
+      final base = size.width * (0.24 + rng.nextDouble() * 0.34);
+      final sfasa = rng.nextDouble();
+      final respiro = 0.88 + 0.12 * math.sin((t + sfasa) * math.pi * 2);
+      // Le volute al centro si aprono per prime.
+      final dalCentro =
+          ((Offset(bx, by) - const Offset(0.5, 0.42)).distance / 0.7)
+              .clamp(0.0, 1.0);
+      final resta = (velo * (0.45 + 0.55 * dalCentro)).clamp(0.0, 1.0);
       canvas.drawCircle(
-        Offset(cx, cy),
-        r * onda,
+        Offset(bx * size.width, by * size.height),
+        base * respiro,
         Paint()
-          ..color = palette.surfaceElevated.withValues(alpha: 0.16 * velo)
-          ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.5),
+          ..color = const Color(0xFF7C8AAE).withValues(alpha: 0.13 * resta)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, base * 0.55),
       );
     }
+
+    // Una nota tenue del Maestro nella foschia, appena percepibile.
+    canvas.drawRect(
+      rect,
+      Paint()
+        ..shader = RadialGradient(
+          radius: 0.9,
+          colors: [
+            palette.primary.withValues(alpha: 0.0),
+            palette.primary.withValues(alpha: 0.10 * velo),
+          ],
+          stops: const [0.55, 1.0],
+        ).createShader(rect),
+    );
   }
 
   @override
-  bool shouldRepaint(_NebbiaPainter old) =>
+  bool shouldRepaint(_FoschiaPainter old) =>
       old.apertura != apertura || old.t != t;
 }
 
-/// La costellazione reale del segno della Luna: le stelle gia' unite coi fili
-/// d'oro, che pulsano quando la figura si chiude.
-class _FiguraPainter extends CustomPainter {
-  _FiguraPainter({
+/// La costellazione reale del segno della Luna: filamenti d'oro luminosi con
+/// alone esterno, uno scintillio che corre lungo la linea, e le stelle della
+/// figura che si accendono con un lampo morbido quando vengono unite.
+class _FigureLuminosePainter extends CustomPainter {
+  _FigureLuminosePainter({
     required this.figura,
     required this.palette,
     required this.accese,
     required this.completa,
     required this.t,
+    required this.lampo,
+    required this.spostamento,
+    required this.fascia,
   });
 
   final ZodiacConstellation figura;
@@ -747,41 +966,94 @@ class _FiguraPainter extends CustomPainter {
   final bool completa;
   final double t;
 
+  /// Avanzamento del lampo dell'ultima stella unita, negativo se fermo.
+  final double lampo;
+
+  final Offset spostamento;
+  final double fascia;
+
   @override
   void paint(Canvas canvas, Size size) {
     Offset map(Offset p) => Offset(
-          (0.12 + p.dx * 0.76) * size.width,
-          (0.14 + p.dy * 0.70) * size.height,
+          (0.12 + p.dx * 0.76) * size.width + spostamento.dx,
+          (0.13 + p.dy * 0.30) * size.height + spostamento.dy,
         );
-    final battito = completa ? 0.7 + 0.3 * math.sin(t * math.pi * 2) : 1.0;
-    final filo = Paint()
+
+    final respiro = completa ? 0.75 + 0.25 * math.sin(t * math.pi * 2) : 1.0;
+
+    // I filamenti: alone esterno morbido, poi il cuore luminoso.
+    final alone = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = completa ? 2.2 : 1.6
+      ..strokeWidth = 7
       ..strokeCap = StrokeCap.round
-      ..color = palette.gold.withValues(alpha: (0.75 * battito).clamp(0.0, 1.0));
-    // Si disegna uno spigolo solo quando entrambe le stelle sono unite.
+      ..color = palette.gold.withValues(alpha: 0.20 * respiro)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 7);
+    final cuore = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = completa ? 2.0 : 1.6
+      ..strokeCap = StrokeCap.round
+      ..color = const Color(0xFFFFF0C4).withValues(alpha: 0.92 * respiro);
+
+    var e = 0;
     for (final (a, b) in figura.edges) {
-      if (accese.contains(a) && accese.contains(b)) {
-        canvas.drawLine(map(figura.points[a]), map(figura.points[b]), filo);
+      if (!accese.contains(a) || !accese.contains(b)) {
+        e++;
+        continue;
       }
+      final pa = map(figura.points[a]);
+      final pb = map(figura.points[b]);
+      canvas.drawLine(pa, pb, alone);
+      canvas.drawLine(pa, pb, cuore);
+      // Lo scintillio che corre lungo il filamento.
+      final s = ((t * 3 + e * 0.31) % 1.0);
+      final punto = Offset.lerp(pa, pb, s)!;
+      canvas.drawCircle(
+        punto,
+        3.4,
+        Paint()
+          ..color = const Color(0xFFFFF6DA).withValues(alpha: 0.75 * respiro)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5),
+      );
+      e++;
     }
-    if (completa) {
-      // Un alone attorno alla figura chiusa.
-      for (final p in figura.points) {
+
+    // Le stelle della figura: piu' brillanti delle altre.
+    for (var i = 0; i < figura.points.length; i++) {
+      final c = map(figura.points[i]);
+      final unita = accese.contains(i);
+      final prossima = !completa && i == accese.length;
+      final battito = prossima
+          ? 0.6 + 0.4 * math.sin(t * math.pi * 6)
+          : (unita ? respiro : 0.7);
+      _stellaPremium(
+        canvas,
+        c,
+        unita ? 2.3 : 1.7,
+        unita ? 1.0 * battito : 0.8 * battito,
+        colore: unita ? const Color(0xFFFFF6DA) : const Color(0xFFEAF0FF),
+        raggiera: true,
+      );
+      // Il lampo morbido dell'ultima stella unita.
+      if (lampo >= 0 && unita && i == accese.length - 1) {
+        final f = lampo.clamp(0.0, 1.0);
         canvas.drawCircle(
-          map(p),
-          16 * battito,
+          c,
+          8 + f * 34,
           Paint()
-            ..color = palette.goldSoft.withValues(alpha: 0.18 * battito)
-            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12),
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2.4 * (1 - f)
+            ..color = const Color(0xFFFFF0C4).withValues(alpha: 0.7 * (1 - f))
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
         );
       }
     }
   }
 
   @override
-  bool shouldRepaint(_FiguraPainter old) =>
+  bool shouldRepaint(_FigureLuminosePainter old) =>
       old.accese.length != accese.length ||
       old.completa != completa ||
-      old.t != t;
+      old.t != t ||
+      old.lampo != lampo ||
+      old.spostamento != spostamento;
 }
