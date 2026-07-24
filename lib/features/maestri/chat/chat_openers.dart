@@ -46,6 +46,21 @@ class ChatOpeners {
     return 'Il mio animale guida e\' $art$sep$nome, cosa vuole dirmi?';
   }
 
+  /// Dall'Estrazione Rune verso Caligo, con la gettata e le rune uscite.
+  static String runa(String gettata, List<String> rune) {
+    final elenco = _elenco(rune);
+    return 'Ho consultato le rune con $gettata: $elenco. Cosa vogliono dirmi?';
+  }
+
+  /// Elenco naturale dei nomi: "a", "a e b", "a, b e c", senza virgola prima
+  /// della congiunzione, per la regola di lingua.
+  static String _elenco(List<String> nomi) {
+    if (nomi.isEmpty) return 'le rune';
+    if (nomi.length == 1) return nomi.first;
+    final testa = nomi.sublist(0, nomi.length - 1).join(', ');
+    return '$testa e ${nomi.last}';
+  }
+
   /// Dal Test Archetipo verso Aura, col nome con l'articolo dell'archetipo.
   static String archetipo(String conArticolo) =>
       'Il mio archetipo e\' $conArticolo, aiutami a capirlo meglio.';

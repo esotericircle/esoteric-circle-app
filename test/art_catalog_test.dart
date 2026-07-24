@@ -316,14 +316,18 @@ void main() {
         expect(art.state, ArtState.attiva, reason: id);
         expect(artRouteFor(id, userSign: Zodiac.aries), isNotNull, reason: id);
       }
-      // Restano sulla soglia le distintive di Caligo ancora senza esperienza.
-      for (final id in const ['rune_draw', 'tree_of_life']) {
+      // Resta sulla soglia la distintiva di Caligo ancora senza esperienza.
+      for (final id in const ['tree_of_life']) {
         expect(artiSullaSoglia[id], Maestro.caligo, reason: id);
       }
       // L'Animale Guida ha ora la sua esperienza vera: non e' piu' sulla soglia
       // e ha una rotta reale.
       expect(artiSullaSoglia.containsKey('guide_animal'), isFalse);
       expect(artRouteFor('guide_animal', userSign: Zodiac.aries), isNotNull);
+      // L'Estrazione Rune ha ora la sua esperienza vera: fuori dalla soglia,
+      // con una rotta reale.
+      expect(artiSullaSoglia.containsKey('rune_draw'), isFalse);
+      expect(artRouteFor('rune_draw', userSign: Zodiac.aries), isNotNull);
     });
 
     test('La Compatibilità di Medora raccoglie le tre sinastrie', () {

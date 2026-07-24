@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math' show Random;
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/app.dart';
@@ -30,8 +31,13 @@ import 'package:esoteric_circle/features/maestri/aura/face/face_constellation.da
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_constellation_screen.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
+import 'package:esoteric_circle/core/rituals/rune_cast.dart';
+import 'package:esoteric_circle/core/rituals/rune_presage.dart';
+import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/features/maestri/caligo/animal/guide_animal_screen.dart';
 import 'package:esoteric_circle/features/maestri/caligo/animal/guide_animal_share_card.dart';
+import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
+import 'package:esoteric_circle/features/maestri/caligo/rune/rune_share_card.dart';
 import 'package:esoteric_circle/features/maestri/chat/chat_openers.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
@@ -1282,6 +1288,121 @@ void main() {
     }
     await precacheFaces(tester);
     await capture(tester, rootKey, 'guide-animale-chat.png');
+  });
+
+  // --- L'Estrazione Rune di Caligo: soglia, lancio, rivelazioni, card ---
+  Future<void> precacheRune(WidgetTester tester) async {
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(RuneDrawScreen));
+      for (final r in kElderFuthark) {
+        if (r.hasImage) {
+          await precacheImage(AssetImage(r.thumbPath!), element);
+          await precacheImage(AssetImage(r.fullPath!), element);
+        }
+      }
+    });
+    await step(tester);
+  }
+
+  // Sceglie la gettata e getta le rune col pulsante di ripiego.
+  Future<void> lancia(WidgetTester tester, String segmento) async {
+    await tester.tap(find.byKey(Key('rune_segment_$segmento')));
+    await step(tester);
+    final cast = find.byKey(const Key('rune_cast_button'));
+    await tester.ensureVisible(cast);
+    await tester.pump();
+    await tester.tap(cast);
+    await step(tester);
+  }
+
+  testWidgets('Cattura la soglia dell\'Estrazione Rune', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(7)),
+        size: const Size(390, 1960));
+    expect(find.byKey(const Key('rune_selector')), findsOneWidget);
+    await capture(tester, rootKey, 'rune-soglia.png');
+  });
+
+  testWidgets('Cattura il lancio nel Pozzo di Urdhr', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(5)),
+        size: const Size(390, 840));
+    await precacheRune(tester);
+    await lancia(tester, 'norne');
+    expect(find.byKey(const Key('rune_result')), findsOneWidget);
+    await capture(tester, rootKey, 'rune-lancio.png');
+  });
+
+  testWidgets('Cattura la rivelazione a tre Norne col presagio',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(5)),
+        size: const Size(390, 2500));
+    await precacheRune(tester);
+    await lancia(tester, 'norne');
+    expect(find.byKey(const Key('rune_presage')), findsOneWidget);
+    await capture(tester, rootKey, 'rune-norne.png');
+  });
+
+  testWidgets('Cattura la Runa di Odino, una runa', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(9)),
+        size: const Size(390, 1720));
+    await precacheRune(tester);
+    await lancia(tester, 'odino');
+    await capture(tester, rootKey, 'rune-odino.png');
+  });
+
+  testWidgets('Cattura la Croce delle Cinque', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(4)),
+        size: const Size(390, 3100));
+    await precacheRune(tester);
+    await lancia(tester, 'croce');
+    await capture(tester, rootKey, 'rune-croce.png');
+  });
+
+  testWidgets('Cattura la card dell\'Estrazione Rune', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    tester.view.physicalSize = const Size(460, 1040);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final esito = RuneCast.getta(gettataNorne, random: Random(5));
+    final presagio = RunePresagio.componi(esito);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        backgroundColor: const Color(0xFF14060A),
+        body: Center(
+          child: RepaintBoundary(
+            key: rootKey,
+            child: RuneShareCard(esito: esito, presagio: presagio),
+          ),
+        ),
+      ),
+    ));
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(MaterialApp));
+      for (final r in esito.rune) {
+        if (r.rune.hasImage) {
+          await precacheImage(AssetImage(r.rune.thumbPath!), element);
+        }
+      }
+    });
+    await step(tester);
+    await capture(tester, rootKey, 'rune-card.png');
   });
 
   // --- L'Oroscopo a quattro schede, la headline di Medora ---

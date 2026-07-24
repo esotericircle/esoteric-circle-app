@@ -43,6 +43,12 @@ void main() {
     'guide-animale-card.png', // Animale Guida, card condivisibile
     'guide-animale-passport.png', // Animale Guida, la faccia nel Cosmic Passport
     'guide-animale-chat.png', // Animale Guida, chat aperta con la domanda scritta
+    'rune-soglia.png', // Estrazione Rune, soglia col selettore e il testo dinamico
+    'rune-lancio.png', // Estrazione Rune, il lancio nel Pozzo di Urdhr
+    'rune-norne.png', // Estrazione Rune, la rivelazione a tre Norne col presagio
+    'rune-odino.png', // Estrazione Rune, la gettata a una runa
+    'rune-croce.png', // Estrazione Rune, la Croce delle Cinque
+    'rune-card.png', // Estrazione Rune, card condivisibile
   ];
 
   test('Tutti i preview obbligatori esistono in docs/preview', () {

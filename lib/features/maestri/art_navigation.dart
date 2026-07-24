@@ -7,6 +7,7 @@ import 'art_intro_screen.dart';
 import 'aura/archetype/archetype_test_screen.dart';
 import 'aura/face/face_constellation_screen.dart';
 import 'caligo/animal/guide_animal_screen.dart';
+import 'caligo/rune/rune_draw_screen.dart';
 import '../horoscope/oroscopo_screen.dart';
 import '../maestri/aura/meditation/meditation_screen.dart';
 import '../rituals/breath_destiny_screen.dart';
@@ -31,7 +32,6 @@ import '../tarot/stesa_tre_carte_screen.dart';
 /// riga qui e' un debito dichiarato, e sparisce da sola il giorno in cui
 /// l'esperienza arriva e prende il suo posto nello switch qui sotto.
 const Map<String, Maestro> artiSullaSoglia = {
-  'rune_draw': Maestro.caligo,
   'tree_of_life': Maestro.caligo,
 };
 
@@ -57,6 +57,10 @@ Route<void>? artRouteFor(
     // dal segno; l'archetipo, se c'e', lo legge da se' dallo storico locale.
     case 'guide_animal':
       return GuideAnimalScreen.route(userSign: userSign, userBirth: userBirth);
+    // L'Estrazione Rune ha ora la sua esperienza vera, non piu' la soglia:
+    // lettura a richiesta e ripetibile, col selettore delle gettate.
+    case 'rune_draw':
+      return RuneDrawScreen.route(userSign: userSign, userBirth: userBirth);
     case 'horoscope':
       return OroscopoScreen.route(userSign: userSign);
     // La Sinastria VIP apre sulla galleria di scelta del VIP, non piu' su un
