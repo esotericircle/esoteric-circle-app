@@ -248,26 +248,29 @@ void main() {
             for (final s in ArtCatalog.visibleFor(Maestro.caligo, demo: demo))
               s.title: s.arts.length,
           };
-      // Ogni sottocategoria ha la sua distintiva viva, quindi sono tutte miste
-      // e restano nell'ordine dichiarato.
+      // Rune e Rituali hanno la loro distintiva viva. La Cabala no: uscito
+      // l'Albero della Vita dalla Demo, le restano solo arti in cammino.
       expect(
           ArtCatalog.visibleFor(Maestro.caligo, demo: true).map((s) => s.title),
           ['Rune', 'Rituali', 'Cabala']);
-      expect(conta(true), {'Rune': 5, 'Rituali': 6, 'Cabala': 5});
+      expect(conta(true), {'Rune': 5, 'Rituali': 6, 'Cabala': 4});
       // Nella vista della persona cadono le fasi oltre la Fase 2: i Rituali
-      // perdono i Rituali Guidati, la Cabala perde Numerologia, Human Design,
-      // Cosmic Wrapped e i 72 Angeli.
-      expect(conta(false), {'Rune': 5, 'Rituali': 5, 'Cabala': 2});
+      // perdono i Rituali Guidati. La Cabala no: senza piu' nulla di vivo e'
+      // esente dalla soglia delle fasi, quindi si mostra intera dietro il suo
+      // tocco, come vuole la regola del catalogo.
+      expect(conta(false), {'Rune': 5, 'Rituali': 5, 'Cabala': 4});
 
       List<ArtEntry> arti(String titolo) => ArtCatalog.forMaestro(Maestro.caligo)
           .firstWhere((s) => s.title == titolo)
           .arts;
 
-      // Una sola distintiva viva per sottocategoria.
-      for (final t in const ['Rune', 'Rituali', 'Cabala']) {
+      // Una sola distintiva viva per sottocategoria, dove c'e'. La Cabala non
+      // ne ha piu': l'Albero della Vita e' uscito dalla Demo.
+      for (final t in const ['Rune', 'Rituali']) {
         expect(arti(t).where((a) => a.state == ArtState.attiva).length, 1,
             reason: t);
       }
+      expect(arti('Cabala').where((a) => a.state == ArtState.attiva), isEmpty);
       expect(arti('Rune').map((a) => a.id), [
         'rune_draw',
         'i_ching',
@@ -284,14 +287,15 @@ void main() {
         'guided_rituals',
       ]);
       expect(arti('Cabala').map((a) => a.id), [
-        'tree_of_life',
         'angel_numbers',
         'numerology',
         'human_design',
         'cosmic_wrapped',
       ]);
-      // I settantadue nomi sono contenuto dell'Albero della Vita, non una card,
-      // e la Compatibilita' Angelica e' passata alla Sinastria Approfondita.
+      // L'Albero della Vita e' uscito dalla Demo, e con lui i settantadue nomi
+      // che ne erano contenuto. La Compatibilita' Angelica e' passata alla
+      // Sinastria Approfondita.
+      expect(arti('Cabala').map((a) => a.id), isNot(contains('tree_of_life')));
       expect(arti('Cabala').map((a) => a.id), isNot(contains('angels_72')));
       expect(
           arti('Cabala').map((a) => a.id), isNot(contains('angel_compatibility')));
@@ -316,10 +320,10 @@ void main() {
         expect(art.state, ArtState.attiva, reason: id);
         expect(artRouteFor(id, userSign: Zodiac.aries), isNotNull, reason: id);
       }
-      // Resta sulla soglia la distintiva di Caligo ancora senza esperienza.
-      for (final id in const ['tree_of_life']) {
-        expect(artiSullaSoglia[id], Maestro.caligo, reason: id);
-      }
+      // Nessuna arte resta sulla soglia: l'Albero della Vita e' uscito dalla
+      // Demo, tutte le arti attive hanno la loro esperienza vera.
+      expect(artiSullaSoglia, isEmpty);
+      expect(artRouteFor('tree_of_life', userSign: Zodiac.aries), isNull);
       // L'Animale Guida ha ora la sua esperienza vera: non e' piu' sulla soglia
       // e ha una rotta reale.
       expect(artiSullaSoglia.containsKey('guide_animal'), isFalse);
@@ -880,7 +884,7 @@ void main() {
           isNot(verde.surfaceElevated.withValues(alpha: 0.95).toARGB32()));
     });
 
-    testWidgets('Il dominio di Caligo mostra le sue tre distintive',
+    testWidgets('Il dominio di Caligo mostra le sue distintive vive',
         (tester) async {
       await tester.pumpWidget(domain(Maestro.caligo));
       await tester.pump();
@@ -904,10 +908,9 @@ void main() {
       expect(find.byKey(const Key('art_i_ching')), findsNothing);
       expect(find.byKey(const Key('art_soon_toggle_rune')), findsOneWidget);
 
-      // Rituali e Cabala, ciascuna con la sua viva in mostra.
+      // I Rituali con la loro viva in mostra. La Cabala non ne ha piu'.
       for (final voce in const [
         ('rituali', 'guide_animal'),
-        ('cabala', 'tree_of_life'),
       ]) {
         await tester.scrollUntilVisible(
           find.byKey(Key('art_section_${voce.$1}')),
@@ -919,13 +922,23 @@ void main() {
         expect(find.byKey(Key('art_state_attiva_${voce.$2}')), findsOneWidget);
         expect(find.byKey(Key('art_soon_toggle_${voce.$1}')), findsOneWidget);
       }
-      // Nessuna sottocategoria di Caligo e' tutta in cammino: nessuna dicitura.
-      for (final t in const ['rune', 'rituali', 'cabala']) {
+      // Rune e Rituali hanno la loro viva, quindi nessuna dicitura. La Cabala,
+      // uscito l'Albero della Vita dalla Demo, e' tutta in cammino: porta la
+      // dicitura onesta e non il toggle, che vale solo dove c'e' gia' del vivo.
+      for (final t in const ['rune', 'rituali']) {
         expect(find.byKey(Key('art_section_soon_$t')), findsNothing);
       }
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('art_section_cabala')),
+        260,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(find.byKey(const Key('art_section_soon_cabala')), findsOneWidget);
+      expect(find.byKey(const Key('art_soon_toggle_cabala')), findsNothing);
 
-      // Un'arte in cammino non porta l'accento del Maestro.
-      await tocca(tester, const Key('art_soon_toggle_cabala'));
+      // Un'arte in cammino non porta l'accento del Maestro: si apre la Cabala
+      // dalla sua intestazione, che qui e' tutta l'area di tocco.
+      await tocca(tester, const Key('art_section_header_cabala'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
       expect(sfondoDi('angel_numbers').first.toARGB32(),

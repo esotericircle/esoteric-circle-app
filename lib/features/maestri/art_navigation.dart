@@ -31,9 +31,13 @@ import '../tarot/stesa_tre_carte_screen.dart';
 /// Maestro che le custodisce: una destinazione vera, mai un vicolo cieco. Ogni
 /// riga qui e' un debito dichiarato, e sparisce da sola il giorno in cui
 /// l'esperienza arriva e prende il suo posto nello switch qui sotto.
-const Map<String, Maestro> artiSullaSoglia = {
-  'tree_of_life': Maestro.caligo,
-};
+///
+/// Oggi la mappa e' VUOTA: ogni arte dichiarata attiva ha la sua esperienza
+/// vera. L'Albero della Vita, l'ultima che stava qui, e' uscito del tutto dalla
+/// Demo; il concetto resta nei documenti per la Fase 2 del Journal. La mappa
+/// resta come meccanismo, pronta se una nuova arte nascesse prima della sua
+/// esperienza.
+const Map<String, Maestro> artiSullaSoglia = <String, Maestro>{};
 
 Route<void>? artRouteFor(
   String id, {

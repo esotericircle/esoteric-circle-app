@@ -1942,10 +1942,12 @@ void main() {
     await step(tester);
     await capture(tester, rootKey, 'dominio-caligo.png');
 
+    // La Cabala non ha piu' un'arte viva, uscito l'Albero della Vita dalla
+    // Demo: si apre dalla sua intestazione invece che dal toggle.
     for (final chiave in const [
       'art_soon_toggle_rune',
       'art_soon_toggle_rituali',
-      'art_soon_toggle_cabala',
+      'art_section_header_cabala',
     ]) {
       final f = find.byKey(Key(chiave));
       await tester.scrollUntilVisible(f, 300,

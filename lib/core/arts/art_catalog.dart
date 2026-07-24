@@ -688,16 +688,10 @@ class ArtCatalog {
       ),
     ]),
     ArtSection(title: 'Cabala', arts: [
-      // I settantadue nomi dello Shem non sono una card a se': sono contenuto
-      // dell'Albero della Vita, dentro il suo sistema cabalistico.
-      ArtEntry(
-        id: 'tree_of_life',
-        title: 'Albero della Vita',
-        teaser: 'Dieci Sefirot e ventidue sentieri, da percorrere.',
-        icon: Icons.account_tree_rounded,
-        state: ArtState.attiva,
-        cornice: true,
-      ),
+      // L'Albero della Vita e' uscito del tutto dalla Demo per decisione di
+      // Mauro: il concetto resta nei documenti, per la Fase 2 del Journal, non
+      // qui. Con lui restano fuori i settantadue nomi dello Shem, che erano
+      // contenuto suo e non una card a se'.
       ArtEntry(
         id: 'angel_numbers',
         title: 'Numeri Ricorrenti',
