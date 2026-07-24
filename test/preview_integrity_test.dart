@@ -48,7 +48,8 @@ void main() {
     'rune-norne.png', // Estrazione Rune, la rivelazione a tre Norne col presagio
     'rune-odino.png', // Estrazione Rune, la gettata a una runa
     'rune-croce.png', // Estrazione Rune, la Croce delle Cinque
-    'rune-card.png', // Estrazione Rune, card condivisibile
+    'rune-getto.png', // Estrazione Rune, il getto sul telo, la sorte libera
+    'rune-card.png', // Estrazione Rune, card condivisibile con la bindrune
   ];
 
   test('Tutti i preview obbligatori esistono in docs/preview', () {

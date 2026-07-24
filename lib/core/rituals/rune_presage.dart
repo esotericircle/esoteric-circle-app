@@ -23,12 +23,48 @@ class RunePresagio {
   }
 
   static String _base(EsitoGettata esito) {
+    if (esito.gettata.libera) return _baseLibera(esito);
     final parti = <String>[_apertura(esito.gettata)];
     for (final r in esito.rune) {
       parti.add(_fraseRuna(r));
     }
     parti.add(_sintesi(esito));
     return parti.join(' ');
+  }
+
+  /// La lettura per vicinanza al centro, per il getto libero sul telo: si legge
+  /// per prossimita' invece che per posizione fissa.
+  static String _baseLibera(EsitoGettata esito) {
+    final parti = <String>['Le rune cadono sparse sul telo di Tacito.'];
+    for (final r in esito.rune) {
+      parti.add('Per ${r.posizione.glossa}, ${r.rune.name} in luce: '
+          '${_primaFrase(r.riga)}.');
+    }
+    parti.add(_sintesiLibera(esito));
+    return parti.join(' ');
+  }
+
+  static String _sintesiLibera(EsitoGettata esito) {
+    final inLuce = esito.sparse.where((s) => !s.coperta).length;
+    final coperte = esito.sparse.where((s) => s.coperta).length;
+
+    final String luce;
+    if (coperte == 0) {
+      luce = 'Tutte le rune sono cadute in luce: il telo si mostra aperto, '
+          'nulla resta velato.';
+    } else if (inLuce <= coperte) {
+      luce = "Poche rune in luce, molte coperte nell'ombra: leggi il poco che "
+          'si mostra, il resto tace.';
+    } else {
+      luce = "Più rune in luce che nell'ombra: il telo parla chiaro, qualche "
+          'segno resta per te solo.';
+    }
+
+    final fam = _famiglia(_aettDominante(esito.rune));
+    final centro = esito.rune.first;
+    final cuore = 'Al centro pesa ${centro.rune.name}: '
+        '${_primaFrase(centro.riga)}, il cuore del getto.';
+    return '$luce $fam $cuore';
   }
 
   static String _apertura(GettataRune gettata) {
@@ -67,20 +103,7 @@ class RunePresagio {
           'parlano.';
     }
 
-    final aett = _aettDominante(rune);
-    final String fam;
-    switch (aett) {
-      case 'Freyr':
-        fam = 'La famiglia di Freyr guida la gettata: forze di sostanza e di '
-            'crescita.';
-        break;
-      case 'Hagal':
-        fam = 'La famiglia di Hagal guida la gettata: prova e trasformazione '
-            'al lavoro.';
-        break;
-      default:
-        fam = "La famiglia di Tyr guida la gettata: volontà e legami in gioco.";
-    }
+    final fam = _famiglia(_aettDominante(rune));
 
     final ultima = rune.last;
     final esitoRiga = ultima.inOmbra
@@ -90,6 +113,20 @@ class RunePresagio {
             "misura.";
 
     return '$merk $fam $esitoRiga';
+  }
+
+  /// La riga della famiglia dominante, riusata da entrambe le sintesi.
+  static String _famiglia(String aett) {
+    switch (aett) {
+      case 'Freyr':
+        return 'La famiglia di Freyr guida la gettata: forze di sostanza e di '
+            'crescita.';
+      case 'Hagal':
+        return 'La famiglia di Hagal guida la gettata: prova e trasformazione '
+            'al lavoro.';
+      default:
+        return "La famiglia di Tyr guida la gettata: volontà e legami in gioco.";
+    }
   }
 
   /// L'aett piu' presente. A parita', vince l'ordine tradizionale: Freyr, poi

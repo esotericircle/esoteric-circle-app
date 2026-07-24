@@ -1343,10 +1343,11 @@ void main() {
     await loadFonts();
     final rootKey = await mountAnimal(
         tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(5)),
-        size: const Size(390, 2500));
+        size: const Size(390, 2900));
     await precacheRune(tester);
     await lancia(tester, 'norne');
     expect(find.byKey(const Key('rune_presage')), findsOneWidget);
+    expect(find.byKey(const Key('rune_sigillo')), findsOneWidget);
     await capture(tester, rootKey, 'rune-norne.png');
   });
 
@@ -1355,7 +1356,7 @@ void main() {
     await loadFonts();
     final rootKey = await mountAnimal(
         tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(9)),
-        size: const Size(390, 1720));
+        size: const Size(390, 2120));
     await precacheRune(tester);
     await lancia(tester, 'odino');
     await capture(tester, rootKey, 'rune-odino.png');
@@ -1366,16 +1367,29 @@ void main() {
     await loadFonts();
     final rootKey = await mountAnimal(
         tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(4)),
-        size: const Size(390, 3100));
+        size: const Size(390, 3500));
     await precacheRune(tester);
     await lancia(tester, 'croce');
     await capture(tester, rootKey, 'rune-croce.png');
   });
 
+  testWidgets('Cattura il getto sul telo, la sorte libera', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mountAnimal(
+        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(6)),
+        size: const Size(390, 3100));
+    await precacheRune(tester);
+    await lancia(tester, 'telo');
+    expect(find.byKey(const Key('rune_result')), findsOneWidget);
+    expect(find.byKey(const Key('rune_sigillo')), findsOneWidget);
+    await capture(tester, rootKey, 'rune-getto.png');
+  });
+
   testWidgets('Cattura la card dell\'Estrazione Rune', (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.physicalSize = const Size(460, 1040);
+    tester.view.physicalSize = const Size(460, 1320);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);

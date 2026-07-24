@@ -22,6 +22,7 @@ import '../../../../services/app_services.dart';
 import '../../../rituals/rune_strokes.dart';
 import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
+import 'bindrune.dart';
 import 'rune_share_card.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
@@ -452,7 +453,10 @@ class _Responso extends StatelessWidget {
           // LA RIVELAZIONE, una runa per volta.
           for (var i = 0; i < esito.rune.length; i++) ...[
             _LetturaRuna(
-                runa: esito.rune[i], indice: i, palette: palette),
+                runa: esito.rune[i],
+                indice: i,
+                palette: palette,
+                libera: esito.gettata.libera),
             const SizedBox(height: SpacingTokens.md),
           ],
           // IL PRESAGIO, la lettura sola che intreccia le rune.
@@ -484,6 +488,43 @@ class _Responso extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.md),
+          // IL SIGILLO DEL GIORNO, la bindrune che intreccia le rune uscite.
+          ScrollReveal(
+            depth: 1,
+            child: DepthCard(
+              key: const Key('rune_sigillo'),
+              raised: true,
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.workspaces_outline,
+                          size: 16, color: palette.goldSoft),
+                      const SizedBox(width: SpacingTokens.xs),
+                      Text('Il sigillo del giorno',
+                          style: TypographyTokens.label(size: 12).copyWith(
+                              color: palette.goldSoft, letterSpacing: 0.6)),
+                    ],
+                  ),
+                  const SizedBox(height: SpacingTokens.sm),
+                  BindruneSigillo(
+                    runeNames: [for (final r in esito.rune) r.rune.name],
+                    oro: palette.gold,
+                    alone: palette.goldSoft,
+                    lato: 168,
+                  ),
+                  const SizedBox(height: SpacingTokens.sm),
+                  Text(kRuneBindruneNota,
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.label(size: 11).copyWith(
+                          color: ColorTokens.textSecondary, height: 1.4)),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.md),
           OutlinedButton.icon(
             key: const Key('rune_recast'),
             style: OutlinedButton.styleFrom(
@@ -506,11 +547,17 @@ class _Responso extends StatelessWidget {
 /// sua glossa, il verso, la parola chiave e la riga dal corpus.
 class _LetturaRuna extends StatelessWidget {
   const _LetturaRuna(
-      {required this.runa, required this.indice, required this.palette});
+      {required this.runa,
+      required this.indice,
+      required this.palette,
+      this.libera = false});
 
   final RunaGettata runa;
   final int indice;
   final MaestroPalette palette;
+
+  /// Nel getto libero le rune lette sono in luce, non hanno il verso d'ombra.
+  final bool libera;
 
   @override
   Widget build(BuildContext context) {
@@ -541,7 +588,10 @@ class _LetturaRuna extends StatelessWidget {
                               color: palette.goldSoft.withValues(alpha: 0.8),
                               letterSpacing: 0.4)),
                       const SizedBox(height: 2),
-                      Text(runa.inOmbra ? 'in merkstave' : 'diritta',
+                      Text(
+                          libera
+                              ? 'in luce'
+                              : (runa.inOmbra ? 'in merkstave' : 'diritta'),
                           style: TypographyTokens.label(size: 11).copyWith(
                               color: ColorTokens.textSecondary,
                               letterSpacing: 0.6)),
@@ -696,8 +746,9 @@ class _AzioniState extends State<_Azioni> {
   }
 }
 
-/// Il selettore delle gettate, a segmenti. Estensibile: legge da [gettate], una
-/// quarta gettata comparirebbe da sola.
+/// Il selettore delle gettate, a pillole che vanno a capo. Estensibile: legge da
+/// [gettate], una quarta gettata compare da sola. Ogni pillola e' dimensionata
+/// sul suo contenuto, cosi' il nome si legge sempre per intero, mai troncato.
 class _SelettoreGettate extends StatelessWidget {
   const _SelettoreGettate(
       {required this.corrente, required this.palette, required this.onSelect});
@@ -708,59 +759,54 @@ class _SelettoreGettate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Wrap(
       key: const Key('rune_selector'),
-      padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        color: palette.deepest.withValues(alpha: 0.5),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
-      ),
-      child: Row(
-        children: [
-          for (final g in gettate)
-            Expanded(
-              child: GestureDetector(
-                key: Key('rune_segment_${g.id}'),
-                behavior: HitTestBehavior.opaque,
-                onTap: () => onSelect(g),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-                    color: g.id == corrente.id
-                        ? palette.gold.withValues(alpha: 0.2)
-                        : Colors.transparent,
-                  ),
-                  child: Column(
-                    children: [
-                      Text(g.nome,
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TypographyTokens.label(size: 12).copyWith(
-                            color: g.id == corrente.id
-                                ? palette.goldSoft
-                                : ColorTokens.textSecondary,
-                            letterSpacing: 0.2,
-                          )),
-                      Text(g.sottotitolo,
-                          textAlign: TextAlign.center,
-                          style: TypographyTokens.label(size: 9).copyWith(
-                            color: g.id == corrente.id
-                                ? palette.goldSoft.withValues(alpha: 0.8)
-                                : ColorTokens.textSecondary
-                                    .withValues(alpha: 0.7),
-                          )),
-                    ],
-                  ),
-                ),
+      alignment: WrapAlignment.center,
+      spacing: SpacingTokens.xs,
+      runSpacing: SpacingTokens.xs,
+      children: [
+        for (final g in gettate)
+          GestureDetector(
+            key: Key('rune_segment_${g.id}'),
+            behavior: HitTestBehavior.opaque,
+            onTap: () => onSelect(g),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+                color: g.id == corrente.id
+                    ? palette.gold.withValues(alpha: 0.2)
+                    : palette.deepest.withValues(alpha: 0.4),
+                border: Border.all(
+                    color: palette.gold
+                        .withValues(alpha: g.id == corrente.id ? 0.7 : 0.3)),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Nome per intero, senza ellissi: la pillola cresce col testo.
+                  Text(g.nome,
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.label(size: 12).copyWith(
+                        color: g.id == corrente.id
+                            ? palette.goldSoft
+                            : ColorTokens.textSecondary,
+                        letterSpacing: 0.2,
+                      )),
+                  Text(g.sottotitolo,
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.label(size: 9).copyWith(
+                        color: g.id == corrente.id
+                            ? palette.goldSoft.withValues(alpha: 0.8)
+                            : ColorTokens.textSecondary.withValues(alpha: 0.7),
+                      )),
+                ],
               ),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }
@@ -865,8 +911,28 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
 
   @override
   Widget build(BuildContext context) {
-    final punti = _punti(widget.gettata);
+    final libera = widget.gettata.libera;
     final esito = widget.esito;
+    // Le pietre da posare con la loro posizione, piu' i punti di lettura per i
+    // fili e i cerchi: le posizioni fisse, oppure lo scatter libero sul telo.
+    final pietre = <MapEntry<RunaGettata, Offset>>[];
+    final puntiLettura = <Offset>[];
+    if (esito != null) {
+      if (libera) {
+        for (final s in esito.sparse) {
+          if (s.punto != null) pietre.add(MapEntry(s, s.punto!));
+        }
+        for (final r in esito.rune) {
+          if (r.punto != null) puntiLettura.add(r.punto!);
+        }
+      } else {
+        final punti = _punti(widget.gettata);
+        for (var i = 0; i < esito.rune.length && i < punti.length; i++) {
+          pietre.add(MapEntry(esito.rune[i], punti[i]));
+          puntiLettura.add(punti[i]);
+        }
+      }
+    }
     return SizedBox(
       key: const Key('rune_well'),
       height: 300,
@@ -883,22 +949,24 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
                     child: CustomPaint(
                       painter: _PozzoPainter(
                         palette: widget.palette,
-                        punti: punti,
+                        punti: puntiLettura,
                         posato: esito != null,
+                        libera: libera,
                         onda: (esito != null && _onde.isAnimating)
                             ? _onde.value
                             : -1,
                       ),
                     ),
                   ),
-                  if (esito != null)
-                    for (var i = 0; i < esito.rune.length; i++)
-                      Positioned(
-                        left: punti[i].dx * w - 26,
-                        top: punti[i].dy * h - 32,
-                        child: _PietraPosata(
-                            runa: esito.rune[i], palette: widget.palette),
-                      ),
+                  for (final e in pietre)
+                    Positioned(
+                      left: e.value.dx * w - 26,
+                      top: e.value.dy * h - 32,
+                      child: _PietraPosata(
+                          runa: e.key,
+                          palette: widget.palette,
+                          coperta: e.key.coperta),
+                    ),
                 ],
               );
             },
@@ -909,12 +977,15 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
   }
 }
 
-/// Una pietra posata sull'acqua del pozzo, piccola, capovolta se in merkstave.
+/// Una pietra posata, piccola, capovolta se in merkstave. Sul telo, se coperta
+/// resta velata, il verso d'ombra della sorte libera.
 class _PietraPosata extends StatelessWidget {
-  const _PietraPosata({required this.runa, required this.palette});
+  const _PietraPosata(
+      {required this.runa, required this.palette, this.coperta = false});
 
   final RunaGettata runa;
   final MaestroPalette palette;
+  final bool coperta;
 
   @override
   Widget build(BuildContext context) {
@@ -939,7 +1010,9 @@ class _PietraPosata extends StatelessWidget {
                   intensity: 1.0),
             ),
     );
-    return runa.inOmbra ? Transform.rotate(angle: math.pi, child: img) : img;
+    final pietra =
+        runa.inOmbra ? Transform.rotate(angle: math.pi, child: img) : img;
+    return coperta ? Opacity(opacity: 0.35, child: pietra) : pietra;
   }
 }
 
@@ -951,11 +1024,16 @@ class _PozzoPainter extends CustomPainter {
     required this.punti,
     required this.posato,
     required this.onda,
+    this.libera = false,
   });
 
   final MaestroPalette palette;
   final List<Offset> punti;
   final bool posato;
+
+  /// Vero per il getto sul telo: il fondo e' un panno bianco, i fili partono dal
+  /// centro verso le rune lette per vicinanza.
+  final bool libera;
 
   /// Avanzamento dell'onda, da zero a uno, negativo se ferma.
   final double onda;
@@ -964,45 +1042,11 @@ class _PozzoPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
 
-    // L'acqua immobile del pozzo, scura col riflesso caldo di Caligo.
-    canvas.drawRect(
-      rect,
-      Paint()
-        ..shader = RadialGradient(
-          center: const Alignment(0, -0.1),
-          radius: 0.9,
-          colors: [
-            palette.surfaceElevated.withValues(alpha: 0.9),
-            palette.deepest,
-          ],
-        ).createShader(rect),
-    );
-
-    // Le radici di Yggdrasil che scendono dall'alto verso l'acqua.
-    final radice = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
-      ..color = palette.gold.withValues(alpha: 0.18);
-    for (var i = 0; i < 5; i++) {
-      final x = size.width * (0.15 + 0.175 * i);
-      final path = Path()..moveTo(x, 0);
-      path.cubicTo(x + 12, size.height * 0.18, x - 14, size.height * 0.3,
-          x + 6, size.height * 0.42);
-      canvas.drawPath(path, radice);
+    if (libera) {
+      _telo(canvas, size, rect);
+    } else {
+      _acqua(canvas, size, rect);
     }
-
-    // Un alone caldo al centro, il fondo del pozzo.
-    canvas.drawCircle(
-      Offset(size.width / 2, size.height * 0.45),
-      size.shortestSide * 0.5,
-      Paint()
-        ..shader = RadialGradient(colors: [
-          palette.gold.withValues(alpha: 0.12),
-          palette.primary.withValues(alpha: 0.0),
-        ]).createShader(Rect.fromCircle(
-            center: Offset(size.width / 2, size.height * 0.45),
-            radius: size.shortestSide * 0.5)),
-    );
 
     if (!posato) return;
 
@@ -1010,12 +1054,18 @@ class _PozzoPainter extends CustomPainter {
       for (final p in punti) Offset(p.dx * size.width, p.dy * size.height),
     ];
 
-    // I fili sottili delle Norne, dal primo punto verso gli altri.
-    if (centri.length > 1) {
-      final filo = Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.0
-        ..color = palette.goldSoft.withValues(alpha: 0.4);
+    // I fili sottili delle Norne. Sul telo partono dal centro verso le rune
+    // lette; nelle stese fisse dal primo punto verso gli altri.
+    final filo = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.0
+      ..color = palette.goldSoft.withValues(alpha: libera ? 0.55 : 0.4);
+    if (libera) {
+      final centro = Offset(size.width / 2, size.height / 2);
+      for (final c in centri) {
+        canvas.drawLine(centro, c, filo);
+      }
+    } else if (centri.length > 1) {
       for (var i = 1; i < centri.length; i++) {
         canvas.drawLine(centri.first, centri[i], filo);
       }
@@ -1052,7 +1102,85 @@ class _PozzoPainter extends CustomPainter {
     }
   }
 
+  /// L'acqua immobile del Pozzo di Urdhr, scura, con le radici di Yggdrasil che
+  /// scendono e un alone caldo al centro.
+  void _acqua(Canvas canvas, Size size, Rect rect) {
+    canvas.drawRect(
+      rect,
+      Paint()
+        ..shader = RadialGradient(
+          center: const Alignment(0, -0.1),
+          radius: 0.9,
+          colors: [
+            palette.surfaceElevated.withValues(alpha: 0.9),
+            palette.deepest,
+          ],
+        ).createShader(rect),
+    );
+    final radice = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2
+      ..color = palette.gold.withValues(alpha: 0.18);
+    for (var i = 0; i < 5; i++) {
+      final x = size.width * (0.15 + 0.175 * i);
+      final path = Path()..moveTo(x, 0);
+      path.cubicTo(x + 12, size.height * 0.18, x - 14, size.height * 0.3,
+          x + 6, size.height * 0.42);
+      canvas.drawPath(path, radice);
+    }
+    canvas.drawCircle(
+      Offset(size.width / 2, size.height * 0.45),
+      size.shortestSide * 0.5,
+      Paint()
+        ..shader = RadialGradient(colors: [
+          palette.gold.withValues(alpha: 0.12),
+          palette.primary.withValues(alpha: 0.0),
+        ]).createShader(Rect.fromCircle(
+            center: Offset(size.width / 2, size.height * 0.45),
+            radius: size.shortestSide * 0.5)),
+    );
+  }
+
+  /// Il panno bianco di Tacito: un telo chiaro e caldo con una trama leggera e
+  /// un segno d'oro al centro, dove la vicinanza pesa.
+  void _telo(Canvas canvas, Size size, Rect rect) {
+    canvas.drawRect(
+      rect,
+      Paint()
+        ..shader = const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFFF0E7D3), Color(0xFFD2C09B)],
+        ).createShader(rect),
+    );
+    // Trama del tessuto, righe tenui nelle due direzioni.
+    final trama = Paint()
+      ..strokeWidth = 1
+      ..color = const Color(0xFF7A6A4A).withValues(alpha: 0.08);
+    for (var i = 1; i < 10; i++) {
+      final y = size.height * i / 10;
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), trama);
+      final x = size.width * i / 10;
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), trama);
+    }
+    // Il centro del telo, dove la vicinanza pesa di piu'.
+    final c = Offset(size.width / 2, size.height / 2);
+    canvas.drawCircle(
+      c,
+      size.shortestSide * 0.06,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.4
+        ..color = palette.gold.withValues(alpha: 0.5),
+    );
+    canvas.drawCircle(
+        c, 2.5, Paint()..color = palette.gold.withValues(alpha: 0.6));
+  }
+
   @override
   bool shouldRepaint(_PozzoPainter old) =>
-      old.onda != onda || old.posato != posato || old.punti != punti;
+      old.onda != onda ||
+      old.posato != posato ||
+      old.punti != punti ||
+      old.libera != libera;
 }

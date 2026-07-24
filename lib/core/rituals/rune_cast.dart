@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui' show Offset;
 
 import 'runes.dart';
 
@@ -44,6 +45,8 @@ class GettataRune {
     required this.sottotitolo,
     required this.posizioni,
     required this.testoDinamico,
+    this.libera = false,
+    this.sparse = 0,
   });
 
   /// Chiave stabile della gettata.
@@ -55,14 +58,23 @@ class GettataRune {
   /// Riga breve sotto il nome, per esempio "tre rune".
   final String sottotitolo;
 
-  /// Le posizioni in cui cadono le rune, in ordine.
+  /// Le posizioni in cui cadono le rune, in ordine. Per la gettata libera sono
+  /// le posizioni per vicinanza al centro, non slot fissi.
   final List<PosizioneGettata> posizioni;
 
   /// Il testo che cambia con la scelta: tradizione, fonti, autori, metodo di
   /// calcolo e differenza con le altre gettate.
   final String testoDinamico;
 
-  /// Quante rune si estraggono: una, tre o cinque.
+  /// Vero per la sorte libera sul telo, alla maniera di Tacito: nessuna
+  /// posizione fissa, le rune cadono sparse, si leggono quelle in luce per
+  /// vicinanza al centro.
+  final bool libera;
+
+  /// Quante rune si spargono sul telo nella gettata libera. Zero per le fisse.
+  final int sparse;
+
+  /// Quante rune si estraggono nelle gettate a posizioni fisse.
   int get numero => posizioni.length;
 }
 
@@ -127,8 +139,38 @@ const GettataRune gettataCroce = GettataRune(
       "le asimmetriche.",
 );
 
-/// Le gettate disponibili, in ordine di crescente ampiezza. Estensibile.
-const List<GettataRune> gettate = [gettataOdino, gettataNorne, gettataCroce];
+/// Il getto sul telo, la sorte libera alla maniera di Tacito: le rune si
+/// spargono su un panno bianco, si leggono quelle in luce per vicinanza al
+/// centro, fino a tre. Il metodo storico piu' antico, senza posizioni fisse.
+const GettataRune gettataTelo = GettataRune(
+  id: 'telo',
+  nome: 'Il getto sul telo',
+  sottotitolo: 'sorte libera',
+  libera: true,
+  sparse: 7,
+  posizioni: [
+    PosizioneGettata('Al centro', 'la più vicina al centro'),
+    PosizioneGettata('Presso il centro', 'vicina al centro'),
+    PosizioneGettata('Ai margini', 'verso i margini della luce'),
+  ],
+  testoDinamico:
+      "Il getto sul telo è il metodo storico più antico. Tacito, nella Germania "
+      "al capitolo dieci, descrive segni incisi su rametti sparsi su un panno "
+      "bianco, da cui il sacerdote trae e legge tre sorti. Qui non ci sono "
+      "posizioni fisse: le rune cadono libere sul telo, alcune in luce e "
+      "diritte, altre in ombra e coperte. Metodo di calcolo: si leggono quelle "
+      "in luce e la loro vicinanza al centro, fino a tre, la più vicina pesa di "
+      "più. Le stese a posizioni fisse sono invece moderne, adattamenti del "
+      "Novecento.",
+);
+
+/// Le gettate disponibili. Estensibile: una nuova gettata e' solo una voce.
+const List<GettataRune> gettate = [
+  gettataOdino,
+  gettataNorne,
+  gettataCroce,
+  gettataTelo,
+];
 
 /// I suggerimenti di domanda tappabili prima del lancio. La domanda e' solo
 /// intenzione, non inviata a nessun servizio nella Demo.
@@ -157,31 +199,64 @@ const String kRuneFontiEMetodo =
     "ispirata a queste fonti, non citazione.\n\n"
     "Per intrattenimento e crescita personale, nessuna promessa deterministica.";
 
+/// La nota del sigillo del giorno: dichiara che la bindrune e' una forma
+/// autentica della tradizione, e che questa e' composta dalle rune del momento.
+const String kRuneBindruneNota =
+    "Le bindrune sono glifi intrecciati autentici della tradizione runica. "
+    "Questo sigillo intreccia le rune del tuo momento in un segno solo, "
+    "sovrapposte su un'asta condivisa.";
+
 /// Una runa uscita in una posizione della gettata, col suo verso.
 class RunaGettata {
   const RunaGettata({
     required this.rune,
     required this.verso,
     required this.posizione,
+    this.punto,
+    this.coperta = false,
   });
 
   final Rune rune;
   final RuneVerso verso;
   final PosizioneGettata posizione;
 
+  /// Dove cade la runa sul telo, in coordinate normalizzate. Null per le
+  /// gettate a posizioni fisse, dove il posto lo da' la schermata.
+  final Offset? punto;
+
+  /// Vero se la runa e' caduta in ombra, coperta, nella gettata libera: non si
+  /// legge, resta velata sul telo.
+  final bool coperta;
+
   /// Vero se la runa e' uscita in merkstave, il verso d'ombra.
   bool get inOmbra => verso == RuneVerso.merkstave;
 
   /// La riga letta, secondo l'orientamento: il verso dritto o quello d'ombra.
   String get riga => inOmbra ? rune.shadow : rune.upright;
+
+  RunaGettata copyWith({PosizioneGettata? posizione, bool? coperta}) =>
+      RunaGettata(
+        rune: rune,
+        verso: verso,
+        posizione: posizione ?? this.posizione,
+        punto: punto,
+        coperta: coperta ?? this.coperta,
+      );
 }
 
-/// L'esito di una gettata: le rune uscite nelle loro posizioni.
+/// L'esito di una gettata: le rune lette nelle loro posizioni. Per la gettata
+/// libera, [sparse] tiene tutte le rune cadute sul telo, in luce e in ombra,
+/// mentre [rune] sono solo quelle lette, in luce e vicine al centro.
 class EsitoGettata {
-  const EsitoGettata({required this.gettata, required this.rune});
+  const EsitoGettata({
+    required this.gettata,
+    required this.rune,
+    this.sparse = const [],
+  });
 
   final GettataRune gettata;
   final List<RunaGettata> rune;
+  final List<RunaGettata> sparse;
 }
 
 /// Il motore dell'estrazione. Qui il caso e' voluto e autentico, e' gettare le
@@ -192,9 +267,10 @@ class RuneCast {
 
   /// Getta le rune per [gettata]: estrae a sorte rune tutte diverse, una per
   /// posizione, ognuna dritta o in merkstave a sorte. Le simmetriche escono
-  /// sempre diritte.
+  /// sempre diritte. La gettata libera segue invece la sorte sul telo.
   static EsitoGettata getta(GettataRune gettata, {Random? random}) {
     final rng = random ?? Random();
+    if (gettata.libera) return _gettaLibera(gettata, rng);
     final indici = List<int>.generate(kElderFuthark.length, (i) => i)
       ..shuffle(rng);
     final rune = <RunaGettata>[];
@@ -208,6 +284,56 @@ class RuneCast {
           rune: r, verso: verso, posizione: gettata.posizioni[i]));
     }
     return EsitoGettata(gettata: gettata, rune: rune);
+  }
+
+  static const Offset _centroTelo = Offset(0.5, 0.5);
+  static const PosizioneGettata _sulTelo =
+      PosizioneGettata('Sul telo', 'sparsa sul telo');
+
+  static double _distanzaDalCentro(Offset p) => (p - _centroTelo).distance;
+
+  /// Il getto sul telo: sparge [GettataRune.sparse] rune libere, ognuna in luce
+  /// e diritta oppure in ombra e coperta a sorte. Si leggono quelle in luce piu'
+  /// vicine al centro, fino alle posizioni previste. Le simmetriche restano
+  /// sempre diritte, come nelle altre gettate.
+  static EsitoGettata _gettaLibera(GettataRune gettata, Random rng) {
+    final indici = List<int>.generate(kElderFuthark.length, (i) => i)
+      ..shuffle(rng);
+    final sparse = <RunaGettata>[];
+    for (var i = 0; i < gettata.sparse; i++) {
+      final r = kElderFuthark[indici[i]];
+      final x = 0.14 + rng.nextDouble() * 0.72;
+      final y = 0.14 + rng.nextDouble() * 0.72;
+      final inLuce = rng.nextDouble() < 0.58;
+      sparse.add(RunaGettata(
+        rune: r,
+        verso: RuneVerso.dritto,
+        posizione: _sulTelo,
+        punto: Offset(x, y),
+        coperta: !inLuce,
+      ));
+    }
+    // Le rune lette: quelle in luce, ordinate per vicinanza al centro.
+    final inLuce = sparse.where((s) => !s.coperta).toList()
+      ..sort((a, b) =>
+          _distanzaDalCentro(a.punto!).compareTo(_distanzaDalCentro(b.punto!)));
+    final lette = <RunaGettata>[];
+    final quante =
+        inLuce.length < gettata.posizioni.length ? inLuce.length : gettata.posizioni.length;
+    for (var i = 0; i < quante; i++) {
+      lette.add(inLuce[i].copyWith(posizione: gettata.posizioni[i]));
+    }
+    // Se nessuna e' caduta in luce, si scopre la piu' vicina al centro.
+    if (lette.isEmpty && sparse.isNotEmpty) {
+      final piuVicina = [...sparse]..sort((a, b) =>
+          _distanzaDalCentro(a.punto!).compareTo(_distanzaDalCentro(b.punto!)));
+      final scelta = piuVicina.first
+          .copyWith(coperta: false, posizione: gettata.posizioni.first);
+      final idx = sparse.indexOf(piuVicina.first);
+      sparse[idx] = scelta;
+      lette.add(scelta);
+    }
+    return EsitoGettata(gettata: gettata, rune: lette, sparse: sparse);
   }
 
   /// L'aett di una runa dal suo posto nell'Elder Futhark: la famiglia di Freyr

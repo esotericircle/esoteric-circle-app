@@ -11,6 +11,7 @@ import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
+import 'bindrune.dart';
 
 /// La card condivisibile dell'Estrazione Rune, cornice oro e rossa di Caligo:
 /// la gettata, le rune nelle loro posizioni col verso, e il presagio in sintesi.
@@ -54,13 +55,34 @@ class RuneShareCard extends StatelessWidget {
             Text(esito.gettata.nome.toUpperCase(),
                 style: TypographyTokens.display(size: 22)
                     .copyWith(color: palette.goldSoft)),
+            const SizedBox(height: SpacingTokens.sm),
+            // IL SIGILLO, l'elemento grafico forte per la condivisione.
+            BindruneSigillo(
+              runeNames: [for (final r in esito.rune) r.rune.name],
+              oro: palette.gold,
+              alone: palette.goldSoft,
+              lato: 190,
+            ),
+            Text('Il sigillo del giorno, una bindrune',
+                style: TypographyTokens.label(size: 10).copyWith(
+                    color: palette.goldSoft.withValues(alpha: 0.85),
+                    letterSpacing: 0.8)),
+            Text('glifi intrecciati autentici della tradizione runica',
+                textAlign: TextAlign.center,
+                style: TypographyTokens.label(size: 9).copyWith(
+                    color: palette.textPrimary.withValues(alpha: 0.6),
+                    letterSpacing: 0.3)),
             const SizedBox(height: SpacingTokens.md),
             Wrap(
               alignment: WrapAlignment.center,
               spacing: SpacingTokens.md,
               runSpacing: SpacingTokens.md,
               children: [
-                for (final r in esito.rune) _RunaTile(runa: r, palette: palette),
+                for (final r in esito.rune)
+                  _RunaTile(
+                      runa: r,
+                      palette: palette,
+                      libera: esito.gettata.libera),
               ],
             ),
             const SizedBox(height: SpacingTokens.md),
@@ -90,10 +112,12 @@ class RuneShareCard extends StatelessWidget {
 /// Una runa nella card: la pietra incisa, dritta o capovolta in merkstave, col
 /// nome, il verso e la posizione.
 class _RunaTile extends StatelessWidget {
-  const _RunaTile({required this.runa, required this.palette});
+  const _RunaTile(
+      {required this.runa, required this.palette, this.libera = false});
 
   final RunaGettata runa;
   final MaestroPalette palette;
+  final bool libera;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +144,8 @@ class _RunaTile extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TypographyTokens.label(size: 12)
                   .copyWith(color: palette.goldSoft)),
-          Text(runa.inOmbra ? 'in merkstave' : 'diritta',
+          Text(
+              libera ? 'in luce' : (runa.inOmbra ? 'in merkstave' : 'diritta'),
               textAlign: TextAlign.center,
               style: TypographyTokens.label(size: 9).copyWith(
                   color: palette.textPrimary.withValues(alpha: 0.7),

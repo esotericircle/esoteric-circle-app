@@ -6,7 +6,9 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/maestri/caligo/rune/bindrune.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -191,5 +193,71 @@ void main() {
     await passo(tester);
     expect(find.byKey(const Key('rune_result')), findsOneWidget);
     expect(find.byKey(const Key('rune_presage')), findsOneWidget);
+  });
+
+  testWidgets('Nessuna etichetta del selettore e\' troncata', (tester) async {
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(host());
+    await passo(tester);
+
+    // Ogni nome di gettata si legge per intero, compreso "La Croce delle
+    // Cinque" e "Il getto sul telo", niente tre puntini.
+    for (final g in gettate) {
+      expect(find.text(g.nome), findsWidgets, reason: g.nome);
+    }
+    // Nessuna etichetta nel selettore usa l'ellissi da troncamento.
+    final testi = find.descendant(
+        of: find.byKey(const Key('rune_selector')),
+        matching: find.byType(Text));
+    for (final e in testi.evaluate()) {
+      final t = e.widget as Text;
+      expect(t.overflow == TextOverflow.ellipsis, isFalse,
+          reason: 'etichetta troncata: ${t.data}');
+    }
+  });
+
+  testWidgets('Il getto sul telo e\' selezionabile, si legge e da\' il sigillo',
+      (tester) async {
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(host());
+    await passo(tester);
+
+    await tester.tap(find.byKey(const Key('rune_segment_telo')));
+    await passo(tester);
+    // Il testo dinamico della sorte libera cita Tacito e il telo.
+    expect(find.textContaining('Tacito'), findsOneWidget);
+    expect(find.textContaining('telo'), findsWidgets);
+
+    await getta(tester);
+    expect(find.byKey(const Key('rune_result')), findsOneWidget);
+    // Si legge almeno una runa, in luce.
+    expect(find.byKey(const Key('rune_card_0')), findsOneWidget);
+    expect(find.text('in luce'), findsWidgets);
+    // Il sigillo del giorno con la bindrune.
+    expect(find.byKey(const Key('rune_sigillo')), findsOneWidget);
+    expect(find.byKey(const Key('bindrune')), findsOneWidget);
+  });
+
+  testWidgets('La bindrune viene dalle rune uscite, in modo deterministico',
+      (tester) async {
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(host());
+    await passo(tester);
+
+    await tester.tap(find.byKey(const Key('rune_segment_norne')));
+    await passo(tester);
+    await getta(tester);
+
+    // La stessa sorgente del caso della schermata, il seme 3, da' le stesse rune.
+    final atteso = RuneCast.getta(gettataNorne, random: Random(3))
+        .rune
+        .map((r) => r.rune.name)
+        .toList();
+    final sigillo =
+        tester.widget<BindruneSigillo>(find.byType(BindruneSigillo));
+    expect(sigillo.runeNames, atteso);
   });
 }
