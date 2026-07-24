@@ -73,7 +73,7 @@ void main() {
   });
 
   group('Notifiche push di default', () {
-    test('Di default notificano solo Alba, Oracolo e Buonanotte', () {
+    test('Di default notificano solo Alba, Oracolo e Sogno', () {
       expect(DailyElement.dawn.pushByDefault, isTrue);
       expect(DailyElement.oracle.pushByDefault, isTrue);
       expect(DailyElement.night.pushByDefault, isTrue);
@@ -114,7 +114,7 @@ void main() {
       expect(DailyElements.maestroFor(DailyElement.rune, now), Maestro.caligo);
     });
 
-    test('Alba e Buonanotte seguono il Maestro di turno del giorno', () {
+    test('Alba e Sogno seguono il Maestro di turno del giorno', () {
       final now = at(8, 0);
       expect(DailyElements.maestroFor(DailyElement.dawn, now),
           DailyRituals.dawnMaestro(now));

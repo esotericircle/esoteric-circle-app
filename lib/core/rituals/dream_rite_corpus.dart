@@ -1,0 +1,206 @@
+import '../astro/night_sky.dart';
+import '../astro/zodiac.dart';
+import '../identity/birth_moon.dart';
+import '../maestro/maestro.dart';
+import 'daily_rituals.dart';
+
+/// La voce del Rito del Sogno per un segno della Luna: una parola calmante e le
+/// righe che guardano al giorno appena concluso.
+///
+/// Non e' tradizione nuova: ogni voce riscrive in chiave riflessiva il
+/// significato del segno lunare gia' nel repo (`BirthMoon.meaningFor`, il
+/// sentire nel segno, nella voce di Medora). Il rito guarda al passato e al
+/// presente della giornata, mai al futuro.
+class VoceDelSogno {
+  const VoceDelSogno({
+    required this.parola,
+    required this.immagine,
+    required this.giorno,
+    required this.riconoscimento,
+    required this.posa,
+  });
+
+  /// Una parola sola, calmante, per la carta della notte.
+  final String parola;
+
+  /// L'immagine del segno, in poche parole.
+  final String immagine;
+
+  /// Cosa hai fatto oggi, al passato.
+  final String giorno;
+
+  /// Cosa ti riconosci, guardando indietro.
+  final String riconoscimento;
+
+  /// L'invito al presente, per posare il giorno.
+  final String posa;
+}
+
+/// Il Rito del Sogno, ex Rito della Buonanotte: il messaggio della notte, la
+/// parola e la trasparenza, tutti deterministici dal cielo reale di adesso.
+///
+/// La Luna arriva da `NightSky.moonSign` per il segno e da `MoonPhase.forDate`
+/// per la fase, tramite `BirthMoon.forDate`. Nessuna AI a runtime.
+class DreamRiteCorpus {
+  const DreamRiteCorpus._();
+
+  static const Map<Zodiac, VoceDelSogno> _voci = {
+    Zodiac.aries: VoceDelSogno(
+      parola: 'Calma',
+      immagine: 'il fuoco che parte per primo',
+      giorno: 'hai acceso in fretta, forse più di una volta',
+      riconoscimento: 'hai avuto coraggio quando serviva',
+      posa: "lascia che la scintilla si abbassi, la notte non chiede slancio, chiede riposo",
+    ),
+    Zodiac.taurus: VoceDelSogno(
+      parola: 'Radice',
+      immagine: 'la terra che tiene',
+      giorno: 'hai retto il peso senza fare rumore',
+      riconoscimento: 'hai dato stabilità a chi ti sta intorno',
+      posa: 'posa il carico, la notte non chiede solidità, chiede riposo',
+    ),
+    Zodiac.gemini: VoceDelSogno(
+      parola: 'Silenzio',
+      immagine: 'le due voci che si rincorrono',
+      giorno: 'hai parlato molto, hai ascoltato altrettanto',
+      riconoscimento: 'hai tenuto vivi i fili con gli altri',
+      posa: 'lascia posare le parole, la notte non chiede risposte, chiede riposo',
+    ),
+    Zodiac.cancer: VoceDelSogno(
+      parola: 'Rifugio',
+      immagine: 'la conchiglia che custodisce',
+      giorno: 'hai protetto qualcuno, forse senza dirlo',
+      riconoscimento: 'hai fatto sentire qualcuno a casa',
+      posa: 'chiudi il guscio, la notte non chiede cura, chiede riposo',
+    ),
+    Zodiac.leo: VoceDelSogno(
+      parola: 'Calore',
+      immagine: 'il sole che scalda gli altri',
+      giorno: 'hai dato luce, ti sei speso',
+      riconoscimento: 'hai illuminato una stanza senza accorgertene',
+      posa: 'abbassa la fiamma, la notte non chiede di brillare, chiede riposo',
+    ),
+    Zodiac.virgo: VoceDelSogno(
+      parola: 'Ordine',
+      immagine: 'le mani che mettono a posto',
+      giorno: 'hai curato i dettagli, uno dopo l\'altro',
+      riconoscimento: 'hai reso semplice qualcosa di complicato',
+      posa: 'lascia il resto per domani, la notte non chiede precisione, chiede riposo',
+    ),
+    Zodiac.libra: VoceDelSogno(
+      parola: 'Equilibrio',
+      immagine: 'la bilancia che pesa',
+      giorno: 'hai misurato molto, chi accontentare e cosa lasciare andare',
+      riconoscimento: 'hai tenuto insieme più di quanto credi',
+      posa: 'posa i piatti, la notte non chiede equilibrio, chiede riposo',
+    ),
+    Zodiac.scorpio: VoceDelSogno(
+      parola: 'Profondità',
+      immagine: "l'acqua che scava",
+      giorno: 'hai sentito tutto fino in fondo',
+      riconoscimento: 'hai guardato una verità senza voltarti',
+      posa: 'lascia scendere il fondo, la notte non chiede intensità, chiede riposo',
+    ),
+    Zodiac.sagittarius: VoceDelSogno(
+      parola: 'Sosta',
+      immagine: 'la freccia che cerca lontano',
+      giorno: 'hai guardato avanti, forse troppo avanti',
+      riconoscimento: 'hai tenuto viva la fiducia',
+      posa: "abbassa l'arco, la notte non chiede orizzonti, chiede riposo",
+    ),
+    Zodiac.capricorn: VoceDelSogno(
+      parola: 'Tregua',
+      immagine: 'la roccia che sale piano',
+      giorno: 'hai portato responsabilità che nessuno ha visto',
+      riconoscimento: 'hai retto quello che dovevi reggere',
+      posa: 'lascia la salita a domani, la notte non chiede disciplina, chiede riposo',
+    ),
+    Zodiac.aquarius: VoceDelSogno(
+      parola: 'Respiro',
+      immagine: "l'aria che non si lascia stringere",
+      giorno: 'hai pensato in largo, per tutti',
+      riconoscimento: 'hai tenuto uno sguardo libero',
+      posa: 'lascia andare il pensiero, la notte non chiede visione, chiede riposo',
+    ),
+    Zodiac.pisces: VoceDelSogno(
+      parola: 'Sogno',
+      immagine: "l'acqua che confonde i bordi",
+      giorno: 'hai assorbito molto, anche ciò che non era tuo',
+      riconoscimento: 'hai avuto compassione, anche quando costava',
+      posa: 'lascia sciogliere i confini, la notte non chiede empatia, chiede riposo',
+    ),
+  };
+
+  /// La voce del segno lunare. C'e' sempre, per tutti e dodici.
+  static VoceDelSogno voce(Zodiac sign) => _voci[sign]!;
+
+  /// La parola sola della notte, per la carta.
+  static String parola(Zodiac sign) => _voci[sign]!.parola;
+
+  /// La Luna reale di adesso: segno da `NightSky.moonSign`, fase da `MoonPhase`.
+  static BirthMoon lunaDi(DateTime quando) => BirthMoon.forDate(quando);
+
+  /// L'apertura sulla Luna, dalla sua fase reale.
+  static String aperturaLuna(BirthMoon luna) {
+    final segno = luna.sign.italianName;
+    switch (luna.phase.italianName) {
+      case 'Luna piena':
+        return 'Stanotte la Luna è piena in $segno';
+      case 'Luna nuova':
+        return 'Stanotte la Luna è nuova in $segno';
+      default:
+        return luna.phase.waxing
+            ? 'Stanotte la Luna cresce in $segno'
+            : 'Stanotte la Luna cala in $segno';
+    }
+  }
+
+  /// L'attacco nella voce del Maestro di turno, che apre lo sguardo indietro.
+  static String aperturaMaestro(Maestro maestro) {
+    switch (maestro) {
+      case Maestro.medora:
+        return 'Il cielo ha girato una carta sola, oggi.';
+      case Maestro.aura:
+        return 'Il corpo ha portato il giorno fin qui.';
+      case Maestro.caligo:
+        return 'Il giorno ha lasciato la sua ombra lunga.';
+    }
+  }
+
+  /// L'invito nella nebbia, all'apertura del rito, nella voce del Maestro.
+  static String invitoNebbia(Maestro maestro) =>
+      'Hai vissuto un giorno intero. Prima di lasciarlo andare, dirada la '
+      'nebbia e guarda il cielo che ti sta sopra.';
+
+  /// Il saluto della notte: guarda al passato e al presente della giornata
+  /// conclusa, mai al futuro. Deterministico da Maestro di turno, segno e fase.
+  static String saluto(DateTime quando) {
+    final maestro = DailyRituals.nightMaestro(quando);
+    final luna = lunaDi(quando);
+    final v = voce(luna.sign);
+    return '${aperturaMaestro(maestro)} ${aperturaLuna(luna)}, ${v.immagine}. '
+        'Oggi ${v.giorno}. Se guardi indietro, ${v.riconoscimento}. '
+        'Ora ${v.posa}. Buonanotte.';
+  }
+
+  /// La riga della provenienza, per la carta: segno e fase reali di stanotte.
+  static String provenienza(BirthMoon luna) =>
+      'Luna in ${luna.sign.italianName}, ${luna.phase.italianName.toLowerCase()}';
+
+  /// Il testo del tooltip "Da dove nasce questo dono": dichiara il cielo reale,
+  /// la Luna di stanotte e il confine onesto sull'allineamento.
+  static String daDoveNasce(BirthMoon luna) =>
+      'Il cielo che vedi è il cielo notturno reale di questo momento. Stanotte '
+      'la Luna è in ${luna.sign.italianName}, in fase '
+      '${luna.phase.italianName.toLowerCase()}, calcolata sul dispositivo dalla '
+      'data. La costellazione che unisci è il disegno reale del segno della '
+      'Luna; il messaggio nasce da segno e fase, sul sentire del segno lunare '
+      '(${BirthMoon.meaningFor(luna.sign)}). La scena si muove col giroscopio '
+      'per darti il gesto di puntare il cielo, ma non è allineata alla posizione '
+      'esatta sopra di te: servirebbero GPS, bussola ed effemeridi in tempo '
+      'reale.';
+
+  /// La riga del cielo di stanotte, dalla fase reale, per la scena.
+  static String cieloDiStanotte(BirthMoon luna) =>
+      NightSky.describeMoon(luna.phase);
+}

@@ -13,6 +13,11 @@ void main() {
     'striscia-del-giorno.png', // i quattro riti nella striscia del Santuario
     'runa-tramonto-chiusa.png', // Runa del Tramonto, stato chiuso
     'runa-tramonto.png', // Runa del Tramonto, stato estratto
+    'rito-sogno-nebbia.png', // Rito del Sogno, apertura nella nebbia
+    'rito-sogno-cielo.png', // Rito del Sogno, il cielo reale rivelato
+    'rito-sogno-costellazione.png', // Rito del Sogno, la costellazione unita
+    'rito-sogno.png', // Rito del Sogno, il saluto della notte
+    'rito-sogno-carta.png', // Rito del Sogno, la carta della notte
     'sigillo-cerchio.png', // Sigillo del Cerchio, nuova esperienza
     'santuario-alto.png', // Santuario, alto pulito
     'santuario-scaffale.png', // Santuario, scaffale funzioni a scorrimento

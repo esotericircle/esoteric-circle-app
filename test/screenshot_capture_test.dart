@@ -51,6 +51,10 @@ import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
+import 'package:esoteric_circle/core/rituals/dream_rite_corpus.dart';
+import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
+import 'package:esoteric_circle/features/rituals/dream_rite_card.dart';
+import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
@@ -928,6 +932,73 @@ void main() {
     await tester.tap(find.byKey(const Key('ritual_gesture')));
     await tester.pump(const Duration(milliseconds: 700));
     await capture(tester, rootKey, 'runa-tramonto.png');
+  });
+
+  // --- Il Rito del Sogno: nebbia, cielo, costellazione unita, saluto ---
+  testWidgets('Cattura il Rito del Sogno', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final quando = DateTime(2026, 7, 13, 22, 40);
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(DreamRiteScreen.route(now: quando)));
+    await step(tester);
+    await step(tester);
+    // Apertura nella nebbia, buio e ovattato.
+    await capture(tester, rootKey, 'rito-sogno-nebbia.png');
+
+    // La nebbia si dirada col ripiego tattile, emergono le stelle.
+    await tester.tap(find.byKey(const Key('dream_fog_skip')));
+    await step(tester);
+    await capture(tester, rootKey, 'rito-sogno-cielo.png');
+
+    // Si uniscono le stelle della costellazione del segno della Luna.
+    final figura = kZodiacConstellations
+        .firstWhere((c) => c.sign == NightSky.moonSign(quando));
+    for (var i = 0; i < figura.points.length; i++) {
+      await tester.tap(find.byKey(Key('dream_star_$i')));
+      await tester.pump(const Duration(milliseconds: 80));
+    }
+    await capture(tester, rootKey, 'rito-sogno-costellazione.png');
+
+    // Dalla figura unita scende il saluto della notte.
+    tester.view.physicalSize = const Size(390, 1250);
+    await tester.pump(const Duration(milliseconds: 1000));
+    await step(tester);
+    expect(find.byKey(const Key('dream_message')), findsOneWidget);
+    await capture(tester, rootKey, 'rito-sogno.png');
+  });
+
+  testWidgets('Cattura la carta della notte del Rito del Sogno',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final quando = DateTime(2026, 7, 13, 22, 40);
+    tester.view.physicalSize = const Size(460, 1100);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final maestro = DailyRituals.nightMaestro(quando);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        backgroundColor: const Color(0xFF05060C),
+        body: Center(
+          child: RepaintBoundary(
+            key: rootKey,
+            child: DreamRiteCard(
+              luna: DreamRiteCorpus.lunaDi(quando),
+              palette: MaestroPalette.forKey(ThemeKey.of(maestro)),
+              saluto: DreamRiteCorpus.saluto(quando),
+              maestroNome: maestro.displayName,
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await capture(tester, rootKey, 'rito-sogno-carta.png');
   });
 
   // --- Il Sigillo del Cerchio, emblema personale procedurale ---

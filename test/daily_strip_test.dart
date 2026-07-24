@@ -3,7 +3,7 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
 import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
-import 'package:esoteric_circle/features/rituals/night_rite_screen.dart';
+import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/daily_strip.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ void main() {
     for (final e in DailyElement.values) {
       expect(find.byKey(Key('daily_element_${e.name}')), findsOneWidget);
     }
-    // Il quinto appuntamento, il Rito della Buonanotte, e' presente.
+    // Il quinto appuntamento, il Rito del Sogno, e' presente.
     expect(find.byKey(const Key('daily_element_night')), findsOneWidget);
     expect(find.text('Notte'), findsOneWidget);
   });
@@ -155,7 +155,7 @@ void main() {
     expect(find.byType(SunsetRuneScreen), findsOneWidget);
   });
 
-  testWidgets('Il Rito della Buonanotte apre la sua esperienza', (tester) async {
+  testWidgets('Il Rito del Sogno apre la sua esperienza', (tester) async {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
     silenceSensors(binding);
     await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 23, 0))));
@@ -164,7 +164,7 @@ void main() {
     await tester.tap(find.byKey(const Key('daily_element_night')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 700));
-    expect(find.byType(NightRiteScreen), findsOneWidget);
+    expect(find.byType(DreamRiteScreen), findsOneWidget);
     expect(find.byType(DomainScreen), findsNothing);
   });
 
@@ -201,7 +201,7 @@ void main() {
     expect(find.byKey(const Key('daily_info_oracle')), findsNothing);
   });
 
-  testWidgets('Il popup del Rito della Buonanotte nomina il Maestro di turno',
+  testWidgets('Il popup del Rito del Sogno nomina il Maestro di turno',
       (tester) async {
     final now = DateTime(2026, 7, 14, 23, 0);
     await tester.pumpWidget(_host(DailyStrip(clock: () => now)));

@@ -57,16 +57,17 @@ enum DailyElement {
         'ti ha lasciato.',
   ),
   night(
-    title: 'Rito della Buonanotte',
+    title: 'Rito del Sogno',
     shortLabel: 'Notte',
     anchorHour: 22,
     anchorMinute: 30,
     guide: null,
     pushByDefault: true,
     description:
-        'Due minuti di rilascio a fine giornata: un respiro guidato, una parola '
-        'o una carta calmante, un suono di frequenze opzionale, il gesto di '
-        'lasciare andare il giorno, con ripiego tattile.',
+        'Uno sguardo al giorno appena concluso: la nebbia si dirada col fiato, '
+        'emergono le stelle del cielo notturno reale, unisci la costellazione '
+        'del segno in cui si trova la Luna adesso, poi il saluto della notte '
+        'con la sua carta. Ripiego tattile sempre presente.',
   );
 
   const DailyElement({

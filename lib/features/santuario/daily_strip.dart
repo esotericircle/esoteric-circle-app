@@ -11,7 +11,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../rituals/breath_destiny_screen.dart';
 import '../rituals/dawn_rite_screen.dart';
 import '../rituals/day_oracle_screen.dart';
-import '../rituals/night_rite_screen.dart';
+import '../rituals/dream_rite_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
 
 const Color _gold = Color(0xFFE8C463);
@@ -30,7 +30,7 @@ Route<void> dailyElementRoute(DailyElement element) {
     case DailyElement.rune:
       return SunsetRuneScreen.route();
     case DailyElement.night:
-      return NightRiteScreen.route();
+      return DreamRiteScreen.route();
   }
 }
 
