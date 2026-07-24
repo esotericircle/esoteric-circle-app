@@ -238,6 +238,9 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
       // Sogno vive dentro questo cielo, non sopra un riquadro.
       body: CosmosBackground(
         showZodiac: false,
+        // I dischi dei pianeti del cosmo restano spenti qui: la scena mette in
+        // campo la Luna reale e un suo pianeta lontano, senza sovrapporre sfere.
+        showPlanets: false,
         child: LayoutBuilder(
           builder: (context, box) {
             final w = box.maxWidth;
@@ -645,6 +648,31 @@ class _AzioniState extends State<_Azioni> {
 // I painter della scena: Luna reale, stelle vicine, foschia, fili di luce.
 // ---------------------------------------------------------------------------
 
+/// Un filamento a fuso fra due stelle: spessore [wEstremi] alle punte e
+/// [wCentro] al centro, cosi' la linea non e' un tratto uniforme ma si assottiglia
+/// verso le stelle. Due archi quadratici, uno per lato.
+Path _fuso(Offset a, Offset b, double wEstremi, double wCentro) {
+  final d = b - a;
+  final len = d.distance;
+  if (len < 0.5) return Path();
+  final n = Offset(-d.dy / len, d.dx / len); // perpendicolare unitaria
+  final m = Offset.lerp(a, b, 0.5)!;
+  // Il controllo che fa passare l'arco per il punto di mezzo alla larghezza data.
+  final k = 2 * wCentro - wEstremi;
+  final ca = m + n * k;
+  final cb = m - n * k;
+  final a1 = a + n * wEstremi;
+  final b1 = b + n * wEstremi;
+  final b2 = b - n * wEstremi;
+  final a2 = a - n * wEstremi;
+  return Path()
+    ..moveTo(a1.dx, a1.dy)
+    ..quadraticBezierTo(ca.dx, ca.dy, b1.dx, b1.dy)
+    ..lineTo(b2.dx, b2.dy)
+    ..quadraticBezierTo(cb.dx, cb.dy, a2.dx, a2.dy)
+    ..close();
+}
+
 /// Disegna una stella premium: alone a gradiente, nucleo e una piccola raggiera.
 void _stellaPremium(
   Canvas canvas,
@@ -725,22 +753,27 @@ class _ScenaPainter extends CustomPainter {
       ).createShader(Offset.zero & size);
     canvas.drawRect(Offset.zero & size, bordo);
 
-    // Stelle vicine, primo piano: poche, grandi, con raggiera e battito sfasato.
+    // Stelle vicine, primo piano: poche, grandi, col battito sfasato. La
+    // raggiera a croce resta a pochissime, le sole davvero brillanti, cosi' non
+    // sa di preset: tutte le altre hanno solo nucleo e alone.
     final vicine = spostamento * 0.9;
     final rng = math.Random(41);
+    var conRaggiera = 0;
     for (var i = 0; i < 16; i++) {
       final bx = rng.nextDouble();
       final by = rng.nextDouble() * 0.72;
       final base = 0.9 + rng.nextDouble() * 1.1;
       final sfasa = rng.nextDouble();
       final battito = 0.55 + 0.45 * math.sin((t + sfasa) * math.pi * 2);
+      final raggiera = base > 1.72 && conRaggiera < 3;
+      if (raggiera) conRaggiera++;
       _stellaPremium(
         canvas,
         Offset(bx * size.width + vicine.dx, by * size.height + vicine.dy),
         base,
         battito * luce * calo,
         colore: const Color(0xFFEAF0FF),
-        raggiera: base > 1.5,
+        raggiera: raggiera,
       );
     }
 
@@ -761,8 +794,52 @@ class _ScenaPainter extends CustomPainter {
       );
     }
 
+    // Un pianeta lontano, sul piano piu' profondo: piccolo, morbido, senza bordo
+    // netto, con un alone atmosferico tenue.
+    _pianetaLontano(canvas, size, spostamento * 0.16, luce * calo);
+
     // La Luna, sul suo piano, nella fase reale di stanotte.
     _luna(canvas, size, spostamento * 0.28, calo);
+  }
+
+  /// Un corpo distante nel cosmo, non una sfera in primo piano: l'alfa va a zero
+  /// sul bordo, cosi' non c'e' contorno, e una sfumatura di fase lo illumina da
+  /// un lato solo. Bassa opacita', perche' resti lontano.
+  void _pianetaLontano(Canvas canvas, Size size, Offset off, double vis) {
+    if (vis <= 0.01) return;
+    final c = Offset(size.width * 0.15, size.height * 0.36) + off;
+    final r = size.shortestSide * 0.026;
+
+    // Alone atmosferico, appena percepibile.
+    canvas.drawCircle(
+      c,
+      r * 3.0,
+      Paint()
+        ..shader = RadialGradient(colors: [
+          CosmosNebula.cool.withValues(alpha: 0.07 * vis),
+          const Color(0x00000000),
+        ]).createShader(Rect.fromCircle(center: c, radius: r * 3.0))
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 1.1),
+    );
+
+    // Il corpo: chiaro da un lato, in ombra dall'altro. La sfocatura sul corpo
+    // stesso toglie ogni bordo, cosi' resta un corpo distante e non una biglia.
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..shader = RadialGradient(
+          center: const Alignment(-0.5, -0.45),
+          radius: 1.2,
+          colors: [
+            CosmosNebula.core.withValues(alpha: 0.17 * vis),
+            CosmosNebula.mid.withValues(alpha: 0.07 * vis),
+            CosmosNebula.mid.withValues(alpha: 0.0),
+          ],
+          stops: const [0.0, 0.55, 1.0],
+        ).createShader(Rect.fromCircle(center: c, radius: r))
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.42),
+    );
   }
 
   void _luna(Canvas canvas, Size size, Offset off, double calo) {
@@ -981,18 +1058,17 @@ class _FigureLuminosePainter extends CustomPainter {
 
     final respiro = completa ? 0.75 + 0.25 * math.sin(t * math.pi * 2) : 1.0;
 
-    // I filamenti: alone esterno morbido, poi il cuore luminoso.
+    // I filamenti: alone esterno morbido, poi il cuore luminoso. Non tratti
+    // uniformi ma fusi, sottili vicino alle stelle e appena piu' pieni al
+    // centro, cosi' sembrano incisi di luce.
     final alone = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 7
-      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.fill
       ..color = palette.gold.withValues(alpha: 0.20 * respiro)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 7);
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
     final cuore = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = completa ? 2.0 : 1.6
-      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.fill
       ..color = const Color(0xFFFFF0C4).withValues(alpha: 0.92 * respiro);
+    final pieno = completa ? 1.35 : 1.05;
 
     var e = 0;
     for (final (a, b) in figura.edges) {
@@ -1002,8 +1078,8 @@ class _FigureLuminosePainter extends CustomPainter {
       }
       final pa = map(figura.points[a]);
       final pb = map(figura.points[b]);
-      canvas.drawLine(pa, pb, alone);
-      canvas.drawLine(pa, pb, cuore);
+      canvas.drawPath(_fuso(pa, pb, 1.1, 3.4), alone);
+      canvas.drawPath(_fuso(pa, pb, 0.3, pieno), cuore);
       // Lo scintillio che corre lungo il filamento.
       final s = ((t * 3 + e * 0.31) % 1.0);
       final punto = Offset.lerp(pa, pb, s)!;
@@ -1025,13 +1101,14 @@ class _FigureLuminosePainter extends CustomPainter {
       final battito = prossima
           ? 0.6 + 0.4 * math.sin(t * math.pi * 6)
           : (unita ? respiro : 0.7);
+      // Niente croce sulle stelle della figura: parlano gia' col nucleo pieno,
+      // con l'alone e coi filamenti. La raggiera resta alle pochissime del cielo.
       _stellaPremium(
         canvas,
         c,
         unita ? 2.3 : 1.7,
         unita ? 1.0 * battito : 0.8 * battito,
         colore: unita ? const Color(0xFFFFF6DA) : const Color(0xFFEAF0FF),
-        raggiera: true,
       );
       // Il lampo morbido dell'ultima stella unita.
       if (lampo >= 0 && unita && i == accese.length - 1) {

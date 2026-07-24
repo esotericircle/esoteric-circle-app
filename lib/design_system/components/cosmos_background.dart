@@ -31,6 +31,7 @@ class CosmosBackground extends StatefulWidget {
     required this.child,
     this.showZodiac = true,
     this.starKeepOut,
+    this.showPlanets = true,
   });
 
   final Widget child;
@@ -45,6 +46,12 @@ class CosmosBackground extends StatefulWidget {
   /// fondo ne' particelle vicine. Serve a tenere il cielo lontano dal testo del
   /// titolo, cosi' nessuna stella cade su una lettera. Null per nessuna zona.
   final Rect? starKeepOut;
+
+  /// Se falso, il cosmo non disegna i dischi dei pianeti soffusi. Lo spegne chi
+  /// mette in scena un corpo celeste suo, come il Rito del Sogno con la Luna e
+  /// il suo pianeta lontano, per non sovrapporre due sfere. Default acceso:
+  /// nessuna altra schermata cambia.
+  final bool showPlanets;
 
   @override
   State<CosmosBackground> createState() => _CosmosBackgroundState();
@@ -119,6 +126,7 @@ class _CosmosBackgroundState extends State<CosmosBackground>
                 showZodiac: widget.showZodiac,
                 reduceMotion: reduceMotion,
                 keepOut: widget.starKeepOut,
+                showPlanets: widget.showPlanets,
               ),
             ),
           ),
@@ -203,6 +211,7 @@ class _CosmosPainter extends CustomPainter {
     required this.showZodiac,
     required this.reduceMotion,
     required this.keepOut,
+    required this.showPlanets,
   }) : super(repaint: Listenable.merge([animation, parallax]));
 
   final Animation<double> animation;
@@ -211,6 +220,7 @@ class _CosmosPainter extends CustomPainter {
   final QualityTier tier;
   final Zodiac? highlighted;
   final bool showZodiac;
+  final bool showPlanets;
   final bool reduceMotion;
 
   /// Zona franca normalizzata dove non nascono stelle ne' particelle.
@@ -271,7 +281,7 @@ class _CosmosPainter extends CustomPainter {
     if (_dustStars > 0) _paintStarDust(canvas, size, deepOff, t);
     _paintFieldStars(canvas, size, farOff, t);
     _paintHeroStars(canvas, size, farOff, t);
-    if (_planetCount > 0) _paintPlanets(canvas, size, midOff);
+    if (showPlanets && _planetCount > 0) _paintPlanets(canvas, size, midOff);
     if (showZodiac) _paintZodiac(canvas, size, farOff, t);
     if (_nearCount > 0) _paintNearParticles(canvas, size, nearOff, t);
     if (_shootingStars) _paintShootingStars(canvas, size, farOff, t);
