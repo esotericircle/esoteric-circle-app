@@ -636,7 +636,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           alignment: Alignment.centerLeft,
           child: Text('La Runa del Tramonto',
               maxLines: 1,
-              style: TypographyTokens.display(size: 19)),
+              style: TypographyTokens.display(size: 20)),
         ),
         actions: [
           IconButton(
@@ -742,7 +742,10 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         ? ''
         : '${t.hour.toString().padLeft(2, '0')}:'
             '${t.minute.toString().padLeft(2, '0')}';
-    final stile = TypographyTokens.label(size: 10).copyWith(
+    // Misura reale, sopra il minimo del token: a 10 sarebbe stata alzata a 12.5
+    // in silenzio, e la gerarchia fra nota di servizio e invito sarebbe stata
+    // solo dichiarata, non vera.
+    final stile = TypographyTokens.label(size: 13).copyWith(
       color: Colors.white.withValues(alpha: 0.6),
       letterSpacing: 0.3,
       shadows: _ombraTesto,
@@ -777,7 +780,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                     BorderRadius.circular(SpacingTokens.radiusPill)),
           ),
           child: Text('Attiva la posizione',
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.label(size: 12.5)
                   .copyWith(color: _palette.goldSoft, letterSpacing: 0.6)),
         ),
       ],
@@ -975,7 +978,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   /// orfana da sola in fondo.
   String get _testoInvito {
     if (_fase == _Fase.getto) {
-      return 'Scuoti il telefono o tocca la pietra per gettarla.';
+      return 'Scuoti il telefono o tocca la pietra\nper gettarla.';
     }
     if (_riduciMovimento) return 'Tocca la pietra per incidere il simbolo.';
     return 'Traccia con il dito sulla pietra\ne scopri il simbolo.';
@@ -995,7 +998,11 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         child: Text(_testoInvito,
             key: const Key('sunset_invito'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 12).copyWith(
+            // L'invito e' un'istruzione del gesto, che nel design system sta
+            // nella famiglia del corpo testo alla misura di guida, non fra le
+            // etichette: label(size: 12) veniva per giunta alzato in silenzio a
+            // 12.5 dal clamp, quindi la gerarchia non esisteva a video.
+            style: TypographyTokens.body(size: TypographyTokens.guide).copyWith(
               color: Colors.white.withValues(alpha: 0.9),
               letterSpacing: 0.5,
               height: 1.5,
@@ -1020,7 +1027,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
               child: Text(SunsetRuneCorpus.intestazioneRitorno(_e.rune.name),
                   key: const Key('sunset_ritorno'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.label(size: 12).copyWith(
+                  style: TypographyTokens.label(size: 12.5).copyWith(
                       color: _palette.goldSoft, letterSpacing: 0.4, height: 1.4)),
             ),
           // La pietra che gira per svelare la seconda voce.
@@ -1034,7 +1041,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           ),
           Center(
             child: Text(_e.rune.keyword.toUpperCase(),
-                style: TypographyTokens.label(size: 11).copyWith(
+                style: TypographyTokens.label(size: 12.5).copyWith(
                     color: ColorTokens.textSecondary, letterSpacing: 1.4)),
           ),
           const SizedBox(height: 2),
@@ -1043,7 +1050,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 _e.simmetrica
                     ? SunsetRuneCorpus.noteSimmetrica
                     : (_e.inOmbra ? 'verso d\'ombra' : 'verso dritto'),
-                style: TypographyTokens.label(size: 12).copyWith(
+                style: TypographyTokens.label(size: 12.5).copyWith(
                     color: _palette.goldSoft.withValues(alpha: 0.8),
                     letterSpacing: 0.6)),
           ),
@@ -1053,7 +1060,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           const SizedBox(height: SpacingTokens.sm),
           Text(SunsetRuneCorpus.trasparenza(_e),
               key: const Key('sunset_trasparenza'),
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.label(size: 12.5).copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.2)),
           const SizedBox(height: SpacingTokens.lg),
           // Voce B dietro la rotazione della pietra.
@@ -1119,7 +1126,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           children: [
             Text('Gira la pietra',
                 key: const Key('sunset_gira'),
-                style: TypographyTokens.display(size: 18)
+                style: TypographyTokens.display(size: 20)
                     .copyWith(color: _palette.goldSoft)),
             const SizedBox(height: SpacingTokens.xs),
             // L'inclinazione si nomina solo quando il giroscopio ha risposto:
@@ -1130,7 +1137,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                         'volte: la pietra mostra il suo rovescio.'
                     : 'Tocca due volte: la pietra mostra il suo rovescio.',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 11).copyWith(
+                style: TypographyTokens.label(size: 12.5).copyWith(
                     color: ColorTokens.textSecondary, height: 1.4)),
           ],
         ),
@@ -1151,11 +1158,11 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(titolo.toUpperCase(),
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.label(size: 12.5)
                   .copyWith(color: _palette.goldSoft, letterSpacing: 0.8)),
           const SizedBox(height: SpacingTokens.xs),
           Text(testo,
-              style: TypographyTokens.body(size: 16)
+              style: TypographyTokens.body(size: 17)
                   .copyWith(color: ColorTokens.textPrimary, height: 1.55)),
         ],
       ),
@@ -1186,7 +1193,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         Text(_rigaSettimana(),
             key: const Key('sunset_settimana_riga'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 11)
+            style: TypographyTokens.label(size: 12.5)
                 .copyWith(color: ColorTokens.textSecondary, letterSpacing: 0.2)),
       ],
     );
@@ -1287,7 +1294,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       child: Column(
         children: [
           Text('IL SIGILLO DELLA SETTIMANA',
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.label(size: 12.5)
                   .copyWith(color: _palette.goldSoft, letterSpacing: 0.8)),
           const SizedBox(height: SpacingTokens.sm),
           BindruneSigillo(
@@ -1300,7 +1307,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           const SizedBox(height: SpacingTokens.sm),
           Text(didascalia,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 14)
+              style: TypographyTokens.body(size: 17)
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
         ],
       ),
@@ -1345,11 +1352,11 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Fonti e metodo',
-                    style: TypographyTokens.display(size: 19)
+                    style: TypographyTokens.display(size: 20)
                         .copyWith(color: _palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
                 Text(_fontiEMetodo(tramonto),
-                    style: TypographyTokens.body(size: 15).copyWith(
+                    style: TypographyTokens.body(size: 17).copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
                 const SizedBox(height: SpacingTokens.lg),
                 Align(
@@ -1667,6 +1674,18 @@ class _IncisionePainter extends CustomPainter {
   /// del ripiego con Riduci Movimento.
   final double? fantasma;
 
+  /// Lo stesso painter a un altro avanzamento. Serve alla misura dei pixel del
+  /// solco, che deve poter fotografare stati diversi del rendering vero senza
+  /// ricostruirne una copia approssimata.
+  _IncisionePainter copiaCon({double? progresso, bool? completa}) =>
+      _IncisionePainter(
+        runeName: runeName,
+        progresso: progresso ?? this.progresso,
+        palette: palette,
+        completa: completa ?? this.completa,
+        fantasma: fantasma,
+      );
+
   @override
   void paint(Canvas canvas, Size size) {
     final strokes = kRuneStrokes[runeName];
@@ -1707,14 +1726,22 @@ class _IncisionePainter extends CustomPainter {
     final spessore = lato * (0.115 + 0.06 * profondita);
     // Ombra portata dentro il solco, sul bordo alto: e' l'osso che sporge sopra
     // lo scavo. Marcata, perche' su pietra chiara e' lei a far leggere il segno.
+    // Regola: lo scarto su ciascun asse deve valere almeno 2.2 volte il sigma
+    // della sfocatura. Prima era 0.20 di scarto contro 0.34 di sigma, cioe' lo
+    // scarto era PIU' PICCOLO della sfocatura: l'ombra si spandeva concentrica
+    // attorno al tratto e leggeva come alone, non come profondita'.
+    const sigmaOmbra = 0.18;
+    const scartoPerAsse = 0.50; // 0.50 su 0.18 fa 2.8, sopra la regola di 2.2
     final ombraAlta = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = spessore * 1.15
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..color = const Color(0xFF2A1D0E).withValues(alpha: 0.55 * profondita)
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, spessore * 0.34);
-    final scartoOmbra = Offset(-spessore * 0.20, -spessore * 0.20);
+      ..maskFilter =
+          MaskFilter.blur(BlurStyle.normal, spessore * sigmaOmbra);
+    final scartoOmbra =
+        Offset(-spessore * scartoPerAsse, -spessore * scartoPerAsse);
     // Il fondo del solco: materia mancante, non luce. Bruno scuro con una
     // dominante calda che lo stacca dall'avorio della pietra senza sembrare
     // inchiostro steso sopra.
@@ -1798,14 +1825,17 @@ class _IncisionePainter extends CustomPainter {
       final orizzonte = Offset(
           size.width / 2, size.height / 2 + (size.height * 0.82) / 2 - 6);
       // Un accenno di luce, non una linea: il solco deve restare il solo segno
-      // marcato sulla pietra, il raggio lo accompagna appena.
+      // marcato sulla pietra, il raggio lo accompagna appena. Misura legata allo
+      // spessore, mai in pixel fissi, altrimenti ingrassa quando il solco e'
+      // sottile e si perde quando e' largo.
       canvas.drawLine(
         orizzonte,
         punta,
         Paint()
-          ..strokeWidth = 1.6
+          ..strokeWidth = spessore * 0.14
           ..strokeCap = StrokeCap.round
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.6)
+          ..maskFilter =
+              MaskFilter.blur(BlurStyle.normal, spessore * 0.14)
           ..shader = const LinearGradient(
             colors: [
               Color(0x00FFF3D0),
@@ -1813,13 +1843,24 @@ class _IncisionePainter extends CustomPainter {
             ],
           ).createShader(Rect.fromPoints(orizzonte, punta)),
       );
-      // Qualche scintilla sulla punta.
+      // Le scintille sulla punta, dove lo scalpello sta mordendo. Erano dischi
+      // bianchi duri con dispersione quasi pari alla semilarghezza del solco,
+      // quindi meta' cadeva sull'avorio della pietra e si leggeva come sporco.
+      // Ora sono minute, sfocate, nello stesso avorio caldo del labbro, e la
+      // dispersione le tiene dentro la scanalatura.
       final rng = math.Random((progresso * 1000).floor());
       for (var i = 0; i < 4; i++) {
+        final scarto = Offset(
+          (rng.nextDouble() - 0.5) * 2 * spessore * 0.30,
+          (rng.nextDouble() - 0.5) * 2 * spessore * 0.30,
+        );
         canvas.drawCircle(
-          punta + Offset((rng.nextDouble() - 0.5) * 10, (rng.nextDouble() - 0.5) * 10),
-          rng.nextDouble() * 1.4 + 0.4,
-          Paint()..color = Colors.white.withValues(alpha: 0.8),
+          punta + scarto,
+          spessore * (0.10 + rng.nextDouble() * 0.10),
+          Paint()
+            ..color = const Color(0xFFFFF6DC).withValues(alpha: 0.70)
+            ..maskFilter =
+                MaskFilter.blur(BlurStyle.normal, spessore * 0.14),
         );
       }
     }

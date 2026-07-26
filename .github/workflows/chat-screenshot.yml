@@ -55,12 +55,17 @@ jobs:
           fi
           git config user.name "Mauro Battaglia"
           git config user.email "cloud@esotericircle.app"
-          git add docs/preview/
+          # Solo l'anteprima che questo workflow produce davvero. Mettere in
+          # stage l'intera cartella committava anche cielo-sopra-di-te.png, che
+          # dipende dall'ora reale e cambia a ogni esecuzione: circa nove
+          # megabyte di blob accumulati per un aggiornamento che nessuno aveva
+          # chiesto, sotto un messaggio che parlava d'altro.
+          git add docs/preview/medora-chat.png
           if git diff --cached --quiet; then
             echo "Screenshot invariati, nessun commit."
             exit 0
           fi
-          git commit -m "docs: aggiorna anteprime chat Medora [skip ci]"
+          git commit -m "docs: aggiorna anteprima chat Medora [skip ci]"
           git push origin HEAD:claude/esoteric-circle-master-order-e798aj
 
       - name: Pubblica gli screenshot anche come artifact

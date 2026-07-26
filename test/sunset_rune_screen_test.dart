@@ -74,7 +74,7 @@ void main() {
 
     expect(find.byKey(const Key('sunset_stone')), findsOneWidget);
     expect(find.byKey(const Key('sunset_getto_gesture')), findsOneWidget);
-    expect(find.text('Scuoti il telefono o tocca la pietra per gettarla.'),
+    expect(find.text('Scuoti il telefono o tocca la pietra\nper gettarla.'),
         findsOneWidget);
     // Senza posizione, l'ora e' dichiarata stimata, con la voce per attivarla.
     expect(find.byKey(const Key('sunset_stimata')), findsOneWidget);
