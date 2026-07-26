@@ -53,8 +53,8 @@ jobs:
             echo "Nessuno screenshot generato, niente da committare."
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "Mauro Battaglia"
+          git config user.email "cloud@esotericircle.app"
           git add docs/preview/
           if git diff --cached --quiet; then
             echo "Screenshot invariati, nessun commit."

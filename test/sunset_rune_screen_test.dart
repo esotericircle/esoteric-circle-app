@@ -89,7 +89,12 @@ void main() {
     await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
     await passo(tester);
     expect(find.byKey(const Key('sunset_incisione_gesture')), findsOneWidget);
-    expect(find.text('Tieni il dito sulla pietra'), findsOneWidget);
+    expect(find.text('Tieni premuto il dito sulla pietra'), findsOneWidget);
+    // Qui Riduci Movimento e' attivo: la riga deve dire il gesto vero di QUEL
+    // caso, il tocco unico, e non promettere un tracciamento che li' non serve.
+    expect(find.text('Un tocco incide il segno per intero.'), findsOneWidget);
+    expect(find.text('Traccia con il dito e scopri il Simbolo sulla runa'),
+        findsNothing);
   });
 
   testWidgets('Incisa la runa, si aprono le due voci dietro la rotazione',
@@ -144,6 +149,85 @@ void main() {
     // Non e' passata alla lettura: il segno resta a meta'.
     expect(find.byKey(const Key('sunset_voce_uno')), findsNothing);
     expect(find.text('Il segno non è compiuto'), findsOneWidget);
+  });
+
+  testWidgets('Il tracciato del dito incide, senza aspettare il tempo',
+      (tester) async {
+    // La riga della pillola promette "Traccia con il dito e scopri il Simbolo":
+    // qui si blocca quella promessa. Il dito si muove entro un solo frame, quindi
+    // il contributo del tempo di pressione e' trascurabile: se il segno avanza,
+    // avanza per il movimento.
+    SharedPreferences.setMockInitialValues({});
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(MaterialApp(
+        home: SunsetRuneScreen(now: ora, dataNascita: DateTime(1988, 7, 5))));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    // Senza Riduci Movimento la riga promette il tracciamento.
+    expect(find.text('Traccia con il dito e scopri il Simbolo sulla runa'),
+        findsOneWidget);
+
+    final gesto = find.byKey(const Key('sunset_incisione_gesture'));
+    final centro = tester.getCenter(gesto);
+    double progresso() => (tester
+            .widget<CustomPaint>(find.byKey(const Key('sunset_incisione')))
+            .painter! as dynamic)
+        .progresso as double;
+
+    // Preme e supera la soglia del tocco prolungato, senza muoversi.
+    final g = await tester.startGesture(centro);
+    await tester.pump(const Duration(milliseconds: 600));
+    final fermo = progresso();
+
+    // Ora traccia, dentro un solo frame: nessun tempo in piu', solo percorso.
+    for (var i = 0; i < 6; i++) {
+      await g.moveBy(const Offset(0, 40));
+    }
+    await tester.pump(const Duration(milliseconds: 1));
+    final tracciato = progresso();
+    await g.up();
+    await tester.pump(const Duration(milliseconds: 200));
+
+    expect(tracciato, greaterThan(fermo),
+        reason: 'il tracciato del dito non fa avanzare il segno');
+    // E il guadagno e' quello del percorso, non un'inezia: duecentoquaranta
+    // punti su una runa a due tratti valgono quasi mezzo segno.
+    expect(tracciato - fermo, greaterThan(0.2));
+  });
+
+  testWidgets('Il tracciato non fa mai regredire il segno', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(MaterialApp(
+        home: SunsetRuneScreen(now: ora, dataNascita: DateTime(1988, 7, 5))));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    final centro =
+        tester.getCenter(find.byKey(const Key('sunset_incisione_gesture')));
+    double progresso() => (tester
+            .widget<CustomPaint>(find.byKey(const Key('sunset_incisione')))
+            .painter! as dynamic)
+        .progresso as double;
+
+    final g = await tester.startGesture(centro);
+    await tester.pump(const Duration(milliseconds: 600));
+    await g.moveBy(const Offset(0, 30));
+    await tester.pump(const Duration(milliseconds: 1));
+    final avanti = progresso();
+    // Torna indietro sullo stesso percorso: il segno non si disfa.
+    await g.moveBy(const Offset(0, -30));
+    await tester.pump(const Duration(milliseconds: 1));
+    expect(progresso(), greaterThanOrEqualTo(avanti));
+    await g.up();
+    await tester.pump(const Duration(milliseconds: 200));
   });
 
   testWidgets('Il sigillo compare alla settima sera, non prima', (tester) async {

@@ -86,48 +86,64 @@ void main() {
     }
   });
 
-  // Le sette anteprime della Runa del Tramonto devono mostrare il fondale
-  // fotografico vero, non il ripiego procedurale. Il ripiego e' un gradiente
-  // puramente verticale: lungo una riga orizzontale il colore non cambia quasi
-  // mai. Il fondale dipinto, invece, varia sempre anche in orizzontale. Si misura
-  // quindi quanti cambi di colore ci sono lungo le righe della fascia di cielo.
+  // Il fondale fotografico del tramonto deve esserci davvero, e non il ripiego
+  // procedurale che la schermata dipinge quando i webp mancano.
   //
-  // Taratura sulle anteprime reali: il valore piu' basso misurato con il fondale
-  // vero e' circa 246 cambi su una riga da 1170 punti; col ripiego procedurale
-  // scenderebbe quasi a zero. La soglia sta a 60, cioe' quattro volte sotto il
-  // caso peggiore buono: fallisce solo se il fondale manca davvero.
-  const anteprimeTramonto = <String>[
+  // Come si distinguono: il ripiego e' un gradiente verticale, quindi lungo una
+  // riga orizzontale il colore non cambia, se non per il dithering di un livello
+  // che il canvas applica sempre. Il fondale dipinto porta invece struttura vera.
+  // Per questo si contano solo i salti di almeno due livelli su un canale: sotto
+  // quella soglia si misurerebbe il rumore del gradiente, non il cielo.
+  //
+  // Dove si misura: SOLO nei novanta punti piu' a sinistra e nei novanta piu' a
+  // destra, e nella fascia fra il ventidue e il trenta per cento dell'altezza. Al
+  // centro ci sono pietra, card e testo, i cui bordi da soli farebbero passare il
+  // controllo anche senza cielo, cioe' per il motivo sbagliato.
+  //
+  // Quali anteprime: solo le tre in cui il cielo e' scoperto. Nelle quattro di
+  // lettura, sopra il fondale c'e' la velatura scura che lo spegne quasi del
+  // tutto, e la misura non separa i due casi: col fondale vero da' 0.5 cambi ogni
+  // cento punti, col ripiego 0.0, cioe' gli stessi numeri. Un controllo li' non
+  // bloccherebbe niente e darebbe solo una falsa sicurezza, quindi non si mette.
+  //
+  // Taratura sui file veri, cambi ogni cento punti, lato peggiore fra i due:
+  // attesa 7.1, getto 7.1, incisione 9.5. Rigenerando le stesse catture col
+  // fondale disattivato il valore scende a 0.00 su tutte e tre. La soglia sta a
+  // due, cioe' oltre tre volte sotto il caso buono peggiore e nettamente sopra
+  // lo zero del ripiego.
+  const anteprimeConCielo = <String>[
     'runa-tramonto-attesa.png',
     'runa-tramonto-getto.png',
     'runa-tramonto-incisione.png',
-    'runa-tramonto-voce-uno.png',
-    'runa-tramonto-voce-due.png',
-    'runa-tramonto-settimana.png',
-    'runa-tramonto-sigillo.png',
   ];
-  const sogliaCambi = 60;
+  const sogliaCambiPerCento = 2.0;
 
-  testWidgets('Le anteprime del Tramonto hanno il fondale vero, non il ripiego',
+  testWidgets('Le anteprime col cielo scoperto hanno il fondale vero',
       (tester) async {
-    for (final name in anteprimeTramonto) {
+    for (final name in anteprimeConCielo) {
       final file = File('docs/preview/$name');
       expect(file.existsSync(), isTrue, reason: 'manca $name');
-      late int cambi;
+      late double cambi;
       await tester.runAsync(() async {
-        cambi = await _cambiOrizzontaliNelCielo(file);
+        cambi = await _cambiNeiMarginiDelCielo(file);
       });
-      expect(cambi, greaterThan(sogliaCambi),
-          reason: 'In $name la fascia di cielo e piatta in orizzontale: '
-              'la cattura ha preso il ripiego procedurale invece del fondale. '
-              'Controlla il precarico dei tre webp in precacheTramonto.');
+      expect(cambi, greaterThan(sogliaCambiPerCento),
+          reason: 'In $name i margini di cielo sono piatti '
+              '(${cambi.toStringAsFixed(2)} cambi ogni cento punti): la cattura '
+              'ha preso il ripiego procedurale invece del fondale. Controlla il '
+              'precarico dei tre webp in precacheTramonto.');
     }
   });
 }
 
-/// Quanti cambi di colore ci sono lungo le righe della fascia di cielo, cioe'
-/// fra il dodici e il ventidue per cento dell'altezza, mediati sulle righe
-/// campionate. Zero, o quasi, vuol dire gradiente verticale puro.
-Future<int> _cambiOrizzontaliNelCielo(File file) async {
+/// I cambi di colore ogni cento punti lungo le righe della fascia di cielo,
+/// misurati solo nei margini laterali, dove il fondale e' scoperto, e contando
+/// solo i salti di almeno due livelli, cosi' il dithering del gradiente non
+/// viene scambiato per struttura. Si prende il lato peggiore fra sinistra e
+/// destra: basta un margine coperto per far scattare il controllo.
+Future<double> _cambiNeiMarginiDelCielo(File file) async {
+  const larghezzaMargine = 90;
+  const saltoMinimo = 2;
   final codec = await ui.instantiateImageCodec(await file.readAsBytes());
   final frame = await codec.getNextFrame();
   final img = frame.image;
@@ -135,24 +151,31 @@ Future<int> _cambiOrizzontaliNelCielo(File file) async {
   if (dati == null) return 0;
   final byte = dati.buffer.asUint8List();
   final w = img.width;
-  final da = (img.height * 0.12).round();
-  final a = (img.height * 0.22).round();
-  var totale = 0;
-  var righe = 0;
-  for (var y = da; y < a; y += 8) {
-    var cambi = 0;
-    for (var x = 1; x < w; x++) {
-      final i = (y * w + x) * 4;
-      final j = (y * w + x - 1) * 4;
-      if (byte[i] != byte[j] ||
-          byte[i + 1] != byte[j + 1] ||
-          byte[i + 2] != byte[j + 2]) {
-        cambi++;
+  final da = (img.height * 0.22).round();
+  final a = (img.height * 0.30).round();
+
+  double misura(int x0, int x1) {
+    var totale = 0;
+    var righe = 0;
+    for (var y = da; y < a; y += 4) {
+      for (var x = x0 + 1; x < x1; x++) {
+        final i = (y * w + x) * 4;
+        final j = (y * w + x - 1) * 4;
+        var salto = 0;
+        for (var c = 0; c < 3; c++) {
+          final d = (byte[i + c] - byte[j + c]).abs();
+          if (d > salto) salto = d;
+        }
+        if (salto >= saltoMinimo) totale++;
       }
+      righe++;
     }
-    totale += cambi;
-    righe++;
+    if (righe == 0) return 0;
+    return (totale / righe) / (x1 - x0) * 100;
   }
+
+  final sinistra = misura(0, larghezzaMargine);
+  final destra = misura(w - larghezzaMargine, w);
   img.dispose();
-  return righe == 0 ? 0 : totale ~/ righe;
+  return sinistra < destra ? sinistra : destra;
 }

@@ -9,7 +9,7 @@ import 'maestro_oracle.dart';
 
 /// Confine astratto verso l'AI a runtime dei Maestri.
 ///
-/// Regola d'oro dello stack: Claude costruisce, Gemini fa girare. La UI e i
+/// Regola d'oro dello stack: l'AI a runtime e' Gemini. La UI e i
 /// controller dipendono solo da questa astrazione, mai da Firebase o da Gemini
 /// direttamente. Cosi' domani si potra' incastrare davanti il gateway di
 /// caching (che intercetta circa il 70% delle richieste) senza toccare una riga

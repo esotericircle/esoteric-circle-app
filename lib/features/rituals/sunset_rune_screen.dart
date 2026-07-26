@@ -161,6 +161,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   int _trattiFatti = 0; // per il feedback aptico a ogni tratto
   bool _completa = false; // crossfade tratti verso l'asset avvenuto
   bool _premuto = false;
+  Offset? _ultimoPunto; // dove stava il dito al passo precedente del tracciato
   bool _giroFatto = false;
   bool _riduciMovimento = false;
 
@@ -350,9 +351,22 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   }
 
   // --- Gesto due: l'incisione ---
-  void _inizioIncisione() {
+  //
+  // Il segno si scava in due modi che si sommano: il tempo di pressione, che da
+  // solo basta a compiere la runa, e il tracciamento del dito sulla pietra, che
+  // e' il gesto vero del rituale e arriva in fondo prima. Nessuno dei due fa mai
+  // regredire il progresso.
+
+  /// Quanto percorso serve, in punti logici, perche' il solo tracciamento
+  /// compia il segno. Cresce coi tratti come la durata a dito fermo: la pietra
+  /// e' larga duecentoquaranta punti, quindi una runa a due tratti si incide con
+  /// un paio di passate decise, e tracciando si arriva prima che stando fermi.
+  double get _percorsoPerCompletare => _numeroTratti * 260.0;
+
+  void _inizioIncisione([Offset? punto]) {
     if (_fase != _Fase.incisione || _completa) return;
     _premuto = true;
+    _ultimoPunto = punto;
     // Alla ripresa NON si azzera il progresso: il primo tick fissa solo la base
     // temporale, cosi' una pausa lunga fra due pressioni non incide di colpo.
     _primoTick = true;
@@ -361,13 +375,44 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     setState(() {});
   }
 
+  /// Il dito che traccia: ogni pezzo di percorso scava, in proporzione alla
+  /// distanza coperta. Solo avanti, mai indietro.
+  void _muoveIncisione(Offset punto) {
+    if (_fase != _Fase.incisione || _completa) return;
+    final precedente = _ultimoPunto;
+    _ultimoPunto = punto;
+    if (precedente == null) return;
+    final tratto = (punto - precedente).distance;
+    if (tratto <= 0) return;
+    _avanza(tratto / _percorsoPerCompletare);
+  }
+
   void _fineIncisione() {
     if (_fase != _Fase.incisione) return;
     _premuto = false;
+    _ultimoPunto = null;
     // Il progresso resta dov'e', ma il ticker si ferma: mentre il dito e'
     // alzato il tempo non deve accumularsi e poi scaricarsi tutto alla ripresa.
     // Nel ripiego Riduci Movimento l'incisione va da se', quindi non si ferma.
     if (!_riduciMovimento) _incisioneTicker?.stop();
+    setState(() {});
+  }
+
+  /// L'unico punto in cui il segno avanza, da qualunque contributo arrivi:
+  /// tiene il feedback aptico a ogni tratto e il completamento in un posto solo.
+  void _avanza(double quota) {
+    if (quota <= 0 || _completa) return;
+    final prima = _incisione;
+    _incisione = (_incisione + quota).clamp(0.0, 1.0);
+    // Feedback aptico a ogni tratto completato.
+    final trattiOra = (_incisione * _numeroTratti).floor();
+    if (trattiOra > _trattiFatti) {
+      _trattiFatti = trattiOra;
+      HapticFeedback.selectionClick();
+    }
+    if (_incisione >= 1 && prima < 1) {
+      _completaIncisione();
+    }
     setState(() {});
   }
 
@@ -391,18 +436,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       if (dt > 0.05) dt = 0.05;
       if (!_premuto) return;
     }
-    final prima = _incisione;
-    _incisione = (_incisione + dt / durata).clamp(0.0, 1.0);
-    // Feedback aptico a ogni tratto completato.
-    final trattiOra = (_incisione * _numeroTratti).floor();
-    if (trattiOra > _trattiFatti) {
-      _trattiFatti = trattiOra;
-      HapticFeedback.selectionClick();
-    }
-    if (_incisione >= 1 && prima < 1) {
-      _completaIncisione();
-    }
-    setState(() {});
+    _avanza(dt / durata);
   }
 
   void _completaIncisione() {
@@ -758,7 +792,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     return GestureDetector(
       key: const Key('sunset_incisione_gesture'),
       behavior: HitTestBehavior.opaque,
-      onLongPressStart: (_) => _inizioIncisione(),
+      onLongPressStart: (d) => _inizioIncisione(d.localPosition),
+      onLongPressMoveUpdate: (d) => _muoveIncisione(d.localPosition),
       onLongPressEnd: (_) => _fineIncisione(),
       onTap: _riduciMovimento ? _inizioIncisione : null,
       child: SizedBox(
@@ -843,28 +878,35 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         ? 'Scuoti per gettare la runa'
         : (_incisione > 0 && _incisione < 1 && !_premuto
             ? 'Il segno non è compiuto'
-            : 'Tieni il dito sulla pietra');
+            : 'Tieni premuto il dito sulla pietra');
+    // La riga di ripiego dice il gesto vero, quello che l'app implementa: col
+    // tracciamento se c'e', col solo tocco quando Riduci Movimento e' attivo.
     final ripiego = _fase == _Fase.getto
         ? 'Se preferisci, tocca la pietra per gettarla.'
         : (_riduciMovimento
             ? 'Un tocco incide il segno per intero.'
-            : 'Tieni premuto: il segno si scava fino a dove arrivi.');
+            : 'Traccia con il dito e scopri il Simbolo sulla runa');
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
       child: Column(
         children: [
+          // Un'etichetta, non un pulsante: niente bordo oro pieno ne' sagoma a
+          // pillola come i comandi veri, perche' non e' toccabile e non fa
+          // nulla. Resta un velo scuro appena accennato, che tiene leggibile il
+          // testo su tutti e tre i fondali senza promettere un tocco.
           Container(
             padding: const EdgeInsets.symmetric(
-                horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+                horizontal: SpacingTokens.sm, vertical: 4),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-              color: _palette.deepest.withValues(alpha: 0.5),
-              border: Border.all(color: _palette.gold.withValues(alpha: 0.5)),
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+              color: _palette.deepest.withValues(alpha: 0.42),
             ),
             child: Text(testo,
                 key: const Key('sunset_prompt'),
-                style: TypographyTokens.label(size: 12)
-                    .copyWith(color: _palette.goldSoft, letterSpacing: 0.6)),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.label(size: 12).copyWith(
+                    color: Colors.white.withValues(alpha: 0.92),
+                    letterSpacing: 0.6)),
           ),
           const SizedBox(height: SpacingTokens.sm),
           Text(ripiego,
@@ -1566,16 +1608,20 @@ class _IncisionePainter extends CustomPainter {
     // larghezza nasce dal lato del glifo, e la profondita' cresce col gesto,
     // cosi' a meta' incisione il solco e' meno inciso che a segno compiuto.
     final profondita = 0.45 + 0.55 * progresso.clamp(0.0, 1.0);
-    final spessore = lato * (0.10 + 0.05 * profondita);
-    // Ombra esterna del solco, che lo stacca dalla superficie.
-    final ombra = Paint()
+    final spessore = lato * (0.115 + 0.06 * profondita);
+    // Ombra portata dentro il solco, sul bordo alto: e' l'osso che sporge sopra
+    // lo scavo. Marcata, perche' su pietra chiara e' lei a far leggere il segno.
+    final ombraAlta = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = spessore * 1.25
+      ..strokeWidth = spessore * 1.15
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..color = _ossoVena.withValues(alpha: 0.22 * profondita)
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, spessore * 0.5);
-    // Il fondo del solco, scuro: e' materia mancante, non luce.
+      ..color = const Color(0xFF2A1D0E).withValues(alpha: 0.55 * profondita)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, spessore * 0.34);
+    final scartoOmbra = Offset(-spessore * 0.20, -spessore * 0.20);
+    // Il fondo del solco: materia mancante, non luce. Bruno scuro con una
+    // dominante calda che lo stacca dall'avorio della pietra senza sembrare
+    // inchiostro steso sopra.
     final fondo = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = spessore
@@ -1583,17 +1629,27 @@ class _IncisionePainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.round
       ..color = (completa
               ? const Color(0xFF6E2410)
-              : const Color(0xFF3B2F1E))
-          .withValues(alpha: 0.72 + 0.24 * profondita);
-    // La luce sul bordo alto del solco, scostata in diagonale: cosi' il rilievo
-    // si legge sia sui tratti verticali sia su quelli obliqui.
-    final bordoLuce = Paint()
+              : const Color(0xFF3A2410))
+          .withValues(alpha: 0.82 + 0.10 * profondita);
+    // Il nucleo piu' cupo al centro dello scavo: da' fondo al solco.
+    final nucleo = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = spessore * 0.28
+      ..strokeWidth = spessore * 0.52
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..color = const Color(0xFFFFF8E4).withValues(alpha: 0.8);
-    final scartoLuce = Offset(-spessore * 0.24, -spessore * 0.24);
+      ..color = (completa
+              ? const Color(0xFF4A1408)
+              : const Color(0xFF1C1206))
+          .withValues(alpha: 0.55 * profondita);
+    // Il lume sul bordo opposto all'ombra, in basso a destra: e' il labbro dello
+    // scavo che prende luce, e chiude la lettura del rilievo.
+    final bordoLuce = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = spessore * 0.30
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..color = const Color(0xFFFFFBF0).withValues(alpha: 0.92);
+    final scartoLuce = Offset(spessore * 0.30, spessore * 0.30);
 
     var fatto = 0.0;
     Offset? punta;
@@ -1617,10 +1673,12 @@ class _IncisionePainter extends CustomPainter {
           break;
         }
       }
-      // Tre passate: ombra, fondo scavato, luce sul bordo alto.
-      canvas.drawPath(path, ombra);
-      canvas.drawPath(path, fondo);
+      // Quattro passate, dall'alto del bordo al fondo dello scavo: ombra
+      // portata, lume sul labbro opposto, fondo del solco, nucleo cupo.
+      canvas.drawPath(path.shift(scartoOmbra), ombraAlta);
       canvas.drawPath(path.shift(scartoLuce), bordoLuce);
+      canvas.drawPath(path, fondo);
+      canvas.drawPath(path, nucleo);
       punta = map(ultimo);
     }
 
