@@ -7,6 +7,8 @@ import '../../core/astro/sky_location.dart';
 import '../../core/astro/sunset_time.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_elements.dart';
+import '../../core/rituals/sunset_rune.dart';
+import '../../core/rituals/sunset_rune_memory.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -313,7 +315,8 @@ class _DailyStripState extends State<DailyStrip>
   late final AnimationController _pulse;
   final ScrollController _scroll = ScrollController();
   Timer? _tick; // fa scorrere il conto alla rovescia al tramonto
-  SkyPlace? _luogo; // la posizione reale, quando l'utente l'ha attivata
+  SkyPlace? _luogo; // la posizione reale, solo se il permesso e' gia' concesso
+  String? _runaApertaIl; // il giorno rituale della runa gia' vissuta
 
   // Largo abbastanza da tenere intero il nome piu' lungo, "Tramonto", insieme
   // al cerchio "?", senza mai troncare l'etichetta ne' sforare la riga.
@@ -335,19 +338,58 @@ class _DailyStripState extends State<DailyStrip>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) setState(() {});
     });
-    // Il conto alla rovescia scorre ogni trenta secondi, senza ricostruire piu'
-    // del necessario: quando arriva a zero la casella si accende da sola.
-    _tick = Timer.periodic(const Duration(seconds: 30), (_) {
-      if (mounted) setState(() {});
-    });
-    // La posizione reale, se attiva, allinea il conto della striscia a quello
-    // della schermata. Non blocca: se manca, resta la stima dal fuso.
+    _programmaTick();
+    // La posizione reale allinea il conto a quello della schermata, ma SOLO se
+    // il permesso e' gia' concesso: aprire il Santuario non deve mai far
+    // comparire il dialogo del GPS. La richiesta esplicita vive nella Runa,
+    // dietro "Attiva la posizione".
     _risolviLuogo();
+    // Se la runa di stasera e' gia' stata vissuta, la casella e' accesa e muta.
+    _leggiRunaAperta();
   }
 
   Future<void> _risolviLuogo() async {
-    final luogo = await widget.location.resolve();
+    final luogo = await widget.location.resolveSeConcesso();
     if (luogo != null && mounted) setState(() => _luogo = luogo);
+  }
+
+  Future<void> _leggiRunaAperta() async {
+    final ultima = await SunsetRuneMemory.ultimaPerCerniera();
+    if (ultima != null && mounted) {
+      setState(() => _runaApertaIl = ultima.giorno);
+    }
+  }
+
+  // Il conto alla rovescia batte ogni trenta secondi finche' c'e' qualcosa da
+  // contare. Passato il tramonto si ferma, e resta un solo risveglio al prossimo
+  // cambio di giorno rituale, cosi' a notte fonda la striscia non si ricostruisce
+  // per sempre a vuoto.
+  void _programmaTick() {
+    _tick?.cancel();
+    final now = _clock();
+    if (_contoTramonto(now) != null) {
+      _tick = Timer.periodic(const Duration(seconds: 30), (_) {
+        if (!mounted) return;
+        setState(() {});
+        // Appena il conto finisce, si riprogramma: il periodico si spegne.
+        if (_contoTramonto(_clock()) == null) _programmaTick();
+      });
+      return;
+    }
+    final risveglio = _prossimoConfineRituale(now);
+    _tick = Timer(risveglio.difference(now), () {
+      if (!mounted) return;
+      setState(() {});
+      _programmaTick();
+    });
+  }
+
+  /// Il prossimo mezzogiorno locale, cioe' il confine del giorno rituale.
+  DateTime _prossimoConfineRituale(DateTime now) {
+    final mezzogiorno = DateTime(now.year, now.month, now.day, 12);
+    return now.isBefore(mezzogiorno)
+        ? mezzogiorno
+        : mezzogiorno.add(const Duration(days: 1));
   }
 
   @override
@@ -363,32 +405,42 @@ class _DailyStripState extends State<DailyStrip>
     open(context, element);
   }
 
-  // Il conto alla rovescia al tramonto per la casella della Runa, con l'ora
-  // stimata dal fuso, la stessa che la schermata usa quando la posizione non e'
-  // attiva. Prima del tramonto mostra "tra Xh Ymin"; all'ora vera la casella si
-  // accende e il conto sparisce. Nessuna rete, tutto offline.
-  DateTime _tramontoDi(DateTime now) {
+  // Il conto alla rovescia al tramonto per la casella della Runa. Il confine di
+  // giornata e' UNO SOLO, quello della schermata: `SunsetRune.giornoRituale`, con
+  // confine a mezzogiorno. Cosi' fra mezzanotte e mezzogiorno la striscia non
+  // annuncia un tramonto di diciassette ore mentre la schermata serve ancora la
+  // runa di ieri. Nessuna rete, tutto offline.
+  DateTime _tramontoDelGiornoRituale(DateTime now) {
     final offset = now.timeZoneOffset;
-    // La posizione reale quando c'e', altrimenti la stima dal fuso: la stessa
-    // fonte della schermata, cosi' i due numeri non possono divergere.
+    // La posizione reale quando il permesso c'e' gia', altrimenti la stima dal
+    // fuso: la stessa fonte della schermata, cosi' i due numeri non divergono.
     final lat = _luogo?.latitude ?? SunsetTime.latDiRipiego;
     final lon = _luogo?.longitude ?? SunsetTime.longitudineDaFuso(offset);
-    return SunsetTime.perData(now, lat: lat, lon: lon, offset: offset) ??
-        SunsetTime.oraMedia(now);
+    final giorno = SunsetRune.giornoRituale(now);
+    return SunsetTime.perData(giorno, lat: lat, lon: lon, offset: offset) ??
+        SunsetTime.oraMedia(giorno);
   }
 
+  /// Vero se la runa del giorno rituale corrente e' gia' stata aperta.
+  bool _runaGiaVissuta(DateTime now) =>
+      _runaApertaIl != null &&
+      _runaApertaIl == SunsetRune.iso(SunsetRune.giornoRituale(now));
+
   String? _contoTramonto(DateTime now) {
-    final minuti = _tramontoDi(now).difference(now).inMinutes;
+    // Se la runa di stasera e' gia' stata vissuta, nessun conto: e' fatta.
+    if (_runaGiaVissuta(now)) return null;
+    final minuti = _tramontoDelGiornoRituale(now).difference(now).inMinutes;
     if (minuti <= 0) return null;
     final h = minuti ~/ 60;
     final m = minuti % 60;
     return h > 0 ? 'tra ${h}h ${m}min' : 'tra ${m}min';
   }
 
-  // La casella della Runa e' accesa quando il tramonto e' passato: il conto e'
-  // arrivato a zero e il Dono della sera si puo' vivere.
+  // La casella della Runa e' accesa quando il tramonto del giorno rituale e'
+  // passato, oppure quando la runa di stasera e' gia' stata vissuta.
   bool _tramontoArrivato(DateTime now) =>
-      !now.isBefore(_tramontoDi(now));
+      _runaGiaVissuta(now) ||
+      !now.isBefore(_tramontoDelGiornoRituale(now));
 
   @override
   Widget build(BuildContext context) {
@@ -565,6 +617,57 @@ class _StripItem extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         width: width,
+        child: Stack(
+          fit: StackFit.passthrough,
+          children: [
+            _corpo(),
+            // Il bersaglio del controllo di aiuto, quarantaquattro per
+            // quarantaquattro, sovrapposto al cerchio "?" senza toccarne il
+            // disegno: nel flusso verticale non entrerebbe, perche' la casella e'
+            // alta quanto l'icona piu' l'etichetta. Si posa sul cerchio misurando
+            // l'etichetta, senza aggiungere testo all'albero.
+            Align(
+              alignment: Alignment.center,
+              child: Transform.translate(
+                offset: Offset(_scartoOrizzontaleAiuto, _scartoAiuto),
+                child: GestureDetector(
+                  key: Key('daily_help_target_${element.name}'),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: onInfo,
+                  child: const SizedBox(width: 44, height: 44),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Lo scarto verticale del bersaglio di aiuto dal centro della casella. Il
+  /// cerchio "?" sta circa venti punti sotto il centro; il bersaglio si posa a
+  /// ventitre, cosi' la sua fascia alta non copre il centro dell'icona, che deve
+  /// restare il tocco che apre il Dono.
+  static const double _scartoAiuto = 23;
+
+  /// Lo scarto orizzontale del centro del cerchio "?" dal centro della casella.
+  /// La riga e' etichetta piu' cinque piu' diciotto, centrata: il cerchio cade a
+  /// destra di meta' etichetta piu' due e mezzo.
+  double get _scartoOrizzontaleAiuto {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: element.shortLabel,
+        style: TypographyTokens.label(size: 10).copyWith(letterSpacing: 0.4),
+      ),
+      maxLines: 1,
+      textDirection: TextDirection.ltr,
+    )..layout();
+    return tp.width / 2 + 2.5;
+  }
+
+  Widget _corpo() {
+    return SizedBox(
+        width: width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -626,27 +729,25 @@ class _StripItem extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 5),
-                GestureDetector(
+                // Solo disegno: il tocco lo raccoglie il bersaglio sovrapposto,
+                // largo quarantaquattro, cosi' il dito non deve centrare 18 punti.
+                Container(
                   key: Key('daily_help_button_${element.name}'),
-                  behavior: HitTestBehavior.opaque,
-                  onTap: onInfo,
-                  child: Container(
-                    width: 18,
-                    height: 18,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: ColorTokens.neutralDeepest.withValues(alpha: 0.7),
-                      border: Border.all(
-                        color: accent.withValues(alpha: 0.6),
-                      ),
+                  width: 18,
+                  height: 18,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: ColorTokens.neutralDeepest.withValues(alpha: 0.7),
+                    border: Border.all(
+                      color: accent.withValues(alpha: 0.6),
                     ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '?',
-                      style: TypographyTokens.label(size: 10).copyWith(
-                        color: accent.withValues(alpha: 0.95),
-                        letterSpacing: 0,
-                      ),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    '?',
+                    style: TypographyTokens.label(size: 10).copyWith(
+                      color: accent.withValues(alpha: 0.95),
+                      letterSpacing: 0,
                     ),
                   ),
                 ),
@@ -669,8 +770,6 @@ class _StripItem extends StatelessWidget {
                     ),
             ),
           ],
-        ),
-      ),
-    );
+        ));
   }
 }

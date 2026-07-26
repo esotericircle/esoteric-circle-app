@@ -231,7 +231,7 @@ class SunsetRuneCorpus {
     "libra":
         "Con la soglia della Bilancia, posa i piatti: la notte non chiede equilibrio, chiede riposo.",
     "scorpio":
-        "Con la profondità dello Scorpione, lascia scendere il fondo: al buio la verità non ferisce.",
+        "Con la profondità dello Scorpione, lascia scendere lo sguardo al fondo: al buio la verità non ferisce.",
     "sagittarius":
         "Con lo slancio del Sagittario, abbassa l'arco: gli orizzonti aspettano il mattino.",
     "capricorn":
@@ -275,9 +275,11 @@ class SunsetRuneCorpus {
   static String registroLunare(MoonPhase fase) =>
       _registroLunare[fase.italianName] ?? _registroNeutro;
 
-  /// La clausola del segno solare, oppure stringa vuota: la frase deve reggere
-  /// anche senza, e la Voce B non lascia mai uno spazio pendente.
-  static String clausolaSegno(Zodiac segno) => _clausolaSegno[segno.id] ?? "";
+  /// La clausola del segno solare, oppure stringa vuota quando il segno non si
+  /// sa o non e' in mappa: la frase deve reggere anche senza, e la Voce B non
+  /// lascia mai uno spazio pendente ne' nomina un segno che l'utente non ha dato.
+  static String clausolaSegno(Zodiac? segno) =>
+      segno == null ? "" : (_clausolaSegno[segno.id] ?? "");
 
   /// La clausola di insistenza numero [i], modulo quattro.
   static String insistenza(int i) => _insistenza[i % _insistenza.length];
@@ -304,11 +306,16 @@ class SunsetRuneCorpus {
       .where((p) => p.isNotEmpty)
       .join(" ");
 
-  /// La riga di trasparenza dei tre fattori: runa e verso, fase lunare, segno.
+  /// La riga di trasparenza dei fattori: runa e verso, fase lunare, e il segno
+  /// solo quando si sa. Senza segno la riga si chiude sulla fase, senza nominare
+  /// un segno che l'utente non ha dato.
   static String trasparenza(EstrazioneTramonto e) {
     final v = e.inOmbra ? "in merkstave" : "dritta";
-    return "${e.rune.name} $v, ${e.fase.italianName.toLowerCase()}, "
-        "sotto il segno ${e.segno.italianName}.";
+    final segno = e.segno;
+    final testa = "${e.rune.name} $v, ${e.fase.italianName.toLowerCase()}";
+    return segno == null
+        ? "$testa."
+        : "$testa, sotto il segno ${segno.italianName}.";
   }
 
   /// L'intestazione della runa che torna entro sette sere.

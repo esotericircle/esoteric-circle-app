@@ -21,7 +21,11 @@ class EstrazioneTramonto {
   final Rune rune;
   final RuneVerso verso;
   final MoonPhase fase;
-  final Zodiac segno;
+
+  /// Il segno solare, se l'utente lo ha davvero dato o se si deriva dalla sua
+  /// data di nascita. Null quando non si sa: l'app non ne inventa uno, e la
+  /// clausola del segno si omette invece di dire il falso su chi legge.
+  final Zodiac? segno;
 
   /// L'identita' usata nella chiave: la nascita o l'id del dispositivo. La
   /// conserva cosi' l'insistenza usa la stessa, senza ricalcolarla.
@@ -94,8 +98,10 @@ class SunsetRune {
     DateTime? istanteTramonto,
   }) {
     final giorno = giornoRituale(ora);
+    // Il segno si usa solo se dato o derivabile dalla nascita. Se non si sa,
+    // resta null: nessun segno inventato, e la chiave lo dichiara assente.
     final segnoUtente = segno ??
-        (dataNascita != null ? Zodiac.fromDate(dataNascita) : Zodiac.aries);
+        (dataNascita != null ? Zodiac.fromDate(dataNascita) : null);
     final chiave = _chiave(giorno, identita, segnoUtente);
 
     final indice = _fnv1a(chiave) % kElderFuthark.length;
@@ -137,8 +143,10 @@ class SunsetRune {
       "${d.month.toString().padLeft(2, '0')}-"
       "${d.day.toString().padLeft(2, '0')}";
 
-  static String _chiave(DateTime giorno, String identita, Zodiac segno) {
-    return "sunset_rune|${iso(giorno)}|$identita|${segno.id}";
+  static String _chiave(DateTime giorno, String identita, Zodiac? segno) {
+    // "nessuno" quando il segno non si sa: la chiave resta stabile e distinta,
+    // senza far finta che l'utente sia dell'Ariete.
+    return "sunset_rune|${iso(giorno)}|$identita|${segno?.id ?? 'nessuno'}";
   }
 
   /// FNV-1a a 64 bit. Su interi nativi a 64 bit l'overflow avvolge, quindi e'

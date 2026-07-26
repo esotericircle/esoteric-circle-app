@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../../../rituals/rune_strokes.dart';
@@ -30,6 +32,135 @@ class BindruneSigillo extends StatelessWidget {
   /// usa il sigillo della settimana, che intreccia sette rune: senza, i tratti
   /// comuni si addenserebbero. L'Estrazione Rune lo lascia falso, invariata.
   final bool deduplica;
+
+  /// L'estremo alto e quello basso dello stelo, in coordinate normalizzate: alto
+  /// il settanta per cento del riquadro, centrato.
+  static const double steloAlto = 0.15;
+  static const double steloBasso = 0.85;
+
+  /// Il numero massimo di rami del sigillo: oltre, il segno non si legge piu'.
+  static const int maxRami = 7;
+
+  /// I rami del sigillo in coordinate normalizzate, uno per runa unica, gia'
+  /// agganciati allo stelo e ripiegati su un solo lato. E' la geometria vera del
+  /// disegno, esposta cosi' che il test possa verificarla senza dipingere.
+  ///
+  /// Ogni ramo nasce dal punto piu' vicino all'asse della runa, viene ripiegato
+  /// tutto da una parte (quindi non attraversa mai lo stelo), scalato per stare
+  /// nel riquadro e portato alla sua quota. Le rune di solo stelo, come Isa, non
+  /// generano rami: contribuiscono soltanto allo stelo condiviso.
+  static List<List<Offset>> ramiDi(List<String> runeNames) {
+    // Una runa per volta, senza ripetizioni, fino al massimo dei rami.
+    final viste = <String>{};
+    final grezzi = <List<Offset>>[];
+    for (final name in runeNames) {
+      if (grezzi.length >= maxRami) break;
+      if (!viste.add(name)) continue;
+      final ramo = _ramoPrincipale(name);
+      if (ramo != null) grezzi.add(ramo);
+    }
+    if (grezzi.isEmpty) return const [];
+
+    // Le quote lungo lo stelo, distribuite, con un margine agli estremi cosi' il
+    // ramo non tocca mai la punta.
+    const primo = steloAlto + 0.06;
+    const ultimo = steloBasso - 0.06;
+    final n = grezzi.length;
+    final passo = n == 1 ? 0.0 : (ultimo - primo) / (n - 1);
+
+    // Estensione massima di un ramo: mai oltre il riquadro, con un margine.
+    const estensione = 0.30;
+    const altezzaMax = 0.24;
+
+    final quoteUsate = <int, List<double>>{}; // per lato, le quote occupate
+    final rami = <List<Offset>>[];
+    for (var i = 0; i < n; i++) {
+      final grezzo = grezzi[i];
+      final lato = i.isEven ? 1 : -1; // destra, sinistra, destra...
+      var quota = n == 1 ? (primo + ultimo) / 2 : primo + passo * i;
+      // Se un ramo cade troppo vicino a un altro dello stesso lato, si sposta.
+      final occupate = quoteUsate.putIfAbsent(lato, () => <double>[]);
+      final minimo = passo == 0 ? 0.12 : passo * 0.5;
+      while (occupate.any((q) => (q - quota).abs() < minimo)) {
+        quota += minimo;
+      }
+      occupate.add(quota);
+
+      // Ripiegatura su un lato: si prende la distanza dall'innesto in valore
+      // assoluto, cosi' nessun punto passa dall'altra parte dello stelo.
+      var largo = 0.0;
+      var alto = 0.0;
+      for (final p in grezzo) {
+        largo = p.dx.abs() > largo ? p.dx.abs() : largo;
+        alto = p.dy.abs() > alto ? p.dy.abs() : alto;
+      }
+      var scala = 1.0;
+      if (largo > 0) scala = math.min(scala, estensione / largo);
+      if (alto > 0) scala = math.min(scala, (altezzaMax / 2) / alto);
+
+      final ramo = <Offset>[];
+      for (final p in grezzo) {
+        final x = 0.5 + lato * p.dx.abs() * scala;
+        final y = quota + p.dy * scala;
+        ramo.add(Offset(x.clamp(0.02, 0.98), y.clamp(0.02, 0.98)));
+      }
+      rami.add(ramo);
+    }
+    return rami;
+  }
+
+  /// Il ramo principale di una runa, in coordinate relative all'innesto: la
+  /// spezzata non verticale piu' estesa, traslata sul suo punto d'aggancio.
+  /// Null per le rune di solo stelo.
+  static List<Offset>? _ramoPrincipale(String name) {
+    final strokes = kRuneStrokes[name];
+    if (strokes == null) return null;
+    // L'asse verticale della runa, se c'e': i rami si agganciano a quello.
+    var asseX = 0.5;
+    var trovata = false;
+    for (final poly in strokes) {
+      final xs = poly.map((p) => p.dx);
+      final ys = poly.map((p) => p.dy);
+      final dx = xs.reduce(math.max) - xs.reduce(math.min);
+      final dy = ys.reduce(math.max) - ys.reduce(math.min);
+      if (dx < 0.08 && dy > 0.5) {
+        asseX = (xs.reduce(math.max) + xs.reduce(math.min)) / 2;
+        trovata = true;
+        break;
+      }
+    }
+    // Fra le spezzate non verticali, quella con l'estensione maggiore.
+    List<Offset>? scelto;
+    var miglior = 0.0;
+    for (final poly in strokes) {
+      final xs = poly.map((p) => p.dx);
+      final ys = poly.map((p) => p.dy);
+      final dx = xs.reduce(math.max) - xs.reduce(math.min);
+      final dy = ys.reduce(math.max) - ys.reduce(math.min);
+      if (dx < 0.08 && dy > 0.5) continue; // e' l'asta, la fa lo stelo
+      final est = dx + dy;
+      if (est > miglior) {
+        miglior = est;
+        scelto = poly;
+      }
+    }
+    if (scelto == null) return null; // solo stelo: nessun ramo
+    if (!trovata) {
+      final xs = scelto.map((p) => p.dx);
+      asseX = (xs.reduce(math.max) + xs.reduce(math.min)) / 2;
+    }
+    // L'innesto e' il punto piu' vicino all'asse: da lui parte il ramo.
+    var innesto = scelto.first;
+    var minDist = (innesto.dx - asseX).abs();
+    for (final p in scelto) {
+      final d = (p.dx - asseX).abs();
+      if (d < minDist) {
+        minDist = d;
+        innesto = p;
+      }
+    }
+    return [for (final p in scelto) Offset(p.dx - innesto.dx, p.dy - innesto.dy)];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,11 +202,11 @@ class _BindrunePainter extends CustomPainter {
     }
   }
 
-  // Il sigillo della settimana: un solo stelo verticale centrale, spesso, e i
-  // rami delle rune innestati a quote diverse lungo lo stelo, mai allo stesso
-  // punto. Le rune ripetute contano una volta sola; quelle senza rami
-  // rappresentabili, come Isa che e' solo un'asta, si omettono senza rompere il
-  // disegno. Tono osso caldo, bagliore ambrato.
+  // Il sigillo della settimana: un unico segno composto. Un solo stelo
+  // verticale centrale, spesso, alto il settanta per cento del riquadro, e i
+  // rami delle rune agganciati allo stelo, uno per runa, ciascuno alla propria
+  // quota, alternando destra e sinistra. Nessun ramo attraversa lo stelo,
+  // nessuno esce dal riquadro, al massimo sette. Tono osso caldo, alone ambrato.
   void _paintStelo(Canvas canvas, Size size) {
     final box = size.shortestSide * 0.82;
     final left = (size.width - box) / 2;
@@ -97,57 +228,15 @@ class _BindrunePainter extends CustomPainter {
             Rect.fromCircle(center: size.center(Offset.zero), radius: box * 0.6)),
     );
 
-    // Raccoglie i rami di ogni runa unica, saltando l'asta verticale che lo
-    // stelo condiviso gia' rappresenta. Le rune senza rami si scartano.
-    final viste = <String>{};
-    final conRami = <_RamiRuna>[];
-    for (final name in runeNames) {
-      if (!viste.add(name)) continue; // una sola occorrenza per runa
-      final strokes = kRuneStrokes[name];
-      if (strokes == null) continue;
-      final rami = <List<Offset>>[];
-      var minX = 1.0, maxX = 0.0, asseX = 0.5;
-      var trovataAsta = false;
-      for (final poly in strokes) {
-        var pMinX = 1.0, pMaxX = 0.0, pMinY = 1.0, pMaxY = 0.0;
-        for (final p in poly) {
-          pMinX = p.dx < pMinX ? p.dx : pMinX;
-          pMaxX = p.dx > pMaxX ? p.dx : pMaxX;
-          pMinY = p.dy < pMinY ? p.dy : pMinY;
-          pMaxY = p.dy > pMaxY ? p.dy : pMaxY;
-        }
-        final verticale = (pMaxX - pMinX) < 0.08 && (pMaxY - pMinY) > 0.5;
-        if (verticale) {
-          asseX = (pMinX + pMaxX) / 2; // l'asse della runa, da portare sullo stelo
-          trovataAsta = true;
-          continue; // l'asta la disegna lo stelo condiviso
-        }
-        rami.add(poly);
-        minX = pMinX < minX ? pMinX : minX;
-        maxX = pMaxX > maxX ? pMaxX : maxX;
-      }
-      if (rami.isEmpty) continue; // nessun ramo rappresentabile: si omette
-      if (!trovataAsta) asseX = (minX + maxX) / 2;
-      // Centroide verticale dei rami, per distribuirli lungo lo stelo.
-      var somma = 0.0, conta = 0;
-      for (final poly in rami) {
-        for (final p in poly) {
-          somma += p.dy;
-          conta++;
-        }
-      }
-      conRami.add(_RamiRuna(rami, asseX, conta == 0 ? 0.5 : somma / conta));
-    }
-
     // Lo stelo verticale centrale, spesso, sotto i rami.
-    final steloTop = map(const Offset(0.5, 0.04));
-    final steloBot = map(const Offset(0.5, 0.96));
+    final steloTop = map(const Offset(0.5, BindruneSigillo.steloAlto));
+    final steloBot = map(const Offset(0.5, BindruneSigillo.steloBasso));
     canvas.drawLine(
         steloTop,
         steloBot,
         Paint()
           ..strokeCap = StrokeCap.round
-          ..strokeWidth = box * 0.05
+          ..strokeWidth = box * 0.055
           ..color = ambra.withValues(alpha: 0.4)
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, box * 0.035));
     canvas.drawLine(
@@ -155,7 +244,7 @@ class _BindrunePainter extends CustomPainter {
         steloBot,
         Paint()
           ..strokeCap = StrokeCap.round
-          ..strokeWidth = box * 0.05
+          ..strokeWidth = box * 0.055
           ..color = osso);
 
     // I rami, ognuno a una quota diversa lungo lo stelo.
@@ -173,28 +262,21 @@ class _BindrunePainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.round
       ..color = osso;
 
-    final n = conRami.length;
-    for (var i = 0; i < n; i++) {
-      final r = conRami[i];
-      final quota = n == 1 ? 0.5 : 0.22 + 0.56 * (i / (n - 1));
-      final dx = 0.5 - r.asseX;
-      final dy = quota - r.centroY;
-      for (final poly in r.rami) {
-        final path = Path();
-        for (var k = 0; k < poly.length; k++) {
-          final y = (poly[k].dy + dy).clamp(0.04, 0.96);
-          final p = map(Offset(poly[k].dx + dx, y));
-          if (k == 0) {
-            path.moveTo(p.dx, p.dy);
-          } else {
-            path.lineTo(p.dx, p.dy);
-          }
+    for (final ramo in BindruneSigillo.ramiDi(runeNames)) {
+      final path = Path();
+      for (var k = 0; k < ramo.length; k++) {
+        final p = map(ramo[k]);
+        if (k == 0) {
+          path.moveTo(p.dx, p.dy);
+        } else {
+          path.lineTo(p.dx, p.dy);
         }
-        canvas.drawPath(path, glow);
-        canvas.drawPath(path, tratto);
       }
+      canvas.drawPath(path, glow);
+      canvas.drawPath(path, tratto);
     }
   }
+
 
   void _paintSovrapposto(Canvas canvas, Size size) {
     final box = size.shortestSide * 0.74;
@@ -296,9 +378,3 @@ class _BindrunePainter extends CustomPainter {
 
 /// I rami di una runa per il sigillo a stelo: le spezzate senza l'asta, l'asse
 /// verticale della runa e il centroide verticale dei rami.
-class _RamiRuna {
-  const _RamiRuna(this.rami, this.asseX, this.centroY);
-  final List<List<Offset>> rami;
-  final double asseX;
-  final double centroY;
-}

@@ -162,4 +162,7 @@ class _FakeLocation extends SkyLocation {
 
   @override
   Future<SkyPlace?> resolve() async => place;
+
+  @override
+  Future<SkyPlace?> resolveSeConcesso() async => place;
 }

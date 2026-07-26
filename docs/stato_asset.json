@@ -1,52 +1,53 @@
 {
- "descrizione": "Fonte macchina dello stato asset di Esoteric Circle. Ha due parti, con garanzie diverse e dichiarate. La parte bundle_versionato e' sotto lucchetto di macchina: test/stato_asset_test.dart, dentro il verde della CI, verifica che le cartelle asset dichiarate in pubspec.yaml coincidano con pubspec_asset_attesi, che i conteggi dei file in brand_assets/ coincidano con brand_assets_conteggi, e che i conteggi delle sei famiglie coincidano con famiglie_conteggi sia nelle piene (assets/img) sia nelle miniature (assets/img_thumb). La parte output_non_versionato NON e' verificabile in CI, perche' output/ non e' su Git: la controlla l'agente revisore-stato dal ponte col computer di Mauro. STATO_VIVO.md cita questo manifest.",
- "bundle_versionato": {
-  "pubspec_asset_attesi": [
-   "assets/",
-   "assets/data/",
-   "assets/fonts/",
-   "assets/ritual_backgrounds/",
-   "brand_assets/avatars/",
-   "brand_assets/santuario/",
-   "assets/img/mazzo-tarocchi/",
-   "assets/img/angeli/",
-   "assets/img/ritratti-vip/",
-   "assets/img/rune_bone/",
-   "assets/img/animali/",
-   "assets/img/cristalli/",
-   "assets/img/archetipi/",
-   "assets/img_thumb/mazzo-tarocchi/",
-   "assets/img_thumb/angeli/",
-   "assets/img_thumb/ritratti-vip/",
-   "assets/img_thumb/rune_bone/",
-   "assets/img_thumb/animali/",
-   "assets/img_thumb/cristalli/",
-   "assets/img_thumb/archetipi/",
-   "assets/img/zodiac/",
-   "assets/img_thumb/zodiac/",
-   "assets/img/caligo/"
-  ],
-  "nota_caligo": "assets/img/caligo/ ospita l'arte di scena del dominio di Caligo, per ora il tamburo sciamanico dell'Animale Guida (tamburo_sciamanico_v1.webp). Immagine unica di scena, non una famiglia a due misure: non ha miniatura ne conteggio bloccato, sta solo tra gli asset dichiarati.",
-  "nota_zodiac": "assets/img/zodiac/ e assets/img_thumb/zodiac/ ospitano lo zodiaco brandizzato, due asset DISTINTI per segno con lo stesso stem zod_<segno>: in assets/img/zodiac/ l'emblema grande in 3D metallico multicolore (lato lungo 820, per la testa della schermata), in assets/img_thumb/zodiac/ il simbolo in miniatura (lato lungo circa 256, per i chip del selettore). La miniatura non si ricava riducendo l'emblema, e' un'immagine sua. Ventiquattro file consegnati da Mauro, gia' scontornati dal magenta con alpha reale: il ripiego dipinto a vettori e' stato tolto. Il conteggio zodiac e' ora bloccato in CI come le sei famiglie, 12 per cartella.",
-  "brand_assets_conteggi": {
-   "avatars": 3,
-   "santuario": 1,
-   "intro": 1
+  "descrizione": "Fonte macchina dello stato asset di Esoteric Circle. Ha due parti, con garanzie diverse e dichiarate. La parte bundle_versionato e' sotto lucchetto di macchina: test/stato_asset_test.dart, dentro il verde della CI, verifica che le cartelle asset dichiarate in pubspec.yaml coincidano con pubspec_asset_attesi, che i conteggi dei file in brand_assets/ coincidano con brand_assets_conteggi, e che i conteggi delle sei famiglie coincidano con famiglie_conteggi sia nelle piene (assets/img) sia nelle miniature (assets/img_thumb). La parte output_non_versionato NON e' verificabile in CI, perche' output/ non e' su Git: la controlla l'agente revisore-stato dal ponte col computer di Mauro. STATO_VIVO.md cita questo manifest.",
+  "bundle_versionato": {
+    "pubspec_asset_attesi": [
+      "assets/",
+      "assets/data/",
+      "assets/fonts/",
+      "assets/ritual_backgrounds/",
+      "brand_assets/avatars/",
+      "brand_assets/santuario/",
+      "assets/img/mazzo-tarocchi/",
+      "assets/img/angeli/",
+      "assets/img/ritratti-vip/",
+      "assets/img/rune_bone/",
+      "assets/img/animali/",
+      "assets/img/cristalli/",
+      "assets/img/archetipi/",
+      "assets/img_thumb/mazzo-tarocchi/",
+      "assets/img_thumb/angeli/",
+      "assets/img_thumb/ritratti-vip/",
+      "assets/img_thumb/rune_bone/",
+      "assets/img_thumb/animali/",
+      "assets/img_thumb/cristalli/",
+      "assets/img_thumb/archetipi/",
+      "assets/img/zodiac/",
+      "assets/img_thumb/zodiac/",
+      "assets/img/caligo/"
+    ],
+    "nota_caligo": "assets/img/caligo/ ospita l'arte di scena del dominio di Caligo, per ora il tamburo sciamanico dell'Animale Guida (tamburo_sciamanico_v1.webp). Immagine unica di scena, non una famiglia a due misure: non ha miniatura ne conteggio bloccato, sta solo tra gli asset dichiarati.",
+    "nota_zodiac": "assets/img/zodiac/ e assets/img_thumb/zodiac/ ospitano lo zodiaco brandizzato, due asset DISTINTI per segno con lo stesso stem zod_<segno>: in assets/img/zodiac/ l'emblema grande in 3D metallico multicolore (lato lungo 820, per la testa della schermata), in assets/img_thumb/zodiac/ il simbolo in miniatura (lato lungo circa 256, per i chip del selettore). La miniatura non si ricava riducendo l'emblema, e' un'immagine sua. Ventiquattro file consegnati da Mauro, gia' scontornati dal magenta con alpha reale: il ripiego dipinto a vettori e' stato tolto. Il conteggio zodiac e' ora bloccato in CI come le sei famiglie, 12 per cartella.",
+    "brand_assets_conteggi": {
+      "avatars": 3,
+      "santuario": 1,
+      "intro": 1
+    },
+    "nota_intro": "brand_assets/intro/ esiste nel repo (Intro-Test-1.mp4) ma non e' dichiarato tra gli asset nel pubspec: presente, non bundlato. Se serve nel bundle, va aggiunto al pubspec e a pubspec_asset_attesi insieme.",
+    "famiglie_conteggi": {
+      "mazzo-tarocchi": 79,
+      "angeli": 73,
+      "ritratti-vip": 50,
+      "rune_bone": 24,
+      "animali": 12,
+      "cristalli": 12,
+      "zodiac": 12,
+      "archetipi": 12
+    },
+    "nota_famiglie": "Le sei famiglie esoteriche sono bundlate in WebP a due misure: piena in assets/img/<famiglia>/ (lato lungo per famiglia, qualita' 88) e miniatura in assets/img_thumb/<famiglia>/ (lato lungo 500, qualita' 82). I dorsi sono inclusi: 79 tarocchi e 73 angeli comprendono il dorso. Ogni conteggio vale identico per la piena e per la miniatura.",
+    "nota_fondali_tramonto": "I tre fondali della Runa del Tramonto vivono in assets/ritual_backgrounds/: tramonto_prima_v1.webp, tramonto_al_v1.webp e tramonto_dopo_v1.webp, 1284x2778, WebP di qualita' 85, con l'orizzonte allineato al 35,5 per cento su tutti e tre cosi' la dissolvenza fra i tre momenti non sposta la linea. La cartella e' gia' dichiarata in pubspec.yaml e in pubspec_asset_attesi. Di proposito NON c'e' un conteggio bloccato per questa cartella: raccoglie i fondali di piu' riti e cresce nel tempo, quindi un conteggio la renderebbe fragile senza aggiungere garanzia. La schermata li precarica all'ingresso e, se mancassero, ripiega su un tramonto procedurale che dipinge tre momenti distinti."
   },
-  "nota_intro": "brand_assets/intro/ esiste nel repo (Intro-Test-1.mp4) ma non e' dichiarato tra gli asset nel pubspec: presente, non bundlato. Se serve nel bundle, va aggiunto al pubspec e a pubspec_asset_attesi insieme.",
-  "famiglie_conteggi": {
-   "mazzo-tarocchi": 79,
-   "angeli": 73,
-   "ritratti-vip": 50,
-   "rune_bone": 24,
-   "animali": 12,
-   "cristalli": 12,
-   "zodiac": 12,
-   "archetipi": 12
-  },
-  "nota_famiglie": "Le sei famiglie esoteriche sono bundlate in WebP a due misure: piena in assets/img/<famiglia>/ (lato lungo per famiglia, qualita' 88) e miniatura in assets/img_thumb/<famiglia>/ (lato lungo 500, qualita' 82). I dorsi sono inclusi: 79 tarocchi e 73 angeli comprendono il dorso. Ogni conteggio vale identico per la piena e per la miniatura."
- },
- "output_non_versionato": {
-  "nota": "In output/ sul PC di Mauro restano i master PNG originali (sorgente della conversione WebP) e i derivati generati da tool/converti_webp.py. Non stanno su Git, non li conta la CI: li verifica il Revisore dal ponte. Conteggio master a mano del 17 luglio 2026: 250 file, circa 825 MB, gli stessi sei che ora sono bundlati in WebP."
- }
+  "output_non_versionato": {
+    "nota": "In output/ sul PC di Mauro restano i master PNG originali (sorgente della conversione WebP) e i derivati generati da tool/converti_webp.py. Non stanno su Git, non li conta la CI: li verifica il Revisore dal ponte. Conteggio master a mano del 17 luglio 2026: 250 file, circa 825 MB, gli stessi sei che ora sono bundlati in WebP."
+  }
 }

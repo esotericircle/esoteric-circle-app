@@ -22,7 +22,16 @@ abstract class SkyLocation {
 
   /// Chiede il permesso e restituisce il luogo, oppure null se il permesso
   /// manca, il sensore non c'e' o qualcosa va storto. Non lancia mai.
+  ///
+  /// ATTENZIONE: puo' aprire il dialogo di sistema. Va chiamata SOLO da un gesto
+  /// esplicito dell'utente, mai da un initState: nessuna schermata deve provocare
+  /// una richiesta di permesso come effetto collaterale della propria apertura.
   Future<SkyPlace?> resolve();
+
+  /// Il luogo solo se il permesso e' GIA' concesso, altrimenti null. Non chiede
+  /// mai nulla e non apre alcun dialogo: e' la via che possono usare le viste
+  /// che si aprono da sole, come la striscia dei Doni del Santuario.
+  Future<SkyPlace?> resolveSeConcesso();
 }
 
 /// Ripiego: nessuna posizione, nessuna richiesta. E' il default, cosi' i test
@@ -35,6 +44,9 @@ class DisabledSkyLocation extends SkyLocation {
 
   @override
   Future<SkyPlace?> resolve() async => null;
+
+  @override
+  Future<SkyPlace?> resolveSeConcesso() async => null;
 }
 
 /// La sorgente reale, su `geolocator`. Ogni fallimento (servizio spento,
@@ -62,6 +74,22 @@ class GeolocatorSkyLocation extends SkyLocation {
       return SkyPlace(latitude: pos.latitude, longitude: pos.longitude);
     } catch (_) {
       // Nessun sensore, piattaforma senza posizione, timeout: ripiego pulito.
+      return null;
+    }
+  }
+
+  @override
+  Future<SkyPlace?> resolveSeConcesso() async {
+    try {
+      if (!await Geolocator.isLocationServiceEnabled()) return null;
+      // Si guarda soltanto: nessuna requestPermission, quindi nessun dialogo.
+      final permission = await Geolocator.checkPermission();
+      final concesso = permission == LocationPermission.always ||
+          permission == LocationPermission.whileInUse;
+      if (!concesso) return null;
+      final pos = await Geolocator.getCurrentPosition();
+      return SkyPlace(latitude: pos.latitude, longitude: pos.longitude);
+    } catch (_) {
       return null;
     }
   }

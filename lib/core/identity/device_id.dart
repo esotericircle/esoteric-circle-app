@@ -16,11 +16,13 @@ class DeviceId {
 
   static const String _chiave = "device.id";
 
-  /// Il valore di ripiego quando le preferenze non sono disponibili. Stabile,
-  /// cosi' anche in errore l'estrazione resta deterministica sul dispositivo.
-  static const String sconosciuto = "sconosciuto";
-
   static String? _cache;
+
+  /// L'identita' di ripiego di QUESTA sessione, generata in memoria al primo
+  /// fallimento delle preferenze e riusata finche' l'app vive. Non e' una
+  /// costante condivisa: se fosse tale, tutti gli utenti con le preferenze rotte
+  /// ricollasserebbero su una sola identita', e quindi sulla stessa runa.
+  static String? _sessione;
 
   /// L'id del dispositivo, esadecimale minuscolo. Lo legge dalle preferenze, e
   /// se manca ne genera uno nuovo con `Random.secure`, lo scrive e lo restituisce.
@@ -39,7 +41,9 @@ class DeviceId {
       _cache = nuovo;
       return nuovo;
     } catch (_) {
-      return sconosciuto;
+      // Preferenze non disponibili: un'identita' solo di sessione, distinta per
+      // ogni utente, stabile per tutta la vita dell'app. Non si persiste.
+      return _sessione ??= _genera();
     }
   }
 

@@ -194,6 +194,40 @@ void main() {
     expect(c!.giorno, SunsetRune.iso(SunsetRune.giornoRituale(ora)));
   });
 
+  testWidgets('Con insistenza, il testo mostrato e quello salvato coincidono',
+      (tester) async {
+    // La runa di stasera e' gia' uscita tre sere fa: la clausola d'insistenza
+    // deve essere gia' nel testo al momento in cui si compone e si persiste.
+    final giorno = SunsetRune.giornoRituale(ora);
+    final stasera = SunsetRune.estrai(ora,
+            dataNascita: DateTime(1988, 7, 5), identita: '1988-07-05')
+        .rune.name;
+    final treFa = SunsetRune.iso(giorno.subtract(const Duration(days: 3)));
+    SharedPreferences.setMockInitialValues({
+      'sunset_rune.settimana':
+          '[{"giorno":"$treFa","rune":"$stasera","ombra":false,'
+              '"lasciare":"a","porta":"b"}]',
+    });
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await compi(tester);
+
+    // A video la runa torna, con la sua clausola.
+    expect(find.byKey(const Key('sunset_ritorno')), findsOneWidget);
+    final bloccoUno = find.descendant(
+        of: find.byKey(const Key('sunset_voce_uno')), matching: find.byType(Text));
+    final mostrato = tester.widgetList<Text>(bloccoUno).last.data!;
+
+    // E il testo salvato e' lo stesso, clausola compresa.
+    final settimana = await SunsetRuneMemory.settimanaCorrente(giorno);
+    final oggi = settimana.firstWhere((s) => s.giorno == SunsetRune.iso(giorno));
+    expect(oggi.lasciare, mostrato);
+    // La clausola c'e' davvero: il testo salvato e' piu' lungo della sola voce.
+    expect(oggi.lasciare.length, greaterThan(60));
+  });
+
   testWidgets('Dopo una pausa lunga la ripresa non completa di colpo',
       (tester) async {
     // Senza Riduci Movimento: preme un poco, molla, aspetta a lungo, ripreme.

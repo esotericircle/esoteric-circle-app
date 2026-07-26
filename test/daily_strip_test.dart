@@ -5,6 +5,7 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
+import 'package:esoteric_circle/core/rituals/sunset_rune.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
 import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
@@ -23,6 +24,33 @@ class _LuogoFinto extends SkyLocation {
   bool get available => true;
   @override
   Future<SkyPlace?> resolve() async => _luogo;
+  @override
+  Future<SkyPlace?> resolveSeConcesso() async => _luogo;
+}
+
+/// Una sorgente che registra se qualcuno ha CHIESTO il permesso: `resolve` e' la
+/// via che apre il dialogo di sistema, `resolveSeConcesso` no. Con permesso non
+/// concesso, la seconda torna null.
+class _LuogoSpia extends SkyLocation {
+  _LuogoSpia();
+
+  int chiesto = 0;
+  int guardato = 0;
+
+  @override
+  bool get available => true;
+
+  @override
+  Future<SkyPlace?> resolve() async {
+    chiesto++;
+    return null; // permesso negato
+  }
+
+  @override
+  Future<SkyPlace?> resolveSeConcesso() async {
+    guardato++;
+    return null; // permesso non concesso: nessuna posizione, nessun dialogo
+  }
 }
 
 Widget _host(Widget child) => MultiProvider(
@@ -94,6 +122,86 @@ void main() {
         .pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 23, 0))));
     await tester.pump();
     expect(find.byKey(const Key('daily_conto_rune')), findsNothing);
+  });
+
+  testWidgets('Aprire la striscia non chiede mai il permesso di posizione',
+      (tester) async {
+    // Con permesso non concesso: la striscia guarda, non chiede, e ripiega sul
+    // tramonto stimato dal fuso.
+    final spia = _LuogoSpia();
+    final now = DateTime(2026, 7, 14, 13, 0);
+    await tester.pumpWidget(_host(DailyStrip(clock: () => now, location: spia)));
+    await tester.pump();
+    await tester.pump();
+
+    expect(spia.chiesto, 0, reason: 'nessuna richiesta di permesso all\'apertura');
+    expect(spia.guardato, greaterThan(0), reason: 'ha guardato senza chiedere');
+    // Ripiego sul tramonto stimato dal fuso: il conto c'e' e coincide.
+    final stimato = SunsetTime.perData(SunsetRune.giornoRituale(now),
+        lat: SunsetTime.latDiRipiego,
+        lon: SunsetTime.longitudineDaFuso(now.timeZoneOffset),
+        offset: now.timeZoneOffset)!;
+    final minuti = stimato.difference(now).inMinutes;
+    final atteso = minuti >= 60
+        ? 'tra ${minuti ~/ 60}h ${minuti % 60}min'
+        : 'tra ${minuti % 60}min';
+    expect(find.text(atteso), findsOneWidget);
+  });
+
+  testWidgets('Il confine di giornata e\' quello rituale, come la schermata',
+      (tester) async {
+    // Alle 03:00 il giorno rituale e' ancora ieri: la runa di ieri e' quella
+    // servita dalla schermata, quindi la striscia non deve annunciare un
+    // tramonto lontano diciassette ore, e la casella non e' spenta.
+    final notte = DateTime(2026, 7, 14, 3, 0);
+    expect(SunsetRune.giornoRituale(notte), DateTime(2026, 7, 13));
+    await tester
+        .pumpWidget(_host(DailyStrip(clock: () => notte)));
+    await tester.pump();
+    // Il tramonto del giorno rituale (ieri) e' passato: nessun conto.
+    expect(find.byKey(const Key('daily_conto_rune')), findsNothing);
+
+    // Alle 13:00 il giorno rituale e' oggi e il tramonto e' ancora davanti.
+    final pomeriggio = DateTime(2026, 7, 14, 13, 0);
+    expect(SunsetRune.giornoRituale(pomeriggio), DateTime(2026, 7, 14));
+    await tester
+        .pumpWidget(_host(DailyStrip(clock: () => pomeriggio)));
+    await tester.pump();
+    final conto = find.byKey(const Key('daily_conto_rune'));
+    expect(conto, findsOneWidget);
+    // E il conto e' quello del giorno rituale corrente, poche ore, non diciassette.
+    final testo = tester.widget<Text>(conto).data!;
+    final ore = int.parse(RegExp(r'tra (\d+)h').firstMatch(testo)!.group(1)!);
+    expect(ore, lessThan(12), reason: 'conto sul giorno rituale, non su domani');
+  });
+
+  testWidgets('Il bersaglio del controllo di aiuto e\' almeno 44 per 44',
+      (tester) async {
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pump();
+    for (final e in DailyElement.values) {
+      final t = find.byKey(Key('daily_help_target_${e.name}'));
+      expect(t, findsOneWidget, reason: e.name);
+      final size = tester.getSize(t);
+      expect(size.width, greaterThanOrEqualTo(44), reason: e.name);
+      expect(size.height, greaterThanOrEqualTo(44), reason: e.name);
+    }
+  });
+
+  testWidgets('Un tocco lontano dal cerchio apre comunque l\'aiuto',
+      (tester) async {
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pump();
+    // Sedici punti sotto il centro del cerchietto: fuori dai 18 disegnati, ma
+    // dentro il bersaglio da quarantaquattro.
+    final centro =
+        tester.getCenter(find.byKey(const Key('daily_help_button_rune')));
+    await tester.tapAt(centro + const Offset(0, 16));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(find.byKey(const Key('daily_info_close_rune')), findsOneWidget);
   });
 
   testWidgets('Il conto usa la posizione reale, la stessa fonte della schermata',

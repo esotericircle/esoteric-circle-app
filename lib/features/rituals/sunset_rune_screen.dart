@@ -154,6 +154,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   DateTime? _tramonto;
   bool _stimata = true;
   bool _oraNota = false;
+  String _identita = ''; // risolta una sola volta, riusata a ogni riestrazione
 
   // Le due voci salvate, quando la sera e' gia' stata vissuta: si riproducono
   // invece di ricomporle, cosi' il testo non cambia fra due aperture.
@@ -181,10 +182,24 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     _ascoltaScuotimento();
   }
 
+  bool _fondaliPrecaricati = false;
+
+  // I tre fondali del tramonto, decodificati all'ingresso: senza questo la prima
+  // dissolvenza mostrerebbe un lampo, perche' l'immagine del momento successivo
+  // arriva mentre la transizione e' gia' partita.
+  void _precaricaFondali() {
+    if (_fondaliPrecaricati) return;
+    _fondaliPrecaricati = true;
+    for (final slot in _Fondale.slots) {
+      precacheImage(AssetImage(slot), context, onError: (_, __) {});
+    }
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _riduciMovimento = MediaQuery.of(context).disableAnimations;
+    _precaricaFondali();
     if (_risolta) return;
     _risolta = true;
     // La runa nasce dalla carta dell'utente: la data di nascita arriva dai
@@ -223,6 +238,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     final deviceId = _nascita == null ? await DeviceId.corrente() : '';
     final identita = SunsetRune.identitaPer(
         nascita: _nascita, oraNota: _oraNota, deviceId: deviceId);
+    _identita = identita;
     final e = SunsetRune.estrai(_ora,
         dataNascita: _nascita,
         segno: widget.segno,
@@ -245,7 +261,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       }
     });
     _raffinaTramonto();
-    _controllaRitorno();
+    _ritornoFuture ??= _controllaRitorno();
+    _cercaOssoVergine();
   }
 
   @override
@@ -260,10 +277,13 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     super.dispose();
   }
 
-  // Raffina l'etichetta dell'ora con la posizione reale, se attiva. Non tocca
-  // la fase ne' le voci: aggiorna solo il tramonto mostrato. Non blocca la scena.
+  // Raffina l'ora del tramonto con la posizione reale, e con essa la fase lunare:
+  // se la posizione c'e', la fase segue il tramonto VERO, non quello stimato dal
+  // fuso. Runa e verso restano ancorati al solo giorno rituale, quindi non
+  // cambiano mai. Usa `resolveSeConcesso`: aprire il Dono non chiede permessi,
+  // la richiesta esplicita vive dietro "Attiva la posizione".
   Future<void> _raffinaTramonto() async {
-    final luogo = await widget.location.resolve();
+    final luogo = await widget.location.resolveSeConcesso();
     if (luogo == null || !mounted) return;
     final offset = _ora.timeZoneOffset;
     final t = SunsetTime.perData(_e.giornoRituale,
@@ -272,8 +292,19 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     setState(() {
       _tramonto = t;
       _stimata = false;
+      _estrazione = _riestrai(t);
     });
   }
+
+  /// Riestrae con l'istante di tramonto dato: cambia solo la fase lunare, la
+  /// runa e il verso nascono dal giorno rituale e restano quelli.
+  EstrazioneTramonto _riestrai(DateTime istante) => SunsetRune.estrai(
+        _ora,
+        dataNascita: _nascita,
+        segno: widget.segno,
+        identita: _identita,
+        istanteTramonto: istante,
+      );
 
   void _ascoltaScuotimento() {
     try {
@@ -367,6 +398,10 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   }
 
   Future<void> _apriLettura() async {
+    // Prima la clausola d'insistenza, POI la composizione: altrimenti il testo
+    // persistito, e quindi il sigillo e la condivisione, potrebbe mancare la
+    // clausola che l'utente ha letto dal vivo.
+    await (_ritornoFuture ??= _controllaRitorno());
     // Salva la sera e carica la settimana, per la striscia e il sigillo.
     final lasciare = _vocePrima();
     final porta = _vocePortare();
@@ -378,9 +413,12 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     _ascoltaInclinazione();
   }
 
-  // La clausola di insistenza, se la runa e' gia' tornata nei sette giorni.
+  // La clausola di insistenza, se la runa e' gia' tornata nei sette giorni. Il
+  // Future e' memoizzato: la lettura avviene una volta sola, e la lettura la
+  // attende prima di comporre e persistere.
   String? _insistenza;
   bool _ritorno = false;
+  Future<void>? _ritornoFuture;
 
   Future<void> _controllaRitorno() async {
     final ripetuta = await SunsetRuneMemory.runaRipetutaNegliUltimi7(
@@ -486,7 +524,6 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           Positioned.fill(
             child: _Fondale(
               palette: _palette,
-              completa: _completa,
               momento: _completa ? 2 : (_fase == _Fase.getto ? 0 : 1),
               riduciMovimento: _riduciMovimento,
             ),
@@ -596,7 +633,9 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   Future<void> _attivaPosizione() async {
     // Riprova a risolvere la posizione, non blocca la scena.
-    final luogo = await const GeolocatorSkyLocation().resolve();
+    // Qui, e solo qui, si puo' chiedere il permesso: e' il gesto esplicito
+    // dell'utente. Passa dalla sorgente iniettata, cosi' il ramo e' testabile.
+    final luogo = await widget.location.resolve();
     if (!mounted) return;
     if (luogo == null) {
       // Permesso negato o posizione assente: si spiega, in voce neutra, che si
@@ -618,7 +657,52 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     setState(() {
       _tramonto = t;
       _stimata = false;
+      // Col luogo vero anche la fase segue il tramonto vero.
+      _estrazione = _riestrai(t);
     });
+  }
+
+  /// Il percorso dell'osso vergine della runa del giorno, cioe' la stessa pietra
+  /// che si vedra' incisa, ancora senza segno. Cosi' fra attesa, incisione e
+  /// lettura la materia e' la stessa e il passaggio non si vede. I ventiquattro
+  /// file arrivano a parte: finche' mancano, l'errorBuilder ripiega sulla pietra
+  /// dipinta a codice, e nessun manifest di asset viene toccato.
+  String? get _ossoVerginePath {
+    final stem = _e.rune.stem;
+    return stem == null
+        ? null
+        : 'assets/img/rune_bone_vergine/${stem}_vergine_v1.webp';
+  }
+
+  // Vero solo quando l'osso vergine della runa del giorno esiste davvero nel
+  // bundle. Si verifica una volta, cosi' la scena non dipende dall'errorBuilder
+  // di un'immagine che carica in differita, e la pietra c'e' dal primo frame.
+  bool _ossoVergineCe = false;
+
+  Future<void> _cercaOssoVergine() async {
+    final path = _ossoVerginePath;
+    if (path == null) return;
+    try {
+      await DefaultAssetBundle.of(context).load(path);
+      if (mounted) setState(() => _ossoVergineCe = true);
+    } catch (_) {
+      // I ventiquattro file non ci sono ancora: resta la pietra dipinta.
+    }
+  }
+
+  Widget _pietraVergine(double lato) {
+    if (_ossoVergineCe) {
+      return Image.asset(
+        _ossoVerginePath!,
+        key: const Key('sunset_stone_vergine'),
+        fit: BoxFit.contain,
+      );
+    }
+    return CustomPaint(
+      key: const Key('sunset_stone'),
+      size: Size(lato, lato),
+      painter: _PietraVelataPainter(palette: _palette, respiro: _alone.value),
+    );
   }
 
   Widget _pietra() {
@@ -632,11 +716,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         child: SizedBox(
           width: lato,
           height: lato,
-          child: CustomPaint(
-            key: const Key('sunset_stone'),
-            painter: _PietraVelataPainter(
-                palette: _palette, respiro: _alone.value),
-          ),
+          child: _pietraVergine(lato),
         ),
       );
     }
@@ -1158,22 +1238,21 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 class _Fondale extends StatelessWidget {
   const _Fondale({
     required this.palette,
-    required this.completa,
     required this.momento,
     required this.riduciMovimento,
   });
 
   final MaestroPalette palette;
-  final bool completa;
 
   /// Zero prima del getto, uno durante l'incisione, due dopo il completamento.
   final int momento;
 
   final bool riduciMovimento;
 
-  // I tre slot dipinti, cablati come costanti. I file non esistono ancora: a
-  // runtime l'errorBuilder ripiega sul procedurale, senza toccare stato_asset.
-  static const List<String> _slots = [
+  // I tre fondali dipinti del tramonto, presenti in assets/ritual_backgrounds/
+  // con l'orizzonte allineato al 35,5% su tutti e tre. Se mancassero,
+  // l'errorBuilder ripiega sul procedurale senza toccare stato_asset.
+  static const List<String> slots = [
     'assets/ritual_backgrounds/tramonto_prima_v1.webp',
     'assets/ritual_backgrounds/tramonto_al_v1.webp',
     'assets/ritual_backgrounds/tramonto_dopo_v1.webp',
@@ -1181,14 +1260,15 @@ class _Fondale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final slot = _slots[momento.clamp(0, 2)];
+    final quale = momento.clamp(0, 2);
+    final slot = slots[quale];
     final vista = Image.asset(
       slot,
       key: ValueKey<String>(slot),
       fit: BoxFit.cover,
       errorBuilder: (_, __, ___) => CustomPaint(
-          key: ValueKey<int>(momento.clamp(0, 2)),
-          painter: _TramontoPainter(palette: palette, completa: completa)),
+          key: ValueKey<int>(quale),
+          painter: _TramontoPainter(palette: palette, momento: quale)),
     );
     // Il cambio di stato del tramonto si dissolve invece di scattare. Con Riduci
     // Movimento la durata scende a zero e resta lo scambio diretto.
@@ -1206,22 +1286,26 @@ class _Fondale extends StatelessWidget {
   }
 }
 
+/// Il ripiego procedurale del fondale, quando i tre webp non ci sono. I tre
+/// momenti dipingono tre frame DIVERSI: il sole scende, il cielo si spegne, le
+/// stelle aumentano. Cosi' il ripiego resta distinguibile momento per momento e
+/// la dissolvenza si vede anche senza asset.
 class _TramontoPainter extends CustomPainter {
-  _TramontoPainter({required this.palette, required this.completa});
+  _TramontoPainter({required this.palette, required this.momento});
 
   final MaestroPalette palette;
-  final bool completa;
+
+  /// Zero prima del getto, uno durante l'incisione, due dopo il completamento.
+  final int momento;
 
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
-    // Gradiente rame verso viola, che dopo l'incisione scende di un gradino.
-    final alto = completa
-        ? const Color(0xFF2A1230)
-        : const Color(0xFF7A3B1E);
-    final medio = completa
-        ? const Color(0xFF3A1840)
-        : const Color(0xFFB8632C);
+    // I tre cieli: rame pieno, rame che si spegne, viola di notte incipiente.
+    const alti = [Color(0xFF7A3B1E), Color(0xFF5E2A22), Color(0xFF2A1230)];
+    const medi = [Color(0xFFB8632C), Color(0xFF8E4527), Color(0xFF3A1840)];
+    final alto = alti[momento];
+    final medio = medi[momento];
     canvas.drawRect(
       rect,
       Paint()
@@ -1238,58 +1322,81 @@ class _TramontoPainter extends CustomPainter {
         ).createShader(rect),
     );
     final orizzonte = size.height * 0.72;
-    // Sole per meta' sotto la linea dell'orizzonte.
-    final sole = Offset(size.width * 0.5, orizzonte);
+    // Il disco scende momento per momento: a meta' fuori, poi appena sopra la
+    // linea, poi quasi tutto sotto.
+    const affondo = [0.0, 0.45, 0.85];
+    final raggio = size.width * 0.16;
+    final sole =
+        Offset(size.width * 0.5, orizzonte + raggio * affondo[momento]);
+    // Alone caldo, che si smorza col calare della luce.
+    const aloneAlpha = [0.4, 0.28, 0.16];
     canvas.drawCircle(
       sole,
       size.width * 0.5,
       Paint()
         ..shader = RadialGradient(colors: [
-          (completa ? const Color(0xFFCC8877) : const Color(0xFFFFE0A8))
-              .withValues(alpha: completa ? 0.18 : 0.4),
+          const Color(0xFFFFE0A8).withValues(alpha: aloneAlpha[momento]),
           const Color(0x00000000),
         ]).createShader(Rect.fromCircle(center: sole, radius: size.width * 0.5)),
     );
+    const dischi = [Color(0xFFFFCE7A), Color(0xFFE79A5E), Color(0xFFB86A5A)];
+    const discoAlpha = [0.85, 0.7, 0.45];
+    // Il disco sfuma sui bordi, cosi' il raccordo con l'orizzonte non e' una
+    // cucitura netta ma un passaggio morbido.
     canvas.drawCircle(
       sole,
-      size.width * 0.16,
+      raggio,
       Paint()
-        ..color = (completa ? const Color(0xFFB86A5A) : const Color(0xFFFFCE7A))
-            .withValues(alpha: completa ? 0.5 : 0.85),
+        ..shader = RadialGradient(
+          colors: [
+            dischi[momento].withValues(alpha: discoAlpha[momento]),
+            dischi[momento].withValues(alpha: discoAlpha[momento]),
+            dischi[momento].withValues(alpha: 0.0),
+          ],
+          stops: const [0.0, 0.72, 1.0],
+        ).createShader(Rect.fromCircle(center: sole, radius: raggio)),
     );
-    // La linea dell'orizzonte copre la meta' bassa del sole.
+    // La terra sotto l'orizzonte, con il bordo alto sfumato: il sole vi affonda
+    // senza uno scalino.
+    final terra = Rect.fromLTRB(0, orizzonte, size.width, size.height);
     canvas.drawRect(
-      Rect.fromLTRB(0, orizzonte, size.width, size.height),
+      terra,
       Paint()
         ..shader = LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            medio.withValues(alpha: 0.9),
+            medio.withValues(alpha: 0.0),
+            medio.withValues(alpha: 0.92),
             palette.deepest,
           ],
-        ).createShader(Rect.fromLTRB(0, orizzonte, size.width, size.height)),
+          stops: const [0.0, 0.16, 1.0],
+        ).createShader(terra),
     );
-    // Una stella singola, sola nel cielo del tramonto.
-    canvas.drawCircle(
-      Offset(size.width * 0.7, size.height * 0.22),
-      2.2,
-      Paint()..color = Colors.white.withValues(alpha: 0.9),
-    );
-    canvas.drawCircle(
-      Offset(size.width * 0.7, size.height * 0.22),
-      7,
-      Paint()
-        ..shader = RadialGradient(colors: [
-          Colors.white.withValues(alpha: 0.4),
-          const Color(0x00000000),
-        ]).createShader(Rect.fromCircle(
-            center: Offset(size.width * 0.7, size.height * 0.22), radius: 7)),
-    );
+    // Le stelle: una sola all'inizio, tre a notte incipiente.
+    const stelle = [
+      [Offset(0.70, 0.22)],
+      [Offset(0.70, 0.22), Offset(0.28, 0.16)],
+      [Offset(0.70, 0.22), Offset(0.28, 0.16), Offset(0.52, 0.09)],
+    ];
+    for (final s in stelle[momento]) {
+      final p = Offset(size.width * s.dx, size.height * s.dy);
+      canvas.drawCircle(
+          p, 2.2, Paint()..color = Colors.white.withValues(alpha: 0.9));
+      canvas.drawCircle(
+        p,
+        7,
+        Paint()
+          ..shader = RadialGradient(colors: [
+            Colors.white.withValues(alpha: 0.4),
+            const Color(0x00000000),
+          ]).createShader(Rect.fromCircle(center: p, radius: 7)),
+      );
+    }
   }
 
   @override
-  bool shouldRepaint(_TramontoPainter old) => old.completa != completa;
+  bool shouldRepaint(_TramontoPainter old) => old.momento != momento;
 }
 
 // I toni della pietra d'osso: avorio caldo in alto, osso ombrato in basso, una
@@ -1303,7 +1410,7 @@ const Color _ossoBordo = Color(0xFFCBB483);
 
 /// Disegna la sagoma della pietra d'osso, scoperta, coi toni avorio: la sagoma
 /// ad arco condivisa fra pietra velata e tavola d'incisione.
-void _dipingiPietra(Canvas canvas, Rect rect, RRect rrect, {double vena = 0.5}) {
+void _dipingiPietra(Canvas canvas, Rect rect, RRect rrect) {
   // Ombra 2.5D morbida.
   canvas.drawRRect(
     rrect.shift(const Offset(0, 8)),
@@ -1319,16 +1426,6 @@ void _dipingiPietra(Canvas canvas, Rect rect, RRect rrect, {double vena = 0.5}) 
         end: Alignment.bottomCenter,
         colors: [_ossoAlto, _ossoBasso],
       ).createShader(rect),
-  );
-  // Una venatura grigia calda, appena accennata, che rompe la superficie piatta.
-  final vx = rect.left + rect.width * vena;
-  canvas.drawLine(
-    Offset(vx, rect.top + rect.height * 0.18),
-    Offset(vx - rect.width * 0.12, rect.bottom - rect.height * 0.2),
-    Paint()
-      ..strokeWidth = 1.4
-      ..color = _ossoVena.withValues(alpha: 0.35)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.2),
   );
   canvas.drawRRect(
     rrect,
@@ -1369,15 +1466,22 @@ class _PietraVelataPainter extends CustomPainter {
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 28),
     );
     _dipingiPietra(canvas, rect, rrect);
-    // Sigillo coperto al centro, appena intuibile.
-    canvas.drawCircle(
-      c,
-      w * 0.22,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.4
-        ..color = _ossoVena.withValues(alpha: 0.4),
-    );
+    // Al centro, un invito intenzionale invece di un segno muto: tre solchi
+    // brevi che pulsano col respiro, il posto dove nascera' la runa. Non un
+    // cerchio con una diagonale, che si leggeva come un difetto della texture.
+    final pulsa = 0.28 + 0.22 * respiro;
+    final passo = h * 0.055;
+    for (var i = -1; i <= 1; i++) {
+      final y = c.dy + i * passo;
+      canvas.drawLine(
+        Offset(c.dx - w * 0.13, y),
+        Offset(c.dx + w * 0.13, y),
+        Paint()
+          ..strokeWidth = 2.2
+          ..strokeCap = StrokeCap.round
+          ..color = _ossoVena.withValues(alpha: pulsa * (i == 0 ? 1.0 : 0.6)),
+      );
+    }
   }
 
   @override
@@ -1428,19 +1532,38 @@ class _IncisionePainter extends CustomPainter {
     }
     final daScavare = totale * progresso.clamp(0.0, 1.0);
 
-    final glow = Paint()
+    // Il segno e' un SOLCO scavato nella pietra, non un filo di luce: la
+    // larghezza nasce dal lato del glifo, e la profondita' cresce col gesto,
+    // cosi' a meta' incisione il solco e' meno inciso che a segno compiuto.
+    final profondita = 0.45 + 0.55 * progresso.clamp(0.0, 1.0);
+    final spessore = lato * (0.10 + 0.05 * profondita);
+    // Ombra esterna del solco, che lo stacca dalla superficie.
+    final ombra = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = lato * 0.05
+      ..strokeWidth = spessore * 1.25
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..color = const Color(0xFFFFF3D0).withValues(alpha: 0.5)
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, lato * 0.03);
-    final solco = Paint()
+      ..color = _ossoVena.withValues(alpha: 0.22 * profondita)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, spessore * 0.5);
+    // Il fondo del solco, scuro: e' materia mancante, non luce.
+    final fondo = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = lato * 0.03
+      ..strokeWidth = spessore
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..color = completa ? const Color(0xFFCC4B22) : const Color(0xFFFFF6DA);
+      ..color = (completa
+              ? const Color(0xFF6E2410)
+              : const Color(0xFF3B2F1E))
+          .withValues(alpha: 0.72 + 0.24 * profondita);
+    // La luce sul bordo alto del solco, scostata in diagonale: cosi' il rilievo
+    // si legge sia sui tratti verticali sia su quelli obliqui.
+    final bordoLuce = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = spessore * 0.28
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..color = const Color(0xFFFFF8E4).withValues(alpha: 0.8);
+    final scartoLuce = Offset(-spessore * 0.24, -spessore * 0.24);
 
     var fatto = 0.0;
     Offset? punta;
@@ -1464,8 +1587,10 @@ class _IncisionePainter extends CustomPainter {
           break;
         }
       }
-      canvas.drawPath(path, glow);
-      canvas.drawPath(path, solco);
+      // Tre passate: ombra, fondo scavato, luce sul bordo alto.
+      canvas.drawPath(path, ombra);
+      canvas.drawPath(path, fondo);
+      canvas.drawPath(path.shift(scartoLuce), bordoLuce);
       punta = map(ultimo);
     }
 
@@ -1474,16 +1599,19 @@ class _IncisionePainter extends CustomPainter {
     if (!completa && progresso > 0 && progresso < 1 && punta != null) {
       final orizzonte = Offset(
           size.width / 2, size.height / 2 + (size.height * 0.82) / 2 - 6);
+      // Un accenno di luce, non una linea: il solco deve restare il solo segno
+      // marcato sulla pietra, il raggio lo accompagna appena.
       canvas.drawLine(
         orizzonte,
         punta,
         Paint()
-          ..strokeWidth = 3
+          ..strokeWidth = 1.6
           ..strokeCap = StrokeCap.round
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.6)
           ..shader = const LinearGradient(
             colors: [
               Color(0x00FFF3D0),
-              Color(0x8CFFF3D0),
+              Color(0x3DFFF3D0),
             ],
           ).createShader(Rect.fromPoints(orizzonte, punta)),
       );
@@ -1513,7 +1641,7 @@ class _IncisionePainter extends CustomPainter {
       bottomLeft: const Radius.circular(16),
       bottomRight: const Radius.circular(16),
     );
-    _dipingiPietra(canvas, rect, rrect, vena: 0.42);
+    _dipingiPietra(canvas, rect, rrect);
   }
 
   @override

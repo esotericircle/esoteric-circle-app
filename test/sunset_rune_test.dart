@@ -263,7 +263,27 @@ void main() {
       final t = SunsetRuneCorpus.trasparenza(e);
       expect(t, contains(e.rune.name));
       expect(t, contains(e.fase.italianName.toLowerCase()));
-      expect(t, contains(e.segno.italianName));
+      expect(t, contains(e.segno!.italianName));
+    });
+
+    test('Senza segno noto nessun segno viene nominato, in nessuna riga', () {
+      // Anonimo puro: nessuna data di nascita, nessun segno dichiarato.
+      final e = SunsetRune.estrai(DateTime(2026, 7, 13, 20),
+          identita: 'device-anonimo');
+      expect(e.segno, isNull);
+      final testi = <String>[
+        SunsetRuneCorpus.trasparenza(e),
+        SunsetRuneCorpus.vocePrimaLasciare(e),
+        SunsetRuneCorpus.vocePortare(e),
+      ];
+      for (final t in testi) {
+        expect(t.trim(), isNotEmpty);
+        expect(t.contains('  '), isFalse);
+        for (final z in Zodiac.values) {
+          expect(t.toLowerCase(), isNot(contains(z.italianName.toLowerCase())),
+              reason: 'nomina ${z.italianName} in: $t');
+        }
+      }
     });
   });
 
