@@ -77,6 +77,26 @@ class SunsetRuneScreen extends StatefulWidget {
 
 enum _Fase { getto, incisione, lettura }
 
+/// I tre fondali del tramonto, nell'ordine dei momenti: prima del getto, durante
+/// l'incisione, dopo che il segno e' compiuto. Sono una lista sola, esposta,
+/// cosi' schermata, precarico e catture non possono divergere sui percorsi.
+const List<String> kFondaliTramonto = [
+  'assets/ritual_backgrounds/tramonto_prima_v1.webp',
+  'assets/ritual_backgrounds/tramonto_al_v1.webp',
+  'assets/ritual_backgrounds/tramonto_dopo_v1.webp',
+];
+
+/// Il percorso della pietra vergine, cioe' l'osso senza segno, a partire dallo
+/// stem della runa. Gli stem di `kElderFuthark` finiscono gia' in `_v1`, quindi
+/// il suffisso di versione va tolto prima di riapplicarlo: senza questo il nome
+/// uscirebbe con due versioni in coda e non troverebbe mai il file.
+/// Null quando la runa non ha arte.
+String? pathVergineDi(String? stem) {
+  if (stem == null) return null;
+  final base = stem.endsWith('_v1') ? stem.substring(0, stem.length - 3) : stem;
+  return 'assets/img/rune_bone_vergine/${base}_vergine_v1.webp';
+}
+
 /// La scala orizzontale del contenuto visibile della pietra girata al valore di
 /// flip [t]. Con la faccia B controruotata resta sempre positiva, cioe' il
 /// contenuto non e' mai specchiato: a fine giro vale +1. Esposta per il test del
@@ -190,7 +210,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   void _precaricaFondali() {
     if (_fondaliPrecaricati) return;
     _fondaliPrecaricati = true;
-    for (final slot in _Fondale.slots) {
+    for (final slot in kFondaliTramonto) {
       precacheImage(AssetImage(slot), context, onError: (_, __) {});
     }
   }
@@ -491,7 +511,22 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: _palette.deepest.withValues(alpha: 0.32),
+        // Nessuno scrim piatto: sul cielo fotografico taglierebbe una riga netta
+        // all'altezza dell'orizzonte. Al suo posto una velatura che sfuma verso
+        // il basso, che tiene leggibili titolo e icone senza tagliare la scena.
+        backgroundColor: Colors.transparent,
+        flexibleSpace: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                _palette.deepest.withValues(alpha: 0.55),
+                _palette.deepest.withValues(alpha: 0.0),
+              ],
+            ),
+          ),
+        ),
         elevation: 0,
         scrolledUnderElevation: 0,
         iconTheme: IconThemeData(color: _palette.goldSoft),
@@ -664,15 +699,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   /// Il percorso dell'osso vergine della runa del giorno, cioe' la stessa pietra
   /// che si vedra' incisa, ancora senza segno. Cosi' fra attesa, incisione e
-  /// lettura la materia e' la stessa e il passaggio non si vede. I ventiquattro
-  /// file arrivano a parte: finche' mancano, l'errorBuilder ripiega sulla pietra
-  /// dipinta a codice, e nessun manifest di asset viene toccato.
-  String? get _ossoVerginePath {
-    final stem = _e.rune.stem;
-    return stem == null
-        ? null
-        : 'assets/img/rune_bone_vergine/${stem}_vergine_v1.webp';
-  }
+  /// lettura la materia e' la stessa e il passaggio non si vede.
+  String? get _ossoVerginePath => pathVergineDi(_e.rune.stem);
 
   // Vero solo quando l'osso vergine della runa del giorno esiste davvero nel
   // bundle. Si verifica una volta, cosi' la scena non dipende dall'errorBuilder
@@ -686,7 +714,13 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       await DefaultAssetBundle.of(context).load(path);
       if (mounted) setState(() => _ossoVergineCe = true);
     } catch (_) {
-      // I ventiquattro file non ci sono ancora: resta la pietra dipinta.
+      // I ventiquattro file non ci sono ancora: resta la pietra dipinta. In
+      // debug si dice quale percorso e' mancato: il silenzio su un asset
+      // assente e' il modo in cui un percorso sbagliato passa inosservato.
+      assert(() {
+        debugPrint('Runa del Tramonto: osso vergine assente, cercato in $path');
+        return true;
+      }());
     }
   }
 
@@ -1252,11 +1286,7 @@ class _Fondale extends StatelessWidget {
   // I tre fondali dipinti del tramonto, presenti in assets/ritual_backgrounds/
   // con l'orizzonte allineato al 35,5% su tutti e tre. Se mancassero,
   // l'errorBuilder ripiega sul procedurale senza toccare stato_asset.
-  static const List<String> slots = [
-    'assets/ritual_backgrounds/tramonto_prima_v1.webp',
-    'assets/ritual_backgrounds/tramonto_al_v1.webp',
-    'assets/ritual_backgrounds/tramonto_dopo_v1.webp',
-  ];
+  static const List<String> slots = kFondaliTramonto;
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:flutter_test/flutter_test.dart';
 
@@ -84,4 +85,74 @@ void main() {
       }
     }
   });
+
+  // Le sette anteprime della Runa del Tramonto devono mostrare il fondale
+  // fotografico vero, non il ripiego procedurale. Il ripiego e' un gradiente
+  // puramente verticale: lungo una riga orizzontale il colore non cambia quasi
+  // mai. Il fondale dipinto, invece, varia sempre anche in orizzontale. Si misura
+  // quindi quanti cambi di colore ci sono lungo le righe della fascia di cielo.
+  //
+  // Taratura sulle anteprime reali: il valore piu' basso misurato con il fondale
+  // vero e' circa 246 cambi su una riga da 1170 punti; col ripiego procedurale
+  // scenderebbe quasi a zero. La soglia sta a 60, cioe' quattro volte sotto il
+  // caso peggiore buono: fallisce solo se il fondale manca davvero.
+  const anteprimeTramonto = <String>[
+    'runa-tramonto-attesa.png',
+    'runa-tramonto-getto.png',
+    'runa-tramonto-incisione.png',
+    'runa-tramonto-voce-uno.png',
+    'runa-tramonto-voce-due.png',
+    'runa-tramonto-settimana.png',
+    'runa-tramonto-sigillo.png',
+  ];
+  const sogliaCambi = 60;
+
+  testWidgets('Le anteprime del Tramonto hanno il fondale vero, non il ripiego',
+      (tester) async {
+    for (final name in anteprimeTramonto) {
+      final file = File('docs/preview/$name');
+      expect(file.existsSync(), isTrue, reason: 'manca $name');
+      late int cambi;
+      await tester.runAsync(() async {
+        cambi = await _cambiOrizzontaliNelCielo(file);
+      });
+      expect(cambi, greaterThan(sogliaCambi),
+          reason: 'In $name la fascia di cielo e piatta in orizzontale: '
+              'la cattura ha preso il ripiego procedurale invece del fondale. '
+              'Controlla il precarico dei tre webp in precacheTramonto.');
+    }
+  });
+}
+
+/// Quanti cambi di colore ci sono lungo le righe della fascia di cielo, cioe'
+/// fra il dodici e il ventidue per cento dell'altezza, mediati sulle righe
+/// campionate. Zero, o quasi, vuol dire gradiente verticale puro.
+Future<int> _cambiOrizzontaliNelCielo(File file) async {
+  final codec = await ui.instantiateImageCodec(await file.readAsBytes());
+  final frame = await codec.getNextFrame();
+  final img = frame.image;
+  final dati = await img.toByteData(format: ui.ImageByteFormat.rawRgba);
+  if (dati == null) return 0;
+  final byte = dati.buffer.asUint8List();
+  final w = img.width;
+  final da = (img.height * 0.12).round();
+  final a = (img.height * 0.22).round();
+  var totale = 0;
+  var righe = 0;
+  for (var y = da; y < a; y += 8) {
+    var cambi = 0;
+    for (var x = 1; x < w; x++) {
+      final i = (y * w + x) * 4;
+      final j = (y * w + x - 1) * 4;
+      if (byte[i] != byte[j] ||
+          byte[i + 1] != byte[j + 1] ||
+          byte[i + 2] != byte[j + 2]) {
+        cambi++;
+      }
+    }
+    totale += cambi;
+    righe++;
+  }
+  img.dispose();
+  return righe == 0 ? 0 : totale ~/ righe;
 }

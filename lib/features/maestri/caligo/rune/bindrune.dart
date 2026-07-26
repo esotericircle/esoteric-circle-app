@@ -39,7 +39,12 @@ class BindruneSigillo extends StatelessWidget {
   static const double steloBasso = 0.85;
 
   /// Il numero massimo di rami del sigillo: oltre, il segno non si legge piu'.
-  static const int maxRami = 7;
+  /// Sono dodici perche' ogni runa puo' portarne fino a due, e sette rune con un
+  /// ramo solo collasserebbero su segni quasi uguali.
+  static const int maxRami = 12;
+
+  /// Quanti rami al massimo prende una singola runa.
+  static const int maxRamiPerRuna = 2;
 
   /// I rami del sigillo in coordinate normalizzate, uno per runa unica, gia'
   /// agganciati allo stelo e ripiegati su un solo lato. E' la geometria vera del
@@ -50,14 +55,18 @@ class BindruneSigillo extends StatelessWidget {
   /// nel riquadro e portato alla sua quota. Le rune di solo stelo, come Isa, non
   /// generano rami: contribuiscono soltanto allo stelo condiviso.
   static List<List<Offset>> ramiDi(List<String> runeNames) {
-    // Una runa per volta, senza ripetizioni, fino al massimo dei rami.
+    // Una runa per volta, senza ripetizioni. Ogni runa porta fino a due rami,
+    // cosi' segni diversi restano distinguibili invece di collassare tutti su
+    // una barretta obliqua uguale.
     final viste = <String>{};
     final grezzi = <List<Offset>>[];
     for (final name in runeNames) {
       if (grezzi.length >= maxRami) break;
       if (!viste.add(name)) continue;
-      final ramo = _ramoPrincipale(name);
-      if (ramo != null) grezzi.add(ramo);
+      for (final ramo in _ramiDiRuna(name)) {
+        if (grezzi.length >= maxRami) break;
+        grezzi.add(ramo);
+      }
     }
     if (grezzi.isEmpty) return const [];
 
@@ -68,9 +77,11 @@ class BindruneSigillo extends StatelessWidget {
     final n = grezzi.length;
     final passo = n == 1 ? 0.0 : (ultimo - primo) / (n - 1);
 
-    // Estensione massima di un ramo: mai oltre il riquadro, con un margine.
-    const estensione = 0.30;
-    const altezzaMax = 0.24;
+    // Estensione massima di un ramo: mai oltre il riquadro, con un margine. Con
+    // piu' rami le quote si infittiscono, quindi ogni ramo occupa meno altezza,
+    // altrimenti invade quella del vicino e il segno si ingarbuglia.
+    const estensione = 0.26;
+    final altezzaMax = n <= 6 ? 0.22 : 0.14;
 
     final quoteUsate = <int, List<double>>{}; // per lato, le quote occupate
     final rami = <List<Offset>>[];
@@ -109,57 +120,113 @@ class BindruneSigillo extends StatelessWidget {
     return rami;
   }
 
-  /// Il ramo principale di una runa, in coordinate relative all'innesto: la
-  /// spezzata non verticale piu' estesa, traslata sul suo punto d'aggancio.
-  /// Null per le rune di solo stelo.
-  static List<Offset>? _ramoPrincipale(String name) {
+  /// Fino a due rami di una runa, in coordinate relative al punto d'innesto: le
+  /// due spezzate non verticali piu' estese, scartando la seconda se e' troppo
+  /// simile alla prima per angolo e lunghezza (sarebbe un doppione muto).
+  /// Vuota per le rune di solo stelo, come Isa.
+  static List<List<Offset>> _ramiDiRuna(String name) {
     final strokes = kRuneStrokes[name];
-    if (strokes == null) return null;
+    if (strokes == null) return const [];
+
     // L'asse verticale della runa, se c'e': i rami si agganciano a quello.
     var asseX = 0.5;
     var trovata = false;
     for (final poly in strokes) {
-      final xs = poly.map((p) => p.dx);
-      final ys = poly.map((p) => p.dy);
-      final dx = xs.reduce(math.max) - xs.reduce(math.min);
-      final dy = ys.reduce(math.max) - ys.reduce(math.min);
-      if (dx < 0.08 && dy > 0.5) {
+      if (_eAsta(poly)) {
+        final xs = poly.map((p) => p.dx);
         asseX = (xs.reduce(math.max) + xs.reduce(math.min)) / 2;
         trovata = true;
         break;
       }
     }
-    // Fra le spezzate non verticali, quella con l'estensione maggiore.
-    List<Offset>? scelto;
-    var miglior = 0.0;
-    for (final poly in strokes) {
-      final xs = poly.map((p) => p.dx);
-      final ys = poly.map((p) => p.dy);
-      final dx = xs.reduce(math.max) - xs.reduce(math.min);
-      final dy = ys.reduce(math.max) - ys.reduce(math.min);
-      if (dx < 0.08 && dy > 0.5) continue; // e' l'asta, la fa lo stelo
-      final est = dx + dy;
-      if (est > miglior) {
-        miglior = est;
-        scelto = poly;
-      }
-    }
-    if (scelto == null) return null; // solo stelo: nessun ramo
+
+    // Le spezzate candidate, dalla piu' estesa alla meno estesa.
+    final candidate = <List<Offset>>[
+      for (final poly in strokes)
+        if (!_eAsta(poly)) poly,
+    ]..sort((a, b) => _estensione(b).compareTo(_estensione(a)));
+    if (candidate.isEmpty) return const []; // solo stelo: nessun ramo
+
     if (!trovata) {
-      final xs = scelto.map((p) => p.dx);
+      final xs = candidate.first.map((p) => p.dx);
       asseX = (xs.reduce(math.max) + xs.reduce(math.min)) / 2;
     }
-    // L'innesto e' il punto piu' vicino all'asse: da lui parte il ramo.
-    var innesto = scelto.first;
+
+    final scelte = <List<Offset>>[candidate.first];
+    for (final poly in candidate.skip(1)) {
+      if (scelte.length >= maxRamiPerRuna) break;
+      if (scelte.every((s) => _abbastanzaDiverse(s, poly))) scelte.add(poly);
+    }
+
+    return [
+      for (final poly in scelte) _traslataSullInnesto(poly, asseX),
+    ];
+  }
+
+  /// Vero se la spezzata e' l'asta verticale della runa, quella che nel sigillo
+  /// e' gia' rappresentata dallo stelo condiviso.
+  static bool _eAsta(List<Offset> poly) {
+    final xs = poly.map((p) => p.dx);
+    final ys = poly.map((p) => p.dy);
+    final dx = xs.reduce(math.max) - xs.reduce(math.min);
+    final dy = ys.reduce(math.max) - ys.reduce(math.min);
+    return dx < 0.08 && dy > 0.5;
+  }
+
+  /// L'estensione di una spezzata, larghezza piu' altezza del suo ingombro.
+  static double _estensione(List<Offset> poly) {
+    final xs = poly.map((p) => p.dx);
+    final ys = poly.map((p) => p.dy);
+    return (xs.reduce(math.max) - xs.reduce(math.min)) +
+        (ys.reduce(math.max) - ys.reduce(math.min));
+  }
+
+  /// La lunghezza percorsa da una spezzata, somma dei suoi segmenti.
+  static double _lunghezza(List<Offset> poly) {
+    var l = 0.0;
+    for (var i = 1; i < poly.length; i++) {
+      l += (poly[i] - poly[i - 1]).distance;
+    }
+    return l;
+  }
+
+  /// L'angolo dal primo all'ultimo punto, in radianti.
+  static double _angolo(List<Offset> poly) {
+    final d = poly.last - poly.first;
+    return math.atan2(d.dy, d.dx);
+  }
+
+  /// Due spezzate sono abbastanza diverse se cambiano direzione di almeno venti
+  /// gradi, se una e' almeno un terzo piu' lunga dell'altra, oppure se nascono a
+  /// quote chiaramente distinte. Quest'ultimo caso conta: in Fehu le due barre
+  /// sono parallele e uguali, e sono proprio loro a fare il segno; scartarne una
+  /// e' il modo per far collassare rune diverse sullo stesso ramo.
+  static bool _abbastanzaDiverse(List<Offset> a, List<Offset> b) {
+    var scarto = (_angolo(a) - _angolo(b)).abs();
+    if (scarto > math.pi) scarto = 2 * math.pi - scarto;
+    if (scarto > 20 * math.pi / 180) return true;
+    final la = _lunghezza(a);
+    final lb = _lunghezza(b);
+    final maggiore = math.max(la, lb);
+    if (maggiore > 0 && (la - lb).abs() / maggiore > 0.33) return true;
+    // Parallele e di pari lunghezza, ma innestate a quote diverse: sono due
+    // barre distinte del segno, non un doppione.
+    return (a.first.dy - b.first.dy).abs() > 0.1;
+  }
+
+  /// La spezzata portata sull'origine, nel suo punto piu' vicino all'asse: da li'
+  /// il ramo si innesta sullo stelo.
+  static List<Offset> _traslataSullInnesto(List<Offset> poly, double asseX) {
+    var innesto = poly.first;
     var minDist = (innesto.dx - asseX).abs();
-    for (final p in scelto) {
+    for (final p in poly) {
       final d = (p.dx - asseX).abs();
       if (d < minDist) {
         minDist = d;
         innesto = p;
       }
     }
-    return [for (final p in scelto) Offset(p.dx - innesto.dx, p.dy - innesto.dy)];
+    return [for (final p in poly) Offset(p.dx - innesto.dx, p.dy - innesto.dy)];
   }
 
   @override

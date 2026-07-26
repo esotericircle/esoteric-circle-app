@@ -932,6 +932,12 @@ void main() {
   // Precarica gli artwork rune_bone, cosi' il glifo inciso e' decodificato alla
   // cattura e non resta un buco al posto dell'arte finale.
   Future<void> precacheTramonto(WidgetTester tester) async {
+    // I tre fondali sono 1284 per 2778: decodificati pesano una quarantina di
+    // megabyte in tutto e, sommati alle ventiquattro pietre, sfondano il tetto
+    // predefinito della cache immagini, che espelle le miniature gia' caricate e
+    // lascia le caselle della settimana vuote. Qui il tetto si alza: e' solo la
+    // cattura, l'app in esercizio non ha bisogno di tenerle tutte insieme.
+    PaintingBinding.instance.imageCache.maximumSizeBytes = 512 << 20;
     await tester.runAsync(() async {
       final element = tester.element(find.byType(SunsetRuneScreen));
       for (final r in kElderFuthark) {
@@ -941,8 +947,20 @@ void main() {
           await precacheImage(AssetImage(r.thumbPath!), element);
         }
       }
+      // E i tre fondali del tramonto: senza, la cattura sorprende il momento
+      // successivo con l'immagine non ancora decodificata e finisce sul ripiego
+      // procedurale. La lista si legge da `kFondaliTramonto`, la stessa della
+      // schermata, cosi' i percorsi non possono divergere.
+      for (final slot in kFondaliTramonto) {
+        await precacheImage(AssetImage(slot), element);
+      }
     });
     await step(tester);
+    // L'AnimatedSwitcher del fondale dura novecento millisecondi: si lascia
+    // arrivare a regime, altrimenti lo scatto coglie la dissolvenza a meta'.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
   }
 
   // Semina alcune sere gia' vissute, per una striscia che non sia vuota.
@@ -973,6 +991,11 @@ void main() {
     await g.up();
     await step(tester);
     await step(tester);
+    // Col segno compiuto il fondale passa al terzo momento: si lascia finire la
+    // dissolvenza da novecento millisecondi prima di scattare.
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
   }
 
   testWidgets('Cattura la Runa del Tramonto, attesa getto e incisione',

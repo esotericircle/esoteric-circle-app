@@ -31,13 +31,37 @@ void main() {
     }
   });
 
-  test('I rami non superano il limite di sette', () {
-    // Tutte e ventiquattro le rune: i rami restano sette.
+  test('I rami non superano il limite dichiarato', () {
+    // Tutte e ventiquattro le rune: i rami restano entro il tetto.
     final tutti =
         BindruneSigillo.ramiDi(kElderFuthark.map((r) => r.name).toList());
     expect(tutti.length, lessThanOrEqualTo(BindruneSigillo.maxRami));
     expect(BindruneSigillo.ramiDi(settimana).length,
         lessThanOrEqualTo(BindruneSigillo.maxRami));
+  });
+
+  test('Ogni runa porta al massimo due rami', () {
+    for (final r in kElderFuthark) {
+      expect(BindruneSigillo.ramiDi([r.name]).length,
+          lessThanOrEqualTo(BindruneSigillo.maxRamiPerRuna),
+          reason: r.name);
+    }
+  });
+
+  test('Fehu e Uruz non collassano sullo stesso segno', () {
+    final fehu = BindruneSigillo.ramiDi(['Fehu']);
+    final uruz = BindruneSigillo.ramiDi(['Uruz']);
+    expect(fehu, isNotEmpty);
+    expect(uruz, isNotEmpty);
+    // Fehu porta le sue due barre, Uruz la sua spalla: numero di rami diverso,
+    // oppure forma diversa. In ogni caso non sono lo stesso segno.
+    final formaFehu = fehu.map((r) => r.length).toList();
+    final formaUruz = uruz.map((r) => r.length).toList();
+    expect(fehu.length != uruz.length || formaFehu.toString() != formaUruz.toString(),
+        isTrue,
+        reason: 'Fehu e Uruz producono lo stesso disegno');
+    // E Fehu ha davvero due barre, che sono il suo segno.
+    expect(fehu.length, 2);
   });
 
   test('Le rune ripetute contano una volta sola', () {
