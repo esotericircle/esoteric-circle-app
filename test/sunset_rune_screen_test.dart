@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/core/rituals/sunset_rune.dart';
 import 'package:esoteric_circle/core/rituals/sunset_rune_memory.dart';
@@ -73,7 +74,8 @@ void main() {
 
     expect(find.byKey(const Key('sunset_stone')), findsOneWidget);
     expect(find.byKey(const Key('sunset_getto_gesture')), findsOneWidget);
-    expect(find.text('Scuoti per gettare la runa'), findsOneWidget);
+    expect(find.text('Scuoti il telefono o tocca la pietra per gettarla.'),
+        findsOneWidget);
     // Senza posizione, l'ora e' dichiarata stimata, con la voce per attivarla.
     expect(find.byKey(const Key('sunset_stimata')), findsOneWidget);
     expect(find.byKey(const Key('sunset_attiva')), findsOneWidget);
@@ -89,12 +91,10 @@ void main() {
     await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
     await passo(tester);
     expect(find.byKey(const Key('sunset_incisione_gesture')), findsOneWidget);
-    expect(find.text('Tieni premuto il dito sulla pietra'), findsOneWidget);
-    // Qui Riduci Movimento e' attivo: la riga deve dire il gesto vero di QUEL
-    // caso, il tocco unico, e non promettere un tracciamento che li' non serve.
-    expect(find.text('Un tocco incide il segno per intero.'), findsOneWidget);
-    expect(find.text('Traccia con il dito e scopri il Simbolo sulla runa'),
-        findsNothing);
+    // Qui Riduci Movimento e' attivo: l'unica riga di invito deve dire il gesto
+    // vero di QUEL caso, il tocco unico, e non promettere un tracciamento.
+    expect(find.text('Tocca la pietra per incidere il simbolo.'), findsOneWidget);
+    expect(find.textContaining('Traccia con il dito'), findsNothing);
   });
 
   testWidgets('Incisa la runa, si aprono le due voci dietro la rotazione',
@@ -148,12 +148,19 @@ void main() {
     await tester.pump(const Duration(milliseconds: 200));
     // Non e' passata alla lettura: il segno resta a meta'.
     expect(find.byKey(const Key('sunset_voce_uno')), findsNothing);
-    expect(find.text('Il segno non è compiuto'), findsOneWidget);
+    // L'invito e' sfumato via appena il segno e' cominciato.
+    expect(
+        tester
+            .widget<AnimatedOpacity>(find.ancestor(
+                of: find.byKey(const Key('sunset_invito')),
+                matching: find.byType(AnimatedOpacity)))
+            .opacity,
+        0);
   });
 
   testWidgets('Il tracciato del dito incide, senza aspettare il tempo',
       (tester) async {
-    // La riga della pillola promette "Traccia con il dito e scopri il Simbolo":
+    // La riga di invito promette "Traccia con il dito sulla pietra":
     // qui si blocca quella promessa. Il dito si muove entro un solo frame, quindi
     // il contributo del tempo di pressione e' trascurabile: se il segno avanza,
     // avanza per il movimento.
@@ -168,7 +175,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
 
     // Senza Riduci Movimento la riga promette il tracciamento.
-    expect(find.text('Traccia con il dito e scopri il Simbolo sulla runa'),
+    expect(find.text('Traccia con il dito sulla pietra\ne scopri il simbolo.'),
         findsOneWidget);
 
     final gesto = find.byKey(const Key('sunset_incisione_gesture'));
@@ -228,6 +235,89 @@ void main() {
     expect(progresso(), greaterThanOrEqualTo(avanti));
     await g.up();
     await tester.pump(const Duration(milliseconds: 200));
+  });
+
+  testWidgets('Col luogo noto resta la sola riga, senza pulsante',
+      (tester) async {
+    // A posizione concessa il pulsante non ha piu' ragione di esistere: in fondo
+    // resta una riga sola, e dice il tramonto vero.
+    SharedPreferences.setMockInitialValues({});
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(MaterialApp(
+        home: SunsetRuneScreen(
+      now: ora,
+      dataNascita: DateTime(1988, 7, 5),
+      location: const _LuogoConcesso(),
+    )));
+    await passo(tester);
+    await passo(tester);
+
+    expect(find.byKey(const Key('sunset_attiva')), findsNothing);
+    expect(find.byKey(const Key('sunset_stimata')), findsNothing);
+    expect(find.byKey(const Key('sunset_ora')), findsOneWidget);
+    expect(find.textContaining('Tramonto alle'), findsOneWidget);
+  });
+
+  testWidgets('Il fantasma arriva col silenzio e sparisce al primo tocco',
+      (tester) async {
+    // Senza Riduci Movimento: il punto di luce percorre il primo tratto.
+    SharedPreferences.setMockInitialValues({});
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(MaterialApp(
+        home: SunsetRuneScreen(now: ora, dataNascita: DateTime(1988, 7, 5))));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    double? fantasma() => (tester
+            .widget<CustomPaint>(find.byKey(const Key('sunset_incisione')))
+            .painter! as dynamic)
+        .fantasma as double?;
+
+    // Prima della soglia di silenzio non c'e'.
+    await tester.pump(const Duration(milliseconds: 900));
+    expect(fantasma(), isNull, reason: 'compare troppo presto');
+
+    // Passata la soglia, c'e'.
+    await tester.pump(const Duration(milliseconds: 900));
+    await tester.pump(const Duration(milliseconds: 16));
+    expect(fantasma(), isNotNull, reason: 'non compare dopo il silenzio');
+
+    // Il primo contatto lo spegne, e non torna piu'.
+    final centro =
+        tester.getCenter(find.byKey(const Key('sunset_incisione_gesture')));
+    final g = await tester.startGesture(centro);
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(fantasma(), isNull, reason: 'non si spegne al tocco');
+    await g.up();
+    await tester.pump(const Duration(milliseconds: 200));
+    // Anche dopo un lungo silenzio non riappare.
+    await tester.pump(const Duration(seconds: 3));
+    expect(fantasma(), isNull, reason: 'e tornato dopo il tocco');
+  });
+
+  testWidgets('Con Riduci Movimento il fantasma e un velo fermo',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(host()); // host ha disableAnimations
+    await passo(tester);
+    await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    double? fantasma() => (tester
+            .widget<CustomPaint>(find.byKey(const Key('sunset_incisione')))
+            .painter! as dynamic)
+        .fantasma as double?;
+
+    await tester.pump(const Duration(milliseconds: 1600));
+    await tester.pump(const Duration(milliseconds: 16));
+    // Il valore convenzionale del velo fermo, nessun punto che viaggia.
+    expect(fantasma(), -1.0);
   });
 
   testWidgets('Il sigillo compare alla settima sera, non prima', (tester) async {
@@ -414,4 +504,17 @@ void main() {
     await compi(tester);
     expect(find.textContaining('Sette segni diversi'), findsOneWidget);
   });
+}
+
+/// Una posizione gia' concessa, per il caso in cui il pulsante deve sparire.
+class _LuogoConcesso extends SkyLocation {
+  const _LuogoConcesso();
+  @override
+  bool get available => true;
+  @override
+  Future<SkyPlace?> resolve() async =>
+      const SkyPlace(latitude: 41.9, longitude: 12.5);
+  @override
+  Future<SkyPlace?> resolveSeConcesso() async =>
+      const SkyPlace(latitude: 41.9, longitude: 12.5);
 }

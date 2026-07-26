@@ -86,6 +86,18 @@ const List<String> kFondaliTramonto = [
   'assets/ritual_backgrounds/tramonto_dopo_v1.webp',
 ];
 
+/// Il primo tratto della runa, in coordinate normalizzate, dalla stessa sorgente
+/// che il painter usa per il simbolo: nessuna geometria duplicata.
+///
+/// Serve al fantasma del gesto, che mostra SOLO questo tratto. Mai il simbolo
+/// intero: mostrarlo tutto brucerebbe la rivelazione, che e' il cuore del rito.
+/// Vuoto se la runa non ha geometria.
+List<Offset> primoTrattoDi(String nomeRuna) {
+  final strokes = kRuneStrokes[nomeRuna];
+  if (strokes == null || strokes.isEmpty) return const [];
+  return strokes.first;
+}
+
 /// Il percorso della pietra vergine, cioe' l'osso senza segno, a partire dallo
 /// stem della runa. Gli stem di `kElderFuthark` finiscono gia' in `_v1`, quindi
 /// il suffisso di versione va tolto prima di riapplicarlo: senza questo il nome
@@ -150,6 +162,18 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   late final AnimationController _rimbalzo;
   late final AnimationController _flip;
 
+  // Il fantasma del gesto: un punto di luce che percorre il primo tratto della
+  // runa vera, per insegnare il gesto a chi resta fermo. Compare solo dopo un
+  // silenzio, mostra solo il primo tratto, e sparisce per sempre al primo tocco.
+  Timer? _attesaFantasma;
+  late final AnimationController _fantasma;
+  bool _fantasmaVisibile = false;
+  bool _fantasmaSpento = false;
+
+  /// Quanto silenzio serve prima che l'invito si mostri: chi ha capito subito
+  /// non lo vede mai.
+  static const Duration _silenzioPrimaDelFantasma = Duration(milliseconds: 1500);
+
   Ticker? _incisioneTicker;
   StreamSubscription<AccelerometerEvent>? _shakeSub;
   StreamSubscription<GyroscopeEvent>? _giroSub;
@@ -200,7 +224,37 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         vsync: this, duration: const Duration(milliseconds: 620));
     _flip = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 900));
+    _fantasma = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 2500));
     _ascoltaScuotimento();
+  }
+
+  /// Programma la comparsa del fantasma: solo in incisione, solo se non e' gia'
+  /// stato spento, e solo dopo il silenzio.
+  void _attendiFantasma() {
+    if (_fantasmaSpento) return;
+    _attesaFantasma?.cancel();
+    _attesaFantasma = Timer(_silenzioPrimaDelFantasma, () {
+      if (!mounted ||
+          _fantasmaSpento ||
+          _fase != _Fase.incisione ||
+          _incisione > 0) {
+        return;
+      }
+      setState(() => _fantasmaVisibile = true);
+      // Con Riduci Movimento non viaggia nulla: resta un velo fermo.
+      if (!_riduciMovimento) _fantasma.repeat();
+    });
+  }
+
+  /// Il primo contatto del dito lo spegne, e non torna piu' per questa apertura.
+  void _spegniFantasma() {
+    _attesaFantasma?.cancel();
+    _attesaFantasma = null;
+    if (_fantasmaSpento && !_fantasmaVisibile) return;
+    _fantasmaSpento = true;
+    _fantasma.stop();
+    if (_fantasmaVisibile) setState(() => _fantasmaVisibile = false);
   }
 
   bool _fondaliPrecaricati = false;
@@ -288,6 +342,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   @override
   void dispose() {
+    _attesaFantasma?.cancel();
+    _fantasma.dispose();
     _incisioneTicker?.dispose();
     _shakeSub?.cancel();
     _giroSub?.cancel();
@@ -348,6 +404,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     _shakeSub = null;
     if (!_riduciMovimento) _rimbalzo.forward(from: 0);
     setState(() => _fase = _Fase.incisione);
+    // Da qui parte il silenzio: se il dito non arriva, l'invito si mostra.
+    _attendiFantasma();
   }
 
   // --- Gesto due: l'incisione ---
@@ -365,6 +423,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   void _inizioIncisione([Offset? punto]) {
     if (_fase != _Fase.incisione || _completa) return;
+    // Il dito e' arrivato: l'invito ha finito il suo compito.
+    _spegniFantasma();
     _premuto = true;
     _ultimoPunto = punto;
     // Alla ripresa NON si azzera il progresso: il primo tick fissa solo la base
@@ -659,25 +719,37 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           ),
         ),
         _rigaOra(),
-        const SizedBox(height: SpacingTokens.sm),
-        _pillolaEgesti(),
+        const SizedBox(height: SpacingTokens.md),
+        _invito(),
         const SizedBox(height: SpacingTokens.xl),
       ],
     );
   }
 
+  /// L'ombra morbida dietro le lettere: tiene leggibile il testo sopra il
+  /// fondale senza bisogno di uno sfondo pieno, che somiglierebbe a un comando.
+  static const List<Shadow> _ombraTesto = [
+    Shadow(color: Color(0xCC000000), blurRadius: 8),
+    Shadow(color: Color(0x99000000), blurRadius: 3),
+  ];
+
+  /// La riga di stato, in cima al blocco in fondo: piccola e smorzata, e' una
+  /// nota di servizio, non un messaggio del rito. Col luogo vero dice solo l'ora
+  /// del tramonto, e allora il pulsante sotto non serve piu' e sparisce.
   Widget _rigaOra() {
     final t = _tramonto;
     final ora = t == null
         ? ''
         : '${t.hour.toString().padLeft(2, '0')}:'
             '${t.minute.toString().padLeft(2, '0')}';
+    final stile = TypographyTokens.label(size: 10).copyWith(
+      color: Colors.white.withValues(alpha: 0.6),
+      letterSpacing: 0.3,
+      shadows: _ombraTesto,
+    );
     if (!_stimata) {
-      return Text('Tramonto delle $ora',
-          key: const Key('sunset_ora'),
-          style: TypographyTokens.label(size: 11).copyWith(
-              color: _palette.goldSoft.withValues(alpha: 0.8),
-              letterSpacing: 0.4));
+      return Text('Tramonto alle $ora',
+          key: const Key('sunset_ora'), style: stile);
     }
     return Column(
       children: [
@@ -687,14 +759,26 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 : 'Ora stimata delle $ora, la posizione non è attiva',
             key: const Key('sunset_stimata'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 11).copyWith(
-                color: ColorTokens.textSecondary, letterSpacing: 0.3)),
-        TextButton(
+            style: stile),
+        const SizedBox(height: SpacingTokens.sm),
+        // L'unica cosa toccabile della schermata, e si vede che lo e': bordo,
+        // riempimento tenue in chiave oro, area di tocco piena.
+        OutlinedButton(
           key: const Key('sunset_attiva'),
           onPressed: _attivaPosizione,
+          style: OutlinedButton.styleFrom(
+            minimumSize: const Size(0, 44),
+            padding: const EdgeInsets.symmetric(
+                horizontal: SpacingTokens.lg, vertical: 10),
+            backgroundColor: _palette.gold.withValues(alpha: 0.16),
+            side: BorderSide(color: _palette.gold.withValues(alpha: 0.75)),
+            shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(SpacingTokens.radiusPill)),
+          ),
           child: Text('Attiva la posizione',
-              style: TypographyTokens.label(size: 11)
-                  .copyWith(color: _palette.goldSoft)),
+              style: TypographyTokens.label(size: 12)
+                  .copyWith(color: _palette.goldSoft, letterSpacing: 0.6)),
         ),
       ],
     );
@@ -802,18 +886,26 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // I tratti scavati, che sfumano quando arriva l'asset.
+            // I tratti scavati, che sfumano quando arriva l'asset. Il fantasma
+            // del gesto vive dentro lo stesso painter, sopra la pietra e sotto
+            // i segni incisi.
             AnimatedOpacity(
               opacity: _completa ? 0.0 : 1.0,
               duration: const Duration(milliseconds: 500),
-              child: CustomPaint(
-                key: const Key('sunset_incisione'),
-                size: const Size(lato, lato),
-                painter: _IncisionePainter(
-                  runeName: _e.rune.name,
-                  progresso: _incisione,
-                  palette: _palette,
-                  completa: _completa,
+              child: AnimatedBuilder(
+                animation: _fantasma,
+                builder: (context, _) => CustomPaint(
+                  key: const Key('sunset_incisione'),
+                  size: const Size(lato, lato),
+                  painter: _IncisionePainter(
+                    runeName: _e.rune.name,
+                    progresso: _incisione,
+                    palette: _palette,
+                    completa: _completa,
+                    fantasma: _fantasmaVisibile
+                        ? (_riduciMovimento ? -1.0 : _fantasma.value)
+                        : null,
+                  ),
                 ),
               ),
             ),
@@ -873,48 +965,42 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   }
 
 
-  Widget _pillolaEgesti() {
-    final testo = _fase == _Fase.getto
-        ? 'Scuoti per gettare la runa'
-        : (_incisione > 0 && _incisione < 1 && !_premuto
-            ? 'Il segno non è compiuto'
-            : 'Tieni premuto il dito sulla pietra');
-    // La riga di ripiego dice il gesto vero, quello che l'app implementa: col
-    // tracciamento se c'e', col solo tocco quando Riduci Movimento e' attivo.
-    final ripiego = _fase == _Fase.getto
-        ? 'Se preferisci, tocca la pietra per gettarla.'
-        : (_riduciMovimento
-            ? 'Un tocco incide il segno per intero.'
-            : 'Traccia con il dito e scopri il Simbolo sulla runa');
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-      child: Column(
-        children: [
-          // Un'etichetta, non un pulsante: niente bordo oro pieno ne' sagoma a
-          // pillola come i comandi veri, perche' non e' toccabile e non fa
-          // nulla. Resta un velo scuro appena accennato, che tiene leggibile il
-          // testo su tutti e tre i fondali senza promettere un tocco.
-          Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: SpacingTokens.sm, vertical: 4),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
-              color: _palette.deepest.withValues(alpha: 0.42),
-            ),
-            child: Text(testo,
-                key: const Key('sunset_prompt'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 12).copyWith(
-                    color: Colors.white.withValues(alpha: 0.92),
-                    letterSpacing: 0.6)),
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          Text(ripiego,
-              textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 11).copyWith(
-                  color: Colors.white.withValues(alpha: 0.78),
-                  letterSpacing: 0.2)),
-        ],
+  /// Una riga sola di invito, che cambia con la fase e dice il gesto vero.
+  ///
+  /// Nessuno sfondo: la leggibilita' viene dall'ombra dietro le lettere, cosi'
+  /// il testo non somiglia a un comando. Si scrive "sulla pietra" e non "sulla
+  /// runa", perche' in quel momento la runa non c'e' ancora: c'e' una pietra
+  /// vergine, e il simbolo e' il premio che emerge alla fine. L'a capo della riga
+  /// dell'incisione e' imposto nella stringa, altrimenti l'ultima parola resta
+  /// orfana da sola in fondo.
+  String get _testoInvito {
+    if (_fase == _Fase.getto) {
+      return 'Scuoti il telefono o tocca la pietra per gettarla.';
+    }
+    if (_riduciMovimento) return 'Tocca la pietra per incidere il simbolo.';
+    return 'Traccia con il dito sulla pietra\ne scopri il simbolo.';
+  }
+
+  Widget _invito() {
+    // Appena il segno comincia, l'invito ha fatto il suo lavoro e si toglie di
+    // mezzo: sfuma via e non torna. A incisione compiuta in fondo restano solo
+    // la pietra e il simbolo.
+    final visibile = _incisione <= 0;
+    return AnimatedOpacity(
+      opacity: visibile ? 1 : 0,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.easeOut,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+        child: Text(_testoInvito,
+            key: const Key('sunset_invito'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.label(size: 12).copyWith(
+              color: Colors.white.withValues(alpha: 0.9),
+              letterSpacing: 0.5,
+              height: 1.5,
+              shadows: _ombraTesto,
+            )),
       ),
     );
   }
@@ -1568,12 +1654,18 @@ class _IncisionePainter extends CustomPainter {
     required this.progresso,
     required this.palette,
     required this.completa,
+    this.fantasma,
   });
 
   final String runeName;
   final double progresso;
   final MaestroPalette palette;
   final bool completa;
+
+  /// Il fantasma del gesto: null quando non si mostra, da 0 a 1 la posizione nel
+  /// ciclo del punto che viaggia, e il valore convenzionale -1 per il velo fermo
+  /// del ripiego con Riduci Movimento.
+  final double? fantasma;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1589,6 +1681,10 @@ class _IncisionePainter extends CustomPainter {
     final lato = larghezzaPietra * 0.64;
     final left = (size.width - lato) / 2;
     final top = (size.height - lato) / 2;
+    // Il fantasma sta qui: sopra la pietra, sotto i segni incisi che seguono.
+    if (fantasma != null) {
+      _dipingiFantasma(canvas, lato, left, top);
+    }
     Offset map(Offset p) => Offset(left + p.dx * lato, top + p.dy * lato);
 
     // Lunghezze cumulative dei tratti, per scavare in proporzione.
@@ -1643,13 +1739,25 @@ class _IncisionePainter extends CustomPainter {
           .withValues(alpha: 0.55 * profondita);
     // Il lume sul bordo opposto all'ombra, in basso a destra: e' il labbro dello
     // scavo che prende luce, e chiude la lettura del rilievo.
+    //
+    // Qui contano insieme geometria, ordine di disegno e contrasto, e i primi
+    // due tentativi hanno sbagliato proprio su questo.
+    //
+    // Il lume va disegnato PER ULTIMO, sopra il fondo: sotto verrebbe sepolto
+    // lungo i tratti dritti e affiorerebbe solo ai capi tondi, cioe' come
+    // puntini staccati. E va posato A CAVALLO del bordo dello scavo, non tutto
+    // fuori: un bianco su avorio non ha contrasto e sparirebbe comunque, mentre
+    // sul labbro, dove sotto c'e' il fondo scuro, si legge. Lo scarto e' quindi
+    // 0.38 per lato, che in diagonale fa 0.537 dal centro; con meta' larghezza a
+    // 0.11 il lume occupa da 0.43 a 0.65, cioe' scavalca il bordo del fondo, che
+    // sta a 0.5. Cosi' corre continuo lungo tutto il tratto.
     final bordoLuce = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = spessore * 0.30
+      ..strokeWidth = spessore * 0.22
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..color = const Color(0xFFFFFBF0).withValues(alpha: 0.92);
-    final scartoLuce = Offset(spessore * 0.30, spessore * 0.30);
+      ..color = const Color(0xFFFFF6DC).withValues(alpha: 0.72);
+    final scartoLuce = Offset(spessore * 0.38, spessore * 0.38);
 
     var fatto = 0.0;
     Offset? punta;
@@ -1673,12 +1781,14 @@ class _IncisionePainter extends CustomPainter {
           break;
         }
       }
-      // Quattro passate, dall'alto del bordo al fondo dello scavo: ombra
-      // portata, lume sul labbro opposto, fondo del solco, nucleo cupo.
+      // Quattro passate, nell'ordine in cui la luce cade davvero sull'intaglio:
+      // l'ombra portata dall'osso che sporge, il fondo dello scavo, il nucleo
+      // piu' cupo, e per ultimo il lume sul labbro opposto, che deve restare
+      // sopra a tutto per non finire sepolto.
       canvas.drawPath(path.shift(scartoOmbra), ombraAlta);
-      canvas.drawPath(path.shift(scartoLuce), bordoLuce);
       canvas.drawPath(path, fondo);
       canvas.drawPath(path, nucleo);
+      canvas.drawPath(path.shift(scartoLuce), bordoLuce);
       punta = map(ultimo);
     }
 
@@ -1715,6 +1825,108 @@ class _IncisionePainter extends CustomPainter {
     }
   }
 
+  /// Il fantasma del gesto: un punto di luce calda che percorre il PRIMO tratto
+  /// della runa vera, con una scia corta dietro di se'. Insegna il gesto senza
+  /// mostrare il simbolo, che resta la rivelazione della fine.
+  ///
+  /// Il ciclo dura quanto il controller: entra, percorre, esce, e resta un
+  /// respiro di pausa prima di ricominciare. Col valore convenzionale -1, cioe'
+  /// col ripiego di Riduci Movimento, non viaggia niente: il tratto appare come
+  /// velo fermo a bassa opacita'.
+  void _dipingiFantasma(Canvas canvas, double lato, double left, double top) {
+    final t = fantasma!;
+    final tratto = primoTrattoDi(runeName);
+    if (tratto.length < 2) return;
+    Offset map(Offset p) => Offset(left + p.dx * lato, top + p.dy * lato);
+
+    // Il velo fermo del ripiego: tutto il primo tratto, chiaro e appena visibile.
+    if (t < 0) {
+      final path = Path()..moveTo(map(tratto.first).dx, map(tratto.first).dy);
+      for (var i = 1; i < tratto.length; i++) {
+        path.lineTo(map(tratto[i]).dx, map(tratto[i]).dy);
+      }
+      canvas.drawPath(
+          path,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = lato * 0.07
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round
+            ..color = const Color(0xFFFFE9B8).withValues(alpha: 0.30)
+            ..maskFilter = MaskFilter.blur(BlurStyle.normal, lato * 0.03));
+      return;
+    }
+
+    // Le fasi del ciclo: entrata, percorso, uscita, pausa.
+    const entrata = 0.12;
+    const uscita = 0.72;
+    const finePausa = 0.85;
+    if (t > finePausa) return; // il respiro fra un giro e l'altro
+    double velo;
+    if (t < entrata) {
+      velo = t / entrata;
+    } else if (t < uscita) {
+      velo = 1;
+    } else {
+      velo = 1 - (t - uscita) / (finePausa - uscita);
+    }
+    final quota = t < entrata
+        ? 0.0
+        : (t > uscita ? 1.0 : (t - entrata) / (uscita - entrata));
+
+    // Le lunghezze cumulative del tratto, per far scorrere il punto sul percorso.
+    final punti = [for (final p in tratto) map(p)];
+    var totale = 0.0;
+    final tappe = <double>[0];
+    for (var i = 1; i < punti.length; i++) {
+      totale += (punti[i] - punti[i - 1]).distance;
+      tappe.add(totale);
+    }
+    if (totale <= 0) return;
+
+    Offset lungoIl(double distanza) {
+      final d = distanza.clamp(0.0, totale);
+      for (var i = 1; i < tappe.length; i++) {
+        if (d <= tappe[i]) {
+          final q = (d - tappe[i - 1]) / (tappe[i] - tappe[i - 1]);
+          return Offset.lerp(punti[i - 1], punti[i], q)!;
+        }
+      }
+      return punti.last;
+    }
+
+    final testa = lungoIl(totale * quota);
+    // La scia, corta, che si assottiglia dietro la testa.
+    final codaLunga = totale * 0.18;
+    final scia = Path()..moveTo(testa.dx, testa.dy);
+    const passi = 8;
+    for (var i = 1; i <= passi; i++) {
+      final p = lungoIl(totale * quota - codaLunga * (i / passi));
+      scia.lineTo(p.dx, p.dy);
+    }
+    canvas.drawPath(
+        scia,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = lato * 0.05
+          ..strokeCap = StrokeCap.round
+          ..strokeJoin = StrokeJoin.round
+          ..color = const Color(0xFFFFE9B8).withValues(alpha: 0.26 * velo)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, lato * 0.028));
+    // Il punto di luce, tenue: suggerisce, non incide.
+    canvas.drawCircle(
+        testa,
+        lato * 0.055,
+        Paint()
+          ..color = const Color(0xFFFFF3D6).withValues(alpha: 0.30 * velo)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, lato * 0.045));
+    canvas.drawCircle(
+        testa,
+        lato * 0.022,
+        Paint()
+          ..color = const Color(0xFFFFF8E6).withValues(alpha: 0.62 * velo));
+  }
+
   // La pietra scoperta, superficie del segno. Sagoma e toni osso condivisi con
   // la pietra velata, cosi' alla dissolvenza verso l'asset non c'e' salto.
   void _tavola(Canvas canvas, Size size) {
@@ -1734,7 +1946,9 @@ class _IncisionePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_IncisionePainter old) =>
-      old.progresso != progresso || old.completa != completa;
+      old.progresso != progresso ||
+      old.completa != completa ||
+      old.fantasma != fantasma;
 }
 
 /// Condividi e Parlane con Caligo, con la carta fuori campo per lo scatto.

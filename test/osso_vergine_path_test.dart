@@ -42,4 +42,21 @@ void main() {
     // Nessuna arte, nessun percorso.
     expect(pathVergineDi(null), isNull);
   });
+
+  test('Ogni runa ha un primo tratto non vuoto per il fantasma del gesto', () {
+    // Il fantasma mostra solo il primo tratto: se per una runa fosse vuoto, la
+    // scena non avrebbe niente da insegnare.
+    expect(kElderFuthark.length, 24);
+    for (final r in kElderFuthark) {
+      final tratto = primoTrattoDi(r.name);
+      expect(tratto.length, greaterThanOrEqualTo(2), reason: r.name);
+      // Sta dentro il riquadro normalizzato del glifo.
+      for (final p in tratto) {
+        expect(p.dx, inInclusiveRange(0.0, 1.0), reason: '${r.name} x');
+        expect(p.dy, inInclusiveRange(0.0, 1.0), reason: '${r.name} y');
+      }
+    }
+    // Una runa senza geometria non produce nulla, e non lancia.
+    expect(primoTrattoDi('Nessuna'), isEmpty);
+  });
 }

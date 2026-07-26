@@ -998,6 +998,17 @@ void main() {
     }
   }
 
+  // Che cosa fotografa davvero ciascuno dei tre nomi. I nomi sono piu' vecchi
+  // del flusso e non corrispondono piu' alla lettera, ma NON si rinominano: il
+  // lucchetto in preview_integrity_test.dart e la relazione li citano per nome, e
+  // una rinomina costerebbe senza portare niente. Quindi si dichiara qui:
+  //   runa-tramonto-attesa.png    la pietra velata prima del getto, cioe' la
+  //                               fase di attesa vera e propria.
+  //   runa-tramonto-getto.png     il momento SUBITO DOPO il getto, con la pietra
+  //                               gia' scoperta e pronta a essere incisa: e' la
+  //                               fase di incisione appena cominciata, non il
+  //                               lancio in volo, che non ha una cattura.
+  //   runa-tramonto-incisione.png il segno a meta', col solco in corso di scavo.
   testWidgets('Cattura la Runa del Tramonto, attesa getto e incisione',
       (tester) async {
     silenceSensors();
