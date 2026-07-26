@@ -1843,26 +1843,13 @@ class _IncisionePainter extends CustomPainter {
             ],
           ).createShader(Rect.fromPoints(orizzonte, punta)),
       );
-      // Le scintille sulla punta, dove lo scalpello sta mordendo. Erano dischi
-      // bianchi duri con dispersione quasi pari alla semilarghezza del solco,
-      // quindi meta' cadeva sull'avorio della pietra e si leggeva come sporco.
-      // Ora sono minute, sfocate, nello stesso avorio caldo del labbro, e la
-      // dispersione le tiene dentro la scanalatura.
-      final rng = math.Random((progresso * 1000).floor());
-      for (var i = 0; i < 4; i++) {
-        final scarto = Offset(
-          (rng.nextDouble() - 0.5) * 2 * spessore * 0.30,
-          (rng.nextDouble() - 0.5) * 2 * spessore * 0.30,
-        );
-        canvas.drawCircle(
-          punta + scarto,
-          spessore * (0.10 + rng.nextDouble() * 0.10),
-          Paint()
-            ..color = const Color(0xFFFFF6DC).withValues(alpha: 0.70)
-            ..maskFilter =
-                MaskFilter.blur(BlurStyle.normal, spessore * 0.14),
-        );
-      }
+      // Sulla punta non si aggiunge altro. Qui c'erano quattro scintille, e sono
+      // state tolte: uno scalpello sulla pietra non fa scintille, e la luce del
+      // rito e' gia' portata dal raggio verso l'orizzonte e dal labbro dello
+      // scavo. In due tentativi hanno solo danneggiato l'intaglio, prima da
+      // fuori, come dischi bianchi duri sull'avorio, poi da dentro, come velo
+      // che faceva risalire il fondo del solco verso la punta invece di
+      // chiuderla piena.
     }
   }
 

@@ -149,14 +149,13 @@ void main() {
     return (a: map(tratto.first), b: map(tratto.last));
   }
 
-  /// M1: il pixel dipinto piu' lontano dal solco scuro. Tiene dentro le
-  /// scintille, che sono la cosa che tende a schizzare fuori dalla scanalatura.
-  double m1Contenimento(_Campo campo) {
+  /// Distanza massima dal solco scuro di un insieme di punti dato.
+  double _lontananzaDalSolco(_Campo campo, List<int> xs, List<int> ys) {
     if (campo.scuriX.isEmpty) return double.infinity;
     var peggiore = 0.0;
-    for (var i = 0; i < campo.dipintiX.length; i++) {
-      final px = campo.dipintiX[i];
-      final py = campo.dipintiY[i];
+    for (var i = 0; i < xs.length; i++) {
+      final px = xs[i];
+      final py = ys[i];
       var minima = 1 << 30;
       for (var j = 0; j < campo.scuriX.length; j++) {
         final dx = px - campo.scuriX[j];
@@ -169,6 +168,130 @@ void main() {
       }
       final dist = math.sqrt(minima.toDouble());
       if (dist > peggiore) peggiore = dist;
+    }
+    return peggiore;
+  }
+
+  /// M1a, PORTATA DELL'OMBRA. Quanto lontano dal solco arriva il pixel piu'
+  /// esterno fra tutti quelli che il segno cambia. Chi vincola questa misura non
+  /// e' mai stato un elemento luminoso: e' la frangia esterna dell'ombra
+  /// sfocata, e infatti il valore e' salito da 9.00 a 10.00 esattamente quando
+  /// lo scarto dell'ombra e' passato da 0.20 a 0.50 di spessore. Il nome dice
+  /// ora quel che la misura fa davvero: sorveglia la portata dell'ombra.
+  double m1aPortataOmbra(_Campo campo) =>
+      _lontananzaDalSolco(campo, campo.dipintiX, campo.dipintiY);
+
+  /// M1b, CONTENIMENTO DEL CHIARO. Quanto lontano dal solco arriva il pixel
+  /// chiaro piu' esterno, cioe' il labbro. E' la misura che tiene fuori
+  /// qualunque elemento luminoso che qualcuno volesse aggiungere sopra il segno,
+  /// ed e' quella che sarebbe stata rossa sulle scintille.
+  double m1bContenimentoChiaro(_Campo campo, ({Offset a, Offset b}) asse) {
+    // Il labbro e l'ombra stanno su lati OPPOSTI dell'asse per costruzione: il
+    // lume e' scostato verso basso-destra, l'ombra verso alto-sinistra. La
+    // fascia di luminanza da sola non li separa, perche' la frangia esterna
+    // dell'ombra sfuma verso la pietra e finisce anche lei fra i chiari: la
+    // diagnosi lo ha mostrato, il pixel piu' lontano stava a sinistra dell'asse.
+    // Si tiene quindi il solo semipiano del labbro.
+    final dir = asse.b - asse.a;
+    final lung = dir.distance;
+    final unit = lung == 0 ? const Offset(0, 1) : dir / lung;
+    var n = Offset(-unit.dy, unit.dx);
+    if (n.dx + n.dy < 0) n = -n; // punta verso basso-destra, dove sta il lume
+    final xs = <int>[];
+    final ys = <int>[];
+    for (final k in campo.chiari) {
+      final x = k % campo.w;
+      final y = k ~/ campo.w;
+      final rel = Offset(x - asse.a.dx, y - asse.a.dy);
+      if (rel.dx * n.dx + rel.dy * n.dy < 0) continue;
+      xs.add(x);
+      ys.add(y);
+    }
+    return _lontananzaDalSolco(campo, xs, ys);
+  }
+
+  /// M4, UNIFORMITA' DEL FONDO DELLO SCAVO. Il fondo di un intaglio ha la stessa
+  /// profondita' per tutta la sua lunghezza: se verso la punta risale, il segno
+  /// non termina con una calotta piena ma si sfarina.
+  ///
+  /// Si campiona l'asse ogni 2 px e per ogni campione si prende la luminanza
+  /// MINIMA sulla trasversale, cioe' il fondo dello scavo in quel punto. La
+  /// lunghezza incisa si ricava DAL DISEGNO e non dal progresso: la stima
+  /// teorica sbagliava di quasi il doppio, e campionare oltre la fine dello
+  /// scavo faceva leggere la pietra nuda come fondo, con scostamenti del
+  /// duecento per cento su un segno perfettamente uniforme. Dai capi si esclude
+  /// mezzo spessore, dove ci sono le calotte tonde e la rampa dell'antialiasing.
+  /// Quel che resta e' il corpo del solco, e li' la profondita' deve essere
+  /// costante: un velo luminoso che la fa risalire verso la punta cade proprio
+  /// qui dentro e viene visto.
+  double m4UniformitaFondo(
+      _Campo campo, ({Offset a, Offset b}) asse, double spessore) {
+    final dir = asse.b - asse.a;
+    final lunghezzaPiena = dir.distance;
+    if (lunghezzaPiena == 0) return 0;
+    final unit = dir / lunghezzaPiena;
+    final normale = Offset(-unit.dy, unit.dx);
+
+    double? fondoIn(double t) {
+      final centro = asse.a + unit * t;
+      var minimo = 1.0;
+      var trovato = false;
+      for (var u = -spessore; u <= spessore; u += 0.5) {
+        final p = centro + normale * u;
+        final x = p.dx.round();
+        final y = p.dy.round();
+        if (x < 0 || y < 0 || x >= campo.w || y >= campo.h) continue;
+        final i = (y * campo.w + x) * 4;
+        if (campo.byte[i + 3] < 128) continue;
+        final lum = (0.2126 * campo.byte[i] +
+                0.7152 * campo.byte[i + 1] +
+                0.0722 * campo.byte[i + 2]) /
+            255;
+        if (lum < minimo) {
+          minimo = lum;
+          trovato = true;
+        }
+      }
+      return trovato ? minimo : null;
+    }
+
+    // Dove finisce lo scavo: l'ultimo punto in cui il fondo e' ancora nettamente
+    // piu' scuro della pietra. Oltre, c'e' solo superficie non incisa.
+    const sogliaScavo = 0.45;
+    var fine = 0.0;
+    for (var t = 0.0; t <= lunghezzaPiena; t += 1) {
+      final f = fondoIn(t);
+      if (f != null && f < sogliaScavo) fine = t;
+    }
+    final margine = spessore / 2;
+    if (fine - 2 * margine < 4) return 0; // scavo troppo corto per misurarlo
+
+    final fondi = <double>[];
+    for (var t = margine; t <= fine - margine; t += 2) {
+      final f = fondoIn(t);
+      if (f != null) fondi.add(f);
+    }
+    if (fondi.length < 3) return 0;
+    final ordinati = [...fondi]..sort();
+    final mediana = ordinati[ordinati.length ~/ 2];
+    if (mediana <= 0) return 0;
+    var peggiore = 0.0;
+    var valore = 0.0;
+    var doveT = 0.0;
+    for (var i = 0; i < fondi.length; i++) {
+      final scarto = (fondi[i] - mediana).abs() / mediana;
+      if (scarto > peggiore) {
+        peggiore = scarto;
+        valore = fondi[i];
+        doveT = margine + i * 2;
+      }
+    }
+    if (peggiore > 0.12) {
+      // ignore: avoid_print
+      print('DIAGNOSI M4: mediana ${mediana.toStringAsFixed(3)}, peggiore '
+          '${valore.toStringAsFixed(3)} a t=${doveT.toStringAsFixed(1)}, scavo '
+          'fino a ${fine.toStringAsFixed(1)} | profilo '
+          '${fondi.map((f) => f.toStringAsFixed(2)).join(" ")}');
     }
     return peggiore;
   }
@@ -337,23 +460,35 @@ void main() {
       });
       final asse = asseDelPrimoTratto();
       final spessore = spessorePer(progresso);
-      final m1 = m1Contenimento(campo);
+      final m1a = m1aPortataOmbra(campo);
+      final m1b = m1bContenimentoChiaro(campo, asse);
+      final m4 = m4UniformitaFondo(campo, asse, spessore);
       final m2 = m2Labbro(campo, asse, progresso);
       final m3 = m3Direzionalita(campo, asse);
       final etichetta = 'progresso $progresso, completa $completa';
       // Stampati sempre, anche quando il test passa: servono al report.
       // ignore: avoid_print
       print('MISURA $etichetta | '
-          'M1 ${m1.toStringAsFixed(2)} px su soglia '
-          '${(0.90 * spessore).toStringAsFixed(2)} | '
+          'M1a ${m1a.toStringAsFixed(2)} su ${(1.10 * spessore).toStringAsFixed(2)} | '
+          'M1b ${m1b.toStringAsFixed(2)} su ${(0.65 * spessore).toStringAsFixed(2)} | '
+          'M4 ${(m4 * 100).toStringAsFixed(1)}% su 12.0% | '
           'M2 componenti ${m2.componenti} maggiore '
           '${(m2.maggiore * 100).toStringAsFixed(1)}% copertura '
           '${(m2.copertura * 100).toStringAsFixed(1)}% | '
           'M3 ${m3.isInfinite ? "inf" : m3.toStringAsFixed(2)}');
 
-      expect(m1, lessThanOrEqualTo(0.90 * spessore),
-          reason: "M1 contenimento, $etichetta: c'e' roba dipinta lontano dal "
-              'solco, tipicamente scintille fuori dalla scanalatura');
+      expect(m1a, lessThanOrEqualTo(1.10 * spessore),
+          reason: "M1a portata dell'ombra, $etichetta: l'ombra si spande "
+              'troppo lontano dal solco');
+      expect(m1b, lessThanOrEqualTo(0.65 * spessore),
+          reason: "M1b contenimento del chiaro, $etichetta: c'e' roba "
+              "luminosa lontano dal solco, cioe' sopra la pietra invece che "
+              'nella scanalatura');
+      expect(m4, lessThanOrEqualTo(0.12),
+          reason: "M4 uniformita' del fondo, $etichetta: il fondo dello scavo "
+              'si scosta dalla mediana del '
+              "${(m4 * 100).toStringAsFixed(1)}%, cioe' la profondita' non e' "
+              'costante e la punta si sfarina invece di chiudersi piena');
       // QUINTO scostamento motivato, sul conteggio delle componenti. La soglia
       // di partenza chiedeva esattamente una componente connessa. Non e'
       // raggiungibile e non e' quello che si vuole davvero: Laguz ha DUE tratti,
