@@ -67,6 +67,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
+import 'package:esoteric_circle/core/rituals/sunset_rune.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
@@ -916,22 +917,147 @@ void main() {
     );
   });
 
-  testWidgets('Cattura la Runa del Tramonto, stato chiuso ed estratto',
+  // La Runa del Tramonto ha un flusso lungo: attesa, getto, incisione, due voci,
+  // striscia della settimana, sigillo alla settima sera. La sera e' fissata alle
+  // 20 e la nascita al 2 novembre 1975, cosi' esce Laguz, una runa a due tratti
+  // con un rovescio vero, buona da mostrare tratto per tratto.
+  final serataTramonto = DateTime(2026, 7, 13, 20);
+  final nascitaTramonto = DateTime(1975, 11, 2);
+
+  Route<dynamic> rottaTramonto() => SunsetRuneScreen.route(
+        now: serataTramonto,
+        dataNascita: nascitaTramonto,
+      );
+
+  // Precarica gli artwork rune_bone, cosi' il glifo inciso e' decodificato alla
+  // cattura e non resta un buco al posto dell'arte finale.
+  Future<void> precacheTramonto(WidgetTester tester) async {
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(SunsetRuneScreen));
+      for (final r in kElderFuthark) {
+        if (r.hasImage) {
+          await precacheImage(AssetImage(r.fullPath!), element);
+        }
+      }
+    });
+    await step(tester);
+  }
+
+  // Semina alcune sere gia' vissute, per una striscia che non sia vuota.
+  String sereSeminate(int quante) {
+    final giorno = SunsetRune.giornoRituale(serataTramonto);
+    const rune = ['Fehu', 'Uruz', 'Ansuz', 'Raidho', 'Gebo', 'Wunjo'];
+    final voci = <String>[];
+    for (var i = quante; i >= 1; i--) {
+      final g = SunsetRune.iso(giorno.subtract(Duration(days: i)));
+      voci.add('{"giorno":"$g","rune":"${rune[(i - 1) % rune.length]}",'
+          '"ombra":false,"lasciare":"la fretta","porta":"la quiete"}');
+    }
+    return '[${voci.join(',')}]';
+  }
+
+  // Incide tenendo il dito finche' il segno e' compiuto e si apre la lettura.
+  Future<void> incidiTramonto(WidgetTester tester) async {
+    await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
+    await step(tester);
+    final centro =
+        tester.getCenter(find.byKey(const Key('sunset_incisione_gesture')));
+    final g = await tester.startGesture(centro);
+    for (var i = 0; i < 24; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await g.up();
+    await step(tester);
+    await step(tester);
+  }
+
+  testWidgets('Cattura la Runa del Tramonto, attesa getto e incisione',
       (tester) async {
     silenceSensors();
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.caligo, seeded: false));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-    unawaited(nav.push(SunsetRuneScreen.route(now: DateTime(2026, 7, 13))));
+    unawaited(nav.push(rottaTramonto()));
     await step(tester);
     await step(tester);
-    // Stato chiuso: la pietra runica velata.
-    await capture(tester, rootKey, 'runa-tramonto-chiusa.png');
-    // Il tocco, ripiego dello scuotimento, svela la runa.
-    await tester.tap(find.byKey(const Key('ritual_gesture')));
+    await precacheTramonto(tester);
+    // Attesa: la pietra velata sotto il tramonto.
+    await capture(tester, rootKey, 'runa-tramonto-attesa.png');
+    // Il getto col tocco, ripiego dello scuotimento: la pietra si scopre.
+    await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
     await tester.pump(const Duration(milliseconds: 700));
-    await capture(tester, rootKey, 'runa-tramonto.png');
+    await capture(tester, rootKey, 'runa-tramonto-getto.png');
+    // L'incisione a meta': il dito resta sulla pietra, il segno nasce a tratti.
+    final centro =
+        tester.getCenter(find.byKey(const Key('sunset_incisione_gesture')));
+    final g = await tester.startGesture(centro);
+    // Oltre la soglia del tocco prolungato, poi incide a meta' della runa: piu'
+    // battute brevi fanno avanzare il ticker un passo alla volta.
+    for (var i = 0; i < 7; i++) {
+      await tester.pump(const Duration(milliseconds: 140));
+    }
+    await capture(tester, rootKey, 'runa-tramonto-incisione.png');
+    expect(find.byKey(const Key('sunset_voce_uno')), findsNothing);
+    await g.up();
+  });
+
+  testWidgets('Cattura la Runa del Tramonto, le due voci e la settimana',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Quattro sere gia' vissute: stasera fa cinque, la striscia respira.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'sunset_rune.settimana': sereSeminate(4),
+    });
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(rottaTramonto()));
+    await step(tester);
+    await step(tester);
+    await precacheTramonto(tester);
+    await incidiTramonto(tester);
+    // La prima voce e la trasparenza dei tre fattori.
+    expect(find.byKey(const Key('sunset_voce_uno')), findsOneWidget);
+    await capture(tester, rootKey, 'runa-tramonto-voce-uno.png');
+    // La seconda voce dietro la rotazione, ripiego doppio tap.
+    final loc = tester.getCenter(find.byKey(const Key('sunset_gira_doppio')));
+    await tester.tapAt(loc);
+    await tester.pump(const Duration(milliseconds: 60));
+    await tester.tapAt(loc);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'runa-tramonto-voce-due.png');
+    // La striscia delle sette sere, portata a vista.
+    await tester.ensureVisible(find.byKey(const Key('sunset_settimana')));
+    await step(tester);
+    await capture(tester, rootKey, 'runa-tramonto-settimana.png');
+  });
+
+  testWidgets('Cattura il Sigillo del Tramonto, alla settima sera',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    // Sei sere gia' vissute: stasera fa sette, il sigillo si compone.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'sunset_rune.settimana': sereSeminate(6),
+    });
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.caligo, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(rottaTramonto()));
+    await step(tester);
+    await step(tester);
+    await precacheTramonto(tester);
+    await incidiTramonto(tester);
+    await tester.ensureVisible(find.byKey(const Key('sunset_sigillo')));
+    await step(tester);
+    await capture(tester, rootKey, 'runa-tramonto-sigillo.png');
   });
 
   // --- Il Rito del Sogno: nebbia, cielo, costellazione unita, saluto ---

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../core/astro/sunset_time.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -334,6 +335,26 @@ class _DailyStripState extends State<DailyStrip>
     open(context, element);
   }
 
+  // Il conto alla rovescia al tramonto per la casella della Runa, con l'ora
+  // stimata dal fuso, la stessa che la schermata usa quando la posizione non e'
+  // attiva. Prima del tramonto mostra "tra Xh Ymin"; all'ora vera la casella si
+  // accende e il conto sparisce. Nessuna rete, tutto offline.
+  String? _contoTramonto(DateTime now) {
+    final offset = now.timeZoneOffset;
+    final tramonto = SunsetTime.perData(
+          now,
+          lat: SunsetTime.latDiRipiego,
+          lon: SunsetTime.longitudineDaFuso(offset),
+          offset: offset,
+        ) ??
+        SunsetTime.oraMedia(now);
+    final minuti = tramonto.difference(now).inMinutes;
+    if (minuti <= 0) return null;
+    final h = minuti ~/ 60;
+    final m = minuti % 60;
+    return h > 0 ? 'tra ${h}h ${m}min' : 'tra ${m}min';
+  }
+
   @override
   Widget build(BuildContext context) {
     final now = _clock();
@@ -388,6 +409,9 @@ class _DailyStripState extends State<DailyStrip>
                   accent: accent,
                   pulse: _pulse,
                   width: _itemWidth,
+                  subtitle: element == DailyElement.rune
+                      ? _contoTramonto(now)
+                      : null,
                   onTap: () => _open(element),
                   onInfo: () =>
                       _showElementInfo(context, element, maestro, accent),
@@ -479,6 +503,7 @@ class _StripItem extends StatelessWidget {
     required this.width,
     required this.onTap,
     required this.onInfo,
+    this.subtitle,
   });
 
   final DailyElement element;
@@ -488,6 +513,11 @@ class _StripItem extends StatelessWidget {
   final double width;
   final VoidCallback onTap;
   final VoidCallback onInfo;
+
+  /// Riga sotto l'etichetta, oggi usata solo dalla Runa per il conto alla
+  /// rovescia al tramonto. Lo spazio e' riservato uguale per tutti, cosi' le
+  /// icone restano allineate anche dove la riga e' vuota.
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -586,6 +616,22 @@ class _StripItem extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            // Slot del conto alla rovescia, altezza fissa per tutti.
+            SizedBox(
+              height: 12,
+              child: subtitle == null
+                  ? null
+                  : Text(
+                      subtitle!,
+                      key: Key('daily_conto_${element.name}'),
+                      maxLines: 1,
+                      softWrap: false,
+                      style: TypographyTokens.label(size: 9).copyWith(
+                        color: accent.withValues(alpha: 0.95),
+                        letterSpacing: 0.2,
+                      ),
+                    ),
             ),
           ],
         ),

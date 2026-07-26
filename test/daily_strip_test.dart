@@ -59,6 +59,31 @@ void main() {
     }
   });
 
+  testWidgets('La casella della Runa mostra il conto alla rovescia al tramonto',
+      (tester) async {
+    // Primo pomeriggio: il tramonto e' piu' tardi, il conto e' a vista.
+    await tester
+        .pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
+    await tester.pump();
+    final conto = find.byKey(const Key('daily_conto_rune'));
+    expect(conto, findsOneWidget);
+    expect(tester.widget<Text>(conto).data, startsWith('tra '));
+    // Solo la Runa ha il conto: le altre caselle no.
+    for (final e in DailyElement.values) {
+      if (e == DailyElement.rune) continue;
+      expect(find.byKey(Key('daily_conto_${e.name}')), findsNothing);
+    }
+  });
+
+  testWidgets('A tramonto passato il conto sparisce, la casella si accende',
+      (tester) async {
+    // Notte fonda: il tramonto e' gia' avvenuto, nessun conto alla rovescia.
+    await tester
+        .pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 23, 0))));
+    await tester.pump();
+    expect(find.byKey(const Key('daily_conto_rune')), findsNothing);
+  });
+
   testWidgets('L\'header e\' centrato orizzontalmente', (tester) async {
     await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();

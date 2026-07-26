@@ -8,6 +8,8 @@ import '../../core/identity/birth_moon.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
 import '../../core/rituals/dream_rite_corpus.dart';
+import '../../core/rituals/sunset_rune.dart';
+import '../../core/rituals/sunset_rune_memory.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/zodiac_figures.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -104,6 +106,11 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   bool _riduciMovimento = false;
   bool _suono = false;
 
+  /// La runa portata dentro la notte dalla Runa del Tramonto, se stasera l'hai
+  /// fatta. Chiude l'arco fra i due Doni. Null se manca, e allora il Sogno si
+  /// comporta esattamente come prima.
+  String? _runaTramonto;
+
   @override
   void initState() {
     super.initState();
@@ -111,6 +118,16 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     _tilt.addListener(_ridisegna);
     _avviaFiato();
     _battito = Timer.periodic(const Duration(milliseconds: 60), _passoFiato);
+    _leggiCerniera();
+  }
+
+  Future<void> _leggiCerniera() async {
+    final ultima = await SunsetRuneMemory.ultimaPerCerniera();
+    if (ultima == null || !mounted) return;
+    // Solo se la runa e' della stessa sera, il giorno rituale coincide.
+    if (ultima.giorno == SunsetRune.iso(SunsetRune.giornoRituale(_date))) {
+      setState(() => _runaTramonto = ultima.rune);
+    }
   }
 
   @override
@@ -389,6 +406,15 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             textAlign: TextAlign.center,
             style: TypographyTokens.body(size: 16)
                 .copyWith(color: ColorTokens.textPrimary, height: 1.55)),
+        if (_runaTramonto != null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          Text('Porti dentro la notte la runa $_runaTramonto: '
+              'lasciala parlare mentre chiudi il giorno.',
+              key: const Key('dream_runa_tramonto'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.label(size: 12).copyWith(
+                  color: _palette.goldSoft, letterSpacing: 0.3, height: 1.45)),
+        ],
         const SizedBox(height: SpacingTokens.md),
         _Riga(
           palette: _palette,

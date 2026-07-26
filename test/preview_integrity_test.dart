@@ -11,8 +11,13 @@ void main() {
   const required = <String>[
     'piani.png', // schermata prezzi, quattro livelli piu' la card Demo
     'striscia-del-giorno.png', // i quattro riti nella striscia del Santuario
-    'runa-tramonto-chiusa.png', // Runa del Tramonto, stato chiuso
-    'runa-tramonto.png', // Runa del Tramonto, stato estratto
+    'runa-tramonto-attesa.png', // Runa del Tramonto, la pietra velata in attesa
+    'runa-tramonto-getto.png', // Runa del Tramonto, la pietra scoperta dal getto
+    'runa-tramonto-incisione.png', // Runa del Tramonto, il segno inciso a meta'
+    'runa-tramonto-voce-uno.png', // Runa del Tramonto, prima voce e trasparenza
+    'runa-tramonto-voce-due.png', // Runa del Tramonto, seconda voce dopo la rotazione
+    'runa-tramonto-settimana.png', // Runa del Tramonto, la striscia delle sette sere
+    'runa-tramonto-sigillo.png', // Runa del Tramonto, il sigillo della settima sera
     'rito-sogno-nebbia.png', // Rito del Sogno, apertura nella nebbia
     'rito-sogno-cielo.png', // Rito del Sogno, il cielo reale rivelato
     'rito-sogno-costellazione.png', // Rito del Sogno, la costellazione unita

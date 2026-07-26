@@ -8,7 +8,6 @@ import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
-import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,8 +31,6 @@ void main() {
       expect(DailyRituals.destinyFragment(date),
           DailyRituals.destinyFragment(date));
       expect(DailyRituals.dayOracle(date), DailyRituals.dayOracle(date));
-      expect(DailyRituals.sunsetRune(date).name,
-          DailyRituals.sunsetRune(date).name);
     });
 
     test('L\'Elder Futhark ha i ventiquattro segni con glifo e significato', () {
@@ -43,8 +40,6 @@ void main() {
         expect(rune.name, isNotEmpty);
         expect(rune.meaning, isNotEmpty);
       }
-      // La runa del giorno viene dal Futhark.
-      expect(kElderFuthark.contains(DailyRituals.sunsetRune(date)), isTrue);
     });
   });
 
@@ -172,24 +167,5 @@ void main() {
       expect(find.text(DailyRituals.dayOracle(date)), findsOneWidget);
     });
 
-    testWidgets('La Runa del Tramonto: estrae una runa reale col significato',
-        (tester) async {
-      await tester.pumpWidget(MaterialApp(home: SunsetRuneScreen(now: date)));
-      await tester.pump();
-      // Stato chiuso: la pietra velata, non il glifo ne un rettangolo nudo.
-      expect(find.byKey(const Key('rune_stone')), findsOneWidget);
-      expect(find.byKey(const Key('rune_glyph')), findsNothing);
-      expect(find.text('Scuoti per svelare la runa'), findsOneWidget);
-      expect(find.byKey(const Key('ritual_content')), findsNothing);
-
-      // Il ripiego tattile (tocco) svela la runa.
-      await tester.tap(find.byKey(const Key('ritual_gesture')));
-      await tester.pump(const Duration(milliseconds: 600));
-      expect(find.byKey(const Key('rune_glyph')), findsOneWidget);
-      expect(find.byKey(const Key('rune_stone')), findsNothing);
-      final rune = DailyRituals.sunsetRune(date);
-      expect(find.text(rune.name), findsOneWidget);
-      expect(find.text(rune.meaning), findsOneWidget);
-    });
   });
 }

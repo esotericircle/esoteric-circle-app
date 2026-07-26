@@ -1,7 +1,6 @@
 import '../maestro/maestro.dart';
-import 'runes.dart';
 
-/// I contenuti deterministici dei quattro rituali del giorno.
+/// I contenuti deterministici dei rituali del giorno.
 ///
 /// Tutto nasce dalla data, senza rete: lo stesso giorno dà sempre lo stesso
 /// responso, e a mezzanotte cambia. Le voci restano quelle dei Maestri.
@@ -42,9 +41,9 @@ class DailyRituals {
   static String dayOracle(DateTime date) =>
       _oracle[_dayOfYear(date) % _oracle.length];
 
-  /// La Runa del Tramonto, estratta dall'Elder Futhark.
-  static Rune sunsetRune(DateTime date) =>
-      kElderFuthark[_dayOfYear(date) % kElderFuthark.length];
+  // La Runa del Tramonto ha ora il suo motore, `SunsetRune.estrai`: non e' piu'
+  // ciclica ne uguale per tutti, nasce dal giorno rituale incrociato con la
+  // carta di nascita e il segno. Il vecchio riempitivo dayOfYear e' stato tolto.
 
   static const Map<Maestro, List<String>> _dawnPools = {
     Maestro.medora: [

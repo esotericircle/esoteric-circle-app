@@ -46,6 +46,11 @@ class ChatOpeners {
     return 'Il mio animale guida e\' $art$sep$nome, cosa vuole dirmi?';
   }
 
+  /// Dalla Runa del Tramonto verso Caligo, con la runa della sera e il suo verso.
+  static String runaTramonto(String nome, String verso) =>
+      'La mia runa del tramonto e\' $nome $verso. Cosa devo lasciare fuori '
+      'stanotte?';
+
   /// Dall'Estrazione Rune verso Caligo, con la gettata e le rune uscite.
   static String runa(String gettata, List<String> rune) {
     final elenco = _elenco(rune);

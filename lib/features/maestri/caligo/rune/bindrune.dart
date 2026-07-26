@@ -12,6 +12,7 @@ class BindruneSigillo extends StatelessWidget {
     required this.oro,
     this.alone,
     this.lato = 150,
+    this.deduplica = false,
   });
 
   /// I nomi delle rune da intrecciare, nell'ordine di lettura.
@@ -25,6 +26,11 @@ class BindruneSigillo extends StatelessWidget {
 
   final double lato;
 
+  /// Se vero, i tratti identici sovrapposti si disegnano una volta sola. Lo
+  /// usa il sigillo della settimana, che intreccia sette rune: senza, i tratti
+  /// comuni si addenserebbero. L'Estrazione Rune lo lascia falso, invariata.
+  final bool deduplica;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -36,6 +42,7 @@ class BindruneSigillo extends StatelessWidget {
           runeNames: runeNames,
           oro: oro,
           alone: alone ?? oro,
+          deduplica: deduplica,
         ),
       ),
     );
@@ -47,11 +54,13 @@ class _BindrunePainter extends CustomPainter {
     required this.runeNames,
     required this.oro,
     required this.alone,
+    required this.deduplica,
   });
 
   final List<String> runeNames;
   final Color oro;
   final Color alone;
+  final bool deduplica;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -87,7 +96,10 @@ class _BindrunePainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.round
       ..color = oro;
 
-    // I tratti di ogni runa, centrati orizzontalmente sull'asta condivisa.
+    // I tratti di ogni runa, centrati orizzontalmente sull'asta condivisa. Con
+    // [deduplica] un tratto gia' disegnato non si ridisegna, cosi' l'intreccio
+    // di sette rune non si addensa.
+    final visti = <String>{};
     for (final name in runeNames) {
       final strokes = kRuneStrokes[name];
       if (strokes == null) continue;
@@ -101,6 +113,13 @@ class _BindrunePainter extends CustomPainter {
       }
       final shift = 0.5 - (minX + maxX) / 2;
       for (final poly in strokes) {
+        if (deduplica) {
+          final firma = poly
+              .map((p) => '${((p.dx + shift) * 100).round()},'
+                  '${(p.dy * 100).round()}')
+              .join(';');
+          if (!visti.add(firma)) continue;
+        }
         final path = Path()
           ..moveTo(map(poly.first.translate(shift, 0)).dx,
               map(poly.first.translate(shift, 0)).dy);
@@ -136,5 +155,8 @@ class _BindrunePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_BindrunePainter old) =>
-      old.runeNames != runeNames || old.oro != oro || old.alone != alone;
+      old.runeNames != runeNames ||
+      old.oro != oro ||
+      old.alone != alone ||
+      old.deduplica != deduplica;
 }
