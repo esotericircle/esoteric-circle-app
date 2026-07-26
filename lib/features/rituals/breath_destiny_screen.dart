@@ -384,7 +384,7 @@ class _BreathPrompt extends StatelessWidget {
           const SizedBox(height: SpacingTokens.sm),
           Text(
             'Oppure spazza col dito o tieni premuto',
-            style: TypographyTokens.label(size: 10).copyWith(
+            style: TypographyTokens.label(size: 11).copyWith(
               color: palette.goldSoft.withValues(alpha: 0.85),
               letterSpacing: 0.3,
             ),

@@ -341,7 +341,7 @@ class _MeaningBlock extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title,
-                  style: TypographyTokens.display(size: 15)
+                  style: TypographyTokens.display(size: 16)
                       .copyWith(color: ColorTokens.textPrimary)),
               const SizedBox(height: 2),
               Text(body,
@@ -402,7 +402,7 @@ class _ShareButton extends StatelessWidget {
                 child: Text('Condividi il sigillo',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TypographyTokens.display(size: 15)
+                    style: TypographyTokens.display(size: 16)
                         .copyWith(color: palette.goldSoft)),
               ),
             ],

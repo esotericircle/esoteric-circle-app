@@ -135,12 +135,12 @@ class ArchetypeShareCard extends StatelessWidget {
               ),
             const SizedBox(height: SpacingTokens.sm),
             Text('Esoteric Circle · Aura',
-                style: TypographyTokens.label(size: 10).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.7),
                     letterSpacing: 1.0)),
             const SizedBox(height: 2),
             Text('Scopri il tuo archetipo su Esoteric Circle',
-                style: TypographyTokens.label(size: 10).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                     color: palette.textPrimary.withValues(alpha: 0.6),
                     letterSpacing: 0.4)),
           ],

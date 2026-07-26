@@ -426,7 +426,7 @@ class _VipTile extends StatelessWidget {
           Text(vip.sign.italianName,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TypographyTokens.label(size: 9)
+              style: TypographyTokens.label(size: 11)
                   .copyWith(color: palette.goldSoft, letterSpacing: 0.4)),
         ],
       ),

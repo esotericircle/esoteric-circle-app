@@ -185,11 +185,11 @@ class OroscopoShareCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(BrandMark.wordmark,
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 10)
+              style: TypographyTokens.label(size: 11)
                   .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
           Text('esotericircle.com/oroscopo',
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 8).copyWith(
+              style: TypographyTokens.label(size: 11).copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.6)),
         ],
       ),
@@ -235,7 +235,7 @@ class _LevelTile extends StatelessWidget {
           const SizedBox(height: 4),
           Text(card.domain.label.toUpperCase(),
               maxLines: 1,
-              style: TypographyTokens.label(size: 8).copyWith(
+              style: TypographyTokens.label(size: 11).copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.8)),
           // Titolo intero: va a capo e si rimpicciolisce, nessuna ellissi.
           Text(card.title,
@@ -243,7 +243,7 @@ class _LevelTile extends StatelessWidget {
               maxLines: 3,
               softWrap: true,
               overflow: TextOverflow.visible,
-              style: TypographyTokens.display(size: 11)
+              style: TypographyTokens.display(size: 16)
                   .copyWith(color: palette.goldSoft, height: 1.15)),
         ],
       ),
@@ -277,7 +277,7 @@ class _InfoBubble extends StatelessWidget {
         children: [
           Text(label.toUpperCase(),
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 8).copyWith(
+              style: TypographyTokens.label(size: 11).copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.8)),
           const SizedBox(height: 4),
           Center(child: child),

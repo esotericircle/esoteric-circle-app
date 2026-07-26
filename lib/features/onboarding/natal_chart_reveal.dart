@@ -308,7 +308,7 @@ class _PlanetTile extends StatelessWidget {
                                   color: ColorTokens.textSecondary)),
                           if (planet.retrograde)
                             Text('R',
-                                style: TypographyTokens.body(size: 12).copyWith(
+                                style: TypographyTokens.body(size: 13).copyWith(
                                     color: const Color(0xFFE0733A),
                                     fontWeight: FontWeight.w700)),
                         ],

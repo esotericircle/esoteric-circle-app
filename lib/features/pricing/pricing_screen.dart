@@ -350,7 +350,7 @@ class _CycleBox extends StatelessWidget {
                     child: Text(cycle.label,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TypographyTokens.label(size: 10).copyWith(
+                        style: TypographyTokens.label(size: 11).copyWith(
                           color: palette.goldSoft,
                           letterSpacing: 0.6,
                         )),
@@ -360,7 +360,7 @@ class _CycleBox extends StatelessWidget {
               const SizedBox(height: 4),
               Text(price.amount(cycle),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.display(size: 15).copyWith(
+                  style: TypographyTokens.display(size: 16).copyWith(
                       color: selected
                           ? ColorTokens.textPrimary
                           : ColorTokens.textSecondary)),
@@ -368,13 +368,13 @@ class _CycleBox extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(price.yearlyPerMonth,
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 9).copyWith(
+                    style: TypographyTokens.label(size: 11).copyWith(
                       color: ColorTokens.textSecondary,
                       letterSpacing: 0.2,
                     )),
                 Text('sconto ${price.yearlyDiscountPercent}%',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 9).copyWith(
+                    style: TypographyTokens.label(size: 11).copyWith(
                       color: palette.goldSoft,
                       letterSpacing: 0.2,
                     )),
@@ -405,7 +405,7 @@ class _Badge extends StatelessWidget {
       ),
       child: Text(text,
           style:
-              TypographyTokens.label(size: 10).copyWith(color: palette.goldSoft)),
+              TypographyTokens.label(size: 11).copyWith(color: palette.goldSoft)),
     );
   }
 }
@@ -513,11 +513,11 @@ class _ComparativeTable extends StatelessWidget {
     final labelStyle = header
         ? TypographyTokens.label(size: 11)
             .copyWith(color: palette.goldSoft, letterSpacing: 0.4)
-        : TypographyTokens.body(size: 12)
+        : TypographyTokens.body(size: 13)
             .copyWith(color: ColorTokens.textPrimary, height: 1.25);
     final cellStyle = header
-        ? TypographyTokens.display(size: 12).copyWith(color: palette.goldSoft)
-        : TypographyTokens.body(size: 12)
+        ? TypographyTokens.display(size: 16).copyWith(color: palette.goldSoft)
+        : TypographyTokens.body(size: 13)
             .copyWith(color: ColorTokens.textSecondary, height: 1.25);
     return Container(
       color: shaded ? palette.surfaceElevated.withValues(alpha: 0.18) : null,
@@ -595,7 +595,7 @@ class _ChoosePlanButton extends StatelessWidget {
             ),
             child: Text(label,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 15)
+                style: TypographyTokens.display(size: 16)
                     .copyWith(color: palette.goldSoft)),
           ),
         ),

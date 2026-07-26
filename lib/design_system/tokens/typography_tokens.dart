@@ -24,18 +24,34 @@ class TypographyTokens {
   static const String _display = displayFamily;
   static const String _body = 'EBGaramond';
 
-  /// Minimi leggibili non negoziabili: nessun testo scende sotto queste soglie,
-  /// qualunque valore passi il chiamante. Cosi' anche le etichette cerimoniali
-  /// restano nitide su schermo e in anteprima. I font restano scalabili: il
+  /// Minimi di sola leggibilita': sono una rete di sicurezza contro il testo
+  /// illeggibile, non una misura di progetto.
+  ///
+  /// Erano 20, 17 e 12.5, ed erano tarati male: su 571 chiamate con misura
+  /// esplicita sotto `lib/`, 457 stavano sotto il proprio minimo, cioe' l'ottanta
+  /// per cento, su 64 file. Un sistema in cui otto chiamate su dieci violano il
+  /// minimo non ha un problema nei punti di chiamata: ha un minimo inventato. E
+  /// il danno non era teorico, perche' il clamp e' silenzioso: `label(size: 10)`
+  /// e `label(size: 12)` finivano tutti e due a 12.5, quindi la gerarchia che il
+  /// codice dichiarava non esisteva a video, e nessuno se ne accorgeva.
+  ///
+  /// Ora sono soglie di leggibilita' vera. Chi vuole una misura piu' grande la
+  /// chiede, e la ottiene; chi ne chiede una piu' piccola del minimo sta
+  /// scrivendo testo che non si legge, e viene fermato da
+  /// `test/tipografia_minimi_test.dart`. I font restano scalabili: il
   /// `textScaler` di sistema si applica sopra queste basi.
-  static const double minDisplay = 20;
-  static const double minBody = 17;
-  static const double minLabel = 12.5;
+  static const double minDisplay = 16;
+  static const double minBody = 13;
+  static const double minLabel = 11;
 
   /// Dimensione del corpo informativo: ogni testo che spiega, istruisce o guida
   /// (sottotitoli, istruzioni del gesto, righe di aiuto, descrizioni) usa questa
   /// misura generosa, ben leggibile sul cosmo. Le etichette decorative in
   /// maiuscoletto restano invece compatte con `label()`.
+  ///
+  /// Resta a 18 e il ragionamento regge anche coi minimi nuovi, anzi meglio: ora
+  /// e' una misura scelta per la guida e non il minimo del corpo testo appena
+  /// arrotondato, quindi dice davvero qualcosa quando la si chiede.
   static const double guide = 18;
 
   static List<FontVariation> _wght(double weight) =>

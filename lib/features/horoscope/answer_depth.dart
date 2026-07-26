@@ -148,7 +148,7 @@ class AnswerDepthSelector extends StatelessWidget {
           children: [
             if (!compact) ...[
               Text('PROFONDITÀ',
-                  style: TypographyTokens.label(size: 8).copyWith(
+                  style: TypographyTokens.label(size: 11).copyWith(
                       color: ColorTokens.textSecondary, letterSpacing: 0.8)),
               const SizedBox(height: 2),
             ],

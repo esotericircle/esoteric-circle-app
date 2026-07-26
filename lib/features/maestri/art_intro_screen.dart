@@ -142,7 +142,7 @@ class _CorniceOnesta extends StatelessWidget {
         Expanded(
           child: Text(
             ArtCatalog.disclaimerCornice,
-            style: TypographyTokens.body(size: 12).copyWith(
+            style: TypographyTokens.body(size: 13).copyWith(
               color: ColorTokens.textSecondary,
               height: 1.4,
               fontStyle: FontStyle.italic,

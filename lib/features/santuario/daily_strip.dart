@@ -473,7 +473,7 @@ class _DailyStripState extends State<DailyStrip>
           Text(
             'I tuoi doni del giorno',
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 10).copyWith(
+            style: TypographyTokens.label(size: 11).copyWith(
               color: ColorTokens.textSecondary,
               letterSpacing: 1.2,
             ),
@@ -657,7 +657,7 @@ class _StripItem extends StatelessWidget {
     final tp = TextPainter(
       text: TextSpan(
         text: element.shortLabel,
-        style: TypographyTokens.label(size: 10).copyWith(letterSpacing: 0.4),
+        style: TypographyTokens.label(size: 11).copyWith(letterSpacing: 0.4),
       ),
       maxLines: 1,
       textDirection: TextDirection.ltr,
@@ -723,7 +723,7 @@ class _StripItem extends StatelessWidget {
                   element.shortLabel,
                   maxLines: 1,
                   softWrap: false,
-                  style: TypographyTokens.label(size: 10).copyWith(
+                  style: TypographyTokens.label(size: 11).copyWith(
                     color: active ? _gold : ColorTokens.textSecondary,
                     letterSpacing: 0.4,
                   ),
@@ -745,7 +745,7 @@ class _StripItem extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     '?',
-                    style: TypographyTokens.label(size: 10).copyWith(
+                    style: TypographyTokens.label(size: 11).copyWith(
                       color: accent.withValues(alpha: 0.95),
                       letterSpacing: 0,
                     ),
@@ -763,7 +763,7 @@ class _StripItem extends StatelessWidget {
                       key: Key('daily_conto_${element.name}'),
                       maxLines: 1,
                       softWrap: false,
-                      style: TypographyTokens.label(size: 9).copyWith(
+                      style: TypographyTokens.label(size: 11).copyWith(
                         color: accent.withValues(alpha: 0.95),
                         letterSpacing: 0.2,
                       ),

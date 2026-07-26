@@ -613,13 +613,13 @@ class _CircleArtTile extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(art.title,
                           maxLines: 1,
-                          style: TypographyTokens.display(size: 14)
+                          style: TypographyTokens.display(size: 16)
                               .copyWith(color: palette.textPrimary)),
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(art.maestro.displayName,
-                      style: TypographyTokens.label(size: 10).copyWith(
+                      style: TypographyTokens.label(size: 11).copyWith(
                         color: palette.goldSoft.withValues(alpha: 0.85),
                         letterSpacing: 0.6,
                       )),
@@ -767,7 +767,7 @@ Future<void> showArtPreview(
                   Expanded(
                     child: Text(
                       ArtCatalog.disclaimerCornice,
-                      style: TypographyTokens.body(size: 12).copyWith(
+                      style: TypographyTokens.body(size: 13).copyWith(
                         color: ColorTokens.textSecondary,
                         height: 1.4,
                         fontStyle: FontStyle.italic,

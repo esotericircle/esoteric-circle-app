@@ -525,7 +525,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 : 'Tocca Mischia per mescolare il mazzo',
             key: const Key('stesa_suggerimento_gesto'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 9).copyWith(
+            style: TypographyTokens.label(size: 11).copyWith(
                 color: ColorTokens.textSecondary, letterSpacing: 0.8),
           ),
           const SizedBox(height: SpacingTokens.lg),
@@ -547,7 +547,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // rendeva una formula.
           Text('${_reading.posizioni.first.apertura}, carta per carta',
               key: const Key('stesa_lente'),
-              style: TypographyTokens.label(size: 10).copyWith(
+              style: TypographyTokens.label(size: 11).copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.9),
                   letterSpacing: 1.2)),
           const SizedBox(height: SpacingTokens.xs),
@@ -630,7 +630,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         Text(TarotSpread.disclaimer,
             key: const Key('stesa_disclaimer'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 12).copyWith(
+            style: TypographyTokens.body(size: 13).copyWith(
                 color: ColorTokens.textSecondary,
                 height: 1.4,
                 fontStyle: FontStyle.italic)),
@@ -748,7 +748,7 @@ class _Slot extends StatelessWidget {
         const SizedBox(height: SpacingTokens.xs),
         Text(position.label.toUpperCase(),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 9).copyWith(
+            style: TypographyTokens.label(size: 11).copyWith(
                 color: palette.goldSoft, letterSpacing: 1.2)),
         if (drawn != null) ...[
           // Il nome in chiaro, grande e leggibile: nel cartiglio resta piccolo
@@ -761,14 +761,14 @@ class _Slot extends StatelessWidget {
             child: Text(splitNomeCartiglio(drawn!.card.name).join('\n'),
                 key: Key('stesa_name_${position.name}'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 15)
+                style: TypographyTokens.display(size: 16)
                     .copyWith(color: ColorTokens.textPrimary, height: 1.15)),
           ),
           if (drawn!.reversed)
             Text(drawn!.versoLabel,
                 key: Key('stesa_reversed_${position.name}'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 9).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                     color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: 2),
           // Sotto la carta resta la sintesi breve: il testo ricco ha il suo
@@ -777,7 +777,7 @@ class _Slot extends StatelessWidget {
           Text(drawn!.summary,
               key: Key('stesa_meaning_${position.name}'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 12).copyWith(
+              style: TypographyTokens.body(size: 13).copyWith(
                   color: ColorTokens.textSecondary, height: 1.35)),
         ],
       ],
@@ -938,7 +938,7 @@ class _Strato extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(titolo.toUpperCase(),
-              style: TypographyTokens.label(size: 9).copyWith(
+              style: TypographyTokens.label(size: 11).copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.85),
                   letterSpacing: 1.4)),
           const SizedBox(height: 6),
@@ -986,7 +986,7 @@ class _StratoPosizione extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(letta.drawn.position.label.toUpperCase(),
-              style: TypographyTokens.label(size: 9).copyWith(
+              style: TypographyTokens.label(size: 11).copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.85),
                   letterSpacing: 1.4)),
           const SizedBox(height: 4),

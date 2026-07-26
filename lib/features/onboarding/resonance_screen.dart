@@ -174,7 +174,7 @@ class _MaestroAuraState extends State<_MaestroAura>
                 ),
                 Text(
                   '${(widget.intensity * 100).round()}%',
-                  style: TypographyTokens.body(size: 11).copyWith(
+                  style: TypographyTokens.body(size: 13).copyWith(
                       color: ColorTokens.textMuted, letterSpacing: 1),
                 ),
               ],

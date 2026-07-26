@@ -81,13 +81,13 @@ class DreamRiteCard extends StatelessWidget {
                     letterSpacing: 0.5)),
             const SizedBox(height: SpacingTokens.md),
             Text('Esoteric Circle · $maestroNome',
-                style: TypographyTokens.label(size: 10).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.7),
                     letterSpacing: 1.0)),
             const SizedBox(height: 2),
             Text('Il cielo notturno reale di questa notte',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 10).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                     color: palette.textPrimary.withValues(alpha: 0.6),
                     letterSpacing: 0.4)),
           ],

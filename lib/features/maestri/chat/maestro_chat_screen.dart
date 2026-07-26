@@ -446,7 +446,7 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             Text(
               maestro.domainArtsPhrase,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 12)
+              style: TypographyTokens.body(size: 13)
                   .copyWith(color: palette.goldSoft),
             ),
           ],

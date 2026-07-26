@@ -1045,13 +1045,13 @@ class _ProvvisorioNote extends StatelessWidget {
               color: gold.withValues(alpha: 0.18),
             ),
             child: Text('Provvisorio',
-                style: TypographyTokens.body(size: 10)
+                style: TypographyTokens.body(size: 13)
                     .copyWith(color: gold, letterSpacing: 0.5)),
           ),
           const SizedBox(width: SpacingTokens.sm),
           Expanded(
             child: Text(text,
-                style: TypographyTokens.body(size: 12).copyWith(
+                style: TypographyTokens.body(size: 13).copyWith(
                     color: ColorTokens.textSecondary, height: 1.4)),
           ),
         ],
@@ -1167,7 +1167,7 @@ class _PlaceField extends StatelessWidget {
             'Non è in elenco? Scegli la città grande più vicina: '
             'il cielo si ancora comunque.',
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 12)
+            style: TypographyTokens.body(size: 13)
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4),
           ),
         ],

@@ -825,7 +825,7 @@ class _SkyInfoCard extends StatelessWidget {
                               'effemeridi.'
                           : 'I pianeti si uniranno presto al tuo cielo.',
                   // Nessun troncamento: la nota va a capo per intero.
-                  style: TypographyTokens.label(size: 10).copyWith(
+                  style: TypographyTokens.label(size: 11).copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.7),
                     letterSpacing: 0.4,
                   ),

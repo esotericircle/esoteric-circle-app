@@ -186,7 +186,7 @@ class _IntentButton extends StatelessWidget {
               const SizedBox(width: SpacingTokens.sm),
               Flexible(
                 child: Text(intent.buttonLabel,
-                    style: TypographyTokens.display(size: 15)
+                    style: TypographyTokens.display(size: 16)
                         .copyWith(color: palette.goldSoft)),
               ),
             ],

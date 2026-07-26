@@ -269,7 +269,7 @@ class _PaintedCard extends StatelessWidget {
       padding: const EdgeInsets.all(6),
       child: Text(card.name,
           textAlign: TextAlign.center,
-          style: TypographyTokens.display(size: 12)
+          style: TypographyTokens.display(size: 16)
               .copyWith(color: palette.goldSoft)),
     );
   }

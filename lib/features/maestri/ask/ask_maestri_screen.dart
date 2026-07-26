@@ -757,7 +757,7 @@ class _LensCard extends StatelessWidget {
                     textAlign: TextAlign.right,
                     maxLines: 2,
                     softWrap: true,
-                    style: TypographyTokens.label(size: 10).copyWith(
+                    style: TypographyTokens.label(size: 11).copyWith(
                       color: palette.goldSoft.withValues(alpha: 0.8),
                       letterSpacing: 0.8,
                     )),

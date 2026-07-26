@@ -190,7 +190,7 @@ class TarotSetupPanel extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text('LA TUA STESA',
-                      style: TypographyTokens.label(size: 9).copyWith(
+                      style: TypographyTokens.label(size: 11).copyWith(
                           color: palette.goldSoft, letterSpacing: 1.4)),
                 ),
                 Icon(Icons.expand_less_rounded,
@@ -361,7 +361,7 @@ class TendinaSelettore<T> extends StatelessWidget {
           enabled: false,
           height: 28,
           child: Text(gruppoCorrente.toUpperCase(),
-              style: TypographyTokens.label(size: 9).copyWith(
+              style: TypographyTokens.label(size: 11).copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.8),
                   letterSpacing: 1.4)),
         ));
@@ -396,7 +396,7 @@ class TendinaSelettore<T> extends StatelessWidget {
                   if (nota != null)
                     Text(nota,
                         maxLines: 2,
-                        style: TypographyTokens.body(size: 10).copyWith(
+                        style: TypographyTokens.body(size: 13).copyWith(
                             color: ColorTokens.textSecondary,
                             fontStyle: FontStyle.italic)),
                 ],
@@ -408,7 +408,7 @@ class TendinaSelettore<T> extends StatelessWidget {
                   size: 13, color: palette.goldSoft.withValues(alpha: 0.75)),
               const SizedBox(width: 4),
               Text('Coming soon',
-                  style: TypographyTokens.label(size: 7).copyWith(
+                  style: TypographyTokens.label(size: 11).copyWith(
                       color: palette.goldSoft.withValues(alpha: 0.75),
                       letterSpacing: 0.4)),
             ],
@@ -443,7 +443,7 @@ class TendinaSelettore<T> extends StatelessWidget {
             Text(titolo.toUpperCase(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TypographyTokens.label(size: 8).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                     color: ColorTokens.textSecondary, letterSpacing: 0.8)),
             const SizedBox(height: 2),
             Row(
@@ -499,7 +499,7 @@ class _Interruttore extends StatelessWidget {
           Expanded(
             child: Text(titolo.toUpperCase(),
                 maxLines: 2,
-                style: TypographyTokens.label(size: 8).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                     color: ColorTokens.textSecondary, letterSpacing: 0.8)),
           ),
           Transform.scale(

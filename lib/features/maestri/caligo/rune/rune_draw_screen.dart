@@ -375,7 +375,7 @@ class _Preparazione extends StatelessWidget {
               Flexible(
                 child: Text(
                     'Scuoti il telefono, oppure tocca: il ripiego vale sempre.',
-                    style: TypographyTokens.label(size: 10).copyWith(
+                    style: TypographyTokens.label(size: 11).copyWith(
                         color: palette.goldSoft.withValues(alpha: 0.7),
                         letterSpacing: 0.3)),
               ),
@@ -797,7 +797,7 @@ class _SelettoreGettate extends StatelessWidget {
                       )),
                   Text(g.sottotitolo,
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.label(size: 9).copyWith(
+                      style: TypographyTokens.label(size: 11).copyWith(
                         color: g.id == corrente.id
                             ? palette.goldSoft.withValues(alpha: 0.8)
                             : ColorTokens.textSecondary.withValues(alpha: 0.7),

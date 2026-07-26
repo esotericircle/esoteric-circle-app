@@ -214,7 +214,7 @@ class _Badge extends StatelessWidget {
               label,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TypographyTokens.label(size: 10).copyWith(
+              style: TypographyTokens.label(size: 11).copyWith(
                 color: palette.goldSoft,
                 letterSpacing: 0.5,
               ),

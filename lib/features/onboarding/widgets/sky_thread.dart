@@ -191,7 +191,7 @@ class _ThreadPainter extends CustomPainter {
     final tp = TextPainter(
       text: TextSpan(
           text: s.toUpperCase(),
-          style: TypographyTokens.body(size: 9)
+          style: TypographyTokens.body(size: 13)
               .copyWith(color: color, letterSpacing: 1)),
       textDirection: TextDirection.ltr,
     )..layout();

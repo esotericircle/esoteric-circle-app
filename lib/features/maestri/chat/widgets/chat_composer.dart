@@ -165,7 +165,7 @@ class _SuggestionsControl extends StatelessWidget {
             const SizedBox(height: 2),
             Text(
               'Suggerimenti',
-              style: TypographyTokens.body(size: 9)
+              style: TypographyTokens.body(size: 13)
                   .copyWith(color: ColorTokens.textMuted),
             ),
           ],

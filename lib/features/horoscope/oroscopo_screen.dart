@@ -198,7 +198,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                     Horoscope.disclaimer,
                     key: const Key('oroscopo_disclaimer'),
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.body(size: 12).copyWith(
+                    style: TypographyTokens.body(size: 13).copyWith(
                         color: ColorTokens.textSecondary,
                         height: 1.4,
                         fontStyle: FontStyle.italic),
@@ -510,7 +510,7 @@ class _TraditionChip extends StatelessWidget {
               children: [
                 Text(
                   tradition.label,
-                  style: TypographyTokens.label(size: 10).copyWith(
+                  style: TypographyTokens.label(size: 11).copyWith(
                     color: selected
                         ? palette.goldSoft
                         : ColorTokens.textSecondary
@@ -531,7 +531,7 @@ class _TraditionChip extends StatelessWidget {
               Text(
                 'In arrivo$fase',
                 key: Key('oroscopo_tradition_soon_${tradition.name}'),
-                style: TypographyTokens.label(size: 8).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.6),
                   letterSpacing: 0.3,
                 ),
@@ -729,7 +729,7 @@ class _HoroscopeCardView extends StatelessWidget {
                         style: TypographyTokens.display(size: 18)
                             .copyWith(color: palette.goldSoft, height: 1.1)),
                     Text(card.domain.label.toUpperCase(),
-                        style: TypographyTokens.label(size: 9).copyWith(
+                        style: TypographyTokens.label(size: 11).copyWith(
                             color: ColorTokens.textSecondary,
                             letterSpacing: 1.4)),
                   ],
@@ -895,7 +895,7 @@ class _Pill extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(label.toUpperCase(),
-              style: TypographyTokens.label(size: 8).copyWith(
+              style: TypographyTokens.label(size: 11).copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.8)),
           const SizedBox(height: 2),
           child,

@@ -90,7 +90,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               // Livello due: la parola del giorno, in risalto, o il segnaposto.
               Text(
                 'PAROLA DEL GIORNO',
-                style: TypographyTokens.label(size: 10).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                   color: _dayInkSoft,
                   letterSpacing: 3,
                 ),
@@ -158,7 +158,7 @@ class _ProvisionalTag extends StatelessWidget {
       ),
       child: Text(
         'PROVVISORIO',
-        style: TypographyTokens.label(size: 9).copyWith(
+        style: TypographyTokens.label(size: 11).copyWith(
           color: _dayInkSoft,
           letterSpacing: 1.6,
         ),
@@ -271,7 +271,7 @@ class _BaseRow extends StatelessWidget {
             Flexible(
               child: Text(
                 label.toUpperCase(),
-                style: TypographyTokens.label(size: 9).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                   color: _dayInkSoft,
                   letterSpacing: 1.6,
                 ),

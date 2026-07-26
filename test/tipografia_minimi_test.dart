@@ -14,89 +14,20 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 /// Si legge il SORGENTE e non l'albero dei widget, cosi' la regola vale anche
 /// per le schermate che nessun test monta.
-/// Il debito preesistente, congelato e dichiarato.
+/// Nessuna eccezione: la lista e' vuota di proposito.
 ///
-/// La misura che motiva questa lista: su 571 chiamate con misura esplicita sotto
-/// lib, 457 stanno sotto il minimo del proprio token, cioe' l'ottanta per cento,
-/// distribuite su 64 file. Con quel rapporto il difetto non e' nei punti di
-/// chiamata: e' nella taratura dei minimi. Un design system in cui otto
-/// chiamate su dieci violano il minimo sta dicendo che il minimo e' sbagliato,
-/// non che il codice lo e'. Alzarle tutte in un passaggio solo avrebbe cambiato
-/// il layout di quasi tutte le schermate dell'app, molto oltre lo scope, e le
-/// anteprime non sarebbero state verificabili una per una.
+/// C'era un debito congelato di 63 file, con 457 chiamate su 571 sotto il
+/// minimo. Quella misura ha portato alla decisione giusta, che non era
+/// bonificare i punti di chiamata ma correggere i minimi: erano 20, 17 e 12.5,
+/// cioe' misure di progetto travestite da soglie di leggibilita', e schiacciavano
+/// in silenzio la gerarchia che il codice dichiarava. Ora valgono 16, 13 e 11, e
+/// sono quel che devono essere: una rete contro il testo illeggibile.
 ///
-/// Il test quindi nasce con questa lista congelata e vale da subito su tutto il
-/// resto: ogni file nuovo e ogni file bonificato sono coperti. La Runa del
-/// Tramonto e' stata bonificata per intero, quindi NON compare qui.
-///
-/// Per rientrare dal debito ci sono due strade, da decidere insieme: rivedere i
-/// minimi del token perche' rispecchino le misure vere del prodotto, oppure
-/// bonificare i file a gruppi, togliendone uno alla volta da questa lista.
-const debitoStorico = <String>{
-  'lib/core/permissions/app_permission.dart',
-  'lib/design_system/components/art_card.dart',
-  'lib/design_system/components/feature_sheet.dart',
-  'lib/design_system/components/feature_tile.dart',
-  'lib/design_system/components/section_title.dart',
-  'lib/features/account/account_screen.dart',
-  'lib/features/account/profile_screen.dart',
-  'lib/features/home/widgets/demo_controls.dart',
-  'lib/features/horoscope/answer_depth.dart',
-  'lib/features/horoscope/oroscopo_screen.dart',
-  'lib/features/horoscope/oroscopo_share_card.dart',
-  'lib/features/identity/circle_seal_screen.dart',
-  'lib/features/identity/widgets/identity_widgets.dart',
-  'lib/features/maestri/art_intro_screen.dart',
-  'lib/features/maestri/ask/ask_maestri_screen.dart',
-  'lib/features/maestri/aura/archetype/archetype_share_card.dart',
-  'lib/features/maestri/aura/archetype/archetype_test_screen.dart',
-  'lib/features/maestri/aura/face/face_constellation_screen.dart',
-  'lib/features/maestri/aura/face/face_share_card.dart',
-  'lib/features/maestri/aura/meditation/meditation_screen.dart',
-  'lib/features/maestri/caligo/animal/animal_journey.dart',
-  'lib/features/maestri/caligo/animal/guide_animal_screen.dart',
-  'lib/features/maestri/caligo/animal/guide_animal_share_card.dart',
-  'lib/features/maestri/caligo/rune/rune_draw_screen.dart',
-  'lib/features/maestri/caligo/rune/rune_share_card.dart',
-  'lib/features/maestri/chat/maestro_chat_screen.dart',
-  'lib/features/maestri/chat/widgets/chat_bubble.dart',
-  'lib/features/maestri/chat/widgets/chat_composer.dart',
-  'lib/features/maestri/chat/widgets/chat_empty_state.dart',
-  'lib/features/maestri/chat/widgets/chat_suggestions.dart',
-  'lib/features/maestri/chat/widgets/diagnostics_dialog.dart',
-  'lib/features/maestri/chat/widgets/maestro_disclaimer.dart',
-  'lib/features/maestri/maestro_screen.dart',
-  'lib/features/maestri/widgets/domain_pillars.dart',
-  'lib/features/onboarding/birth_sky_hero.dart',
-  'lib/features/onboarding/maestro_reveal_screen.dart',
-  'lib/features/onboarding/natal_chart_reveal.dart',
-  'lib/features/onboarding/onboarding_screen.dart',
-  'lib/features/onboarding/resonance_screen.dart',
-  'lib/features/onboarding/widgets/sky_thread.dart',
-  'lib/features/passport/cosmic_passport_screen.dart',
-  'lib/features/pricing/pricing_screen.dart',
-  'lib/features/pricing/upgrade_invite.dart',
-  'lib/features/rituals/breath_destiny_screen.dart',
-  'lib/features/rituals/dawn_rite_screen.dart',
-  'lib/features/rituals/day_oracle_screen.dart',
-  'lib/features/rituals/dream_rite_card.dart',
-  'lib/features/rituals/dream_rite_screen.dart',
-  'lib/features/rituals/ritual_gift_card.dart',
-  'lib/features/rituals/ritual_view.dart',
-  'lib/features/rituals/sunset_rune_card.dart',
-  'lib/features/santuario/daily_strip.dart',
-  'lib/features/santuario/greeting_banner.dart',
-  'lib/features/santuario/santuario_screen.dart',
-  'lib/features/santuario/sky_overview_screen.dart',
-  'lib/features/settings/settings_screen.dart',
-  'lib/features/synastry/sinastria_gallery_screen.dart',
-  'lib/features/synastry/sinastria_share_card.dart',
-  'lib/features/synastry/sinastria_vip_screen.dart',
-  'lib/features/tarot/stesa_share_card.dart',
-  'lib/features/tarot/stesa_tre_carte_screen.dart',
-  'lib/features/tarot/tarot_card_art.dart',
-  'lib/features/tarot/tarot_selectors.dart',
-};
+/// Con quei minimi il debito e' rientrato e l'insieme resta vuoto. Se qualcuno
+/// dovesse riaggiungere un'eccezione qui, si fermi prima: o la misura chiesta e'
+/// davvero illeggibile e va alzata, oppure e' il minimo a essere di nuovo
+/// sbagliato, e allora si corregge quello.
+const debitoStorico = <String>{};
 
 void main() {
   test('Nessuna misura tipografica sotto il minimo del suo token', () {

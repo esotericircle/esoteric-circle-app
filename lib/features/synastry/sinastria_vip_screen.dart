@@ -512,7 +512,7 @@ class _Pole extends StatelessWidget {
             const SizedBox(height: 2),
             Text(hint!,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 9).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                     color: ColorTokens.textSecondary, letterSpacing: 0.3)),
           ],
         ],

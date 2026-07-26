@@ -422,7 +422,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                           phase: moon, size: (w * 0.12).clamp(54.0, 100.0)),
                       Text(
                         moon.italianName.toUpperCase(),
-                        style: TypographyTokens.label(size: 10).copyWith(
+                        style: TypographyTokens.label(size: 11).copyWith(
                           color: palette.goldSoft,
                           letterSpacing: 1.6,
                         ),
@@ -808,7 +808,7 @@ class _DomainEntry extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 10).copyWith(
+                style: TypographyTokens.label(size: 11).copyWith(
                   color: palette.goldSoft,
                   letterSpacing: 0.6,
                 ),
@@ -1060,7 +1060,7 @@ class _ComingSoonBadge extends StatelessWidget {
       ),
       child: Text(
         'Coming soon',
-        style: TypographyTokens.label(size: 9)
+        style: TypographyTokens.label(size: 11)
             .copyWith(color: palette.goldSoft, letterSpacing: 0.4),
       ),
     );
@@ -1115,7 +1115,7 @@ class _SkyTapHint extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       'Tocca il cielo',
-                      style: TypographyTokens.label(size: 9).copyWith(
+                      style: TypographyTokens.label(size: 11).copyWith(
                         color: color.withValues(alpha: 0.75),
                         letterSpacing: 1.2,
                       ),

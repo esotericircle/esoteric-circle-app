@@ -69,7 +69,7 @@ class StesaShareCard extends StatelessWidget {
           Text(topic.label,
               key: const Key('share_topic'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 12).copyWith(
+              style: TypographyTokens.body(size: 13).copyWith(
                   color: ColorTokens.textSecondary,
                   fontStyle: FontStyle.italic)),
           const SizedBox(height: SpacingTokens.md),
@@ -96,7 +96,7 @@ class StesaShareCard extends StatelessWidget {
                   SizedBox(
                     width: 74,
                     child: Text(drawn.position.label.toUpperCase(),
-                        style: TypographyTokens.label(size: 9).copyWith(
+                        style: TypographyTokens.label(size: 11).copyWith(
                             color: palette.goldSoft, letterSpacing: 0.8)),
                   ),
                   Expanded(
@@ -135,12 +135,12 @@ class StesaShareCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('LA CARTA CHIAVE  ',
-                  style: TypographyTokens.label(size: 8).copyWith(
+                  style: TypographyTokens.label(size: 11).copyWith(
                       color: ColorTokens.textSecondary, letterSpacing: 1.4)),
               Flexible(
                 child: Text(reading.chiave.drawn.displayName,
                     key: const Key('share_chiave'),
-                    style: TypographyTokens.display(size: 14)
+                    style: TypographyTokens.display(size: 16)
                         .copyWith(color: palette.goldSoft)),
               ),
             ],
@@ -163,7 +163,7 @@ class StesaShareCard extends StatelessWidget {
           const SizedBox(height: SpacingTokens.sm),
           Text(TarotSpread.closing,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 12).copyWith(
+              style: TypographyTokens.body(size: 13).copyWith(
                   color: ColorTokens.textSecondary,
                   height: 1.35,
                   fontStyle: FontStyle.italic)),
@@ -172,11 +172,11 @@ class StesaShareCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(BrandMark.wordmark,
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 10)
+              style: TypographyTokens.label(size: 11)
                   .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
           Text('esotericircle.com/tarocchi',
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 8).copyWith(
+              style: TypographyTokens.label(size: 11).copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.6)),
         ],
       ),
