@@ -937,6 +937,8 @@ void main() {
       for (final r in kElderFuthark) {
         if (r.hasImage) {
           await precacheImage(AssetImage(r.fullPath!), element);
+          // Anche le miniature, per le caselle della striscia settimanale.
+          await precacheImage(AssetImage(r.thumbPath!), element);
         }
       }
     });
@@ -963,7 +965,9 @@ void main() {
     final centro =
         tester.getCenter(find.byKey(const Key('sunset_incisione_gesture')));
     final g = await tester.startGesture(centro);
-    for (var i = 0; i < 24; i++) {
+    // Tiene il dito a lungo: nel gesto manuale ogni frame scava al piu' 50 ms,
+    // quindi servono parecchie battute per compiere il segno e aprire la lettura.
+    for (var i = 0; i < 44; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
     await g.up();

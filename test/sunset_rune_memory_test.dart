@@ -68,7 +68,7 @@ void main() {
 
   test('La chiave della cerniera col Sogno tiene l\'ultima runa', () async {
     final e = SunsetRune.estrai(DateTime(2026, 7, 13, 20),
-        dataNascita: DateTime(1988, 7, 5));
+        dataNascita: DateTime(1988, 7, 5), identita: '1988-07-05');
     await SunsetRuneMemory.scriviEstrazione(
         SunsetRuneMemory.seraDa(e, lasciare: 'A', porta: 'B'));
     final c = await SunsetRuneMemory.ultimaPerCerniera();

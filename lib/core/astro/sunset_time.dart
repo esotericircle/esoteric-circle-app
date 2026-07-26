@@ -30,8 +30,13 @@ class SunsetTime {
     required double lon,
     required Duration offset,
   }) {
-    final jd0 = MoonPhase.julianDay(
-        DateTime.utc(giorno.year, giorno.month, giorno.day));
+    // La mezzanotte locale del giorno, espressa in UTC togliendo lo scarto di
+    // fuso: cosi' l'indice del giorno si ancora al giorno LOCALE e non a quello
+    // di Greenwich. Senza questo, a est e a ovest il giorno di calcolo scivola e
+    // il tramonto puo' cadere nella data sbagliata.
+    final mezzanotteLocaleUtc =
+        DateTime.utc(giorno.year, giorno.month, giorno.day).subtract(offset);
+    final jd0 = MoonPhase.julianDay(mezzanotteLocaleUtc);
     // Conteggio intero dei giorni da J2000 (che cade a mezzogiorno): il ceil
     // snappa al giorno e centra il calcolo sul mezzogiorno solare.
     final n = (jd0 - 2451545.0 + 0.0008).ceilToDouble();

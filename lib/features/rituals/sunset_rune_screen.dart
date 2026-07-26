@@ -12,6 +12,8 @@ import '../../core/astro/sunset_time.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/identity/device_id.dart';
+import '../../core/rituals/runes.dart';
 import '../../core/rituals/sunset_rune.dart';
 import '../../core/rituals/sunset_rune_corpus.dart';
 import '../../core/rituals/sunset_rune_memory.dart';
@@ -75,6 +77,41 @@ class SunsetRuneScreen extends StatefulWidget {
 
 enum _Fase { getto, incisione, lettura }
 
+/// La scala orizzontale del contenuto visibile della pietra girata al valore di
+/// flip [t]. Con la faccia B controruotata resta sempre positiva, cioe' il
+/// contenuto non e' mai specchiato: a fine giro vale +1. Esposta per il test del
+/// flip a due facce.
+double sunsetFlipContentXScale(double t) {
+  final base = math.cos(math.pi * t);
+  return t >= 0.5 ? -base : base;
+}
+
+/// L'integratore dell'inclinazione: accumula la velocita' angolare attorno
+/// all'asse lungo e dice quando scatta il giro. Se il moto inverte prima della
+/// soglia, l'accumulo riparte da zero. Estratto per essere testabile.
+class GiroInclinazione {
+  double _accumulo = 0;
+
+  /// La soglia cumulativa, in radianti, oltre cui il giro scatta.
+  static const double soglia = 1.2;
+
+  double get accumulo => _accumulo;
+
+  /// Aggiorna con la velocita' angolare [vY] e il passo [dt] in secondi. Torna
+  /// vero quando si supera la soglia, e in quel caso azzera l'accumulo.
+  bool passo(double vY, double dt) {
+    if (_accumulo != 0 && vY.sign != _accumulo.sign && vY.abs() > 0.2) {
+      _accumulo = 0;
+    }
+    _accumulo += vY * dt;
+    if (_accumulo.abs() > soglia) {
+      _accumulo = 0;
+      return true;
+    }
+    return false;
+  }
+}
+
 class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     with TickerProviderStateMixin {
   late final DateTime _ora = widget.now ?? DateTime.now();
@@ -85,22 +122,19 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   final MaestroPalette _palette =
       MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
 
-  // Ingresso della pietra, respiro dell'alone, rimbalzo del getto, incisione
-  // automatica di ripiego, flip della rotazione.
-  late final AnimationController _ingresso = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 1200))
-    ..forward();
-  late final AnimationController _alone = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 3400))
-    ..repeat(reverse: true);
-  late final AnimationController _rimbalzo =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 620));
-  late final AnimationController _flip =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 900));
+  // Ingresso della pietra, respiro dell'alone, rimbalzo del getto, flip della
+  // rotazione. Inizializzati in initState, non pigri: cosi' dispose non crea mai
+  // un ticker durante lo smontaggio se la scena non e' arrivata a costruirsi.
+  late final AnimationController _ingresso;
+  late final AnimationController _alone;
+  late final AnimationController _rimbalzo;
+  late final AnimationController _flip;
 
   Ticker? _incisioneTicker;
   StreamSubscription<AccelerometerEvent>? _shakeSub;
+  StreamSubscription<GyroscopeEvent>? _giroSub;
   Duration _ultimoTick = Duration.zero;
+  bool _primoTick = true; // alla ripresa il primo tick fissa la base, non avanza
 
   _Fase _fase = _Fase.getto;
   double _incisione = 0; // 0..1, quanto e' scavato il segno
@@ -110,9 +144,21 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   bool _giroFatto = false;
   bool _riduciMovimento = false;
 
-  // L'ora del tramonto.
+  // Inclinazione: velocita' angolare integrata attorno all'asse lungo, e se il
+  // giroscopio ha mai risposto, per non promettere un gesto che non funziona.
+  final GiroInclinazione _inclinazione = GiroInclinazione();
+  bool _giroDisponibile = false;
+  bool _puoInclinare = false;
+
+  // L'ora del tramonto e l'identita' deterministica.
   DateTime? _tramonto;
   bool _stimata = true;
+  bool _oraNota = false;
+
+  // Le due voci salvate, quando la sera e' gia' stata vissuta: si riproducono
+  // invece di ricomporle, cosi' il testo non cambia fra due aperture.
+  String? _lasciareSalvato;
+  String? _portaSalvato;
 
   // La settimana e la cerniera.
   List<SeraSalvata> _settimana = [];
@@ -122,6 +168,16 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   @override
   void initState() {
     super.initState();
+    _ingresso = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1200))
+      ..forward();
+    _alone = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 3400))
+      ..repeat(reverse: true);
+    _rimbalzo = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 620));
+    _flip = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 900));
     _ascoltaScuotimento();
   }
 
@@ -132,20 +188,63 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     if (_risolta) return;
     _risolta = true;
     // La runa nasce dalla carta dell'utente: la data di nascita arriva dai
-    // parametri o dal profilo, quando c'e' e non e' l'esempio.
+    // parametri o dal profilo, quando c'e' e non e' l'esempio. L'ora si include
+    // solo quando e' davvero nota.
     DateTime? nascita = widget.dataNascita;
+    var oraNota = false;
     if (nascita == null) {
       try {
         final id = context.read<ProfileController>().identity;
-        if (!id.isExample) nascita = id.birthMoment;
+        if (!id.isExample) {
+          nascita = id.birthMoment;
+          oraNota = id.hasBirthTime;
+        }
       } catch (_) {
         // Nessun profilo nel contesto, per esempio nei test: resta anonimo.
       }
     }
     _nascita = nascita;
-    _estrazione =
-        SunsetRune.estrai(_ora, dataNascita: nascita, segno: widget.segno);
-    _calcolaTramonto();
+    _oraNota = oraNota;
+    _prepara();
+  }
+
+  // Risolve l'identita' una sola volta, poi estrae. L'identita' e' la nascita
+  // quando c'e', altrimenti l'id del dispositivo, cosi' due utenti anonimi non
+  // ricevono la stessa runa. La fase lunare segue il tramonto stimato dal fuso,
+  // calcolato subito e offline, senza attendere la geolocalizzazione.
+  Future<void> _prepara() async {
+    final offset = _ora.timeZoneOffset;
+    final giorno = SunsetRune.giornoRituale(_ora);
+    final stimato = SunsetTime.perData(giorno,
+            lat: SunsetTime.latDiRipiego,
+            lon: SunsetTime.longitudineDaFuso(offset),
+            offset: offset) ??
+        SunsetTime.oraMedia(giorno);
+    final deviceId = _nascita == null ? await DeviceId.corrente() : '';
+    final identita = SunsetRune.identitaPer(
+        nascita: _nascita, oraNota: _oraNota, deviceId: deviceId);
+    final e = SunsetRune.estrai(_ora,
+        dataNascita: _nascita,
+        segno: widget.segno,
+        identita: identita,
+        istanteTramonto: stimato);
+    // Se stasera e' gia' stata vissuta, riproduci le voci salvate.
+    final settimana = await SunsetRuneMemory.settimanaCorrente(e.giornoRituale);
+    SeraSalvata? seraOggi;
+    for (final s in settimana) {
+      if (s.giorno == e.giornoIso) seraOggi = s;
+    }
+    if (!mounted) return;
+    setState(() {
+      _estrazione = e;
+      _tramonto = stimato;
+      _stimata = true;
+      if (seraOggi != null) {
+        _lasciareSalvato = seraOggi.lasciare;
+        _portaSalvato = seraOggi.porta;
+      }
+    });
+    _raffinaTramonto();
     _controllaRitorno();
   }
 
@@ -153,6 +252,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   void dispose() {
     _incisioneTicker?.dispose();
     _shakeSub?.cancel();
+    _giroSub?.cancel();
     _ingresso.dispose();
     _alone.dispose();
     _rimbalzo.dispose();
@@ -160,28 +260,19 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     super.dispose();
   }
 
-  Future<void> _calcolaTramonto() async {
-    final offset = _ora.timeZoneOffset;
-    // Prima l'ora stimata dal fuso, sempre disponibile.
-    var lat = SunsetTime.latDiRipiego;
-    var lon = SunsetTime.longitudineDaFuso(offset);
-    var stimata = true;
-    // Poi, se la posizione e' attiva, l'ora vera. Non blocca l'ingresso.
+  // Raffina l'etichetta dell'ora con la posizione reale, se attiva. Non tocca
+  // la fase ne' le voci: aggiorna solo il tramonto mostrato. Non blocca la scena.
+  Future<void> _raffinaTramonto() async {
     final luogo = await widget.location.resolve();
-    if (luogo != null) {
-      lat = luogo.latitude;
-      lon = luogo.longitude;
-      stimata = false;
-    }
+    if (luogo == null || !mounted) return;
+    final offset = _ora.timeZoneOffset;
     final t = SunsetTime.perData(_e.giornoRituale,
-            lat: lat, lon: lon, offset: offset) ??
+            lat: luogo.latitude, lon: luogo.longitude, offset: offset) ??
         SunsetTime.oraMedia(_e.giornoRituale);
-    if (mounted) {
-      setState(() {
-        _tramonto = t;
-        _stimata = stimata;
-      });
-    }
+    setState(() {
+      _tramonto = t;
+      _stimata = false;
+    });
   }
 
   void _ascoltaScuotimento() {
@@ -211,12 +302,10 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   void _inizioIncisione() {
     if (_fase != _Fase.incisione || _completa) return;
     _premuto = true;
-    _ultimoTick = Duration.zero;
+    // Alla ripresa NON si azzera il progresso: il primo tick fissa solo la base
+    // temporale, cosi' una pausa lunga fra due pressioni non incide di colpo.
+    _primoTick = true;
     _incisioneTicker ??= createTicker(_passoIncisione);
-    if (_riduciMovimento) {
-      // Ripiego accessibile: un tocco incide in un tempo fisso.
-      _incisioneTicker!.stop();
-    }
     if (!_incisioneTicker!.isActive) _incisioneTicker!.start();
     setState(() {});
   }
@@ -224,17 +313,33 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   void _fineIncisione() {
     if (_fase != _Fase.incisione) return;
     _premuto = false;
-    // Il progresso resta dov'e': nessun reset, nessuna punizione.
+    // Il progresso resta dov'e', ma il ticker si ferma: mentre il dito e'
+    // alzato il tempo non deve accumularsi e poi scaricarsi tutto alla ripresa.
+    // Nel ripiego Riduci Movimento l'incisione va da se', quindi non si ferma.
+    if (!_riduciMovimento) _incisioneTicker?.stop();
     setState(() {});
   }
 
   void _passoIncisione(Duration elapsed) {
-    final dt = (elapsed - _ultimoTick).inMilliseconds / 1000.0;
+    if (_primoTick) {
+      // Prima battuta dopo start: fissa la base, non fa avanzare nulla.
+      _ultimoTick = elapsed;
+      _primoTick = false;
+      return;
+    }
+    var dt = (elapsed - _ultimoTick).inMilliseconds / 1000.0;
     _ultimoTick = elapsed;
+    if (dt < 0) dt = 0;
     // Con Riduci Movimento l'incisione va da se' in 1.2 secondi; altrimenti
     // avanza solo mentre il dito preme, e la durata cresce coi tratti.
     final durata = _riduciMovimento ? 1.2 : _numeroTratti * 0.55;
-    if (!_riduciMovimento && !_premuto) return;
+    if (!_riduciMovimento) {
+      // Solo nel gesto manuale: rete di sicurezza contro i frame lunghi, cosi'
+      // una pausa fra due pressioni non incide di colpo. L'auto-incisione del
+      // ripiego non si limita, deve arrivare in fondo nel suo tempo.
+      if (dt > 0.05) dt = 0.05;
+      if (!_premuto) return;
+    }
     final prima = _incisione;
     _incisione = (_incisione + dt / durata).clamp(0.0, 1.0);
     // Feedback aptico a ogni tratto completato.
@@ -269,6 +374,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         SunsetRuneMemory.seraDa(_e, lasciare: lasciare, porta: porta));
     final settimana = await SunsetRuneMemory.settimanaCorrente(_e.giornoRituale);
     if (mounted) setState(() => _settimana = settimana);
+    // La lettura e' aperta: da qui in poi l'inclinazione svela la seconda voce.
+    _ascoltaInclinazione();
   }
 
   // La clausola di insistenza, se la runa e' gia' tornata nei sette giorni.
@@ -281,20 +388,56 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     if (ripetuta && mounted) {
       setState(() {
         _ritorno = true;
-        _insistenza = SunsetRuneCorpus.insistenza(
-            SunsetRune.indiceInsistenza(_e, _nascita));
+        _insistenza =
+            SunsetRuneCorpus.insistenza(SunsetRune.indiceInsistenza(_e));
       });
     }
   }
 
+  // Le voci: se la sera e' gia' stata vissuta si riproducono quelle salvate,
+  // altrimenti si compongono dal corpus. Cosi' il testo non cambia fra due
+  // aperture della stessa sera anche se la fase lunare intanto e' avanzata.
   String _vocePrima() =>
+      _lasciareSalvato ??
       SunsetRuneCorpus.vocePrimaLasciare(_e, insistenzaClausola: _insistenza);
   String _vocePortare() =>
+      _portaSalvato ??
       SunsetRuneCorpus.vocePortare(_e, insistenzaClausola: _insistenza);
+
+  // --- Gesto tre: il giro della pietra, per inclinazione o doppio tap ---
+  void _ascoltaInclinazione() {
+    // Nel ripiego Riduci Movimento l'inclinazione non si propone: solo tocco.
+    if (_riduciMovimento) return;
+    try {
+      _giroSub = gyroscopeEventStream(
+              samplingPeriod: const Duration(milliseconds: 40))
+          .listen(_passoGiro, onError: (_) {}, cancelOnError: false);
+    } catch (_) {
+      // Nessun giroscopio: resta il doppio tap.
+    }
+  }
+
+  void _passoGiro(GyroscopeEvent ev) {
+    if (_giroFatto || !mounted) return;
+    // Al primo evento reale il giroscopio e' confermato: solo ora la scena puo'
+    // proporre l'inclinazione, mai prima, cosi' non promette un gesto assente.
+    if (!_giroDisponibile) {
+      setState(() {
+        _giroDisponibile = true;
+        _puoInclinare = true;
+      });
+    }
+    const dt = 0.04; // il periodo di campionamento, in secondi
+    // ev.y: velocita' angolare attorno all'asse lungo del telefono.
+    if (_inclinazione.passo(ev.y, dt)) _gira();
+  }
 
   void _gira() {
     if (_giroFatto) return;
     HapticFeedback.selectionClick();
+    // Dopo lo scatto niente piu' eventi: fine gesto, nessun rimbalzo.
+    _giroSub?.cancel();
+    _giroSub = null;
     setState(() => _giroFatto = true);
     if (!_riduciMovimento) _flip.forward(from: 0);
   }
@@ -319,8 +462,15 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('La Runa del Tramonto',
-            style: TypographyTokens.display(size: 19)),
+        // Il titolo intero, mai troncato: si rimpicciolisce quanto serve per
+        // stare in larghezza anche fra le due icone della barra.
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: Text('La Runa del Tramonto',
+              maxLines: 1,
+              style: TypographyTokens.display(size: 19)),
+        ),
         actions: [
           IconButton(
             key: const Key('sunset_sources'),
@@ -337,16 +487,35 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             child: _Fondale(
               palette: _palette,
               completa: _completa,
-              momento: _completa
-                  ? 2
-                  : (_fase == _Fase.getto ? 0 : 1),
+              momento: _completa ? 2 : (_fase == _Fase.getto ? 0 : 1),
+              riduciMovimento: _riduciMovimento,
             ),
           ),
-          SafeArea(
-            child: _fase == _Fase.lettura
-                ? _lettura()
-                : _scenaPietra(),
-          ),
+          // In lettura una velatura scura crescente spegne il fondale sotto le
+          // schede, cosi' il disco solare di ripiego non trapela dietro il testo.
+          if (_fase == _Fase.lettura)
+            Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      _palette.deepest.withValues(alpha: 0.35),
+                      _palette.deepest.withValues(alpha: 0.82),
+                    ],
+                    stops: const [0.0, 0.4],
+                  ),
+                ),
+              ),
+            ),
+          // Finche' l'identita' e l'estrazione non sono pronte, solo il fondale:
+          // una manciata di frame, senza mai bloccare ne' lampeggiare contenuti.
+          if (_estrazione != null)
+            SafeArea(
+              child:
+                  _fase == _Fase.lettura ? _lettura() : _scenaPietra(),
+            ),
         ],
       ),
     );
@@ -408,8 +577,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       children: [
         Text(
             t == null
-                ? 'Ora stimata, la posizione non e\' attiva'
-                : 'Ora stimata delle $ora, la posizione non e\' attiva',
+                ? 'Ora stimata, la posizione non è attiva'
+                : 'Ora stimata delle $ora, la posizione non è attiva',
             key: const Key('sunset_stimata'),
             textAlign: TextAlign.center,
             style: TypographyTokens.label(size: 11).copyWith(
@@ -428,7 +597,20 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   Future<void> _attivaPosizione() async {
     // Riprova a risolvere la posizione, non blocca la scena.
     final luogo = await const GeolocatorSkyLocation().resolve();
-    if (luogo == null || !mounted) return;
+    if (!mounted) return;
+    if (luogo == null) {
+      // Permesso negato o posizione assente: si spiega, in voce neutra, che si
+      // usa un tramonto medio. Il Dono resta pienamente funzionante.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          key: Key('sunset_posizione_negata'),
+          content: Text(
+              'Senza posizione si usa un tramonto medio. La runa e le sue voci '
+              'restano le stesse.'),
+        ),
+      );
+      return;
+    }
     final offset = _ora.timeZoneOffset;
     final t = SunsetTime.perData(_e.giornoRituale,
             lat: luogo.latitude, lon: luogo.longitude, offset: offset) ??
@@ -504,9 +686,10 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     );
   }
 
-  Widget _glifoAsset() {
+  // Il glifo nudo, senza orientamento: l'arte osso reale col ripiego al tratto.
+  Widget _glifoRaw() {
     final r = _e.rune;
-    final glifo = r.hasImage
+    return r.hasImage
         ? Image.asset(r.fullPath!,
             fit: BoxFit.contain,
             errorBuilder: (_, __, ___) => CustomPaint(
@@ -523,16 +706,29 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 glow: _palette.goldSoft,
                 intensity: 1.0),
           );
-    return _e.inOmbra
-        ? Transform.rotate(angle: math.pi, child: glifo)
-        : glifo;
   }
+
+  Widget _glifoAsset() {
+    return _e.inOmbra
+        ? Transform.rotate(angle: math.pi, child: _glifoRaw())
+        : _glifoRaw();
+  }
+
+  // Una faccia della pietra girata. Fronte e retro sono orientamenti opposti del
+  // glifo: il retro e' inciso al rovescio, non e' la stessa faccia specchiata.
+  Widget _facciaGlifo({required bool retro}) {
+    final capovolto = _e.inOmbra ^ retro;
+    return capovolto
+        ? Transform.rotate(angle: math.pi, child: _glifoRaw())
+        : _glifoRaw();
+  }
+
 
   Widget _pillolaEgesti() {
     final testo = _fase == _Fase.getto
         ? 'Scuoti per gettare la runa'
         : (_incisione > 0 && _incisione < 1 && !_premuto
-            ? 'Il segno non e\' compiuto'
+            ? 'Il segno non è compiuto'
             : 'Tieni il dito sulla pietra');
     final ripiego = _fase == _Fase.getto
         ? 'Se preferisci, tocca la pietra per gettarla.'
@@ -642,14 +838,25 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     return AnimatedBuilder(
       animation: Listenable.merge([_alone, _flip]),
       builder: (context, _) {
-        final giro = _giroFatto ? math.pi * _flip.value : 0.0;
+        final t = _giroFatto ? (_riduciMovimento ? 1.0 : _flip.value) : 0.0;
+        final angolo = math.pi * t;
+        final mostraRetro = angolo > math.pi / 2;
         final m = Matrix4.identity()
           ..setEntry(3, 2, 0.0015)
-          ..rotateY(giro);
+          ..rotateY(angolo);
+        // La faccia B e' controruotata di pi greco, cosi' il suo contenuto
+        // appare diritto e non specchiato: e' il retro inciso della pietra.
+        final faccia = mostraRetro
+            ? Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()..rotateY(math.pi),
+                child: _facciaGlifo(retro: true),
+              )
+            : _facciaGlifo(retro: false);
         return Transform(
           alignment: Alignment.center,
           transform: m,
-          child: SizedBox(width: 150, height: 168, child: _glifoAsset()),
+          child: SizedBox(width: 150, height: 168, child: faccia),
         );
       },
     );
@@ -673,9 +880,13 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 style: TypographyTokens.display(size: 18)
                     .copyWith(color: _palette.goldSoft)),
             const SizedBox(height: SpacingTokens.xs),
+            // L'inclinazione si nomina solo quando il giroscopio ha risposto:
+            // mai promettere un gesto che su questo dispositivo non funziona.
             Text(
-                'Inclina il telefono sull\'asse lungo, oppure tocca due volte: '
-                'la pietra mostra il suo rovescio.',
+                _puoInclinare
+                    ? 'Inclina il telefono sull\'asse lungo, oppure tocca due '
+                        'volte: la pietra mostra il suo rovescio.'
+                    : 'Tocca due volte: la pietra mostra il suo rovescio.',
                 textAlign: TextAlign.center,
                 style: TypographyTokens.label(size: 11).copyWith(
                     color: ColorTokens.textSecondary, height: 1.4)),
@@ -709,10 +920,16 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     );
   }
 
+  static final Map<String, Rune> _perNome = {
+    for (final r in kElderFuthark) r.name: r,
+  };
+
   Widget _striscia() {
-    final giorni = _settimana.map((s) => s.giorno).toSet();
-    final oggiIso = _e.giornoIso;
-    // Sette caselle: piene le sere fatte, appena accennate le altre.
+    // Sette caselle per DATA, non per conteggio: i sette giorni rituali che
+    // arrivano a oggi. Un giorno saltato lascia la sua casella vuota al suo
+    // posto, senza spostare le altre.
+    final oggi = _e.giornoRituale;
+    final perGiorno = {for (final s in _settimana) s.giorno: s};
     return Column(
       key: const Key('sunset_settimana'),
       children: [
@@ -720,7 +937,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             for (var i = 0; i < 7; i++)
-              _casella(i, giorni, oggiIso),
+              _casella(oggi.subtract(Duration(days: 6 - i)), perGiorno),
           ],
         ),
         const SizedBox(height: SpacingTokens.xs),
@@ -733,11 +950,13 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     );
   }
 
-  Widget _casella(int i, Set<String> giorni, String oggiIso) {
-    // Le caselle in ordine dalla piu' vecchia a oggi, riempite dove c'e' una sera.
-    final piena = i < _settimana.length;
-    final oggi = piena && _settimana[i].giorno == oggiIso;
+  Widget _casella(DateTime giornoCasella, Map<String, SeraSalvata> perGiorno) {
+    final iso = SunsetRune.iso(giornoCasella);
+    final sera = perGiorno[iso];
+    final piena = sera != null;
+    final oggi = iso == _e.giornoIso;
     return Container(
+      key: piena ? Key('sunset_casella_$iso') : null,
       width: 30,
       height: 38,
       decoration: BoxDecoration(
@@ -757,13 +976,30 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             : null,
       ),
       child: piena
-          ? Center(
-              child: Text(_settimana[i].rune.substring(0, 1),
-                  style: TypographyTokens.label(size: 13)
-                      .copyWith(color: _palette.goldSoft)))
+          ? Padding(
+              padding: const EdgeInsets.all(3),
+              child: _miniaturaRuna(sera.rune))
           : null,
     );
   }
+
+  // La miniatura rune_bone della sera, con la lettera come solo ripiego se
+  // l'asset non c'e'.
+  Widget _miniaturaRuna(String nome) {
+    final r = _perNome[nome];
+    if (r != null && r.hasImage) {
+      return Image.asset(r.thumbPath!,
+          fit: BoxFit.contain,
+          errorBuilder: (_, __, ___) => _letteraRuna(nome));
+    }
+    return _letteraRuna(nome);
+  }
+
+  Widget _letteraRuna(String nome) => Center(
+        child: Text(nome.substring(0, 1),
+            style: TypographyTokens.label(size: 13)
+                .copyWith(color: _palette.goldSoft)),
+      );
 
   String _rigaSettimana() {
     final n = _settimana.length;
@@ -782,7 +1018,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
 
   Widget _sigilloSettimana() {
-    // Le due rune dominanti della settimana, oppure la prima e l'ultima.
+    // Il sigillo si compone solo alla settima sera, quindi la settimana e'
+    // sempre piena: niente ramo "incompleta", che sarebbe irraggiungibile.
     final rune = _runeSettimana;
     final conteggi = <String, int>{};
     for (final r in rune) {
@@ -790,10 +1027,13 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     }
     final ordinate = conteggi.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
-    final dueDom = ordinate.any((e) => e.value > 1)
-        ? ordinate.take(2).map((e) => e.key).toList()
-        : [rune.first, rune.last];
-    final incompleta = rune.length < 7;
+    final ripetute = ordinate.any((e) => e.value > 1);
+    final dueDom = ordinate.take(2).map((e) => e.key).toList();
+    final didascalia = ripetute
+        ? 'La settimana lega ${dueDom.first} e ${dueDom.last}: due segni che '
+            'tornano, un legame solo.'
+        : 'Sette segni diversi in sette sere: nessuno ha insistito, la '
+            'settimana ti ha parlato una volta sola per volta.';
     return Container(
       key: const Key('sunset_sigillo'),
       padding: const EdgeInsets.all(SpacingTokens.md),
@@ -816,13 +1056,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             deduplica: true,
           ),
           const SizedBox(height: SpacingTokens.sm),
-          Text(
-              incompleta
-                  ? '${_capitale(_numeroParola(rune.length))} rune, '
-                      '${_numeroParola(rune.length)} sere. Il sigillo porta i '
-                      'vuoti che hai lasciato.'
-                  : 'La settimana lega ${dueDom.first} e ${dueDom.last}: '
-                      'due segni che tornano, un legame solo.',
+          Text(didascalia,
               textAlign: TextAlign.center,
               style: TypographyTokens.body(size: 14)
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
@@ -831,13 +1065,14 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     );
   }
 
-  String _numeroParola(int n) {
-    const p = ['zero', 'una', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette'];
-    return n >= 0 && n < p.length ? p[n] : '$n';
-  }
-
   Widget _azioni() {
-    return _Azioni(palette: _palette, estrazione: _e);
+    // Alla settima sera le azioni condividono il sigillo, con le sette rune per
+    // la carta bindrune; prima condividono la singola pietra.
+    return _Azioni(
+      palette: _palette,
+      estrazione: _e,
+      runeSettimana: _settimaSera ? _runeSettimana : null,
+    );
   }
 
   void _mostraFonti() {
@@ -898,14 +1133,14 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         : '${tramonto.hour.toString().padLeft(2, '0')}:'
             '${tramonto.minute.toString().padLeft(2, '0')}';
     final oraRiga = _stimata
-        ? 'Il tramonto e\' stimato dal fuso, la posizione non e\' attiva: $ora.'
-        : 'Il tramonto di stasera e\' calcolato sul tuo luogo: $ora.';
-    return "L'Elder Futhark e' l'alfabeto runico germanico di ventiquattro segni, "
+        ? 'Il tramonto è stimato dal fuso, la posizione non è attiva: $ora.'
+        : 'Il tramonto di stasera è calcolato sul tuo luogo: $ora.';
+    return "L'Elder Futhark è l'alfabeto runico germanico di ventiquattro segni, "
         "nelle tre aett di Freyr, Hagal e Tyr, qui nell'ordine tradizionale. Il "
-        "verso d'ombra o merkstave e' una convenzione moderna: otto segni sono "
+        "verso d'ombra o merkstave è una convenzione moderna: otto segni sono "
         "simmetrici e non lo hanno, quindi restano sempre dritti.\n\n"
-        "L'estrazione e' deterministica: nasce dalla data del tramonto incrociata "
-        "con la tua data di nascita e col tuo segno, quindi la runa e' tua e non "
+        "L'estrazione è deterministica: nasce dalla data del tramonto incrociata "
+        "con la tua data di nascita e col tuo segno, quindi la runa è tua e non "
         "la stessa per tutti. Il responso si compone di quattro fattori reali: la "
         "runa, il suo verso, la fase lunare vera della sera e il tuo segno solare.\n\n"
         "$oraRiga L'ora usa l'algoritmo NOAA, sul dispositivo, senza rete.\n\n"
@@ -925,6 +1160,7 @@ class _Fondale extends StatelessWidget {
     required this.palette,
     required this.completa,
     required this.momento,
+    required this.riduciMovimento,
   });
 
   final MaestroPalette palette;
@@ -932,6 +1168,8 @@ class _Fondale extends StatelessWidget {
 
   /// Zero prima del getto, uno durante l'incisione, due dopo il completamento.
   final int momento;
+
+  final bool riduciMovimento;
 
   // I tre slot dipinti, cablati come costanti. I file non esistono ancora: a
   // runtime l'errorBuilder ripiega sul procedurale, senza toccare stato_asset.
@@ -943,11 +1181,27 @@ class _Fondale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      _slots[momento.clamp(0, 2)],
+    final slot = _slots[momento.clamp(0, 2)];
+    final vista = Image.asset(
+      slot,
+      key: ValueKey<String>(slot),
       fit: BoxFit.cover,
       errorBuilder: (_, __, ___) => CustomPaint(
+          key: ValueKey<int>(momento.clamp(0, 2)),
           painter: _TramontoPainter(palette: palette, completa: completa)),
+    );
+    // Il cambio di stato del tramonto si dissolve invece di scattare. Con Riduci
+    // Movimento la durata scende a zero e resta lo scambio diretto.
+    return AnimatedSwitcher(
+      duration:
+          riduciMovimento ? Duration.zero : const Duration(milliseconds: 900),
+      switchInCurve: Curves.easeInOut,
+      switchOutCurve: Curves.easeInOut,
+      layoutBuilder: (current, previous) => Stack(
+        fit: StackFit.expand,
+        children: [...previous, if (current != null) current],
+      ),
+      child: vista,
     );
   }
 }
@@ -1038,6 +1292,53 @@ class _TramontoPainter extends CustomPainter {
   bool shouldRepaint(_TramontoPainter old) => old.completa != completa;
 }
 
+// I toni della pietra d'osso: avorio caldo in alto, osso ombrato in basso, una
+// venatura grigia calda. Cosi' la pietra sta vicino all'asset osso reale e alla
+// dissolvenza non c'e' salto di materiale. Il bordeaux di Caligo resta solo
+// nell'ambiente attorno, non sulla pietra.
+const Color _ossoAlto = Color(0xFFF0E6CC);
+const Color _ossoBasso = Color(0xFF9E8C64);
+const Color _ossoVena = Color(0xFF7B6E52);
+const Color _ossoBordo = Color(0xFFCBB483);
+
+/// Disegna la sagoma della pietra d'osso, scoperta, coi toni avorio: la sagoma
+/// ad arco condivisa fra pietra velata e tavola d'incisione.
+void _dipingiPietra(Canvas canvas, Rect rect, RRect rrect, {double vena = 0.5}) {
+  // Ombra 2.5D morbida.
+  canvas.drawRRect(
+    rrect.shift(const Offset(0, 8)),
+    Paint()
+      ..color = Colors.black.withValues(alpha: 0.3)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12),
+  );
+  canvas.drawRRect(
+    rrect,
+    Paint()
+      ..shader = const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [_ossoAlto, _ossoBasso],
+      ).createShader(rect),
+  );
+  // Una venatura grigia calda, appena accennata, che rompe la superficie piatta.
+  final vx = rect.left + rect.width * vena;
+  canvas.drawLine(
+    Offset(vx, rect.top + rect.height * 0.18),
+    Offset(vx - rect.width * 0.12, rect.bottom - rect.height * 0.2),
+    Paint()
+      ..strokeWidth = 1.4
+      ..color = _ossoVena.withValues(alpha: 0.35)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.2),
+  );
+  canvas.drawRRect(
+    rrect,
+    Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2
+      ..color = _ossoBordo.withValues(alpha: 0.85),
+  );
+}
+
 /// La pietra d'osso in stato velato, con un alone caldo che respira e un sigillo
 /// coperto al centro. Mai un rettangolo nudo.
 class _PietraVelataPainter extends CustomPainter {
@@ -1059,7 +1360,7 @@ class _PietraVelataPainter extends CustomPainter {
       bottomLeft: const Radius.circular(16),
       bottomRight: const Radius.circular(16),
     );
-    // Alone caldo che respira fra alpha 0.25 e 0.40.
+    // Alone caldo, dell'ambiente attorno, che respira fra alpha 0.25 e 0.40.
     final a = 0.25 + 0.15 * respiro;
     canvas.drawRRect(
       rrect.inflate(20),
@@ -1067,29 +1368,7 @@ class _PietraVelataPainter extends CustomPainter {
         ..color = palette.goldSoft.withValues(alpha: a)
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 28),
     );
-    // Ombra 2.5D morbida.
-    canvas.drawRRect(
-      rrect.shift(const Offset(0, 8)),
-      Paint()
-        ..color = Colors.black.withValues(alpha: 0.3)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12),
-    );
-    canvas.drawRRect(
-      rrect,
-      Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [palette.surfaceElevated, palette.deepest],
-        ).createShader(rect),
-    );
-    canvas.drawRRect(
-      rrect,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2
-        ..color = palette.gold.withValues(alpha: 0.6),
-    );
+    _dipingiPietra(canvas, rect, rrect);
     // Sigillo coperto al centro, appena intuibile.
     canvas.drawCircle(
       c,
@@ -1097,7 +1376,7 @@ class _PietraVelataPainter extends CustomPainter {
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.4
-        ..color = palette.goldSoft.withValues(alpha: 0.45),
+        ..color = _ossoVena.withValues(alpha: 0.4),
     );
   }
 
@@ -1128,7 +1407,10 @@ class _IncisionePainter extends CustomPainter {
     // della pietra velata, senza il velo, cosi' il getto atterra qui e la
     // superficie da incidere e' sempre visibile, anche prima del primo tratto.
     _tavola(canvas, size);
-    final lato = size.shortestSide * 0.6;
+    // Il lato del glifo nasce dalla larghezza vera della pietra, con un margine
+    // interno del 18% per lato: cosi' anche Dagaz, Gebo e Ingwaz restano dentro.
+    final larghezzaPietra = size.width * 0.52;
+    final lato = larghezzaPietra * 0.64;
     final left = (size.width - lato) / 2;
     final top = (size.height - lato) / 2;
     Offset map(Offset p) => Offset(left + p.dx * lato, top + p.dy * lato);
@@ -1187,15 +1469,23 @@ class _IncisionePainter extends CustomPainter {
       punta = map(ultimo);
     }
 
-    // Il raggio dall'orizzonte alla punta dell'incisione, mentre si scava.
+    // Il raggio parte dalla linea d'orizzonte della pietra, il suo bordo basso,
+    // non dal fondo del canvas, e svanisce con un gradiente prima di uscire.
     if (!completa && progresso > 0 && progresso < 1 && punta != null) {
+      final orizzonte = Offset(
+          size.width / 2, size.height / 2 + (size.height * 0.82) / 2 - 6);
       canvas.drawLine(
-        Offset(size.width / 2, size.height),
+        orizzonte,
         punta,
         Paint()
           ..strokeWidth = 3
           ..strokeCap = StrokeCap.round
-          ..color = const Color(0xFFFFF3D0).withValues(alpha: 0.55),
+          ..shader = const LinearGradient(
+            colors: [
+              Color(0x00FFF3D0),
+              Color(0x8CFFF3D0),
+            ],
+          ).createShader(Rect.fromPoints(orizzonte, punta)),
       );
       // Qualche scintilla sulla punta.
       final rng = math.Random((progresso * 1000).floor());
@@ -1209,8 +1499,8 @@ class _IncisionePainter extends CustomPainter {
     }
   }
 
-  // La pietra scoperta, superficie del segno. Sagoma condivisa con la pietra
-  // velata: arco in alto, base squadrata, bordo oro, ombra 2.5D morbida.
+  // La pietra scoperta, superficie del segno. Sagoma e toni osso condivisi con
+  // la pietra velata, cosi' alla dissolvenza verso l'asset non c'e' salto.
   void _tavola(Canvas canvas, Size size) {
     final c = size.center(Offset.zero);
     final w = size.width * 0.52;
@@ -1223,28 +1513,7 @@ class _IncisionePainter extends CustomPainter {
       bottomLeft: const Radius.circular(16),
       bottomRight: const Radius.circular(16),
     );
-    canvas.drawRRect(
-      rrect.shift(const Offset(0, 8)),
-      Paint()
-        ..color = Colors.black.withValues(alpha: 0.3)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12),
-    );
-    canvas.drawRRect(
-      rrect,
-      Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [palette.surfaceElevated, palette.deepest],
-        ).createShader(rect),
-    );
-    canvas.drawRRect(
-      rrect,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2
-        ..color = palette.gold.withValues(alpha: 0.6),
-    );
+    _dipingiPietra(canvas, rect, rrect, vena: 0.42);
   }
 
   @override
@@ -1254,10 +1523,18 @@ class _IncisionePainter extends CustomPainter {
 
 /// Condividi e Parlane con Caligo, con la carta fuori campo per lo scatto.
 class _Azioni extends StatefulWidget {
-  const _Azioni({required this.palette, required this.estrazione});
+  const _Azioni({
+    required this.palette,
+    required this.estrazione,
+    this.runeSettimana,
+  });
 
   final MaestroPalette palette;
   final EstrazioneTramonto estrazione;
+
+  /// Le sette rune della settimana, quando si condivide dal sigillo: la carta
+  /// diventa la bindrune invece della singola pietra.
+  final List<String>? runeSettimana;
 
   @override
   State<_Azioni> createState() => _AzioniState();
@@ -1279,7 +1556,14 @@ class _AzioniState extends State<_Azioni> {
       await shareSunsetRuneCard(
           boundaryKey: _boundary, estrazione: widget.estrazione);
     } finally {
-      if (mounted) setState(() => _condividendo = false);
+      // La carta fuori campo torna a non essere renderizzata: senza questo
+      // resta a decodificare inutilmente dopo ogni condivisione.
+      if (mounted) {
+        setState(() {
+          _condividendo = false;
+          _rendi = false;
+        });
+      }
     }
   }
 
@@ -1333,7 +1617,9 @@ class _AzioniState extends State<_Azioni> {
             child: RepaintBoundary(
               key: _boundary,
               child: SunsetRuneCard(
-                  estrazione: widget.estrazione, palette: widget.palette),
+                  estrazione: widget.estrazione,
+                  palette: widget.palette,
+                  runeSettimana: widget.runeSettimana),
             ),
           ),
       ],

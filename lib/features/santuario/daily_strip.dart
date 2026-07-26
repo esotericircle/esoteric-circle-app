@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../core/astro/sky_location.dart';
 import '../../core/astro/sunset_time.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_elements.dart';
@@ -283,7 +285,12 @@ void _showElementInfo(
 /// etichetta. Un tocco sull'icona apre direttamente l'esperienza, senza passare
 /// dal dominio.
 class DailyStrip extends StatefulWidget {
-  const DailyStrip({super.key, this.clock, this.onOpen});
+  const DailyStrip({
+    super.key,
+    this.clock,
+    this.onOpen,
+    this.location = const GeolocatorSkyLocation(),
+  });
 
   /// Orologio iniettabile per i test. Di default l'ora locale del dispositivo.
   final DateTime Function()? clock;
@@ -291,6 +298,11 @@ class DailyStrip extends StatefulWidget {
   /// Callback di apertura, iniettabile per i test. Di default apre la route
   /// reale dell'elemento.
   final void Function(BuildContext context, DailyElement element)? onOpen;
+
+  /// La sorgente della posizione per il conto alla rovescia al tramonto, la
+  /// stessa astrazione della schermata: cosi' i due numeri non divergono. Di
+  /// default spenta nei test, cosi' non chiedono permessi.
+  final SkyLocation location;
 
   @override
   State<DailyStrip> createState() => _DailyStripState();
@@ -300,6 +312,8 @@ class _DailyStripState extends State<DailyStrip>
     with SingleTickerProviderStateMixin {
   late final AnimationController _pulse;
   final ScrollController _scroll = ScrollController();
+  Timer? _tick; // fa scorrere il conto alla rovescia al tramonto
+  SkyPlace? _luogo; // la posizione reale, quando l'utente l'ha attivata
 
   // Largo abbastanza da tenere intero il nome piu' lungo, "Tramonto", insieme
   // al cerchio "?", senza mai troncare l'etichetta ne' sforare la riga.
@@ -321,10 +335,24 @@ class _DailyStripState extends State<DailyStrip>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) setState(() {});
     });
+    // Il conto alla rovescia scorre ogni trenta secondi, senza ricostruire piu'
+    // del necessario: quando arriva a zero la casella si accende da sola.
+    _tick = Timer.periodic(const Duration(seconds: 30), (_) {
+      if (mounted) setState(() {});
+    });
+    // La posizione reale, se attiva, allinea il conto della striscia a quello
+    // della schermata. Non blocca: se manca, resta la stima dal fuso.
+    _risolviLuogo();
+  }
+
+  Future<void> _risolviLuogo() async {
+    final luogo = await widget.location.resolve();
+    if (luogo != null && mounted) setState(() => _luogo = luogo);
   }
 
   @override
   void dispose() {
+    _tick?.cancel();
     _pulse.dispose();
     _scroll.dispose();
     super.dispose();
@@ -339,21 +367,28 @@ class _DailyStripState extends State<DailyStrip>
   // stimata dal fuso, la stessa che la schermata usa quando la posizione non e'
   // attiva. Prima del tramonto mostra "tra Xh Ymin"; all'ora vera la casella si
   // accende e il conto sparisce. Nessuna rete, tutto offline.
-  String? _contoTramonto(DateTime now) {
+  DateTime _tramontoDi(DateTime now) {
     final offset = now.timeZoneOffset;
-    final tramonto = SunsetTime.perData(
-          now,
-          lat: SunsetTime.latDiRipiego,
-          lon: SunsetTime.longitudineDaFuso(offset),
-          offset: offset,
-        ) ??
+    // La posizione reale quando c'e', altrimenti la stima dal fuso: la stessa
+    // fonte della schermata, cosi' i due numeri non possono divergere.
+    final lat = _luogo?.latitude ?? SunsetTime.latDiRipiego;
+    final lon = _luogo?.longitude ?? SunsetTime.longitudineDaFuso(offset);
+    return SunsetTime.perData(now, lat: lat, lon: lon, offset: offset) ??
         SunsetTime.oraMedia(now);
-    final minuti = tramonto.difference(now).inMinutes;
+  }
+
+  String? _contoTramonto(DateTime now) {
+    final minuti = _tramontoDi(now).difference(now).inMinutes;
     if (minuti <= 0) return null;
     final h = minuti ~/ 60;
     final m = minuti % 60;
     return h > 0 ? 'tra ${h}h ${m}min' : 'tra ${m}min';
   }
+
+  // La casella della Runa e' accesa quando il tramonto e' passato: il conto e'
+  // arrivato a zero e il Dono della sera si puo' vivere.
+  bool _tramontoArrivato(DateTime now) =>
+      !now.isBefore(_tramontoDi(now));
 
   @override
   Widget build(BuildContext context) {
@@ -403,15 +438,15 @@ class _DailyStripState extends State<DailyStrip>
                 final element = DailyElement.values[i];
                 final accent = _accentFor(element);
                 final maestro = DailyElements.maestroFor(element, now);
+                final isRuna = element == DailyElement.rune;
                 return _StripItem(
                   element: element,
-                  active: element == current,
+                  active: element == current ||
+                      (isRuna && _tramontoArrivato(now)),
                   accent: accent,
                   pulse: _pulse,
                   width: _itemWidth,
-                  subtitle: element == DailyElement.rune
-                      ? _contoTramonto(now)
-                      : null,
+                  subtitle: isRuna ? _contoTramonto(now) : null,
                   onTap: () => _open(element),
                   onInfo: () =>
                       _showElementInfo(context, element, maestro, accent),

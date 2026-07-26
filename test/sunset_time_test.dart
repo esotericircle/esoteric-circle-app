@@ -75,4 +75,31 @@ void main() {
     // Il tramonto di mezza estate a Roma cade la sera, dopo le venti.
     expect(t!.hour, inInclusiveRange(20, 21));
   });
+
+  test('A fuso piu\' dodici il tramonto cade nella data locale attesa', () {
+    // Estremo est, circa 180 gradi, fuso piu' dodici: il tramonto del giorno
+    // locale deve cadere in quel giorno, non scivolare al precedente o al dopo.
+    final giorno = DateTime(2026, 6, 21);
+    final t = SunsetTime.perData(giorno,
+        lat: 45, lon: 179, offset: const Duration(hours: 12));
+    expect(t, isNotNull);
+    expect(t!.year, giorno.year);
+    expect(t.month, giorno.month);
+    expect(t.day, giorno.day);
+    // Ed e' una sera vera, non un'ora impossibile.
+    expect(t.hour, inInclusiveRange(18, 22));
+  });
+
+  test('A fuso meno undici il tramonto cade nella data locale attesa', () {
+    // Estremo ovest, circa 165 gradi ovest, fuso meno undici.
+    final giorno = DateTime(2026, 12, 21);
+    final t = SunsetTime.perData(giorno,
+        lat: 45, lon: -165, offset: const Duration(hours: -11));
+    expect(t, isNotNull);
+    expect(t!.year, giorno.year);
+    expect(t.month, giorno.month);
+    expect(t.day, giorno.day);
+    // Inverno boreale: sera d'inverno, tramonto presto ma comunque di pomeriggio.
+    expect(t.hour, inInclusiveRange(15, 18));
+  });
 }

@@ -17,7 +17,7 @@ class VoceRuna {
 /// Il corpus della Runa del Tramonto, nella voce di Caligo, custode delle
 /// soglie. Le righe sono coerenti coi campi upright e shadow di runes.dart, che
 /// restano la fonte semantica: qui il significato diventa gesto di soglia, cosa
-/// lasciare fuori e cosa portare nella notte. Nessuna riga e' variante
+/// lasciare fuori e cosa portare nella notte. Nessuna riga è variante
 /// stilistica di un'altra. Deterministico, offline, nessuna AI.
 class SunsetRuneCorpus {
   const SunsetRuneCorpus._();
@@ -32,7 +32,7 @@ class SunsetRuneCorpus {
       "Porta dentro la certezza che l'abbondanza scorre, anche mentre dormi.",
     ),
     "Uruz": VoceRuna(
-      "Lascia fuori lo sforzo del giorno: il vigore si rifa' nel sonno, non nella veglia.",
+      "Lascia fuori lo sforzo del giorno: il vigore si rifà nel sonno, non nella veglia.",
       "Porta dentro la forza quieta, quella che ti rimette in piedi domani.",
     ),
     "Thurisaz": VoceRuna(
@@ -44,31 +44,31 @@ class SunsetRuneCorpus {
       "Porta dentro il segno che ti ha raggiunto, la voce che sapeva.",
     ),
     "Raidho": VoceRuna(
-      "Lascia fuori la strada: stanotte il viaggio si ferma e va bene cosi'.",
+      "Lascia fuori la strada: stanotte il viaggio si ferma e va bene così.",
       "Porta dentro la cadenza giusta, il ritmo che tieni dentro e fuori di te.",
     ),
     "Kenaz": VoceRuna(
       "Lascia fuori la torcia accesa: al buio non serve vederci, serve riposare.",
-      "Porta dentro la luce che oggi si e' accesa dove prima era buio.",
+      "Porta dentro la luce che oggi si è accesa dove prima era buio.",
     ),
     "Gebo": VoceRuna(
-      "Lascia fuori il conto di cio' che hai dato e ricevuto: stanotte lo scambio riposa.",
+      "Lascia fuori il conto di ciò che hai dato e ricevuto: stanotte lo scambio riposa.",
       "Porta dentro l'equilibrio del dono, che non chiede di essere pareggiato subito.",
     ),
     "Wunjo": VoceRuna(
-      "Lascia fuori la ricerca della gioia: ce l'hai gia', posala accanto a te.",
+      "Lascia fuori la ricerca della gioia: ce l'hai già, posala accanto a te.",
       "Porta dentro il frutto dolce dello sforzo, un momento di pienezza vera.",
     ),
     "Hagalaz": VoceRuna(
-      "Lascia fuori cio' che oggi e' crollato: la grandine ha gia' fatto spazio.",
-      "Porta dentro il campo pulito, pronto per quello che verra'.",
+      "Lascia fuori ciò che oggi è crollato: la grandine ha già fatto spazio.",
+      "Porta dentro il campo pulito, pronto per quello che verrà.",
     ),
     "Nauthiz": VoceRuna(
       "Lascia fuori la prova del giorno: l'attrito che tempra non si porta a letto.",
-      "Porta dentro la pazienza che qui e' potere, non fatica.",
+      "Porta dentro la pazienza che qui è potere, non fatica.",
     ),
     "Isa": VoceRuna(
-      "Lascia fuori la voglia di muovere le cose: stanotte tutto puo' stare fermo.",
+      "Lascia fuori la voglia di muovere le cose: stanotte tutto può stare fermo.",
       "Porta dentro il silenzio del ghiaccio, la chiarezza che nasce nell'attesa.",
     ),
     "Jera": VoceRuna(
@@ -76,7 +76,7 @@ class SunsetRuneCorpus {
       "Porta dentro la calma di chi ha seminato e sa aspettare.",
     ),
     "Eihwaz": VoceRuna(
-      "Lascia fuori la tensione fra cio' che e' e cio' che sara': il tasso regge da solo.",
+      "Lascia fuori la tensione fra ciò che è e ciò che sarà: il tasso regge da solo.",
       "Porta dentro la resistenza quieta, il ponte che non si spezza.",
     ),
     "Perthro": VoceRuna(
@@ -84,11 +84,11 @@ class SunsetRuneCorpus {
       "Porta dentro il mistero che si muove sotto, ancora invisibile.",
     ),
     "Algiz": VoceRuna(
-      "Lascia fuori la guardia: qui sei piu' difeso di quanto credi.",
+      "Lascia fuori la guardia: qui sei più difeso di quanto credi.",
       "Porta dentro il legame con l'alto, l'istinto che veglia mentre dormi.",
     ),
     "Sowilo": VoceRuna(
-      "Lascia fuori la volonta' che vince: il sole tramonta anche sui vincitori.",
+      "Lascia fuori la volontà che vince: il sole tramonta anche sui vincitori.",
       "Porta dentro la luce che ha guidato la via, ora che si spegne piano.",
     ),
     "Tiwaz": VoceRuna(
@@ -96,7 +96,7 @@ class SunsetRuneCorpus {
       "Porta dentro la vittoria che si merita, non quella che si strappa.",
     ),
     "Berkano": VoceRuna(
-      "Lascia fuori la cura del giorno: cio' che germoglia cresce anche nel buio.",
+      "Lascia fuori la cura del giorno: ciò che germoglia cresce anche nel buio.",
       "Porta dentro il nuovo che chiede riparo, la radice da custodire.",
     ),
     "Ehwaz": VoceRuna(
@@ -128,7 +128,7 @@ class SunsetRuneCorpus {
   // Verso d'ombra, merkstave: le sedici rune asimmetriche.
   static const Map<String, VoceRuna> _ombra = {
     "Fehu": VoceRuna(
-      "Lascia sulla soglia cio' a cui ti aggrappi: quello che stringi troppo, di notte pesa.",
+      "Lascia sulla soglia ciò a cui ti aggrappi: quello che stringi troppo, di notte pesa.",
       "Porta dentro la mano aperta, non il timore di perdere.",
     ),
     "Uruz": VoceRuna(
@@ -136,12 +136,12 @@ class SunsetRuneCorpus {
       "Porta dentro il ritmo ritrovato, non la fretta di caricare ancora.",
     ),
     "Thurisaz": VoceRuna(
-      "Lascia sulla soglia la reazione a caldo: la fretta di stasera ha gia' pizzicato abbastanza.",
-      "Porta dentro l'istante di sosta che stamani ti e' mancato.",
+      "Lascia sulla soglia la reazione a caldo: la fretta di stasera ha già pizzicato abbastanza.",
+      "Porta dentro l'istante di sosta che stamani ti è mancato.",
     ),
     "Ansuz": VoceRuna(
       "Lascia sulla soglia il messaggio frainteso: al buio non va soppesato.",
-      "Porta dentro l'ascolto piu' lento, non il peso di cio' che hai sentito male.",
+      "Porta dentro l'ascolto più lento, non il peso di ciò che hai sentito male.",
     ),
     "Raidho": VoceRuna(
       "Lascia sulla soglia il viaggio a scatti: il ritmo perso si ritrova dormendo.",
@@ -149,7 +149,7 @@ class SunsetRuneCorpus {
     ),
     "Kenaz": VoceRuna(
       "Lascia sulla soglia l'idea ancora informe: al buio non va forzata.",
-      "Porta dentro la pazienza della fiamma, che prende quando e' pronta.",
+      "Porta dentro la pazienza della fiamma, che prende quando è pronta.",
     ),
     "Wunjo": VoceRuna(
       "Lascia sulla soglia l'armonia incrinata: al legame si torna domani.",
@@ -185,39 +185,39 @@ class SunsetRuneCorpus {
     ),
     "Laguz": VoceRuna(
       "Lascia sulla soglia l'emozione confusa: lascia posare la corrente.",
-      "Porta dentro l'attesa che schiarisce, finche' il fondo torna visibile.",
+      "Porta dentro l'attesa che schiarisce, finché il fondo torna visibile.",
     ),
     "Othala": VoceRuna(
       "Lascia sulla soglia il legame col passato che pesa: la radice si rivede a luce.",
-      "Porta dentro cio' che ti sostiene, lascia fuori cio' che ti trattiene.",
+      "Porta dentro ciò che ti sostiene, lascia fuori ciò che ti trattiene.",
     ),
   };
 
   // Registro lunare, Voce A frase due: una per ognuna delle otto fasi reali.
   static const Map<String, String> _registroLunare = {
     "Luna nuova":
-        "Sotto la luna nuova il cielo trattiene il fiato: e' la sera per posare, non per iniziare.",
+        "Sotto la luna nuova il cielo trattiene il fiato: è la sera per posare, non per iniziare.",
     "Luna crescente":
-        "La luna cresce sottile: cio' che lasci fuori stasera fa spazio a cio' che nasce.",
+        "La luna cresce sottile: ciò che lasci fuori stasera fa spazio a ciò che nasce.",
     "Primo quarto":
         "Al primo quarto la luce spinge: lascia fuori la spinta, la notte non chiede sforzo.",
     "Gibbosa crescente":
-        "La luna gibbosa si gonfia di luce: lascia fuori l'attesa, matura da se'.",
+        "La luna gibbosa si gonfia di luce: lascia fuori l'attesa, matura da sé.",
     "Luna piena":
-        "Sotto la luna piena la luce si versa intera: lascia fuori cio' che illumina troppo, per dormire.",
+        "Sotto la luna piena la luce si versa intera: lascia fuori ciò che illumina troppo, per dormire.",
     "Gibbosa calante":
-        "La luna gibbosa cala: e' l'ora della gratitudine, lascia fuori il resto.",
+        "La luna gibbosa cala: è l'ora della gratitudine, lascia fuori il resto.",
     "Ultimo quarto":
-        "All'ultimo quarto la luce si ritira: lascia fuori cio' che si e' concluso.",
+        "All'ultimo quarto la luce si ritira: lascia fuori ciò che si è concluso.",
     "Luna calante":
-        "La luna cala verso il buio: lascia fuori il vecchio, la notte lo prende con se'.",
+        "La luna cala verso il buio: lascia fuori il vecchio, la notte lo prende con sé.",
   };
 
   // Clausola di segno, Voce B frase due: l'incrocio col segno solare, dodici,
   // una per segno, che si innesta sulla notte.
   static const Map<String, String> _clausolaSegno = {
     "aries":
-        "Con l'ardore d'Ariete nel petto, lascia che la brace covi: domani riaccende da se'.",
+        "Con l'ardore d'Ariete nel petto, lascia che la brace covi: domani riaccende da sé.",
     "taurus":
         "Con la calma del Toro, posa il corpo come un peso che finalmente si appoggia.",
     "gemini":
@@ -231,7 +231,7 @@ class SunsetRuneCorpus {
     "libra":
         "Con la soglia della Bilancia, posa i piatti: la notte non chiede equilibrio, chiede riposo.",
     "scorpio":
-        "Con la profondita' dello Scorpione, lascia scendere il fondo: al buio la verita' non ferisce.",
+        "Con la profondità dello Scorpione, lascia scendere il fondo: al buio la verità non ferisce.",
     "sagittarius":
         "Con lo slancio del Sagittario, abbassa l'arco: gli orizzonti aspettano il mattino.",
     "capricorn":
@@ -245,40 +245,64 @@ class SunsetRuneCorpus {
   // Le quattro clausole di insistenza, per la runa che torna entro sette sere.
   static const List<String> _insistenza = [
     "E se torna: non hai ancora finito di ascoltarla.",
-    "Una runa che insiste chiede piu' tempo, non piu' fretta.",
-    "Il ritorno non e' ripetizione: e' la stessa soglia vista due volte.",
-    "Cio' che torna porta lo stesso segno, ma tu non sei piu' lo stesso.",
+    "Una runa che insiste chiede più tempo, non più fretta.",
+    "Il ritorno non è ripetizione: è la stessa soglia vista due volte.",
+    "Ciò che torna porta lo stesso segno, ma tu non sei più lo stesso.",
   ];
 
-  /// Le due voci della runa nel suo verso.
-  static VoceRuna voceRuna(String name, RuneVerso verso) =>
-      verso == RuneVerso.merkstave ? _ombra[name]! : _dritto[name]!;
+  /// Il ripiego neutro della runa, in voce di Caligo, quando manca la voce.
+  static const VoceRuna _voceNeutra = VoceRuna(
+    "Lascia fuori il giorno: la soglia lo trattiene al posto tuo.",
+    "Porta dentro la notte così com'è, senza chiederle un nome.",
+  );
 
-  /// Il registro lunare della fase.
+  /// Il ripiego neutro del registro lunare, quando la fase non è in mappa.
+  static const String _registroNeutro =
+      "Il cielo stasera non si sbilancia: prendi la runa per quello che dice.";
+
+  /// Le due voci della runa nel suo verso. In merkstave ripiega sulla voce
+  /// dritta se manca il rovescio, e se manca anche quella sul ripiego neutro:
+  /// nessun bang, nessuna eccezione, sempre una frase piena.
+  static VoceRuna voceRuna(String name, RuneVerso verso) {
+    if (verso == RuneVerso.merkstave) {
+      final ombra = _ombra[name];
+      if (ombra != null) return ombra;
+    }
+    return _dritto[name] ?? _voceNeutra;
+  }
+
+  /// Il registro lunare della fase, col ripiego neutro se la fase non c'è.
   static String registroLunare(MoonPhase fase) =>
-      _registroLunare[fase.italianName]!;
+      _registroLunare[fase.italianName] ?? _registroNeutro;
 
-  /// La clausola del segno solare.
-  static String clausolaSegno(Zodiac segno) => _clausolaSegno[segno.id]!;
+  /// La clausola del segno solare, oppure stringa vuota: la frase deve reggere
+  /// anche senza, e la Voce B non lascia mai uno spazio pendente.
+  static String clausolaSegno(Zodiac segno) => _clausolaSegno[segno.id] ?? "";
 
   /// La clausola di insistenza numero [i], modulo quattro.
   static String insistenza(int i) => _insistenza[i % _insistenza.length];
 
-  /// La Voce A completa: cosa lasci fuori, piu' il registro lunare, piu' la
+  /// La Voce A completa: cosa lasci fuori, più il registro lunare, più la
   /// clausola di insistenza quando la runa ritorna.
   static String vocePrimaLasciare(EstrazioneTramonto e, {String? insistenzaClausola}) {
     final voce = voceRuna(e.rune.name, e.verso);
-    final base = "${voce.lasciare} ${registroLunare(e.fase)}";
-    return insistenzaClausola == null ? base : "$base $insistenzaClausola";
+    return _unisci([voce.lasciare, registroLunare(e.fase), insistenzaClausola]);
   }
 
-  /// La Voce B completa: cosa porti dentro la notte, piu' la clausola di segno,
-  /// piu' la clausola di insistenza quando la runa ritorna.
+  /// La Voce B completa: cosa porti dentro la notte, più la clausola di segno,
+  /// più la clausola di insistenza quando la runa ritorna.
   static String vocePortare(EstrazioneTramonto e, {String? insistenzaClausola}) {
     final voce = voceRuna(e.rune.name, e.verso);
-    final base = "${voce.porta} ${clausolaSegno(e.segno)}";
-    return insistenzaClausola == null ? base : "$base $insistenzaClausola";
+    return _unisci([voce.porta, clausolaSegno(e.segno), insistenzaClausola]);
   }
+
+  /// Unisce i pezzi non vuoti con un solo spazio, così una clausola assente non
+  /// lascia mai due spazi né uno spazio in coda.
+  static String _unisci(List<String?> pezzi) => pezzi
+      .whereType<String>()
+      .map((p) => p.trim())
+      .where((p) => p.isNotEmpty)
+      .join(" ");
 
   /// La riga di trasparenza dei tre fattori: runa e verso, fase lunare, segno.
   static String trasparenza(EstrazioneTramonto e) {
@@ -289,8 +313,8 @@ class SunsetRuneCorpus {
 
   /// L'intestazione della runa che torna entro sette sere.
   static String intestazioneRitorno(String name) =>
-      "$name torna. Nella lettura antica una runa che ritorna non e' caso: "
-      "e' insistenza.";
+      "$name torna. Nella lettura antica una runa che ritorna non è caso: "
+      "è insistenza.";
 
   // Accessori per la copertura nei test.
   static Map<String, VoceRuna> get dritto => _dritto;

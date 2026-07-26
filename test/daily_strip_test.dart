@@ -1,3 +1,5 @@
+import 'package:esoteric_circle/core/astro/sky_location.dart';
+import 'package:esoteric_circle/core/astro/sunset_time.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -12,6 +14,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+
+/// Una posizione finta, sempre disponibile, per il conto alla rovescia.
+class _LuogoFinto extends SkyLocation {
+  const _LuogoFinto(this._luogo);
+  final SkyPlace _luogo;
+  @override
+  bool get available => true;
+  @override
+  Future<SkyPlace?> resolve() async => _luogo;
+}
 
 Widget _host(Widget child) => MultiProvider(
       providers: [
@@ -82,6 +94,26 @@ void main() {
         .pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 23, 0))));
     await tester.pump();
     expect(find.byKey(const Key('daily_conto_rune')), findsNothing);
+  });
+
+  testWidgets('Il conto usa la posizione reale, la stessa fonte della schermata',
+      (tester) async {
+    // Con una posizione nota, il conto della striscia deve coincidere con il
+    // tramonto calcolato su quella posizione, non sulla stima dal fuso.
+    final now = DateTime(2026, 6, 21, 14, 0);
+    const luogo = _LuogoFinto(SkyPlace(latitude: 41.9, longitude: 12.5));
+    await tester.pumpWidget(_host(
+        DailyStrip(clock: () => now, location: luogo)));
+    await tester.pump(); // risolve la posizione
+    await tester.pump();
+
+    final tramonto = SunsetTime.perData(now,
+        lat: 41.9, lon: 12.5, offset: now.timeZoneOffset)!;
+    final minuti = tramonto.difference(now).inMinutes;
+    final h = minuti ~/ 60;
+    final m = minuti % 60;
+    final atteso = h > 0 ? 'tra ${h}h ${m}min' : 'tra ${m}min';
+    expect(find.text(atteso), findsOneWidget);
   });
 
   testWidgets('L\'header e\' centrato orizzontalmente', (tester) async {

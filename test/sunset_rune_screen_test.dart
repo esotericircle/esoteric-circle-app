@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/core/rituals/sunset_rune.dart';
 import 'package:esoteric_circle/core/rituals/sunset_rune_memory.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
@@ -142,7 +143,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 200));
     // Non e' passata alla lettura: il segno resta a meta'.
     expect(find.byKey(const Key('sunset_voce_uno')), findsNothing);
-    expect(find.text('Il segno non e\' compiuto'), findsOneWidget);
+    expect(find.text('Il segno non è compiuto'), findsOneWidget);
   });
 
   testWidgets('Il sigillo compare alla settima sera, non prima', (tester) async {
@@ -191,5 +192,108 @@ void main() {
     final c = await SunsetRuneMemory.ultimaPerCerniera();
     expect(c, isNotNull);
     expect(c!.giorno, SunsetRune.iso(SunsetRune.giornoRituale(ora)));
+  });
+
+  testWidgets('Dopo una pausa lunga la ripresa non completa di colpo',
+      (tester) async {
+    // Senza Riduci Movimento: preme un poco, molla, aspetta a lungo, ripreme.
+    // Il ticker fermo al rilascio non deve scaricare il tempo di pausa.
+    SharedPreferences.setMockInitialValues({});
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(MaterialApp(
+        home: SunsetRuneScreen(now: ora, dataNascita: DateTime(1988, 7, 5))));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    final centro =
+        tester.getCenter(find.byKey(const Key('sunset_incisione_gesture')));
+    // Prima pressione breve, poi rilascio.
+    var g = await tester.startGesture(centro);
+    await tester.pump(const Duration(milliseconds: 600));
+    await g.up();
+    await tester.pump(const Duration(milliseconds: 200));
+    // Pausa lunga a dito alzato: tre secondi.
+    await tester.pump(const Duration(seconds: 3));
+    // Seconda pressione breve: se il bug ci fosse, il dt gigante completerebbe.
+    g = await tester.startGesture(centro);
+    await tester.pump(const Duration(milliseconds: 300));
+    await g.up();
+    await tester.pump(const Duration(milliseconds: 200));
+    // Non e' completa: la lettura non si e' aperta.
+    expect(find.byKey(const Key('sunset_voce_uno')), findsNothing);
+  });
+
+  testWidgets('La striscia riempie per data, un giorno saltato resta vuoto',
+      (tester) async {
+    // Oggi e tre giorni fa fatte, ieri e l'altro ieri saltati.
+    final giorno = SunsetRune.giornoRituale(ora);
+    final treFa = SunsetRune.iso(giorno.subtract(const Duration(days: 3)));
+    final ieri = SunsetRune.iso(giorno.subtract(const Duration(days: 1)));
+    SharedPreferences.setMockInitialValues({
+      'sunset_rune.settimana':
+          '[{"giorno":"$treFa","rune":"Fehu","ombra":false,"lasciare":"a","porta":"b"}]',
+    });
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await compi(tester);
+
+    // La casella di tre giorni fa e di oggi ci sono, quella di ieri no.
+    expect(find.byKey(Key('sunset_casella_$treFa')), findsOneWidget);
+    expect(find.byKey(Key('sunset_casella_${SunsetRune.iso(giorno)}')),
+        findsOneWidget);
+    expect(find.byKey(Key('sunset_casella_$ieri')), findsNothing);
+  });
+
+  // Semina sei sere coi nomi dati, per portare la settima a sette.
+  String seiSere(DateTime giorno, List<String> nomi) {
+    final voci = <String>[];
+    for (var i = 0; i < 6; i++) {
+      final g = SunsetRune.iso(giorno.subtract(Duration(days: i + 1)));
+      voci.add('{"giorno":"$g","rune":"${nomi[i]}","ombra":false,'
+          '"lasciare":"a","porta":"b"}');
+    }
+    return '[${voci.join(',')}]';
+  }
+
+  testWidgets('Il sigillo dice il legame quando una runa torna', (tester) async {
+    final giorno = SunsetRune.giornoRituale(ora);
+    // Sei Fehu: qualcosa si ripete di sicuro nella settimana.
+    SharedPreferences.setMockInitialValues({
+      'sunset_rune.settimana': seiSere(giorno, List.filled(6, 'Fehu')),
+    });
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await compi(tester);
+    expect(find.textContaining('due segni che tornano'), findsOneWidget);
+  });
+
+  testWidgets('Il sigillo dice l\'assenza d\'insistenza a sette segni diversi',
+      (tester) async {
+    final giorno = SunsetRune.giornoRituale(ora);
+    final stasera = SunsetRune.estrai(ora,
+            dataNascita: DateTime(1988, 7, 5), identita: '1988-07-05')
+        .rune.name;
+    // Sei nomi distinti, tutti diversi da quello di stasera: sette segni diversi.
+    final pool = kElderFuthark
+        .map((r) => r.name)
+        .where((n) => n != stasera)
+        .take(6)
+        .toList();
+    SharedPreferences.setMockInitialValues({
+      'sunset_rune.settimana': seiSere(giorno, pool),
+    });
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await compi(tester);
+    expect(find.textContaining('Sette segni diversi'), findsOneWidget);
   });
 }
