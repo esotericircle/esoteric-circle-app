@@ -21,6 +21,7 @@ class AppServices {
     required this.memory,
     required this.memoryPersistent,
     this.appCheckDebugToken,
+    this.showAppCheckDebugToken = false,
     this.diagnostics,
   });
 
@@ -34,6 +35,12 @@ class AppServices {
   /// Token di debug di App Check da mostrare a schermo, quando in debug. Null in
   /// release o quando non pertinente. Serve solo per l'enforcement.
   final String? appCheckDebugToken;
+
+  /// Vero se il token di debug va mostrato a video, nella striscia in alto e
+  /// nella riga in fondo alle Impostazioni. Acceso solo fuori dalla release e
+  /// solo dai servizi reali: i servizi offline dei test e delle anteprime lo
+  /// lasciano spento, cosi' le catture restano quelle che l'utente vedra'.
+  final bool showAppCheckDebugToken;
 
   /// Nota diagnostica per i log, mai mostrata cruda all'utente.
   final String? diagnostics;
@@ -113,6 +120,8 @@ class AppServices {
       memory: memory,
       memoryPersistent: persistent,
       appCheckDebugToken: debugToken,
+      showAppCheckDebugToken:
+          AppCheckDebugToken.mostraAVideo(releaseMode: kReleaseMode),
       diagnostics: note,
     );
   }

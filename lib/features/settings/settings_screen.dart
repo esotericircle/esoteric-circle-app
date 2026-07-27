@@ -13,6 +13,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import '../debug/app_check_debug_view.dart';
 import '../pricing/pricing_screen.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
@@ -161,6 +162,10 @@ class SettingsScreen extends StatelessWidget {
                   ],
                 ),
               ),
+
+              // Ultima riga, solo nelle build di debug: il token di App Check
+              // da registrare in console. In release sparisce del tutto.
+              const AppCheckDebugTokenRow(),
             ],
           ),
         ),

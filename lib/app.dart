@@ -16,6 +16,7 @@ import 'core/quality/quality_tier.dart';
 import 'core/settings/settings_controller.dart';
 import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
+import 'features/debug/app_check_debug_view.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/santuario/greeting_controller.dart';
 import 'features/shell/app_shell.dart';
@@ -73,6 +74,11 @@ class EsotericCircleApp extends StatelessWidget {
         title: 'Esoteric Circle',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.dark(),
+        // La striscia col token di debug di App Check sta sopra il Navigator,
+        // quindi si legge anche mentre l'onboarding e' aperto sopra lo shell.
+        // In release non compare: lo decidono i servizi, non questa riga.
+        builder: (context, child) =>
+            AppCheckDebugBanner(child: child ?? const SizedBox.shrink()),
         // La dissolvenza cromatica del tema riguarda lo sfondo e gli accenti,
         // gestiti da MaestroScope; qui teniamo un solo ThemeData scuro base.
         home: Consumer<SettingsController>(
