@@ -149,9 +149,20 @@ void main() {
     return (a: map(tratto.first), b: map(tratto.last));
   }
 
-  /// Distanza massima dal solco scuro di un insieme di punti dato.
-  double _lontananzaDalSolco(_Campo campo, List<int> xs, List<int> ys) {
-    if (campo.scuriX.isEmpty) return double.infinity;
+  /// Distanza massima dal solco scuro di un insieme di punti dato. Torna anche
+  /// il motivo quando la misura non e' possibile: una misura che non riesce deve
+  /// far fallire il test, non passare in silenzio.
+  ({double distanza, String? cieca}) lontananzaDalSolco(
+      _Campo campo, List<int> xs, List<int> ys) {
+    if (campo.scuriX.isEmpty) {
+      return (
+        distanza: 0,
+        cieca: "nessun pixel di solco scuro: non c'e' segno da misurare"
+      );
+    }
+    if (xs.isEmpty) {
+      return (distanza: 0, cieca: 'nessun pixel da misurare in questo insieme');
+    }
     var peggiore = 0.0;
     for (var i = 0; i < xs.length; i++) {
       final px = xs[i];
@@ -169,7 +180,7 @@ void main() {
       final dist = math.sqrt(minima.toDouble());
       if (dist > peggiore) peggiore = dist;
     }
-    return peggiore;
+    return (distanza: peggiore, cieca: null);
   }
 
   /// M1a, PORTATA DELL'OMBRA. Quanto lontano dal solco arriva il pixel piu'
@@ -178,14 +189,15 @@ void main() {
   /// sfocata, e infatti il valore e' salito da 9.00 a 10.00 esattamente quando
   /// lo scarto dell'ombra e' passato da 0.20 a 0.50 di spessore. Il nome dice
   /// ora quel che la misura fa davvero: sorveglia la portata dell'ombra.
-  double m1aPortataOmbra(_Campo campo) =>
-      _lontananzaDalSolco(campo, campo.dipintiX, campo.dipintiY);
+  ({double distanza, String? cieca}) m1aPortataOmbra(_Campo campo) =>
+      lontananzaDalSolco(campo, campo.dipintiX, campo.dipintiY);
 
   /// M1b, CONTENIMENTO DEL CHIARO. Quanto lontano dal solco arriva il pixel
   /// chiaro piu' esterno, cioe' il labbro. E' la misura che tiene fuori
   /// qualunque elemento luminoso che qualcuno volesse aggiungere sopra il segno,
   /// ed e' quella che sarebbe stata rossa sulle scintille.
-  double m1bContenimentoChiaro(_Campo campo, ({Offset a, Offset b}) asse) {
+  ({double distanza, String? cieca}) m1bContenimentoChiaro(
+      _Campo campo, ({Offset a, Offset b}) asse) {
     // Il labbro e l'ombra stanno su lati OPPOSTI dell'asse per costruzione: il
     // lume e' scostato verso basso-destra, l'ombra verso alto-sinistra. La
     // fascia di luminanza da sola non li separa, perche' la frangia esterna
@@ -207,7 +219,7 @@ void main() {
       xs.add(x);
       ys.add(y);
     }
-    return _lontananzaDalSolco(campo, xs, ys);
+    return lontananzaDalSolco(campo, xs, ys);
   }
 
   /// M4, UNIFORMITA' DEL FONDO DELLO SCAVO. Il fondo di un intaglio ha la stessa
@@ -224,11 +236,13 @@ void main() {
   /// Quel che resta e' il corpo del solco, e li' la profondita' deve essere
   /// costante: un velo luminoso che la fa risalire verso la punta cade proprio
   /// qui dentro e viene visto.
-  double m4UniformitaFondo(
+  ({double scarto, String? cieca}) m4UniformitaFondo(
       _Campo campo, ({Offset a, Offset b}) asse, double spessore) {
     final dir = asse.b - asse.a;
     final lunghezzaPiena = dir.distance;
-    if (lunghezzaPiena == 0) return 0;
+    if (lunghezzaPiena == 0) {
+      return (scarto: 0, cieca: "asse di lunghezza nulla");
+    }
     final unit = dir / lunghezzaPiena;
     final normale = Offset(-unit.dy, unit.dx);
 
@@ -264,17 +278,31 @@ void main() {
       if (f != null && f < sogliaScavo) fine = t;
     }
     final margine = spessore / 2;
-    if (fine - 2 * margine < 4) return 0; // scavo troppo corto per misurarlo
+    if (fine - 2 * margine < 4) {
+      return (
+        scarto: 0,
+        cieca: 'scavo troppo corto per misurarlo: fine a '
+            '${fine.toStringAsFixed(1)} px, margine di calotta '
+            '${margine.toStringAsFixed(1)} per capo'
+      );
+    }
 
     final fondi = <double>[];
     for (var t = margine; t <= fine - margine; t += 2) {
       final f = fondoIn(t);
       if (f != null) fondi.add(f);
     }
-    if (fondi.length < 3) return 0;
+    if (fondi.length < 3) {
+      return (
+        scarto: 0,
+        cieca: 'solo ${fondi.length} campioni di fondo, ne servono almeno tre'
+      );
+    }
     final ordinati = [...fondi]..sort();
     final mediana = ordinati[ordinati.length ~/ 2];
-    if (mediana <= 0) return 0;
+    if (mediana <= 0) {
+      return (scarto: 0, cieca: 'mediana del fondo nulla, nessuno scavo trovato');
+    }
     var peggiore = 0.0;
     var valore = 0.0;
     var doveT = 0.0;
@@ -293,7 +321,7 @@ void main() {
           'fino a ${fine.toStringAsFixed(1)} | profilo '
           '${fondi.map((f) => f.toStringAsFixed(2)).join(" ")}');
     }
-    return peggiore;
+    return (scarto: peggiore, cieca: null);
   }
 
   /// Quanti tratti del segno sono gia' incisi a un dato progresso: serve a
@@ -466,28 +494,36 @@ void main() {
       final m2 = m2Labbro(campo, asse, progresso);
       final m3 = m3Direzionalita(campo, asse);
       final etichetta = 'progresso $progresso, completa $completa';
+      // Una misura che non riesce a misurare deve FALLIRE, non passare: un
+      // ritorno neutro travestito da verde e' peggio di nessun test.
+      expect(m1a.cieca, isNull,
+          reason: 'M1a non ha potuto misurare, $etichetta: ${m1a.cieca}');
+      expect(m1b.cieca, isNull,
+          reason: 'M1b non ha potuto misurare, $etichetta: ${m1b.cieca}');
+      expect(m4.cieca, isNull,
+          reason: 'M4 non ha potuto misurare, $etichetta: ${m4.cieca}');
       // Stampati sempre, anche quando il test passa: servono al report.
       // ignore: avoid_print
       print('MISURA $etichetta | '
-          'M1a ${m1a.toStringAsFixed(2)} su ${(1.10 * spessore).toStringAsFixed(2)} | '
-          'M1b ${m1b.toStringAsFixed(2)} su ${(0.65 * spessore).toStringAsFixed(2)} | '
-          'M4 ${(m4 * 100).toStringAsFixed(1)}% su 12.0% | '
+          'M1a ${m1a.distanza.toStringAsFixed(2)} su ${(1.10 * spessore).toStringAsFixed(2)} | '
+          'M1b ${m1b.distanza.toStringAsFixed(2)} su ${(0.65 * spessore).toStringAsFixed(2)} | '
+          'M4 ${(m4.scarto * 100).toStringAsFixed(1)}% su 12.0% | '
           'M2 componenti ${m2.componenti} maggiore '
           '${(m2.maggiore * 100).toStringAsFixed(1)}% copertura '
           '${(m2.copertura * 100).toStringAsFixed(1)}% | '
           'M3 ${m3.isInfinite ? "inf" : m3.toStringAsFixed(2)}');
 
-      expect(m1a, lessThanOrEqualTo(1.10 * spessore),
+      expect(m1a.distanza, lessThanOrEqualTo(1.10 * spessore),
           reason: "M1a portata dell'ombra, $etichetta: l'ombra si spande "
               'troppo lontano dal solco');
-      expect(m1b, lessThanOrEqualTo(0.65 * spessore),
+      expect(m1b.distanza, lessThanOrEqualTo(0.65 * spessore),
           reason: "M1b contenimento del chiaro, $etichetta: c'e' roba "
               "luminosa lontano dal solco, cioe' sopra la pietra invece che "
               'nella scanalatura');
-      expect(m4, lessThanOrEqualTo(0.12),
+      expect(m4.scarto, lessThanOrEqualTo(0.12),
           reason: "M4 uniformita' del fondo, $etichetta: il fondo dello scavo "
               'si scosta dalla mediana del '
-              "${(m4 * 100).toStringAsFixed(1)}%, cioe' la profondita' non e' "
+              "${(m4.scarto * 100).toStringAsFixed(1)}%, cioe' la profondita' non e' "
               'costante e la punta si sfarina invece di chiudersi piena');
       // QUINTO scostamento motivato, sul conteggio delle componenti. La soglia
       // di partenza chiedeva esattamente una componente connessa. Non e'
