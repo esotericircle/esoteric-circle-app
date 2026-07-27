@@ -1,9 +1,68 @@
 # ESITO dell'ORDINE CORRENTE
 
+## Consegna al telefono con App Distribution
+
+Eseguito da Claude Code il 27 luglio 2026, notte fonda, sul ramo
+`claude/esoteric-circle-master-order-e798aj`.
+
+Comando eseguito, uguale a quello dell'ordine salvo le barre del percorso, che
+in questa shell vanno in avanti:
+
+```
+firebase appdistribution:distribute "build/app/outputs/flutter-apk/app-arm64-v8a-debug.apk" --app 1:425821975933:android:1b1ca4db8d4df69b940814 --testers "cloud@esotericircle.app,info@esotericircle.com" --release-notes "Prima accensione. Token App Check fissato nel binario."
+```
+
+Prima di lanciarlo ho verificato due cose invece di darle per buone. L'App ID
+nell'ordine coincide col campo `mobilesdk_app_id` di
+`android/app/google-services.json`, dove il progetto e' `esoteric-circle` e il
+pacchetto e' `com.esotericircle.esoteric_circle`. Il CLI, versione 15.22.4,
+risulta autenticato come `cloud@esotericircle.app`, come diceva l'ordine.
+
+Esito: riuscito al primo tentativo, senza nessuna abilitazione da fare. Il
+punto 2 dell'ordine non si e' presentato: App Distribution era gia' attivo sul
+progetto, il CLI non ha chiesto nulla e non ha stampato nessun link da seguire.
+
+Il caricamento ha prodotto la release **0.1.0 (2001)**, con le note di rilascio
+applicate e la distribuzione ai due tester conclusa. Le tre righe di conferma del
+CLI sono state, nell'ordine, release caricata, note aggiunte, distribuzione ai
+tester eseguita.
+
+Link stabili:
+
+- Console Firebase della release:
+  `https://console.firebase.google.com/project/esoteric-circle/appdistribution/app/android:com.esotericircle.esoteric_circle/releases/2dir9c8k5lpno`
+- Pagina per i tester:
+  `https://appdistribution.firebase.google.com/testerapps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/2dir9c8k5lpno`
+
+Il CLI stampa anche un terzo link, quello del binario in chiaro. Quel link NON
+viene scritto qui, con una motivazione precisa: porta in coda un token di
+accesso valido un'ora, questo repository e' pubblico, la regola ferrea dice che
+i segreti non stanno su Git. Chiunque potrebbe scaricare l'APK entro l'ora,
+col token di debug di App Check dentro. Il link e' stato consegnato a Mauro
+direttamente in chat, dove serve. Per installare bastano comunque i due link
+stabili qui sopra, che non scadono.
+
+Nessun file di codice e' stato toccato, come chiesto dal punto 4. Non e' stato
+toccato ne' `docs/STATO_VIVO.md` ne' `ORDINE_ENTITLEMENT.md`.
+
+### Fronte aperto da mettere a registro: il peso dell'APK
+
+L'ordine chiede di registrare il peso come fronte aperto senza intervenire. Non
+posso scriverlo in `docs/STATO_VIVO.md`, che il punto 4 mette fuori dalle mani,
+quindi lo lascio qui perche' l'Architetto lo trascriva nella sezione giusta.
+
+L'APK arm64 di debug pesa 218,2 MiB, fuori scala anche per una distribuzione
+interna. La causa e' quasi certamente il bundling in-app degli asset delle sei
+famiglie esoteriche a due misure, cioe' piena e miniatura, quando le stesse
+famiglie sono gia' pubblicate su CDN. Va bene per la prima accensione. Non va
+bene per una Demo: prima di mostrarla a qualcuno la voce va affrontata.
+
+## Ordine precedente, chiuso: l'APK col token di App Check
+
 Eseguito da Claude Code il 27 luglio 2026, notte.
 Ramo `claude/esoteric-circle-master-order-e798aj`, testa di partenza `b9c1185`.
 
-## APK
+### APK
 
 `build\app\outputs\flutter-apk\app-arm64-v8a-debug.apk`, 228.770.276 byte, cioe'
 218,2 MiB. Dentro la finestra chiesta, sopra i 20 MB e sotto i 250 MB. Il peso
@@ -19,7 +78,7 @@ dentro `2f4013f2-e6e7-49b2-a3aa-402f28cd365a` si trova una occorrenza. La
 `--dart-define` e' arrivata a destinazione, quindi al primo avvio l'app presenta
 il token gia' registrato in console e non uno generato a caso.
 
-## I test chiesti
+### I test chiesti
 
 Otto casi nuovi in `test/app_check_debug_test.dart`, tutti verdi. Scritti prima
 del codice e visti rossi, col rosso che nominava le API mancanti.
@@ -45,7 +104,7 @@ il token dalle preferenze quando App Check non si e' attivato, la presenza della
 riga in fondo alle Impostazioni e la regola pura della visibilita' interrogata
 nei due versi.
 
-## Suite e analisi
+### Suite e analisi
 
 `flutter test`: 773 test, tutti verdi. Erano 765 prima di questo ordine, quindi
 gli otto nuovi si sommano senza rompere nulla.
@@ -60,7 +119,7 @@ cattura. La visibilita' passa invece dal campo `showAppCheckDebugToken` di
 `AppServices`, acceso solo dai servizi reali fuori dalla release e spento nei
 servizi offline che usano i test e le catture.
 
-## Cosa e' andato storto nella build Android
+### Cosa e' andato storto nella build Android
 
 Due fallimenti prima del successo, per un solo guasto a monte, nessuno dei due
 causato dal codice di questo ordine.
@@ -101,7 +160,7 @@ avverte che sei plugin applicano ancora il Kotlin Gradle Plugin, cioe'
 `record_android` piu' `sensors_plus`. Avverte anche che le prossime versioni di
 Flutter non costruiranno piu' un'app che li usa.
 
-## Cosa NON e' stato fatto
+### Cosa NON e' stato fatto
 
 `docs/STATO_VIVO.md` non e' stato toccato, come chiesto. Va aggiornato insieme
 dopo la prova sul telefono, quando si sapra' cosa funziona davvero.
