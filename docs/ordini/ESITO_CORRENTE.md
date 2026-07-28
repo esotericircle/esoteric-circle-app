@@ -128,6 +128,17 @@ tutte complete in piena e in miniatura: angeli 73, animali 12, archetipi 12,
 cristalli 12, mazzo-tarocchi 79, ritratti-vip 50, rune_bone 24, zodiac 12. Il
 token di App Check e' dentro il kernel, cercato e trovato.
 
+Consegna riuscita, un solo destinatario come chiesto: release 0.1.0 (1), note
+applicate, distribuzione conclusa.
+
+- Console Firebase:
+  `https://console.firebase.google.com/project/esoteric-circle/appdistribution/app/android:com.esotericircle.esoteric_circle/releases/4a2r5i2srlsfo`
+- Pagina per i tester:
+  `https://appdistribution.firebase.google.com/testerapps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/4a2r5i2srlsfo`
+
+Il link diretto al binario resta fuori da qui: porta un token valido un'ora, il
+repository e' pubblico.
+
 Una nota sul percorso: la prima build di questo ordine ha riportato fallimento
 pur avendo prodotto l'APK: avevo lanciato la suite di test in parallelo, quindi
 le due contendevano la cartella `build/`. Rifatta da sola, e' passata in 44
