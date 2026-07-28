@@ -299,9 +299,15 @@ class _WheelPainter extends CustomPainter {
       canvas.drawLine(
         p1,
         p2,
+        // Spessore e opacita' quasi raddoppiati. Prima erano 0,8 px a 32 di
+        // opacita': sul simulatore, che disegna a densita' 1, si vedevano; su
+        // un telefono vero il tratto cade sotto il pixel fisico ed e' un
+        // fantasma. Le linee d'aspetto sono il contenuto della ruota, non una
+        // decorazione, quindi devono reggere lo schermo vero.
         Paint()
-          ..strokeWidth = a.type.harmony == AspectHarmony.neutral ? 1.0 : 0.8
-          ..color = color.withValues(alpha: 0.32 * t),
+          ..strokeWidth = a.type.harmony == AspectHarmony.neutral ? 2.0 : 1.7
+          ..strokeCap = StrokeCap.round
+          ..color = color.withValues(alpha: 0.58 * t),
       );
     }
     canvas.drawCircle(
@@ -309,8 +315,8 @@ class _WheelPainter extends CustomPainter {
         rAsp,
         Paint()
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 0.6
-          ..color = palette.gold.withValues(alpha: 0.2 * t));
+          ..strokeWidth = 1.0
+          ..color = palette.gold.withValues(alpha: 0.34 * t));
   }
 
   void _paintPlanets(

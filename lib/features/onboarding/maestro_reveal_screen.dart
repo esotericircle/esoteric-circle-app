@@ -270,7 +270,10 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
                 onEnter: () => widget.onRevealed(widget.maestro),
               )
             else if (_showSafetyTap)
-              _SafetyTapInvite(palette: palette, onTap: _finishByTap)
+              _SafetyTapInvite(
+                  key: const Key('reveal_safety_tap'),
+                  palette: palette,
+                  onTap: _finishByTap)
             else
               Column(
                 children: [
@@ -457,7 +460,7 @@ class _AtmospherePainter extends CustomPainter {
 
 /// L'invito di sicurezza, sempre toccabile, che completa il rito con un tocco.
 class _SafetyTapInvite extends StatelessWidget {
-  const _SafetyTapInvite({required this.palette, required this.onTap});
+  const _SafetyTapInvite({super.key, required this.palette, required this.onTap});
   final MaestroPalette palette;
   final VoidCallback onTap;
 

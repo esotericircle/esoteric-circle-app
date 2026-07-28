@@ -435,13 +435,17 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               // cielo sottostante: mano e zona coincidono in quest'area alta.
               // Compare dopo qualche secondo, si dissolve alla prima
               // interazione, ferma con Riduci Movimento.
+              // Piu' in alto e piu' a destra di prima: cosi' com'era, la
+              // riga 'Tocca il cielo' finiva sopra il nome della fase
+              // lunare, e due scritte sovrapposte sono illeggibili tutte e
+              // due. L'invito sta ora nella fascia libera accanto alla Luna.
               Positioned(
-                top: h * 0.095,
+                top: h * 0.055,
                 left: 0,
                 right: 0,
                 child: IgnorePointer(
                   child: Align(
-                    alignment: const Alignment(0.55, 0),
+                    alignment: const Alignment(0.72, 0),
                     child: _SkyTapHint(
                       visible: _showSkyHint,
                       pulse: _tapPulse,
@@ -574,28 +578,15 @@ class _Carousel extends StatelessWidget {
             final w = c.maxWidth;
             final breathValue = reduceMotion ? 0.5 : breath.value;
 
-            // Il cerchio che unisce i tre Maestri e' un'ellisse dorata dietro
-            // la carta centrale, che congiunge le due laterali. Sta sopra il
-            // cosmo, sotto i busti.
-            final stackH = c.maxHeight;
             return Stack(
               clipBehavior: Clip.none,
               children: [
-                // L'ellisse dorata premium, dietro i busti.
-                Positioned.fill(
-                  child: IgnorePointer(
-                    child: CustomPaint(
-                      painter: _CircleEllipsePainter(
-                        width: w,
-                        stackHeight: stackH,
-                        centralHeight: centralHeight,
-                        sideBottom: sideBottom,
-                        sideHeight: sideH,
-                        sideWidth: sideW,
-                      ),
-                    ),
-                  ),
-                ),
+                // L'ellisse dorata che congiungeva i tre busti non c'e' piu':
+                // a schermo cadeva storta, perche' era un arco calcolato su
+                // tre altezze diverse e nessuna curva la faceva sembrare
+                // voluta. Mauro l'ha bocciata, e togliere una linea sbagliata
+                // vale piu' che raddrizzarla: i tre Maestri si tengono da
+                // soli, senza un filo che li leghi.
 
                 // Busto sinistro, alzato, arretrato e in penombra.
                 Positioned(
@@ -675,92 +666,6 @@ class _Carousel extends StatelessWidget {
 /// L'ellisse dorata del Cerchio: una linea curva sottile che parte da dietro la
 /// carta centrale e congiunge le due carte laterali dei Maestri. Oro luminoso a
 /// bassa opacita', premium e non invadente, sopra il cosmo e sotto i busti.
-class _CircleEllipsePainter extends CustomPainter {
-  _CircleEllipsePainter({
-    required this.width,
-    required this.stackHeight,
-    required this.centralHeight,
-    required this.sideBottom,
-    required this.sideHeight,
-    required this.sideWidth,
-  });
-
-  final double width;
-  final double stackHeight;
-  final double centralHeight;
-  final double sideBottom;
-  final double sideHeight;
-  final double sideWidth;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Centri delle due carte laterali (coordinate dall'alto), estremi
-    // dell'ellisse.
-    final leftX = width * 0.01 + sideWidth / 2;
-    final rightX = width - width * 0.01 - sideWidth / 2;
-    final sideCenterY = stackHeight - sideBottom - sideHeight / 2;
-
-    // La sommita' dell'arco sfiora la parte alta della carta centrale.
-    final topY = stackHeight - centralHeight * 0.92;
-    final rx = (rightX - leftX) / 2;
-    final ry = sideCenterY - topY;
-    if (rx <= 0 || ry <= 0) return;
-
-    final oval = Rect.fromCenter(
-      center: Offset(width / 2, sideCenterY),
-      width: rx * 2,
-      height: ry * 2,
-    );
-
-    // Meta' superiore dell'ellisse: da sinistra, su per la sommita', a destra.
-    // Un bagliore ampio e morbido sotto, poi il filo dorato nitido sopra: piu'
-    // definito e luminoso, elegante ma chiaramente visibile.
-    canvas.drawArc(
-      oval,
-      math.pi,
-      math.pi,
-      false,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 6
-        ..color = ColorTokens.goldBright.withValues(alpha: 0.28)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
-    );
-    canvas.drawArc(
-      oval,
-      math.pi,
-      math.pi,
-      false,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.4
-        ..strokeCap = StrokeCap.round
-        ..shader = LinearGradient(
-          colors: [
-            ColorTokens.goldLight.withValues(alpha: 0.35),
-            ColorTokens.goldBright.withValues(alpha: 0.98),
-            ColorTokens.goldLight.withValues(alpha: 0.35),
-          ],
-          stops: const [0.0, 0.5, 1.0],
-        ).createShader(oval),
-    );
-  }
-
-  @override
-  bool shouldRepaint(_CircleEllipsePainter old) =>
-      old.width != width ||
-      old.stackHeight != stackHeight ||
-      old.centralHeight != centralHeight ||
-      old.sideBottom != sideBottom ||
-      old.sideHeight != sideHeight ||
-      old.sideWidth != sideWidth;
-}
-
-/// La bolla di ingresso al dominio del Maestro al centro. In ordine: un invito
-/// di due righe su cosa si trova dentro, il pulsante Entra nel Dominio, e sotto
-/// la riga con le tre arti del Maestro. Formato uniforme per tutti; segue il
-/// Maestro al centro, quindi anche il Maestro di turno quando e' attivo un rito
-/// che ruota.
 class _DomainEntry extends StatelessWidget {
   const _DomainEntry({required this.maestro, required this.onTap});
 
@@ -1083,8 +988,8 @@ class _SkyTapHint extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
-                      width: 40,
-                      height: 48,
+                      width: 46,
+                      height: 54,
                       child: AnimatedBuilder(
                         animation: pulse,
                         builder: (context, _) => CustomPaint(
@@ -1132,7 +1037,7 @@ class _TapHandPainter extends CustomPainter {
       press = math.sin((phase - 0.22) / (0.5 - 0.22) * math.pi);
     }
     final dy = press * 4.0;
-    const tip = Offset(0, 6); // polpastrello, in coordinate locali (x=cx)
+    const tip = Offset(0, 2); // polpastrello, in coordinate locali (x=cx)
 
     // Onda dal polpastrello, dopo la pressione.
     if (motion && phase >= 0.42 && phase <= 0.95) {
@@ -1154,35 +1059,60 @@ class _TapHandPainter extends CustomPainter {
       hand,
       Paint()..color = color.withValues(alpha: motion ? 0.55 + 0.3 * press : 0.7),
     );
-    canvas.drawPath(
-      hand,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 0.8
-        ..color = color.withValues(alpha: 0.9),
-    );
+    final tratto = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 0.8
+      ..strokeCap = StrokeCap.round
+      ..color = color.withValues(alpha: 0.9);
+    canvas.drawPath(hand, tratto);
+    _pieghe(canvas, cx, tratto);
     canvas.restore();
   }
 
+  /// Il contorno di una mano che indica, in un tratto solo.
+  ///
+  /// Le due versioni precedenti erano un rettangolo arrotondato sopra un altro
+  /// rettangolo arrotondato, con un ovale di lato: a schermo si leggeva come un
+  /// cursore, non come una mano, e Mauro le ha bocciate tutte e due. Qui il
+  /// contorno e' continuo e curvo, con le tre nocche delle dita piegate a
+  /// destra e la gobba del pollice a sinistra: sono quelle due sagome che
+  /// fanno riconoscere una mano, non la presenza di un dito dritto.
+  /// Riferimento: Linee Guida sezione 24.
   Path _handPath(double cx) {
-    // Indice teso verso l'alto.
-    final index = Path()
-      ..addRRect(RRect.fromRectAndRadius(
-        Rect.fromLTWH(cx - 3.5, 6, 7, 21),
-        const Radius.circular(3.5),
-      ));
-    // Pugno con le dita piegate.
-    final fist = Path()
-      ..addRRect(RRect.fromRectAndRadius(
-        Rect.fromLTWH(cx - 11, 22, 20, 22),
-        const Radius.circular(8),
-      ));
-    // Pollice, una piccola sporgenza sul lato.
-    final thumb = Path()
-      ..addOval(Rect.fromCircle(center: Offset(cx - 10.5, 30), radius: 5.2));
-    var p = Path.combine(PathOperation.union, index, fist);
-    p = Path.combine(PathOperation.union, p, thumb);
+    final p = Path();
+    // Punta dell'indice, arrotondata.
+    p.moveTo(cx - 3.6, 9);
+    p.quadraticBezierTo(cx, 1.5, cx + 3.6, 9);
+    // Lato destro dell'indice, fino a dove entra nella mano.
+    p.lineTo(cx + 3.6, 21);
+    // Le tre dita piegate: tre nocche in fila, sempre piu' basse.
+    p.quadraticBezierTo(cx + 9.5, 21, cx + 10.5, 26.5);
+    p.quadraticBezierTo(cx + 14, 28.5, cx + 12.5, 34.5);
+    p.quadraticBezierTo(cx + 14, 40, cx + 10.5, 43.5);
+    // Base del palmo e polso.
+    p.quadraticBezierTo(cx + 7.5, 48.5, cx - 1, 48.5);
+    p.quadraticBezierTo(cx - 8, 48.5, cx - 10, 42.5);
+    // Il pollice piegato contro il palmo: la gobba sul lato sinistro.
+    p.quadraticBezierTo(cx - 14.5, 37.5, cx - 12.5, 30);
+    p.quadraticBezierTo(cx - 11, 23.5, cx - 6, 22);
+    // Rientra sotto l'indice e chiude.
+    p.quadraticBezierTo(cx - 3.6, 20.5, cx - 3.6, 9);
+    p.close();
     return p;
+  }
+
+  /// Le pieghe fra le dita piegate: due archi corti, disegnati in tratto sopra
+  /// la sagoma. Senza di loro le nocche restano una gobba sola e la mano torna
+  /// a somigliare a un guanto.
+  void _pieghe(Canvas canvas, double cx, Paint tratto) {
+    final a = Path()
+      ..moveTo(cx + 4.5, 27.5)
+      ..quadraticBezierTo(cx + 8, 28.5, cx + 10, 27);
+    final b = Path()
+      ..moveTo(cx + 4.5, 35.5)
+      ..quadraticBezierTo(cx + 8, 36.5, cx + 12, 35);
+    canvas.drawPath(a, tratto);
+    canvas.drawPath(b, tratto);
   }
 
   @override

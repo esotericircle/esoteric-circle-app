@@ -86,7 +86,13 @@ class _MaestroCardRevealState extends State<MaestroCardReveal>
             offset: Offset(0, floatY + entranceRise),
             child: Transform.scale(
               scale: (0.7 + 0.3 * e) * breath,
-              child: SizedBox(
+              // FittedBox: il Maestro esce dalla cornice di 58 px, e su uno
+              // schermo basso quel debordare finiva sopra il soprattitolo e
+              // il nome, coprendoli. Cosi' la carta si rimpicciolisce invece
+              // di traboccare, e il testo sopra resta sempre leggibile.
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: SizedBox(
                 width: widget.width,
                 height: widget.height + 70, // spazio per la testa che esce
                 child: Stack(
@@ -141,6 +147,7 @@ class _MaestroCardRevealState extends State<MaestroCardReveal>
                     ),
                   ],
                 ),
+              ),
               ),
             ),
           ),

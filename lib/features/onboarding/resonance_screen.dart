@@ -28,6 +28,7 @@ class ResonanceScreen extends StatelessWidget {
     // Ordine: vincitore al centro, gli altri ai lati.
     final others =
         Maestro.values.where((m) => m != resonance.winner).toList();
+    final etichette = PercentualiRisonanza.formatta(resonance.scores);
     final ordered = [others.first, resonance.winner, others.last];
 
     return Padding(
@@ -48,10 +49,15 @@ class ResonanceScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 for (final m in ordered)
-                  _MaestroAura(
-                    maestro: m,
-                    intensity: resonance.scoreOf(m),
-                    isWinner: m == resonance.winner,
+                  // Expanded, non larghezza libera: senza, il nome piu' lungo
+                  // rubava spazio e MEDORA andava a capo con la A da sola.
+                  Expanded(
+                    child: _MaestroAura(
+                      maestro: m,
+                      intensity: resonance.scoreOf(m),
+                      isWinner: m == resonance.winner,
+                      etichetta: etichette[m] ?? '',
+                    ),
                   ),
               ],
             ),
@@ -63,11 +69,30 @@ class ResonanceScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
               border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
             ),
-            child: Text(
-              resonance.reason,
-              textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: TypographyTokens.guide)
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.45),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  resonance.reason,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.body(size: TypographyTokens.guide)
+                      .copyWith(color: ColorTokens.textPrimary, height: 1.45),
+                ),
+                // Pareggio vero: due numeri identici e un vincitore sono una
+                // contraddizione, a meno di dire con che criterio uno passa
+                // avanti. Il criterio esiste gia' nel motore, e' il fattore
+                // decisivo, quindi qui si dichiara invece di nasconderlo.
+                if (PercentualiRisonanza.pareggioVero(resonance.scores)) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  Text(
+                    'Due voci pesano uguale: a decidere è ${resonance.deciding}.',
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.label(size: 12).copyWith(
+                        color: palette.goldSoft.withValues(alpha: 0.85),
+                        height: 1.4),
+                  ),
+                ],
+              ],
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
@@ -101,11 +126,17 @@ class _MaestroAura extends StatefulWidget {
     required this.maestro,
     required this.intensity,
     required this.isWinner,
+    required this.etichetta,
   });
 
   final Maestro maestro;
   final double intensity;
   final bool isWinner;
+
+  /// La percentuale gia' scritta, decisa guardando tutti e tre insieme: da
+  /// sola questa tessera non puo' sapere se il suo numero collide con un
+  /// altro, quindi il calcolo non vive qui.
+  final String etichetta;
 
   @override
   State<_MaestroAura> createState() => _MaestroAuraState();
@@ -162,18 +193,30 @@ class _MaestroAuraState extends State<_MaestroAura>
                     ),
                   ),
                 ),
-                Text(
-                  widget.maestro.displayName,
-                  style: TypographyTokens.display(
-                    size: widget.isWinner ? 24 : 20,
-                  ).copyWith(
-                    color: widget.isWinner
-                        ? p.goldSoft
-                        : ColorTokens.textSecondary,
+                // Altezza fissa e una riga sola: il vincitore ha il nome piu'
+                // grande, e senza questa scatola le tre percentuali cadevano
+                // su tre linee di base diverse, come tre righe storte.
+                SizedBox(
+                  height: 30,
+                  child: Center(
+                    child: Text(
+                      widget.maestro.displayName,
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.visible,
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.display(
+                        size: widget.isWinner ? 24 : 20,
+                      ).copyWith(
+                        color: widget.isWinner
+                            ? p.goldSoft
+                            : ColorTokens.textSecondary,
+                      ),
+                    ),
                   ),
                 ),
                 Text(
-                  '${(widget.intensity * 100).round()}%',
+                  widget.etichetta,
                   style: TypographyTokens.body(size: 13).copyWith(
                       color: ColorTokens.textMuted, letterSpacing: 1),
                 ),
@@ -239,4 +282,52 @@ class _OrbPainter extends CustomPainter {
   @override
   bool shouldRepaint(_OrbPainter old) =>
       old.radius != radius || old.intensity != intensity;
+}
+
+
+/// Come si scrivono le tre percentuali della Risonanza.
+///
+/// Arrotondate a intero, due punteggi vicini ma diversi finivano tutti e due
+/// su 35: a schermo si leggeva un pareggio con un vincitore, cioe' una
+/// contraddizione, e chi legge pensa a un errore di conto. Qui il decimale
+/// compare SOLO quando serve a separare due numeri che collidono, cosi' nel
+/// caso normale restano tre interi puliti.
+class PercentualiRisonanza {
+  /// L'etichetta di ciascun Maestro, gia' pronta da mostrare.
+  static Map<Maestro, String> formatta(Map<Maestro, double> punteggi) {
+    String intero(double v) => '${(v * 100).round()}%';
+    final interi = {for (final e in punteggi.entries) e.key: intero(e.value)};
+
+    // Collisione: due etichette identiche su punteggi che identici non sono.
+    final conteggio = <String, int>{};
+    for (final e in interi.entries) {
+      conteggio[e.value] = (conteggio[e.value] ?? 0) + 1;
+    }
+    final collide = <String>{
+      for (final e in conteggio.entries)
+        if (e.value > 1) e.key,
+    };
+    if (collide.isEmpty || pareggioVero(punteggi)) return interi;
+
+    return {
+      for (final e in punteggi.entries)
+        e.key: collide.contains(interi[e.key])
+            // La virgola, non il punto: e' un numero italiano a schermo.
+            ? '${(e.value * 100).toStringAsFixed(1).replaceAll('.', ',')}%'
+            : interi[e.key]!,
+    };
+  }
+
+  /// Vero se due punteggi sono davvero uguali, non solo vicini.
+  ///
+  /// In quel caso il decimale non separa niente e sarebbe disonesto fingere
+  /// una differenza: e' la schermata a dover dichiarare il criterio con cui
+  /// uno dei due passa avanti.
+  static bool pareggioVero(Map<Maestro, double> punteggi) {
+    final v = punteggi.values.toList()..sort((a, b) => b.compareTo(a));
+    for (var i = 0; i + 1 < v.length; i++) {
+      if ((v[i] - v[i + 1]).abs() < 0.0005) return true;
+    }
+    return false;
+  }
 }

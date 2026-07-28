@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -128,19 +129,39 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     _askedLocation = true;
     final accepted = await _askLocationConsent();
     if (accepted != true || !mounted) return;
-    final place = await widget.location.resolve();
+    final risposta = await widget.location.chiedi();
     if (!mounted) return;
-    if (place != null) {
-      setState(() => _place = place);
-    } else {
-      // Permesso negato o sensore assente: ripiego elegante, nessun vicolo
-      // cieco, resta la veduta attuale.
+    if (risposta.concessa) {
+      setState(() => _place = risposta.luogo);
+      // Concesso: si dichiara, altrimenti il cielo cambia in silenzio e chi
+      // guarda non sa perche'.
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Resto sulla veduta di stanotte, senza il tuo luogo.'),
+          key: Key('sky_location_concessa'),
+          content: Text('Cielo orientato sul luogo dove sei adesso.'),
         ),
       );
+      return;
     }
+    // Negato o spento: si dichiara COSA si sta mostrando al posto suo, e si
+    // offre la via giusta. Mai un vicolo cieco, mai un silenzio.
+    final spento = risposta.esito == EsitoPosizione.servizioSpento;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        key: const Key('sky_location_negata'),
+        duration: const Duration(seconds: 6),
+        content: Text(spento
+            ? 'La posizione del telefono è spenta: resto sul cielo della tua '
+                'nascita.'
+            : 'Resto sul cielo della tua nascita, senza il luogo di adesso.'),
+        action: SnackBarAction(
+          label: spento ? 'Impostazioni' : 'Permessi',
+          onPressed: () => spento
+              ? Geolocator.openLocationSettings()
+              : Geolocator.openAppSettings(),
+        ),
+      ),
+    );
   }
 
   // Il pre-avviso gentile, nel tono di Medora: spiega a cosa serve la posizione

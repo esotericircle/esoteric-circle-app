@@ -32,7 +32,9 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
   final _scroll = ScrollController();
   final _tileKeys = <String, GlobalKey>{};
   String? _selectedId;
-  bool _showAspects = false;
+  // Gli aspetti sono SEMPRE accesi: sono il contenuto della carta, non un
+  // extra da accendere. Il pulsante che li spegneva e' stato tolto, perche'
+  // nascondere di suo la parte piu' ricca della ruota non ha mai avuto senso.
 
   void _selectPlanet(String id, {bool scrollToTile = false}) {
     setState(() => _selectedId = _selectedId == id ? null : id);
@@ -110,16 +112,11 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
           NatalWheel(
             chart: chart,
             size: 320,
-            showAspects: _showAspects,
+            showAspects: true,
             highlightPlanetId: _selectedId,
             onPlanetTap: (id) => _selectPlanet(id, scrollToTile: true),
           ),
-          const SizedBox(height: SpacingTokens.sm),
-          if (chart.aspects.isNotEmpty)
-            _AspectToggle(
-              value: _showAspects,
-              onChanged: (v) => setState(() => _showAspects = v),
-            ),
+
           const SizedBox(height: SpacingTokens.lg),
           _LegendHeader(),
           const SizedBox(height: SpacingTokens.sm),
@@ -189,46 +186,6 @@ class _AscendantNote extends StatelessWidget {
       textAlign: TextAlign.center,
       style: TypographyTokens.body(size: TypographyTokens.guide)
           .copyWith(color: ColorTokens.textPrimary, height: 1.4),
-    );
-  }
-}
-
-class _AspectToggle extends StatelessWidget {
-  const _AspectToggle({required this.value, required this.onChanged});
-  final bool value;
-  final ValueChanged<bool> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    return GestureDetector(
-      onTap: () => onChanged(!value),
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
-        decoration: BoxDecoration(
-          color: value
-              ? palette.gold.withValues(alpha: 0.18)
-              : ColorTokens.glassTint,
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-          border: Border.all(
-              color: value ? palette.gold : ColorTokens.glassStroke),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(value ? Icons.grain : Icons.blur_on,
-                size: 18,
-                color: value ? palette.goldSoft : ColorTokens.textSecondary),
-            const SizedBox(width: 6),
-            Text(value ? 'Aspetti accesi' : 'Mostra gli aspetti',
-                style: TypographyTokens.body(size: 16).copyWith(
-                  color:
-                      value ? palette.goldSoft : ColorTokens.textSecondary,
-                )),
-          ],
-        ),
-      ),
     );
   }
 }
