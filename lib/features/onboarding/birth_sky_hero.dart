@@ -46,7 +46,11 @@ class BirthSkyHero extends StatefulWidget {
 class _BirthSkyHeroState extends State<BirthSkyHero>
     with SingleTickerProviderStateMixin {
   late final AnimationController _pulse;
-  final ParallaxController _parallax = ParallaxController();
+  // Il moto viene dal controller condiviso dell'app, letto nel build.
+  // Qui prima ne viveva uno privato, che apriva una SECONDA iscrizione
+  // all'accelerometro: due lettori dello stesso sensore, con filtri e
+  // tempi propri, che potevano raccontare due inclinazioni diverse nello
+  // stesso istante.
   SkySnapshot? _snapshot;
   double _dragAz = 0; // pan manuale in gradi (fallback tattile)
   bool _showCaption = false;
@@ -88,7 +92,6 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
   @override
   void dispose() {
     _pulse.dispose();
-    _parallax.dispose();
     _captionTimer?.cancel();
     super.dispose();
   }
@@ -102,6 +105,7 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
     final palette = context.palette;
     final identity = context.watch<IdentityController>();
     final tier = context.watch<QualityTierController>().tier;
+    final parallax = context.watch<ParallaxController>();
     final snap = _snapshot;
 
     // La promessa segue quello che si vede davvero. Senza luogo non si puo'
@@ -146,13 +150,13 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
             )
           else
             AnimatedBuilder(
-              animation: Listenable.merge([_pulse, _parallax]),
+              animation: Listenable.merge([_pulse, parallax]),
               builder: (context, _) => CustomPaint(
                 painter: _SkyPainter(
                   snapshot: snap,
                   t: _pulse.value,
-                  panAz: _dragAz + (tier == QualityTier.low ? 0 : _parallax.tiltX * 16),
-                  tiltY: tier == QualityTier.low ? 0 : _parallax.tiltY,
+                  panAz: _dragAz + (tier == QualityTier.low ? 0 : parallax.tiltX * 16),
+                  tiltY: tier == QualityTier.low ? 0 : parallax.tiltY,
                   gold: palette.goldSoft,
                   deep: palette.deepest,
                   tier: tier,
@@ -243,7 +247,7 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
                     ),
                   // La riga d'aiuto, staccata dal pulsante, mai sopra la culla.
                   Text(
-                    _parallax.sensorActive
+                    parallax.sensorActive
                         ? 'Inclina il telefono per guardarti attorno'
                         : 'Trascina il dito per guardarti attorno',
                     textAlign: TextAlign.center,

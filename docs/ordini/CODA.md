@@ -1,37 +1,43 @@
 # CODA DEGLI ORDINI, Esoteric Circle
 
-Preparata dall'Architetto in Cowork la notte del 28 luglio 2026, mentre Mauro dorme.
+Riscritta dall'Architetto in Cowork il 29 luglio 2026, dopo due ordini chiusi solo in parte.
 
-## Come funziona
+## Che cosa è cambiato, e perché
 
-Mauro dà una riga sola. Tu esegui gli ordini di questa coda **in sequenza, senza fermarti a chiedere fra uno e l'altro**. Alla fine di ciascuno scrivi il suo esito, poi apri il successivo.
+I due ordini precedenti contenevano molte voci ciascuno. In entrambi i casi si sono chiuse le voci leggere e il rifacimento pesante è rimasto intatto. Un elenco si svuota sempre dal lato leggero, e la colpa è dell'elenco, non di chi lo esegue.
 
-Se un ordine non riesci a chiuderlo per intero, NON passare al successivo: finisci quello che puoi, scrivi l'esito dicendo con precisione cosa resta, e solo allora vai avanti. Meglio consegnare cose intere e verificate che sei cose abbozzate, esattamente come hai fatto stanotte.
+Quindi la coda cambia forma: **un ordine, un oggetto.** Non più liste. Ogni ordine contiene una cosa sola, e se è pesante non ha voci facili accanto che possano assorbire il tempo.
+
+Cambia anche una regola: **la stima si dichiara all'inizio, non alla fine.** Prima di scrivere codice, dì se ce la fai e fin dove arrivi. Scoprirlo dopo un'ora ci è già costato due giri.
+
+Resta ferma la cosa giusta che hai fatto due volte: meglio consegnare intero e verificato che abbozzato. Quel principio non si tocca. Cambia solo la dimensione di quello che si chiede.
 
 ## La sequenza
 
-1. **`ORDINE_CORRENTE.md`** — Il rifacimento immersivo. Le parti non fatte dell'ordine precedente: il sistema di scena unificato, il permesso di posizione, il carosello dei Maestri, le due animazioni di trionfo mancanti, i tre punti di disposizione, il ripristino del Risveglio in debug, più la correzione del numero di versione.
-2. **`ORDINE_B_REGOLE_DELLA_CASA.md`** — Le otto regole trasversali violate, applicate una volta sola su tutta l'app.
-3. **`ORDINE_ENTITLEMENT.md`** — Le sette verifiche su entitlement e percorso a pagamento, con la prova del rosso eseguita.
+1. **`ORDINE_CORRENTE.md`** — Un solo sistema di scena. È il rifacimento più grosso che resta, ed è quello che Mauro vede ogni volta che apre l'app. Ha un oggetto solo, apposta.
+2. Poi **ci si ferma** e decide l'Architetto, che avrà visto l'esito.
 
-## Regole che valgono su tutta la coda
+Gli ordini in attesa, da non aprire senza istruzione:
+- `ORDINE_B_REGOLE_DELLA_CASA.md`, le otto regole trasversali violate.
+- `ORDINE_ENTITLEMENT.md`, le sette verifiche sui soldi.
+- Le voci di A ancora aperte: permesso di posizione, carosello dei Maestri, animazione del Sigillo e dell'Animale Guida, i tre punti di disposizione, il ripristino del Risveglio in debug. Ognuna diventerà un ordine a oggetto singolo oppure entrerà nella revisione della funzionalità a cui appartiene.
 
-Una build e una distribuzione **alla fine di ciascun ordine**, non alla fine della coda: Mauro deve poter guardare i risultati man mano, e se qualcosa va storto non voglio scoprirlo tre ordini dopo.
+## Il push, prima di tutto
 
-Destinatario unico della distribuzione: `cloud@esotericircle.app`.
-
-Non toccare mai `docs/STATO_VIVO.md` durante la coda. Lo aggiorniamo insieme alla fine, con l'Architetto.
-
-Prima di aprire ogni ordine, rileggi `claude/Indice_delle_Prescrizioni_Esoteric_Circle` nel Project: se il blocco che stai per aprire può chiudere anche altre righe marcate ASSENTE o VIOLATA senza costo aggiuntivo, fallo e dillo nell'esito.
-
-Italiano. Niente trattino lungo. Niente proposizione dopo la virgola che inizia con la lettera e. Accenti veri.
-
-## Il push, da fare per primo
-
-Sono cinque commit fermi in locale. Prima di qualunque altra cosa, prova:
+Otto commit fermi in locale, l'ultimo `09d18e9`. Prova:
 
 ```
 git -C "C:\Users\user\Desktop\esoteric-circle-app" push origin claude/esoteric-circle-master-order-e798aj
 ```
 
-Se il gestore delle credenziali chiede una finestra interattiva e fallisce, non insistere: scrivilo in testa all'esito e prosegui col resto. Mauro lo sbloccherà al risveglio.
+Se il gestore delle credenziali vuole una finestra interattiva e fallisce, scrivilo in testa all'esito e prosegui. Lo sblocca Mauro.
+
+## Regole che valgono sempre
+
+Una build e una distribuzione alla fine dell'ordine, destinatario unico `cloud@esotericircle.app`.
+
+Non toccare mai `docs/STATO_VIVO.md`.
+
+Prima di aprire un ordine, rileggi `claude/Indice_delle_Prescrizioni_Esoteric_Circle` nel Project: se il blocco può chiudere anche altre righe marcate ASSENTE o VIOLATA senza costo aggiuntivo, fallo e dillo nell'esito.
+
+Italiano. Niente trattino lungo. Niente proposizione dopo la virgola che inizia con la lettera e. Accenti veri.

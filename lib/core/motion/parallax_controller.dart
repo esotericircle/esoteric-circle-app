@@ -37,11 +37,48 @@ class ParallaxController extends ChangeNotifier {
   double get tiltY => _tiltY;
   double get scroll => _scroll;
 
+  /// Quanto si sposta al massimo il piano di riferimento del cielo quando il
+  /// telefono si inclina fino in fondo.
+  ///
+  /// Prima valeva 18, e sul campo stellare, che ha profondita' 0,16, faceva
+  /// **2,88 pixel**: inclinando il telefono non si vedeva niente, quindi "si
+  /// sposta di due millimetri" era una misura esatta, non uno sfogo.
+  static const double tiltRangeDefault = 150;
+
+  /// La profondita' del piano che fa da riferimento, cioe' il campo stellare:
+  /// e' quello che l'occhio segue, quindi e' su quello che si misura.
+  static const double depthPianoPrincipale = 0.16;
+
+  /// Spostamento massimo da sensore del piano di riferimento, in pixel logici.
+  /// E' il numero che l'utente sente in mano.
+  static double get spostamentoPianoPrincipale =>
+      tiltRangeDefault * profonditaEfficace(depthPianoPrincipale);
+
+  /// Spostamento massimo che il dito puo' dare allo stesso piano: lo
+  /// scorrimento satura a tre schermate e pesa quaranta pixel per unita' di
+  /// profondita'.
+  static double get spostamentoDitoPianoPrincipale =>
+      3 * 40 * depthPianoPrincipale;
+
+  /// Comprime la profondita' oltre il piano di riferimento.
+  ///
+  /// Senza questa compressione, alzando l'ampiezza perche' il campo stellare si
+  /// muova davvero, il piano piu' vicino (profondita' 1,3) si sposterebbe di
+  /// quasi duecento pixel e uscirebbe di scena. Fino al piano di riferimento la
+  /// scala resta uno a uno, oltre cresce di un quarto: il vicino si muove
+  /// ancora piu' del lontano, che e' il senso della parallasse, ma resta dentro
+  /// la quinta.
+  static double profonditaEfficace(double depth) {
+    if (depth <= depthPianoPrincipale) return depth;
+    return depthPianoPrincipale + (depth - depthPianoPrincipale) * 0.25;
+  }
+
   /// Offset di un piano in base alla sua profondita' (0 lontano, 1 vicino).
   /// I piani lontani si muovono poco, quelli vicini di piu'.
-  Offset layerOffset(double depth, {double tiltRange = 18}) {
-    final dx = _tiltX * tiltRange * depth;
-    final dy = _tiltY * tiltRange * depth - _scroll * 40 * depth;
+  Offset layerOffset(double depth, {double tiltRange = tiltRangeDefault}) {
+    final d = profonditaEfficace(depth);
+    final dx = _tiltX * tiltRange * d;
+    final dy = _tiltY * tiltRange * d - _scroll * 40 * depth;
     return Offset(dx, dy);
   }
 
