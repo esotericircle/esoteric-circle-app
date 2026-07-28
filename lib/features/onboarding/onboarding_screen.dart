@@ -239,6 +239,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       // colore di Maestro, che si sceglie solo alla risonanza. Le costellazioni
       // zodiacali restano spente qui, per non affollare i passi del rito.
       body: CosmosBackground(
+        seed: 13,
         showZodiac: false,
         child: SafeArea(
           child: Padding(

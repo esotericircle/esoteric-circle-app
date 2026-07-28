@@ -11,7 +11,7 @@ import '../../core/maestro/maestro_controller.dart';
 import '../../core/onboarding/onboarding_controller.dart';
 import '../../design_system/components/immersive_scaffold.dart';
 import '../../design_system/theme/maestro_scope.dart';
-import 'birth_sky_hero.dart';
+import '../santuario/sky_overview_screen.dart';
 import 'maestro_reveal_screen.dart';
 import 'natal_chart_reveal.dart';
 import 'resonance_screen.dart';
@@ -94,6 +94,7 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
   @override
   Widget build(BuildContext context) {
     return ImmersiveScaffold(
+      seed: 14,
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 450),
         child: _buildPhase(),
@@ -104,10 +105,18 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
   Widget _buildPhase() {
     switch (_phase) {
       case _Phase.heaven:
-        return BirthSkyHero(
+        // Il cielo alla nascita e' la STESSA schermata del cielo in tempo
+        // reale, alimentata col momento della nascita: costellazioni e Luna
+        // toccabili con la scheda che racconta cosa hai toccato, parallasse
+        // dal motore unico. Prima qui viveva un eroe suo, con un painter
+        // gemello e la culla di luce che nessuno leggeva come culla.
+        return SkyOverviewScreen(
           key: const ValueKey('heaven'),
-          details: widget.details,
-          onContinue: _onHeavenContinue,
+          now: widget.details.dateTime,
+          birth: true,
+          showBack: false,
+          ctaLabel: 'Leggi la tua carta',
+          onCta: _onHeavenContinue,
         );
       case _Phase.chart:
         return NatalChartReveal(

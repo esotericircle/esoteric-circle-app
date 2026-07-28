@@ -254,6 +254,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
       // stellare denso, nebulose soffuse, parallasse a piu' piani. La scena del
       // Sogno vive dentro questo cielo, non sopra un riquadro.
       body: CosmosBackground(
+        seed: 15,
         showZodiac: false,
         // I dischi dei pianeti del cosmo restano spenti qui: la scena mette in
         // campo la Luna reale e un suo pianeta lontano, senza sovrapporre sfere.

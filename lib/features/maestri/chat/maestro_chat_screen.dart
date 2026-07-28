@@ -203,6 +203,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       // nessuna forma stilizzata ne' rettangolo a portale trapela dietro
       // l'header. Restano stelle e nebulose.
       body: CosmosBackground(
+        seed: 11,
         showZodiac: false,
         child: SafeArea(
           child: Column(

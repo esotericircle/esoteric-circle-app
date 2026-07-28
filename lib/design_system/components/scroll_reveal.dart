@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/quality/quality_tier.dart';
@@ -77,6 +78,16 @@ class _ScrollRevealState extends State<ScrollReveal>
   bool _revealed = false;
   bool _off = false;
 
+  // La posizione di scorrimento a cui questo elemento e' agganciato. Prima la
+  // comparsa partiva al montaggio, non all'ingresso nello schermo: su una
+  // lista non pigra tutto si rivelava insieme, fuori vista compreso, e
+  // scendendo si trovavano elementi gia' fermi da un pezzo.
+  ScrollPosition? _position;
+
+  /// Quanti pixel dell'elemento devono essere entrati perche' la comparsa
+  /// parta: un filo, cosi' parte appena il bordo affiora.
+  static const double _soglia = 24;
+
   @override
   void initState() {
     super.initState();
@@ -100,18 +111,53 @@ class _ScrollRevealState extends State<ScrollReveal>
   void didChangeDependencies() {
     super.didChangeDependencies();
     _off = !widget.enabled || ScrollReveal.motionOff(context);
-    // Le liste del dominio sono pigre: un elemento si costruisce quando lo
-    // scorrimento lo porta vicino alla finestra, quindi il primo aggancio e'
-    // gia' il momento giusto per rivelarlo.
-    if (!_off && !_revealed && !_controller.isAnimating) {
-      _controller.forward().whenComplete(() {
-        if (mounted) _revealed = true;
-      });
+    final pos = Scrollable.maybeOf(context)?.position;
+    if (!identical(pos, _position)) {
+      _position?.removeListener(_controlla);
+      _position = pos;
+      if (!_off && !_revealed) _position?.addListener(_controlla);
     }
+    // Il primo controllo aspetta il layout: prima non c'e' una geometria.
+    if (!_off && !_revealed) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _controlla());
+    }
+  }
+
+  /// Parte solo quando l'elemento sta davvero entrando nello schermo.
+  void _controlla() {
+    if (!mounted || _off || _revealed || _controller.isAnimating) return;
+    final box = context.findRenderObject() as RenderBox?;
+    if (box == null || !box.attached || !box.hasSize) return;
+    final pos = _position;
+    if (pos == null || !pos.hasPixels || !pos.hasViewportDimension) {
+      // Nessuno scorrimento attorno: la superficie e' ferma e l'elemento e'
+      // gia' in scena, quindi si rivela subito.
+      _avvia();
+      return;
+    }
+    final viewport = RenderAbstractViewport.maybeOf(box);
+    if (viewport == null) {
+      _avvia();
+      return;
+    }
+    // L'offset che porterebbe il bordo alto dell'elemento in cima alla
+    // finestra: l'elemento affiora dal fondo quando lo scorrimento supera
+    // quell'offset meno l'altezza della finestra.
+    final rivelaA = viewport.getOffsetToReveal(box, 0).offset;
+    final affiora = rivelaA - pos.viewportDimension + _soglia;
+    if (pos.pixels >= affiora) _avvia();
+  }
+
+  void _avvia() {
+    _position?.removeListener(_controlla);
+    _controller.forward().whenComplete(() {
+      if (mounted) setState(() => _revealed = true);
+    });
   }
 
   @override
   void dispose() {
+    _position?.removeListener(_controlla);
     _controller.dispose();
     super.dispose();
   }

@@ -57,6 +57,7 @@ class ArtIntroScreen extends StatelessWidget {
         title: Text(art.title, style: TypographyTokens.display(size: 19)),
       ),
       body: CosmosBackground(
+        seed: 6,
         showZodiac: false,
         child: SafeArea(
           child: SingleChildScrollView(

@@ -118,6 +118,7 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
         ),
       ),
       body: CosmosBackground(
+        seed: 17,
         showZodiac: false,
         child: SafeArea(
           child: CustomScrollView(

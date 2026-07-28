@@ -175,6 +175,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
         ],
       ),
       body: CosmosBackground(
+        seed: 8,
         showZodiac: false,
         child: SafeArea(
           child: !_pronto

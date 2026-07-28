@@ -31,18 +31,28 @@ void main() {
     expect(0 / sensore, lessThanOrEqualTo(3.0));
   });
 
+  test('A trenta gradi il piano principale fa un decimo dello schermo', () {
+    // A trenta gradi il tilt normalizzato vale 0,5, perche' e' la proiezione
+    // della gravita'. Li' il piano di riferimento deve spostarsi di almeno il
+    // dieci per cento della larghezza: 39 px su uno schermo da 390 logici.
+    final aTrenta = ParallaxController.spostamentoPianoPrincipale * 0.5;
+    expect(aTrenta, greaterThanOrEqualTo(39.0),
+        reason: 'a trenta gradi il cielo si sposta di $aTrenta px');
+  });
+
   test('I piani vicini restano dentro la quinta', () {
-    // Il piano piu' vicino del cosmo ha profondita' 1,3: senza compressione si
-    // sposterebbe di 195 px e uscirebbe di scena.
-    final vicino =
-        ParallaxController.tiltRangeDefault * ParallaxController.profonditaEfficace(1.3);
-    expect(vicino, lessThan(80.0), reason: 'il vicino vola via a $vicino px');
+    // Il piano piu' vicino del cosmo ha profondita' 1,3: senza compressione
+    // volerebbe a 650 px a fondo corsa.
+    final vicino = ParallaxController.tiltRangeDefault *
+        ParallaxController.profonditaEfficace(1.3);
+    expect(vicino, lessThan(180.0),
+        reason: 'il vicino vola via a $vicino px');
     // Resta comunque piu' mobile del piano di riferimento: e' la parallasse.
     expect(vicino,
         greaterThan(ParallaxController.spostamentoPianoPrincipale));
-    // E il lontano si muove meno del principale.
-    final lontano =
-        ParallaxController.tiltRangeDefault * ParallaxController.profonditaEfficace(0.06);
+    // Il lontano si muove meno del principale.
+    final lontano = ParallaxController.tiltRangeDefault *
+        ParallaxController.profonditaEfficace(0.06);
     expect(lontano, lessThan(ParallaxController.spostamentoPianoPrincipale));
   });
 
@@ -50,6 +60,6 @@ void main() {
     expect(ParallaxController.profonditaEfficace(0.06), 0.06);
     expect(ParallaxController.profonditaEfficace(0.16), 0.16);
     expect(ParallaxController.profonditaEfficace(0.5),
-        closeTo(0.16 + 0.34 * 0.25, 1e-9));
+        closeTo(0.16 + 0.34 * 0.15, 1e-9));
   });
 }

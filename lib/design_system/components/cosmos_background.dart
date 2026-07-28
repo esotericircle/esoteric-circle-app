@@ -32,9 +32,26 @@ class CosmosBackground extends StatefulWidget {
     this.showZodiac = true,
     this.starKeepOut,
     this.showPlanets = true,
+    this.seed = 0,
+    this.paletteOverride,
   });
 
   final Widget child;
+
+  /// Il seme del cielo di questa schermata: stesso motore, cielo diverso.
+  ///
+  /// Prima ogni schermata mostrava lo stesso identico cielo, con la stessa
+  /// costellazione riconoscibile in alto a destra, perche' i generatori del
+  /// painter partivano da semi cablati: era la regola 21 delle Linee Guida
+  /// violata. Ogni schermata dichiara il proprio seme, deterministico, quindi
+  /// ha il SUO cielo, che resta uguale fra un'apertura e l'altra.
+  final int seed;
+
+  /// Palette imposta dall'esterno, al posto di quella del Maestro attivo.
+  ///
+  /// Serve ai riti quotidiani, dove il Maestro dell'elemento ruota col giorno
+  /// e non coincide con quello scelto nello shell. Null per tutti gli altri.
+  final MaestroPalette? paletteOverride;
 
   /// Se falso, il cosmo non disegna le dodici costellazioni zodiacali ne'
   /// l'evidenziazione del segno solare. Le superfici di lettura, come la chat,
@@ -56,6 +73,13 @@ class CosmosBackground extends StatefulWidget {
   @override
   State<CosmosBackground> createState() => _CosmosBackgroundState();
 }
+
+/// Il moto di ripiego per i montaggi senza provider, come i test isolati:
+/// UNO solo e pigro, quindi al piu' una iscrizione al sensore anche li'.
+/// Nell'app vera non nasce mai, perche' il provider esiste dall'avvio.
+ParallaxController? _ripiego;
+ParallaxController _parallasseDiRipiego() =>
+    _ripiego ??= ParallaxController();
 
 class _CosmosBackgroundState extends State<CosmosBackground>
     with SingleTickerProviderStateMixin {
@@ -79,10 +103,18 @@ class _CosmosBackgroundState extends State<CosmosBackground>
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.palette;
-    final quality = context.watch<QualityTierController>().tier;
-    final parallax = context.watch<ParallaxController>();
-    final sunSign = context.watch<ZodiacController>().sunSign;
+    // Letture tolleranti: il motore e' il fondale di TUTTA l'app e deve
+    // reggere anche montato da solo, come promette il backdrop dei riti nei
+    // test. Senza provider si degrada con garbo: qualita' media, nessun segno
+    // evidenziato, moto di ripiego condiviso.
+    final palette = widget.paletteOverride ?? context.palette;
+    final quality = context
+            .watch<QualityTierController?>()
+            ?.tier ??
+        QualityTier.medium;
+    final parallax =
+        context.watch<ParallaxController?>() ?? _parallasseDiRipiego();
+    final sunSign = context.watch<ZodiacController?>()?.sunSign;
     // Riduci Movimento: cosmo fermo, niente stella cadente, parallasse minima.
     final reduceMotion = MediaQuery.of(context).disableAnimations;
 
@@ -118,6 +150,7 @@ class _CosmosBackgroundState extends State<CosmosBackground>
           child: RepaintBoundary(
             child: CustomPaint(
               painter: _CosmosPainter(
+                seed: widget.seed,
                 animation: _controller,
                 parallax: parallax,
                 palette: palette,
@@ -170,7 +203,19 @@ class _CosmosBackgroundState extends State<CosmosBackground>
             ),
           ),
         ),
-        widget.child,
+        // Il contenuto. Il listener sotto alimenta la parallasse di
+        // scorrimento per OGNI schermata che monta il cosmo: lo sfondo scorre
+        // rispetto al contenuto, non solo col sensore, senza che ogni lista
+        // debba ricordarsi di collegare il proprio controller.
+        NotificationListener<ScrollUpdateNotification>(
+          onNotification: (n) {
+            if (n.metrics.axis == Axis.vertical) {
+              parallax.updateScroll(n.metrics.pixels);
+            }
+            return false;
+          },
+          child: widget.child,
+        ),
       ],
     );
   }
@@ -203,6 +248,7 @@ class _Star {
 
 class _CosmosPainter extends CustomPainter {
   _CosmosPainter({
+    required this.seed,
     required this.animation,
     required this.parallax,
     required this.palette,
@@ -213,6 +259,10 @@ class _CosmosPainter extends CustomPainter {
     required this.keepOut,
     required this.showPlanets,
   }) : super(repaint: Listenable.merge([animation, parallax]));
+
+  /// Il seme della schermata, mescolato in ogni generatore: cieli diversi
+  /// dallo stesso motore.
+  final int seed;
 
   final Animation<double> animation;
   final ParallaxController parallax;
@@ -290,7 +340,7 @@ class _CosmosPainter extends CustomPainter {
   // --- Polvere stellare fine sul piano piu' lontano ---
 
   void _paintStarDust(Canvas canvas, Size size, Offset off, double t) {
-    final rng = math.Random(91);
+    final rng = math.Random(91 + seed * 7919);
     final paint = Paint()..style = PaintingStyle.fill;
     for (var i = 0; i < _dustStars; i++) {
       final x = rng.nextDouble();
@@ -312,7 +362,7 @@ class _CosmosPainter extends CustomPainter {
   // --- Stelle protagoniste: grandi, con alone e scintillio a croce ---
 
   void _paintHeroStars(Canvas canvas, Size size, Offset off, double t) {
-    final rng = math.Random(313);
+    final rng = math.Random(313 + seed * 7919);
     for (var i = 0; i < _heroStars; i++) {
       final x = rng.nextDouble();
       final y = rng.nextDouble() * 0.7; // in alto, dove il cielo respira
@@ -390,7 +440,7 @@ class _CosmosPainter extends CustomPainter {
   // --- Stelle di fondo, pulsazione dolce ---
 
   void _paintFieldStars(Canvas canvas, Size size, Offset off, double t) {
-    final rng = math.Random(7);
+    final rng = math.Random(7 + seed * 7919);
     final stars = List<_Star>.generate(_fieldStars, (_) {
       // Intervallo di dimensioni piu' ampio: da minute a decise, per profondita'.
       final rr = rng.nextDouble();
@@ -494,7 +544,7 @@ class _CosmosPainter extends CustomPainter {
       Offset(0.52, 0.74),
     ];
     final drift = _animate ? math.sin(2 * math.pi * t) * 12 : 0.0;
-    final rng = math.Random(53);
+    final rng = math.Random(53 + seed * 7919);
 
     for (var i = 0; i < _nebulaClusters; i++) {
       final base = Offset(
@@ -531,7 +581,7 @@ class _CosmosPainter extends CustomPainter {
   // --- Particelle vicine (bokeh) ---
 
   void _paintNearParticles(Canvas canvas, Size size, Offset off, double t) {
-    final rng = math.Random(31);
+    final rng = math.Random(31 + seed * 7919);
     final paint = Paint()..style = PaintingStyle.fill;
     for (var i = 0; i < _nearCount; i++) {
       final baseX = rng.nextDouble();
@@ -595,6 +645,7 @@ class _CosmosPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_CosmosPainter old) =>
+      old.seed != seed ||
       old.palette != palette ||
       old.tier != tier ||
       old.highlighted != highlighted ||

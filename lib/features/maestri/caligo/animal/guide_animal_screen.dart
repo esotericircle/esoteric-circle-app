@@ -172,6 +172,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
         ],
       ),
       body: CosmosBackground(
+        seed: 9,
         showZodiac: false,
         child: SafeArea(
           child: !_pronto

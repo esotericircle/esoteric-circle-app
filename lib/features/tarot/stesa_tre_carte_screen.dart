@@ -323,6 +323,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             style: TypographyTokens.display(size: 20)),
       ),
       body: CosmosBackground(
+        seed: 19,
         showZodiac: false,
         child: SafeArea(
           child: Stack(

@@ -143,6 +143,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         ),
       ),
       body: CosmosBackground(
+        seed: 5,
         showZodiac: false,
         child: SafeArea(
           child: Stack(

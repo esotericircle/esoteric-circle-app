@@ -164,6 +164,7 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
       // a linee che finivano coperte dalle cornici: qui restano stelle,
       // nebulose, parallasse e stella cadente, un cielo pulito.
       body: CosmosBackground(
+        seed: 18,
         showZodiac: false,
         child: SafeArea(
           child: Stack(

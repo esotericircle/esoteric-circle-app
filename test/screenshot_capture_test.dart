@@ -62,7 +62,7 @@ import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/components/immersive_scaffold.dart';
 import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
-import 'package:esoteric_circle/features/onboarding/birth_sky_hero.dart';
+import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -2475,14 +2475,21 @@ void main() {
             ChangeNotifierProvider(create: (_) => ZodiacController()),
           ],
           child: natalHost(
-            home: ImmersiveScaffold(
-              child: BirthSkyHero(details: b.details, onContinue: () {}),
+            // Il cielo alla nascita e' ora la STESSA schermata del cielo in
+            // tempo reale, ancorata al momento di nascita, con la CTA del
+            // flusso: e' quello che l'onboarding monta davvero.
+            home: SkyOverviewScreen(
+              now: b.details.dateTime,
+              birth: true,
+              showBack: false,
+              ctaLabel: 'Leggi la tua carta',
+              onCta: () {},
             ),
           ),
         ),
       ),
     );
-    // BirthSkyHero pulsa in continuo: non si attende l'idle, si pompano pochi
+    // La volta pulsa in continuo: non si attende l'idle, si pompano pochi
     // frame per far posare la scena, poi si cattura.
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(milliseconds: 120));

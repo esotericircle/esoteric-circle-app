@@ -40,10 +40,14 @@ class ParallaxController extends ChangeNotifier {
   /// Quanto si sposta al massimo il piano di riferimento del cielo quando il
   /// telefono si inclina fino in fondo.
   ///
-  /// Prima valeva 18, e sul campo stellare, che ha profondita' 0,16, faceva
-  /// **2,88 pixel**: inclinando il telefono non si vedeva niente, quindi "si
-  /// sposta di due millimetri" era una misura esatta, non uno sfogo.
-  static const double tiltRangeDefault = 150;
+  /// La misura che conta e' a trenta gradi di inclinazione, dove il tilt
+  /// normalizzato vale 0,5 perche' e' la proiezione della gravita': li' il
+  /// piano principale deve spostarsi di almeno il dieci per cento della
+  /// larghezza dello schermo, 39 px su 390 logici. Con 500 di ampiezza il
+  /// piano a profondita' 0,16 fa 40 px a trenta gradi. La storia di questo
+  /// numero: 18 all'origine, cioe' 2,88 px a fondo corsa, il "si sposta di due
+  /// millimetri" di Mauro; poi 150, cioe' 12 px a trenta gradi, ancora poco.
+  static const double tiltRangeDefault = 500;
 
   /// La profondita' del piano che fa da riferimento, cioe' il campo stellare:
   /// e' quello che l'occhio segue, quindi e' su quello che si misura.
@@ -62,15 +66,15 @@ class ParallaxController extends ChangeNotifier {
 
   /// Comprime la profondita' oltre il piano di riferimento.
   ///
-  /// Senza questa compressione, alzando l'ampiezza perche' il campo stellare si
-  /// muova davvero, il piano piu' vicino (profondita' 1,3) si sposterebbe di
-  /// quasi duecento pixel e uscirebbe di scena. Fino al piano di riferimento la
-  /// scala resta uno a uno, oltre cresce di un quarto: il vicino si muove
-  /// ancora piu' del lontano, che e' il senso della parallasse, ma resta dentro
-  /// la quinta.
+  /// Senza compressione, con l'ampiezza che serve a far muovere davvero il
+  /// campo stellare, il piano piu' vicino (profondita' 1,3) volerebbe a
+  /// seicentocinquanta pixel a fondo corsa. Oltre il riferimento la scala
+  /// cresce di quindici centesimi: il vicino resta piu' mobile del lontano,
+  /// che e' il senso della parallasse, cioe' 83 px a trenta gradi contro i 40
+  /// del principale e i 15 del lontano, senza uscire di scena.
   static double profonditaEfficace(double depth) {
     if (depth <= depthPianoPrincipale) return depth;
-    return depthPianoPrincipale + (depth - depthPianoPrincipale) * 0.25;
+    return depthPianoPrincipale + (depth - depthPianoPrincipale) * 0.15;
   }
 
   /// Offset di un piano in base alla sua profondita' (0 lontano, 1 vicino).

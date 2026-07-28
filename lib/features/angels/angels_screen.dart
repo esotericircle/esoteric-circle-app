@@ -147,6 +147,7 @@ class _AngelsScreenState extends State<AngelsScreen>
         ],
       ),
       body: CosmosBackground(
+        seed: 21,
         showZodiac: false,
         child: SafeArea(
           child: ListView(

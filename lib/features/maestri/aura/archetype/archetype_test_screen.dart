@@ -166,6 +166,7 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
       ),
       // Il cosmo condiviso in parallasse, non un fondale suo. Verde di Aura.
       body: CosmosBackground(
+        seed: 7,
         showZodiac: false,
         child: SafeArea(
           child: !_pronto

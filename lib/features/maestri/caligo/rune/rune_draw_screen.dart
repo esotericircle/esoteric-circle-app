@@ -160,6 +160,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
         ],
       ),
       body: CosmosBackground(
+        seed: 10,
         showZodiac: false,
         child: SafeArea(
           child: _fase == _Fase.preparazione

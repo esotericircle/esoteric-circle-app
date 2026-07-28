@@ -82,6 +82,7 @@ class DomainScreen extends StatelessWidget {
       // Cosmo senza costellazioni anche qui: superficie calma, nessun
       // rettangolo a portale dietro l'header.
       body: CosmosBackground(
+        seed: 12,
         showZodiac: false,
         child: MaestroScreen(maestro: maestro),
       ),

@@ -38,6 +38,9 @@ class SkyOverviewScreen extends StatefulWidget {
     this.now,
     this.location = const DisabledSkyLocation(),
     this.birth = false,
+    this.ctaLabel,
+    this.onCta,
+    this.showBack = true,
   });
 
   /// Momento del cielo, iniettabile per i test; di default l'ora di adesso.
@@ -54,6 +57,16 @@ class SkyOverviewScreen extends StatefulWidget {
   /// notte di nascita e fisso (identita'). Cambia titolo e voce, e non chiede
   /// mai la posizione: il luogo e' quello della nascita, non l'adesso.
   final bool birth;
+
+  /// Azione in fondo, quando questo cielo vive dentro un flusso: l'onboarding
+  /// la usa per proseguire verso la carta. Nulli fuori dai flussi, dove basta
+  /// la freccia della barra.
+  final String? ctaLabel;
+  final VoidCallback? onCta;
+
+  /// Falso quando la schermata sta dentro un flusso che non ha un indietro,
+  /// come il Risveglio: la freccia sparisce invece di portare nel vuoto.
+  final bool showBack;
 
   static Route<void> route({DateTime? now, SkyLocation? location}) {
     return MaterialPageRoute<void>(
@@ -375,11 +388,13 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
         scrolledUnderElevation: 0,
         iconTheme: IconThemeData(color: palette.goldSoft),
         automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          tooltip: 'Indietro',
-          onPressed: () => Navigator.of(context).maybePop(),
-        ),
+        leading: widget.showBack
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back_rounded),
+                tooltip: 'Indietro',
+                onPressed: () => Navigator.of(context).maybePop(),
+              )
+            : null,
         title: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(SkyPostcard.titleFor(birth: widget.birth),
@@ -443,18 +458,49 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                   ),
                 ),
 
-                // Scheda in basso: cosa e', nella voce di Medora.
+                // Scheda in basso: cosa e', nella voce di Medora. Sta sotto
+                // l'orizzonte della scena, coi corpi toccabili nella meta'
+                // alta della volta: non li copre mai.
                 Positioned(
                   left: SpacingTokens.lg,
                   right: SpacingTokens.lg,
                   bottom: SpacingTokens.lg,
                   child: SafeArea(
                     top: false,
-                    child: _SkyInfoCard(
-                        selected: selected,
-                        palette: palette,
-                        oriented: _place != null,
-                        birth: widget.birth),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _SkyInfoCard(
+                            selected: selected,
+                            palette: palette,
+                            oriented: _place != null,
+                            birth: widget.birth),
+                        if (widget.ctaLabel != null) ...[
+                          const SizedBox(height: SpacingTokens.md),
+                          SizedBox(
+                            width: double.infinity,
+                            child: FilledButton(
+                              key: const Key('sky_cta'),
+                              style: FilledButton.styleFrom(
+                                backgroundColor: palette.gold,
+                                foregroundColor: palette.deepest,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: SpacingTokens.md),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      SpacingTokens.radiusPill),
+                                ),
+                              ),
+                              onPressed: widget.onCta,
+                              child: Text(widget.ctaLabel!,
+                                  style: TypographyTokens.body(
+                                          size: 17, weight: 600)
+                                      .copyWith(color: palette.deepest)),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
                   ),
                 ),
               ],

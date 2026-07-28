@@ -10,10 +10,15 @@ class ImmersiveScaffold extends StatelessWidget {
     super.key,
     required this.child,
     this.safeBottom = false,
+    this.seed = 0,
   });
 
   final Widget child;
   final bool safeBottom;
+
+  /// Il seme del cielo, inoltrato al cosmo: ogni flusso dichiara il suo,
+  /// cosi' due schermate non mostrano mai lo stesso cielo.
+  final int seed;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,7 @@ class ImmersiveScaffold extends StatelessWidget {
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
       body: CosmosBackground(
+        seed: seed,
         child: SafeArea(
           bottom: safeBottom,
           child: child,

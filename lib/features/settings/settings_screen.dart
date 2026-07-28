@@ -54,6 +54,7 @@ class SettingsScreen extends StatelessWidget {
         title: Text('Impostazioni', style: TypographyTokens.display(size: 20)),
       ),
       body: CosmosBackground(
+        seed: 16,
         showZodiac: false,
         child: SafeArea(
           child: ListView(

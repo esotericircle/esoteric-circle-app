@@ -64,6 +64,7 @@ class AppShell extends StatelessWidget {
       // atmosfera. Nel Santuario le stelle tengono una zona franca attorno al
       // titolo in alto, cosi' nessuna cade su una lettera.
       body: CosmosBackground(
+        seed: 1,
         showZodiac: false,
         starKeepOut: nav.view == ShellView.santuario
             ? SantuarioScreen.titleKeepOut

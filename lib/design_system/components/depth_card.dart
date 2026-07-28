@@ -9,6 +9,8 @@ import '../tokens/spacing_tokens.dart';
 import '../theme/maestro_scope.dart';
 import 'package:provider/provider.dart';
 
+import 'scroll_reveal.dart';
+
 /// Superficie in vetro con profondita' 2.5D.
 ///
 /// Combina i primitivi (colori della palette, ombre stratificate, raggi) in un
@@ -26,6 +28,7 @@ class DepthCard extends StatelessWidget {
     this.raised = false,
     this.borderRadius,
     this.opacity = 1.0,
+    this.reveal = true,
   });
 
   final Widget child;
@@ -36,6 +39,12 @@ class DepthCard extends StatelessWidget {
 
   /// Opacita' complessiva, usata per lo stato Coming soon.
   final double opacity;
+
+  /// La comparsa in scorrimento vive QUI, nel componente che ogni elenco
+  /// dell'app gia' usa: cosi' vale ovunque senza che ogni schermata debba
+  /// ricordarsene, e chi ha una regia propria la spegne con [reveal] falso.
+  /// Fuori da uno scorrimento la card si rivela al montaggio, senza attese.
+  final bool reveal;
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +126,7 @@ class DepthCard extends StatelessWidget {
       );
     }
 
-    return card;
+    if (!reveal) return card;
+    return ScrollReveal(child: card);
   }
 }
