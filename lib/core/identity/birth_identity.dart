@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart' show TimeOfDay;
+
+import '../astro/birth_details.dart' as astro;
+import '../astro/birth_place.dart' as astro;
 import 'birth_place.dart';
 
 /// I dati identitari fissi dell'utente, da cui nascono i fatti deterministici
@@ -64,6 +68,29 @@ class BirthIdentity {
   /// La sola data di nascita, senza l'ora.
   DateTime get birthDate =>
       DateTime(birthMoment.year, birthMoment.month, birthMoment.day);
+
+  /// Gli stessi dati nella forma che chiedono i motori astrologici.
+  ///
+  /// Un ponte solo, cosi' chi calcola non rifa' ogni volta la conversione e non
+  /// puo' sbagliarla: l'ora si passa soltanto quando e' nota davvero, e il luogo
+  /// resta nullo quando non c'e', senza inventarne uno.
+  astro.BirthDetails toBirthDetails() {
+    final p = birthPlace;
+    return astro.BirthDetails(
+      date: birthDate,
+      time: hasBirthTime
+          ? TimeOfDay(hour: birthMoment.hour, minute: birthMoment.minute)
+          : null,
+      place: p == null
+          ? null
+          : astro.BirthPlace(
+              label: p.city,
+              latitude: p.latitude,
+              longitude: p.longitude,
+              timezone: p.timeZoneId,
+            ),
+    );
+  }
 
   BirthIdentity copyWith({
     DateTime? birthMoment,

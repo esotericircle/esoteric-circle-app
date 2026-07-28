@@ -17,6 +17,9 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/angels/guardian_angels.dart';
+import '../../core/assets/family_image.dart';
+import '../angels/angels_screen.dart';
 import '../identity/circle_seal_screen.dart';
 import '../santuario/sky_overview_screen.dart';
 import '../santuario/widgets/moon_widget.dart';
@@ -137,6 +140,8 @@ class CosmicPassport extends StatelessWidget {
                   _BirthMoonCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   _GuideAnimalCard(identity: id),
+                  const SizedBox(height: SpacingTokens.sm),
+                  _AngelsCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   for (final entry in _passportEntries) ...[
                     _PassportEntryCard(entry: entry),
@@ -316,6 +321,46 @@ class _BirthMoonCard extends StatelessWidget {
 /// Tessera dell'Animale Guida: il totem deriva dal segno solare, deterministico
 /// e fisso, quindi e' un fatto identitario vivo dalla sola data di nascita, come
 /// la fase lunare. Emblema con la miniatura del totem, nome e sintesi.
+/// Tessera dei tre Angeli: la tradizione ne assegna tre, da tre sorgenti
+/// diverse. Toccabile, apre la schermata dedicata dove si vedono tutti e tre
+/// con la loro arte e la ragione per cui sono i tuoi.
+class _AngelsCard extends StatelessWidget {
+  const _AngelsCard({required this.identity});
+
+  final BirthIdentity identity;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final triade = GuardianAngels.forBirth(identity.toBirthDetails());
+    final quanti = triade.known.length;
+    return _ActiveFactCard(
+      cardKey: const Key('passport_angels'),
+      overline: 'I tuoi Angeli',
+      value: triade.guardian.name,
+      meaning: quanti == 3
+          ? 'Custode, Cuore e Intelletto: i tre che ti accompagnano.'
+          : 'Custode e Cuore. Il terzo arriva con l\'ora di nascita.',
+      isExample: identity.isExample,
+      onTap: () => Navigator.of(context)
+          .push(AngelsScreen.route(identity: identity)),
+      emblem: SizedBox(
+        width: 52,
+        height: 52,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+          child: Image.asset(
+            FamilyImage.thumb(AssetFamily.angeli, triade.guardian.artStem),
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) =>
+                Icon(Icons.auto_awesome, color: palette.goldSoft, size: 24),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _GuideAnimalCard extends StatelessWidget {
   const _GuideAnimalCard({required this.identity});
 

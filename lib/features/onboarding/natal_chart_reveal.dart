@@ -13,6 +13,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../identity/widgets/identity_widgets.dart';
+import '../identity/widgets/birth_companions.dart';
 import 'widgets/nature_emblem.dart';
 
 /// La carta natale a due livelli: prima il colpo d'occhio (frase poetica e tre
@@ -96,6 +97,13 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
           // --- Fatti identitari: fase lunare di nascita e numero della vita ---
           if (identity.facts != null) ...[
             IdentityFactsSection(facts: identity.facts!),
+            const SizedBox(height: SpacingTokens.lg),
+          ],
+          // --- Chi ti accompagna dalla nascita: Animale Guida e i tre Angeli.
+          //     L'identita' di nascita e' una cosa sola: Sole, Luna, Ascendente
+          //     e Numero della Vita stanno gia' qui, e questi stavano altrove.
+          if (identity.details != null) ...[
+            BirthCompanions(details: identity.details!),
             const SizedBox(height: SpacingTokens.lg),
           ],
           // --- La ruota, con aspetti attivabili ---

@@ -72,11 +72,25 @@ class MaestroWelcome {
     return parts.join(' ');
   }
 
+  /// Il nome con l'iniziale maiuscola, qualunque cosa abbia scritto la persona.
+  ///
+  /// Chi digita in fretta scrive "mauro", e un Maestro che risponde "Caro
+  /// mauro" sembra sciatto: il nome di una persona si scrive con la maiuscola.
+  /// Vale su ogni parola, cosi' anche i nomi composti restano a posto, e non si
+  /// tocca il resto delle lettere, perche' De Luca non deve diventare De luca.
+  static String capitalizza(String nome) {
+    if (nome.isEmpty) return nome;
+    return nome
+        .split(' ')
+        .map((p) => p.isEmpty ? p : '${p[0].toUpperCase()}${p.substring(1)}')
+        .join(' ');
+  }
+
   /// Il vocativo dell'onboarding: "Caro"/"Cara" col nome, altrimenti "Ciao" col
   /// nome; un vocativo neutro di brand quando il nome non c'e'.
   static String vocative(UserProfile profile) {
     if (!profile.hasName) return 'Anima del Cerchio';
-    final name = profile.displayName!.trim();
+    final name = capitalizza(profile.displayName!.trim());
     return profile.courtesyForm.agree(
       masculine: 'Caro $name',
       feminine: 'Cara $name',

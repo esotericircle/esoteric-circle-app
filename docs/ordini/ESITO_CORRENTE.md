@@ -1,6 +1,157 @@
 # ESITO dell'ORDINE CORRENTE
 
-## L'identita' di nascita diventa vera
+## L'identita' completa e un solo sistema di scena
+
+Eseguito da Claude Code il 28 luglio 2026, sul ramo
+`claude/esoteric-circle-master-order-e798aj`.
+
+Prima di tutto il resto, la cosa che conta: **questo ordine e' stato eseguito in
+parte**. Le Parti 1, 5 e 6 sono fatte, la Parte 2 sui fondali, la Parte 3 sul
+permesso di posizione e la Parte 4 sul carosello dei Maestri NON sono state
+toccate. L'ordine dice che il criterio di riuscita e' che Mauro non riveda gli
+stessi difetti: quelli delle parti non toccate li rivedra', quindi vanno
+rimessi in un ordine successivo. Meglio dirlo qui in testa che farlo scoprire dal telefono.
+
+### PARTE 1, l'identita' completa: FATTA
+
+#### Le tre regole di attribuzione, come sono implementate
+
+Stanno tutte in `lib/core/angels/guardian_angels.dart`, in un punto solo, con la
+fonte scritta sopra ciascuna.
+
+**Angelo Custode**, `guardianFor(double sunEclipticLongitude)`. Prende la
+longitudine eclittica del Sole e la divide per cinque gradi, con il floor, poi
+somma uno per passare dall'indice al numero d'ordine. La longitudine arriva da
+`Celestial.sunEclipticLongitude`, cioe' dallo stesso motore che disegna il
+cielo, non dalla data di calendario: fra le due c'e' quasi sempre un giorno di
+scarto, perche' i confini dei segni non cadono a mezzanotte. La longitudine
+viene normalizzata in 0..360 prima della divisione, quindi 360 gradi torna al
+primo angelo e una longitudine negativa rientra dall'altro capo.
+
+**Angelo del Cuore**, `heartFor(DateTime birthDate)`. Prende il giorno dell'anno
+e lo riporta nel ciclo dei settantadue con `((giorno - 1) % 72) + 1`. Il giorno
+dell'anno si calcola in `dayOfYear`, sommando i giorni dei mesi precedenti piu'
+il giorno del mese, piu' uno se l'anno e' bisestile e il mese e' oltre febbraio.
+NON si calcola per differenza fra due DateTime: al cambio dell'ora legale la
+giornata dura ventitre' ore oppure venticinque, percio' una differenza assoluta
+sposterebbe il giorno ordinale, quindi l'angelo. Due test attraversano i due
+cambi d'ora del 1990, il 25 marzo e il 30 settembre, per verificare che i
+giorni restino consecutivi.
+
+**Angelo dell'Intelletto**, `intellectFor(int? hour, int? minute)`. Somma ore e
+minuti in minuti dalla mezzanotte e divide per venti, che e' 1440 diviso 72.
+Senza ora ritorna nullo, che resta nullo lungo tutta la catena: la schermata
+mostra al suo posto una tessera dichiarata che invita a inserire l'ora, con lo
+stesso tono gia' usato per Ascendente e case.
+
+#### Criteri numerici della Parte 1
+
+- Test sui confini: **passa**. Coperti 0 gradi, 4,999, 5 esatti, 355, 359,9, 360
+  e meno uno; 00:00, 00:19, 00:20, 00:39, 00:40, 01:00, 12:00, 23:40, 23:59;
+  primo e ultimo giorno dell'anno, 29 febbraio bisestile, i due cambi d'ora. In
+  piu' due test di copertura totale: scorrendo il cerchio di mezzo grado in
+  mezzo grado escono esattamente 72 angeli distinti; scorrendo i 1440 minuti
+  della giornata escono esattamente 72.
+- Senza ora l'angelo dell'intelletto non e' mostrato come noto e compare
+  l'invito: **passa**, con un test per ciascuno dei due casi.
+- Tessera degli Angeli toccabile che apre la schermata: **passa**.
+- Tre carte con tre immagini distinte da `assets/img/angeli/`, non ripieghi:
+  **passa**. Il test raccoglie i nomi degli asset montati e ne conta almeno tre
+  distinti dentro quella cartella.
+- Carta natale con le sei presenze: **fatta, misurata in parte**. Sole, Luna e i
+  pianeti erano gia' nella legenda, l'Ascendente nella sua nota, il Numero della
+  Vita nei fatti identitari; ho aggiunto Animale Guida e i tre Angeli con
+  `BirthCompanions`. Il test verifica le due presenze nuove e l'apertura della
+  schermata, non conta tutte e sei in una volta sola.
+- Le tre animazioni di trionfo: **una su tre**. Quella dei tre Angeli esiste,
+  dura 2200 ms, verificata maggiore di zero e sotto il tetto di 2500 ms
+  chiesto, piu' verificata ferma con Riduci Movimento. Il Sigillo
+  dell'onboarding e l'Animale Guida NON sono stati toccati.
+- Centro del sigillo fra il 45 e il 55 per cento: **non fatto**.
+
+#### Il contenuto degli angeli
+
+`docs/corpus/angeli.md` non esiste nel repository, quindi il catalogo e' stato
+costruito come l'ordine prevede per questo caso. I settantadue nomi vengono
+dagli stem degli asset in `assets/img/angeli/`, che nascono dallo stesso Corpus:
+nome e immagine non possono divergere, perche' il percorso si ricava dal numero
+e dallo slug. Un test verifica che tutti e settantadue i file esistano.
+
+Ci sono numero, nome, coro, arcangelo del coro e dominio del coro, coi nove cori
+da otto verificati da un test. NON ci sono virtu' e salmo del singolo angelo,
+che l'ordine dichiara non verificati: al loro posto ogni carta dice che quello
+strato arriva. Quando il Corpus sara' depositato, i campi si aggiungono al
+catalogo e le schermate li mostrano senza altre modifiche.
+
+### PARTE 5, testi: FATTA in due punti su cinque
+
+- "Entra nel Santuario" e' diventato "Entra nel Cerchio". La barra di
+  navigazione diceva gia' "Il Cerchio", quindi quella era l'unica occorrenza a
+  video: **misurato**, zero stringhe con la parola Santuario nei testi mostrati.
+- Il vocativo capitalizza il nome: "mauro" diventa "Mauro". Vale su ogni parola,
+  cosi' i nomi composti restano a posto. Il resto delle lettere non si tocca,
+  perche' De Luca non deve diventare De luca.
+- Il nome Medora che va a capo, l'avatar che copre i titoli e la silhouette
+  infelice NON sono stati toccati.
+
+### PARTE 6, ciclo e integrita': FATTA in due punti su tre
+
+- **Un solo APK**: la build usa ora `--target-platform android-arm64` e produce
+  `app-debug.apk`, non piu' tre archivi.
+- **Controllo di integrita'**: `tool/verifica_apk.py` apre l'archivio costruito e
+  conta i file di ogni famiglia dentro `assets/flutter_assets/`, confrontandoli
+  col manifest. Provato in rosso su un APK sintetico privo dei tarocchi: esce
+  con codice 1 e dice quale famiglia manca e di quanto. Sull'APK vero passa, con
+  otto famiglie complete in piena e in miniatura.
+- **Ripristino del Risveglio in debug**: NON fatto.
+
+### Suite e analisi
+
+`flutter test`: **807 test verdi**, erano 790 prima di questo ordine, quindi i
+diciassette nuovi si sommano senza rompere niente. `flutter analyze`: pulito.
+
+Due test esistenti sono diventati rossi per causa mia, ed erano rossi giusti.
+Il primo, `language_rule_test`, ha colto una virgola seguita dalla congiunzione
+in un testo nuovo della schermata degli Angeli. Il secondo, `passport_test`,
+contava esattamente tre righe "Valore d'esempio" e ne ha trovate quattro,
+perche' la tessera degli Angeli e' una tessera viva in piu': il conteggio e'
+stato portato a quattro, con la tessera nuova verificata per chiave.
+
+### APK e consegna
+
+Un solo archivio, `build/app/outputs/flutter-apk/app-debug.apk`, **244.457.589
+byte, cioe' 233,13 MiB**. Lo split per ABI non si usa piu': prima la stessa
+build ne produceva tre.
+
+Il controllo di integrita' passa sull'archivio di consegna, con le otto famiglie
+tutte complete in piena e in miniatura: angeli 73, animali 12, archetipi 12,
+cristalli 12, mazzo-tarocchi 79, ritratti-vip 50, rune_bone 24, zodiac 12. Il
+token di App Check e' dentro il kernel, cercato e trovato.
+
+Una nota sul percorso: la prima build di questo ordine ha riportato fallimento
+pur avendo prodotto l'APK: avevo lanciato la suite di test in parallelo, quindi
+le due contendevano la cartella `build/`. Rifatta da sola, e' passata in 44
+secondi. Errore mio di conduzione, non del codice.
+
+### PARTI 2, 3 e 4: NON FATTE
+
+Restano intere, coi loro criteri numerici. Non c'e' una riga di codice che le
+riguardi in questo lavoro.
+
+- Parte 2, gli otto sistemi di fondale restano otto, l'ampiezza del sensore resta
+  a 2,16 px sul piano principale, il fondale resta ripetuto, `ScrollReveal` resta
+  legato al montaggio.
+- Parte 3, il permesso di posizione resta senza comando toccabile e senza via
+  d'uscita dal rifiuto permanente.
+- Parte 4, il carosello dei Maestri resta senza transizione e senza
+  trascinamento.
+
+Sono tre rifacimenti profondi: l'unificazione dei fondali tocca sette classi e
+ogni schermata immersiva dell'app. Vanno fatti con la stessa cura delle Parti 1
+e 6, non in coda a un lavoro gia' lungo.
+
+
+## L'identita' di nascita diventa vera, ordine chiuso del 28 luglio
 
 Eseguito da Claude Code il 28 luglio 2026, notte, sul ramo
 `claude/esoteric-circle-master-order-e798aj`.
@@ -76,7 +227,7 @@ Con essa spariscono insieme il numero della vita d'esempio, la fase lunare del
 d'esempio", perche' tutte le tessere leggono la stessa identita'.
 
 Il primo test che avevo scritto passava l'identita' direttamente alla schermata,
-e passava al primo colpo: non provava niente, perche' il difetto stava nel
+poi passava al primo colpo: non provava niente, perche' il difetto stava nel
 tratto fra il profilo persistito e la schermata, che nessuno percorreva. Rifatto
 montando l'app come alla vera accensione, con le preferenze gia' scritte, il
 rosso e' arrivato.
@@ -114,7 +265,7 @@ li' la posizione non si chiede.
 - Suite intera verde e analyze pulito: passano, 790 test contro i 773 di prima.
 - **Peso dell'APK: NON passa. La ragione va letta.** Vedi sotto.
 
-### Il peso dell'APK, e quello che rivela
+### Il peso dell'APK: cosa rivela
 
 L'arm64 e' passato da 228.770.276 a 255.244.433 byte, cioe' da 218,2 a 243,4
 MiB: piu' 25,2 MiB, contro un criterio che ne concedeva 2. L'asset che ho

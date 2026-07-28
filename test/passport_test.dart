@@ -52,10 +52,11 @@ void main() {
     expect(find.text('${lp.number} · ${lp.title}'), findsOneWidget);
     expect(find.text(moon.label), findsOneWidget);
 
-    // Il dato d'esempio e' dichiarato in-world (tre tessere vive: Numero della
-    // vita, Fase lunare e Animale guida).
+    // Il dato d'esempio e' dichiarato in-world su ogni tessera viva: Numero
+    // della vita, Fase lunare, Animale guida e i tre Angeli.
+    expect(find.byKey(const Key('passport_angels')), findsOneWidget);
     expect(
-        find.textContaining('Valore d\'esempio'), findsNWidgets(3));
+        find.textContaining('Valore d\'esempio'), findsNWidgets(4));
 
     // Le voci che richiedono servizi esterni restano dietro il velo.
     expect(find.text('Dietro il velo'), findsWidgets);

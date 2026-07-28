@@ -583,7 +583,7 @@ class _RevealedFooter extends StatelessWidget {
               ),
             ),
             onPressed: onEnter,
-            child: Text('Entra nel Santuario',
+            child: Text('Entra nel Cerchio',
                 style: TypographyTokens.body(size: 16, weight: 600)
                     .copyWith(color: palette.deepest)),
           ),
