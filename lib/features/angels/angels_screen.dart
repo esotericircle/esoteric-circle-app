@@ -63,6 +63,59 @@ class _AngelsScreenState extends State<AngelsScreen>
     super.dispose();
   }
 
+  /// La nota su tradizione e metodo, come prescrivono le Linee Guida: un
+  /// punto interrogativo discreto che apre poche righe, non un trattato.
+  ///
+  /// Dice anche la cosa scomoda, cioe' che le tavole originali non sono state
+  /// lette in edizione primaria. Un responso che tace su cosa non ha verificato
+  /// chiede fiducia cieca, e questa app non la chiede.
+  void _mostraFonti(BuildContext context) {
+    final palette = context.palette;
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: palette.surfaceElevated,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(SpacingTokens.radiusLg)),
+      ),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(SpacingTokens.lg),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Fonti e metodo',
+                style: TypographyTokens.display(size: 20)),
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              'Sono i settantadue nomi dello Shemhamphorash, dalla tradizione '
+              'cabalistica: dal versetto triplice dell\'Esodo si ricavano '
+              'settantadue nomi, disposti in nove cori da otto.',
+              style: TypographyTokens.body(size: 15).copyWith(height: 1.45),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              'I tuoi tre si ricavano da tre cose diverse: la posizione del '
+              'Sole alla tua nascita, in archi di cinque gradi, il giorno in '
+              'cui sei nato, l\'ora esatta.',
+              style: TypographyTokens.body(size: 15).copyWith(height: 1.45),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              key: const Key('angeli_nota_edizioni'),
+              'Le fonti sono repertori che dichiarano di derivare da Lenain e '
+              'da Ambelain. Le tavole originali non sono state consultate in '
+              'edizione primaria.',
+              style: TypographyTokens.body(size: 15)
+                  .copyWith(color: ColorTokens.textSecondary, height: 1.45),
+            ),
+            const SizedBox(height: SpacingTokens.md),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
@@ -84,6 +137,14 @@ class _AngelsScreenState extends State<AngelsScreen>
         ),
         title: Text('I tuoi tre Angeli',
             style: TypographyTokens.display(size: 20)),
+        actions: [
+          IconButton(
+            key: const Key('angeli_fonti_metodo'),
+            icon: const Icon(Icons.help_outline_rounded),
+            tooltip: 'Fonti e metodo',
+            onPressed: () => _mostraFonti(context),
+          ),
+        ],
       ),
       body: CosmosBackground(
         showZodiac: false,
@@ -193,6 +254,7 @@ class _CartaAngelo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lore = angelo.lore;
     return AnimatedBuilder(
       animation: entrata,
       builder: (context, child) {
@@ -256,13 +318,41 @@ class _CartaAngelo extends StatelessWidget {
             Text(perche,
                 style: TypographyTokens.body(size: 15)
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
-            const SizedBox(height: SpacingTokens.xs),
-            // Lo strato che ancora manca si dichiara, non si finge.
-            Text(
-              'La virtu\' e il salmo di questo angelo arrivano presto.',
-              style: TypographyTokens.body(size: 13)
-                  .copyWith(color: ColorTokens.textMuted),
-            ),
+            const SizedBox(height: SpacingTokens.sm),
+            if (lore != null) ...[
+              // L'arco di cinque gradi col suo segno: e' la ragione per cui
+              // questo angelo e' il tuo, detta col cielo alla mano.
+              Text(
+                '${lore.degrees} dello zodiaco, nel segno ${lore.sign}.',
+                style: TypographyTokens.body(size: 15)
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+              ),
+              if (lore.psalm.isNotEmpty) ...[
+                const SizedBox(height: SpacingTokens.xs),
+                Text(lore.psalm,
+                    style: TypographyTokens.body(size: 15)
+                        .copyWith(height: 1.45)),
+              ],
+              if (lore.tradition.isNotEmpty && !lore.confidenzaBassa) ...[
+                const SizedBox(height: SpacingTokens.xs),
+                Text(lore.tradition,
+                    style: TypographyTokens.body(size: 15)
+                        .copyWith(height: 1.45)),
+              ],
+              if (lore.reading.isNotEmpty) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                // La chiave di lettura e' scritta in redazione, non e'
+                // tradizione documentata: si mostra come voce del Maestro,
+                // staccata da cio' che viene dalle fonti.
+                Text('MEDORA LA LEGGE COSI',
+                    style: TypographyTokens.label(size: 11).copyWith(
+                        color: palette.goldSoft, letterSpacing: 2)),
+                const SizedBox(height: 2),
+                Text(lore.reading,
+                    style: TypographyTokens.body(size: 15).copyWith(
+                        color: ColorTokens.textSecondary, height: 1.45)),
+              ],
+            ],
           ],
         ),
       ),

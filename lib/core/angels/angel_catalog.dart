@@ -17,6 +17,8 @@
 /// perche' il percorso si ricava dal numero e dallo slug.
 library;
 
+import 'angel_lore.dart';
+
 /// Un coro angelico: otto angeli, un arcangelo che li regge, un dominio.
 class AngelChoir {
   const AngelChoir({
@@ -37,14 +39,18 @@ class AngelChoir {
 class Angel {
   const Angel({
     required this.number,
-    required this.name,
+    required this.seedName,
     required this.slug,
     required this.choir,
   });
 
   /// Da 1 a 72, nell'ordine della tradizione.
   final int number;
-  final String name;
+
+  /// Nome di riserva, dagli stem delle immagini. A schermo vale [name], che
+  /// preferisce la grafia del Corpus quando c'e': Ieliel e Jeliel sono lo
+  /// stesso angelo, ma la fonte verificata dice Ieliel.
+  final String seedName;
 
   /// Parte del nome nel percorso dell'asset, in minuscolo.
   final String slug;
@@ -52,6 +58,12 @@ class Angel {
 
   /// L'arte piena dell'angelo. Il numero e' sempre a due cifre.
   String get artStem => 'ang_${number.toString().padLeft(2, '0')}_${slug}_v1';
+
+  /// Il contenuto documentato dal Corpus, quando c'e'.
+  AngelLore? get lore => kAngelLore[number];
+
+  /// Il nome mostrato: quello del Corpus se c'e', altrimenti il seme.
+  String get name => lore?.name ?? seedName;
 
   /// Il grado zodiacale da cui questo angelo comincia, contando dal primo
   /// grado dell'Ariete. Ogni angelo governa cinque gradi.
@@ -124,78 +136,78 @@ class AngelCatalog {
   /// I settantadue, in ordine. Il coro si ricava dalla posizione, otto per
   /// coro, quindi non puo' divergere dall'ordine.
   static const List<Angel> all = [
-    Angel(number: 1, name: 'Vehuiah', slug: 'vehuiah', choir: serafini),
-    Angel(number: 2, name: 'Jeliel', slug: 'jeliel', choir: serafini),
-    Angel(number: 3, name: 'Sitael', slug: 'sitael', choir: serafini),
-    Angel(number: 4, name: 'Elemiah', slug: 'elemiah', choir: serafini),
-    Angel(number: 5, name: 'Mahasiah', slug: 'mahasiah', choir: serafini),
-    Angel(number: 6, name: 'Lelahel', slug: 'lelahel', choir: serafini),
-    Angel(number: 7, name: 'Achaiah', slug: 'achaiah', choir: serafini),
-    Angel(number: 8, name: 'Cahetel', slug: 'cahetel', choir: serafini),
-    Angel(number: 9, name: 'Haziel', slug: 'haziel', choir: cherubini),
-    Angel(number: 10, name: 'Aladiah', slug: 'aladiah', choir: cherubini),
-    Angel(number: 11, name: 'Lauviah', slug: 'lauviah', choir: cherubini),
-    Angel(number: 12, name: 'Hahaiah', slug: 'hahaiah', choir: cherubini),
-    Angel(number: 13, name: 'Iezalel', slug: 'iezalel', choir: cherubini),
-    Angel(number: 14, name: 'Mebahel', slug: 'mebahel', choir: cherubini),
-    Angel(number: 15, name: 'Hariel', slug: 'hariel', choir: cherubini),
-    Angel(number: 16, name: 'Hekamiah', slug: 'hekamiah', choir: cherubini),
-    Angel(number: 17, name: 'Lauviah II', slug: 'lauviah-ii', choir: troni),
-    Angel(number: 18, name: 'Caliel', slug: 'caliel', choir: troni),
-    Angel(number: 19, name: 'Leuviah', slug: 'leuviah', choir: troni),
-    Angel(number: 20, name: 'Pahaliah', slug: 'pahaliah', choir: troni),
-    Angel(number: 21, name: 'Nelchael', slug: 'nelchael', choir: troni),
-    Angel(number: 22, name: 'Yeiayel', slug: 'yeiayel', choir: troni),
-    Angel(number: 23, name: 'Melahel', slug: 'melahel', choir: troni),
-    Angel(number: 24, name: 'Haheuiah', slug: 'haheuiah', choir: troni),
-    Angel(number: 25, name: 'Nith-Haiah', slug: 'nith-haiah', choir: dominazioni),
-    Angel(number: 26, name: 'Haaiah', slug: 'haaiah', choir: dominazioni),
-    Angel(number: 27, name: 'Yerathel', slug: 'yerathel', choir: dominazioni),
-    Angel(number: 28, name: 'Seheiah', slug: 'seheiah', choir: dominazioni),
-    Angel(number: 29, name: 'Reiyel', slug: 'reiyel', choir: dominazioni),
-    Angel(number: 30, name: 'Omael', slug: 'omael', choir: dominazioni),
-    Angel(number: 31, name: 'Lecabel', slug: 'lecabel', choir: dominazioni),
-    Angel(number: 32, name: 'Vasariah', slug: 'vasariah', choir: dominazioni),
-    Angel(number: 33, name: 'Yehuiah', slug: 'yehuiah', choir: potenze),
-    Angel(number: 34, name: 'Lehahiah', slug: 'lehahiah', choir: potenze),
-    Angel(number: 35, name: 'Chavakiah', slug: 'chavakiah', choir: potenze),
-    Angel(number: 36, name: 'Menadel', slug: 'menadel', choir: potenze),
-    Angel(number: 37, name: 'Aniel', slug: 'aniel', choir: potenze),
-    Angel(number: 38, name: 'Haamiah', slug: 'haamiah', choir: potenze),
-    Angel(number: 39, name: 'Rehael', slug: 'rehael', choir: potenze),
-    Angel(number: 40, name: 'Ieiazel', slug: 'ieiazel', choir: potenze),
-    Angel(number: 41, name: 'Hahahel', slug: 'hahahel', choir: virtu),
-    Angel(number: 42, name: 'Mikael', slug: 'mikael', choir: virtu),
-    Angel(number: 43, name: 'Veuliah', slug: 'veuliah', choir: virtu),
-    Angel(number: 44, name: 'Yelahiah', slug: 'yelahiah', choir: virtu),
-    Angel(number: 45, name: 'Sealiah', slug: 'sealiah', choir: virtu),
-    Angel(number: 46, name: 'Ariel', slug: 'ariel', choir: virtu),
-    Angel(number: 47, name: 'Asaliah', slug: 'asaliah', choir: virtu),
-    Angel(number: 48, name: 'Mihael', slug: 'mihael', choir: virtu),
-    Angel(number: 49, name: 'Vehuel', slug: 'vehuel', choir: principati),
-    Angel(number: 50, name: 'Daniel', slug: 'daniel', choir: principati),
-    Angel(number: 51, name: 'Hahasiah', slug: 'hahasiah', choir: principati),
-    Angel(number: 52, name: 'Imamiah', slug: 'imamiah', choir: principati),
-    Angel(number: 53, name: 'Nanael', slug: 'nanael', choir: principati),
-    Angel(number: 54, name: 'Nithael', slug: 'nithael', choir: principati),
-    Angel(number: 55, name: 'Mebahiah', slug: 'mebahiah', choir: principati),
-    Angel(number: 56, name: 'Poyel', slug: 'poyel', choir: principati),
-    Angel(number: 57, name: 'Nemamiah', slug: 'nemamiah', choir: arcangeli),
-    Angel(number: 58, name: 'Yeialel', slug: 'yeialel', choir: arcangeli),
-    Angel(number: 59, name: 'Harahel', slug: 'harahel', choir: arcangeli),
-    Angel(number: 60, name: 'Mitzrael', slug: 'mitzrael', choir: arcangeli),
-    Angel(number: 61, name: 'Umabel', slug: 'umabel', choir: arcangeli),
-    Angel(number: 62, name: 'Iah-Hel', slug: 'iah-hel', choir: arcangeli),
-    Angel(number: 63, name: 'Anauel', slug: 'anauel', choir: arcangeli),
-    Angel(number: 64, name: 'Mehiel', slug: 'mehiel', choir: arcangeli),
-    Angel(number: 65, name: 'Damabiah', slug: 'damabiah', choir: angeli),
-    Angel(number: 66, name: 'Manakel', slug: 'manakel', choir: angeli),
-    Angel(number: 67, name: 'Eyael', slug: 'eyael', choir: angeli),
-    Angel(number: 68, name: 'Habuhiah', slug: 'habuhiah', choir: angeli),
-    Angel(number: 69, name: 'Rochel', slug: 'rochel', choir: angeli),
-    Angel(number: 70, name: 'Jabamiah', slug: 'jabamiah', choir: angeli),
-    Angel(number: 71, name: 'Haiaiel', slug: 'haiaiel', choir: angeli),
-    Angel(number: 72, name: 'Mumiah', slug: 'mumiah', choir: angeli),
+    Angel(number: 1, seedName: 'Vehuiah', slug: 'vehuiah', choir: serafini),
+    Angel(number: 2, seedName: 'Jeliel', slug: 'jeliel', choir: serafini),
+    Angel(number: 3, seedName: 'Sitael', slug: 'sitael', choir: serafini),
+    Angel(number: 4, seedName: 'Elemiah', slug: 'elemiah', choir: serafini),
+    Angel(number: 5, seedName: 'Mahasiah', slug: 'mahasiah', choir: serafini),
+    Angel(number: 6, seedName: 'Lelahel', slug: 'lelahel', choir: serafini),
+    Angel(number: 7, seedName: 'Achaiah', slug: 'achaiah', choir: serafini),
+    Angel(number: 8, seedName: 'Cahetel', slug: 'cahetel', choir: serafini),
+    Angel(number: 9, seedName: 'Haziel', slug: 'haziel', choir: cherubini),
+    Angel(number: 10, seedName: 'Aladiah', slug: 'aladiah', choir: cherubini),
+    Angel(number: 11, seedName: 'Lauviah', slug: 'lauviah', choir: cherubini),
+    Angel(number: 12, seedName: 'Hahaiah', slug: 'hahaiah', choir: cherubini),
+    Angel(number: 13, seedName: 'Iezalel', slug: 'iezalel', choir: cherubini),
+    Angel(number: 14, seedName: 'Mebahel', slug: 'mebahel', choir: cherubini),
+    Angel(number: 15, seedName: 'Hariel', slug: 'hariel', choir: cherubini),
+    Angel(number: 16, seedName: 'Hekamiah', slug: 'hekamiah', choir: cherubini),
+    Angel(number: 17, seedName: 'Lauviah II', slug: 'lauviah-ii', choir: troni),
+    Angel(number: 18, seedName: 'Caliel', slug: 'caliel', choir: troni),
+    Angel(number: 19, seedName: 'Leuviah', slug: 'leuviah', choir: troni),
+    Angel(number: 20, seedName: 'Pahaliah', slug: 'pahaliah', choir: troni),
+    Angel(number: 21, seedName: 'Nelchael', slug: 'nelchael', choir: troni),
+    Angel(number: 22, seedName: 'Yeiayel', slug: 'yeiayel', choir: troni),
+    Angel(number: 23, seedName: 'Melahel', slug: 'melahel', choir: troni),
+    Angel(number: 24, seedName: 'Haheuiah', slug: 'haheuiah', choir: troni),
+    Angel(number: 25, seedName: 'Nith-Haiah', slug: 'nith-haiah', choir: dominazioni),
+    Angel(number: 26, seedName: 'Haaiah', slug: 'haaiah', choir: dominazioni),
+    Angel(number: 27, seedName: 'Yerathel', slug: 'yerathel', choir: dominazioni),
+    Angel(number: 28, seedName: 'Seheiah', slug: 'seheiah', choir: dominazioni),
+    Angel(number: 29, seedName: 'Reiyel', slug: 'reiyel', choir: dominazioni),
+    Angel(number: 30, seedName: 'Omael', slug: 'omael', choir: dominazioni),
+    Angel(number: 31, seedName: 'Lecabel', slug: 'lecabel', choir: dominazioni),
+    Angel(number: 32, seedName: 'Vasariah', slug: 'vasariah', choir: dominazioni),
+    Angel(number: 33, seedName: 'Yehuiah', slug: 'yehuiah', choir: potenze),
+    Angel(number: 34, seedName: 'Lehahiah', slug: 'lehahiah', choir: potenze),
+    Angel(number: 35, seedName: 'Chavakiah', slug: 'chavakiah', choir: potenze),
+    Angel(number: 36, seedName: 'Menadel', slug: 'menadel', choir: potenze),
+    Angel(number: 37, seedName: 'Aniel', slug: 'aniel', choir: potenze),
+    Angel(number: 38, seedName: 'Haamiah', slug: 'haamiah', choir: potenze),
+    Angel(number: 39, seedName: 'Rehael', slug: 'rehael', choir: potenze),
+    Angel(number: 40, seedName: 'Ieiazel', slug: 'ieiazel', choir: potenze),
+    Angel(number: 41, seedName: 'Hahahel', slug: 'hahahel', choir: virtu),
+    Angel(number: 42, seedName: 'Mikael', slug: 'mikael', choir: virtu),
+    Angel(number: 43, seedName: 'Veuliah', slug: 'veuliah', choir: virtu),
+    Angel(number: 44, seedName: 'Yelahiah', slug: 'yelahiah', choir: virtu),
+    Angel(number: 45, seedName: 'Sealiah', slug: 'sealiah', choir: virtu),
+    Angel(number: 46, seedName: 'Ariel', slug: 'ariel', choir: virtu),
+    Angel(number: 47, seedName: 'Asaliah', slug: 'asaliah', choir: virtu),
+    Angel(number: 48, seedName: 'Mihael', slug: 'mihael', choir: virtu),
+    Angel(number: 49, seedName: 'Vehuel', slug: 'vehuel', choir: principati),
+    Angel(number: 50, seedName: 'Daniel', slug: 'daniel', choir: principati),
+    Angel(number: 51, seedName: 'Hahasiah', slug: 'hahasiah', choir: principati),
+    Angel(number: 52, seedName: 'Imamiah', slug: 'imamiah', choir: principati),
+    Angel(number: 53, seedName: 'Nanael', slug: 'nanael', choir: principati),
+    Angel(number: 54, seedName: 'Nithael', slug: 'nithael', choir: principati),
+    Angel(number: 55, seedName: 'Mebahiah', slug: 'mebahiah', choir: principati),
+    Angel(number: 56, seedName: 'Poyel', slug: 'poyel', choir: principati),
+    Angel(number: 57, seedName: 'Nemamiah', slug: 'nemamiah', choir: arcangeli),
+    Angel(number: 58, seedName: 'Yeialel', slug: 'yeialel', choir: arcangeli),
+    Angel(number: 59, seedName: 'Harahel', slug: 'harahel', choir: arcangeli),
+    Angel(number: 60, seedName: 'Mitzrael', slug: 'mitzrael', choir: arcangeli),
+    Angel(number: 61, seedName: 'Umabel', slug: 'umabel', choir: arcangeli),
+    Angel(number: 62, seedName: 'Iah-Hel', slug: 'iah-hel', choir: arcangeli),
+    Angel(number: 63, seedName: 'Anauel', slug: 'anauel', choir: arcangeli),
+    Angel(number: 64, seedName: 'Mehiel', slug: 'mehiel', choir: arcangeli),
+    Angel(number: 65, seedName: 'Damabiah', slug: 'damabiah', choir: angeli),
+    Angel(number: 66, seedName: 'Manakel', slug: 'manakel', choir: angeli),
+    Angel(number: 67, seedName: 'Eyael', slug: 'eyael', choir: angeli),
+    Angel(number: 68, seedName: 'Habuhiah', slug: 'habuhiah', choir: angeli),
+    Angel(number: 69, seedName: 'Rochel', slug: 'rochel', choir: angeli),
+    Angel(number: 70, seedName: 'Jabamiah', slug: 'jabamiah', choir: angeli),
+    Angel(number: 71, seedName: 'Haiaiel', slug: 'haiaiel', choir: angeli),
+    Angel(number: 72, seedName: 'Mumiah', slug: 'mumiah', choir: angeli),
   ];
 
   /// L'angelo di un numero da 1 a 72. Fuori intervallo si rientra col modulo,

@@ -97,24 +97,37 @@ class BirthCompanions extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: SpacingTokens.xs),
+              // Una riga di volti, uno per angelo, col nome sotto il proprio.
+              // Prima i tre stavano su una riga sola con i nomi accanto, e in
+              // colonna stretta restava spazio per una miniatura soltanto:
+              // il conto tornava nel codice, non sullo schermo.
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (final a in triade.known) ...[
-                    _Miniatura(
-                      path: FamilyImage.thumb(AssetFamily.angeli, a.artStem),
-                      ripiego: Icons.auto_awesome,
-                      palette: palette,
+                  for (final a in triade.known)
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: SpacingTokens.xs),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _Miniatura(
+                              path: FamilyImage.thumb(
+                                  AssetFamily.angeli, a.artStem),
+                              ripiego: Icons.auto_awesome,
+                              palette: palette,
+                            ),
+                            const SizedBox(height: SpacingTokens.xxs),
+                            Text(
+                              a.name,
+                              style: TypographyTokens.body(size: 13),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    const SizedBox(width: SpacingTokens.sm),
-                  ],
-                  Expanded(
-                    child: Text(
-                      triade.known.map((a) => a.name).join(', '),
-                      style: TypographyTokens.body(size: 15),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
                 ],
               ),
               if (!triade.hasIntellect) ...[

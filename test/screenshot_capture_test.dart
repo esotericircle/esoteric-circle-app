@@ -5,6 +5,8 @@ import 'dart:math' show Random;
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/app.dart';
+import 'package:esoteric_circle/core/angels/angel_catalog.dart';
+import 'package:esoteric_circle/core/assets/family_image.dart';
 import 'package:esoteric_circle/core/astro/moon_phase.dart';
 import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
@@ -2522,6 +2524,17 @@ void main() {
         ),
       ),
     );
+    // Le tre miniature degli angeli vanno decodificate prima dello scatto.
+    // Senza, la cattura ne mostra una sola e le altre due restano vuote: e'
+    // un artefatto dell'headless, non un difetto della tessera, ma
+    // un'anteprima che mostra un volto su tre non serve a nessuno.
+    await tester.runAsync(() async {
+      for (final a in AngelCatalog.all) {
+        await precacheImage(
+            AssetImage(FamilyImage.thumb(AssetFamily.angeli, a.artStem)),
+            tester.element(find.byType(NatalChartReveal)));
+      }
+    });
     // La legenda ha micro-animazioni: pochi frame invece dell'idle.
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(milliseconds: 120));

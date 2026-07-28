@@ -171,6 +171,56 @@ void main() {
     expect(find.byKey(const Key('angels_screen')), findsOneWidget);
   });
 
+  testWidgets('La tessera della carta natale mostra TRE miniature',
+      (tester) async {
+    silence();
+    schermo(tester);
+    await tester.pumpWidget(host(Scaffold(
+      body: SingleChildScrollView(
+        child: BirthCompanions(
+          details: conOra.toBirthDetails(),
+          identity: conOra,
+        ),
+      ),
+    )));
+    await passo(tester);
+
+    // Si contano DENTRO la tessera, dove l'utente le vede, non nella
+    // schermata dedicata, dove il conto tornava mentre a schermo ne compariva
+    // una sola. La misura va presa dove sta la promessa.
+    final tessera = find.byKey(const Key('carta_angeli'));
+    expect(tessera, findsOneWidget);
+    final arti = tester
+        .widgetList<Image>(find.descendant(
+            of: tessera, matching: find.byType(Image)))
+        .map((i) => (i.image as AssetImage).assetName)
+        .where((n) => n.contains('angeli'))
+        .toSet();
+    expect(arti.length, 3,
+        reason: 'tre angeli, tre volti: ne ho contati ${arti.length}');
+  });
+
+  testWidgets('La schermata porta la nota Fonti e metodo', (tester) async {
+    silence();
+    schermo(tester);
+    await tester.pumpWidget(host(AngelsScreen(identity: conOra)));
+    await passo(tester);
+
+    final punto = find.byKey(const Key('angeli_fonti_metodo'));
+    expect(punto, findsOneWidget);
+    await tester.tap(punto);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+
+    expect(find.text('Fonti e metodo'), findsOneWidget);
+    // La frase scomoda c'e', ed e' quella che conta.
+    final nota = tester.widget<Text>(
+        find.byKey(const Key('angeli_nota_edizioni')));
+    expect(nota.data, contains('edizione primaria'));
+    expect(nota.data, contains('Lenain'));
+    expect(nota.data, contains('Ambelain'));
+  });
+
   test('Il catalogo copre i nove cori con otto angeli ciascuno', () {
     for (final coro in AngelCatalog.choirs) {
       final dentro =
