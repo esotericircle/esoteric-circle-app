@@ -1,73 +1,71 @@
-# ORDINE C, gli angeli entrano in scena
+# ORDINE D, la sicurezza prima della pubblicazione
 
-Emesso dall'Architetto in Cowork il 29 luglio 2026. Sostituisce l'ordine precedente, che e' chiuso per quanto dichiarato.
+Emesso dall'Architetto in Cowork il 29 luglio 2026. Sostituisce l'ordine precedente, che e' chiuso per le tre voci dichiarate.
 
-## Perche' questo ordine ha piu' voci
+## Che cosa e'
 
-La regola resta un ordine un oggetto, e qui l'oggetto e' uno: **il contenuto degli angeli che arriva a schermo**. Le voci sono tre e sono tutte piccole, tutte dello stesso oggetto, tutte a basso rischio. Le due voci di build in fondo sono separate apposta e vanno per ultime: se una si rivela non banale, la lasci e lo scrivi, senza che blocchi il resto.
+Quattro voci piccole, tutte dello stesso oggetto: le cose che possono far respingere l'app in revisione oppure esporre Mauro sul piano della conformita'. Nessuna e' estetica, nessuna richiede una decisione di prodotto.
+
+Vengono dall'audit della dimensione sicurezza, mai esaminata prima, chiusa il 29 luglio con cinque reperti confermati su cinque da un verificatore indipendente istruito a refutare.
 
 ## Dichiarazione all'inizio, obbligatoria
 
-Prima di scrivere codice, stima e scrivi in `docs/ordini/ESITO_C.md` se chiudi per intero e fin dove arrivi, con la ragione in numeri. Il 29 luglio questa regola ha funzionato al primo tentativo, quindi resta.
+Prima di scrivere codice, stima e scrivi in `docs/ordini/ESITO_D.md` se chiudi per intero e fin dove arrivi, con la ragione in numeri. Ha funzionato le ultime due volte, quindi resta.
 
 ---
 
-## C1. Il corpus arriva nelle carte
+## D1. Il diritto all'oblio cancella davvero, foto del volto compresa
 
-`docs/corpus/angeli.md` e' sul disco dal 29 luglio, 206 KB, tutti e settantadue gli angeli, nove cori su nove. Il tuo catalogo oggi nasce dagli stem degli asset e non lo legge: virtu', salmo e archi di gradi sono nel file e non nell'app.
+**Punto**: `lib/core/identity/profile_store.dart:27` e `lib/features/settings/settings_screen.dart`, dentro `_DeleteDataTile._confirmAndDelete`.
 
-Modella il corpus e collegalo. Ogni carta dell'angelo mostra: nome, numero, coro, arcangelo del coro, arco di gradi col segno, la chiave di lettura, e il salmo con la sua numerazione. Sparisce la riga che dichiara che quello strato arrivera'.
+`ProfileStore` custodisce le otto chiavi piu' personali dell'app: `profile.name`, `profile.courtesy`, `profile.birthDate`, `profile.hasBirthTime`, `profile.birthHour`, `profile.birthMinute`, `profile.place` con latitudine e longitudine, e alla riga 37 `profile.avatarPhoto`, che e' il base64 della **fotografia del volto** della persona. La classe espone `load`, `saveProfile`, `saveIdentity`, `loadAvatarPhoto`, `saveAvatarPhoto`, e nessun metodo che cancelli: in tutto il repository non esiste un percorso di codice che rimuova quelle chiavi.
 
-**Leggi PRIMA la politica di pubblicazione in testa al file.** Non e' un preambolo, e' un vincolo, e i verificatori l'hanno prodotta guardando la tradizione reale. In sintesi, e il file ha l'elenco per numero d'angelo:
+Il tasto "Cancella i miei dati" chiama la sola `services.memory.deleteAllData()`, che cancella esclusivamente il ramo Firestore `users/{uid}`. Il locale resta intero, e siccome `ProfileController.load()` lo rilegge all'avvio, nome, vocativo, data di nascita, luogo e fotografia ricompaiono dopo che la persona ha esercitato la cancellazione.
 
-- Fuori tutto cio' che riguarda guarigione, salute, malattia, fertilita', sterilita', longevita', vista, udito, olfatto, medicina.
-- Fuori ogni promessa di esito: protezione dalle armi, vittoria, liberazione dei prigionieri in senso letterale, distruzione dei nemici, tesori, denaro, promozioni, pietra filosofale, panacea.
-- Fuori i nomi delle entita' avverse e le corrispondenze goetiche.
-- Fuori i nomi alternativi non attestati: in dubbio si pubblica il solo nome principale.
-- Le date del custode non si mostrano come verita' astronomica: sono convenzione. L'angelo si determina dalla longitudine solare reale, come hai gia' fatto.
-- La chiave di lettura e l'ombra sono scritte in redazione, non sono tradizione: si mostrano come voce del Maestro e non accanto all'elenco delle fonti.
+La finestra di conferma promette il contrario in modo esplicito: "Lasceremo andare tutto il tuo cammino: profilo, ricordi dei Maestri e conversazioni", e la riga dice "Profilo, ricordi e conversazioni. Il tuo diritto all'oblio". Il test in `test/settings_test.dart` si intitola "La cancellazione GDPR chiede conferma e azzera i dati" e verifica soltanto il repository in memoria, quindi il buco non era presidiato.
 
-Il campo `confidenza` di ogni angelo dice quanto la fonte regge. Dove e' bassa, mostra meno invece di mostrare male.
+Sopravvivono anche `device.id`, che tiene stabile l'identita' deterministica dei Doni, e le chiavi di `ritual_streak.dart` e `sunset_rune_memory.dart`.
 
-Un test verifica che nessuno dei termini vietati compaia nei testi mostrati all'utente. E' il modo per non doverlo ricontrollare a mano ogni volta.
+**Correzione.** Dare a `ProfileStore` un `clear()` che rimuova le otto chiavi `profile.*` piu' `device.id` e le chiavi dei riti. Dare a `ProfileController` un `forget()` che azzeri profilo, identita' e fotografia e chiami quel `clear()`. In `_confirmAndDelete` invocare sia la cancellazione remota sia quella locale, dentro lo stesso try. Poi estendere il test esistente alle chiavi locali, cosi' il titolo che dice "azzera i dati" diventa vero.
 
-## C2. La tessera degli Angeli mostra tre miniature
+## D2. La fotografia del volto non esce col backup automatico di Android
 
-Difetto che hai trovato tu guardando, e la diagnosi era giusta: nella carta natale la tessera mostra una miniatura invece di tre, e il test non l'ha colto perche' conta le arti distinte nella schermata dedicata, dove sono tre, non in quella tessera.
+**Punto**: `android/app/src/main/AndroidManifest.xml:20`.
 
-Correggi la tessera. Poi correggi il test: deve misurare il numero dove l'utente lo vede, non dove e' comodo misurarlo. Vale come regola generale ed e' finita nel Protocollo Operativo.
+Il tag `<application>` non porta `android:allowBackup="false"`, non porta `android:fullBackupContent` e non porta `android:dataExtractionRules`, e in `android/app/src/main/res/` non esiste alcuna cartella `xml` con regole di backup. Con `minSdk 23` il Backup Automatico di Android e' attivo col valore predefinito, che include i file di `SharedPreferences`. Dentro quei file c'e' `profile.avatarPhoto`, cioe' il volto della persona, insieme alla data e al luogo di nascita.
 
-## C3. Fonti e metodo sulla schermata degli angeli
+Due schermate dell'app promettono che nessuna immagine lascia il dispositivo.
 
-Le Linee Guida, sezione 15, prescrivono che "ogni responso espone un piccolo punto interrogativo discreto che, al tap, apre una nota brevissima sulla tradizione, arte o metodo usato per quel calcolo". La schermata degli angeli e' nuova, quindi nasce con la nota invece di doverla ricevere dopo.
+**Correzione.** Disattivare il backup per le chiavi personali. La strada minima e' `android:allowBackup="false"`. La strada migliore, se non costa molto, e' tenere il backup attivo escludendo le chiavi personali con `dataExtractionRules` per Android 12 e successivi piu' `fullBackupContent` per i precedenti, cosi' l'utente non perde le preferenze innocue cambiando telefono. Scegli tu e dichiara quale hai scelto.
 
-Il testo della nota dice tre cose e nient'altro: che sono i settantadue nomi dello Shemhamphorash della tradizione cabalistica; che i tre angeli si ricavano dalla posizione del Sole in archi di cinque gradi, dal giorno e dall'ora di nascita; che le fonti sono repertori che dichiarano di derivare da Lenain e Ambelain, e che le tavole originali non sono state consultate in edizione primaria. Quest'ultima frase e' scomoda ed e' proprio per questo che ci va.
+## D3. La build di release non e' piu' firmata con la chiave di debug
 
----
+**Punto**: `android/app/build.gradle.kts:35`.
 
-## Le due voci di build, per ultime
+Il blocco `release` porta `signingConfig = signingConfigs.getByName("debug")`, col commento generato da Flutter che dice di sostituirlo. Ogni build di release e' quindi firmata con la chiave di debug, che sta sul disco di chiunque abbia Flutter: la firma non identifica nessuno, l'app e' falsificabile, e Google Play rifiuta il caricamento.
 
-## C4. L'APK non porta librerie native che non servono
+**Correzione.** Predisporre la configurazione di firma che legge chiave, alias e password da un file `key.properties` **non versionato**, con il percorso dichiarato nel `.gitignore`. Non serve che la chiave esista adesso: serve che il Gradle sia pronto e che la build di release fallisca con un messaggio chiaro se il file manca, invece di firmare con quella di debug in silenzio. La generazione del keystore vero la fara' Mauro quando pubblicheremo.
 
-L'APK pesa 25 MiB in piu' della build precedente, e non per il codice: dentro ci sono le librerie native di ML Kit anche per x86_64 e armeabi-v7a. La tua diagnosi e' corretta, `--target-platform android-arm64` filtra le librerie di Flutter, non quelle dei plugin.
+## D4. La callable natalChart guarda cosa le viene mandato
 
-Si risolve dichiarando gli ABI nel Gradle, cosi' il filtro vale anche per i plugin. Se la strada si rivela non banale, non insistere: scrivilo nell'esito e passa oltre.
+**Punto**: `functions/src/index.ts:45`.
 
-## C5. Il controllo di integrita' guarda anche le librerie native
+La funzione inoltra al servizio a pagamento il corpo che le manda il client senza validarlo. Chi possiede un token App Check valido, che si ottiene semplicemente installando l'app, puo' quindi far fare al progetto chiamate arbitrarie verso un servizio a consumo.
 
-Hai detto una cosa giusta: `verifica_apk.py` guarda le otto famiglie di asset, non le librerie native, e fa quello per cui e' nato. Estendilo, cosi' il peso ha un guardiano. Deve fallire se nell'archivio compaiono librerie native per ABI diversi da quello dichiarato.
+**Correzione.** Validare i campi attesi prima di inoltrare: anno, mese, giorno, ora, minuto, latitudine, longitudine, fuso. Tipi giusti, intervalli plausibili, nessun campo estraneo inoltrato. Rifiutare con un errore esplicito quello che non passa. Aggiungere un limite di frequenza per utente se e' poco costoso, altrimenti dichiararlo come cosa non fatta.
+
+Nella stessa passata guarda `firestore.rules:15`: le regole non impongono ne' forma ne' dimensione a quello che il client scrive sotto il proprio ramo. Metti almeno un tetto alla dimensione dei documenti e ai campi ammessi.
 
 ---
 
 ## Criteri di accettazione, in numeri
 
-- Tutti e settantadue gli angeli sono modellati nel codice e leggono dal corpus. Un test conta 72.
-- Ogni angelo mostra nome, numero, coro, arcangelo, arco di gradi, segno e salmo. Un test verifica i sette campi su un campione di dodici angeli, uno per coro piu' tre.
-- Zero occorrenze dei termini vietati nei testi mostrati all'utente. Un test scandaglia le stringhe cercando almeno: guarigione, guarire, malattia, malattie, fertilita', sterilita', longevita', panacea, tesori, nemici, prigionieri, promozione. Il test elenca i termini che cerca, cosi' si puo' allungare.
-- La tessera degli Angeli nella carta natale mostra **tre** miniature distinte. Un test le conta nella tessera, non nella schermata dedicata.
-- La nota Fonti e metodo esiste sulla schermata degli angeli, con la sua chiave, e contiene la frase sulle edizioni primarie non consultate.
-- L'APK non contiene librerie native per ABI diversi da arm64-v8a, oppure l'esito spiega perche' non e' stato possibile.
-- Il peso dell'APK non supera quello della build precedente di piu' di 1 MiB, al netto di eventuali asset nuovi, che vanno dichiarati.
+- Dopo la cancellazione, zero delle chiavi `profile.*` sopravvive nelle preferenze. Un test le elenca una per una e le verifica tutte, poi ricostruisce il controller e verifica che l'app non conosca piu' la persona.
+- La fotografia del volto non e' piu' recuperabile dopo la cancellazione. Il test lo verifica sul valore, non sulla chiave.
+- Il manifest esclude i dati personali dal backup. Un test legge il manifest e fallisce se l'esclusione manca.
+- La build di release non usa la configurazione di firma di debug. Un test legge il Gradle e fallisce se ci trova `getByName("debug")` dentro il blocco release.
+- La callable rifiuta almeno sei corpi malformati diversi: campo mancante, tipo sbagliato, latitudine fuori intervallo, longitudine fuori intervallo, mese impossibile, campo estraneo. Un test per ciascuno.
+- Le regole Firestore impongono un tetto di dimensione. Dichiara come lo hai verificato.
 - Suite intera verde, `flutter analyze` pulito, zero nuovi avvisi, integrita' verde, numero di versione non inferiore a 2100.
 
 ## Autorizzazione
@@ -81,9 +79,9 @@ flutter build apk --debug --target-platform android-arm64 --dart-define=APP_CHEC
 ```
 
 ```
-firebase appdistribution:distribute "build/app/outputs/flutter-apk/app-debug.apk" --app 1:425821975933:android:1b1ca4db8d4df69b940814 --testers "cloud@esotericircle.app" --release-notes "Gli angeli entrano in scena"
+firebase appdistribution:distribute "build/app/outputs/flutter-apk/app-debug.apk" --app 1:425821975933:android:1b1ca4db8d4df69b940814 --testers "cloud@esotericircle.app" --release-notes "Sicurezza prima della pubblicazione"
 ```
 
-Esito in `docs/ordini/ESITO_C.md` coi numeri misurati. **Poi fermati**: gli altri ordini li apre l'Architetto.
+Esito in `docs/ordini/ESITO_D.md` coi numeri misurati. **Poi fermati.**
 
-Niente trattino lungo. Niente virgola prima della "e" congiunzione.
+Niente trattino lungo. Mai la virgola prima della "e" congiunzione.

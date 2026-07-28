@@ -98,29 +98,48 @@ class ProfileStore {
     }
   }
 
-  /// Cancella tutto quel che il rito ha scritto: profilo, identita' e foto.
+  /// I prefissi delle chiavi che parlano della persona.
   ///
-  /// Serve al comando di ripristino del Risveglio, che vive solo nelle build
-  /// di prova. Toglie le chiavi una per una invece di svuotare le preferenze,
-  /// perche' li' dentro stanno anche cose che non sono del profilo, come il
-  /// token di debug di App Check.
+  /// Si cancella per prefisso e non per elenco chiuso: una chiave personale
+  /// aggiunta domani sotto uno di questi prefissi cade da sola, mentre un
+  /// elenco scritto a mano resta indietro senza che nessuno se ne accorga.
+  /// Il diritto all'oblio non puo' dipendere da chi si ricorda di aggiornare
+  /// una lista.
+  static const List<String> personalPrefixes = [
+    'profile.',
+    'sunset_rune.',
+    'archetipo.',
+    'allowance.',
+    'ritual.',
+    'streak.',
+    'greeting.',
+  ];
+
+  /// Le chiavi personali che non stanno sotto un prefisso.
+  static const List<String> personalKeys = ['device.id'];
+
+  /// Cancella tutto quel che parla della persona: le otto chiavi del profilo,
+  /// compresa la fotografia del volto, l'identita' di nascita col luogo, la
+  /// memoria dei riti e l'identita' del dispositivo che regge i Doni.
+  ///
+  /// Non svuota tutte le preferenze, perche' li' dentro stanno anche cose che
+  /// della persona non parlano, come il token di debug di App Check e la
+  /// soglia dell'onboarding gia' fatto.
   Future<void> clear() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      for (final k in const [
-        _kName,
-        _kCourtesy,
-        _kBirthDate,
-        _kHasTime,
-        _kHour,
-        _kMinute,
-        _kPlace,
-        _kAvatarPhoto,
-      ]) {
+      final daTogliere = prefs
+          .getKeys()
+          .where((k) =>
+              personalKeys.contains(k) ||
+              personalPrefixes.any(k.startsWith))
+          .toList();
+      for (final k in daTogliere) {
         await prefs.remove(k);
       }
     } catch (_) {
-      // Best effort: se le preferenze non rispondono non c'e' nulla da togliere.
+      // Best effort: se le preferenze non rispondono non c'e' nulla da
+      // togliere, e la cancellazione remota resta comunque fatta.
     }
   }
 

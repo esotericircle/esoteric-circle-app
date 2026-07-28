@@ -7,12 +7,27 @@ rules_version = '2';
 // quando l'autenticazione e' anonima. Nessun accesso senza login.
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Chi scrive e' sempre e solo il proprietario del ramo. In piu' c'e' un
+    // tetto alla dimensione: senza, un client compromesso puo' riempire il
+    // progetto scrivendo documenti grandi quanto il limite di Firestore, che
+    // e' un megabyte l'uno. Centomila byte bastano largamente a un profilo, a
+    // una sintesi di memoria oppure a un messaggio di chat.
+    function proprietario(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+    function dimensioneSana() {
+      return request.resource == null
+        || request.resource.size() < 100000;
+    }
+
     match /users/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read: if proprietario(uid);
+      allow write: if proprietario(uid) && dimensioneSana();
 
       // Sottocollezioni: memoria per Maestro e messaggi.
       match /{document=**} {
-        allow read, write: if request.auth != null && request.auth.uid == uid;
+        allow read: if proprietario(uid);
+        allow write: if proprietario(uid) && dimensioneSana();
       }
     }
   }

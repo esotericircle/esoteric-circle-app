@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
@@ -28,11 +31,33 @@ android {
         versionName = flutter.versionName
     }
 
+    // La firma di release legge chiave, alias e password da
+    // android/key.properties, che NON sta su Git. Se il file manca, la build
+    // di release si ferma con un messaggio chiaro invece di firmare con la
+    // chiave di debug, che sta sul disco di chiunque abbia Flutter: una firma
+    // cosi' non identifica nessuno, rende l'app falsificabile e Google Play
+    // la rifiuta al caricamento. Il keystore vero lo generera' Mauro alla
+    // pubblicazione.
+    val keyPropertiesFile = rootProject.file("key.properties")
+    val keyProperties = Properties()
+    if (keyPropertiesFile.exists()) {
+        keyProperties.load(FileInputStream(keyPropertiesFile))
+    }
+
+    signingConfigs {
+        create("release") {
+            if (keyPropertiesFile.exists()) {
+                storeFile = keyProperties["storeFile"]?.let { file(it) }
+                storePassword = keyProperties["storePassword"] as String?
+                keyAlias = keyProperties["keyAlias"] as String?
+                keyPassword = keyProperties["keyPassword"] as String?
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
@@ -45,4 +70,20 @@ kotlin {
 
 flutter {
     source = "../.."
+}
+
+// La guardia scatta quando si costruisce davvero una release, non mentre
+// Gradle configura il progetto: valutata in configurazione fermerebbe anche
+// le build di debug, che con la firma di pubblicazione non c'entrano nulla.
+tasks.matching { it.name.contains("Release") }.configureEach {
+    doFirst {
+        if (!rootProject.file("key.properties").exists()) {
+            throw GradleException(
+                "Firma di release assente: manca android/key.properties. " +
+                "Crealo con storeFile, storePassword, keyAlias e keyPassword " +
+                "del keystore di pubblicazione. Non si firma con la chiave " +
+                "di debug, che sta sul disco di chiunque abbia Flutter."
+            )
+        }
+    }
 }

@@ -17,8 +17,15 @@
     <uses-feature
         android:name="android.hardware.camera.front"
         android:required="false"/>
+    <!-- La fotografia del volto, la data e il luogo di nascita stanno nelle
+         preferenze: restano sul telefono. Il Backup Automatico li porterebbe
+         su Drive col valore predefinito, mentre due schermate promettono che
+         nessuna immagine lascia il dispositivo. Il backup resta attivo per il
+         resto, cosi' cambiando telefono non si perde tutto. -->
     <application
         android:label="Esoteric Circle"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher">

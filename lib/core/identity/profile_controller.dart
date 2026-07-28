@@ -107,6 +107,22 @@ class ProfileController extends ChangeNotifier {
     _store.saveProfile(profile);
   }
 
+  /// Dimentica la persona: profilo, identita' di nascita e fotografia del
+  /// volto, in memoria e sul disco.
+  ///
+  /// E' la meta' locale del diritto all'oblio. L'altra meta' e' la
+  /// cancellazione su Firestore: prima veniva chiamata solo quella, quindi il
+  /// nome, la data, il luogo e la foto del volto tornavano al riavvio, perche'
+  /// il controller li rilegge dalle preferenze. La finestra di conferma
+  /// prometteva gia' allora che sarebbe andato via tutto.
+  Future<void> forget() async {
+    _profile = const UserProfile();
+    _identity = BirthIdentity.example;
+    _avatarPhoto = null;
+    notifyListeners();
+    await _store.clear();
+  }
+
   void setIdentity(BirthIdentity identity) {
     _identity = identity;
     notifyListeners();

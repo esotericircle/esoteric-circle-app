@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Regole di backup per Android 11 e precedenti.
+
+  Le preferenze restano nel backup, tranne il file che contiene i dati della
+  persona: dentro c'e' profile.avatarPhoto, cioe' la fotografia del volto in
+  base64, insieme alla data e al luogo di nascita. Due schermate dell'app
+  promettono che nessuna immagine lascia il dispositivo, e il Backup Automatico
+  la porterebbe su Google Drive senza dirlo a nessuno.
+
+  Si esclude il file intero perche' il formato non consente di escludere singole
+  chiavi: il file delle preferenze e' uno solo. La perdita per l'utente e' che
+  cambiando telefono rifara' il Risveglio, che dura un minuto.
+-->
+<full-backup-content>
+    <exclude domain="sharedpref" path="FlutterSharedPreferences.xml"/>
+</full-backup-content>

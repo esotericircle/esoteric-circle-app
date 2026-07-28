@@ -1,6 +1,7 @@
 import {onCall, HttpsError} from "firebase-functions/v2/https";
 import {defineSecret} from "firebase-functions/params";
 import * as logger from "firebase-functions/logger";
+import {validateNatalInput, ValidationError, NatalInput} from "./validate";
 
 /**
  * Chiave del motore astrologico FreeAstroAPI.
@@ -41,9 +42,17 @@ export const natalChart = onCall(
     memory: "256MiB",
   },
   async (request) => {
-    const data = request.data as Record<string, unknown> | undefined;
-    if (!data || typeof data !== "object") {
-      throw new HttpsError("invalid-argument", "Dati di nascita mancanti.");
+    // Il corpo si ricostruisce campo per campo, non si inoltra com'e':
+    // dietro c'e' un servizio che si paga a chiamata, e un token App Check
+    // valido lo ottiene chiunque installi l'app.
+    let data: NatalInput;
+    try {
+      data = validateNatalInput(request.data, new Date().getUTCFullYear());
+    } catch (err) {
+      const motivo = err instanceof ValidationError ?
+        err.message : "Dati di nascita non validi.";
+      logger.warn("natalChart: corpo rifiutato", {motivo});
+      throw new HttpsError("invalid-argument", motivo);
     }
 
     let res: Response;

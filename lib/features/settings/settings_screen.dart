@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/plan_catalog.dart';
+import '../../core/identity/profile_controller.dart';
 import '../../core/settings/settings_controller.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
@@ -299,8 +300,14 @@ class _DeleteDataTile extends StatelessWidget {
 
     if (ok != true || !context.mounted) return;
     final services = context.read<AppServices>();
+    final profile = context.read<ProfileController>();
     try {
+      // Le due meta' del diritto all'oblio, dentro lo stesso try: il ramo
+      // remoto su Firestore, piu' tutto quel che sta sul telefono. Prima
+      // partiva solo la prima, quindi nome, data, luogo e fotografia del volto
+      // tornavano al riavvio, mentre la finestra prometteva il contrario.
       await services.memory.deleteAllData();
+      await profile.forget();
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
