@@ -150,8 +150,13 @@ class _ScrollRevealState extends State<ScrollReveal>
 
   void _avvia() {
     _position?.removeListener(_controlla);
+    // Niente setState al completamento: _revealed serve solo a non ripartire.
+    // La forma dell'albero NON cambia mai (vedi build): cambiarla al volo
+    // deattiverebbe e ricreerebbe l'intero sottoalbero, perdendo ogni stato e
+    // uccidendo i contesti catturati dalle chiusure, che e' la famiglia degli
+    // schianti "deactivated widget's ancestor".
     _controller.forward().whenComplete(() {
-      if (mounted) setState(() => _revealed = true);
+      if (mounted) _revealed = true;
     });
   }
 
@@ -164,18 +169,25 @@ class _ScrollRevealState extends State<ScrollReveal>
 
   @override
   Widget build(BuildContext context) {
-    if (_off || _revealed) return widget.child;
+    // La forma dell'albero e' SEMPRE la stessa, prima, durante e dopo la
+    // comparsa: a riposo l'involucro vale identita' (opacita' 1, scostamento
+    // zero, che il framework salta senza costo). Restituire il figlio nudo
+    // dopo la comparsa sembrava una pulizia ed era una bomba: il sottoalbero
+    // veniva deattivato e ricreato, perdendo stato e contesti.
     final slide = ScrollReveal.slideFor(widget.depth);
     return AnimatedBuilder(
       animation: _t,
       child: widget.child,
-      builder: (context, child) => Opacity(
-        opacity: _t.value,
-        child: Transform.translate(
-          offset: Offset(0, (1 - _t.value) * slide),
-          child: child,
-        ),
-      ),
+      builder: (context, child) {
+        final t = _off ? 1.0 : _t.value;
+        return Opacity(
+          opacity: t,
+          child: Transform.translate(
+            offset: Offset(0, (1 - t) * slide),
+            child: child,
+          ),
+        );
+      },
     );
   }
 }

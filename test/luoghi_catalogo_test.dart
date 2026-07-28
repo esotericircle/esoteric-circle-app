@@ -108,6 +108,40 @@ void main() {
     });
   });
 
+  group('Chiavi di lista uniche per costruzione', () {
+    test('Nessun prefisso di due lettere produce due chiavi identiche', () async {
+      await CityCatalog.ensureLoaded(bundle: rootBundle);
+      // Il crash vero: cercando "new" la lista montava due voci Newcastle e
+      // Flutter cadeva con Duplicate keys found. La chiave e' ora nome piu'
+      // area, e il dato e' deduplicato alla sorgente: qui si prova TUTTO lo
+      // spazio dei prefissi di due lettere, come il dito potrebbe digitarli.
+      const lettere = 'abcdefghijklmnopqrstuvwxyz';
+      final doppi = <String>[];
+      for (final a in lettere.split('')) {
+        for (final b in lettere.split('')) {
+          final chiavi = <String>{};
+          for (final c in CityCatalog.search('$a$b', limit: 50)) {
+            final k = 'citta_${c.name}_${c.country}';
+            if (!chiavi.add(k)) doppi.add('"$a$b" -> $k');
+          }
+        }
+      }
+      expect(doppi, isEmpty,
+          reason: 'chiavi duplicate: ${doppi.join(', ')}');
+    });
+
+    test('Il dato non contiene doppioni esatti nome piu\' area', () async {
+      await CityCatalog.ensureLoaded(bundle: rootBundle);
+      final visti = <String>{};
+      final doppi = <String>[];
+      for (final c in CityCatalog.cities) {
+        final k = '${c.name.toLowerCase()}|${c.country}';
+        if (!visti.add(k)) doppi.add(k);
+      }
+      expect(doppi, isEmpty, reason: 'doppioni nel dato: $doppi');
+    });
+  });
+
   group('Formato', () {
     test('Una riga malformata non porta giu\' tutto l\'elenco', () {
       const raw = 'v1\n'

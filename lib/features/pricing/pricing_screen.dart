@@ -652,9 +652,16 @@ class _ChoosePlanButton extends StatelessWidget {
                   TextButton(
                     key: const Key('activate_demo'),
                     onPressed: () {
+                      // Il messenger si prende PRIMA di mutare lo stato: il
+                      // cambio di tier ricostruisce la schermata e puo'
+                      // deattivare proprio questo bottone, e cercare un
+                      // antenato da un elemento deattivato e' lo schianto
+                      // "deactivated widget's ancestor" della famiglia dei
+                      // difetti di ciclo di vita.
+                      final messenger = ScaffoldMessenger.of(context);
                       entitlement.setTier(plan.tier);
                       Navigator.of(sheetContext).pop();
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      messenger.showSnackBar(
                         SnackBar(
                             content: Text(
                                 '${plan.name} attivo in Demo. Il pagamento vero arriva dal web.')),

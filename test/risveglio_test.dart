@@ -76,8 +76,8 @@ void main() {
     await tester.enterText(
         find.byKey(const Key('risveglio_luogo_field')), 'Torino');
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('citta_Torino')), findsOneWidget);
-    await tester.tap(find.byKey(const Key('citta_Torino')));
+    expect(find.byKey(const Key('citta_Torino_Italia')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('citta_Torino_Italia')));
     await tester.pumpAndSettle();
     // Scelta la citta, il campo la riporta con il suo fuso.
     expect(find.textContaining('Torino'), findsWidgets);

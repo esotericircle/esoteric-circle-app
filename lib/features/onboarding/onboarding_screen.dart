@@ -1146,7 +1146,10 @@ class _PlaceField extends StatelessWidget {
                 children: [
                   for (final c in results)
                     InkWell(
-                      key: Key('citta_${c.name}'),
+                      // La chiave porta anche l'area: Newcastle esiste in Australia e in
+                      // Sudafrica, e due chiavi uguali in una lista sono uno
+                      // schianto (Duplicate keys found), non un dettaglio.
+                      key: Key('citta_${c.name}_${c.country}'),
                       onTap: () => onPick(c),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(

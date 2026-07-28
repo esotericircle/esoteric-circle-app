@@ -207,8 +207,8 @@ void main() {
       await tester.enterText(
           find.byKey(const Key('risveglio_luogo_field')), 'busto Arsizio');
       await passo(tester);
-      expect(find.byKey(const Key('citta_Busto Arsizio')), findsOneWidget);
-      await tester.tap(find.byKey(const Key('citta_Busto Arsizio')));
+      expect(find.byKey(const Key('citta_Busto Arsizio_VA')), findsOneWidget);
+      await tester.tap(find.byKey(const Key('citta_Busto Arsizio_VA')));
       await passo(tester);
 
       // Col luogo scelto l'azione cambia parola e la nota non serve piu'.

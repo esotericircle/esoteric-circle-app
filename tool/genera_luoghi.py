@@ -305,6 +305,21 @@ def main():
         else:
             finali.append((nome, '', paese, lat, lon, tz, pop))
 
+    # Niente doppioni esatti (nome, area): esistono davvero, per esempio
+    # citta' cinesi diverse che condividono la romanizzazione, e in lista due
+    # voci uguali producono due chiavi identiche, che per Flutter e' uno
+    # schianto (Duplicate keys found). Si tiene la prima, cioe' la piu'
+    # popolosa, perche' l'elenco e' gia' in quell'ordine.
+    unici, chiavi = [], set()
+    for r in finali:
+        k = (r[0].lower(), r[2])
+        if k in chiavi:
+            continue
+        chiavi.add(k)
+        unici.append(r)
+    print('doppioni (nome, area) scartati: %d' % (len(finali) - len(unici)))
+    finali = unici
+
     # Ogni fuso si porta dietro la longitudine della sua citta' piu' popolosa,
     # che serve solo quando il fuso non e' in tabella: il ripiego sul meridiano
     # sbaglia al massimo di un'ora, mentre calcolarlo sulla longitudine zero
