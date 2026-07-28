@@ -1,87 +1,65 @@
-# ORDINE D, la sicurezza prima della pubblicazione
+# ORDINE E, la Risonanza equilibrata
 
-Emesso dall'Architetto in Cowork il 29 luglio 2026. Sostituisce l'ordine precedente, che e' chiuso per le tre voci dichiarate.
+Emesso dall'Architetto in Cowork il 29 luglio 2026. Sostituisce l'ordine D, che risulta chiuso col commit `3087b56` e le quattro voci verdi in `ESITO_D.md`.
 
-## Che cosa e'
+## Prima di tutto, due cose che ti riguardano
 
-Quattro voci piccole, tutte dello stesso oggetto: le cose che possono far respingere l'app in revisione oppure esporre Mauro sul piano della conformita'. Nessuna e' estetica, nessuna richiede una decisione di prodotto.
+**Il push non e' piu' bloccato, e non lo era nemmeno quando lo hai dichiarato.** Verificato sul file: `.git/config` ha un solo remoto, `origin`, il cui indirizzo porta gia' la credenziale, e non c'e' alcun credential helper locale. L'ultimo push e' passato proprio cosi'. Il remoto e' fermo a `6c134de` mentre tu sei a `3087b56` perche' il push non e' stato **tentato**, non perche' sia fallito. Da adesso tentalo sempre, alla fine di ogni ordine, come dice la regola operativa. Se fallisce riporta l'errore testuale invece di dedurre che sia la solita finestra interattiva.
 
-Vengono dall'audit della dimensione sicurezza, mai esaminata prima, chiusa il 29 luglio con cinque reperti confermati su cinque da un verificatore indipendente istruito a refutare.
-
-## Dichiarazione all'inizio, obbligatoria
-
-Prima di scrivere codice, stima e scrivi in `docs/ordini/ESITO_D.md` se chiudi per intero e fin dove arrivi, con la ragione in numeri. Ha funzionato le ultime due volte, quindi resta.
+**La consegna invece era davvero bloccata e avevi ragione tu**: `firebase login:list` mostra la sessione ma non vede che il token di aggiornamento e' scaduto. Mauro sta rifacendo il login dal browser. Se al momento della consegna fallisce ancora per autenticazione, scrivilo nell'esito e fermati: non e' una cosa che puoi risolvere.
 
 ---
 
-## D1. Il diritto all'oblio cancella davvero, foto del volto compresa
+## L'oggetto
 
-**Punto**: `lib/core/identity/profile_store.dart:27` e `lib/features/settings/settings_screen.dart`, dentro `_DeleteDataTile._confirmAndDelete`.
+Un oggetto solo: **la Risonanza che assegna il Maestro non e' equilibrata, e un Maestro intero e' irraggiungibile.**
 
-`ProfileStore` custodisce le otto chiavi piu' personali dell'app: `profile.name`, `profile.courtesy`, `profile.birthDate`, `profile.hasBirthTime`, `profile.birthHour`, `profile.birthMinute`, `profile.place` con latitudine e longitudine, e alla riga 37 `profile.avatarPhoto`, che e' il base64 della **fotografia del volto** della persona. La classe espone `load`, `saveProfile`, `saveIdentity`, `loadAvatarPhoto`, `saveAvatarPhoto`, e nessun metodo che cancelli: in tutto il repository non esiste un percorso di codice che rimuova quelle chiavi.
+Misurato su ventimila carte natali casuali: **Medora 72,2 per cento, Caligo 26,3 per cento, Aura 1,5 per cento.**
 
-Il tasto "Cancella i miei dati" chiama la sola `services.memory.deleteAllData()`, che cancella esclusivamente il ramo Firestore `users/{uid}`. Il locale resta intero, e siccome `ProfileController.load()` lo rilegge all'avvio, nome, vocativo, data di nascita, luogo e fotografia ricompaiono dopo che la persona ha esercitato la cancellazione.
+Non e' sfortuna, e' strutturale. In `lib/core/astro/resonance.dart` i pesi fissi danno a Medora 11,5 punti di partenza, Sole 3, Luna 1, Mercurio 2, Giove 1, Urano 0,5, Nodo 1, Ascendente 2, Medio Cielo 1, contro i 7,5 di Aura e i 7,5 di Caligo. Chi parte da undici e mezzo vince quasi sempre contro chi parte da sette e mezzo.
 
-La finestra di conferma promette il contrario in modo esplicito: "Lasceremo andare tutto il tuo cammino: profilo, ricordi dei Maestri e conversazioni", e la riga dice "Profilo, ricordi e conversazioni. Il tuo diritto all'oblio". Il test in `test/settings_test.dart` si intitola "La cancellazione GDPR chiede conferma e azzera i dati" e verifica soltanto il repository in memoria, quindi il buco non era presidiato.
+**L'aggravante.** Quando la carta natale ripiega su `NatalChart.essential`, che porta il solo Sole, Medora non vince nel settantadue per cento dei casi: vince **sempre**. FreeAstroAPI adesso e' viva, quindi in condizioni normali la carta completa arriva, ma il ripiego resta ogni volta che manca la rete oppure l'ora di nascita.
 
-Sopravvivono anche `device.id`, che tiene stabile l'identita' deterministica dei Doni, e le chiavi di `ritual_streak.dart` e `sunset_rune_memory.dart`.
+**Perche' conta piu' di quanto sembri.** La Risonanza e' il momento cerimoniale dell'onboarding, quello in cui l'app dice alla persona quale Maestro l'ha scelta. Se Aura tocca a una persona su sessantasei, la promessa dei tre Maestri viene smentita nel primo minuto di vita dell'utente, e un intero dominio con tutte le sue arti resta di fatto senza pubblico. Il briefing tecnico prescrive espressamente il riequilibrio piu' un test statistico permanente, e stima il lavoro in circa un'ora.
 
-**Correzione.** Dare a `ProfileStore` un `clear()` che rimuova le otto chiavi `profile.*` piu' `device.id` e le chiavi dei riti. Dare a `ProfileController` un `forget()` che azzeri profilo, identita' e fotografia e chiami quel `clear()`. In `_confirmAndDelete` invocare sia la cancellazione remota sia quella locale, dentro lo stesso try. Poi estendere il test esistente alle chiavi locali, cosi' il titolo che dice "azzera i dati" diventa vero.
+## Cosa deve restare vero dopo la correzione
 
-## D2. La fotografia del volto non esce col backup automatico di Android
+**Deterministico.** La stessa carta natale deve dare sempre lo stesso Maestro. Non introdurre casualita': una persona che rifa' l'onboarding con gli stessi dati deve ritrovare il suo Maestro.
 
-**Punto**: `android/app/src/main/AndroidManifest.xml:20`.
+**Significativo.** L'assegnazione deve continuare a dipendere dalla carta, non diventare una rotazione mascherata. Se il risultato fosse indistinguibile da un sorteggio, avremmo scambiato un difetto con un inganno.
 
-Il tag `<application>` non porta `android:allowBackup="false"`, non porta `android:fullBackupContent` e non porta `android:dataExtractionRules`, e in `android/app/src/main/res/` non esiste alcuna cartella `xml` con regole di backup. Con `minSdk 23` il Backup Automatico di Android e' attivo col valore predefinito, che include i file di `SharedPreferences`. Dentro quei file c'e' `profile.avatarPhoto`, cioe' il volto della persona, insieme alla data e al luogo di nascita.
-
-Due schermate dell'app promettono che nessuna immagine lascia il dispositivo.
-
-**Correzione.** Disattivare il backup per le chiavi personali. La strada minima e' `android:allowBackup="false"`. La strada migliore, se non costa molto, e' tenere il backup attivo escludendo le chiavi personali con `dataExtractionRules` per Android 12 e successivi piu' `fullBackupContent` per i precedenti, cosi' l'utente non perde le preferenze innocue cambiando telefono. Scegli tu e dichiara quale hai scelto.
-
-## D3. La build di release non e' piu' firmata con la chiave di debug
-
-**Punto**: `android/app/build.gradle.kts:35`.
-
-Il blocco `release` porta `signingConfig = signingConfigs.getByName("debug")`, col commento generato da Flutter che dice di sostituirlo. Ogni build di release e' quindi firmata con la chiave di debug, che sta sul disco di chiunque abbia Flutter: la firma non identifica nessuno, l'app e' falsificabile, e Google Play rifiuta il caricamento.
-
-**Correzione.** Predisporre la configurazione di firma che legge chiave, alias e password da un file `key.properties` **non versionato**, con il percorso dichiarato nel `.gitignore`. Non serve che la chiave esista adesso: serve che il Gradle sia pronto e che la build di release fallisca con un messaggio chiaro se il file manca, invece di firmare con quella di debug in silenzio. La generazione del keystore vero la fara' Mauro quando pubblicheremo.
-
-## D4. La callable natalChart guarda cosa le viene mandato
-
-**Punto**: `functions/src/index.ts:45`.
-
-La funzione inoltra al servizio a pagamento il corpo che le manda il client senza validarlo. Chi possiede un token App Check valido, che si ottiene semplicemente installando l'app, puo' quindi far fare al progetto chiamate arbitrarie verso un servizio a consumo.
-
-**Correzione.** Validare i campi attesi prima di inoltrare: anno, mese, giorno, ora, minuto, latitudine, longitudine, fuso. Tipi giusti, intervalli plausibili, nessun campo estraneo inoltrato. Rifiutare con un errore esplicito quello che non passa. Aggiungere un limite di frequenza per utente se e' poco costoso, altrimenti dichiararlo come cosa non fatta.
-
-Nella stessa passata guarda `firestore.rules:15`: le regole non impongono ne' forma ne' dimensione a quello che il client scrive sotto il proprio ramo. Metti almeno un tetto alla dimensione dei documenti e ai campi ammessi.
-
----
+**Onesto sul ripiego.** Con la sola carta essenziale l'informazione e' povera. O si equilibra anche quel caso, oppure la schermata dichiara che l'assegnazione e' provvisoria e si affinera' quando arrivera' l'ora di nascita. Scegli tu la strada e dichiarala.
 
 ## Criteri di accettazione, in numeri
 
-- Dopo la cancellazione, zero delle chiavi `profile.*` sopravvive nelle preferenze. Un test le elenca una per una e le verifica tutte, poi ricostruisce il controller e verifica che l'app non conosca piu' la persona.
-- La fotografia del volto non e' piu' recuperabile dopo la cancellazione. Il test lo verifica sul valore, non sulla chiave.
-- Il manifest esclude i dati personali dal backup. Un test legge il manifest e fallisce se l'esclusione manca.
-- La build di release non usa la configurazione di firma di debug. Un test legge il Gradle e fallisce se ci trova `getByName("debug")` dentro il blocco release.
-- La callable rifiuta almeno sei corpi malformati diversi: campo mancante, tipo sbagliato, latitudine fuori intervallo, longitudine fuori intervallo, mese impossibile, campo estraneo. Un test per ciascuno.
-- Le regole Firestore impongono un tetto di dimensione. Dichiara come lo hai verificato.
+- Su un campione di **almeno ventimila** carte natali generate in modo pseudocasuale ma riproducibile da un seme fisso, **nessun Maestro scende sotto il 25 per cento e nessuno supera il 40 per cento**.
+- Lo stesso vale sul caso di ripiego con la sola carta essenziale: **nessun Maestro sotto il 20 per cento**. Se scegli invece la strada della dichiarazione provvisoria, questo criterio decade e va sostituito da un test che verifica la presenza di quella dichiarazione a schermo.
+- Il test statistico e' **permanente** e vive nella suite, non e' uno script eseguito una volta. Gira con un seme fisso, quindi non e' instabile.
+- Determinismo: la stessa carta natale ripetuta cento volte da' cento volte lo stesso Maestro. Un test lo verifica.
+- Significativita': su un campione, carte natali molto diverse fra loro non danno tutte lo stesso Maestro, e carte natali quasi identiche danno lo stesso. Un test lo verifica su almeno tre coppie costruite a mano.
+- L'esito riporta la distribuzione **prima e dopo**, in percentuale, per tutti e tre i Maestri e per entrambi i casi, carta completa e carta essenziale.
 - Suite intera verde, `flutter analyze` pulito, zero nuovi avvisi, integrita' verde, numero di versione non inferiore a 2100.
+
+## Come arrivarci, se ti serve una direzione
+
+Non e' prescrittivo, decidi tu. La via piu' semplice e' normalizzare: ogni Maestro dichiara i suoi indicatori, e il punteggio di ciascuno viene diviso per il massimo teorico del proprio dominio, cosi' si confrontano percentuali invece di punti grezzi e il numero di indicatori smette di essere un vantaggio. La via alternativa e' ribilanciare i pesi a mano finche' i totali teorici coincidono, che pero' e' fragile: basta aggiungere un indicatore domani e si rompe di nuovo. Se scegli la seconda, il test permanente diventa ancora piu' necessario.
 
 ## Autorizzazione
 
-Itera da solo finche' i numeri passano, debug incluso. Non chiedere conferme su scelte interne.
+Itera da solo finche' i numeri passano, debug incluso. Sei autorizzato a cambiare i pesi, la formula e la forma dei dati, purche' determinismo e significativita' restino veri e la suite resti verde.
 
 ## Alla fine
+
+Push, sempre. Poi:
 
 ```
 flutter build apk --debug --target-platform android-arm64 --dart-define=APP_CHECK_DEBUG_TOKEN=2f4013f2-e6e7-49b2-a3aa-402f28cd365a
 ```
 
 ```
-firebase appdistribution:distribute "build/app/outputs/flutter-apk/app-debug.apk" --app 1:425821975933:android:1b1ca4db8d4df69b940814 --testers "cloud@esotericircle.app" --release-notes "Sicurezza prima della pubblicazione"
+firebase appdistribution:distribute "build/app/outputs/flutter-apk/app-debug.apk" --app 1:425821975933:android:1b1ca4db8d4df69b940814 --testers "cloud@esotericircle.app" --release-notes "Risonanza equilibrata"
 ```
 
-Esito in `docs/ordini/ESITO_D.md` coi numeri misurati. **Poi fermati.**
+Esito in `docs/ordini/ESITO_E.md`, con le distribuzioni prima e dopo in percentuale. **Poi fermati.**
 
 Niente trattino lungo. Mai la virgola prima della "e" congiunzione.

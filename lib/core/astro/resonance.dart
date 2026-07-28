@@ -43,7 +43,82 @@ class _Factor {
 ///
 /// I pesi delle firme superano quelli degli elementi, cosi' e' la firma, non il
 /// solo elemento, a decidere. L'archetipo resta predisposto per il futuro Test.
+/// Quanto ogni Maestro prende IN MEDIA da un singolo pianeta, oltre al peso
+/// fisso del pianeta stesso: elemento del segno, casa di firma, segno di
+/// firma.
+///
+/// Serve a normalizzare, ed e' un valore ATTESO, non un massimo: il massimo
+/// assoluto di Caligo pretenderebbe ogni pianeta in Scorpione e insieme in
+/// casa dell'ombra e insieme in un segno di fuoco, che non capita mai, quindi
+/// dividere per quello lo azzererebbe. I conti, con segni e case equiprobabili:
+///
+/// Medora: aria 0,5 per un quarto piu' fuoco 0,1 per un quarto, cioe' 0,15,
+/// piu' due case su dodici a 0,5, cioe' 0,0833.
+/// Aura: acqua 0,5 e terra 0,3 per un quarto ciascuno, cioe' 0,2, piu' due
+/// case su dodici a 0,5.
+/// Caligo: fuoco 0,3 e terra 0,2 per un quarto, cioe' 0,125, piu' Scorpione
+/// 1,0 e Capricorno 0,7 su dodici, cioe' 0,1417, piu' due case su dodici a
+/// 1,0, cioe' 0,1667.
+///
+/// Cosi' i tre si confrontano sulla stessa scala, e vince chi ha davvero il
+/// cielo dalla sua parte invece di chi ha piu' voci in elenco.
+const Map<Maestro, double> _attesoPerPianeta = {
+  Maestro.medora: 0.2333,
+  Maestro.aura: 0.2833,
+  Maestro.caligo: 0.4334,
+};
+
+/// I pesi fissi: quanto un Maestro prende per il solo fatto che quel pianeta
+/// esista nella carta, ovunque cada.
+const Map<String, Map<Maestro, double>> _pesiFissi = {
+  'sun': {Maestro.medora: 3},
+  'moon': {Maestro.aura: 3, Maestro.medora: 1},
+  'mercury': {Maestro.medora: 2},
+  'venus': {Maestro.aura: 2},
+  'mars': {Maestro.caligo: 1.5},
+  'jupiter': {Maestro.medora: 1},
+  'saturn': {Maestro.caligo: 2.5},
+  'uranus': {Maestro.medora: 0.5},
+  'neptune': {Maestro.aura: 1.5},
+  'pluto': {Maestro.caligo: 2.5},
+  'chiron': {Maestro.aura: 1},
+  'lilith': {Maestro.caligo: 1},
+  'north_node': {Maestro.medora: 1},
+};
+
+/// Il segno solare quando la carta e' essenziale, cioe' quando c'e' il solo
+/// Sole: dodici segni divisi in tre gruppi da quattro, per dominio.
+///
+/// Col ripiego l'informazione e' povera, e la formula piena darebbe Medora
+/// sempre, perche' il Sole e' suo: cento per cento su cento carte. Qui la
+/// lettura resta vera, perche' il segno dice davvero qualcosa, e nessun
+/// Maestro resta senza nessuno.
+const Map<Zodiac, Maestro> _maestroDelSegno = {
+  // L'aria e il Leone, che e' la casa del Sole: le stelle e la mente.
+  Zodiac.gemini: Maestro.medora,
+  Zodiac.libra: Maestro.medora,
+  Zodiac.aquarius: Maestro.medora,
+  Zodiac.leo: Maestro.medora,
+  // L'acqua che cura e la terra che nutre: l'energia e il corpo.
+  Zodiac.cancer: Maestro.aura,
+  Zodiac.pisces: Maestro.aura,
+  Zodiac.taurus: Maestro.aura,
+  Zodiac.virgo: Maestro.aura,
+  // Le firme di Caligo piu' il fuoco che agisce: i riti e l'ombra.
+  Zodiac.scorpio: Maestro.caligo,
+  Zodiac.capricorn: Maestro.caligo,
+  Zodiac.aries: Maestro.caligo,
+  Zodiac.sagittarius: Maestro.caligo,
+};
+
 Resonance computeResonance(NatalChart chart, {String? archetype}) {
+  // Il ripiego, cioe' la carta col solo Sole: la formula piena darebbe Medora
+  // sempre, perche' il Sole e' suo. Il segno solare basta a dire qualcosa, e i
+  // dodici segni si dividono in tre gruppi da quattro.
+  if (chart.isEssential || chart.planets.length <= 1) {
+    return _dalSoloSegno(chart.sunSign);
+  }
+
   final raw = <Maestro, double>{for (final m in Maestro.values) m: 0.0};
   final factors = <_Factor>[];
 
@@ -135,9 +210,41 @@ Resonance computeResonance(NatalChart chart, {String? archetype}) {
         'il Medio Cielo in ${chart.midheaven!.italianName}, la tua vetta');
   }
 
-  final total = raw.values.fold<double>(0, (a, b) => a + b);
+  // Ogni Maestro si misura sul PROPRIO massimo, non sui punti grezzi: conta
+  // quanta parte del suo dominio la carta ha acceso, non quanti indicatori quel
+  // dominio possieda. Senza questo vince chi ha piu' voci in elenco, ed e'
+  // esattamente quel che accadeva a Medora.
+  final attesi = <Maestro, double>{for (final m in Maestro.values) m: 0.0};
+  for (final p in chart.planets) {
+    final fissi = _pesiFissi[p.id];
+    if (fissi != null) {
+      for (final e in fissi.entries) {
+        attesi[e.key] = attesi[e.key]! + e.value;
+      }
+    }
+    for (final m in Maestro.values) {
+      attesi[m] = attesi[m]! + _attesoPerPianeta[m]!;
+    }
+  }
+  // Gli angoli sono di Medora, quindi entrano nel suo atteso solo se ci sono.
+  // L'Ascendente vale 2 di firma piu' il suo elemento, che come per i pianeti
+  // si conta al valore atteso, 0,15, non al massimo dell'aria: contarlo a 0,5
+  // gonfiava il divisore di Medora di un terzo di punto, quel che bastava a
+  // tenerla sotto il minimo.
+  if (chart.ascendant != null) {
+    attesi[Maestro.medora] = attesi[Maestro.medora]! + 2.15;
+  }
+  if (chart.midheaven != null) {
+    attesi[Maestro.medora] = attesi[Maestro.medora]! + 1;
+  }
+
+  final quota = <Maestro, double>{
+    for (final m in Maestro.values)
+      m: attesi[m]! > 0 ? raw[m]! / attesi[m]! : 0.0,
+  };
+  final total = quota.values.fold<double>(0, (a, b) => a + b);
   final scores = <Maestro, double>{
-    for (final e in raw.entries)
+    for (final e in quota.entries)
       e.key: total > 0 ? e.value / total : 1 / 3,
   };
 
@@ -178,4 +285,25 @@ String _reason(Maestro winner, String deciding, bool nearTie) {
     return 'Le tre voci sono vicine, ma $deciding fa pendere la bilancia verso $voice.';
   }
   return '${_cap(deciding)} chiama più forte la voce di $voice.';
+}
+
+/// La Risonanza quando si ha il solo segno solare.
+///
+/// Deterministica come il resto: lo stesso segno da' sempre lo stesso Maestro.
+/// I punteggi sono dichiarati invece che calcolati, perche' con un dato solo
+/// una percentuale fingerebbe una precisione che non c'e'. La frase lo dice.
+Resonance _dalSoloSegno(Zodiac sunSign) {
+  final winner = _maestroDelSegno[sunSign] ?? Maestro.medora;
+  final scores = <Maestro, double>{
+    for (final m in Maestro.values) m: m == winner ? 0.5 : 0.25,
+  };
+  final deciding = 'il Sole in ${sunSign.italianName}';
+  return Resonance(
+    scores: scores,
+    winner: winner,
+    reason: '${_cap(deciding)} chiama la voce di ${_voice(winner)}. '
+        'Con l\'ora di nascita la lettura si fara\' piu\' precisa.',
+    deciding: deciding,
+    nearTie: false,
+  );
 }
