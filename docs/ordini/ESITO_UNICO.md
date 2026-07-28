@@ -150,3 +150,33 @@ aperti: la stima ha retto, nel bene e nel limite.
 - Prefissi di due lettere provati contro le chiavi duplicate: **676**, zero
   collisioni.
 - Versione: **2101**.
+
+## Un errore mio fermato in tempo, a verbale
+
+Il commit finale e' stato composto con `git add -A`, che ha spazzato dentro
+anche cio' che in questo repository e' non versionato di proposito: gli script
+Python di Mauro nella radice, `pilot-references/`, `.claude/settings.local.json`
+e i due PNG del logo da quasi sei megabyte l'uno, in un repository pubblico. Il
+push e' fallito per un motivo indipendente, il remoto era avanzato, e
+controllando il commit prima di riprovare ho visto i 156 file al posto dei 75
+attesi. Disfatto e ricomposto per percorsi espliciti: 75 file, solo il lavoro
+dell'ordine. La regola che ne esce: in questo repository `git add -A` non si
+usa, si dichiarano i percorsi.
+
+## Consegna
+
+UNA build, UNA consegna, con l'account di servizio per impersonificazione,
+senza alcun login interattivo.
+
+- Identificativo della release: **`13uvd9tqbgibo`**
+- Versione: 0.1.0, build **2101**, che si installa sopra la 2100
+- Esito del caricamento: `RELEASE_CREATED`
+- Note, rilette dal server: "Un solo cielo vivo ovunque, il cielo di nascita
+  interattivo, i luoghi senza doppioni"
+- Destinatario unico: `cloud@esotericircle.app`
+- Pagina per i tester:
+  `https://appdistribution.firebase.google.com/testerapps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/13uvd9tqbgibo`
+
+Il push e' passato due volte durante l'ordine, con un rebase sul commit del bot
+delle anteprime che era arrivato nel frattempo: la storia e' lineare, niente
+forzature.
