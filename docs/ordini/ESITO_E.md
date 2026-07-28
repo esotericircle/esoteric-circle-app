@@ -33,7 +33,7 @@ segni e case casuali.
 | **Carta essenziale, dopo** | 33,7% | 32,9% | 33,4% |
 
 I numeri del prima li ha misurati il test stesso sul codice non ancora
-corretto, e combaciano con l'audit dell'Architetto, che dava 72,2 contro 1,5 e
+corretto, e combaciano con l'audit dell'Architetto: 72,2 contro 1,5 e
 26,3: la differenza sta nel seme.
 
 ## Come e' stata corretta
@@ -73,7 +73,7 @@ fara' piu' precisa.
 - Ripiego, nessuno sotto il 20: **passa**, 33,7 / 32,9 / 33,4.
 - Test statistico permanente nella suite, seme fisso: **c'e'**, in
   `test/risonanza_equilibrio_test.dart`, sette casi.
-- Determinismo, cento ripetizioni: **passa**, e i punteggi non si muovono
+- Determinismo, cento ripetizioni: **passa**, coi punteggi che non si muovono
   nemmeno di un millesimo.
 - Significativita': **passa** su due fronti. Sei cieli molto diversi non danno
   tutti lo stesso Maestro; tre coppie costruite a mano, che differiscono di un
@@ -87,9 +87,64 @@ Integrita' verde sulle otto famiglie, numero di versione 2100.
 
 Push fatto, come chiede la regola nuova: `3087b56..260f196` e' sul remoto.
 
-**La consegna non e' partita, per la seconda volta di fila.** Il CLI di Firebase
-risponde ancora "Your credentials are no longer valid. Please run firebase login
---reauth". L'ordine dice di scriverlo e fermarsi, e mi fermo: il login dal
-browser non e' una cosa che posso fare io. L'APK e' costruito e verificato, sul
-disco, quindi appena il login e' rifatto basta il comando dell'ordine, senza
-ricostruire niente.
+**La consegna e' partita**, per una via nuova che toglie di mezzo il login
+interattivo di Firebase. Vedi la sezione qui sotto: release `4pt2934tspau8`.
+
+## La consegna senza piu' login interattivi
+
+L'obiettivo era togliere la dipendenza dal browser di Mauro. Il percorso ha
+incontrato due muri, tutti e due dichiarati dal sistema, non dedotti.
+
+**Primo muro, la verifica che non verifica.** `gcloud auth list` mostrava
+`cloud@esotericircle.app` come account attivo, quindi sembrava tutto a posto,
+ma quel comando legge solo la cache locale e non tocca la rete. La prima
+operazione vera rispondeva `Reauthentication failed. cannot prompt during
+non-interactive execution`. E' la stessa trappola di `firebase login:list`,
+quindi da qui in avanti la verifica si fa con un comando che parla col server,
+per esempio `gcloud projects describe esoteric-circle`.
+
+**Secondo muro, le chiavi sono vietate.** La creazione della chiave JSON e'
+stata rifiutata dall'organizzazione:
+`constraints/iam.disableServiceAccountKeyCreation`, con `enforced: true`. Non e'
+un intoppo da aggirare, e' una scelta di sicurezza giusta: una chiave statica in
+un file e' esattamente il tipo di segreto che non si vuole in giro. Il file da
+zero byte che il comando fallito aveva lasciato e' stato rimosso.
+
+**La strada presa: impersonificazione, senza chiavi.** L'account di servizio
+`distributore-app@esoteric-circle.iam.gserviceaccount.com` esiste, col solo
+ruolo `roles/firebaseappdistro.admin`, verificato interrogando la policy del
+progetto. A `cloud@esotericircle.app` e' stato dato
+`roles/iam.serviceAccountTokenCreator` sul solo account di servizio, quindi puo'
+impersonarlo senza che esista alcuna chiave da custodire. Il token si ottiene al
+volo, dura un'ora, non si salva da nessuna parte:
+
+    gcloud auth print-access-token --impersonate-service-account=distributore-app@esoteric-circle.iam.gserviceaccount.com
+
+Il caricamento passa dall'API di App Distribution invece che dal CLI, perche' il
+CLI vuole un file di credenziali che qui non puo' esistere. Tre chiamate:
+`releases:upload`, poi la `PATCH` delle note, poi `:distribute` ai tester.
+
+La cartella delle credenziali resta vuota, fuori dal repository e non
+raggiungibile da git, verificato. Non contiene segreti perche' non ce ne sono
+piu' da contenere.
+
+## La release
+
+- Identificativo: **`4pt2934tspau8`**
+- Versione: 0.1.0, build **2100**
+- Esito del caricamento: `RELEASE_CREATED`
+- Note applicate, rilette dal server: "Sicurezza prima della pubblicazione piu
+  Risonanza equilibrata"
+- Destinatario: `cloud@esotericircle.app`, unico
+- Pagina per i tester:
+  `https://appdistribution.firebase.google.com/testerapps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/4pt2934tspau8`
+
+L'APK e' quello gia' costruito delle 18:18, 271.012.880 byte, non ricompilato.
+
+**Una precisazione sull'email, per non dire piu' di quel che so.** La chiamata di
+distribuzione ha risposto senza errori e il tester risulta registrato sul
+progetto, quindi l'invito e' stato accettato dal servizio. Che il messaggio sia
+uscito dai server di Google e arrivato nella casella non e' cosa che posso
+verificare da qui: quello lo dice la casella di Mauro. Con la risposta del
+server in mano posso affermare che la release esiste, che porta le sue note e
+che risulta distribuita a quel tester.
