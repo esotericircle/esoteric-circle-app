@@ -87,6 +87,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
+    // L'elenco dei luoghi si carica una volta sola, in sottofondo: sono
+    // undicimila righe e non devono far aspettare l'accoglienza. Chi digita
+    // prima che sia pronto cerca nel seme, e appena l'elenco pieno arriva la
+    // ricerca si rifa' da sola, cosi' nessuna battuta va persa.
+    CityCatalog.ensureLoaded().then((_) {
+      if (!mounted) return;
+      if (_placeCtrl.text.trim().isNotEmpty) _searchPlace(_placeCtrl.text);
+    });
   }
 
   @override
@@ -167,23 +175,22 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         .pushReplacement(RisveglioJourney.route(details: details));
   }
 
-  // Il luogo per la carta: quello scelto, o un ripiego neutro sul meridiano
-  // zero, cosi' la carta essenziale (Sole dalla data) si calcola comunque.
-  astro.BirthPlace _placeForChart() {
+  // Il luogo per la carta: quello scelto, oppure nessuno.
+  //
+  // Qui prima si fabbricava un ripiego a latitudine zero, longitudine zero e
+  // fuso UTC, cioe' un punto in mezzo al Golfo di Guinea, e la carta natale
+  // veniva chiesta per quel punto: l'Ascendente e le dodici case che la persona
+  // leggeva come proprie erano di quel punto, mentre la schermata prometteva il
+  // cielo autentico della sua notte. Chi salta il luogo non riceve piu' numeri
+  // presi altrove, riceve quel che dalla sola data si calcola davvero.
+  astro.BirthPlace? _placeForChart() {
     final p = _place;
-    if (p != null) {
-      return astro.BirthPlace(
-        label: p.city,
-        latitude: p.latitude,
-        longitude: p.longitude,
-        timezone: p.timeZoneId,
-      );
-    }
-    return const astro.BirthPlace(
-      label: 'Luogo non indicato',
-      latitude: 0,
-      longitude: 0,
-      timezone: 'UTC',
+    if (p == null) return null;
+    return astro.BirthPlace(
+      label: p.city,
+      latitude: p.latitude,
+      longitude: p.longitude,
+      timezone: p.timeZoneId,
     );
   }
 
@@ -410,13 +417,32 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       title: 'Dove hai visto la luce',
       subtitle:
           'Il luogo ancora il cielo alla Terra e dispone la ruota delle case.',
-      content: _PlaceField(
-        controller: _placeCtrl,
-        results: _placeResults,
-        chosen: _place,
-        palette: _palette,
-        onChanged: _searchPlace,
-        onPick: _pickCity,
+      content: Column(
+        children: [
+          _PlaceField(
+            controller: _placeCtrl,
+            results: _placeResults,
+            chosen: _place,
+            palette: _palette,
+            onChanged: _searchPlace,
+            onPick: _pickCity,
+          ),
+          // Chi salta deve sapere cosa lascia, detto una volta e senza colpa.
+          // L'Ascendente e le case dipendono dal punto della Terra: senza
+          // quello non si calcolano, e non si inventano.
+          //
+          // Mentre l'elenco dei suggerimenti e' aperto la nota tace: li' la
+          // persona sta scegliendo, non saltando, e con otto risultati sopra
+          // finirebbe comunque fuori dallo schermo, cioe' detta a nessuno.
+          if (_place == null && _placeResults.isEmpty) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            const _ProvvisorioNote(
+              key: Key('risveglio_luogo_nota'),
+              text: 'Puoi saltare. Senza il luogo restano fuori l\'Ascendente '
+                  'e le case: il resto del tuo cielo resta saldo.',
+            ),
+          ],
+        ],
       ),
       cta: _Cta(
         label: _place == null ? 'Salta per ora' : 'Continua',
@@ -1020,7 +1046,7 @@ class _AscendantProvvisorio extends StatelessWidget {
 /// Una nota provvisoria, con il suo distintivo, per non spacciare segnaposto per
 /// contenuto reale.
 class _ProvvisorioNote extends StatelessWidget {
-  const _ProvvisorioNote({required this.text});
+  const _ProvvisorioNote({super.key, required this.text});
 
   final String text;
 

@@ -1,9 +1,12 @@
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart' show visibleForTesting;
+import 'package:flutter/services.dart' show AssetBundle, rootBundle;
+
 import '../identity/birth_place.dart';
 
-/// Una citta' dell'elenco offline: nome, paese per distinguere gli omonimi,
-/// coordinate e fuso nominale. Nessuna chiamata di rete, tutto compilato qui.
+/// Una citta' dell'elenco offline: nome, area di appartenenza per distinguere
+/// gli omonimi, coordinate e fuso nominale. Nessuna chiamata di rete.
 class City {
   const City({
     required this.name,
@@ -12,10 +15,19 @@ class City {
     required this.longitude,
     required this.timeZoneId,
     required this.utcOffsetMinutes,
+    this.aka = '',
   });
 
   final String name;
+
+  /// L'area che distingue gli omonimi: la sigla della provincia per l'Italia,
+  /// il nome della nazione in italiano per l'estero.
   final String country;
+
+  /// Nome alternativo su cui la ricerca combacia comunque. Serve alle citta'
+  /// che in italiano si chiamano in un altro modo: si mostra Londra, si trova
+  /// anche digitando London. Vuoto per quasi tutte.
+  final String aka;
   final double latitude;
   final double longitude;
   final String timeZoneId;
@@ -40,11 +52,92 @@ class City {
       );
 }
 
-/// Elenco offline delle citta' principali, con coordinate e fuso. Copre bene
-/// l'Italia e le grandi citta' del mondo. Quando una citta' manca, si sceglie la
-/// piu' vicina in elenco e la carta si marca provvisoria: mai un vicolo cieco.
+/// Elenco offline dei luoghi di nascita, con coordinate e fuso.
+///
+/// I dati veri stanno in `assets/data/luoghi.csv`, generato da
+/// `tool/genera_luoghi.py` a partire dai dump pubblici di GeoNames: tutti i
+/// comuni italiani, le localita' italiane popolose che comune non sono, piu' le
+/// citta' del mondo sopra i duecentomila abitanti e tutte le capitali. Si carica
+/// una volta sola e resta indicizzato in memoria. Nessun geocoding online:
+/// nessuna chiave, nessun costo, nessuna latenza, nessuna dipendenza dalla rete.
+///
+/// Finche' l'asset non e' caricato, e se il caricamento fallisce, resta in piedi
+/// il seme compilato qui sotto: poche decine di citta', abbastanza perche' la
+/// schermata non sia mai muta.
 class CityCatalog {
   const CityCatalog._();
+
+  static List<City> _cities = _seed;
+  static Future<void>? _loading;
+
+  /// Vero quando l'elenco pieno e' in memoria.
+  static bool get isLoaded => _cities.length > _seed.length;
+
+  /// Carica l'elenco una volta sola. Chiamate successive attendono la prima.
+  /// Se l'asset manca o e' malformato non solleva: resta il seme.
+  static Future<void> ensureLoaded({AssetBundle? bundle}) {
+    return _loading ??= _load(bundle ?? rootBundle);
+  }
+
+  /// Mette in memoria un elenco gia' letto, senza passare dall'asset, e
+  /// dichiara concluso il caricamento.
+  ///
+  /// Serve ai test di widget, che leggono il file dal disco in modo sincrono:
+  /// li' dentro il tempo e' finto, quindi un'attesa su `rootBundle` non
+  /// avanzerebbe mai, e resterebbe appesa anche per i test successivi, visto
+  /// che il caricamento si ricorda di essere gia' partito.
+  @visibleForTesting
+  static void adotta(List<City> luoghi) {
+    _cities = luoghi;
+    _loading = Future<void>.value();
+  }
+
+  static Future<void> _load(AssetBundle bundle) async {
+    try {
+      final raw = await bundle.loadString('assets/data/luoghi.csv');
+      final parsed = parse(raw);
+      if (parsed.isNotEmpty) _cities = parsed;
+    } catch (_) {
+      // Il seme e' gia' in piedi: la schermata resta viva, con meno luoghi.
+    }
+  }
+
+  /// Legge il formato dell'asset: versione, tabella dei fusi, poi una riga per
+  /// luogo. Pura e senza effetti, cosi' i test la verificano da sola.
+  static List<City> parse(String raw) {
+    final lines = raw.split('\n');
+    if (lines.length < 3) return const [];
+    final zones = <String>[];
+    final offsets = <int>[];
+    for (final z in lines[1].split('|')) {
+      final eq = z.lastIndexOf('=');
+      if (eq <= 0) continue;
+      zones.add(z.substring(0, eq));
+      offsets.add(int.tryParse(z.substring(eq + 1)) ?? 0);
+    }
+    final out = <City>[];
+    for (var i = 2; i < lines.length; i++) {
+      final line = lines[i].trim();
+      if (line.isEmpty) continue;
+      final f = line.split(';');
+      if (f.length < 6) continue;
+      final zi = int.tryParse(f[5]) ?? -1;
+      if (zi < 0 || zi >= zones.length) continue;
+      final lat = double.tryParse(f[3]);
+      final lon = double.tryParse(f[4]);
+      if (lat == null || lon == null) continue;
+      out.add(City(
+        name: f[0],
+        aka: f[1],
+        country: f[2],
+        latitude: lat,
+        longitude: lon,
+        timeZoneId: zones[zi],
+        utcOffsetMinutes: offsets[zi],
+      ));
+    }
+    return out;
+  }
 
   /// Toglie accenti e maiuscole per un confronto tollerante.
   static String _fold(String s) {
@@ -59,19 +152,49 @@ class CityCatalog {
     return buf.toString();
   }
 
-  /// Cerca le citta' che combaciano con [query], quelle che iniziano col testo
-  /// per prime. Elenco vuoto se [query] e' troppo corta.
+  /// Chiavi di ricerca gia' normalizzate, una per luogo, nello stesso ordine di
+  /// [cities]. Si calcolano una volta sola: normalizzare undicimila nomi a ogni
+  /// battuta sulla tastiera costerebbe a ogni carattere digitato.
+  static List<String> _keys = const [];
+  static List<City> _keysOf = const [];
+
+  static void _ensureKeys() {
+    if (identical(_keysOf, _cities)) return;
+    _keys = List<String>.generate(
+      _cities.length,
+      (i) => _cities[i].aka.isEmpty
+          ? _fold(_cities[i].name)
+          : '${_fold(_cities[i].name)}\t${_fold(_cities[i].aka)}',
+      growable: false,
+    );
+    _keysOf = _cities;
+  }
+
+  /// Cerca i luoghi che combaciano con [query], quelli che iniziano col testo
+  /// per primi. Elenco vuoto se [query] e' troppo corta.
+  ///
+  /// L'elenco e' ordinato per popolazione decrescente gia' nell'asset, quindi
+  /// scorrendolo in ordine Roma esce prima di Romano di Lombardia senza dover
+  /// portare la popolazione fin qui.
   static List<City> search(String query, {int limit = 8}) {
     final q = _fold(query);
     if (q.length < 2) return const [];
+    _ensureKeys();
     final starts = <City>[];
     final contains = <City>[];
-    for (final c in cities) {
-      final name = _fold(c.name);
-      if (name.startsWith(q)) {
-        starts.add(c);
-      } else if (name.contains(q) || _fold(c.country).startsWith(q)) {
-        contains.add(c);
+    for (var i = 0; i < _cities.length; i++) {
+      final key = _keys[i];
+      // Il nome vero e l'eventuale alternativo, separati da una tabulazione,
+      // che nei nomi di luogo non compare mai: con uno spazio la separazione
+      // sarebbe caduta dentro Busto Arsizio.
+      final sep = key.indexOf('\t');
+      final name = sep < 0 ? key : key.substring(0, sep);
+      final alt = sep < 0 ? '' : key.substring(sep + 1);
+      if (name.startsWith(q) || (alt.isNotEmpty && alt.startsWith(q))) {
+        starts.add(_cities[i]);
+        if (starts.length >= limit) break;
+      } else if (name.contains(q) || _fold(_cities[i].country).startsWith(q)) {
+        if (contains.length < limit) contains.add(_cities[i]);
       }
     }
     return [...starts, ...contains].take(limit).toList(growable: false);
@@ -107,9 +230,14 @@ class CityCatalog {
 
   static double _rad(double deg) => deg * math.pi / 180.0;
 
-  /// Le citta' dell'elenco. Coordinate in gradi decimali, offset standard in
-  /// minuti. Ordine indifferente: la ricerca ordina per pertinenza.
-  static const List<City> cities = [
+  /// I luoghi in memoria: l'elenco pieno dell'asset quando e' caricato, il seme
+  /// altrimenti.
+  static List<City> get cities => _cities;
+
+  /// Il seme compilato: le citta' principali, che tengono in piedi la ricerca
+  /// finche' l'asset non e' pronto. Coordinate in gradi decimali, offset
+  /// standard in minuti.
+  static const List<City> _seed = [
     // --- Italia ---
     City(name: 'Roma', country: 'Italia', latitude: 41.9028, longitude: 12.4964, timeZoneId: 'Europe/Rome', utcOffsetMinutes: 60),
     City(name: 'Milano', country: 'Italia', latitude: 45.4642, longitude: 9.1900, timeZoneId: 'Europe/Rome', utcOffsetMinutes: 60),

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
+import '../../core/identity/profile_controller.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/tap_wave.dart';
@@ -43,9 +44,15 @@ class AppShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final nav = context.watch<NavigationController>();
 
+    // Il Passport riceve l'identita' vera, quella che il Risveglio ha scritto
+    // nel profilo. Senza questo passaggio la schermata ripiegava sul dato
+    // d'esempio anche quando la persona aveva gia' dato la sua nascita, e
+    // mostrava numero della vita, fase lunare e animale guida di un'altra data.
+    // La fonte e' la stessa che usa il dominio del Maestro per il segno solare.
     final Widget screen = switch (nav.view) {
       ShellView.santuario => SantuarioScreen(clock: clock),
-      ShellView.passport => const CosmicPassport(),
+      ShellView.passport =>
+        CosmicPassport(identity: context.watch<ProfileController>().identity),
     };
 
     return Scaffold(

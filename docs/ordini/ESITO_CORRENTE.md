@@ -1,6 +1,180 @@
 # ESITO dell'ORDINE CORRENTE
 
-## Consegna al telefono con App Distribution
+## L'identita' di nascita diventa vera
+
+Eseguito da Claude Code il 28 luglio 2026, notte, sul ramo
+`claude/esoteric-circle-master-order-e798aj`.
+
+### A. Il luogo di nascita si puo' scegliere davvero
+
+Il meccanismo c'era gia' e non era rotto: `_PlaceField` mostrava i suggerimenti,
+ognuno era un tocco vero con la sua chiave, la CTA cambiava gia' etichetta da
+"Salta per ora" a "Continua". Quel che mancava erano i DATI: in catalogo
+c'erano settanta citta', quindi digitando "busto Arsizio" non compariva niente e
+la CTA non aveva mai motivo di cambiare. La diagnosi dell'ordine descriveva
+bene il sintomo, la causa era piu' in basso.
+
+L'elenco vero e' `assets/data/luoghi.csv`, generato da `tool/genera_luoghi.py`
+dai dump pubblici di GeoNames, licenza CC BY 4.0: 7896 comuni italiani, cioe'
+tutti, piu' 542 localita' italiane che comune non sono (Mestre, Marghera e
+simili, dove pure si nasce), piu' 3130 citta' estere sopra i duecentomila
+abitanti e tutte le capitali. In tutto 11.568 righe, 412.621 byte.
+
+Formato compatto, letto una volta sola e indicizzato in memoria: prima riga la
+versione, seconda la tabella dei fusi, poi una riga per luogo con nome, nome
+alternativo, area, coordinate e indice del fuso. L'area e' la sigla della
+provincia per l'Italia e il nome della nazione in italiano per l'estero, cosi'
+gli omonimi si distinguono. Le righe sono ordinate per popolazione decrescente,
+quindi la ricerca che le scorre in ordine restituisce Roma prima di Romano di
+Lombardia senza dover portare la popolazione dentro l'app.
+
+Nessun geocoding online, come chiesto: nessuna chiave, nessun costo, nessuna
+latenza, nessuna dipendenza dalla rete. Il caricamento parte in sottofondo
+all'apertura del Risveglio e chi digita prima che sia pronto cerca nel seme
+compilato, con la ricerca che si rifa' da sola appena l'elenco pieno arriva.
+
+Due difetti nel generatore, trovati e corretti mentre lo scrivevo. Il primo:
+l'esonimo italiano veniva applicato a ogni omonimo, quindi London in Ontario
+diventava "Londra, Canada"; ora vale solo per la prima occorrenza, che essendo
+l'elenco ordinato per popolazione e' quella giusta. Il secondo, piu' serio:
+l'offset di riserva veniva calcolato sulla longitudine zero per tutti i fusi
+non in tabella, quindi meta' mondo finiva a UTC. Risolto alla radice prendendo
+gli offset da `timeZones.txt` di GeoNames, colonna rawOffset, invece di
+stimarli: Lagos sta sul meridiano di Greenwich ma segue l'ora dell'Europa
+centrale, quindi la stima la sbagliava di un'ora piena. Un test lo blocca.
+
+Aggiunta la riga che il GATE chiede: senza luogo la schermata dichiara che
+restano fuori l'Ascendente e le case, mentre il resto del cielo resta saldo. La
+riga tace mentre l'elenco dei suggerimenti e' aperto, perche' li' la persona sta
+scegliendo e non saltando, oltre al fatto che con otto risultati sopra finiva
+sotto il bordo dello schermo, cioe' era scritta per nessuno. Questo si e' visto
+solo guardando l'anteprima a video, non dai test.
+
+### B. Basta coordinate inventate
+
+`BirthDetails.place` e' ora nullable, ed e' questa la correzione vera: finche' il
+modello obbligava un luogo, il codice era obbligato a inventarlo. Il compilatore
+ha poi indicato da solo tutti e cinque i punti che davano per scontate le
+coordinate.
+
+`_placeForChart()` non fabbrica piu' niente e torna nullo. `FreeAstroClient`
+si ferma prima di chiamare e solleva, quindi nessun payload puo' partire con
+latitudine zero e longitudine zero. `buildSkySnapshot` vuole il luogo come
+parametro esplicito, perche' una volta celeste senza un punto da cui guardarla
+non esiste. La scena del cielo di nascita, senza luogo, dice che la volta non si
+ricostruisce invece di disegnarne una altrui. La frase d'apertura cambia: non
+si promette "questo e' il cielo della notte in cui sei nato" mentre si mostra
+altro. Per la sola fase lunare si resta sul tempo universale, che non e' un
+luogo inventato ma l'assenza di correzione locale, che sulla fase pesa meno
+di un'ora di Luna: e' dichiarato nel codice.
+
+### C. Il Passport legge l'identita' vera
+
+Una riga in `app_shell.dart`, che ora passa l'identita' del `ProfileController`.
+Con essa spariscono insieme il numero della vita d'esempio, la fase lunare del
+15 giugno 1990, l'animale guida della data sbagliata e la riga "Valore
+d'esempio", perche' tutte le tessere leggono la stessa identita'.
+
+Il primo test che avevo scritto passava l'identita' direttamente alla schermata,
+e passava al primo colpo: non provava niente, perche' il difetto stava nel
+tratto fra il profilo persistito e la schermata, che nessuno percorreva. Rifatto
+montando l'app come alla vera accensione, con le preferenze gia' scritte, il
+rosso e' arrivato.
+
+### D. Il testo del cielo di nascita
+
+`NightSky.describeMoon` prende ora il contesto temporale e la schermata glielo
+passa: la stessa riga serve due cieli, quello di stasera e quello della notte in
+cui la persona e' nata, quindi il tempo verbale deve seguire il contesto. Controllati
+tutti i testi della schermata: l'unico altro che nomina stanotte e' il messaggio
+del permesso di posizione, che nel cielo di nascita non si presenta mai, perche'
+li' la posizione non si chiede.
+
+### Criteri di accettazione, uno per uno
+
+- Elenco con almeno 7900 comuni italiani e 200 estere: **passa con uno
+  scostamento da dichiarare**. I comuni italiani sono 7896 in tutto, non 7900:
+  il numero dell'ordine era di poco sopra la realta'. Sono coperti tutti. Le
+  voci italiane sono 8438 contando le localita' che comune non sono, quindi il
+  test conta le voci italiane e verifica che siano almeno 7900. Le estere sono
+  3130. Nessun campo vuoto, nessuna coordinata nulla, fuso IANA per tutte.
+- `busto` fra i primi cinque: passa, Busto Arsizio e' il primo.
+- `citta di cast` senza accento: passa, Citta' di Castello.
+- `roma` con omonimi distinguibili: passa, come si vede anche nell'anteprima:
+  Roma RM, poi Romano Banco MI, Romano di Lombardia BG, Romano d'Ezzelino VI,
+  Romagnano Sesia NO, ognuno con la sua provincia.
+- Etichetta "Salta per ora" senza luogo e "Continua" col luogo scelto: passa,
+  un test verifica entrambe attraversando il rito.
+- Payload mai con lat zero e lng zero: passa, con in piu' che senza luogo non parte
+  nessuna chiamata.
+- Passport con identita' reale senza "Valore d'esempio" e col numero della vita
+  della data vera, piu' il contrario senza identita': passano tutti e due.
+- Nessuna occorrenza di "stanotte" nella schermata del cielo di nascita: passa,
+  su tutti i testi montati e non solo su quelli in vista.
+- Suite intera verde e analyze pulito: passano, 790 test contro i 773 di prima.
+- **Peso dell'APK: NON passa. La ragione va letta.** Vedi sotto.
+
+### Il peso dell'APK, e quello che rivela
+
+L'arm64 e' passato da 228.770.276 a 255.244.433 byte, cioe' da 218,2 a 243,4
+MiB: piu' 25,2 MiB, contro un criterio che ne concedeva 2. L'asset che ho
+aggiunto pesa pero' 412.621 byte, cioe' 0,39 MiB.
+
+La differenza e' identica su tutti e tre gli ABI, 26.474.157 byte esatti, il
+che esclude il codice nativo, che per ogni ABI ha dimensioni diverse. Il
+conto torna con precisione: 255.244.433 meno i 26.292.806 byte delle 79
+immagini del mazzo di tarocchi meno il CSV compresso da' esattamente il peso di
+ieri notte.
+
+Cioe': **l'APK distribuito ieri notte era privo delle immagini dei tarocchi**.
+La spiegazione piu' probabile e' il merge degli asset di Gradle rimasto sporco
+dopo i due fallimenti di compilazione di quella sera, poi riusato dalla build
+riuscita; toccando un asset questa volta il merge e' stato rifatto da zero e ha
+incluso tutto. L'APK di adesso e' completo, verificato aprendo l'archivio: 79
+file nel mazzo, 73 angeli, 50 ritratti VIP, 24 rune, 12 animali, 12 cristalli,
+12 archetipi, 24 zodiac, coerenti col manifest.
+
+Il criterio quindi non e' rispettato alla lettera, ma non per questo lavoro: il
+mio contributo al peso e' 0,39 MiB, dentro la soglia. Il riferimento dei 218,2
+MiB era un APK incompleto. Se Mauro ha gia' installato quella release, nella
+Stesa vedeva i ripieghi dipinti al posto delle carte.
+
+### Ricostruzione e consegna
+
+Build rifatta col token fissato e distribuita, riuscita al primo tentativo:
+release 0.1.0 (2001), note di rilascio applicate, distribuzione ai due tester
+conclusa. Il token e' dentro il binario, verificato di nuovo cercandolo nel
+kernel estratto dall'APK; l'elenco dei luoghi e' nel bundle con tutte le 11.568
+righe.
+
+- Console Firebase:
+  `https://console.firebase.google.com/project/esoteric-circle/appdistribution/app/android:com.esotericircle.esoteric_circle/releases/435t9o8jf4csg`
+- Pagina per i tester:
+  `https://appdistribution.firebase.google.com/testerapps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/435t9o8jf4csg`
+
+Il link diretto al binario non entra qui, come la volta scorsa: porta un token
+valido un'ora, il repository e' pubblico.
+
+### Fuori scope, come chiesto
+
+Non toccati i due motori lunari, le due implementazioni del numero della vita,
+`docs/STATO_VIVO.md`, `ORDINE_ENTITLEMENT.md`.
+
+### Una correzione a quanto avevo riportato ieri
+
+Nell'esito precedente ho scritto che le anteprime non erano cambiate e ne ho
+dato come ragione che la striscia del token non entra nelle catture. Il fatto
+era giusto, la ragione no: `docs/preview` si riscrive soltanto lanciando la
+suite con `AGGIORNA_ANTEPRIME=1`, altrimenti le catture finiscono in
+`build/preview`, quindi quel `git status` pulito non provava quello che gli
+facevo dire. Che la striscia non entri nelle catture resta vero, perche' i
+servizi offline hanno il flag spento, ed e' verificato da un test dedicato.
+Questa volta le anteprime sono state rigenerate per davvero: e' cambiata
+`risveglio-luogo.png`, che mostra l'elenco vero, ed e' l'unica che tengo. Le
+altre quattro toccate cambiano a ogni esecuzione perche' dipendono dall'ora
+corrente, quindi sono state riportate indietro invece di gonfiare il repo.
+
+## Consegna al telefono con App Distribution, ordine chiuso del 27 luglio
 
 Eseguito da Claude Code il 27 luglio 2026, notte fonda, sul ramo
 `claude/esoteric-circle-master-order-e798aj`.
@@ -57,7 +231,7 @@ famiglie esoteriche a due misure, cioe' piena e miniatura, quando le stesse
 famiglie sono gia' pubblicate su CDN. Va bene per la prima accensione. Non va
 bene per una Demo: prima di mostrarla a qualcuno la voce va affrontata.
 
-## Ordine precedente, chiuso: l'APK col token di App Check
+## L'APK col token di App Check, ordine chiuso del 27 luglio
 
 Eseguito da Claude Code il 27 luglio 2026, notte.
 Ramo `claude/esoteric-circle-master-order-e798aj`, testa di partenza `b9c1185`.

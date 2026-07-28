@@ -84,7 +84,12 @@ class NightSky {
   static String describe(Zodiac sign) => _lore[sign]!;
 
   /// Riga breve sulla Luna, dalla sua fase reale, nella voce di Medora.
-  static String describeMoon(MoonPhase moon) {
+  ///
+  /// La stessa riga serve due cieli, quello di stasera e quello della notte in
+  /// cui la persona e' nata, che sono due tempi diversi: con [birth] vero la
+  /// frase guarda indietro. Senza questa distinzione la nascita veniva
+  /// raccontata al presente, con uno "stanotte" che parlava di decenni fa.
+  static String describeMoon(MoonPhase moon, {bool birth = false}) {
     if (moon.italianName == 'Luna nuova') {
       return 'Luna nuova, il cielo trattiene il fiato: tempo di intenzioni.';
     }
@@ -92,7 +97,8 @@ class NightSky {
       return 'Luna piena, la luce si versa intera: guarda cosa illumina.';
     }
     final verso = moon.waxing ? 'cresce e semina' : 'cala e lascia andare';
-    return '${moon.italianName}, la luce $verso stanotte.';
+    final quando = birth ? 'quella notte' : 'stanotte';
+    return '${moon.italianName}, la luce $verso $quando.';
   }
 
   static Zodiac _signOfLongitude(double deg) =>

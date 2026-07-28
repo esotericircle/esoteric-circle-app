@@ -54,15 +54,27 @@ class FreeAstroClient {
   /// chiamata fallisce o la risposta non e' interpretabile, cosi' il controller
   /// puo' ripiegare sul cielo essenziale.
   Future<NatalChart> fetchNatalChart(BirthDetails details) async {
+    // Senza luogo non si chiede niente a nessuno. Il motore risponderebbe
+    // comunque, ma risponderebbe per il punto che gli mandiamo: se glielo
+    // inventiamo, Ascendente e case tornano esatti e falsi insieme. Qui la
+    // catena si ferma, il controller ripiega sul cielo essenziale e la
+    // schermata dichiara che senza luogo quei valori non si calcolano.
+    final place = details.place;
+    if (place == null) {
+      throw const AstroApiException(
+        'Senza il luogo di nascita l\'Ascendente e le case non si calcolano.',
+      );
+    }
+
     final payload = <String, Object?>{
       'year': details.date.year,
       'month': details.date.month,
       'day': details.date.day,
       'hour': details.time?.hour ?? 12,
       'minute': details.time?.minute ?? 0,
-      'lat': details.place.latitude,
-      'lng': details.place.longitude,
-      'tz_str': details.place.timezone,
+      'lat': place.latitude,
+      'lng': place.longitude,
+      'tz_str': place.timezone,
     };
 
     Object? raw;

@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/services.dart' show rootBundle;
 
 import 'birth_details.dart';
+import 'birth_place.dart';
 import 'celestial.dart';
 
 /// Una costellazione del catalogo: stelle in coordinate equatoriali J2000 e le
@@ -83,6 +84,7 @@ class SkySnapshot {
     required this.moonPhase,
     required this.centerAzDeg,
     required this.hasTime,
+    required this.latitude,
   });
 
   final List<SkyConstellation> constellations;
@@ -93,17 +95,28 @@ class SkySnapshot {
   /// altrimenti la regione di cielo piu' ricca).
   final double centerAzDeg;
   final bool hasTime;
+
+  /// La latitudine da cui questa volta e' vista. Vive qui, e non si ripesca dai
+  /// dati di nascita, perche' una volta celeste sa da dove e' guardata: chi ne
+  /// compone i testi, per esempio per l'emisfero della stagione, la trova qui.
+  final double latitude;
 }
 
-/// Costruisce l'istantanea del cielo per i dati di nascita.
+/// Costruisce l'istantanea del cielo per i dati di nascita, visto da [place].
 ///
 /// Il fuso civile non e' noto in locale come offset: si usa il tempo medio
 /// locale del luogo (dalla longitudine), che colloca il cielo con buona fedelta'
 /// senza dipendere da tabelle esterne. Se l'ora manca, si usa la notte simbolica
 /// (mezzanotte) del giorno.
-SkySnapshot buildSkySnapshot(SkyCatalog catalog, BirthDetails details) {
-  final lat = details.place.latitude;
-  final lon = details.place.longitude;
+///
+/// Il luogo e' un parametro a se', obbligatorio, e non si prende piu' da
+/// [details], dove ora puo' mancare: una volta celeste senza un punto da cui
+/// guardarla non esiste, e chi il luogo non ce l'ha deve fermarsi prima invece
+/// di riceverne una calcolata su coordinate inventate.
+SkySnapshot buildSkySnapshot(
+    SkyCatalog catalog, BirthDetails details, BirthPlace place) {
+  final lat = place.latitude;
+  final lon = place.longitude;
 
   // Istante locale: ora reale se c'e', altrimenti la mezzanotte simbolica.
   final local = details.hasTime
@@ -168,5 +181,6 @@ SkySnapshot buildSkySnapshot(SkyCatalog catalog, BirthDetails details) {
     moonPhase: moonPhase,
     centerAzDeg: centerAz,
     hasTime: details.hasTime,
+    latitude: lat,
   );
 }

@@ -48,8 +48,14 @@ class NatalFacts {
   }) {
     // Istante di nascita verso UT col tempo medio locale (stessa scelta del
     // cielo reale), cosi' la fase e' coerente. La fase cambia poco in un giorno.
+    //
+    // Senza luogo si resta sul tempo universale, cioe' scarto zero. Non e' un
+    // luogo inventato: e' l'assenza di correzione locale, e sulla sola fase
+    // lunare pesa meno di un'ora di Luna, che a occhio non si distingue. Quel
+    // che il luogo determina davvero, Ascendente e case, qui non si calcola.
     final local = details.dateTime;
-    final offsetMinutes = (details.place.longitude / 15.0 * 60.0).round();
+    final offsetMinutes =
+        ((details.place?.longitude ?? 0) / 15.0 * 60.0).round();
     final utc = DateTime.utc(local.year, local.month, local.day, local.hour,
             local.minute)
         .subtract(Duration(minutes: offsetMinutes));

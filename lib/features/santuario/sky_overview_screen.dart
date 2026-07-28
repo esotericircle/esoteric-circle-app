@@ -358,7 +358,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     ];
 
     final bodies = <_SkyBody>[
-      _SkyBody.moon(moon, _moonSlot),
+      _SkyBody.moon(moon, _moonSlot, birth: widget.birth),
       for (var i = 0; i < high.length && i < _highSlots.length; i++)
         _SkyBody.constellation(high[i], _highSlots[i]),
     ];
@@ -478,10 +478,14 @@ class _SkyBody {
     this.asterism,
   });
 
-  factory _SkyBody.moon(MoonPhase moon, Offset slot) => _SkyBody(
+  /// La Luna della veduta. Con [birth] vero la didascalia parla della notte in
+  /// cui la persona e' nata, non di stanotte: la schermata e' la stessa per i
+  /// due cieli, il tempo del racconto no.
+  factory _SkyBody.moon(MoonPhase moon, Offset slot, {bool birth = false}) =>
+      _SkyBody(
         key: 'moon',
         label: 'Luna',
-        description: NightSky.describeMoon(moon),
+        description: NightSky.describeMoon(moon, birth: birth),
         slot: slot,
         size: 96,
         moon: moon,

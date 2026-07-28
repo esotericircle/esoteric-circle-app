@@ -15,24 +15,34 @@ enum Gender {
 
 /// I dati raccolti dall'onboarding Il Risveglio.
 ///
-/// La data e il luogo sono obbligatori; l'ora e il genere sono opzionali.
+/// Solo la data e' obbligatoria; l'ora, il luogo e il genere sono opzionali.
 /// Nessun dato di contatto: la registrazione e' progressiva e anonima, il
 /// telefono non entra mai nel form.
+///
+/// Il luogo e' nullo quando la persona lo salta, e nullo deve restare. Prima
+/// veniva fabbricato un ripiego a latitudine zero, longitudine zero e fuso UTC,
+/// cioe' un punto in mezzo al Golfo di Guinea, e la carta natale veniva chiesta
+/// per quel punto: Ascendente e dodici case che ne uscivano erano di un altro
+/// luogo, mentre la schermata prometteva il cielo autentico della propria
+/// notte. Senza luogo quei valori non sono calcolabili, e lo si dichiara.
 @immutable
 class BirthDetails {
   const BirthDetails({
     required this.date,
-    required this.place,
+    this.place,
     this.time,
     this.gender,
   });
 
   final DateTime date;
-  final BirthPlace place;
+  final BirthPlace? place;
   final TimeOfDay? time;
   final Gender? gender;
 
   bool get hasTime => time != null;
+
+  /// Vero se il luogo c'e': solo allora Ascendente e case hanno un senso.
+  bool get hasPlace => place != null;
 
   /// DateTime combinato di data e ora (mezzogiorno se l'ora manca, scelta
   /// neutra per il calcolo del solo Sole).

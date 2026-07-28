@@ -61,10 +61,23 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
     _load();
   }
 
+  /// Vero quando la persona ha saltato il luogo. La volta celeste dipende dal
+  /// punto da cui la si guarda: senza quel punto non si disegna una volta
+  /// qualsiasi spacciandola per la sua, si dice che manca.
+  bool get _senzaLuogo => widget.details.place == null;
+
   Future<void> _load() async {
+    final place = widget.details.place;
+    if (place == null) {
+      if (!mounted) return;
+      // Nessuna volta da aprire: la scena lo dichiara e il rito prosegue.
+      setState(() => _showCaption = true);
+      return;
+    }
     final catalog = await SkyCatalog.load();
     if (!mounted) return;
-    setState(() => _snapshot = buildSkySnapshot(catalog, widget.details));
+    setState(
+        () => _snapshot = buildSkySnapshot(catalog, widget.details, place));
     HapticFeedback.selectionClick(); // il cielo si apre
     // La didascalia arriva con dolcezza dopo lo stupore.
     _captionTimer = Timer(const Duration(milliseconds: 2600), () {
@@ -91,11 +104,23 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
     final tier = context.watch<QualityTierController>().tier;
     final snap = _snapshot;
 
-    final born = identity.pick(
-      masculine: 'Questo è il cielo della notte in cui sei nato.',
-      feminine: 'Questo è il cielo della notte in cui sei nata.',
-      neutral: 'Questo è il cielo della notte della tua nascita.',
-    );
+    // La promessa segue quello che si vede davvero. Senza luogo non si puo'
+    // dire "questo e' il cielo della tua notte", perche' quel cielo non e' in
+    // scena: si dice cosa manca e cosa resta saldo.
+    final born = _senzaLuogo
+        ? identity.pick(
+            masculine:
+                'Del cielo in cui sei nato resta la data: il luogo lo dirai tu.',
+            feminine:
+                'Del cielo in cui sei nata resta la data: il luogo lo dirai tu.',
+            neutral:
+                'Del cielo della tua nascita resta la data: il luogo lo dirai tu.',
+          )
+        : identity.pick(
+            masculine: 'Questo è il cielo della notte in cui sei nato.',
+            feminine: 'Questo è il cielo della notte in cui sei nata.',
+            neutral: 'Questo è il cielo della notte della tua nascita.',
+          );
 
     return GestureDetector(
       onPanUpdate: _onPan,
@@ -105,9 +130,19 @@ class _BirthSkyHeroState extends State<BirthSkyHero>
         children: [
           if (snap == null)
             Center(
-              child: Text('Sto aprendo il tuo cielo...',
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.xl),
+                child: Text(
+                  _senzaLuogo
+                      ? 'Senza il luogo di nascita la volta non si ricostruisce: '
+                          'potrai indicarlo quando vorrai.'
+                      : 'Sto aprendo il tuo cielo...',
+                  textAlign: TextAlign.center,
                   style: TypographyTokens.body(size: TypographyTokens.guide)
-                      .copyWith(color: ColorTokens.textSecondary)),
+                      .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+                ),
+              ),
             )
           else
             AnimatedBuilder(
@@ -543,7 +578,7 @@ String _skyCaption(SkySnapshot snap, BirthDetails details) {
   }
   tops.sort((a, b) => b.value.compareTo(a.value));
   final names = tops.take(2).map((e) => e.key).toList();
-  final season = _seasonOf(details.date.month, details.place.latitude);
+  final season = _seasonOf(details.date.month, snap.latitude);
 
   final buf = StringBuffer('Vegliava una $phase');
   if (names.length == 2) {
