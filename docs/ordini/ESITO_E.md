@@ -79,3 +79,17 @@ fara' piu' precisa.
   tutti lo stesso Maestro; tre coppie costruite a mano, che differiscono di un
   grado dentro lo stesso segno, danno lo stesso Maestro.
 - Suite verde, analyze pulito: **passano**, 831 test contro gli 824 di prima.
+
+## APK e consegna
+
+`flutter build apk --debug --target-platform android-arm64`: costruito.
+Integrita' verde sulle otto famiglie, numero di versione 2100.
+
+Push fatto, come chiede la regola nuova: `3087b56..260f196` e' sul remoto.
+
+**La consegna non e' partita, per la seconda volta di fila.** Il CLI di Firebase
+risponde ancora "Your credentials are no longer valid. Please run firebase login
+--reauth". L'ordine dice di scriverlo e fermarsi, e mi fermo: il login dal
+browser non e' una cosa che posso fare io. L'APK e' costruito e verificato, sul
+disco, quindi appena il login e' rifatto basta il comando dell'ordine, senza
+ricostruire niente.
