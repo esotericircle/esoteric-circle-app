@@ -28,7 +28,7 @@ import 'risveglio_journey.dart';
 ///
 /// Non piu' un semplice saluto: il Cerchio accoglie, poi la persona attraversa i
 /// passi che compongono il suo cielo. La data, e nasce il Sole nel segno (reale,
-/// dalla tavola tropicale). L'ora, e sorge l'Ascendente (segnaposto dichiarato:
+/// dalla tavola tropicale). L'ora, e sorge l'Ascendente (calcolato dal motore:
 /// il calcolo vero arrivera' dal motore a effemeridi); se non la sa, si salta con
 /// grazia. Il luogo, e il cielo si ancora alla Terra. Il nome. Il vocativo.
 /// Infine il sigillo, che pulsa come un cuore. Ogni passo ha la sua accensione
@@ -71,7 +71,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   // I dati raccolti lungo il rituale.
   DateTime _birthDate = DateTime(1990, 6, 15);
-  bool _timeKnown = true;
+  // Non preselezionata: l'ora compariva gia' compilata, e chi non la sapeva si
+  // trovava un dato inventato dentro la propria carta senza averlo scelto.
+  // Meglio partire da "Non la so" e lasciare che sia la persona ad accendere.
+  bool _timeKnown = false;
   int _hour = 12;
   int _minute = 0;
   BirthPlace? _place;
@@ -134,6 +137,20 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   String get _name =>
       _nameCtrl.text.trim().isEmpty ? 'Anima del Cerchio' : _nameCtrl.text.trim();
+
+  /// Torna al passo precedente, per correggere un dato sbagliato.
+  ///
+  /// Il rito andava in una direzione sola: chi sbagliava data, ora o luogo non
+  /// aveva modo di rimediare. Un dato di nascita sbagliato resta sbagliato in
+  /// tutte le letture che ne discendono, quindi tornare indietro non e' una
+  /// comodita', e' parte del rito.
+  void _goBack() {
+    final i = _step.index;
+    if (i > 0) {
+      setState(() => _step = _Step.values[i - 1]);
+      _playIgnition();
+    }
+  }
 
   void _goNext() {
     const order = _Step.values;
@@ -233,7 +250,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PopScope(
+      // Il gesto Indietro di sistema NON butta fuori dal rito: retrocede di un
+      // passo, come la freccia. Esce solo dal primo passo, dove un dietro non
+      // esiste. Prima il gesto usciva sempre, e con lui se ne andava tutto
+      // quello che la persona aveva appena inserito.
+      canPop: _step == _Step.accoglienza,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _goBack();
+      },
+      child: Scaffold(
       backgroundColor: ColorTokens.neutralDeepest,
       // Il fondo di tutto e' il cosmo profondo, neutro al Risveglio: nessun
       // colore di Maestro, che si sceglie solo alla risonanza. Le costellazioni
@@ -249,10 +275,29 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               children: [
                 const SizedBox(height: SpacingTokens.lg),
                 if (_step != _Step.accoglienza)
-                  _StepDots(
-                    total: _Step.values.length - 1,
-                    current: _step.index - 1,
-                    palette: _palette,
+                  Row(
+                    children: [
+                      // La freccia vive nella riga dei puntini, a sinistra:
+                      // e' dove l'occhio la cerca, e non ruba spazio al passo.
+                      IconButton(
+                        key: const Key('onboarding_indietro'),
+                        onPressed: _goBack,
+                        tooltip: 'Torna al passo precedente',
+                        visualDensity: VisualDensity.compact,
+                        icon: Icon(Icons.arrow_back_rounded,
+                            size: 20, color: _palette.goldSoft),
+                      ),
+                      Expanded(
+                        child: StepDots(
+                          total: _Step.values.length - 1,
+                          current: _step.index - 1,
+                          palette: _palette,
+                        ),
+                      ),
+                      // Simmetria: uno spazio pari alla freccia, cosi' i
+                      // puntini restano centrati sulla larghezza vera.
+                      const SizedBox(width: 48),
+                    ],
                   ),
                 Expanded(
                   child: AnimatedSwitcher(
@@ -269,6 +314,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             ),
           ),
         ),
+      ),
       ),
     );
   }
@@ -360,8 +406,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ),
       title: 'A che ora, se lo sai',
       subtitle:
-          'Con l\'ora sorge l\'Ascendente all\'orizzonte. Il suo calcolo esatto '
-          'arriva dal motore a effemeridi, quindi per ora è un segnaposto.',
+          'Con l\'ora sorge l\'Ascendente all\'orizzonte, il punto che stava '
+          'nascendo mentre nascevi tu.',
       content: Column(
         children: [
           AnimatedOpacity(
@@ -389,13 +435,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           ),
           if (!_timeKnown) ...[
             const SizedBox(height: SpacingTokens.sm),
-            const _ProvvisorioNote(
+            const _NotaGentile(
               text:
                   'Va bene così. Senza l\'ora l\'Ascendente si salta: il resto '
                   'del tuo cielo resta saldo.',
             ),
-          ] else
-            const _AscendantProvvisorio(),
+          ],
         ],
       ),
       cta: _Cta(label: 'Continua', palette: _palette, onTap: _goNext),
@@ -437,7 +482,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           // finirebbe comunque fuori dallo schermo, cioe' detta a nessuno.
           if (_place == null && _placeResults.isEmpty) ...[
             const SizedBox(height: SpacingTokens.sm),
-            const _ProvvisorioNote(
+            const _NotaGentile(
               key: Key('risveglio_luogo_nota'),
               text: 'Puoi saltare. Senza il luogo restano fuori l\'Ascendente '
                   'e le case: il resto del tuo cielo resta saldo.',
@@ -603,8 +648,13 @@ class _StepBody extends StatelessWidget {
 }
 
 /// I pallini di avanzamento del rituale.
-class _StepDots extends StatelessWidget {
-  const _StepDots({
+///
+/// Pubblici perche' sono la sola lettura onesta di 'a che passo sono':
+/// un test che si appoggia ai testi delle singole schermate misura
+/// un'altra cosa.
+class StepDots extends StatelessWidget {
+  const StepDots({
+    super.key,
     required this.total,
     required this.current,
     required this.palette,
@@ -1030,24 +1080,14 @@ class _SkipTimeToggle extends StatelessWidget {
   }
 }
 
-/// La nota che marca l'Ascendente come provvisorio quando l'ora c'e'.
-class _AscendantProvvisorio extends StatelessWidget {
-  const _AscendantProvvisorio();
-
-  @override
-  Widget build(BuildContext context) {
-    return const _ProvvisorioNote(
-      text:
-          'L\'Ascendente esatto arriva col motore a effemeridi. Per ora è un '
-          'segnaposto, non una posizione vera.',
-    );
-  }
-}
-
-/// Una nota provvisoria, con il suo distintivo, per non spacciare segnaposto per
-/// contenuto reale.
-class _ProvvisorioNote extends StatelessWidget {
-  const _ProvvisorioNote({super.key, required this.text});
+/// Una nota gentile che spiega cosa comporta saltare un dato.
+///
+/// Prima si chiamava nota provvisoria e portava il distintivo "Provvisorio":
+/// aveva senso quando l'Ascendente era davvero un segnaposto. Col motore vivo
+/// quella parola e' diventata falsa, mentre il contenuto della nota resta vero
+/// e utile, quindi resta la nota e sparisce il distintivo.
+class _NotaGentile extends StatelessWidget {
+  const _NotaGentile({super.key, required this.text});
 
   final String text;
 
@@ -1055,7 +1095,7 @@ class _ProvvisorioNote extends StatelessWidget {
   Widget build(BuildContext context) {
     const gold = Color(0xFFE8C463);
     return Container(
-      key: const Key('risveglio_provvisorio'),
+      key: const Key('risveglio_nota_gentile'),
       padding: const EdgeInsets.all(SpacingTokens.sm),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
@@ -1071,9 +1111,7 @@ class _ProvvisorioNote extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
               color: gold.withValues(alpha: 0.18),
             ),
-            child: Text('Provvisorio',
-                style: TypographyTokens.body(size: 13)
-                    .copyWith(color: gold, letterSpacing: 0.5)),
+            child: const Icon(Icons.auto_awesome, size: 13, color: gold),
           ),
           const SizedBox(width: SpacingTokens.sm),
           Expanded(

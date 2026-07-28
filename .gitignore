@@ -120,15 +120,8 @@ app.*.symbols
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-!/dev/ci/**/Gemfile.lock# Segreti e credenziali - non caricare mai su GitHub
-.env
-.env.*
-.secrets/
-*.key
-*.p8
-*.jks
-*.keystore
-**/service-account*.json
+!/dev/ci/**/Gemfile.lock
+
 # Segreti e credenziali - non caricare mai su GitHub
 .env
 .env.*
@@ -152,3 +145,17 @@ lib/firebase_options.dart
 # script di generazione. Non vanno mai su Git, si servono da CDN o si importano
 # selettivamente in brand_assets/.
 output/
+
+# Materiale personale di Mauro, mai su GitHub
+# I loghi sorgente pesano quasi sei megabyte l'uno: negli asset ci vanno solo
+# le densita' generate, non gli originali.
+logo/
+Logo/
+# Le preferenze locali dell'agente sono di questa macchina, non del progetto.
+.claude/settings.local.json
+# Gli script di generazione delle famiglie grafiche vivono nella radice e sono
+# strumenti di lavoro di Mauro, non codice dell'app. Quelli del progetto
+# stanno in tool/ e restano versionati.
+/*.py
+scripts_archive/
+pilot-references/

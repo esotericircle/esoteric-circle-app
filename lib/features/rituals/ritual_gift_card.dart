@@ -76,7 +76,6 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                   ),
                   if (gift.provisional) ...[
                     const SizedBox(width: SpacingTokens.sm),
-                    const _ProvisionalTag(),
                   ],
                 ],
               ),
@@ -144,28 +143,6 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
   }
 }
 
-/// Marcatore discreto che dichiara un contenuto provvisorio.
-class _ProvisionalTag extends StatelessWidget {
-  const _ProvisionalTag();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        border: Border.all(color: _dayInkSoft.withValues(alpha: 0.5)),
-      ),
-      child: Text(
-        'PROVVISORIO',
-        style: TypographyTokens.label(size: 11).copyWith(
-          color: _dayInkSoft,
-          letterSpacing: 1.6,
-        ),
-      ),
-    );
-  }
-}
 
 /// La riga che apre e chiude la base del dono.
 class _BaseToggle extends StatelessWidget {
@@ -279,7 +256,6 @@ class _BaseRow extends StatelessWidget {
             ),
             if (provisional) ...[
               const SizedBox(width: SpacingTokens.sm),
-              const _ProvisionalTag(),
             ],
           ],
         ),
