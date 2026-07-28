@@ -3,7 +3,13 @@ description: "Esoteric Circle, ecosistema esoterico immersivo. App nativa Flutte
 publish_to: "none"
 
 # La versione segue il formato semver+build.
-version: 0.1.0+1
+# Il numero dopo il piu' e' il versionCode di Android, che deve crescere
+# sempre: una build con numero piu' basso non si installa sopra una piu'
+# alta. Le release costruite con --split-per-abi arrivavano a 2001, perche'
+# lo split somma duemila per l'ABI arm64, quindi si riparte da sopra quella
+# soglia. Il lucchetto e' test/versione_build_test.dart, che confronta il
+# numero con docs/versione_distribuita.json.
+version: 0.1.0+2100
 
 environment:
   sdk: ">=3.4.0 <4.0.0"

@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/identity/profile_store.dart';
+import '../../core/onboarding/onboarding_controller.dart';
+import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_scope.dart';
+import '../onboarding/onboarding_screen.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -101,6 +105,67 @@ class AppCheckDebugTokenRow extends StatelessWidget {
             ),
             const SizedBox(height: SpacingTokens.xs),
             _TokenLine(token: services.appCheckDebugToken),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Comando di servizio, solo in debug: ripristina il Risveglio.
+///
+/// Azzera profilo, identita' e stato del rito, poi riapre l'onboarding. Senza
+/// questo, per rivedere il Risveglio su un telefono bisogna svuotare i dati
+/// dell'app dalle impostazioni di sistema a ogni prova. Come la striscia del
+/// token, in release non esiste.
+class RipristinaRisveglioRow extends StatelessWidget {
+  const RipristinaRisveglioRow({super.key});
+
+  Future<void> _ripristina(BuildContext context) async {
+    final onboarding = context.read<OnboardingController>();
+    final navigator = Navigator.of(context);
+    await const ProfileStore().clear();
+    await onboarding.reset();
+    if (!context.mounted) return;
+    // Si torna alla radice, poi si spinge il rito: cosi' non resta sotto la
+    // pila delle Impostazioni da cui il comando e' partito.
+    navigator.popUntil((r) => r.isFirst);
+    navigator.push(OnboardingScreen.route());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final services = context.watch<AppServices>();
+    if (!services.showAppCheckDebugToken) return const SizedBox.shrink();
+    final palette = context.palette;
+    return Padding(
+      padding: const EdgeInsets.only(top: SpacingTokens.sm),
+      child: DepthCard(
+        key: const Key('debug_ripristina_risveglio'),
+        raised: false,
+        onTap: () => _ripristina(context),
+        padding: const EdgeInsets.all(SpacingTokens.md),
+        child: Row(
+          children: [
+            Icon(Icons.restart_alt_rounded, color: palette.goldSoft, size: 22),
+            const SizedBox(width: SpacingTokens.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Ripeti il Risveglio',
+                      style: TypographyTokens.display(size: 16)),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Azzera profilo e identita, poi riapre il rito. Solo '
+                    'nelle build di prova.',
+                    style: TypographyTokens.body(size: 13)
+                        .copyWith(color: ColorTokens.textSecondary),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
           ],
         ),
       ),

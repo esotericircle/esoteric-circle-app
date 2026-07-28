@@ -30,7 +30,24 @@ class OnboardingController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Segna l'onboarding come completato: da qui in poi si apre il Santuario.
+  /// Riporta il rito allo stato di chi non l'ha mai fatto.
+  ///
+  /// Serve alla prova su dispositivo: senza, per rivedere il Risveglio bisogna
+  /// svuotare i dati dell'app dalle impostazioni di sistema a ogni giro. Il
+  /// comando che la chiama vive solo nelle build di debug.
+  Future<void> reset() async {
+    _needsOnboarding = true;
+    _resolved = true;
+    notifyListeners();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(_kDone);
+    } catch (_) {
+      // Best effort: senza persistenza lo stato resta solo in memoria.
+    }
+  }
+
+  /// Segna l'onboarding come completato: da qui in poi si apre il Cerchio.
   Future<void> complete() async {
     _needsOnboarding = false;
     _resolved = true;

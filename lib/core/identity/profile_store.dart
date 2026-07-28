@@ -98,6 +98,32 @@ class ProfileStore {
     }
   }
 
+  /// Cancella tutto quel che il rito ha scritto: profilo, identita' e foto.
+  ///
+  /// Serve al comando di ripristino del Risveglio, che vive solo nelle build
+  /// di prova. Toglie le chiavi una per una invece di svuotare le preferenze,
+  /// perche' li' dentro stanno anche cose che non sono del profilo, come il
+  /// token di debug di App Check.
+  Future<void> clear() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      for (final k in const [
+        _kName,
+        _kCourtesy,
+        _kBirthDate,
+        _kHasTime,
+        _kHour,
+        _kMinute,
+        _kPlace,
+        _kAvatarPhoto,
+      ]) {
+        await prefs.remove(k);
+      }
+    } catch (_) {
+      // Best effort: se le preferenze non rispondono non c'e' nulla da togliere.
+    }
+  }
+
   /// Salva il profilo. Best effort: senza persistenza resta solo in memoria.
   Future<void> saveProfile(UserProfile profile) async {
     try {

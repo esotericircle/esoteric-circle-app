@@ -163,9 +163,12 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
 
-              // Ultima riga, solo nelle build di debug: il token di App Check
-              // da registrare in console. In release sparisce del tutto.
+              // Ultime righe, solo nelle build di debug: il token di App Check
+              // da registrare in console e il ripristino del Risveglio, che
+              // serve a riprovare il rito senza svuotare i dati dell'app dalle
+              // impostazioni di sistema. In release spariscono del tutto.
               const AppCheckDebugTokenRow(),
+              const RipristinaRisveglioRow(),
             ],
           ),
         ),
