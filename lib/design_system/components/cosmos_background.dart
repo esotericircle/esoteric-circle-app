@@ -29,7 +29,10 @@ class CosmosBackground extends StatefulWidget {
   const CosmosBackground({
     super.key,
     required this.child,
-    this.showZodiac = true,
+    // Spento per difetto: acceso, era l'unico strato uguale su ogni fondale
+    // dell'app, e l'occhio riconosceva subito la stessa figura nello stesso
+    // angolo. Ora lo accende solo chi lo vuole davvero.
+    this.showZodiac = false,
     this.starKeepOut,
     this.showPlanets = true,
     this.seed = 0,
@@ -479,8 +482,12 @@ class _CosmosPainter extends CustomPainter {
   // --- Le dodici costellazioni zodiacali ---
 
   void _paintZodiac(Canvas canvas, Size size, Offset off, double t) {
-    for (var i = 0; i < kZodiacConstellations.length; i++) {
-      final c = kZodiacConstellations[i];
+    // La disposizione viene dal seme della schermata: senza questo l'asterismo
+    // restava l'unico strato immobile del cosmo, e l'occhio riconosceva lo
+    // stesso Ariete nello stesso angolo su ogni fondale.
+    final figure = ZodiacLayout.perSeed(seed);
+    for (var i = 0; i < figure.length; i++) {
+      final c = figure[i];
       final bool isHi = c.sign == highlighted;
 
       final breath =

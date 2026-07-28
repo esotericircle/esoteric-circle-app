@@ -117,6 +117,10 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
           showBack: false,
           ctaLabel: 'Leggi la tua carta',
           onCta: _onHeavenContinue,
+          // Data, ora e luogo sono appena stati inseriti a mano: la bolla non
+          // deve dare dell'esempio proprio a chi ha appena compilato. Il
+          // profilo qui direbbe di no, perche' viene scritto piu' avanti.
+          nascitaRegistrata: widget.details.place != null,
         );
       case _Phase.chart:
         return NatalChartReveal(

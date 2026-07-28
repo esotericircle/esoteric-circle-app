@@ -58,14 +58,29 @@ class NightSky {
   static Zodiac moonSign(DateTime date) =>
       _signOfLongitude(moonEclipticLongitude(date));
 
-  /// Le costellazioni dello zodiaco alte stanotte, la piu' prominente per prima.
+  /// Le costellazioni dello zodiaco alte in quel momento, la piu' alta prima.
   ///
-  /// Il punto opposto al Sole (longitudine + 180) culmina a mezzanotte: la sua
-  /// costellazione e' la piu' alta, le due adiacenti sorgono la sera e verso
-  /// l'alba. Ne restituisce [count], centrate sull'opposizione.
+  /// Il punto opposto al Sole (longitudine + 180) culmina a MEZZANOTTE: la sua
+  /// costellazione e' la piu' alta a quell'ora. Da li' in poi la volta ruota
+  /// con la Terra, quindici gradi ogni ora, quindi il punto che culmina
+  /// avanza di altrettanto. Ne restituisce [count], centrate sul culminante.
+  ///
+  /// Senza il termine orario questa funzione dava la stessa identica volta a
+  /// tutte le ore dello stesso giorno: chi nasceva alle sette del mattino e
+  /// chi nasceva alle sette di sera vedevano il medesimo cielo, che e' falso.
+  /// L'ora di nascita e' il dato che l'onboarding chiede con piu' cura, e va
+  /// usata.
+  ///
+  /// Resta l'approssimazione dichiarata di tutto questo file: la longitudine
+  /// eclittica sta al posto dell'ascensione retta, quindi la rotazione e'
+  /// giusta nell'ordine di grandezza, non al grado. Le posizioni esatte
+  /// arrivano dal motore a effemeridi.
   static List<Zodiac> constellationsHighTonight(DateTime date, {int count = 3}) {
     final opposition = _norm360(sunEclipticLongitude(date) + 180.0);
-    final center = (opposition / 30).floor() % 12; // indice del segno opposto
+    final oreDaMezzanotte =
+        date.hour + date.minute / 60.0 + date.second / 3600.0;
+    final culminante = _norm360(opposition + 15.0 * oreDaMezzanotte);
+    final center = (culminante / 30).floor() % 12;
     final order = <int>[0]; // centro
     for (var d = 1; order.length < count; d++) {
       order.add(d); // vicino a est

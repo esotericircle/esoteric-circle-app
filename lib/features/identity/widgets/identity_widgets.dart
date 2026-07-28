@@ -137,6 +137,7 @@ class _BirthSkyPortalState extends State<BirthSkyPortal> {
   Widget build(BuildContext context) {
     final palette = context.palette;
     return DepthCard(
+      key: const Key('portale_cielo_nascita'),
       onTap: () => openBirthSky(context, widget.details),
       padding: const EdgeInsets.all(SpacingTokens.md),
       child: Row(

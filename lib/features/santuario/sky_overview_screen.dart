@@ -12,6 +12,7 @@ import '../../core/astro/night_sky.dart';
 import '../../core/astro/sky_catalog.dart';
 import '../../core/astro/sky_location.dart';
 import '../../core/astro/zodiac.dart';
+import '../../core/identity/profile_controller.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -41,6 +42,7 @@ class SkyOverviewScreen extends StatefulWidget {
     this.ctaLabel,
     this.onCta,
     this.showBack = true,
+    this.nascitaRegistrata,
   });
 
   /// Momento del cielo, iniettabile per i test; di default l'ora di adesso.
@@ -67,6 +69,14 @@ class SkyOverviewScreen extends StatefulWidget {
   /// Falso quando la schermata sta dentro un flusso che non ha un indietro,
   /// come il Risveglio: la freccia sparisce invece di portare nel vuoto.
   final bool showBack;
+
+  /// Se la nascita mostrata e' quella dichiarata dalla persona.
+  ///
+  /// Nullo significa "chiedilo al profilo", che e' giusto ovunque tranne
+  /// dentro il Risveglio: li' la persona ha appena inserito data, ora e luogo
+  /// ma il profilo non e' ancora stato scritto, quindi il profilo direbbe di
+  /// no e la bolla darebbe dell'esempio al dato appena battuto a mano.
+  final bool? nascitaRegistrata;
 
   static Route<void> route({DateTime? now, SkyLocation? location}) {
     return MaterialPageRoute<void>(
@@ -474,7 +484,16 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                             selected: selected,
                             palette: palette,
                             oriented: _place != null,
-                            birth: widget.birth),
+                            birth: widget.birth,
+                            // Il tratto che nessuno percorreva: la schermata
+                            // non aveva mai letto il profilo, quindi la nota
+                            // mentiva proprio a chi aveva registrato tutto.
+                            registrata: widget.nascitaRegistrata ??
+                                (context
+                                        .watch<ProfileController?>()
+                                        ?.identity
+                                        .isExample ==
+                                    false)),
                         if (widget.ctaLabel != null) ...[
                           const SizedBox(height: SpacingTokens.md),
                           SizedBox(
@@ -807,6 +826,7 @@ class _SkyInfoCard extends StatelessWidget {
     required this.palette,
     this.oriented = false,
     this.birth = false,
+    this.registrata = false,
   });
 
   final _SkyBody? selected;
@@ -817,6 +837,13 @@ class _SkyInfoCard extends StatelessWidget {
 
   /// Se e' il cielo di nascita: la voce di Medora parla dell'identita'.
   final bool birth;
+
+  /// Se la nascita mostrata e' quella REGISTRATA dalla persona.
+  ///
+  /// La nota diceva sempre "veduta d'esempio finche' non registri nascita e
+  /// luogo", anche a chi aveva appena registrato tutti e due: la frase era
+  /// scritta a mano e non guardava mai il profilo. Adesso lo guarda.
+  final bool registrata;
 
   @override
   Widget build(BuildContext context) {
@@ -866,9 +893,12 @@ class _SkyInfoCard extends StatelessWidget {
               Flexible(
                 child: Text(
                   birth
-                      ? 'Veduta d\'esempio finché non registri nascita e luogo. '
-                          'La posizione esatta di ogni astro arriva col motore '
-                          'a effemeridi.'
+                      ? registrata
+                          ? 'La volta del giorno e dell\'ora che hai '
+                              'registrato. La posizione esatta di ogni astro '
+                              'arriva col motore a effemeridi.'
+                          : 'Veduta d\'assaggio finché non registri nascita e '
+                              'luogo. Poi diventa la tua.'
                       : oriented
                           ? 'Orientato sul tuo luogo. La posizione esatta di '
                               'ogni astro nel cielo arriva col motore a '
