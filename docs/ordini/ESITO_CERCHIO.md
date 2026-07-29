@@ -197,3 +197,213 @@ del Santuario non c'erano, quindi dal Santuario non si raggiungevano. Ora sono
 fra le selezionabili, che e' il modo giusto di rimediare.
 
 **Sedici test** in due file, nove sul dato e sette a schermo.
+
+### C1, i trionfi dopo il numero della vita: CHIUSA
+
+Il numero della vita chiude l'onboarding, nel passo del Sigillo, e il Risveglio
+partiva dal cielo di nascita: fra il numero e i suoi trionfi si infilava
+un'altra schermata. Adesso l'ordine e' Animale, Angeli, cielo, carta, risonanza,
+rivelazione.
+
+I trionfi hanno la freccia indietro **dove un indietro esiste**: il primo non ce
+l'ha, perche' una freccia che non porta da nessuna parte e' peggio di nessuna
+freccia. La freccia del cielo non ha avuto bisogno di codice nuovo: fa
+`maybePop`, che passa dal PopScope messo per A1 e retrocede di fase. Gesto e
+freccia sono diventati la stessa cosa.
+
+**Quattro test**, tre visti rossi.
+
+### C2, il quadrato rosso prima dell'animale: CHIUSA
+
+La nebbia di Caligo era un `drawRect` su tutta l'area, con l'ultimo stop del
+gradiente radiale OPACO: il riquadro finiva di netto contro il fondo. Adesso la
+nebbia sta dentro un ovale ritagliato sul canvas, quindi **nessun angolo puo'
+essere dipinto per costruzione**, l'ultimo stop e' trasparente e i banchi di
+nebbia hanno raggi piu' raccolti.
+
+**Due tentativi di misura buttati prima di trovarne una che funzionasse**, e
+vale la pena scriverlo perche' e' la parte utile.
+
+1. Il matcher `paints..rect`: verde senza che avessi corretto nulla. Non
+   misurava il difetto.
+2. L'intensita' assoluta agli angoli: sempre verde, perche' i colori di Caligo
+   su fondo nero sono scuri di per se'. Una **prova di vista** aggiunta apposta
+   ha mostrato che l'angolo valeva 0,044 e il centro 0,017: i pixel c'erano ma
+   erano tutti scuri. Il quadrato non si vede per quanto e' rosso, si vede
+   perche' ha un bordo netto.
+
+La misura buona confronta la striscia appena dentro il bordo con quella appena
+fuori. Rosso misurato: gradino 0,036 al primo frame, 0,030 a un quinto. E c'e'
+una **prova di vista permanente** che fotografa un quadrato dichiaratamente
+pieno e verifica che la misura lo denunci: se un giorno diventasse cieca, lo
+direbbe invece di dare un verde vuoto.
+
+Guardato al primo frame, a un quinto e **a meta' animazione**, come chiede
+l'ordine.
+
+### C3, le tre tessere dietro il velo: CHIUSA
+
+Due delle tre descrivevano cose **gia' vive**.
+
+- **Carta natale**: si calcola sulle effemeridi e si vede nel Risveglio. Ora ha
+  la sua tessera viva e apribile nel passaporto. Non promette la Carta Natale
+  interattiva coi transiti, che nel catalogo e' in arrivo ed e' un'altra cosa.
+- **Angelo custode**: la tessera "I tuoi Angeli", poche righe sopra nello stesso
+  passaporto, era gia' viva e apriva la triade calcolata. Erano due tessere per
+  la stessa cosa, una accesa e una spenta.
+
+Promettere come futuro qualcosa che l'app fa gia' e' peggio di non prometterlo:
+chi legge conclude che non ce l'ha.
+
+**L'Archetipo resta velato**, perche' il fatto identitario non e' calcolato ne'
+conservato: il Test Archetipo di Aura e' un'arte che si puo' fare, non un dato
+del passaporto. Il suo titolo non si spezza piu' a meta' parola, con lo stesso
+rimedio gia' usato per "Meditazione".
+
+**Un difetto trovato dai miei stessi test.** I test di C3 leggono i sorgenti, e
+sono passati mentre il codice **non compilava**: una prova che un test
+strutturale non basta. L'ho scoperto con `flutter analyze` un istante dopo, e
+va detto perche' e' il limite di quel tipo di prova.
+
+### C4, il permesso che spariva: CHIUSA
+
+Il foglio che spiega perche' serve il microfono era un bottom sheet ordinario:
+`isDismissible` ed `enableDrag` valgono true per difetto, quindi un tocco fuori
+o uno sfioramento lo chiudevano. Succedeva proprio dove succede di piu', cioe'
+nella schermata del soffio, dove si tocca e si trascina per far muovere la
+scena. Adesso si esce con una scelta dichiarata, e anche il gesto Indietro vale
+come "non ora" invece di una chiusura muta.
+
+Nelle Impostazioni c'e' la voce **Permessi**, che apre le impostazioni di
+sistema dell'app: un permesso negato una volta non si puo' richiedere di nuovo,
+il sistema smette di mostrare la richiesta. Usa `Geolocator.openAppSettings()`,
+la stessa via che il cielo usa gia': nessuna dipendenza nuova per una riga. La
+voce dichiara che ogni esperienza funziona anche col solo tocco.
+
+**Sei test**, tre visti rossi.
+
+### D1, la mano: CHIUSA, e il difetto l'ha trovato l'anteprima
+
+Terza stesura, **bianca**, non nel colore del Maestro: e' un suggerimento di
+gesto, non un elemento del tema.
+
+Le due precedenti erano state bocciate per ragioni diverse, e la seconda aveva
+le PROPORZIONI sbagliate: indice lungo diciannove punti su quarantotto e largo
+sette, cioe' un moncone grosso quanto un dito intero, con tre nocche della
+stessa misura.
+
+**Poi e' arrivato il difetto vero, e l'ho visto solo guardando.** Sistemate le
+proporzioni, la sagoma con l'indice al CENTRO del pugno si leggeva come un
+gesto volgare. Nel codice non si vedeva. Ingrandita era evidente, e non l'avrei
+mai consegnata cosi'. Da li' lo scostamento: l'indice sta sul lato sinistro,
+dove sta in una mano vera, il pugno resta piu' largo a destra e il pollice
+sporge in fuori e in basso.
+
+L'anteprima e' in `docs/preview/mano-terza-stesura.png`, con tre istanti
+affiancati, e il painter e' diventato pubblico proprio per poterlo montare
+ingrandito.
+
+### D2, ScrollReveal: CORRETTA, verificata per IMMAGINE e non in esecuzione
+
+**Il codice era corretto, il difetto era nella misura del tempo.** La comparsa
+durava 260 millisecondi, cioe' sotto la soglia di quello che l'occhio registra
+come movimento, e la transizione di una rotta ne dura circa 300: la comparsa si
+consumava mentre la schermata stava ancora entrando. Adesso dura 420.
+
+**Una mia ipotesi si e' rivelata sbagliata, e i test lo hanno dimostrato.**
+Avevo scritto tre prove partendo dall'idea che la comparsa fosse coperta dalla
+transizione della rotta: sono passate tutte e tre subito, quindi il momento
+andava bene e il difetto era altrove.
+
+**Un difetto che ho introdotto io e che ho poi ritirato.** Avevo alzato anche
+l'ampiezza, da dieci pixel a ventidue: tre prove del dominio sono diventate
+rosse. La causa e' che ogni strato e' traslato di una quantita' diversa, quindi
+con ventidue gli elementi vicini si SOVRAPPONGONO durante la comparsa e un
+tocco che arriva in quel momento finisce sulla voce sbagliata. L'ho trovato
+mettendo da parte tutte le modifiche e riportandole una per una. L'ampiezza e'
+tornata a dieci, con un test che fissa il limite e dice perche', cosi' nessuno
+lo alza senza prima sospendere il tocco.
+
+**Quello che NON ho potuto fare.** L'ordine chiede di verificarlo sull'app in
+esecuzione. Non ho un emulatore ne' un dispositivo: ho rigenerato le anteprime
+e le ho guardate, che e' piu' di un test e meno di un'app in mano. Lo avevo
+dichiarato nella stima e lo confermo qui: **corretto e verificato per immagine,
+non in esecuzione.** Su un dispositivo resta da guardare.
+
+### D3, "vocativo": CHIUSA, e le porte erano tre
+
+**Il numero esatto, come chiede l'ordine.** Tre occorrenze dentro letterali in
+tutto `lib`, di cui **una sola visibile**: il sottotitolo del passo. Le altre
+due sono `titoloEvocativo` della Costellazione del Viso, che e' un'altra parola,
+e la chiave di un widget, che non si vede. In un ordine precedente avevo
+corretto un'altra occorrenza lasciando questa.
+
+Il test non guarda un file, **guarda tutto il codice**: e' la sola difesa che
+vale contro questa forma di difetto. Prova del rosso fatta rimettendo la parola
+per un istante: rosso con, verde senza.
+
+**La frase neutra non elencava participi**: e' "Ti do il benvenuto", una forma
+senza desinenza. Ho cercato in tutto il codice testi con due desinenze separate
+da barra e non ce ne sono. Un test lo verifica su tutte le forme di cortesia,
+cosi' resta vero.
+
+## Stima contro consegnato
+
+| Voce | Dichiarato | Consegnato |
+|---|---|---|
+| A1, A2 | piene, per prime | piene, per prime |
+| B1, B2, B3 | piene | piene |
+| B4 | piena, con riserva sulla matita | **piena, riserva non servita** |
+| C1..C4 | piene | piene |
+| D1, D3 | piene | piene |
+| D2 | non verificabile in esecuzione | corretta, **verificata per immagine** |
+
+**Dove la stima ha sbagliato.** Avevo indicato come causa di B1 l'uscita
+anticipata di `MaestroController._setKey`. Quel controller e' corretto: non
+notificare quando nulla cambia e' giusto. La causa vera era la tessera che
+apriva l'arte. Ho corretto la causa, non il sintomo che avevo previsto.
+
+**Cio' che ho previsto bene**: A2 era una mia regressione, D3 era la seconda
+porta, e D2 non era verificabile in esecuzione.
+
+## La forma di difetto che torna
+
+Quattro volte, ormai: **una regola messa in una porta mentre le porte sono
+piu' d'una.** Il nome minuscolo, il limite delle domande, la parola "vocativo",
+e oggi il colore del Maestro. Due volte in questo stesso ordine ho trovato la
+porta gemella cercandola invece di aspettare che me la segnalassero: il
+Risveglio in A1, che l'ordine non nominava, e la seconda tessera degli Angeli
+in C3.
+
+Per questo, dove ho potuto, la regola e' finita nel dato o in un punto unico:
+il proprietario dentro `MaestroScope`, il cuore e il colore dentro
+`SogliaArte`, il seme e il tetto dentro `ArtiPreferiteController`.
+
+## I numeri finali
+
+- Suite: **1029 test verdi**, zero rossi.
+- `flutter analyze` su lib e test: **pulito**, zero avvisi.
+- Test nuovi: **cinquantatre'**, in sedici file.
+- Test esistenti aggiornati: **sei**, in cinque file, tutti per conseguenze
+  dichiarate delle correzioni.
+- Test buttati perche' non misuravano: **tre**, cioe' il matcher `paints`,
+  l'intensita' agli angoli e l'asserzione su `needsOnboarding`.
+- Anteprime rigenerate e diverse dalle precedenti: **cinquantuno**, piu' una
+  nuova.
+- Peso dell'archivio: **194,3 MB**, invariato. La prima misura diceva 219,8:
+  era un residuo della build precedente, come mi era gia' capitato. Misurata di
+  nuovo dopo una build pulita.
+
+## Consegna
+
+- Identificativo della release: **`4an73rv7rqu2g`**
+- Versione: 0.1.0, build **2108**
+- Esito del caricamento: **`RELEASE_CREATED`**
+- Destinatario unico: `cloud@esotericircle.app`
+- Commit del codice: `de74517`, spinto su origin. Hash locale e remoto
+  coincidono.
+
+**Da installare: la 2108.**
+
+La suite era verde PRIMA del caricamento, e la consegna non e' stata
+parallelizzata con la verifica.
