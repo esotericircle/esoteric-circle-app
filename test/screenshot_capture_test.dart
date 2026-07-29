@@ -2395,6 +2395,24 @@ void main() {
     await capture(tester, rootKey, 'risveglio-luogo.png');
   });
 
+  // Il planisfero col luogo SCELTO: la stella accesa nel punto giusto e' il
+  // senso della cosa, quindi va guardata, non dedotta.
+  testWidgets('Cattura il Risveglio, il luogo scelto', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    await continua(tester); // -> data
+    await continua(tester); // -> ora
+    await continua(tester); // -> luogo
+    await tester.enterText(
+        find.byKey(const Key('risveglio_luogo_field')), 'Roma');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('citta_Roma_RM')));
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'risveglio-luogo-scelto.png');
+  });
+
   testWidgets('Cattura il Risveglio, il sigillo', (tester) async {
     silenceSensors();
     await loadFonts();

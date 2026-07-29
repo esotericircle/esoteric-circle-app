@@ -19,6 +19,9 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import 'anteprima_tono.dart';
+import 'orologio_dinamico.dart';
+import 'planisfero.dart';
 import 'risveglio_ignitions.dart';
 import 'sigillo_step.dart';
 import 'risveglio_journey.dart';
@@ -394,15 +397,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // --- Passo 2: l'ora, e sorge l'Ascendente ---
   Widget _oraStep() {
     return _StepBody(
-      visual: AnimatedBuilder(
-        animation: _ignite,
-        builder: (_, __) => CustomPaint(
-          painter: HorizonRisePainter(
-            t: _ignite.value,
-            color: _palette.goldSoft,
-            known: _timeKnown,
-          ),
-        ),
+      // Un orologio vero al posto dell'orizzonte disegnato: quello era bello
+      // ma muto, e girando i selettori non cambiava nulla, quindi la scelta
+      // non aveva riscontro. Le lancette dicono sempre che ora hai scelto.
+      visual: OrologioDinamico(
+        ora: _hour,
+        minuto: _minute,
+        palette: _palette,
+        attivo: _timeKnown,
+        reduceMotion: _reduceMotion,
       ),
       title: 'A che ora, se lo sai',
       subtitle:
@@ -450,15 +453,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // --- Passo 3: il luogo, e il cielo si ancora alla Terra ---
   Widget _luogoStep() {
     return _StepBody(
-      visual: AnimatedBuilder(
-        animation: _ignite,
-        builder: (_, __) => CustomPaint(
-          painter: HousesAnchorPainter(
-            t: _ignite.value,
-            color: _palette.goldSoft,
-            anchored: _place != null,
-          ),
-        ),
+      // Un planisfero a punti al posto del cerchio anonimo: la mappa del
+      // mondo resa come una costellazione, che si accende dove sei nato.
+      // Non il logo, deciso da Mauro: mettere il proprio marchio nel punto in
+      // cui si chiede alla persona dove e' nata sarebbe parlare di se' mentre
+      // si sta ascoltando.
+      visual: Planisfero(
+        palette: _palette,
+        reduceMotion: _reduceMotion,
+        luogo: _place == null
+            ? null
+            : (lat: _place!.latitude, lon: _place!.longitude),
       ),
       title: 'Dove hai visto la luce',
       subtitle:
@@ -545,10 +550,23 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       title: 'Come vuoi che ti parli',
       subtitle:
           'Sceglilo tu: accorderemo ogni frase al vocativo che preferisci.',
-      content: _VocativoChoice(
-        selected: _courtesy,
-        palette: _palette,
-        onChanged: (c) => setState(() => _courtesy = c),
+      content: Column(
+        children: [
+          _VocativoChoice(
+            selected: _courtesy,
+            palette: _palette,
+            onChanged: (c) => setState(() => _courtesy = c),
+          ),
+          const SizedBox(height: SpacingTokens.lg),
+          // Si sceglieva al buio: un'etichetta grammaticale senza mai sentire
+          // come suona. Qui la stessa frase viene detta in tutti i modi, e la
+          // differenza si sente invece di doverla immaginare.
+          AnteprimaTono(
+            tono: _courtesy,
+            palette: _palette,
+            reduceMotion: _reduceMotion,
+          ),
+        ],
       ),
       cta: _Cta(
         label: 'Continua',
