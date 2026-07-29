@@ -7,6 +7,7 @@ import '../../../core/astro/night_sky.dart';
 import '../../../core/identity/birth_identity.dart';
 import '../../../core/rituals/guide_animal_derivation.dart';
 import '../../../design_system/components/depth_card.dart';
+import '../../angels/angelo_ingrandito.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -114,15 +115,28 @@ class BirthCompanions extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            // Ogni carta apre l'ingrandimento, LO STESSO che
+                            // si apre dal trionfo: un secondo componente
+                            // sarebbe due verita' che col tempo divergono.
                             Center(
-                              child: _Miniatura(
-                                path: FamilyImage.thumb(
-                                    AssetFamily.angeli, a.artStem),
-                                ripiego: Icons.auto_awesome,
-                                palette: palette,
-                                larghezza: 62,
-                                // Due terzi: la proporzione di una carta.
-                                proporzione: 2 / 3,
+                              child: GestureDetector(
+                                key: Key('carta_angelo_${a.number}'),
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () => AngeloIngrandito.apri(
+                                  context,
+                                  angelo: a,
+                                  ruolo: RuoloAngelo.perIndice(
+                                      triade.known.indexOf(a)),
+                                ),
+                                child: _Miniatura(
+                                  path: FamilyImage.thumb(
+                                      AssetFamily.angeli, a.artStem),
+                                  ripiego: Icons.auto_awesome,
+                                  palette: palette,
+                                  larghezza: 62,
+                                  // Due terzi: la proporzione di una carta.
+                                  proporzione: 2 / 3,
+                                ),
                               ),
                             ),
                             const SizedBox(height: SpacingTokens.xxs),

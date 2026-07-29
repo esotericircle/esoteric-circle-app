@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'nome_proprio.dart';
 
 /// Forma di cortesia scelta dall'utente, usata per rivolgersi a lui nei testi
 /// dei Maestri.
@@ -22,67 +23,10 @@ class IdentityController extends ChangeNotifier {
   AddressForm get form => _form;
 
   void setName(String value) {
-    _name = normalizzaNome(value);
+    _name = normalizzaNomeProprio(value);
     notifyListeners();
   }
 
-  /// Il nome scritto come si scrive un nome, deciso QUI, dove entra.
-  ///
-  /// Chi batteva "mauro" se lo ritrovava minuscolo in ogni bolla e in ogni
-  /// responso, per sempre: la correzione al momento di mostrarlo andrebbe
-  /// ripetuta in venti punti, e uno resterebbe indietro. Nessuno scrive il
-  /// proprio nome tutto minuscolo per scelta, e nessuno lo urla maiuscolo:
-  /// sono la fretta della tastiera e il blocco maiuscole.
-  ///
-  /// Le maiuscole INTERNE volute si riconoscono e restano: McDonald non
-  /// diventa Mcdonald. I separatori dei nomi composti (spazio, trattino,
-  /// apostrofo) aprono ciascuno una nuova iniziale.
-  static String normalizzaNome(String grezzo) {
-    final pulito = grezzo.trim().replaceAll(RegExp(r'\s+'), ' ');
-    if (pulito.isEmpty) return '';
-
-    final buf = StringBuffer();
-    var iniziale = true;
-    for (var i = 0; i < pulito.length; i++) {
-      final ch = pulito[i];
-      if (ch == ' ' || ch == '-' || ch == "'" || ch == '’') {
-        buf.write(ch);
-        iniziale = true;
-        continue;
-      }
-      if (iniziale) {
-        buf.write(ch.toUpperCase());
-        iniziale = false;
-        continue;
-      }
-      // Dentro la parola: si abbassa solo se la parola e' tutta maiuscola,
-      // cioe' un urlo da blocco maiuscole. Una maiuscola isolata dentro un
-      // nome e' voluta e va lasciata stare.
-      final parola = _parolaDa(pulito, i);
-      buf.write(parola == parola.toUpperCase() ? ch.toLowerCase() : ch);
-    }
-    return buf.toString();
-  }
-
-  static String _parolaDa(String s, int i) {
-    var inizio = i;
-    while (inizio > 0 &&
-        s[inizio - 1] != ' ' &&
-        s[inizio - 1] != '-' &&
-        s[inizio - 1] != "'" &&
-        s[inizio - 1] != '’') {
-      inizio--;
-    }
-    var fine = i;
-    while (fine < s.length &&
-        s[fine] != ' ' &&
-        s[fine] != '-' &&
-        s[fine] != "'" &&
-        s[fine] != '’') {
-      fine++;
-    }
-    return s.substring(inizio, fine);
-  }
 
   void setForm(AddressForm value) {
     if (value == _form) return;

@@ -47,12 +47,16 @@ class RisveglioJourney extends StatefulWidget {
 
 /// Le tappe della coda del Risveglio.
 ///
-/// I due trionfi stanno DOPO la carta e PRIMA della risonanza: a quel punto
-/// la persona ha appena visto il proprio cielo, quindi sa di che si parla,
-/// e non ha ancora incontrato il Maestro, quindi i compagni arrivano prima
-/// della guida. Prima non esistevano affatto: Animale e Angeli comparivano
-/// come campi dentro una tessera, senza che nessuno li rivelasse.
-enum _Phase { heaven, chart, animale, angeli, resonance, reveal }
+/// I due trionfi stanno PRIMA della carta natale, non dopo.
+///
+/// Messi dopo, come erano in un primo tempo, rivelavano una cosa gia' vista:
+/// la carta natale contiene la tessera del lupo e quella dei tre angeli,
+/// quindi chi arrivava al trionfo li aveva gia' incontrati come voci di un
+/// elenco. Un trionfo che svela il noto non e' un trionfo.
+///
+/// L'ordine giusto e' quello di un racconto: prima i compagni uno per uno,
+/// poi il ritratto d'insieme che li raccoglie, infine la guida.
+enum _Phase { heaven, animale, angeli, chart, resonance, reveal }
 
 class _RisveglioJourneyState extends State<RisveglioJourney> {
   _Phase _phase = _Phase.heaven;
@@ -83,13 +87,15 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
     }
   }
 
-  void _onHeavenContinue() => setState(() => _phase = _Phase.chart);
+  void _onHeavenContinue() => _onHeavenAlAnimale();
 
-  void _onChartContinue() => setState(() => _phase = _Phase.animale);
+  void _onHeavenAlAnimale() => setState(() => _phase = _Phase.animale);
 
   void _onAnimaleContinue() => setState(() => _phase = _Phase.angeli);
 
-  void _onAngeliContinue() => setState(() => _phase = _Phase.resonance);
+  void _onAngeliContinue() => setState(() => _phase = _Phase.chart);
+
+  void _onChartContinue() => setState(() => _phase = _Phase.resonance);
 
   void _onResonanceContinue() {
     // Entrando nel rito, il colore del Maestro sboccia nel cosmo: qui, non prima.

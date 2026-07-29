@@ -53,11 +53,11 @@ void main() {
   }
 
   test('La persona dei Maestri usa accenti corretti', () {
-    const full = UserProfile(
+    final full = UserProfile(
       displayName: 'Sofia',
       courtesyForm: CourtesyForm.feminine,
     );
-    const empty = UserProfile.empty;
+    final empty = UserProfile.empty;
     const memoryFull = MaestroMemory(
       facts: ['Segno solare Gemelli', 'Cerca chiarezza sul lavoro'],
       sessionSummary: 'Avete parlato del suo Ascendente e della carriera.',

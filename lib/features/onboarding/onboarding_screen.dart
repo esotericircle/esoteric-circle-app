@@ -20,6 +20,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'anteprima_tono.dart';
+import 'astrolabio.dart';
 import 'orologio_dinamico.dart';
 import 'planisfero.dart';
 import 'risveglio_ignitions.dart';
@@ -74,10 +75,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   // I dati raccolti lungo il rituale.
   DateTime _birthDate = DateTime(1990, 6, 15);
-  // Non preselezionata: l'ora compariva gia' compilata, e chi non la sapeva si
-  // trovava un dato inventato dentro la propria carta senza averlo scelto.
-  // Meglio partire da "Non la so" e lasciare che sia la persona ad accendere.
-  bool _timeKnown = false;
+  // Nessuna delle due strade e' preselezionata, e nulla e' vero finche' la
+  // persona non sceglie. Prima l'ora arrivava gia' compilata, quindi si dava
+  // per scontato che la sapesse; poi era preselezionato "Non la so", quindi
+  // si dava per scontato il contrario, che e' lo stesso errore ribaltato.
+  // Null vuol dire "non ha ancora detto".
+  bool? _timeKnown;
   int _hour = 12;
   int _minute = 0;
   BirthPlace? _place;
@@ -133,8 +136,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   BirthIdentity get _identity => BirthIdentity.fromParts(
         birthDate: _birthDate,
-        birthHour: _timeKnown ? _hour : null,
-        birthMinute: _timeKnown ? _minute : null,
+        birthHour: _timeKnown == true ? _hour : null,
+        birthMinute: _timeKnown == true ? _minute : null,
         birthPlace: _place,
       );
 
@@ -187,7 +190,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     // Ponte: dai dati raccolti nasce il BirthDetails che alimenta la carta.
     final details = BirthDetails(
       date: _birthDate,
-      time: _timeKnown ? TimeOfDay(hour: _hour, minute: _minute) : null,
+      time: _timeKnown == true ? TimeOfDay(hour: _hour, minute: _minute) : null,
       place: _placeForChart(),
       gender: _genderFor(courtesy),
     );
@@ -344,7 +347,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // --- Passo 0: l'accoglienza del Cerchio, senza Maestro ---
   Widget _accoglienza() {
     return _StepBody(
-      visual: _CosmicGlow(palette: _palette, ignite: _ignite),
+      // L'astrolabio che si costruisce, al posto del cerchio anonimo: il
+      // testo sotto promette di comporre il cielo un passo alla volta, e un
+      // cerchio fermo non promette niente.
+      visual: Astrolabio(palette: _palette, reduceMotion: _reduceMotion),
       title: 'Il Risveglio',
       subtitle:
           'Sei sulla soglia del Cerchio. Comporremo insieme il tuo cielo, un '
@@ -404,7 +410,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         ora: _hour,
         minuto: _minute,
         palette: _palette,
-        attivo: _timeKnown,
+        attivo: _timeKnown == true,
         reduceMotion: _reduceMotion,
       ),
       title: 'A che ora, se lo sai',
@@ -414,12 +420,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       content: Column(
         children: [
           AnimatedOpacity(
-            opacity: _timeKnown ? 1 : 0.35,
+            opacity: _timeKnown == true ? 1 : 0.35,
             duration: const Duration(milliseconds: 200),
             child: _TimePicker(
               hour: _hour,
               minute: _minute,
-              enabled: _timeKnown,
+              enabled: _timeKnown == true,
               palette: _palette,
               onChanged: (h, m) => setState(() {
                 _hour = h;
@@ -429,14 +435,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           ),
           const SizedBox(height: SpacingTokens.sm),
           _SkipTimeToggle(
-            skipped: !_timeKnown,
+            skipped: _timeKnown == false,
             palette: _palette,
             onChanged: (skip) => setState(() {
               _timeKnown = !skip;
               _playIgnition();
             }),
           ),
-          if (!_timeKnown) ...[
+          if (_timeKnown == false) ...[
             const SizedBox(height: SpacingTokens.sm),
             const _NotaGentile(
               text:
@@ -546,7 +552,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // --- Passo 5: il vocativo ---
   Widget _vocativoStep() {
     return _StepBody(
-      visual: _CosmicGlow(palette: _palette, ignite: _ignite),
+      // Onde di voce al posto del cerchio anonimo: il colore dice la scelta
+      // prima delle parole. Blu il maschile, rosa il femminile, arcobaleno il
+      // neutro, per decisione di Mauro.
+      visual: OndeDellaVoce(tono: _courtesy, reduceMotion: _reduceMotion),
       title: 'Come vuoi che ti parli',
       subtitle:
           'Sceglilo tu: accorderemo ogni frase al vocativo che preferisci.',
@@ -699,110 +708,6 @@ class StepDots extends StatelessWidget {
   }
 }
 
-/// Una soglia cosmica neutra che respira con l'accensione del passo: un cerchio
-/// d'oro con un alone viola desaturato e poche stelle. Nessun volto di Maestro,
-/// che al Risveglio non e' ancora scelto.
-class _CosmicGlow extends StatelessWidget {
-  const _CosmicGlow({required this.palette, required this.ignite});
-
-  final MaestroPalette palette;
-  final Animation<double> ignite;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: AnimatedBuilder(
-        animation: ignite,
-        builder: (_, __) => SizedBox(
-          width: 150,
-          height: 150,
-          child: CustomPaint(
-            painter: _CosmicGlowPainter(palette: palette, t: ignite.value),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Disegna la soglia cosmica: un anello d'oro, un alone viola desaturato che
-/// cresce con l'accensione, e poche stelle sparse. Base cosmica neutra, mai un
-/// colore di Maestro.
-class _CosmicGlowPainter extends CustomPainter {
-  _CosmicGlowPainter({required this.palette, required this.t});
-
-  final MaestroPalette palette;
-  final double t;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final c = size.center(Offset.zero);
-    final r = size.shortestSide * 0.34;
-
-    // Alone viola desaturato che respira con l'accensione.
-    canvas.drawCircle(
-      c,
-      r * 2.1,
-      Paint()
-        ..shader = RadialGradient(colors: [
-          palette.glow.withValues(alpha: 0.32 * t),
-          palette.primary.withValues(alpha: 0.12 * t),
-          const Color(0x00000000),
-        ], stops: const [
-          0.0,
-          0.5,
-          1.0
-        ]).createShader(Rect.fromCircle(center: c, radius: r * 2.1)),
-    );
-
-    // Poche stelle attorno, la volta che si intuisce.
-    final starPaint = Paint()..color = Colors.white.withValues(alpha: 0.8);
-    const stars = [
-      Offset(-0.9, -0.5), Offset(0.8, -0.7), Offset(1.05, 0.35),
-      Offset(-1.1, 0.4), Offset(0.2, -1.05), Offset(-0.35, 1.05),
-      Offset(0.75, 0.9),
-    ];
-    for (var i = 0; i < stars.length; i++) {
-      final p = c + stars[i] * r;
-      canvas.drawCircle(p, (i.isEven ? 1.4 : 0.9), starPaint);
-    }
-
-    // L'anello d'oro portante.
-    canvas.drawCircle(
-      c,
-      r,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2
-        ..color = palette.gold.withValues(alpha: 0.85),
-    );
-    canvas.drawCircle(
-      c,
-      r * 0.72,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1
-        ..color = palette.goldSoft.withValues(alpha: 0.4),
-    );
-
-    // Un piccolo cuore di luce dorata al centro, che si accende.
-    canvas.drawCircle(
-      c,
-      r * 0.18,
-      Paint()
-        ..shader = RadialGradient(colors: [
-          palette.goldSoft.withValues(alpha: 0.9 * t),
-          palette.gold.withValues(alpha: 0.0),
-        ]).createShader(Rect.fromCircle(center: c, radius: r * 0.18)),
-    );
-  }
-
-  @override
-  bool shouldRepaint(_CosmicGlowPainter old) =>
-      old.t != t || old.palette != palette;
-}
-
-/// Il nome che si accende, come inciso.
 class _NameGlow extends StatelessWidget {
   const _NameGlow({
     required this.name,
@@ -1008,6 +913,7 @@ class _TimePicker extends StatelessWidget {
           _wheel(
             key: const Key('risveglio_ora'),
             value: hour,
+            invito: 'Ora',
             items: [for (var h = 0; h < 24; h++) h],
             onChanged: (h) => onChanged(h, minute),
           ),
@@ -1020,6 +926,7 @@ class _TimePicker extends StatelessWidget {
           _wheel(
             key: const Key('risveglio_minuto'),
             value: minute,
+            invito: 'Minuti',
             items: [for (var m = 0; m < 60; m++) m],
             onChanged: (m) => onChanged(hour, m),
           ),
@@ -1030,7 +937,8 @@ class _TimePicker extends StatelessWidget {
 
   Widget _wheel({
     required Key key,
-    required int value,
+    required int? value,
+    required String invito,
     required List<int> items,
     required ValueChanged<int> onChanged,
   }) {
@@ -1044,6 +952,11 @@ class _TimePicker extends StatelessWidget {
       child: DropdownButton<int>(
         key: key,
         value: value,
+        // L'invito, quando non si e' ancora scelto: prima la pillola era muta,
+        // col solo triangolino, e nessuno sapeva se fosse l'ora o il minuto.
+        hint: Text(invito,
+            style: TypographyTokens.label(size: 12)
+                .copyWith(color: ColorTokens.textSecondary)),
         dropdownColor: palette.deepest,
         underline: const SizedBox.shrink(),
         iconEnabledColor: palette.goldSoft,

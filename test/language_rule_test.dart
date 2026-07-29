@@ -39,7 +39,7 @@ void main() {
   }
 
   test('La persona dei Maestri rispetta la regola della virgola', () {
-    const full = UserProfile(
+    final full = UserProfile(
       displayName: 'Sofia',
       courtesyForm: CourtesyForm.feminine,
     );

@@ -62,9 +62,10 @@ void main() {
     await pumpRisveglio(tester);
     await continua(tester); // -> data
     await continua(tester); // -> ora
-    // Non si tocca piu' niente: "Non la so" e' PRESELEZIONATO. Prima l'ora
-    // arrivava gia' compilata, e chi non la sapeva si ritrovava un dato
-    // inventato dentro la propria carta senza averlo scelto.
+    // "Non la so" NON e' preselezionato: nessuna delle due strade lo e',
+    // perche' preselezionarne una da' per scontato cosa la persona sa. Qui
+    // la si sceglie, che e' il punto.
+    await tester.tap(find.byKey(const Key('risveglio_ora_skip')));
     await tester.pumpAndSettle();
     // La nota dichiara che senza l'ora l'Ascendente si salta. Il distintivo
     // "Provvisorio" non c'e' piu': era vero quando l'Ascendente non si

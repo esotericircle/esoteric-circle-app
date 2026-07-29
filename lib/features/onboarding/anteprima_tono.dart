@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../../core/chat/user_profile.dart';
@@ -167,4 +169,136 @@ class _AnteprimaTonoState extends State<AnteprimaTono>
     if (tono == null) return 0;
     return (AnteprimaTono.frasePer(tono).length * _penna.value).round();
   }
+}
+
+
+/// Le onde della voce: anelli che si propagano dal centro verso fuori.
+///
+/// Sostituiscono il cerchio anonimo in cima alla schermata del genere. Il
+/// colore dice la scelta prima delle parole: blu per il maschile, rosa per il
+/// femminile, arcobaleno per il neutro. E' una scelta di Mauro, non una
+/// convenzione che ci siamo inventati, ed e' l'unico posto dell'app dove il
+/// colore porta un significato di genere.
+class OndeDellaVoce extends StatefulWidget {
+  const OndeDellaVoce({
+    super.key,
+    required this.tono,
+    this.reduceMotion = false,
+  });
+
+  /// Il genere scelto. Null prima di scegliere: le onde restano neutre e
+  /// pallide, senza fingere una scelta che non c'e'.
+  final CourtesyForm? tono;
+
+  final bool reduceMotion;
+
+  /// I colori di ciascuna scelta. Il neutro ne porta piu' di uno, quindi qui
+  /// stanno liste e non colori singoli.
+  static List<Color> coloriPer(CourtesyForm? tono) => switch (tono) {
+        CourtesyForm.masculine => const [
+            Color(0xFF4E7BE8),
+            Color(0xFF6FA8E0),
+            Color(0xFF2F4FA8),
+          ],
+        CourtesyForm.feminine => const [
+            Color(0xFFE86FA8),
+            Color(0xFFF0A0C8),
+            Color(0xFFB84F84),
+          ],
+        CourtesyForm.neutral => const [
+            Color(0xFFE0733A),
+            Color(0xFFE8C463),
+            Color(0xFF3FA07A),
+            Color(0xFF4E7BE8),
+            Color(0xFF9B6FE0),
+          ],
+        CourtesyForm.unknown || null => const [
+            Color(0xFF8A8FA8),
+            Color(0xFFA8ADC0),
+          ],
+      };
+
+  @override
+  State<OndeDellaVoce> createState() => _OndeDellaVoceState();
+}
+
+class _OndeDellaVoceState extends State<OndeDellaVoce>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _onda;
+
+  @override
+  void initState() {
+    super.initState();
+    _onda = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 4),
+    );
+    if (!widget.reduceMotion) _onda.repeat();
+  }
+
+  @override
+  void dispose() {
+    _onda.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _onda,
+      builder: (context, _) => CustomPaint(
+        key: const Key('onde_della_voce'),
+        painter: OndePainter(
+          colori: OndeDellaVoce.coloriPer(widget.tono),
+          t: widget.reduceMotion ? 0.35 : _onda.value,
+        ),
+      ),
+    );
+  }
+}
+
+/// Il disegno delle onde. Pubblico perche' i colori sono l'unica cosa che un
+/// test possa misurare senza guardare i pixel.
+class OndePainter extends CustomPainter {
+  OndePainter({required this.colori, required this.t});
+
+  final List<Color> colori;
+  final double t;
+
+  /// Quante onde vivono insieme.
+  static const int quante = 5;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    final rMax = math.min(size.width, size.height) / 2 - 4;
+    if (rMax <= 0) return;
+
+    for (var i = 0; i < quante; i++) {
+      // Ogni onda parte sfasata dalle altre e corre verso fuori, dove
+      // svanisce: e' cosi' che si propaga un suono.
+      final k = ((t + i / quante) % 1.0);
+      final r = rMax * (0.12 + 0.88 * k);
+      final alfa = (1 - k) * (1 - k) * 0.85;
+      canvas.drawCircle(
+        c,
+        r,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.6 * (1 - k) + 0.6
+          ..color = colori[i % colori.length].withValues(alpha: alfa),
+      );
+    }
+
+    // Il centro da cui la voce parte.
+    canvas.drawCircle(
+      c,
+      5,
+      Paint()..color = colori.first.withValues(alpha: 0.9),
+    );
+  }
+
+  @override
+  bool shouldRepaint(OndePainter old) =>
+      old.t != t || old.colori != colori;
 }

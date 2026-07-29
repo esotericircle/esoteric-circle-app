@@ -164,11 +164,16 @@ void main() {
     expect(triade.known.length, 3);
     expect(find.textContaining(triade.guardian.name), findsWidgets);
 
-    // Al tocco si aprono i tre Angeli.
-    await tester.tap(find.byKey(const Key('carta_angeli')));
+    // Al tocco di UNA carta si apre l'ingrandimento di QUEL angelo, che e' lo
+    // stesso componente che si apre dal trionfo dell'onboarding: prima si
+    // apriva la schermata elenco, e per vedere un angelo si passava da una
+    // lista di tre che si era gia' davanti.
+    final primo = GuardianAngels.forBirth(conOra.toBirthDetails()).guardian;
+    await tester.tap(find.byKey(Key('carta_angelo_${primo.number}')));
     await passo(tester);
-    await tester.pump(const Duration(seconds: 3));
-    expect(find.byKey(const Key('angels_screen')), findsOneWidget);
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.byKey(const Key('angelo_ingrandito')), findsOneWidget);
+    expect(find.textContaining('Coro dei'), findsWidgets);
   });
 
   testWidgets('La tessera della carta natale mostra TRE miniature',

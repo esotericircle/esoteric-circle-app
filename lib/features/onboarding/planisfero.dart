@@ -83,7 +83,7 @@ class _PlanisferoState extends State<Planisfero>
         // Il centro della cella, in gradi.
         final lon = -180 + (c + 0.5) * 360 / Planisfero.colonne;
         final lat = 90 - (r + 0.5) * 180 / Planisfero.righe;
-        if (_MondoGrezzo.eTerra(lat, lon)) {
+        if (MondoGrezzo.eTerra(lat, lon)) {
           out.add(Planisfero.proietta(lat, lon));
         }
       }
@@ -209,7 +209,9 @@ class _PlanisferoPainter extends CustomPainter {
 /// colpo d'occhio, e nessuno ci misurera' un confine. Sono scritti qui e non
 /// caricati da un file perche' un asset di contorni costa piu' peso di quanto
 /// serva a una silhouette di punti.
-class _MondoGrezzo {
+/// Pubblica perche' i confini della sagoma sono l'unica cosa che un test
+/// possa misurare senza guardare i pixel.
+class MondoGrezzo {
   /// Vero se quel punto in gradi cade sulla terra emersa.
   static bool eTerra(double lat, double lon) {
     for (final p in _poligoni) {
@@ -312,9 +314,15 @@ class _MondoGrezzo {
       [-55, 60], [-45, 60], [-20, 70], [-20, 82], [-40, 83], [-60, 78],
       [-58, 68],
     ],
-    // Antartide, una fascia bassa.
+    // Antartide: NON piu' una fascia da bordo a bordo. Nella proiezione
+    // equirettangolare il polo si stira in una riga dritta che attraversa
+    // tutto lo schermo, e a occhio non si legge come un continente, si legge
+    // come un tratto rimasto li' per sbaglio. Ridotta a una calotta centrale
+    // con i bordi rientrati, che e' meno fedele alla mappa ed e' molto piu'
+    // fedele a cio' che l'occhio riconosce.
     [
-      [-180, -70], [180, -70], [180, -85], [-180, -85],
+      [-120, -73], [-60, -70], [0, -72], [60, -70], [120, -73],
+      [140, -80], [60, -83], [0, -84], [-60, -83], [-140, -80],
     ],
   ];
 }

@@ -30,7 +30,7 @@ class ProfileController extends ChangeNotifier {
 
   /// Profilo d'esempio della Demo, dichiarato: nome reale con cui il cerchio
   /// accoglie la persona nella presentazione. L'onboarding lo sovrascrive.
-  static const UserProfile _demoProfile = UserProfile(
+  static final UserProfile _demoProfile = UserProfile(
     displayName: 'Sofia',
     courtesyForm: CourtesyForm.feminine,
   );
@@ -116,7 +116,7 @@ class ProfileController extends ChangeNotifier {
   /// il controller li rilegge dalle preferenze. La finestra di conferma
   /// prometteva gia' allora che sarebbe andato via tutto.
   Future<void> forget() async {
-    _profile = const UserProfile();
+    _profile = UserProfile();
     _identity = BirthIdentity.example;
     _avatarPhoto = null;
     notifyListeners();

@@ -57,7 +57,7 @@ void main() {
 
     test('salva e ritrova profilo e nascita, ora e luogo inclusi', () async {
       const store = ProfileStore();
-      await store.saveProfile(const UserProfile(
+      await store.saveProfile(UserProfile(
         displayName: 'Marco',
         courtesyForm: CourtesyForm.masculine,
       ));

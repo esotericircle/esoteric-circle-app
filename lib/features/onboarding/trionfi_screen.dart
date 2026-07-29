@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/angels/angel_catalog.dart';
 import '../../core/angels/guardian_angels.dart';
 import '../../core/rituals/animal_catalog.dart';
+import '../angels/angelo_ingrandito.dart';
 import '../../core/assets/family_image.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -215,7 +216,8 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
                         color: widget.palette.goldSoft, letterSpacing: 3)),
                 const SizedBox(height: SpacingTokens.md),
                 Text(
-                  'Tre custodi dalla tradizione dei settantadue nomi.',
+                  'Tre nomi dalla tradizione dei settantadue. Tocca una '
+                  'carta per conoscerla.',
                   textAlign: TextAlign.center,
                   style: TypographyTokens.body(size: 14).copyWith(
                       color: ColorTokens.textSecondary, height: 1.45),
@@ -228,7 +230,7 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
                       Expanded(
                         child: _AngeloInScena(
                           angelo: angeli[i],
-                          ruolo: _ruolo(i),
+                          ruolo: RuoloAngelo.perIndice(i),
                           palette: widget.palette,
                           // La finestra di ciascuno: il primo apre, gli altri
                           // seguono a distanza, mai insieme.
@@ -271,11 +273,6 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
     );
   }
 
-  static String _ruolo(int i) => switch (i) {
-        0 => 'Custode',
-        1 => 'Del cuore',
-        _ => 'Dell\'intelletto',
-      };
 }
 
 /// Un Angelo che si accende: prima la luce, poi la carta, poi il nome.
@@ -288,7 +285,7 @@ class _AngeloInScena extends StatelessWidget {
   });
 
   final Angel angelo;
-  final String ruolo;
+  final RuoloAngelo ruolo;
   final MaestroPalette palette;
 
   /// Da 0 (ancora al buio) a 1 (acceso del tutto).
@@ -301,7 +298,15 @@ class _AngeloInScena extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xxs),
-      child: Column(
+      // Al tocco si apre l'ingrandimento: sotto le tre carte restava
+      // mezzo schermo vuoto, e tre nomi da soli non dicono niente a chi
+      // non li conosce gia'.
+      child: GestureDetector(
+        key: Key('angelo_carta_${angelo.number}'),
+        onTap: () =>
+            AngeloIngrandito.apri(context, angelo: angelo, ruolo: ruolo),
+        behavior: HitTestBehavior.opaque,
+        child: Column(
         children: [
           // L'alone che si accende dietro la carta.
           SizedBox(
@@ -360,15 +365,24 @@ class _AngeloInScena extends StatelessWidget {
                     maxLines: 2,
                     style: TypographyTokens.body(size: 14)
                         .copyWith(color: ColorTokens.textPrimary)),
-                Text(ruolo,
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 11).copyWith(
-                        color: palette.goldSoft.withValues(alpha: 0.75),
-                        letterSpacing: 1.2)),
+                // Una riga sola e nessuna spezzatura: "Dell\'intelletto" si
+                // rompeva a meta' parola su due righe, che e' il modo piu'
+                // rapido per rendere illeggibile un'etichetta corta.
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(ruolo.titolo,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      softWrap: false,
+                      style: TypographyTokens.label(size: 11).copyWith(
+                          color: palette.goldSoft.withValues(alpha: 0.75),
+                          letterSpacing: 1.2)),
+                ),
               ],
             ),
           ),
         ],
+        ),
       ),
     );
   }

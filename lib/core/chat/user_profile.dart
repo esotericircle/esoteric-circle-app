@@ -5,6 +5,8 @@
 /// memoria descritti nei briefing (profilo, fatti, sintesi di sessione). Resta
 /// un modello puro, la persistenza vive nel repository di memoria.
 library;
+import '../identity/nome_proprio.dart';
+
 
 /// Forma di cortesia scelta all'onboarding, per rivolgersi all'utente nella
 /// lingua giusta. In attesa dell'onboarding resta sconosciuta e i Maestri usano
@@ -67,11 +69,17 @@ enum CourtesyForm {
 
 /// Profilo persistente dell'utente, condiviso fra tutti i Maestri.
 class UserProfile {
-  const UserProfile({
-    this.displayName,
+  /// Il nome si normalizza QUI, all'ingresso nel modello, non in chi lo
+  /// scrive. Le porte da cui un nome entra sono due, `IdentityController` e
+  /// questo profilo, e coprirne una sola e' esattamente l'errore che lasciava
+  /// "mauro" minuscolo nella home mentre i test dichiaravano la cosa chiusa.
+  UserProfile({
+    String? displayName,
     this.courtesyForm = CourtesyForm.unknown,
     this.disclaimerAcceptedAt,
-  });
+  }) : displayName = (displayName == null || displayName.trim().isEmpty)
+            ? null
+            : normalizzaNomeProprio(displayName);
 
   /// Nome con cui il cerchio si rivolge all'utente. Null finche' l'onboarding
   /// non lo raccoglie.
@@ -100,5 +108,8 @@ class UserProfile {
     );
   }
 
-  static const UserProfile empty = UserProfile();
+  /// Non piu' const: il nome passa dalla normalizzazione, che e' codice, e
+  /// un valore costante non puo' eseguire codice. Il prezzo e' una istanza
+  /// invece di una costante, ed e' un prezzo che vale la certezza.
+  static final UserProfile empty = UserProfile();
 }

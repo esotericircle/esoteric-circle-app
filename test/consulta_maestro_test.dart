@@ -43,7 +43,7 @@ void main() {
       );
       final istr = MaestroPersona.consultInstruction(
         maestro: Maestro.medora,
-        profile: const UserProfile(displayName: 'Sofia'),
+        profile: UserProfile(displayName: 'Sofia'),
         memory: MaestroMemory.empty,
         natal: natal,
       );
@@ -60,7 +60,7 @@ void main() {
     test('Senza dati natali, nessun blocco natale, personalizza col nome', () {
       final istr = MaestroPersona.consultInstruction(
         maestro: Maestro.aura,
-        profile: const UserProfile(
+        profile: UserProfile(
             displayName: 'Sofia', courtesyForm: CourtesyForm.feminine),
         memory: MaestroMemory.empty,
         natal: NatalContext.none,
@@ -82,9 +82,9 @@ void main() {
   });
 
   group('Benvenuto deterministico', () {
-    const profileF =
+    final profileF =
         UserProfile(displayName: 'Sofia', courtesyForm: CourtesyForm.feminine);
-    const profileM =
+    final profileM =
         UserProfile(displayName: 'Marco', courtesyForm: CourtesyForm.masculine);
 
     test('Il vocativo segue la forma di cortesia, o e\' neutro senza nome', () {
@@ -92,7 +92,7 @@ void main() {
       expect(MaestroWelcome.vocative(profileM), 'Caro Marco');
       expect(
           MaestroWelcome.vocative(
-              const UserProfile(displayName: 'X', courtesyForm: CourtesyForm.neutral)),
+              UserProfile(displayName: 'X', courtesyForm: CourtesyForm.neutral)),
           'Ciao X');
       expect(MaestroWelcome.vocative(UserProfile.empty), 'Anima del Cerchio');
     });

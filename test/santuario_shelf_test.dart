@@ -95,7 +95,7 @@ void main() {
   group('Nome reale della persona', () {
     test('Usa il nome del profilo, mai il nome del tier', () {
       final withName = ProfileController(
-          profile: const UserProfile(displayName: 'Sofia'));
+          profile: UserProfile(displayName: 'Sofia'));
       expect(withName.vocative, 'Sofia');
       expect(withName.vocative, isNot('Viandante'));
     });

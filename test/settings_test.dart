@@ -90,7 +90,7 @@ void main() {
       (tester) async {
     silence();
     final repo = InMemoryMaestroMemoryRepository();
-    await repo.saveProfile(const UserProfile(displayName: 'Sofia'));
+    await repo.saveProfile(UserProfile(displayName: 'Sofia'));
     await repo.appendMessage(
         Maestro.medora, const ChatMessage(role: ChatRole.user, text: 'ciao'));
     final services = AppServices(

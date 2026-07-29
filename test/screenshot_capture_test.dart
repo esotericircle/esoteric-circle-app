@@ -267,10 +267,19 @@ void main() {
     );
   }
 
+  /// Le due altezze su cui si guarda ogni schermata che puo' stringersi.
+  ///
+  /// 844 e' il telefono di riferimento, 797 e' quello di Mauro: a 1170 per
+  /// 2532 e a 1080 per 2392 in pixel fisici. La bolla di Medora era verde
+  /// sulla prima e rotta sulla seconda, quindi una sola altezza non e' una
+  /// verifica.
+  const schermoAlto = Size(390, 844);
+  const schermoBasso = Size(390, 797);
+
   Future<GlobalKey> mount(WidgetTester tester, AppServices services,
-      {DateTime Function()? clock}) async {
+      {DateTime Function()? clock, Size? schermo}) async {
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(390, 844);
+    tester.view.physicalSize = schermo ?? schermoAlto;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
@@ -370,6 +379,25 @@ void main() {
       await capture(tester, rootKey, 'santuario-${maestro.id}.png');
     });
   }
+
+  // --- La stessa home a 2392, l'altezza del telefono di Mauro ---
+  //
+  // La bolla di Medora era stata corretta, verificata verde sull'anteprima a
+  // 2532, e sul telefono a 2392 copriva ancora l'avatar. Una sola altezza non
+  // e' una verifica, e' una fotografia fortunata: da qui in avanti le
+  // schermate che possono stringersi si guardano su due.
+  testWidgets('Cattura il Santuario, Medora, schermo basso', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora),
+        schermo: schermoBasso);
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'santuario-medora-2392.png');
+  });
 
   // --- Il Santuario con l'invito al cielo visibile (mano del tap) ---
   testWidgets('Cattura il Santuario con l\'invito al cielo', (tester) async {
@@ -2315,9 +2343,9 @@ void main() {
   // Riduci Movimento attivo su tutte le route: accensioni e ruota gia' compiute
   // e ferme alla cattura, cosi' l'anteprima e' netta e deterministica.
   Future<GlobalKey> mountRisveglio(WidgetTester tester,
-      {DateTime Function()? clock}) async {
+      {DateTime Function()? clock, Size? schermo}) async {
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(390, 844);
+    tester.view.physicalSize = schermo ?? schermoAlto;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -2413,6 +2441,51 @@ void main() {
     await tester.pumpAndSettle();
     await capture(tester, rootKey, 'risveglio-luogo-scelto.png');
   });
+
+  // L'accoglienza, col suo astrolabio. Catturata A FINE COSTRUZIONE, non a
+  // meta': gli anelli si tracciano in 2,6 secondi e fotografarli prima
+  // direbbe che l'astrolabio e' incompleto.
+  testWidgets('Cattura il Risveglio, accoglienza', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mountRisveglio(tester, clock: () => DateTime(2026, 7, 15));
+    for (var i = 0; i < 18; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await capture(tester, rootKey, 'risveglio-accoglienza.png');
+  });
+
+  // La schermata del genere, con una scelta fatta: Mauro dice di non vedere
+  // nessuna frase d'esempio, quindi va guardata invece che dedotta. Su due
+  // altezze, perche' se la frase sta sotto la piega su uno schermo basso e'
+  // come non averla scritta.
+  for (final basso in const [false, true]) {
+    testWidgets('Cattura il Risveglio, il genere${basso ? ', schermo basso' : ''}',
+        (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey = await mountRisveglio(tester,
+          clock: () => DateTime(2026, 7, 15),
+          schermo: basso ? schermoBasso : schermoAlto);
+      await continua(tester); // -> data
+      await continua(tester); // -> ora
+      await continua(tester); // -> luogo
+      await continua(tester); // -> nome
+      await tester.enterText(
+          find.byKey(const Key('risveglio_nome_field')), 'Mauro');
+      await tester.pumpAndSettle();
+      await continua(tester); // -> vocativo
+      await tester.tap(find.byKey(const Key('vocativo_lui')));
+      // A fine scrittura, non a meta': la frase si scrive lettera per lettera
+      // e fotografarla a meta' direbbe che manca.
+      for (var i = 0; i < 14; i++) {
+        await tester.pump(const Duration(milliseconds: 200));
+      }
+      await capture(tester, rootKey,
+          'risveglio-genere${basso ? '-2392' : ''}.png');
+    });
+  }
 
   testWidgets('Cattura il Risveglio, il sigillo', (tester) async {
     silenceSensors();

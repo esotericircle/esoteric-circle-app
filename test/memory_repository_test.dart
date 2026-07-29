@@ -50,7 +50,7 @@ void main() {
         final repo = make().repo;
 
         // Profilo.
-        await repo.saveProfile(const UserProfile(
+        await repo.saveProfile(UserProfile(
           displayName: 'Sofia',
           courtesyForm: CourtesyForm.feminine,
         ));
@@ -93,7 +93,7 @@ void main() {
       test('La cancellazione GDPR azzera tutto e pulisce le prese', () async {
         final made = make();
         final repo = made.repo;
-        await repo.saveProfile(const UserProfile(displayName: 'Sofia'));
+        await repo.saveProfile(UserProfile(displayName: 'Sofia'));
         await repo.saveMemory(Maestro.medora,
             const MaestroMemory(facts: ['x'], sessionSummary: 's'));
         await repo.appendMessage(Maestro.medora,
@@ -141,7 +141,7 @@ void main() {
     final u1 = FirestoreMaestroMemoryRepository(uid: 'u1', firestore: db);
     final u2 = FirestoreMaestroMemoryRepository(uid: 'u2', firestore: db);
 
-    await u1.saveProfile(const UserProfile(displayName: 'Sofia'));
+    await u1.saveProfile(UserProfile(displayName: 'Sofia'));
     await u1.appendMessage(Maestro.medora,
         const ChatMessage(role: ChatRole.user, text: 'segreto'));
 
@@ -150,7 +150,7 @@ void main() {
     expect(await u2.recentMessages(Maestro.medora), isEmpty);
 
     // La cancellazione di u1 non tocca u2.
-    await u2.saveProfile(const UserProfile(displayName: 'Bruno'));
+    await u2.saveProfile(UserProfile(displayName: 'Bruno'));
     await u1.deleteAllData();
     expect((await u2.loadProfile()).displayName, 'Bruno');
   });

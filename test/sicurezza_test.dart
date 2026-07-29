@@ -29,7 +29,7 @@ void main() {
 
       const store = ProfileStore();
       final controller = ProfileController(store: store);
-      controller.setProfile(const UserProfile(displayName: 'Costanza'));
+      controller.setProfile(UserProfile(displayName: 'Costanza'));
       controller.setIdentity(BirthIdentity.fromParts(
         birthDate: DateTime(1985, 3, 3),
         birthHour: 7,
