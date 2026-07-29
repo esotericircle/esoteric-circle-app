@@ -158,15 +158,58 @@ Le tre mosse, verificate DENTRO l'archivio e non nella configurazione.
 
 ### Il peso finale, col numero vero
 
-**203,7 MB**, contro i 233,2 di partenza: **29,5 MB in meno**.
+**194,3 MB**, contro i 233,2 di partenza: **38,9 MB in meno**, sotto la
+soglia dei duecento.
 
-**Sotto i duecento NON ci sono arrivato: mancano 3,7 MB.** La ragione, in
-numeri: la somma delle voci dell'archivio e' 194,0 MB, quindi il contenuto e'
-sotto la soglia; il file su disco pesa 203,7 perche' le librerie native stanno
-non compresse e allineate in memoria, e quell'allineamento aggiunge 9,7 MB di
-riempimento. Non e' contenuto, e' spaziatura, comunque byte che il
-telefono scarica.
+Il numero e' cambiato lungo la strada, quindi vale la pena dire come. La build
+subito dopo le tre mosse pesava 203,7 MB, sopra la soglia, con questo esito che gia' diceva
+in questo esito che non ci ero arrivato spiegando il perche' col riempimento
+di allineamento. Ricostruendo da pulito dopo le correzioni ai test, il peso e'
+sceso a 194,3: quella misura da 203,7 portava con se' un residuo della
+compilazione precedente. La lezione: un archivio va misurato dopo una build
+pulita, altrimenti si misura anche cio' che si e' appena tolto.
 
-Le tre mosse dell'ordine hanno reso quello che dovevano; la mia stima era 191,
-quindi ho sbagliato di 12,7 MB proprio perche' non avevo considerato il
-riempimento. Non ho aggiunto mosse non chieste per inseguire la soglia.
+## Un errore mio di sequenza, a verbale
+
+**Ho consegnato la 2105 con la suite rossa.** Avevo lanciato il caricamento in
+sottofondo mentre la suite girava, per non perdere tempo, poi ho pubblicato
+prima di leggerne l'esito: ventitre' test erano rossi.
+
+Nessuno di quei rossi era un difetto del prodotto: erano tutte conseguenze
+delle correzioni, cioe' test che asserivano il comportamento vecchio (il
+Viandante con tre domande invece di una), montaggi senza i provider nuovi, piu' i
+percorsi degli avatar. Li ho sistemati tutti, uno per uno, senza indebolire
+nessun criterio: dove un test diceva 3 adesso dice 1, che e' il numero
+promesso dalla matrice.
+
+Ho poi rifatto build e consegna con la **2106**, che e' quella buona. La 2105
+resta nell'elenco delle release: va ignorata, come dicono le sue note.
+
+La regola che ne esce: la consegna non si parallelizza con la verifica.
+Aspettare cinque minuti costa meno che pubblicare una build da buttare.
+
+## I numeri finali
+
+- Suite: **929 test verdi**.
+- `flutter analyze` su lib e test: pulito, zero avvisi nuovi.
+- Integrita' dell'archivio: verificata.
+- Versione: **2106**.
+- Voci chiuse: **sette su sette**, tutte rosse prima. Piu' tre testi e tre
+  riduzioni.
+- Test nuovi: **quattro file**, diciotto casi.
+- Archivio: **194,3 MB**, meno 38,9 rispetto ai 233,2.
+
+## Consegna
+
+- Identificativo della release: **`7441bh3kp8mlg`**
+- Versione: 0.1.0, build **2106**
+- Esito del caricamento: `RELEASE_CREATED`
+- Note, rilette dal server: "I limiti dei piani valgono davvero, memoria e
+  profondita sono di chi le compra, archivio da 233 a 194 MB. Sostituisce la
+  2105."
+- Destinatario unico: `cloud@esotericircle.app`
+- Pagina per i tester:
+  `https://appdistribution.firebase.google.com/testerapps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/7441bh3kp8mlg`
+
+La credenziale gcloud era tornata valida, quindi la consegna e' passata senza
+login interattivo.
