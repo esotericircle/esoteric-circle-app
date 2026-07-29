@@ -407,3 +407,46 @@ il proprietario dentro `MaestroScope`, il cuore e il colore dentro
 
 La suite era verde PRIMA del caricamento, e la consegna non e' stata
 parallelizzata con la verifica.
+
+## Correzione della consegna, dopo la segnalazione di Mauro
+
+**La 2108 era stata creata ma non assegnata a nessuno, e la colpa era di un nome
+di campo.**
+
+I passi dell'API sono due e distinti: il caricamento crea la release, la
+distribuzione la assegna. Il caricamento era andato a buon fine
+(`RELEASE_CREATED`). Nella distribuzione avevo mandato
+
+    {"emails": ["cloud@esotericircle.app"]}
+
+mentre il campo si chiama `testerEmails`. L'API **ignora i campi sconosciuti**,
+quindi ha risposto `{}` con HTTP 200 avendo distribuito a una lista vuota. Ho
+letto quel `{}` come conferma, e non lo era.
+
+**Rieseguito il solo secondo passo**, col campo corretto, senza ricaricare
+l'archivio: HTTP 200.
+
+**La prova, che non e' il 200.** Ho verificato che il 200 non significa nulla:
+la stessa chiamata con `{"testerEmails": ["non-e-una-email"]}` risponde 200 e
+`{}`. Quindi ho cercato una prova indipendente, confrontando la 2108 con la
+2107, che era arrivata davvero:
+
+- Nel GET della 2108 fatto PRIMA della distribuzione corretta il campo
+  `acceptedInvitationCount` **non c'era**.
+- Nel GET fatto DOPO c'e': `acceptedInvitationCount: 1`, lo stesso valore della
+  2107.
+
+E' comparso per effetto della distribuzione, ed e' l'unico segnale che l'API
+espone: non esiste un endpoint che elenchi i tester di una release, e `v1alpha`
+risponde 404.
+
+**Nessuna sporcizia lasciata.** L'email malformata usata per la prova non ha
+creato alcun tester: nel progetto restano i due di sempre.
+
+**Resta una differenza, e non blocca**: la 2108 porta
+`androidPackageRegistrationState: NOT_REGISTERED`, che riguarda la registrazione
+del dispositivo del tester e si risolve aprendo il link.
+
+**Regola nuova, per gli ordini futuri.** Dopo ogni distribuzione si verifica la
+comparsa di `acceptedInvitationCount` sulla release, perche' il codice HTTP 200
+di quell'endpoint non distingue una consegna riuscita da una richiesta ignorata.
