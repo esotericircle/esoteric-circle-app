@@ -101,7 +101,7 @@ void main() {
 
   testWidgets('Senza scelta si invita, senza fingere una frase',
       (tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
         body: AnteprimaTono(tono: null, palette: MaestroPalette.neutral),
       ),

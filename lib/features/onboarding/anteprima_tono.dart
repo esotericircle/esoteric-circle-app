@@ -40,9 +40,9 @@ class AnteprimaTono extends StatefulWidget {
   /// La frase d'esempio per ciascun tono. Stessa cosa detta in tre modi.
   static String frasePer(CourtesyForm tono) => switch (tono) {
         CourtesyForm.masculine =>
-          'Bentornato. Sei arrivato fin qui, e il tuo cielo ti aspettava.',
+          'Bentornato. Sei arrivato fin qui: il tuo cielo ti aspettava.',
         CourtesyForm.feminine =>
-          'Bentornata. Sei arrivata fin qui, e il tuo cielo ti aspettava.',
+          'Bentornata. Sei arrivata fin qui: il tuo cielo ti aspettava.',
         CourtesyForm.neutral =>
           'Che bello vederti. Sei arrivata fin qui, o arrivato: il tuo cielo '
               'ti aspettava comunque.',
@@ -100,7 +100,7 @@ class _AnteprimaTonoState extends State<AnteprimaTono>
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
         child: Text(
-          'Scegli qui sopra, e senti come suona.',
+          'Scegli qui sopra per sentire come suona.',
           key: const Key('anteprima_tono_invito'),
           textAlign: TextAlign.center,
           style: TypographyTokens.body(size: 14)
@@ -130,7 +130,7 @@ class _AnteprimaTonoState extends State<AnteprimaTono>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('LA TUA GUIDA TI DIRA\'',
-                  style: TypographyTokens.label(size: 10).copyWith(
+                  style: TypographyTokens.label(size: 11).copyWith(
                       color: widget.palette.goldSoft, letterSpacing: 2)),
               const SizedBox(height: SpacingTokens.xs),
               RichText(

@@ -362,7 +362,7 @@ class _AngeloInScena extends StatelessWidget {
                         .copyWith(color: ColorTokens.textPrimary)),
                 Text(ruolo,
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 10).copyWith(
+                    style: TypographyTokens.label(size: 11).copyWith(
                         color: palette.goldSoft.withValues(alpha: 0.75),
                         letterSpacing: 1.2)),
               ],

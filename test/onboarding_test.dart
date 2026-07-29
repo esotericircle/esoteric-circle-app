@@ -3,6 +3,7 @@ import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/features/onboarding/sigillo_step.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -76,7 +77,17 @@ void main() {
     // Risveglio col cielo reale di nascita (BirthSkyHero), da cui si legge la
     // carta natale ornata.
     expect(find.byKey(const Key('risveglio_sigillo')), findsOneWidget);
-    await tester.longPress(find.byKey(const Key('risveglio_sigillo')));
+    // Il Sigillo si tiene premuto per il tempo dichiarato, poi il trionfo
+    // scorre prima del passaggio: un long press secco non basta piu', e non
+    // deve bastare, perche' il trionfo va visto.
+    final dito = await tester.startGesture(
+        tester.getCenter(find.byKey(const Key('risveglio_sigillo'))));
+    await tester.pump(const Duration(milliseconds: 60));
+    await tester.pump(SigilloStep.attesa + const Duration(milliseconds: 60));
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 160));
+    }
+    await dito.up();
     await settle(tester);
 
     // Il rito a passi non c'e' piu'; il cielo reale di nascita e' in scena.

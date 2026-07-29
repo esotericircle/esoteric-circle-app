@@ -676,13 +676,15 @@ class _CarouselState extends State<_Carousel>
     // Un terzo di schermo trascinato vale un posto: il cerchio segue il dito
     // senza correre e senza frenare.
     _moto.stop();
-    setState(() => _posto -= d.delta.dx / (larghezza / 3));
+    // Col verso invertito si inverte anche il dito, altrimenti trascinando
+    // a sinistra il cerchio andrebbe dalla parte opposta.
+    setState(() => _posto += d.delta.dx / (larghezza / 3));
   }
 
   void _rilascia(DragEndDetails d, double larghezza) {
     // L'inerzia: la velocita' del lancio sposta il bersaglio di al piu' un
     // posto, poi ci si assesta sul piu' vicino.
-    final lancio = -d.velocity.pixelsPerSecond.dx / (larghezza * 1.6);
+    final lancio = d.velocity.pixelsPerSecond.dx / (larghezza * 1.6);
     final bersaglio = (_posto + lancio.clamp(-1.0, 1.0)).roundToDouble();
     _assestaSu(bersaglio);
 
@@ -714,7 +716,11 @@ class _CarouselState extends State<_Carousel>
               final profondita = math.cos(angolo); // 1 davanti, -1 dietro
               posti.add(_PostoInCerchio(
                 maestro: Maestro.fixedOrder[i],
-                x: w / 2 + math.sin(angolo) * raggio,
+                // Il meno tiene la disposizione di sempre: chi segue nella
+                // fila dei Maestri sta a SINISTRA di chi e' davanti. Col piu'
+                // il cerchio girerebbe uguale, dalla parte opposta, e chi
+                // conosce l'app troverebbe i due laterali scambiati.
+                x: w / 2 - math.sin(angolo) * raggio,
                 profondita: profondita,
                 scala: 0.58 + 0.42 * ((profondita + 1) / 2),
               ));

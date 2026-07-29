@@ -21,6 +21,7 @@ import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/identity/identity_controller.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
+import 'package:esoteric_circle/design_system/components/natal_wheel.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/features/account/profile_screen.dart';
@@ -2461,6 +2462,80 @@ void main() {
     return (chart: chart, ident: ident, birth: birth, details: details);
   }
 
+  /// Una carta natale PIENA, costruita a mano: pianeti, angoli, case e
+  /// aspetti.
+  ///
+  /// Serve perche' l'anteprima della carta natale e' sempre stata quella
+  /// essenziale, senza pianeti: la ruota ornata non si e' mai potuta guardare,
+  /// e ogni modifica alle linee d'aspetto restava una cosa scritta e mai
+  /// vista. Le longitudini qui sono verosimili e fisse, non calcolate: questa
+  /// e' una posa per il ritratto, non una carta di qualcuno.
+  NatalChart cartaPiena() {
+    PlanetPosition p(String id, String nome, String glifo, double lon) =>
+        PlanetPosition(
+          id: id,
+          name: nome,
+          glyph: glifo,
+          longitude: lon,
+          sign: Zodiac.values[(lon ~/ 30) % 12],
+          house: (lon ~/ 30) + 1,
+        );
+    final pianeti = [
+      p('sun', 'Sole', '\u2609', 84),
+      p('moon', 'Luna', '\u263D', 212),
+      p('mercury', 'Mercurio', '\u263F', 71),
+      p('venus', 'Venere', '\u2640', 116),
+      p('mars', 'Marte', '\u2642', 3),
+      p('jupiter', 'Giove', '\u2643', 158),
+      p('saturn', 'Saturno', '\u2644', 292),
+      p('uranus', 'Urano', '\u2645', 268),
+      p('neptune', 'Nettuno', '\u2646', 283),
+      p('pluto', 'Plutone', '\u2647', 227),
+    ];
+    // Gli aspetti fra le coppie che cadono vicine agli angoli canonici.
+    final aspetti = <ChartAspect>[];
+    for (var i = 0; i < pianeti.length; i++) {
+      for (var j = i + 1; j < pianeti.length; j++) {
+        var d = (pianeti[i].longitude - pianeti[j].longitude).abs();
+        if (d > 180) d = 360 - d;
+        AspectType? tipo;
+        if (d < 8) {
+          tipo = AspectType.conjunction;
+        } else if ((d - 60).abs() < 6) {
+          tipo = AspectType.sextile;
+        } else if ((d - 90).abs() < 7) {
+          tipo = AspectType.square;
+        } else if ((d - 120).abs() < 7) {
+          tipo = AspectType.trine;
+        } else if ((d - 180).abs() < 8) {
+          tipo = AspectType.opposition;
+        }
+        if (tipo != null) {
+          aspetti.add(ChartAspect(
+            aLongitude: pianeti[i].longitude,
+            bLongitude: pianeti[j].longitude,
+            type: tipo,
+          ));
+        }
+      }
+    }
+    return NatalChart(
+      sunSign: Zodiac.gemini,
+      moonSign: Zodiac.scorpio,
+      ascendant: Zodiac.aquarius,
+      ascendantLongitude: 312,
+      midheaven: Zodiac.scorpio,
+      midheavenLongitude: 222,
+      planets: pianeti,
+      houses: [
+        for (var i = 0; i < 12; i++)
+          HouseCusp(number: i + 1, longitude: (312 + i * 30) % 360),
+      ],
+      aspects: aspetti,
+      hasTime: true,
+    );
+  }
+
   Widget natalHost({required Widget home}) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -2471,6 +2546,50 @@ void main() {
       home: home,
     );
   }
+
+  // La ruota natale PIENA, con pianeti e aspetti: era il buco permanente del
+  // corredo delle anteprime, perche' la carta d'anteprima e' sempre stata
+  // quella essenziale e la ruota non si e' mai potuta guardare.
+  testWidgets('Cattura la ruota natale piena, con gli aspetti',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(390, 420);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ],
+          child: natalHost(
+            home: Scaffold(
+              backgroundColor: const Color(0xFF0B0A1A),
+              body: Center(
+                child: NatalWheel(
+                  chart: cartaPiena(),
+                  size: 340,
+                  showAspects: true,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    // La ruota entra in 3,6 secondi e gli aspetti compaiono nell'ultimo
+    // quinto: catturare prima vorrebbe dire fotografare una ruota senza le
+    // linee e concludere che non ci sono.
+    for (var i = 0; i < 26; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await capture(tester, rootKey, 'carta-ruota-piena.png');
+  });
 
   testWidgets('Cattura il cielo reale di nascita', (tester) async {
     silenceSensors();
