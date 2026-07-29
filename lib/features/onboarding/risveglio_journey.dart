@@ -3,7 +3,10 @@ import 'package:provider/provider.dart';
 
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/natal_chart_controller.dart';
+import '../../core/angels/guardian_angels.dart';
+import '../../core/astro/night_sky.dart';
 import '../../core/astro/resonance.dart';
+import '../../core/rituals/guide_animal_derivation.dart';
 import '../../core/astro/zodiac_controller.dart';
 import '../../core/identity/natal_identity.dart';
 import '../../core/maestro/maestro.dart';
@@ -15,6 +18,7 @@ import '../santuario/sky_overview_screen.dart';
 import 'maestro_reveal_screen.dart';
 import 'natal_chart_reveal.dart';
 import 'resonance_screen.dart';
+import 'trionfi_screen.dart';
 
 /// La coda del Risveglio, dal sigillo in poi: il cielo reale di nascita, la
 /// carta natale ornata, la risonanza coi Maestri e la rivelazione col soffio.
@@ -41,7 +45,14 @@ class RisveglioJourney extends StatefulWidget {
   State<RisveglioJourney> createState() => _RisveglioJourneyState();
 }
 
-enum _Phase { heaven, chart, resonance, reveal }
+/// Le tappe della coda del Risveglio.
+///
+/// I due trionfi stanno DOPO la carta e PRIMA della risonanza: a quel punto
+/// la persona ha appena visto il proprio cielo, quindi sa di che si parla,
+/// e non ha ancora incontrato il Maestro, quindi i compagni arrivano prima
+/// della guida. Prima non esistevano affatto: Animale e Angeli comparivano
+/// come campi dentro una tessera, senza che nessuno li rivelasse.
+enum _Phase { heaven, chart, animale, angeli, resonance, reveal }
 
 class _RisveglioJourneyState extends State<RisveglioJourney> {
   _Phase _phase = _Phase.heaven;
@@ -74,7 +85,11 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
 
   void _onHeavenContinue() => setState(() => _phase = _Phase.chart);
 
-  void _onChartContinue() => setState(() => _phase = _Phase.resonance);
+  void _onChartContinue() => setState(() => _phase = _Phase.animale);
+
+  void _onAnimaleContinue() => setState(() => _phase = _Phase.angeli);
+
+  void _onAngeliContinue() => setState(() => _phase = _Phase.resonance);
 
   void _onResonanceContinue() {
     // Entrando nel rito, il colore del Maestro sboccia nel cosmo: qui, non prima.
@@ -126,6 +141,23 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
         return NatalChartReveal(
           key: const ValueKey('chart'),
           onContinue: _onChartContinue,
+        );
+      case _Phase.animale:
+        return TrionfoAnimale(
+          key: const ValueKey('animale'),
+          animale: GuideAnimalDerivation.forSign(
+              NightSky.sunSign(widget.details.dateTime)),
+          palette: context.palette,
+          reduceMotion: MediaQuery.of(context).disableAnimations,
+          onContinue: _onAnimaleContinue,
+        );
+      case _Phase.angeli:
+        return TrionfoAngeli(
+          key: const ValueKey('angeli'),
+          triade: GuardianAngels.forBirth(widget.details),
+          palette: context.palette,
+          reduceMotion: MediaQuery.of(context).disableAnimations,
+          onContinue: _onAngeliContinue,
         );
       case _Phase.resonance:
         return _resonance == null

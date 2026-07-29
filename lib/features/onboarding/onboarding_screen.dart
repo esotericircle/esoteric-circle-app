@@ -19,8 +19,8 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import '../identity/seal_painter.dart';
 import 'risveglio_ignitions.dart';
+import 'sigillo_step.dart';
 import 'risveglio_journey.dart';
 
 /// "Il Risveglio": la primissima soglia del cerchio, un rituale a passi sul
@@ -561,20 +561,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   // --- Passo 6: il sigillo, che pulsa come un cuore ---
   Widget _sigilloStep() {
-    final seal = CircleSeal.from(name: _name, identity: _identity);
-    return _StepBody(
-      visual: _PulsingSeal(
-        seal: seal,
-        palette: _palette,
-        reduceMotion: _reduceMotion,
-        onComplete: _finish,
-      ),
-      title: 'Posa il dito al centro',
-      subtitle:
-          'Il tuo Sigillo pulsa come un cuore. Tienilo premuto per sigillare il '
-          'rito.',
-      content: const SizedBox(height: SpacingTokens.sm),
-      cta: null,
+    // Non usa l'impalcatura comune: quella tiene il visivo in una scatola alta
+    // 190 in cima, ed e' proprio lei a spingere il Sigillo in alto lasciando
+    // mezzo schermo vuoto sotto. Il Sigillo non compila niente, e' un gesto:
+    // sta al centro, e la sua schermata se la costruisce da se'.
+    return SigilloStep(
+      seal: CircleSeal.from(name: _name, identity: _identity),
+      palette: _palette,
+      reduceMotion: _reduceMotion,
+      onComplete: _finish,
     );
   }
 }
@@ -1376,94 +1371,3 @@ class _GlyphPainter extends CustomPainter {
 }
 
 /// Il Sigillo che pulsa come un cuore sotto il dito; tenuto premuto, sigilla il
-/// rito. Sotto Riduci Movimento non pulsa: un tocco sigilla.
-class _PulsingSeal extends StatefulWidget {
-  const _PulsingSeal({
-    required this.seal,
-    required this.palette,
-    required this.reduceMotion,
-    required this.onComplete,
-  });
-
-  final CircleSeal seal;
-  final MaestroPalette palette;
-  final bool reduceMotion;
-  final VoidCallback onComplete;
-
-  @override
-  State<_PulsingSeal> createState() => _PulsingSealState();
-}
-
-class _PulsingSealState extends State<_PulsingSeal>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _heart;
-  bool _sealed = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _heart = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 900),
-      lowerBound: 0.0,
-      upperBound: 1.0,
-    );
-  }
-
-  @override
-  void dispose() {
-    _heart.dispose();
-    super.dispose();
-  }
-
-  void _startBeat() {
-    if (widget.reduceMotion) return;
-    _heart.repeat(reverse: true);
-  }
-
-  void _stopBeat() {
-    if (_heart.isAnimating) _heart.stop();
-    _heart.value = 0;
-  }
-
-  void _seal() {
-    if (_sealed) return;
-    _sealed = true;
-    _stopBeat();
-    widget.onComplete();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: GestureDetector(
-        key: const Key('risveglio_sigillo'),
-        behavior: HitTestBehavior.opaque,
-        onTapDown: (_) => _startBeat(),
-        onTapUp: (_) {
-          _stopBeat();
-          if (widget.reduceMotion) _seal();
-        },
-        onTapCancel: _stopBeat,
-        onLongPress: _seal,
-        child: AnimatedBuilder(
-          animation: _heart,
-          builder: (_, child) {
-            final beat = widget.reduceMotion
-                ? 0.0
-                : Curves.easeInOut.transform(_heart.value);
-            final scale = 1.0 + 0.06 * beat;
-            return Transform.scale(scale: scale, child: child);
-          },
-          child: SizedBox(
-            width: 150,
-            height: 150,
-            child: CustomPaint(
-              painter: SealPainter(seal: widget.seal, progress: 1.0),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

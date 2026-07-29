@@ -18,6 +18,7 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/onboarding/risveglio_journey.dart';
+import 'package:esoteric_circle/features/onboarding/sigillo_step.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:esoteric_circle/services/free_astro_client.dart';
 import 'package:provider/provider.dart';
@@ -160,7 +161,17 @@ void main() {
       await tester.tap(find.byKey(const Key('vocativo_lui')));
       await passo(tester);
       await avanti();
-      await tester.longPress(find.byKey(const Key('risveglio_sigillo')));
+      // Il Sigillo si tiene premuto per il tempo dichiarato, poi il trionfo
+      // scorre prima del passaggio: un long press secco non basta piu', e non
+      // deve bastare, perche' il trionfo va visto.
+      final dito = await tester.startGesture(
+          tester.getCenter(find.byKey(const Key('risveglio_sigillo'))));
+      await tester.pump(const Duration(milliseconds: 60));
+      await tester.pump(SigilloStep.attesa + const Duration(milliseconds: 60));
+      for (var i = 0; i < 20; i++) {
+        await tester.pump(const Duration(milliseconds: 160));
+      }
+      await dito.up();
       await passo(tester);
       await passo(tester);
 

@@ -57,6 +57,9 @@ class BirthCompanions extends StatelessWidget {
                 path: animale.thumbPath,
                 ripiego: Icons.pets,
                 palette: palette,
+                // Piu' grande di prima: contenuto invece che ritagliato, in 44
+                // px il totem diventava un francobollo illeggibile.
+                larghezza: 64,
               ),
               const SizedBox(width: SpacingTokens.md),
               Expanded(
@@ -111,11 +114,16 @@ class BirthCompanions extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _Miniatura(
-                              path: FamilyImage.thumb(
-                                  AssetFamily.angeli, a.artStem),
-                              ripiego: Icons.auto_awesome,
-                              palette: palette,
+                            Center(
+                              child: _Miniatura(
+                                path: FamilyImage.thumb(
+                                    AssetFamily.angeli, a.artStem),
+                                ripiego: Icons.auto_awesome,
+                                palette: palette,
+                                larghezza: 62,
+                                // Due terzi: la proporzione di una carta.
+                                proporzione: 2 / 3,
+                              ),
                             ),
                             const SizedBox(height: SpacingTokens.xxs),
                             Text(
@@ -151,22 +159,36 @@ class _Miniatura extends StatelessWidget {
     required this.path,
     required this.ripiego,
     required this.palette,
+    this.larghezza = 44,
+    this.proporzione = 1,
   });
 
   final String path;
   final IconData ripiego;
   final MaestroPalette palette;
 
+  /// La larghezza del riquadro.
+  final double larghezza;
+
+  /// Larghezza diviso altezza. Uno per il quadrato dell'animale, due terzi
+  /// per la carta verticale degli Angeli, che e' la proporzione della loro
+  /// arte: in un quadrato quell'arte perde per forza qualcosa.
+  final double proporzione;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 44,
-      height: 44,
+      width: larghezza,
+      height: larghezza / proporzione,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
         child: Image.asset(
           path,
-          fit: BoxFit.cover,
+          // CONTAIN e non cover: cover riempie il riquadro ritagliando cio'
+          // che avanza, e in un quadrato da 44 un totem verticale perdeva la
+          // testa. Un animale guida decapitato non e' un animale guida, e una
+          // carta d'angelo senza cornice non e' una carta.
+          fit: BoxFit.contain,
           errorBuilder: (_, __, ___) =>
               Icon(ripiego, color: palette.goldSoft, size: 22),
         ),
