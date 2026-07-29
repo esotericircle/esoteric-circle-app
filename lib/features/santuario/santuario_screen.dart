@@ -550,7 +550,19 @@ class _SkyTitle extends StatelessWidget {
 
 /// Il carosello dei tre busti: centrale grande e vivo, laterali alzati verso
 /// l'alto, arretrati e in penombra, uniti dal filo d'oro del cerchio.
-class _Carousel extends StatelessWidget {
+/// Il cerchio dei tre Maestri, che RUOTA.
+///
+/// Prima erano tre riquadri a posizione fissa (sinistra, destra, centro)
+/// assegnati per indice: toccando un Maestro dietro, i tre cambiavano posto
+/// nello stesso fotogramma, cioe' sparivano e ricomparivano altrove. Non era
+/// una rotazione, era un taglio di montaggio.
+///
+/// Adesso ognuno ha un ANGOLO sul cerchio, e quello che si anima e' l'angolo.
+/// Chi sta a zero e' davanti, gli altri due stanno indietro ai lati. Da un
+/// angolo continuo discendono da soli la posizione orizzontale, la scala, la
+/// penombra e perfino l'ordine di sovrapposizione: nessuno deve piu' decidere
+/// "questo va a sinistra", lo decide il seno dell'angolo.
+class _Carousel extends StatefulWidget {
   const _Carousel({
     required this.central,
     required this.selected,
@@ -571,117 +583,241 @@ class _Carousel extends StatelessWidget {
   final bool reduceMotion;
   final Maestro preferred;
 
-  /// Deriva di parallasse (giroscopio) del busto centrale, piano in primo
-  /// piano: si inclina un po' di piu' dei laterali.
+  /// Deriva di parallasse (giroscopio) del busto in primo piano.
   final Offset centralDepth;
 
-  /// Deriva di parallasse dei laterali, piano arretrato: si inclina di meno.
+  /// Deriva di parallasse dei piani arretrati: si inclinano di meno.
   final Offset sideDepth;
   final VoidCallback onTapCentral;
   final ValueChanged<Maestro> onTapSide;
 
+  /// Quanto dura un giro di un terzo. L'ordine chiede almeno quattro decimi di
+  /// secondo: qui e' piu' lungo, perche' un movimento troppo rapido si legge
+  /// ancora come uno scatto.
+  static const Duration giro = Duration(milliseconds: 620);
+
+  @override
+  State<_Carousel> createState() => _CarouselState();
+}
+
+class _CarouselState extends State<_Carousel>
+    with SingleTickerProviderStateMixin {
+  /// La posizione del cerchio, misurata in POSTI: 0 vuol dire che il Maestro
+  /// di indice 0 sta davanti, 0,5 che e' fermo a meta' strada fra due. Non e'
+  /// limitata fra zero e tre: cresce e cala come un contagiri, cosi' girando
+  /// sempre nello stesso verso non c'e' mai un salto.
+  late double _posto;
+  late final AnimationController _moto;
+  Animation<double>? _corsa;
+
+  int get _quanti => Maestro.fixedOrder.length;
+
+  @override
+  void initState() {
+    super.initState();
+    _posto = Maestro.fixedOrder.indexOf(widget.central).toDouble();
+    _moto = AnimationController(vsync: this, duration: _Carousel.giro)
+      ..addListener(() {
+        final c = _corsa;
+        if (c != null) setState(() => _posto = c.value);
+      });
+  }
+
+  @override
+  void didUpdateWidget(covariant _Carousel old) {
+    super.didUpdateWidget(old);
+    // Il Maestro al centro lo decide chi ci sta sopra: quando cambia, il
+    // cerchio ci gira, invece di ritrovarsi gia' girato.
+    if (old.central != widget.central) _ruotaVerso(widget.central);
+  }
+
+  @override
+  void dispose() {
+    _moto.dispose();
+    super.dispose();
+  }
+
+  /// La strada piu' corta fino a quel Maestro, nel verso che gira meno.
+  void _ruotaVerso(Maestro m) {
+    _assestaSu(_piuVicino(
+        Maestro.fixedOrder.indexOf(m).toDouble(), _posto, _quanti));
+  }
+
+  void _assestaSu(double bersaglio) {
+    if (widget.reduceMotion) {
+      setState(() => _posto = bersaglio);
+      return;
+    }
+    _corsa = Tween<double>(begin: _posto, end: bersaglio).animate(
+      CurvedAnimation(parent: _moto, curve: Curves.easeInOutCubic),
+    );
+    _moto
+      ..stop()
+      ..value = 0
+      ..forward();
+  }
+
+  /// Il rappresentante di [bersaglio] piu' vicino a [da], contando che dopo
+  /// l'ultimo posto si torna al primo: senza questo, passando dal terzo al
+  /// primo il cerchio tornerebbe indietro di due posti invece di avanzare di
+  /// uno.
+  static double _piuVicino(double bersaglio, double da, int quanti) {
+    var b = bersaglio;
+    while (b - da > quanti / 2) {
+      b -= quanti;
+    }
+    while (da - b > quanti / 2) {
+      b += quanti;
+    }
+    return b;
+  }
+
+  void _trascina(DragUpdateDetails d, double larghezza) {
+    // Un terzo di schermo trascinato vale un posto: il cerchio segue il dito
+    // senza correre e senza frenare.
+    _moto.stop();
+    setState(() => _posto -= d.delta.dx / (larghezza / 3));
+  }
+
+  void _rilascia(DragEndDetails d, double larghezza) {
+    // L'inerzia: la velocita' del lancio sposta il bersaglio di al piu' un
+    // posto, poi ci si assesta sul piu' vicino.
+    final lancio = -d.velocity.pixelsPerSecond.dx / (larghezza * 1.6);
+    final bersaglio = (_posto + lancio.clamp(-1.0, 1.0)).roundToDouble();
+    _assestaSu(bersaglio);
+
+    // Chi finisce davanti diventa il Maestro al centro, per chi ci sta sopra.
+    final indice = (((bersaglio.round() % _quanti) + _quanti) % _quanti);
+    final arrivato = Maestro.fixedOrder[indice];
+    if (arrivato != widget.central) widget.onTapSide(arrivato);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // I due laterali sono gli altri due nell'ordine fisso, primo a sinistra.
-    final sides = Maestro.fixedOrder.where((m) => m != central).toList();
-    final sideH = centralHeight * 0.60;
-    final centralW = centralHeight * 0.75;
-    final sideW = sideH * 0.75;
-    // Laterali sollevati: sbucano ai lati sopra la carta centrale, cosi' si
-    // vede che i Maestri sono tre.
-    final sideBottom = centralHeight * 0.44;
-
     return AnimatedBuilder(
-      animation: breath,
+      animation: widget.breath,
       builder: (context, _) {
         return LayoutBuilder(
           builder: (context, c) {
             final w = c.maxWidth;
-            final breathValue = reduceMotion ? 0.5 : breath.value;
+            final breathValue =
+                widget.reduceMotion ? 0.5 : widget.breath.value;
+            final centralW = widget.centralHeight * 0.75;
+            // Il raggio orizzontale del cerchio visto di taglio: quanto si
+            // spostano di lato quelli che stanno dietro.
+            final raggio = w * 0.37;
 
-            return Stack(
-              clipBehavior: Clip.none,
-              children: [
-                // L'ellisse dorata che congiungeva i tre busti non c'e' piu':
-                // a schermo cadeva storta, perche' era un arco calcolato su
-                // tre altezze diverse e nessuna curva la faceva sembrare
-                // voluta. Mauro l'ha bocciata, e togliere una linea sbagliata
-                // vale piu' che raddrizzarla: i tre Maestri si tengono da
-                // soli, senza un filo che li leghi.
+            // Ogni Maestro al suo angolo, e da li' tutto il resto.
+            final posti = <_PostoInCerchio>[];
+            for (var i = 0; i < _quanti; i++) {
+              final angolo = (i - _posto) * 2 * math.pi / _quanti;
+              final profondita = math.cos(angolo); // 1 davanti, -1 dietro
+              posti.add(_PostoInCerchio(
+                maestro: Maestro.fixedOrder[i],
+                x: w / 2 + math.sin(angolo) * raggio,
+                profondita: profondita,
+                scala: 0.58 + 0.42 * ((profondita + 1) / 2),
+              ));
+            }
+            // Dietro prima, davanti dopo: cosi' chi e' vicino copre chi e'
+            // lontano, senza nessuna scelta scritta a mano.
+            posti.sort((a, b) => a.profondita.compareTo(b.profondita));
 
-                // Busto sinistro, alzato, arretrato e in penombra.
-                Positioned(
-                  left: w * 0.01,
-                  bottom: sideBottom,
-                  width: sideW,
-                  height: sideH,
-                  child: Transform.translate(
-                    offset: sideDepth,
-                    child: GestureDetector(
-                      key: const Key('santuario_side_left'),
-                      onTap: () => onTapSide(sides[0]),
-                      child: MaestroBust(
-                        maestro: sides[0],
-                        height: sideH,
-                        central: false,
-                        dim: 0.5,
-                        preferred: sides[0] == preferred,
-                      ),
-                    ),
-                  ),
-                ),
+            // Le chiavi seguono il RUOLO visivo, non il Maestro: chi sta
+            // davanti si chiama sempre allo stesso modo, e chi sta dietro a
+            // sinistra pure. Il dito, come i test, cerca un posto sulla scena,
+            // non un nome, perche' il posto e' la sola cosa che si vede.
+            final dietro = posti.where((p) => p.profondita <= 0.5).toList()
+              ..sort((a, b) => a.x.compareTo(b.x));
+            Key ruoloDi(_PostoInCerchio p) {
+              if (p.profondita > 0.5) {
+                return const Key('santuario_central_bust');
+              }
+              return dietro.isNotEmpty && identical(p, dietro.first)
+                  ? const Key('santuario_side_left')
+                  : const Key('santuario_side_right');
+            }
 
-                // Busto destro, alzato, arretrato e in penombra.
-                Positioned(
-                  right: w * 0.01,
-                  bottom: sideBottom,
-                  width: sideW,
-                  height: sideH,
-                  child: Transform.translate(
-                    offset: sideDepth,
-                    child: GestureDetector(
-                      key: const Key('santuario_side_right'),
-                      onTap: () => onTapSide(sides[1]),
-                      child: MaestroBust(
-                        maestro: sides[1],
-                        height: sideH,
-                        central: false,
-                        dim: 0.5,
-                        preferred: sides[1] == preferred,
-                      ),
-                    ),
-                  ),
-                ),
-
-                // Busto centrale, l'unico vivo, in primo piano: respira e si
-                // inclina un po' di piu' col giroscopio.
-                Positioned(
-                  left: (w - centralW) / 2,
-                  bottom: 0,
-                  width: centralW,
-                  height: centralHeight,
-                  child: Transform.translate(
-                    offset: centralDepth,
-                    child: GestureDetector(
-                      key: const Key('santuario_central_bust'),
-                      onTap: onTapCentral,
-                      child: MaestroBust(
-                        maestro: central,
-                        height: centralHeight,
-                        central: true,
-                        breath: breathValue,
-                        preferred: central == preferred,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            return GestureDetector(
+              key: const Key('santuario_carosello'),
+              onHorizontalDragUpdate: (d) => _trascina(d, w),
+              onHorizontalDragEnd: (d) => _rilascia(d, w),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  // Uno strato trasparente che prende il trascinamento anche
+                  // dove non c'e' un busto: senza, il dito funziona solo se
+                  // parte esattamente da una figura.
+                  Positioned.fill(
+                      child: Container(color: Colors.transparent)),
+                  for (final p in posti)
+                    Builder(builder: (context) {
+                      final davanti = p.profondita > 0.5;
+                      final altezza = widget.centralHeight * p.scala;
+                      final larghezza = centralW * p.scala;
+                      // I piani lontani si inclinano meno col giroscopio: e'
+                      // la stessa parallasse di prima, ora continua.
+                      final deriva = Offset.lerp(
+                        widget.sideDepth,
+                        widget.centralDepth,
+                        ((p.profondita + 1) / 2).clamp(0.0, 1.0),
+                      )!;
+                      return Positioned(
+                        left: p.x - larghezza / 2,
+                        // Chi sta dietro sta anche piu' in alto: e' cio' che
+                        // da' profondita' a una scena vista di tre quarti.
+                        bottom:
+                            (1 - p.profondita) * widget.centralHeight * 0.22,
+                        width: larghezza,
+                        height: altezza,
+                        child: Transform.translate(
+                          offset: deriva,
+                          child: GestureDetector(
+                            key: ruoloDi(p),
+                            onTap: () => davanti
+                                ? widget.onTapCentral()
+                                : widget.onTapSide(p.maestro),
+                            child: MaestroBust(
+                              maestro: p.maestro,
+                              height: altezza,
+                              central: davanti,
+                              breath: davanti ? breathValue : 0.5,
+                              // La penombra cresce con la lontananza, invece
+                              // di essere accesa o spenta.
+                              dim: davanti
+                                  ? 0
+                                  : 0.55 * (1 - (p.profondita + 1) / 2),
+                              preferred: p.maestro == widget.preferred,
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                ],
+              ),
             );
           },
         );
       },
     );
   }
+}
+
+/// Dove sta un Maestro sul cerchio, in questo istante.
+class _PostoInCerchio {
+  const _PostoInCerchio({
+    required this.maestro,
+    required this.x,
+    required this.profondita,
+    required this.scala,
+  });
+
+  final Maestro maestro;
+  final double x;
+
+  /// Da 1 (davanti) a meno 1 (dietro).
+  final double profondita;
+  final double scala;
 }
 
 /// L'ellisse dorata del Cerchio: una linea curva sottile che parte da dietro la
