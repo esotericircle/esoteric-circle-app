@@ -171,3 +171,20 @@ spiegazione che ripeteva la parola filtrata. Il disegno non ha dato problemi.
 - Test nuovi: **ventitre'**, in due file.
 - Sottocategorie distintive di Caligo: da **due a tre**.
 - Voci del catalogo aggiunte: **quattro**, piu' una spostata e accesa.
+
+## Consegna
+
+- Identificativo della release: **`5ltd9u5oelvmo`**
+- Versione: 0.1.0, build **2107**
+- Esito del caricamento: `RELEASE_CREATED`
+- Integrita' dell'archivio: verificata prima di caricare
+- Peso: **194,3 MB**, invariato rispetto alla consegna precedente
+- Note, rilette dal server: "Il Sigillo dell Intenzione, terza arte di Caligo:
+  scrivi una frase e nasce il tuo glifo. Piu la sottocategoria Magia nel suo
+  dominio."
+- Destinatario unico: `cloud@esotericircle.app`
+- Pagina per i tester:
+  `https://appdistribution.firebase.google.com/testerapps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/5ltd9u5oelvmo`
+
+Questa volta la suite era verde PRIMA di caricare, come la regola nata
+nell'ordine precedente impone.
