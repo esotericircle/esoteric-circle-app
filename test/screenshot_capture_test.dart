@@ -62,6 +62,7 @@ import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/components/immersive_scaffold.dart';
 import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
+import 'package:esoteric_circle/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
@@ -378,6 +379,52 @@ void main() {
       await step(tester);
       await precacheFaces(tester);
       await capture(tester, rootKey, 'santuario-${maestro.id}.png');
+    });
+  }
+
+  // --- Il Sigillo dell'Intenzione, su due altezze ---
+  //
+  // Catturato A FINE TRACCIAMENTO: il cammino si disegna in 2,4 secondi e
+  // fotografarlo prima mostrerebbe un sigillo incompleto.
+  for (final basso in const [false, true]) {
+    testWidgets('Cattura il Sigillo${basso ? ", schermo basso" : ""}',
+        (tester) async {
+      silenceSensors();
+      await loadFonts();
+      tester.view.devicePixelRatio = 1.0;
+      tester.view.physicalSize = basso ? schermoBasso : schermoAlto;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+                create: (_) =>
+                    MaestroController(initial: const ThemeKey.of(Maestro.caligo))),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ],
+          child: const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: MaestroScope(child: SigilloIntenzioneScreen()),
+          ),
+        ),
+      ));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('sigillo_inizia')));
+      await tester.pump();
+      await tester.enterText(find.byKey(const Key('sigillo_campo')),
+          'Chiedo chiarezza sulla mia strada');
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('sigillo_traccia')));
+      // Fine tracciamento: 3,2 secondi su 2,4 di animazione.
+      for (var i = 0; i < 16; i++) {
+        await tester.pump(const Duration(milliseconds: 200));
+      }
+      await capture(tester, rootKey,
+          'sigillo-intenzione${basso ? "-2392" : ""}.png');
     });
   }
 

@@ -651,15 +651,6 @@ class ArtCatalog {
         cornice: true,
       ),
       ArtEntry(
-        id: 'magic_sigil',
-        title: 'Sigillo Magico Personale',
-        teaser: 'Trasforma la tua intenzione in un sigillo da caricare.',
-        icon: Icons.gesture_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.mvp,
-        cornice: true,
-      ),
-      ArtEntry(
         id: 'micro_rituals',
         title: 'Micro-rituali',
         teaser: 'Candela, mantra e parola d\'intenzione, riti brevi e veri.',
@@ -684,6 +675,70 @@ class ArtCatalog {
         icon: Icons.route_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase4,
+        cornice: true,
+      ),
+    ]),
+    // La MAGIA e' la terza sottocategoria distintiva di Caligo. Il
+    // Briefing Operativo prescrive tre funzioni distintive per Maestro e la
+    // chat non e' una di quelle, quindi con l'uscita dell'Albero della Vita
+    // Caligo era rimasto a due contro le tre di Medora e di Aura.
+    //
+    // Il Sigillo NON e' una voce nuova: e' il 'Sigillo Magico Personale' che
+    // stava fra i Rituali, col teaser che gia' diceva 'trasforma la tua
+    // intenzione in un sigillo'. Aggiungerne un secondo avrebbe promesso due
+    // volte la stessa cosa, quindi quello e' stato spostato qui e acceso.
+    ArtSection(title: 'Magia', arts: [
+      ArtEntry(
+        id: 'magic_sigil',
+        title: 'Sigillo dell\'Intenzione',
+        teaser: 'La tua intenzione diventa un glifo che e\' solo tuo.',
+        icon: Icons.gesture_rounded,
+        state: ArtState.attiva,
+        phase: ArtPhase.mvp,
+        cornice: true,
+      ),
+      // I nomi delle tre vie colorate sono PROVVISORI: dipendono dal
+      // confronto di Mauro con Gaetano Daguraz, il praticante reale. Stanno
+      // in ViaMagica, un punto solo, quindi cambiarli costa una riga.
+      ArtEntry(
+        id: 'magia_rossa',
+        title: 'Magia Rossa',
+        teaser: 'Il cuore e il desiderio, con le loro regole.',
+        icon: Icons.favorite_border_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'magia_bianca',
+        title: 'Magia Bianca',
+        teaser: 'Protezione e chiarezza, i confini che si tracciano.',
+        icon: Icons.shield_moon_outlined,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'magia_verde',
+        title: 'Magia Verde',
+        teaser: 'Erbe e natura, il sapere che viene dalla terra.',
+        icon: Icons.local_florist_outlined,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        cornice: true,
+      ),
+      // OPERA AL NERO, mai 'Magia Nera'. Nella lettura alchemica la nigredo
+      // e' la fase di dissoluzione che precede la rinascita, non un
+      // maleficio, e Caligo nei briefing e' il custode che la magia nera la
+      // conosce senza praticarla. E' anche cio' che tiene la voce lontana da
+      // problemi in revisione degli store.
+      ArtEntry(
+        id: 'opera_al_nero',
+        title: 'Opera al Nero',
+        teaser: 'La nigredo, dissoluzione che prepara la rinascita.',
+        icon: Icons.dark_mode_outlined,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
         cornice: true,
       ),
     ]),

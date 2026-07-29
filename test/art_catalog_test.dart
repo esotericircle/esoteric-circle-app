@@ -77,8 +77,11 @@ void main() {
           ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Lunologia', 'Destino']);
       expect(ArtCatalog.forMaestro(Maestro.aura).map((s) => s.title),
           ['Chakra', 'Energia', 'Archetipi']);
+      // Magia e' la terza distintiva di Caligo, nata col Sigillo
+      // dell'Intenzione: senza, aveva due sottocategorie vive contro le
+      // tre di Medora e di Aura.
       expect(ArtCatalog.forMaestro(Maestro.caligo).map((s) => s.title),
-          ['Rune', 'Rituali', 'Cabala']);
+          ['Rune', 'Rituali', 'Magia', 'Cabala']);
     });
 
     test('Nessuna arte compare due volte, in nessun dominio', () {
@@ -248,17 +251,22 @@ void main() {
             for (final s in ArtCatalog.visibleFor(Maestro.caligo, demo: demo))
               s.title: s.arts.length,
           };
-      // Rune e Rituali hanno la loro distintiva viva. La Cabala no: uscito
-      // l'Albero della Vita dalla Demo, le restano solo arti in cammino.
+      // Rune, Rituali e Magia hanno la loro distintiva viva. La Cabala no:
+      // uscito l'Albero della Vita dalla Demo, le restano solo arti in
+      // cammino. Il Sigillo NON e' una voce nuova: e' il Sigillo Magico
+      // Personale, spostato dai Rituali e acceso, quindi i Rituali ne
+      // hanno una in meno.
       expect(
           ArtCatalog.visibleFor(Maestro.caligo, demo: true).map((s) => s.title),
-          ['Rune', 'Rituali', 'Cabala']);
-      expect(conta(true), {'Rune': 5, 'Rituali': 6, 'Cabala': 4});
+          ['Rune', 'Rituali', 'Magia', 'Cabala']);
+      expect(conta(true),
+          {'Rune': 5, 'Rituali': 5, 'Magia': 5, 'Cabala': 4});
       // Nella vista della persona cadono le fasi oltre la Fase 2: i Rituali
       // perdono i Rituali Guidati. La Cabala no: senza piu' nulla di vivo e'
       // esente dalla soglia delle fasi, quindi si mostra intera dietro il suo
       // tocco, come vuole la regola del catalogo.
-      expect(conta(false), {'Rune': 5, 'Rituali': 5, 'Cabala': 4});
+      expect(conta(false),
+          {'Rune': 5, 'Rituali': 4, 'Magia': 5, 'Cabala': 4});
 
       List<ArtEntry> arti(String titolo) => ArtCatalog.forMaestro(Maestro.caligo)
           .firstWhere((s) => s.title == titolo)
@@ -266,7 +274,7 @@ void main() {
 
       // Una sola distintiva viva per sottocategoria, dove c'e'. La Cabala non
       // ne ha piu': l'Albero della Vita e' uscito dalla Demo.
-      for (final t in const ['Rune', 'Rituali']) {
+      for (final t in const ['Rune', 'Rituali', 'Magia']) {
         expect(arti(t).where((a) => a.state == ArtState.attiva).length, 1,
             reason: t);
       }
@@ -278,14 +286,27 @@ void main() {
         'coffee_reading',
         'dream_reading',
       ]);
+      // Il Sigillo non e' piu' qui: e' passato in Magia, dove e' la
+      // distintiva viva. Spostato, non duplicato.
       expect(arti('Rituali').map((a) => a.id), [
         'guide_animal',
         'animal_message',
-        'magic_sigil',
         'micro_rituals',
         'daily_invocation',
         'guided_rituals',
       ]);
+      expect(arti('Magia').map((a) => a.id), [
+        'magic_sigil',
+        'magia_rossa',
+        'magia_bianca',
+        'magia_verde',
+        'opera_al_nero',
+      ]);
+      // Mai 'Magia Nera': la nigredo e' dissoluzione, non maleficio.
+      for (final a in arti('Magia')) {
+        expect(a.title.toLowerCase().contains('magia nera'), isFalse,
+            reason: a.title);
+      }
       expect(arti('Cabala').map((a) => a.id), [
         'angel_numbers',
         'numerology',

@@ -8,6 +8,7 @@ import 'aura/archetype/archetype_test_screen.dart';
 import 'aura/face/face_constellation_screen.dart';
 import 'caligo/animal/guide_animal_screen.dart';
 import 'caligo/rune/rune_draw_screen.dart';
+import 'caligo/sigillo/sigillo_intenzione_screen.dart';
 import '../horoscope/oroscopo_screen.dart';
 import '../maestri/aura/meditation/meditation_screen.dart';
 import '../rituals/breath_destiny_screen.dart';
@@ -63,6 +64,10 @@ Route<void>? artRouteFor(
       return GuideAnimalScreen.route(userSign: userSign, userBirth: userBirth);
     // L'Estrazione Rune ha ora la sua esperienza vera, non piu' la soglia:
     // lettura a richiesta e ripetibile, col selettore delle gettate.
+    // Il Sigillo dell'Intenzione, terza distintiva di Caligo: dalla frase
+    // scritta al glifo, col metodo di Spare sulla ruota della Golden Dawn.
+    case 'magic_sigil':
+      return SigilloIntenzioneScreen.route();
     case 'rune_draw':
       return RuneDrawScreen.route(userSign: userSign, userBirth: userBirth);
     case 'horoscope':
