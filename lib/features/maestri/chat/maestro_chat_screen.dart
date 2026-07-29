@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../core/entitlement/question_allowance.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/chat/immersive_intents.dart';
@@ -62,11 +64,16 @@ class MaestroChatScreen extends StatefulWidget {
     String? initialUserMessage,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => ChangeNotifierProvider<MaestroChatController>(
+      // Il contesto della rotta, non quello del builder interno: da qui si
+      // leggono il contatore delle domande e il piano attivo, che senza
+      // questo passaggio la chat non vedrebbe mai.
+      builder: (rotta) => ChangeNotifierProvider<MaestroChatController>(
         create: (_) => MaestroChatController(
           maestro: maestro,
           ai: services.ai,
           memory: services.memory,
+          allowance: rotta.read<QuestionAllowance>(),
+          tier: () => rotta.read<EntitlementService>().tier,
         )..init(),
         child: MaestroScope(
           child: MaestroChatScreen(

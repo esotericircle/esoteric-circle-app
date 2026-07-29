@@ -53,18 +53,18 @@ class GuideAnimalCorpus {
       invito:
           "Oggi scegli un solo bersaglio e portalo a termine, senza disperderti.",
       messaggi: [
-        "guarda piu' in alto, il quadro intero ti aspetta.",
+        "guarda più in alto, il quadro intero ti aspetta.",
         "un segno ti sta arrivando, tieni gli occhi aperti.",
         "scegli un bersaglio e non mollarlo.",
         "sali sopra il rumore, da lassu' si vede chiaro.",
-        "cio' che cerchi e' gia' in vista, aguzza lo sguardo.",
+        "cio' che cerchi e' già in vista, aguzza lo sguardo.",
         "un solo colpo ben mirato vale mille tentativi.",
         "leggi il messaggio nascosto in un incontro di oggi.",
         "la fretta acceca, la mira paziente colpisce.",
         "alza lo sguardo dal dettaglio, torna alla rotta.",
         "una notizia arriva dall'alto, accoglila senza paura.",
         "concentra la forza dove conta, lascia cadere il resto.",
-        "il cielo ti chiama a osare un volo piu' ampio.",
+        "il cielo ti chiama a osare un volo più ampio.",
       ],
     ),
     "Orso": AnimalRitratto(
@@ -131,7 +131,7 @@ class GuideAnimalCorpus {
       invito:
           "Oggi fidati di un'intuizione forte e proteggi cio' che ami.",
       messaggi: [
-        "fidati dell'istinto, sa gia' la strada.",
+        "fidati dell'istinto, sa già la strada.",
         "torna ai tuoi, il branco ti aspetta.",
         "difendi cio' che conta, con lealta'.",
         "la liberta' vera sceglie i suoi legami.",
@@ -147,17 +147,17 @@ class GuideAnimalCorpus {
     ),
     "Aquila": AnimalRitratto(
       natura:
-          "L'Aquila e' lo spirito che tocca il sole e guarda la terra dall'alto. Non teme l'altezza, anzi la cerca, perche' da lassu' ogni cosa trova il suo posto.",
+          "L'Aquila e' lo spirito che tocca il sole e guarda la terra dall'alto. Non teme l'altezza, anzi la cerca, perché da lassu' ogni cosa trova il suo posto.",
       dono:
           "Il suo dono e' la prospettiva: salire tanto in alto da vedere il disegno intero della tua vita.",
       lezione:
           "La sua lezione e' il coraggio dello spirito: osare la vetta anche quando il vuoto sotto spaventa.",
       quando:
-          "Si presenta come guida quando sei chiamato a una visione piu' grande e a governare te stesso con nobilta'.",
+          "Si presenta come guida quando sei chiamato a una visione più grande e a governare te stesso con nobilta'.",
       invito:
           "Oggi guarda la tua vita dall'alto come l'Aquila, poi scegli con ampiezza.",
       messaggi: [
-        "sali piu' in alto, la vista cambia tutto.",
+        "sali più in alto, la vista cambia tutto.",
         "osa la vetta, lo spirito ti regge.",
         "guarda il disegno intero, non il dettaglio.",
         "lo spirito ti chiama, non abbassare lo sguardo.",
@@ -173,27 +173,27 @@ class GuideAnimalCorpus {
     ),
     "Gufo": AnimalRitratto(
       natura:
-          "Il Gufo e' il veggente della notte, che vede dove gli altri sono ciechi. Vola in silenzio e coglie la verita' nascosta sotto le apparenze.",
+          "Il Gufo e' il veggente della notte, che vede dove gli altri sono ciechi. Vola in silenzio e coglie la verità nascosta sotto le apparenze.",
       dono:
           "Il suo dono e' la saggezza silenziosa: distinguere il vero dal falso e ascoltare cio' che non viene detto.",
       lezione:
           "La sua lezione e' il discernimento: non farsi ingannare dal buio, ma imparare a vederci dentro.",
       quando:
-          "Si presenta come guida quando una verita' scomoda chiede di essere guardata, senza fughe.",
+          "Si presenta come guida quando una verità scomoda chiede di essere guardata, senza fughe.",
       invito:
           "Oggi ascolta il silenzio e osserva cio' che di solito ti sfugge.",
       messaggi: [
-        "guarda oltre l'apparenza, la verita' e' sotto.",
+        "guarda oltre l'apparenza, la verità e' sotto.",
         "il silenzio ti parla, ascoltalo.",
         "fidati di cio' che intuisci nel buio.",
-        "una verita' scomoda chiede di essere guardata.",
+        "una verità scomoda chiede di essere guardata.",
         "non farti ingannare dalle luci, cerca l'ombra.",
-        "sai gia' la risposta, smetti di negarla.",
+        "sai già la risposta, smetti di negarla.",
         "la saggezza tace e osserva, poi parla.",
         "distingui il vero dal comodo, poi scegli il vero.",
         "vola in silenzio, la preda del sapere e' timida.",
         "la notte rivela cio' che il giorno nasconde.",
-        "una domanda giusta vale piu' di cento risposte.",
+        "una domanda giusta vale più di cento risposte.",
         "guarda dentro, li' e' custodito il segreto.",
       ],
     ),
@@ -203,7 +203,7 @@ class GuideAnimalCorpus {
       dono:
           "Il suo dono e' la sensibilita': toccare il cuore degli altri con delicatezza, senza ferire.",
       lezione:
-          "La sua lezione e' che la dolcezza non e' debolezza: si puo' essere gentili e fermi insieme.",
+          "La sua lezione e' che la dolcezza non e' debolezza: si può essere gentili e fermi insieme.",
       quando:
           "Si presenta come guida quando la durezza non serve e la via si apre con la grazia.",
       invito:
@@ -219,8 +219,8 @@ class GuideAnimalCorpus {
         "la grazia trova la via dove la durezza si blocca.",
         "avvicina l'altro con calma, come al cervo si va piano.",
         "proteggi la tua tenerezza, non e' ingenuita'.",
-        "un gesto gentile oggi cura piu' di mille parole.",
-        "cammina leggero, lascia il mondo un po' piu' dolce.",
+        "un gesto gentile oggi cura più di mille parole.",
+        "cammina leggero, lascia il mondo un po' più dolce.",
       ],
     ),
     "Serpente": AnimalRitratto(
@@ -233,10 +233,10 @@ class GuideAnimalCorpus {
       quando:
           "Si presenta come guida quando una fase e' finita e chiede di essere lasciata per rinascere.",
       invito:
-          "Oggi lascia andare una cosa che hai gia' superato, fai spazio al nuovo.",
+          "Oggi lascia andare una cosa che hai già superato, fai spazio al nuovo.",
       messaggi: [
         "lascia la vecchia pelle, adesso e' tempo.",
-        "una fase muore perche' un'altra nasca.",
+        "una fase muore perché un'altra nasca.",
         "l'energia torna quando lasci andare.",
         "cio' che trattieni ti blocca, sciogli la presa.",
         "la ferita che curi diventa forza.",
@@ -246,7 +246,7 @@ class GuideAnimalCorpus {
         "non temere la fine, dietro c'e' il nuovo.",
         "striscia fuori dal vecchio, la terra e' calda.",
         "la trasformazione chiede coraggio, non fretta.",
-        "lascia morire cio' che non sei piu'.",
+        "lascia morire cio' che non sei più.",
       ],
     ),
     "Cavallo": AnimalRitratto(
@@ -305,7 +305,7 @@ class GuideAnimalCorpus {
       natura:
           "Il Corvo e' il messaggero della soglia, che vola fra il visibile e cio' che non si vede. Custodisce i passaggi e porta segni dal mistero.",
       dono:
-          "Il suo dono e' la magia: cogliere che il mondo e' piu' vasto di quanto sembra e muoversi ai suoi bordi.",
+          "Il suo dono e' la magia: cogliere che il mondo e' più vasto di quanto sembra e muoversi ai suoi bordi.",
       lezione:
           "La sua lezione e' il coraggio del vuoto: dal nulla apparente nasce il nuovo.",
       quando:
@@ -317,7 +317,7 @@ class GuideAnimalCorpus {
         "sei a una soglia, attraversala.",
         "dal vuoto nasce il nuovo, fidati.",
         "una coincidenza ti parla, ascoltala.",
-        "il mondo e' piu' vasto di quanto sembra.",
+        "il mondo e' più vasto di quanto sembra.",
         "cio' che sembra caso e' un messaggio.",
         "attraversa il buio, dall'altra parte c'e' luce.",
         "la magia vive ai bordi, non al centro.",
@@ -331,7 +331,7 @@ class GuideAnimalCorpus {
       natura:
           "La Lince e' il segreto svelato, l'occhio che vede l'invisibile. Silenziosa e appartata, custodisce cio' che gli altri non colgono.",
       dono:
-          "Il suo dono e' la percezione sottile: sentire la verita' di una persona o di un luogo prima delle parole.",
+          "Il suo dono e' la percezione sottile: sentire la verità di una persona o di un luogo prima delle parole.",
       lezione:
           "La sua lezione e' fidarsi del sesto senso: cio' che percepisci ha valore, anche se non lo sai spiegare.",
       quando:
@@ -344,7 +344,7 @@ class GuideAnimalCorpus {
         "cio' che senti conta, ascoltalo.",
         "guarda cio' che gli altri non colgono.",
         "il silenzio custodisce cio' che sai.",
-        "una verita' nascosta chiede i tuoi occhi.",
+        "una verità nascosta chiede i tuoi occhi.",
         "non spiegare tutto, alcune cose si sentono.",
         "la percezione sottile precede le parole.",
         "osserva appartato, li' cogli il vero.",

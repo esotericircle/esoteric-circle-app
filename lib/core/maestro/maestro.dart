@@ -18,7 +18,7 @@ enum Maestro {
     domainInvite: 'Il cielo che ti disegna, le carte che ti rispondono',
     domainArts: 'Astrologia, Cartomanzia, Destino',
     icon: Icons.auto_awesome_outlined,
-    avatarAsset: 'brand_assets/avatars/Medora-1.png',
+    avatarAsset: 'assets/avatars_webp/Medora-1.webp',
   ),
 
   /// Chakra, energia, benessere, psiche. Verde smeraldo con oro.
@@ -30,7 +30,7 @@ enum Maestro {
     domainInvite: 'Il respiro, l\'energia, gli archetipi che ti abitano',
     domainArts: 'Chakra, Energia, Archetipi',
     icon: Icons.spa_outlined,
-    avatarAsset: 'brand_assets/avatars/Aura-1.png',
+    avatarAsset: 'assets/avatars_webp/Aura-1.webp',
   ),
 
   /// Rune, rituali, simbologia, magia, Cabala. Rosso con oro.
@@ -42,7 +42,7 @@ enum Maestro {
     domainInvite: 'I segni antichi, i riti, l\'albero dei misteri',
     domainArts: 'Rune, Rituali, Cabala',
     icon: Icons.local_fire_department_outlined,
-    avatarAsset: 'brand_assets/avatars/Caligo-1.png',
+    avatarAsset: 'assets/avatars_webp/Caligo-1.webp',
   );
 
   const Maestro({

@@ -315,8 +315,8 @@ class _DailyStripState extends State<DailyStrip>
   late final AnimationController _pulse;
   final ScrollController _scroll = ScrollController();
   Timer? _tick; // fa scorrere il conto alla rovescia al tramonto
-  SkyPlace? _luogo; // la posizione reale, solo se il permesso e' gia' concesso
-  String? _runaApertaIl; // il giorno rituale della runa gia' vissuta
+  SkyPlace? _luogo; // la posizione reale, solo se il permesso e' già concesso
+  String? _runaApertaIl; // il giorno rituale della runa già vissuta
 
   // Largo abbastanza da tenere intero il nome piu' lungo, "Tramonto", insieme
   // al cerchio "?", senza mai troncare l'etichetta ne' sforare la riga.

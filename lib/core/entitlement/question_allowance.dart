@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'plan_catalog.dart';
 import 'tier.dart';
 
 /// Contatore locale delle domande ai Maestri, per tier.
@@ -16,27 +17,25 @@ import 'tier.dart';
 class QuestionAllowance extends ChangeNotifier {
   QuestionAllowance({
     DateTime Function()? clock,
-    this.freeDailyLimit = 3,
+    this.freeDailyLimit,
   }) : _clock = clock ?? DateTime.now;
 
   final DateTime Function() _clock;
 
-  /// Quante risposte Breve al giorno per l'utente Free (Viandante). Tre,
-  /// spendibili anche su Maestri diversi.
-  final int freeDailyLimit;
+  /// Un limite imposto dall'esterno, solo per i test: nell'app resta nullo e
+  /// il numero arriva dalla matrice.
+  final int? freeDailyLimit;
 
   /// Il limite giornaliero per tier, oppure null se illimitato.
+  ///
+  /// LO LEGGE DALLA MATRICE dei piani, che e' la fonte di cio' che si promette
+  /// alla persona. Prima i numeri erano scritti qui: la matrice prometteva al
+  /// Viandante una domanda al giorno e questo file ne concedeva tre, quindi la
+  /// promessa e l'imposizione erano due cose diverse, e a rimetterci era solo
+  /// una delle due parti.
   int? dailyLimit(Tier tier) {
-    switch (tier) {
-      case Tier.free:
-        return freeDailyLimit;
-      case Tier.tier1:
-        return 5;
-      case Tier.tier2:
-        return 10;
-      case Tier.tier3:
-        return null; // illimitate
-    }
+    if (tier == Tier.free && freeDailyLimit != null) return freeDailyLimit;
+    return PlanCatalog.limiteGiornaliero(PlanCatalog.rigaDomande, tier);
   }
 
   static const _kDay = 'allowance.day';

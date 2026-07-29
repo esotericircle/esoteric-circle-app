@@ -13,7 +13,6 @@ import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/immersive_intents.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
-import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart' as astro;
@@ -95,6 +94,8 @@ import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_reposit
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
+import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -680,6 +681,7 @@ void main() {
           ChangeNotifierProvider(
               create: (_) => QualityTierController()..setTier(QualityTier.medium)),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
         ],
@@ -1483,6 +1485,9 @@ void main() {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(
               create: (_) => QualityTierController()..setTier(QualityTier.medium)),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
@@ -1533,6 +1538,7 @@ void main() {
           ChangeNotifierProvider(create: (_) => ZodiacController()),
           ChangeNotifierProvider(create: (_) => BirthIdentityController()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => ProfileController()),
         ],
         child: MaterialApp(
@@ -2233,6 +2239,9 @@ void main() {
             ChangeNotifierProvider(create: (_) => ProfileController()),
             ChangeNotifierProvider<BirthIdentityController>.value(value: birth),
             ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -2359,6 +2368,9 @@ void main() {
             // Il Risveglio ora poggia sul cosmo profondo: servono i controller
             // che lo animano (fermo sotto Riduci Movimento) e il tema neutro.
             ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
             ChangeNotifierProvider(create: (_) => ParallaxController()),
             ChangeNotifierProvider(create: (_) => QualityTierController()),
             ChangeNotifierProvider(create: (_) => ZodiacController()),
@@ -2638,6 +2650,9 @@ void main() {
         child: MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
             ChangeNotifierProvider(create: (_) => QualityTierController()),
           ],
           child: natalHost(
@@ -2680,6 +2695,9 @@ void main() {
           providers: [
             ChangeNotifierProvider<IdentityController>.value(value: b.ident),
             ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
             ChangeNotifierProvider(create: (_) => ParallaxController()),
             ChangeNotifierProvider(create: (_) => QualityTierController()),
             ChangeNotifierProvider(create: (_) => ZodiacController()),
@@ -2729,6 +2747,9 @@ void main() {
                 value: b.birth),
             ChangeNotifierProvider<IdentityController>.value(value: b.ident),
             ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
             ChangeNotifierProvider(create: (_) => ParallaxController()),
             ChangeNotifierProvider(create: (_) => QualityTierController()),
             ChangeNotifierProvider(create: (_) => ZodiacController()),

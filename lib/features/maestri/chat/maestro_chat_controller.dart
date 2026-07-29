@@ -2,6 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+import '../../../core/entitlement/plan_catalog.dart';
+import '../../../core/entitlement/question_allowance.dart';
+import '../../../core/entitlement/tier.dart';
+
 import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/maestro_memory.dart';
@@ -21,14 +25,38 @@ class MaestroChatController extends ChangeNotifier {
     required MaestroAiProvider ai,
     required MaestroMemoryRepository memory,
     IntentClassifier classifier = const IntentClassifier(),
+    QuestionAllowance? allowance,
+    Tier Function()? tier,
   })  : _ai = ai,
         _memory = memory,
-        _classifier = classifier;
+        _classifier = classifier,
+        _allowance = allowance,
+        _tier = tier;
 
   final Maestro maestro;
   final MaestroAiProvider _ai;
   final MaestroMemoryRepository _memory;
   final IntentClassifier _classifier;
+
+  /// Il contatore delle domande del giorno. Esiste, ed era usato da una sola
+  /// delle due strade con cui si fa una domanda a un Maestro: la schermata
+  /// "Chiedi" lo consultava, la chat no.
+  final QuestionAllowance? _allowance;
+
+  /// Il piano attivo, letto quando serve. Una funzione e non un valore:
+  /// l'abbonamento puo' cambiare mentre la chat e' aperta.
+  final Tier Function()? _tier;
+
+  /// Cosa dice il Maestro quando le domande del giorno sono finite. Nel suo
+  /// tono, col numero vero e con la via d'uscita: mai un vicolo cieco.
+  String _fraseDelLimite(Tier piano, QuestionAllowance contatore) {
+    final limite = contatore.dailyLimit(piano);
+    if (limite == null) return 'Torna domani: riprenderemo da qui.';
+    final quante = limite == 1 ? 'una domanda' : '$limite domande';
+    return 'Per oggi ci siamo detti abbastanza: il tuo cammino prevede '
+        '$quante al giorno. Torna domani, oppure allarga il tuo cerchio per '
+        'averne di piu.';
+  }
 
   /// Ogni quanti turni dell'utente rinfrescare il distillato di memoria.
   static const int _distillEvery = 3;
@@ -98,6 +126,22 @@ class MaestroChatController extends ChangeNotifier {
     final trimmed = text.trim();
     if (trimmed.isEmpty || _sending) return;
 
+    // Il limite del giorno vale su TUTTE le strade con cui si fa una domanda.
+    // La schermata "Chiedi" consultava il contatore, la chat no: chi apriva la
+    // chat aveva domande infinite qualunque piano avesse, cioe' il limite era
+    // promesso e non imposto.
+    final piano = _tier?.call();
+    final contatore = _allowance;
+    if (piano != null && contatore != null && !contatore.canAsk(piano)) {
+      _messages.add(ChatMessage(
+        role: ChatRole.maestro,
+        text: _fraseDelLimite(piano, contatore),
+        at: DateTime.now(),
+      ));
+      notifyListeners();
+      return;
+    }
+
     final priorHistory = List<ChatMessage>.of(_messages);
     final userMessage = ChatMessage(
       role: ChatRole.user,
@@ -125,6 +169,9 @@ class MaestroChatController extends ChangeNotifier {
       return;
     }
 
+    // Si consuma DOPO l'instradamento: una richiesta che apre una funzione
+    // immersiva non e' una domanda al Maestro, e non deve costarne una.
+    if (piano != null && contatore != null) contatore.record(piano);
     await _generate(priorHistory: priorHistory, userText: trimmed);
   }
 
@@ -203,6 +250,12 @@ class MaestroChatController extends ChangeNotifier {
   /// Ogni tot turni distilla la conversazione e aggiorna la memoria. Best
   /// effort: qualunque errore lascia la memoria com'era.
   Future<void> _maybeDistill() async {
+    // La memoria dei Maestri e' venduta come esclusiva dell'Iniziato in su, e
+    // veniva distillata anche per il gratuito: il valore usciva senza che
+    // nessuno lo avesse comprato. Chi non ha diritto non paga il costo della
+    // distillazione e non lascia traccia.
+    final piano = _tier?.call();
+    if (piano != null && !PlanCatalog.haMemoria(piano)) return;
     if (_turnsSinceDistill < _distillEvery) return;
     _turnsSinceDistill = 0;
     try {

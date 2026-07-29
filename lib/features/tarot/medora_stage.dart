@@ -38,7 +38,7 @@ enum MedoraExpression {
 /// La scena di Medora: il mezzo busto che presiede la stesa, con le carte
 /// davanti a lei.
 ///
-/// Oggi mostra il segnaposto `brand_assets/avatars/Medora-1.png` che respira con
+/// Oggi mostra il segnaposto `assets/avatars_webp/Medora-1.webp` che respira con
 /// un micro movimento di scala e un alone che pulsa. Gli stati (espressione,
 /// carta attiva, luce o ombra) sono gia' quelli definitivi: quando arrivera'
 /// l'animazione finale bastera' sostituire il corpo della scena, senza rifare ne'
@@ -82,7 +82,7 @@ class MedoraStage extends StatefulWidget {
   /// Il ritratto unico, che c'e' sempre. E' il ripiego: se i tre ritratti
   /// d'espressione non sono ancora stati prodotti, la scena usa questo e non
   /// resta mai vuota.
-  static const String placeholderAsset = 'brand_assets/avatars/Medora-1.png';
+  static const String placeholderAsset = 'assets/avatars_webp/Medora-1.webp';
 
   /// I tre ritratti d'espressione, che Mauro produrra'.
   ///

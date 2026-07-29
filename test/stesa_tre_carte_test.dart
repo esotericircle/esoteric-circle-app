@@ -453,7 +453,7 @@ void main() {
       // stessa mappa delle espressioni. Qui cambia solo la scala, perche'
       // l'animazione Rive prendera' il posto del segnaposto senza rifare nulla.
       expect(MedoraStage.placeholderAsset,
-          'brand_assets/avatars/Medora-1.png');
+          'assets/avatars_webp/Medora-1.webp');
       expect(stage.breathe, isTrue);
       expect(stage.active, isNull);
       expect(MedoraExpression.values.length, 3);

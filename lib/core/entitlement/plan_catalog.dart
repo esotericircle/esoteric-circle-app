@@ -198,6 +198,72 @@ class PlanCatalog {
   ];
 
   /// La mappa funzioni per tier, riga per riga, nell'ordine delle colonne.
+  /// Il limite giornaliero promesso da una riga della matrice, per un piano.
+  ///
+  /// LA MATRICE E' LA FONTE. Il contatore delle domande portava scritto 3 per
+  /// il Viandante mentre la matrice prometteva 1: due numeri per la stessa
+  /// cosa, in due file diversi, e quello sbagliato era quello che contava
+  /// davvero. Adesso il numero esiste in un posto solo, qui, e chi deve
+  /// imporlo lo legge invece di ricopiarlo.
+  ///
+  /// Restituisce null quando la promessa e' "illimitate", che e' cosa diversa
+  /// da zero.
+  static int? limiteGiornaliero(String etichettaRiga, Tier tier) {
+    final riga = matrix.where((r) => r.label == etichettaRiga);
+    if (riga.isEmpty) return null;
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    final cella = riga.first.values[ordine.indexOf(tier)];
+    if (cella.toLowerCase().contains('illimitat')) return null;
+    final numero = RegExp(r'(\d+)').firstMatch(cella);
+    return numero == null ? null : int.parse(numero.group(1)!);
+  }
+
+  /// Se quel piano ha diritto alla memoria dei Maestri.
+  ///
+  /// Letto dalla matrice, non deciso qui: la riga dice No per il Viandante ed
+  /// Esclusiva dall'Iniziato in su, quindi la matrice sa gia' la risposta.
+  static bool haMemoria(Tier tier) {
+    final riga = matrix.where((r) => r.label == 'Memoria AI dei Maestri');
+    if (riga.isEmpty) return true;
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    return riga.first.values[ordine.indexOf(tier)].toLowerCase() != 'no';
+  }
+
+  /// Se quel piano ha diritto alla profondita' Profonda dell'oroscopo.
+  ///
+  /// Letto dalla matrice: la riga dell'oroscopo settimanale dice Base per il
+  /// Viandante e Dettagliato dall'Iniziato in su. Prima nessuno lo leggeva, e
+  /// la Profonda restava col lucchetto anche per chi l'aveva comprata.
+  static bool haProfondita(Tier tier) {
+    final riga = matrix.where((r) => r.label == 'Oroscopo settimanale');
+    if (riga.isEmpty) return false;
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    return riga.first.values[ordine.indexOf(tier)].toLowerCase() != 'base';
+  }
+
+  /// Cosa promettere a chi sale a quel piano, riguardo alle domande.
+  ///
+  /// Il testo diceva "senza limiti" per QUALUNQUE piano di destinazione,
+  /// mentre solo l'Illuminato le ha davvero illimitate: chi saliva
+  /// all'Iniziato per averle senza limiti ne trovava cinque. Adesso la frase
+  /// nasce dal numero vero di quel piano.
+  static String promessaDomande(Tier tier) {
+    final limite = limiteGiornaliero(rigaDomande, tier);
+    if (limite == null) {
+      return 'Con questo cammino le domande ai Maestri sono senza limiti. '
+          'Gli sguardi si possono anche mettere a confronto.';
+    }
+    final quante = limite == 1 ? 'una domanda' : '$limite domande';
+    return 'Con questo cammino hai $quante al giorno ai Maestri, con gli '
+        'sguardi che si possono mettere a confronto.';
+  }
+
+  /// Le etichette delle righe che portano un limite giornaliero, cosi' chi le
+  /// usa non le scrive a mano e un refuso non passa inosservato.
+  static const String rigaDomande = 'Domande a un Maestro';
+  static const String rigaSinastria = 'Sinastria VIP';
+  static const String rigaCartaSingola = 'Tarocchi carta singola';
+
   static const List<FeatureRow> matrix = [
     FeatureRow('Pubblicità banner inferiore', ['Sì', 'No', 'No', 'No']),
     FeatureRow('Carta natale occidentale',

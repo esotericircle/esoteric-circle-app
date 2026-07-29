@@ -131,7 +131,7 @@ class _AnteprimaTonoState extends State<AnteprimaTono>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('LA TUA GUIDA TI DIRA\'',
+              Text('LA TUA GUIDA TI DIRÀ',
                   style: TypographyTokens.label(size: 11).copyWith(
                       color: widget.palette.goldSoft, letterSpacing: 2)),
               const SizedBox(height: SpacingTokens.xs),

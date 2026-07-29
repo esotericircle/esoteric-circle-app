@@ -18,6 +18,7 @@ import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -113,6 +114,7 @@ void main() {
       await tester.pumpWidget(MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),

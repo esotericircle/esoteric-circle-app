@@ -29,6 +29,34 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // S2. Il filtro degli ABI vale anche per le librerie native dei
+        // plugin. L'opzione --target-platform di Flutter agisce sul solo
+        // motore, non su ML Kit e compagnia: per questo l'archivio portava
+        // tre architetture mentre un telefono ne usa una sola, 14,6 MB che
+        // nessuno esegue. Restano le due che servono ai dispositivi veri.
+        ndk {
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a")
+        }
+    }
+
+    packaging {
+        jniLibs {
+            // S1. Il validatore Vulkan pesa 14,5 MB e serve solo a chi
+            // sviluppa il motore grafico: nell'archivio che si consegna non
+            // ha nessuna ragione di esserci.
+            excludes += listOf(
+                "**/libVkLayer_khronos_validation.so",
+                // abiFilters non basta: le librerie dei plugin arrivano
+                // gia' compilate dentro gli AAR, e quel filtro governa
+                // cio' che si compila, non cio' che si copia. Verificato
+                // aprendo l'archivio: x86_64 c'era ancora, 9,4 MB che
+                // nessun telefono esegue. Gli emulatori su Mac Apple
+                // usano arm64, quindi non serve nemmeno a chi sviluppa.
+                "lib/x86_64/**",
+                "lib/x86/**",
+            )
+        }
     }
 
     // La firma di release legge chiave, alias e password da

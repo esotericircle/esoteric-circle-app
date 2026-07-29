@@ -79,7 +79,13 @@ void main() {
     final flags = FeatureFlagService(entitlement: entitlement);
 
     final active = FeatureCatalog.byId('natal_chart')!;
-    final soon = FeatureCatalog.byId('face_constellation')!;
+    // La Costellazione del Viso NON e' piu' in arrivo: lo scaffale e il
+    // manifest la dicevano viva da tempo, ed era il catalogo dei flag a
+    // essere rimasto indietro. Per provare lo stato "in arrivo" serve una
+    // funzione che lo sia davvero.
+    final soon = FeatureCatalog.all
+        .firstWhere((f) =>
+            f.defaultAvailability == RemoteAvailability.comingSoon);
     final premium = FeatureCatalog.byId('masters_memory')!;
 
     expect(flags.statusOf(active), FeatureStatus.active);

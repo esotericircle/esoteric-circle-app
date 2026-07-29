@@ -182,7 +182,7 @@ void main() {
           3);
       // E il ripiego, quello che c'e' gia', resta a disposizione.
       expect(MedoraStage.placeholderAsset,
-          'brand_assets/avatars/Medora-1.png');
+          'assets/avatars_webp/Medora-1.webp');
     });
   });
 

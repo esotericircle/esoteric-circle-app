@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/entitlement/entitlement_service.dart';
+import '../../core/entitlement/plan_catalog.dart';
+
 import '../../core/astro/zodiac.dart';
 import '../../core/config/app_flags.dart';
 import '../../core/horoscope/astro_tradition.dart';
@@ -186,6 +189,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       pulse: _pulse,
                       depth: _depth[card.domain]!,
                       onDepthLocked: (depth) => _showDepthLocked(card.domain, depth),
+                      premiumUnlocked: PlanCatalog.haProfondita(
+                          context.watch<EntitlementService>().tier),
                     ),
                     const SizedBox(height: SpacingTokens.md),
                   ],
@@ -680,6 +685,7 @@ class _HoroscopeCardView extends StatelessWidget {
     required this.pulse,
     required this.depth,
     required this.onDepthLocked,
+    required this.premiumUnlocked,
   });
 
   final HoroscopeCard card;
@@ -687,6 +693,10 @@ class _HoroscopeCardView extends StatelessWidget {
   final Animation<double> pulse;
   final AnswerDepth depth;
   final ValueChanged<AnswerDepth> onDepthLocked;
+
+  /// Se la persona ha diritto alla profondita' Profonda. Arriva da chi
+  /// conosce il piano, perche' una card non deve leggere l'abbonamento.
+  final bool premiumUnlocked;
 
   @override
   Widget build(BuildContext context) {
@@ -743,6 +753,11 @@ class _HoroscopeCardView extends StatelessWidget {
                 key: Key('oroscopo_depth_${card.domain.name}'),
                 current: depth,
                 palette: palette,
+                // Chi ha pagato deve poter aprire la Profonda. Questo
+                // parametro non veniva passato da nessuno in tutta l'app,
+                // quindi restava falso e il lucchetto valeva anche per chi
+                // l'aveva comprata: una funzione venduta e mai consegnata.
+                premiumUnlocked: premiumUnlocked,
                 onLockedTap: onDepthLocked,
               ),
             ],

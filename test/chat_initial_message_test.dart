@@ -6,7 +6,6 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
-import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
@@ -18,6 +17,8 @@ import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
+import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -47,6 +48,8 @@ void main() {
       providers: [
         Provider<AppServices>.value(value: svc),
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+        ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),

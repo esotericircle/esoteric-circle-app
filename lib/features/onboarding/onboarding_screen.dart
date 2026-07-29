@@ -556,6 +556,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       // prima delle parole. Blu il maschile, rosa il femminile, arcobaleno il
       // neutro, per decisione di Mauro.
       visual: OndeDellaVoce(tono: _courtesy, reduceMotion: _reduceMotion),
+      altezzaVisivo: 250,
       title: 'Come vuoi che ti parli',
       subtitle:
           'Sceglilo tu: accorderemo ogni frase al vocativo che preferisci.',
@@ -608,6 +609,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 class _StepBody extends StatelessWidget {
   const _StepBody({
     required this.visual,
+    this.altezzaVisivo = 190,
     required this.title,
     required this.subtitle,
     required this.content,
@@ -615,6 +617,10 @@ class _StepBody extends StatelessWidget {
   });
 
   final Widget visual;
+
+  /// Quanto spazio prende il visivo. Un passo che ha molto da dire in alto
+  /// ne chiede di piu', invece di lasciare un vuoto sotto i puntini.
+  final double altezzaVisivo;
   final String title;
   final String subtitle;
   final Widget content;
@@ -631,8 +637,12 @@ class _StepBody extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: SpacingTokens.md),
+                // L'altezza del visivo la decide il passo, non una costante
+                // per tutti: le onde della voce in 190 px restavano piccole e
+                // in basso, lasciando sopra un vuoto pari al 22,4 per cento
+                // dell'altezza, sopra il criterio del venti.
                 SizedBox(
-                  height: 190,
+                  height: altezzaVisivo,
                   width: double.infinity,
                   child: RepaintBoundary(child: visual),
                 ),

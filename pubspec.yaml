@@ -9,7 +9,7 @@ publish_to: "none"
 # lo split somma duemila per l'ABI arm64, quindi si riparte da sopra quella
 # soglia. Il lucchetto e' test/versione_build_test.dart, che confronta il
 # numero con docs/versione_distribuita.json.
-version: 0.1.0+2104
+version: 0.1.0+2106
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -120,7 +120,10 @@ flutter:
     - assets/data/
     - assets/fonts/
     - assets/ritual_backgrounds/
-    - brand_assets/avatars/
+    # I tre avatar viaggiano in WebP: in PNG pesavano 16,6 MB, piu' di
+    # tutti i 146 Angeli messi insieme. Gli originali restano in
+    # brand_assets/ e non entrano piu' nel pacchetto.
+    - assets/avatars_webp/
     - brand_assets/santuario/
     # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o
     # ingrandita) e miniatura (viste con piu' carte). Bundlate in-app per la

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../entitlement/tier.dart';
 import '../maestro/maestro.dart';
+import '../santuario/function_shelf.dart';
 import 'feature_flag.dart';
 
 /// Catalogo delle funzioni dell'app note al client.
@@ -18,7 +19,7 @@ import 'feature_flag.dart';
 class FeatureCatalog {
   FeatureCatalog._();
 
-  static const List<FeatureDefinition> all = [
+  static const List<FeatureDefinition> _dichiarate = [
     // --- Attive (dominio Medora) ---
     FeatureDefinition(
       id: 'natal_chart',
@@ -54,14 +55,18 @@ class FeatureCatalog {
     ),
 
     // --- Coming soon (non ancora pronte in questa fase) ---
+    // Viva, non piu' in arrivo: lo scaffale del Santuario e il manifest
+    // `docs/stato_funzioni.json` la dicono viva da tempo, e questo catalogo
+    // era rimasto indietro. Tre fonti per lo stesso stato, con una che
+    // diceva il contrario delle altre due.
     FeatureDefinition(
       id: 'face_constellation',
       title: 'Costellazione del Viso',
       teaser:
-          'La videocamera trasforma i tratti del tuo volto in una costellazione. Presto disponibile.',
+          'La videocamera trasforma i tratti del tuo volto in una costellazione.',
       icon: Icons.face_retouching_natural,
       owner: Maestro.aura,
-      defaultAvailability: RemoteAvailability.comingSoon,
+      defaultAvailability: RemoteAvailability.enabled,
     ),
     FeatureDefinition(
       id: 'palmistry',
@@ -119,5 +124,31 @@ class FeatureCatalog {
       if (f.id == id) return f;
     }
     return null;
+  }
+
+  /// Tutte le funzioni che il catalogo conosce.
+  ///
+  /// Le dichiarate qui, PIU' quelle dello scaffale del Santuario che qui non
+  /// avevano una definizione: erano sei su dieci, quindi il catalogo dei flag
+  /// non conosceva piu' della meta' di cio' che l'app mostra. Derivarle invece
+  /// di ricopiarle evita che le due liste divergano ancora, come e' gia'
+  /// successo alla Costellazione del Viso.
+  static List<FeatureDefinition> get all {
+    final noti = _dichiarate.map((f) => f.id).toSet();
+    return [
+      ..._dichiarate,
+      for (final fn in FunctionShelf.functions)
+        if (!noti.contains(fn.id))
+          FeatureDefinition(
+            id: fn.id,
+            title: fn.title,
+            teaser: fn.teaser,
+            icon: fn.icon,
+            owner: fn.maestro,
+            defaultAvailability: fn.live
+                ? RemoteAvailability.enabled
+                : RemoteAvailability.comingSoon,
+          ),
+    ];
   }
 }
