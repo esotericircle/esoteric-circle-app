@@ -1,14 +1,11 @@
 import 'dart:io';
 
-import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/astro/city_catalog.dart';
 import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
-import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart' as astro;
-import 'package:esoteric_circle/core/identity/birth_place.dart';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -18,8 +15,6 @@ import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/onboarding/risveglio_journey.dart';
 import 'package:provider/provider.dart';
-import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
-import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -61,26 +56,6 @@ void main() {
   Future<void> passo(WidgetTester tester) async {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
-  }
-
-  /// Una nascita vera con luogo noto: 3 marzo 1985, 7:20, Busto Arsizio.
-  ///
-  /// Costruita al momento dell'uso e non a corpo del main: l'elenco dei luoghi
-  /// si carica in setUpAll, che gira DOPO la valutazione delle variabili.
-  BirthIdentity nascitaVera() {
-    final c = CityCatalog.search('Busto Arsizio').first;
-    return BirthIdentity.fromParts(
-      birthDate: DateTime(1985, 3, 3),
-      birthHour: 7,
-      birthMinute: 20,
-      birthPlace: BirthPlace(
-        city: c.name,
-        latitude: c.latitude,
-        longitude: c.longitude,
-        timeZoneId: c.timeZoneId,
-        utcOffsetMinutes: c.utcOffsetMinutes,
-      ),
-    );
   }
 
   /// Il Risveglio, montato con gli stessi provider dell'app vera e con i dati

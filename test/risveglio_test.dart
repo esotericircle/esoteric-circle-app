@@ -62,10 +62,15 @@ void main() {
     await pumpRisveglio(tester);
     await continua(tester); // -> data
     await continua(tester); // -> ora
-    await tester.tap(find.byKey(const Key('risveglio_ora_skip')));
+    // Non si tocca piu' niente: "Non la so" e' PRESELEZIONATO. Prima l'ora
+    // arrivava gia' compilata, e chi non la sapeva si ritrovava un dato
+    // inventato dentro la propria carta senza averlo scelto.
     await tester.pumpAndSettle();
-    // La nota provvisoria dichiara che senza l'ora l'Ascendente si salta.
-    expect(find.byKey(const Key('risveglio_provvisorio')), findsOneWidget);
+    // La nota dichiara che senza l'ora l'Ascendente si salta. Il distintivo
+    // "Provvisorio" non c'e' piu': era vero quando l'Ascendente non si
+    // calcolava, col motore vivo era una bugia. Quello che la nota DICE resta
+    // vero, quindi resta la nota.
+    expect(find.byKey(const Key('risveglio_nota_gentile')), findsOneWidget);
   });
 
   testWidgets('la ricerca del luogo offline sceglie la citta', (tester) async {

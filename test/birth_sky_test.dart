@@ -70,9 +70,14 @@ void main() {
           reason: 'manca il corpo di nascita ${sign.id}');
     }
 
-    // La voce di Medora sull'identita', e la dichiarazione in-world.
+    // La voce di Medora sull'identita', con la dichiarazione in-world.
     expect(find.textContaining('prima notte'), findsOneWidget);
-    expect(find.textContaining('esempio'), findsOneWidget);
+    // Senza nascita registrata la veduta dichiara di essere un assaggio. La
+    // parola "esempio" e' sparita di proposito: diceva "veduta d'esempio
+    // finche' non registri", e restava identica anche a chi aveva appena
+    // registrato tutto, quindi mentiva proprio a chi aveva fatto le cose per
+    // bene. Il caso opposto e' provato in cielo_nascita_vero_test.dart.
+    expect(find.textContaining('assaggio'), findsOneWidget);
   });
 
   testWidgets('Il Cosmic Passport ha il portale attivo verso il cielo di nascita',

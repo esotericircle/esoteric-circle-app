@@ -252,11 +252,16 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   }
 
   // Slot prominenti dei corpi alti stanotte, sempre raggiungibili.
-  static const Offset _moonSlot = Offset(0.5, 0.2);
+  //
+  // Tutti nella meta' ALTA: la scheda in basso occupa circa un terzo dello
+  // schermo, e il terzo slot a 0,64 finiva sotto di lei. A schermo si vedeva
+  // il nome della costellazione sparire dietro il riquadro, che e' come non
+  // averla messa: un corpo toccabile che non si vede non lo tocca nessuno.
+  static const Offset _moonSlot = Offset(0.5, 0.17);
   static const List<Offset> _highSlots = [
-    Offset(0.24, 0.52),
-    Offset(0.78, 0.44),
-    Offset(0.5, 0.64),
+    Offset(0.22, 0.46),
+    Offset(0.76, 0.38),
+    Offset(0.5, 0.56),
   ];
 
   // Ancore sparse delle costellazioni ambientali, su una tela piu' ampia dello

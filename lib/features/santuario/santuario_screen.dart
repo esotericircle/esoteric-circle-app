@@ -76,6 +76,11 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     with TickerProviderStateMixin {
   late final AnimationController _breath;
 
+  /// L'altezza vera della bolla d'ingresso al dominio, misurata a schermo.
+  /// Nulla al primo fotogramma, poi il valore reale: da li' in poi il
+  /// carosello sa esattamente dove fermarsi e non si sovrappone mai.
+  double? _altezzaIngresso;
+
   // Ciclo lungo che alimenta la deriva automatica del cosmo e le stelle cadenti
   // quando il giroscopio non c'e', cosi' lo sfondo resta immersivo comunque.
   late final AnimationController _drift;
@@ -363,7 +368,13 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           final centralH = (h * 0.5).clamp(220.0, 430.0);
           // Zona d'ingresso (pulsante piu' arti) ancorata in basso.
           final entryBottom = h * 0.02;
-          const entryZone = 78.0;
+          // L'altezza della zona d'ingresso si MISURA, non si indovina. Era
+          // una costante di 78: il pulsante piu' la riga delle arti la
+          // superano appena il testo di sistema cresce o il nome del Maestro
+          // e' lungo, e allora la bolla saliva sopra i busti. Finche' la
+          // misura non c'e' si parte dalla stima, e al primo fotogramma
+          // subentra quella vera.
+          final entryZone = _altezzaIngresso ?? 78.0;
           // Le carte partono sopra la zona d'ingresso, con un margine d'aria.
           final carouselBottom = entryBottom + entryZone + h * 0.02;
           final carouselHeight = centralH * 1.28;
@@ -486,9 +497,19 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 left: 0,
                 right: 0,
                 bottom: entryBottom,
-                child: _DomainEntry(
-                  maestro: central,
-                  onTap: () => _enterDomain(context, central),
+                child: _MisuraAltezza(
+                  onMisura: (v) {
+                    if (_altezzaIngresso == null ||
+                        (_altezzaIngresso! - v).abs() > 0.5) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        if (mounted) setState(() => _altezzaIngresso = v);
+                      });
+                    }
+                  },
+                  child: _DomainEntry(
+                    maestro: central,
+                    onTap: () => _enterDomain(context, central),
+                  ),
                 ),
               ),
 
@@ -1120,3 +1141,28 @@ class _TapHandPainter extends CustomPainter {
       old.phase != phase || old.color != color;
 }
 
+
+
+/// Misura l'altezza del proprio figlio e la riferisce, una volta per cambio.
+///
+/// Serve dove una coordinata dipende da quanto e' alto davvero un pezzo di
+/// interfaccia: le costanti scritte a mano reggono finche' il testo non
+/// cresce, poi due elementi si sovrappongono e il difetto compare solo su
+/// certi telefoni.
+class _MisuraAltezza extends StatelessWidget {
+  const _MisuraAltezza({required this.child, required this.onMisura});
+
+  final Widget child;
+  final ValueChanged<double> onMisura;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, _) {
+        final box = context.findRenderObject() as RenderBox?;
+        if (box != null && box.hasSize) onMisura(box.size.height);
+        return child;
+      },
+    );
+  }
+}

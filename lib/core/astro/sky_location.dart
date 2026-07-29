@@ -61,7 +61,16 @@ abstract class SkyLocation {
   Future<SkyPlace?> resolve();
 
   /// Come [resolve], ma dice anche PERCHE' e' andata come e' andata.
-  Future<RispostaPosizione> chiedi();
+  ///
+  /// Ha un corpo di ripiego apposta: le sorgenti finte dei test conoscono solo
+  /// resolve, e obbligarle tutte a riscrivere anche questo non proverebbe
+  /// niente di piu'. Chi vuole distinguere gli esiti la riscrive.
+  Future<RispostaPosizione> chiedi() async {
+    final luogo = await resolve();
+    return luogo != null
+        ? RispostaPosizione(EsitoPosizione.concessa, luogo)
+        : const RispostaPosizione(EsitoPosizione.negata);
+  }
 
   /// Il luogo solo se il permesso e' GIA' concesso, altrimenti null. Non chiede
   /// mai nulla e non apre alcun dialogo: e' la via che possono usare le viste

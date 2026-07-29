@@ -62,7 +62,6 @@ import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/components/immersive_scaffold.dart';
 import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
-import 'package:esoteric_circle/features/onboarding/maestro_reveal_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';

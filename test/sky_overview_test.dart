@@ -133,8 +133,11 @@ void main() {
     await step(tester);
     await tester.tap(find.byKey(const Key('sky_location_accept')));
     await step(tester);
-    expect(find.text('Resto sulla veduta di stanotte, senza il tuo luogo.'),
-        findsOneWidget);
+    // Il messaggio ora dice COSA si sta mostrando al posto del luogo vero, e
+    // offre la via d'uscita: prima era un'unica frase per permesso negato,
+    // GPS spento e sensore assente, sbagliata per almeno uno dei tre.
+    expect(find.byKey(const Key('sky_location_negata')), findsOneWidget);
+    expect(find.textContaining('cielo della tua nascita'), findsOneWidget);
   });
 
   testWidgets('Col momento fissato non chiede mai il luogo', (tester) async {
