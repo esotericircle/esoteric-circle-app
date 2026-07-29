@@ -239,3 +239,36 @@ perche' fossero difficili.
   `core/identity`, con campi diversi, nomi identici. Non e' un difetto
   visibile e non l'ho toccata, ma e' una trappola: chi scrive un test le
   confonde, come e' successo a me.
+
+## I numeri finali
+
+- Suite: **895 test verdi**.
+- `flutter analyze` su lib e test: pulito.
+- Integrita' dell'archivio: verificata.
+- Versione: **2103**.
+- Voci chiuse: **otto su otto**, tutte in versione piena, nessuna non aperta.
+- Test nuovi scritti per queste voci: **ventiquattro**.
+- Prove del rosso superate: **due** (il Sigillo fuori centro di 298, 196 e 342
+  px sulle tre altezze; il carosello con Medora che salta di 250 px in un
+  fotogramma). Una terza prova non era valida e l'ho rifatta, perche' la
+  modifica non era arrivata al file.
+- Anteprime nuove nel corredo: **due**, il planisfero col luogo scelto e la
+  ruota natale piena.
+
+## Consegna
+
+UNA build, UNA consegna, con l'account di servizio per impersonificazione,
+senza alcun login interattivo.
+
+- Identificativo della release: **`470i53ivcpth8`**
+- Versione: 0.1.0, build **2103**, sopra la 2102 come chiedeva l'ordine
+- Esito del caricamento: `RELEASE_CREATED`
+- Integrita' dell'archivio: verificata prima di caricare
+- Note, rilette dal server: "Le sei creazioni: il Sigillo al centro col
+  trionfo, i trionfi di Animale e Angeli, il carosello che ruota, il
+  planisfero a punti, l orologio dinamico, l anteprima del tono"
+- Destinatario unico: `cloud@esotericircle.app`
+- Pagina per i tester:
+  `https://appdistribution.firebase.google.com/testerapps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/470i53ivcpth8`
+
+Push per percorsi espliciti, mai `git add -A`.
