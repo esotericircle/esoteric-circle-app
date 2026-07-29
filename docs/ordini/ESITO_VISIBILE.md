@@ -256,3 +256,23 @@ Rigenerate tutte col precache: diciannove cambiate.
   dell'invito sopra la fase lunare e il nome della costellazione sotto la
   scheda.
 - Test cancellati perche' passavano anche togliendo la correzione: **due**.
+
+## Consegna
+
+UNA build, UNA consegna, con l'account di servizio per impersonificazione,
+senza alcun login interattivo.
+
+- Identificativo della release: **`0mu0b1rjr7hj0`**
+- Versione: 0.1.0, build **2102**, sopra la 2101 come chiedeva l'ordine
+- Esito del caricamento: `RELEASE_CREATED`
+- Integrita' dell'archivio: verificata, ogni famiglia grafica presente col
+  conteggio giusto
+- Note, rilette dal server: "Nessuna costellazione ripetuta, il cielo di
+  nascita segue la tua ora, si torna indietro nel Risveglio, il permesso di
+  posizione parte davvero"
+- Destinatario unico: `cloud@esotericircle.app`
+- Pagina per i tester:
+  `https://appdistribution.firebase.google.com/testerapps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/0mu0b1rjr7hj0`
+
+Il push e' stato fatto per percorsi espliciti, mai con `git add -A`, come la
+regola nata nell'ordine precedente impone.
