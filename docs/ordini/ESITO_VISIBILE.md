@@ -229,7 +229,7 @@ Rigenerate tutte col precache: diciannove cambiate.
 - `santuario-invito.png`, ingrandita tre volte: la mano si legge come una
   mano, con l'indice teso, le tre nocche e il pollice (V17). Guardandola ho
   visto che la riga "Tocca il cielo" cadeva sopra il nome della fase lunare,
-  difetto che nessuno aveva elencato, e l'ho spostata.
+  difetto che nessuno aveva elencato, quindi l'ho spostata.
 - `cielo-nascita.png`: le costellazioni sono CAMBIATE rispetto alla cattura
   di ieri, da Capricorno e Sagittario a Pesci, Acquario e Capricorno. E' la
   prova a schermo che la correzione dell'ora di V2 morde davvero, non solo
@@ -239,7 +239,7 @@ Rigenerate tutte col precache: diciannove cambiate.
   "Capricorno" spariva dietro la scheda in basso, quindi una costellazione
   toccabile era di fatto invisibile. I tre slot dei corpi alti stavano a 0,52
   0,44 e 0,64 mentre la scheda occupa il terzo basso: ora sono a 0,46 0,38 e
-  0,56, e tutti e tre i nomi si leggono.
+  0,56, cosi' tutti e tre i nomi si leggono.
 - `carta-natale.png`: il pulsante degli aspetti e' sparito (V13). Le linee
   d'aspetto non si vedono in questa anteprima perche' la carta d'anteprima e'
   quella essenziale, senza pianeti: lo spessore nuovo NON e' stato verificato
