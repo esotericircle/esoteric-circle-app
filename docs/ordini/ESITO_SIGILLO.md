@@ -130,7 +130,7 @@ Magia, quarta di Caligo, fra Rituali e Cabala:
 - **Opera al Nero**, in arrivo, MAI "Magia Nera"
 
 Sul nome: nella lettura alchemica la nigredo e' la fase di dissoluzione che
-precede la rinascita, non un maleficio, e Caligo nei briefing e' il custode
+precede la rinascita, non un maleficio, mentre Caligo nei briefing e' il custode
 che la magia nera la conosce senza praticarla. Un test verifica che nessuna
 voce della sezione contenga quella parola.
 
