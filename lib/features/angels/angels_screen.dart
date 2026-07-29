@@ -11,6 +11,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/maestro/maestro.dart';
 
 /// I tre Angeli della persona, di dominio Medora.
 ///
@@ -30,7 +31,7 @@ class AngelsScreen extends StatefulWidget {
 
   static Route<void> route({required BirthIdentity identity}) =>
       MaterialPageRoute<void>(
-        builder: (_) => MaestroScope(child: AngelsScreen(identity: identity)),
+        builder: (_) => MaestroScope(maestro: Maestro.medora, child: AngelsScreen(identity: identity)),
       );
 
   @override

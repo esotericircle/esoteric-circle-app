@@ -16,10 +16,22 @@ class MaestroScope extends StatefulWidget {
   const MaestroScope({
     super.key,
     required this.child,
+    this.maestro,
     this.transitionDuration = const Duration(milliseconds: 850),
   });
 
   final Widget child;
+
+  /// Il proprietario di questa parte dell'albero, quando ce n'e' uno.
+  ///
+  /// Le arti appartengono a un Maestro, quindi il loro colore non dipende da
+  /// chi era attivo un istante prima: e' il loro. Dichiararlo qui vuol dire
+  /// che il colore c'e' dal primo frame, da qualunque strada si arrivi.
+  ///
+  /// Nullo per le schermate condivise, come il Santuario, che seguono il
+  /// Maestro attivo.
+  final Maestro? maestro;
+
   final Duration transitionDuration;
 
   static MaestroPalette of(BuildContext context) {
@@ -53,10 +65,22 @@ class _MaestroScopeState extends State<MaestroScope>
     _to = MaestroPalette.neutral;
   }
 
+  /// La chiave di tema che questo scope deve mostrare.
+  ///
+  /// Se l'albero ha un proprietario dichiarato, e' la sua, e il Maestro attivo
+  /// nel resto dell'app non c'entra: nemmeno lo si osserva, cosi' un cambio di
+  /// tema avvenuto fuori non fa virare il colore sotto i piedi di chi sta
+  /// usando l'arte.
+  ThemeKey _chiaveDaMostrare() {
+    final proprietario = widget.maestro;
+    if (proprietario != null) return ThemeKey.of(proprietario);
+    return context.watch<MaestroController>().activeKey;
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final key = context.watch<MaestroController>().activeKey;
+    final key = _chiaveDaMostrare();
     if (key == _lastKey) return;
     final target = MaestroPalette.forKey(key);
     if (_lastKey == null) {

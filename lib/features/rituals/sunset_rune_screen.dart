@@ -62,6 +62,7 @@ class SunsetRuneScreen extends StatefulWidget {
   }) =>
       MaterialPageRoute<void>(
         builder: (_) => MaestroScope(
+        maestro: Maestro.caligo,
           child: SunsetRuneScreen(
             now: now,
             dataNascita: dataNascita,

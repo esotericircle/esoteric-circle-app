@@ -88,6 +88,20 @@ void main() {
     ));
     await passo(tester);
     await passo(tester);
+    // I due trionfi vengono PRIMA del cielo: l'Animale Guida e la triade di
+    // Angeli stanno subito dopo il numero della vita, quindi per arrivare al
+    // cielo si attraversano loro. Prima il cielo era la prima fase.
+    for (final chiave in const [
+      'trionfo_animale_avanti',
+      'trionfo_angeli_avanti',
+    ]) {
+      // I trionfi accendono il proprio pulsante solo a scena conclusa: si
+      // aspetta la fine invece di toccare a meta'.
+      await tester.pump(const Duration(seconds: 5));
+      await tester.tap(find.byKey(Key(chiave)));
+      await passo(tester);
+      await passo(tester);
+    }
   }
 
   testWidgets('Col luogo inserito la bolla non parla di esempio',

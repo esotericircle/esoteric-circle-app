@@ -7,11 +7,11 @@ import '../../core/maestro/maestro.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
-import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'sinastria_vip_screen.dart';
+import '../maestri/rotta_arte.dart';
 
 /// La galleria di apertura della Sinastria VIP: si sceglie il VIP, poi si vede
 /// il responso. E' l'apertura vera dell'arte.
@@ -44,7 +44,9 @@ class SinastriaGalleryScreen extends StatefulWidget {
     DateTime? userBirth,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+      builder: (_) => SogliaArte(
+        id: 'synastry_vip',
+        maestro: Maestro.medora,
         child: SinastriaGalleryScreen(
           userSign: userSign,
           userName: userName,

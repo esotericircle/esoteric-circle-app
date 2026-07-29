@@ -81,8 +81,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // si dava per scontato il contrario, che e' lo stesso errore ribaltato.
   // Null vuol dire "non ha ancora detto".
   bool? _timeKnown;
-  int _hour = 12;
-  int _minute = 0;
+  // Nulli finche' non si sceglie: cosi' la pillola mostra l'invito "Ora" e
+  // "Minuti" invece di dichiarare 12 e 00, che e' un'ora che nessuno ha
+  // scelto e che finiva dritta nella carta natale.
+  int? _hour;
+  int? _minute;
   BirthPlace? _place;
   final TextEditingController _placeCtrl = TextEditingController();
   List<City> _placeResults = const [];
@@ -190,7 +193,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     // Ponte: dai dati raccolti nasce il BirthDetails che alimenta la carta.
     final details = BirthDetails(
       date: _birthDate,
-      time: _timeKnown == true ? TimeOfDay(hour: _hour, minute: _minute) : null,
+      // L'ora conta solo se e' stata davvero scelta. I minuti non scelti
+      // valgono zero, che e' il modo in cui si dice "alle sette" intendendo
+      // le sette in punto.
+      time: _timeKnown == true && _hour != null
+          ? TimeOfDay(hour: _hour!, minute: _minute ?? 0)
+          : null,
       place: _placeForChart(),
       gender: _genderFor(courtesy),
     );
@@ -258,10 +266,20 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   Widget build(BuildContext context) {
     return PopScope(
       // Il gesto Indietro di sistema NON butta fuori dal rito: retrocede di un
-      // passo, come la freccia. Esce solo dal primo passo, dove un dietro non
-      // esiste. Prima il gesto usciva sempre, e con lui se ne andava tutto
-      // quello che la persona aveva appena inserito.
-      canPop: _step == _Step.accoglienza,
+      // passo, esattamente come la freccia, e dal primo passo non fa nulla,
+      // sempre come la freccia.
+      //
+      // Prima qui c'era `canPop: _step == _Step.accoglienza`, che dal primo
+      // passo lasciava uscire. Sembrava innocuo, perche' al primo passo non
+      // c'e' ancora niente da perdere, ma l'onboarding e' una rotta spinta
+      // SOPRA lo shell: uscirne non chiude l'app, rivela la home che sta gia'
+      // sotto. Bastava quindi retrocedere fino al primo passo e insistere una
+      // volta per entrare nel Cerchio senza carta natale, con tutto quello che
+      // la persona aveva appena inserito buttato via.
+      //
+      // L'unica uscita e' la fine del rito, che non e' un pop: e' il
+      // pushReplacement verso il Risveglio.
+      canPop: false,
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) _goBack();
       },
@@ -407,10 +425,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       // ma muto, e girando i selettori non cambiava nulla, quindi la scelta
       // non aveva riscontro. Le lancette dicono sempre che ora hai scelto.
       visual: OrologioDinamico(
-        ora: _hour,
-        minuto: _minute,
+        ora: _hour ?? 12,
+        minuto: _minute ?? 0,
         palette: _palette,
-        attivo: _timeKnown == true,
+        // Spento SOLO dopo un "Non la so" esplicito. Prima era spento anche
+        // all'arrivo, quando la persona non aveva ancora detto nulla.
+        attivo: _timeKnown != false,
         reduceMotion: _reduceMotion,
       ),
       title: 'A che ora, se lo sai',
@@ -420,16 +440,25 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       content: Column(
         children: [
           AnimatedOpacity(
-            opacity: _timeKnown == true ? 1 : 0.35,
+            // Pieni all'arrivo: si sbiadiscono solo dopo un "Non la so".
+            opacity: _timeKnown == false ? 0.35 : 1,
             duration: const Duration(milliseconds: 200),
             child: _TimePicker(
               hour: _hour,
               minute: _minute,
-              enabled: _timeKnown == true,
+              // SEMPRE usabili. Qui c'era `_timeKnown == true`, e siccome
+              // _timeKnown parte nullo, cioe' ne' saputa ne' ignota, i due
+              // selettori nascevano spenti: per scegliere l'ora bisognava
+              // passare da "Non la so" e poi tornare indietro. Regressione
+              // nostra, nata quando abbiamo tolto la preselezione.
+              enabled: true,
               palette: _palette,
               onChanged: (h, m) => setState(() {
                 _hour = h;
                 _minute = m;
+                // Toccare un selettore E' dire "l'ora la so": non serve
+                // dichiararlo anche altrove.
+                _timeKnown = true;
               }),
             ),
           ),
@@ -559,7 +588,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       altezzaVisivo: 250,
       title: 'Come vuoi che ti parli',
       subtitle:
-          'Sceglilo tu: accorderemo ogni frase al vocativo che preferisci.',
+          // "Vocativo" e' un termine di grammatica, e nessuno si rivolge a se'
+          // stesso con un termine di grammatica. Questa era la SECONDA porta:
+          // in un ordine precedente ne avevo corretta un'altra e lasciata
+          // questa, ed e' la stessa forma di difetto del nome minuscolo.
+          'Dimmi come rivolgermi a te: accorderemo ogni frase come preferisci.',
       content: Column(
         children: [
           _VocativoChoice(
@@ -907,11 +940,12 @@ class _TimePicker extends StatelessWidget {
     required this.onChanged,
   });
 
-  final int hour;
-  final int minute;
+  final int? hour;
+  final int? minute;
   final bool enabled;
   final MaestroPalette palette;
-  final void Function(int hour, int minute) onChanged;
+  /// Nullabili: si puo' scegliere l'ora senza aver ancora scelto i minuti.
+  final void Function(int? hour, int? minute) onChanged;
 
   @override
   Widget build(BuildContext context) {

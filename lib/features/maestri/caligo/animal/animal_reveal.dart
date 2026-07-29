@@ -102,6 +102,18 @@ class _NebbiaPainter extends CustomPainter {
     final densita = (1.0 - t).clamp(0.0, 1.0);
     if (densita > 0.01) {
       final c = Offset(size.width / 2, size.height / 2);
+
+      // La nebbia sta DENTRO un ovale, per costruzione: nessun angolo del
+      // riquadro puo' essere dipinto, nemmeno per sbaglio, nemmeno da un banco
+      // di nebbia che sborda.
+      //
+      // Prima qui c'era un drawRect su tutta l'area con l'ultimo stop del
+      // gradiente OPACO: il riquadro finiva di netto contro il fondo, quindi
+      // prima che l'animale emergesse si vedeva un quadrato. Il difetto non era
+      // il colore, era la forma.
+      canvas.save();
+      canvas.clipPath(Path()..addOval(Offset.zero & size));
+
       canvas.drawRect(
         Offset.zero & size,
         Paint()
@@ -109,9 +121,12 @@ class _NebbiaPainter extends CustomPainter {
             colors: [
               palette.deepest.withValues(alpha: 0.55 * densita),
               palette.primary.withValues(alpha: 0.75 * densita),
-              palette.deepest.withValues(alpha: 0.96 * densita),
+              palette.deepest.withValues(alpha: 0.85 * densita),
+              // L'ultimo stop e' trasparente: la nebbia si dissolve nel fondo
+              // invece di finire con un bordo.
+              palette.deepest.withValues(alpha: 0.0),
             ],
-            stops: const [0.0, 0.55, 1.0],
+            stops: const [0.0, 0.45, 0.82, 1.0],
           ).createShader(Offset.zero & size),
       );
       // Qualche banco di nebbia piu' denso, deterministico.
@@ -120,10 +135,13 @@ class _NebbiaPainter extends CustomPainter {
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 30);
       for (var i = 0; i < 5; i++) {
         final a = i * 1.2566; // 72 gradi
-        final r = size.shortestSide * (0.28 + 0.06 * i);
-        canvas.drawCircle(
-            c + Offset(math.cos(a), math.sin(a)) * r, size.shortestSide * 0.22, blob);
+        // Raggi piu' raccolti di prima: i banchi restano nel cuore della
+        // nebbia invece di premere contro il bordo del riquadro.
+        final r = size.shortestSide * (0.16 + 0.05 * i);
+        canvas.drawCircle(c + Offset(math.cos(a), math.sin(a)) * r,
+            size.shortestSide * 0.18, blob);
       }
+      canvas.restore();
     }
 
     // Gli occhi: si accendono presto (0.05..0.5), poi si spengono quando il

@@ -138,7 +138,9 @@ class _OrologioDinamicoState extends State<OrologioDinamico>
   @override
   Widget build(BuildContext context) {
     return Opacity(
-      opacity: widget.attivo ? 1 : 0.35,
+      // 0,55 e non 0,35 quando l'ora e' dichiarata ignota: il quadrante resta
+      // leggibile invece di sparire in un grigio indistinto.
+      opacity: widget.attivo ? 1 : 0.55,
       child: CustomPaint(
         painter: QuadrantePainter(
           giroOre: _ore,
@@ -177,7 +179,10 @@ class QuadrantePainter extends CustomPainter {
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.2
-        ..color = palette.gold.withValues(alpha: 0.45),
+        // Contrasto alzato: a 0,45 il cerchio del quadrante si perdeva nel
+        // fondo del cosmo, e l'orologio sembrava un'ombra invece di un
+        // riscontro alla scelta appena fatta.
+        ..color = palette.gold.withValues(alpha: 0.75),
     );
 
     // Le dodici tacche: piu' lunghe alle quattro cardinali.
@@ -191,7 +196,7 @@ class QuadrantePainter extends CustomPainter {
         Paint()
           ..strokeWidth = lunga ? 1.8 : 1.0
           ..strokeCap = StrokeCap.round
-          ..color = palette.goldSoft.withValues(alpha: lunga ? 0.75 : 0.4),
+          ..color = palette.goldSoft.withValues(alpha: lunga ? 0.95 : 0.65),
       );
     }
 

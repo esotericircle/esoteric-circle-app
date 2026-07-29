@@ -29,12 +29,18 @@ class TrionfoAnimale extends StatefulWidget {
     required this.animale,
     required this.palette,
     required this.onContinue,
+    this.onBack,
     this.reduceMotion = false,
   });
 
   final GuideAnimal animale;
   final MaestroPalette palette;
   final VoidCallback onContinue;
+
+  /// Torna al trionfo precedente. Nullo sul primo, dove un indietro non esiste:
+  /// una freccia che non porta da nessuna parte e' peggio di nessuna freccia.
+  final VoidCallback? onBack;
+
   final bool reduceMotion;
 
   @override
@@ -75,7 +81,32 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
         final invito = ((t - 0.8) / 0.2).clamp(0.0, 1.0);
 
         return SafeArea(
-          child: Padding(
+          child: Stack(
+            children: [
+              _corpoAnimale(t, nome, invito),
+              // La freccia indietro, in alto a sinistra: c'e' solo quando un
+              // indietro esiste davvero.
+              if (widget.onBack != null)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: IconButton(
+                    key: const Key('trionfo_animale_indietro'),
+                    tooltip: 'Indietro',
+                    icon: const Icon(Icons.arrow_back_rounded),
+                    color: widget.palette.goldSoft,
+                    onPressed: widget.onBack,
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _corpoAnimale(double t, double nome, double invito) {
+    return Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xl),
             child: Column(
               children: [
@@ -139,9 +170,6 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                 const SizedBox(height: SpacingTokens.lg),
               ],
             ),
-          ),
-        );
-      },
     );
   }
 }
@@ -157,12 +185,17 @@ class TrionfoAngeli extends StatefulWidget {
     required this.triade,
     required this.palette,
     required this.onContinue,
+    this.onBack,
     this.reduceMotion = false,
   });
 
   final AngelTriad triade;
   final MaestroPalette palette;
   final VoidCallback onContinue;
+
+  /// Torna al trionfo precedente, quello dell'Animale.
+  final VoidCallback? onBack;
+
   final bool reduceMotion;
 
   /// Quanto passa fra un Angelo e il successivo.
@@ -204,7 +237,32 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
         final invito = ((t - 0.85) / 0.15).clamp(0.0, 1.0);
 
         return SafeArea(
-          child: Padding(
+          child: Stack(
+            children: [
+              _corpoAngeli(angeli, t, invito),
+              // La freccia indietro: dal trionfo degli Angeli si torna a quello
+              // dell'Animale.
+              if (widget.onBack != null)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: IconButton(
+                    key: const Key('trionfo_angeli_indietro'),
+                    tooltip: 'Indietro',
+                    icon: const Icon(Icons.arrow_back_rounded),
+                    color: widget.palette.goldSoft,
+                    onPressed: widget.onBack,
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _corpoAngeli(List<Angel> angeli, double t, double invito) {
+    return Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
             child: Column(
               children: [
@@ -267,12 +325,8 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
                 const SizedBox(height: SpacingTokens.lg),
               ],
             ),
-          ),
-        );
-      },
     );
   }
-
 }
 
 /// Un Angelo che si accende: prima la luce, poi la carta, poi il nome.

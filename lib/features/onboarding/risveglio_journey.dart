@@ -45,21 +45,25 @@ class RisveglioJourney extends StatefulWidget {
   State<RisveglioJourney> createState() => _RisveglioJourneyState();
 }
 
-/// Le tappe della coda del Risveglio.
+/// Le tappe della coda del Risveglio, nell'ordine in cui si attraversano.
 ///
-/// I due trionfi stanno PRIMA della carta natale, non dopo.
+/// I due trionfi vengono PRIMI, subito dopo il numero della vita che chiude
+/// l'onboarding. Prima il Risveglio partiva dal cielo di nascita, quindi fra il
+/// numero e i suoi trionfi si infilava un'altra schermata.
 ///
-/// Messi dopo, come erano in un primo tempo, rivelavano una cosa gia' vista:
-/// la carta natale contiene la tessera del lupo e quella dei tre angeli,
-/// quindi chi arrivava al trionfo li aveva gia' incontrati come voci di un
-/// elenco. Un trionfo che svela il noto non e' un trionfo.
+/// Restano comunque PRIMA della carta natale, come erano: messi dopo
+/// rivelerebbero una cosa gia' vista, perche' la carta contiene la tessera del
+/// lupo e quella dei tre angeli, quindi chi arrivasse al trionfo li avrebbe
+/// gia' incontrati come voci di un elenco. Un trionfo che svela il noto non e'
+/// un trionfo.
 ///
-/// L'ordine giusto e' quello di un racconto: prima i compagni uno per uno,
-/// poi il ritratto d'insieme che li raccoglie, infine la guida.
-enum _Phase { heaven, animale, angeli, chart, resonance, reveal }
+/// L'ordine e' quello di un racconto: prima i compagni uno per uno, poi il
+/// cielo in cui sono nati, poi il ritratto d'insieme che li raccoglie, infine
+/// la guida.
+enum _Phase { animale, angeli, heaven, chart, resonance, reveal }
 
 class _RisveglioJourneyState extends State<RisveglioJourney> {
-  _Phase _phase = _Phase.heaven;
+  _Phase _phase = _Phase.animale;
   Maestro _assigned = Maestro.medora;
   Resonance? _resonance;
 
@@ -87,13 +91,11 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
     }
   }
 
-  void _onHeavenContinue() => _onHeavenAlAnimale();
-
-  void _onHeavenAlAnimale() => setState(() => _phase = _Phase.animale);
-
   void _onAnimaleContinue() => setState(() => _phase = _Phase.angeli);
 
-  void _onAngeliContinue() => setState(() => _phase = _Phase.chart);
+  void _onAngeliContinue() => setState(() => _phase = _Phase.heaven);
+
+  void _onHeavenContinue() => setState(() => _phase = _Phase.chart);
 
   void _onChartContinue() => setState(() => _phase = _Phase.resonance);
 
@@ -109,16 +111,38 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
     if (sun != null) context.read<ZodiacController>().setSunSign(sun);
     // Chiude il Risveglio ed entra nel Cerchio (il Santuario resta la home).
     context.read<OnboardingController>().complete();
-    Navigator.of(context).maybePop();
+    // pop e non maybePop: maybePop passa dal PopScope qui sotto, che rifiuta
+    // sempre. Questa e' l'uscita legittima, la sola, e deve poter uscire.
+    Navigator.of(context).pop();
+  }
+
+  /// Il gesto Indietro retrocede di una fase, come fara' la freccia.
+  void _indietroDiFase() {
+    final i = _phase.index;
+    if (i > 0) setState(() => _phase = _Phase.values[i - 1]);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ImmersiveScaffold(
-      seed: 14,
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 450),
-        child: _buildPhase(),
+    return PopScope(
+      // Il Risveglio e' la porta gemella dell'onboarding, e va chiusa allo
+      // stesso modo. Il Maestro si assegna alla rivelazione, cioe' all'ultima
+      // fase: uscire prima significava entrare nel Cerchio senza Maestro, per
+      // di piu' senza che l'onboarding tornasse a proporsi, dato che il
+      // lanciatore lo aveva gia' considerato gestito.
+      //
+      // Come nell'onboarding, il gesto retrocede invece di buttare fuori, e
+      // dalla prima fase non fa nulla.
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _indietroDiFase();
+      },
+      child: ImmersiveScaffold(
+        seed: 14,
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 450),
+          child: _buildPhase(),
+        ),
       ),
     );
   }
@@ -135,7 +159,11 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
           key: const ValueKey('heaven'),
           now: widget.details.dateTime,
           birth: true,
-          showBack: false,
+          // Il cielo non e' piu' la prima fase: da qui un indietro esiste,
+          // quindi la freccia si mostra. La sua freccia fa maybePop, che passa
+          // dal PopScope qui sopra e retrocede di fase: non serve un
+          // richiamo dedicato, il gesto e la freccia sono la stessa cosa.
+          showBack: true,
           ctaLabel: 'Leggi la tua carta',
           onCta: _onHeavenContinue,
           // Data, ora e luogo sono appena stati inseriti a mano: la bolla non
@@ -156,6 +184,8 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
           palette: context.palette,
           reduceMotion: MediaQuery.of(context).disableAnimations,
           onContinue: _onAnimaleContinue,
+          // Nessuna freccia: e' il primo, quindi un indietro non esiste e non
+          // si mostra un comando che non fa nulla.
         );
       case _Phase.angeli:
         return TrionfoAngeli(
@@ -164,6 +194,7 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
           palette: context.palette,
           reduceMotion: MediaQuery.of(context).disableAnimations,
           onContinue: _onAngeliContinue,
+          onBack: _indietroDiFase,
         );
       case _Phase.resonance:
         return _resonance == null

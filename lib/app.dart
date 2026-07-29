@@ -14,6 +14,7 @@ import 'core/motion/parallax_controller.dart';
 import 'core/onboarding/onboarding_controller.dart';
 import 'core/quality/quality_tier.dart';
 import 'core/settings/settings_controller.dart';
+import 'core/arts/arti_preferite.dart';
 import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
 import 'features/debug/app_check_debug_view.dart';
@@ -69,6 +70,11 @@ class EsotericCircleApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (_) => GreetingController()),
         ChangeNotifierProvider(create: (_) => OnboardingController()..load()),
+        // Lo scaffale personale "Le tue arti". Nasce abitato: il seme lo
+        // decide il dato, non la schermata, quindi non c'e' modo di arrivare
+        // a uno scaffale vuoto. Nessun controllo di piano lo tocca.
+        ChangeNotifierProvider(
+            create: (_) => ArtiPreferiteController()..carica()),
       ],
       child: MaterialApp(
         title: 'Esoteric Circle',

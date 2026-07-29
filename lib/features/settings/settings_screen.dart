@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/plan_catalog.dart';
@@ -127,6 +128,18 @@ class SettingsScreen extends StatelessWidget {
                   onChanged: settings.setSubtitles,
                   palette: palette,
                 ),
+              ),
+              const SizedBox(height: SpacingTokens.xl),
+
+              const SectionTitle(
+                title: 'Permessi',
+                subtitle: 'Quello che hai negato si concede da qui.',
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              DepthCard(
+                raised: true,
+                padding: const EdgeInsets.all(SpacingTokens.md),
+                child: _PermessiTile(palette: palette),
               ),
               const SizedBox(height: SpacingTokens.xl),
 
@@ -344,6 +357,53 @@ class _DeleteDataTile extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   'Profilo, ricordi e conversazioni. Il tuo diritto all\'oblio.',
+                  style: TypographyTokens.body(size: 13)
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+        ],
+      ),
+    );
+  }
+}
+
+/// Riga dei permessi: riporta alle impostazioni di sistema dell'app.
+///
+/// Serve perche' un permesso negato una volta non si puo' richiedere di nuovo
+/// dall'app: il sistema smette di mostrare la richiesta. Senza questa via, chi
+/// aveva detto no al microfono restava senza soffio per sempre, senza sapere
+/// dove rimediare.
+class _PermessiTile extends StatelessWidget {
+  const _PermessiTile({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      key: const Key('settings_permessi'),
+      borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+      // Geolocator apre le impostazioni DELL'APP, non quelle della posizione:
+      // e' la stessa via che il cielo usa gia' quando il permesso e' negato per
+      // sempre. Nessuna dipendenza nuova per una riga.
+      onTap: () => Geolocator.openAppSettings(),
+      child: Row(
+        children: [
+          Icon(Icons.tune_rounded, color: palette.goldSoft, size: 22),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Microfono, fotocamera e movimento',
+                    style: TypographyTokens.display(size: 16)),
+                const SizedBox(height: 2),
+                Text(
+                  'Apri i permessi di sistema. Ogni esperienza che li usa '
+                  'funziona anche col solo tocco.',
                   style: TypographyTokens.body(size: 13)
                       .copyWith(color: ColorTokens.textSecondary),
                 ),

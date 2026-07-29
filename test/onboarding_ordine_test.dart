@@ -97,13 +97,11 @@ void main() {
     ));
     await passo(tester);
 
-    // Il cielo di nascita apre la coda: si prosegue.
-    await tester.tap(find.byKey(const Key('sky_cta')));
-    await passo(tester);
-
-    // Subito dopo il cielo deve venire l'ANIMALE, non la carta.
+    // I trionfi APRONO la coda, subito dopo il numero della vita: il cielo di
+    // nascita viene dopo di loro. Prima il cielo era la prima fase, quindi fra
+    // il numero e i suoi trionfi si infilava un'altra schermata.
     expect(find.byType(TrionfoAnimale), findsOneWidget,
-        reason: 'dopo il cielo non c\'e\' il trionfo dell\'Animale');
+        reason: 'la coda non apre col trionfo dell Animale');
     expect(find.byType(NatalChartReveal), findsNothing,
         reason: 'la carta natale arriva prima dei trionfi, quindi il trionfo '
             'rivelerebbe una cosa gia\' vista');
@@ -117,13 +115,19 @@ void main() {
     expect(find.byType(TrionfoAngeli), findsOneWidget);
     expect(find.byType(NatalChartReveal), findsNothing);
 
-    // E solo alla fine la carta, che li raccoglie tutti.
+    // Dopo i due trionfi il cielo di nascita, e SOLO alla fine la carta, che
+    // raccoglie i compagni gia' incontrati uno per uno.
     for (var i = 0; i < 20; i++) {
       await tester.pump(const Duration(milliseconds: 300));
     }
     await tester.tap(find.byKey(const Key('trionfo_angeli_avanti')));
     await passo(tester);
+    expect(find.byType(NatalChartReveal), findsNothing,
+        reason: 'la carta arriva prima del cielo di nascita');
+
+    await tester.tap(find.byKey(const Key('sky_cta')));
+    await passo(tester);
     expect(find.byType(NatalChartReveal), findsOneWidget,
-        reason: 'dopo i due trionfi deve arrivare il ritratto d\'insieme');
+        reason: 'dopo i trionfi e il cielo deve arrivare il ritratto insieme');
   });
 }

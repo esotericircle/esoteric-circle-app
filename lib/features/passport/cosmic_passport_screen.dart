@@ -24,6 +24,8 @@ import '../identity/circle_seal_screen.dart';
 import '../santuario/sky_overview_screen.dart';
 import '../santuario/widgets/moon_widget.dart';
 import '../settings/settings_screen.dart';
+import '../../core/maestro/maestro.dart';
+import '../onboarding/natal_chart_reveal.dart';
 
 /// Schermata del Cosmic Passport.
 ///
@@ -142,6 +144,8 @@ class CosmicPassport extends StatelessWidget {
                   _GuideAnimalCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   _AngelsCard(identity: id),
+                  const SizedBox(height: SpacingTokens.sm),
+                  _NatalChartCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   for (final entry in _passportEntries) ...[
                     _PassportEntryCard(entry: entry),
@@ -403,6 +407,47 @@ class _GuideAnimalCard extends StatelessWidget {
   }
 }
 
+/// La tessera viva della carta natale.
+///
+/// Apre la carta calcolata, quella che il Risveglio mostra: la mappa celeste
+/// esiste, si calcola sulle effemeridi e si puo' guardare. Prima il passaporto
+/// la teneva fra le cose "in arrivo", quindi chi apriva il proprio passaporto
+/// concludeva di non averla.
+///
+/// Non promette la Carta Natale INTERATTIVA coi transiti, che nel catalogo e'
+/// dichiarata in arrivo ed e' un'altra cosa.
+class _NatalChartCard extends StatelessWidget {
+  const _NatalChartCard({required this.identity});
+
+  final BirthIdentity identity;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return _ActiveFactCard(
+      cardKey: const Key('passport_natal_chart'),
+      overline: 'La tua carta natale',
+      value: 'Calcolata sulle effemeridi',
+      meaning: identity.hasBirthTime
+          ? 'Sole, Luna, pianeti, Ascendente e le dodici case.'
+          : 'Sole, Luna e pianeti. Con l’ora di nascita arrivano anche '
+              'Ascendente e case.',
+      isExample: identity.isExample,
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (ctx) => MaestroScope(
+            maestro: Maestro.medora,
+            child: NatalChartReveal(
+              onContinue: () => Navigator.of(ctx).maybePop(),
+            ),
+          ),
+        ),
+      ),
+      emblem: Icon(Icons.explore_rounded, color: palette.goldSoft, size: 28),
+    );
+  }
+}
+
 /// Tessera viva di un fatto identitario deterministico: emblema, etichetta,
 /// valore reale calcolato e riga di significato. Se il dato e' d'esempio lo
 /// dichiara in-world, senza il badge "Dietro il velo".
@@ -582,17 +627,19 @@ class _PassportEntry {
 /// Voci segnaposto dei fatti identitari che richiedono servizi o asset esterni.
 /// Numero della vita e Fase lunare di nascita non sono qui: sono gia' vivi,
 /// perche' nascono dalla sola data.
+/// Qui restano SOLO i fatti che l'app davvero non ha ancora.
+///
+/// Ne sono uscite due voci che descrivevano cose gia' vive:
+///
+/// - **Carta natale**: la carta si calcola sulle effemeridi, si vede nel
+///   Risveglio e ora ha la sua tessera viva qui sopra.
+/// - **Angelo custode**: la tessera "I tuoi Angeli", poche righe sopra, era
+///   gia' viva e apriva la triade calcolata. Erano due tessere per la stessa
+///   cosa, una accesa e una spenta.
+///
+/// Promettere come futuro qualcosa che l'app fa gia' e' peggio di non
+/// prometterlo: chi legge conclude che non ce l'ha.
 const List<_PassportEntry> _passportEntries = [
-  _PassportEntry(
-    icon: Icons.auto_awesome,
-    title: 'Carta natale',
-    description: 'La tua mappa celeste, calcolata sulle effemeridi.',
-  ),
-  _PassportEntry(
-    icon: Icons.brightness_7,
-    title: 'Angelo custode',
-    description: 'Il tuo Angelo nella tradizione dei settantadue nomi.',
-  ),
   _PassportEntry(
     icon: Icons.psychology_alt,
     title: 'Archetipo',
@@ -622,9 +669,21 @@ class _PassportEntryCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  entry.title,
-                  style: TypographyTokens.display(size: 18),
+                // Il titolo si rimpicciolisce invece di rompersi: "Archetipo"
+                // in Cinzel maiuscolo andava a capo DENTRO la parola. E' lo
+                // stesso rimedio gia' usato per "Meditazione" nella striscia
+                // delle arti.
+                SizedBox(
+                  width: double.infinity,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      entry.title,
+                      maxLines: 1,
+                      style: TypographyTokens.display(size: 18),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(

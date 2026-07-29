@@ -41,10 +41,27 @@ class ScrollReveal extends StatefulWidget {
   final bool enabled;
 
   /// Il tragitto in pixel di ogni strato: piccolo, per non spostare la lettura.
+  ///
+  /// **Non si puo' alzare, e l'ho verificato.** Portandolo a diciotto piu' sei
+  /// gli elementi vicini si SOVRAPPONGONO durante la comparsa, perche' ognuno e'
+  /// traslato di una quantita' diversa secondo il proprio strato: un tocco che
+  /// arriva in quel momento finisce sulla voce sbagliata, e tre prove del
+  /// dominio lo hanno denunciato. Per crescere davvero, prima va sospeso il
+  /// tocco finche' la comparsa non e' conclusa.
   static double slideFor(int depth) => 10.0 + depth * 8.0;
 
   /// La durata della sola comparsa, uguale per tutti gli strati.
-  static const Duration duration = Duration(milliseconds: 260);
+  ///
+  /// Era 260 millisecondi, ed e' il motivo per cui la comparsa veniva
+  /// dichiarata fatta e a schermo non si notava: un quarto di secondo e' sotto
+  /// la soglia di quello che l'occhio registra come movimento, soprattutto
+  /// mentre la transizione della rotta, che dura circa 300 millisecondi, sta
+  /// ancora entrando e copre tutto.
+  ///
+  /// 420 millisecondi: la comparsa sopravvive all'ingresso della schermata,
+  /// quindi si vede. Cio' che si nota e' la dissolvenza dell'opacita', non i
+  /// dieci pixel di tragitto, che restano quelli per la ragione qui sopra.
+  static const Duration duration = Duration(milliseconds: 420);
 
   /// Il ritardo di partenza di uno strato.
   static Duration delayFor(int depth) => Duration(milliseconds: depth * 60);

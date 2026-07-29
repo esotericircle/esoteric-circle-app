@@ -11,7 +11,6 @@ import '../../core/lang/euphonic.dart';
 import '../../core/identity/natal_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
-import '../../core/maestro/maestro_controller.dart';
 import '../../design_system/components/art_card.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/scroll_reveal.dart';
@@ -438,8 +437,13 @@ class _Collassabile extends StatelessWidget {
 
 /// Un'arte del cerchio nella striscia "Scopri altre arti del Cerchio": il
 /// Maestro a cui appartiene, la funzione immersiva che apre, l'icona e il nome.
-class _CircleArt {
-  const _CircleArt({
+/// Un'arte della striscia del cerchio, col Maestro a cui appartiene.
+///
+/// Pubblica apposta, come il painter del sigillo: il colore della bolla e' una
+/// cosa che un test deve poter misurare senza montare l'intero dominio con i
+/// suoi servizi.
+class CircleArt {
+  const CircleArt({
     required this.maestro,
     required this.target,
     required this.icon,
@@ -456,32 +460,32 @@ class _CircleArt {
 /// ordinamento per popolarita' reale, che alla Demo non esiste: e' una scelta
 /// curata; la telemetria un giorno la riordinera'. Ogni voce apre una funzione
 /// gia' viva, con la sua rotta condivisa (`immersiveRouteFor`).
-const List<_CircleArt> _curatedArts = [
-  _CircleArt(
+const List<CircleArt> _curatedArts = [
+  CircleArt(
     maestro: Maestro.medora,
     target: ImmersiveTarget.oroscopoGiorno,
     icon: Icons.brightness_3_rounded,
     title: 'Oracolo del Giorno',
   ),
-  _CircleArt(
+  CircleArt(
     maestro: Maestro.medora,
     target: ImmersiveTarget.sinastriaVip,
     icon: Icons.favorite_rounded,
     title: 'Sinastria VIP',
   ),
-  _CircleArt(
+  CircleArt(
     maestro: Maestro.aura,
     target: ImmersiveTarget.meditazione,
     icon: Icons.self_improvement_rounded,
     title: 'Meditazione',
   ),
-  _CircleArt(
+  CircleArt(
     maestro: Maestro.aura,
     target: ImmersiveTarget.breathwork,
     icon: Icons.air_rounded,
     title: 'Respiro guidato',
   ),
-  _CircleArt(
+  CircleArt(
     maestro: Maestro.caligo,
     target: ImmersiveTarget.lancioRune,
     icon: Icons.change_history_rounded,
@@ -525,7 +529,7 @@ class _OtherArtsStrip extends StatelessWidget {
             itemCount: arts.length,
             separatorBuilder: (_, __) =>
                 const SizedBox(width: SpacingTokens.sm),
-            itemBuilder: (context, i) => _CircleArtTile(
+            itemBuilder: (context, i) => CircleArtTile(
               art: arts[i],
               // Il colore del Maestro di quell'arte, non un neutro.
               palette: MaestroPalette.forKey(ThemeKey.of(arts[i].maestro)),
@@ -539,30 +543,40 @@ class _OtherArtsStrip extends StatelessWidget {
 
 /// Una tessera della striscia, nel colore del Maestro dell'arte. Al tocco apre
 /// la funzione e vira il tema su quel Maestro, poi lo ripristina al ritorno.
-class _CircleArtTile extends StatelessWidget {
-  const _CircleArtTile({required this.art, required this.palette});
+class CircleArtTile extends StatelessWidget {
+  const CircleArtTile({super.key, required this.art, required this.palette});
 
-  final _CircleArt art;
+  final CircleArt art;
   final MaestroPalette palette;
 
   Future<void> _open(BuildContext context) async {
     final route = immersiveRouteFor(art.target);
     if (route == null) return;
-    final controller = context.read<MaestroController>();
-    final previous = controller.activeMaestro;
-    // Il tema vira sul Maestro dell'arte per la durata della funzione.
-    controller.selectMaestro(art.maestro);
+    // Nessun cambio di tema qui. Il colore dell'arte lo dichiara l'arte
+    // stessa, tramite il proprietario del suo MaestroScope, quindi c'e' dal
+    // primo frame da qualunque strada si arrivi.
+    //
+    // Prima il tema veniva virato QUI, cioe' in questa singola tessera: chi
+    // apriva la stessa arte dallo scaffale del suo Maestro, dalla chat o da
+    // una rotta diretta entrava col colore di chi stava guardando prima, e al
+    // primo ingresso nell'app col neutro. Per di piu' il ripristino era
+    // condizionato a `previous != null`, quindi partendo dal tema neutro il
+    // colore dell'arte restava addosso al Cerchio anche dopo essere usciti.
     await Navigator.of(context).push(route);
-    // Al ritorno, il dominio riprende il suo tema.
-    if (context.mounted && previous != null) {
-      controller.selectMaestro(previous);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Palette neutra esplicita: la tessera non segue il tema del Maestro del
-    // dominio, ma il viola scuro del cerchio condiviso.
+    // Il colore del PROPRIETARIO dell'arte, non quello del dominio in cui la
+    // striscia sta ne' quello del tema attivo. Prima le bolle erano tutte nel
+    // viola condiviso: la striscia diceva a parole di chi fosse ogni arte, con
+    // una scritta piccola sotto il nome, senza mostrarlo. Il colpo d'occhio
+    // visivo viene prima del testo, quindi il proprietario si riconosce senza
+    // leggere.
+    //
+    // Il fondo condiviso resta sotto, velato: la striscia continua a essere
+    // una striscia sola, non tre strisce accostate.
+    final propria = MaestroPalette.forKey(ThemeKey.of(art.maestro));
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -578,11 +592,19 @@ class _CircleArtTile extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                palette.surfaceElevated.withValues(alpha: 0.92),
-                palette.surface.withValues(alpha: 0.78),
+                // Il colore del Maestro sopra il viola condiviso: si riconosce
+                // il proprietario senza che la tessera urli.
+                Color.alphaBlend(
+                  propria.primary.withValues(alpha: 0.55),
+                  palette.surfaceElevated,
+                ).withValues(alpha: 0.92),
+                Color.alphaBlend(
+                  propria.primary.withValues(alpha: 0.22),
+                  palette.surface,
+                ).withValues(alpha: 0.78),
               ],
             ),
-            border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+            border: Border.all(color: propria.gold.withValues(alpha: 0.45)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -593,12 +615,12 @@ class _CircleArtTile extends StatelessWidget {
                 height: 40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: palette.primary.withValues(alpha: 0.5),
+                  color: propria.primary,
                   border:
-                      Border.all(color: palette.gold.withValues(alpha: 0.6)),
+                      Border.all(color: propria.gold.withValues(alpha: 0.75)),
                 ),
                 alignment: Alignment.center,
-                child: Icon(art.icon, color: palette.goldSoft, size: 22),
+                child: Icon(art.icon, color: propria.goldSoft, size: 22),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -620,7 +642,7 @@ class _CircleArtTile extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(art.maestro.displayName,
                       style: TypographyTokens.label(size: 11).copyWith(
-                        color: palette.goldSoft.withValues(alpha: 0.85),
+                        color: propria.goldSoft.withValues(alpha: 0.95),
                         letterSpacing: 0.6,
                       )),
                 ],

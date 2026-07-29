@@ -21,7 +21,6 @@ import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
-import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
@@ -32,6 +31,7 @@ import 'face_constellation.dart';
 import 'face_constellation_painter.dart';
 import 'face_share_card.dart';
 import 'face_silhouette.dart';
+import '../../rotta_arte.dart';
 
 /// La Costellazione del Viso, dominio Aura.
 ///
@@ -64,7 +64,9 @@ class FaceConstellationScreen extends StatefulWidget {
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+      builder: (_) => SogliaArte(
+        id: 'face_constellation',
+        maestro: Maestro.aura,
         child: FaceConstellationScreen(
           clock: clock,
           pianetiDelGiorno: pianetiDelGiorno,

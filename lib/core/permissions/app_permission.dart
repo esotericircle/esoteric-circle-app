@@ -94,7 +94,24 @@ Future<bool> requestPermissionWithPrelude(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (ctx) => _PreludeSheet(copy: c, palette: palette),
+    // La spiegazione NON sparisce da sola. Con i valori di difetto un tocco
+    // fuori o uno sfioramento la chiudevano, e succedeva proprio dove succede
+    // di piu': nella schermata del soffio si tocca e si trascina per far
+    // muovere la scena, quindi il foglio spariva prima di essere letto e il
+    // permesso restava non concesso senza che nessuno capisse perche'.
+    //
+    // Si esce con una scelta dichiarata, mai per caso.
+    isDismissible: false,
+    enableDrag: false,
+    builder: (ctx) => PopScope(
+      // Anche il gesto Indietro di sistema vale come "non ora", non come una
+      // chiusura muta: cosi' chi esce sa di aver scelto.
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) Navigator.of(ctx).pop(false);
+      },
+      child: _PreludeSheet(copy: c, palette: palette),
+    ),
   );
   if (accepted != true) return false;
   return systemRequest();
@@ -164,6 +181,7 @@ class _PreludeSheet extends StatelessWidget {
             ),
             const SizedBox(height: SpacingTokens.xs),
             TextButton(
+              key: const Key('permesso_non_ora'),
               onPressed: () => Navigator.of(context).pop(false),
               child: Text(copy.decline,
                   style: TypographyTokens.body(size: 16)

@@ -14,7 +14,6 @@ import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
-import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
@@ -24,6 +23,7 @@ import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
 import 'bindrune.dart';
 import 'rune_share_card.dart';
+import '../../rotta_arte.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
 /// selettore del tipo di gettata. Il caso e' voluto e autentico, e' gettare le
@@ -52,7 +52,9 @@ class RuneDrawScreen extends StatefulWidget {
     math.Random? random,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+      builder: (_) => SogliaArte(
+        id: 'rune_draw',
+        maestro: Maestro.caligo,
         child: RuneDrawScreen(
             userSign: userSign, userBirth: userBirth, random: random),
       ),

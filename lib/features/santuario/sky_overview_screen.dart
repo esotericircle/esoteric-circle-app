@@ -22,6 +22,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'sky_postcard.dart';
 import 'widgets/moon_widget.dart';
+import '../../core/maestro/maestro.dart';
 
 /// "Il cielo sopra di te": il cielo del momento, immersivo ed esplorabile.
 ///
@@ -82,6 +83,7 @@ class SkyOverviewScreen extends StatefulWidget {
   static Route<void> route({DateTime? now, SkyLocation? location}) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
+        maestro: Maestro.medora,
         child: SkyOverviewScreen(
           now: now,
           location: location ?? const GeolocatorSkyLocation(),
@@ -95,6 +97,7 @@ class SkyOverviewScreen extends StatefulWidget {
   static Route<void> birthRoute({required DateTime birthMoment}) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
+        maestro: Maestro.medora,
         child: SkyOverviewScreen(now: birthMoment, birth: true),
       ),
     );

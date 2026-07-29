@@ -8,7 +8,6 @@ import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
-import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -21,6 +20,7 @@ import 'stesa_share_card.dart';
 import 'medora_stage.dart';
 import 'tarot_card_art.dart';
 import 'tarot_selectors.dart';
+import '../maestri/rotta_arte.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
 const double kTarotAspect = 2 / 3;
@@ -61,7 +61,7 @@ class StesaTreCarteScreen extends StatefulWidget {
   final bool skipIntro;
 
   static Route<void> route({int? seed}) => MaterialPageRoute<void>(
-        builder: (_) => MaestroScope(child: StesaTreCarteScreen(seed: seed)),
+        builder: (_) => SogliaArte(id: 'tarot_spread_three', maestro: Maestro.medora, child: StesaTreCarteScreen(seed: seed)),
       );
 
   @override

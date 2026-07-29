@@ -8,6 +8,8 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import 'meditation_audio.dart';
+import '../../../../core/maestro/maestro.dart';
+import '../../rotta_arte.dart';
 
 /// Meditazione di Aura con suono e cimatica.
 ///
@@ -27,7 +29,7 @@ class MeditationScreen extends StatefulWidget {
 
   static Route<void> route({TonePlayer player = const SilentTonePlayer()}) {
     return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(child: MeditationScreen(player: player)),
+      builder: (_) => SogliaArte(id: 'meditation', maestro: Maestro.aura, child: MeditationScreen(player: player)),
     );
   }
 

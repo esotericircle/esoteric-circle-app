@@ -28,6 +28,7 @@ import 'daily_strip.dart';
 import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
+import 'widgets/tue_arti_view.dart';
 
 /// La schermata eroe, il Santuario.
 ///
@@ -158,6 +159,22 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   // Apre una funzione dello scaffale. Le funzioni vive spingono la loro
   // schermata (deep link interno); quelle ancora in arrivo mostrano un anticipo
   // elegante, mai un vicolo cieco.
+  /// Apre un'arte dello scaffale personale, per identificativo.
+  ///
+  /// Usa la stessa mappa unica delle rotte: la stessa arte si apre alla stessa
+  /// schermata da qualunque scaffale la si tocchi.
+  void _openArte(BuildContext context, String id, Zodiac userSign) {
+    final profile = context.read<ProfileController>();
+    final route = artRouteFor(
+      id,
+      userSign: userSign,
+      userBirth:
+          profile.identity.isExample ? null : profile.identity.birthMoment,
+      userName: profile.hasName ? profile.vocative : null,
+    );
+    if (route != null) Navigator.of(context).push(route);
+  }
+
   void _openShelf(BuildContext context, ShelfFunction fn, Zodiac userSign) {
     final route = _shelfRoute(context, fn, userSign);
     if (route != null) {
@@ -329,6 +346,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                               userZodiac,
                               parallax,
                               depth),
+                        ),
+                        // Lo scaffale personale viene PRIMA dell'elenco
+                        // completo: quello che si e' scelto sta davanti a
+                        // quello che il Cerchio propone.
+                        TueArtiView(
+                          onOpen: (id) => _openArte(context, id, userZodiac),
                         ),
                         _FunctionShelfView(
                           onOpen: (fn) => _openShelf(context, fn, userZodiac),
@@ -1156,9 +1179,13 @@ class _SkyTapHint extends StatelessWidget {
                       child: AnimatedBuilder(
                         animation: pulse,
                         builder: (context, _) => CustomPaint(
-                          painter: _TapHandPainter(
+                          painter: TapHandPainter(
                             phase: reduceMotion ? -1.0 : pulse.value,
-                            color: color,
+                            // BIANCA, non nel colore del Maestro: e' un
+                            // suggerimento di gesto, non un elemento del tema,
+                            // e sul cosmo profondo il bianco e' l'unico colore
+                            // che si legge da subito senza competere col resto.
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -1183,8 +1210,10 @@ class _SkyTapHint extends StatelessWidget {
 /// pollice sotto. Nel gesto la mano scende un poco e dal polpastrello parte
 /// un'onda che si allarga e svanisce. [phase] in 0..1 anima il ciclo; un
 /// valore negativo tiene la mano ferma (Riduci Movimento).
-class _TapHandPainter extends CustomPainter {
-  _TapHandPainter({required this.phase, required this.color});
+/// La mano che suggerisce il tocco. Pubblica apposta: la sua forma e' la cosa
+/// che va guardata a video, e per guardarla serve poterla montare ingrandita.
+class TapHandPainter extends CustomPainter {
+  TapHandPainter({required this.phase, required this.color});
 
   final double phase;
   final Color color;
@@ -1232,54 +1261,89 @@ class _TapHandPainter extends CustomPainter {
     canvas.restore();
   }
 
-  /// Il contorno di una mano che indica, in un tratto solo.
+  /// Il contorno di una mano che indica, in un tratto solo. Terza stesura.
   ///
-  /// Le due versioni precedenti erano un rettangolo arrotondato sopra un altro
-  /// rettangolo arrotondato, con un ovale di lato: a schermo si leggeva come un
-  /// cursore, non come una mano, e Mauro le ha bocciate tutte e due. Qui il
-  /// contorno e' continuo e curvo, con le tre nocche delle dita piegate a
-  /// destra e la gobba del pollice a sinistra: sono quelle due sagome che
-  /// fanno riconoscere una mano, non la presenza di un dito dritto.
+  /// Le due precedenti sono state bocciate per ragioni diverse. La prima era un
+  /// rettangolo arrotondato sopra un altro rettangolo arrotondato, con un ovale
+  /// di lato: si leggeva come un cursore. La seconda aveva il contorno continuo
+  /// ma le PROPORZIONI sbagliate, ed e' quello che la faceva ancora sembrare un
+  /// guanto: l'indice era lungo diciannove punti su quarantotto di altezza e
+  /// largo sette, cioe' un moncone grosso quanto un dito intero, e le tre
+  /// nocche erano tre gobbe della stessa misura.
+  ///
+  /// **Un difetto trovato guardando l'anteprima ingrandita, non il codice.**
+  /// Sistemate le proporzioni, la sagoma con l'indice al CENTRO del pugno si
+  /// leggeva come un gesto volgare. Nel codice non si vedeva; ingrandita era
+  /// evidente. Da qui lo scostamento `ix`: l'indice sta sul lato sinistro,
+  /// dove sta in una mano vera, e il pugno resta piu' largo a destra.
+  ///
+  /// Cio' che rende riconoscibile una mano che indica sono quattro rapporti:
+  ///
+  /// 1. **L'indice e' lungo e sottile**: meta' dell'altezza, largo un quarto
+  ///    della mano. Un dito corto e grosso e' un moncone.
+  /// 2. **L'indice sta di LATO**, non al centro.
+  /// 3. **Il pugno e' piu' largo che alto** e sporge a destra.
+  /// 4. **Il pollice sporge in fuori e in basso**, sotto l'indice: e'
+  ///    l'asimmetria che distingue una mano da un guanto.
+  ///
   /// Riferimento: Linee Guida sezione 24.
   Path _handPath(double cx) {
+    // L'indice NON sta al centro del pugno: sta sul lato, dove sta in una mano
+    // vera. Al centro la sagoma si legge come un gesto volgare, ed e' quello
+    // che si vedeva nell'anteprima ingrandita della stesura precedente.
+    final ix = cx - 5;
     final p = Path();
-    // Punta dell'indice, arrotondata.
-    p.moveTo(cx - 3.6, 9);
-    p.quadraticBezierTo(cx, 1.5, cx + 3.6, 9);
-    // Lato destro dell'indice, fino a dove entra nella mano.
-    p.lineTo(cx + 3.6, 21);
-    // Le tre dita piegate: tre nocche in fila, sempre piu' basse.
-    p.quadraticBezierTo(cx + 9.5, 21, cx + 10.5, 26.5);
-    p.quadraticBezierTo(cx + 14, 28.5, cx + 12.5, 34.5);
-    p.quadraticBezierTo(cx + 14, 40, cx + 10.5, 43.5);
-    // Base del palmo e polso.
-    p.quadraticBezierTo(cx + 7.5, 48.5, cx - 1, 48.5);
-    p.quadraticBezierTo(cx - 8, 48.5, cx - 10, 42.5);
-    // Il pollice piegato contro il palmo: la gobba sul lato sinistro.
-    p.quadraticBezierTo(cx - 14.5, 37.5, cx - 12.5, 30);
-    p.quadraticBezierTo(cx - 11, 23.5, cx - 6, 22);
+
+    // L'INDICE, alzato, sul lato sinistro della mano. Lungo e sottile.
+    p.moveTo(ix - 3, 13);
+    p.cubicTo(ix - 3, 5, ix + 3, 5, ix + 3, 13);
+    p.lineTo(ix + 3, 24);
+
+    // Il dorso, che sale verso l'indice: la mano e' piu' larga a destra, ed e'
+    // questa asimmetria che la fa leggere come una mano di tre quarti.
+    p.cubicTo(ix + 6, 24, ix + 8, 25, ix + 9, 27);
+
+    // LE TRE NOCCHE delle dita piegate, sul lato destro, di misura
+    // decrescente: e' il decrescere che le fa leggere come tre dita in fila.
+    p.cubicTo(ix + 13, 26, ix + 16, 28, ix + 16, 32);
+    p.cubicTo(ix + 16, 35, ix + 14, 35, ix + 14.5, 37.5);
+    p.cubicTo(ix + 15, 40, ix + 13, 41, ix + 12.5, 43);
+
+    // La base della mano verso il polso: larga e piatta.
+    p.cubicTo(ix + 11, 47, ix + 6, 49, ix + 1, 49);
+    p.cubicTo(ix - 5, 49, ix - 9, 46, ix - 10, 42);
+
+    // IL POLLICE, che sporge in fuori e in basso sotto l'indice: la punta e'
+    // piu' bassa del suo attacco, come in una mano che indica.
+    p.cubicTo(ix - 13, 39, ix - 13, 33, ix - 10, 31);
+    p.cubicTo(ix - 8, 29.5, ix - 6, 30, ix - 5, 28);
+
     // Rientra sotto l'indice e chiude.
-    p.quadraticBezierTo(cx - 3.6, 20.5, cx - 3.6, 9);
+    p.cubicTo(ix - 4, 26, ix - 3.5, 25, ix - 3, 24);
     p.close();
     return p;
+  
   }
 
   /// Le pieghe fra le dita piegate: due archi corti, disegnati in tratto sopra
   /// la sagoma. Senza di loro le nocche restano una gobba sola e la mano torna
   /// a somigliare a un guanto.
   void _pieghe(Canvas canvas, double cx, Paint tratto) {
+    // Le pieghe seguono l'indice, che sta sul lato: lo stesso scostamento del
+    // contorno, altrimenti restano appese in mezzo al palmo.
+    final ix = cx - 5;
     final a = Path()
-      ..moveTo(cx + 4.5, 27.5)
-      ..quadraticBezierTo(cx + 8, 28.5, cx + 10, 27);
+      ..moveTo(ix + 6, 30)
+      ..quadraticBezierTo(ix + 10, 31, ix + 13.5, 29.5);
     final b = Path()
-      ..moveTo(cx + 4.5, 35.5)
-      ..quadraticBezierTo(cx + 8, 36.5, cx + 12, 35);
+      ..moveTo(ix + 5, 37)
+      ..quadraticBezierTo(ix + 9, 38, ix + 13.5, 36.5);
     canvas.drawPath(a, tratto);
     canvas.drawPath(b, tratto);
   }
 
   @override
-  bool shouldRepaint(_TapHandPainter old) =>
+  bool shouldRepaint(TapHandPainter old) =>
       old.phase != phase || old.color != color;
 }
 

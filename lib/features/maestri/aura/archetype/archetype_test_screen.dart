@@ -16,7 +16,6 @@ import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
-import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
@@ -25,6 +24,7 @@ import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
 import 'archetype_share_card.dart';
 import 'archetype_wheel.dart';
+import '../../rotta_arte.dart';
 
 /// Il Test Archetipo, dominio Aura.
 ///
@@ -51,7 +51,9 @@ class ArchetypeTestScreen extends StatefulWidget {
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+      builder: (_) => SogliaArte(
+        id: 'archetype_test',
+        maestro: Maestro.aura,
         child: ArchetypeTestScreen(
           clock: clock,
           pianetiDelGiorno: pianetiDelGiorno,

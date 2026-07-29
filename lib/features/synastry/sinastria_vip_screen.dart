@@ -17,6 +17,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'sinastria_share_card.dart';
 import 'user_photo.dart';
+import '../../core/maestro/maestro.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -66,6 +67,7 @@ class SinastriaVipScreen extends StatefulWidget {
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => MaestroScope(
+        maestro: Maestro.medora,
         child: SinastriaVipScreen(
           userSign: userSign,
           userName: userName ?? 'Tu',

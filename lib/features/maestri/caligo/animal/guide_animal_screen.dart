@@ -13,7 +13,6 @@ import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
-import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
@@ -24,6 +23,7 @@ import '../../chat/maestro_chat_screen.dart';
 import 'animal_journey.dart';
 import 'animal_reveal.dart';
 import 'guide_animal_share_card.dart';
+import '../../rotta_arte.dart';
 
 /// Come si entra nell'Animale Guida.
 ///
@@ -67,7 +67,9 @@ class GuideAnimalScreen extends StatefulWidget {
     GuideAnimalMode modo = GuideAnimalMode.viaggio,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+      builder: (_) => SogliaArte(
+        id: 'guide_animal',
+        maestro: Maestro.caligo,
         child: GuideAnimalScreen(
           userSign: userSign,
           userBirth: userBirth,

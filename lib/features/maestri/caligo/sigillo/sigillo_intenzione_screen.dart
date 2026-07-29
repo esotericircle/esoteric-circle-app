@@ -12,6 +12,7 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/app_services.dart';
 import '../../chat/maestro_chat_screen.dart';
+import '../../rotta_arte.dart';
 
 /// Il Sigillo dell'Intenzione, terza arte distintiva di Caligo.
 ///
@@ -30,7 +31,9 @@ class SigilloIntenzioneScreen extends StatefulWidget {
   const SigilloIntenzioneScreen({super.key});
 
   static Route<void> route() => MaterialPageRoute<void>(
-        builder: (_) => const MaestroScope(
+        builder: (_) => const SogliaArte(
+        id: 'magic_sigil',
+        maestro: Maestro.caligo,
           child: SigilloIntenzioneScreen(),
         ),
       );

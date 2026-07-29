@@ -14,7 +14,6 @@ import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/entrance_cascade.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/theme/maestro_palette.dart';
-import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -23,6 +22,7 @@ import 'horoscope_visuals.dart';
 import 'oroscopo_colors.dart';
 import 'oroscopo_share_card.dart';
 import 'tradition_glyph.dart';
+import '../maestri/rotta_arte.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -63,7 +63,7 @@ class OroscopoScreen extends StatefulWidget {
   static Route<void> route({required Zodiac userSign, DateTime? now}) {
     return MaterialPageRoute<void>(
       builder: (_) =>
-          MaestroScope(child: OroscopoScreen(userSign: userSign, now: now)),
+          SogliaArte(id: 'horoscope', maestro: Maestro.medora, child: OroscopoScreen(userSign: userSign, now: now)),
     );
   }
 

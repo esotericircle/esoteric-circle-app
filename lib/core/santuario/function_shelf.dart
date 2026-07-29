@@ -37,6 +37,13 @@ class ShelfFunction {
 class FunctionShelf {
   const FunctionShelf._();
 
+  /// Le funzioni dell'elenco sotto l'eroe.
+  ///
+  /// I Doni del giorno NON stanno qui: l'Oracolo del Giorno e la Runa del
+  /// Tramonto vivono nella striscia in cima, che e' la loro casa, e comparivano
+  /// anche in questo elenco. La stessa cosa due volte nella stessa schermata fa
+  /// sembrare l'elenco piu' pieno di quello che e', e toglie posto alle arti che
+  /// hanno solo questa strada per farsi trovare.
   static const List<ShelfFunction> functions = [
     ShelfFunction(
       id: 'tarot_spread_three',
@@ -71,27 +78,11 @@ class FunctionShelf {
       live: true,
     ),
     ShelfFunction(
-      id: 'day_oracle',
-      title: 'Oracolo del Giorno',
-      teaser: 'Il presagio di oggi, gratuito ogni giorno.',
-      icon: Icons.wb_twilight,
-      maestro: Maestro.medora,
-      live: true,
-    ),
-    ShelfFunction(
       id: 'horoscope',
       title: 'Oroscopo',
       teaser: 'Le quattro schede del tuo giorno, nella voce di Medora.',
       icon: Icons.auto_awesome,
       maestro: Maestro.medora,
-      live: true,
-    ),
-    ShelfFunction(
-      id: 'sunset_rune',
-      title: 'Runa del Tramonto',
-      teaser: 'La runa che scende con la sera, da svelare.',
-      icon: Icons.brightness_3,
-      maestro: Maestro.caligo,
       live: true,
     ),
     ShelfFunction(

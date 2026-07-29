@@ -55,12 +55,19 @@ void main() {
     // Il dato d'esempio e' dichiarato in-world su ogni tessera viva: Numero
     // della vita, Fase lunare, Animale guida e i tre Angeli.
     expect(find.byKey(const Key('passport_angels')), findsOneWidget);
+    // La Carta natale e' la quinta tessera viva: prima stava fra le cose "in
+    // arrivo" mentre la carta si calcola davvero, quindi chi apriva il proprio
+    // passaporto concludeva di non averla.
+    expect(find.byKey(const Key('passport_natal_chart')), findsOneWidget);
     expect(
-        find.textContaining('Valore d\'esempio'), findsNWidgets(4));
+        find.textContaining('Valore d\'esempio'), findsNWidgets(5));
 
     // Le voci che richiedono servizi esterni restano dietro il velo.
     expect(find.text('Dietro il velo'), findsWidgets);
-    expect(find.text('Carta natale'), findsOneWidget);
+    // "Carta natale" non e' piu' una voce velata: e' una tessera VIVA, e si
+    // chiama "La tua carta natale". Dietro il velo resta il solo Archetipo.
+    // L'etichetta di una tessera viva si mostra in maiuscolo.
+    expect(find.text('LA TUA CARTA NATALE'), findsOneWidget);
   });
 
   testWidgets('Con un\'identita\' reale sparisce la nota d\'esempio',

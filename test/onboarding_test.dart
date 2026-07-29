@@ -90,9 +90,12 @@ void main() {
     await dito.up();
     await settle(tester);
 
-    // Il rito a passi non c'e' piu'; il cielo reale di nascita e' in scena.
+    // Il rito a passi non c'e' piu'. In scena c'e' il primo TRIONFO, quello
+    // dell'Animale Guida: i trionfi vengono subito dopo il numero della vita, e
+    // il cielo di nascita arriva dopo di loro. Prima il cielo era la prima
+    // tappa, quindi fra il numero e i suoi trionfi si infilava una schermata.
     expect(find.byKey(const Key('onboarding_risveglio')), findsNothing);
-    expect(find.text('Leggi la tua carta'), findsOneWidget);
+    expect(find.byKey(const Key('trionfo_animale')), findsOneWidget);
   });
 
   testWidgets('Aperture successive vanno dirette al Santuario', (tester) async {
