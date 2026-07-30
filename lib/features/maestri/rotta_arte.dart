@@ -38,14 +38,148 @@ class SogliaArte extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaestroScope(
         maestro: maestro,
-        child: ConCuore(id: id, child: child),
+        child: ArteCorrente(
+          id: id,
+          reclamato: ValueNotifier<bool>(false),
+          child: ConCuore(id: id, child: child),
+        ),
       );
+}
+
+/// Nessuno la ascolta davvero: serve solo quando il cuore vive fuori da un'arte.
+final ValueNotifier<bool> _mai = ValueNotifier<bool>(false);
+
+/// LA BARRA IN ALTO DELLE SCHERMATE D'ARTE: un solo posto dove si dichiarano le
+/// azioni, e le azioni non si sovrappongono per costruzione.
+///
+/// **La segnalazione.** Il cuore dorato pieno era disegnato SOPRA il cerchietto
+/// della "i", di cui restava visibile solo la meta' destra. Tre schermate, Test
+/// Archetipo, Estrazione Rune e Costellazione del Viso, e non dipendeva dalla
+/// larghezza: i due elementi occupavano lo stesso posto, quindi si
+/// sovrapponevano a qualunque misura. Il cuore dei preferiti era stato montato
+/// dove c'era gia' qualcosa.
+///
+/// **Perche' non ho corretto le tre schermate una per una.** Il difetto non era
+/// in nessuna delle tre: era che non esisteva un posto solo dove le azioni della
+/// barra si dichiarano, quindi due autori diversi hanno messo due cose nello
+/// stesso angolo senza potersi accorgere l'uno dell'altro. Correggerle a mano
+/// avrebbe lasciato la quarta schermata libera di rifare lo stesso.
+///
+/// Qui le azioni stanno in una riga: il cuore e' l'ultima, dopo quelle della
+/// schermata, e due elementi di una riga non possono sovrapporsi.
+class BarraArte extends StatefulWidget implements PreferredSizeWidget {
+  const BarraArte({
+    super.key,
+    required this.titolo,
+    this.azioni = const [],
+    this.leading,
+  });
+
+  final Widget titolo;
+
+  /// Le azioni della schermata. Il cuore NON va messo qui: lo aggiunge la barra.
+  final List<Widget> azioni;
+
+  final Widget? leading;
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  State<BarraArte> createState() => _BarraArteState();
+}
+
+class _BarraArteState extends State<BarraArte> {
+  ValueNotifier<bool>? _reclamato;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Dice al cuore sovrapposto di togliersi: da qui in poi ce ne occupiamo noi.
+    final arte = ArteCorrente.of(context);
+    if (arte?.reclamato != _reclamato) {
+      _reclamato = arte?.reclamato;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _reclamato?.value = true;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _reclamato?.value = false;
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final arte = ArteCorrente.of(context);
+    final palette = context.palette;
+    return AppBar(
+      backgroundColor: palette.deepest.withValues(alpha: 0.35),
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      centerTitle: true,
+      iconTheme: IconThemeData(color: palette.goldSoft),
+      automaticallyImplyLeading: false,
+      // Mai un vicolo cieco: la via d'uscita e' sempre la stessa e sempre li'.
+      leading: widget.leading ??
+          IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            tooltip: 'Indietro',
+            onPressed: () => Navigator.of(context).maybePop(),
+          ),
+      title: widget.titolo,
+      actions: [
+        ...widget.azioni,
+        if (arte != null) CuorePreferita(id: arte.id),
+        const SizedBox(width: SpacingTokens.xs),
+      ],
+    );
+  }
+}
+
+/// Quale arte si sta guardando, e se qualcuno ha gia' preso in carico il cuore.
+///
+/// **Perche' esiste.** Il cuore dorato era disegnato in uno Stack sopra tutta
+/// l'arte, in alto a destra, e le schermate d'arte hanno una barra le cui azioni
+/// stanno nello stesso angolo: il cuore copriva il tasto informazioni, di cui
+/// restava visibile la meta' destra. Non dipendeva dalla larghezza, i due
+/// elementi occupavano lo stesso posto e si sovrapponevano a qualunque misura.
+///
+/// Adesso la barra dichiara le azioni in un posto solo, `BarraArte`, e il cuore
+/// e' una di quelle: sta in fila con le altre e non ci si puo' sovrapporre per
+/// costruzione. Chi non ha una barra tiene il cuore sovrapposto, che li' non
+/// copre niente.
+class ArteCorrente extends InheritedWidget {
+  const ArteCorrente({
+    super.key,
+    required this.id,
+    required this.reclamato,
+    required super.child,
+  });
+
+  final String id;
+
+  /// Alzato dalla barra dell'arte quando il cuore lo mette lei, cosi' il
+  /// sovrapposto si toglie di mezzo invece di raddoppiarlo.
+  final ValueNotifier<bool> reclamato;
+
+  static ArteCorrente? of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<ArteCorrente>();
+
+  @override
+  bool updateShouldNotify(ArteCorrente old) =>
+      id != old.id || reclamato != old.reclamato;
 }
 
 /// Aggiunge il cuore delle preferite sopra un'arte, in alto a destra.
 ///
 /// Il cuore sta DENTRO l'arte, non solo sulla bolla che la apre: si decide che
 /// un'arte ci piace mentre la si usa, non prima di averla vista.
+///
+/// Si fa da parte quando l'arte ha una `BarraArte`: li' il cuore e' un'azione
+/// della barra, in fila con le altre.
 class ConCuore extends StatelessWidget {
   const ConCuore({super.key, required this.id, required this.child});
 
@@ -54,6 +188,7 @@ class ConCuore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final arte = ArteCorrente.of(context);
     return Stack(
       children: [
         child,
@@ -64,7 +199,12 @@ class ConCuore extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(
                   top: SpacingTokens.sm, right: SpacingTokens.sm),
-              child: CuorePreferita(id: id),
+              child: ValueListenableBuilder<bool>(
+                valueListenable: arte?.reclamato ?? _mai,
+                builder: (context, reclamato, _) => reclamato
+                    ? const SizedBox.shrink()
+                    : CuorePreferita(id: id),
+              ),
             ),
           ),
         ),

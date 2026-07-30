@@ -32,6 +32,7 @@ import 'face_constellation_painter.dart';
 import 'face_share_card.dart';
 import 'face_silhouette.dart';
 import '../../rotta_arte.dart';
+import '../../../../design_system/components/interruttore_del_cerchio.dart';
 
 /// La Costellazione del Viso, dominio Aura.
 ///
@@ -148,26 +149,13 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: palette.deepest.withValues(alpha: 0.35),
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          tooltip: 'Indietro',
-          onPressed: () => Navigator.of(context).maybePop(),
-        ),
-        // FittedBox cosi' "Costellazione del Viso" entra intero nella barra,
-        // rimpicciolendosi se serve invece di troncarsi coi puntini.
-        title: FittedBox(
+      appBar: BarraArte(
+        titolo: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text('Costellazione del Viso',
               maxLines: 1, style: TypographyTokens.display(size: 19)),
         ),
-        actions: [
+        azioni: [
           IconButton(
             key: const Key('face_sources'),
             icon: const Icon(Icons.info_outline_rounded),
@@ -335,20 +323,13 @@ class _Soglia extends StatelessWidget {
           DepthCard(
             padding: const EdgeInsets.symmetric(
                 horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
-            child: SwitchListTile(
+            child: InterruttoreDelCerchio(
               key: const Key('face_sky_setting'),
-              value: conCielo,
-              onChanged: onCielo,
-              contentPadding: EdgeInsets.zero,
-              activeThumbColor: palette.goldSoft,
-              title: Text('Lega al cielo di oggi',
-                  style: TypographyTokens.display(size: 16)
-                      .copyWith(color: ColorTokens.textPrimary)),
-              subtitle: Text(
-                  'I transiti del giorno si accostano alla tua lettura, come '
+              acceso: conCielo,
+              onCambia: onCielo,
+              titolo: 'Lega al cielo di oggi',
+              sottotitolo: 'I transiti del giorno si accostano alla tua lettura, come '
                   'sincronicità.',
-                  style: TypographyTokens.body(size: 13)
-                      .copyWith(color: ColorTokens.textSecondary)),
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
@@ -1027,18 +1008,12 @@ class _Transiti extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SwitchListTile(
+        InterruttoreDelCerchio(
           key: const Key('face_transits_switch'),
-          value: acceso,
-          onChanged: onCambia,
-          contentPadding: EdgeInsets.zero,
-          activeThumbColor: palette.goldSoft,
-          title: Text('Lega ai transiti',
-              style: TypographyTokens.display(size: 16)
-                  .copyWith(color: ColorTokens.textPrimary)),
-          subtitle: Text('Il cielo di oggi si accosta alla tua lettura.',
-              style: TypographyTokens.body(size: 13)
-                  .copyWith(color: ColorTokens.textSecondary)),
+          acceso: acceso,
+          onCambia: onCambia,
+          titolo: 'Lega ai transiti',
+          sottotitolo: 'Il cielo di oggi si accosta alla tua lettura.',
         ),
         if (riga != null) ...[
           Text(FaceTransits.cornice,

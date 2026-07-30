@@ -25,6 +25,7 @@ import '../../chat/maestro_chat_screen.dart';
 import 'archetype_share_card.dart';
 import 'archetype_wheel.dart';
 import '../../rotta_arte.dart';
+import '../../../../design_system/components/interruttore_del_cerchio.dart';
 
 /// Il Test Archetipo, dominio Aura.
 ///
@@ -143,21 +144,10 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: palette.deepest.withValues(alpha: 0.35),
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          tooltip: 'Indietro',
-          onPressed: () => Navigator.of(context).maybePop(),
-        ),
-        title: Text('Test Archetipo',
+      appBar: BarraArte(
+        titolo: Text('Test Archetipo',
             style: TypographyTokens.display(size: 19)),
-        actions: [
+        azioni: [
           IconButton(
             key: const Key('archetype_sources'),
             icon: const Icon(Icons.info_outline_rounded),
@@ -297,20 +287,13 @@ class _Soglia extends StatelessWidget {
           DepthCard(
             padding: const EdgeInsets.symmetric(
                 horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
-            child: SwitchListTile(
+            child: InterruttoreDelCerchio(
               key: const Key('archetype_sky_setting'),
-              value: conCielo,
-              onChanged: onCielo,
-              contentPadding: EdgeInsets.zero,
-              activeThumbColor: palette.goldSoft,
-              title: Text('Lega al cielo di oggi',
-                  style: TypographyTokens.display(size: 16)
-                      .copyWith(color: ColorTokens.textPrimary)),
-              subtitle: Text(
-                  'I transiti del giorno si accostano al tuo profilo, come '
+              acceso: conCielo,
+              onCambia: onCielo,
+              titolo: 'Lega al cielo di oggi',
+              sottotitolo: 'I transiti del giorno si accostano al tuo profilo, come '
                   'sincronicità.',
-                  style: TypographyTokens.body(size: 13)
-                      .copyWith(color: ColorTokens.textSecondary)),
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
@@ -1008,18 +991,12 @@ class _Transiti extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SwitchListTile(
+        InterruttoreDelCerchio(
           key: const Key('archetype_transits_switch'),
-          value: acceso,
-          onChanged: onCambia,
-          contentPadding: EdgeInsets.zero,
-          activeThumbColor: palette.goldSoft,
-          title: Text('Lega ai transiti',
-              style: TypographyTokens.display(size: 16)
-                  .copyWith(color: ColorTokens.textPrimary)),
-          subtitle: Text('Il cielo di oggi si accosta al tuo profilo.',
-              style: TypographyTokens.body(size: 13)
-                  .copyWith(color: ColorTokens.textSecondary)),
+          acceso: acceso,
+          onCambia: onCambia,
+          titolo: 'Lega ai transiti',
+          sottotitolo: 'Il cielo di oggi si accosta al tuo profilo.',
         ),
         if (mod != null) ...[
           Text(ArchetypeTransits.corniceSincronicita,

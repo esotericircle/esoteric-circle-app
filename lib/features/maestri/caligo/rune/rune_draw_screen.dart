@@ -136,24 +136,13 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: palette.deepest.withValues(alpha: 0.35),
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          tooltip: 'Indietro',
-          onPressed: () => Navigator.of(context).maybePop(),
-        ),
-        title: FittedBox(
+      appBar: BarraArte(
+        titolo: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text('Estrazione Rune',
               maxLines: 1, style: TypographyTokens.display(size: 19)),
         ),
-        actions: [
+        azioni: [
           IconButton(
             key: const Key('rune_sources'),
             icon: const Icon(Icons.info_outline_rounded),

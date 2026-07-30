@@ -19,6 +19,7 @@ import 'package:esoteric_circle/features/maestri/art_navigation.dart';
 import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_test_screen.dart';
 import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_share_card.dart';
 import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_wheel.dart';
+import 'package:esoteric_circle/design_system/components/interruttore_del_cerchio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -252,7 +253,10 @@ void main() {
 
     // Spento di partenza: nessuna riga di transito.
     final sw = find.byKey(const Key('archetype_transits_switch'));
-    expect(tester.widget<SwitchListTile>(sw).value, isFalse);
+    // L'interruttore adesso e' quello del design system e non lo Switch di
+    // Material: erano gli unici due elementi che sembravano venire da un'altra
+    // app, grigi e viola dentro una schermata tutta oro e verde.
+    expect(tester.widget<InterruttoreDelCerchio>(sw).acceso, isFalse);
     expect(find.byKey(const Key('archetype_transit_marte')), findsNothing);
 
     await tester.ensureVisible(sw);

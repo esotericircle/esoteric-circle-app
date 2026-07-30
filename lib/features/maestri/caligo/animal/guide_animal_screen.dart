@@ -147,24 +147,13 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: palette.deepest.withValues(alpha: 0.35),
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          tooltip: 'Indietro',
-          onPressed: () => Navigator.of(context).maybePop(),
-        ),
-        title: FittedBox(
+      appBar: BarraArte(
+        titolo: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text('Animale Guida',
               maxLines: 1, style: TypographyTokens.display(size: 19)),
         ),
-        actions: [
+        azioni: [
           IconButton(
             key: const Key('animal_sources'),
             icon: const Icon(Icons.info_outline_rounded),

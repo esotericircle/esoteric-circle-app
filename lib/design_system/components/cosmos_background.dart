@@ -129,6 +129,15 @@ class _CosmosBackgroundState extends State<CosmosBackground>
     }
 
     return Stack(
+      // IL COSMO RIEMPIE SEMPRE L'ALTEZZA. Senza questo, lo Stack prendeva
+      // l'altezza del contenuto: se il contenuto era piu' corto dello schermo,
+      // il cielo finiva dove finiva lui e sotto restava il nero dello Scaffold.
+      // Si vedeva nel Test Archetipo quando compariva l'avviso "Aggiunta alle
+      // tue arti": il contenuto si accorciava e si apriva una fascia nera alta
+      // quasi un terzo dello schermo. L'avviso non c'entrava, era solo
+      // l'occasione che rivelava un fondo corto, e ogni schermata sta sul cosmo
+      // condiviso, per intero.
+      fit: StackFit.expand,
       children: [
         // Cielo di fondo, tinto verso l'accento del Maestro.
         Positioned.fill(
