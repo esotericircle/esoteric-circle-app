@@ -287,6 +287,25 @@ void _showElementInfo(
 /// etichetta. Un tocco sull'icona apre direttamente l'esperienza, senza passare
 /// dal dominio.
 class DailyStrip extends StatefulWidget {
+  /// Quanto del Dono successivo deve restare dentro lo schermo.
+  ///
+  /// E' un DATO, non un effetto collaterale della larghezza. Un elenco che
+  /// scorre lo dichiara mostrando che c'e' dell'altro, e il mezzo oggetto
+  /// tagliato dal bordo e' l'invito piu' antico che esista. A 390 punti il
+  /// quarto Dono faceva capolino per fortuna, non per scelta; a 360 spariva, e
+  /// restavano tre icone con una barretta sottile che nessuno legge come
+  /// "scorri".
+  static const double sbirciaturaMinima = 26;
+
+  /// Quanto e' larga una casella, RICAVATA dalla sbirciatura invece che fissa.
+  ///
+  /// Tre Doni interi piu' la sbirciatura del quarto devono stare nella fascia:
+  /// da questa condizione esce la larghezza, e non il contrario. La costante di
+  /// 116 punti che c'era prima funzionava su uno schermo e falliva sull'altro.
+  static double larghezzaCasella(double larghezzaSchermo) {
+    final utile = larghezzaSchermo - SpacingTokens.md * 2 - sbirciaturaMinima;
+    return (utile / 3).clamp(84.0, 116.0);
+  }
   const DailyStrip({
     super.key,
     this.clock,
@@ -320,8 +339,41 @@ class _DailyStripState extends State<DailyStrip>
 
   // Largo abbastanza da tenere intero il nome piu' lungo, "Tramonto", insieme
   // al cerchio "?", senza mai troncare l'etichetta ne' sforare la riga.
-  static const double _itemWidth = 116;
-  static const double _height = 132;
+  /// L'altezza della fascia.
+  ///
+  /// Centoquarantaquattro e non centotrentadue. La casella di un Dono contiene
+  /// l'icona da 46, sei di stacco, la riga dell'etichetta col cerchio "?" e lo
+  /// slot del conto alla rovescia da 12: con centotrentadue lo spazio che
+  /// restava all'elenco era esattamente al limite, e sui rapporti di pixel
+  /// alti l'arrotondamento del testo lo superava di dieci punti. Era
+  /// l'overflow che rendeva rosse nove prove.
+  ///
+  /// Nella stima avevo scritto che avrei evitato di alzare la fascia per non
+  /// mangiare spazio all'eroe. L'ho cambiata: dodici punti su
+  /// settecentonovantasette sono un prezzo piccolo, e le alternative
+  /// toccavano l'allineamento delle caselle, che e' piu' fragile.
+  static const double _heightLarga = 144;
+  static const double _heightStretta = 144;
+
+  /// L'altezza della fascia, che SI ADATTA alla larghezza.
+  ///
+  /// Non e' un numero solo, perche' il contenuto di una casella non cambia
+  /// mentre lo spazio per disporlo si'. La casella contiene l'icona da 46, sei
+  /// di stacco, la riga dell'etichetta col cerchio "?" e lo slot del conto alla
+  /// rovescia da 12: su uno schermo stretto quella riga si dispone piu' alta, e
+  /// con un'altezza sola lo spazio restava esattamente al limite. Sui rapporti
+  /// di pixel alti l'arrotondamento del testo lo superava di dieci punti, ed
+  /// era l'overflow che rendeva rosse nove prove.
+  ///
+  /// Le due misure oggi coincidono, e la funzione resta perche' il contenuto di
+  /// una casella non cambia mentre lo spazio per disporlo si': se domani
+  /// l'etichetta cresce, la soglia e' gia' il posto dove dirlo.
+  static double altezzaPer(double larghezza) =>
+      larghezza < _sogliaStretta ? _heightStretta : _heightLarga;
+
+  /// Sotto questa larghezza la fascia serve piu' alta. Trecentottanta sta fra
+  /// i 360 del telefono reale e i 390 del riferimento.
+  static const double _sogliaStretta = 380;
 
   DateTime Function() get _clock => widget.clock ?? DateTime.now;
 
@@ -448,7 +500,7 @@ class _DailyStripState extends State<DailyStrip>
     final current = DailyElements.current(now);
     return Container(
       key: const Key('santuario_daily_strip'),
-      height: _height,
+      height: altezzaPer(MediaQuery.of(context).size.width),
       decoration: BoxDecoration(
         // Una fascia scura appena accennata con un filo d'oro sotto, cosi' si
         // stacca dal cosmo senza pesare.
@@ -473,6 +525,14 @@ class _DailyStripState extends State<DailyStrip>
           Text(
             'I tuoi doni del giorno',
             textAlign: TextAlign.center,
+            // Una riga sola. Senza questo vincolo, a 360 punti di larghezza il
+            // titolo andava a capo e rubava dieci punti all'elenco sotto, che
+            // ha altezza fissa: era l'overflow di dieci pixel della striscia.
+            // A 390 ci stava, ed e' il motivo per cui il difetto sembrava non
+            // esistere.
+            maxLines: 1,
+            softWrap: false,
+            overflow: TextOverflow.visible,
             style: TypographyTokens.label(size: 11).copyWith(
               color: ColorTokens.textSecondary,
               letterSpacing: 1.2,
@@ -497,7 +557,8 @@ class _DailyStripState extends State<DailyStrip>
                       (isRuna && _tramontoArrivato(now)),
                   accent: accent,
                   pulse: _pulse,
-                  width: _itemWidth,
+                  width: DailyStrip.larghezzaCasella(
+                      MediaQuery.of(context).size.width),
                   subtitle: isRuna ? _contoTramonto(now) : null,
                   onTap: () => _open(element),
                   onInfo: () =>
@@ -713,7 +774,15 @@ class _StripItem extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             // Etichetta e, a fianco, il cerchio "?" che apre la spiegazione.
-            Row(
+            //
+            // Dentro un FittedBox: la riga e' etichetta piu' cinque piu'
+            // diciotto, e su alcune larghezze quella somma supera la casella. Il
+            // Row sbordava di lato invece di stringersi, perche' ha
+            // mainAxisSize.min e nessuno gli diceva di rimpicciolirsi. Adesso si
+            // riduce invece di uscire.
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -751,7 +820,8 @@ class _StripItem extends StatelessWidget {
                     ),
                   ),
                 ),
-              ],
+                ],
+              ),
             ),
             // Slot del conto alla rovescia, altezza fissa per tutti.
             SizedBox(
