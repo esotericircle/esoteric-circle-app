@@ -1,13 +1,24 @@
-import 'dart:math' as math;
+import 'celestial.dart';
 
-/// Fase lunare reale calcolata dalla data, senza rete ne' asset.
+/// Fase lunare reale, calcolata sull'elongazione vera fra Luna e Sole.
 ///
-/// Il repo non aveva un motore astronomico condiviso, quindi questa e' una
-/// prima versione autosufficiente e deterministica: parte dalla luna nuova di
-/// riferimento del 6 gennaio 2000 e dal mese sinodico medio. Basta per animare
-/// la Luna del Santuario nella sua fase attuale. Quando arrivera' il motore
-/// astronomico completo (giorno giuliano, effemeridi), si sostituisce qui
-/// dietro la stessa forma.
+/// **Un motore solo.** Questa classe conteneva un secondo motore lunare: partiva
+/// dalla luna nuova del 6 gennaio 2000 e dal mese sinodico MEDIO, cioe' da una
+/// durata costante di 29,53 giorni. L'orbita pero' non e' un cerchio percorso a
+/// velocita' costante, quindi il mese medio sbaglia l'istante della sizigia fino
+/// a mezza giornata. Nel frattempo `Celestial.moonIllumination` calcolava la
+/// stessa cosa sull'elongazione vera, e i due non concordavano.
+///
+/// Adesso il calcolo viene da `Celestial` e da nessun altro posto: questa classe
+/// resta come forma comoda, con la posizione nel ciclo e il nome italiano, ma non
+/// calcola piu' niente per conto proprio. E' la sostituzione che la vecchia
+/// docstring prometteva.
+///
+/// **Il difetto che si vedeva era nel nome.** La soglia delle fasi principali
+/// valeva 0,035 di ciclo, cioe' circa un giorno intero da ogni lato: il nome
+/// "Luna piena" restava a schermo per **quarantanove ore**, quindi lo si leggeva
+/// anche tutto il giorno dopo la sizigia. Chi controllava con un'effemeride
+/// vedeva che la Luna piena era stata il giorno prima.
 class MoonPhase {
   const MoonPhase({
     required this.fraction,
@@ -16,7 +27,9 @@ class MoonPhase {
     required this.italianName,
   });
 
-  /// Posizione nel ciclo, da 0 (luna nuova) a 1: 0.5 e' la luna piena.
+  /// Posizione nel ciclo, da 0 (luna nuova) a 1: 0,5 e' la luna piena.
+  ///
+  /// Nasce dall'elongazione, cioe' `elongazione / 360`.
   final double fraction;
 
   /// Frazione illuminata del disco, da 0 (nuova) a 1 (piena).
@@ -27,51 +40,56 @@ class MoonPhase {
 
   final String italianName;
 
-  static const double _synodicMonth = 29.530588853;
-  static const double _referenceNewMoonJd = 2451550.1;
+  /// Il giorno giuliano, delegato al motore unico.
+  ///
+  /// Resta esposto qui perche' diversi chiamanti lo usavano da questa classe, ma
+  /// il calcolo e' quello di `Celestial`: due formule per il giorno giuliano
+  /// sarebbero due motori, di nuovo.
+  static double julianDay(DateTime date) => Celestial.julianDay(date);
 
-  /// Giorno giuliano dalla data in UTC.
-  static double julianDay(DateTime date) {
-    final utc = date.toUtc();
-    final dayFraction =
-        (utc.hour + utc.minute / 60.0 + utc.second / 3600.0) / 24.0;
-    var year = utc.year;
-    var month = utc.month;
-    if (month <= 2) {
-      year -= 1;
-      month += 12;
-    }
-    final a = (year / 100).floor();
-    final b = 2 - a + (a / 4).floor();
-    return (365.25 * (year + 4716)).floor() +
-        (30.6001 * (month + 1)).floor() +
-        utc.day +
-        b -
-        1524.5 +
-        dayFraction;
-  }
+  /// Quanto dura, da ogni lato della sizigia, il nome di una fase principale.
+  ///
+  /// Dodici ore: cosi' "Luna piena" copre il giorno della sizigia e non quello
+  /// dopo. Prima la finestra valeva circa ventiquattro ore per lato, cioe'
+  /// quarantanove ore in tutto, ed e' il motivo per cui l'app dichiarava la Luna
+  /// piena anche il giorno seguente.
+  static const Duration finestraFasePrincipale = Duration(hours: 12);
+
+  /// La durata media del ciclo, usata SOLO per convertire la finestra in
+  /// frazione di ciclo.
+  ///
+  /// Non entra nel calcolo della fase, che viene dall'elongazione vera: qui
+  /// serve a dire quanto vale mezza giornata in frazione di ciclo, e per quello
+  /// un valore medio e' esatto quanto serve.
+  static const double _cicloMedioOre = 29.53 * 24;
+
+  /// La soglia in frazione di ciclo che corrisponde a [finestraFasePrincipale].
+  static double get soglia =>
+      finestraFasePrincipale.inMinutes / 60.0 / _cicloMedioOre;
 
   /// Calcola la fase per una data.
   factory MoonPhase.forDate(DateTime date) {
-    final jd = julianDay(date);
-    var fraction = (jd - _referenceNewMoonJd) / _synodicMonth;
-    fraction -= fraction.floorToDouble(); // normalizza in [0, 1)
-    final illumination = (1 - math.cos(2 * math.pi * fraction)) / 2;
-    final waxing = fraction < 0.5;
+    final luce = Celestial.moonIllumination(Celestial.julianDay(date));
+    final fraction = luce.elongationDeg / 360.0;
     return MoonPhase(
       fraction: fraction,
-      illumination: illumination,
-      waxing: waxing,
-      italianName: _nameFor(fraction),
+      illumination: luce.fraction,
+      waxing: luce.waxing,
+      italianName: nomeItaliano(fraction),
     );
   }
 
-  static String _nameFor(double f) {
-    const edge = 0.035; // ampiezza dei quarti e delle fasi esatte
-    if (f < edge || f > 1 - edge) return 'Luna nuova';
-    if ((f - 0.25).abs() < edge) return 'Primo quarto';
-    if ((f - 0.5).abs() < edge) return 'Luna piena';
-    if ((f - 0.75).abs() < edge) return 'Ultimo quarto';
+  /// Il nome italiano della fase, da una posizione nel ciclo.
+  ///
+  /// Pubblico e unico: la nomenclatura viveva in due posti con soglie diverse,
+  /// quindi la stessa Luna poteva prendere due nomi a seconda di chi la
+  /// chiedeva.
+  static String nomeItaliano(double f) {
+    final e = soglia;
+    if (f < e || f > 1 - e) return 'Luna nuova';
+    if ((f - 0.25).abs() < e) return 'Primo quarto';
+    if ((f - 0.5).abs() < e) return 'Luna piena';
+    if ((f - 0.75).abs() < e) return 'Ultimo quarto';
     if (f < 0.25) return 'Luna crescente';
     if (f < 0.5) return 'Gibbosa crescente';
     if (f < 0.75) return 'Gibbosa calante';

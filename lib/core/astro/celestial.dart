@@ -138,7 +138,8 @@ class Celestial {
     final elong = _norm360(moonLon - sun); // 0 novilunio, 180 plenilunio
     final fraction = (1 - math.cos(elong * _deg)) / 2;
     final waxing = elong < 180;
-    return MoonIllumination(fraction: fraction, waxing: waxing);
+    return MoonIllumination(
+        fraction: fraction, waxing: waxing, elongationDeg: elong);
   }
 }
 
@@ -159,7 +160,23 @@ class HorizontalCoord {
 }
 
 class MoonIllumination {
-  const MoonIllumination({required this.fraction, required this.waxing});
+  const MoonIllumination({
+    required this.fraction,
+    required this.waxing,
+    required this.elongationDeg,
+  });
+
+  /// Frazione illuminata del disco, da 0 (nuova) a 1 (piena).
   final double fraction;
+
+  /// Vero in fase crescente.
   final bool waxing;
+
+  /// L'elongazione Luna meno Sole in gradi: 0 al novilunio, 180 al plenilunio.
+  ///
+  /// Serve a chi deve sapere DOVE si e' nel ciclo e non solo quanta luce c'e':
+  /// l'illuminazione da sola non distingue una crescente da una calante, e
+  /// nemmeno dice quanto manca alla sizigia. La posizione nel ciclo e'
+  /// `elongationDeg / 360`.
+  final double elongationDeg;
 }

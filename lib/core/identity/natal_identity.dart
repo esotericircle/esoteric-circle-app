@@ -4,6 +4,7 @@ import '../astro/birth_details.dart';
 import '../astro/celestial.dart';
 import '../astro/natal_chart.dart';
 import '../astro/zodiac.dart';
+import '../astro/moon_phase.dart';
 
 /// Fatti identitari fissi che nascono dai dati di nascita: la fase della Luna
 /// del giorno di nascita (col segno lunare) e il numero della vita.
@@ -75,14 +76,18 @@ class NatalFacts {
 }
 
 /// Nome della fase lunare in italiano, dalle otto fasi tradizionali.
-String phaseNameOf(MoonIllumination m) {
-  final f = m.fraction;
-  if (f < 0.04) return 'Luna nuova';
-  if (f > 0.96) return 'Luna piena';
-  if (f >= 0.46 && f <= 0.54) return m.waxing ? 'Primo quarto' : 'Ultimo quarto';
-  if (m.waxing) return f < 0.5 ? 'Luna crescente' : 'Gibbosa crescente';
-  return f < 0.5 ? 'Luna calante' : 'Gibbosa calante';
-}
+///
+/// **Delega, non ricalcola.** Qui viveva una SECONDA nomenclatura, con soglie
+/// sulla frazione illuminata invece che sulla posizione nel ciclo: coerente in
+/// se', diversa dall'altra. La stessa Luna poteva quindi prendere due nomi a
+/// seconda di chi la chiedeva, e nessuno dei due era sbagliato in modo evidente,
+/// che e' il tipo di difetto peggiore da trovare.
+///
+/// Ora la nomenclatura sta in un punto solo, `MoonPhase.nomeItaliano`, che
+/// lavora sulla posizione nel ciclo e non sulla luce: la luce da sola non
+/// distingue una crescente da una calante.
+String phaseNameOf(MoonIllumination m) =>
+    MoonPhase.nomeItaliano(m.elongationDeg / 360.0);
 
 /// Riga di significato della fase, come tratto identitario (non oroscopo).
 String phaseMeaningOf(MoonIllumination m) {
