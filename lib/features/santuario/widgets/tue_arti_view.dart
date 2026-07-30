@@ -169,6 +169,19 @@ class _FoglioScelta extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // La maniglia: dice che il foglio si trascina, e tiene il titolo
+            // lontano dal bordo superiore che lo tagliava.
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                margin: const EdgeInsets.only(bottom: SpacingTokens.md),
+                decoration: BoxDecoration(
+                  color: palette.goldSoft.withValues(alpha: 0.4),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
             Text('Le tue arti',
                 style: TypographyTokens.display(size: 22)
                     .copyWith(color: palette.textPrimary)),
