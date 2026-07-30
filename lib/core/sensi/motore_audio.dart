@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 
+import 'guardia_del_suono.dart';
+
 /// IL MOTORE AUDIO del Cerchio: uno solo, tre consumatori.
 ///
 /// **Il fatto di partenza.** L'app era MUTA per costruzione: l'unico lettore di
@@ -20,8 +22,15 @@ import 'package:flutter/foundation.dart';
 ///
 /// Un test fallisce se ricompare un secondo motore audio: due motori vogliono
 /// dire due volumi, due comportamenti in sottofondo e due modi di fermarsi.
-class MotoreAudio {
-  MotoreAudio();
+class MotoreAudio implements MotoreSonoro {
+  MotoreAudio._();
+
+  /// L'UNICA istanza. La classe dichiarava di essere una sola mentre ne
+  /// convivevano due: quella statica della palette e una nuova per ogni
+  /// apertura della Meditazione e del Rito del Sogno. Un commento che mente e'
+  /// peggio di un difetto, perche' chi legge smette di verificare. Adesso la
+  /// dichiarazione e' vera, e il costruttore e' privato perche' resti tale.
+  static final MotoreAudio condiviso = MotoreAudio._();
 
   /// I lettori nascono PIGRI, alla prima riproduzione.
   ///
@@ -66,6 +75,23 @@ class MotoreAudio {
       debugPrint('Tono non riprodotto: $e');
     }
   }
+
+  /// Ferma ogni suono in corso: e' cio' che la Guardia del Suono chiama quando
+  /// l'app perde il primo piano.
+  @override
+  Future<void> fermaTutto() async {
+    await fermaTono();
+    try {
+      await _effettiPigro?.stop();
+    } catch (_) {
+      // Nessun effetto in corso: nulla da fare.
+    }
+  }
+
+  /// La Guardia non la chiama mai: il suono non riparte da solo. Esiste perche'
+  /// il confine lo prevede, e domani potrebbe servire a chi riavvia un rito.
+  @override
+  Future<void> riprendi() async {}
 
   /// Ferma i toni lunghi. Gli effetti brevi finiscono da soli.
   Future<void> fermaTono() async {

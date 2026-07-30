@@ -46,7 +46,7 @@ class PaletteSensoriale {
   const PaletteSensoriale._();
 
   /// Il motore audio condiviso, uno solo per tutta l'app.
-  static final MotoreAudio _motore = MotoreAudio();
+  static final MotoreAudio _motore = MotoreAudio.condiviso;
 
   /// I suoni gia' emessi in questa sessione, per quelli che vanno emessi una
   /// volta sola.

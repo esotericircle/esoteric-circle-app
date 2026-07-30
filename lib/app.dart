@@ -15,6 +15,8 @@ import 'core/onboarding/onboarding_controller.dart';
 import 'core/quality/quality_tier.dart';
 import 'core/settings/settings_controller.dart';
 import 'core/arts/arti_preferite.dart';
+import 'core/sensi/guardia_del_suono.dart';
+import 'core/sensi/motore_audio.dart';
 import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
 import 'features/debug/app_check_debug_view.dart';
@@ -29,7 +31,7 @@ import 'services/app_services.dart';
 /// Ordine dei provider: prima i servizi a runtime (AI e memoria) e quelli di
 /// base (Maestro attivo, entitlement, qualita'), poi quelli che dipendono da
 /// essi (navigazione, feature flag).
-class EsotericCircleApp extends StatelessWidget {
+class EsotericCircleApp extends StatefulWidget {
   const EsotericCircleApp({super.key, this.services, this.clock});
 
   /// Servizi a runtime montati all'avvio. Se assenti (test, anteprima) si usa
@@ -41,7 +43,33 @@ class EsotericCircleApp extends StatelessWidget {
   final DateTime Function()? clock;
 
   @override
+  State<EsotericCircleApp> createState() => _EsotericCircleAppState();
+}
+
+class _EsotericCircleAppState extends State<EsotericCircleApp> {
+  /// LA GUARDIA DEL SUONO, montata nel guscio e non in una schermata.
+  ///
+  /// Le porte sono tutte le schermate che suonano, oggi due e domani dieci: una
+  /// regola messa dentro la Meditazione varrebbe per la sola Meditazione. Qui
+  /// vale per tutte, comprese quelle che non esistono ancora.
+  late final GuardiaDelSuono _guardia;
+
+  @override
+  void initState() {
+    super.initState();
+    _guardia = GuardiaDelSuono(motore: MotoreAudio.condiviso)..avvia();
+  }
+
+  @override
+  void dispose() {
+    _guardia.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final services = widget.services;
+    final clock = widget.clock;
     final runtime = services ?? AppServices.offline();
     return MultiProvider(
       providers: [

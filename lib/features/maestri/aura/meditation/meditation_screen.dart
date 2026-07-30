@@ -61,6 +61,11 @@ class _MeditationScreenState extends State<MeditationScreen>
 
   @override
   void dispose() {
+    // IL TONO SI FERMA QUI. Prima si chiudeva il respiro e basta: il tono suona
+    // in ciclo continuo, quindi uscendo dalla schermata restava acceso per
+    // sempre. Che fosse una dimenticanza e non una scelta lo diceva il Rito del
+    // Sogno, che con lo stesso lettore lo fermava gia'.
+    widget.player.stop();
     _breath.dispose();
     super.dispose();
   }
