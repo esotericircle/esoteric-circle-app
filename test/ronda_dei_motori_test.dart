@@ -59,6 +59,40 @@ void main() {
     });
   });
 
+  group('Strato a schermo: cambiando l\'input, cambia CIO\' CHE SI VEDE', () {
+    test('Le prove a schermo dichiarate esistono davvero', () {
+      // Un elenco che nomina un file inesistente e' peggio di un elenco vuoto:
+      // dichiara una copertura che non c'e'.
+      for (final voce in misuratiASchermo.entries) {
+        expect(File(voce.value).existsSync(), isTrue,
+            reason: 'il motore ${voce.key} risulta misurato a schermo da '
+                '${voce.value}, che non esiste');
+        expect(censimentoMotori.any((m) => m.nome == voce.key), isTrue,
+            reason: '${voce.key} non e\' un motore del censimento');
+      }
+    });
+
+    test('I motori NON misurati a schermo sono dichiarati, non dimenticati',
+        () {
+      // Non pretende che tutti abbiano una misura a schermo: sarebbe un lavoro
+      // che non e' di questa voce. Pretende che l'elenco di chi non ce l'ha sia
+      // SCRITTO, cosi' nessuno crede coperto cio' che non lo e'.
+      final scoperti = censimentoMotori
+          .where((m) => !misuratiASchermo.containsKey(m.nome))
+          .map((m) => m.nome)
+          .toList();
+      expect(scoperti.length, censimentoMotori.length - misuratiASchermo.length,
+          reason: 'il conto non torna: qualche motore misurato a schermo non '
+              'sta nel censimento');
+      // Il numero si muove quando il lavoro procede: se cala, si aggiorna qui e
+      // in ESITO_2.md, e si sa perche'.
+      expect(scoperti.length, 22,
+          reason: 'i motori sorvegliati solo sulla funzione pura sono cambiati '
+              '(${scoperti.length}): aggiorna questo numero e l\'elenco in '
+              'docs/ordini/ESITO_2.md, cosi\' resta scritto cosa e\' coperto');
+    });
+  });
+
   group('Strato dinamico: cambiando l\'input, l\'output cambia', () {
     // E' lo strato che conta. Un motore puo' avere chiamanti, ricevere il dato
     // dell'utente, e avere il proprio risultato ignorato a valle: succedeva
@@ -186,6 +220,27 @@ void main() {
     });
   });
 }
+
+/// LO STRATO A SCHERMO: quali motori sono misurati dove l'utente guarda.
+///
+/// **Perche' serve un terzo strato.** Il segno solare era gia' sorvegliato da
+/// questa Ronda, ed era verde, e non ha impedito che la home dicesse "per chi
+/// nasce sotto Gemelli" a chiunque. Lo strato statico controllava che la stringa
+/// comparisse in qualche file fuori dal motore, e ci compariva anche dentro il
+/// controller che restituiva il segnaposto; lo strato dinamico confrontava due
+/// date sulla funzione pura, che infatti funziona benissimo. Nessuno dei due
+/// arrivava alla schermata.
+///
+/// E' la definizione di MISURA CIECA secondo il Protocollo: cambia l'input e la
+/// sorveglianza resta verde mentre a schermo il valore non si muove.
+///
+/// Qui si dichiara, motore per motore, se la terza domanda gli e' posta MONTANDO
+/// LA SCHERMATA. Chi non c'e' resta sorvegliato solo sulla funzione pura, e
+/// questo elenco serve a saperlo invece di crederlo coperto.
+const Map<String, String> misuratiASchermo = {
+  'Segno solare': 'test/segno_a_schermo_test.dart',
+  'Carta natale, client': 'test/carta_natale_arriva_test.dart',
+};
 
 /// Un motore del progetto, con dove vive e come si riconosce nel codice.
 class Motore {
