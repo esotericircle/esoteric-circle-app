@@ -271,17 +271,28 @@ void main() {
 
   /// Le due altezze su cui si guarda ogni schermata che puo' stringersi.
   ///
-  /// 844 e' il telefono di riferimento, 797 e' quello di Mauro: a 1170 per
-  /// 2532 e a 1080 per 2392 in pixel fisici. La bolla di Medora era verde
-  /// sulla prima e rotta sulla seconda, quindi una sola altezza non e' una
-  /// verifica.
+  /// LE TRE MISURE DEL CORREDO, e la prima e' quella su cui si giudica.
+  ///
+  /// [schermoReale] e' il telefono di Mauro: 1080 per 2392 pixel fisici, che con
+  /// un rapporto di pixel di 3 fanno **360 per 797 punti logici**. E' la misura
+  /// su cui l'app viene guardata davvero, quindi viene prima.
+  ///
+  /// **Qui c'era il difetto che ha prodotto nove segnalazioni.** La costante che
+  /// diceva di essere "quella di Mauro" valeva `Size(390, 797)`: l'altezza era
+  /// giusta e la LARGHEZZA no, trenta punti logici in piu', novanta pixel
+  /// fisici. Il commento dichiarava la cosa giusta mentre il codice ne faceva
+  /// un'altra. Su trenta punti in meno il testo va a capo prima, i titoli si
+  /// spezzano, le etichette si troncano e le bolle crescono in altezza perche'
+  /// occupano due righe invece di una: e' l'elenco esatto dei difetti che nelle
+  /// anteprime non si vedevano.
+  const schermoReale = Size(360, 797);
   const schermoAlto = Size(390, 844);
-  const schermoBasso = Size(390, 797);
+  const schermoBasso = Size(360, 797);
 
   Future<GlobalKey> mount(WidgetTester tester, AppServices services,
       {DateTime Function()? clock, Size? schermo}) async {
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = schermo ?? schermoAlto;
+    tester.view.physicalSize = schermo ?? schermoReale;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
@@ -609,7 +620,7 @@ void main() {
     await step(tester);
     // Superficie alta, cosi' l'anteprima mostra la ruota, la statua, i testi,
     // la classifica dei dodici e i due pulsanti in fondo.
-    tester.view.physicalSize = const Size(390, 3600);
+    tester.view.physicalSize = const Size(360, 3600);
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo.png');
@@ -677,7 +688,7 @@ void main() {
     await step(tester);
     // La soglia mostra il selettore del cielo prima di cominciare.
     expect(find.byKey(const Key('archetype_sky_setting')), findsOneWidget);
-    tester.view.physicalSize = const Size(390, 640);
+    tester.view.physicalSize = const Size(360, 640);
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo-soglia.png');
@@ -712,7 +723,7 @@ void main() {
       await step(tester);
     }
     expect(find.byKey(const Key('archetype_question')), findsOneWidget);
-    tester.view.physicalSize = const Size(390, 700);
+    tester.view.physicalSize = const Size(360, 700);
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo-domanda.png');
@@ -756,7 +767,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     final rootKey = await mountFace(tester, const FaceConstellationScreen(),
-        size: const Size(390, 820));
+        size: const Size(360, 820));
     expect(find.byKey(const Key('face_sky_setting')), findsOneWidget);
     await capture(tester, rootKey, 'costellazione-viso-soglia.png');
   });
@@ -765,7 +776,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     final rootKey = await mountFace(tester, const FaceConstellationScreen(),
-        size: const Size(390, 1400));
+        size: const Size(360, 1400));
     // Si entra nella cattura: senza fotocamera resta la sagoma neutra con la
     // costellazione sopra, che e' proprio lo stand-in deterministico.
     await tester.tap(find.byKey(const Key('face_start')));
@@ -780,7 +791,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     final rootKey = await mountFace(tester, const FaceConstellationScreen(),
-        size: const Size(390, 2200));
+        size: const Size(360, 2200));
     // Percorso deterministico: si entra nella cattura e si scatta sulla sagoma.
     await tester.tap(find.byKey(const Key('face_start')));
     await step(tester);
@@ -824,7 +835,7 @@ void main() {
     await loadFonts();
     final rootKey = await mountFace(
         tester, const FaceConstellationScreen(partiDalRipiego: true),
-        size: const Size(390, 1080));
+        size: const Size(360, 1080));
     expect(find.byKey(const Key('face_fallback')), findsOneWidget);
     await capture(tester, rootKey, 'costellazione-viso-ripiego.png');
   });
@@ -931,7 +942,7 @@ void main() {
     // l'anteprima mostra il pannello intero, che sul device e' scorrevole.
     await tester.tap(find.byKey(const Key('gift_base_toggle')));
     await step(tester);
-    tester.view.physicalSize = const Size(390, 1150);
+    tester.view.physicalSize = const Size(360, 1150);
     await step(tester);
     await capture(tester, rootKey, 'rito-alba-base.png');
   });
@@ -1207,7 +1218,7 @@ void main() {
     await capture(tester, rootKey, 'rito-sogno-costellazione.png');
 
     // Dalla figura unita scende il saluto della notte.
-    tester.view.physicalSize = const Size(390, 1250);
+    tester.view.physicalSize = const Size(360, 1250);
     await tester.pump(const Duration(milliseconds: 1000));
     await step(tester);
     expect(find.byKey(const Key('dream_message')), findsOneWidget);
@@ -1284,7 +1295,7 @@ void main() {
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     // Superficie alta, cosi' la galleria mostra ricerca, filtri, In evidenza col
     // tasto A caso e le prime righe della griglia dei volti.
-    tester.view.physicalSize = const Size(390, 1720);
+    tester.view.physicalSize = const Size(360, 1720);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(SinastriaGalleryScreen.route(userSign: Zodiac.gemini)));
     await step(tester);
@@ -1311,7 +1322,7 @@ void main() {
     // Superficie alta quanto basta perche' l'anteprima mostri, oltre ai due
     // poli, anche le quattro barre, la riga di sfida, il tasto Condividi e il
     // tasto Cambia VIP che ha preso il posto del selettore in fondo.
-    tester.view.physicalSize = const Size(390, 1340);
+    tester.view.physicalSize = const Size(360, 1340);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(SinastriaVipScreen.route()));
     await step(tester);
@@ -1325,7 +1336,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(390, 1340);
+    tester.view.physicalSize = const Size(360, 1340);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Nome e data reali sul polo di sinistra, cosi' si vede l'effetto personale.
     unawaited(nav.push(SinastriaVipScreen.route(
@@ -1405,7 +1416,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     final rootKey = await mountAnimal(
         tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
-        size: const Size(390, 900));
+        size: const Size(360, 900));
     await precacheTotem(tester);
     expect(find.byKey(const Key('animal_test_popup')), findsOneWidget);
     await capture(tester, rootKey, 'guide-animale-popup.png');
@@ -1418,7 +1429,7 @@ void main() {
     seedArchetipoCaligo();
     final rootKey = await mountAnimal(
         tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
-        size: const Size(390, 900));
+        size: const Size(360, 900));
     await precacheTamburo(tester);
     expect(find.byKey(const Key('animal_journey')), findsOneWidget);
     // Un paio di battiti, cosi' i pallini si accendono e gli occhi affiorano.
@@ -1435,7 +1446,7 @@ void main() {
     seedArchetipoCaligo();
     final rootKey = await mountAnimal(
         tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
-        size: const Size(390, 900));
+        size: const Size(360, 900));
     await precacheTotem(tester);
     // Compie il viaggio col tasto di ripiego, poi coglie un istante fisso della
     // dissolvenza: la nebbia e' ancora densa, gli occhi accesi, il totem affiora.
@@ -1455,7 +1466,7 @@ void main() {
         tester,
         GuideAnimalScreen(
             userSign: Zodiac.cancer, userBirth: DateTime(1988, 7, 5, 9, 30)),
-        size: const Size(390, 2000));
+        size: const Size(360, 2000));
     await precacheTotem(tester);
     // Compie il viaggio, poi lascia posare la rivelazione, cosi' il totem e'
     // pieno e si vede il Messaggio del Giorno col blocco di trasparenza.
@@ -1479,7 +1490,7 @@ void main() {
         tester,
         const GuideAnimalScreen(
             userSign: Zodiac.cancer, modo: GuideAnimalMode.identita),
-        size: const Size(390, 1980));
+        size: const Size(360, 1980));
     await precacheTotem(tester);
     for (var i = 0; i < 4; i++) {
       await tester.pump(const Duration(milliseconds: 800));
@@ -1522,7 +1533,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     SharedPreferences.setMockInitialValues({});
-    tester.view.physicalSize = const Size(390, 1500);
+    tester.view.physicalSize = const Size(360, 1500);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -1566,7 +1577,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     final services = await buildServices(Maestro.caligo, seeded: false);
-    tester.view.physicalSize = const Size(390, 1000);
+    tester.view.physicalSize = const Size(360, 1000);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -1639,7 +1650,7 @@ void main() {
     await loadFonts();
     final rootKey = await mountAnimal(
         tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(7)),
-        size: const Size(390, 1960));
+        size: const Size(360, 1960));
     expect(find.byKey(const Key('rune_selector')), findsOneWidget);
     await capture(tester, rootKey, 'rune-soglia.png');
   });
@@ -1649,7 +1660,7 @@ void main() {
     await loadFonts();
     final rootKey = await mountAnimal(
         tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(5)),
-        size: const Size(390, 840));
+        size: const Size(360, 840));
     await precacheRune(tester);
     await lancia(tester, 'norne');
     expect(find.byKey(const Key('rune_result')), findsOneWidget);
@@ -1662,7 +1673,7 @@ void main() {
     await loadFonts();
     final rootKey = await mountAnimal(
         tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(5)),
-        size: const Size(390, 2900));
+        size: const Size(360, 2900));
     await precacheRune(tester);
     await lancia(tester, 'norne');
     expect(find.byKey(const Key('rune_presage')), findsOneWidget);
@@ -1675,7 +1686,7 @@ void main() {
     await loadFonts();
     final rootKey = await mountAnimal(
         tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(9)),
-        size: const Size(390, 2120));
+        size: const Size(360, 2120));
     await precacheRune(tester);
     await lancia(tester, 'odino');
     await capture(tester, rootKey, 'rune-odino.png');
@@ -1686,7 +1697,7 @@ void main() {
     await loadFonts();
     final rootKey = await mountAnimal(
         tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(4)),
-        size: const Size(390, 3500));
+        size: const Size(360, 3500));
     await precacheRune(tester);
     await lancia(tester, 'croce');
     await capture(tester, rootKey, 'rune-croce.png');
@@ -1697,7 +1708,7 @@ void main() {
     await loadFonts();
     final rootKey = await mountAnimal(
         tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(6)),
-        size: const Size(390, 3100));
+        size: const Size(360, 3100));
     await precacheRune(tester);
     await lancia(tester, 'telo');
     expect(find.byKey(const Key('rune_result')), findsOneWidget);
@@ -1749,7 +1760,7 @@ void main() {
     // Superficie alta quanto basta prima di aprire, cosi' le forme a tema
     // finiscono il riempimento una volta sola: il segno per intero, quattro
     // schede piu' il tasto Condividi e il disclaimer, senza troppo vuoto.
-    tester.view.physicalSize = const Size(390, 1560);
+    tester.view.physicalSize = const Size(360, 1560);
     // Ariete al 10 luglio 2026: valori variati tra le schede (2, 4, 5, 3), cosi'
     // si vede la differenza tra le quattro forme a tema.
     unawaited(nav.push(OroscopoScreen.route(
@@ -1812,7 +1823,7 @@ void main() {
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     // La schermata e' lunga: sintesi, tre posizioni lette, dialogo, carta
     // chiave, consiglio, domanda, azioni e disclaimer.
-    tester.view.physicalSize = const Size(390, 2360);
+    tester.view.physicalSize = const Size(360, 2360);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Seme 1: Fante di Bastoni rovesciato, Dieci di Coppe, La Luna rovesciata.
     // Scelto perche' contiene una carta di corte col suo numero, un nome su due
@@ -1848,7 +1859,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(390, 910);
+    tester.view.physicalSize = const Size(360, 910);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Senza intro e senza carte gia' scelte: e' il ventaglio che aspetta, con
     // Medora sopra e i gesti del mazzo sotto.
@@ -1878,7 +1889,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(390, 1020);
+    tester.view.physicalSize = const Size(360, 1020);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(MaterialPageRoute<void>(
       builder: (_) => const MaestroScope(
@@ -2100,7 +2111,7 @@ void main() {
     await precacheFaces(tester);
     // Superficie alta, cosi' l'anteprima mostra la presenza, la Consulta e il
     // primo riquadro di sottocategoria per intero.
-    tester.view.physicalSize = const Size(390, 2800);
+    tester.view.physicalSize = const Size(360, 2800);
     await step(tester);
     await capture(tester, rootKey, 'dominio-medora.png');
 
@@ -2148,7 +2159,7 @@ void main() {
     await step(tester);
     await step(tester);
     await precacheFaces(tester);
-    tester.view.physicalSize = const Size(390, 2800);
+    tester.view.physicalSize = const Size(360, 2800);
     await step(tester);
     await capture(tester, rootKey, 'dominio-aura.png');
 
@@ -2186,7 +2197,7 @@ void main() {
     await step(tester);
     await step(tester);
     await precacheFaces(tester);
-    tester.view.physicalSize = const Size(390, 2800);
+    tester.view.physicalSize = const Size(360, 2800);
     await step(tester);
     await capture(tester, rootKey, 'dominio-caligo.png');
 
@@ -2258,7 +2269,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(390, 844);
+    tester.view.physicalSize = const Size(360, 844);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
@@ -2326,7 +2337,7 @@ void main() {
     await step(tester);
     await step(tester);
     // Superficie alta, cosi' l'anteprima mostra la card Demo e i quattro livelli.
-    tester.view.physicalSize = const Size(390, 2600);
+    tester.view.physicalSize = const Size(360, 2600);
     await step(tester);
     await capture(tester, rootKey, 'piani.png');
   });
@@ -2401,7 +2412,7 @@ void main() {
   Future<GlobalKey> mountRisveglio(WidgetTester tester,
       {DateTime Function()? clock, Size? schermo}) async {
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = schermo ?? schermoAlto;
+    tester.view.physicalSize = schermo ?? schermoReale;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -2687,7 +2698,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(390, 420);
+    tester.view.physicalSize = const Size(360, 420);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -2730,7 +2741,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(390, 844);
+    tester.view.physicalSize = const Size(360, 844);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final b = await natalBridge(tester);
@@ -2779,7 +2790,7 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     // Alta abbastanza da mostrare la ruota ornata e la legenda viva a tessere
     // (una tessera per pianeta) sotto di essa, senza scorrere.
-    tester.view.physicalSize = const Size(390, 1600);
+    tester.view.physicalSize = const Size(360, 1600);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final b = await natalBridge(tester);
