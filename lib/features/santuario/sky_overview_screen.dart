@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/night_sky.dart';
@@ -23,6 +24,8 @@ import '../../design_system/tokens/typography_tokens.dart';
 import 'sky_postcard.dart';
 import 'widgets/moon_widget.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/astro/birth_place.dart' as astro;
+import '../../core/astro/sky.dart';
 
 /// "Il cielo sopra di te": il cielo del momento, immersivo ed esplorabile.
 ///
@@ -116,34 +119,328 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   SkyPlace? _place;
   bool _askedLocation = false;
 
+  /// L'istantanea del cielo, calcolata dal motore a effemeridi.
+  ///
+  /// Prima non c'era. La schermata disegnava una volta procedurale e, quando
+  /// arrivava la posizione, spostava il disegno di un offset grafico: ecco
+  /// perche' concedere il permesso non cambiava niente di astronomico. Il
+  /// motore `buildSkyFor` esisteva gia' e non era chiamato da nessuno.
+  SkySnapshot? _cielo;
+
+  /// Da dove vengono le coordinate del calcolo, per poterlo dichiarare.
+  OrigineCoordinate _origine = OrigineCoordinate.nessuna;
+
+  /// Vero solo quando il cielo e' stato RICALCOLATO sulle coordinate del
+  /// dispositivo. Il banner poggia su questo e non sulla concessione del
+  /// permesso: prima diceva "cielo orientato" per il solo fatto che il permesso
+  /// fosse stato dato, cioe' dichiarava un esito che non era avvenuto.
+  bool _ricalcolatoSulDispositivo = false;
+
+  /// Ricorda che la posizione e' gia' stata concessa, fra un ingresso e l'altro.
+  static const String _chiaveConsenso = 'cielo_posizione_concessa_v1';
+
+  /// Se il consenso risulta gia' dato. Si aggiorna quando la lettura arriva.
+  ///
+  /// Non e' un Future atteso dal flusso: attenderlo davanti all'invito e'
+  /// esattamente l'errore che avevo introdotto, perche' una memoria che non
+  /// risponde impediva del tutto di chiedere la posizione. Nel caso peggiore la
+  /// lettura arriva tardi e si chiede una volta in piu', che e' senza danno.
+  bool _consensoNoto = false;
+
   @override
   void initState() {
     super.initState();
     // Il pre-avviso vale solo per il cielo di adesso, non per il cielo di
     // nascita ne per i test o le anteprime, che passano un momento fisso o una
     // sorgente spenta.
-    if (widget.now == null && widget.location.available) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _offerLocation());
+    // La richiesta della posizione parte DENTRO l'esito della lettura, cosi'
+    // l'ordine e' garantito: chi ha gia' concesso non si rivede l'invito.
+    //
+    // La lettura ha un ripiego a "non ricordato" in caso di errore, quindi
+    // arriva sempre a destinazione: se la memoria non risponde si chiede la
+    // posizione come al primo ingresso, che e' molto meglio del non chiederla.
+    _leggiConsenso().then((noto) {
+      if (!mounted) return;
+      _consensoNoto = noto;
+      if (widget.now == null && widget.location.available) _avviaPosizione();
+    });
+    // Il cielo si calcola subito, col luogo che si ha: quello di nascita, se
+    // c'e'. Senza questo passo la schermata non chiedeva NIENTE al motore.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _calcolaCielo());
+  }
+
+  /// Se il consenso alla posizione risulta gia' dato in una visita precedente.
+  /// La lettura parte una volta, in initState, e non blocca nessuno.
+  ///
+  /// Con un timeout breve e un ripiego a "non ricordato": se la memoria non
+  /// risponde si chiede la posizione come al primo ingresso, che e' molto meglio
+  /// del restare in attesa e non chiederla affatto. Era il difetto che ho
+  /// introdotto io mettendo la lettura davanti all'invito.
+  Future<bool> _leggiConsenso() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getBool(_chiaveConsenso) ?? false;
+    } catch (_) {
+      return false;
     }
   }
 
-  Future<void> _offerLocation() async {
+  /// Ricorda il consenso. Se non si riesce, pazienza: si richiedera'.
+  Future<void> _ricordaConsenso() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(_chiaveConsenso, true);
+    } catch (_) {
+      // Nessun rimedio utile: il rito non si interrompe per questo.
+    }
+  }
+
+  /// L'istante su cui si calcola: quello passato, altrimenti adesso.
+  DateTime get _istante => widget.now ?? DateTime.now();
+
+  /// Calcola il cielo col luogo migliore disponibile.
+  ///
+  /// Ordine di preferenza: la posizione del dispositivo se concessa, poi il
+  /// luogo di nascita del profilo. Senza nessuno dei due non si calcola e non si
+  /// finge: la schermata lo dichiara nel riquadro del metodo.
+  Future<void> _calcolaCielo() async {
+    if (!mounted) return;
+    final dispositivo = _place;
+    final nascita = _luogoDiNascita();
+    final scelto = dispositivo ?? nascita;
+    if (scelto == null) {
+      setState(() => _origine = OrigineCoordinate.nessuna);
+      return;
+    }
+    // Il calcolo non deve poter rompere la schermata: se il catalogo delle
+    // stelle non si carica, il cielo resta senza istantanea e il riquadro del
+    // metodo lo dichiara, invece di far cadere tutto il resto.
+    final SkyCatalog catalogo;
+    try {
+      catalogo = await SkyCatalog.load();
+    } catch (_) {
+      return;
+    }
+    if (!mounted) return;
+    final cielo = buildSkyFor(
+      catalogo,
+      _istante,
+      astro.BirthPlace(
+        label: dispositivo != null ? 'Dove sei adesso' : 'Luogo di nascita',
+        latitude: scelto.latitude,
+        longitude: scelto.longitude,
+        timezone: 'locale',
+      ),
+    );
+    setState(() {
+      _cielo = cielo;
+      _origine = dispositivo != null
+          ? OrigineCoordinate.dispositivo
+          : OrigineCoordinate.nascita;
+    });
+  }
+
+  /// Fonti e metodo, coi VALORI usati per il calcolo.
+  ///
+  /// Non e' una schermata di debug: e' la trasparenza che il progetto
+  /// prescrive, resa utile. Chiunque puo' confrontare questi numeri con una
+  /// qualunque effemeride e dire in trenta secondi se il motore funziona,
+  /// invece di fidarsi.
+  void _mostraFontiEMetodo() {
+    final palette = context.palette;
+    final cielo = _cielo;
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (_) => Container(
+        key: const Key('sky_fonti_foglio'),
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.8),
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
+            SpacingTokens.lg, SpacingTokens.xl),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [palette.surfaceElevated, palette.deepest],
+          ),
+          borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(SpacingTokens.lg)),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Fonti e metodo',
+                  style: TypographyTokens.display(size: 22)
+                      .copyWith(color: palette.textPrimary)),
+              const SizedBox(height: SpacingTokens.xs),
+              Text(
+                'Le posizioni vengono da un motore a effemeridi che gira sul '
+                'telefono, senza rete. Qui sotto ci sono i valori che ha usato '
+                'davvero: confrontali con qualunque effemeride.',
+                style: TypographyTokens.body(size: 13)
+                    .copyWith(color: palette.textSecondary),
+              ),
+              const SizedBox(height: SpacingTokens.md),
+              if (cielo == null)
+                Text(
+                  'Il cielo non risulta calcolato: manca un luogo da cui '
+                  'guardarlo. Concedi la posizione, oppure registra il tuo '
+                  'luogo di nascita.',
+                  key: const Key('sky_fonti_nessun_calcolo'),
+                  style: TypographyTokens.body(size: 14)
+                      .copyWith(color: palette.goldSoft),
+                )
+              else
+                Column(
+                  key: const Key('sky_fonti_valori'),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _rigaValore(palette, 'Latitudine',
+                        cielo.latitude.toStringAsFixed(4)),
+                    _rigaValore(palette, 'Longitudine',
+                        cielo.longitude.toStringAsFixed(4)),
+                    _rigaValore(palette, 'Coordinate da', _origine.etichetta),
+                    _rigaValore(palette, 'Istante locale',
+                        _formattaIstante(cielo.istanteLocale)),
+                    _rigaValore(palette, 'Istante in UT',
+                        '${_formattaIstante(cielo.istanteUtc)} UTC'),
+                    _rigaValore(
+                        palette,
+                        'Luna illuminata',
+                        '${(cielo.moonPhase.fraction * 100).toStringAsFixed(1)} '
+                            'per cento'),
+                    _rigaValore(palette, 'Fase', cielo.nomeFaseLunare),
+                    _rigaValore(palette, 'Luna nel segno',
+                        NightSky.moonSign(cielo.istanteLocale).italianName),
+                    _rigaValore(
+                        palette,
+                        'Luna sopra il suolo',
+                        cielo.moon == null
+                            ? 'sotto il suolo'
+                            : '${cielo.moon!.altDeg.toStringAsFixed(1)} gradi'),
+                    const SizedBox(height: SpacingTokens.sm),
+                    Text('Costellazioni sopra il suolo adesso',
+                        style: TypographyTokens.label(size: 12)
+                            .copyWith(color: palette.goldSoft)),
+                    const SizedBox(height: 2),
+                    Text(
+                      cielo.nomiVisibili.isEmpty
+                          ? 'nessuna'
+                          : cielo.nomiVisibili.join(', '),
+                      key: const Key('sky_fonti_costellazioni'),
+                      style: TypographyTokens.body(size: 13)
+                          .copyWith(color: palette.textPrimary),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _rigaValore(MaestroPalette palette, String nome, String valore) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 150,
+            child: Text(nome,
+                style: TypographyTokens.label(size: 12)
+                    .copyWith(color: palette.goldSoft)),
+          ),
+          Expanded(
+            child: Text(valore,
+                key: Key('sky_valore_$nome'),
+                style: TypographyTokens.body(size: 13)
+                    .copyWith(color: palette.textPrimary)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static String _formattaIstante(DateTime d) =>
+      '${d.day.toString().padLeft(2, '0')}/'
+      '${d.month.toString().padLeft(2, '0')}/${d.year} '
+      '${d.hour.toString().padLeft(2, '0')}:'
+      '${d.minute.toString().padLeft(2, '0')}';
+
+  /// Il luogo di nascita dal profilo, quando c'e' e non e' d'esempio.
+  SkyPlace? _luogoDiNascita() {
+    ProfileController? profilo;
+    try {
+      profilo = context.read<ProfileController?>();
+    } catch (_) {
+      // Nessun profilo nell'albero: si resta senza luogo di nascita.
+      return null;
+    }
+    final id = profilo?.identity;
+    if (id == null || id.isExample) return null;
+    final p = id.birthPlace;
+    if (p == null) return null;
+    return SkyPlace(latitude: p.latitude, longitude: p.longitude);
+  }
+
+  /// Chiede la posizione, saltando l'invito se il consenso e' gia' stato dato.
+  ///
+  /// Prima l'invito si riproponeva a OGNI ingresso, perche' `_askedLocation` e'
+  /// un campo di stato che nasce falso ogni volta che la schermata si monta. Chi
+  /// aveva gia' concesso si rivedeva la stessa richiesta, stavolta senza la
+  /// finestra di sistema, col banner che ricompariva e nulla che cambiava.
+  Future<void> _avviaPosizione() async {
     if (!mounted || _askedLocation) return;
     _askedLocation = true;
-    final accepted = await _askLocationConsent();
-    if (accepted != true || !mounted) return;
+
+    // La memoria del consenso e' una comodita', non una condizione: se non si
+    // riesce a leggerla si procede come al primo ingresso. Senza questa cautela
+    // un errore nella lettura impediva del tutto di chiedere la posizione, che
+    // e' molto peggio del chiederla una volta di troppo.
+    final giaConcesso = _consensoNoto;
+
+    if (!giaConcesso) {
+      final accettato = await _askLocationConsent();
+      if (accettato != true || !mounted) return;
+    }
+
     final risposta = await widget.location.chiedi();
     if (!mounted) return;
     if (risposta.concessa) {
+      // Prima l'effetto visibile, poi la memoria. Averli in ordine inverso e'
+      // stato un mio errore: la scrittura delle preferenze stava DAVANTI
+      // all'orientamento del cielo, quindi se quella scrittura non si
+      // completava il cielo non si orientava affatto. Un effetto che si vede
+      // non sta mai dietro un'attesa di scrittura.
+      final primaLat = _cielo?.latitude;
       setState(() => _place = risposta.luogo);
-      // Concesso: si dichiara, altrimenti il cielo cambia in silenzio e chi
-      // guarda non sa perche'.
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          key: Key('sky_location_concessa'),
-          content: Text('Cielo orientato sul luogo dove sei adesso.'),
-        ),
-      );
+      // La memoria del consenso viaggia da sola: se non arriva, al massimo la
+      // posizione verra' richiesta un'altra volta.
+      _ricordaConsenso();
+      // Il cielo si RICALCOLA sulle coordinate nuove: questo era il passo che
+      // mancava del tutto.
+      await _calcolaCielo();
+      if (!mounted) return;
+      // Da qui in avanti la dichiarazione, che dipende dal ricalcolo.
+      final cambiato = _cielo != null && _cielo!.latitude != primaLat;
+      _ricalcolatoSulDispositivo = _origine == OrigineCoordinate.dispositivo;
+      // Il banner solo se il cielo e' DAVVERO cambiato. Prima si mostrava per
+      // il solo fatto che il permesso fosse stato concesso, quindi dichiarava
+      // un esito che non era avvenuto.
+      if (_ricalcolatoSulDispositivo && (cambiato || primaLat == null)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            key: Key('sky_location_concessa'),
+            content: Text('Cielo ricalcolato sul luogo dove sei adesso.'),
+          ),
+        );
+      }
       return;
     }
     // Negato o spento: si dichiara COSA si sta mostrando al posto suo, e si
@@ -414,9 +711,9 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     ];
 
     final bodies = <_SkyBody>[
-      _SkyBody.moon(moon, _moonSlot, birth: widget.birth),
+      _SkyBody.moon(moon, _moonSlot, birth: widget.birth, cielo: _cielo),
       for (var i = 0; i < high.length && i < _highSlots.length; i++)
-        _SkyBody.constellation(high[i], _highSlots[i]),
+        _SkyBody.constellation(high[i], _highSlots[i], cielo: _cielo),
     ];
     final selected = bodies.where((b) => b.key == _selectedKey).firstOrNull;
 
@@ -444,6 +741,12 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
               style: TypographyTokens.display(size: 20)),
         ),
         actions: [
+          IconButton(
+            key: const Key('sky_fonti_apri'),
+            tooltip: 'Fonti e metodo',
+            icon: const Icon(Icons.info_outline_rounded),
+            onPressed: _mostraFontiEMetodo,
+          ),
           IconButton(
             key: const Key('sky_share'),
             icon: const Icon(Icons.ios_share_rounded),
@@ -574,12 +877,14 @@ class _SkyBody {
     required this.size,
     this.moon,
     this.asterism,
+    this.datoDiAdesso,
   });
 
   /// La Luna della veduta. Con [birth] vero la didascalia parla della notte in
   /// cui la persona e' nata, non di stanotte: la schermata e' la stessa per i
   /// due cieli, il tempo del racconto no.
-  factory _SkyBody.moon(MoonPhase moon, Offset slot, {bool birth = false}) =>
+  factory _SkyBody.moon(MoonPhase moon, Offset slot,
+          {bool birth = false, SkySnapshot? cielo}) =>
       _SkyBody(
         key: 'moon',
         label: 'Luna',
@@ -587,16 +892,79 @@ class _SkyBody {
         slot: slot,
         size: 96,
         moon: moon,
+        datoDiAdesso: _datoDellaLuna(moon, cielo),
       );
 
-  factory _SkyBody.constellation(Zodiac sign, Offset slot) => _SkyBody(
+  factory _SkyBody.constellation(Zodiac sign, Offset slot,
+          {SkySnapshot? cielo}) =>
+      _SkyBody(
         key: sign.id,
         label: sign.italianName,
         description: NightSky.describe(sign),
         slot: slot,
         size: 130,
         asterism: kZodiacAsterisms[sign]!,
+        datoDiAdesso: _datoDellaCostellazione(sign, cielo),
       );
+
+  /// Il dato calcolato della Luna in questo momento.
+  ///
+  /// Prima la scheda portava due righe generiche che non nominavano ne' gli
+  /// astri di oggi ne' un transito: un cielo che si dichiara "adesso" e poi
+  /// parla in generale e' un fondale. Qui c'e' la fase con la percentuale di
+  /// illuminazione, il segno in cui la Luna si trova ORA e la sua altezza sopra
+  /// il suolo.
+  static String? _datoDellaLuna(MoonPhase moon, SkySnapshot? cielo) {
+    final percento = (moon.illumination * 100).toStringAsFixed(0);
+    final base = '${moon.italianName}, illuminata al $percento per cento';
+    if (cielo == null) {
+      // Verita' prima di ricchezza: senza istantanea non si inventa un'altezza.
+      return '$base. Il segno e la posizione sul suolo arrivano quando il '
+          'cielo risulta calcolato su un luogo.';
+    }
+    final segno = NightSky.moonSign(cielo.istanteLocale).italianName;
+    final alt = cielo.moon?.altDeg;
+    final dove = alt == null
+        ? 'adesso sta sotto il suolo'
+        : 'adesso sta a \${alt.toStringAsFixed(0)} gradi sopra il suolo';
+    return '$base, in $segno, e $dove.';
+  }
+
+  /// Dove sta una costellazione adesso: se sorge, culmina o tramonta.
+  ///
+  /// Se il motore non ha quella costellazione fra le sue, lo DICHIARA invece di
+  /// riempire con una frase generica.
+  static String? _datoDellaCostellazione(Zodiac sign, SkySnapshot? cielo) {
+    if (cielo == null) {
+      return 'La sua posizione sopra il suolo arriva quando il cielo '
+          'risulta calcolato su un luogo.';
+    }
+    final nome = sign.italianName.toLowerCase();
+    SkyConstellation? trovata;
+    for (final c in cielo.constellations) {
+      if (c.name.toLowerCase().contains(nome) ||
+          nome.contains(c.name.toLowerCase())) {
+        trovata = c;
+        break;
+      }
+    }
+    if (trovata == null) {
+      return 'Questa costellazione non sta fra quelle che il motore segue: '
+          'sua altezza sul suolo adesso non la posso calcolare.';
+    }
+    final alte = trovata.stars.where((s) => s.altDeg > -5).toList();
+    if (alte.isEmpty) {
+      return 'Adesso sta sotto il suolo: da qui non si vede.';
+    }
+    final alt = alte.map((s) => s.altDeg).reduce((a, b) => a > b ? a : b);
+    final az = alte.first.azDeg;
+    final fase = alt < 10
+        ? (az < 180 ? 'sta sorgendo a est' : 'sta tramontando a ovest')
+        : alt > 55
+            ? 'sta culminando alta nel cielo'
+            : (az < 180 ? 'sale verso il culmine' : 'scende verso il suolo');
+    return 'Adesso $fase, a ${alt.toStringAsFixed(0)} gradi sopra il suolo.';
+  }
 
   final String key;
   final String label;
@@ -605,6 +973,10 @@ class _SkyBody {
   final double size;
   final MoonPhase? moon;
   final Asterism? asterism;
+
+  /// Il dato calcolato di questo momento, quando c'e'. Nullo mai in pratica:
+  /// quando un dato non e' calcolabile la stringa lo dichiara.
+  final String? datoDiAdesso;
 }
 
 /// Rende un corpo con la sua etichetta sotto, evidenziato quando selezionato.
@@ -917,6 +1289,30 @@ class _SkyInfoCard extends StatelessWidget {
             style: TypographyTokens.body(size: 14)
                 .copyWith(color: ColorTokens.textSecondary),
           ),
+          // Il DATO calcolato di questo momento, sotto la riga narrata.
+          //
+          // Prima la scheda portava solo la riga generica: un cielo che si
+          // dichiara "adesso" e poi parla in generale e' un fondale. Quando un
+          // dato non e' calcolabile, questa riga lo dichiara invece di riempire.
+          if (s?.datoDiAdesso != null) ...[
+            const SizedBox(height: 6),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.calculate_outlined,
+                    size: 13, color: palette.gold.withValues(alpha: 0.8)),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    s!.datoDiAdesso!,
+                    key: const Key('sky_dato_di_adesso'),
+                    style: TypographyTokens.body(size: 13).copyWith(
+                        color: palette.goldSoft.withValues(alpha: 0.95)),
+                  ),
+                ),
+              ],
+            ),
+          ],
           const SizedBox(height: SpacingTokens.sm),
           // Nota in-world, piccola ed elegante.
           Row(

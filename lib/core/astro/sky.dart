@@ -6,6 +6,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'birth_details.dart';
 import 'birth_place.dart';
 import 'celestial.dart';
+import 'moon_phase.dart';
 
 /// Una costellazione del catalogo: stelle in coordinate equatoriali J2000 e le
 /// linee che le uniscono.
@@ -85,6 +86,9 @@ class SkySnapshot {
     required this.centerAzDeg,
     required this.hasTime,
     required this.latitude,
+    required this.longitude,
+    required this.istanteLocale,
+    required this.istanteUtc,
   });
 
   final List<SkyConstellation> constellations;
@@ -100,6 +104,31 @@ class SkySnapshot {
   /// dati di nascita, perche' una volta celeste sa da dove e' guardata: chi ne
   /// compone i testi, per esempio per l'emisfero della stagione, la trova qui.
   final double latitude;
+
+  /// La longitudine usata. Come la latitudine: chi mostra i valori del calcolo
+  /// li deve poter leggere dallo snapshot, non ricostruire per conto proprio.
+  final double longitude;
+
+  /// L'istante locale usato per il calcolo.
+  final DateTime istanteLocale;
+
+  /// L'istante in tempo universale a cui il calcolo e' stato fatto.
+  ///
+  /// Serve alla trasparenza: chi confronta con un'effemeride ha bisogno di
+  /// sapere a che UT guardare, altrimenti non puo' confrontare niente.
+  final DateTime istanteUtc;
+
+  /// La posizione della Luna nel ciclo, da 0 (nuova) a 1.
+  double get faseLunare => moonPhase.elongationDeg / 360.0;
+
+  /// Il nome italiano della fase, dalla nomenclatura unica.
+  String get nomeFaseLunare => MoonPhase.nomeItaliano(faseLunare);
+
+  /// Le costellazioni sopra l'orizzonte adesso, per nome.
+  List<String> get nomiVisibili => [
+        for (final c in constellations)
+          if (c.stars.any((s) => s.altDeg > 0)) c.name,
+      ];
 }
 
 /// Costruisce l'istantanea del cielo per i dati di nascita, visto da [place].
@@ -115,14 +144,32 @@ class SkySnapshot {
 /// di riceverne una calcolata su coordinate inventate.
 SkySnapshot buildSkySnapshot(
     SkyCatalog catalog, BirthDetails details, BirthPlace place) {
-  final lat = place.latitude;
-  final lon = place.longitude;
-
   // Istante locale: ora reale se c'e', altrimenti la mezzanotte simbolica.
   final local = details.hasTime
       ? DateTime(details.date.year, details.date.month, details.date.day,
           details.time!.hour, details.time!.minute)
       : DateTime(details.date.year, details.date.month, details.date.day, 0, 0);
+  return buildSkyFor(catalog, local, place, hasTime: details.hasTime);
+}
+
+/// L'istantanea del cielo a un ISTANTE e da un LUOGO qualunque.
+///
+/// E' la forma generale, e `buildSkySnapshot` e' il caso particolare del cielo
+/// di nascita. Serve perche' il cielo di ADESSO non e' un cielo di nascita:
+/// prima questa funzione non c'era, quindi la schermata "Il cielo sopra di te"
+/// non aveva modo di chiedere al motore il cielo del momento, e infatti non lo
+/// chiedeva. Disegnava una volta procedurale e spostava il tutto di un offset
+/// grafico quando arrivava la posizione, il che spiega perche' concedere il
+/// permesso non cambiava niente di astronomico.
+SkySnapshot buildSkyFor(
+  SkyCatalog catalog,
+  DateTime istanteLocale,
+  BirthPlace place, {
+  bool hasTime = true,
+}) {
+  final lat = place.latitude;
+  final lon = place.longitude;
+  final local = istanteLocale;
 
   // Tempo medio locale verso UT: sottrai l'offset di longitudine.
   final offsetMinutes = (lon / 15.0 * 60.0).round();
@@ -180,7 +227,10 @@ SkySnapshot buildSkySnapshot(
     moon: moon.altDeg > -3 ? moon : null,
     moonPhase: moonPhase,
     centerAzDeg: centerAz,
-    hasTime: details.hasTime,
+    hasTime: hasTime,
     latitude: lat,
+    longitude: lon,
+    istanteLocale: local,
+    istanteUtc: utc,
   );
 }

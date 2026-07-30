@@ -10,6 +10,27 @@ class SkyPlace {
   final double longitude;
 }
 
+/// Da dove vengono le coordinate con cui il cielo e' stato calcolato.
+///
+/// Si dichiara a schermo: un cielo che non dice da dove e' guardato non si puo'
+/// verificare, e chi lo guarda non sa se sta vedendo il proprio cielo o quello
+/// del luogo dove e' nato.
+enum OrigineCoordinate {
+  /// Dal GPS del telefono.
+  dispositivo('posizione del dispositivo'),
+
+  /// Dal luogo di nascita registrato nel profilo.
+  nascita('luogo di nascita'),
+
+  /// Nessuna: non si calcola, e lo si dice.
+  nessuna('nessun luogo disponibile');
+
+  const OrigineCoordinate(this.etichetta);
+
+  /// Come si scrive a schermo.
+  final String etichetta;
+}
+
 /// Perche' la posizione non c'e'.
 ///
 /// Prima esisteva solo null: negato, servizio spento e sensore assente erano

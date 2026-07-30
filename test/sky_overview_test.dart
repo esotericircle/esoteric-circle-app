@@ -10,11 +10,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// "Il cielo sopra di te": mostra la Luna e le costellazioni alte stanotte,
 /// toccabili, con la loro riga. Freccia Indietro, mai un vicolo cieco.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
+
+  // La schermata ricorda se la posizione e' gia' stata concessa: senza le
+  // preferenze la lettura fallirebbe, e il ripiego chiederebbe comunque il
+  // permesso. Dichiararle qui rende la prova esplicita invece di appoggiarsi a
+  // un ripiego.
+  setUp(() => SharedPreferences.setMockInitialValues({}));
 
   void silence() {
     final m = binding.defaultBinaryMessenger;
