@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/sensi/catalogo_suoni.dart';
 import 'package:esoteric_circle/core/sensi/palette_sensoriale.dart';
 import 'package:esoteric_circle/core/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
@@ -159,6 +160,73 @@ void main() {
     }
     expect(colpevoli, isEmpty,
         reason: 'queste righe vibrano fuori dalla palette, quindi ignorano '
-            'l\'interruttore unico: ${colpevoli.join(", ")}');
+              + colpevoli.join(', '));
+  });
+
+  group('I cinque suoni, e nessuno di piu', () {
+    test('Sono esattamente cinque', () {
+      expect(SuonoDelCerchio.values.length, 5,
+          reason: 'il silenzio e cio che rende un suono importante: le app che '
+              'stancano suonano a ogni tocco');
+    });
+
+    test('Ogni suono dichiara file e durata attesa', () {
+      for (final s in SuonoDelCerchio.values) {
+        expect(s.file.endsWith('.mp3'), isTrue,
+            reason: '${s.name} non dichiara un file mp3');
+        expect(s.percorso.startsWith('audio/'), isTrue);
+        expect(s.durataAttesa.inMilliseconds, greaterThan(0));
+        expect(s.durataAttesa.inSeconds, lessThanOrEqualTo(2),
+            reason: '${s.name} dura piu di due secondi: nessuno dei cinque '
+                'momenti regge un suono lungo');
+      }
+    });
+
+    test('I tre Maestri non hanno tre suoni diversi', () {
+      // Una firma che cambia a seconda di chi parla non e piu una firma.
+      final nomi = SuonoDelCerchio.values.map((s) => s.name.toLowerCase());
+      for (final m in const ['medora', 'aura', 'caligo']) {
+        expect(nomi.any((n) => n.contains(m)), isFalse,
+            reason: 'esiste un suono dedicato a $m: sarebbe rumore, non '
+                'identita');
+      }
+    });
+
+    test('Il catalogo e un DATO, e nessuno suona fuori da esso', () {
+      // Se una schermata riproducesse un file audio per conto proprio, quel
+      // suono non rispetterebbe l'interruttore e non sarebbe nel catalogo.
+      final colpevoli = <String>[];
+      for (final f in Directory('lib').listSync(recursive: true)) {
+        if (f is! File || !f.path.endsWith('.dart')) continue;
+        final p = f.path.replaceAll(Platform.pathSeparator, '/');
+        if (p.contains('core/sensi/')) continue;
+        final righe = f.readAsLinesSync();
+        for (var i = 0; i < righe.length; i++) {
+          final r = righe[i];
+          if (r.trimLeft().startsWith('//')) continue;
+          if (r.contains('AssetSource(') || r.contains('.mp3')) {
+            colpevoli.add('$p riga ${i + 1}');
+          }
+        }
+      }
+      expect(colpevoli, isEmpty,
+          reason: 'questi punti riproducono suoni fuori dal catalogo: '
+              + colpevoli.join(', '));
+    });
+
+    test('La firma suona una volta sola per sessione', () {
+      // Prova strutturale, e lo dichiaro: la regola vive nel codice e non si
+      // puo' misurare a schermo senza il plugin audio, che in prova non c'e'.
+      // Il ripiego silenzioso invece e' misurato dal motore stesso.
+      final codice = File('lib/core/sensi/palette_sensoriale.dart')
+          .readAsLinesSync()
+          .where((r) => !r.trimLeft().startsWith('//'))
+          .join(' ');
+      expect(codice.contains('SuonoDelCerchio.firma'), isTrue,
+          reason: 'la firma non ha nessuna regola dedicata');
+      expect(codice.contains('_giaEmessi'), isTrue,
+          reason: 'niente ricorda che la firma sia gia stata emessa, quindi '
+              'suonerebbe a ogni ritorno in home');
+    });
   });
 }

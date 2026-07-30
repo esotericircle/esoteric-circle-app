@@ -123,6 +123,9 @@ flutter:
 
   # Asset consumati a runtime.
   assets:
+    # I cinque suoni del Cerchio. La cartella e' dichiarata anche se vuota:
+    # cosi' appena i file arrivano suonano senza toccare una riga di codice.
+    - assets/audio/
     - assets/
     - assets/data/
     - assets/fonts/

@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import '../../core/sensi/palette_sensoriale.dart';
+import '../../core/sensi/catalogo_suoni.dart';
 
 /// I momenti della stesa che hanno un suono e una vibrazione.
 ///
@@ -25,12 +26,18 @@ enum MomentoSensoriale {
   /// L'aura elementale: un respiro, piu' pieno sui Maggiori.
   reveal;
 
-  /// Il nome del file audio che questo momento suonerebbe.
+  /// Il suono del Cerchio che questo momento richiama, quando ne ha uno.
   ///
-  /// I file non sono ancora nel bundle: l'aggancio resta pronto e silenzioso,
-  /// come l'innesto dei ritratti di Medora. Quando arriveranno bastera'
-  /// passare un lettore vero a [SensiDellaStesa].
-  String get suono => 'audio/stesa_$name.mp3';
+  /// Qui viveva un SECONDO catalogo sonoro, con un file per ogni momento della
+  /// stesa: cinque suoni tutti suoi, oltre ai cinque del Cerchio. Due cataloghi
+  /// vogliono dire due identita' sonore, e il silenzio che rende importante un
+  /// suono si perde se ogni gesto ne ha uno.
+  ///
+  /// Adesso solo la carta scoperta suona, perche' e' una rivelazione. Gli altri
+  /// momenti restano affidati alla sola aptica, che e' il canale che arriva
+  /// sempre.
+  SuonoDelCerchio? get suono =>
+      this == MomentoSensoriale.reveal ? SuonoDelCerchio.rivelazione : null;
 }
 
 /// Chi suona gli effetti della stesa.

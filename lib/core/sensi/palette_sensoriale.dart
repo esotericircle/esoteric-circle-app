@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../settings/settings_controller.dart';
+import 'catalogo_suoni.dart';
+import 'motore_audio.dart';
 
 /// I QUATTRO SCHEMI APTICI del Cerchio, e nessuno di piu'.
 ///
@@ -42,6 +44,46 @@ enum SchemaAptico {
 /// fallisce se ne trova.
 class PaletteSensoriale {
   const PaletteSensoriale._();
+
+  /// Il motore audio condiviso, uno solo per tutta l'app.
+  static final MotoreAudio _motore = MotoreAudio();
+
+  /// I suoni gia' emessi in questa sessione, per quelli che vanno emessi una
+  /// volta sola.
+  static final Set<SuonoDelCerchio> _giaEmessi = <SuonoDelCerchio>{};
+
+  /// Riproduce uno dei cinque suoni del catalogo, se il livello e' acceso.
+  ///
+  /// Se il file non c'e' ancora, non succede niente: e' il ripiego silenzioso
+  /// dichiarato, che tiene l'app viva finche' gli asset non arrivano.
+  static Future<void> suona(BuildContext context, SuonoDelCerchio suono) async {
+    if (!acceso(context)) return;
+    // La firma si sente all'apertura dell'app e mai a ogni ritorno in home: una
+    // firma che si ripete a ogni passaggio smette di essere una firma.
+    if (suono == SuonoDelCerchio.firma) {
+      if (_giaEmessi.contains(suono)) return;
+      _giaEmessi.add(suono);
+    }
+    await _motore.effetto(suono.percorso);
+  }
+
+  /// Azzera la memoria dei suoni emessi una volta sola. Serve alle prove.
+  @visibleForTesting
+  static void dimenticaSessione() => _giaEmessi.clear();
+
+  /// Il gesto completo di un momento: prima la vibrazione, poi il suono.
+  ///
+  /// L'aptica viene PRIMA, e non e' un dettaglio di ordine: chi tiene il
+  /// telefono in silenzio riceve solo quella, quindi deve arrivare comunque e
+  /// per prima.
+  static Future<void> momento(
+    BuildContext context, {
+    required SchemaAptico aptica,
+    SuonoDelCerchio? suono,
+  }) async {
+    await vibra(context, aptica);
+    if (suono != null) await suona(context, suono);
+  }
 
   /// Fa vibrare secondo uno schema, se il livello sensoriale e' acceso.
   ///
