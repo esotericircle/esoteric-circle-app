@@ -320,7 +320,16 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // subentra quella vera.
           final entryZone = _altezzaIngresso ?? 78.0;
           // Le carte partono sopra la zona d'ingresso, con un margine d'aria.
-          final carouselBottom = entryBottom + entryZone + h * 0.02;
+          //
+          // Il margine era il due per cento e NON bastava, perche' la figura
+          // del Maestro SBORDA dal riquadro della propria carta con Clip.none:
+          // il rettangolo del carosello finiva sopra la bolla mentre i pixel
+          // dipinti della figura arrivavano a toccarla. Misurato per immagine:
+          // meno zero virgola due punti di distanza, cioe' contatto.
+          //
+          // Sei per cento: la bolla sta sotto il fondo DIPINTO della figura con
+          // il margine richiesto, e il trio guadagna l'aria che gli serve.
+          final carouselBottom = entryBottom + entryZone + h * 0.06;
           final carouselHeight = centralH * 1.28;
 
           return Stack(
