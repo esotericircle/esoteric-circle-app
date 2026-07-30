@@ -26,6 +26,7 @@ import '../santuario/widgets/moon_widget.dart';
 import '../settings/settings_screen.dart';
 import '../../core/maestro/maestro.dart';
 import '../onboarding/natal_chart_reveal.dart';
+import '../../design_system/components/immersive_scaffold.dart';
 
 /// Schermata del Cosmic Passport.
 ///
@@ -437,8 +438,19 @@ class _NatalChartCard extends StatelessWidget {
         MaterialPageRoute<void>(
           builder: (ctx) => MaestroScope(
             maestro: Maestro.medora,
-            child: NatalChartReveal(
-              onContinue: () => Navigator.of(ctx).maybePop(),
+            // ImmersiveScaffold e non il nudo widget: senza un antenato
+            // Material, Flutter disegna una riga gialla sotto OGNI testo e il
+            // fondo resta nero. Erano tre sintomi con una causa sola, e la
+            // causa era questa rotta scritta da me senza scaffalatura:
+            // sottolineature, fondo nero, cosmo in parallasse perduto.
+            child: ImmersiveScaffold(
+              seed: 21,
+              child: NatalChartReveal(
+                // La Risonanza qui e' gia' avvenuta: l'invito del Risveglio non
+                // significherebbe niente.
+                etichettaAzione: 'Torna al Passport',
+                onContinue: () => Navigator.of(ctx).maybePop(),
+              ),
             ),
           ),
         ),

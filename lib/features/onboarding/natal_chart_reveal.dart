@@ -20,9 +20,21 @@ import 'widgets/nature_emblem.dart';
 /// aure intrecciate), poi la ruota elegante con gli aspetti attivabili e la
 /// legenda viva, una tessera per pianeta collegata alla ruota.
 class NatalChartReveal extends StatefulWidget {
-  const NatalChartReveal({super.key, required this.onContinue});
+  const NatalChartReveal({
+    super.key,
+    required this.onContinue,
+    this.etichettaAzione,
+  });
 
   final VoidCallback onContinue;
+
+  /// Cosa dice il pulsante in fondo.
+  ///
+  /// Nel Risveglio invita alla Risonanza, che deve ancora avvenire. Aperta dal
+  /// Passport la Risonanza e' gia' avvenuta da un pezzo, quindi quell'invito
+  /// non significa piu' niente: chi arriva da li' vuole tornare da dove e'
+  /// venuto.
+  final String? etichettaAzione;
 
   @override
   State<NatalChartReveal> createState() => _NatalChartRevealState();
@@ -142,7 +154,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
                 ),
               ),
               onPressed: widget.onContinue,
-              child: Text('Scopri chi risuona con te',
+              child: Text(widget.etichettaAzione ?? 'Scopri chi risuona con te',
                   style: TypographyTokens.body(size: 17, weight: 600)
                       .copyWith(color: palette.deepest)),
             ),
