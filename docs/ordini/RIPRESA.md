@@ -2,7 +2,7 @@
 
 Chi apre questo file deve poter continuare senza che Mauro racconti niente.
 
-**Aggiornato**: durante V1, ordine LE QUATTRO VOCI DEL CERCHIO.
+**Aggiornato**: dopo S1 S2 S3 S5, ordine IL LIVELLO SENSORIALE.
 **Ramo**: `claude/esoteric-circle-master-order-e798aj`.
 **Cartella di lavoro**: `C:\Users\user\Desktop\esoteric-circle-app` (NON il
 worktree in `.claude/worktrees`, che e' vecchio).
@@ -40,21 +40,29 @@ A1 A2 A3 A4, B1 B2 B3 B4, C3 C4, F3 F4, la diagnosi dei motori e la Ronda con
       abbassare l'opacita' iniziale. **NON alzare l'ampiezza**: gia' provato, a
       22 px gli elementi si sovrappongono e il tocco colpisce la voce sbagliata.
       Il limite attuale e' fissato da un test in `scroll_reveal_si_vede_test`.
-- [ ] **S1** il motore audio reale dietro `TonePlayer`, UNA dipendenza sola.
-      Oggi `SilentTonePlayer` genera i byte e li scarta, e nel pubspec non c'e'
-      nessuna dipendenza di riproduzione: c'e' `record`, che registra soltanto.
-- [ ] **S2** l'aptica, quattro schemi in un punto solo. Sono **17 chiamate
-      dirette a `HapticFeedback` in 7 file** da ricondurre: animal_journey,
-      rune_draw_screen, chat_composer, maestro_reveal_screen,
-      natal_chart_reveal, sunset_rune_screen, stesa_senses.
-- [ ] **S3** i cinque suoni, slot predisposti e ripiego silenzioso. L'elenco dei
-      file che Mauro deve fornire e' gia' scritto in cima a
-      `docs/ordini/ESITO_SENSORIALE.md`.
-- [ ] **S4** transizioni, versione semplice DICHIARATA: una sola, la carta del
-      Maestro verso il suo dominio.
-- [ ] **S5** l'interruttore unico Suono e Vibrazione nelle Impostazioni. Oggi
-      `SettingsController` ha solo `reduceAnimations`, `simpleMode` e
-      `subtitles`.
+- [x] **S1 CHIUSA.** `audioplayers` e' l'unica dipendenza di riproduzione,
+      `MotoreAudio` in `core/sensi/` e' l'unico motore, `LettoreToniReale`
+      sostituisce il muto come DEFAULT nelle due schermate che suonano. Il
+      difetto vero non era l'assenza del lettore, era che il default fosse muto:
+      i test iniettavano il lettore e passavano.
+- [x] **S2 CHIUSA.** Quattro schemi in `core/sensi/palette_sensoriale.dart`,
+      diciassette chiamate ricondotte, zero chiamate dirette fuori dalla
+      palette. Il rifiuto usa il tocco due volte e non ha uno schema suo.
+- [x] **S3 CHIUSA come struttura.** Catalogo dei cinque suoni come dato, slot
+      pronti in `assets/audio/` col LEGGIMI, ripiego silenzioso. Trovato e
+      rimosso un SECONDO catalogo sonoro nei Tarocchi, `audio/stesa_*.mp3`.
+      Mancano solo i file, che sceglie Mauro.
+- [ ] **S4 DA FARE**, versione semplice dichiarata: UNA transizione con
+      elemento condiviso, la carta del Maestro nel Cerchio che si apre e diventa
+      il suo dominio. Si fa con un `Hero` sulla carta centrale del carosello e
+      uno stesso tag nella schermata del dominio. Deve rispettare Riduci
+      Movimento, che riporta alla dissolvenza semplice.
+      **Le altre due restano dichiarate come da fare**, e non vanno tentate in
+      questo giro: la carta dell'angelo verso la sua schermata, e il Sigillo che
+      si espande entrando nel Passport.
+- [x] **S5 CHIUSA.** `suonoEVibrazione` e' il quarto comando di
+      `SettingsController`, governa i due canali insieme, e la voce e' nelle
+      Impostazioni. Chiude P23.
 
 ## V1, lo stato esatto: leggere prima di toccare
 
@@ -93,6 +101,16 @@ della carta.
 **Gli interruttori di prova** `disegnaIngresso` e `disegnaTrio` su
 `SantuarioScreen` esistono per la misura differenziale a tre rese e vanno
 tenuti: sono documentati nel loro punto di dichiarazione.
+
+## Cose sapute sul livello sensoriale
+
+- I lettori audio vanno costruiti PIGRI: crearli tocca la piattaforma, e in una
+  prova senza plugin il solo fatto di creare il motore solleverebbe.
+- Gli schemi aptici con pause vanno eseguiti in `tester.runAsync`: un
+  `Future.delayed` non avanza nel tempo finto e il test resta appeso.
+- Il plugin audio non esiste in prova: un test che tenta di riprodurre davvero
+  fallisce per un'eccezione asincrona anche se il motore la cattura. Le regole
+  del suono si verificano sul codice, dichiarandolo.
 
 ## Cose sapute che fanno perdere tempo se si riscoprono
 
