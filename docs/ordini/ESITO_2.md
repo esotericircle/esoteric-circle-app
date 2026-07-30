@@ -157,3 +157,78 @@ piani, Identita di nascita, Fatti natali, Luna di nascita.
 Il numero e' scritto dentro la Ronda: quando cala, la prova cade e chiede di
 aggiornare anche questo elenco, cosi' non si perde il conto di cosa e' davvero
 coperto.
+
+### Voce 2, la barra e la coerenza: CHIUSA
+
+**2a.** Il difetto non era in nessuna delle tre schermate: era che non esisteva
+un posto solo dove le azioni della barra si dichiarano. Adesso c'e' `BarraArte`,
+le azioni stanno in una riga e non possono sovrapporsi. **La prova ha trovato una
+QUARTA schermata** che la segnalazione non nominava, l'Animale Guida: stesso
+difetto, mai guardata. E' il motivo per cui le porte si enumerano.
+
+**2b.** Lo Stack del cosmo prendeva l'altezza del contenuto, quindi con un
+contenuto corto il cielo finiva dove finiva lui. Corretta la causa.
+
+**2c. I due interruttori erano QUATTRO**: oltre a "Lega al cielo di oggi" c'era
+"Lega ai transiti" in entrambe le schermate. E non bastava il pollice, gia'
+dorato: la traccia restava grigia da spenta e viola da accesa. C'e'
+`InterruttoreDelCerchio` nel design system.
+
+## Le tre correzioni alla consegna
+
+### 1. Destinatario unico: FATTO
+
+Solo `cloud@esotericircle.app`. Alla 2110 avevo copiato la riga di una consegna
+vecchia senza rileggere la regola del 29 luglio.
+
+### 2. I trentadue megabyte: MISURATI, E NON ESISTONO FRA QUELLE DUE BUILD
+
+Non ho attribuito la causa: ho ricostruito la 2109 dal suo commit e l'ho pesata.
+
+| Build | Byte | Base 1000 | Base 1024 |
+|---|---|---|---|
+| 2109 ricostruita dal commit `6196c21` | 235.891.257 | 235,9 MB | 225,0 MiB |
+| 2110 consegnata | 236.001.856 | 236,0 MB | 225,1 MiB |
+
+**La differenza vera e' 110.599 byte, cioe' 0,11 MB.** Non trentadue.
+
+Le verifiche che escludono le altre spiegazioni:
+
+- Gli asset entrati fra le due build pesano **386 KB in tutto**: i cinque MP3 e
+  cinque immagini dell'oracolo. Il `git diff --stat` degli asset e' quello.
+- Il `pubspec.yaml` fra le due build cambia **solo il numero di versione**.
+- Il `build.gradle.kts` e' **identico**: gli `abiFilters` con `arm64-v8a` e
+  `armeabi-v7a` c'erano gia' prima della 2109, quindi entrambe le build hanno le
+  stesse due architetture. Il codice nativo pesa 46,2 MB piu' 37,4 MB non
+  compressi, ed e' la voce piu' grande dopo gli asset, ma e' la stessa nelle due.
+
+**Conclusione**: il peso di 203,93 MB attribuito alla 2109 non e' quello
+dell'APK che quel commit produce. Non so da quale misura venga quel numero, e
+non lo invento: quello che posso dire con l'archivio in mano e' che fra le due
+build il peso e' lo stesso a meno di un decimo di megabyte, e che i cinque MP3
+non c'entrano perche' pesano 96 KB, come l'ordine gia' sospettava.
+
+Il conto per famiglia dell'archivio attuale, per averlo scritto: mazzo tarocchi
+26,3 MB, angeli 25,0 MB, ritratti VIP 12,7 MB, archetipi 7,2 MB, sfondi rituali
+4,9 MB, miniature tarocchi 4,5 MB, miniature angeli 4,2 MB, miniature VIP 2,8
+MB, rune 2,1 MB, miniature archetipi 2,0 MB, avatar 1,7 MB.
+
+### 3. Il conteggio degli inviti: TROVATA LA CHIAMATA, E IL CAMPO NON ESISTE QUI
+
+L'HTML al posto del JSON veniva dall'endpoint sbagliato: avevo chiesto i tester
+sotto l'APP, e stanno sotto il PROGETTO.
+
+```
+GET https://firebaseappdistribution.googleapis.com/v1/projects/425821975933/testers
+```
+
+Con questa, letta **prima** del caricamento, i tester sono due:
+`cloud@esotericircle.app`, ultima attivita' 30 luglio 2026 alle 15:07, e
+`info@esotericircle.com`, ultima attivita' 28 luglio 2026.
+
+**`acceptedInvitationCount` non c'e' perche' e' un campo dei GRUPPI**, e
+`GET /projects/425821975933/groups` risponde `{}`: in questo progetto non esiste
+nessun gruppo, i tester sono assegnati uno per uno. Il campo che l'ordine chiede
+non e' perso: non esiste per come e' configurata questa distribuzione. Il dato
+equivalente e' `lastActivityTime`, che vale solo per chi ha davvero aperto
+l'invito, e lo riporto prima e dopo.

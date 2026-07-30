@@ -2,7 +2,7 @@
 
 Chi apre questo file deve poter continuare senza che Mauro racconti niente.
 
-**Aggiornato**: dopo l'ORDINE 1 DI 5, le due voci chiuse e la suite verde.
+**Aggiornato**: dopo l'ORDINE 2 DI 5, le due voci chiuse e il debito saldato.
 **Ramo**: `claude/esoteric-circle-master-order-e798aj`.
 **Cartella di lavoro**: `C:\Users\user\Desktop\esoteric-circle-app` (NON il
 worktree in `.claude/worktrees`, che e' vecchio).
@@ -18,6 +18,34 @@ a ogni giro, che e' la protezione che conta.
 
 A1 A2 A3 A4, B1 B2 B3 B4, C3 C4, F3 F4, la diagnosi dei motori e la Ronda con
 38 test. Nessun motore scollegato oltre al cielo, gia' corretto.
+
+## Chiuso nell'ORDINE 2 DI 5
+
+- [x] **Debito dell'ordine 1 SALDATO.** La prova di vista sulla causa A adesso
+      passa. Era la seconda ipotesi: la prova chiudeva una schermata MUTA,
+      perche' il tono parte solo al tocco e la prova non toccava. Il lettore
+      finto adesso registra anche CHI ha chiamato stop.
+- [x] **Voce 1a CHIUSA.** Il segno discende da `BirthIdentity.sunSign`, nullo
+      finche' i dati sono d'esempio. Due prove, una sul dato e una che MONTA la
+      home. Attenzione alla trappola: la data d'esempio e' del 15 giugno, cioe'
+      Gemelli, quindi le prove usano il Cancro.
+- [x] **Voce 1b CHIUSA.** La Carta natale si garantisce il dato all'apertura,
+      mostra la nota del ripiego con un pulsante Riprova, e si conserva fra un
+      avvio e l'altro sotto una chiave che dipende dai dati di nascita.
+- [x] **Voce 1c CHIUSA.** La Ronda ha un terzo strato, a schermo. **Ventidue
+      motori restano sorvegliati solo sulla funzione pura**, elencati in
+      `ESITO_2.md`: quando si correggono, il numero dentro la Ronda va aggiornato.
+- [x] **Voce 2 CHIUSA.** `BarraArte` unica, cosmo che riempie l'altezza,
+      `InterruttoreDelCerchio` nel design system. Due difetti trovati dalle prove
+      e non segnalati: una QUARTA schermata col cuore sopra la "i", l'Animale
+      Guida, e un SECONDO interruttore fuori palette in entrambe le schermate.
+
+## Sul peso dell'archivio, misurato e non attribuito
+
+I trentadue megabyte di crescita fra 2109 e 2110 **non esistono**: ricostruita la
+2109 dal suo commit pesa 235.891.257 byte contro i 236.001.856 della 2110, cioe'
+0,11 MB di differenza. Il numero 203,93 MB non e' quello dell'APK che quel commit
+produce. Il conto per famiglia sta in `ESITO_2.md`.
 
 ## Chiuso nell'ORDINE 1 DI 5
 
