@@ -9,6 +9,7 @@ import '../../core/identity/natal_identity.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/natal_wheel.dart';
 import '../../design_system/theme/maestro_scope.dart';
+import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -42,6 +43,34 @@ class NatalChartReveal extends StatefulWidget {
 }
 
 class _NatalChartRevealState extends State<NatalChartReveal> {
+  /// LA SCHERMATA GARANTISCE IL PROPRIO DATO.
+  ///
+  /// Dal Passport si apriva la Carta natale e restava sul cerchio con "Traccio
+  /// il tuo cielo..." per sempre: il fondatore ha aspettato oltre un minuto. Non
+  /// era la rete, la chiamata non partiva mai. Il calcolo era invocato in UN
+  /// SOLO punto di tutto il progetto, alla fine del Risveglio: chi arrivava da
+  /// qualunque altra porta trovava uno stato mai avviato e un caricamento senza
+  /// fine.
+  ///
+  /// La garanzia sta QUI e non nelle porte, perche' le porte sono piu' d'una e
+  /// domani saranno di piu': una regola messa in una porta vale per quella porta
+  /// soltanto, ed e' la famiglia di difetto che questo progetto ha gia'
+  /// incontrato otto volte.
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _garantisciLaCarta());
+  }
+
+  void _garantisciLaCarta() {
+    if (!mounted) return;
+    final dettagli = context.read<BirthIdentityController>().details;
+    // Senza dati di nascita non c'e' cielo da tracciare, e non si finge di
+    // tracciarlo: il caso lo dichiara il build, non un cerchio che gira.
+    if (dettagli == null) return;
+    context.read<NatalChartController>().assicura(dettagli);
+  }
+
   final _scroll = ScrollController();
   final _tileKeys = <String, GlobalKey>{};
   String? _selectedId;
@@ -76,6 +105,12 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
     final identity = context.watch<BirthIdentityController>();
     final palette = context.palette;
 
+    // UN CARICAMENTO SENZA USCITA NON E' UNO STATO AMMESSO. Se non ci sono dati
+    // di nascita non c'e' niente da tracciare e lo si dice, invece di girare per
+    // sempre su un cerchio che promette una carta che non arrivera' mai.
+    if (identity.details == null) {
+      return _SenzaDati(palette: palette, onContinue: widget.onContinue);
+    }
     if (controller.status != ChartStatus.ready || controller.chart == null) {
       return const _Loading();
     }
@@ -92,6 +127,18 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
               style: TypographyTokens.label(size: 13)
                   .copyWith(color: palette.goldSoft, letterSpacing: 3)),
           const SizedBox(height: SpacingTokens.md),
+          // LA NOTA DEL RIPIEGO, che prima non leggeva nessuno: era scritta nel
+          // controller e questa schermata non la mostrava mai. Chi riceveva il
+          // cielo essenziale non sapeva ne che fosse essenziale ne perche', e
+          // non aveva modo di riprovare quando la rete tornava.
+          if (controller.ripiego && controller.note != null)
+            _NotaDelRipiego(
+              testo: controller.note!,
+              palette: palette,
+              onRiprova: () => context
+                  .read<NatalChartController>()
+                  .riprova(identity.details!),
+            ),
           // --- Portale al cielo reale della nascita (al posto del vecchio
           //     bagliore), sempre riapribile a tutto schermo. ---
           if (identity.details != null)
@@ -337,6 +384,102 @@ class _SunGlyphPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_SunGlyphPainter old) => old.color != color;
+}
+
+/// La nota che spiega perche' il cielo e' essenziale, con la via d'uscita.
+class _NotaDelRipiego extends StatelessWidget {
+  const _NotaDelRipiego({
+    required this.testo,
+    required this.palette,
+    required this.onRiprova,
+  });
+
+  final String testo;
+  final MaestroPalette palette;
+  final VoidCallback onRiprova;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('carta_natale_nota'),
+      margin: const EdgeInsets.only(bottom: SpacingTokens.md),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      decoration: BoxDecoration(
+        color: palette.goldSoft.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: palette.goldSoft.withValues(alpha: 0.28)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(testo,
+              style: TypographyTokens.body(size: TypographyTokens.guide)
+                  .copyWith(color: ColorTokens.textSecondary)),
+          const SizedBox(height: SpacingTokens.sm),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              key: const Key('carta_natale_riprova'),
+              onPressed: onRiprova,
+              child: Text('Riprova',
+                  style: TypographyTokens.label(size: 13)
+                      .copyWith(color: palette.goldSoft)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Quando i dati di nascita non ci sono, e quindi non c'e' cielo da tracciare.
+///
+/// Prima questo caso finiva nel caricamento eterno: il cerchio girava promettendo
+/// una carta che nessuno stava calcolando. Un caricamento senza uscita non e' uno
+/// stato ammesso, e mai un vicolo cieco.
+class _SenzaDati extends StatelessWidget {
+  const _SenzaDati({required this.palette, required this.onContinue});
+
+  final MaestroPalette palette;
+  final VoidCallback onContinue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      key: const Key('carta_natale_senza_dati'),
+      child: Padding(
+        padding: const EdgeInsets.all(SpacingTokens.lg),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.auto_awesome_outlined, color: palette.goldSoft, size: 38),
+            const SizedBox(height: SpacingTokens.md),
+            Text(
+              'Il tuo cielo aspetta la tua data di nascita.',
+              textAlign: TextAlign.center,
+              style: TypographyTokens.body(size: TypographyTokens.guide)
+                  .copyWith(color: ColorTokens.textPrimary),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              'Senza il giorno in cui sei nato non posso tracciare niente. '
+              'Preferisco dirtelo invece di farti aspettare.',
+              textAlign: TextAlign.center,
+              style: TypographyTokens.body(size: TypographyTokens.guide)
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+            const SizedBox(height: SpacingTokens.lg),
+            TextButton(
+              onPressed: onContinue,
+              child: Text('Torna indietro',
+                  style: TypographyTokens.label(size: 13)
+                      .copyWith(color: palette.goldSoft)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class _Loading extends StatelessWidget {

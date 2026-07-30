@@ -53,7 +53,17 @@ class FreeAstroClient {
   /// Calcola la carta natale via callable. Solleva `AstroApiException` se la
   /// chiamata fallisce o la risposta non e' interpretabile, cosi' il controller
   /// puo' ripiegare sul cielo essenziale.
-  Future<NatalChart> fetchNatalChart(BirthDetails details) async {
+  Future<NatalChart> fetchNatalChart(BirthDetails details) async =>
+      _parse(await fetchRawNatalChart(details), details);
+
+  /// La risposta GREZZA del cielo, gia' normalizzata e ancora da interpretare.
+  ///
+  /// Esiste perche' la carta natale si CONSERVI fra un avvio e l'altro: si
+  /// tiene da parte questa risposta e la si reinterpreta, invece di serializzare
+  /// il modello. Conservare la risposta e non l'oggetto significa che, se domani
+  /// l'interpretazione migliora, il cielo gia' scaricato ne beneficia senza che
+  /// nessuno debba riscaricarlo.
+  Future<Map<String, dynamic>> fetchRawNatalChart(BirthDetails details) async {
     // Senza luogo non si chiede niente a nessuno. Il motore risponderebbe
     // comunque, ma risponderebbe per il punto che gli mandiamo: se glielo
     // inventiamo, Ascendente e case tornano esatti e falsi insieme. Qui la
@@ -91,7 +101,7 @@ class FreeAstroClient {
       if (json is! Map<String, dynamic>) {
         throw const AstroApiException('La risposta del cielo non e\' leggibile.');
       }
-      return _parse(json, details);
+      return json;
     } catch (e) {
       if (e is AstroApiException) rethrow;
       throw const AstroApiException('La risposta del cielo non e\' leggibile.');
