@@ -2,7 +2,7 @@
 
 Chi apre questo file deve poter continuare senza che Mauro racconti niente.
 
-**Aggiornato**: durante V1, ordine LE QUATTRO VOCI E IL LIVELLO SENSORIALE.
+**Aggiornato**: durante V1, ordine LE QUATTRO VOCI DEL CERCHIO.
 **Ramo**: `claude/esoteric-circle-master-order-e798aj`.
 **Cartella di lavoro**: `C:\Users\user\Desktop\esoteric-circle-app` (NON il
 worktree in `.claude/worktrees`, che e' vecchio).
@@ -21,9 +21,10 @@ A1 A2 A3 A4, B1 B2 B3 B4, C3 C4, F3 F4, la diagnosi dei motori e la Ronda con
 
 ## L'ordine in corso
 
-- [~] **V1** la bolla e l'avatar. **Il codice e' corretto, la MISURA no.**
-      Vedi la sezione dedicata qui sotto: e' la cosa piu' importante di questo
-      file.
+- [~] **V1** la bolla e l'avatar. **La misura adesso FUNZIONA ed e' rossa.**
+      Resta da correggere il layout perche' regga il testo di sistema
+      ingrandito. Vedi la sezione dedicata qui sotto, e' la cosa piu' importante
+      di questo file.
 - [ ] **V2** la mano, quarta stesura, BIANCA. Da verificare per primo: nel
       painter c'e' `Colors.white` e a schermo esce oro, quindi la mano che si
       vede potrebbe non essere quella corretta. Riferimento di Mauro: mano vista
@@ -57,39 +58,41 @@ A1 A2 A3 A4, B1 B2 B3 B4, C3 C4, F3 F4, la diagnosi dei motori e la Ronda con
 
 ## V1, lo stato esatto: leggere prima di toccare
 
-**Cosa e' stato corretto nel codice.** In `santuario_screen.dart` il margine fra
-il carosello e la zona d'ingresso e' passato dal due al sei per cento
-dell'altezza (`carouselBottom = entryBottom + entryZone + h * 0.06`, riga 332).
-Il trio risale e la bolla scende.
+**LA MISURA ADESSO FUNZIONA E IL TEST E' ROSSO.** Questo e' il punto di
+partenza per chi riprende: `test/bolla_non_copre_avatar_test.dart` denuncia il
+difetto, quindi non va piu' costruita nessuna misura. Va corretto il codice
+finche' quel test diventa verde.
 
-**Cosa NON e' stato provato, ed e' il punto.** Il test
-`test/bolla_non_copre_avatar_test.dart` misura per immagine, come l'ordine
-chiede, ma **oggi e' cieco**: con la prova di vista, cioe' rimettendo il margine
-difettoso al due per cento, il test resta VERDE. Quindi non denuncia il difetto
-che deve denunciare, e il suo verde non vale come prova. La nota sta anche in
-testa a quel file.
+**Le due condizioni senza le quali ogni misura era cieca**, trovate dopo sei
+tentativi:
 
-**Perche' e' cieco, cioe' la diagnosi che non va rifatta da zero.** Tre tentativi
-in fila, ognuno con la sua scoperta:
+1. **L'avatar va precaricato** con `precacheImage`. Senza, non c'e' nessuna
+   figura da coprire e ogni misura di occlusione risulta verde per forza. Non
+   erano le misure a sbagliare, era la scena a essere vuota.
+2. **Serve il testo di sistema ingrandito**, `TextScaler.linear(1.6)`. Con il
+   testo a scala uno la bolla non raggiunge la figura nemmeno col margine
+   difettoso: il difetto NON si riproduce. A 1,6 compare, perche' `entryZone` si
+   misura a runtime e col testo grande la zona d'ingresso cresce e sale a
+   mordere la figura. E' la condizione del telefono di Mauro.
 
-1. Partendo dalla riga esatta della cima della bolla si trova subito il bordo
-   oro della bolla stessa: distanza sempre zero.
-2. Partendo sei pixel sopra si trova l'ombra del pulsante, che dipinge FUORI dal
-   proprio rettangolo: distanza sempre due punti, identica qualunque cosa si
-   spostasse. E' il segnale che ha smascherato il tentativo.
-3. Partendo sessanta pixel sopra si salta l'ombra ma anche la zona dove il
-   contatto avviene, quindi il test passa sempre.
+**Cosa dice il test adesso**, a scala 1,6 e con margine al sei per cento: tutte e
+tre le misure sono rosse. La bolla copre la figura, non ci sono gli otto punti
+d'aria, e il trio risalito finisce sotto la striscia dei Doni.
 
-**Le due strade da provare**, in ordine di promessa:
+**Cosa resta da fare.** Il layout deve reggere il testo grande. La strada:
+`centralH` e `carouselHeight` sono frazioni fisse dell'altezza, quindi non
+lasciano spazio quando `entryZone` cresce. Vanno calcolati per DIFFERENZA, cioe'
+partendo dallo spazio che resta fra la striscia dei Doni e la zona d'ingresso
+misurata, invece che da percentuali dell'altezza totale.
 
-- Isolare la figura per COLORE invece che per luminosita': la figura dei Maestri
-  ha carnati e tessuti, il pulsante ha il blu di Medora e l'oro. Un filtro sulla
-  tinta distingue i due dove la luminosita' non ce la fa.
-- Fotografare la sola striscia fra il fondo della carta, che si legge dal
-  riquadro del carosello, e la cima della bolla: dentro quella striscia
-  qualunque pixel dipinto e' un difetto, senza bisogno di riconoscere cosa sia.
+**Le sei strade sbagliate, per non riprovarle.** Sono scritte in testa al file di
+test: riquadro del widget, riga della bolla, sei pixel sopra, sessanta pixel
+sopra, striscia fra carta e bolla, differenziale a due rese dentro il rettangolo
+della carta.
 
-La seconda e' piu' semplice e probabilmente basta.
+**Gli interruttori di prova** `disegnaIngresso` e `disegnaTrio` su
+`SantuarioScreen` esistono per la misura differenziale a tre rese e vanno
+tenuti: sono documentati nel loro punto di dichiarazione.
 
 ## Cose sapute che fanno perdere tempo se si riscoprono
 

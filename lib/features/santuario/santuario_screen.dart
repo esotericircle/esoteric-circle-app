@@ -41,12 +41,42 @@ import 'widgets/tue_arti_view.dart';
 /// segnaposto architettonico, l'asset dipinto e il motore a effemeridi
 /// arrivano dopo.
 class SantuarioScreen extends StatefulWidget {
-  const SantuarioScreen({super.key, this.clock});
+  const SantuarioScreen({
+    super.key,
+    this.clock,
+    this.disegnaIngresso = true,
+    this.disegnaTrio = true,
+  });
 
   /// Orologio iniettabile per i test. Di default l'ora locale del dispositivo.
   /// Guida sia la striscia del giorno sia l'eroe centrale, cosi' i due
   /// concordano sempre sullo stesso elemento della fascia oraria attiva.
   final DateTime Function()? clock;
+
+  /// Se la zona d'ingresso al dominio va DISEGNATA.
+  ///
+  /// Esiste per la misura differenziale dell'occlusione: si rende la scena due
+  /// volte, una col disegno e una senza, e si confrontano i pixel dentro la
+  /// carta del Maestro centrale. Se cambiano, la bolla la stava coprendo.
+  ///
+  /// L'ingombro resta in ogni caso, con `Visibility` che mantiene la misura:
+  /// togliere la bolla dal LAYOUT farebbe scendere il carosello, e allora le due
+  /// immagini differirebbero per intero invece che per la sola occlusione. Era
+  /// il modo in cui anche questa misura sarebbe nata cieca.
+  final bool disegnaIngresso;
+
+  /// Se il trio delle carte va DISEGNATO.
+  ///
+  /// Serve alla misura differenziale a TRE rese, che e' l'unica che smaschera
+  /// questo difetto. Confrontare la resa con la bolla e quella senza, dentro il
+  /// rettangolo della carta, non basta: la figura del Maestro sborda FUORI da
+  /// quel rettangolo, quindi l'occlusione avviene dove il confronto non guarda.
+  ///
+  /// Con tre rese si misura la cosa giusta: nella zona occupata dalla bolla si
+  /// confronta la resa senza bolla con quella senza bolla NE trio. Se
+  /// differiscono, in quella zona c'e' la figura, quindi la bolla la sta
+  /// coprendo.
+  final bool disegnaTrio;
 
   /// Maestro preferito, segnaposto in attesa dell'assegnazione all'onboarding.
   static const Maestro preferred = Maestro.medora;
@@ -426,7 +456,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 right: 0,
                 bottom: carouselBottom,
                 height: carouselHeight,
-                child: _Carousel(
+                child: Visibility(
+                  visible: widget.disegnaTrio,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: _Carousel(
                   central: central,
                   selected: selected,
                   centralHeight: centralH,
@@ -437,6 +472,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   sideDepth: depth(0.28),
                   onTapCentral: () => _enterDomain(context, central),
                   onTapSide: (m) => _selectSide(context, m),
+                  ),
                 ),
               ),
 
@@ -459,9 +495,15 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                       });
                     }
                   },
-                  child: _DomainEntry(
-                    maestro: central,
-                    onTap: () => _enterDomain(context, central),
+                  child: Visibility(
+                    visible: widget.disegnaIngresso,
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    child: _DomainEntry(
+                      maestro: central,
+                      onTap: () => _enterDomain(context, central),
+                    ),
                   ),
                 ),
               ),

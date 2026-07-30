@@ -1,43 +1,67 @@
-import 'dart:io';
-import 'dart:typed_data';
+import 'dart:ui' as ui;
 
-import 'package:esoteric_circle/app.dart';
-import 'package:esoteric_circle/services/app_services.dart';
+import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/identity/profile_controller.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/motion/parallax_controller.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/santuario/greeting_controller.dart';
+import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// La bolla del dominio non tocca la figura del Maestro.
+/// La bolla del dominio non copre la figura del Maestro.
 ///
-/// **Perche' serve un metodo diverso dal solito.** Questa correzione era stata
-/// dichiarata chiusa e misurata su cinque altezze, mentre sul telefono di Mauro
-/// la bolla mordeva ancora la figura. La ragione e' che il test guardava il
-/// RIQUADRO DEL WIDGET, e l'avatar del Maestro sborda dal proprio riquadro con
-/// `Clip.none`: il rettangolo diceva una cosa, i pixel dipinti ne dicevano
-/// un'altra.
+/// **Le quattro strade sbagliate, per non riprovarle.** La correzione era stata
+/// dichiarata chiusa e misurata su cinque altezze mentre sul telefono la bolla
+/// mordeva ancora, perche' il test guardava il RIQUADRO del widget e la figura
+/// sborda dal proprio con `Clip.none`. Poi:
 ///
-/// **Il metodo usato qui: confronto per immagine.** Si fotografa la schermata,
-/// si scandisce la colonna centrale dal basso verso l'alto e si trova la riga
-/// piu' bassa in cui la FIGURA e' dipinta. Quella riga si confronta con il bordo
-/// superiore della bolla, letto dal suo riquadro, che per la bolla e' fedele
-/// perche' un pulsante non sborda.
+/// 1. Cercare pixel dipinti dalla riga della bolla trova il suo bordo oro.
+/// 2. Sei pixel sopra si trova l'OMBRA del pulsante, che dipinge fuori dal
+///    proprio rettangolo. Il segnale che ha smascherato il tentativo: la
+///    distanza restava identica anche spostando il carosello di cento pixel.
+/// 3. Sessanta pixel sopra si salta l'ombra e anche la zona del contatto.
+/// 4. Fotografare la striscia fra carta e bolla ha lo stesso buco, perche'
+///    l'ombra contamina anche la striscia.
 ///
-/// Il criterio e' quello dell'ordine: almeno otto pixel di distanza, zero
-/// sovrapposizioni, su 2532 e su 2392.
+/// 5. Il differenziale a DUE rese, con e senza bolla, confrontato dentro il
+///    rettangolo della carta: verde col difetto dentro, perche' la figura sborda
+///    fuori da quel rettangolo e l'occlusione avviene dove non si guardava.
 ///
-/// **ATTENZIONE, QUESTA MISURA NON E' ANCORA AFFIDABILE.** Verificata con la
-/// prova di vista: rimettendo il margine difettoso il test resta VERDE, quindi
-/// oggi non denuncia il difetto che deve denunciare. La ragione e' che per
-/// saltare l'ombra del pulsante si parte venti punti piu' in alto, e cosi'
-/// facendo si salta anche la zona dove il contatto avviene.
+/// **La misura che funziona ha TRE rese.** Si guarda la zona che la bolla
+/// occupa e si chiede: senza la bolla, li' c'e' la figura? Lo si scopre
+/// confrontando la resa senza bolla con quella senza bolla NE trio. Se
+/// differiscono, la figura arriva fin dentro quella zona, quindi la bolla la
+/// copre. Non serve riconoscere cosa sia un pixel, e il metodo regge con le
+/// ombre perche' ogni elemento c'e' in una resa e manca nell'altra.
 ///
-/// Chi riprende deve costruire una misura che distingua l'ombra del pulsante
-/// dalla figura, per esempio isolando la figura per colore invece che per
-/// luminosita', oppure fotografando la sola striscia fra il fondo della carta e
-/// la cima della bolla. Finche' questa nota c'e', il verde di questo file NON
-/// vale come prova.
+/// L'ingombro resta in tutte le rese, con `Visibility` che mantiene la misura:
+/// togliere un elemento dal layout farebbe muovere gli altri, e le immagini
+/// differirebbero per intero invece che per la sola occlusione.
+///
+/// **DUE CONDIZIONI SENZA LE QUALI OGNI MISURA E' CIECA.** Ci sono volute sei
+/// prove per trovarle, e sono la parte utile di questo file.
+///
+/// La prima: l'avatar va PRECARICATO. Senza `precacheImage` non c'e' nessuna
+/// figura da coprire, quindi qualunque misura di occlusione risulta verde per
+/// forza. Non erano le misure a sbagliare, era la scena a essere vuota.
+///
+/// La seconda, che e' quella decisiva: serve il TESTO DI SISTEMA INGRANDITO. Con
+/// il testo a scala uno la bolla non raggiunge la figura nemmeno col margine
+/// difettoso, quindi il difetto non si riproduce e ogni test passa. A scala 1,6
+/// il difetto compare, perche' `entryZone` si MISURA a runtime: col testo grande
+/// la zona d'ingresso cresce, sale, e va a mordere la figura. E' la condizione
+/// del telefono di Mauro, e spiega perche' cinque misure in fila davano verde
+/// mentre lui vedeva il difetto.
+///
+/// Da qui in avanti la scala 1,6 e' parte della prova, non un dettaglio.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -57,23 +81,15 @@ void main() {
     }
   }
 
-  /// Quanto un pixel si stacca dal fondo del cosmo.
+  /// Rende il Santuario e restituisce l'immagine piu' i rettangoli che servono.
   ///
-  /// Il fondo e' scuro e bluastro; la figura dei Maestri e' molto piu' chiara e
-  /// satura. Non serve riconoscere la figura, basta sapere che li' e' stato
-  /// dipinto qualcosa che il cielo non avrebbe messo.
-  double _stacco(ByteData d, int w, int x, int y) {
-    final i = (y * w + x) * 4;
-    final r = d.getUint8(i), g = d.getUint8(i + 1), b = d.getUint8(i + 2);
-    final luce = (r + g + b) / 3;
-    final satura = [r, g, b].reduce((a, c) => a > c ? a : c) -
-        [r, g, b].reduce((a, c) => a < c ? a : c);
-    return luce + satura.toDouble();
-  }
-
-  /// Prova la schermata a una certa altezza e restituisce le due misure.
-  Future<({double fondoFigura, double cimaBolla, int larghezza})> misura(
-      WidgetTester tester, double altezzaFisica) async {
+  /// Si monta la sola schermata e non l'app intera: cosi' l'onboarding non entra
+  /// in scena e non serve rincorrere i tempi di pump.
+  Future<({ui.Image img, Rect carta, Rect bolla, Rect arti, Rect striscia})>
+      rendi(WidgetTester tester,
+          {required double altezzaFisica,
+          required bool disegnaIngresso,
+          bool disegnaTrio = true}) async {
     silence();
     SharedPreferences.setMockInitialValues({});
     tester.view.devicePixelRatio = 3.0;
@@ -82,98 +98,158 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     final radice = GlobalKey();
-    await tester.pumpWidget(RepaintBoundary(
-      key: radice,
-      child: EsotericCircleApp(services: AppServices.offline()),
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => GreetingController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (ctx, child) => MediaQuery(
+          // Fermo: una parallasse che respira farebbe differire le due rese per
+          // conto proprio, e la differenza non sarebbe piu' l'occlusione.
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true, textScaler: const TextScaler.linear(1.6)),
+          child: MaestroScope(child: child!),
+        ),
+        home: RepaintBoundary(
+          key: radice,
+          child: SantuarioScreen(
+            clock: () => DateTime(2026, 7, 30, 21),
+            disegnaIngresso: disegnaIngresso,
+            disegnaTrio: disegnaTrio,
+          ),
+        ),
+      ),
     ));
-    // Mezzo secondo, come i test del Santuario che funzionano: aspettando di
-    // piu' il lanciatore spinge l'onboarding sopra la scena e non si misura
-    // piu' il Cerchio.
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
 
-    final bolla = find.byKey(const Key('santuario_enter_domain'));
-    expect(bolla, findsOneWidget, reason: 'bolla del dominio non trovata');
-    final cimaBolla = tester.getRect(bolla).top;
-
-    late double fondoFigura;
-    late int larghezza;
+    // L'AVATAR VA PRECARICATO, altrimenti non c'e' nessuna figura da coprire e
+    // qualunque misura di occlusione risulta verde. E' il motivo per cui cinque
+    // tentativi di misura in fila sono nati ciechi: non era la misura a
+    // sbagliare, era la scena a essere vuota. Le anteprime mostrano gli avatar
+    // proprio perche' li precaricano.
     await tester.runAsync(() async {
-      final rb = radice.currentContext!.findRenderObject()!
-          as RenderRepaintBoundary;
-      final img = await rb.toImage(
-          pixelRatio: tester.view.devicePixelRatio);
-      final d = (await img.toByteData())!;
-      final w = img.width;
-      larghezza = w;
-      // La colonna centrale, dove sta la figura del Maestro al centro.
-      final daX = (w * 0.42).round();
-      final aX = (w * 0.58).round();
-      // Si parte dal bordo superiore della bolla e si SALE: la prima riga con
-      // pixel dipinti e' il fondo della figura.
-      final rigaBolla = (cimaBolla * tester.view.devicePixelRatio).round();
-      // Si parte VENTI PUNTI SOPRA la cima della bolla, non dalla cima. Il
-      // pulsante ha un bordo oro, un fondo saturo e un'ombra che dipinge FUORI
-      // dal proprio rettangolo: partendo dalla sua riga si trovava sempre lui,
-      // e la distanza restava identica qualunque cosa si spostasse. Venti punti
-      // stanno sopra l'ombra e sotto qualunque figura.
-      final partenza = (rigaBolla - 60).clamp(0, img.height - 1);
-      var trovata = 0;
-      for (var y = partenza; y > 0; y--) {
-        var dipinti = 0;
-        for (var x = daX; x < aX; x += 2) {
-          if (_stacco(d, w, x, y) > 150) dipinti++;
-        }
-        // Serve una riga LARGA, non qualche pixel: una stella o l'alone della
-        // bolla accendono pochi campioni, la figura di un Maestro ne accende
-        // meta' della colonna. Con una soglia bassa si misurava l'alone e il
-        // risultato seguiva l'offset di partenza invece della figura.
-        if (dipinti > (aX - daX) / 2 * 0.5) {
-          trovata = y;
-          break;
-        }
+      final elemento = tester.element(find.byType(MaterialApp));
+      for (final m in Maestro.values) {
+        await precacheImage(AssetImage(m.avatarAsset), elemento);
       }
-      fondoFigura = trovata / tester.view.devicePixelRatio;
-      img.dispose();
     });
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
 
+    final carta =
+        tester.getRect(find.byKey(const Key('santuario_central_bust')));
+    final bolla =
+        tester.getRect(find.byKey(const Key('santuario_enter_domain')));
+    final arti = tester.getRect(find.byKey(const Key('santuario_domain_arts')));
+    final striscia =
+        tester.getRect(find.byKey(const Key('santuario_daily_strip')));
+
+    late ui.Image img;
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      img = await rb.toImage(pixelRatio: 3.0);
+    });
     return (
-      fondoFigura: fondoFigura,
-      cimaBolla: cimaBolla,
-      larghezza: larghezza
+      img: img,
+      carta: carta,
+      bolla: bolla,
+      arti: arti,
+      striscia: striscia
     );
   }
 
-  for (final altezza in const [2532.0, 2392.0]) {
-    testWidgets('A $altezza la bolla sta sotto la figura, con aria',
-        (tester) async {
-      final m = await misura(tester, altezza);
-      final distanza = m.cimaBolla - m.fondoFigura;
-
-      expect(distanza, greaterThanOrEqualTo(8),
-          reason: 'a $altezza la bolla dista ${distanza.toStringAsFixed(1)} '
-              'punti dal fondo della figura dipinta: sotto gli otto richiesti, '
-              'quindi la bolla morde il Maestro. Misura per immagine sulla '
-              'colonna centrale, non sul riquadro del widget.');
-    });
+  /// Quanti pixel differiscono fra due immagini, dentro un rettangolo.
+  Future<int> pixelDiversi(ui.Image a, ui.Image b, Rect zona) async {
+    final da = (await a.toByteData())!;
+    final db = (await b.toByteData())!;
+    final w = a.width;
+    var diversi = 0;
+    final y0 = (zona.top * 3).round().clamp(0, a.height - 1);
+    final y1 = (zona.bottom * 3).round().clamp(0, a.height - 1);
+    final x0 = (zona.left * 3).round().clamp(0, w - 1);
+    final x1 = (zona.right * 3).round().clamp(0, w - 1);
+    for (var y = y0; y < y1; y++) {
+      for (var x = x0; x < x1; x++) {
+        final i = (y * w + x) * 4;
+        // Una differenza di pochi livelli e' rumore di antialias: si conta solo
+        // cio' che l'occhio vedrebbe.
+        if ((da.getUint8(i) - db.getUint8(i)).abs() > 6 ||
+            (da.getUint8(i + 1) - db.getUint8(i + 1)).abs() > 6 ||
+            (da.getUint8(i + 2) - db.getUint8(i + 2)).abs() > 6) {
+          diversi++;
+        }
+      }
+    }
+    return diversi;
   }
 
-  testWidgets('Il sottotitolo sta sotto la bolla', (tester) async {
-    silence();
-    SharedPreferences.setMockInitialValues({});
-    tester.view.devicePixelRatio = 3.0;
-    tester.view.physicalSize = const Size(1170, 2532);
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
+  for (final altezza in const [2532.0, 2392.0]) {
+    testWidgets('A $altezza la bolla non copre la figura', (tester) async {
+      // TRE rese. Confrontare "con bolla" e "senza bolla" dentro il rettangolo
+      // della carta non basta, ed e' stato provato: la figura sborda FUORI da
+      // quel rettangolo, quindi l'occlusione avviene dove il confronto non
+      // guarda, e il test restava verde anche col difetto dentro.
+      //
+      // Qui si guarda la ZONA DELLA BOLLA e si chiede: senza la bolla, li' c'e'
+      // la figura? Lo si scopre confrontando la resa senza bolla con quella
+      // senza bolla ne trio. Se differiscono, la figura arriva fin li', quindi
+      // la bolla la sta coprendo.
+      final senzaBolla =
+          await rendi(tester, altezzaFisica: altezza, disegnaIngresso: false);
+      final zona = senzaBolla.bolla;
+      final nuda = await rendi(tester,
+          altezzaFisica: altezza,
+          disegnaIngresso: false,
+          disegnaTrio: false);
 
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
+      expect(nuda.bolla, zona,
+          reason: 'il layout e cambiato fra le due rese: il confronto non '
+              'misurerebbe l occlusione');
 
-    final bolla = tester.getRect(find.byKey(const Key('santuario_enter_domain')));
-    final arti = find.byKey(const Key('santuario_domain_arts'));
-    expect(arti, findsOneWidget, reason: 'riga delle arti non trovata');
-    expect(tester.getRect(arti).top, greaterThanOrEqualTo(bolla.bottom),
-        reason: 'il sottotitolo con le tre arti non sta sotto la bolla');
-  });
+      late int figuraNellaZona;
+      await tester.runAsync(() async {
+        figuraNellaZona = await pixelDiversi(senzaBolla.img, nuda.img, zona);
+        senzaBolla.img.dispose();
+        nuda.img.dispose();
+      });
+
+      expect(figuraNellaZona, 0,
+          reason: 'a $altezza la figura del Maestro dipinge $figuraNellaZona '
+              'pixel dentro la zona che la bolla occupa, quindi la bolla la '
+              'copre. Misura differenziale a tre rese.');
+    });
+
+    testWidgets('A $altezza la bolla sta sotto la carta con otto punti d\'aria',
+        (tester) async {
+      final r =
+          await rendi(tester, altezzaFisica: altezza, disegnaIngresso: true);
+      await tester.runAsync(() async => r.img.dispose());
+
+      final distanza = r.bolla.top - r.carta.bottom;
+      expect(distanza, greaterThanOrEqualTo(8),
+          reason: 'a $altezza fra il fondo della carta e la cima della bolla ci '
+              'sono ${distanza.toStringAsFixed(1)} punti, meno degli otto '
+              'richiesti');
+      expect(r.arti.top, greaterThanOrEqualTo(r.bolla.bottom),
+          reason: 'il sottotitolo con le tre arti non sta sotto la bolla');
+    });
+
+    testWidgets('A $altezza il trio non finisce sotto la striscia dei Doni',
+        (tester) async {
+      final r =
+          await rendi(tester, altezzaFisica: altezza, disegnaIngresso: true);
+      await tester.runAsync(() async => r.img.dispose());
+
+      expect(r.carta.top, greaterThanOrEqualTo(r.striscia.bottom),
+          reason: 'la carta centrale risale sotto la striscia dei Doni: il trio '
+              'e\' salito troppo');
+    });
+  }
 }
