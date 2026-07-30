@@ -2,7 +2,7 @@
 
 Chi apre questo file deve poter continuare senza che Mauro racconti niente.
 
-**Aggiornato**: dopo W1, ordine LA LARGHEZZA GIUSTA.
+**Aggiornato**: dopo X1 e X4, ordine LE ANTEPRIME DIMENTICATE.
 **Ramo**: `claude/esoteric-circle-master-order-e798aj`.
 **Cartella di lavoro**: `C:\Users\user\Desktop\esoteric-circle-app` (NON il
 worktree in `.claude/worktrees`, che e' vecchio).
@@ -63,6 +63,31 @@ A1 A2 A3 A4, B1 B2 B3 B4, C3 C4, F3 F4, la diagnosi dei motori e la Ronda con
 - [x] **S5 CHIUSA.** `suonoEVibrazione` e' il quarto comando di
       `SettingsController`, governa i due canali insieme, e la voce e' nelle
       Impostazioni. Chiude P23.
+
+## L'ordine delle anteprime: X1 e X4 CHIUSE, X2 e X3 DA FARE
+
+**X1 chiusa.** Le tre cause erano diverse fra loro: una seconda porta
+(`mano_anteprima_test.dart`, ora dentro il corredo e cancellata), anteprime
+orfane nate da prove temporanee (`le-tue-arti.png`, ora nel corredo), e due
+catture rotte da S1, perche' il lettore audio reale tentava di riprodurre in
+prova. La regola sta in `test/corredo_anteprime_test.dart`, col dato e non col
+controllo. Prova di vista passata.
+
+**X4 chiusa senza toccare codice.** Guardata l'anteprima nuova: le icone si
+disegnano tutte. I quadratini erano l'anteprima vecchia, prodotta da un test
+temporaneo che non caricava i font. Il difetto non esisteva.
+
+**X2 DA FARE**: le carte laterali tagliate dai bordi a 360. Va prima deciso e
+dichiarato se stringerle o farne una sbirciatura regolare, poi la prova del
+rosso a tutte e tre le misure.
+
+**X3 DA FARE**, e va insieme a V1: e' lo stesso file, `daily_strip.dart`. A 360
+il quarto dono sparisce e non c'e' piu' invito a scorrere. La quantita' minima
+visibile deve essere un dato dichiarato.
+
+**Una cattura resta rossa e va guardata**: "Cattura la Stesa in corso" cade a
+360 con "the widget is actually off-screen". E' un difetto vero della Stesa alla
+larghezza reale, non un problema del corredo.
 
 ## W1 e W2: la larghezza, che era la causa
 

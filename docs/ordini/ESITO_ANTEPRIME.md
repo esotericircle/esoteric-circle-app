@@ -45,4 +45,49 @@ vere tutte le altre verifiche.
 
 ## Stato voce per voce
 
-Si compila mentre il lavoro procede.
+### X1, le dodici anteprime: CHIUSA
+
+**Le cause erano tre, e nessuna era "mi sono dimenticato".**
+
+1. **Una seconda porta.** `mano_anteprima_test.dart` scriveva dritto in
+   `docs/preview` senza passare dal corredo. E' la settima volta che incontro
+   questa forma, e stavolta l'ho contata. La cattura e' entrata nel corredo e il
+   file separato non esiste piu'.
+2. **Anteprime orfane.** Nate da prove temporanee poi cancellate: nessuno le
+   rigenerava. `le-tue-arti.png` era ancora a 390 per 844, uno schermo che non
+   esiste.
+3. **Due catture rotte, e questa l'ho introdotta io con S1.** Da quando il
+   lettore audio reale e' il default, aprire la Meditazione tenta di riprodurre
+   e in prova il plugin non c'e': la cattura cadeva e l'anteprima smetteva di
+   aggiornarsi **in silenzio**. E' il difetto peggiore dei tre, perche' non si
+   annuncia.
+
+La regola sta nel DATO: un test enumera le catture e cade se una non parte dalla
+misura reale, se qualcuno scrive fuori dal corredo, o se un'anteprima non ha un
+generatore. **Prova di vista passata**: rimessa una cattura a 390, il test la
+denuncia col numero di riga.
+
+### X4, i quadratini: NON ERA UN DIFETTO
+
+Guardata l'anteprima nuova come chiede l'ordine, prima di attribuire qualunque
+causa: le icone si disegnano tutte, la matita, le scintille, il cuore, le carte,
+la meditazione, il dado runico e le frecce.
+
+I quadratini erano l'anteprima **vecchia**, prodotta dal test temporaneo che non
+caricava i font delle icone. **Chiuso senza toccare codice.**
+
+### X2, X3, V1, V2, V3, V4, S4: NON FATTE
+
+Il contesto della sessione e' finito prima. Stanno in `RIPRESA.md` con le strade
+gia' indicate.
+
+### Una cosa trovata che non era nell'ordine
+
+La cattura "Stesa in corso" cade a 360 con *the widget is actually off-screen*:
+e' un difetto vero della Stesa alla larghezza reale, che a 390 non si vedeva.
+
+## La consegna
+
+**Non fatta in questa sessione.** La suite non e' stata letta e restano aperte
+sei voci: consegnare adesso vorrebbe dire consegnare senza verifica, che e' la
+cosa che l'ordine vieta espressamente.
