@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 
 /// I momenti della stesa che hanno un suono e una vibrazione.
 ///
@@ -95,20 +95,23 @@ class SensiDellaStesa {
   /// La vibrazione a tema col gesto, discreta.
   void _vibra(MomentoSensoriale m, {required bool solenne}) {
     try {
+      // I momenti del rito ricondotti ai QUATTRO schemi della palette. Prima
+      // ognuno sceglieva per conto proprio, con cinque intensita' diverse in
+      // una schermata sola: il taglio vibrava come una conferma altrove, e il
+      // volo come una selezione, senza che le due cose avessero niente in
+      // comune. Adesso il vocabolario e' quello del Cerchio.
       switch (m) {
         case MomentoSensoriale.taglio:
-          HapticFeedback.mediumImpact();
+          PaletteSensoriale.eseguiSchema(SchemaAptico.conferma);
         case MomentoSensoriale.mescolamento:
-          HapticFeedback.lightImpact();
         case MomentoSensoriale.volo:
-          HapticFeedback.selectionClick();
+          PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
         case MomentoSensoriale.flip:
-          HapticFeedback.mediumImpact();
+          PaletteSensoriale.eseguiSchema(SchemaAptico.conferma);
         case MomentoSensoriale.reveal:
-          // La fioritura dei Maggiori si sente di piu'.
-          solenne
-              ? HapticFeedback.heavyImpact()
-              : HapticFeedback.lightImpact();
+          // La carta scoperta e' una rivelazione, solenne o no: la differenza
+          // fra Maggiori e Minori la porta il suono, non un quinto schema.
+          PaletteSensoriale.eseguiSchema(SchemaAptico.rivelazione);
       }
     } catch (_) {
       // Nessun motore aptico: il rito continua lo stesso.

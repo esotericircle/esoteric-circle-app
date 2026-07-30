@@ -24,6 +24,7 @@ import '../../chat/maestro_chat_screen.dart';
 import 'bindrune.dart';
 import 'rune_share_card.dart';
 import '../../rotta_arte.dart';
+import '../../../../core/sensi/palette_sensoriale.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
 /// selettore del tipo di gettata. Il caso e' voluto e autentico, e' gettare le
@@ -116,7 +117,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
 
   void _getta() {
     if (_fase == _Fase.responso) return;
-    HapticFeedback.mediumImpact();
+    PaletteSensoriale.eseguiSchema(SchemaAptico.conferma);
     _shakeSub?.cancel();
     setState(() {
       _esito = RuneCast.getta(_gettata, random: widget.random);
@@ -125,7 +126,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   }
 
   void _gettaAncora() {
-    HapticFeedback.selectionClick();
+    PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
     setState(() => _esito = RuneCast.getta(_gettata, random: widget.random));
   }
 

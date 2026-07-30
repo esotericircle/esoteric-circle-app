@@ -5,6 +5,7 @@ import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../core/sensi/palette_sensoriale.dart';
 
 /// Barra di composizione del messaggio: campo di testo che cresce e bottone di
 /// invio dorato. Disabilitata mentre il Maestro sta rispondendo.
@@ -187,7 +188,7 @@ class _SendButton extends StatelessWidget {
     return GestureDetector(
       onTap: enabled
           ? () {
-              HapticFeedback.selectionClick();
+              PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
               onTap();
             }
           : null,

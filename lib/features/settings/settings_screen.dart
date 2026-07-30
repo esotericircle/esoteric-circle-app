@@ -132,6 +132,27 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: SpacingTokens.xl),
 
               const SectionTitle(
+                title: 'Suono e vibrazione',
+                subtitle: 'Un comando solo per i due canali.',
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              DepthCard(
+                raised: true,
+                padding: EdgeInsets.zero,
+                child: _ToggleRow(
+                  itemKey: const Key('settings_suono_vibrazione'),
+                  icon: Icons.graphic_eq_rounded,
+                  title: 'Suono e vibrazione',
+                  subtitle: 'Governa insieme i suoni del Cerchio e le '
+                      'vibrazioni. Chi vuole silenzio lo spegne una volta sola.',
+                  value: settings.suonoEVibrazione,
+                  onChanged: settings.setSuonoEVibrazione,
+                  palette: palette,
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.xl),
+
+              const SectionTitle(
                 title: 'Permessi',
                 subtitle: 'Quello che hai negato si concede da qui.',
               ),

@@ -28,6 +28,7 @@ import '../maestri/chat/chat_openers.dart';
 import '../maestri/chat/maestro_chat_screen.dart';
 import 'rune_strokes.dart';
 import 'sunset_rune_card.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 
 /// La Runa del Tramonto, dominio Caligo, versione definitiva.
 ///
@@ -400,7 +401,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   // --- Gesto uno: il getto ---
   void _getta() {
     if (_fase != _Fase.getto) return;
-    HapticFeedback.mediumImpact();
+    PaletteSensoriale.eseguiSchema(SchemaAptico.conferma);
     _shakeSub?.cancel();
     _shakeSub = null;
     if (!_riduciMovimento) _rimbalzo.forward(from: 0);
@@ -469,7 +470,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     final trattiOra = (_incisione * _numeroTratti).floor();
     if (trattiOra > _trattiFatti) {
       _trattiFatti = trattiOra;
-      HapticFeedback.selectionClick();
+      PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
     }
     if (_incisione >= 1 && prima < 1) {
       _completaIncisione();
@@ -502,7 +503,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   void _completaIncisione() {
     _incisioneTicker?.stop();
-    HapticFeedback.mediumImpact();
+    PaletteSensoriale.eseguiSchema(SchemaAptico.conferma);
     setState(() => _completa = true);
     // Crossfade dai tratti all'arte incisa, poi la lettura.
     Future<void>.delayed(const Duration(milliseconds: 1200), () async {
@@ -587,7 +588,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   void _gira() {
     if (_giroFatto) return;
-    HapticFeedback.selectionClick();
+    PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
     // Dopo lo scatto niente piu' eventi: fine gesto, nessun rimbalzo.
     _giroSub?.cancel();
     _giroSub = null;

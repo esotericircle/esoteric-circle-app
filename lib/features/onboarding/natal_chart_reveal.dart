@@ -15,6 +15,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../identity/widgets/identity_widgets.dart';
 import '../identity/widgets/birth_companions.dart';
 import 'widgets/nature_emblem.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 
 /// La carta natale a due livelli: prima il colpo d'occhio (frase poetica e tre
 /// aure intrecciate), poi la ruota elegante con gli aspetti attivabili e la
@@ -50,7 +51,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
 
   void _selectPlanet(String id, {bool scrollToTile = false}) {
     setState(() => _selectedId = _selectedId == id ? null : id);
-    HapticFeedback.selectionClick();
+    PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
     if (scrollToTile && _selectedId == id) {
       final key = _tileKeys[id];
       final ctx = key?.currentContext;

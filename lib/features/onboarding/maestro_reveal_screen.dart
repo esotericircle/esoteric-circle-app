@@ -20,6 +20,7 @@ import '../../services/breath_detector.dart';
 import 'widgets/maestro_card.dart';
 import 'widgets/ritual_object.dart';
 import 'widgets/sensory_reveal.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 
 /// Rivelazione del Maestro col rito del soffio.
 ///
@@ -174,7 +175,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
       _attempted = true;
       _showSafetyTap = false;
     });
-    HapticFeedback.selectionClick();
+    PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
   }
 
   void _complete() {
@@ -183,7 +184,9 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
     _ticker.stop();
     _levelSub?.cancel();
     _breath.stop();
-    HapticFeedback.mediumImpact(); // la nebbia si dirada, il Maestro appare
+    // La nebbia si dirada e il Maestro appare: e' LA rivelazione, quindi due
+      // colpi crescenti e non un colpo medio come una conferma qualunque.
+      PaletteSensoriale.eseguiSchema(SchemaAptico.rivelazione);
     setState(() {
       _progress = 1;
       _showCoach = false;

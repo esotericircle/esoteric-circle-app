@@ -6,6 +6,7 @@ import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../core/sensi/palette_sensoriale.dart';
 
 /// Il viaggio sciamanico prima della rivelazione, fedele al core shamanism di
 /// Harner: l'animale di potere non viene detto, lo trovi viaggiando col tamburo.
@@ -83,7 +84,9 @@ class _AnimalJourneyState extends State<AnimalJourney>
 
   void _colpisci(TapDownDetails d, Size size) {
     if (_fatto) return;
-    HapticFeedback.mediumImpact();
+    // Il tamburo del totem: conferma, non rivelazione. La rivelazione arriva
+    // quando l'animale si mostra, non a ogni colpo.
+    PaletteSensoriale.eseguiSchema(SchemaAptico.conferma);
     setState(() {
       _battiti++;
       _colpo = Offset(
