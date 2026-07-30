@@ -2,6 +2,8 @@ import 'package:flutter/material.dart' show TimeOfDay;
 
 import '../astro/birth_details.dart' as astro;
 import '../astro/birth_place.dart' as astro;
+import '../astro/night_sky.dart';
+import '../astro/zodiac.dart';
 import 'birth_place.dart';
 
 /// I dati identitari fissi dell'utente, da cui nascono i fatti deterministici
@@ -68,6 +70,25 @@ class BirthIdentity {
   /// La sola data di nascita, senza l'ora.
   DateTime get birthDate =>
       DateTime(birthMoment.year, birthMoment.month, birthMoment.day);
+
+  /// IL SEGNO SOLARE, che discende dalla data e non da chi si ricorda di
+  /// scriverlo da qualche parte.
+  ///
+  /// **Perche' sta qui.** La home mostrava "per chi nasce sotto Gemelli" a
+  /// chiunque, perche' il segno arrivava da un controller che nasce con un
+  /// segno di esempio e che UN SOLO punto di tutto il progetto si ricordava di
+  /// riempire, alla fine del Risveglio. Quel controller non conserva niente,
+  /// quindi al riavvio il segno tornava quello d'esempio: la frase era
+  /// sbagliata per chiunque, sempre, tranne nella sessione in cui si era appena
+  /// concluso il Risveglio.
+  ///
+  /// Adesso il segno e' una proprieta' del DATO di nascita, e chiunque abbia
+  /// l'identita' ce l'ha giusto per costruzione, senza doversene ricordare.
+  ///
+  /// **Nullo quando non e' calcolabile**, cioe' finche' i dati sono quelli
+  /// d'esempio: chi non ha ancora dato la sua data non ha un segno, e non se ne
+  /// inventa uno. Le frasi che lo nominano devono reggere anche senza.
+  Zodiac? get sunSign => isExample ? null : NightSky.sunSign(birthDate);
 
   /// Gli stessi dati nella forma che chiedono i motori astrologici.
   ///

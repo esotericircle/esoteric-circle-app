@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/astro/zodiac_controller.dart';
+import '../../core/astro/night_sky.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
@@ -209,21 +210,34 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   /// Sinastria VIP mostra la persona vera invece del segnaposto.
   
   
-  /// La riga personale del Maestro al centro, con lo slot pronto per nome e
-  /// segno dell'utente, cosi' sembra parlare proprio a lui. Per ora nome e
-  /// segno sono segnaposto. Per Medora la parte astronomica resta vera (luce e
-  /// tendenza reali della Luna); Aura e Caligo sono testo segnaposto.
+  /// La riga personale del Maestro al centro, col nome reale dell'utente e il
+  /// suo segno, cosi' parla proprio a lui. Per Medora la parte astronomica e'
+  /// vera (luce e tendenza reali della Luna); Aura e Caligo sono testo
+  /// segnaposto in attesa dei loro motori.
   ///
   /// Non ripete il nome della fase, gia' mostrato nell'occhiello in alto.
-  String _personalLine(Maestro maestro, MoonPhase moon, String name, String sign) {
+  ///
+  /// **SENZA SEGNO LA FRASE REGGE LO STESSO.** Il segno discende dalla data di
+  /// nascita, e chi non l'ha ancora data non ha un segno: prima si mostrava
+  /// Gemelli a chiunque, che e' molto peggio del non nominarlo. Le versioni
+  /// senza segno non sono un ripiego mutilato, sono frasi intere: parlano della
+  /// notte e del gesto invece che di chi nasce sotto qualcosa.
+  String _personalLine(
+      Maestro maestro, MoonPhase moon, String name, String? sign) {
     switch (maestro) {
       case Maestro.medora:
-        return '$name, ${SantuarioScreen.medoraMoonFragment(moon)}: '
-            'la giusta ora per chi nasce sotto $sign.';
+        final quando = SantuarioScreen.medoraMoonFragment(moon);
+        return sign == null
+            ? '$name, $quando: la giusta ora per guardare in alto.'
+            : '$name, $quando: la giusta ora per chi nasce sotto $sign.';
       case Maestro.aura:
-        return "$name, l'energia di chi nasce sotto $sign cerca quiete: una mano sul cuore.";
+        return sign == null
+            ? '$name, la tua energia cerca quiete: una mano sul cuore.'
+            : "$name, l'energia di chi nasce sotto $sign cerca quiete: una mano sul cuore.";
       case Maestro.caligo:
-        return '$name, per chi nasce sotto $sign stanotte sale una runa di pazienza.';
+        return sign == null
+            ? '$name, stanotte sale per te una runa di pazienza.'
+            : '$name, per chi nasce sotto $sign stanotte sale una runa di pazienza.';
     }
   }
 
@@ -250,11 +264,24 @@ class _SantuarioScreenState extends State<SantuarioScreen>
 
     final moon = MoonPhase.forDate(now);
 
-    // Slot personali: nome reale e segno dell'utente. Il nome viene dal profilo
-    // (mai il nome del tier); il segno si legge dal controller dello zodiaco.
-    final userName = context.watch<ProfileController>().vocative;
-    final userZodiac = context.watch<ZodiacController>().sunSign ?? Zodiac.gemini;
-    final userSign = userZodiac.italianName;
+    // Slot personali: nome reale e segno dell'utente, tutti e due dal PROFILO,
+    // che e' l'unico posto dove quei dati sono persistiti.
+    //
+    // Il segno si leggeva dal controller dello zodiaco, che nasce con un segno
+    // di esempio, non conserva niente fra un avvio e l'altro, e che un solo
+    // punto di tutto il progetto si ricordava di riempire: la home diceva
+    // "chi nasce sotto Gemelli" a chiunque, a ogni riavvio. Adesso il segno
+    // discende dalla data di nascita, ed e' nullo finche' quella data non c'e'.
+    final profilo = context.watch<ProfileController>();
+    final userName = profilo.vocative;
+    final userSign = profilo.identity.sunSign?.italianName;
+    // Le rotte delle arti chiedono un segno che esista sempre, perche' un
+    // oroscopo senza segno non e' una cosa. Quello si ricava dalla data che
+    // c'e' comunque, anche quando e' quella d'esempio dichiarata in-world: NON
+    // e' un segno cablato, e' il segno di quella data. La FRASE sopra invece
+    // non lo usa, perche' li' un segno che non e' il tuo e' una bugia detta
+    // alla persona, ed era esattamente il difetto.
+    final userZodiac = NightSky.sunSign(profilo.identity.birthDate);
     final personalLine = _personalLine(central, moon, userName, userSign);
 
     // Riduci Movimento: niente deriva di parallasse, scena ferma.
