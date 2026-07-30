@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '../astro/birth_details.dart';
+import 'birth_identity.dart';
 import '../astro/celestial.dart';
 import '../astro/natal_chart.dart';
 import '../astro/zodiac.dart';
@@ -185,6 +186,36 @@ class BirthIdentityController extends ChangeNotifier {
     _chart = chart;
     _facts = NatalFacts.from(details: details, chart: chart);
     notifyListeners();
+  }
+
+  /// RIPRENDE I DATI DI NASCITA DAL PROFILO, che e' l'unico posto dove sono
+  /// persistiti.
+  ///
+  /// **Perche' esiste.** `setBirth` era chiamato in UN SOLO punto di tutto il
+  /// progetto, alla fine del Risveglio, e questo controller vive solo in
+  /// memoria: chi riapriva l'app lo trovava vuoto. Da li' l'app diceva "Senza
+  /// l'ora di nascita l'Ascendente e le Case restano velati" a chi l'ora
+  /// l'aveva data eccome, e la carta natale partiva senza luogo, che il client
+  /// rifiuta prima ancora di chiamare la rete. Un'unica causa per due difetti
+  /// che sembravano distinti: l'ora persa e il cielo sempre in ripiego.
+  ///
+  /// L'ora e il luogo NON si perdevano nell'archivio: l'archivio li scrive e li
+  /// rilegge. Si perdevano qui, in un secondo posto dove la stessa verita' viveva
+  /// senza essere persistita.
+  void riprendiDa(BirthIdentity identita) {
+    if (identita.isExample) return;
+    final gia = _details;
+    final nuovi = identita.toBirthDetails();
+    // Idempotente: chiamarlo a ogni cambio del profilo non deve rifare niente
+    // se i dati sono gli stessi, altrimenti si notifica in cerchio.
+    if (gia != null &&
+        gia.date == nuovi.date &&
+        gia.time == nuovi.time &&
+        gia.place?.latitude == nuovi.place?.latitude &&
+        gia.place?.longitude == nuovi.place?.longitude) {
+      return;
+    }
+    setBirth(nuovi, _chart);
   }
 
   void clear() {

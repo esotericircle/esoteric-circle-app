@@ -168,14 +168,30 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
             BirthCompanions(details: identity.details!),
             const SizedBox(height: SpacingTokens.lg),
           ],
-          // --- La ruota, con aspetti attivabili ---
+          // LA RUOTA DICHIARA IL PROPRIO STATO quando il cielo e' quello
+          // essenziale. Prima disegnava una ruota completa di aspetti con
+          // dentro un solo astro, e sembrava un difetto grafico invece che una
+          // carta ridotta: la stessa immagine diceva "ecco la tua carta" e
+          // "manca tutto". Il cielo essenziale resta il tuo cielo, quindi non si
+          // nasconde: si dice cos'e'.
           NatalWheel(
             chart: chart,
             size: 320,
-            showAspects: true,
+            showAspects: !controller.ripiego,
             highlightPlanetId: _selectedId,
             onPlanetTap: (id) => _selectPlanet(id, scrollToTile: true),
           ),
+          if (controller.ripiego) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              'Il tuo cielo essenziale: il Sole e il suo segno. I pianeti, le '
+              'case e gli aspetti arrivano con la mappa completa.',
+              key: const Key('carta_natale_ruota_ridotta'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.body(size: 13)
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+          ],
 
           const SizedBox(height: SpacingTokens.lg),
           _LegendHeader(),

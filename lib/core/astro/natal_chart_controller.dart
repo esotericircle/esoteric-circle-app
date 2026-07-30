@@ -47,6 +47,20 @@ class NatalChartController extends ChangeNotifier {
   /// vicolo cieco travestito da risposta.
   bool ripiego = false;
 
+  /// PERCHE' si e' ripiegato, nelle parole dell'eccezione vera.
+  ///
+  /// Non e' testo da mostrare cosi' com'e': e' quello che serve in diagnostica
+  /// per sapere se il cielo non risponde, se manca il luogo, se la chiave e'
+  /// scaduta o se la funzione non e' piu' pubblicata. Prima non esisteva da
+  /// nessuna parte, perche' `compute` catturava l'eccezione e la buttava: il
+  /// ripiego era diventato il caso normale e nessuno poteva sapere di cosa
+  /// fosse sintomo.
+  String? causa;
+
+  /// Se il ripiego dipende dal luogo di nascita mancante, che e' l'unica delle
+  /// cause possibili che la persona puo' risolvere da sola.
+  static bool _mancaIlLuogo(BirthDetails details) => details.place == null;
+
   /// Segno solare risultante (per evidenziare la costellazione nel cosmo).
   Zodiac? get sunSign => chart?.sunSign;
 
@@ -127,15 +141,25 @@ class NatalChartController extends ChangeNotifier {
         chart = _client.parseResponse(grezza, details);
         await _archivio.scrivi(chiave, grezza);
       }
-    } catch (_) {
+    } catch (e) {
       chart = NatalChart.essential(
         sunSign: localSun,
         hasTime: details.hasTime,
       );
       ripiego = true;
-      note = _client.hasKey
-          ? 'Ho tracciato il tuo cielo essenziale. Completerò la mappa dei pianeti appena le stelle torneranno raggiungibili.'
-          : 'Per ora leggo il tuo cielo essenziale. La mappa completa dei pianeti si aprirà quando il motore astrologico sarà collegato.';
+      // LA CAUSA NON SI PERDE PIU'. Prima `compute` catturava tutto e ripiegava
+      // in silenzio: il ripiego e' diventato il caso normale e nessuno poteva
+      // sapere perche', perche' l'unico che lo sapeva era l'eccezione, e
+      // l'eccezione la inghiottiva questo blocco.
+      causa = e is AstroApiException ? e.message : e.toString();
+      // E la nota DISTINGUE cio' che la persona puo' risolvere da cio' che non
+      // dipende da lei: "il cielo non risponde" si aspetta, "manca il luogo di
+      // nascita" si aggiusta in trenta secondi.
+      note = _mancaIlLuogo(details)
+          ? 'Per la mappa completa dei pianeti mi serve il tuo luogo di nascita: senza, posso leggere solo il tuo cielo essenziale.'
+          : _client.hasKey
+              ? 'Ho tracciato il tuo cielo essenziale. Completerò la mappa dei pianeti appena le stelle torneranno raggiungibili.'
+              : 'Per ora leggo il tuo cielo essenziale. La mappa completa dei pianeti si aprirà quando il motore astrologico sarà collegato.';
     }
     status = ChartStatus.ready;
     notifyListeners();

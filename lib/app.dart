@@ -80,7 +80,19 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         // calcolo e fatti derivati. Alimentati dal Risveglio come fonte unica.
         ChangeNotifierProvider(create: (_) => IdentityController()),
         ChangeNotifierProvider(create: (_) => NatalChartController()),
-        ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+        // I dati di nascita SEGUONO IL PROFILO, che e' l'unico posto dove sono
+        // persistiti. Prima questo controller si riempiva in un solo punto,
+        // alla fine del Risveglio, e viveva solo in memoria: chi riapriva l'app
+        // lo trovava vuoto, quindi l'app dichiarava mancante un'ora che era
+        // stata data, e la carta natale partiva senza luogo, che il client
+        // rifiuta prima ancora di chiamare la rete. Una causa sola per due
+        // difetti che sembravano distinti.
+        ChangeNotifierProxyProvider<ProfileController, BirthIdentityController>(
+          create: (_) => BirthIdentityController(),
+          update: (_, profilo, nascita) =>
+              (nascita ?? BirthIdentityController())
+                ..riprendiDa(profilo.identity),
+        ),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()..load()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
