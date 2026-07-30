@@ -10,6 +10,7 @@ import '../theme/maestro_scope.dart';
 import 'package:provider/provider.dart';
 
 import 'scroll_reveal.dart';
+import '../theme/maestro_palette.dart';
 
 /// Superficie in vetro con profondita' 2.5D.
 ///
@@ -29,6 +30,7 @@ class DepthCard extends StatelessWidget {
     this.borderRadius,
     this.opacity = 1.0,
     this.reveal = true,
+    this.palette,
   });
 
   final Widget child;
@@ -40,6 +42,16 @@ class DepthCard extends StatelessWidget {
   /// Opacita' complessiva, usata per lo stato Coming soon.
   final double opacity;
 
+  /// La tavolozza da usare, quando la card non deve seguire il tema attivo.
+  ///
+  /// Serve alle tessere che appartengono a un Maestro diverso da quello in
+  /// scena: senza questo la card leggeva sempre `context.palette`, quindi tutte
+  /// le tessere uscivano nel colore del tema, cioe' tutte blu quando il tema era
+  /// di Medora, mentre l'emblema al loro interno portava il colore giusto. Un
+  /// dettaglio nel colore del proprietario dentro una card nel colore di un
+  /// altro non fa riconoscere niente.
+  final MaestroPalette? palette;
+
   /// La comparsa in scorrimento vive QUI, nel componente che ogni elenco
   /// dell'app gia' usa: cosi' vale ovunque senza che ogni schermata debba
   /// ricordarsene, e chi ha una regia propria la spegne con [reveal] falso.
@@ -48,7 +60,7 @@ class DepthCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.palette;
+    final palette = this.palette ?? context.palette;
     final quality = context.watch<QualityTierController>();
     final radius =
         borderRadius ?? BorderRadius.circular(SpacingTokens.radiusLg);

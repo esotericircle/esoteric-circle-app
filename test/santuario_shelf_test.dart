@@ -114,10 +114,19 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
 
-    // Lo scaffale e le sue card esistono (ListView shrinkWrap li costruisce).
-    expect(find.byKey(const Key('santuario_shelf')), findsOneWidget);
-    expect(find.byKey(const Key('shelf_synastry_vip')), findsOneWidget);
-    expect(find.byKey(const Key('shelf_tarot_spread_three')), findsOneWidget);
+    // Lo scaffale sotto l'eroe adesso e' UNO SOLO e si chiama "Le tue arti":
+    // "Le funzioni del Cerchio" lo sostituiva, e per un ordine sono rimaste
+    // tutte e due, cioe' due titoli e due elenchi della stessa cosa.
+    expect(find.byKey(const Key('tue_arti_titolo')), findsOneWidget);
+    expect(find.text('Le funzioni del Cerchio'), findsNothing,
+        reason: 'la sezione vecchia resta in scena accanto alla nuova');
+    // Lo scaffale personale e' abitato. Quali arti ci siano lo decide il seme,
+    // che dipende dal Maestro assegnato: la prova non pretende un id preciso,
+    // verifica che ci siano tessere apribili.
+    expect(find.byWidgetPredicate((w) => w.key is ValueKey<String> &&
+        (w.key! as ValueKey<String>).value.startsWith('tua_arte_')),
+        findsWidgets,
+        reason: 'lo scaffale personale e comparso vuoto nel Santuario');
 
     // Nessuna bolla Sinastria sovrapposta all'immagine, come prima.
     expect(find.byKey(const Key('santuario_sinastria')), findsNothing);

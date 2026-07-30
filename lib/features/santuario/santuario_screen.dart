@@ -8,15 +8,12 @@ import '../../core/astro/moon_phase.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/astro/zodiac_controller.dart';
 import '../../core/identity/profile_controller.dart';
-import '../../core/l10n/app_strings.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../core/rituals/daily_elements.dart';
-import '../../core/santuario/function_shelf.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
-import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -175,91 +172,13 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     if (route != null) Navigator.of(context).push(route);
   }
 
-  void _openShelf(BuildContext context, ShelfFunction fn, Zodiac userSign) {
-    final route = _shelfRoute(context, fn, userSign);
-    if (route != null) {
-      Navigator.of(context).push(route);
-      return;
-    }
-    _showShelfAnticipo(context, fn);
-  }
-
+  
   /// La rotta di una funzione dello scaffale: la stessa mappa unica del dominio
   /// (`artRouteFor`), cosi' la stessa arte si apre sempre alla stessa schermata.
   /// Porta anche nome e data reali del profilo, quando ci sono, cosi' la
   /// Sinastria VIP mostra la persona vera invece del segnaposto.
-  Route<void>? _shelfRoute(
-      BuildContext context, ShelfFunction fn, Zodiac userSign) {
-    final profile = context.read<ProfileController>();
-    return artRouteFor(
-      fn.id,
-      userSign: userSign,
-      userBirth:
-          profile.identity.isExample ? null : profile.identity.birthMoment,
-      userName: profile.hasName ? profile.vocative : null,
-    );
-  }
-
-  void _showShelfAnticipo(BuildContext context, ShelfFunction fn) {
-    final palette = MaestroPalette.forKey(ThemeKey.of(fn.maestro));
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (sheetContext) => Container(
-        key: const Key('santuario_shelf_coming_soon'),
-        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
-            SpacingTokens.lg, SpacingTokens.xl),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [palette.surfaceElevated, palette.deepest],
-          ),
-          borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(SpacingTokens.radiusXl)),
-          border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
-        ),
-        child: SafeArea(
-          top: false,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(fn.icon, color: palette.goldSoft, size: 26),
-                  const SizedBox(width: SpacingTokens.sm),
-                  Expanded(
-                    child: Text(fn.title,
-                        style: TypographyTokens.display(size: 19)
-                            .copyWith(color: palette.goldSoft)),
-                  ),
-                ],
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              Text(
-                '${fn.teaser} Questa esperienza sta per aprirsi nel cerchio, '
-                'con tutta la sua immersione.',
-                style: TypographyTokens.body(size: 15)
-                    .copyWith(color: ColorTokens.textSecondary, height: 1.4),
-              ),
-              const SizedBox(height: SpacingTokens.lg),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () => Navigator.of(sheetContext).pop(),
-                  child: Text('Va bene',
-                      style: TypographyTokens.label(size: 13)
-                          .copyWith(color: palette.goldSoft)),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
+  
+  
   /// La riga personale del Maestro al centro, con lo slot pronto per nome e
   /// segno dell'utente, cosi' sembra parlare proprio a lui. Per ora nome e
   /// segno sono segnaposto. Per Medora la parte astronomica resta vera (luce e
@@ -353,9 +272,11 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         TueArtiView(
                           onOpen: (id) => _openArte(context, id, userZodiac),
                         ),
-                        _FunctionShelfView(
-                          onOpen: (fn) => _openShelf(context, fn, userZodiac),
-                        ),
+                        // "Le funzioni del Cerchio" non esiste piu': "Le tue
+                        // arti" la SOSTITUISCE, come l'ordine diceva. Avevo
+                        // aggiunto la nuova lasciando la vecchia, quindi nel
+                        // Santuario c'erano due titoli e due elenchi della
+                        // stessa cosa.
                       ],
                     ),
                   );
@@ -1005,69 +926,47 @@ class _EnterDomainButton extends StatelessWidget {
 /// scorrono, ciascuna nel colore del suo Maestro: le funzioni vive si aprono, le
 /// altre mostrano un anticipo. L'ordine vive nella configurazione dedicata
 /// (`function_shelf.dart`), qui resta solo la resa.
-class _FunctionShelfView extends StatelessWidget {
-  const _FunctionShelfView({required this.onOpen});
 
-  final ValueChanged<ShelfFunction> onOpen;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    final functions = FunctionShelf.ordered();
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.sm,
-          SpacingTokens.lg, SpacingTokens.xxxl),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Un titolo sobrio annuncia lo scaffale, livello visivo prima del
-          // testo lungo: le card sono la scena, questa e' solo la soglia.
-          Row(
-            children: [
-              Icon(Icons.auto_awesome_mosaic_rounded,
-                  size: 18, color: palette.goldSoft),
-              const SizedBox(width: SpacingTokens.sm),
-              Expanded(
-                child: Text('Le funzioni del Cerchio',
-                    style: TypographyTokens.display(size: 18)
-                        .copyWith(color: palette.goldSoft)),
-              ),
-            ],
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          ListView.separated(
-            key: const Key('santuario_shelf'),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: functions.length,
-            separatorBuilder: (_, __) =>
-                const SizedBox(height: SpacingTokens.sm),
-            itemBuilder: (context, i) => _ShelfCard(
-              fn: functions[i],
-              onTap: () => onOpen(functions[i]),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 /// Una card dello scaffale, nel colore del Maestro di dominio. Livello visivo
 /// prima del testo: l'emblema tondo, poi il nome, poi una riga di anticipo. Le
 /// funzioni non ancora vive portano il badge Coming soon, mai un vicolo cieco.
-class _ShelfCard extends StatelessWidget {
-  const _ShelfCard({required this.fn, required this.onTap});
+/// Una tessera grande dello scaffale: emblema tondo, nome, riga di anticipo e
+/// freccia. Livello visivo prima del testo.
+///
+/// Pubblica e indipendente da `ShelfFunction`, perche' la usano due scaffali: le
+/// funzioni del Cerchio, ora ritirate, e "Le tue arti". Prima "Le tue arti"
+/// aveva pillole piccole tutte sue, dove i titoli si troncavano.
+class ShelfCard extends StatelessWidget {
+  const ShelfCard({
+    super.key,
+    required this.titolo,
+    required this.anticipo,
+    required this.icona,
+    required this.maestro,
+    required this.onTap,
+    this.viva = true,
+  });
 
-  final ShelfFunction fn;
+  final String titolo;
+  final String anticipo;
+  final IconData icona;
+
+  /// Il proprietario: decide il colore della tessera INTERA, non solo
+  /// dell'emblema. Prima la card leggeva il tema attivo, quindi le tessere
+  /// uscivano tutte blu mentre il solo emblema portava il colore giusto.
+  final Maestro maestro;
+
   final VoidCallback onTap;
+  final bool viva;
 
   @override
   Widget build(BuildContext context) {
-    final palette = MaestroPalette.forKey(ThemeKey.of(fn.maestro));
+    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
     return DepthCard(
-      key: Key('shelf_${fn.id}'),
       onTap: onTap,
+      palette: palette,
+      opacity: viva ? 1.0 : 0.6,
       padding: const EdgeInsets.all(SpacingTokens.md),
       child: Row(
         children: [
@@ -1076,41 +975,41 @@ class _ShelfCard extends StatelessWidget {
             height: 52,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-              gradient: RadialGradient(colors: [
-                palette.primary.withValues(alpha: 0.5),
-                palette.deepest.withValues(alpha: 0.4),
-              ]),
-              border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
+              color: palette.primary.withValues(alpha: 0.55),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
             ),
             alignment: Alignment.center,
-            child: Icon(fn.icon, color: palette.goldSoft, size: 26),
+            child: Icon(icona, color: palette.goldSoft, size: 26),
           ),
           const SizedBox(width: SpacingTokens.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Titolo a piena larghezza, cosi' non si spezza a meta' parola.
-                // Localizzato per chiave, italiano di default.
-                Text(AppStrings.functionTitle(fn.id, fallback: fn.title),
-                    style: TypographyTokens.display(size: 17)),
+                // Il titolo si rimpicciolisce invece di troncarsi o di spezzarsi
+                // dentro una parola: "Oroscopo Personalizzato" finiva con i
+                // puntini, "Meditazione con Voce" si rompeva a meta' parola.
+                SizedBox(
+                  width: double.infinity,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(titolo,
+                        maxLines: 1,
+                        style: TypographyTokens.display(size: 17)
+                            .copyWith(color: palette.textPrimary)),
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(fn.teaser,
+                Text(anticipo,
+                    maxLines: 2,
                     style: TypographyTokens.body(size: 13)
-                        .copyWith(color: ColorTokens.textSecondary, height: 1.3)),
-                if (!fn.live) ...[
-                  const SizedBox(height: SpacingTokens.xs),
-                  _ComingSoonBadge(palette: palette),
-                ],
+                        .copyWith(color: ColorTokens.textSecondary)),
               ],
             ),
           ),
-          const SizedBox(width: SpacingTokens.sm),
-          Icon(
-            fn.live ? Icons.chevron_right_rounded : Icons.lock_clock_rounded,
-            size: 20,
-            color: palette.goldSoft.withValues(alpha: fn.live ? 0.9 : 0.6),
-          ),
+          const SizedBox(width: SpacingTokens.xs),
+          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
         ],
       ),
     );
@@ -1118,28 +1017,7 @@ class _ShelfCard extends StatelessWidget {
 }
 
 /// Il badge dorato Coming soon delle funzioni in arrivo.
-class _ComingSoonBadge extends StatelessWidget {
-  const _ComingSoonBadge({required this.palette});
 
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        color: palette.gold.withValues(alpha: 0.16),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
-      ),
-      child: Text(
-        'Coming soon',
-        style: TypographyTokens.label(size: 11)
-            .copyWith(color: palette.goldSoft, letterSpacing: 0.4),
-      ),
-    );
-  }
-}
 
 /// Invito al tocco del cielo: una silhouette di mano con l'indice teso che fa
 /// il gesto del tocco, pulsa dolcemente e manda un'onda dal polpastrello, con
@@ -1347,7 +1225,7 @@ class TapHandPainter extends CustomPainter {
       old.phase != phase || old.color != color;
 }
 
-
+
 
 /// Misura l'altezza del proprio figlio e la riferisce, una volta per cambio.
 ///

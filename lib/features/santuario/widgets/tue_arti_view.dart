@@ -10,6 +10,7 @@ import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../maestri/rotta_arte.dart';
+import '../santuario_screen.dart';
 
 /// "Le tue arti": lo scaffale personale, in cima all'elenco.
 ///
@@ -62,14 +63,13 @@ class TueArtiView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: SpacingTokens.xs),
-          Wrap(
-            spacing: SpacingTokens.sm,
-            runSpacing: SpacingTokens.sm,
-            children: [
-              for (final id in ids)
-                _BollaArte(id: id, onOpen: () => onOpen(id)),
-            ],
-          ),
+          // Le BOLLE GRANDI, non le pillole: emblema, titolo, riga di
+          // anticipo e freccia. Le pillole piccole troncavano i titoli, e lo
+          // stile grande e' quello dell'elenco che "Le tue arti" sostituisce.
+          for (final id in ids) ...[
+            _BollaArte(id: id, onOpen: () => onOpen(id)),
+            const SizedBox(height: SpacingTokens.sm),
+          ],
         ],
       ),
     );
@@ -94,47 +94,20 @@ class _BollaArte extends StatelessWidget {
     final propria = MaestroPalette.forKey(ThemeKey.of(proprietario));
     final preferite = context.watch<ArtiPreferiteController?>();
 
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        key: Key('tua_arte_$id'),
+    return GestureDetector(
+      key: Key('tua_arte_$id'),
+      // La pressione lunga toglie l'arte: sta qui e non nella tessera, perche'
+      // la tessera e' condivisa con altri scaffali che non hanno preferiti.
+      onLongPress: preferite == null
+          ? null
+          : () => CuorePreferita.mostraEsito(
+              context, preferite.cambia(id), propria),
+      child: ShelfCard(
+        titolo: arte.title,
+        anticipo: arte.teaser,
+        icona: arte.icon,
+        maestro: proprietario,
         onTap: onOpen,
-        // Pressione lunga: si toglie da qui, come chiede il gesto naturale su
-        // una raccolta personale.
-        onLongPress: preferite == null
-            ? null
-            : () => CuorePreferita.mostraEsito(
-                context, preferite.cambia(id), propria),
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-        child: Container(
-          width: 150,
-          padding: const EdgeInsets.all(SpacingTokens.sm),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                propria.primary.withValues(alpha: 0.55),
-                propria.surface.withValues(alpha: 0.75),
-              ],
-            ),
-            border: Border.all(color: propria.gold.withValues(alpha: 0.45)),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.auto_awesome, size: 18, color: propria.goldSoft),
-              const SizedBox(width: SpacingTokens.xs),
-              Expanded(
-                child: Text(arte.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TypographyTokens.label(size: 12)
-                        .copyWith(color: propria.textPrimary)),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

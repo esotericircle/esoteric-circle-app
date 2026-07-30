@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:esoteric_circle/core/arts/arti_preferite.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/rotta_arte.dart';
 import 'package:esoteric_circle/features/santuario/widgets/tue_arti_view.dart';
@@ -40,6 +41,9 @@ void main() {
         ),
         ChangeNotifierProvider<ArtiPreferiteController>.value(
             value: preferite),
+        // Le bolle grandi poggiano su DepthCard, che legge il Quality Tier per
+        // decidere ombre e comparsa: la prova deve fornirlo, come l'app.
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
       ],
       child: MaterialApp(
         home: MaestroScope(
@@ -133,6 +137,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider<ArtiPreferiteController>.value(
             value: preferite),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
       ],
       child: MaterialApp(
         home: SogliaArte(
