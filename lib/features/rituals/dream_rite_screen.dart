@@ -36,21 +36,24 @@ import 'dream_rite_card.dart';
 /// non dentro un riquadro: la Luna, le stelle vicine e la costellazione stanno
 /// su piani di parallasse diversi sopra quel cielo.
 class DreamRiteScreen extends StatefulWidget {
-  const DreamRiteScreen({
+  DreamRiteScreen({
     super.key,
     this.now,
-    this.player = const SilentTonePlayer(),
-  });
+    TonePlayer? player,
+  }) : player = player ?? LettoreToniReale();
 
   final DateTime? now;
 
-  /// Il lettore dei toni, per il suono opzionale. Di default e' silenzioso,
-  /// come nella Meditazione: l'interfaccia c'e', il suono reale non ancora.
+  /// Il lettore dei toni.
+  ///
+  /// Di default e' quello REALE: prima era silenzioso, quindi il rito prometteva
+  /// un battito che non usciva mai dal telefono. I test continuano a iniettare
+  /// il lettore muto, ed e' proprio per questo che il difetto non si vedeva.
   final TonePlayer player;
 
   static Route<void> route({
     DateTime? now,
-    TonePlayer player = const SilentTonePlayer(),
+    TonePlayer? player,
   }) =>
       MaterialPageRoute<void>(
         builder: (_) =>

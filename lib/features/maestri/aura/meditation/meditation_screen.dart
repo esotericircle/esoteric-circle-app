@@ -23,11 +23,12 @@ import '../../rotta_arte.dart';
 /// La prova dell'audio resta al device, dietro `TonePlayer`: in headless si usa
 /// il lettore silenzioso, che genera comunque i toni senza riprodurli.
 class MeditationScreen extends StatefulWidget {
-  const MeditationScreen({super.key, this.player = const SilentTonePlayer()});
+  MeditationScreen({super.key, TonePlayer? player})
+      : player = player ?? LettoreToniReale();
 
   final TonePlayer player;
 
-  static Route<void> route({TonePlayer player = const SilentTonePlayer()}) {
+  static Route<void> route({TonePlayer? player}) {
     return MaterialPageRoute<void>(
       builder: (_) => SogliaArte(id: 'meditation', maestro: Maestro.aura, child: MeditationScreen(player: player)),
     );

@@ -74,6 +74,13 @@ dependencies:
   # Microfono: coglie il soffio nel Soffio del Destino leggendo il livello
   # audio. Con ripiego tattile se il permesso manca o il device non ha il
   # microfono. Nessuna registrazione salvata, solo l'ampiezza in tempo reale.
+  # L'UNICO motore di riproduzione dell'app. Serve tre usi con una dipendenza
+  # sola: gli effetti brevi della palette, le frequenze e il battito theta
+  # della Meditazione e del Rito del Sogno, e domani la voce dei Maestri.
+  # Prima non esisteva alcuna dipendenza di riproduzione: c'era solo record,
+  # che registra, quindi l'app era muta per costruzione.
+  audioplayers: ^6.1.0
+
   record: 5.2.1
   image_picker: ^1.2.3
 

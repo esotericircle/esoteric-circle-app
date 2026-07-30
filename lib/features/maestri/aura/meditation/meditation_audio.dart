@@ -1,5 +1,7 @@
 import 'tone_generator.dart';
 
+import '../../../../core/sensi/motore_audio.dart';
+
 /// I preset sonori della meditazione di Aura, generati via codice.
 ///
 /// Fondamento onesto: le frequenze Solfeggio e il 432 sono tradizione culturale
@@ -67,9 +69,42 @@ abstract interface class TonePlayer {
   Future<void> stop();
 }
 
-/// Lettore silenzioso, di default: non emette suono e non tocca la piattaforma.
-/// Genera comunque i byte del tono, cosi' la generazione e' esercitata davvero;
-/// li scarta, in attesa del lettore reale sul device.
+/// Il lettore REALE: sintetizza il tono e lo manda al motore audio unico.
+///
+/// Prima qui c'era solo `SilentTonePlayer`, che generava i byte e li scartava:
+/// la Meditazione di Aura prometteva frequenze e battito theta e non emetteva
+/// nulla. E' la parte muta della voce P03 del Registro.
+///
+/// Il motore e' quello condiviso del Cerchio, non uno suo: due motori audio
+/// vorrebbero dire due volumi e due modi di fermarsi.
+class LettoreToniReale implements TonePlayer {
+  LettoreToniReale({MotoreAudio? motore, this.generator = const ToneGenerator()})
+      : _motore = motore ?? MotoreAudio();
+
+  final MotoreAudio _motore;
+  final ToneGenerator generator;
+
+  @override
+  Future<void> play(MeditationPreset preset) async {
+    // Trenta secondi di tono, riprodotti in ciclo: la sessione dura quanto
+    // vuole la persona, non quanto il campione.
+    final byte = generator.wav(
+      leftHz: preset.leftHz,
+      rightHz: preset.rightHz,
+      duration: const Duration(seconds: 30),
+    );
+    await _motore.tono(byte);
+  }
+
+  @override
+  Future<void> stop() => _motore.fermaTono();
+}
+
+/// Lettore silenzioso: non emette suono e non tocca la piattaforma.
+///
+/// Resta per i test e per le anteprime, dove un suono vero non serve e
+/// rallenterebbe soltanto. Genera comunque i byte, cosi' la sintesi e'
+/// esercitata davvero.
 class SilentTonePlayer implements TonePlayer {
   const SilentTonePlayer({this.generator = const ToneGenerator()});
 

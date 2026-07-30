@@ -1,0 +1,83 @@
+import 'dart:typed_data';
+
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
+
+/// IL MOTORE AUDIO del Cerchio: uno solo, tre consumatori.
+///
+/// **Il fatto di partenza.** L'app era MUTA per costruzione: l'unico lettore di
+/// toni generava i byte e li scartava, e nel pubspec non esisteva alcuna
+/// dipendenza di riproduzione. C'era `record`, che registra soltanto. E' la
+/// voce P03 del Registro delle Prescrizioni, e non era rifinitura: era la
+/// fondazione che mancava.
+///
+/// **Tre usi, una dipendenza.**
+///
+/// 1. Gli effetti brevi della palette sonora, che sono file negli asset.
+/// 2. Le frequenze e il battito theta della Meditazione e del Rito del Sogno,
+///    che sono byte sintetizzati sul momento.
+/// 3. Domani la voce dei Maestri del cantiere Protoface.
+///
+/// Un test fallisce se ricompare un secondo motore audio: due motori vogliono
+/// dire due volumi, due comportamenti in sottofondo e due modi di fermarsi.
+class MotoreAudio {
+  MotoreAudio();
+
+  /// I lettori nascono PIGRI, alla prima riproduzione.
+  ///
+  /// Costruirli subito tocca la piattaforma, quindi in un ambiente senza plugin,
+  /// come una prova o un'anteprima, il solo fatto di creare il motore
+  /// solleverebbe. Il motore deve poter esistere ovunque: e' il suono a essere
+  /// facoltativo, non la sua esistenza.
+  AudioPlayer? _effettiPigro;
+  AudioPlayer? _toniPigro;
+
+  AudioPlayer get _effetti =>
+      _effettiPigro ??= AudioPlayer(playerId: 'cerchio_effetti');
+
+  AudioPlayer get _toni => _toniPigro ??= AudioPlayer(playerId: 'cerchio_toni');
+
+  /// Riproduce un effetto breve da un file negli asset.
+  ///
+  /// Se il file non c'e' non succede niente e non si solleva: e' il ripiego
+  /// silenzioso dichiarato, che tiene l'app viva finche' gli asset non
+  /// arrivano.
+  Future<void> effetto(String percorsoAsset) async {
+    try {
+      await _effetti.stop();
+      await _effetti.play(AssetSource(percorsoAsset));
+    } catch (e) {
+      // Nessun suono: il rito continua lo stesso.
+      debugPrint('Suono non riprodotto ($percorsoAsset): $e');
+    }
+  }
+
+  /// Riproduce byte sintetizzati, per esempio un tono binaurale in WAV.
+  ///
+  /// In ciclo continuo quando [inCiclo] e' vero, che e' il caso della
+  /// Meditazione: il tono deve durare quanto la sessione, non quanto il
+  /// campione.
+  Future<void> tono(Uint8List byte, {bool inCiclo = true}) async {
+    try {
+      await _toni.setReleaseMode(
+          inCiclo ? ReleaseMode.loop : ReleaseMode.release);
+      await _toni.play(BytesSource(byte));
+    } catch (e) {
+      debugPrint('Tono non riprodotto: $e');
+    }
+  }
+
+  /// Ferma i toni lunghi. Gli effetti brevi finiscono da soli.
+  Future<void> fermaTono() async {
+    try {
+      await _toni.stop();
+    } catch (_) {
+      // Gia' fermo, oppure nessun motore: nulla da fare.
+    }
+  }
+
+  Future<void> dispose() async {
+    await _effettiPigro?.dispose();
+    await _toniPigro?.dispose();
+  }
+}
