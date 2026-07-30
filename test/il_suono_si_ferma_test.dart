@@ -82,6 +82,15 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
 
+      // SI ACCENDE IL SUONO. Senza questo passo la prova chiudeva una schermata
+      // muta, dove lo `stop` mancante non cambiava niente: era verde col
+      // difetto e senza, e non perche' misurasse male, perche' non misurava.
+      await tester.tap(find.byKey(const Key('meditation_play')));
+      await tester.pump();
+      expect(spia.avviato, isTrue,
+          reason: 'il tono non parte nemmeno, quindi la prova che segue non '
+              'sta misurando niente');
+
       // Si esce, come chi torna alla home o apre un'altra funzione.
       final ctx = tester.element(find.byType(MeditationScreen));
       Navigator.of(ctx).pop();
@@ -95,6 +104,16 @@ void main() {
       expect(spia.fermato, isTrue,
           reason: 'uscendo dalla Meditazione il tono non viene fermato, e '
               'siccome suona in ciclo continuo resta acceso per sempre');
+
+      // E a fermarlo dev'essere il DISPOSE della schermata, non la Guardia del
+      // Suono che sorveglia il ciclo di vita: sono due protezioni diverse per
+      // due situazioni diverse, chi esce dalla funzione e chi esce dall'app.
+      // Se la seconda coprisse la prima, basterebbe togliere la Guardia perche'
+      // il difetto tornasse in silenzio.
+      expect(spia.chiHaFermato, contains('dispose'),
+          reason: 'il tono lo ferma qualcun altro, non il dispose della '
+              'Meditazione: la protezione che credi di avere non e\' quella '
+              'che sta funzionando');
     });
   });
 
@@ -175,15 +194,29 @@ void main() {
   });
 }
 
-/// Un lettore che ricorda se gli hanno detto di fermarsi.
+/// Un lettore che ricorda se gli hanno detto di fermarsi, e CHI gliel'ha detto.
+///
+/// Il "chi" non e' un lusso. La prima stesura registrava solo che qualcuno
+/// avesse fermato, e restava verde anche togliendo lo `stop` dal dispose: nel
+/// guscio dell'app vive la Guardia del Suono, che in prova sta nell'albero come
+/// nella vita vera e fa il suo mestiere quando l'albero si smonta. La prova
+/// vedeva il suono fermo e non sapeva chi l'aveva fermato, quindi la correzione
+/// della causa B mascherava la causa A.
 class _LettoreSpia implements TonePlayer {
+  bool avviato = false;
   bool fermato = false;
 
-  @override
-  Future<void> play(MeditationPreset preset) async {}
+  /// Chi ha chiamato `stop`, letto dallo stack di chiamata.
+  String? chiHaFermato;
 
   @override
-  Future<void> stop() async => fermato = true;
+  Future<void> play(MeditationPreset preset) async => avviato = true;
+
+  @override
+  Future<void> stop() async {
+    fermato = true;
+    chiHaFermato = StackTrace.current.toString();
+  }
 }
 
 /// Un motore che conta le fermate e le riprese.
