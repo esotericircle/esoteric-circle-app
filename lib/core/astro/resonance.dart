@@ -302,7 +302,7 @@ Resonance _dalSoloSegno(Zodiac sunSign) {
     scores: scores,
     winner: winner,
     reason: '${_cap(deciding)} chiama la voce di ${_voice(winner)}. '
-        'Con l\'ora di nascita la lettura si fara\' piu\' precisa.',
+        'Con l\'ora di nascita la lettura si farà più precisa.',
     deciding: deciding,
     nearTie: false,
   );

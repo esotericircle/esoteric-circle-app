@@ -924,9 +924,13 @@ class _SkyBody {
     }
     final segno = NightSky.moonSign(cielo.istanteLocale).italianName;
     final alt = cielo.moon?.altDeg;
+    // Due difetti stavano in queste tre righe. Il dollaro era ESCAPATO, quindi
+    // a video si leggeva il codice invece del numero. E il frammento diceva
+    // gia' "adesso" mentre la frase lo rimetteva davanti: "Adesso adesso sta
+    // a ...". Ora il frammento porta il fatto e la frase la sua cornice.
     final dove = alt == null
-        ? 'adesso sta sotto il suolo'
-        : 'adesso sta a \${alt.toStringAsFixed(0)} gradi sopra il suolo';
+        ? 'sta sotto il suolo'
+        : 'sta a ${alt.toStringAsFixed(0)} gradi sopra il suolo';
     return '$base, in $segno. Adesso $dove.';
   }
 

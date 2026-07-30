@@ -1,0 +1,80 @@
+import 'dart:io';
+
+import 'package:flutter_test/flutter_test.dart';
+
+/// IL TESTO CHE LA PERSONA LEGGE E' TESTO, non codice e non ripieghi.
+///
+/// Due difetti segnalati dal fondatore sulla 2111, in una riga sola della scheda
+/// della Luna: "Adesso adesso sta a ${alt.toStringAsFixed(0)} gradi sopra il
+/// suolo". Il dollaro era escapato, quindi a video si leggeva il codice invece
+/// del numero, e la parola era raddoppiata perche' il frammento diceva gia'
+/// "adesso" e la frase lo rimetteva davanti.
+///
+/// La prova che c'era non li prendeva perche' controllava solo che ci fosse una
+/// cifra. Queste due cadono su entrambi, e su chiunque li rifaccia altrove.
+void main() {
+  /// Tutte le stringhe letterali di `lib`, riga per riga, saltando i commenti.
+  List<(String file, int riga, String testo)> stringheDiLib() {
+    final trovate = <(String, int, String)>[];
+    final esp = RegExp(r"'((?:[^'\\]|\\.)*)'");
+    for (final f in Directory('lib').listSync(recursive: true)) {
+      if (f is! File || !f.path.endsWith('.dart')) continue;
+      final p = f.path.replaceAll(Platform.pathSeparator, '/');
+      final righe = f.readAsLinesSync();
+      for (var i = 0; i < righe.length; i++) {
+        final r = righe[i];
+        if (r.trimLeft().startsWith('//')) continue;
+        for (final m in esp.allMatches(r)) {
+          trovate.add((p, i + 1, m.group(1) ?? ''));
+        }
+      }
+    }
+    return trovate;
+  }
+
+  test('Nessuna stringa mostra codice invece del suo valore', () {
+    // Un dollaro escapato dentro una stringa che contiene anche una chiamata a
+    // metodo non e' mai voluto: e' un'interpolazione che non interpola, e a
+    // video si legge il sorgente.
+    final colpevoli = <String>[];
+    for (final (file, riga, testo) in stringheDiLib()) {
+      if (testo.contains(r'\$') && testo.contains('(')) {
+        colpevoli.add('$file riga $riga: $testo');
+      }
+    }
+    expect(colpevoli, isEmpty,
+        reason: 'queste stringhe mostrano il codice invece del valore: '
+            '$colpevoli');
+  });
+
+  test('Nessuna frase mostrata ripete una parola due volte di fila', () {
+    final colpevoli = <String>[];
+    final doppia = RegExp(r'\b(\w{3,})\s+\1\b', caseSensitive: false);
+    for (final (file, riga, testo) in stringheDiLib()) {
+      // Solo frasi, non identificatori: un id come "aura_aura" non e' un difetto
+      // di lettura, e le chiavi non le legge nessuno.
+      if (!testo.contains(' ')) continue;
+      final m = doppia.firstMatch(testo);
+      if (m == null) continue;
+      // Alcune ripetizioni sono italiano voluto, non sviste: "passo passo" e'
+      // una locuzione, e una prova che la denuncia insegna a ignorarla.
+      const volute = {'passo passo', 'piano piano', 'appena appena'};
+      if (volute.contains(m.group(0)!.toLowerCase())) continue;
+      colpevoli.add('$file riga $riga: "${m.group(0)}"');
+    }
+    expect(colpevoli, isEmpty,
+        reason: 'queste frasi ripetono una parola due volte di fila, di solito '
+            'perche\' un frammento porta gia\' la parola che la cornice '
+            'rimette davanti: $colpevoli');
+  });
+
+  // GLI ACCENTI A SCHERMO RESTANO APERTI, e lo dichiaro invece di fingere.
+  // La prova che li cercava trovava dieci punti veri, ma correggerli in blocco
+  // tocca anche i COMMENTI, dove l'apostrofo al posto dell'accento e' la
+  // convenzione voluta di questo progetto: servirebbe distinguere le stringhe
+  // mostrate dalle chiavi, dai percorsi e dai messaggi di diagnostica, che e'
+  // piu' di quanto una riparazione minuta consenta. Sta in RIPRESA.md.
+  //
+  // La frase segnalata dal fondatore, quella della Risonanza, e' corretta a
+  // mano e verificata.
+}
