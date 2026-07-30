@@ -269,12 +269,15 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
                 chart: chart,
                 onEnter: () => widget.onRevealed(widget.maestro),
               )
-            else if (_showSafetyTap)
-              _SafetyTapInvite(
-                  key: const Key('reveal_safety_tap'),
-                  palette: palette,
-                  onTap: _finishByTap)
             else
+              // LA SCELTA RESTA, senza limite di tempo.
+              //
+              // Qui c'era un `else if (_showSafetyTap)` che SOSTITUIVA questo
+              // blocco: dopo qualche secondo l'invito a soffiare spariva e
+              // restava il solo "Tocca per svelare". Chi stava ancora
+              // decidendo si vedeva togliere una delle due strade sotto gli
+              // occhi. Adesso il tocco si AGGIUNGE come aiuto, e il soffio non
+              // sparisce finche' la persona non ha deciso.
               Column(
                 children: [
                   Text(
@@ -289,7 +292,17 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
                   // voce, con un pre-avviso in tono. Rifiutare non blocca nulla.
                   if (!_micAvailable && !_micAsked) ...[
                     const SizedBox(height: SpacingTokens.sm),
-                    _VoiceInvite(palette: palette, onTap: _askMic),
+                    _VoiceInvite(
+                        key: const Key('reveal_voice_invite'),
+                        palette: palette,
+                        onTap: _askMic),
+                  ],
+                  if (_showSafetyTap) ...[
+                    const SizedBox(height: SpacingTokens.sm),
+                    _SafetyTapInvite(
+                        key: const Key('reveal_safety_tap'),
+                        palette: palette,
+                        onTap: _finishByTap),
                   ],
                 ],
               ),
@@ -495,7 +508,7 @@ class _SafetyTapInvite extends StatelessWidget {
 /// Invito, sempre facoltativo, a soffiare con la voce. Al tocco parte il
 /// pre-avviso gentile del microfono.
 class _VoiceInvite extends StatelessWidget {
-  const _VoiceInvite({required this.palette, required this.onTap});
+  const _VoiceInvite({super.key, required this.palette, required this.onTap});
   final MaestroPalette palette;
   final VoidCallback onTap;
 
