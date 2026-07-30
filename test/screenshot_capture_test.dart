@@ -97,6 +97,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
+import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
+import 'package:esoteric_circle/core/arts/arti_preferite.dart';
+import 'package:esoteric_circle/features/santuario/widgets/tue_arti_view.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -173,6 +176,24 @@ void main() {
   // solleva una MissingPluginException asincrona che sporca il test.
   void silenceSensors() {
     final messenger = binding.defaultBinaryMessenger;
+    // IL CANALE AUDIO, muto nelle anteprime.
+    //
+    // Da quando il lettore reale e' il default, aprire la Meditazione dalla
+    // rotta vera tenta di riprodurre, e in prova il plugin non esiste: la
+    // cattura cadeva e due anteprime smettevano di rigenerarsi senza che
+    // nessuno se ne accorgesse. L'anteprima misura la grafica, non il suono,
+    // quindi il canale si spegne qui invece di far cadere la cattura.
+    for (final canale in const [
+      'xyz.luan/audioplayers',
+      'xyz.luan/audioplayers.global',
+      'xyz.luan/audioplayers/events',
+      'xyz.luan/audioplayers.global/events',
+    ]) {
+      messenger.setMockMethodCallHandler(
+          MethodChannel(canale), (call) async => null);
+      messenger.setMockStreamHandler(
+          EventChannel(canale), MockStreamHandler.inline(onListen: (a, e) {}));
+    }
     messenger.setMockMethodCallHandler(
       const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
       (call) async => null,
@@ -2837,6 +2858,91 @@ void main() {
     }
     await capture(tester, rootKey, 'carta-natale.png');
   });
+
+  // --- La mano che invita al tocco, isolata e ingrandita ---
+  //
+  // Stava in un file suo che scriveva dritto in docs/preview senza passare di
+  // qui: era la SECONDA PORTA, e per questo la sua anteprima non ha mai visto
+  // la misura reale. Una regola messa in una porta quando le porte sono due non
+  // e' una regola.
+  testWidgets('Cattura la mano del tocco', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = schermoReale;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Container(
+          color: const Color(0xFF0B0714),
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (final f in const [-1.0, 0.35, 0.7])
+                SizedBox(
+                  width: 100,
+                  height: 260,
+                  child: CustomPaint(
+                    painter: TapHandPainter(phase: f, color: Colors.white),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await capture(tester, rootKey, 'mano-terza-stesura.png');
+  });
+
+  // --- Lo scaffale personale, alla misura reale ---
+  //
+  // Era nata da una prova temporanea poi cancellata: nessuno la rigenerava e
+  // restava ferma a 390 per 844, cioe' a uno schermo che non esiste.
+  testWidgets('Cattura Le tue arti', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues({});
+    final pref = ArtiPreferiteController(maestroAssegnato: Maestro.medora);
+    await pref.carica();
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = schermoReale;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider<ArtiPreferiteController>.value(value: pref),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0B0714),
+            body: SingleChildScrollView(child: TueArtiView(onOpen: (_) {})),
+          ),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'le-tue-arti.png');
+  });
 }
 
 /// Maestro offline: risponde con un testo fisso, senza rete.
@@ -2906,4 +3012,5 @@ class _ScriptedMaestro implements MaestroAiProvider {
     required List<ChatMessage> history,
   }) async =>
       null;
+
 }
