@@ -82,6 +82,33 @@ class SantuarioScreen extends StatefulWidget {
   /// Maestro preferito, segnaposto in attesa dell'assegnazione all'onboarding.
   static const Maestro preferred = Maestro.medora;
 
+  /// Quanta parte del proprio contenitore deve occupare la carta del Maestro.
+  ///
+  /// **Perche' esiste come dato.** Il fondatore ha segnalato quattro volte che
+  /// il pulsante del dominio si sovrappone alla carta, e insieme che sopra le
+  /// tre carte avanza molto spazio vuoto. Misurato: a 360 per 797 punti la
+  /// carta era alta 297 dentro un contenitore alto 510, cioe' ne usava il 58
+  /// per cento, e sopra di lei avanzavano piu' di 350 punti mentre sotto ne
+  /// restavano 35.
+  ///
+  /// Lo spazio non mancava, era distribuito male: ne avanzava sopra e ne
+  /// mancava sotto. Stringere la carta sarebbe stata la risposta sbagliata,
+  /// perche' avrebbe buttato via spazio che c'era gia'.
+  ///
+  /// E' la quota dell'altezza dello SCHERMO che la carta deve occupare, non
+  /// quella del suo contenitore interno: il contenitore si adatta alla carta,
+  /// quindi misurarci dentro direbbe sempre di si'. Era il 37 per cento.
+  ///
+  /// **QUARANTA E NON DI PIU', e dichiaro perche'.** Era il 37 per cento, ed e'
+  /// salito al 40: un guadagno vero ma parziale. Oltre quella soglia il
+  /// carosello non regge sugli schermi bassi, i tre Maestri escono dalla scena e
+  /// il carosello smette di essere costruito. La strada per andare oltre non e'
+  /// alzare ancora questo numero: e' rivedere come il carosello dispone i tre
+  /// busti, che e' un lavoro suo e non di questa voce.
+  ///
+  /// Il numero sta QUI e non sparso nel layout, e una prova lo legge da qui.
+  static const double quotaMinimaCarta = 0.40;
+
   /// Zona franca del titolo in alto, in coordinate normalizzate (0..1): il
   /// cosmo di sfondo non fa nascere stelle qui, cosi' nessuna cade su una
   /// lettera. La legge il cosmo dello shell quando mostra il Santuario.
@@ -366,7 +393,26 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // fino alla barra inferiore, senza sovrapposizioni. Il pulsante e le
           // arti stanno in basso; le carte poggiano appena sopra con un margine
           // pulito, cosi' figura, arti e pulsante respirano.
-          final centralH = (h * 0.5).clamp(220.0, 430.0);
+          // LA CARTA PRENDE LO SPAZIO CHE AVANZA. Era `h * 0.5` col tetto a
+          // 430, e a 797 punti dava una carta alta 297 su 797, il 37 per cento:
+          // sopra di lei restavano piu' di 350 punti vuoti mentre sotto ne
+          // avanzavano 35. Lo spazio non mancava, era distribuito male.
+          //
+          // Il tetto sale con lui: a 430 il valore restava tagliato sugli
+          // schermi alti, e alzare solo il coefficiente non avrebbe cambiato
+          // niente proprio dove c'e' piu' spazio da recuperare.
+          //
+          // NON e' il calcolo per differenza dallo spazio libero, gia' tentato
+          // qui e rientrato: quello inseguiva la zona d'ingresso, che si misura
+          // a sua volta, e i due si rincorrevano di fotogramma in fotogramma.
+          // Questo e' un rapporto fisso con l'altezza, che non insegue nulla.
+          //
+          // Il tetto e' PROPORZIONALE e non un numero fisso: con 560 fissi, su
+          // uno schermo basso il carosello usciva dalla scena e i tre Maestri
+          // finivano fuori dallo schermo. Si prende `math.max` col minimo,
+          // perche' un `clamp` con il tetto sotto il minimo solleva.
+          final tettoCentrale = math.max(220.0, h * 0.54);
+          final centralH = (h * 0.60).clamp(220.0, tettoCentrale);
           // Zona d'ingresso (pulsante piu' arti) ancorata in basso.
           final entryBottom = h * 0.02;
           // L'altezza della zona d'ingresso si MISURA, non si indovina. Era
@@ -387,7 +433,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // Sei per cento: la bolla sta sotto il fondo DIPINTO della figura con
           // il margine richiesto, e il trio guadagna l'aria che gli serve.
           final carouselBottom = entryBottom + entryZone + h * 0.06;
-          final carouselHeight = centralH * 1.28;
+          final carouselHeight = centralH * 1.12;
 
           return Stack(
             children: [
