@@ -2,7 +2,7 @@
 
 Chi apre questo file deve poter continuare senza che Mauro racconti niente.
 
-**Aggiornato**: dopo S1 S2 S3 S5, ordine IL LIVELLO SENSORIALE.
+**Aggiornato**: dopo W1, ordine LA LARGHEZZA GIUSTA.
 **Ramo**: `claude/esoteric-circle-master-order-e798aj`.
 **Cartella di lavoro**: `C:\Users\user\Desktop\esoteric-circle-app` (NON il
 worktree in `.claude/worktrees`, che e' vecchio).
@@ -64,43 +64,46 @@ A1 A2 A3 A4, B1 B2 B3 B4, C3 C4, F3 F4, la diagnosi dei motori e la Ronda con
       `SettingsController`, governa i due canali insieme, e la voce e' nelle
       Impostazioni. Chiude P23.
 
-## V1, lo stato esatto: leggere prima di toccare
+## W1 e W2: la larghezza, che era la causa
 
-**LA MISURA ADESSO FUNZIONA E IL TEST E' ROSSO.** Questo e' il punto di
-partenza per chi riprende: `test/bolla_non_copre_avatar_test.dart` denuncia il
-difetto, quindi non va piu' costruita nessuna misura. Va corretto il codice
-finche' quel test diventa verde.
+**CHIUSA W1.** Il telefono vero e' 1080 per 2392 fisici, cioe' **360 per 797
+punti logici** con rapporto di pixel 3. Le anteprime erano generate a **390**:
+trenta punti logici in piu'. La costante si chiamava "quella di Mauro", il
+commento dichiarava 1080 per 2392, e il valore era `Size(390, 797)`: avevo
+cambiato l'altezza in un giro precedente e lasciato la larghezza.
 
-**Le due condizioni senza le quali ogni misura era cieca**, trovate dopo sei
-tentativi:
+Adesso 360 e' la prima delle tre misure del corredo. Trentasette catture
+portate alla misura reale, cinquantanove anteprime rigenerate.
 
-1. **L'avatar va precaricato** con `precacheImage`. Senza, non c'e' nessuna
-   figura da coprire e ogni misura di occlusione risulta verde per forza. Non
-   erano le misure a sbagliare, era la scena a essere vuota.
-2. **Serve il testo di sistema ingrandito**, `TextScaler.linear(1.6)`. Con il
-   testo a scala uno la bolla non raggiunge la figura nemmeno col margine
-   difettoso: il difetto NON si riproduce. A 1,6 compare, perche' `entryZone` si
-   misura a runtime e col testo grande la zona d'ingresso cresce e sale a
-   mordere la figura. E' la condizione del telefono di Mauro.
+**L'ipotesi della scala 1,6 e' ARCHIVIATA come sbagliata**, e va aggiunta alle
+strade escluse: le impostazioni sono Predefinito e Standard, di fabbrica.
 
-**Cosa dice il test adesso**, a scala 1,6 e con margine al sei per cento: tutte e
-tre le misure sono rosse. La bolla copre la figura, non ci sono gli otto punti
-d'aria, e il trio risalito finisce sotto la striscia dei Doni.
+**W2, la scoperta che chiude cinque segnalazioni.** Alla larghezza reale il
+difetto SI RIPRODUCE, senza toccare la scala del testo: a 1080 tutte e tre le
+misure sono rosse, a 1170 sono verdi. Le segnalazioni non erano
+irriproducibili, ero io a verificare su uno schermo piu' largo del suo.
 
-**Cosa resta da fare.** Il layout deve reggere il testo grande. La strada:
-`centralH` e `carouselHeight` sono frazioni fisse dell'altezza, quindi non
-lasciano spazio quando `entryZone` cresce. Vanno calcolati per DIFFERENZA, cioe'
-partendo dallo spazio che resta fra la striscia dei Doni e la zona d'ingresso
-misurata, invece che da percentuali dell'altezza totale.
+**IL DIFETTO E' PREESISTENTE, non introdotto da me.** Verificato riportando
+`santuario_screen.dart` allo stato committato: restano quarantaquattro errori
+di overflow e nove prove rosse. Il test nuovo li rende visibili per la prima
+volta.
 
-**Le sei strade sbagliate, per non riprovarle.** Sono scritte in testa al file di
-test: riquadro del widget, riga della bolla, sei pixel sopra, sessanta pixel
-sopra, striscia fra carta e bolla, differenziale a due rese dentro il rettangolo
-della carta.
+**Che overflow e'.** `A RenderFlex overflowed by 10.0 pixels on the bottom`, e
+il colpevole e' la Column in `daily_strip.dart:671`, cioe' la striscia dei Doni:
+a 360 punti la sua etichetta va su due righe e la colonna sborda.
 
-**Gli interruttori di prova** `disegnaIngresso` e `disegnaTrio` su
-`SantuarioScreen` esistono per la misura differenziale a tre rese e vanno
-tenuti: sono documentati nel loro punto di dichiarazione.
+**Due strade gia' provate e RIENTRATE**, da non ripetere:
+
+1. `mainAxisSize: MainAxisSize.min` su quella Column: peggiora, si passa da tre
+   prove rosse a nove e gli overflow restano quarantaquattro.
+2. Calcolare `centralH` e `carouselHeight` per differenza dallo spazio libero:
+   non risolve, perche' l'overflow non viene dal carosello.
+
+**La strada da provare.** L'overflow e' nella striscia dei Doni, non nell'eroe:
+va guardata `daily_strip.dart` attorno alla riga 671, dove l'altezza della
+striscia e' fissa mentre l'etichetta a 360 punti occupa due righe. O si riduce
+il testo, o si alza la striscia, o l'etichetta va su una riga sola con
+`FittedBox`.
 
 ## Cose sapute sul livello sensoriale
 

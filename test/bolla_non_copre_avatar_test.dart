@@ -89,11 +89,12 @@ void main() {
       rendi(WidgetTester tester,
           {required double altezzaFisica,
           required bool disegnaIngresso,
+          double larghezzaFisica = 1170,
           bool disegnaTrio = true}) async {
     silence();
     SharedPreferences.setMockInitialValues({});
     tester.view.devicePixelRatio = 3.0;
-    tester.view.physicalSize = Size(1170, altezzaFisica);
+    tester.view.physicalSize = Size(larghezzaFisica, altezzaFisica);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
@@ -190,8 +191,15 @@ void main() {
     return diversi;
   }
 
-  for (final altezza in const [2532.0, 2392.0]) {
-    testWidgets('A $altezza la bolla non copre la figura', (tester) async {
+  // LA MISURA REALE VIENE PRIMA: 1080 per 2392 fisici, cioe' 360 per 797
+  // logici. E' quella su cui l'app viene guardata, quindi e' quella su cui si
+  // giudica. Le altre due restano come controprova.
+  for (final (larghezza, altezza) in const [
+    (1080.0, 2392.0),
+    (1170.0, 2532.0),
+    (1080.0, 2532.0),
+  ]) {
+    testWidgets('A ${larghezza.round()} per ${altezza.round()} la bolla non copre la figura', (tester) async {
       // TRE rese. Confrontare "con bolla" e "senza bolla" dentro il rettangolo
       // della carta non basta, ed e' stato provato: la figura sborda FUORI da
       // quel rettangolo, quindi l'occlusione avviene dove il confronto non
@@ -202,10 +210,14 @@ void main() {
       // senza bolla ne trio. Se differiscono, la figura arriva fin li', quindi
       // la bolla la sta coprendo.
       final senzaBolla =
-          await rendi(tester, altezzaFisica: altezza, disegnaIngresso: false);
+          await rendi(tester,
+              altezzaFisica: altezza,
+              larghezzaFisica: larghezza,
+              disegnaIngresso: false);
       final zona = senzaBolla.bolla;
       final nuda = await rendi(tester,
           altezzaFisica: altezza,
+          larghezzaFisica: larghezza,
           disegnaIngresso: false,
           disegnaTrio: false);
 
@@ -221,30 +233,36 @@ void main() {
       });
 
       expect(figuraNellaZona, 0,
-          reason: 'a $altezza la figura del Maestro dipinge $figuraNellaZona '
+          reason: 'a ${larghezza.round()} per ${altezza.round()} la figura del Maestro dipinge $figuraNellaZona '
               'pixel dentro la zona che la bolla occupa, quindi la bolla la '
               'copre. Misura differenziale a tre rese.');
     });
 
-    testWidgets('A $altezza la bolla sta sotto la carta con otto punti d\'aria',
+    testWidgets('A ${larghezza.round()} per ${altezza.round()} la bolla sta sotto la carta con otto punti d\'aria',
         (tester) async {
       final r =
-          await rendi(tester, altezzaFisica: altezza, disegnaIngresso: true);
+          await rendi(tester,
+              altezzaFisica: altezza,
+              larghezzaFisica: larghezza,
+              disegnaIngresso: true);
       await tester.runAsync(() async => r.img.dispose());
 
       final distanza = r.bolla.top - r.carta.bottom;
       expect(distanza, greaterThanOrEqualTo(8),
-          reason: 'a $altezza fra il fondo della carta e la cima della bolla ci '
+          reason: 'a ${larghezza.round()} per ${altezza.round()} fra il fondo della carta e la cima della bolla ci '
               'sono ${distanza.toStringAsFixed(1)} punti, meno degli otto '
               'richiesti');
       expect(r.arti.top, greaterThanOrEqualTo(r.bolla.bottom),
           reason: 'il sottotitolo con le tre arti non sta sotto la bolla');
     });
 
-    testWidgets('A $altezza il trio non finisce sotto la striscia dei Doni',
+    testWidgets('A ${larghezza.round()} per ${altezza.round()} il trio non finisce sotto la striscia dei Doni',
         (tester) async {
       final r =
-          await rendi(tester, altezzaFisica: altezza, disegnaIngresso: true);
+          await rendi(tester,
+              altezzaFisica: altezza,
+              larghezzaFisica: larghezza,
+              disegnaIngresso: true);
       await tester.runAsync(() async => r.img.dispose());
 
       expect(r.carta.top, greaterThanOrEqualTo(r.striscia.bottom),
