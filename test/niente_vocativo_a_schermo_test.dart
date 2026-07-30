@@ -78,4 +78,25 @@ void main() {
     expect(sospette, isEmpty,
         reason: 'testi che elencano due desinenze:\n${sospette.join("\n")}');
   });
+
+  test('Nessun testo mostrato elenca participi con la virgola', () {
+    // "Sei arrivata fin qui, o arrivato" non ha barre, quindi la ricerca
+    // precedente non lo vedeva: cercavo "o/a" e la forma qui e' un elenco
+    // separato da una virgola piu' la conginzione. Le porte erano due, di
+    // nuovo.
+    final sospette = <String>[];
+    final elenco = RegExp(r"[a-z]+(?:ata|ato|uta|uto|ita|ito),\s*o\s+[a-z]+(?:ata|ato|uta|uto|ita|ito)");
+    for (final f in Directory('lib').listSync(recursive: true)) {
+      if (f is! File || !f.path.endsWith('.dart')) continue;
+      final righe = f.readAsLinesSync();
+      for (var i = 0; i < righe.length; i++) {
+        if (righe[i].trimLeft().startsWith('//')) continue;
+        for (final m in elenco.allMatches(righe[i])) {
+          sospette.add('${f.path}:${i + 1} ${m.group(0)}');
+        }
+      }
+    }
+    expect(sospette, isEmpty,
+        reason: 'testi che elencano due participi: ' + sospette.join(', '));
+  });
 }

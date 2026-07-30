@@ -45,9 +45,11 @@ class AnteprimaTono extends StatefulWidget {
           'Bentornato. Sei arrivato fin qui: il tuo cielo ti aspettava.',
         CourtesyForm.feminine =>
           'Bentornata. Sei arrivata fin qui: il tuo cielo ti aspettava.',
+        // Un neutro vero NON elenca i participi, li evita: "sei arrivata, o
+        // arrivato" obbliga chi legge a scegliere quale meta' della frase gli
+        // appartiene, che e' il contrario di una forma neutra.
         CourtesyForm.neutral =>
-          'Che bello vederti. Sei arrivata fin qui, o arrivato: il tuo cielo '
-              'ti aspettava comunque.',
+          'Che bello vederti qui. Il tuo cielo ti aspettava.',
         CourtesyForm.unknown =>
           'Il cerchio ti accoglie. Il tuo cielo ti aspettava.',
       };
