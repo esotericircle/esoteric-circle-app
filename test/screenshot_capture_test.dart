@@ -1939,6 +1939,10 @@ void main() {
     await tester.pump(const Duration(seconds: 2));
     await tester.pump(const Duration(milliseconds: 200));
     await capture(tester, rootKey, 'stesa-in-corso.png');
+    // La schermata lascia in piedi un tempo che scade dopo la cattura: senza
+    // farlo scadere qui, la prova finisce con un timer ancora vivo e cade per
+    // quello, non per l'immagine.
+    await tester.pump(const Duration(seconds: 6));
   });
 
   // --- L'aura elementale delle quattro carte, ferma a meta' fioritura ---

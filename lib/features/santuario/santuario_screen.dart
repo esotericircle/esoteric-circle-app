@@ -389,7 +389,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                       // isolata; se serve va a capo, mai a ridosso dell'avatar.
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 64),
-                        child: _SkyTitle(),
+                        child: _SkyTitle(
+                            key: Key('santuario_sky_title')),
                       ),
                       const SizedBox(height: 2),
                       // 2. Grafica della Luna e del cielo, con l'occhiello della
@@ -530,7 +531,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
 /// restare const; va a capo su due righe se lo spazio lasciato dall'avatar non
 /// basta, senza mai toccarlo.
 class _SkyTitle extends StatelessWidget {
-  const _SkyTitle();
+  const _SkyTitle({super.key});
 
   @override
   Widget build(BuildContext context) {

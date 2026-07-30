@@ -46,4 +46,67 @@ Non prendo altre voci. Se finisco in anticipo consegno e mi fermo.
 
 ## Stato voce per voce
 
-Si compila mentre il lavoro procede.
+### Voce 1, l'overflow della striscia: CHIUSA
+
+**I difetti erano due, non uno.** Il primo e' quello segnalato: il titolo "I tuoi
+doni del giorno" a 360 punti andava a capo e rubava dieci punti a una fascia di
+altezza fissa. Corretto vincolandolo a una riga sola, la strada dichiarata prima
+di scrivere. Il secondo l'ho trovato mentre le prove restavano rosse a 1170: la
+riga con l'etichetta del Dono piu' il cerchio "?" sbordava di lato. Corretto
+facendola rimpicciolire invece che sbordare.
+
+**La sbirciatura del quarto Dono adesso e' un DATO**, `DailyStrip.sbirciaturaMinima`,
+e la larghezza della casella si RICAVA da quel dato. Prima era il contrario: la
+sbirciatura era quello che avanzava, e a 390 tornava per fortuna.
+
+**Il numero non e' piu' sparso nel layout**: c'era una costante di larghezza nel
+widget privato, adesso c'e' una funzione pubblica `larghezzaCasella` che chiunque
+puo' interrogare, prove comprese.
+
+**Prova di vista passata**: la prova sulla sbirciatura e' rossa sul codice vecchio.
+Il primo tentativo di scriverla misurava il cerchio "?", che sta al centro della
+casella e quindi risulta gia' fuori quando la casella sporge di poco: diceva zero
+a entrambe le larghezze. La misura corretta si ricava dal layout.
+
+### Voce 2, il suono che non si ferma: CHIUSA, con un limite dichiarato
+
+**Causa A.** `MeditationScreen.dispose` adesso ferma il lettore.
+
+**Causa B.** Esiste `GuardiaDelSuono` in `core/sensi/`, montata nel guscio
+dell'app e non in una schermata. Ferma il suono su `paused` e anche su
+`inactive`, perche' una telefonata in arrivo toglie il primo piano senza mettere
+in pausa. Al ritorno **non riparte da sola**: chi rientra non ha chiesto di
+risentire un tono di mezz'ora prima.
+
+**Causa C.** Ho reso vera la dichiarazione invece di ammorbidire il commento, come
+avevo dichiarato: costruttore privato, istanza `condiviso`, e una prova che
+enumera i punti di costruzione in tutto `lib` e cade se diventano due.
+
+**IL LIMITE.** La prova di vista sulla causa A non passa: togliendo lo `stop()`
+dal `dispose` il test resta verde, e non ho saputo spiegare da dove venga la
+fermata che osservo. Le cause B e C sono provate, la A e' corretta nel codice ma
+**non protetta**. Sta in `RIPRESA.md` come voce da riprendere.
+
+## La suite
+
+**1138 prove verdi, zero errori di analisi.** Le sei rosse erano sei cause
+distinte, e nessuna era "il test era vecchio":
+
+1. Una violazione della regola sulla virgola in una frase che avevo scritto io.
+2. `permesso_posizione_test` senza archivio preferenze finto.
+3. Il manifesto degli asset senza `assets/audio/`, cartella nata con S1.
+4. `stesa_sensi_test` che pretendeva ancora il secondo catalogo sonoro
+   `audio/stesa_*`, rimosso in S3 quando i suoni del Cerchio sono diventati cinque.
+5. Il bersaglio del cielo nel Santuario: e' una colonna alta e il suo centro cade
+   nella zona delle carte, che stanno sopra nello Stack. La prova toccava il
+   centro, l'utente tocca il titolo. E pretendeva il pre-avviso della posizione
+   con i servizi OFFLINE, dove la sorgente e' spenta di proposito: quel dialogo
+   ha tre prove sue con la sorgente accesa.
+6. La cattura della Stesa finiva con un timer ancora vivo.
+
+## Una cosa trovata che resta aperta
+
+Il tocco sul ventaglio nella cattura della Stesa avverte *the widget is actually
+off-screen*: a 360 punti il ventaglio esce dallo schermo. Il test adesso passa
+perche' il timer non resta appeso, ma **l'avviso resta e il difetto e' vero**.
+Non era una voce di questo ordine, e sta in `RIPRESA.md`.

@@ -3,6 +3,7 @@
   "bundle_versionato": {
     "pubspec_asset_attesi": [
       "assets/",
+      "assets/audio/",
       "assets/data/",
       "assets/fonts/",
       "assets/ritual_backgrounds/",
@@ -45,7 +46,8 @@
       "archetipi": 12
     },
     "nota_famiglie": "Le sei famiglie esoteriche sono bundlate in WebP a due misure: piena in assets/img/<famiglia>/ (lato lungo per famiglia, qualita' 88) e miniatura in assets/img_thumb/<famiglia>/ (lato lungo 500, qualita' 82). I dorsi sono inclusi: 79 tarocchi e 73 angeli comprendono il dorso. Ogni conteggio vale identico per la piena e per la miniatura.",
-    "nota_fondali_tramonto": "I tre fondali della Runa del Tramonto vivono in assets/ritual_backgrounds/: tramonto_prima_v1.webp, tramonto_al_v1.webp e tramonto_dopo_v1.webp, 1284x2778, WebP di qualita' 85, con l'orizzonte allineato al 35,5 per cento su tutti e tre cosi' la dissolvenza fra i tre momenti non sposta la linea. La cartella e' gia' dichiarata in pubspec.yaml e in pubspec_asset_attesi. Di proposito NON c'e' un conteggio bloccato per questa cartella: raccoglie i fondali di piu' riti e cresce nel tempo, quindi un conteggio la renderebbe fragile senza aggiungere garanzia. La schermata li precarica all'ingresso e, se mancassero, ripiega su un tramonto procedurale che dipinge tre momenti distinti."
+    "nota_fondali_tramonto": "I tre fondali della Runa del Tramonto vivono in assets/ritual_backgrounds/: tramonto_prima_v1.webp, tramonto_al_v1.webp e tramonto_dopo_v1.webp, 1284x2778, WebP di qualita' 85, con l'orizzonte allineato al 35,5 per cento su tutti e tre cosi' la dissolvenza fra i tre momenti non sposta la linea. La cartella e' gia' dichiarata in pubspec.yaml e in pubspec_asset_attesi. Di proposito NON c'e' un conteggio bloccato per questa cartella: raccoglie i fondali di piu' riti e cresce nel tempo, quindi un conteggio la renderebbe fragile senza aggiungere garanzia. La schermata li precarica all'ingresso e, se mancassero, ripiega su un tramonto procedurale che dipinge tre momenti distinti.",
+    "descrizione": ""
   },
   "output_non_versionato": {
     "nota": "In output/ sul PC di Mauro restano i master PNG originali (sorgente della conversione WebP) e i derivati generati da tool/converti_webp.py. Non stanno su Git, non li conta la CI: li verifica il Revisore dal ponte. Conteggio master a mano del 17 luglio 2026: 250 file, circa 825 MB, gli stessi sei che ora sono bundlati in WebP."

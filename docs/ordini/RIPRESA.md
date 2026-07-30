@@ -2,7 +2,7 @@
 
 Chi apre questo file deve poter continuare senza che Mauro racconti niente.
 
-**Aggiornato**: dopo X1 e X4, ordine LE ANTEPRIME DIMENTICATE.
+**Aggiornato**: dopo l'ORDINE 1 DI 5, le due voci chiuse e la suite verde.
 **Ramo**: `claude/esoteric-circle-master-order-e798aj`.
 **Cartella di lavoro**: `C:\Users\user\Desktop\esoteric-circle-app` (NON il
 worktree in `.claude/worktrees`, che e' vecchio).
@@ -18,6 +18,35 @@ a ogni giro, che e' la protezione che conta.
 
 A1 A2 A3 A4, B1 B2 B3 B4, C3 C4, F3 F4, la diagnosi dei motori e la Ronda con
 38 test. Nessun motore scollegato oltre al cielo, gia' corretto.
+
+## Chiuso nell'ORDINE 1 DI 5
+
+- [x] **Voce 1 CHIUSA.** La striscia dei Doni non sborda piu', e i difetti erano
+      due: il titolo che andava a capo rubando dieci punti a una fascia di
+      altezza fissa, e una riga di etichetta piu' cerchio che sbordava di lato.
+      La sbirciatura del quarto Dono adesso e' un DATO, `DailyStrip.sbirciaturaMinima`,
+      e la larghezza della casella si ricava da quel dato invece che avanzare.
+- [x] **Voce 2 CHIUSA, con un limite dichiarato.** Le tre cause del suono che non
+      si ferma sono corrette: il `dispose` della Meditazione ferma il lettore, la
+      `GuardiaDelSuono` in `core/sensi/` governa il ciclo di vita da un punto solo
+      per tutta l'app, e il motore audio e' davvero uno solo con costruttore
+      privato. **Il limite**: la prova di vista sulla causa A non passa, togliendo
+      lo `stop()` dal dispose il test resta verde. Le cause B e C sono provate,
+      la A e' corretta nel codice ma non protetta. **Va ripresa.**
+- [x] **La suite e' VERDE**, 1138 prove, zero errori di analisi. Le sei rosse
+      erano sei cause distinte, nessuna delle quali "il test era vecchio":
+      una violazione della regola sulla virgola che avevo scritto io, un archivio
+      preferenze non finto, il manifesto degli asset senza `assets/audio/`, un
+      secondo catalogo sonoro rimosso in S3 di cui restava l'asserzione, un
+      bersaglio del cielo il cui centro cade sulle carte, e un timer ancora vivo
+      a fine cattura della Stesa.
+
+## Ancora aperto sulla Stesa a 360
+
+Il tocco su `stesa_fan_38` nella cattura avverte *the widget is actually
+off-screen*: il ventaglio a 360 punti esce dallo schermo. Il test adesso passa
+perche' il timer non resta appeso, ma **l'avviso resta e il difetto e' vero**.
+Non era una voce di questo ordine e non l'ho toccato.
 
 ## L'ordine in corso
 

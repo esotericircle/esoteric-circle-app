@@ -10,6 +10,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/tarot/stesa_reveal.dart';
 import 'package:esoteric_circle/features/tarot/stesa_senses.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
+import 'package:esoteric_circle/core/sensi/catalogo_suoni.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -185,10 +186,20 @@ void main() {
       final sensi = SensiDellaStesa();
       await sensi.momento(MomentoSensoriale.mescolamento);
       expect(sensi.eseguiti, [MomentoSensoriale.mescolamento]);
-      // Ogni momento sa che file suonerebbe.
+      // I momenti NON hanno piu' un catalogo sonoro tutto loro: ne esisteva un
+      // secondo, cinque file dedicati alla stesa oltre ai cinque del Cerchio.
+      // Due cataloghi vogliono dire due identita' sonore, e il silenzio che
+      // rende importante un suono si perde se ogni gesto ne ha uno. Adesso solo
+      // la carta scoperta suona, perche' e' una rivelazione.
       for (final m in MomentoSensoriale.values) {
-        expect(m.suono, startsWith('audio/stesa_'));
-        expect(m.suono, endsWith('.mp3'));
+        if (m == MomentoSensoriale.reveal) {
+          expect(m.suono, SuonoDelCerchio.rivelazione);
+        } else {
+          expect(m.suono, isNull,
+              reason: 'il momento ${m.name} ha un suono suo: il catalogo del '
+                  'Cerchio ne prevede cinque in tutto');
+        }
+        // Il nome del file lo dichiara il catalogo, non il momento.
       }
     });
 

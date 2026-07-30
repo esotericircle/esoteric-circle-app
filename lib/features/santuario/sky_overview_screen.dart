@@ -927,7 +927,7 @@ class _SkyBody {
     final dove = alt == null
         ? 'adesso sta sotto il suolo'
         : 'adesso sta a \${alt.toStringAsFixed(0)} gradi sopra il suolo';
-    return '$base, in $segno, e $dove.';
+    return '$base, in $segno. Adesso $dove.';
   }
 
   /// Dove sta una costellazione adesso: se sorge, culmina o tramonta.

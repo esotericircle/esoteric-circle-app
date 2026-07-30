@@ -8,6 +8,7 @@ import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Il permesso di posizione, nei suoi due esiti.
 ///
@@ -39,6 +40,12 @@ class _SorgenteFinta extends SkyLocation {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  // La schermata del cielo ricorda se la posizione e' gia' stata concessa:
+  // senza le preferenze la lettura fallisce e l'invito non arriva mai.
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
   Future<_SorgenteFinta> apri(
       WidgetTester tester, RispostaPosizione risposta) async {
     final sorgente = _SorgenteFinta(risposta);

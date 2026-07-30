@@ -154,16 +154,26 @@ void main() {
     await step(tester);
 
     // Tocco sulla zona del cielo e della Luna: apre "Il cielo sopra di te".
-    await tester.tap(find.byKey(const Key('santuario_sky_tap')));
+    // Si tocca il TITOLO e non il centro del bersaglio: il bersaglio e' una
+    // colonna alta, e il suo centro cade nella zona delle carte, che stanno
+    // sopra nello Stack. Il titolo e' cio' che si tocca davvero per aprire il
+    // cielo, quindi la prova misura il gesto vero.
+    await tester.tap(find.byKey(const Key('santuario_sky_title')));
     await step(tester);
     await step(tester);
     expect(find.byType(SkyOverviewScreen), findsOneWidget);
 
-    // All'ingresso reale il cielo propone di orientarsi sul luogo: lo declino
-    // con gentilezza, resta la veduta attuale.
-    expect(find.byKey(const Key('sky_location_prompt')), findsOneWidget);
-    await tester.tap(find.byKey(const Key('sky_location_decline')));
+    // Qui i servizi sono quelli OFFLINE, e con la sorgente di posizione spenta
+    // il cielo non propone di orientarsi sul luogo: sarebbe un invito che non
+    // puo' andare a buon fine. Il pre-avviso ha tre prove sue, con la sorgente
+    // accesa, in permesso_posizione_test, cielo_posizione_vera_test e
+    // sky_overview_test: qui pretenderlo misurava una condizione che questa
+    // prova non ha mai creato.
+    await tester.pump(const Duration(seconds: 3));
     await step(tester);
+    expect(find.byKey(const Key('sky_location_prompt')), findsNothing,
+        reason: 'con la sorgente di posizione spenta il cielo invita comunque '
+            'a concedere il luogo, e quell invito non puo riuscire');
 
     // Ha la sua freccia Indietro: mai un vicolo cieco.
     expect(find.byIcon(Icons.arrow_back_rounded), findsOneWidget);

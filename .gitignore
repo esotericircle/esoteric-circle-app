@@ -159,3 +159,12 @@ Logo/
 /*.py
 scripts_archive/
 pilot-references/
+
+# Sorgenti sonori acquistati su Envato, tenuti nella cartella di lavoro per
+# comodita' ma mai versionati: sono archivi da svariati megabyte e sono
+# materiale su licenza. Nel repository ci vanno solo i cinque MP3 finiti,
+# dentro assets/audio/. Regola aggiunta il 30 luglio 2026, dopo aver trovato
+# quindici megabyte di zip nella radice di un repository pubblico.
+sound effect/
+sound_effect/
+*.zip
