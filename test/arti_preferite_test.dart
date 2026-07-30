@@ -61,7 +61,7 @@ void main() {
         reason: 'il ripristino non ha riportato il seme del proprio Maestro');
   });
 
-  test('Il tetto e\' sei, e oltre lo dice invece di ignorare', () async {
+  test('Il tetto e\' nove, e oltre lo dice invece di ignorare', () async {
     final c = ArtiPreferiteController(maestroAssegnato: Maestro.medora);
     await c.carica();
     // Si riempie fino al tetto.
@@ -69,14 +69,22 @@ void main() {
       if (!c.contiene(id)) c.cambia(id);
     }
     expect(c.ids.length, ArtiPreferiteController.tetto);
-    expect(c.ids.length, 6);
+    // Nove dal 30 luglio 2026, era sei: e' un cambio di decisione del
+    // fondatore, non una svista. Il numero resta in un punto solo.
+    expect(c.ids.length, 9);
 
+    // IL CASO "PIENO" OGGI NON SI RAGGIUNGE, e va detto invece di far finta di
+    // provarlo. Le arti vive sono nove e il tetto e' nove: chi le prende tutte
+    // non ha nient'altro da aggiungere. Il rifiuto parlante resta scritto e
+    // servira' dal giorno in cui il catalogo crescera'. Questa prova cade quel
+    // giorno, e chi la legge sa gia' cosa verificare.
     final fuori = ArtiPreferiteController.selezionabili
-        .firstWhere((id) => !c.contiene(id));
-    expect(c.cambia(fuori), EsitoPreferita.pieno,
-        reason: 'con lo scaffale pieno l\'aggiunta e\' stata ignorata in '
-            'silenzio invece di essere spiegata');
-    expect(c.ids.length, 6, reason: 'il tetto e\' stato sfondato');
+        .where((id) => !c.contiene(id))
+        .toList();
+    expect(fuori, isEmpty,
+        reason: 'ci sono ${fuori.length} arti vive fuori da uno scaffale pieno: '
+            'il catalogo e\' cresciuto, quindi adesso il rifiuto parlante si '
+            'puo\' e si deve provare davvero aggiungendo $fuori');
   });
 
   test('Le scelte sopravvivono al riavvio', () async {

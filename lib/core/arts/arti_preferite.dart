@@ -27,9 +27,22 @@ class ArtiPreferiteController extends ChangeNotifier {
 
   /// Quante arti stanno al massimo nello scaffale personale.
   ///
-  /// Sei: le arti vive sono nove, quindi sei lascia una scelta vera senza
-  /// trasformare lo scaffale nell'elenco completo.
-  static const int tetto = 6;
+  /// NOVE, tre per ciascun Maestro. Era sei, e sei era una decisione presa per
+  /// lasciare una scelta vera invece dell'elenco completo: il fondatore l'ha
+  /// cambiata il 30 luglio 2026, perche' con tre arti a schermo lo scaffale
+  /// sembrava scarno e non un luogo che ti appartiene.
+  ///
+  /// Resta un numero solo, in un punto solo: il foglio della matita lo legge da
+  /// qui, non lo ripete.
+  static const int tetto = 9;
+
+  /// Quante arti per Maestro entrano nel seme.
+  ///
+  /// Tre, e non e' `tetto` diviso i Maestri per caso: e' una scelta, e se domani
+  /// i Maestri diventassero quattro questo numero e il tetto cambierebbero per
+  /// ragioni diverse. Una prova cade se il seme non ne ha esattamente tre per
+  /// ciascuno.
+  static const int perMaestro = 3;
 
   static const String _chiave = 'arti_preferite_v1';
 
@@ -59,30 +72,33 @@ class ArtiPreferiteController extends ChangeNotifier {
     }
   }
 
-  /// Il seme: le arti vive del proprio Maestro, poi una per ciascuno degli
-  /// altri due, in ordine di catalogo. Deterministico, senza numeri casuali:
-  /// due persone con lo stesso Maestro partono dallo stesso scaffale.
+  /// Il seme: TRE arti vive per ciascun Maestro, nell'ordine del catalogo.
+  ///
+  /// **Cosa e' cambiato, e perche'.** Prima il seme prendeva le arti del proprio
+  /// Maestro piu' una per ciascuno degli altri due, e col Maestro nullo ne
+  /// prendeva tre in tutto: e' esattamente la terna scarna che si vedeva a
+  /// schermo, horoscope, meditation e rune_draw. Adesso ogni Maestro porta le
+  /// sue tre, e lo scaffale nasce pieno come un luogo che ti appartiene.
+  ///
+  /// Il proprio Maestro va per PRIMO, quando c'e': lo scaffale si apre su cio'
+  /// che e' tuo, poi sul resto del Cerchio.
+  ///
+  /// Deterministico, senza numeri casuali: due persone con lo stesso Maestro
+  /// partono dallo stesso scaffale.
   static List<String> semePer(Maestro? maestro) {
-    final proprie = <String>[];
-    final altre = <String>[];
-    for (final m in Maestro.values) {
-      final vive = ArtCatalog.activeOf(m).map((a) => a.id).toList();
-      if (m == maestro) {
-        proprie.addAll(vive);
-      } else if (vive.isNotEmpty) {
-        altre.add(vive.first);
-      }
+    // L'ordine dei Maestri: il proprio davanti, gli altri dietro come sono nel
+    // catalogo. Senza Maestro assegnato, cioe' prima della Risonanza, l'ordine
+    // del catalogo va bene cosi' com'e'.
+    final ordine = <Maestro>[
+      if (maestro != null) maestro,
+      ...Maestro.values.where((m) => m != maestro),
+    ];
+
+    final seme = <String>[];
+    for (final m in ordine) {
+      seme.addAll(ArtCatalog.activeOf(m).map((a) => a.id).take(perMaestro));
     }
-    // Senza Maestro assegnato, cioe' prima della Risonanza, si prende la prima
-    // arte viva di ciascuno: lo scaffale nasce comunque abitato.
-    if (maestro == null) {
-      for (final m in Maestro.values) {
-        final vive = ArtCatalog.activeOf(m).map((a) => a.id).toList();
-        if (vive.isNotEmpty) proprie.add(vive.first);
-      }
-      return proprie.take(tetto).toList();
-    }
-    return [...proprie, ...altre].take(tetto).toList();
+    return seme.take(tetto).toList();
   }
 
   /// Tutte le arti che si possono mettere nello scaffale: le vive di tutti e

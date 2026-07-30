@@ -97,16 +97,24 @@ void main() {
 
   testWidgets('Dalla matita si aggiunge e si toglie davvero', (tester) async {
     final preferite = await monta(tester);
-    final fuori = ArtiPreferiteController.selezionabili
-        .firstWhere((id) => !preferite.contiene(id));
+    // Dal 30 luglio 2026 lo scaffale nasce con NOVE arti, tre per Maestro, e le
+    // arti vive sono esattamente nove: nasce quindi completo, e la matita serve
+    // prima a togliere e poi a rimettere. E' la conseguenza diretta della
+    // decisione del fondatore, non un difetto: la prova la percorre nell'ordine
+    // in cui la percorre una persona.
+    final una = preferite.ids.first;
 
     await tester.tap(find.byKey(const Key('tue_arti_matita')));
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(Key('scelta_$fuori')));
+    await tester.tap(find.byKey(Key('scelta_$una')));
     await tester.pumpAndSettle();
+    expect(preferite.contiene(una), isFalse,
+        reason: 'togliendo la spunta l\'arte resta nello scaffale');
 
-    expect(preferite.contiene(fuori), isTrue,
-        reason: 'la spunta non ha aggiunto l\'arte');
+    await tester.tap(find.byKey(Key('scelta_$una')));
+    await tester.pumpAndSettle();
+    expect(preferite.contiene(una), isTrue,
+        reason: 'la spunta non ha rimesso l\'arte');
   });
 
   testWidgets('La pressione lunga toglie l\'arte dallo scaffale',
@@ -129,8 +137,11 @@ void main() {
     final preferite = ArtiPreferiteController(maestroAssegnato: Maestro.caligo);
     await preferite.carica();
     addTearDown(preferite.dispose);
-    final id = ArtiPreferiteController.selezionabili
-        .firstWhere((i) => !preferite.contiene(i));
+    // Lo scaffale nasce con tutte e nove le arti vive, quindi non ce n'e' una
+    // fuori da aggiungere: si toglie e si rimette col cuore, che e' il gesto
+    // che questa prova deve misurare.
+    final id = preferite.ids.first;
+    preferite.cambia(id);
 
     await tester.pumpWidget(MultiProvider(
       providers: [

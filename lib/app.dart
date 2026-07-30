@@ -113,8 +113,20 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         // Lo scaffale personale "Le tue arti". Nasce abitato: il seme lo
         // decide il dato, non la schermata, quindi non c'e' modo di arrivare
         // a uno scaffale vuoto. Nessun controllo di piano lo tocca.
-        ChangeNotifierProvider(
-            create: (_) => ArtiPreferiteController()..carica()),
+        // Lo scaffale SEGUE IL MAESTRO. `setMaestro` non era chiamato da
+        // nessuno in tutto il progetto, quindi allo scaffale arrivava sempre un
+        // Maestro nullo e il seme era quello del caso senza Maestro: tre arti
+        // in croce, mentre la home diceva "Entra nel Dominio di Aura". Il
+        // Maestro esisteva, allo scaffale non ci arrivava.
+        ChangeNotifierProxyProvider<MaestroController, ArtiPreferiteController>(
+          create: (_) => ArtiPreferiteController()..carica(),
+          update: (_, maestri, scaffale) {
+            final s = scaffale ?? (ArtiPreferiteController()..carica());
+            final m = maestri.activeMaestro;
+            if (m != null) s.setMaestro(m);
+            return s;
+          },
+        ),
       ],
       child: MaterialApp(
         title: 'Esoteric Circle',
