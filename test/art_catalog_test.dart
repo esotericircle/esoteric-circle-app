@@ -157,8 +157,11 @@ void main() {
           ['Energia', 'Archetipi', 'Chakra']);
       // In Demo tutto; alla persona si accorciano solo le due miste, mentre
       // Chakra resta intera perche' e' tutta in cammino, quindi esente.
-      expect(conta(true), {'Energia': 8, 'Archetipi': 6, 'Chakra': 6});
-      expect(conta(false), {'Energia': 7, 'Archetipi': 4, 'Chakra': 6});
+      // Energia scende di uno: le Frequenze Sonore sono uscite dal catalogo
+      // perche' non sono un'arte a parte, sono dentro la Meditazione, e due
+      // voci sulla stessa schermata sono una bugia.
+      expect(conta(true), {'Energia': 7, 'Archetipi': 6, 'Chakra': 6});
+      expect(conta(false), {'Energia': 6, 'Archetipi': 4, 'Chakra': 6});
 
       List<ArtEntry> arti(String titolo) => ArtCatalog.forMaestro(Maestro.aura)
           .firstWhere((s) => s.title == titolo)
@@ -171,10 +174,12 @@ void main() {
         ['meditation'],
       );
       expect(energia.firstWhere((a) => a.id == 'meditation').title,
-          'Meditazione con Voce');
+          'Meditazione');
       expect(energia.map((a) => a.id), [
         'meditation',
-        'frequencies',
+        // 'frequencies' e' uscita: non e' un'arte a parte, 432, 528 e i battiti
+        // binaurali sono dentro la Meditazione, e due voci sulla stessa
+        // schermata sono una bugia.
         'sleep_stories',
         'daily_affirmations',
         'mudra',

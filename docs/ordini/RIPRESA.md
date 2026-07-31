@@ -2,6 +2,23 @@
 
 ## La coda aperta, nell'ordine del fondatore
 
+Chiuse le prime tre. Restano, e vengono prima di tutto:
+
+4. **L'icona del Cerchio**: mezzaluna dentro un cerchio, stile lineare dorato
+   come le altre quattro, deve reggere anche nello stato attivo.
+5. **Gli accenti resi con l'apostrofo**: dieci punti in sette file, gia'
+   trovati. Correggere solo le stringhe MOSTRATE, mai i commenti ne' le chiavi,
+   con un test che enumera.
+6. **La Stesa fuori schermo a 360**: il tocco sul ventaglio avverte
+   "the widget is actually off-screen".
+7. **Le carte laterali dei Maestri tagliate a 360**: decidere fra stringerle o
+   farne una sbirciatura regolare, mai un taglio che dipende dalla larghezza.
+8. **Il residuo del fuso, 123,7 gradi**: lo stesso istante in UTC e in ora
+   civile da' due cieli diversi, quindi oltre alla conversione c'e' altro che
+   guarda l'ora locale grezza.
+
+## La coda aperta, nell'ordine del fondatore
+
 1. **Il segno che viaggia come parametro.** `artRouteFor` riceve `userSign` da
    chi apre l'arte e lo passa a quattro arti; l'Oroscopo lo pretende nel
    costruttore e non guarda mai la data di nascita. Nona occorrenza della

@@ -25,6 +25,7 @@ import 'art_navigation.dart';
 import 'chat/maestro_chat_screen.dart';
 import 'immersive_navigation.dart';
 import 'widgets/maestro_presence.dart';
+import '../../core/arts/arti_preferite.dart';
 
 /// Sezione di un Maestro.
 ///
@@ -459,38 +460,74 @@ class CircleArt {
 /// ordinamento per popolarita' reale, che alla Demo non esiste: e' una scelta
 /// curata; la telemetria un giorno la riordinera'. Ogni voce apre una funzione
 /// gia' viva, con la sua rotta condivisa (`immersiveRouteFor`).
-const List<CircleArt> _curatedArts = [
-  CircleArt(
-    maestro: Maestro.medora,
-    target: ImmersiveTarget.oroscopoGiorno,
-    icon: Icons.brightness_3_rounded,
-    title: 'Oracolo del Giorno',
-  ),
-  CircleArt(
-    maestro: Maestro.medora,
-    target: ImmersiveTarget.sinastriaVip,
-    icon: Icons.favorite_rounded,
-    title: 'Sinastria VIP',
-  ),
-  CircleArt(
-    maestro: Maestro.aura,
-    target: ImmersiveTarget.meditazione,
-    icon: Icons.self_improvement_rounded,
-    title: 'Meditazione',
-  ),
-  CircleArt(
-    maestro: Maestro.aura,
-    target: ImmersiveTarget.breathwork,
-    icon: Icons.air_rounded,
-    title: 'Respiro guidato',
-  ),
-  CircleArt(
-    maestro: Maestro.caligo,
-    target: ImmersiveTarget.lancioRune,
-    icon: Icons.change_history_rounded,
-    title: 'Runa del Tramonto',
-  ),
-];
+/// Di chi e' un'arte, dal catalogo.
+Maestro _maestroDi(ArtEntry a) {
+  for (final m in Maestro.values) {
+    if (ArtCatalog.activeOf(m).any((x) => x.id == a.id)) return m;
+  }
+  return Maestro.medora;
+}
+
+/// IL CRITERIO DELLA STRISCIA, come dato e non come lista scritta a mano.
+///
+/// **Perche' la lista e' sparita.** `_curatedArts` era una seconda fonte di
+/// verita' accanto a `ArtCatalog`, e le due erano gia' divergenti: "Respiro
+/// guidato" non esisteva nel catalogo, "Oracolo del Giorno" e "Runa del
+/// Tramonto" non erano id del catalogo, e la Sinastria VIP apriva una schermata
+/// dal catalogo e un'altra dalla striscia. Due elenchi che descrivono le stesse
+/// arti divergono sempre: il secondo non viene aggiornato quando cambia il
+/// primo, perche' nessuno si ricorda che esiste.
+///
+/// Adesso la striscia LEGGE IL CATALOGO e applica queste regole, che sono il
+/// criterio e non un elenco:
+/// - solo arti attive, mai quelle in arrivo;
+/// - mai arti del Maestro il cui dominio si sta guardando;
+/// - mai due voci sulla stessa rotta, che sarebbero due nomi per la stessa
+///   schermata;
+/// - mai arti gia' presenti nello scaffale personale;
+/// - al massimo una per Maestro;
+/// - ordine che ruota col giorno, cosi' la striscia non e' sempre uguale.
+List<ArtEntry> artiDaScoprire(
+  Maestro corrente, {
+  required Set<String> gia,
+  required DateTime giorno,
+}) {
+  final altri = Maestro.values.where((m) => m != corrente).toList();
+  // La rotazione col giorno: da quale Maestro si comincia.
+  final salto = giorno.difference(DateTime(2026)).inDays % altri.length;
+  final ordinati = [
+    ...altri.sublist(salto),
+    ...altri.sublist(0, salto),
+  ];
+
+  final rotteViste = <String>{};
+  final fuori = <ArtEntry>[];
+  for (final m in ordinati) {
+    final vive = ArtCatalog.activeOf(m).where((a) => !gia.contains(a.id));
+    for (final a in vive) {
+      // Due voci sulla stessa rotta sono due nomi per la stessa schermata, che
+      // e' la bugia da cui e' nata questa voce: Meditazione e Respiro guidato
+      // erano la stessa cosa con due nomi e due icone.
+      final rotta = rottaDiProva(a.id);
+      if (rotta == null || !rotteViste.add(rotta)) continue;
+      fuori.add(a);
+      break; // al massimo una per Maestro
+    }
+  }
+  return fuori;
+}
+
+/// L'identita' della rotta di un'arte, per non mettere due voci sullo stesso
+/// posto.
+///
+/// In esercizio si usa l'id: costruire il widget della rotta per confrontarne
+/// il tipo funziona in prova e non qui, perche' alcune rotte leggono il
+/// contesto nel proprio builder e un contesto finto le fa cadere. I doppioni
+/// veri, cioe' due id che aprono la STESSA schermata, li smaschera una prova
+/// che le costruisce in un albero vero.
+String? rottaDiProva(String id) => artRouteFor(id) == null ? null : id;
+
+
 
 /// La striscia orizzontale "Scopri altre arti del Cerchio": le arti degli altri
 /// Maestri, ciascuna tessera nel COLORE del Maestro a cui l'arte appartiene,
@@ -503,8 +540,9 @@ class _OtherArtsStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final arts =
-        _curatedArts.where((a) => a.maestro != current).toList(growable: false);
+    final gia = context.watch<ArtiPreferiteController?>()?.ids.toSet() ??
+        const <String>{};
+    final arts = artiDaScoprire(current, gia: gia, giorno: DateTime.now());
 
     return Column(
       key: const Key('other_arts_strip'),
@@ -530,8 +568,10 @@ class _OtherArtsStrip extends StatelessWidget {
                 const SizedBox(width: SpacingTokens.sm),
             itemBuilder: (context, i) => CircleArtTile(
               art: arts[i],
+              maestro: _maestroDi(arts[i]),
               // Il colore del Maestro di quell'arte, non un neutro.
-              palette: MaestroPalette.forKey(ThemeKey.of(arts[i].maestro)),
+              palette:
+                  MaestroPalette.forKey(ThemeKey.of(_maestroDi(arts[i]))),
             ),
           ),
         ),
@@ -543,13 +583,23 @@ class _OtherArtsStrip extends StatelessWidget {
 /// Una tessera della striscia, nel colore del Maestro dell'arte. Al tocco apre
 /// la funzione e vira il tema su quel Maestro, poi lo ripristina al ritorno.
 class CircleArtTile extends StatelessWidget {
-  const CircleArtTile({super.key, required this.art, required this.palette});
+  const CircleArtTile({
+    super.key,
+    required this.art,
+    required this.maestro,
+    required this.palette,
+  });
 
-  final CircleArt art;
+  /// L'arte, presa dal CATALOGO e non da una lista scritta a mano.
+  final ArtEntry art;
+
+  /// Il Maestro a cui l'arte appartiene, per il colore della tessera.
+  final Maestro maestro;
+
   final MaestroPalette palette;
 
   Future<void> _open(BuildContext context) async {
-    final route = immersiveRouteFor(art.target);
+    final route = artRouteFor(art.id);
     if (route == null) return;
     // Nessun cambio di tema qui. Il colore dell'arte lo dichiara l'arte
     // stessa, tramite il proprietario del suo MaestroScope, quindi c'e' dal
@@ -575,11 +625,11 @@ class CircleArtTile extends StatelessWidget {
     //
     // Il fondo condiviso resta sotto, velato: la striscia continua a essere
     // una striscia sola, non tre strisce accostate.
-    final propria = MaestroPalette.forKey(ThemeKey.of(art.maestro));
+    final propria = MaestroPalette.forKey(ThemeKey.of(maestro));
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        key: Key('other_art_${art.target.name}'),
+        key: Key('other_art_${art.id}'),
         onTap: () => _open(context),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
         child: Container(
@@ -639,7 +689,7 @@ class CircleArtTile extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 2),
-                  Text(art.maestro.displayName,
+                  Text(maestro.displayName,
                       style: TypographyTokens.label(size: 11).copyWith(
                         color: propria.goldSoft.withValues(alpha: 0.95),
                         letterSpacing: 0.6,

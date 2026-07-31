@@ -447,22 +447,26 @@ class ArtCatalog {
     ArtSection(title: 'Energia', arts: [
       ArtEntry(
         id: 'meditation',
-        title: 'Meditazione con Voce',
-        teaser: 'La voce di Aura ti guida nel respiro e nella quiete.',
+        // LA PAROLA "VOCE" ESCE finche' la voce non c'e'. Un nome che promette
+        // una cosa che l'arte non fa e' la stessa bugia dei due nomi per una
+        // schermata sola: chi entra si aspetta una guida parlata e trova il
+        // respiro e il suono.
+        title: 'Meditazione',
+        teaser: 'Il respiro e la quiete, guidati dal ritmo e dal suono.',
         icon: Icons.self_improvement,
         state: ArtState.attiva,
         cornice: true,
       ),
-      ArtEntry(
-        id: 'frequencies',
-        title: 'Frequenze Sonore e Sound Healing',
-        teaser:
-            '432 e 528, battiti binaurali e un mandala di suono per rilassarti.',
-        icon: Icons.graphic_eq_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.mvp,
-        cornice: true,
-      ),
+      // LE FREQUENZE NON SONO UN'ARTE A PARTE, e per questo la voce e' uscita
+      // dal catalogo invece di diventare attiva.
+      //
+      // 432, 528 e i battiti binaurali sono gia' vivi DENTRO la Meditazione:
+      // dichiararli in arrivo era falso, e dichiararli attivi avrebbe creato
+      // due voci sulla stessa rotta, cioe' due nomi per una schermata sola.
+      // E' esattamente la bugia da cui nasce questa voce, e correggerla in un
+      // verso creandola nell'altro non sarebbe stato correggerla.
+      //
+      // Se un giorno le frequenze avranno una schermata loro, la voce torna.
       ArtEntry(
         id: 'sleep_stories',
         title: 'Sleep Stories',

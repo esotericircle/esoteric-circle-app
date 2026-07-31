@@ -3,6 +3,7 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/core/chat/immersive_intents.dart';
 import 'package:esoteric_circle/features/maestri/maestro_screen.dart';
+import 'package:esoteric_circle/core/arts/art_catalog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -47,11 +48,16 @@ void main() {
                   // La palette passata e' quella neutra condivisa: se la bolla
                   // seguisse solo questa, le tre uscirebbero identiche.
                   palette: MaestroPalette.neutral,
-                  art: CircleArt(
-                    maestro: m,
-                    target: ImmersiveTarget.oroscopoGiorno,
+                  // La tessera prende l'arte dal CATALOGO e il Maestro a
+                  // parte: la lista scritta a mano che li teneva insieme era
+                  // una seconda fonte di verita' gia' divergente.
+                  maestro: m,
+                  art: const ArtEntry(
+                    id: 'horoscope',
+                    title: 'Prova',
+                    teaser: 'Prova',
                     icon: Icons.circle,
-                    title: 'Prova ${m.displayName}',
+                    state: ArtState.attiva,
                   ),
                 ),
             ],
