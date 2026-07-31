@@ -102,7 +102,13 @@ void main() {
       if (p.endsWith('birth_identity.dart')) continue;
       if (f.readAsStringSync().contains('birthHour:')) porte.add(p);
     }
-    expect(porte.length, lessThanOrEqualTo(2),
+    // TRE, e sono tutte volute: l'archivio che la persiste, il Risveglio che la
+    // raccoglie, e la schermata dei dati di nascita che la corregge. Quella
+    // terza e' nata perche' prima le porte d'ingresso erano una sola, e chi
+    // aveva concluso il Risveglio senza ora non poteva piu' darla in nessun
+    // modo. Se ne compare una quarta, va guardata: ogni strada in piu' e' un
+    // posto dove l'ora puo' perdersi per conto suo.
+    expect(porte.length, lessThanOrEqualTo(3),
         reason: 'l\'ora di nascita entra da ${porte.length} strade ($porte): '
             'ogni strada in piu\' e\' un posto dove puo\' perdersi da sola');
   });

@@ -6,6 +6,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../pricing/pricing_screen.dart';
 import '../settings/settings_screen.dart';
 import 'profile_screen.dart';
+import 'dati_di_nascita_screen.dart';
 
 /// L'area account, aperta dall'icona Utente in alto a destra nel Cerchio.
 ///
@@ -29,6 +30,19 @@ class AccountScreen extends StatelessWidget {
         subtitle: 'Nome, avatar e dati personali',
         icon: Icons.person_outline_rounded,
         onTap: (context) => Navigator.of(context).push(ProfileScreen.route()),
+      ),
+      // I DATI DI NASCITA SI CORREGGONO. Prima si raccoglievano una volta sola
+      // nel Risveglio e non c'era piu' modo di toccarli: chi l'aveva concluso
+      // senza dare l'ora non poteva piu' darla, e si rivedeva per sempre
+      // "l'Ascendente e le Case restano velati". Un dato che si raccoglie una
+      // volta sola e mai piu' non e' un dato, e' una trappola.
+      _AccountEntry(
+        id: 'nascita',
+        title: 'I tuoi dati di nascita',
+        subtitle: 'Giorno e ora esatta, per Ascendente e Case',
+        icon: Icons.cake_outlined,
+        onTap: (context) =>
+            Navigator.of(context).push(DatiDiNascitaScreen.route()),
       ),
       _AccountEntry(
         id: 'impostazioni',
