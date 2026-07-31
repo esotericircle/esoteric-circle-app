@@ -727,7 +727,8 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     final bodies = <_SkyBody>[
       _SkyBody.moon(moon, _moonSlot, birth: widget.birth, cielo: _cielo),
       for (var i = 0; i < high.length && i < _highSlots.length; i++)
-        _SkyBody.constellation(high[i], _highSlots[i], cielo: _cielo),
+        _SkyBody.constellation(high[i], _highSlots[i],
+            cielo: _cielo, birth: widget.birth),
     ];
     final selected = bodies.where((b) => b.key == _selectedKey).firstOrNull;
 
@@ -945,13 +946,13 @@ class _SkyBody {
 
   /// Sotto questa altezza un corpo e' oltre l'orizzonte e non si mostra. E' la
   /// stessa soglia con cui il motore filtra le stelle, cosi' i due concordano.
-  static const double _altezzaMinima = -2;
+  static const double _altezzaMinima = kAltezzaOrizzonte;
 
   /// Quanti gradi di cielo entrano nella larghezza dello schermo.
   static const double _campoOrizzontale = 140;
 
   factory _SkyBody.constellation(Zodiac sign, Offset slot,
-          {SkySnapshot? cielo}) =>
+          {SkySnapshot? cielo, bool birth = false}) =>
       _SkyBody(
         key: sign.id,
         label: sign.italianName,
@@ -961,7 +962,7 @@ class _SkyBody {
         description: NightSky.describe(sign),
         size: 130,
         asterism: kZodiacAsterisms[sign]!,
-        datoDiAdesso: _datoDellaCostellazione(sign, cielo),
+        datoDiAdesso: _datoDellaCostellazione(sign, cielo, birth: birth),
       );
 
   /// Dove sta una costellazione, dalla sua stella piu' luminosa sopra
@@ -969,7 +970,12 @@ class _SkyBody {
   static Offset? postoDellaCostellazione(Zodiac sign, SkySnapshot? cielo) {
     if (cielo == null) return null;
     for (final c in cielo.constellations) {
-      if (c.name.toLowerCase() != sign.id.toLowerCase()) continue;
+      // Il catalogo nomina le costellazioni in ITALIANO, e il segno porta un
+      // id inglese: confrontare i due non trovava mai niente, e il posto
+      // calcolato non arrivava mai alle costellazioni.
+      final nome = sign.italianName.toLowerCase();
+      final suo = c.name.toLowerCase();
+      if (!suo.contains(nome) && !nome.contains(suo)) continue;
       SkyStar? migliore;
       for (final s in c.stars) {
         if (s.altDeg <= _altezzaMinima) continue;
@@ -1011,7 +1017,8 @@ class _SkyBody {
   ///
   /// Se il motore non ha quella costellazione fra le sue, lo DICHIARA invece di
   /// riempire con una frase generica.
-  static String? _datoDellaCostellazione(Zodiac sign, SkySnapshot? cielo) {
+  static String? _datoDellaCostellazione(Zodiac sign, SkySnapshot? cielo,
+      {bool birth = false}) {
     if (cielo == null) {
       return 'La sua posizione sopra il suolo arriva quando il cielo '
           'risulta calcolato su un luogo.';
@@ -1026,12 +1033,23 @@ class _SkyBody {
       }
     }
     if (trovata == null) {
-      return 'Questa costellazione non sta fra quelle che il motore segue: '
-          'sua altezza sul suolo adesso non la posso calcolare.';
+      // Non dovrebbe piu' accadere per le dodici zodiacali: il catalogo che
+      // risponde le ha tutte, e una prova cade se una torna a mancare. Resta
+      // per le figure fuori zodiaco che il motore non segue.
+      return 'Questa costellazione non sta fra quelle che il motore segue, '
+          'quindi la sua altezza sul suolo non la posso calcolare.';
     }
-    final alte = trovata.stars.where((s) => s.altDeg > -5).toList();
+    // La stessa soglia del motore, non una sua. Con meno cinque qui e meno
+    // due nel filtro, chi stava in mezzo veniva tolto dal motore e cercato da
+    // qui: il messaggio giusto non usciva mai.
+    final alte =
+        trovata.stars.where((s) => s.altDeg > kAltezzaOrizzonte).toList();
     if (alte.isEmpty) {
-      return 'Adesso sta sotto il suolo: da qui non si vede.';
+      // NEL CIELO DI NASCITA NON SI DICE "ADESSO": quella schermata descrive
+      // l'istante in cui la persona e' nata, non questo momento.
+      return birth
+          ? 'Quella notte stava sotto il suolo: da li non si vedeva.'
+          : 'Adesso sta sotto il suolo: da qui non si vede.';
     }
     final alt = alte.map((s) => s.altDeg).reduce((a, b) => a > b ? a : b);
     final az = alte.first.azDeg;

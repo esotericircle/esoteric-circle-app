@@ -57,9 +57,17 @@ void main() {
   test('Il corredo e\' l\'unica porta verso docs/preview', () {
     // Chiunque scriva un\'anteprima fuori da qui crea una seconda porta, e la
     // sua immagine non vedra\' mai la misura reale.
+    // UNA SOLA ECCEZIONE, dichiarata: le catture PRIMA e DOPO. Non sono
+    // anteprime del corredo, sono la prova visiva di una singola correzione:
+    // vivono in `docs/preview/prima_dopo/`, si generano due volte sullo stesso
+    // stato con il codice riportato indietro, e non descrivono l'app di oggi.
+    // Farle passare dal corredo vorrebbe dire rigenerarle a ogni giro, e la
+    // "prima" sparirebbe al primo aggiornamento.
+    const eccezioni = {'prima_dopo_capture_test.dart'};
     final fuori = <String>[];
     for (final f in Directory('test').listSync()) {
       if (f is! File || !f.path.endsWith('.dart')) continue;
+      if (eccezioni.any((e) => f.path.endsWith(e))) continue;
       final nome = f.path.replaceAll(Platform.pathSeparator, '/');
       if (nome.endsWith('screenshot_capture_test.dart')) continue;
       if (nome.endsWith('preview_integrity_test.dart')) continue;

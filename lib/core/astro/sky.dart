@@ -54,6 +54,20 @@ class SkyCatalog {
   }
 }
 
+/// L'ALTEZZA SOTTO LA QUALE UN ASTRO E' TRAMONTATO, in gradi.
+///
+/// **Perche' e' un dato solo.** Era quattro numeri sparsi che non concordavano:
+/// il motore filtrava a meno due, le costellazioni ambientali a zero, la Luna a
+/// meno tre, e la scheda che risponde controllava a meno cinque. Chi sta fra
+/// meno cinque e meno due era quindi FILTRATO dal motore e cercato dalla scheda:
+/// il messaggio giusto, "adesso sta sotto il suolo", era codice morto e al suo
+/// posto usciva quello sbagliato, "non sta fra quelle che il motore segue".
+///
+/// Meno due e non zero: la rifrazione atmosferica alza di circa mezzo grado cio'
+/// che sta appena sotto la linea, e un margine stretto evita che un astro sparisca
+/// e ricompaia a ogni ricalcolo.
+const double kAltezzaOrizzonte = -2;
+
 /// Una stella proiettata sull'orizzonte dell'osservatore.
 class SkyStar {
   const SkyStar({required this.altDeg, required this.azDeg, required this.mag});
@@ -73,7 +87,7 @@ class SkyConstellation {
   final List<List<int>> lines;
 
   /// Vera se almeno una stella e' sopra l'orizzonte.
-  bool get anyVisible => stars.any((s) => s.altDeg > -2);
+  bool get anyVisible => stars.any((s) => s.altDeg > kAltezzaOrizzonte);
 }
 
 /// Il cielo autentico di un istante, visto da un luogo: costellazioni proiettate,
@@ -127,7 +141,7 @@ class SkySnapshot {
   /// Le costellazioni sopra l'orizzonte adesso, per nome.
   List<String> get nomiVisibili => [
         for (final c in constellations)
-          if (c.stars.any((s) => s.altDeg > 0)) c.name,
+          if (c.stars.any((s) => s.altDeg > kAltezzaOrizzonte)) c.name,
       ];
 }
 
@@ -233,7 +247,7 @@ SkySnapshot buildSkyFor(
 
   return SkySnapshot(
     constellations: constellations,
-    moon: moon.altDeg > -3 ? moon : null,
+    moon: moon.altDeg > kAltezzaOrizzonte ? moon : null,
     moonPhase: moonPhase,
     centerAzDeg: centerAz,
     hasTime: hasTime,
