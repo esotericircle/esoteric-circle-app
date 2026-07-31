@@ -28,7 +28,9 @@ void main() {
     // Nove e' un cambio di una decisione precedente, non una svista: era sei, e
     // il fondatore l'ha cambiata il 30 luglio 2026.
     expect(ArtiPreferiteController.tetto, 9);
-    expect(ArtiPreferiteController.perMaestro, 3);
+    // Due dal 31 luglio 2026, era tre: il tetto NON scende con lui, resta
+    // nove, cosi' la matita serve davvero ad aggiungere.
+    expect(ArtiPreferiteController.perMaestro, 2);
   });
 
   test('Il seme ha tre arti per ciascun Maestro', () {
@@ -46,9 +48,13 @@ void main() {
                 'scaffale nasce con $quante arti di ${m.name} invece di tre: '
                 'non e\' piu\' tre per Maestro');
       }
-      expect(seme.length, ArtiPreferiteController.tetto,
-          reason: 'il seme ha ${seme.length} arti invece di '
-              '${ArtiPreferiteController.tetto}');
+      const atteso =
+          ArtiPreferiteController.perMaestro * 3;
+      expect(seme.length, atteso,
+          reason: 'il seme ha ${seme.length} arti invece di $atteso');
+      expect(seme.length, lessThan(ArtiPreferiteController.tetto),
+          reason: 'il seme riempie tutto il tetto e la matita non ha niente da '
+              'aggiungere, che e il motivo del cambio');
       expect(seme.toSet().length, seme.length,
           reason: 'nel seme la stessa arte compare due volte');
     }
@@ -57,7 +63,11 @@ void main() {
   test('Il proprio Maestro apre lo scaffale', () {
     final seme = ArtiPreferiteController.semePer(Maestro.aura);
     final sueDiAura = ArtCatalog.activeOf(Maestro.aura).map((a) => a.id).toSet();
-    expect(seme.take(3).every(sueDiAura.contains), isTrue,
+    expect(
+        seme
+            .take(ArtiPreferiteController.perMaestro)
+            .every(sueDiAura.contains),
+        isTrue,
         reason: 'lo scaffale non si apre sulle arti del proprio Maestro: cio\' '
             'che e\' tuo deve venire prima del resto del Cerchio');
   });

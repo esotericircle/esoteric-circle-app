@@ -38,11 +38,16 @@ class ArtiPreferiteController extends ChangeNotifier {
 
   /// Quante arti per Maestro entrano nel seme.
   ///
-  /// Tre, e non e' `tetto` diviso i Maestri per caso: e' una scelta, e se domani
-  /// i Maestri diventassero quattro questo numero e il tetto cambierebbero per
-  /// ragioni diverse. Una prova cade se il seme non ne ha esattamente tre per
-  /// ciascuno.
-  static const int perMaestro = 3;
+  /// DUE dal 31 luglio 2026, ed era tre dal giorno prima. Il fondatore ha
+  /// cambiato la sua stessa decisione per il motivo che avevo dichiarato io:
+  /// con nove nel seme e nove arti vive lo scaffale nasceva completo, e la
+  /// matita serviva solo a togliere. Con sei nel seme e il tetto a nove la
+  /// matita serve davvero ad aggiungere.
+  ///
+  /// Non e' `tetto` diviso i Maestri: sono due numeri con due ragioni diverse,
+  /// e adesso si vede, perche' due per tre fa sei e il tetto e' nove. Una prova
+  /// cade se il seme non ne ha esattamente due per ciascuno.
+  static const int perMaestro = 2;
 
   static const String _chiave = 'arti_preferite_v1';
 
