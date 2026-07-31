@@ -27,6 +27,16 @@ import '../../core/maestro/maestro.dart';
 import '../../core/astro/birth_place.dart' as astro;
 import '../../core/astro/sky.dart';
 
+/// QUANDO: l'avverbio di tempo della schermata del cielo, in un punto solo.
+///
+/// La schermata sa quale dei due cieli descrive, e OGNI testo che nomina il
+/// tempo legge questa fonte. Prima ogni frase se lo ricordava per conto suo: la
+/// nota in fondo era stata declinata al passato e la riga del calcolo era
+/// rimasta al presente, quindi il cielo di NASCITA diceva "Adesso sale verso il
+/// culmine" parlando di una notte di cinquant'anni prima. Due frasi che
+/// descrivono lo stesso istante, e ne era stata corretta una.
+String quando(bool birth) => birth ? 'Quella notte' : 'Adesso';
+
 /// "Il cielo sopra di te": il cielo del momento, immersivo ed esplorabile.
 ///
 /// Non uno schema, ma una volta stellata densa: centinaia di stelle su tre
@@ -575,6 +585,92 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   // dietro il riquadro del testo sugli schermi bassi, e una costellazione
   // coperta e' una costellazione che non c'e'. Adesso i tre stanno nella
   // meta' alta con un margine, cosi' reggono anche a 2392.
+  /// DISTRIBUISCE I CORPI SULLO SPAZIO, E LI SEPARA.
+  ///
+  /// **Perche' esiste.** La mappatura geometrica e' vera e non basta: se tutti i
+  /// corpi visibili stanno fra i trenta e i cinquanta gradi, la loro altezza
+  /// vera li ammassa in una fascia sottile, e a schermo si vedeva il cielo
+  /// schiacciato in un quarto dell'altezza con una banda vuota enorme sotto,
+  /// due etichette stampate una dentro l'altra e il disco della Luna sopra le
+  /// stelle del Toro.
+  ///
+  /// Qui si fanno due cose, in quest'ordine, e nessuna delle due tocca l'ordine
+  /// verticale dei corpi, che resta quello vero:
+  ///
+  /// 1. **Si distende.** Le altezze presenti si rimappano sull'intero spazio
+  ///    libero, conservando le proporzioni relative: chi era piu' alto resta
+  ///    piu' alto, e il gruppo occupa tutto invece di un quarto.
+  /// 2. **Si separano.** Due corpi che si sovrapporrebbero si allontanano del
+  ///    minimo necessario.
+  ///
+  /// **E' un aggiustamento di LEGGIBILITA', non una posizione astronomica.** La
+  /// verita' resta nella scheda, che porta i gradi esatti: qui si decide dove
+  /// stanno sullo schermo, non dove stanno nel cielo.
+  static List<_SkyBody> disponi(
+      List<_SkyBody> corpi, double larghezza, double altezzaCampo) {
+    if (corpi.length < 2) return corpi;
+
+    // 1. Si distende sull'intero spazio.
+    final ys = corpi.map((b) => b.slot.dy).toList();
+    final minY = ys.reduce(math.min);
+    final maxY = ys.reduce(math.max);
+    final ampiezza = maxY - minY;
+    final fuori = <_SkyBody>[];
+    for (final b in corpi) {
+      // Sotto una certa ampiezza la rimappatura amplificherebbe il rumore: si
+      // distende solo quando il gruppo e' davvero compresso.
+      final y = ampiezza < 0.02
+          ? b.slot.dy
+          : _margineVerticale +
+              (b.slot.dy - minY) / ampiezza * (1 - 2 * _margineVerticale);
+      fuori.add(b.conSlot(Offset(b.slot.dx, y)));
+    }
+
+    // 2. Si separano, dal piu' alto in giu', e a ogni passo si guarda TUTTI
+    //    quelli gia' sistemati: due corpi possono essere lontani nell'ordine e
+    //    vicini a schermo, e confrontare solo il precedente li lasciava
+    //    sovrapposti. Erano Ariete con Pesci e Sagittario con Capricorno.
+    fuori.sort((a, b) => a.slot.dy.compareTo(b.slot.dy));
+    for (var i = 1; i < fuori.length; i++) {
+      var corrente = fuori[i];
+      for (var j = 0; j < i; j++) {
+        final altro = fuori[j];
+        // Se sono lontani di lato non si toccano, e non c'e' niente da
+        // spostare: allontanarli comunque sprecherebbe altezza.
+        final distanzaX = (corrente.slot.dx - altro.slot.dx).abs() * larghezza;
+        final larghezzaMinima = (corrente.size + altro.size) / 2;
+        if (distanzaX >= larghezzaMinima) continue;
+
+        // La distanza verticale PIENA: mezza scatola dell'uno piu' mezza
+        // dell'altro, piu' lo spazio delle etichette. Con un fattore ridotto le
+        // scatole si toccavano ancora.
+        final minimo = ((corrente.size + altro.size) / 2 +
+                _sporgenzaEtichetta) /
+            math.max(1, altezzaCampo);
+        final distanza = corrente.slot.dy - altro.slot.dy;
+        if (distanza >= minimo) continue;
+
+        // Si sposta in giu' quello piu' basso, cosi' l'ordine verticale, che
+        // e' il dato astronomico, non cambia mai.
+        //
+        // UN LIMITE FISICO CHE RESTA, e lo scrivo qui col conto. Le scatole dei
+        // corpi sono alte fino a centosessantasei punti fra disco ed etichetta:
+        // separarne quattro vuol dire seicentosessantaquattro punti, su un
+        // campo libero che ne ha meno di cinquecento. Quando i corpi visibili
+        // sono tanti e vicini, il limite li ricomprime e due possono restare a
+        // contatto. La via d'uscita non e' spingere di piu': e' rimpicciolire i
+        // corpi quando sono molti, che e' un lavoro suo e sta in RIPRESA.md.
+        corrente = corrente.conSlot(
+            Offset(corrente.slot.dx, altro.slot.dy + minimo));
+      }
+      fuori[i] = corrente;
+    }
+    return fuori;
+  }
+
+  /// Quanto resta libero sopra il primo corpo e sotto l'ultimo, in frazione.
+  static const double _margineVerticale = 0.06;
+
   /// Quanto puo' essere alta la scheda, al massimo.
   ///
   /// Era un `Positioned` senza vincolo, quindi cresceva verso l'alto col testo e
@@ -778,7 +874,9 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
         _SkyBody.constellation(high[i], _highSlots[i],
             cielo: _cielo, birth: widget.birth),
     ];
-    final selected = bodies.where((b) => b.key == _selectedKey).firstOrNull;
+    // I CORPI USANO TUTTO LO SPAZIO, E NON SI COPRONO.
+    final disposti = disponi(bodies, schermo.width, campo.height);
+    final selected = disposti.where((b) => b.key == _selectedKey).firstOrNull;
 
     return Scaffold(
       key: const Key('sky_overview_screen'),
@@ -852,7 +950,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                 // cielo si muove ma nessun corpo esce.
                 Stack(
                   children: [
-                      for (final b in bodies)
+                      for (final b in disposti)
                         AnimatedPositioned(
                           // IL CIELO SI COMPONE DENTRO LO SPAZIO LIBERO, non su
                           // tutta l'altezza. Prima i corpi si disponevano su
@@ -974,6 +1072,19 @@ class _SkyBody {
     this.datoDiAdesso,
   });
 
+  /// Lo stesso corpo in un altro posto sullo schermo. Serve alla disposizione,
+  /// che sposta i corpi per leggibilita' senza toccare nient'altro di loro.
+  _SkyBody conSlot(Offset nuovo) => _SkyBody(
+        key: key,
+        label: label,
+        description: description,
+        slot: nuovo,
+        size: size,
+        moon: moon,
+        asterism: asterism,
+        datoDiAdesso: datoDiAdesso,
+      );
+
   /// La Luna della veduta. Con [birth] vero la didascalia parla della notte in
   /// cui la persona e' nata, non di stanotte: la schermata e' la stessa per i
   /// due cieli, il tempo del racconto no.
@@ -990,7 +1101,7 @@ class _SkyBody {
         slot: postoNelCielo(cielo?.moon, cielo) ?? slot,
         size: 96,
         moon: moon,
-        datoDiAdesso: _datoDellaLuna(moon, cielo),
+        datoDiAdesso: _datoDellaLuna(moon, cielo, birth: birth),
       );
 
   /// Da altezza e azimut reali al posto sullo schermo, in coordinate
@@ -1086,7 +1197,8 @@ class _SkyBody {
   /// parla in generale e' un fondale. Qui c'e' la fase con la percentuale di
   /// illuminazione, il segno in cui la Luna si trova ORA e la sua altezza sopra
   /// il suolo.
-  static String? _datoDellaLuna(MoonPhase moon, SkySnapshot? cielo) {
+  static String? _datoDellaLuna(MoonPhase moon, SkySnapshot? cielo,
+      {bool birth = false}) {
     final percento = (moon.illumination * 100).toStringAsFixed(0);
     final base = '${moon.italianName}, illuminata al $percento per cento';
     if (cielo == null) {
@@ -1103,7 +1215,7 @@ class _SkyBody {
     final dove = alt == null
         ? 'sta sotto il suolo'
         : 'sta a ${alt.toStringAsFixed(0)} gradi sopra il suolo';
-    return '$base, in $segno. Adesso $dove.';
+    return '$base, in $segno. ${quando(birth)} $dove.';
   }
 
   /// Dove sta una costellazione adesso: se sorge, culmina o tramonta.
@@ -1151,7 +1263,8 @@ class _SkyBody {
         : alt > 55
             ? 'sta culminando alta nel cielo'
             : (az < 180 ? 'sale verso il culmine' : 'scende verso il suolo');
-    return 'Adesso $fase, a ${alt.toStringAsFixed(0)} gradi sopra il suolo.';
+    return '${quando(birth)} $fase, a ${alt.toStringAsFixed(0)} gradi '
+        'sopra il suolo.';
   }
 
   final String key;

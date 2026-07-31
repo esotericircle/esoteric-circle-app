@@ -1,5 +1,20 @@
 # RIPRESA
 
+## Cielo, prima voce: I CORPI SONO TROPPO GRANDI PER LO SPAZIO
+
+La distensione sullo spazio libero funziona ed e' protetta da una prova. La
+separazione no, e il motivo e' un conto fisico: **le scatole dei corpi sono alte
+fino a 166 punti fra disco ed etichetta, separarne quattro vuol dire 664 punti,
+e il campo libero ne ha meno di 500.** Il limite li ricomprime e due dischi
+restano a contatto.
+
+**La via d'uscita e' rimpicciolire i corpi quando sono molti**, non spingere di
+piu' ne allentare la soglia. Scansarli di lato l'ho provato e peggiora: rompe la
+distensione.
+
+La prova sui dischi e' rientrata dalla suite e il difetto e' scritto dentro
+`test/cielo_usa_lo_spazio_test.dart`.
+
 ## Cielo, prima voce: LE ETICHETTE SI ACCAVALLANO
 
 Visibile in `docs/preview/prima_dopo/cielo_nascita_dopo.png`: i corpi non
