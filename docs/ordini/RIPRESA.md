@@ -1,19 +1,16 @@
 # RIPRESA
 
-## Cielo, prima voce: I CORPI SONO TROPPO GRANDI PER LO SPAZIO
+## Cielo: gli slot fissi, decisione del 31 luglio
 
-La distensione sullo spazio libero funziona ed e' protetta da una prova. La
-separazione no, e il motivo e' un conto fisico: **le scatole dei corpi sono alte
-fino a 166 punti fra disco ed etichetta, separarne quattro vuol dire 664 punti,
-e il campo libero ne ha meno di 500.** Il limite li ricomprime e due dischi
-restano a contatto.
+I corpi stanno in quattro slot dichiarati e non piu' nella loro posizione
+geometrica. La mappatura su schermo, la distensione e la separazione sono state
+RIMOSSE, non spente. Cio' che resta esatto e' il dato: la scheda porta altezza e
+direzione vere.
 
-**La via d'uscita e' rimpicciolire i corpi quando sono molti**, non spingere di
-piu' ne allentare la soglia. Scansarli di lato l'ho provato e peggiora: rompe la
-distensione.
-
-La prova sui dischi e' rientrata dalla suite e il difetto e' scritto dentro
-`test/cielo_usa_lo_spazio_test.dart`.
+Se qualcuno tornasse a volere la posizione visivamente esatta, sappia che il
+conto fisico che la impediva era questo: le scatole dei corpi non stanno nel
+campo libero se restano grandi. Adesso sono piu' piccole, 78 punti la Luna e 104
+le costellazioni.
 
 ## Cielo, prima voce: LE ETICHETTE SI ACCAVALLANO
 

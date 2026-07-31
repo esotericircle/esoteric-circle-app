@@ -220,7 +220,11 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
-    final dato = find.byKey(const Key('sky_dato_di_adesso'));
+    // La scheda si e' ridotta a due sole cose, e il dato calcolato vive adesso
+    // nella riga delle COORDINATE: nome, gradi sopra il suolo e direzione, piu'
+    // la fase per la Luna. Con gli slot fissi quella riga e' l'unica cosa
+    // esatta rimasta a schermo, quindi e' li' che va guardata.
+    final dato = find.byKey(const Key('sky_coordinate'));
     expect(dato, findsOneWidget,
         reason: 'la scheda della Luna non porta nessun dato calcolato: due '
             'righe generiche su un cielo che si dichiara adesso');

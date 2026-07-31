@@ -22,9 +22,9 @@ void main() {
 
   test('La nota distingue cio che e calcolato da cio che non c e', () {
     final t = schermataDelCielo();
-    expect(t, contains('Gli altri pianeti non si disegnano'),
-        reason: 'la nota non dice quale parte manca: negare tutto in blocco e '
-            'dire tutto sono due modi di non essere precisi');
+    expect(t, contains('altezza vera'),
+        reason: 'la riga della scheda non dichiara che l altezza mostrata e '
+            'quella vera: con gli slot fissi e l unica cosa esatta rimasta');
   });
 
   test('La nota vive in un punto solo, non due', () {
@@ -38,10 +38,10 @@ void main() {
           .readAsLinesSync()
           .where((r) => !r.trimLeft().startsWith('//'))
           .join('\n');
-      if (righe.contains('Gli altri pianeti non si disegnano')) punti++;
+      if (righe.contains('altezza vera')) punti++;
     }
     expect(punti, 1,
-        reason: 'la nota del cielo e scritta in $punti file: due testi che '
+        reason: 'la riga della scheda e scritta in $punti file: due testi che '
             'devono restare coerenti divergono al primo cambio');
   });
 }

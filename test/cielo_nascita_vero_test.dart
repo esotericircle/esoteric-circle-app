@@ -121,7 +121,11 @@ void main() {
 
     expect(find.textContaining('esempio'), findsNothing,
         reason: 'la bolla dichiara un esempio sul dato appena inserito');
-    expect(find.textContaining('che hai registrato'), findsOneWidget);
+    // LA SCHEDA SI E' RIDOTTA a due sole cose, per decisione del fondatore
+    // del 31 luglio: una riga che dice cos'e' il cielo, e le coordinate del
+    // corpo toccato. La nota sull'assaggio e quella sul dato registrato sono
+    // uscite, e con loro lo spazio che mangiavano al cielo.
+    // expect(find.textContaining('che hai registrato'), findsOneWidget);
   });
 
   testWidgets('Senza luogo la veduta dichiara di essere un assaggio',
@@ -134,7 +138,11 @@ void main() {
           time: const TimeOfDay(hour: 7, minute: 20),
         ));
 
-    expect(find.textContaining('assaggio'), findsOneWidget);
+    // LA SCHEDA SI E' RIDOTTA a due sole cose, per decisione del fondatore
+    // del 31 luglio: una riga che dice cos'e' il cielo, e le coordinate del
+    // corpo toccato. La nota sull'assaggio e quella sul dato registrato sono
+    // uscite, e con loro lo spazio che mangiavano al cielo.
+    // expect(find.textContaining('assaggio'), findsOneWidget);
   });
 
   test('Le costellazioni alte sono quelle della data, su una data nota', () {

@@ -89,7 +89,12 @@ void main() {
     final sign = high.first;
     await tester.tap(find.byKey(Key('sky_body_${sign.id}')));
     await step(tester);
-    expect(find.text(NightSky.describe(sign)), findsOneWidget);
+    // LA NARRAZIONE E' USCITA DALLA SCHEDA, per decisione del fondatore del 31
+    // luglio: la scheda si e' ridotta a una riga che dice cos'e' il cielo e
+    // alle coordinate del corpo toccato. Quello che resta e' il dato, ed e'
+    // quello che si guarda.
+    expect(find.byKey(const Key('sky_coordinate')), findsOneWidget,
+        reason: 'toccando un corpo la scheda non porta le sue coordinate');
   });
 
   testWidgets('Ha la freccia Indietro e il bottone Condividi', (tester) async {
@@ -137,8 +142,9 @@ void main() {
         findsOneWidget);
     // E dichiara anche cosa NON c'e', invece di negare tutto in blocco: gli
     // altri pianeti non si disegnano su questa schermata.
-    expect(find.textContaining('Gli altri pianeti non si disegnano'),
-        findsOneWidget);
+    // La riga che dichiara cosa non c'e' e' uscita con la scheda ridotta: cio'
+    // che resta e la dichiarazione dell altezza vera, che con gli slot fissi e
+    // l unica cosa esatta a schermo.
   });
 
   testWidgets('Se il permesso manca, ripiega con eleganza sulla veduta attuale',

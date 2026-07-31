@@ -581,119 +581,40 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   // schermo, e il terzo slot a 0,64 finiva sotto di lei. A schermo si vedeva
   // il nome della costellazione sparire dietro il riquadro, che e' come non
   // averla messa: un corpo toccabile che non si vede non lo tocca nessuno.
-  // Tutta la scena sale ancora. A 0,46 0,38 e 0,56 il terzo corpo finiva
-  // dietro il riquadro del testo sugli schermi bassi, e una costellazione
-  // coperta e' una costellazione che non c'e'. Adesso i tre stanno nella
-  // meta' alta con un margine, cosi' reggono anche a 2392.
-  /// DISTRIBUISCE I CORPI SULLO SPAZIO, E LI SEPARA.
-  ///
-  /// **Perche' esiste.** La mappatura geometrica e' vera e non basta: se tutti i
-  /// corpi visibili stanno fra i trenta e i cinquanta gradi, la loro altezza
-  /// vera li ammassa in una fascia sottile, e a schermo si vedeva il cielo
-  /// schiacciato in un quarto dell'altezza con una banda vuota enorme sotto,
-  /// due etichette stampate una dentro l'altra e il disco della Luna sopra le
-  /// stelle del Toro.
-  ///
-  /// Qui si fanno due cose, in quest'ordine, e nessuna delle due tocca l'ordine
-  /// verticale dei corpi, che resta quello vero:
-  ///
-  /// 1. **Si distende.** Le altezze presenti si rimappano sull'intero spazio
-  ///    libero, conservando le proporzioni relative: chi era piu' alto resta
-  ///    piu' alto, e il gruppo occupa tutto invece di un quarto.
-  /// 2. **Si separano.** Due corpi che si sovrapporrebbero si allontanano del
-  ///    minimo necessario.
-  ///
-  /// **E' un aggiustamento di LEGGIBILITA', non una posizione astronomica.** La
-  /// verita' resta nella scheda, che porta i gradi esatti: qui si decide dove
-  /// stanno sullo schermo, non dove stanno nel cielo.
-  static List<_SkyBody> disponi(
-      List<_SkyBody> corpi, double larghezza, double altezzaCampo) {
-    if (corpi.length < 2) return corpi;
-
-    // 1. Si distende sull'intero spazio.
-    final ys = corpi.map((b) => b.slot.dy).toList();
-    final minY = ys.reduce(math.min);
-    final maxY = ys.reduce(math.max);
-    final ampiezza = maxY - minY;
-    final fuori = <_SkyBody>[];
-    for (final b in corpi) {
-      // Sotto una certa ampiezza la rimappatura amplificherebbe il rumore: si
-      // distende solo quando il gruppo e' davvero compresso.
-      final y = ampiezza < 0.02
-          ? b.slot.dy
-          : _margineVerticale +
-              (b.slot.dy - minY) / ampiezza * (1 - 2 * _margineVerticale);
-      fuori.add(b.conSlot(Offset(b.slot.dx, y)));
-    }
-
-    // 2. Si separano, dal piu' alto in giu', e a ogni passo si guarda TUTTI
-    //    quelli gia' sistemati: due corpi possono essere lontani nell'ordine e
-    //    vicini a schermo, e confrontare solo il precedente li lasciava
-    //    sovrapposti. Erano Ariete con Pesci e Sagittario con Capricorno.
-    fuori.sort((a, b) => a.slot.dy.compareTo(b.slot.dy));
-    for (var i = 1; i < fuori.length; i++) {
-      var corrente = fuori[i];
-      for (var j = 0; j < i; j++) {
-        final altro = fuori[j];
-        // Se sono lontani di lato non si toccano, e non c'e' niente da
-        // spostare: allontanarli comunque sprecherebbe altezza.
-        final distanzaX = (corrente.slot.dx - altro.slot.dx).abs() * larghezza;
-        final larghezzaMinima = (corrente.size + altro.size) / 2;
-        if (distanzaX >= larghezzaMinima) continue;
-
-        // La distanza verticale PIENA: mezza scatola dell'uno piu' mezza
-        // dell'altro, piu' lo spazio delle etichette. Con un fattore ridotto le
-        // scatole si toccavano ancora.
-        final minimo = ((corrente.size + altro.size) / 2 +
-                _sporgenzaEtichetta) /
-            math.max(1, altezzaCampo);
-        final distanza = corrente.slot.dy - altro.slot.dy;
-        if (distanza >= minimo) continue;
-
-        // Si sposta in giu' quello piu' basso, cosi' l'ordine verticale, che
-        // e' il dato astronomico, non cambia mai.
-        //
-        // UN LIMITE FISICO CHE RESTA, e lo scrivo qui col conto. Le scatole dei
-        // corpi sono alte fino a centosessantasei punti fra disco ed etichetta:
-        // separarne quattro vuol dire seicentosessantaquattro punti, su un
-        // campo libero che ne ha meno di cinquecento. Quando i corpi visibili
-        // sono tanti e vicini, il limite li ricomprime e due possono restare a
-        // contatto. La via d'uscita non e' spingere di piu': e' rimpicciolire i
-        // corpi quando sono molti, che e' un lavoro suo e sta in RIPRESA.md.
-        corrente = corrente.conSlot(
-            Offset(corrente.slot.dx, altro.slot.dy + minimo));
-      }
-      fuori[i] = corrente;
-    }
-    return fuori;
-  }
-
-  /// Quanto resta libero sopra il primo corpo e sotto l'ultimo, in frazione.
-  static const double _margineVerticale = 0.06;
-
   /// Quanto puo' essere alta la scheda, al massimo.
   ///
-  /// Era un `Positioned` senza vincolo, quindi cresceva verso l'alto col testo e
-  /// mangiava il cielo: piu' lunga la didascalia, piu' corpi finivano sotto.
-  /// Adesso oltre questa altezza il testo scorre dentro la scheda invece di
-  /// spingerla su.
+  /// Con la scheda ridotta a due sole cose questo tetto quasi non morde piu',
+  /// e resta come rete: se un testo cresce, scorre dentro invece di mangiare il
+  /// cielo.
   static double altezzaMassimaScheda(double altezzaSchermo) =>
-      altezzaSchermo * 0.38;
+      altezzaSchermo * 0.24;
 
   /// Quanto sporge l'etichetta sotto il disegno del corpo.
   static const double _sporgenzaEtichetta = 36;
 
   /// Quanto occupa in fondo il pulsante che porta oltre, col suo margine.
-  ///
-  /// Esiste nel cielo di nascita, dove sotto la scheda c'e' "Leggi la tua
-  /// carta": il campo libero lo sottrae, altrimenti i corpi ci finiscono sotto.
   static const double _altezzaPulsanteInFondo = 76;
 
-  static const Offset _moonSlot = Offset(0.5, 0.13);
+  /// I QUATTRO POSTI DEI CORPI, in frazione dello SPAZIO LIBERO.
+  ///
+  /// **Decisione del fondatore del 31 luglio 2026.** Si e' smesso di inseguire
+  /// la posizione visivamente esatta dei corpi: non serviva al prodotto e stava
+  /// costando giri. I corpi stanno in posti scelti da noi, e cio' che resta
+  /// esatto e' il DATO, non il pixel: la scheda porta altezza e direzione vere,
+  /// calcolate dal motore, e quelle non si toccano.
+  ///
+  /// Le frazioni sono dello spazio libero e non dello schermo, quindi valgono a
+  /// qualunque misura, e sono le stesse per il cielo di adesso e per quello di
+  /// nascita: la scena resta riconoscibile.
+  ///
+  /// La seconda costellazione sta piu' in basso al centro, dove lo spazio
+  /// verticale c'e'. Se i corpi sono meno di quattro gli slot avanzati restano
+  /// vuoti e gli altri non si spostano.
+  static const Offset _moonSlot = Offset(0.5, 0.10);
   static const List<Offset> _highSlots = [
-    Offset(0.20, 0.36),
-    Offset(0.78, 0.29),
-    Offset(0.5, 0.45),
+    Offset(0.17, 0.40),
+    Offset(0.5, 0.66),
+    Offset(0.83, 0.40),
   ];
 
   // Ancore sparse delle costellazioni ambientali, su una tela piu' ampia dello
@@ -874,9 +795,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
         _SkyBody.constellation(high[i], _highSlots[i],
             cielo: _cielo, birth: widget.birth),
     ];
-    // I CORPI USANO TUTTO LO SPAZIO, E NON SI COPRONO.
-    final disposti = disponi(bodies, schermo.width, campo.height);
-    final selected = disposti.where((b) => b.key == _selectedKey).firstOrNull;
+    final selected = bodies.where((b) => b.key == _selectedKey).firstOrNull;
 
     return Scaffold(
       key: const Key('sky_overview_screen'),
@@ -950,7 +869,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                 // cielo si muove ma nessun corpo esce.
                 Stack(
                   children: [
-                      for (final b in disposti)
+                      for (final b in bodies)
                         AnimatedPositioned(
                           // IL CIELO SI COMPONE DENTRO LO SPAZIO LIBERO, non su
                           // tutta l'altezza. Prima i corpi si disponevano su
@@ -1070,6 +989,7 @@ class _SkyBody {
     this.moon,
     this.asterism,
     this.datoDiAdesso,
+    this.coordinate,
   });
 
   /// Lo stesso corpo in un altro posto sullo schermo. Serve alla disposizione,
@@ -1083,6 +1003,7 @@ class _SkyBody {
         moon: moon,
         asterism: asterism,
         datoDiAdesso: datoDiAdesso,
+        coordinate: coordinate,
       );
 
   /// La Luna della veduta. Con [birth] vero la didascalia parla della notte in
@@ -1098,62 +1019,18 @@ class _SkyBody {
         // c'era solo `slot`, una costante grafica: la posizione entrava nel
         // TESTO della scheda e non in dove il corpo si disegna, quindi
         // concedendo il permesso la scena restava identica.
-        slot: postoNelCielo(cielo?.moon, cielo) ?? slot,
-        size: 96,
+        slot: slot,
+        // Piu' piccola di prima: con quattro corpi in due file, le scatole
+        // grandi non stavano nel campo e finivano una sull'altra.
+        size: 78,
         moon: moon,
         datoDiAdesso: _datoDellaLuna(moon, cielo, birth: birth),
+        coordinate: _coordinateDellaLuna(moon, cielo),
       );
-
-  /// Da altezza e azimut reali al posto sullo schermo, in coordinate
-  /// normalizzate.
-  ///
-  /// **Perche' esiste.** I corpi si disegnavano su slot fissi, e il cielo
-  /// calcolato serviva solo a scrivere la didascalia: si concedeva il permesso,
-  /// l'app dichiarava di essersi riposizionata e a schermo non cambiava niente,
-  /// perche' non c'era niente che potesse cambiare. E' la famiglia del motore
-  /// scollegato, la stessa gia' incontrata su questa schermata.
-  ///
-  /// L'azimut si legge rispetto al CENTRO della veduta, cosi' i corpi non
-  /// scappano fuori quando si guarda a sud invece che a nord. L'altezza va
-  /// dall'orizzonte in basso allo zenit in alto. Chi sta sotto l'orizzonte
-  /// resta nullo e non si disegna: e' l'informazione piu' onesta che ci sia.
-  static Offset? postoNelCielo(SkyStar? astro, SkySnapshot? cielo) {
-    if (astro == null || cielo == null) return null;
-    if (astro.altDeg <= _altezzaMinima) return null;
-    // Scarto di azimut dal centro, riportato dentro meno 180 e piu' 180.
-    var scarto = astro.azDeg - cielo.centerAzDeg;
-    while (scarto > 180) {
-      scarto -= 360;
-    }
-    while (scarto < -180) {
-      scarto += 360;
-    }
-    // L'ALTEZZA NON E' ROVESCIATA, e l'ho verificato: a zero gradi la y vale
-    // 0,86, cioe' in fondo, e allo zenit 0,12, cioe' in cima. La mappatura era
-    // giusta.
-    //
-    // IL DIFETTO ERA IL RIPIEGO. Quando l'azimut cadeva fuori dal campo
-    // orizzontale questa funzione restituiva NULLA, e chi la chiama ripiegava
-    // sullo slot grafico fisso: per la Luna 0,5 e 0,13, cioe' in cima. Da li'
-    // la contraddizione che si vedeva a schermo, con la scheda che diceva
-    // "quattro gradi sopra il suolo" e il disegno in alto vicino al titolo.
-    //
-    // Adesso chi esce di lato viene riportato al bordo e la sua ALTEZZA RESTA
-    // QUELLA VERA: si perde un po' di precisione sull'azimut, che non e'
-    // dichiarato da nessuna parte, e non si perde il dato che la scheda
-    // annuncia. Un disegno che contraddice il proprio numero e' peggio di un
-    // disegno impreciso.
-    final y = 0.86 - (astro.altDeg / 90.0) * 0.74;
-    final x = (0.5 + scarto / _campoOrizzontale).clamp(0.08, 0.92);
-    return Offset(x, y.clamp(0.08, 0.9));
-  }
 
   /// Sotto questa altezza un corpo e' oltre l'orizzonte e non si mostra. E' la
   /// stessa soglia con cui il motore filtra le stelle, cosi' i due concordano.
   static const double _altezzaMinima = kAltezzaOrizzonte;
-
-  /// Quanti gradi di cielo entrano nella larghezza dello schermo.
-  static const double _campoOrizzontale = 140;
 
   factory _SkyBody.constellation(Zodiac sign, Offset slot,
           {SkySnapshot? cielo, bool birth = false}) =>
@@ -1162,30 +1039,47 @@ class _SkyBody {
         label: sign.italianName,
         // Anche la costellazione sta dove sta: il suo posto si prende dalla
         // stella piu' luminosa fra quelle che il motore le ha calcolato.
-        slot: postoDellaCostellazione(sign, cielo) ?? slot,
+        slot: slot,
         description: NightSky.describe(sign),
-        size: 130,
+        // Piu' piccole di prima, per la stessa ragione della Luna.
+        size: 104,
         asterism: kZodiacAsterisms[sign]!,
         datoDiAdesso: _datoDellaCostellazione(sign, cielo, birth: birth),
+        coordinate: _coordinateDellaCostellazione(sign, cielo),
       );
 
-  /// Dove sta una costellazione, dalla sua stella piu' luminosa sopra
-  /// l'orizzonte. Nulla se il motore non la conosce o se e' tramontata.
-  static Offset? postoDellaCostellazione(Zodiac sign, SkySnapshot? cielo) {
+  /// Nome, altezza in gradi e direzione della Luna, piu' la sua fase.
+  static String? _coordinateDellaLuna(MoonPhase moon, SkySnapshot? cielo) {
+    final astro = cielo?.moon;
+    final percento = (moon.illumination * 100).toStringAsFixed(0);
+    if (astro == null) {
+      return 'Luna, ${moon.italianName.toLowerCase()}, illuminata al '
+          '$percento per cento';
+    }
+    return 'Luna, ${astro.altDeg.toStringAsFixed(0)} gradi sopra il suolo, '
+        '${direzione(astro.azDeg)}. ${moon.italianName}, illuminata al '
+        '$percento per cento.';
+  }
+
+  /// Nome, altezza in gradi e direzione di una costellazione.
+  static String? _coordinateDellaCostellazione(
+      Zodiac sign, SkySnapshot? cielo) {
     if (cielo == null) return null;
     for (final c in cielo.constellations) {
-      // Il catalogo nomina le costellazioni in ITALIANO, e il segno porta un
-      // id inglese: confrontare i due non trovava mai niente, e il posto
-      // calcolato non arrivava mai alle costellazioni.
       final nome = sign.italianName.toLowerCase();
       final suo = c.name.toLowerCase();
       if (!suo.contains(nome) && !nome.contains(suo)) continue;
       SkyStar? migliore;
-      for (final s in c.stars) {
-        if (s.altDeg <= _altezzaMinima) continue;
-        if (migliore == null || s.mag < migliore.mag) migliore = s;
+      for (final st in c.stars) {
+        if (st.altDeg <= kAltezzaOrizzonte) continue;
+        if (migliore == null || st.mag < migliore.mag) migliore = st;
       }
-      return postoNelCielo(migliore, cielo);
+      if (migliore == null) {
+        return '${sign.italianName}, sotto il suolo: da qui non si vede.';
+      }
+      return '${sign.italianName}, '
+          '${migliore.altDeg.toStringAsFixed(0)} gradi sopra il suolo, '
+          '${direzione(migliore.azDeg)}.';
     }
     return null;
   }
@@ -1278,6 +1172,29 @@ class _SkyBody {
   /// Il dato calcolato di questo momento, quando c'e'. Nullo mai in pratica:
   /// quando un dato non e' calcolabile la stringa lo dichiara.
   final String? datoDiAdesso;
+
+  /// LE COORDINATE DEL CORPO, che sono l'unica cosa esatta rimasta a schermo.
+  ///
+  /// Nome, altezza in gradi sull'orizzonte e direzione cardinale dall'azimut.
+  /// Con gli slot fissi la posizione a video non e' piu' quella reale, quindi
+  /// il vero sta qui: il dato resta esatto anche quando il pixel non lo e'.
+  final String? coordinate;
+
+  /// La direzione cardinale da un azimut in gradi.
+  static String direzione(double azDeg) {
+    const nomi = [
+      'a nord',
+      'a nord-est',
+      'a est',
+      'a sud-est',
+      'a sud',
+      'a sud-ovest',
+      'a ovest',
+      'a nord-ovest',
+    ];
+    final giro = azDeg % 360;
+    return nomi[(((giro + 22.5) % 360) ~/ 45).clamp(0, 7)];
+  }
 }
 
 /// Rende un corpo con la sua etichetta sotto, evidenziato quando selezionato.
@@ -1555,7 +1472,8 @@ class _SkyInfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = selected;
     return Container(
-      padding: const EdgeInsets.all(SpacingTokens.lg),
+      key: const Key('sky_scheda'),
+      padding: const EdgeInsets.all(SpacingTokens.md),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -1572,93 +1490,33 @@ class _SkyInfoCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            s?.label ??
-                (birth ? 'Il cielo della tua nascita' : 'Il cielo di stanotte'),
-            style: TypographyTokens.display(size: 18)
-                .copyWith(color: palette.goldSoft),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            s?.description ??
-                (birth
-                    ? 'La volta che ti ha accolto nella tua prima notte. Sfiora '
-                        'il cielo, poi tocca la Luna o una costellazione per '
-                        'sapere cosa vegliava su di te.'
-                    : 'Sfiora il cielo col dito o inclina il telefono, poi '
-                        'tocca la Luna o una costellazione per sapere cosa è.'),
-            style: TypographyTokens.body(size: 14)
-                .copyWith(color: ColorTokens.textSecondary),
-          ),
-          // Il DATO calcolato di questo momento, sotto la riga narrata.
+          // 1. UNA RIGA CHE DICE COS'E'.
           //
-          // Prima la scheda portava solo la riga generica: un cielo che si
-          // dichiara "adesso" e poi parla in generale e' un fondale. Quando un
-          // dato non e' calcolabile, questa riga lo dichiara invece di riempire.
-          if (s?.datoDiAdesso != null) ...[
-            const SizedBox(height: 6),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.calculate_outlined,
-                    size: 13, color: palette.gold.withValues(alpha: 0.8)),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: Text(
-                    s!.datoDiAdesso!,
-                    key: const Key('sky_dato_di_adesso'),
-                    style: TypographyTokens.body(size: 13).copyWith(
-                        color: palette.goldSoft.withValues(alpha: 0.95)),
-                  ),
-                ),
-              ],
+          // Il fondatore aveva proposto "questa e' la posizione esatta del
+          // cielo alla tua nascita". Con gli slot fissi quella frase sarebbe
+          // FALSA, perche' la disposizione a schermo non e' piu' quella reale,
+          // e la trasparenza metodologica vieta di dichiarare cio' che non si
+          // fa. Questa dice il vero e non toglie niente: i corpi sono quelli
+          // veri, l'altezza e' quella vera, la disposizione e' per leggibilita'.
+          Text(
+            birth
+                ? 'Il cielo della tua nascita: i corpi che c\'erano davvero, '
+                    'con la loro altezza vera su quell\'orizzonte.'
+                : 'Il cielo sopra di te adesso: i corpi che ci sono davvero, '
+                    'con la loro altezza vera sul tuo orizzonte.',
+            style: TypographyTokens.body(size: 13)
+                .copyWith(color: ColorTokens.textSecondary, height: 1.35),
+          ),
+          // 2. LE COORDINATE DEL CORPO TOCCATO, che cambiano a ogni tocco.
+          if (s != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              s.coordinate ?? s.label,
+              key: const Key('sky_coordinate'),
+              style: TypographyTokens.display(size: 17)
+                  .copyWith(color: palette.goldSoft, height: 1.3),
             ),
           ],
-          const SizedBox(height: SpacingTokens.sm),
-          // Nota in-world, piccola ed elegante.
-          Row(
-            children: [
-              Icon(Icons.auto_awesome, size: 13, color: palette.goldSoft),
-              const SizedBox(width: 6),
-              Flexible(
-                child: Text(
-                  birth
-                      ? registrata
-                          // LA NOTA DICE COSA E' CALCOLATO E COSA NON C'E'.
-                          //
-                          // Diceva "la posizione esatta di ogni astro arriva
-                          // col motore a effemeridi", ed era vera quando fu
-                          // scritta. Da quando la Luna e le costellazioni si
-                          // posizionano da altezza e azimut reali e' meta'
-                          // falsa: nega in blocco un calcolo che l'app fa
-                          // davvero. Resta vera sull'altra meta', perche' gli
-                          // altri pianeti qui non si disegnano.
-                          //
-                          // Al passato nel cielo di NASCITA, perche' quella
-                          // schermata non descrive un adesso.
-                          ? 'Luna e costellazioni sono calcolate sull\'ora e '
-                              'sul luogo che hai registrato, con l\'altezza che '
-                              'avevano su quell\'orizzonte. Gli altri pianeti '
-                              'non si disegnano qui: stanno nella tua carta '
-                              'natale.'
-                          : 'Veduta d\'assaggio finché non registri nascita e '
-                              'luogo. Poi diventa la tua.'
-                      : oriented
-                          ? 'Luna e costellazioni sono calcolate adesso, sul tuo '
-                              'luogo, con la loro altezza vera sul tuo '
-                              'orizzonte. Gli altri pianeti non si disegnano '
-                              'qui: stanno nella tua carta natale.'
-                          : 'Concedi il luogo e il cielo si calcola su dove sei '
-                              'adesso.',
-                  // Nessun troncamento: la nota va a capo per intero.
-                  style: TypographyTokens.label(size: 11).copyWith(
-                    color: palette.goldSoft.withValues(alpha: 0.7),
-                    letterSpacing: 0.4,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );

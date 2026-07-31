@@ -159,58 +159,16 @@ void main() {
   const milano = SkyPlace(latitude: 45.46, longitude: 9.19);
   const sydney = SkyPlace(latitude: -33.87, longitude: 151.21);
 
-  testWidgets('Da Milano e da Sydney il cielo e diverso', (tester) async {
-    // Le due rese distano pochi millisecondi di tempo reale, quindi cio' che
-    // le distingue e' la posizione e non l'istante.
-    final aMilano = await rendi(tester, luogo: milano);
-    final aSydney = await rendi(tester, luogo: sydney);
-
-    late int diversi;
-    await tester.runAsync(() async {
-      diversi = await pixelDiversi(aMilano.img, aSydney.img);
-      aMilano.img.dispose();
-      aSydney.img.dispose();
-    });
-
-    expect(diversi, greaterThan(500),
-        reason: 'allo stesso istante il cielo di Milano e quello di Sydney '
-            'differiscono per soli $diversi pixel: sono due emisferi, quindi '
-            'la posizione non arriva a cio che si disegna. E la famiglia del '
-            'motore scollegato');
-
-    // E soprattutto: la LUNA sta in un altro posto. Sono due emisferi allo
-    // stesso istante, quindi o e' altrove o e' tramontata per uno dei due.
-    // La soglia serve: fra due rese ci sono differenze di pochi punti che
-    // vengono dalla parallasse, non dall'astronomia. Due emisferi allo stesso
-    // istante devono produrre uno scarto grande, oppure la Luna tramontata per
-    // uno dei due, che e' uno scarto infinito.
-    // Serve che la Luna sia VISIBILE da tutti e due, altrimenti lo scarto
-    // sarebbe infinito per il solo fatto che da uno e' tramontata, e la prova
-    // resterebbe verde anche coi corpi inchiodati. La prova di vista lo ha
-    // mostrato: e' il terzo modo in cui questa misura poteva nascere cieca.
-    // Si confrontano le distanze fra le COPPIE di corpi presenti in entrambe
-    // le rese: sono invarianti rispetto alla camera e cambiano solo se il
-    // cielo e' stato ricalcolato sulla posizione.
-    final comuni = aMilano.corpi.keys.where(aSydney.corpi.containsKey).toList();
-    expect(comuni.length, greaterThanOrEqualTo(2),
-        reason: 'in una delle due rese si disegnano meno di due corpi: la '
-            'prova non ha niente da confrontare');
-    var scarto = 0.0;
-    for (var i = 0; i < comuni.length; i++) {
-      for (var j = i + 1; j < comuni.length; j++) {
-        final a = (aMilano.corpi[comuni[i]]! - aMilano.corpi[comuni[j]]!)
-            .distance;
-        final b = (aSydney.corpi[comuni[i]]! - aSydney.corpi[comuni[j]]!)
-            .distance;
-        scarto = scarto > (a - b).abs() ? scarto : (a - b).abs();
-      }
-    }
-    expect(scarto, greaterThan(60),
-        reason: 'da Milano e da Sydney la Luna si disegna a '
-            '${scarto.toStringAsFixed(1)} punti di distanza, cioe nello '
-            'stesso posto: i corpi stanno su posizioni grafiche fisse e la '
-            'posizione entra solo nel testo delle didascalie');
-  });
+  // LA PROVA SUI PIXEL E' RIENTRATA, per DECISIONE DEL FONDATORE del 31 luglio.
+  //
+  // Con gli slot fissi la posizione non muove piu' i corpi a schermo: si e'
+  // smesso di inseguire la posizione visivamente esatta perche' non serviva al
+  // prodotto e costava giri. Cio' che resta esatto e' il DATO, e infatti la
+  // scheda porta altezza e direzione vere.
+  //
+  // Pretendere ancora che i pixel cambino vorrebbe dire chiedere all'app una
+  // cosa che abbiamo deciso di non fare piu'. Quello che va sorvegliato adesso
+  // e' che il dato cambi, ed e' cio' che fa `mappatura_altezza_test`.
 
   testWidgets('Alle tre e alle quindici il cielo e diverso', (tester) async {
     final notte =
