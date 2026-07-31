@@ -321,7 +321,7 @@ void main() {
     await tester.pumpWidget(
       RepaintBoundary(
         key: rootKey,
-        child: EsotericCircleApp(services: services, clock: clock),
+        child: EsotericCircleApp(conIntro: false, services: services, clock: clock),
       ),
     );
     await step(tester);

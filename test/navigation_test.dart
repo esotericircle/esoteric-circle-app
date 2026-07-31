@@ -44,7 +44,7 @@ void main() {
   testWidgets('Santuario, dominio, chat e ritorno riavvolgono la pila',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
     final ctx = tester.element(find.byType(MaterialApp));
 
@@ -97,7 +97,7 @@ void main() {
   testWidgets('L\'icona Maestro nella bottom bar porta al suo dominio',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
     final maestro =
         tester.element(find.byType(MaterialApp)).read<MaestroController>();
@@ -115,7 +115,7 @@ void main() {
     silenceSensors();
     // Fascia dell'Oracolo (12:30-18:00): senza selezione l'eroe segue Medora,
     // cosi' i laterali restano Caligo e Aura in ordine fisso.
-    await tester.pumpWidget(EsotericCircleApp(
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, 
       services: AppServices.offline(),
       clock: () => DateTime(2026, 7, 14, 13, 0),
     ));
@@ -137,7 +137,7 @@ void main() {
   testWidgets('I tre Maestri nella bottom bar rispettano l\'ordine fisso',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
     final labels = tester

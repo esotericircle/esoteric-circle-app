@@ -46,7 +46,7 @@ void main() {
     await tester.runAsync(() async {
       await OnboardingController().complete();
     });
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 200));
   }

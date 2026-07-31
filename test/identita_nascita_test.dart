@@ -98,7 +98,7 @@ void main() {
       }
     });
 
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await passo(tester);
     await tester.tap(find.text('Passport'));
     await passo(tester);
@@ -137,7 +137,7 @@ void main() {
       addTearDown(tester.view.resetDevicePixelRatio);
 
       await tester
-          .pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+          .pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
       await passo(tester);
       await passo(tester);
 
@@ -201,7 +201,7 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
       await tester
-          .pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+          .pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
       await passo(tester);
       await passo(tester);
       for (var i = 0; i < 3; i++) {

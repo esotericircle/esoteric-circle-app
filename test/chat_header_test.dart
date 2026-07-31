@@ -47,7 +47,7 @@ void main() {
   }
 
   Future<void> openChat(WidgetTester tester, Maestro maestro) async {
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
     // Dal Santuario: porta il Maestro al centro, entra nel dominio dal busto,
     // poi apre la chat.
@@ -125,7 +125,7 @@ void main() {
   testWidgets('Nemmeno il Santuario disegna le costellazioni zodiacali',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
     final homeCosmos = tester.widget<CosmosBackground>(

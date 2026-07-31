@@ -23,6 +23,18 @@ enum SuonoDelCerchio {
   /// tutto il resto sta sotto quel picco.
   rivelazione('rivelazione.mp3', Duration(milliseconds: 1500)),
 
+  /// LA VOCE DEL PRINCIPIO, sulla schermata nera dell'intro.
+  ///
+  /// E' il sesto, e per questo la regola dei cinque e' stata riscritta invece
+  /// che aggirata: entra nel catalogo come gli altri, perche' il catalogo esiste
+  /// proprio per non avere suoni che nascono fuori. Suona una volta per
+  /// sessione e prende il posto della firma quando l'intro c'e': due suoni che
+  /// si contendono la stessa schermata nera non fanno un'apertura piu' ricca,
+  /// fanno rumore.
+  ///
+  /// Provvisorio quanto l'intro che accompagna.
+  principio('principio.mp3', Duration(milliseconds: 2430)),
+
   /// Chiusura di un rito o di una lettura. Breve, risolutivo.
   ritoCompiuto('rito_compiuto.mp3', Duration(milliseconds: 1500)),
 

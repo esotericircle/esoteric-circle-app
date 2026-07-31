@@ -146,7 +146,7 @@ void main() {
         (tester) async {
       silenceSensors();
       await tester
-          .pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+          .pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
       await step(tester);
       tester
           .element(find.byType(MaterialApp))

@@ -1,5 +1,15 @@
 # RIPRESA
 
+## L'intro e' PROVVISORIA
+
+Sta in `lib/features/intro/sequenza_intro.dart` e va sostituita quando
+arriveranno gli asset definitivi: il video e' un `Intro-Test`. Le prove
+`intro_test.dart` valgono finche' c'e'.
+
+Il logo esportato e' 720 pixel da un sorgente di 410: a schermo copre bene fino
+a circa 240 punti logici, e piu' grande si vedrebbe la sgranatura del sorgente.
+Se serve piu' grande, serve un sorgente piu' grande.
+
 ## La coda aperta, nell'ordine del fondatore
 
 Chiuse le prime tre. Restano, e vengono prima di tutto:

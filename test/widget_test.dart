@@ -44,7 +44,7 @@ void main() {
   testWidgets('L\'app parte sul Santuario con la bottom bar a cinque voci',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
     for (final label in const [
@@ -60,7 +60,7 @@ void main() {
 
   testWidgets('La bottom bar apre il dominio del Maestro', (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
     final ctx = tester.element(find.byType(MaterialApp));

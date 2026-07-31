@@ -25,7 +25,9 @@
       "assets/img_thumb/archetipi/",
       "assets/img/zodiac/",
       "assets/img_thumb/zodiac/",
-      "assets/img/caligo/"
+      "assets/img/caligo/",
+      "brand_assets/intro/",
+      "assets/brand/"
     ],
     "nota_caligo": "assets/img/caligo/ ospita l'arte di scena del dominio di Caligo, per ora il tamburo sciamanico dell'Animale Guida (tamburo_sciamanico_v1.webp). Immagine unica di scena, non una famiglia a due misure: non ha miniatura ne conteggio bloccato, sta solo tra gli asset dichiarati.",
     "nota_zodiac": "assets/img/zodiac/ e assets/img_thumb/zodiac/ ospitano lo zodiaco brandizzato, due asset DISTINTI per segno con lo stesso stem zod_<segno>: in assets/img/zodiac/ l'emblema grande in 3D metallico multicolore (lato lungo 820, per la testa della schermata), in assets/img_thumb/zodiac/ il simbolo in miniatura (lato lungo circa 256, per i chip del selettore). La miniatura non si ricava riducendo l'emblema, e' un'immagine sua. Ventiquattro file consegnati da Mauro, gia' scontornati dal magenta con alpha reale: il ripiego dipinto a vettori e' stato tolto. Il conteggio zodiac e' ora bloccato in CI come le sei famiglie, 12 per cartella.",

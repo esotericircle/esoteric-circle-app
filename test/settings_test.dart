@@ -122,7 +122,7 @@ void main() {
 
   testWidgets('E raggiungibile dal Cosmic Passport', (tester) async {
     silence();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
     await tester.tap(find.text('Passport'));

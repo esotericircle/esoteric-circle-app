@@ -47,7 +47,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
     final ctx = tester.element(find.byType(MaterialApp));
     ctx.read<MaestroController>().selectMaestro(maestro);

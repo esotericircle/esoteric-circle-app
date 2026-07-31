@@ -9,7 +9,7 @@ publish_to: "none"
 # lo split somma duemila per l'ABI arm64, quindi si riparte da sopra quella
 # soglia. Il lucchetto e' test/versione_build_test.dart, che confronta il
 # numero con docs/versione_distribuita.json.
-version: 0.1.0+2122
+version: 0.1.0+2123
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -90,6 +90,7 @@ dependencies:
   # quando manca la fotocamera o il permesso.
   camera: ^0.11.0
   google_mlkit_face_detection: ^0.13.1
+  video_player: ^2.13.0
 
 # Un solo blocco, per un guasto a monte che ferma la build Android.
 #
@@ -135,6 +136,10 @@ flutter:
     # brand_assets/ e non entrano piu' nel pacchetto.
     - assets/avatars_webp/
     - brand_assets/santuario/
+    # L'INTRO, provvisoria per le dimostrazioni. Il video sta gia' nel repo e
+    # non era dichiarato, quindi non entrava nel pacchetto.
+    - brand_assets/intro/
+    - assets/brand/
     # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o
     # ingrandita) e miniatura (viste con piu' carte). Bundlate in-app per la
     # Demo, niente streaming. I conteggi sono sotto il lucchetto della CI in

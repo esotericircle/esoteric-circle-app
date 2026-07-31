@@ -51,7 +51,7 @@ void main() {
     // cui arriva sul telefono vero.
     tester.platformDispatcher.textScaleFactorTestValue = testo;
     addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 700));
 

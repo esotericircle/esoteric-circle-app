@@ -10,6 +10,7 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
 import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
+import 'package:esoteric_circle/features/intro/sequenza_intro.dart';
 import 'package:esoteric_circle/features/account/dati_di_nascita_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 
@@ -213,5 +214,68 @@ void main() {
           .writeAsBytesSync(dati!.buffer.asUint8List());
       img.dispose();
     });
+  });
+
+  testWidgets('I tre fotogrammi della sequenza intro', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: RepaintBoundary(
+        key: radice,
+        child: const SequenzaIntro(
+          child: Scaffold(
+            backgroundColor: Color(0xFF0B1020),
+            body: Center(
+              child: Text('IL CERCHIO',
+                  style: TextStyle(color: Color(0xFFD9B65C), fontSize: 24)),
+            ),
+          ),
+        ),
+      ),
+    ));
+
+    Future<void> scatta(String nome) async {
+      await tester.runAsync(() async {
+        final rb =
+            radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+        final img = await rb.toImage(pixelRatio: 3.0);
+        final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+        final dir = Directory('docs/preview/prima_dopo');
+        if (!dir.existsSync()) dir.createSync(recursive: true);
+        File('${dir.path}/intro_$nome.png')
+            .writeAsBytesSync(dati!.buffer.asUint8List());
+        img.dispose();
+      });
+    }
+
+    // 1. La frase a meta' scrittura.
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pump(
+        SequenzaIntro.cadenzaPer(SequenzaIntro.voceDiRipiego) * 12);
+    await scatta('frase');
+
+    // 2. Il logo. In prova headless il video non si riproduce, quindi la
+    //    sequenza passa oltre da sola e si arriva qui.
+    await tester.pump(SequenzaIntro.duranteIlNero);
+    await tester.pump(SequenzaIntro.duranteIlNero);
+    await tester.pump(SequenzaIntro.dissolvenza);
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.pump(SequenzaIntro.dissolvenza);
+    await scatta('logo');
+
+    // 3. La destinazione, dopo che la sequenza e' finita.
+    await tester.pump(SequenzaIntro.duranteIlLogo);
+    await tester.pump(SequenzaIntro.dissolvenza);
+    await tester.pump(SequenzaIntro.dissolvenza);
+    await scatta('destinazione');
   });
 }

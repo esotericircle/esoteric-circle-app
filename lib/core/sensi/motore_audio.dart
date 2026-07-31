@@ -51,13 +51,24 @@ class MotoreAudio implements MotoreSonoro {
   /// Se il file non c'e' non succede niente e non si solleva: e' il ripiego
   /// silenzioso dichiarato, che tiene l'app viva finche' gli asset non
   /// arrivano.
-  Future<void> effetto(String percorsoAsset) async {
+  /// Riproduce un effetto e dice QUANTO DURA, quando si riesce a saperlo.
+  ///
+  /// La durata serve a chi deve accordare qualcosa al suono, per esempio la
+  /// scritta dell'intro che si scrive al ritmo della voce: prenderla dal file
+  /// invece che da una costante significa che se un giorno il suono cambia,
+  /// chi lo accompagna lo segue da solo.
+  ///
+  /// Nulla quando il suono non parte o la durata non si legge: chi chiama ha il
+  /// proprio ripiego, e il rito continua lo stesso.
+  Future<Duration?> effetto(String percorsoAsset) async {
     try {
       await _effetti.stop();
       await _effetti.play(AssetSource(percorsoAsset));
+      return await _effetti.getDuration();
     } catch (e) {
       // Nessun suono: il rito continua lo stesso.
       debugPrint('Suono non riprodotto ($percorsoAsset): $e');
+      return null;
     }
   }
 

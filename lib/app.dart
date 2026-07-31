@@ -25,6 +25,7 @@ import 'features/santuario/greeting_controller.dart';
 import 'features/shell/app_shell.dart';
 import 'features/shell/navigation_controller.dart';
 import 'services/app_services.dart';
+import 'features/intro/sequenza_intro.dart';
 
 /// Radice dell'app: registra i servizi condivisi e monta lo shell.
 ///
@@ -32,7 +33,19 @@ import 'services/app_services.dart';
 /// base (Maestro attivo, entitlement, qualita'), poi quelli che dipendono da
 /// essi (navigazione, feature flag).
 class EsotericCircleApp extends StatefulWidget {
-  const EsotericCircleApp({super.key, this.services, this.clock});
+  const EsotericCircleApp({
+    super.key,
+    this.services,
+    this.clock,
+    this.conIntro = true,
+  });
+
+  /// Se l'intro di apertura va mostrata.
+  ///
+  /// Le prove e le anteprime la spengono: un'intro davanti a tutto sarebbe
+  /// davanti anche a loro, e misurerebbero il nero invece della schermata. E'
+  /// la stessa ragione per cui la sorgente di posizione nasce spenta.
+  final bool conIntro;
 
   /// Servizi a runtime montati all'avvio. Se assenti (test, anteprima) si usa
   /// una configurazione offline che non tocca la rete.
@@ -157,8 +170,15 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
                 disableAnimations:
                     mq.disableAnimations || settings.reduceAnimations,
               ),
-              child: _OnboardingLauncher(
-                child: MaestroScope(child: AppShell(clock: clock)),
+              // L'INTRO STA DAVANTI A TUTTO, e sotto di lei c'e' gia' la
+              // destinazione vera: non decide dove si va, ritarda solo il
+              // momento in cui si vede. Chi ha gia' fatto il Risveglio entra
+              // nel Cerchio, chi non l'ha fatto lo trova ad aspettarlo.
+              child: SequenzaIntro(
+                mostra: widget.conIntro,
+                child: _OnboardingLauncher(
+                  child: MaestroScope(child: AppShell(clock: clock)),
+                ),
               ),
             );
           },

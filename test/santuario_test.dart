@@ -45,7 +45,7 @@ void main() {
       'Il Santuario non mostra figure zodiacali nell\'angolo in alto a destra',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
     // Il Santuario e' montato.
@@ -70,7 +70,7 @@ void main() {
   testWidgets('Le schede della bottom bar non hanno X ne freccia Indietro',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
     // Santuario: la home non si chiude, e' il punto di ritorno.
@@ -97,7 +97,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     // Fascia dell'Oracolo (12:30-18:00), guidata da Medora: al centro c'e' lei.
-    await tester.pumpWidget(EsotericCircleApp(
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, 
       services: AppServices.offline(),
       clock: () => DateTime(2026, 7, 14, 13, 0),
     ));
@@ -120,7 +120,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     Future<void> pumpAt(int h, int m) async {
-      await tester.pumpWidget(EsotericCircleApp(
+      await tester.pumpWidget(EsotericCircleApp(conIntro: false, 
         services: AppServices.offline(),
         clock: () => DateTime(2026, 7, 14, h, m),
       ));
@@ -150,7 +150,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
     // Tocco sulla zona del cielo e della Luna: apre "Il cielo sopra di te".
@@ -195,7 +195,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(EsotericCircleApp(
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, 
       services: AppServices.offline(),
       clock: () => DateTime(2026, 7, 14, 13, 0),
     ));
@@ -213,7 +213,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(EsotericCircleApp(
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, 
       services: AppServices.offline(),
       clock: () => DateTime(2026, 7, 14, 13, 0),
     ));
@@ -236,7 +236,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     // Fascia dell'Oracolo, guidata da Medora: pulsante e arti sono i suoi.
-    await tester.pumpWidget(EsotericCircleApp(
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, 
       services: AppServices.offline(),
       clock: () => DateTime(2026, 7, 14, 13, 0),
     ));
@@ -263,7 +263,7 @@ void main() {
     // Fascia della Buonanotte (dopo le 22:30): il centro e' il Maestro di turno.
     final now = DateTime(2026, 7, 14, 23, 0);
     final turno = DailyRituals.dawnMaestro(now);
-    await tester.pumpWidget(EsotericCircleApp(
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, 
       services: AppServices.offline(),
       clock: () => now,
     ));
@@ -283,7 +283,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(EsotericCircleApp(
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, 
       services: AppServices.offline(),
       clock: () => DateTime(2026, 7, 14, 13, 0),
     ));

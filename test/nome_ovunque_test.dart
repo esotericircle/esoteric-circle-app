@@ -76,7 +76,7 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 20));
     });
 
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
 

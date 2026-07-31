@@ -110,7 +110,7 @@ void main() {
   testWidgets('Il Santuario mostra lo scaffale, non la vecchia bolla Sinastria',
       (tester) async {
     silenceSensors();
-    await tester.pumpWidget(EsotericCircleApp(services: AppServices.offline()));
+    await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
 
