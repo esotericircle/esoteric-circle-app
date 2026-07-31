@@ -131,6 +131,37 @@ void main() {
             'luogo la carta natale ripiega sul cielo essenziale');
   });
 
+  testWidgets('Anche il LUOGO si puo dare da qui, e sopravvive',
+      (tester) async {
+    // Senza latitudine e longitudine la funzione della carta natale rifiuta
+    // prima di chiamare il motore: pretende otto campi e due sono questi. Chi
+    // aveva concluso il Risveglio senza luogo non poteva piu' darlo, quindi
+    // correggere la sola ora non lo avrebbe sbloccato.
+    final profilo = await apri(tester,
+        partenza: BirthIdentity.fromParts(birthDate: DateTime(1975, 7, 6)));
+    expect(profilo.identity.birthPlace, isNull);
+
+    await tester.enterText(
+        find.byKey(const Key('nascita_luogo_field')), 'Torino');
+    await tester.pump(const Duration(milliseconds: 400));
+    await posa(tester);
+    final citta = find.byKey(const Key('citta_Torino_Italia'));
+    expect(citta, findsOneWidget,
+        reason: 'da questa schermata non si puo scegliere una citta, quindi il '
+            'luogo non si puo dare e la carta natale non arrivera mai');
+    await tester.tap(citta);
+    await posa(tester);
+    await tester.tap(find.byKey(const Key('nascita_salva')));
+    await posa(tester);
+    await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+
+    expect(profilo.identity.birthPlace, isNotNull,
+        reason: 'il luogo scelto non viene registrato');
+    final riletta = (await const ProfileStore().load()).identity;
+    expect(riletta!.birthPlace, isNotNull,
+        reason: 'il luogo non sopravvive alla chiusura dell app');
+  });
+
   test('Le porte che scrivono i dati di nascita sono enumerate', () {
     // Era UNA, l'onboarding, ed e' esattamente il difetto: bastava averlo
     // concluso perche' il dato diventasse immodificabile per sempre.

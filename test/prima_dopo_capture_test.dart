@@ -8,7 +8,9 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/account/dati_di_nascita_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -98,6 +100,51 @@ void main() {
       final dir = Directory('docs/preview/prima_dopo');
       if (!dir.existsSync()) dir.createSync(recursive: true);
       File('${dir.path}/cielo_ariete_$_stato.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
+      img.dispose();
+    });
+  });
+
+  testWidgets('Dati di nascita', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (ctx, child) => MediaQuery(
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+          child: MaestroScope(maestro: Maestro.medora, child: child!),
+        ),
+        home: RepaintBoundary(
+          key: radice,
+          child: const DatiDiNascitaScreen(),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final img = await rb.toImage(pixelRatio: 3.0);
+      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+      final dir = Directory('docs/preview/prima_dopo');
+      if (!dir.existsSync()) dir.createSync(recursive: true);
+      File('${dir.path}/dati_nascita_$_stato.png')
           .writeAsBytesSync(dati!.buffer.asUint8List());
       img.dispose();
     });

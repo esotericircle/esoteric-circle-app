@@ -1,5 +1,18 @@
 # RIPRESA
 
+## La coda dell'ordine sui dati di nascita
+
+Chiuse: la 1 per la parte del luogo, e la 2. **Restano:**
+
+- **1c**, il messaggio vero della carta natale: nasce sul dispositivo, e il
+  campo `causa` del controller lo porta. Prima cosa da guardare sulla build.
+- **3** la bolla che copre la Luna: e' un `Positioned` fisso in fondo che cresce
+  verso l'alto col testo, senza calcolo dello spazio libero.
+- **4a** "La posizione esatta di ogni astro arriva col motore a effemeridi",
+  falsa da quando i corpi si posizionano da altezza e azimut reali.
+- **4b** l'etichetta fantasma del corpo sotto la scheda.
+- **5** le miniature di animale e angelo tagliate nel Passport.
+
 ## Il residuo del fuso orario nel cielo, con il numero
 
 La conversione da ora civile a UT in `sky.dart` adesso usa il fuso vero

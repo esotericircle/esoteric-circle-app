@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/astro/city_catalog.dart';
 import '../../core/identity/birth_identity.dart';
+import '../../core/identity/birth_place.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -39,6 +41,17 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
   int? _minuto;
   bool _caricato = false;
 
+  /// IL LUOGO, che prima non si poteva dare qui.
+  ///
+  /// Senza latitudine e longitudine la funzione della carta natale RIFIUTA
+  /// prima di chiamare il motore: pretende otto campi e due sono questi. Chi
+  /// aveva concluso il Risveglio senza luogo non poteva piu' darlo, quindi non
+  /// avrebbe mai visto un pianeta, e correggere solo l'ora non lo avrebbe
+  /// sbloccato.
+  BirthPlace? _luogo;
+  final _luogoCtrl = TextEditingController();
+  List<City> _risultati = const [];
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -53,6 +66,27 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
       _ora = identita.birthMoment.hour;
       _minuto = identita.birthMoment.minute;
     }
+    _luogo = identita.birthPlace;
+    if (_luogo != null) _luogoCtrl.text = _luogo!.city;
+    CityCatalog.ensureLoaded();
+  }
+
+  @override
+  void dispose() {
+    _luogoCtrl.dispose();
+    super.dispose();
+  }
+
+  void _cercaLuogo(String q) =>
+      setState(() => _risultati = CityCatalog.search(q));
+
+  void _scegliCitta(City c) {
+    setState(() {
+      _luogo = c.toPlace();
+      _luogoCtrl.text = c.label;
+      _risultati = const [];
+    });
+    FocusScope.of(context).unfocus();
   }
 
   bool get _completo => _data != null;
@@ -67,7 +101,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
       birthDate: data,
       birthHour: _ora,
       birthMinute: _minuto,
-      birthPlace: profilo.identity.birthPlace,
+      birthPlace: _luogo ?? profilo.identity.birthPlace,
     ));
     Navigator.of(context).pop();
   }
@@ -158,6 +192,47 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                 Text(
                   'Se non la conosci lascia i campi vuoti: il resto del tuo '
                   'cielo resta saldo lo stesso.',
+                  style: TypographyTokens.body(size: 13)
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+                const SizedBox(height: SpacingTokens.lg),
+                Text('Luogo di nascita',
+                    style: TypographyTokens.label(size: 13)
+                        .copyWith(color: palette.goldSoft, letterSpacing: 2)),
+                const SizedBox(height: SpacingTokens.sm),
+                TextField(
+                  key: const Key('nascita_luogo_field'),
+                  controller: _luogoCtrl,
+                  onChanged: _cercaLuogo,
+                  style: TypographyTokens.body(size: 17)
+                      .copyWith(color: palette.goldSoft),
+                  cursorColor: palette.goldSoft,
+                  decoration: InputDecoration(
+                    hintText: 'Cerca la tua città',
+                    hintStyle: TypographyTokens.body(size: 16)
+                        .copyWith(color: ColorTokens.textSecondary),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: palette.gold.withValues(alpha: 0.35)),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: palette.goldSoft),
+                    ),
+                  ),
+                ),
+                for (final c in _risultati.take(6))
+                  ListTile(
+                    key: Key('citta_${c.name}_${c.country}'),
+                    dense: true,
+                    title: Text(c.label,
+                        style: TypographyTokens.body(size: 15)
+                            .copyWith(color: ColorTokens.textPrimary)),
+                    onTap: () => _scegliCitta(c),
+                  ),
+                const SizedBox(height: SpacingTokens.sm),
+                Text(
+                  'Serve alla carta natale: senza il luogo non si calcolano '
+                  'Ascendente, Case e la mappa dei pianeti.',
                   style: TypographyTokens.body(size: 13)
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
