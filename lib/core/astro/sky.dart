@@ -171,9 +171,18 @@ SkySnapshot buildSkyFor(
   final lon = place.longitude;
   final local = istanteLocale;
 
-  // Tempo medio locale verso UT: sottrai l'offset di longitudine.
-  final offsetMinutes = (lon / 15.0 * 60.0).round();
-  final utc = local.subtract(Duration(minutes: offsetMinutes));
+  // DA ORA CIVILE A UT, col fuso VERO dell'istante.
+  //
+  // Qui si convertiva col TEMPO MEDIO LOCALE, cioe' `lon / 15 * 60`, mentre chi
+  // chiama passa `DateTime.now()`, che e' ora civile. Per l'Italia sono circa
+  // ventiquattro minuti d'errore d'inverno e ottantaquattro d'estate, e
+  // ottantaquattro minuti valgono ventuno gradi di rotazione della volta: la
+  // posizione poteva anche essere giusta, il cielo restava sbagliato.
+  //
+  // L'istante porta con se' il proprio fuso, ora legale inclusa, e lo dichiara
+  // in `timeZoneOffset`: si usa quello. Un istante gia' in UTC non ha niente da
+  // togliere, e infatti il suo scarto e' zero.
+  final utc = local.isUtc ? local : local.subtract(local.timeZoneOffset);
 
   final jd = Celestial.julianDay(utc);
   final lst = Celestial.localSiderealDegrees(jd, lon);

@@ -86,7 +86,7 @@ void main() {
               'sta nel censimento');
       // Il numero si muove quando il lavoro procede: se cala, si aggiorna qui e
       // in ESITO_2.md, e si sa perche'.
-      expect(scoperti.length, 22,
+      expect(scoperti.length, 21,
           reason: 'i motori sorvegliati solo sulla funzione pura sono cambiati '
               '(${scoperti.length}): aggiorna questo numero e l\'elenco in '
               'docs/ordini/ESITO_2.md, cosi\' resta scritto cosa e\' coperto');
@@ -240,6 +240,7 @@ void main() {
 const Map<String, String> misuratiASchermo = {
   'Segno solare': 'test/segno_a_schermo_test.dart',
   'Carta natale, client': 'test/carta_natale_arriva_test.dart',
+  'Cielo del momento': 'test/cielo_segue_la_posizione_test.dart',
 };
 
 /// Un motore del progetto, con dove vive e come si riconosce nel codice.

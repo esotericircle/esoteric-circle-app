@@ -48,7 +48,17 @@ class SkyOverviewScreen extends StatefulWidget {
     this.onCta,
     this.showBack = true,
     this.nascitaRegistrata,
+    this.luogoIniziale,
   });
+
+  /// Il luogo da cui guardare, quando lo si conosce gia'.
+  ///
+  /// **Perche' esiste.** Senza di lui il luogo entra in un modo solo, il
+  /// dialogo di consenso, che richiede un tocco: nessuna prova poteva quindi
+  /// misurare il cielo POSIZIONATO, e infatti il difetto e' vissuto indisturbato
+  /// mentre la sorveglianza restava verde. Un dato che si puo' ottenere in un
+  /// modo solo, e quel modo richiede una mano umana, e' un dato che nessuna
+  /// misura raggiunge.
 
   /// Momento del cielo, iniettabile per i test; di default l'ora di adesso.
   /// Per il cielo di nascita e' il momento fisso della nascita.
@@ -82,6 +92,9 @@ class SkyOverviewScreen extends StatefulWidget {
   /// ma il profilo non e' ancora stato scritto, quindi il profilo direbbe di
   /// no e la bolla darebbe dell'esempio al dato appena battuto a mano.
   final bool? nascitaRegistrata;
+
+  /// Vedi sopra: il luogo noto in partenza, senza passare dal consenso.
+  final SkyPlace? luogoIniziale;
 
   static Route<void> route({DateTime? now, SkyLocation? location}) {
     return MaterialPageRoute<void>(
@@ -150,6 +163,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   @override
   void initState() {
     super.initState();
+    _place = widget.luogoIniziale;
     // Il pre-avviso vale solo per il cielo di adesso, non per il cielo di
     // nascita ne per i test o le anteprime, che passano un momento fisso o una
     // sorgente spenta.
@@ -889,23 +903,82 @@ class _SkyBody {
         key: 'moon',
         label: 'Luna',
         description: NightSky.describeMoon(moon, birth: birth),
-        slot: slot,
+        // DOVE STA DAVVERO, quando il cielo e' stato calcolato. Prima qui
+        // c'era solo `slot`, una costante grafica: la posizione entrava nel
+        // TESTO della scheda e non in dove il corpo si disegna, quindi
+        // concedendo il permesso la scena restava identica.
+        slot: postoNelCielo(cielo?.moon, cielo) ?? slot,
         size: 96,
         moon: moon,
         datoDiAdesso: _datoDellaLuna(moon, cielo),
       );
+
+  /// Da altezza e azimut reali al posto sullo schermo, in coordinate
+  /// normalizzate.
+  ///
+  /// **Perche' esiste.** I corpi si disegnavano su slot fissi, e il cielo
+  /// calcolato serviva solo a scrivere la didascalia: si concedeva il permesso,
+  /// l'app dichiarava di essersi riposizionata e a schermo non cambiava niente,
+  /// perche' non c'era niente che potesse cambiare. E' la famiglia del motore
+  /// scollegato, la stessa gia' incontrata su questa schermata.
+  ///
+  /// L'azimut si legge rispetto al CENTRO della veduta, cosi' i corpi non
+  /// scappano fuori quando si guarda a sud invece che a nord. L'altezza va
+  /// dall'orizzonte in basso allo zenit in alto. Chi sta sotto l'orizzonte
+  /// resta nullo e non si disegna: e' l'informazione piu' onesta che ci sia.
+  static Offset? postoNelCielo(SkyStar? astro, SkySnapshot? cielo) {
+    if (astro == null || cielo == null) return null;
+    if (astro.altDeg <= _altezzaMinima) return null;
+    // Scarto di azimut dal centro, riportato dentro meno 180 e piu' 180.
+    var scarto = astro.azDeg - cielo.centerAzDeg;
+    while (scarto > 180) {
+      scarto -= 360;
+    }
+    while (scarto < -180) {
+      scarto += 360;
+    }
+    final x = 0.5 + scarto / _campoOrizzontale;
+    final y = 0.86 - (astro.altDeg / 90.0) * 0.74;
+    if (x < 0.06 || x > 0.94) return null;
+    return Offset(x, y.clamp(0.08, 0.9));
+  }
+
+  /// Sotto questa altezza un corpo e' oltre l'orizzonte e non si mostra. E' la
+  /// stessa soglia con cui il motore filtra le stelle, cosi' i due concordano.
+  static const double _altezzaMinima = -2;
+
+  /// Quanti gradi di cielo entrano nella larghezza dello schermo.
+  static const double _campoOrizzontale = 140;
 
   factory _SkyBody.constellation(Zodiac sign, Offset slot,
           {SkySnapshot? cielo}) =>
       _SkyBody(
         key: sign.id,
         label: sign.italianName,
+        // Anche la costellazione sta dove sta: il suo posto si prende dalla
+        // stella piu' luminosa fra quelle che il motore le ha calcolato.
+        slot: postoDellaCostellazione(sign, cielo) ?? slot,
         description: NightSky.describe(sign),
-        slot: slot,
         size: 130,
         asterism: kZodiacAsterisms[sign]!,
         datoDiAdesso: _datoDellaCostellazione(sign, cielo),
       );
+
+  /// Dove sta una costellazione, dalla sua stella piu' luminosa sopra
+  /// l'orizzonte. Nulla se il motore non la conosce o se e' tramontata.
+  static Offset? postoDellaCostellazione(Zodiac sign, SkySnapshot? cielo) {
+    if (cielo == null) return null;
+    for (final c in cielo.constellations) {
+      if (c.name.toLowerCase() != sign.id.toLowerCase()) continue;
+      SkyStar? migliore;
+      for (final s in c.stars) {
+        if (s.altDeg <= _altezzaMinima) continue;
+        if (migliore == null || s.mag < migliore.mag) migliore = s;
+      }
+      return postoNelCielo(migliore, cielo);
+    }
+    return null;
+  }
 
   /// Il dato calcolato della Luna in questo momento.
   ///

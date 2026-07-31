@@ -1,5 +1,21 @@
 # RIPRESA
 
+## Il residuo del fuso orario nel cielo, con il numero
+
+La conversione da ora civile a UT in `sky.dart` adesso usa il fuso vero
+dell'istante, ed era il tempo medio locale. **Resta un residuo**: lo stesso
+istante scritto in UTC e in ora civile produce due cieli che differiscono di
+**123,7 gradi di azimut**. Oltre alla conversione c'e' dell'altro che guarda
+l'ora locale grezza, e non l'ho inseguito. E' il primo punto da cui ripartire
+sul cielo.
+
+## Il cielo posizionato ha bisogno di `luogoIniziale`
+
+`SkyOverviewScreen` accetta ora un `luogoIniziale`. Serve perche' senza di lui
+il luogo entra in un modo solo, il dialogo di consenso, che richiede un tocco:
+nessuna prova poteva misurare il cielo posizionato, ed e' il motivo per cui il
+difetto e' vissuto indisturbato mentre la sorveglianza restava verde.
+
 ## LA CODA DI MAURO, da riprendere in questo ordine
 
 Chiuse: 1, 2, 3b, 7. **Restano, e vanno prima di qualunque voce trovata da me:**
