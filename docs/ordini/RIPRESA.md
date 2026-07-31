@@ -1,5 +1,31 @@
 # RIPRESA
 
+## LA CODA DI MAURO, da riprendere in questo ordine
+
+Chiuse: 1, 2, 3b, 7. **Restano, e vanno prima di qualunque voce trovata da me:**
+
+- **3a** la carta natale che ripiega. Prima cosa da guardare sulla build nuova:
+  se il ripiego resta, il luogo c'e' e la causa e' un'altra, e il campo `causa`
+  del controller la porta. Se sparisce, era il luogo che non arrivava.
+- **4** le miniature di animale e angelo tagliate nel Passport. E' V3: il
+  componente condiviso che non taglia, portato in ogni punto, con i punti
+  enumerati da una prova.
+- **5** il cielo di nascita: catalogo incompleto (mancano Ariete, Cancro,
+  Bilancia, Capricorno, Acquario, Pesci), messaggio che mente anche quando la
+  costellazione c'e' (soglie a meno due contro meno cinque), e "adesso" in una
+  schermata che descrive la nascita.
+- **6** il GPS che dice riposizionato e non cambia niente. Prova a schermo con
+  due posizioni molto diverse.
+- **8** il segno che viaggia come parametro: `artRouteFor` lo passa a quattro
+  arti e l'Oroscopo lo pretende nel costruttore. Nona occorrenza della famiglia.
+  Trappola: la data d'esempio e' Gemelli, usare il Cancro.
+
+## Sul Santuario, un limite noto
+
+La carta del Maestro occupa il 40 per cento dell'altezza, era il 37. Non sale
+oltre perche' il carosello non regge sugli schermi bassi: i tre busti escono
+dalla scena. Per andare oltre serve rivedere come il carosello li dispone.
+
 Chi apre questo file deve poter continuare senza che Mauro racconti niente.
 
 **Aggiornato**: dopo l'ORDINE 2 DI 5, le due voci chiuse e il debito saldato.
