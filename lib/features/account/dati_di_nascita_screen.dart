@@ -6,6 +6,7 @@ import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_place.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../design_system/components/cosmos_background.dart';
+import '../../core/maestro/maestro.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -27,8 +28,23 @@ import '../../design_system/tokens/typography_tokens.dart';
 class DatiDiNascitaScreen extends StatefulWidget {
   const DatiDiNascitaScreen({super.key});
 
+  /// L'UNICA ROTTA VERSO QUESTA SCHERMATA, e si porta dietro il proprio scope.
+  ///
+  /// **Perche' se lo porta dietro.** Le rotte si montano alla RADICE del
+  /// Navigator, quindi non ereditano gli scope montati sotto: aperta da un
+  /// punto gia' dentro un `MaestroScope` funzionava, aperta da altrove nasceva
+  /// COMPLETAMENTE BIANCA, perche' la palette che il build legge non c'era e la
+  /// costruzione si interrompeva. Due porte verso la stessa schermata, e una
+  /// rotta: e' l'undicesima volta che questo progetto incontra la forma, e
+  /// questa volta l'ho introdotta io.
+  ///
+  /// Una schermata che dipende da uno scope deve portarselo, non sperare che
+  /// glielo dia chi la apre.
   static Route<void> route() => MaterialPageRoute<void>(
-        builder: (_) => const DatiDiNascitaScreen(),
+        builder: (_) => const MaestroScope(
+          maestro: Maestro.medora,
+          child: DatiDiNascitaScreen(),
+        ),
       );
 
   @override

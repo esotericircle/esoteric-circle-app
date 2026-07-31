@@ -1,5 +1,22 @@
 # RIPRESA
 
+## Cielo, prima voce: LE ETICHETTE SI ACCAVALLANO
+
+Visibile in `docs/preview/prima_dopo/cielo_nascita_dopo.png`: i corpi non
+finiscono piu' sotto la scheda ne sotto il pulsante, ma **le etichette si
+sovrappongono fra loro**. Si leggono "CANCRO", "GEMELLI" e "TORO" stampate una
+sopra l'altra, illeggibili, e la Luna copre il Toro.
+
+Comprimendo il campo libero i corpi si sono avvicinati, e nessuno impedisce a
+due corpi di occupare lo stesso punto. Serve una spaziatura minima fra i corpi,
+o un modo di scostarli quando collidono.
+
+## Cielo: la prova sulla mappatura non e' stata vista cadere
+
+La correzione del ripiego e' giusta e motivata, ma alle 22:30 la Luna resta
+dentro il campo orizzontale, quindi il ripiego non scatta e la prova non
+discrimina. Serve un istante in cui un corpo basso esce di lato.
+
 ## Il cielo intero: resta uno sforamento, col numero
 
 Il campo libero e' calcolato e i corpi ci stanno dentro alla misura reale alle

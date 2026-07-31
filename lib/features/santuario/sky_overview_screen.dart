@@ -587,6 +587,12 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   /// Quanto sporge l'etichetta sotto il disegno del corpo.
   static const double _sporgenzaEtichetta = 36;
 
+  /// Quanto occupa in fondo il pulsante che porta oltre, col suo margine.
+  ///
+  /// Esiste nel cielo di nascita, dove sotto la scheda c'e' "Leggi la tua
+  /// carta": il campo libero lo sottrae, altrimenti i corpi ci finiscono sotto.
+  static const double _altezzaPulsanteInFondo = 76;
+
   static const Offset _moonSlot = Offset(0.5, 0.13);
   static const List<Offset> _highSlots = [
     Offset(0.20, 0.36),
@@ -748,11 +754,21 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     final schermo = MediaQuery.of(context).size;
     final sicuro = MediaQuery.of(context).padding;
     final cimaLibera = kToolbarHeight + sicuro.top + SpacingTokens.md;
-    final fondoLibero = schermo.height -
-        sicuro.bottom -
-        SpacingTokens.lg -
-        (_selectedKey != null ? altezzaMassimaScheda(schermo.height) : 0.0) -
-        _sporgenzaEtichetta;
+    // SI SOTTRAE TUTTO CIO' CHE COPRE IL CIELO, non solo la scheda.
+    //
+    // Nel cielo di NASCITA sotto la scheda c'e' anche il pulsante "Leggi la tua
+    // carta": lo spazio occupato in fondo e' quindi piu' grande, e sottraendo
+    // la sola scheda i corpi finivano sotto cio' che sta ancora piu' in basso.
+    // Era la seconda porta della stessa schermata, che e' la stessa classe con
+    // `birth` vero, e nessuno l'aveva guardata.
+    //
+    // Se domani si aggiunge un altro piede, il conto lo deve prendere per
+    // costruzione: si somma qui, non si spera che qualcuno se ne ricordi.
+    final piede = SpacingTokens.lg +
+        sicuro.bottom +
+        (_selectedKey != null ? altezzaMassimaScheda(schermo.height) : 0.0) +
+        (widget.ctaLabel != null ? _altezzaPulsanteInFondo : 0.0);
+    final fondoLibero = schermo.height - piede - _sporgenzaEtichetta;
     final campo = Rect.fromLTRB(
         0, cimaLibera, schermo.width, math.max(cimaLibera + 120, fondoLibero));
 
@@ -1001,9 +1017,23 @@ class _SkyBody {
     while (scarto < -180) {
       scarto += 360;
     }
-    final x = 0.5 + scarto / _campoOrizzontale;
+    // L'ALTEZZA NON E' ROVESCIATA, e l'ho verificato: a zero gradi la y vale
+    // 0,86, cioe' in fondo, e allo zenit 0,12, cioe' in cima. La mappatura era
+    // giusta.
+    //
+    // IL DIFETTO ERA IL RIPIEGO. Quando l'azimut cadeva fuori dal campo
+    // orizzontale questa funzione restituiva NULLA, e chi la chiama ripiegava
+    // sullo slot grafico fisso: per la Luna 0,5 e 0,13, cioe' in cima. Da li'
+    // la contraddizione che si vedeva a schermo, con la scheda che diceva
+    // "quattro gradi sopra il suolo" e il disegno in alto vicino al titolo.
+    //
+    // Adesso chi esce di lato viene riportato al bordo e la sua ALTEZZA RESTA
+    // QUELLA VERA: si perde un po' di precisione sull'azimut, che non e'
+    // dichiarato da nessuna parte, e non si perde il dato che la scheda
+    // annuncia. Un disegno che contraddice il proprio numero e' peggio di un
+    // disegno impreciso.
     final y = 0.86 - (astro.altDeg / 90.0) * 0.74;
-    if (x < 0.06 || x > 0.94) return null;
+    final x = (0.5 + scarto / _campoOrizzontale).clamp(0.08, 0.92);
     return Offset(x, y.clamp(0.08, 0.9));
   }
 

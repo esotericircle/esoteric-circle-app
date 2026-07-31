@@ -47,7 +47,8 @@ void main() {
     }
   }
 
-  testWidgets('Cielo con Ariete toccato', (tester) async {
+  for (final nascita in const [false, true]) {
+  testWidgets('Cielo ${nascita ? "nascita" : "adesso"}', (tester) async {
     if (_stato.isEmpty) return;
     silence();
     SharedPreferences.setMockInitialValues({});
@@ -73,9 +74,14 @@ void main() {
         ),
         home: RepaintBoundary(
           key: radice,
-          child: const SkyOverviewScreen(
-            luogoIniziale: SkyPlace(latitude: 45.46, longitude: 9.19),
-            location: DisabledSkyLocation(),
+          child: SkyOverviewScreen(
+            birth: nascita,
+            now: nascita ? DateTime(1975, 7, 6, 9, 30) : null,
+            ctaLabel: nascita ? 'Leggi la tua carta' : null,
+            onCta: nascita ? () {} : null,
+            luogoIniziale:
+                const SkyPlace(latitude: 45.46, longitude: 9.19),
+            location: const DisabledSkyLocation(),
           ),
         ),
       ),
@@ -100,11 +106,13 @@ void main() {
       final dati = await img.toByteData(format: ui.ImageByteFormat.png);
       final dir = Directory('docs/preview/prima_dopo');
       if (!dir.existsSync()) dir.createSync(recursive: true);
-      File('${dir.path}/cielo_intero_$_stato.png')
+      final quale = nascita ? 'nascita' : 'adesso';
+      File('${dir.path}/cielo_${quale}_$_stato.png')
           .writeAsBytesSync(dati!.buffer.asUint8List());
       img.dispose();
     });
   });
+  }
 
   testWidgets('Dati di nascita', (tester) async {
     if (_stato.isEmpty) return;
