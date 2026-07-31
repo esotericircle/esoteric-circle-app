@@ -27,6 +27,7 @@ import '../settings/settings_screen.dart';
 import '../../core/maestro/maestro.dart';
 import '../onboarding/natal_chart_reveal.dart';
 import '../../design_system/components/immersive_scaffold.dart';
+import '../../core/astro/natal_chart_controller.dart';
 
 /// Schermata del Cosmic Passport.
 ///
@@ -425,14 +426,28 @@ class _NatalChartCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    // LA TESSERA DICE CIO' CHE LA CARTA E' DAVVERO. Diceva "Calcolata sulle
+    // effemeridi" sempre, anche quando la carta in mano era il cielo essenziale
+    // del ripiego: l'app dichiarava di aver fatto una cosa che non aveva fatto,
+    // ed e' peggio del ripiego stesso, perche' chi se ne accorge smette di
+    // fidarsi anche di quello che e' vero.
+    //
+    // Cambia da sola quando la carta vera arriva, perche' legge lo stato del
+    // controller invece di una stringa fissa.
+    final carta = context.watch<NatalChartController>();
+    final essenziale = carta.ripiego || carta.chart == null;
     return _ActiveFactCard(
       cardKey: const Key('passport_natal_chart'),
       overline: 'La tua carta natale',
-      value: 'Calcolata sulle effemeridi',
-      meaning: identity.hasBirthTime
-          ? 'Sole, Luna, pianeti, Ascendente e le dodici case.'
-          : 'Sole, Luna e pianeti. Con l’ora di nascita arrivano anche '
-              'Ascendente e case.',
+      value:
+          essenziale ? 'Il tuo cielo essenziale' : 'Calcolata sulle effemeridi',
+      meaning: essenziale
+          ? 'Per ora il Sole e il suo segno. La mappa dei pianeti arriva '
+              'quando il cielo torna raggiungibile.'
+          : identity.hasBirthTime
+              ? 'Sole, Luna, pianeti, Ascendente e le dodici case.'
+              : 'Sole, Luna e pianeti. Con l’ora di nascita arrivano anche '
+                  'Ascendente e case.',
       isExample: identity.isExample,
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute<void>(

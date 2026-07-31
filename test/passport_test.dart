@@ -8,6 +8,7 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
+import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,10 @@ void main() {
   Widget wrap(Widget child) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
+          // La tessera della carta natale legge lo stato del calcolo per
+          // dire cio' che la carta E', invece di dichiarare sempre di
+          // averla calcolata sulle effemeridi.
+          ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
           ChangeNotifierProvider(create: (_) => ProfileController()),

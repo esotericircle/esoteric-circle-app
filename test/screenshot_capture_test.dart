@@ -1564,6 +1564,7 @@ void main() {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
@@ -2322,6 +2323,7 @@ void main() {
             ChangeNotifierProvider(create: (_) => ProfileController()),
             ChangeNotifierProvider<BirthIdentityController>.value(value: birth),
             ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
@@ -2451,6 +2453,7 @@ void main() {
             // Il Risveglio ora poggia sul cosmo profondo: servono i controller
             // che lo animano (fermo sotto Riduci Movimento) e il tema neutro.
             ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
@@ -2733,6 +2736,7 @@ void main() {
         child: MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
@@ -2778,6 +2782,7 @@ void main() {
           providers: [
             ChangeNotifierProvider<IdentityController>.value(value: b.ident),
             ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
@@ -2830,6 +2835,7 @@ void main() {
                 value: b.birth),
             ChangeNotifierProvider<IdentityController>.value(value: b.ident),
             ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
@@ -2927,6 +2933,7 @@ void main() {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider<ArtiPreferiteController>.value(value: pref),
