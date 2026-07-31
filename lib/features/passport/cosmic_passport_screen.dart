@@ -28,6 +28,7 @@ import '../../core/maestro/maestro.dart';
 import '../onboarding/natal_chart_reveal.dart';
 import '../../design_system/components/immersive_scaffold.dart';
 import '../../core/astro/natal_chart_controller.dart';
+import '../../design_system/components/miniatura_intera.dart';
 
 /// Schermata del Cosmic Passport.
 ///
@@ -350,18 +351,13 @@ class _AngelsCard extends StatelessWidget {
       isExample: identity.isExample,
       onTap: () => Navigator.of(context)
           .push(AngelsScreen.route(identity: identity)),
-      emblem: SizedBox(
-        width: 52,
-        height: 52,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
-          child: Image.asset(
-            FamilyImage.thumb(AssetFamily.angeli, triade.guardian.artStem),
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) =>
-                Icon(Icons.auto_awesome, color: palette.goldSoft, size: 24),
-          ),
-        ),
+      // L'angelo e' una CARTA: rettangolare verticale. In un quadrato da 52
+      // con `cover` la figura veniva mozzata sui lati, e la cornice sparita.
+      emblem: MiniaturaIntera.carta(
+        path: FamilyImage.thumb(AssetFamily.angeli, triade.guardian.artStem),
+        ripiego: Icons.auto_awesome,
+        palette: palette,
+        larghezza: 46,
       ),
     );
   }
@@ -398,11 +394,18 @@ class _GuideAnimalCard extends StatelessWidget {
           border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
         ),
         clipBehavior: Clip.antiAlias,
-        child: Image.asset(
-          animal.thumbPath,
-          fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) =>
-              Icon(Icons.pets, color: palette.goldSoft, size: 24),
+        // LA FIGURA CI STA DENTRO INTERA. Con `cover` il totem riempiva il
+        // cerchio e ne usciva: zampe e coda tagliate dalla cornice. Si
+        // rimpicciolisce l'immagine, non si taglia il soggetto, e per stare
+        // dentro un cerchio serve un margine, perche' un quadrato inscritto in
+        // un cerchio e' piu' piccolo del cerchio.
+        child: Center(
+          child: MiniaturaIntera(
+            path: animal.thumbPath,
+            ripiego: Icons.pets,
+            palette: palette,
+            larghezza: 38,
+          ),
         ),
       ),
     );

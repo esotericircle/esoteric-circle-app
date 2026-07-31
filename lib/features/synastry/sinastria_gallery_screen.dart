@@ -411,7 +411,10 @@ class _VipTile extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 child: vip.hasImage
                     ? Image.asset(vip.thumbPath!,
-                        fit: BoxFit.cover,
+                        // Un ritratto e' un soggetto: con cover il volto veniva
+                        // tagliato dal riquadro. Trovato da una prova che
+                        // enumera, non da una segnalazione.
+                        fit: BoxFit.contain,
                         errorBuilder: (_, __, ___) => Icon(Icons.auto_awesome,
                             color: palette.goldSoft, size: 28))
                     : Icon(Icons.auto_awesome,

@@ -8,6 +8,8 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
+import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 import 'package:esoteric_circle/features/account/dati_di_nascita_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 
@@ -154,6 +156,60 @@ void main() {
       final dir = Directory('docs/preview/prima_dopo');
       if (!dir.existsSync()) dir.createSync(recursive: true);
       File('${dir.path}/dati_nascita_$_stato.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
+      img.dispose();
+    });
+  });
+
+  testWidgets('Miniature del Passport', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => NatalChartController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (ctx, child) => MediaQuery(
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+          child: MaestroScope(maestro: Maestro.medora, child: child!),
+        ),
+        home: RepaintBoundary(
+          key: radice,
+          child: const Scaffold(
+            backgroundColor: Color(0xFF0B1020),
+            body: CosmicPassport(),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+
+    // Si scorre fino alle tessere dell'Animale e degli Angeli, che sono quelle
+    // con le miniature segnalate.
+    await tester.drag(find.byType(CustomScrollView), const Offset(0, -700));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final img = await rb.toImage(pixelRatio: 3.0);
+      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+      final dir = Directory('docs/preview/prima_dopo');
+      if (!dir.existsSync()) dir.createSync(recursive: true);
+      File('${dir.path}/miniature_$_stato.png')
           .writeAsBytesSync(dati!.buffer.asUint8List());
       img.dispose();
     });

@@ -1,5 +1,18 @@
 # RIPRESA
 
+## La coda aperta, nell'ordine del fondatore
+
+1. **Il segno che viaggia come parametro.** `artRouteFor` riceve `userSign` da
+   chi apre l'arte e lo passa a quattro arti; l'Oroscopo lo pretende nel
+   costruttore e non guarda mai la data di nascita. Nona occorrenza della
+   famiglia. **Trappola**: la data d'esempio e' Gemelli, quindi ogni prova
+   scritta con l'identita' d'esempio e' verde col difetto dentro. Usare il
+   Cancro.
+2. **Le costellazioni piu' grandi nel cielo.** Erano state ridotte a 104 punti e
+   la Luna a 78 quando la mappatura era geometrica. Con gli slot fissi lo spazio
+   c'e': si puo' risalire verso 130, fermandosi al massimo che tiene verdi le
+   dodici prove, e portare lo slot centrale da 0,66 verso 0,76.
+
 ## Cielo: gli slot fissi, decisione del 31 luglio
 
 I corpi stanno in quattro slot dichiarati e non piu' nella loro posizione

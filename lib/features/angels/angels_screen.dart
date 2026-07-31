@@ -405,7 +405,10 @@ class _Ritratto extends StatelessWidget {
           FamilyImage.full(AssetFamily.angeli, angelo.artStem),
           width: 92,
           height: 132,
-          fit: BoxFit.cover,
+          // CONTAIN e non cover: 92 per 132 non e' esattamente due terzi, e con
+          // cover la carta perdeva una striscia sui lati. Un angelo senza la
+          // sua cornice non e' una carta.
+          fit: BoxFit.contain,
           errorBuilder: (_, __, ___) => Container(
             width: 92,
             height: 132,

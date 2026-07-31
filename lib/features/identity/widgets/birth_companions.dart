@@ -14,6 +14,7 @@ import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../angels/angels_screen.dart';
+import '../../../design_system/components/miniatura_intera.dart';
 
 /// Chi accompagna la persona dalla nascita: l'Animale Guida e i tre Angeli.
 ///
@@ -168,45 +169,10 @@ class BirthCompanions extends StatelessWidget {
   }
 }
 
-class _Miniatura extends StatelessWidget {
-  const _Miniatura({
-    required this.path,
-    required this.ripiego,
-    required this.palette,
-    this.larghezza = 44,
-    this.proporzione = 1,
-  });
-
-  final String path;
-  final IconData ripiego;
-  final MaestroPalette palette;
-
-  /// La larghezza del riquadro.
-  final double larghezza;
-
-  /// Larghezza diviso altezza. Uno per il quadrato dell'animale, due terzi
-  /// per la carta verticale degli Angeli, che e' la proporzione della loro
-  /// arte: in un quadrato quell'arte perde per forza qualcosa.
-  final double proporzione;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: larghezza,
-      height: larghezza / proporzione,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
-        child: Image.asset(
-          path,
-          // CONTAIN e non cover: cover riempie il riquadro ritagliando cio'
-          // che avanza, e in un quadrato da 44 un totem verticale perdeva la
-          // testa. Un animale guida decapitato non e' un animale guida, e una
-          // carta d'angelo senza cornice non e' una carta.
-          fit: BoxFit.contain,
-          errorBuilder: (_, __, ___) =>
-              Icon(ripiego, color: palette.goldSoft, size: 22),
-        ),
-      ),
-    );
-  }
-}
+/// La miniatura dei compagni di nascita passa dal COMPONENTE CONDIVISO.
+///
+/// Era una classe privata di questo file, giusta e invisibile agli altri: gli
+/// altri quattro punti che mostrano le stesse immagini usavano `cover` e le
+/// tagliavano. Un componente che risolve il difetto in un file solo non e' un
+/// componente, e' una correzione locale.
+typedef _Miniatura = MiniaturaIntera;
