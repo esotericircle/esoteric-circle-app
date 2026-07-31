@@ -222,7 +222,6 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     final profile = context.read<ProfileController>();
     final route = artRouteFor(
       id,
-      userSign: userSign,
       userBirth:
           profile.identity.isExample ? null : profile.identity.birthMoment,
       userName: profile.hasName ? profile.vocative : null,

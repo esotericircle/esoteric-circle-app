@@ -182,7 +182,7 @@ void main() {
   });
 
   test('La rotta del viso porta alla schermata vera, non alla soglia', () {
-    final r = artRouteFor('face_constellation', userSign: Zodiac.aries);
+    final r = artRouteFor('face_constellation');
     expect(r, isNotNull);
     expect(artiSullaSoglia.containsKey('face_constellation'), isFalse);
   });

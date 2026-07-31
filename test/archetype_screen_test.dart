@@ -344,7 +344,7 @@ void main() {
   });
 
   test('La rotta dell\'arte porta alla schermata vera, non alla soglia', () {
-    final r = artRouteFor('archetype_test', userSign: Zodiac.aries);
+    final r = artRouteFor('archetype_test');
     expect(r, isNotNull);
     expect(artiSullaSoglia.containsKey('archetype_test'), isFalse);
   });

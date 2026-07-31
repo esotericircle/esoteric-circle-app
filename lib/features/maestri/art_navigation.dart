@@ -16,6 +16,8 @@ import '../rituals/day_oracle_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
 import '../synastry/sinastria_gallery_screen.dart';
 import '../tarot/stesa_tre_carte_screen.dart';
+import '../../core/astro/night_sky.dart';
+import '../account/dati_di_nascita_screen.dart';
 
 /// La navigazione condivisa verso le arti del Cerchio: mappa l'id di un'arte
 /// alla sua rotta, quando l'arte e' viva, oppure null se e' ancora dietro il
@@ -40,12 +42,28 @@ import '../tarot/stesa_tre_carte_screen.dart';
 /// esperienza.
 const Map<String, Maestro> artiSullaSoglia = <String, Maestro>{};
 
+/// IL SEGNO NON VIAGGIA PIU' COME PARAMETRO.
+///
+/// **Perche'.** L'Oroscopo diceva Gemelli a un Cancro. Questa funzione riceveva
+/// `userSign` DA CHI APRE L'ARTE e lo passava a quattro schermate: chi chiamava
+/// poteva comporlo a mano, e infatti lo componeva sbagliato. Nona occorrenza
+/// della famiglia delle due porte.
+///
+/// Adesso il segno lo RICAVA la sorgente, dalla data di nascita che gia'
+/// riceve, e nessun chiamante puo' comporlo: il parametro non esiste piu'.
+///
+/// **Senza data il segno NON esiste**, e non si ripiega su Gemelli ne su
+/// nessun altro: le arti che hanno bisogno del segno mandano a darla, che e'
+/// l'unica cosa utile da fare invece di mostrare il cielo di un altro.
 Route<void>? artRouteFor(
   String id, {
-  required Zodiac userSign,
   DateTime? userBirth,
   String? userName,
 }) {
+  // La sorgente unica: il segno discende dalla data, qui e in nessun altro
+  // posto di questa catena.
+  final Zodiac? userSign =
+      userBirth == null ? null : NightSky.sunSign(userBirth);
   final sullaSoglia = artiSullaSoglia[id];
   if (sullaSoglia != null) {
     final art = ArtCatalog.all.firstWhere((a) => a.id == id);
@@ -61,6 +79,7 @@ Route<void>? artRouteFor(
     // L'Animale Guida ha ora la sua esperienza vera, non piu' la soglia. Nasce
     // dal segno; l'archetipo, se c'e', lo legge da se' dallo storico locale.
     case 'guide_animal':
+      if (userSign == null) return DatiDiNascitaScreen.route();
       return GuideAnimalScreen.route(userSign: userSign, userBirth: userBirth);
     // L'Estrazione Rune ha ora la sua esperienza vera, non piu' la soglia:
     // lettura a richiesta e ripetibile, col selettore delle gettate.
@@ -69,12 +88,18 @@ Route<void>? artRouteFor(
     case 'magic_sigil':
       return SigilloIntenzioneScreen.route();
     case 'rune_draw':
+      if (userSign == null) return DatiDiNascitaScreen.route();
       return RuneDrawScreen.route(userSign: userSign, userBirth: userBirth);
     case 'horoscope':
+      // Senza data non c'e' oroscopo: si va a darla, invece di leggere il
+      // cielo di qualcun altro.
+      if (userSign == null) return DatiDiNascitaScreen.route();
       return OroscopoScreen.route(userSign: userSign);
     // La Sinastria VIP apre sulla galleria di scelta del VIP, non piu' su un
     // risultato precaricato: si sceglie, poi si vede il responso.
     case 'synastry_vip':
+      // Anche qui: senza data non c'e' sinastria, e si va a darla.
+      if (userSign == null) return DatiDiNascitaScreen.route();
       return SinastriaGalleryScreen.route(
           userSign: userSign, userBirth: userBirth, userName: userName);
     case 'tarot_spread_three':

@@ -204,7 +204,6 @@ class _ArtSectionBox extends StatelessWidget {
     final profile = context.read<ProfileController>();
     final route = artRouteFor(
       art.id,
-      userSign: _userSign(context),
       userBirth:
           profile.identity.isExample ? null : profile.identity.birthMoment,
       userName: profile.hasName ? profile.vocative : null,

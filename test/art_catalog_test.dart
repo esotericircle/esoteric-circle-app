@@ -123,7 +123,7 @@ void main() {
       for (final a in luna.arts) {
         expect(a.state, ArtState.inArrivo, reason: a.id);
         expect(a.phase, isNotNull, reason: a.id);
-        expect(artRouteFor(a.id, userSign: Zodiac.aries), isNull, reason: a.id);
+        expect(artRouteFor(a.id), isNull, reason: a.id);
       }
       expect(luna.arts.firstWhere((a) => a.id == 'lunology').phase, 'Fase 2');
       expect(
@@ -142,7 +142,7 @@ void main() {
       expect(narrativo.state, ArtState.inArrivo);
       expect(narrativo.phase, ArtPhase.faseSuccessiva);
       // Nessuna schermata vera dietro: la rotta cade sull'anticipo.
-      expect(artRouteFor(narrativo.id, userSign: Zodiac.aries), isNull);
+      expect(artRouteFor(narrativo.id), isNull);
       // La sottocategoria resta tutta in cammino, quindi chiusa ed esente.
       expect(ArtCatalog.hasActive(destino), isFalse);
     });
@@ -339,20 +339,20 @@ void main() {
       for (final id in artiSullaSoglia.keys) {
         final art = ArtCatalog.all.firstWhere((a) => a.id == id);
         expect(art.state, ArtState.attiva, reason: id);
-        expect(artRouteFor(id, userSign: Zodiac.aries), isNotNull, reason: id);
+        expect(artRouteFor(id), isNotNull, reason: id);
       }
       // Nessuna arte resta sulla soglia: l'Albero della Vita e' uscito dalla
       // Demo, tutte le arti attive hanno la loro esperienza vera.
       expect(artiSullaSoglia, isEmpty);
-      expect(artRouteFor('tree_of_life', userSign: Zodiac.aries), isNull);
+      expect(artRouteFor('tree_of_life'), isNull);
       // L'Animale Guida ha ora la sua esperienza vera: non e' piu' sulla soglia
       // e ha una rotta reale.
       expect(artiSullaSoglia.containsKey('guide_animal'), isFalse);
-      expect(artRouteFor('guide_animal', userSign: Zodiac.aries), isNotNull);
+      expect(artRouteFor('guide_animal'), isNotNull);
       // L'Estrazione Rune ha ora la sua esperienza vera: fuori dalla soglia,
       // con una rotta reale.
       expect(artiSullaSoglia.containsKey('rune_draw'), isFalse);
-      expect(artRouteFor('rune_draw', userSign: Zodiac.aries), isNotNull);
+      expect(artRouteFor('rune_draw'), isNotNull);
     });
 
     test('La Compatibilità di Medora raccoglie le tre sinastrie', () {
@@ -544,8 +544,7 @@ void main() {
       for (final m in Maestro.values) {
         for (final a in ArtCatalog.activeOf(m)) {
           expect(
-            artRouteFor(a.id, userSign: Zodiac.aries),
-            isNotNull,
+            artRouteFor(a.id), isNotNull,
             reason: 'l\'arte attiva ${a.id} non ha una rotta',
           );
         }
@@ -585,7 +584,7 @@ void main() {
         final art =
             ArtCatalog.all.where((a) => a.id == f.id).cast<ArtEntry?>().firstOrNull;
         if (art != null && art.state == ArtState.attiva) {
-          expect(artRouteFor(f.id, userSign: Zodiac.aries), isNotNull);
+          expect(artRouteFor(f.id), isNotNull);
         }
       }
     });
