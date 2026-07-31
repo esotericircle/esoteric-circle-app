@@ -1,5 +1,18 @@
 # RIPRESA
 
+## CAPITOLO GOOGLE, prima voce: riaccendere App Check
+
+`enforceAppCheck` sulla callable `natalChart` e' stato messo a **false il 31
+luglio 2026**, perche' il fornitore registrato e' Play Integrity e l'app arriva
+da App Distribution, quindi installata fuori dal Play Store: Play Integrity non
+puo' attestarla e respingeva ogni chiamata prima del corpo della funzione.
+
+**Va riacceso appena l'app sara' su una traccia di test interno del Play Store**,
+perche' da li' Play Integrity la riconosce e l'imposizione torna a costare
+nulla. Finche' resta spento, chiunque conosca l'indirizzo puo' far chiamare una
+funzione che consuma un servizio a pagamento: il validatore rifiuta i corpi
+malformati e non annulla il rischio.
+
 ## La coda dell'ordine sui dati di nascita
 
 Chiuse: la 1 per la parte del luogo, e la 2. **Restano:**

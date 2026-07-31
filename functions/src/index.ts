@@ -36,7 +36,29 @@ const UPSTREAM_TIMEOUT_MS = 15000;
 export const natalChart = onCall(
   {
     region: "europe-west1",
-    enforceAppCheck: true,
+    // APP CHECK SPENTO IL 31 LUGLIO 2026, ed e' un COMPROMESSO DICHIARATO.
+    //
+    // PERCHE'. I log del servizio mostravano nove avvisi con
+    // "verifications.app: INVALID": la chiamata arrivava, Firebase trovava il
+    // token non valido e respingeva PRIMA che il corpo della funzione partisse.
+    // Ecco perche' nei log non compariva nessuna riga "natalChart: ...": quel
+    // codice non era mai stato eseguito, neanche una volta, e la carta natale
+    // non ha mai funzionato per nessuno in nessuna build.
+    //
+    // Il fornitore registrato e' Play Integrity, che attesta le app riconosciute
+    // da Google Play. Questa arriva da App Distribution, quindi e' installata
+    // fuori dal Play Store e Play Integrity non puo' attestarla. Registrare
+    // l'app in App Check era necessario e non sufficiente.
+    //
+    // COSA COSTA. Senza imposizione chiunque conosca l'indirizzo puo' far
+    // chiamare una funzione che consuma un servizio a pagamento. Il validatore
+    // in validate.ts limita il danno, perche' rifiuta qualunque corpo
+    // malformato, e non lo annulla.
+    //
+    // QUANDO SI RIACCENDE. Appena l'app sara' su una traccia di test interno
+    // del Play Store: da li' Play Integrity la riconosce e l'imposizione torna
+    // a costare nulla. Il debito e' scritto in docs/ordini/RIPRESA.md.
+    enforceAppCheck: false,
     secrets: [FREEASTRO_API_KEY],
     timeoutSeconds: 30,
     memory: "256MiB",
@@ -85,7 +107,17 @@ export const natalChart = onCall(
     }
 
     try {
-      return await res.json();
+      const carta = await res.json();
+      // ANCHE IL BUON ESITO SI SCRIVE. Qui si registravano solo i fallimenti,
+      // quindi una chiamata riuscita non lasciava traccia: guardando i log non
+      // si poteva distinguere "ha funzionato" da "non e' mai partita", ed e'
+      // proprio la distinzione che serviva per capire che App Check respingeva
+      // tutto prima del corpo della funzione.
+      const pianeti = Array.isArray((carta as {planets?: unknown[]})?.planets) ?
+        (carta as {planets: unknown[]}).planets.length :
+        0;
+      logger.info("natalChart: carta calcolata", {pianeti});
+      return carta;
     } catch (err) {
       logger.error("natalChart: risposta non leggibile", {err: String(err)});
       throw new HttpsError("internal", "La risposta del cielo non e' leggibile.");
