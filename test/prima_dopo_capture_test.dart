@@ -85,9 +85,10 @@ void main() {
     await tester.pump(const Duration(seconds: 2));
 
     // Si tocca Ariete, che e' la costellazione della segnalazione.
-    final ariete = find.byKey(const Key('sky_body_aries'));
-    if (ariete.evaluate().isNotEmpty) {
-      await tester.tap(ariete, warnIfMissed: false);
+    // Si tocca la LUNA, che e' il corpo che finiva sotto la barra del titolo.
+    final corpo = find.byKey(const Key('sky_body_moon'));
+    if (corpo.evaluate().isNotEmpty) {
+      await tester.tap(corpo, warnIfMissed: false);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 500));
     }
@@ -99,7 +100,7 @@ void main() {
       final dati = await img.toByteData(format: ui.ImageByteFormat.png);
       final dir = Directory('docs/preview/prima_dopo');
       if (!dir.existsSync()) dir.createSync(recursive: true);
-      File('${dir.path}/cielo_ariete_$_stato.png')
+      File('${dir.path}/cielo_intero_$_stato.png')
           .writeAsBytesSync(dati!.buffer.asUint8List());
       img.dispose();
     });

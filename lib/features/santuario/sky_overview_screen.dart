@@ -575,6 +575,18 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   // dietro il riquadro del testo sugli schermi bassi, e una costellazione
   // coperta e' una costellazione che non c'e'. Adesso i tre stanno nella
   // meta' alta con un margine, cosi' reggono anche a 2392.
+  /// Quanto puo' essere alta la scheda, al massimo.
+  ///
+  /// Era un `Positioned` senza vincolo, quindi cresceva verso l'alto col testo e
+  /// mangiava il cielo: piu' lunga la didascalia, piu' corpi finivano sotto.
+  /// Adesso oltre questa altezza il testo scorre dentro la scheda invece di
+  /// spingerla su.
+  static double altezzaMassimaScheda(double altezzaSchermo) =>
+      altezzaSchermo * 0.38;
+
+  /// Quanto sporge l'etichetta sotto il disegno del corpo.
+  static const double _sporgenzaEtichetta = 36;
+
   static const Offset _moonSlot = Offset(0.5, 0.13);
   static const List<Offset> _highSlots = [
     Offset(0.20, 0.36),
@@ -724,6 +736,26 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
       for (final a in kBrightAsterisms) (a, _ambientAnchors[a.id]!),
     ];
 
+    // LO SPAZIO LIBERO DEL CIELO, calcolato e non fatto di margini sparsi.
+    //
+    // Sopra: la barra del titolo piu' l'area sicura di sistema, cioe' orologio e
+    // icone del telefono. Sotto: la scheda quando e' aperta, col suo tetto
+    // dichiarato, altrimenti solo il margine di respiro.
+    //
+    // L'etichetta di un corpo sta SOTTO il suo disegno e sporge di 36 punti: il
+    // campo si stringe di altrettanto in fondo, altrimenti il corpo starebbe
+    // dentro e il suo nome no.
+    final schermo = MediaQuery.of(context).size;
+    final sicuro = MediaQuery.of(context).padding;
+    final cimaLibera = kToolbarHeight + sicuro.top + SpacingTokens.md;
+    final fondoLibero = schermo.height -
+        sicuro.bottom -
+        SpacingTokens.lg -
+        (_selectedKey != null ? altezzaMassimaScheda(schermo.height) : 0.0) -
+        _sporgenzaEtichetta;
+    final campo = Rect.fromLTRB(
+        0, cimaLibera, schermo.width, math.max(cimaLibera + 120, fondoLibero));
+
     final bodies = <_SkyBody>[
       _SkyBody.moon(moon, _moonSlot, birth: widget.birth, cielo: _cielo),
       for (var i = 0; i < high.length && i < _highSlots.length; i++)
@@ -797,14 +829,39 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
 
                 // I corpi alti stanotte, toccabili, sul piano delle
                 // costellazioni.
-                Transform.translate(
-                  offset: camView * depth(0.42),
-                  child: Stack(
-                    children: [
+                // I CORPI NON PASSANO PIU' DA UN Transform. La deriva della
+                // camera li traslava DOPO il calcolo, quindi li portava fuori
+                // dal campo libero: il limite applicato prima non teneva. Qui
+                // la deriva si somma e poi si taglia dentro il campo, cosi' il
+                // cielo si muove ma nessun corpo esce.
+                Stack(
+                  children: [
                       for (final b in bodies)
-                        Positioned(
-                          left: b.slot.dx * size.width - b.size / 2,
-                          top: b.slot.dy * size.height - b.size / 2,
+                        AnimatedPositioned(
+                          // IL CIELO SI COMPONE DENTRO LO SPAZIO LIBERO, non su
+                          // tutta l'altezza. Prima i corpi si disponevano su
+                          // `size.height` intero, quindi la Luna finiva sotto la
+                          // barra del titolo, tagliata dall'orologio di sistema,
+                          // e le costellazioni basse finivano sotto la scheda,
+                          // leggibili in trasparenza sotto il vetro.
+                          duration: reduceMotion
+                              ? Duration.zero
+                              : const Duration(milliseconds: 420),
+                          curve: Curves.easeOutCubic,
+                          left: b.slot.dx * size.width -
+                              b.size / 2 +
+                              (camView * depth(0.42)).dx,
+                          top: (campo.top +
+                                  b.slot.dy * campo.height -
+                                  b.size / 2 +
+                                  (camView * depth(0.42)).dy)
+                              .clamp(
+                                  campo.top,
+                                  math.max(
+                                      campo.top,
+                                      campo.bottom -
+                                          b.size -
+                                          _sporgenzaEtichetta)),
                           width: b.size,
                           height: b.size + 36,
                           child: _BodyView(
@@ -815,8 +872,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                                 setState(() => _selectedKey = b.key),
                           ),
                         ),
-                    ],
-                  ),
+                  ],
                 ),
 
                 // Scheda in basso: cosa e', nella voce di Medora. Sta sotto
@@ -831,7 +887,12 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        _SkyInfoCard(
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxHeight: altezzaMassimaScheda(schermo.height),
+                          ),
+                          child: SingleChildScrollView(
+                            child: _SkyInfoCard(
                             selected: selected,
                             palette: palette,
                             oriented: _place != null,
@@ -845,6 +906,8 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                                         ?.identity
                                         .isExample ==
                                     false)),
+                          ),
+                        ),
                         if (widget.ctaLabel != null) ...[
                           const SizedBox(height: SpacingTokens.md),
                           SizedBox(
@@ -1418,16 +1481,32 @@ class _SkyInfoCard extends StatelessWidget {
                 child: Text(
                   birth
                       ? registrata
-                          ? 'La volta del giorno e dell\'ora che hai '
-                              'registrato. La posizione esatta di ogni astro '
-                              'arriva col motore a effemeridi.'
+                          // LA NOTA DICE COSA E' CALCOLATO E COSA NON C'E'.
+                          //
+                          // Diceva "la posizione esatta di ogni astro arriva
+                          // col motore a effemeridi", ed era vera quando fu
+                          // scritta. Da quando la Luna e le costellazioni si
+                          // posizionano da altezza e azimut reali e' meta'
+                          // falsa: nega in blocco un calcolo che l'app fa
+                          // davvero. Resta vera sull'altra meta', perche' gli
+                          // altri pianeti qui non si disegnano.
+                          //
+                          // Al passato nel cielo di NASCITA, perche' quella
+                          // schermata non descrive un adesso.
+                          ? 'Luna e costellazioni sono calcolate sull\'ora e '
+                              'sul luogo che hai registrato, con l\'altezza che '
+                              'avevano su quell\'orizzonte. Gli altri pianeti '
+                              'non si disegnano qui: stanno nella tua carta '
+                              'natale.'
                           : 'Veduta d\'assaggio finché non registri nascita e '
                               'luogo. Poi diventa la tua.'
                       : oriented
-                          ? 'Orientato sul tuo luogo. La posizione esatta di '
-                              'ogni astro nel cielo arriva col motore a '
-                              'effemeridi.'
-                          : 'I pianeti si uniranno presto al tuo cielo.',
+                          ? 'Luna e costellazioni sono calcolate adesso, sul tuo '
+                              'luogo, con la loro altezza vera sul tuo '
+                              'orizzonte. Gli altri pianeti non si disegnano '
+                              'qui: stanno nella tua carta natale.'
+                          : 'Concedi il luogo e il cielo si calcola su dove sei '
+                              'adesso.',
                   // Nessun troncamento: la nota va a capo per intero.
                   style: TypographyTokens.label(size: 11).copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.7),

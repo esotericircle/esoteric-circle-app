@@ -1,5 +1,14 @@
 # RIPRESA
 
+## Il cielo intero: resta uno sforamento, col numero
+
+Il campo libero e' calcolato e i corpi ci stanno dentro alla misura reale alle
+22. **Alle ore 4 la Luna selezionata arriva a 609 punti mentre la scheda
+comincia a 566**, uno sforamento di 43; a 2532 di altezza sono 75. Il conto del
+campo torna a 439, quindi fra il calcolo e il pixel c'e' una traslazione di
+circa 202 punti che non ho trovato. La prova gira sui casi verificati e NON e'
+stata allentata: la voce resta aperta.
+
 ## CAPITOLO GOOGLE, prima voce: riaccendere App Check
 
 `enforceAppCheck` sulla callable `natalChart` e' stato messo a **false il 31

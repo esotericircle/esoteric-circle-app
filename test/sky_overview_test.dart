@@ -129,8 +129,16 @@ void main() {
     await step(tester);
     expect(find.byKey(const Key('sky_location_prompt')), findsNothing);
     // La dichiarazione in-world, in italiano semplice, senza gergo.
-    expect(find.textContaining('Orientato sul tuo luogo'), findsOneWidget);
-    expect(find.textContaining('motore a effemeridi'), findsOneWidget);
+    // La nota diceva "Orientato sul tuo luogo. La posizione esatta di ogni
+    // astro arriva col motore a effemeridi", ed era meta' falsa: negava in
+    // blocco un calcolo che l'app fa davvero. Adesso dice cosa e' calcolato e
+    // cosa non c'e'.
+    expect(find.textContaining('altezza vera sul tuo orizzonte'),
+        findsOneWidget);
+    // E dichiara anche cosa NON c'e', invece di negare tutto in blocco: gli
+    // altri pianeti non si disegnano su questa schermata.
+    expect(find.textContaining('Gli altri pianeti non si disegnano'),
+        findsOneWidget);
   });
 
   testWidgets('Se il permesso manca, ripiega con eleganza sulla veduta attuale',
