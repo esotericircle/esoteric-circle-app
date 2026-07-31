@@ -148,40 +148,49 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         // La striscia col token di debug di App Check sta sopra il Navigator,
         // quindi si legge anche mentre l'onboarding e' aperto sopra lo shell.
         // In release non compare: lo decidono i servizi, non questa riga.
-        builder: (context, child) =>
-            AppCheckDebugBanner(child: child ?? const SizedBox.shrink()),
+        //
+        // QUI STA ANCHE L'INTRO, e ci sta per una ragione che ho imparato
+        // sbagliando: era dentro `home`, cioe' dentro la ROUTE INIZIALE, e il
+        // Risveglio non e' un ramo dell'albero, e' un `push`. Un push mette una
+        // route SOPRA, quindi copriva l'intro: si sentiva la voce e si vedeva
+        // il Risveglio, perche' l'intro era viva e sepolta. Il builder avvolge
+        // il Navigator intero, quindi sta davvero davanti a tutto, comprese le
+        // schermate che verranno spinte sopra domani.
+        builder: (context, child) => AppCheckDebugBanner(
+          child: Consumer<SettingsController>(
+            builder: (context, settings, _) {
+              // Modalita' semplice: abbassa la qualita' grafica. Applicata
+              // fuori dal build per non scrivere stato durante la costruzione.
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                final q = context.read<QualityTierController>();
+                final target =
+                    settings.simpleMode ? QualityTier.low : QualityTier.high;
+                if (q.tier != target) q.setTier(target);
+              });
+              // Riduci animazioni: si riversa su disableAnimations, cosi' tutto
+              // il codice che rispetta Riduci Movimento lo onora. Da qui vale
+              // anche per le route spinte sopra, che prima ne restavano fuori.
+              final mq = MediaQuery.of(context);
+              return MediaQuery(
+                data: mq.copyWith(
+                  disableAnimations:
+                      mq.disableAnimations || settings.reduceAnimations,
+                ),
+                child: SequenzaIntro(
+                  mostra: widget.conIntro,
+                  child: child ?? const SizedBox.shrink(),
+                ),
+              );
+            },
+          ),
+        ),
         // La dissolvenza cromatica del tema riguarda lo sfondo e gli accenti,
         // gestiti da MaestroScope; qui teniamo un solo ThemeData scuro base.
-        home: Consumer<SettingsController>(
-          builder: (context, settings, _) {
-            // Modalita' semplice: abbassa la qualita' grafica. Applicata fuori
-            // dal build per non scrivere stato durante la costruzione.
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              final q = context.read<QualityTierController>();
-              final target =
-                  settings.simpleMode ? QualityTier.low : QualityTier.high;
-              if (q.tier != target) q.setTier(target);
-            });
-            // Riduci animazioni: si riversa su disableAnimations, cosi' tutto
-            // il codice che rispetta Riduci Movimento lo onora.
-            final mq = MediaQuery.of(context);
-            return MediaQuery(
-              data: mq.copyWith(
-                disableAnimations:
-                    mq.disableAnimations || settings.reduceAnimations,
-              ),
-              // L'INTRO STA DAVANTI A TUTTO, e sotto di lei c'e' gia' la
-              // destinazione vera: non decide dove si va, ritarda solo il
-              // momento in cui si vede. Chi ha gia' fatto il Risveglio entra
-              // nel Cerchio, chi non l'ha fatto lo trova ad aspettarlo.
-              child: SequenzaIntro(
-                mostra: widget.conIntro,
-                child: _OnboardingLauncher(
-                  child: MaestroScope(child: AppShell(clock: clock)),
-                ),
-              ),
-            );
-          },
+        //
+        // LA DESTINAZIONE STA SEMPRE SOTTO, gia' costruita: l'intro non decide
+        // dove si va, ritarda solo il momento in cui si vede.
+        home: _OnboardingLauncher(
+          child: MaestroScope(child: AppShell(clock: clock)),
         ),
       ),
     );

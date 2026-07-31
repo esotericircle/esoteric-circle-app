@@ -1,7 +1,9 @@
 import 'package:esoteric_circle/features/intro/sequenza_intro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/app.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// L'INTRO DI APERTURA: la sequenza, i suoi tempi, e il tocco che la salta.
 ///
@@ -181,5 +183,43 @@ void main() {
     // dissolvenza, come l'ordine chiede.
     expect(SequenzaIntro.voceDiRipiego, lessThan(SequenzaIntro.duranteIlNero));
     expect(SequenzaIntro.voce, 'audio/principio.mp3');
+  });
+
+  testWidgets('L\'intro copre anche il Risveglio, che si apre con un push',
+      (tester) async {
+    // IL DIFETTO CHE QUESTA PROVA AVREBBE PRESO, segnalato sulla 2123: si
+    // sentiva la voce e si vedeva il Risveglio. L'intro stava dentro `home`,
+    // cioe' dentro la route iniziale, e il Risveglio non e' un ramo
+    // dell'albero, e' un `push`: una route spinta SOPRA copre chi sta sotto.
+    // L'intro era viva e sepolta.
+    //
+    // Le prove che c'erano montavano la sola SequenzaIntro, quindi non
+    // potevano vedere un Navigator che non c'era. Questa monta L'APP INTERA
+    // con l'intro accesa, che e' l'unico modo di misurare dove sta davvero.
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1170, 2532);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const EsotericCircleApp());
+    // Il tempo che serve al Risveglio per decidersi e spingersi sopra.
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+
+    expect(find.byKey(const Key('intro_salta')), findsOneWidget,
+        reason: 'l\'intro non e\' piu\' a schermo: qualcosa le e\' passato '
+            'davanti, e la voce continuerebbe a suonare sotto');
+    // E la frase si vede, cioe' l'intro non e' solo montata, e' VISIBILE.
+    expect(
+        find.byWidgetPredicate((w) =>
+            w is Text &&
+            w.data != null &&
+            w.data!.isNotEmpty &&
+            SequenzaIntro.frase.startsWith(w.data!)),
+        findsOneWidget,
+        reason: 'la frase dell\'intro non si legge, quindi c\'e\' una '
+            'schermata sopra');
   });
 }
