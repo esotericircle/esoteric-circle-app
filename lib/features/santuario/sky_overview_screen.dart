@@ -1020,9 +1020,10 @@ class _SkyBody {
         // TESTO della scheda e non in dove il corpo si disegna, quindi
         // concedendo il permesso la scena restava identica.
         slot: slot,
-        // Piu' piccola di prima: con quattro corpi in due file, le scatole
-        // grandi non stavano nel campo e finivano una sull'altra.
-        size: 78,
+        // CENTOTTO, risalita da 78. Il massimo che tiene verdi le dodici prove
+        // insieme alle costellazioni a 118: a 124 il campo non basta piu' e
+        // l'Acquario finisce sotto la scheda.
+        size: 108,
         moon: moon,
         datoDiAdesso: _datoDellaLuna(moon, cielo, birth: birth),
         coordinate: _coordinateDellaLuna(moon, cielo),
@@ -1041,8 +1042,12 @@ class _SkyBody {
         // stella piu' luminosa fra quelle che il motore le ha calcolato.
         slot: slot,
         description: NightSky.describe(sign),
-        // Piu' piccole di prima, per la stessa ragione della Luna.
-        size: 104,
+        // CENTODICIOTTO, risalite da 104. Il fondatore le voleva verso 130: a
+        // 130 quattro prove cadono, perche' con lo slot centrale abbastanza in
+        // basso da non lasciare la fascia vuota il corpo finisce sotto la
+        // scheda. Centodiciotto e' il massimo che tiene, ed e' un numero
+        // misurato e non deciso a priori.
+        size: 118,
         asterism: kZodiacAsterisms[sign]!,
         datoDiAdesso: _datoDellaCostellazione(sign, cielo, birth: birth),
         coordinate: _coordinateDellaCostellazione(sign, cielo),
