@@ -162,7 +162,7 @@ class AngeloIngrandito extends StatelessWidget {
             ),
             const SizedBox(height: SpacingTokens.md),
             _Riga(
-              titolo: 'Perche\' e\' tuo',
+              titolo: 'Perché è tuo',
               testo: 'Il tuo angelo ${ruolo.titolo.toLowerCase()}, '
                   '${ruolo.origine} della tua nascita.',
               palette: palette,

@@ -22,21 +22,21 @@ class MaestroWelcome {
     '{voc}, sono qui con te, senza fretta.',
     '{voc}, mi fa piacere ritrovarti.',
     '{voc}, prenditi un respiro: cominciamo quando vuoi.',
-    '{voc}, la soglia e\' aperta, entra pure.',
+    '{voc}, la soglia è aperta, entra pure.',
     '{voc}, ti ascolto con attenzione.',
     '{voc}, il cerchio ti riaccoglie, comunque tu arrivi.',
     '{voc}, oggi le voci del cielo sono limpide.',
     '{voc}, ogni domanda che porti ha il suo posto qui.',
     '{voc}, resto accanto a te per questo tratto di strada.',
-    '{voc}, il momento giusto per parlare e\' sempre adesso.',
+    '{voc}, il momento giusto per parlare è sempre adesso.',
     '{voc}, apriamo insieme questo spazio.',
   ];
 
   /// Le domande che spingono all'azione, variate a rotazione.
   static const List<String> actions = [
     'Da dove vuoi cominciare?',
-    'Qual e\' la prima cosa che senti di voler capire?',
-    'Cosa ti sta piu\' a cuore oggi?',
+    'Qual è la prima cosa che senti di voler capire?',
+    'Cosa ti sta più a cuore oggi?',
     'Su quale nodo vuoi che portiamo luce?',
     'Che passo stai cercando di fare?',
     'Cosa vuoi mettere al centro, adesso?',

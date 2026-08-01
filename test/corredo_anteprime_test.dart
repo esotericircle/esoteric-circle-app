@@ -63,7 +63,13 @@ void main() {
     // stato con il codice riportato indietro, e non descrivono l'app di oggi.
     // Farle passare dal corredo vorrebbe dire rigenerarle a ogni giro, e la
     // "prima" sparirebbe al primo aggiornamento.
-    const eccezioni = {'prima_dopo_capture_test.dart'};
+    const eccezioni = {
+      'prima_dopo_capture_test.dart',
+      // Stessa natura: e' il prima e dopo dell'icona del Cerchio, non
+      // un'anteprima dell'app, e la "prima" mostra un'icona che non esiste
+      // piu'. Rigenerarla dal corredo la cancellerebbe.
+      'icona_cerchio_capture_test.dart',
+    };
     final fuori = <String>[];
     for (final f in Directory('test').listSync()) {
       if (f is! File || !f.path.endsWith('.dart')) continue;

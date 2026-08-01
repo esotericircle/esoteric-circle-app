@@ -1,5 +1,30 @@
 # RIPRESA
 
+## Le tre voci ancora aperte della coda del 1 agosto 2026
+
+Nessuna aspetta una decisione del fondatore: sono aperte per fine del margine,
+e vanno riprese in quest'ordine.
+
+1. **La Stesa fuori schermo a 360.** Nella cattura, il tocco sul ventaglio
+   avverte "the widget is actually off-screen". Il test passa perche' il timer
+   non resta appeso, ma il difetto e' vero. Serve la prova del rosso alla
+   larghezza reale, poi la correzione.
+2. **Le carte laterali dei Maestri tagliate a 360.** A 390 le tre carte stanno
+   dentro con la cornice chiusa, a 360 quelle ai lati escono. Da decidere e
+   dichiarare: o si stringono, o diventano una sbirciatura VOLUTA, cioe' una
+   porzione regolare e uguale ai due lati, mai un taglio che dipende dalla
+   larghezza.
+3. **Il residuo del fuso, 123,7 gradi.** Lo stesso istante scritto in UTC e in
+   ora civile produce ancora due cieli distanti 123,7 gradi di azimut: oltre
+   alla conversione c'e' dell'altro che guarda l'ora locale grezza.
+
+## Gli accenti a schermo NON sono piu' aperti
+
+Chiusi il 1 agosto 2026. Erano 151 stringhe in 16 file, non dieci in sette: la
+misura di allora cercava `fara'` mentre nel sorgente c'e' `fara'`, con la barra
+dell'escape in mezzo. La regola ora vive in `testo_a_video_test.dart` e vale
+anche per le frasi che nasceranno domani.
+
 ## L'intro e' PROVVISORIA
 
 Sta in `lib/features/intro/sequenza_intro.dart` e va sostituita quando

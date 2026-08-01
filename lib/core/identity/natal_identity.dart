@@ -97,7 +97,7 @@ String phaseMeaningOf(MoonIllumination m) {
   if (f > 0.96) return 'nato a Luna piena: pienezza, coscienza, culmine.';
   if (f >= 0.46 && f <= 0.54) {
     return m.waxing
-        ? 'nato al primo quarto: la volonta\' che agisce e decide.'
+        ? 'nato al primo quarto: la volontà che agisce e decide.'
         : 'nato all\'ultimo quarto: revisione, taglio, rilascio.';
   }
   if (m.waxing) {
@@ -150,15 +150,15 @@ String lifeTitleOf(int n) => switch (n) {
     };
 
 String lifeMeaningOf(int n) => switch (n) {
-      1 => 'guida, volonta\' e indipendenza: apri le strade.',
-      2 => 'sensibilita\', unione e diplomazia: tessi legami.',
+      1 => 'guida, volontà e indipendenza: apri le strade.',
+      2 => 'sensibilità, unione e diplomazia: tessi legami.',
       3 => 'espressione, gioia e parola: crei e comunichi.',
       4 => 'ordine, radici e disciplina: costruisci basi solide.',
       5 => 'movimento, cambiamento e sensi: vivi libero.',
-      6 => 'amore, cura e responsabilita\': custodisci gli altri.',
-      7 => 'introspezione, mistero e sapere: cerchi la verita\'.',
+      6 => 'amore, cura e responsabilità: custodisci gli altri.',
+      7 => 'introspezione, mistero e sapere: cerchi la verità.',
       8 => 'potere, materia e giustizia: realizzi nel mondo.',
-      9 => 'dono, compimento e universalita\': doni te stesso.',
+      9 => 'dono, compimento e universalità: doni te stesso.',
       11 => 'intuizione e ispirazione, numero maestro: illumini.',
       22 => 'grandi opere concrete, numero maestro: dai forma ai sogni.',
       33 => 'servizio e guarigione, numero maestro: curi col cuore.',

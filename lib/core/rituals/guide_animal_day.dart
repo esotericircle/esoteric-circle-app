@@ -109,13 +109,13 @@ class GuideAnimalDay {
         TemaTransito.armonia => 'Oggi il cielo ti sostiene.',
         TemaTransito.sfida => 'Oggi il cielo ti chiama a muoverti.',
         TemaTransito.intensita => 'Oggi il cielo si fa intenso.',
-        TemaTransito.quiete => "Oggi il cielo e' quieto.",
+        TemaTransito.quiete => "Oggi il cielo è quieto.",
       };
 
   static String _fraseAspetto(AspettoSegno aspetto) => switch (aspetto) {
         AspettoSegno.congiunzione => 'si unisce al tuo Sole in',
         AspettoSegno.sestile => 'apre un sestile al tuo Sole in',
-        AspettoSegno.trigono => "e' in trigono col tuo Sole in",
+        AspettoSegno.trigono => "è in trigono col tuo Sole in",
         AspettoSegno.quadrato => 'incalza in quadratura il tuo Sole in',
         AspettoSegno.opposizione => 'si oppone al tuo Sole in',
         AspettoSegno.nessuno => 'passa lontana dal tuo Sole in',

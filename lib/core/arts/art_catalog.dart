@@ -695,7 +695,7 @@ class ArtCatalog {
       ArtEntry(
         id: 'magic_sigil',
         title: 'Sigillo dell\'Intenzione',
-        teaser: 'La tua intenzione diventa un glifo che e\' solo tuo.',
+        teaser: 'La tua intenzione diventa un glifo che è solo tuo.',
         icon: Icons.gesture_rounded,
         state: ArtState.attiva,
         phase: ArtPhase.mvp,

@@ -177,7 +177,7 @@ class _AngelsScreenState extends State<AngelsScreen>
                 sottotitolo: 'del corpo fisico',
                 perche: 'Nasce dal grado in cui il Sole stava alla tua '
                     'nascita, ${triade.sunLongitude.toStringAsFixed(1)} gradi '
-                    'dello zodiaco. Veglia su cio\' che sei nel corpo e nel '
+                    'dello zodiaco. Veglia su ciò che sei nel corpo e nel '
                     'temperamento.',
                 palette: palette,
               ),
@@ -191,7 +191,7 @@ class _AngelsScreenState extends State<AngelsScreen>
                 ruolo: 'Angelo del Cuore',
                 sottotitolo: 'del corpo astrale',
                 perche: 'Nasce dal giorno in cui sei nato, il '
-                    '${triade.dayOfYear}esimo dell\'anno. Veglia su cio\' che '
+                    '${triade.dayOfYear}esimo dell\'anno. Veglia su ciò che '
                     'senti e su come ami.',
                 palette: palette,
               ),
@@ -206,7 +206,7 @@ class _AngelsScreenState extends State<AngelsScreen>
                   ruolo: 'Angelo dell\'Intelletto',
                   sottotitolo: 'delle missioni',
                   perche: 'Nasce dall\'ora della tua nascita. Veglia sul tuo '
-                      'pensiero e su cio\' che sei venuto a fare.',
+                      'pensiero e su ciò che sei venuto a fare.',
                   palette: palette,
                 )
               else
@@ -443,7 +443,7 @@ class _IntellettoMancante extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xs),
           Text(
             'Questo terzo angelo nasce dall\'ora esatta della nascita, che non '
-            'ci hai ancora detto. Quando la troverai, comparira\' qui: come '
+            'ci hai ancora detto. Quando la troverai, comparirà qui: come '
             'l\'Ascendente e le case, senza ora non si calcola.',
             style: TypographyTokens.body(size: 15)
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4),
@@ -498,14 +498,14 @@ class _ComeSonoScelti extends StatelessWidget {
           riga(
             'Il Cuore, dal giorno',
             'I settantadue si susseguono un giorno ciascuno e ricominciano da '
-                'capo lungo l\'anno. Il tuo e\' quello del '
+                'capo lungo l\'anno. Il tuo è quello del '
                 '${triade.dayOfYear}esimo giorno.',
           ),
           riga(
             'L\'Intelletto, dall\'ora',
             'Il giorno ha millequattrocentoquaranta minuti e gli angeli sono '
                 'settantadue: venti minuti per ciascuno. Senza l\'ora di '
-                'nascita questo angelo non si puo\' sapere.',
+                'nascita questo angelo non si può sapere.',
           ),
         ],
       ),

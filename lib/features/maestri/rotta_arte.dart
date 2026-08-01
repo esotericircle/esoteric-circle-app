@@ -269,7 +269,7 @@ class CuorePreferita extends StatelessWidget {
       EsitoPreferita.pieno =>
         'Le tue arti sono ${ArtiPreferiteController.tetto}: togline una per '
             'fare posto.',
-      EsitoPreferita.sconosciuta => 'Quest\'arte non e\' ancora viva.',
+      EsitoPreferita.sconosciuta => 'Quest\'arte non è ancora viva.',
     };
     final messenger = ScaffoldMessenger.maybeOf(context);
     if (messenger == null) return;

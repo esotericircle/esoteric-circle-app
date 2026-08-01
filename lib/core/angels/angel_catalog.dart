@@ -77,7 +77,7 @@ class AngelCatalog {
   static const AngelChoir serafini = AngelChoir(
     name: 'Serafini',
     archangel: 'Metatron',
-    domain: 'l\'amore che arde e la volonta\' che accende',
+    domain: 'l\'amore che arde e la volontà che accende',
   );
   static const AngelChoir cherubini = AngelChoir(
     name: 'Cherubini',

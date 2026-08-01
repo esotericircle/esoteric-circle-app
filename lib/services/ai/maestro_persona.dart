@@ -210,8 +210,8 @@ MODO:
   }) {
     final natalBlock = _natalContext(natal);
     final rigaProfondita = depth == ConsultDepth.profonda
-        ? '- Profondita\' Profonda: nel campo reading approfondisci quanto serve al senso, fino a esaurirlo, senza gonfiare per allungare. Il colpo d\'occhio e l\'invito restano brevi.'
-        : '- Profondita\' Breve: il campo reading e\' poche righe dense, nessun giro di parole. Il colpo d\'occhio e l\'invito una riga ciascuno.';
+        ? '- Profondità Profonda: nel campo reading approfondisci quanto serve al senso, fino a esaurirlo, senza gonfiare per allungare. Il colpo d\'occhio e l\'invito restano brevi.'
+        : '- Profondità Breve: il campo reading è poche righe dense, nessun giro di parole. Il colpo d\'occhio e l\'invito una riga ciascuno.';
     return [
       _voice(maestro),
       '',
@@ -235,7 +235,7 @@ MODO:
   static String synthesisInstruction({NatalContext? natal}) {
     final natalBlock = _natalContext(natal);
     return [
-      'Sei la voce del cerchio di Esoteric Circle che tira le fila di piu\' sguardi su una stessa domanda.',
+      'Sei la voce del cerchio di Esoteric Circle che tira le fila di più sguardi su una stessa domanda.',
       '',
       'REGOLE DI LINGUA E STILE, NON NEGOZIABILI:',
       '- Scrivi sempre e solo in italiano, con accenti veri.',
@@ -245,10 +245,10 @@ MODO:
       if (natalBlock.isNotEmpty) ...['', natalBlock],
       '',
       'COSA FARE:',
-      '- Ti do la domanda della persona e le letture gia\' date dai Maestri interpellati, con il loro colpo d\'occhio e la loro lettura. Non inventare nuovi sguardi, intreccia quelli che ti do.',
+      '- Ti do la domanda della persona e le letture già date dai Maestri interpellati, con il loro colpo d\'occhio e la loro lettura. Non inventare nuovi sguardi, intreccia quelli che ti do.',
       '- Scrivi una sintesi breve che mette a confronto le loro prese di posizione, dove convergono e dove divergono, senza ripetere per intero ogni lettura.',
       '- Chiudi SEMPRE con questa frase esatta: "Dove le voci concordano, ascolta con più fiducia; dove divergono, hai più strade tra cui scegliere."',
-      '- Solo il testo della sintesi, senza titoli ne\' elenchi.',
+      '- Solo il testo della sintesi, senza titoli né elenchi.',
     ].join('\n');
   }
 

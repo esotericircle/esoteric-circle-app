@@ -99,12 +99,12 @@ class FreeAstroClient {
       // via JSON alla forma Map<String, dynamic> attesa dal parsing.
       final json = jsonDecode(jsonEncode(raw));
       if (json is! Map<String, dynamic>) {
-        throw const AstroApiException('La risposta del cielo non e\' leggibile.');
+        throw const AstroApiException('La risposta del cielo non è leggibile.');
       }
       return json;
     } catch (e) {
       if (e is AstroApiException) rethrow;
-      throw const AstroApiException('La risposta del cielo non e\' leggibile.');
+      throw const AstroApiException('La risposta del cielo non è leggibile.');
     }
   }
 

@@ -43,12 +43,12 @@ class ChatOpeners {
   static String animale(String nome) {
     final art = _articoloAnimale[nome] ?? 'il';
     final sep = art.endsWith('\'') ? '' : ' ';
-    return 'Il mio animale guida e\' $art$sep$nome, cosa vuole dirmi?';
+    return 'Il mio animale guida è $art$sep$nome, cosa vuole dirmi?';
   }
 
   /// Dalla Runa del Tramonto verso Caligo, con la runa della sera e il suo verso.
   static String runaTramonto(String nome, String verso) =>
-      'La mia runa del tramonto e\' $nome $verso. Cosa devo lasciare fuori '
+      'La mia runa del tramonto è $nome $verso. Cosa devo lasciare fuori '
       'stanotte?';
 
   /// Dall'Estrazione Rune verso Caligo, con la gettata e le rune uscite.
@@ -68,12 +68,12 @@ class ChatOpeners {
 
   /// Dal Test Archetipo verso Aura, col nome con l'articolo dell'archetipo.
   static String archetipo(String conArticolo) =>
-      'Il mio archetipo e\' $conArticolo, aiutami a capirlo meglio.';
+      'Il mio archetipo è $conArticolo, aiutami a capirlo meglio.';
 
   /// Dalla Costellazione del Viso verso Aura, col tratto dominante vero.
   /// [categoria] e' il nome della categoria del tratto, per l'articolo.
   static String viso(String categoria, String nome) {
     final art = _articoloTratto[categoria] ?? 'il';
-    return 'Il mio tratto dominante e\' $art ${nome.toLowerCase()}, cosa racconta di me?';
+    return 'Il mio tratto dominante è $art ${nome.toLowerCase()}, cosa racconta di me?';
   }
 }

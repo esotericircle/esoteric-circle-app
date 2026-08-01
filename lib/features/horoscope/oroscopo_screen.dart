@@ -672,7 +672,7 @@ class _PeriodTab extends StatelessWidget {
     if (!locked) return tab;
     return Tooltip(
       message:
-          'L\'oroscopo della ${period.label.toLowerCase()} e\' del Cerchio Premium. Abbonati per aprirlo.',
+          'L\'oroscopo della ${period.label.toLowerCase()} è del Cerchio Premium. Abbonati per aprirlo.',
       child: tab,
     );
   }

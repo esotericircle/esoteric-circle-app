@@ -149,7 +149,7 @@ Future<bool> shareGuideAnimalCard({
   await SharePlus.instance.share(
     ShareParams(
       files: [XFile(file.path)],
-      text: 'Il mio animale guida e\' ${animal.name}. '
+      text: 'Il mio animale guida è ${animal.name}. '
           'Scopri il tuo con Caligo, su Esoteric Circle.',
     ),
   );

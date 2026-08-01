@@ -68,13 +68,46 @@ void main() {
             'rimette davanti: $colpevoli');
   });
 
-  // GLI ACCENTI A SCHERMO RESTANO APERTI, e lo dichiaro invece di fingere.
-  // La prova che li cercava trovava dieci punti veri, ma correggerli in blocco
-  // tocca anche i COMMENTI, dove l'apostrofo al posto dell'accento e' la
-  // convenzione voluta di questo progetto: servirebbe distinguere le stringhe
-  // mostrate dalle chiavi, dai percorsi e dai messaggi di diagnostica, che e'
-  // piu' di quanto una riparazione minuta consenta. Sta in RIPRESA.md.
-  //
-  // La frase segnalata dal fondatore, quella della Risonanza, e' corretta a
-  // mano e verificata.
+  test('Nessuna frase mostrata usa l\'apostrofo al posto dell\'accento', () {
+    // GLI ACCENTI A SCHERMO, chiusi il 1 agosto 2026 dopo essere rimasti
+    // aperti: il fondatore aveva letto "la lettura si fara' piu' precisa" nella
+    // Risonanza, e la ricerca di allora dichiaro' dieci punti in sette file.
+    // Erano CENTOCINQUANTADUE in diciassette: la prima misura non aveva
+    // trovato niente perche' cercava fara' mentre nel sorgente c'e' fara',
+    // con la barra dell'escape in mezzo. Una ricerca che torna a zero e' una
+    // ricerca da rifare, non una buona notizia.
+    //
+    // LA DIFFICOLTA' VERA era distinguere le frasi mostrate dai COMMENTI, dove
+    // l'apostrofo al posto dell'accento e' la convenzione voluta di questo
+    // progetto, e dalle ELISIONI, dove l'apostrofo e' giusto: "l'anno",
+    // "un'ora", "po'". Questa prova guarda le sole stringhe con uno spazio
+    // dentro, cioe' le frasi, e conosce l'elenco delle elisioni.
+    const elisioni = {
+      'l', 'un', 'c', 'd', 'dell', 'all', 'nell', 'sull', 'dall', 'quest',
+      'sant', 'm', 't', 's', 'v', 'gl', 'gli', 'anch', 'nessun', 'ciascun',
+      'buon', 'grand', 'bell', 'tutt', 'qual', 'po', 'di', 'fa', 'va', 'sta',
+      'da', 'mo', 'be', 'to', 'n', 'senz', 'sopr', 'contr', 'dentr', 'sott',
+      'quell', 'part', 'com', 'or', 'ver', 'tal', 'altr', 'nostr', 'vostr',
+      // Le decine elise davanti agli anni e il "qualcos'altro": trovate da
+      // questa prova al primo giro, che e' il motivo per cui esiste.
+      'vent', 'trent', 'quarant', 'cinquant', 'sessant', 'settant', 'ottant',
+      'novant', 'qualcos',
+    };
+    final parola = RegExp(r"([A-Za-zÀ-ÿ]+)'");
+    final colpevoli = <String>[];
+    for (final (file, riga, testo) in stringheDiLib()) {
+      if (!testo.contains(' ')) continue;
+      // Nel sorgente l'apostrofo dentro una stringa a apici singoli porta
+      // davanti la barra dell'escape, quindi si normalizza prima di cercare:
+      // e' il passo che mancava alla misura di allora, quella che trovo' zero.
+      for (final m in parola.allMatches(testo.replaceAll(r"\'", "'"))) {
+        final p = m.group(1)!.toLowerCase();
+        if (elisioni.contains(p)) continue;
+        colpevoli.add('$file riga $riga: "${m.group(0)}"');
+      }
+    }
+    expect(colpevoli, isEmpty,
+        reason: 'queste frasi mostrate usano l\'apostrofo al posto '
+            'dell\'accento, e la persona lo legge: $colpevoli');
+  });
 }
