@@ -1,5 +1,20 @@
 # RIPRESA
 
+## La coda dell'AI, aperta per fine del margine
+
+Ordine del 1 agosto 2026, cinque voci, NESSUNA aperta a meta'. Lo stato voce per
+voce sta in ESITO_AI.md, e la cosa piu' utile che c'e' scritta e' questa: IL
+PONTE CON GEMINI ESISTE GIA', con la regione, i modelli e i tetti dichiarati in
+`firebase_maestro_ai_provider.dart`. La voce 1 non e' "collegare Gemini", e'
+capire perche' la chat non risponde, e IL PRIMO POSTO DOVE GUARDARE sono i
+quattro `catch (_)` di `maestro_chat_controller.dart`, che inghiottono l'errore
+vero.
+
+Una decisione per il fondatore sta scritta li': l'ordine chiede una Cloud
+Function per tenere la chiave sul server, ma nell'app una chiave non c'e', il
+provider usa Firebase AI con App Check. La callable ha altri vantaggi veri, il
+controllo del costo e il rate limiting lato server, e va decisa per quelli.
+
 ## Il velo sui corpi sotto l'orizzonte, aperto
 
 Dal 1 agosto 2026 un corpo che a quell'istante stava sotto l'orizzonte lo
