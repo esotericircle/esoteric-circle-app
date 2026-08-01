@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/l10n/app_strings.dart';
 import '../../core/maestro/maestro.dart';
+import '../../design_system/components/icona_del_cerchio.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -57,7 +58,12 @@ class SantuarioBottomBar extends StatelessWidget {
             children: [
               _BarItem(
                 label: AppStrings.navSantuario,
-                iconData: Icons.brightness_3,
+                // LA MEZZALUNA DENTRO IL CERCHIO, non la mezzaluna sola: porta
+                // la Luna e il Sole insieme, la luce e l'oscurita'. Il disegno
+                // sta nel design system, non qui: la barra sceglie l'icona, non
+                // la disegna.
+                icona: (colore, lato) =>
+                    IconaDelCerchio(colore: colore, dimensione: lato),
                 selected: onSantuarioView,
                 onTap: onSantuario,
               ),
@@ -66,7 +72,8 @@ class SantuarioBottomBar extends StatelessWidget {
               for (final maestro in Maestro.fixedOrder)
                 _BarItem(
                   label: maestro.displayName,
-                  iconData: maestro.icon,
+                  icona: (colore, lato) =>
+                      Icon(maestro.icon, color: colore, size: lato),
                   selected: false,
                   onTap: () => onMaestro(maestro),
                 ),
@@ -79,7 +86,8 @@ class SantuarioBottomBar extends StatelessWidget {
               ),
               _BarItem(
                 label: AppStrings.navPassport,
-                iconData: Icons.badge_outlined,
+                icona: (colore, lato) =>
+                    Icon(Icons.badge_outlined, color: colore, size: lato),
                 selected: view == ShellView.passport,
                 onTap: onPassport,
               ),
@@ -96,13 +104,18 @@ class _BarItem extends StatelessWidget {
     required this.label,
     required this.selected,
     required this.onTap,
-    required this.iconData,
+    required this.icona,
   });
 
   final String label;
   final bool selected;
   final VoidCallback onTap;
-  final IconData iconData;
+
+  /// Il disegno dell'icona, colore e lato decisi qui dentro perche' lo stato
+  /// attivo e la dimensione ottica sono della barra, non della singola voce.
+  /// Prima era un `IconData`, e un `IconData` non puo' essere una falce dentro
+  /// un anello: la voce del Cerchio non esiste fra le icone di Material.
+  final Widget Function(Color colore, double lato) icona;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +157,7 @@ class _BarItem extends StatelessWidget {
                       : null,
                 ),
                 alignment: Alignment.center,
-                child: Icon(iconData, color: color, size: 21),
+                child: icona(color, 21),
               ),
               const SizedBox(height: 4),
               Text(
