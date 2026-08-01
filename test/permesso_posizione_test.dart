@@ -90,7 +90,10 @@ void main() {
         const RispostaPosizione(EsitoPosizione.concessa,
             SkyPlace(latitude: 45.6, longitude: 8.85)));
     expect(find.byKey(const Key('sky_location_concessa')), findsOneWidget);
-    expect(find.textContaining('dove sei adesso'), findsOneWidget);
+    // "dove ti trovi" e non piu' "dove sei adesso": l'avverbio e' sparito da
+    // questa schermata perche' il cielo non e' di adesso, ed e' il LUOGO a
+    // restare quello attuale.
+    expect(find.textContaining('dove ti trovi'), findsOneWidget);
   });
 
   testWidgets('Negato: si dichiara il ripiego e si offre la via ai permessi',

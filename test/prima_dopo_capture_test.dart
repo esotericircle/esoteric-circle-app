@@ -79,7 +79,12 @@ void main() {
           key: radice,
           child: SkyOverviewScreen(
             birth: nascita,
-            now: nascita ? DateTime(1975, 7, 6, 9, 30) : null,
+            // L'ISTANTE DELLA SEGNALAZIONE, non l'adesso della macchina: due
+            // catture fatte in momenti diversi non si possono confrontare, e
+            // questa coppia serve proprio a confrontare.
+            now: nascita
+                ? DateTime(1975, 7, 6, 9, 30)
+                : DateTime(2026, 8, 1, 18, 4),
             ctaLabel: nascita ? 'Leggi la tua carta' : null,
             onCta: nascita ? () {} : null,
             luogoIniziale:

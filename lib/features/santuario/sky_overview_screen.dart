@@ -35,7 +35,13 @@ import '../../core/astro/sky.dart';
 /// rimasta al presente, quindi il cielo di NASCITA diceva "Adesso sale verso il
 /// culmine" parlando di una notte di cinquant'anni prima. Due frasi che
 /// descrivono lo stesso istante, e ne era stata corretta una.
-String quando(bool birth) => birth ? 'Quella notte' : 'Adesso';
+///
+/// **NON DICE PIU' "ADESSO".** La schermata del cielo mostra la mezzanotte
+/// della notte che viene, non l'istante presente: un avverbio al presente
+/// sopra un dato della notte e' la contraddizione che il fondatore ha
+/// fotografato. Il punto solo ha fatto il suo mestiere: cambiata questa riga,
+/// si sono adeguate tutte le frasi che la leggono.
+String quando(bool birth) => birth ? 'Quella notte' : 'Stanotte';
 
 /// "Il cielo sopra di te": il cielo del momento, immersivo ed esplorabile.
 ///
@@ -219,8 +225,22 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     }
   }
 
-  /// L'istante su cui si calcola: quello passato, altrimenti adesso.
-  DateTime get _istante => widget.now ?? DateTime.now();
+  /// L'ISTANTE UNICO DELLA SCHERMATA: la mezzanotte della notte che viene.
+  ///
+  /// **Perche' non e' l'adesso.** Il fondatore ha fotografato la scheda della
+  /// Bilancia alle 18:04 del 1 agosto 2026: diceva dodici gradi a sud-est,
+  /// mentre alle 18:04 la Bilancia stava a ventinove gradi e a mezzanotte a
+  /// tredici. Un numero della notte e una direzione dell'istante nella stessa
+  /// riga, sotto un titolo che diceva "adesso". La schermata era nata come "le
+  /// costellazioni alte a mezzanotte stanotte", ed e' quello che il motore
+  /// calcola: la parola "adesso" e' arrivata dopo.
+  ///
+  /// Ora l'istante e' UNO, viene da `mezzanotteDellaNotteCheViene`, ed e' un
+  /// dato che si legge, non una deduzione ripetuta in tre punti. Tutto quello
+  /// che la schermata mostra, posizioni, altezze, direzioni e fase, discende
+  /// da qui.
+  DateTime get _istante =>
+      mezzanotteDellaNotteCheViene(widget.now ?? DateTime.now());
 
   /// Calcola il cielo col luogo migliore disponibile.
   ///
@@ -250,7 +270,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
       catalogo,
       _istante,
       astro.BirthPlace(
-        label: dispositivo != null ? 'Dove sei adesso' : 'Luogo di nascita',
+        label: dispositivo != null ? 'Dove ti trovi' : 'Luogo di nascita',
         latitude: scelto.latitude,
         longitude: scelto.longitude,
         timezone: 'locale',
@@ -347,7 +367,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                             ? 'sotto il suolo'
                             : '${cielo.moon!.altDeg.toStringAsFixed(1)} gradi'),
                     const SizedBox(height: SpacingTokens.sm),
-                    Text('Costellazioni sopra il suolo adesso',
+                    Text('Costellazioni sopra il suolo a mezzanotte',
                         style: TypographyTokens.label(size: 12)
                             .copyWith(color: palette.goldSoft)),
                     const SizedBox(height: 2),
@@ -461,7 +481,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             key: Key('sky_location_concessa'),
-            content: Text('Cielo ricalcolato sul luogo dove sei adesso.'),
+            content: Text('Cielo ricalcolato sul luogo dove ti trovi.'),
           ),
         );
       }
@@ -477,7 +497,8 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
         content: Text(spento
             ? 'La posizione del telefono è spenta: resto sul cielo della tua '
                 'nascita.'
-            : 'Resto sul cielo della tua nascita, senza il luogo di adesso.'),
+            : 'Resto sul cielo della tua nascita, senza il luogo dove ti '
+                'trovi.'),
         action: SnackBarAction(
           label: spento ? 'Impostazioni' : 'Permessi',
           onPressed: () => spento
@@ -1058,12 +1079,15 @@ class _SkyBody {
     final astro = cielo?.moon;
     final percento = (moon.illumination * 100).toStringAsFixed(0);
     if (astro == null) {
-      return 'Luna, ${moon.italianName.toLowerCase()}, illuminata al '
-          '$percento per cento';
+      // STESSA FORMA DELLE COSTELLAZIONI anche quando sta sotto: dire solo la
+      // fase, senza dire dove sta, lasciava la Luna l'unico corpo senza
+      // posizione in una schermata che di posizioni parla.
+      return 'Luna, sotto il suolo a mezzanotte. ${moon.italianName}, '
+          'illuminata al $percento per cento.';
     }
     return 'Luna, ${astro.altDeg.toStringAsFixed(0)} gradi sopra il suolo, '
-        '${direzione(astro.azDeg)}. ${moon.italianName}, illuminata al '
-        '$percento per cento.';
+        '${direzione(astro.azDeg)}, a mezzanotte. ${moon.italianName}, '
+        'illuminata al $percento per cento.';
   }
 
   /// Nome, altezza in gradi e direzione di una costellazione.
@@ -1074,17 +1098,17 @@ class _SkyBody {
       final nome = sign.italianName.toLowerCase();
       final suo = c.name.toLowerCase();
       if (!suo.contains(nome) && !nome.contains(suo)) continue;
-      SkyStar? migliore;
-      for (final st in c.stars) {
-        if (st.altDeg <= kAltezzaOrizzonte) continue;
-        if (migliore == null || st.mag < migliore.mag) migliore = st;
-      }
+      final migliore = puntoDellaFigura(c.stars);
       if (migliore == null) {
-        return '${sign.italianName}, sotto il suolo: da qui non si vede.';
+        return '${sign.italianName}, sotto il suolo: stanotte da qui non si '
+            'vedrà.';
       }
+      // L'ORA E' PARTE DEL DATO. Senza, quel numero non e' verificabile da
+      // nessuno, ed e' esattamente cio' che ha costretto il fondatore a
+      // chiedere una verifica esterna.
       return '${sign.italianName}, '
           '${migliore.altDeg.toStringAsFixed(0)} gradi sopra il suolo, '
-          '${direzione(migliore.azDeg)}.';
+          '${direzione(migliore.azDeg)}, a mezzanotte.';
     }
     return null;
   }
@@ -1111,9 +1135,15 @@ class _SkyBody {
     // a video si leggeva il codice invece del numero. E il frammento diceva
     // gia' "adesso" mentre la frase lo rimetteva davanti: "Adesso adesso sta
     // a ...". Ora il frammento porta il fatto e la frase la sua cornice.
+    // LA LUNA MOSTRA ANCHE LA SUA DIREZIONE, come le costellazioni: la sua
+    // scheda dava fase e illuminazione e si fermava, mentre di ogni figura si
+    // diceva gradi E direzione. Stessa forma per tutti, piu' la fase che e'
+    // sua e resta.
+    final az = cielo.moon?.azDeg;
     final dove = alt == null
         ? 'sta sotto il suolo'
-        : 'sta a ${alt.toStringAsFixed(0)} gradi sopra il suolo';
+        : 'sta a ${alt.toStringAsFixed(0)} gradi sopra il suolo, '
+            '${direzione(az!)}';
     return '$base, in $segno. ${quando(birth)} $dove.';
   }
 
@@ -1153,10 +1183,16 @@ class _SkyBody {
       // l'istante in cui la persona e' nata, non questo momento.
       return birth
           ? 'Quella notte stava sotto il suolo: da li non si vedeva.'
-          : 'Adesso sta sotto il suolo: da qui non si vede.';
+          : 'Stanotte sta sotto il suolo: da qui non si vedrà.';
     }
-    final alt = alte.map((s) => s.altDeg).reduce((a, b) => a > b ? a : b);
-    final az = alte.first.azDeg;
+    // DUE STELLE DIVERSE NELLA STESSA FRASE, ed era un difetto vero: l'altezza
+    // era il MASSIMO fra le stelle alte, la direzione quella della PRIMA
+    // dell'elenco, che e' un'altra stella. Ora parlano tutte e due della
+    // stella piu' luminosa, la stessa che usa la scheda: un punto solo, quello
+    // dichiarato in [kPuntoDellaFigura].
+    final riferimento = puntoDellaFigura(alte)!;
+    final alt = riferimento.altDeg;
+    final az = riferimento.azDeg;
     final fase = alt < 10
         ? (az < 180 ? 'sta sorgendo a est' : 'sta tramontando a ovest')
         : alt > 55
@@ -1507,8 +1543,8 @@ class _SkyInfoCard extends StatelessWidget {
             birth
                 ? 'Il cielo della tua nascita: i corpi che c\'erano davvero, '
                     'con la loro altezza vera su quell\'orizzonte.'
-                : 'Il cielo sopra di te adesso: i corpi che ci sono davvero, '
-                    'con la loro altezza vera sul tuo orizzonte.',
+                : 'Il cielo di stanotte: i corpi che ci saranno davvero a '
+                    'mezzanotte, con la loro altezza vera sul tuo orizzonte.',
             style: TypographyTokens.body(size: 13)
                 .copyWith(color: ColorTokens.textSecondary, height: 1.35),
           ),

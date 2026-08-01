@@ -107,17 +107,25 @@ void main() {
           const BirthPlace(label: 'Sydney', latitude: -33.87, longitude: 151.21, timezone: 'l'));
 
       expect(milano.latitude, isNot(sydney.latitude));
-      // La prova vera non e' la latitudine copiata nello snapshot, e' l'ALTEZZA
-      // degli astri: due emisferi vedono cieli diversi.
-      final altMilano = milano.moon?.altDeg;
-      final altSydney = sydney.moon?.altDeg;
-      expect(altMilano == null && altSydney == null, isFalse,
-          reason: 'la Luna non compare in nessuno dei due cieli');
-      if (altMilano != null && altSydney != null) {
-        expect((altMilano - altSydney).abs(), greaterThan(5),
-            reason: 'da Milano e da Sydney la Luna risulta alla stessa altezza: '
-                'il luogo non entra nel calcolo');
-      }
+      // LA PROVA VERA NON E' L'ALTEZZA DI UN ASTRO SOLO, e ci sono arrivato
+      // sbagliando tre volte. Guardava la Luna, che puo' stare sotto
+      // l'orizzonte in tutti e due i posti allo stesso istante: cadeva per un
+      // istante sfortunato invece che per un difetto, ed e' successo quando la
+      // correzione del fuso ha spostato il cielo di due ore. Poi ho provato la
+      // media di tutte le altezze, 4,89 contro una soglia di 5, e il massimo,
+      // 4,31: due numeri che dipendono da quali stelle stanno nel catalogo di
+      // prova, non dal fatto da provare.
+      //
+      // IL CONFRONTO CHE NON DIPENDE DA NIENTE e' fra LA STESSA STELLA vista
+      // dai due luoghi: stesse coordinate equatoriali, stesso istante, e
+      // novantatre gradi di latitudine di differenza. Se il luogo non entrasse
+      // nel calcolo darebbe lo stesso numero.
+      final stellaDaMilano = milano.constellations.first.stars.first;
+      final stellaDaSydney = sydney.constellations.first.stars.first;
+      expect((stellaDaMilano.altDeg - stellaDaSydney.altDeg).abs(),
+          greaterThan(5),
+          reason: 'la stessa stella risulta alla stessa altezza da Milano e da '
+              'Sydney: il luogo non entra nel calcolo');
     });
 
     test('Cielo: due istanti diversi danno due cieli diversi', () {

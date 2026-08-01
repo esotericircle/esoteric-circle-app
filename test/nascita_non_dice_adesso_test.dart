@@ -14,7 +14,11 @@ import 'package:flutter_test/flutter_test.dart';
 /// corretta una.
 void main() {
   test('L avverbio del tempo viene da una fonte sola', () {
-    expect(quando(false), 'Adesso');
+    // Dal 1 agosto 2026 non e' piu' "Adesso": la schermata mostra la
+    // mezzanotte della notte che viene, non l'istante presente. La prova ha
+    // fatto il suo mestiere, ha denunciato il cambio del punto solo invece di
+    // lasciarlo passare inosservato.
+    expect(quando(false), 'Stanotte');
     expect(quando(true), 'Quella notte',
         reason: 'nel cielo di nascita l avverbio resta al presente');
   });

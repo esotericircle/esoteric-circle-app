@@ -166,6 +166,56 @@ SkySnapshot buildSkySnapshot(
   return buildSkyFor(catalog, local, place, hasTime: details.hasTime);
 }
 
+/// IL PUNTO DELLA FIGURA DI CUI SI PARLA: la sua stella piu' luminosa.
+///
+/// **Perche' serve dichiararlo.** Le stelle della Bilancia stanno fra 0,8 e 13
+/// gradi di altezza NELLO STESSO ISTANTE: dire "13 gradi" senza dire di cosa
+/// non e' un dato, e' un numero. Se ne parla la stella piu' luminosa, che e'
+/// quella che una persona all'aperto trova per prima e l'unica che si possa
+/// indicare col dito.
+///
+/// **E vale per tutti.** Prima l'altezza era il massimo fra le stelle e la
+/// direzione quella della prima dell'elenco, cioe' due stelle diverse nella
+/// stessa frase. Adesso il punto e' uno, e chi lo vuole passa da qui.
+///
+/// Torna nullo se nessuna stella della figura sta sopra l'orizzonte.
+SkyStar? puntoDellaFigura(List<SkyStar> stelle) {
+  SkyStar? migliore;
+  for (final s in stelle) {
+    if (s.altDeg <= kAltezzaOrizzonte) continue;
+    // A PARITA' DI LUCE VINCE LA PIU' ALTA, e non e' un dettaglio: nella
+    // Bilancia due stelle hanno la stessa magnitudine e stanno a 13 e a 3,8
+    // gradi. Senza questa regola il punto dipendeva dall'ordine in cui il
+    // catalogo le elenca, cioe' da niente, e la stessa figura poteva
+    // rispondere due altezze diverse allo stesso istante. Fra due luci uguali
+    // si indica quella che si vede meglio.
+    if (migliore == null ||
+        s.mag < migliore.mag ||
+        (s.mag == migliore.mag && s.altDeg > migliore.altDeg)) {
+      migliore = s;
+    }
+  }
+  return migliore;
+}
+
+/// LA MEZZANOTTE DELLA NOTTE CHE VIENE, l'unico istante della schermata del
+/// cielo.
+///
+/// La schermata nasce come "le costellazioni all'opposizione, cioe' alte a
+/// mezzanotte stanotte": e' quello che il motore calcola e quello che ha senso
+/// per un'app che si guarda di sera. La parola "adesso" e' arrivata dopo, e ha
+/// prodotto una schermata che si dichiarava in tempo reale mentre mostrava la
+/// notte, cioe' una contraddizione misurabile.
+///
+/// LA REGOLA, dichiarata qui e in nessun altro posto: prima di mezzogiorno la
+/// notte che viene e' quella gia' cominciata, cioe' la mezzanotte di oggi
+/// appena passata; da mezzogiorno in poi e' la mezzanotte che deve ancora
+/// arrivare. Chi guarda alle due di notte non vuole sentirsi dire "domani".
+DateTime mezzanotteDellaNotteCheViene(DateTime adesso) {
+  final giorno = DateTime(adesso.year, adesso.month, adesso.day);
+  return adesso.hour < 12 ? giorno : giorno.add(const Duration(days: 1));
+}
+
 /// L'istantanea del cielo a un ISTANTE e da un LUOGO qualunque.
 ///
 /// E' la forma generale, e `buildSkySnapshot` e' il caso particolare del cielo
@@ -194,9 +244,24 @@ SkySnapshot buildSkyFor(
   // posizione poteva anche essere giusta, il cielo restava sbagliato.
   //
   // L'istante porta con se' il proprio fuso, ora legale inclusa, e lo dichiara
-  // in `timeZoneOffset`: si usa quello. Un istante gia' in UTC non ha niente da
-  // togliere, e infatti il suo scarto e' zero.
-  final utc = local.isUtc ? local : local.subtract(local.timeZoneOffset);
+  // in `timeZoneOffset`.
+  //
+  // MA LA SOTTRAZIONE A MANO ERA UN ERRORE, ed e' costata due voci. Togliere
+  // l'offset da un DateTime locale produce un altro DateTime LOCALE, con i
+  // campi gia' spostati indietro ma il flag ancora a "locale": poi
+  // `Celestial.julianDay` chiama `toUtc()` e toglie l'offset UNA SECONDA
+  // VOLTA. In Italia d'estate sono quattro ore di errore invece di due, e la
+  // volta ruotava di una trentina di gradi in piu' del dovuto.
+  //
+  // E' la causa dei 123,7 gradi fra lo stesso istante scritto in UTC e in ora
+  // civile che stava aperta in RIPRESA.md: un istante gia' in UTC non veniva
+  // toccato, uno civile veniva convertito due volte, quindi i due cieli non
+  // potevano coincidere. Una causa sola per due difetti che sembravano
+  // distinti.
+  //
+  // `toUtc()` fa la conversione giusta e una volta sola, e su un istante gia'
+  // in UTC non fa niente.
+  final utc = local.toUtc();
 
   final jd = Celestial.julianDay(utc);
   final lst = Celestial.localSiderealDegrees(jd, lon);

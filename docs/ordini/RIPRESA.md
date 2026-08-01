@@ -14,9 +14,11 @@ e vanno riprese in quest'ordine.
    dichiarare: o si stringono, o diventano una sbirciatura VOLUTA, cioe' una
    porzione regolare e uguale ai due lati, mai un taglio che dipende dalla
    larghezza.
-3. **Il residuo del fuso, 123,7 gradi.** Lo stesso istante scritto in UTC e in
-   ora civile produce ancora due cieli distanti 123,7 gradi di azimut: oltre
-   alla conversione c'e' dell'altro che guarda l'ora locale grezza.
+3. ~~Il residuo del fuso, 123,7 gradi.~~ **CHIUSO il 1 agosto 2026.** Il fuso
+   veniva tolto DUE VOLTE: `buildSkyFor` sottraeva `timeZoneOffset` a mano
+   ottenendo un DateTime ancora marcato locale, e `Celestial.julianDay`
+   chiamava `toUtc()` togliendolo di nuovo. Era anche la causa della scheda
+   della Bilancia che dava dodici gradi a sud-est. Vedi ESITO_ISTANTE.md.
 
 ## Gli accenti a schermo NON sono piu' aperti
 

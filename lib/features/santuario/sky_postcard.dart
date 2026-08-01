@@ -64,7 +64,12 @@ class SkyPostcard {
 
   /// Titolo mostrato in cartolina: cielo di adesso o cielo di nascita.
   static String titleFor({required bool birth}) =>
-      birth ? 'Il tuo cielo di nascita' : 'Il cielo sopra di te';
+      // "IL CIELO DI STANOTTE" e non "sopra di te": la schermata mostra la
+      // volta alla mezzanotte della notte che viene, che e' quello che il
+      // motore calcola da sempre. Il titolo diceva un tempo reale che il
+      // contenuto non aveva, e la contraddizione si e' vista quando le
+      // posizioni vere sono arrivate.
+      birth ? 'Il tuo cielo di nascita' : 'Il cielo di stanotte';
 
   /// Costruisce la cartolina nel formato scelto e la esporta in PNG.
   static Future<Uint8List> render({
