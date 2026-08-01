@@ -1,5 +1,15 @@
 # RIPRESA
 
+## Il velo sui corpi sotto l'orizzonte, aperto
+
+Dal 1 agosto 2026 un corpo che a quell'istante stava sotto l'orizzonte lo
+DICHIARA nella sua scheda, con l'ora in cui sorge. Ma viene ancora disegnato a
+piena luce come gli altri: manca il segno visivo, il corpo velato o spento sotto
+una linea d'orizzonte. Chi non tocca la scheda non lo distingue.
+
+E' una modifica al disegno della volta, non al testo, e vale per tutti e due i
+cieli passando da `_SkyBody`. Vedi ESITO_ORIZZONTE.md.
+
 ## Le tre voci ancora aperte della coda del 1 agosto 2026
 
 Nessuna aspetta una decisione del fondatore: sono aperte per fine del margine,

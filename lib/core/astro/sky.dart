@@ -198,6 +198,51 @@ SkyStar? puntoDellaFigura(List<SkyStar> stelle) {
   return migliore;
 }
 
+/// QUANDO UN CORPO SORGE, cercandolo nelle ventiquattro ore dopo [da].
+///
+/// **Perche' esiste.** La regola e' che niente si disegna senza poter dire
+/// dov'era: un corpo sotto l'orizzonte o non compare, oppure compare
+/// DICHIARANDO che era sotto e quando sorse. Senza quest'ora la seconda strada
+/// non e' percorribile, e resta solo il silenzio che il fondatore ha
+/// fotografato toccando l'Ariete.
+///
+/// Si cerca a passi di dieci minuti e poi si affina al minuto: e' un attraversamento
+/// di orizzonte, non un'effemeride, e dieci minuti non lo mancano mai. Torna
+/// nullo se il corpo non sorge affatto nelle ventiquattro ore, che alle nostre
+/// latitudini vuol dire circumpolare al contrario, cioe' mai visibile.
+DateTime? quandoSorge(
+  SkyCatalog catalog,
+  String nomeFigura,
+  DateTime da,
+  BirthPlace place,
+) {
+  bool sopra(DateTime t) {
+    final cielo = buildSkyFor(catalog, t, place);
+    for (final c in cielo.constellations) {
+      if (c.name.toLowerCase() != nomeFigura.toLowerCase()) continue;
+      return puntoDellaFigura(c.stars) != null;
+    }
+    return false;
+  }
+
+  if (sopra(da)) return da;
+  var precedente = da;
+  for (var m = 10; m <= 24 * 60; m += 10) {
+    final t = da.add(Duration(minutes: m));
+    if (!sopra(t)) {
+      precedente = t;
+      continue;
+    }
+    // Affinamento al minuto dentro l'intervallo trovato.
+    for (var k = 1; k <= 10; k++) {
+      final f = precedente.add(Duration(minutes: k));
+      if (sopra(f)) return f;
+    }
+    return t;
+  }
+  return null;
+}
+
 /// LA MEZZANOTTE DELLA NOTTE CHE VIENE, l'unico istante della schermata del
 /// cielo.
 ///

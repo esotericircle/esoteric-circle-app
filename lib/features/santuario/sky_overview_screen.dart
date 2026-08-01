@@ -43,6 +43,101 @@ import '../../core/astro/sky.dart';
 /// si sono adeguate tutte le frasi che la leggono.
 String quando(bool birth) => birth ? 'Quella notte' : 'Stanotte';
 
+/// A CHE ORA si riferisce il dato, in un punto solo come l'avverbio.
+///
+/// I due cieli hanno due istanti: quello di stanotte e' la mezzanotte della
+/// notte che viene, quello di nascita e' l'istante in cui la persona e' nata.
+/// La riga della scheda deve dirlo, altrimenti quel numero non e' verificabile
+/// da nessuno, e il cielo di nascita non puo' scrivere "a mezzanotte" perche'
+/// per lui non e' vero.
+String aCheOra(bool birth) => birth ? 'alla tua ora di nascita' : 'a mezzanotte';
+
+/// La direzione cardinale da un azimut in gradi.
+///
+/// Sta di primo livello, e non piu' dentro il widget privato, per la stessa
+/// ragione della scheda: una regola chiusa dentro una classe che nessuno puo'
+/// nominare non e' provabile, e quello che non si prova torna.
+String direzione(double azDeg) {
+  const nomi = [
+    'a nord',
+    'a nord-est',
+    'a est',
+    'a sud-est',
+    'a sud',
+    'a sud-ovest',
+    'a ovest',
+    'a nord-ovest',
+  ];
+  final giro = azDeg % 360;
+  return nomi[(((giro + 22.5) % 360) ~/ 45).clamp(0, 7)];
+}
+
+
+/// Nome, altezza in gradi e direzione di una costellazione.
+///
+/// **NON TACE MAI**, e prima taceva. Se la figura non compariva
+/// nell'istantanea, perche' TUTTE le sue stelle stavano sotto l'orizzonte, il
+/// ciclo non la trovava e questo metodo tornava nullo: la scheda mostrava il
+/// solo nome. E' il difetto che il fondatore ha fotografato toccando l'Ariete
+/// nel cielo di nascita, e la causa e' che la SELEZIONE dei corpi e la loro
+/// SCHEDA leggevano due fonti diverse. La selezione viene da
+/// `constellationsHighTonight`, che ricava le figure all'opposizione dalla
+/// longitudine del Sole, cioe' un calcolo simbolico; la scheda va a cercarle
+/// nell'istantanea vera. Le due possono divergere, e divergono.
+///
+/// Adesso il silenzio non e' piu' un esito possibile: o ci sono i numeri, o
+/// c'e' la dichiarazione che il corpo stava sotto, con l'ora in cui sorge.
+String testoDellaScheda(Zodiac sign, SkySnapshot cielo,
+  {SkyCatalog? catalogo, bool birth = false}) {
+  final nome = sign.italianName.toLowerCase();
+  for (final c in cielo.constellations) {
+    final suo = c.name.toLowerCase();
+    if (!suo.contains(nome) && !nome.contains(suo)) continue;
+    final migliore = puntoDellaFigura(c.stars);
+    if (migliore != null) {
+      // L'ORA E' PARTE DEL DATO. Senza, quel numero non e' verificabile da
+      // nessuno, ed e' esattamente cio' che ha costretto il fondatore a
+      // chiedere una verifica esterna.
+      return '${sign.italianName}, '
+          '${migliore.altDeg.toStringAsFixed(0)} gradi sopra il suolo, '
+          '${direzione(migliore.azDeg)}, ${aCheOra(birth)}.';
+    }
+    break;
+  }
+  return sottoLOrizzonte(sign, cielo, catalogo: catalogo, birth: birth);
+}
+
+/// La dichiarazione per un corpo che a quell'istante stava sotto il suolo,
+/// con l'ora in cui sorge quando la si sa calcolare.
+String sottoLOrizzonte(Zodiac sign, SkySnapshot cielo,
+    {SkyCatalog? catalogo, bool birth = false}) {
+  DateTime? sorge;
+  if (catalogo != null) {
+    sorge = quandoSorge(
+      catalogo,
+      // Il catalogo nomina le figure in italiano, come lo zodiaco.
+      sign.italianName,
+      cielo.istanteLocale,
+      astro.BirthPlace(
+        label: 'osservatore',
+        latitude: cielo.latitude,
+        longitude: cielo.longitude,
+        timezone: 'locale',
+      ),
+    );
+  }
+  final due = (int n) => n.toString().padLeft(2, '0');
+  final quando = sorge == null
+      ? ''
+      : ' Sorge${birth ? "va" : ""} alle '
+          '${due(sorge.hour)}:${due(sorge.minute)}.';
+  return birth
+      ? '${sign.italianName}, quella notte era sotto l\'orizzonte.$quando'
+      : '${sign.italianName}, a mezzanotte sta sotto l\'orizzonte.$quando';
+}
+
+
+
 /// "Il cielo sopra di te": il cielo del momento, immersivo ed esplorabile.
 ///
 /// Non uno schema, ma una volta stellata densa: centinaia di stelle su tre
@@ -225,6 +320,11 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     }
   }
 
+  /// Il catalogo delle stelle, tenuto dopo il caricamento perche' la scheda di
+  /// un corpo SOTTO L'ORIZZONTE deve poter dire quando sorge, e per saperlo
+  /// bisogna riproiettare il cielo nelle ore successive.
+  SkyCatalog? _catalogo;
+
   /// L'ISTANTE UNICO DELLA SCHERMATA: la mezzanotte della notte che viene.
   ///
   /// **Perche' non e' l'adesso.** Il fondatore ha fotografato la scheda della
@@ -266,6 +366,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
       return;
     }
     if (!mounted) return;
+    _catalogo = catalogo;
     final cielo = buildSkyFor(
       catalogo,
       _istante,
@@ -814,7 +915,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
       _SkyBody.moon(moon, _moonSlot, birth: widget.birth, cielo: _cielo),
       for (var i = 0; i < high.length && i < _highSlots.length; i++)
         _SkyBody.constellation(high[i], _highSlots[i],
-            cielo: _cielo, birth: widget.birth),
+            cielo: _cielo, birth: widget.birth, catalogo: _catalogo),
     ];
     final selected = bodies.where((b) => b.key == _selectedKey).firstOrNull;
 
@@ -1047,7 +1148,7 @@ class _SkyBody {
         size: 108,
         moon: moon,
         datoDiAdesso: _datoDellaLuna(moon, cielo, birth: birth),
-        coordinate: _coordinateDellaLuna(moon, cielo),
+        coordinate: _coordinateDellaLuna(moon, cielo, birth: birth),
       );
 
   /// Sotto questa altezza un corpo e' oltre l'orizzonte e non si mostra. E' la
@@ -1055,7 +1156,7 @@ class _SkyBody {
   static const double _altezzaMinima = kAltezzaOrizzonte;
 
   factory _SkyBody.constellation(Zodiac sign, Offset slot,
-          {SkySnapshot? cielo, bool birth = false}) =>
+          {SkySnapshot? cielo, bool birth = false, SkyCatalog? catalogo}) =>
       _SkyBody(
         key: sign.id,
         label: sign.italianName,
@@ -1071,47 +1172,36 @@ class _SkyBody {
         size: 118,
         asterism: kZodiacAsterisms[sign]!,
         datoDiAdesso: _datoDellaCostellazione(sign, cielo, birth: birth),
-        coordinate: _coordinateDellaCostellazione(sign, cielo),
+        coordinate: _coordinateDellaCostellazione(sign, cielo,
+            catalogo: catalogo, birth: birth),
       );
 
   /// Nome, altezza in gradi e direzione della Luna, piu' la sua fase.
-  static String? _coordinateDellaLuna(MoonPhase moon, SkySnapshot? cielo) {
+  static String? _coordinateDellaLuna(MoonPhase moon, SkySnapshot? cielo,
+      {bool birth = false}) {
     final astro = cielo?.moon;
     final percento = (moon.illumination * 100).toStringAsFixed(0);
     if (astro == null) {
       // STESSA FORMA DELLE COSTELLAZIONI anche quando sta sotto: dire solo la
       // fase, senza dire dove sta, lasciava la Luna l'unico corpo senza
       // posizione in una schermata che di posizioni parla.
-      return 'Luna, sotto il suolo a mezzanotte. ${moon.italianName}, '
-          'illuminata al $percento per cento.';
+      return 'Luna, ${birth ? "quella notte era" : "a mezzanotte sta"} sotto '
+          'l\'orizzonte. ${moon.italianName}, illuminata al $percento per '
+          'cento.';
     }
     return 'Luna, ${astro.altDeg.toStringAsFixed(0)} gradi sopra il suolo, '
-        '${direzione(astro.azDeg)}, a mezzanotte. ${moon.italianName}, '
+        '${direzione(astro.azDeg)}, ${aCheOra(birth)}. ${moon.italianName}, '
         'illuminata al $percento per cento.';
   }
 
-  /// Nome, altezza in gradi e direzione di una costellazione.
-  static String? _coordinateDellaCostellazione(
-      Zodiac sign, SkySnapshot? cielo) {
-    if (cielo == null) return null;
-    for (final c in cielo.constellations) {
-      final nome = sign.italianName.toLowerCase();
-      final suo = c.name.toLowerCase();
-      if (!suo.contains(nome) && !nome.contains(suo)) continue;
-      final migliore = puntoDellaFigura(c.stars);
-      if (migliore == null) {
-        return '${sign.italianName}, sotto il suolo: stanotte da qui non si '
-            'vedrà.';
-      }
-      // L'ORA E' PARTE DEL DATO. Senza, quel numero non e' verificabile da
-      // nessuno, ed e' esattamente cio' che ha costretto il fondatore a
-      // chiedere una verifica esterna.
-      return '${sign.italianName}, '
-          '${migliore.altDeg.toStringAsFixed(0)} gradi sopra il suolo, '
-          '${direzione(migliore.azDeg)}, a mezzanotte.';
-    }
-    return null;
-  }
+  /// La riga della scheda di una costellazione. La regola vive fuori da questa
+  /// classe privata, in [testoDellaScheda]: una regola chiusa dentro un widget
+  /// non e' raggiungibile da una prova, e quello che non si prova torna.
+  static String? _coordinateDellaCostellazione(Zodiac sign, SkySnapshot? cielo,
+          {SkyCatalog? catalogo, bool birth = false}) =>
+      cielo == null
+          ? null
+          : testoDellaScheda(sign, cielo, catalogo: catalogo, birth: birth);
 
   /// Il dato calcolato della Luna in questo momento.
   ///
@@ -1221,21 +1311,6 @@ class _SkyBody {
   /// il vero sta qui: il dato resta esatto anche quando il pixel non lo e'.
   final String? coordinate;
 
-  /// La direzione cardinale da un azimut in gradi.
-  static String direzione(double azDeg) {
-    const nomi = [
-      'a nord',
-      'a nord-est',
-      'a est',
-      'a sud-est',
-      'a sud',
-      'a sud-ovest',
-      'a ovest',
-      'a nord-ovest',
-    ];
-    final giro = azDeg % 360;
-    return nomi[(((giro + 22.5) % 360) ~/ 45).clamp(0, 7)];
-  }
 }
 
 /// Rende un corpo con la sua etichetta sotto, evidenziato quando selezionato.
