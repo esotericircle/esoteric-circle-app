@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/entitlement/entitlement_service.dart';
+import '../../../core/entitlement/esito_del_turno.dart';
 import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/identity/natal_identity.dart';
 import '../../../core/identity/profile_controller.dart';
@@ -190,8 +191,14 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
         .comeRipiego();
 
     if (!mounted) return;
-    // La risposta e' consegnata: solo ora si conta la domanda del giorno.
-    if (countsAgainstAllowance) allowance.record(tier);
+    // Si conta solo se il MAESTRO ha risposto davvero. Prima bastava che una
+    // lente fosse consegnata, e una lente puo' essere il ripiego dell'oracolo:
+    // il Consulta pagava i guasti esattamente come li pagava la chat.
+    final esito =
+        lens.ripiego ? EsitoDelTurno.ripiego : EsitoDelTurno.rispostaVera;
+    if (countsAgainstAllowance && CostoDelTurno.consuma(esito)) {
+      allowance.record(tier);
+    }
     setState(() {
       _lenses[maestro] = lens!;
       _loading.remove(maestro);

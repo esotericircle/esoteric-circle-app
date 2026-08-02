@@ -220,9 +220,18 @@ void main() {
     expect(find.byKey(const Key('ask_lens_aura')), findsNothing);
   });
 
+  // LE DUE PROVE QUI SOTTO CODIFICAVANO IL DIFETTO, e vanno lette sapendolo.
+  //
+  // Usavano `AppServices.offline()`, cioe' un provider non pronto: il Consulta
+  // saltava l'AI e cadeva sull'oracolo, quindi ogni risposta era un RIPIEGO.
+  // Dal 2 agosto 2026 un ripiego non costa una domanda, e queste prove
+  // pretendevano che costasse. Adesso montano una voce che risponde davvero,
+  // che e' cio' che intendevano misurare, e sotto c'e' la prova nuova che il
+  // ripiego NON conta.
   testWidgets('Free: tre risposte al giorno, la quarta invita all\'upgrade',
       (tester) async {
-    await tester.pumpWidget(host(tier: Tier.free));
+    await tester.pumpWidget(
+        host(tier: Tier.free, services: _servicesWith(_ReadyAi())));
     await ask(tester, 'prima');
     await ask(tester, 'seconda');
     await ask(tester, 'terza');
@@ -237,12 +246,29 @@ void main() {
 
   testWidgets('La domanda si conta solo a risposta consegnata', (tester) async {
     final allowance = QuestionAllowance();
-    await tester.pumpWidget(host(tier: Tier.free, allowance: allowance));
+    await tester.pumpWidget(host(
+      tier: Tier.free,
+      allowance: allowance,
+      services: _servicesWith(_ReadyAi()),
+    ));
     // Prima di consegnare, nulla e' consumato.
     expect(allowance.usedToday(), 0);
     await ask(tester, 'il lavoro');
-    // Consegnata la risposta, una consumata.
+    // Consegnata la risposta VERA, una consumata.
     expect(allowance.usedToday(), 1);
+  });
+
+  testWidgets('Una lente di RIPIEGO non consuma la domanda', (tester) async {
+    // Col provider non pronto la lente viene dall'oracolo deterministico ed e'
+    // dichiarata come ripiego: il Maestro non ha parlato, quindi non si paga.
+    // E' il difetto del 2 agosto visto dalla seconda superficie.
+    final allowance = QuestionAllowance();
+    await tester.pumpWidget(host(tier: Tier.free, allowance: allowance));
+    await ask(tester, 'il lavoro');
+    expect(find.byKey(const Key('ask_lens_medora')), findsOneWidget,
+        reason: 'la lente di ripiego viene consegnata lo stesso');
+    expect(allowance.usedToday(), 0,
+        reason: 'una risposta che non viene dal Maestro non costa');
   });
 
   testWidgets('Personalizzazione: il provider riceve i dati natali presenti',

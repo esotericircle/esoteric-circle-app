@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+import '../../../core/entitlement/esito_del_turno.dart';
 import '../../../core/entitlement/plan_catalog.dart';
 import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/entitlement/tier.dart';
@@ -205,13 +206,20 @@ class MaestroChatController extends ChangeNotifier {
       _messages.add(invite);
       unawaited(_persist(invite));
       notifyListeners();
+      // EsitoDelTurno.instradamento: il costo vive dentro la funzione immersiva.
       return;
     }
 
-    // Si consuma DOPO l'instradamento: una richiesta che apre una funzione
-    // immersiva non e' una domanda al Maestro, e non deve costarne una.
-    if (piano != null && contatore != null) contatore.record(piano);
-    await _generate(priorHistory: priorHistory, userText: trimmed);
+    // NON si consuma qui. Si consumava PRIMA di generare, quindi un guasto
+    // costava una domanda: il 2 agosto un ripiego si e' preso l'unica domanda
+    // del giorno. Adesso decide l'ESITO, e la regola vive in CostoDelTurno.
+    final esito = await _generate(
+      priorHistory: priorHistory,
+      userText: trimmed,
+    );
+    if (piano != null && contatore != null && CostoDelTurno.consuma(esito)) {
+      contatore.record(piano);
+    }
   }
 
   /// Vero se l'ultima bolla e' una risposta VERA del Maestro, non ancora
@@ -309,13 +317,24 @@ class MaestroChatController extends ChangeNotifier {
     }
     final userText = _messages.last.text;
     final priorHistory = _messages.sublist(0, _messages.length - 1);
-    await _generate(
+    final esito = await _generate(
       priorHistory: List<ChatMessage>.of(priorHistory),
       userText: userText,
     );
+    // Un Riprova RIUSCITO costa, perche' il Maestro ha risposto davvero, e il
+    // tentativo fallito che lo precede non aveva pagato niente: si paga una
+    // domanda per una risposta, mai per un errore.
+    final piano = _tier?.call();
+    final contatore = _allowance;
+    if (piano != null && contatore != null && CostoDelTurno.consuma(esito)) {
+      contatore.record(piano);
+    }
   }
 
-  Future<void> _generate({
+  /// Genera la risposta e dice COM'E' ANDATA. Restituisce l'esito invece di
+  /// non restituire niente: chi chiama deve poter decidere se costa, e non puo'
+  /// dedurlo guardando l'ultima bolla.
+  Future<EsitoDelTurno> _generate({
     required List<ChatMessage> priorHistory,
     required String userText,
   }) async {
@@ -383,6 +402,7 @@ class MaestroChatController extends ChangeNotifier {
       unawaited(_persist(answer));
       _turnsSinceDistill++;
       unawaited(_maybeDistill());
+      return EsitoDelTurno.rispostaVera;
     } on MaestroAiUnavailable {
       _replaceLast(pending.copyWith(
         text: RipiegoDelMaestro.nonConfiguratoDi(maestro),
@@ -390,6 +410,7 @@ class MaestroChatController extends ChangeNotifier {
         failed: true,
         ripiego: true,
       ));
+      return EsitoDelTurno.ripiego;
     } catch (errore, traccia) {
       // Il guasto e' gia' stato scritto nel registro da `VoceSorvegliata`, che
       // sta davanti a QUALUNQUE provider: qui non si inghiotte piu' niente, si
@@ -415,6 +436,11 @@ class MaestroChatController extends ChangeNotifier {
         failed: true,
         ripiego: true,
       ));
+      // L'attestazione fallita si distingue dagli altri guasti: non costa
+      // niente lo stesso, ma chi legge il registro deve poterla riconoscere.
+      return errore.toString().contains('attestation')
+          ? EsitoDelTurno.erroreDiAttestazione
+          : EsitoDelTurno.erroreGenerico;
     } finally {
       _sending = false;
       notifyListeners();
