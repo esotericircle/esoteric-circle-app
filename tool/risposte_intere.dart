@@ -88,6 +88,7 @@ void main() {
         },
       });
       final client = HttpClient();
+      final cronometro = Stopwatch()..start();
       try {
         final richiesta = await client.postUrl(uri);
         richiesta.headers.set('Authorization', 'Bearer $gettone');
@@ -116,6 +117,11 @@ void main() {
           domanda: domanda,
           testo: testo,
           motivo: c['finishReason']?.toString() ?? 'assente',
+          // Il tempo di RETE, cioe' quanto la persona aspetta prima che la
+          // prima parola possa comparire. E' il numero su cui si tara la durata
+          // minima della scena del consulto: una scena piu' corta della rete
+          // non serve a niente, una molto piu' lunga fa aspettare per finta.
+          millisecondi: cronometro.elapsedMilliseconds,
           parole: testo.split(RegExp(r'\s+')).where((p) => p.isNotEmpty).length,
           tokenTesto: (uso['candidatesTokenCount'] as num?)?.toInt() ?? 0,
           tokenPensiero: (uso['thoughtsTokenCount'] as num?)?.toInt() ?? 0,
@@ -152,6 +158,7 @@ void main() {
       stdout.writeln('${e.maestro.displayName.padRight(7)} '
           '${e.parole.toString().padLeft(3)} parole  '
           '${e.motivo.padRight(10)} '
+          '${(e.millisecondi / 1000).toStringAsFixed(1)}s  '
           'testo ${e.tokenTesto.toString().padLeft(4)} tok, '
           'pensiero ${e.tokenPensiero}  '
           '«${e.domanda}»');
@@ -169,11 +176,33 @@ void main() {
           '${e.parole} parole\n${e.testo}');
     }
 
+    // IL TEMPO DI RETE, MISURATO DA SOLO E IN FILA.
+    //
+    // Le venti qui sopra partono a cinque per volta, quindi il loro tempo porta
+    // dentro la coda dell'una sull'altra: userebbe un numero piu' alto del vero
+    // per tarare la scena dell'attesa. Queste dieci partono UNA ALLA VOLTA, ed
+    // e' il tempo che aspetta una persona sola col telefono in mano.
+    stdout.writeln('${'-' * 78}\nDIECI CHIAMATE IN FILA, per il tempo vero:');
+    final tempi = <int>[];
+    for (var i = 0; i < 10; i++) {
+      final l = lavori[i];
+      final e = await chiedi(l.maestro, l.domanda);
+      if (e == null) continue;
+      tempi.add(e.millisecondi);
+      stdout.writeln('  ${(e.millisecondi / 1000).toStringAsFixed(2)}s  '
+          '${e.maestro.displayName}, ${e.parole} parole');
+    }
+    tempi.sort();
+
     final parole = esiti.map((e) => e.parole).toList()..sort();
     final tronche = esiti.where((e) => e.motivo == 'MAX_TOKENS').toList();
     final pensanti = esiti.where((e) => e.tokenPensiero > 0).toList();
 
+    String ms(int v) => '${(v / 1000).toStringAsFixed(2)}s';
     stdout.writeln('${'-' * 78}\n'
+        'RETE    minimo ${ms(tempi.first)}  '
+        'mediana ${ms(tempi[tempi.length ~/ 2])}  '
+        'massimo ${ms(tempi.last)}   (${tempi.length} chiamate in fila)\n'
         'PAROLE  minimo ${parole.first}  '
         'mediana ${parole[parole.length ~/ 2]}  '
         'massimo ${parole.last}   (chieste ${misura.parole})\n'
@@ -195,6 +224,7 @@ class _Esito {
     required this.testo,
     required this.motivo,
     required this.parole,
+    required this.millisecondi,
     required this.tokenTesto,
     required this.tokenPensiero,
   });
@@ -204,6 +234,9 @@ class _Esito {
   final String testo;
   final String motivo;
   final int parole;
+
+  /// Quanto e' durata la chiamata, dalla richiesta alla risposta completa.
+  final int millisecondi;
   final int tokenTesto;
   final int tokenPensiero;
 

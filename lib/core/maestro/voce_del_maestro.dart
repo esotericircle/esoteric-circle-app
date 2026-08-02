@@ -69,6 +69,7 @@ class VoceDelMaestro {
     required this.chiusura,
     required this.tipoDiChiusura,
     required this.lente,
+    required this.frasiDelConsulto,
   });
 
   /// Come suona la voce in una riga: e' la prima cosa che il modello legge.
@@ -104,6 +105,29 @@ class VoceDelMaestro {
   /// Di che TIPO e' la sua chiusura. Il testo si puo' rifinire, il tipo no:
   /// e' l'impronta del Maestro, e una prova lo verifica.
   final TipoDiChiusura tipoDiChiusura;
+
+  /// COSA STA FACENDO mentre la risposta arriva, detto da lui.
+  ///
+  /// Sono le righe della pausa che rende credibile la risposta: prima la
+  /// risposta compariva di colpo e sapeva di macchina. Non sono frasi dell'app
+  /// travestite da Maestro, e la differenza si vede: **ognuna porta almeno una
+  /// parola del [lessicoDiFirma]**, cioe' proprio le parole che reggono il 98,3
+  /// per cento di attribuzione cieca, e ognuna guarda dalla [lente] di chi
+  /// parla. Medora segue il moto nel tempo, Aura l'effetto nel corpo, Caligo il
+  /// simbolo: tre Maestri che aspettano allo stesso modo sarebbero un Maestro
+  /// solo con tre ritratti.
+  ///
+  /// Almeno sei, perche' ruotino senza che due aperture vicine ripetano la
+  /// stessa. Una prova enumera i tre elenchi e cade se due coincidono, se uno
+  /// e' piu' corto di sei, oppure se una frase non porta nessuna parola di
+  /// firma: quest'ultima e' la riga che impedisce alla pausa di scivolare nel
+  /// registro di un altro, ed e' lo stesso difetto che la chiusura generica ha
+  /// gia' fatto pagare una volta.
+  final List<String> frasiDelConsulto;
+
+  /// Quante frasi del consulto servono come minimo. Sotto questo numero la
+  /// rotazione si vede: alla terza domanda la persona rilegge la prima.
+  static const int minimeFrasiDelConsulto = 6;
 
   /// Le aperture che nessun Maestro usa, mai.
   ///
@@ -199,6 +223,15 @@ class VoceDelMaestro {
           'cielo non te la offre, dille quando tornare a guardare.',
       tipoDiChiusura: TipoDiChiusura.direzioneNelTempo,
       lente: LenteDelMaestro.motoNelTempo,
+      // Tutte al presente e in prima persona: sta facendo, non ha fatto.
+      frasiDelConsulto: [
+        'seguo il transito che si chiude',
+        'guardo il cielo di quest\'ora',
+        'apro la lama che risponde',
+        'cerco nel cielo la finestra che si apre',
+        'misuro il transito che viene',
+        'chiedo all\'arcano dove guardare',
+      ],
     ),
     Maestro.aura: VoceDelMaestro(
       timbro:
@@ -229,6 +262,14 @@ class VoceDelMaestro {
               'contato, una mano dove serve, una pausa. Uno solo, concreto.',
       tipoDiChiusura: TipoDiChiusura.gestoDelCorpo,
       lente: LenteDelMaestro.effettoNelCorpo,
+      frasiDelConsulto: [
+        'ascolto dove pesa il respiro',
+        'cerco il centro che chiede spazio',
+        'sento cosa si muove alla radice',
+        'seguo il respiro fino alla corona',
+        'lascio che la domanda scenda nel sentire',
+        'guardo quale centro si è chiuso',
+      ],
     ),
     Maestro.caligo: VoceDelMaestro(
       timbro:
@@ -265,6 +306,14 @@ class VoceDelMaestro {
           'sigillo, chiamato per nome. Uno solo.',
       tipoDiChiusura: TipoDiChiusura.simboloDaPortare,
       lente: LenteDelMaestro.simbolo,
+      frasiDelConsulto: [
+        'cerco la runa che risponde',
+        'leggo il presagio nel fumo',
+        'guardo quale soglia hai davanti',
+        'seguo il sentiero fino al segno',
+        'incido il sigillo che ti serve',
+        'chiamo la runa per nome',
+      ],
     ),
   };
 

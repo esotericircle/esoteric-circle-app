@@ -14,6 +14,7 @@ import '../../../core/chat/user_profile.dart';
 import '../../../core/maestro/ancoraggio.dart';
 import '../../../core/maestro/frase_del_limite.dart';
 import '../../../core/maestro/frase_di_ripiego.dart';
+import '../../../core/maestro/tempi_dell_attesa.dart';
 import '../../../core/maestro/lettura_di_ripiego.dart';
 import '../../../core/maestro/natal_context.dart';
 import '../../../core/maestro/maestro.dart';
@@ -64,6 +65,24 @@ class MaestroChatController extends ChangeNotifier {
   /// memoria, e i dati natali finivano nella sola frase di benvenuto. Il Maestro
   /// parlava senza sapere di chi.
   final NatalContext Function()? _natal;
+
+  /// Vero se questa persona ha chiesto di non vedere movimento.
+  ///
+  /// Lo scrive la schermata da `MediaQuery`, perche' il controller non ha un
+  /// contesto e non deve averlo. Serve QUI e non solo nella vista: chi non
+  /// vuole movimento non ha chiesto di aspettare di piu', quindi la pausa
+  /// minima si accorcia, e la pausa la governa il turno, non il disegno.
+  bool riduciMovimento = false;
+
+  /// Quante attese sono passate. Fa ruotare le frasi del consulto, cosi' due
+  /// domande vicine non fanno rileggere la stessa riga.
+  int rotazioneDelConsulto = 0;
+
+  /// Quanto e' durata l'ultima pausa prima che la risposta comparisse, in
+  /// millisecondi. Pubblica perche' e' IL numero dell'ordine E: il tempo dalla
+  /// domanda alla prima parola si legge da qui invece che da un cronometro
+  /// tenuto a mano fuori.
+  int ultimaAttesaMs = 0;
 
   /// Quante volte il controllo dell'ancoraggio ha fatto rigenerare una
   /// risposta. Pubblico perche' e' la MISURA di quanto la persona funziona da
@@ -343,6 +362,10 @@ class MaestroChatController extends ChangeNotifier {
     required String userText,
   }) async {
     _sending = true;
+    // LA PAUSA COMINCIA QUI, con la domanda, e non quando la rete risponde:
+    // il tempo che conta e' quello che aspetta la persona.
+    final cronometro = Stopwatch()..start();
+    rotazioneDelConsulto++;
     const pending = ChatMessage(role: ChatRole.maestro, text: '', pending: true);
     _messages.add(pending);
     notifyListeners();
@@ -396,7 +419,7 @@ class MaestroChatController extends ChangeNotifier {
           // Si consegna una lettura vera e DICHIARATA, come per ogni altro
           // silenzio della voce: meglio un ripiego riconoscibile che un
           // moncone scambiato per la parola del Maestro.
-          _replaceLast(pending.copyWith(
+          await _consegna(pending.copyWith(
             text: LetturaDiRipiego.componi(
               maestro: maestro,
               domanda: userText,
@@ -407,7 +430,7 @@ class MaestroChatController extends ChangeNotifier {
             pending: false,
             failed: true,
             ripiego: true,
-          ));
+          ), cronometro);
           return EsitoDelTurno.rispostaTroncata;
         }
       }
@@ -450,18 +473,18 @@ class MaestroChatController extends ChangeNotifier {
         text: reply,
         at: DateTime.now(),
       );
-      _replaceLast(answer);
+      await _consegna(answer, cronometro);
       unawaited(_persist(answer));
       _turnsSinceDistill++;
       unawaited(_maybeDistill());
       return EsitoDelTurno.rispostaVera;
     } on MaestroAiUnavailable {
-      _replaceLast(pending.copyWith(
+      await _consegna(pending.copyWith(
         text: RipiegoDelMaestro.nonConfiguratoDi(maestro),
         pending: false,
         failed: true,
         ripiego: true,
-      ));
+      ), cronometro);
       return EsitoDelTurno.ripiego;
     } catch (errore, traccia) {
       // Il guasto e' gia' stato scritto nel registro da `VoceSorvegliata`, che
@@ -476,7 +499,7 @@ class MaestroChatController extends ChangeNotifier {
       // da qualche parte, dallo stesso instradamento deterministico che gia'
       // esiste. Dopo questa riga, nella chat non c'e' nessuno stato senza uscita.
       final natal = _natal?.call() ?? NatalContext.none;
-      _replaceLast(pending.copyWith(
+      await _consegna(pending.copyWith(
         text: LetturaDiRipiego.componi(
           maestro: maestro,
           domanda: userText,
@@ -487,7 +510,7 @@ class MaestroChatController extends ChangeNotifier {
         pending: false,
         failed: true,
         ripiego: true,
-      ));
+      ), cronometro);
       // L'attestazione fallita si distingue dagli altri guasti: non costa
       // niente lo stesso, ma chi legge il registro deve poterla riconoscere.
       return errore.toString().contains('attestation')
@@ -556,6 +579,28 @@ class MaestroChatController extends ChangeNotifier {
       if (merged.length >= 12) break;
     }
     return merged;
+  }
+
+  /// Consegna il messaggio, ma NON prima che la pausa sia durata abbastanza.
+  ///
+  /// **La pausa la governa il turno, non il disegno.** Metterla nella vista
+  /// avrebbe voluto dire una scena che finge di durare mentre sotto il testo
+  /// e' gia' li': basta un rebuild e il trucco si vede. Qui invece il messaggio
+  /// non esiste ancora, quindi non c'e' niente da nascondere.
+  ///
+  /// Vale per tutte e quattro le uscite del turno, la risposta vera, la
+  /// troncatura, il ripiego e l'errore: **una risposta che fallisce non fa
+  /// sparire la scena di colpo**, la fa arrivare al suo tempo come le altre.
+  Future<void> _consegna(ChatMessage messaggio, Stopwatch da) async {
+    final minima = riduciMovimento
+        ? TempiDellAttesa.durataMinimaRidotta
+        : TempiDellAttesa.durataMinima;
+    final mancante = minima.inMilliseconds - da.elapsedMilliseconds;
+    if (mancante > 0) {
+      await Future<void>.delayed(Duration(milliseconds: mancante));
+    }
+    ultimaAttesaMs = da.elapsedMilliseconds;
+    _replaceLast(messaggio);
   }
 
   void _replaceLast(ChatMessage message) {

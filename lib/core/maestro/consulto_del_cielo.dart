@@ -2,6 +2,7 @@ import 'ancoraggio.dart';
 import 'lente_del_cielo.dart';
 import 'maestro.dart';
 import 'natal_context.dart';
+import 'voce_del_maestro.dart';
 
 /// Una battuta del consulto: cosa il Maestro sta guardando adesso.
 class BattutaDelConsulto {
@@ -49,22 +50,44 @@ class ConsultoDelCielo {
   /// e diventa un'attesa allungata a forza.
   static const int massimoBattute = 3;
 
-  /// Le battute per questa persona, dalla piu' personale alla piu' generale.
+  /// Quante battute nominano un DATO VERO di questa persona, al massimo.
   ///
-  /// L'ordine non e' estetico: l'Ascendente dipende dall'ora e dal luogo esatti,
-  /// la Luna dal giorno, il Sole dal mese. Chi guarda vede scendere il grado di
-  /// intimita' del dato, e la prima cosa che legge e' la piu' sua.
+  /// Due, e non tre, e il posto che resta va a una frase del Maestro. Il motivo
+  /// non e' estetico: tre righe che elencano tre corpi sono un inventario, e un
+  /// inventario non somiglia a nessuno che stia pensando. Una riga che dice
+  /// "la tua Luna in Cancro" seguita da una che dice "seguo il transito che si
+  /// chiude" e' un Maestro che guarda un dato TUO e poi ci ragiona sopra.
+  static const int massimeAncorate = 2;
+
+  /// Le battute per questa persona: prima cio' che e' suo, poi la voce di chi
+  /// sta guardando.
+  ///
+  /// **L'ordine non e' estetico.** L'Ascendente dipende dall'ora e dal luogo
+  /// esatti, la Luna dal giorno, il Sole dal mese: chi guarda vede scendere il
+  /// grado di intimita' del dato, e **la prima cosa che legge e' la piu' sua**.
+  /// Conta perche' con Riduci Movimento si mostra la prima e basta: si toglie
+  /// il moto, non l'informazione, quindi la prima deve essere quella che vale.
+  ///
+  /// **Una frase generica si riconosce subito come teatro, una che sa chi sei
+  /// no.** Per questo le ancorate vengono prima, e nascono dagli ANCORAGGI,
+  /// cioe' dallo stesso elenco che il Maestro riceve nella persona: un secondo
+  /// elenco scritto qui prima o poi divergerebbe da quello.
+  ///
+  /// [rotazione] fa girare le frasi del Maestro, cosi' due attese vicine non
+  /// ripetono la stessa riga. Cresce di uno a ogni domanda.
   static List<BattutaDelConsulto> battutePer(
     NatalContext natal, {
     Maestro? maestro,
+    int rotazione = 0,
   }) {
-    // Le battute nascono dagli ANCORAGGI, cioe' dallo stesso elenco che il
-    // Maestro riceve nella persona. Prima erano un secondo elenco scritto qui,
-    // e due elenchi della stessa cosa prima o poi divergono.
     final ancoraggi = VerificaAncoraggio.disponibiliPer(natal: natal);
     final battute = <BattutaDelConsulto>[];
+    // Il posto si riserva a chi lo usa: senza un Maestro non c'e' nessuna
+    // frase di firma da far entrare, quindi le ancorate si prendono tutto lo
+    // spazio invece di lasciarne vuoto un terzo.
+    final tetto = maestro == null ? massimoBattute : massimeAncorate;
     for (final ancoraggio in ancoraggi) {
-      if (battute.length >= massimoBattute) break;
+      if (battute.length >= tetto) break;
       // Solo i dati che hanno un corpo da guardare: un fatto di memoria e' un
       // ottimo ancoraggio per la risposta, ma non e' qualcosa che si consulta
       // nel cielo.
@@ -79,8 +102,31 @@ class ConsultoDelCielo {
       ));
     }
 
-    // Senza carta natale si consulta il solo Sole, e LO SI DICE: la battuta
-    // dichiara di essere generale, cosi' nessuno la scambia per sua.
+    // LE FRASI DEL MAESTRO, a completare.
+    //
+    // **Portano l'ancoraggio della battuta precedente**, e non e' un dettaglio:
+    // il corpo a schermo si disegna da li'. Cosi' mentre la riga cambia, la
+    // Luna vera di questa persona resta illuminata invece di lasciare il posto
+    // a un punto anonimo. La scena non e' nuova, e' quella che c'era, estesa.
+    if (maestro != null) {
+      final frasi = VoceDelMaestro.di(maestro).frasiDelConsulto;
+      final ereditato = battute.isEmpty ? null : battute.last;
+      for (var i = 0; battute.length < massimoBattute; i++) {
+        battute.add(BattutaDelConsulto(
+          corpo: ereditato?.corpo ?? 'punto',
+          frase: frasi[(rotazione + i) % frasi.length],
+          // Senza nessun dato di questa persona una frase del Maestro NON e'
+          // sua: e' vera di chiunque, e va dichiarata come tale invece di
+          // lasciarla credere personale.
+          eGenerale: ereditato == null,
+          ancoraggio: ereditato?.ancoraggio,
+        ));
+      }
+    }
+
+    // Senza carta natale e senza Maestro si consulta il solo Sole, e LO SI
+    // DICE: la battuta dichiara di essere generale, cosi' nessuno la scambia
+    // per sua.
     if (battute.isEmpty) {
       return const [
         BattutaDelConsulto(

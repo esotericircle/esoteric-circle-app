@@ -15,6 +15,7 @@ import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -52,9 +53,18 @@ void main() {
     }
   }
 
+  /// Un passo della chat, che adesso comprende LA PAUSA DEL CONSULTO.
+  ///
+  /// Quattrocento millisecondi bastavano finche' la risposta compariva appena
+  /// la voce tornava. Dal 3 agosto 2026 anche il RIPIEGO passa dalla pausa
+  /// minima: una risposta che fallisce non fa sparire la scena di colpo, la fa
+  /// chiudere al suo tempo come le altre. Il tempo si legge dal dato e non si
+  /// scrive qui: se domani la pausa cambia, questa prova la segue da sola.
   Future<void> step(WidgetTester tester) async {
     await tester.pump();
-    await tester.pump(const Duration(milliseconds: 400));
+    await tester.pump(TempiDellAttesa.durataMinima +
+        TempiDellAttesa.dissolvenza +
+        const Duration(milliseconds: 400));
   }
 
   /// I servizi veri dell'app, con una voce che solleva l'errore che il progetto

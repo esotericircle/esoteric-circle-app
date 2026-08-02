@@ -8,6 +8,7 @@ import '../../core/maestro/consulto_del_cielo.dart';
 import '../../core/maestro/corpo_del_consulto.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/natal_context.dart';
+import '../../core/maestro/tempi_dell_attesa.dart';
 import '../../core/quality/quality_tier.dart';
 import '../theme/maestro_scope.dart';
 import '../tokens/spacing_tokens.dart';
@@ -34,7 +35,8 @@ class ConsultoDelCieloView extends StatefulWidget {
     super.key,
     required this.natal,
     this.maestro,
-    this.durataBattuta = const Duration(milliseconds: 1400),
+    this.rotazione = 0,
+    this.durataBattuta = TempiDellAttesa.durataBattuta,
   });
 
   /// I dati di questa persona. Se e' vuoto la scena consulta il solo Sole e lo
@@ -46,7 +48,13 @@ class ConsultoDelCieloView extends StatefulWidget {
   /// conversazione, e allora la frase resta neutra.
   final Maestro? maestro;
 
-  /// Quanto resta a schermo ogni battuta.
+  /// Quale giro di frasi. Cresce a ogni domanda, cosi' due attese vicine non
+  /// fanno rileggere la stessa riga del Maestro.
+  final int rotazione;
+
+  /// Quanto resta a schermo ogni battuta. Il valore vive in [TempiDellAttesa],
+  /// insieme agli altri tempi dell'attesa: qui c'e' solo il modo di scavalcarlo
+  /// in una prova.
   final Duration durataBattuta;
 
   /// Quanto e' grande il corpo disegnato. Dichiarata perche' la prova a pixel
@@ -58,8 +66,11 @@ class ConsultoDelCieloView extends StatefulWidget {
 }
 
 class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView> {
-  late final List<BattutaDelConsulto> _battute =
-      ConsultoDelCielo.battutePer(widget.natal, maestro: widget.maestro);
+  late final List<BattutaDelConsulto> _battute = ConsultoDelCielo.battutePer(
+    widget.natal,
+    maestro: widget.maestro,
+    rotazione: widget.rotazione,
+  );
   int _corrente = 0;
   Timer? _passo;
 
@@ -137,8 +148,18 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView> {
           ? scena
           : AnimatedSwitcher(
               duration: const Duration(milliseconds: 420),
+              // LA CHIAVE E' L'INDICE, non il corpo.
+              //
+              // Era `ValueKey(battuta.corpo)`, e reggeva finche' ogni riga
+              // guardava un corpo diverso. Adesso le frasi del Maestro
+              // EREDITANO il corpo della riga ancorata, apposta, perche' la
+              // Luna vera di questa persona resti illuminata mentre la riga
+              // cambia: con la vecchia chiave due righe di fila avrebbero
+              // avuto la stessa chiave e la seconda sarebbe comparsa di
+              // scatto, cioe' la scena avrebbe perso proprio il movimento per
+              // cui esiste.
               child: KeyedSubtree(
-                key: ValueKey(battuta.corpo),
+                key: ValueKey(_corrente),
                 child: scena,
               ),
             ),
