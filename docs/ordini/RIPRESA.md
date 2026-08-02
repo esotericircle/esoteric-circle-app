@@ -52,6 +52,59 @@ l'API spenta lo dichiara in chiaro. Prima di questo lavoro il pannello diceva
 "Voce di Medora: attiva" anche mentre ogni chiamata falliva, perche' leggeva
 `isReady`, che risponde sempre di si'.
 
+## LA CHAT RISPONDE. Configurazione di AI Logic creata dall'API il 2 agosto 2026
+
+**RISOLTA, e senza toccare una riga di codice.** La strada 1 dell'ORDINE C ha
+funzionato: la configurazione si crea dall'API, non serviva la console.
+
+**Cosa mancava davvero.** La risorsa esisteva ma era VUOTA:
+
+```
+GET  https://firebasevertexai.googleapis.com/v1beta/projects/esoteric-circle/locations/global/config
+200  {"name":"projects/esoteric-circle/locations/global/config"}
+```
+
+Solo il nome, nessun fornitore dentro. E' esattamente cio' che il servizio
+chiamava "AI logic config is missing": il record c'era, la configurazione no.
+**Ecco perche' nella console non compariva nessun "Inizia": per la console la
+risorsa esisteva gia'.** Esiste solo su `global`, e su `europe-west1` e
+`us-central1` torna 404: non e' una risorsa per regione.
+
+**Il comando che l'ha creata:**
+
+```
+PATCH .../v1beta/projects/esoteric-circle/locations/global/config?updateMask=generativeLanguageConfig
+      {"generativeLanguageConfig":{"apiKey":"<chiave Gemini del progetto>"}}
+200   {"name":"...","generativeLanguageConfig":{"obfuscatedApiKey":"RQczGuAA"}}
+```
+
+La chiave e' quella gia' esistente nel progetto, "Gemini API Key Esoteric
+Circle", non una nuova.
+
+**LA PROVA, prima e dopo, sulla strada che l'app usa davvero:**
+
+```
+PRIMA  403 PERMISSION_DENIED  "AI logic config is missing for this project."
+DOPO   200 {"candidates":[{"content":{"parts":[{"text":"Pronto"}]}}]}
+```
+
+**I due modelli verificati su Vertex, europe-west1:** `gemini-2.5-flash`
+risponde in 34 token, `gemini-2.5-flash-lite` in 11.
+
+**LA STRADA 2 NON SERVE, ED E' UNA FORTUNA CHE NON SIA SERVITA.** Provata anche
+quella per misura: il backend Gemini Developer risponde **429
+RESOURCE_EXHAUSTED, "Your prepayment credits are depleted"**. Cambiare backend
+avrebbe portato contro un muro diverso. Il backend resta Vertex, la regione
+resta `europe-west1`, `kVertexLocation` continua a dire il vero.
+
+**NESSUNA MODIFICA AL CODICE, quindi nessuna build nuova.** La correzione e'
+interamente lato progetto Google: **la build 2134 gia' consegnata adesso
+funziona**, basta riaprire la chat.
+
+**Lo strumento di attribuzione resta allineato**: `tool/attribuzione_cieca.dart`
+chiama Vertex, e l'app continua a chiamare Vertex. Il 98,3 per cento vale per
+la strada viva.
+
 ## LA CHAT NON RISPONDE ANCORA, E LA CAUSA E' MISURATA: MANCA LA CONFIGURAZIONE DI AI LOGIC
 
 Diagnosi del 2 agosto 2026, build 2133. **Nessuna correzione applicata: la cosa
