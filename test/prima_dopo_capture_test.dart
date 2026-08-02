@@ -2,7 +2,12 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/astro/sky_location.dart';
+import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/maestro/ancoraggio.dart';
+import 'package:esoteric_circle/core/maestro/lente_del_cielo.dart';
+import 'package:esoteric_circle/features/maestri/chat/widgets/chat_bubble.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/design_system/components/zodiac_glyph.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
@@ -49,6 +54,21 @@ const _stato = String.fromEnvironment('STATO');
 
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
+
+  /// PRECARICA GLI ASSET PRIMA DELLA CATTURA, SEMPRE.
+  ///
+  /// In headless un'immagine non si decodifica se nessuno la mette in cache
+  /// prima: senza questo, l'anteprima mostra un buco e non prova niente. E'
+  /// gia' costato un'anteprima del consulto, che infatti non aveva corpo.
+  Future<void> precarica(WidgetTester tester) async {
+    await tester.runAsync(() async {
+      final ctx = tester.element(find.byType(MaterialApp));
+      for (final segno in Zodiac.values) {
+        await precacheImage(AssetImage(ZodiacArt.emblemPath(segno)), ctx);
+      }
+    });
+    await tester.pump();
+  }
 
   void silence() {
     final m = binding.defaultBinaryMessenger;
@@ -452,6 +472,7 @@ void main() {
   // e questo e' esattamente il motivo per cui ci vive.
   const statiDelConsulto = <String, ({NatalContext natal, bool fermo})>{
     'consulto_ascendente': (natal: _cartaPiena, fermo: false),
+    'consulto_luna': (natal: _soloFaseLunare, fermo: false),
     'consulto_senza_carta': (natal: NatalContext.none, fermo: false),
     'consulto_riduci_movimento': (natal: _cartaPiena, fermo: true),
   };
@@ -485,7 +506,10 @@ void main() {
                   child: Scaffold(
                     backgroundColor: const Color(0xFF080B1A),
                     body: Center(
-                      child: ConsultoDelCieloView(natal: stato.value.natal),
+                      child: ConsultoDelCieloView(
+                        natal: stato.value.natal,
+                        maestro: Maestro.medora,
+                      ),
                     ),
                   ),
                 ),
@@ -495,6 +519,7 @@ void main() {
         ),
       ));
       await tester.pump();
+      await precarica(tester);
       await tester.pump(const Duration(milliseconds: 200));
 
       await tester.runAsync(() async {
@@ -578,6 +603,71 @@ void main() {
     });
   });
 
+  // LE TRE LENTI SULLO STESSO DATO, una immagine per Maestro.
+  for (final maestro in Maestro.values) {
+    testWidgets('Lente, ${maestro.id}', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      SharedPreferences.setMockInitialValues({});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2392);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final radice = GlobalKey();
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: MaestroScope(
+            maestro: maestro,
+            child: Builder(
+              builder: (ctx) => MediaQuery(
+                data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+                child: RepaintBoundary(
+                  key: radice,
+                  child: Scaffold(
+                    backgroundColor: const Color(0xFF080B1A),
+                    body: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: ChatBubble(
+                          message: ChatMessage(
+                            role: ChatRole.maestro,
+                            text: LenteDelCielo.battuta(
+                                maestro, _ancoraggioDellaLente),
+                          ),
+                          maestro: maestro,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      await tester.runAsync(() async {
+        final rb =
+            radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+        final img = await rb.toImage(pixelRatio: 3.0);
+        final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+        final dir = Directory('docs/preview/prima_dopo');
+        if (!dir.existsSync()) dir.createSync(recursive: true);
+        File('${dir.path}/lente_${maestro.id}_$_stato.png')
+            .writeAsBytesSync(dati!.buffer.asUint8List());
+        img.dispose();
+      });
+    });
+  }
+
   // "VAI PIU' A FONDO" sotto la risposta, e IL RIPIEGO CHE LEGGE DAVVERO.
   // Due stati della stessa schermata, distinti solo da come risponde la voce.
   for (final caso in const ['approfondisci', 'ripiego_lettura']) {
@@ -654,6 +744,18 @@ void main() {
 }
 
 /// Una carta natale piena, per le anteprime del consulto.
+/// LE TRE RISPOSTE CON LA LENTE: lo stesso dato detto da tre voci.
+///
+/// Non passano dall'AI: il testo e' quello che la lente produce in modo
+/// deterministico, cosi' l'immagine mostra la REGOLA e non l'umore di una
+/// generazione. Lo dichiaro perche' un'anteprima che sembra una risposta vera
+/// senza esserlo e' peggio di nessuna anteprima.
+const _ancoraggioDellaLente =
+    Ancoraggio(nome: 'segno lunare', valore: 'Cancro');
+
+/// Solo la fase lunare, per fotografare il disco della Luna col terminatore.
+const _soloFaseLunare = NatalContext(moonPhase: 'Luna crescente');
+
 const _cartaPiena = NatalContext(
   sunSign: 'Cancro',
   moonSign: 'Pesci',
