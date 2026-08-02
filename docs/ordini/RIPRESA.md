@@ -1,5 +1,96 @@
 # RIPRESA
 
+## ORDINE D: CHIUSO PER INTERO. Le risposte non sono piu' tronche
+
+Chiuso il 2 agosto 2026.
+
+**LA CAUSA, MISURATA PRIMA DI TOCCARE UNA RIGA.** Tre chiamate reali sulla
+strada viva, stesso modello e stessa persona:
+
+```
+A) come faceva l'app: tetto 160, ragionamento NON dichiarato
+   finishReason MAX_TOKENS   thoughts 150   candidates 6    ->  4 parole
+   testo: "Un velo argenteo si" a video, dopo 150 token di pensiero
+B) tetto 160, ragionamento a ZERO
+   finishReason STOP         thoughts 0     candidates 68   -> 42 parole
+C) tetto 400, ragionamento a ZERO
+   finishReason STOP         thoughts 0     candidates 84   -> 45 parole
+```
+
+**Il ragionamento interno del modello si mangiava il novantaquattro per cento
+del budget prima che il modello scrivesse una parola.** Non era un tetto un po'
+stretto: `reply()` non dichiarava affatto `thinkingConfig`, e chi non lo
+dichiara prende il ragionamento dinamico.
+
+**IL DIFETTO ERA IN DUE PUNTI, NON UNO.** Anche `distill()` non lo dichiarava:
+il distillato di memoria si troncava in SILENZIO, il parsing difensivo tornava
+`null`, la memoria non si aggiornava, e non poteva accorgersene nessuno.
+
+**E IL CONSULTA PROFONDO NON POTEVA RIUSCIRE MAI.** Dichiarava un ragionamento
+di 512 token dentro un tetto di 320: il pensiero era piu' grande di tutta
+l'uscita. Misurato: `MAX_TOKENS`, `thoughts 304`, `candidates 2`, testo `{`.
+
+**LA CORREZIONE: IL TETTO SI CALCOLA, NON SI SCRIVE.** C'erano cinque numeri
+scritti a mano che dovevano ricordarsi da soli di stare larghi abbastanza per
+una lunghezza che pero' viveva altrove, nella prosa dell'istruzione. Due numeri
+separati che devono restare d'accordo divergono sempre, ed erano gia' divergiti.
+Adesso `MisuraDellaRisposta` porta UN numero deciso a mano, le parole chieste, e
+il tetto ne discende: parole per due token, per due di rete, piu' il
+ragionamento. **Alzare la richiesta alza la rete da sola.**
+
+**ALZARE IL TETTO NON ALZA LA SPESA**: si pagano i token PRODOTTI, non quelli
+concessi. Una risposta di novanta parole costa uguale con un tetto di 160 o di
+400. Cio' che cambia e' che con 400 arriva intera.
+
+**LA PORTA TOLTA.** Le quattro chiamate si costruivano ciascuna la sua
+`GenerationConfig`, e due su quattro dimenticavano il ragionamento. Una
+dimenticanza cosi' non si corregge chiamante per chiamante: adesso c'e' UNA
+`configurazionePer`, che scrive tetto e ragionamento insieme dalla stessa
+misura, e non esiste piu' un modo di scrivere l'uno senza l'altro.
+
+**LA MISURA DELLE VENTI RISPOSTE VERE**, con `flutter test tool/risposte_intere.dart`:
+
+```
+Misura chiesta: 90 parole. Tetto: 400 token. Ragionamento: 0.
+PAROLE  minimo 79  mediana 102  massimo 117
+FERMATE AL MURO: 0 su 20
+CON RAGIONAMENTO ACCESO: 0 su 20
+```
+
+**L'ATTRIBUZIONE E' SCESA, ED E' STATA RIALZATA.** Con le risposte a novanta
+parole invece che a quaranta, la prima misura ha dato **90,0 per cento, con
+Medora al 70**, scambiata per Aura sei volte su venti. La causa: le regole
+comuni dichiaravano una chiusura generica IDENTICA per tutti e tre, in coda alla
+struttura, e col nuovo spazio il modello ha avuto modo di scriverla davvero,
+seguendo quella invece della propria. Medora chiudeva chiedendo "cosa cerca il
+tuo cuore" invece di indicare una finestra nel tempo. **Tolta la seconda porta,
+l'attribuzione e' tornata a 98,3** con Medora al 95, Aura e Caligo al 100.
+
+**UNA RISPOSTA TRONCA NON SI CONSEGNA E NON SI FA PAGARE.** Il provider adesso
+guarda `finishReason`, che la SDK non solleva mai da sola per `MAX_TOKENS`, e
+solleva `MaestroAiTroncata`. La chat riprova UNA volta; se tronca ancora
+consegna un ripiego dichiarato e restituisce `EsitoDelTurno.rispostaTroncata`,
+che non costa. Prima "Un velo" si prendeva una delle tre domande del giorno.
+
+**"VAI PIU' A FONDO" NON COMPARE PIU' SOTTO UN MONCONE**, e la distinzione non
+e' nuova: il messaggio tronco e' un ripiego, e `portaUnResponso` gia' escludeva
+i ripieghi. Il tipo vive nel dato, non in una schermata.
+
+**OTTO PROVE DEL ROSSO ESEGUITE DAVVERO, e la settima e' quella che conta.**
+Togliere il controllo della troncatura dal provider lasciava tutto VERDE:
+nessuna prova attraversa quel ramo, perche' costruire una risposta vera di
+Gemini richiede un `FirebaseAI` che in prova non esiste. Quando il caso non
+attraversa il ramo si ENUMERA: adesso una prova elenca i quattro metodi che
+restituiscono testo e chiede che ciascuno controlli.
+
+**DUE COSE VISTE E NON CORRETTE, fuori dallo scopo di questo ordine:**
+
+- Caligo scrive `**Laguz**` in grassetto Markdown, e la bolla della chat NON
+  rende il Markdown: a video arrivano gli asterischi.
+- Una risposta da novanta parole e' piu' alta dello schermo, e la chat scorre in
+  fondo: la prima riga, cioe' l'immagine celeste che e' il primo strato della
+  voce di Medora, resta sopra la piega.
+
 ## PERCHE' LA CHAT TACEVA: CAUSA MISURATA E RIMOSSA il 2 agosto 2026
 
 **CHIUSA.** ORDINE CHAT 1 DI N. La causa non era nel codice ed e' stata accesa

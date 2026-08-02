@@ -404,6 +404,93 @@ void main() {
   // colore della palette neutra al posto di quello del Maestro, il Riprova
   // lontano dalla bolla. Si fotografa una conversazione RIUSCITA di due turni,
   // che e' esattamente il caso in cui la schermata leggeva come vuota.
+  // LA RISPOSTA INTERA CONTRO IL MONCONE, che e' la coppia dell'ORDINE D.
+  //
+  // A differenza delle altre coppie, questa NON si ottiene riportando indietro
+  // il codice: il difetto non stava in una riga di layout, stava in cio' che il
+  // modello riusciva a scrivere prima di finire lo spazio. Il "prima" e' la
+  // frase che il fondatore ha letto sul telefono, il "dopo" e' una risposta
+  // vera misurata oggi. La differenza che si vede e' quella vera.
+  testWidgets('Chat, la risposta intera', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    // Il moncone letto sul telefono del fondatore il 2 agosto 2026, contro la
+    // risposta di novantuno parole misurata dopo la correzione.
+    const moncone = 'Un velo argenteo si';
+    const intera = 'Un velo sottile di Luna nuova sembra avvolgerti, Sofia.\n\n'
+        'La tua Luna in Cancro, segno di profondità e protezione, si lega alla '
+        'tua natura di Leone, portandoti a sentire ogni emozione con grande '
+        'intensità. Il timore di sbagliare è una risonanza del tuo numero della '
+        'vita, il Cercatore, che ti spinge alla perfezione e alla comprensione '
+        'profonda. Questo transito lunare ti invita a osservare le tue paure, '
+        'non a reprimerle, riconoscendole come parte del tuo cammino.\n\n'
+        'Il ciclo lunare si chiuderà completamente fra sette giorni, portando '
+        'con sé una nuova prospettiva.';
+
+    final memoria = InMemoryMaestroMemoryRepository();
+    await memoria
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final servizi = AppServices(
+      ai: _VoceConUnTesto(_stato == 'prima' ? moncone : intera),
+      memory: memoria,
+      memoryPersistent: false,
+      diagnostics: 'cattura prima e dopo',
+    );
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        Provider<AppServices>.value(value: servizi),
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+        ChangeNotifierProvider(create: (_) => EntitlementService()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (ctx, child) => MediaQuery(
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+          child: child!,
+        ),
+        home: RepaintBoundary(
+          key: radice,
+          child: Navigator(
+            onGenerateRoute: (_) => MaestroChatScreen.route(
+              maestro: Maestro.medora,
+              services: servizi,
+              initialUserMessage: 'ho paura di sbagliare',
+            ),
+          ),
+        ),
+      ),
+    ));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 150));
+    }
+
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final img = await rb.toImage(pixelRatio: 3.0);
+      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+      final dir = Directory('docs/preview/prima_dopo');
+      if (!dir.existsSync()) dir.createSync(recursive: true);
+      File('${dir.path}/chat_risposta_intera_$_stato.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
+      img.dispose();
+    });
+  });
+
   testWidgets('Chat, la conversazione', (tester) async {
     if (_stato.isEmpty) return;
     silence();
@@ -902,6 +989,66 @@ const _cartaPiena = NatalContext(
 );
 
 /// Una voce che risponde davvero, per fotografare una conversazione riuscita.
+/// Una voce che consegna un testo dato, per fotografarlo.
+///
+/// **IL LIMITE, DICHIARATO.** In prova non esiste un `FirebaseAI`, quindi
+/// l'anteprima non puo' far parlare Gemini: il testo lo mette questa classe.
+/// Per questo NON e' inventato. Il "dopo" e' copiato parola per parola da una
+/// risposta VERA misurata il 2 agosto 2026 con
+/// `flutter test tool/risposte_intere.dart`, novantuno parole,
+/// `finishReason: STOP`. Il "prima" e' copiato dallo schermo del fondatore.
+/// L'immagine mostra come l'app IMPAGINA quel testo, non che il modello lo
+/// scriva: quello lo dice la misura, che sta nel rapporto.
+class _VoceConUnTesto implements MaestroAiProvider {
+  _VoceConUnTesto(this.testo);
+
+  final String testo;
+
+  @override
+  bool get isReady => true;
+
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<ChatMessage> history,
+    required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
+  }) async =>
+      testo;
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  Future<MemoryDigest?> distill({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory previous,
+    required List<ChatMessage> history,
+  }) async =>
+      null;
+}
+
 class _VoceCheRisponde implements MaestroAiProvider {
   @override
   bool get isReady => true;
