@@ -577,6 +577,80 @@ void main() {
       img.dispose();
     });
   });
+
+  // "VAI PIU' A FONDO" sotto la risposta, e IL RIPIEGO CHE LEGGE DAVVERO.
+  // Due stati della stessa schermata, distinti solo da come risponde la voce.
+  for (final caso in const ['approfondisci', 'ripiego_lettura']) {
+    testWidgets('Chat, $caso', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      SharedPreferences.setMockInitialValues({});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2392);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final memoria = InMemoryMaestroMemoryRepository();
+      await memoria
+          .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+      final servizi = AppServices(
+        ai: caso == 'approfondisci' ? _VoceCheRisponde() : _VoceCheTace(),
+        memory: memoria,
+        memoryPersistent: false,
+      );
+
+      // Una carta natale vera, cosi' il ripiego ha qualcosa da leggere.
+      final identita = BirthIdentityController();
+
+      final radice = GlobalKey();
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          Provider<AppServices>.value(value: servizi),
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+          ChangeNotifierProvider<BirthIdentityController>.value(
+              value: identita),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: child!,
+          ),
+          home: RepaintBoundary(
+            key: radice,
+            child: Navigator(
+              onGenerateRoute: (_) => MaestroChatScreen.route(
+                maestro: Maestro.medora,
+                services: servizi,
+                initialUserMessage: 'Che cosa mi dice il mio cammino?',
+              ),
+            ),
+          ),
+        ),
+      ));
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 150));
+      }
+
+      await tester.runAsync(() async {
+        final rb =
+            radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+        final img = await rb.toImage(pixelRatio: 3.0);
+        final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+        final dir = Directory('docs/preview/prima_dopo');
+        if (!dir.existsSync()) dir.createSync(recursive: true);
+        File('${dir.path}/chat_${caso}_$_stato.png')
+            .writeAsBytesSync(dati!.buffer.asUint8List());
+        img.dispose();
+      });
+    });
+  }
 }
 
 /// Una carta natale piena, per le anteprime del consulto.
