@@ -8,6 +8,7 @@ import 'ai/maestro_ai_provider.dart';
 import 'ai/registro_dei_guasti.dart';
 import 'ai/voce_sorvegliata.dart';
 import 'firebase/app_check_debug.dart';
+import 'firebase/attestazione.dart';
 import 'memory/firestore_maestro_memory_repository.dart';
 import 'memory/in_memory_maestro_memory_repository.dart';
 import 'memory/maestro_memory_repository.dart';
@@ -23,6 +24,7 @@ class AppServices {
     required this.guasti,
     required this.memory,
     required this.memoryPersistent,
+    this.attestazione = EsitoAttestazione.installata,
     this.appCheckDebugToken,
     this.showAppCheckDebugToken = false,
     this.diagnostics,
@@ -41,6 +43,7 @@ class AppServices {
     required MaestroMemoryRepository memory,
     required bool memoryPersistent,
     RegistroDeiGuasti? guasti,
+    EsitoAttestazione attestazione = EsitoAttestazione.installata,
     String? appCheckDebugToken,
     bool showAppCheckDebugToken = false,
     String? diagnostics,
@@ -57,6 +60,7 @@ class AppServices {
       guasti: sorvegliata.registro,
       memory: memory,
       memoryPersistent: memoryPersistent,
+      attestazione: attestazione,
       appCheckDebugToken: appCheckDebugToken,
       showAppCheckDebugToken: showAppCheckDebugToken,
       diagnostics: diagnostics,
@@ -88,6 +92,11 @@ class AppServices {
   /// lasciano spento, cosi' le catture restano quelle che l'utente vedra'.
   final bool showAppCheckDebugToken;
 
+  /// Com'e' andata l'attestazione dell'app. Il pannello di messa a punto la
+  /// mostra con la sua ragione: nessuno deve poter credere che l'attestazione
+  /// funzioni quando non e' installata.
+  final EsitoAttestazione attestazione;
+
   /// Nota diagnostica per i log, mai mostrata cruda all'utente.
   final String? diagnostics;
 
@@ -115,31 +124,23 @@ class AppServices {
       return AppServices.offline('Firebase non inizializzato: $e');
     }
 
-    // Passo 2: App Check. Protegge l'AI Logic. In debug si usa il provider di
-    // debug con un token che generiamo noi e mostriamo a schermo (da registrare
-    // in console per l'enforcement); in release Play Integrity su Android e App
-    // Attest su Apple. Best effort.
+    // Passo 2: l'attestazione dell'app.
+    //
+    // NON si tocca `FirebaseAppCheck.instance` quando l'attestazione non puo'
+    // riuscire, e la ragione sta tutta in `Attestazione`: il servizio si
+    // registra sul FirebaseApp SOLO quando qualcuno tocca `instance`, e
+    // `firebase_ai` lo cerca con `app.getService<FirebaseAppCheck>()`. Non
+    // toccandolo, l'SDK salta l'intestazione e la chiamata parte, invece di
+    // morire su `getToken()` con "App attestation failed".
+    final registro = RegistroDeiGuasti();
     String? debugToken;
-    try {
-      if (kReleaseMode) {
-        await FirebaseAppCheck.instance.activate(
-          providerAndroid: const AndroidPlayIntegrityProvider(),
-          providerApple: const AppleAppAttestProvider(),
-        );
-      } else {
-        debugToken = await AppCheckDebugToken.getOrCreate();
-        await FirebaseAppCheck.instance.activate(
-          providerAndroid: AndroidDebugProvider(debugToken: debugToken),
-          providerApple: AppleDebugProvider(debugToken: debugToken),
-        );
-      }
-    } catch (errore, traccia) {
-      // Se App Check non si attiva l'AI puo' ancora funzionare finche' non si
-      // impone l'enforcement lato server. Si prosegue, ma si annota: e' il
-      // primo sospettato ogni volta che una chiamata viene respinta, e per due
-      // giri di lavoro non c'era modo di sapere se fosse partito davvero.
-      annotaGuastoInnocuo('attivando App Check', errore, traccia);
-    }
+    final esitoAttestazione = await Attestazione.installa(
+      releaseMode: kReleaseMode,
+      registro: registro,
+      installatore: _InstallatoreVero(
+        onDebugToken: (t) => debugToken = t,
+      ),
+    );
 
     // Il provider AI e' pronto: parla con Gemini su Vertex via Firebase AI.
     final MaestroAiProvider ai = FirebaseMaestroAiProvider();
@@ -168,10 +169,41 @@ class AppServices {
       ai: ai,
       memory: memory,
       memoryPersistent: persistent,
+      guasti: registro,
+      attestazione: esitoAttestazione,
       appCheckDebugToken: debugToken,
       showAppCheckDebugToken:
           AppCheckDebugToken.mostraAVideo(releaseMode: kReleaseMode),
       diagnostics: note,
+    );
+  }
+}
+
+/// L'installatore vero: il fornitore di debug fuori dalla release, Play
+/// Integrity e App Attest in release.
+///
+/// E' l'UNICO punto del progetto che tocca `FirebaseAppCheck.instance`, ed e'
+/// per questo che non toccarlo basta a non registrare il servizio.
+class _InstallatoreVero implements InstallatoreAttestazione {
+  _InstallatoreVero({required this.onDebugToken});
+
+  /// Il token di debug appena creato, per mostrarlo a schermo.
+  final void Function(String) onDebugToken;
+
+  @override
+  Future<void> installa() async {
+    if (kReleaseMode) {
+      await FirebaseAppCheck.instance.activate(
+        providerAndroid: const AndroidPlayIntegrityProvider(),
+        providerApple: const AppleAppAttestProvider(),
+      );
+      return;
+    }
+    final token = await AppCheckDebugToken.getOrCreate();
+    onDebugToken(token);
+    await FirebaseAppCheck.instance.activate(
+      providerAndroid: AndroidDebugProvider(debugToken: token),
+      providerApple: AppleDebugProvider(debugToken: token),
     );
   }
 }

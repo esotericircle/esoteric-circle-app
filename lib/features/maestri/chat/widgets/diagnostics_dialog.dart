@@ -6,6 +6,7 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
+import '../../../../services/firebase/attestazione.dart';
 
 /// Pannello diagnostico della chat, discreto e a portata di tocco.
 ///
@@ -18,6 +19,8 @@ Future<void> showChatDiagnostics(
   required bool aiReady,
   required bool memoryPersistent,
   RegistroDeiGuasti? guasti,
+  EsitoAttestazione attestazione = EsitoAttestazione.installata,
+  String? nota,
   String? appCheckDebugToken,
 }) {
   return showModalBottomSheet<void>(
@@ -32,6 +35,8 @@ Future<void> showChatDiagnostics(
         aiReady: aiReady,
         memoryPersistent: memoryPersistent,
         guasti: guasti,
+        attestazione: attestazione,
+        nota: nota,
         appCheckDebugToken: appCheckDebugToken,
       ),
     ),
@@ -43,6 +48,8 @@ class _DiagnosticsSheet extends StatelessWidget {
     required this.aiReady,
     required this.memoryPersistent,
     required this.guasti,
+    required this.attestazione,
+    required this.nota,
     required this.appCheckDebugToken,
   });
 
@@ -53,6 +60,15 @@ class _DiagnosticsSheet extends StatelessWidget {
   /// esiste ancora: prima diceva "Voce di Medora: attiva" anche quando ogni
   /// chiamata falliva, perche' leggeva `isReady`, che risponde sempre di si'.
   final RegistroDeiGuasti? guasti;
+
+  /// Com'e' andata l'attestazione. Si mostra SEMPRE, anche quando va bene:
+  /// un pannello che tace su cio' che non e' installato mente per omissione.
+  final EsitoAttestazione attestazione;
+
+  /// La nota diagnostica dell'avvio, per esempio il motivo per cui la memoria
+  /// non e' persistente. Esisteva gia' in AppServices e non la leggeva nessuno.
+  final String? nota;
+
   final String? appCheckDebugToken;
 
   @override
@@ -97,6 +113,36 @@ class _DiagnosticsSheet extends StatelessWidget {
             value: memoryPersistent ? 'persistente' : 'di sessione',
             good: memoryPersistent,
           ),
+          _StatusRow(
+            label: 'Attestazione',
+            value: switch (attestazione) {
+              EsitoAttestazione.installata => 'installata',
+              EsitoAttestazione.nonInstallataPerScelta =>
+                'non installata, per scelta',
+              EsitoAttestazione.fallita => 'installata ma fallita',
+            },
+            good: attestazione == EsitoAttestazione.installata,
+          ),
+          const SizedBox(height: SpacingTokens.xs),
+          Text(
+            Attestazione.ragioneDi(attestazione),
+            style: TypographyTokens.body(size: 13)
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+          if (nota != null && nota!.trim().isNotEmpty) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              'Nota dell\'avvio',
+              style: TypographyTokens.body(size: 15, weight: 600)
+                  .copyWith(color: palette.goldSoft),
+            ),
+            const SizedBox(height: SpacingTokens.xxs),
+            Text(
+              nota!,
+              style: TypographyTokens.body(size: 13)
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+          ],
           if (ultimo != null) ...[
             const SizedBox(height: SpacingTokens.lg),
             Text(
