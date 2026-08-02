@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/entitlement/question_allowance.dart';
@@ -12,6 +15,8 @@ import '../../../core/lang/euphonic.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../core/maestro/maestro_welcome.dart';
 import '../../../core/maestro/natal_context.dart';
+import '../../../core/chat/scorrimento_della_lettura.dart';
+import '../../../core/maestro/tempi_dell_attesa.dart';
 import '../../../core/maestro/sorgente_natale.dart';
 import '../../../design_system/components/consulto_del_cielo_view.dart';
 import '../../../design_system/components/cosmos_background.dart';
@@ -107,9 +112,46 @@ class MaestroChatScreen extends StatefulWidget {
 
 class _MaestroChatScreenState extends State<MaestroChatScreen> {
   final ScrollController _scroll = ScrollController();
+
+  /// L'ultima bolla del Maestro, per poterne misurare la posizione vera invece
+  /// di stimarla: e' l'oggetto di cui va portato l'INIZIO dentro lo schermo.
+  final GlobalKey _chiaveUltimaRisposta = GlobalKey();
+
+  /// La lista stessa, per misurarne la cima senza doverla dedurre.
+  ///
+  /// **Ipotesi caduta, e vale scriverla.** La cima risultava 321 punti dove la
+  /// lista comincia a 89, e l'ipotesi era che la finestra di scorrimento avesse
+  /// un'origine diversa dal riquadro visibile. Non era quello: la misura si
+  /// prendeva mentre la scena del consulto occupava ancora lo spazio sopra, e
+  /// in quel momento la lista cominciava DAVVERO a 321. Con la misura presa a
+  /// dissolvenza finita, `RenderAbstractViewport` da' lo stesso numero di
+  /// questa chiave, verificato con la prova del rosso. Questa chiave resta
+  /// perche' misurare la cosa che si vuole misurare e' piu' chiaro che dedurla,
+  /// non perche' l'altra strada sbagliasse.
+  final GlobalKey _chiaveDellaLista = GlobalKey();
+
+  /// L'attesa della dissolvenza prima di misurare, tenuta per poterla ANNULLARE.
+  ///
+  /// Non basta controllare `mounted` dentro: il timer resta pendente lo stesso,
+  /// e chiudere la chat mentre una risposta arriva lo lasciava vivo. Se ne e'
+  /// accorta la cattura delle anteprime, che non c'entrava niente.
+  Timer? _attesaDellaMisura;
   bool _disclaimerHandled = false;
   bool _initialSent = false;
-  int _lastCount = 0;
+
+  /// La firma del turno, e non piu' il solo conteggio dei messaggi.
+  ///
+  /// Col conteggio non funzionava: inviando si aggiungono DUE messaggi, la
+  /// domanda e la bolla in sospeso, e quando la risposta arriva **la bolla in
+  /// sospeso viene SOSTITUITA**, quindi il numero non cambia. L'arrivo della
+  /// risposta, cioe' il momento in cui lo scorrimento conta davvero, era
+  /// l'unico che il vecchio controllo non vedeva.
+  String _firmaDelTurno = '';
+
+  /// Vero quando l'ultima risposta e' arrivata ADESSO, e quindi va scritta
+  /// sotto gli occhi. Falso su una cronologia riaperta: chi torna su una
+  /// conversazione di ieri vuole rileggerla, non guardarla riscriversi.
+  bool _scriviLUltima = false;
 
   /// Contatore delle aperture, persistito, cosi' due benvenuti vicini non
   /// ripetono la stessa formula. Chiave per Maestro.
@@ -137,6 +179,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
 
   @override
   void dispose() {
+    _attesaDellaMisura?.cancel();
     _scroll.dispose();
     super.dispose();
   }
@@ -153,6 +196,51 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         duration: const Duration(milliseconds: 320),
         curve: Curves.easeOut,
       );
+    });
+  }
+
+  /// Porta l'INIZIO della risposta appena arrivata dentro lo schermo.
+  ///
+  /// Si misura la bolla vera con la sua chiave, non si stima: l'altezza di una
+  /// risposta dipende da quante parole ha scritto il modello, quindi qualunque
+  /// numero scritto a mano sarebbe sbagliato per la maggior parte delle
+  /// risposte. Se la bolla non fosse ancora disegnata si torna in fondo, che e'
+  /// il comportamento di prima: peggiore, ma dichiarato qui e non silenzioso.
+  void _scorriAllInizioDellaRisposta() {
+    // SI ASPETTA CHE LA SCENA DEL CONSULTO SIA SPARITA DEL TUTTO.
+    //
+    // Misurato: calcolando subito, la lista risultava cominciare a 321 punti
+    // invece che a 89, perche' la scena dell'attesa stava ancora occupando lo
+    // spazio sopra mentre si dissolve. Il conto era giusto su una geometria
+    // che stava per cambiare, e la risposta finiva a 417 punti dall'alto
+    // invece che a 96. Si misura quando la geometria e' quella definitiva.
+    _attesaDellaMisura?.cancel();
+    _attesaDellaMisura = Timer(TempiDellAttesa.dissolvenza, () {
+      if (!mounted) return;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_scroll.hasClients) return;
+      final contesto = _chiaveUltimaRisposta.currentContext;
+      final riquadro = contesto?.findRenderObject();
+      if (riquadro is! RenderBox || !riquadro.hasSize) {
+        _scrollToEnd();
+        return;
+      }
+      final lista = _chiaveDellaLista.currentContext?.findRenderObject();
+      if (lista is! RenderBox || !lista.hasSize) {
+        _scrollToEnd();
+        return;
+      }
+      _scroll.animateTo(
+        ScorrimentoDellaLettura.bersaglio(
+          offsetAttuale: _scroll.offset,
+          cimaDellaRisposta: riquadro.localToGlobal(Offset.zero).dy,
+          cimaDellaLista: lista.localToGlobal(Offset.zero).dy,
+          massimo: _scroll.position.maxScrollExtent,
+        ),
+        duration: const Duration(milliseconds: 380),
+        curve: Curves.easeOut,
+      );
+      });
     });
   }
 
@@ -226,6 +314,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     final services = context.read<AppServices>();
     final palette = context.palette;
 
+    // CHI NON VUOLE MOVIMENTO NON HA CHIESTO DI ASPETTARE DI PIU'.
+    //
+    // La pausa minima la governa il turno, che non ha un contesto e non deve
+    // averlo: la preferenza arriva da qui, dove MediaQuery esiste.
+    controller.riduciMovimento = MediaQuery.of(context).disableAnimations;
+
     // Mostra il disclaimer una sola volta, appena la memoria e' caricata.
     _maybeShowDisclaimer(controller);
 
@@ -234,10 +328,30 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     // Maestro" con la domanda sulla fonte gia' pronta.
     _maybeSendInitial(controller);
 
-    // Auto scroll quando arrivano nuovi messaggi.
-    if (controller.messages.length != _lastCount) {
-      _lastCount = controller.messages.length;
-      _scrollToEnd();
+    // DOVE SI FERMA LA CHAT, e cambia a seconda di CHE COSA e' arrivato.
+    //
+    // Una domanda appena scritta va in fondo, sotto il pollice, come in
+    // qualunque chat. Una RISPOSTA no: e' una lettura, e una lettura si
+    // comincia dall'inizio.
+    final ultimoMessaggio =
+        controller.messages.isEmpty ? null : controller.messages.last;
+    final firma = '${controller.messages.length}'
+        '|${ultimoMessaggio?.pending}|${ultimoMessaggio?.isMaestro}';
+    if (firma != _firmaDelTurno) {
+      final primaFirma = _firmaDelTurno;
+      _firmaDelTurno = firma;
+      final risposta = ultimoMessaggio != null &&
+          ultimoMessaggio.isMaestro &&
+          !ultimoMessaggio.pending;
+      // La cronologia riaperta non si riscrive: `_firmaDelTurno` vuota vuol
+      // dire che questa e' la prima volta che si guarda, cioe' che i messaggi
+      // arrivano dalla memoria e non dalla rete.
+      _scriviLUltima = risposta && primaFirma.isNotEmpty;
+      if (risposta) {
+        _scorriAllInizioDellaRisposta();
+      } else {
+        _scrollToEnd();
+      }
     }
 
     final hasMessages = controller.messages.isNotEmpty;
@@ -280,11 +394,29 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               // la conversazione, cioe' nello spazio che rovesciando la lista
               // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
               // sta aspettando, a costo di inferenza zero.
-              if (controller.sending)
-                ConsultoDelCieloView(
-                    natal: _natalCorrente(context),
-                    maestro: widget.maestro,
-                  ),
+              // LA SCENA NON SPARISCE DI COLPO.
+              //
+              // Prima compariva e spariva con un `if`, quindi al momento
+              // giusto, cioe' quando la risposta arriva, faceva un salto. La
+              // dissolvenza dura quanto dice il dato, e la stessa uscita vale
+              // anche quando la risposta FALLISCE: la scena si chiude e sotto
+              // c'e' il ripiego, invece del vuoto improvviso.
+              AnimatedSwitcher(
+                duration: TempiDellAttesa.dissolvenza,
+                transitionBuilder: (figlio, anim) => SizeTransition(
+                  sizeFactor: anim,
+                  axisAlignment: -1,
+                  child: FadeTransition(opacity: anim, child: figlio),
+                ),
+                child: controller.sending
+                    ? ConsultoDelCieloView(
+                        key: const ValueKey('consulto'),
+                        natal: _natalCorrente(context),
+                        maestro: widget.maestro,
+                        rotazione: controller.rotazioneDelConsulto,
+                      )
+                    : const SizedBox.shrink(key: ValueKey('nessun consulto')),
+              ),
               Expanded(child: _buildBody(controller)),
               if (!controller.aiReady)
                 _ConfigNotice(palette: palette, maestro: widget.maestro),
@@ -344,6 +476,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     final messaggi = controller.messages;
     final ultimo = messaggi.length - 1;
     return ListView.builder(
+      key: _chiaveDellaLista,
       controller: _scroll,
       reverse: true,
       padding: const EdgeInsets.symmetric(
@@ -356,8 +489,26 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         final posizione = ultimo - index;
         final messaggio = messaggi[posizione];
         return ChatBubble(
+          key: posizione == ultimo && messaggio.isMaestro
+              ? _chiaveUltimaRisposta
+              : null,
           message: messaggio,
           maestro: widget.maestro,
+          // Si scrive SOLO l'ultima, solo se e' appena arrivata, e solo se e'
+          // UNA LETTURA VERA.
+          //
+          // La macchina da scrivere e' il Maestro che scrive: un ripiego non lo
+          // scrive lui, lo scrive l'app al posto suo, e farlo comparire lettera
+          // per lettera lo spaccerebbe per la sua voce proprio mentre la bolla
+          // dichiara il contrario. Vale anche per il messaggio del limite e per
+          // un errore, che uno aspetta di leggere subito. La distinzione non e'
+          // nuova ed e' gia' nel dato: `portaUnResponso`.
+          scriviti:
+              posizione == ultimo && _scriviLUltima && messaggio.portaUnResponso,
+          durataMassimaDiScrittura: TempiDellAttesa.perScrivere(
+            controller.ultimaAttesaMs,
+            riduciMovimento: controller.riduciMovimento,
+          ),
           onOpenIntent: (id) => _openIntent(context, id),
           // Il Riprova sta attaccato SOTTO la bolla che ha fallito, non in
           // mezzo allo spazio libero: un comando lontano dalla cosa che

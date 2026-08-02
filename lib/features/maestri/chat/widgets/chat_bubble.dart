@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/chat/chat_message.dart';
 import '../../../../core/chat/immersive_intents.dart';
 import '../../../../core/maestro/frase_di_ripiego.dart';
 import '../../../../core/maestro/maestro.dart';
+import '../../../../core/maestro/tempi_dell_attesa.dart';
+import '../../../../core/quality/quality_tier.dart';
+import '../../../../design_system/components/testo_che_si_scrive.dart';
 import '../../../../design_system/components/user_avatar.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
@@ -19,7 +23,7 @@ import 'astral_typing_indicator.dart';
 /// superficie in vetro col filo d'oro, quello dell'utente da una tessera piu'
 /// sobria allineata a destra. Mentre il Maestro compone, al posto del testo
 /// pulsa l'indicatore astrale.
-class ChatBubble extends StatelessWidget {
+class ChatBubble extends StatefulWidget {
   const ChatBubble({
     super.key,
     required this.message,
@@ -27,6 +31,8 @@ class ChatBubble extends StatelessWidget {
     this.onOpenIntent,
     this.onRetry,
     this.onApprofondisci,
+    this.scriviti = false,
+    this.durataMassimaDiScrittura = TempiDellAttesa.tettoAlTestoCompleto,
   });
 
   final ChatMessage message;
@@ -40,6 +46,15 @@ class ChatBubble extends StatelessWidget {
   /// barra di scrittura, cioe' lontano dalla cosa che comanda, e chi lo vedeva
   /// doveva indovinare a cosa si riferisse.
   final VoidCallback? onRetry;
+
+  /// Vero SOLO sulla risposta appena arrivata, che e' l'unica che si scrive
+  /// sotto gli occhi. Una risposta gia' letta, riletta scorrendo indietro,
+  /// deve stare ferma: rimettersi a scrivere sarebbe una gabbia, non un effetto.
+  final bool scriviti;
+
+  /// Quanto tempo resta alla scrittura dentro il tetto dei dieci secondi. Lo
+  /// calcola [TempiDellAttesa] a partire da quanto e' durata la pausa.
+  final Duration durataMassimaDiScrittura;
 
   /// Porta questa risposta piu' a fondo. Non nullo solo sull'ultima risposta
   /// vera del Maestro. Per il Viandante NON e' nullo: l'invito si vede e al
@@ -70,9 +85,30 @@ class ChatBubble extends StatelessWidget {
   }
 
   @override
+  State<ChatBubble> createState() => _ChatBubbleState();
+}
+
+class _ChatBubbleState extends State<ChatBubble> {
+  /// Il testo che si scrive, per poterlo COMPLETARE dal tocco sulla bolla.
+  final GlobalKey<TestoCheSiScriveState> _chiaveDelTesto = GlobalKey();
+
+  @override
   Widget build(BuildContext context) {
+    final message = widget.message;
+    final maestro = widget.maestro;
+    final onOpenIntent = widget.onOpenIntent;
+    final onRetry = widget.onRetry;
+    final onApprofondisci = widget.onApprofondisci;
     final palette = context.palette;
     final isUser = message.isUser;
+
+    // Ferma quando la persona ha chiesto di non vedere movimento, e ferma sui
+    // messaggi che non sono appena arrivati. Il contenuto non cambia mai: cio'
+    // che si toglie e' il tempo che ci mette a comparire.
+    final scrive = widget.scriviti &&
+        !isUser &&
+        !MediaQuery.of(context).disableAnimations &&
+        context.watch<QualityTierController>().tier != QualityTier.low;
 
     final bubble = Container(
       constraints: BoxConstraints(
@@ -86,7 +122,7 @@ class ChatBubble extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: superficieDi(palette, isUser: isUser),
+          colors: ChatBubble.superficieDi(palette, isUser: isUser),
         ),
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(SpacingTokens.radiusMd),
@@ -112,9 +148,12 @@ class ChatBubble extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  message.text,
-                  style: TypographyTokens.body(size: 17).copyWith(
+                TestoCheSiScrive(
+                  key: _chiaveDelTesto,
+                  testo: message.text,
+                  attiva: scrive,
+                  durataMassima: widget.durataMassimaDiScrittura,
+                  stile: TypographyTokens.body(size: 17).copyWith(
                     color: isUser
                         ? ColorTokens.textPrimary
                         : palette.textPrimary,
@@ -203,6 +242,18 @@ class ChatBubble extends StatelessWidget {
             ),
     );
 
+    // UN TOCCO SULLA BOLLA COMPLETA IL TESTO.
+    //
+    // Sulla bolla intera e non su una manina in un angolo: chi vuole saltare
+    // vuole saltare adesso, e cercare un bersaglio piccolo mentre il testo
+    // scorre e' peggio che aspettare. `opaque` perche' altrimenti i tocchi
+    // sullo spazio fra le righe non arriverebbero.
+    final bolla = GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => _chiaveDelTesto.currentState?.completa(),
+      child: bubble,
+    );
+
     if (isUser) {
       // Il volto dell'utente, piccolo e discreto, sul lato destro della sua
       // bolla: la sua foto, o l'emblema del segno, o le iniziali, o il sigillo
@@ -217,7 +268,7 @@ class ChatBubble extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Flexible(child: bubble),
+            Flexible(child: bolla),
             const SizedBox(width: SpacingTokens.xs),
             UserAvatar.forUser(context, size: 28, key: const Key('chat_user_avatar')),
           ],
@@ -239,7 +290,7 @@ class ChatBubble extends StatelessWidget {
           // senza sporgenza, per non affollare il testo.
           MaestroBust(maestro: maestro, ring: 34, popOut: false),
           const SizedBox(width: SpacingTokens.xs),
-          Flexible(child: bubble),
+          Flexible(child: bolla),
         ],
       ),
     );
