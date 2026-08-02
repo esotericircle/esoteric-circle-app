@@ -11,7 +11,9 @@ import '../../../core/identity/natal_identity.dart';
 import '../../../core/lang/euphonic.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../core/maestro/maestro_welcome.dart';
+import '../../../core/maestro/natal_context.dart';
 import '../../../core/maestro/sorgente_natale.dart';
+import '../../../design_system/components/consulto_del_cielo_view.dart';
 import '../../../design_system/components/cosmos_background.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
@@ -153,6 +155,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     });
   }
 
+  /// Il cielo di questa persona, dalla sorgente unica.
+  NatalContext _natalCorrente(BuildContext context) =>
+      SorgenteNatale.daIdentita(context.read<BirthIdentityController>());
+
   void _maybeSendInitial(MaestroChatController controller) {
     if (_initialSent || controller.loading) return;
     final testo = widget.initialUserMessage?.trim();
@@ -232,6 +238,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         child: SafeArea(
           child: Column(
             children: [
+              // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
+              // la conversazione, cioe' nello spazio che rovesciando la lista
+              // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
+              // sta aspettando, a costo di inferenza zero.
+              if (controller.sending)
+                ConsultoDelCieloView(natal: _natalCorrente(context)),
               Expanded(child: _buildBody(controller)),
               if (!controller.aiReady)
                 _ConfigNotice(palette: palette, maestro: widget.maestro),
@@ -263,7 +275,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
 
   Widget _buildBody(MaestroChatController controller) {
     if (controller.loading) {
-      return const Center(child: CircularProgressIndicator());
+      // Era un CircularProgressIndicator nudo, l'unico punto della chat che
+      // sembrava un'app qualunque. Adesso anche l'apertura appartiene al
+      // Cerchio: il Maestro sta gia' consultando mentre la memoria si carica.
+      return Center(
+        child: ConsultoDelCieloView(natal: _natalCorrente(context)),
+      );
     }
     if (controller.messages.isEmpty) {
       return ChatEmptyState(

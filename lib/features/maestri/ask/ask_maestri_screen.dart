@@ -10,6 +10,7 @@ import '../../../core/maestro/frase_di_ripiego.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../core/maestro/natal_context.dart';
 import '../../../core/maestro/sorgente_natale.dart';
+import '../../../design_system/components/consulto_del_cielo_view.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -345,8 +346,13 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                         ],
                         for (final m in Maestro.fixedOrder)
                           if (_responders.contains(m)) ...[
-                            if (_loading.contains(m))
-                              _LensLoadingCard(maestro: m)
+                            if (_loading.contains(m)) ...[
+                              // La stessa scena della chat, dallo stesso
+                              // punto: le superfici che aspettano una risposta
+                              // sono due, e una seconda copia divergerebbe.
+                              ConsultoDelCieloView(natal: _natal()),
+                              _LensLoadingCard(maestro: m),
+                            ]
                             else if (_lenses[m] != null)
                               _LensCard(lens: _lenses[m]!),
                             const SizedBox(height: SpacingTokens.sm),
