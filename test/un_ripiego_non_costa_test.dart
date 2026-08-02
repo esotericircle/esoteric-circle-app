@@ -30,6 +30,8 @@ void main() {
   const attesi = <EsitoDelTurno, bool>{
     EsitoDelTurno.rispostaVera: true,
     EsitoDelTurno.ripiego: false,
+    // Il 2 agosto 2026 "Un velo" si prendeva una delle tre domande del giorno.
+    EsitoDelTurno.rispostaTroncata: false,
     EsitoDelTurno.erroreDiAttestazione: false,
     EsitoDelTurno.erroreGenerico: false,
     EsitoDelTurno.limiteRaggiunto: false,

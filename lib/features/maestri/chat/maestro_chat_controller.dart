@@ -74,6 +74,15 @@ class MaestroChatController extends ChangeNotifier {
   /// consegnata comunque. Mai due rigenerazioni: qui finisce il conto.
   int consegneSenzaAncoraggio = 0;
 
+  /// Quante volte una risposta e' arrivata tronca e si e' rigenerata. Pubblico
+  /// per la stessa ragione dell'ancoraggio: se cresce, il tetto e' di nuovo
+  /// stretto, e lo si scopre dal numero invece che da uno screenshot.
+  int rigenerazioniPerTroncatura = 0;
+
+  /// Quante volte anche la seconda e' arrivata tronca e si e' consegnato un
+  /// ripiego. Dovrebbe restare a zero: se sale, il difetto e' nella misura.
+  int troncatureConsegnate = 0;
+
   /// Gli ancoraggi disponibili adesso per questa persona. Vuoto quando non c'e'
   /// niente da ancorare, e in quel caso il controllo NON scatta.
   List<Ancoraggio> get ancoraggiDisponibili => VerificaAncoraggio.disponibiliPer(
@@ -346,14 +355,62 @@ class MaestroChatController extends ChangeNotifier {
         memory: _memoryState,
       );
 
-      var reply = await _ai.reply(
-        maestro: maestro,
-        profile: _profile,
-        memory: _memoryState,
-        history: priorHistory,
-        userMessage: userText,
-        natal: natal,
-      );
+      // UNA RISPOSTA TRONCA NON SI CONSEGNA, e non si fa pagare.
+      //
+      // Il 2 agosto 2026 la chat consegnava "Un velo" come risposta compiuta,
+      // prendendosi una delle tre domande del giorno. Adesso il provider lo
+      // dichiara, e qui si riprova UNA volta sola: la seconda ha piu' spazio
+      // per pura varianza, non perche' cambi la configurazione, quindi
+      // insistere una terza volta sarebbe far aspettare la persona per un
+      // difetto nostro. Se tronca di nuovo, la misura e' sbagliata, e va
+      // corretta nel dato, non a forza di tentativi.
+      String reply;
+      try {
+        reply = await _ai.reply(
+          maestro: maestro,
+          profile: _profile,
+          memory: _memoryState,
+          history: priorHistory,
+          userMessage: userText,
+          natal: natal,
+        );
+      } on MaestroAiTroncata {
+        rigenerazioniPerTroncatura++;
+        try {
+          reply = await _ai.reply(
+            maestro: maestro,
+            profile: _profile,
+            memory: _memoryState,
+            history: priorHistory,
+            userMessage: userText,
+            natal: natal,
+          );
+        } on MaestroAiTroncata catch (errore, traccia) {
+          troncatureConsegnate++;
+          annotaGuastoInnocuo(
+            'risposta tronca due volte di fila da ${maestro.displayName}: '
+            'la misura della risposta è troppo stretta',
+            errore,
+            traccia,
+          );
+          // Si consegna una lettura vera e DICHIARATA, come per ogni altro
+          // silenzio della voce: meglio un ripiego riconoscibile che un
+          // moncone scambiato per la parola del Maestro.
+          _replaceLast(pending.copyWith(
+            text: LetturaDiRipiego.componi(
+              maestro: maestro,
+              domanda: userText,
+              natal: natal,
+              profile: _profile,
+              memory: _memoryState,
+            ),
+            pending: false,
+            failed: true,
+            ripiego: true,
+          ));
+          return EsitoDelTurno.rispostaTroncata;
+        }
+      }
 
       // IL CONTROLLO DELL'ANCORAGGIO, a valle e puro.
       //

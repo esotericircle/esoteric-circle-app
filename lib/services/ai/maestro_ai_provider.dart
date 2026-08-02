@@ -107,6 +107,28 @@ class MaestroAiUnavailable implements Exception {
   String toString() => 'MaestroAiUnavailable: $message';
 }
 
+/// Il modello si e' fermato perche' ha finito lo spazio, non perche' aveva
+/// finito di dire: cio' che e' tornato e' un moncone.
+///
+/// **Il dato che ha fatto nascere questa eccezione.** Il 2 agosto 2026 la chat
+/// consegnava "Il cielo in questo momento non", "Un velo", "Un velo argenteo
+/// si", e li consegnava come RISPOSTE VERE: la persona pagava una domanda del
+/// giorno per tre parole, e sotto le compariva pure l'invito ad andare piu' a
+/// fondo. Il modello lo diceva, con `finishReason: MAX_TOKENS`, ma quel campo
+/// non lo leggeva nessuno: la SDK non solleva niente in quel caso, e la
+/// troncatura passava muta fino a video.
+///
+/// **Estende [MaestroAiUnavailable] apposta.** Chi non la distingue la tratta
+/// come una voce che non ha risposto, cioe' ripiego dichiarato e nessun costo,
+/// che e' gia' l'esito giusto. Chi vuole fare di meglio, cioe' la chat, la
+/// prende per prima e riprova una volta prima di arrendersi.
+class MaestroAiTroncata extends MaestroAiUnavailable {
+  const MaestroAiTroncata([super.message = 'Il Maestro si è fermato a metà.']);
+
+  @override
+  String toString() => 'MaestroAiTroncata: $message';
+}
+
 /// Provider inerte usato quando l'AI non e' configurata (per esempio in un
 /// ambiente senza credenziali Firebase). Non genera nulla e lo dichiara: la UI
 /// se ne accorge da `isReady` e mostra l'avviso di configurazione con garbo,
