@@ -20,9 +20,10 @@ import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_reposit
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
-import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
 import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 import 'package:esoteric_circle/features/intro/sequenza_intro.dart';
@@ -445,7 +446,145 @@ void main() {
       img.dispose();
     });
   });
+
+  // L'ATTESA CHE CONSULTA IL CIELO, nei suoi tre stati visibili. La scena si
+  // fotografa da sola, senza montare la chat: e' un widget del design system,
+  // e questo e' esattamente il motivo per cui ci vive.
+  const statiDelConsulto = <String, ({NatalContext natal, bool fermo})>{
+    'consulto_ascendente': (natal: _cartaPiena, fermo: false),
+    'consulto_senza_carta': (natal: NatalContext.none, fermo: false),
+    'consulto_riduci_movimento': (natal: _cartaPiena, fermo: true),
+  };
+
+  for (final stato in statiDelConsulto.entries) {
+    testWidgets('Consulto, ${stato.key}', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      SharedPreferences.setMockInitialValues({});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2392);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final radice = GlobalKey();
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: MaestroScope(
+            maestro: Maestro.medora,
+            child: Builder(
+              builder: (ctx) => MediaQuery(
+                data: MediaQuery.of(ctx)
+                    .copyWith(disableAnimations: stato.value.fermo),
+                child: RepaintBoundary(
+                  key: radice,
+                  child: Scaffold(
+                    backgroundColor: const Color(0xFF080B1A),
+                    body: Center(
+                      child: ConsultoDelCieloView(natal: stato.value.natal),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 200));
+
+      await tester.runAsync(() async {
+        final rb =
+            radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+        final img = await rb.toImage(pixelRatio: 3.0);
+        final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+        final dir = Directory('docs/preview/prima_dopo');
+        if (!dir.existsSync()) dir.createSync(recursive: true);
+        File('${dir.path}/${stato.key}_$_stato.png')
+            .writeAsBytesSync(dati!.buffer.asUint8List());
+        img.dispose();
+      });
+    });
+  }
+
+  // L'AVVISO DI CONFIGURAZIONE NELLA CHAT DI AURA: diceva "La voce di Medora
+  // si attiva" anche qui, e questa e' l'immagine che lo prova.
+  testWidgets('Chat, avviso di configurazione, aura', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final memoria = InMemoryMaestroMemoryRepository();
+    await memoria
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final servizi = AppServices(
+      ai: const UnavailableMaestroAiProvider(),
+      memory: memoria,
+      memoryPersistent: false,
+    );
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        Provider<AppServices>.value(value: servizi),
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+        ChangeNotifierProvider(create: (_) => EntitlementService()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (ctx, child) => MediaQuery(
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+          child: child!,
+        ),
+        home: RepaintBoundary(
+          key: radice,
+          child: Navigator(
+            onGenerateRoute: (_) => MaestroChatScreen.route(
+              maestro: Maestro.aura,
+              services: servizi,
+            ),
+          ),
+        ),
+      ),
+    ));
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(const Duration(milliseconds: 150));
+    }
+
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final img = await rb.toImage(pixelRatio: 3.0);
+      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+      final dir = Directory('docs/preview/prima_dopo');
+      if (!dir.existsSync()) dir.createSync(recursive: true);
+      File('${dir.path}/chat_avviso_aura_$_stato.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
+      img.dispose();
+    });
+  });
 }
+
+/// Una carta natale piena, per le anteprime del consulto.
+const _cartaPiena = NatalContext(
+  sunSign: 'Cancro',
+  moonSign: 'Pesci',
+  ascendant: 'Vergine',
+);
 
 /// Una voce che risponde davvero, per fotografare una conversazione riuscita.
 class _VoceCheRisponde implements MaestroAiProvider {
