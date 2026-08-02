@@ -52,6 +52,54 @@ l'API spenta lo dichiara in chiaro. Prima di questo lavoro il pannello diceva
 "Voce di Medora: attiva" anche mentre ogni chiamata falliva, perche' leggeva
 `isReady`, che risponde sempre di si'.
 
+## ORDINE CHAT 2 DI N: cosa e' chiuso e cosa NON e' stato aperto
+
+Chiuso il 2 agosto 2026. **Tre voci su nove piu' i quattro difetti di vista.**
+
+**CHIUSE:**
+
+- **I quattro difetti di vista**, non tre. Il quarto e' che anche il CONSULTA
+  montava lo scope senza dichiarare il Maestro. Le bolle sono opache (le tinte
+  si fondono in anticipo sul fondo, a occhio identiche), la lista e'
+  rovesciata, il Riprova vive DENTRO la bolla che ha fallito, e le due
+  superfici di un Maestro dichiarano il loro Maestro.
+- **1c, le aperture vietate.** Sedici formule in `VoceDelMaestro.apertureVietate`,
+  non sette: aggiunte `Ti capisco`, `È del tutto normale`, `Come molti`,
+  `Non sei sola`, `Immagino che`, `Sappi che`, `Voglio dirti che`,
+  `Prima di tutto`, `Innanzitutto`. Il divieto si compone ENUMERANDO l'elenco
+  dentro la persona, non riassumendolo.
+- **1e, le chiusure.** `TipoDiChiusura` e' un enum obbligatorio nel costruttore:
+  un Maestro nuovo non puo' nascere senza dichiarare la propria impronta.
+- **1f, l'attribuzione cieca.** `tool/attribuzione_cieca.dart`, fuori dalla
+  suite perche' costa chiamate vere. **Eseguito: 59 su 60, cioe' 98,3 per
+  cento**, contro una soglia di 85 e un caso cieco di 33,3. L'unica confusione
+  e' una risposta di Caligo attribuita ad Aura.
+
+**NON APERTE, e non aperte a meta':**
+
+- **1a**, l'invito "Vai piu' a fondo" col tetto a 420 token. **Attenzione, una
+  premessa dell'ordine era falsa**: il selettore di profondita' PRIMA della
+  risposta non esiste ne' in chat ne' nel Consulta. `AnswerDepthSelector` si usa
+  in un punto solo, `oroscopo_screen.dart:752`, e il Consulta e' fisso su
+  `ConsultDepth.breve`. Quindi 1a non e' "togli il selettore": e' solo
+  costruire l'invito, che e' meta' del lavoro che l'ordine presumeva.
+- **1b**, l'ancoraggio a un dato che esiste solo per questa persona. Richiede di
+  portare `NatalContext` anche nella strada della CHAT: oggi arriva al provider
+  solo per `consult`, mentre `MaestroPersona.systemInstruction` riceve profilo e
+  memoria e non i dati natali.
+- **2a**, il Maestro che consulta il cielo durante l'attesa. E' la voce che vale
+  di piu' ed e' anche quella che riempirebbe il vuoto rimasto SOPRA la
+  conversazione dopo il rovesciamento della lista.
+- **2b**, il ripiego che diventa una lettura vera.
+
+**UN CONFLITTO DENTRO L'ORDINE, risolto e da confermare.** L'ordine chiedeva che
+Caligo chiudesse consegnando "una runa o un ARCANO". L'arcano non puo' essere
+suo: la Cartomanzia e' un'arte di Medora e `arcano` e' una delle sue cinque
+parole di firma, e la prova del lessico lo ha denunciato subito. Caligo consegna
+una runa oppure un sigillo. **Se l'arcano deve restare a Caligo, va tolto dal
+lessico di Medora, ed e' una decisione di Mauro** perche' indebolisce la sua
+impronta.
+
 ## Cosa e' cambiato nel codice il 2 agosto 2026
 
 - **L'errore non si perde piu'.** `VoceSorvegliata` avvolge il provider e
