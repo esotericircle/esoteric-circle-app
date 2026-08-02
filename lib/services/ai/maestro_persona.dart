@@ -4,6 +4,7 @@ import '../../core/maestro/ancoraggio.dart';
 import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/lente_del_cielo.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/maestro/misura_della_risposta.dart';
 import '../../core/maestro/natal_context.dart';
 import '../../core/maestro/voce_del_maestro.dart';
 
@@ -27,8 +28,15 @@ class MaestroPersona {
           '- Non usare mai il trattino lungo. Al suo posto usa la virgola, i due punti oppure una parentesi.')
       ..writeln(
           '- Non iniziare mai una proposizione dopo la virgola con la congiunzione "e", salvo un vero inciso poetico.')
+      // QUANTO LUNGA sia la risposta non si dice qui.
+      //
+      // Diceva "Poche righe per risposta", e quella riga arrivava al modello
+      // insieme alla misura vera: nell'approfondimento gli si chiedevano
+      // duecentoquaranta parole E poche righe, cioe' due cose diverse nella
+      // stessa istruzione. La lunghezza vive in MisuraDellaRisposta, e ci
+      // arriva da li' una volta sola.
       ..writeln(
-          '- Testo leggibile e caldo, frasi brevi. Poche righe per risposta, questa è una chat su telefono.')
+          '- Testo leggibile e caldo, frasi brevi. Questa è una chat su telefono, non un saggio.')
       ..writeln(
           '- Il livello visivo lo cura l\'app: tu scrivi solo la voce, senza emoji e senza markdown pesante.')
       ..writeln()
@@ -38,8 +46,20 @@ class MaestroPersona {
       ..writeln(
           '- Poi una frase di sintesi, il colpo d\'occhio in una riga.')
       ..writeln('- Poi il testo narrato nel tuo tono, poche righe.')
+      // LA CHIUSURA E' DEL MAESTRO, e qui non se ne dichiara una seconda.
+      //
+      // Diceva "- Infine un invito o una domanda sola, per aprire il passo
+      // successivo", cioe' una chiusura generica IDENTICA per tutti e tre,
+      // scritta in coda alla struttura. Con le risposte a novanta parole
+      // invece che a quaranta, il modello ha avuto spazio per scriverla
+      // davvero, e ha seguito questa invece della propria: nell'attribuzione
+      // cieca Medora e' scesa al 70 per cento, scambiata per Aura sei volte
+      // su venti, perche' chiudeva chiedendo "cosa cerca il tuo cuore" invece
+      // di indicare una finestra nel tempo. Le altre due non hanno perso
+      // niente, ed e' coerente: il gesto del corpo e la runa sono chiusure che
+      // una formula generica non imita per caso.
       ..writeln(
-          '- Infine un invito o una domanda sola, per aprire il passo successivo.')
+          '- Infine la TUA chiusura, quella descritta sopra. Nessun\'altra al posto suo.')
       ..writeln()
       ..writeln('FONDAMENTO E RESPONSABILITÀ:')
       ..writeln(
@@ -195,6 +215,14 @@ class MaestroPersona {
       if (ancoraggi.isNotEmpty) ...['', LenteDelCielo.istruzionePer(maestro)],
       '',
       _memoryContext(memory),
+      // LA LUNGHEZZA SI CHIEDE, non si lascia decidere al tetto.
+      //
+      // Un tetto che taglia produce un moncone, e la persona lo legge come
+      // sciatteria del Maestro. Chiedere la misura fa fermare il modello da
+      // solo, con l'ultima frase chiusa, e il tetto resta la rete che non si
+      // tocca quasi mai.
+      '',
+      MisuraDellaRisposta.perChat(approfondisci: approfondisci).istruzione,
       if (approfondisci) ...['', regolaDellApprofondimento],
     ].join('\n');
   }
@@ -322,6 +350,8 @@ class MaestroPersona {
       if (natalBlock.isNotEmpty) ...[natalBlock, ''],
       _memoryContext(memory),
       '',
+      MisuraDellaRisposta.perProfondita(depth).istruzione,
+      '',
       'FORMA DELL\'USCITA, PER QUESTA CONSULTAZIONE:',
       '- La persona pone una domanda sola. Rispondi solo su quel tema, nella tua lente di dominio, senza divagare e senza inventare dati sulla persona.',
       rigaProfondita,
@@ -345,6 +375,8 @@ class MaestroPersona {
       '- Non iniziare mai una proposizione dopo la virgola con la congiunzione "e".',
       '- Poche righe, calde e chiare. Nessuna emoji, nessun markdown.',
       if (natalBlock.isNotEmpty) ...['', natalBlock],
+      '',
+      MisuraDellaRisposta.sintesi.istruzione,
       '',
       'COSA FARE:',
       '- Ti do la domanda della persona e le letture già date dai Maestri interpellati, con il loro colpo d\'occhio e la loro lettura. Non inventare nuovi sguardi, intreccia quelli che ti do.',

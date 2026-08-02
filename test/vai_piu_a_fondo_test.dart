@@ -7,9 +7,9 @@ import 'package:esoteric_circle/core/maestro/consult_depth.dart';
 import 'package:esoteric_circle/core/maestro/lettura_di_ripiego.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
+import 'package:esoteric_circle/core/maestro/misura_della_risposta.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart';
-import 'package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
@@ -44,13 +44,19 @@ void main() {
     return controller;
   }
 
-  group('Il tetto dell\'approfondimento vive con gli altri', () {
-    test('E\' 420, ed e\' una costante come tutte', () {
-      expect(FirebaseMaestroAiProvider.kApprofondimentoMaxTokens, 420);
-      // Piu' alto della Profonda del Consulta: li' si sceglie prima di
-      // leggere, qui si chiede dopo aver letto.
-      expect(FirebaseMaestroAiProvider.kApprofondimentoMaxTokens,
-          greaterThan(FirebaseMaestroAiProvider.kProfondaMaxTokens));
+  group('La misura dell\'approfondimento vive con le altre', () {
+    test('Duecentoquaranta parole, e la piu\' ampia di tutte', () {
+      expect(MisuraDellaRisposta.approfondimento.parole, 240);
+      // Piu' ampia della Profonda del Consulta: li' la profondita' si sceglie
+      // prima di leggere, qui si chiede DOPO aver letto, cioe' avendo gia'
+      // deciso che quella risposta interessa.
+      expect(MisuraDellaRisposta.approfondimento.parole,
+          greaterThan(MisuraDellaRisposta.consultaProfonda.parole));
+      // E la prima risposta resta uguale per tutti i piani.
+      expect(MisuraDellaRisposta.perChat(approfondisci: false),
+          MisuraDellaRisposta.primaRisposta);
+      expect(MisuraDellaRisposta.perChat(approfondisci: true),
+          MisuraDellaRisposta.approfondimento);
     });
 
     test('La regola dell\'approfondimento entra nella persona', () {

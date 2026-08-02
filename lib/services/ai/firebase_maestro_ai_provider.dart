@@ -8,6 +8,7 @@ import '../../core/chat/user_profile.dart';
 import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
+import '../../core/maestro/misura_della_risposta.dart';
 import '../../core/maestro/natal_context.dart';
 import 'maestro_ai_provider.dart';
 import 'maestro_oracle.dart';
@@ -48,62 +49,48 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   /// Modello per la risposta Profonda del Premium: Flash, piu' ricco.
   static const String kMaestroProfondaModel = 'gemini-2.5-flash';
 
-  /// Tetto duro di token in uscita per profondita'.
-  ///
-  /// Erano 260 e 780, e nessuno dei due era il valore concordato: 780 token
-  /// producevano risposte lunghe il doppio di quanto promesso. Portando la
-  /// Profonda a 320, cioe' circa centottanta parole italiane, una Breve rimasta
-  /// a 260 sarebbe diventata indistinguibile dalla Profonda, e il Premium non
-  /// si sarebbe piu' sentito: per questo scendono tutte e due.
-  ///
-  /// Breve 160 token, circa novanta parole. Profonda 320, circa centottanta.
-  static const int kBreveMaxTokens = 160;
-  static const int kProfondaMaxTokens = 320;
-
-  /// Ragionamento interno del modello per profondita': spento sulle Breve, cosi'
-  /// non si spende in pensiero dove serve una risposta rapida; un margine minimo
-  /// sulla Profonda.
-  static const int kBreveThinkingBudget = 0;
-  static const int kProfondaThinkingBudget = 512;
-
-  /// Tetto di token per la Sintesi comparativa: contenuta, in linea con la
-  /// Breve. Scende con lei, per la stessa ragione: era 260 quando la Breve era
-  /// 260, e una sintesi piu' lunga delle letture che riassume non e' una sintesi.
-  static const int kSynthesisMaxTokens = kBreveMaxTokens;
-
-  /// Tetto di token dell'APPROFONDIMENTO, cioe' della stessa risposta chiesta
-  /// di nuovo con "Vai piu' a fondo".
-  ///
-  /// Vive in questo blocco come tutti gli altri, e non dentro la chiamata: la
-  /// prova che enumera i tetti del file cade se qualcuno ne scrive uno a mano,
-  /// e questo e' il quarto che avrebbe potuto nascere cosi'.
-  ///
-  /// Piu' alto della Profonda del Consulta, 320, perche' li' la profondita' si
-  /// sceglie prima e vale per tutta la lettura, mentre qui si chiede DOPO aver
-  /// letto: chi tocca "Vai piu' a fondo" ha gia' deciso che quella risposta gli
-  /// interessa, e merita piu' spazio di chi non ha ancora letto niente.
-  static const int kApprofondimentoMaxTokens = 420;
-
-  /// Tetto di token per il distillato di memoria. Non e' una risposta letta da
-  /// nessuno, e' un JSON di servizio: sta largo perche' deve poter contenere
-  /// cinque fatti piu' la sintesi, ma resta una costante come tutti gli altri.
-  /// Era un 400 scritto a mano dentro la chiamata, cioe' la terza porta al
-  /// tetto delle uscite.
-  static const int kDistillMaxTokens = 400;
-
   /// Il modello giusto per la profondita', in un punto solo.
   static String modelForDepth(ConsultDepth depth) =>
       depth == ConsultDepth.profonda ? kMaestroProfondaModel : kMaestroBreveModel;
 
-  /// Il tetto di token per la profondita'.
-  static int maxTokensForDepth(ConsultDepth depth) =>
-      depth == ConsultDepth.profonda ? kProfondaMaxTokens : kBreveMaxTokens;
+  /// L'UNICA PORTA alla configurazione di generazione, per tutte e quattro le
+  /// chiamate di questo file.
+  ///
+  /// **Il dato che ha fatto nascere questa funzione.** Prima ogni chiamata si
+  /// costruiva la sua `GenerationConfig` a mano, e due su quattro, `reply` e
+  /// `distill`, **si dimenticavano di dichiarare il ragionamento**. Chi non lo
+  /// dichiara non lo spegne: prende il ragionamento dinamico del modello, che
+  /// si mangia il tetto delle uscite prima che il modello scriva. E' il difetto
+  /// misurato il 2 agosto 2026, `thoughtsTokenCount: 150` su un tetto di 160.
+  ///
+  /// Una dimenticanza cosi' non si corregge chiamante per chiamante: si toglie
+  /// la porta. Da qui il tetto e il ragionamento arrivano ENTRAMBI dalla stessa
+  /// [MisuraDellaRisposta], e non esiste piu' un modo di scrivere l'uno senza
+  /// l'altro. Pubblica apposta: una prova costruisce la configurazione vera e
+  /// ne legge i due campi, invece di fidarsi del sorgente.
+  static GenerationConfig configurazionePer(
+    MisuraDellaRisposta misura, {
+    required double temperature,
+    double? topP,
+    String? responseMimeType,
+  }) =>
+      GenerationConfig(
+        temperature: temperature,
+        topP: topP,
+        maxOutputTokens: misura.tetto,
+        thinkingConfig:
+            ThinkingConfig.withThinkingBudget(misura.ragionamento),
+        responseMimeType: responseMimeType,
+      );
 
-  /// Il budget di ragionamento per la profondita'.
-  static int thinkingBudgetForDepth(ConsultDepth depth) =>
-      depth == ConsultDepth.profonda
-          ? kProfondaThinkingBudget
-          : kBreveThinkingBudget;
+  /// Vero se il modello si e' fermato perche' ha finito lo spazio.
+  ///
+  /// La SDK non solleva niente per `MAX_TOKENS`, a differenza di `SAFETY` e
+  /// `RECITATION`: torna il testo scritto fino a li' come se fosse compiuto.
+  /// Chi non guarda questo campo non ha modo di distinguere una risposta breve
+  /// da un moncone, ed e' esattamente cio' che e' successo.
+  static bool eTroncata(GenerateContentResponse response) => response.candidates
+      .any((c) => c.finishReason == FinishReason.maxTokens);
 
   /// Quanti messaggi recenti passare come storia al modello. Oltre questa
   /// soglia il filo lo tiene la sintesi di sessione, non la cronologia piena.
@@ -139,18 +126,12 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
           approfondisci: approfondisci,
         ),
       ),
-      generationConfig: GenerationConfig(
+      // La PRIMA risposta arriva sempre alla stessa misura per tutti: la
+      // profondita' non si sceglie prima, si chiede dopo aver letto.
+      generationConfig: configurazionePer(
+        MisuraDellaRisposta.perChat(approfondisci: approfondisci),
         temperature: 0.9,
         topP: 0.95,
-        // La chat passa dal tetto della Breve come tutti, e non da un numero
-        // suo. Qui c'era un 800 scritto a mano, cioe' una seconda porta al
-        // tetto delle risposte: il punto solo esisteva per il Consulta, e la
-        // conversazione lo scavalcava senza dirlo. Un turno di chat su telefono
-        // e' una risposta breve per definizione.
-        // La PRIMA risposta arriva sempre alla stessa misura per tutti, e la
-        // profondita' non si sceglie prima: si chiede dopo aver letto.
-        maxOutputTokens:
-            approfondisci ? kApprofondimentoMaxTokens : kBreveMaxTokens,
       ),
     );
 
@@ -160,6 +141,10 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     if (text == null || text.isEmpty) {
       throw const MaestroAiUnavailable('Il Maestro non ha trovato le parole.');
     }
+    // La troncatura si controlla DOPO aver visto che il testo c'e': un moncone
+    // e' testo a tutti gli effetti, e senza questa riga arrivava a video come
+    // una risposta compiuta.
+    if (eTroncata(response)) throw const MaestroAiTroncata();
     return text;
   }
 
@@ -190,14 +175,12 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
           depth: depth,
         ),
       ),
-      generationConfig: GenerationConfig(
+      // Uscita nei tre strati come JSON, cosi' l'app la mostra come qualunque
+      // altra risposta. Parsing difensivo, come nel distillato.
+      generationConfig: configurazionePer(
+        MisuraDellaRisposta.perProfondita(depth),
         temperature: 0.9,
         topP: 0.95,
-        maxOutputTokens: maxTokensForDepth(depth),
-        thinkingConfig: ThinkingConfig.withThinkingBudget(
-            thinkingBudgetForDepth(depth)),
-        // Uscita nei tre strati come JSON, cosi' l'app la mostra come qualunque
-        // altra risposta. Parsing difensivo, come nel distillato.
         responseMimeType: 'application/json',
       ),
     );
@@ -210,6 +193,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     if (raw == null || raw.isEmpty) {
       throw const MaestroAiUnavailable('Il Maestro non ha trovato le parole.');
     }
+    // Un JSON troncato non e' un JSON: senza questa riga cadeva sul parsing
+    // difensivo, che dice solo "non ha trovato le parole" e nasconde il perche'.
+    if (eTroncata(response)) throw const MaestroAiTroncata();
     final reply = _parseReply(raw);
     if (reply == null || !reply.isComplete) {
       throw const MaestroAiUnavailable('Il Maestro non ha trovato le parole.');
@@ -234,11 +220,10 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       systemInstruction: Content.system(
         MaestroPersona.synthesisInstruction(natal: natal),
       ),
-      generationConfig: GenerationConfig(
+      generationConfig: configurazionePer(
+        MisuraDellaRisposta.sintesi,
         temperature: 0.7,
         topP: 0.95,
-        maxOutputTokens: kSynthesisMaxTokens,
-        thinkingConfig: ThinkingConfig.withThinkingBudget(0),
       ),
     );
 
@@ -258,6 +243,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     if (text == null || text.isEmpty) {
       throw const MaestroAiUnavailable('La sintesi non ha trovato le parole.');
     }
+    // Anche la sintesi la legge la persona: una sintesi tronca chiuderebbe
+    // senza la frase che deve chiudere sempre.
+    if (eTroncata(response)) throw const MaestroAiTroncata();
     return text;
   }
 
@@ -277,9 +265,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       systemInstruction: Content.system(
         MaestroPersona.distillInstruction(maestro),
       ),
-      generationConfig: GenerationConfig(
+      generationConfig: configurazionePer(
+        MisuraDellaRisposta.distillato,
         temperature: 0.2,
-        maxOutputTokens: kDistillMaxTokens,
         responseMimeType: 'application/json',
       ),
     );
@@ -297,6 +285,18 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
         await model.generateContent([Content.text(transcript.toString())]);
     final raw = response.text?.trim();
     if (raw == null || raw.isEmpty) return null;
+    // Il distillato non lo legge nessuno, quindi una sua troncatura non si
+    // vede: il parsing difensivo tornerebbe null, la memoria non si
+    // aggiornerebbe, e il fondatore direbbe soltanto che i Maestri non
+    // ricordano. Qui non si solleva, si SCRIVE, perche' un guasto muto in
+    // fondo alla catena e' quello che costa di piu' a trovare.
+    if (eTroncata(response)) {
+      annotaGuastoInnocuo(
+        'distillando la memoria di ${maestro.displayName}',
+        const MaestroAiTroncata(
+            'il distillato si è fermato prima di chiudere il JSON'),
+      );
+    }
     return _parseDigest(raw, previous);
   }
 

@@ -6,6 +6,7 @@ import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/corpus_neutro.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/misura_della_risposta.dart';
 import 'package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -55,6 +56,7 @@ void main() {
       required String istruzione,
       required String domanda,
       required int tetto,
+      required int ragionamento,
     }) async {
       final uri = Uri.https(
         '$regione-aiplatform.googleapis.com',
@@ -79,7 +81,7 @@ void main() {
           'temperature': 0.9,
           'topP': 0.95,
           'maxOutputTokens': tetto,
-          'thinkingConfig': {'thinkingBudget': 0},
+          'thinkingConfig': {'thinkingBudget': ragionamento},
         },
       });
       final client = HttpClient();
@@ -129,7 +131,11 @@ void main() {
           modello: modelloRisposta,
           istruzione: istruzione,
           domanda: l.domanda,
-          tetto: FirebaseMaestroAiProvider.kBreveMaxTokens,
+          // Tetto e ragionamento dalla STESSA misura del provider: se questo
+          // strumento chiamasse con una configurazione sua, misurerebbe una
+          // voce che l'app non usa, e il 98,3 per cento non varrebbe niente.
+          tetto: MisuraDellaRisposta.primaRisposta.tetto,
+          ragionamento: MisuraDellaRisposta.primaRisposta.ragionamento,
         );
         return testo == null
             ? null
@@ -179,7 +185,10 @@ void main() {
           modello: modelloGiudice,
           istruzione: istruzioneGiudice.toString(),
           domanda: 'Risposta da attribuire:\n\n${r.testo}',
+          // Il giudice risponde con un nome solo, non e' una risposta a una
+          // persona: non passa dalle misure dei Maestri.
           tetto: 8,
+          ragionamento: 0,
         );
         return (risposta: r, verdetto: verdetto);
       }));
