@@ -55,7 +55,7 @@ class FraseDelLimite {
             'al giorno, poi il respiro chiede riposo. Torna domani, il corpo '
             'sa aspettare. Se ti serve più spazio, il cerchio può allargarsi.';
       case LenteDelMaestro.simbolo:
-        return 'I segni di oggi sono stati letti: il tuo cammino ne prevede $n '
+        return 'I segni di oggi sono stati letti: il tuo cammino prevede $n '
             'al giorno. La soglia si richiude fino a domani. Se la vuoi più '
             'larga, si può allargare.';
     }

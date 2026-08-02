@@ -3,7 +3,11 @@ import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'package:esoteric_circle/features/maestri/chat/widgets/diagnostics_dialog.dart';
+import 'package:esoteric_circle/services/firebase/attestazione.dart';
 import 'package:esoteric_circle/core/maestro/ancoraggio.dart';
+import 'package:esoteric_circle/core/maestro/frase_del_limite.dart';
 import 'package:esoteric_circle/core/maestro/lente_del_cielo.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_bubble.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
@@ -662,6 +666,141 @@ void main() {
         final dir = Directory('docs/preview/prima_dopo');
         if (!dir.existsSync()) dir.createSync(recursive: true);
         File('${dir.path}/lente_${maestro.id}_$_stato.png')
+            .writeAsBytesSync(dati!.buffer.asUint8List());
+        img.dispose();
+      });
+    });
+  }
+
+  // IL PANNELLO DI MESSA A PUNTO che dichiara l'attestazione.
+  testWidgets('Pannello, attestazione', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MaestroScope(
+          maestro: Maestro.medora,
+          child: Builder(
+            builder: (ctx) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: Scaffold(
+                backgroundColor: const Color(0xFF080B1A),
+                body: Center(
+                  child: RepaintBoundary(
+                    key: radice,
+                    child: PannelloDiMessaAPunto(
+                      aiReady: true,
+                      memoryPersistent: false,
+                      attestazione:
+                          EsitoAttestazione.nonInstallataPerScelta,
+                      nota: 'Memoria persistente non disponibile.',
+                      guasti: null,
+                      appCheckDebugToken: null,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final img = await rb.toImage(pixelRatio: 3.0);
+      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+      final dir = Directory('docs/preview/prima_dopo');
+      if (!dir.existsSync()) dir.createSync(recursive: true);
+      File('${dir.path}/pannello_attestazione_$_stato.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
+      img.dispose();
+    });
+  });
+
+  // IL MESSAGGIO DEL LIMITE, uno per Maestro. Il "prima" esiste ed e' negli
+  // screenshot del fondatore del 2 agosto: la STESSA identica frase su Caligo
+  // e su Aura, col numero sbagliato. Qui si vede che sono tre e che il numero
+  // arriva dal dato.
+  for (final maestro in Maestro.values) {
+    testWidgets('Limite, ${maestro.id}', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      SharedPreferences.setMockInitialValues({});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2392);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final radice = GlobalKey();
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: MaestroScope(
+            maestro: maestro,
+            child: Builder(
+              builder: (ctx) => MediaQuery(
+                data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+                child: RepaintBoundary(
+                  key: radice,
+                  child: Scaffold(
+                    backgroundColor: const Color(0xFF080B1A),
+                    body: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: ChatBubble(
+                          message: ChatMessage(
+                            role: ChatRole.maestro,
+                            // Il numero viene dal DATO, come nell'app.
+                            text: FraseDelLimite.per(
+                              maestro,
+                              limite: QuestionAllowance().dailyLimit(Tier.free),
+                            ),
+                            tipo: TipoDiMessaggio.limiteRaggiunto,
+                          ),
+                          maestro: maestro,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      await precarica(tester);
+      await tester.pump(const Duration(milliseconds: 300));
+
+      await tester.runAsync(() async {
+        final rb =
+            radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+        final img = await rb.toImage(pixelRatio: 3.0);
+        final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+        final dir = Directory('docs/preview/prima_dopo');
+        if (!dir.existsSync()) dir.createSync(recursive: true);
+        File('${dir.path}/limite_${maestro.id}_$_stato.png')
             .writeAsBytesSync(dati!.buffer.asUint8List());
         img.dispose();
       });

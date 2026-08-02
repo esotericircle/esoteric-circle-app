@@ -31,7 +31,7 @@ Future<void> showChatDiagnostics(
     // fuori dallo scope della schermata, e senza questo non troverebbe la
     // palette del Maestro attivo.
     builder: (_) => MaestroScope(
-      child: _DiagnosticsSheet(
+      child: PannelloDiMessaAPunto(
         aiReady: aiReady,
         memoryPersistent: memoryPersistent,
         guasti: guasti,
@@ -43,8 +43,14 @@ Future<void> showChatDiagnostics(
   );
 }
 
-class _DiagnosticsSheet extends StatelessWidget {
-  const _DiagnosticsSheet({
+/// Il foglio del pannello, PUBBLICO.
+///
+/// Pubblico apposta: la cattura dell'anteprima lo monta da solo, senza aprire
+/// un foglio modale, e una regola dentro una classe privata non si puo'
+/// nemmeno nominare.
+class PannelloDiMessaAPunto extends StatelessWidget {
+  const PannelloDiMessaAPunto({
+    super.key,
     required this.aiReady,
     required this.memoryPersistent,
     required this.guasti,
