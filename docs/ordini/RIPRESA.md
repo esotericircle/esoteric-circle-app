@@ -52,6 +52,50 @@ l'API spenta lo dichiara in chiaro. Prima di questo lavoro il pannello diceva
 "Voce di Medora: attiva" anche mentre ogni chiamata falliva, perche' leggeva
 `isReady`, che risponde sempre di si'.
 
+## ORDINE B: CHIUSO PER INTERO. L'app non dice piu' il falso
+
+Chiuso il 2 agosto 2026.
+
+**IL NUMERO: NESSUNA DELLE DUE IPOTESI DELL'ORDINE ERA GIUSTA.** Il testo NON
+era scritto a mano: `_fraseDelLimite` leggeva `dailyLimit(piano)` e formattava.
+Il piano era il Viandante. Il difetto era un terzo: **il dato stesso diceva
+UNO**, nella riga `Domande a un Maestro` della matrice dei piani.
+
+**L'app ha detto la verita' sul proprio dato. A mentire era il dato.** E le
+fonti si contraddicevano in quattro punti: matrice UNO, vantaggio del piano
+scritto a mano UNO, commento di `QuestionAllowance` TRE, `ask_maestri_screen` e
+STATO_VIVO TRE. Il commento in `dailyLimit` racconta come e' successo: il 31
+luglio una divergenza fra matrice e codice fu risolta facendo vincere la
+matrice, che portava uno. **La correzione di allora era giusta nel metodo e
+sbagliata nel valore**, e quattro prove l'avevano cristallizzata.
+Adesso la matrice dice **TRE**.
+
+**IL BUCO NEL TEST DEGLI ACCENTI, e vale piu' della stringa corretta.** La prova
+cercava `parola'`, cioe' una parola SEGUITA DA UN APOSTROFO. Non prendeva "piu"
+nudo. Una classe intera di errori passava da sempre, e ha fatto emergere **tre
+difetti veri** che nessuno vedeva: "MEDORA LA LEGGE COSI" in maiuscolo negli
+Angeli, "identita" nel pannello di debug, e il "piu" del limite.
+
+**LE TRE FRASI DEL LIMITE** vivono in `FraseDelLimite` e nascono dalla
+`LenteDelMaestro`, cioe' dallo stesso dato che regge il 98,3 per cento di
+attribuzione. **Il lessico di firma NON e' stato toccato, quindi l'attribuzione
+non e' stata rieseguita.** I numeri piccoli si dicono in lettere: un Maestro non
+dice "3", dice "tre".
+
+**"VAI PIU' A FONDO" NON COMPARE PIU' SUL LIMITE.** La distinzione vive in
+`TipoDiMessaggio` e in `ChatMessage.portaUnResponso`: il messaggio del limite era
+una bolla SENZA MARCA, quindi l'app lo scambiava per una risposta. I messaggi
+vecchi senza tipo lo ricavano dai flag, quindi la cronologia salvata non perde
+il senso.
+
+**IL PANNELLO NON MENTE PIU' SU SE STESSO.** Il testo del token segue
+`EsitoAttestazione`, e il riquadro non si mostra affatto quando l'attestazione
+non e' installata: il giorno in cui tornera', il pannello cambiera' da solo.
+
+**UN ERRORE VISTO SOLO GUARDANDO L'IMMAGINE:** Caligo diceva "il tuo cammino NE
+prevede TRE DOMANDE al giorno", col "ne" di troppo. Nessuna prova poteva
+prenderlo. Le anteprime servono anche a questo.
+
 ## ORDINE A: CHIUSO PER INTERO. La chat puo' rispondere davvero
 
 Chiuso il 2 agosto 2026.
