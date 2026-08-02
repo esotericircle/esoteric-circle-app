@@ -25,6 +25,7 @@ class ChatBubble extends StatelessWidget {
     required this.message,
     required this.maestro,
     this.onOpenIntent,
+    this.onRetry,
   });
 
   final ChatMessage message;
@@ -32,6 +33,34 @@ class ChatBubble extends StatelessWidget {
 
   /// Apre la funzione immersiva instradata, dato l'id dell'intento.
   final void Function(String intentId)? onOpenIntent;
+
+  /// Riprova questo turno. Non nullo solo sulla bolla fallita a cui il comando
+  /// si riferisce: prima il "Riprova" viveva in una striscia fra la lista e la
+  /// barra di scrittura, cioe' lontano dalla cosa che comanda, e chi lo vedeva
+  /// doveva indovinare a cosa si riferisse.
+  final VoidCallback? onRetry;
+
+  /// I due colori della superficie, gia' OPACHI.
+  ///
+  /// Prima erano gradazioni translucide, e il cosmo di sfondo passava dentro la
+  /// bolla: nell'anteprima della 2128 una stella cade sopra il testo del
+  /// messaggio dell'utente. La leggibilita' non puo' dipendere da dove il seme
+  /// del cosmo mette una stella, quindi le stesse tinte si fondono in anticipo
+  /// sul fondo della palette. A occhio la superficie e' identica, ma sotto non
+  /// passa piu' niente.
+  static List<Color> superficieDi(MaestroPalette palette, {required bool isUser}) {
+    final fondo = palette.deepest;
+    final tinte = isUser
+        ? [
+            palette.gold.withValues(alpha: 0.20),
+            palette.gold.withValues(alpha: 0.08),
+          ]
+        : [
+            palette.surfaceElevated.withValues(alpha: 0.95),
+            palette.surface.withValues(alpha: 0.80),
+          ];
+    return [for (final t in tinte) Color.alphaBlend(t, fondo)];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,15 +79,7 @@ class ChatBubble extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: isUser
-              ? [
-                  palette.gold.withValues(alpha: 0.20),
-                  palette.gold.withValues(alpha: 0.08),
-                ]
-              : [
-                  palette.surfaceElevated.withValues(alpha: 0.95),
-                  palette.surface.withValues(alpha: 0.80),
-                ],
+          colors: superficieDi(palette, isUser: isUser),
         ),
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(SpacingTokens.radiusMd),
@@ -124,6 +145,28 @@ class ChatBubble extends StatelessWidget {
                     intentId: message.intentId!,
                     palette: palette,
                     onTap: () => onOpenIntent?.call(message.intentId!),
+                  ),
+                ],
+                // Il Riprova nasce dentro la bolla che ha fallito, attaccato al
+                // testo a cui si riferisce.
+                if (onRetry != null) ...[
+                  const SizedBox(height: SpacingTokens.xs),
+                  GestureDetector(
+                    key: const Key('chat_riprova'),
+                    onTap: onRetry,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.refresh_rounded,
+                            color: palette.goldSoft, size: 16),
+                        const SizedBox(width: 4),
+                        Text(
+                          'Riprova',
+                          style: TypographyTokens.body(size: 14)
+                              .copyWith(color: palette.goldSoft),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ],

@@ -50,7 +50,14 @@ class AskMaestriScreen extends StatefulWidget {
 
   static Route<void> route({required Maestro starter}) {
     return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(child: AskMaestriScreen(starter: starter)),
+      // Il colore della Consulta e' quello del Maestro da cui si parte, non di
+      // chi era attivo un istante prima: senza questo `maestro:` lo scope
+      // seguiva `MaestroController` e le carte uscivano nel viola della palette
+      // neutra. Stesso difetto della chat, stessa correzione.
+      builder: (_) => MaestroScope(
+        maestro: starter,
+        child: AskMaestriScreen(starter: starter),
+      ),
     );
   }
 

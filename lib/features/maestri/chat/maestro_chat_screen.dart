@@ -75,7 +75,14 @@ class MaestroChatScreen extends StatefulWidget {
           allowance: rotta.read<QuestionAllowance>(),
           tier: () => rotta.read<EntitlementService>().tier,
         )..init(),
+        // La chat appartiene a UN Maestro, quindi il suo colore e' il suo e non
+        // quello di chi era attivo un istante prima. Senza questo `maestro:` lo
+        // scope seguiva `MaestroController`, e chi apriva la chat da una strada
+        // che non passa dal Santuario vedeva le bolle nel viola della palette
+        // neutra invece che nel blu di Medora. E' lo stesso difetto gia'
+        // corretto nell'Oroscopo, e la correzione e' la stessa.
         child: MaestroScope(
+          maestro: maestro,
           child: MaestroChatScreen(
             maestro: maestro,
             initialTheme: initialTheme,
@@ -126,11 +133,15 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     super.dispose();
   }
 
+  /// Porta la conversazione sull'ultimo turno.
+  ///
+  /// La lista e' rovesciata, quindi "la fine" e' l'offset zero e non
+  /// `maxScrollExtent`. Vedi la nota sul rovesciamento in `_buildBody`.
   void _scrollToEnd() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!_scroll.hasClients) return;
       _scroll.animateTo(
-        _scroll.position.maxScrollExtent,
+        _scroll.position.minScrollExtent,
         duration: const Duration(milliseconds: 320),
         curve: Curves.easeOut,
       );
@@ -218,7 +229,6 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
             children: [
               Expanded(child: _buildBody(controller)),
               if (!controller.aiReady) _ConfigNotice(palette: palette),
-              _RetryStrip(controller: controller),
               ChatComposer(
                 enabled: controller.aiReady && !controller.sending,
                 hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
@@ -258,18 +268,39 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         enabled: controller.aiReady,
       );
     }
+    // ROVESCIATA, e non e' un dettaglio di scorrimento: e' il motivo per cui
+    // una conversazione di due turni non legge piu' come una schermata vuota.
+    // Ancorata in alto, i due messaggi restavano appesi sotto l'header con
+    // mezzo schermo di cosmo fra loro e la barra di scrittura. Rovesciata, i
+    // turni si accumulano dal basso come in qualunque chat, e quando sono
+    // pochi stanno vicino al pollice invece che lontano dagli occhi.
+    final messaggi = controller.messages;
+    final ultimo = messaggi.length - 1;
     return ListView.builder(
       controller: _scroll,
+      reverse: true,
       padding: const EdgeInsets.symmetric(
         horizontal: SpacingTokens.md,
         vertical: SpacingTokens.md,
       ),
-      itemCount: controller.messages.length,
+      itemCount: messaggi.length,
       itemBuilder: (context, index) {
+        // Rovesciata la lista, l'indice zero e' l'ultimo turno.
+        final posizione = ultimo - index;
+        final messaggio = messaggi[posizione];
         return ChatBubble(
-          message: controller.messages[index],
+          message: messaggio,
           maestro: widget.maestro,
           onOpenIntent: (id) => _openIntent(context, id),
+          // Il Riprova sta attaccato SOTTO la bolla che ha fallito, non in
+          // mezzo allo spazio libero: un comando lontano dalla cosa che
+          // comanda costringe a indovinare a cosa si riferisce.
+          onRetry: posizione == ultimo &&
+                  messaggio.isMaestro &&
+                  messaggio.failed &&
+                  !controller.sending
+              ? controller.retryLast
+              : null,
         );
       },
     );
@@ -504,31 +535,3 @@ class _ConfigNotice extends StatelessWidget {
 }
 
 /// Striscia con l'invito a riprovare, quando l'ultimo turno e' fallito.
-class _RetryStrip extends StatelessWidget {
-  const _RetryStrip({required this.controller});
-
-  final MaestroChatController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    final messages = controller.messages;
-    final showRetry = messages.isNotEmpty &&
-        messages.last.isMaestro &&
-        messages.last.failed &&
-        !controller.sending;
-    if (!showRetry) return const SizedBox.shrink();
-
-    final palette = context.palette;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
-      child: TextButton.icon(
-        onPressed: controller.retryLast,
-        icon: Icon(Icons.refresh_rounded, color: palette.goldSoft, size: 18),
-        label: Text(
-          'Riprova',
-          style: TypographyTokens.body(size: 14).copyWith(color: palette.goldSoft),
-        ),
-      ),
-    );
-  }
-}

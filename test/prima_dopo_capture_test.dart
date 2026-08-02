@@ -373,6 +373,124 @@ void main() {
       img.dispose();
     });
   });
+
+  // LA CHAT CHE SI LEGGE: quattro difetti di vista in una schermata sola.
+  // Il cosmo che passa dentro la bolla, la conversazione appesa in alto, il
+  // colore della palette neutra al posto di quello del Maestro, il Riprova
+  // lontano dalla bolla. Si fotografa una conversazione RIUSCITA di due turni,
+  // che e' esattamente il caso in cui la schermata leggeva come vuota.
+  testWidgets('Chat, la conversazione', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final memoria = InMemoryMaestroMemoryRepository();
+    await memoria
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final servizi = AppServices(
+      ai: _VoceCheRisponde(),
+      memory: memoria,
+      memoryPersistent: false,
+      diagnostics: 'cattura prima e dopo',
+    );
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        Provider<AppServices>.value(value: servizi),
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+        ChangeNotifierProvider(create: (_) => EntitlementService()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (ctx, child) => MediaQuery(
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+          child: child!,
+        ),
+        home: RepaintBoundary(
+          key: radice,
+          child: Navigator(
+            onGenerateRoute: (_) => MaestroChatScreen.route(
+              maestro: Maestro.medora,
+              services: servizi,
+              initialUserMessage: 'Che cosa mi dice il mio cammino?',
+            ),
+          ),
+        ),
+      ),
+    ));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 150));
+    }
+
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final img = await rb.toImage(pixelRatio: 3.0);
+      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+      final dir = Directory('docs/preview/prima_dopo');
+      if (!dir.existsSync()) dir.createSync(recursive: true);
+      File('${dir.path}/chat_leggibile_$_stato.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
+      img.dispose();
+    });
+  });
+}
+
+/// Una voce che risponde davvero, per fotografare una conversazione riuscita.
+class _VoceCheRisponde implements MaestroAiProvider {
+  @override
+  bool get isReady => true;
+
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<ChatMessage> history,
+    required String userMessage,
+  }) async =>
+      'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. '
+      'Non è fermo chi si raccoglie: è fermo chi si nasconde. '
+      'Questa settimana scegli una cosa sola e portala fino in fondo.';
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  Future<MemoryDigest?> distill({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory previous,
+    required List<ChatMessage> history,
+  }) async =>
+      null;
 }
 
 /// Una voce accesa che fallisce a ogni chiamata: e' lo stato reale del
