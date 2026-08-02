@@ -52,6 +52,64 @@ l'API spenta lo dichiara in chiaro. Prima di questo lavoro il pannello diceva
 "Voce di Medora: attiva" anche mentre ogni chiamata falliva, perche' leggeva
 `isReady`, che risponde sempre di si'.
 
+## ORDINE CHAT 3 DI N: CHIUSO PER INTERO, tutte e due le voci
+
+Chiuso il 2 agosto 2026. Voce 1 (1a, 1b, 1c, 1d) e voce 2 (2a, 2b, 2c).
+
+**LA CONDUTTURA, 1a.** Il contesto natale arriva al Maestro da OGNI superficie,
+e **la porta e' stata tolta invece di correggere i chiamanti**: `natal` e' un
+parametro del CONFINE, cioe' della firma di `MaestroAiProvider.reply`, non un
+argomento che ogni superficie deve ricordarsi. La sorgente e' UNA,
+`SorgenteNatale.daIdentita`. Una prova enumera le chiamate al provider in tutto
+`lib` e cade se una non porta l'ancoraggio, con l'oracolo deterministico
+dichiarato per nome come unica eccezione.
+
+**Cosa c'era davvero, e l'ordine non lo sapeva**: la sorgente del contesto
+natale era GIA' duplicata, la stessa riga in `maestro_chat_screen.dart` e in
+`ask_maestri_screen.dart`, e le due copie servivano a due cose diverse. Nella
+chat il contesto esisteva e finiva nella frase di benvenuto: il Maestro
+accoglieva sapendo di chi, poi rispondeva senza saperlo.
+
+**L'ANCORAGGIO, 1b.** `VerificaAncoraggio` e' pura e pubblica. **Non scatta
+quando non c'e' niente da ancorare**: senza nascita `disponibiliPer` torna vuoto
+e ogni risposta e' valida, perche' pretendere un segno da chi non lo ha dato
+porterebbe a inventarlo. UNA rigenerazione sola, mai due, e la seconda consegna
+si registra in `consegneSenzaAncoraggio`.
+
+**Il conteggio delle rigenerazioni sul corpus vero NON e' stato misurato, e va
+saputo:** lo strumento di attribuzione chiama Vertex per via REST e non passa
+dal controller, quindi il contatore non lo vede. Quello che e' provato e' il
+comportamento del controllo, con quattro prove deterministiche.
+
+**L'ATTRIBUZIONE CIECA DOPO LA MODIFICA, 1c: SCESA da 98,3 a 95,0 per cento.**
+
+```
+           medora     aura   caligo    totale  giusti
+medora         18        2        0        20   90,0%
+aura            0       20        0        20  100,0%
+caligo          0        1       19        20   95,0%
+```
+
+Sopra la soglia di 85, quindi non e' un difetto da correggere. **Ma il rischio
+che l'ordine prevedeva e' reale e misurato**: partendo tutti dal cielo i Maestri
+si somigliano di piu'. Medora perde DUE risposte verso Aura ed era al 100 per
+cento. **Chi vuole recuperare quei tre punti guardi la coppia Medora-Aura**, non
+le tre voci insieme.
+
+**L'ATTESA, voce 2.** `ConsultoDelCielo` e' una funzione PURA su NatalContext,
+zero inferenza e zero rete. La scena vive nel DESIGN SYSTEM e non nella chat,
+perche' le superfici che aspettano sono DUE. Un dato che manca fa SALTARE la sua
+battuta e non la fa sostituire. Senza carta natale si consulta il solo Sole e la
+battuta dichiara di essere generale. Con Riduci Movimento o qualita' bassa il
+timer non parte nemmeno e resta la riga di testo.
+
+**Lo spinner nudo se ne e' andato**, 2b: era un `CircularProgressIndicator`,
+l'unico punto della chat che sembrava un'app qualunque.
+
+**COSA RESTA APERTO DELLE VOCI VECCHIE**: 1a dell'ORDINE CHAT 2, cioe' l'invito
+"Vai piu' a fondo" col tetto a 420 token, e 2b dello stesso ordine, il ripiego
+che diventa una lettura vera. Non sono state toccate qui.
+
 ## ORDINE CHAT 2 DI N: cosa e' chiuso e cosa NON e' stato aperto
 
 Chiuso il 2 agosto 2026. **Tre voci su nove piu' i quattro difetti di vista.**
