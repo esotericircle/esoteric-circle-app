@@ -350,7 +350,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                               // La stessa scena della chat, dallo stesso
                               // punto: le superfici che aspettano una risposta
                               // sono due, e una seconda copia divergerebbe.
-                              ConsultoDelCieloView(natal: _natal()),
+                              ConsultoDelCieloView(natal: _natal(), maestro: m),
                               _LensLoadingCard(maestro: m),
                             ]
                             else if (_lenses[m] != null)

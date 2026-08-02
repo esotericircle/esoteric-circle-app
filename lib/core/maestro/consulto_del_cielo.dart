@@ -1,3 +1,6 @@
+import 'ancoraggio.dart';
+import 'lente_del_cielo.dart';
+import 'maestro.dart';
 import 'natal_context.dart';
 
 /// Una battuta del consulto: cosa il Maestro sta guardando adesso.
@@ -6,7 +9,13 @@ class BattutaDelConsulto {
     required this.corpo,
     required this.frase,
     required this.eGenerale,
+    this.ancoraggio,
   });
+
+  /// Il dato da cui nasce, quando ce n'e' uno. La vista lo usa per scegliere
+  /// COSA disegnare, e la lente per scegliere COME dirlo: cosi' l'immagine e
+  /// la frase vengono dallo stesso dato invece che da due strade diverse.
+  final Ancoraggio? ancoraggio;
 
   /// Il corpo o il punto guardato, per il segno visivo: `ascendente`, `luna`,
   /// `sole`. E' una chiave, non una frase: la scelta dell'immagine sta nella
@@ -45,35 +54,29 @@ class ConsultoDelCielo {
   /// L'ordine non e' estetico: l'Ascendente dipende dall'ora e dal luogo esatti,
   /// la Luna dal giorno, il Sole dal mese. Chi guarda vede scendere il grado di
   /// intimita' del dato, e la prima cosa che legge e' la piu' sua.
-  static List<BattutaDelConsulto> battutePer(NatalContext natal) {
+  static List<BattutaDelConsulto> battutePer(
+    NatalContext natal, {
+    Maestro? maestro,
+  }) {
+    // Le battute nascono dagli ANCORAGGI, cioe' dallo stesso elenco che il
+    // Maestro riceve nella persona. Prima erano un secondo elenco scritto qui,
+    // e due elenchi della stessa cosa prima o poi divergono.
+    final ancoraggi = VerificaAncoraggio.disponibiliPer(natal: natal);
     final battute = <BattutaDelConsulto>[];
-
-    void aggiungi(String corpo, String? segno, String Function(String) frase) {
-      if (battute.length >= massimoBattute) return;
-      final s = segno?.trim();
-      if (s == null || s.isEmpty) return;
+    for (final ancoraggio in ancoraggi) {
+      if (battute.length >= massimoBattute) break;
+      // Solo i dati che hanno un corpo da guardare: un fatto di memoria e' un
+      // ottimo ancoraggio per la risposta, ma non e' qualcosa che si consulta
+      // nel cielo.
+      if (!_siGuardaNelCielo(ancoraggio.nome)) continue;
       battute.add(BattutaDelConsulto(
-        corpo: corpo,
-        frase: frase(s),
+        corpo: _corpoDi(ancoraggio.nome),
+        frase: maestro == null
+            ? _fraseNeutra(ancoraggio)
+            : LenteDelCielo.battuta(maestro, ancoraggio),
         eGenerale: false,
+        ancoraggio: ancoraggio,
       ));
-    }
-
-    aggiungi('ascendente', natal.ascendant, (s) => 'il tuo Ascendente in $s');
-    aggiungi('luna', natal.moonSign, (s) => 'la tua Luna in $s');
-    aggiungi('sole', natal.sunSign, (s) => 'il tuo Sole in $s');
-
-    // La fase lunare di nascita entra solo se resta posto: e' un dato vero, ma
-    // meno immediato dei tre segni.
-    if (battute.length < massimoBattute) {
-      final fase = natal.moonPhase?.trim();
-      if (fase != null && fase.isNotEmpty) {
-        battute.add(BattutaDelConsulto(
-          corpo: 'fase',
-          frase: 'la $fase sotto cui sei nato',
-          eGenerale: false,
-        ));
-      }
     }
 
     // Senza carta natale si consulta il solo Sole, e LO SI DICE: la battuta
@@ -89,6 +92,34 @@ class ConsultoDelCielo {
     }
     return battute;
   }
+
+  /// Quali ancoraggi si guardano nel cielo. Un fatto di memoria no: e' un
+  /// ancoraggio vero per la risposta, ma non e' un corpo da consultare.
+  static bool _siGuardaNelCielo(String nome) => const {
+        'ascendente',
+        'segno lunare',
+        'segno solare',
+        'fase lunare di nascita',
+      }.contains(nome);
+
+  /// La chiave del corpo, per la vista.
+  static String _corpoDi(String nome) => switch (nome) {
+        'ascendente' => 'ascendente',
+        'segno lunare' => 'luna',
+        'segno solare' => 'sole',
+        'fase lunare di nascita' => 'fase',
+        _ => 'punto',
+      };
+
+  /// La frase senza lente, quando il Maestro non e' noto.
+  static String _fraseNeutra(Ancoraggio ancoraggio) => switch (ancoraggio.nome) {
+        'ascendente' => 'il tuo Ascendente in ${ancoraggio.valore}',
+        'segno lunare' => 'la tua Luna in ${ancoraggio.valore}',
+        'segno solare' => 'il tuo Sole in ${ancoraggio.valore}',
+        'fase lunare di nascita' =>
+          'la ${ancoraggio.valore} sotto cui sei nato',
+        _ => ancoraggio.valore,
+      };
 
   /// Vero se il consulto e' solo generale, cioe' non c'e' nulla di questa
   /// persona da guardare. La vista lo usa per dirlo con garbo.

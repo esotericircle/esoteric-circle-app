@@ -18,6 +18,34 @@ enum TipoDiChiusura {
   simboloDaPortare,
 }
 
+/// Con che LENTE un Maestro legge un dato che vale per tutti e tre.
+///
+/// Il Briefing Progetto Definitivo, sezione 8.1, dichiara la regola per la
+/// memoria e la scrive cosi': "Stesso ricordo, tre voci", con Medora che legge
+/// attraverso destino, transiti e cicli, Aura attraverso emozione, energia e
+/// chakra, Caligo attraverso simbolo, archetipo e Arcani. La regola esisteva
+/// gia' e all'ancoraggio natale non era applicata.
+///
+/// **Perche' conta.** Finche' del cielo parlava solo Medora, il cielo la
+/// identificava: era la sua firma. Rendere l'ancoraggio obbligatorio per tutti
+/// e tre gliel'ha tolta, e l'attribuzione cieca e' scesa da 98,3 a 95,0 con
+/// Medora che perde verso Aura e non verso Caligo, che ha il simbolo a tenerlo
+/// distinto. La lente restituisce a ciascuno un modo suo di dire lo stesso
+/// dato, invece di togliere il dato a due su tre.
+enum LenteDelMaestro {
+  /// Il corpo e il suo MOTO NEL TEMPO: cicli, ritorni, finestre. E' di Medora,
+  /// che e' l'unica a leggere il tempo.
+  motoNelTempo,
+
+  /// Il corpo e il suo EFFETTO NEL CORPO E NELL'ENERGIA: dove si sente, come
+  /// pesa, cosa muove nel respiro. E' di Aura.
+  effettoNelCorpo,
+
+  /// Il corpo e il suo SIMBOLO: il segno che gli corrisponde, dichiarato come
+  /// chiave di lettura di chi parla e mai come tradizione. E' di Caligo.
+  simbolo,
+}
+
 /// La voce di un Maestro come DATO, non come prosa.
 ///
 /// Prima le tre personalita' erano tre blocchi di testo dentro una funzione
@@ -40,6 +68,7 @@ class VoceDelMaestro {
     required this.apertura,
     required this.chiusura,
     required this.tipoDiChiusura,
+    required this.lente,
   });
 
   /// Come suona la voce in una riga: e' la prima cosa che il modello legge.
@@ -66,6 +95,11 @@ class VoceDelMaestro {
 
   /// Come la chiude, per esteso.
   final String chiusura;
+
+  /// Con che lente legge un dato che vale per tutti e tre. Obbligatoria nel
+  /// costruttore: un Maestro nuovo non puo' nascere senza dichiararla, e
+  /// senza dichiararla direbbe il dato come lo dicono gli altri.
+  final LenteDelMaestro lente;
 
   /// Di che TIPO e' la sua chiusura. Il testo si puo' rifinire, il tipo no:
   /// e' l'impronta del Maestro, e una prova lo verifica.
@@ -164,6 +198,7 @@ class VoceDelMaestro {
           'finestra ricavata dal cielo di questa persona, mai inventata. Se il '
           'cielo non te la offre, dille quando tornare a guardare.',
       tipoDiChiusura: TipoDiChiusura.direzioneNelTempo,
+      lente: LenteDelMaestro.motoNelTempo,
     ),
     Maestro.aura: VoceDelMaestro(
       timbro:
@@ -193,6 +228,7 @@ class VoceDelMaestro {
           'Chiudi con UN gesto del corpo, breve e fattibile adesso: un respiro '
               'contato, una mano dove serve, una pausa. Uno solo, concreto.',
       tipoDiChiusura: TipoDiChiusura.gestoDelCorpo,
+      lente: LenteDelMaestro.effettoNelCorpo,
     ),
     Maestro.caligo: VoceDelMaestro(
       timbro:
@@ -228,6 +264,7 @@ class VoceDelMaestro {
       chiusura: 'Chiudi consegnando UN segno da portare, una runa oppure un '
           'sigillo, chiamato per nome. Uno solo.',
       tipoDiChiusura: TipoDiChiusura.simboloDaPortare,
+      lente: LenteDelMaestro.simbolo,
     ),
   };
 

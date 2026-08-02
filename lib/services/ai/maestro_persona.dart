@@ -2,6 +2,7 @@ import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/ancoraggio.dart';
 import '../../core/maestro/consult_depth.dart';
+import '../../core/maestro/lente_del_cielo.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/natal_context.dart';
 import '../../core/maestro/voce_del_maestro.dart';
@@ -188,6 +189,10 @@ class MaestroPersona {
       '',
       if (natalBlock.isNotEmpty) ...[natalBlock, ''],
       _regolaDellAncoraggio(ancoraggi, insisti: insistiSullAncoraggio),
+      // LO STESSO DATO, TRE LENTI. Senza questa riga tutti e tre dicevano il
+      // cielo allo stesso modo, e a rimetterci era Medora, per cui il cielo
+      // era la firma.
+      if (ancoraggi.isNotEmpty) ...['', LenteDelCielo.istruzionePer(maestro)],
       '',
       _memoryContext(memory),
       if (approfondisci) ...['', regolaDellApprofondimento],

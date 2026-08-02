@@ -279,7 +279,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
               // sta aspettando, a costo di inferenza zero.
               if (controller.sending)
-                ConsultoDelCieloView(natal: _natalCorrente(context)),
+                ConsultoDelCieloView(
+                    natal: _natalCorrente(context),
+                    maestro: widget.maestro,
+                  ),
               Expanded(child: _buildBody(controller)),
               if (!controller.aiReady)
                 _ConfigNotice(palette: palette, maestro: widget.maestro),
@@ -315,7 +318,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       // sembrava un'app qualunque. Adesso anche l'apertura appartiene al
       // Cerchio: il Maestro sta gia' consultando mentre la memoria si carica.
       return Center(
-        child: ConsultoDelCieloView(natal: _natalCorrente(context)),
+        child: ConsultoDelCieloView(
+                    natal: _natalCorrente(context),
+                    maestro: widget.maestro,
+                  ),
       );
     }
     if (controller.messages.isEmpty) {
