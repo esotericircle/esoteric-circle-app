@@ -364,6 +364,8 @@ class _ReadyAi implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async =>
       'Le stelle ti ascoltano.';
 
@@ -422,6 +424,8 @@ class _CapturingAi implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async =>
       throw UnimplementedError();
 
@@ -467,6 +471,8 @@ class _UnavailableAi implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async =>
       throw UnimplementedError();
 

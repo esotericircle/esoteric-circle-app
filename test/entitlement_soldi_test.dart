@@ -33,6 +33,8 @@ class _AiFinta implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async {
     risposte++;
     return 'Le stelle ti ascoltano.';

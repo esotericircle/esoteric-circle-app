@@ -11,7 +11,7 @@ import '../../../core/identity/natal_identity.dart';
 import '../../../core/lang/euphonic.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../core/maestro/maestro_welcome.dart';
-import '../../../core/maestro/natal_context.dart';
+import '../../../core/maestro/sorgente_natale.dart';
 import '../../../design_system/components/cosmos_background.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
@@ -74,6 +74,11 @@ class MaestroChatScreen extends StatefulWidget {
           memory: services.memory,
           allowance: rotta.read<QuestionAllowance>(),
           tier: () => rotta.read<EntitlementService>().tier,
+          // Il cielo della persona arriva al Maestro. Una funzione, non un
+          // valore: chi completa i dati di nascita mentre la chat e' aperta
+          // deve essere riconosciuto al turno dopo.
+          natal: () => SorgenteNatale.daIdentita(
+              rotta.read<BirthIdentityController>()),
         )..init(),
         // La chat appartiene a UN Maestro, quindi il suo colore e' il suo e non
         // quello di chi era attivo un istante prima. Senza questo `maestro:` lo
@@ -228,7 +233,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           child: Column(
             children: [
               Expanded(child: _buildBody(controller)),
-              if (!controller.aiReady) _ConfigNotice(palette: palette),
+              if (!controller.aiReady)
+                _ConfigNotice(palette: palette, maestro: widget.maestro),
               ChatComposer(
                 enabled: controller.aiReady && !controller.sending,
                 hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
@@ -379,9 +385,9 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   /// piu' una domanda che spinge all'azione. Nessuna chiamata a Gemini.
   String _welcomeFor(MaestroChatController controller) {
     final birth = context.read<BirthIdentityController>();
-    final natal = birth.hasBirth
-        ? NatalContext.fromNatal(chart: birth.chart, facts: birth.facts)
-        : NatalContext.none;
+    // Dalla sorgente unica, non ricostruito qui: era la seconda copia della
+    // stessa riga, e le due copie servivano a due cose diverse.
+    final natal = SorgenteNatale.daIdentita(birth);
     final premium = context.read<EntitlementService>().tier != Tier.free;
     return MaestroWelcome.compose(
       maestro: widget.maestro,
@@ -499,9 +505,14 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
 /// Avviso in tono quando l'AI non e' ancora configurata: nessun errore crudo,
 /// solo una spiegazione discreta.
 class _ConfigNotice extends StatelessWidget {
-  const _ConfigNotice({required this.palette});
+  const _ConfigNotice({required this.palette, required this.maestro});
 
   final MaestroPalette palette;
+
+  /// Di CHI e' la voce che non si e' accesa. Era scritto "Medora" a mano,
+  /// quindi la chat di Aura e quella di Caligo annunciavano il Maestro
+  /// sbagliato: il nome viene da `maestro.displayName` e una prova enumera i tre.
+  final Maestro maestro;
 
   @override
   Widget build(BuildContext context) {
@@ -522,7 +533,8 @@ class _ConfigNotice extends StatelessWidget {
           const SizedBox(width: SpacingTokens.sm),
           Expanded(
             child: Text(
-              'Il cerchio non è ancora acceso. La voce di Medora si attiva '
+              'Il cerchio non è ancora acceso. La voce di '
+              '${maestro.displayName} si attiva '
               'quando la configurazione AI è completa.',
               style: TypographyTokens.body(size: 14)
                   .copyWith(color: ColorTokens.textSecondary),

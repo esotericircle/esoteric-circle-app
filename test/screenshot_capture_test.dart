@@ -2968,6 +2968,8 @@ class _ScriptedMaestro implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async {
     return 'Le stelle ti ascoltano. Dimmi ancora, cerchiamo insieme il filo.';
   }

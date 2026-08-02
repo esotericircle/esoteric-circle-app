@@ -29,12 +29,23 @@ abstract interface class MaestroAiProvider {
   /// La composizione del prompt (persona, regole di lingua, contesto di
   /// memoria) e' responsabilita' dell'implementazione: chi chiama passa solo i
   /// fatti, non il prompt gia' cotto.
+  /// Il [natal] NON e' facoltativo per comodita': e' il dato che rende la
+  /// risposta di questa persona invece che di chiunque. Sta sul confine, e non
+  /// nella singola implementazione, perche' cosi' nessuna superficie puo'
+  /// chiamare il Maestro dimenticandolo: prima la chat lo faceva, e i dati
+  /// natali arrivavano alla frase di benvenuto e non alla risposta.
+  ///
+  /// Con [insistiSullAncoraggio] a vero l'implementazione stringe l'istruzione:
+  /// serve alla SECONDA e unica rigenerazione, quando la prima risposta non ha
+  /// nominato nessuno dei dati disponibili.
   Future<String> reply({
     required Maestro maestro,
     required UserProfile profile,
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   });
 
   /// Consulta UN Maestro su un [theme], a domanda singola, e restituisce i tre
@@ -112,6 +123,8 @@ class UnavailableMaestroAiProvider implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async {
     throw const MaestroAiUnavailable();
   }

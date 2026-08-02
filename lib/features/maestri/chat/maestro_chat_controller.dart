@@ -10,7 +10,9 @@ import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/maestro_memory.dart';
 import '../../../core/chat/user_profile.dart';
+import '../../../core/maestro/ancoraggio.dart';
 import '../../../core/maestro/frase_di_ripiego.dart';
+import '../../../core/maestro/natal_context.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
 import '../../../services/ai/registro_dei_guasti.dart';
@@ -29,11 +31,13 @@ class MaestroChatController extends ChangeNotifier {
     IntentClassifier classifier = const IntentClassifier(),
     QuestionAllowance? allowance,
     Tier Function()? tier,
+    NatalContext Function()? natal,
   })  : _ai = ai,
         _memory = memory,
         _classifier = classifier,
         _allowance = allowance,
-        _tier = tier;
+        _tier = tier,
+        _natal = natal;
 
   final Maestro maestro;
   final MaestroAiProvider _ai;
@@ -48,6 +52,32 @@ class MaestroChatController extends ChangeNotifier {
   /// Il piano attivo, letto quando serve. Una funzione e non un valore:
   /// l'abbonamento puo' cambiare mentre la chat e' aperta.
   final Tier Function()? _tier;
+
+  /// Il contesto natale corrente. Una funzione e non un valore, per la stessa
+  /// ragione del piano: la persona puo' completare i dati di nascita mentre la
+  /// chat e' aperta, e il Maestro deve accorgersene al turno dopo.
+  ///
+  /// Prima questo campo NON esisteva: la chat mandava al provider profilo e
+  /// memoria, e i dati natali finivano nella sola frase di benvenuto. Il Maestro
+  /// parlava senza sapere di chi.
+  final NatalContext Function()? _natal;
+
+  /// Quante volte il controllo dell'ancoraggio ha fatto rigenerare una
+  /// risposta. Pubblico perche' e' la MISURA di quanto la persona funziona da
+  /// sola: se cresce, il difetto sta nel prompt e non nel controllo.
+  int rigenerazioniPerAncoraggio = 0;
+
+  /// Quante volte la seconda risposta e' rimasta senza ancoraggio e si e'
+  /// consegnata comunque. Mai due rigenerazioni: qui finisce il conto.
+  int consegneSenzaAncoraggio = 0;
+
+  /// Gli ancoraggi disponibili adesso per questa persona. Vuoto quando non c'e'
+  /// niente da ancorare, e in quel caso il controllo NON scatta.
+  List<Ancoraggio> get ancoraggiDisponibili => VerificaAncoraggio.disponibiliPer(
+        natal: _natal?.call() ?? NatalContext.none,
+        profile: _profile,
+        memory: _memoryState,
+      );
 
   /// Cosa dice il Maestro quando le domande del giorno sono finite. Nel suo
   /// tono, col numero vero e con la via d'uscita: mai un vicolo cieco.
@@ -212,13 +242,55 @@ class MaestroChatController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final reply = await _ai.reply(
+      final natal = _natal?.call() ?? NatalContext.none;
+      final disponibili = VerificaAncoraggio.disponibiliPer(
+        natal: natal,
+        profile: _profile,
+        memory: _memoryState,
+      );
+
+      var reply = await _ai.reply(
         maestro: maestro,
         profile: _profile,
         memory: _memoryState,
         history: priorHistory,
         userMessage: userText,
+        natal: natal,
       );
+
+      // IL CONTROLLO DELL'ANCORAGGIO, a valle e puro.
+      //
+      // Non scatta quando non c'e' niente da ancorare: senza dati di nascita
+      // `disponibili` e' vuoto e `eAncorata` risponde sempre di si', perche'
+      // pretendere un segno da chi non lo ha dato porterebbe a inventarlo, e un
+      // ancoraggio falso e' peggio di nessun ancoraggio.
+      //
+      // UNA rigenerazione sola, mai due: alla seconda si consegna cio' che c'e'
+      // e si registra. Far aspettare la persona una terza volta per una regola
+      // nostra sarebbe farle pagare il nostro difetto.
+      if (!VerificaAncoraggio.eAncorata(reply, disponibili)) {
+        rigenerazioniPerAncoraggio++;
+        final secondo = await _ai.reply(
+          maestro: maestro,
+          profile: _profile,
+          memory: _memoryState,
+          history: priorHistory,
+          userMessage: userText,
+          natal: natal,
+          insistiSullAncoraggio: true,
+        );
+        reply = secondo;
+        if (!VerificaAncoraggio.eAncorata(secondo, disponibili)) {
+          consegneSenzaAncoraggio++;
+          annotaGuastoInnocuo(
+            'risposta senza ancoraggio consegnata comunque, '
+            '${maestro.displayName}, ancoraggi disponibili: '
+            '${disponibili.map((a) => a.nome).join(', ')}',
+            StateError('ancoraggio mancante dopo una rigenerazione'),
+          );
+        }
+      }
+
       final answer = ChatMessage(
         role: ChatRole.maestro,
         text: reply,

@@ -59,6 +59,8 @@ class VoceSorvegliata implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) {
     return _sorvegliando(
       'reply',
@@ -68,6 +70,8 @@ class VoceSorvegliata implements MaestroAiProvider {
         memory: memory,
         history: history,
         userMessage: userMessage,
+        natal: natal,
+        insistiSullAncoraggio: insistiSullAncoraggio,
       ),
     );
   }

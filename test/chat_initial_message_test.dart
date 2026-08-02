@@ -113,6 +113,8 @@ class _ReadyAi implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async =>
       'Il Lupo ti parla di lealta\'.';
 
@@ -157,6 +159,8 @@ class _OfflineAi implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async =>
       throw const MaestroAiUnavailable();
 

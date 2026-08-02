@@ -1,5 +1,6 @@
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
+import '../../core/maestro/ancoraggio.dart';
 import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/natal_context.dart';
@@ -170,14 +171,81 @@ class MaestroPersona {
     required Maestro maestro,
     required UserProfile profile,
     required MaestroMemory memory,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) {
+    final natalBlock = _natalContext(natal);
+    final ancoraggi = VerificaAncoraggio.disponibiliPer(
+      natal: natal,
+      profile: profile,
+      memory: memory,
+    );
     return [
       voceDi(maestro),
       '',
       _commonRules(profile),
       '',
+      if (natalBlock.isNotEmpty) ...[natalBlock, ''],
+      _regolaDellAncoraggio(ancoraggi, insisti: insistiSullAncoraggio),
+      '',
       _memoryContext(memory),
     ].join('\n');
+  }
+
+  /// La regola dell'ancoraggio, come dato e non come raccomandazione.
+  ///
+  /// Pubblica per la stessa ragione di tutto il resto: cio' che non si puo'
+  /// nominare non si prova. Riceve gli ancoraggi DISPONIBILI, non un elenco
+  /// astratto, cosi' il Maestro non puo' promettere un dato che non esiste: se
+  /// la persona non ha dato la nascita, la regola dice esplicitamente di NON
+  /// inventarne uno.
+  static String regolaDellAncoraggio(
+    List<Ancoraggio> disponibili, {
+    bool insisti = false,
+  }) =>
+      _regolaDellAncoraggio(disponibili, insisti: insisti);
+
+  static String _regolaDellAncoraggio(
+    List<Ancoraggio> disponibili, {
+    required bool insisti,
+  }) {
+    final buffer = StringBuffer('ANCORAGGIO, REGOLA CHE VIENE PRIMA DEL TONO:');
+    if (disponibili.isEmpty) {
+      buffer
+        ..writeln()
+        ..writeln(
+            '- Di questa persona non sai ancora nulla di suo: nessun segno, '
+            'nessun numero, nessun ricordo.')
+        ..writeln(
+            '- NON inventare un dato per riempire il vuoto. Nessun segno '
+            'immaginato, nessuna posizione supposta.')
+        ..write(
+            '- Parla del simbolo in generale. Quando è il momento chiedi UNA '
+            'cosa sola che ti permetta di leggerla meglio la prossima volta.');
+      return buffer.toString();
+    }
+    buffer
+      ..writeln()
+      ..writeln('- Di questa persona sai questo soltanto:');
+    for (final ancoraggio in disponibili) {
+      buffer.writeln('  ${ancoraggio.nome}: ${ancoraggio.valore}');
+    }
+    buffer
+      ..writeln('- Ogni risposta ne nomina ALMENO UNO, per nome, presto. '
+          'Una risposta che non ne porta nessuno potrebbe essere stata scritta '
+          'per chiunque altro.')
+      ..writeln(
+          '- Apri DA LÌ, non dall\'emozione. Non "capisco che tu abbia '
+          'paura", ma "la tua Luna in Cancro ti fa sentire due volte quello '
+          'che gli altri sentono una volta".')
+      ..write('- Non aggiungere dati che non sono in questo elenco. '
+          'Quello che non è scritto qui, tu non lo sai.');
+    if (insisti) {
+      buffer.write('\n- ATTENZIONE: la tua risposta precedente non ha nominato '
+          'nessuno di questi dati. Riscrivila nominandone almeno uno, per '
+          'nome, nella prima frase.');
+    }
+    return buffer.toString();
   }
 
   /// Contesto natale per una consultazione, quando i dati ci sono. Solo fatti

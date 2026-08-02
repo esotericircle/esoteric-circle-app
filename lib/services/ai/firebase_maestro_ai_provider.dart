@@ -110,6 +110,8 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async {
     final model = _ai.generativeModel(
       model: chatModel,
@@ -118,6 +120,8 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
           maestro: maestro,
           profile: profile,
           memory: memory,
+          natal: natal,
+          insistiSullAncoraggio: insistiSullAncoraggio,
         ),
       ),
       generationConfig: GenerationConfig(

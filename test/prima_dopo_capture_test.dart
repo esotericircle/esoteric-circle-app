@@ -459,6 +459,8 @@ class _VoceCheRisponde implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async =>
       'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. '
       'Non è fermo chi si raccoglie: è fermo chi si nasconde. '
@@ -506,6 +508,8 @@ class _VoceCheTace implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<ChatMessage> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async =>
       throw Exception('firebasevertexai.googleapis.com non abilitata');
 

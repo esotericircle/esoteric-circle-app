@@ -106,6 +106,8 @@ class _RecordingAi implements MaestroAiProvider {
     required MaestroMemory memory,
     required List<dynamic> history,
     required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
   }) async {
     replies++;
     return 'Una risposta a testo.';

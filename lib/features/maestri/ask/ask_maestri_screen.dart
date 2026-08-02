@@ -9,6 +9,7 @@ import '../../../core/maestro/consult_depth.dart';
 import '../../../core/maestro/frase_di_ripiego.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../core/maestro/natal_context.dart';
+import '../../../core/maestro/sorgente_natale.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -100,11 +101,8 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
 
   /// Il contesto natale reale, dai dati di nascita. Vuoto se la carta manca:
   /// personalizzazione col solo nome.
-  NatalContext _natal() {
-    final birth = context.read<BirthIdentityController>();
-    if (!birth.hasBirth) return NatalContext.none;
-    return NatalContext.fromNatal(chart: birth.chart, facts: birth.facts);
-  }
+  NatalContext _natal() =>
+      SorgenteNatale.daIdentita(context.read<BirthIdentityController>());
 
   Future<void> _ask() async {
     final theme = _composer.text.trim();
