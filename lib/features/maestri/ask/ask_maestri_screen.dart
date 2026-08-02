@@ -6,6 +6,7 @@ import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/identity/natal_identity.dart';
 import '../../../core/identity/profile_controller.dart';
 import '../../../core/maestro/consult_depth.dart';
+import '../../../core/maestro/frase_di_ripiego.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../core/maestro/natal_context.dart';
 import '../../../design_system/theme/maestro_palette.dart';
@@ -15,6 +16,7 @@ import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
 import '../../../services/ai/maestro_oracle.dart';
+import '../../../services/ai/registro_dei_guasti.dart';
 import '../../../services/app_services.dart';
 import '../../pricing/upgrade_invite.dart';
 import '../chat/maestro_chat_screen.dart';
@@ -161,15 +163,25 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
         lens = MaestroLens(maestro: maestro, reply: reply);
       } on MaestroAiUnavailable {
         lens = null;
-      } catch (_) {
+      } catch (errore, traccia) {
+        // Il guasto lo ha gia' scritto `VoceSorvegliata`. Qui resta
+        // l'annotazione: prima questo ramo non lasciava niente dietro di se',
+        // e il Consulta e' il posto dove il silenzio si nota meno, perche' una
+        // risposta arriva comunque.
+        annotaGuastoInnocuo(
+            'consultando ${maestro.displayName} sul tema scelto',
+            errore,
+            traccia);
         lens = null;
       }
     }
-    // Ripiego deterministico dall'oracolo, sempre disponibile.
+    // Ripiego deterministico dall'oracolo, sempre disponibile e DICHIARATO:
+    // la lente porta con se' il fatto di non venire dal Maestro.
     lens ??= widget.oracle
         .consult(theme: theme, maestri: [maestro])
         .lenses
-        .single;
+        .single
+        .comeRipiego();
 
     if (!mounted) return;
     // La risposta e' consegnata: solo ora si conta la domanda del giorno.
@@ -206,8 +218,10 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       }
     } on MaestroAiUnavailable {
       // Ripiego sulla sintesi deterministica, nessun errore a video.
-    } catch (_) {
-      // Qualunque guasto cade sul ripiego, in silenzio.
+    } catch (errore, traccia) {
+      // Il ripiego resta silenzioso per la persona, non per chi legge i log.
+      annotaGuastoInnocuo(
+          'componendo la sintesi comparativa', errore, traccia);
     }
   }
 
@@ -228,8 +242,12 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
           : '${mem.sessionSummary.trim()} $nota';
       await services.memory.saveMemory(
           maestro, mem.copyWith(sessionSummary: summary));
-    } catch (_) {
+    } catch (errore, traccia) {
       // Il salvataggio e' un di piu': un errore non impedisce di continuare.
+      annotaGuastoInnocuo(
+          'chiudendo il cerchio nella memoria di ${maestro.displayName}',
+          errore,
+          traccia);
     }
     if (!mounted) return;
     await Navigator.of(context).push(
@@ -790,6 +808,26 @@ class _LensCard extends StatelessWidget {
               ),
             ],
           ),
+          // Stessa dichiarazione della chat, stessa etichetta: se questa
+          // lettura non viene dal Maestro, la carta lo dice.
+          if (lens.ripiego) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.cloud_off_outlined,
+                    size: 13, color: ColorTokens.textMuted),
+                const SizedBox(width: 4),
+                Flexible(
+                  child: Text(
+                    RipiegoDelMaestro.etichetta,
+                    style: TypographyTokens.body(size: 13)
+                        .copyWith(color: ColorTokens.textMuted),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ],
       ),
     );

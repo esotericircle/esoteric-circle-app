@@ -10,8 +10,10 @@ import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/maestro_memory.dart';
 import '../../../core/chat/user_profile.dart';
+import '../../../core/maestro/frase_di_ripiego.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
+import '../../../services/ai/registro_dei_guasti.dart';
 import '../../../services/memory/maestro_memory_repository.dart';
 
 /// Stato della conversazione con un Maestro.
@@ -101,8 +103,12 @@ class MaestroChatController extends ChangeNotifier {
       _messages
         ..clear()
         ..addAll(results[2] as List<ChatMessage>);
-    } catch (_) {
-      // Un errore di lettura non deve impedire di iniziare a parlare.
+    } catch (errore, traccia) {
+      // Un errore di lettura non deve impedire di iniziare a parlare, ma non
+      // deve nemmeno sparire: senza annotazione una memoria che non si carica
+      // mai e' indistinguibile da una memoria vuota.
+      annotaGuastoInnocuo(
+          'caricando la memoria di ${maestro.displayName}', errore, traccia);
     } finally {
       _loading = false;
       notifyListeners();
@@ -116,8 +122,10 @@ class MaestroChatController extends ChangeNotifier {
     notifyListeners();
     try {
       await _memory.saveProfile(_profile);
-    } catch (_) {
+    } catch (errore, traccia) {
       // Se la scrittura fallisce lo si riproporra' al prossimo avvio.
+      annotaGuastoInnocuo(
+          'salvando l\'accettazione del disclaimer', errore, traccia);
     }
   }
 
@@ -222,16 +230,23 @@ class MaestroChatController extends ChangeNotifier {
       unawaited(_maybeDistill());
     } on MaestroAiUnavailable {
       _replaceLast(pending.copyWith(
-        text:
-            'Il cerchio non è ancora acceso. Serve la configurazione AI per farmi parlare.',
+        text: RipiegoDelMaestro.nonConfiguratoDi(maestro),
         pending: false,
         failed: true,
+        ripiego: true,
       ));
-    } catch (_) {
+    } catch (errore, traccia) {
+      // Il guasto e' gia' stato scritto nel registro da `VoceSorvegliata`, che
+      // sta davanti a QUALUNQUE provider: qui non si inghiotte piu' niente, si
+      // sceglie solo cosa mostrare. L'annotazione resta perche' l'errore vero
+      // esista anche per chi guarda i log senza aprire il pannello.
+      annotaGuastoInnocuo(
+          'rispondendo nella chat di ${maestro.displayName}', errore, traccia);
       _replaceLast(pending.copyWith(
-        text: 'Le stelle si sono velate un istante. Possiamo riprovare.',
+        text: RipiegoDelMaestro.silenzioDi(maestro),
         pending: false,
         failed: true,
+        ripiego: true,
       ));
     } finally {
       _sending = false;
@@ -242,8 +257,12 @@ class MaestroChatController extends ChangeNotifier {
   Future<void> _persist(ChatMessage message) async {
     try {
       await _memory.appendMessage(maestro, message);
-    } catch (_) {
+    } catch (errore, traccia) {
       // La cronologia persistente e' un di piu': un errore non blocca la chat.
+      annotaGuastoInnocuo(
+          'salvando un turno nella cronologia di ${maestro.displayName}',
+          errore,
+          traccia);
     }
   }
 
@@ -272,8 +291,10 @@ class MaestroChatController extends ChangeNotifier {
         facts: _mergeFacts(_memoryState.facts, digest.facts),
       );
       await _memory.saveMemory(maestro, _memoryState);
-    } catch (_) {
+    } catch (errore, traccia) {
       // Nessun impatto sulla conversazione in corso.
+      annotaGuastoInnocuo(
+          'distillando la memoria di ${maestro.displayName}', errore, traccia);
     }
   }
 

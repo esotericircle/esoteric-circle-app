@@ -198,6 +198,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           context,
           aiReady: controller.aiReady,
           memoryPersistent: services.memoryPersistent,
+          guasti: services.guasti,
           appCheckDebugToken: services.appCheckDebugToken,
         ),
         // La seconda superficie della Consulta, il confronto a piu' voci, vive

@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 
 import 'ai/firebase_maestro_ai_provider.dart';
 import 'ai/maestro_ai_provider.dart';
+import 'ai/registro_dei_guasti.dart';
+import 'ai/voce_sorvegliata.dart';
 import 'firebase/app_check_debug.dart';
 import 'memory/firestore_maestro_memory_repository.dart';
 import 'memory/in_memory_maestro_memory_repository.dart';
@@ -16,8 +18,9 @@ import 'memory/maestro_memory_repository.dart';
 /// implementazione reale (Firebase, Gemini su Vertex, Firestore) e ripiego
 /// inerte. La UI riceve questo oggetto e non sa nulla di come e' stato montato.
 class AppServices {
-  const AppServices({
+  AppServices._({
     required this.ai,
+    required this.guasti,
     required this.memory,
     required this.memoryPersistent,
     this.appCheckDebugToken,
@@ -25,8 +28,51 @@ class AppServices {
     this.diagnostics,
   });
 
+  /// Monta i servizi avvolgendo la voce nella sorveglianza, sempre.
+  ///
+  /// E' una fabbrica e non un costruttore diretto proprio per questo: il
+  /// campo [ai] non si puo' impostare dal di fuori senza passare di qui, quindi
+  /// non esiste un modo di costruire i servizi con una voce non sorvegliata.
+  /// Se la voce e' gia' sorvegliata si tiene il SUO registro, altrimenti due
+  /// registri diversi si dividerebbero i guasti e il pannello ne mostrerebbe
+  /// meta'.
+  factory AppServices({
+    required MaestroAiProvider ai,
+    required MaestroMemoryRepository memory,
+    required bool memoryPersistent,
+    RegistroDeiGuasti? guasti,
+    String? appCheckDebugToken,
+    bool showAppCheckDebugToken = false,
+    String? diagnostics,
+  }) {
+    final VoceSorvegliata sorvegliata;
+    if (ai is VoceSorvegliata) {
+      sorvegliata = ai;
+    } else {
+      sorvegliata =
+          VoceSorvegliata(voce: ai, registro: guasti ?? RegistroDeiGuasti());
+    }
+    return AppServices._(
+      ai: sorvegliata,
+      guasti: sorvegliata.registro,
+      memory: memory,
+      memoryPersistent: memoryPersistent,
+      appCheckDebugToken: appCheckDebugToken,
+      showAppCheckDebugToken: showAppCheckDebugToken,
+      diagnostics: diagnostics,
+    );
+  }
+
+  /// La voce dei Maestri, SEMPRE sorvegliata. Il costruttore avvolge da se'
+  /// qualunque provider gli arrivi: cosi' non esiste un modo di montare i
+  /// servizi con una voce che perde gli errori per strada, nemmeno nelle prove
+  /// e nemmeno in un ramo di ripiego scritto di fretta.
   final MaestroAiProvider ai;
   final MaestroMemoryRepository memory;
+
+  /// Dove finiscono i guasti della voce. Lo legge il pannello di messa a punto
+  /// della chat, ed e' l'unico posto in cui l'errore vero sopravvive.
+  final RegistroDeiGuasti guasti;
 
   /// Vero se la memoria e' davvero persistente (Firestore), falso se solo in
   /// RAM per la sessione.
@@ -87,9 +133,12 @@ class AppServices {
           providerApple: AppleDebugProvider(debugToken: debugToken),
         );
       }
-    } catch (_) {
+    } catch (errore, traccia) {
       // Se App Check non si attiva l'AI puo' ancora funzionare finche' non si
-      // impone l'enforcement lato server. Si prosegue.
+      // impone l'enforcement lato server. Si prosegue, ma si annota: e' il
+      // primo sospettato ogni volta che una chiamata viene respinta, e per due
+      // giri di lavoro non c'era modo di sapere se fosse partito davvero.
+      annotaGuastoInnocuo('attivando App Check', errore, traccia);
     }
 
     // Il provider AI e' pronto: parla con Gemini su Vertex via Firebase AI.

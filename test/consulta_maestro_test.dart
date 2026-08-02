@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/consult_depth.dart';
@@ -22,14 +24,47 @@ void main() {
           FirebaseMaestroAiProvider.kBreveMaxTokens);
     });
 
-    test('Profonda usa Flash e un tetto circa triplo della Breve', () {
+    // I due tetti sono un valore concordato, non una proporzione: prima questa
+    // prova chiedeva solo che la Profonda fosse fra il doppio e il quadruplo
+    // della Breve, e 260 contro 780 la soddisfaceva pur essendo il doppio di
+    // quanto promesso alla persona. Una banda larga lascia passare qualunque
+    // coppia sbagliata purche' sbagliata nella stessa proporzione.
+    test('I due tetti sono quelli concordati, 160 e 320 token', () {
       expect(FirebaseMaestroAiProvider.modelForDepth(ConsultDepth.profonda),
           'gemini-2.5-flash');
+      expect(FirebaseMaestroAiProvider.kBreveMaxTokens, 160,
+          reason: 'la Breve vale circa novanta parole italiane');
+      expect(FirebaseMaestroAiProvider.kProfondaMaxTokens, 320,
+          reason: 'la Profonda vale circa centottanta parole italiane');
       final breve = FirebaseMaestroAiProvider.maxTokensForDepth(ConsultDepth.breve);
       final profonda =
           FirebaseMaestroAiProvider.maxTokensForDepth(ConsultDepth.profonda);
-      expect(profonda, greaterThan(breve * 2));
-      expect(profonda, lessThanOrEqualTo(breve * 4));
+      // La Profonda deve restare distinguibile: se le due misure si
+      // avvicinassero, il Premium non si sentirebbe piu'.
+      expect(profonda, greaterThanOrEqualTo(breve * 2));
+    });
+
+    test('La chat passa dal tetto della Breve, non da un numero suo', () {
+      // Nel provider la chat aveva un `maxOutputTokens: 800` scritto a mano,
+      // cioe' una seconda porta al tetto delle risposte che nessuna prova
+      // guardava: il punto solo valeva per il Consulta e la conversazione lo
+      // scavalcava. Qui si enumerano le misure che possono comparire come
+      // tetto, cosi' una terza porta non puo' nascere in silenzio.
+      final sorgente = File('lib/services/ai/firebase_maestro_ai_provider.dart')
+          .readAsStringSync();
+      final tetti = RegExp(r'maxOutputTokens:\s*([A-Za-z0-9_.]+)')
+          .allMatches(sorgente)
+          .map((m) => m.group(1)!)
+          .toList();
+      expect(tetti, isNotEmpty);
+      for (final tetto in tetti) {
+        expect(
+          int.tryParse(tetto),
+          isNull,
+          reason: 'il tetto $tetto e\' un numero scritto a mano: '
+              'i tetti vivono nelle costanti, in un punto solo',
+        );
+      }
     });
   });
 

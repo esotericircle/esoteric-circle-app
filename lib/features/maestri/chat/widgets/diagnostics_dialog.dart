@@ -5,6 +5,7 @@ import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../services/ai/registro_dei_guasti.dart';
 
 /// Pannello diagnostico della chat, discreto e a portata di tocco.
 ///
@@ -16,6 +17,7 @@ Future<void> showChatDiagnostics(
   BuildContext context, {
   required bool aiReady,
   required bool memoryPersistent,
+  RegistroDeiGuasti? guasti,
   String? appCheckDebugToken,
 }) {
   return showModalBottomSheet<void>(
@@ -29,6 +31,7 @@ Future<void> showChatDiagnostics(
       child: _DiagnosticsSheet(
         aiReady: aiReady,
         memoryPersistent: memoryPersistent,
+        guasti: guasti,
         appCheckDebugToken: appCheckDebugToken,
       ),
     ),
@@ -39,16 +42,23 @@ class _DiagnosticsSheet extends StatelessWidget {
   const _DiagnosticsSheet({
     required this.aiReady,
     required this.memoryPersistent,
+    required this.guasti,
     required this.appCheckDebugToken,
   });
 
   final bool aiReady;
   final bool memoryPersistent;
+
+  /// Il registro dei guasti della voce. E' la ragione per cui questo pannello
+  /// esiste ancora: prima diceva "Voce di Medora: attiva" anche quando ogni
+  /// chiamata falliva, perche' leggeva `isReady`, che risponde sempre di si'.
+  final RegistroDeiGuasti? guasti;
   final String? appCheckDebugToken;
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    final ultimo = guasti?.ultimo;
     return Container(
       padding: EdgeInsets.only(
         left: SpacingTokens.lg,
@@ -74,15 +84,29 @@ class _DiagnosticsSheet extends StatelessWidget {
           Text('Messa a punto', style: TypographyTokens.display(size: 20)),
           const SizedBox(height: SpacingTokens.md),
           _StatusRow(
-            label: 'Voce di Medora',
-            value: aiReady ? 'attiva' : 'non configurata',
-            good: aiReady,
+            label: 'Voce del Maestro',
+            value: !aiReady
+                ? 'non configurata'
+                : ultimo == null
+                    ? 'attiva'
+                    : 'accesa ma in guasto',
+            good: aiReady && ultimo == null,
           ),
           _StatusRow(
             label: 'Memoria',
             value: memoryPersistent ? 'persistente' : 'di sessione',
             good: memoryPersistent,
           ),
+          if (ultimo != null) ...[
+            const SizedBox(height: SpacingTokens.lg),
+            Text(
+              'Ultimo guasto della voce',
+              style: TypographyTokens.body(size: 15, weight: 600)
+                  .copyWith(color: palette.goldSoft),
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+            _CausaBox(guasto: ultimo),
+          ],
           const SizedBox(height: SpacingTokens.lg),
           Text(
             'Token di debug App Check',
@@ -137,6 +161,72 @@ class _StatusRow extends StatelessWidget {
             value,
             style: TypographyTokens.body(size: 15, weight: 600),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// La causa vera dell'ultimo silenzio, per esteso e copiabile.
+///
+/// Mostra il tipo dell'eccezione prima del messaggio, perche' il tipo e' il
+/// dato che distingue una quota finita da un servizio spento, e per due giri
+/// di lavoro era esattamente il dato che si perdeva.
+class _CausaBox extends StatelessWidget {
+  const _CausaBox({required this.guasto});
+
+  final GuastoDellaVoce guasto;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      decoration: BoxDecoration(
+        color: palette.surface.withValues(alpha: 0.6),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '${guasto.operazione}: ${guasto.tipo}',
+                  style: TypographyTokens.body(size: 14, weight: 600),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: guasto.riga));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Causa copiata')),
+                  );
+                },
+                child:
+                    Icon(Icons.copy_rounded, color: palette.goldSoft, size: 20),
+              ),
+            ],
+          ),
+          const SizedBox(height: SpacingTokens.xs),
+          Text(
+            guasto.messaggio,
+            style: TypographyTokens.body(size: 13)
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+          if (guasto.eLApiSpenta) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              'Non è un difetto dell\'app. Sul progetto Google manca l\'API '
+              'firebasevertexai.googleapis.com: finché resta spenta nessuna '
+              'chiamata arriva a Gemini.',
+              style: TypographyTokens.body(size: 13)
+                  .copyWith(color: palette.goldSoft),
+            ),
+          ],
         ],
       ),
     );

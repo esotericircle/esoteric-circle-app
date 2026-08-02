@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/chat/chat_message.dart';
 import '../../../../core/chat/immersive_intents.dart';
+import '../../../../core/maestro/frase_di_ripiego.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../design_system/components/user_avatar.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
@@ -92,6 +93,31 @@ class ChatBubble extends StatelessWidget {
                     height: 1.5,
                   ),
                 ),
+                // Un ripiego lo dichiara la bolla stessa, sotto il testo: la
+                // persona deve poter distinguere a colpo d'occhio la voce del
+                // Maestro da cio' che l'app ha messo al suo posto. Senza questa
+                // riga il ripiego si legge come una risposta.
+                if (message.ripiego) ...[
+                  const SizedBox(height: SpacingTokens.xs),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.cloud_off_outlined,
+                        size: 13,
+                        color: ColorTokens.textMuted,
+                      ),
+                      const SizedBox(width: 4),
+                      Flexible(
+                        child: Text(
+                          RipiegoDelMaestro.etichetta,
+                          style: TypographyTokens.body(size: 13)
+                              .copyWith(color: ColorTokens.textMuted),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
                 if (message.intentId != null) ...[
                   const SizedBox(height: SpacingTokens.sm),
                   _IntentButton(

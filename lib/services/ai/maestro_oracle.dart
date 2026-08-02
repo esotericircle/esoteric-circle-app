@@ -9,7 +9,11 @@ import '../../core/maestro/maestro_reply.dart';
 /// cosi' la card della schermata mostra allo stesso modo la risposta viva e
 /// quella di ripiego.
 class MaestroLens {
-  const MaestroLens({required this.maestro, required this.reply});
+  const MaestroLens({
+    required this.maestro,
+    required this.reply,
+    this.ripiego = false,
+  });
 
   /// Costruisce la lente dai tre strati direttamente, comodo per l'oracolo.
   MaestroLens.strati({
@@ -17,10 +21,22 @@ class MaestroLens {
     required String glance,
     required String reading,
     required String invite,
+    this.ripiego = false,
   }) : reply = MaestroReply(glance: glance, reading: reading, invite: invite);
 
   final Maestro maestro;
   final MaestroReply reply;
+
+  /// Vero se questa lente NON viene dall'AI ma dall'oracolo deterministico
+  /// dell'app. Il Consulta cadeva sul ripiego in silenzio, quindi una risposta
+  /// scritta mesi fa e una risposta viva del Maestro erano indistinguibili:
+  /// era il posto in cui il silenzio si vedeva meno di tutti, e per questo il
+  /// piu' pericoloso.
+  final bool ripiego;
+
+  /// La stessa lente, dichiarata come ripiego.
+  MaestroLens comeRipiego() =>
+      MaestroLens(maestro: maestro, reply: reply, ripiego: true);
 
   /// Sintesi in una riga, il colpo d'occhio.
   String get glance => reply.glance;

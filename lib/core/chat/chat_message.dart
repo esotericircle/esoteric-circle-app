@@ -16,6 +16,7 @@ class ChatMessage {
     this.at,
     this.pending = false,
     this.failed = false,
+    this.ripiego = false,
     this.intentId,
   });
 
@@ -36,16 +37,28 @@ class ChatMessage {
   /// Vero se l'invio non e' andato a buon fine: la UI offre di riprovare.
   final bool failed;
 
+  /// Vero se questo testo NON viene dal Maestro ma da un ripiego dell'app.
+  /// Distinto da [failed], che dice solo che si puo' riprovare: un ripiego puo'
+  /// essere una risposta compiuta e leggibile, e proprio per questo va
+  /// dichiarato, altrimenti la persona la scambia per la voce del Maestro.
+  final bool ripiego;
+
   bool get isUser => role == ChatRole.user;
   bool get isMaestro => role == ChatRole.maestro;
 
-  ChatMessage copyWith({String? text, bool? pending, bool? failed}) {
+  ChatMessage copyWith({
+    String? text,
+    bool? pending,
+    bool? failed,
+    bool? ripiego,
+  }) {
     return ChatMessage(
       role: role,
       text: text ?? this.text,
       at: at,
       pending: pending ?? this.pending,
       failed: failed ?? this.failed,
+      ripiego: ripiego ?? this.ripiego,
       intentId: intentId,
     );
   }

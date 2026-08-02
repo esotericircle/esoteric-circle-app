@@ -12,6 +12,7 @@ import '../../core/maestro/natal_context.dart';
 import 'maestro_ai_provider.dart';
 import 'maestro_oracle.dart';
 import 'maestro_persona.dart';
+import 'registro_dei_guasti.dart';
 
 /// Implementazione dell'AI dei Maestri su Gemini via Firebase AI Logic.
 ///
@@ -47,10 +48,17 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   /// Modello per la risposta Profonda del Premium: Flash, piu' ricco.
   static const String kMaestroProfondaModel = 'gemini-2.5-flash';
 
-  /// Tetto duro di token in uscita per profondita': la Breve contenuta, la
-  /// Profonda circa il triplo, adattiva ma mai oltre.
-  static const int kBreveMaxTokens = 260;
-  static const int kProfondaMaxTokens = 780;
+  /// Tetto duro di token in uscita per profondita'.
+  ///
+  /// Erano 260 e 780, e nessuno dei due era il valore concordato: 780 token
+  /// producevano risposte lunghe il doppio di quanto promesso. Portando la
+  /// Profonda a 320, cioe' circa centottanta parole italiane, una Breve rimasta
+  /// a 260 sarebbe diventata indistinguibile dalla Profonda, e il Premium non
+  /// si sarebbe piu' sentito: per questo scendono tutte e due.
+  ///
+  /// Breve 160 token, circa novanta parole. Profonda 320, circa centottanta.
+  static const int kBreveMaxTokens = 160;
+  static const int kProfondaMaxTokens = 320;
 
   /// Ragionamento interno del modello per profondita': spento sulle Breve, cosi'
   /// non si spende in pensiero dove serve una risposta rapida; un margine minimo
@@ -58,8 +66,17 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   static const int kBreveThinkingBudget = 0;
   static const int kProfondaThinkingBudget = 512;
 
-  /// Tetto di token per la Sintesi comparativa: contenuta, in linea con la Breve.
-  static const int kSynthesisMaxTokens = 260;
+  /// Tetto di token per la Sintesi comparativa: contenuta, in linea con la
+  /// Breve. Scende con lei, per la stessa ragione: era 260 quando la Breve era
+  /// 260, e una sintesi piu' lunga delle letture che riassume non e' una sintesi.
+  static const int kSynthesisMaxTokens = kBreveMaxTokens;
+
+  /// Tetto di token per il distillato di memoria. Non e' una risposta letta da
+  /// nessuno, e' un JSON di servizio: sta largo perche' deve poter contenere
+  /// cinque fatti piu' la sintesi, ma resta una costante come tutti gli altri.
+  /// Era un 400 scritto a mano dentro la chiamata, cioe' la terza porta al
+  /// tetto delle uscite.
+  static const int kDistillMaxTokens = 400;
 
   /// Il modello giusto per la profondita', in un punto solo.
   static String modelForDepth(ConsultDepth depth) =>
@@ -106,7 +123,12 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       generationConfig: GenerationConfig(
         temperature: 0.9,
         topP: 0.95,
-        maxOutputTokens: 800,
+        // La chat passa dal tetto della Breve come tutti, e non da un numero
+        // suo. Qui c'era un 800 scritto a mano, cioe' una seconda porta al
+        // tetto delle risposte: il punto solo esisteva per il Consulta, e la
+        // conversazione lo scavalcava senza dirlo. Un turno di chat su telefono
+        // e' una risposta breve per definizione.
+        maxOutputTokens: kBreveMaxTokens,
       ),
     );
 
@@ -225,37 +247,35 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     required List<ChatMessage> history,
   }) async {
     if (history.isEmpty) return null;
-    try {
-      final model = _ai.generativeModel(
-        model: distillModel,
-        systemInstruction: Content.system(
-          MaestroPersona.distillInstruction(maestro),
-        ),
-        generationConfig: GenerationConfig(
-          temperature: 0.2,
-          maxOutputTokens: 400,
-          responseMimeType: 'application/json',
-        ),
-      );
+    // Nessun `catch` qui dentro: il distillato resta best effort, ma a decidere
+    // che un guasto e' innocuo e' `VoceSorvegliata`, che prima lo scrive. Un
+    // errore inghiottito nel punto piu' profondo non lo vede piu' nessuno.
+    final model = _ai.generativeModel(
+      model: distillModel,
+      systemInstruction: Content.system(
+        MaestroPersona.distillInstruction(maestro),
+      ),
+      generationConfig: GenerationConfig(
+        temperature: 0.2,
+        maxOutputTokens: kDistillMaxTokens,
+        responseMimeType: 'application/json',
+      ),
+    );
 
-      final transcript = StringBuffer();
-      if (previous.sessionSummary.trim().isNotEmpty) {
-        transcript.writeln('Sintesi precedente: ${previous.sessionSummary.trim()}');
-      }
-      for (final m in history) {
-        final who = m.isUser ? 'Utente' : maestro.displayName;
-        transcript.writeln('$who: ${m.text}');
-      }
-
-      final response =
-          await model.generateContent([Content.text(transcript.toString())]);
-      final raw = response.text?.trim();
-      if (raw == null || raw.isEmpty) return null;
-      return _parseDigest(raw, previous);
-    } catch (_) {
-      // Il distillato e' best effort: se fallisce, la memoria resta com'era.
-      return null;
+    final transcript = StringBuffer();
+    if (previous.sessionSummary.trim().isNotEmpty) {
+      transcript.writeln('Sintesi precedente: ${previous.sessionSummary.trim()}');
     }
+    for (final m in history) {
+      final who = m.isUser ? 'Utente' : maestro.displayName;
+      transcript.writeln('$who: ${m.text}');
+    }
+
+    final response =
+        await model.generateContent([Content.text(transcript.toString())]);
+    final raw = response.text?.trim();
+    if (raw == null || raw.isEmpty) return null;
+    return _parseDigest(raw, previous);
   }
 
   /// Traduce la storia di dominio nella forma attesa da Gemini, tenendo solo la
@@ -289,7 +309,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       final reading = (decoded['reading'] as Object?)?.toString().trim() ?? '';
       final invite = (decoded['invite'] as Object?)?.toString().trim() ?? '';
       return MaestroReply(glance: glance, reading: reading, invite: invite);
-    } catch (_) {
+    } catch (errore, traccia) {
+      annotaGuastoInnocuo(
+          'leggendo i tre strati dalla risposta del Maestro', errore, traccia);
       return null;
     }
   }
@@ -314,7 +336,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       ];
       final digest = MemoryDigest(summary: summary, facts: facts);
       return digest.isEmpty ? null : digest;
-    } catch (_) {
+    } catch (errore, traccia) {
+      annotaGuastoInnocuo(
+          'leggendo il distillato di memoria', errore, traccia);
       return null;
     }
   }
