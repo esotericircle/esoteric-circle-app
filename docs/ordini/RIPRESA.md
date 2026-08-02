@@ -52,6 +52,49 @@ l'API spenta lo dichiara in chiaro. Prima di questo lavoro il pannello diceva
 "Voce di Medora: attiva" anche mentre ogni chiamata falliva, perche' leggeva
 `isReady`, che risponde sempre di si'.
 
+## ORDINE CHAT 4: CHIUSO PER INTERO, e il numero e' tornato a 98,3
+
+Chiuso il 2 agosto 2026.
+
+**2a, LA MISURA PRIMA DELLA CORREZIONE.** Delle due ipotesi era vera la PRIMA:
+**il corpo non e' mai stato disegnato**. `grep -nE "Image|Zodiac|Emblem|CustomPaint"`
+su `consulto_del_cielo_view.dart` non trovava niente, e il `build` conteneva una
+Column con DUE Text. Non c'era nessun asset da non decodificare. **La voce 2a
+dell'ordine 3 era chiusa a meta'**: il commit diceva "passano i corpi VERI della
+carta" e passavano i loro NOMI. Dieci prove la coprivano e nessuna se ne accorse,
+perche' contavano widget e testo.
+
+**LA LENTE, e l'ipotesi dell'ordine che e' CADUTA prima di risalire.**
+La lente descritta in ASTRATTO ha PEGGIORATO tutto: da 96,7 a **88,3**, con
+Medora E Caligo che scivolavano tutti e due verso Aura. Dire "guarda il moto nel
+tempo" senza le parole con cui lo si dice spinge anche loro nel registro
+interiore, che e' di Aura. **Agganciata la lente al LESSICO DI FIRMA**, che gia'
+esisteva come dato e che reggeva il 98,3 prima che l'ancoraggio nascesse:
+
+```
+           medora     aura   caligo    totale  giusti
+medora         20        0        0        20  100,0%
+aura            0       20        0        20  100,0%
+caligo          0        1       19        20   95,0%
+```
+
+**59 su 60, cioe' 98,3 per cento, e la coppia Medora-Aura e' PULITA**: zero
+scambi, contro i due di due esecuzioni consecutive. Bersaglio centrato.
+
+**Chi tocchera' le lenti sappia questo**: la lente da sola non basta, e senza il
+lessico di firma fa danno. Le due cose vanno insieme.
+
+**LA PROVA A PIXEL, coi numeri veri.** Misura differenziale contro la stessa
+scena senza corpo. Disco lunare **9.216**, emblema del segno **4.396**, punto
+luminoso **1.207** su 9.216 disponibili. Soglia a **700**. **La prima soglia era
+1.500, STIMATA a mente, e bocciava un corpo che c'era**: un numero indovinato in
+un test e' un difetto quanto uno indovinato nel codice.
+
+**IL PRECARICO E' OBBLIGATORIO.** Senza `precacheImage` l'emblema dipinge ZERO
+pixel in prova, e la misura accusa la scena di essere vuota quando e' la misura a
+non vedere. La funzione `precarica` sta in cima a `prima_dopo_capture_test.dart`
+e la usano tutte le catture che mostrano arte.
+
 ## LE DUE VOCI VECCHIE SONO CHIUSE: non resta piu' niente in sospeso
 
 Chiuse il 2 agosto 2026, dopo l'ORDINE CHAT 3: la 1a e la 2b dell'ORDINE CHAT 2.
