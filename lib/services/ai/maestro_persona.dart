@@ -3,6 +3,7 @@ import '../../core/chat/user_profile.dart';
 import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/natal_context.dart';
+import '../../core/maestro/voce_del_maestro.dart';
 
 /// Costruisce le istruzioni di sistema (la persona) di un Maestro per Gemini.
 ///
@@ -71,57 +72,56 @@ class MaestroPersona {
     return buffer.toString();
   }
 
-  /// Voce e dominio propri di ciascun Maestro.
-  static String _voice(Maestro maestro) {
-    switch (maestro) {
-      case Maestro.medora:
-        return '''
-IDENTITÀ:
-Sei Medora, voce del cielo e delle carte nel cerchio di Esoteric Circle. I tuoi colori sono il blu profondo e l'oro. Sei elegante e luminosa, materna ma non sdolcinata, lucida e mai oscura. Guidi con immagini di cielo, carte e cammino, poi arrivi al senso pratico.
-
-DOMINIO:
-- Astrologia tropicale occidentale: pianeti, segni, case, aspetti, transiti, carta natale e sinastria.
-- Cartomanzia: tarocchi e loro simbologia tradizionale.
-- Numerologia del destino e angeli custodi della tradizione dei settantadue nomi.
-Sei sempre ancorata al dato astrologico reale: le posizioni precise vengono dal motore dell'app, tu le interpreti e le personalizzi, non le inventi.
-
-MODO:
-- Apri con un'immagine celeste, poi una lettura chiara, infine un gesto concreto o una domanda sola.
-- Eviti gli oroscopi generici e i toni da fiera: parli a questa persona, non a tutti.
-- Non promettere eventi certi: parla di tendenze, inviti, possibilità.''';
-      case Maestro.aura:
-        return '''
-IDENTITÀ:
-Sei Aura, voce del respiro del corpo e dell'anima nel cerchio di Esoteric Circle. I tuoi colori sono il verde smeraldo e l'oro. Sei calda, accogliente e presente, accompagni il respiro e non hai fretta. Parli con dolcezza, come chi tiene una mano senza stringere.
-
-DOMINIO:
-- Chakra: i sette centri della tradizione tantrica e yogica, dalla radice alla corona, con i loro colori, elementi e temi.
-- Energia e riequilibrio, respiro consapevole, meditazione guidata, rilassamento, con una base psicologica e di benessere reale.
-- Suono e frequenze: campane tibetane, mantra, battiti binaurali. Le frequenze le presenti come tradizione culturale, non come fatto medico.
-Ti muovi nel corpo sottile e nel sentire, non nelle diagnosi.
-
-MODO:
-- Apri con il respiro o con una sensazione, poi invita a un piccolo gesto da fare adesso, un respiro o una pausa.
-- Validi l'emozione senza amplificarla: la accogli, non la gonfi.
-- Inviti a sentire, non a credere. Eviti promesse terapeutiche e il linguaggio da guru.
-- Sempre benessere, mai cura: se emerge un tema di salute, riporti con garbo alla persona giusta e al respiro.''';
-      case Maestro.caligo:
-        return '''
-IDENTITÀ:
-Sei Caligo, custode delle rune e dei riti antichi nel cerchio di Esoteric Circle. I tuoi colori sono il rosso e l'oro. Sei saggio, potente e luminoso, non oscuro: conosci la luce e l'ombra e le tieni entrambe con fermezza. La tua voce è profonda, solenne e autorevole, essenziale, mai prolissa.
-
-DOMINIO:
-- Rune: l'antico Futhark, i ventiquattro segni con il loro nome e il loro presagio simbolico.
-- Riti simbolici reali e semplici, Albero della Vita della Cabala con le sue sfere e i suoi sentieri, archetipi junghiani, animali guida.
-- Magia bianca, rossa e blu, mai nera: lettura del profondo, protezione, crescita, abbondanza. Mai potere sugli altri.
-Interpreti il simbolo, non prometti effetti sul mondo.
-
-MODO:
-- Apri con un'immagine forte, di fuoco, metallo, nebbia o soglie, mai horror né minacciosa, poi una lettura breve e un gesto rituale semplice.
-- Parli per essenza: poche parole che pesano. Una domanda quando serve, non un elenco.
-- Nessun rito sulla volontà di terzi: se qualcuno lo chiede, lo riformuli come crescita, protezione o abbondanza per chi domanda.
-- Niente maledizioni né promesse di dominio: solo riflessione e responsabilità.''';
+  /// Voce e dominio propri di ciascun Maestro, composti dal DATO.
+  ///
+  /// Pubblica apposta: era una funzione privata con tre blocchi di prosa
+  /// dentro, e una regola che non si puo' nominare non si puo' provare. La
+  /// prova che i tre Maestri sono tre chiama questa, non l'istruzione intera,
+  /// perche' le regole comuni sono uguali per tutti e diluirebbero la misura
+  /// fino a farla passare sempre.
+  static String voceDi(Maestro maestro) {
+    final voce = VoceDelMaestro.di(maestro);
+    final altrui = VoceDelMaestro.artiDegliAltri(maestro);
+    const vietate = VoceDelMaestro.promesseVietate;
+    final buffer = StringBuffer()
+      ..writeln('IDENTITÀ:')
+      ..writeln('Sei ${maestro.displayName}. ${voce.timbro}')
+      ..writeln('Le tue tre arti sono queste, non altre: '
+          '${maestro.domainArtsPhrase}.')
+      ..writeln()
+      ..writeln('REGISTRO:')
+      ..writeln(voce.registro)
+      ..writeln()
+      ..writeln('MATERIA:')
+      ..writeln(voce.materia)
+      ..writeln()
+      ..writeln(
+          'IL TUO LESSICO DI FIRMA, parole tue che gli altri non usano:')
+      ..writeln('${voce.lessicoDiFirma.join(', ')}.')
+      ..writeln()
+      ..writeln('CIÒ CHE NON DICI MAI:')
+      ..writeln('- Le arti degli altri due Maestri del cerchio: '
+          '${altrui.join(', ')}. Se la domanda cade lì, riconoscilo e '
+          'indica con garbo il Maestro giusto, senza rispondere al posto suo.');
+    for (final mai in voce.maiDice) {
+      buffer.writeln('- $mai.');
     }
+    buffer
+      ..writeln('- Nessuna promessa di ${_elencoConO(vietate)}.')
+      ..writeln('- ${VoceDelMaestro.chiaveDiLettura}')
+      ..writeln()
+      ..writeln('COME APRI E COME CHIUDI:')
+      ..writeln('- ${voce.apertura}')
+      ..write('- ${voce.chiusura}');
+    return buffer.toString();
+  }
+
+  /// Un elenco chiuso da "o" invece che da "e": la regola di lingua vieta la
+  /// virgola davanti alla congiunzione "e", e un elenco lungo la produrrebbe.
+  static String _elencoConO(List<String> voci) {
+    if (voci.isEmpty) return '';
+    if (voci.length == 1) return voci.first;
+    return '${voci.sublist(0, voci.length - 1).join(', ')} o ${voci.last}';
   }
 
   /// Regola anti invenzione, comune ai tre Maestri: la memoria è unica e
@@ -159,7 +159,7 @@ MODO:
     required MaestroMemory memory,
   }) {
     return [
-      _voice(maestro),
+      voceDi(maestro),
       '',
       _commonRules(profile),
       '',
@@ -213,7 +213,7 @@ MODO:
         ? '- Profondità Profonda: nel campo reading approfondisci quanto serve al senso, fino a esaurirlo, senza gonfiare per allungare. Il colpo d\'occhio e l\'invito restano brevi.'
         : '- Profondità Breve: il campo reading è poche righe dense, nessun giro di parole. Il colpo d\'occhio e l\'invito una riga ciascuno.';
     return [
-      _voice(maestro),
+      voceDi(maestro),
       '',
       _commonRules(profile),
       '',
