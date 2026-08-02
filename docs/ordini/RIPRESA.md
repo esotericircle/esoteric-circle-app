@@ -52,6 +52,57 @@ l'API spenta lo dichiara in chiaro. Prima di questo lavoro il pannello diceva
 "Voce di Medora: attiva" anche mentre ogni chiamata falliva, perche' leggeva
 `isReady`, che risponde sempre di si'.
 
+## LA CHAT NON RISPONDE ANCORA, E LA CAUSA E' MISURATA: MANCA LA CONFIGURAZIONE DI AI LOGIC
+
+Diagnosi del 2 agosto 2026, build 2133. **Nessuna correzione applicata: la cosa
+che manca non si crea da nessuna API, si crea nella Console di Firebase.**
+
+**L'errore letto dal pannello sul telefono, e RIPRODOTTO dal PC** con la
+configurazione reale dell'app:
+
+```
+POST https://firebasevertexai.googleapis.com/v1beta/projects/esoteric-circle
+     /locations/europe-west1/publishers/google/models/gemini-2.5-flash:generateContent
+HTTP 403
+{"error":{"code":403,"status":"PERMISSION_DENIED",
+ "message":"AI logic config is missing for this project. Please complete the
+            onboarding process in the Firebase Console to enable AI logic."}}
+```
+
+**SETTE IPOTESI, SEI ABBATTUTE COL NUMERO.** Nessuna di queste e' la causa:
+
+1. **Progetto sbagliato**: `google-services.json` dice `project_id`
+   **esoteric-circle**, `project_number` 425821975933, `mobilesdk_app_id`
+   `1:425821975933:android:1b1ca4db8d4df69b940814`. E' il progetto giusto.
+2. **applicationId disallineato**: `build.gradle.kts:24` dice
+   `com.esotericircle.esoteric_circle`, identico al `package_name`.
+3. **Regione**: la stessa chiamata su `us-central1` torna lo STESSO 403.
+4. **Backend**: la strada Gemini Developer, che l'app non usa, torna lo STESSO
+   403. Il provider usa Vertex, `FirebaseAI.vertexAI(location: 'europe-west1')`
+   in `firebase_maestro_ai_provider.dart:29`.
+5. **API spente**: `aiplatform.googleapis.com`, `firebasevertexai.googleapis.com`
+   e `generativelanguage.googleapis.com` sono tutte e tre ABILITATE, su 70.
+6. **firebaseml spenta**: PROVA DIFFERENZIALE eseguita, accesa e poi rimessa
+   com'era. Il 403 non e' cambiato di una virgola. Il progetto e' stato
+   riportato allo stato in cui l'ho trovato.
+7. **Chiave API ristretta**: la chiave Android dell'app ha restrizioni per API,
+   e `firebasevertexai.googleapis.com` **e' nell'elenco delle consentite**.
+
+**LA CAUSA, in una riga:** al progetto `esoteric-circle` manca la
+CONFIGURAZIONE di Firebase AI Logic, che non e' un'API di Google Cloud e non si
+crea da `gcloud`, ma e' una risorsa lato Firebase che nasce solo completando
+l'onboarding nella Console.
+
+**PERCHE' LA CONSOLE SEMBRA VERDE E NON LO E'.** La scheda Impostazioni che
+mostra "API Gemini Developer: Abilitata" e "Agent Platform Gemini API:
+Abilitata" dichiara lo stato delle API, non l'esistenza della configurazione:
+sono due cose diverse, ed e' lo stesso tipo di equivoco gia' visto il 2 agosto
+fra imposizione di App Check spenta sul server e token chiesto dal client.
+
+**COME SI VERIFICA SE E' STATA CREATA**, senza telefono e senza build: si
+rilancia la chiamata qui sopra. Finche' torna quel 403, la configurazione non
+c'e'. Appena torna un `candidates`, c'e'.
+
 ## ORDINE B: CHIUSO PER INTERO. L'app non dice piu' il falso
 
 Chiuso il 2 agosto 2026.
