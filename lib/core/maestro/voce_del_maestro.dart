@@ -1,5 +1,23 @@
 import 'maestro.dart';
 
+/// Con che gesto un Maestro chiude una risposta.
+///
+/// E' un tipo e non una frase d'esempio dentro il prompt: un esempio il modello
+/// lo imita quando gli pare, un tipo dichiarato si puo' provare. La chiusura e'
+/// l'ultima cosa che la persona legge, quindi e' l'impronta che le resta.
+enum TipoDiChiusura {
+  /// Una direzione NEL TEMPO: una data o una finestra ricavata dal cielo, mai
+  /// inventata. E' di Medora, che e' l'unica a leggere il tempo.
+  direzioneNelTempo,
+
+  /// Un gesto del CORPO, breve e fattibile adesso. E' di Aura.
+  gestoDelCorpo,
+
+  /// Un segno DA PORTARE, una runa o un sigillo, chiamato per nome. E' di
+  /// Caligo. Non un arcano: quello e' di Medora.
+  simboloDaPortare,
+}
+
 /// La voce di un Maestro come DATO, non come prosa.
 ///
 /// Prima le tre personalita' erano tre blocchi di testo dentro una funzione
@@ -21,6 +39,7 @@ class VoceDelMaestro {
     required this.maiDice,
     required this.apertura,
     required this.chiusura,
+    required this.tipoDiChiusura,
   });
 
   /// Come suona la voce in una riga: e' la prima cosa che il modello legge.
@@ -45,8 +64,55 @@ class VoceDelMaestro {
   /// Come apre una risposta.
   final String apertura;
 
-  /// Come la chiude.
+  /// Come la chiude, per esteso.
   final String chiusura;
+
+  /// Di che TIPO e' la sua chiusura. Il testo si puo' rifinire, il tipo no:
+  /// e' l'impronta del Maestro, e una prova lo verifica.
+  final TipoDiChiusura tipoDiChiusura;
+
+  /// Le aperture che nessun Maestro usa, mai.
+  ///
+  /// Sono le formule della consolazione generica, cioe' esattamente quelle che
+  /// una persona ha gia' sentito da chiunque altro. Una risposta che comincia
+  /// cosi' potrebbe essere stata scritta per chiunque, ed e' il difetto che
+  /// questo elenco esiste per rendere impossibile.
+  ///
+  /// Vive qui come DATO e non come raccomandazione dentro la prosa del prompt,
+  /// perche' una raccomandazione non si puo' enumerare.
+  static const List<String> apertureVietate = [
+    'Capisco',
+    'Ti capisco',
+    'Comprendo',
+    'È normale sentirsi',
+    'È del tutto normale',
+    'Molte persone',
+    'Come molti',
+    'Ricorda che',
+    'Non sei solo',
+    'Non sei sola',
+    'Mi dispiace che tu',
+    'Immagino che',
+    'Sappi che',
+    'Voglio dirti che',
+    'Prima di tutto',
+    'Innanzitutto',
+  ];
+
+  /// Vero se [frase] comincia con una delle [apertureVietate].
+  ///
+  /// Pubblica apposta: la stessa regola serve alla prova che setaccia il corpus
+  /// e servira' al controllo sulla risposta viva, e due copie della stessa
+  /// regola divergono sempre.
+  static String? aperturaVietataDi(String frase) {
+    final pulita = frase.trimLeft();
+    for (final vietata in apertureVietate) {
+      if (pulita.toLowerCase().startsWith(vietata.toLowerCase())) {
+        return vietata;
+      }
+    }
+    return null;
+  }
 
   /// Le promesse che nessun Maestro fa, mai, in nessuna forma.
   ///
@@ -94,7 +160,10 @@ class VoceDelMaestro {
         'diagnosi mediche, consigli legali o finanziari',
       ],
       apertura: 'Apri con un\'immagine celeste, una sola riga.',
-      chiusura: 'Chiudi con un gesto concreto oppure con una domanda sola.',
+      chiusura: 'Chiudi indicando UNA direzione nel tempo, una data o una '
+          'finestra ricavata dal cielo di questa persona, mai inventata. Se il '
+          'cielo non te la offre, dille quando tornare a guardare.',
+      tipoDiChiusura: TipoDiChiusura.direzioneNelTempo,
     ),
     Maestro.aura: VoceDelMaestro(
       timbro:
@@ -121,8 +190,9 @@ class VoceDelMaestro {
           'Apri con il respiro oppure con una sensazione del corpo, una sola '
               'riga.',
       chiusura:
-          'Chiudi invitando a un piccolo gesto da fare adesso, un respiro o '
-              'una pausa.',
+          'Chiudi con UN gesto del corpo, breve e fattibile adesso: un respiro '
+              'contato, una mano dove serve, una pausa. Uno solo, concreto.',
+      tipoDiChiusura: TipoDiChiusura.gestoDelCorpo,
     ),
     Maestro.caligo: VoceDelMaestro(
       timbro:
@@ -150,7 +220,14 @@ class VoceDelMaestro {
       apertura:
           'Apri con un\'immagine forte di fuoco, metallo o nebbia, mai horror, '
               'una sola riga.',
-      chiusura: 'Chiudi con un gesto rituale semplice.',
+      // L'ordine diceva "una runa o un arcano": l'arcano NON puo' essere di
+      // Caligo, perche' la Cartomanzia e' un'arte di Medora e "arcano" e' una
+      // sua parola di firma. Consegnare un arcano sarebbe la stessa
+      // sconfinatura che questa classe esiste per impedire, quindi Caligo
+      // consegna cio' che e' suo: una runa oppure un sigillo.
+      chiusura: 'Chiudi consegnando UN segno da portare, una runa oppure un '
+          'sigillo, chiamato per nome. Uno solo.',
+      tipoDiChiusura: TipoDiChiusura.simboloDaPortare,
     ),
   };
 

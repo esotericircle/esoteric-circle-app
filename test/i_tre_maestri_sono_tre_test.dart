@@ -1,4 +1,7 @@
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
+import 'package:esoteric_circle/core/maestro/maestro_welcome.dart';
+import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/core/maestro/voce_del_maestro.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -173,5 +176,129 @@ void main() {
       expect(testo.contains('—'), isFalse,
           reason: 'trattino lungo nella voce di ${maestro.id}');
     }
+  });
+
+  group('Nessuna risposta comincia come le altre', () {
+    // I temi su cui si interroga l'oracolo deterministico. Non sono inventati
+    // per la prova: sono il genere di domanda con cui una persona arriva.
+    const temi = [
+      'ho paura di sbagliare',
+      'oggi mi sento fermo',
+      'cosa mi manca',
+      'non so se restare',
+      'mi sento solo',
+      'ho perso la direzione',
+      'sono stanco di aspettare',
+      'non mi fido di me',
+    ];
+
+    test('Il corpus deterministico non usa nessuna apertura vietata', () {
+      const oracolo = MaestroOracle();
+      final colpe = <String>[];
+
+      // 1. Le tre lenti dell'oracolo su ogni tema, tutti e tre gli strati.
+      for (final tema in temi) {
+        final consulto =
+            oracolo.consult(theme: tema, maestri: Maestro.values.toList());
+        for (final lente in consulto.lenses) {
+          final strati = <String, String>{
+            'colpo d occhio': lente.glance,
+            'lettura': lente.reading,
+            'invito': lente.invite,
+          };
+          for (final voce in strati.entries) {
+            final vietata = VoceDelMaestro.aperturaVietataDi(voce.value);
+            if (vietata != null) {
+              colpe.add('oracolo ${lente.maestro.id}, ${voce.key}, tema '
+                  '"$tema": comincia con "$vietata"');
+            }
+          }
+        }
+      }
+
+      // 2. Le frasi di ripiego dei tre Maestri, che una persona legge nel
+      //    momento peggiore, cioe' quando la voce non arriva.
+      for (final maestro in Maestro.values) {
+        final ripieghi = <String, String>{
+          'silenzio': RipiegoDelMaestro.silenzioDi(maestro),
+          'non configurato': RipiegoDelMaestro.nonConfiguratoDi(maestro),
+        };
+        for (final voce in ripieghi.entries) {
+          final vietata = VoceDelMaestro.aperturaVietataDi(voce.value);
+          if (vietata != null) {
+            colpe.add('ripiego ${maestro.id}, ${voce.key}: '
+                'comincia con "$vietata"');
+          }
+        }
+      }
+
+      // 3. Le aperture del benvenuto.
+      for (final apertura in MaestroWelcome.openings) {
+        final vietata = VoceDelMaestro.aperturaVietataDi(apertura);
+        if (vietata != null) {
+          colpe.add('benvenuto: "$apertura" comincia con "$vietata"');
+        }
+      }
+
+      expect(colpe, isEmpty, reason: '\n${colpe.join('\n')}\n');
+    });
+
+    test('Il controllo riconosce davvero un apertura vietata', () {
+      // Senza questa, la prova qui sopra passerebbe anche con un controllo che
+      // non guarda niente, ed e' un modo di sbagliare abbastanza comune da
+      // meritare una riga di codice.
+      for (final vietata in VoceDelMaestro.apertureVietate) {
+        expect(VoceDelMaestro.aperturaVietataDi('$vietata, ascolta il cielo.'),
+            vietata);
+      }
+      expect(VoceDelMaestro.aperturaVietataDi('Il cielo si è coperto.'), isNull);
+    });
+
+    test('Il divieto entra nella persona di tutti e tre', () {
+      for (final maestro in Maestro.values) {
+        final voce = MaestroPersona.voceDi(maestro);
+        for (final vietata in VoceDelMaestro.apertureVietate) {
+          expect(voce.contains('"$vietata"'), isTrue,
+              reason: '${maestro.id} non porta il divieto su "$vietata": '
+                  'un elenco che non arriva al modello non e un divieto');
+        }
+      }
+    });
+  });
+
+  group('Ogni Maestro chiude a modo suo', () {
+    test('I tre tipi di chiusura sono tre, e nessuno si ripete', () {
+      final tipi = <TipoDiChiusura>{};
+      for (final maestro in Maestro.values) {
+        tipi.add(VoceDelMaestro.di(maestro).tipoDiChiusura);
+      }
+      expect(tipi.length, Maestro.values.length,
+          reason: 'due Maestri che chiudono allo stesso modo non hanno due '
+              'impronte, ne hanno una sola');
+    });
+
+    test('Ogni Maestro ha il tipo giusto per la sua materia', () {
+      // Chi legge il tempo e' uno solo, e cosi' chi consegna un simbolo.
+      const atteso = {
+        Maestro.medora: TipoDiChiusura.direzioneNelTempo,
+        Maestro.aura: TipoDiChiusura.gestoDelCorpo,
+        Maestro.caligo: TipoDiChiusura.simboloDaPortare,
+      };
+      for (final maestro in Maestro.values) {
+        expect(VoceDelMaestro.di(maestro).tipoDiChiusura, atteso[maestro],
+            reason: 'la chiusura di ${maestro.id} non e la sua impronta');
+      }
+    });
+
+    test('La chiusura arriva al modello, ed e obbligatoria', () {
+      for (final maestro in Maestro.values) {
+        final voce = MaestroPersona.voceDi(maestro);
+        expect(voce.contains(VoceDelMaestro.di(maestro).chiusura), isTrue,
+            reason: '${maestro.id}: la chiusura dichiarata non entra nella '
+                'persona, quindi vive solo nel dato e non a runtime');
+        expect(voce.contains('facoltativa'), isTrue,
+            reason: '${maestro.id}: la chiusura e suggerita, non imposta');
+      }
+    });
   });
 }

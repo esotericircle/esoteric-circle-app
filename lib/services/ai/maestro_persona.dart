@@ -112,7 +112,20 @@ class MaestroPersona {
       ..writeln()
       ..writeln('COME APRI E COME CHIUDI:')
       ..writeln('- ${voce.apertura}')
-      ..write('- ${voce.chiusura}');
+      ..writeln('- ${voce.chiusura}')
+      ..writeln('- La chiusura non è facoltativa: ogni risposta la porta.')
+      ..writeln()
+      // Le aperture vietate si ELENCANO, non si riassumono in "evita i toni
+      // generici": una raccomandazione il modello la interpreta, un elenco no.
+      // Sono le formule della consolazione che la persona ha gia' sentito da
+      // chiunque, e una risposta che comincia cosi' potrebbe essere stata
+      // scritta per chiunque altro.
+      ..writeln('COME NON APRI MAI, NEMMENO UNA VOLTA:')
+      ..writeln('- Non cominciare MAI una risposta con nessuna di queste '
+          'formule, neppure con una loro variante: '
+          '${VoceDelMaestro.apertureVietate.map((a) => '"$a"').join(', ')}.')
+      ..write('- Apri sempre dal cielo o dal simbolo, mai dall\'emozione della '
+          'persona rispecchiata a parole.');
     return buffer.toString();
   }
 
