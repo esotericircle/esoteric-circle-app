@@ -6,22 +6,29 @@ import 'package:flutter_test/flutter_test.dart';
 /// Entitlement: il contatore giornaliero delle domande per tier e i piani.
 void main() {
   group('Contatore delle domande', () {
-    test('Il limite giornaliero segue i tier: 1, 5, 10, illimitate', () {
+    test('Il limite giornaliero segue i tier: 3, 5, 10, illimitate', () {
       final a = QuestionAllowance(clock: () => DateTime(2026, 7, 13));
-      // Una, come promette la matrice. Prima erano tre nel codice e una
-      // nella matrice: il numero adesso vive in un posto solo.
-      expect(a.dailyLimit(Tier.free), 1);
+      // TRE, che e' il numero deciso e approvato dal fondatore.
+      //
+      // Questa prova diceva UNA, e codificava il valore sbagliato: il 31
+      // luglio una divergenza fra matrice e codice era stata risolta facendo
+      // vincere la matrice, e la matrice portava uno. La correzione di allora
+      // era giusta nel metodo, sbagliata nel valore, e questa prova l'ha
+      // cristallizzata. Il 2 agosto il fondatore ha letto "una domanda al
+      // giorno" sul telefono.
+      expect(a.dailyLimit(Tier.free), 3);
       expect(a.dailyLimit(Tier.tier1), 5);
       expect(a.dailyLimit(Tier.tier2), 10);
       expect(a.dailyLimit(Tier.tier3), isNull);
     });
 
-    test('Viandante ha una risposta al giorno, si azzera il giorno dopo', () {
+    test('Viandante ha tre risposte al giorno, si azzerano il giorno dopo',
+        () {
       var now = DateTime(2026, 7, 13, 10);
       final allowance = QuestionAllowance(clock: () => now);
 
-      expect(allowance.remaining(Tier.free), 1);
-      for (var i = 0; i < 1; i++) {
+      expect(allowance.remaining(Tier.free), 3);
+      for (var i = 0; i < 3; i++) {
         expect(allowance.canAsk(Tier.free), isTrue);
         allowance.record(Tier.free);
       }
@@ -121,7 +128,8 @@ void main() {
           isTrue);
       expect(viandante.any((h) => h.contains('Una carta di tarocchi al giorno')),
           isTrue);
-      expect(viandante.any((h) => h.contains('Una domanda al giorno a un Maestro')),
+      expect(
+          viandante.any((h) => h.contains('Tre domande al giorno a un Maestro')),
           isTrue);
 
       final iniziato = PlanCatalog.forTier(Tier.tier1).highlights;
@@ -158,7 +166,7 @@ void main() {
       final domande = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Domande a un Maestro');
       expect(domande.values,
-          ['1 al giorno', '5 al giorno', '10 al giorno', 'Illimitate']);
+          ['3 al giorno', '5 al giorno', '10 al giorno', 'Illimitate']);
       final voce = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Voce AI dei Maestri');
       expect(voce.values, ['No', 'No', 'Esclusiva', 'Sì']);

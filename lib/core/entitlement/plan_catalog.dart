@@ -108,7 +108,7 @@ class PlanCatalog {
         'Accesso al Cerchio con i tre Maestri',
         'I quattro elementi giornalieri: Rito dell\'Alba, Soffio del Destino, Oracolo del Giorno, Runa del Tramonto',
         'Carta natale occidentale in lettura base',
-        'Una domanda al giorno a un Maestro, senza memoria',
+        'Tre domande al giorno a un Maestro, senza memoria',
         'Una carta di tarocchi al giorno',
         'Sinastria VIP fino a 3 al giorno',
         'Oroscopo settimanale base',
@@ -292,8 +292,13 @@ class PlanCatalog {
         ['Base', 'Dettagliato', 'Dettagliato', 'Dettagliato']),
     FeatureRow('Oroscopo mensile', ['No', 'No', 'Sì', 'Sì']),
     FeatureRow('Memoria AI dei Maestri', ['No', 'Esclusiva', 'Sì', 'Sì']),
+    // TRE per il Viandante, che e' il numero deciso e approvato dal fondatore.
+    // Diceva UNO, e l'app non mentiva: leggeva questo dato e lo ripeteva
+    // fedelmente. A mentire era il dato. Era finito qui il 31 luglio, quando
+    // una divergenza fra matrice e codice e' stata risolta facendo vincere la
+    // matrice: la correzione era giusta nel metodo, sbagliata nel valore.
     FeatureRow('Domande a un Maestro',
-        ['1 al giorno', '5 al giorno', '10 al giorno', 'Illimitate']),
+        ['3 al giorno', '5 al giorno', '10 al giorno', 'Illimitate']),
     FeatureRow('Vai più a fondo',
         ['No', '3 al giorno', '10 al giorno', 'Illimitati']),
     FeatureRow('Sintesi comparativa dei Maestri', ['No', 'Sì', 'Sì', 'Sì']),

@@ -12,6 +12,7 @@ import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/maestro_memory.dart';
 import '../../../core/chat/user_profile.dart';
 import '../../../core/maestro/ancoraggio.dart';
+import '../../../core/maestro/frase_del_limite.dart';
 import '../../../core/maestro/frase_di_ripiego.dart';
 import '../../../core/maestro/lettura_di_ripiego.dart';
 import '../../../core/maestro/natal_context.dart';
@@ -80,17 +81,6 @@ class MaestroChatController extends ChangeNotifier {
         profile: _profile,
         memory: _memoryState,
       );
-
-  /// Cosa dice il Maestro quando le domande del giorno sono finite. Nel suo
-  /// tono, col numero vero e con la via d'uscita: mai un vicolo cieco.
-  String _fraseDelLimite(Tier piano, QuestionAllowance contatore) {
-    final limite = contatore.dailyLimit(piano);
-    if (limite == null) return 'Torna domani: riprenderemo da qui.';
-    final quante = limite == 1 ? 'una domanda' : '$limite domande';
-    return 'Per oggi ci siamo detti abbastanza: il tuo cammino prevede '
-        '$quante al giorno. Torna domani, oppure allarga il tuo cerchio per '
-        'averne di piu.';
-  }
 
   /// Ogni quanti turni dell'utente rinfrescare il distillato di memoria.
   static const int _distillEvery = 3;
@@ -175,8 +165,13 @@ class MaestroChatController extends ChangeNotifier {
     if (piano != null && contatore != null && !contatore.canAsk(piano)) {
       _messages.add(ChatMessage(
         role: ChatRole.maestro,
-        text: _fraseDelLimite(piano, contatore),
+        // La frase viene dal DATO, e il numero pure: se domani il limite
+        // diventa cinque, la frase lo dice da sola. Ed e' diversa per i tre
+        // Maestri, perche' e' il messaggio che l'utente gratuito vede piu'
+        // spesso di ogni altro.
+        text: FraseDelLimite.per(maestro, limite: contatore.dailyLimit(piano)),
         at: DateTime.now(),
+        tipo: TipoDiMessaggio.limiteRaggiunto,
       ));
       notifyListeners();
       return;
@@ -228,11 +223,11 @@ class MaestroChatController extends ChangeNotifier {
   bool get puoiChiedereDiApprofondire {
     if (_sending || _messages.isEmpty) return false;
     final ultima = _messages.last;
+    // La regola vive nel DATO del messaggio, non qui: `portaUnResponso` sa da
+    // solo che una frase sul limite raggiunto non e' una lettura.
     return ultima.isMaestro &&
-        !ultima.failed &&
-        !ultima.ripiego &&
         !ultima.pending &&
-        ultima.intentId == null &&
+        ultima.portaUnResponso &&
         !ultima.approfondita;
   }
 
