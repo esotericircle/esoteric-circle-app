@@ -21,6 +21,7 @@ import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../services/app_services.dart';
+import '../../pricing/upgrade_invite.dart';
 import '../ask/ask_maestri_screen.dart';
 import '../immersive_navigation.dart';
 import 'maestro_chat_controller.dart';
@@ -153,6 +154,41 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         curve: Curves.easeOut,
       );
     });
+  }
+
+  /// Il tocco su "Vai piu' a fondo".
+  ///
+  /// Tre esiti, e nessuno dei tre e' un vicolo cieco: chi ha
+  /// l'approfondimento nel piano e ne ha ancora scende davvero; chi ce l'ha e
+  /// li ha finiti legge il numero vero e quando torna; chi non ce l'ha nel
+  /// piano riceve l'invito a salire. Mai un comando che non fa niente.
+  Future<void> _approfondisci(
+    BuildContext context,
+    MaestroChatController controller,
+  ) async {
+    final piano = context.read<EntitlementService>().tier;
+    final contatore = context.read<QuestionAllowance>();
+
+    if (!contatore.pianoConApprofondimento(piano)) {
+      await showUpgradeInvite(
+        context,
+        title: 'Il Maestro può scendere più a fondo',
+        message: 'Con il Cerchio puoi chiedergli di riprendere la stessa '
+            'lettura e portarla sotto la superficie, dove la prima si era '
+            'fermata.',
+      );
+      return;
+    }
+    if (!contatore.puoiApprofondire(piano)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'Per oggi siamo scesi abbastanza. Domani si riparte da qui.'),
+        ),
+      );
+      return;
+    }
+    await controller.approfondisci();
   }
 
   /// Il cielo di questa persona, dalla sorgente unica.
@@ -324,6 +360,14 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                   !controller.sending
               ? controller.retryLast
               : null,
+          // L'invito si vede SEMPRE sull'ultima risposta vera, anche per il
+          // Viandante: al tocco decide `_approfondisci`, che per chi non ha
+          // l'approfondimento nel piano apre l'invito a salire invece di un
+          // lucchetto muto.
+          onApprofondisci:
+              posizione == ultimo && controller.puoiChiedereDiApprofondire
+                  ? () => _approfondisci(context, controller)
+                  : null,
         );
       },
     );

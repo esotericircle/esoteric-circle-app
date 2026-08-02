@@ -32,6 +32,7 @@ class _CapturingAi implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
   }) async {
     lastMemory = memory;
     lastProfile = profile;

@@ -46,6 +46,7 @@ abstract interface class MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
   });
 
   /// Consulta UN Maestro su un [theme], a domanda singola, e restituisce i tre
@@ -125,6 +126,7 @@ class UnavailableMaestroAiProvider implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
   }) async {
     throw const MaestroAiUnavailable();
   }

@@ -17,6 +17,7 @@ class ChatMessage {
     this.pending = false,
     this.failed = false,
     this.ripiego = false,
+    this.approfondita = false,
     this.intentId,
   });
 
@@ -43,6 +44,11 @@ class ChatMessage {
   /// dichiarato, altrimenti la persona la scambia per la voce del Maestro.
   final bool ripiego;
 
+  /// Vero se questa risposta e' gia' stata portata piu' a fondo. L'invito
+  /// "Vai piu' a fondo" compare una volta sola per risposta: due volte sarebbe
+  /// una scala senza fine, e la persona non saprebbe quando si e' arrivati.
+  final bool approfondita;
+
   bool get isUser => role == ChatRole.user;
   bool get isMaestro => role == ChatRole.maestro;
 
@@ -51,6 +57,7 @@ class ChatMessage {
     bool? pending,
     bool? failed,
     bool? ripiego,
+    bool? approfondita,
   }) {
     return ChatMessage(
       role: role,
@@ -59,6 +66,7 @@ class ChatMessage {
       pending: pending ?? this.pending,
       failed: failed ?? this.failed,
       ripiego: ripiego ?? this.ripiego,
+      approfondita: approfondita ?? this.approfondita,
       intentId: intentId,
     );
   }

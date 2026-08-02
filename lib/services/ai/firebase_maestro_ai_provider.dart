@@ -71,6 +71,19 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   /// 260, e una sintesi piu' lunga delle letture che riassume non e' una sintesi.
   static const int kSynthesisMaxTokens = kBreveMaxTokens;
 
+  /// Tetto di token dell'APPROFONDIMENTO, cioe' della stessa risposta chiesta
+  /// di nuovo con "Vai piu' a fondo".
+  ///
+  /// Vive in questo blocco come tutti gli altri, e non dentro la chiamata: la
+  /// prova che enumera i tetti del file cade se qualcuno ne scrive uno a mano,
+  /// e questo e' il quarto che avrebbe potuto nascere cosi'.
+  ///
+  /// Piu' alto della Profonda del Consulta, 320, perche' li' la profondita' si
+  /// sceglie prima e vale per tutta la lettura, mentre qui si chiede DOPO aver
+  /// letto: chi tocca "Vai piu' a fondo" ha gia' deciso che quella risposta gli
+  /// interessa, e merita piu' spazio di chi non ha ancora letto niente.
+  static const int kApprofondimentoMaxTokens = 420;
+
   /// Tetto di token per il distillato di memoria. Non e' una risposta letta da
   /// nessuno, e' un JSON di servizio: sta largo perche' deve poter contenere
   /// cinque fatti piu' la sintesi, ma resta una costante come tutti gli altri.
@@ -112,6 +125,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
   }) async {
     final model = _ai.generativeModel(
       model: chatModel,
@@ -122,6 +136,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
           memory: memory,
           natal: natal,
           insistiSullAncoraggio: insistiSullAncoraggio,
+          approfondisci: approfondisci,
         ),
       ),
       generationConfig: GenerationConfig(
@@ -132,7 +147,10 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
         // tetto delle risposte: il punto solo esisteva per il Consulta, e la
         // conversazione lo scavalcava senza dirlo. Un turno di chat su telefono
         // e' una risposta breve per definizione.
-        maxOutputTokens: kBreveMaxTokens,
+        // La PRIMA risposta arriva sempre alla stessa misura per tutti, e la
+        // profondita' non si sceglie prima: si chiede dopo aver letto.
+        maxOutputTokens:
+            approfondisci ? kApprofondimentoMaxTokens : kBreveMaxTokens,
       ),
     );
 

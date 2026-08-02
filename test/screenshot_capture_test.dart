@@ -2970,6 +2970,7 @@ class _ScriptedMaestro implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
   }) async {
     return 'Le stelle ti ascoltano. Dimmi ancora, cerchiamo insieme il filo.';
   }

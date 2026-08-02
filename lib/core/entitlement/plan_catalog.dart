@@ -215,7 +215,17 @@ class PlanCatalog {
     final cella = riga.first.values[ordine.indexOf(tier)];
     if (cella.toLowerCase().contains('illimitat')) return null;
     final numero = RegExp(r'(\d+)').firstMatch(cella);
-    return numero == null ? null : int.parse(numero.group(1)!);
+    if (numero != null) return int.parse(numero.group(1)!);
+    // UNA CELLA CHE NON PROMETTE NIENTE VALE ZERO, NON "SENZA LIMITE".
+    //
+    // Prima qui si tornava null, che ogni chiamante legge come illimitato:
+    // quindi "No" e "Illimitate" davano la stessa risposta, e una riga nuova
+    // scritta con "No" avrebbe regalato la funzione a chi non la ha nel piano.
+    // Non era ancora successo solo perche' nessuna riga interrogata per un
+    // limite conteneva un "No".
+    final pulita = cella.trim().toLowerCase();
+    if (pulita == 'no' || pulita.isEmpty) return 0;
+    return null;
   }
 
   /// Se quel piano ha diritto alla memoria dei Maestri.
@@ -261,6 +271,12 @@ class PlanCatalog {
   /// Le etichette delle righe che portano un limite giornaliero, cosi' chi le
   /// usa non le scrive a mano e un refuso non passa inosservato.
   static const String rigaDomande = 'Domande a un Maestro';
+
+  /// Quante volte al giorno si puo' chiedere a un Maestro di andare piu' a
+  /// fondo sulla stessa risposta. E' una riga a se' perche' l'approfondimento
+  /// NON consuma una domanda: se la consumasse, la persona esiterebbe prima di
+  /// toccarlo, e l'esitazione uccide l'intimita'.
+  static const String rigaApprofondimenti = 'Vai più a fondo';
   static const String rigaSinastria = 'Sinastria VIP';
   static const String rigaCartaSingola = 'Tarocchi carta singola';
 
@@ -278,6 +294,8 @@ class PlanCatalog {
     FeatureRow('Memoria AI dei Maestri', ['No', 'Esclusiva', 'Sì', 'Sì']),
     FeatureRow('Domande a un Maestro',
         ['1 al giorno', '5 al giorno', '10 al giorno', 'Illimitate']),
+    FeatureRow('Vai più a fondo',
+        ['No', '3 al giorno', '10 al giorno', 'Illimitati']),
     FeatureRow('Sintesi comparativa dei Maestri', ['No', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Voce AI dei Maestri', ['No', 'No', 'Esclusiva', 'Sì']),
     FeatureRow('Tarocchi carta singola',

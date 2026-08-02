@@ -120,10 +120,20 @@ void main() {
       await apriLaChat(tester, servizi, maestro);
       await chiediQualcosa(tester);
 
-      // 1. La bolla porta il ripiego NEL TONO di questo Maestro, e non la
+      // 1. La bolla APRE col ripiego nel tono di questo Maestro, e non con la
       //    frase unica che prima valeva per tutti e tre.
+      //
+      //    Si cerca l'inizio e non il testo esatto: dal 2 agosto 2026 il
+      //    ripiego non e' piu' solo una scusa, prosegue con una lettura vera
+      //    costruita dai dati sul dispositivo e con una via d'uscita. Cercare
+      //    la stringa intera vorrebbe dire riscrivere la prova ogni volta che
+      //    la lettura si rifinisce, e una prova cosi' si finisce per allentarla.
       expect(
-        find.text(RipiegoDelMaestro.silenzioDi(maestro)),
+        find.byWidgetPredicate(
+          (w) =>
+              w is Text &&
+              (w.data ?? '').startsWith(RipiegoDelMaestro.silenzioDi(maestro)),
+        ),
         findsOneWidget,
         reason: 'il Maestro deve dire qualcosa in carattere, non tacere',
       );
@@ -193,6 +203,7 @@ class _VoceInGuasto implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
   }) async =>
       throw _ApiSpenta();
 

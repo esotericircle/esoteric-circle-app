@@ -12,6 +12,7 @@ import '../../../core/chat/maestro_memory.dart';
 import '../../../core/chat/user_profile.dart';
 import '../../../core/maestro/ancoraggio.dart';
 import '../../../core/maestro/frase_di_ripiego.dart';
+import '../../../core/maestro/lettura_di_ripiego.dart';
 import '../../../core/maestro/natal_context.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
@@ -213,6 +214,88 @@ class MaestroChatController extends ChangeNotifier {
     await _generate(priorHistory: priorHistory, userText: trimmed);
   }
 
+  /// Vero se l'ultima bolla e' una risposta VERA del Maestro, non ancora
+  /// approfondita: solo li' l'invito ha senso. Non su un ripiego, non su una
+  /// bolla fallita, non su un instradamento.
+  bool get puoiChiedereDiApprofondire {
+    if (_sending || _messages.isEmpty) return false;
+    final ultima = _messages.last;
+    return ultima.isMaestro &&
+        !ultima.failed &&
+        !ultima.ripiego &&
+        !ultima.pending &&
+        ultima.intentId == null &&
+        !ultima.approfondita;
+  }
+
+  /// Chiede al Maestro di scendere piu' a fondo sulla STESSA risposta.
+  ///
+  /// Non consuma una domanda del giorno: consuma un approfondimento, che e' un
+  /// budget suo. Se consumasse una domanda la persona esiterebbe prima di
+  /// toccarlo, e l'esitazione uccide l'intimita'.
+  ///
+  /// La bolla non si aggiunge, si SOSTITUISCE: e' la stessa lettura portata
+  /// piu' giu', non una seconda risposta alla stessa domanda.
+  Future<void> approfondisci() async {
+    if (!puoiChiedereDiApprofondire) return;
+    final piano = _tier?.call();
+    final contatore = _allowance;
+    if (piano != null && contatore != null && !contatore.puoiApprofondire(piano)) {
+      return;
+    }
+
+    // La domanda a cui la risposta si riferisce, per rigenerare sullo stesso
+    // turno invece che su uno nuovo.
+    final indiceRisposta = _messages.length - 1;
+    final priorHistory = _messages.sublist(0, indiceRisposta).toList();
+    final domanda = priorHistory.isNotEmpty && priorHistory.last.isUser
+        ? priorHistory.last.text
+        : null;
+    if (domanda == null) return;
+
+    _sending = true;
+    final precedente = _messages[indiceRisposta];
+    _messages[indiceRisposta] =
+        const ChatMessage(role: ChatRole.maestro, text: '', pending: true);
+    notifyListeners();
+
+    try {
+      final natal = _natal?.call() ?? NatalContext.none;
+      final piu = await _ai.reply(
+        maestro: maestro,
+        profile: _profile,
+        memory: _memoryState,
+        history: priorHistory.sublist(0, priorHistory.length - 1),
+        userMessage: domanda,
+        natal: natal,
+        approfondisci: true,
+      );
+      final risposta = ChatMessage(
+        role: ChatRole.maestro,
+        text: piu,
+        at: DateTime.now(),
+        approfondita: true,
+      );
+      _messages[indiceRisposta] = risposta;
+      if (piano != null && contatore != null) {
+        contatore.registraApprofondimento(piano);
+      }
+      unawaited(_persist(risposta));
+    } catch (errore, traccia) {
+      // L'approfondimento fallito NON deve far perdere la risposta che la
+      // persona aveva gia' letto: si rimette quella, marcata come gia'
+      // approfondita cosi' non si ritenta all'infinito.
+      annotaGuastoInnocuo(
+          'approfondendo la risposta di ${maestro.displayName}',
+          errore,
+          traccia);
+      _messages[indiceRisposta] = precedente.copyWith(approfondita: true);
+    } finally {
+      _sending = false;
+      notifyListeners();
+    }
+  }
+
   /// Riprova l'ultimo turno fallito, senza duplicare il messaggio dell'utente.
   Future<void> retryLast() async {
     if (_sending || _messages.isEmpty) return;
@@ -314,8 +397,20 @@ class MaestroChatController extends ChangeNotifier {
       // esista anche per chi guarda i log senza aprire il pannello.
       annotaGuastoInnocuo(
           'rispondendo nella chat di ${maestro.displayName}', errore, traccia);
+      // IL SILENZIO NON LASCIA A MANI VUOTE. Il Maestro non si scusa e basta:
+      // consegna una lettura VERA costruita dai dati sul dispositivo, dichiarata
+      // come lettura del cielo e non come la sua voce. Sotto, una via che porta
+      // da qualche parte, dallo stesso instradamento deterministico che gia'
+      // esiste. Dopo questa riga, nella chat non c'e' nessuno stato senza uscita.
+      final natal = _natal?.call() ?? NatalContext.none;
       _replaceLast(pending.copyWith(
-        text: RipiegoDelMaestro.silenzioDi(maestro),
+        text: LetturaDiRipiego.componi(
+          maestro: maestro,
+          domanda: userText,
+          natal: natal,
+          profile: _profile,
+          memory: _memoryState,
+        ),
         pending: false,
         failed: true,
         ripiego: true,

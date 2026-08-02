@@ -173,6 +173,7 @@ class MaestroPersona {
     required MaestroMemory memory,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
   }) {
     final natalBlock = _natalContext(natal);
     final ancoraggi = VerificaAncoraggio.disponibiliPer(
@@ -189,8 +190,23 @@ class MaestroPersona {
       _regolaDellAncoraggio(ancoraggi, insisti: insistiSullAncoraggio),
       '',
       _memoryContext(memory),
+      if (approfondisci) ...['', regolaDellApprofondimento],
     ].join('\n');
   }
+
+  /// Cosa cambia quando la persona chiede di andare più a fondo.
+  ///
+  /// Non è "scrivi di più": è "scendi", e la differenza conta. Una risposta
+  /// gonfiata per riempire il tetto è peggio della breve che sostituisce,
+  /// perché la persona ha già letto quella e riconosce il riempimento.
+  static const String regolaDellApprofondimento =
+      'LA PERSONA HA CHIESTO DI ANDARE PIÙ A FONDO:\n'
+      '- Ha già letto la tua risposta breve. Non ripeterla con altre parole: '
+      'scendi sotto, dove la prima si era fermata.\n'
+      '- Più spazio non vuol dire più giri: se il senso finisce prima del '
+      'limite, fermati prima del limite.\n'
+      '- Riparti dallo stesso ancoraggio, non da uno nuovo: è la stessa '
+      'lettura portata più giù.';
 
   /// La regola dell'ancoraggio, come dato e non come raccomandazione.
   ///

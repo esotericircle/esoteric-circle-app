@@ -115,6 +115,7 @@ class _ReadyAi implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
   }) async =>
       'Il Lupo ti parla di lealta\'.';
 
@@ -161,6 +162,7 @@ class _OfflineAi implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
   }) async =>
       throw const MaestroAiUnavailable();
 

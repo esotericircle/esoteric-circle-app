@@ -146,7 +146,9 @@ void main() {
     });
 
     test('La mappa comparativa ha le righe attese con quattro valori', () {
-      expect(PlanCatalog.matrix.length, 23);
+      // Ventiquattro dal 2 agosto 2026: e' entrata la riga "Vai più a fondo",
+      // che e' un budget a se' e non una variante delle domande.
+      expect(PlanCatalog.matrix.length, 24);
       for (final row in PlanCatalog.matrix) {
         expect(row.values.length, 4, reason: 'riga ${row.label}');
       }

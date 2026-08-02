@@ -38,10 +38,65 @@ class QuestionAllowance extends ChangeNotifier {
     return PlanCatalog.limiteGiornaliero(PlanCatalog.rigaDomande, tier);
   }
 
+  /// Il limite giornaliero degli APPROFONDIMENTI, cioe' di quante volte si puo'
+  /// chiedere "Vai più a fondo" sulla stessa risposta.
+  ///
+  /// E' un budget diverso da quello delle domande, e vive nella stessa classe
+  /// apposta: il giorno e' lo stesso, quindi il ribaltamento a mezzanotte deve
+  /// essere lo stesso. Due classi avrebbero avuto due rollover, e due rollover
+  /// prima o poi divergono.
+  ///
+  /// **L'approfondimento non consuma una domanda.** Se la consumasse, la
+  /// persona esiterebbe prima di toccarlo, e l'esitazione uccide l'intimita'.
+  int? limiteApprofondimenti(Tier tier) =>
+      PlanCatalog.limiteGiornaliero(PlanCatalog.rigaApprofondimenti, tier);
+
+  /// Il tetto di CORRETTEZZA per chi non ha limite: non e' una restrizione
+  /// commerciale, e' la difesa contro un tocco ripetuto per sbaglio o per
+  /// gioco. Chi arriva qui in un giorno solo non sta piu' leggendo.
+  static const int kTettoDiCorrettezza = 30;
+
+  /// Quanti approfondimenti restano oggi.
+  int approfondimentiRimasti(Tier tier) {
+    _rollover();
+    final limite = limiteApprofondimenti(tier);
+    if (limite == null) {
+      final left = kTettoDiCorrettezza - _approfondimenti;
+      return left < 0 ? 0 : left;
+    }
+    final left = limite - _approfondimenti;
+    return left < 0 ? 0 : left;
+  }
+
+  /// Vero se questo piano prevede l'approfondimento, a prescindere da quanti ne
+  /// restano oggi. Serve alla UI per distinguere DUE cose che non vanno
+  /// confuse: chi non ce l'ha nel piano riceve l'invito a salire, chi ce l'ha e
+  /// li ha finiti riceve il numero vero e l'ora in cui torna.
+  bool pianoConApprofondimento(Tier tier) {
+    final limite = limiteApprofondimenti(tier);
+    return limite == null || limite > 0;
+  }
+
+  /// Se si puo' approfondire adesso.
+  bool puoiApprofondire(Tier tier) =>
+      pianoConApprofondimento(tier) && approfondimentiRimasti(tier) > 0;
+
+  /// Registra un approfondimento consumato. Anche i tier senza limite lo
+  /// contano, perche' il tetto di correttezza vale per tutti.
+  void registraApprofondimento(Tier tier) {
+    if (!pianoConApprofondimento(tier)) return;
+    _rollover();
+    _approfondimenti++;
+    notifyListeners();
+    _persist();
+  }
+
   static const _kDay = 'allowance.day';
   static const _kCount = 'allowance.count';
+  static const _kApprofondimenti = 'allowance.approfondimenti';
 
   int _count = 0;
+  int _approfondimenti = 0;
   String _day = '';
 
   String _today() {
@@ -55,6 +110,8 @@ class QuestionAllowance extends ChangeNotifier {
     if (t != _day) {
       _day = t;
       _count = 0;
+      // I due budget ribaltano INSIEME, perche' il giorno e' lo stesso.
+      _approfondimenti = 0;
     }
   }
 
@@ -102,6 +159,7 @@ class QuestionAllowance extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       _day = prefs.getString(_kDay) ?? '';
       _count = prefs.getInt(_kCount) ?? 0;
+      _approfondimenti = prefs.getInt(_kApprofondimenti) ?? 0;
       _rollover();
       notifyListeners();
     } catch (_) {
@@ -114,6 +172,7 @@ class QuestionAllowance extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_kDay, _day);
       await prefs.setInt(_kCount, _count);
+      await prefs.setInt(_kApprofondimenti, _approfondimenti);
     } catch (_) {
       // Best effort.
     }

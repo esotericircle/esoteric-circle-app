@@ -26,6 +26,7 @@ class ChatBubble extends StatelessWidget {
     required this.maestro,
     this.onOpenIntent,
     this.onRetry,
+    this.onApprofondisci,
   });
 
   final ChatMessage message;
@@ -39,6 +40,12 @@ class ChatBubble extends StatelessWidget {
   /// barra di scrittura, cioe' lontano dalla cosa che comanda, e chi lo vedeva
   /// doveva indovinare a cosa si riferisse.
   final VoidCallback? onRetry;
+
+  /// Porta questa risposta piu' a fondo. Non nullo solo sull'ultima risposta
+  /// vera del Maestro. Per il Viandante NON e' nullo: l'invito si vede e al
+  /// tocco porta l'invito a salire, perche' un lucchetto muto e' un vicolo
+  /// cieco, e la casa non ne ammette.
+  final VoidCallback? onApprofondisci;
 
   /// I due colori della superficie, gia' OPACHI.
   ///
@@ -145,6 +152,29 @@ class ChatBubble extends StatelessWidget {
                     intentId: message.intentId!,
                     palette: palette,
                     onTap: () => onOpenIntent?.call(message.intentId!),
+                  ),
+                ],
+                // "Vai piu' a fondo" sta SOTTO la risposta, dentro la sua
+                // bolla: la profondita' non si sceglie prima di leggere, si
+                // chiede dopo aver letto.
+                if (onApprofondisci != null) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  GestureDetector(
+                    key: const Key('chat_approfondisci'),
+                    onTap: onApprofondisci,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.expand_more_rounded,
+                            color: palette.goldSoft, size: 18),
+                        const SizedBox(width: 4),
+                        Text(
+                          'Vai più a fondo',
+                          style: TypographyTokens.body(size: 14, weight: 600)
+                              .copyWith(color: palette.goldSoft),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
                 // Il Riprova nasce dentro la bolla che ha fallito, attaccato al
