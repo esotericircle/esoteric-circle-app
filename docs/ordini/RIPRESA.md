@@ -52,6 +52,56 @@ l'API spenta lo dichiara in chiaro. Prima di questo lavoro il pannello diceva
 "Voce di Medora: attiva" anche mentre ogni chiamata falliva, perche' leggeva
 `isReady`, che risponde sempre di si'.
 
+## LE DUE VOCI VECCHIE SONO CHIUSE: non resta piu' niente in sospeso
+
+Chiuse il 2 agosto 2026, dopo l'ORDINE CHAT 3: la 1a e la 2b dell'ORDINE CHAT 2.
+
+**"VAI PIÙ A FONDO".** La profondita' NON si sceglie prima di leggere: la prima
+risposta arriva sempre a 160 token per tutti, e sotto compare l'invito che
+rigenera la STESSA risposta a 420. Il tetto e' `kApprofondimentoMaxTokens` e
+vive nel blocco delle costanti come gli altri tre.
+
+**I limiti**: Viandante niente, Iniziato 3, Adepto 10, Illuminato senza limite
+con tetto di correttezza a 30. Il budget e' un SECONDO contatore dentro
+`QuestionAllowance` e non una classe nuova: il giorno e' lo stesso, quindi il
+ribaltamento a mezzanotte deve essere lo stesso, e due classi avrebbero avuto
+due rollover che prima o poi divergono. **L'approfondimento NON consuma una
+domanda**, e una prova lo verifica.
+
+**L'invito non e' mai un vicolo cieco**, e i tre esiti sono tre: chi lo ha nel
+piano e ne ha ancora scende davvero; chi lo ha e li ha finiti legge quando
+torna; chi non lo ha riceve l'invito a salire. Per questo
+`pianoConApprofondimento` e `puoiApprofondire` sono due cose diverse.
+
+**IL SILENZIO CONSEGNA UNA LETTURA VERA.** `LetturaDiRipiego` e' una funzione
+pura: dichiara di non essere la voce del Maestro, POI legge davvero coi dati sul
+dispositivo, POI apre una porta che appartiene a quel Maestro (la carta natale
+per Medora, il respiro contato per Aura, la runa per Caligo). Costo di inferenza
+zero. **Se non c'e' nessun dato la lettura si SALTA e non si inventa, ma la
+porta resta.**
+
+**UN DIFETTO VERO TROVATO NELLA MATRICE DEI PIANI, e non era mio.**
+`PlanCatalog.limiteGiornaliero` tornava `null` per una cella "No", e ogni
+chiamante legge `null` come ILLIMITATO: **"No" e "Illimitate" davano la stessa
+risposta**. Non era ancora esploso solo perche' nessuna riga interrogata per un
+limite conteneva un "No", e la prima e' stata quella degli approfondimenti.
+Adesso una cella che non promette niente vale ZERO. Chi aggiunge una riga alla
+matrice sappia che il numero, o la sua assenza, e' cio' che comanda davvero.
+
+**L'ATTRIBUZIONE CIECA RIESEGUITA**, perche' la persona e' stata toccata:
+
+```
+           medora     aura   caligo    totale  giusti
+medora         18        2        0        20   90,0%
+aura            0       20        0        20  100,0%
+caligo          0        0       20        20  100,0%
+```
+
+**58 su 60, cioe' 96,7 per cento**, RISALITO dal 95,0 del giro precedente.
+Caligo torna al 100. **Medora perde due risposte verso Aura in tutte e due le
+esecuzioni**: non e' rumore, e' una caratteristica stabile. Chi vorra' quei due
+punti guardi li'.
+
 ## ORDINE CHAT 3 DI N: CHIUSO PER INTERO, tutte e due le voci
 
 Chiuso il 2 agosto 2026. Voce 1 (1a, 1b, 1c, 1d) e voce 2 (2a, 2b, 2c).
