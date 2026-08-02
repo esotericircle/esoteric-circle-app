@@ -110,4 +110,46 @@ void main() {
         reason: 'queste frasi mostrate usano l\'apostrofo al posto '
             'dell\'accento, e la persona lo legge: $colpevoli');
   });
+
+  test('Nessuna frase mostrata perde l\'accento del tutto', () {
+    // IL BUCO CHE QUESTA PROVA CHIUDE, trovato il 2 agosto 2026.
+    //
+    // La prova qui sopra cerca `parola'`, cioe' una parola SEGUITA DA UN
+    // APOSTROFO, e prende "piu'", "perche'", "gia'". NON prende "piu" nudo.
+    // Nel messaggio del limite c'era scritto "per averne di piu.": nessun
+    // apostrofo, solo una parola a cui manca l'accento. Una classe intera di
+    // errori passava da sempre, e il fondatore l'ha letta a schermo.
+    //
+    // Si ENUMERANO le parole che in italiano non esistono senza accento, e si
+    // lasciano fuori quelle ambigue, dove la forma senza accento e' una parola
+    // vera: "e" contro "è", "si" contro "sì", "la" contro "là", "da" contro
+    // "dà", "meta" contro "metà". Colpirle darebbe falsi allarmi, e una prova
+    // che grida al lupo si finisce per allentarla.
+    const vietate = {
+      'piu', 'perche', 'poiche', 'benche', 'finche', 'nonche', 'affinche',
+      'gia', 'cosi', 'puo', 'cioe', 'percio',
+      'sara', 'fara', 'dara', 'potra', 'verra', 'andra', 'avra',
+      'citta', 'liberta', 'verita', 'qualita', 'quantita', 'possibilita',
+      'responsabilita', 'identita', 'realta', 'novita', 'universita',
+      'virtu', 'gioventu', 'tribu',
+      'lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi',
+    };
+    final parole = RegExp(r'[A-Za-zÀ-ÿ]+');
+    final colpevoli = <String>[];
+    for (final (file, riga, testo) in stringheDiLib()) {
+      if (!testo.contains(' ')) continue;
+      final pulito = testo.replaceAll(r"\'", "'");
+      for (final m in parole.allMatches(pulito)) {
+        final p = m.group(0)!.toLowerCase();
+        if (!vietate.contains(p)) continue;
+        // Se subito dopo c'e' un apostrofo la prende gia' l'altra prova.
+        final dopo = m.end < pulito.length ? pulito[m.end] : '';
+        if (dopo == "'") continue;
+        colpevoli.add('$file riga $riga: "$p" senza accento');
+      }
+    }
+    expect(colpevoli, isEmpty,
+        reason: 'queste frasi mostrate hanno perso l\'accento del tutto, e '
+            'nessuna prova le prendeva: $colpevoli');
+  });
 }

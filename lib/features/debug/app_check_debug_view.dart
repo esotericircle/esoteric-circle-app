@@ -157,7 +157,7 @@ class RipristinaRisveglioRow extends StatelessWidget {
                       style: TypographyTokens.display(size: 16)),
                   const SizedBox(height: 2),
                   Text(
-                    'Azzera profilo e identita, poi riapre il rito. Solo '
+                    'Azzera profilo e identità, poi riapre il rito. Solo '
                     'nelle build di prova.',
                     style: TypographyTokens.body(size: 13)
                         .copyWith(color: ColorTokens.textSecondary),

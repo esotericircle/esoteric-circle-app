@@ -346,7 +346,7 @@ class _CartaAngelo extends StatelessWidget {
                 // La chiave di lettura e' scritta in redazione, non e'
                 // tradizione documentata: si mostra come voce del Maestro,
                 // staccata da cio' che viene dalle fonti.
-                Text('MEDORA LA LEGGE COSI',
+                Text('MEDORA LA LEGGE COSÌ',
                     style: TypographyTokens.label(size: 11).copyWith(
                         color: palette.goldSoft, letterSpacing: 2)),
                 const SizedBox(height: 2),
