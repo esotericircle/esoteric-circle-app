@@ -1,5 +1,71 @@
 # RIPRESA
 
+## PERCHE' LA CHAT TACE: LA CAUSA E' MISURATA, e aspetta UN TOCCO DI MAURO
+
+**Chiuso nel codice il 2 agosto 2026, ORDINE CHAT 1 DI N. Resta una sola cosa
+da fare, e non la puo' fare l'agente.**
+
+**L'API `firebasevertexai.googleapis.com` NON e' abilitata sul progetto
+`esoteric-circle`.** E' l'unico host che `firebase_ai` 3.13.1 chiama, si legge
+in `base_model.dart:88`. Finche' resta spenta ogni chiamata torna
+`PERMISSION_DENIED`, l'SDK solleva `ServiceApiNotEnabled` e la chat non puo'
+rispondere, per nessuno dei tre Maestri.
+
+**La misura, coi comandi che l'hanno prodotta:**
+
+- `gcloud services list --enabled --project=esoteric-circle` da 69 API, e
+  `firebasevertexai` non e' fra quelle. Ci sono `aiplatform` e
+  `generativelanguage`, che NON sono quella che serve.
+- `gcloud logging logs list --project=esoteric-circle` non elenca nessun log di
+  un servizio AI: le chiamate non arrivano mai a Google.
+- **L'ipotesi App Check e' CADUTA, col numero che la abbatte.** La chiamata
+  `GET firebaseappcheck.googleapis.com/v1/projects/esoteric-circle/services`,
+  con l'intestazione `x-goog-user-project`, da tre soli servizi,
+  `firebasestorage`, `firestore` e `identitytoolkit`, **tutti UNENFORCED**, e
+  Vertex non e' nemmeno in elenco. **Zero servizi in ENFORCED**: non c'e'
+  nessuna imposizione da togliere, e il compromesso datato di `natalChart` qui
+  non serve.
+
+**Cosa deve fare Mauro**, dal PC, due minuti: aprire
+`https://console.firebase.google.com/project/esoteric-circle/ailogic`, premere
+**Inizia**, scegliere **Vertex AI Gemini API** e NON *Gemini Developer API*,
+che l'app non chiama, poi **Conferma e continua**. In alternativa un comando
+solo, `gcloud services enable firebasevertexai.googleapis.com --project=esoteric-circle`,
+che l'agente non ha eseguito perche' accende un servizio a pagamento.
+
+**Come si verifica che era quella:** aprire la chat, chiedere qualcosa, poi
+toccare il pannello di messa a punto nell'header. Se la voce e' ancora in
+guasto il pannello mostra tipo e messaggio dell'eccezione vera, e quando e'
+l'API spenta lo dichiara in chiaro. Prima di questo lavoro il pannello diceva
+"Voce di Medora: attiva" anche mentre ogni chiamata falliva, perche' leggeva
+`isReady`, che risponde sempre di si'.
+
+## Cosa e' cambiato nel codice il 2 agosto 2026
+
+- **L'errore non si perde piu'.** `VoceSorvegliata` avvolge il provider e
+  registra ogni guasto con tipo, messaggio e operazione. `AppServices` e'
+  diventata una fabbrica: **non esiste un modo di montare i servizi con una
+  voce non sorvegliata**, nemmeno per sbaglio.
+- **Ogni ripiego dichiara di essere un ripiego**, in `RipiegoDelMaestro`, con
+  una frase diversa per ciascun Maestro. Vale nella chat e nel Consulta, che
+  prima sostituiva la voce con l'oracolo deterministico SENZA DIRLO.
+- **I catch muti sono enumerati su tutto `lib`** da
+  `test/nessun_catch_muto_test.dart`. Debito misurato: **85 in 37 file**. I 9
+  sulla strada della voce sono azzerati, gli altri possono solo scendere.
+- **I tetti sono 160 e 320**, ed erano 260 e 780. Le porte al tetto erano TRE,
+  non una: il Consulta passava dalle costanti, la chat aveva un `800` scritto
+  a mano e il distillato un `400`.
+- **Le tre personalita' sono un dato**, `VoceDelMaestro`. Trovato e corretto un
+  difetto vero: Caligo rivendicava gli **Archetipi**, che sono un'arte di Aura.
+
+## La decisione ancora aperta sul ponte, non urgente
+
+L'ordine precedente chiedeva una Cloud Function per tenere la chiave sul
+server, ma nell'app una chiave non c'e': il provider usa Firebase AI con App
+Check. La callable ha altri vantaggi veri, il controllo del costo e il rate
+limiting lato server, e va decisa per quelli. **Non e' un prerequisito per far
+parlare la chat**: la causa era un'altra ed e' misurata.
+
 ## La coda dell'AI, aperta per fine del margine
 
 Ordine del 1 agosto 2026, cinque voci, NESSUNA aperta a meta'. Lo stato voce per

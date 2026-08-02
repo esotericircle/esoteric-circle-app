@@ -2,6 +2,21 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/astro/sky_location.dart';
+import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/identity/natal_identity.dart';
+import 'package:esoteric_circle/core/chat/chat_message.dart';
+import 'package:esoteric_circle/core/chat/maestro_memory.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
+import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
+import 'package:esoteric_circle/core/maestro/consult_depth.dart';
+import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
+import 'package:esoteric_circle/core/maestro/natal_context.dart';
+import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
+import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
+import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
+import 'package:esoteric_circle/services/app_services.dart';
+import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -283,4 +298,124 @@ void main() {
     await tester.pump(SequenzaIntro.dissolvenza);
     await scatta('destinazione');
   });
+
+  // LA CHAT QUANDO LA VOCE TACE.
+  //
+  // La coppia che conta per l'ordine sarebbe "la chat che tace contro la chat
+  // che risponde", ma la chat che risponde NON e' fotografabile qui: in prova
+  // headless non c'e' rete, e sul progetto vero l'API di Firebase AI e' spenta.
+  // Fotografare una risposta finta proverebbe soltanto che so scrivere una
+  // stringa. La coppia vera e verificabile e' un'altra, ed e' quella che
+  // cambia per la persona: il ripiego MUTO contro il ripiego DICHIARATO.
+  testWidgets('Chat, il ripiego', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final memoria = InMemoryMaestroMemoryRepository();
+    await memoria
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final servizi = AppServices(
+      ai: _VoceCheTace(),
+      memory: memoria,
+      memoryPersistent: false,
+      diagnostics: 'cattura prima e dopo',
+    );
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        Provider<AppServices>.value(value: servizi),
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+        ChangeNotifierProvider(create: (_) => EntitlementService()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (ctx, child) => MediaQuery(
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+          child: child!,
+        ),
+        home: RepaintBoundary(
+          key: radice,
+          child: Navigator(
+            onGenerateRoute: (_) => MaestroChatScreen.route(
+              maestro: Maestro.medora,
+              services: servizi,
+              initialUserMessage: 'Che cosa mi dice il mio cammino?',
+            ),
+          ),
+        ),
+      ),
+    ));
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(const Duration(milliseconds: 150));
+    }
+
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final img = await rb.toImage(pixelRatio: 3.0);
+      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+      final dir = Directory('docs/preview/prima_dopo');
+      if (!dir.existsSync()) dir.createSync(recursive: true);
+      File('${dir.path}/chat_ripiego_$_stato.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
+      img.dispose();
+    });
+  });
+}
+
+/// Una voce accesa che fallisce a ogni chiamata: e' lo stato reale del
+/// progetto finche' firebasevertexai.googleapis.com resta spenta.
+class _VoceCheTace implements MaestroAiProvider {
+  @override
+  bool get isReady => true;
+
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<ChatMessage> history,
+    required String userMessage,
+  }) async =>
+      throw Exception('firebasevertexai.googleapis.com non abilitata');
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) async =>
+      throw Exception('firebasevertexai.googleapis.com non abilitata');
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async =>
+      throw Exception('firebasevertexai.googleapis.com non abilitata');
+
+  @override
+  Future<MemoryDigest?> distill({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory previous,
+    required List<ChatMessage> history,
+  }) async =>
+      throw Exception('firebasevertexai.googleapis.com non abilitata');
 }
