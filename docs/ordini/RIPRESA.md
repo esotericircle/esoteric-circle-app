@@ -52,6 +52,58 @@ l'API spenta lo dichiara in chiaro. Prima di questo lavoro il pannello diceva
 "Voce di Medora: attiva" anche mentre ogni chiamata falliva, perche' leggeva
 `isReady`, che risponde sempre di si'.
 
+## ORDINE A: CHIUSO PER INTERO. La chat puo' rispondere davvero
+
+Chiuso il 2 agosto 2026.
+
+**LA CAUSA DEL SILENZIO, stavolta scritta.** Dal pannello sul telefono, build
+2132: `[firebase_app_check/unknown] code: 403 body: App attestation failed`.
+
+**Dove nasce, letto nel sorgente dell'SDK e non supposto:**
+`firebase_ai-3.13.1/lib/src/base_model.dart:292` fa
+`await effectiveAppCheck.getToken()` **senza guardia**. Se quella riga solleva,
+la chiamata all'AI non parte nemmeno. L'eccezione nasce **nell'acquisizione del
+token**, non nella chiamata al modello, ed e' per questo che la prova REST
+diretta passava: quella non passa da App Check.
+
+**Le due cose che erano state confuse**, e vanno dette ad alta voce:
+imposizione spenta vuol dire che il SERVER non pretende il token; il CLIENT
+prova comunque a procurarselo prima di partire. La misura di allora era giusta,
+il riferimento no. **Riconfermato oggi**: tre servizi, tutti UNENFORCED.
+
+**LA VIA SCELTA: non installare il fornitore su quella strada.** In
+`firebase_app_check-0.4.5/lib/src/firebase_app_check.dart:46` il servizio si
+registra sul FirebaseApp **solo quando qualcuno tocca
+`FirebaseAppCheck.instance`**, e `firebase_ai` lo cerca con
+`app.getService<FirebaseAppCheck>()`. Non toccandolo, `getService` torna null,
+l'SDK salta l'intestazione e la chiamata parte. **Non c'e' niente da tollerare**:
+il token non si chiede perche' nessuno lo pretende. Una prova verifica che UN
+SOLO punto del progetto tocchi `FirebaseAppCheck.instance`.
+
+**Il compromesso, voce 24 del Registro**: dichiarato in `Attestazione`, datato 2
+agosto 2026, reversibile con UN interruttore, `Attestazione.installaSempre`, da
+rimettere a vero quando l'app sara' su una traccia di test interno del Play
+Store. L'imposizione lato server NON e' stata toccata.
+
+**1e, LA MEMORIA DI SESSIONE: MISURATA A META' E NON CORRETTA, di proposito.**
+Il sospetto e' ragionevole ma **non l'ho potuto confermare da qui**: la causa
+vera vive in `AppServices.diagnostics`, che era gia' popolata dal catch
+dell'autenticazione anonima e **non la leggeva nessuno**. Adesso il pannello la
+mostra come "Nota dell'avvio". **La causa si leggera' sulla 2133**, e solo allora
+si potra' scrivere l'ordine che la corregge.
+
+**UN RIPIEGO NON COSTA PIU' LA DOMANDA DEL GIORNO.** Il 2 agosto alle 13:23 un
+ripiego si e' preso l'unica domanda del gratuito. La regola vive in
+`CostoDelTurno.consuma` su un enum CHIUSO degli esiti, e **le porte erano DUE**:
+la chat contava PRIMA di generare, il Consulta contava a lente consegnata anche
+quando la lente era il ripiego dell'oracolo. Costa **solo** la risposta vera.
+Un Riprova riuscito costa, e lo dichiaro perche' l'ordine non lo diceva: si paga
+una domanda per una risposta, mai per un errore. Il conteggio **resta globale**.
+
+**Due prove esistenti codificavano il difetto** e sono state corrette dicendolo:
+`ask_maestri_test` montava `AppServices.offline()`, quindi ogni risposta era un
+ripiego, e le prove pretendevano che costasse.
+
 ## ORDINE CHAT 4: CHIUSO PER INTERO, e il numero e' tornato a 98,3
 
 Chiuso il 2 agosto 2026.
