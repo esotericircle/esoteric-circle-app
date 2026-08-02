@@ -160,14 +160,29 @@ class _DiagnosticsSheet extends StatelessWidget {
                 .copyWith(color: palette.goldSoft),
           ),
           const SizedBox(height: SpacingTokens.xs),
+          // IL TESTO SEGUE LO STATO REALE, e non il contrario.
+          //
+          // Diceva "Serve solo per attivare l'enforcement. Per la prima prova
+          // non è necessario", che dopo il 2 agosto non e' impreciso ma FALSO:
+          // suggerisce che l'attestazione ci sia e che manchi solo il token,
+          // mentre l'attestazione non e' installata per scelta. E' lo stesso
+          // difetto di `isReady => true`, che diceva "attiva" mentre ogni
+          // chiamata falliva. Legandolo all'interruttore, il giorno in cui
+          // l'attestazione tornera' questo riquadro cambia da solo.
           Text(
-            'Serve solo per attivare l\'enforcement di App Check. Per la prima '
-            'prova non è necessario.',
+            attestazione == EsitoAttestazione.nonInstallataPerScelta
+                ? 'Su questa build il token NON serve, perché l\'attestazione '
+                    'non è installata: la riga qui sopra dice perché. Tornerà '
+                    'a servire quando l\'app sarà sul Play Store.'
+                : 'Serve solo per attivare l\'imposizione di App Check. Per la '
+                    'prima prova non è necessario.',
             style: TypographyTokens.body(size: 13)
                 .copyWith(color: ColorTokens.textSecondary),
           ),
-          const SizedBox(height: SpacingTokens.sm),
-          _DebugTokenBox(token: appCheckDebugToken),
+          if (attestazione != EsitoAttestazione.nonInstallataPerScelta) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            _DebugTokenBox(token: appCheckDebugToken),
+          ],
         ],
       ),
     );
