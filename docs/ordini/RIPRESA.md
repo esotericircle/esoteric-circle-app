@@ -1,37 +1,49 @@
 # RIPRESA
 
-## PERCHE' LA CHAT TACE: LA CAUSA E' MISURATA, e aspetta UN TOCCO DI MAURO
+## PERCHE' LA CHAT TACEVA: CAUSA MISURATA E RIMOSSA il 2 agosto 2026
 
-**Chiuso nel codice il 2 agosto 2026, ORDINE CHAT 1 DI N. Resta una sola cosa
-da fare, e non la puo' fare l'agente.**
+**CHIUSA.** ORDINE CHAT 1 DI N. La causa non era nel codice ed e' stata accesa
+da Mauro, che ha dato il comando all'agente.
 
-**L'API `firebasevertexai.googleapis.com` NON e' abilitata sul progetto
-`esoteric-circle`.** E' l'unico host che `firebase_ai` 3.13.1 chiama, si legge
-in `base_model.dart:88`. Finche' resta spenta ogni chiamata torna
-`PERMISSION_DENIED`, l'SDK solleva `ServiceApiNotEnabled` e la chat non puo'
-rispondere, per nessuno dei tre Maestri.
+**Cosa era:** l'API `firebasevertexai.googleapis.com` non era abilitata sul
+progetto `esoteric-circle`, ed e' l'unico host che `firebase_ai` 3.13.1 chiama,
+come si legge in `base_model.dart:88`. Finche' e' rimasta spenta ogni chiamata
+tornava `PERMISSION_DENIED`, l'SDK sollevava `ServiceApiNotEnabled` e la chat
+non poteva rispondere, per nessuno dei tre Maestri.
 
-**La misura, coi comandi che l'hanno prodotta:**
+**La misura di allora, coi comandi che l'hanno prodotta:**
 
-- `gcloud services list --enabled --project=esoteric-circle` da 69 API, e
-  `firebasevertexai` non e' fra quelle. Ci sono `aiplatform` e
+- `gcloud services list --enabled --project=esoteric-circle` dava 69 API, e
+  `firebasevertexai` non era fra quelle. C'erano `aiplatform` e
   `generativelanguage`, che NON sono quella che serve.
-- `gcloud logging logs list --project=esoteric-circle` non elenca nessun log di
-  un servizio AI: le chiamate non arrivano mai a Google.
+- `gcloud logging logs list --project=esoteric-circle` non elencava nessun log
+  di un servizio AI: le chiamate non arrivavano mai a Google.
 - **L'ipotesi App Check e' CADUTA, col numero che la abbatte.** La chiamata
   `GET firebaseappcheck.googleapis.com/v1/projects/esoteric-circle/services`,
   con l'intestazione `x-goog-user-project`, da tre soli servizi,
   `firebasestorage`, `firestore` e `identitytoolkit`, **tutti UNENFORCED**, e
-  Vertex non e' nemmeno in elenco. **Zero servizi in ENFORCED**: non c'e'
+  Vertex non era nemmeno in elenco. **Zero servizi in ENFORCED**: non c'era
   nessuna imposizione da togliere, e il compromesso datato di `natalChart` qui
-  non serve.
+  non e' servito.
 
-**Cosa deve fare Mauro**, dal PC, due minuti: aprire
-`https://console.firebase.google.com/project/esoteric-circle/ailogic`, premere
-**Inizia**, scegliere **Vertex AI Gemini API** e NON *Gemini Developer API*,
-che l'app non chiama, poi **Conferma e continua**. In alternativa un comando
-solo, `gcloud services enable firebasevertexai.googleapis.com --project=esoteric-circle`,
-che l'agente non ha eseguito perche' accende un servizio a pagamento.
+**Come e' stata rimossa**, il 2 agosto 2026, su ordine esplicito di Mauro:
+`gcloud services enable firebasevertexai.googleapis.com --project=esoteric-circle`.
+
+**Verificato dopo, non dato per fatto:**
+
+- `gcloud services list --enabled` da adesso **70 API**, ed erano 69:
+  `firebasevertexai.googleapis.com` c'e'.
+- App Check resta **tutto UNENFORCED**, quindi non e' comparsa una seconda
+  barriera al posto della prima.
+- I due modelli che l'app usa RISPONDONO davvero nella regione dichiarata. Una
+  `generateContent` su
+  `europe-west1-aiplatform.googleapis.com/v1/projects/esoteric-circle/locations/europe-west1/publishers/google/models/<modello>`
+  ha reso "Pronto." da `gemini-2.5-flash` in 12 token, e "Pronto" da
+  `gemini-2.5-flash-lite` in 11. Regione e modelli del provider sono giusti.
+
+**Non serve una build nuova:** la 2128 gia' consegnata funziona da sola, perche'
+cio' che mancava stava sul server. Chi la ha installata deve solo riaprire la
+chat.
 
 **Come si verifica che era quella:** aprire la chat, chiedere qualcosa, poi
 toccare il pannello di messa a punto nell'header. Se la voce e' ancora in
