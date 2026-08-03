@@ -1,5 +1,55 @@
 # RIPRESA
 
+## ORDINE F: CHIUSA LA SOLA VOCE 1. Le voci 2 e 3 NON sono cominciate
+
+Il 3 agosto 2026. **Fermato al confine di una voce, come l'ordine chiede**, e
+dichiarato prima di cominciare invece che alla fine.
+
+**VOCE 1, CHIUSA.** L'icona a bilancia non c'e' piu' nell'intestazione: in una
+schermata di astrologia si leggeva come il SEGNO della Bilancia. Sotto l'ultima
+lettura vera c'e' la riga coi volti degli altri due e "Chiedi anche agli altri",
+e al tocco le loro risposte arrivano NELLA STESSA conversazione, ognuna col suo
+colore e col suo volto. Nessuna schermata nuova, nessuna domanda riscritta.
+
+**La cosa che l'ordine non nominava, e senza cui il resto sarebbe falso:** un
+messaggio non appartiene piu' alla schermata ma a CHI L'HA DETTO. Il volto e il
+colore li dava la schermata, che ne conosce uno solo; senza `ChatMessage.autore`
+la cronologia riaperta domani avrebbe mostrato le risposte di Aura e Caligo col
+volto e col blu di Medora. Nullo vuol dire "il Maestro di questa chat", che e'
+anche il senso giusto per tutto lo storico gia' salvato: nessuna migrazione.
+
+**Ognuno riceve la domanda, non il filo.** Chi non era nella conversazione non
+puo' rispondere come se ci fosse stato: commenterebbe la lettura di un altro
+invece di darne una sua.
+
+**La schermata del confronto e' diventata quello che e':** riceve le voci gia'
+ottenute invece di rifarle, si raggiunge solo quando sono almeno due, e si
+chiama "Le voci a confronto". Il gating resta identico: stesso `canCompare`,
+nessun consumo del limite giornaliero.
+
+**Nove prove del rosso, due verdi al primo colpo**, cioe' due buchi nelle prove:
+una prova pura non toccava il ciclo del controller, e due ripieghi dello stesso
+Maestro non potevano distinguere il caso che dovevano distinguere.
+
+**UN MIO ERRORE DA SCRIVERE, perche' non si ripeta.** Ho concluso che il titolo
+della schermata non fosse cambiato guardando un'anteprima che era VECCHIA: le
+catture del corredo scrivono in `docs/preview` solo con `AGGIORNA_ANTEPRIME=1`,
+altrimenti finiscono in `build/preview`. Il titolo era corretto dal primo
+momento. **Prima di trarre una conclusione da un'immagine, va verificato che
+l'immagine sia stata rigenerata.**
+
+**VOCE 2 e VOCE 3: NON COMINCIATE.** La VOCE 2 e' il raccoglimento delle
+risposte precedenti quando ne arriva una nuova. La VOCE 3 e' l'Eco, ed e' da
+sola piu' grande delle altre due messe insieme: parola derivata dalla chiusura,
+persistenza, confine di mezzanotte locale, posa nella striscia del Cerchio, riga
+di provenienza in due momenti diversi, pannello "Da dove nasce questo dono",
+riapertura della chat col contesto, condivisione, piu' sei prove con prova di
+vista su ognuna. Riprendere da VOCE 2.
+
+**Consegna parziale, dichiarata:** suite verde a 1465 e analyze pulito, ma
+NESSUNA build nuova per questo ordine. L'ultima consegnata resta la 2136
+dell'ordine E.
+
 ## ORDINE E: CHIUSO PER INTERO, tutte e tre le voci
 
 Chiuso il 3 agosto 2026, build 2136.
