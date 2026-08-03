@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/chat/chat_message.dart';
 import '../../../../core/chat/immersive_intents.dart';
+import '../../../../core/chat/testo_del_responso.dart';
 import '../../../../core/maestro/frase_di_ripiego.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/maestro/tempi_dell_attesa.dart';
@@ -159,6 +160,31 @@ class _ChatBubbleState extends State<ChatBubble> {
                         : palette.textPrimary,
                     height: 1.5,
                   ),
+                  // L'ENFASI SUI NOMI NOTI E' NOSTRA, e non del modello.
+                  //
+                  // Nella bolla dell'utente no: li' scrive la persona, e
+                  // colorarle le parole sarebbe correggerla. E nemmeno quando
+                  // non c'e' niente da mettere in risalto: comporre un testo
+                  // ricco senza motivo toglie il `data` al widget, e ogni prova
+                  // che cerca una frase a schermo smette di trovarla.
+                  componi: isUser ||
+                          !TestoDelResponso.portaUnNomeNoto(message.text)
+                      ? null
+                      : (testo, stile) => TextSpan(
+                            children: [
+                              for (final pezzo
+                                  in TestoDelResponso.pezzi(testo))
+                                TextSpan(
+                                  text: pezzo.testo,
+                                  style: pezzo.inOro
+                                      ? stile.copyWith(
+                                          color: palette.goldSoft,
+                                          fontWeight: FontWeight.w600,
+                                        )
+                                      : stile,
+                                ),
+                            ],
+                          ),
                 ),
                 // Un ripiego lo dichiara la bolla stessa, sotto il testo: la
                 // persona deve poter distinguere a colpo d'occhio la voce del

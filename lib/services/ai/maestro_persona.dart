@@ -1,4 +1,5 @@
 import '../../core/chat/maestro_memory.dart';
+import '../../core/chat/testo_del_responso.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/ancoraggio.dart';
 import '../../core/maestro/consult_depth.dart';
@@ -37,8 +38,16 @@ class MaestroPersona {
       // arriva da li' una volta sola.
       ..writeln(
           '- Testo leggibile e caldo, frasi brevi. Questa è una chat su telefono, non un saggio.')
+      // IL MARKDOWN NON SI VIETA QUI.
+      //
+      // Diceva "senza markdown pesante", che e' una raccomandazione di stile in
+      // mezzo ad altre raccomandazioni di stile: "pesante" lo interpreta il
+      // modello, e infatti il grassetto passava, tanto che Caligo consegnava
+      // gli asterischi attorno a Laguz. Il divieto vive in
+      // TestoDelResponso.vincoloDiFormato, come fatto tecnico e in un blocco
+      // suo: non e' stile, e' cosa sa fare la superficie che mostra il testo.
       ..writeln(
-          '- Il livello visivo lo cura l\'app: tu scrivi solo la voce, senza emoji e senza markdown pesante.')
+          '- Il livello visivo lo cura l\'app: tu scrivi solo la voce, senza emoji.')
       ..writeln()
       ..writeln('STRUTTURA DELLA RISPOSTA, ANATOMIA A QUATTRO STRATI:')
       ..writeln(
@@ -223,6 +232,8 @@ class MaestroPersona {
       // tocca quasi mai.
       '',
       MisuraDellaRisposta.perChat(approfondisci: approfondisci).istruzione,
+      '',
+      TestoDelResponso.vincoloDiFormato,
       if (approfondisci) ...['', regolaDellApprofondimento],
     ].join('\n');
   }
@@ -352,6 +363,8 @@ class MaestroPersona {
       '',
       MisuraDellaRisposta.perProfondita(depth).istruzione,
       '',
+      TestoDelResponso.vincoloDiFormato,
+      '',
       'FORMA DELL\'USCITA, PER QUESTA CONSULTAZIONE:',
       '- La persona pone una domanda sola. Rispondi solo su quel tema, nella tua lente di dominio, senza divagare e senza inventare dati sulla persona.',
       rigaProfondita,
@@ -377,6 +390,8 @@ class MaestroPersona {
       if (natalBlock.isNotEmpty) ...['', natalBlock],
       '',
       MisuraDellaRisposta.sintesi.istruzione,
+      '',
+      TestoDelResponso.vincoloDiFormato,
       '',
       'COSA FARE:',
       '- Ti do la domanda della persona e le letture già date dai Maestri interpellati, con il loro colpo d\'occhio e la loro lettura. Non inventare nuovi sguardi, intreccia quelli che ti do.',

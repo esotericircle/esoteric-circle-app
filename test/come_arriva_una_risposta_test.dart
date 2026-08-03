@@ -1,6 +1,7 @@
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/scorrimento_della_lettura.dart';
+import 'package:esoteric_circle/core/chat/testo_del_responso.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/consult_depth.dart';
 import 'package:esoteric_circle/core/maestro/consulto_del_cielo.dart';
@@ -22,6 +23,7 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_bubble.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_composer.dart';
@@ -574,7 +576,145 @@ void main() {
           reason: 'la domanda deve stare SOPRA la risposta');
     });
   });
+
+  group('VOCE 3b. Il Markdown non arriva a schermo', () {
+    // LA FRASE VERA, copiata dalla misura del 3 agosto 2026.
+    const comeLaScrisseCaligo =
+        'Una nebbia argentea si posa, Sofia. Io ci leggo la runa **Laguz**, il '
+        'lago, il flusso che cerca il mare. Ti affido il sigillo di **Laguz**.';
+
+    test('Ogni marcatore vietato viene tolto, ed e\' enumerato', () {
+      for (final marcatore in TestoDelResponso.marcatoriVietati) {
+        final sporco = 'la runa ${marcatore}Laguz$marcatore chiama';
+        final pulito = TestoDelResponso.pulisci(sporco);
+        expect(TestoDelResponso.portaUnMarcatore(pulito), isFalse,
+            reason: 'il marcatore $marcatore sopravvive alla ripulitura');
+        expect(pulito, contains('Laguz'),
+            reason: 'si toglie il SEGNO, non la parola: una frase mutilata '
+                'sarebbe peggio di un asterisco');
+      }
+    });
+
+    test('Sulla frase vera di Caligo, il nome resta e il segno sparisce', () {
+      final pulito = TestoDelResponso.pulisci(comeLaScrisseCaligo);
+      expect(pulito.contains('*'), isFalse);
+      expect(pulito, contains('la runa Laguz'));
+      expect(pulito, contains('il sigillo di Laguz'));
+    });
+
+    test('Il corsivo si toglie solo quando abbraccia una parola', () {
+      for (final segno in TestoDelResponso.segniDiCorsivo) {
+        expect(TestoDelResponso.pulisci('la runa ${segno}Laguz$segno chiama'),
+            'la runa Laguz chiama');
+      }
+      // E i segni DENTRO le parole non si toccano. Ce ne vogliono DUE nella
+      // stessa frase: con uno solo anche un controllo lasco passerebbe, e la
+      // prova non misurerebbe niente.
+      expect(TestoDelResponso.pulisci('i file rune_bone e rune_stone restano'),
+          'i file rune_bone e rune_stone restano');
+    });
+
+    test('Il titolo si toglie solo a inizio riga', () {
+      expect(TestoDelResponso.pulisci('## Il presagio\nLaguz chiama'),
+          'Il presagio\nLaguz chiama');
+      // Un cancelletto in mezzo alla frase non e' un titolo.
+      expect(TestoDelResponso.pulisci('la casa numero # tre'),
+          'la casa numero # tre');
+    });
+
+    test('Non tocca il testo che non ha marcatori', () {
+      const sana = 'Il ciclo lunare si chiuderà fra sette giorni, e allora la '
+          'stessa domanda avrà una risposta diversa.';
+      expect(TestoDelResponso.pulisci(sana), sana);
+    });
+
+    test('L\'enfasi e\' NOSTRA, su entita\' che l\'app conosce gia\'', () {
+      // I nomi vengono dai cataloghi veri, non da un quarto elenco a mano.
+      expect(TestoDelResponso.nomiNoti, contains('Laguz'));
+      expect(TestoDelResponso.nomiNoti, contains('Toro'));
+
+      final pulito = TestoDelResponso.pulisci(comeLaScrisseCaligo);
+      final pezzi = TestoDelResponso.pezzi(pulito);
+      final inOro = pezzi.where((p) => p.inOro).map((p) => p.testo).toSet();
+      expect(inOro, contains('Laguz'));
+      // E il testo non si perde per strada.
+      expect(pezzi.map((p) => p.testo).join(), pulito);
+    });
+
+    test('Non evidenzia una parola comune che somiglia a un nome', () {
+      // "toro" minuscolo in mezzo a una frase non e' il segno, e "Laguzzo" non
+      // e' Laguz: una prova che grida al lupo si finisce per allentarla.
+      final pezzi = TestoDelResponso.pezzi('il toro di Laguzzo pascola');
+      expect(pezzi.where((p) => p.inOro), isEmpty);
+    });
+
+    testWidgets('A VIDEO non compare nessun marcatore', (tester) async {
+      // Il confine vero: non basta che la funzione pulisca, deve arrivare
+      // pulito dentro la bolla.
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+        ],
+        child: MaterialApp(
+          home: MaestroScope(
+            maestro: Maestro.caligo,
+            child: Scaffold(
+              body: SizedBox(
+                width: 360,
+                child: ChatBubble(
+                  message: ChatMessage(
+                    role: ChatRole.maestro,
+                    text: TestoDelResponso.pulisci(comeLaScrisseCaligo),
+                  ),
+                  maestro: Maestro.caligo,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+
+      final aVideo = tester
+          .widgetList<Text>(find.byType(Text))
+          .map((t) => t.data ?? t.textSpan?.toPlainText() ?? '')
+          .join();
+      expect(aVideo, isNotEmpty);
+      for (final marcatore in TestoDelResponso.marcatoriVietati) {
+        expect(aVideo.contains(marcatore), isFalse,
+            reason: 'il marcatore $marcatore arriva a video');
+      }
+      expect(aVideo, contains('Laguz'));
+
+      // E L'ENFASI C'E' DAVVERO. Senza questa riga la prova diceva solo che
+      // non ci sono asterischi, cioe' sarebbe rimasta verde anche togliendo
+      // tutta l'evidenziazione: il nome sarebbe stato pulito e invisibile.
+      final oro = <String?>[];
+      for (final riga in tester.widgetList<Text>(find.byType(Text))) {
+        final span = riga.textSpan;
+        if (span == null) continue;
+        for (final pezzo in _tuttiIPezzi(span)) {
+          if (pezzo.style?.fontWeight == FontWeight.w600) oro.add(pezzo.text);
+        }
+      }
+      expect(oro, contains('Laguz'),
+          reason: 'il nome noto non è messo in risalto da noi: senza, si '
+              'sarebbe solo tolto il grassetto del modello senza dare niente '
+              'in cambio');
+    });
+  });
+
 }
+
+/// Tutti i pezzi di uno span, in fila.
+List<TextSpan> _tuttiIPezzi(InlineSpan span) => [
+      if (span is TextSpan) ...[
+        if (span.text != null) span,
+        for (final figlio in span.children ?? const <InlineSpan>[])
+          ..._tuttiIPezzi(figlio),
+      ],
+    ];
 
 /// Una voce che risponde all'istante: serve a provare che la pausa NON viene
 /// dalla rete ma dal turno.

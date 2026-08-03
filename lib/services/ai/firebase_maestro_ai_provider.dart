@@ -4,6 +4,7 @@ import 'package:firebase_ai/firebase_ai.dart';
 
 import '../../core/chat/chat_message.dart';
 import '../../core/chat/maestro_memory.dart';
+import '../../core/chat/testo_del_responso.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
@@ -145,7 +146,10 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // e' testo a tutti gli effetti, e senza questa riga arrivava a video come
     // una risposta compiuta.
     if (eTroncata(response)) throw const MaestroAiTroncata();
-    return text;
+    // LA RIPULITURA AL CONFINE. Il vincolo nella persona regge quasi sempre, e
+    // "quasi" non basta per una cosa che dipende da un modello: qui e' l'ultima
+    // riga prima dello schermo.
+    return TestoDelResponso.pulisci(text);
   }
 
   @override
@@ -246,7 +250,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // Anche la sintesi la legge la persona: una sintesi tronca chiuderebbe
     // senza la frase che deve chiudere sempre.
     if (eTroncata(response)) throw const MaestroAiTroncata();
-    return text;
+    return TestoDelResponso.pulisci(text);
   }
 
   @override
@@ -327,9 +331,14 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       if (start < 0 || end <= start) return null;
       final decoded = jsonDecode(raw.substring(start, end + 1));
       if (decoded is! Map) return null;
-      final glance = (decoded['glance'] as Object?)?.toString().trim() ?? '';
-      final reading = (decoded['reading'] as Object?)?.toString().trim() ?? '';
-      final invite = (decoded['invite'] as Object?)?.toString().trim() ?? '';
+      // Puliti tutti e tre: i tre strati arrivano a video come qualunque
+      // altra risposta, quindi passano dallo stesso confine.
+      final glance = TestoDelResponso.pulisci(
+          (decoded['glance'] as Object?)?.toString().trim() ?? '');
+      final reading = TestoDelResponso.pulisci(
+          (decoded['reading'] as Object?)?.toString().trim() ?? '');
+      final invite = TestoDelResponso.pulisci(
+          (decoded['invite'] as Object?)?.toString().trim() ?? '');
       return MaestroReply(glance: glance, reading: reading, invite: invite);
     } catch (errore, traccia) {
       annotaGuastoInnocuo(

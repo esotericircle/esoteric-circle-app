@@ -126,6 +126,25 @@ void main() {
       expect('eTroncata(response)'.allMatches(sorgente).length, metodi.length);
     });
 
+    test('OGNI testo che arriva alla persona passa dalla ripulitura', () {
+      // ENUMERATA per la stessa ragione della troncatura: nessuna prova puo'
+      // chiamare il provider vero, perche' costruirlo richiede un FirebaseAI
+      // che in prova non esiste. Togliere `pulisci` da `reply` restava VERDE
+      // su tutto, quindi si enumerano i punti invece di campionarli.
+      //
+      // Il vincolo nella persona regge quasi sempre, e "quasi" non basta per
+      // una cosa che dipende da un modello: questa e' l'ultima riga prima
+      // dello schermo, e il 3 agosto 2026 `**Laguz**` l'ha attraversata.
+      final sorgente = File('lib/services/ai/firebase_maestro_ai_provider.dart')
+          .readAsStringSync();
+      // Le tre uscite che la persona LEGGE: la chat, la sintesi, e i tre
+      // strati del Consulta. Il distillato no: e' un JSON di servizio che non
+      // legge nessuno.
+      expect('TestoDelResponso.pulisci('.allMatches(sorgente).length, 5,
+          reason: 'la chat, la sintesi e i tre strati del Consulta: cinque '
+              'punti, e se ne manca uno un asterisco arriva a video');
+    });
+
     test('Ogni misura ha un tetto piu\' grande del proprio ragionamento', () {
       // LA PROVA CHE IL CONSULTA PROFONDO NON AVEVA. Il 2 agosto 2026 la
       // Profonda dichiarava un ragionamento di 512 token dentro un tetto di
@@ -198,7 +217,10 @@ void main() {
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
       );
-      expect(prima, contains('circa novanta parole'));
+      // Sessanta chieste per settanta ottenute: chiedendone novanta la mediana
+      // misurata su venti risposte vere era 94, cioe' il modello sfora, e sfora
+      // sempre verso l'alto.
+      expect(prima, contains('circa sessanta parole'));
       expect(prima, contains('Non lasciare mai una frase a metà'));
 
       final piuGiu = MaestroPersona.systemInstruction(

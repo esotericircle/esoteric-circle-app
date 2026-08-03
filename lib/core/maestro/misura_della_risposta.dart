@@ -28,7 +28,12 @@ import 'consult_depth.dart';
 enum MisuraDellaRisposta {
   /// La prima risposta della chat, uguale per tutti i piani: la profondita' non
   /// si sceglie prima, si chiede dopo aver letto.
-  primaRisposta(parole: 90, inLettere: 'novanta', ragionamento: 0),
+  ///
+  /// **Sessanta chieste per settanta ottenute.** Chiedendone novanta, la misura
+  /// su venti risposte vere ha dato mediana 94 e massimo 116: il modello sfora
+  /// di circa il quindici per cento, e sfora sempre verso l'alto. Il numero
+  /// chiesto e' quindi piu' basso di quello voluto, apposta.
+  primaRisposta(parole: 60, inLettere: 'sessanta', ragionamento: 0),
 
   /// La stessa risposta chiesta di nuovo con "Vai piu' a fondo". Piu' spazio
   /// perche' chi la chiede ha gia' letto e ha gia' deciso che gli interessa.
@@ -88,14 +93,29 @@ enum MisuraDellaRisposta {
   /// ignorata del tutto.
   static const int kFattoreDiRete = 2;
 
+  /// Sotto quale tetto la rete non scende mai, qualunque misura si chieda.
+  ///
+  /// **La rete non si stringe quando si stringe il bersaglio**, perche' cio' da
+  /// cui protegge non si stringe con lui. Abbassando la prima risposta da
+  /// novanta parole a sessanta, il tetto calcolato scenderebbe da 400 a 300, ma
+  /// lo sforo del modello resta quello di prima: la risposta piu' lunga
+  /// misurata e' di centosedici parole, cioe' circa 190 token, e una rete a 400
+  /// le sta sopra due volte. Restringerla al filo del nuovo bersaglio
+  /// riporterebbe il difetto del 2 agosto sulla coda lunga delle risposte.
+  ///
+  /// Tocca la sola prima risposta: tutte le altre misure stanno gia' sopra.
+  static const int kReteMinima = 400;
+
   /// Il tetto di token in uscita, calcolato.
   ///
   /// La misura chiesta, tradotta in token, moltiplicata per il fattore di rete,
   /// piu' il ragionamento, arrotondata alla centinaia superiore perche' un
-  /// numero tondo si legge e si discute meglio di 1232.
+  /// numero tondo si legge e si discute meglio di 1232, e mai sotto la rete
+  /// minima.
   int get tetto {
     final necessari = parole * kTokenPerParola * kFattoreDiRete + ragionamento;
-    return ((necessari + 99) ~/ 100) * 100;
+    final tondo = ((necessari + 99) ~/ 100) * 100;
+    return tondo < kReteMinima ? kReteMinima : tondo;
   }
 
   /// La misura del Consulta per la profondita' scelta, in un punto solo.

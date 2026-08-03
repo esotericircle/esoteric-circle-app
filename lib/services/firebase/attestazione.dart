@@ -110,11 +110,21 @@ class Attestazione {
     required InstallatoreAttestazione installatore,
     required RegistroDeiGuasti registro,
   }) async {
+    // UNA SCELTA DICHIARATA NON E' UN GUASTO, e non entra nel registro.
+    //
+    // **Il dato che l'ha fatta togliere.** Nel pannello si leggeva "Voce del
+    // Maestro: accesa ma in guasto" con ultimo guasto `attestazione:
+    // StateError`, mentre la voce funzionava benissimo: il registro portava una
+    // riga che questa funzione ci scriveva apposta, cioe' la decisione presa il
+    // 2 agosto, che il pannello dichiara gia' per conto suo due righe sopra.
+    // Cosi' il pannello diceva che la voce era rotta mentre andava, ed e'
+    // esattamente `isReady => true` rovesciato: prima dichiarava attivo cio'
+    // che non lo era, poi rotto cio' che non lo e'.
+    //
+    // Nessuna informazione si perde: l'esito TORNA a chi chiama, e il pannello
+    // lo mostra con la sua riga e la sua ragione. Il registro resta il posto di
+    // cio' che e' andato storto, e per questo si puo' credere a cio' che dice.
     if (!vaInstallata(releaseMode: releaseMode)) {
-      registro.registra(
-        operazione: 'attestazione',
-        errore: StateError(ragioneDi(EsitoAttestazione.nonInstallataPerScelta)),
-      );
       return EsitoAttestazione.nonInstallataPerScelta;
     }
     try {
