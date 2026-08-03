@@ -107,118 +107,20 @@ void main() {
     });
   });
 
-  group('1c. Le altre voci arrivano NELLA STESSA conversazione', () {
-    test('Due bolle nuove sotto, ognuna col SUO autore', () async {
-      final voce = _VoceCheRisponde('La tua Luna in Pesci chiude un ciclo. '
-          'Il ciclo torna fra sette giorni.');
-      final controller = await conVoce(voce);
-      await controller.send('mi sento fermo');
-      final primaDi = controller.messages.length;
+  // **IL GRUPPO 1c E' STATO TOLTO IL 5 agosto 2026, e va detto perche'.**
+  //
+  // Provava che le altre voci arrivassero NELLA STESSA conversazione: due
+  // bolle nuove sotto, ognuna col suo autore. Il fondatore ha visto cosa
+  // significava sul telefono, cioe' la chat di Medora piena di bolle rosse di
+  // Caligo e verdi di Aura, e ha deciso il contrario: nella chat di un Maestro
+  // parla soltanto quel Maestro, e le altre voci si ascoltano nel Consiglio
+  // del Cerchio.
+  //
+  // Cio' che quel gruppo proteggeva e che vale ancora e' provato altrove:
+  // che a un messaggio appartenga CHI l'ha detto sta in `chat_message`, e che
+  // nessun punto aggiunga a una chat il turno di un altro Maestro sta in
+  // `una_porta_per_il_confronto_test.dart`, che scandisce tutto lib.
 
-      await controller.chiediAgliAltri();
-
-      // Nessuna schermata nuova, nessuna domanda riscritta: due messaggi in
-      // piu' nella stessa lista.
-      expect(controller.messages.length, primaDi + 2);
-      final ultimi = controller.messages.sublist(primaDi);
-      expect(
-        ultimi.map((m) => m.autoreEffettivo(Maestro.medora)),
-        AltreVoci.altriDi(Maestro.medora),
-        reason: 'le due bolle nuove portano il nome di CHI ha parlato: senza, '
-            'riaprendo domani la cronologia uscirebbero col volto di Medora',
-      );
-      expect(controller.vociDelCerchio, Maestro.fixedOrder);
-    });
-
-    test('Ognuno riceve la DOMANDA, non il filo', () async {
-      // Chi non era nella conversazione non puo' rispondere come se ci fosse
-      // stato: commenterebbe la lettura di un altro invece di darne una sua.
-      // Il testo NOMINA un ancoraggio: senza, scatterebbe la rigenerazione
-      // per ancoraggio mancante e le chiamate raddoppierebbero. E' il
-      // comportamento giusto, ma qui misurerebbe un'altra cosa.
-      final voce = _VoceCheRisponde('La tua Luna in Pesci chiude un ciclo. '
-          'Torna fra sette giorni.');
-      final controller = await conVoce(voce);
-      await controller.send('mi sento fermo');
-      voce.storieViste.clear();
-      voce.domandeViste.clear();
-
-      await controller.chiediAgliAltri();
-
-      expect(voce.storieViste, [0, 0],
-          reason: 'agli altri e\' arrivato il filo della conversazione');
-      expect(voce.domandeViste, ['mi sento fermo', 'mi sento fermo'],
-          reason: 'la domanda e\' la stessa, e non si riscrive');
-    });
-
-    test('Chi ha già parlato non viene richiamato', () {
-      // Il caso vero non e' "chiesto due volte", che si ferma da solo su
-      // `puoiChiedereAgliAltri`: e' quando UNA delle due voci si e' gia'
-      // espressa e l'altra no. La prima stesura di questa prova non lo
-      // toccava, e restava verde anche togliendo il controllo dal ciclo.
-      final conversazione = <ChatMessage>[
-        const ChatMessage(role: ChatRole.user, text: 'mi sento fermo'),
-        const ChatMessage(
-            role: ChatRole.maestro, text: 'La tua Luna in Pesci.'),
-        const ChatMessage(
-            role: ChatRole.maestro,
-            text: 'Il respiro si ferma.',
-            autore: Maestro.aura),
-      ];
-      final gia = AltreVoci.vociNella(conversazione, Maestro.medora);
-      expect(gia, [Maestro.medora, Maestro.aura]);
-      final mancanti = [
-        for (final altro in AltreVoci.altriDi(Maestro.medora))
-          if (!gia.contains(altro)) altro,
-      ];
-      expect(mancanti, [Maestro.caligo],
-          reason: 'resta solo chi non ha ancora parlato');
-    });
-
-    test('Con una voce già presente, si chiama solo chi manca', () async {
-      // IL CASO CHE CONTA, e le due prove qui sopra non lo toccavano: una
-      // delle due altre voci si e' gia' espressa, l'altra no. Senza il
-      // controllo dentro il ciclo, a quella che ha gia' parlato si
-      // richiederebbe la stessa cosa una seconda volta.
-      // Lo stato si costruisce passando dall'API vera, non infilando un
-      // messaggio a mano: `messages` e' immodificabile apposta. Caligo tace al
-      // primo giro, quindi dopo il primo "chiedi anche agli altri" ha risposto
-      // la sola Aura.
-      final voce = _VoceCheRisponde(
-          'La tua Luna in Pesci chiude un ciclo. Torna presto.')
-        ..taceCon = Maestro.caligo;
-      final controller = await conVoce(voce);
-      await controller.send('mi sento fermo');
-      await controller.chiediAgliAltri();
-      expect(controller.vociDelCerchio, [Maestro.medora, Maestro.aura]);
-
-      final primaDi = controller.messages.length;
-      voce
-        ..chiamate = 0
-        ..taceCon = null;
-
-      await controller.chiediAgliAltri();
-
-      expect(controller.messages.length, primaDi + 1,
-          reason: 'una bolla sola: Aura aveva già parlato');
-      expect(controller.messages.last.autoreEffettivo(Maestro.medora),
-          Maestro.caligo);
-      expect(voce.chiamate, 1, reason: 'una voce sola da chiamare');
-    });
-
-    test('Chiesto due volte, non raddoppia le voci', () async {
-      final voce = _VoceCheRisponde(
-          'La tua Luna in Pesci chiude un ciclo. Torna presto.');
-      final controller = await conVoce(voce);
-      await controller.send('mi sento fermo');
-      await controller.chiediAgliAltri();
-      final dopoIlPrimo = controller.messages.length;
-      await controller.chiediAgliAltri();
-      expect(controller.messages.length, dopoIlPrimo);
-      expect(controller.puoiChiedereAgliAltri, isFalse,
-          reason: 'hanno gia' ' parlato tutti');
-    });
-  });
 
   group('1e. La sintesi si raggiunge solo quando c\'e\' da sintetizzare', () {
     test('Con una voce sola, no. Con due, si\'', () async {
@@ -234,11 +136,19 @@ void main() {
             'confronto, e la schermata che lo faceva si raggiungeva sempre',
       );
 
-      await controller.chiediAgliAltri();
-      expect(
-        AltreVoci.siPuoSintetizzare(controller.messages, Maestro.medora),
-        isTrue,
-      );
+      // NON si arriva piu' a due voci dentro la chat: dal 5 agosto 2026 le
+      // altre voci si ascoltano nel Consiglio. La regola qui resta la sua,
+      // cioe' che una voce sola non e' un confronto, e si prova sul DATO
+      // invece che sul giro completo.
+      final conDue = [
+        ...controller.messages,
+        ChatMessage(
+          role: ChatRole.maestro,
+          text: 'La tua Luna in Pesci chiude un ciclo. Torna presto.',
+          autore: AltreVoci.altriDi(Maestro.medora).first,
+        ),
+      ];
+      expect(AltreVoci.siPuoSintetizzare(conDue, Maestro.medora), isTrue);
     });
 
     test('Due ripieghi non sono due voci', () async {
@@ -297,20 +207,11 @@ void main() {
               'cioe' ' il gating si sarebbe allargato in silenzio');
     });
 
-    test('Chiedere agli altri NON intacca il limite del giorno', () async {
-      // Come oggi: il confronto non consuma le domande singole.
-      final voce = _VoceCheRisponde(
-          'La tua Luna in Pesci chiude un ciclo. Torna presto.');
-      final controller = await conVoce(voce);
-      await controller.send('mi sento fermo');
-      final chiamate = voce.chiamate;
-      await controller.chiediAgliAltri();
-      expect(voce.chiamate, chiamate + 2,
-          reason: 'due voci, due chiamate');
-      // Il costo si decide fuori da _generate, quindi qui non si consuma:
-      // il controller non ha un contatore in questa prova, e non deve.
-      expect(controller.vociDelCerchio.length, 3);
-    });
+    // **LA PROVA SUL LIMITE E' STATA TOLTA IL 5 agosto 2026.** Verificava che
+    // chiedere agli altri dentro la chat non intaccasse le domande del
+    // giorno. Dentro la chat non si chiede piu' agli altri: si apre il
+    // Consiglio, e li' il limite lo controlla `canCompare` come prima.
+
   });
 }
 

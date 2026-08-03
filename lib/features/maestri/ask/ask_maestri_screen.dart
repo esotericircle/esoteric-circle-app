@@ -40,6 +40,13 @@ import '../widgets/tre_volti.dart';
 /// cade sull'oracolo locale deterministico, senza mai un errore a video. La
 /// sintesi comparativa si compone in modo deterministico dalle lenti gia'
 /// ottenute, senza una chiamata Gemini in piu'.
+/// COME SI CHIAMA LA SCHERMATA DEL CONFRONTO.
+///
+/// Sta fuori dalla classe perche' una prova deve poterlo nominare senza
+/// montare uno schermo, e perche' una regola dentro una classe privata non si
+/// puo' nemmeno citare.
+const String titoloDelConsiglio = 'Il Consiglio del Cerchio';
+
 class AskMaestriScreen extends StatefulWidget {
   const AskMaestriScreen({
     super.key,
@@ -85,26 +92,18 @@ class AskMaestriScreen extends StatefulWidget {
     );
   }
 
-  static Route<void> route({required Maestro starter}) {
-    return MaterialPageRoute<void>(
-      // Il colore della Consulta e' quello del Maestro da cui si parte, non di
-      // chi era attivo un istante prima: senza questo `maestro:` lo scope
-      // seguiva `MaestroController` e le carte uscivano nel viola della palette
-      // neutra. Stesso difetto della chat, stessa correzione.
-      builder: (_) => MaestroScope(
-        maestro: starter,
-        child: AskMaestriScreen(starter: starter),
-      ),
-    );
-  }
+  // IL COSTRUTTORE DI ROTTA SENZA TEMA E' STATO TOLTO.
+  //
+  // Apriva questa schermata da zero, con il campo in cima da riempire. Quella
+  // porta non esisteva piu' nell'app da quando la bilancia e' sparita
+  // dall'intestazione della chat, e teneva in vita meta' schermata che nessuno
+  // poteva raggiungere. Si arriva qui in un modo solo, `perLaSintesi`.
 
   @override
   State<AskMaestriScreen> createState() => _AskMaestriScreenState();
 }
 
 class _AskMaestriScreenState extends State<AskMaestriScreen> {
-  final TextEditingController _composer = TextEditingController();
-
   /// I Maestri interpellati, nell'ordine in cui sono stati aggiunti.
   final List<Maestro> _responders = [];
 
@@ -131,15 +130,45 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       _responders.add(lente.maestro);
       _lenses[lente.maestro] = lente;
     }
+    // LA DOMANDA ARRIVA DA FUORI, e non si riscrive qui.
+    //
+    // Il campo di scrittura in cima e' stato tolto il 5 agosto 2026: nel
+    // confronto non si scrive, si legge e si sceglie con chi proseguire. Un
+    // campo che sembra accettare una domanda e apre altro e' una promessa
+    // rotta. Se la domanda c'e' ma nessuna voce e' ancora arrivata, la prima
+    // se la chiede la schermata invece di aspettare che qualcuno la digiti.
+    if (_theme != null && widget.lentiIniziali.isEmpty) {
+      _responders.add(widget.starter);
+      _loading.add(widget.starter);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        // IL LIMITE SI CONTROLLA ANCHE QUI.
+        //
+        // Prima lo controllava `_ask`, cioe' il bottone del campo di
+        // scrittura: togliendo il campo il controllo sarebbe sparito con lui,
+        // e la schermata avrebbe chiesto una voce a chi aveva finito le
+        // domande. Il limite non e' del campo, e' della domanda.
+        final piano = context.read<EntitlementService>().tier;
+        if (!context.read<QuestionAllowance>().canAsk(piano)) {
+          setState(() => _loading.remove(widget.starter));
+          showUpgradeInvite(
+            context,
+            title: 'Hai posto le tue domande di oggi',
+            message:
+                'Col Cerchio le domande ai Maestri sono senza limiti e puoi '
+                'metterne a confronto gli sguardi.',
+          );
+          return;
+        }
+        _fetchLens(widget.starter, _theme!, countsAgainstAllowance: true);
+      });
+    }
   }
 
   @override
   void dispose() {
-    _composer.dispose();
     super.dispose();
   }
-
-  bool get _hasAsked => _theme != null;
 
   /// Le lenti risolte, nell'ordine fisso del cerchio.
   List<MaestroLens> get _orderedLenses => [
@@ -151,42 +180,6 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
   /// personalizzazione col solo nome.
   NatalContext _natal() =>
       SorgenteNatale.daIdentita(context.read<BirthIdentityController>());
-
-  Future<void> _ask() async {
-    final theme = _composer.text.trim();
-    if (theme.isEmpty) return;
-    final tier = context.read<EntitlementService>().tier;
-    final allowance = context.read<QuestionAllowance>();
-
-    if (!allowance.canAsk(tier)) {
-      // Free: le risposte di oggi sono esaurite.
-      FocusScope.of(context).unfocus();
-      await showUpgradeInvite(
-        context,
-        title: 'Hai posto le tue domande di oggi',
-        message:
-            'Col Cerchio le domande ai Maestri sono senza limiti e puoi metterne '
-            'a confronto gli sguardi.',
-      );
-      return;
-    }
-
-    FocusScope.of(context).unfocus();
-    // La domanda si conta solo a risposta consegnata: si registra dentro
-    // _fetchLens, quando la lente (viva o di ripiego) e' pronta.
-    setState(() {
-      _theme = theme;
-      _responders
-        ..clear()
-        ..add(widget.starter);
-      _lenses.clear();
-      _aiSynthesis = null;
-      _loading
-        ..clear()
-        ..add(widget.starter);
-    });
-    await _fetchLens(widget.starter, theme, countsAgainstAllowance: true);
-  }
 
   /// Ottiene la lente di un Maestro sul tema: prova Gemini con profilo e dati
   /// natali, e cade sull'oracolo locale se il provider non e' pronto o solleva
@@ -369,32 +362,34 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
         ),
         // SI CHIAMA PER QUELLO CHE FA, e non col nome del Maestro che si e'
         // appena lasciato: arrivandoci dalla chat, quel nome diceva di essere
-        // tornati da lui mentre qui ci sono tutte le voci.
-        title: Text(
-            widget.lentiIniziali.isEmpty
-                ? 'Consulta ${widget.starter.displayName}'
-                : 'Le voci a confronto',
-            style: TypographyTokens.display(size: 20)),
+        // tornati da lui mentre qui ci sono tutti e tre.
+        //
+        // **E non si chiama piu' "Le voci a confronto".** Quel nome conteneva
+        // la parola che abbiamo appena tolto dai Maestri, dove "voce" e'
+        // l'audio: qui non c'e' nessun audio, ci sono tre pareri. Il nome
+        // nuovo dice CHI si esprime, non ruba il nome a nessuno dei tre, e non
+        // nomina la voce.
+        // IL TITOLO SI LEGGE INTERO, e non si accorcia il nome per farcelo
+        // stare. A corpo 20 su schermo da 360 punti diventava "Il Consiglio
+        // del Cerc...", cioe' un nome che nessuno riconosce: e' lo stesso
+        // difetto gia' pagato con "Sintesi comparat...". Il rimpicciolimento
+        // e' l'unica delle due cose che possiamo scegliere senza togliere
+        // parole a chi ha scelto il nome.
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(titoloDelConsiglio,
+              maxLines: 1, style: TypographyTokens.display(size: 20)),
+        ),
       ),
       body: SafeArea(
         top: false,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
-                  SpacingTokens.md, SpacingTokens.lg, SpacingTokens.sm),
-              child: _Composer(
-                controller: _composer,
-                palette: palette,
-                starter: widget.starter,
-                onChanged: () => setState(() {}),
-                onAsk: _ask,
-              ),
-            ),
             Expanded(
-              child: !_hasAsked
-                  ? _EmptyState(starter: widget.starter, palette: palette)
-                  : ListView(
+              // NESSUNO STATO VUOTO: qui si arriva sempre con una domanda gia'
+              // fatta, e senza campo per farne una non ci sarebbe niente da
+              // invitare a fare. Un invito senza uscita e' un vicolo cieco.
+              child: ListView(
                       key: const Key('ask_results'),
                       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
                           SpacingTokens.lg, SpacingTokens.xxxl),
@@ -434,111 +429,6 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                         ],
                       ],
                     ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Il campo della domanda con il bottone Chiedi.
-class _Composer extends StatelessWidget {
-  const _Composer({
-    required this.controller,
-    required this.palette,
-    required this.starter,
-    required this.onChanged,
-    required this.onAsk,
-  });
-
-  final TextEditingController controller;
-  final MaestroPalette palette;
-  final Maestro starter;
-  final VoidCallback onChanged;
-  final VoidCallback onAsk;
-
-  @override
-  Widget build(BuildContext context) {
-    final canAsk = controller.text.trim().isNotEmpty;
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            key: const Key('ask_field'),
-            controller: controller,
-            onChanged: (_) => onChanged(),
-            onSubmitted: (_) => onAsk(),
-            textInputAction: TextInputAction.send,
-            minLines: 1,
-            maxLines: 3,
-            style: TypographyTokens.body(size: 15)
-                .copyWith(color: ColorTokens.textPrimary),
-            decoration: InputDecoration(
-              hintText: 'Consulta ${starter.displayName}...',
-              hintStyle: TypographyTokens.body(size: 15)
-                  .copyWith(color: ColorTokens.textSecondary),
-              filled: true,
-              fillColor: palette.surfaceElevated.withValues(alpha: 0.5),
-              contentPadding: const EdgeInsets.symmetric(
-                  horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                borderSide:
-                    BorderSide(color: palette.gold.withValues(alpha: 0.3)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                borderSide:
-                    BorderSide(color: palette.gold.withValues(alpha: 0.3)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                borderSide:
-                    BorderSide(color: palette.gold.withValues(alpha: 0.6)),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: SpacingTokens.sm),
-        IconButton(
-          key: const Key('ask_submit'),
-          onPressed: canAsk ? onAsk : null,
-          icon: const Icon(Icons.auto_awesome),
-          color: palette.goldSoft,
-          disabledColor: ColorTokens.textSecondary.withValues(alpha: 0.4),
-          tooltip: 'Consulta',
-        ),
-      ],
-    );
-  }
-}
-
-/// Stato vuoto: invita a porre la prima domanda al Maestro del dominio.
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({required this.starter, required this.palette});
-
-  final Maestro starter;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      key: const Key('ask_empty'),
-      child: Padding(
-        padding: const EdgeInsets.all(SpacingTokens.xl),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(starter.icon,
-                size: 44, color: palette.goldSoft.withValues(alpha: 0.7)),
-            const SizedBox(height: SpacingTokens.md),
-            Text(
-              'Scrivi la tua domanda a ${starter.displayName}. Dopo la sua '
-              'risposta potrai portarla anche a un altro Maestro.',
-              textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 15)
-                  .copyWith(color: ColorTokens.textSecondary),
             ),
           ],
         ),

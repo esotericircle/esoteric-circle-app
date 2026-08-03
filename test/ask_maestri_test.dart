@@ -66,6 +66,7 @@ void main() {
     AppServices? services,
     QuestionAllowance? allowance,
     BirthIdentityController? birth,
+    String tema = 'il lavoro',
   }) =>
       MultiProvider(
         providers: [
@@ -84,22 +85,30 @@ void main() {
           ChangeNotifierProvider(create: (_) => ZodiacController()),
         ],
         child: MaterialApp(
-          home: MaestroScope(child: AskMaestriScreen(starter: starter)),
+          home: MaestroScope(
+            child: AskMaestriScreen(starter: starter, temaIniziale: tema),
+          ),
         ),
       );
 
+  /// LA DOMANDA ARRIVA DA FUORI, e non si digita piu' qui.
+  ///
+  /// Il campo di scrittura in cima al confronto e' stato tolto il 5 agosto
+  /// 2026: nel confronto non si scrive, si legge e si sceglie con chi
+  /// proseguire. Le prove montano la schermata col tema gia' dentro, cioe'
+  /// esattamente come ci si arriva dalla chat, e qui si aspetta soltanto che
+  /// la prima voce arrivi.
   Future<void> ask(WidgetTester tester, String theme) async {
-    await tester.enterText(find.byKey(const Key('ask_field')), theme);
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('ask_submit')));
     await tester.pumpAndSettle();
   }
 
   testWidgets('Parte dal Maestro del dominio, una risposta e l\'invito',
       (tester) async {
-    await tester.pumpWidget(host(starter: Maestro.medora));
+    await tester.pumpWidget(host(tema: 'il lavoro', starter: Maestro.medora));
     await tester.pump();
-    expect(find.byKey(const Key('ask_empty')), findsOneWidget);
+    // NIENTE STATO VUOTO: qui si arriva sempre con una domanda gia' fatta, e
+    // senza campo per farne una non ci sarebbe niente da invitare a fare.
+    expect(find.byKey(const Key('ask_empty')), findsNothing);
 
     await ask(tester, 'il lavoro');
 
@@ -114,6 +123,7 @@ void main() {
   testWidgets('AI pronta: la lente del dominio usa la risposta viva',
       (tester) async {
     await tester.pumpWidget(host(
+      tema: 'il lavoro',
       starter: Maestro.medora,
       services: _servicesWith(_ReadyAi()),
     ));
@@ -128,6 +138,7 @@ void main() {
   testWidgets('AI che lancia MaestroAiUnavailable: cade sull\'oracolo',
       (tester) async {
     await tester.pumpWidget(host(
+      tema: 'il lavoro',
       starter: Maestro.medora,
       services: _servicesWith(_UnavailableAi()),
     ));
@@ -146,6 +157,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     await tester.pumpWidget(host(
+      tema: 'una scelta',
       tier: Tier.tier1,
       starter: Maestro.medora,
       services: _servicesWith(_ReadyAi()),
@@ -192,7 +204,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(host(tier: Tier.tier1, starter: Maestro.medora));
+    await tester.pumpWidget(host(tema: 'una scelta', tier: Tier.tier1, starter: Maestro.medora));
     await ask(tester, 'una scelta');
     await tester.tap(find.byKey(const Key('ask_add_aura')));
     await tester.pumpAndSettle();
@@ -229,7 +241,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     // Provider non pronto (offline): lenti dall'oracolo e sintesi deterministica.
-    await tester.pumpWidget(host(tier: Tier.tier1, starter: Maestro.medora));
+    await tester.pumpWidget(host(tema: 'una scelta', tier: Tier.tier1, starter: Maestro.medora));
     await ask(tester, 'una scelta');
     await tester.tap(find.byKey(const Key('ask_add_aura')));
     await tester.pumpAndSettle();
@@ -256,7 +268,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(host(tier: Tier.free));
+    await tester.pumpWidget(host(tema: 'una scelta', tier: Tier.free));
     await ask(tester, 'una scelta');
     await tester.tap(find.byKey(const Key('ask_add_aura')));
     await tester.pumpAndSettle();
@@ -273,18 +285,25 @@ void main() {
   // pretendevano che costasse. Adesso montano una voce che risponde davvero,
   // che e' cio' che intendevano misurare, e sotto c'e' la prova nuova che il
   // ripiego NON conta.
-  testWidgets('Free: tre risposte al giorno, la quarta invita all\'upgrade',
+  testWidgets('Free: oltre il limite, il confronto invita a salire',
       (tester) async {
-    await tester.pumpWidget(
-        host(tier: Tier.free, services: _servicesWith(_ReadyAi())));
-    await ask(tester, 'prima');
-    await ask(tester, 'seconda');
-    await ask(tester, 'terza');
-    // Le prime tre passano.
-    expect(find.byKey(const Key('ask_lens_medora')), findsOneWidget);
-    expect(find.byKey(const Key('upgrade_invite')), findsNothing);
-
-    // La quarta e' oltre il limite.
+    // **QUESTA PROVA E' CAMBIATA IL 5 agosto 2026, e va detto perche'.**
+    // Faceva quattro domande di fila su questa schermata, digitandole nel
+    // campo in cima. Il campo non c'e' piu': nel confronto non si scrive, e la
+    // domanda arriva dalla chat. Il conteggio delle tre al giorno resta
+    // provato dove ora avviene davvero, cioe' nella chat. Qui resta cio' che
+    // e' ancora di questa schermata: con le domande gia' finite, la prima voce
+    // non parte e si vede l'invito a salire invece di un comando muto.
+    final contatore = QuestionAllowance();
+    for (var i = 0; i < 3; i++) {
+      contatore.record(Tier.free);
+    }
+    await tester.pumpWidget(host(
+      tema: 'quarta',
+      tier: Tier.free,
+      allowance: contatore,
+      services: _servicesWith(_ReadyAi()),
+    ));
     await ask(tester, 'quarta');
     expect(find.byKey(const Key('upgrade_invite')), findsOneWidget);
   });
@@ -292,14 +311,18 @@ void main() {
   testWidgets('La domanda si conta solo a risposta consegnata', (tester) async {
     final allowance = QuestionAllowance();
     await tester.pumpWidget(host(
+      tema: 'il lavoro',
       tier: Tier.free,
       allowance: allowance,
       services: _servicesWith(_ReadyAi()),
     ));
-    // Prima di consegnare, nulla e' consumato.
-    expect(allowance.usedToday(), 0);
+    // **L'ISTANTE "PRIMA" NON E' PIU' OSSERVABILE, e non lo fingo.** La voce
+    // si chiede da se' appena la schermata si monta, quindi non c'e' nessun
+    // momento in cui la prova possa guardare col montaggio finito e la
+    // risposta non ancora arrivata. Resta il conto: una risposta VERA consuma
+    // una domanda, e una sola. Che un ripiego NON consumi lo prova la voce
+    // qui sotto, che e' la meta' che conta.
     await ask(tester, 'il lavoro');
-    // Consegnata la risposta VERA, una consumata.
     expect(allowance.usedToday(), 1);
   });
 
@@ -308,7 +331,7 @@ void main() {
     // dichiarata come ripiego: il Maestro non ha parlato, quindi non si paga.
     // E' il difetto del 2 agosto visto dalla seconda superficie.
     final allowance = QuestionAllowance();
-    await tester.pumpWidget(host(tier: Tier.free, allowance: allowance));
+    await tester.pumpWidget(host(tema: 'il lavoro', tier: Tier.free, allowance: allowance));
     await ask(tester, 'il lavoro');
     expect(find.byKey(const Key('ask_lens_medora')), findsOneWidget,
         reason: 'la lente di ripiego viene consegnata lo stesso');
@@ -334,6 +357,7 @@ void main() {
         NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
       );
     await tester.pumpWidget(host(
+      tema: 'il lavoro',
       starter: Maestro.medora,
       services: _servicesWith(cap),
       birth: birth,
@@ -361,7 +385,7 @@ void main() {
       memory: repo,
       memoryPersistent: false,
     );
-    await tester.pumpWidget(host(starter: Maestro.medora, services: services));
+    await tester.pumpWidget(host(tema: 'devo cambiare lavoro', starter: Maestro.medora, services: services));
     await ask(tester, 'devo cambiare lavoro');
 
     await tester.tap(find.byKey(const Key('ask_continue_chat')));
@@ -381,7 +405,7 @@ void main() {
 
   testWidgets('I testi a video non usano il trattino lungo e hanno accenti veri',
       (tester) async {
-    await tester.pumpWidget(host(starter: Maestro.medora));
+    await tester.pumpWidget(host(tema: 'il lavoro', starter: Maestro.medora));
     await ask(tester, 'il lavoro');
 
     final testi = tester

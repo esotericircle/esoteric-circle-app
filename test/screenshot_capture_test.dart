@@ -603,13 +603,12 @@ void main() {
     for (var i = 0; i < 12; i++) {
       await step(tester);
     }
+    // UNA PORTA SOLA, dal 5 agosto 2026: "Chiedi anche agli altri" apre
+    // direttamente il Consiglio del Cerchio. Prima incollava le altre due voci
+    // dentro la chat di Medora e poi serviva un secondo tocco per aprire il
+    // confronto: due porte allo stesso posto.
     await tester.tap(find.byKey(const Key('chat_altre_voci')));
-    // Due voci, quindi due pause.
     for (var i = 0; i < 24; i++) {
-      await step(tester);
-    }
-    await tester.tap(find.byKey(const Key('chat_vedi_sintesi')));
-    for (var i = 0; i < 6; i++) {
       await step(tester);
     }
     // Decodifica gli avatar, cosi' i mezzi busti delle lenti si vedono nel

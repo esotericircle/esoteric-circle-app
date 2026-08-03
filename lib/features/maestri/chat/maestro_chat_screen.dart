@@ -44,53 +44,6 @@ import 'widgets/diagnostics_dialog.dart';
 import 'widgets/maestro_disclaimer.dart';
 import '../widgets/maestro_bust.dart';
 
-/// La riga discreta che porta alla sintesi delle voci gia' ottenute.
-///
-/// Sopra il campo di scrittura e non nell'intestazione: e' un passo che si fa
-/// DOPO aver letto, come "Vai piu' a fondo", non un comando che sta li' da
-/// prima che ci sia qualcosa da confrontare.
-class _VerLaSintesi extends StatelessWidget {
-  const _VerLaSintesi({required this.quante, required this.onTap});
-
-  final int quante;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: SpacingTokens.md,
-        vertical: SpacingTokens.xs,
-      ),
-      child: GestureDetector(
-        key: const Key('chat_vedi_sintesi'),
-        onTap: onTap,
-        behavior: HitTestBehavior.opaque,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.auto_awesome_motion_rounded,
-                color: palette.goldSoft, size: 18),
-            const SizedBox(width: SpacingTokens.xs),
-            Text(
-              'Metti a confronto le $quante voci',
-              style: TypographyTokens.body(size: 14, weight: 600)
-                  .copyWith(color: palette.goldSoft),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// La conversazione testuale con un Maestro.
-///
-/// E' il primo passo di C3: chat con Medora, in italiano, end to end su Gemini
-/// via Firebase AI Logic, con memoria persistente per la Demo. Voce, avatar
-/// animati e funzioni Coming soon sono i passi successivi.
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
     super.key,
@@ -319,11 +272,18 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       );
       return;
     }
-    await controller.chiediAgliAltri();
+    // UNA PORTA SOLA, dal 5 agosto 2026.
+    //
+    // Prima questo INCOLLAVA le risposte degli altri due dentro la chat di
+    // Medora: negli screenshot del fondatore la sua conversazione conteneva
+    // bolle rosse di Caligo e verdi di Aura. Nella chat di un Maestro parla
+    // soltanto quel Maestro, sempre. Adesso si apre il Consiglio, che e'
+    // il posto dove i tre si esprimono.
+    _apriIlConsiglio(context, controller);
   }
 
-  /// Apre la sintesi delle voci GIA' ottenute, portandosele dietro.
-  void _apriLaSintesi(
+  /// Apre il Consiglio del Cerchio, portandosi dietro cio' che c'e' gia'.
+  void _apriIlConsiglio(
     BuildContext context,
     MaestroChatController controller,
   ) {
@@ -563,12 +523,6 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               // apriva un confronto fra una voce sola e nessun'altra. La
               // regola sta nel dato, `AltreVoci.siPuoSintetizzare`, e conta le
               // letture VERE: due ripieghi non sono due voci.
-              if (controller.vociDelCerchio.length >=
-                  AltreVoci.vociPerLaSintesi)
-                _VerLaSintesi(
-                  quante: controller.vociDelCerchio.length,
-                  onTap: () => _apriLaSintesi(context, controller),
-                ),
               if (!controller.aiReady)
                 _ConfigNotice(palette: palette, maestro: widget.maestro),
               ChatComposer(

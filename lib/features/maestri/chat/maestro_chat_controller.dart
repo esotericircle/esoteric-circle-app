@@ -337,20 +337,13 @@ class MaestroChatController extends ChangeNotifier {
   /// **Non intacca il limite del giorno**, esattamente come il confronto di
   /// oggi: il costo si decide fuori da `_generate`, quindi qui basta non
   /// chiederlo. Il gating del piano lo tiene la schermata, che e' dove vive gia'.
-  Future<void> chiediAgliAltri() async {
-    if (!puoiChiedereAgliAltri) return;
-    final domanda = ultimaDomanda;
-    if (domanda == null) return;
-    for (final altro in AltreVoci.altriDi(maestro)) {
-      if (vociDelCerchio.contains(altro)) continue;
-      await _generate(
-        priorHistory: const [],
-        userText: domanda,
-        per: altro,
-      );
-    }
-  }
-
+  // IL METODO CHE INCOLLAVA LE ALTRE VOCI QUI DENTRO E' STATO TOLTO.
+  //
+  // Chiedeva la stessa domanda agli altri due Maestri e le loro risposte
+  // finivano in QUESTA conversazione: negli screenshot del fondatore la chat
+  // di Medora conteneva bolle rosse di Caligo e verdi di Aura. Nella chat di
+  // un Maestro parla soltanto quel Maestro, sempre, e le altre voci si
+  // ascoltano nel Consiglio del Cerchio.
   bool get puoiChiedereDiApprofondire {
     if (_sending || _messages.isEmpty) return false;
     final ultima = _messages.last;
