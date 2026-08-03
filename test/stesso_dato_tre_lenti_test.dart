@@ -1,5 +1,6 @@
 import 'package:esoteric_circle/core/maestro/ancoraggio.dart';
-import 'package:esoteric_circle/core/maestro/consulto_del_cielo.dart';
+import 'package:esoteric_circle/core/chat/maestro_memory.dart';
+import 'package:esoteric_circle/core/maestro/frasi_dell_attesa.dart';
 import 'package:esoteric_circle/core/maestro/lente_del_cielo.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
@@ -122,17 +123,19 @@ void main() {
             'a inventarlo');
   });
 
-  test('Le battute del consulto portano la lente del Maestro', () {
+  test('Le frasi dell attesa portano il mestiere del Maestro', () {
+    // Lo STESSO dato guardato da tre mestieri diversi: Medora ci legge il moto
+    // nel tempo, Aura l'effetto nel corpo, Caligo il simbolo. La prima riga di
+    // ciascuno deve quindi essere diversa dalle altre due.
     const natal = NatalContext(sunSign: 'Cancro', moonSign: 'Pesci');
-    final primeBattute = <String>{};
+    final prime = <String>{};
     for (final maestro in Maestro.values) {
-      final battute = ConsultoDelCielo.battutePer(natal, maestro: maestro);
-      expect(battute, isNotEmpty);
-      primeBattute.add(battute.first.frase);
-      // E il valore resta letterale anche qui.
-      expect(battute.first.frase, contains('Pesci'));
+      final frasi = FrasiDellAttesa.per(maestro,
+          natal: natal, memoria: MaestroMemory.empty);
+      expect(frasi, isNotEmpty);
+      prime.add(frasi.first);
     }
-    expect(primeBattute.length, Maestro.values.length,
-        reason: 'la scena deve dire il dato con la voce di chi consulta');
+    expect(prime.length, Maestro.values.length,
+        reason: 'la scena deve dire il dato col mestiere di chi consulta');
   });
 }

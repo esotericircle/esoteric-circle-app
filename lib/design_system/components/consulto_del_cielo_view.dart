@@ -1,355 +1,263 @@
 import 'dart:async';
 
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/maestro/consulto_del_cielo.dart';
-import '../../core/maestro/corpo_del_consulto.dart';
+import '../../core/chat/maestro_memory.dart';
+import '../../core/maestro/frasi_dell_attesa.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/natal_context.dart';
 import '../../core/maestro/tempi_dell_attesa.dart';
 import '../../core/quality/quality_tier.dart';
+import '../../features/maestri/widgets/maestro_bust.dart';
 import '../theme/maestro_scope.dart';
 import '../tokens/spacing_tokens.dart';
 import '../tokens/typography_tokens.dart';
-import 'moon_phase_emblem.dart';
-import 'zodiac_glyph.dart';
 
-/// L'attesa e' il Maestro che consulta il tuo cielo, E IL CIELO SI VEDE.
+/// L'ATTESA SI DEVE POTER LEGGERE.
 ///
 /// Vive nel design system e non dentro la chat perche' le superfici che
 /// aspettano una risposta sono DUE, la chat e il Consulta.
 ///
-/// **Il corpo si disegna davvero.** La prima stesura di questa scena mostrava
-/// due righe di testo e nient'altro: nessun corpo, nessuna luce. Le dieci prove
-/// che la coprivano contavano widget e testo, quindi nessuna poteva
-/// accorgersene, ed e' esattamente il modo in cui una scena vuota passa per
-/// fatta. Adesso c'e' l'arte vera gia' a bundle, la stessa che l'Oroscopo e il
-/// Rito del Sogno mostrano, e una prova conta i PIXEL dipinti.
+/// **Cosa c'era prima, e perche' e' cambiato.** La scena mostrava il corpo
+/// celeste che il Maestro stava guardando, un emblema di segno oppure il disco
+/// lunare, e le righe si succedevano ogni 1,6 secondi. Il fondatore lo ha
+/// guardato sul telefono: le frasi sono scritte per essere lette e non se ne
+/// aveva il tempo, sembravano sei difetti di seguito. E l'emblema cambiava con
+/// la riga, quindi la scena non aveva un centro.
 ///
-/// Con Riduci Movimento o Quality Tier basso l'emblema C'E' ed e' fermo: si
-/// spegne il moto, non l'immagine.
+/// **La scena adesso.** Un emblema solo, quello del MAESTRO, fermo al centro,
+/// che si colora da monocromo a colore pieno in tre secondi e poi resta pieno.
+/// Sotto, una frase alla volta, due secondi netti ciascuna. Il minimo garantito
+/// e' di due frasi intere: se la risposta arriva prima, la scena finisce
+/// comunque il suo minimo. Se tarda, le frasi ricominciano dalla prima SENZA
+/// che l'emblema si scolori, perche' un caricamento che riparte da zero dice
+/// che qualcosa e' andato storto, mentre non e' andato storto niente.
+///
+/// **Le frasi dicono il vero.** Nascono da [FrasiDellAttesa], che le lascia
+/// passare solo quando il dato che nominano e' davvero nel contesto che parte
+/// verso il modello.
+///
+/// Con Riduci Movimento o Quality Tier basso l'emblema c'e' ed e' GIA' a
+/// colori, e nessun controllore viene creato: non uno lasciato fermo, proprio
+/// nessuno.
 class ConsultoDelCieloView extends StatefulWidget {
   const ConsultoDelCieloView({
     super.key,
     required this.natal,
     this.maestro,
+    this.memoria = MaestroMemory.empty,
     this.rotazione = 0,
-    this.durataBattuta = TempiDellAttesa.durataBattuta,
+    this.durataFrase = TempiDellAttesa.durataBattuta,
   });
 
-  /// I dati di questa persona. Se e' vuoto la scena consulta il solo Sole e lo
-  /// dichiara, invece di inventare un segno.
+  /// I dati di questa persona. Decidono QUALI frasi si possono dire.
   final NatalContext natal;
 
-  /// Chi sta consultando. Con lui le battute portano la sua LENTE: Medora
-  /// guarda il moto, Aura l'effetto, Caligo il simbolo. Nullo fuori da una
-  /// conversazione, e allora la frase resta neutra.
+  /// Chi sta consultando. Le frasi sono sue, dal suo mestiere: nessuna riga e'
+  /// condivisa fra i tre.
   final Maestro? maestro;
 
+  /// La memoria del Maestro con questa persona. Anche lei decide una frase.
+  final MaestroMemory memoria;
+
   /// Quale giro di frasi. Cresce a ogni domanda, cosi' due attese vicine non
-  /// fanno rileggere la stessa riga del Maestro.
+  /// aprono sulla stessa riga.
   final int rotazione;
 
-  /// Quanto resta a schermo ogni battuta. Il valore vive in [TempiDellAttesa],
-  /// insieme agli altri tempi dell'attesa: qui c'e' solo il modo di scavalcarlo
-  /// in una prova.
-  final Duration durataBattuta;
+  /// Quanto resta a schermo ogni frase. Il valore vive in [TempiDellAttesa]:
+  /// qui c'e' solo il modo di scavalcarlo in una prova.
+  final Duration durataFrase;
 
-  /// IL PAVIMENTO DEL CORPO, sotto il quale non si stringe.
-  ///
-  /// A 72 punti l'emblema di un segno e' ancora riconoscibile e la falce della
-  /// Luna si legge ancora come falce. Piu' sotto diventa una macchia, e una
-  /// macchia non dice niente a nessuno: meglio togliere il disegno e lasciare
-  /// la riga di testo, che almeno si legge.
-  static const double pavimentoDelCorpo = 72;
-
-  /// IL TETTO DEL CORPO. Oltre, su uno schermo alto, l'emblema smetterebbe di
-  /// stare in una scena e diventerebbe la schermata.
+  /// Il lato dell'emblema quando lo spazio abbonda.
   static const double tettoDelCorpo = 220;
 
-  /// Gli stacchi fra le tre righe della colonna, piu' il rientro verticale
-  /// della scena: 12 e 4 fra le righe, 16 sopra e 16 sotto.
-  static const double stacchiERientri = 12 + 4 + 16 + 16;
+  /// Il lato sotto il quale non si stringe: piu' giu' l'emblema diventa una
+  /// macchia, e una macchia non dice niente a nessuno.
+  static const double pavimentoDelCorpo = 72;
 
-  /// QUANTO CHIEDE TUTTO CIO' CHE NON E' IL DISEGNO, MISURATO SULLA FRASE VERA.
+  /// Gli stacchi fra le righe della colonna, piu' il rientro verticale.
+  static const double stacchiERientri = 12 + 16 + 16;
+
+  /// Quanto chiede la riga sotto l'emblema, MISURATA sulla frase vera.
   ///
-  /// **Perche' non e' una costante.** Lo era, e valeva 130, calcolata sul caso
-  /// peggiore del corpus a 360 punti di larghezza. Nella chat vera la colonna
-  /// sforava lo stesso di 28 pixel: un numero peggiore-caso e' fragile per
-  /// costruzione, perche' basta una frase nuova, una lingua nuova o una
-  /// larghezza diversa e smette di essere il peggiore senza che nessuno lo
-  /// dica. Qui si impagina il testo che si sta per mostrare, con lo stile con
-  /// cui si mostrera', e si legge quanto e' alto.
-  ///
-  /// La taratura, per capirsi sugli ordini di grandezza: a 360 punti la riga
-  /// "Sto consultando" misura 19,0, le frasi sulla fase lunare stanno in due
-  /// righe da 42,0, quelle sull'Ascendente in tre da 63,0, e gli stacchi con i
-  /// rientri fanno 48,0.
+  /// Non e' una costante, e non lo e' per un motivo pagato: una costante
+  /// peggiore-caso era gia' stata scritta, valeva 130 e sforava lo stesso,
+  /// perche' basta una frase nuova o una lingua nuova e smette di essere il
+  /// peggiore senza che nessuno lo dica.
   static double riservaPer(String frase, double larghezza) {
-    final utile = math.max(0.0, larghezza - SpacingTokens.lg * 2);
-    double altezza(TextStyle stile, String testo) => (TextPainter(
-          text: TextSpan(text: testo, style: stile),
-          textDirection: TextDirection.ltr,
-          textAlign: TextAlign.center,
-        )..layout(maxWidth: utile))
-        .height;
-    return altezza(TypographyTokens.body(size: 13), 'Sto consultando') +
-        altezza(TypographyTokens.display(size: 18), frase) +
-        stacchiERientri;
+    final utile = larghezza - SpacingTokens.lg * 2;
+    final tp = TextPainter(
+      text: TextSpan(text: frase, style: TypographyTokens.display(size: 18)),
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
+    )..layout(maxWidth: utile > 0 ? utile : larghezza);
+    return tp.height + stacchiERientri;
   }
 
-  /// Sotto questa altezza libera non resta abbastanza nemmeno per il pavimento
-  /// piu' il testo: la scena degrada alla sola riga, invece di schiacciare il
-  /// disegno.
-  static double liberoMinimoPer(String frase, double larghezza) =>
-      pavimentoDelCorpo + riservaPer(frase, larghezza);
-
-  /// Quanto e' grande il corpo dato lo spazio libero.
-  ///
-  /// **Non e' un numero fisso, ed e' il punto.** Prima valeva 96 sempre, cioe'
-  /// circa un quarto della larghezza dello schermo, dentro una fascia vuota
-  /// alta centinaia di punti. Adesso il lato cresce con cio' che avanza e si
-  /// ferma al tetto, oppure scende fino al pavimento quando la conversazione
-  /// si e' presa quasi tutto.
-  static double corpoPer(double altezzaLibera, double riserva) {
-    final perIlDisegno = altezzaLibera - riserva;
-    return perIlDisegno.clamp(pavimentoDelCorpo, tettoDelCorpo);
-  }
+  /// Quanto e' grande l'emblema dato lo spazio libero.
+  static double corpoPer(double altezzaLibera, double riserva) =>
+      (altezzaLibera - riserva).clamp(pavimentoDelCorpo, tettoDelCorpo);
 
   @override
   State<ConsultoDelCieloView> createState() => _ConsultoDelCieloViewState();
 }
 
-class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView> {
-  late final List<BattutaDelConsulto> _battute = ConsultoDelCielo.battutePer(
-    widget.natal,
-    maestro: widget.maestro,
-    rotazione: widget.rotazione,
-  );
-  int _corrente = 0;
+class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
+    with SingleTickerProviderStateMixin {
+  /// La colorazione. NULLA a moto fermo, e non creata e lasciata ferma: un
+  /// controllore che nessuno fa girare resta un ticker registrato nell'albero.
+  AnimationController? _colore;
+
   Timer? _passo;
+  int _corrente = 0;
+  List<String> _frasi = const [];
+  bool _avviata = false;
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _avvia());
-  }
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_avviata) return;
+    _avviata = true;
 
-  void _avvia() {
-    if (!mounted || _battute.length <= 1) return;
-    if (MediaQuery.of(context).disableAnimations) return;
-    _passo = Timer.periodic(widget.durataBattuta, (t) {
-      if (!mounted) {
-        t.cancel();
-        return;
-      }
-      if (_corrente >= _battute.length - 1) {
-        t.cancel();
-        return;
-      }
-      setState(() => _corrente++);
+    _frasi = FrasiDellAttesa.per(
+      widget.maestro ?? Maestro.medora,
+      natal: widget.natal,
+      memoria: widget.memoria,
+    );
+    // La rotazione sposta il punto di partenza, non l'ordine.
+    if (_frasi.isNotEmpty) _corrente = widget.rotazione % _frasi.length;
+
+    if (_fermo) return;
+    _colore = AnimationController(
+      vsync: this,
+      duration: TempiDellAttesa.colorazioneDellEmblema,
+    )..forward();
+    _passo = Timer.periodic(widget.durataFrase, (_) {
+      if (!mounted || _frasi.isEmpty) return;
+      // SI RICOMINCIA DALLA PRIMA, e l'emblema non si scolora: il controllore
+      // della colorazione non viene toccato qui.
+      setState(() => _corrente = (_corrente + 1) % _frasi.length);
     });
   }
+
+  /// Vero quando il moto e' spento, per scelta di sistema o per qualita' bassa.
+  bool get _fermo =>
+      MediaQuery.of(context).disableAnimations ||
+      context.read<QualityTierController>().tier == QualityTier.low;
 
   @override
   void dispose() {
     _passo?.cancel();
+    _colore?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final riduciMovimento = MediaQuery.of(context).disableAnimations;
-    final qualita = context.watch<QualityTierController>().tier;
-    final fermo = riduciMovimento || qualita == QualityTier.low;
-
-    // Fermi, si mostra la PRIMA battuta e basta: e' la piu' personale, ed e'
-    // l'informazione. Il movimento e' cio' che si toglie, non il contenuto.
-    final battuta = _battute[fermo ? 0 : _corrente];
-
-    // QUANTO SPAZIO C'E' DAVVERO, chiesto ai vincoli e non deciso qui.
-    //
-    // Quando la scena vive dentro `ScenaSopraLaConversazione` questi vincoli
-    // sono cio' che la conversazione ha lasciato libero. Quando invece sta al
-    // centro di una schermata vuota sono l'altezza di quella schermata. In
-    // tutti e due i casi la domanda e' la stessa: quanto avanza?
-    final libero = MediaQuery.maybeOf(context)?.size.height ?? 0;
-
-    Widget scenaCon(double altezzaLibera, double larghezza) {
-      final disponibile =
-          altezzaLibera.isFinite && altezzaLibera > 0 ? altezzaLibera : libero;
-      final riserva = ConsultoDelCieloView.riservaPer(battuta.frase, larghezza);
-      // SOTTO IL MINIMO SI TOGLIE IL DISEGNO, non lo si schiaccia.
-      //
-      // Un emblema compresso sotto il pavimento non e' un emblema piu'
-      // piccolo, e' una macchia che non si riconosce, e una macchia sopra la
-      // frase peggiora la frase invece di aggiungerle qualcosa.
-      final ciSta =
-          disponibile >= ConsultoDelCieloView.pavimentoDelCorpo + riserva;
-      final misura = ConsultoDelCieloView.corpoPer(disponibile, riserva);
-
-      // TRE GRADINI, E IL TERZO E' IL VUOTO.
-      //
-      // **Il numero che ha fatto nascere questo gradino.** Con la
-      // conversazione piena lo spazio libero misurato nella chat vera scende a
-      // 48,3 punti, e la riserva del testo ne chiede 109: la scena degradata
-      // alla sola riga sforava lo stesso, di 28 pixel. Quando non c'e' posto
-      // nemmeno per una riga, la risposta non e' una riga schiacciata: e'
-      // niente. La bolla in attesa sotto dice gia' che il Maestro sta
-      // rispondendo.
-      if (disponibile < riserva) return const SizedBox.shrink();
-
-      return Column(
-        key: const Key('consulto_del_cielo'),
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (ciSta) ...[
-            CorpoDelConsultoDipinto(
-              battuta: battuta,
-              fermo: fermo,
-              misura: misura,
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-          ],
-          Text(
-            'Sto consultando',
-            style: TypographyTokens.body(size: 13)
-                .copyWith(color: palette.goldSoft),
-          ),
-          const SizedBox(height: SpacingTokens.xxs),
-          Text(
-            battuta.frase,
-            key: ValueKey('consulto_${battuta.corpo}'),
-            textAlign: TextAlign.center,
-            style: TypographyTokens.display(size: 18)
-                .copyWith(color: palette.textPrimary),
-          ),
-        ],
-      );
-    }
+    final maestro = widget.maestro ?? Maestro.medora;
+    final frase = _frasi.isEmpty ? '' : _frasi[_corrente % _frasi.length];
 
     return LayoutBuilder(builder: (context, vincoli) {
-      final scena = scenaCon(vincoli.maxHeight, vincoli.maxWidth);
+      final libero = vincoli.maxHeight.isFinite && vincoli.maxHeight > 0
+          ? vincoli.maxHeight
+          : MediaQuery.of(context).size.height;
+      final larghezza = vincoli.maxWidth.isFinite && vincoli.maxWidth > 0
+          ? vincoli.maxWidth
+          : MediaQuery.of(context).size.width;
+      final riserva = ConsultoDelCieloView.riservaPer(frase, larghezza);
+      // TRE GRADINI, E IL TERZO E' IL VUOTO.
+      //
+      // Con la conversazione piena lo spazio libero misurato nella chat vera
+      // scende a 48,3 punti mentre la riga ne chiede oltre cento: una riga
+      // schiacciata sotto un emblema schiacciato non e' una scena piu'
+      // piccola, e' un guasto. La bolla in attesa sotto dice gia' che il
+      // Maestro sta rispondendo.
+      if (libero < riserva) return const SizedBox.shrink();
+      final ciSta = libero >= ConsultoDelCieloView.pavimentoDelCorpo + riserva;
+      final lato = ConsultoDelCieloView.corpoPer(libero, riserva);
+
       return Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: SpacingTokens.lg,
           vertical: SpacingTokens.md,
         ),
-        child: fermo
-            ? scena
-            : AnimatedSwitcher(
-              duration: const Duration(milliseconds: 420),
-              // UNA RIGA ALLA VOLTA, e non due sovrapposte.
-              //
-              // Di suo `AnimatedSwitcher` impila il figlio che entra su quello
-              // che esce, e per tutta la transizione a schermo ci sono DUE
-              // battute una sopra l'altra: nell'anteprima del 3 agosto 2026 si
-              // leggeva "Sto consultando" due volte e le due frasi
-              // accavallate, illeggibili. Nessuna prova poteva prenderlo,
-              // perche' contare i widget dava il numero giusto: si vede solo
-              // guardando l'immagine. Tenendo in layout il solo figlio
-              // corrente, quello che esce sparisce invece di restare sotto.
-              layoutBuilder: (corrente, precedenti) =>
-                  corrente ?? const SizedBox.shrink(),
-              // LA CHIAVE E' L'INDICE, non il corpo.
-              //
-              // Era `ValueKey(battuta.corpo)`, e reggeva finche' ogni riga
-              // guardava un corpo diverso. Adesso le frasi del Maestro
-              // EREDITANO il corpo della riga ancorata, apposta, perche' la
-              // Luna vera di questa persona resti illuminata mentre la riga
-              // cambia: con la vecchia chiave due righe di fila avrebbero
-              // avuto la stessa chiave e la seconda sarebbe comparsa di
-              // scatto, cioe' la scena avrebbe perso proprio il movimento per
-              // cui esiste.
-                child: KeyedSubtree(
-                  key: ValueKey(_corrente),
-                  child: scena,
-                ),
+        child: Column(
+          key: const Key('consulto_del_cielo'),
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (ciSta) ...[
+              _EmblemaCheSiColora(
+                key: const Key('consulto_corpo'),
+                maestro: maestro,
+                lato: lato,
+                colorazione: _colore,
               ),
+              const SizedBox(height: SpacingTokens.sm),
+            ],
+            // UNA FRASE ALLA VOLTA, e senza dissolvenza incrociata: due righe
+            // sovrapposte a meta' transizione erano illeggibili, e l'anteprima
+            // del 3 agosto 2026 le mostrava accavallate.
+            Text(
+              frase,
+              key: ValueKey('consulto_frase_$_corrente'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.display(size: 18)
+                  .copyWith(color: palette.textPrimary),
+            ),
+          ],
+        ),
       );
     });
   }
 }
 
-/// Il corpo, dipinto con l'arte vera che esiste gia' a bundle.
+/// L'emblema del Maestro che passa da monocromo a colore pieno.
 ///
-/// PUBBLICO e separato dalla scena apposta: la prova a pixel lo monta da solo,
-/// senza timer ne' provider. Una misura che deve montare mezza applicazione
-/// smette di essere eseguita, e una regola dentro una classe privata non si
-/// puo' nemmeno nominare.
-class CorpoDelConsultoDipinto extends StatelessWidget {
-  const CorpoDelConsultoDipinto({
+/// Con [colorazione] nulla e' gia' pieno e non si muove: e' il ramo di Riduci
+/// Movimento, dove non esiste nessun controllore da far girare.
+class _EmblemaCheSiColora extends StatelessWidget {
+  const _EmblemaCheSiColora({
     super.key,
-    required this.battuta,
-    required this.misura,
-    this.fermo = false,
+    required this.maestro,
+    required this.lato,
+    required this.colorazione,
   });
 
-  final BattutaDelConsulto battuta;
-  final double misura;
-  final bool fermo;
+  final Maestro maestro;
+  final double lato;
+  final Animation<double>? colorazione;
+
+  /// La matrice che toglie il colore. A `quanto` zero e' grigia piena, a uno
+  /// e' l'identita', cioe' il colore vero dell'arte.
+  static ColorFilter filtro(double quanto) {
+    const r = 0.2126, g = 0.7152, b = 0.0722;
+    final q = 1 - quanto.clamp(0.0, 1.0);
+    return ColorFilter.matrix(<double>[
+      r * q + quanto, g * q, b * q, 0, 0, //
+      r * q, g * q + quanto, b * q, 0, 0, //
+      r * q, g * q, b * q + quanto, 0, 0, //
+      0, 0, 0, 1, 0, //
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.palette;
-    final ancoraggio = battuta.ancoraggio;
-    final corpo = ancoraggio == null
-        ? const CorpoPunto()
-        : CorpoDelConsulto.per(ancoraggio, luna: battuta.luna);
-
-    switch (corpo) {
-      case CorpoSegno(:final segno):
-        // L'emblema 3D del segno, lo stesso che l'Oroscopo mostra in testa.
-        return ZodiacEmblem(
-          key: const Key('consulto_corpo'),
-          sign: segno,
-          size: misura,
-        );
-      case CorpoLuna(:final luce):
-        // LA FORMA E LA PAROLA DALLO STESSO NUMERO.
-        //
-        // Qui c'era `fraction: 0.5` scritto a mano, con accanto un commento
-        // che ammetteva di non avere il dato vero: il disco usciva una meta'
-        // esatta, cioe' un primo quarto, mentre sotto si leggeva "La Luna
-        // crescente sotto cui sei nato". Adesso la frazione arriva con la
-        // battuta, ed e' la stessa da cui `NatalContext.moonPhase` ricava il
-        // nome. Senza quella misura non si disegna nessuna Luna: si cade sul
-        // punto luminoso, gia' dentro `CorpoDelConsulto.per`.
-        return MoonPhaseEmblem(
-          key: const Key('consulto_corpo'),
-          phase: luce,
-          size: misura,
-          animate: !fermo,
-        );
-      case CorpoPunto():
-        // Il trattamento che il cielo gia' da' ai corpi senza figura: un punto
-        // luminoso. Mai il vuoto, mai arte inventata.
-        return SizedBox(
-          key: const Key('consulto_corpo'),
-          width: misura,
-          height: misura,
-          child: Center(
-            child: Container(
-              width: misura * 0.28,
-              height: misura * 0.28,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: palette.goldSoft,
-                boxShadow: [
-                  BoxShadow(
-                    color: palette.gold.withValues(alpha: 0.55),
-                    blurRadius: misura * 0.35,
-                    spreadRadius: misura * 0.06,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-    }
+    final busto = MaestroBust(maestro: maestro, ring: lato, popOut: false);
+    final vivo = colorazione;
+    if (vivo == null) return SizedBox(width: lato, height: lato, child: busto);
+    return SizedBox(
+      width: lato,
+      height: lato,
+      child: AnimatedBuilder(
+        animation: vivo,
+        builder: (context, figlio) => ColorFiltered(
+          colorFilter: filtro(vivo.value),
+          child: figlio,
+        ),
+        child: busto,
+      ),
+    );
   }
 }

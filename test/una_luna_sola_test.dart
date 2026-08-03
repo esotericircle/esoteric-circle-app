@@ -5,15 +5,8 @@ import 'dart:ui' as ui;
 import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/astro/moon_phase.dart';
 import 'package:esoteric_circle/design_system/components/luna_reale.dart';
-import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
-import 'package:esoteric_circle/core/maestro/natal_context.dart';
-import 'package:esoteric_circle/core/quality/quality_tier.dart';
-import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
-import 'package:esoteric_circle/design_system/components/moon_phase_emblem.dart';
-import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 
 /// NEL PROGETTO ESISTE UNA LUNA SOLA, E LA PAROLA COINCIDE COL DISEGNO.
 ///
@@ -167,45 +160,16 @@ void main() {
     );
   });
 
-  testWidgets('Il consulto disegna la Luna che il testo nomina', (tester) async {
-    // LA PROVA AL LIVELLO DELLA VISTA, perche' li' e' nato il difetto.
-    //
-    // Le due prove qui sopra guardano la geometria e la nomenclatura, che erano
-    // sane per conto loro: il disaccordo nasceva nella vista, che passava
-    // `fraction: 0.5` scritto a mano. Nessuna prova sulle funzioni pure poteva
-    // prenderlo, e infatti non lo ha preso per settimane.
-    //
-    // Una falce sottile: elongazione 30 gradi, frazione illuminata che ne
-    // discende. Se qualcuno rimette una mezza luce fissa, qui si vede.
-    const falce = MoonIllumination(
-      fraction: 0.06699, // (1 - cos 30) / 2
-      waxing: true,
-      elongationDeg: 30,
-    );
-    const natal = NatalContext(moonIllumination: falce);
-    expect(natal.moonPhase, 'Luna crescente',
-        reason: 'il nome non nasce piu\' da questa misura');
-
-    await tester.pumpWidget(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => QualityTierController()),
-        ChangeNotifierProvider(create: (_) => MaestroController()),
-      ],
-      child: const MaterialApp(
-        home: MaestroScope(
-          child: Scaffold(body: ConsultoDelCieloView(natal: natal)),
-        ),
-      ),
-    ));
-    await tester.pump();
-
-    // La chiave sta SULL'emblema, non sopra di lui.
-    final emblema = tester.widget<MoonPhaseEmblem>(
-        find.byKey(const Key('consulto_corpo')));
-    expect(emblema.phase.fraction, closeTo(falce.fraction, 0.0001),
-        reason: 'il disco del consulto non disegna la fase vera di questa '
-            'persona: sta scegliendo una frazione per conto suo, ed e cosi '
-            'che una meta esatta e finita sotto la parola crescente');
-    expect(emblema.phase.waxing, isTrue);
-  });
+  // **LA TERZA PROVA E' STATA TOLTA IL 5 agosto 2026, e non per comodo.**
+  //
+  // Guardava che la scena del consulto disegnasse la fase vera invece di una
+  // mezza luce scritta a mano. Quella scena non disegna piu' nessuna Luna: al
+  // suo posto c'e' l'emblema del Maestro, uno solo e fermo, perche' l'emblema
+  // che cambiava con la riga lasciava la scena senza un centro.
+  //
+  // La regola che quella prova proteggeva NON e' rimasta scoperta: la forma
+  // unica del terminatore e l'accordo fra il nome e il disegno restano provati
+  // qui sopra, e valgono per tutti i posti dove la Luna si vede ancora, cioe'
+  // il Rito del Sogno, il Santuario, la cartolina del cielo e i fatti
+  // identitari.
 }

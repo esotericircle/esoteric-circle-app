@@ -599,15 +599,18 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
 
   Widget _buildBody(MaestroChatController controller) {
     if (controller.loading) {
-      // Era un CircularProgressIndicator nudo, l'unico punto della chat che
-      // sembrava un'app qualunque. Adesso anche l'apertura appartiene al
-      // Cerchio: il Maestro sta gia' consultando mentre la memoria si carica.
-      return Center(
-        child: ConsultoDelCieloView(
-                    natal: _natalCorrente(context),
-                    maestro: widget.maestro,
-                  ),
-      );
+      // IL LAMPO ALL'APERTURA, tolto il 5 agosto 2026.
+      //
+      // Qui si montava la scena del consulto mentre la memoria si caricava.
+      // Toccando "Consulta Medora" il fondatore vedeva comparire per una
+      // frazione di secondo un emblema, che poi spariva da solo: una scena che
+      // si monta e si smonta non e' una scena, e' un residuo. Aprire una
+      // schermata non deve mostrare niente che poi sparisce.
+      //
+      // Non torna nemmeno lo spinner che c'era prima: era l'unico punto della
+      // chat che sembrava un'app qualunque. Resta il cosmo, che c'e' comunque,
+      // e la chat compare quando c'e' davvero qualcosa da mostrare.
+      return const SizedBox.shrink();
     }
     if (controller.messages.isEmpty) {
       return ChatEmptyState(

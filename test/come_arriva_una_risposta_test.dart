@@ -4,7 +4,8 @@ import 'package:esoteric_circle/core/chat/scorrimento_della_lettura.dart';
 import 'package:esoteric_circle/core/chat/testo_del_responso.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/consult_depth.dart';
-import 'package:esoteric_circle/core/maestro/consulto_del_cielo.dart';
+import 'package:esoteric_circle/core/chat/maestro_memory.dart';
+import 'package:esoteric_circle/core/maestro/frasi_dell_attesa.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
@@ -101,51 +102,50 @@ void main() {
   });
 
   group('VOCE 1b. Almeno una riga nomina un dato VERO di questa persona', () {
-    test('Con una carta piena, la PRIMA riga e\' un dato suo', () {
+    test('Con una carta piena, ogni riga nomina un dato che c\'e\' davvero',
+        () {
       for (final maestro in Maestro.values) {
-        final battute =
-            ConsultoDelCielo.battutePer(natalPieno, maestro: maestro);
-        expect(battute.first.ancoraggio, isNotNull,
-            reason: '${maestro.displayName} apre l\'attesa senza guardare '
-                'niente di suo');
-        expect(battute.first.frase, contains('Vergine'),
-            reason: 'il valore vero deve restare LETTERALE nella riga: '
-                'e\' quello che distingue "sto guardando la tua Luna in '
-                'Cancro" da "sto consultando gli astri"');
-        expect(battute.any((b) => b.ancoraggio != null), isTrue);
+        final frasi = FrasiDellAttesa.per(maestro,
+            natal: natalPieno, memoria: MaestroMemory.empty);
+        expect(frasi, isNotEmpty);
+        // Ogni frase mostrata deve avere il suo dato nel contesto: e' la
+        // regola che non si negozia, e qui si verifica sulla persona intera.
+        for (final f in FrasiDellAttesa.perMaestro[maestro]!) {
+          final mostrata = frasi.contains(f.testo);
+          final ceLaHa = FrasiDellAttesa.ceIlDato(f.chiede,
+              natal: natalPieno, memoria: MaestroMemory.empty);
+          expect(mostrata, ceLaHa,
+              reason: '${maestro.displayName}: "${f.testo}" mostrata='
+                  '$mostrata mentre il dato c\'e\'=$ceLaHa');
+        }
       }
     });
 
-    test('Senza nessun dato, la riga si SALTA e non si inventa', () {
-      // Due righe vere valgono piu' di tre di cui una inventata.
+    test('Senza nessun dato, la riga che lo nomina SPARISCE', () {
       for (final maestro in Maestro.values) {
-        final battute = ConsultoDelCielo.battutePer(
-          NatalContext.none,
-          maestro: maestro,
-        );
-        expect(battute.every((b) => b.ancoraggio == null), isTrue,
-            reason: 'senza dati non si nomina nessun corpo');
-        expect(battute.every((b) => b.eGenerale), isTrue,
-            reason: 'una riga che non e\' sua va DICHIARATA tale, non '
-                'lasciata credere personale');
-        // E le frasi restano sue, non spariscono.
-        expect(battute, isNotEmpty);
+        final frasi = FrasiDellAttesa.per(maestro,
+            natal: NatalContext.none, memoria: MaestroMemory.empty);
+        // Resta almeno la riga che non chiede niente: una scena muta sarebbe
+        // peggio di una riga generale, purche' la riga sia VERA.
+        expect(frasi, isNotEmpty,
+            reason: 'senza dati la scena resta senza parole');
+        expect(frasi.length, 1,
+            reason: 'senza dati resta solo la riga che non chiede niente, e '
+                'invece ne restano ${frasi.length}');
       }
     });
 
-    test('La rotazione cambia riga fra due attese vicine', () {
+    test('Nessuna frase e\' condivisa fra due Maestri', () {
+      final viste = <String, Maestro>{};
       for (final maestro in Maestro.values) {
-        final prima = ConsultoDelCielo.battutePer(natalPieno,
-                maestro: maestro, rotazione: 0)
-            .last
-            .frase;
-        final dopo = ConsultoDelCielo.battutePer(natalPieno,
-                maestro: maestro, rotazione: 1)
-            .last
-            .frase;
-        expect(prima, isNot(dopo),
-            reason: '${maestro.displayName} ripete la stessa riga a due '
-                'domande di fila');
+        for (final f in FrasiDellAttesa.perMaestro[maestro]!) {
+          final gia = viste[f.testo];
+          expect(gia, isNull,
+              reason: '"${f.testo}" e\' di ${maestro.displayName} e anche di '
+                  '${gia?.displayName}: una riga condivisa suona come un '
+                  'caricamento con sopra un nome diverso');
+          viste[f.testo] = maestro;
+        }
       }
     });
   });

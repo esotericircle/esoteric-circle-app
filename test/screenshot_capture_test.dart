@@ -48,6 +48,7 @@ import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart'
 import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart';
 import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
 import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
@@ -2425,6 +2426,61 @@ void main() {
     'consulto-chat-vuota.png': false,
     'consulto-chat-piena.png': true,
   };
+
+  // L'EMBLEMA CHE SI COLORA, nei due istanti che contano.
+  //
+  // A META' della colorazione e a colorazione PIENA. Due file di peso diverso,
+  // altrimenti si sta fotografando due volte la stessa cosa: e' successo con
+  // la coppia del Riduci Movimento, che pesava 105.481 byte in tutti e due i
+  // file perche' erano lo stesso file.
+  const colorazione = <String, Duration>{
+    'consulto-emblema-meta.png': Duration(milliseconds: 1500),
+    'consulto-emblema-pieno.png': Duration(milliseconds: 3200),
+  };
+  for (final istante in colorazione.entries) {
+    testWidgets('Cattura ${istante.key}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      montaLoSchermo(tester, schermoReale);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: MaestroScope(
+              maestro: Maestro.medora,
+              child: Scaffold(
+                backgroundColor: const Color(0xFF080B1A),
+                body: Center(
+                  child: ConsultoDelCieloView(
+                    natal: NatalContext(
+                      sunSign: Zodiac.leo.italianName,
+                      moonSign: Zodiac.pisces.italianName,
+                      ascendant: Zodiac.virgo.italianName,
+                    ),
+                    maestro: Maestro.medora,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      await precacheFaces(tester);
+      await tester.pump(istante.value);
+      await capture(tester, rootKey, istante.key);
+    });
+  }
   for (final caso in consultoNellaChat.entries) {
     final piena = caso.value;
     testWidgets('Cattura ${caso.key}', (tester) async {

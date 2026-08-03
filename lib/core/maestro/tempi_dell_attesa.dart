@@ -24,7 +24,13 @@
 class TempiDellAttesa {
   const TempiDellAttesa._();
 
-  /// QUANTE BATTUTE HA LA SCENA. DUE.
+  /// QUANTE BATTUTE HA LA SCENA COME MINIMO GARANTITO. DUE.
+  ///
+  /// **Minimo, non massimo.** Fino al 4 agosto 2026 erano tutte quelle che la
+  /// scena mostrava, e finite quelle finiva la scena. Adesso se la risposta
+  /// tarda le frasi RICOMINCIANO dalla prima, senza che l'emblema si scolori:
+  /// un caricamento che riparte da zero dice che qualcosa e' andato storto,
+  /// e non e' andato storto niente, sta solo rispondendo.
   ///
   /// **Il dato che ha fatto scendere questo numero.** Erano tre, e sul telefono
   /// del fondatore con la build 2140 ognuna durava MENO DI UN SECONDO: tre
@@ -42,11 +48,12 @@ class TempiDellAttesa {
 
   /// Quanto resta a schermo ogni riga del consulto.
   ///
-  /// Milleseicento, che e' il tempo in cui una riga di una decina di parole si
-  /// legge senza rincorrerla. Prima erano 900, cioe' meno di un secondo, e il
-  /// fondatore lo ha misurato guardando: si vedeva che cambiava, non si faceva
-  /// in tempo a leggere che cosa.
-  static const Duration durataBattuta = Duration(milliseconds: 1600);
+  /// DUEMILA, netti. Il numero e' salito due volte, e ogni volta perche' il
+  /// fondatore lo ha guardato sul telefono e non si faceva in tempo a leggere:
+  /// da 900 a 1600 il 4 agosto 2026, da 1600 a 2000 il giorno dopo. A 1600 le
+  /// due righe stavano dentro i 3,46 secondi della prima parola, dissolvenza
+  /// compresa, e sembravano sei difetti di seguito.
+  static const Duration durataBattuta = Duration(milliseconds: 2000);
 
   /// QUANTO DURA LA SCENA COME MINIMO, anche se la risposta arriva prima.
   ///
@@ -68,6 +75,17 @@ class TempiDellAttesa {
   /// che sarebbe proprio il difetto contro cui questa riga esiste.
   static final Duration durataMinima = durataBattuta * battuteDellaScena;
 
+  /// QUANTO CI METTE L'EMBLEMA A COLORARSI, da monocromo a colore pieno.
+  ///
+  /// Tre secondi, cioe' meno dei quattro del minimo garantito: quando la
+  /// seconda frase finisce, l'emblema e' gia' pieno da un secondo. Se durasse
+  /// quanto la scena, chi guarda vedrebbe una barra di avanzamento travestita
+  /// da emblema, e una barra promette una fine che noi non conosciamo.
+  ///
+  /// Non pulsa, non ruota, non ricomincia. Arrivato pieno resta pieno, anche
+  /// se la risposta tarda e le frasi ripartono.
+  static const Duration colorazioneDellEmblema = Duration(seconds: 3);
+
   /// Quanto ci mette la scena a sparire quando la risposta e' pronta.
   ///
   /// Non sparisce di colpo: se la risposta arriva prima della durata minima la
@@ -82,7 +100,13 @@ class TempiDellAttesa {
   static const Duration durataMinimaRidotta = Duration(milliseconds: 700);
 
   /// IL TETTO ALLA PRIMA PAROLA. Oltre questo la credibilita' diventa attesa.
-  static const Duration tettoAllaPrimaParola = Duration(seconds: 4);
+  ///
+  /// **Salito da quattro secondi a quattro e mezzo il 5 agosto 2026, ed e' una
+  /// decisione del fondatore, non una deriva.** Due righe da due secondi fanno
+  /// quattro secondi di scena, piu' la dissolvenza: 4260. Il vecchio tetto
+  /// avrebbe vietato la scena che l'ordine chiede. Quando due vincoli si
+  /// contraddicono, chi decide e' chi ha guardato lo schermo.
+  static const Duration tettoAllaPrimaParola = Duration(milliseconds: 4500);
 
   /// IL TETTO AL TESTO COMPLETO, cioe' quando la persona ha finito di leggere
   /// comparire l'ultima lettera.
