@@ -5,10 +5,10 @@ import 'maestro_bust.dart';
 
 /// I TRE VOLTI DEL CERCHIO, sovrapposti: il segno che dice PIU' VOCI.
 ///
-/// **Perche' esiste.** Al suo posto c'era un'icona a bilancia, e il fondatore
+/// **Perche' esiste.** Al suo posto c'era un'icona a bilancia. Il fondatore
 /// ci ha letto il segno della Bilancia. Il significato di un simbolo non lo
 /// decide il contesto nella testa di chi disegna, lo decide l'occhio di chi
-/// guarda, e su una superficie che parla di lettura astrologica il rischio e'
+/// guarda. Su una superficie che parla di lettura astrologica il rischio e'
 /// piu' alto, non piu' basso.
 ///
 /// **Nessuna arte nuova.** Sono i tre mezzi busti che l'app usa gia' ovunque,

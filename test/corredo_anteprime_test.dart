@@ -98,7 +98,7 @@ void main() {
           .map((m) => m.group(1)!)
           .toSet();
       if (rapporti.isEmpty) {
-        // Un rapporto puo' essere dichiarato anche con una COSTANTE, e in quel
+        // Un rapporto puo' essere dichiarato anche con una COSTANTE. In quel
         // caso e' dichiarato meglio che con un numero scritto: il corredo fa
         // cosi', e la prova qui sotto verifica che quella costante valga tre.
         // Cercare i soli letterali avrebbe bocciato proprio il file che la

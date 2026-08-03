@@ -1,5 +1,54 @@
 # RIPRESA
 
+## ORDINE G: CHIUSO PER INTERO, tutte e due le voci piu' i tre riporti
+
+Il 3 agosto 2026. Il blocco della chat non e' stato riaperto, come l'ordine
+chiedeva: pausa, macchina da scrivere, scorrimento, Eco, confronto nella
+conversazione, tetti e lenti non sono stati toccati.
+
+**VOCE 1, CHIUSA.** La bilancia e' sparita anche dalla Sintesi comparativa. Al
+suo posto i tre volti dei Maestri sovrapposti, `TreVolti`, che usa i mezzi busti
+gia' in casa: nessun asset nuovo. La regola vive nel dato, in
+`lib/core/astro/simboli_dello_zodiaco.dart`: i dodici glifi si prendono da
+`Zodiac.values`, quindi la prova ENUMERA e non campiona. Le icone di sistema
+che si leggono come un segno stanno in una mappa con scritto accanto quale segno
+sembrano. **La porta era doppia**: la prova vecchia guardava due file scelti a
+mano. E' esattamente per questo che il terzo posto era passato: ora ne resta
+una sola, che scandisce tutto `lib/`.
+
+**Un difetto introdotto da me e visto nell'anteprima, non dedotto.** I tre volti
+sono piu' larghi dell'icona che sostituiscono. A 24 punti il titolo diventava
+"Sintesi comparat...". Numeri: lo spazio interno della card e' 262 punti, il
+titolo ne chiede 206,8, i volti a 18 con stacco 8 ne lasciano 212. Tolti anche i
+puntini di sospensione, perche' `maxLines: 1` con l'ellissi taglia in silenzio e
+in un'altra lingua taglierebbe di nuovo.
+
+**VOCE 2, CHIUSA.** Il corredo ha un rapporto di pixel solo, ed e' 3, su 360 per
+797 logici. Prima impaginava a rapporto 1 e ingrandiva l'immagine in scrittura:
+misura giusta, disegno di un telefono che non esiste. Ora il rapporto vive in
+`rapportoDelCorredo`, si imposta in un punto solo, `montaLoSchermo`. Da li' lo legge
+anche la scrittura dell'immagine, cosi' le due meta' non possono divergere.
+
+**La prova del rosso rimasta VERDE, e cio' che ha trovato.** Togliendo un
+rapporto da un file che ne aveva due, la prova non cadeva: guardava l'INSIEME
+dei rapporti dichiarati nel file, quindi un file con cinque catture di cui una
+sola dichiarata passava: le altre quattro si prendevano il rapporto lasciato
+dalla cattura precedente. Adesso conta misura per misura: tante misure di
+schermo, tanti rapporti.
+
+**Due cose che dichiaravano il falso, corrette.** La riga del corredo che
+descriveva la divergenza dei rapporti, ormai chiusa. E la riga in
+`test/flutter_test_config.dart` che diceva che le icone Material sono gia'
+disponibili nei test: non e' vero, e una cattura senza caricarle mostra quadrati
+vuoti al posto della freccia indietro. Ora si caricano una volta per tutta la
+suite, e un percorso mancante spezza invece di ripiegare in silenzio.
+
+**Il peso, col numero, senza togliere niente da soli.** Le 112 anteprime del
+corredo pesavano 184,35 MB in base 1000 e ora ne pesano 184,25, cioe' 175,71 MiB
+in base 1024: passare al rapporto vero non e' costato peso. Il totale di
+`docs/preview` sale da 210,9 a 213,0 MB solo per i due file nuovi della coppia
+prima e dopo.
+
 ## ORDINE F: CHIUSO PER INTERO, tutte e tre le voci
 
 Il 3 agosto 2026. **Fermato al confine di una voce, come l'ordine chiede**, e

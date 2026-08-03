@@ -22,7 +22,7 @@ class SimboliDelloZodiaco {
 
   /// I dodici glifi, RICAVATI dal catalogo dei segni e non riscritti.
   ///
-  /// Un elenco copiato divergerebbe dal suo originale, ed e' il difetto che
+  /// Un elenco copiato divergerebbe dal suo originale. E' il difetto che
   /// questo progetto ha gia' visto piu' volte. Se domani un glifo cambia, la
   /// regola lo segue da sola.
   static List<String> get glifi => [for (final z in Zodiac.values) z.symbol];
@@ -30,8 +30,8 @@ class SimboliDelloZodiaco {
   /// Il file che ha il diritto di scrivere quei glifi: quello che li dichiara.
   ///
   /// Altrove un glifo dello zodiaco scritto a mano vuol dire due cose: o e' una
-  /// copia del dato, e allora divergera'; oppure e' usato per significare
-  /// qualcos'altro, ed e' esattamente cio' che questa regola vieta.
+  /// copia del dato, quindi divergera'; oppure e' usato per significare
+  /// qualcos'altro, cioe' esattamente cio' che questa regola vieta.
   static const String casaDeiGlifi = 'lib/core/astro/zodiac.dart';
 
   /// LE ICONE DI SISTEMA CHE UN OCCHIO LEGGE COME UN SEGNO.

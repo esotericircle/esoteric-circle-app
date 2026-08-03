@@ -712,17 +712,17 @@ class _SynthesisCard extends StatelessWidget {
               // rimasta qui con la motivazione che in questo contesto
               // significa confronto. Il significato di un simbolo non lo
               // decide il contesto nella testa di chi disegna: lo decide
-              // l'occhio di chi guarda, e su una card che parla di lettura
+              // l'occhio di chi guarda. Su una card che parla di lettura
               // astrologica il rischio e' piu' alto, non piu' basso.
               // La misura non e' un gusto, e' una misura. I tre volti sono
               // piu' larghi di un'icona: a 24 il titolo diventava "Sintesi
-              // comparat...", e l'ho visto nell'anteprima. Lo spazio interno
+              // comparat...", visto nell'anteprima e non dedotto. Lo spazio interno
               // della card e' 262 punti, il titolo ne chiede 206,8, i volti a
               // 18 ne occupano 42 piu' 8 di stacco: restano 212. La prova
               // "Il titolo della Sintesi si legge intero" li rimisura.
               //
               // Via anche i puntini: `maxLines: 1` con l'ellissi tagliava il
-              // titolo in silenzio, e in un'altra lingua taglierebbe di nuovo.
+              // titolo in silenzio, e in un'altra lingua taglierebbe ancora.
               // Senza, il peggio che puo' capitare e' che vada a capo, cioe'
               // che si legga tutto lo stesso.
               const TreVolti(misura: 18),
