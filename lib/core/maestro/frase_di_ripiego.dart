@@ -13,6 +13,7 @@ class RipiegoDelMaestro {
   const RipiegoDelMaestro({
     required this.silenzio,
     required this.nonConfigurato,
+    required this.interrotto,
   });
 
   /// Quando la voce c'era e non ha risposto: rete caduta, servizio spento,
@@ -22,6 +23,15 @@ class RipiegoDelMaestro {
   /// Quando la voce non e' proprio accesa su questa installazione. Distinta
   /// dalla precedente perche' non ha senso invitare a riprovare subito.
   final String nonConfigurato;
+
+  /// QUANDO L'APP SI E' CHIUSA MENTRE LA RISPOSTA ERA IN VOLO.
+  ///
+  /// Distinta dalle altre due perche' la causa e' diversa da tutte e due: la
+  /// voce non ha taciuto e non era spenta, semplicemente nessuno era piu' li'
+  /// ad ascoltarla. Riaprendo, quel turno non puo' restare in attesa, perche'
+  /// aspetterebbe per sempre una risposta che nessuno sta piu' generando, e
+  /// non puo' nemmeno sparire, perche' allora la domanda resterebbe sola.
+  final String interrotto;
 
   /// L'etichetta che accompagna a schermo ogni bolla di ripiego, uguale per
   /// tutti e tre. Corta apposta: deve stare accanto alla bolla senza rubarle
@@ -37,6 +47,8 @@ class RipiegoDelMaestro {
           'riproviamo fra poco.',
       nonConfigurato: 'Il cielo non è ancora aperto su questo telefono. '
           'Quando lo sarà, riprendo a leggere da dove eravamo.',
+      interrotto: 'Stavo leggendo per te e ci siamo persi per strada. '
+          'La domanda è ancora qui: quando vuoi, la riprendo da capo.',
     ),
     Maestro.aura: RipiegoDelMaestro(
       silenzio: 'Il respiro si è fermato un istante e la mia voce con lui. '
@@ -44,6 +56,8 @@ class RipiegoDelMaestro {
           'restiamo qui, poi riprendiamo.',
       nonConfigurato: 'La mia voce non è ancora accesa su questo telefono. '
           'Il respiro intanto resta tuo: quello non ha bisogno di me.',
+      interrotto: 'Il respiro si era già mosso, poi ci siamo interrotti. '
+          'Quello che mi hai chiesto non l\'ho perso: riprendiamo da lì.',
     ),
     Maestro.caligo: RipiegoDelMaestro(
       silenzio: 'La nebbia ha coperto i segni. '
@@ -51,6 +65,9 @@ class RipiegoDelMaestro {
           'poi torniamo.',
       nonConfigurato: 'I segni non sono ancora stati aperti su questo '
           'telefono. Finché restano chiusi non invento nulla.',
+      interrotto: 'I segni erano aperti e la lettura si è spezzata a metà. '
+          'Non ti do un presagio monco: la tua domanda resta, chiedimela di '
+          'nuovo quando vuoi.',
     ),
   };
 
@@ -63,4 +80,8 @@ class RipiegoDelMaestro {
   /// Il ripiego del [maestro] quando la voce non e' configurata.
   static String nonConfiguratoDi(Maestro maestro) =>
       perMaestro[maestro]!.nonConfigurato;
+
+  /// Il ripiego del [maestro] per un turno rimasto a meta'.
+  static String interrottoDi(Maestro maestro) =>
+      perMaestro[maestro]!.interrotto;
 }

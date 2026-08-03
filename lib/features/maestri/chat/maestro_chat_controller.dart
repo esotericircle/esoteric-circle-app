@@ -184,7 +184,7 @@ class MaestroChatController extends ChangeNotifier {
       _memoryState = results[1] as MaestroMemory;
       _messages
         ..clear()
-        ..addAll(results[2] as List<ChatMessage>);
+        ..addAll(_chiudiIVoli(results[2] as List<ChatMessage>));
     } catch (errore, traccia) {
       // Un errore di lettura non deve impedire di iniziare a parlare, ma non
       // deve nemmeno sparire: senza annotazione una memoria che non si carica
@@ -196,6 +196,28 @@ class MaestroChatController extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  /// NESSUN TURNO TORNA IN ATTESA.
+  ///
+  /// Un turno salvato come in attesa vuol dire una cosa sola: l'app si e'
+  /// chiusa mentre quella risposta era in volo. Riaprendo non puo' restare in
+  /// attesa, perche' aspetterebbe per sempre qualcosa che nessuno sta piu'
+  /// generando, e non puo' sparire, perche' allora la domanda resterebbe sola,
+  /// che e' esattamente il difetto delle sette domande di fila.
+  ///
+  /// Si presenta per quello che e': interrotto, dichiarato, col suo Riprova.
+  List<ChatMessage> _chiudiIVoli(List<ChatMessage> salvati) => [
+        for (final m in salvati)
+          if (m.isMaestro && m.pending)
+            m.copyWith(
+              text: RipiegoDelMaestro.interrottoDi(m.autoreEffettivo(maestro)),
+              pending: false,
+              failed: true,
+              ripiego: true,
+            )
+          else
+            m,
+      ];
 
   /// Registra che l'utente ha visto e accettato il disclaimer, una volta sola.
   Future<void> acceptDisclaimer() async {
@@ -402,7 +424,10 @@ class MaestroChatController extends ChangeNotifier {
       if (piano != null && contatore != null) {
         contatore.registraApprofondimento(piano);
       }
-      unawaited(_persist(risposta));
+      // La bolla si SOSTITUISCE, non si aggiunge: e' la stessa lettura portata
+      // piu' giu'. In cronologia vale lo stesso, altrimenti riaprendo si
+      // leggerebbero due risposte alla stessa domanda.
+      await _sostituisci(risposta);
     } catch (errore, traccia) {
       // L'approfondimento fallito NON deve far perdere la risposta che la
       // persona aveva gia' letto: si rimette quella, marcata come gia'
@@ -465,9 +490,26 @@ class MaestroChatController extends ChangeNotifier {
     // il tempo che conta e' quello che aspetta la persona.
     final cronometro = Stopwatch()..start();
     rotazioneDelConsulto++;
+    // LA DOMANDA E IL SUO TURNO NASCONO INSIEME, E SI SALVANO INSIEME.
+    //
+    // **Il dato che ha fatto nascere questa regola.** Negli screenshot del
+    // fondatore del 2 agosto 2026, riaprendo la chat si leggevano SETTE
+    // domande di fila e nessuna risposta, come se avesse parlato al muro. La
+    // causa: la domanda si salvava subito, il turno del Maestro solo quando la
+    // risposta era VERA. Dei quattro punti in cui un turno si consegna, uno
+    // solo passava dalla persistenza; ripiego, troncatura ed errore vivevano
+    // nella sessione e morivano con l'app.
+    //
+    // Salvare alla fine non basta e non puo' bastare: se la fine non arriva,
+    // perche' il sistema chiude l'app mentre la rete e' aperta, non c'e'
+    // nessuna fine in cui salvare. Per questo il turno si salva QUI, in
+    // attesa, e alla consegna si SOSTITUISCE invece di aggiungerne un altro.
+    // Non esiste piu' uno stato in cui una domanda e' salvata e il suo turno
+    // no.
     final pending = ChatMessage(
         role: ChatRole.maestro, text: '', pending: true, autore: chiRisponde);
     _messages.add(pending);
+    await _persist(pending);
     notifyListeners();
 
     try {
@@ -587,7 +629,9 @@ class MaestroChatController extends ChangeNotifier {
         adesso: DateTime.now(),
       );
       if (eco != null) unawaited(_eco?.posa(eco) ?? Future<void>.value());
-      unawaited(_persist(answer));
+      // NON si aggiunge: `_consegna` ha gia' completato il turno che esisteva.
+      // Aggiungerlo qui lo scriverebbe due volte, e riaprendo la chat si
+      // leggerebbe la stessa risposta di seguito a se stessa.
       _turnsSinceDistill++;
       unawaited(_maybeDistill());
       return EsitoDelTurno.rispostaVera;
@@ -714,6 +758,22 @@ class MaestroChatController extends ChangeNotifier {
     }
     ultimaAttesaMs = da.elapsedMilliseconds;
     _replaceLast(messaggio);
+    // OGNI consegna passa di qui, non solo quella riuscita: il ripiego, la
+    // troncatura e l'errore sono turni quanto una lettura vera, e riaprendo
+    // devono esserci.
+    await _sostituisci(messaggio);
+  }
+
+  /// Completa nella cronologia il turno che era rimasto in attesa.
+  Future<void> _sostituisci(ChatMessage messaggio) async {
+    try {
+      await _memory.sostituisciUltimoMessaggio(maestro, messaggio);
+    } catch (errore, traccia) {
+      annotaGuastoInnocuo(
+          'completando un turno nella cronologia di ${maestro.displayName}',
+          errore,
+          traccia);
+    }
   }
 
   void _replaceLast(ChatMessage message) {

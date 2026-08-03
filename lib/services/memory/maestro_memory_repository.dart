@@ -28,6 +28,17 @@ abstract interface class MaestroMemoryRepository {
   /// Aggiunge un messaggio alla cronologia persistente del Maestro.
   Future<void> appendMessage(Maestro maestro, ChatMessage message);
 
+  /// SOSTITUISCE l'ultimo messaggio salvato, che e' il turno del Maestro
+  /// ancora in attesa, con quello definitivo.
+  ///
+  /// Serve perche' la domanda e il suo turno di risposta nascono INSIEME e si
+  /// salvano insieme: il turno esiste gia', in attesa, dal momento in cui la
+  /// domanda parte. Quando la risposta arriva non se ne aggiunge un altro, si
+  /// completa quello. Senza questo, l'unico modo di avere il turno persistito
+  /// sarebbe salvarlo alla fine, cioe' non averlo se la fine non arriva.
+  Future<void> sostituisciUltimoMessaggio(
+      Maestro maestro, ChatMessage messaggio);
+
   /// Cancella tutta la memoria dell'utente, per il diritto all'oblio (GDPR):
   /// profilo, memoria di ogni Maestro e cronologia completa, più gli eventuali
   /// livelli profondi predisposti (indice semantico, archivio freddo). Isolata

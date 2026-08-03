@@ -112,15 +112,49 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
 
   @override
   Future<void> appendMessage(Maestro maestro, ChatMessage message) async {
-    await _messagesCol(maestro).add({
-      'role': message.role.name,
-      'text': message.text,
-      'createdAt': FieldValue.serverTimestamp(),
-    });
+    await _messagesCol(maestro).add(_datiDi(message));
     // Prese verso i livelli profondi: a vuoto per default.
     await _semanticIndex.index(uid, maestro, message);
     await _archive.archive(uid, maestro, message);
   }
+
+  @override
+  Future<void> sostituisciUltimoMessaggio(
+      Maestro maestro, ChatMessage messaggio) async {
+    final ultimo = await _messagesCol(maestro)
+        .orderBy('createdAt', descending: true)
+        .limit(1)
+        .get();
+    if (ultimo.docs.isEmpty) {
+      await appendMessage(maestro, messaggio);
+      return;
+    }
+    // `set` e non `update`: il turno in attesa era stato scritto con gli stessi
+    // campi, e qui li si riscrive tutti, compresi quelli che tornano falsi.
+    await ultimo.docs.first.reference.set(_datiDi(messaggio));
+    await _semanticIndex.index(uid, maestro, messaggio);
+    await _archive.archive(uid, maestro, messaggio);
+  }
+
+  /// I CAMPI DI UN MESSAGGIO, TUTTI.
+  ///
+  /// Qui si salvavano `role` e `text` soltanto. Non e' un dettaglio di
+  /// completezza: `failed` e' cio' che tiene attaccato il Riprova, `ripiego` e'
+  /// cio' che distingue una lettura dell'app dalla voce del Maestro, e `autore`
+  /// e' chi ha parlato. Senza, riaprendo la chat un ripiego passava per la
+  /// parola del Maestro e un turno fallito perdeva il suo Riprova.
+  Map<String, Object?> _datiDi(ChatMessage m) => {
+        'role': m.role.name,
+        'text': m.text,
+        'createdAt': FieldValue.serverTimestamp(),
+        'pending': m.pending,
+        'failed': m.failed,
+        'ripiego': m.ripiego,
+        'approfondita': m.approfondita,
+        if (m.autore != null) 'autore': m.autore!.id,
+        if (m.intentId != null) 'intentId': m.intentId,
+        if (m.tipo != null) 'tipo': m.tipo!.name,
+      };
 
   @override
   Future<void> deleteAllData() async {
@@ -153,6 +187,16 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
     }
   }
 
+  /// Il primo che soddisfa, oppure niente. `firstOrNull` vive in `collection`,
+  /// che non e' una dipendenza diretta di questo progetto: si evita di
+  /// aggiungerne una per tre righe.
+  static T? _primoDove<T>(List<T> valori, bool Function(T) quando) {
+    for (final v in valori) {
+      if (quando(v)) return v;
+    }
+    return null;
+  }
+
   ChatMessage _messageFromDoc(Map<String, dynamic> data) {
     final role = (data['role'] as String?) == ChatRole.user.name
         ? ChatRole.user
@@ -161,6 +205,14 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       role: role,
       text: (data['text'] as String?) ?? '',
       at: (data['createdAt'] as Timestamp?)?.toDate(),
+      pending: (data['pending'] as bool?) ?? false,
+      failed: (data['failed'] as bool?) ?? false,
+      ripiego: (data['ripiego'] as bool?) ?? false,
+      approfondita: (data['approfondita'] as bool?) ?? false,
+      intentId: data['intentId'] as String?,
+      autore: _primoDove(Maestro.values, (m) => m.id == data['autore']),
+      tipo: _primoDove(
+          TipoDiMessaggio.values, (t) => t.name == data['tipo']),
     );
   }
 }

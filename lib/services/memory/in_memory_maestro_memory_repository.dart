@@ -63,6 +63,19 @@ class InMemoryMaestroMemoryRepository implements MaestroMemoryRepository {
   }
 
   @override
+  Future<void> sostituisciUltimoMessaggio(
+      Maestro maestro, ChatMessage messaggio) async {
+    final lista = _messages[maestro];
+    if (lista == null || lista.isEmpty) {
+      await appendMessage(maestro, messaggio);
+      return;
+    }
+    lista[lista.length - 1] = messaggio;
+    await _semanticIndex.index(uid, maestro, messaggio);
+    await _archive.archive(uid, maestro, messaggio);
+  }
+
+  @override
   Future<void> deleteAllData() async {
     _profile = UserProfile.empty;
     _memory.clear();
