@@ -37,7 +37,18 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   const progetto = 'esoteric-circle';
   const regione = 'europe-west1';
-  const insieme = 5;
+  /// QUANTE CHIAMATE INSIEME. UNA, cioe' DAVVERO in fila.
+  ///
+  /// **Il dato che ha fatto scendere questo numero.** Valeva 5, e il rapporto
+  /// stampava "chiamate in fila": non era vero, ne partivano cinque insieme e
+  /// si accodavano fra loro, quindi il tempo di rete misurato conteneva
+  /// l'attesa che le altre quattro finissero. Il numero che la persona aspetta
+  /// e' quello di UNA domanda sola, che e' come si usa l'app.
+  ///
+  /// E c'era un secondo effetto: cinque chiamate insieme facevano scattare il
+  /// 429 di Vertex, "RESOURCE_EXHAUSTED", e la misura si fermava a meta'.
+  /// Tre esecuzioni di fila hanno reso 17, 12 e 7 risposte su 20.
+  const insieme = 1;
 
   test('Venti risposte vere, e nessuna tronca', () async {
     final gettone = await _gettone();
@@ -136,8 +147,18 @@ void main() {
 
     // Le venti domande distribuite sui tre Maestri a giro, cosi' la misura non
     // vale per una voce sola: le tre hanno lessici diversi e lunghezze diverse.
+    // QUANTE DOMANDE, dichiarabile da fuori.
+    //
+    // Venti e' il valore di casa. Serve poterlo abbassare perche' la quota di
+    // Vertex e' finita: quattro esecuzioni di fila hanno reso 17, 12, 7 e 18
+    // risposte su 20, e una misura parziale il rapporto la rifiuta. Con dieci
+    // chiamate la misura e' meta' del carico e resta vera, purche' il numero
+    // sia scritto nel rapporto, come e' scritto.
+    final quante = int.tryParse(
+            Platform.environment['QUANTE_DOMANDE'] ?? '') ??
+        CorpusNeutro.domande.length;
     final lavori = [
-      for (var i = 0; i < CorpusNeutro.domande.length; i++)
+      for (var i = 0; i < quante && i < CorpusNeutro.domande.length; i++)
         (
           maestro: Maestro.values[i % Maestro.values.length],
           domanda: CorpusNeutro.domande[i],
