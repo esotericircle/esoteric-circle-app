@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'plan_catalog.dart';
+import '../tempo/confine_del_giorno.dart';
 import 'tier.dart';
 
 /// Contatore locale delle domande ai Maestri, per tier.
@@ -99,10 +100,13 @@ class QuestionAllowance extends ChangeNotifier {
   int _approfondimenti = 0;
   String _day = '';
 
-  String _today() {
-    final n = _clock();
-    return '${n.year}-${n.month}-${n.day}';
-  }
+  /// Il giorno d'uso, dal punto SOLO in cui e' definito.
+  ///
+  /// Era scritto qui dentro, e quando l'Eco ha avuto bisogno dello stesso
+  /// confine copiarlo avrebbe voluto dire due definizioni dello stesso giorno
+  /// che devono restare d'accordo. Vedi `ConfineDelGiorno`, dove sta anche la
+  /// ragione per cui il confine RITUALE, a mezzogiorno, e' un'altra cosa.
+  String _today() => ConfineDelGiorno.chiaveDi(_clock());
 
   // Se e' cambiato il giorno, azzera il conteggio.
   void _rollover() {

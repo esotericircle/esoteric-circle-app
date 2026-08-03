@@ -145,6 +145,21 @@ class MaestroPersona {
       ..writeln('- ${voce.apertura}')
       ..writeln('- ${voce.chiusura}')
       ..writeln('- La chiusura non è facoltativa: ogni risposta la porta.')
+      // LA PAROLA DA PORTARE, NOMINATA DA LUI.
+      //
+      // **Misurato prima di scriverla.** Riconoscendo la parola nella chiusura
+      // com'era, l'Eco nasceva 10 volte su 20, e distribuita malissimo: Caligo
+      // 7 su 7, perche' la sua chiusura consegna gia' una runa per nome,
+      // Medora 2 su 7 e Aura 1 su 6. Sarebbe stata la funzione di Caligo.
+      //
+      // Non si aggiunge un elenco di parole: si chiede di nominarne UNA fra
+      // quelle che questo Maestro ha gia', il suo lessico di firma, oppure fra
+      // i nomi che l'app conosce. La forma della chiusura non cambia, e il
+      // registro nemmeno: cambia solo che la parola c'e' sempre.
+      ..writeln('- La tua chiusura NOMINA una parola da portare, una sola: '
+          'una delle tue (${voce.lessicoDiFirma.join(', ')}), oppure il nome '
+          'proprio di una runa, di un segno o di un arcano. Detta per nome, '
+          'dentro la frase, senza annunciarla.')
       ..writeln()
       // Le aperture vietate si ELENCANO, non si riassumono in "evita i toni
       // generici": una raccomandazione il modello la interpreta, un elenco no.

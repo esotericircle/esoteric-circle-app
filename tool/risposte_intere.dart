@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/chat/altre_voci.dart';
+import 'package:esoteric_circle/core/eco/eco_del_maestro.dart';
 import 'package:esoteric_circle/core/maestro/corpus_neutro.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/misura_della_risposta.dart';
@@ -199,6 +201,28 @@ void main() {
     // calcola sui caratteri, e "circa sei per parola" e' una stima che non
     // vale la pena di fare quando il numero si puo' contare.
     final caratteri = esiti.map((e) => e.testo.length).toList()..sort();
+
+    // QUANTO SPESSO NASCE L'ECO, sulle risposte vere.
+    //
+    // La parola si riconosce nella chiusura, e se la chiusura non porta ne' un
+    // nome noto ne' una parola di firma l'Eco non nasce. Questo numero dice se
+    // quella regola lascia la funzione viva o quasi sempre muta: si misura
+    // prima di costruirci sopra, non dopo.
+    stdout.writeln('${'-' * 78}\nL\'ECO, sulle venti risposte vere:');
+    var conEco = 0;
+    for (final e in esiti) {
+      final eco = NascitaDellEco.da(
+        maestro: e.maestro,
+        risposta: e.testo,
+        domanda: e.domanda,
+        adesso: DateTime(2026, 8, 3),
+      );
+      if (eco != null) conEco++;
+      stdout.writeln('  ${e.maestro.displayName.padRight(7)} '
+          '${(eco?.parola ?? '(nessuna)').padRight(14)} '
+          '<- ${eco?.chiusura ?? AltreVoci.treStratiDa(e.testo).invite}');
+    }
+    stdout.writeln('ECO NATE: $conEco su ${esiti.length}');
 
     final parole = esiti.map((e) => e.parole).toList()..sort();
     final tronche = esiti.where((e) => e.motivo == 'MAX_TOKENS').toList();

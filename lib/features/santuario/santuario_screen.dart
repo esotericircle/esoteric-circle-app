@@ -22,6 +22,7 @@ import '../../services/app_services.dart';
 import '../account/account_screen.dart';
 import '../maestri/art_navigation.dart';
 import '../maestri/domain_screen.dart';
+import '../maestri/chat/maestro_chat_screen.dart';
 import 'daily_strip.dart';
 import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
@@ -327,7 +328,19 @@ class _SantuarioScreenState extends State<SantuarioScreen>
             // La striscia del giorno, fissa in cima e sempre visibile: i quattro
             // elementi giornalieri, quello dell'ora attuale in evidenza. Stesso
             // orologio dell'eroe, cosi' striscia e centro concordano.
-            DailyStrip(clock: widget.clock),
+            DailyStrip(
+              clock: widget.clock,
+              // AL RITORNO, LA PAROLA RIPORTA DA DOVE VIENE. Si riapre la chat
+              // di QUEL Maestro con la parola gia' nel campo: la conversazione
+              // riprende da li' invece di ricominciare.
+              onApriEco: (ctx, eco) => Navigator.of(ctx).push(
+                MaestroChatScreen.route(
+                  maestro: eco.maestro,
+                  services: ctx.read<AppServices>(),
+                  initialTheme: eco.parola,
+                ),
+              ),
+            ),
             Expanded(
               child: LayoutBuilder(
                 builder: (context, outer) {

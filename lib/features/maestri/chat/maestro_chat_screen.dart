@@ -11,6 +11,7 @@ import '../../../core/chat/altre_voci.dart';
 import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/immersive_intents.dart';
 import '../../../core/chat/raccolta_delle_risposte.dart';
+import '../../../core/eco/archivio_dell_eco.dart';
 import '../../../core/entitlement/entitlement_service.dart';
 import '../../../core/entitlement/tier.dart';
 import '../../../core/identity/natal_identity.dart';
@@ -127,6 +128,13 @@ class MaestroChatScreen extends StatefulWidget {
           ai: services.ai,
           memory: services.memory,
           allowance: rotta.read<QuestionAllowance>(),
+          // Dove si posa l'Eco quando il Maestro chiude una lettura vera.
+          //
+          // Lettura NULLABILE: una superficie montata senza l'archivio, per
+          // esempio una prova che guarda solo la conversazione, deve
+          // funzionare lo stesso e semplicemente non posare niente. Preteso,
+          // rompeva ogni impalcatura che monta la chat da sola.
+          eco: Provider.of<ArchivioDellEco?>(rotta, listen: false),
           tier: () => rotta.read<EntitlementService>().tier,
           // Il cielo della persona arriva al Maestro. Una funzione, non un
           // valore: chi completa i dati di nascita mentre la chat e' aperta
@@ -664,6 +672,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               posizione == ultimo && controller.puoiChiedereAgliAltri
                   ? () => _chiediAgliAltri(context, controller)
                   : null,
+          // La riga dell'Eco sta sotto la lettura VIVA, cioe' quando il
+          // Maestro la lascia. Sulle risposte gia' raccolte no: quella parola
+          // e' gia' nel Cerchio, e ripeterlo a ogni riapertura sarebbe rumore.
+          eco: posizione == RaccoltaDelleRisposte.indiceDellaViva(messaggi)
+              ? controller.ecoDellUltima
+              : null,
           // LE RISPOSTE SI RACCOLGONO QUANDO NE ARRIVA UNA NUOVA.
           //
           // Non appena l'hai letta, che nessuno sa quando succede: quando ne

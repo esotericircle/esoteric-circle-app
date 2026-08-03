@@ -8,6 +8,9 @@ import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/entitlement/tier.dart';
 
 import '../../../core/chat/altre_voci.dart';
+import '../../../core/chat/raccolta_delle_risposte.dart';
+import '../../../core/eco/archivio_dell_eco.dart';
+import '../../../core/eco/eco_del_maestro.dart';
 import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/maestro_memory.dart';
@@ -35,9 +38,11 @@ class MaestroChatController extends ChangeNotifier {
     required MaestroMemoryRepository memory,
     IntentClassifier classifier = const IntentClassifier(),
     QuestionAllowance? allowance,
+    ArchivioDellEco? eco,
     Tier Function()? tier,
     NatalContext Function()? natal,
   })  : _ai = ai,
+        _eco = eco,
         _memory = memory,
         _classifier = classifier,
         _allowance = allowance,
@@ -53,6 +58,25 @@ class MaestroChatController extends ChangeNotifier {
   /// delle due strade con cui si fa una domanda a un Maestro: la schermata
   /// "Chiedi" lo consultava, la chat no.
   final QuestionAllowance? _allowance;
+
+  /// Dove si posa l'Eco. Nullo in una prova che non la guarda: la chat
+  /// funziona lo stesso, e l'Eco semplicemente non si posa.
+  final ArchivioDellEco? _eco;
+
+  /// L'Eco dell'ultima lettura vera, oppure null quando non ne nasce nessuna.
+  ///
+  /// Si RICAVA dai messaggi invece di essere tenuta in un campo: cosi' non
+  /// esiste un secondo stato che possa divergere da cio' che c'e' a schermo.
+  EcoDelMaestro? get ecoDellUltima {
+    final i = RaccoltaDelleRisposte.indiceDellaViva(_messages);
+    if (i < 0) return null;
+    return NascitaDellEco.da(
+      maestro: _messages[i].autoreEffettivo(maestro),
+      risposta: _messages[i].text,
+      domanda: ultimaDomanda ?? '',
+      adesso: DateTime.now(),
+    );
+  }
 
   /// Il piano attivo, letto quando serve. Una funzione e non un valore:
   /// l'abbonamento puo' cambiare mentre la chat e' aperta.
@@ -551,6 +575,18 @@ class MaestroChatController extends ChangeNotifier {
         autore: chiRisponde,
       );
       await _consegna(answer, cronometro);
+      // L'ECO SI POSA QUI, e non costa niente: la parola non si chiede a
+      // Gemini, si riconosce in cio' che il Maestro ha gia' detto nella sua
+      // chiusura. Se la chiusura non ne porta nessuna non si posa niente, e
+      // non si finge: e' la stessa regola per cui una battuta del consulto si
+      // salta invece di inventarla.
+      final eco = NascitaDellEco.da(
+        maestro: chiRisponde,
+        risposta: reply,
+        domanda: userText,
+        adesso: DateTime.now(),
+      );
+      if (eco != null) unawaited(_eco?.posa(eco) ?? Future<void>.value());
       unawaited(_persist(answer));
       _turnsSinceDistill++;
       unawaited(_maybeDistill());

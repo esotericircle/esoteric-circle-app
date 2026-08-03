@@ -68,7 +68,7 @@ class AltreVoci {
   /// resta nella lettura, che e' l'unico strato che non puo' mancare.
   static MaestroReply treStratiDa(String testo) {
     final pulito = testo.trim();
-    final frasi = _frasiDi(pulito);
+    final frasi = frasiDi(pulito);
     // **Uno strato vuoto e' peggio di uno strato in meno.** Con meno di tre
     // frasi non si spreme il testo per riempire tre caselle: la lettura tiene
     // tutto, e chi mostra la lente non disegna cio' che non c'e'. La prima
@@ -90,8 +90,23 @@ class AltreVoci {
     );
   }
 
+  /// LA CHIUSURA di una risposta, cioe' la sua ULTIMA FRASE.
+  ///
+  /// **Non si prende da `treStratiDa().invite`**, e la differenza costa: quel
+  /// campo resta vuoto quando le frasi sono meno di tre, perche' li' si sta
+  /// dividendo un testo in tre parti e con due frasi la terza non esiste. La
+  /// chiusura invece esiste sempre finche' esiste una frase: e' l'ultima, e
+  /// basta. Se ne e' accorta la prova dell'Eco su una risposta di due frasi.
+  static String chiusuraDi(String testo) {
+    final frasi = frasiDi(testo);
+    return frasi.isEmpty ? '' : frasi.last;
+  }
+
   /// Le frasi di un testo, tenendo la punteggiatura che le chiude.
-  static List<String> _frasiDi(String testo) {
+  ///
+  /// Pubblica perche' la serve anche l'Eco, e due modi di spezzare un testo in
+  /// frasi darebbero due chiusure diverse per la stessa risposta.
+  static List<String> frasiDi(String testo) {
     final frasi = <String>[];
     final buffer = StringBuffer();
     for (final rune in testo.runes) {

@@ -5,7 +5,9 @@ import '../../../../core/chat/chat_message.dart';
 import '../../../../core/chat/immersive_intents.dart';
 import '../../../../core/chat/testo_del_responso.dart';
 import '../../../../core/maestro/frase_di_ripiego.dart';
+import '../../../../core/eco/eco_del_maestro.dart';
 import '../../../../core/maestro/maestro.dart';
+import '../../../../core/maestro/voce_del_maestro.dart';
 import '../../../../core/maestro/tempi_dell_attesa.dart';
 import '../../../../core/quality/quality_tier.dart';
 import '../../../../design_system/components/collasso.dart';
@@ -35,6 +37,7 @@ class ChatBubble extends StatefulWidget {
     this.onApprofondisci,
     this.onChiediAgliAltri,
     this.altreVoci = const [],
+    this.eco,
     this.siPuoRaccogliere = false,
     this.aperta = true,
     this.onApriChiudi,
@@ -62,6 +65,11 @@ class ChatBubble extends StatefulWidget {
   /// Chi sono gli altri due, per mostrarne i volti. Vuoto quando la riga non
   /// si mostra.
   final List<Maestro> altreVoci;
+
+  /// L'Eco che questo Maestro lascia con questa risposta. Non nulla solo
+  /// sulla lettura viva: la riga si mostra quando la lascia, non ogni volta
+  /// che si riguarda la conversazione.
+  final EcoDelMaestro? eco;
 
   /// Vero se questa risposta si puo' raccogliere, cioe' non e' piu' quella
   /// viva. La regola sta in `RaccoltaDelleRisposte`, qui arriva gia' decisa.
@@ -306,6 +314,32 @@ class _ChatBubbleState extends State<ChatBubble> {
                         ),
                       ],
                     ),
+                  ),
+                ],
+                // LA RIGA DELL'ECO, e la dice LUI.
+                //
+                // Non basta mostrare la parola: la persona deve sapere perche'
+                // quella parola esiste e perche' deve tornare. Non e' un
+                // avviso di sistema con lo stesso testo per tutti e tre, e' la
+                // sua frase, dal suo dato, e dice anche cosa succede domani.
+                if (widget.eco != null) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  Row(
+                    key: const Key('chat_eco'),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(Icons.auto_awesome_rounded,
+                          size: 15, color: palette.goldSoft),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          VoceDelMaestro.di(widget.eco!.maestro)
+                              .ecoCon(widget.eco!.parola),
+                          style: TypographyTokens.body(size: 14)
+                              .copyWith(color: palette.goldSoft, height: 1.35),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
                 // LE ALTRE VOCI, dentro la bolla della risposta a cui si

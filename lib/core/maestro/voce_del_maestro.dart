@@ -70,6 +70,7 @@ class VoceDelMaestro {
     required this.tipoDiChiusura,
     required this.lente,
     required this.frasiDelConsulto,
+    required this.fraseDellEco,
   });
 
   /// Come suona la voce in una riga: e' la prima cosa che il modello legge.
@@ -124,6 +125,20 @@ class VoceDelMaestro {
   /// registro di un altro, ed e' lo stesso difetto che la chiusura generica ha
   /// gia' fatto pagare una volta.
   final List<String> frasiDelConsulto;
+
+  /// COME IL MAESTRO DICE CHE TI LASCIA LA PAROLA, e cosa succede domani.
+  ///
+  /// **Non basta mostrare la parola**, ed e' una richiesta esplicita del
+  /// fondatore: la persona deve sapere perche' quella parola esiste e perche'
+  /// deve tornare. Lo dice LUI, in una riga, nella sua voce, non un avviso di
+  /// sistema con lo stesso testo per tutti e tre.
+  ///
+  /// `{parola}` e' il segnaposto della parola nominata nella chiusura. Il testo
+  /// non contiene MAI la parola scritta a mano: quella arriva dal Maestro.
+  final String fraseDellEco;
+
+  /// La riga dell'Eco con la parola dentro.
+  String ecoCon(String parola) => fraseDellEco.replaceAll('{parola}', parola);
 
   /// Quante frasi del consulto servono come minimo. Sotto questo numero la
   /// rotazione si vede: alla terza domanda la persona rilegge la prima.
@@ -232,6 +247,8 @@ class VoceDelMaestro {
         'misuro il transito che viene',
         'chiedo all\'arcano dove guardare',
       ],
+      fraseDellEco: 'Ti lascio {parola}. La ritrovi nel Cerchio fino a '
+          'mezzanotte, poi il cielo gira e domani è un altro.',
     ),
     Maestro.aura: VoceDelMaestro(
       timbro:
@@ -270,6 +287,8 @@ class VoceDelMaestro {
         'lascio che la domanda scenda nel sentire',
         'guardo quale centro si è chiuso',
       ],
+      fraseDellEco: 'Ti lascio {parola}. Resta nel Cerchio fino a mezzanotte, '
+          'poi il respiro riparte da capo.',
     ),
     Maestro.caligo: VoceDelMaestro(
       timbro:
@@ -314,6 +333,8 @@ class VoceDelMaestro {
         'incido il sigillo che ti serve',
         'chiamo la runa per nome',
       ],
+      fraseDellEco: 'Ti lascio {parola}. Veglia nel Cerchio fino a mezzanotte, '
+          'poi la soglia si chiude.',
     ),
   };
 
