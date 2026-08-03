@@ -46,6 +46,7 @@ import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart';
+import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
@@ -2403,6 +2404,118 @@ void main() {
     await capture(tester, rootKey, 'chat-instradamento.png');
   });
 
+  // --- IL CONSULTO NELLA CHAT VERA, a conversazione vuota e piena ---
+  //
+  // La stessa scena nelle due situazioni che decidono la sua misura: senza
+  // niente sopra prende tutto lo spazio che avanza, con la conversazione piena
+  // si stringe. Sono due immagini e non una perche' la regola e' proprio la
+  // differenza fra le due.
+  // I NOMI SCRITTI PER ESTESO, non composti a runtime: la prova che ogni
+  // anteprima abbia un generatore cerca il nome nel sorgente del corredo, e un
+  // nome montato con un ternario non lo trova. L'ha bocciata, ed era giusto.
+  const consultoNellaChat = <String, bool>{
+    'consulto-chat-vuota.png': false,
+    'consulto-chat-piena.png': true,
+  };
+  for (final caso in consultoNellaChat.entries) {
+    final piena = caso.value;
+    testWidgets('Cattura ${caso.key}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final memory = InMemoryMaestroMemoryRepository();
+      await memory
+          .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+      if (piena) {
+        for (final (role, text) in seedFor(Maestro.medora)) {
+          await memory.appendMessage(
+              Maestro.medora, ChatMessage(role: role, text: text));
+        }
+      }
+      final services = AppServices(
+        ai: _VoceCheFaAspettare(),
+        memory: memory,
+        memoryPersistent: true,
+        diagnostics: 'Cattura offline.',
+      );
+      final rootKey = await mount(tester, services);
+      // I DATI DI NASCITA, cosi' la scena guarda un corpo vero di questa
+      // persona invece del punto luminoso che spetta a chi non ne ha dati.
+      tester
+          .element(find.byType(MaterialApp))
+          .read<BirthIdentityController>()
+          .setBirth(
+            BirthDetails(
+              date: DateTime(1990, 8, 10),
+              time: const TimeOfDay(hour: 12, minute: 0),
+              place: const astro.BirthPlace(
+                  label: 'Roma',
+                  latitude: 41.9,
+                  longitude: 12.5,
+                  timezone: 'Europe/Rome'),
+            ),
+            NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+          );
+      await step(tester);
+      await openChat(tester, Maestro.medora);
+      await precacheFaces(tester);
+
+      // Si fa una domanda e la si lascia in volo: la scena del consulto vive
+      // esattamente li'.
+      final campo = find.descendant(
+        of: find.byType(ChatComposer),
+        matching: find.byType(TextField),
+      );
+      await tester.enterText(campo, 'Devo cambiare lavoro?');
+      await step(tester);
+      await tester.testTextInput.receiveAction(TextInputAction.send);
+      for (var i = 0; i < 8; i++) {
+        await step(tester);
+      }
+      await precacheFaces(tester);
+      await capture(tester, rootKey, caso.key);
+    });
+  }
+
+  // --- La chat RIAPERTA dopo un turno fallito ---
+  //
+  // **Il dato che ha fatto nascere questa cattura.** Negli screenshot del
+  // fondatore del 2 agosto 2026, riaprendo la chat si leggevano sette domande
+  // di fila e nessuna risposta. Questa immagine mostra lo stesso gesto, cioe'
+  // riaprire dopo un guasto, e cio' che si deve vedere: la domanda con il suo
+  // turno accanto, dichiarato ripiego, col suo Riprova.
+  testWidgets('Cattura la chat riaperta dopo un turno fallito',
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final memory = InMemoryMaestroMemoryRepository();
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    // La cronologia com'e' rimasta sul telefono: la domanda, e il turno del
+    // Maestro che e' fallito. Prima di oggi il secondo non c'era.
+    await memory.appendMessage(
+        Maestro.medora,
+        const ChatMessage(
+            role: ChatRole.user, text: 'Devo cambiare lavoro?'));
+    await memory.appendMessage(
+        Maestro.medora,
+        ChatMessage(
+          role: ChatRole.maestro,
+          text: RipiegoDelMaestro.silenzioDi(Maestro.medora),
+          failed: true,
+          ripiego: true,
+        ));
+    final services = AppServices(
+      ai: _ScriptedMaestro(),
+      memory: memory,
+      memoryPersistent: true,
+      diagnostics: 'Cattura offline.',
+    );
+    final rootKey = await mount(tester, services);
+    await openChat(tester, Maestro.medora);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'chat-riaperta-turno-fallito.png');
+  });
+
   // --- Le chat: conversazione, pannello suggerimenti, stato vuoto ---
   for (final maestro in Maestro.values) {
     final id = maestro.id;
@@ -3028,4 +3141,52 @@ class _ScriptedMaestro implements MaestroAiProvider {
   }) async =>
       null;
 
+}
+
+/// Non risponde mai: serve a fotografare la scena del consulto, che vive solo
+/// mentre la risposta e' in volo.
+class _VoceCheFaAspettare implements MaestroAiProvider {
+  @override
+  bool get isReady => true;
+
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<ChatMessage> history,
+    required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
+    bool approfondisci = false,
+  }) =>
+      Completer<String>().future;
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) =>
+      Completer<MaestroReply>().future;
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) =>
+      Completer<String>().future;
+
+  @override
+  Future<MemoryDigest?> distill({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory previous,
+    required List<ChatMessage> history,
+  }) async =>
+      null;
 }
