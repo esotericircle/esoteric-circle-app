@@ -113,6 +113,35 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// senza mai sporcare l'albero di lavoro. Le anteprime committate in
 /// `docs/preview/` si aggiornano solo su richiesta esplicita, valorizzando
 /// AGGIORNA_ANTEPRIME=1, cosa che fanno gli script in `tool/`.
+/// IL RAPPORTO DI PIXEL DEL CORREDO, dichiarato: TRE.
+///
+/// **Non e' un dettaglio di resa, e' la fedelta' dell'anteprima.** A rapporti
+/// diversi cambiano la rasterizzazione dei glifi, i tratti sottili e la
+/// diffusione delle ombre: **un'anteprima a rapporto piu' basso puo' nascondere
+/// esattamente i difetti che il corredo esiste per prendere.** E se 360 punti
+/// logici sono la prima misura, quella su cui si giudica, giudicarla a un
+/// rapporto che il telefono non ha svuota la regola.
+///
+/// **Prima era UNO**, e l'immagine veniva poi ingrandita tre volte in scrittura:
+/// il file usciva della misura giusta, ma dipinto come su un telefono che non
+/// esiste. Ingrandire dopo non restituisce cio' che il rapporto decide durante.
+const double rapportoDelCorredo = 3.0;
+
+/// Imposta lo schermo da una misura LOGICA, col rapporto dichiarato.
+///
+/// **Una sola porta.** I tre punti che impostavano lo schermo scrivevano
+/// ciascuno il proprio `devicePixelRatio`, e per tre volte era uno: bastava
+/// dimenticarne uno per avere due anteprime rese in due modi diversi senza che
+/// nessuno lo sapesse. Qui la misura si dichiara logica, e il rapporto lo mette
+/// il corredo.
+void montaLoSchermo(WidgetTester tester, Size logico,
+    {double rapporto = rapportoDelCorredo}) {
+  tester.view.devicePixelRatio = rapporto;
+  tester.view.physicalSize = logico * rapporto;
+  addTearDown(tester.view.resetPhysicalSize);
+  addTearDown(tester.view.resetDevicePixelRatio);
+}
+
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -139,38 +168,14 @@ void main() {
     await loader.load();
   }
 
-  List<String> materialIconsCandidates() {
-    const rel = 'artifacts/material_fonts/MaterialIcons-Regular.otf';
-    final env = Platform.environment;
-    final out = <String>[
-      if (env['MATERIAL_ICONS_FONT'] != null) env['MATERIAL_ICONS_FONT']!,
-      if (env['FLUTTER_ROOT'] != null) '${env['FLUTTER_ROOT']}/bin/cache/$rel',
-    ];
-    // L'eseguibile puo' essere dart (.../cache/dart-sdk/bin/dart) o
-    // flutter_tester (.../cache/artifacts/engine/.../flutter_tester): si risale
-    // di qualche livello provando entrambe le forme, cosi' si trova la cache in
-    // ogni caso.
-    var dir = File(Platform.resolvedExecutable).parent;
-    for (var i = 0; i < 8; i++) {
-      out.add('${dir.path}/$rel');
-      out.add('${dir.path}/bin/cache/$rel');
-      dir = dir.parent;
-    }
-    return out;
-  }
-
   Future<void> loadFonts() async {
     await loadFont('Cinzel', 'assets/fonts/Cinzel-variable.ttf');
     await loadFont('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf');
-    // Icone Material: si risolve il font dalla cache dell'SDK di Flutter a
-    // partire dall'eseguibile Dart, cosi' il test e' autosufficiente. Un
-    // eventuale percorso esplicito via ambiente ha la precedenza.
-    for (final candidate in materialIconsCandidates()) {
-      if (File(candidate).existsSync()) {
-        await loadFont('MaterialIcons', candidate);
-        break;
-      }
-    }
+    // Le icone Material NON si caricano piu' qui. Stavano dentro questa
+    // funzione, cioe' dentro il corredo soltanto: ogni altro file di cattura
+    // disegnava quadrati vuoti al posto delle icone senza che nessuno lo
+    // dicesse. Adesso stanno in `test/flutter_test_config.dart`, che vale per
+    // tutta la suite, e li' un percorso mancante spezza invece di ripiegare.
   }
 
   // Silenzia i sensori: in headless non esistono, e senza questo la parallasse
@@ -313,10 +318,7 @@ void main() {
 
   Future<GlobalKey> mount(WidgetTester tester, AppServices services,
       {DateTime Function()? clock, Size? schermo}) async {
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = schermo ?? schermoReale;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
+    montaLoSchermo(tester, schermo ?? schermoReale);
 
     final rootKey = GlobalKey();
     await tester.pumpWidget(
@@ -390,7 +392,11 @@ void main() {
     await tester.runAsync(() async {
       final boundary =
           rootKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-      final image = await boundary.toImage(pixelRatio: 3.0);
+      // LO STESSO rapporto con cui si e' impaginato, non un altro numero.
+      // Quando qui c'era 3 scritto a mano e lo schermo era montato a 1,
+      // l'immagine usciva della misura giusta ingrandendo un disegno fatto per
+      // un telefono piu' povero. Legandoli, non possono piu' divergere.
+      final image = await boundary.toImage(pixelRatio: rapportoDelCorredo);
       final data = await image.toByteData(format: ui.ImageByteFormat.png);
       final out = File('$previewDir/$name');
       out.createSync(recursive: true);
@@ -424,10 +430,7 @@ void main() {
         (tester) async {
       silenceSensors();
       await loadFonts();
-      tester.view.devicePixelRatio = 1.0;
-      tester.view.physicalSize = basso ? schermoBasso : schermoAlto;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
+      montaLoSchermo(tester, basso ? schermoBasso : schermoAlto);
       final rootKey = GlobalKey();
       await tester.pumpWidget(RepaintBoundary(
         key: rootKey,
@@ -656,7 +659,9 @@ void main() {
     await step(tester);
     // Superficie alta, cosi' l'anteprima mostra la ruota, la statua, i testi,
     // la classifica dei dodici e i due pulsanti in fondo.
-    tester.view.physicalSize = const Size(360, 3600);
+    // La misura resta LOGICA, e il rapporto lo mette il corredo: scrivere qui
+    // una misura fisica vorrebbe dire un rapporto implicito.
+    montaLoSchermo(tester, const Size(360, 3600));
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo.png');
@@ -670,8 +675,7 @@ void main() {
   testWidgets('Cattura la card del Test Archetipo', (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.physicalSize = const Size(460, 1160);
-    tester.view.devicePixelRatio = 1.0;
+    montaLoSchermo(tester, const Size(460, 1160));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
@@ -724,7 +728,7 @@ void main() {
     await step(tester);
     // La soglia mostra il selettore del cielo prima di cominciare.
     expect(find.byKey(const Key('archetype_sky_setting')), findsOneWidget);
-    tester.view.physicalSize = const Size(360, 640);
+    montaLoSchermo(tester, const Size(360, 640));
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo-soglia.png');
@@ -759,7 +763,7 @@ void main() {
       await step(tester);
     }
     expect(find.byKey(const Key('archetype_question')), findsOneWidget);
-    tester.view.physicalSize = const Size(360, 700);
+    montaLoSchermo(tester, const Size(360, 700));
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo-domanda.png');
@@ -787,8 +791,7 @@ void main() {
 
   Future<GlobalKey> mountFace(WidgetTester tester, Widget schermata,
       {required Size size}) async {
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = size;
+    montaLoSchermo(tester, size);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -842,8 +845,7 @@ void main() {
   testWidgets('Cattura la card della Costellazione del Viso', (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.physicalSize = const Size(460, 1100);
-    tester.view.devicePixelRatio = 1.0;
+    montaLoSchermo(tester, const Size(460, 1100));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final contorni = FaceSilhouette.contorni();
@@ -978,7 +980,7 @@ void main() {
     // l'anteprima mostra il pannello intero, che sul device e' scorrevole.
     await tester.tap(find.byKey(const Key('gift_base_toggle')));
     await step(tester);
-    tester.view.physicalSize = const Size(360, 1150);
+    montaLoSchermo(tester, const Size(360, 1150));
     await step(tester);
     await capture(tester, rootKey, 'rito-alba-base.png');
   });
@@ -1254,7 +1256,7 @@ void main() {
     await capture(tester, rootKey, 'rito-sogno-costellazione.png');
 
     // Dalla figura unita scende il saluto della notte.
-    tester.view.physicalSize = const Size(360, 1250);
+    montaLoSchermo(tester, const Size(360, 1250));
     await tester.pump(const Duration(milliseconds: 1000));
     await step(tester);
     expect(find.byKey(const Key('dream_message')), findsOneWidget);
@@ -1266,8 +1268,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     final quando = DateTime(2026, 7, 13, 22, 40);
-    tester.view.physicalSize = const Size(460, 1100);
-    tester.view.devicePixelRatio = 1.0;
+    montaLoSchermo(tester, const Size(460, 1100));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final maestro = DailyRituals.nightMaestro(quando);
@@ -1331,7 +1332,7 @@ void main() {
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     // Superficie alta, cosi' la galleria mostra ricerca, filtri, In evidenza col
     // tasto A caso e le prime righe della griglia dei volti.
-    tester.view.physicalSize = const Size(360, 1720);
+    montaLoSchermo(tester, const Size(360, 1720));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(SinastriaGalleryScreen.route(userSign: Zodiac.gemini)));
     await step(tester);
@@ -1358,7 +1359,7 @@ void main() {
     // Superficie alta quanto basta perche' l'anteprima mostri, oltre ai due
     // poli, anche le quattro barre, la riga di sfida, il tasto Condividi e il
     // tasto Cambia VIP che ha preso il posto del selettore in fondo.
-    tester.view.physicalSize = const Size(360, 1340);
+    montaLoSchermo(tester, const Size(360, 1340));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(SinastriaVipScreen.route()));
     await step(tester);
@@ -1372,7 +1373,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(360, 1340);
+    montaLoSchermo(tester, const Size(360, 1340));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Nome e data reali sul polo di sinistra, cosi' si vede l'effetto personale.
     unawaited(nav.push(SinastriaVipScreen.route(
@@ -1402,8 +1403,7 @@ void main() {
 
   Future<GlobalKey> mountAnimal(WidgetTester tester, Widget schermata,
       {required Size size}) async {
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = size;
+    montaLoSchermo(tester, size);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -1538,8 +1538,7 @@ void main() {
   testWidgets('Cattura la card dell\'Animale Guida', (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.physicalSize = const Size(460, 900);
-    tester.view.devicePixelRatio = 1.0;
+    montaLoSchermo(tester, const Size(460, 900));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final animal = GuideAnimalDerivation.forSign(Zodiac.cancer);
@@ -1569,8 +1568,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     SharedPreferences.setMockInitialValues({});
-    tester.view.physicalSize = const Size(360, 1500);
-    tester.view.devicePixelRatio = 1.0;
+    montaLoSchermo(tester, const Size(360, 1500));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -1614,8 +1612,7 @@ void main() {
     silenceSensors();
     await loadFonts();
     final services = await buildServices(Maestro.caligo, seeded: false);
-    tester.view.physicalSize = const Size(360, 1000);
-    tester.view.devicePixelRatio = 1.0;
+    montaLoSchermo(tester, const Size(360, 1000));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -1756,8 +1753,7 @@ void main() {
   testWidgets('Cattura la card dell\'Estrazione Rune', (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.physicalSize = const Size(460, 1320);
-    tester.view.devicePixelRatio = 1.0;
+    montaLoSchermo(tester, const Size(460, 1320));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final esito = RuneCast.getta(gettataNorne, random: Random(5));
@@ -1797,7 +1793,7 @@ void main() {
     // Superficie alta quanto basta prima di aprire, cosi' le forme a tema
     // finiscono il riempimento una volta sola: il segno per intero, quattro
     // schede piu' il tasto Condividi e il disclaimer, senza troppo vuoto.
-    tester.view.physicalSize = const Size(360, 1560);
+    montaLoSchermo(tester, const Size(360, 1560));
     // Ariete al 10 luglio 2026: valori variati tra le schede (2, 4, 5, 3), cosi'
     // si vede la differenza tra le quattro forme a tema.
     unawaited(nav.push(OroscopoScreen.route(
@@ -1823,8 +1819,7 @@ void main() {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final cards =
         Horoscope.forSign(sign: Zodiac.aries, dayOfYear: 190, year: 2026);
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(400, 900);
+    montaLoSchermo(tester, const Size(400, 900));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -1860,7 +1855,7 @@ void main() {
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
     // La schermata e' lunga: sintesi, tre posizioni lette, dialogo, carta
     // chiave, consiglio, domanda, azioni e disclaimer.
-    tester.view.physicalSize = const Size(360, 2360);
+    montaLoSchermo(tester, const Size(360, 2360));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Seme 1: Fante di Bastoni rovesciato, Dieci di Coppe, La Luna rovesciata.
     // Scelto perche' contiene una carta di corte col suo numero, un nome su due
@@ -1896,7 +1891,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(360, 910);
+    montaLoSchermo(tester, const Size(360, 910));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     // Senza intro e senza carte gia' scelte: e' il ventaglio che aspetta, con
     // Medora sopra e i gesti del mazzo sotto.
@@ -1926,7 +1921,7 @@ void main() {
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    tester.view.physicalSize = const Size(360, 1020);
+    montaLoSchermo(tester, const Size(360, 1020));
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
     unawaited(nav.push(MaterialPageRoute<void>(
       builder: (_) => const MaestroScope(
@@ -1974,8 +1969,7 @@ void main() {
       'Il Mondo',
     ].map((n) => TarotDeck.cards.firstWhere((c) => c.name == n)).toList();
 
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(600, 250);
+    montaLoSchermo(tester, const Size(600, 250));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -2036,10 +2030,9 @@ void main() {
     await loadFonts();
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final spread = TarotSpread.draw(seed: 1);
-    tester.view.devicePixelRatio = 1.0;
     // La card e' cresciuta: argomento, estratto della lettura, carta chiave e
     // consiglio oltre alla sintesi.
-    tester.view.physicalSize = const Size(420, 1080);
+    montaLoSchermo(tester, const Size(420, 1080));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -2152,7 +2145,7 @@ void main() {
     await precacheFaces(tester);
     // Superficie alta, cosi' l'anteprima mostra la presenza, la Consulta e il
     // primo riquadro di sottocategoria per intero.
-    tester.view.physicalSize = const Size(360, 2800);
+    montaLoSchermo(tester, const Size(360, 2800));
     await step(tester);
     await capture(tester, rootKey, 'dominio-medora.png');
 
@@ -2200,7 +2193,7 @@ void main() {
     await step(tester);
     await step(tester);
     await precacheFaces(tester);
-    tester.view.physicalSize = const Size(360, 2800);
+    montaLoSchermo(tester, const Size(360, 2800));
     await step(tester);
     await capture(tester, rootKey, 'dominio-aura.png');
 
@@ -2238,7 +2231,7 @@ void main() {
     await step(tester);
     await step(tester);
     await precacheFaces(tester);
-    tester.view.physicalSize = const Size(360, 2800);
+    montaLoSchermo(tester, const Size(360, 2800));
     await step(tester);
     await capture(tester, rootKey, 'dominio-caligo.png');
 
@@ -2309,8 +2302,7 @@ void main() {
   testWidgets('Cattura il Profilo', (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(360, 844);
+    montaLoSchermo(tester, const Size(360, 844));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
@@ -2379,7 +2371,7 @@ void main() {
     await step(tester);
     await step(tester);
     // Superficie alta, cosi' l'anteprima mostra la card Demo e i quattro livelli.
-    tester.view.physicalSize = const Size(360, 2600);
+    montaLoSchermo(tester, const Size(360, 2600));
     await step(tester);
     await capture(tester, rootKey, 'piani.png');
   });
@@ -2453,8 +2445,7 @@ void main() {
   // e ferme alla cattura, cosi' l'anteprima e' netta e deterministica.
   Future<GlobalKey> mountRisveglio(WidgetTester tester,
       {DateTime Function()? clock, Size? schermo}) async {
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = schermo ?? schermoReale;
+    montaLoSchermo(tester, schermo ?? schermoReale);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -2740,8 +2731,7 @@ void main() {
       (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(360, 420);
+    montaLoSchermo(tester, const Size(360, 420));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
@@ -2784,8 +2774,7 @@ void main() {
   testWidgets('Cattura il cielo reale di nascita', (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = const Size(360, 844);
+    montaLoSchermo(tester, const Size(360, 844));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final b = await natalBridge(tester);
@@ -2832,10 +2821,9 @@ void main() {
       (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.devicePixelRatio = 1.0;
     // Alta abbastanza da mostrare la ruota ornata e la legenda viva a tessere
     // (una tessera per pianeta) sotto di essa, senza scorrere.
-    tester.view.physicalSize = const Size(360, 1600);
+    montaLoSchermo(tester, const Size(360, 1600));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final b = await natalBridge(tester);
@@ -2893,8 +2881,7 @@ void main() {
   testWidgets('Cattura la mano del tocco', (tester) async {
     silenceSensors();
     await loadFonts();
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = schermoReale;
+    montaLoSchermo(tester, schermoReale);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
@@ -2937,8 +2924,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     final pref = ArtiPreferiteController(maestroAssegnato: Maestro.medora);
     await pref.carica();
-    tester.view.devicePixelRatio = 1.0;
-    tester.view.physicalSize = schermoReale;
+    montaLoSchermo(tester, schermoReale);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
