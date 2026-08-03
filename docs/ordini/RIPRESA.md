@@ -1,6 +1,6 @@
 # RIPRESA
 
-## ORDINE F: CHIUSA LA SOLA VOCE 1. Le voci 2 e 3 NON sono cominciate
+## ORDINE F: CHIUSE LE VOCI 1 e 2. La VOCE 3, l'Eco, NON e' cominciata
 
 Il 3 agosto 2026. **Fermato al confine di una voce, come l'ordine chiede**, e
 dichiarato prima di cominciare invece che alla fine.
@@ -38,17 +38,38 @@ altrimenti finiscono in `build/preview`. Il titolo era corretto dal primo
 momento. **Prima di trarre una conclusione da un'immagine, va verificato che
 l'immagine sia stata rigenerata.**
 
-**VOCE 2 e VOCE 3: NON COMINCIATE.** La VOCE 2 e' il raccoglimento delle
-risposte precedenti quando ne arriva una nuova. La VOCE 3 e' l'Eco, ed e' da
-sola piu' grande delle altre due messe insieme: parola derivata dalla chiusura,
-persistenza, confine di mezzanotte locale, posa nella striscia del Cerchio, riga
-di provenienza in due momenti diversi, pannello "Da dove nasce questo dono",
-riapertura della chat col contesto, condivisione, piu' sei prove con prova di
-vista su ognuna. Riprendere da VOCE 2.
+**VOCE 2, CHIUSA.** Le risposte si raccolgono quando ne arriva una NUOVA, non
+appena la persona le ha lette: nessuno sa dire quando le ha lette, e una
+risposta che si chiude da sola toglie di mano quello che e' appena stato dato.
+La viva e' l'ultima LETTURA VERA e non l'ultima bolla: un ripiego o il messaggio
+del limite sono due righe, e farli passare per l'ultima risposta richiuderebbe
+la lettura vera che sta appena sopra. **L'ultima non si raccoglie mai**, nemmeno
+a mano.
 
-**Consegna parziale, dichiarata:** suite verde a 1465 e analyze pulito, ma
-NESSUNA build nuova per questo ordine. L'ultima consegnata resta la 2136
-dell'ordine E.
+**La freccetta e il collasso sono quelli del dominio, non una seconda copia.**
+Erano due classi private dentro `maestro_screen.dart`: adesso stanno nel design
+system, pubbliche, e il dominio usa quelle. Due copie della stessa animazione
+sono due porte, e basta che una dimentichi Riduci Movimento perche' l'app si
+comporti in due modi sulla stessa cosa.
+
+**Si sposa con lo scorrimento dell'ordine E senza toccarlo:** la prova a
+coordinate resta verde, perche' la misura si prende a dissolvenza finita e a
+quel punto anche il raccoglimento ha finito.
+
+**Otto prove del rosso, tutte rosse al primo colpo.** La prova a video non cerca
+l'assenza del testo dall'albero: la riga raccolta porta il testo intero e lo
+tronca con l'ellissi, e cercarlo lo troverebbe comunque. Cio' che cambia, e che
+la persona vede, e' QUANTE RIGHE se ne leggono.
+
+**VOCE 3, L'ECO: NON COMINCIATA.** E' da sola piu' grande delle altre due messe
+insieme: parola derivata dalla chiusura del Maestro, persistenza, confine di
+mezzanotte locale, posa nella striscia del Cerchio, riga di provenienza sia
+quando si posa sia quando ricompare, pannello "Da dove nasce questo dono",
+riapertura della chat col contesto, condivisione, piu' sei prove con prova di
+vista su ognuna. **Si riprende da qui.**
+
+**Consegna:** suite verde a 1474, analyze pulito, build 2137 su App
+Distribution.
 
 ## ORDINE E: CHIUSO PER INTERO, tutte e tre le voci
 
