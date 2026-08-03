@@ -1,5 +1,50 @@
 # RIPRESA
 
+## ORDINE CHAT 5: CHIUSO PER INTERO, tutte e tre le voci
+
+Il 3 agosto 2026. Le tre voci sono chiuse. I due debiti di riporto sono
+riportati, uno saldato e uno no, con la ragione scritta.
+
+**VOCE 1, CHIUSA.** La Luna del progetto e' una sola, in `LunaReale`. Cercando
+le altre per scrivere la prova ne ho trovate QUATTRO, non le tre che mi
+aspettavo: Rito del Sogno, emblema, ombra del Santuario e cartolina del cielo,
+che la disegna dentro un metodo che non la nomina. E' il motivo per cui la prova
+ENUMERA gli ingredienti del terminatore invece dei nomi delle classi. La parola
+e il disegno ora escono dallo stesso numero perche' il nome e' un GETTER sulla
+frazione illuminata: non e' una prova, e' il tipo.
+
+**VOCE 2, CHIUSA.** La scena occupa cio' che avanza perche' la conversazione si
+dispone per prima. Tre gradini, non due: sopra il minimo il corpo cresce fino a
+220, sotto il pavimento resta la riga, sotto la riserva del testo non resta
+niente. Il terzo l'ho scoperto perche' nella chat vera lo spazio libero scende a
+48,3 punti mentre il testo ne chiede 109.
+
+**VOCE 3, CHIUSA.** La domanda e il suo turno nascono insieme e si salvano
+insieme. L'ipotesi e' stata verificata prima di correggere: cinque casi su sei
+cadevano.
+
+**Le tre prove del rosso rimaste VERDI, con cio' che hanno trovato.** Una: la parola
+generica su una meta' esatta passava per quindici decimillesimi, perche' la
+fascia era scelta a mente. Due: la scena che reclama tutto lo spazio non
+spostava la conversazione, perche' la fingevo alta 200 punti in una fascia da
+ottocento, dove la sovrapposizione non poteva accadere. Tre: togliendo il
+completamento del turno, la domanda AVEVA ancora il suo turno, ma quel turno
+raccontava un guasto diverso da quello successo.
+
+**IL DEBITO CHE RESTA APERTO.** I due tempi dell'ordine E non sono stati
+ottenuti. Cinque esecuzioni reali, e Vertex risponde `429 RESOURCE_EXHAUSTED`:
+17, 12, 7, 18 e 8 risposte su venti oppure dieci. Lo strumento rifiuta una
+misura parziale, giustamente. Provando a saldarlo ho trovato che stampava
+"chiamate in fila" mandandone cinque insieme, quindi il numero di rete
+dell'ordine E era piu' alto del vero. Adesso ne parte una alla volta.
+
+**Una rottura precedente, riportata e non corretta.** `flutter test
+test/prima_dopo_capture_test.dart --dart-define=STATO=dopo` fa cadere "I tre
+fotogrammi della sequenza intro" per una `MissingPluginException` del lettore
+audio. Cade anche sul codice committato prima di questo ordine, quindi non e'
+mia. Ed e' fuori dallo scopo. La suite normale non la vede perche' senza `STATO`
+quelle catture escono subito.
+
 ## ORDINE G: CHIUSO PER INTERO, tutte e due le voci piu' i tre riporti
 
 Il 3 agosto 2026. Il blocco della chat non e' stato riaperto, come l'ordine
