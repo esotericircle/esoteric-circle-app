@@ -1,5 +1,75 @@
 # RIPRESA
 
+## ORDINE E: CHIUSO PER INTERO, tutte e tre le voci
+
+Chiuso il 3 agosto 2026, build 2136.
+
+**I TRE NUMERI CHE CHIUDONO L'ORDINE**, da chiamate reali con
+`flutter test tool/risposte_intere.dart`:
+
+```
+                       minimo   mediana  massimo
+tempo alla prima parola  2,06s    2,06s    2,06s   (tetto 4s)
+tempo al testo completo  6,56s    9,23s    9,70s   (tetto 10s)
+parole per risposta        43       76      105    (chieste 50)
+```
+
+Il tempo alla prima parola e' identico nei tre casi, e non e' un errore: e'
+esattamente cio' che fa la durata minima della scena. La rete misurata in fila
+sta fra 1,03s e 1,64s, quindi sotto la pausa, e a comandare e' la pausa. Prima
+il tempo era quello della rete, quindi ballava e con la rete al minimo la scena
+lampeggiava.
+
+**VOCE 1, LA PAUSA.** Le frasi vivono in `VoceDelMaestro.frasiDelConsulto`, sei
+per Maestro, e ognuna porta almeno una parola del lessico di firma di chi la
+dice, cioe' le stesse parole che reggono il 98,3 per cento di attribuzione
+cieca. Non sono frasi dell'app travestite da Maestro. La prima riga nomina
+sempre un DATO VERO, e viene dagli ancoraggi che gia' arrivano al Maestro, non
+da un secondo elenco: senza dati la riga si salta e cio' che resta si dichiara
+generale. **La pausa la governa il turno, non il disegno**: metterla nella vista
+voleva dire una scena che finge di durare mentre sotto il testo e' gia' li'.
+Vale per tutte e quattro le uscite, risposta vera, troncatura, ripiego, errore.
+
+**VOCE 2, LA SCRITTURA E LO SCORRIMENTO.** Sessanta caratteri al secondo con un
+TETTO, perche' a quella velocita' la risposta piu' lunga misurata impiegherebbe
+dodici secondi da sola. Un tocco sulla bolla completa. Si scrive solo l'ultima
+risposta, solo se appena arrivata, e solo se e' una lettura VERA: un ripiego non
+lo scrive il Maestro.
+
+Lo scorrimento si ferma all'INIZIO della risposta, con la domanda sopra. **Tre
+cose trovate misurando**: col solo conteggio dei messaggi l'arrivo della
+risposta non si vedeva affatto, perche' la bolla in sospeso viene SOSTITUITA e
+il numero non cambia; la misura presa subito dava la lista che comincia a 321
+invece che a 89, perche' la scena del consulto occupava ancora lo spazio sopra;
+e la prova a coordinate passava con una risposta che ci stava tutta a schermo,
+cioe' non attraversava il ramo che doveva provare.
+
+**VOCE 3.** Cinquanta parole chieste per settanta ottenute, con due misure a
+sostenerlo. Il Markdown non arriva a schermo, con tre difese: il vincolo nella
+persona come fatto TECNICO e non fra le regole di voce, la ripulitura al
+confine, e l'enfasi in oro NOSTRA sui nomi che l'app conosce. Gli Arcani
+maggiori restano fuori dall'enfasi: "Il Sole", "La Luna" sono parole comuni.
+Una scelta dichiarata non entra piu' fra i guasti: il pannello diceva "accesa ma
+in guasto" con la voce che funzionava.
+
+**VENTUNO PROVE DEL ROSSO ESEGUITE DAVVERO**, e cinque sono rimaste verdi al
+primo colpo, cioe' hanno trovato un buco nelle prove e non nel codice: la prova
+a coordinate non attraversava il ramo, il passo di pompaggio da 400 millisecondi
+nascondeva un difetto di tempi, l'asserzione "e' visibile" lasciava passare una
+risposta a 417 punti dall'alto, e due difetti del provider non li copriva
+nessuno perche' costruirlo richiede un FirebaseAI che in prova non esiste.
+
+**DUE COSE VISTE SOLO GUARDANDO LE IMMAGINI, che nessuna prova poteva
+prendere**: le due battute del consulto si sovrapponevano durante la
+transizione, illeggibili, perche' `AnimatedSwitcher` impila di suo il figlio che
+entra su quello che esce; e la prova che copriva quel punto SI REGGEVA su quel
+difetto, perche' trovava la battuta vecchia rimasta in albero.
+
+**DIVERGENZA APERTA, dichiarata e non risolta**: le anteprime dell'ordine stanno
+FUORI dal corredo, perche' il corredo cattura a rapporto di pixel 1 e gli ordini
+chiedono rapporto 3, cioe' il telefono vero del fondatore. Le due convenzioni
+non coincidono. Va deciso quale vale.
+
 ## ORDINE D: CHIUSO PER INTERO. Le risposte non sono piu' tronche
 
 Chiuso il 2 agosto 2026.
