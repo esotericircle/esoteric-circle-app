@@ -6,6 +6,7 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
+import '../../../../services/ai/voce_sorvegliata.dart';
 import '../../../../services/firebase/attestazione.dart';
 
 /// Pannello diagnostico della chat, discreto e a portata di tocco.
@@ -19,6 +20,7 @@ Future<void> showChatDiagnostics(
   required bool aiReady,
   required bool memoryPersistent,
   RegistroDeiGuasti? guasti,
+  VoceSorvegliata? voce,
   EsitoAttestazione attestazione = EsitoAttestazione.installata,
   String? nota,
   String? appCheckDebugToken,
@@ -35,6 +37,7 @@ Future<void> showChatDiagnostics(
         aiReady: aiReady,
         memoryPersistent: memoryPersistent,
         guasti: guasti,
+        voce: voce,
         attestazione: attestazione,
         nota: nota,
         appCheckDebugToken: appCheckDebugToken,
@@ -54,6 +57,7 @@ class PannelloDiMessaAPunto extends StatelessWidget {
     required this.aiReady,
     required this.memoryPersistent,
     required this.guasti,
+    this.voce,
     required this.attestazione,
     required this.nota,
     required this.appCheckDebugToken,
@@ -66,6 +70,15 @@ class PannelloDiMessaAPunto extends StatelessWidget {
   /// esiste ancora: prima diceva "Voce di Medora: attiva" anche quando ogni
   /// chiamata falliva, perche' leggeva `isReady`, che risponde sempre di si'.
   final RegistroDeiGuasti? guasti;
+
+  /// La voce che ritenta, per sapere QUANTE VOLTE ha ritentato.
+  ///
+  /// Un ritentativo riuscito non e' un guasto e non entra nel registro: la
+  /// persona non ha visto niente, ed e' quello che vogliamo. Ma un successo
+  /// che nasconde tre tentativi va detto a chi sviluppa, altrimenti la quota
+  /// che si sta stringendo resta invisibile fino al giorno in cui stringe del
+  /// tutto.
+  final VoceSorvegliata? voce;
 
   /// Com'e' andata l'attestazione. Si mostra SEMPRE, anche quando va bene:
   /// un pannello che tace su cio' che non e' installato mente per omissione.
@@ -114,6 +127,19 @@ class PannelloDiMessaAPunto extends StatelessWidget {
                     : 'accesa ma in guasto',
             good: aiReady && ultimo == null,
           ),
+          if (voce != null &&
+              (voce!.ritentativiRiusciti > 0 || voce!.ritentativiFalliti > 0))
+            _StatusRow(
+              label: 'Ritentativi',
+              value: voce!.ritentativiFalliti == 0
+                  ? '${voce!.ritentativiRiusciti} riusciti'
+                  : '${voce!.ritentativiRiusciti} riusciti, '
+                      '${voce!.ritentativiFalliti} buttati',
+              // Riusciti va BENE: vuol dire che il ritentativo ha fatto il suo
+              // lavoro e la persona non ha visto niente. Buttati no: quelli
+              // sono finiti in un ripiego.
+              good: voce!.ritentativiFalliti == 0,
+            ),
           _StatusRow(
             label: 'Memoria',
             value: memoryPersistent ? 'persistente' : 'di sessione',

@@ -8,19 +8,30 @@ import '../../core/maestro/natal_context.dart';
 import 'maestro_ai_provider.dart';
 import 'maestro_oracle.dart';
 import 'registro_dei_guasti.dart';
+import 'ritentativi_della_voce.dart';
 
-/// La voce dei Maestri, sorvegliata.
+/// La voce dei Maestri, sorvegliata, che RITENTA prima di arrendersi.
 ///
-/// Avvolge un qualunque [MaestroAiProvider] e registra ogni guasto prima di
-/// rilanciarlo, poi lascia che chi chiama decida il ripiego come ha sempre
-/// fatto. Non cambia il contratto: cambia solo che l'errore vero non si perde
-/// piu' per strada.
+/// Avvolge un qualunque [MaestroAiProvider], ritenta quando il guasto e'
+/// temporaneo, registra quello che resta e lo rilancia, poi lascia che chi
+/// chiama decida il ripiego come ha sempre fatto.
 ///
 /// Perche' un involucro e non un campo nei controllori: alla voce dell'AI si
 /// arriva da piu' porte, la chat, il Consulta, la Sintesi comparativa e il
 /// distillato di memoria, e ogni porta aveva il suo `catch (_)`. Correggere i
 /// chiamanti uno per uno avrebbe lasciato scoperta la porta che nasce domani.
 /// Qui la porta e' una sola, e chi ne apre un'altra ci passa senza saperlo.
+///
+/// **Il ritentativo e' arrivato qui per la stessa ragione.** Cinque chiamate
+/// ravvicinate a Vertex hanno reso `429 RESOURCE_EXHAUSTED`, e al primo 429 la
+/// persona vedeva il ripiego: un rifiuto temporaneo di Google diventava un
+/// messaggio d'errore in faccia a chi paga. La politica, quante volte e per
+/// quanto, vive in [RitentativiDellaVoce] e non in questo file: qui c'e' solo
+/// il posto dove viene applicata.
+///
+/// **Un successo che nasconde tre tentativi va detto a chi sviluppa.** Il
+/// conteggio finisce nel pannello di messa a punto, cosi' un problema di quota
+/// resta invisibile alla persona ma non a noi.
 class VoceSorvegliata implements MaestroAiProvider {
   VoceSorvegliata({required MaestroAiProvider voce, required this.registro})
       : _voce = voce;
@@ -44,13 +55,55 @@ class VoceSorvegliata implements MaestroAiProvider {
     String operazione,
     Future<T> Function() azione,
   ) async {
-    try {
-      return await azione();
-    } catch (errore) {
-      registro.registra(operazione: operazione, errore: errore);
-      rethrow;
+    final orologio = Stopwatch()..start();
+    for (var tentativo = 1;; tentativo++) {
+      try {
+        final esito = await azione();
+        if (tentativo > 1) {
+          // Il tentativo riuscito dopo un inciampo NON e' un guasto, ed e'
+          // per questo che si conta invece di registrarsi come errore: chi
+          // legge il registro deve poter distinguere cio' che e' andato male
+          // da cio' che e' andato bene alla seconda.
+          ritentativiRiusciti += tentativo - 1;
+        }
+        return esito;
+      } catch (errore) {
+        final ultimoPossibile = tentativo >= RitentativiDellaVoce.tentativi;
+        final attesa = RitentativiDellaVoce.attesaPrima(tentativo);
+        final sforerebbe = orologio.elapsed + attesa >
+            RitentativiDellaVoce.tetto;
+        if (!RitentativiDellaVoce.eTemporaneo(errore) ||
+            ultimoPossibile ||
+            sforerebbe) {
+          // NIENTE SI PERDE IN SILENZIO. Il guasto che chiude la strada si
+          // registra come ha sempre fatto, e se prima c'erano stati
+          // ritentativi il registro lo dice: un ripiego che tace resta
+          // vietato, e un ripiego che tace di averci provato tre volte
+          // manderebbe a cercare la causa dalla parte sbagliata.
+          ritentativiFalliti += tentativo - 1;
+          registro.registra(
+            operazione: tentativo > 1
+                ? '$operazione, dopo ${tentativo - 1} ritentativi'
+                : operazione,
+            errore: errore,
+          );
+          rethrow;
+        }
+        await Future<void>.delayed(attesa);
+      }
     }
   }
+
+  /// Quante volte una chiamata e' riuscita DOPO un inciampo temporaneo.
+  ///
+  /// Sta a video nel pannello di messa a punto: la persona non vede niente,
+  /// ed e' cio' che vogliamo, ma noi dobbiamo vedere che la quota sta
+  /// stringendo prima che stringa del tutto.
+  int ritentativiRiusciti = 0;
+
+  /// Quante volte si e' ritentato senza riuscirci, cioe' i tentativi buttati
+  /// prima di cadere sul ripiego.
+  int ritentativiFalliti = 0;
 
   @override
   Future<String> reply({

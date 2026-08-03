@@ -40,6 +40,7 @@ import 'widgets/chat_bubble.dart';
 import 'widgets/chat_composer.dart';
 import 'widgets/chat_empty_state.dart';
 import 'widgets/chat_suggestions.dart';
+import '../../../services/ai/voce_sorvegliata.dart';
 import 'widgets/diagnostics_dialog.dart';
 import 'widgets/maestro_disclaimer.dart';
 import '../widgets/maestro_bust.dart';
@@ -485,6 +486,11 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           aiReady: controller.aiReady,
           memoryPersistent: services.memoryPersistent,
           guasti: services.guasti,
+          // La voce sorvegliata sa quante volte ha ritentato: la persona non
+          // lo vede, e non deve, ma chi sviluppa si'.
+          voce: services.ai is VoceSorvegliata
+              ? services.ai as VoceSorvegliata
+              : null,
           attestazione: services.attestazione,
           nota: services.diagnostics,
           appCheckDebugToken: services.appCheckDebugToken,
