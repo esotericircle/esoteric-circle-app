@@ -159,12 +159,38 @@ void main() {
       expect(conLaReteMisurata,
           lessThan(TempiDellAttesa.tettoAllaPrimaParola),
           reason: 'con la rete peggiore misurata si sfora gia\' da PC');
-      // E resta margine per un telefono su rete mobile, che sta piu' in alto
-      // del PC su rete fissa da cui viene la misura.
-      final margine = TempiDellAttesa.tettoAllaPrimaParola - conLaReteMisurata;
-      expect(margine, greaterThan(const Duration(seconds: 1)),
-          reason: 'meno di un secondo di margine vuol dire che il primo '
-              'telefono lento sfora');
+      // QUANTO PUO' RALLENTARE LA RETE PRIMA DI SFORARE, che e' la domanda
+      // vera per un telefono su rete mobile.
+      //
+      // **Questa riga misurava un'altra cosa, e ha smesso di dire il vero il
+      // 3 agosto 2026.** Diceva: il tetto meno il tempo alla prima parola col
+      // caso misurato deve stare sopra un secondo. Portando la scena da 1800 a
+      // 3200 millisecondi, per due battute che si leggano, quel numero e'
+      // sceso a 540 e la prova e' caduta. Ma non era peggiorato niente: il
+      // tempo alla prima parola e' `max(rete, scena) + dissolvenza`, quindi
+      // finche' la rete resta sotto la scena il suo rallentamento NON COSTA
+      // NULLA, viene assorbito dalla pausa che ci sarebbe comunque.
+      //
+      // Il margine che protegge da un telefono lento e' quanto la rete puo'
+      // crescere prima che il totale sfori, e quel numero NON e' cambiato:
+      // vale il tetto meno la dissolvenza in tutti e due i casi. Oggi 3740
+      // millisecondi, contro i 1830 della rete peggiore misurata, cioe' la
+      // rete puo' andare a piu' del doppio.
+      final reteSopportata = TempiDellAttesa.tettoAllaPrimaParola -
+          TempiDellAttesa.dissolvenza;
+      expect(
+        reteSopportata.inMilliseconds,
+        greaterThan(TempiDellAttesa.reteMassimaMisurataMs * 2),
+        reason: 'la rete puo\' rallentare solo fino a '
+            '${reteSopportata.inMilliseconds} millisecondi contro i '
+            '${TempiDellAttesa.reteMassimaMisurataMs} misurati: un telefono su '
+            'rete mobile sfora',
+      );
+      // E la scena non si prende il tetto per se': se la pausa arrivasse a
+      // filo, qualunque rete lo sforerebbe.
+      expect(TempiDellAttesa.durataMinima, lessThan(reteSopportata),
+          reason: 'la pausa da sola arriva al tetto, quindi non resta niente '
+              'alla rete');
     });
 
     test('La durata minima sta SOPRA la rete mediana misurata', () {

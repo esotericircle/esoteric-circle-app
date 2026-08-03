@@ -158,6 +158,9 @@ void main() {
           ai: _AiFinta(),
           memory: repo,
           tier: () => tier,
+          // Qui si misurano i contatori, non la pausa: senza questo dieci turni
+          // pagherebbero dieci volte i 3200 millisecondi della scena.
+          attesaMinima: Duration.zero,
         );
         // Abbastanza turni da innescare la distillazione.
         for (var i = 0; i < 5; i++) {

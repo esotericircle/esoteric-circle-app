@@ -18,8 +18,29 @@
 class TempiDellAttesa {
   const TempiDellAttesa._();
 
+  /// QUANTE BATTUTE HA LA SCENA. DUE.
+  ///
+  /// **Il dato che ha fatto scendere questo numero.** Erano tre, e sul telefono
+  /// del fondatore con la build 2140 ognuna durava MENO DI UN SECONDO: tre
+  /// battute dentro un'attesa da due o tre secondi non sono una riflessione,
+  /// sono un lampo ripetuto tre volte.
+  ///
+  /// La correzione non poteva essere allungare l'attesa, perche' il tetto alla
+  /// prima parola resta quattro secondi e non si sposta. Restava l'altra strada:
+  /// meno battute, ciascuna abbastanza lunga da leggersi.
+  ///
+  /// Due e non una: chi guarda vede il Maestro passare da un DATO suo a un
+  /// PENSIERO suo, che e' la cosa che rende la pausa una riflessione invece di
+  /// un caricamento con sopra una frase.
+  static const int battuteDellaScena = 2;
+
   /// Quanto resta a schermo ogni riga del consulto.
-  static const Duration durataBattuta = Duration(milliseconds: 900);
+  ///
+  /// Milleseicento, che e' il tempo in cui una riga di una decina di parole si
+  /// legge senza rincorrerla. Prima erano 900, cioe' meno di un secondo, e il
+  /// fondatore lo ha misurato guardando: si vedeva che cambiava, non si faceva
+  /// in tempo a leggere che cosa.
+  static const Duration durataBattuta = Duration(milliseconds: 1600);
 
   /// QUANTO DURA LA SCENA COME MINIMO, anche se la risposta arriva prima.
   ///
@@ -27,10 +48,19 @@ class TempiDellAttesa {
   /// con la rete al minimo compariva e spariva: un lampo non e' una pausa, e
   /// una pausa che lampeggia da' meno credibilita' di nessuna pausa.
   ///
-  /// Due battute intere, cosi' chi guarda vede il Maestro passare da un dato
-  /// suo a un pensiero suo. Sta sopra la rete mediana misurata, quindi nel caso
-  /// tipico e' questo numero a comandare e non la rete.
-  static const Duration durataMinima = Duration(milliseconds: 1800);
+  /// **NON E' UN NUMERO SCRITTO, E' IL PRODOTTO DEGLI ALTRI DUE.** La scena
+  /// dura quanto le sue battute intere: chi domani cambia quante sono o quanto
+  /// durano non deve ricordarsi di venire a correggere anche qui, perche' due
+  /// numeri che devono restare d'accordo prima o poi non lo restano.
+  ///
+  /// Oggi fa 3200 millisecondi, cioe' due battute da 1600. Con la dissolvenza
+  /// il tempo alla prima parola diventa 3460, sotto il tetto di quattro secondi
+  /// con 540 millisecondi di margine, e sopra la rete peggiore misurata di
+  /// 1830: nel caso tipico e' questo numero a comandare, non la rete.
+  /// `final` e non `const` perche' un prodotto fra una Duration e un intero non
+  /// e' costante: e' il prezzo per non riscrivere il 1600 una seconda volta,
+  /// che sarebbe proprio il difetto contro cui questa riga esiste.
+  static final Duration durataMinima = durataBattuta * battuteDellaScena;
 
   /// Quanto ci mette la scena a sparire quando la risposta e' pronta.
   ///

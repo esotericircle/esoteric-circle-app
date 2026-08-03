@@ -18,8 +18,8 @@ import 'package:provider/provider.dart';
 /// scena: che con Riduci Movimento non si muova, e che l'informazione resti.
 void main() {
   group('Le battute nascono dai dati veri', () {
-    test('Con una carta piena, tre battute dal piu\' personale al piu\' generale',
-        () {
+    test('Con una carta piena, le battute vanno dal piu\' personale al piu\' '
+        'generale', () {
       const natal = NatalContext(
         sunSign: 'Cancro',
         moonSign: 'Pesci',
@@ -29,8 +29,14 @@ void main() {
       );
       final battute = ConsultoDelCielo.battutePer(natal);
       expect(battute.length, ConsultoDelCielo.massimoBattute,
-          reason: 'mai piu\' di tre: oltre diventa un\'attesa allungata');
-      expect(battute.map((b) => b.corpo), ['ascendente', 'luna', 'sole']);
+          reason: 'mai piu\' di quante ne dura la scena: oltre, l\'ultima si '
+              'chiude a meta\' mentre la si legge');
+      // DUE, e non tre, dal 3 agosto 2026: con tre nessuna si faceva in tempo
+      // a leggere. Restano le due piu' personali, cioe' l'Ascendente, che
+      // dipende dall'ora e dal luogo esatti, e la Luna, che dipende dal giorno.
+      // Il Sole, che dipende dal mese, e' il piu' generale dei tre ed e' quello
+      // che esce.
+      expect(battute.map((b) => b.corpo), ['ascendente', 'luna']);
       expect(battute.first.frase, 'il tuo Ascendente in Vergine');
       expect(battute.every((b) => b.eGenerale), isFalse);
     });
@@ -42,7 +48,7 @@ void main() {
       final battute = ConsultoDelCielo.battutePer(senzaAscendente);
       expect(battute.map((b) => b.corpo), ['luna', 'sole']);
       expect(battute.length, 2,
-          reason: 'due battute vere valgono piu\' di tre con una inventata');
+          reason: 'due battute vere valgono piu\' di una inventata');
       // E nessuna frase nomina l'Ascendente.
       expect(battute.any((b) => b.frase.contains('Ascendente')), isFalse);
     });
@@ -118,11 +124,13 @@ void main() {
       // devono dire il vero.
       await tester.pump(const Duration(milliseconds: 250));
       expect(find.text('la tua Luna in Pesci'), findsOneWidget);
-      // Si ferma sull'ultima e non riparte: l'attesa non e' un carosello.
+      // Si ferma sull'ULTIMA e non riparte: l'attesa non e' un carosello. Dal
+      // 3 agosto 2026 le battute sono due, quindi l'ultima e' la Luna: prima
+      // qui si cercava il Sole, che adesso non entra piu' nella scena.
       await tester.pump(const Duration(milliseconds: 250));
-      expect(find.text('il tuo Sole in Cancro'), findsOneWidget);
+      expect(find.text('la tua Luna in Pesci'), findsOneWidget);
       await tester.pump(const Duration(milliseconds: 900));
-      expect(find.text('il tuo Sole in Cancro'), findsOneWidget);
+      expect(find.text('la tua Luna in Pesci'), findsOneWidget);
     });
 
     testWidgets('Con Riduci Movimento non si muove, e l\'informazione resta',

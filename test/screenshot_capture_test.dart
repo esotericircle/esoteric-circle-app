@@ -48,6 +48,7 @@ import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart'
 import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart';
 import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
 import 'package:esoteric_circle/core/maestro/consult_depth.dart';
@@ -1648,8 +1649,15 @@ void main() {
         ),
       ),
     ));
-    for (var i = 0; i < 8; i++) {
-      await tester.pump(const Duration(milliseconds: 250));
+    // SI ASPETTA QUANTO DURA LA PAUSA, chiesto al dato invece che contato a
+    // mano. Erano otto pompate da 250, cioe' due secondi, che coprivano la
+    // pausa vecchia da 1800 per un soffio: portata a 3200 la cattura e' caduta
+    // con un timer ancora appeso. Un numero scritto a mano che dipende da un
+    // altro numero prima o poi resta indietro.
+    final quanto = TempiDellAttesa.allaPrimaParola(0) +
+        TempiDellAttesa.durataBattuta;
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(quanto ~/ 8);
     }
     await precacheFaces(tester);
     await capture(tester, rootKey, 'guide-animale-chat.png');

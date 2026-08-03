@@ -41,7 +41,9 @@ class MaestroChatController extends ChangeNotifier {
     ArchivioDellEco? eco,
     Tier Function()? tier,
     NatalContext Function()? natal,
+    Duration? attesaMinima,
   })  : _ai = ai,
+        _attesaMinima = attesaMinima,
         _eco = eco,
         _memory = memory,
         _classifier = classifier,
@@ -50,6 +52,18 @@ class MaestroChatController extends ChangeNotifier {
         _natal = natal;
 
   final Maestro maestro;
+
+  /// QUANTO DURA COME MINIMO LA PAUSA, e qui c'e' solo il modo di scavalcarla
+  /// in una prova.
+  ///
+  /// Il valore vive in [TempiDellAttesa], insieme agli altri tempi. Questo
+  /// varco esiste perche' portando la pausa da 1800 a 3200 millisecondi una
+  /// prova che fa dieci turni ha cominciato a impiegare trentadue secondi e a
+  /// cadere per timeout: chi misura i contatori non sta misurando la pausa, e
+  /// non deve pagarla. E' lo stesso varco che la vista ha gia' per la durata
+  /// della battuta, con la stessa ragione.
+  final Duration? _attesaMinima;
+
   final MaestroAiProvider _ai;
   final MaestroMemoryRepository _memory;
   final IntentClassifier _classifier;
@@ -749,9 +763,10 @@ class MaestroChatController extends ChangeNotifier {
   /// troncatura, il ripiego e l'errore: **una risposta che fallisce non fa
   /// sparire la scena di colpo**, la fa arrivare al suo tempo come le altre.
   Future<void> _consegna(ChatMessage messaggio, Stopwatch da) async {
-    final minima = riduciMovimento
-        ? TempiDellAttesa.durataMinimaRidotta
-        : TempiDellAttesa.durataMinima;
+    final minima = _attesaMinima ??
+        (riduciMovimento
+            ? TempiDellAttesa.durataMinimaRidotta
+            : TempiDellAttesa.durataMinima);
     final mancante = minima.inMilliseconds - da.elapsedMilliseconds;
     if (mancante > 0) {
       await Future<void>.delayed(Duration(milliseconds: mancante));

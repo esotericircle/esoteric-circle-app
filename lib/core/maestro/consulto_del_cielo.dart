@@ -3,6 +3,7 @@ import 'ancoraggio.dart';
 import 'lente_del_cielo.dart';
 import 'maestro.dart';
 import 'natal_context.dart';
+import 'tempi_dell_attesa.dart';
 import 'voce_del_maestro.dart';
 
 /// Una battuta del consulto: cosa il Maestro sta guardando adesso.
@@ -53,18 +54,27 @@ class BattutaDelConsulto {
 class ConsultoDelCielo {
   const ConsultoDelCielo._();
 
-  /// Quante battute al massimo. Oltre tre l'attesa smette di essere un consulto
-  /// e diventa un'attesa allungata a forza.
-  static const int massimoBattute = 3;
+  /// Quante battute al massimo, e il numero NON vive qui.
+  ///
+  /// Vive in `TempiDellAttesa.battuteDellaScena`, insieme a quanto dura
+  /// ciascuna e a quanto dura la scena: sono la stessa decisione guardata da
+  /// due lati, e tenerla in due punti vuol dire che un giorno diranno cose
+  /// diverse. Erano tre, e da tre a due si e' scesi perche' con tre nessuna si
+  /// faceva in tempo a leggere.
+  static int get massimoBattute => TempiDellAttesa.battuteDellaScena;
 
   /// Quante battute nominano un DATO VERO di questa persona, al massimo.
   ///
-  /// Due, e non tre, e il posto che resta va a una frase del Maestro. Il motivo
-  /// non e' estetico: tre righe che elencano tre corpi sono un inventario, e un
-  /// inventario non somiglia a nessuno che stia pensando. Una riga che dice
-  /// "la tua Luna in Cancro" seguita da una che dice "seguo il transito che si
-  /// chiude" e' un Maestro che guarda un dato TUO e poi ci ragiona sopra.
-  static const int massimeAncorate = 2;
+  /// **Una**, e il posto che resta va a una frase del Maestro. Il motivo non e'
+  /// estetico: righe che elencano corpi sono un inventario, e un inventario non
+  /// somiglia a nessuno che stia pensando. Una riga che dice "la tua Luna in
+  /// Cancro" seguita da una che dice "seguo il transito che si chiude" e' un
+  /// Maestro che guarda un dato TUO e poi ci ragiona sopra.
+  ///
+  /// Erano due su tre battute. Scese le battute a due, resta una: la cosa da
+  /// tenere e' la PROPORZIONE fra il dato e il pensiero, non il numero, quindi
+  /// si ricava invece di riscriverla.
+  static int get massimeAncorate => massimoBattute - 1;
 
   /// Le battute per questa persona: prima cio' che e' suo, poi la voce di chi
   /// sta guardando.
