@@ -148,7 +148,16 @@ void main() {
           radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
       final img = await rb.toImage(pixelRatio: 3.0);
       final dati = await img.toByteData(format: ui.ImageByteFormat.png);
-      final dir = Directory('docs/preview/ordine_e');
+      // LA STESSA REGOLA DEL CORREDO: si scrive in docs/ solo a comando.
+      //
+      // Senza questa riga ogni `flutter test` riscriveva le cinque immagini e
+      // sporcava l'albero di lavoro, cosa che il corredo non fa da sempre. Le
+      // catture restano fuori dal corredo per il rapporto di pixel, ma questa
+      // regola non c'entra col rapporto: e' buon vicinato.
+      final dir = Directory(
+          Platform.environment['AGGIORNA_ANTEPRIME'] == '1'
+              ? 'docs/preview/ordine_e'
+              : 'build/preview/ordine_e');
       if (!dir.existsSync()) dir.createSync(recursive: true);
       File('${dir.path}/$nome.png').writeAsBytesSync(dati!.buffer.asUint8List());
       img.dispose();
