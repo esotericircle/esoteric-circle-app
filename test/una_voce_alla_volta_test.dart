@@ -58,8 +58,16 @@ void main() {
     // leggerle una alla volta allungherebbe l'apertura della chat senza
     // toccare nessuna quota, perche' non e' Vertex che risponde, e' la
     // memoria locale.
+    // La chiave e' il file piu' un pezzo del CORPO, non il numero di riga.
+    //
+    // **Il numero di riga si e' rotto il giorno dopo.** Era 192, e togliendo
+    // l'Eco quella `Future.wait` e' scivolata a 168: la prova ha bocciato un
+    // punto che era gia' dichiarato, e per una ragione che non c'entrava
+    // niente con cio' che sorveglia. Un'eccezione ancorata a un numero di riga
+    // si rompe ogni volta che qualcosa sopra si muove.
     const eccezioni = <String, String>{
-      'lib/features/maestri/chat/maestro_chat_controller.dart riga 192':
+      'lib/features/maestri/chat/maestro_chat_controller.dart|'
+          '_memory.loadProfile()':
           'sono tre LETTURE della memoria per UN Maestro, non tre risposte '
               'chieste a tre Maestri: non passano da Vertex',
     };
@@ -91,9 +99,12 @@ void main() {
         final corpo =
             dentro.where((r) => !r.trimLeft().startsWith('//')).join('\n');
         if (chiedono.any(corpo.contains)) {
-          final dove = '$percorso riga ${i + 1}';
-          if (eccezioni.containsKey(dove)) continue;
-          colpe.add('$dove: ${riga.trim()}');
+          final dichiarata = eccezioni.keys.any((chiave) {
+            final pezzi = chiave.split('|');
+            return percorso == pezzi[0] && corpo.contains(pezzi[1]);
+          });
+          if (dichiarata) continue;
+          colpe.add('$percorso riga ${i + 1}: ${riga.trim()}');
         }
       }
     }

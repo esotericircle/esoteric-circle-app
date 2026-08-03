@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'core/astro/natal_chart_controller.dart';
 import 'core/astro/zodiac_controller.dart';
 import 'core/entitlement/entitlement_service.dart';
-import 'core/eco/archivio_dell_eco.dart';
 import 'core/entitlement/question_allowance.dart';
 import 'core/feature_flags/feature_flag_service.dart';
 import 'core/identity/identity_controller.dart';
@@ -109,9 +108,6 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         ),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()..load()),
-        // L'Eco vive accanto ai contatori, e per la stessa ragione: ribalta
-        // sullo stesso confine di mezzanotte.
-        ChangeNotifierProvider(create: (_) => ArchivioDellEco()..carica()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),

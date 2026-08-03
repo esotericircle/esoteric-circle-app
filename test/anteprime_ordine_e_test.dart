@@ -9,12 +9,7 @@ import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
-import 'package:esoteric_circle/core/eco/archivio_dell_eco.dart';
-import 'package:esoteric_circle/core/eco/eco_del_maestro.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
-import 'package:esoteric_circle/core/tempo/confine_del_giorno.dart';
-import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
-import 'package:esoteric_circle/features/santuario/daily_strip.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/consult_depth.dart';
@@ -222,58 +217,6 @@ void main() {
     });
   });
 
-  // L'ECO NEL CERCHIO, il giorno dopo.
-  //
-  // Si posa un'Eco di IERI con l'orologio fermo a oggi, poi si guarda la
-  // striscia: la parola c'e', e sotto c'e' la riga che dice da chi viene.
-  testWidgets('Anteprima: l\'Eco nel Cerchio, con la riga che dice da dove viene',
-      (tester) async {
-    silenzia();
-    SharedPreferences.setMockInitialValues({});
-    tester.view.devicePixelRatio = 3.0;
-    tester.view.physicalSize = const Size(1080, 2392);
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-
-    final adesso = DateTime(2026, 8, 4, 9, 0);
-    final archivio = ArchivioDellEco(clock: () => adesso);
-    await archivio.posa(EcoDelMaestro(
-      maestro: Maestro.caligo,
-      parola: 'Laguz',
-      chiusura: 'Ti affido il sigillo di Laguz.',
-      domanda: 'ho paura di sbagliare',
-      giorno: ConfineDelGiorno.chiaveDi(adesso),
-    ));
-
-    final radice = GlobalKey();
-    await tester.pumpWidget(MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ArchivioDellEco>.value(value: archivio),
-        ChangeNotifierProvider(create: (_) => MaestroController()),
-        ChangeNotifierProvider(create: (_) => QualityTierController()),
-        ChangeNotifierProvider(create: (_) => ParallaxController()),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: RepaintBoundary(
-          key: radice,
-          child: MaestroScope(
-            maestro: Maestro.caligo,
-            child: Scaffold(
-              backgroundColor: const Color(0xFF07070C),
-              body: SafeArea(
-                child: DailyStrip(clock: () => adesso, onOpen: (_, __) {}),
-              ),
-            ),
-          ),
-        ),
-      ),
-    ));
-    for (var i = 0; i < 8; i++) {
-      await tester.pump(const Duration(milliseconds: 100));
-    }
-    await scatta(tester, radice, 'eco_nel_cerchio');
-  });
 
   // LE DUE ANTEPRIME DELL'ORDINE F, nella stessa impalcatura: la chat e' la
   // stessa, e una seconda copia dell'impalcatura sarebbe una seconda porta.

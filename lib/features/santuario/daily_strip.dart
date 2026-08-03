@@ -2,11 +2,8 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../core/astro/sky_location.dart';
-import '../../core/eco/archivio_dell_eco.dart';
-import '../../core/eco/eco_del_maestro.dart';
 import '../../core/astro/sunset_time.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_elements.dart';
@@ -21,7 +18,6 @@ import '../rituals/dawn_rite_screen.dart';
 import '../rituals/day_oracle_screen.dart';
 import '../rituals/dream_rite_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
-import 'widgets/sigillo_dell_eco.dart';
 
 const Color _gold = Color(0xFFE8C463);
 
@@ -314,7 +310,6 @@ class DailyStrip extends StatefulWidget {
     super.key,
     this.clock,
     this.onOpen,
-    this.onApriEco,
     this.location = const GeolocatorSkyLocation(),
   });
 
@@ -325,9 +320,6 @@ class DailyStrip extends StatefulWidget {
   /// reale dell'elemento.
   final void Function(BuildContext context, DailyElement element)? onOpen;
 
-  /// Apre l'Eco: riporta alla chat del Maestro che l'ha lasciata, con la
-  /// parola gia' nel contesto. Iniettabile per le prove.
-  final void Function(BuildContext context, EcoDelMaestro eco)? onApriEco;
 
   /// La sorgente della posizione per il conto alla rovescia al tramonto, la
   /// stessa astrazione della schermata: cosi' i due numeri non divergono. Di
@@ -507,10 +499,6 @@ class _DailyStripState extends State<DailyStrip>
   Widget build(BuildContext context) {
     final now = _clock();
     final current = DailyElements.current(now);
-    // L'Eco viva, se il Cerchio ne porta una. La lettura nullabile torna null
-    // dove l'archivio non e' montato, per esempio in una prova che guarda solo
-    // i Doni: la striscia resta quella di prima.
-    final eco = Provider.of<ArchivioDellEco?>(context)?.viva;
     return Container(
       key: const Key('santuario_daily_strip'),
       height: altezzaPer(MediaQuery.of(context).size.width),
@@ -558,26 +546,8 @@ class _DailyStripState extends State<DailyStrip>
               scrollDirection: Axis.horizontal,
               padding:
                   const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
-              // L'ECO IN TESTA, quando ce n'e' una viva.
-              //
-              // Entra come primo posto della striscia senza toccare
-              // `DailyElement`: i Doni del giorno sono un elenco chiuso e
-              // stabile, l'Eco e' una cosa che c'e' o non c'e' a seconda di
-              // ieri sera. Mescolarla a quell'enum vorrebbe dire un Dono che a
-              // volte non esiste.
-              itemCount: DailyElement.values.length + (eco != null ? 1 : 0),
+              itemCount: DailyElement.values.length,
               itemBuilder: (context, indice) {
-                if (eco != null) {
-                  if (indice == 0) {
-                    return SigilloDellEco(
-                      eco: eco,
-                      larghezza: DailyStrip.larghezzaCasella(
-                          MediaQuery.of(context).size.width),
-                      onApri: () => widget.onApriEco?.call(context, eco),
-                    );
-                  }
-                  indice -= 1;
-                }
                 final i = indice;
                 final element = DailyElement.values[i];
                 final accent = _accentFor(element);
