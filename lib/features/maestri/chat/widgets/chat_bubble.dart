@@ -8,6 +8,7 @@ import '../../../../core/maestro/frase_di_ripiego.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/maestro/tempi_dell_attesa.dart';
 import '../../../../core/quality/quality_tier.dart';
+import '../../../../design_system/components/collasso.dart';
 import '../../../../design_system/components/testo_che_si_scrive.dart';
 import '../../../../design_system/components/user_avatar.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
@@ -34,6 +35,9 @@ class ChatBubble extends StatefulWidget {
     this.onApprofondisci,
     this.onChiediAgliAltri,
     this.altreVoci = const [],
+    this.siPuoRaccogliere = false,
+    this.aperta = true,
+    this.onApriChiudi,
     this.scriviti = false,
     this.durataMassimaDiScrittura = TempiDellAttesa.tettoAlTestoCompleto,
   });
@@ -58,6 +62,16 @@ class ChatBubble extends StatefulWidget {
   /// Chi sono gli altri due, per mostrarne i volti. Vuoto quando la riga non
   /// si mostra.
   final List<Maestro> altreVoci;
+
+  /// Vero se questa risposta si puo' raccogliere, cioe' non e' piu' quella
+  /// viva. La regola sta in `RaccoltaDelleRisposte`, qui arriva gia' decisa.
+  final bool siPuoRaccogliere;
+
+  /// Vero se il testo e' aperto. L'ultima risposta lo e' sempre.
+  final bool aperta;
+
+  /// Apre e chiude al tocco della freccetta.
+  final VoidCallback? onApriChiudi;
 
   /// Vero SOLO sulla risposta appena arrivata, che e' l'unica che si scrive
   /// sotto gli occhi. Una risposta gia' letta, riletta scorrendo indietro,
@@ -162,6 +176,45 @@ class _ChatBubbleState extends State<ChatBubble> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+                // LA RIGA DEL RACCOGLIMENTO, solo sulle risposte che non sono
+                // piu' quella viva.
+                //
+                // Chiusa mostra la prima riga, cosi' la si ritrova senza
+                // riaprirla a caso: una fila di righe uguali che dicono
+                // "risposta" non aiuterebbe a scegliere quale riaprire.
+                if (widget.siPuoRaccogliere)
+                  GestureDetector(
+                    key: const Key('chat_raccogli'),
+                    onTap: widget.onApriChiudi,
+                    behavior: HitTestBehavior.opaque,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: widget.aperta
+                              ? const SizedBox.shrink()
+                              : Text(
+                                  message.text,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TypographyTokens.body(size: 15)
+                                      .copyWith(
+                                          color: ColorTokens.textSecondary),
+                                ),
+                        ),
+                        FreccettaDelCollasso(
+                          aperto: widget.aperta,
+                          color: palette.goldSoft,
+                          size: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                Collassabile(
+                  aperto: widget.aperta,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
                 TestoCheSiScrive(
                   key: _chiaveDelTesto,
                   testo: message.text,
@@ -285,6 +338,9 @@ class _ChatBubbleState extends State<ChatBubble> {
                     ),
                   ),
                 ],
+                    ],
+                  ),
+                ),
                 // Il Riprova nasce dentro la bolla che ha fallito, attaccato al
                 // testo a cui si riferisce.
                 if (onRetry != null) ...[

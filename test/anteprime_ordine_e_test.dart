@@ -9,6 +9,7 @@ import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/consult_depth.dart';
@@ -116,7 +117,11 @@ void main() {
         Provider<AppServices>.value(value: servizi),
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()),
-        ChangeNotifierProvider(create: (_) => EntitlementService()),
+        // Piano del Cerchio: le altre voci sono del Cerchio, e col Viandante
+        // l'anteprima fotograferebbe l'invito a salire invece delle voci. Il
+        // gating e' giusto, ed e' l'altra strada che qui va mostrata.
+        ChangeNotifierProvider(
+            create: (_) => EntitlementService(initial: Tier.tier1)),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ProfileController()),
@@ -209,6 +214,37 @@ void main() {
         await tester.pump(const Duration(milliseconds: 100));
       }
       await scatta(tester, radice, 'meta_scrittura');
+    });
+  });
+
+  // LE DUE ANTEPRIME DELL'ORDINE F, nella stessa impalcatura: la chat e' la
+  // stessa, e una seconda copia dell'impalcatura sarebbe una seconda porta.
+  testWidgets('Anteprima: le altre voci nella stessa conversazione',
+      (tester) async {
+    await conLaChat(tester, Maestro.medora, (tester, radice) async {
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      await chiedi(tester);
+      for (var i = 0; i < 60; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      // La riga sta in fondo alla risposta viva: la si raggiunge scorrendo,
+      // come farebbe la persona dopo aver letto.
+      await tester.dragUntilVisible(
+        find.byKey(const Key('chat_altre_voci')),
+        find.byType(ListView).first,
+        const Offset(0, -120),
+      );
+      await tester.pump();
+      await scatta(tester, radice, 'altre_voci_riga');
+
+      await tester.tap(find.byKey(const Key('chat_altre_voci')));
+      // Due voci, due pause.
+      for (var i = 0; i < 120; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      await scatta(tester, radice, 'altre_voci_arrivate');
     });
   });
 

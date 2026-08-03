@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/chat/altre_voci.dart';
 import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/immersive_intents.dart';
+import '../../../core/chat/raccolta_delle_risposte.dart';
 import '../../../core/entitlement/entitlement_service.dart';
 import '../../../core/entitlement/tier.dart';
 import '../../../core/identity/natal_identity.dart';
@@ -197,6 +198,13 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   /// sotto gli occhi. Falso su una cronologia riaperta: chi torna su una
   /// conversazione di ieri vuole rileggerla, non guardarla riscriversi.
   bool _scriviLUltima = false;
+
+  /// Le risposte che la persona ha RIAPERTO col tocco.
+  ///
+  /// Le chiavi sono indici, e reggono perche' la conversazione si scrive solo
+  /// in coda: la ragione per esteso sta in `RaccoltaDelleRisposte.eAperta`,
+  /// dove vive la regola.
+  final Set<int> _riaperte = {};
 
   /// Contatore delle aperture, persistito, cosi' due benvenuti vicini non
   /// ripetono la stessa formula. Chiave per Maestro.
@@ -656,6 +664,18 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               posizione == ultimo && controller.puoiChiedereAgliAltri
                   ? () => _chiediAgliAltri(context, controller)
                   : null,
+          // LE RISPOSTE SI RACCOLGONO QUANDO NE ARRIVA UNA NUOVA.
+          //
+          // Non appena l'hai letta, che nessuno sa quando succede: quando ne
+          // arriva un'altra. Fino ad allora quella che hai in mano resta in
+          // mano. La regola sta in `RaccoltaDelleRisposte`, qui si chiede.
+          siPuoRaccogliere:
+              RaccoltaDelleRisposte.siPuoRaccogliere(messaggi, posizione),
+          aperta: RaccoltaDelleRisposte.eAperta(messaggi, posizione,
+              riaperte: _riaperte),
+          onApriChiudi: () => setState(() {
+            if (!_riaperte.remove(posizione)) _riaperte.add(posizione);
+          }),
           altreVoci: [
             for (final altro in AltreVoci.altriDi(widget.maestro))
               if (!controller.vociDelCerchio.contains(altro)) altro,

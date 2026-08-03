@@ -13,6 +13,7 @@ import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/art_card.dart';
 import '../../design_system/components/depth_card.dart';
+import '../../design_system/components/collasso.dart';
 import '../../design_system/components/scroll_reveal.dart';
 import '../../design_system/components/section_title.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -255,7 +256,7 @@ class _ArtSectionBox extends StatelessWidget {
             if (inCammino.isNotEmpty) ...[
               const SizedBox(height: SpacingTokens.sm),
               _soonToggle(context, palette, inCammino.length),
-              _Collassabile(
+              Collassabile(
                 aperto: soonOpen,
                 child: Column(
                   children: [
@@ -269,7 +270,7 @@ class _ArtSectionBox extends StatelessWidget {
             ],
           ] else
             // Nessuna arte viva: tutta la sottocategoria sta dietro il collasso.
-            _Collassabile(
+            Collassabile(
               aperto: open,
               child: Column(
                 children: [
@@ -327,7 +328,7 @@ class _ArtSectionBox extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          _Freccetta(aperto: open, color: palette.goldSoft),
+          FreccettaDelCollasso(aperto: open, color: palette.goldSoft),
         ],
       ],
     );
@@ -376,61 +377,11 @@ class _ArtSectionBox extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              _Freccetta(aperto: soonOpen, color: palette.goldSoft),
+              FreccettaDelCollasso(aperto: soonOpen, color: palette.goldSoft),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-/// La freccetta che ruota per dire aperto o chiuso. Con movimento spento cambia
-/// verso all'istante, senza rotazione.
-class _Freccetta extends StatelessWidget {
-  const _Freccetta({required this.aperto, required this.color});
-
-  final bool aperto;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    final immobile = ScrollReveal.motionOff(context);
-    return AnimatedRotation(
-      turns: aperto ? 0.5 : 0,
-      duration: immobile ? Duration.zero : const Duration(milliseconds: 200),
-      curve: Curves.easeOutCubic,
-      child: Icon(Icons.expand_more_rounded, size: 22, color: color),
-    );
-  }
-}
-
-/// Il contenuto di un gruppo che si apre e si chiude.
-///
-/// L'apertura e' breve e coerente col resto; con Riduci Movimento di sistema o
-/// con Quality Tier basso non c'e' animazione, il gruppo appare e sparisce
-/// all'istante. La regola e' la stessa di `ScrollReveal.motionOff`, letta da un
-/// punto solo.
-class _Collassabile extends StatelessWidget {
-  const _Collassabile({required this.aperto, required this.child});
-
-  final bool aperto;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    // A movimento spento non si mette nemmeno in mezzo il riquadro animato: il
-    // gruppo c'e' o non c'e', senza nessuna misura da interpolare.
-    if (ScrollReveal.motionOff(context)) {
-      return aperto ? child : const SizedBox.shrink();
-    }
-    return AnimatedSize(
-      duration: const Duration(milliseconds: 220),
-      curve: Curves.easeOutCubic,
-      alignment: Alignment.topCenter,
-      child: aperto
-          ? child
-          : const SizedBox(width: double.infinity, height: 0),
     );
   }
 }
