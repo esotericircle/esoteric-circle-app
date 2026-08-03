@@ -14,7 +14,7 @@ import 'natal_context.dart';
 ///
 /// **Non e' un finto responso AI.** E' un responso onesto di altro tipo, e lo
 /// dichiara due volte: nella frase di ripiego che apre, e nell'etichetta
-/// [RipiegoDelMaestro.etichetta] che la bolla mostra sotto.
+/// [RipiegoDelMaestro.etichettaDi] che la bolla mostra sotto.
 ///
 /// Funzione pura, quindi si prova senza montare uno schermo e senza rete.
 class LetturaDiRipiego {

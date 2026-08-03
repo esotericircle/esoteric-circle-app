@@ -33,10 +33,23 @@ class RipiegoDelMaestro {
   /// non puo' nemmeno sparire, perche' allora la domanda resterebbe sola.
   final String interrotto;
 
-  /// L'etichetta che accompagna a schermo ogni bolla di ripiego, uguale per
-  /// tutti e tre. Corta apposta: deve stare accanto alla bolla senza rubarle
-  /// la scena, ma non deve poter passare inosservata.
-  static const String etichetta = 'Ripiego, non è la sua voce';
+  /// L'etichetta che accompagna a schermo ogni bolla di ripiego.
+  ///
+  /// Corta apposta: deve stare accanto alla bolla senza rubarle la scena, ma
+  /// non deve poter passare inosservata.
+  ///
+  /// **Diceva "Ripiego, non è la sua voce", e la parola era sbagliata.** Nel
+  /// resto dell'app "voce" e' l'audio sintetizzato dei Maestri, quello che si
+  /// compra col piano: qui significava il Maestro. Delle tre confusioni che il
+  /// fondatore ha trovato questa era la peggiore, perche' arriva nel momento in
+  /// cui la persona ha gia' letto qualcosa che non capisce ed e' confusa.
+  ///
+  /// Adesso dice la stessa cosa senza equivoci, e la dice per esteso: cio' che
+  /// stai leggendo l'ha composto l'app dai dati del cielo, non l'ha detto il
+  /// Maestro. Il nome viene da [Maestro.displayName] e non e' scritto a mano,
+  /// altrimenti il giorno che un Maestro cambia nome l'etichetta resta indietro.
+  static String etichettaDi(Maestro maestro) =>
+      'Lettura del cielo, non la risposta di ${maestro.displayName}';
 
   /// I tre ripieghi, uno per Maestro. Enumerabile: una prova li percorre
   /// tutti, compresi quelli che nascessero domani.

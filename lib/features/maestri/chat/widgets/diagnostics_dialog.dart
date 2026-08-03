@@ -119,7 +119,9 @@ class PannelloDiMessaAPunto extends StatelessWidget {
           Text('Messa a punto', style: TypographyTokens.display(size: 20)),
           const SizedBox(height: SpacingTokens.md),
           _StatusRow(
-            label: 'Voce del Maestro',
+            // Non "Voce del Maestro": qui si dice se il MAESTRO risponde,
+            // non se l'audio e' acceso.
+            label: 'Risposta del Maestro',
             value: !aiReady
                 ? 'non configurata'
                 : ultimo == null

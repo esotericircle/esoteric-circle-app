@@ -277,7 +277,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                       const SizedBox(width: 4),
                       Flexible(
                         child: Text(
-                          RipiegoDelMaestro.etichetta,
+                          RipiegoDelMaestro.etichettaDi(maestro),
                           style: TypographyTokens.body(size: 13)
                               .copyWith(color: ColorTokens.textMuted),
                         ),

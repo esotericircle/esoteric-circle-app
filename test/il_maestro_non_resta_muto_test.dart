@@ -151,7 +151,7 @@ void main() {
       // 2. E la bolla DICHIARA di essere un ripiego: senza questa riga la
       //    persona la legge come una risposta.
       expect(
-        find.text(RipiegoDelMaestro.etichetta),
+        find.text(RipiegoDelMaestro.etichettaDi(maestro)),
         findsOneWidget,
         reason: 'ogni ripiego dichiara di essere un ripiego, anche a schermo',
       );

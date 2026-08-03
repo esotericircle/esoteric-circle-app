@@ -80,7 +80,7 @@ class FunctionShelf {
     ShelfFunction(
       id: 'horoscope',
       title: 'Oroscopo',
-      teaser: 'Le quattro schede del tuo giorno, nella voce di Medora.',
+      teaser: 'Le quattro schede del tuo giorno, raccontate da Medora.',
       icon: Icons.auto_awesome,
       maestro: Maestro.medora,
       live: true,
@@ -88,7 +88,7 @@ class FunctionShelf {
     ShelfFunction(
       id: 'guide_animal',
       title: 'Animale Guida',
-      teaser: 'Il tuo totem dal cielo, nella voce di Caligo.',
+      teaser: 'Il tuo totem dal cielo, letto da Caligo.',
       icon: Icons.pets,
       maestro: Maestro.caligo,
       live: true,

@@ -920,7 +920,7 @@ class _LensCard extends StatelessWidget {
                 const SizedBox(width: 4),
                 Flexible(
                   child: Text(
-                    RipiegoDelMaestro.etichetta,
+                    RipiegoDelMaestro.etichettaDi(lens.maestro),
                     style: TypographyTokens.body(size: 13)
                         .copyWith(color: ColorTokens.textMuted),
                   ),

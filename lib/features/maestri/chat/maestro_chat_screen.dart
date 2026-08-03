@@ -957,8 +957,11 @@ class _ConfigNotice extends StatelessWidget {
           const SizedBox(width: SpacingTokens.sm),
           Expanded(
             child: Text(
-              'Il cerchio non è ancora acceso. La voce di '
-              '${maestro.displayName} si attiva '
+              // "La voce di Medora" faceva pensare all'audio, che nell'app
+              // e' un'altra cosa e si compra col piano. Qui si parla del
+              // Maestro, e allora si dice il Maestro.
+              'Il cerchio non è ancora acceso. '
+              '${maestro.displayName} risponde '
               'quando la configurazione AI è completa.',
               style: TypographyTokens.body(size: 14)
                   .copyWith(color: ColorTokens.textSecondary),

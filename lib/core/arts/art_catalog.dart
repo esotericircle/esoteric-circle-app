@@ -666,7 +666,7 @@ class ArtCatalog {
       ArtEntry(
         id: 'daily_invocation',
         title: 'Invocazione del Giorno',
-        teaser: 'L\'invocazione quotidiana nella voce di Caligo.',
+        teaser: 'L\'invocazione quotidiana di Caligo.',
         icon: Icons.campaign_outlined,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
