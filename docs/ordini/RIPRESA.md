@@ -1,5 +1,36 @@
 # RIPRESA
 
+## ORDINE CHAT 7: CHIUSO PER INTERO, la rimozione e le due voci
+
+Il 5 agosto 2026.
+
+**VOCE 0.** L'Eco tolta per intero, 1185 righe. `ConfineDelGiorno` resta, con la
+prova che lo dichiara per iscritto cosi' la prossima pulizia non se lo porta via
+per associazione.
+
+**VOCE 1.** Il lampo all'apertura era la scena del consulto montata durante il
+caricamento della memoria. La scena nuova ha un emblema solo, quello del
+Maestro, che si colora in tre secondi, piu' frasi da due secondi con minimo
+garantito di due. Le frasi nascono dal dato che dichiarano di guardare.
+
+**VOCE 2.** Una porta sola verso il Consiglio del Cerchio. Nella chat di un
+Maestro parla soltanto quel Maestro.
+
+**COSA HANNO TROVATO LE ANTEPRIME, che nessuna prova aveva preso.** Il titolo
+del Consiglio si leggeva "Il Consiglio del Cerc...". E' lo stesso difetto di
+"Sintesi comparat...". E' la seconda volta: **un titolo nuovo va guardato a
+360 punti prima di dichiararlo fatto**.
+
+**UNA REGRESSIONE INTRODOTTA E CORRETTA NELLO STESSO ORDINE.** Il controllo del
+limite giornaliero viveva dentro il bottone del campo di scrittura del
+confronto: togliendo il campo sarebbe sparito con lui.
+
+**COSA E' RIMASTO INDIETRO, da riprendere.** Le due prove di comportamento
+sulle altre voci sono state tolte perche' il metodo non esiste piu'. Il
+Consiglio non ha ancora una prova che verifichi il giro completo delle tre voci
+raccolte una alla volta dentro di esso: oggi la sola prova che lo copre e'
+quella che scandisce il sorgente. Va aggiunta.
+
 ## ORDINE CHAT 6: CHIUSO PER INTERO, tutte e quattro le voci
 
 Il 4 agosto 2026. Quattro voci chiuse, il debito dei due tempi SALDATO, piu' il
