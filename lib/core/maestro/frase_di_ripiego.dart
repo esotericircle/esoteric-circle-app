@@ -56,7 +56,7 @@ class RipiegoDelMaestro {
   static const Map<Maestro, RipiegoDelMaestro> perMaestro = {
     Maestro.medora: RipiegoDelMaestro(
       silenzio: 'Il cielo si è coperto e da qui non leggo. '
-          'Questa non è la tua lettura, è solo la mia voce che te lo dice: '
+          'Questa non è la tua lettura, sono io che te lo dico: '
           'riproviamo fra poco.',
       nonConfigurato: 'Il cielo non è ancora aperto su questo telefono. '
           'Quando lo sarà, riprendo a leggere da dove eravamo.',
@@ -64,10 +64,10 @@ class RipiegoDelMaestro {
           'La domanda è ancora qui: quando vuoi, la riprendo da capo.',
     ),
     Maestro.aura: RipiegoDelMaestro(
-      silenzio: 'Il respiro si è fermato un istante e la mia voce con lui. '
+      silenzio: 'Il respiro si è fermato un istante, insieme a me. '
           'Quello che leggi adesso non è una risposta, è un\'attesa: '
           'restiamo qui, poi riprendiamo.',
-      nonConfigurato: 'La mia voce non è ancora accesa su questo telefono. '
+      nonConfigurato: 'Non sono ancora accesa su questo telefono. '
           'Il respiro intanto resta tuo: quello non ha bisogno di me.',
       interrotto: 'Il respiro si era già mosso, poi ci siamo interrotti. '
           'Quello che mi hai chiesto non l\'ho perso: riprendiamo da lì.',

@@ -5,13 +5,19 @@
 /// guardando qualcosa. La scena del consulto esisteva gia' ma durava quanto
 /// durava la rete, quindi con una rete veloce lampeggiava e spariva.
 ///
-/// **I numeri non sono stimati, sono misurati.** Dieci chiamate reali IN FILA
-/// sulla strada viva il 3 agosto 2026, non in parallelo, perche' cinque per
-/// volta si accodano fra loro e gonfierebbero il numero:
+/// **I numeri non sono stimati, sono misurati.** Chiamate reali IN FILA sulla
+/// strada viva, non in parallelo, perche' cinque per volta si accodano fra
+/// loro e gonfierebbero il numero.
 ///
 /// ```
-/// RETE   minimo 1,21s   mediana 1,51s   massimo 1,83s
+/// 3 agosto 2026, dieci chiamate: minimo 1,21s  mediana 1,51s  massimo 1,83s
+/// 4 agosto 2026, dieci chiamate: minimo 1,19s  mediana 1,41s  massimo 2,09s
+/// 4 agosto 2026, dieci chiamate: minimo 1,22s  mediana 1,54s  massimo 1,73s
 /// ```
+///
+/// Le due misure del 4 agosto sono le prime possibili: fino al 3 lo strumento
+/// prendeva `429 RESOURCE_EXHAUSTED` e la misura restava parziale, per via
+/// dell'account di fatturazione ancora di prova.
 ///
 /// Da PC su rete fissa, quindi un telefono su rete mobile sta piu' in alto: per
 /// questo il tetto tiene un margine largo invece di stare al filo del misurato.
@@ -82,12 +88,18 @@ class TempiDellAttesa {
   /// comparire l'ultima lettera.
   static const Duration tettoAlTestoCompleto = Duration(seconds: 10);
 
-  /// La rete PEGGIORE misurata il 3 agosto 2026, in millisecondi.
+  /// La rete PEGGIORE misurata, in millisecondi, su tutte le esecuzioni.
   ///
   /// Sta qui come dato e non come commento perche' una prova ci calcola sopra:
   /// il tempo alla prima parola e' `max(rete, durataMinima) + dissolvenza`, ed
   /// e' un massimo e non una somma, perche' la scena e la rete corrono insieme.
-  static const int reteMassimaMisurataMs = 1830;
+  ///
+  /// **Saliva da 1830 il 4 agosto 2026.** Le prime dieci chiamate riuscite
+  /// dopo il rientro dal 429 hanno reso un massimo di 2090, cioe' oltre un
+  /// quarto in piu' di quanto la costante dichiarasse. Lasciarla a 1830 avrebbe
+  /// voluto dire una costante che dichiara il falso, e per giunta nel verso che
+  /// fa sembrare il margine piu' largo di quanto sia.
+  static const int reteMassimaMisurataMs = 2090;
 
   /// Quanti caratteri al secondo scrive la macchina da scrivere.
   ///

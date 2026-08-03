@@ -60,6 +60,15 @@ void main() {
 
     // LE ECCEZIONI, dichiarate con la ragione accanto.
     //
+    // **Un'eccezione di troppo mi ha nascosto un difetto vero.** Qui c'era
+    // anche `frase_di_ripiego.dart`, escluso perche' la parola compare nei
+    // commenti che raccontano perche' e' stata tolta. Ma i commenti sono gia'
+    // saltati riga per riga: escludere il FILE escludeva anche le frasi
+    // mostrate, e una di quelle diceva "e' solo la mia voce che te lo dice",
+    // proprio nel ripiego di Medora, cioe' due righe sopra l'etichetta che
+    // l'ordine chiamava la peggiore. L'ho vista nell'anteprima, non nella
+    // prova. Si escludono i commenti, mai un file intero.
+    //
     // Sono i punti in cui "voce" significa DAVVERO l'audio, cioe' il prodotto
     // che si compra, oppure e' una figura del parlare comune. Toglierle
     // sarebbe togliere la parola giusta dal posto giusto.
@@ -67,9 +76,6 @@ void main() {
       'lib/core/entitlement/plan_catalog.dart':
           'e\' il listino, e li\' "Voce AI dei Maestri" e\' proprio l\'audio '
               'sintetizzato che si compra col piano',
-      'lib/core/maestro/frase_di_ripiego.dart':
-          'la parola compare nel commento che racconta perche\' e\' stata '
-              'tolta, non in una stringa mostrata',
       'lib/core/astro/resonance.dart':
           'e\' la voce interiore che un aspetto chiama, una figura del '
               'parlare e non il Maestro che risponde',

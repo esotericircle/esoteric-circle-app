@@ -137,6 +137,7 @@ void main() {
           // non serve a niente, una molto piu' lunga fa aspettare per finta.
           millisecondi: cronometro.elapsedMilliseconds,
           parole: testo.split(RegExp(r'\s+')).where((p) => p.isNotEmpty).length,
+          tokenIngresso: (uso['promptTokenCount'] as num?)?.toInt() ?? 0,
           tokenTesto: (uso['candidatesTokenCount'] as num?)?.toInt() ?? 0,
           tokenPensiero: (uso['thoughtsTokenCount'] as num?)?.toInt() ?? 0,
         );
@@ -248,6 +249,11 @@ void main() {
     final parole = esiti.map((e) => e.parole).toList()..sort();
     final tronche = esiti.where((e) => e.motivo == 'MAX_TOKENS').toList();
     final pensanti = esiti.where((e) => e.tokenPensiero > 0).toList();
+    // I TOKEN VERI, che servono a sostituire con fatti la stima del costo per
+    // utente: oggi e' calcolata su 2.000 in ingresso e 110 in uscita.
+    final ingresso = esiti.map((e) => e.tokenIngresso).toList()..sort();
+    final uscita = esiti.map((e) => e.tokenTesto).toList()..sort();
+    final pensiero = esiti.map((e) => e.tokenPensiero).toList()..sort();
 
     String ms(int v) => '${(v / 1000).toStringAsFixed(2)}s';
     stdout.writeln('${'-' * 78}\n'
@@ -267,6 +273,15 @@ void main() {
         '${ms(_completo(tempi.first, caratteri.first))}  '
         '${ms(_completo(tempi[tempi.length ~/ 2], caratteri[caratteri.length ~/ 2]))}  '
         '${ms(_completo(tempi.last, caratteri.last))}\n'
+        'TOKEN INGRESSO minimo ${ingresso.first}  '
+        'mediana ${ingresso[ingresso.length ~/ 2]}  '
+        'massimo ${ingresso.last}\n'
+        'TOKEN USCITA   minimo ${uscita.first}  '
+        'mediana ${uscita[uscita.length ~/ 2]}  '
+        'massimo ${uscita.last}\n'
+        'TOKEN PENSIERO minimo ${pensiero.first}  '
+        'mediana ${pensiero[pensiero.length ~/ 2]}  '
+        'massimo ${pensiero.last}\n'
         'FERMATE AL MURO: ${tronche.length} su ${esiti.length}\n'
         'CON RAGIONAMENTO ACCESO: ${pensanti.length} su ${esiti.length}');
 
@@ -287,6 +302,7 @@ class _Esito {
     required this.parole,
     required this.millisecondi,
     required this.tokenTesto,
+    required this.tokenIngresso,
     required this.tokenPensiero,
   });
 
@@ -299,6 +315,7 @@ class _Esito {
   /// Quanto e' durata la chiamata, dalla richiesta alla risposta completa.
   final int millisecondi;
   final int tokenTesto;
+  final int tokenIngresso;
   final int tokenPensiero;
 
   /// Le ultime parole, che sono il punto: una risposta tronca finisce senza
