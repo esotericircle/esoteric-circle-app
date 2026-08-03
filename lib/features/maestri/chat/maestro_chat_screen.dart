@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import '../../../core/entitlement/question_allowance.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/chat/altre_voci.dart';
+import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/immersive_intents.dart';
 import '../../../core/entitlement/entitlement_service.dart';
 import '../../../core/entitlement/tier.dart';
@@ -25,6 +27,7 @@ import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
+import '../../../services/ai/maestro_oracle.dart';
 import '../../../services/app_services.dart';
 import '../../pricing/upgrade_invite.dart';
 import '../ask/ask_maestri_screen.dart';
@@ -37,6 +40,48 @@ import 'widgets/chat_suggestions.dart';
 import 'widgets/diagnostics_dialog.dart';
 import 'widgets/maestro_disclaimer.dart';
 import '../widgets/maestro_bust.dart';
+
+/// La riga discreta che porta alla sintesi delle voci gia' ottenute.
+///
+/// Sopra il campo di scrittura e non nell'intestazione: e' un passo che si fa
+/// DOPO aver letto, come "Vai piu' a fondo", non un comando che sta li' da
+/// prima che ci sia qualcosa da confrontare.
+class _VerLaSintesi extends StatelessWidget {
+  const _VerLaSintesi({required this.quante, required this.onTap});
+
+  final int quante;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: SpacingTokens.md,
+        vertical: SpacingTokens.xs,
+      ),
+      child: GestureDetector(
+        key: const Key('chat_vedi_sintesi'),
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.auto_awesome_motion_rounded,
+                color: palette.goldSoft, size: 18),
+            const SizedBox(width: SpacingTokens.xs),
+            Text(
+              'Metti a confronto le $quante voci',
+              style: TypographyTokens.body(size: 14, weight: 600)
+                  .copyWith(color: palette.goldSoft),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 /// La conversazione testuale con un Maestro.
 ///
@@ -244,6 +289,58 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     });
   }
 
+  /// Il tocco su "Chiedi anche agli altri".
+  ///
+  /// **Il gating resta quello di oggi, non si allarga ne' si stringe.** Il
+  /// confronto a piu' voci e' del Cerchio: per il Viandante si apre lo stesso
+  /// invito a salire che apre oggi la schermata del confronto, e mai un
+  /// comando muto. E non intacca il limite del giorno, esattamente come oggi.
+  Future<void> _chiediAgliAltri(
+    BuildContext context,
+    MaestroChatController controller,
+  ) async {
+    final piano = context.read<EntitlementService>().tier;
+    if (!context.read<QuestionAllowance>().canCompare(piano)) {
+      await showUpgradeInvite(
+        context,
+        title: 'Le altre voci sono del Cerchio',
+        message: 'Col Cerchio la stessa domanda arriva anche agli altri due '
+            'Maestri, qui dentro, ognuno con la sua lente.',
+      );
+      return;
+    }
+    await controller.chiediAgliAltri();
+  }
+
+  /// Apre la sintesi delle voci GIA' ottenute, portandosele dietro.
+  void _apriLaSintesi(
+    BuildContext context,
+    MaestroChatController controller,
+  ) {
+    final tema = controller.ultimaDomanda;
+    if (tema == null) return;
+    final lenti = <MaestroLens>[];
+    for (final voce in controller.vociDelCerchio) {
+      final suo = controller.messages.lastWhere(
+        (m) =>
+            m.isMaestro &&
+            m.portaUnResponso &&
+            m.autoreEffettivo(widget.maestro) == voce,
+        orElse: () => const ChatMessage(role: ChatRole.maestro, text: ''),
+      );
+      if (suo.text.trim().isEmpty) continue;
+      lenti.add(MaestroLens(
+        maestro: voce,
+        reply: AltreVoci.treStratiDa(suo.text),
+      ));
+    }
+    Navigator.of(context).push(AskMaestriScreen.perLaSintesi(
+      starter: widget.maestro,
+      tema: tema,
+      lenti: lenti,
+    ));
+  }
+
   /// Il tocco su "Vai piu' a fondo".
   ///
   /// Tre esiti, e nessuno dei tre e' un vicolo cieco: chi ha
@@ -375,11 +472,6 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           nota: services.diagnostics,
           appCheckDebugToken: services.appCheckDebugToken,
         ),
-        // La seconda superficie della Consulta, il confronto a piu' voci, vive
-        // qui dentro: una sola voce nel dominio, due modi di consultare. Da qui
-        // si porta la domanda anche agli altri Maestri, con la sintesi.
-        onCompare: () => Navigator.of(context)
-            .push(AskMaestriScreen.route(starter: widget.maestro)),
       ),
       // La chat e' una superficie di lettura: cosmo senza costellazioni, cosi'
       // nessuna forma stilizzata ne' rettangolo a portale trapela dietro
@@ -410,14 +502,32 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                 ),
                 child: controller.sending
                     ? ConsultoDelCieloView(
-                        key: const ValueKey('consulto'),
+                        // La chiave porta CHI si consulta: cambiando voce la
+                        // scena si rifa' con le battute di quel Maestro invece
+                        // di restare su quelle di prima.
+                        key: ValueKey(
+                            'consulto ${controller.maestroInAscolto?.id}'),
                         natal: _natalCorrente(context),
-                        maestro: widget.maestro,
+                        maestro:
+                            controller.maestroInAscolto ?? widget.maestro,
                         rotazione: controller.rotazioneDelConsulto,
                       )
                     : const SizedBox.shrink(key: ValueKey('nessun consulto')),
               ),
               Expanded(child: _buildBody(controller)),
+              // LA SINTESI SI RAGGIUNGE SOLO QUANDO C'E' QUALCOSA DA
+              // SINTETIZZARE.
+              //
+              // Prima si raggiungeva sempre, da un'icona nell'intestazione, e
+              // apriva un confronto fra una voce sola e nessun'altra. La
+              // regola sta nel dato, `AltreVoci.siPuoSintetizzare`, e conta le
+              // letture VERE: due ripieghi non sono due voci.
+              if (controller.vociDelCerchio.length >=
+                  AltreVoci.vociPerLaSintesi)
+                _VerLaSintesi(
+                  quante: controller.vociDelCerchio.length,
+                  onTap: () => _apriLaSintesi(context, controller),
+                ),
               if (!controller.aiReady)
                 _ConfigNotice(palette: palette, maestro: widget.maestro),
               ChatComposer(
@@ -488,12 +598,22 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         // Rovesciata la lista, l'indice zero e' l'ultimo turno.
         final posizione = ultimo - index;
         final messaggio = messaggi[posizione];
-        return ChatBubble(
+        // OGNI BOLLA PORTA IL SUO MAESTRO, e con lui la sua palette.
+        //
+        // Prima il volto e il colore li dava la schermata, che ne conosce uno
+        // solo: adesso che gli altri due rispondono qui dentro, una bolla di
+        // Caligo sarebbe uscita col volto e col blu di Medora. Lo scope si
+        // riavvolge attorno alla singola bolla, che e' l'unico punto dove la
+        // voce cambia.
+        final autore = messaggio.autoreEffettivo(widget.maestro);
+        return MaestroScope(
+          maestro: autore,
+          child: ChatBubble(
           key: posizione == ultimo && messaggio.isMaestro
               ? _chiaveUltimaRisposta
               : null,
           message: messaggio,
-          maestro: widget.maestro,
+          maestro: autore,
           // Si scrive SOLO l'ultima, solo se e' appena arrivata, e solo se e'
           // UNA LETTURA VERA.
           //
@@ -527,6 +647,20 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               posizione == ultimo && controller.puoiChiedereDiApprofondire
                   ? () => _approfondisci(context, controller)
                   : null,
+          // LE ALTRE VOCI, sotto la lettura a cui si riferiscono.
+          //
+          // Sull'ULTIMA lettura vera, come "Vai piu' a fondo": la riga porta
+          // agli altri l'ULTIMA domanda, e metterla anche sotto le risposte
+          // vecchie lascerebbe indovinare quale domanda parte.
+          onChiediAgliAltri:
+              posizione == ultimo && controller.puoiChiedereAgliAltri
+                  ? () => _chiediAgliAltri(context, controller)
+                  : null,
+          altreVoci: [
+            for (final altro in AltreVoci.altriDi(widget.maestro))
+              if (!controller.vociDelCerchio.contains(altro)) altro,
+          ],
+        ),
         );
       },
     );
@@ -625,7 +759,6 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   const _ChatAppBar({
     required this.maestro,
     required this.onDiagnostics,
-    required this.onCompare,
     this.showAvatar = false,
     this.speaking = false,
   });
@@ -634,7 +767,6 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onDiagnostics;
 
   /// Apre il confronto a piu' voci sulla stessa domanda.
-  final VoidCallback onCompare;
 
   /// Mostra l'avatar tondo del Maestro accanto al nome, a conversazione avviata.
   final bool showAvatar;
@@ -672,17 +804,14 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         tooltip: 'Indietro',
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      // Una sola azione, simmetrica alla freccia: porta la stessa domanda agli
-      // altri Maestri e ne mette a confronto gli sguardi. L'header resta
-      // bilanciato e il titolo centrato.
-      actions: [
-        IconButton(
-          key: const Key('chat_compare'),
-          icon: const Icon(Icons.balance_rounded),
-          tooltip: 'Metti a confronto le voci del Cerchio',
-          onPressed: onCompare,
-        ),
-      ],
+      // NESSUNA AZIONE NELL'INTESTAZIONE.
+      //
+      // Qui c'era un'icona a bilancia, dorata. In una schermata di astrologia
+      // si legge come il SEGNO della Bilancia, e portava a una schermata dove
+      // la conversazione ricominciava da zero: la domanda era gia' stata
+      // fatta, e per sentire gli altri due bisognava riscriverla. Le altre
+      // voci adesso si chiamano da SOTTO la risposta a cui si riferiscono, e
+      // la sintesi si raggiunge solo quando c'e' qualcosa da sintetizzare.
       // Nessun simbolo da sviluppatore nell'header. La messa a punto (token di
       // debug di App Check) resta raggiungibile con un gesto nascosto: una
       // pressione prolungata sul nome del Maestro. Cosi' l'header e' pulito

@@ -44,12 +44,45 @@ class AskMaestriScreen extends StatefulWidget {
     super.key,
     required this.starter,
     this.oracle = const MaestroOracle(),
+    this.temaIniziale,
+    this.lentiIniziali = const [],
   });
+
+  /// La domanda gia' posta nella chat. Con questa la schermata NON riparte da
+  /// zero: e' arrivata qui per sintetizzare voci che esistono gia'.
+  final String? temaIniziale;
+
+  /// Le voci gia' ottenute nella conversazione, lette nei tre strati.
+  final List<MaestroLens> lentiIniziali;
 
   /// Il Maestro del dominio, primo a rispondere.
   final Maestro starter;
 
   final MaestroOracle oracle;
+
+  /// LA SINTESI DELLE VOCI GIA' OTTENUTE.
+  ///
+  /// **Questa schermata non si butta: diventa quello che e' davvero.** Prima
+  /// era il posto dove si portava una domanda agli altri Maestri, e per farlo
+  /// bisognava riscriverla da capo anche quando era gia' stata fatta. Adesso le
+  /// altre voci arrivano nella conversazione, e qui si arriva soltanto quando
+  /// ce ne sono almeno due da mettere a confronto, portandosele dietro.
+  static Route<void> perLaSintesi({
+    required Maestro starter,
+    required String tema,
+    required List<MaestroLens> lenti,
+  }) {
+    return MaterialPageRoute<void>(
+      builder: (_) => MaestroScope(
+        maestro: starter,
+        child: AskMaestriScreen(
+          starter: starter,
+          temaIniziale: tema,
+          lentiIniziali: lenti,
+        ),
+      ),
+    );
+  }
 
   static Route<void> route({required Maestro starter}) {
     return MaterialPageRoute<void>(
@@ -86,6 +119,18 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
   String? _aiSynthesis;
 
   String? _theme;
+
+  @override
+  void initState() {
+    super.initState();
+    // Le voci arrivate dalla conversazione entrano gia' risolte: nessuna
+    // chiamata rifatta, nessuna domanda riscritta.
+    _theme = widget.temaIniziale;
+    for (final lente in widget.lentiIniziali) {
+      _responders.add(lente.maestro);
+      _lenses[lente.maestro] = lente;
+    }
+  }
 
   @override
   void dispose() {
@@ -321,7 +366,13 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Consulta ${widget.starter.displayName}',
+        // SI CHIAMA PER QUELLO CHE FA, e non col nome del Maestro che si e'
+        // appena lasciato: arrivandoci dalla chat, quel nome diceva di essere
+        // tornati da lui mentre qui ci sono tutte le voci.
+        title: Text(
+            widget.lentiIniziali.isEmpty
+                ? 'Consulta ${widget.starter.displayName}'
+                : 'Le voci a confronto',
             style: TypographyTokens.display(size: 20)),
       ),
       body: SafeArea(
@@ -800,17 +851,28 @@ class _LensCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: SpacingTokens.sm),
-          Text(lens.glance,
-              style: TypographyTokens.body(size: 15).copyWith(
-                color: palette.goldSoft,
-                fontStyle: FontStyle.italic,
-                height: 1.35,
-              )),
+          // NON SI DISEGNA CIO' CHE NON C'E'.
+          //
+          // Gli strati erano disegnati sempre, e con una lente che ne porta
+          // meno di tre a schermo restavano una riga bianca e una freccia
+          // senza niente accanto. Capita alle voci che arrivano dalla
+          // conversazione, dove una risposta breve non ha tre parti da
+          // distinguere, e capitava gia' a una lente dell'oracolo con un
+          // campo vuoto: e' la stessa correzione per tutte e due.
+          if (lens.glance.trim().isNotEmpty) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(lens.glance,
+                style: TypographyTokens.body(size: 15).copyWith(
+                  color: palette.goldSoft,
+                  fontStyle: FontStyle.italic,
+                  height: 1.35,
+                )),
+          ],
           const SizedBox(height: SpacingTokens.sm),
           Text(lens.reading,
               style: TypographyTokens.body(size: 14)
                   .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
+          if (lens.invite.trim().isNotEmpty) ...[
           const SizedBox(height: SpacingTokens.sm),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -826,6 +888,7 @@ class _LensCard extends StatelessWidget {
               ),
             ],
           ),
+          ],
           // Stessa dichiarazione della chat, stessa etichetta: se questa
           // lettura non viene dal Maestro, la carta lo dice.
           if (lens.ripiego) ...[

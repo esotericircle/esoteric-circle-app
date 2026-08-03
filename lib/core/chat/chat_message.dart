@@ -5,6 +5,8 @@
 /// persistenza vera vive nel repository di memoria, qui resta solo il dato.
 library;
 
+import '../maestro/maestro.dart';
+
 /// Chi ha prodotto il messaggio: l'utente oppure il Maestro.
 enum ChatRole { user, maestro }
 
@@ -50,6 +52,7 @@ class ChatMessage {
     this.approfondita = false,
     this.tipo,
     this.intentId,
+    this.autore,
   });
 
   final ChatRole role;
@@ -79,6 +82,22 @@ class ChatMessage {
   /// "Vai piu' a fondo" compare una volta sola per risposta: due volte sarebbe
   /// una scala senza fine, e la persona non saprebbe quando si e' arrivati.
   final bool approfondita;
+
+  /// CHI ha detto questo messaggio, quando non e' il Maestro della chat.
+  ///
+  /// **Il dato che ha fatto nascere questo campo.** Dal 3 agosto 2026 gli altri
+  /// due Maestri rispondono NELLA STESSA conversazione, e una bolla non
+  /// appartiene piu' alla schermata ma a chi l'ha detta. Prima il volto e il
+  /// colore li dava la schermata: senza questo campo, riaprendo domani la
+  /// cronologia, le risposte di Aura e Caligo comparirebbero col volto e col
+  /// blu di Medora, cioe' l'app direbbe il falso su chi ha parlato.
+  ///
+  /// Nullo vuol dire "il Maestro di questa chat", che e' anche il senso giusto
+  /// per tutta la cronologia salvata prima di oggi: nessuna migrazione.
+  final Maestro? autore;
+
+  /// Chi ha parlato, sempre. [predefinito] e' il Maestro della conversazione.
+  Maestro autoreEffettivo(Maestro predefinito) => autore ?? predefinito;
 
   /// Che cosa porta questo messaggio. Nullo sui messaggi vecchi, e in quel
   /// caso lo si RICAVA dai flag: cosi' la cronologia gia' salvata non perde il
@@ -121,6 +140,7 @@ class ChatMessage {
       approfondita: approfondita ?? this.approfondita,
       tipo: tipo,
       intentId: intentId,
+      autore: autore,
     );
   }
 }

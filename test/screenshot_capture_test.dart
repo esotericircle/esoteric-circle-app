@@ -14,6 +14,7 @@ import 'package:esoteric_circle/core/chat/immersive_intents.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'package:esoteric_circle/features/maestri/chat/widgets/chat_composer.dart';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart' as astro;
 import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
@@ -578,19 +579,33 @@ void main() {
       await tester.tap(accept);
       await step(tester);
     }
-    await tester.tap(find.byKey(const Key('chat_compare')));
+    // LA STRADA NUOVA, dal 3 agosto 2026.
+    //
+    // Prima si toccava l'icona a bilancia nell'intestazione e si arrivava a
+    // una schermata dove la domanda andava RISCRITTA da capo. Adesso la
+    // domanda si fa una volta sola, nella chat, le altre voci arrivano li'
+    // dentro, e la sintesi si raggiunge soltanto quando ce ne sono almeno due.
+    // Questa cattura percorre esattamente cio' che percorre la persona.
+    final campo = find.descendant(
+      of: find.byType(ChatComposer),
+      matching: find.byType(TextField),
+    );
+    await tester.enterText(campo, 'Devo cambiare lavoro?');
     await step(tester);
-    await step(tester);
-    await tester.enterText(
-        find.byKey(const Key('ask_field')), 'Devo cambiare lavoro?');
-    await step(tester);
-    await tester.tap(find.byKey(const Key('ask_submit')));
-    await step(tester);
-    await step(tester);
-    // Porta la stessa domanda anche allo sguardo di Aura: appare la sintesi.
-    await tester.tap(find.byKey(const Key('ask_add_aura')));
-    await step(tester);
-    await step(tester);
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    // La pausa del consulto dura almeno 1,8 secondi, piu' la dissolvenza.
+    for (var i = 0; i < 12; i++) {
+      await step(tester);
+    }
+    await tester.tap(find.byKey(const Key('chat_altre_voci')));
+    // Due voci, quindi due pause.
+    for (var i = 0; i < 24; i++) {
+      await step(tester);
+    }
+    await tester.tap(find.byKey(const Key('chat_vedi_sintesi')));
+    for (var i = 0; i < 6; i++) {
+      await step(tester);
+    }
     // Decodifica gli avatar, cosi' i mezzi busti delle lenti si vedono nel
     // preview invece dell'icona di ripiego che sta dietro l'anello.
     await precacheFaces(tester);

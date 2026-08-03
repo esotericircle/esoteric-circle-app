@@ -7,6 +7,7 @@ import '../../../core/entitlement/plan_catalog.dart';
 import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/entitlement/tier.dart';
 
+import '../../../core/chat/altre_voci.dart';
 import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/maestro_memory.dart';
@@ -73,6 +74,13 @@ class MaestroChatController extends ChangeNotifier {
   /// vuole movimento non ha chiesto di aspettare di piu', quindi la pausa
   /// minima si accorcia, e la pausa la governa il turno, non il disegno.
   bool riduciMovimento = false;
+
+  /// CHI si sta consultando adesso, mentre la scena dell'attesa e' a schermo.
+  ///
+  /// Serve perche' la scena dica il vero: quando rispondono gli altri Maestri
+  /// la riga e il corpo devono essere i LORO, altrimenti la persona vede Medora
+  /// che consulta il cielo e poi arriva una bolla di Caligo.
+  Maestro? maestroInAscolto;
 
   /// Quante attese sono passate. Fa ruotare le frasi del consulto, cosi' due
   /// domande vicine non fanno rileggere la stessa riga.
@@ -248,6 +256,65 @@ class MaestroChatController extends ChangeNotifier {
   /// Vero se l'ultima bolla e' una risposta VERA del Maestro, non ancora
   /// approfondita: solo li' l'invito ha senso. Non su un ripiego, non su una
   /// bolla fallita, non su un instradamento.
+  /// Le voci che hanno gia' risposto in questa conversazione.
+  List<Maestro> get vociDelCerchio => AltreVoci.vociNella(_messages, maestro);
+
+  /// Vero se ha senso chiedere anche agli altri: c'e' una lettura VERA da cui
+  /// partire, e almeno una voce non si e' ancora espressa.
+  ///
+  /// La prima meta' della regola non e' nuova ed e' la stessa di "Vai piu' a
+  /// fondo": vive nel dato del messaggio, `portaUnResponso`. Sotto un ripiego,
+  /// sotto una risposta tronca e sotto il messaggio del limite non c'e' niente
+  /// da portare a nessuno.
+  bool get puoiChiedereAgliAltri {
+    if (_sending || _messages.isEmpty) return false;
+    if (!_messages.last.isMaestro || !_messages.last.portaUnResponso) {
+      return false;
+    }
+    return AltreVoci.altriDi(maestro)
+        .any((altro) => !vociDelCerchio.contains(altro));
+  }
+
+  /// L'ultima domanda della persona, che e' quella a cui rispondono gli altri.
+  String? get ultimaDomanda {
+    for (var i = _messages.length - 1; i >= 0; i--) {
+      if (_messages[i].isUser && _messages[i].text.trim().isNotEmpty) {
+        return _messages[i].text.trim();
+      }
+    }
+    return null;
+  }
+
+  /// Porta la STESSA domanda alle altre due voci, qui dentro.
+  ///
+  /// **Non ricomincia niente.** Le risposte arrivano come bolle nuove sotto
+  /// quella appena letta, ognuna col suo autore: nessuna schermata nuova,
+  /// nessuna domanda da riscrivere.
+  ///
+  /// **Ognuno riceve la domanda, non il filo.** Chi non era nella
+  /// conversazione non puo' rispondere come se ci fosse stato: passargli i
+  /// turni gia' avvenuti lo farebbe commentare la lettura di un altro invece di
+  /// darne una sua, e un confronto fra una voce e l'eco di un'altra non e' un
+  /// confronto. E' la stessa indipendenza che la schermata della sintesi ha
+  /// sempre avuto fra le sue lenti.
+  ///
+  /// **Non intacca il limite del giorno**, esattamente come il confronto di
+  /// oggi: il costo si decide fuori da `_generate`, quindi qui basta non
+  /// chiederlo. Il gating del piano lo tiene la schermata, che e' dove vive gia'.
+  Future<void> chiediAgliAltri() async {
+    if (!puoiChiedereAgliAltri) return;
+    final domanda = ultimaDomanda;
+    if (domanda == null) return;
+    for (final altro in AltreVoci.altriDi(maestro)) {
+      if (vociDelCerchio.contains(altro)) continue;
+      await _generate(
+        priorHistory: const [],
+        userText: domanda,
+        per: altro,
+      );
+    }
+  }
+
   bool get puoiChiedereDiApprofondire {
     if (_sending || _messages.isEmpty) return false;
     final ultima = _messages.last;
@@ -323,6 +390,7 @@ class MaestroChatController extends ChangeNotifier {
       _messages[indiceRisposta] = precedente.copyWith(approfondita: true);
     } finally {
       _sending = false;
+      maestroInAscolto = null;
       notifyListeners();
     }
   }
@@ -360,13 +428,21 @@ class MaestroChatController extends ChangeNotifier {
   Future<EsitoDelTurno> _generate({
     required List<ChatMessage> priorHistory,
     required String userText,
+    Maestro? per,
   }) async {
+    // CHI risponde a questo turno. Di norma il Maestro della chat; quando la
+    // persona chiede anche agli altri, uno dei due altri, e la sua risposta
+    // porta il SUO nome nel messaggio invece di prendere quello della
+    // schermata.
+    final chiRisponde = per ?? maestro;
+    maestroInAscolto = chiRisponde;
     _sending = true;
     // LA PAUSA COMINCIA QUI, con la domanda, e non quando la rete risponde:
     // il tempo che conta e' quello che aspetta la persona.
     final cronometro = Stopwatch()..start();
     rotazioneDelConsulto++;
-    const pending = ChatMessage(role: ChatRole.maestro, text: '', pending: true);
+    final pending = ChatMessage(
+        role: ChatRole.maestro, text: '', pending: true, autore: chiRisponde);
     _messages.add(pending);
     notifyListeners();
 
@@ -390,7 +466,7 @@ class MaestroChatController extends ChangeNotifier {
       String reply;
       try {
         reply = await _ai.reply(
-          maestro: maestro,
+          maestro: chiRisponde,
           profile: _profile,
           memory: _memoryState,
           history: priorHistory,
@@ -401,7 +477,7 @@ class MaestroChatController extends ChangeNotifier {
         rigenerazioniPerTroncatura++;
         try {
           reply = await _ai.reply(
-            maestro: maestro,
+            maestro: chiRisponde,
             profile: _profile,
             memory: _memoryState,
             history: priorHistory,
@@ -411,7 +487,7 @@ class MaestroChatController extends ChangeNotifier {
         } on MaestroAiTroncata catch (errore, traccia) {
           troncatureConsegnate++;
           annotaGuastoInnocuo(
-            'risposta tronca due volte di fila da ${maestro.displayName}: '
+            'risposta tronca due volte di fila da ${chiRisponde.displayName}: '
             'la misura della risposta è troppo stretta',
             errore,
             traccia,
@@ -421,7 +497,7 @@ class MaestroChatController extends ChangeNotifier {
           // moncone scambiato per la parola del Maestro.
           await _consegna(pending.copyWith(
             text: LetturaDiRipiego.componi(
-              maestro: maestro,
+              maestro: chiRisponde,
               domanda: userText,
               natal: natal,
               profile: _profile,
@@ -448,7 +524,7 @@ class MaestroChatController extends ChangeNotifier {
       if (!VerificaAncoraggio.eAncorata(reply, disponibili)) {
         rigenerazioniPerAncoraggio++;
         final secondo = await _ai.reply(
-          maestro: maestro,
+          maestro: chiRisponde,
           profile: _profile,
           memory: _memoryState,
           history: priorHistory,
@@ -461,7 +537,7 @@ class MaestroChatController extends ChangeNotifier {
           consegneSenzaAncoraggio++;
           annotaGuastoInnocuo(
             'risposta senza ancoraggio consegnata comunque, '
-            '${maestro.displayName}, ancoraggi disponibili: '
+            '${chiRisponde.displayName}, ancoraggi disponibili: '
             '${disponibili.map((a) => a.nome).join(', ')}',
             StateError('ancoraggio mancante dopo una rigenerazione'),
           );
@@ -472,6 +548,7 @@ class MaestroChatController extends ChangeNotifier {
         role: ChatRole.maestro,
         text: reply,
         at: DateTime.now(),
+        autore: chiRisponde,
       );
       await _consegna(answer, cronometro);
       unawaited(_persist(answer));
@@ -480,7 +557,7 @@ class MaestroChatController extends ChangeNotifier {
       return EsitoDelTurno.rispostaVera;
     } on MaestroAiUnavailable {
       await _consegna(pending.copyWith(
-        text: RipiegoDelMaestro.nonConfiguratoDi(maestro),
+        text: RipiegoDelMaestro.nonConfiguratoDi(chiRisponde),
         pending: false,
         failed: true,
         ripiego: true,
@@ -492,7 +569,7 @@ class MaestroChatController extends ChangeNotifier {
       // sceglie solo cosa mostrare. L'annotazione resta perche' l'errore vero
       // esista anche per chi guarda i log senza aprire il pannello.
       annotaGuastoInnocuo(
-          'rispondendo nella chat di ${maestro.displayName}', errore, traccia);
+          'rispondendo nella chat di ${chiRisponde.displayName}', errore, traccia);
       // IL SILENZIO NON LASCIA A MANI VUOTE. Il Maestro non si scusa e basta:
       // consegna una lettura VERA costruita dai dati sul dispositivo, dichiarata
       // come lettura del cielo e non come la sua voce. Sotto, una via che porta
@@ -501,7 +578,7 @@ class MaestroChatController extends ChangeNotifier {
       final natal = _natal?.call() ?? NatalContext.none;
       await _consegna(pending.copyWith(
         text: LetturaDiRipiego.componi(
-          maestro: maestro,
+          maestro: chiRisponde,
           domanda: userText,
           natal: natal,
           profile: _profile,

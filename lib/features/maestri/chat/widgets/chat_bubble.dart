@@ -32,6 +32,8 @@ class ChatBubble extends StatefulWidget {
     this.onOpenIntent,
     this.onRetry,
     this.onApprofondisci,
+    this.onChiediAgliAltri,
+    this.altreVoci = const [],
     this.scriviti = false,
     this.durataMassimaDiScrittura = TempiDellAttesa.tettoAlTestoCompleto,
   });
@@ -47,6 +49,15 @@ class ChatBubble extends StatefulWidget {
   /// barra di scrittura, cioe' lontano dalla cosa che comanda, e chi lo vedeva
   /// doveva indovinare a cosa si riferisse.
   final VoidCallback? onRetry;
+
+  /// Porta la stessa domanda alle altre due voci del cerchio, QUI DENTRO.
+  /// Non nullo solo sull'ultima lettura vera, e solo se manca ancora qualcuno:
+  /// la regola sta nel controller, che sa chi ha gia' parlato.
+  final VoidCallback? onChiediAgliAltri;
+
+  /// Chi sono gli altri due, per mostrarne i volti. Vuoto quando la riga non
+  /// si mostra.
+  final List<Maestro> altreVoci;
 
   /// Vero SOLO sulla risposta appena arrivata, che e' l'unica che si scrive
   /// sotto gli occhi. Una risposta gia' letta, riletta scorrendo indietro,
@@ -100,6 +111,8 @@ class _ChatBubbleState extends State<ChatBubble> {
     final onOpenIntent = widget.onOpenIntent;
     final onRetry = widget.onRetry;
     final onApprofondisci = widget.onApprofondisci;
+    final onChiediAgliAltri = widget.onChiediAgliAltri;
+    final altreVoci = widget.altreVoci;
     final palette = context.palette;
     final isUser = message.isUser;
 
@@ -235,6 +248,36 @@ class _ChatBubbleState extends State<ChatBubble> {
                         const SizedBox(width: 4),
                         Text(
                           'Vai più a fondo',
+                          style: TypographyTokens.body(size: 14, weight: 600)
+                              .copyWith(color: palette.goldSoft),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+                // LE ALTRE VOCI, dentro la bolla della risposta a cui si
+                // riferiscono.
+                //
+                // Era un'icona a bilancia nell'intestazione: dorata, in una
+                // schermata di astrologia, si leggeva come il SEGNO della
+                // Bilancia. E portava altrove, dove la conversazione
+                // ricominciava da zero. Qui invece i due volti dicono da soli
+                // chi sono le altre voci, e al tocco arrivano sotto.
+                if (onChiediAgliAltri != null && altreVoci.isNotEmpty) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  GestureDetector(
+                    key: const Key('chat_altre_voci'),
+                    onTap: onChiediAgliAltri,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        for (final altro in altreVoci) ...[
+                          MaestroBust(maestro: altro, ring: 26, popOut: false),
+                          const SizedBox(width: 4),
+                        ],
+                        const SizedBox(width: 2),
+                        Text(
+                          'Chiedi anche agli altri',
                           style: TypographyTokens.body(size: 14, weight: 600)
                               .copyWith(color: palette.goldSoft),
                         ),
