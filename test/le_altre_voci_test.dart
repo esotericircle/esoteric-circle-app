@@ -39,21 +39,14 @@ void main() {
   }
 
   group('1a. La bilancia non e\' piu\' nell\'intestazione', () {
-    test('Nessuna schermata di un Maestro mostra un\'icona a bilancia', () {
-      // Enumerata sulle superfici, non cercata a campione: la bilancia dorata
-      // in un contesto astrologico si legge come il SEGNO, e questo vale per
-      // qualunque schermata che porti il volto di un Maestro.
-      const superfici = [
-        'lib/features/maestri/chat/maestro_chat_screen.dart',
-        'lib/features/maestri/maestro_screen.dart',
-      ];
-      for (final percorso in superfici) {
-        final sorgente = File(percorso).readAsStringSync();
-        expect(sorgente.contains('Icons.balance'), isFalse,
-            reason: '$percorso mostra una bilancia: in una schermata di un '
-                'Maestro si legge come il segno della Bilancia');
-      }
-    });
+    // LA BILANCIA NON SI CONTROLLA PIU' QUI.
+    //
+    // C'era una prova che guardava DUE superfici scelte a mano. Dal 3 agosto
+    // 2026 la regola vale per tutto `lib` e vive in `SimboliDelloZodiaco`, con
+    // la sua prova in `simboli_dello_zodiaco_test.dart`: un elenco di due file
+    // accanto a una regola che ne copre trecento e' una seconda porta, e la
+    // seconda porta lascia passare proprio il terzo posto in cui il difetto
+    // rinasce.
 
     test('E la vecchia porta non esiste piu\'', () {
       final chat = File('lib/features/maestri/chat/maestro_chat_screen.dart')

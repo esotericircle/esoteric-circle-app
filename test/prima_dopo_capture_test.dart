@@ -21,6 +21,7 @@ import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/maestro/consult_depth.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
+import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
@@ -689,6 +690,83 @@ void main() {
       final dir = Directory('docs/preview/prima_dopo');
       if (!dir.existsSync()) dir.createSync(recursive: true);
       File('${dir.path}/chat_avviso_aura_$_stato.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
+      img.dispose();
+    });
+  });
+
+  // LA CARD DELLA SINTESI: la bilancia prima, i tre volti dopo.
+  //
+  // Il segno in cima alla Sintesi comparativa era `Icons.balance`. Il
+  // fondatore ci ha letto il SEGNO della Bilancia, e aveva ragione: il
+  // significato di un simbolo non lo decide il contesto nella testa di chi
+  // disegna. La "prima" si ottiene rimettendo l'icona nel codice e
+  // rieseguendo, come dice il commento in cima a questo file: NON si recupera
+  // l'immagine vecchia, che era impaginata a rapporto 1 e mostrerebbe due
+  // differenze invece di una.
+  testWidgets('Sintesi comparativa, il segno in cima', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        Provider<AppServices>.value(value: AppServices.offline()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+        ChangeNotifierProvider(
+            create: (_) => EntitlementService(initial: Tier.tier1)),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: RepaintBoundary(
+          key: radice,
+          child: const MaestroScope(
+            child: AskMaestriScreen(starter: Maestro.medora),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+
+    await tester.enterText(
+        find.byKey(const Key('ask_field')), 'Devo cambiare lavoro?');
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('ask_submit')));
+    await tester.pumpAndSettle();
+    // La Sintesi compare solo quando gli sguardi sono piu' di uno.
+    await tester.tap(find.byKey(const Key('ask_add_aura')));
+    await tester.pumpAndSettle();
+
+    // I mezzi busti dei Maestri: senza decodifica il segno nuovo sarebbe un
+    // buco, e l'immagine non proverebbe niente.
+    await tester.runAsync(() async {
+      final ctx = tester.element(find.byType(MaterialApp));
+      for (final m in Maestro.values) {
+        await precacheImage(AssetImage(m.avatarAsset), ctx);
+      }
+    });
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('ask_synthesis')), findsOneWidget);
+
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final img = await rb.toImage(pixelRatio: 3.0);
+      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+      final dir = Directory('docs/preview/prima_dopo');
+      if (!dir.existsSync()) dir.createSync(recursive: true);
+      File('${dir.path}/sintesi_segno_$_stato.png')
           .writeAsBytesSync(dati!.buffer.asUint8List());
       img.dispose();
     });

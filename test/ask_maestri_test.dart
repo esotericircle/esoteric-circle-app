@@ -19,6 +19,7 @@ import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
@@ -174,6 +175,50 @@ void main() {
     expect(sintesi,
         contains('Dove le voci concordano, ascolta con più fiducia'));
     expect(sintesi, isNot(contains('Stessa domanda')));
+  });
+
+  testWidgets('Il titolo della Sintesi si legge intero, su schermo stretto',
+      (tester) async {
+    // LO SPAZIO E' UNA MISURA, NON UN GUSTO.
+    //
+    // Il segno dei tre volti e' piu' largo dell'icona che ha sostituito, e
+    // l'ho scoperto guardando l'anteprima: il titolo era diventato "Sintesi
+    // comparat...". Il taglio era silenzioso, l'ellissi non lo dichiara a
+    // nessuno. Qui si misura sullo schermo PIU' STRETTO che il corredo
+    // fotografa, 360 punti: se qualcuno ingrandisce i volti, o allunga il
+    // titolo, o cambia il carattere, questa prova cade prima dell'anteprima.
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(360, 2200) * 3.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host(tier: Tier.tier1, starter: Maestro.medora));
+    await ask(tester, 'una scelta');
+    await tester.tap(find.byKey(const Key('ask_add_aura')));
+    await tester.pumpAndSettle();
+
+    final titolo = find.descendant(
+      of: find.byKey(const Key('ask_synthesis')),
+      matching: find.text('Sintesi comparativa'),
+    );
+    expect(titolo, findsOneWidget);
+
+    // Quanto e' alta una riga sola di quel titolo, con quel carattere.
+    final unaRiga = (TextPainter(
+      text: TextSpan(
+          text: 'Sintesi comparativa',
+          style: TypographyTokens.display(size: 17)),
+      textDirection: TextDirection.ltr,
+    )..layout())
+        .height;
+    final dipinto = tester.getSize(titolo);
+
+    expect(dipinto.height, lessThan(unaRiga * 1.5),
+        reason: 'il titolo della Sintesi va a capo: i tre volti occupano '
+            'troppo, restringili invece di accorciare il titolo');
+    expect(dipinto.width, greaterThanOrEqualTo(206.0),
+        reason: 'il titolo della Sintesi resta piu stretto di quanto il '
+            'testo chieda: e in corso un taglio');
   });
 
   testWidgets('Sintesi comparativa: cade sulla deterministica se non pronto',

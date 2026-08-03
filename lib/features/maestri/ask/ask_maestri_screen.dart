@@ -24,6 +24,7 @@ import '../../../services/app_services.dart';
 import '../../pricing/upgrade_invite.dart';
 import '../chat/maestro_chat_screen.dart';
 import '../widgets/maestro_bust.dart';
+import '../widgets/tre_volti.dart';
 
 /// "Consulta un Maestro", a domanda singola dentro il dominio di un Maestro.
 ///
@@ -704,12 +705,30 @@ class _SynthesisCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.balance, size: 18, color: palette.goldSoft),
-              const SizedBox(width: SpacingTokens.sm),
+              // I TRE VOLTI, non una bilancia.
+              //
+              // Qui c'era `Icons.balance`, tolta dall'intestazione della chat
+              // perche' il fondatore ci aveva letto il SEGNO della Bilancia, e
+              // rimasta qui con la motivazione che in questo contesto
+              // significa confronto. Il significato di un simbolo non lo
+              // decide il contesto nella testa di chi disegna: lo decide
+              // l'occhio di chi guarda, e su una card che parla di lettura
+              // astrologica il rischio e' piu' alto, non piu' basso.
+              // La misura non e' un gusto, e' una misura. I tre volti sono
+              // piu' larghi di un'icona: a 24 il titolo diventava "Sintesi
+              // comparat...", e l'ho visto nell'anteprima. Lo spazio interno
+              // della card e' 262 punti, il titolo ne chiede 206,8, i volti a
+              // 18 ne occupano 42 piu' 8 di stacco: restano 212. La prova
+              // "Il titolo della Sintesi si legge intero" li rimisura.
+              //
+              // Via anche i puntini: `maxLines: 1` con l'ellissi tagliava il
+              // titolo in silenzio, e in un'altra lingua taglierebbe di nuovo.
+              // Senza, il peggio che puo' capitare e' che vada a capo, cioe'
+              // che si legga tutto lo stesso.
+              const TreVolti(misura: 18),
+              const SizedBox(width: SpacingTokens.xs),
               Expanded(
                 child: Text('Sintesi comparativa',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                     style: TypographyTokens.display(size: 17)
                         .copyWith(color: palette.goldSoft)),
               ),
