@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/maestro/corpus_neutro.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/misura_della_risposta.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
+import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -194,6 +195,11 @@ void main() {
     }
     tempi.sort();
 
+    // I CARATTERI VERI, non stimati: il tempo della macchina da scrivere si
+    // calcola sui caratteri, e "circa sei per parola" e' una stima che non
+    // vale la pena di fare quando il numero si puo' contare.
+    final caratteri = esiti.map((e) => e.testo.length).toList()..sort();
+
     final parole = esiti.map((e) => e.parole).toList()..sort();
     final tronche = esiti.where((e) => e.motivo == 'MAX_TOKENS').toList();
     final pensanti = esiti.where((e) => e.tokenPensiero > 0).toList();
@@ -206,6 +212,16 @@ void main() {
         'PAROLE  minimo ${parole.first}  '
         'mediana ${parole[parole.length ~/ 2]}  '
         'massimo ${parole.last}   (chieste ${misura.parole})\n'
+        'CARATT. minimo ${caratteri.first}  '
+        'mediana ${caratteri[caratteri.length ~/ 2]}  '
+        'massimo ${caratteri.last}\n'
+        'PRIMA PAROLA  ${ms(TempiDellAttesa.allaPrimaParola(tempi.first).inMilliseconds)}  '
+        '${ms(TempiDellAttesa.allaPrimaParola(tempi[tempi.length ~/ 2]).inMilliseconds)}  '
+        '${ms(TempiDellAttesa.allaPrimaParola(tempi.last).inMilliseconds)}\n'
+        'TESTO COMPLETO  '
+        '${ms(_completo(tempi.first, caratteri.first))}  '
+        '${ms(_completo(tempi[tempi.length ~/ 2], caratteri[caratteri.length ~/ 2]))}  '
+        '${ms(_completo(tempi.last, caratteri.last))}\n'
         'FERMATE AL MURO: ${tronche.length} su ${esiti.length}\n'
         'CON RAGIONAMENTO ACCESO: ${pensanti.length} su ${esiti.length}');
 
@@ -245,6 +261,15 @@ class _Esito {
   String get coda =>
       testo.length <= 60 ? testo : testo.substring(testo.length - 60);
 }
+
+/// Il tempo dalla domanda all'ultima lettera, con la rete e i caratteri veri.
+/// Chiama gli stessi conti dell'app, non li rifa': una seconda copia
+/// dell'aritmetica finirebbe per misurare se stessa.
+int _completo(int reteMs, int caratteri) =>
+    TempiDellAttesa.allaPrimaParola(reteMs).inMilliseconds +
+    TempiDellAttesa.durataDiScrittura(
+            caratteri, TempiDellAttesa.perScrivere(reteMs))
+        .inMilliseconds;
 
 /// Il gettone di accesso dalla sessione gcloud gia' attiva sul PC.
 Future<String?> _gettone() async {

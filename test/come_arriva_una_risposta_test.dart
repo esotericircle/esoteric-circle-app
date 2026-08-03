@@ -194,7 +194,7 @@ void main() {
       final totale =
           TempiDellAttesa.allaPrimaParola(TempiDellAttesa.reteMassimaMisurataMs) +
               scrittura;
-      expect(totale, lessThanOrEqualTo(TempiDellAttesa.tettoAlTestoCompleto),
+      expect(totale, lessThan(TempiDellAttesa.tettoAlTestoCompleto),
           reason: 'la risposta piu\' lunga sfora il tetto: a sessanta '
               'caratteri al secondo ci metterebbe tredici secondi da sola, ed '
               'e\' il caso per cui il tetto sulla scrittura esiste');

@@ -220,7 +220,7 @@ void main() {
       // Sessanta chieste per settanta ottenute: chiedendone novanta la mediana
       // misurata su venti risposte vere era 94, cioe' il modello sfora, e sfora
       // sempre verso l'alto.
-      expect(prima, contains('circa sessanta parole'));
+      expect(prima, contains('circa cinquanta parole'));
       expect(prima, contains('Non lasciare mai una frase a metà'));
 
       final piuGiu = MaestroPersona.systemInstruction(

@@ -101,9 +101,17 @@ class TempiDellAttesa {
   /// nessuno se ne accorga finche' non capita. Quando il testo e' lungo si
   /// scrive piu' in fretta invece di sforare: e' l'unica delle due cose che
   /// possiamo scegliere.
+  /// Quanto si sta SOTTO il tetto invece di arrivarci al filo.
+  ///
+  /// Senza, il conto atterrava esatto su dieci secondi e zero millesimi per
+  /// ogni risposta abbastanza lunga, perche' il tetto e' quello che decide.
+  /// "Meno di dieci secondi" non e' "dieci secondi": un vincolo rispettato
+  /// all'uguale e' un vincolo che il primo arrotondamento fa saltare.
+  static const Duration margineSottoIlTetto = Duration(milliseconds: 300);
+
   static Duration perScrivere(int reteMs, {bool riduciMovimento = false}) {
     final speso = allaPrimaParola(reteMs, riduciMovimento: riduciMovimento);
-    final resto = tettoAlTestoCompleto - speso;
+    final resto = tettoAlTestoCompleto - margineSottoIlTetto - speso;
     return resto.isNegative ? Duration.zero : resto;
   }
 }

@@ -29,11 +29,14 @@ enum MisuraDellaRisposta {
   /// La prima risposta della chat, uguale per tutti i piani: la profondita' non
   /// si sceglie prima, si chiede dopo aver letto.
   ///
-  /// **Sessanta chieste per settanta ottenute.** Chiedendone novanta, la misura
-  /// su venti risposte vere ha dato mediana 94 e massimo 116: il modello sfora
-  /// di circa il quindici per cento, e sfora sempre verso l'alto. Il numero
-  /// chiesto e' quindi piu' basso di quello voluto, apposta.
-  primaRisposta(parole: 60, inLettere: 'sessanta', ragionamento: 0),
+  /// **CINQUANTA chieste per settanta ottenute, e il numero viene da due
+  /// misure, non da una stima.** Chiedendone novanta la mediana su venti
+  /// risposte vere e' stata 94; chiedendone sessanta e' stata 80. Il modello
+  /// non obbedisce al numero, ci si avvicina da sopra: fra i due punti misurati
+  /// lo sforo va da piu' quattro a piu' venti parole, e cresce mano a mano che
+  /// si scende. Cinquanta e' il punto in cui la mediana attesa cade sotto la
+  /// soglia delle ottanta, che e' quella decisa dal fondatore.
+  primaRisposta(parole: 50, inLettere: 'cinquanta', ragionamento: 0),
 
   /// La stessa risposta chiesta di nuovo con "Vai piu' a fondo". Piu' spazio
   /// perche' chi la chiede ha gia' letto e ha gia' deciso che gli interessa.

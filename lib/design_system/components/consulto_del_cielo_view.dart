@@ -148,6 +148,18 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView> {
           ? scena
           : AnimatedSwitcher(
               duration: const Duration(milliseconds: 420),
+              // UNA RIGA ALLA VOLTA, e non due sovrapposte.
+              //
+              // Di suo `AnimatedSwitcher` impila il figlio che entra su quello
+              // che esce, e per tutta la transizione a schermo ci sono DUE
+              // battute una sopra l'altra: nell'anteprima del 3 agosto 2026 si
+              // leggeva "Sto consultando" due volte e le due frasi
+              // accavallate, illeggibili. Nessuna prova poteva prenderlo,
+              // perche' contare i widget dava il numero giusto: si vede solo
+              // guardando l'immagine. Tenendo in layout il solo figlio
+              // corrente, quello che esce sparisce invece di restare sotto.
+              layoutBuilder: (corrente, precedenti) =>
+                  corrente ?? const SizedBox.shrink(),
               // LA CHIAVE E' L'INDICE, non il corpo.
               //
               // Era `ValueKey(battuta.corpo)`, e reggeva finche' ogni riga

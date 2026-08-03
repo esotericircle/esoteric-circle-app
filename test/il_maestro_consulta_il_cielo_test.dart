@@ -104,12 +104,20 @@ void main() {
       await tester.pumpWidget(_monta(piena));
       await tester.pump();
       expect(find.text('il tuo Ascendente in Vergine'), findsOneWidget);
+      // I TEMPI SONO CAMBIATI, e la ragione vale piu' dei numeri.
+      //
+      // Prima si pompava 750 millisecondi e si cercava la SECONDA battuta, con
+      // una durata di 200: a 750 la scena era gia' sulla terza. Passava lo
+      // stesso perche' `AnimatedSwitcher` teneva in albero anche il figlio che
+      // stava uscendo, quindi a schermo c'erano DUE battute sovrapposte e la
+      // prova trovava quella vecchia. **La prova si reggeva sul difetto**, che
+      // nell'anteprima del 3 agosto 2026 si vedeva come due frasi accavallate
+      // e illeggibili. Adesso in albero c'e' una battuta sola, e i tempi
+      // devono dire il vero.
       await tester.pump(const Duration(milliseconds: 250));
-      await tester.pump(const Duration(milliseconds: 500));
       expect(find.text('la tua Luna in Pesci'), findsOneWidget);
       // Si ferma sull'ultima e non riparte: l'attesa non e' un carosello.
       await tester.pump(const Duration(milliseconds: 250));
-      await tester.pump(const Duration(milliseconds: 500));
       expect(find.text('il tuo Sole in Cancro'), findsOneWidget);
       await tester.pump(const Duration(milliseconds: 900));
       expect(find.text('il tuo Sole in Cancro'), findsOneWidget);

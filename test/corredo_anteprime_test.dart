@@ -69,6 +69,14 @@ void main() {
       // un'anteprima dell'app, e la "prima" mostra un'icona che non esiste
       // piu'. Rigenerarla dal corredo la cancellerebbe.
       'icona_cerchio_capture_test.dart',
+      // Stessa natura, e con una DIVERGENZA da dichiarare: sono le immagini
+      // che l'ordine E ha chiesto per far vedere le sue correzioni, e le chiede
+      // a 360 per 797 con RAPPORTO DI PIXEL 3, cioe' 1080 per 2392 fisici, che
+      // e' il telefono vero del fondatore. Il corredo invece cattura a rapporto
+      // 1: stessa misura logica, un terzo della risoluzione. Le due convenzioni
+      // non coincidono, e questa riga non lo nasconde: finche' non si decide
+      // quale delle due vale, le catture dell'ordine restano fuori.
+      'anteprime_ordine_e_test.dart',
     };
     final fuori = <String>[];
     for (final f in Directory('test').listSync()) {
