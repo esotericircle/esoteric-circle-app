@@ -1,5 +1,44 @@
 # RIPRESA
 
+## ORDINE CHAT 6: CHIUSO PER INTERO, tutte e quattro le voci
+
+Il 4 agosto 2026. Quattro voci chiuse, il debito dei due tempi SALDATO, piu' il
+`usageMetadata` riportato.
+
+**VOCE 1.** Due battute da 1600 invece di tre da 900, scena da 3200, prima
+parola a 3460. Il numero vive in un punto solo e gli altri due si ricavano.
+
+**VOCE 2.** Il ritentativo sul 429 vive in `RitentativiDellaVoce` e si applica
+in `VoceSorvegliata`, che era gia' la porta unica. Il tetto all'attesa e' la
+durata della scena: finche' i ritentativi ci stanno dentro, la persona non vede
+niente.
+
+**VOCE 3, L'IPOTESI E' CADUTA.** Le altre voci erano gia' sequenziali, tutte e
+tre. Il 429 veniva dallo strumento di misura. Resta la prova che lo scrive.
+
+**VOCE 4.** "Voce" torna all'audio. L'etichetta del ripiego dice "Lettura del
+cielo, non la risposta di Medora".
+
+**LE QUATTRO PROVE DEL ROSSO RIMASTE VERDI, con cio' che hanno trovato.**
+Una: l'elenco dei segnali temporanei si poteva svuotare, perche' la prova
+scorreva l'elenco: cio' che non c'e' non si controlla. Due: cercavo il
+parallelo sulla chiamata all'AI, ma il pericolo sta un livello sopra, sul
+metodo del controllore. Tre: lo schema della parola "voce" voleva una maiuscola
+dopo "di", mentre nel caso piu' certo di tutti c'era un'interpolazione. Quattro,
+questa trovata da un'ANTEPRIMA e non da una prova: avevo escluso un file intero
+dalla ricerca invece dei soli commenti. Dentro c'era "e' solo la mia voce che
+te lo dice", nel ripiego di Medora, due righe sopra l'etichetta che l'ordine
+chiamava la peggiore.
+
+**Una costante che dichiarava il falso.** La rete peggiore misurata diceva
+1830, mentre e' 2090. Il margine sulla rete scende da 2,04 volte a 1,79. La prova
+adesso chiede una volta e mezza: due sarebbe un numero che i fatti non reggono.
+
+**Una rottura precedente, ancora aperta e non mia.** `flutter test
+test/prima_dopo_capture_test.dart --dart-define=STATO=dopo` fa cadere "I tre
+fotogrammi della sequenza intro" per una `MissingPluginException` del lettore
+audio. Cade anche sul codice committato prima dell'ordine CHAT 5.
+
 ## ORDINE CHAT 5: CHIUSO PER INTERO, tutte e tre le voci
 
 Il 3 agosto 2026. Le tre voci sono chiuse. I due debiti di riporto sono
