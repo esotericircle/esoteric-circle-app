@@ -24,33 +24,42 @@ class MoonPhaseEmblem extends StatefulWidget {
 
 class _MoonPhaseEmblemState extends State<MoonPhaseEmblem>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _c;
+  /// A moto fermo NON ESISTE. Prima veniva creato comunque e si ometteva solo
+  /// il `repeat`: un controllore che nessuno fa girare e' un ticker registrato
+  /// nell'albero, ed e' una promessa mantenuta a meta'. Chi chiede di ridurre
+  /// il movimento non chiede un'animazione ferma, chiede che non ce ne sia.
+  AnimationController? _c;
 
   @override
   void initState() {
     super.initState();
-    _c = AnimationController(
-        vsync: this, duration: const Duration(seconds: 6));
-    if (widget.animate) _c.repeat();
+    if (widget.animate) {
+      _c = AnimationController(
+          vsync: this, duration: const Duration(seconds: 6))
+        ..repeat();
+    }
   }
 
   @override
   void dispose() {
-    _c.dispose();
+    _c?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final vivo = _c;
     return SizedBox(
       width: widget.size,
       height: widget.size,
-      child: AnimatedBuilder(
-        animation: _c,
-        builder: (context, _) => CustomPaint(
-          painter: _MoonEmblemPainter(widget.phase, _c.value),
-        ),
-      ),
+      child: vivo == null
+          ? CustomPaint(painter: _MoonEmblemPainter(widget.phase, 0))
+          : AnimatedBuilder(
+              animation: vivo,
+              builder: (context, _) => CustomPaint(
+                painter: _MoonEmblemPainter(widget.phase, vivo.value),
+              ),
+            ),
     );
   }
 }

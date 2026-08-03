@@ -23,6 +23,7 @@ import '../../../core/chat/scorrimento_della_lettura.dart';
 import '../../../core/maestro/tempi_dell_attesa.dart';
 import '../../../core/maestro/sorgente_natale.dart';
 import '../../../design_system/components/consulto_del_cielo_view.dart';
+import '../../../design_system/components/scena_sopra_la_conversazione.dart';
 import '../../../design_system/components/cosmos_background.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
@@ -509,28 +510,54 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               // dissolvenza dura quanto dice il dato, e la stessa uscita vale
               // anche quando la risposta FALLISCE: la scena si chiude e sotto
               // c'e' il ripiego, invece del vuoto improvviso.
-              AnimatedSwitcher(
-                duration: TempiDellAttesa.dissolvenza,
-                transitionBuilder: (figlio, anim) => SizeTransition(
-                  sizeFactor: anim,
-                  axisAlignment: -1,
-                  child: FadeTransition(opacity: anim, child: figlio),
+              // LA SCENA STA SOPRA LA CONVERSAZIONE, E PRENDE CIO' CHE
+              // AVANZA.
+              //
+              // Prima era un fratello della lista dentro la stessa colonna,
+              // quindi il suo spazio lo TOGLIEVA alla conversazione: con un
+              // emblema grande avrebbe spinto giu' i messaggi a ogni consulto.
+              // `ScenaSopraLaConversazione` rovescia l'ordine di misurazione:
+              // la conversazione si dispone per prima e prende cio' che le
+              // serve, poi alla scena si dice quanto e' rimasto. Con la
+              // conversazione piena resta zero, e la scena lo sa gestire.
+              Expanded(
+                child: ScenaSopraLaConversazione(
+                  scena: AnimatedSwitcher(
+                    // A MOTO FERMO LA SCENA NON COMPARE, C'E'.
+                    //
+                    // La dissolvenza e' movimento quanto un'animazione, e chi
+                    // ha chiesto di ridurlo non ha chiesto un movimento piu'
+                    // lento. E' anche la ragione per cui le due anteprime
+                    // pesavano lo stesso numero di byte: a riposo le due scene
+                    // sono identiche, e la differenza vive solo DURANTE la
+                    // comparsa.
+                    duration: controller.riduciMovimento
+                        ? Duration.zero
+                        : TempiDellAttesa.dissolvenza,
+                    // UNA DISSOLVENZA, non uno scorrimento laterale. Il corpo
+                    // si posa dove sta, non entra da un lato: entrare da un
+                    // lato lo farebbe leggere come una carta che passa, e qui
+                    // non passa niente, si guarda.
+                    transitionBuilder: (figlio, anim) =>
+                        FadeTransition(opacity: anim, child: figlio),
+                    child: controller.sending
+                        ? ConsultoDelCieloView(
+                            // La chiave porta CHI si consulta: cambiando voce
+                            // la scena si rifa' con le battute di quel Maestro
+                            // invece di restare su quelle di prima.
+                            key: ValueKey(
+                                'consulto ${controller.maestroInAscolto?.id}'),
+                            natal: _natalCorrente(context),
+                            maestro:
+                                controller.maestroInAscolto ?? widget.maestro,
+                            rotazione: controller.rotazioneDelConsulto,
+                          )
+                        : const SizedBox.shrink(
+                            key: ValueKey('nessun consulto')),
+                  ),
+                  conversazione: _buildBody(controller),
                 ),
-                child: controller.sending
-                    ? ConsultoDelCieloView(
-                        // La chiave porta CHI si consulta: cambiando voce la
-                        // scena si rifa' con le battute di quel Maestro invece
-                        // di restare su quelle di prima.
-                        key: ValueKey(
-                            'consulto ${controller.maestroInAscolto?.id}'),
-                        natal: _natalCorrente(context),
-                        maestro:
-                            controller.maestroInAscolto ?? widget.maestro,
-                        rotazione: controller.rotazioneDelConsulto,
-                      )
-                    : const SizedBox.shrink(key: ValueKey('nessun consulto')),
               ),
-              Expanded(child: _buildBody(controller)),
               // LA SINTESI SI RAGGIUNGE SOLO QUANDO C'E' QUALCOSA DA
               // SINTETIZZARE.
               //
@@ -605,6 +632,14 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       key: _chiaveDellaLista,
       controller: _scroll,
       reverse: true,
+      // LA LISTA DICE QUANTO E' ALTA, invece di prendersi tutto.
+      //
+      // Senza questo la conversazione riempirebbe sempre l'altezza che le si
+      // offre, anche con due messaggi, e alla scena non avanzerebbe mai
+      // niente: e' il motivo per cui l'emblema stava a 96 punti in mezzo a una
+      // fascia vuota. Con la misura vera, una chat corta lascia libero cio'
+      // che non usa, e una chat lunga non lascia niente.
+      shrinkWrap: true,
       padding: const EdgeInsets.symmetric(
         horizontal: SpacingTokens.md,
         vertical: SpacingTokens.md,

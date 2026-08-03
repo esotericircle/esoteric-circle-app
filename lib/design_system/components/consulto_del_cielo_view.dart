@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,9 +58,66 @@ class ConsultoDelCieloView extends StatefulWidget {
   /// in una prova.
   final Duration durataBattuta;
 
-  /// Quanto e' grande il corpo disegnato. Dichiarata perche' la prova a pixel
-  /// tara la sua soglia su questo numero.
-  static const double misuraDelCorpo = 96;
+  /// IL PAVIMENTO DEL CORPO, sotto il quale non si stringe.
+  ///
+  /// A 72 punti l'emblema di un segno e' ancora riconoscibile e la falce della
+  /// Luna si legge ancora come falce. Piu' sotto diventa una macchia, e una
+  /// macchia non dice niente a nessuno: meglio togliere il disegno e lasciare
+  /// la riga di testo, che almeno si legge.
+  static const double pavimentoDelCorpo = 72;
+
+  /// IL TETTO DEL CORPO. Oltre, su uno schermo alto, l'emblema smetterebbe di
+  /// stare in una scena e diventerebbe la schermata.
+  static const double tettoDelCorpo = 220;
+
+  /// Gli stacchi fra le tre righe della colonna, piu' il rientro verticale
+  /// della scena: 12 e 4 fra le righe, 16 sopra e 16 sotto.
+  static const double stacchiERientri = 12 + 4 + 16 + 16;
+
+  /// QUANTO CHIEDE TUTTO CIO' CHE NON E' IL DISEGNO, MISURATO SULLA FRASE VERA.
+  ///
+  /// **Perche' non e' una costante.** Lo era, e valeva 130, calcolata sul caso
+  /// peggiore del corpus a 360 punti di larghezza. Nella chat vera la colonna
+  /// sforava lo stesso di 28 pixel: un numero peggiore-caso e' fragile per
+  /// costruzione, perche' basta una frase nuova, una lingua nuova o una
+  /// larghezza diversa e smette di essere il peggiore senza che nessuno lo
+  /// dica. Qui si impagina il testo che si sta per mostrare, con lo stile con
+  /// cui si mostrera', e si legge quanto e' alto.
+  ///
+  /// La taratura, per capirsi sugli ordini di grandezza: a 360 punti la riga
+  /// "Sto consultando" misura 19,0, le frasi sulla fase lunare stanno in due
+  /// righe da 42,0, quelle sull'Ascendente in tre da 63,0, e gli stacchi con i
+  /// rientri fanno 48,0.
+  static double riservaPer(String frase, double larghezza) {
+    final utile = math.max(0.0, larghezza - SpacingTokens.lg * 2);
+    double altezza(TextStyle stile, String testo) => (TextPainter(
+          text: TextSpan(text: testo, style: stile),
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.center,
+        )..layout(maxWidth: utile))
+        .height;
+    return altezza(TypographyTokens.body(size: 13), 'Sto consultando') +
+        altezza(TypographyTokens.display(size: 18), frase) +
+        stacchiERientri;
+  }
+
+  /// Sotto questa altezza libera non resta abbastanza nemmeno per il pavimento
+  /// piu' il testo: la scena degrada alla sola riga, invece di schiacciare il
+  /// disegno.
+  static double liberoMinimoPer(String frase, double larghezza) =>
+      pavimentoDelCorpo + riservaPer(frase, larghezza);
+
+  /// Quanto e' grande il corpo dato lo spazio libero.
+  ///
+  /// **Non e' un numero fisso, ed e' il punto.** Prima valeva 96 sempre, cioe'
+  /// circa un quarto della larghezza dello schermo, dentro una fascia vuota
+  /// alta centinaia di punti. Adesso il lato cresce con cio' che avanza e si
+  /// ferma al tetto, oppure scende fino al pavimento quando la conversazione
+  /// si e' presa quasi tutto.
+  static double corpoPer(double altezzaLibera, double riserva) {
+    final perIlDisegno = altezzaLibera - riserva;
+    return perIlDisegno.clamp(pavimentoDelCorpo, tettoDelCorpo);
+  }
 
   @override
   State<ConsultoDelCieloView> createState() => _ConsultoDelCieloViewState();
@@ -112,40 +171,77 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView> {
     // l'informazione. Il movimento e' cio' che si toglie, non il contenuto.
     final battuta = _battute[fermo ? 0 : _corrente];
 
-    final scena = Column(
-      key: const Key('consulto_del_cielo'),
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CorpoDelConsultoDipinto(
-          battuta: battuta,
-          fermo: fermo,
-          misura: ConsultoDelCieloView.misuraDelCorpo,
-        ),
-        const SizedBox(height: SpacingTokens.sm),
-        Text(
-          'Sto consultando',
-          style: TypographyTokens.body(size: 13)
-              .copyWith(color: palette.goldSoft),
-        ),
-        const SizedBox(height: SpacingTokens.xxs),
-        Text(
-          battuta.frase,
-          key: ValueKey('consulto_${battuta.corpo}'),
-          textAlign: TextAlign.center,
-          style: TypographyTokens.display(size: 18)
-              .copyWith(color: palette.textPrimary),
-        ),
-      ],
-    );
+    // QUANTO SPAZIO C'E' DAVVERO, chiesto ai vincoli e non deciso qui.
+    //
+    // Quando la scena vive dentro `ScenaSopraLaConversazione` questi vincoli
+    // sono cio' che la conversazione ha lasciato libero. Quando invece sta al
+    // centro di una schermata vuota sono l'altezza di quella schermata. In
+    // tutti e due i casi la domanda e' la stessa: quanto avanza?
+    final libero = MediaQuery.maybeOf(context)?.size.height ?? 0;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: SpacingTokens.lg,
-        vertical: SpacingTokens.md,
-      ),
-      child: fermo
-          ? scena
-          : AnimatedSwitcher(
+    Widget scenaCon(double altezzaLibera, double larghezza) {
+      final disponibile =
+          altezzaLibera.isFinite && altezzaLibera > 0 ? altezzaLibera : libero;
+      final riserva = ConsultoDelCieloView.riservaPer(battuta.frase, larghezza);
+      // SOTTO IL MINIMO SI TOGLIE IL DISEGNO, non lo si schiaccia.
+      //
+      // Un emblema compresso sotto il pavimento non e' un emblema piu'
+      // piccolo, e' una macchia che non si riconosce, e una macchia sopra la
+      // frase peggiora la frase invece di aggiungerle qualcosa.
+      final ciSta =
+          disponibile >= ConsultoDelCieloView.pavimentoDelCorpo + riserva;
+      final misura = ConsultoDelCieloView.corpoPer(disponibile, riserva);
+
+      // TRE GRADINI, E IL TERZO E' IL VUOTO.
+      //
+      // **Il numero che ha fatto nascere questo gradino.** Con la
+      // conversazione piena lo spazio libero misurato nella chat vera scende a
+      // 48,3 punti, e la riserva del testo ne chiede 109: la scena degradata
+      // alla sola riga sforava lo stesso, di 28 pixel. Quando non c'e' posto
+      // nemmeno per una riga, la risposta non e' una riga schiacciata: e'
+      // niente. La bolla in attesa sotto dice gia' che il Maestro sta
+      // rispondendo.
+      if (disponibile < riserva) return const SizedBox.shrink();
+
+      return Column(
+        key: const Key('consulto_del_cielo'),
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (ciSta) ...[
+            CorpoDelConsultoDipinto(
+              battuta: battuta,
+              fermo: fermo,
+              misura: misura,
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+          ],
+          Text(
+            'Sto consultando',
+            style: TypographyTokens.body(size: 13)
+                .copyWith(color: palette.goldSoft),
+          ),
+          const SizedBox(height: SpacingTokens.xxs),
+          Text(
+            battuta.frase,
+            key: ValueKey('consulto_${battuta.corpo}'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.display(size: 18)
+                .copyWith(color: palette.textPrimary),
+          ),
+        ],
+      );
+    }
+
+    return LayoutBuilder(builder: (context, vincoli) {
+      final scena = scenaCon(vincoli.maxHeight, vincoli.maxWidth);
+      return Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.lg,
+          vertical: SpacingTokens.md,
+        ),
+        child: fermo
+            ? scena
+            : AnimatedSwitcher(
               duration: const Duration(milliseconds: 420),
               // UNA RIGA ALLA VOLTA, e non due sovrapposte.
               //
@@ -169,12 +265,13 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView> {
               // avuto la stessa chiave e la seconda sarebbe comparsa di
               // scatto, cioe' la scena avrebbe perso proprio il movimento per
               // cui esiste.
-              child: KeyedSubtree(
-                key: ValueKey(_corrente),
-                child: scena,
+                child: KeyedSubtree(
+                  key: ValueKey(_corrente),
+                  child: scena,
+                ),
               ),
-            ),
-    );
+      );
+    });
   }
 }
 

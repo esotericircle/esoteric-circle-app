@@ -22,6 +22,7 @@ import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/maestro/consult_depth.dart';
 import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
+import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
@@ -584,7 +585,7 @@ void main() {
       addTearDown(tester.view.resetDevicePixelRatio);
 
       final radice = GlobalKey();
-      await tester.pumpWidget(MultiProvider(
+      Widget albero({required bool mostra}) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
@@ -602,9 +603,23 @@ void main() {
                   child: Scaffold(
                     backgroundColor: const Color(0xFF080B1A),
                     body: Center(
-                      child: ConsultoDelCieloView(
-                        natal: stato.value.natal,
-                        maestro: Maestro.medora,
+                      // La stessa dissolvenza della chat, con la stessa regola:
+                      // a moto fermo dura zero, cioe' la scena c'e' invece di
+                      // comparire.
+                      child: AnimatedSwitcher(
+                        duration: stato.value.fermo
+                            ? Duration.zero
+                            : TempiDellAttesa.dissolvenza,
+                        transitionBuilder: (figlio, anim) =>
+                            FadeTransition(opacity: anim, child: figlio),
+                        child: mostra
+                            ? ConsultoDelCieloView(
+                                key: const ValueKey('scena che compare'),
+                                natal: stato.value.natal,
+                                maestro: Maestro.medora,
+                              )
+                            : const SizedBox.shrink(
+                                key: ValueKey('nessuna scena')),
                       ),
                     ),
                   ),
@@ -613,10 +628,27 @@ void main() {
             ),
           ),
         ),
-      ));
+      );
+
+      // LA SCENA DEVE COMPARIRE DAVVERO, altrimenti non c'e' nessuna meta'
+      // della comparsa da fotografare. `AnimatedSwitcher` non anima il primo
+      // figlio che riceve: anima quando il figlio CAMBIA. Montando la scena
+      // gia' presente, le due catture tornavano identiche al byte anche dopo
+      // aver spostato l'istante, ed e' successo davvero.
+      await tester.pumpWidget(albero(mostra: false));
       await tester.pump();
+      await tester.pumpWidget(albero(mostra: true));
       await precarica(tester);
-      await tester.pump(const Duration(milliseconds: 200));
+      // A META' DELLA COMPARSA, allo stesso istante nominale per tutte e due.
+      //
+      // **Il dato che ha fatto cambiare questo istante.** Le anteprime
+      // `consulto_riduci_movimento_dopo` e `consulto_ascendente_dopo` pesavano
+      // lo stesso numero di byte, 105.481: erano lo stesso file. A riposo le
+      // due scene sono identiche PER COSTRUZIONE, quindi un'immagine ferma non
+      // puo' provare un'assenza di movimento. La differenza esiste solo
+      // DURANTE la comparsa: a meta' della dissolvenza, con il moto acceso
+      // l'emblema sta emergendo, con Riduci Movimento e' gia' posato.
+      await tester.pump(TempiDellAttesa.dissolvenza ~/ 2);
 
       await tester.runAsync(() async {
         final rb =

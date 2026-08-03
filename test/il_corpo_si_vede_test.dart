@@ -32,26 +32,38 @@ void main() {
 
   /// La soglia, TARATA SUI NUMERI VERI e non stimata.
   ///
-  /// Il corpo occupa un quadrato di [ConsultoDelCieloView.misuraDelCorpo], cioe'
-  /// 96 punti logici a rapporto 1, quindi 9.216 pixel disponibili. Misurati il
-  /// 2 agosto 2026, col precarico degli asset attivo:
+  /// **Taratura del 2 agosto 2026, col corpo a 96 punti.** Erano 9.216 pixel
+  /// disponibili, e i tre corpi ne dipingevano 9.216 il disco lunare, 4.396
+  /// l'emblema del segno, 1.207 il punto luminoso. La soglia stava a 700.
   ///
-  ///   disco lunare       9.216 pixel (riempie il quadrato)
-  ///   emblema del segno  4.396 pixel
-  ///   punto luminoso     1.207 pixel (il caso PIU' POVERO dei tre)
-  ///
-  /// La soglia si fissa a 700, cioe' poco meno del sessanta per cento del caso
-  /// peggiore: abbastanza bassa da non cadere per un antialiasing diverso,
-  /// abbastanza alta da non poter essere raggiunta da un'ombra o da due righe di
-  /// testo, che era esattamente cio' che la scena mostrava prima.
-  ///
-  /// **La prima stesura di questa soglia era 1.500, STIMATA a mente su un
+  /// **La prima stesura di quella soglia era 1.500, STIMATA a mente su un
   /// calcolo geometrico, e sbagliata**: il punto ne dipinge 1.207, quindi la
   /// prova bocciava un corpo che c'era. Un numero indovinato in un test e' un
   /// difetto quanto un numero indovinato nel codice.
-  const sogliaPixel = 700;
+  ///
+  /// **Taratura del 3 agosto 2026, col corpo al tetto di 220 punti**, cioe' da
+  /// quando la scena occupa lo spazio che avanza invece di stare a 96 fissi.
+  /// Rimisurati con lo stesso metodo differenziale:
+  ///
+  ///   disco lunare      48.400 pixel (riempie il quadrato, 220 per 220)
+  ///   emblema del segno 21.097 pixel
+  ///   punto luminoso     6.182 pixel (il caso PIU' POVERO dei tre)
+  ///
+  /// La soglia sale a 3.700, sempre poco meno del sessanta per cento del caso
+  /// peggiore: abbastanza bassa da non cadere per un antialiasing diverso,
+  /// abbastanza alta da non poter essere raggiunta da un'ombra o da due righe
+  /// di testo, che era esattamente cio' che la scena mostrava prima.
+  ///
+  /// **Il numero che ha svelato una prova che non provava.** Alla prima
+  /// rimisurazione il disco lunare dipingeva 6.182 pixel, cioe' ESATTAMENTE
+  /// quanti il punto luminoso: la battuta di prova non portava la frazione
+  /// illuminata, quindi la scena cadeva sul punto e questa prova misurava il
+  /// punto credendo di misurare la Luna. Restava verde perche' il numero
+  /// superava la soglia lo stesso. Un caso che non attraversa il suo ramo non
+  /// e' un caso.
+  const sogliaPixel = 3700;
 
-  const misura = ConsultoDelCieloView.misuraDelCorpo;
+  const misura = ConsultoDelCieloView.tettoDelCorpo;
 
   Widget _monta(Widget figlio) => MultiProvider(
         providers: [
@@ -137,6 +149,13 @@ void main() {
         frase: 'prova',
         eGenerale: false,
         ancoraggio: ancoraggio,
+        // LA BATTUTA PORTA LA MISURA DELLA LUNA, altrimenti la scena cade sul
+        // punto e questa prova misura il punto CREDENDO di misurare la Luna.
+        // E' successo davvero: il caso "disco lunare" dipingeva 6.182 pixel,
+        // cioe' esattamente quanti il punto luminoso, e la prova restava verde
+        // perche' il numero superava la soglia lo stesso.
+        luna: const MoonIllumination(
+            fraction: 0.25, waxing: true, elongationDeg: 60),
       );
 
   // Enumerati: i tre tipi di corpo che la scena sa dipingere. Campionarne uno
