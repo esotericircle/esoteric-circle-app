@@ -1,3 +1,4 @@
+import '../astro/celestial.dart';
 import '../astro/zodiac.dart';
 import 'ancoraggio.dart';
 
@@ -18,7 +19,12 @@ sealed class CorpoDelConsulto {
   /// Riusa l'arte che esiste gia' a bundle: i dodici emblemi zodiacali che
   /// l'Oroscopo mostra in testa, e il disco lunare col terminatore vero del
   /// Rito del Sogno. Nessuna arte nuova.
-  static CorpoDelConsulto per(Ancoraggio ancoraggio) {
+  /// [luna] e' la fase reale di nascita, quando questa persona ce l'ha. Senza
+  /// di essa la Luna NON si disegna a caso: si cade sul punto luminoso, come
+  /// per ogni altro dato senza figura. Un disco a mezza luce scritto a mano
+  /// sotto la parola "crescente" e' esattamente il difetto per cui questo
+  /// parametro esiste.
+  static CorpoDelConsulto per(Ancoraggio ancoraggio, {MoonIllumination? luna}) {
     switch (ancoraggio.nome) {
       case 'ascendente':
       case 'segno lunare':
@@ -27,7 +33,7 @@ sealed class CorpoDelConsulto {
         if (segno != null) return CorpoSegno(segno);
         return const CorpoPunto();
       case 'fase lunare di nascita':
-        return const CorpoLuna();
+        return luna == null ? const CorpoPunto() : CorpoLuna(luna);
       default:
         // Numero della vita, fatto di memoria, pianeta di transito: dati veri
         // per cui non esiste arte. Un punto luminoso, come nel cielo.
@@ -52,9 +58,17 @@ class CorpoSegno extends CorpoDelConsulto {
   final Zodiac segno;
 }
 
-/// Il disco lunare con la fase vera e il terminatore, dal Rito del Sogno.
+/// Il disco lunare con la fase vera e il terminatore, da `LunaReale`.
+///
+/// **Porta la misura, non il nome.** Prima era un corpo vuoto e la vista
+/// sceglieva da sola una frazione a mezza luce: il disegno diceva primo quarto
+/// mentre il testo diceva crescente. Adesso la forma e la parola escono dallo
+/// stesso numero.
 class CorpoLuna extends CorpoDelConsulto {
-  const CorpoLuna();
+  const CorpoLuna(this.luce);
+
+  /// La fase illuminata vera del giorno di nascita.
+  final MoonIllumination luce;
 }
 
 /// Un punto luminoso con la sua etichetta, come i corpi senza figura nel cielo.

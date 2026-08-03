@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../../design_system/components/luna_reale.dart';
+
 import '../../../core/astro/moon_phase.dart';
 
 /// La Luna del Santuario, in alto, nella sua fase reale attuale.
@@ -191,21 +193,19 @@ class _MoonPhaseShadowPainter extends CustomPainter {
       return;
     }
 
-    final f = p.fraction;
-    final waxing = p.waxing;
-    final gibbous = p.illumination > 0.5;
-    final rx = math.cos(2 * math.pi * f).abs() * r;
-    final top = Offset(center.dx, center.dy - r);
-    final bottom = Offset(center.dx, center.dy + r);
-    final termClockwise = gibbous ? waxing : !waxing;
-
-    // La porzione illuminata, la stessa geometria del terminatore.
-    final lit = Path()
-      ..moveTo(top.dx, top.dy)
-      ..arcToPoint(bottom, radius: Radius.circular(r), clockwise: waxing)
-      ..arcToPoint(top,
-          radius: Radius.elliptical(rx, r), clockwise: termClockwise)
-      ..close();
+    // LA CURVA VIENE DA `LunaReale`, che e' la sola del progetto.
+    //
+    // Qui c'era una TERZA costruzione del terminatore, con due archi e un
+    // raggio ellittico calcolato a parte. Era coerente in se', e proprio per
+    // questo pericolosa: tre curve che devono restare d'accordo fra loro non
+    // restano d'accordo. Il trattamento resta diverso, perche' qui si vela una
+    // FOTO vera invece di dipingere un disco, ma la forma e' la stessa.
+    final lit = LunaReale.parteIlluminata(
+      center,
+      r,
+      illuminazione: p.illumination,
+      crescente: p.waxing,
+    );
 
     // L'ombra e' il disco meno la porzione illuminata.
     final shadow = Path.combine(PathOperation.difference, circle, lit);

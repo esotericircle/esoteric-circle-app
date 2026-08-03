@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
@@ -120,7 +121,8 @@ void main() {
         ascendant: 'Vergine',
         lifeNumber: 7,
         lifeNumberTitle: 'il Cercatore',
-        moonPhase: 'Luna crescente',
+        moonIllumination: MoonIllumination(
+            fraction: 0.25, waxing: true, elongationDeg: 60),
       );
       final disponibili = VerificaAncoraggio.disponibiliPer(natal: natal);
       expect(disponibili.first.nome, 'ascendente',

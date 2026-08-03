@@ -1,3 +1,4 @@
+import '../../design_system/components/luna_reale.dart';
 import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -201,20 +202,19 @@ class SkyPostcard {
     );
     canvas.drawCircle(
         c, r, Paint()..color = const Color(0xFFF4F1E8).withValues(alpha: 0.18));
-    final f = moon.fraction;
     if (moon.illumination >= 0.02) {
-      final rx = (math.cos(2 * math.pi * f)).abs() * r;
-      final waxing = moon.waxing;
-      final gibbous = moon.illumination > 0.5;
-      final top = Offset(c.dx, c.dy - r);
-      final bottom = Offset(c.dx, c.dy + r);
-      final termClockwise = gibbous ? waxing : !waxing;
-      final lit = Path()
-        ..moveTo(top.dx, top.dy)
-        ..arcToPoint(bottom, radius: Radius.circular(r), clockwise: waxing)
-        ..arcToPoint(top,
-            radius: Radius.elliptical(rx, r), clockwise: termClockwise)
-        ..close();
+      // LA CURVA VIENE DA `LunaReale`, che e' la sola del progetto.
+      //
+      // Questa era la QUARTA costruzione dello stesso terminatore, trovata
+      // misurando per la prova che le enumera invece che ricordandosela. Le
+      // altre tre stavano nel Rito del Sogno, nell'emblema e nell'ombra del
+      // Santuario. Quattro curve che dovevano restare d'accordo fra loro.
+      final lit = LunaReale.parteIlluminata(
+        c,
+        r,
+        illuminazione: moon.illumination,
+        crescente: moon.waxing,
+      );
       canvas.drawPath(
           lit,
           Paint()

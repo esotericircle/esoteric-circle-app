@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/maestro/consulto_del_cielo.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -23,7 +24,8 @@ void main() {
         sunSign: 'Cancro',
         moonSign: 'Pesci',
         ascendant: 'Vergine',
-        moonPhase: 'Luna crescente',
+        moonIllumination: MoonIllumination(
+            fraction: 0.25, waxing: true, elongationDeg: 60),
       );
       final battute = ConsultoDelCielo.battutePer(natal);
       expect(battute.length, ConsultoDelCielo.massimoBattute,

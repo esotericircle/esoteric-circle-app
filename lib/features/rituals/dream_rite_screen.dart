@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../core/astro/moon_phase.dart';
+import '../../design_system/components/luna_reale.dart';
 import '../../core/identity/birth_moon.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
@@ -891,93 +892,19 @@ class _ScenaPainter extends CustomPainter {
       );
     }
 
-    final disco = Path()..addOval(Rect.fromCircle(center: c, radius: r));
-
-    // Luce cinerea: il disco in ombra resta appena illuminato, cosi' anche la
-    // Luna nuova si vede. Nessun contorno netto, solo un bordo sfumato.
-    canvas.drawCircle(
+    // LA LUNA E' UNA SOLA, e sta in `LunaReale`. Questo disegno e' nato qui,
+    // dentro un metodo privato di una classe privata, quindi nessun'altra
+    // superficie poteva usarlo: il consulto ne aveva una seconda versione
+    // semplificata, che mostrava una meta' esatta mentre il testo diceva
+    // "crescente". Adesso il corpo e' quello, e qui resta solo il posto.
+    LunaReale.dipingi(
+      canvas,
       c,
       r,
-      Paint()
-        ..shader = RadialGradient(
-          center: const Alignment(-0.25, -0.3),
-          colors: [
-            const Color(0xFF9DAFD8).withValues(alpha: 0.24 * vis),
-            const Color(0xFF56668F).withValues(alpha: 0.10 * vis),
-          ],
-        ).createShader(Rect.fromCircle(center: c, radius: r)),
+      illuminazione: fase.illumination,
+      crescente: fase.waxing,
+      visibilita: vis,
     );
-    canvas.drawCircle(
-      c,
-      r * 0.97,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = r * 0.12
-        ..color = const Color(0xFFB9CBF2).withValues(alpha: 0.18 * vis)
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.12),
-    );
-
-    // La parte illuminata, dalla fase reale: mezzo disco combinato con
-    // l'ellisse del terminatore.
-    final ill = fase.illumination.clamp(0.0, 1.0);
-    var a = r * (2 * ill - 1).abs();
-    // A Luna nuova la falce sarebbe sotto il pixel: le si lascia uno spessore
-    // minimo, cosi' resta una falce sottile invece di sparire del tutto.
-    if (ill < 0.5) {
-      final minimo = math.max(2.0, r * 0.07);
-      a = math.min(a, r - minimo);
-    }
-    final meta = Path()
-      ..addRect(Rect.fromLTRB(
-        fase.waxing ? c.dx : c.dx - r,
-        c.dy - r,
-        fase.waxing ? c.dx + r : c.dx,
-        c.dy + r,
-      ));
-    final metaDisco = Path.combine(PathOperation.intersect, disco, meta);
-    final ellisse = Path()
-      ..addOval(Rect.fromCenter(center: c, width: 2 * a, height: 2 * r));
-    final ellisseDisco = Path.combine(PathOperation.intersect, disco, ellisse);
-    final illuminata = ill >= 0.5
-        ? Path.combine(PathOperation.union, metaDisco, ellisseDisco)
-        : Path.combine(PathOperation.difference, metaDisco, ellisseDisco);
-
-    canvas.drawPath(
-      illuminata,
-      Paint()
-        ..shader = RadialGradient(
-          center: const Alignment(-0.2, -0.3),
-          colors: [
-            const Color(0xFFFFFDF6).withValues(alpha: 0.98 * vis),
-            const Color(0xFFDCE3F4).withValues(alpha: 0.88 * vis),
-          ],
-        ).createShader(Rect.fromCircle(center: c, radius: r)),
-    );
-    // Bagliore sopra la parte illuminata.
-    canvas.drawPath(
-      illuminata,
-      Paint()
-        ..color = Colors.white.withValues(alpha: 0.22 * vis)
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.28),
-    );
-
-    // Qualche mare lunare appena accennato, dentro il disco.
-    canvas.save();
-    canvas.clipPath(disco);
-    final mari = math.Random(9);
-    for (var i = 0; i < 5; i++) {
-      final mc = c +
-          Offset((mari.nextDouble() - 0.5) * 1.4 * r,
-              (mari.nextDouble() - 0.5) * 1.4 * r);
-      canvas.drawCircle(
-        mc,
-        r * (0.16 + mari.nextDouble() * 0.2),
-        Paint()
-          ..color = const Color(0xFF9AA8C8).withValues(alpha: 0.16 * vis)
-          ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.14),
-      );
-    }
-    canvas.restore();
   }
 
   @override

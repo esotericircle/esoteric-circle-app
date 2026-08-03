@@ -1,3 +1,4 @@
+import '../astro/celestial.dart';
 import '../astro/natal_chart.dart';
 import '../identity/natal_identity.dart';
 
@@ -16,7 +17,7 @@ class NatalContext {
     this.ascendant,
     this.lifeNumber,
     this.lifeNumberTitle,
-    this.moonPhase,
+    this.moonIllumination,
   });
 
   /// Costruisce il contesto dai fatti gia' calcolati: il segno solare, lunare e
@@ -30,7 +31,7 @@ class NatalContext {
       ascendant: chart?.ascendant?.italianName,
       lifeNumber: facts?.lifeNumber,
       lifeNumberTitle: facts?.lifeTitle,
-      moonPhase: facts?.moonPhaseName,
+      moonIllumination: facts?.moonPhase,
     );
   }
 
@@ -53,8 +54,26 @@ class NatalContext {
   /// Titolo del numero della vita, per esempio "il Costruttore".
   final String? lifeNumberTitle;
 
-  /// Fase lunare di nascita, per esempio "Luna crescente".
-  final String? moonPhase;
+  /// LA FASE LUNARE DI NASCITA, come dato e non come parola.
+  ///
+  /// Qui c'era il solo NOME, una stringa. Il nome poteva quindi esistere senza
+  /// il dato da cui nasce, ed e' esattamente cio' che e' successo: la scena del
+  /// consulto mostrava un disco a mezza luce scritto a mano, con accanto la
+  /// parola "crescente" che veniva da un'altra strada. Due fonti per la stessa
+  /// Luna, e una diceva il falso.
+  ///
+  /// Adesso il campo e' la frazione illuminata vera, e il nome si RICAVA. Non
+  /// esiste piu' modo di dichiarare una fase senza portarne la misura.
+  final MoonIllumination? moonIllumination;
+
+  /// Il nome italiano della fase, DERIVATO dalla misura qui sopra.
+  ///
+  /// Non e' un campo: se lo fosse, qualcuno potrebbe scrivere "Luna crescente"
+  /// accanto a una Luna piena, e nessuna prova se ne accorgerebbe.
+  String? get moonPhase {
+    final luce = moonIllumination;
+    return luce == null ? null : phaseNameOf(luce);
+  }
 
   /// Vero quando non c'e' alcun dato da passare: il prompt non riceve nulla e la
   /// risposta resta sul solo tema, senza personalizzazione.
@@ -64,5 +83,5 @@ class NatalContext {
       (ascendant == null || ascendant!.trim().isEmpty) &&
       lifeNumber == null &&
       (lifeNumberTitle == null || lifeNumberTitle!.trim().isEmpty) &&
-      (moonPhase == null || moonPhase!.trim().isEmpty);
+      moonIllumination == null;
 }

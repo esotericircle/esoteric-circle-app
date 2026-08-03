@@ -1,3 +1,4 @@
+import '../astro/celestial.dart';
 import 'ancoraggio.dart';
 import 'lente_del_cielo.dart';
 import 'maestro.dart';
@@ -11,6 +12,7 @@ class BattutaDelConsulto {
     required this.frase,
     required this.eGenerale,
     this.ancoraggio,
+    this.luna,
   });
 
   /// Il dato da cui nasce, quando ce n'e' uno. La vista lo usa per scegliere
@@ -29,6 +31,11 @@ class BattutaDelConsulto {
   /// Vero quando la battuta NON e' di questa persona ma del cielo di tutti.
   /// Serve alla vista per dirlo invece di lasciarlo credere.
   final bool eGenerale;
+
+  /// La fase lunare vera di nascita, quando c'e'. Viaggia con la battuta perche'
+  /// il disco si disegni dalla stessa misura da cui e' nato il suo nome: la
+  /// vista non deve poter scegliere una frazione per conto proprio.
+  final MoonIllumination? luna;
 
   @override
   String toString() => '$corpo: $frase';
@@ -99,6 +106,7 @@ class ConsultoDelCielo {
             : LenteDelCielo.battuta(maestro, ancoraggio),
         eGenerale: false,
         ancoraggio: ancoraggio,
+        luna: natal.moonIllumination,
       ));
     }
 
@@ -120,6 +128,7 @@ class ConsultoDelCielo {
           // lasciarla credere personale.
           eGenerale: ereditato == null,
           ancoraggio: ereditato?.ancoraggio,
+          luna: ereditato?.luna,
         ));
       }
     }

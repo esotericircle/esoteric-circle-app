@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
@@ -565,6 +566,9 @@ void main() {
   const statiDelConsulto = <String, ({NatalContext natal, bool fermo})>{
     'consulto_ascendente': (natal: _cartaPiena, fermo: false),
     'consulto_luna': (natal: _soloFaseLunare, fermo: false),
+    // LA STESSA LUNA IN UNA SECONDA FASE, perche' una fase sola non prova che
+    // il disco segua il dato: proverebbe solo che quel disegno esiste.
+    'consulto_luna_gibbosa': (natal: _gibbosaCalante, fermo: false),
     'consulto_senza_carta': (natal: NatalContext.none, fermo: false),
     'consulto_riduci_movimento': (natal: _cartaPiena, fermo: true),
   };
@@ -1058,7 +1062,16 @@ const _ancoraggioDellaLente =
     Ancoraggio(nome: 'segno lunare', valore: 'Cancro');
 
 /// Solo la fase lunare, per fotografare il disco della Luna col terminatore.
-const _soloFaseLunare = NatalContext(moonPhase: 'Luna crescente');
+const _soloFaseLunare = NatalContext(
+    moonIllumination:
+        MoonIllumination(fraction: 0.25, waxing: true, elongationDeg: 60));
+
+/// La stessa persona con una Luna diversa: gibbosa calante, elongazione 240
+/// gradi, cioe' tre quarti di disco accesi dall'altro lato. Serve a far vedere
+/// che il disco SEGUE il numero invece di essere sempre lo stesso disegno.
+const _gibbosaCalante = NatalContext(
+    moonIllumination:
+        MoonIllumination(fraction: 0.75, waxing: false, elongationDeg: 240));
 
 const _cartaPiena = NatalContext(
   sunSign: 'Cancro',

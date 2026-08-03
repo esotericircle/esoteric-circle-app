@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/astro/celestial.dart';
 import '../../core/maestro/consulto_del_cielo.dart';
 import '../../core/maestro/corpo_del_consulto.dart';
 import '../../core/maestro/maestro.dart';
@@ -203,7 +202,7 @@ class CorpoDelConsultoDipinto extends StatelessWidget {
     final ancoraggio = battuta.ancoraggio;
     final corpo = ancoraggio == null
         ? const CorpoPunto()
-        : CorpoDelConsulto.per(ancoraggio);
+        : CorpoDelConsulto.per(ancoraggio, luna: battuta.luna);
 
     switch (corpo) {
       case CorpoSegno(:final segno):
@@ -213,17 +212,19 @@ class CorpoDelConsultoDipinto extends StatelessWidget {
           sign: segno,
           size: misura,
         );
-      case CorpoLuna():
-        // Il disco lunare col terminatore vero, dal Rito del Sogno. La frazione
-        // esatta della nascita non e' fra i dati che arrivano qui: si mostra il
-        // disco a mezza luce senza asserire una frazione che non abbiamo.
+      case CorpoLuna(:final luce):
+        // LA FORMA E LA PAROLA DALLO STESSO NUMERO.
+        //
+        // Qui c'era `fraction: 0.5` scritto a mano, con accanto un commento
+        // che ammetteva di non avere il dato vero: il disco usciva una meta'
+        // esatta, cioe' un primo quarto, mentre sotto si leggeva "La Luna
+        // crescente sotto cui sei nato". Adesso la frazione arriva con la
+        // battuta, ed e' la stessa da cui `NatalContext.moonPhase` ricava il
+        // nome. Senza quella misura non si disegna nessuna Luna: si cade sul
+        // punto luminoso, gia' dentro `CorpoDelConsulto.per`.
         return MoonPhaseEmblem(
           key: const Key('consulto_corpo'),
-          phase: const MoonIllumination(
-            fraction: 0.5,
-            waxing: true,
-            elongationDeg: 90,
-          ),
+          phase: luce,
           size: misura,
           animate: !fermo,
         );

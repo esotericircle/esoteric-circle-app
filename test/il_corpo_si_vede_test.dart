@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/ancoraggio.dart';
 import 'package:esoteric_circle/core/maestro/consulto_del_cielo.dart';
@@ -189,9 +190,23 @@ void main() {
           const Ancoraggio(nome: 'ascendente', valore: 'Vergine')),
       isA<CorpoSegno>(),
     );
+    // LA LUNA SI DISEGNA SOLO SE ARRIVA LA SUA MISURA.
+    //
+    // Senza, la vista sceglieva una mezza luce per conto suo e il disco diceva
+    // primo quarto sotto la parola "crescente". Adesso senza misura si cade sul
+    // punto luminoso, che e' il ripiego DICHIARATO: mai un disegno inventato.
     expect(
       CorpoDelConsulto.per(
           const Ancoraggio(nome: 'fase lunare di nascita', valore: 'Luna')),
+      isA<CorpoPunto>(),
+      reason: 'senza la frazione illuminata non si disegna nessuna Luna',
+    );
+    expect(
+      CorpoDelConsulto.per(
+        const Ancoraggio(nome: 'fase lunare di nascita', valore: 'Luna'),
+        luna: const MoonIllumination(
+            fraction: 0.25, waxing: true, elongationDeg: 60),
+      ),
       isA<CorpoLuna>(),
     );
     // Un dato vero senza arte NON resta vuoto: un punto, come nel cielo.
