@@ -1,6 +1,6 @@
 # RIPRESA
 
-## ORDINE F: CHIUSE LE VOCI 1 e 2. La VOCE 3, l'Eco, NON e' cominciata
+## ORDINE F: CHIUSO PER INTERO, tutte e tre le voci
 
 Il 3 agosto 2026. **Fermato al confine di una voce, come l'ordine chiede**, e
 dichiarato prima di cominciare invece che alla fine.
@@ -61,14 +61,46 @@ l'assenza del testo dall'albero: la riga raccolta porta il testo intero e lo
 tronca con l'ellissi, e cercarlo lo troverebbe comunque. Cio' che cambia, e che
 la persona vede, e' QUANTE RIGHE se ne leggono.
 
-**VOCE 3, L'ECO: NON COMINCIATA.** E' da sola piu' grande delle altre due messe
-insieme: parola derivata dalla chiusura del Maestro, persistenza, confine di
-mezzanotte locale, posa nella striscia del Cerchio, riga di provenienza sia
-quando si posa sia quando ricompare, pannello "Da dove nasce questo dono",
-riapertura della chat col contesto, condivisione, piu' sei prove con prova di
-vista su ognuna. **Si riprende da qui.**
+**VOCE 3, L'ECO: CHIUSA.**
 
-**Consegna:** suite verde a 1474, analyze pulito, build 2137 su App
+**La misura ha cambiato il disegno, ed e' stata presa PRIMA di costruirci
+sopra.** Riconoscendo la parola nella chiusura com'era scritta, l'Eco nasceva
+**10 volte su 20**, e distribuita malissimo: Caligo 7 su 7, perche' la sua
+chiusura consegna gia' una runa per nome, Medora 2 su 7 e Aura 1 su 6. Sarebbe
+stata la funzione di Caligo. La correzione sta in cio' che l'ordine dice: la
+parola **la nomina LUI**. La persona chiede a ciascun Maestro di nominarne una
+fra quelle che ha gia', il suo lessico di firma, oppure fra i nomi che l'app
+conosce: nessun elenco nuovo, e la forma della chiusura non cambia. Rimisurato:
+**17 su 20**, Medora 5, Aura 6, Caligo 6. Attribuzione cieca rieseguita dopo
+aver toccato la persona: **98,3 per cento**, con Medora e Aura al 100.
+
+**Il confine di mezzanotte adesso vive in un punto solo.** Stava dentro un
+metodo privato di `QuestionAllowance`, e l'Eco aveva bisogno dello stesso
+confine: copiarlo voleva dire i contatori che ribaltano in un momento e l'Eco in
+un altro. Il confine RITUALE, a mezzogiorno, resta un'altra cosa, e il file lo
+dice accanto.
+
+**La persona sa perche', e sono tre cose diverse:** la riga con cui il Maestro
+la lascia, che e' SUA e dice cosa succede domani; la riga nella striscia, che
+dice da chi viene; il pannello "Da dove nasce questo dono", che dichiara la
+provenienza dalla chiusura, mostra la riga VERA per esteso e dice da quale
+conversazione.
+
+**Undici prove del rosso**, e due sono rimaste verdi al primo colpo: una
+guardava l'esito invece del meccanismo, e un'altra non distingueva l'ultima
+bolla dall'ultima lettura viva perche' il testo di un ripiego non porta comunque
+nessuna parola nominabile. Corrette tutte e due.
+
+**Tre regole di casa hanno preso il mio codice prima che lo facessi io:** una
+virgola prima di "ed", due catch muti in `ArchivioDellEco` e tre misure
+tipografiche sotto il minimo del token.
+
+**Un errore da scrivere:** la chiusura la prendevo da `treStratiDa().invite`,
+che resta VUOTO con meno di tre frasi. La chiusura invece esiste sempre finche'
+esiste una frase: e' l'ULTIMA, e basta. Se n'e' accorta la prova dell'Eco su una
+risposta di due frasi.
+
+**Consegna:** suite verde a 1495, analyze pulito, build 2138 su App
 Distribution.
 
 ## ORDINE E: CHIUSO PER INTERO, tutte e tre le voci
