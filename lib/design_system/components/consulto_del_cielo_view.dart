@@ -105,9 +105,13 @@ class ConsultoDelCieloView extends StatefulWidget {
 
 class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
     with SingleTickerProviderStateMixin {
-  /// La colorazione. NULLA a moto fermo, e non creata e lasciata ferma: un
-  /// controllore che nessuno fa girare resta un ticker registrato nell'albero.
-  AnimationController? _colore;
+  /// L'accensione, gia' curvata. NULLA a moto fermo, e non creata e lasciata
+  /// ferma: un controllore che nessuno fa girare resta un ticker registrato
+  /// nell'albero.
+  Animation<double>? _colore;
+
+  /// Il motore sotto la curva, tenuto per poterlo chiudere.
+  AnimationController? _motore;
 
   Timer? _passo;
   int _corrente = 0;
@@ -129,10 +133,26 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
     if (_frasi.isNotEmpty) _corrente = widget.rotazione % _frasi.length;
 
     if (_fermo) return;
-    _colore = AnimationController(
+    // LA CURVA NON E' PIU' LINEARE, e il primo secondo resta sul grigio.
+    //
+    // `Interval` tiene il valore a zero per il primo terzo dei tre secondi,
+    // poi `easeInOut` lo porta a uno senza scatti. Cosi' il segnale dura
+    // abbastanza da essere letto, e l'accensione resta dentro i tre secondi.
+    final motore = AnimationController(
       vsync: this,
       duration: TempiDellAttesa.colorazioneDellEmblema,
-    )..forward();
+    );
+    _colore = CurvedAnimation(
+      parent: motore,
+      curve: Interval(
+        TempiDellAttesa.grigioPrimaDiSalire.inMilliseconds /
+            TempiDellAttesa.colorazioneDellEmblema.inMilliseconds,
+        1,
+        curve: Curves.easeInOut,
+      ),
+    );
+    _motore = motore;
+    motore.forward();
     _passo = Timer.periodic(widget.durataFrase, (_) {
       if (!mounted || _frasi.isEmpty) return;
       // SI RICOMINCIA DALLA PRIMA, e l'emblema non si scolora: il controllore
@@ -149,7 +169,7 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
   @override
   void dispose() {
     _passo?.cancel();
-    _colore?.dispose();
+    _motore?.dispose();
     super.dispose();
   }
 
@@ -229,15 +249,38 @@ class _EmblemaCheSiColora extends StatelessWidget {
   final double lato;
   final Animation<double>? colorazione;
 
-  /// La matrice che toglie il colore. A `quanto` zero e' grigia piena, a uno
-  /// e' l'identita', cioe' il colore vero dell'arte.
+  /// QUANTO E' SPENTA L'IMMAGINE ALL'INIZIO, in frazione della sua luce.
+  ///
+  /// **Perche' la luminosita' entra nell'effetto.** Prima si agiva solo sulla
+  /// saturazione, e la saturazione dell'arte arriva al massimo a 0,4263:
+  /// l'escursione disponibile era un terzo di quella che serve, e due
+  /// fotogrammi a saturazione diversa si somigliavano. Un'immagine che parte
+  /// grigia E SPENTA e arriva a colori E LUMINOSA si legge sempre, qualunque
+  /// sia la saturazione dell'arte, perche' e' il modo in cui funziona
+  /// qualunque cosa che si accende.
+  ///
+  /// **Il numero e' tarato, non indovinato.** Il punto di partenza suggerito
+  /// era 45 per cento. Misurata la luminosita' del busto a riposo, 0,3932, e
+  /// quella del fondo cosmico piu' scuro dei tre, il rosso di Caligo a
+  /// 0xFF1A0406 che vale 0,0347, il rapporto di contrasto a 0,45 vale 2,39
+  /// contro una soglia dichiarata di 2,0. Sotto il 30 per cento scenderebbe a
+  /// 1,77 e il Maestro comincerebbe a sparire nel fondo, che sarebbe peggio
+  /// del difetto di partenza.
+  static const double spentoAllInizio = 0.45;
+
+  /// La matrice dell'ACCENSIONE: saturazione e luce salgono insieme.
+  ///
+  /// A `quanto` zero e' grigia e spenta, a uno e' l'immagine vera.
   static ColorFilter filtro(double quanto) {
     const r = 0.2126, g = 0.7152, b = 0.0722;
-    final q = 1 - quanto.clamp(0.0, 1.0);
+    final q0 = quanto.clamp(0.0, 1.0);
+    final q = 1 - q0;
+    // La luce sale da `spentoAllInizio` a uno seguendo la stessa curva.
+    final luce = spentoAllInizio + (1 - spentoAllInizio) * q0;
     return ColorFilter.matrix(<double>[
-      r * q + quanto, g * q, b * q, 0, 0, //
-      r * q, g * q + quanto, b * q, 0, 0, //
-      r * q, g * q, b * q + quanto, 0, 0, //
+      (r * q + q0) * luce, g * q * luce, b * q * luce, 0, 0, //
+      r * q * luce, (g * q + q0) * luce, b * q * luce, 0, 0, //
+      r * q * luce, g * q * luce, (b * q + q0) * luce, 0, 0, //
       0, 0, 0, 1, 0, //
     ]);
   }

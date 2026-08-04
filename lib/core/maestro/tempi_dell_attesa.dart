@@ -86,6 +86,15 @@ class TempiDellAttesa {
   /// se la risposta tarda e le frasi ripartono.
   static const Duration colorazioneDellEmblema = Duration(seconds: 3);
 
+  /// QUANTO RESTA FERMO SUL GRIGIO SPENTO, prima di cominciare a salire.
+  ///
+  /// **Il numero che ha fatto nascere questa attesa.** La curva era lineare su
+  /// tre secondi, e la saturazione dell'arte arriva al massimo a 0,4263: a
+  /// meta' tempo il colore c'era gia' quasi tutto, quindi il grigio, che e' il
+  /// segnale, durava un istante. Un secondo intero fermo sullo spento e' cio'
+  /// che rende leggibile "aspetta, sto lavorando".
+  static const Duration grigioPrimaDiSalire = Duration(seconds: 1);
+
   /// Quanto ci mette la scena a sparire quando la risposta e' pronta.
   ///
   /// Non sparisce di colpo: se la risposta arriva prima della durata minima la

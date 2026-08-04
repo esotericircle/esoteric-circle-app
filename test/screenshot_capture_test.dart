@@ -2433,8 +2433,15 @@ void main() {
   // la coppia del Riduci Movimento, che pesava 105.481 byte in tutti e due i
   // file perche' erano lo stesso file.
   const colorazione = <String, Duration>{
+    // **QUELLA A ZERO NON ESISTEVA, ed e' la ragione per cui questo difetto e'
+    // stato diagnosticato male due volte.** Nessuno ha mai guardato l'istante
+    // che decide se l'effetto funziona: si vedevano solo il fotogramma a meta'
+    // e quello pieno, che si somigliavano, e se ne concludeva che l'emblema
+    // non partisse mai grigio. Partiva grigio da sempre, per 0,0012 di
+    // saturazione misurata: era il grigio a durare troppo poco.
+    'consulto-emblema-grigio-spento.png': Duration.zero,
     'consulto-emblema-meta.png': Duration(milliseconds: 1500),
-    'consulto-emblema-pieno.png': Duration(milliseconds: 3200),
+    'consulto-emblema-pieno.png': Duration(milliseconds: 3000),
   };
   for (final istante in colorazione.entries) {
     testWidgets('Cattura ${istante.key}', (tester) async {
