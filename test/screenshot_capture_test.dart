@@ -615,6 +615,20 @@ void main() {
     // preview invece dell'icona di ripiego che sta dietro l'anello.
     await precacheFaces(tester);
     await capture(tester, rootKey, 'chiedi-ai-maestri.png');
+
+    // E LA SINTESI, CHE ADESSO STA IN FONDO.
+    //
+    // Due immagini e non una, perche' la novita' e' proprio l'ordine: in cima
+    // le tre carte, e la sintesi dove un confronto si conclude. Prima stava
+    // sopra e da sola occupava tutto il primo schermo, quindi aprendo il
+    // Consiglio non si vedevano tre Maestri, si vedeva un muro di testo.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('ask_synthesis')),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await step(tester);
+    await capture(tester, rootKey, 'consiglio-sintesi-in-fondo.png');
   });
 
   // --- Il Test Archetipo di Aura: il responso, visivo prima del testo ---
@@ -2550,6 +2564,90 @@ void main() {
     });
   }
 
+  // --- LA RISPOSTA ARRIVATA, E LA FRECCIA CHE RIVELA IL SECONDO STRATO ---
+  //
+  // **Perche' questa immagine esiste.** "Vai piu' a fondo" buttava la risposta
+  // appena letta e ne chiedeva un'altra al Maestro: la freccia in giu'
+  // prometteva "qui sotto c'e' altro testo" ed era vera come intenzione, falsa
+  // come funzionamento. Dal 4 agosto 2026 il Maestro scrive la lettura intera
+  // in una generazione sola, la chat ne mostra il primo strato, e la freccia
+  // scopre il resto senza nessuna seconda attesa.
+  //
+  // Due fotogrammi, prima e dopo il tocco: la novita' e' esattamente la
+  // differenza fra i due.
+  for (final dopoIlTocco in const [false, true]) {
+    final nome = dopoIlTocco
+        ? 'chat-secondo-strato-rivelato.png'
+        : 'chat-freccia-dell-approfondimento.png';
+    testWidgets('Cattura $nome', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final memory = InMemoryMaestroMemoryRepository();
+      await memory
+          .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+      final services = AppServices(
+        ai: _VoceInDueStrati(),
+        memory: memory,
+        memoryPersistent: true,
+        diagnostics: 'Cattura offline.',
+      );
+      final rootKey = await mount(tester, services);
+      tester
+          .element(find.byType(MaterialApp))
+          .read<BirthIdentityController>()
+          .setBirth(
+            BirthDetails(
+              date: DateTime(1990, 8, 10),
+              time: const TimeOfDay(hour: 12, minute: 0),
+              place: const astro.BirthPlace(
+                  label: 'Roma',
+                  latitude: 41.9,
+                  longitude: 12.5,
+                  timezone: 'Europe/Rome'),
+            ),
+            NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+          );
+      await step(tester);
+      await openChat(tester, Maestro.medora);
+      await precacheFaces(tester);
+      // IL GLIFO DEL SEGNO, precaricato a mano.
+      //
+      // Accanto ai messaggi della persona c'e' il simbolo del suo segno, non
+      // la sua iniziale. Le catture locali non decodificano gli asset da sole,
+      // e senza questa riga nell'anteprima restava un tondo dorato vuoto: un
+      // difetto della cattura, non dell'app, ma un'anteprima che mostra un
+      // buco e' un'anteprima che dice il falso.
+      await tester.runAsync(() async {
+        final el = tester.element(find.byType(MaterialApp));
+        // Tutte e due le arti del segno: il tondo accanto ai messaggi usa
+        // l'emblema grande, la scena dell'attesa la miniatura.
+        await precacheImage(AssetImage(ZodiacArt.emblemPath(Zodiac.leo)), el);
+        await precacheImage(AssetImage(ZodiacArt.symbolPath(Zodiac.leo)), el);
+      });
+      await step(tester);
+
+      final campo = find.descendant(
+        of: find.byType(ChatComposer),
+        matching: find.byType(TextField),
+      );
+      await tester.enterText(campo, 'Devo cambiare lavoro?');
+      await step(tester);
+      await tester.testTextInput.receiveAction(TextInputAction.send);
+      // La pausa minima piu' la scrittura a macchina da scrivere.
+      for (var i = 0; i < 30; i++) {
+        await step(tester);
+      }
+      if (dopoIlTocco) {
+        await tester.tap(find.byKey(const Key('chat_approfondisci')));
+        for (var i = 0; i < 6; i++) {
+          await step(tester);
+        }
+      }
+      await precacheFaces(tester);
+      await capture(tester, rootKey, nome);
+    });
+  }
+
   // --- La chat RIAPERTA dopo un turno fallito ---
   //
   // **Il dato che ha fatto nascere questa cattura.** Negli screenshot del
@@ -3224,6 +3322,64 @@ class _ScriptedMaestro implements MaestroAiProvider {
 
 /// Non risponde mai: serve a fotografare la scena del consulto, che vive solo
 /// mentre la risposta e' in volo.
+/// Una voce che consegna una lettura INTERA, cioe' con un secondo strato
+/// dentro: e' il solo caso in cui la freccia dell'approfondimento compare,
+/// perche' sotto una lettura breve non c'e' niente da rivelare.
+class _VoceInDueStrati implements MaestroAiProvider {
+  @override
+  bool get isReady => true;
+
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<ChatMessage> history,
+    required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
+    bool aDueStrati = true,
+  }) async =>
+      'Il tuo Sole in Leone chiede di essere visto prima di chiedere una '
+      'strada. Quello che senti come stanchezza è un confine che si sposta, '
+      'non una porta che si chiude. Guarda dove ti fermi a respirare: quella '
+      'è la direzione.\n\n'
+      'Sotto la superficie lavora un secondo movimento, più lento, che dura '
+      'da mesi senza chiedere il tuo permesso. Non è la scelta a spaventarti, '
+      'è quello che la scelta rende definitivo. La tua Luna in Pesci ti dice '
+      'che il tempo qui non è nemico: aspetta la prossima luna nuova e '
+      'rileggi queste stesse parole. Il cielo inclina, e la mano che sceglie '
+      'resta la tua, sempre, anche quando pesa.';
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) =>
+      Completer<MaestroReply>().future;
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) =>
+      Completer<String>().future;
+
+  @override
+  Future<MemoryDigest?> distill({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory previous,
+    required List<ChatMessage> history,
+  }) async =>
+      null;
+}
+
 class _VoceCheFaAspettare implements MaestroAiProvider {
   @override
   bool get isReady => true;

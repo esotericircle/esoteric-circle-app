@@ -1331,6 +1331,76 @@ il testo, o si alza la striscia, o l'etichetta va su una riga sola con
   fallisce per un'eccezione asincrona anche se il motore la cattura. Le regole
   del suono si verificano sul codice, dichiarandolo.
 
+## ORDINE CHAT 9, chiuso il 4 agosto 2026
+
+Quattro voci, tutte e quattro chiuse. Undici premesse verificate prima di
+toccare codice, tutte vere. Trentaquattro prove del rosso, quattro rimaste
+verdi e tutte diagnosticate.
+
+### Cosa NON e' il massimo, ovvero cosa resta da fare
+
+- **Nessuno ha misurato quanto dura il giro completo del Consiglio.** Tre
+  chiamate in fila fanno un'attesa che e' la somma delle tre: con la rete
+  mediana misurata a 1,41 secondi sono oltre quattro secondi prima che la terza
+  carta si riempia. Non esiste un numero misurato che dica se quella somma sta
+  dentro cio' che una persona sopporta. E' lo stesso debito dell'ordine 8,
+  ancora aperto.
+- **La lettura intera non e' mai stata misurata sulla rete vera.** I 350 token
+  di uscita sono il conto della voce, non una misura: dieci risposte a
+  centottanta parole chieste direbbero quanto costa davvero e quanto ci mette.
+  Il tetto al testo completo e' dieci secondi.
+- **Aura senza archetipo non ha simbolo.** Il fiore di loto non esiste. Non
+  ho voluto metterci il simbolo di un altro Maestro. Serve o l'asset del loto,
+  o un simbolo del dominio di Aura che oggi manca del tutto.
+- **La terza carta del Consiglio sta sotto la piega.** Le tre esistono dal
+  primo fotogramma, ma per vedere Aura si scorre.
+
+### Il debito dell'ordine 8, ovvero come e' stato pagato
+
+Il fondatore aveva scritto che con tre chiamate sequenziali l'attesa e' la
+somma delle tre e va misurata. Non e' stato fatto nemmeno in questo giro: non
+era nelle quattro voci. Aprirlo avrebbe voluto dire lasciare a meta' una voce
+chiesta.
+
+### Prove del rosso rimaste verdi, con cio' che hanno trovato
+
+1. **La finestra di prova vale 800 per 600.** Su quella larghezza il dominio
+   aveva 544 punti invece di 104,84: nessun testo si tagliava, quindi la prova
+   che rimetteva il difetto restava verde. **Un difetto di spazio si misura
+   solo sullo spazio vero**: le prove del Consiglio aprono a 360 per 797 con
+   rapporto 3.
+2. **Un finto che risponde dentro lo stesso fotogramma non ha uno stato di
+   attesa.** Il ciclo che sorvegliava le carte in attesa girava a vuoto. Adesso
+   la voce finta ci mette due secondi, come la rete misurata. In tutti i cicli
+   con un `continue` che salta in silenzio ora si conta quante volte si e'
+   guardato davvero, cadendo se e' zero.
+3. **Vicinanza non e' contenimento.** La prova sulle frecce toccabili leggeva
+   venti righe sopra e sotto. In un `build` denso prendeva l'`onTap` del
+   pulsante accanto. Adesso risale la catena degli antenati per rientro.
+4. **La riga non e' l'unita' giusta per cercare una frase.** Rimettendo il
+   disclaimer spezzato su due righe, come il formattatore Dart spezza ogni
+   frase lunga, la prova restava verde. Adesso il file si legge tutto, si
+   tolgono i commenti e si ricuciono i letterali adiacenti.
+
+### Due prove vecchie dicevano il falso, dopo essere state scritte da noi
+
+- `passaporto_dietro_il_velo_test` diceva che l'Archetipo "non e' un dato del
+  passaporto" e doveva restare dietro il velo, mentre il suo Test esiste da
+  mesi.
+- `art_catalog_test` diceva che il dominio va scritto coi punti medi.
+
+Una prova che sorveglia una scelta sbagliata la difende. Vanno riscritte, non
+aggirate.
+
+### Un errore di processo, non di codice
+
+Ho usato `git checkout` su un file per annullare un'iniezione diagnostica,
+dimenticando che lo stesso file aveva un'ora di lavoro non ancora committato.
+L'ho rifatto da uno script, ma sono stati venti minuti buttati. **Le iniezioni
+diagnostiche si annullano riscrivendo il byte esatto che si era cambiato**,
+come fa lo strumento delle prove del rosso, mai con un comando che parla di
+tutto il file.
+
 ## Cose sapute che fanno perdere tempo se si riscoprono
 
 - La specifica del Livello Sensoriale sta nel Project di Claude e NON e' nel
@@ -1346,3 +1416,11 @@ il testo, o si alza la striscia, o l'etichetta va su una riga sola con
   Meglio lo strumento di scrittura file.
 - `DepthCard` richiede `QualityTierController` nell'albero: i test che montano
   tessere devono fornirlo.
+- Nei test che montano `EsotericCircleApp` per arrivare a una schermata interna
+  serve seminare `{'onboarding.done': true}`: senza, l'app parte dal Risveglio,
+  che e' giusto, quindi non si arriva da nessuna parte.
+- La chat e il Consiglio chiedono `ArchetypeHistory` nell'albero, dal 4 agosto
+  2026: e' il simbolo di Aura nell'attesa.
+- Le catture locali non decodificano gli asset da sole. Il tondo accanto ai
+  messaggi della persona usa l'emblema GRANDE del segno, la scena dell'attesa
+  la miniatura: sono due file diversi, quindi vanno precaricati tutti e due.
