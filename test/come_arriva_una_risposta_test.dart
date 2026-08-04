@@ -706,6 +706,9 @@ void main() {
         providers: [
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ProfileController()),
+          // La riga del consiglio chiede il cielo di chi legge: le serve per
+          // sapere quale runa scendera' domani sera.
+          ChangeNotifierProvider(create: (_) => BirthIdentityController()),
         ],
         child: MaterialApp(
           home: MaestroScope(

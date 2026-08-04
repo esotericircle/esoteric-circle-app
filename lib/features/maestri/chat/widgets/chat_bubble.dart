@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/chat/chat_message.dart';
 import '../../../../core/chat/immersive_intents.dart';
 import '../../../../core/chat/testo_del_responso.dart';
+import '../../../../core/maestro/consiglio_finale.dart';
 import '../../../../core/maestro/due_strati_della_lettura.dart';
 import '../../../../core/maestro/frase_di_ripiego.dart';
 import '../../../../core/maestro/maestro.dart';
@@ -13,6 +14,7 @@ import '../../../../design_system/components/collasso.dart';
 import '../../../../design_system/components/testo_che_si_scrive.dart';
 import '../../../../design_system/components/user_avatar.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
+import '../../../../design_system/components/riga_del_consiglio.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
@@ -226,7 +228,14 @@ class _ChatBubbleState extends State<ChatBubble> {
                   // superficie che mostra la stessa lettura taglierebbe in un
                   // altro punto, e il primo strato non sarebbe piu' lo stesso
                   // testo a seconda di dove lo si legge.
-                  testo: DueStratiDellaLettura.daMostrare(message.text,
+                  // IL CORPO, SENZA LA RIGA DEL CONSIGLIO.
+                  //
+                  // Il consiglio si toglie da qui e si rimette in fondo alla
+                  // bolla, sotto tutto: e' l'unico modo perche' resti l'ultima
+                  // riga anche dopo che il seguito e' stato rivelato. Un
+                  // consiglio in mezzo al testo non e' piu' un consiglio.
+                  testo: DueStratiDellaLettura.daMostrare(
+                      ConsiglioFinale.corpoDa(message.text),
                       rivelato: message.approfondita),
                   // A RIVELAZIONE FATTA NON SI RISCRIVE.
                   //
@@ -331,6 +340,18 @@ class _ChatBubbleState extends State<ChatBubble> {
                     ),
                   ),
                 ],
+                // IL CONSIGLIO IN ORO, SEMPRE L'ULTIMA RIGA.
+                //
+                // Sta dopo il corpo e dopo il seguito rivelato, e prima dei
+                // comandi: i comandi non sono testo del Maestro, sono cose che
+                // si toccano. Fra tutto cio' che il Maestro ha detto, questa
+                // e' l'ultima.
+                if (!isUser && message.portaUnResponso)
+                  RigaDelConsiglio(
+                    maestro: maestro,
+                    testo: message.text,
+                    quando: message.at ?? DateTime.now(),
+                  ),
                 // LE ALTRE VOCI, dentro la bolla della risposta a cui si
                 // riferiscono.
                 //

@@ -6,6 +6,7 @@ import '../../../core/entitlement/esito_del_turno.dart';
 import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/identity/natal_identity.dart';
 import '../../../core/identity/profile_controller.dart';
+import '../../../core/maestro/consiglio_finale.dart';
 import '../../../core/maestro/consult_depth.dart';
 import '../../../core/maestro/frase_di_ripiego.dart';
 import '../../../core/maestro/maestro.dart';
@@ -13,6 +14,7 @@ import '../../../core/maestro/natal_context.dart';
 import '../../../core/maestro/sorgente_natale.dart';
 import '../../../core/maestro/tempi_dell_attesa.dart';
 import '../../../core/quality/quality_tier.dart';
+import '../../../design_system/components/riga_del_consiglio.dart';
 import '../../../design_system/components/testo_che_si_scrive.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
@@ -821,29 +823,30 @@ class _LensCard extends StatelessWidget {
           // chat: una seconda taratura qui divergerebbe dalla prima al primo
           // ritocco. Ferma a Riduci Movimento e a qualita' bassa, come li'.
           TestoCheSiScrive(
-            testo: lens.reading,
+            // Il corpo senza la riga del consiglio, che si rimette in fondo.
+            testo: ConsiglioFinale.corpoDa(lens.reading),
             attiva: scrive,
             durataMassima: TempiDellAttesa.tettoAlTestoCompleto,
             stile: TypographyTokens.body(size: 17)
                 .copyWith(color: ColorTokens.textPrimary, height: 1.5),
           ),
-          if (lens.invite.trim().isNotEmpty) ...[
-          const SizedBox(height: SpacingTokens.sm),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(Icons.arrow_forward, size: 14, color: palette.goldSoft),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(lens.invite,
-                    style: TypographyTokens.body(size: 14).copyWith(
-                      color: palette.goldSoft,
-                      height: 1.35,
-                    )),
-              ),
-            ],
+          // LA STELLA AL POSTO DELLA FRECCIA, dal 4 agosto 2026.
+          //
+          // Qui c'era `lens.invite` preceduto da una freccia orizzontale, e
+          // quella freccia NON era toccabile: risalendo gli antenati per
+          // rientro, `Row -> Column -> Container -> _LensCard`, non c'era
+          // nessun gesto. Prometteva un altrove e non portava da nessuna
+          // parte. La stella non promette un altrove, dichiara un dono.
+          //
+          // L'invito del Maestro resta dentro il suo testo, dove lui l'ha
+          // scritto: cio' che cambia e' che la riga finale adesso la compone
+          // l'app, sintesi sua piu' un aggancio a cio' che cambia da solo.
+          RigaDelConsiglio(
+            maestro: lens.maestro,
+            testo: lens.reading,
+            quando: DateTime.now(),
+            palette: palette,
           ),
-          ],
           // Stessa dichiarazione della chat, stessa etichetta: se questa
           // lettura non viene dal Maestro, la carta lo dice.
           if (lens.ripiego) ...[

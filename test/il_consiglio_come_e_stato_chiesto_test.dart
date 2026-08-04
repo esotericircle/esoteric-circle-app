@@ -178,6 +178,28 @@ void main() {
         reason: 'non sono stati misurati tutti i domini');
   });
 
+  testWidgets('OGNI carta porta il suo consiglio in oro', (tester) async {
+    // Vale anche dentro il Consiglio del Cerchio, su tutte e tre le carte: e'
+    // la cosa che una persona di fretta legge al posto di tutto il resto, e
+    // qui di testo da leggere ce n'e' tre volte tanto.
+    await apri(tester);
+    await _finoAllaFine(tester);
+    var trovati = 0;
+    for (final m in Maestro.fixedOrder) {
+      await tester.scrollUntilVisible(find.byKey(Key('ask_card_${m.id}')), 200,
+          scrollable: find.byType(Scrollable).first);
+      final riga = find.byKey(Key('consiglio_${m.id}'));
+      expect(riga, findsOneWidget,
+          reason: 'la carta di ${m.displayName} non porta il consiglio');
+      trovati++;
+      // E la stella, non la freccia che non portava da nessuna parte.
+      expect(find.descendant(of: riga, matching: find.byIcon(Icons.arrow_forward)),
+          findsNothing,
+          reason: 'e\' tornata la freccia sulla carta di ${m.displayName}');
+    }
+    expect(trovati, Maestro.fixedOrder.length);
+  });
+
   testWidgets('Ogni "Continua con" ha il colore del SUO Maestro',
       (tester) async {
     await apri(tester);

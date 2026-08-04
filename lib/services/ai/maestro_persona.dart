@@ -2,6 +2,7 @@ import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/testo_del_responso.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/ancoraggio.dart';
+import '../../core/maestro/consiglio_finale.dart';
 import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/lente_del_cielo.dart';
 import '../../core/maestro/maestro.dart';
@@ -251,6 +252,14 @@ class MaestroPersona {
       TestoDelResponso.vincoloDiFormato,
       '',
       regolaDeiDueStrati,
+      '',
+      // IL CONSIGLIO FINALE, in ogni risposta e per ogni livello.
+      //
+      // L'istruzione vive accanto al lettore che la sollevera', in
+      // `ConsiglioFinale`: chi cambia la forma della riga vede subito chi la
+      // legge. Non e' un contenuto premium, e' la cosa che una persona di
+      // fretta legge al posto di tutto il resto.
+      ConsiglioFinale.istruzione,
     ].join('\n');
   }
 
