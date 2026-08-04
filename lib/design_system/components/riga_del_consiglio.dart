@@ -79,9 +79,17 @@ class RigaDelConsiglio extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(ConsiglioFinale.stella,
-              style: TypographyTokens.body(size: 14)
-                  .copyWith(color: tinta.goldSoft)),
+          // LA STELLA E' UN'ICONA, non il carattere del marcatore.
+          //
+          // Il carattere U+2726 non sta nel font del progetto, e nell'anteprima
+          // a 360 per 797 usciva come un quadratino vuoto: un glifo che il font
+          // non conosce diventa una scatola, ed e' esattamente il genere di
+          // difetto che si vede solo guardando l'immagine.
+          Padding(
+            padding: const EdgeInsets.only(top: 2),
+            child: Icon(Icons.auto_awesome,
+                size: 13, color: tinta.goldSoft),
+          ),
           const SizedBox(width: 6),
           Expanded(
             child: Text(

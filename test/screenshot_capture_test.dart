@@ -47,6 +47,7 @@ import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart';
 import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
+import 'package:esoteric_circle/core/maestro/consiglio_finale.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
 import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
@@ -2564,21 +2565,25 @@ void main() {
     });
   }
 
-  // --- LA RISPOSTA ARRIVATA, E LA FRECCIA CHE RIVELA IL SECONDO STRATO ---
+  // --- LA RISPOSTA BREVE, LA STELLA, E IL SEGUITO CHE ARRIVA AL TOCCO ---
   //
-  // **Perche' questa immagine esiste.** "Vai piu' a fondo" buttava la risposta
-  // appena letta e ne chiedeva un'altra al Maestro: la freccia in giu'
-  // prometteva "qui sotto c'e' altro testo" ed era vera come intenzione, falsa
-  // come funzionamento. Dal 4 agosto 2026 il Maestro scrive la lettura intera
-  // in una generazione sola, la chat ne mostra il primo strato, e la freccia
-  // scopre il resto senza nessuna seconda attesa.
+  // **Tre fotogrammi, e la differenza fra loro e' la voce intera.**
   //
-  // Due fotogrammi, prima e dopo il tocco: la novita' e' esattamente la
-  // differenza fra i due.
-  for (final dopoIlTocco in const [false, true]) {
-    final nome = dopoIlTocco
-        ? 'chat-secondo-strato-rivelato.png'
-        : 'chat-freccia-dell-approfondimento.png';
+  // 1. La risposta breve, che finisce con la STELLA e il consiglio in oro: e'
+  //    la cosa che una persona di fretta legge al posto di tutto il resto.
+  // 2. La stessa dopo il tocco, col seguito inserito FRA il corpo e il
+  //    consiglio: la stella resta l'ultima riga, che e' il vincolo che decide
+  //    dove il seguito si infila.
+  // 3. Come la vede un VIANDANTE: la freccia si vede lo stesso, perche' un
+  //    lucchetto muto e' un vicolo cieco, e al tocco porta agli abbonamenti.
+  for (final caso in const ['breve', 'seguito', 'viandante']) {
+    final dopoIlTocco = caso == 'seguito';
+    final viandante = caso == 'viandante';
+    final nome = {
+      'breve': 'chat-breve-con-la-stella.png',
+      'seguito': 'chat-seguito-col-consiglio-in-fondo.png',
+      'viandante': 'chat-freccia-per-il-viandante.png',
+    }[caso]!;
     testWidgets('Cattura $nome', (tester) async {
       silenceSensors();
       await loadFonts();
@@ -2592,6 +2597,13 @@ void main() {
         diagnostics: 'Cattura offline.',
       );
       final rootKey = await mount(tester, services);
+      // IL LIVELLO decide cosa succede al tocco della freccia: chi ha il
+      // secondo strato nel cammino riceve il seguito, il Viandante arriva
+      // agli abbonamenti. Sono due immagini della stessa schermata.
+      tester
+          .element(find.byType(MaterialApp))
+          .read<EntitlementService>()
+          .setTier(viandante ? Tier.free : Tier.tier1);
       tester
           .element(find.byType(MaterialApp))
           .read<BirthIdentityController>()
@@ -2639,7 +2651,7 @@ void main() {
       }
       if (dopoIlTocco) {
         await tester.tap(find.byKey(const Key('chat_approfondisci')));
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i < 12; i++) {
           await step(tester);
         }
       }
@@ -3325,6 +3337,8 @@ class _ScriptedMaestro implements MaestroAiProvider {
 /// Una voce che consegna una lettura INTERA, cioe' con un secondo strato
 /// dentro: e' il solo caso in cui la freccia dell'approfondimento compare,
 /// perche' sotto una lettura breve non c'e' niente da rivelare.
+/// Una voce che consegna una lettura BREVE col suo consiglio marcato, e al
+/// tocco il SEGUITO, cioe' il testo che manca.
 class _VoceInDueStrati implements MaestroAiProvider {
   @override
   bool get isReady => true;
@@ -3339,17 +3353,19 @@ class _VoceInDueStrati implements MaestroAiProvider {
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
     String? rispostaGiaData,
-  }) async =>
-      'Il tuo Sole in Leone chiede di essere visto prima di chiedere una '
-      'strada. Quello che senti come stanchezza è un confine che si sposta, '
-      'non una porta che si chiude. Guarda dove ti fermi a respirare: quella '
-      'è la direzione.\n\n'
-      'Sotto la superficie lavora un secondo movimento, più lento, che dura '
-      'da mesi senza chiedere il tuo permesso. Non è la scelta a spaventarti, '
-      'è quello che la scelta rende definitivo. La tua Luna in Pesci ti dice '
-      'che il tempo qui non è nemico: aspetta la prossima luna nuova e '
-      'rileggi queste stesse parole. Il cielo inclina, e la mano che sceglie '
-      'resta la tua, sempre, anche quando pesa.';
+  }) async {
+    if (rispostaGiaData != null) {
+      return 'Sotto la superficie lavora un secondo movimento, più lento, '
+          'che dura da mesi senza chiedere il tuo permesso. Non è la scelta '
+          'a spaventarti, è quello che la scelta rende definitivo. La tua '
+          'Luna in Pesci dice che il tempo qui non è nemico.';
+    }
+    return 'Il tuo Sole in Leone chiede di essere visto prima di chiedere una '
+        'strada. Quello che senti come stanchezza è un confine che si '
+        'sposta, non una porta che si chiude.\n'
+        '${ConsiglioFinale.stella} Non decidere adesso: guarda dove ti fermi '
+        'a respirare.';
+  }
 
   @override
   Future<MaestroReply> consult({

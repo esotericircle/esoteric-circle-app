@@ -100,15 +100,51 @@ void main() {
     await monta(tester, rivelato: false);
     final riga = find.byKey(const Key('consiglio_medora'));
     expect(
-        find.descendant(of: riga, matching: find.text(ConsiglioFinale.stella)),
+        find.descendant(of: riga, matching: find.byIcon(Icons.auto_awesome)),
         findsOneWidget,
         reason: 'la stella non c\'e\'');
+    // E IL MARCATORE NON ARRIVA MAI A SCHERMO.
+    //
+    // Il font del progetto non ha il glifo U+2726, e un carattere che il font
+    // non conosce diventa un quadratino vuoto: si e' visto nell'anteprima, non
+    // in una prova. La stella la disegna un'icona, che Material porta con se'.
+    expect(find.textContaining(ConsiglioFinale.stella), findsNothing,
+        reason: 'il marcatore e\' finito a video, e a video e\' una scatola');
     expect(
         find.descendant(
             of: riga, matching: find.byIcon(Icons.arrow_forward)),
         findsNothing,
         reason: 'e\' tornata la freccia, che prometteva un altrove e non era '
             'nemmeno toccabile');
+  });
+
+  testWidgets('La riga in oro sta SOPRA i comandi, non sotto', (tester) async {
+    // **NELL'ANTEPRIMA SI E' VISTO PERCHE' CONTA.** Il consiglio finiva dopo
+    // "Vai piu\' a fondo", e la freccia in giu\' promette "qui sotto c\'e\' altro
+    // testo": sotto ci trovava il consiglio, quindi sembrava indicare lui.
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(360 * 3, 797 * 3);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(host(ChatBubble(
+      message: ChatMessage(
+        role: ChatRole.maestro,
+        text: testo,
+        at: DateTime(2026, 8, 4, 10),
+      ),
+      maestro: Maestro.medora,
+      durataMassimaDiScrittura: TempiDellAttesa.tettoAlTestoCompleto,
+      onApprofondisci: () {},
+    )));
+    await tester.pump();
+    final riga = find.byKey(const Key('consiglio_medora'));
+    final freccia = find.byKey(const Key('chat_approfondisci'));
+    expect(riga, findsOneWidget);
+    expect(freccia, findsOneWidget);
+    expect(tester.getTopLeft(riga).dy, lessThan(tester.getTopLeft(freccia).dy),
+        reason: 'la freccia sta sopra il consiglio, quindi punta a lui: i '
+            'comandi non sono testo del Maestro, e vanno dopo tutto cio\' che '
+            'ha detto');
   });
 
   testWidgets('Senza consiglio la riga non si disegna vuota', (tester) async {
@@ -124,6 +160,6 @@ void main() {
       quando: DateTime(2026, 8, 4),
     )));
     await tester.pump();
-    expect(find.text(ConsiglioFinale.stella), findsNothing);
+    expect(find.byIcon(Icons.auto_awesome), findsNothing);
   });
 }

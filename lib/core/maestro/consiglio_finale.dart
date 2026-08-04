@@ -34,9 +34,19 @@ import 'maestro.dart';
 /// pezzi invece di essere mostrato com'e': il seguito si infila fra il corpo e
 /// il consiglio, e un consiglio in mezzo al testo non e' piu' un consiglio.
 abstract final class ConsiglioFinale {
-  /// La stella, che e' insieme il marcatore che il modello scrive e il segno
-  /// che la persona vede. Uno solo: due caratteri diversi per la stessa cosa
-  /// divergerebbero al primo ritocco.
+  /// IL MARCATORE che il modello scrive, e che la persona NON vede mai.
+  ///
+  /// **La prima stesura lo mostrava, ed era sbagliato.** L'idea era che il
+  /// carattere fosse insieme il marcatore e il segno a schermo, uno solo per
+  /// non farli divergere. Ma nell'anteprima a 360 per 797 quel carattere e'
+  /// uscito come un QUADRATINO VUOTO: il font del progetto non ha il glifo
+  /// U+2726, e un carattere che il font non conosce diventa una scatola.
+  ///
+  /// Quindi i due ruoli sono due: qui vive il marcatore, che serve a sollevare
+  /// la riga dal testo del Maestro, e la stella a video la disegna
+  /// `RigaDelConsiglio` con un'icona che c'e' di sicuro, perche' Material la
+  /// porta con se'. Il marcatore non arriva mai a schermo: `corpoDa` toglie la
+  /// riga e la riga si ricompone senza di lui.
   static const String stella = '✦';
 
   /// L'istruzione che va al Maestro. Vive qui, accanto al lettore che la

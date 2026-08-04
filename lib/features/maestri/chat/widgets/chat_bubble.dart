@@ -318,6 +318,22 @@ class _ChatBubbleState extends State<ChatBubble> {
                     onTap: () => onOpenIntent?.call(message.intentId!),
                   ),
                 ],
+                // IL CONSIGLIO IN ORO, SEMPRE L'ULTIMA RIGA.
+                //
+                // Sta dopo il corpo e dopo il seguito, e PRIMA dei comandi.
+                //
+                // **La prima stesura lo metteva dopo "Vai piu' a fondo", e
+                // nell'anteprima si e' visto perche' e' sbagliato:** la
+                // freccia in giu' promette "qui sotto c'e' altro testo", e
+                // sotto ci finiva il consiglio, cioe' la freccia sembrava
+                // indicare lui. I comandi non sono testo del Maestro, sono
+                // cose che si toccano, e vanno dopo tutto cio' che ha detto.
+                if (!isUser && message.portaUnResponso)
+                  RigaDelConsiglio(
+                    maestro: maestro,
+                    testo: message.text,
+                    quando: message.at ?? DateTime.now(),
+                  ),
                 // "Vai piu' a fondo" sta SOTTO la risposta, dentro la sua
                 // bolla: la profondita' non si sceglie prima di leggere, si
                 // chiede dopo aver letto.
@@ -371,18 +387,6 @@ class _ChatBubbleState extends State<ChatBubble> {
                     ),
                   ),
                 ],
-                // IL CONSIGLIO IN ORO, SEMPRE L'ULTIMA RIGA.
-                //
-                // Sta dopo il corpo e dopo il seguito rivelato, e prima dei
-                // comandi: i comandi non sono testo del Maestro, sono cose che
-                // si toccano. Fra tutto cio' che il Maestro ha detto, questa
-                // e' l'ultima.
-                if (!isUser && message.portaUnResponso)
-                  RigaDelConsiglio(
-                    maestro: maestro,
-                    testo: message.text,
-                    quando: message.at ?? DateTime.now(),
-                  ),
                 // LE ALTRE VOCI, dentro la bolla della risposta a cui si
                 // riferiscono.
                 //

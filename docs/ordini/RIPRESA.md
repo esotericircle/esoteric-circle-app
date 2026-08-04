@@ -1401,6 +1401,77 @@ diagnostiche si annullano riscrivendo il byte esatto che si era cambiato**,
 come fa lo strumento delle prove del rosso, mai con un comando che parla di
 tutto il file.
 
+## ORDINE CHAT 10, chiuso il 4 agosto 2026
+
+Tre voci, la seconda in due parti. Nove premesse verificate prima di toccare
+codice. Trentaquattro prove del rosso, quattro rimaste verdi.
+
+### LA CACHE DEL CONTESTO, che NON e' stata accesa qui
+
+E' la voce 19 del Registro, decisa il 2 agosto 2026 e mai attivata. Verificato
+il 4 agosto: in `firebase_maestro_ai_provider.dart` non esiste nessun
+`cachedContent`, mentre l'istruzione di sistema viaggia intera a ogni chiamata.
+
+**Perche' conta adesso.** Il seguito costa 2351 token di ingresso, quasi
+tutti l'istruzione di sistema rimandata daccapo. Con la cache attiva
+quell'ingresso scenderebbe a circa un decimo, cioe' intorno a 235, portando il
+costo del seguito da 2531 a circa 415. **Il pareggio salirebbe dal 8,6 al
+52,3 per cento**, cioe' generare il seguito al tocco resterebbe conveniente
+anche se una risposta su due venisse approfondita.
+
+Non e' stata aperta in quest'ordine perche' non era chiesta. E' la cosa
+singola che sposta di piu' il conto, quindi va fatta prima di rimettere in
+discussione questa scelta.
+
+### Cosa NON e' il massimo, ovvero cosa resta da fare
+
+- **Quante volte la freccia viene toccata non lo sappiamo ancora.** Il pareggio
+  misurato e' 8,6 per cento, ma senza quel numero non si puo' dire se la
+  scelta di oggi conviene. Serve un contatore in produzione.
+- **Il consiglio finale non e' mai stato visto scritto dal modello vero.** Le
+  anteprime usano una voce finta che porta il marcatore. Dieci risposte vere
+  direbbero quanto spesso il Maestro se lo dimentica, cioe' il numero che decide se
+  il ripiego basta.
+- **Il giro completo del Consiglio non e' ancora misurato.** E' il debito
+  dell'ordine 8, ancora aperto: tre chiamate in fila con rete mediana 1,41
+  secondi fanno oltre quattro secondi.
+
+### Prove del rosso rimaste verdi, con cio' che hanno trovato
+
+1. **Guardava una forma invece della proprieta'.** Cercava le righe che
+   nominassero `ConsiglioFinale` accanto a un `await`. Un metodo asincrono
+   aggiunto DENTRO la classe non nomina la classe sulla propria riga. Adesso
+   guarda che nel file non esistano `Future`, `async` ne' `await`: cio' che non
+   si puo' attendere non puo' costare una chiamata.
+2. **Un campo che nessuno oggi omette.** Togliendo il `?? this.seguito` dal
+   `copyWith` nessuna prova cadeva, perche' l'unico punto che lo scrive lo
+   passa sempre. Ma il messaggio passa da altri `copyWith` che parlano d'altro.
+3. **Un ramo spento resta scritto.** La prova del residuo cercava la chiave nel
+   SORGENTE: spegnendo il ramo con un `if (false)` la chiave restava li',
+   quindi la prova passava mentre a schermo non c'era piu' niente. Adesso monta
+   la bolla e guarda a video.
+4. La quarta e' quella del punto 1, ripetuta in forma diversa.
+
+### Due difetti visti nell'ANTEPRIMA, non da una prova
+
+- **La stella usciva come un quadratino vuoto.** Il font del progetto non ha il
+  glifo U+2726. Un carattere che il font non conosce diventa una scatola, che
+  nessuna prova che confronta stringhe puo' accorgersene.
+- **La freccia puntava al consiglio.** Il consiglio finiva dopo "Vai piu' a
+  fondo", mentre una freccia in giu' promette "qui sotto c'e' altro testo": sotto
+  c'era la riga in oro.
+
+Tutte e due si sono viste guardando l'immagine. E' la ragione per cui le
+anteprime non si saltano.
+
+### Una cosa che ho fatto DIVERSAMENTE da come era chiesta
+
+L'ordine chiedeva che il confronto consumasse UNA domanda invece di tre.
+Misurato: ne consuma ZERO in piu' di quella gia' pagata nella chat, piu' una sola
+aprendo la schermata a freddo, cosa che nell'app non succede da nessuna porta.
+Aggiungere il conto avrebbe reso il confronto PIU' caro. Ho costruito solo la
+parte che mancava davvero, il tetto separato col residuo visibile.
+
 ## Cose sapute che fanno perdere tempo se si riscoprono
 
 - La specifica del Livello Sensoriale sta nel Project di Claude e NON e' nel
@@ -1424,3 +1495,9 @@ tutto il file.
 - Le catture locali non decodificano gli asset da sole. Il tondo accanto ai
   messaggi della persona usa l'emblema GRANDE del segno, la scena dell'attesa
   la miniatura: sono due file diversi, quindi vanno precaricati tutti e due.
+- Il font del progetto non ha i glifi decorativi Unicode fuori dal latino. Una
+  stella U+2726 esce come un quadratino vuoto: per un segno grafico si usa
+  un'icona Material, che il bundle porta con se'.
+- `MaestroAiProvider` e' implementato da una ventina di finti nelle prove:
+  aggiungere un parametro a `reply` li rompe tutti insieme. Si aggiorna con uno
+  script in un minuto, ma va messo in conto.
