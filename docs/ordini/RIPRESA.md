@@ -1,5 +1,36 @@
 # RIPRESA
 
+## ORDINE CHAT 8: CHIUSO PER INTERO, la seconda stesura
+
+Il 5 agosto 2026. La PRIMA stesura e' stata fermata alla verifica: due delle
+sette premesse erano false, la saturazione partiva gia' da zero e le chiamate
+dell'app non erano mai state simultanee. Le sei premesse della seconda stesura
+reggono tutte, verificate misurando.
+
+**VOCE 1.** Le tre carte dal primo istante, chiamate in fila, "Continua con"
+sotto ognuna e che RIPRENDE, `domainTitle` tolto.
+
+**VOCE 2.** La luminosita' entra nell'effetto e il primo secondo resta grigio.
+
+**LE CINQUE PROVE DEL ROSSO RIMASTE VERDI, con cio' che hanno trovato.**
+Una: rimettendo il riquadro coi chip dove stava, cioe' in coda alla lista sotto
+le tre carte, la prova non lo vedeva, perche' una lista non costruisce cio' che
+non entra a schermo. Due: riordinare le arti non e' accorciarle. Tre e quattro:
+le prove pompavano le costanti che dovevano sorvegliare, quindi accorciando la
+costante si accorciava anche la misura. Cinque: la prova che l'emblema restasse
+pieno non verificava mai che fosse ARRIVATO pieno, quindi confrontava uno stato
+rotto con un altro stato rotto.
+
+**DUE REGRESSIONI MIE, prese dalle prove vecchie.** Togliendo i chip e' sparito
+con loro il controllo `canCompare`. E con le domande del giorno finite due
+carte restavano a pensare per sempre.
+
+**COSA RESTA DA RIPRENDERE.** Il Consiglio raccoglie le tre voci in fila, ma
+non c'e' ancora una prova che misuri quanto ci mette il giro completo con la
+rete vera: con tre chiamate sequenziali l'attesa e' la somma delle tre. Nessun
+numero misurato dice se quella somma sta dentro cio' che una persona sopporta.
+Va misurato.
+
 ## ORDINE CHAT 7: CHIUSO PER INTERO, la rimozione e le due voci
 
 Il 5 agosto 2026.
