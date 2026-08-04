@@ -163,13 +163,20 @@ class _SunHorizonPainter extends CustomPainter {
       old.color != color || old.rising != rising;
 }
 
-/// L'accento dell'elemento: oro per il Rito dell'Alba, il colore del Maestro per
-/// gli altri tre.
-Color _accentFor(DailyElement element) {
-  final guide = element.guide;
-  if (guide == null) return _gold;
-  return MaestroPalette.forKey(ThemeKey.of(guide)).primary;
-}
+/// L'accento dell'elemento: il colore del Maestro che lo guida.
+///
+/// **Prima l'Alba restava oro, e non era giusto.** I due riti che ruotano, Alba
+/// e Buonanotte, non hanno un Maestro fisso, e per questo cadevano nell'oro
+/// generico: ma un Maestro di turno ce l'hanno eccome, ed e' quello che porge
+/// il rito di oggi. La bolla adesso prende il suo colore, blu per Medora, verde
+/// per Aura, rosso per Caligo.
+///
+/// **Il colore nasce da un punto solo.** Chi sia il Maestro lo dice
+/// `DailyElements.maestroFor`, che gia' governa la rotazione: qui non si
+/// sceglie un colore per conto proprio, si chiede a lui. L'oro resta come
+/// ripiego se un giorno arrivasse un elemento senza Maestro.
+Color _accentFor(Maestro maestro) =>
+    MaestroPalette.forKey(ThemeKey.of(maestro)).primary;
 
 /// La riga "Guidato da" del popup informativo. Per il Rito dell'Alba, che
 /// ruota, indica il Maestro di turno del giorno; per gli altri il loro Maestro
@@ -550,8 +557,10 @@ class _DailyStripState extends State<DailyStrip>
               itemBuilder: (context, indice) {
                 final i = indice;
                 final element = DailyElement.values[i];
-                final accent = _accentFor(element);
+                // Il Maestro si risolve UNA volta, e da lui nasce il colore:
+                // la bolla non sceglie mai una tinta per conto suo.
                 final maestro = DailyElements.maestroFor(element, now);
+                final accent = _accentFor(maestro);
                 final isRuna = element == DailyElement.rune;
                 return _StripItem(
                   element: element,

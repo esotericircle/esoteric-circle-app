@@ -3,6 +3,7 @@ import '../astro/zodiac.dart';
 import '../identity/birth_identity.dart';
 import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
+import 'rito_alba.dart';
 
 /// Il tipo di dono del Rito dell'Alba cambia col Maestro di turno.
 ///
@@ -74,7 +75,16 @@ class DawnGift {
     required this.orientation,
     required this.word,
     required this.provisional,
+    this.rito,
   });
+
+  /// IL RITO DI OGGI, in forma strutturata: gesto, respiro contato, parola.
+  ///
+  /// Null solo se nessuna variante era compatibile col cielo disponibile, che
+  /// e' una cintura e non un caso atteso. Chi mostra il dono puo' usare
+  /// [orientation] per il testo gia' composto, oppure questo per disporre i tre
+  /// momenti a modo suo.
+  final RitoDiOggi? rito;
 
   /// Il Maestro di turno che porge il dono.
   final Maestro maestro;
@@ -102,15 +112,32 @@ class DawnGift {
   /// reale. Non essendoci un motore di transiti reali nel repo, la base resta
   /// provvisoria e i testi restano segnaposto marcati: il contenuto verificato
   /// li sostituira' senza cambiare questa forma.
-  static DawnGift forChart(DateTime date, {BirthIdentity? identity}) =>
-      forMaestro(date, DailyRituals.dawnMaestro(date), identity: identity);
+  /// [posizione] è dove la persona si trova STAMATTINA, non dove è nata: serve
+  /// solo all'ora del sorgere. Si ottiene da `SkyLocation.resolveSeConcesso()`,
+  /// quindi senza aprire nessuna richiesta di permesso.
+  static DawnGift forChart(DateTime date,
+          {BirthIdentity? identity, PosizioneDiStamattina? posizione}) =>
+      forMaestro(date, DailyRituals.dawnMaestro(date),
+          identity: identity, posizione: posizione);
 
   /// Come [forChart] ma per un Maestro dato, non quello a rotazione. Serve ai
   /// riti legati a un solo Maestro, come il Soffio del Destino di Aura.
   static DawnGift forMaestro(DateTime date, Maestro maestro,
-      {BirthIdentity? identity}) {
+      {BirthIdentity? identity, PosizioneDiStamattina? posizione}) {
     final natalSun =
         identity == null ? null : NightSky.sunSign(identity.birthMoment);
+
+    // IL RITO VERO, che ha preso il posto del segnaposto.
+    //
+    // **Il luogo di NASCITA non entra qui.** Un'alba è dove sei stamattina: chi
+    // è nato a Sydney e vive a Milano vede sorgere il sole a Milano. Prima
+    // questa riga leggeva `identity.birthPlace`, e per chi si era spostato
+    // l'ora del sorgere era sbagliata di ore. L'identità resta, ma serve solo
+    // al segno solare natale.
+    //
+    // Il cielo si LEGGE da lib/core/astro, non si ricalcola qui.
+    final rito = RitoAlba.diOggi(date, posizione: posizione);
+
     return DawnGift(
       maestro: maestro,
       kind: _kindFor(maestro),
@@ -120,9 +147,15 @@ class DawnGift {
         tradition: null,
         provisional: true,
       ),
-      orientation: provisionalOrientation,
-      word: null,
-      provisional: true,
+      orientation: rito == null
+          ? provisionalOrientation
+          : '${rito.gesto}\n\n${rito.respiro}\n\n'
+              'Se ti è più comodo: ${rito.viaTattile}',
+      word: rito?.parola,
+      rito: rito,
+      // Il dono non e' piu' provvisorio quando il rito c'e': il contenuto
+      // esiste, ed e' diverso ogni giorno.
+      provisional: rito == null,
     );
   }
 
