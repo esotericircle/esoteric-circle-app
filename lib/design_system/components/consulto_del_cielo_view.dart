@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/archetypes/archetype.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/maestro/frasi_dell_attesa.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/natal_context.dart';
+import '../../core/maestro/simbolo_dellattesa.dart';
 import '../../core/maestro/tempi_dell_attesa.dart';
 import '../../core/quality/quality_tier.dart';
-import '../../features/maestri/widgets/maestro_bust.dart';
 import '../theme/maestro_scope.dart';
 import '../tokens/spacing_tokens.dart';
 import '../tokens/typography_tokens.dart';
@@ -26,13 +27,25 @@ import '../tokens/typography_tokens.dart';
 /// aveva il tempo, sembravano sei difetti di seguito. E l'emblema cambiava con
 /// la riga, quindi la scena non aveva un centro.
 ///
-/// **La scena adesso.** Un emblema solo, quello del MAESTRO, fermo al centro,
-/// che si colora da monocromo a colore pieno in tre secondi e poi resta pieno.
-/// Sotto, una frase alla volta, due secondi netti ciascuna. Il minimo garantito
-/// e' di due frasi intere: se la risposta arriva prima, la scena finisce
-/// comunque il suo minimo. Se tarda, le frasi ricominciano dalla prima SENZA
-/// che l'emblema si scolori, perche' un caricamento che riparte da zero dice
-/// che qualcosa e' andato storto, mentre non e' andato storto niente.
+/// **La scena adesso.** Un SIMBOLO solo, al centro, che si compone dall'alto
+/// verso il basso in tre secondi e poi resta fermo e pieno. Sotto, centrata,
+/// una frase alla volta, due secondi netti ciascuna. Il minimo garantito e' di
+/// due frasi intere: se la risposta arriva prima, la scena finisce comunque il
+/// suo minimo. Se tarda, le frasi ricominciano dalla prima SENZA che il
+/// simbolo si ricomponga, perche' un caricamento che riparte da zero dice che
+/// qualcosa e' andato storto, mentre non e' andato storto niente.
+///
+/// **IL SIMBOLO E' DELLA PERSONA, non il volto del Maestro.** Qui si accendeva
+/// il ritratto di chi stava rispondendo: era una lettura sbagliata di cio' che
+/// era stato chiesto. Il segno di Medora, l'animale guida di Caligo,
+/// l'archetipo di Aura: quale sia lo dice [SimboloDellAttesa], che e' l'unico
+/// punto che lo sa. Il volto del Maestro sta gia' nell'intestazione della chat
+/// e accanto a ogni sua bolla.
+///
+/// **E si COMPONE, non si colora.** L'accensione da grigio a colore e' uscita
+/// per intero, matrice compresa: un tratto che scende dall'alto dice "sto
+/// scrivendo qualcosa per te", una cosa che si colora dice "sto caricando
+/// un'immagine".
 ///
 /// **Le frasi dicono il vero.** Nascono da [FrasiDellAttesa], che le lascia
 /// passare solo quando il dato che nominano e' davvero nel contesto che parte
@@ -47,6 +60,7 @@ class ConsultoDelCieloView extends StatefulWidget {
     required this.natal,
     this.maestro,
     this.memoria = MaestroMemory.empty,
+    this.archetipo,
     this.rotazione = 0,
     this.durataFrase = TempiDellAttesa.durataBattuta,
   });
@@ -61,6 +75,10 @@ class ConsultoDelCieloView extends StatefulWidget {
   /// La memoria del Maestro con questa persona. Anche lei decide una frase.
   final MaestroMemory memoria;
 
+  /// L'archetipo gia' scoperto col Test, se c'e'. E' il simbolo di Aura.
+  /// Nullo vuol dire "non ancora scoperto", e non "non ne ha uno".
+  final Archetype? archetipo;
+
   /// Quale giro di frasi. Cresce a ogni domanda, cosi' due attese vicine non
   /// aprono sulla stessa riga.
   final int rotazione;
@@ -69,10 +87,10 @@ class ConsultoDelCieloView extends StatefulWidget {
   /// qui c'e' solo il modo di scavalcarlo in una prova.
   final Duration durataFrase;
 
-  /// Il lato dell'emblema quando lo spazio abbonda.
+  /// Il lato del simbolo quando lo spazio abbonda.
   static const double tettoDelCorpo = 220;
 
-  /// Il lato sotto il quale non si stringe: piu' giu' l'emblema diventa una
+  /// Il lato sotto il quale non si stringe: piu' giu' il simbolo diventa una
   /// macchia, e una macchia non dice niente a nessuno.
   static const double pavimentoDelCorpo = 72;
 
@@ -85,14 +103,24 @@ class ConsultoDelCieloView extends StatefulWidget {
   /// peggiore-caso era gia' stata scritta, valeva 130 e sforava lo stesso,
   /// perche' basta una frase nuova o una lingua nuova e smette di essere il
   /// peggiore senza che nessuno lo dica.
-  static double riservaPer(String frase, double larghezza) {
+  static double riservaPer(String frase, double larghezza, {String? invito}) {
     final utile = larghezza - SpacingTokens.lg * 2;
-    final tp = TextPainter(
-      text: TextSpan(text: frase, style: TypographyTokens.display(size: 18)),
-      textDirection: TextDirection.ltr,
-      textAlign: TextAlign.center,
-    )..layout(maxWidth: utile > 0 ? utile : larghezza);
-    return tp.height + stacchiERientri;
+    final massimo = utile > 0 ? utile : larghezza;
+    double alta(String testo, TextStyle stile) => (TextPainter(
+          text: TextSpan(text: testo, style: stile),
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.center,
+        )..layout(maxWidth: massimo))
+        .height;
+
+    var somma = alta(frase, TypographyTokens.display(size: 18));
+    // **ANCHE L'INVITO OCCUPA SPAZIO.** Senza questa riga la scena sforava di
+    // 1,7 pixel appena Aura, senza archetipo, aggiungeva la riga che invita al
+    // Test: la riserva misurava una riga e a schermo ne comparivano due.
+    if (invito != null) {
+      somma += SpacingTokens.sm + alta(invito, TypographyTokens.body(size: 14));
+    }
+    return somma + stacchiERientri;
   }
 
   /// Quanto e' grande l'emblema dato lo spazio libero.
@@ -105,10 +133,10 @@ class ConsultoDelCieloView extends StatefulWidget {
 
 class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
     with SingleTickerProviderStateMixin {
-  /// L'accensione, gia' curvata. NULLA a moto fermo, e non creata e lasciata
-  /// ferma: un controllore che nessuno fa girare resta un ticker registrato
-  /// nell'albero.
-  Animation<double>? _colore;
+  /// La composizione, gia' curvata. NULLA a moto fermo, e non creata e
+  /// lasciata ferma: un controllore che nessuno fa girare resta un ticker
+  /// registrato nell'albero.
+  Animation<double>? _composizione;
 
   /// Il motore sotto la curva, tenuto per poterlo chiudere.
   AnimationController? _motore;
@@ -133,24 +161,17 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
     if (_frasi.isNotEmpty) _corrente = widget.rotazione % _frasi.length;
 
     if (_fermo) return;
-    // LA CURVA NON E' PIU' LINEARE, e il primo secondo resta sul grigio.
+    // IL TRATTO SCENDE DA ZERO A UNO nei tre secondi gia' approvati.
     //
-    // `Interval` tiene il valore a zero per il primo terzo dei tre secondi,
-    // poi `easeInOut` lo porta a uno senza scatti. Cosi' il segnale dura
-    // abbastanza da essere letto, e l'accensione resta dentro i tre secondi.
+    // `easeInOut` senza intervallo: qui non c'e' piu' nessun grigio da tenere
+    // fermo prima di salire, perche' non c'e' piu' nessuna colorazione. Un
+    // tratto che si disegna e' leggibile dal primo istante, che e' proprio la
+    // ragione per cui la colorazione e' uscita.
     final motore = AnimationController(
       vsync: this,
-      duration: TempiDellAttesa.colorazioneDellEmblema,
+      duration: TempiDellAttesa.composizioneDelSimbolo,
     );
-    _colore = CurvedAnimation(
-      parent: motore,
-      curve: Interval(
-        TempiDellAttesa.grigioPrimaDiSalire.inMilliseconds /
-            TempiDellAttesa.colorazioneDellEmblema.inMilliseconds,
-        1,
-        curve: Curves.easeInOut,
-      ),
-    );
+    _composizione = CurvedAnimation(parent: motore, curve: Curves.easeInOut);
     _motore = motore;
     motore.forward();
     _passo = Timer.periodic(widget.durataFrase, (_) {
@@ -178,6 +199,8 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
     final palette = context.palette;
     final maestro = widget.maestro ?? Maestro.medora;
     final frase = _frasi.isEmpty ? '' : _frasi[_corrente % _frasi.length];
+    final simbolo = SimboloDellAttesa.per(maestro,
+        natal: widget.natal, archetipo: widget.archetipo);
 
     return LayoutBuilder(builder: (context, vincoli) {
       final libero = vincoli.maxHeight.isFinite && vincoli.maxHeight > 0
@@ -186,7 +209,8 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
       final larghezza = vincoli.maxWidth.isFinite && vincoli.maxWidth > 0
           ? vincoli.maxWidth
           : MediaQuery.of(context).size.width;
-      final riserva = ConsultoDelCieloView.riservaPer(frase, larghezza);
+      final riserva = ConsultoDelCieloView.riservaPer(frase, larghezza,
+          invito: simbolo.invito);
       // TRE GRADINI, E IL TERZO E' IL VUOTO.
       //
       // Con la conversazione piena lo spazio libero misurato nella chat vera
@@ -207,12 +231,12 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
           key: const Key('consulto_del_cielo'),
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (ciSta) ...[
-              _EmblemaCheSiColora(
+            if (ciSta && simbolo.asset != null) ...[
+              _SimboloCheSiCompone(
                 key: const Key('consulto_corpo'),
-                maestro: maestro,
+                asset: simbolo.asset!,
                 lato: lato,
-                colorazione: _colore,
+                composizione: _composizione,
               ),
               const SizedBox(height: SpacingTokens.sm),
             ],
@@ -226,6 +250,23 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
               style: TypographyTokens.display(size: 18)
                   .copyWith(color: palette.textPrimary),
             ),
+            // L'INVITO, solo quando il simbolo manca DAVVERO.
+            //
+            // Oggi capita a una sola persona in un solo caso: chi non ha
+            // ancora fatto il Test Archetipo, mentre aspetta Aura. La riga
+            // dice cosa manca e come farlo nascere, invece di mostrare al
+            // posto suo un simbolo che direbbe una cosa falsa.
+            if (simbolo.invito != null) ...[
+              const SizedBox(height: SpacingTokens.sm),
+              Text(
+                simbolo.invito!,
+                key: const Key('consulto_invito'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.body(size: 14).copyWith(
+                  color: palette.goldSoft.withValues(alpha: 0.85),
+                ),
+              ),
+            ],
           ],
         ),
       );
@@ -233,74 +274,73 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
   }
 }
 
-/// L'emblema del Maestro che passa da monocromo a colore pieno.
+/// IL SIMBOLO CHE SI COMPONE DALL'ALTO VERSO IL BASSO.
 ///
-/// Con [colorazione] nulla e' gia' pieno e non si muove: e' il ramo di Riduci
-/// Movimento, dove non esiste nessun controllore da far girare.
-class _EmblemaCheSiColora extends StatelessWidget {
-  const _EmblemaCheSiColora({
+/// **Come e' fatto, e perche' cosi'.** Un `ClipRect` con un rettangolo alto
+/// quanto la frazione gia' composta, ancorato in cima: l'immagine si scopre
+/// scendendo, come un tratto che viene giu'. Non e' una dissolvenza e non e'
+/// una colorazione, ed e' la differenza che si vede: una cosa che si disegna
+/// dice "sto scrivendo qualcosa per te", una cosa che sbiadisce dentro dice
+/// "sto caricando un'immagine".
+///
+/// Con [composizione] nulla il simbolo e' gia' intero e non si muove: e' il
+/// ramo di Riduci Movimento, dove non esiste nessun controllore da far girare.
+class _SimboloCheSiCompone extends StatelessWidget {
+  const _SimboloCheSiCompone({
     super.key,
-    required this.maestro,
+    required this.asset,
     required this.lato,
-    required this.colorazione,
+    required this.composizione,
   });
 
-  final Maestro maestro;
+  final String asset;
   final double lato;
-  final Animation<double>? colorazione;
-
-  /// QUANTO E' SPENTA L'IMMAGINE ALL'INIZIO, in frazione della sua luce.
-  ///
-  /// **Perche' la luminosita' entra nell'effetto.** Prima si agiva solo sulla
-  /// saturazione, e la saturazione dell'arte arriva al massimo a 0,4263:
-  /// l'escursione disponibile era un terzo di quella che serve, e due
-  /// fotogrammi a saturazione diversa si somigliavano. Un'immagine che parte
-  /// grigia E SPENTA e arriva a colori E LUMINOSA si legge sempre, qualunque
-  /// sia la saturazione dell'arte, perche' e' il modo in cui funziona
-  /// qualunque cosa che si accende.
-  ///
-  /// **Il numero e' tarato, non indovinato.** Il punto di partenza suggerito
-  /// era 45 per cento. Misurata la luminosita' del busto a riposo, 0,3932, e
-  /// quella del fondo cosmico piu' scuro dei tre, il rosso di Caligo a
-  /// 0xFF1A0406 che vale 0,0347, il rapporto di contrasto a 0,45 vale 2,39
-  /// contro una soglia dichiarata di 2,0. Sotto il 30 per cento scenderebbe a
-  /// 1,77 e il Maestro comincerebbe a sparire nel fondo, che sarebbe peggio
-  /// del difetto di partenza.
-  static const double spentoAllInizio = 0.45;
-
-  /// La matrice dell'ACCENSIONE: saturazione e luce salgono insieme.
-  ///
-  /// A `quanto` zero e' grigia e spenta, a uno e' l'immagine vera.
-  static ColorFilter filtro(double quanto) {
-    const r = 0.2126, g = 0.7152, b = 0.0722;
-    final q0 = quanto.clamp(0.0, 1.0);
-    final q = 1 - q0;
-    // La luce sale da `spentoAllInizio` a uno seguendo la stessa curva.
-    final luce = spentoAllInizio + (1 - spentoAllInizio) * q0;
-    return ColorFilter.matrix(<double>[
-      (r * q + q0) * luce, g * q * luce, b * q * luce, 0, 0, //
-      r * q * luce, (g * q + q0) * luce, b * q * luce, 0, 0, //
-      r * q * luce, g * q * luce, (b * q + q0) * luce, 0, 0, //
-      0, 0, 0, 1, 0, //
-    ]);
-  }
+  final Animation<double>? composizione;
 
   @override
   Widget build(BuildContext context) {
-    final busto = MaestroBust(maestro: maestro, ring: lato, popOut: false);
-    final vivo = colorazione;
-    if (vivo == null) return SizedBox(width: lato, height: lato, child: busto);
+    final immagine = Image.asset(
+      asset,
+      width: lato,
+      height: lato,
+      fit: BoxFit.contain,
+      // Se un simbolo manca dal bundle, la scena non si rompe e non mente:
+      // resta lo spazio vuoto, e la frase sotto continua a dire il vero.
+      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+    );
+    final vivo = composizione;
+    if (vivo == null) {
+      return SizedBox(width: lato, height: lato, child: immagine);
+    }
     return SizedBox(
       width: lato,
       height: lato,
       child: AnimatedBuilder(
         animation: vivo,
-        builder: (context, figlio) => ColorFiltered(
-          colorFilter: filtro(vivo.value),
+        builder: (context, figlio) => ClipRect(
+          clipper: _TrattoCheScende(vivo.value),
           child: figlio,
         ),
-        child: busto,
+        child: immagine,
       ),
     );
   }
+}
+
+/// Il rettangolo che scende: ancorato in cima, alto quanto la frazione fatta.
+class _TrattoCheScende extends CustomClipper<Rect> {
+  const _TrattoCheScende(this.quanto);
+
+  final double quanto;
+
+  @override
+  Rect getClip(Size size) => Rect.fromLTWH(
+        0,
+        0,
+        size.width,
+        size.height * quanto.clamp(0.0, 1.0),
+      );
+
+  @override
+  bool shouldReclip(_TrattoCheScende vecchio) => vecchio.quanto != quanto;
 }

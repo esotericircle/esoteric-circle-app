@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
@@ -134,6 +135,7 @@ void main() {
         providers: [
           Provider<AppServices>.value(value: servizi),
           ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),

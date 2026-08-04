@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
@@ -261,6 +262,7 @@ Widget _host() => MultiProvider(
             create: (_) => EntitlementService(initial: Tier.tier1)),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()),
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
       ],

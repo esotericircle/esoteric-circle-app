@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../core/entitlement/question_allowance.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/archetypes/archetype_history.dart';
 import '../../../core/chat/altre_voci.dart';
 import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/immersive_intents.dart';
@@ -502,6 +503,14 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                             natal: _natalCorrente(context),
                             maestro:
                                 controller.maestroInAscolto ?? widget.maestro,
+                            // L'ARCHETIPO GIA' SCOPERTO, che e' il simbolo di
+                            // Aura. Dallo storico condiviso, che l'app carica
+                            // all'avvio: nullo vuol dire "non ancora
+                            // scoperto", e la scena lo dice invece di
+                            // mostrare al posto suo un simbolo che direbbe
+                            // una cosa falsa.
+                            archetipo:
+                                context.watch<ArchetypeHistory>().ultimo?.dominante,
                             rotazione: controller.rotazioneDelConsulto,
                           )
                         : const SizedBox.shrink(

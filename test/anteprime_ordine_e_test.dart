@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
@@ -116,6 +117,7 @@ void main() {
       providers: [
         Provider<AppServices>.value(value: servizi),
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()),
         // Piano del Cerchio: le altre voci sono del Cerchio, e col Viandante
         // l'anteprima fotograferebbe l'invito a salire invece delle voci. Il

@@ -75,25 +75,25 @@ class TempiDellAttesa {
   /// che sarebbe proprio il difetto contro cui questa riga esiste.
   static final Duration durataMinima = durataBattuta * battuteDellaScena;
 
-  /// QUANTO CI METTE L'EMBLEMA A COLORARSI, da monocromo a colore pieno.
+  /// QUANTO CI METTE IL SIMBOLO A COMPORSI, dall'alto verso il basso.
   ///
   /// Tre secondi, cioe' meno dei quattro del minimo garantito: quando la
-  /// seconda frase finisce, l'emblema e' gia' pieno da un secondo. Se durasse
-  /// quanto la scena, chi guarda vedrebbe una barra di avanzamento travestita
-  /// da emblema, e una barra promette una fine che noi non conosciamo.
+  /// seconda frase finisce, il simbolo e' gia' intero da un secondo. Se
+  /// durasse quanto la scena, chi guarda vedrebbe una barra di avanzamento
+  /// travestita da simbolo, e una barra promette una fine che noi non
+  /// conosciamo.
   ///
-  /// Non pulsa, non ruota, non ricomincia. Arrivato pieno resta pieno, anche
+  /// Non pulsa, non ruota, non ricomincia. Arrivato intero resta intero, anche
   /// se la risposta tarda e le frasi ripartono.
-  static const Duration colorazioneDellEmblema = Duration(seconds: 3);
-
-  /// QUANTO RESTA FERMO SUL GRIGIO SPENTO, prima di cominciare a salire.
   ///
-  /// **Il numero che ha fatto nascere questa attesa.** La curva era lineare su
-  /// tre secondi, e la saturazione dell'arte arriva al massimo a 0,4263: a
-  /// meta' tempo il colore c'era gia' quasi tutto, quindi il grigio, che e' il
-  /// segnale, durava un istante. Un secondo intero fermo sullo spento e' cio'
-  /// che rende leggibile "aspetta, sto lavorando".
-  static const Duration grigioPrimaDiSalire = Duration(seconds: 1);
+  /// **Il nome dice cio' che fa.** Si chiamava `colorazioneDellEmblema`,
+  /// perche' l'immagine passava da grigia a colori: quell'effetto non esiste
+  /// piu', e un nome che descrive una cosa scomparsa e' un nome che dichiara
+  /// il falso. Insieme a lui e' uscita `grigioPrimaDiSalire`, il secondo di
+  /// grigio che serviva a rendere leggibile un'accensione troppo breve: un
+  /// tratto che scende si legge dal primo istante, quindi non c'e' piu'
+  /// niente da tenere fermo prima di cominciare.
+  static const Duration composizioneDelSimbolo = Duration(seconds: 3);
 
   /// Quanto ci mette la scena a sparire quando la risposta e' pronta.
   ///

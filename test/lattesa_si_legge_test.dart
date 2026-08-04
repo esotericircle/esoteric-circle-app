@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/archetypes/archetype.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/maestro/frasi_dell_attesa.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -125,7 +126,7 @@ void main() {
     test('L\'emblema finisce di colorarsi PRIMA che il minimo scada', () {
       // Se durasse quanto la scena sarebbe una barra di avanzamento
       // travestita, e una barra promette una fine che noi non conosciamo.
-      expect(TempiDellAttesa.colorazioneDellEmblema,
+      expect(TempiDellAttesa.composizioneDelSimbolo,
           lessThan(TempiDellAttesa.durataMinima));
     });
 
@@ -200,8 +201,14 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
 
+      // L'ARCHETIPO SERVE, ed e' il punto: dal 4 agosto 2026 il simbolo di
+      // Aura E' l'archetipo, e senza il Test non ne esiste uno. Senza questa
+      // riga la prova cercava un simbolo che giustamente non c'era.
       await tester.pumpWidget(host(
-          const ConsultoDelCieloView(natal: pieno, maestro: Maestro.aura),
+          const ConsultoDelCieloView(
+              natal: pieno,
+              maestro: Maestro.aura,
+              archetipo: Archetype.creatore),
           fermo: true));
       await tester.pump();
       expect(tester.binding.transientCallbackCount, 0,

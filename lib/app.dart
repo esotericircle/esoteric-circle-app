@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/archetypes/archetype_history.dart';
 import 'core/astro/natal_chart_controller.dart';
 import 'core/astro/zodiac_controller.dart';
 import 'core/entitlement/entitlement_service.dart';
@@ -111,6 +112,17 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
+        // LO STORICO DEL TEST ARCHETIPO, DALL'AVVIO, E PER TUTTA L'APP.
+        //
+        // **Perche' e' salito quassu'.** Ogni schermata che ne aveva bisogno se
+        // ne costruiva uno suo e lo caricava per conto proprio: il Test, la
+        // pagina dell'Animale Guida. Chi non lo faceva non sapeva niente
+        // dell'archetipo, e infatti nel Passaporto la tessera dell'Archetipo
+        // restava col lucchetto anche a test completato, perche' guardava una
+        // lista fissa invece che questo dato. Adesso il dato e' uno, arriva
+        // dall'avvio, e ci si affacciano tutte le porte che lo chiedono: il
+        // Passaporto, il simbolo di Aura nell'attesa della chat, e il Test.
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()..carica()),
         ChangeNotifierProvider(create: (_) => SettingsController()..load()),
         ChangeNotifierProvider(
           create: (ctx) =>

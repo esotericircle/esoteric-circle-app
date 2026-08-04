@@ -1579,6 +1579,7 @@ void main() {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
@@ -1629,6 +1630,7 @@ void main() {
           ChangeNotifierProvider(
               create: (_) => QualityTierController()..setTier(QualityTier.medium)),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
           ChangeNotifierProvider(create: (_) => BirthIdentityController()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
@@ -2339,6 +2341,7 @@ void main() {
             ChangeNotifierProvider(create: (_) => ProfileController()),
             ChangeNotifierProvider<BirthIdentityController>.value(value: birth),
             ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
@@ -2426,24 +2429,24 @@ void main() {
     'consulto-chat-piena.png': true,
   };
 
-  // L'EMBLEMA CHE SI COLORA, nei due istanti che contano.
+  // IL SIMBOLO CHE SI COMPONE, nei tre istanti che contano.
   //
-  // A META' della colorazione e a colorazione PIENA. Due file di peso diverso,
-  // altrimenti si sta fotografando due volte la stessa cosa: e' successo con
+  // All'inizio, a META' e a composizione INTERA, tre file di peso diverso: due
+  // fotogrammi che pesano uguale sono lo stesso fotogramma, ed e' successo con
   // la coppia del Riduci Movimento, che pesava 105.481 byte in tutti e due i
-  // file perche' erano lo stesso file.
-  const colorazione = <String, Duration>{
-    // **QUELLA A ZERO NON ESISTEVA, ed e' la ragione per cui questo difetto e'
-    // stato diagnosticato male due volte.** Nessuno ha mai guardato l'istante
-    // che decide se l'effetto funziona: si vedevano solo il fotogramma a meta'
-    // e quello pieno, che si somigliavano, e se ne concludeva che l'emblema
-    // non partisse mai grigio. Partiva grigio da sempre, per 0,0012 di
-    // saturazione misurata: era il grigio a durare troppo poco.
-    'consulto-emblema-grigio-spento.png': Duration.zero,
-    'consulto-emblema-meta.png': Duration(milliseconds: 1500),
-    'consulto-emblema-pieno.png': Duration(milliseconds: 3000),
+  // file. L'istante zero c'e' perche' e' quello che decide se l'effetto
+  // funziona, e la sua assenza ha fatto diagnosticare male due volte il
+  // difetto precedente.
+  //
+  // **Qui c'era l'emblema che si colorava, e non c'e' piu'.** Si accendeva il
+  // volto del Maestro passando da grigio a colore: era una lettura sbagliata
+  // di cio' che il fondatore aveva chiesto, che era un SIMBOLO della persona.
+  const composizione = <String, Duration>{
+    'consulto-simbolo-inizio.png': Duration.zero,
+    'consulto-simbolo-meta.png': Duration(milliseconds: 1500),
+    'consulto-simbolo-intero.png': Duration(milliseconds: 3000),
   };
-  for (final istante in colorazione.entries) {
+  for (final istante in composizione.entries) {
     testWidgets('Cattura ${istante.key}', (tester) async {
       silenceSensors();
       await loadFonts();
@@ -2458,6 +2461,7 @@ void main() {
           providers: [
             ChangeNotifierProvider(create: (_) => QualityTierController()),
             ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
             ChangeNotifierProvider(create: (_) => ParallaxController()),
           ],
           child: MaterialApp(
@@ -2642,6 +2646,7 @@ void main() {
             // Il Risveglio ora poggia sul cosmo profondo: servono i controller
             // che lo animano (fermo sotto Riduci Movimento) e il tema neutro.
             ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
@@ -2924,6 +2929,7 @@ void main() {
         child: MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
@@ -2969,6 +2975,7 @@ void main() {
           providers: [
             ChangeNotifierProvider<IdentityController>.value(value: b.ident),
             ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
@@ -3021,6 +3028,7 @@ void main() {
                 value: b.birth),
             ChangeNotifierProvider<IdentityController>.value(value: b.ident),
             ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
@@ -3117,6 +3125,7 @@ void main() {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => NatalChartController()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
@@ -108,6 +109,7 @@ void main() {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ProfileController()),
@@ -179,6 +181,7 @@ void main() {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ProfileController()),
       ],
@@ -223,6 +226,7 @@ void main() {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ProfileController()),
         ChangeNotifierProvider(create: (_) => NatalChartController()),
@@ -359,6 +363,7 @@ void main() {
       providers: [
         Provider<AppServices>.value(value: servizi),
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
@@ -451,6 +456,7 @@ void main() {
       providers: [
         Provider<AppServices>.value(value: servizi),
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
@@ -518,6 +524,7 @@ void main() {
       providers: [
         Provider<AppServices>.value(value: servizi),
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
@@ -689,6 +696,7 @@ void main() {
       providers: [
         Provider<AppServices>.value(value: servizi),
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
@@ -759,6 +767,7 @@ void main() {
             create: (_) => EntitlementService(initial: Tier.tier1)),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()),
         ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
@@ -1037,6 +1046,7 @@ void main() {
         providers: [
           Provider<AppServices>.value(value: servizi),
           ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
