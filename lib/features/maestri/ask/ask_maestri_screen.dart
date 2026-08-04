@@ -137,9 +137,22 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     // campo che sembra accettare una domanda e apre altro e' una promessa
     // rotta. Se la domanda c'e' ma nessuna voce e' ancora arrivata, la prima
     // se la chiede la schermata invece di aspettare che qualcuno la digiti.
-    if (_theme != null && widget.lentiIniziali.isEmpty) {
-      _responders.add(widget.starter);
-      _loading.add(widget.starter);
+    // TUTTE E TRE LE CARTE DAL PRIMO ISTANTE.
+    //
+    // **Il fondatore aveva chiesto una cosa sola: un pulsante che porta al
+    // confronto.** Arrivava invece in una stanza con una carta, e le altre due
+    // voci andavano chieste una per volta con due chip. La stanza a tre carte
+    // esisteva gia', il ciclo qui sotto ne disegna una per ogni Maestro in
+    // `_responders`: mancava solo che ci arrivassero tre voci invece di una.
+    //
+    // Le mancanti entrano subito come "in attesa", quindi la persona vede tre
+    // carte dal primo fotogramma, due delle quali stanno pensando.
+    if (_theme != null) {
+      for (final m in Maestro.fixedOrder) {
+        if (_responders.contains(m)) continue;
+        _responders.add(m);
+        _loading.add(m);
+      }
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
         // IL LIMITE SI CONTROLLA ANCHE QUI.
@@ -150,7 +163,16 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
         // domande. Il limite non e' del campo, e' della domanda.
         final piano = context.read<EntitlementService>().tier;
         if (!context.read<QuestionAllowance>().canAsk(piano)) {
-          setState(() => _loading.remove(widget.starter));
+          // Si spegne TUTTA l'attesa, non solo quella della voce di partenza:
+          // due carte lasciate a pensare per sempre sono due scene che non
+          // finiranno mai, e una scena che non finisce non e' un'attesa.
+          // Si spegne TUTTO: senza domande da spendere non c'e' nessuna voce
+          // da mostrare, e una carta lasciata a pensare per sempre e' una
+          // scena che non finisce, cioe' peggio di una schermata vuota.
+          setState(() {
+            _loading.clear();
+            _responders.clear();
+          });
           showUpgradeInvite(
             context,
             title: 'Hai posto le tue domande di oggi',
@@ -160,7 +182,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
           );
           return;
         }
-        _fetchLens(widget.starter, _theme!, countsAgainstAllowance: true);
+        _raccogliLeVoci();
       });
     }
   }
@@ -279,21 +301,36 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
 
   /// Chiude il cerchio: salva tema ed esito nella memoria condivisa del Maestro,
   /// cosi' la conversazione ricorda, poi apre la chat col tema gia' in composer.
-  Future<void> _openChat() async {
+  /// CONTINUA CON UN MAESTRO, RIPRENDENDO LA CONVERSAZIONE CHE ESISTE.
+  ///
+  /// **Il difetto che questo metodo corregge.** "Continua con" apriva una
+  /// rotta NUOVA, quindi il Maestro ripartiva da zero, disclaimer compreso, e
+  /// la conversazione precedente spariva dalla vista. La memoria funziona ed
+  /// e' persistente, verificata il 2 agosto 2026: non si perdeva niente, ma
+  /// chi guardava vedeva sparire cio' che aveva appena letto.
+  ///
+  /// **Il tasto indietro in alto lo faceva gia' bene**, ed e' la prova che la
+  /// strada giusta c'era: al Consiglio si arriva dalla chat del Maestro di
+  /// partenza, che e' rimasta sotto nella pila. Per lui si TORNA, cioe' si
+  /// esce da qui. Per gli altri due una chat aperta non c'e', quindi si apre
+  /// la loro, che carica da se' la cronologia salvata: e' la stessa
+  /// conversazione, non una nuova.
+  Future<void> _continuaCon(Maestro maestro) async {
     final services = context.read<AppServices>();
-    final maestro = widget.starter;
+    final navigatore = Navigator.of(context);
     final theme = _theme!;
     final esito = _lenses[maestro]?.reading.trim() ?? '';
     try {
       final mem = await services.memory.loadMemory(maestro);
       final nota = esito.isEmpty
-          ? 'Nel Consulta la persona ti ha chiesto: «$theme».'
-          : 'Nel Consulta la persona ti ha chiesto: «$theme». In sintesi le hai risposto: $esito';
+          ? 'Nel Consiglio la persona ti ha chiesto: «$theme».'
+          : 'Nel Consiglio la persona ti ha chiesto: «$theme». '
+              'In sintesi le hai risposto: $esito';
       final summary = mem.sessionSummary.trim().isEmpty
           ? nota
           : '${mem.sessionSummary.trim()} $nota';
-      await services.memory.saveMemory(
-          maestro, mem.copyWith(sessionSummary: summary));
+      await services.memory
+          .saveMemory(maestro, mem.copyWith(sessionSummary: summary));
     } catch (errore, traccia) {
       // Il salvataggio e' un di piu': un errore non impedisce di continuare.
       annotaGuastoInnocuo(
@@ -302,46 +339,71 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
           traccia);
     }
     if (!mounted) return;
-    await Navigator.of(context).push(
-      MaestroChatScreen.route(
-        maestro: maestro,
-        services: services,
-        initialTheme: theme,
-      ),
+    if (maestro == widget.starter) {
+      navigatore.pop();
+      return;
+    }
+    await navigatore.push(
+      MaestroChatScreen.route(maestro: maestro, services: services),
     );
   }
 
-  Future<void> _addResponder(Maestro maestro) async {
-    final tier = context.read<EntitlementService>().tier;
-    final allowance = context.read<QuestionAllowance>();
-    if (!allowance.canCompare(tier)) {
-      await showUpgradeInvite(
-        context,
-        title: 'Il confronto è del Cerchio',
-        message:
-            'Porta la stessa domanda allo sguardo di più Maestri col Cerchio, '
-            'con la sintesi che li mette a confronto.',
-      );
-      return;
+
+  /// LE VOCI SI RACCOLGONO UNA ALLA VOLTA, MAI INSIEME.
+  ///
+  /// Nel codice dell'app la sequenzialita' c'era gia' e una prova la
+  /// sorveglia scandendo tutto `lib`: qui non si conserva una correzione, si
+  /// ESTENDE quella proprieta' al codice nuovo. Tre chiamate simultanee sono
+  /// esattamente il carico che fa scattare il `429 RESOURCE_EXHAUSTED` di
+  /// Vertex, misurato il 3 agosto 2026.
+  ///
+  /// Se una cade, le altre restano: `_fetchLens` non rilancia, consegna il
+  /// ripiego dichiarato e la sua carta lo mostra col Riprova.
+  Future<void> _raccogliLeVoci() async {
+    // IL CONFRONTO E' DEL CERCHIO, e la regola non e' scritta qui: si CHIEDE a
+    // `canCompare`, che e' lo stesso dato a cui la chiama la porta d'ingresso.
+    //
+    // **La rimozione dei chip se l'era portato via.** Il controllo viveva
+    // dentro il gesto di aggiungere una voce: tolto quel gesto, le altre due
+    // sarebbero arrivate anche a chi non le ha comprate. Il gating non era del
+    // chip, e' del confronto.
+    // IL CONFRONTO E' DEL CERCHIO, e la regola non e' scritta qui: si CHIEDE a
+    // `canCompare`, lo stesso dato a cui la chiede la porta d'ingresso.
+    //
+    // **La rimozione dei chip se l'era portato via.** Il controllo viveva
+    // dentro il gesto di aggiungere una voce: tolto quel gesto, le altre due
+    // sarebbero arrivate anche a chi non le ha comprate. Il gating non era del
+    // chip, e' del confronto.
+    //
+    // **E qui NON si apre nessun invito a salire.** Lo apre la porta, prima di
+    // entrare: aprirlo di nuovo appena dentro vorrebbe dire accogliere chi
+    // arriva con una finestra di vendita, e per due volte di fila.
+    final piano = context.read<EntitlementService>().tier;
+    final puoConfrontare =
+        context.read<QuestionAllowance>().canCompare(piano);
+
+    for (final m in Maestro.fixedOrder) {
+      if (!mounted) return;
+      if (_lenses[m] != null) continue;
+      if (m != widget.starter && !puoConfrontare) {
+        // Fuori del tutto, non una carta vuota: un posto che resta li' senza
+        // niente dentro e' un vicolo cieco travestito da attesa.
+        setState(() {
+          _loading.remove(m);
+          _responders.remove(m);
+        });
+        continue;
+      }
+      // Solo la voce di partenza conta contro il limite del giorno: le altre
+      // due sono il confronto, che ha il suo gating e non intacca le domande.
+      await _fetchLens(m, _theme!,
+          countsAgainstAllowance: m == widget.starter);
     }
-    setState(() {
-      _responders.add(maestro);
-      _loading.add(maestro);
-      // La sintesi va ricalcolata sulle nuove lenti: intanto ripiego.
-      _aiSynthesis = null;
-    });
-    // Anche la lente aggiunta viene da Gemini, con lo stesso ripiego. Il
-    // confronto non intacca il limite giornaliero delle risposte singole.
-    await _fetchLens(maestro, _theme!, countsAgainstAllowance: false);
   }
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final others = [
-      for (final m in Maestro.fixedOrder)
-        if (!_responders.contains(m)) m,
-    ];
     final resolved = _orderedLenses;
     // La Sintesi comparativa: viva da Gemini quando c'e', altrimenti la
     // deterministica di ripiego.
@@ -400,122 +462,41 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                         ],
                         for (final m in Maestro.fixedOrder)
                           if (_responders.contains(m)) ...[
-                            if (_loading.contains(m)) ...[
-                              // La stessa scena della chat, dallo stesso
-                              // punto: le superfici che aspettano una risposta
-                              // sono due, e una seconda copia divergerebbe.
-                              ConsultoDelCieloView(natal: _natal(), maestro: m),
-                              _LensLoadingCard(maestro: m),
-                            ]
-                            else if (_lenses[m] != null)
-                              _LensCard(lens: _lenses[m]!),
+                            // LA CARTA C'E' IN TUTTI E DUE GLI STATI, e porta
+                            // la stessa chiave: e' cio' che permette di
+                            // provare che le tre carte esistono dal primo
+                            // fotogramma, due delle quali stanno pensando.
+                            Column(
+                              key: Key('ask_card_${m.id}'),
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                if (_loading.contains(m)) ...[
+                                  // La stessa scena della chat, dallo stesso
+                                  // punto: le superfici che aspettano una
+                                  // risposta sono due, e una seconda copia
+                                  // divergerebbe.
+                                  ConsultoDelCieloView(
+                                      natal: _natal(), maestro: m),
+                                  _LensLoadingCard(maestro: m),
+                                ] else ...[
+                                  _LensCard(lens: _lenses[m]!),
+                                  // SOTTO OGNI CARTA, e non solo sotto quella
+                                  // di partenza: con tre carte, da due delle
+                                  // tre non si potrebbe proseguire.
+                                  const SizedBox(height: SpacingTokens.xs),
+                                  _ContinueInChat(
+                                    maestro: m,
+                                    onContinue: () => _continuaCon(m),
+                                  ),
+                                ],
+                              ],
+                            ),
                             const SizedBox(height: SpacingTokens.sm),
                           ],
-                        // Chiusura del cerchio: porta il tema in conversazione.
-                        if (_lenses[widget.starter] != null) ...[
-                          const SizedBox(height: SpacingTokens.xs),
-                          _ContinueInChat(
-                            maestro: widget.starter,
-                            onContinue: _openChat,
-                          ),
-                          const SizedBox(height: SpacingTokens.sm),
-                        ],
-                        if (others.isNotEmpty) ...[
-                          const SizedBox(height: SpacingTokens.sm),
-                          _AnotherMaestroInvite(
-                            others: others,
-                            onPick: _addResponder,
-                          ),
-                        ],
                       ],
                     ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-/// L'invito a portare la stessa domanda allo sguardo di un altro Maestro.
-class _AnotherMaestroInvite extends StatelessWidget {
-  const _AnotherMaestroInvite({required this.others, required this.onPick});
-
-  final List<Maestro> others;
-  final void Function(Maestro) onPick;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    return Container(
-      key: const Key('ask_another_invite'),
-      padding: const EdgeInsets.all(SpacingTokens.lg),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Consulta anche un altro Maestro',
-              style: TypographyTokens.display(size: 16)
-                  .copyWith(color: palette.goldSoft)),
-          const SizedBox(height: 4),
-          Text(
-            'Porta la stessa domanda al suo sguardo, con la sintesi a confronto.',
-            style: TypographyTokens.body(size: 13)
-                .copyWith(color: ColorTokens.textSecondary),
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          Row(
-            children: [
-              for (final m in others) ...[
-                _OtherMaestroChip(maestro: m, onTap: () => onPick(m)),
-                if (m != others.last) const SizedBox(width: SpacingTokens.sm),
-              ],
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _OtherMaestroChip extends StatelessWidget {
-  const _OtherMaestroChip({required this.maestro, required this.onTap});
-
-  final Maestro maestro;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
-    return Expanded(
-      child: GestureDetector(
-        key: Key('ask_add_${maestro.id}'),
-        onTap: onTap,
-        behavior: HitTestBehavior.opaque,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            gradient: LinearGradient(colors: [
-              palette.primary.withValues(alpha: 0.5),
-              palette.surfaceElevated.withValues(alpha: 0.5),
-            ]),
-            border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
-          ),
-          child: Column(
-            children: [
-              Icon(maestro.icon, size: 20, color: palette.goldSoft),
-              const SizedBox(height: 4),
-              Text(maestro.displayName,
-                  style: TypographyTokens.label(size: 11).copyWith(
-                    color: palette.goldSoft,
-                    letterSpacing: 0.8,
-                  )),
-            ],
-          ),
         ),
       ),
     );
@@ -749,7 +730,13 @@ class _LensCard extends StatelessWidget {
               // Il dominio entra per intero: si rimpicciolisce fin dove serve e
               // va a capo, mai troncato con l'ellissi.
               Expanded(
-                child: Text(lens.maestro.domainTitle,
+                // LA FRASE INTERA, e se non ci sta si rimpicciolisce.
+                //
+                // Qui si leggeva `domainTitle`, cioe' "Astrologia e Destino":
+                // il campo corto non esiste piu'. La Cartomanzia e' una delle
+                // tre arti di Medora, e toglierla dal titolo per guadagnare
+                // spazio e' dichiarare che conta meno.
+                child: Text(lens.maestro.domainArtsPhrase,
                     textAlign: TextAlign.right,
                     maxLines: 2,
                     softWrap: true,

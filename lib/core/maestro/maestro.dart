@@ -13,7 +13,6 @@ enum Maestro {
   medora(
     id: 'medora',
     displayName: 'Medora',
-    domainTitle: 'Astrologia e Destino',
     tagline: 'Legge le stelle e le carte del tuo cammino',
     domainInvite: 'Il cielo che ti disegna, le carte che ti rispondono',
     domainArts: 'Astrologia, Cartomanzia, Destino',
@@ -25,7 +24,6 @@ enum Maestro {
   aura(
     id: 'aura',
     displayName: 'Aura',
-    domainTitle: 'Energia e Benessere',
     tagline: 'Accompagna il respiro e l\'equilibrio interiore',
     domainInvite: 'Il respiro, l\'energia, gli archetipi che ti abitano',
     domainArts: 'Chakra, Energia, Archetipi',
@@ -37,7 +35,6 @@ enum Maestro {
   caligo(
     id: 'caligo',
     displayName: 'Caligo',
-    domainTitle: 'Rune e Simboli',
     tagline: 'Custode delle rune e dei riti antichi',
     domainInvite: 'I segni antichi, i riti, l\'albero dei misteri',
     domainArts: 'Rune, Rituali, Cabala',
@@ -48,7 +45,6 @@ enum Maestro {
   const Maestro({
     required this.id,
     required this.displayName,
-    required this.domainTitle,
     required this.tagline,
     required this.domainInvite,
     required this.domainArts,
@@ -58,7 +54,6 @@ enum Maestro {
 
   final String id;
   final String displayName;
-  final String domainTitle;
   final String tagline;
 
   /// Invito breve di due righe su cosa si trova nel dominio del Maestro,
@@ -69,8 +64,19 @@ enum Maestro {
   final String domainArts;
 
   /// Le tre arti come frase, con la "e" prima dell'ultima e senza virgola
-  /// davanti alla congiunzione: "Astrologia, Cartomanzia e Destino". Un solo
-  /// punto per la formattazione, cosi' ogni schermata la mostra uguale.
+  /// davanti alla congiunzione: "Astrologia, Cartomanzia e Destino".
+  ///
+  /// **E' l'UNICO modo di dire il dominio di un Maestro.** Accanto viveva un
+  /// `domainTitle` che diceva la stessa cosa in forma corta, "Astrologia e
+  /// Destino": due campi che descrivono lo stesso oggetto divergono sempre, ed
+  /// e' gia' successo in questo progetto con `_curatedArts` accanto ad
+  /// `ArtCatalog`. Il corto e' sparito il 5 agosto 2026, non allineato:
+  /// allinearli avrebbe lasciato in piedi il modo di farli divergere di nuovo.
+  ///
+  /// **E non si accorcia per farlo stare.** Togliere la Cartomanzia da Medora
+  /// significa dichiarare che conta meno delle altre due, mentre e' una delle
+  /// tre arti che il Maestro dichiara. Dove non entra, si rimpicciolisce
+  /// oppure va a capo.
   String get domainArtsPhrase {
     final arti =
         domainArts.split(',').map((s) => s.trim()).where((s) => s.isNotEmpty).toList();

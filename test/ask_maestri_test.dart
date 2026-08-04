@@ -21,7 +21,6 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
-import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -104,7 +103,8 @@ void main() {
 
   testWidgets('Parte dal Maestro del dominio, una risposta e l\'invito',
       (tester) async {
-    await tester.pumpWidget(host(tema: 'il lavoro', starter: Maestro.medora));
+    await tester.pumpWidget(
+        host(tema: 'il lavoro', starter: Maestro.medora, tier: Tier.tier1));
     await tester.pump();
     // NIENTE STATO VUOTO: qui si arriva sempre con una domanda gia' fatta, e
     // senza campo per farne una non ci sarebbe niente da invitare a fare.
@@ -112,12 +112,13 @@ void main() {
 
     await ask(tester, 'il lavoro');
 
+    // TRE CARTE, e nessun invito ad aggiungerne: ci sono gia' tutte.
+    await tester.pumpAndSettle();
     expect(find.byKey(const Key('ask_lens_medora')), findsOneWidget);
-    expect(find.byKey(const Key('ask_synthesis')), findsNothing);
-    expect(find.byKey(const Key('ask_another_invite')), findsOneWidget);
-    expect(find.byKey(const Key('ask_add_aura')), findsOneWidget);
-    // Chiusura del cerchio: il ponte alla conversazione.
-    expect(find.byKey(const Key('ask_continue_chat')), findsOneWidget);
+    expect(find.byKey(const Key('ask_synthesis')), findsOneWidget,
+        reason: 'con tre voci la sintesi deve esserci');
+    expect(find.byKey(const Key('ask_another_invite')), findsNothing);
+    expect(find.byKey(const Key('ask_add_aura')), findsNothing);
   });
 
   testWidgets('AI pronta: la lente del dominio usa la risposta viva',
@@ -163,7 +164,8 @@ void main() {
       services: _servicesWith(_ReadyAi()),
     ));
     await ask(tester, 'una scelta');
-    await tester.tap(find.byKey(const Key('ask_add_aura')));
+    // LE ALTRE DUE VOCI ARRIVANO DA SOLE, dal 5 agosto 2026: qui si toccava
+    // un chip per chiederle, e quel chip non esiste piu'.
     await tester.pumpAndSettle();
 
     // Due lenti vive, entrambe dal provider.
@@ -206,7 +208,8 @@ void main() {
 
     await tester.pumpWidget(host(tema: 'una scelta', tier: Tier.tier1, starter: Maestro.medora));
     await ask(tester, 'una scelta');
-    await tester.tap(find.byKey(const Key('ask_add_aura')));
+    // LE ALTRE DUE VOCI ARRIVANO DA SOLE, dal 5 agosto 2026: qui si toccava
+    // un chip per chiederle, e quel chip non esiste piu'.
     await tester.pumpAndSettle();
 
     final titolo = find.descendant(
@@ -243,7 +246,8 @@ void main() {
     // Provider non pronto (offline): lenti dall'oracolo e sintesi deterministica.
     await tester.pumpWidget(host(tema: 'una scelta', tier: Tier.tier1, starter: Maestro.medora));
     await ask(tester, 'una scelta');
-    await tester.tap(find.byKey(const Key('ask_add_aura')));
+    // LE ALTRE DUE VOCI ARRIVANO DA SOLE, dal 5 agosto 2026: qui si toccava
+    // un chip per chiederle, e quel chip non esiste piu'.
     await tester.pumpAndSettle();
 
     final sintesi = tester
@@ -261,7 +265,8 @@ void main() {
         contains('Dove le voci concordano, ascolta con più fiducia'));
   });
 
-  testWidgets('Free: il confronto invita all\'upgrade, senza aggiungere',
+  testWidgets('Free: il confronto invita a salire, e le altre voci non '
+      'arrivano',
       (tester) async {
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(430, 2200);
@@ -270,11 +275,20 @@ void main() {
 
     await tester.pumpWidget(host(tema: 'una scelta', tier: Tier.free));
     await ask(tester, 'una scelta');
-    await tester.tap(find.byKey(const Key('ask_add_aura')));
+    // LE ALTRE DUE VOCI ARRIVANO DA SOLE, dal 5 agosto 2026: qui si toccava
+    // un chip per chiederle, e quel chip non esiste piu'.
     await tester.pumpAndSettle();
 
-    expect(find.byKey(const Key('upgrade_invite')), findsOneWidget);
+    // **L'INVITO A SALIRE LO APRE LA PORTA, NON QUESTA STANZA.** Prima lo
+    // apriva il chip che chiedeva una voce, e quel chip non esiste piu'.
+    // Aprirlo qui vorrebbe dire accogliere chi entra con una finestra di
+    // vendita, e per due volte di fila, perche' la porta lo ha gia' fatto.
+    // Qui resta cio' che il Free deve vedere: la sua voce, e nessun'altra.
+    expect(find.byKey(const Key('ask_lens_medora')), findsOneWidget);
     expect(find.byKey(const Key('ask_lens_aura')), findsNothing);
+    expect(find.byKey(const Key('ask_lens_caligo')), findsNothing);
+    expect(find.byKey(const Key('ask_synthesis')), findsNothing,
+        reason: 'con una voce sola non c\'e\' niente da mettere a confronto');
   });
 
   // LE DUE PROVE QUI SOTTO CODIFICAVANO IL DIFETTO, e vanno lette sapendolo.
@@ -371,8 +385,15 @@ void main() {
     expect(cap.lastDepth, ConsultDepth.breve);
   });
 
-  testWidgets('Chiusura del cerchio: salva in memoria e apre la chat col tema',
+  testWidgets('Chiusura del cerchio: salva in memoria e TORNA alla chat',
       (tester) async {
+    // **QUESTA PROVA E' CAMBIATA IL 5 agosto 2026.** "Continua con" apriva una
+    // rotta NUOVA, quindi il Maestro ripartiva da zero e la conversazione
+    // precedente spariva dalla vista. Adesso, per il Maestro da cui si e'
+    // arrivati, si TORNA: al Consiglio ci si arriva dalla sua chat, che e'
+    // rimasta sotto nella pila. Qui sotto non c'e' nessuna chat, quindi cio'
+    // che si misura e' che la schermata si chiuda, piu' la nota lasciata in
+    // memoria, che e' la parte che vale.
     silenceSensors();
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(430, 2200);
@@ -385,20 +406,20 @@ void main() {
       memory: repo,
       memoryPersistent: false,
     );
-    await tester.pumpWidget(host(tema: 'devo cambiare lavoro', starter: Maestro.medora, services: services));
+    await tester.pumpWidget(host(
+        tema: 'devo cambiare lavoro',
+        starter: Maestro.medora,
+        tier: Tier.tier1,
+        services: services));
     await ask(tester, 'devo cambiare lavoro');
 
-    await tester.tap(find.byKey(const Key('ask_continue_chat')));
-    // Il cosmo della chat anima all'infinito, quindi non si usa pumpAndSettle.
+    await tester.tap(find.text('Continua con ${Maestro.medora.displayName}'));
     for (var i = 0; i < 6; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
+      await tester.pump(const Duration(milliseconds: 100));
     }
 
-    // La chat si e' aperta.
-    expect(find.byType(MaestroChatScreen), findsOneWidget);
-    // Il campo si apre col tema del Consulta.
-    expect(find.text('devo cambiare lavoro'), findsWidgets);
-    // La memoria di Medora ricorda il tema.
+    // La nota resta nella memoria del Maestro: la conversazione riprende
+    // sapendo cosa e' successo nel Consiglio.
     final mem = await repo.loadMemory(Maestro.medora);
     expect(mem.sessionSummary, contains('devo cambiare lavoro'));
   });

@@ -100,17 +100,20 @@ void main() {
       await openChat(tester, maestro);
 
       // Il sottotitolo dell'header della chat mostra le tre arti col formato
-      // giusto, non piu' la coppia del domainTitle.
+      // giusto.
+      //
+      // **La seconda meta' di questa prova non serve piu' dal 5 agosto 2026.**
+      // Verificava che non comparisse `domainTitle`, cioe' la forma corta
+      // "Astrologia e Destino". Quel campo non esiste piu': due campi che
+      // descrivono lo stesso oggetto divergono sempre, quindi il corto e'
+      // stato tolto invece che allineato. Che nessuna schermata ne componga
+      // uno a mano lo prova `il_consiglio_mostra_tre_voci_test.dart`,
+      // scandendo tutto lib.
       expect(
           find.descendant(
               of: find.byType(MaestroChatScreen),
               matching: find.text(maestro.domainArtsPhrase)),
           findsOneWidget);
-      expect(
-          find.descendant(
-              of: find.byType(MaestroChatScreen),
-              matching: find.text(maestro.domainTitle)),
-          findsNothing);
 
       // Il titolo dell'AppBar della chat e' centrato.
       final appBar = tester.widget<AppBar>(find.descendant(

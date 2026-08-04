@@ -235,7 +235,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     final buffer = StringBuffer('Domanda della persona: «$t».\n\n');
     for (final l in lenses) {
       buffer
-        ..writeln('${l.maestro.displayName} (${l.maestro.domainTitle}):')
+        ..writeln('${l.maestro.displayName} (${l.maestro.domainArtsPhrase}):')
         ..writeln('- Colpo d\'occhio: ${l.glance.trim()}')
         ..writeln('- Lettura: ${l.reading.trim()}')
         ..writeln();
