@@ -158,9 +158,6 @@ class MaestroChatController extends ChangeNotifier {
   /// configurata: la UI mostra un avviso in tono, non un errore.
   bool get aiReady => _ai.isReady;
 
-  /// Il disclaimer si mostra una sola volta. Qui si decide se serve ancora.
-  bool get needsDisclaimer => !_profile.hasSeenDisclaimer;
-
   int _turnsSinceDistill = 0;
 
   /// Carica profilo, memoria e cronologia recente all'apertura della chat.
@@ -210,19 +207,20 @@ class MaestroChatController extends ChangeNotifier {
             m,
       ];
 
-  /// Registra che l'utente ha visto e accettato il disclaimer, una volta sola.
-  Future<void> acceptDisclaimer() async {
-    if (_profile.hasSeenDisclaimer) return;
-    _profile = _profile.copyWith(disclaimerAcceptedAt: DateTime.now());
-    notifyListeners();
-    try {
-      await _memory.saveProfile(_profile);
-    } catch (errore, traccia) {
-      // Se la scrittura fallisce lo si riproporra' al prossimo avvio.
-      annotaGuastoInnocuo(
-          'salvando l\'accettazione del disclaimer', errore, traccia);
-    }
-  }
+  // IL DISCLAIMER NON PASSA PIU' DA QUI, e non e' un pezzo tolto a meta'.
+  //
+  // C'erano `needsDisclaimer` e `acceptDisclaimer`: servivano alla
+  // finestra modale che si apriva sopra la chat e che bisognava chiudere
+  // per poter parlare col Maestro. Era uno di NOVE disclaimer a schermo,
+  // e l'unico che sbarrava la strada. Adesso ne esiste uno solo,
+  // nell'area privacy, e non ha bisogno di essere accettato: sta li' per
+  // chi lo cerca.
+  //
+  // `disclaimerAcceptedAt` resta nel profilo: e' la data in cui una
+  // persona vera ha accettato una cosa vera, e cancellarla sarebbe
+  // riscrivere il passato.
+
+
 
   /// Invia un messaggio dell'utente e attende la risposta del Maestro.
   Future<void> send(String text) async {

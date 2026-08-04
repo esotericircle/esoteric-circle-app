@@ -44,12 +44,22 @@ void main() {
         reason: 'non e\' nata nessuna tessera viva per la carta natale');
   });
 
-  test('L\'Archetipo resta dietro il velo, e resta uno solo', () {
-    expect(velate.contains("title: 'Archetipo'"), isTrue,
-        reason: 'l\'Archetipo non e\' un dato del passaporto: deve restare '
-            'dichiarato come in arrivo, invece di sparire in silenzio');
-    expect('title:'.allMatches(velate).length, 1,
-        reason: 'le voci velate non sono una sola');
+  test('L\'Archetipo NON e\' piu\' dietro il velo', () {
+    // **QUESTA PROVA DICEVA IL CONTRARIO, e sbagliava.** Diceva che
+    // l'Archetipo "non e' un dato del passaporto" e doveva restare dichiarato
+    // come in arrivo. Ma il Test Archetipo esiste ed e' vivo da mesi: chi lo
+    // aveva completato tornava nel Passaporto e ritrovava la sua figura
+    // profonda dietro il velo, cioe' promessa come futura.
+    //
+    // E' esattamente la ragione scritta in cima a questo file per la Carta
+    // natale e per l'Angelo custode: promettere come futuro qualcosa che
+    // l'app fa gia' e' peggio di non prometterlo, perche' chi legge conclude
+    // che non ce l'ha.
+    expect(velate.contains("title: 'Archetipo'"), isFalse,
+        reason: 'l\'Archetipo e\' tornato fra le cose in arrivo, mentre il '
+            'suo Test si puo\' fare e il suo esito si conserva');
+    expect(sorgente.contains("Key('passport_archetipo')"), isTrue,
+        reason: 'la tessera viva dell\'Archetipo non c\'e\' piu\'');
   });
 
   test('I titoli delle tessere velate non si spezzano a meta\' parola', () {

@@ -56,6 +56,26 @@ void main() {
       RegExp(r'[Vv]oce dei Maestri'),
       RegExp(r'la sua voce'),
       RegExp(r'[Ll]a mia voce'),
+      // IL PLURALE, che la prima stesura non guardava affatto.
+      //
+      // **Due punti sono sopravvissuti per un anno dentro una prova che
+      // scandisce tutto `lib`.** La descrizione della card "Consulta Medora"
+      // diceva "metti a confronto le voci del Cerchio", e la Sintesi
+      // comparativa, sia quella deterministica sia l'istruzione di sistema che
+      // la fa scrivere a Gemini, chiudeva con "Dove le voci concordano".
+      // Nessuna delle forme qui sopra le prendeva, perche' cercavano tutte il
+      // singolare seguito da un nome.
+      //
+      // Il plurale ha bisogno di forme SUE, e non di un "voci" generico: in
+      // italiano "voce" e' anche una riga di un elenco, e l'app la usa cosi'
+      // in una decina di punti legittimi, dalle voci del menu account alle
+      // voci non ancora pronte del dominio.
+      RegExp(r'[Vv]oci del Cerchio'),
+      RegExp(r'[Vv]oci dei Maestri'),
+      RegExp(r'[Vv]oci concordano'),
+      RegExp(r'[Vv]oci divergono'),
+      RegExp(r'[Vv]oci del cerchio'),
+      RegExp(r'(tre|altre|le altre) voci'),
     ];
 
     // LE ECCEZIONI, dichiarate con la ragione accanto.

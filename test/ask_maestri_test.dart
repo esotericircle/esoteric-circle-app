@@ -196,7 +196,7 @@ void main() {
     expect(sintesi, contains('Medora'));
     expect(sintesi, contains('Aura'));
     expect(sintesi,
-        contains('Dove le voci concordano, ascolta con più fiducia'));
+        contains('Dove gli sguardi concordano, ascolta con più fiducia'));
     expect(sintesi, isNot(contains('Stessa domanda')));
   });
 
@@ -271,7 +271,7 @@ void main() {
     expect(sintesi, contains('Stessa domanda'));
     expect(sintesi, isNot(contains('Sintesi viva dal provider')));
     expect(sintesi,
-        contains('Dove le voci concordano, ascolta con più fiducia'));
+        contains('Dove gli sguardi concordano, ascolta con più fiducia'));
   });
 
   testWidgets('Free: il confronto invita a salire, e le altre voci non '
@@ -502,7 +502,7 @@ class _ReadyAi implements MaestroAiProvider {
     NatalContext? natal,
   }) async {
     final nomi = lenses.map((l) => l.maestro.displayName).join(' e ');
-    return 'Sintesi viva dal provider di $nomi su $theme. Dove le voci '
+    return 'Sintesi viva dal provider di $nomi su $theme. Dove gli sguardi '
         'concordano, ascolta con più fiducia; dove divergono, hai più strade '
         'tra cui scegliere.';
   }

@@ -1,3 +1,4 @@
+import '../lang/euphonic.dart';
 import '../chat/maestro_memory.dart';
 import '../chat/user_profile.dart';
 import 'maestro.dart';
@@ -113,14 +114,23 @@ class MaestroWelcome {
     if (natal != null && !natal.isEmpty) {
       final sun = natal.sunSign?.trim();
       final life = natal.lifeNumberTitle?.trim();
-      if (sun != null && sun.isNotEmpty && life != null && life.isNotEmpty) {
-        return 'Il tuo Sole in $sun e il tuo cammino di $life ti accompagnano.';
+      // LA PREPOSIZIONE SI FONDE COL SUO ARTICOLO.
+      //
+      // I titoli del numero della vita arrivano gia' articolati, "il Creativo",
+      // "l'Iniziatore": incollandoci davanti "di" veniva fuori "il tuo cammino
+      // di il Creativo ti accompagna". La fusione vive in `euphonic`, insieme
+      // alla "d" eufonica e alla preposizione dei piani, e vale per tutte e
+      // sette le preposizioni che si articolano in italiano.
+      final delCammino =
+          life == null ? null : preposizioneArticolata('di', life);
+      if (sun != null && sun.isNotEmpty && delCammino != null && life!.isNotEmpty) {
+        return 'Il tuo Sole in $sun e il tuo cammino $delCammino ti accompagnano.';
       }
       if (sun != null && sun.isNotEmpty) {
         return 'Il tuo Sole in $sun ti accompagna.';
       }
-      if (life != null && life.isNotEmpty) {
-        return 'Il tuo cammino di $life ti accompagna.';
+      if (delCammino != null && life!.isNotEmpty) {
+        return 'Il tuo cammino $delCammino ti accompagna.';
       }
     }
     return '';

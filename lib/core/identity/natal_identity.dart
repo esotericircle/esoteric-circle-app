@@ -181,6 +181,27 @@ class BirthIdentityController extends ChangeNotifier {
   NatalFacts? get facts => _facts;
   bool get hasBirth => _details != null;
 
+  /// IL SEGNO SOLARE, che c'e' anche quando la carta non c'e'.
+  ///
+  /// **Il difetto che l'ha fatto nascere.** In chat, accanto ai suoi messaggi,
+  /// la persona vedeva le proprie INIZIALI invece del glifo del suo segno.
+  /// L'avatar il glifo lo preferiva gia', ma lo chiedeva a `chart?.sunSign`, e
+  /// la carta si calcola una volta sola alla fine del Risveglio e vive solo in
+  /// memoria: riaperta l'app era nulla, quindi il ramo del glifo non si
+  /// percorreva mai e si ripiegava sulle iniziali.
+  ///
+  /// **Il segno pero' non ha bisogno della carta.** Ascendente e Case chiedono
+  /// l'ora e il luogo, il segno solare chiede solo la DATA di nascita, che
+  /// l'archivio scrive e rilegge. Qui si prende dalla carta quando c'e', e dai
+  /// dati di nascita quando la carta non c'e' ancora: e' lo stesso segno,
+  /// preso dalla fonte piu' povera che basta a dirlo.
+  Zodiac? get sunSign {
+    final daCarta = _chart?.sunSign;
+    if (daCarta != null) return daCarta;
+    final data = _details?.date;
+    return data == null ? null : Zodiac.fromDate(data);
+  }
+
   void setBirth(BirthDetails details, NatalChart? chart) {
     _details = details;
     _chart = chart;

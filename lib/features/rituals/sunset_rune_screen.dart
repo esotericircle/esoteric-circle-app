@@ -1394,8 +1394,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         "con la tua data di nascita e col tuo segno, quindi la runa è tua e non "
         "la stessa per tutti. Il responso si compone di quattro fattori reali: la "
         "runa, il suo verso, la fase lunare vera della sera e il tuo segno solare.\n\n"
-        "$oraRiga L'ora usa l'algoritmo NOAA, sul dispositivo, senza rete.\n\n"
-        "Per intrattenimento e crescita personale, nessuna promessa deterministica.";
+        "$oraRiga L'ora usa l'algoritmo NOAA, sul dispositivo, senza rete.";
   }
 }
 

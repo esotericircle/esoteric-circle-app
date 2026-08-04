@@ -75,7 +75,7 @@ abstract interface class MaestroAiProvider {
   /// Genera la Sintesi comparativa di "Consulta un Maestro" quando i Maestri
   /// interpellati sono piu' di uno: mette a confronto le [lenses] gia' ottenute
   /// sul [theme] (le stesse tre strati per Maestro gia' vive, non le rifa'), col
-  /// [natal] a personalizzare, e chiude con la regola dove le voci concordano
+  /// [natal] a personalizzare, e chiude con la regola dove gli sguardi concordano
   /// ascolta con piu' fiducia, dove divergono hai piu' strade.
   ///
   /// Se il provider non e' pronto o non trova le parole, solleva

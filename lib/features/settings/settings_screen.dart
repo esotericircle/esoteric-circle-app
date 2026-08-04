@@ -1,3 +1,4 @@
+import '../../core/arts/art_catalog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
@@ -167,6 +168,39 @@ class SettingsScreen extends StatelessWidget {
               const SectionTitle(
                 title: 'Privacy e dati',
                 subtitle: 'Il tuo cammino è tuo.',
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              // IL DISCLAIMER, E QUESTO E' L'UNICO POSTO DOVE COMPARE.
+              //
+              // Ne esistevano SETTE a schermo: una finestra modale
+              // all'apertura della chat, e poi Angeli, Oroscopo, intro delle
+              // arti, schermata del Maestro, Rune, Stesa a tre carte. Le linee
+              // guida dicevano da sempre "una volta sola", e per sette volte
+              // ognuno ha pensato che il proprio fosse quella volta.
+              //
+              // Un disclaimer ripetuto smette di essere letto, e diventa un
+              // modo di scaricare la responsabilita' invece di dirla. Qui sta
+              // dove chi lo cerca lo trova, e chi non lo cerca non se lo
+              // ritrova addosso su ogni carta.
+              DepthCard(
+                raised: true,
+                child: Row(
+                  key: const Key('privacy_disclaimer'),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.eco_outlined, size: 18, color: palette.goldSoft),
+                    const SizedBox(width: SpacingTokens.md),
+                    Expanded(
+                      child: Text(
+                        ArtCatalog.disclaimerCornice,
+                        style: TypographyTokens.body(size: 14).copyWith(
+                          color: ColorTokens.textSecondary,
+                          height: 1.45,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: SpacingTokens.sm),
               DepthCard(

@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/identity/birth_moon.dart';
@@ -21,6 +22,7 @@ void main() {
   Widget wrap(Widget child) => MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
           // La tessera della carta natale legge lo stato del calcolo per
           // dire cio' che la carta E', invece di dichiarare sempre di
           // averla calcolata sulle effemeridi.

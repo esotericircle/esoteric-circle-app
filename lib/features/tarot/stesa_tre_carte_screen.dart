@@ -626,15 +626,13 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             ),
           ),
         ],
-        const SizedBox(height: SpacingTokens.sm),
-        // Disclaimer, una sola volta.
-        Text(TarotSpread.disclaimer,
-            key: const Key('stesa_disclaimer'),
-            textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 13).copyWith(
-                color: ColorTokens.textSecondary,
-                height: 1.4,
-                fontStyle: FontStyle.italic)),
+            // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
+            //
+            // Le linee guida dicevano da sempre "una volta sola", e per
+            // sette volte ognuno ha pensato che il proprio fosse quella
+            // volta. Un disclaimer ripetuto smette di essere letto e
+            // diventa un modo di scaricare la responsabilita' invece di
+            // dirla. Adesso sta in un posto solo, nell'area privacy.
       ],
     );
   }

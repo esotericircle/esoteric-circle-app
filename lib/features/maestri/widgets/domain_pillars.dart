@@ -30,9 +30,18 @@ class DomainPillars extends StatelessWidget {
     final palette = context.palette;
     final pilastri = of(maestro);
     if (pilastri.isEmpty) return const SizedBox.shrink();
+    // UNA FORMA SOLA PER IL DOMINIO, ed e' quella con le virgole.
+    //
+    // Qui si leggeva "Astrologia · Cartomanzia · Destino" e in chat
+    // "Astrologia, Cartomanzia e Destino": la stessa informazione in due
+    // composizioni, quindi due modi di ricordarsela e due punti da correggere
+    // ogni volta. Vince quella con le virgole e la congiunzione, perche' e'
+    // italiano scritto e si legge ad alta voce; i punti medi sono un modo di
+    // separare, non di dire. Nasce da `Maestro.domainArtsPhrase`, che e' il
+    // punto unico, e questa schermata non compone piu' niente da sola.
     return Text(
       key: const Key('domain_pillars'),
-      pilastri.join(' · '),
+      maestro.domainArtsPhrase,
       maxLines: 1,
       textAlign: TextAlign.center,
       overflow: TextOverflow.ellipsis,

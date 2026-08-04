@@ -704,7 +704,7 @@ class _ConsultaMaestroCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Dialoga, chiedi e metti a confronto le voci del Cerchio.',
+                  'Dialoga, chiedi e metti a confronto gli sguardi del Cerchio.',
                   style: TypographyTokens.body(size: 14)
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
@@ -777,28 +777,11 @@ Future<void> showArtPreview(
             Text(riga,
                 style: TypographyTokens.body(size: 14)
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
-            // Le arti che la dichiarano portano sempre la loro cornice onesta.
-            if (art.cornice) ...[
-              const SizedBox(height: SpacingTokens.sm),
-              Row(
-                key: const Key('art_disclaimer_cornice'),
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.eco_outlined, size: 15, color: palette.goldSoft),
-                  const SizedBox(width: 6),
-                  Expanded(
-                    child: Text(
-                      ArtCatalog.disclaimerCornice,
-                      style: TypographyTokens.body(size: 13).copyWith(
-                        color: ColorTokens.textSecondary,
-                        height: 1.4,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+            // LA CORNICE ONESTA E' USCITA DA QUI, ed era uno dei SETTE
+            // disclaimer a schermo. Le linee guida dicevano da sempre
+            // "una volta sola", e per sette volte ognuno ha pensato
+            // che il proprio fosse quella volta. Adesso sta in un
+            // posto solo, nell'area privacy.
             const SizedBox(height: SpacingTokens.lg),
             Align(
               alignment: Alignment.centerRight,

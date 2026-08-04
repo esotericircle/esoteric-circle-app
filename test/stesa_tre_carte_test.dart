@@ -580,9 +580,10 @@ void main() {
       ]) {
         expect(find.byKey(Key(chiave)), findsOneWidget, reason: 'manca $chiave');
       }
-      // 7. Azioni piu' disclaimer, una sola volta.
+      // 7. Le azioni. Il disclaimer non sta piu' qui: ne esistevano NOVE a
+      // schermo, e adesso ne esiste UNO, nell'area privacy.
       expect(find.byKey(const Key('stesa_share')), findsOneWidget);
-      expect(find.byKey(const Key('stesa_disclaimer')), findsOneWidget);
+      expect(find.byKey(const Key('stesa_disclaimer')), findsNothing);
       expect(tester.takeException(), isNull);
     });
   });

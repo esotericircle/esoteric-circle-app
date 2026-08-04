@@ -90,9 +90,10 @@ void main() {
     expect(immagini.length, greaterThanOrEqualTo(3),
         reason: 'tre arti distinte dalla cartella degli angeli');
 
-    // La spiegazione di come sono scelti c'e', col disclaimer una volta sola.
+    // IL DISCLAIMER NON STA PIU' QUI, dal 4 agosto 2026: ne esistevano
+    // NOVE a schermo, e adesso ne esiste UNO, nell'area privacy. Una
+    // prova a parte sorveglia che non ne rispunti un secondo.
     expect(find.byKey(const Key('angeli_come_scelti')), findsOneWidget);
-    expect(find.byKey(const Key('angeli_disclaimer')), findsOneWidget);
   });
 
   testWidgets('Senza ora il terzo angelo non si mostra come noto',

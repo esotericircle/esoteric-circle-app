@@ -195,9 +195,8 @@ const String kRuneFontiEMetodo =
     "a posizioni fisse e il verso d'ombra o merkstave sono convenzioni moderne, "
     "diffuse nel Novecento da autori come Edred Thorsson, alias Stephen Flowers, "
     "nel suo Futhark del 1984, Freya Aswynn e Diana Paxson, divulgate poi da "
-    "Ralph Blum. I nostri testi sono curatela originale nella voce di Caligo, "
-    "ispirata a queste fonti, non citazione.\n\n"
-    "Per intrattenimento e crescita personale, nessuna promessa deterministica.";
+    "Ralph Blum. I nostri testi sono curatela originale scritta da Caligo, "
+    "ispirata a queste fonti, non citazione.";
 
 /// La nota del sigillo del giorno: dichiara che la bindrune e' una forma
 /// autentica della tradizione, e che questa e' composta dalle rune del momento.

@@ -181,9 +181,9 @@ void main() {
       }
     });
 
-    testWidgets('Il disclaimer compare una volta sola', (tester) async {
+    testWidgets('Il disclaimer non compare qui, ne\' altrove', (tester) async {
       await pumpScreen(tester);
-      expect(find.byKey(const Key('oroscopo_disclaimer')), findsOneWidget);
+      expect(find.byKey(const Key('oroscopo_disclaimer')), findsNothing);
     });
 
     testWidgets('Cinque icone di livello riempite da sinistra, col numero',

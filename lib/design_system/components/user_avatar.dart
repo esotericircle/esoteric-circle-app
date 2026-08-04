@@ -61,7 +61,14 @@ class UserAvatar extends StatelessWidget {
       key: key,
       photo:
           profile.hasAvatarPhoto ? MemoryImage(profile.avatarPhoto!) : null,
-      sign: birth.chart?.sunSign,
+      // IL SEGNO, DALLA FONTE CHE NON SI PERDE.
+      //
+      // Qui si leggeva `birth.chart?.sunSign`, e la carta natale vive solo in
+      // memoria: riaperta l'app era nulla, quindi il glifo non compariva mai e
+      // accanto ai messaggi restavano le iniziali. `sunSign` prende il segno
+      // dalla carta quando c'e' e dalla data di nascita quando non c'e',
+      // perche' il segno solare la carta non gliela serve.
+      sign: birth.sunSign,
       name: profile.hasName ? profile.profile.displayName : null,
       size: size,
     );
@@ -101,7 +108,11 @@ class UserAvatar extends StatelessWidget {
   }
 
   Widget _defaultContent() {
-    // 2. L'emblema del segno solare, se la carta lo conosce.
+    // 2. IL GLIFO DEL SUO SEGNO, e sta prima delle iniziali apposta.
+    //
+    // Un'iniziale dice come ti chiami, un glifo dice chi sei nel cielo: in un
+    // Cerchio esoterico e' la seconda cosa che vale la pena guardare. Le
+    // iniziali restano per chi il cielo non l'ha ancora dato.
     if (sign != null) {
       return ZodiacEmblem(
         key: const Key('user_avatar_sign'),

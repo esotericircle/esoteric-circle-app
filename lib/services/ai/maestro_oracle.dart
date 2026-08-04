@@ -159,12 +159,12 @@ class MaestroOracle {
   }
 
   // La sintesi comparativa: lo stesso tema sotto le lenti scelte, con l'invito
-  // a fidarsi di piu' dove le voci concordano.
+  // a fidarsi di piu' dove gli sguardi concordano.
   String _synthesis(String theme, List<Maestro> chosen) {
     final lenses = _joinE([for (final m in chosen) _lensLabel(m)]);
     return 'Stessa domanda, ${_quote(theme)}, sotto sguardi diversi: $lenses. '
-        'Dove le voci concordano, ascolta con più fiducia; dove divergono, '
-        'hai più strade tra cui scegliere.';
+        'Dove gli sguardi concordano, ascolta con più fiducia; dove '
+        'divergono, hai più strade tra cui scegliere.';
   }
 
   /// Sintesi comparativa DETERMINISTICA dalle lenti gia' ottenute, viva o di
@@ -184,7 +184,7 @@ class MaestroOracle {
             '${l.maestro.displayName} ${_lowerFirst(_stripEnd(l.glance.trim()))}.')
         .join(' ');
     return 'Stessa domanda, ${_quote(theme.trim())}, sotto sguardi diversi. '
-        '$prese Dove le voci concordano, ascolta con più fiducia; dove '
+        '$prese Dove gli sguardi concordano, ascolta con più fiducia; dove '
         'divergono, hai più strade tra cui scegliere.';
   }
 

@@ -737,9 +737,12 @@ void main() {
         await tester.pump();
         final riga = find.byKey(const Key('domain_pillars'));
         expect(riga, findsOneWidget);
-        // I tre pilastri del Maestro, separati dal punto mediano.
-        expect(tester.widget<Text>(riga).data,
-            m.domainArts.split(',').map((s) => s.trim()).join(' · '));
+        // IL DOMINIO IN UNA FORMA SOLA, ed e' quella con le virgole.
+        //
+        // Qui si leggeva "Astrologia · Cartomanzia · Destino" coi punti medi e
+        // in chat "Astrologia, Cartomanzia e Destino": la stessa informazione
+        // in due composizioni. Nasce da `domainArtsPhrase`, punto unico.
+        expect(tester.widget<Text>(riga).data, m.domainArtsPhrase);
         // Nessun comando dentro: e' testo e basta.
         for (final tipo in [InkWell, GestureDetector, TextButton]) {
           expect(

@@ -42,7 +42,6 @@ import 'widgets/chat_empty_state.dart';
 import 'widgets/chat_suggestions.dart';
 import '../../../services/ai/voce_sorvegliata.dart';
 import 'widgets/diagnostics_dialog.dart';
-import 'widgets/maestro_disclaimer.dart';
 import '../widgets/maestro_bust.dart';
 
 class MaestroChatScreen extends StatefulWidget {
@@ -138,7 +137,6 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   /// e chiudere la chat mentre una risposta arriva lo lasciava vivo. Se ne e'
   /// accorta la cattura delle anteprime, che non c'entrava niente.
   Timer? _attesaDellaMisura;
-  bool _disclaimerHandled = false;
   bool _initialSent = false;
 
   /// La firma del turno, e non piu' il solo conteggio dei messaggi.
@@ -267,7 +265,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     if (!context.read<QuestionAllowance>().canCompare(piano)) {
       await showUpgradeInvite(
         context,
-        title: 'Le altre voci sono del Cerchio',
+        title: 'Gli altri sguardi sono del Cerchio',
         message: 'Col Cerchio la stessa domanda arriva anche agli altri due '
             'Maestri, qui dentro, ognuno con la sua lente.',
       );
@@ -344,18 +342,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     });
   }
 
-  Future<void> _maybeShowDisclaimer(MaestroChatController controller) async {
-    if (_disclaimerHandled || controller.loading) return;
-    _disclaimerHandled = true;
-    if (!controller.needsDisclaimer) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      showMaestroDisclaimer(
-        context,
-        onAccepted: controller.acceptDisclaimer,
-      );
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -369,8 +356,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     // averlo: la preferenza arriva da qui, dove MediaQuery esiste.
     controller.riduciMovimento = MediaQuery.of(context).disableAnimations;
 
-    // Mostra il disclaimer una sola volta, appena la memoria e' caricata.
-    _maybeShowDisclaimer(controller);
+    // IL DISCLAIMER ALL'APERTURA DELLA CHAT E' USCITO, ed era il settimo.
+    //
+    // Era l'unico dei sette a essere una finestra modale, cioe' l'unico che
+    // bisognava chiudere per poter parlare col Maestro: una porta sbarrata
+    // messa davanti alla prima cosa che l'app promette. Adesso il disclaimer
+    // vive in un posto solo, nell'area privacy dell'utente.
 
     // La prima domanda contestuale, inviata una sola volta quando la chat e'
     // pronta e la conversazione e' ancora vuota: si arriva da "Parlane con il

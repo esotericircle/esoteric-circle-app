@@ -1,3 +1,4 @@
+import '../../core/archetypes/archetype_history.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -149,6 +150,17 @@ class CosmicPassport extends StatelessWidget {
                   _AngelsCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   _NatalChartCard(identity: id),
+                  const SizedBox(height: SpacingTokens.sm),
+                  // L'ARCHETIPO, VIVO SE IL TEST E' STATO FATTO.
+                  //
+                  // Restava dietro il velo anche a test completato, e la
+                  // causa non era un errore di disegno: questa tessera era
+                  // una riga di un elenco FISSO di cose "in arrivo", e non
+                  // guardava da nessuna parte. Fra cio' che la persona aveva
+                  // fatto e cio' che questa schermata leggeva non c'era
+                  // nessun collegamento, perche' lo storico del Test viveva
+                  // dentro la schermata del Test e da nessun'altra parte.
+                  const _TesseraArchetipo(),
                   const SizedBox(height: SpacingTokens.sm),
                   for (final entry in _passportEntries) ...[
                     _PassportEntryCard(entry: entry),
@@ -669,13 +681,91 @@ class _PassportEntry {
 ///
 /// Promettere come futuro qualcosa che l'app fa gia' e' peggio di non
 /// prometterlo: chi legge conclude che non ce l'ha.
-const List<_PassportEntry> _passportEntries = [
-  _PassportEntry(
-    icon: Icons.psychology_alt,
-    title: 'Archetipo',
-    description: 'La figura profonda che ti accompagna.',
-  ),
-];
+/// **Ne e' uscita una TERZA, ed e' la correzione di questa voce.**
+///
+/// - **Archetipo**: era qui dentro, cioe' promesso come futuro, mentre il Test
+///   Archetipo esiste ed e' vivo da mesi. Chi lo aveva completato tornava nel
+///   Passaporto e ritrovava la sua figura profonda dietro il velo. Adesso ha
+///   la sua tessera vera, [_TesseraArchetipo], che legge lo storico condiviso.
+///
+/// L'elenco resta, vuoto: e' il posto dove va cio' che l'app davvero non ha
+/// ancora, e cancellarlo vorrebbe dire non avere piu' un posto dove metterlo.
+const List<_PassportEntry> _passportEntries = [];
+
+/// LA TESSERA DELL'ARCHETIPO: viva col Test fatto, dietro il velo senza.
+///
+/// Legge `ArchetypeHistory`, che l'app carica all'avvio e che serve anche al
+/// simbolo di Aura nell'attesa della chat. Un dato solo, due porte.
+class _TesseraArchetipo extends StatelessWidget {
+  const _TesseraArchetipo();
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final dominante = context.watch<ArchetypeHistory>().ultimo?.dominante;
+    if (dominante == null) {
+      // Senza Test non e' "in arrivo", e' "non l'hai ancora fatto": la
+      // differenza conta, perche' la prima frase e' falsa e la seconda porta
+      // da qualche parte.
+      return const _PassportEntryCard(
+        entry: _PassportEntry(
+          icon: Icons.psychology_alt,
+          title: 'Archetipo',
+          description: 'Fai il Test Archetipo e la tua figura comparirà qui.',
+        ),
+      );
+    }
+    return DepthCard(
+      key: const Key('passport_archetipo'),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Il suo emblema vero, non un'icona di sistema: e' una cosa sua.
+          ClipRRect(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            child: Image.asset(
+              dominante.arteThumb,
+              width: 44,
+              height: 44,
+              // INTERA, mai adattata al riempimento: e' un'arte di brand, e
+              // `cover` le taglia i bordi. Lo dice una prova che enumera tutti
+              // i punti dove queste immagini compaiono, e l'ha presa.
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) => Icon(Icons.psychology_alt,
+                  color: palette.goldSoft, size: 28),
+            ),
+          ),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text('Archetipo',
+                        maxLines: 1,
+                        style: TypographyTokens.display(size: 18)),
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  dominante.conArticolo,
+                  key: const Key('passport_archetipo_nome'),
+                  style: TypographyTokens.body(size: 14)
+                      .copyWith(color: palette.goldSoft),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 /// Tessera "in arrivo" di un singolo fatto identitario del passaporto.
 class _PassportEntryCard extends StatelessWidget {

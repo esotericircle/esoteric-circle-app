@@ -413,7 +413,7 @@ class MaestroPersona {
       'COSA FARE:',
       '- Ti do la domanda della persona e le letture già date dai Maestri interpellati, con il loro colpo d\'occhio e la loro lettura. Non inventare nuovi sguardi, intreccia quelli che ti do.',
       '- Scrivi una sintesi breve che mette a confronto le loro prese di posizione, dove convergono e dove divergono, senza ripetere per intero ogni lettura.',
-      '- Chiudi SEMPRE con questa frase esatta: "Dove le voci concordano, ascolta con più fiducia; dove divergono, hai più strade tra cui scegliere."',
+      '- Chiudi SEMPRE con questa frase esatta: "Dove gli sguardi concordano, ascolta con più fiducia; dove divergono, hai più strade tra cui scegliere."',
       '- Solo il testo della sintesi, senza titoli né elenchi.',
     ].join('\n');
   }

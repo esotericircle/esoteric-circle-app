@@ -94,7 +94,7 @@ class LenteDelCielo {
             'leggi, una runa o un sigillo, chiamandolo per nome. Dichiaralo '
             'come la TUA chiave di lettura, mai come tradizione: dì "io ci '
             'leggo", non "la tradizione dice". Non leggere il tempo né il '
-            'corpo fisico: quelli sono di altre due voci del cerchio. '
+            'corpo fisico: quelli sono degli altri due Maestri del cerchio. '
             'Resta essenziale e solenne, mai avvolgente.$conFirma';
     }
   }

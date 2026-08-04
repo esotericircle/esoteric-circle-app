@@ -287,14 +287,13 @@ class _Preparazione extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: SpacingTokens.sm),
-          Text(
-            'Per intrattenimento e crescita personale, nessuna promessa '
-            'deterministica.',
-            key: const Key('rune_disclaimer'),
-            style: TypographyTokens.label(size: 11).copyWith(
-                color: ColorTokens.textSecondary, letterSpacing: 0.2),
-          ),
+            // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
+            //
+            // Le linee guida dicevano da sempre "una volta sola", e per
+            // sette volte ognuno ha pensato che il proprio fosse quella
+            // volta. Un disclaimer ripetuto smette di essere letto e
+            // diventa un modo di scaricare la responsabilita' invece di
+            // dirla. Adesso sta in un posto solo, nell'area privacy.
           const SizedBox(height: SpacingTokens.lg),
           // LA DOMANDA, solo intenzione, coi suggerimenti tappabili.
           Text('La tua domanda',

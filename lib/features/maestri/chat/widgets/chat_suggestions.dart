@@ -119,9 +119,17 @@ class SuggestionSets {
         Maestro.caligo => _personalCaligo,
       };
 
+  /// Quante vie si propongono sotto il benvenuto.
+  ///
+  /// **TRE, e non quattro.** Un invito iniziale e' un assaggio, non un menu:
+  /// col quarto la colonna sotto il benvenuto diventa un elenco, e un elenco
+  /// chiede di scegliere invece di invitare a cominciare. Il numero sta qui
+  /// perche' possa essere letto e provato, invece di stare dentro la chiamata.
+  static const int quanteVie = 3;
+
   /// I pochi chip d'avvio dello stato vuoto, un invito iniziale.
   static List<String> starters(Maestro maestro) =>
-      frequent(maestro).take(4).toList(growable: false);
+      frequent(maestro).take(quanteVie).toList(growable: false);
 
   static List<String> forGroup(Maestro maestro, SuggestionGroup group) =>
       switch (group) {

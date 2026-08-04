@@ -113,7 +113,6 @@ void main() {
 
     // Il profilo e la memoria calda sono caricati.
     expect(controller.profile.displayName, 'Sofia');
-    expect(controller.needsDisclaimer, isFalse);
 
     await controller.send('Parlami del mio segno');
     await _settle();

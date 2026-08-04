@@ -113,10 +113,11 @@ class ArtIntroScreen extends StatelessWidget {
                   icon: const Icon(Icons.forum_outlined),
                   label: Text('Consulta ${maestro.displayName}'),
                 ),
-                if (art.cornice) ...[
-                  const SizedBox(height: SpacingTokens.xl),
-                  _CorniceOnesta(palette: palette),
-                ],
+                // LA CORNICE ONESTA E' USCITA DA QUI, ed era uno dei SETTE
+                // disclaimer a schermo. Le linee guida dicevano da sempre
+                // "una volta sola", e per sette volte ognuno ha pensato
+                // che il proprio fosse quella volta. Adesso sta in un
+                // posto solo, nell'area privacy.
               ],
             ),
           ),
@@ -127,30 +128,3 @@ class ArtIntroScreen extends StatelessWidget {
 }
 
 /// La cornice onesta delle arti, sempre uguale a se stessa.
-class _CorniceOnesta extends StatelessWidget {
-  const _CorniceOnesta({required this.palette});
-
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      key: const Key('art_disclaimer_cornice'),
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(Icons.eco_outlined, size: 15, color: palette.goldSoft),
-        const SizedBox(width: 6),
-        Expanded(
-          child: Text(
-            ArtCatalog.disclaimerCornice,
-            style: TypographyTokens.body(size: 13).copyWith(
-              color: ColorTokens.textSecondary,
-              height: 1.4,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
