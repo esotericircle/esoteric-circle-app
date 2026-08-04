@@ -310,21 +310,39 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     ));
   }
 
-  /// RIVELA IL SECONDO STRATO. Nessun piano da controllare, qui.
+  /// IL TOCCO SULLA FRECCIA: rivela, oppure porta agli abbonamenti.
   ///
-  /// **Qui c'erano due porte chiuse, e non ce n'e' piu' bisogno.** Una
-  /// diceva "Con il Cerchio il Maestro puo' scendere piu' a fondo", l'altra
-  /// "Per oggi siamo scesi abbastanza": tutte e due proteggevano una SECONDA
-  /// chiamata al modello, che non esiste piu'.
-  ///
-  /// Il piano e il budget del giorno decidono adesso quanto il Maestro
-  /// SCRIVE, non quanto di cio' che ha scritto si puo' leggere: chi non ha il
-  /// secondo strato riceve la lettura breve, e sotto una lettura breve la
-  /// freccia non compare, perche' non c'e' niente sotto. Un invito a salire
-  /// attaccato a una freccia che promette del testo inesistente sarebbe la
-  /// stessa bugia da cui questa voce e' nata.
-  void _approfondisci(MaestroChatController controller) =>
-      controller.approfondisci();
+  /// **La freccia si vede sempre, e non e' mai un muro.** Chi non ha il
+  /// secondo strato nel cammino arriva alla schermata degli abbonamenti; chi
+  /// ce l'ha e li ha finiti per oggi legge il numero vero e quando torna. Un
+  /// lucchetto muto sarebbe un vicolo cieco, e questa e' la stessa porta che
+  /// c'era prima dell'ordine 9: li' era sparita insieme alla seconda chiamata,
+  /// e con lei era sparito il fatto che il secondo strato e' un Premium.
+  Future<void> _approfondisci(
+    BuildContext context,
+    MaestroChatController controller,
+  ) async {
+    if (!controller.ilPianoComprendeIlSecondoStrato) {
+      await showUpgradeInvite(
+        context,
+        title: 'Il Maestro può scendere più a fondo',
+        message: 'Con il Cerchio puoi chiedergli di riprendere la stessa '
+            'lettura e portarla sotto la superficie, dove la prima si era '
+            'fermata.',
+      );
+      return;
+    }
+    if (!controller.puoiLeggereIlSecondoStrato) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'Per oggi siamo scesi abbastanza. Domani si riparte da qui.'),
+        ),
+      );
+      return;
+    }
+    controller.approfondisci();
+  }
 
   /// Il cielo di questa persona, dalla sorgente unica.
   NatalContext _natalCorrente(BuildContext context) =>
@@ -645,7 +663,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           // lucchetto muto.
           onApprofondisci:
               posizione == ultimo && controller.puoiChiedereDiApprofondire
-                  ? () => _approfondisci(controller)
+                  ? () => _approfondisci(context, controller)
                   : null,
           // LE ALTRE VOCI, sotto la lettura a cui si riferiscono.
           //

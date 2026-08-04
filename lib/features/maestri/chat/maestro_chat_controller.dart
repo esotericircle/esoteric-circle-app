@@ -355,13 +355,22 @@ class MaestroChatController extends ChangeNotifier {
   /// e il giorno governano cio' che si SCRIVE, e tutto cio' che e' scritto si
   /// legge. Cosi' la riga del listino resta vera e nessuno paga per parole che
   /// non vedra'.
-  bool get _laLetturaEIntera {
-    final piano = _tier?.call();
-    final contatore = _allowance;
-    if (piano == null || contatore == null) return true;
-    return contatore.puoiApprofondire(piano);
-  }
+  bool get _laLetturaEIntera => puoiLeggereIlSecondoStrato;
 
+  /// SE LA FRECCIA SI VEDE. **Si vede sempre**, e non e' un muro.
+  ///
+  /// **Non dipende piu' dal piano, ed e' una correzione.** Nell'ordine
+  /// precedente il secondo strato era diventato accessibile a chiunque, perche'
+  /// il budget era stato spostato a governare la produzione invece
+  /// dell'accesso: a un Viandante si chiedevano cinquanta parole, ma il modello
+  /// non obbedisce al numero e ci si avvicina da sopra, quindi con
+  /// settantatre parole il secondo strato esisteva davvero e nessuno
+  /// controllava il piano al momento del tocco. Misurato.
+  ///
+  /// Adesso il piano governa di nuovo l'ACCESSO, e lo fa altrove: qui si
+  /// decide solo se la freccia ESISTE. Si vede a tutti, perche' un lucchetto
+  /// muto e' un vicolo cieco: chi non ha il secondo strato nel piano, al tocco,
+  /// arriva agli abbonamenti.
   bool get puoiChiedereDiApprofondire {
     if (_sending || _messages.isEmpty) return false;
     final ultima = _messages.last;
@@ -370,14 +379,37 @@ class MaestroChatController extends ChangeNotifier {
     return ultima.isMaestro &&
         !ultima.pending &&
         ultima.portaUnResponso &&
-        !ultima.approfondita &&
-        // E SOLO SE C'E' DAVVERO DELL'ALTRO DA MOSTRARE.
-        //
-        // Una freccia che promette testo e non ne ha e' decorazione, e la
-        // decorazione che somiglia a un comando e' peggio di nessun comando.
-        // Prima non serviva chiederselo, perche' il testo lo si andava a
-        // prendere: adesso c'e' gia', quindi si puo' guardare.
-        DueStratiDellaLettura.ceUnSecondoStrato(ultima.text);
+        !ultima.approfondita;
+  }
+
+  /// SE QUESTA PERSONA, OGGI, PUO' LEGGERE IL SECONDO STRATO.
+  ///
+  /// **Un solo meccanismo, quello che esiste gia'.** `puoiApprofondire` legge
+  /// `PlanCatalog`, cioe' la stessa matrice che dice chi ha la memoria dei
+  /// Maestri e chi ha la profondita' dell'oroscopo. Scriverne un secondo
+  /// accanto vorrebbe dire due sistemi che decidono chi puo' cosa, e due
+  /// sistemi cosi' divergono sempre.
+  ///
+  /// Viandante no. Iniziato tre al giorno, Adepto dieci, Illuminato senza
+  /// limite col tetto di correttezza. **E il conto sta sull'ACCESSO, non sulla
+  /// produzione**: si consuma quando la persona legge, non quando il Maestro
+  /// scrive.
+  bool get puoiLeggereIlSecondoStrato {
+    final piano = _tier?.call();
+    final contatore = _allowance;
+    if (piano == null || contatore == null) return true;
+    return contatore.puoiApprofondire(piano);
+  }
+
+  /// Se il piano di questa persona comprende il secondo strato, a prescindere
+  /// da quanti ne restano oggi. Serve a distinguere DUE cose che non vanno
+  /// confuse: chi non ce l'ha riceve l'invito a salire, chi ce l'ha e li ha
+  /// finiti riceve il numero vero e l'ora in cui torna.
+  bool get ilPianoComprendeIlSecondoStrato {
+    final piano = _tier?.call();
+    final contatore = _allowance;
+    if (piano == null || contatore == null) return true;
+    return contatore.pianoConApprofondimento(piano);
   }
 
   /// RIVELA IL SECONDO STRATO DELLA LETTURA GIA' SCRITTA.
@@ -400,9 +432,21 @@ class MaestroChatController extends ChangeNotifier {
   /// peggio, negare a qualcuno delle parole che sono gia' nel suo telefono.
   void approfondisci() {
     if (!puoiChiedereDiApprofondire) return;
+    // IL PIANO DECIDE QUI, e non piu' quanto si scrive.
+    //
+    // Chi non puo' leggere il secondo strato non lo legge, e non perche' il
+    // testo non ci sia: perche' non e' compreso nel suo cammino. Chi tocca la
+    // freccia senza averlo trova gli abbonamenti, che e' cio' di cui la
+    // schermata si occupa: qui si dice solo di no.
+    if (!puoiLeggereIlSecondoStrato) return;
     final indice = _messages.length - 1;
     final rivelata = _messages[indice].copyWith(approfondita: true);
     _messages[indice] = rivelata;
+    // IL CONTO STA SULL'ACCESSO. Iniziato tre al giorno, Adepto dieci,
+    // Illuminato senza limite col tetto di correttezza: sono letture, non
+    // generazioni, ed e' questo il momento in cui la persona legge.
+    final piano = _tier?.call();
+    if (piano != null) _allowance?.registraApprofondimento(piano);
     notifyListeners();
     // In cronologia vale lo stesso: riaprendo, la lettura resta aperta dove la
     // persona l'aveva aperta.
@@ -591,17 +635,6 @@ class MaestroChatController extends ChangeNotifier {
         at: DateTime.now(),
         autore: chiRisponde,
       );
-      // IL BUDGET SI CONSUMA QUI, dove la lettura intera viene prodotta.
-      //
-      // Non al tocco della freccia: li' non si spende piu' niente, si scopre
-      // del testo che e' gia' arrivato. Contarlo al tocco farebbe pagare due
-      // volte lo stesso testo, e lascerebbe qualcuno con delle parole nel
-      // telefono che non gli si lascia leggere.
-      if (aDueStrati &&
-          DueStratiDellaLettura.ceUnSecondoStrato(answer.text)) {
-        final piano = _tier?.call();
-        if (piano != null) _allowance?.registraApprofondimento(piano);
-      }
       await _consegna(answer, cronometro);
       // NON si aggiunge: `_consegna` ha gia' completato il turno che esisteva.
       // Aggiungerlo qui lo scriverebbe due volte, e riaprendo la chat si

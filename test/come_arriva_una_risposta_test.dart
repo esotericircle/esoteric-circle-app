@@ -19,6 +19,7 @@ import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -506,7 +507,12 @@ void main() {
           ChangeNotifierProvider(create: (_) => MaestroController()),
           ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
           ChangeNotifierProvider(create: (_) => QuestionAllowance()),
-          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          // IL SECONDO STRATO E' UN PREMIUM, dal 4 agosto 2026: col Viandante
+          // la freccia porta agli abbonamenti invece di rivelare, e questa
+          // prova ha bisogno che il seguito compaia davvero, perche' e' li'
+          // che la bolla diventa piu' alta dello schermo.
+          ChangeNotifierProvider(
+              create: (_) => EntitlementService(initial: Tier.tier1)),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ProfileController()),

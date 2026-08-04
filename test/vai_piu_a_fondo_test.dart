@@ -137,24 +137,25 @@ void main() {
       expect(contatore.usedToday(), 0);
     });
 
-    test('Il budget si consuma quando la lettura ARRIVA, non al tocco',
+    test('Il budget si consuma quando si LEGGE, non quando si scrive',
         () async {
+      // **QUESTA PROVA DICEVA IL CONTRARIO, e sbagliava.** Nell'ordine 9 il
+      // budget era stato spostato a governare la produzione: chi non toccava
+      // mai la freccia consumava lo stesso, e soprattutto il secondo strato
+      // era smesso di essere un Premium. I tetti governano l'ACCESSO.
       final contatore = QuestionAllowance();
       final voce = _VoceContata([_letturaLunga]);
       final controller = await conVoce(voce, contatore: contatore);
       final prima = contatore.approfondimentiRimasti(Tier.tier1);
       await controller.send('cosa mi manca');
-      expect(contatore.approfondimentiRimasti(Tier.tier1), prima - 1,
-          reason: 'la lettura intera e\' stata scritta, quindi e\' stata '
-              'pagata: e\' li\' che si conta');
-      // E il tocco, che non spende niente, non conta niente.
+      expect(contatore.approfondimentiRimasti(Tier.tier1), prima,
+          reason: 'scrivere non consuma: consuma leggere');
       controller.approfondisci();
-      expect(contatore.approfondimentiRimasti(Tier.tier1), prima - 1,
-          reason: 'rivelare del testo gia\' scritto non costa niente, quindi '
-              'non puo\' consumare un budget');
+      expect(contatore.approfondimentiRimasti(Tier.tier1), prima - 1);
     });
 
-    test('Finito il budget, si scrive la lettura BREVE', () async {
+    test('Finito il budget, la lettura resta breve e non si legge oltre',
+        () async {
       final contatore = QuestionAllowance();
       for (var i = 0; i < 3; i++) {
         contatore.registraApprofondimento(Tier.tier1);
@@ -164,9 +165,12 @@ void main() {
       final controller = await conVoce(voce, contatore: contatore);
       await controller.send('cosa mi manca');
       expect(voce.ultimaADueStrati, isFalse,
-          reason: 'finito il budget si continua a chiedere al Maestro la '
-              'lettura intera, e centotrenta parole finiscono dietro un '
-              'lucchetto: si paga per parole che nessuno leggera\'');
+          reason: 'a chi non puo\' leggere il secondo strato si continua a '
+              'chiedere la lettura intera, quindi si paga per parole che '
+              'nessuno leggera\'');
+      controller.approfondisci();
+      expect(controller.messages.last.approfondita, isFalse,
+          reason: 'finito il budget si legge lo stesso');
     });
   });
 
@@ -183,13 +187,18 @@ void main() {
           reason: 'due volte sarebbe una scala senza fine');
     });
 
-    test('Su una lettura corta la freccia NON compare', () async {
+    test('La freccia si vede SEMPRE, anche su una lettura corta', () async {
+      // **QUESTA PROVA DICEVA IL CONTRARIO, e sbagliava.** Diceva che sotto
+      // una lettura corta non c'e' niente da rivelare, quindi la freccia non
+      // compare. Ma il seguito adesso si genera al tocco: non serve che
+      // esistesse gia'. E la freccia deve vedersi anche a chi non ha il
+      // secondo strato nel piano, perche' e' li' che si scopre che esiste.
       final voce = _VoceContata(['Il tuo Sole in Cancro chiede riparo.']);
       final controller = await conVoce(voce);
       await controller.send('cosa mi manca');
-      expect(controller.puoiChiedereDiApprofondire, isFalse,
-          reason: 'sotto non c\'e\' niente: una freccia che promette del '
-              'testo inesistente e\' il difetto da cui questa voce e\' nata');
+      expect(controller.puoiChiedereDiApprofondire, isTrue,
+          reason: 'la freccia sparisce, e con lei sparisce il modo di sapere '
+              'che il secondo strato esiste');
     });
 
     test('Rivelare NON chiama il modello, e non cambia il testo', () async {
