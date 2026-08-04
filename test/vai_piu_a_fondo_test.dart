@@ -21,6 +21,16 @@ import 'package:flutter_test/flutter_test.dart';
 /// La profondita' non si sceglie PRIMA di leggere: la prima risposta arriva
 /// sempre alla stessa misura per tutti, e chi vuole scendere lo chiede dopo.
 /// Chi lo chiede ha gia' deciso che quella risposta gli interessa.
+/// Una lettura lunga come quelle vere, cioe' con un secondo strato dentro.
+const String _letturaLunga =
+    'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. '
+    'Quello che senti come confusione e\' un confine che si sposta. '
+    'Guarda dove ti fermi a respirare: quella e\' la direzione. '
+    'Sotto la superficie c\'e\' un secondo movimento, piu\' lento, che '
+    'lavora da mesi senza chiedere il tuo permesso. Non e\' la scelta a '
+    'spaventarti, e\' quello che la scelta rende definitivo. Aspetta la '
+    'prossima luna nuova e rileggi queste stesse parole.';
+
 void main() {
   const natalCancro = NatalContext(sunSign: 'Cancro');
 
@@ -44,44 +54,53 @@ void main() {
     return controller;
   }
 
-  group('La misura dell\'approfondimento vive con le altre', () {
-    test('Duecentoquaranta parole, e la piu\' ampia di tutte', () {
-      expect(MisuraDellaRisposta.approfondimento.parole, 240);
-      // Piu' ampia della Profonda del Consulta: li' la profondita' si sceglie
-      // prima di leggere, qui si chiede DOPO aver letto, cioe' avendo gia'
-      // deciso che quella risposta interessa.
-      expect(MisuraDellaRisposta.approfondimento.parole,
-          greaterThan(MisuraDellaRisposta.consultaProfonda.parole));
-      // E la prima risposta resta uguale per tutti i piani.
-      expect(MisuraDellaRisposta.perChat(approfondisci: false),
-          MisuraDellaRisposta.primaRisposta);
-      expect(MisuraDellaRisposta.perChat(approfondisci: true),
-          MisuraDellaRisposta.approfondimento);
+  group('Una generazione sola, e due lunghezze', () {
+    test('Centottanta per chi legge a due strati, cinquanta per gli altri', () {
+      expect(MisuraDellaRisposta.letturaDellaChat.parole, 180);
+      expect(MisuraDellaRisposta.letturaBreve.parole, 50);
+      expect(MisuraDellaRisposta.perChat(aDueStrati: true),
+          MisuraDellaRisposta.letturaDellaChat);
+      expect(MisuraDellaRisposta.perChat(aDueStrati: false),
+          MisuraDellaRisposta.letturaBreve);
     });
 
-    test('La regola dell\'approfondimento entra nella persona', () {
-      final normale = MaestroPersona.systemInstruction(
+    test('La lunghezza chiesta arriva al Maestro, e cambia col piano', () {
+      final intera = MaestroPersona.systemInstruction(
         maestro: Maestro.medora,
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
       );
-      final piuGiu = MaestroPersona.systemInstruction(
+      final breve = MaestroPersona.systemInstruction(
         maestro: Maestro.medora,
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
-        approfondisci: true,
+        aDueStrati: false,
       );
-      expect(normale.contains(MaestroPersona.regolaDellApprofondimento),
-          isFalse);
-      expect(piuGiu.contains(MaestroPersona.regolaDellApprofondimento), isTrue);
-      // Non e' "scrivi di piu'": e' "scendi".
-      expect(MaestroPersona.regolaDellApprofondimento,
-          contains('Non ripeterla con altre parole'));
+      expect(intera, contains('circa centottanta parole'));
+      expect(breve, contains('circa cinquanta parole'));
+    });
+
+    test('La regola dei due strati e\' in OGNI istruzione, non in una sola',
+        () {
+      // Prima esisteva una regola che entrava solo nella seconda chiamata. Non
+      // c'e' piu' una seconda chiamata, quindi non c'e' piu' un ramo: le prime
+      // frasi devono reggere da sole SEMPRE, perche' molte persone leggeranno
+      // solo quelle.
+      for (final maestro in Maestro.values) {
+        final istr = MaestroPersona.systemInstruction(
+          maestro: maestro,
+          profile: UserProfile.empty,
+          memory: MaestroMemory.empty,
+        );
+        expect(istr, contains(MaestroPersona.regolaDeiDueStrati),
+            reason: '${maestro.displayName} non sa che le prime frasi devono '
+                'reggere da sole');
+      }
     });
   });
 
-  group('I budget sono due, e il giorno e\' uno', () {
-    test('Il Viandante non ha l\'approfondimento nel piano', () {
+  group('Il budget governa cio\' che si SCRIVE, non cio\' che si legge', () {
+    test('Il Viandante non ha il secondo strato nel piano', () {
       final contatore = QuestionAllowance();
       expect(contatore.pianoConApprofondimento(Tier.free), isFalse);
       expect(contatore.puoiApprofondire(Tier.free), isFalse);
@@ -92,12 +111,11 @@ void main() {
       expect(contatore.limiteApprofondimenti(Tier.tier1), 3);
       expect(contatore.limiteApprofondimenti(Tier.tier2), 10);
       expect(contatore.limiteApprofondimenti(Tier.tier3), isNull);
-      // Senza limite, ma col tetto di correttezza.
       expect(contatore.approfondimentiRimasti(Tier.tier3),
           QuestionAllowance.kTettoDiCorrettezza);
     });
 
-    test('L\'approfondimento NON consuma una domanda del giorno', () {
+    test('Una lettura intera NON consuma una domanda del giorno', () {
       final contatore = QuestionAllowance();
       final domandePrima = contatore.remaining(Tier.tier1);
       contatore.registraApprofondimento(Tier.tier1);
@@ -107,7 +125,8 @@ void main() {
       expect(contatore.approfondimentiRimasti(Tier.tier1), 2);
     });
 
-    test('I due budget ribaltano insieme, perche\' il giorno e\' lo stesso', () {
+    test('I due budget ribaltano insieme, perche\' il giorno e\' lo stesso',
+        () {
       var oggi = DateTime(2026, 8, 2, 23, 0);
       final contatore = QuestionAllowance(clock: () => oggi);
       contatore.record(Tier.tier1);
@@ -117,39 +136,79 @@ void main() {
       expect(contatore.approfondimentiRimasti(Tier.tier1), 3);
       expect(contatore.usedToday(), 0);
     });
+
+    test('Il budget si consuma quando la lettura ARRIVA, non al tocco',
+        () async {
+      final contatore = QuestionAllowance();
+      final voce = _VoceContata([_letturaLunga]);
+      final controller = await conVoce(voce, contatore: contatore);
+      final prima = contatore.approfondimentiRimasti(Tier.tier1);
+      await controller.send('cosa mi manca');
+      expect(contatore.approfondimentiRimasti(Tier.tier1), prima - 1,
+          reason: 'la lettura intera e\' stata scritta, quindi e\' stata '
+              'pagata: e\' li\' che si conta');
+      // E il tocco, che non spende niente, non conta niente.
+      controller.approfondisci();
+      expect(contatore.approfondimentiRimasti(Tier.tier1), prima - 1,
+          reason: 'rivelare del testo gia\' scritto non costa niente, quindi '
+              'non puo\' consumare un budget');
+    });
+
+    test('Finito il budget, si scrive la lettura BREVE', () async {
+      final contatore = QuestionAllowance();
+      for (var i = 0; i < 3; i++) {
+        contatore.registraApprofondimento(Tier.tier1);
+      }
+      expect(contatore.puoiApprofondire(Tier.tier1), isFalse);
+      final voce = _VoceContata([_letturaLunga]);
+      final controller = await conVoce(voce, contatore: contatore);
+      await controller.send('cosa mi manca');
+      expect(voce.ultimaADueStrati, isFalse,
+          reason: 'finito il budget si continua a chiedere al Maestro la '
+              'lettura intera, e centotrenta parole finiscono dietro un '
+              'lucchetto: si paga per parole che nessuno leggera\'');
+    });
   });
 
   group('L\'invito, e cosa succede al tocco', () {
-    test('Compare sull\'ultima risposta vera, e una volta sola', () async {
-      final voce = _VoceContata(['Il tuo Sole in Cancro chiede riparo.']);
+    test('Compare su una lettura che ha davvero un secondo strato', () async {
+      final voce = _VoceContata([_letturaLunga]);
       final controller = await conVoce(voce);
       expect(controller.puoiChiedereDiApprofondire, isFalse,
-          reason: 'a conversazione vuota non c\'e' ' niente da approfondire');
+          reason: 'a conversazione vuota non c\'e\' niente da rivelare');
       await controller.send('cosa mi manca');
       expect(controller.puoiChiedereDiApprofondire, isTrue);
-
-      await controller.approfondisci();
+      controller.approfondisci();
       expect(controller.puoiChiedereDiApprofondire, isFalse,
           reason: 'due volte sarebbe una scala senza fine');
     });
 
-    test('Approfondire rigenera la STESSA risposta, non ne aggiunge una',
-        () async {
-      final voce = _VoceContata([
-        'Il tuo Sole in Cancro chiede riparo.',
-        'Il tuo Sole in Cancro chiede riparo, e sotto quel riparo c\'è altro.',
-      ]);
+    test('Su una lettura corta la freccia NON compare', () async {
+      final voce = _VoceContata(['Il tuo Sole in Cancro chiede riparo.']);
+      final controller = await conVoce(voce);
+      await controller.send('cosa mi manca');
+      expect(controller.puoiChiedereDiApprofondire, isFalse,
+          reason: 'sotto non c\'e\' niente: una freccia che promette del '
+              'testo inesistente e\' il difetto da cui questa voce e\' nata');
+    });
+
+    test('Rivelare NON chiama il modello, e non cambia il testo', () async {
+      final voce = _VoceContata([_letturaLunga]);
       final controller = await conVoce(voce);
       await controller.send('cosa mi manca');
       final quanteBolle = controller.messages.length;
+      final chiamatePrima = voce.chiamate;
+      final testoPrima = controller.messages.last.text;
 
-      await controller.approfondisci();
+      controller.approfondisci();
+      expect(voce.chiamate, chiamatePrima,
+          reason: 'la freccia ha chiesto un\'altra risposta al Maestro: '
+              'rivela, non rigenera');
       expect(controller.messages.length, quanteBolle,
-          reason: 'e\' la stessa lettura portata piu\' giu\', non una seconda '
-              'risposta alla stessa domanda');
+          reason: 'e\' la stessa lettura, non una seconda risposta');
+      expect(controller.messages.last.text, testoPrima,
+          reason: 'il testo non cambia: cambia quanto se ne mostra');
       expect(controller.messages.last.approfondita, isTrue);
-      expect(voce.approfondimenti, 1,
-          reason: 'la seconda chiamata deve chiedere di scendere');
     });
 
     test('Non compare su un ripiego', () async {
@@ -158,40 +217,7 @@ void main() {
       await controller.send('cosa mi manca');
       expect(controller.messages.last.ripiego, isTrue);
       expect(controller.puoiChiedereDiApprofondire, isFalse,
-          reason: 'non si approfondisce cio\' che il Maestro non ha detto');
-    });
-
-    test('Finiti gli approfondimenti, non si scende e non si consuma',
-        () async {
-      final contatore = QuestionAllowance();
-      final voce = _VoceContata(['Il tuo Sole in Cancro chiede riparo.']);
-      final controller = await conVoce(voce, contatore: contatore);
-      await controller.send('cosa mi manca');
-      // Si bruciano i tre dell'Iniziato.
-      for (var i = 0; i < 3; i++) {
-        contatore.registraApprofondimento(Tier.tier1);
-      }
-      expect(contatore.puoiApprofondire(Tier.tier1), isFalse);
-      final chiamatePrima = voce.chiamate;
-      await controller.approfondisci();
-      expect(voce.chiamate, chiamatePrima,
-          reason: 'senza budget non si chiama il modello');
-    });
-
-    test('Se l\'approfondimento fallisce, la risposta gia\' letta resta',
-        () async {
-      final voce = _VoceContata(
-        ['Il tuo Sole in Cancro chiede riparo.'],
-        falliscoApprofondendo: true,
-      );
-      final controller = await conVoce(voce);
-      await controller.send('cosa mi manca');
-      await controller.approfondisci();
-      expect(controller.messages.last.text,
-          'Il tuo Sole in Cancro chiede riparo.',
-          reason: 'chi ha gia\' letto non deve perdere cio\' che ha letto');
-      expect(controller.messages.last.approfondita, isTrue,
-          reason: 'e non si ritenta all\'infinito');
+          reason: 'non si rivela cio\' che il Maestro non ha detto');
     });
   });
 
@@ -259,14 +285,15 @@ class _VoceContata implements MaestroAiProvider {
   _VoceContata(
     this._risposte, {
     this.sempreInGuasto = false,
-    this.falliscoApprofondendo = false,
   });
 
   final List<String> _risposte;
   final bool sempreInGuasto;
-  final bool falliscoApprofondendo;
   int chiamate = 0;
-  int approfondimenti = 0;
+
+  /// Con quale lunghezza e' stata chiesta l'ultima risposta. E' il modo di
+  /// verificare che il budget governi cio' che si SCRIVE.
+  bool? ultimaADueStrati;
 
   @override
   bool get isReady => true;
@@ -280,12 +307,9 @@ class _VoceContata implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async {
-    if (approfondisci) {
-      approfondimenti++;
-      if (falliscoApprofondendo) throw Exception('giu\' non si scende');
-    }
+    ultimaADueStrati = aDueStrati;
     if (sempreInGuasto) throw Exception('la voce tace');
     final indice = chiamate.clamp(0, _risposte.length - 1);
     chiamate++;

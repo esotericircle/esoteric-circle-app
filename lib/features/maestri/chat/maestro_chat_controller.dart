@@ -8,6 +8,7 @@ import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/entitlement/tier.dart';
 
 import '../../../core/chat/altre_voci.dart';
+import '../../../core/maestro/due_strati_della_lettura.dart';
 import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/maestro_memory.dart';
@@ -344,6 +345,25 @@ class MaestroChatController extends ChangeNotifier {
   // di Medora conteneva bolle rosse di Caligo e verdi di Aura. Nella chat di
   // un Maestro parla soltanto quel Maestro, sempre, e le altre voci si
   // ascoltano nel Consiglio del Cerchio.
+  /// Vero quando a questa persona, oggi, si puo' scrivere la lettura intera.
+  ///
+  /// **Il budget degli approfondimenti non e' sparito: si e' spostato.** Prima
+  /// contava quante volte al giorno si poteva chiedere al modello una SECONDA
+  /// risposta, e si consumava al tocco della freccia. Adesso decide quante
+  /// letture INTERE si producono, e si consuma quando la lettura arriva.
+  ///
+  /// Il posto conta. Contarlo al tocco vorrebbe dire scrivere centottanta
+  /// parole e poi negarne centotrenta a chi le ha gia' nel telefono: il piano
+  /// e il giorno governano cio' che si SCRIVE, e tutto cio' che e' scritto si
+  /// legge. Cosi' la riga del listino resta vera e nessuno paga per parole che
+  /// non vedra'.
+  bool get _laLetturaEIntera {
+    final piano = _tier?.call();
+    final contatore = _allowance;
+    if (piano == null || contatore == null) return true;
+    return contatore.puoiApprofondire(piano);
+  }
+
   bool get puoiChiedereDiApprofondire {
     if (_sending || _messages.isEmpty) return false;
     final ultima = _messages.last;
@@ -352,79 +372,43 @@ class MaestroChatController extends ChangeNotifier {
     return ultima.isMaestro &&
         !ultima.pending &&
         ultima.portaUnResponso &&
-        !ultima.approfondita;
+        !ultima.approfondita &&
+        // E SOLO SE C'E' DAVVERO DELL'ALTRO DA MOSTRARE.
+        //
+        // Una freccia che promette testo e non ne ha e' decorazione, e la
+        // decorazione che somiglia a un comando e' peggio di nessun comando.
+        // Prima non serviva chiederselo, perche' il testo lo si andava a
+        // prendere: adesso c'e' gia', quindi si puo' guardare.
+        DueStratiDellaLettura.ceUnSecondoStrato(ultima.text);
   }
 
-  /// Chiede al Maestro di scendere piu' a fondo sulla STESSA risposta.
+  /// RIVELA IL SECONDO STRATO DELLA LETTURA GIA' SCRITTA.
   ///
-  /// Non consuma una domanda del giorno: consuma un approfondimento, che e' un
-  /// budget suo. Se consumasse una domanda la persona esiterebbe prima di
-  /// toccarlo, e l'esitazione uccide l'intimita'.
+  /// **Cosa faceva, e cosa costava.** Buttava via la risposta appena letta e
+  /// ne chiedeva un'altra al Maestro, con tutta l'attesa da capo e il rischio
+  /// che il secondo testo contraddicesse il primo. La freccia in giu'
+  /// prometteva "qui sotto c'e' altro testo": vera come intenzione, falsa come
+  /// funzionamento, perche' sotto non c'era ancora niente.
   ///
-  /// La bolla non si aggiunge, si SOSTITUISCE: e' la stessa lettura portata
-  /// piu' giu', non una seconda risposta alla stessa domanda.
-  Future<void> approfondisci() async {
+  /// **Adesso non c'e' nessuna chiamata, quindi non c'e' nessuna attesa.** Il
+  /// Maestro ha gia' scritto la lettura intera in una generazione sola: qui si
+  /// alza soltanto il velo su cio' che c'era gia'. Non e' asincrono per finta,
+  /// e' immediato.
+  ///
+  /// **E non consuma piu' niente.** Consumava un approfondimento, che era un
+  /// budget nato per limitare una seconda chiamata al modello. Quella chiamata
+  /// non esiste piu', e il testo e' gia' stato pagato quando e' arrivato:
+  /// contare ancora vorrebbe dire far pagare due volte lo stesso testo, e
+  /// peggio, negare a qualcuno delle parole che sono gia' nel suo telefono.
+  void approfondisci() {
     if (!puoiChiedereDiApprofondire) return;
-    final piano = _tier?.call();
-    final contatore = _allowance;
-    if (piano != null && contatore != null && !contatore.puoiApprofondire(piano)) {
-      return;
-    }
-
-    // La domanda a cui la risposta si riferisce, per rigenerare sullo stesso
-    // turno invece che su uno nuovo.
-    final indiceRisposta = _messages.length - 1;
-    final priorHistory = _messages.sublist(0, indiceRisposta).toList();
-    final domanda = priorHistory.isNotEmpty && priorHistory.last.isUser
-        ? priorHistory.last.text
-        : null;
-    if (domanda == null) return;
-
-    _sending = true;
-    final precedente = _messages[indiceRisposta];
-    _messages[indiceRisposta] =
-        const ChatMessage(role: ChatRole.maestro, text: '', pending: true);
+    final indice = _messages.length - 1;
+    final rivelata = _messages[indice].copyWith(approfondita: true);
+    _messages[indice] = rivelata;
     notifyListeners();
-
-    try {
-      final natal = _natal?.call() ?? NatalContext.none;
-      final piu = await _ai.reply(
-        maestro: maestro,
-        profile: _profile,
-        memory: _memoryState,
-        history: priorHistory.sublist(0, priorHistory.length - 1),
-        userMessage: domanda,
-        natal: natal,
-        approfondisci: true,
-      );
-      final risposta = ChatMessage(
-        role: ChatRole.maestro,
-        text: piu,
-        at: DateTime.now(),
-        approfondita: true,
-      );
-      _messages[indiceRisposta] = risposta;
-      if (piano != null && contatore != null) {
-        contatore.registraApprofondimento(piano);
-      }
-      // La bolla si SOSTITUISCE, non si aggiunge: e' la stessa lettura portata
-      // piu' giu'. In cronologia vale lo stesso, altrimenti riaprendo si
-      // leggerebbero due risposte alla stessa domanda.
-      await _sostituisci(risposta);
-    } catch (errore, traccia) {
-      // L'approfondimento fallito NON deve far perdere la risposta che la
-      // persona aveva gia' letto: si rimette quella, marcata come gia'
-      // approfondita cosi' non si ritenta all'infinito.
-      annotaGuastoInnocuo(
-          'approfondendo la risposta di ${maestro.displayName}',
-          errore,
-          traccia);
-      _messages[indiceRisposta] = precedente.copyWith(approfondita: true);
-    } finally {
-      _sending = false;
-      maestroInAscolto = null;
-      notifyListeners();
-    }
+    // In cronologia vale lo stesso: riaprendo, la lettura resta aperta dove la
+    // persona l'aveva aperta.
+    unawaited(_sostituisci(rivelata));
   }
 
   /// Riprova l'ultimo turno fallito, senza duplicare il messaggio dell'utente.
@@ -512,6 +496,14 @@ class MaestroChatController extends ChangeNotifier {
       // insistere una terza volta sarebbe far aspettare la persona per un
       // difetto nostro. Se tronca di nuovo, la misura e' sbagliata, e va
       // corretta nel dato, non a forza di tentativi.
+      // QUANTO SI CHIEDE AL MAESTRO LO DECIDONO IL PIANO E IL GIORNO.
+      //
+      // Chi ha il secondo strato nel piano, e ne ha ancora per oggi, riceve la
+      // lettura intera in una generazione sola; chi non ce l'ha riceve quella
+      // breve, cioe' esattamente il testo che leggeva prima. Cosi' il
+      // vantaggio del piano resta un vantaggio vero, e a nessuno si fanno
+      // scrivere centotrenta parole da tenere dietro un lucchetto.
+      final aDueStrati = _laLetturaEIntera;
       String reply;
       try {
         reply = await _ai.reply(
@@ -521,6 +513,7 @@ class MaestroChatController extends ChangeNotifier {
           history: priorHistory,
           userMessage: userText,
           natal: natal,
+          aDueStrati: aDueStrati,
         );
       } on MaestroAiTroncata {
         rigenerazioniPerTroncatura++;
@@ -532,6 +525,7 @@ class MaestroChatController extends ChangeNotifier {
             history: priorHistory,
             userMessage: userText,
             natal: natal,
+            aDueStrati: aDueStrati,
           );
         } on MaestroAiTroncata catch (errore, traccia) {
           troncatureConsegnate++;
@@ -599,6 +593,17 @@ class MaestroChatController extends ChangeNotifier {
         at: DateTime.now(),
         autore: chiRisponde,
       );
+      // IL BUDGET SI CONSUMA QUI, dove la lettura intera viene prodotta.
+      //
+      // Non al tocco della freccia: li' non si spende piu' niente, si scopre
+      // del testo che e' gia' arrivato. Contarlo al tocco farebbe pagare due
+      // volte lo stesso testo, e lascerebbe qualcuno con delle parole nel
+      // telefono che non gli si lascia leggere.
+      if (aDueStrati &&
+          DueStratiDellaLettura.ceUnSecondoStrato(answer.text)) {
+        final piano = _tier?.call();
+        if (piano != null) _allowance?.registraApprofondimento(piano);
+      }
       await _consegna(answer, cronometro);
       // NON si aggiunge: `_consegna` ha gia' completato il turno che esisteva.
       // Aggiungerlo qui lo scriverebbe due volte, e riaprendo la chat si

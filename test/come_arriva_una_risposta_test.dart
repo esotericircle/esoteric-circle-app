@@ -546,6 +546,22 @@ void main() {
         await tester.pump(const Duration(milliseconds: 50));
       }
 
+      // SI RIVELA IL SECONDO STRATO, perche' e' li' che la bolla diventa piu'
+      // alta dello schermo.
+      //
+      // Dal 4 agosto 2026 la chat mostra il primo strato della lettura e la
+      // freccia rivela il resto gia' scritto: senza il tocco, questa risposta
+      // e' alta poche righe e la regola dello scorrimento non ha niente da
+      // correggere. Il guardiano qui sotto lo direbbe, ma meglio attraversare
+      // il ramo che scoprire di non averlo attraversato.
+      final freccia = find.byKey(const Key('chat_approfondisci'));
+      expect(freccia, findsOneWidget,
+          reason: 'la lettura di prova non ha un secondo strato da rivelare');
+      await tester.tap(freccia);
+      for (var i = 0; i < 20; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
+
       final schermo = tester.view.physicalSize.height / tester.view.devicePixelRatio;
       final bolla = find.ancestor(
         of: find.text(risposta),
@@ -767,7 +783,7 @@ class _VoceIstantanea implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       testo;
 
@@ -813,7 +829,7 @@ class _VoceMuta extends _VoceIstantanea {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       throw const MaestroAiUnavailable('la voce tace');
 }

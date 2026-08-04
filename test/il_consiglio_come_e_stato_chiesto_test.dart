@@ -201,7 +201,7 @@ void main() {
     expect(visti.length, greaterThan(1),
         reason: 'con una porta sola questa prova non distingue niente');
     expect(visti.values.toSet(), hasLength(visti.length),
-        reason: 'due porte hanno lo stesso colore: ${visti}');
+        reason: 'due porte hanno lo stesso colore: $visti');
   });
 
   testWidgets('La chat che si apre PORTA la domanda di partenza',
@@ -285,7 +285,7 @@ class _VoceViva implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       'La voce viva di ${maestro.displayName}.';
 

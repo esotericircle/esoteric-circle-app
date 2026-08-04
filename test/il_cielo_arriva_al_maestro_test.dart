@@ -288,7 +288,7 @@ class _VoceFinta implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async {
     if (insistiSullAncoraggio) insistenze++;
     final indice = chiamate.clamp(0, _risposte.length - 1);

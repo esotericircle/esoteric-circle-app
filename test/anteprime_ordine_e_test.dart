@@ -283,7 +283,7 @@ class _VoceConUnTesto implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       testo;
 

@@ -311,40 +311,21 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     ));
   }
 
-  /// Il tocco su "Vai piu' a fondo".
+  /// RIVELA IL SECONDO STRATO. Nessun piano da controllare, qui.
   ///
-  /// Tre esiti, e nessuno dei tre e' un vicolo cieco: chi ha
-  /// l'approfondimento nel piano e ne ha ancora scende davvero; chi ce l'ha e
-  /// li ha finiti legge il numero vero e quando torna; chi non ce l'ha nel
-  /// piano riceve l'invito a salire. Mai un comando che non fa niente.
-  Future<void> _approfondisci(
-    BuildContext context,
-    MaestroChatController controller,
-  ) async {
-    final piano = context.read<EntitlementService>().tier;
-    final contatore = context.read<QuestionAllowance>();
-
-    if (!contatore.pianoConApprofondimento(piano)) {
-      await showUpgradeInvite(
-        context,
-        title: 'Il Maestro può scendere più a fondo',
-        message: 'Con il Cerchio puoi chiedergli di riprendere la stessa '
-            'lettura e portarla sotto la superficie, dove la prima si era '
-            'fermata.',
-      );
-      return;
-    }
-    if (!contatore.puoiApprofondire(piano)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-              'Per oggi siamo scesi abbastanza. Domani si riparte da qui.'),
-        ),
-      );
-      return;
-    }
-    await controller.approfondisci();
-  }
+  /// **Qui c'erano due porte chiuse, e non ce n'e' piu' bisogno.** Una
+  /// diceva "Con il Cerchio il Maestro puo' scendere piu' a fondo", l'altra
+  /// "Per oggi siamo scesi abbastanza": tutte e due proteggevano una SECONDA
+  /// chiamata al modello, che non esiste piu'.
+  ///
+  /// Il piano e il budget del giorno decidono adesso quanto il Maestro
+  /// SCRIVE, non quanto di cio' che ha scritto si puo' leggere: chi non ha il
+  /// secondo strato riceve la lettura breve, e sotto una lettura breve la
+  /// freccia non compare, perche' non c'e' niente sotto. Un invito a salire
+  /// attaccato a una freccia che promette del testo inesistente sarebbe la
+  /// stessa bugia da cui questa voce e' nata.
+  void _approfondisci(MaestroChatController controller) =>
+      controller.approfondisci();
 
   /// Il cielo di questa persona, dalla sorgente unica.
   NatalContext _natalCorrente(BuildContext context) =>
@@ -402,8 +383,18 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     // comincia dall'inizio.
     final ultimoMessaggio =
         controller.messages.isEmpty ? null : controller.messages.last;
+    // LA RIVELAZIONE ENTRA NELLA FIRMA, e non e' un dettaglio.
+    //
+    // Rivelando il secondo strato la bolla diventa molto piu' alta, e la lista
+    // della chat e' rovesciata, cioe' ancorata in basso: senza questa riga il
+    // testo che si stava leggendo veniva spinto fuori dalla cima e si finiva a
+    // guardare la fine di un testo di cui non si era letto l'inizio. La regola
+    // che riporta l'INIZIO della risposta sotto gli occhi esiste gia' ed e' la
+    // stessa che vale quando la risposta arriva: qui si fa in modo che veda
+    // anche questo momento.
     final firma = '${controller.messages.length}'
-        '|${ultimoMessaggio?.pending}|${ultimoMessaggio?.isMaestro}';
+        '|${ultimoMessaggio?.pending}|${ultimoMessaggio?.isMaestro}'
+        '|${ultimoMessaggio?.approfondita}';
     if (firma != _firmaDelTurno) {
       final primaFirma = _firmaDelTurno;
       _firmaDelTurno = firma;
@@ -413,7 +404,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       // La cronologia riaperta non si riscrive: `_firmaDelTurno` vuota vuol
       // dire che questa e' la prima volta che si guarda, cioe' che i messaggi
       // arrivano dalla memoria e non dalla rete.
-      _scriviLUltima = risposta && primaFirma.isNotEmpty;
+      // E il secondo strato NON si riscrive: e' gia' scritto, quindi compare.
+      _scriviLUltima = risposta &&
+          primaFirma.isNotEmpty &&
+          !(ultimoMessaggio?.approfondita ?? false);
       if (risposta) {
         _scorriAllInizioDellaRisposta();
       } else {
@@ -651,7 +645,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           // lucchetto muto.
           onApprofondisci:
               posizione == ultimo && controller.puoiChiedereDiApprofondire
-                  ? () => _approfondisci(context, controller)
+                  ? () => _approfondisci(controller)
                   : null,
           // LE ALTRE VOCI, sotto la lettura a cui si riferiscono.
           //

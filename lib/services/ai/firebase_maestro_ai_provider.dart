@@ -113,7 +113,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async {
     final model = _ai.generativeModel(
       model: chatModel,
@@ -124,13 +124,13 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
           memory: memory,
           natal: natal,
           insistiSullAncoraggio: insistiSullAncoraggio,
-          approfondisci: approfondisci,
+          aDueStrati: aDueStrati,
         ),
       ),
       // La PRIMA risposta arriva sempre alla stessa misura per tutti: la
       // profondita' non si sceglie prima, si chiede dopo aver letto.
       generationConfig: configurazionePer(
-        MisuraDellaRisposta.perChat(approfondisci: approfondisci),
+        MisuraDellaRisposta.perChat(aDueStrati: aDueStrati),
         temperature: 0.9,
         topP: 0.95,
       ),

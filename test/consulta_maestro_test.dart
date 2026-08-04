@@ -185,8 +185,12 @@ void main() {
         );
       }
       // I due numeri della chat, per esteso, perche' si possano discutere.
-      expect(MisuraDellaRisposta.primaRisposta.tetto, 400);
-      expect(MisuraDellaRisposta.approfondimento.tetto, 1000);
+      // Dal 4 agosto 2026 la chat ha DUE misure e UNA chiamata: la lettura
+      // intera per chi puo' rivelare il secondo strato, quella breve per
+      // chi non puo'. Prima erano `primaRisposta` e `approfondimento`, e la
+      // seconda esisteva solo per la seconda chiamata al modello.
+      expect(MisuraDellaRisposta.letturaDellaChat.tetto, 800);
+      expect(MisuraDellaRisposta.letturaBreve.tetto, 400);
       expect(MisuraDellaRisposta.consultaBreve.tetto, 400);
       expect(MisuraDellaRisposta.consultaProfonda.tetto, 1300);
       expect(MisuraDellaRisposta.sintesi.tetto, 400);
@@ -217,19 +221,20 @@ void main() {
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
       );
-      // Sessanta chieste per settanta ottenute: chiedendone novanta la mediana
-      // misurata su venti risposte vere era 94, cioe' il modello sfora, e sfora
-      // sempre verso l'alto.
-      expect(prima, contains('circa cinquanta parole'));
+      // Centottanta e' la lettura intera, quella che si legge a due strati:
+      // il primo strato lo taglia l'app, non il modello.
+      expect(prima, contains('circa centottanta parole'));
       expect(prima, contains('Non lasciare mai una frase a metà'));
 
-      final piuGiu = MaestroPersona.systemInstruction(
+      // E a chi non puo' rivelare si chiede la breve, non la intera: non si
+      // generano parole che nessuno potra' leggere.
+      final breve = MaestroPersona.systemInstruction(
         maestro: Maestro.medora,
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
-        approfondisci: true,
+        aDueStrati: false,
       );
-      expect(piuGiu, contains('circa duecentoquaranta parole'));
+      expect(breve, contains('circa cinquanta parole'));
 
       // La cifra non compare mai: un Maestro dice "novanta", non "90".
       for (final misura in MisuraDellaRisposta.values) {
@@ -247,7 +252,6 @@ void main() {
         maestro: Maestro.caligo,
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
-        approfondisci: true,
       );
       expect(istr, isNot(contains('Poche righe per risposta')));
     });

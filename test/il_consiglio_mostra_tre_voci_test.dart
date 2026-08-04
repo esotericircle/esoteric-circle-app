@@ -223,7 +223,7 @@ class _VoceViva implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       'La voce viva di ${maestro.displayName}.';
 

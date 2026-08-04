@@ -35,7 +35,7 @@ class _AiFinta implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async {
     risposte++;
     return 'Le stelle ti ascoltano.';

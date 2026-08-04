@@ -226,7 +226,7 @@ class _VoceCheTace implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       throw Exception('non deve essere chiamata');
 

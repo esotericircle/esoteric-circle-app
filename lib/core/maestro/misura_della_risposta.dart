@@ -26,21 +26,32 @@ import 'consult_depth.dart';
 /// concessi: una risposta di novanta parole costa uguale con un tetto di 160 o
 /// di 400. Cio' che cambia e' che con 400 arriva intera.
 enum MisuraDellaRisposta {
-  /// La prima risposta della chat, uguale per tutti i piani: la profondita' non
-  /// si sceglie prima, si chiede dopo aver letto.
+  /// LA LETTURA DELLA CHAT, INTERA, in una generazione sola.
   ///
-  /// **CINQUANTA chieste per settanta ottenute, e il numero viene da due
-  /// misure, non da una stima.** Chiedendone novanta la mediana su venti
-  /// risposte vere e' stata 94; chiedendone sessanta e' stata 80. Il modello
-  /// non obbedisce al numero, ci si avvicina da sopra: fra i due punti misurati
-  /// lo sforo va da piu' quattro a piu' venti parole, e cresce mano a mano che
-  /// si scende. Cinquanta e' il punto in cui la mediana attesa cade sotto la
-  /// soglia delle ottanta, che e' quella decisa dal fondatore.
-  primaRisposta(parole: 50, inLettere: 'cinquanta', ragionamento: 0),
+  /// **Ne esisteva una seconda, e non esiste piu'.** C'erano due misure per la
+  /// stessa risposta: `primaRisposta` a cinquanta parole e `approfondimento` a
+  /// duecentoquaranta, perche' "Vai piu' a fondo" buttava la risposta letta e
+  /// ne chiedeva un'altra. Adesso il Maestro scrive una volta la lettura
+  /// intera, la chat ne mostra il primo strato e la freccia rivela il resto
+  /// gia' scritto: una misura sola, perche' la risposta e' una sola.
+  ///
+  /// **Centottanta, e il conto e' misurato.** Su dieci risposte vere del 3
+  /// agosto 2026 l'ingresso mediano vale 1807 token e l'uscita 116. Due
+  /// chiamate costavano 1807+116 piu' 1807+350; questa ne costa 1807+350, cioe'
+  /// meno, perche' l'ingresso e' il 94 per cento della spesa. Centottanta
+  /// parole valgono circa 350 token in uscita.
+  letturaDellaChat(parole: 180, inLettere: 'centottanta', ragionamento: 0),
 
-  /// La stessa risposta chiesta di nuovo con "Vai piu' a fondo". Piu' spazio
-  /// perche' chi la chiede ha gia' letto e ha gia' deciso che gli interessa.
-  approfondimento(parole: 240, inLettere: 'duecentoquaranta', ragionamento: 0),
+  /// La lettura di chi NON puo' rivelare il secondo strato.
+  ///
+  /// **Perche' esistono due lunghezze e non due chiamate.** Il secondo strato
+  /// e' un vantaggio del piano, e resta tale: chi non ce l'ha vede lo stesso
+  /// testo che vedeva prima, cinquanta parole. Cio' che cambia e' che a lui il
+  /// Maestro ne scrive cinquanta invece di centottanta, invece di scriverne
+  /// centottanta e nasconderne centotrenta dietro un lucchetto. Chiedere al
+  /// modello parole che nessuno leggera' e' spendere per niente, ed e'
+  /// esattamente cio' da cui questa voce doveva liberarci.
+  letturaBreve(parole: 50, inLettere: 'cinquanta', ragionamento: 0),
 
   /// Consulta un Maestro, profondita' Breve.
   consultaBreve(parole: 90, inLettere: 'novanta', ragionamento: 0),
@@ -99,14 +110,16 @@ enum MisuraDellaRisposta {
   /// Sotto quale tetto la rete non scende mai, qualunque misura si chieda.
   ///
   /// **La rete non si stringe quando si stringe il bersaglio**, perche' cio' da
-  /// cui protegge non si stringe con lui. Abbassando la prima risposta da
-  /// novanta parole a sessanta, il tetto calcolato scenderebbe da 400 a 300, ma
-  /// lo sforo del modello resta quello di prima: la risposta piu' lunga
-  /// misurata e' di centosedici parole, cioe' circa 190 token, e una rete a 400
-  /// le sta sopra due volte. Restringerla al filo del nuovo bersaglio
-  /// riporterebbe il difetto del 2 agosto sulla coda lunga delle risposte.
+  /// cui protegge non si stringe con lui. Abbassando una misura da novanta
+  /// parole a sessanta, il tetto calcolato scenderebbe da 400 a 300, ma lo
+  /// sforo del modello resta quello di prima: la risposta piu' lunga misurata
+  /// e' di centosedici parole, cioe' circa 190 token, e una rete a 400 le sta
+  /// sopra due volte. Restringerla al filo del nuovo bersaglio riporterebbe il
+  /// difetto del 2 agosto sulla coda lunga delle risposte.
   ///
-  /// Tocca la sola prima risposta: tutte le altre misure stanno gia' sopra.
+  /// Oggi nessuna misura ci finisce sotto: e' una rete, e una rete si tiene
+  /// anche quando non serve, perche' serve proprio quando smette di sembrare
+  /// necessaria.
   static const int kReteMinima = 400;
 
   /// Il tetto di token in uscita, calcolato.
@@ -125,9 +138,10 @@ enum MisuraDellaRisposta {
   static MisuraDellaRisposta perProfondita(ConsultDepth depth) =>
       depth == ConsultDepth.profonda ? consultaProfonda : consultaBreve;
 
-  /// La misura di un turno di chat: la prima risposta, oppure l'approfondimento.
-  static MisuraDellaRisposta perChat({required bool approfondisci}) =>
-      approfondisci ? approfondimento : primaRisposta;
+  /// La misura di un turno di chat. **La chiamata e' sempre UNA**: cio' che
+  /// cambia e' quanto si chiede, e lo decide il piano di chi legge.
+  static MisuraDellaRisposta perChat({required bool aDueStrati}) =>
+      aDueStrati ? letturaDellaChat : letturaBreve;
 
   /// COME SI CHIEDE LA LUNGHEZZA AL MAESTRO, ed e' qui che la lunghezza si
   /// governa davvero.

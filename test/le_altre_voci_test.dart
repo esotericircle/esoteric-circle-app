@@ -243,7 +243,7 @@ class _VoceCheRisponde implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async {
     if (maestro == taceCon) throw const MaestroAiUnavailable('tace');
     chiamate++;
@@ -293,7 +293,7 @@ class _VoceMuta extends _VoceCheRisponde {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       throw const MaestroAiUnavailable('la voce tace');
 }
@@ -310,7 +310,7 @@ class _VoceTronca extends _VoceCheRisponde {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       throw const MaestroAiTroncata();
 }

@@ -218,7 +218,7 @@ class MaestroPersona {
     required MaestroMemory memory,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) {
     final natalBlock = _natalContext(natal);
     final ancoraggi = VerificaAncoraggio.disponibiliPer(
@@ -246,26 +246,28 @@ class MaestroPersona {
       // solo, con l'ultima frase chiusa, e il tetto resta la rete che non si
       // tocca quasi mai.
       '',
-      MisuraDellaRisposta.perChat(approfondisci: approfondisci).istruzione,
+      MisuraDellaRisposta.perChat(aDueStrati: aDueStrati).istruzione,
       '',
       TestoDelResponso.vincoloDiFormato,
-      if (approfondisci) ...['', regolaDellApprofondimento],
+      '',
+      regolaDeiDueStrati,
     ].join('\n');
   }
 
-  /// Cosa cambia quando la persona chiede di andare più a fondo.
+  /// COME SI SCRIVE UNA LETTURA CHE SI LEGGE A DUE STRATI.
   ///
-  /// Non è "scrivi di più": è "scendi", e la differenza conta. Una risposta
-  /// gonfiata per riempire il tetto è peggio della breve che sostituisce,
-  /// perché la persona ha già letto quella e riconosce il riempimento.
-  static const String regolaDellApprofondimento =
-      'LA PERSONA HA CHIESTO DI ANDARE PIÙ A FONDO:\n'
-      '- Ha già letto la tua risposta breve. Non ripeterla con altre parole: '
-      'scendi sotto, dove la prima si era fermata.\n'
-      '- Più spazio non vuol dire più giri: se il senso finisce prima del '
-      'limite, fermati prima del limite.\n'
-      '- Riparti dallo stesso ancoraggio, non da uno nuovo: è la stessa '
-      'lettura portata più giù.';
+  /// **Perche' non esiste piu' una regola dell'approfondimento.** Ce n'era una
+  /// che diceva al Maestro "la persona ha gia' letto la tua risposta breve,
+  /// scendi sotto": serviva alla seconda chiamata, che non c'e' piu'. Adesso il
+  /// Maestro scrive una volta sola, e cio' che conta e' che le prime frasi
+  /// reggano da sole, perche' molte persone leggeranno solo quelle.
+  static const String regolaDeiDueStrati =
+      'COME SI APRE LA RISPOSTA:\n'
+      '- Le prime due o tre frasi devono reggere da sole: chi legge solo '
+      'quelle deve avere una risposta intera, non un\'introduzione.\n'
+      '- Quello che viene dopo scende più giù sullo stesso ancoraggio, senza '
+      'ricominciare da capo e senza ripetere con altre parole ciò che hai '
+      'appena detto.';
 
   /// La regola dell'ancoraggio, come dato e non come raccomandazione.
   ///

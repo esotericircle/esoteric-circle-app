@@ -1139,7 +1139,7 @@ class _VoceConUnTesto implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       testo;
 
@@ -1185,7 +1185,7 @@ class _VoceCheRisponde implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. '
       'Non è fermo chi si raccoglie: è fermo chi si nasconde. '
@@ -1235,7 +1235,7 @@ class _VoceCheTace implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async =>
       throw Exception('firebasevertexai.googleapis.com non abilitata');
 

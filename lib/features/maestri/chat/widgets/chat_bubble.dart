@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/chat/chat_message.dart';
 import '../../../../core/chat/immersive_intents.dart';
 import '../../../../core/chat/testo_del_responso.dart';
+import '../../../../core/maestro/due_strati_della_lettura.dart';
 import '../../../../core/maestro/frase_di_ripiego.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/maestro/tempi_dell_attesa.dart';
@@ -218,8 +219,23 @@ class _ChatBubbleState extends State<ChatBubble> {
                     children: [
                 TestoCheSiScrive(
                   key: _chiaveDelTesto,
-                  testo: message.text,
-                  attiva: scrive,
+                  // LO STRATO CHE SI STA LEGGENDO, e il punto che decide dove
+                  // finisce e' UNO SOLO, in `DueStratiDellaLettura`.
+                  //
+                  // La bolla non taglia da sola: se tagliasse qui, una seconda
+                  // superficie che mostra la stessa lettura taglierebbe in un
+                  // altro punto, e il primo strato non sarebbe piu' lo stesso
+                  // testo a seconda di dove lo si legge.
+                  testo: DueStratiDellaLettura.daMostrare(message.text,
+                      rivelato: message.approfondita),
+                  // A RIVELAZIONE FATTA NON SI RISCRIVE.
+                  //
+                  // Il testo cambia, da breve a intero, e la macchina da
+                  // scrivere riparte quando il testo cambia: senza questa
+                  // riga, toccare la freccia avrebbe fatto ricomparire da capo
+                  // anche le righe gia' lette. Il secondo strato e' gia'
+                  // scritto, quindi compare, non si scrive.
+                  attiva: scrive && !message.approfondita,
                   durataMassima: widget.durataMassimaDiScrittura,
                   stile: TypographyTokens.body(size: 17).copyWith(
                     color: isUser
@@ -289,6 +305,12 @@ class _ChatBubbleState extends State<ChatBubble> {
                 // "Vai piu' a fondo" sta SOTTO la risposta, dentro la sua
                 // bolla: la profondita' non si sceglie prima di leggere, si
                 // chiede dopo aver letto.
+                //
+                // **LA FRECCIA IN GIU' MANTIENE CIO' CHE PROMETTE.** Prima
+                // buttava la risposta letta e ne chiedeva un'altra al Maestro,
+                // con tutta l'attesa da capo: un'icona che dice "qui sotto
+                // c'e' altro testo, te lo mostro" mentre in realta' ricomincia
+                // da zero. Adesso il testo c'e' gia', e il tocco lo scopre.
                 if (onApprofondisci != null) ...[
                   const SizedBox(height: SpacingTokens.sm),
                   GestureDetector(

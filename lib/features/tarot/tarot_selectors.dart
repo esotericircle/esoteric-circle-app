@@ -161,7 +161,15 @@ class TarotSetupPanel extends StatelessWidget {
                     style: TypographyTokens.body(size: 13)
                         .copyWith(color: ColorTokens.textSecondary)),
               ),
-              Icon(Icons.expand_more_rounded,
+              // IL TRIANGOLO DEL SELETTORE, non la freccia in giu'.
+              //
+              // Qui c'era un `expand_more`, cioe' l'icona che nel resto
+              // dell'app significa "qui sotto c'e' altro testo, te lo mostro".
+              // Questo chip non mostra testo: apre un pannello di scelte, che
+              // e' un'altra cosa. Il triangolo pieno e' l'affordance del
+              // selettore, ed e' quella che porta gia' il chip gemello qui
+              // sotto.
+              Icon(Icons.arrow_drop_down_rounded,
                   size: 18, color: palette.goldSoft),
             ],
           ),

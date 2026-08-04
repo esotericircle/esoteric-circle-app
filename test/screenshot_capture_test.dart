@@ -3154,7 +3154,7 @@ class _ScriptedMaestro implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async {
     return 'Le stelle ti ascoltano. Dimmi ancora, cerchiamo insieme il filo.';
   }
@@ -3228,7 +3228,7 @@ class _VoceCheFaAspettare implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) =>
       Completer<String>().future;
 

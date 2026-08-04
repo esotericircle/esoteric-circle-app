@@ -129,8 +129,18 @@ void main() {
         () async {
       // Il controllo negativo: senza questo, una prova che dice sempre "niente
       // invito" resterebbe verde anche se l'invito sparisse per tutti.
+      // LA LETTURA E' LUNGA APPOSTA. Dal 4 agosto 2026 la freccia compare solo
+      // se sotto c'e' davvero un secondo strato: con due righe non c'e'
+      // niente da rivelare, e l'invito giustamente non nasce.
       final voce = _VoceCheTronca(troncaLePrime: 0, testo: 'La tua Luna in '
-          'Cancro apre il ciclo, e il ciclo si chiude quando lo guardi.');
+          'Cancro apre il ciclo, e il ciclo si chiude quando lo guardi. '
+          'Sotto la superficie un secondo movimento lavora da mesi senza '
+          'chiedere il tuo permesso, e non e\' la scelta a spaventarti. '
+          'Aspetta la prossima luna nuova e rileggi queste stesse parole, '
+          'perche\' un ciclo che si chiude lascia sempre una porta aperta su '
+          'quello che comincia, e quella porta oggi non la vedi ancora. '
+          'Guarda dove il timore torna sempre: quella e\' la direzione, e il '
+          'cielo la indica senza obbligarti a prenderla.');
       final controller = await conVoce(voce);
 
       await controller.send('mi sento fermo');
@@ -164,7 +174,7 @@ class _VoceCheTronca implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool approfondisci = false,
+    bool aDueStrati = true,
   }) async {
     chiamate++;
     if (chiamate <= troncaLePrime) throw const MaestroAiTroncata();
