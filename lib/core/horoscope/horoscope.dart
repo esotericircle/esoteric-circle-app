@@ -23,6 +23,7 @@ class HoroscopeCard {
     required this.domain,
     required this.title,
     required this.text,
+    required this.synthesis,
     required this.indicator,
     this.opening,
     this.luckyNumber,
@@ -32,6 +33,17 @@ class HoroscopeCard {
   final HoroscopeDomain domain;
   final String title;
   final String text;
+
+  /// La sola sintesi del segno, senza la corrente del giorno.
+  ///
+  /// **Esiste per chiudere una porta.** La card da condividere mostrava questa
+  /// frase rileggendosela da `HoroscopeData.anchors` per conto suo, cioe' alle
+  /// spalle di `Horoscope`: chi avesse sostituito la composizione avrebbe
+  /// cambiato lo schermo e lasciato l'immagine condivisa col testo vecchio,
+  /// che e' l'angolo peggiore in cui restare indietro, perche' e' quello che
+  /// la gente manda agli altri. Adesso la frase esce da qui, e chi cambia la
+  /// composizione la cambia in tutti e due i posti.
+  final String synthesis;
 
   /// L'apertura personalizzata col nome, solo sulla scheda Generale: si mostra
   /// prima del testo. Null sulle altre schede.
@@ -154,6 +166,7 @@ class Horoscope {
         domain: domain,
         title: title,
         text: text,
+        synthesis: anchor[1],
         indicator: indicator,
         luckyNumber: 1 + (seedLucky % 90), // da 1 a 90
         dayColor: palette[seedColor % palette.length],
@@ -163,6 +176,7 @@ class Horoscope {
       domain: domain,
       title: title,
       text: text,
+      synthesis: anchor[1],
       indicator: indicator,
       opening: cardOpening,
     );

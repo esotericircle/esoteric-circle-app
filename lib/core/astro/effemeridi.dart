@@ -27,7 +27,10 @@ enum CorpoCeleste {
   venere('Venere', '♀', 'venus'),
   marte('Marte', '♂', 'mars'),
   giove('Giove', '♃', 'jupiter'),
-  saturno('Saturno', '♄', 'saturn');
+  saturno('Saturno', '♄', 'saturn'),
+  urano('Urano', '♅', 'uranus'),
+  nettuno('Nettuno', '♆', 'neptune'),
+  plutone('Plutone', '♇', 'pluto');
 
   const CorpoCeleste(this.nome, this.glifo, this.id);
 
@@ -76,8 +79,42 @@ class Effemeridi {
       case CorpoCeleste.marte:
       case CorpoCeleste.giove:
       case CorpoCeleste.saturno:
+      case CorpoCeleste.urano:
+      case CorpoCeleste.nettuno:
+      case CorpoCeleste.plutone:
         return _pianeta(corpo, jd);
     }
+  }
+
+  /// SE UN CORPO E' RETROGRADO a un certo istante.
+  ///
+  /// Non e' una proprieta' da tabella: si misura. Si guarda dove sta il corpo
+  /// oggi e dove stava ieri, e se la longitudine e' CALATA il corpo sta
+  /// tornando indietro visto dalla Terra. E' esattamente cio' che vuol dire
+  /// retrogrado: un'apparenza prospettica, non un moto reale all'indietro.
+  ///
+  /// Il passo e' di un giorno intero perche' i pianeti lenti si muovono
+  /// pochissimo: Plutone fa quattro millesimi di grado al giorno, e con un
+  /// passo di un'ora il moto sparirebbe sotto l'errore della serie.
+  ///
+  /// Il Sole e la Luna non retrogradano mai, e qui infatti non risultano mai
+  /// retrogradi: la loro longitudine geocentrica cresce sempre.
+  static bool retrogrado(CorpoCeleste corpo, double jd) =>
+      velocitaGiornaliera(corpo, jd) < 0;
+
+  /// Di quanti gradi al giorno si muove un corpo, col segno.
+  ///
+  /// Negativo vuol dire retrogrado. Serve anche a sapere se un aspetto si sta
+  /// stringendo o sciogliendo, e a dire quanto e' incerto il giorno esatto di
+  /// un transito.
+  static double velocitaGiornaliera(CorpoCeleste corpo, double jd) {
+    final prima = longitudineEclittica(corpo, jd - 0.5);
+    final dopo = longitudineEclittica(corpo, jd + 0.5);
+    var delta = dopo - prima;
+    // Il salto da 359 a 1 grado non e' un moto di meno 358 gradi.
+    if (delta > 180.0) delta -= 360.0;
+    if (delta < -180.0) delta += 360.0;
+    return delta;
   }
 
   /// **Questo file non sa cosa sia un `DateTime`, ed e' voluto.** La conversione
@@ -86,6 +123,42 @@ class Effemeridi {
   /// perche' quella conversione era sparsa. Qui si entra col giorno giuliano
   /// gia' fatto, cosi' non c'e' una seconda strada per sbagliarlo.
   ///
+  /// LO SCARTO MASSIMO MISURATO contro JPL Horizons, in gradi, corpo per corpo.
+  ///
+  /// Non sono stime: sono i numeri della prova
+  /// `effemeridi_contro_fonte_terza_test.dart`, su tre date distanti fra loro.
+  /// Stanno qui perche' servono a calcolare quanto e' incerto il GIORNO di un
+  /// transito, e perche' chi cambia una serie deve vedere subito cosa promette.
+  static const Map<CorpoCeleste, double> scartoMisurato = {
+    CorpoCeleste.sole: 0.0062,
+    CorpoCeleste.luna: 0.1542,
+    CorpoCeleste.mercurio: 0.0084,
+    CorpoCeleste.venere: 0.0078,
+    CorpoCeleste.marte: 0.0424,
+    CorpoCeleste.giove: 0.0216,
+    CorpoCeleste.saturno: 0.1414,
+    CorpoCeleste.urano: 0.0040,
+    CorpoCeleste.nettuno: 0.0167,
+    CorpoCeleste.plutone: 0.0149,
+  };
+
+  /// DI QUANTI GIORNI E' INCERTO il momento esatto di un transito.
+  ///
+  /// **Questo e' il limite da dichiarare, e va dichiarato dove si calcola.**
+  /// Lo scarto su Saturno e' 0,1414 gradi, e Saturno percorre circa 0,03 gradi
+  /// al giorno: sono quasi cinque giorni di incertezza su QUANDO l'aspetto e'
+  /// esatto. Per dire che l'aspetto C'E' va benissimo, perche' l'orbo e' due
+  /// gradi, cioe' quattordici volte lo scarto. Per dire "il transito e' esatto
+  /// oggi" no, e nessun testo lo deve affermare.
+  ///
+  /// Il caso peggiore sono i lenti: precisi in posizione, lentissimi, quindi
+  /// il giorno esatto e' l'informazione che il motore non sa dare.
+  static double giorniDiIncertezza(CorpoCeleste corpo, double jd) {
+    final velocita = velocitaGiornaliera(corpo, jd).abs();
+    if (velocita < 1e-9) return double.infinity;
+    return scartoMisurato[corpo]! / velocita;
+  }
+
   /// Tutti i corpi a un istante, nell'ordine dell'enum.
   static Map<CorpoCeleste, double> tutte(double jd) => {
         for (final c in CorpoCeleste.values) c: longitudineEclittica(c, jd),
@@ -284,6 +357,48 @@ class Effemeridi {
       i: [2.488879, -0.0037362, -0.00001519, 0.000000087],
       omega: [113.665503, 0.8770880, -0.00012176, -0.000002249],
       perielio: [93.057237, 1.9637613, 0.00083753, 0.000004928],
+    ),
+    /// **I TRE LENTI VENGONO DA UN'ALTRA FONTE, e la ragione e' misurata.**
+    ///
+    /// La tavola 31.A di Meeus si ferma a Nettuno e non contiene Plutone. Ma il
+    /// problema non era solo Plutone: provati con gli elementi medi di Meeus,
+    /// **Urano sbagliava di 0,95 gradi e Nettuno di 0,63** contro JPL Horizons,
+    /// cioe' dieci volte peggio di Giove e Saturno. Urano e Nettuno si
+    /// perturbano forte a vicenda, e gli elementi medi non lo raccontano.
+    ///
+    /// Qui si usano invece gli elementi kepleriani approssimati del JPL,
+    /// E. M. Standish, *Keplerian Elements for Approximate Positions of the
+    /// Major Planets*, validi dal 1800 al 2050. Con questi, tutti e tre stanno
+    /// entro due centesimi di grado: i numeri sono nella consegna.
+    ///
+    /// Sono riferiti all'eclittica e all'equinozio J2000, non a quello della
+    /// data come gli altri: per portarli nello stesso riferimento si aggiunge
+    /// la precessione generale in longitudine, 1,396971 gradi per secolo, alle
+    /// tre longitudini (media, del nodo, del perielio). L'inclinazione non
+    /// cambia al primo ordine.
+    CorpoCeleste.urano: _Elementi(
+      l: [313.23810451, 428.48202785 + 1.396971],
+      a: [19.18916464, -0.00196176],
+      e: [0.04725744, -0.00004397],
+      i: [0.77263783, -0.00242939],
+      omega: [74.01692503, 0.04240589 + 1.396971],
+      perielio: [170.95427630, 0.40805281 + 1.396971],
+    ),
+    CorpoCeleste.nettuno: _Elementi(
+      l: [-55.12002969, 218.45945325 + 1.396971],
+      a: [30.06992276, 0.00026291],
+      e: [0.00859048, 0.00005105],
+      i: [1.77004347, 0.00035372],
+      omega: [131.78422574, -0.00508664 + 1.396971],
+      perielio: [44.96476227, -0.32241464 + 1.396971],
+    ),
+    CorpoCeleste.plutone: _Elementi(
+      l: [238.92903833, 145.20780515 + 1.396971],
+      a: [39.48211675, -0.00031596],
+      e: [0.24882730, 0.00005170],
+      i: [17.14001206, 0.00004818],
+      omega: [110.30393684, -0.01183482 + 1.396971],
+      perielio: [224.06891629, -0.04062942 + 1.396971],
     ),
   };
 }

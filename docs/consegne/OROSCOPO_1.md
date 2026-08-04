@@ -300,6 +300,98 @@ difetto invece di fidarsi. Due erano cieche e le ha smascherate la mutazione.
    voluto, l'ordine lo dice, ma finche' non arriva l'ordine 2 di 2 questo codice
    e' verificato e inerte.
 
+## AGGIUNTA ALL'ORDINE, le quattro cose prima del testo
+
+Arrivata a lavoro gia' consegnato. Tutta aritmetica sui dati che il motore
+produceva gia': non e' nato nessun secondo motore.
+
+### 1. I transiti nelle case natali
+
+`lib/core/astro/transiti_nelle_case.dart`. `casaDi` dice in quale casa cade una
+longitudine, `perIlGiorno` da' la casa di ogni corpo per quella carta.
+
+**Le case NON sono larghe trenta gradi.** Con le domificazioni per tempo possono
+essere molto diverse fra loro, quindi si misura l'arco vero fra due cuspidi
+invece di dividere il giro per dodici. Una prova percorre tutti i 3600 decimi di
+grado e pretende che ognuno stia in una casa e in una sola, compreso lo
+scavalcamento dello zero dell'Ariete.
+
+**Senza ora di nascita non ci sono case, e non si inventano.** Le cuspidi
+discendono dall'orizzonte locale all'istante della nascita: senza l'ora
+`NatalChart` non le porta, e qui torna vuoto. E' la bugia piu' pericolosa fra
+quelle possibili, perche' e' anche la piu' bella da leggere.
+
+### 2. I moti retrogradi
+
+`Effemeridi.retrogrado` e `Effemeridi.velocitaGiornaliera`. Non si legge da una
+tabella: si guarda dove sta il corpo un mezzo giorno prima e un mezzo giorno
+dopo, e se la longitudine cala il pianeta sta tornando indietro visto dalla
+Terra.
+
+Verificato contro cio' che dice il libro, non contro me stesso: **Mercurio
+risulta retrogrado fra i 45 e gli 80 giorni nel 2026**, che sono le tre o quattro
+retrogradazioni da tre settimane della manualistica; i tre lenti fra i 120 e i
+190 giorni, cioe' i circa cinque mesi l'anno in cui la Terra li scavalca. Sole e
+Luna non risultano mai retrogradi, e non e' una convenzione scritta a mano: la
+loro longitudine geocentrica cresce sempre, quindi il calcolo lo dice da solo.
+
+### 3. Aspetti applicativi o separativi
+
+`ChartAspect.applicativo`, riempito confrontando l'orbo di oggi con quello di
+domani. Vero se l'aspetto si sta stringendo, falso se si sta sciogliendo, nullo
+quando non e' stato calcolato: negli aspetti interni alla carta la domanda non ha
+senso, perche' la carta e' ferma.
+
+### 4. I tre lenti, e una fonte che ho dovuto cambiare
+
+Aggiunti Urano, Nettuno e Plutone. **Ma la tavola di Meeus non andava bene, e
+l'ha detto la verifica.**
+
+| Corpo | Con Meeus 31.A | Con gli elementi JPL |
+|---|---|---|
+| Urano | **0,9486 gradi di errore** | 0,0001 / 0,0005 / 0,0040 |
+| Nettuno | **0,6308 gradi di errore** | 0,0066 / 0,0167 / 0,0059 |
+| Plutone | non presente nella tavola | 0,0055 / 0,0149 / 0,0038 |
+
+Urano e Nettuno si perturbano forte a vicenda e gli elementi medi non lo
+raccontano: sbagliavano dieci volte piu' di Giove e Saturno. Plutone in quella
+tavola non c'e' proprio, perche' la sua orbita e' troppo eccentrica e inclinata.
+Tutti e tre sono passati agli elementi kepleriani approssimati del JPL,
+E. M. Standish, *Keplerian Elements for Approximate Positions of the Major
+Planets*, validi dal 1800 al 2050, portati dall'equinozio J2000 a quello della
+data aggiungendo la precessione generale in longitudine.
+
+Se non avessi verificato, avrei consegnato un Urano sbagliato di quasi un grado
+dicendo che veniva da Meeus.
+
+**L'orbo dei lenti e' due gradi**, stretto come quello della Luna ma per la
+ragione opposta: la Luna corre troppo, questi stanno quasi fermi, e con cinque
+gradi lo stesso aspetto resterebbe aperto per anni.
+
+### Il limite dichiarato: si sa SE, non si sa QUANDO
+
+`Effemeridi.giorniDiIncertezza`, e la ragione sta scritta accanto al calcolo.
+
+Lo scarto misurato su Saturno e' 0,1414 gradi su un pianeta che percorre circa
+0,03 gradi al giorno: sono **quasi cinque giorni di incertezza su quando un
+transito e' esatto**. Per dire che l'aspetto C'E' va benissimo, perche' l'orbo e'
+due gradi, quattordici volte lo scarto. Per dire "il transito e' esatto oggi"
+no, e **nessun testo dell'ordine 2 di 2 lo deve affermare**. Il caso peggiore
+sono proprio i lenti: precisissimi in posizione, lentissimi in moto, quindi il
+giorno esatto e' l'unica cosa che il motore non sa dare.
+
+### La porta nell'angolo e' chiusa
+
+`oroscopo_share_card.dart` non legge piu' `HoroscopeData`. `HoroscopeCard`
+guadagna il campo `synthesis`, valorizzato da `Horoscope.cardFor`, e la card lo
+prende dalla scheda che gia' riceve.
+
+**Non cambia un pixel oggi**, perche' e' la stessa stringa: cambia che adesso
+passa dalla porta buona, quindi quando l'ordine 2 di 2 sostituira' la
+composizione, l'immagine che la gente manda agli altri seguira' da sola. Le
+porte dell'Oroscopo sono passate da due a **una**, e la prova che le enumera
+adesso ne pretende una sola.
+
 ## I numeri della chiusura
 
 - **Suite intera**: 1581 prove, tutte verdi, **9 minuti e 40 secondi**. E' la

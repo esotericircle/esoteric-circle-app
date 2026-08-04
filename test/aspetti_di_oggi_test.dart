@@ -206,9 +206,11 @@ void main() {
       // Le porte note al 4 agosto 2026. Chi ne apre una nuova deve dichiararla
       // qui, altrimenti l'ordine 2 di 2 la lascera' fuori e quell'angolo
       // continuera' a mostrare il testo vecchio.
+      // Era due. La card da condividere si rileggeva il corpus per conto suo,
+      // ed e' stata chiusa: adesso prende la sintesi dalla scheda che riceve.
+      // Ne resta UNA, ed e' la porta buona.
       const porteDichiarate = {
         'lib/core/horoscope/horoscope.dart',
-        'lib/features/horoscope/oroscopo_share_card.dart',
       };
 
       final chiLegge = <String>{};

@@ -46,9 +46,17 @@ class TransitiDelGiorno {
     );
   }
 
+  /// Il giorno giuliano dell'istante fisso del giorno civile di [adesso].
+  ///
+  /// E' la porta per chi ha bisogno del jd e non delle posizioni, per esempio
+  /// per sapere chi e' retrogrado o quanto e' incerto il giorno di un transito.
+  /// Esiste perche' nessuno rifaccia la conversione per conto suo.
+  static double giornoGiulianoDi(DateTime adesso) =>
+      Celestial.julianDay(istanteDi(adesso));
+
   /// Le longitudini eclittiche dei corpi per il giorno civile di [adesso].
   static Map<CorpoCeleste, double> posizioni(DateTime adesso) =>
-      Effemeridi.tutte(Celestial.julianDay(istanteDi(adesso)));
+      Effemeridi.tutte(giornoGiulianoDi(adesso));
 
   /// La longitudine di un solo corpo per il giorno civile di [adesso].
   static double posizioneDi(CorpoCeleste corpo, DateTime adesso) =>

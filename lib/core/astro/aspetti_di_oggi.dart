@@ -76,11 +76,36 @@ class AspettiDiOggi {
   /// L'orbo della Luna in transito, che vince sempre sull'orbo base.
   static const double orboLunaInTransito = 2.0;
 
+  /// L'orbo dei tre lenti, per la ragione OPPOSTA a quella della Luna.
+  ///
+  /// La Luna ha l'orbo stretto perche' corre: con un orbo largo sarebbe in
+  /// aspetto con qualcosa tutto il giorno. Urano, Nettuno e Plutone ce l'hanno
+  /// stretto perche' stanno quasi fermi, da uno a tre gradi l'anno: con cinque
+  /// gradi di orbo lo stesso aspetto resterebbe aperto per anni e non
+  /// distinguerebbe un giorno dall'altro, che e' il contrario di cio' che serve
+  /// a un oroscopo quotidiano. Anche qui le fonti consultate concordano sulla
+  /// stretta, uno o due gradi, e divergono sul numero.
+  static const double orboLentiInTransito = 2.0;
+
+  /// I tre lenti, per cui vale l'orbo stretto.
+  static const Set<CorpoCeleste> lenti = {
+    CorpoCeleste.urano,
+    CorpoCeleste.nettuno,
+    CorpoCeleste.plutone,
+  };
+
   /// L'orbo ammesso per un corpo in transito su un dato aspetto.
   static double orboPer(CorpoCeleste transito, AspectType tipo) {
     final base = orboBase[tipo]!;
-    if (transito != CorpoCeleste.luna) return base;
-    return base < orboLunaInTransito ? base : orboLunaInTransito;
+    final double tetto;
+    if (transito == CorpoCeleste.luna) {
+      tetto = orboLunaInTransito;
+    } else if (lenti.contains(transito)) {
+      tetto = orboLentiInTransito;
+    } else {
+      return base;
+    }
+    return base < tetto ? base : tetto;
   }
 
   /// I corpi natali che entrano nel confronto, oltre ai pianeti: Ascendente e
@@ -113,6 +138,7 @@ class AspettiDiOggi {
   static List<ChartAspect> fra({
     required Map<CorpoCeleste, double> transiti,
     required NatalChart? carta,
+    Map<CorpoCeleste, double>? transitiDomani,
   }) {
     if (carta == null || carta.isEssential) return const [];
 
@@ -141,7 +167,28 @@ class AspettiDiOggi {
             bId: voce.key,
           );
           if (candidato.orbe <= orboPer(corpo, tipo)) {
-            trovati.add(candidato);
+            // Applicativo o separativo: si guarda dove sara' l'orbo domani. Se
+            // si stringe l'aspetto sta arrivando, se si allarga sta passando.
+            // Il corpo natale non si muove, quindi basta muovere il transito.
+            final lonDomani = transitiDomani?[corpo];
+            final bool? applicativo = lonDomani == null
+                ? null
+                : ChartAspect(
+                      aLongitude: lonDomani,
+                      bLongitude: voce.value,
+                      type: tipo,
+                    ).orbe <
+                    candidato.orbe;
+            trovati.add(applicativo == null
+                ? candidato
+                : ChartAspect(
+                    aLongitude: candidato.aLongitude,
+                    bLongitude: candidato.bLongitude,
+                    type: tipo,
+                    aId: candidato.aId,
+                    bId: candidato.bId,
+                    applicativo: applicativo,
+                  ));
             // Due aspetti diversi non possono valere fra la stessa coppia: gli
             // angoli tolemaici distano almeno trenta gradi e l'orbo piu' largo
             // e' cinque, quindi appena uno entra gli altri sono esclusi.
@@ -170,5 +217,24 @@ class AspettiDiOggi {
     required DateTime adesso,
     required NatalChart? carta,
   }) =>
-      fra(transiti: TransitiDelGiorno.posizioni(adesso), carta: carta);
+      fra(
+        transiti: TransitiDelGiorno.posizioni(adesso),
+        carta: carta,
+        transitiDomani: TransitiDelGiorno.posizioni(
+            adesso.add(const Duration(days: 1))),
+      );
+
+  /// QUALI CORPI SONO RETROGRADI oggi.
+  ///
+  /// "Mercurio retrogrado" e' la cosa piu' conosciuta dell'astrologia
+  /// popolare: un oroscopo che non la nomina mai si tradisce al primo giorno.
+  /// Non si legge da una tabella, si misura sul moto reale, e infatti il Sole
+  /// e la Luna non compaiono mai qui perche' non retrogradano.
+  static Set<CorpoCeleste> retrogradiDelGiorno(DateTime adesso) {
+    final jd = TransitiDelGiorno.giornoGiulianoDi(adesso);
+    return {
+      for (final corpo in CorpoCeleste.values)
+        if (Effemeridi.retrogrado(corpo, jd)) corpo,
+    };
+  }
 }

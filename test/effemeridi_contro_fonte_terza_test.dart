@@ -39,6 +39,9 @@ void main() {
     CorpoCeleste.marte: [317.7167381, 98.2740346, 146.7824558],
     CorpoCeleste.giove: [106.0295382, 131.9994354, 139.6331963],
     CorpoCeleste.saturno: [0.1095289, 14.0890698, 13.1880644],
+    CorpoCeleste.urano: [57.5124620, 65.5624874, 61.8865041],
+    CorpoCeleste.nettuno: [0.5626246, 3.8524850, 3.2310712],
+    CorpoCeleste.plutone: [304.1317610, 303.6658546, 306.1851258],
   };
 
   /// Lo scarto in gradi fra due longitudini, tenendo conto del giro.
@@ -59,6 +62,9 @@ void main() {
     CorpoCeleste.marte: 0.060, // misurato al massimo 0,0424
     CorpoCeleste.giove: 0.040, // misurato al massimo 0,0216
     CorpoCeleste.saturno: 0.200, // misurato al massimo 0,1414
+    CorpoCeleste.urano: 0.015, // misurato al massimo 0,0040
+    CorpoCeleste.nettuno: 0.030, // misurato al massimo 0,0167
+    CorpoCeleste.plutone: 0.030, // misurato al massimo 0,0149
   };
 
   group('Le effemeridi locali contro JPL Horizons', () {

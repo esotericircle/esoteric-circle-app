@@ -6,7 +6,6 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../core/astro/zodiac.dart';
 import '../../core/horoscope/horoscope.dart';
-import '../../core/horoscope/horoscope_data.dart';
 import '../../design_system/components/brand_mark.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -40,7 +39,13 @@ class OroscopoShareCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final fortuna =
         cards.firstWhere((c) => c.domain == HoroscopeDomain.fortuna);
-    final synthesis = HoroscopeData.anchors[sign.id]![0][1];
+    // La sintesi arriva dalla scheda che questa card ha gia' in mano, non dal
+    // corpus riletto per conto proprio: era l'unica porta dell'Oroscopo che
+    // scavalcava `Horoscope`, e sostituire la composizione avrebbe lasciato
+    // indietro proprio l'immagine che la gente condivide.
+    final synthesis = cards
+        .firstWhere((c) => c.domain == HoroscopeDomain.generale)
+        .synthesis;
     const still = AlwaysStoppedAnimation<double>(0.5);
 
     return Container(

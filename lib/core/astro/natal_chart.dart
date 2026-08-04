@@ -59,7 +59,19 @@ class ChartAspect {
     required this.type,
     this.aId,
     this.bId,
+    this.applicativo,
   });
+
+  /// Se l'aspetto si sta FORMANDO (vero) oppure SCIOGLIENDO (falso).
+  ///
+  /// Nella tradizione e' una distinzione che cambia il senso: un aspetto
+  /// applicativo e' una cosa che sta arrivando, uno separativo e' una cosa che
+  /// e' gia' passata e sta perdendo forza. Si misura confrontando l'orbo di
+  /// oggi con quello di domani, non si legge da una tabella.
+  ///
+  /// Nullo quando non e' stato calcolato, per esempio negli aspetti interni
+  /// alla carta natale, dove la domanda non ha senso: la carta e' ferma.
+  final bool? applicativo;
 
   final double aLongitude;
   final double bLongitude;
