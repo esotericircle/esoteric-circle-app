@@ -78,9 +78,12 @@ void main() {
     // LA TERZA STA SOTTO LA PIEGA, e la lista non costruisce cio' che non
     // vede. Scorrere non e' "chiedere una voce": la carta esiste gia' e non
     // aspetta nessun tocco su nessun comando. Lo si verifica scorrendo.
-    await tester.drag(
-        find.byKey(const Key('ask_results')), const Offset(0, -1400));
-    await tester.pump();
+    // Si scorre finche' compare, invece di una trascinata a misura fissa: con
+    // la sintesi passata in fondo alla lista, 1400 punti portavano oltre la
+    // terza carta invece che sopra.
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('ask_card_aura')), 300,
+        scrollable: find.byType(Scrollable).first);
     expect(find.byKey(const Key('ask_card_aura')), findsOneWidget,
         reason: 'la terza carta non arriva nemmeno scorrendo');
   });

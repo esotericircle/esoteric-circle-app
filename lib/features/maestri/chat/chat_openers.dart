@@ -46,6 +46,20 @@ class ChatOpeners {
     return 'Il mio animale guida è $art$sep$nome, cosa vuole dirmi?';
   }
 
+  /// Dal Consiglio del Cerchio verso il Maestro scelto, con la domanda da cui
+  /// si arriva.
+  ///
+  /// **Perche' passa di qui e non dalla schermata.** Ogni arte che manda in
+  /// chat porta con se' cio' di cui si stava parlando, e la frase nasce da
+  /// questo punto solo. Il Consiglio era l'unica porta che apriva una
+  /// conversazione vuota: chi ci entrava trovava un Maestro che non sapeva
+  /// niente della domanda a cui aveva appena risposto.
+  static String consiglio(String tema) {
+    final t = tema.trim();
+    final senzaPunto = t.endsWith('.') ? t.substring(0, t.length - 1) : t;
+    return 'Nel Consiglio ho chiesto: «$senzaPunto». Vorrei approfondire con te.';
+  }
+
   /// Dalla Runa del Tramonto verso Caligo, con la runa della sera e il suo verso.
   static String runaTramonto(String nome, String verso) =>
       'La mia runa del tramonto è $nome $verso. Cosa devo lasciare fuori '

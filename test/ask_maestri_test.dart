@@ -115,6 +115,12 @@ void main() {
     // TRE CARTE, e nessun invito ad aggiungerne: ci sono gia' tutte.
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('ask_lens_medora')), findsOneWidget);
+    // LA SINTESI STA IN FONDO, dal 4 agosto 2026, e una lista non costruisce
+    // cio' che non entra a schermo: per trovarla si scorre. In cima occupava
+    // da sola il primo schermo, e le carte cominciavano dove finiva lei.
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('ask_synthesis')), 300,
+        scrollable: find.byType(Scrollable).first);
     expect(find.byKey(const Key('ask_synthesis')), findsOneWidget,
         reason: 'con tre voci la sintesi deve esserci');
     expect(find.byKey(const Key('ask_another_invite')), findsNothing);
@@ -176,6 +182,9 @@ void main() {
 
     // La Sintesi comparativa viene dal provider (testo distintivo), non dalla
     // deterministica, e chiude con la regola.
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('ask_synthesis')), 300,
+        scrollable: find.byType(Scrollable).first);
     final sintesi = tester
         .widgetList<Text>(find.descendant(
             of: find.byKey(const Key('ask_synthesis')),

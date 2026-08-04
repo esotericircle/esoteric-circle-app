@@ -11,7 +11,9 @@ import '../../../core/maestro/frase_di_ripiego.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../core/maestro/natal_context.dart';
 import '../../../core/maestro/sorgente_natale.dart';
-import '../../../design_system/components/consulto_del_cielo_view.dart';
+import '../../../core/maestro/tempi_dell_attesa.dart';
+import '../../../core/quality/quality_tier.dart';
+import '../../../design_system/components/testo_che_si_scrive.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -22,6 +24,7 @@ import '../../../services/ai/maestro_oracle.dart';
 import '../../../services/ai/registro_dei_guasti.dart';
 import '../../../services/app_services.dart';
 import '../../pricing/upgrade_invite.dart';
+import '../chat/chat_openers.dart';
 import '../chat/maestro_chat_screen.dart';
 import '../widgets/maestro_bust.dart';
 import '../widgets/tre_volti.dart';
@@ -343,8 +346,19 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       navigatore.pop();
       return;
     }
+    // LA CHAT SI APRE SULLA DOMANDA, non su una stanza vuota.
+    //
+    // E' lo standard che ogni arte usa gia' per "Parlane con il Maestro": la
+    // frase nasce da `ChatOpeners`, unico posto dove si scrivono le aperture,
+    // e arriva come primo turno della persona. Prima qui non si passava
+    // niente, quindi il Maestro apriva col benvenuto e chi entrava doveva
+    // riscrivere da capo la domanda a cui la carta aveva appena risposto.
     await navigatore.push(
-      MaestroChatScreen.route(maestro: maestro, services: services),
+      MaestroChatScreen.route(
+        maestro: maestro,
+        services: services,
+        initialUserMessage: ChatOpeners.consiglio(theme),
+      ),
     );
   }
 
@@ -456,10 +470,6 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
                           SpacingTokens.lg, SpacingTokens.xxxl),
                       children: [
-                        if (synthesis != null) ...[
-                          _SynthesisCard(synthesis: synthesis),
-                          const SizedBox(height: SpacingTokens.md),
-                        ],
                         for (final m in Maestro.fixedOrder)
                           if (_responders.contains(m)) ...[
                             // LA CARTA C'E' IN TUTTI E DUE GLI STATI, e porta
@@ -471,12 +481,16 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 if (_loading.contains(m)) ...[
-                                  // La stessa scena della chat, dallo stesso
-                                  // punto: le superfici che aspettano una
-                                  // risposta sono due, e una seconda copia
-                                  // divergerebbe.
-                                  ConsultoDelCieloView(
-                                      natal: _natal(), maestro: m),
+                                  // NESSUNA SCENA DI ATTESA DENTRO LA CARTA.
+                                  //
+                                  // La scena con l'emblema e le frasi vive
+                                  // nella chat, dove c'e' una superficie sola
+                                  // e tutta l'altezza libera. Qui erano tre in
+                                  // colonna dentro tre carte alte un dito: gli
+                                  // emblemi cadevano sotto la piega e
+                                  // restavano tre bolle che scattavano.
+                                  // Una lista che aspetta si dice stando
+                                  // ferma.
                                   _LensLoadingCard(maestro: m),
                                 ] else ...[
                                   _LensCard(lens: _lenses[m]!),
@@ -493,6 +507,18 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                             ),
                             const SizedBox(height: SpacingTokens.sm),
                           ],
+                        // LA SINTESI STA IN FONDO, DOPO LE TRE CARTE.
+                        //
+                        // Una sintesi e' la conclusione di un confronto, e in
+                        // cima occupava da sola tutto il primo schermo: chi
+                        // apriva il Consiglio non vedeva tre Maestri, vedeva
+                        // un muro di testo, e le carte cominciavano dove
+                        // finiva lei. Prima si legge chi si e' espresso, poi
+                        // cosa se ne ricava.
+                        if (synthesis != null) ...[
+                          const SizedBox(height: SpacingTokens.sm),
+                          _SynthesisCard(synthesis: synthesis),
+                        ],
                       ],
                     ),
             ),
@@ -513,9 +539,15 @@ class _ContinueInChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.palette;
+    // IL COLORE E' DEL SUO MAESTRO, non della schermata.
+    //
+    // `context.palette` legge il MaestroScope che avvolge tutto il Consiglio,
+    // cioe' quello di chi ha fatto la domanda: sotto le tre carte comparivano
+    // tre porte identiche, tutte del colore del primo. Blu per Medora, rosso
+    // per Caligo, verde per Aura: la porta si tinge di chi ci sta dietro.
+    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
     return GestureDetector(
-      key: const Key('ask_continue_chat'),
+      key: Key('ask_continue_${maestro.id}'),
       onTap: onContinue,
       behavior: HitTestBehavior.opaque,
       child: Container(
@@ -619,41 +651,27 @@ class _SynthesisCard extends StatelessWidget {
 ///
 /// Nella palette del Maestro, con un cenno di movimento che rispetta Riduci
 /// Movimento: se le animazioni sono spente resta un punto fermo, mai un vuoto.
-class _LensLoadingCard extends StatefulWidget {
+/// LA CARTA CHE ASPETTA: la stessa cornice, la stessa testa, nessun moto.
+///
+/// **Cosa c'era, e perche' e' uscito.** Qui vivevano due cose insieme: la scena
+/// del consulto, con l'emblema che si accende e le frasi, e sotto una riga con
+/// un'icona che respirava. Tre carte in colonna dentro una lista alta 797
+/// punti: gli emblemi cadevano sotto la piega e restavano solo tre puntini che
+/// pulsavano due volte al secondo. Una lista che aspetta si dice stando ferma
+/// e composta, non muovendosi in tre posti alla volta.
+///
+/// Senza controllore: non ce n'e' piu' nessuno da fermare a Riduci Movimento,
+/// perche' non c'e' piu' niente che si muove.
+class _LensLoadingCard extends StatelessWidget {
   const _LensLoadingCard({required this.maestro});
 
   final Maestro maestro;
 
   @override
-  State<_LensLoadingCard> createState() => _LensLoadingCardState();
-}
-
-class _LensLoadingCardState extends State<_LensLoadingCard>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 1400),
-  );
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final palette = MaestroPalette.forKey(ThemeKey.of(widget.maestro));
-    final reduceMotion = MediaQuery.of(context).disableAnimations;
-    // Il respiro parte solo se il movimento e' consentito, cosi' non gira a
-    // vuoto quando le animazioni sono spente.
-    if (reduceMotion) {
-      _controller.stop();
-    } else if (!_controller.isAnimating) {
-      _controller.repeat(reverse: true);
-    }
+    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
     return Container(
-      key: Key('ask_loading_${widget.maestro.id}'),
+      key: Key('ask_loading_${maestro.id}'),
       padding: const EdgeInsets.all(SpacingTokens.lg),
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -667,26 +685,75 @@ class _LensLoadingCardState extends State<_LensLoadingCard>
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
         border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FadeTransition(
-            opacity: reduceMotion
-                ? const AlwaysStoppedAnimation<double>(0.8)
-                : Tween<double>(begin: 0.35, end: 0.9).animate(_controller),
-            child: Icon(widget.maestro.icon, size: 22, color: palette.goldSoft),
-          ),
-          const SizedBox(width: SpacingTokens.md),
-          Expanded(
-            child: Text(
-              '${widget.maestro.displayName} raccoglie il suo sguardo...',
-              style: TypographyTokens.body(size: 15).copyWith(
-                color: palette.goldSoft,
-                fontStyle: FontStyle.italic,
-              ),
+          // LA STESSA TESTA DELLA CARTA RISOLTA, dallo stesso punto: la carta
+          // non cambia forma quando la risposta arriva, si riempie.
+          _TestaDellaCarta(maestro: maestro, palette: palette),
+          const SizedBox(height: SpacingTokens.sm),
+          Text(
+            '${maestro.displayName} raccoglie il suo sguardo.',
+            key: Key('ask_attesa_${maestro.id}'),
+            style: TypographyTokens.body(size: 17).copyWith(
+              color: palette.goldSoft.withValues(alpha: 0.75),
+              fontStyle: FontStyle.italic,
+              height: 1.5,
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+/// LA TESTA DELLA CARTA: il volto, il nome, il dominio.
+///
+/// Una sola, cosi' la carta che aspetta e quella risolta non possono
+/// divergere, e la carta non cambia forma quando la risposta arriva.
+class _TestaDellaCarta extends StatelessWidget {
+  const _TestaDellaCarta({required this.maestro, required this.palette});
+
+  final Maestro maestro;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // Il volto del Maestro che sfonda il cerchio, al posto dell'icona
+        // nuda: qui c'e' spazio, quindi anello pieno.
+        MaestroBust(maestro: maestro, ring: 48),
+        const SizedBox(width: SpacingTokens.sm),
+        // IL DOMINIO STA SOTTO IL NOME, e non piu' di fianco.
+        //
+        // Di fianco gli restavano 104,84 punti di larghezza, misurati, contro
+        // le tre righe che la frase chiede a quella misura: con `maxLines: 2`
+        // si leggeva "Astrologia, Cartomanzia e" e Destino spariva. Avevamo
+        // tolto la versione accorciata e ottenuto una tagliata, che e' peggio,
+        // perche' accorciare almeno lo dichiara. Sotto il nome la frase ha
+        // tutta la larghezza della carta meno il volto, e nessun limite di
+        // righe: il dato si legge intero, sempre.
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(maestro.displayName,
+                  style: TypographyTokens.display(size: 18)),
+              const SizedBox(height: 2),
+              Text(maestro.domainArtsPhrase,
+                  key: Key('ask_dominio_${maestro.id}'),
+                  softWrap: true,
+                  style: TypographyTokens.label(size: 11).copyWith(
+                    color: palette.goldSoft.withValues(alpha: 0.8),
+                    letterSpacing: 0.8,
+                  )),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -700,6 +767,12 @@ class _LensCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(ThemeKey.of(lens.maestro));
+    // Stesse due condizioni della chat, lette dagli stessi due posti: chi ha
+    // chiesto di non vedere movimento, e chi sta su un apparecchio che non ce
+    // la fa. Il contenuto non cambia mai: cio' che si toglie e' il tempo che
+    // ci mette a comparire.
+    final scrive = !MediaQuery.of(context).disableAnimations &&
+        context.watch<QualityTierController>().tier != QualityTier.low;
     return Container(
       key: Key('ask_lens_${lens.maestro.id}'),
       padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -718,35 +791,7 @@ class _LensCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              // Il volto del Maestro che sfonda il cerchio, al posto dell'icona
-              // nuda: qui c'e' spazio, quindi anello pieno.
-              MaestroBust(maestro: lens.maestro, ring: 48),
-              const SizedBox(width: SpacingTokens.sm),
-              Text(lens.maestro.displayName,
-                  style: TypographyTokens.display(size: 18)),
-              const SizedBox(width: SpacingTokens.sm),
-              // Il dominio entra per intero: si rimpicciolisce fin dove serve e
-              // va a capo, mai troncato con l'ellissi.
-              Expanded(
-                // LA FRASE INTERA, e se non ci sta si rimpicciolisce.
-                //
-                // Qui si leggeva `domainTitle`, cioe' "Astrologia e Destino":
-                // il campo corto non esiste piu'. La Cartomanzia e' una delle
-                // tre arti di Medora, e toglierla dal titolo per guadagnare
-                // spazio e' dichiarare che conta meno.
-                child: Text(lens.maestro.domainArtsPhrase,
-                    textAlign: TextAlign.right,
-                    maxLines: 2,
-                    softWrap: true,
-                    style: TypographyTokens.label(size: 11).copyWith(
-                      color: palette.goldSoft.withValues(alpha: 0.8),
-                      letterSpacing: 0.8,
-                    )),
-              ),
-            ],
-          ),
+          _TestaDellaCarta(maestro: lens.maestro, palette: palette),
           // NON SI DISEGNA CIO' CHE NON C'E'.
           //
           // Gli strati erano disegnati sempre, e con una lente che ne porta
@@ -765,9 +810,23 @@ class _LensCard extends StatelessWidget {
                 )),
           ],
           const SizedBox(height: SpacingTokens.sm),
-          Text(lens.reading,
-              style: TypographyTokens.body(size: 14)
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
+          // IL CORPO SI SCRIVE, alla stessa misura e alla stessa velocita'
+          // della chat.
+          //
+          // La misura: 17, che e' quella della bolla. A 14 il testo del
+          // Consiglio si leggeva a fatica e, sotto una sintesi lunga, sembrava
+          // una nota a pie' di pagina invece della risposta di un Maestro.
+          //
+          // La velocita' viene da `TempiDellAttesa`, lo stesso punto della
+          // chat: una seconda taratura qui divergerebbe dalla prima al primo
+          // ritocco. Ferma a Riduci Movimento e a qualita' bassa, come li'.
+          TestoCheSiScrive(
+            testo: lens.reading,
+            attiva: scrive,
+            durataMassima: TempiDellAttesa.tettoAlTestoCompleto,
+            stile: TypographyTokens.body(size: 17)
+                .copyWith(color: ColorTokens.textPrimary, height: 1.5),
+          ),
           if (lens.invite.trim().isNotEmpty) ...[
           const SizedBox(height: SpacingTokens.sm),
           Row(
