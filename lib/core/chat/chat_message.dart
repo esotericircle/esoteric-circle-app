@@ -50,6 +50,7 @@ class ChatMessage {
     this.failed = false,
     this.ripiego = false,
     this.approfondita = false,
+    this.seguito,
     this.tipo,
     this.intentId,
     this.autore,
@@ -82,6 +83,15 @@ class ChatMessage {
   /// "Vai piu' a fondo" compare una volta sola per risposta: due volte sarebbe
   /// una scala senza fine, e la persona non saprebbe quando si e' arrivati.
   final bool approfondita;
+
+  /// IL SEGUITO, cioe' il testo che il Maestro ha scritto SOTTO la risposta
+  /// gia' data, quando la persona ha toccato la freccia.
+  ///
+  /// Nullo vuol dire che nessuno l'ha chiesto. Sta in un campo suo e non
+  /// attaccato a `text` perche' la bolla lo mette in un posto preciso, fra il
+  /// corpo e la riga del consiglio, e un testo incollato in coda finirebbe
+  /// SOTTO il consiglio, che e' esattamente cio' che non deve succedere.
+  final String? seguito;
 
   /// CHI ha detto questo messaggio, quando non e' il Maestro della chat.
   ///
@@ -129,6 +139,7 @@ class ChatMessage {
     bool? failed,
     bool? ripiego,
     bool? approfondita,
+    String? seguito,
   }) {
     return ChatMessage(
       role: role,
@@ -138,6 +149,7 @@ class ChatMessage {
       failed: failed ?? this.failed,
       ripiego: ripiego ?? this.ripiego,
       approfondita: approfondita ?? this.approfondita,
+      seguito: seguito ?? this.seguito,
       tipo: tipo,
       intentId: intentId,
       autore: autore,

@@ -216,7 +216,7 @@ class _VoceCheNonTornaMai implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) => Completer<String>().future;
 
   @override
@@ -291,7 +291,7 @@ class _VoceCheRisponde extends _VoceDiProva {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
       'Le stelle dicono che il tempo di muoversi si apre fra due lune. '
       'Guarda dove ti chiama, non dove ti spinge.';
@@ -310,7 +310,7 @@ class _VoceNonConfigurata extends _VoceDiProva {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
       throw const MaestroAiUnavailable('non configurata');
 }
@@ -325,7 +325,7 @@ class _VoceCheCade extends _VoceDiProva {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
       throw StateError('la rete non risponde');
 }
@@ -340,7 +340,7 @@ class _VoceCheTronca extends _VoceDiProva {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
       throw const MaestroAiTroncata('un velo');
 }

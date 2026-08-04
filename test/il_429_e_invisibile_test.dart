@@ -149,7 +149,7 @@ class _VoceCheInciampa implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async {
     if (quanteVolte > 0) {
       quanteVolte--;
@@ -202,7 +202,7 @@ class _VoceRotta extends _VoceCheInciampa {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
       throw StateError('API key not valid');
 }

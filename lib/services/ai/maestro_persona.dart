@@ -8,6 +8,7 @@ import '../../core/maestro/lente_del_cielo.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/misura_della_risposta.dart';
 import '../../core/maestro/natal_context.dart';
+import '../../core/maestro/seguito_della_lettura.dart';
 import '../../core/maestro/voce_del_maestro.dart';
 
 /// Costruisce le istruzioni di sistema (la persona) di un Maestro per Gemini.
@@ -219,7 +220,7 @@ class MaestroPersona {
     required MaestroMemory memory,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) {
     final natalBlock = _natalContext(natal);
     final ancoraggi = VerificaAncoraggio.disponibiliPer(
@@ -247,11 +248,22 @@ class MaestroPersona {
       // solo, con l'ultima frase chiusa, e il tetto resta la rete che non si
       // tocca quasi mai.
       '',
-      MisuraDellaRisposta.perChat(aDueStrati: aDueStrati).istruzione,
+      (rispostaGiaData == null
+              ? MisuraDellaRisposta.perChat
+              : MisuraDellaRisposta.perIlSeguito)
+          .istruzione,
       '',
       TestoDelResponso.vincoloDiFormato,
       '',
       regolaDeiDueStrati,
+      // IL SEGUITO, quando si sta scrivendo il seguito e non la prima
+      // risposta. Il modello riceve cio' che ha gia' detto, perche' non si
+      // continua un discorso che non si e' visto, e con esso l'elemento
+      // oracolare gia' consegnato: la runa o la carta stanno li' dentro.
+      if (rispostaGiaData != null) ...[
+        '',
+        SeguitoDellaLettura.istruzione(rispostaGiaData),
+      ],
       '',
       // IL CONSIGLIO FINALE, in ogni risposta e per ogni livello.
       //

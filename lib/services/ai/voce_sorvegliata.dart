@@ -114,7 +114,7 @@ class VoceSorvegliata implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) {
     return _sorvegliando(
       'reply',
@@ -126,7 +126,7 @@ class VoceSorvegliata implements MaestroAiProvider {
         userMessage: userMessage,
         natal: natal,
         insistiSullAncoraggio: insistiSullAncoraggio,
-        aDueStrati: aDueStrati,
+        rispostaGiaData: rispostaGiaData,
       ),
     );
   }

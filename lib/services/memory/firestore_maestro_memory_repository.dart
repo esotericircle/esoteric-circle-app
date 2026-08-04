@@ -151,6 +151,7 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
         'failed': m.failed,
         'ripiego': m.ripiego,
         'approfondita': m.approfondita,
+        if (m.seguito != null) 'seguito': m.seguito,
         if (m.autore != null) 'autore': m.autore!.id,
         if (m.intentId != null) 'intentId': m.intentId,
         if (m.tipo != null) 'tipo': m.tipo!.name,
@@ -209,6 +210,7 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       failed: (data['failed'] as bool?) ?? false,
       ripiego: (data['ripiego'] as bool?) ?? false,
       approfondita: (data['approfondita'] as bool?) ?? false,
+      seguito: data['seguito'] as String?,
       intentId: data['intentId'] as String?,
       autore: _primoDove(Maestro.values, (m) => m.id == data['autore']),
       tipo: _primoDove(

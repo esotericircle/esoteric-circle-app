@@ -55,12 +55,21 @@ void main() {
           'gcloud auth login');
     }
 
-    final misura = MisuraDellaRisposta.primaRisposta;
-    stdout.writeln('Misura chiesta: ${misura.parole} parole '
-        '(${misura.inLettere}). Tetto: ${misura.tetto} token. '
-        'Ragionamento: ${misura.ragionamento}.');
+    for (final m in [
+      MisuraDellaRisposta.perChat,
+      MisuraDellaRisposta.perIlSeguito,
+    ]) {
+      stdout.writeln('${m.name}: ${m.parole} parole (${m.inLettere}). '
+          'Tetto: ${m.tetto} token. Ragionamento: ${m.ragionamento}.');
+    }
 
-    Future<_Esito?> chiedi(Maestro maestro, String domanda) async {
+    Future<_Esito?> chiedi(Maestro maestro, String domanda,
+        {String? rispostaGiaData}) async {
+      // La misura la decide il tipo di chiamata: breve la prima, seguito la
+      // seconda. E' lo stesso ramo che percorre l'app.
+      final misura = rispostaGiaData == null
+          ? MisuraDellaRisposta.perChat
+          : MisuraDellaRisposta.perIlSeguito;
       final uri = Uri.https(
         '$regione-aiplatform.googleapis.com',
         '/v1/projects/$progetto/locations/$regione/publishers/google/models/'
@@ -80,6 +89,7 @@ void main() {
                   lifeNumber: 7,
                   lifeNumberTitle: 'il Cercatore',
                 ),
+                rispostaGiaData: rispostaGiaData,
               )
             }
           ]
@@ -165,16 +175,62 @@ void main() {
     ];
 
     final esiti = <_Esito>[];
+    final seguiti = <_Esito>[];
     for (var i = 0; i < lavori.length; i += insieme) {
       final lotto = lavori.skip(i).take(insieme).toList();
       final risultati = await Future.wait(
           lotto.map((l) => chiedi(l.maestro, l.domanda)));
       esiti.addAll(risultati.whereType<_Esito>());
+      // IL SEGUITO NASCE DAL BREVE, e non da un testo inventato: e' una
+      // seconda chiamata che porta dentro la risposta gia' data, quindi il suo
+      // ingresso e' piu' grande di quello della prima.
+      for (final breve in risultati.whereType<_Esito>()) {
+        final seguito = await chiedi(breve.maestro, breve.domanda,
+            rispostaGiaData: breve.testo);
+        if (seguito != null) seguiti.add(seguito);
+      }
       stdout.writeln('  ${esiti.length}/${lavori.length}');
     }
 
     expect(esiti.length, lavori.length,
         reason: 'qualche chiamata non e\' tornata: la misura sarebbe parziale');
+
+    // IL COSTO VERO DEL SEGUITO, misurato e non stimato.
+    if (seguiti.isNotEmpty) {
+      int mediana(List<int> v) {
+        final o = [...v]..sort();
+        return o[o.length ~/ 2];
+      }
+
+      String tre(List<int> v) {
+        final o = [...v]..sort();
+        return 'min ${o.first} mediana ${mediana(v)} max ${o.last}';
+      }
+
+      final ing = seguiti.map((e) => e.tokenIngresso).toList();
+      final usc = seguiti.map((e) => e.tokenTesto).toList();
+      final par = seguiti.map((e) => e.parole).toList();
+      final ms = seguiti.map((e) => e.millisecondi).toList();
+      final ingB = esiti.map((e) => e.tokenIngresso).toList();
+      final uscB = esiti.map((e) => e.tokenTesto).toList();
+      stdout.writeln('IL SEGUITO, ${seguiti.length} chiamate vere:');
+      stdout.writeln('  ingresso  ${tre(ing)}');
+      stdout.writeln('  uscita    ${tre(usc)}');
+      stdout.writeln('  parole    ${tre(par)}');
+      stdout.writeln('  rete ms   ${tre(ms)}');
+      final costoBreve = mediana(ingB) + mediana(uscB);
+      final costoSeguito = mediana(ing) + mediana(usc);
+      final sempreIntero = mediana(ingB) + 350;
+      stdout.writeln('  IL CONTO, coi mediani veri:');
+      stdout.writeln('    breve   ${mediana(ingB)} + ${mediana(uscB)} = '
+          '$costoBreve');
+      stdout.writeln('    seguito ${mediana(ing)} + ${mediana(usc)} = '
+          '$costoSeguito');
+      stdout.writeln('    sempre intero costerebbe $sempreIntero a risposta');
+      final pareggio = (sempreIntero - costoBreve) / costoSeguito;
+      stdout.writeln('    PAREGGIO al ${(pareggio * 100).toStringAsFixed(1)} '
+          'per cento di risposte approfondite');
+    }
 
     stdout.writeln('\n${'-' * 78}');
     for (final e in esiti) {
@@ -239,7 +295,7 @@ void main() {
         'massimo ${ms(tempi.last)}   (${tempi.length} chiamate in fila)\n'
         'PAROLE  minimo ${parole.first}  '
         'mediana ${parole[parole.length ~/ 2]}  '
-        'massimo ${parole.last}   (chieste ${misura.parole})\n'
+        'massimo ${parole.last}   (chieste ${MisuraDellaRisposta.perChat.parole})\n'
         'CARATT. minimo ${caratteri.first}  '
         'mediana ${caratteri[caratteri.length ~/ 2]}  '
         'massimo ${caratteri.last}\n'

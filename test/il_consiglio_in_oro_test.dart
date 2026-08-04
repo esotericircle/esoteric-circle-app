@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/maestro/consiglio_finale.dart';
-import 'package:esoteric_circle/core/maestro/due_strati_della_lettura.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
@@ -162,7 +161,6 @@ void main() {
           maestro: m,
           profile: UserProfile.empty,
           memory: MaestroMemory.empty,
-          aDueStrati: false,
         );
         expect(breve, contains(ConsiglioFinale.istruzione),
             reason: '${m.displayName} non da\' il consiglio a chi legge la '
@@ -205,21 +203,17 @@ void main() {
     });
   });
 
-  group('Resta l\'ultima riga, anche col seguito rivelato', () {
+  group('Resta l\'ultima riga, anche col seguito', () {
     test('Il corpo mostrato non contiene MAI la riga del consiglio', () {
       // E' il vincolo che decide dove si infila il seguito: la bolla e'
       // corpo, poi seguito, poi stella. Un consiglio in mezzo al testo non e'
       // piu' un consiglio.
-      for (final rivelato in [false, true]) {
-        final mostrato = DueStratiDellaLettura.daMostrare(
-            ConsiglioFinale.corpoDa(_lungo),
-            rivelato: rivelato);
-        expect(mostrato, isNot(contains(ConsiglioFinale.stella)),
-            reason: 'col seguito ${rivelato ? "rivelato" : "chiuso"} la riga '
-                'del consiglio finisce dentro il corpo');
-        expect(mostrato, isNot(contains('Guarda dove ti fermi')),
-            reason: 'la sintesi del consiglio e\' rimasta nel corpo');
-      }
+      final corpo = ConsiglioFinale.corpoDa(_lungo);
+      expect(corpo, isNot(contains(ConsiglioFinale.stella)));
+      expect(corpo, isNot(contains('Guarda dove ti fermi')),
+          reason: 'la sintesi del consiglio e\' rimasta nel corpo');
+      expect(corpo, contains('Il tuo Sole in Cancro'),
+          reason: 'si toglie la riga, non il resto');
     });
   });
 }

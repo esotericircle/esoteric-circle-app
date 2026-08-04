@@ -108,7 +108,7 @@ class _RecordingAi implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async {
     replies++;
     return 'Una risposta a testo.';

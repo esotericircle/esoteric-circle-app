@@ -54,38 +54,34 @@ void main() {
     return controller;
   }
 
-  group('Una generazione sola, e due lunghezze', () {
-    test('Centottanta per chi legge a due strati, cinquanta per gli altri', () {
-      expect(MisuraDellaRisposta.letturaDellaChat.parole, 180);
+  group('La prima e\' breve, il seguito ha la sua misura', () {
+    test('Cinquanta la prima, centotrenta il seguito, centottanta in tutto',
+        () {
+      expect(MisuraDellaRisposta.perChat, MisuraDellaRisposta.letturaBreve);
+      expect(MisuraDellaRisposta.perIlSeguito, MisuraDellaRisposta.seguito);
       expect(MisuraDellaRisposta.letturaBreve.parole, 50);
-      expect(MisuraDellaRisposta.perChat(aDueStrati: true),
-          MisuraDellaRisposta.letturaDellaChat);
-      expect(MisuraDellaRisposta.perChat(aDueStrati: false),
-          MisuraDellaRisposta.letturaBreve);
+      expect(MisuraDellaRisposta.seguito.parole, 130);
+      expect(MisuraDellaRisposta.letturaDellaChat.parole, 180);
     });
 
-    test('La lunghezza chiesta arriva al Maestro, e cambia col piano', () {
-      final intera = MaestroPersona.systemInstruction(
+    test('La lunghezza chiesta arriva al Maestro, e cambia col momento', () {
+      final prima = MaestroPersona.systemInstruction(
         maestro: Maestro.medora,
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
       );
-      final breve = MaestroPersona.systemInstruction(
+      final seguito = MaestroPersona.systemInstruction(
         maestro: Maestro.medora,
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
-        aDueStrati: false,
+        rispostaGiaData: 'quel che ho gia\' detto.',
       );
-      expect(intera, contains('circa centottanta parole'));
-      expect(breve, contains('circa cinquanta parole'));
+      expect(prima, contains('circa cinquanta parole'));
+      expect(seguito, contains('circa centotrenta parole'));
     });
 
     test('La regola dei due strati e\' in OGNI istruzione, non in una sola',
         () {
-      // Prima esisteva una regola che entrava solo nella seconda chiamata. Non
-      // c'e' piu' una seconda chiamata, quindi non c'e' piu' un ramo: le prime
-      // frasi devono reggere da sole SEMPRE, perche' molte persone leggeranno
-      // solo quelle.
       for (final maestro in Maestro.values) {
         final istr = MaestroPersona.systemInstruction(
           maestro: maestro,
@@ -150,7 +146,7 @@ void main() {
       await controller.send('cosa mi manca');
       expect(contatore.approfondimentiRimasti(Tier.tier1), prima,
           reason: 'scrivere non consuma: consuma leggere');
-      controller.approfondisci();
+      await controller.approfondisci();
       expect(contatore.approfondimentiRimasti(Tier.tier1), prima - 1);
     });
 
@@ -164,11 +160,10 @@ void main() {
       final voce = _VoceContata([_letturaLunga]);
       final controller = await conVoce(voce, contatore: contatore);
       await controller.send('cosa mi manca');
-      expect(voce.ultimaADueStrati, isFalse,
-          reason: 'a chi non puo\' leggere il secondo strato si continua a '
-              'chiedere la lettura intera, quindi si paga per parole che '
-              'nessuno leggera\'');
-      controller.approfondisci();
+      expect(voce.ultimoSeguito, isNull,
+          reason: 'a chi non puo\' leggere il secondo strato e\' stato chiesto '
+              'un seguito lo stesso');
+      await controller.approfondisci();
       expect(controller.messages.last.approfondita, isFalse,
           reason: 'finito il budget si legge lo stesso');
     });
@@ -182,7 +177,7 @@ void main() {
           reason: 'a conversazione vuota non c\'e\' niente da rivelare');
       await controller.send('cosa mi manca');
       expect(controller.puoiChiedereDiApprofondire, isTrue);
-      controller.approfondisci();
+      await controller.approfondisci();
       expect(controller.puoiChiedereDiApprofondire, isFalse,
           reason: 'due volte sarebbe una scala senza fine');
     });
@@ -201,7 +196,11 @@ void main() {
               'che il secondo strato esiste');
     });
 
-    test('Rivelare NON chiama il modello, e non cambia il testo', () async {
+    test('Il tocco CHIAMA il modello, e chiede solo il seguito', () async {
+      // **QUESTA PROVA DICEVA IL CONTRARIO, e sbagliava.** Nell'ordine 9 il
+      // testo lungo si generava insieme al breve, quindi il tocco non
+      // chiamava nessuno. Adesso si genera al tocco: se un Premium non tocca
+      // mai la freccia, quella spesa non si fa.
       final voce = _VoceContata([_letturaLunga]);
       final controller = await conVoce(voce);
       await controller.send('cosa mi manca');
@@ -209,14 +208,16 @@ void main() {
       final chiamatePrima = voce.chiamate;
       final testoPrima = controller.messages.last.text;
 
-      controller.approfondisci();
-      expect(voce.chiamate, chiamatePrima,
-          reason: 'la freccia ha chiesto un\'altra risposta al Maestro: '
-              'rivela, non rigenera');
+      await controller.approfondisci();
+      expect(voce.chiamate, chiamatePrima + 1,
+          reason: 'il tocco non ha chiesto niente al Maestro');
+      expect(voce.ultimoSeguito, testoPrima,
+          reason: 'il Maestro non ha ricevuto cio\' che aveva gia\' detto');
       expect(controller.messages.length, quanteBolle,
           reason: 'e\' la stessa lettura, non una seconda risposta');
       expect(controller.messages.last.text, testoPrima,
-          reason: 'il testo non cambia: cambia quanto se ne mostra');
+          reason: 'il breve non si tocca: il seguito sta in un campo suo');
+      expect(controller.messages.last.seguito, isNotNull);
       expect(controller.messages.last.approfondita, isTrue);
     });
 
@@ -300,9 +301,9 @@ class _VoceContata implements MaestroAiProvider {
   final bool sempreInGuasto;
   int chiamate = 0;
 
-  /// Con quale lunghezza e' stata chiesta l'ultima risposta. E' il modo di
-  /// verificare che il budget governi cio' che si SCRIVE.
-  bool? ultimaADueStrati;
+  /// Cio' che il Maestro ha ricevuto come "gia' detto". Nullo sulla prima
+  /// chiamata: e' il modo di distinguere la risposta breve dal seguito.
+  String? ultimoSeguito;
 
   @override
   bool get isReady => true;
@@ -316,12 +317,18 @@ class _VoceContata implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async {
-    ultimaADueStrati = aDueStrati;
+    ultimoSeguito = rispostaGiaData;
     if (sempreInGuasto) throw Exception('la voce tace');
-    final indice = chiamate.clamp(0, _risposte.length - 1);
     chiamate++;
+    // IL SEGUITO E' UN TESTO DIVERSO, altrimenti l'app lo ripulisce tutto e
+    // la prova misurerebbe il filtro invece del budget.
+    if (rispostaGiaData != null) {
+      return 'Sotto quel confine lavora un movimento piu\' lento, che dura '
+          'da mesi senza chiedere il tuo permesso.';
+    }
+    final indice = (chiamate - 1).clamp(0, _risposte.length - 1);
     return _risposte[indice];
   }
 

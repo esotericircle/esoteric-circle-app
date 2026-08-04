@@ -197,7 +197,7 @@ class _Voce implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async {
     final indice = chiamate;
     chiamate++;

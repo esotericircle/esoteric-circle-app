@@ -8,7 +8,8 @@ import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/entitlement/tier.dart';
 
 import '../../../core/chat/altre_voci.dart';
-import '../../../core/maestro/due_strati_della_lettura.dart';
+import '../../../core/maestro/consiglio_finale.dart';
+import '../../../core/maestro/seguito_della_lettura.dart';
 import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/maestro_memory.dart';
@@ -355,8 +356,6 @@ class MaestroChatController extends ChangeNotifier {
   /// e il giorno governano cio' che si SCRIVE, e tutto cio' che e' scritto si
   /// legge. Cosi' la riga del listino resta vera e nessuno paga per parole che
   /// non vedra'.
-  bool get _laLetturaEIntera => puoiLeggereIlSecondoStrato;
-
   /// SE LA FRECCIA SI VEDE. **Si vede sempre**, e non e' un muro.
   ///
   /// **Non dipende piu' dal piano, ed e' una correzione.** Nell'ordine
@@ -412,46 +411,92 @@ class MaestroChatController extends ChangeNotifier {
     return contatore.pianoConApprofondimento(piano);
   }
 
-  /// RIVELA IL SECONDO STRATO DELLA LETTURA GIA' SCRITTA.
+  /// CHIEDE AL MAESTRO IL SEGUITO, cioe' SOLO il testo che manca.
   ///
-  /// **Cosa faceva, e cosa costava.** Buttava via la risposta appena letta e
-  /// ne chiedeva un'altra al Maestro, con tutta l'attesa da capo e il rischio
-  /// che il secondo testo contraddicesse il primo. La freccia in giu'
-  /// prometteva "qui sotto c'e' altro testo": vera come intenzione, falsa come
-  /// funzionamento, perche' sotto non c'era ancora niente.
+  /// **Perche' si genera adesso e non prima.** Se un Premium non tocca mai la
+  /// freccia, la spesa per il testo lungo e' gia' stata sostenuta per niente.
+  /// I numeri stanno in `MisuraDellaRisposta.seguito`: il pareggio e' intorno
+  /// all'11,5 per cento di risposte approfondite, e quel numero non lo
+  /// sappiamo.
   ///
-  /// **Adesso non c'e' nessuna chiamata, quindi non c'e' nessuna attesa.** Il
-  /// Maestro ha gia' scritto la lettura intera in una generazione sola: qui si
-  /// alza soltanto il velo su cio' che c'era gia'. Non e' asincrono per finta,
-  /// e' immediato.
+  /// **Non e' la risposta rifatta.** Il modello riceve cio' che ha gia' detto
+  /// e continua da li', quindi resta coerente con l'elemento oracolare gia'
+  /// consegnato, la runa o la carta, che sta dentro quel testo. E cio' che
+  /// torna viene ripulito dalle frasi gia' lette: l'istruzione dice di non
+  /// ripetersi, e un'istruzione non e' una garanzia.
   ///
-  /// **E non consuma piu' niente.** Consumava un approfondimento, che era un
-  /// budget nato per limitare una seconda chiamata al modello. Quella chiamata
-  /// non esiste piu', e il testo e' gia' stato pagato quando e' arrivato:
-  /// contare ancora vorrebbe dire far pagare due volte lo stesso testo, e
-  /// peggio, negare a qualcuno delle parole che sono gia' nel suo telefono.
-  void approfondisci() {
+  /// **FUNZIONA ANCHE SE IL LIVELLO E' CAMBIATO DOPO LA DOMANDA**, ed e' il
+  /// percorso vero: da Viandante si tocca la freccia, si arriva agli
+  /// abbonamenti, ci si abbona, si torna indietro e si ritocca. Con la
+  /// generazione del seguito quel percorso funziona sempre, perche' non serve
+  /// che il testo lungo esistesse gia'.
+  Future<void> approfondisci() async {
     if (!puoiChiedereDiApprofondire) return;
-    // IL PIANO DECIDE QUI, e non piu' quanto si scrive.
-    //
-    // Chi non puo' leggere il secondo strato non lo legge, e non perche' il
-    // testo non ci sia: perche' non e' compreso nel suo cammino. Chi tocca la
-    // freccia senza averlo trova gli abbonamenti, che e' cio' di cui la
-    // schermata si occupa: qui si dice solo di no.
+    // Il piano decide QUI, e il livello si rilegge adesso: chi si e' abbonato
+    // un istante fa lo trova gia' cambiato.
     if (!puoiLeggereIlSecondoStrato) return;
+
     final indice = _messages.length - 1;
-    final rivelata = _messages[indice].copyWith(approfondita: true);
-    _messages[indice] = rivelata;
-    // IL CONTO STA SULL'ACCESSO. Iniziato tre al giorno, Adepto dieci,
-    // Illuminato senza limite col tetto di correttezza: sono letture, non
-    // generazioni, ed e' questo il momento in cui la persona legge.
-    final piano = _tier?.call();
-    if (piano != null) _allowance?.registraApprofondimento(piano);
+    final prima = _messages[indice];
+    final domanda = indice > 0 && _messages[indice - 1].isUser
+        ? _messages[indice - 1].text
+        : null;
+    if (domanda == null) return;
+
+    _sending = true;
+    _messages[indice] =
+        const ChatMessage(role: ChatRole.maestro, text: '', pending: true);
     notifyListeners();
-    // In cronologia vale lo stesso: riaprendo, la lettura resta aperta dove la
-    // persona l'aveva aperta.
-    unawaited(_sostituisci(rivelata));
+
+    try {
+      final natal = _natal?.call() ?? NatalContext.none;
+      final grezzo = await _ai.reply(
+        maestro: prima.autoreEffettivo(maestro),
+        profile: _profile,
+        memory: _memoryState,
+        history: _messages.sublist(0, indice - 1).toList(),
+        userMessage: domanda,
+        natal: natal,
+        // CIO' CHE LA PERSONA HA GIA' LETTO, per intero: senza il corpo il
+        // modello non saprebbe da dove continuare, e senza la riga finale
+        // rischierebbe di riscriverla.
+        rispostaGiaData: prima.text,
+      );
+      // L'APP CONTROLLA, invece di fidarsi dell'istruzione.
+      final pulito = SeguitoDellaLettura.pulisci(
+          gia: ConsiglioFinale.corpoDa(prima.text), seguito: grezzo);
+      frasiRipetuteNelSeguito += SeguitoDellaLettura.quanteRipetute(
+          gia: ConsiglioFinale.corpoDa(prima.text), seguito: grezzo);
+      if (pulito.trim().isEmpty) {
+        // Un seguito che era tutto ripetizione non e' un seguito: si rimette
+        // la risposta com'era, senza marcarla approfondita, cosi' la freccia
+        // resta e la persona puo' riprovare. Nessun budget consumato.
+        _messages[indice] = prima;
+        return;
+      }
+      final conSeguito = prima.copyWith(approfondita: true, seguito: pulito);
+      _messages[indice] = conSeguito;
+      // IL CONTO STA SULL'ACCESSO, e si paga quando il seguito arriva.
+      final piano = _tier?.call();
+      if (piano != null) _allowance?.registraApprofondimento(piano);
+      await _sostituisci(conSeguito);
+    } catch (errore, traccia) {
+      // Il seguito fallito NON deve far perdere la risposta gia' letta: si
+      // rimette quella com'era, e la freccia resta, perche' riprovare e'
+      // esattamente cio' che una persona vuole fare qui.
+      annotaGuastoInnocuo(
+          'chiedendo il seguito a ${maestro.displayName}', errore, traccia);
+      _messages[indice] = prima;
+    } finally {
+      _sending = false;
+      notifyListeners();
+    }
   }
+
+  /// Quante frasi del seguito ripetevano cio' che era gia' stato letto, in
+  /// questa sessione. Un numero che cresce dice che l'istruzione non regge, e
+  /// va corretta nel prompt invece che nel filtro.
+  int frasiRipetuteNelSeguito = 0;
 
   /// Riprova l'ultimo turno fallito, senza duplicare il messaggio dell'utente.
   Future<void> retryLast() async {
@@ -538,14 +583,13 @@ class MaestroChatController extends ChangeNotifier {
       // insistere una terza volta sarebbe far aspettare la persona per un
       // difetto nostro. Se tronca di nuovo, la misura e' sbagliata, e va
       // corretta nel dato, non a forza di tentativi.
-      // QUANTO SI CHIEDE AL MAESTRO LO DECIDONO IL PIANO E IL GIORNO.
+      // LA PRIMA RISPOSTA E' BREVE PER TUTTI, e il seguito si chiede al
+      // tocco.
       //
-      // Chi ha il secondo strato nel piano, e ne ha ancora per oggi, riceve la
-      // lettura intera in una generazione sola; chi non ce l'ha riceve quella
-      // breve, cioe' esattamente il testo che leggeva prima. Cosi' il
-      // vantaggio del piano resta un vantaggio vero, e a nessuno si fanno
-      // scrivere centotrenta parole da tenere dietro un lucchetto.
-      final aDueStrati = _laLetturaEIntera;
+      // Se un Premium non tocca mai la freccia, la spesa per il testo lungo
+      // sarebbe gia' stata sostenuta per niente. Generare sempre intero costa
+      // 2157 token a risposta, sempre; generare il seguito al tocco costa 1923
+      // subito, piu' una seconda chiamata solo per chi approfondisce.
       String reply;
       try {
         reply = await _ai.reply(
@@ -555,7 +599,6 @@ class MaestroChatController extends ChangeNotifier {
           history: priorHistory,
           userMessage: userText,
           natal: natal,
-          aDueStrati: aDueStrati,
         );
       } on MaestroAiTroncata {
         rigenerazioniPerTroncatura++;
@@ -567,8 +610,7 @@ class MaestroChatController extends ChangeNotifier {
             history: priorHistory,
             userMessage: userText,
             natal: natal,
-            aDueStrati: aDueStrati,
-          );
+            );
         } on MaestroAiTroncata catch (errore, traccia) {
           troncatureConsegnate++;
           annotaGuastoInnocuo(

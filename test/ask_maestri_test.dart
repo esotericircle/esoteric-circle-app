@@ -491,7 +491,7 @@ class _ReadyAi implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
       'Le stelle ti ascoltano.';
 
@@ -552,7 +552,7 @@ class _CapturingAi implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
       throw UnimplementedError();
 
@@ -600,7 +600,7 @@ class _UnavailableAi implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
       throw UnimplementedError();
 

@@ -5,7 +5,6 @@ import '../../../../core/chat/chat_message.dart';
 import '../../../../core/chat/immersive_intents.dart';
 import '../../../../core/chat/testo_del_responso.dart';
 import '../../../../core/maestro/consiglio_finale.dart';
-import '../../../../core/maestro/due_strati_della_lettura.dart';
 import '../../../../core/maestro/frase_di_ripiego.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/maestro/tempi_dell_attesa.dart';
@@ -222,8 +221,6 @@ class _ChatBubbleState extends State<ChatBubble> {
                 TestoCheSiScrive(
                   key: _chiaveDelTesto,
                   // LO STRATO CHE SI STA LEGGENDO, e il punto che decide dove
-                  // finisce e' UNO SOLO, in `DueStratiDellaLettura`.
-                  //
                   // La bolla non taglia da sola: se tagliasse qui, una seconda
                   // superficie che mostra la stessa lettura taglierebbe in un
                   // altro punto, e il primo strato non sarebbe piu' lo stesso
@@ -232,11 +229,15 @@ class _ChatBubbleState extends State<ChatBubble> {
                   //
                   // Il consiglio si toglie da qui e si rimette in fondo alla
                   // bolla, sotto tutto: e' l'unico modo perche' resti l'ultima
-                  // riga anche dopo che il seguito e' stato rivelato. Un
-                  // consiglio in mezzo al testo non e' piu' un consiglio.
-                  testo: DueStratiDellaLettura.daMostrare(
-                      ConsiglioFinale.corpoDa(message.text),
-                      rivelato: message.approfondita),
+                  // riga anche dopo che il seguito e' arrivato. Un consiglio in
+                  // mezzo al testo non e' piu' un consiglio.
+                  //
+                  // **Cosa e' sparito da qui.** Il testo veniva tagliato in
+                  // due strati da `DueStratiDellaLettura`, che cercava il
+                  // confine dentro una risposta lunga: adesso i due pezzi
+                  // arrivano gia' separati, il breve in `text` e il seguito in
+                  // `seguito`, e quel taglio non serve piu' a nessuno.
+                  testo: ConsiglioFinale.corpoDa(message.text),
                   // A RIVELAZIONE FATTA NON SI RISCRIVE.
                   //
                   // Il testo cambia, da breve a intero, e la macchina da
@@ -337,6 +338,30 @@ class _ChatBubbleState extends State<ChatBubble> {
                               .copyWith(color: palette.goldSoft),
                         ),
                       ],
+                    ),
+                  ),
+                ],
+                // IL SEGUITO, FRA IL CORPO E IL CONSIGLIO.
+                //
+                // E' il posto che il vincolo del consiglio decide: la bolla e'
+                // corpo, poi seguito, poi stella. Incollarlo in coda a `text`
+                // lo avrebbe messo SOTTO il consiglio, cioe' avrebbe reso il
+                // consiglio una frase in mezzo al testo.
+                //
+                // Non si scrive a macchina: e' arrivato adesso, ma la persona
+                // sta gia' leggendo, e vedere ricomparire lettera per lettera
+                // sotto gli occhi cio' che si sta leggendo distrae.
+                if (message.seguito != null &&
+                    message.seguito!.trim().isNotEmpty) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  Text(
+                    message.seguito!,
+                    key: const Key('chat_seguito'),
+                    style: TypographyTokens.body(size: 17).copyWith(
+                      color: isUser
+                          ? ColorTokens.textPrimary
+                          : palette.textPrimary,
+                      height: 1.5,
                     ),
                   ),
                 ],

@@ -63,7 +63,7 @@ void main() {
       expect(c.ilPianoComprendeIlSecondoStrato, isFalse,
           reason: 'il piano del Viandante comprende il secondo strato, e non '
               'dovrebbe: e\' il difetto da cui questa voce e\' nata');
-      c.approfondisci();
+      await c.approfondisci();
       expect(c.messages.last.approfondita, isFalse,
           reason: 'IL VIANDANTE HA LETTO IL SECONDO STRATO. E\' il difetto '
               'misurato: la rivelazione non guardava nessun piano');
@@ -117,7 +117,7 @@ void main() {
           reason: 'il budget e\' stato contato su cio\' che si genera invece '
               'che su cio\' che si legge: chi non tocca mai la freccia '
               'consuma lo stesso');
-      c.approfondisci();
+      await c.approfondisci();
       expect(contatore.approfondimentiRimasti(Tier.tier1), prima - 1,
           reason: 'leggere il secondo strato non consuma niente');
     });
@@ -133,7 +133,7 @@ void main() {
           reason: 'l\'Iniziato ce l\'ha nel piano: cio\' che manca e\' il '
               'numero di oggi, ed e\' un messaggio diverso');
       expect(c.puoiLeggereIlSecondoStrato, isFalse);
-      c.approfondisci();
+      await c.approfondisci();
       expect(c.messages.last.approfondita, isFalse);
     });
 
@@ -142,7 +142,7 @@ void main() {
       final c = await con(Tier.tier1, contatore: contatore);
       await c.send('devo cambiare lavoro');
       final domande = contatore.remaining(Tier.tier1);
-      c.approfondisci();
+      await c.approfondisci();
       expect(contatore.remaining(Tier.tier1), domande,
           reason: 'se consumasse una domanda la persona esiterebbe, e '
               'l\'esitazione uccide l\'intimita\'');
@@ -200,9 +200,12 @@ class _VoceLunga implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
-      'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. '
+      rispostaGiaData != null
+          ? 'Sotto la superficie lavora un movimento più lento, che dura da '
+              'mesi senza chiedere il tuo permesso.'
+          : 'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. '
       'Quello che senti come confusione è un confine che si sposta. '
       'Sotto la superficie lavora un secondo movimento, più lento, che dura '
       'da mesi senza chiedere il tuo permesso. Non è la scelta a spaventarti, '

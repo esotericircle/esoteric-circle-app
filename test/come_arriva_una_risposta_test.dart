@@ -794,7 +794,7 @@ class _VoceIstantanea implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
       testo;
 
@@ -840,7 +840,7 @@ class _VoceMuta extends _VoceIstantanea {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async =>
       throw const MaestroAiUnavailable('la voce tace');
 }

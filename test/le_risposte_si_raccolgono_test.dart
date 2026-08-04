@@ -277,7 +277,7 @@ class _VoceADueTurni implements MaestroAiProvider {
     required String userMessage,
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
-    bool aDueStrati = true,
+    String? rispostaGiaData,
   }) async {
     final testo = _risposte[_turno.clamp(0, _risposte.length - 1)];
     _turno++;

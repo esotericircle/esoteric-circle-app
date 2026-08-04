@@ -190,6 +190,7 @@ void main() {
       // chi non puo'. Prima erano `primaRisposta` e `approfondimento`, e la
       // seconda esisteva solo per la seconda chiamata al modello.
       expect(MisuraDellaRisposta.letturaDellaChat.tetto, 800);
+      expect(MisuraDellaRisposta.seguito.tetto, 600);
       expect(MisuraDellaRisposta.letturaBreve.tetto, 400);
       expect(MisuraDellaRisposta.consultaBreve.tetto, 400);
       expect(MisuraDellaRisposta.consultaProfonda.tetto, 1300);
@@ -221,20 +222,20 @@ void main() {
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
       );
-      // Centottanta e' la lettura intera, quella che si legge a due strati:
-      // il primo strato lo taglia l'app, non il modello.
-      expect(prima, contains('circa centottanta parole'));
+      // CINQUANTA, e per tutti: dal 4 agosto 2026 la prima risposta e' breve
+      // per chiunque, e il seguito si chiede al tocco. Centottanta resta la
+      // misura del testo INTERO, cioe' breve piu' seguito.
+      expect(prima, contains('circa cinquanta parole'));
       expect(prima, contains('Non lasciare mai una frase a metà'));
 
-      // E a chi non puo' rivelare si chiede la breve, non la intera: non si
-      // generano parole che nessuno potra' leggere.
-      final breve = MaestroPersona.systemInstruction(
+      // E il SEGUITO ha la sua misura, centotrenta, che e' la differenza.
+      final seguito = MaestroPersona.systemInstruction(
         maestro: Maestro.medora,
         profile: UserProfile.empty,
         memory: MaestroMemory.empty,
-        aDueStrati: false,
+        rispostaGiaData: 'quel che ho gia\' detto.',
       );
-      expect(breve, contains('circa cinquanta parole'));
+      expect(seguito, contains('circa centotrenta parole'));
 
       // La cifra non compare mai: un Maestro dice "novanta", non "90".
       for (final misura in MisuraDellaRisposta.values) {

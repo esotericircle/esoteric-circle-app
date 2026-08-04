@@ -53,6 +53,22 @@ enum MisuraDellaRisposta {
   /// esattamente cio' da cui questa voce doveva liberarci.
   letturaBreve(parole: 50, inLettere: 'cinquanta', ragionamento: 0),
 
+  /// IL SEGUITO, cioe' cio' che si scrive SOTTO la risposta gia' data.
+  ///
+  /// **Centotrenta, che e' la differenza.** La lettura intera vale
+  /// centottanta parole e quella breve cinquanta: il seguito e' esattamente
+  /// cio' che manca, quindi chi tocca la freccia legge in tutto la stessa
+  /// quantita' di prima. Non si chiede meno per risparmiare: si chiede la
+  /// parte che non era ancora stata scritta.
+  ///
+  /// **E si chiede solo a chi la tocca.** Generare sempre intero costa 2157
+  /// token a risposta, sempre. Generare il seguito al tocco costa 1923 subito,
+  /// piu' una seconda chiamata solo per chi approfondisce: il pareggio sta
+  /// intorno all'11,5 per cento di risposte approfondite, e quel numero non lo
+  /// sappiamo, perche' nessuno ha mai misurato quante volte quella freccia
+  /// viene toccata.
+  seguito(parole: 130, inLettere: 'centotrenta', ragionamento: 0),
+
   /// Consulta un Maestro, profondita' Breve.
   consultaBreve(parole: 90, inLettere: 'novanta', ragionamento: 0),
 
@@ -138,10 +154,17 @@ enum MisuraDellaRisposta {
   static MisuraDellaRisposta perProfondita(ConsultDepth depth) =>
       depth == ConsultDepth.profonda ? consultaProfonda : consultaBreve;
 
-  /// La misura di un turno di chat. **La chiamata e' sempre UNA**: cio' che
-  /// cambia e' quanto si chiede, e lo decide il piano di chi legge.
-  static MisuraDellaRisposta perChat({required bool aDueStrati}) =>
-      aDueStrati ? letturaDellaChat : letturaBreve;
+  /// LA MISURA DI UN TURNO DI CHAT. **Sempre breve, per tutti.**
+  ///
+  /// **`letturaDellaChat` non e' piu' la prima risposta.** Lo era finche' il
+  /// testo lungo si generava insieme al breve: adesso il seguito si chiede al
+  /// tocco, quindi la prima risposta e' breve per chiunque, e nessuno paga per
+  /// parole che potrebbe non leggere mai. Resta come misura del testo INTERO,
+  /// cioe' breve piu' seguito, che e' il numero su cui si fa il conto.
+  static MisuraDellaRisposta get perChat => letturaBreve;
+
+  /// La misura del seguito, quando la persona tocca la freccia.
+  static MisuraDellaRisposta get perIlSeguito => seguito;
 
   /// COME SI CHIEDE LA LUNGHEZZA AL MAESTRO, ed e' qui che la lunghezza si
   /// governa davvero.
