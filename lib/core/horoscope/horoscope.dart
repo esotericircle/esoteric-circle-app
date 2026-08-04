@@ -1,5 +1,7 @@
 import '../astro/zodiac.dart';
 import '../chat/user_profile.dart';
+import 'cielo_di_oggi.dart';
+import 'corrente_del_cielo.dart';
 import 'horoscope_data.dart';
 
 /// I quattro domini dell'Oroscopo, nell'ordine di layout. L'indice enum e' anche
@@ -28,6 +30,7 @@ class HoroscopeCard {
     this.opening,
     this.luckyNumber,
     this.dayColor,
+    this.dalCieloVero = false,
   });
 
   final HoroscopeDomain domain;
@@ -57,6 +60,15 @@ class HoroscopeCard {
 
   /// Colore del giorno, dalla palette del segno, solo per la scheda Fortuna.
   final String? dayColor;
+
+  /// SE LA SECONDA META' DEL TESTO VIENE DAL CIELO VERO.
+  ///
+  /// **Serve perche' il ripiego non sia mai muto.** Falso vuol dire che la
+  /// corrente del giorno e' stata pescata dalla hash su segno, giorno e anno,
+  /// cioe' che il cielo di questa persona non e' stato interrogato perche' non
+  /// c'era una carta natale da interrogare. Chi mostra la scheda deve
+  /// dichiararlo, e c'e' una prova che casca se non lo fa.
+  final bool dalCieloVero;
 }
 
 /// La composizione deterministica dell'Oroscopo a quattro schede.
@@ -133,12 +145,26 @@ class Horoscope {
   }
 
   /// Compone la scheda di un dominio per il segno e il giorno dati.
+  /// Compone la scheda di un dominio per il segno e il giorno dati.
+  ///
+  /// **DOVE MUORE L'HASH.** Con un [cielo] che porta fatti veri, la corrente
+  /// del giorno la scrive [CorrenteDelCielo] nominando il pianeta, la casa
+  /// attraversata e il punto natale toccato. Senza, si torna alla hash su
+  /// segno, giorno e anno, e la scheda esce con [HoroscopeCard.dalCieloVero]
+  /// falso, cosi' chi la mostra e' obbligato a dichiarare il ripiego.
+  ///
+  /// **La porta e' UNA SOLA, e sono due chi la attraversa**: la schermata
+  /// dell'Oroscopo e la card da condividere, che pero' riceve gia' le schede
+  /// composte qui invece di rileggersi il corpus per conto suo. Cambiare la
+  /// composizione le cambia tutte e due.
   static HoroscopeCard cardFor({
     required Zodiac sign,
     required int dayOfYear,
     required int year,
     required HoroscopeDomain domain,
     String? opening,
+    CieloDiOggi cielo = CieloDiOggi.nessuno,
+    bool profonda = false,
   }) {
     final d = domain.index;
     final base = baseSeed(sign.index, dayOfYear, year, d);
@@ -150,8 +176,11 @@ class Horoscope {
     final seedColor = _fnv1a([base, 0x44]);
 
     final anchor = HoroscopeData.anchors[sign.id]![d];
+    // LA CORRENTE DEL GIORNO: prima il cielo vero, e la hash solo se non c'e'.
+    final dalCielo = CorrenteDelCielo.componi(
+        cielo: cielo, dominio: domain, profonda: profonda);
     final pool = HoroscopeData.dayPools[d]!;
-    final current = pool[seedCurrent % pool.length];
+    final current = dalCielo ?? pool[seedCurrent % pool.length];
 
     final title = anchor[0];
     final text = '${anchor[1]} $current';
@@ -170,6 +199,7 @@ class Horoscope {
         indicator: indicator,
         luckyNumber: 1 + (seedLucky % 90), // da 1 a 90
         dayColor: palette[seedColor % palette.length],
+        dalCieloVero: dalCielo != null,
       );
     }
     return HoroscopeCard(
@@ -179,6 +209,7 @@ class Horoscope {
       synthesis: anchor[1],
       indicator: indicator,
       opening: cardOpening,
+      dalCieloVero: dalCielo != null,
     );
   }
 
@@ -189,6 +220,8 @@ class Horoscope {
     required int dayOfYear,
     required int year,
     String? opening,
+    CieloDiOggi cielo = CieloDiOggi.nessuno,
+    Map<HoroscopeDomain, bool> profonde = const {},
   }) =>
       [
         for (final domain in HoroscopeDomain.values)
@@ -197,7 +230,9 @@ class Horoscope {
               dayOfYear: dayOfYear,
               year: year,
               domain: domain,
-              opening: opening),
+              opening: opening,
+              cielo: cielo,
+              profonda: profonde[domain] ?? false),
       ];
 
   /// La riga di disclaimer, una sola volta nella schermata.

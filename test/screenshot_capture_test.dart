@@ -1839,6 +1839,89 @@ void main() {
     await capture(tester, rootKey, 'oroscopo.png');
   });
 
+  // --- L'OROSCOPO CHE NOMINA UN TRANSITO VERO ---
+  //
+  // **E' l'immagine che dice se la voce e' stata consegnata.** L'altra
+  // cattura mostra l'Oroscopo di chi ha dato solo la data di nascita, cioe' il
+  // ripiego sulla hash, che adesso si dichiara in fondo. Qui invece c'e' una
+  // carta natale completa, quindi la corrente del giorno la scrive il cielo:
+  // il pianeta che si muove, la casa che sta attraversando, il punto della
+  // carta che tocca. E la profondita' e' la Profonda, che e' l'altra cosa che
+  // fino a ieri si pagava senza riceverla.
+  testWidgets('Cattura l\'Oroscopo dai transiti veri', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    final ctx = tester.element(find.byType(MaterialApp));
+    // Un abbonato, perche' la Profonda e' del Cerchio Premium.
+    ctx.read<EntitlementService>().setTier(Tier.tier2);
+    // UNA CARTA COMPLETA, con l'ora: senza ora non ci sono case, e senza case
+    // il testo parlerebbe di geometria invece che di settori della vita.
+    ctx.read<BirthIdentityController>().setBirth(
+          BirthDetails(
+            date: DateTime(1990, 8, 10),
+            time: const TimeOfDay(hour: 12, minute: 0),
+            place: const astro.BirthPlace(
+                label: 'Roma',
+                latitude: 41.9,
+                longitude: 12.5,
+                timezone: 'Europe/Rome'),
+          ),
+          NatalChart(
+            sunSign: Zodiac.leo,
+            planets: const [
+              PlanetPosition(
+                  id: 'sun', name: 'Sole', glyph: '\u2609', longitude: 128.4, sign: Zodiac.leo),
+              PlanetPosition(
+                  id: 'moon', name: 'Luna', glyph: '\u263d', longitude: 12.7, sign: Zodiac.leo),
+              PlanetPosition(
+                  id: 'venus', name: 'Venere', glyph: '\u2640', longitude: 150.2, sign: Zodiac.leo),
+              PlanetPosition(
+                  id: 'mars', name: 'Marte', glyph: '\u2642', longitude: 61.9, sign: Zodiac.leo),
+              PlanetPosition(
+                  id: 'saturn', name: 'Saturno', glyph: '\u2644', longitude: 300.5, sign: Zodiac.leo),
+            ],
+            ascendantLongitude: 205.0,
+            midheavenLongitude: 115.0,
+            houses: [
+              for (var n = 1; n <= 12; n++)
+                HouseCusp(
+                    number: n, longitude: (205.0 + (n - 1) * 30.0) % 360.0),
+            ],
+            hasTime: true,
+          ),
+        );
+    montaLoSchermo(tester, const Size(360, 1800));
+    unawaited(nav.push(OroscopoScreen.route(
+        userSign: Zodiac.leo, now: DateTime.utc(2026, 8, 5, 12))));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(OroscopoScreen));
+      await precacheImage(
+          AssetImage(ZodiacArt.emblemPath(Zodiac.leo)), element);
+    });
+    await step(tester);
+    // Si sceglie la Profonda sulla scheda Generale: e' il gesto che ieri non
+    // faceva niente.
+    await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
+    await step(tester);
+    await tester.tap(find.text('Profonda').last);
+    await step(tester);
+    await tester.pump(const Duration(seconds: 2));
+    // IL GUARDIANO: se il testo non nominasse un transito vero, questa
+    // immagine mostrerebbe il ripiego e direbbe il falso col suo nome.
+    expect(find.textContaining('casa'), findsWidgets,
+        reason: 'nessuna scheda nomina una casa: l\'anteprima dei transiti '
+            'veri sta mostrando la hash');
+    expect(find.byKey(const Key('oroscopo_nota_del_cielo')), findsNothing,
+        reason: 'la nota del ripiego e\' a video, quindi il cielo non e\' '
+            'stato letto');
+    await capture(tester, rootKey, 'oroscopo-transito-vero.png');
+  });
+
   // --- La card condivisibile dell'Oroscopo ---
   testWidgets('Cattura la card Oroscopo', (tester) async {
     await loadFonts();

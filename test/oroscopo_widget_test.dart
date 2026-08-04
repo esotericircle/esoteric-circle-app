@@ -4,6 +4,7 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope_data.dart';
+import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -119,6 +120,12 @@ void main() {
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
           ChangeNotifierProvider(create: (_) => ProfileController()),
+          // Il cielo di chi guarda: da qui l'Oroscopo prende la carta natale
+          // per comporre dai transiti veri invece che dalla hash. Senza questo
+          // provider la schermata non si monta, ed e' giusto cosi': una
+          // schermata che si arrangia da sola quando manca un dato e' una
+          // schermata che nasconde il dato mancante.
+          ChangeNotifierProvider(create: (_) => BirthIdentityController()),
         ],
         child: MaterialApp(
           builder: (ctx, child) => MediaQuery(

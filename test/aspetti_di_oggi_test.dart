@@ -222,7 +222,22 @@ void main() {
         if (percorso.endsWith('lib/core/horoscope/horoscope_data.dart')) {
           continue;
         }
-        if (f.readAsStringSync().contains('HoroscopeData.')) {
+        // I COMMENTI NON SONO PORTE, e per una consegna questa prova ha
+        // detto il contrario. `corrente_del_cielo.dart` racconta nella sua
+        // intestazione che la corrente del giorno "usciva da
+        // HoroscopeData.dayPools", cioe' nomina il corpus per spiegare cosa
+        // ha sostituito, e la prova lo contava come se lo leggesse. Contare
+        // le occorrenze di una stringa e' un'approssimazione: qui si tolgono
+        // le righe di commento, cosi' si misura cio' che si vuole misurare.
+        final righeVive = f
+            .readAsStringSync()
+            .split('\n')
+            .where((r) {
+              final t = r.trimLeft();
+              return !t.startsWith('//') && !t.startsWith('///') &&
+                  !t.startsWith('*');
+            });
+        if (righeVive.any((r) => r.contains('HoroscopeData.'))) {
           chiLegge.add(percorso.substring(percorso.indexOf('lib/')));
         }
       }

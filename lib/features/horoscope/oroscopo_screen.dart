@@ -7,7 +7,10 @@ import '../../core/entitlement/plan_catalog.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/config/app_flags.dart';
 import '../../core/horoscope/astro_tradition.dart';
+import '../../core/horoscope/cielo_di_oggi.dart';
+import '../../core/horoscope/corrente_del_cielo.dart';
 import '../../core/horoscope/horoscope.dart';
+import '../../core/identity/natal_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -99,13 +102,22 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   bool _sharing = false;
   bool _renderCard = false;
 
-  /// Profondita' scelta per ogni scheda. Nel gratuito e nella Demo resta la
-  /// profondita' libera, Breve: Media e Lunga sono del Premium. Lo stato per
-  /// scheda e' gia' predisposto, cosi' quando il gating si apre basta
-  /// collegarlo.
+  /// Profondita' scelta per ogni scheda. Nel gratuito resta la profondita'
+  /// libera, Breve: la Profonda e' del Cerchio Premium.
+  ///
+  /// **E LA SCELTA NON ARRIVAVA QUI.** Il selettore riceveva `current` e
+  /// `onLockedTap`, ma non `onSelect`: chi aveva pagato apriva il menu, sceglieva
+  /// Profonda, e non succedeva niente, perche' la scelta non aveva un posto
+  /// dove andare. Una funzione venduta e mai consegnata due volte di fila,
+  /// prima col lucchetto sbagliato e poi col filo staccato.
   final Map<HoroscopeDomain, AnswerDepth> _depth = {
     for (final d in HoroscopeDomain.values) d: AnswerDepth.free,
   };
+
+  void _scegliProfondita(HoroscopeDomain dominio, AnswerDepth scelta) {
+    if (_depth[dominio] == scelta) return;
+    setState(() => _depth[dominio] = scelta);
+  }
 
   @override
   void dispose() {
@@ -126,11 +138,27 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         dayOfYear: _dayOfYear,
         year: _year,
         vocative: vocative);
+    // IL CIELO VERO DI QUESTA PERSONA, quando c'e' una carta da interrogare.
+    //
+    // **Qui muore l'hash.** La corrente del giorno usciva da un pool di frasi
+    // generiche scelte da una hash su segno, giorno e anno: cambiava tutti i
+    // giorni senza che in cielo fosse cambiato niente, ed era identica per due
+    // persone dello stesso segno nate a vent'anni di distanza. Adesso, con la
+    // carta natale, la scrive il cielo. Senza carta si torna alla hash, e la
+    // nota qui sotto lo dichiara invece di lasciarlo credere.
+    final cielo = CieloDiOggi.perIlGiorno(
+        adesso: _date, carta: context.watch<BirthIdentityController>().chart);
+    final notaDelCielo = CorrenteDelCielo.notaDelLivello(cielo);
     final cards = Horoscope.forSign(
         sign: widget.userSign,
         dayOfYear: _dayOfYear,
         year: _year,
-        opening: opening);
+        opening: opening,
+        cielo: cielo,
+        profonde: {
+          for (final voce in _depth.entries)
+            voce.key: voce.value == AnswerDepth.profonda,
+        });
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -188,10 +216,25 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       palette: palette,
                       pulse: _pulse,
                       depth: _depth[card.domain]!,
+                      onDepthSelected: (depth) =>
+                          _scegliProfondita(card.domain, depth),
                       onDepthLocked: (depth) => _showDepthLocked(card.domain, depth),
                       premiumUnlocked: PlanCatalog.haProfondita(
                           context.watch<EntitlementService>().tier),
                     ),
+                    const SizedBox(height: SpacingTokens.md),
+                  ],
+                  // LA NOTA CHE DICHIARA IL RIPIEGO, quando il cielo non c'e'.
+                  //
+                  // Una riga generica scritta con lo stesso carattere di una
+                  // vera si legge come vera: qui si dice a parole che senza
+                  // ora e luogo di nascita quella lettura parla al segno, non
+                  // al cielo di questa persona, e si dice come rimediare.
+                  if (notaDelCielo != null) ...[
+                    _NotaDelCielo(
+                        testo: notaDelCielo,
+                        palette: palette,
+                        completa: cielo.ceCieloVero),
                     const SizedBox(height: SpacingTokens.md),
                   ],
                   _ShareBlock(
@@ -681,6 +724,7 @@ class _HoroscopeCardView extends StatelessWidget {
     required this.palette,
     required this.pulse,
     required this.depth,
+    required this.onDepthSelected,
     required this.onDepthLocked,
     required this.premiumUnlocked,
   });
@@ -689,6 +733,9 @@ class _HoroscopeCardView extends StatelessWidget {
   final MaestroPalette palette;
   final Animation<double> pulse;
   final AnswerDepth depth;
+
+  /// La scelta della profondita', che prima non aveva dove andare.
+  final ValueChanged<AnswerDepth> onDepthSelected;
   final ValueChanged<AnswerDepth> onDepthLocked;
 
   /// Se la persona ha diritto alla profondita' Profonda. Arriva da chi
@@ -755,6 +802,7 @@ class _HoroscopeCardView extends StatelessWidget {
                 // quindi restava falso e il lucchetto valeva anche per chi
                 // l'aveva comprata: una funzione venduta e mai consegnata.
                 premiumUnlocked: premiumUnlocked,
+                onSelect: onDepthSelected,
                 onLockedTap: onDepthLocked,
               ),
             ],
@@ -785,6 +833,45 @@ class _HoroscopeCardView extends StatelessWidget {
             const SizedBox(height: SpacingTokens.md),
             _FortunaFooter(card: card, palette: palette),
           ],
+        ],
+      ),
+    );
+  }
+}
+
+/// La riga che dichiara da dove viene il testo, quando non viene dal cielo.
+class _NotaDelCielo extends StatelessWidget {
+  const _NotaDelCielo(
+      {required this.testo, required this.palette, required this.completa});
+
+  final String testo;
+  final MaestroPalette palette;
+
+  /// Vero quando qualche transito vero c'e' comunque: cambia solo l'icona,
+  /// perche' "manca l'ora" e "manca tutto" non sono la stessa mancanza.
+  final bool completa;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('oroscopo_nota_del_cielo'),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        color: palette.deepest.withValues(alpha: 0.45),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.28)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(completa ? Icons.schedule_rounded : Icons.info_outline_rounded,
+              size: 16, color: palette.goldSoft),
+          const SizedBox(width: SpacingTokens.sm),
+          Expanded(
+            child: Text(testo,
+                style: TypographyTokens.body(size: 13).copyWith(
+                    color: ColorTokens.textSecondary, height: 1.45)),
+          ),
         ],
       ),
     );
