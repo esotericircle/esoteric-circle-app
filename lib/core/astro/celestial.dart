@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'effemeridi.dart';
+
 /// Motore astronomico leggero per il cielo reale della nascita.
 ///
 /// Nessuna rete, nessun LLM: sono formule di posizione classiche (tempo
@@ -76,37 +78,34 @@ class Celestial {
     return HorizontalCoord(altDeg: alt / _deg, azDeg: az / _deg);
   }
 
-  /// Longitudine eclittica del Sole in gradi (bassa precisione).
-  static double sunEclipticLongitude(double jd) {
-    final n = _n(jd);
-    final l = _norm360(280.460 + 0.9856474 * n);
-    final g = (357.528 + 0.9856003 * n) * _deg;
-    return _norm360(l + 1.915 * math.sin(g) + 0.020 * math.sin(2 * g));
-  }
+  /// Longitudine eclittica del Sole in gradi.
+  ///
+  /// **La firma resta, il calcolo no.** Il corpo di questa funzione era una
+  /// delle DUE copie della stessa formula, l'altra in `NightSky`. Adesso
+  /// entrambe chiedono a `Effemeridi`, che e' la porta sola. La formula la'
+  /// dentro e' identica a quella che stava qui, quindi i valori verificati il
+  /// 1 agosto 2026 non si sono mossi di un millesimo.
+  static double sunEclipticLongitude(double jd) =>
+      Effemeridi.longitudineEclittica(CorpoCeleste.sole, jd);
 
-  /// Posizione equatoriale della Luna (bassa precisione, errore tipico sotto il
-  /// mezzo grado, piu' che sufficiente per il colpo d'occhio).
+  /// Posizione equatoriale della Luna.
+  ///
+  /// La LONGITUDINE arriva da `Effemeridi`, la latitudine resta qui: e' una
+  /// serie diversa, che nessun altro calcolava, quindi non c'era niente da
+  /// unificare.
   static EquatorialCoord moonEquatorial(double jd) {
     final n = _n(jd);
-    final lp = 218.316 + 13.176396 * n; // longitudine media
     final mp = (134.963 + 13.064993 * n) * _deg; // anomalia media lunare
-    final m = (357.529 + 0.985600 * n) * _deg; // anomalia media solare
     final d = (297.8502 + 12.1907491 * n) * _deg; // elongazione media
     final f = (93.272 + 13.229350 * n) * _deg; // argomento di latitudine
 
-    final lon = lp +
-        6.289 * math.sin(mp) +
-        1.274 * math.sin(2 * d - mp) +
-        0.658 * math.sin(2 * d) +
-        0.214 * math.sin(2 * mp) -
-        0.186 * math.sin(m) -
-        0.114 * math.sin(2 * f);
+    final lon = Effemeridi.longitudineEclittica(CorpoCeleste.luna, jd);
     final lat = 5.128 * math.sin(f) +
         0.281 * math.sin(mp + f) +
         0.278 * math.sin(f - mp) +
         0.173 * math.sin(2 * d - f);
 
-    return _eclipticToEquatorial(_norm360(lon), lat, _obliquity(jd));
+    return _eclipticToEquatorial(lon, lat, _obliquity(jd));
   }
 
   static EquatorialCoord _eclipticToEquatorial(
@@ -126,15 +125,12 @@ class Celestial {
   /// Illuminazione della Luna a una data: frazione illuminata [0,1] e se e' in
   /// fase crescente (lembo luminoso a destra nell'emisfero nord).
   static MoonIllumination moonIllumination(double jd) {
-    final sun = sunEclipticLongitude(jd);
-    final n = _n(jd);
-    final lp = _norm360(218.316 + 13.176396 * n);
-    final mp = (134.963 + 13.064993 * n) * _deg;
-    final d = (297.8502 + 12.1907491 * n) * _deg;
-    final moonLon = _norm360(lp +
-        6.289 * math.sin(mp) +
-        1.274 * math.sin(2 * d - mp) +
-        0.658 * math.sin(2 * d));
+    // Prima queste due righe erano la TERZA copia della longitudine lunare, e
+    // la piu' povera: tre termini contro i sei di `moonEquatorial` e i dieci di
+    // `NightSky`. Tre troncature diverse della stessa serie davano tre Lune
+    // leggermente diverse nella stessa app.
+    final sun = Effemeridi.longitudineEclittica(CorpoCeleste.sole, jd);
+    final moonLon = Effemeridi.longitudineEclittica(CorpoCeleste.luna, jd);
     final elong = _norm360(moonLon - sun); // 0 novilunio, 180 plenilunio
     final fraction = (1 - math.cos(elong * _deg)) / 2;
     final waxing = elong < 180;
