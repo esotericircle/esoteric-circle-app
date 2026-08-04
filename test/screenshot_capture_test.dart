@@ -2574,14 +2574,20 @@ void main() {
   // 2. La stessa dopo il tocco, col seguito inserito FRA il corpo e il
   //    consiglio: la stella resta l'ultima riga, che e' il vincolo che decide
   //    dove il seguito si infila.
-  // 3. Come la vede un VIANDANTE: la freccia si vede lo stesso, perche' un
+  // 3. L'ATTESA DEL SEGUITO, che e' il fotogramma in mezzo: la persona ha
+  //    appena toccato, e cio' che stava leggendo e' ancora tutto li'. Prima
+  //    di oggi qui ripartiva la scena a schermo intero e la bolla si
+  //    svuotava, e questa immagine e' la prova che non succede piu'.
+  // 4. Come la vede un VIANDANTE: la freccia si vede lo stesso, perche' un
   //    lucchetto muto e' un vicolo cieco, e al tocco porta agli abbonamenti.
-  for (final caso in const ['breve', 'seguito', 'viandante']) {
-    final dopoIlTocco = caso == 'seguito';
+  for (final caso in const ['breve', 'seguito', 'attesa', 'viandante']) {
+    final dopoIlTocco = caso == 'seguito' || caso == 'attesa';
+    final durante = caso == 'attesa';
     final viandante = caso == 'viandante';
     final nome = {
       'breve': 'chat-breve-con-la-stella.png',
       'seguito': 'chat-seguito-col-consiglio-in-fondo.png',
+      'attesa': 'chat-attesa-del-seguito-nella-bolla.png',
       'viandante': 'chat-freccia-per-il-viandante.png',
     }[caso]!;
     testWidgets('Cattura $nome', (tester) async {
@@ -2591,7 +2597,11 @@ void main() {
       await memory
           .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
       final services = AppServices(
-        ai: _VoceInDueStrati(),
+        // Nel caso dell'attesa il seguito ci mette del tempo, perche' e'
+        // esattamente il tempo che questa immagine deve mostrare.
+        ai: _VoceInDueStrati(
+            ritardoDelSeguito:
+                durante ? const Duration(seconds: 4) : Duration.zero),
         memory: memory,
         memoryPersistent: true,
         diagnostics: 'Cattura offline.',
@@ -2651,12 +2661,29 @@ void main() {
       }
       if (dopoIlTocco) {
         await tester.tap(find.byKey(const Key('chat_approfondisci')));
-        for (var i = 0; i < 12; i++) {
+        // DUE PASSI SOLI PER L'ATTESA, e non dodici: con dodici il seguito
+        // sarebbe gia' sceso e l'immagine mostrerebbe l'altro fotogramma.
+        for (var i = 0; i < (durante ? 2 : 12); i++) {
           await step(tester);
+        }
+        if (durante) {
+          expect(find.byKey(const Key('chat_seguito_in_arrivo')),
+              findsOneWidget,
+              reason: 'l\'anteprima dell\'attesa non ha nessuna attesa dentro '
+                  'da mostrare: mostrerebbe il falso');
+          expect(find.byKey(const Key('chat_seguito')), findsNothing);
         }
       }
       await precacheFaces(tester);
       await capture(tester, rootKey, nome);
+      // SI SCOLA L'ATTESA prima di chiudere: il ritardo del seguito e' un
+      // timer vero, e lasciarlo pendente fa cadere la cattura sull'albero
+      // gia' smontato.
+      if (durante) {
+        for (var i = 0; i < 20; i++) {
+          await step(tester);
+        }
+      }
     });
   }
 
@@ -3340,6 +3367,12 @@ class _ScriptedMaestro implements MaestroAiProvider {
 /// Una voce che consegna una lettura BREVE col suo consiglio marcato, e al
 /// tocco il SEGUITO, cioe' il testo che manca.
 class _VoceInDueStrati implements MaestroAiProvider {
+  _VoceInDueStrati({this.ritardoDelSeguito = Duration.zero});
+
+  /// Quanto ci mette il SEGUITO. Zero per le catture in cui il seguito deve
+  /// essere gia' arrivato, lungo per quella che mostra l'attesa.
+  final Duration ritardoDelSeguito;
+
   @override
   bool get isReady => true;
 
@@ -3355,6 +3388,7 @@ class _VoceInDueStrati implements MaestroAiProvider {
     String? rispostaGiaData,
   }) async {
     if (rispostaGiaData != null) {
+      await Future<void>.delayed(ritardoDelSeguito);
       return 'Sotto la superficie lavora un secondo movimento, più lento, '
           'che dura da mesi senza chiedere il tuo permesso. Non è la scelta '
           'a spaventarti, è quello che la scelta rende definitivo. La tua '

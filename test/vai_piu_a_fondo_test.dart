@@ -324,9 +324,18 @@ class _VoceContata implements MaestroAiProvider {
     chiamate++;
     // IL SEGUITO E' UN TESTO DIVERSO, altrimenti l'app lo ripulisce tutto e
     // la prova misurerebbe il filtro invece del budget.
+    //
+    // **E DICEVA IL FALSO.** Il testo di prima era "Sotto quel confine lavora
+    // un movimento piu' lento, che dura da mesi senza chiedere il tuo
+    // permesso", cioe' la stessa frase del primo strato girata in un altro
+    // modo: somiglianza 0,667 contro una soglia di 0,32. Passava soltanto
+    // perche' il filtro di allora confrontava le frasi per identita' esatta.
+    // Le due frasi qui sotto stanno a 0,174 e a 0,050, misurate con
+    // `SeguitoDellaLettura.somiglianza`.
     if (rispostaGiaData != null) {
-      return 'Sotto quel confine lavora un movimento piu\' lento, che dura '
-          'da mesi senza chiedere il tuo permesso.';
+      return 'La luna nuova cade fra undici giorni: fino ad allora nessuna '
+          'porta si chiude per davvero. Chi ti sta vicino in questo passaggio '
+          'pesa piu\' del passaggio stesso.';
     }
     final indice = (chiamate - 1).clamp(0, _risposte.length - 1);
     return _risposte[indice];

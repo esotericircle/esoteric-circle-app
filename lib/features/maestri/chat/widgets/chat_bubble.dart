@@ -318,6 +318,70 @@ class _ChatBubbleState extends State<ChatBubble> {
                     onTap: () => onOpenIntent?.call(message.intentId!),
                   ),
                 ],
+                // IL SEGUITO, FRA IL CORPO E IL CONSIGLIO.
+                //
+                // E' il posto che il vincolo del consiglio decide: la bolla e'
+                // corpo, poi seguito, poi stella. Incollarlo in coda a `text`
+                // lo avrebbe messo SOTTO il consiglio, cioe' avrebbe reso il
+                // consiglio una frase in mezzo al testo.
+                //
+                // **E per una consegna stava piu' in basso davvero.** Il blocco
+                // era scritto DOPO la riga del consiglio e dopo "Vai piu' a
+                // fondo": il commento diceva "fra il corpo e il consiglio", la
+                // colonna diceva un'altra cosa, e chi toccava la freccia si
+                // trovava il seguito sotto la stella, cioe' sotto la firma
+                // della lettura. Adesso il posto e' quello che il commento
+                // dichiara, e una prova lo sorveglia.
+                //
+                // Non si scrive a macchina: e' arrivato adesso, ma la persona
+                // sta gia' leggendo, e vedere ricomparire lettera per lettera
+                // sotto gli occhi cio' che si sta leggendo distrae.
+                if (message.seguito != null &&
+                    message.seguito!.trim().isNotEmpty) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  Text(
+                    message.seguito!,
+                    key: const Key('chat_seguito'),
+                    style: TypographyTokens.body(size: 17).copyWith(
+                      color: isUser
+                          ? ColorTokens.textPrimary
+                          : palette.textPrimary,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
+                // L'ATTESA DEL SEGUITO, DENTRO LA BOLLA.
+                //
+                // **Piccola apposta.** Mentre il seguito scende, la persona sta
+                // leggendo il primo strato: se qui comparisse la scena piena,
+                // o anche solo qualcosa di grosso, le si toglierebbe di sotto
+                // agli occhi il testo che sta leggendo. Una riga sottile in
+                // fondo alla bolla dice che sta arrivando dell'altro senza
+                // spostare una parola di quello che c'e' gia'.
+                if (message.seguitoInArrivo) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  Row(
+                    key: const Key('chat_seguito_in_arrivo'),
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: 12,
+                        height: 12,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 1.5,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(palette.goldSoft),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Sto scendendo più a fondo',
+                        style: TypographyTokens.body(size: 13)
+                            .copyWith(color: palette.goldSoft),
+                      ),
+                    ],
+                  ),
+                ],
                 // IL CONSIGLIO IN ORO, SEMPRE L'ULTIMA RIGA.
                 //
                 // Sta dopo il corpo e dopo il seguito, e PRIMA dei comandi.
@@ -360,30 +424,6 @@ class _ChatBubbleState extends State<ChatBubble> {
                               .copyWith(color: palette.goldSoft),
                         ),
                       ],
-                    ),
-                  ),
-                ],
-                // IL SEGUITO, FRA IL CORPO E IL CONSIGLIO.
-                //
-                // E' il posto che il vincolo del consiglio decide: la bolla e'
-                // corpo, poi seguito, poi stella. Incollarlo in coda a `text`
-                // lo avrebbe messo SOTTO il consiglio, cioe' avrebbe reso il
-                // consiglio una frase in mezzo al testo.
-                //
-                // Non si scrive a macchina: e' arrivato adesso, ma la persona
-                // sta gia' leggendo, e vedere ricomparire lettera per lettera
-                // sotto gli occhi cio' che si sta leggendo distrae.
-                if (message.seguito != null &&
-                    message.seguito!.trim().isNotEmpty) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  Text(
-                    message.seguito!,
-                    key: const Key('chat_seguito'),
-                    style: TypographyTokens.body(size: 17).copyWith(
-                      color: isUser
-                          ? ColorTokens.textPrimary
-                          : palette.textPrimary,
-                      height: 1.5,
                     ),
                   ),
                 ],

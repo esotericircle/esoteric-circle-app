@@ -51,6 +51,7 @@ class ChatMessage {
     this.ripiego = false,
     this.approfondita = false,
     this.seguito,
+    this.seguitoInArrivo = false,
     this.tipo,
     this.intentId,
     this.autore,
@@ -92,6 +93,19 @@ class ChatMessage {
   /// corpo e la riga del consiglio, e un testo incollato in coda finirebbe
   /// SOTTO il consiglio, che e' esattamente cio' che non deve succedere.
   final String? seguito;
+
+  /// VERO MENTRE IL SEGUITO STA ARRIVANDO, e il testo resta dov'e'.
+  ///
+  /// **Perche' non basta `pending`.** Con `pending` la bolla si svuota e mostra
+  /// i puntini: e' giusto per una risposta che ancora non esiste, ed e'
+  /// sbagliato per un seguito, perche' il primo strato la persona lo sta
+  /// leggendo proprio adesso. Toglierglielo di sotto agli occhi per qualche
+  /// secondo, e poi rimetterlo, e' il difetto che il fondatore ha visto:
+  /// pagava l'attesa due volte.
+  ///
+  /// Con questo il testo non si muove di un carattere: sotto compare una riga
+  /// discreta che dice che sta scendendo dell'altro.
+  final bool seguitoInArrivo;
 
   /// CHI ha detto questo messaggio, quando non e' il Maestro della chat.
   ///
@@ -140,6 +154,7 @@ class ChatMessage {
     bool? ripiego,
     bool? approfondita,
     String? seguito,
+    bool? seguitoInArrivo,
   }) {
     return ChatMessage(
       role: role,
@@ -150,6 +165,7 @@ class ChatMessage {
       ripiego: ripiego ?? this.ripiego,
       approfondita: approfondita ?? this.approfondita,
       seguito: seguito ?? this.seguito,
+      seguitoInArrivo: seguitoInArrivo ?? this.seguitoInArrivo,
       tipo: tipo,
       intentId: intentId,
       autore: autore,

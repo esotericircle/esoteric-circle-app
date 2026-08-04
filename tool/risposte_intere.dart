@@ -195,6 +195,26 @@ void main() {
     expect(esiti.length, lavori.length,
         reason: 'qualche chiamata non e\' tornata: la misura sarebbe parziale');
 
+    // LE COPPIE VERE SU FILE, per calibrare la soglia della ripetizione.
+    //
+    // La soglia oltre la quale due frasi dicono la stessa cosa non si sceglie
+    // a occhio: si guarda dove cadono le frasi vere. Qui escono le coppie
+    // (primo strato, seguito) come sono arrivate dal modello, grezze.
+    final dove = Platform.environment['COPPIE_SU_FILE'];
+    if (dove != null && dove.isNotEmpty) {
+      final coppie = <Map<String, String>>[];
+      for (var i = 0; i < seguiti.length && i < esiti.length; i++) {
+        coppie.add({
+          'maestro': esiti[i].maestro.displayName,
+          'domanda': esiti[i].domanda,
+          'gia': esiti[i].testo,
+          'seguito': seguiti[i].testo,
+        });
+      }
+      File(dove).writeAsStringSync(jsonEncode(coppie));
+      stdout.writeln('COPPIE su $dove: ${coppie.length}');
+    }
+
     // IL COSTO VERO DEL SEGUITO, misurato e non stimato.
     if (seguiti.isNotEmpty) {
       int mediana(List<int> v) {
@@ -263,7 +283,10 @@ void main() {
     // e' il tempo che aspetta una persona sola col telefono in mano.
     stdout.writeln('${'-' * 78}\nDIECI CHIAMATE IN FILA, per il tempo vero:');
     final tempi = <int>[];
-    for (var i = 0; i < 10; i++) {
+    // `lavori.length` e non dieci fisse: con QUANTE_DOMANDE piu' basso questo
+    // giro leggeva oltre la fine della lista e la misura moriva DOPO aver
+    // speso tutte le chiamate vere.
+    for (var i = 0; i < 10 && i < lavori.length; i++) {
       final l = lavori[i];
       final e = await chiedi(l.maestro, l.domanda);
       if (e == null) continue;

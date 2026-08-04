@@ -155,6 +155,20 @@ class MaestroChatController extends ChangeNotifier {
   bool _sending = false;
   bool get sending => _sending;
 
+  /// Vero mentre si sta generando il SEGUITO di una risposta gia' letta.
+  bool _seguitoInVolo = false;
+
+  /// SE LA SCENA DI ATTESA A SCHERMO INTERO DEVE COMPARIRE.
+  ///
+  /// **La regola vive qui, e non nella schermata.** La schermata guardava
+  /// `sending`, che vale per QUALUNQUE chiamata: al tocco di "Vai piu' a
+  /// fondo" ripartiva la scena piena col simbolo e le frasi, la conversazione
+  /// si accorciava sotto, e sembrava di essere tornati indietro. La scena e'
+  /// per una risposta che ancora non esiste; il seguito invece scende sotto
+  /// un testo che la persona sta leggendo, e mentre lo legge non le si toglie
+  /// lo schermo.
+  bool get mostraLaScenaDiAttesa => _sending && !_seguitoInVolo;
+
   /// Vero se il Maestro puo' rispondere davvero. Falso quando l'AI non e'
   /// configurata: la UI mostra un avviso in tono, non un errore.
   bool get aiReady => _ai.isReady;
@@ -444,8 +458,14 @@ class MaestroChatController extends ChangeNotifier {
     if (domanda == null) return;
 
     _sending = true;
-    _messages[indice] =
-        const ChatMessage(role: ChatRole.maestro, text: '', pending: true);
+    _seguitoInVolo = true;
+    // IL TESTO GIA' LETTO NON SI TOCCA.
+    //
+    // Qui il messaggio veniva sostituito con uno vuoto in attesa: il primo
+    // strato spariva da sotto gli occhi di chi lo stava leggendo, per tornare
+    // qualche secondo dopo. Adesso resta dov'e', e porta soltanto il segno che
+    // sotto sta scendendo dell'altro.
+    _messages[indice] = prima.copyWith(seguitoInArrivo: true);
     notifyListeners();
 
     try {
@@ -463,18 +483,20 @@ class MaestroChatController extends ChangeNotifier {
         rispostaGiaData: prima.text,
       );
       // L'APP CONTROLLA, invece di fidarsi dell'istruzione.
-      final pulito = SeguitoDellaLettura.pulisci(
-          gia: ConsiglioFinale.corpoDa(prima.text), seguito: grezzo);
-      frasiRipetuteNelSeguito += SeguitoDellaLettura.quanteRipetute(
-          gia: ConsiglioFinale.corpoDa(prima.text), seguito: grezzo);
+      final corpoGia = ConsiglioFinale.corpoDa(prima.text);
+      final pulito =
+          SeguitoDellaLettura.pulisci(gia: corpoGia, seguito: grezzo);
+      frasiRipetuteNelSeguito +=
+          SeguitoDellaLettura.quanteRipetute(gia: corpoGia, seguito: grezzo);
       if (pulito.trim().isEmpty) {
         // Un seguito che era tutto ripetizione non e' un seguito: si rimette
         // la risposta com'era, senza marcarla approfondita, cosi' la freccia
         // resta e la persona puo' riprovare. Nessun budget consumato.
-        _messages[indice] = prima;
+        _messages[indice] = prima.copyWith(seguitoInArrivo: false);
         return;
       }
-      final conSeguito = prima.copyWith(approfondita: true, seguito: pulito);
+      final conSeguito = prima.copyWith(
+          approfondita: true, seguito: pulito, seguitoInArrivo: false);
       _messages[indice] = conSeguito;
       // IL CONTO STA SULL'ACCESSO, e si paga quando il seguito arriva.
       final piano = _tier?.call();
@@ -489,6 +511,14 @@ class MaestroChatController extends ChangeNotifier {
       _messages[indice] = prima;
     } finally {
       _sending = false;
+      _seguitoInVolo = false;
+      // Il segno si spegne SEMPRE, anche quando il seguito non arriva: una
+      // riga che dice "sta scendendo dell'altro" e resta li' per sempre e'
+      // peggio di nessuna riga.
+      if (indice < _messages.length && _messages[indice].seguitoInArrivo) {
+        _messages[indice] =
+            _messages[indice].copyWith(seguitoInArrivo: false);
+      }
       notifyListeners();
     }
   }

@@ -523,7 +523,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                     // non passa niente, si guarda.
                     transitionBuilder: (figlio, anim) =>
                         FadeTransition(opacity: anim, child: figlio),
-                    child: controller.sending
+                    child: controller.mostraLaScenaDiAttesa
                         ? ConsultoDelCieloView(
                             // La chiave porta CHI si consulta: cambiando voce
                             // la scena si rifa' con le battute di quel Maestro

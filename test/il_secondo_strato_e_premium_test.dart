@@ -202,9 +202,15 @@ class _VoceLunga implements MaestroAiProvider {
     bool insistiSullAncoraggio = false,
     String? rispostaGiaData,
   }) async =>
+      // **IL SEGUITO DICEVA IL FALSO.** Era "Sotto la superficie lavora un
+      // movimento più lento, che dura da mesi senza chiedere il tuo permesso",
+      // che è la frase del primo strato con due parole cambiate: passava solo
+      // perché il filtro di allora confrontava le frasi per identità esatta.
+      // Le due qui sotto stanno a 0,174 e a 0,050 contro una soglia di 0,32.
       rispostaGiaData != null
-          ? 'Sotto la superficie lavora un movimento più lento, che dura da '
-              'mesi senza chiedere il tuo permesso.'
+          ? 'La luna nuova cade fra undici giorni: fino ad allora nessuna '
+              'porta si chiude per davvero. Chi ti sta vicino in questo '
+              'passaggio pesa più del passaggio stesso.'
           : 'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. '
       'Quello che senti come confusione è un confine che si sposta. '
       'Sotto la superficie lavora un secondo movimento, più lento, che dura '

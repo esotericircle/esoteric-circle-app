@@ -448,7 +448,31 @@ void main() {
       expect(s.contains('—'), isFalse,
           reason: 'Trovato un trattino lungo in: $s');
     }
-    expect(testi.any((s) => RegExp('[àèéìòù]').hasMatch(s)), isTrue);
+    // NESSUN ACCENTO SCRITTO CON L'APOSTROFO, che e' la regola vera.
+    //
+    // **La riga di prima diceva un'altra cosa, e il 5 agosto 2026 e' caduta
+    // per una ragione falsa.** Chiedeva che ALMENO UNO dei testi a video
+    // portasse una vocale accentata. Ma questa schermata mostra un invito che
+    // ruota col giorno, e il testo del 5 agosto, "Torna domani: la Luna passa
+    // in Toro", di accenti non ne ha nessuno: la prova cascava senza che
+    // niente fosse rotto, e nei giorni in cui reggeva non stava sorvegliando
+    // gli accenti, stava sorvegliando la rotazione.
+    //
+    // La regola che conta e' il contrario: che non compaia mai "perche'" o
+    // "piu'" o "e'" con l'apostrofo al posto dell'accento. Questa si puo'
+    // misurare su ogni testo, e non dipende dal giorno.
+    final conApostrofo = RegExp(
+        r"\b(perche|poiche|benche|affinche|finche|nonche|cioe|piu|gia|puo|"
+        r"citta|volonta|verita|liberta|meta|eta|qualita|realta|felicita)'",
+        caseSensitive: false);
+    for (final s in testi) {
+      expect(conApostrofo.hasMatch(s), isFalse,
+          reason: 'Un accento scritto con l\'apostrofo in: $s');
+    }
+    // E il guardiano: il controllo deve saper cascare, altrimenti questo
+    // ciclo e' un ciclo che passa sempre.
+    expect(conApostrofo.hasMatch('perche\' non lo dici'), isTrue);
+    expect(conApostrofo.hasMatch('perché non lo dici'), isFalse);
   });
 }
 
