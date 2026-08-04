@@ -134,8 +134,14 @@ void main() {
           // Tetto e ragionamento dalla STESSA misura del provider: se questo
           // strumento chiamasse con una configurazione sua, misurerebbe una
           // voce che l'app non usa, e il 98,3 per cento non varrebbe niente.
-          tetto: MisuraDellaRisposta.primaRisposta.tetto,
-          ragionamento: MisuraDellaRisposta.primaRisposta.ragionamento,
+          //
+          // **`primaRisposta` non esiste piu' dal 4 agosto 2026**, ed era
+          // rimasta appesa qui: la misura della prima risposta si chiede a
+          // `perChat`, che e' il punto unico. Il riferimento morto e'
+          // sopravvissuto a tre ordini perche' guardavo le segnalazioni di
+          // `lib` e la riga di riepilogo non distingue un errore da un avviso.
+          tetto: MisuraDellaRisposta.perChat.tetto,
+          ragionamento: MisuraDellaRisposta.perChat.ragionamento,
         );
         return testo == null
             ? null
