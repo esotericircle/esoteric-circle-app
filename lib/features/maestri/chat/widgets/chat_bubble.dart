@@ -37,6 +37,7 @@ class ChatBubble extends StatefulWidget {
     this.onApprofondisci,
     this.onChiediAgliAltri,
     this.altreVoci = const [],
+    this.residuoDeiConfronti,
     this.siPuoRaccogliere = false,
     this.aperta = true,
     this.onApriChiudi,
@@ -64,6 +65,10 @@ class ChatBubble extends StatefulWidget {
   /// Chi sono gli altri due, per mostrarne i volti. Vuoto quando la riga non
   /// si mostra.
   final List<Maestro> altreVoci;
+
+  /// Il residuo dei confronti del giorno, gia' composto da chi lo sa contare.
+  /// Nullo quando non c'e' un numero da dire.
+  final String? residuoDeiConfronti;
 
 
   /// Vero se questa risposta si puo' raccogliere, cioe' non e' piu' quella
@@ -130,6 +135,7 @@ class _ChatBubbleState extends State<ChatBubble> {
     final onApprofondisci = widget.onApprofondisci;
     final onChiediAgliAltri = widget.onChiediAgliAltri;
     final altreVoci = widget.altreVoci;
+    final residuoDeiConfronti = widget.residuoDeiConfronti;
     final palette = context.palette;
     final isUser = message.isUser;
 
@@ -406,6 +412,29 @@ class _ChatBubbleState extends State<ChatBubble> {
                       ],
                     ),
                   ),
+                  // IL RESIDUO SI VEDE PRIMA DEL TOCCO.
+                  //
+                  // Chi tocca deve sapere cosa spende prima di spenderlo. La
+                  // formula e' una sola e non ha accordo grammaticale, "Oggi
+                  // te ne resta 1 su 3", perche' vale per uno come per tre e
+                  // non c'e' nessun plurale che qualcuno possa dimenticare.
+                  //
+                  // Nulla quando non c'e' un numero da dire: senza il piano
+                  // non e' un residuo, e' un lucchetto, e lo dice la porta.
+                  if (residuoDeiConfronti != null) ...[
+                    const SizedBox(height: 2),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 2),
+                      child: Text(
+                        residuoDeiConfronti,
+                        key: const Key('chat_residuo_confronti'),
+                        style: TypographyTokens.label(size: 11).copyWith(
+                          color: ColorTokens.textSecondary,
+                          letterSpacing: 0.3,
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
                     ],
                   ),

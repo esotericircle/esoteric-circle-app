@@ -95,9 +95,11 @@ class QuestionAllowance extends ChangeNotifier {
   static const _kDay = 'allowance.day';
   static const _kCount = 'allowance.count';
   static const _kApprofondimenti = 'allowance.approfondimenti';
+  static const _kConfronti = 'allowance.confronti';
 
   int _count = 0;
   int _approfondimenti = 0;
+  int _confronti = 0;
   String _day = '';
 
   /// Il giorno d'uso, dal punto SOLO in cui e' definito.
@@ -114,8 +116,13 @@ class QuestionAllowance extends ChangeNotifier {
     if (t != _day) {
       _day = t;
       _count = 0;
-      // I due budget ribaltano INSIEME, perche' il giorno e' lo stesso.
+      // I TRE budget ribaltano INSIEME, perche' il giorno e' lo stesso.
+      //
+      // Un secondo confine del giorno accanto a questo divergerebbe alla prima
+      // ora legale: `ConfineDelGiorno` e' uno, e questi tre contatori lo
+      // guardano tutti da qui.
       _approfondimenti = 0;
+      _confronti = 0;
     }
   }
 
@@ -143,9 +150,67 @@ class QuestionAllowance extends ChangeNotifier {
     return _count < limit;
   }
 
-  /// Il confronto a piu' Maestri (sintesi comparativa) e' riservato al Tier a
-  /// pagamento.
-  bool canCompare(Tier tier) => tier != Tier.free;
+  /// Se il PIANO comprende il confronto a piu' Maestri.
+  ///
+  /// **Adesso lo legge dalla matrice, e prima lo decideva da solo.** Diceva
+  /// `tier != Tier.free`, cioe' era un secondo posto dove si stabiliva chi
+  /// puo' cosa, accanto a quello vero. Un secondo sistema diverge sempre dal
+  /// primo, ed e' la stessa correzione gia' fatta per la memoria dei Maestri.
+  bool canCompare(Tier tier) =>
+      PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, tier) != 0;
+
+  /// Quanti confronti al giorno prevede il piano, oppure null se illimitato.
+  int? limiteConfronti(Tier tier) =>
+      PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, tier);
+
+  /// Quanti confronti restano oggi.
+  ///
+  /// **Perche' esiste un tetto separato.** Un confronto non consuma domande in
+  /// piu' di quella gia' pagata nella chat, ed e' misurato: aprendo il
+  /// Consiglio dalla conversazione le altre due letture arrivano senza
+  /// contare, quindi il numero e' zero e non tre. Senza un tetto suo il gesto
+  /// sarebbe gratuito e ripetibile all'infinito, mentre ogni tocco sono due
+  /// chiamate al modello.
+  int confrontiRimasti(Tier tier) {
+    _rollover();
+    final limite = limiteConfronti(tier);
+    if (limite == null) {
+      final resta = kTettoDiCorrettezza - _confronti;
+      return resta < 0 ? 0 : resta;
+    }
+    final resta = limite - _confronti;
+    return resta < 0 ? 0 : resta;
+  }
+
+  /// Se si puo' fare un altro confronto adesso.
+  bool puoiConfrontare(Tier tier) =>
+      canCompare(tier) && confrontiRimasti(tier) > 0;
+
+  /// Registra un confronto consumato.
+  void registraConfronto(Tier tier) {
+    if (!canCompare(tier)) return;
+    _rollover();
+    _confronti++;
+    notifyListeners();
+    _persist();
+  }
+
+  /// COME SI DICE IL RESIDUO, prima del tocco.
+  ///
+  /// **Una formula sola, senza accordo grammaticale.** "Oggi te ne resta 1 su
+  /// 3" vale per uno come per tre: non c'e' nessun singolare da tenere
+  /// d'accordo con un plurale, quindi non c'e' nessun posto dove il plurale si
+  /// possa dimenticare. E' la stessa scelta gia' fatta per le domande.
+  ///
+  /// Nullo quando non c'e' un numero da dire: senza il piano non e' un
+  /// residuo, e' un lucchetto, e lo dice la porta. Senza limite non e' un
+  /// residuo, e' un cammino senza conto da tenere.
+  String? residuoDeiConfronti(Tier tier) {
+    if (!canCompare(tier)) return null;
+    final limite = limiteConfronti(tier);
+    if (limite == null) return null;
+    return 'Oggi te ne resta ${confrontiRimasti(tier)} su $limite';
+  }
 
   /// Registra una domanda consumata. I tier con un limite finito intaccano il
   /// contatore; quello illimitato no.
@@ -164,6 +229,7 @@ class QuestionAllowance extends ChangeNotifier {
       _day = prefs.getString(_kDay) ?? '';
       _count = prefs.getInt(_kCount) ?? 0;
       _approfondimenti = prefs.getInt(_kApprofondimenti) ?? 0;
+      _confronti = prefs.getInt(_kConfronti) ?? 0;
       _rollover();
       notifyListeners();
     } catch (_) {
@@ -177,6 +243,7 @@ class QuestionAllowance extends ChangeNotifier {
       await prefs.setString(_kDay, _day);
       await prefs.setInt(_kCount, _count);
       await prefs.setInt(_kApprofondimenti, _approfondimenti);
+      await prefs.setInt(_kConfronti, _confronti);
     } catch (_) {
       // Best effort.
     }

@@ -277,6 +277,14 @@ class PlanCatalog {
   /// NON consuma una domanda: se la consumasse, la persona esiterebbe prima di
   /// toccarlo, e l'esitazione uccide l'intimita'.
   static const String rigaApprofondimenti = 'Vai più a fondo';
+  /// Quanti confronti nel Consiglio del Cerchio al giorno.
+  ///
+  /// **E' una riga a se', accanto alle domande e agli approfondimenti.** Il
+  /// confronto non consuma domande in piu' di quella gia' pagata nella chat,
+  /// ed e' misurato: le altre due letture arrivano senza contare. Senza un
+  /// tetto suo, pero', il gesto sarebbe gratuito e ripetibile all'infinito, e
+  /// ogni tocco sono due chiamate al modello.
+  static const String rigaConfronti = 'Confronti nel Cerchio';
   static const String rigaSinastria = 'Sinastria VIP';
   static const String rigaCartaSingola = 'Tarocchi carta singola';
 
@@ -292,6 +300,10 @@ class PlanCatalog {
         ['Base', 'Dettagliato', 'Dettagliato', 'Dettagliato']),
     FeatureRow('Oroscopo mensile', ['No', 'No', 'Sì', 'Sì']),
     FeatureRow('Memoria AI dei Maestri', ['No', 'Esclusiva', 'Sì', 'Sì']),
+    // I CONFRONTI DEL GIORNO, decisi dal fondatore il 4 agosto 2026: il
+    // Viandante non ce l'ha, l'Iniziato tre, l'Adepto cinque, l'Illuminato
+    // senza limite col tetto di correttezza.
+    FeatureRow('Confronti nel Cerchio', ['No', '3', '5', 'Illimitato']),
     // TRE per il Viandante, che e' il numero deciso e approvato dal fondatore.
     // Diceva UNO, e l'app non mentiva: leggeva questo dato e lo ripeteva
     // fedelmente. A mentire era il dato. Era finito qui il 31 luglio, quando

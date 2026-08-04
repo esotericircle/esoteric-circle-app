@@ -156,7 +156,9 @@ void main() {
     test('La mappa comparativa ha le righe attese con quattro valori', () {
       // Ventiquattro dal 2 agosto 2026: e' entrata la riga "Vai più a fondo",
       // che e' un budget a se' e non una variante delle domande.
-      expect(PlanCatalog.matrix.length, 24);
+      // VENTICINQUE dal 4 agosto 2026: si e' aggiunta la riga dei confronti
+      // nel Cerchio, che e' il tetto separato del Consiglio.
+      expect(PlanCatalog.matrix.length, 25);
       for (final row in PlanCatalog.matrix) {
         expect(row.values.length, 4, reason: 'riga ${row.label}');
       }

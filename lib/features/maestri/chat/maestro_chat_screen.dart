@@ -262,7 +262,25 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     MaestroChatController controller,
   ) async {
     final piano = context.read<EntitlementService>().tier;
-    if (!context.read<QuestionAllowance>().canCompare(piano)) {
+    final contatore = context.read<QuestionAllowance>();
+    // IL TETTO DEL GIORNO, dal 4 agosto 2026.
+    //
+    // Il confronto non consuma domande in piu' di quella gia' pagata nella
+    // chat, ed e' misurato: aprendo il Consiglio dalla conversazione la lente
+    // di partenza arriva gia' pronta e le altre due non contano, quindi il
+    // numero e' ZERO e non tre. Senza un tetto suo, pero', il gesto sarebbe
+    // gratuito e ripetibile all'infinito, mentre ogni tocco sono due chiamate
+    // al modello.
+    if (contatore.canCompare(piano) && !contatore.puoiConfrontare(piano)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Per oggi il Cerchio si è espresso abbastanza. '
+              'Domani si riapre.'),
+        ),
+      );
+      return;
+    }
+    if (!contatore.canCompare(piano)) {
       await showUpgradeInvite(
         context,
         title: 'Gli altri sguardi sono del Cerchio',
@@ -278,6 +296,9 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     // bolle rosse di Caligo e verdi di Aura. Nella chat di un Maestro parla
     // soltanto quel Maestro, sempre. Adesso si apre il Consiglio, che e'
     // il posto dove i tre si esprimono.
+    // IL CONFRONTO SI CONTA QUI, dove il gesto avviene: uno per tocco, non
+    // uno per lettura che arriva.
+    contatore.registraConfronto(piano);
     _apriIlConsiglio(context, controller);
   }
 
@@ -674,6 +695,14 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               posizione == ultimo && controller.puoiChiedereAgliAltri
                   ? () => _chiediAgliAltri(context, controller)
                   : null,
+          // IL RESIDUO SI VEDE PRIMA DEL TOCCO: chi tocca deve sapere cosa
+          // spende prima di spenderlo. La formula la compone chi sa contare,
+          // cioe' il contatore del giorno, e qui si passa e basta.
+          residuoDeiConfronti: posizione == ultimo &&
+                  controller.puoiChiedereAgliAltri
+              ? context.watch<QuestionAllowance>().residuoDeiConfronti(
+                  context.watch<EntitlementService>().tier)
+              : null,
           // LE RISPOSTE SI RACCOLGONO QUANDO NE ARRIVA UNA NUOVA.
           //
           // Non appena l'hai letta, che nessuno sa quando succede: quando ne
