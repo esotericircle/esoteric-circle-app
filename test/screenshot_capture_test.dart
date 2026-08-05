@@ -49,6 +49,7 @@ import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart'
 import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
 import 'package:esoteric_circle/core/maestro/consiglio_finale.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/features/maestri/widgets/maestro_bust.dart';
 import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
 import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -3664,6 +3665,187 @@ void main() {
     await tester.pumpAndSettle();
     await capture(tester, rootKey, 'le-tue-arti.png');
   });
+
+  // --- I RITRATTI TONDI DEI TRE MAESTRI, E IL LORO CONFRONTO --------------
+  //
+  // Due cose che nessun'altra cattura fa vedere. Il TONDO: nell'app l'anello
+  // va da 26 a 48 punti, una misura in cui un volto inquadrato male si vede
+  // appena. L'inquadratura scala linearmente col diametro, quindi un anello
+  // grande mostra esattamente lo stesso taglio, solo leggibile; accanto
+  // restano le misure vere, cosi' non si giudica una cosa diversa da quella
+  // che l'app disegna. Il CONFRONTO: i tre affiancati sulla stessa linea di
+  // terra, che e' l'unico modo di vedere se una figura e' piu' bassa delle
+  // altre invece di sembrarlo.
+  for (final maestro in Maestro.fixedOrder) {
+    testWidgets('Cattura il tondo di ${maestro.displayName}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      SharedPreferences.setMockInitialValues({});
+      montaLoSchermo(tester, schermoReale);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: MaestroScope(child: child!),
+            ),
+            home: Scaffold(
+              backgroundColor: const Color(0xFF0B0B14),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(maestro.displayName,
+                        style: const TextStyle(
+                            fontFamily: 'Cinzel',
+                            color: Color(0xFFE8D9A8),
+                            fontSize: 22,
+                            height: 2.2)),
+                    // Il taglio della bolla: il volto contenuto nel tondo.
+                    MaestroBust(maestro: maestro, ring: 230, popOut: false),
+                    const SizedBox(height: 40),
+                    const Text('il taglio dell\'header, la testa sporge',
+                        style: TextStyle(
+                            fontFamily: 'EBGaramond',
+                            color: Color(0x99E8D9A8),
+                            fontSize: 13)),
+                    const SizedBox(height: 14),
+                    MaestroBust(maestro: maestro, ring: 150),
+                    const SizedBox(height: 46),
+                    const Text('le misure vere dell\'app: 26, 34, 40, 48',
+                        style: TextStyle(
+                            fontFamily: 'EBGaramond',
+                            color: Color(0x99E8D9A8),
+                            fontSize: 13)),
+                    const SizedBox(height: 14),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        MaestroBust(maestro: maestro, ring: 26, popOut: false),
+                        const SizedBox(width: 22),
+                        MaestroBust(maestro: maestro, ring: 34, popOut: false),
+                        const SizedBox(width: 22),
+                        MaestroBust(maestro: maestro, ring: 40),
+                        const SizedBox(width: 22),
+                        MaestroBust(maestro: maestro, ring: 48),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await step(tester);
+      await precacheFaces(tester);
+      await capture(tester, rootKey, 'avatar-tondo-${maestro.id}.png');
+    });
+  }
+
+  testWidgets('Cattura i tre Maestri alla stessa scala', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues({});
+    montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0B0B14),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                      'stessa altezza di figura, piedi sulla stessa linea',
+                      style: TextStyle(
+                          fontFamily: 'EBGaramond',
+                          color: Color(0xFFE8D9A8),
+                          fontSize: 14)),
+                  const SizedBox(height: 18),
+                  // 165 e non di piu': tre figure affiancate devono stare nei
+                  // 360 punti logici del telefono, altrimenti la riga sfora e
+                  // la cattura si rompe.
+                  SizedBox(
+                    height: 165,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (final m in Maestro.fixedOrder)
+                          Image.asset(m.avatarAsset,
+                              height: 165,
+                              fit: BoxFit.contain,
+                              alignment: Alignment.bottomCenter),
+                      ],
+                    ),
+                  ),
+                  // La riga di terra: si giudica a occhio, non a impressione.
+                  Container(
+                      height: 2, width: 350, color: const Color(0xFFE8D9A8)),
+                  const SizedBox(height: 40),
+                  for (final m in Maestro.fixedOrder) ...[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          width: 96,
+                          child: Text(m.displayName,
+                              textAlign: TextAlign.right,
+                              style: const TextStyle(
+                                  fontFamily: 'EBGaramond',
+                                  color: Color(0xFFE8D9A8),
+                                  fontSize: 13)),
+                        ),
+                        const SizedBox(width: 12),
+                        Image.asset(m.avatarAsset,
+                            height: 150,
+                            fit: BoxFit.contain,
+                            alignment: Alignment.bottomCenter),
+                      ],
+                    ),
+                    Container(
+                        height: 1, width: 330, color: const Color(0x66E8D9A8)),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'avatar-confronto-tre.png');
+  });
+
 }
 
 /// Maestro offline: risponde con un testo fisso, senza rete.

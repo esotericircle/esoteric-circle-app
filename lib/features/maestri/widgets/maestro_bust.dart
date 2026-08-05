@@ -107,15 +107,57 @@ class MaestroBust extends StatefulWidget {
   /// Maestro; i test possono iniettare un provider che fallisce o che dipinge.
   final ImageProvider? image;
 
-  /// Il punto del volto misurato per ciascun Maestro. Valori affinabili a
-  /// occhio, ma partono giusti sugli asset reali.
+  /// Dove sta il volto dentro l'asset, in frazioni della sua tela: la cima
+  /// della testa, la linea del colletto e il centro orizzontale del viso.
+  ///
+  /// **Sono tre numeri in codice che descrivono un fatto dell'immagine, quindi
+  /// scadono quando l'immagine cambia.** E' successo il 5 agosto 2026: gli
+  /// avatar sono stati rigenerati su una tela nuova, con le tre figure portate
+  /// alla stessa altezza e i piedi sulla stessa linea, e queste frazioni sono
+  /// diventate false da un momento all'altro senza che niente diventasse
+  /// rosso. Ora le sorveglia `test/facce_dentro_la_figura_test.dart`: chi
+  /// rigenera un avatar con un'inquadratura diversa da quella dichiarata qui
+  /// sotto trova una prova rossa invece di un volto storto.
+  ///
+  /// **Quello che la prova NON promette**, misurato e non supposto: chiedere
+  /// soltanto che la fascia cada dentro la figura non basta. Rimettendo queste
+  /// frazioni ai valori di prima sugli asset di oggi, quel controllo passa
+  /// verde, perche' anche le frazioni sbagliate cadono dentro la figura. E'
+  /// per questo che accanto c'e' l'inquadratura di riferimento, ed e' quella
+  /// il vero legame fra questi numeri e le immagini.
+  ///
+  /// Misurati sugli asset del 5 agosto 2026, leggendo le immagini con una
+  /// griglia di frazioni sovrapposta. Le tre terne sono vicine fra loro perche'
+  /// le figure hanno la stessa altezza e la stessa linea di terra: le teste
+  /// finiscono quasi alla stessa quota. Le differenze che restano sono di
+  /// disegno, non di inquadratura: Aura porta una corona il cui puntale sale
+  /// piu' in alto della chioma degli altri due, e la sua cima utile parte piu'
+  /// in basso.
   static const Map<Maestro, MaestroFacePoint> facePoints = {
     Maestro.medora:
-        MaestroFacePoint(centerX: 0.52, headTopY: 0.05, collarY: 0.23),
+        MaestroFacePoint(centerX: 0.50, headTopY: 0.02, collarY: 0.20),
     Maestro.aura: MaestroFacePoint(centerX: 0.49, headTopY: 0.03, collarY: 0.22),
     Maestro.caligo:
-        MaestroFacePoint(centerX: 0.48, headTopY: 0.04, collarY: 0.23),
+        MaestroFacePoint(centerX: 0.49, headTopY: 0.02, collarY: 0.21),
   };
+
+  /// L'INQUADRATURA A CUI I `facePoints` APPARTENGONO.
+  ///
+  /// Le frazioni qui sopra hanno senso solo dentro una precisa inquadratura
+  /// degli asset: questa tela, e la figura che va da questa riga a quest'altra.
+  /// Cambiala e quelle frazioni indicano un altro punto dell'immagine, senza
+  /// che niente lo dica.
+  ///
+  /// Dichiararla qui e' quello che rende il legame verificabile: una prova
+  /// confronta questi quattro numeri con gli asset veri, e se qualcuno
+  /// rigenera un avatar con un'inquadratura diversa la prova cade prima che il
+  /// volto storto arrivi a video. E' il motivo per cui non basta chiedere che
+  /// la fascia stia "dentro la figura": le frazioni vecchie del 5 agosto 2026
+  /// cadevano ancora dentro la figura nuova, e sarebbero passate.
+  static const int faceRefTela = 1142;
+  static const int faceRefTelaAltezza = 1700;
+  static const int faceRefFiguraCima = 21;
+  static const int faceRefFiguraPiedi = 1679;
 
   /// Quanta parte del diametro riempie la fascia del volto, dal capo al collo.
   static const double kBandOfDiameter = 0.8;
