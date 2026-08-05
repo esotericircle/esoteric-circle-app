@@ -9,6 +9,7 @@ import '../../core/maestro/frasi_dell_attesa.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/natal_context.dart';
 import '../../core/maestro/simbolo_dellattesa.dart';
+import 'loto_dorato.dart';
 import '../../core/maestro/tempi_dell_attesa.dart';
 import '../../core/quality/quality_tier.dart';
 import '../theme/maestro_scope.dart';
@@ -118,7 +119,7 @@ class ConsultoDelCieloView extends StatefulWidget {
     // 1,7 pixel appena Aura, senza archetipo, aggiungeva la riga che invita al
     // Test: la riserva misurava una riga e a schermo ne comparivano due.
     if (invito != null) {
-      somma += SpacingTokens.sm + alta(invito, TypographyTokens.body(size: 14));
+      somma += SpacingTokens.sm + alta(invito, TypographyTokens.body(size: 16));
     }
     return somma + stacchiERientri;
   }
@@ -143,6 +144,9 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
 
   Timer? _passo;
   int _corrente = 0;
+
+  /// Quanto dura una battuta per QUESTA scena. Vedi didChangeDependencies.
+  Duration _durataDellaBattuta = TempiDellAttesa.durataBattuta;
   List<String> _frasi = const [];
   bool _avviata = false;
 
@@ -160,6 +164,19 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
     // La rotazione sposta il punto di partenza, non l'ordine.
     if (_frasi.isNotEmpty) _corrente = widget.rotazione % _frasi.length;
 
+    // LA BATTUTA SI ALLARGA QUANDO SOTTO C'E' UN INVITO DA LEGGERE, cioe' oggi
+    // solo per Aura prima del Test. Si chiede al modello invece di dedurlo dal
+    // Maestro: se domani un altro Maestro avesse un invito, la scena si
+    // adeguerebbe da sola.
+    final simbolo = SimboloDellAttesa.per(
+      widget.maestro ?? Maestro.medora,
+      natal: widget.natal,
+      archetipo: widget.archetipo,
+    );
+    _durataDellaBattuta = simbolo.invito == null
+        ? widget.durataFrase
+        : TempiDellAttesa.durataBattutaConInvito;
+
     if (_fermo) return;
     // IL TRATTO SCENDE DA ZERO A UNO nei tre secondi gia' approvati.
     //
@@ -174,7 +191,7 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
     _composizione = CurvedAnimation(parent: motore, curve: Curves.easeInOut);
     _motore = motore;
     motore.forward();
-    _passo = Timer.periodic(widget.durataFrase, (_) {
+    _passo = Timer.periodic(_durataDellaBattuta, (_) {
       if (!mounted || _frasi.isEmpty) return;
       // SI RICOMINCIA DALLA PRIMA, e l'emblema non si scolora: il controllore
       // della colorazione non viene toccato qui.
@@ -231,10 +248,24 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
           key: const Key('consulto_del_cielo'),
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (ciSta && simbolo.asset != null) ...[
+            // La figura entra dallo STESSO ritaglio che scende, sia che venga
+            // da un file sia che sia disegnata: il loto si compone come gli
+            // altri simboli, e non c'e' un secondo modo di farla comparire.
+            if (ciSta && (simbolo.asset != null || simbolo.loto)) ...[
               _SimboloCheSiCompone(
                 key: const Key('consulto_corpo'),
-                asset: simbolo.asset!,
+                figura: simbolo.loto
+                    ? LotoDorato(lato: lato, colore: palette.gold)
+                    : Image.asset(
+                        simbolo.asset!,
+                        width: lato,
+                        height: lato,
+                        fit: BoxFit.contain,
+                        // Se un simbolo manca dal bundle la scena non si rompe
+                        // e non mente: resta lo spazio vuoto e la frase sotto
+                        // continua a dire il vero.
+                        errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                      ),
                 lato: lato,
                 composizione: _composizione,
               ),
@@ -262,7 +293,10 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
                 simbolo.invito!,
                 key: const Key('consulto_invito'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 14).copyWith(
+                // CORPO 16, non 14: e' l'unica riga che dice cosa manca e
+                // come farlo nascere, e a 14 in oro all'85 per cento si
+                // leggeva come una nota a pie' di pagina.
+                style: TypographyTokens.body(size: 16).copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.85),
                 ),
               ),
@@ -288,26 +322,24 @@ class _ConsultoDelCieloViewState extends State<ConsultoDelCieloView>
 class _SimboloCheSiCompone extends StatelessWidget {
   const _SimboloCheSiCompone({
     super.key,
-    required this.asset,
+    required this.figura,
     required this.lato,
     required this.composizione,
   });
 
-  final String asset;
+  /// LA FIGURA, che puo' essere un'immagine oppure un disegno.
+  ///
+  /// Prima era un percorso e qui dentro si costruiva l'`Image.asset`. Non
+  /// bastava piu': il loto di Aura non e' un file, e un ritaglio che sa
+  /// scoprire solo immagini avrebbe costretto a un secondo ritaglio per il
+  /// disegno, cioe' a due modi diversi di far comparire la stessa cosa.
+  final Widget figura;
   final double lato;
   final Animation<double>? composizione;
 
   @override
   Widget build(BuildContext context) {
-    final immagine = Image.asset(
-      asset,
-      width: lato,
-      height: lato,
-      fit: BoxFit.contain,
-      // Se un simbolo manca dal bundle, la scena non si rompe e non mente:
-      // resta lo spazio vuoto, e la frase sotto continua a dire il vero.
-      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-    );
+    final immagine = figura;
     final vivo = composizione;
     if (vivo == null) {
       return SizedBox(width: lato, height: lato, child: immagine);

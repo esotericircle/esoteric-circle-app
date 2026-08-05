@@ -57,6 +57,7 @@ import 'package:esoteric_circle/core/maestro/consult_depth.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
+import 'package:esoteric_circle/design_system/components/loto_dorato.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/dream_rite_corpus.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
@@ -391,8 +392,62 @@ void main() {
     await step(tester);
   }
 
+  /// PRECARICA DA SOLO OGNI IMMAGINE CHE LA SCENA MONTA.
+  ///
+  /// **La porta che si riapriva.** In cattura headless nessuno decodifica gli
+  /// asset: chi non li precarica ottiene un'anteprima coi buchi. La regola
+  /// c'era, ma andava ricordata a mano in ogni cattura, e una regola che si
+  /// ricorda a mano cade sempre. Era gia' successo col glifo del segno, con
+  /// tanto di commento che spiegava il difetto, e nonostante quel commento e'
+  /// successo di nuovo il 6 agosto 2026 nella cattura della chat di Aura.
+  ///
+  /// **Adesso non si ricorda: si fa.** Prima di ogni scatto si percorre
+  /// l'albero, si raccolgono le immagini che ci sono davvero, e si precaricano
+  /// tutte. Nessuna cattura nuova puo' nascere senza, perche' non c'e' niente
+  /// da scrivere: sta dentro `capture`.
+  ///
+  /// Enumerare invece di elencare a mano e' la stessa scelta fatta ovunque in
+  /// questo progetto: l'elenco scritto invecchia, l'albero no.
+  Future<void> precaricaCioCheLaScenaMonta(WidgetTester tester) async {
+    final immagini = tester
+        .widgetList<Image>(find.byType(Image, skipOffstage: false))
+        .map((i) => i.image)
+        .toList(growable: false);
+    if (immagini.isEmpty) return;
+    final element = tester.element(find.byType(MaterialApp).first);
+    await tester.runAsync(() async {
+      for (final provider in immagini) {
+        // **L'ERRORE SI PASSA A `onError`, non si prova a prenderlo.**
+        // `precacheImage` NON lancia: riporta il guasto a `FlutterError.onError`,
+        // e in una prova quello fa cadere il test. Un `try` attorno non serve a
+        // niente, e infatti al primo giro cinquantotto catture sono cadute con
+        // "image failed to precache".
+        //
+        // Un asset che manca non deve fermare la cattura: si lascia proseguire
+        // e sara' l'anteprima a mostrare cosa non c'e', che e' esattamente cio'
+        // che il corredo serve a guardare.
+        await precacheImage(provider, element, onError: (errore, _) {
+          debugPrint('precache non riuscito per $provider: $errore');
+        });
+      }
+    });
+    // **UN FOTOGRAMMA CHE NON MUOVE L'OROLOGIO.** Qui c'era `step`, che avanza
+    // di quattrocento millisecondi: bastava a far proseguire le animazioni
+    // delle catture che hanno tempi voluti, e la Runa del Tramonto usciva con
+    // la velatura a meta', cioe' con i margini di cielo semitrasparenti,
+    // alfa 194 invece di 255. A occhio l'immagine sembrava giusta; il
+    // guardiano delle anteprime l'ha presa perche' legge RGBA premoltiplicato,
+    // dove i salti del gradiente si schiacciano sotto la soglia.
+    //
+    // `pump()` senza durata ridisegna e basta: le immagini appena decodificate
+    // compaiono, e nessuna animazione avanza di un millisecondo.
+    await tester.pump();
+  }
+
   Future<void> capture(
       WidgetTester tester, GlobalKey rootKey, String name) async {
+    // PRIMA DI OGNI SCATTO, sempre, senza che nessuno se lo ricordi.
+    await precaricaCioCheLaScenaMonta(tester);
     await tester.runAsync(() async {
       final boundary =
           rootKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
@@ -699,6 +754,10 @@ void main() {
     final rootKey = GlobalKey();
     final profilo = ArchetypeScoring.calcola(List.filled(12, 3));
     await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF03140F),
         body: Center(
@@ -868,6 +927,10 @@ void main() {
     final contorni = FaceSilhouette.contorni();
     final rootKey = GlobalKey();
     await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF03140F),
         body: Center(
@@ -1000,6 +1063,144 @@ void main() {
     montaLoSchermo(tester, const Size(360, 1150));
     await step(tester);
     await capture(tester, rootKey, 'rito-alba-base.png');
+  });
+
+  /// LA SCHEDA PIENA COL COLORE DEL MAESTRO DEL GIORNO, in due giorni diversi.
+  ///
+  /// Servono due catture e non una: il punto della voce e' che il colore
+  /// CAMBIA col Maestro, e una sola immagine non lo puo' mostrare. Le due date
+  /// non sono scelte a occhio, sono cercate finche' i due Maestri non risultano
+  /// diversi, cosi' la cattura non dipende da come ruota il calendario.
+  for (final quale in [0, 1]) {
+    testWidgets('Cattura il dono col colore del Maestro, giorno $quale',
+        (tester) async {
+      silenceSensors();
+      SharedPreferences.setMockInitialValues({
+        'onboarding.done': true,
+        'santuario.greeted': true,
+        'ritual.dawn.lastDay': '2026-07-12',
+        'ritual.dawn.streak': 6,
+      });
+
+      // Due giorni consecutivi con Maestri diversi, trovati e non supposti.
+      final partenza = DateTime(2026, 7, 13);
+      var secondo = partenza.add(const Duration(days: 1));
+      while (DailyRituals.dawnMaestro(secondo) ==
+          DailyRituals.dawnMaestro(partenza)) {
+        secondo = secondo.add(const Duration(days: 1));
+      }
+      final giorno = quale == 0 ? partenza : secondo;
+      final maestro = DailyRituals.dawnMaestro(giorno);
+      expect(DailyRituals.dawnMaestro(partenza),
+          isNot(DailyRituals.dawnMaestro(secondo)),
+          reason: 'le due anteprime mostrerebbero lo stesso Maestro, quindi '
+              'non direbbero che il colore cambia');
+
+      await loadFonts();
+      final rootKey = await mount(
+          tester, await buildServices(Maestro.medora, seeded: false));
+      final element = tester.element(find.byType(MaterialApp));
+      await tester.runAsync(() async {
+        for (final a in const [
+          'assets/ritual_backgrounds/dawn_sky_night.png',
+          'assets/ritual_backgrounds/dawn_sky_day.png',
+          'assets/ritual_backgrounds/dawn_sun.png',
+        ]) {
+          await precacheImage(AssetImage(a), element);
+        }
+      });
+      await step(tester);
+
+      final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+      unawaited(nav.push(DawnRiteScreen.route(now: giorno)));
+      await step(tester);
+      await step(tester);
+      await tester.runAsync(() async {
+        await Future<void>.delayed(const Duration(milliseconds: 60));
+      });
+      await step(tester);
+      await step(tester);
+
+      await tester.tap(find.byKey(const Key('ritual_gesture')));
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      await step(tester);
+      await capture(tester, rootKey, 'rito-alba-dono-${maestro.id}.png');
+    });
+  }
+
+  /// LA CHAT DI AURA COL LOTO E L'INVITO, dalla strada vera dell'app.
+  ///
+  /// **La prima stesura montava il widget in isolamento, ed era inutile.**
+  /// Usciva col nastro di debug in alto a destra e con un fondo verde pieno
+  /// invece del cosmo condiviso: due segni che quella non era la schermata, era
+  /// il componente. Non diceva niente su come il loto appare dentro la chat di
+  /// Aura, che era l'unica cosa da giudicare.
+  ///
+  /// Adesso si entra come entra un dito: Santuario, busto, Consulta Aura,
+  /// domanda. La voce non risponde mai, e la scena del consulto vive
+  /// esattamente li'.
+  testWidgets("Cattura la chat di Aura col loto e l'invito", (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final memory = InMemoryMaestroMemoryRepository();
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final services = AppServices(
+      ai: _VoceCheFaAspettare(),
+      memory: memory,
+      memoryPersistent: true,
+      diagnostics: 'Cattura offline.',
+    );
+    final rootKey = await mount(tester, services);
+    // I dati di nascita ci sono, l'ARCHETIPO NO: e' esattamente la persona che
+    // questa immagine deve mostrare, quella che non ha ancora fatto il Test.
+    tester
+        .element(find.byType(MaterialApp))
+        .read<BirthIdentityController>()
+        .setBirth(
+          BirthDetails(
+            date: DateTime(1990, 8, 10),
+            time: const TimeOfDay(hour: 12, minute: 0),
+            place: const astro.BirthPlace(
+                label: 'Roma',
+                latitude: 41.9,
+                longitude: 12.5,
+                timezone: 'Europe/Rome'),
+          ),
+          NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+        );
+    await step(tester);
+    await openChat(tester, Maestro.aura);
+    await precacheFaces(tester);
+
+    final campo = find.descendant(
+      of: find.byType(ChatComposer),
+      matching: find.byType(TextField),
+    );
+    await tester.enterText(campo, 'Da dove comincio, oggi?');
+    await step(tester);
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    // Il tratto del simbolo scende in tre secondi: si aspetta che il fiore sia
+    // intero, altrimenti l'anteprima mostra un loto a meta' e sembra un
+    // ritaglio sbagliato invece di un'animazione colta a meta'.
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+
+    // LA VERIFICA PRIMA DELLA CATTURA. Se il loto o l'invito non ci fossero,
+    // l'anteprima uscirebbe senza e nessuno se ne accorgerebbe guardandola.
+    expect(find.byKey(const Key('consulto_del_cielo')), findsOneWidget,
+        reason: "la scena del consulto non e' comparsa: l'immagine "
+            "mostrerebbe la chat e basta");
+    expect(find.byType(LotoDorato), findsOneWidget,
+        reason: "il loto non e' nella scena");
+    expect(find.byKey(const Key('consulto_invito')), findsOneWidget,
+        reason: "l'invito non e' nella scena");
+    // E nessun emblema di archetipo: sarebbe la bugia che la regola vieta.
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'chat-aura-loto-e-invito.png');
   });
 
   testWidgets('Cattura il Soffio del Destino, testa piena e col dono',
@@ -1291,6 +1492,10 @@ void main() {
     final maestro = DailyRituals.nightMaestro(quando);
     final rootKey = GlobalKey();
     await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF05060C),
         body: Center(
@@ -1561,6 +1766,10 @@ void main() {
     final animal = GuideAnimalDerivation.forSign(Zodiac.cancer);
     final rootKey = GlobalKey();
     await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF14060A),
         body: Center(
@@ -1786,6 +1995,10 @@ void main() {
     final presagio = RunePresagio.componi(esito);
     final rootKey = GlobalKey();
     await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF14060A),
         body: Center(

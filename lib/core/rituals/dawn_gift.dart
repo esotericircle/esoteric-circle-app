@@ -1,5 +1,8 @@
 import '../astro/night_sky.dart';
+import '../astro/natal_chart.dart';
 import '../astro/zodiac.dart';
+import '../horoscope/cielo_di_oggi.dart';
+import '../horoscope/corrente_del_cielo.dart';
 import '../identity/birth_identity.dart';
 import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
@@ -25,12 +28,19 @@ enum DawnGiftKind {
 /// Regola non negoziabile: un dono non puo' esistere senza la sua base. Per
 /// questo [DawnGift] la richiede come campo obbligatorio.
 ///
-/// L'unico dato reale e deterministico disponibile oggi nel repo e' il segno
-/// solare natale, calcolato dalla data di nascita. Non esiste ancora un motore
-/// a effemeridi con i transiti planetari reali: percio' quale transito sia
-/// attivo oggi, e cosa significhi nella tradizione, restano vuoti e marcati come
-/// provvisori. Non si inventano ne posizioni planetarie ne interpretazioni: il
-/// contenuto reale arrivera' da un file di contenuti verificati.
+/// **QUESTA INTESTAZIONE DICEVA IL FALSO, e il codice sotto le credeva.**
+/// C'era scritto che non esiste ancora un motore a effemeridi con i transiti
+/// planetari reali. Esiste dal 5 agosto 2026, e' lo stesso che compone
+/// l'Oroscopo, e da quel giorno il campo del transito lo riempie lui: vedi
+/// [DawnGift.transitoDiOggi].
+///
+/// Restano due cose vuote, e per due ragioni diverse. Il transito e' nullo
+/// quando la persona non ha dato ora e luogo di nascita, perche' senza carta
+/// non ci sono transiti da leggere. La fonte nella tradizione e' nulla sempre,
+/// perche' per i nove riti dell'Alba non esiste oggi una fonte verificata da
+/// citare. In tutti e due i casi LA RIGA SPARISCE, e non si riempie con una
+/// frase che dice di aspettare: mostrare l'impalcatura e' peggio che mostrare
+/// meno.
 class GiftSource {
   const GiftSource({
     required this.natalSunSign,
@@ -43,12 +53,22 @@ class GiftSource {
   /// il profilo non porta ancora un'identita' di nascita.
   final Zodiac? natalSunSign;
 
-  /// Quale transito e' attivo oggi sulla carta dell'utente. Null finche' non
-  /// arriva dal file di contenuti verificati: qui non si inventa nulla.
+  /// Quale transito e' attivo oggi sulla carta dell'utente, composto dal
+  /// motore vero. Nullo quando la carta non c'e', e allora la riga sparisce.
   final String? transit;
 
-  /// Cosa significa nella tradizione. Null finche' non arriva dai contenuti
-  /// verificati.
+  /// LA FONTE REALE DELLA PRATICA, oppure nulla.
+  ///
+  /// **Regola di trasparenza metodologica, e qui morde davvero.** Un rito di
+  /// questa app poggia su una tradizione documentata oppure dichiara di non
+  /// poggiare su niente: non esiste la terza via di una frase generica che
+  /// suoni antica. I nove riti dell'Alba sono composti dal progetto, gesto per
+  /// gesto, e per nessuno di loro esiste oggi una fonte verificata da citare.
+  ///
+  /// Quindi questo campo resta nullo, E LA RIGA SPARISCE. Il giorno in cui una
+  /// fonte arrivera', entrera' in `FormaDelRito.fonte` e da li' fin qui.
+  /// Riempirlo con "In attesa dei contenuti astrologici verificati" era
+  /// mostrare alla persona l'impalcatura dell'app.
   final String? tradition;
 
   /// Vero finche' la base non e' fondata su contenuti verificati.
@@ -116,14 +136,18 @@ class DawnGift {
   /// solo all'ora del sorgere. Si ottiene da `SkyLocation.resolveSeConcesso()`,
   /// quindi senza aprire nessuna richiesta di permesso.
   static DawnGift forChart(DateTime date,
-          {BirthIdentity? identity, PosizioneDiStamattina? posizione}) =>
+          {BirthIdentity? identity,
+          PosizioneDiStamattina? posizione,
+          NatalChart? carta}) =>
       forMaestro(date, DailyRituals.dawnMaestro(date),
-          identity: identity, posizione: posizione);
+          identity: identity, posizione: posizione, carta: carta);
 
   /// Come [forChart] ma per un Maestro dato, non quello a rotazione. Serve ai
   /// riti legati a un solo Maestro, come il Soffio del Destino di Aura.
   static DawnGift forMaestro(DateTime date, Maestro maestro,
-      {BirthIdentity? identity, PosizioneDiStamattina? posizione}) {
+      {BirthIdentity? identity,
+      PosizioneDiStamattina? posizione,
+      NatalChart? carta}) {
     final natalSun =
         identity == null ? null : NightSky.sunSign(identity.birthMoment);
 
@@ -143,7 +167,7 @@ class DawnGift {
       kind: _kindFor(maestro),
       source: GiftSource(
         natalSunSign: natalSun,
-        transit: null,
+        transit: transitoDiOggi(date, carta),
         tradition: null,
         provisional: true,
       ),
@@ -157,6 +181,31 @@ class DawnGift {
       // esiste, ed e' diverso ogni giorno.
       provisional: rito == null,
     );
+  }
+
+  /// IL TRANSITO ATTIVO OGGI, dal motore vero e da nessun'altra parte.
+  ///
+  /// **Cosa c'era prima.** Questo campo nasceva `null` cablato, e la scheda ci
+  /// metteva sopra la frase "In attesa dei contenuti astrologici verificati":
+  /// un'app che mostra alla persona la propria impalcatura. Il commento
+  /// diceva "qui non si inventa nulla", ed era una cautela giusta con una
+  /// conclusione sbagliata, perche' il motore per non inventare c'era gia'.
+  ///
+  /// **E' LA STESSA PORTA DELL'OROSCOPO.** `CieloDiOggi.perIlGiorno` piu'
+  /// `CorrenteDelCielo.frase`: le stesse due funzioni che compongono la
+  /// corrente del giorno nelle quattro schede. Non se ne scrive una seconda,
+  /// altrimenti il Rito e l'Oroscopo potrebbero dire due cose diverse dello
+  /// stesso cielo nella stessa mattina.
+  ///
+  /// **Nullo quando la carta non c'e', e allora la riga sparisce.** Senza ora
+  /// e luogo di nascita non ci sono transiti sulla carta, e una riga che dice
+  /// di aspettare qualcosa e' peggio di nessuna riga.
+  static String? transitoDiOggi(DateTime date, NatalChart? carta) {
+    final cielo = CieloDiOggi.perIlGiorno(adesso: date, carta: carta);
+    if (!cielo.ceCieloVero) return null;
+    // IL PIU' STRETTO, che e' quello che oggi pesa di piu': la lista arriva
+    // gia' ordinata per orbo crescente, e qui ne serve UNO, non tre.
+    return CorrenteDelCielo.frase(cielo.voci.first);
   }
 
   /// Testo dell'orientamento quando il contenuto verificato non c'e' ancora.

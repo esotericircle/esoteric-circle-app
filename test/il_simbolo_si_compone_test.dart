@@ -8,6 +8,7 @@ import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/maestro/simbolo_dellattesa.dart';
 import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/components/loto_dorato.dart';
 import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/widgets/maestro_bust.dart';
@@ -23,10 +24,12 @@ import 'package:provider/provider.dart';
 /// nell'intestazione della chat e accanto a ogni sua bolla: al centro dello
 /// schermo non aggiungeva niente.
 ///
-/// **Il fiore di loto non esiste.** Cercato in tutte le cartelle degli asset il
-/// 4 agosto 2026: non c'e'. La prova qui sotto lo dichiara invece di
-/// nasconderlo, e sorveglia che al posto suo non compaia il simbolo di un
-/// altro Maestro.
+/// **Il fiore di loto non esiste COME ASSET, e dal 6 agosto 2026 e' disegnato
+/// in codice.** Cercato di nuovo in tutte le cartelle: nessun file. Aura senza
+/// Test mostra quindi un loto vettoriale piu' l'invito, e le prove qui sotto
+/// sorvegliano due cose distinte: che l'asset continui a non esserci, e che al
+/// posto del loto non compaia mai il simbolo di un altro Maestro ne' uno dei
+/// dodici emblemi.
 void main() {
   const natalCancro = NatalContext(sunSign: 'Cancro', moonSign: 'Pesci');
 
@@ -250,9 +253,19 @@ void main() {
       expect(find.byKey(const Key('consulto_invito')), findsOneWidget,
           reason: 'senza archetipo la scena tace: chi non ha fatto il Test '
               'non sa nemmeno che esiste');
-      expect(find.byKey(const Key('consulto_corpo')), findsNothing,
-          reason: 'ad Aura senza archetipo e\' comparso un simbolo: non ne '
-              'esiste uno vero, e il loto non c\'e\'');
+      // **AGGIORNATA IL 6 AGOSTO 2026.** Prima qui si pretendeva che NON
+      // comparisse nessun simbolo, e la ragione scritta era che il loto non
+      // c'era. Adesso c'e', disegnato in codice: la scena mostra il fiore che
+      // aspetta di aprirsi piu' l'invito, e un vuoto con una riga sotto
+      // sembrava un guasto.
+      expect(find.byKey(const Key('consulto_corpo')), findsOneWidget,
+          reason: 'ad Aura senza archetipo deve comparire il loto');
+      expect(find.byType(LotoDorato), findsOneWidget);
+      // Cio' che resta vietato: uno dei dodici emblemi, che direbbe alla
+      // persona un archetipo che non ha.
+      expect(find.byType(Image), findsNothing,
+          reason: 'e\' comparso un emblema di archetipo a chi non ha fatto il '
+              'Test');
     });
 
     testWidgets('CON archetipo, l\'invito sparisce e il simbolo c\'e\'',

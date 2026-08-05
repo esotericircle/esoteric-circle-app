@@ -55,6 +55,19 @@ class TempiDellAttesa {
   /// compresa, e sembravano sei difetti di seguito.
   static const Duration durataBattuta = Duration(milliseconds: 2000);
 
+  /// QUANTO DURA UNA BATTUTA QUANDO SOTTO C'E' UN INVITO DA LEGGERE.
+  ///
+  /// **Tremila invece di duemila, e solo in quel caso.** Nella scena normale
+  /// sotto al simbolo c'e' una frase sola, che si legge in un'occhiata. Quando
+  /// Aura mostra il loto c'e' anche l'invito al Test, che e' una riga in piu' e
+  /// per giunta l'unica che chieda di FARE qualcosa: a duemila millisecondi la
+  /// frase cambiava mentre si finiva di leggere l'invito.
+  ///
+  /// Non e' un rallentamento della scena: e' lo stesso ritmo con una battuta
+  /// piu' larga dove c'e' piu' da leggere.
+  static const Duration durataBattutaConInvito =
+      Duration(milliseconds: 3000);
+
   /// QUANTO DURA LA SCENA COME MINIMO, anche se la risposta arriva prima.
   ///
   /// Senza questo la scena viveva quanto la rete, cioe' fra 1,21s e 1,83s, e
