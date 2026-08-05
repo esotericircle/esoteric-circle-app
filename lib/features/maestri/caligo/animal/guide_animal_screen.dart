@@ -88,7 +88,12 @@ enum _Fase { viaggio, messaggio }
 
 class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   late final DateTime Function() _clock = widget.clock ?? DateTime.now;
-  late final ArchetypeHistory _storico = ArchetypeHistory(clock: _clock);
+
+  /// LO STORICO E' QUELLO DI TUTTI, non uno suo. Qui c'era una seconda copia,
+  /// terza nel progetto: chi legge l'archetipo lo legge dal fornitore, che e'
+  /// l'unico posto dove quel dato vive. Vedi la nota piu' lunga in
+  /// `archetype_test_screen.dart`, dove la copia privata faceva danno vero.
+  ArchetypeHistory get _storico => context.read<ArchetypeHistory>();
 
   bool _pronto = false;
   bool _popupFatto = false;
@@ -131,11 +136,8 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    _storico.dispose();
-    super.dispose();
-  }
+  // NESSUN dispose dello storico: non e' di questa schermata, e chiuderlo
+  // uscendo dal viaggio spegnerebbe il dato anche per la chat e il Passaporto.
 
   String get _origine => _archetipo != null
       ? 'Dal tuo cielo, ${widget.userSign.italianName}, intrecciato col tuo archetipo'

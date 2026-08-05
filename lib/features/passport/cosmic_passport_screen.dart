@@ -702,7 +702,11 @@ class _TesseraArchetipo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final dominante = context.watch<ArchetypeHistory>().ultimo?.dominante;
+    // L'ESITO INTERO, non il solo dominante: serve anche QUANDO e' stato
+    // scoperto. Un passaporto senza data e' un foglio, e la data qui e' anche
+    // l'unica cosa che dice alla persona che l'archetipo si puo' rifare.
+    final ultimo = context.watch<ArchetypeHistory>().ultimo;
+    final dominante = ultimo?.dominante;
     if (dominante == null) {
       // Senza Test non e' "in arrivo", e' "non l'hai ancora fatto": la
       // differenza conta, perche' la prima frase e' falsa e la seconda porta
@@ -757,6 +761,21 @@ class _TesseraArchetipo extends StatelessWidget {
                   key: const Key('passport_archetipo_nome'),
                   style: TypographyTokens.body(size: 14)
                       .copyWith(color: palette.goldSoft),
+                ),
+                const SizedBox(height: 2),
+                // LA DATA DELL'ULTIMO TEST, in cifre.
+                //
+                // In cifre e non "3 agosto 2026" perche' nel progetto non
+                // esiste nessun posto che sappia scrivere i mesi in italiano, e
+                // aprirne uno qui per una riga vorrebbe dire un vocabolario in
+                // piu' da tenere allineato. La forma e' la stessa che la
+                // piccola timeline del Test usa gia', con l'anno in coda.
+                Text(
+                  'Scoperto il ${ultimo!.quando.day}/${ultimo.quando.month}/'
+                  '${ultimo.quando.year}',
+                  key: const Key('passport_archetipo_quando'),
+                  style: TypographyTokens.label(size: 11)
+                      .copyWith(color: ColorTokens.textSecondary),
                 ),
               ],
             ),

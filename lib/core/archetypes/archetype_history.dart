@@ -105,7 +105,23 @@ class ArchetypeHistory extends ChangeNotifier {
   /// I dominanti nel tempo, dal piu' vecchio al piu' recente: e' la timeline.
   List<ArchetypeEsito> get timeline => _esiti.reversed.toList(growable: false);
 
+  /// Quante volte questo storico e' stato SCRITTO. Serve a `carica` per
+  /// accorgersi che il mondo e' cambiato mentre leggeva il disco.
+  int _scritture = 0;
+
   Future<void> carica() async {
+    // LA LETTURA NON CALPESTA CHI HA SCRITTO NEL FRATTEMPO.
+    //
+    // L'app fa partire `carica()` all'avvio, e la lettura del disco impiega
+    // qualche istante. Chi in quegli istanti finiva il Test Archetipo vedeva
+    // il proprio esito entrare in memoria e poi SPARIRE, sostituito dalla
+    // lista vuota che la lettura stava riportando da un disco ancora vergine.
+    // Non capitava spesso, e proprio per questo era il difetto peggiore: si
+    // presentava una volta ogni tanto e sembrava un capriccio.
+    //
+    // Il conteggio delle scritture e' l'unica cosa che distingue "non c'era
+    // niente" da "e' arrivato qualcosa mentre leggevo".
+    final atteso = _scritture;
     try {
       final p = await SharedPreferences.getInstance();
       final grezzo = p.getStringList(_chiave) ?? const [];
@@ -117,6 +133,7 @@ class ArchetypeHistory extends ChangeNotifier {
           if (e != null) letti.add(e);
         }
       }
+      if (_scritture != atteso) return;
       letti.sort((a, b) => b.quando.compareTo(a.quando));
       _esiti = letti;
       notifyListeners();
@@ -133,6 +150,7 @@ class ArchetypeHistory extends ChangeNotifier {
       dominante: profilo.dominante,
       secondo: profilo.secondo,
     );
+    _scritture++;
     _esiti = [esito, ..._esiti].take(_massimo).toList(growable: false);
     notifyListeners();
     try {

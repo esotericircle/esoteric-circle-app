@@ -33,6 +33,8 @@ void main() {
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
+          // LO STORICO CONDIVISO, fornito da chi monta la schermata.
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()..carica()),
         ],
         child: MaterialApp(
           builder: (ctx, child) => MediaQuery(

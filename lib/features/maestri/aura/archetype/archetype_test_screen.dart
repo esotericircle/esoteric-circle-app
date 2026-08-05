@@ -71,7 +71,21 @@ enum _Fase { soglia, domande, risultato }
 
 class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
   late final DateTime Function() _clock = widget.clock ?? DateTime.now;
-  late final ArchetypeHistory _storico = ArchetypeHistory(clock: _clock);
+
+  /// LO STORICO E' QUELLO DI TUTTI, non uno suo.
+  ///
+  /// Qui c'era `ArchetypeHistory(clock: _clock)`, cioe' una SECONDA COPIA del
+  /// dato. Il Test scriveva nella sua, la chat e il Passaporto leggevano
+  /// quella del fornitore, e le due si incontravano solo su disco: fatto il
+  /// Test, Aura continuava a mostrare il loto finche' l'app non veniva
+  /// riaperta. Il difetto non era nel simbolo ne' nell'emblema, era che il
+  /// dato esisteva due volte.
+  ///
+  /// **E non ne resta una "per comodita' di prova".** Chi monta questa
+  /// schermata fornisce lo storico, in produzione come in prova: e' l'unico
+  /// modo perche' l'orologio finto delle prove governi lo stesso oggetto che
+  /// governa l'app.
+  ArchetypeHistory get _storico => context.read<ArchetypeHistory>();
 
   _Fase _fase = _Fase.soglia;
   int _indice = 0;
@@ -94,11 +108,8 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    _storico.dispose();
-    super.dispose();
-  }
+  // NESSUN dispose dello storico: non e' di questa schermata, e chiuderlo
+  // uscendo dal Test spegnerebbe il dato anche per la chat e il Passaporto.
 
   Tier get _tier => context.read<EntitlementService>().tier;
 
@@ -141,6 +152,10 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
+    // SI ASCOLTA lo storico condiviso: registrato un esito nuovo, la soglia e
+    // il conteggio di oggi si rifanno da soli. Prima la copia privata
+    // notificava solo questa schermata, e nessun altro sapeva niente.
+    context.watch<ArchetypeHistory>();
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
@@ -582,9 +597,33 @@ class _RisultatoState extends State<_Risultato>
   Widget build(BuildContext context) {
     final palette = widget.palette;
     final mod = _modulazione;
-    final mostrato = mod?.modulato ?? widget.profilo;
-    final dom = mostrato.dominante;
+
+    // LA FIGURA E' QUELLA DEL TEST, E IL CIELO NON LA RIELEGGE.
+    //
+    // Qui c'era `mod?.modulato ?? widget.profilo`, cioe' il dominante
+    // RICALCOLATO coi transiti del giorno: acceso l'interruttore, la statua, il
+    // nome e il ritratto potevano diventare quelli di un altro archetipo.
+    // Intanto lo storico registrava, e ha sempre registrato, il profilo BASE:
+    // la stessa persona poteva leggere "sei il Mago" sul responso e trovare
+    // l'Eroe nel Passaporto. Non era una svista di visualizzazione, era l'app
+    // che le diceva che oggi e' un'altra persona, e nessun documento di
+    // identita' funziona cosi'.
+    //
+    // L'archetipo e' identitario e fisso: cambia quando si rifa' il Test, mai
+    // col cielo del giorno. Anche il co-dominante resta quello del Test,
+    // perche' sta nella stessa frase che dice chi si e'.
+    // Il profilo COME IL TEST LO HA CALCOLATO. Il nome dice da dove
+    // viene, e non "identita", che dentro una stringa mostrata verrebbe letto
+    // come una parola italiana a cui manca l'accento.
+    final delTest = widget.profilo;
+    final dom = delTest.dominante;
     final ritratto = ArchetypeCorpus.di(dom);
+
+    // I TRANSITI RESTANO, DOVE GLI COMPETE: nelle percentuali, quindi nella
+    // ruota e nella classifica, che raccontano come le corde vibrano oggi.
+    // Quello e' il posto giusto, perche' li' si legge un movimento e non
+    // un'identita'.
+    final percentuali = mod?.modulato ?? widget.profilo;
 
     return Stack(
       children: [
@@ -631,7 +670,7 @@ class _RisultatoState extends State<_Risultato>
                   child: AnimatedBuilder(
                     animation: _disegno,
                     builder: (context, _) => ArchetypeWheel(
-                      profilo: mostrato,
+                      profilo: percentuali,
                       palette: palette,
                       avanzamento: _disegno.value,
                       lato: 340,
@@ -655,10 +694,10 @@ class _RisultatoState extends State<_Risultato>
                         color: ColorTokens.textSecondary,
                         fontStyle: FontStyle.italic)),
               ),
-              if (mostrato.secondo != null) ...[
+              if (delTest.secondo != null) ...[
                 const SizedBox(height: SpacingTokens.xs),
                 Center(
-                  child: Text('Accanto, in tono minore, ${mostrato.secondo!.conArticolo}.',
+                  child: Text('Accanto, in tono minore, ${delTest.secondo!.conArticolo}.',
                       key: const Key('archetype_second'),
                       textAlign: TextAlign.center,
                       style: TypographyTokens.body(size: 14)
@@ -784,7 +823,7 @@ class _RisultatoState extends State<_Risultato>
               ScrollReveal(
                 depth: 1,
                 child: _ClassificaPercentuali(
-                    profilo: mostrato, palette: palette),
+                    profilo: percentuali, palette: palette),
               ),
 
               const SizedBox(height: SpacingTokens.lg),
@@ -794,9 +833,27 @@ class _RisultatoState extends State<_Risultato>
                     foregroundColor: palette.goldSoft,
                     side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
                 onPressed:
-                    _condividendo ? null : () => _condividi(mostrato),
+                    _condividendo ? null : () => _condividi(delTest),
                 icon: const Icon(Icons.ios_share_rounded),
                 label: const Text('Condividi'),
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              // L'EMBLEMA E' GIA' NEL PASSAPORTO, e lo si dice qui dentro.
+              //
+              // Dentro la scena e non in un avviso di sistema: un riquadro che
+              // scavalca il responso per annunciare un salvataggio tratta la
+              // persona come un utente a cui e' andata bene un'operazione. Qui
+              // e' l'ultima riga di cio' che ha appena scoperto, e dice dove
+              // quella figura la ritrovera' senza rifare niente.
+              Center(
+                child: Text(
+                  'La tua figura è nel Passaporto, con la data di oggi.',
+                  key: const Key('archetype_passaporto_aggiornato'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.body(size: 13).copyWith(
+                      color: ColorTokens.textSecondary,
+                      fontStyle: FontStyle.italic),
+                ),
               ),
               const SizedBox(height: SpacingTokens.sm),
               // Il pulsante alla Consulta, nel VERDE di Aura.
@@ -827,7 +884,7 @@ class _RisultatoState extends State<_Risultato>
             top: 0,
             child: RepaintBoundary(
               key: _cardBoundary,
-              child: ArchetypeShareCard(profilo: mostrato),
+              child: ArchetypeShareCard(profilo: delTest),
             ),
           ),
       ],
@@ -1006,6 +1063,25 @@ class _Transiti extends StatelessWidget {
                   height: 1.4,
                   fontStyle: FontStyle.italic)),
           const SizedBox(height: SpacingTokens.sm),
+          // LA FIGURA CHE IL CIELO ACCENDE OGGI, in una riga e dentro il testo.
+          //
+          // E' cio' che resta di una scelta scartata. Prima il transito
+          // RIELEGGEVA il dominante e cambiava statua, nome e ritratto; poi si
+          // era pensato di mostrare due figure accanto, ciascuna con la sua
+          // statua. Anche quella e' stata scartata, perche' due protagonisti
+          // nel punto in cui la persona cerca una risposta secca sono la
+          // stessa ambiguita' che si voleva togliere. Resta una riga, che
+          // dichiara cosa sta succedendo oggi senza toccare chi si e'.
+          if (mod.modulato.dominante != mod.base.dominante) ...[
+            Text(
+              'Oggi il cielo accende in te ${mod.modulato.dominante.conArticolo}, '
+              'che non prende il posto della tua figura: la affianca per un giorno.',
+              key: const Key('archetype_figura_del_giorno'),
+              style: TypographyTokens.body(size: 14).copyWith(
+                  color: palette.goldSoft, height: 1.4),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+          ],
           for (final r in mod.motivazioni)
             Padding(
               key: Key('archetype_transit_${r.pianeta.name}'),

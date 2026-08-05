@@ -1203,6 +1203,96 @@ void main() {
     await capture(tester, rootKey, 'chat-aura-loto-e-invito.png');
   });
 
+  /// L'ALTRA META': la stessa scena, ma col Test Archetipo gia' fatto.
+  ///
+  /// Le due immagini vanno guardate una accanto all'altra, perche' il difetto
+  /// che hanno chiuso stava proprio nel passaggio fra loro: fatto il Test,
+  /// Aura continuava a mostrare il fiore che aspetta, e l'emblema arrivava
+  /// solo riaprendo l'app. La schermata del Test scriveva in una copia sua
+  /// dello storico, la chat leggeva quella condivisa, e le due si incontravano
+  /// soltanto su disco.
+  testWidgets("Cattura la chat di Aura con l'emblema dell'archetipo",
+      (tester) async {
+    silenceSensors();
+    // L'ARCHETIPO GIA' SCOPERTO, sul disco: e' cio' che l'app trova aprendo.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'archetipo.storico': [
+        jsonEncode(ArchetypeEsito(
+          quando: DateTime(2026, 8, 3, 18, 30),
+          percentuali:
+              ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
+          dominante: Archetype.realista,
+        ).toJson()),
+      ],
+    });
+    await loadFonts();
+    final memory = InMemoryMaestroMemoryRepository();
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final services = AppServices(
+      ai: _VoceCheFaAspettare(),
+      memory: memory,
+      memoryPersistent: true,
+      diagnostics: 'Cattura offline.',
+    );
+    final rootKey = await mount(tester, services);
+    tester
+        .element(find.byType(MaterialApp))
+        .read<BirthIdentityController>()
+        .setBirth(
+          BirthDetails(
+            date: DateTime(1990, 8, 10),
+            time: const TimeOfDay(hour: 12, minute: 0),
+            place: const astro.BirthPlace(
+                label: 'Roma',
+                latitude: 41.9,
+                longitude: 12.5,
+                timezone: 'Europe/Rome'),
+          ),
+          NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+        );
+    await step(tester);
+    await openChat(tester, Maestro.aura);
+    await precacheFaces(tester);
+
+    final campo = find.descendant(
+      of: find.byType(ChatComposer),
+      matching: find.byType(TextField),
+    );
+    await tester.enterText(campo, 'Da dove comincio, oggi?');
+    await step(tester);
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+
+    // IL PRECARICO DELL'EMBLEMA prima dello scatto: senza, l'immagine non si
+    // decodifica in headless e la scena esce con un buco dove sta l'arte.
+    await tester.runAsync(() async {
+      await precacheImage(AssetImage(Archetype.realista.arteThumb),
+          tester.element(find.byType(MaterialApp)));
+    });
+    await step(tester);
+
+    // LE VERIFICHE PRIMA DELLA CATTURA.
+    expect(find.byKey(const Key('consulto_del_cielo')), findsOneWidget,
+        reason: "la scena del consulto non e' comparsa");
+    expect(find.byType(LotoDorato), findsNothing,
+        reason: "col Test fatto Aura guarda ancora il fiore che aspetta: e' "
+            "il difetto che questa immagine deve mostrare chiuso");
+    expect(find.byKey(const Key('consulto_invito')), findsNothing,
+        reason: "l'invito al Test resta a chi il Test l'ha gia' fatto");
+    expect(
+        find.byWidgetPredicate((w) =>
+            w is Image &&
+            w.image is AssetImage &&
+            (w.image as AssetImage).assetName == Archetype.realista.arteThumb),
+        findsWidgets,
+        reason: "l'emblema dell'archetipo non e' nella scena");
+    await capture(tester, rootKey, 'chat-aura-emblema.png');
+  });
+
   testWidgets('Cattura il Soffio del Destino, testa piena e col dono',
       (tester) async {
     silenceSensors();
@@ -1616,6 +1706,9 @@ void main() {
               create: (_) => QualityTierController()..setTier(QualityTier.medium)),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
+          // LO STORICO CONDIVISO, che le schermate non si costruiscono piu' da
+          // sole: chi le monta glielo fornisce, qui come nell'app.
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()..carica()),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -2607,6 +2700,53 @@ void main() {
     await tester.tap(find.text('Passport'));
     await step(tester);
     await capture(tester, rootKey, 'passport.png');
+  });
+
+  /// LA TESSERA VIVA DELL'ARCHETIPO, col Test gia' fatto.
+  ///
+  /// La cattura qui sopra mostra il Passaporto di chi il Test non l'ha fatto,
+  /// e la tessera dell'archetipo li' dentro dice cosa fare. Questa mostra
+  /// l'altra meta': l'emblema vero, il nome con l'articolo e la data.
+  testWidgets('Cattura la tessera dell archetipo nel Passaporto',
+      (tester) async {
+    silenceSensors();
+    // Il Test gia' fatto, sul disco: e' cio' che l'app trova all'apertura.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'archetipo.storico': [
+        jsonEncode(ArchetypeEsito(
+          quando: DateTime(2026, 8, 3, 18, 30),
+          percentuali:
+              ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
+          dominante: Archetype.realista,
+        ).toJson()),
+      ],
+    });
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await tester.tap(find.text('Passport'));
+    await step(tester);
+
+    // IL PRECARICO PRIMA DELLA CATTURA: senza, l'emblema non si decodifica in
+    // headless e la tessera esce con un buco al posto dell'arte.
+    await tester.runAsync(() async {
+      await precacheImage(AssetImage(Archetype.realista.arteThumb),
+          tester.element(find.byType(MaterialApp)));
+    });
+    await step(tester);
+
+    await tester.ensureVisible(find.byKey(const Key('passport_archetipo')));
+    await step(tester);
+    // LA VERIFICA PRIMA DELLO SCATTO. Un'anteprima esce lo stesso anche senza
+    // cio' che dovrebbe mostrare, e sembra una prova.
+    expect(find.byKey(const Key('passport_archetipo_nome')), findsOneWidget);
+    expect(
+        tester
+            .widget<Text>(find.byKey(const Key('passport_archetipo_quando')))
+            .data,
+        'Scoperto il 3/8/2026');
+    await capture(tester, rootKey, 'passport-archetipo.png');
   });
 
   // --- Il cielo di nascita, aperto dal portale del Cosmic Passport ---

@@ -24,6 +24,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 
 /// La schermata del Test Archetipo.
 ///
@@ -48,6 +49,10 @@ void main() {
           ChangeNotifierProvider(create: (_) => EntitlementService()..setTier(tier)),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
+          // LO STORICO CONDIVISO, che la schermata NON si costruisce piu' da
+          // sola: chi la monta glielo fornisce, qui come nell'app.
+          ChangeNotifierProvider(
+              create: (_) => ArchetypeHistory(clock: clock)..carica()),
         ],
         child: MaterialApp(
           home: MaestroScope(
