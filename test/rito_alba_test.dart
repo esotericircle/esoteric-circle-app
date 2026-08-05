@@ -242,7 +242,7 @@ void main() {
     });
 
     test('il pannello delle fonti separa l\'antico dal moderno', () {
-      final fonti = RitoAlbaCorpus.fontiEMetodo;
+      const fonti = RitoAlbaCorpus.fontiEMetodo;
       expect(fonti, contains('Antico'));
       expect(fonti, contains('Moderno, dichiarato come tale'));
       expect(fonti, contains('Patanjali'));
