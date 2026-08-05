@@ -59,7 +59,13 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
             border: Border.all(color: _dayGlassBorder),
           ),
           padding: const EdgeInsets.all(SpacingTokens.lg),
-          child: Column(
+          // **La scheda scorre**, e da oggi le serve. Finche' il dono era un
+          // segnaposto di tre righe ci stava sempre; adesso porta un gesto, un
+          // respiro contato e la via col dito, e su uno schermo basso il
+          // pulsante della base finiva fuori dalla scheda senza che nessuno
+          // potesse toccarlo. L'ha trovato una prova gia' esistente, non io.
+          child: SingleChildScrollView(
+            child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Livello uno: il tipo di dono e l'orientamento del giorno.
@@ -125,17 +131,24 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                     : const SizedBox(width: double.infinity),
               ),
               const SizedBox(height: SpacingTokens.md),
-              Row(
+              // **Wrap e non Row, e il motivo e' che la parola adesso esiste.**
+              // Finche' `word` era nulla il pulsante di condivisione non veniva
+              // mai costruito, e la riga conteneva la sola spilla: ci stava
+              // sempre. Dal momento in cui il rito porta una parola vera i due
+              // elementi convivono, e su schermo stretto la riga sforava di
+              // novantotto pixel. L'ha trovato la cattura delle anteprime.
+              Wrap(
+                spacing: SpacingTokens.md,
+                runSpacing: SpacingTokens.sm,
+                crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   // La condivisione della parola torna quando la parola e' reale.
                   if (word != null) _ShareWordButton(onShare: widget.onShare),
-                  if (widget.streak >= 1) ...[
-                    if (word != null) const SizedBox(width: SpacingTokens.md),
-                    _StreakChip(days: widget.streak),
-                  ],
+                  if (widget.streak >= 1) _StreakChip(days: widget.streak),
                 ],
               ),
             ],
+            ),
           ),
         ),
       ),

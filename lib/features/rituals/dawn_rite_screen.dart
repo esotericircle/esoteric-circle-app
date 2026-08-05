@@ -10,7 +10,9 @@ import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
+import '../../core/astro/sky_location.dart';
 import '../../core/rituals/dawn_gift.dart';
+import '../../core/rituals/rito_alba.dart';
 import '../../core/rituals/ritual_streak.dart';
 import 'ritual_gift_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -29,12 +31,33 @@ import '../../design_system/tokens/typography_tokens.dart';
 /// Ogni gesto ha il suo ripiego tattile universale (tocco o tocco prolungato) e
 /// tutte le animazioni rispettano Riduci Movimento.
 class DawnRiteScreen extends StatefulWidget {
-  const DawnRiteScreen({super.key, this.now});
+  const DawnRiteScreen({
+    super.key,
+    this.now,
+    this.location = const DisabledSkyLocation(),
+  });
 
   final DateTime? now;
 
-  static Route<void> route({DateTime? now}) => MaterialPageRoute<void>(
-        builder: (_) => MaestroScope(child: DawnRiteScreen(now: now)),
+  /// DOVE SEI STAMATTINA, per l'ora del sorgere.
+  ///
+  /// **Non e' il luogo di nascita**: un'alba e' dove sei adesso. Si legge con
+  /// `resolveSeConcesso`, cioe' solo se il permesso e' gia' stato dato: il rito
+  /// del mattino non apre una richiesta di posizione all'alba. Senza posizione
+  /// il rito resta intero e non nomina l'ora, invece di nominarne una falsa.
+  ///
+  /// Spenta di default, come nella veduta del cielo, cosi' le prove non toccano
+  /// il sensore.
+  final SkyLocation location;
+
+  static Route<void> route({DateTime? now, SkyLocation? location}) =>
+      MaterialPageRoute<void>(
+        builder: (_) => MaestroScope(
+          child: DawnRiteScreen(
+            now: now,
+            location: location ?? const GeolocatorSkyLocation(),
+          ),
+        ),
       );
 
   @override
@@ -194,9 +217,34 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     final date = widget.now ?? DateTime.now();
     setState(() {
       _revealed = true;
-      _gift = DawnGift.forChart(date, identity: _identity());
+      _gift = DawnGift.forChart(date,
+          identity: _identity(), posizione: _posizione(date));
     });
     _recordStreak(date);
+    _aggiornaPosizione(date);
+  }
+
+  /// La posizione con cui si e' composto il rito, con la sua origine.
+  PosizioneDiStamattina _posizione(DateTime date) =>
+      PosizioneDiStamattina.da(_dovesSei, date.timeZoneOffset);
+
+  /// Dove sei stamattina, se il permesso c'e' gia'. Null finche' non si sa.
+  SkyPlace? _dovesSei;
+
+  /// Chiede la posizione SOLO se il permesso e' gia' concesso, e ricompone il
+  /// rito se arriva.
+  ///
+  /// **Non apre nessuna richiesta di permesso.** Chi apre il rito all'alba non
+  /// deve trovarsi davanti una finestra di sistema: se la posizione c'e' gia',
+  /// il rito guadagna l'ora del sorgere; se non c'e', resta intero senza.
+  Future<void> _aggiornaPosizione(DateTime date) async {
+    final luogo = await widget.location.resolveSeConcesso();
+    if (!mounted || luogo == null) return;
+    setState(() {
+      _dovesSei = luogo;
+      _gift = DawnGift.forChart(date,
+          identity: _identity(), posizione: _posizione(date));
+    });
   }
 
   Future<void> _recordStreak(DateTime date) async {

@@ -57,12 +57,25 @@ void main() {
       // La base esiste sempre. Senza motore di transiti reali resta provvisoria
       // e non inventa nulla: transito e tradizione nulli, orientamento marcato.
       expect(gift.source, isNotNull);
-      expect(gift.provisional, isTrue);
+      // La BASE resta provvisoria: transito e tradizione arrivano dall'Oroscopo
+      // e non da quest'ordine, quindi restano nulli e dichiarati tali.
       expect(gift.source.provisional, isTrue);
       expect(gift.source.transit, isNull);
       expect(gift.source.tradition, isNull);
-      expect(gift.word, isNull);
-      expect(gift.orientation, DawnGift.provisionalOrientation);
+
+      // IL CONTENUTO invece non e' piu' un segnaposto, dal 5 agosto 2026: il
+      // rito esiste davvero, ha i suoi tre momenti e nomina il cielo di oggi.
+      expect(gift.provisional, isFalse,
+          reason: 'il dono e\' tornato provvisorio');
+      expect(gift.orientation, isNot(DawnGift.provisionalOrientation),
+          reason: 'il dono e\' tornato a dire "in arrivo"');
+      expect(gift.word, isNotNull, reason: 'manca la parola da portare');
+      expect(gift.rito, isNotNull);
+      expect(gift.rito!.gesto, isNotEmpty);
+      expect(gift.rito!.respiro, isNotEmpty);
+      expect(gift.rito!.viaTattile, isNotEmpty);
+      expect(gift.rito!.datiNominati, isNotEmpty,
+          reason: 'il rito non nomina nessun dato del cielo di stamattina');
     });
 
     test('La base si collega alla carta natale col segno solare reale', () {
@@ -130,6 +143,11 @@ void main() {
 
       // La base si apre e mostra l'ancora natale, dato reale.
       expect(find.byKey(const Key('gift_base_panel')), findsNothing);
+      // Da quando il dono porta il rito intero, gesto piu' respiro piu' via col
+      // dito, il pulsante puo' finire sotto il bordo della scheda: si porta in
+      // vista prima di toccarlo, come farebbe un dito.
+      await tester.ensureVisible(find.byKey(const Key('gift_base_toggle')));
+      await tester.pump();
       await tester.tap(find.byKey(const Key('gift_base_toggle')));
       await tester.pump(const Duration(milliseconds: 300));
       expect(find.byKey(const Key('gift_base_panel')), findsOneWidget);
