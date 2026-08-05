@@ -17,6 +17,18 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        // IL DESUGARING DELLE LIBRERIE DI BASE, e non e' una scelta.
+        //
+        // `flutter_local_notifications` lo PRETENDE, e senza di esso la build
+        // non parte affatto: si ferma a `checkReleaseAarMetadata` dicendo che
+        // la dipendenza richiede core library desugaring.
+        //
+        // **Nessuna prova poteva prenderlo.** L'ordine che ha aggiunto le
+        // notifiche vietava la build, quindi la suite era verde e l'analisi
+        // pulita mentre l'app non si costruiva. E' il difetto che si vede solo
+        // costruendo, ed e' la ragione per cui una build va fatta prima di
+        // consegnare e non dopo.
+        isCoreLibraryDesugaringEnabled = true
     }
 
     defaultConfig {
@@ -114,4 +126,10 @@ tasks.matching { it.name.contains("Release") }.configureEach {
             )
         }
     }
+}
+
+// La libreria che porta le API di Java 8 sulle versioni di Android che non le
+// hanno. La pretende `flutter_local_notifications` per programmare gli avvisi.
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }
