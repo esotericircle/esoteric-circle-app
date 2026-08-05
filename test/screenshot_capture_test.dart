@@ -392,8 +392,62 @@ void main() {
     await step(tester);
   }
 
+  /// PRECARICA DA SOLO OGNI IMMAGINE CHE LA SCENA MONTA.
+  ///
+  /// **La porta che si riapriva.** In cattura headless nessuno decodifica gli
+  /// asset: chi non li precarica ottiene un'anteprima coi buchi. La regola
+  /// c'era, ma andava ricordata a mano in ogni cattura, e una regola che si
+  /// ricorda a mano cade sempre. Era gia' successo col glifo del segno, con
+  /// tanto di commento che spiegava il difetto, e nonostante quel commento e'
+  /// successo di nuovo il 6 agosto 2026 nella cattura della chat di Aura.
+  ///
+  /// **Adesso non si ricorda: si fa.** Prima di ogni scatto si percorre
+  /// l'albero, si raccolgono le immagini che ci sono davvero, e si precaricano
+  /// tutte. Nessuna cattura nuova puo' nascere senza, perche' non c'e' niente
+  /// da scrivere: sta dentro `capture`.
+  ///
+  /// Enumerare invece di elencare a mano e' la stessa scelta fatta ovunque in
+  /// questo progetto: l'elenco scritto invecchia, l'albero no.
+  Future<void> precaricaCioCheLaScenaMonta(WidgetTester tester) async {
+    final immagini = tester
+        .widgetList<Image>(find.byType(Image, skipOffstage: false))
+        .map((i) => i.image)
+        .toList(growable: false);
+    if (immagini.isEmpty) return;
+    final element = tester.element(find.byType(MaterialApp).first);
+    await tester.runAsync(() async {
+      for (final provider in immagini) {
+        // **L'ERRORE SI PASSA A `onError`, non si prova a prenderlo.**
+        // `precacheImage` NON lancia: riporta il guasto a `FlutterError.onError`,
+        // e in una prova quello fa cadere il test. Un `try` attorno non serve a
+        // niente, e infatti al primo giro cinquantotto catture sono cadute con
+        // "image failed to precache".
+        //
+        // Un asset che manca non deve fermare la cattura: si lascia proseguire
+        // e sara' l'anteprima a mostrare cosa non c'e', che e' esattamente cio'
+        // che il corredo serve a guardare.
+        await precacheImage(provider, element, onError: (errore, _) {
+          debugPrint('precache non riuscito per $provider: $errore');
+        });
+      }
+    });
+    // **UN FOTOGRAMMA CHE NON MUOVE L'OROLOGIO.** Qui c'era `step`, che avanza
+    // di quattrocento millisecondi: bastava a far proseguire le animazioni
+    // delle catture che hanno tempi voluti, e la Runa del Tramonto usciva con
+    // la velatura a meta', cioe' con i margini di cielo semitrasparenti,
+    // alfa 194 invece di 255. A occhio l'immagine sembrava giusta; il
+    // guardiano delle anteprime l'ha presa perche' legge RGBA premoltiplicato,
+    // dove i salti del gradiente si schiacciano sotto la soglia.
+    //
+    // `pump()` senza durata ridisegna e basta: le immagini appena decodificate
+    // compaiono, e nessuna animazione avanza di un millisecondo.
+    await tester.pump();
+  }
+
   Future<void> capture(
       WidgetTester tester, GlobalKey rootKey, String name) async {
+    // PRIMA DI OGNI SCATTO, sempre, senza che nessuno se lo ricordi.
+    await precaricaCioCheLaScenaMonta(tester);
     await tester.runAsync(() async {
       final boundary =
           rootKey.currentContext!.findRenderObject() as RenderRepaintBoundary;

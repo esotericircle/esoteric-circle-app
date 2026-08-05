@@ -45,6 +45,7 @@ class ZodiacEmblem extends StatelessWidget {
     required this.size,
     this.art = ZodiacEmblemArt.emblem,
     this.assetPath,
+    this.ripiego,
   });
 
   final Zodiac sign;
@@ -56,6 +57,15 @@ class ZodiacEmblem extends StatelessWidget {
   /// Percorso dell'asset, per i test. Se nullo si risolve da [ZodiacArt].
   final String? assetPath;
 
+  /// COSA MOSTRARE SE L'IMMAGINE NON SI DECODIFICA.
+  ///
+  /// Chi ha una catena di ripieghi la passa qui, cosi' il ramo d'errore cade
+  /// dentro la catena invece di scavalcarla. **Nullo vuol dire posto vuoto**,
+  /// ed e' un ripiego muto: e' ammesso solo dove nessuno ha ancora dichiarato
+  /// cosa mettere al suo posto, cioe' oggi nelle due chiamate dell'Oroscopo.
+  /// Chi le tocchera' dovrebbe dargli un ripiego.
+  final Widget? ripiego;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -66,9 +76,18 @@ class ZodiacEmblem extends StatelessWidget {
         width: size,
         height: size,
         fit: BoxFit.contain,
-        // Gli asset sono tutti nel bundle: se mai uno mancasse si lascia il
-        // posto vuoto invece di schiantare, senza ripieghi disegnati.
-        errorBuilder: (_, __, ___) => SizedBox(width: size, height: size),
+        // SE L'IMMAGINE NON SI DECODIFICA, si cade sul ripiego di chi ci
+        // chiama, non sul nulla.
+        //
+        // **Cosa c'era, e perche' era sbagliato.** Qui si restituiva un
+        // `SizedBox` vuoto, con scritto che gli asset sono tutti nel bundle.
+        // E' vero, ma il ramo esisteva lo stesso, e chi ci chiamava aveva una
+        // catena di ripieghi in ordine dichiarato che questo ramo scavalcava
+        // tutta: `UserAvatar` sa cadere sulle iniziali e poi sul sigillo, e si
+        // ritrovava un cerchio vuoto, cioe' proprio il ripiego muto che il
+        // progetto vieta.
+        errorBuilder: (_, __, ___) =>
+            ripiego ?? SizedBox(width: size, height: size),
       ),
     );
   }

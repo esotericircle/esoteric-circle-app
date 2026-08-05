@@ -119,8 +119,21 @@ class UserAvatar extends StatelessWidget {
         sign: sign!,
         size: size * 0.82,
         art: ZodiacEmblemArt.emblem,
+        // **LA CATENA NON SI SCAVALCA.** Se il glifo non si decodifica si
+        // scende al gradino dopo, iniziali o sigillo, invece di lasciare un
+        // cerchio vuoto. Prima il ramo d'errore di `ZodiacEmblem` restituiva
+        // un posto vuoto e saltava tutti e due i ripieghi rimasti: quattro
+        // gradini dichiarati e un quinto, non dichiarato, che li vinceva.
+        ripiego: _dopoIlGlifo(),
       );
     }
+    return _dopoIlGlifo();
+  }
+
+  /// I due gradini che vengono DOPO il glifo del segno: le iniziali, poi il
+  /// sigillo neutro. Vivono qui perche' servono in due punti, e se fossero
+  /// scritti due volte prima o poi direbbero due cose diverse.
+  Widget _dopoIlGlifo() {
     // 3. Il sigillo con le iniziali del nome.
     final initials = initialsOf(name);
     if (initials.isNotEmpty) {

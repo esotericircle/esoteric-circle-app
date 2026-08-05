@@ -227,18 +227,100 @@ Oroscopo), 2227 (reveal elementale), 2296 (card Stesa), 2569 (il Profilo),
 
 **Una con `pumpWidget` diretto:** 3516 (la mano del tocco).
 
-**Il criterio per separarle**, quando qualcuno aprira' questa voce: una cattura
-che porta il nome di una SCHERMATA e non passa dall'app vera e' sospetta;
-una che porta il nome di una CARD o di un componente puo' stare com'e', purche'
-il nome lo dica. Le sette schermate intere che oggi non passano dall'app sono
-il Risveglio (5), la Costellazione del Viso (3 su soglia e ripiego), e i flussi
-di Animale Guida e Rune.
+**IL CRITERIO, formulato sul FATTO e non sul nome.**
+
+> **Un'anteprima deve essere montata come e' montato cio' che prova.**
+>
+> Una card da condividere e' resa da sola anche nell'app, quindi isolarla e'
+> corretto. Una schermata nell'app non e' mai sola, quindi catturarla sola e'
+> falso.
+
+Il nome resta un buon indizio, **non il criterio**: altrimenti basterebbe
+rinominare un file per farlo uscire dalla lista. Si guarda come la cosa vive
+nell'app, non come si chiama il suo file.
+
+Con quel taglio, oggi le sospette sono le schermate intere: il Risveglio (5),
+la Costellazione del Viso (3), l'Animale Guida (3), l'Estrazione Rune (5).
 
 ## I numeri
 
 Suite intera **1753 verdi** alla chiusura della Voce 3, e rieseguita dopo la
 correzione delle anteprime. `analyze` 59 prima, 59 dopo. Tre anteprime a
 1080x2391, piu' il corredo rigenerato. Nessuna build, `versionCode` intatto.
+
+## IL CERCHIO VUOTO ACCANTO ALLA BOLLA, e le due classi che ha aperto
+
+Visibile **solo grazie alla cattura vera**: nella chat di Aura l'icona
+dell'utente era un cerchio vuoto, in quella di Medora la miniatura del segno.
+
+**Non erano due porte.** `chat_bubble.dart:541` chiama `UserAvatar.forUser` per
+tutte e tre le chat, e quella porta ha gia' quattro ripieghi in ordine
+dichiarato. Era una porta sola che falliva in silenzio, per **due ragioni
+diverse**, e vanno separate perche' una e' del corredo e una dell'app.
+
+### 1. Il precache a mano era la porta che si riapriva
+
+In cattura headless nessuno decodifica gli asset. La regola c'era, ed era
+scritta a chiare lettere sopra il precache delle catture di Medora, con tanto
+di spiegazione di cosa succede a chi se la dimentica. **E' successo lo stesso**,
+non per distrazione ma perche' una regola che va ricordata a mano in ogni file
+cade sempre.
+
+Ora **`capture` precarica da solo**: percorre l'albero, raccoglie le immagini
+che ci sono davvero e le precarica tutte prima di scattare. Nessuna cattura
+nuova puo' nascere senza, perche' non c'e' niente da scrivere. Enumerare invece
+di elencare a mano e' la stessa scelta fatta ovunque qui: l'elenco invecchia,
+l'albero no.
+
+**Al primo giro sono cadute cinquantotto catture.** `precacheImage` non lancia:
+riporta il guasto a `FlutterError.onError`, e in una prova quello fa cadere il
+test, quindi il `try` che avevo messo attorno non serviva a niente. L'errore va
+passato al suo `onError`, ed e' scritto accanto al codice perche' non e'
+ovvio.
+
+### 2. Il ripiego muto era nell'app, non nella cattura
+
+`ZodiacEmblem` aveva un `errorBuilder` che restituiva un `SizedBox` vuoto. Il
+commento diceva che gli asset ci sono tutti, ed e' vero, ma **il ramo esisteva
+lo stesso e scavalcava la catena**: quattro gradini dichiarati piu' un quinto,
+non dichiarato, che li vinceva tutti e restituiva il nulla.
+
+Adesso `ZodiacEmblem` accetta un `ripiego` e `UserAvatar` gli passa il gradino
+successivo, cioe' iniziali e poi sigillo. **Se il glifo non si decodifica si
+scende nella catena, non si cade fuori.**
+
+**Cosa NON ho potuto chiudere.** Le altre due chiamate di `ZodiacEmblem` stanno
+in `lib/features/horoscope/`, che quest'ordine mi vieta: li' il ripiego muto
+sopravvive. E' nominato nel codice, cosi' chi tocchera' quei due punti lo trova
+scritto invece di scoprirlo.
+
+`licona_dellutente_e_decodificata_test.dart` pretende che il glifo sia
+**DECODIFICATO** per tre segni, che l'arte esista su disco per tutti e dodici,
+che la catena non sia scavalcabile, e che `capture` continui a precaricare da
+solo. Tre mutazioni viste rosse.
+
+## LA LUNA DI NASCITA: la frase dice il vero, e resta
+
+Verificata la catena per intero, su richiesta:
+
+- `NatalFacts.moonPhase` nasce da `details.dateTime`, cioe' **l'istante di
+  nascita**, non da oggi;
+- `MaestroPersona:373` scrive `- Fase lunare di nascita: ...` nel prompt, quindi
+  il dato **parte davvero** verso il modello;
+- `FrasiDellAttesa` mostra la riga solo se `pieno(natal.moonPhase)`: se il dato
+  manca, la frase non compare gia' adesso.
+
+**Nessuna modifica.** Il meccanismo che governa le frasi d'attesa e' quello
+giusto e funzionava.
+
+## VOCE IN CODA: il fuso della Luna di nascita, ricavato dalla longitudine
+
+`NatalIdentity` non corregge l'istante di nascita col fuso vero del luogo, ma
+con la longitudine divisa per quindici. Il commento lo dichiara e dice che sulla
+sola fase lunare pesa meno di un'ora di Luna, che a occhio non si distingue.
+
+**Non e' un difetto e non va toccata**, ma e' un'assunzione: messa qui perche'
+chi la incontrera' la trovi gia' nominata invece di scoprirla e allarmarsi.
 
 ## I due rilievi sul disegno, NON corretti
 
