@@ -121,6 +121,16 @@ dev_dependencies:
   # Lettura di pubspec.yaml nei test di coerenza dello stato asset.
   yaml: ^3.1.2
 
+  # LA PIATTAFORMA VIDEO SOSTITUIBILE NELLE PROVE.
+  #
+  # Senza, in prova headless il lettore non parte, l'intro finisce da sola per
+  # la via d'errore, e OGNI prova sull'intro passerebbe anche se il tocco che
+  # salta e Riduci Movimento non funzionassero: verde su niente. Con questa
+  # dipendenza la prova mette al posto della piattaforma una finta che dichiara
+  # il video pronto, e da li' in poi misura il comportamento vero. E' la stessa
+  # via che il pacchetto usa per provare se stesso.
+  video_player_platform_interface: ^6.9.0
+
 flutter:
   uses-material-design: true
 

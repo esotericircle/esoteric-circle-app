@@ -3,34 +3,38 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../core/sensi/catalogo_suoni.dart';
-import '../../core/sensi/motore_audio.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 
-/// L'INTRO DI APERTURA. **PROVVISORIA, per le dimostrazioni.**
+/// L'INTRO DI APERTURA: **il video, e nient'altro.**
 ///
-/// Nasce perche' il fondatore deve mostrare l'app a un professionista esterno, e
-/// va sostituita quando arriveranno gli asset definitivi: il video e' un
-/// `Intro-Test`, il nome lo dice.
+/// **Cosa e' cambiato, e perche'.** Prima qui c'era una sequenza in tre momenti
+/// costruita in codice attorno a un video di prova: tre secondi di nero con la
+/// frase "IN PRINCIPIO ERA IL NULLA" scritta lettera per lettera su una voce
+/// registrata, poi il video, poi il logo che cresceva. Serviva perche' il video
+/// di allora era un frammento senza apertura e senza chiusura, e il codice
+/// gliele metteva intorno.
 ///
-/// **La sequenza**: tre secondi di nero con la frase che si scrive lettera per
-/// lettera, dissolvenza, il video una volta sola, dissolvenza, il logo che
-/// cresce di poco, dissolvenza, e poi si va DOVE SI SAREBBE ANDATI COMUNQUE. Chi
-/// ha gia' fatto il Risveglio entra nel Cerchio: l'intro non decide la
-/// destinazione, la ritarda soltanto.
+/// Il video nuovo **le contiene gia' tutte e due**: si apre sul nero con la
+/// scritta e si chiude sul marchio. Tenere anche la versione in codice avrebbe
+/// voluto dire mostrare la stessa frase due volte e il logo due volte. Il nero,
+/// la frase, la voce e il logo se ne vanno da qui perche' hanno cambiato posto,
+/// non perche' siano stati tolti: adesso stanno dentro l'immagine.
 ///
-/// **Si salta con un tocco.** Il professionista aprira' l'app molte volte, e
-/// un'intro non saltabile diventa un fastidio dopo la seconda.
+/// **Resta cio' che il video non puo' fare da solo**: il tocco che salta, la
+/// dissolvenza che consegna la schermata sotto senza uno stacco, il rispetto del
+/// silenzio e di Riduci Movimento, e la garanzia che nessun fotogramma resti
+/// congelato se qualcosa va storto.
 ///
-/// **Riduci Movimento** toglie la macchina da scrivere e la crescita del logo:
-/// la frase compare posata e il logo fermo. Le dissolvenze restano, perche' sono
-/// transizioni e non movimento.
+/// **La destinazione sta sempre sotto, gia' costruita**: l'intro non decide dove
+/// si va, ritarda soltanto il momento in cui si vede. Chi ha gia' fatto il
+/// Risveglio entra nel Cerchio, chi non l'ha fatto lo trova ad aspettarlo.
 class SequenzaIntro extends StatefulWidget {
   const SequenzaIntro({
     super.key,
     required this.child,
     this.mostra = true,
+    this.conSuono = true,
   });
 
   /// Cio' che c'e' sotto: lo shell con la sua destinazione, quale che sia.
@@ -39,57 +43,71 @@ class SequenzaIntro extends StatefulWidget {
   /// Falso per le prove e le anteprime che non vogliono l'intro davanti.
   final bool mostra;
 
-  /// La frase del principio.
-  static const String frase = 'IN PRINCIPIO ERA IL NULLA';
-
-  /// Quanto dura il nero con la frase, scrittura compresa.
-  static const Duration duranteIlNero = Duration(seconds: 3);
-
-  /// LA VOCE che pronuncia la frase, sulla schermata nera.
-  static String get voce => SuonoDelCerchio.principio.percorso;
-
-  /// Quanto dura la voce, letta dal file all'avvio.
+  /// IL SILENZIO DELL'APP, non quello del sistema operativo.
   ///
-  /// **Non scritta a mano**: se un giorno la voce cambia, la scritta la segue da
-  /// sola. Il valore qui sotto e' il ripiego per quando la durata non si riesce
-  /// a leggere, per esempio in prova headless dove il lettore non c'e'.
-  static Duration get voceDiRipiego => SuonoDelCerchio.principio.durataAttesa;
-
-  /// La cadenza di una lettera si CALIBRA SULLA VOCE, non sui tre secondi.
+  /// E' lo stesso interruttore unico che governa suono e vibrazione in
+  /// Impostazioni: chi lo spegne ha detto che da questa app non vuole sentire
+  /// niente, e un'apertura che parla lo stesso sarebbe la prima cosa a
+  /// contraddire la sua scelta. A silenzio acceso il video si vede e non si
+  /// sente.
   ///
-  /// Le lettere devono finire di scriversi quando la voce finisce di parlare,
-  /// non prima e non dopo: la scritta e' quella voce, e vederla correre avanti o
-  /// restare indietro rompe l'illusione che sia la stessa cosa.
-  static Duration cadenzaPer(Duration voce) => Duration(
-      microseconds: (voce.inMicroseconds / frase.length).round());
+  /// **Il limite, dichiarato.** L'interruttore fisico del silenzioso su iPhone
+  /// e' un'altra cosa, e non passa di qui: il lettore video apre la sessione
+  /// audio nella categoria della riproduzione, che per progetto di sistema
+  /// ignora quell'interruttore, ed esporre la categoria vorrebbe dire mettere
+  /// le mani nel codice nativo del pacchetto. Chi vuole l'apertura muta la
+  /// spegne da Impostazioni.
+  final bool conSuono;
 
-  /// La dissolvenza fra un momento e l'altro.
+  /// Il video, convertito e versionato.
+  ///
+  /// Il sorgente stava a dodici megabit e mezzo al secondo, ventidue megabyte
+  /// per quattordici secondi. Qui e' lo STESSO video, 1080 per 1920 a
+  /// ventiquattro fotogrammi, ricodificato a qualita' costante, con l'audio
+  /// ORIGINALE copiato e non ricodificato: una seconda codifica dell'audio
+  /// sarebbe stata perdita in cambio di niente.
+  static const String video = 'brand_assets/intro/Intro-Test-2.mp4';
+
+  /// La dissolvenza in uscita, che consegna la schermata sotto senza stacco.
   static const Duration dissolvenza = Duration(milliseconds: 500);
 
-  /// Quanto resta il logo prima di sfumare.
-  static const Duration duranteIlLogo = Duration(milliseconds: 1800);
-
-  /// Il video, che sta gia' nel repo.
-  static const String video = 'brand_assets/intro/Intro-Test-1.mp4';
-
-  /// Il logo esportato leggero, versionato.
-  static const String logo = 'assets/brand/logo.png';
+  /// LA SCORTA OLTRE LA FINE del video, prima di andare avanti comunque.
+  ///
+  /// Un lettore puo' fermarsi senza dichiararsi finito, e in quel caso senza
+  /// questa scorta l'apertura resterebbe su un fotogramma immobile finche'
+  /// qualcuno non tocca lo schermo. L'intro deve poter finire da sola anche
+  /// quando il video non collabora.
+  static const Duration scorta = Duration(seconds: 2);
 
   @override
   State<SequenzaIntro> createState() => _SequenzaIntroState();
 }
 
-/// I momenti della sequenza, in ordine.
-enum MomentoIntro { nero, video, logo, finita }
+/// I momenti della sequenza. Ne restano due: il video, e la fine.
+enum MomentoIntro { video, finita }
 
-class _SequenzaIntroState extends State<SequenzaIntro> {
-  MomentoIntro _momento = MomentoIntro.nero;
-  int _lettere = 0;
-  Duration _cadenza = SequenzaIntro.cadenzaPer(SequenzaIntro.voceDiRipiego);
-  Timer? _macchina;
-  Timer? _passo;
+class _SequenzaIntroState extends State<SequenzaIntro>
+    with WidgetsBindingObserver {
+  MomentoIntro _momento = MomentoIntro.video;
+
+  /// Vero finche' l'intro si vede. Passa a falso PRIMA di `finita`, perche' fra
+  /// i due c'e' la dissolvenza: se si smontasse subito, l'uscita sarebbe un
+  /// taglio secco invece di una consegna.
+  bool _visibile = true;
+
+  Timer? _scorta;
+  Timer? _uscita;
   VideoPlayerController? _video;
 
+  /// RIDUCI MOVIMENTO NON MOSTRA L'INTRO AFFATTO.
+  ///
+  /// Prima questa impostazione toglieva la macchina da scrivere e la crescita
+  /// del logo, cioe' il movimento che il codice aggiungeva attorno al video.
+  /// Adesso il codice non aggiunge piu' niente: resta il video, e un cosmo che
+  /// si attraversa a tutto schermo per quattordici secondi **e'** il movimento
+  /// che quell'impostazione chiede di togliere. Non c'e' una versione posata da
+  /// mostrare al suo posto, e inventarla sarebbe peggio. L'intro ritarda e non
+  /// devia, quindi chi non la vede non perde niente: arriva solo prima.
   bool get _riduciMovimento => MediaQuery.of(context).disableAnimations;
 
   @override
@@ -97,55 +115,56 @@ class _SequenzaIntroState extends State<SequenzaIntro> {
     super.initState();
     if (!widget.mostra) {
       _momento = MomentoIntro.finita;
+      _visibile = false;
       return;
     }
-    // IN PRESENZA DELL'INTRO LA FIRMA NON SUONA, e il suo posto lo prende la
-    // VOCE. E' la seconda delle due strade che l'ordine lascia scegliere, ed e'
-    // quella giusta: la firma dura due secondi e la voce 2,43, quindi farle
-    // convivere sulla stessa schermata nera vorrebbe dire sfumarne una sotto
-    // l'altra in tre secondi scarsi. Due suoni che si contendono lo stesso
-    // momento non fanno un'apertura piu' ricca, fanno rumore. La firma resta
-    // per le sessioni in cui l'intro non c'e'.
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) => _avvia());
+  }
+
+  /// L'APP CHE PASSA IN SECONDO PIANO CHIUDE L'INTRO.
+  ///
+  /// Non la mette in pausa: la chiude. Una pausa lascerebbe un fotogramma
+  /// congelato ad aspettare un ritorno che potrebbe arrivare mezz'ora dopo, e
+  /// chi rientra si troverebbe davanti un'apertura gia' vista, ferma. E' la
+  /// stessa regola della guardia del suono, che a un ritorno non fa mai
+  /// ripartire da solo cio' che stava suonando.
+  ///
+  /// **Cio' che si vede solo qui.** Mentre l'app sta dietro, il sistema non
+  /// disegna: la dissolvenza non scorre e lo smontaggio si compie al ritorno,
+  /// dal primo fotogramma utile. E' giusto cosi', ma vuol dire che fra l'uscita
+  /// e il rientro il lettore resta in piedi, e IL LETTORE HA UN OSSERVATORE
+  /// SUO che al ritorno fa ripartire da solo cio' che aveva messo in pausa.
+  /// Senza il muto qui sotto si sentirebbe l'audio dell'apertura sotto la
+  /// schermata gia' aperta, per il fotogramma che serve a smontarla.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed) _finisci();
   }
 
   Future<void> _avvia() async {
     if (!mounted) return;
-    // La voce parte INSIEME alla comparsa della scritta. Se il suono di sistema
-    // e' spento non suona, e i tempi restano identici: la sequenza non dipende
-    // dall'audio, lo accompagna.
-    final durata = await _suonaLaVoce();
-    if (!mounted) return;
-    _cadenza = SequenzaIntro.cadenzaPer(durata);
-    if (!_riduciMovimento) {
-      _macchina = Timer.periodic(_cadenza, (t) {
-        if (!mounted) return t.cancel();
-        setState(() => _lettere++);
-        if (_lettere >= SequenzaIntro.frase.length) t.cancel();
-      });
-    } else {
-      // Posata, non scritta: Riduci Movimento toglie il movimento e non il testo.
-      setState(() => _lettere = SequenzaIntro.frase.length);
-    }
-    _passo = Timer(SequenzaIntro.duranteIlNero, _versoIlVideo);
-  }
+    if (_riduciMovimento) return _finisci();
 
-  Future<void> _versoIlVideo() async {
-    if (!mounted) return;
-    setState(() => _momento = MomentoIntro.video);
     final c = VideoPlayerController.asset(SequenzaIntro.video);
     _video = c;
     try {
       await c.initialize();
       if (!mounted) return;
+      // Il silenzio si applica PRIMA della riproduzione: un decimo di secondo
+      // di audio prima del muto e' comunque un suono che non era stato chiesto.
+      await c.setVolume(widget.conSuono ? 1 : 0);
       setState(() {});
       await c.play();
       // Quando finisce si passa oltre da soli: nessun comando a schermo.
       c.addListener(_guardaLaFine);
+      _scorta = Timer(c.value.duration + SequenzaIntro.scorta, _finisci);
     } catch (_) {
-      // Il video non si riproduce, per esempio in prova headless: la sequenza
-      // prosegue lo stesso invece di restare bloccata sul nero.
-      _versoIlLogo();
+      // Il video non parte, per esempio in prova headless dove non c'e' una
+      // piattaforma che lo decodifichi: si va alla destinazione invece di
+      // restare sul nero. Un'apertura che non si vede costa meno di un'app che
+      // non si apre.
+      _finisci();
     }
   }
 
@@ -155,58 +174,37 @@ class _SequenzaIntroState extends State<SequenzaIntro> {
     final v = c.value;
     if (v.isInitialized && !v.isPlaying && v.position >= v.duration) {
       c.removeListener(_guardaLaFine);
-      _versoIlLogo();
+      _finisci();
     }
-  }
-
-  void _versoIlLogo() {
-    if (!mounted || _momento == MomentoIntro.finita) return;
-    setState(() => _momento = MomentoIntro.logo);
-    _passo?.cancel();
-    _passo = Timer(SequenzaIntro.duranteIlLogo, _finisci);
-  }
-
-  /// Suona la voce e dice quanto dura.
-  ///
-  /// La durata si prende dal FILE e non da una costante: se un giorno la voce
-  /// cambia, la scritta la segue da sola. Quando non si riesce a leggerla, per
-  /// esempio in prova dove il lettore non c'e', si usa il ripiego dichiarato.
-  Future<Duration> _suonaLaVoce() async {
-    try {
-      // UN TEMPO MASSIMO BREVE, e non e' una cautela di comodo: un lettore che
-      // non risponde bloccherebbe l'intera apertura dell'app, che e' un prezzo
-      // fuori misura per sapere quanto dura un suono. Scaduto, si usa il
-      // ripiego dichiarato e la sequenza parte comunque.
-      final letta = await MotoreAudio.condiviso
-          .effetto(SequenzaIntro.voce)
-          .timeout(const Duration(milliseconds: 250), onTimeout: () => null);
-      if (letta != null && letta > Duration.zero) return letta;
-    } catch (_) {
-      // Suono spento o non disponibile: la sequenza resta identica nei tempi.
-    }
-    return SequenzaIntro.voceDiRipiego;
   }
 
   /// Salta tutto e va alla destinazione. Un tocco qualunque.
-  void _salta() {
-    if (_momento == MomentoIntro.finita) return;
-    _finisci();
-  }
+  void _salta() => _finisci();
 
   void _finisci() {
-    _macchina?.cancel();
-    _passo?.cancel();
-    // IL TOCCO FERMA ANCHE LA VOCE, subito: una voce che continua a parlare
-    // sopra la schermata gia' aperta e' peggio dell'intro che si voleva saltare.
-    MotoreAudio.condiviso.fermaTutto();
+    if (!_visibile) return;
+    _scorta?.cancel();
     _video?.pause();
-    if (mounted) setState(() => _momento = MomentoIntro.finita);
+    // E MUTO, non solo fermo. Fermare basta finche' e' questo codice a
+    // decidere, ma l'osservatore del lettore puo' farlo ripartire per conto
+    // suo al ritorno dell'app: il muto vale comunque, senza dipendere
+    // dall'ordine in cui i due osservatori vengono chiamati.
+    _video?.setVolume(0);
+    if (!mounted) return;
+    // Prima si sfuma, e solo alla fine della sfumatura si smonta. Fra i due
+    // passi lo schermo mostra il video che si dirada su cio' che c'e' sotto:
+    // NESSUN COLORE INTERMEDIO, quindi nessun lampo.
+    setState(() => _visibile = false);
+    _uscita = Timer(SequenzaIntro.dissolvenza, () {
+      if (mounted) setState(() => _momento = MomentoIntro.finita);
+    });
   }
 
   @override
   void dispose() {
-    _macchina?.cancel();
-    _passo?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    _scorta?.cancel();
+    _uscita?.cancel();
     _video?.removeListener(_guardaLaFine);
     _video?.dispose();
     super.dispose();
@@ -214,97 +212,45 @@ class _SequenzaIntroState extends State<SequenzaIntro> {
 
   @override
   Widget build(BuildContext context) {
-    // LA DESTINAZIONE STA SEMPRE SOTTO, gia' costruita: l'intro non decide dove
-    // si va, ritarda solo il momento in cui si vede. Chi ha gia' fatto il
-    // Risveglio entra nel Cerchio, chi non l'ha fatto lo trova ad aspettarlo.
     return Stack(
       children: [
         widget.child,
         if (_momento != MomentoIntro.finita)
           Positioned.fill(
-            child: GestureDetector(
-              key: const Key('intro_salta'),
-              behavior: HitTestBehavior.opaque,
-              onTap: _salta,
-              child: AnimatedSwitcher(
+            // Durante la dissolvenza l'intro non intercetta piu' i tocchi: chi
+            // ha appena toccato per saltarla sta gia' guardando cio' che c'e'
+            // sotto, e mezzo secondo di schermo sordo si sente.
+            child: IgnorePointer(
+              ignoring: !_visibile,
+              child: AnimatedOpacity(
+                opacity: _visibile ? 1 : 0,
                 duration: SequenzaIntro.dissolvenza,
-                child: _momentoCorrente(),
+                child: GestureDetector(
+                  key: const Key('intro_salta'),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: _salta,
+                  child: _IlVideo(controller: _video),
+                ),
               ),
             ),
           ),
       ],
     );
   }
-
-  Widget _momentoCorrente() {
-    switch (_momento) {
-      case MomentoIntro.nero:
-        return _Nero(
-          key: const ValueKey('intro_nero'),
-          scritte: SequenzaIntro.frase.substring(
-              0, _lettere.clamp(0, SequenzaIntro.frase.length)),
-        );
-      case MomentoIntro.video:
-        return _Video(key: const ValueKey('intro_video'), controller: _video);
-      case MomentoIntro.logo:
-        return _Logo(
-          key: const ValueKey('intro_logo'),
-          cresce: !_riduciMovimento,
-        );
-      case MomentoIntro.finita:
-        return const SizedBox.shrink(key: ValueKey('intro_niente'));
-    }
-  }
-}
-
-/// Il nero con la frase che si scrive.
-class _Nero extends StatelessWidget {
-  const _Nero({super.key, required this.scritte});
-
-  final String scritte;
-
-  @override
-  Widget build(BuildContext context) {
-    return ColoredBox(
-      color: Colors.black,
-      child: Stack(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Text(
-                scritte,
-                key: const Key('intro_frase'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 22).copyWith(
-                  // Oro tenue su nero pieno.
-                  color: const Color(0xFFD9B65C),
-                  letterSpacing: 3,
-                  height: 1.5,
-                  // Dichiarata: senza, fuori da un Material il testo eredita la
-                  // sottolineatura di sistema, e su una schermata d'apertura si
-                  // vede.
-                  decoration: TextDecoration.none,
-                ),
-              ),
-            ),
-          ),
-          const _InvitoASaltare(),
-        ],
-      ),
-    );
-  }
 }
 
 /// Il video, a tutto schermo e senza tagliare il soggetto.
-class _Video extends StatelessWidget {
-  const _Video({super.key, required this.controller});
+class _IlVideo extends StatelessWidget {
+  const _IlVideo({required this.controller});
 
   final VideoPlayerController? controller;
 
   @override
   Widget build(BuildContext context) {
     final c = controller;
+    // IL NERO STA SOTTO DA SUBITO, prima ancora che il video sia pronto: e' il
+    // colore su cui il video stesso si apre, quindi l'attesa non si distingue
+    // dall'inizio. Un fondo chiaro qui sarebbe il lampo bianco all'avvio.
     return ColoredBox(
       color: Colors.black,
       child: Stack(
@@ -319,55 +265,6 @@ class _Video extends StatelessWidget {
                 child: VideoPlayer(c),
               ),
             ),
-          const _InvitoASaltare(),
-        ],
-      ),
-    );
-  }
-}
-
-/// Il logo, che cresce di poco.
-class _Logo extends StatefulWidget {
-  const _Logo({super.key, required this.cresce});
-
-  final bool cresce;
-
-  @override
-  State<_Logo> createState() => _LogoState();
-}
-
-class _LogoState extends State<_Logo> {
-  double _scala = 1.0;
-
-  @override
-  void initState() {
-    super.initState();
-    if (!widget.cresce) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) setState(() => _scala = 1.08);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ColoredBox(
-      color: Colors.black,
-      child: Stack(
-        children: [
-          Center(
-            child: AnimatedScale(
-              // Una crescita lenta e piccola, non un ingrandimento vistoso.
-              scale: _scala,
-              duration: const Duration(milliseconds: 1600),
-              curve: Curves.easeOutCubic,
-              child: Image.asset(
-                SequenzaIntro.logo,
-                key: const Key('intro_logo_immagine'),
-                width: 220,
-                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-              ),
-            ),
-          ),
           const _InvitoASaltare(),
         ],
       ),

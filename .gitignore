@@ -168,3 +168,12 @@ pilot-references/
 sound effect/
 sound_effect/
 *.zip
+
+# Il GREZZO dell'intro, cioe' il file come esce dal montaggio: 1080x1920 a
+# dodici megabit e mezzo al secondo, ventidue megabyte per quattordici secondi.
+# Nel repository ci va solo il CONVERTITO, in brand_assets/intro/, che e' lo
+# stesso video a un terzo del peso. Il grezzo resta qui accanto per poterlo
+# riconvertire, ma non entra: e' la stessa regola dei sorgenti sonori qui sopra,
+# e la cartella si chiamava con uno spazio dentro, quindi nessuna regola
+# esistente la prendeva. Regola aggiunta il 5 agosto 2026.
+intro video/

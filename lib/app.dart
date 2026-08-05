@@ -190,6 +190,11 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
                 ),
                 child: SequenzaIntro(
                   mostra: widget.conIntro,
+                  // Il silenzio dell'app vale anche per l'apertura. Passa da
+                  // qui e non si legge dentro l'intro perche' l'intro e' gia'
+                  // dentro questo Consumer: farglielo cercare da sola
+                  // vorrebbe dire una seconda porta sullo stesso dato.
+                  conSuono: settings.suonoEVibrazione,
                   child: child ?? const SizedBox.shrink(),
                 ),
               );

@@ -268,7 +268,24 @@ void main() {
     });
   });
 
-  testWidgets('I tre fotogrammi della sequenza intro', (tester) async {
+  /// I DUE FOTOGRAMMI DELL'INTRO, non piu' tre.
+  ///
+  /// **Cosa mostrava prima, e cosa mostrava davvero.** Le catture erano tre,
+  /// "frase", "logo" e "destinazione", e quelle del logo e della destinazione
+  /// erano uscite BYTE PER BYTE IDENTICHE: la sequenza in prova headless
+  /// passava oltre il logo prima dello scatto, quindi l'anteprima del logo
+  /// mostrava la destinazione e dichiarava di mostrare il logo. Cieca dal 3
+  /// agosto 2026, e nessuno se ne era accorto perche' un'immagine che esiste
+  /// sembra una prova anche quando non lo e'.
+  ///
+  /// **Cosa si puo' fotografare adesso.** L'intro e' un video, e un video in
+  /// prova headless non si disegna: non c'e' niente che lo decodifichi, e
+  /// nessuna finta puo' inventarne i fotogrammi. Quello che si puo' catturare
+  /// e' cio' che il CODICE mette attorno al video, cioe' il nero su cui si
+  /// apre e l'invito a saltare, e la destinazione che resta quando l'intro se
+  /// ne e' andata. Il video si guarda sul telefono, ed e' l'unico posto dove
+  /// guardarlo abbia senso.
+  testWidgets('I due fotogrammi dell intro', (tester) async {
     if (_stato.isEmpty) return;
     silence();
     SharedPreferences.setMockInitialValues({});
@@ -308,27 +325,31 @@ void main() {
       });
     }
 
-    // 1. La frase a meta' scrittura.
+    // 1. L'APERTURA: il nero su cui il video si apre, con l'invito a saltare.
+    //    Si scatta SUBITO, prima di far scorrere il tempo: il lettore vero non
+    //    parte in prova, e al primo istante utile l'intro va gia' verso la
+    //    destinazione. Questo e' il fotogramma che una persona vede mentre il
+    //    video si prepara, ed e' l'unico che il codice disegni da solo.
+    await scatta('apertura');
+
+    // 2. La destinazione, dopo che l'intro se ne e' andata. Due dissolvenze:
+    //    una perche' scorra, una perche' si smonti.
     await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.pump(
-        SequenzaIntro.cadenzaPer(SequenzaIntro.voceDiRipiego) * 12);
-    await scatta('frase');
-
-    // 2. Il logo. In prova headless il video non si riproduce, quindi la
-    //    sequenza passa oltre da sola e si arriva qui.
-    await tester.pump(SequenzaIntro.duranteIlNero);
-    await tester.pump(SequenzaIntro.duranteIlNero);
-    await tester.pump(SequenzaIntro.dissolvenza);
-    await tester.pump(const Duration(milliseconds: 600));
-    await tester.pump(SequenzaIntro.dissolvenza);
-    await scatta('logo');
-
-    // 3. La destinazione, dopo che la sequenza e' finita.
-    await tester.pump(SequenzaIntro.duranteIlLogo);
     await tester.pump(SequenzaIntro.dissolvenza);
     await tester.pump(SequenzaIntro.dissolvenza);
     await scatta('destinazione');
+
+    // E I DUE SCATTI DEVONO ESSERE DIVERSI. E' la riga che mancava prima, ed e'
+    // il motivo per cui logo e destinazione sono rimasti identici per giorni
+    // senza che niente lo dicesse.
+    final apertura =
+        File('docs/preview/prima_dopo/intro_apertura.png').readAsBytesSync();
+    final destinazione = File('docs/preview/prima_dopo/intro_destinazione.png')
+        .readAsBytesSync();
+    expect(apertura.length == destinazione.length, isFalse,
+        reason: 'i due fotogrammi dell intro sono venuti identici: uno dei due '
+            'e stato scattato nel momento sbagliato, e l anteprima dichiara un '
+            'momento che non ha mai visto');
   });
 
   // LA CHAT QUANDO LA VOCE TACE.

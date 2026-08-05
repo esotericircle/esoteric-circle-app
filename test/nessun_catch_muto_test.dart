@@ -57,7 +57,10 @@ void main() {
     'lib/features/debug/app_check_debug_view.dart': 1,
     'lib/features/horoscope/oroscopo_screen.dart': 1,
     'lib/features/identity/circle_seal_screen.dart': 1,
-    'lib/features/intro/sequenza_intro.dart': 2,
+    // Sceso da due a uno il 5 agosto 2026: l'intro non suona piu' una voce,
+    // quindi il catch che copriva il lettore audio non c'e' piu'. Resta quello
+    // sul video che non parte, che e' dichiarato nel commento accanto.
+    'lib/features/intro/sequenza_intro.dart': 1,
     'lib/features/maestri/aura/face/face_constellation_screen.dart': 3,
     'lib/features/maestri/caligo/rune/rune_draw_screen.dart': 1,
     'lib/features/maestri/chat/maestro_chat_screen.dart': 1,
