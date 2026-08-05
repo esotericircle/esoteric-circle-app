@@ -84,6 +84,33 @@ class MoonPhase {
   /// Pubblico e unico: la nomenclatura viveva in due posti con soglie diverse,
   /// quindi la stessa Luna poteva prendere due nomi a seconda di chi la
   /// chiedeva.
+  /// COME SI DICE LA FASE DOPO "La Luna e'", che non e' il suo nome.
+  ///
+  /// **Il difetto che questa funzione chiude.** I riti del giorno compongono
+  /// tredici frasi della forma `La Luna e' {fase}.`, e al posto del segnaposto
+  /// arrivava il NOME della fase. Ne uscivano due rotture diverse, tutte e due
+  /// viste a video: `La Luna e' Luna calante`, che ripete la parola Luna, e
+  /// `La Luna e' Ultimo quarto`, che a un quarto non mette la preposizione.
+  ///
+  /// Il nome serve dove la fase si annuncia da sola, per esempio in una
+  /// tessera del Passaporto, e li' resta giusto. Qui serve un PREDICATO, cioe'
+  /// la forma che sta bene dopo il verbo, e sono due cose diverse: tenerle
+  /// separate e' l'unico modo perche' nessuna delle due debba essere un
+  /// compromesso.
+  static String comeSiDice(String nome) => switch (nome) {
+        'Luna nuova' => 'nuova',
+        'Luna piena' => 'piena',
+        'Luna crescente' => 'crescente',
+        'Luna calante' => 'calante',
+        'Gibbosa crescente' => 'gibbosa crescente',
+        'Gibbosa calante' => 'gibbosa calante',
+        'Primo quarto' => 'al primo quarto',
+        'Ultimo quarto' => "all'ultimo quarto",
+        // Un nome che non conosco NON si travestre da predicato: si lascia
+        // com'e'. Meglio una frase un po' rigida di una frase inventata.
+        _ => nome,
+      };
+
   static String nomeItaliano(double f) {
     final e = soglia;
     if (f < e || f > 1 - e) return 'Luna nuova';

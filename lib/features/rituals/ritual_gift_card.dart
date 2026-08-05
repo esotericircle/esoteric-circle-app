@@ -47,11 +47,29 @@ Color _accentoDi(Maestro maestro) {
   // cintura contro un ciclo infinito, non un limite atteso.
   for (var passo = 0; passo < 20; passo++) {
     if (_contrastoSulVetro(colore) >= _contrastoMinimo) return colore;
-    colore = Color.fromARGB(
-      colore.a.round(),
-      (colore.r * 255 * 0.95).round(),
-      (colore.g * 255 * 0.95).round(),
-      (colore.b * 255 * 0.95).round(),
+    // TUTTO IN FRAZIONI DI UNO, e non a metà per canale.
+    //
+    // Qui c'era `Color.fromARGB`, che vuole gli interi da zero a 255, e i tre
+    // canali di colore glieli passavo moltiplicati per 255. L'alpha no:
+    // `colore.a` vale gia' 1.0, cioe' opaco pieno, e arrotondato diventava
+    // **1 su 255**. Il testo veniva dipinto trasparente. Il bordo del pulsante
+    // no, perche' quello si costruisce con `withValues(alpha: 0.5)`, che
+    // l'alpha lo riscrive: sullo schermo restavano due riquadri col bordo
+    // netto e niente dentro, e sembrava che le etichette non ci fossero.
+    //
+    // Mordeva SOLO AURA: blu e rosso passano la soglia al primo giro e tornano
+    // prima di arrivare qui, quindi il verde era l'unico colore a percorrere
+    // questa riga. Nessuna prova se n'era accorta perche' nessuna guardava
+    // l'alpha di cio' che arriva a schermo.
+    //
+    // `Color.from` lavora nelle stesse frazioni di uno che i campi espongono:
+    // non c'e' piu' un canale in un'unita' e uno in un'altra dentro la stessa
+    // chiamata, che era la vera causa.
+    colore = Color.from(
+      alpha: colore.a,
+      red: colore.r * 0.95,
+      green: colore.g * 0.95,
+      blue: colore.b * 0.95,
     );
   }
   return colore;
@@ -162,32 +180,39 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 style: TypographyTokens.body(size: 16)
                     .copyWith(color: _dayInk, height: 1.5),
               ),
-              const SizedBox(height: SpacingTokens.lg),
-              // Livello due: la parola del giorno, in risalto, o il segnaposto.
-              Text(
-                'PAROLA DEL GIORNO',
-                style: TypographyTokens.label(size: 11).copyWith(
-                  color: _dayInkSoft,
-                  letterSpacing: 3,
+              // Livello due: la parola del giorno, in risalto. **O NIENTE.**
+              //
+              // Qui l'etichetta compariva sempre, e quando la parola mancava
+              // sotto si leggeva "In arrivo". E' peggio del vuoto, non meglio:
+              // e' un campo che PROMETTE, cioe' che dice alla persona di
+              // aspettare qualcosa senza dirle cosa ne' quando. E' la stessa
+              // famiglia del "In attesa dei contenuti astrologici verificati"
+              // che il Rito dell'Alba mostrava e che e' gia' stata chiusa: una
+              // schermata non fa vedere alla persona la propria impalcatura.
+              //
+              // O l'etichetta si riempie, o l'etichetta non c'e'. Quando il
+              // rito del giorno non porta una parola, questo livello sparisce
+              // intero, etichetta compresa, e la scheda resta quella che ha
+              // qualcosa da dire.
+              if (word != null) ...[
+                const SizedBox(height: SpacingTokens.lg),
+                Text(
+                  'PAROLA DEL GIORNO',
+                  style: TypographyTokens.label(size: 11).copyWith(
+                    color: _dayInkSoft,
+                    letterSpacing: 3,
+                  ),
                 ),
-              ),
-              const SizedBox(height: SpacingTokens.xs),
-              if (word != null)
+                const SizedBox(height: SpacingTokens.xs),
                 Text(
                   word,
+                  key: const Key('gift_word'),
                   style: TypographyTokens.display(size: 32).copyWith(
                     color: accento,
                     letterSpacing: 1.4,
                   ),
-                )
-              else
-                Text(
-                  'In arrivo',
-                  style: TypographyTokens.display(size: 24).copyWith(
-                    color: _dayInkSoft.withValues(alpha: 0.7),
-                    letterSpacing: 1.2,
-                  ),
                 ),
+              ],
               const SizedBox(height: SpacingTokens.md),
               // Livello tre: la base apribile, da dove nasce il dono.
               _BaseToggle(

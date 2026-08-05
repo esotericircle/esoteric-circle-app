@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 import 'dart:math' as math;
 
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -6,6 +7,7 @@ import 'package:esoteric_circle/core/rituals/dawn_gift.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/rituals/ritual_gift_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// LA PROVA DELLA VOCE 2: il colore della scheda nasce dal Maestro del giorno.
@@ -184,6 +186,97 @@ void main() {
         expect(costruttore.contains(vietato), isFalse,
             reason: 'il costruttore della scheda accetta "$vietato": e\' la '
                 'porta da cui entrerebbe il secondo punto');
+      }
+    });
+  });
+
+  group("L'accento arriva a schermo, e non solo nello stile", () {
+    // LA FAMIGLIA DI DIFETTO CHE QUESTO GRUPPO TIENE CHIUSA, e che le prove qui
+    // sopra NON prendevano.
+    //
+    // Le etichette dei due pulsanti della scheda esistevano nel codice e a
+    // schermo non comparivano. Non era contrasto: la misura l'ha fatta Mauro
+    // ritagliando la zona dei pulsanti dallo screenshot e spingendo il
+    // contrasto al massimo, e il bordo usciva nero netto mentre dentro non
+    // emergeva nessun glifo. Se il testo ci fosse stato a contrasto basso, lo
+    // stesso trattamento che ha rivelato il bordo avrebbe rivelato le lettere.
+    //
+    // La causa era un ALPHA A UNO SU 255. Il colore si scuriva con
+    // `Color.fromARGB`, che vuole interi da zero a 255, e i tre canali di
+    // colore glieli si passava moltiplicati per 255 mentre l'alpha no, perche'
+    // `colore.a` vale gia' 1.0. Due sistemi di unita' nella stessa chiamata.
+    // Il bordo si salvava perche' si costruisce con `withValues(alpha: 0.5)`,
+    // che l'alpha lo riscrive.
+    //
+    // Mordeva SOLO Aura: blu e rosso passano la soglia al primo giro e tornano
+    // prima di percorrere quella riga.
+    //
+    // E le prove qui sopra restavano verdi perche' misuravano i CANALI del
+    // colore, non cio' che arriva allo schermo: la formula del contrasto legge
+    // rosso, verde e blu, e un colore del tutto trasparente le passa uguale.
+
+    testWidgets('nessun accento arriva trasparente, per nessuno dei tre',
+        (tester) async {
+      for (final m in Maestro.values) {
+        final accento = await accentoMostrato(tester, m);
+        expect(accento.a, 1.0,
+            reason: 'l accento di ${m.id} arriva con alpha ${accento.a}: '
+                'dipinto cosi non si vede, e la prova del contrasto non se ne '
+                'accorge perche guarda i canali e non la trasparenza');
+      }
+    });
+
+    testWidgets('dove c e un etichetta, qualcosa si dipinge davvero',
+        (tester) async {
+      // La prova sul FATTO, quella che avrebbe preso il difetto anche senza
+      // sapere che c entrava l alpha: si guarda il riquadro del pulsante e si
+      // conta quanti colori distinti contiene. Con le lettere ce ne sono
+      // molti; senza, il riquadro e' una tinta piatta.
+      tester.view.physicalSize = const Size(360, 1400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final chiave = GlobalKey();
+      final gift = DawnGift.forMaestro(DateTime(2026, 8, 6), Maestro.aura);
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: RepaintBoundary(
+              key: chiave,
+              child: RitualGiftCard(gift: gift, streak: 4, onShare: () {}),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+
+      final img = await tester.runAsync(() async =>
+          (chiave.currentContext!.findRenderObject() as RenderRepaintBoundary)
+              .toImage(pixelRatio: 1.0));
+      final dati = await tester
+          .runAsync(() => img!.toByteData(format: ui.ImageByteFormat.rawRgba));
+      final b = dati!.buffer.asUint8List();
+      final larghezza = img!.width;
+      final origine = tester.getRect(find.byKey(chiave));
+
+      for (final k in const ['gift_base_toggle', 'gift_share_word']) {
+        final f = find.byKey(Key(k));
+        expect(f, findsOneWidget, reason: 'il pulsante $k non e a schermo');
+        final r = tester.getRect(f).translate(-origine.left, -origine.top);
+        final colori = <int>{};
+        for (var y = r.top.round(); y < r.bottom.round(); y++) {
+          for (var x = r.left.round(); x < r.right.round(); x++) {
+            final i = (y * larghezza + x) * 4;
+            if (i + 3 >= b.length) continue;
+            colori.add((b[i] << 16) | (b[i + 1] << 8) | b[i + 2]);
+          }
+        }
+        expect(colori.length, greaterThan(3),
+            reason: 'il riquadro di $k contiene ${colori.length} colori '
+                'distinti: e una tinta piatta, cioe un pulsante vuoto. '
+                'L etichetta esiste nel codice e non arriva alla resa');
       }
     });
   });

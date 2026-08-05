@@ -145,7 +145,11 @@ class CieloDiStamattina {
 
   /// Il valore da mettere al posto del segnaposto.
   String valoreDi(DatoDelCielo dato) => switch (dato) {
-        DatoDelCielo.faseLunare => faseLunare ?? '',
+        // IL PREDICATO, non il nome: le frasi del corpus dicono tutte
+        // "La Luna e' {fase}", e li dentro il nome della fase produce
+        // "La Luna e' Luna calante" oppure "La Luna e' Ultimo quarto".
+        DatoDelCielo.faseLunare =>
+          faseLunare == null ? '' : MoonPhase.comeSiDice(faseLunare!),
         DatoDelCielo.segnoLunare => segnoLunare?.italianName ?? '',
         DatoDelCielo.oraDellAlba => oraDellAlba == null
             ? ''
@@ -337,8 +341,15 @@ class RitoAlba {
       forma: forma.nome,
       gesto: _riempi(gesto.testo, cielo),
       viaTattile: gesto.viaTattile,
-      respiro: '${respiro.testo} '
-          '(${respiro.tempi} tempi, ${respiro.giri} giri)',
+      // IL RESPIRO SI LEGGE IN PAROLE, e le cifre in coda se ne vanno.
+      //
+      // Qui il testo finiva con "(6 tempi, 3 giri)", che ripeteva in cifre
+      // cio' che la frase aveva appena detto in parole: "sei tempi dentro e
+      // sei fuori, tre volte". Due volte la stessa cosa, e la seconda in una
+      // forma da manuale d'istruzioni. I numeri restano dove servono davvero,
+      // cioe' in `respiro.tempi` e `respiro.giri`, che sono i dati con cui il
+      // simbolo si muove: al testo non serve ripeterli.
+      respiro: respiro.testo,
       parola: parola.parola,
       perche: parola.perche,
       datiNominati: dati,
