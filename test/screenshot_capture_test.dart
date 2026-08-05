@@ -58,7 +58,6 @@ import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
 import 'package:esoteric_circle/design_system/components/loto_dorato.dart';
-import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/dream_rite_corpus.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
@@ -701,6 +700,10 @@ void main() {
     final rootKey = GlobalKey();
     final profilo = ArchetypeScoring.calcola(List.filled(12, 3));
     await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF03140F),
         body: Center(
@@ -870,6 +873,10 @@ void main() {
     final contorni = FaceSilhouette.contorni();
     final rootKey = GlobalKey();
     await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF03140F),
         body: Center(
@@ -1069,55 +1076,76 @@ void main() {
     });
   }
 
-  /// LA CHAT DI AURA CON IL LOTO E L'INVITO, per chi non ha fatto il Test.
+  /// LA CHAT DI AURA COL LOTO E L'INVITO, dalla strada vera dell'app.
   ///
-  /// E' l'unica scena in cui il loto compare, quindi e' l'unica in cui si puo'
-  /// giudicare: un fiore disegnato accanto all'arte incisa degli altri simboli
-  /// si vedra' che e' un'altra cosa, ed e' una scelta presa sapendolo.
-  testWidgets('Cattura la chat di Aura col loto e l\'invito', (tester) async {
+  /// **La prima stesura montava il widget in isolamento, ed era inutile.**
+  /// Usciva col nastro di debug in alto a destra e con un fondo verde pieno
+  /// invece del cosmo condiviso: due segni che quella non era la schermata, era
+  /// il componente. Non diceva niente su come il loto appare dentro la chat di
+  /// Aura, che era l'unica cosa da giudicare.
+  ///
+  /// Adesso si entra come entra un dito: Santuario, busto, Consulta Aura,
+  /// domanda. La voce non risponde mai, e la scena del consulto vive
+  /// esattamente li'.
+  testWidgets("Cattura la chat di Aura col loto e l'invito", (tester) async {
     silenceSensors();
     await loadFonts();
-    montaLoSchermo(tester, schermoReale);
-    final rootKey = GlobalKey();
-    await tester.pumpWidget(
-      RepaintBoundary(
-        key: rootKey,
-        child: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => QualityTierController()),
-            ChangeNotifierProvider(create: (_) => MaestroController()),
-          ],
-          child: const MaterialApp(
-            home: MaestroScope(
-              child: Scaffold(
-                backgroundColor: ColorTokens.auraDeepest,
-                // Senza archetipo: e' il caso in cui il loto entra.
-                body: Center(
-                  child: ConsultoDelCieloView(
-                    maestro: Maestro.aura,
-                    natal: NatalContext(sunSign: 'Leone'),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+    final memory = InMemoryMaestroMemoryRepository();
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    final services = AppServices(
+      ai: _VoceCheFaAspettare(),
+      memory: memory,
+      memoryPersistent: true,
+      diagnostics: 'Cattura offline.',
     );
+    final rootKey = await mount(tester, services);
+    // I dati di nascita ci sono, l'ARCHETIPO NO: e' esattamente la persona che
+    // questa immagine deve mostrare, quella che non ha ancora fatto il Test.
+    tester
+        .element(find.byType(MaterialApp))
+        .read<BirthIdentityController>()
+        .setBirth(
+          BirthDetails(
+            date: DateTime(1990, 8, 10),
+            time: const TimeOfDay(hour: 12, minute: 0),
+            place: const astro.BirthPlace(
+                label: 'Roma',
+                latitude: 41.9,
+                longitude: 12.5,
+                timezone: 'Europe/Rome'),
+          ),
+          NatalChart.essential(sunSign: Zodiac.leo, hasTime: false),
+        );
     await step(tester);
+    await openChat(tester, Maestro.aura);
+    await precacheFaces(tester);
+
+    final campo = find.descendant(
+      of: find.byType(ChatComposer),
+      matching: find.byType(TextField),
+    );
+    await tester.enterText(campo, 'Da dove comincio, oggi?');
     await step(tester);
-    // Il tratto scende in tre secondi: si aspetta che il fiore sia intero,
-    // altrimenti l'anteprima mostrerebbe un loto a meta' e sembrerebbe un
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    // Il tratto del simbolo scende in tre secondi: si aspetta che il fiore sia
+    // intero, altrimenti l'anteprima mostra un loto a meta' e sembra un
     // ritaglio sbagliato invece di un'animazione colta a meta'.
     for (var i = 0; i < 20; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
-    // LA VERIFICA PRIMA DELLA CATTURA: se il loto o l'invito non ci fossero,
-    // l'anteprima uscirebbe vuota e nessuno se ne accorgerebbe guardandola.
+
+    // LA VERIFICA PRIMA DELLA CATTURA. Se il loto o l'invito non ci fossero,
+    // l'anteprima uscirebbe senza e nessuno se ne accorgerebbe guardandola.
+    expect(find.byKey(const Key('consulto_del_cielo')), findsOneWidget,
+        reason: "la scena del consulto non e' comparsa: l'immagine "
+            "mostrerebbe la chat e basta");
     expect(find.byType(LotoDorato), findsOneWidget,
-        reason: 'il loto non e\' nella scena: l\'anteprima sarebbe un vuoto');
+        reason: "il loto non e' nella scena");
     expect(find.byKey(const Key('consulto_invito')), findsOneWidget,
-        reason: 'l\'invito non e\' nella scena');
+        reason: "l'invito non e' nella scena");
+    // E nessun emblema di archetipo: sarebbe la bugia che la regola vieta.
+    await precacheFaces(tester);
     await capture(tester, rootKey, 'chat-aura-loto-e-invito.png');
   });
 
@@ -1410,6 +1438,10 @@ void main() {
     final maestro = DailyRituals.nightMaestro(quando);
     final rootKey = GlobalKey();
     await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF05060C),
         body: Center(
@@ -1680,6 +1712,10 @@ void main() {
     final animal = GuideAnimalDerivation.forSign(Zodiac.cancer);
     final rootKey = GlobalKey();
     await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF14060A),
         body: Center(
@@ -1905,6 +1941,10 @@ void main() {
     final presagio = RunePresagio.componi(esito);
     final rootKey = GlobalKey();
     await tester.pumpWidget(MaterialApp(
+      // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
+      // persona vede, ed e' il segno che la scena e' montata a mano invece che
+      // presa dall'app. Cinque catture lo mostravano.
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xFF14060A),
         body: Center(

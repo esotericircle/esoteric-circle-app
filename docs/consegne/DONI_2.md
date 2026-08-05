@@ -164,10 +164,93 @@ Maestri diversi, trovati dal codice e non supposti.
    a luce piena. Se un giorno la scheda comparisse su un fondo scuro, la soglia
    andrebbe rifatta.
 
+## L'ANTEPRIMA DEL LOTO ERA FALSA, e l'ha vista Mauro
+
+La prima `chat-aura-loto-e-invito.png` **non era una verifica**. Due segni la
+smascheravano: il **nastro di debug** in alto a destra e il **fondo verde
+pieno** invece del cosmo condiviso. Montava il widget in isolamento, quindi non
+diceva niente su come il loto appare dentro la chat di Aura, che era l'unica
+cosa da giudicare.
+
+Rifatta dalla strada vera: `mount` dell'app intera, `openChat(Aura)`, una
+domanda a una voce che non risponde mai, e la scena del consulto vive li'. Con
+la verifica prima dello scatto che `consulto_del_cielo`, il loto e l'invito
+siano davvero nella scena.
+
+### Il nastro non era solo mio: erano cinque
+
+Cercandolo, **cinque catture gia' nel repo montavano un `MaterialApp` senza
+spegnere il nastro**, e producevano anteprime che l'app non produce:
+
+| Riga | Cattura |
+|---|---|
+| 703 | la card del Test Archetipo |
+| 872 | la card della Costellazione del Viso |
+| 1433 | il Rito della Buonanotte |
+| 1703 | la card dell'Animale Guida |
+| 1928 | la card dell'Estrazione Rune |
+
+Spente tutte e cinque e rigenerato il corredo. Verificato **sui pixel**: zero
+anteprime hanno ancora rosso acceso nell'angolo in alto a destra.
+
+`le_anteprime_non_montano_il_nastro_test.dart` impedisce il ritorno. E' una
+prova **strutturale e non sui pixel**, perche' il nastro si dipinge solo in
+debug e in un punto che dipende dalla direzione del testo: si guarda la causa,
+cioe' il `MaterialApp` che non lo spegne, invece dell'effetto. Sorveglia anche
+che `lib/app.dart` continui a spegnerlo, e in un punto solo. Due mutazioni viste
+rosse.
+
+## LE ANTEPRIME CHE MONTANO UNA SCENA CHE L'APP NON MONTA
+
+**Voce a se', elencata e NON corretta**, come ordinato. La famiglia e' uscita
+due volte in due giorni, quindi vale la pena sapere quanto e' larga.
+
+Su **66 catture, 28 non passano dall'app vera**. Non sono tutte sbagliate: una
+card da condividere e' fatta apposta per essere resa da sola, ed e' giusto
+catturarla cosi'. Sono sbagliate quelle che dovrebbero mostrare una SCHERMATA e
+invece mostrano un componente.
+
+**Dieci costruiscono un `MaterialApp` nel corpo della cattura:**
+righe 694 (card del Test Archetipo), 864 (card della Costellazione del Viso),
+1695 (card dell'Animale Guida), 1919 (card dell'Estrazione Rune), 2084 (card
+Oroscopo), 2227 (reveal elementale), 2296 (card Stesa), 2569 (il Profilo),
+2706 (le catture dell'istante), 3556 (Le tue arti).
+
+**Otto passano da `mountAnimal`:** 1605, 1618, 1636 (Animale Guida), 1848,
+1858, 1884, 1895, 1906 (Estrazione Rune).
+
+**Cinque da `mountRisveglio`:** 3139, 3149, 3165, 3184, 3226.
+
+**Tre da `mountFace`:** 824, 833, 890 (Costellazione del Viso).
+
+**Una da `natalHost`:** 3407 (il cielo reale di nascita).
+
+**Una con `pumpWidget` diretto:** 3516 (la mano del tocco).
+
+**Il criterio per separarle**, quando qualcuno aprira' questa voce: una cattura
+che porta il nome di una SCHERMATA e non passa dall'app vera e' sospetta;
+una che porta il nome di una CARD o di un componente puo' stare com'e', purche'
+il nome lo dica. Le sette schermate intere che oggi non passano dall'app sono
+il Risveglio (5), la Costellazione del Viso (3 su soglia e ripiego), e i flussi
+di Animale Guida e Rune.
+
 ## I numeri
 
-Suite intera **1753 verdi**. `analyze` 59 prima, 59 dopo. Tre anteprime a
-1080x2391. Nessuna build, `versionCode` intatto.
+Suite intera **1753 verdi** alla chiusura della Voce 3, e rieseguita dopo la
+correzione delle anteprime. `analyze` 59 prima, 59 dopo. Tre anteprime a
+1080x2391, piu' il corredo rigenerato. Nessuna build, `versionCode` intatto.
+
+## I due rilievi sul disegno, NON corretti
+
+Segnalati da Mauro guardando l'anteprima buona, e lasciati in sospeso perche'
+sono giudizi d'occhio:
+
+1. **Il petalo centrale scuro lascia un buco al centro del fiore.** Il velo di
+   riempimento e' lo stesso per tutti i petali, ma quello centrale sta dritto e
+   sovrapposto agli altri due, quindi il suo contorno si legge come un vuoto.
+2. **Le due linee dell'acqua sono spezzate a meta'** e si leggono come un tratto
+   interrotto invece che come acqua. Sono nate cosi' per lasciare respirare il
+   fiore al centro, ma l'effetto e' un'altra cosa.
 
 ## Perche' mi sono fermato qui
 
