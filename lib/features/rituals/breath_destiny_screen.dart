@@ -18,6 +18,8 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/rituals/tempi_del_respiro.dart';
+import '../../design_system/components/guida_del_respiro.dart';
 import 'ritual_gift_card.dart';
 
 /// Soffio del Destino, dominio Aura.
@@ -311,6 +313,25 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                             Align(
                               alignment: const Alignment(0, -0.55),
                               child: _BreathPrompt(palette: palette),
+                            ),
+                          // IL RESPIRO SI GUIDA, NON SI LEGGE.
+                          //
+                          // Compare a gesto compiuto, cioe' quando il rito del
+                          // giorno c'e' e dichiara la sua cadenza. Prima qui
+                          // non c'era niente: il testo diceva "sei tempi
+                          // dentro e sei fuori, tre volte" e la persona
+                          // contava a mente davanti a una figura ferma.
+                          if (_revealed && _gift?.rito != null)
+                            Align(
+                              alignment: const Alignment(0, -0.2),
+                              child: GuidaDelRespiro(
+                                key: const Key('guida_respiro'),
+                                tempi: TempiDelRespiro(
+                                  tempi: _gift!.rito!.tempi,
+                                  giri: _gift!.rito!.giri,
+                                ),
+                                colore: palette.gold,
+                              ),
                             ),
                         ],
                       ),

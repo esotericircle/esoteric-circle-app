@@ -170,6 +170,8 @@ class RitoDiOggi {
     required this.gesto,
     required this.viaTattile,
     required this.respiro,
+    required this.tempi,
+    required this.giri,
     required this.parola,
     required this.perche,
     required this.datiNominati,
@@ -188,6 +190,18 @@ class RitoDiOggi {
 
   /// Il respiro contato, col suo numero gia' dentro.
   final String respiro;
+
+  /// QUANTI TEMPI DURA OGNI FASE DEL RESPIRO, e quanti giri se ne fanno.
+  ///
+  /// Erano nel corpus e si fermavano li': venivano usati per comporre la coda
+  /// in cifre del testo e poi buttati. Il testo quella coda non ce l'ha piu',
+  /// e i numeri servono a chi il respiro deve GUIDARLO: una schermata che dice
+  /// "sei tempi dentro e sei fuori, tre volte" e poi lascia contare a mente e'
+  /// un foglio di istruzioni, non un rito.
+  final int tempi;
+
+  /// Quanti giri completi di respiro chiede questa variante.
+  final int giri;
 
   /// La parola da portare nella giornata.
   final String parola;
@@ -350,6 +364,8 @@ class RitoAlba {
       // cioe' in `respiro.tempi` e `respiro.giri`, che sono i dati con cui il
       // simbolo si muove: al testo non serve ripeterli.
       respiro: respiro.testo,
+      tempi: respiro.tempi,
+      giri: respiro.giri,
       parola: parola.parola,
       perche: parola.perche,
       datiNominati: dati,
