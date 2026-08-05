@@ -72,6 +72,103 @@ L'emblema di Aura, con la decisione gia' presa da Mauro:
 
 Nessuna delle tre. Dipendono tutte dalle voci 2 e 3.
 
+---
+
+# RIPRESA del 6 agosto 2026: voci 2 e 3, chiuse
+
+Ripreso da un'altra sessione che aveva finito il contesto. Ramo `claude/doni-2`
+a `e0d1303`, albero pulito salvo `.github/workflows/ronda.yml` non tracciato,
+che non e' stato toccato. Suite di partenza **1734 verdi**.
+
+Deroga applicata: `STATO_VIVO.md` e `RIPRESA.md` non toccati, `custode-memoria`
+non invocato.
+
+## Le premesse, riverificate
+
+Tutte confermate tranne una cifra, corretta qui sopra. `docs/regole/` **non
+esiste**: le regole di casa sono arrivate da Mauro a voce, e per sua decisione
+**non** vanno scritte nel repo, perche' il Protocollo vive fuori e riscriverlo a
+memoria ne farebbe una copia impoverita che qualcuno leggerebbe come sovrana.
+
+## VOCE 2, chiusa in `f2dee3c`
+
+L'accento nasce da `gift.maestro`. Il costruttore della scheda **non accetta
+colori dall'esterno**, cosi' il secondo punto non e' nemmeno possibile, e una
+prova lo verifica leggendo il sorgente.
+
+**La scoperta che ha cambiato il progetto.** Preso com'e', il verde di Aura sul
+vetro chiaro ha contrasto **2,9**, sotto la soglia di 4,5: sarebbe stato
+l'unico accento illeggibile dei tre, proprio dove va letto. Invece di scegliere
+a mano tre colori, il colore del Maestro **si scurisce finche' il contrasto non
+basta**: blu e rosso passano al primo giro e restano quelli della palette, il
+verde scende di quanto serve. Una prova pretende anche che il verde di partenza
+NON passi, altrimenti non starebbe verificando niente.
+
+Quattro mutazioni viste rosse. Due anteprime a 1080x2391 in due giorni con
+Maestri diversi, trovati dal codice e non supposti.
+
+## VOCE 3, chiusa
+
+- **Il loto e' disegnato**, `LotoDorato` in `design_system/components`, sette
+  petali chiusi a ventaglio piu' il bocciolo e due tratti d'acqua. Il file
+  **dichiara di essere un ripiego** e dice cosa fare quando l'arte vera
+  arrivera'.
+- **Il modello ha imparato il loto**: `SimboloDellAttesa.loto`, che viaggia
+  separato da `asset` proprio perche' non e' un file. La strada resta **una
+  sola** per tutti e tre i Maestri.
+- **`_SimboloCheSiCompone` accetta un widget qualunque**, non piu' un percorso:
+  il loto entra dallo stesso ritaglio che scende dall'alto degli altri simboli,
+  quindi non c'e' un secondo modo di far comparire la stessa cosa.
+- **L'invito a corpo 16**, e la riserva di spazio misura lo stesso corpo:
+  lasciarla a 14 avrebbe fatto sbagliare il calcolo di quanto ci sta.
+- **La battuta dura 3 secondi invece di 2 quando c'e' un invito.** La durata la
+  decide il modello, non il Maestro: se domani un altro Maestro avesse un
+  invito, la scena si adeguerebbe da sola.
+- **La regola riscritta nello stesso commit.** Resta vero che i dodici emblemi
+  non si mostrano a chi non ha fatto il Test; il loto regge perche' **non e'
+  uno dei dodici**.
+
+## Cosa hanno trovato le prove, e cosa ho sbagliato io
+
+1. **La prima stesura della prova vedeva zero widget**, e sembrava un guasto del
+   loto. Era il montaggio: la vista chiede due provider e il `MaestroScope`, e
+   li stavo omettendo. Non concludere che la misura e' cieca prima di aver
+   guardato se il caso percorre il ramo.
+
+2. **Un rosso e' restato verde.** Tolto il `precache`, la prova sulla decodifica
+   restava verde. Invece di dichiararla cieca ho fatto puntare l'emblema a un
+   file inesistente: **e' diventata rossa**. La verifica sulla decodifica
+   funziona; e' il `precache` a non servire in questo ambiente, perche' il
+   bundle di prova risolve l'asset da solo. Resta indispensabile nella cattura
+   headless, che e' un contesto diverso.
+
+3. **Due prove esistenti pretendevano il vecchio.** `il_simbolo_si_compone_test`
+   diceva che ad Aura senza Test non deve comparire nessun simbolo. Aggiornata,
+   non aggirata, e con lei tre commenti dello stesso file che continuavano a
+   dichiarare che il loto non esiste: **il file diceva il contrario di quello
+   che l'app fa**.
+
+4. **Mi sono cancellato le modifiche con un `git checkout`** il cui `||` non e'
+   mai scattato. Ritrovate nella copia di lavoro e verificate riga per riga.
+
+## Cosa NON e' il massimo
+
+1. **Il loto si vedra' che e' un'altra cosa.** Un fiore vettoriale in oro piatto
+   accanto all'arte Total Metal incisa degli altri simboli non si confonde. E'
+   la scelta dell'ordine, presa sapendolo, ma va guardata a video prima di
+   considerarla buona.
+2. **Nessuna prova guarda i pixel del fiore.** Si verifica che ci sia, che abbia
+   una misura e che non sia un emblema: che sia bello, o anche solo che assomigli
+   a un loto, lo puo' dire solo l'occhio.
+3. **Il contrasto si misura contro il vetro reso opaco**, cioe' contro la scena
+   a luce piena. Se un giorno la scheda comparisse su un fondo scuro, la soglia
+   andrebbe rifatta.
+
+## I numeri
+
+Suite intera **1753 verdi**. `analyze` 59 prima, 59 dopo. Tre anteprime a
+1080x2391. Nessuna build, `versionCode` intatto.
+
 ## Perche' mi sono fermato qui
 
 Il margine di contesto era finito, e l'ordine dice di non aprire cio' che non si puo' chiudere ne' verificare. La modifica parziale della VOCE 2 e' stata **riportata indietro**, non lasciata a meta': l'albero di lavoro e' pulito, `flutter analyze` da' zero errori, e l'ultimo commit e' verde e spinto.

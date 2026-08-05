@@ -57,6 +57,8 @@ import 'package:esoteric_circle/core/maestro/consult_depth.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
+import 'package:esoteric_circle/design_system/components/loto_dorato.dart';
+import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/dream_rite_corpus.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
@@ -1066,6 +1068,58 @@ void main() {
       await capture(tester, rootKey, 'rito-alba-dono-${maestro.id}.png');
     });
   }
+
+  /// LA CHAT DI AURA CON IL LOTO E L'INVITO, per chi non ha fatto il Test.
+  ///
+  /// E' l'unica scena in cui il loto compare, quindi e' l'unica in cui si puo'
+  /// giudicare: un fiore disegnato accanto all'arte incisa degli altri simboli
+  /// si vedra' che e' un'altra cosa, ed e' una scelta presa sapendolo.
+  testWidgets('Cattura la chat di Aura col loto e l\'invito', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    montaLoSchermo(tester, schermoReale);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+          ],
+          child: const MaterialApp(
+            home: MaestroScope(
+              child: Scaffold(
+                backgroundColor: ColorTokens.auraDeepest,
+                // Senza archetipo: e' il caso in cui il loto entra.
+                body: Center(
+                  child: ConsultoDelCieloView(
+                    maestro: Maestro.aura,
+                    natal: NatalContext(sunSign: 'Leone'),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await step(tester);
+    await step(tester);
+    // Il tratto scende in tre secondi: si aspetta che il fiore sia intero,
+    // altrimenti l'anteprima mostrerebbe un loto a meta' e sembrerebbe un
+    // ritaglio sbagliato invece di un'animazione colta a meta'.
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    // LA VERIFICA PRIMA DELLA CATTURA: se il loto o l'invito non ci fossero,
+    // l'anteprima uscirebbe vuota e nessuno se ne accorgerebbe guardandola.
+    expect(find.byType(LotoDorato), findsOneWidget,
+        reason: 'il loto non e\' nella scena: l\'anteprima sarebbe un vuoto');
+    expect(find.byKey(const Key('consulto_invito')), findsOneWidget,
+        reason: 'l\'invito non e\' nella scena');
+    await capture(tester, rootKey, 'chat-aura-loto-e-invito.png');
+  });
 
   testWidgets('Cattura il Soffio del Destino, testa piena e col dono',
       (tester) async {
