@@ -33,9 +33,38 @@ nei due sensi da `6a40e2d`, e gia' spinto sul canonico a ogni voce chiusa.
      stato nessun dato da riparare. **Mentiva la scena, non il dato.** Chi
      riprende non deve andare a caccia di storici da correggere.
 
+## Voce 2, cosa e' fatto
+
+Fatto e spinto, dopo la ripresa del 6 agosto:
+
+- **Le etichette invisibili**, causa trovata e chiusa: alpha a uno su 255. Vedi
+  la voce in `STATO_VIVO.md`, e la nota qui sotto sulla premessa 2b, che resta
+  perche' racconta come ci si e' arrivati.
+- **"In arrivo" tolto** dalla parola del giorno.
+- **La lingua della Luna** e la coda in cifre del respiro.
+- **Il respiro guidato**, con la figura che si espande e si contrae, il
+  conteggio dei giri, e il conteggio che resta anche con Riduci Movimento.
+
 ## Cosa NON e' fatto
 
-- **Voce 2, il Soffio del Destino.** Premesse enumerate, nessuna riga scritta.
+- **Voce 2, LA RISPOSTA.** E' il pezzo piu' grosso rimasto, e non e' stato
+  toccato. Il Soffio deve lasciare una risposta e non una parola ne' un gesto:
+  due righe, la porta che il cielo tiene aperta adesso e quella che oggi e'
+  meglio non forzare. Vincoli dell'ordine, da rispettare alla lettera: nessuna
+  domanda alla persona, nessun compito, nessuna promessa di esito; esce dai
+  transiti VERI passando da `CieloDiOggi.perIlGiorno` con `CorrenteDelCielo`,
+  che e' la stessa porta di Oroscopo e Rito dell'Alba e non se ne apre una
+  seconda; e se il transito che una variante nomina non c'e', quella variante
+  non entra. Serve anche una prova che pretenda che la chiusura del Soffio non
+  sia MAI un imperativo, perche' quella e' la forma dell'Alba e le due non
+  devono somigliarsi.
+- **Voce 2, il fondale.** L'ordine non chiedeva di deciderlo ma di MISURARLO, e
+  la misura non c'e'. Il prato diurno e' `assets/ritual_backgrounds/breath_meadow.png`,
+  composto in `breath_destiny_screen.dart` insieme al soffione dentro un canvas
+  dipinto a livelli, non un widget di sfondo riusabile: toglierlo non e'
+  cambiare una riga, e quanto costi va misurato prima di dirlo.
+- **Voce 2, le anteprime.** Servono a 1080x2391: la scheda intera senza vuoti e
+  il simbolo al culmine dell'espansione. Nessuna delle due esiste.
 - **Voce 3, la striscia Sentieri.** Non cominciata, premesse non enumerate.
 - **La build finale e la consegna delle voci 2 e 3.** Restano da fare, quando
   quelle voci esisteranno.
