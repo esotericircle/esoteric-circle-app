@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../core/identity/birth_identity.dart';
+import '../../core/astro/natal_chart.dart';
+import '../../core/identity/natal_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
@@ -169,6 +171,30 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     }
   }
 
+  /// LA CARTA NATALE, dalla stessa fonte da cui la prende l'Oroscopo.
+  ///
+  /// Serve al transito vero della scheda piena: senza carta non ci sono
+  /// transiti da leggere, e la riga sparisce invece di dire di aspettare.
+  NatalChart? _carta() {
+    try {
+      return context.read<BirthIdentityController>().chart;
+    } on ProviderNotFoundException catch (assente) {
+      // NON E' UN CATCH MUTO, ed e' l'unico errore che qui si ignora.
+      //
+      // Nell'app vera questo provider sta sopra tutto, in `app.dart`: se
+      // manca, siamo in una prova che monta la schermata da sola. Senza carta
+      // il transito non c'e' e la riga sparisce, che e' esattamente cio' che
+      // succede a chi non ha dato ora e luogo di nascita. Qualunque ALTRO
+      // errore passa, perche' un cielo che non si calcola va visto.
+      assert(() {
+        // ignore: avoid_print
+        print('Rito dell\'Alba senza BirthIdentityController: $assente');
+        return true;
+      }());
+      return null;
+    }
+  }
+
   void _onDragUpdate(DragUpdateDetails d) {
     if (_revealed) return;
     _lift.stop();
@@ -218,7 +244,9 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     setState(() {
       _revealed = true;
       _gift = DawnGift.forChart(date,
-          identity: _identity(), posizione: _posizione(date));
+          identity: _identity(),
+          posizione: _posizione(date),
+          carta: _carta());
     });
     _recordStreak(date);
     _aggiornaPosizione(date);
@@ -243,7 +271,9 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     setState(() {
       _dovesSei = luogo;
       _gift = DawnGift.forChart(date,
-          identity: _identity(), posizione: _posizione(date));
+          identity: _identity(),
+          posizione: _posizione(date),
+          carta: _carta());
     });
   }
 

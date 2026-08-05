@@ -220,20 +220,34 @@ class _BasePanel extends StatelessWidget {
             value: source.natalDescription,
             provisional: false,
           ),
-          const SizedBox(height: SpacingTokens.sm),
-          _BaseRow(
-            label: 'Transito attivo oggi',
-            value: source.transit ??
-                'In attesa dei contenuti astrologici verificati.',
-            provisional: source.transit == null,
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          _BaseRow(
-            label: 'Nella tradizione',
-            value: source.tradition ??
-                'In attesa dei contenuti astrologici verificati.',
-            provisional: source.tradition == null,
-          ),
+          // LE DUE RIGHE CHE SPARISCONO INVECE DI DIRE DI ASPETTARE.
+          //
+          // **Qui c'era due volte "In attesa dei contenuti astrologici
+          // verificati", ed era l'app che mostrava alla persona la propria
+          // impalcatura.** Adesso il transito arriva dal motore vero, lo
+          // stesso dell'Oroscopo, ed e' nullo solo quando la carta natale non
+          // c'e'; la fonte nella tradizione e' nulla perche' per i nove riti
+          // dell'Alba non esiste una fonte verificata da citare.
+          //
+          // In tutti e due i casi la riga NON COMPARE. E' la stessa regola che
+          // le varianti del rito seguono gia': si mostra il dato che c'e', e
+          // di quello che manca non si parla.
+          if (source.transit != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            _BaseRow(
+              label: 'Transito attivo oggi',
+              value: source.transit!,
+              provisional: false,
+            ),
+          ],
+          if (source.tradition != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            _BaseRow(
+              label: 'Nella tradizione',
+              value: source.tradition!,
+              provisional: false,
+            ),
+          ],
         ],
       ),
     );
