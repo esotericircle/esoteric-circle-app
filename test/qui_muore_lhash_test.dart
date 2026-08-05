@@ -423,14 +423,270 @@ void main() {
         dominio: HoroscopeDomain.amore,
         profonda: true,
       )!;
-      const casa = 'sta attraversando la tua dodicesima casa';
+      // **SI CERCA LA GLOSSA, non il verbo.** La prima stesura cercava "sta
+      // attraversando la tua dodicesima casa", che e' la sintassi di UNA delle
+      // cinque forme: col ventaglio aperto la stessa scheda puo' dire
+      // "attraversa la tua dodicesima casa" e la prova non trovava piu'
+      // niente, cioe' cascava per la ragione sbagliata. La glossa invece e' la
+      // stessa in tutte le forme, perche' e' il pezzo che non si ripete.
+      const casa = 'del ritiro e del silenzio';
       expect(casa.allMatches(testo).length, 1,
-          reason: 'la frase della casa compare '
+          reason: 'la glossa della casa compare '
               '${casa.allMatches(testo).length} volte: la Profonda paga tre '
               'voci e ne scrive due e mezza. «$testo»');
       expect(testo, contains('Venere forma anche'),
           reason: 'tolta la frase della casa, la seconda voce resta senza '
               'soggetto e non si capisce chi forma cosa');
+    });
+  });
+
+  group('VOCE 2g. Il ventaglio delle forme, e la glossa detta una volta', () {
+    // **I DUE DIFETTI VISTI NELLE ANTEPRIME DELLA BUILD 2148.** Tutte le
+    // schede dicevano il transito con la stessa sintassi, e nella Generale la
+    // glossa della decima casa compariva due volte nello stesso paragrafo,
+    // per il Sole e per Giove.
+
+    test('NESSUNA GLOSSA DI CASA compare due volte nella stessa scheda', () {
+      // Scandisce un oroscopo intero, non una scheda a campione, e su tre
+      // giorni distanti perche' il cielo cambia e con lui quali pianeti
+      // finiscono nella stessa casa.
+      for (final quando in [
+        DateTime.utc(2026, 8, 5, 12),
+        DateTime.utc(2026, 10, 19, 12),
+        DateTime.utc(2027, 3, 2, 12),
+      ]) {
+        for (final profonda in [false, true]) {
+          final carte = schede(cartaUna, quando, profonda: profonda);
+          for (final c in carte) {
+            for (final materia in CorrenteDelCielo.materiaDelleCase) {
+              final quante = materia.allMatches(c.text).length;
+              expect(quante, lessThanOrEqualTo(1),
+                  reason: '${quando.toIso8601String().substring(0, 10)}, '
+                      'scheda ${c.domain.label}, profonda $profonda: la glossa '
+                      '"$materia" compare $quante volte nello stesso '
+                      'paragrafo. «${c.text}»');
+            }
+          }
+        }
+      }
+    });
+
+    test('Il secondo pianeta nella stessa casa la NOMINA senza rispiegarla',
+        () {
+      // Il caso vero della build 2148: Sole e Giove tutti e due in decima.
+      final voci = [
+        for (final p in const [CorpoCeleste.sole, CorpoCeleste.giove])
+          VoceDelCielo(
+            transito: p,
+            bersaglio: p == CorpoCeleste.sole ? 'Luna' : 'Sole',
+            idBersaglio: p == CorpoCeleste.sole ? 'moon' : 'sun',
+            aspetto: AspectType.trine,
+            orbe: p == CorpoCeleste.sole ? 0.39 : 0.42,
+            applicativo: true,
+            casa: 10,
+            retrogrado: false,
+            giorniDiIncertezza: 0.05,
+          ),
+      ];
+      final testo = CorrenteDelCielo.componi(
+        cielo: CieloDiOggi(
+            voci: voci, livello: LivelloPersonalizzazione.cartaCompleta),
+        dominio: HoroscopeDomain.generale,
+        profonda: true,
+        giornoOrdinale: 216,
+        indiceDelSegno: Zodiac.leo.index,
+      )!;
+      const glossa = 'quella di ciò che costruisci in pubblico';
+      expect(glossa.allMatches(testo).length, 1,
+          reason: 'la glossa della decima casa compare '
+              '${glossa.allMatches(testo).length} volte. «$testo»');
+      expect(testo, contains('Giove'),
+          reason: 'il secondo pianeta e\' sparito insieme alla sua glossa');
+      expect(testo, contains('nella stessa casa'),
+          reason: 'il secondo pianeta non dice piu\' dove passa: tolta la '
+              'glossa, e\' rimasto senza posto');
+    });
+
+    test('DUE SCHEDE dello stesso oroscopo non usano la stessa forma', () {
+      // Enumerata su tutti i segni e su un anno intero, non a campione: se le
+      // quattro schede coincidessero anche un giorno solo, quel giorno la
+      // schermata mostrerebbe quattro volte la stessa sintassi.
+      for (var segno = 0; segno < Zodiac.values.length; segno++) {
+        for (var giorno = 0; giorno < 366; giorno++) {
+          final forme = <FormaDellaFrase>{};
+          for (final d in HoroscopeDomain.values) {
+            forme.add(CorrenteDelCielo.formaDellaScheda(
+                giornoOrdinale: giorno, indiceDelSegno: segno, dominio: d));
+          }
+          expect(forme.length, HoroscopeDomain.values.length,
+              reason: 'segno $segno, giorno $giorno: le quattro schede usano '
+                  '${forme.length} forme distinte invece di quattro');
+        }
+      }
+    });
+
+    test('Le forme sono PIU\' dei domini, ed e\' la ragione della garanzia',
+        () {
+      // Con quattro forme esatte l'ultima scheda ricadrebbe sulla prima: la
+      // garanzia sopra regge perche' i domini sono meno delle forme.
+      expect(FormaDellaFrase.values.length,
+          greaterThan(HoroscopeDomain.values.length));
+      expect(FormaDellaFrase.values.length, 5);
+    });
+
+    test('La forma non cambia a parita\' di giorno e segno', () {
+      final una = CorrenteDelCielo.formaDellaScheda(
+          giornoOrdinale: 216,
+          indiceDelSegno: Zodiac.leo.index,
+          dominio: HoroscopeDomain.amore);
+      final altra = CorrenteDelCielo.formaDellaScheda(
+          giornoOrdinale: 216,
+          indiceDelSegno: Zodiac.leo.index,
+          dominio: HoroscopeDomain.amore);
+      expect(una, altra);
+      // E cambia col giorno, altrimenti sarebbe una costante travestita.
+      final forme = {
+        for (var g = 0; g < 5; g++)
+          CorrenteDelCielo.formaDellaScheda(
+              giornoOrdinale: g,
+              indiceDelSegno: Zodiac.leo.index,
+              dominio: HoroscopeDomain.amore),
+      };
+      expect(forme.length, greaterThan(1),
+          reason: 'la forma e\' la stessa in cinque giorni di fila: il '
+              'ventaglio non si apre');
+    });
+  });
+
+  group('VOCE 2h. Il transito non e\' un blocco incollato', () {
+    test('La prima frase del cielo si aggancia a quella del segno', () {
+      final carte = schede(cartaUna, giorno);
+      for (final c in carte) {
+        final agganci = [
+          ...CorrenteDelCielo.giunturaCoiDuePunti,
+          ...CorrenteDelCielo.giunturaColPunto,
+        ];
+        expect(agganci.any(c.text.contains), isTrue,
+            reason: 'la scheda ${c.domain.label} attacca il transito senza '
+                'nessun aggancio alla frase del segno: sono due testi '
+                'incollati. «${c.text}»');
+      }
+    });
+
+    test('Dopo i due punti non finisce mai un nome proprio di pianeta', () {
+      // E' la ragione per cui le famiglie di giuntura sono due: "Marte" e
+      // "Venere" la minuscola non la prendono.
+      for (final c in CorpoCeleste.values) {
+        final frase = CorrenteDelCielo.frase(VoceDelCielo(
+          transito: c,
+          bersaglio: 'Sole',
+          idBersaglio: 'sun',
+          aspetto: AspectType.trine,
+          orbe: 1.0,
+          applicativo: true,
+          casa: 4,
+          retrogrado: false,
+          giorniDiIncertezza: 0.05,
+        ));
+        final conGiuntura = CorrenteDelCielo.conLaGiuntura(frase, 0);
+        for (final corpo in CorpoCeleste.values) {
+          expect(conGiuntura.contains(': ${corpo.nome.toLowerCase()} '), isFalse,
+              reason: 'un nome proprio scritto minuscolo dopo i due punti: '
+                  '«$conGiuntura»');
+        }
+      }
+    });
+
+    test('Nessuna frase porta due volte i due punti', () {
+      for (final forma in FormaDellaFrase.values) {
+        final frase = CorrenteDelCielo.frase(
+          const VoceDelCielo(
+            transito: CorpoCeleste.sole,
+            bersaglio: 'Luna',
+            idBersaglio: 'moon',
+            aspetto: AspectType.trine,
+            orbe: 0.4,
+            applicativo: true,
+            casa: 10,
+            retrogrado: false,
+            giorniDiIncertezza: 0.01,
+          ),
+          forma: forma,
+        );
+        final conGiuntura = CorrenteDelCielo.conLaGiuntura(frase, 0);
+        expect(':'.allMatches(conGiuntura).length, lessThanOrEqualTo(1),
+            reason: '$forma: due volte i due punti nello stesso periodo. '
+                '«$conGiuntura»');
+      }
+    });
+
+    test('Nessun periodo finisce con due punti fermi', () {
+      for (final forma in FormaDellaFrase.values) {
+        for (final certo in const [true, false]) {
+          final frase = CorrenteDelCielo.frase(
+            VoceDelCielo(
+              transito: CorpoCeleste.saturno,
+              bersaglio: 'Luna',
+              idBersaglio: 'moon',
+              aspetto: AspectType.square,
+              orbe: 0.4,
+              applicativo: true,
+              casa: 10,
+              retrogrado: false,
+              giorniDiIncertezza: certo ? 0.5 : 5.2,
+            ),
+            forma: forma,
+          );
+          expect(frase.contains('..'), isFalse,
+              reason: '$forma, giorno certo $certo: «$frase»');
+        }
+      }
+    });
+
+    test('Nessuna preposizione resta staccata dal suo articolo', () {
+      // "Da la tua decima casa" era quello che usciva dalla forma che apre
+      // con la casa: si scrive "Dalla".
+      for (final forma in FormaDellaFrase.values) {
+        final frase = CorrenteDelCielo.frase(
+          const VoceDelCielo(
+            transito: CorpoCeleste.mercurio,
+            bersaglio: 'Marte',
+            idBersaglio: 'mars',
+            aspetto: AspectType.sextile,
+            orbe: 1.0,
+            applicativo: null,
+            casa: 9,
+            retrogrado: false,
+            giorniDiIncertezza: 0.01,
+          ),
+          forma: forma,
+        );
+        for (final storta in const ['Da la ', 'da la ', 'di il ', 'a il ']) {
+          expect(frase.contains(storta), isFalse,
+              reason: '$forma: «$frase» contiene "$storta"');
+        }
+      }
+    });
+
+    test('Un pianeta femminile e\' RETROGRADA, non retrogrado', () {
+      for (final c in CorpoCeleste.values) {
+        final frase = CorrenteDelCielo.frase(VoceDelCielo(
+          transito: c,
+          bersaglio: 'Sole',
+          idBersaglio: 'sun',
+          aspetto: AspectType.conjunction,
+          orbe: 0.2,
+          applicativo: null,
+          casa: 1,
+          retrogrado: true,
+          giorniDiIncertezza: 0.05,
+        ));
+        final atteso = c == CorpoCeleste.luna || c == CorpoCeleste.venere
+            ? 'retrograda'
+            : 'retrogrado';
+        expect(frase, contains('è $atteso.'),
+            reason: '${c.nome}: «${frase.split('.').first}»');
+      }
     });
   });
 

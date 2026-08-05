@@ -459,9 +459,10 @@ class _ChatBubbleState extends State<ChatBubble> {
                   // IL RESIDUO SI VEDE PRIMA DEL TOCCO.
                   //
                   // Chi tocca deve sapere cosa spende prima di spenderlo. La
-                  // formula e' una sola e non ha accordo grammaticale, "Oggi
-                  // te ne resta 1 su 3", perche' vale per uno come per tre e
-                  // non c'e' nessun plurale che qualcuno possa dimenticare.
+                  // frase la compone `QuestionAllowance.comeSiDiceIlResiduo`,
+                  // che tiene l'accordo: "non te ne resta nessuno" a zero,
+                  // "te ne resta 1" a uno, "te ne restano 3" da due in su.
+                  // Qui non si sceglie niente, si mostra.
                   //
                   // Nulla quando non c'e' un numero da dire: senza il piano
                   // non e' un residuo, e' un lucchetto, e lo dice la porta.

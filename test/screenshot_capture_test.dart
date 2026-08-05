@@ -1920,6 +1920,24 @@ void main() {
         reason: 'la nota del ripiego e\' a video, quindi il cielo non e\' '
             'stato letto');
     await capture(tester, rootKey, 'oroscopo-transito-vero.png');
+
+    // DUE SCHEDE AFFIANCATE, per vedere che non usano la stessa forma.
+    //
+    // E' il difetto 1 dell'ordine OROSCOPO 4: nella build 2148 tutte le
+    // schede dicevano il transito con la stessa sintassi, e in una schermata
+    // sola si vedeva il modello del testo invece del testo. Qui si scorre
+    // fino ad avere due schede nello stesso fotogramma.
+    //
+    // ALLA MISURA DEL TELEFONO, 360 per 797: la cattura di sopra usa uno
+    // schermo alto apposta per far entrare tutte e quattro le schede, e a
+    // quell'altezza l'immagine esce 1080 per 5400. Questa deve essere quella
+    // che si vede in mano, quindi lo schermo torna alla sua misura.
+    montaLoSchermo(tester, const Size(360, 797));
+    await step(tester);
+    await tester.drag(find.byType(ListView).first, const Offset(0, -1180));
+    await step(tester);
+    await tester.pump(const Duration(seconds: 1));
+    await capture(tester, rootKey, 'oroscopo-due-schede-affiancate.png');
   });
 
   // --- La card condivisibile dell'Oroscopo ---
@@ -2767,6 +2785,72 @@ void main() {
           await step(tester);
         }
       }
+    });
+  }
+
+  // --- LA BOLLA DELLA CHAT COL CONTATORE, a tre e a uno ---
+  //
+  // **E' il difetto 4 dell'ordine OROSCOPO 4 e CHAT 12.** Nella build 2148 si
+  // leggeva "Oggi te ne resta 3 su 3", che e' sgrammaticato: al plurale ci
+  // vuole "te ne restano". Due immagini perche' l'accordo si vede solo
+  // confrontando i due casi, e a uno la forma singolare deve restare.
+  for (final quanti in const [3, 1]) {
+    // I NOMI PER ESTESO, e non composti a runtime: il corredo li cerca come
+    // stringhe dentro questo file, e un nome interpolato lo lascerebbe orfano.
+    final nome = const {
+      3: 'chat-contatore-a-3.png',
+      1: 'chat-contatore-a-1.png',
+    }[quanti]!;
+    testWidgets('Cattura la bolla col contatore a $quanti', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final memory = InMemoryMaestroMemoryRepository();
+      await memory
+          .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+      final services = AppServices(
+        ai: _VoceInDueStrati(),
+        memory: memory,
+        memoryPersistent: true,
+        diagnostics: 'Cattura offline.',
+      );
+      final rootKey = await mount(tester, services);
+      final ctx = tester.element(find.byType(MaterialApp));
+      ctx.read<EntitlementService>().setTier(Tier.tier1);
+      await step(tester);
+      await openChat(tester, Maestro.medora);
+      await precacheFaces(tester);
+      final campo = find.descendant(
+        of: find.byType(ChatComposer),
+        matching: find.byType(TextField),
+      );
+      await tester.enterText(campo, 'Devo cambiare lavoro?');
+      await step(tester);
+      await tester.testTextInput.receiveAction(TextInputAction.send);
+      for (var i = 0; i < 30; i++) {
+        await step(tester);
+      }
+      await precacheFaces(tester);
+      // I CONFRONTI GIA' SPESI, registrati QUI e non prima di aprire la chat.
+      //
+      // Prima stavano prima dell'apertura, e le due immagini uscivano
+      // identiche byte per byte: il contatore si legge dal provider vivo che
+      // la rotta della chat tiene, e mutarlo prima che quella rotta esista non
+      // arrivava a video. Con la conta fatta a chat aperta il numero cambia
+      // davvero, e le due anteprime sono due.
+      final conto = tester
+          .element(find.byType(ChatComposer))
+          .read<QuestionAllowance>();
+      for (var i = 0; i < 3 - quanti; i++) {
+        conto.registraConfronto(Tier.tier1);
+      }
+      await step(tester);
+      await step(tester);
+
+      // IL GUARDIANO: senza il contatore a video l'immagine non mostra il
+      // difetto che deve mostrare.
+      expect(find.byKey(const Key('chat_residuo_confronti')), findsOneWidget,
+          reason: 'il contatore non e\' a video: questa cattura non serve');
+      await capture(tester, rootKey, nome);
     });
   }
 

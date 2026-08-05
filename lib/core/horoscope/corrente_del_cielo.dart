@@ -23,6 +23,47 @@ import 'horoscope.dart';
 /// resta, ma smette di essere muto. La scheda porta [ripiegoDichiarato], e dice
 /// a parole che senza ora e luogo di nascita quella riga parla al segno e non
 /// al cielo di questa persona.
+/// LE FORME IN CUI SI PUO' DIRE UN PASSAGGIO DEL CIELO.
+///
+/// **Il difetto che le ha fatte nascere.** Nella build 2148 tutte e quattro le
+/// schede dell'Oroscopo dicevano il transito con la stessa identica sintassi:
+/// pianeta, casa, glossa, "Forma un ASPETTO al tuo PUNTO che si sta
+/// stringendo". Tre schede su tre uguali nella struttura, una dopo l'altra
+/// nella stessa schermata: si vedeva il modello del testo invece del testo.
+///
+/// Cinque forme, e cinque non e' un numero tondo scelto a caso: i domini sono
+/// quattro, quindi con cinque forme e un passo di uno le quattro schede
+/// prendono quattro forme DIVERSE per costruzione, e ne avanza una. Con
+/// quattro forme esatte l'ultima scheda ricadrebbe sulla prima.
+enum FormaDellaFrase {
+  /// Due periodi: la casa, poi l'aspetto. E' quella che c'era.
+  periodo,
+
+  /// Un periodo solo, col ponte dei due punti.
+  duePunti,
+
+  /// La casa in apertura, il pianeta dentro.
+  dallaCasa,
+
+  /// L'aspetto in apertura, e chi lo porta dopo.
+  aspettoPrima,
+
+  /// Il punto natale come soggetto, che riceve.
+  riceve,
+}
+
+/// COSA E' GIA' STATO DETTO, quando una voce non e' la prima della scheda.
+enum RipresaDelCielo {
+  /// Niente di questa voce e' stato detto: la frase si dice per intero.
+  nessuna,
+
+  /// Lo STESSO pianeta era gia' entrato, nella stessa casa.
+  stessoPianeta,
+
+  /// La casa era gia' stata spiegata, ma da un ALTRO pianeta.
+  stessaCasa,
+}
+
 class CorrenteDelCielo {
   const CorrenteDelCielo._();
 
@@ -141,6 +182,32 @@ class CorrenteDelCielo {
     }
   }
 
+  /// I PIANETI DI GENERE FEMMINILE, per l'accordo dell'aggettivo.
+  ///
+  /// "Venere è retrogrado" era quello che usciva, ed e' lo stesso errore di
+  /// "al tuo Luna di nascita": si scrive la lista, non si deduce dalla
+  /// desinenza. Due su dieci, la Luna e Venere.
+  static const Set<CorpoCeleste> pianetiFemminili = {
+    CorpoCeleste.luna,
+    CorpoCeleste.venere,
+  };
+
+  /// Come si dice che un corpo e' retrogrado, con l'accordo giusto.
+  static String retrogradoDi(CorpoCeleste corpo) =>
+      '${colSuoArticolo(corpo)} è '
+      '${pianetiFemminili.contains(corpo) ? 'retrograda' : 'retrogrado'}.';
+
+  /// IL PRONOME DI UN ASPETTO, per la forma che lo mette in apertura.
+  ///
+  /// "Un trigono: LO porta Venere", "Una quadratura: LA porta Saturno".
+  static const Map<AspectType, String> pronomeDellAspetto = {
+    AspectType.conjunction: 'la',
+    AspectType.sextile: 'lo',
+    AspectType.square: 'la',
+    AspectType.trine: 'lo',
+    AspectType.opposition: 'la',
+  };
+
   /// I PUNTI NATALI DI GENERE FEMMINILE, per l'articolo del complemento.
   ///
   /// "al tuo Luna di nascita" era quello che usciva prima, e si legge come un
@@ -148,6 +215,93 @@ class CorrenteDelCielo {
   /// maschili tutti e due: si scrivono, non si indovinano da una regola sulle
   /// desinenze, che in italiano su questi nomi non regge.
   static const Set<String> bersagliFemminili = {'moon', 'venus'};
+
+  /// LA GIUNTURA FRA LA FRASE DEL SEGNO E IL CIELO DI OGGI.
+  ///
+  /// **Il difetto che l'ha fatta nascere.** Nella build 2148 si leggeva "Ami
+  /// con slancio e teatro, doni tanto e chiedi di essere visto" e poi, di
+  /// colpo, "Marte sta attraversando la tua nona casa": due testi incollati,
+  /// con un salto in mezzo che si sentiva.
+  ///
+  /// **E la fusione vera non si fa qui.** Le quarantotto frasi del segno sono
+  /// materiale scritto, chiuso, senza punti d'innesto: farci entrare dentro il
+  /// transito vorrebbe dire riscriverle una per una nel corpus, che e' un
+  /// lavoro sui contenuti e non su questo generatore. Quella strada resta
+  /// aperta come ordine a se'. Qui il transito smette di essere un blocco
+  /// appiccicato e diventa il seguito di un discorso, con un connettivo che
+  /// guarda indietro alla frase del segno.
+  ///
+  /// **Due famiglie, e la ragione e' grammaticale.** Dopo i due punti
+  /// l'italiano vuole la minuscola, ma "Marte" e "Venere" la minuscola non la
+  /// possono prendere: sono nomi propri. Quindi quando la frase comincia con
+  /// un nome proprio di pianeta si usa la famiglia che chiude col punto, e
+  /// negli altri casi quella che apre coi due punti.
+  static const List<String> giunturaCoiDuePunti = [
+    'Il cielo di oggi lo dice così:',
+    'Sopra di te, intanto:',
+    'Il cielo lo racconta da dove passa:',
+    'E il giorno lo scrive così:',
+    'Guarda cosa si muove mentre leggi:',
+  ];
+
+  /// La stessa giuntura per le frasi che cominciano con un nome proprio.
+  static const List<String> giunturaColPunto = [
+    'Il cielo di oggi lo dice a modo suo.',
+    'Sopra di te, intanto, si muove questo.',
+    'Il cielo lo racconta da dove passa.',
+    'E il giorno lo scrive così.',
+    'Guarda cosa si muove mentre leggi.',
+  ];
+
+  /// Vero se [frase] comincia con un nome proprio di pianeta, cioe' con una
+  /// parola che la minuscola non la puo' prendere.
+  static bool cominciaConNomeProprio(String frase) {
+    final prima = frase.trimLeft().split(' ').first.replaceAll(',', '');
+    return CorpoCeleste.values.any((c) => c.nome == prima);
+  }
+
+  /// SE QUESTA FRASE VUOLE LA GIUNTURA COL PUNTO invece che coi due punti.
+  ///
+  /// Due ragioni, tutte e due grammaticali. La prima: comincia con un nome
+  /// proprio di pianeta, che la minuscola non la prende. La seconda: dentro
+  /// ha gia' i due punti, e due volte i due punti nello stesso periodo si
+  /// leggono come un inciampo. La prima stesura guardava solo la prima, e la
+  /// forma coi due punti usciva con "così: un trigono ...: lo porta il Sole".
+  static bool vuoleLaGiunturaColPunto(String frase) =>
+      cominciaConNomeProprio(frase) || frase.contains(':');
+
+  /// La frase con la sua giuntura davanti, pronta a seguire il testo del segno.
+  static String conLaGiuntura(String frase, int indice) {
+    if (vuoleLaGiunturaColPunto(frase)) {
+      final g = giunturaColPunto[indice % giunturaColPunto.length];
+      return '$g $frase';
+    }
+    final g = giunturaCoiDuePunti[indice % giunturaCoiDuePunti.length];
+    final minuscola = frase.isEmpty
+        ? frase
+        : frase[0].toLowerCase() + frase.substring(1);
+    return '$g $minuscola';
+  }
+
+  /// LA FORMA DI QUESTA SCHEDA, decisa dalla data e dal segno.
+  ///
+  /// **Deterministica, come tutto il resto dell'elemento oracolare.** Non si
+  /// pesca a caso: due aperture nello stesso giorno devono dare la stessa
+  /// pagina, altrimenti chi rilegge pensa di aver letto male.
+  ///
+  /// **E le quattro schede non possono coincidere.** Il passo e' l'indice del
+  /// dominio, quindi le quattro schede prendono `base`, `base+1`, `base+2` e
+  /// `base+3` modulo cinque: quattro resti distinti, sempre, perche' quattro
+  /// e' minore di cinque. Non e' una probabilita' bassa, e' una garanzia.
+  static FormaDellaFrase formaDellaScheda({
+    required int giornoOrdinale,
+    required int indiceDelSegno,
+    required HoroscopeDomain dominio,
+  }) {
+    const forme = FormaDellaFrase.values;
+    final base = (giornoOrdinale + indiceDelSegno) % forme.length;
+    return forme[(base + dominio.index) % forme.length];
+  }
 
   /// QUANTE VOCI ENTRANO NEL TESTO, per profondita'.
   ///
@@ -194,44 +348,135 @@ class CorrenteDelCielo {
   /// toglie e resta la ripresa. Senza questo, la Profonda scriveva due volte di
   /// fila "Venere sta attraversando la tua dodicesima casa, quella del ritiro e
   /// del silenzio", cioe' pagava tre voci per due frasi e mezza.
-  static String frase(VoceDelCielo v, {Set<String> gia = const {}}) {
-    final nome = colSuoArticolo(v.transito);
+  static String frase(
+    VoceDelCielo v, {
+    Set<String> gia = const {},
+    FormaDellaFrase forma = FormaDellaFrase.periodo,
+  }) {
+    final ripresa = _ripresaDi(v, gia);
     final righe = <String>[];
     if (v.retrogrado && !gia.contains(_chiaveRetro(v))) {
-      righe.add('$nome è retrogrado.');
+      righe.add(retrogradoDi(v.transito));
     }
-
-    final ripresa = gia.contains(_chiaveCasa(v));
-    if (!ripresa) {
-      if (v.casa != null) {
-        righe.add('$nome sta attraversando la tua '
-            '${ordinaliDelleCase[v.casa! - 1]} casa, quella '
-            '${materiaDelleCase[v.casa! - 1]}.');
-      } else {
-        righe.add('$nome è in transito nel tuo cielo.');
-      }
-    }
-
-    final aspetto = aspettoConArticolo[v.aspetto]!;
-    final coda = v.applicativo == true
-        ? ' che si sta stringendo'
-        : v.applicativo == false
-            ? ' che si sta sciogliendo'
-            : '';
-    // Alla ripresa il soggetto va ridetto, perche' la frase di prima non c'e'.
-    final apre = ripresa ? '$nome forma anche' : 'Forma';
-    if (v.ilGiornoSiPuoDire) {
-      righe.add('$apre $aspetto ${_alBersaglio(v)}$coda.');
-    } else {
-      // La lingua si allarga, e dice perche' si allarga.
-      righe.add('$apre $aspetto ${_alBersaglio(v)}$coda, '
-          'un passaggio lento che matura in questi giorni senza una data '
-          'precisa.');
-    }
+    righe.add(_corpoDellaFrase(v, forma: forma, ripresa: ripresa));
     return righe.join(' ');
   }
 
-  static String _chiaveCasa(VoceDelCielo v) => '${v.transito.id}/${v.casa}';
+  /// Cosa di questa voce e' gia' stato detto nella stessa scheda.
+  static RipresaDelCielo _ripresaDi(VoceDelCielo v, Set<String> gia) {
+    if (gia.contains(_chiavePianetaECasa(v))) {
+      return RipresaDelCielo.stessoPianeta;
+    }
+    if (gia.contains(_chiaveCasa(v))) return RipresaDelCielo.stessaCasa;
+    return RipresaDelCielo.nessuna;
+  }
+
+  /// IL CORPO DELLA FRASE, nella forma chiesta.
+  static String _corpoDellaFrase(
+    VoceDelCielo v, {
+    required FormaDellaFrase forma,
+    required RipresaDelCielo ripresa,
+  }) {
+    final pianeta = colSuoArticolo(v.transito);
+    final aspetto = aspettoConArticolo[v.aspetto]!;
+    final bersaglio = _alBersaglio(v);
+    final coda = _coda(v);
+    final chiusa = _chiusaDelPassaggio(v);
+
+    // LA GLOSSA SI DICE UNA VOLTA SOLA PER SCHEDA.
+    //
+    // **Il difetto.** Nella scheda Generale della build 2148 "la tua decima
+    // casa, quella di cio' che costruisci in pubblico" compariva due volte
+    // nello stesso paragrafo, per il Sole e per Giove. Adesso il secondo
+    // pianeta la nomina senza rispiegarla, e se e' lo stesso pianeta non la
+    // nomina proprio.
+    switch (ripresa) {
+      case RipresaDelCielo.stessoPianeta:
+        return '$pianeta forma anche $aspetto $bersaglio$coda$chiusa';
+      case RipresaDelCielo.stessaCasa:
+        return '$pianeta, nella stessa casa, forma $aspetto '
+            '$bersaglio$coda$chiusa';
+      case RipresaDelCielo.nessuna:
+        break;
+    }
+
+    // IL LUOGO SENZA LA SUA PREPOSIZIONE.
+    //
+    // Nudo apposta: ogni forma ci mette davanti quello che le serve, "la tua"
+    // oppure "dalla tua". La prima stesura lo teneva gia' articolato e
+    // scriveva "Da la tua decima casa", che e' l'errore di italiano piu'
+    // visibile di tutti.
+    final dove = v.casa == null
+        ? null
+        : 'tua ${ordinaliDelleCase[v.casa! - 1]} casa, quella '
+            '${materiaDelleCase[v.casa! - 1]}';
+
+    if (dove == null) {
+      // Senza ora di nascita non ci sono case: la forma si riduce, e non si
+      // inventa un settore della vita per riempire lo schema.
+      return '$pianeta è in transito nel tuo cielo. '
+          'Forma $aspetto $bersaglio$coda$chiusa';
+    }
+
+    switch (forma) {
+      case FormaDellaFrase.periodo:
+        return '$pianeta sta attraversando la $dove. '
+            'Forma $aspetto $bersaglio$coda$chiusa';
+      case FormaDellaFrase.duePunti:
+        return '$pianeta attraversa la $dove: da lì forma $aspetto '
+            '$bersaglio$coda$chiusa';
+      case FormaDellaFrase.dallaCasa:
+        return 'Dalla $dove, ${colSuoArticolo(v.transito, maiuscola: false)} '
+            'forma $aspetto $bersaglio$coda$chiusa';
+      case FormaDellaFrase.aspettoPrima:
+        final cap = aspetto[0].toUpperCase() + aspetto.substring(1);
+        // Il pianeta qui sta in mezzo alla frase, quindi va minuscolo: "lo
+        // porta il Sole", non "lo porta Il Sole". E la chiusa SOSTITUISCE il
+        // punto invece di aggiungersene uno, che faceva "in pubblico..".
+        return '$cap $bersaglio$coda: ${pronomeDellAspetto[v.aspetto]} porta '
+            '${colSuoArticolo(v.transito, maiuscola: false)}, che attraversa '
+            'la $dove$chiusa';
+      case FormaDellaFrase.riceve:
+        return '${_bersaglioSoggetto(v)} riceve $aspetto$coda da '
+            '${colSuoArticolo(v.transito, maiuscola: false)}, che attraversa '
+            'la $dove$chiusa';
+    }
+  }
+
+  /// Se il passaggio sta arrivando oppure sta passando.
+  static String _coda(VoceDelCielo v) => v.applicativo == true
+      ? ' che si sta stringendo'
+      : v.applicativo == false
+          ? ' che si sta sciogliendo'
+          : '';
+
+  /// LA CHIUSA, che porta il punto e, quando serve, allarga la lingua.
+  ///
+  /// Quando il giorno non si sa la frase lo dichiara invece di tacerlo: e' il
+  /// caso di Saturno, che il motore posiziona benissimo e data malissimo.
+  static String _chiusaDelPassaggio(VoceDelCielo v) => v.ilGiornoSiPuoDire
+      ? '.'
+      : ', un passaggio lento che matura in questi giorni senza una data '
+          'precisa.';
+
+  /// Il punto natale come SOGGETTO, per la forma che lo mette in apertura.
+  static String _bersaglioSoggetto(VoceDelCielo v) {
+    if (v.idBersaglio == AspettiDiOggi.idAscendente) {
+      return 'Il tuo Ascendente';
+    }
+    if (v.idBersaglio == AspettiDiOggi.idMedioCielo) {
+      return 'Il tuo Medio Cielo';
+    }
+    return bersagliFemminili.contains(v.idBersaglio)
+        ? 'La tua ${v.bersaglio} di nascita'
+        : 'Il tuo ${v.bersaglio} di nascita';
+  }
+
+  /// La casa, senza il pianeta: e' la chiave della GLOSSA, che vale per la
+  /// scheda intera e non per un pianeta solo.
+  static String _chiaveCasa(VoceDelCielo v) => 'casa/${v.casa}';
+  static String _chiavePianetaECasa(VoceDelCielo v) =>
+      '${v.transito.id}/${v.casa}';
   static String _chiaveRetro(VoceDelCielo v) => 'retro/${v.transito.id}';
 
   /// Il complemento del punto natale toccato, con l'articolo del suo genere.
@@ -255,15 +500,28 @@ class CorrenteDelCielo {
     required CieloDiOggi cielo,
     required HoroscopeDomain dominio,
     required bool profonda,
+    int giornoOrdinale = 0,
+    int indiceDelSegno = 0,
   }) {
     if (!cielo.ceCieloVero) return null;
     final sue = vociPer(cielo, dominio);
     if (sue.isEmpty) return null;
+    final forma = formaDellaScheda(
+      giornoOrdinale: giornoOrdinale,
+      indiceDelSegno: indiceDelSegno,
+      dominio: dominio,
+    );
     final gia = <String>{};
     final pezzi = <String>[];
     for (final v in sue.take(quanteVoci(profonda: profonda))) {
-      pezzi.add(frase(v, gia: gia));
+      final scritta = frase(v, gia: gia, forma: forma);
+      // La GIUNTURA solo sulla prima: le altre seguono un discorso gia'
+      // aperto, e un connettivo a ogni frase sarebbe una cantilena.
+      pezzi.add(pezzi.isEmpty
+          ? conLaGiuntura(scritta, giornoOrdinale + indiceDelSegno)
+          : scritta);
       gia.add(_chiaveCasa(v));
+      gia.add(_chiavePianetaECasa(v));
       if (v.retrogrado) gia.add(_chiaveRetro(v));
     }
     return pezzi.join(' ');

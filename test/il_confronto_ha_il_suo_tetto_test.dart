@@ -111,18 +111,22 @@ void main() {
               'sarebbe pagarlo due volte');
     });
 
-    test('Il residuo si dice con UNA formula, senza accordo', () {
+    test('Il residuo CONCORDA col numero, scendendo da tre a zero', () {
+      // **QUESTA PROVA DICEVA IL CONTRARIO, e proteggeva l'errore.** Pretendeva
+      // "Oggi te ne resta 3 su 3" e chiamava quella mancanza di accordo una
+      // scelta: era sgrammaticata, e l'anteprima della build 2148 la mostrava
+      // a video con quelle parole esatte.
       final c = QuestionAllowance();
-      expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi te ne resta 3 su 3');
+      expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi te ne restano 3 su 3');
       c.registraConfronto(Tier.tier1);
-      expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi te ne resta 2 su 3');
+      expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi te ne restano 2 su 3');
       c.registraConfronto(Tier.tier1);
       expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi te ne resta 1 su 3',
-          reason: 'la formula vale per uno come per tre: e\' la ragione '
-              'per cui non ha accordo grammaticale');
+          reason: 'a uno solo ci vuole il singolare');
       c.registraConfronto(Tier.tier1);
-      expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi te ne resta 0 su 3',
-          reason: 'a residuo esaurito il numero deve restare vero');
+      expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi non te ne resta nessuno',
+          reason: 'a zero non e\' un residuo, e\' la fine: dirlo con un numero '
+              'davanti a "su tre" e\' un conto, non una frase');
     });
 
     test('Al Viandante non si dice un residuo: e\' un lucchetto', () {
@@ -187,7 +191,7 @@ void main() {
     final residuo = find.byKey(const Key('chat_residuo_confronti'));
     expect(residuo, findsOneWidget,
         reason: 'chi tocca non sa cosa spende prima di spenderlo');
-    expect(find.text('Oggi te ne resta 3 su 3'), findsOneWidget);
+    expect(find.text('Oggi te ne restano 3 su 3'), findsOneWidget);
     // E sta SOTTO il pulsante, non sopra: prima si legge cosa si fa, poi
     // quanto costa.
     final pulsante = find.byKey(const Key('chat_altre_voci'));

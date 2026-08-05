@@ -197,10 +197,20 @@ class QuestionAllowance extends ChangeNotifier {
 
   /// COME SI DICE IL RESIDUO, prima del tocco.
   ///
-  /// **Una formula sola, senza accordo grammaticale.** "Oggi te ne resta 1 su
-  /// 3" vale per uno come per tre: non c'e' nessun singolare da tenere
-  /// d'accordo con un plurale, quindi non c'e' nessun posto dove il plurale si
-  /// possa dimenticare. E' la stessa scelta gia' fatta per le domande.
+  /// **La formula unica era sgrammaticata, e il commento che la difendeva
+  /// diceva il falso.** C'era scritto che "Oggi te ne resta 1 su 3" vale per
+  /// uno come per tre, quindi non c'era nessun plurale da dimenticare. Non e'
+  /// cosi': "te ne resta" concorda con UNO, e con tre ci vuole "te ne
+  /// restano". Nell'anteprima della build 2148 si leggeva "Oggi te ne resta 3
+  /// su 3", che e' un errore di italiano nella riga che dice a una persona
+  /// quanto le rimane. Evitare l'accordo non lo aveva reso invisibile: lo
+  /// aveva reso sempre sbagliato tranne quando il numero era uno.
+  ///
+  /// Le tre forme, e sono tre perche' l'italiano ne chiede tre:
+  ///
+  /// - zero, e non e' un residuo ma la fine: "Oggi non te ne resta nessuno";
+  /// - uno: "Oggi te ne resta 1 su 3";
+  /// - due o piu': "Oggi te ne restano 3 su 3".
   ///
   /// Nullo quando non c'e' un numero da dire: senza il piano non e' un
   /// residuo, e' un lucchetto, e lo dice la porta. Senza limite non e' un
@@ -209,7 +219,19 @@ class QuestionAllowance extends ChangeNotifier {
     if (!canCompare(tier)) return null;
     final limite = limiteConfronti(tier);
     if (limite == null) return null;
-    return 'Oggi te ne resta ${confrontiRimasti(tier)} su $limite';
+    return comeSiDiceIlResiduo(confrontiRimasti(tier), limite);
+  }
+
+  /// L'ACCORDO, in un posto solo.
+  ///
+  /// Sta fuori da [residuoDeiConfronti] perche' la prova che lo sorveglia deve
+  /// poter chiedere lo zero, l'uno e il molti senza dover prima costruire tre
+  /// contatori in tre stati diversi: la regola della lingua e' questa
+  /// funzione, e si guarda da sola.
+  static String comeSiDiceIlResiduo(int quanti, int limite) {
+    if (quanti <= 0) return 'Oggi non te ne resta nessuno';
+    if (quanti == 1) return 'Oggi te ne resta 1 su $limite';
+    return 'Oggi te ne restano $quanti su $limite';
   }
 
   /// Registra una domanda consumata. I tier con un limite finito intaccano il

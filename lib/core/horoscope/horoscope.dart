@@ -178,7 +178,11 @@ class Horoscope {
     final anchor = HoroscopeData.anchors[sign.id]![d];
     // LA CORRENTE DEL GIORNO: prima il cielo vero, e la hash solo se non c'e'.
     final dalCielo = CorrenteDelCielo.componi(
-        cielo: cielo, dominio: domain, profonda: profonda);
+        cielo: cielo,
+        dominio: domain,
+        profonda: profonda,
+        giornoOrdinale: dayOfYear,
+        indiceDelSegno: sign.index);
     final pool = HoroscopeData.dayPools[d]!;
     final current = dalCielo ?? pool[seedCurrent % pool.length];
 
