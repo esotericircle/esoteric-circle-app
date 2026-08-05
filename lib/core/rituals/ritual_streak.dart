@@ -39,6 +39,33 @@ class RitualStreak {
     }
   }
 
+  /// SE IL RITO E' GIA' STATO COMPIUTO OGGI.
+  ///
+  /// Legge la stessa chiave che scrive [recordToday], quindi non c'e' un
+  /// secondo posto che sappia se il rito di oggi e' stato aperto. Serve
+  /// all'avviso del mattino: avvisare di fare una cosa gia' fatta e' rumore.
+  ///
+  /// Falso anche quando la memoria non e' disponibile: nel dubbio si avvisa,
+  /// perche' un avviso di troppo e' meno grave di un rito dimenticato.
+  Future<bool> fattoOggi(DateTime now) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getString(_lastKey) == _stamp(now);
+    } catch (errore) {
+      // L'errore si IGNORA, e si dichiara perche'. L'unica cosa che puo'
+      // fallire qui e' l'apertura della memoria locale, e l'unico effetto e'
+      // che non sappiamo se il rito e' gia' stato compiuto. Rispondere falso
+      // significa avvisare comunque: un avviso di troppo e' meno grave di un
+      // rito dimenticato, e non c'e' niente da mostrare alla persona.
+      assert(() {
+        // ignore: avoid_print
+        print('RitualStreak.fattoOggi: memoria non leggibile ($errore)');
+        return true;
+      }());
+      return false;
+    }
+  }
+
   /// Registra il rito compiuto oggi e ritorna la nuova continuita'. Ripetere nel
   /// medesimo giorno non la aumenta; un giorno saltato la riparte da uno.
   Future<int> recordToday(DateTime now) async {
