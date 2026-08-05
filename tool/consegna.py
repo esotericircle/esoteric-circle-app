@@ -69,8 +69,31 @@ def chiama(url, tok, dati=None, metodo=None, binario=False):
 
 def main():
     if len(sys.argv) < 3:
-        raise SystemExit('uso: consegna.py <archivio> "<note>"')
+        raise SystemExit('uso: consegna.py <archivio> "<note>" oppure '
+                         'consegna.py <archivio> @<file di note in UTF-8>')
     archivio, note = sys.argv[1], sys.argv[2]
+
+    # LE NOTE CON GLI ACCENTI VANNO LETTE DA UN FILE, non passate a riga di
+    # comando.
+    #
+    # Su Windows gli argomenti arrivano decodificati con la codepage di
+    # sistema, e una "e" accentata nella riga di comando si presenta al server
+    # come un carattere rotto: la 2152 e' stata consegnata con "La Luna ?"
+    # nelle note, e se n'e' accorto solo chi ha riletto la risposta del server.
+    # L'API non c'entrava, il corpo JSON e' sempre stato in UTF-8: si rompeva
+    # prima, nel passaggio dalla shell a Python.
+    #
+    # Con la forma @file il testo non attraversa mai la riga di comando.
+    if note.startswith('@'):
+        note = io.open(note[1:], encoding='utf-8').read().strip()
+
+    # E SI DICHIARA SUBITO se il testo si e' gia' rotto per strada, invece di
+    # scoprirlo a consegna avvenuta: il carattere di sostituzione non compare
+    # mai in un testo scritto bene.
+    if '�' in note:
+        raise SystemExit(
+            'le note contengono un carattere rotto: sono passate da una shell '
+            'che non parla UTF-8. Scrivile in un file e passalo come @file.')
     peso = os.path.getsize(archivio)
     print('archivio: ' + archivio + '  ' + '{:,}'.format(peso).replace(',', '.')
           + ' byte')
