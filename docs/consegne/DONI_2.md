@@ -42,7 +42,20 @@ Il colore della scheda piena. Il progetto e' deciso e vale la pena scriverlo, pe
 
 **Il testo resta scuro su chiaro.** A gesto completato la scena e' luce piena e la bolla e' vetro chiaro: tingere l'inchiostro col colore del Maestro peggiorerebbe la lettura senza dire niente di piu'. Il Maestro si vede dove il colore e' colore, cioe' negli accenti e nel bordo.
 
-**Dove si e' fermato il lavoro.** La costante `_dayAccent` va sostituita con una funzione che deriva l'accento da `gift.maestro`. Il lavoro e' stato iniziato e poi **riportato indietro di proposito**: delle undici occorrenze, sei stanno dentro widget annidati (`_BasePanel`, `_BaseRow` e gli altri) dove `gift` non e' in visibilita', quindi l'accento va passato loro come parametro. E' un lavoro breve ma va fatto e verificato in un colpo solo, e il margine non bastava.
+**Dove si e' fermato il lavoro.** La costante `_dayAccent` va sostituita con una funzione che deriva l'accento da `gift.maestro`. Il lavoro e' stato iniziato e poi **riportato indietro di proposito**, perche' va fatto e verificato in un colpo solo e il margine non bastava.
+
+> **CORREZIONE del 6 agosto 2026, fatta rimisurando.** Le occorrenze sono
+> undici, e questo era giusto. La ripartizione no: **otto** stanno dentro widget
+> annidati, non sei, e i due nominati qui sopra, `_BasePanel` e `_BaseRow`, di
+> accento **non ne hanno affatto**. Quelli veri sono `_BaseToggle` (3),
+> `_ShareWordButton` (3) e `_StreakChip` (2); le altre tre occorrenze sono la
+> dichiarazione e due dentro `_RitualGiftCardState`, dove `gift` e' gia' in
+> visibilita'.
+>
+> **Non era un conto impreciso, era un conto fatto guardando il posto
+> sbagliato**: erano stati cercati i widget che AVREBBERO avuto il problema,
+> invece delle righe che HANNO l'occorrenza. Il metodo giusto e' partire dalle
+> occorrenze e chiedere al file in quale classe cadono.
 
 ## VOCE 3, aperta e non iniziata
 

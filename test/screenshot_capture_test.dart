@@ -1002,6 +1002,71 @@ void main() {
     await capture(tester, rootKey, 'rito-alba-base.png');
   });
 
+  /// LA SCHEDA PIENA COL COLORE DEL MAESTRO DEL GIORNO, in due giorni diversi.
+  ///
+  /// Servono due catture e non una: il punto della voce e' che il colore
+  /// CAMBIA col Maestro, e una sola immagine non lo puo' mostrare. Le due date
+  /// non sono scelte a occhio, sono cercate finche' i due Maestri non risultano
+  /// diversi, cosi' la cattura non dipende da come ruota il calendario.
+  for (final quale in [0, 1]) {
+    testWidgets('Cattura il dono col colore del Maestro, giorno $quale',
+        (tester) async {
+      silenceSensors();
+      SharedPreferences.setMockInitialValues({
+        'onboarding.done': true,
+        'santuario.greeted': true,
+        'ritual.dawn.lastDay': '2026-07-12',
+        'ritual.dawn.streak': 6,
+      });
+
+      // Due giorni consecutivi con Maestri diversi, trovati e non supposti.
+      final partenza = DateTime(2026, 7, 13);
+      var secondo = partenza.add(const Duration(days: 1));
+      while (DailyRituals.dawnMaestro(secondo) ==
+          DailyRituals.dawnMaestro(partenza)) {
+        secondo = secondo.add(const Duration(days: 1));
+      }
+      final giorno = quale == 0 ? partenza : secondo;
+      final maestro = DailyRituals.dawnMaestro(giorno);
+      expect(DailyRituals.dawnMaestro(partenza),
+          isNot(DailyRituals.dawnMaestro(secondo)),
+          reason: 'le due anteprime mostrerebbero lo stesso Maestro, quindi '
+              'non direbbero che il colore cambia');
+
+      await loadFonts();
+      final rootKey = await mount(
+          tester, await buildServices(Maestro.medora, seeded: false));
+      final element = tester.element(find.byType(MaterialApp));
+      await tester.runAsync(() async {
+        for (final a in const [
+          'assets/ritual_backgrounds/dawn_sky_night.png',
+          'assets/ritual_backgrounds/dawn_sky_day.png',
+          'assets/ritual_backgrounds/dawn_sun.png',
+        ]) {
+          await precacheImage(AssetImage(a), element);
+        }
+      });
+      await step(tester);
+
+      final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+      unawaited(nav.push(DawnRiteScreen.route(now: giorno)));
+      await step(tester);
+      await step(tester);
+      await tester.runAsync(() async {
+        await Future<void>.delayed(const Duration(milliseconds: 60));
+      });
+      await step(tester);
+      await step(tester);
+
+      await tester.tap(find.byKey(const Key('ritual_gesture')));
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      await step(tester);
+      await capture(tester, rootKey, 'rito-alba-dono-${maestro.id}.png');
+    });
+  }
+
   testWidgets('Cattura il Soffio del Destino, testa piena e col dono',
       (tester) async {
     silenceSensors();
