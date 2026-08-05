@@ -139,29 +139,35 @@ void main() {
     });
   }
 
-  test('le tre terne sono vicine fra loro', () async {
-    // IL CONTROLLO DI SANITA\' DELLA NORMALIZZAZIONE.
+  test('la cima della testa e il centro del viso sono vicini fra loro',
+      () async {
+    // IL CONTROLLO DI SANITA\' DELLA NORMALIZZAZIONE, SUI DUE NUMERI A CUI SI
+    // APPLICA.
     //
     // I tre avatar hanno la stessa altezza di figura e i piedi sulla stessa
-    // linea, quindi anche le teste stanno quasi alla stessa quota. Le terne
-    // devono differire di poco: le differenze che restano sono di disegno, non
-    // di inquadratura, e la piu\' vistosa e\' la corona di Aura, il cui puntale
-    // sale sopra la chioma degli altri due.
+    // linea, quindi le teste finiscono quasi alla stessa quota e i visi quasi
+    // sullo stesso asse. Su `headTopY` e su `centerX` lo scostamento deve
+    // essere piccolo, e se non lo e\' vuol dire che la normalizzazione non ha
+    // funzionato: in quel caso non si aggiustano i numeri per far passare la
+    // prova, si guarda la figura.
     //
-    // Se questa prova diventa rossa dopo una rigenerazione, non si aggiustano
-    // i numeri per farla passare: vuol dire che la normalizzazione non ha
-    // funzionato e le figure non sono piu\' allineate.
+    // **`collarY` NON e\' in questo controllo, e la ragione e\' misurata.** La
+    // fascia fra cima della testa e colletto non descrive dove sta la testa,
+    // descrive quanto e\' GRANDE, e le tre teste sono disegnate di grandezze
+    // diverse: nella tela da 1700 px la testa di Caligo misura circa 258 px,
+    // quella di Medora 238, quella di Aura 221. Chiedere che i tre colletti
+    // stessero vicini significava chiedere che i tre Maestri avessero la testa
+    // della stessa taglia, e il 6 agosto 2026 quella pretesa ha quasi bloccato
+    // la correzione che rimpiccioliva la fascia di Aura per farle il volto
+    // grande come quello di Medora. Il numero che conta su questa voce non e\'
+    // la vicinanza delle fasce ma il RISULTATO nel tondo, e lo sorveglia
+    // `test/il_volto_nel_tondo_test.dart`.
     //
-    // **Questa prova prende gli scostamenti GROSSI, non quelli di un pelo.**
-    // Lo scarto vero oggi e\' 0,02 sul colletto e 0,01 sugli altri due: 0,05
-    // lascia il doppio di margine al disegno e prende comunque una figura
-    // fuori posto, che si misura in decimi. Il caso sottile, cioe\' frazioni
-    // rimaste indietro rispetto a un asset rigenerato, lo prendono le prove
-    // sull\'inquadratura qui sopra, ed e\' li\' che va preso.
-    //
-    // La soglia era 0,04 e cadeva sul rumore della virgola mobile,
-    // 0,040000000000000036 contro 0,04. Un rosso arrivato per caso non e\' una
-    // misura, quindi la soglia sta lontana dai valori veri.
+    // Sulla soglia: lo scarto vero oggi e\' 0,010 sulla cima e 0,005 sul
+    // centro. 0,05 sta lontano dai valori veri di proposito, perche' una
+    // soglia appoggiata addosso al dato cade sul rumore della virgola mobile,
+    // ed e\' gia\' successo qui con 0,040000000000000036 contro 0,04. Un rosso
+    // arrivato per caso non e\' una misura.
     const scartoMassimo = 0.05;
 
     double spanDi(double Function(MaestroFacePoint p) quale) {
@@ -176,11 +182,8 @@ void main() {
         reason: 'Le cime delle teste dichiarate divergono piu\' di '
             '$scartoMassimo: con le figure allineate non dovrebbero. '
             'Controlla la normalizzazione prima dei numeri.');
-    expect(spanDi((p) => p.collarY), lessThanOrEqualTo(scartoMassimo),
-        reason: 'Le linee del colletto dichiarate divergono piu\' di '
-            '$scartoMassimo.');
     expect(spanDi((p) => p.centerX), lessThanOrEqualTo(scartoMassimo),
         reason: 'I centri del viso dichiarati divergono piu\' di '
-            '$scartoMassimo.');
+            '$scartoMassimo: con le figure centrate non dovrebbero.');
   });
 }

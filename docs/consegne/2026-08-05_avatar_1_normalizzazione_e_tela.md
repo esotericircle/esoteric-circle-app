@@ -202,6 +202,57 @@ L'anteprima della bottom bar e' caduta d'accordo: la striscia disegna
 `Icon(maestro.icon)`, non l'avatar, quindi avrebbe mostrato icone e non il
 lavoro.
 
+## Secondo giro, 6 agosto 2026: il volto dentro il tondo
+
+Mauro ha guardato i tre tondi affiancati e ha visto due difetti che nessuna
+prova prendeva: Aura decentrata a destra, con una fascia di fondo verde vuota a
+sinistra, e Caligo con la testa piu' piccola degli altri due. Medora giusta.
+
+**Il metodo del primo giro era sbagliato.** Avevo misurato i `facePoints`
+leggendo l'asset con una griglia di frazioni sovrapposta. Su Medora ha
+funzionato, sugli altri due no. Il secondo giro misura il RISULTATO: il tondo
+viene disegnato davvero, l'immagine catturata, e sui suoi pixel si misura
+quanto la testa riempie la corda del cerchio e di quanto e' scentrata. Il fondo
+del tondo e' un colore piatto, quindi la figura si separa senza bisogno di
+rilevare volti.
+
+| | riempimento prima | dopo | scarto prima | dopo |
+|---|---|---|---|---|
+| Medora, riferimento | 49,7% | 49,7% | -0,9 | -0,9 |
+| Caligo | 43,3% | **48,6%** | +3,5 | **-1,0** |
+| Aura | 37,2% | **47,4%** | +5,4 | **-0,1** |
+
+### La domanda su Aura, e la risposta misurata
+
+Delle due ipotesi, o le frazioni erano gia' sbagliate oppure la riduzione aveva
+spostato il centro, vale **la prima**. Il centro della figura di Aura nella
+fascia del volto misura 0,5003 sull'asset vecchio e 0,4999 su quello nuovo:
+quattro decimillesimi, cioe' rumore di ricampionamento. E non poteva essere
+altrimenti, perche' una frazione della larghezza resta la stessa frazione sotto
+qualunque scalatura orizzontale. Il valore dichiarato era 0,49 in entrambi i
+casi: falso da prima, e rimasto tale perche' nessuno aveva mai messo i tre
+tondi uno accanto all'altro.
+
+### La misura che mancava, ora c'e'
+
+`test/il_volto_nel_tondo_test.dart` sorveglia le due cose che si vedono a
+occhio: il riempimento entro 3 punti da Medora, lo scarto di centratura entro
+2,5. Le ragioni delle due soglie stanno accanto ai numeri. Rossi eseguiti:
+rimettendo la fascia larga a Caligo il riempimento scende a 43,3 contro 49,7 e
+la prova cade; rimettendo 0,49 a centerX di Aura lo scarto sale a 10,1 contro
+-0,9 e cade.
+
+### Una prova che chiedeva la cosa sbagliata
+
+`le tre terne sono vicine fra loro` pretendeva che anche i tre `collarY`
+stessero vicini. **Quella pretesa era falsa, e ha quasi bloccato la
+correzione.** La fascia fra cima della testa e colletto non dice dove sta la
+testa, dice quanto e' grande, e le tre teste sono disegnate di taglie diverse:
+circa 258 px per Caligo, 238 per Medora, 221 per Aura sulla tela da 1700.
+Chiedere fasce vicine significava chiedere teste della stessa taglia. La prova
+ora controlla `headTopY` e `centerX`, dove il controllo ha senso, e lascia il
+resto alla misura sul risultato.
+
 ## Fuori perimetro, visto e non toccato
 
 - `lib/features/tarot/medora_stage.dart:92` dice che i tre ritratti

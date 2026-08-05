@@ -126,19 +126,42 @@ class MaestroBust extends StatefulWidget {
   /// per questo che accanto c'e' l'inquadratura di riferimento, ed e' quella
   /// il vero legame fra questi numeri e le immagini.
   ///
-  /// Misurati sugli asset del 5 agosto 2026, leggendo le immagini con una
-  /// griglia di frazioni sovrapposta. Le tre terne sono vicine fra loro perche'
-  /// le figure hanno la stessa altezza e la stessa linea di terra: le teste
-  /// finiscono quasi alla stessa quota. Le differenze che restano sono di
-  /// disegno, non di inquadratura: Aura porta una corona il cui puntale sale
-  /// piu' in alto della chioma degli altri due, e la sua cima utile parte piu'
-  /// in basso.
+  /// **Come sono stati trovati questi numeri, il 6 agosto 2026.** Non leggendo
+  /// l'asset con una griglia sovrapposta, che era il metodo del giorno prima e
+  /// ha sbagliato due Maestri su tre: misurando il RISULTATO. Il tondo viene
+  /// disegnato davvero, l'immagine catturata, e sui suoi pixel si misurano due
+  /// cose, quanto la testa riempie la corda del cerchio e di quanto e'
+  /// scentrata. Poi si correggono le frazioni finche' i tre non coincidono. Il
+  /// conto lo fa e lo sorveglia `test/il_volto_nel_tondo_test.dart`.
+  ///
+  /// Il riferimento e' Medora, giudicata giusta a video da Mauro. Prima della
+  /// correzione la testa di Caligo riempiva il 43,3 per cento della corda
+  /// contro il 49,7 di Medora, e quella di Aura il 37,2; Aura era anche
+  /// spostata a destra di 5,4 punti, con una fascia di fondo verde vuota a
+  /// sinistra. Dopo: riempimento 48,6 e 47,4, scarti -1,0 e -0,1 contro il
+  /// -0,9 di Medora.
+  ///
+  /// **Il `centerX` di Aura era sbagliato dall'inizio, non per colpa della
+  /// riduzione della tela.** Misurato: il centro della sua figura nella fascia
+  /// del volto vale 0,5003 sull'asset vecchio e 0,4999 su quello nuovo, quattro
+  /// decimillesimi di scarto, cioe' rumore di ricampionamento. Una frazione
+  /// della larghezza non cambia sotto una scalatura orizzontale. Il valore
+  /// dichiarato era 0,49 in entrambi i casi, ed e' rimasto falso per mesi
+  /// perche' nessuno aveva mai messo i tre tondi uno accanto all'altro.
+  ///
+  /// **Le fasce sono diverse fra loro di proposito.** `collarY` meno
+  /// `headTopY` non dice dove sta la testa, dice quanto e' grande, e le tre
+  /// teste sono disegnate di taglie diverse: nella tela da 1700 px quella di
+  /// Caligo misura circa 258 px, quella di Medora 238, quella di Aura 221. Una
+  /// fascia stretta ingrandisce il volto nel tondo, una larga lo
+  /// rimpicciolisce.
   static const Map<Maestro, MaestroFacePoint> facePoints = {
     Maestro.medora:
         MaestroFacePoint(centerX: 0.50, headTopY: 0.02, collarY: 0.20),
-    Maestro.aura: MaestroFacePoint(centerX: 0.49, headTopY: 0.03, collarY: 0.22),
+    Maestro.aura:
+        MaestroFacePoint(centerX: 0.5018, headTopY: 0.03, collarY: 0.1556),
     Maestro.caligo:
-        MaestroFacePoint(centerX: 0.49, headTopY: 0.02, collarY: 0.21),
+        MaestroFacePoint(centerX: 0.4968, headTopY: 0.02, collarY: 0.1855),
   };
 
   /// L'INQUADRATURA A CUI I `facePoints` APPARTENGONO.
