@@ -11,6 +11,18 @@
          Viso. Nessuna immagine lascia il dispositivo. Con ripiego tattile se il
          permesso manca o la fotocamera non c'e'. -->
     <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- Notifiche: un avviso al giorno, quando il sole sorge, che il Rito
+         dell'Alba e' pronto. Si chiede la prima volta che si apre il rito, non
+         all'avvio dell'app, e chi dice no continua a usare tutto.
+
+         NON dichiariamo SCHEDULE_EXACT_ALARM ne' USE_EXACT_ALARM, ed e' una
+         scelta obbligata: da Android 14 la prima e' negata di default alle app
+         che puntano API 33 o superiore, e la seconda e' una permission
+         ristretta che Google Play concede solo ad app la cui funzione centrale
+         e' la sveglia o il calendario. Esoteric Circle non e' ne' l'una ne'
+         l'altra, quindi chiederla ci farebbe rifiutare la pubblicazione.
+         L'avviso arriva in una finestra attorno all'ora, e lo diciamo. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false"/>

@@ -11,6 +11,8 @@ import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
 import '../../core/astro/sky_location.dart';
+import '../../core/permissions/app_permission.dart';
+import '../../core/rituals/avvisi_del_rito.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/rito_alba.dart';
 import '../../core/rituals/ritual_streak.dart';
@@ -35,7 +37,15 @@ class DawnRiteScreen extends StatefulWidget {
     super.key,
     this.now,
     this.location = const DisabledSkyLocation(),
+    this.avvisi = const AvvisiSpenti(),
   });
+
+  /// IL SERVIZIO DEGLI AVVISI, spento di default.
+  ///
+  /// Il permesso si chiede **la prima volta che si apre questo rito**, non
+  /// all'avvio dell'app, e con la spiegazione davanti. Chi dice no continua a
+  /// usare tutto: nessuna funzione si chiude.
+  final ServizioAvvisi avvisi;
 
   final DateTime? now;
 
@@ -105,6 +115,11 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
       duration: const Duration(seconds: 7),
     )..repeat();
     _loadLayers();
+    // Il permesso degli avvisi si chiede all'APERTURA del rito, dopo il primo
+    // fotogramma, non all'avvio dell'app.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _chiediAvvisiLaPrimaVolta();
+    });
   }
 
   Future<void> _loadLayers() async {
@@ -220,7 +235,7 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
       _gift = DawnGift.forChart(date,
           identity: _identity(), posizione: _posizione(date));
     });
-    _recordStreak(date);
+    _recordStreak(date).then((_) => _programmaAvviso());
     _aggiornaPosizione(date);
   }
 
@@ -230,6 +245,51 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
 
   /// Dove sei stamattina, se il permesso c'e' gia'. Null finche' non si sa.
   SkyPlace? _dovesSei;
+
+  /// CHIEDE IL PERMESSO DEGLI AVVISI, una volta sola, alla prima apertura.
+  ///
+  /// **Qui e non all'avvio dell'app.** Chiedere di notificare a chi ha appena
+  /// installato, senza che sappia cosa riceverebbe, e' il modo piu' sicuro di
+  /// farsi dire di no. Qui la persona ha appena visto cos'e' il rito.
+  ///
+  /// **Chi dice no non perde niente**, e non gli si richiede piu': la risposta
+  /// si accetta. Chi cambia idea passa dalle impostazioni di sistema.
+  Future<void> _chiediAvvisiLaPrimaVolta() async {
+    if (!widget.avvisi.disponibile) return;
+    if (await AvvisiDelRito.giaChiesto()) return;
+    if (!mounted) return;
+
+    await AvvisiDelRito.segnaChiesto();
+    final maestro = DailyRituals.dawnMaestro(widget.now ?? DateTime.now());
+    if (!mounted) return;
+    await requestPermissionWithPrelude(
+      context,
+      permission: AppPermission.notifications,
+      palette: MaestroPalette.forKey(ThemeKey.of(maestro)),
+      maestro: maestro,
+      // NON si usa il testo generico dei permessi: quello parla di ritorni
+      // solari e transiti, cioe' di avvisi che non esistono. Qui si dice cosa
+      // si riceve davvero, uno al giorno, con l'ora dichiarata approssimata.
+      copy: const PermissionCopy(
+        icon: Icons.wb_twilight_rounded,
+        title: 'Ti sveglio col sole?',
+        body: AvvisiDelRito.spiegazione,
+        cta: 'Avvisami all\'alba',
+      ),
+      systemRequest: widget.avvisi.chiediPermesso,
+    );
+    await _programmaAvviso();
+  }
+
+  /// Programma il prossimo avviso. Passa sempre dalla porta sola.
+  Future<void> _programmaAvviso() async {
+    final date = widget.now ?? DateTime.now();
+    await AvvisiDelRito.programmaProssimo(
+      servizio: widget.avvisi,
+      adesso: date,
+      posizione: _posizione(date),
+    );
+  }
 
   /// Chiede la posizione SOLO se il permesso e' gia' concesso, e ricompone il
   /// rito se arriva.
