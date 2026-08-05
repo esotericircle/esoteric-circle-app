@@ -66,7 +66,15 @@ class SequenzaIntro extends StatefulWidget {
   /// ventiquattro fotogrammi, ricodificato a qualita' costante, con l'audio
   /// ORIGINALE copiato e non ricodificato: una seconda codifica dell'audio
   /// sarebbe stata perdita in cambio di niente.
-  static const String video = 'brand_assets/intro/Intro-Test-2.mp4';
+  ///
+  /// **Il terzo, non il secondo.** Il video e' stato rifatto da Mauro con una
+  /// voce nuova, e anche le immagini sono cambiate: la somiglianza fra i due
+  /// sorgenti e' 0,939, quindi non era un ritocco all'audio. La conversione
+  /// riparte OGNI VOLTA DAL SORGENTE e mai dal convertito precedente, perche'
+  /// una seconda compressione sopra la prima degrada senza dichiararlo. Del
+  /// video di prima non resta niente nel pacchetto: due video introduttivi
+  /// sono peso morto e sono la porta sbagliata da cui qualcuno ripartirebbe.
+  static const String video = 'brand_assets/intro/Intro-Test-3.mp4';
 
   /// La dissolvenza in uscita, che consegna la schermata sotto senza stacco.
   static const Duration dissolvenza = Duration(milliseconds: 500);

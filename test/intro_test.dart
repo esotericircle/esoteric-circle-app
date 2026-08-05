@@ -62,7 +62,7 @@ void main() {
   group('Il video che si apre e quello nuovo', () {
     test('La costante indica il convertito, e il convertito esiste davvero',
         () {
-      expect(SequenzaIntro.video, 'brand_assets/intro/Intro-Test-2.mp4');
+      expect(SequenzaIntro.video, 'brand_assets/intro/Intro-Test-3.mp4');
 
       // NON BASTA CHE LA COSTANTE SIA GIUSTA: un percorso puo' puntare a un
       // file che non c'e', e l'app si aprirebbe sul nero. Si guarda il disco.
@@ -71,7 +71,7 @@ void main() {
           reason: 'il video dichiarato non sta sul disco: ${file.path}');
 
       // E PESA COME UN VIDEO CONVERTITO, non come un grezzo. Il sorgente era
-      // 22.634.228 byte: se un giorno qualcuno copiasse qui il grezzo senza
+      // 22.416.587 byte: se un giorno qualcuno copiasse qui il grezzo senza
       // convertirlo, il pacchetto crescerebbe di sedici megabyte in silenzio.
       final peso = file.lengthSync();
       expect(peso, greaterThan(1000000),
@@ -81,18 +81,25 @@ void main() {
               'convertito');
     });
 
-    test('Il video vecchio non e rimasto a pesare nel pacchetto', () {
+    test('Nella cartella dell intro c e UN video solo', () {
       // La cartella brand_assets/intro/ entra INTERA nel pacchetto: un file
-      // dimenticato li' dentro pesa anche se nessuno lo apre piu'.
-      expect(File('brand_assets/intro/Intro-Test-1.mp4').existsSync(), isFalse,
-          reason: 'il video vecchio e ancora li e pesa nel pacchetto');
+      // dimenticato li' dentro pesa anche se nessuno lo apre piu'. E' gia'
+      // successo due volte, col primo video e col secondo, ogni volta che
+      // Mauro ne ha mandato uno nuovo.
+      //
+      // LA REGOLA E' IL NUMERO, non il nome: qui non si scrive quale file ci
+      // debba essere, si scrive che ce n'e' uno. Chiedere il nome vorrebbe
+      // dire ricavare l'atteso dalla costante che si sta sorvegliando, e il
+      // nome e' gia' fissato dalla prova qui sopra.
       final dentro = Directory('brand_assets/intro')
           .listSync()
           .whereType<File>()
           .map((f) => f.uri.pathSegments.last)
           .toList();
-      expect(dentro, ['Intro-Test-2.mp4'],
-          reason: 'nella cartella dell intro c e altro: $dentro');
+      expect(dentro.length, 1,
+          reason: 'nella cartella dell intro ci sono $dentro: quelli che non '
+              'si aprono piu pesano lo stesso, e sono la porta sbagliata da '
+              'cui qualcuno un giorno ripartira');
     });
 
     test('Il grezzo non entra nel repository', () {
