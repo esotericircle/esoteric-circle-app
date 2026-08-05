@@ -14,17 +14,36 @@ nei due sensi da `6a40e2d`, e gia' spinto sul canonico a ogni voce chiusa.
   `5cb1885`: `Intro-Test-3` convertito dal SORGENTE e non dal convertito
   precedente, il secondo tolto dal pacchetto, la prova che conta i file nella
   cartella dell'intro invece di nominarli.
-- **Voce 1, l'emblema dell'archetipo.** Commit `b3dec34`. Vedi la voce dedicata
-  in `STATO_VIVO.md`, che e' aggiornata e non va riletta qui.
+- **Voce 1, l'emblema dell'archetipo.** Commit `b3dec34`. La voce dedicata in
+  `STATO_VIVO.md` la racconta per intero, ma **tre cose vanno ripetute qui,
+  perche' nessuno le ritroverebbe da solo**:
+  1. **Le copie del dato erano TRE, non due.** Oltre alla schermata del Test,
+     anche quella dell'Animale Guida si costruiva il proprio `ArchetypeHistory`.
+     Chi va a caccia della seconda copia si ferma prima di trovare la terza: la
+     prova che le conta enumera tutti i file di `lib`, e va lasciata li'.
+  2. **Sotto la doppia copia c'era una CORSA.** `carica()` parte all'avvio e la
+     lettura del disco impiega qualche istante: chi in quegli istanti finiva il
+     Test vedeva il proprio esito entrare in memoria e poi sparire, sostituito
+     dalla lista vuota che la lettura riportava. Non si vede leggendo il codice,
+     si e' vista solo strumentandolo. E' corretta contando le scritture avvenute
+     durante la lettura.
+  3. **Il disco non ha MAI registrato la figura rieletta dai transiti.** Il
+     blocco che registra e' identico byte per byte dal 22 luglio 2026 e nessun
+     commit ha mai scritto il profilo modulato: quindi non c'e' e non c'e' mai
+     stato nessun dato da riparare. **Mentiva la scena, non il dato.** Chi
+     riprende non deve andare a caccia di storici da correggere.
 
 ## Cosa NON e' fatto
 
 - **Voce 2, il Soffio del Destino.** Premesse enumerate, nessuna riga scritta.
 - **Voce 3, la striscia Sentieri.** Non cominciata, premesse non enumerate.
-- **La build finale e la consegna.** L'ordine le vuole solo dopo la voce 4, che
-  qui vuol dire dopo tutte: l'ultima consegnata resta la 2150, che contiene
-  l'intro col video **secondo**, non il terzo. Chi riprende deve costruire e
-  consegnare.
+- **La build finale e la consegna delle voci 2 e 3.** Restano da fare, quando
+  quelle voci esisteranno.
+
+**La build col video nuovo invece e' stata fatta subito**, per decisione di
+Mauro e saltando l'ordine delle voci: l'intro e' la prima cosa che si vede e
+sul telefono c'era ancora il video secondo. E' la **2151**, e i suoi numeri
+stanno in `STATO_VIVO.md`.
 
 ## Voce 2, le premesse come le ho verificate
 
@@ -38,20 +57,40 @@ aspettare qualcosa, che le regole dell'ordine vietano. La parola arriva da
 `DawnGift.word`, riempita da `rito?.parola` in `dawn_gift.dart:178`: quando il
 rito del giorno non porta una parola, il campo resta nullo.
 
-**2b. FALSA.** I due pulsanti hanno il loro testo, scritto in chiaro:
-`Da dove nasce questo dono` (`ritual_gift_card.dart:258`, con l'icona info e la
-freccetta) e `Condividi la parola` (`ritual_gift_card.dart:407`, dentro un
-`TextButton.icon` col bordo). Nessuna etichetta vuota nel codice.
+**E NON E' LA PRIMA DELLA SUA FAMIGLIA.** Il Rito dell'Alba diceva la stessa
+cosa con altre parole, `In attesa dei contenuti astrologici verificati`, ed e'
+gia' stata chiusa. E' esattamente lo stesso difetto: un campo che PROMETTE
+qualcosa alla persona invece di darglielo o di sparire. Chi riprende deve
+saperlo, perche' la soluzione buona esiste gia' nel progetto e non va
+reinventata: o il campo si riempie, o il campo non c'e'. Mai una terza cosa che
+dice di aspettare.
 
-**Cosa credo di aver capito, e che NON ho verificato**: fino al 5 agosto 2026
-l'accento di quella scheda era una costante unica, e su vetro chiaro il testo
-poteva risultare illeggibile. Il rapporto di contrasto minimo e' stato imposto
-in `_accentoDi(Maestro)` proprio per questo, ed e' entrato nella 2150. Se Mauro
-ha guardato una build precedente, "pulsanti senza testo" e "testo invisibile"
-sono la stessa cosa vista da fuori. **Va confermato guardando, non ragionando**:
-serve una cattura piu' alta della scheda, perche' le due anteprime che esistono
-oggi, `soffio-destino-dono.png` e `rito-alba-dono.png`, si fermano prima dei
-pulsanti.
+**2b. Falsa nella forma, e il difetto vero e' PEGGIORE.** I due pulsanti hanno il
+loro testo, scritto in chiaro nel codice: `Da dove nasce questo dono`
+(`ritual_gift_card.dart:258`, con l'icona info e la freccetta) e `Condividi la
+parola` (`ritual_gift_card.dart:407`, dentro un `TextButton.icon` col bordo).
+Nessuna etichetta vuota nel sorgente.
+
+**LA MISURA DI MAURO, che chiude la questione.** Io avevo fermato la mia
+indagine a un'ipotesi: che fino al 5 agosto 2026 l'accento della scheda fosse
+una costante unica e che su vetro chiaro il testo risultasse illeggibile, col
+rapporto di contrasto minimo imposto in `_accentoDi(Maestro)` ed entrato solo
+nella 2150. **Quell'ipotesi e' sbagliata, e non l'ha smontata un ragionamento:
+l'ha smontata una misura.** Mauro ha ritagliato dallo screenshot la zona dei due
+pulsanti e ha spinto il contrasto al massimo: il bordo esce **nero netto** e
+dentro **non emerge nessun glifo**. Se il testo ci fosse a contrasto basso, lo
+stesso trattamento che ha rivelato il bordo avrebbe rivelato anche le lettere.
+
+Quindi: **le etichette esistono nel codice e a schermo non compaiono. Non e' un
+problema di contrasto, e' testo che non arriva alla resa.** La causa e' da
+TROVARE, non da indovinare, e le strade aperte sono almeno tre: il colore uguale
+al fondo, il testo tagliato dal riquadro che lo contiene, oppure il pulsante
+costruito senza figlio su quel ramo. Chi riprende **non deve ricominciare
+dall'ipotesi del contrasto**: e' gia' stata provata e scartata con una misura.
+
+Le due anteprime che esistono oggi, `soffio-destino-dono.png` e
+`rito-alba-dono.png`, si fermano prima dei pulsanti: per guardarli serve una
+cattura piu' alta della scheda, ed e' il primo passo.
 
 **2c. Vera.** Il fondale e' `assets/ritual_backgrounds/breath_meadow.png`,
 composto in `breath_destiny_screen.dart:89` insieme al soffione: prato e cielo
