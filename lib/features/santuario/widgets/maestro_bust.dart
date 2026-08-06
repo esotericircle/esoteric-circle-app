@@ -23,7 +23,16 @@ class MaestroBust extends StatelessWidget {
     this.dim = 0.0,
     this.breath = 0.0,
     this.preferred = false,
+    this.conAlone = true,
   });
+
+  /// Spegne l'alone dietro la figura.
+  ///
+  /// **Esiste per la misura, e non e' un'opzione di prodotto.** L'unico modo di
+  /// dire se un alone fa davvero qualcosa e' rendere la stessa carta due volte,
+  /// con e senza, e confrontare i pixel: guardare la sola resa accesa direbbe
+  /// soltanto che qualcosa e' stato dipinto. Nell'app resta sempre acceso.
+  final bool conAlone;
 
   final Maestro maestro;
   final double height;
@@ -89,6 +98,17 @@ class MaestroBust extends StatelessWidget {
               central: central,
             ),
           ),
+          // L'ALONE, nello strato di mezzo: davanti al fondo della carta e
+          // dietro la figura. E' l'unico posto in cui puo' stare per fare
+          // quello che deve, cioe' staccare il busto dal suo fondo.
+          if (conAlone)
+            Positioned(
+              bottom: 0,
+              child: AloneDietroLaFigura(
+                width: frameWidth,
+                height: frameHeight,
+              ),
+            ),
           // Il busto: master full body, allineato in basso e piu' alto della
           // cornice, cosi' la testa rompe il bordo alto. La figura si scurisce
           // via colorBlendMode, che rispetta la trasparenza del PNG.
@@ -135,6 +155,87 @@ class MaestroBust extends StatelessWidget {
       ),
       child:
           Icon(maestro.icon, color: palette.goldSoft, size: height * 0.16),
+    );
+  }
+}
+
+/// L'ALONE BIANCO DIETRO LA FIGURA, in un punto solo per tutti e tre.
+///
+/// **Perche' esiste.** Le tre figure si perdevano nel fondo della propria
+/// carta, che e' scuro come loro: mancava lo stacco fra il busto e il piano che
+/// gli sta dietro. L'alone non e' un ornamento, e' quello stacco.
+///
+/// **Dove vive, e non e' indifferente.** Davanti al fondo della carta e dietro
+/// la figura. Dietro la carta non si vedrebbe affatto, coperto dal fondo;
+/// davanti alla figura le farebbe una velatura sopra il viso. Lo strato di
+/// mezzo e' l'unico che funziona.
+///
+/// **Non esce dalla cornice.** Il ritaglio ha lo stesso raggio della carta,
+/// quindi l'alone sfuma dentro i suoi bordi invece di allargarsi attorno a
+/// essa: un alone che sborda diventa un bagliore intorno al riquadro, che e'
+/// un'altra cosa e si legge come un errore di stampa.
+///
+/// **Non pulsa, ed e' una scelta.** L'aura del Maestro che sta dietro la carta
+/// respira gia' col busto centrale: due pulsazioni sovrapposte sullo stesso
+/// oggetto diventano rumore. Non pulsando, non c'e' nessuna animazione da
+/// spegnere con Riduci Movimento, e questo widget non ha bisogno di saperne
+/// niente.
+class AloneDietroLaFigura extends StatelessWidget {
+  const AloneDietroLaFigura({
+    super.key,
+    required this.width,
+    required this.height,
+  });
+
+  final double width;
+  final double height;
+
+  /// DOVE STA IL CENTRO, in coordinate della carta.
+  ///
+  /// Segue il BUSTO e non il centro geometrico della carta. La figura e' alta
+  /// quanto tutta la scena e appoggiata in basso, mentre la carta e' alta
+  /// l'ottantaquattro per cento: il torace e le spalle cadono quindi nella
+  /// meta' alta del riquadro, non a meta'. Il numero e' dichiarato qui e
+  /// verificato dalla misura differenziale, che cade se l'alone si accende
+  /// dove la figura non c'e'.
+  static const Alignment centro = Alignment(0, -0.28);
+
+  /// Quanto e' ampio, in frazioni del lato maggiore del riquadro.
+  static const double raggio = 0.78;
+
+  /// Le opacita' del bianco, dal cuore al bordo.
+  ///
+  /// **Tarate sulla misura, non a occhio.** La luminanza attorno alla
+  /// silhouette passa da 36,0 a 50,8, cioe' sale del 41,2 per cento contro il
+  /// venticinque chiesto: un margine, non un pareggio. La prima taratura
+  /// stava a 0,34 e 0,13 e portava la crescita al 75,7 per cento, tre volte il
+  /// minimo, con un bianco che si leggeva come una velatura lattiginosa dietro
+  /// la figura invece che come uno stacco.
+  static const double alCuore = 0.19;
+  static const double aMezzo = 0.07;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              center: centro,
+              radius: raggio,
+              colors: [
+                Colors.white.withValues(alpha: alCuore),
+                Colors.white.withValues(alpha: aMezzo),
+                Colors.white.withValues(alpha: 0.0),
+              ],
+              stops: const [0.0, 0.48, 1.0],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

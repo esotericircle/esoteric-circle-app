@@ -50,6 +50,8 @@ import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
 import 'package:esoteric_circle/core/maestro/consiglio_finale.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/features/maestri/widgets/maestro_bust.dart';
+import 'package:esoteric_circle/features/santuario/widgets/maestro_bust.dart'
+    as santuario;
 import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
 import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -4061,6 +4063,86 @@ void main() {
     await capture(tester, rootKey, 'avatar-tondi-affiancati.png');
   });
 
+
+  testWidgets('Cattura le tre carte prima e dopo l\'alone', (tester) async {
+    // IL GIUDIZIO E' DI MAURO, SULLE DUE FILE AFFIANCATE. Una carta sola,
+    // guardata da sola, non dice se l'alone stacca la figura: dice solo che
+    // c'e' qualcosa di chiaro. La differenza si vede mettendo le due file una
+    // sopra l'altra, che e' lo stesso confronto che fa la prova a pixel.
+    silenceSensors();
+    await loadFonts();
+    montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    Widget fila(String titolo, bool conAlone) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(titolo,
+                style: const TextStyle(
+                    fontFamily: 'Cinzel',
+                    fontSize: 13,
+                    color: Color(0xFFD8C89B),
+                    letterSpacing: 2)),
+            const SizedBox(height: 14),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                for (final m in Maestro.fixedOrder)
+                  // Il busto del SANTUARIO, non quello della chat: hanno lo
+                  // stesso nome e sono due cose diverse, uno e' la carta col
+                  // fondo e la cornice, l'altro e' il volto nel tondo.
+                  //
+                  // L'altezza e' quella che fa stare tre carte in fila sullo
+                  // schermo vero: a 300 la riga sforava di 319 pixel, e una
+                  // scena che trabocca non e' un confronto, e' un difetto. A 190 sforava
+                  // ancora di 70 e a 160 di 1,9: la misura buona e' 152.
+                  santuario.MaestroBust(
+                    maestro: m,
+                    height: 152,
+                    central: true,
+                    conAlone: conAlone,
+                  ),
+              ],
+            ),
+          ],
+        );
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0B0B14),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  fila('PRIMA, SENZA ALONE', false),
+                  const SizedBox(height: 40),
+                  fila('DOPO, CON ALONE', true),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'alone-prima-e-dopo.png');
+  });
 
   // --- ESPLORA: le quattro scene che l'ordine chiede ----------------------
   //
