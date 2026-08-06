@@ -276,3 +276,71 @@ Le voci **1b, 1c, 1d, 1f**, la **voce 2** sui Doni e la **voce 3** sull'aura
 passano a una sessione nuova: i tocchi nelle chat, il movimento continuo, le
 liste che non devono divergere, i Doni che nominano il Maestro, la leggibilita'
 del Soffio e l'alone dietro le figure.
+
+
+---
+
+# LA STRISCIA NON ESISTE PIU', 6 AGOSTO 2026
+
+**Decisione di Mauro, presa il 6 agosto 2026 guardando l'anteprima.** La striscia
+Esplora e' stata TOLTA da tutta l'app. Al suo posto resta una barra sola, quella
+STORICA del guscio, che porta il titolo ESPLORA e si vede anche dove prima non
+arrivava.
+
+## Perche'
+
+Erano due superfici per le stesse cinque destinazioni: la barra storica dentro
+`AppShell`, visibile nel Santuario e nel Passport perche' `ShellView` ha due
+valori, e la striscia sopra il Navigator, che copriva il resto. Due barre che
+dicono la stessa cosa sono una di troppo, e nella fascia bassa se ne vedevano
+gli effetti: cinque voci dorate della striscia piu' un titolo dorato producevano
+una riga illeggibile.
+
+## Cosa e' stato tolto
+
+`lib/features/shell/esplora.dart`, `lib/features/shell/esplora_schermate.dart`,
+le loro prove e le sei anteprime `esplora-*.png`. Nessun riferimento resta.
+
+## Cosa si e' SALVATO, perche' era lavoro misurato
+
+- **Il governo del movimento continuo**, che legge il DITO e non l'avanzamento
+  nella lista: in una lista rovesciata come la chat lo stesso gesto darebbe il
+  verso opposto. Vive ora in `lib/features/shell/barra_del_cerchio.dart`.
+- **Il `MediaQuery` che fa posto al contenuto** invece di coprirlo, con lo
+  spazio che cambia a soglia e non a ogni pixel di scorrimento.
+- **La regola contro il doppione nella pila**, che serve ancora e serve di piu':
+  la barra porta alle stesse destinazioni da ogni schermata, quindi senza di lei
+  bastano due tocchi per impilare due domini uguali. Vive in
+  `NavigazioneDellaBarra.apriUnaVoltaSola`, e una prova mostra che senza di lei
+  i domini vivi diventano due.
+- **L'elenco unico delle vie**, `vie_del_cerchio.dart`, che la barra storica
+  legge gia'.
+
+## Dove si vede la barra, elenco chiuso
+
+`lib/features/shell/dove_si_vede_la_barra.dart`, con accanto il nome di classe
+di ogni schermata dell'app. Cinque la portano: `SantuarioScreen`,
+`CosmicPassport`, `DomainScreen`, `MaestroChatScreen` e `AskMaestriScreen`, che
+e' il nome di classe del Consiglio del Cerchio. Tutto il resto no, compresi i
+cinque Doni del giorno e le esperienze immersive.
+
+## Le misure
+
+Altezza della barra 123 punti col titolo compreso, corsa 123, confrontate con la
+resa vera. Il titolo e' smorzato, `ColorTokens.textMuted` a corpo 11, sopra le
+voci: e' una nota di servizio e non una sesta destinazione.
+
+## Le tre cose imparate spostando la barra
+
+1. **`InkWell` pretende un `Material` antenato.** Dentro il guscio glielo dava
+   lo Scaffold; sopra il Navigator non c'e' nessuno Scaffold e la barra non si
+   costruiva affatto. Se lo porta lei, in un posto solo.
+2. **`context.palette` pretende `MaestroScope`,** che avvolge la home e non il
+   builder. Anche quello se lo porta lei, e legge lo stesso controller che sta
+   gia' sopra `MaterialApp`.
+3. **Il Maestro della schermata si chiede alla ROTTA, non al controller.** Il
+   dominio chiama `selectMaestro`, la chat no: dichiara il suo Maestro allo
+   scope che si monta addosso. Leggendo il solo controller la barra accendeva Il
+   Cerchio dentro la chat di Medora, visto sull'anteprima. E si legge nel post
+   frame callback, perche' durante il build la rotta appena spinta non e' ancora
+   percorribile.

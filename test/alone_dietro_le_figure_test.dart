@@ -52,6 +52,16 @@ void main() {
       ),
     ));
     await tester.pump();
+    // **L'AVATAR SI PRECARICA, e senza non e' una misura differenziale.**
+    // `Image.asset` risolve in modo asincrono: eseguita da sola, questa prova
+    // rendeva la prima carta senza figura e la seconda con la figura gia' in
+    // cache, quindi confrontava due immagini che differivano anche per il
+    // busto. In suite intera capitava con l'altra, e il fondo lontano
+    // risultava schiarito del 70,9 per cento da un alone che li' non arriva.
+    // Precaricando, fra le due rese cambia SOLO l'alone, che e' il punto.
+    await tester.runAsync(() => precacheImage(
+        AssetImage(maestro.avatarAsset), tester.element(find.byType(Center))));
+    await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
     // **`runAsync` non e' un dettaglio.** `toImage` aspetta la GPU finta del

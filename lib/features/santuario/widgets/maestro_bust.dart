@@ -205,14 +205,18 @@ class AloneDietroLaFigura extends StatelessWidget {
 
   /// Le opacita' del bianco, dal cuore al bordo.
   ///
-  /// **Tarate sulla misura, non a occhio.** La luminanza attorno alla
-  /// silhouette passa da 36,0 a 50,8, cioe' sale del 41,2 per cento contro il
-  /// venticinque chiesto: un margine, non un pareggio. La prima taratura
-  /// stava a 0,34 e 0,13 e portava la crescita al 75,7 per cento, tre volte il
-  /// minimo, con un bianco che si leggeva come una velatura lattiginosa dietro
-  /// la figura invece che come uno stacco.
-  static const double alCuore = 0.19;
-  static const double aMezzo = 0.07;
+  /// **Tarate sulla misura, non a occhio, e la misura e' stata rifatta.** La
+  /// luminanza attorno alla silhouette passa da 43,5 a 62,6, cioe' sale del
+  /// 43,9 per cento contro il venticinque chiesto.
+  ///
+  /// I numeri precedenti erano gonfiati e vanno saputi: 75,7 per cento con la
+  /// prima taratura e 41,2 con la seconda, misurati pero' fra una resa in cui
+  /// l'avatar non era ancora decodificato e una in cui lo era. Quel confronto
+  /// non misurava l'alone, misurava anche la comparsa della figura. Precaricando
+  /// l'immagine prima di tutte e due le rese, la seconda taratura si e' rivelata
+  /// da 17,5 per cento, cioe' sotto il minimo, ed e' salita qui.
+  static const double alCuore = 0.30;
+  static const double aMezzo = 0.12;
 
   @override
   Widget build(BuildContext context) {

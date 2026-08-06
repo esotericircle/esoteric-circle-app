@@ -101,7 +101,11 @@ import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
-import 'package:esoteric_circle/features/shell/esplora.dart';
+import 'package:esoteric_circle/core/rituals/daily_elements.dart';
+import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
+import 'package:esoteric_circle/features/maestri/domain_screen.dart';
+import 'package:esoteric_circle/features/santuario/daily_strip.dart';
+import 'package:esoteric_circle/features/shell/barra_del_cerchio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -4144,11 +4148,11 @@ void main() {
     await capture(tester, rootKey, 'alone-prima-e-dopo.png');
   });
 
-  // --- ESPLORA: le quattro scene che l'ordine chiede ----------------------
+  // --- LA BARRA DEL CERCHIO: dove si vede e dove no ------------------------
   //
-  // Montate come e' montato cio' che provano, cioe' l'APP INTERA: Esplora vive
+  // Montate come e' montato cio' che provano, cioe' l'APP INTERA: la barra vive
   // nel builder di MaterialApp e non nel guscio, quindi una cattura che monti
-  // solo lo shell non la vedrebbe mai.
+  // solo lo shell mostrerebbe un'altra cosa.
   Future<GlobalKey> montaApp(WidgetTester tester,
       {required bool giaRisvegliato}) async {
     silenceSensors();
@@ -4173,83 +4177,90 @@ void main() {
   Finder corpoScorribile() => find.byWidgetPredicate(
       (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
 
-  /// Apre una chat, che dal 6 agosto 2026 e' il posto dove Esplora si vede.
-  Future<void> apriUnaChat(WidgetTester tester) async {
+  /// Porta la barra a meta' corsa col dito, e ce la lascia.
+  Future<TestGesture> aMetaCorsa(WidgetTester tester, Finder dove) async {
+    final gesto = await tester.startGesture(tester.getCenter(dove));
+    await gesto.moveBy(const Offset(0, -kDragSlopDefault));
+    await tester.pump();
+    await gesto.moveBy(const Offset(0, -BarraDelCerchio.corsa / 2));
+    await tester.pump();
+    return gesto;
+  }
+
+  testWidgets('Cattura la barra nella home', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    await capture(tester, rootKey, 'barra-home.png');
+  });
+
+  testWidgets('Cattura la barra a meta corsa nella home', (tester) async {
+    // LA SCENA CHE PROVA IL MOVIMENTO CONTINUO. Con due stati non esisterebbe
+    // affatto: o la barra c'e' o non c'e'.
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final gesto = await aMetaCorsa(tester, corpoScorribile().first);
+    await capture(tester, rootKey, 'barra-meta-corsa.png');
+    await gesto.up();
+    await tester.pump();
+  });
+
+  testWidgets('Cattura la barra in un dominio', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(DomainScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'barra-dominio.png');
+  });
+
+  testWidgets('Cattura la barra in una chat', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
     nav.push(MaestroChatScreen.route(
         maestro: Maestro.medora, services: AppServices.offline()));
     await step(tester);
     await precacheFaces(tester);
     await step(tester);
-  }
-
-  testWidgets('Cattura Esplora, la soglia dove non c\'e\'', (tester) async {
-    // **QUESTA SCENA HA CAMBIATO NOME, E IL NOME VECCHIO DICEVA IL FALSO.**
-    // Si chiamava `esplora-prima-apertura.png` e dichiarava di mostrare la home
-    // alla primissima apertura con la striscia gia' aperta: mostra invece Il
-    // Risveglio, cioe' la soglia, dove Esplora per progetto non c'e'. Un'
-    // immagine che esiste sembra una prova anche quando prova un'altra cosa.
-    //
-    // La scena si tiene perche' prova qualcosa di vero, e adesso lo dice dal
-    // nome: sulla soglia la striscia non compare.
-    final rootKey = await montaApp(tester, giaRisvegliato: false);
-    await capture(tester, rootKey, 'esplora-assente-sulla-soglia.png');
+    await capture(tester, rootKey, 'barra-chat.png');
   });
 
-  testWidgets('Cattura Esplora, la primissima apertura', (tester) async {
-    // Alla primissima apertura in assoluto la striscia si presenta con le vie
-    // gia' in vista, per insegnare che esiste. Mai a ogni ritorno.
-    //
-    // **Si fotografa in CHAT e non nella home**, e non e' un ripiego: da quando
-    // Esplora non compare dove il guscio ha gia' la sua barra, nella home non
-    // c'e' proprio, quindi la scena che l'ordine chiedeva non esiste piu'. La
-    // chat e' il posto dove quella promessa si vede davvero.
-    final rootKey = await montaApp(tester, giaRisvegliato: false);
-    await apriUnaChat(tester);
-    await capture(tester, rootKey, 'esplora-prima-apertura.png');
-  });
-
-  testWidgets('Cattura Esplora, le vie in vista', (tester) async {
-    final rootKey = await montaApp(tester, giaRisvegliato: true);
-    await apriUnaChat(tester);
-    // Il tocco sulla linguetta, che e' il gesto vero: prima si trascinava la
-    // home, dove pero' Esplora non c'e' piu'.
-    await tester.tap(find.byKey(const Key('esplora_linguetta')));
-    await step(tester);
-    await capture(tester, rootKey, 'esplora-aperta.png');
-  });
-
-  testWidgets('Cattura Esplora, la linguetta chiusa dentro una chat',
-      (tester) async {
-    final rootKey = await montaApp(tester, giaRisvegliato: true);
-    await apriUnaChat(tester);
-    await capture(tester, rootKey, 'esplora-linguetta-in-chat.png');
-  });
-
-  testWidgets('Cattura Esplora, a meta\' della corsa', (tester) async {
-    // LA SCENA CHE PROVA IL MOVIMENTO CONTINUO. Con due stati non esisterebbe
-    // affatto: o le vie ci sono o non ci sono. Qui il dito le ha portate a
-    // meta' strada e ce le ha lasciate.
-    final rootKey = await montaApp(tester, giaRisvegliato: true);
-    await apriUnaChat(tester);
-    await tester.tap(find.byKey(const Key('esplora_linguetta')));
-    await step(tester);
-    final gesto =
-        await tester.startGesture(tester.getCenter(corpoScorribile().first));
-    await gesto.moveBy(const Offset(0, -kDragSlopDefault));
-    await tester.pump();
-    await gesto.moveBy(const Offset(0, -EsploraStriscia.corsa / 2));
-    await tester.pump();
-    await capture(tester, rootKey, 'esplora-meta-corsa.png');
-    await gesto.up();
-    await tester.pump();
-  });
-
-  testWidgets('Cattura Esplora, assente in una immersiva', (tester) async {
+  testWidgets('Cattura la barra nel Consiglio del Cerchio', (tester) async {
     final rootKey = await montaApp(tester, giaRisvegliato: true);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
-    // La stesa e' una delle tre immersive nominate dall'ordine: li' la striscia
-    // non c'e' nemmeno richiusa.
+    nav.push(AskMaestriScreen.perLaSintesi(
+      starter: Maestro.medora,
+      tema: 'una scelta',
+      lenti: [
+        MaestroLens.strati(
+            maestro: Maestro.aura,
+            glance: 'respiro',
+            reading: 'il corpo sa dove sei',
+            invite: 'ascolta il fiato'),
+        MaestroLens.strati(
+            maestro: Maestro.caligo,
+            glance: 'runa',
+            reading: 'il segno parla di soglie',
+            invite: 'traccia il sigillo'),
+      ],
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'barra-consiglio.png');
+  });
+
+  testWidgets('Cattura, in un Dono del giorno la barra non si vede',
+      (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(dailyElementRoute(DailyElement.oracle));
+    await step(tester);
+    await capture(tester, rootKey, 'barra-assente-in-un-dono.png');
+  });
+
+  testWidgets('Cattura, in una immersiva la barra non si vede', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
     // MaestroScope attorno, come fa `home` in app.dart: lo scope avvolge la
     // home e non il builder, quindi una rotta spinta a mano ne resta fuori e il
     // fondale cosmico cade sul suo assert.
@@ -4257,7 +4268,7 @@ void main() {
         builder: (_) => const MaestroScope(
             child: StesaTreCarteScreen(skipIntro: true, revealAll: true))));
     await step(tester);
-    await capture(tester, rootKey, 'esplora-assente-in-immersiva.png');
+    await capture(tester, rootKey, 'barra-assente-in-immersiva.png');
   });
 
 }

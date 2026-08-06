@@ -4,6 +4,7 @@ import '../../core/maestro/maestro.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
 import 'navigation_controller.dart';
 import 'vie_del_cerchio.dart';
 
@@ -21,7 +22,19 @@ class SantuarioBottomBar extends StatelessWidget {
     required this.onSantuario,
     required this.onMaestro,
     required this.onPassport,
+    this.maestroCorrente,
   });
+
+  /// Il Maestro di cui si sta guardando il dominio o la chat, quando si e'
+  /// fuori dal guscio.
+  ///
+  /// **E' "dove sei", e da qui in avanti conta.** Finche' la barra viveva
+  /// dentro il guscio le icone Maestro erano solo scorciatoie e restavano tutte
+  /// spente, perche' da li' non si era mai "da" un Maestro. Adesso la barra si
+  /// vede anche nel dominio e nella chat, e li' una voce accesa dice dove si e'
+  /// invece di lasciarlo indovinare. Nullo dentro il guscio, dove a dirlo e'
+  /// gia' la vista.
+  final Maestro? maestroCorrente;
 
   final ShellView view;
   final VoidCallback onSantuario;
@@ -33,7 +46,15 @@ class SantuarioBottomBar extends StatelessWidget {
     final palette = context.palette;
     final onSantuarioView = view == ShellView.santuario;
 
-    return Container(
+    // **LA BARRA SI PORTA IL SUO MATERIAL, e da oggi le serve.** Le sue voci
+    // sono `InkWell`, che pretende un `Material` antenato: dentro il guscio
+    // glielo dava lo Scaffold, ma sopra il Navigator non c'e' nessuno Scaffold
+    // e la barra non si costruiva affatto. Trasparente, perche' il fondo lo
+    // dipinge gia' il gradiente qui sotto, e in un posto solo: cosi' vale
+    // ovunque la si monti, e non dipende da chi la monta.
+    return Material(
+      type: MaterialType.transparency,
+      child: Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -54,12 +75,27 @@ class SantuarioBottomBar extends StatelessWidget {
           ),
           // LE VOCI VENGONO DALL'ELENCO UNICO, non da qui.
           //
-          // Il nome, il disegno e l'ordine stanno in `ViaDelCerchio`, che e'
-          // la stessa fonte da cui legge la striscia Esplora: finche' erano
-          // due liste scritte a mano sono divergiute, di una voce e di
-          // un'icona. Qui restano le cose che appartengono davvero alla barra,
-          // cioe' quale voce e' accesa e cosa succede al tocco.
-          child: Row(
+          // Il nome, il disegno e l'ordine stanno in `ViaDelCerchio`. Qui
+          // restano le cose che appartengono davvero alla barra, cioe' quale
+          // voce e' accesa e cosa succede al tocco.
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // IL TITOLO, SMORZATO. E' una nota di servizio, non una sesta
+              // destinazione: nella versione precedente cinque voci dorate piu'
+              // un titolo dorato producevano una fascia illeggibile. Sta sopra
+              // le voci, piccolo, nel grigio del testo smorzato, senza icona e
+              // senza tocco, e la sua riga e' alta quanto una lettera.
+              Text(
+                titolo,
+                key: const Key('barra_titolo'),
+                style: TypographyTokens.label(size: 11).copyWith(
+                  color: ColorTokens.textMuted,
+                  letterSpacing: 3.2,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               for (final via in ViaDelCerchio.tutte) ...[
@@ -74,12 +110,17 @@ class SantuarioBottomBar extends StatelessWidget {
                 _BarItem(
                   label: via.etichetta,
                   icona: via.icona,
-                  // Le icone Maestro portano al dominio: restano spente nel
-                  // Santuario, sono scorciatoie, non lo stato del centro.
+                  // DOVE SEI, ACCESA. Dentro il guscio lo dice la vista: nel
+                  // Santuario le icone Maestro restano spente, perche' li' sono
+                  // scorciatoie e non lo stato del centro. Fuori dal guscio lo
+                  // dice il Maestro di cui si sta guardando il dominio o la
+                  // chat, e allora la sua voce si accende.
                   selected: switch (via.specie) {
-                    SpecieDiVia.cerchio => onSantuarioView,
-                    SpecieDiVia.maestro => false,
-                    SpecieDiVia.passport => view == ShellView.passport,
+                    SpecieDiVia.cerchio =>
+                      maestroCorrente == null && onSantuarioView,
+                    SpecieDiVia.maestro => via.maestro == maestroCorrente,
+                    SpecieDiVia.passport =>
+                      maestroCorrente == null && view == ShellView.passport,
                   },
                   onTap: () => switch (via.specie) {
                     SpecieDiVia.cerchio => onSantuario(),
@@ -90,10 +131,16 @@ class SantuarioBottomBar extends StatelessWidget {
               ],
             ],
           ),
+            ],
+          ),
         ),
+      ),
       ),
     );
   }
+
+  /// Il titolo della barra, deciso da Mauro il 6 agosto 2026.
+  static const String titolo = 'ESPLORA';
 }
 
 class _BarItem extends StatelessWidget {

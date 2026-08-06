@@ -84,12 +84,13 @@ class AppShell extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: SantuarioBottomBar(
-        view: nav.view,
-        onSantuario: nav.goToSantuario,
-        onMaestro: (m) => _openDomain(context, m),
-        onPassport: nav.goToPassport,
-      ),
+      // **LA BARRA NON STA PIU' QUI**, e non e' un alleggerimento: dentro il
+      // guscio si vedeva solo nel Santuario e nel Passport, perche' `ShellView`
+      // ha due valori, mentre i domini, le chat e il Consiglio sono rotte
+      // spinte SOPRA il guscio, col proprio Scaffold. Vive adesso in
+      // `BarraDelCerchio`, sopra il Navigator, che e' il solo punto da cui si
+      // vedono anche quelle. Lasciarla anche qui vorrebbe dire due barre in
+      // home, che e' il difetto che questo spostamento chiude.
     );
   }
 }
