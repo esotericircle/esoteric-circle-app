@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../core/rituals/tempi_del_respiro.dart';
@@ -62,6 +64,14 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
   );
   bool _avvisato = false;
 
+  /// Vero finche' l'apertura e' a video, cioe' prima che il conteggio parta.
+  ///
+  /// **Il rito comincia con una frase da leggere.** Prima il conteggio partiva
+  /// subito e la persona si trovava dentro un respiro guidato senza sapere che
+  /// stava per cominciare: la parola grande cambiava e lei rincorreva.
+  bool _apertura = true;
+  Timer? _viaLApertura;
+
   bool get _riduciMovimento => MediaQuery.of(context).disableAnimations;
 
   @override
@@ -74,11 +84,18 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
         widget.onFinito?.call();
       }
     });
-    _motore.forward();
+    // L'apertura resta due secondi pieni, poi parte il conteggio: e' l'unico
+    // timer di questa schermata, e serve a dare il tempo di leggere.
+    _viaLApertura = Timer(ParoleDelRespiro.attesaDellApertura, () {
+      if (!mounted) return;
+      setState(() => _apertura = false);
+      _motore.forward();
+    });
   }
 
   @override
   void dispose() {
+    _viaLApertura?.cancel();
     _motore.dispose();
     super.dispose();
   }
@@ -119,32 +136,68 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
               ),
             ),
             const SizedBox(height: 16),
-            // IL CONTEGGIO, che resta sempre. E' l'unica cosa che chi ha
-            // Riduci Movimento ha al posto dell'animazione, quindi non puo'
-            // dipendere dall'animazione per esistere.
+            // LA PAROLA GRANDE, che dice il GESTO e non dove va l'aria.
             //
-            // **HA UNA SUPERFICIE SUA, e ne aveva bisogno.** Era un testo
-            // posato sulla scena: nel Soffio finiva sui raggi del soffione, che
-            // nella fase di luce piena sono chiari, e il grigio chiaro su
-            // chiaro non si leggeva. Il velo lo stacca dal fondo qualunque cosa
-            // ci sia sotto, e il contrasto si misura contro il velo invece che
-            // contro una scena che cambia.
+            // Tre momenti e tre parole: prima del conteggio "Preparati a
+            // respirare", durante "Inspira" ed "Espira", alla fine "Il respiro
+            // e' compiuto". I testi stanno in `ParoleDelRespiro`, non qui:
+            // sono approvati, e il giorno che cambiano non devono esserci due
+            // posti da allineare.
+            //
+            // **Il cambio di parola e' SECCO con Riduci Movimento**, e con una
+            // dissolvenza breve altrimenti: una parola che sfuma mentre il
+            // corpo cambia gesto arriva in ritardo sul gesto.
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
+                // La superficie serve: nel Soffio il fondale e' un prato
+                // chiaro, e una parola chiara su un prato chiaro non si legge.
+                // Il contrasto contro questo velo si misura, e sta in
+                // `test/il_respiro_si_capisce_test.dart`.
                 color: veloDelConteggio,
                 borderRadius: BorderRadius.circular(999),
               ),
-              child: Text(
-                m == null
-                    ? 'Respiro compiuto'
-                    : '${m.parola} · giro ${m.giro} di ${widget.tempi.giri}',
-                key: const Key('respiro_conteggio'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 13).copyWith(
-                  color: m == null ? widget.colore : inchiostroDelConteggio,
-                  letterSpacing: 1.6,
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AnimatedSwitcher(
+                    duration: _riduciMovimento
+                        ? Duration.zero
+                        : const Duration(milliseconds: 180),
+                    child: Text(
+                      _apertura
+                          ? ParoleDelRespiro.preparati
+                          : (m == null
+                              ? ParoleDelRespiro.compiuto
+                              : m.parola),
+                      key: ValueKey<String>(_apertura
+                          ? 'apertura'
+                          : (m == null ? 'fine' : m.parola)),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.display(size: 26).copyWith(
+                        color: inchiostroDelConteggio,
+                        letterSpacing: 0.8,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  // LA RIGA DI SERVIZIO, smorzata: dice la forma del rito
+                  // prima, il giro durante. Non compete con la parola grande,
+                  // perche' non e' lei a guidare.
+                  Text(
+                    _apertura
+                        ? ParoleDelRespiro.formaDi(widget.tempi)
+                        : (m == null
+                            ? ''
+                            : ParoleDelRespiro.giro(m.giro, widget.tempi.giri)),
+                    key: const Key('respiro_conteggio'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.label(size: 12).copyWith(
+                      color: inchiostroDelConteggio.withValues(alpha: 0.72),
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

@@ -121,20 +121,30 @@ void main() {
         );
 
     testWidgets('il conteggio dice dove si e, e avanza', (tester) async {
+      // **QUESTA PROVA E' STATA RISCRITTA, non allentata.** Il comportamento
+      // che verificava non esiste piu': la riga diceva "Dentro / giro 1 di 2",
+      // cioe' metteva sulla stessa riga il gesto e il conto. Per ordine di
+      // Mauro del 6 agosto 2026 il gesto sta in una parola GRANDE al centro,
+      // "Inspira" ed "Espira", e il giro resta sotto come riga di servizio.
       await tester.pumpWidget(host());
       await tester.pump();
+      // Il conteggio parte dopo l'apertura, che resta due secondi pieni.
+      await tester.pump(ParoleDelRespiro.attesaDellApertura);
+      await tester.pump(const Duration(milliseconds: 300));
 
       String conteggio() => tester
           .widget<Text>(find.byKey(const Key('respiro_conteggio')))
           .data!;
+      bool ceLaParola(String p) => find.text(p).evaluate().isNotEmpty;
 
-      expect(conteggio(), 'Dentro · giro 1 di 2');
+      expect(conteggio(), ParoleDelRespiro.giro(1, 2));
+      expect(ceLaParola(ParoleDelRespiro.inspira), isTrue);
       await tester.pump(const Duration(seconds: 4));
-      expect(conteggio(), 'Fuori · giro 1 di 2');
+      expect(ceLaParola(ParoleDelRespiro.espira), isTrue);
       await tester.pump(const Duration(seconds: 4));
-      expect(conteggio(), 'Dentro · giro 2 di 2');
+      expect(conteggio(), ParoleDelRespiro.giro(2, 2));
       await tester.pump(const Duration(seconds: 8));
-      expect(conteggio(), 'Respiro compiuto',
+      expect(ceLaParola(ParoleDelRespiro.compiuto), isTrue,
           reason: 'finito il respiro la guida continua a contare');
     });
 
@@ -157,6 +167,10 @@ void main() {
           .transform
           .storage[0];
 
+      // Il motore parte dopo l'apertura: prima la figura sta ferma, ed e'
+      // giusto, perche' il rito non e' ancora cominciato.
+      await tester.pump(ParoleDelRespiro.attesaDellApertura);
+      await tester.pump(const Duration(milliseconds: 100));
       final inizio = scala();
       await tester.pump(const Duration(milliseconds: 3900));
       final culmine = scala();
@@ -189,6 +203,8 @@ void main() {
           .transform
           .storage[0];
 
+      await tester.pump(ParoleDelRespiro.attesaDellApertura);
+      await tester.pump(const Duration(milliseconds: 100));
       expect(scala(), closeTo(1.0, 0.001));
       await tester.pump(const Duration(milliseconds: 3900));
       expect(scala(), closeTo(1.0, 0.001),
@@ -196,18 +212,14 @@ void main() {
 
       // E IL CONTEGGIO C'E' E AVANZA: e' l'unica cosa che resta al posto
       // dell'animazione, quindi non puo' dipendere dall'animazione.
+      expect(find.text(ParoleDelRespiro.espira).evaluate(), isNotEmpty,
+          reason: 'con Riduci Movimento la parola del gesto sparisce: resta '
+              'un vuoto');
       expect(
           tester
               .widget<Text>(find.byKey(const Key('respiro_conteggio')))
               .data,
-          'Dentro · giro 1 di 2');
-      await tester.pump(const Duration(milliseconds: 200));
-      expect(
-          tester
-              .widget<Text>(find.byKey(const Key('respiro_conteggio')))
-              .data,
-          'Fuori · giro 1 di 2',
-          reason: 'con Riduci Movimento il conteggio si ferma: resta un vuoto');
+          ParoleDelRespiro.giro(1, 2));
       await tester.pump(const Duration(seconds: 10));
     });
   });

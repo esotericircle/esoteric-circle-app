@@ -87,7 +87,65 @@ class MomentoDelRespiro {
     return minima + (1 - minima) * t;
   }
 
-  /// La parola che accompagna la fase. Due sole, e brevi: chi respira non
-  /// legge una frase, coglie una parola.
-  String get parola => entra ? 'Dentro' : 'Fuori';
+  /// La parola che accompagna la fase, dal punto unico delle parole.
+  String get parola =>
+      entra ? ParoleDelRespiro.inspira : ParoleDelRespiro.espira;
+}
+
+/// LE PAROLE DEL RESPIRO, in un punto solo.
+///
+/// **Perche' non stanno nella schermata.** Sono testi approvati da Mauro, e il
+/// giorno che cambiano non devono esserci due posti da allineare. Stanno qui,
+/// accanto ai numeri che governano l'animazione, perche' e' da quei numeri che
+/// la forma del rito si scrive.
+///
+/// **Perche' non dicono piu' "dentro" e "fuori".** Quelle due parole
+/// descrivono dove va l'aria, non il gesto da fare: chi tiene gli occhi
+/// socchiusi le legge e non sa cosa fare. "Inspira" ed "Espira" sono il gesto.
+class ParoleDelRespiro {
+  const ParoleDelRespiro._();
+
+  /// La frase grande dell'apertura, prima che il conteggio cominci.
+  static const String preparati = 'Preparati a respirare';
+
+  /// Le due parole del gesto, quelle grandi al centro.
+  static const String inspira = 'Inspira';
+  static const String espira = 'Espira';
+
+  /// La chiusura, quando l'ultimo giro si e' chiuso.
+  static const String compiuto = 'Il respiro è compiuto.';
+
+  /// Quanto resta a video l'apertura prima che il conteggio parta.
+  ///
+  /// Due secondi pieni, e non e' un tempo scelto a occhio: e' una frase da
+  /// LEGGERE, non da intravedere, e sotto ce n'e' una seconda che dichiara la
+  /// forma del rito. Chi comincia a respirare senza averle lette respira a caso.
+  static const Duration attesaDellApertura = Duration(seconds: 2);
+
+  /// LA FORMA DEL RITO, coi numeri VERI.
+  ///
+  /// **I numeri arrivano dai tempi che l'animazione esegue**, non da una frase
+  /// scritta a mano: una riga che dichiara quattro tempi mentre la figura ne
+  /// conta sei e' peggio di nessuna riga, e questo progetto l'ha gia' pagato
+  /// una volta.
+  static String formaDi(TempiDelRespiro tempi) {
+    final t = _inLettere(tempi.tempi);
+    final g = _inLettere(tempi.giri);
+    final volte = tempi.giri == 1 ? 'Una volta' : '$g volte';
+    return '$t tempi dentro, ${t.toLowerCase()} fuori. $volte.';
+  }
+
+  /// La riga di servizio sotto la parola grande.
+  static String giro(int quale, int quanti) => 'giro $quale di $quanti';
+
+  /// I numeri piccoli si dicono in lettere, come li direbbe un Maestro: fino a
+  /// dodici bastano e avanzano per una cadenza di respiro, e oltre si torna
+  /// alla cifra invece di inventare una parola.
+  static String _inLettere(int n) {
+    const nomi = [
+      '', 'Uno', 'Due', 'Tre', 'Quattro', 'Cinque', 'Sei', 'Sette', 'Otto',
+      'Nove', 'Dieci', 'Undici', 'Dodici',
+    ];
+    return n >= 1 && n < nomi.length ? nomi[n] : '$n';
+  }
 }

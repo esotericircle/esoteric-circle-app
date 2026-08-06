@@ -72,7 +72,16 @@ void main() {
     await tester.pumpWidget(host());
     await passo(tester);
 
-    expect(find.byKey(const Key('sunset_stone')), findsOneWidget);
+    // **LA PIETRA DELL'ATTESA E' ORA QUELLA VERA, non piu' il ripiego.**
+    // Questa riga chiedeva `sunset_stone`, cioe' il sasso DIPINTO che il rito
+    // mostrava finche' i ventiquattro retri non arrivavano. Dal 6 agosto 2026
+    // ci sono, e la schermata carica `sunset_stone_vergine`, cioe' l'osso vero
+    // della runa di stasera: il fallimento di questa prova e' stato la misura
+    // dell'aggancio, non un guasto.
+    expect(find.byKey(const Key('sunset_stone_vergine')), findsOneWidget,
+        reason: 'Il Tramonto non mostra il retro della sua pietra: se e\' '
+            'tornato al sasso dipinto, il file manca o il percorso non lo '
+            'trova piu\'.');
     expect(find.byKey(const Key('sunset_getto_gesture')), findsOneWidget);
     expect(find.text('Scuoti il telefono o tocca la pietra\nper gettarla.'),
         findsOneWidget);

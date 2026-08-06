@@ -18,7 +18,9 @@ import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/app_services.dart';
+import '../../../../core/rituals/runes.dart';
 import '../../../rituals/rune_strokes.dart';
+import '../../../rituals/sunset_rune_screen.dart' show pathVergineDi;
 import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
 import 'bindrune.dart';
@@ -265,6 +267,11 @@ class _Preparazione extends StatelessWidget {
             style: TypographyTokens.body(size: 16)
                 .copyWith(color: ColorTokens.textPrimary, height: 1.5),
           ),
+          const SizedBox(height: SpacingTokens.lg),
+          // LE PIETRE COPERTE, prima che la sorte le scopra.
+          _PietreCoperte(
+              palette: palette,
+              quante: gettata.libera ? gettata.sparse : gettata.numero),
           const SizedBox(height: SpacingTokens.lg),
           // IL SELETTORE delle gettate.
           _SelettoreGettate(
@@ -1175,4 +1182,91 @@ class _PozzoPainter extends CustomPainter {
       old.posato != posato ||
       old.punti != punti ||
       old.libera != libera;
+}
+
+/// LE PIETRE COPERTE, cioe' il sacchetto prima della sorte.
+///
+/// **Perche' esiste.** Senza un retro non si puo' mostrare una pietra coperta,
+/// e senza pietre coperte il lancio non ha un prima: la schermata passava dal
+/// pulsante alle rune gia' scoperte, e la sorte non si vedeva accadere.
+///
+/// **Il retro e' quello della SUA pietra.** Non c'e' un dorso unico: ogni runa
+/// ha il proprio osso, con la sua forma e la sua venatura, e coperta si vede
+/// quello. Qui la sorte non e' ancora stata gettata, quindi le pietre mostrate
+/// sono le prime del catalogo e non anticipano niente: un retro non dice quale
+/// runa sia, ed e' esattamente il motivo per cui serve.
+class _PietreCoperte extends StatelessWidget {
+  const _PietreCoperte({required this.palette, required this.quante});
+
+  final MaestroPalette palette;
+  final int quante;
+
+  @override
+  Widget build(BuildContext context) {
+    // Al massimo cinque: oltre, in una riga da telefono, diventano francobolli.
+    final n = quante.clamp(1, 5);
+    return SizedBox(
+      key: const Key('rune_pietre_coperte'),
+      height: 96,
+      // **RIENTRANO INVECE DI SFORARE.** Cinque pietre da sessantadue punti
+      // piu' i margini fanno trecentocinquanta su una larghezza utile di
+      // trecentododici: la riga sforava di trentotto pixel, e l'ha preso la
+      // cattura. Si rimpiccioliscono, come fanno le tessere delle arti.
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          for (var i = 0; i < n; i++)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Transform.rotate(
+                // Un filo di inclinazione alternata: pietre allineate in
+                // riga sembrano un menu, non un pugno di sassi.
+                angle: (i.isEven ? 1 : -1) * 0.06 * (i + 1),
+                child: _RetroDellaPietra(
+                    stem: kElderFuthark[i % kElderFuthark.length].stem,
+                    palette: palette),
+              ),
+            ),
+        ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Il retro di una pietra, con lo stesso ripiego dipinto delle altre superfici.
+class _RetroDellaPietra extends StatelessWidget {
+  const _RetroDellaPietra({required this.stem, required this.palette});
+
+  final String? stem;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final percorso = pathVergineDi(stem);
+    return SizedBox(
+      width: 62,
+      height: 76,
+      child: percorso == null
+          ? _ripiego()
+          : Image.asset(percorso,
+              fit: BoxFit.contain,
+              errorBuilder: (_, __, ___) => _ripiego()),
+    );
+  }
+
+  /// Quando il retro manca, un sasso dipinto: mai un vuoto al posto di una
+  /// pietra, che si leggerebbe come un guasto.
+  Widget _ripiego() => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(28),
+          gradient: const RadialGradient(colors: [
+            Color(0xFFE8DFC9),
+            Color(0xFFCFC3A6),
+          ]),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
+        ),
+      );
 }

@@ -105,6 +105,8 @@ import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
 import 'package:esoteric_circle/features/santuario/daily_strip.dart';
+import 'package:esoteric_circle/core/rituals/tempi_del_respiro.dart';
+import 'package:esoteric_circle/design_system/components/guida_del_respiro.dart';
 import 'package:esoteric_circle/features/shell/barra_del_cerchio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -4146,6 +4148,117 @@ void main() {
     await precacheFaces(tester);
     await step(tester);
     await capture(tester, rootKey, 'alone-prima-e-dopo.png');
+  });
+
+  // --- IL RESPIRO E LE PIETRE COPERTE --------------------------------------
+
+  testWidgets('Cattura il respiro, i tre momenti', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    const tempi = TempiDelRespiro(tempi: 4, giri: 3);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          // Il verde del prato del Soffio, che e' la superficie su cui la
+          // parola grande deve leggersi.
+          backgroundColor: const Color(0xFFBFD5B2),
+          body: Center(
+            child: GuidaDelRespiro(
+                tempi: tempi, colore: const Color(0xFFD8C89B)),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await capture(tester, rootKey, 'respiro-apertura.png');
+
+    await tester.pump(ParoleDelRespiro.attesaDellApertura);
+    await tester.pump(const Duration(milliseconds: 300));
+    await capture(tester, rootKey, 'respiro-inspira.png');
+
+    await tester.pump(tempi.intero);
+    await tester.pump(const Duration(milliseconds: 300));
+    await capture(tester, rootKey, 'respiro-compiuto.png');
+  });
+
+  testWidgets('Cattura le pietre coperte e il confronto', (tester) async {
+    // **NON si monta `RuneDrawScreen` intera, e va detto.** Quella schermata
+    // ascolta l'accelerometro e dipinge il cosmo animato: in cattura il
+    // precarico resta appeso e il test finisce in timeout dopo dieci minuti,
+    // provato. Qui si montano gli ASSET veri, che sono cio' che la scena
+    // dovrebbe mostrare: i retri a vista e una pietra girata accanto alla sua
+    // incisa, per vedere che sia lo stesso sasso.
+    silenceSensors();
+    await loadFonts();
+    montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    Widget pietra(String percorso, double lato) => SizedBox(
+          width: lato,
+          height: lato * 1.2,
+          child: Image.asset(percorso, fit: BoxFit.contain),
+        );
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: const Color(0xFF0B0710),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('LE PIETRE COPERTE, PRIMA DELLA SORTE',
+                    style: TextStyle(
+                        fontFamily: 'Cinzel',
+                        fontSize: 13,
+                        color: Color(0xFFD8C89B),
+                        letterSpacing: 2)),
+                const SizedBox(height: 18),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (final runa in kElderFuthark.take(5))
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: pietra(pathVergineDi(runa.stem)!, 58),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 46),
+                const Text('LA STESSA PIETRA, GIRATA E INCISA',
+                    style: TextStyle(
+                        fontFamily: 'Cinzel',
+                        fontSize: 13,
+                        color: Color(0xFFD8C89B),
+                        letterSpacing: 2)),
+                const SizedBox(height: 18),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    pietra(pathVergineDi(kElderFuthark.first.stem)!, 128),
+                    const SizedBox(width: 26),
+                    pietra(kElderFuthark.first.fullPath!, 128),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await capture(tester, rootKey, 'rune-coperte.png');
   });
 
   // --- LA BARRA DEL CERCHIO: dove si vede e dove no ------------------------

@@ -9,7 +9,7 @@ publish_to: "none"
 # lo split somma duemila per l'ABI arm64, quindi si riparte da sopra quella
 # soglia. Il lucchetto e' test/versione_build_test.dart, che confronta il
 # numero con docs/versione_distribuita.json.
-version: 0.1.0+2156
+version: 0.1.0+2157
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -160,6 +160,10 @@ flutter:
     - assets/img/angeli/
     - assets/img/ritratti-vip/
     - assets/img/rune_bone/
+    # Il RETRO delle rune: la stessa pietra senza incisione, ricavata dalla
+    # runa incisa da tool/rune_vergini.py. Serve a mostrare le pietre coperte
+    # nel lancio e nell'attesa, e senza di lui il gesto non esiste.
+    - assets/img/rune_bone_vergine/
     - assets/img/animali/
     - assets/img/cristalli/
     - assets/img/archetipi/
