@@ -24,6 +24,7 @@ import 'features/debug/app_check_debug_view.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/santuario/greeting_controller.dart';
 import 'features/shell/app_shell.dart';
+import 'features/shell/esplora.dart';
 import 'features/shell/navigation_controller.dart';
 import 'services/app_services.dart';
 import 'features/intro/sequenza_intro.dart';
@@ -61,6 +62,17 @@ class EsotericCircleApp extends StatefulWidget {
 }
 
 class _EsotericCircleAppState extends State<EsotericCircleApp> {
+  /// L'osservatore di Esplora, uno per app: lo legge il Navigator e lo legge
+  /// lo scope, ed e' lo stesso oggetto.
+  final EsploraObservatore _esplora = EsploraObservatore();
+
+  _EsotericCircleAppState() {
+    // La regola contro il doppione legge la stessa pila che tiene lo scope.
+    // Senza questa riga `apriUnaVoltaSola` non trovava nessuna pila e spingeva
+    // sempre: la regola c'era nel codice e non scattava mai nell'app.
+    EsploraNavigazione.osservatore = _esplora;
+  }
+
   /// LA GUARDIA DEL SUONO, montata nel guscio e non in una schermata.
   ///
   /// Le porte sono tutte le schermate che suonano, oggi due e domani dieci: una
@@ -157,6 +169,11 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         title: 'Esoteric Circle',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.dark(),
+        // L'osservatore di Esplora: tiene la pila delle rotte, che serve sia a
+        // sapere quale schermata e' in cima sia alla regola contro il doppione.
+        // E' UN DATO SOLO, montato qui e passato allo scope: due copie della
+        // pila divergerebbero al primo pop.
+        navigatorObservers: [_esplora],
         // La striscia col token di debug di App Check sta sopra il Navigator,
         // quindi si legge anche mentre l'onboarding e' aperto sopra lo shell.
         // In release non compare: lo decidono i servizi, non questa riga.
@@ -188,6 +205,12 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
                   disableAnimations:
                       mq.disableAnimations || settings.reduceAnimations,
                 ),
+                // ESPLORA STA QUI, e ci sta per la stessa ragione dell'intro:
+                // il builder avvolge il Navigator INTERO, quindi vede anche le
+                // rotte spinte sopra il guscio, comprese le chat, che hanno un
+                // proprio Scaffold. Dentro `home` avrebbe visto solo il guscio.
+                // E' il solo punto che decide se la striscia si vede: le
+                // schermate non lo sanno e non lo devono sapere.
                 child: SequenzaIntro(
                   mostra: widget.conIntro,
                   // Il silenzio dell'app vale anche per l'apertura. Passa da
@@ -195,7 +218,10 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
                   // dentro questo Consumer: farglielo cercare da sola
                   // vorrebbe dire una seconda porta sullo stesso dato.
                   conSuono: settings.suonoEVibrazione,
-                  child: child ?? const SizedBox.shrink(),
+                  child: EsploraScope(
+                    observatore: _esplora,
+                    child: child ?? const SizedBox.shrink(),
+                  ),
                 ),
               );
             },
