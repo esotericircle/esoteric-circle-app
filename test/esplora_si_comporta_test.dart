@@ -5,6 +5,7 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
+import 'package:esoteric_circle/features/maestri/domain_screen.dart';
 import 'package:esoteric_circle/features/shell/esplora.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -83,6 +84,22 @@ void main() {
     expect(esploraCE(), isFalse,
         reason: 'Nel Santuario la barra del guscio c\'e\' gia\': Esplora la '
             'duplicherebbe, e stando sopra le ruberebbe i tocchi.');
+
+    // E DOPO UN PUSH E UN POP DEVE RESTARE ASSENTE. E' qui che il difetto
+    // viveva: la valutazione girava una volta per evento di navigazione,
+    // dentro un post frame callback, quando la rotta USCENTE era ancora
+    // montata. Tornando dal dominio trovava DomainScreen, decideva presente, e
+    // nessun altro evento arrivava a correggerla.
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(DomainScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await respira(tester);
+    nav.pop();
+    await respira(tester);
+    expect(esploraCE(), isFalse,
+        reason: 'Tornati nel Santuario la striscia e\' rimasta accesa: la '
+            'decisione ha guardato la rotta che stava uscendo invece di quella '
+            'in cima alla pila.');
   });
 
   testWidgets('nelle chat c\'e\', in una immersiva non c\'e\' affatto',

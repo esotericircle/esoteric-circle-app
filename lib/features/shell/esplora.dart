@@ -117,21 +117,23 @@ class _EsploraScopeState extends State<EsploraScope> {
     });
   }
 
-  /// Cerca nell'albero la schermata piu' in alto fra quelle dichiarate.
+  /// La schermata in cima alla pila.
   ///
-  /// Si guarda il TIPO del widget, non un nome di rotta. Le rotte si impilano
-  /// nell'Overlay in ordine, quindi l'ultima dichiarata che si incontra
-  /// visitando l'albero e' quella che la persona sta guardando.
+  /// **Si chiede alla PILA, non si visita l'albero.** Visitare l'albero intero
+  /// dentro un post frame callback aveva due difetti, ed erano tutti e due
+  /// veri: costava una passata su tutto l'albero a ogni push e a ogni pop, e
+  /// soprattutto guardava un albero in cui la rotta USCENTE e' ancora montata.
+  /// Dopo un pop dal dominio trovava `DomainScreen`, decideva presente, e
+  /// nessun altro evento arrivava piu' a correggerla: nel Santuario restavano
+  /// due barre, quella del guscio e Esplora sopra. Misurato il 6 agosto 2026.
+  ///
+  /// L'osservatore invece toglie la rotta dalla pila in `didPop`, subito:
+  /// `pila.last` e' gia' quella giusta quando l'evento arriva.
   void _aggiornaSchermata() {
-    String? trovata;
-    void visita(Element e) {
-      final nome = e.widget.runtimeType.toString();
-      if (presenzaPerSchermata.containsKey(nome)) trovata = nome;
-      e.visitChildren(visita);
-    }
-
-    context.visitChildElements(visita);
-    _schermata = trovata;
+    final pila = widget.observatore.pila;
+    _schermata = pila.isEmpty
+        ? null
+        : EsploraNavigazione.tipoDellaRotta(pila.last);
   }
 
   @override
@@ -257,12 +259,24 @@ class EsploraStriscia extends StatelessWidget {
     final durata =
         senzaMoto ? Duration.zero : const Duration(milliseconds: 220);
 
-    return AnimatedSize(
+    // UN MATERIAL TRASPARENTE, IN UN POSTO SOLO.
+    //
+    // Verificata l'ipotesi e regge: il testo della linguetta usciva con
+    // `TextDecoration.underline`, mentre le voci della barra del guscio, che un
+    // Material antenato ce l'hanno, uscivano con `none`. E' la firma di un
+    // `Text` senza Material, e Esplora vive nello `Stack` del builder, fuori da
+    // qualunque Scaffold. La correzione non e' `TextDecoration.none` sui
+    // quattro stili, che curerebbe il sintomo in quattro punti: e' dare alla
+    // striscia l'antenato che le manca, qui, una volta.
+    return Material(
+      type: MaterialType.transparency,
+      child: AnimatedSize(
       duration: durata,
       alignment: Alignment.bottomCenter,
       child: aperta
           ? _Aperta(palette: palette, onChiudi: onChiudi)
           : _Linguetta(palette: palette, onTap: onLinguetta),
+      ),
     );
   }
 }
