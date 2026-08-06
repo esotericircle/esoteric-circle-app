@@ -74,6 +74,20 @@ def main():
                 'la famiglia %s ha %d miniature nell\'APK invece di %d'
                 % (famiglia, m, n))
 
+    # I RETRI DELLE RUNE, che non sono una famiglia a due misure.
+    #
+    # Stanno in una cartella sola, senza miniatura, perche' si vedono coperti o
+    # in volo e mai a fuoco: il conteggio a due colonne qui non ha senso, ma il
+    # controllo che ci siano tutti si', altrimenti l'app mostrerebbe il sasso
+    # dipinto al posto della pietra vera senza che nessuno se ne accorga.
+    retri = piene.get('rune_bone_vergine', 0)
+    attesiRetri = attesi.get('rune_bone', 0)
+    print('%-18s %6d  %6d  %10s'
+          % ('rune_bone_vergine', attesiRetri, retri, 'nessuna'))
+    if retri != attesiRetri:
+        problemi.append('i retri delle rune sono %d nell APK invece di %d'
+                        % (retri, attesiRetri))
+
     peso = os.path.getsize(apk)
     print('\nPeso APK: %d byte (%.2f MiB)' % (peso, peso / 1048576.0))
 
