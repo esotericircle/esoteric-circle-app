@@ -24,7 +24,7 @@ leggere l'errore, ed e' la parte piu' utile di questo documento.
 - `codemagic.yaml` sta nella radice del repository.
 
 **Da fare a mano, e sono i passi qui sotto:** il gruppo dei tester, la variabile
-con la configurazione Firebase, e il lancio.
+con la configurazione Firebase, la chiave privata del certificato, e il lancio.
 
 ### Perche' nella cartella `ios/` non c'e' il Podfile
 
@@ -137,6 +137,76 @@ fermerebbe al primo passo con "Manca la variabile".
 Il contrario vale allo stesso modo: se metti la variabile nel gruppo `firebase`,
 quelle due righe **devono restare**.
 
+## Passo 3bis. La chiave privata del certificato
+
+**Questo passo e' nato dal fallimento della prima build**, e vale la pena capire
+perche', perche' e' la parte che decide se un domani ti ritrovi senza
+certificati.
+
+La prima build e' morta prima di compilare, dicendo che per il tuo pacchetto non
+esisteva nessun profilo di distribuzione. Era vero: nel Developer Portal non
+c'era ne' un certificato ne' un profilo. Il file chiedeva ad Apple dei file gia'
+esistenti, invece di chiederle di crearli. Adesso li fa creare.
+
+**Chi crea cosa.** Il certificato di distribuzione e' come una firma
+depositata, e Apple **ne concede tre in tutto** per l'intero account: se se ne
+crea uno nuovo a ogni build, in tre build sei bloccato. Il modo per evitarlo e'
+questa chiave privata. Il certificato resta legato a lei: la prima build ne
+crea uno, e tutte le build successive trovano quello di prima e lo riusano,
+finche' la chiave non cambia. **Quindi questa chiave si genera una volta sola e
+non si tocca mai piu'.**
+
+### 3bis-a. Generare la chiave sul tuo PC Windows
+
+Apri **PowerShell** e incolla questo comando, tutto insieme:
+
+```powershell
+ssh-keygen -t rsa -b 2048 -m PEM -f "$env:USERPROFILE\Desktop\ios_distribution_private_key" -q -N '""'
+```
+
+Ti crea due file sul Desktop. Serve solo quello **senza** estensione,
+`ios_distribution_private_key`: l'altro, con `.pub`, non serve e si puo'
+cancellare.
+
+**Conserva quel file.** Non e' un file di passaggio: e' cio' che lega il
+certificato al progetto. Se lo perdi, la build successiva non trova piu' un
+certificato che le corrisponda e ne crea un altro, consumando uno dei tre.
+Mettilo dove tieni le cose che non si perdono.
+
+Poi mettilo negli appunti:
+
+```powershell
+Get-Content "$env:USERPROFILE\Desktop\ios_distribution_private_key" -Raw | Set-Clipboard
+```
+
+### 3bis-b. Incollarla su Codemagic
+
+1. Su Codemagic, dalla pagina dell'applicazione, premi **Settings**, poi
+   **Environment variables**.
+2. Compila i tre campi:
+   - **Variable name**: `CERTIFICATE_PRIVATE_KEY`
+     Scritto esattamente cosi'. Se sbagli una lettera, la build si ferma
+     dicendo `Cannot save Signing Certificates without certificate private key`.
+   - **Variable value**: incolla il contenuto. Deve cominciare con
+     `-----BEGIN RSA PRIVATE KEY-----` e finire con
+     `-----END RSA PRIVATE KEY-----`, e **quelle due righe vanno incluse**.
+   - **Variable group**: scrivi `code-signing` e premi invio per crearlo.
+     E' un gruppo diverso da `firebase`, apposta: non c'entrano niente fra loro.
+3. **Spunta la casella `Secure`.**
+4. Premi **Add**.
+
+Vale anche qui quanto detto al passo 3c: se il campo del gruppo non compare,
+lascia la variabile senza gruppo e togli da `codemagic.yaml` la riga
+`- code-signing`, cosi' come si fa con `- firebase`.
+
+### 3bis-c. Cosa vedrai nel registro della prima build
+
+Al passo **Certificato e profilo, creati se non esistono** comparira' che ha
+creato un certificato e un profilo. Alla **seconda** build lo stesso passo deve
+dire che li ha **trovati**, non creati. Se dicesse di crearli di nuovo, fermati
+e dimmelo: vorrebbe dire che la chiave non arriva, e che stiamo bruciando i tre
+certificati che Apple concede.
+
 ## Passo 4. Controllare che la chiave di Apple sia collegata
 
 L'integrazione si chiama **esoteric_asc** ed e' gia' configurata: e' la chiave
@@ -229,7 +299,14 @@ Dieci secondi, e dice **dove** sta l'errore. Se cambi qualcosa in
 costa dieci secondi, un giro di build costa venti minuti dei cinquecento del
 mese.
 
-Quel verde pero' dice solo che la **struttura** e' giusta. Non sa se il nome
+**Quel verde non dice che la build riuscira'**, e la prima build lo ha
+dimostrato: il file passava la validazione ed e' morto lo stesso, perche' era
+formalmente giusto e sbagliato nel merito. In particolare **la validazione verde
+non dice che su Apple esistano il certificato e il profilo di firma**: quelli
+stanno nel Developer Portal, non nel file, e nessuna prova che gira qui puo'
+guardarli.
+
+Quel verde dice solo che la **struttura** e' giusta. Non sa se il nome
 dell'integrazione esiste davvero su Codemagic, non sa se la chiave di Apple ha i
 permessi, non sa se il gruppo dei tester si chiama come dice il file: quelle
 cose le sapremo alla prima build.
@@ -268,10 +345,14 @@ dichiara. Copiami il nome del pacchetto e la versione che chiede: si alza il
 numero nei tre punti del progetto, con la ragione scritta accanto.
 
 **Un errore che nomina `provisioning profile` o `signing`**
-La firma automatica non e' riuscita a ottenere il profilo da Apple. Di solito e'
-uno di tre motivi: l'identificativo del pacchetto non esiste ancora sul
-Developer Portal, la chiave `esoteric_asc` non ha i permessi giusti, oppure il
-contratto di sviluppatore non e' stato accettato. Il registro dice quale dei tre.
+**E' successo davvero alla prima build**, con questo testo:
+`No matching profiles found for bundle identifier ... and distribution type
+"app_store"`. Quella volta la causa era che il file chiedeva file di firma gia'
+esistenti mentre nel Developer Portal non c'era niente, ed e' corretta: adesso
+il workflow li fa creare. Se ricompare, i motivi rimasti sono la chiave
+`esoteric_asc` senza i permessi giusti, il contratto di sviluppatore non
+accettato, oppure la variabile `CERTIFICATE_PRIVATE_KEY` che non arriva. Il
+registro dice quale dei tre.
 
 **Un errore dentro `pod install`, che nomina `CocoaPods`**
 Due pacchetti pretendono versioni incompatibili della stessa libreria. Copiami

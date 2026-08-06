@@ -40,6 +40,11 @@ workflows:
     # E' anche cio' che rende leggibile `auth: integration` piu' sotto: quella
     # riga pretende che il workflow dichiari `integrations -> app_store_connect`,
     # ed era il secondo errore, che diceva la stessa cosa dall'altro lato.
+    #
+    # E' infine cio' che fa funzionare `app-store-connect fetch-signing-files`
+    # negli script: Codemagic esporta da qui le tre variabili che quel comando
+    # cerca, cioe' l'identificativo della chiave, quello dell'emittente e la
+    # chiave stessa. Per questo non compaiono da nessuna parte in questo file.
     integrations:
       app_store_connect: esoteric_asc
 
@@ -62,6 +67,12 @@ workflows:
       # la variabile senza gruppo e si cancellano le due righe qui sotto.
       groups:
         - firebase
+        # LA CHIAVE PRIVATA DEL CERTIFICATO, e sta in un gruppo suo perche' non
+        # ha niente a che vedere con Firebase. Dentro ci va una variabile sola,
+        # CERTIFICATE_PRIVATE_KEY, cifrata: e' cio' che tiene fermo il
+        # certificato di distribuzione fra una build e l'altra.
+        # Vedi docs/ios/PRIMA_BUILD_IOS.md, passo 3bis.
+        - code-signing
 
       vars:
         # L'identificativo del pacchetto, lo stesso che sta su App Store
@@ -82,29 +93,22 @@ workflows:
       # versione qui vorrebbe dire tenerla allineata a mano per sempre, e alla
       # prima build non si sa ancora quale serva.
 
-      ios_signing:
-        # FIRMA AUTOMATICA. Codemagic chiede ad Apple il profilo di
-        # distribuzione per questo pacchetto e lo installa sulla macchina: e'
-        # la sola strada quando nessuno ha mai creato un profilo a mano, ed e'
-        # il caso di questo progetto.
-        distribution_type: app_store
-        # **SCRITTO PER ESTESO, non `$BUNDLE_ID`.** Lo schema ammette una
-        # variabile anche qui, ma questa riga la legge la piattaforma prima
-        # degli script, e alla prima build di un progetto mai compilato una
-        # variabile in meno e' un modo in meno di sbagliare. Deve restare
-        # uguale a `BUNDLE_ID` qui sopra, e una prova lo verifica.
-        bundle_identifier: com.esotericircle.esotericCircle
+      # QUI NON C'E' PIU' `ios_signing`, ED E' LA CORREZIONE DELLA PRIMA BUILD.
+      #
+      # La prima build e' morta prima di compilare, alla firma:
+      #   No matching profiles found for bundle identifier
+      #   "com.esotericircle.esotericCircle" and distribution type "app_store"
+      #
+      # Il file era formalmente giusto e sbagliato nel merito. La
+      # documentazione di Codemagic, pagina "Signing iOS apps", dice cosa fa
+      # davvero quella sezione: "To fetch all uploaded signing files matching a
+      # specific distribution type and bundle identifier". SCARICA i file gia'
+      # caricati, non li crea. Nel Developer Portal di Apple non c'era niente,
+      # ne' certificato ne' profilo, quindi non c'era niente da scaricare.
+      #
+      # La creazione va chiesta, e si chiede con gli script piu' sotto.
 
     scripts:
-      - name: I profili di firma, applicati al progetto Xcode
-        script: |
-          # **SENZA QUESTA RIGA LA FIRMA NON ARRIVA AL PROGETTO.** La sezione
-          # `ios_signing` fa scaricare a Codemagic i profili da Apple, ma non li
-          # applica: e' questo comando a scriverli dentro il progetto Xcode.
-          # L'esempio ufficiale di Codemagic per Flutter iOS lo mette per primo,
-          # e mancava.
-          xcode-project use-profiles
-
       - name: La configurazione di Firebase, scritta dalla variabile cifrata
         script: |
           # **IL PLIST NON STA NEL REPOSITORY, ED E' UNA DECISIONE.** Porta le
@@ -152,6 +156,55 @@ workflows:
             flutter build ios --config-only --no-codesign
           fi
           find . -name "Podfile" -execdir pod install \;
+
+      # I QUATTRO PASSI DELLA FIRMA, e vanno in quest'ordine.
+      #
+      # Sono presi dalla documentazione di Codemagic, pagina "Alternative code
+      # signing methods", sezione della firma automatica, che li mostra proprio
+      # cosi': `keychain initialize`, `fetch-signing-files`,
+      # `keychain add-certificates`, `xcode-project use-profiles`.
+      #
+      # Stanno DOPO i pod, e non prima, perche' lo script dei pod puo' lanciare
+      # `flutter build ios --config-only` per generare il Podfile mancante, e
+      # quella riscrittura del progetto Xcode cancellerebbe le impostazioni di
+      # firma appena scritte.
+      #
+      # Le tre credenziali di App Store Connect non compaiono qui: le esporta
+      # Codemagic dall'integrazione `esoteric_asc` dichiarata sopra.
+
+      - name: Il portachiavi della macchina
+        script: keychain initialize
+
+      - name: Certificato e profilo, creati se non esistono
+        script: |
+          # **`--create` E' LA RIGA CHE MANCAVA.** Nel manuale del comando:
+          # "Whether to create the resource if it does not exist yet". Senza,
+          # il comando cerca soltanto, e in un portale vuoto non trova niente.
+          #
+          # NON CREA UN CERTIFICATO NUOVO A OGNI BUILD, e conta, perche' Apple
+          # ne concede tre soli di distribuzione. Il legame e' la chiave
+          # privata: il comando elenca i certificati di Apple e tiene solo
+          # quelli firmati con la chiave che gli diamo, e ne crea uno nuovo
+          # solo se quella lista resta vuota. Finche' CERTIFICATE_PRIVATE_KEY
+          # non cambia, la prima build ne crea uno e tutte le altre riusano
+          # quello.
+          #
+          # Se la chiave manca, il comando si ferma subito con
+          # "Cannot save Signing Certificates without certificate private key":
+          # non se la inventa, quindi non puo' consumare certificati per
+          # sbaglio.
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+
+      - name: Il certificato, messo nel portachiavi
+        script: keychain add-certificates
+
+      - name: I profili, applicati al progetto Xcode
+        script: |
+          # I profili scaricati stanno su disco: e' questo comando a scriverli
+          # dentro il progetto Xcode. Senza, la firma non arriva dove serve.
+          xcode-project use-profiles
 
       - name: Le prove, prima di costruire
         script: |

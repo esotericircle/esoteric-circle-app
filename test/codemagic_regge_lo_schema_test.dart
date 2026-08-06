@@ -291,30 +291,90 @@ void main() {
       expect(vars['APP_STORE_APPLE_ID'], 6798775360);
     });
 
-    test('il pacchetto della firma e\' scritto per esteso, e coincide', () {
-      // La riga della firma la legge la piattaforma prima degli script: una
-      // variabile li' sarebbe un modo in piu' di sbagliare alla prima build.
-      // Ma due valori scritti due volte divergono, quindi si confrontano.
-      final firma = (w['environment'] as Map)['ios_signing'] as Map;
-      final dichiarato = firma['bundle_identifier'] as String;
-      expect(dichiarato.startsWith(r'$'), isFalse,
-          reason: 'Il pacchetto della firma e\' una variabile: alla prima '
-              'build va scritto per esteso.');
-      expect(dichiarato, ((w['environment'] as Map)['vars'] as Map)['BUNDLE_ID'],
-          reason: 'Il pacchetto della firma e quello delle variabili sono '
-              'diversi: la firma riuscirebbe e il caricamento verrebbe '
-              'rifiutato.');
+    test('la firma non torna a chiedere file che nessuno ha caricato', () {
+      // **QUESTA E' LA PRIMA BUILD FALLITA, TENUTA FERMA.** Il file era
+      // formalmente corretto e la prova sullo schema era verde, ma la firma
+      // era chiesta con `ios_signing`, che per documentazione SCARICA i file
+      // di firma gia' caricati e non li crea. Nel portale di Apple non c'era
+      // niente, quindi:
+      //   No matching profiles found for bundle identifier ... "app_store"
+      // Se qualcuno rimette quella sezione, la firma torna a cercare invece
+      // di creare, e questa prova lo dice prima della build.
+      expect((w['environment'] as Map).containsKey('ios_signing'), isFalse,
+          reason: 'Torna `ios_signing`: quella sezione scarica i file di firma '
+              'gia\' caricati, e nel Developer Portal non ce ne sono. La '
+              'creazione si chiede con `fetch-signing-files --create`.');
     });
 
-    test('i profili di firma vengono applicati al progetto', () {
-      // `ios_signing` fa SCARICARE i profili, non li applica: senza
-      // `xcode-project use-profiles` il progetto Xcode resta senza firma.
+    test('i quattro passi della firma ci sono, e in quest\'ordine', () {
+      // L'ordine non e' estetico: senza portachiavi non si aggiunge il
+      // certificato, senza certificato non si applicano i profili.
+      final passi = (w['scripts'] as List)
+          .map((s) => (s as Map)['script'].toString())
+          .toList();
+      int dove(String frammento) =>
+          passi.indexWhere((s) => s.contains(frammento));
+
+      final portachiavi = dove('keychain initialize');
+      final creazione = dove('fetch-signing-files');
+      final certificato = dove('keychain add-certificates');
+      final profili = dove('xcode-project use-profiles');
+
+      for (final p in {
+        'keychain initialize': portachiavi,
+        'app-store-connect fetch-signing-files': creazione,
+        'keychain add-certificates': certificato,
+        'xcode-project use-profiles': profili,
+      }.entries) {
+        expect(p.value, greaterThanOrEqualTo(0),
+            reason: 'Manca il passo `${p.key}`: senza, la firma non si '
+                'completa e la build muore prima di compilare.');
+      }
+      expect(portachiavi < creazione, isTrue,
+          reason: 'Il portachiavi va inizializzato prima di chiedere i file.');
+      expect(creazione < certificato, isTrue,
+          reason: 'Il certificato si aggiunge dopo averlo ottenuto.');
+      expect(certificato < profili, isTrue,
+          reason: 'I profili si applicano dopo che il certificato e\' nel '
+              'portachiavi.');
+    });
+
+    test('la creazione e\' chiesta, e per il tipo giusto', () {
       final passi = (w['scripts'] as List)
           .map((s) => (s as Map)['script'].toString())
           .join('\n');
-      expect(passi.contains('xcode-project use-profiles'), isTrue,
-          reason: 'Manca `xcode-project use-profiles`: i profili scaricati non '
-              'arrivano al progetto Xcode.');
+      expect(RegExp(r'--create\b').hasMatch(passi), isTrue,
+          reason: 'Manca `--create`: il comando cercherebbe soltanto, e in un '
+              'portale vuoto non trova niente.');
+      expect(passi.contains('--type IOS_APP_STORE'), isTrue,
+          reason: 'Il tipo di profilo non e\' IOS_APP_STORE: un profilo di '
+              'sviluppo non carica su TestFlight.');
+    });
+
+    test('la firma viene dopo i pod, non prima', () {
+      // Lo script dei pod puo' lanciare `flutter build ios --config-only` per
+      // generare il Podfile mancante, e quella riscrittura del progetto Xcode
+      // cancellerebbe le impostazioni di firma appena scritte.
+      final passi = (w['scripts'] as List)
+          .map((s) => (s as Map)['script'].toString())
+          .toList();
+      final pod = passi.indexWhere((s) => s.contains('pod install'));
+      final firma = passi.indexWhere((s) => s.contains('keychain initialize'));
+      expect(pod, greaterThanOrEqualTo(0));
+      expect(pod < firma, isTrue,
+          reason: 'La firma precede i pod: se i pod rigenerano il progetto '
+              'Xcode, le impostazioni di firma vengono cancellate.');
+    });
+
+    test('il gruppo della chiave privata e\' dichiarato', () {
+      // Un gruppo non importato non arriva al workflow: la chiave sarebbe
+      // vuota e il comando si fermerebbe con "Cannot save Signing Certificates
+      // without certificate private key".
+      final gruppi = (w['environment'] as Map)['groups'] as List;
+      expect(gruppi.contains('code-signing'), isTrue,
+          reason: 'Manca il gruppo `code-signing`: CERTIFICATE_PRIVATE_KEY non '
+              'arriverebbe, e senza quella chiave il certificato non si crea '
+              'ne\' si riusa.');
     });
 
     test('la build non alza il numero da sola', () {
@@ -341,6 +401,9 @@ void main() {
           .join('\n');
       for (final vietato in [
         'BEGIN PRIVATE KEY',
+        // La chiave privata del certificato di distribuzione: sta in una
+        // variabile cifrata su Codemagic, e nel file non deve comparire mai.
+        'BEGIN RSA PRIVATE KEY',
         '.p8',
         'issuer_id:',
         'key_id:',
