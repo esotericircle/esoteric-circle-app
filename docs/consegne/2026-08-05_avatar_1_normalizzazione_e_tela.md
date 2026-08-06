@@ -113,14 +113,14 @@ immagini nuove, leggendole con una griglia di frazioni sovrapposta:
 | Aura | 0,49 | 0,03 | 0,22 |
 | Caligo | 0,49 | 0,02 | 0,21 |
 
-Aura non e' cambiata: la sua immagine e' stata scalata in modo uniforme, quindi
-ogni sua frazione resta identica. E' la conferma che ridurre era l'operazione
-giusta.
+**Questi valori sono superati: due su tre erano sbagliati.** Restano scritti qui
+perche' sono il punto di partenza dei due giri successivi, che raccontano come
+sono stati corretti. I valori validi sono quelli del secondo giro, piu' sotto.
 
-Le tre terne sono vicine fra loro, come previsto: scarto 0,01 sulla cima della
-testa e sul centro, 0,02 sul colletto. La differenza che resta e' di disegno,
-non di inquadratura: Aura porta una corona il cui puntale sale sopra la chioma
-degli altri due, quindi la sua cima utile parte piu' in basso.
+Aura non e' cambiata come immagine: e' stata scalata in modo uniforme, quindi
+ogni sua frazione resta identica. E' la conferma che ridurre era l'operazione
+giusta. E' anche il motivo per cui il suo `centerX` sbagliato non poteva
+essere colpa della riduzione.
 
 ## Le prove e cosa prende ciascuna
 
@@ -206,12 +206,12 @@ lavoro.
 
 Mauro ha guardato i tre tondi affiancati e ha visto due difetti che nessuna
 prova prendeva: Aura decentrata a destra, con una fascia di fondo verde vuota a
-sinistra, e Caligo con la testa piu' piccola degli altri due. Medora giusta.
+sinistra; Caligo con la testa piu' piccola degli altri due. Medora giusta.
 
 **Il metodo del primo giro era sbagliato.** Avevo misurato i `facePoints`
 leggendo l'asset con una griglia di frazioni sovrapposta. Su Medora ha
 funzionato, sugli altri due no. Il secondo giro misura il RISULTATO: il tondo
-viene disegnato davvero, l'immagine catturata, e sui suoi pixel si misura
+viene disegnato davvero, l'immagine catturata, poi sui suoi pixel si misura
 quanto la testa riempie la corda del cerchio e di quanto e' scentrata. Il fondo
 del tondo e' un colore piatto, quindi la figura si separa senza bisogno di
 rilevare volti.
@@ -222,7 +222,7 @@ rilevare volti.
 | Caligo | 43,3% | **48,6%** | +3,5 | **-1,0** |
 | Aura | 37,2% | **47,4%** | +5,4 | **-0,1** |
 
-### La domanda su Aura, e la risposta misurata
+### La domanda su Aura, con la risposta misurata
 
 Delle due ipotesi, o le frazioni erano gia' sbagliate oppure la riduzione aveva
 spostato il centro, vale **la prima**. Il centro della figura di Aura nella
@@ -230,7 +230,7 @@ fascia del volto misura 0,5003 sull'asset vecchio e 0,4999 su quello nuovo:
 quattro decimillesimi, cioe' rumore di ricampionamento. E non poteva essere
 altrimenti, perche' una frazione della larghezza resta la stessa frazione sotto
 qualunque scalatura orizzontale. Il valore dichiarato era 0,49 in entrambi i
-casi: falso da prima, e rimasto tale perche' nessuno aveva mai messo i tre
+casi: falso da prima, rimasto tale perche' nessuno aveva mai messo i tre
 tondi uno accanto all'altro.
 
 ### La misura che mancava, ora c'e'
@@ -245,13 +245,71 @@ la prova cade; rimettendo 0,49 a centerX di Aura lo scarto sale a 10,1 contro
 ### Una prova che chiedeva la cosa sbagliata
 
 `le tre terne sono vicine fra loro` pretendeva che anche i tre `collarY`
-stessero vicini. **Quella pretesa era falsa, e ha quasi bloccato la
+stessero vicini. **Quella pretesa era falsa, tanto da bloccare quasi la
 correzione.** La fascia fra cima della testa e colletto non dice dove sta la
-testa, dice quanto e' grande, e le tre teste sono disegnate di taglie diverse:
+testa, dice quanto e' grande; le tre teste sono disegnate di taglie diverse:
 circa 258 px per Caligo, 238 per Medora, 221 per Aura sulla tela da 1700.
 Chiedere fasce vicine significava chiedere teste della stessa taglia. La prova
-ora controlla `headTopY` e `centerX`, dove il controllo ha senso, e lascia il
+ora controlla `headTopY` e `centerX`, dove il controllo ha senso, lasciando il
 resto alla misura sul risultato.
+
+## Terzo giro, 6 agosto 2026: dal petto alla testa intera, tutto dentro
+
+Mauro ha guardato i tondi due volte: le prime due versioni erano sbagliate
+tutte e due. La prima mostrava un primo piano, la seconda un mezzobusto con la
+testa che usciva sopra il cerchio: a Caligo veniva tagliata. La regola finale e'
+questa, uguale per i tre:
+
+1. tutti stanno dentro il cerchietto, nessuna sbordatura;
+2. si vede dal petto alla testa intera;
+3. l'unica cosa che puo' restare fuori e' un pezzetto della corona di Aura, che
+   sale sopra la testa e rende la sua immagine piu' alta delle altre;
+4. nessuna sfumatura in basso;
+5. per Medora le carte non si devono vedere.
+
+Il criterio e' visivo: i tre devono somigliarsi guardandoli, non avere tre
+numeri identici.
+
+### Cosa e' cambiato
+
+| | prima | ora |
+|---|---|---|
+| `kBandOfDiameter` | 0,80 | 0,95, con la fascia dalla testa al petto |
+| `kCrestOut`, testa in header e lente | +0,05, usciva sopra | -0,03, come nella bolla |
+| `kTopPad` | 0,32 | 0 |
+| ritaglio | cerchio nella bolla, rettangolo altrove | **cerchio sempre** |
+| sfumatura in basso | c'era | tolta |
+| `popOut` | cambiava l'inquadratura | non la cambia piu' |
+
+**Due strade sullo stesso ritratto davano due tagli diversi.** Il ritaglio a
+cerchio per la bolla e quello rettangolare con la testa fuori per header e
+lente: la strada e' una sola. Con una strada sola sparisce anche la sfumatura
+in basso, che serviva solo a nascondere il bordo netto del rettangolo.
+
+### Le carte di Medora, tolte col taglio e non con la gomma
+
+Le carte fluttuanti attorno a Medora entravano nel tondo. Misurate sull'asset,
+nelle righe visibili il suo corpo arriva a 0,67 della larghezza e la carta piu'
+vicina comincia a 0,68. La fascia e' stata stretta quel tanto che basta a
+lasciarle fuori, cioe' `collarY` a 0,243; le altre due sono state strette
+insieme a lei perche' le tre teste restassero della stessa taglia.
+
+**Cancellarle dall'asset era permesso ma sarebbe stato peggio:** le carte sono
+la Cartomanzia di Medora e nel Santuario, nella presenza e nella carta di
+scelta si vedono per intero. Toglierle avrebbe risolto un tondo da 26 punti
+rovinando cinque schermate.
+
+### Le fasce di oggi
+
+| Maestro | centerX | headTopY | collarY |
+|---|---|---|---|
+| Medora | 0,50 | 0,015 | 0,243 |
+| Aura | 0,5018 | 0,030 | 0,258 |
+| Caligo | 0,4968 | 0,013 | 0,241 |
+
+Misurato sul risultato: riempimento 52,0, 47,4 e 48,4; scarti di centratura
+-0,7, +0,8 e -3,1. Rientrano nelle soglie della rete senza che nessun numero sia
+stato spostato per farceli rientrare.
 
 ## Fuori perimetro, visto e non toccato
 

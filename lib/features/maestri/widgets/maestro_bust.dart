@@ -157,11 +157,11 @@ class MaestroBust extends StatefulWidget {
   /// rimpicciolisce.
   static const Map<Maestro, MaestroFacePoint> facePoints = {
     Maestro.medora:
-        MaestroFacePoint(centerX: 0.50, headTopY: 0.02, collarY: 0.20),
+        MaestroFacePoint(centerX: 0.50, headTopY: 0.015, collarY: 0.243),
     Maestro.aura:
-        MaestroFacePoint(centerX: 0.5018, headTopY: 0.03, collarY: 0.1556),
+        MaestroFacePoint(centerX: 0.5018, headTopY: 0.030, collarY: 0.258),
     Maestro.caligo:
-        MaestroFacePoint(centerX: 0.4968, headTopY: 0.02, collarY: 0.1855),
+        MaestroFacePoint(centerX: 0.4968, headTopY: 0.013, collarY: 0.241),
   };
 
   /// L'INQUADRATURA A CUI I `facePoints` APPARTENGONO.
@@ -182,16 +182,33 @@ class MaestroBust extends StatefulWidget {
   static const int faceRefFiguraCima = 21;
   static const int faceRefFiguraPiedi = 1679;
 
-  /// Quanta parte del diametro riempie la fascia del volto, dal capo al collo.
-  static const double kBandOfDiameter = 0.8;
+  /// Quanta parte del diametro riempie la fascia dichiarata, che va dalla
+  /// cima della testa al petto.
+  ///
+  /// **Nel tondo si vede dal petto alla testa intera, e tutto sta dentro il
+  /// cerchietto.** Regola di Mauro del 6 agosto 2026, arrivata dopo due
+  /// tentativi sbagliati: con 0,8 la sola testa mangiava quattro quinti del
+  /// cerchio; con 0,58 e la testa che usciva sopra, a Caligo veniva tagliata.
+  /// A 0,95 la fascia riempie quasi tutto il diametro, quindi il petto arriva
+  /// al bordo basso e il capo resta appena dentro quello alto.
+  ///
+  /// L'unica cosa che puo' restare fuori e' un pezzetto della corona di Aura,
+  /// che sale sopra la testa e rende la sua immagine piu' alta delle altre.
+  static const double kBandOfDiameter = 0.95;
 
   /// Spazio sopra l'anello, in frazione del diametro, dove la testa sporge.
-  static const double kTopPad = 0.32;
+  static const double kTopPad = 0.0;
 
-  /// Di quanto la sommita' del capo esce sopra il bordo dell'anello (popOut) o
-  /// resta sotto di esso, cioe' contenuta (non popOut), in frazione del diametro.
-  static const double kCrestOut = 0.05;
-  static const double kCrestIn = -0.10;
+  /// Di quanto la sommita' del capo resta sotto il bordo dell'anello.
+  ///
+  /// Lo stesso valore nei due casi: **nessuno sborda piu'**. Prima
+  /// `kCrestOut` era positivo e faceva uscire la testa sopra il cerchio in
+  /// header e lente, dando due tagli diversi dello stesso ritratto. Il taglio
+  /// e' uno solo, e il parametro `popOut` non cambia piu' l'inquadratura.
+  static const double kCrestOut = -0.03;
+  /// Nella bolla la testa non puo' uscire, quindi resta un filo sotto il
+  /// bordo: a zero il cerchio le rasava la sommita' del capo.
+  static const double kCrestIn = -0.03;
 
   /// Calcola l'inquadratura per un Maestro a un dato diametro. E' la regola
   /// dell'inquadratura, in un punto solo, cosi' i test la verificano e il build
@@ -416,29 +433,18 @@ class _FaceView extends StatelessWidget {
       ),
     );
 
-    if (!popOut) {
-      // Bolla: il volto contenuto nel tondo dell'anello.
-      return ClipOval(child: image);
-    }
-
-    // Header e lente: rettangolo, con la base che sfuma nel collo cosi' il volto
-    // si posa sull'anello senza una linea netta.
-    return ClipRect(
-      child: ShaderMask(
-        blendMode: BlendMode.dstIn,
-        shaderCallback: (rect) {
-          // La sfumatura parte appena sotto il collo, in proporzione al riquadro.
-          final fadeStart =
-              (framing.bandBottom / framing.boxHeight).clamp(0.0, 1.0);
-          return LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: const [Colors.white, Colors.white, Colors.transparent],
-            stops: [0.0, fadeStart, (fadeStart + 0.14).clamp(0.0, 1.0)],
-          ).createShader(rect);
-        },
-        child: image,
-      ),
-    );
+    // SEMPRE IL CERCHIO, per tutti e tre, in ogni uso.
+    //
+    // Regola di Mauro del 6 agosto 2026, dopo aver guardato i tondi: tutti
+    // stanno dentro il cerchietto, nessuno sborda. Qui c'erano due strade, il
+    // ritaglio a cerchio per la bolla e uno rettangolare con la testa che
+    // usciva sopra per header e lente, e portavano a due tagli diversi dello
+    // stesso ritratto: Caligo finiva con la testa tagliata. La strada e' una
+    // sola, e il taglio e' lo stesso ovunque.
+    //
+    // Con una strada sola sparisce anche la sfumatura in basso, che serviva
+    // solo a nascondere il bordo netto del ritaglio rettangolare.
+    return ClipOval(child: image);
   }
 }
+
