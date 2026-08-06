@@ -107,15 +107,80 @@ class MaestroBust extends StatefulWidget {
   /// Maestro; i test possono iniettare un provider che fallisce o che dipinge.
   final ImageProvider? image;
 
-  /// Il punto del volto misurato per ciascun Maestro. Valori affinabili a
-  /// occhio, ma partono giusti sugli asset reali.
+  /// Dove sta il volto dentro l'asset, in frazioni della sua tela: la cima
+  /// della testa, la linea del colletto e il centro orizzontale del viso.
+  ///
+  /// **Sono tre numeri in codice che descrivono un fatto dell'immagine, quindi
+  /// scadono quando l'immagine cambia.** E' successo il 5 agosto 2026: gli
+  /// avatar sono stati rigenerati su una tela nuova, con le tre figure portate
+  /// alla stessa altezza e i piedi sulla stessa linea, e queste frazioni sono
+  /// diventate false da un momento all'altro senza che niente diventasse
+  /// rosso. Ora le sorveglia `test/facce_dentro_la_figura_test.dart`: chi
+  /// rigenera un avatar con un'inquadratura diversa da quella dichiarata qui
+  /// sotto trova una prova rossa invece di un volto storto.
+  ///
+  /// **Quello che la prova NON promette**, misurato e non supposto: chiedere
+  /// soltanto che la fascia cada dentro la figura non basta. Rimettendo queste
+  /// frazioni ai valori di prima sugli asset di oggi, quel controllo passa
+  /// verde, perche' anche le frazioni sbagliate cadono dentro la figura. E'
+  /// per questo che accanto c'e' l'inquadratura di riferimento, ed e' quella
+  /// il vero legame fra questi numeri e le immagini.
+  ///
+  /// **Come sono stati trovati questi numeri, il 6 agosto 2026.** Non leggendo
+  /// l'asset con una griglia sovrapposta, che era il metodo del giorno prima e
+  /// ha sbagliato due Maestri su tre: misurando il RISULTATO. Il tondo viene
+  /// disegnato davvero, l'immagine catturata, e sui suoi pixel si misurano due
+  /// cose, quanto la testa riempie la corda del cerchio e di quanto e'
+  /// scentrata. Poi si correggono le frazioni finche' i tre non coincidono. Il
+  /// conto lo fa e lo sorveglia `test/il_volto_nel_tondo_test.dart`.
+  ///
+  /// Il riferimento e' Medora, giudicata giusta a video da Mauro. Prima della
+  /// correzione la testa di Caligo riempiva il 43,3 per cento della corda
+  /// contro il 49,7 di Medora, e quella di Aura il 37,2; Aura era anche
+  /// spostata a destra di 5,4 punti, con una fascia di fondo verde vuota a
+  /// sinistra. Dopo: riempimento 48,6 e 47,4, scarti -1,0 e -0,1 contro il
+  /// -0,9 di Medora.
+  ///
+  /// **Il `centerX` di Aura era sbagliato dall'inizio, non per colpa della
+  /// riduzione della tela.** Misurato: il centro della sua figura nella fascia
+  /// del volto vale 0,5003 sull'asset vecchio e 0,4999 su quello nuovo, quattro
+  /// decimillesimi di scarto, cioe' rumore di ricampionamento. Una frazione
+  /// della larghezza non cambia sotto una scalatura orizzontale. Il valore
+  /// dichiarato era 0,49 in entrambi i casi, ed e' rimasto falso per mesi
+  /// perche' nessuno aveva mai messo i tre tondi uno accanto all'altro.
+  ///
+  /// **Le fasce sono diverse fra loro di proposito.** `collarY` meno
+  /// `headTopY` non dice dove sta la testa, dice quanto e' grande, e le tre
+  /// teste sono disegnate di taglie diverse: nella tela da 1700 px quella di
+  /// Caligo misura circa 258 px, quella di Medora 238, quella di Aura 221. Una
+  /// fascia stretta ingrandisce il volto nel tondo, una larga lo
+  /// rimpicciolisce.
   static const Map<Maestro, MaestroFacePoint> facePoints = {
     Maestro.medora:
-        MaestroFacePoint(centerX: 0.52, headTopY: 0.05, collarY: 0.23),
-    Maestro.aura: MaestroFacePoint(centerX: 0.49, headTopY: 0.03, collarY: 0.22),
+        MaestroFacePoint(centerX: 0.50, headTopY: 0.02, collarY: 0.20),
+    Maestro.aura:
+        MaestroFacePoint(centerX: 0.5018, headTopY: 0.03, collarY: 0.1556),
     Maestro.caligo:
-        MaestroFacePoint(centerX: 0.48, headTopY: 0.04, collarY: 0.23),
+        MaestroFacePoint(centerX: 0.4968, headTopY: 0.02, collarY: 0.1855),
   };
+
+  /// L'INQUADRATURA A CUI I `facePoints` APPARTENGONO.
+  ///
+  /// Le frazioni qui sopra hanno senso solo dentro una precisa inquadratura
+  /// degli asset: questa tela, e la figura che va da questa riga a quest'altra.
+  /// Cambiala e quelle frazioni indicano un altro punto dell'immagine, senza
+  /// che niente lo dica.
+  ///
+  /// Dichiararla qui e' quello che rende il legame verificabile: una prova
+  /// confronta questi quattro numeri con gli asset veri, e se qualcuno
+  /// rigenera un avatar con un'inquadratura diversa la prova cade prima che il
+  /// volto storto arrivi a video. E' il motivo per cui non basta chiedere che
+  /// la fascia stia "dentro la figura": le frazioni vecchie del 5 agosto 2026
+  /// cadevano ancora dentro la figura nuova, e sarebbero passate.
+  static const int faceRefTela = 1142;
+  static const int faceRefTelaAltezza = 1700;
+  static const int faceRefFiguraCima = 21;
+  static const int faceRefFiguraPiedi = 1679;
 
   /// Quanta parte del diametro riempie la fascia del volto, dal capo al collo.
   static const double kBandOfDiameter = 0.8;
