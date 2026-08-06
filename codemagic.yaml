@@ -1,0 +1,151 @@
+# LA PRIMA BUILD IOS DI ESOTERIC CIRCLE, su Mac in cloud.
+#
+# **Perche' questo file esiste.** Il progetto si sviluppa su Windows, dove iOS
+# non si puo' compilare: manca Xcode, e nessuna prova locale puo' dire se un
+# progetto iOS sta in piedi. Qui si dichiara alla macchina Mac cosa fare, e la
+# prima compilazione vera avviene li'.
+#
+# **Nessuna credenziale dentro questo file.** La chiave di App Store Connect, il
+# suo identificativo e quello dell'emittente stanno nell'integrazione del
+# Developer Portal gia' configurata su Codemagic: qui si nomina soltanto. Lo
+# stesso vale per la configurazione Firebase, che arriva da una variabile
+# cifrata e non dal repository, perche' il repository e' PUBBLICO.
+#
+# I passi per lanciarla stanno in docs/ios/PRIMA_BUILD_IOS.md.
+
+workflows:
+  ios-testflight:
+    # UN SOLO WORKFLOW, ed e' una scelta di risparmio. Il piano gratuito da'
+    # cinquecento minuti al mese sul Mac mini M2, e una build iOS di un
+    # progetto con questi asset ne consuma parecchi: due workflow paralleli
+    # finirebbero i minuti prima di avere una app installabile.
+    name: iOS, archivio e caricamento su TestFlight
+    instance_type: mac_mini_m2
+    # Sessanta minuti: se una build si pianta, meglio che muoia da sola invece
+    # di bruciare tutto il credito del mese in una volta.
+    max_build_duration: 60
+
+    environment:
+      # L'INTEGRAZIONE, NOMINATA E NON RIPETUTA. `esoteric_asc` e' il nome che
+      # la chiave di App Store Connect ha su Codemagic: da li' arrivano la
+      # chiave .p8, il suo identificativo e quello dell'emittente. Il file .p8
+      # non entra nel repository in nessun caso.
+      app_store_connect: esoteric_asc
+
+      vars:
+        # L'identificativo del pacchetto, lo stesso che sta su App Store
+        # Connect e nel progetto Xcode. Se questi due divergono, la firma
+        # riesce e il caricamento viene rifiutato.
+        BUNDLE_ID: "com.esotericircle.esotericCircle"
+        # L'app su App Store Connect, per il caricamento.
+        APP_STORE_APPLE_ID: 6798775360
+
+      flutter: stable
+      # Xcode e CocoaPods restano quelli di serie della macchina: fissarne una
+      # versione qui vorrebbe dire tenerla allineata a mano per sempre, e alla
+      # prima build non si sa ancora quale serva.
+
+      ios_signing:
+        # FIRMA AUTOMATICA. Codemagic chiede ad Apple il profilo di
+        # distribuzione per questo pacchetto e lo installa sulla macchina: e'
+        # la sola strada quando nessuno ha mai creato un profilo a mano, ed e'
+        # il caso di questo progetto.
+        distribution_type: app_store
+        bundle_identifier: $BUNDLE_ID
+
+    scripts:
+      - name: La configurazione di Firebase, scritta dalla variabile cifrata
+        script: |
+          # **IL PLIST NON STA NEL REPOSITORY, ED E' UNA DECISIONE.** Porta le
+          # chiavi e gli identificativi del progetto Firebase, e il repository
+          # e' pubblico: si inietta in build, esattamente come
+          # .github/workflows/android-build.yml fa col google-services.json.
+          #
+          # La variabile si chiama GOOGLE_SERVICE_INFO_PLIST e si configura a
+          # mano su Codemagic, cifrata. Se manca, si esce SUBITO con un errore
+          # chiaro: senza plist l'app si costruisce, parte e crolla appena
+          # tocca Firebase, e quel guasto si vedrebbe solo sul telefono di un
+          # tester.
+          if [ -z "$GOOGLE_SERVICE_INFO_PLIST" ]; then
+            echo "Manca la variabile GOOGLE_SERVICE_INFO_PLIST." >&2
+            echo "Vedi docs/ios/PRIMA_BUILD_IOS.md, passo 3." >&2
+            exit 1
+          fi
+          # Tollerante come il gemello di Android: accetta sia il base64 sia il
+          # contenuto incollato cosi' com'e'. Chi incolla non deve indovinare.
+          if echo "$GOOGLE_SERVICE_INFO_PLIST" | base64 --decode > ios/Runner/GoogleService-Info.plist 2>/dev/null \
+             && head -c5 ios/Runner/GoogleService-Info.plist | grep -q '<'; then
+            echo "GoogleService-Info.plist scritto da base64."
+          else
+            printf '%s' "$GOOGLE_SERVICE_INFO_PLIST" > ios/Runner/GoogleService-Info.plist
+            echo "GoogleService-Info.plist scritto da XML grezzo."
+          fi
+          # Si controlla che sia un plist vero prima di andare avanti: un file
+          # scritto male passerebbe inosservato fino al crollo sul telefono.
+          if ! grep -q "GOOGLE_APP_ID" ios/Runner/GoogleService-Info.plist; then
+            echo "Il plist scritto non contiene GOOGLE_APP_ID: la variabile e' incompleta." >&2
+            exit 1
+          fi
+
+      - name: Dipendenze Flutter
+        script: flutter pub get
+
+      - name: I pod
+        script: |
+          # **IL PODFILE NON ESISTE NEL REPOSITORY, e non e' una dimenticanza.**
+          # Lo genera Flutter alla prima build su macOS, e su Windows non si
+          # puo' produrre. Se non c'e', lo si fa creare con una build di prova
+          # senza firma, poi si installano i pod.
+          if [ ! -f ios/Podfile ]; then
+            echo "Podfile assente: lo genera Flutter, come da progetto."
+            flutter build ios --config-only --no-codesign
+          fi
+          find . -name "Podfile" -execdir pod install \;
+
+      - name: Le prove, prima di costruire
+        script: |
+          # Le stesse che girano su Windows: se il codice condiviso e' rotto,
+          # e' inutile spendere minuti di Mac per scoprirlo dopo l'archivio.
+          flutter test
+        # La suite non deve fermare la build iOS se cade per una ragione che
+        # non riguarda iOS: si segnala e si va avanti, perche' l'obiettivo di
+        # questo workflow e' avere un archivio da guardare sul telefono.
+        ignore_failure: true
+
+      - name: L'archivio
+        script: |
+          # Il numero di build lo prende dal pubspec: e' lo stesso contatore di
+          # Android, e su TestFlight deve crescere a ogni caricamento.
+          flutter build ipa --release \
+            --export-options-plist=/Users/builder/export_options.plist
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      # I registri di Xcode: alla prima build di un progetto mai compilato sono
+      # la cosa che serve di piu', perche' l'errore vero sta li' dentro e non
+      # nel riassunto a video.
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
+
+    publishing:
+      app_store_connect:
+        # LA CHIAVE ARRIVA DALL'INTEGRAZIONE, non da qui: questa riga dice solo
+        # di usarla.
+        auth: integration
+        # Il caricamento su App Store Connect avviene sempre; la revisione di
+        # Apple no, perche' qui si vuole solo provare l'app.
+        submit_to_testflight: true
+        # I TESTER INTERNI, che non aspettano la revisione di Apple: possono
+        # installare appena il caricamento e' processato. Il gruppo va creato
+        # su App Store Connect prima della prima build, e il nome deve
+        # coincidere: vedi docs/ios/PRIMA_BUILD_IOS.md, passo 2.
+        beta_groups:
+          - Interni
+        submit_to_app_store: false
+
+      email:
+        recipients:
+          - cloud@esotericircle.app
+        notify:
+          success: true
+          failure: true
