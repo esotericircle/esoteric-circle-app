@@ -1,11 +1,12 @@
-import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
 import '../../core/maestro/maestro.dart';
+import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
-import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/theme/accento_del_maestro.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 
@@ -23,8 +24,7 @@ const Color _dayInset = Color(0x14000000); // superfici interne, un velo caldo
 /// prende da `DailyRituals.dawnMaestro` per la rotazione e da
 /// `DailyElements.maestroFor` per i riti a guida fissa. Passare una palette
 /// dalle schermate creerebbe **due** punti che decidono lo stesso colore, e
-/// prima o poi direbbero due cose diverse: una prova enumera i punti e cade se
-/// diventano due.
+/// prima o poi direbbero due cose diverse.
 ///
 /// **Il testo NON si tinge.** `_dayInk` e `_dayInkSoft` restano quelli: a gesto
 /// completato la scena e' luce piena e la bolla e' vetro chiaro, quindi tingere
@@ -32,73 +32,17 @@ const Color _dayInset = Color(0x14000000); // superfici interne, un velo caldo
 /// si vede dove il colore e' colore, cioe' negli accenti, nella parola del
 /// giorno e nel bordo.
 ///
-/// **UNA REGOLA SOLA PER TUTTI E TRE, e serve.** Preso cosi' com'e', il verde di
-/// Aura sul vetro chiaro ha un contrasto di 2,9, sotto la soglia di 4,5 che
-/// rende leggibile un testo: sarebbe un accento che si vede peggio degli altri
-/// due proprio dove va letto. Invece di scegliere a mano tre colori diversi, che
-/// e' il modo di sbagliarne uno senza accorgersene, il colore del Maestro si
-/// scurisce finche' il contrasto non basta. Blu e rosso passano al primo giro e
-/// restano quelli della palette; il verde scende di quanto serve e non di piu'.
-Color _accentoDi(Maestro maestro) {
-  final base = MaestroPalette.forKey(ThemeKey.of(maestro)).primary;
-  var colore = base;
-  // Venti passi bastano e avanzano: ogni passo toglie il cinque per cento, e
-  // dopo venti si e' a un terzo della luminosita' di partenza. Il tetto e' una
-  // cintura contro un ciclo infinito, non un limite atteso.
-  for (var passo = 0; passo < 20; passo++) {
-    if (_contrastoSulVetro(colore) >= _contrastoMinimo) return colore;
-    // TUTTO IN FRAZIONI DI UNO, e non a metà per canale.
-    //
-    // Qui c'era `Color.fromARGB`, che vuole gli interi da zero a 255, e i tre
-    // canali di colore glieli passavo moltiplicati per 255. L'alpha no:
-    // `colore.a` vale gia' 1.0, cioe' opaco pieno, e arrotondato diventava
-    // **1 su 255**. Il testo veniva dipinto trasparente. Il bordo del pulsante
-    // no, perche' quello si costruisce con `withValues(alpha: 0.5)`, che
-    // l'alpha lo riscrive: sullo schermo restavano due riquadri col bordo
-    // netto e niente dentro, e sembrava che le etichette non ci fossero.
-    //
-    // Mordeva SOLO AURA: blu e rosso passano la soglia al primo giro e tornano
-    // prima di arrivare qui, quindi il verde era l'unico colore a percorrere
-    // questa riga. Nessuna prova se n'era accorta perche' nessuna guardava
-    // l'alpha di cio' che arriva a schermo.
-    //
-    // `Color.from` lavora nelle stesse frazioni di uno che i campi espongono:
-    // non c'e' piu' un canale in un'unita' e uno in un'altra dentro la stessa
-    // chiamata, che era la vera causa.
-    colore = Color.from(
-      alpha: colore.a,
-      red: colore.r * 0.95,
-      green: colore.g * 0.95,
-      blue: colore.b * 0.95,
-    );
-  }
-  return colore;
-}
+/// **La regola del contrasto non vive piu' qui**, vive in
+/// `AccentoDelMaestro`: era privata a questo file, e questa scheda era l'unica
+/// superficie dell'app che sapesse essere leggibile. Adesso e' un punto solo
+/// per tutte le superfici che portano il colore del Maestro del giorno.
+Color _accentoDi(Maestro maestro) =>
+    AccentoDelMaestro.su(maestro, superficie: _vetroOpaco);
 
-/// Il contrasto minimo fra accento e vetro, dalle WCAG per il testo normale.
-const double _contrastoMinimo = 4.5;
+/// Il vetro reso opaco, cioe' la condizione in cui la scheda si mostra davvero:
+/// compare a gesto completato, quando la scena sotto e' luce piena.
+const Color _vetroOpaco = AccentoDelMaestro.vetro;
 
-/// Il rapporto di contrasto fra un colore e la bolla di vetro.
-///
-/// Si calcola contro `_dayGlass` reso opaco, cioe' contro il caso in cui la
-/// scena sotto e' luce piena: e' la condizione in cui la scheda si mostra
-/// davvero, perche' compare a gesto completato.
-double _contrastoSulVetro(Color colore) {
-  final a = _luminanzaRelativa(colore);
-  final b = _luminanzaRelativa(const Color(0xFFFBF4E2));
-  final chiaro = a > b ? a : b;
-  final scuro = a > b ? b : a;
-  return (chiaro + 0.05) / (scuro + 0.05);
-}
-
-/// La luminanza relativa secondo le WCAG.
-double _luminanzaRelativa(Color colore) {
-  double canale(double v) =>
-      v <= 0.03928 ? v / 12.92 : math.pow((v + 0.055) / 1.055, 2.4).toDouble();
-  return 0.2126 * canale(colore.r) +
-      0.7152 * canale(colore.g) +
-      0.0722 * canale(colore.b);
-}
 // La bolla e' un vetro smerigliato: semitrasparente e sfocata, lascia intravedere
 // la scena sotto ma tiene il testo scuro leggibile sul chiaro.
 const Color _dayGlass = Color(0xC7FBF4E2); // bianco caldo, alpha circa 0.78
@@ -114,9 +58,17 @@ class RitualGiftCard extends StatefulWidget {
   const RitualGiftCard({
     super.key,
     required this.gift,
+    required this.dono,
+    required this.giorno,
     required this.streak,
     required this.onShare,
   });
+
+  /// Quale dei cinque Doni e' questa scheda, e di che giorno: servono alla riga
+  /// che dichiara chi parla. Non si ricavano dal `gift`, che porta il Maestro
+  /// ma non l'appuntamento.
+  final DailyElement dono;
+  final DateTime giorno;
 
   final DawnGift gift;
   final int streak;
@@ -157,6 +109,13 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
             child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Livello zero: chi parla. Sta sopra tutto perche' e' la prima
+              // cosa da sapere prima di leggere un responso.
+              RigaDelDono(
+                dono: widget.dono,
+                giorno: widget.giorno,
+                superficie: _vetroOpaco,
+              ),
               // Livello uno: il tipo di dono e l'orientamento del giorno.
               Row(
                 children: [

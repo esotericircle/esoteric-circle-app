@@ -2,6 +2,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../core/rituals/daily_elements.dart';
+import '../../design_system/components/riga_del_dono.dart';
+
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -47,6 +50,12 @@ class DayOracleScreen extends StatelessWidget {
       revealed: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Chi parla, prima del responso.
+          RigaDelDono(
+            dono: DailyElement.oracle,
+            giorno: date,
+            superficie: ColorTokens.neutralDeepest,
+          ),
           Text('Il cielo di oggi dice',
               style: TypographyTokens.display(size: 18)
                   .copyWith(color: palette.goldSoft)),

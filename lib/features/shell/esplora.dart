@@ -598,8 +598,8 @@ class EsploraNavigazione {
     if (nav == null) {
       throw StateError(
           'Esplora non ha un Navigator: EsploraNavigazione.osservatore deve '
-          'essere lo stesso EsploraObservatore montato in navigatorObservers, '
-          'e il Navigator deve essere gia\' costruito.');
+          'essere lo stesso EsploraObservatore montato in navigatorObservers. '
+          'Il Navigator deve inoltre essere costruito.');
     }
     return nav;
   }

@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+
+import '../../core/rituals/daily_elements.dart';
+import '../../design_system/components/riga_del_dono.dart';
 import 'package:flutter/scheduler.dart' show Ticker;
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -1023,6 +1026,12 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Chi parla, prima di ogni voce della sera.
+          RigaDelDono(
+            dono: DailyElement.rune,
+            giorno: _e.giornoRituale,
+            superficie: ColorTokens.neutralDeepest,
+          ),
           if (_ritorno)
             Padding(
               padding: const EdgeInsets.only(bottom: SpacingTokens.sm),

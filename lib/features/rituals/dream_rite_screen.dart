@@ -3,6 +3,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../core/rituals/daily_elements.dart';
+import '../../design_system/components/riga_del_dono.dart';
+
 import '../../core/astro/moon_phase.dart';
 import '../../design_system/components/luna_reale.dart';
 import '../../core/identity/birth_moon.dart';
@@ -481,6 +484,12 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
       ];
 
   List<Widget> _ilSaluto(String saluto) => [
+        // Chi parla, prima del saluto della notte.
+        RigaDelDono(
+          dono: DailyElement.night,
+          giorno: _date,
+          superficie: ColorTokens.neutralDeepest,
+        ),
         Text('Il saluto di ${_maestro.displayName}',
             key: const Key('dream_message_title'),
             style: TypographyTokens.display(size: 19)

@@ -15,6 +15,7 @@ import '../../core/rituals/daily_rituals.dart';
 import '../../core/astro/sky_location.dart';
 import '../../core/permissions/app_permission.dart';
 import '../../core/rituals/avvisi_del_rito.dart';
+import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/rito_alba.dart';
 import '../../core/rituals/ritual_streak.dart';
@@ -450,6 +451,8 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
                         ? RitualGiftCard(
                             key: const Key('ritual_content'),
                             gift: _gift!,
+                            dono: DailyElement.dawn,
+                            giorno: widget.now ?? DateTime.now(),
                             streak: _streak,
                             onShare: () => _shareWord(_gift!),
                           )

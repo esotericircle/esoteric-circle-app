@@ -11,15 +11,17 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/ritual_streak.dart';
+import '../../design_system/components/guida_del_respiro.dart';
+import '../../design_system/theme/accento_del_maestro.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/rituals/tempi_del_respiro.dart';
-import '../../design_system/components/guida_del_respiro.dart';
 import '../../core/astro/natal_chart.dart';
 import '../../core/astro/natal_chart_controller.dart';
 import '../../core/horoscope/cielo_di_oggi.dart';
@@ -35,6 +37,36 @@ import 'ritual_gift_card.dart';
 /// comporre il visivo del dono. Il gesto e' il microfono, col ripiego di
 /// spazzare col dito o tenere premuto. Sotto Riduci Movimento i semi volano via
 /// subito. Il dono e' quello di Aura, fondato ma provvisorio, mai inventato.
+/// LE SUPERFICI DEL SOFFIO, dichiarate dove si dipingono.
+///
+/// **Perche' esistono.** Due cose in questa schermata si leggevano male, e non
+/// per il colore del testo: perche' non avevano nessuna superficie sotto. Il
+/// contatore dei giri stava sui raggi del soffione e le due righe della
+/// Risposta sul prato, che nella fase di luce piena e' chiaro: testo chiaro su
+/// fondo chiaro, con un contrasto che nessuna scelta di tinta poteva salvare.
+///
+/// Il rimedio non e' scurire il testo, che sul prato scuro tornerebbe
+/// illeggibile al contrario: e' dare a quel testo un velo suo, e misurare il
+/// contrasto contro il velo invece che contro una scena che cambia.
+class SuperficiDelSoffio {
+  const SuperficiDelSoffio._();
+
+  /// Il velo dietro il testo: scuro e quasi opaco, cosi' regge il contrasto
+  /// qualunque cosa la scena stia facendo sotto.
+  ///
+  /// **E' lo stesso della guida del respiro, letto da li'**: il conteggio dei
+  /// giri e la Risposta stanno sulla stessa schermata, e due veli diversi si
+  /// vedrebbero come due rettangoli di grigio diverso a un dito di distanza.
+  static const Color velo = veloDelConteggio;
+
+  /// L'inchiostro del contatore dei giri, letto dalla guida che lo dipinge.
+  static const Color inchiostro = inchiostroDelConteggio;
+
+  /// Le due righe della Risposta: la prima piena, la seconda in tono minore.
+  static const Color inchiostroDellaRisposta = Color(0xFFF3EFE6);
+  static const Color inchiostroSecondarioDellaRisposta = Color(0xFFCFC9BC);
+}
+
 class BreathDestinyScreen extends StatefulWidget {
   const BreathDestinyScreen({super.key, this.now});
 
@@ -381,6 +413,8 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                               RitualGiftCard(
                                 key: const Key('ritual_content'),
                                 gift: _gift!,
+                                dono: DailyElement.breath,
+                                giorno: widget.now ?? DateTime.now(),
                                 streak: _streak,
                                 onShare: () => _shareWord(_gift!),
                               ),
@@ -416,27 +450,48 @@ class _LaRisposta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    // LE RIGHE HANNO UNA SUPERFICIE, e non e' un vezzo: senza, stavano sul
+    // prato chiaro e il contrasto era sotto la soglia. Misurato da
+    // `test/il_soffio_si_legge_test.dart`.
+    return Container(
       key: const Key('soffio_risposta'),
+      width: double.infinity,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      decoration: BoxDecoration(
+        color: SuperficiDelSoffio.velo,
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        border: Border.all(
+            color: AccentoDelMaestro.su(Maestro.aura,
+                    superficie: SuperficiDelSoffio.velo)
+                .withValues(alpha: 0.35)),
+      ),
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('LA RISPOSTA',
-            style: TypographyTokens.label(size: 11)
-                .copyWith(color: palette.goldSoft, letterSpacing: 3)),
+            style: TypographyTokens.label(size: 11).copyWith(
+                // Il Soffio e' di Aura, quindi il suo titolo e' verde, portato
+                // dove si legge dalla stessa regola della scheda dei Doni.
+                color: AccentoDelMaestro.su(Maestro.aura,
+                    superficie: SuperficiDelSoffio.velo),
+                letterSpacing: 3)),
         const SizedBox(height: SpacingTokens.sm),
         if (risposta.apre != null)
           Text(risposta.apre!,
               key: const Key('soffio_apre'),
               style: TypographyTokens.body(size: 16).copyWith(
-                  color: ColorTokens.textPrimary, height: 1.5)),
+                  color: SuperficiDelSoffio.inchiostroDellaRisposta,
+                  height: 1.5)),
         if (risposta.apre != null && risposta.nonForzare != null)
           const SizedBox(height: SpacingTokens.sm),
         if (risposta.nonForzare != null)
           Text(risposta.nonForzare!,
               key: const Key('soffio_non_forzare'),
               style: TypographyTokens.body(size: 16).copyWith(
-                  color: ColorTokens.textSecondary, height: 1.5)),
+                  color: SuperficiDelSoffio.inchiostroSecondarioDellaRisposta,
+                  height: 1.5)),
       ],
+      ),
     );
   }
 }

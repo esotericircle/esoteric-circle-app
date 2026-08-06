@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'dart:math' as math;
 
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:esoteric_circle/core/rituals/dawn_gift.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/rituals/ritual_gift_card.dart';
@@ -37,7 +38,12 @@ void main() {
     final gift = DawnGift.forMaestro(DateTime(2026, 8, 6), maestro);
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: RitualGiftCard(gift: gift, streak: 3, onShare: () {}),
+        body: RitualGiftCard(
+              gift: gift,
+              dono: DailyElement.dawn,
+              giorno: DateTime(2026, 8, 6),
+              streak: 3,
+              onShare: () {}),
       ),
     ));
     await tester.pump();
@@ -122,7 +128,12 @@ void main() {
         final gift = DawnGift.forMaestro(DateTime(2026, 8, 6), m);
         await tester.pumpWidget(MaterialApp(
           home: Scaffold(
-            body: RitualGiftCard(gift: gift, streak: 3, onShare: () {}),
+            body: RitualGiftCard(
+              gift: gift,
+              dono: DailyElement.dawn,
+              giorno: DateTime(2026, 8, 6),
+              streak: 3,
+              onShare: () {}),
           ),
         ));
         await tester.pump();
@@ -244,7 +255,12 @@ void main() {
           body: SingleChildScrollView(
             child: RepaintBoundary(
               key: chiave,
-              child: RitualGiftCard(gift: gift, streak: 4, onShare: () {}),
+              child: RitualGiftCard(
+              gift: gift,
+              dono: DailyElement.dawn,
+              giorno: DateTime(2026, 8, 6),
+              streak: 4,
+              onShare: () {}),
             ),
           ),
         ),

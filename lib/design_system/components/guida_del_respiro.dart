@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../core/rituals/tempi_del_respiro.dart';
-import '../tokens/color_tokens.dart';
 import '../tokens/typography_tokens.dart';
 
 /// LA GUIDA DEL RESPIRO: la figura si espande mentre l'aria entra e si
@@ -107,15 +106,29 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
             // IL CONTEGGIO, che resta sempre. E' l'unica cosa che chi ha
             // Riduci Movimento ha al posto dell'animazione, quindi non puo'
             // dipendere dall'animazione per esistere.
-            Text(
-              m == null
-                  ? 'Respiro compiuto'
-                  : '${m.parola} · giro ${m.giro} di ${widget.tempi.giri}',
-              key: const Key('respiro_conteggio'),
-              textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 13).copyWith(
-                color: m == null ? widget.colore : ColorTokens.textSecondary,
-                letterSpacing: 1.6,
+            //
+            // **HA UNA SUPERFICIE SUA, e ne aveva bisogno.** Era un testo
+            // posato sulla scena: nel Soffio finiva sui raggi del soffione, che
+            // nella fase di luce piena sono chiari, e il grigio chiaro su
+            // chiaro non si leggeva. Il velo lo stacca dal fondo qualunque cosa
+            // ci sia sotto, e il contrasto si misura contro il velo invece che
+            // contro una scena che cambia.
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+              decoration: BoxDecoration(
+                color: veloDelConteggio,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text(
+                m == null
+                    ? 'Respiro compiuto'
+                    : '${m.parola} · giro ${m.giro} di ${widget.tempi.giri}',
+                key: const Key('respiro_conteggio'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.label(size: 13).copyWith(
+                  color: m == null ? widget.colore : inchiostroDelConteggio,
+                  letterSpacing: 1.6,
+                ),
               ),
             ),
           ],
@@ -124,6 +137,13 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
     );
   }
 }
+
+/// Il velo dietro il conteggio e il suo inchiostro, dichiarati qui perche' e'
+/// qui che si dipingono. Il Soffio li rilegge da qui per le proprie superfici,
+/// cosi' la misura del contrasto vale su quello che si vede davvero e i due
+/// veli della stessa schermata non possono diventare due grigi diversi.
+const Color veloDelConteggio = Color(0xEB0B1410);
+const Color inchiostroDelConteggio = Color(0xFFF3EFE6);
 
 /// Il cerchio che respira quando il rito non porta una figura sua.
 ///
