@@ -20,6 +20,10 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/rituals/tempi_del_respiro.dart';
 import '../../design_system/components/guida_del_respiro.dart';
+import '../../core/astro/natal_chart.dart';
+import '../../core/astro/natal_chart_controller.dart';
+import '../../core/horoscope/cielo_di_oggi.dart';
+import '../../core/rituals/risposta_del_soffio.dart';
 import 'ritual_gift_card.dart';
 
 /// Soffio del Destino, dominio Aura.
@@ -51,6 +55,11 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   bool _revealed = false;
   DawnGift? _gift;
   int _streak = 0;
+
+  /// LA RISPOSTA DEL SOFFIO, dai transiti veri. Nulla quando il cielo non e'
+  /// stato interrogato davvero, e in quel caso non compare niente al posto
+  /// suo: una risposta senza cielo sarebbe un oroscopo da giornale.
+  RispostaDelSoffio? _risposta;
 
   late final AnimationController _disperse;
   Animation<double>? _disperseAnim;
@@ -166,6 +175,25 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
 
   bool get _reduceMotion => MediaQuery.of(context).disableAnimations;
 
+  /// LA CARTA NATALE, dalla stessa porta da cui la prende il Passaporto.
+  ///
+  /// Nulla quando non c'e', e allora la risposta non compare: senza carta non
+  /// ci sono transiti sulla carta, e una risposta senza cielo sarebbe un
+  /// oroscopo da giornale.
+  NatalChart? _carta() {
+    try {
+      return context.read<NatalChartController>().chart;
+    } catch (errore) {
+      // NON E' UN GUASTO, e' un albero piu' povero: succede quando questa
+      // schermata viene montata da sola, per esempio in una prova o in
+      // un'anteprima, senza il fornitore della carta sopra di lei. Si dichiara
+      // e si prosegue senza cielo, che e' esattamente il caso in cui la
+      // risposta non deve comparire.
+      debugPrint('Soffio, carta natale non raggiungibile: $errore');
+      return null;
+    }
+  }
+
   BirthIdentity? _identity() {
     try {
       return context.read<ProfileController>().identity;
@@ -222,6 +250,9 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     setState(() {
       _revealed = true;
       _gift = DawnGift.forMaestro(date, Maestro.aura, identity: _identity());
+      _risposta = RispostaDelSoffio.diOggi(
+        CieloDiOggi.perIlGiorno(adesso: date, carta: _carta()),
+      );
     });
     _stopMic();
     _recordStreak(date);
@@ -344,11 +375,21 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                     padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
                         SpacingTokens.lg, SpacingTokens.lg),
                     child: (_revealed && _gift != null)
-                        ? RitualGiftCard(
-                            key: const Key('ritual_content'),
-                            gift: _gift!,
-                            streak: _streak,
-                            onShare: () => _shareWord(_gift!),
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              RitualGiftCard(
+                                key: const Key('ritual_content'),
+                                gift: _gift!,
+                                streak: _streak,
+                                onShare: () => _shareWord(_gift!),
+                              ),
+                              if (_risposta != null) ...[
+                                const SizedBox(height: SpacingTokens.lg),
+                                _LaRisposta(
+                                    risposta: _risposta!, palette: palette),
+                              ],
+                            ],
                           )
                         : const SizedBox.shrink(),
                   ),
@@ -358,6 +399,44 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
           ),
         ],
       ),
+    );
+  }
+}
+
+/// LE DUE RIGHE DELLA RISPOSTA, e nient'altro.
+///
+/// Nessuna domanda alla persona, nessun compito, nessun esito promesso, e
+/// nessun verbo all'imperativo: quella e' la forma del Rito dell'Alba, e i due
+/// riti non devono somigliarsi.
+class _LaRisposta extends StatelessWidget {
+  const _LaRisposta({required this.risposta, required this.palette});
+
+  final RispostaDelSoffio risposta;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      key: const Key('soffio_risposta'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('LA RISPOSTA',
+            style: TypographyTokens.label(size: 11)
+                .copyWith(color: palette.goldSoft, letterSpacing: 3)),
+        const SizedBox(height: SpacingTokens.sm),
+        if (risposta.apre != null)
+          Text(risposta.apre!,
+              key: const Key('soffio_apre'),
+              style: TypographyTokens.body(size: 16).copyWith(
+                  color: ColorTokens.textPrimary, height: 1.5)),
+        if (risposta.apre != null && risposta.nonForzare != null)
+          const SizedBox(height: SpacingTokens.sm),
+        if (risposta.nonForzare != null)
+          Text(risposta.nonForzare!,
+              key: const Key('soffio_non_forzare'),
+              style: TypographyTokens.body(size: 16).copyWith(
+                  color: ColorTokens.textSecondary, height: 1.5)),
+      ],
     );
   }
 }

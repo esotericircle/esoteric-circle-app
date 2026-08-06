@@ -47,27 +47,36 @@ Fatto e spinto, dopo la ripresa del 6 agosto:
 
 ## Cosa NON e' fatto
 
-- **Voce 2, LA RISPOSTA.** E' il pezzo piu' grosso rimasto, e non e' stato
-  toccato. Il Soffio deve lasciare una risposta e non una parola ne' un gesto:
-  due righe, la porta che il cielo tiene aperta adesso e quella che oggi e'
-  meglio non forzare. Vincoli dell'ordine, da rispettare alla lettera: nessuna
-  domanda alla persona, nessun compito, nessuna promessa di esito; esce dai
-  transiti VERI passando da `CieloDiOggi.perIlGiorno` con `CorrenteDelCielo`,
-  che e' la stessa porta di Oroscopo e Rito dell'Alba e non se ne apre una
-  seconda; e se il transito che una variante nomina non c'e', quella variante
-  non entra. Serve anche una prova che pretenda che la chiusura del Soffio non
-  sia MAI un imperativo, perche' quella e' la forma dell'Alba e le due non
-  devono somigliarsi.
-- **Voce 2, il fondale.** L'ordine non chiedeva di deciderlo ma di MISURARLO, e
-  la misura non c'e'. Il prato diurno e' `assets/ritual_backgrounds/breath_meadow.png`,
-  composto in `breath_destiny_screen.dart` insieme al soffione dentro un canvas
-  dipinto a livelli, non un widget di sfondo riusabile: toglierlo non e'
-  cambiare una riga, e quanto costi va misurato prima di dirlo.
-- **Voce 2, le anteprime.** Servono a 1080x2391: la scheda intera senza vuoti e
-  il simbolo al culmine dell'espansione. Nessuna delle due esiste.
+- **Voce 2, LE DUE ANTEPRIME.** Servono a 1080x2391: la scheda intera senza
+  vuoti e il simbolo al culmine dell'espansione. Nessuna delle due esiste.
 - **Voce 3, la striscia Sentieri.** Non cominciata, premesse non enumerate.
-- **La build finale e la consegna delle voci 2 e 3.** Restano da fare, quando
-  quelle voci esisteranno.
+- **La build e la consegna delle voci 2 e 3.** La ordina Mauro, non chi lavora.
+
+## Voce 2, il resto che e' stato chiuso il 6 agosto
+
+- **LA RISPOSTA.** `lib/core/rituals/risposta_del_soffio.dart`. Due righe, cosa
+  si apre e cosa oggi non si lascia forzare, dai transiti veri attraverso
+  `CieloDiOggi.perIlGiorno`, che e' la porta gia' usata da Oroscopo e Rito
+  dell'Alba: nessuna seconda porta, e una prova trasversale lo sorveglia
+  cercando nel sorgente i nomi dei motori che NON deve chiamare. La riga di
+  cio' che si apre nasce dall'aspetto morbido piu' stretto, quella di cio' che
+  non cede dall'aspetto teso piu' stretto: **quando una delle due famiglie non
+  c'e' nel cielo di quel giorno, la riga non compare e non ne compare una al
+  posto suo**, e la prova pretende che il caso capiti davvero almeno una volta
+  in centoventi giorni, altrimenti non avrebbe mai misurato l'assenza.
+  Una prova vieta la forma dell'Alba, cioe' l'imperativo, elencando i verbi con
+  cui l'Alba apre le sue frasi: **ha preso due mie voci**, "ti fai riconoscere"
+  e "ti fai capire", perche' in italiano `fai` e' insieme indicativo e
+  imperativo. Le ho riscritte invece di ammorbidire la prova.
+- **LA MISURA DEL PRATO**, che l'ordine chiedeva di misurare e non di decidere.
+  I due livelli pesano 1.617.444 byte in tutto, `breath_meadow.png` 833.961 e
+  `breath_dandelion.png` 783.483. Il prato e' nominato in **un solo punto** di
+  `lib`. Ma **non e' un widget di sfondo**: e' un livello dentro un pittore di
+  **236 righe** che nella stessa tela disegna anche il soffione e i semi che
+  volano al soffio, cioe' il gesto del rito. Togliere il prato obbliga a
+  decidere cosa succede al soffione, e quella e' una riscrittura del pittore.
+  **Non e' un'ora.** La destinazione pero' esiste gia' ed e' precedentata:
+  `CosmosBackground` e' il cosmo condiviso, e il Rito del Sogno lo usa gia'.
 
 **La build col video nuovo invece e' stata fatta subito**, per decisione di
 Mauro e saltando l'ordine delle voci: l'intro e' la prima cosa che si vede e
