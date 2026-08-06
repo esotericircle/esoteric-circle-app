@@ -25,13 +25,25 @@ workflows:
     # di bruciare tutto il credito del mese in una volta.
     max_build_duration: 60
 
-    environment:
-      # L'INTEGRAZIONE, NOMINATA E NON RIPETUTA. `esoteric_asc` e' il nome che
-      # la chiave di App Store Connect ha su Codemagic: da li' arrivano la
-      # chiave .p8, il suo identificativo e quello dell'emittente. Il file .p8
-      # non entra nel repository in nessun caso.
+    # L'INTEGRAZIONE STA QUI, e non dentro `environment`.
+    #
+    # **E' l'errore che il validatore di Codemagic ha preso.** L'avevo messa
+    # sotto `environment`, dove non e' ammessa: lo schema dichiara
+    # `additionalProperties: false` su quella sezione, e la risposta era "extra
+    # fields not permitted". `integrations` e' una chiave del WORKFLOW, sorella
+    # di `environment` e di `publishing`.
+    #
+    # `esoteric_asc` e' il nome che la chiave di App Store Connect ha su
+    # Codemagic: da li' arrivano la chiave .p8, il suo identificativo e quello
+    # dell'emittente. Il file .p8 non entra nel repository in nessun caso.
+    #
+    # E' anche cio' che rende leggibile `auth: integration` piu' sotto: quella
+    # riga pretende che il workflow dichiari `integrations -> app_store_connect`,
+    # ed era il secondo errore, che diceva la stessa cosa dall'altro lato.
+    integrations:
       app_store_connect: esoteric_asc
 
+    environment:
       # IL GRUPPO DELLE VARIABILI, e questa riga e' quella da togliere se il
       # campo del gruppo non compare su Codemagic.
       #
@@ -56,7 +68,13 @@ workflows:
         # Connect e nel progetto Xcode. Se questi due divergono, la firma
         # riesce e il caricamento viene rifiutato.
         BUNDLE_ID: "com.esotericircle.esotericCircle"
-        # L'app su App Store Connect, per il caricamento.
+        # L'app su App Store Connect. **Oggi nessuno script la legge**, e va
+        # detto invece di lasciarla sembrare necessaria: nell'esempio ufficiale
+        # serve a chiedere ad Apple l'ultimo numero di build caricato, cosa che
+        # qui non si fa perche' il contatore e' condiviso con Android e si alza
+        # in `pubspec.yaml`. Resta dichiarata perche' e' il dato che identifica
+        # l'app, verificato su App Store Connect, e senza di lei chi riprende
+        # dovrebbe ritrovarselo.
         APP_STORE_APPLE_ID: 6798775360
 
       flutter: stable
@@ -70,9 +88,23 @@ workflows:
         # la sola strada quando nessuno ha mai creato un profilo a mano, ed e'
         # il caso di questo progetto.
         distribution_type: app_store
-        bundle_identifier: $BUNDLE_ID
+        # **SCRITTO PER ESTESO, non `$BUNDLE_ID`.** Lo schema ammette una
+        # variabile anche qui, ma questa riga la legge la piattaforma prima
+        # degli script, e alla prima build di un progetto mai compilato una
+        # variabile in meno e' un modo in meno di sbagliare. Deve restare
+        # uguale a `BUNDLE_ID` qui sopra, e una prova lo verifica.
+        bundle_identifier: com.esotericircle.esotericCircle
 
     scripts:
+      - name: I profili di firma, applicati al progetto Xcode
+        script: |
+          # **SENZA QUESTA RIGA LA FIRMA NON ARRIVA AL PROGETTO.** La sezione
+          # `ios_signing` fa scaricare a Codemagic i profili da Apple, ma non li
+          # applica: e' questo comando a scriverli dentro il progetto Xcode.
+          # L'esempio ufficiale di Codemagic per Flutter iOS lo mette per primo,
+          # e mancava.
+          xcode-project use-profiles
+
       - name: La configurazione di Firebase, scritta dalla variabile cifrata
         script: |
           # **IL PLIST NON STA NEL REPOSITORY, ED E' UNA DECISIONE.** Porta le

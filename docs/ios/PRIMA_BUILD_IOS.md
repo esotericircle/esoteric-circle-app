@@ -213,6 +213,27 @@ minuti, e ricorda che quei minuti si scalano dai cinquecento.
 
 ---
 
+## Se cambi `codemagic.yaml`, validalo prima
+
+Il file e' stato rifiutato una volta da Codemagic, con due errori di struttura,
+e per saperlo e' servito un giro fra te e il sito. Adesso non serve piu': la
+suite lo valida contro lo schema ufficiale di Codemagic, versionato in
+`test/schemi/`.
+
+```bash
+flutter test test/codemagic_regge_lo_schema_test.dart
+```
+
+Dieci secondi, e dice **dove** sta l'errore. Se cambi qualcosa in
+`codemagic.yaml`, lancialo prima di lanciare la build: un giro di validazione
+costa dieci secondi, un giro di build costa venti minuti dei cinquecento del
+mese.
+
+Quel verde pero' dice solo che la **struttura** e' giusta. Non sa se il nome
+dell'integrazione esiste davvero su Codemagic, non sa se la chiave di Apple ha i
+permessi, non sa se il gruppo dei tester si chiama come dice il file: quelle
+cose le sapremo alla prima build.
+
 ## Passo 7. QUANDO LA BUILD FALLISCE
 
 Fallira'. Non e' pessimismo: e' la prima compilazione di un progetto iOS mai
