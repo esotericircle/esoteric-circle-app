@@ -32,6 +32,25 @@ workflows:
       # non entra nel repository in nessun caso.
       app_store_connect: esoteric_asc
 
+      # IL GRUPPO DELLE VARIABILI, e questa riga e' quella da togliere se il
+      # campo del gruppo non compare su Codemagic.
+      #
+      # Su Codemagic una variabile puo' stare in un gruppo oppure non stare in
+      # nessuno, e la differenza cambia questo file:
+      #
+      # - variabile MESSA nel gruppo `firebase`: serve questa riga, altrimenti
+      #   il gruppo non viene importato e `$GOOGLE_SERVICE_INFO_PLIST` arriva
+      #   vuota, cioe' la build si ferma al primo passo;
+      # - variabile SENZA gruppo: questa riga va TOLTA, perche' Codemagic
+      #   cercherebbe un gruppo che non esiste. Senza di lei la variabile
+      #   arriva lo stesso.
+      #
+      # Il campo per assegnare un gruppo compare solo dopo il passaggio alla
+      # configurazione YAML: se dopo il passaggio ancora non si vede, si lascia
+      # la variabile senza gruppo e si cancellano le due righe qui sotto.
+      groups:
+        - firebase
+
       vars:
         # L'identificativo del pacchetto, lo stesso che sta su App Store
         # Connect e nel progetto Xcode. Se questi due divergono, la firma

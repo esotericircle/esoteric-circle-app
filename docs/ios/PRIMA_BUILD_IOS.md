@@ -113,9 +113,29 @@ in un altro modo, hai copiato il file sbagliato.
    comando del passo 3a.
 5. Premi **Add**.
 
-**Il gruppo `firebase` va poi collegato al workflow.** Nella stessa pagina, in
-alto, controlla che sotto il workflow `ios-testflight` il gruppo `firebase`
-risulti selezionato; se non lo e', spuntalo.
+### 3c. Se il campo del gruppo non compare
+
+**Il campo per assegnare un gruppo compare solo dopo il passaggio alla
+configurazione YAML** (passo 6a). Finche' l'applicazione usa la configurazione
+grafica, quel campo non c'e' e non e' un guasto.
+
+Se dopo il passaggio a YAML **ancora non lo vedi**, non serve indovinare: lascia
+la variabile senza gruppo e togli due righe da `codemagic.yaml`. Sono queste,
+sotto `environment`:
+
+```yaml
+      groups:
+        - firebase
+```
+
+Cancellale tutte e due e la variabile arriva lo stesso, perche' una variabile
+senza gruppo e' disponibile a ogni workflow. **Lasciarle mentre la variabile non
+sta in nessun gruppo e' peggio che toglierle**: Codemagic cercherebbe un gruppo
+inesistente e `$GOOGLE_SERVICE_INFO_PLIST` arriverebbe vuota, quindi la build si
+fermerebbe al primo passo con "Manca la variabile".
+
+Il contrario vale allo stesso modo: se metti la variabile nel gruppo `firebase`,
+quelle due righe **devono restare**.
 
 ## Passo 4. Controllare che la chiave di Apple sia collegata
 
@@ -150,13 +170,41 @@ la prossima consegna Android partirebbe da un numero gia' bruciato.
 
 ## Passo 6. Lanciare la build
 
-1. Su Codemagic, dalla pagina dell'applicazione, premi **Start new build** in
-   alto a destra.
+### 6a. Passare alla configurazione YAML
+
+Se l'applicazione mostra ancora la configurazione a video, con le caselle da
+spuntare, Codemagic **non sta leggendo** `codemagic.yaml`.
+
+1. Dalla pagina dell'applicazione, premi **Switch to YAML configuration**.
+2. Nel menu che compare devi scegliere il workflow: si chiama
+
+   **iOS, archivio e caricamento su TestFlight**
+
+   E' l'unico della lista, perche' nel file ce n'e' uno solo. La sua chiave nel
+   file e' `ios-testflight`, e in certe schermate Codemagic mostra quella invece
+   del nome per esteso: sono la stessa cosa.
+3. Conferma.
+
+**E' dopo questo passaggio che compare il campo del gruppo delle variabili.** Se
+non ti era comparso al passo 3b, torna adesso a controllare, e se ancora non c'e'
+segui il passo 3c.
+
+### 6b. Il ramo
+
+La build deve partire dal ramo canonico:
+
+**`claude/esoteric-circle-master-order-e798aj`**
+
+Il lavoro iOS e' stato unito li' il 6 agosto 2026. Il ramo `claude/ios-1-b1e463`
+esiste ancora ma non serve piu': e' interamente contenuto nel canonico, e
+lanciare da li' costruirebbe lo stesso codice con un ramo in meno di storia.
+
+### 6c. Lanciare
+
+1. Premi **Start new build** in alto a destra.
 2. Nella finestra che si apre:
-   - **Branch**: scegli il ramo dove sta il lavoro iOS.
-   - **Workflow**: deve comparire **iOS, archivio e caricamento su TestFlight**.
-     E' l'unico, perche' il piano gratuito da' cinquecento minuti al mese e due
-     workflow li finirebbero prima di avere una app installabile.
+   - **Branch**: `claude/esoteric-circle-master-order-e798aj`.
+   - **Workflow**: **iOS, archivio e caricamento su TestFlight**.
 3. Premi **Start new build**.
 
 Da qui in avanti guardi i passi scorrere. La prima build e' la piu' lenta,
