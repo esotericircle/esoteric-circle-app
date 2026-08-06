@@ -45,12 +45,21 @@ import '../widgets/tre_volti.dart';
 /// cade sull'oracolo locale deterministico, senza mai un errore a video. La
 /// sintesi comparativa si compone in modo deterministico dalle lenti gia'
 /// ottenute, senza una chiamata Gemini in piu'.
-/// COME SI CHIAMA LA SCHERMATA DEL CONFRONTO.
+/// COME SI CHIAMA LA SCHERMATA DEL CONFRONTO, in un punto solo.
 ///
 /// Sta fuori dalla classe perche' una prova deve poterlo nominare senza
 /// montare uno schermo, e perche' una regola dentro una classe privata non si
 /// puo' nemmeno citare.
-const String titoloDelConsiglio = 'Il Consiglio del Cerchio';
+///
+/// **Si chiama Il Consiglio dei Maestri dal 6 agosto 2026**, per decisione di
+/// Mauro. Si chiamava Il Consiglio del Cerchio, e il Cerchio e' gia' il nome
+/// della home: due cose diverse con la stessa parola in mezzo si confondono, ed
+/// e' lo stesso motivo per cui la striscia di navigazione non si e' chiamata
+/// Sentieri.
+///
+/// Nessuna schermata scrive questo nome a mano: `test/il_nome_del_consiglio_test.dart`
+/// enumera i sorgenti e cade se qualcuno lo fa.
+const String titoloDelConsiglio = 'Il Consiglio dei Maestri';
 
 class AskMaestriScreen extends StatefulWidget {
   const AskMaestriScreen({

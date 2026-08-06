@@ -53,7 +53,7 @@ void main() {
         reason: 'Queste schermate non dicono se portano la barra: '
             '$senzaDecisione. La regola e\' chiusa: la barra si vede nella '
             'home, nel Passport, nel dominio di un Maestro, nella sua chat e '
-            'nel Consiglio del Cerchio. Tutto il resto va dichiarato assente.');
+            'nel Consiglio dei Maestri. Tutto il resto va dichiarato assente.');
   });
 
   test('l\'elenco non parla di schermate che non esistono', () {

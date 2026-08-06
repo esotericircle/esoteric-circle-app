@@ -668,7 +668,7 @@ void main() {
       await step(tester);
     }
     // UNA PORTA SOLA, dal 5 agosto 2026: "Chiedi anche agli altri" apre
-    // direttamente il Consiglio del Cerchio. Prima incollava le altre due voci
+    // direttamente il Consiglio dei Maestri. Prima incollava le altre due voci
     // dentro la chat di Medora e poi serviva un secondo tocco per aprire il
     // confronto: due porte allo stesso posto.
     await tester.tap(find.byKey(const Key('chat_altre_voci')));
@@ -4192,6 +4192,67 @@ void main() {
     await capture(tester, rootKey, 'barra-home.png');
   });
 
+  /// Porta la barra a fondo corsa, cioe' fuori, e ce la lascia.
+  Future<TestGesture> aFondoCorsa(WidgetTester tester, Finder dove) async {
+    final gesto = await tester.startGesture(tester.getCenter(dove));
+    await gesto.moveBy(const Offset(0, -kDragSlopDefault));
+    await tester.pump();
+    await gesto.moveBy(const Offset(0, -BarraDelCerchio.corsa));
+    await tester.pump();
+    return gesto;
+  }
+
+  testWidgets('Cattura la home con la barra fuori', (tester) async {
+    // La terza delle tre scene che provano che il contenuto STA FERMO: i tre
+    // Maestri devono avere la stessa grandezza che hanno con la barra dentro e
+    // a meta' corsa.
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final gesto = await aFondoCorsa(tester, corpoScorribile().first);
+    await capture(tester, rootKey, 'barra-home-fuori.png');
+    await gesto.up();
+    await tester.pump();
+  });
+
+  testWidgets('Cattura la home scorsa fino in fondo', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    for (var i = 0; i < 8; i++) {
+      await tester.drag(corpoScorribile().first, const Offset(0, -400));
+      await tester.pump();
+    }
+    await step(tester);
+    await capture(tester, rootKey, 'home-in-fondo.png');
+  });
+
+  testWidgets('Cattura la chat a meta corsa', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(MaestroChatScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    final gesto =
+        await aMetaCorsa(tester, find.byType(Scrollable).first);
+    await capture(tester, rootKey, 'barra-chat-meta-corsa.png');
+    await gesto.up();
+    await tester.pump();
+  });
+
+  testWidgets('Cattura la chat con la barra fuori', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(MaestroChatScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    final gesto =
+        await aFondoCorsa(tester, find.byType(Scrollable).first);
+    await capture(tester, rootKey, 'barra-chat-fuori.png');
+    await gesto.up();
+    await tester.pump();
+  });
+
   testWidgets('Cattura la barra a meta corsa nella home', (tester) async {
     // LA SCENA CHE PROVA IL MOVIMENTO CONTINUO. Con due stati non esisterebbe
     // affatto: o la barra c'e' o non c'e'.
@@ -4224,7 +4285,7 @@ void main() {
     await capture(tester, rootKey, 'barra-chat.png');
   });
 
-  testWidgets('Cattura la barra nel Consiglio del Cerchio', (tester) async {
+  testWidgets('Cattura la barra nel Consiglio dei Maestri', (tester) async {
     final rootKey = await montaApp(tester, giaRisvegliato: true);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
     nav.push(AskMaestriScreen.perLaSintesi(

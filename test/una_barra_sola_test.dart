@@ -120,7 +120,7 @@ void main() {
       nav.push(versoIlConsiglio());
       await respira(tester);
       expect(quanteBarre(), 1,
-          reason: 'Nel Consiglio del Cerchio manca, oppure e\' doppia.');
+          reason: 'Nel Consiglio dei Maestri manca, oppure e\' doppia.');
     });
 
     testWidgets('dove sei e\' acceso: nella chat di Medora, Medora',

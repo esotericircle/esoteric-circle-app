@@ -277,7 +277,7 @@ class PlanCatalog {
   /// NON consuma una domanda: se la consumasse, la persona esiterebbe prima di
   /// toccarlo, e l'esitazione uccide l'intimita'.
   static const String rigaApprofondimenti = 'Vai più a fondo';
-  /// Quanti confronti nel Consiglio del Cerchio al giorno.
+  /// Quanti confronti nel Consiglio dei Maestri al giorno.
   ///
   /// **E' una riga a se', accanto alle domande e agli approfondimenti.** Il
   /// confronto non consuma domande in piu' di quella gia' pagata nella chat,

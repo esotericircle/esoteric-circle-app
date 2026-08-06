@@ -46,7 +46,7 @@ class ChatOpeners {
     return 'Il mio animale guida è $art$sep$nome, cosa vuole dirmi?';
   }
 
-  /// Dal Consiglio del Cerchio verso il Maestro scelto, con la domanda da cui
+  /// Dal Consiglio dei Maestri verso il Maestro scelto, con la domanda da cui
   /// si arriva.
   ///
   /// **Perche' passa di qui e non dalla schermata.** Ogni arte che manda in

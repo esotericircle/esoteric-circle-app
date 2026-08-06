@@ -179,7 +179,7 @@ void main() {
   });
 
   testWidgets('OGNI carta porta il suo consiglio in oro', (tester) async {
-    // Vale anche dentro il Consiglio del Cerchio, su tutte e tre le carte: e'
+    // Vale anche dentro il Consiglio dei Maestri, su tutte e tre le carte: e'
     // la cosa che una persona di fretta legge al posto di tutto il resto, e
     // qui di testo da leggere ce n'e' tre volte tanto.
     await apri(tester);

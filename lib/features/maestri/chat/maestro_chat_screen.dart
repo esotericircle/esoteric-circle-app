@@ -302,7 +302,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     _apriIlConsiglio(context, controller);
   }
 
-  /// Apre il Consiglio del Cerchio, portandosi dietro cio' che c'e' gia'.
+  /// Apre il Consiglio dei Maestri, portandosi dietro cio' che c'e' gia'.
   void _apriIlConsiglio(
     BuildContext context,
     MaestroChatController controller,

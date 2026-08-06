@@ -117,18 +117,25 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
     final siVede = barraSiVede(_schermata);
     final senzaMoto = MediaQuery.of(context).disableAnimations;
 
-    // **LO SPAZIO CHE SI FA CAMBIA A SOGLIA, non a ogni pixel.** Il movimento
-    // della barra e' continuo, ma lo spazio riservato al contenuto non puo'
-    // esserlo: cambiare il `MediaQuery` a ogni pixel di scorrimento vorrebbe
-    // dire ricostruire il Navigator INTERO a ogni fotogramma del gesto, cioe'
-    // pagare la fluidita' della barra con quella di tutto il resto.
+    // **LA BARRA SCIVOLA SOPRA IL CONTENUTO, E IL CONTENUTO NON SI MUOVE.**
+    // Regola di Mauro del 6 agosto 2026, e chiude un difetto grave.
     //
-    // **E quando la barra e' via, lo spazio va via con lei**: sotto non deve
-    // restare una fascia vuota.
+    // Lo spazio riservato al contenuto e' COSTANTE, pari all'altezza della
+    // barra, e non segue il movimento. Prima commutava fra zero e l'altezza
+    // piena quando il ritiro passava la meta' della corsa, e commutare uno
+    // spazio vuol dire RILAYARE cio' che ci sta dentro: misurato sull'app
+    // montata, la carta del Maestro centrale cresceva di 66,42 punti e saliva
+    // di 80,36 in un fotogramma solo, e in chat il campo di scrittura saltava
+    // di 123. Non era il contenuto che scorreva: era il contenuto che veniva
+    // ricomposto.
+    //
+    // **Il compromesso, dichiarato:** quando la barra e' nascosta resta una
+    // fascia vuota alta quanto lei. E' il prezzo della fluidita', ed e' quello
+    // che fanno i siti in cui la barra si ritrae. Se non piacera' si decidera'
+    // guardandola, ma non si torna a uno spazio che commuta: quello e' lo
+    // scatto.
     final mq = MediaQuery.of(context);
-    final quantoOccupa = !siVede || _discesa > BarraDelCerchio.corsa / 2
-        ? 0.0
-        : BarraDelCerchio.altezza;
+    final quantoOccupa = siVede ? BarraDelCerchio.altezza : 0.0;
 
     return Stack(
       children: [

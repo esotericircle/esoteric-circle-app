@@ -29,7 +29,7 @@ void main() {
               'arrivandoci dalla chat direbbe di essere tornati da lui mentre '
               'qui ci sono tutti e tre');
     }
-    expect(titoloDelConsiglio, 'Il Consiglio del Cerchio');
+    expect(titoloDelConsiglio, 'Il Consiglio dei Maestri');
   });
 
   test('Una porta sola apre il confronto', () {

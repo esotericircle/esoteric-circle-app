@@ -357,7 +357,7 @@ class MaestroChatController extends ChangeNotifier {
   // finivano in QUESTA conversazione: negli screenshot del fondatore la chat
   // di Medora conteneva bolle rosse di Caligo e verdi di Aura. Nella chat di
   // un Maestro parla soltanto quel Maestro, sempre, e le altre voci si
-  // ascoltano nel Consiglio del Cerchio.
+  // ascoltano nel Consiglio dei Maestri.
   /// Vero quando a questa persona, oggi, si puo' scrivere la lettura intera.
   ///
   /// **Il budget degli approfondimenti non e' sparito: si e' spostato.** Prima

@@ -8,7 +8,7 @@
 /// - il Cosmic Passport;
 /// - il dominio di ogni Maestro;
 /// - la chat di ogni Maestro;
-/// - il confronto fra i Maestri, cioe' Il Consiglio del Cerchio.
+/// - il confronto fra i Maestri, cioe' il Consiglio.
 ///
 /// **Tutto il resto non ce l'ha, e non e' un elenco da completare.** Le
 /// esperienze immersive (stesa, riti, meditazione) e tutti e cinque i Doni del
@@ -44,7 +44,7 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'CosmicPassport': PresenzaDellaBarra.presente,
   'DomainScreen': PresenzaDellaBarra.presente,
   'MaestroChatScreen': PresenzaDellaBarra.presente,
-  // Il Consiglio del Cerchio: la classe si chiama ancora AskMaestriScreen,
+  // Il Consiglio: la classe si chiama ancora AskMaestriScreen,
   // dal nome che la funzione aveva prima.
   'AskMaestriScreen': PresenzaDellaBarra.presente,
 
