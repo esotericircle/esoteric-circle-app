@@ -3846,6 +3846,80 @@ void main() {
     await capture(tester, rootKey, 'avatar-confronto-tre.png');
   });
 
+
+  // --- I TRE TONDI AFFIANCATI, ALLE MISURE VERE DELL'APP ------------------
+  //
+  // Il giudizio su come si somigliano si da' su questa: i tre uno accanto
+  // all'altro, alle misure a cui l'app li disegna davvero, 26 e 34 nella bolla
+  // e 40 e 48 dove la testa sporge. Sopra, gli stessi tre piu' grandi, perche'
+  // a 26 punti un difetto si vede appena.
+  testWidgets('Cattura i tre tondi affiancati', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues({});
+    montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    Widget riga(String titolo, double anello, bool sporge) => Column(
+          children: [
+            Text(titolo,
+                style: const TextStyle(
+                    fontFamily: 'EBGaramond',
+                    color: Color(0x99E8D9A8),
+                    fontSize: 12)),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                for (final m in Maestro.fixedOrder) ...[
+                  MaestroBust(maestro: m, ring: anello, popOut: sporge),
+                  const SizedBox(width: 18),
+                ],
+              ],
+            ),
+            const SizedBox(height: 22),
+          ],
+        );
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0B0B14),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  riga('ingranditi, per giudicare il taglio', 92, false),
+                  riga('le misure vere dell\'app: 26, 34, 40, 48', 26, false),
+                  riga('', 34, false),
+                  riga('', 40, true),
+                  riga('', 48, true),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await capture(tester, rootKey, 'avatar-tondi-affiancati.png');
+  });
+
 }
 
 /// Maestro offline: risponde con un testo fisso, senza rete.

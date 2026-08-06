@@ -107,11 +107,17 @@ void main() {
             MaestroBust.framingFor(maestro: maestro, ring: r, popOut: popOut),
         ];
 
-        // La fascia dal capo al collo riempie l'80 per cento del diametro, a
-        // ogni misura: mai i soli occhi, mai la figura intera.
+        // La fascia dichiarata, dalla cima della testa al petto, riempie il 95
+        // per cento del diametro a ogni misura: nel tondo si vede dal petto
+        // alla testa intera, tutto dentro il cerchietto. Era l'80 per cento
+        // fino al 6 agosto 2026, e a quella misura si vedeva la sola testa.
+        //
+        // Il numero e' scritto qui a mano di proposito: se questa prova
+        // leggesse `kBandOfDiameter` non sorveglierebbe piu' niente,
+        // calcolerebbe l'atteso dalla costante che deve tenere ferma.
         for (var i = 0; i < sizes.length; i++) {
-          expect(f[i].bandBottom - f[i].bandTop, closeTo(0.8 * sizes[i], 1e-9),
-              reason: 'banda 80% del diametro per $maestro a ${sizes[i]}');
+          expect(f[i].bandBottom - f[i].bandTop, closeTo(0.95 * sizes[i], 1e-9),
+              reason: 'banda 95% del diametro per $maestro a ${sizes[i]}');
         }
 
         // Stesso taglio in proporzione: ogni misura assoluta scala col diametro,
