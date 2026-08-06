@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../core/l10n/app_strings.dart';
 import '../../core/maestro/maestro.dart';
-import '../../design_system/components/icona_del_cerchio.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import 'navigation_controller.dart';
+import 'vie_del_cerchio.dart';
 
 /// Bottom bar a cinque voci: Santuario, i tre Maestri nell'ordine fisso
 /// (Medora, Caligo, Aura) e il Cosmic Passport, distinto e staccato.
@@ -53,44 +52,42 @@ class SantuarioBottomBar extends StatelessWidget {
             horizontal: SpacingTokens.sm,
             vertical: SpacingTokens.sm,
           ),
+          // LE VOCI VENGONO DALL'ELENCO UNICO, non da qui.
+          //
+          // Il nome, il disegno e l'ordine stanno in `ViaDelCerchio`, che e'
+          // la stessa fonte da cui legge la striscia Esplora: finche' erano
+          // due liste scritte a mano sono divergiute, di una voce e di
+          // un'icona. Qui restano le cose che appartengono davvero alla barra,
+          // cioe' quale voce e' accesa e cosa succede al tocco.
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _BarItem(
-                label: AppStrings.navSantuario,
-                // LA MEZZALUNA DENTRO IL CERCHIO, non la mezzaluna sola: porta
-                // la Luna e il Sole insieme, la luce e l'oscurita'. Il disegno
-                // sta nel design system, non qui: la barra sceglie l'icona, non
-                // la disegna.
-                icona: (colore, lato) =>
-                    IconaDelCerchio(colore: colore, dimensione: lato),
-                selected: onSantuarioView,
-                onTap: onSantuario,
-              ),
-              // Le icone Maestro portano al dominio: restano spente nel
-              // Santuario, sono scorciatoie, non lo stato del centro.
-              for (final maestro in Maestro.fixedOrder)
+              for (final via in ViaDelCerchio.tutte) ...[
+                // Il Passport, staccato dai Maestri da un filo verticale.
+                if (via.specie == SpecieDiVia.passport)
+                  Container(
+                    width: 1,
+                    height: 34,
+                    margin: const EdgeInsets.symmetric(horizontal: 2),
+                    color: palette.gold.withValues(alpha: 0.2),
+                  ),
                 _BarItem(
-                  label: maestro.displayName,
-                  icona: (colore, lato) =>
-                      Icon(maestro.icon, color: colore, size: lato),
-                  selected: false,
-                  onTap: () => onMaestro(maestro),
+                  label: via.etichetta,
+                  icona: via.icona,
+                  // Le icone Maestro portano al dominio: restano spente nel
+                  // Santuario, sono scorciatoie, non lo stato del centro.
+                  selected: switch (via.specie) {
+                    SpecieDiVia.cerchio => onSantuarioView,
+                    SpecieDiVia.maestro => false,
+                    SpecieDiVia.passport => view == ShellView.passport,
+                  },
+                  onTap: () => switch (via.specie) {
+                    SpecieDiVia.cerchio => onSantuario(),
+                    SpecieDiVia.maestro => onMaestro(via.maestro!),
+                    SpecieDiVia.passport => onPassport(),
+                  },
                 ),
-              // Il Passport, staccato dai Maestri da un filo verticale.
-              Container(
-                width: 1,
-                height: 34,
-                margin: const EdgeInsets.symmetric(horizontal: 2),
-                color: palette.gold.withValues(alpha: 0.2),
-              ),
-              _BarItem(
-                label: AppStrings.navPassport,
-                icona: (colore, lato) =>
-                    Icon(Icons.badge_outlined, color: colore, size: lato),
-                selected: view == ShellView.passport,
-                onTap: onPassport,
-              ),
+              ],
             ],
           ),
         ),

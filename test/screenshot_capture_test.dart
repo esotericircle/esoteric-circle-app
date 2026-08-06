@@ -99,6 +99,7 @@ import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
+import 'package:esoteric_circle/features/shell/esplora.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -4090,18 +4091,48 @@ void main() {
   Finder corpoScorribile() => find.byWidgetPredicate(
       (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
 
-  testWidgets('Cattura Esplora, la home alla primissima apertura',
-      (tester) async {
-    // Alla primissima apertura in assoluto la striscia si presenta aperta, per
-    // insegnare che esiste. Mai a ogni ritorno.
+  /// Apre una chat, che dal 6 agosto 2026 e' il posto dove Esplora si vede.
+  Future<void> apriUnaChat(WidgetTester tester) async {
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(MaestroChatScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+  }
+
+  testWidgets('Cattura Esplora, la soglia dove non c\'e\'', (tester) async {
+    // **QUESTA SCENA HA CAMBIATO NOME, E IL NOME VECCHIO DICEVA IL FALSO.**
+    // Si chiamava `esplora-prima-apertura.png` e dichiarava di mostrare la home
+    // alla primissima apertura con la striscia gia' aperta: mostra invece Il
+    // Risveglio, cioe' la soglia, dove Esplora per progetto non c'e'. Un'
+    // immagine che esiste sembra una prova anche quando prova un'altra cosa.
+    //
+    // La scena si tiene perche' prova qualcosa di vero, e adesso lo dice dal
+    // nome: sulla soglia la striscia non compare.
     final rootKey = await montaApp(tester, giaRisvegliato: false);
+    await capture(tester, rootKey, 'esplora-assente-sulla-soglia.png');
+  });
+
+  testWidgets('Cattura Esplora, la primissima apertura', (tester) async {
+    // Alla primissima apertura in assoluto la striscia si presenta con le vie
+    // gia' in vista, per insegnare che esiste. Mai a ogni ritorno.
+    //
+    // **Si fotografa in CHAT e non nella home**, e non e' un ripiego: da quando
+    // Esplora non compare dove il guscio ha gia' la sua barra, nella home non
+    // c'e' proprio, quindi la scena che l'ordine chiedeva non esiste piu'. La
+    // chat e' il posto dove quella promessa si vede davvero.
+    final rootKey = await montaApp(tester, giaRisvegliato: false);
+    await apriUnaChat(tester);
     await capture(tester, rootKey, 'esplora-prima-apertura.png');
   });
 
-  testWidgets('Cattura Esplora, la striscia aperta', (tester) async {
+  testWidgets('Cattura Esplora, le vie in vista', (tester) async {
     final rootKey = await montaApp(tester, giaRisvegliato: true);
-    // Si torna verso l'alto: e' il gesto che riapre la striscia.
-    await tester.drag(corpoScorribile().first, const Offset(0, 240));
+    await apriUnaChat(tester);
+    // Il tocco sulla linguetta, che e' il gesto vero: prima si trascinava la
+    // home, dove pero' Esplora non c'e' piu'.
+    await tester.tap(find.byKey(const Key('esplora_linguetta')));
     await step(tester);
     await capture(tester, rootKey, 'esplora-aperta.png');
   });
@@ -4109,13 +4140,27 @@ void main() {
   testWidgets('Cattura Esplora, la linguetta chiusa dentro una chat',
       (tester) async {
     final rootKey = await montaApp(tester, giaRisvegliato: true);
-    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
-    nav.push(MaestroChatScreen.route(
-        maestro: Maestro.medora, services: AppServices.offline()));
-    await step(tester);
-    await precacheFaces(tester);
-    await step(tester);
+    await apriUnaChat(tester);
     await capture(tester, rootKey, 'esplora-linguetta-in-chat.png');
+  });
+
+  testWidgets('Cattura Esplora, a meta\' della corsa', (tester) async {
+    // LA SCENA CHE PROVA IL MOVIMENTO CONTINUO. Con due stati non esisterebbe
+    // affatto: o le vie ci sono o non ci sono. Qui il dito le ha portate a
+    // meta' strada e ce le ha lasciate.
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    await apriUnaChat(tester);
+    await tester.tap(find.byKey(const Key('esplora_linguetta')));
+    await step(tester);
+    final gesto =
+        await tester.startGesture(tester.getCenter(corpoScorribile().first));
+    await gesto.moveBy(const Offset(0, -kDragSlopDefault));
+    await tester.pump();
+    await gesto.moveBy(const Offset(0, -EsploraStriscia.corsa / 2));
+    await tester.pump();
+    await capture(tester, rootKey, 'esplora-meta-corsa.png');
+    await gesto.up();
+    await tester.pump();
   });
 
   testWidgets('Cattura Esplora, assente in una immersiva', (tester) async {

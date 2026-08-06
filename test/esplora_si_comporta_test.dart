@@ -68,9 +68,24 @@ void main() {
 
   bool linguettaVisibile() =>
       find.byKey(const Key('esplora_linguetta')).evaluate().isNotEmpty;
-  bool apertaVisibile() =>
-      find.byKey(const Key('esplora_aperta')).evaluate().isNotEmpty;
-  bool esploraCE() => linguettaVisibile() || apertaVisibile();
+  bool esploraCE() =>
+      linguettaVisibile() ||
+      find.byKey(const Key('esplora_vie')).evaluate().isNotEmpty;
+
+  /// APERTA VUOL DIRE VIE IN VISTA, e si misura in punti.
+  ///
+  /// Dal 6 agosto 2026 le vie non compaiono e non spariscono: rientrano dietro
+  /// la linguetta con un movimento continuo, quindi sono sempre nell'albero e
+  /// contarle non direbbe piu' niente. Aperta e' quando il blocco delle vie
+  /// sta appoggiato sopra la linguetta invece che rientrato dietro di lei.
+  bool apertaVisibile(WidgetTester tester) {
+    final vie = find.byKey(const Key('esplora_vie'));
+    if (vie.evaluate().isEmpty) return false;
+    final striscia = find.byType(EsploraStriscia);
+    final quantoEScesa = tester.getTopLeft(vie).dy -
+        tester.getTopLeft(striscia).dy;
+    return quantoEScesa < EsploraStriscia.corsa / 2;
+  }
 
   testWidgets('dove il guscio ha gia\' la sua barra, Esplora non c\'e\'',
       (tester) async {
@@ -146,13 +161,13 @@ void main() {
     // ritratta.
     await tester.drag(scorribile, const Offset(0, -220));
     await respira(tester);
-    expect(apertaVisibile(), isFalse,
+    expect(apertaVisibile(tester), isFalse,
         reason: 'Scorrendo per leggere la striscia non deve aprirsi.');
 
     // Scorrere verso il basso, cioe' tornare su: la striscia torna.
     await tester.drag(scorribile, const Offset(0, 220));
     await respira(tester);
-    expect(apertaVisibile(), isTrue,
+    expect(apertaVisibile(tester), isTrue,
         reason: 'Scorrendo verso l\'alto la striscia deve tornare: e\' il '
             'gesto che tutti conoscono, e non va spiegato.');
 
@@ -168,14 +183,14 @@ void main() {
     final scorribile = ilCorpo().first;
     await tester.drag(scorribile, const Offset(0, 220));
     await respira(tester);
-    expect(apertaVisibile(), isTrue);
+    expect(apertaVisibile(tester), isTrue);
 
     // Trenta secondi di quiete. Se esistesse una chiusura a tempo, qui la
     // striscia sarebbe gia' scesa.
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(seconds: 5));
     }
-    expect(apertaVisibile(), isTrue,
+    expect(apertaVisibile(tester), isTrue,
         reason: 'La striscia si e\' chiusa da sola dopo trenta secondi di '
             'quiete. Una chiusura a tempo e\' la distrazione che si voleva '
             'togliere, e ha un difetto peggiore: se si abbassa mentre il dito '
@@ -228,7 +243,6 @@ void main() {
     // 3. dal Consiglio si torna da Medora, la cui chat e' gia' aperta piu' in
     //    basso: ci si TORNA, non se ne apre una seconda.
     EsploraNavigazione.apriUnaVoltaSola(
-      tester.element(find.byType(Navigator).last),
       tipo: 'MaestroChatScreen',
       costruisci: () =>
           MaestroChatScreen.route(maestro: Maestro.medora, services: servizi),
@@ -255,42 +269,53 @@ void main() {
             'stato sfilato.');
   });
 
-  testWidgets('le due altezze dichiarate sono quelle vere', (tester) async {
-    // DUE COSTANTI CHE DESCRIVONO UNA RESA, quindi vanno confrontate con la
-    // resa. Servono a `EsploraScope` per fare posto alla striscia invece di
-    // coprirci sotto: se scadessero, il contenuto tornerebbe sotto la striscia
-    // senza che niente lo dica.
-    for (final aperta in const [false, true]) {
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: Align(
-            alignment: Alignment.bottomCenter,
-            child: MultiProvider(
-              providers: [
-                ChangeNotifierProvider(create: (_) => MaestroController()),
-              ],
-              child: EsploraStriscia(
-                aperta: aperta,
-                onLinguetta: () {},
-                onChiudi: () {},
-              ),
+  testWidgets('le tre misure dichiarate sono quelle vere', (tester) async {
+    // TRE COSTANTI CHE DESCRIVONO UNA RESA, quindi vanno confrontate con la
+    // resa. `altezzaAperta` serve a `EsploraScope` per fare posto alla striscia
+    // invece di coprirci sotto; `corsa` e' la lunghezza del movimento continuo,
+    // e se fosse piu' corta della resa a fondo corsa le vie resterebbero a
+    // sporgere da sotto la linguetta, se fosse piu' lunga scenderebbero oltre.
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: Align(
+          alignment: Alignment.bottomCenter,
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => MaestroController()),
+            ],
+            child: const EsploraStriscia(
+              ritiro: 0,
+              onLinguetta: _niente,
+              onChiudi: _niente,
             ),
           ),
         ),
-      ));
-      await tester.pumpAndSettle();
-      final vera = tester.getSize(find.byType(EsploraStriscia)).height;
-      final dichiarata = aperta
-          ? EsploraStriscia.altezzaAperta
-          : EsploraStriscia.altezzaLinguetta;
+      ),
+    ));
+    await tester.pumpAndSettle();
+
+    final misure = <String, (double, double)>{
+      'la striscia intera': (
+        tester.getSize(find.byType(EsploraStriscia)).height,
+        EsploraStriscia.altezzaAperta
+      ),
+      'la linguetta': (
+        tester.getSize(find.byKey(const Key('esplora_linguetta'))).height,
+        EsploraStriscia.altezzaLinguetta
+      ),
+      'la corsa, cioe\' il blocco delle vie': (
+        tester.getSize(find.byKey(const Key('esplora_vie'))).height,
+        EsploraStriscia.corsa
+      ),
+    };
+    misure.forEach((cosa, m) {
+      final (vera, dichiarata) = m;
       // Due punti di tolleranza: il bordo e l'arrotondamento del testo muovono
       // la resa di qualche decimo, non di piu'.
       expect((vera - dichiarata).abs(), lessThanOrEqualTo(2.0),
-          reason: 'La striscia ${aperta ? "aperta" : "a linguetta"} misura '
-              '${vera.toStringAsFixed(1)} punti, ma ne dichiara $dichiarata. '
-              'EsploraScope usa il numero dichiarato per fare posto: se e\' '
-              'falso, il contenuto torna sotto la striscia.');
-    }
+          reason: '$cosa misura ${vera.toStringAsFixed(2)} punti e ne dichiara '
+              '$dichiarata.');
+    });
   });
 
   testWidgets('si presenta aperta solo alla primissima apertura',
@@ -301,7 +326,7 @@ void main() {
     nav.push(MaestroChatScreen.route(
         maestro: Maestro.medora, services: AppServices.offline()));
     await respira(tester);
-    expect(apertaVisibile(), isTrue,
+    expect(apertaVisibile(tester), isTrue,
         reason: 'Alla primissima apertura in assoluto la striscia si presenta '
             'aperta, per insegnare che esiste.');
   });
@@ -309,7 +334,7 @@ void main() {
   testWidgets('a ogni ritorno successivo si presenta a linguetta',
       (tester) async {
     await inChat(tester);
-    expect(apertaVisibile(), isFalse,
+    expect(apertaVisibile(tester), isFalse,
         reason: 'Aprirsi a ogni ritorno diventerebbe un tic.');
     expect(linguettaVisibile(), isTrue,
         reason: 'Ma la linguetta resta sempre: mai un vicolo cieco.');
@@ -339,3 +364,6 @@ class MeditationScreen extends StatelessWidget {
         body: Center(child: Text('meditazione')),
       );
 }
+
+/// Un callback che non fa niente, per le prove che misurano e non toccano.
+void _niente() {}

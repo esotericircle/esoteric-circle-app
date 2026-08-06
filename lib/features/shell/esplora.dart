@@ -1,5 +1,6 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/maestro/maestro.dart';
@@ -11,6 +12,7 @@ import '../maestri/domain_screen.dart';
 import '../../core/onboarding/onboarding_controller.dart';
 import '../../services/app_services.dart';
 import 'esplora_schermate.dart';
+import 'vie_del_cerchio.dart';
 import 'navigation_controller.dart';
 
 /// ESPLORA: la via breve verso il Cerchio e verso i tre domini, sempre a
@@ -83,7 +85,20 @@ class EsploraScope extends StatefulWidget {
 }
 
 class _EsploraScopeState extends State<EsploraScope> {
-  bool _aperta = false;
+  /// QUANTO E' RITRATTA, IN PUNTI, e non se e' aperta o chiusa.
+  ///
+  /// **Regola di Mauro del 6 agosto 2026, che sostituisce quella dei due
+  /// stati.** Va da zero, tutte le vie in vista, a `EsploraStriscia.corsa`,
+  /// vie rientrate dietro la linguetta. Un valore continuo e non un booleano:
+  /// un booleano commutato da `UserScrollNotification` produce uno scatto, e
+  /// uno scatto non si puo' seguire col dito.
+  double _ritiro = 0;
+
+  /// Vero quando il valore e' cambiato per un TOCCO e non per il dito che
+  /// scorre: solo allora il cambio si anima, perche' il dito non c'e' e non
+  /// c'e' niente da seguire.
+  bool _perUnTocco = false;
+
   String? _schermata;
 
   /// Vero se questa e' la primissima apertura dell'app in assoluto.
@@ -143,11 +158,14 @@ class _EsploraScopeState extends State<EsploraScope> {
     final onboarding = context.watch<OnboardingController>();
     if (_primissimaApertura == null && onboarding.resolved) {
       _primissimaApertura = onboarding.needsOnboarding;
-      if (_primissimaApertura!) _aperta = true;
+      // Alla primissima apertura si presenta aperta; a ogni altro ritorno
+      // parte ritratta, che e' il fondo corsa.
+      _ritiro = _primissimaApertura! ? 0 : EsploraStriscia.corsa;
     }
 
     final presenza = presenzaPerSchermata[_schermata];
     final siVede = presenza == PresenzaEsplora.presente;
+    final senzaMoto = MediaQuery.of(context).disableAnimations;
 
     // LE SI FA POSTO, non le si mette sopra il contenuto.
     //
@@ -157,12 +175,20 @@ class _EsploraScopeState extends State<EsploraScope> {
     // altezza al padding basso, che e' il canale da cui ogni `SafeArea` gia'
     // esistente prende le sue distanze: cosi' la correzione sta qui, in un
     // posto solo, e non dentro le schermate.
+    // **LO SPAZIO CHE SI FA CAMBIA A SOGLIA, non a ogni pixel.** Il movimento
+    // della striscia e' continuo, ma lo spazio riservato al contenuto non puo'
+    // esserlo: cambiare il `MediaQuery` a ogni pixel di scorrimento vorrebbe
+    // dire ricostruire il Navigator INTERO a ogni fotogramma del gesto, cioe'
+    // pagare la fluidita' della striscia con quella di tutto il resto. Tenerlo
+    // fermo all'altezza piena sprecherebbe invece cinquantasei punti ogni volta
+    // che le vie sono rientrate. Passa quindi una volta sola per gesto, quando
+    // il ritiro attraversa la meta' della corsa.
     final mq = MediaQuery.of(context);
     final quantoOccupa = !siVede
         ? 0.0
-        : (_aperta
-            ? EsploraStriscia.altezzaAperta
-            : EsploraStriscia.altezzaLinguetta);
+        : (_ritiro > EsploraStriscia.corsa / 2
+            ? EsploraStriscia.altezzaLinguetta
+            : EsploraStriscia.altezzaAperta);
 
     return Stack(
       children: [
@@ -175,14 +201,45 @@ class _EsploraScopeState extends State<EsploraScope> {
         // distrazione che si voleva togliere, e ha un difetto peggiore: se la
         // striscia si abbassa mentre il dito ci sta andando, il tocco va a
         // vuoto oppure colpisce cio' che sta sotto.
-        NotificationListener<UserScrollNotification>(
+        NotificationListener<ScrollNotification>(
           onNotification: (n) {
             if (!siVede) return false;
-            if (n.direction == ScrollDirection.reverse && _aperta) {
-              setState(() => _aperta = false);
-            } else if (n.direction == ScrollDirection.forward && !_aperta) {
-              setState(() => _aperta = true);
-            }
+            // **SI GUARDA IL DITO, non l'avanzamento nella lista.** Il segno
+            // dello scorrimento dipende da come la lista e' orientata: la chat
+            // e' ROVESCIATA, quindi lo stesso gesto del dito produceva li' il
+            // verso opposto rispetto a ogni altra schermata, e la striscia si
+            // apriva leggendo invece di ritrarsi. Il dito invece e' la sola
+            // cosa che la persona conosce, ed e' uguale ovunque.
+            //
+            // Fuori dal trascinamento, cioe' durante l'inerzia, il dito non
+            // c'e': la striscia resta dov'e'. Segue il dito, e l'inerzia non e'
+            // il dito.
+            //
+            // **Anche l'OLTRECORSA porta il dito**, e senza di lei la striscia
+            // restava ferma proprio dove serve di piu': a lista finita, o in
+            // una conversazione corta, il contenuto non ha piu' niente da
+            // scorrere, quindi nessun aggiornamento di scorrimento nasce, e il
+            // gesto per riaprire non arrivava. Una prova gia' esistente lo ha
+            // preso subito.
+            final dito = switch (n) {
+              ScrollUpdateNotification u => u.dragDetails?.delta.dy,
+              OverscrollNotification o => o.dragDetails?.delta.dy,
+              _ => null,
+            };
+            if (dito == null || dito == 0) return false;
+            setState(() {
+              _perUnTocco = false;
+              if (senzaMoto) {
+                // Con Riduci Movimento non si segue niente: si commuta, che e'
+                // esattamente cio' che quell'impostazione chiede.
+                _ritiro = dito < 0 ? EsploraStriscia.corsa : 0;
+              } else {
+                // Dito verso l'alto, cioe' si legge: la striscia si ritrae di
+                // altrettanto. Dito verso il basso: risale di altrettanto.
+                _ritiro =
+                    (_ritiro - dito).clamp(0.0, EsploraStriscia.corsa);
+              }
+            });
             return false;
           },
           child: MediaQuery(
@@ -201,9 +258,16 @@ class _EsploraScopeState extends State<EsploraScope> {
             right: 0,
             bottom: 0,
             child: EsploraStriscia(
-              aperta: _aperta,
-              onLinguetta: () => setState(() => _aperta = true),
-              onChiudi: () => setState(() => _aperta = false),
+              ritiro: _ritiro,
+              animato: _perUnTocco && !senzaMoto,
+              onLinguetta: () => setState(() {
+                _perUnTocco = true;
+                _ritiro = 0;
+              }),
+              onChiudi: () => setState(() {
+                _perUnTocco = true;
+                _ritiro = EsploraStriscia.corsa;
+              }),
             ),
           ),
       ],
@@ -215,12 +279,20 @@ class _EsploraScopeState extends State<EsploraScope> {
 class EsploraStriscia extends StatelessWidget {
   const EsploraStriscia({
     super.key,
-    required this.aperta,
+    required this.ritiro,
     required this.onLinguetta,
     required this.onChiudi,
+    this.animato = false,
   });
 
-  final bool aperta;
+  /// Quanto e' rientrata, in punti, fra zero e [corsa]. E' un valore continuo
+  /// perche' segue il dito: si veda `test/esplora_segue_il_dito_test.dart`.
+  final double ritiro;
+
+  /// Vero solo quando il cambio viene da un tocco: allora la striscia ci
+  /// arriva in una transizione, perche' non c'e' nessun dito da seguire.
+  final bool animato;
+
   final VoidCallback onLinguetta;
   final VoidCallback onChiudi;
 
@@ -230,13 +302,21 @@ class EsploraStriscia extends StatelessWidget {
   /// questi punti al padding basso, cosi' ogni `SafeArea` gia' esistente ne
   /// tiene conto da sola e nessuna schermata deve saperlo.
   ///
-  /// **Sono due numeri che descrivono una resa, quindi scadono se la striscia
+  /// **Sono numeri che descrivono una resa, quindi scadono se la striscia
   /// cambia forma.** Li sorveglia `test/esplora_si_comporta_test.dart`, che
   /// disegna la striscia davvero e confronta l'altezza vera con questi valori:
-  /// senza quella prova sarebbero due costanti che dichiarano il falso, ed e'
-  /// gia' successo su questo progetto.
+  /// senza quella prova sarebbero costanti che dichiarano il falso, ed e' gia'
+  /// successo su questo progetto.
   static const double altezzaLinguetta = 35;
-  static const double altezzaAperta = 62;
+
+  /// LA CORSA: quanto il blocco delle vie puo' rientrare, cioe' la sua stessa
+  /// altezza. E' la grandezza del movimento continuo: scorrendo di meta' corsa
+  /// la striscia scende di meta' corsa.
+  ///
+  /// Misurata sulla resa vera, non stimata sui padding: cinquantasei punti.
+  static const double corsa = 56;
+
+  static const double altezzaAperta = altezzaLinguetta + corsa;
 
   /// Il titolo a video. Un sostantivo e non un verbo: su una linguetta sottile
   /// un sostantivo si legge come l'etichetta di un luogo, un verbo come un
@@ -254,10 +334,11 @@ class EsploraStriscia extends StatelessWidget {
     // seconda porta sullo stesso dato.
     final palette =
         MaestroPalette.forKey(context.watch<MaestroController>().activeKey);
-    // Con Riduci Movimento il cambio di stato e' immediato, senza transizione.
-    final senzaMoto = MediaQuery.of(context).disableAnimations;
+    // La transizione esiste solo per il tocco: mentre il dito scorre la
+    // striscia e' gia' esattamente dove il dito l'ha messa, e interpolare
+    // vorrebbe dire farla arrivare in ritardo.
     final durata =
-        senzaMoto ? Duration.zero : const Duration(milliseconds: 220);
+        animato ? const Duration(milliseconds: 220) : Duration.zero;
 
     // UN MATERIAL TRASPARENTE, IN UN POSTO SOLO.
     //
@@ -268,36 +349,86 @@ class EsploraStriscia extends StatelessWidget {
     // qualunque Scaffold. La correzione non e' `TextDecoration.none` sui
     // quattro stili, che curerebbe il sintomo in quattro punti: e' dare alla
     // striscia l'antenato che le manca, qui, una volta.
+    // UN BLOCCO SOLO CHE SCORRE DIETRO UNA LINGUETTA CHE RESTA.
+    //
+    // Non ci sono piu' due contenuti che si sostituiscono: c'e' il blocco delle
+    // vie, che scende di quanto il dito ha scorso, e sotto la linguetta, che
+    // non si muove mai e lo copre man mano che rientra. Cosi' il movimento e'
+    // una traduzione sola, continua, senza niente che compaia o sparisca, e la
+    // linguetta resta sempre a vista: mai un vicolo cieco.
+    //
+    // Lo spazio in alto lasciato libero dalle vie che rientrano resta vuoto e
+    // non intercetta i tocchi, perche' il blocco che li riceve si e' spostato
+    // con loro.
     return Material(
       type: MaterialType.transparency,
-      child: AnimatedSize(
-      duration: durata,
-      alignment: Alignment.bottomCenter,
-      child: aperta
-          ? _Aperta(palette: palette, onChiudi: onChiudi)
-          : _Linguetta(palette: palette, onTap: onLinguetta),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Nessuna misura forzata sul blocco: si lascia che sia alto quanto il
+          // suo contenuto e si dichiara quel numero in `corsa`, che una prova
+          // confronta con la resa vera. Imporgli un'altezza lo farebbe
+          // traboccare in silenzio il giorno in cui una via cambia disegno.
+          TweenAnimationBuilder<double>(
+            tween: Tween<double>(begin: ritiro, end: ritiro),
+            duration: durata,
+            curve: Curves.easeOut,
+            builder: (context, quanto, figlio) => Transform.translate(
+              offset: Offset(0, quanto),
+              child: figlio,
+            ),
+            child: _Vie(palette: palette),
+          ),
+          _Linguetta(
+            palette: palette,
+            // La linguetta e' la sola cosa toccabile che resta sempre: apre
+            // quando le vie sono rientrate, richiude quando sono in vista.
+            // **E' qui che `onChiudi` ha smesso di essere un parametro che
+            // nessuno usava:** finche' la striscia aperta sostituiva la
+            // linguetta, non c'era piu' niente da toccare per richiuderla.
+            onTap: ritiro > corsa / 2 ? onLinguetta : onChiudi,
+            // La freccia gira col movimento invece di scattare: e' lo stesso
+            // valore continuo, letto da un'altra parte.
+            versoIlBasso: 1 - (ritiro / corsa).clamp(0.0, 1.0),
+          ),
+        ],
       ),
     );
   }
 }
 
 class _Linguetta extends StatelessWidget {
-  const _Linguetta({required this.palette, required this.onTap});
+  const _Linguetta({
+    required this.palette,
+    required this.onTap,
+    required this.versoIlBasso,
+  });
 
   final MaestroPalette palette;
   final VoidCallback onTap;
+
+  /// Da zero, vie rientrate e freccia in su, a uno, vie in vista e freccia in
+  /// giu'. Continuo come tutto il resto del movimento.
+  final double versoIlBasso;
 
   @override
   Widget build(BuildContext context) {
     return Semantics(
       button: true,
-      label: '${EsploraStriscia.titolo}, apri le vie',
+      label: versoIlBasso > 0.5
+          ? '${EsploraStriscia.titolo}, richiudi le vie'
+          : '${EsploraStriscia.titolo}, apri le vie',
       child: GestureDetector(
         key: const Key('esplora_linguetta'),
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            color: palette.deepest.withValues(alpha: 0.92),
+            // OPACA, e da oggi deve esserlo: e' lei a coprire le vie mentre
+            // rientrano. A 0,92 le si vedeva trasparire attraverso la
+            // linguetta per tutta la corsa, misurato sull'anteprima a meta'
+            // strada. Non e' un dettaglio di gusto: due strati di testo
+            // sovrapposti rendono illeggibili tutti e due.
+            color: palette.deepest,
             border: Border(
                 top: BorderSide(
                     color: palette.gold.withValues(alpha: 0.35), width: 1)),
@@ -322,8 +453,11 @@ class _Linguetta extends StatelessWidget {
                           fontSize: 13,
                           letterSpacing: 0.6)),
                   const SizedBox(width: 6),
-                  Icon(Icons.keyboard_arrow_up,
-                      size: 18, color: palette.goldSoft),
+                  Transform.rotate(
+                    angle: versoIlBasso * math.pi,
+                    child: Icon(Icons.keyboard_arrow_up,
+                        size: 18, color: palette.goldSoft),
+                  ),
                 ],
               ),
             ),
@@ -334,49 +468,48 @@ class _Linguetta extends StatelessWidget {
   }
 }
 
-class _Aperta extends StatelessWidget {
-  const _Aperta({required this.palette, required this.onChiudi});
+/// IL BLOCCO DELLE VIE, l'unica parte che si muove.
+class _Vie extends StatelessWidget {
+  const _Vie({required this.palette});
 
   final MaestroPalette palette;
-  final VoidCallback onChiudi;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: const Key('esplora_aperta'),
+      key: const Key('esplora_vie'),
       decoration: BoxDecoration(
         color: palette.deepest.withValues(alpha: 0.96),
         border: Border(
             top: BorderSide(
                 color: palette.gold.withValues(alpha: 0.35), width: 1)),
       ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
+      // NESSUNA SAFE AREA QUI: il blocco non tocca piu' il bordo dello schermo,
+      // perche' sotto di lui c'e' sempre la linguetta, che la sua distanza dal
+      // bordo se la prende gia'. Tenerla avrebbe aggiunto una fascia vuota in
+      // mezzo alla striscia sui telefoni con la barra dei gesti.
+      child: Padding(
           padding: const EdgeInsets.symmetric(
-              vertical: SpacingTokens.sm, horizontal: SpacingTokens.sm),
+              vertical: SpacingTokens.xs, horizontal: SpacingTokens.sm),
+          // LE VIE VENGONO DALL'ELENCO UNICO, non da qui.
+          //
+          // Sono le stesse destinazioni della barra del guscio, viste da dove
+          // quella barra non c'e'. Finche' le due liste sono state scritte a
+          // mano hanno divergiuto: qui mancava il Passport e la voce del
+          // Cerchio portava una mezzaluna di sistema invece del segno vero.
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _Via(
-                key: const Key('esplora_cerchio'),
-                etichetta: 'Il Cerchio',
-                icona: Icons.brightness_3,
-                palette: palette,
-                onTap: () => EsploraNavigazione.alCerchio(context),
-              ),
-              for (final m in Maestro.fixedOrder)
+              for (final via in ViaDelCerchio.tutte)
                 _Via(
-                  key: Key('esplora_${m.id}'),
-                  etichetta: m.displayName,
-                  icona: m.icon,
+                  key: Key('esplora_${via.id}'),
+                  via: via,
                   palette: palette,
-                  onTap: () => EsploraNavigazione.alDominio(context, m),
+                  onTap: () => EsploraNavigazione.vaiA(context, via),
                 ),
             ],
           ),
         ),
-      ),
     );
   }
 }
@@ -384,33 +517,45 @@ class _Aperta extends StatelessWidget {
 class _Via extends StatelessWidget {
   const _Via({
     super.key,
-    required this.etichetta,
-    required this.icona,
+    required this.via,
     required this.palette,
     required this.onTap,
   });
 
-  final String etichetta;
-  final IconData icona;
+  final ViaDelCerchio via;
   final MaestroPalette palette;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icona, size: 20, color: palette.goldSoft),
-          const SizedBox(height: 2),
-          Text(etichetta,
-              style: TextStyle(
-                  fontFamily: TypographyTokens.displayFamily,
-                  color: palette.goldSoft,
-                  fontSize: 11)),
-        ],
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            via.icona(palette.goldSoft, 20),
+            const SizedBox(height: 2),
+            // IL NOME NON ALZA LA STRISCIA E NON SI SPEZZA.
+            //
+            // Con cinque vie invece di quattro lo spazio per ciascuna scende a
+            // circa settanta punti, e "Il Cerchio" in Cinzel a undici ci sta
+            // per un soffio. Andando a capo la striscia crescerebbe oltre i
+            // sessantadue punti che dichiara, e `EsploraScope` userebbe un
+            // numero falso per farle posto: si rimpicciolisce invece di
+            // spezzarsi, come gia' fanno le tessere delle arti.
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(via.etichetta,
+                  maxLines: 1,
+                  style: TextStyle(
+                      fontFamily: TypographyTokens.displayFamily,
+                      color: palette.goldSoft,
+                      fontSize: 11)),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -432,11 +577,61 @@ class EsploraNavigazione {
   /// e' un dato solo, non due.
   static EsploraObservatore? osservatore;
 
+  /// IL NAVIGATOR SI CHIEDE ALL'OSSERVATORE, NON AL CONTESTO.
+  ///
+  /// **Misurato il 6 agosto 2026, ed era la terza delle tre cause possibili.**
+  /// Nella chat i tocchi sulle voci non aprivano niente: il tocco arrivava
+  /// benissimo, ma `Navigator.of(context)` sollevava "Navigator operation
+  /// requested with a context that does not include a Navigator". Esplora vive
+  /// nel `builder` di `MaterialApp`, che AVVOLGE il Navigator: il suo contesto
+  /// ne e' antenato, non discendente, e `Navigator.of` cerca solo verso l'alto.
+  /// La stessa cosa che le fa vedere le chat le impediva di aprirle.
+  ///
+  /// Non serve una `GlobalKey` nuova: un `NavigatorObserver` porta gia' lo
+  /// stato del Navigator che osserva, e l'osservatore e' gia' il dato unico da
+  /// cui si legge la pila. Una porta sola per tutte e due le cose.
+  ///
+  /// Se manca, **si dichiara invece di tacere**: una via che non porta da
+  /// nessuna parte senza dire niente e' il difetto appena chiuso.
+  static NavigatorState _navigatore() {
+    final nav = osservatore?.navigator;
+    if (nav == null) {
+      throw StateError(
+          'Esplora non ha un Navigator: EsploraNavigazione.osservatore deve '
+          'essere lo stesso EsploraObservatore montato in navigatorObservers, '
+          'e il Navigator deve essere gia\' costruito.');
+    }
+    return nav;
+  }
+
+  /// Dove porta una via, deciso dalla sua SPECIE e non da una riga scritta
+  /// accanto a ciascuna voce: cosi' una via nuova nell'elenco non puo' restare
+  /// senza destinazione, perche' il compilatore chiede cosa farne.
+  static void vaiA(BuildContext context, ViaDelCerchio via) {
+    switch (via.specie) {
+      case SpecieDiVia.cerchio:
+        alCerchio(context);
+      case SpecieDiVia.maestro:
+        alDominio(context, via.maestro!);
+      case SpecieDiVia.passport:
+        alPassport(context);
+    }
+  }
+
   /// Torna al Cerchio senza aggiungere nulla alla pila: il Cerchio e' la rotta
   /// piu' in fondo, quindi si sfilano quelle sopra.
   static void alCerchio(BuildContext context) {
     context.read<NavigationController>().goToSantuario();
-    Navigator.of(context).popUntil((r) => r.isFirst);
+    _navigatore().popUntil((r) => r.isFirst);
+  }
+
+  /// Il Cosmic Passport e' una VISTA del guscio, non una rotta: si dice al
+  /// guscio quale vista mostrare e si sfilano le rotte sopra, esattamente come
+  /// per il Cerchio. Spingere una rotta nuova avrebbe messo il Passport due
+  /// volte nell'albero, una qui e una dentro il guscio.
+  static void alPassport(BuildContext context) {
+    context.read<NavigationController>().goToPassport();
+    _navigatore().popUntil((r) => r.isFirst);
   }
 
   /// Apre il dominio di un Maestro, oppure ci TORNA se e' gia' nella pila.
@@ -444,7 +639,6 @@ class EsploraNavigazione {
     context.read<MaestroController>().selectMaestro(maestro);
     final servizi = context.read<AppServices>();
     apriUnaVoltaSola(
-      context,
       tipo: 'DomainScreen',
       costruisci: () =>
           DomainScreen.route(maestro: maestro, services: servizi),
@@ -457,8 +651,11 @@ class EsploraNavigazione {
   /// Il confronto e' sul TIPO della schermata, lo stesso criterio con cui
   /// `esplora_schermate.dart` la classifica: cosi' non serve dare un nome a
   /// ogni rotta, e non c'e' un secondo elenco da tenere allineato.
-  static void apriUnaVoltaSola(
-    BuildContext context, {
+  /// **Nessun `BuildContext` fra i parametri, e non e' una semplificazione:**
+  /// il contesto di Esplora non vede il Navigator, quindi tenerlo qui sarebbe
+  /// l'invito a rimetterci dentro `Navigator.of` e a riaprire il difetto del 6
+  /// agosto 2026.
+  static void apriUnaVoltaSola({
     required String tipo,
     required Route<void> Function() costruisci,
   }) {
@@ -466,12 +663,12 @@ class EsploraNavigazione {
     if (oss != null) {
       for (var i = oss.pila.length - 1; i >= 0; i--) {
         if (tipoDellaRotta(oss.pila[i]) == tipo) {
-          Navigator.of(context).popUntil((r) => identical(r, oss.pila[i]));
+          _navigatore().popUntil((r) => identical(r, oss.pila[i]));
           return;
         }
       }
     }
-    Navigator.of(context).push(costruisci());
+    _navigatore().push(costruisci());
   }
 
   /// Il tipo di schermata che una rotta mostra, letto dall'albero costruito.
