@@ -4060,6 +4060,79 @@ void main() {
     await capture(tester, rootKey, 'avatar-tondi-affiancati.png');
   });
 
+
+  // --- ESPLORA: le quattro scene che l'ordine chiede ----------------------
+  //
+  // Montate come e' montato cio' che provano, cioe' l'APP INTERA: Esplora vive
+  // nel builder di MaterialApp e non nel guscio, quindi una cattura che monti
+  // solo lo shell non la vedrebbe mai.
+  Future<GlobalKey> montaApp(WidgetTester tester,
+      {required bool giaRisvegliato}) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues(
+        giaRisvegliato ? {'onboarding.done': true} : {});
+    montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+    ));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    return rootKey;
+  }
+
+  Finder corpoScorribile() => find.byWidgetPredicate(
+      (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
+
+  testWidgets('Cattura Esplora, la home alla primissima apertura',
+      (tester) async {
+    // Alla primissima apertura in assoluto la striscia si presenta aperta, per
+    // insegnare che esiste. Mai a ogni ritorno.
+    final rootKey = await montaApp(tester, giaRisvegliato: false);
+    await capture(tester, rootKey, 'esplora-prima-apertura.png');
+  });
+
+  testWidgets('Cattura Esplora, la striscia aperta', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    // Si torna verso l'alto: e' il gesto che riapre la striscia.
+    await tester.drag(corpoScorribile().first, const Offset(0, 240));
+    await step(tester);
+    await capture(tester, rootKey, 'esplora-aperta.png');
+  });
+
+  testWidgets('Cattura Esplora, la linguetta chiusa dentro una chat',
+      (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(MaestroChatScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await step(tester);
+    await precacheFaces(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'esplora-linguetta-in-chat.png');
+  });
+
+  testWidgets('Cattura Esplora, assente in una immersiva', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    // La stesa e' una delle tre immersive nominate dall'ordine: li' la striscia
+    // non c'e' nemmeno richiusa.
+    // MaestroScope attorno, come fa `home` in app.dart: lo scope avvolge la
+    // home e non il builder, quindi una rotta spinta a mano ne resta fuori e il
+    // fondale cosmico cade sul suo assert.
+    nav.push(MaterialPageRoute<void>(
+        builder: (_) => const MaestroScope(
+            child: StesaTreCarteScreen(skipIntro: true, revealAll: true))));
+    await step(tester);
+    await capture(tester, rootKey, 'esplora-assente-in-immersiva.png');
+  });
+
 }
 
 /// Maestro offline: risponde con un testo fisso, senza rete.

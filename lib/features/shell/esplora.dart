@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../maestri/domain_screen.dart';
 import '../../core/onboarding/onboarding_controller.dart';
@@ -259,7 +260,13 @@ class _Linguetta extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(EsploraStriscia.titolo,
+                      // La famiglia si dichiara: Esplora vive nel builder e non
+                      // eredita il tema tipografico delle schermate. Senza,
+                      // usciva col font di ripiego, che in cattura sono blocchi
+                      // neri e sul telefono sarebbe una lettera diversa da
+                      // tutte le altre.
                       style: TextStyle(
+                          fontFamily: TypographyTokens.displayFamily,
                           color: palette.goldSoft,
                           fontSize: 13,
                           letterSpacing: 0.6)),
@@ -348,7 +355,10 @@ class _Via extends StatelessWidget {
           Icon(icona, size: 20, color: palette.goldSoft),
           const SizedBox(height: 2),
           Text(etichetta,
-              style: TextStyle(color: palette.goldSoft, fontSize: 11)),
+              style: TextStyle(
+                  fontFamily: TypographyTokens.displayFamily,
+                  color: palette.goldSoft,
+                  fontSize: 11)),
         ],
       ),
     );
