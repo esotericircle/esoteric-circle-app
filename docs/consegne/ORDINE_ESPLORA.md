@@ -112,3 +112,110 @@ codice. Quattro erano false, quindi vale la pena che restino scritte.
 
 A schermo la striscia oggi non ha un nome unico: ha cinque voci, Il Cerchio, i
 tre Maestri, Passport.
+
+---
+
+# ESITO, 6 agosto 2026
+
+Commit `7fec270` (la striscia, il punto unico, le prove) e `65f4b41` (le quattro
+anteprime). Suite verde, nessuna build: la ordina Mauro.
+
+## Cosa e' chiuso
+
+- **Il punto unico.** `EsploraScope` nel `builder` di `MaterialApp`, che
+  avvolge il Navigator intero: e' il solo posto che vede anche le chat, che
+  sono rotte spinte sopra il guscio col proprio Scaffold. Nessuna schermata sa
+  di Esplora. L'osservatore riconosce il **tipo** del widget della rotta.
+- **L'elenco dichiarato**, `lib/features/shell/esplora_schermate.dart`, con tre
+  stati e la ragione di ciascuno accanto.
+- **La linguetta e la striscia**, sempre visibili dove devono, assenti nelle
+  immersive, senza timer, aperte da sole solo alla primissima apertura.
+- **La regola contro il doppione**, sul tipo della schermata.
+- **Otto rossi eseguiti davvero**, cinque sul comportamento e tre
+  sull'enumerazione. Venti prove verdi fra i quattro file toccati.
+- **Quattro anteprime** catturate sull'app intera.
+
+## Le tre cose imparate sbagliando
+
+1. La palette si legge da `MaestroController.activeKey`: Esplora vive sopra
+   `MaestroScope`, quindi `context.palette` cade e la striscia non compariva.
+2. La prima passata sull'albero va fatta a mano in `initState`: la rotta
+   iniziale viene spinta prima che lo scope si monti.
+3. Una prova cieca nascondeva un difetto vero: `find.byType` salta cio' che sta
+   fuori scena; contando le rotte il rosso ha mostrato che
+   `EsploraNavigazione.osservatore` non era collegato.
+
+---
+
+# LE SEI VOCI APERTE
+
+Rilievi dell'Architetto, in coda alle voci di Mauro. **Nessuna e' stata
+eseguita:** sono scritte perche' chi riprende non le ricostruisca da una
+conversazione.
+
+## A. Nella home ci sono due barre sovrapposte
+
+Nell'anteprima `esplora-aperta.png` la striscia Esplora sta **sopra**
+`SantuarioBottomBar` e la copre in parte, con le due che mostrano **le stesse quattro
+vie**. Nel Santuario e nel Passport, cioe' le due sole schermate dove
+`ShellView` mostra la barra del guscio, Esplora duplica invece di accorciare.
+
+**E' una decisione di Mauro, non una correzione.** Le due strade sono: o Esplora
+sparisce dove la barra del guscio c'e' gia', oppure la sostituisce e si porta
+dentro anche il **Passport**, che oggi ha una voce nella barra e non ne ha una
+in Esplora.
+
+**Non eseguire nulla su questa voce senza una risposta di Mauro.**
+
+## B. Le etichette escono sottolineate
+
+Tutte e cinque: `Esplora` nella linguetta, piu' `Il Cerchio`, `Medora`, `Caligo`,
+`Aura` nella striscia aperta. Visibile in `esplora-aperta.png` e in
+`esplora-linguetta-in-chat.png`.
+
+**Ipotesi, da verificare prima di correggere e da dichiarare anche se cade:**
+non e' una `decoration` scritta a mano, e' la firma di un `Text` senza un
+antenato `Material`, perche' Esplora vive nello `Stack` del builder.
+
+Se l'ipotesi regge, la correzione **non** e' mettere `TextDecoration.none` sui
+quattro stili, che curerebbe il sintomo in quattro punti: e' avvolgere la
+striscia in un `Material` con tipo trasparente, cioe' in **un posto solo**.
+
+## C. La striscia copre il contenuto in fondo
+
+Misurato sulle anteprime a 1080x2391: la linguetta e' alta **105 pixel**, cioe'
+35 punti logici; la striscia aperta **186 pixel**, cioe' 62 punti. In
+`esplora-linguetta-in-chat.png` copre meta' di "Scrivi a Medora" e il pulsante
+di invio; con la striscia aperta il campo di scrittura sparisce.
+
+Il posto della correzione e' **`EsploraScope`**, non le singole schermate. Il
+modo: **non** un margine grezzo sul figlio, ma un `MediaQuery` che aggiunge quei
+punti al `padding` basso, cosi' ogni `SafeArea` gia' esistente ne tiene conto da
+sola.
+
+Le due altezze vanno dichiarate come costanti **con una prova che le confronta
+con la resa vera**, altrimenti diventano due costanti che dichiarano il falso.
+
+## D. Un'anteprima non prova quello che dichiara
+
+`esplora-prima-apertura.png` mostra **Il Risveglio**, cioe' la soglia, dove
+Esplora per progetto non c'e'. La prova chiesta dall'ordine, cioe' la home alla
+primissima apertura con la striscia gia' aperta, **resta senza immagine**.
+
+L'anteprima della soglia e' utile e si tiene, con un nome che dica cos'e'.
+
+## E. `onChiudi` non e' usato
+
+In `_Aperta` il costruttore lo pretende, `EsploraStriscia` glielo passa, e
+dentro `build` non compare mai. O si collega, o si toglie.
+
+## F. Due rilievi, di costo e di silenzio
+
+**Il costo.** `_aggiornaSchermata` visita l'albero **intero** a ogni push e a
+ogni pop, dentro un post frame callback che costa un frame in piu' per ogni
+cambio di rotta. Va **misurato** sulla Stesa a settantotto carte, non stimato.
+
+**Il silenzio.** Quando nessuna schermata dichiarata viene trovata, `siVede` e'
+falso e la striscia sparisce senza dire niente. La prova che enumera protegge il
+**sorgente**, non il caso a **runtime**: quello e' un ripiego che non dichiara di
+esserlo.
