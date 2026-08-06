@@ -2,7 +2,9 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/theme/accento_del_maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// IL SOFFIO SI DEVE LEGGERE, e le cose si misurano.
 ///
@@ -67,6 +69,54 @@ void main() {
         reason: 'Sul velo scuro il verde crudo misurava 5,83 e adesso misura '
             '${crudoSulVelo.toStringAsFixed(2)}: se fosse sceso sotto la '
             'soglia, il velo e\' cambiato e va rimisurato tutto.');
+  });
+
+  testWidgets('il disco luminoso e l\'anello del respiro hanno un centro solo',
+      (tester) async {
+    // **PRIMA:** il disco stava a 0,26 dell'altezza del corpo, dentro il
+    // painter, e l'anello dentro una colonna allineata a -0,2 di una zona
+    // flex: due centri decisi in due sistemi diversi, che non potevano
+    // coincidere per costruzione.
+    //
+    // Si misura sulla RESA e non sui flex: si guarda dove la figura del
+    // respiro e' finita davvero e la si confronta col centro dichiarato.
+    tester.view.physicalSize = const Size(1080, 2391);
+    tester.view.devicePixelRatio = 3.0;
+    addTearDown(tester.view.reset);
+    SharedPreferences.setMockInitialValues({});
+
+    // Senza `MaestroScope` attorno: la schermata legge la palette di Aura da
+    // se', e lo scope pretenderebbe un `MaestroController` che qui non serve.
+    await tester.pumpWidget(MaterialApp(
+      home: BreathDestinyScreen(now: DateTime(2026, 8, 6, 10, 30)),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+
+    // Si compie il gesto col ripiego tattile, che e' sempre presente: il
+    // respiro compare solo a dono rivelato.
+    await tester.longPress(find.byKey(const Key('ritual_gesture')));
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+
+    final figura = find.byKey(const Key('respiro_figura'));
+    if (figura.evaluate().isEmpty) {
+      // Il rito del giorno puo' non portare una cadenza: senza respiro non c'e'
+      // nessun anello da allineare, e la prova lo dichiara invece di passare in
+      // silenzio.
+      markTestSkipped('Il rito di questo giorno non porta un respiro contato.');
+      return;
+    }
+
+    final scena = tester.getRect(find.byType(Stack).first);
+    final centroAnello = tester.getCenter(figura);
+    final voluto = SuperficiDelSoffio.discoDentro(scena.size);
+    final scarto = (centroAnello.dy - scena.top) - voluto.dy;
+    expect(scarto.abs(), lessThan(1.0),
+        reason: 'Il disco luminoso e l\'anello del respiro distano '
+            '${scarto.toStringAsFixed(1)} punti: a video si legge come un '
+            'difetto di stampa. I due devono leggere lo stesso centro.');
   });
 
   test('il velo copre abbastanza da valere come superficie', () {

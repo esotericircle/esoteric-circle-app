@@ -65,6 +65,27 @@ class SuperficiDelSoffio {
   /// Le due righe della Risposta: la prima piena, la seconda in tono minore.
   static const Color inchiostroDellaRisposta = Color(0xFFF3EFE6);
   static const Color inchiostroSecondarioDellaRisposta = Color(0xFFCFC9BC);
+
+  /// DOVE CADE IL DISCO LUMINOSO, in frazioni della scena.
+  ///
+  /// **E' il centro di due cose, non di una.** Il disco lo dipinge il painter e
+  /// l'anello del respiro lo dispone il layout: erano due centri decisi in due
+  /// sistemi diversi, il primo a 0,26 dell'altezza del corpo e il secondo
+  /// dentro una colonna allineata a -0,2 di una zona flex, quindi non potevano
+  /// coincidere per costruzione, e a video si leggeva come un difetto di
+  /// stampa.
+  ///
+  /// **E' l'anello a inseguire il disco, non il contrario.** Il disco cresce
+  /// col soffio fin dal primo istante, mentre l'anello nasce solo a gesto
+  /// compiuto: spostare il disco sull'anello avrebbe prodotto un salto proprio
+  /// a meta' del rito.
+  static const Offset centroDelDisco = Offset(0.5, 0.26);
+
+  /// Il centro del disco in punti, dentro una scena di [misura].
+  static Offset discoDentro(Size misura) => Offset(
+        misura.width * centroDelDisco.dx,
+        misura.height * centroDelDisco.dy,
+      );
 }
 
 class BreathDestinyScreen extends StatefulWidget {
@@ -314,9 +335,43 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     }
   }
 
+  /// LA SCENA E L'ANELLO, per misurare la distanza fra i due centri.
+  ///
+  /// Non si calcola a mente: si guarda dove la figura del respiro e' finita
+  /// davvero e si sposta di quanto manca. Un conto fatto sui flex e sugli
+  /// allineamenti sarebbe giusto oggi e falso domani, al primo padding che
+  /// qualcuno cambia.
+  final GlobalKey _scena = GlobalKey();
+  final GlobalKey _anello = GlobalKey();
+
+  /// Quanto spostare l'anello perche' cada dentro il disco. Zero finche' non
+  /// c'e' niente da misurare.
+  double _inseguimento = 0;
+
+  /// Misura la distanza fra i due centri e la corregge, una volta per frame.
+  ///
+  /// Si ferma da sola: appena i due coincidono lo scarto e' sotto il mezzo
+  /// punto e non si chiede piu' nessun ridisegno.
+  void _allineaLAnello() {
+    final scena = _scena.currentContext?.findRenderObject();
+    final anello = _anello.currentContext?.findRenderObject();
+    if (scena is! RenderBox || anello is! RenderBox) return;
+    if (!scena.hasSize || !anello.hasSize) return;
+    final centroAnello = scena.globalToLocal(
+        anello.localToGlobal(anello.size.center(Offset.zero)));
+    final voluto = SuperficiDelSoffio.discoDentro(scena.size);
+    final manca = voluto.dy - centroAnello.dy;
+    if (manca.abs() < 0.5) return;
+    if (!mounted) return;
+    setState(() => _inseguimento += manca);
+  }
+
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
+    // La misura si prende a frame finito, quando i due riquadri esistono
+    // davvero: durante il build hanno ancora la misura del giro precedente.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _allineaLAnello());
 
     return Scaffold(
       backgroundColor: ColorTokens.neutralDeepest,
@@ -333,6 +388,7 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
             Text('Soffio del Destino', style: TypographyTokens.display(size: 20)),
       ),
       body: Stack(
+        key: _scena,
         fit: StackFit.expand,
         children: [
           Positioned.fill(
@@ -385,15 +441,23 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                           // dentro e sei fuori, tre volte" e la persona
                           // contava a mente davanti a una figura ferma.
                           if (_revealed && _gift?.rito != null)
+                            // L'ANELLO CADE DENTRO IL DISCO. L'allineamento di
+                            // partenza non conta piu': qualunque esso sia, la
+                            // misura a frame finito lo porta sul centro
+                            // dichiarato da `SuperficiDelSoffio`.
                             Align(
-                              alignment: const Alignment(0, -0.2),
-                              child: GuidaDelRespiro(
-                                key: const Key('guida_respiro'),
-                                tempi: TempiDelRespiro(
-                                  tempi: _gift!.rito!.tempi,
-                                  giri: _gift!.rito!.giri,
+                              alignment: Alignment.center,
+                              child: Transform.translate(
+                                offset: Offset(0, _inseguimento),
+                                child: GuidaDelRespiro(
+                                  key: const Key('guida_respiro'),
+                                  chiaveDellaFigura: _anello,
+                                  tempi: TempiDelRespiro(
+                                    tempi: _gift!.rito!.tempi,
+                                    giri: _gift!.rito!.giri,
+                                  ),
+                                  colore: palette.gold,
                                 ),
-                                colore: palette.gold,
                               ),
                             ),
                         ],
@@ -606,7 +670,7 @@ class _BreathScenePainter extends CustomPainter {
     final dstTop = headCenter.dy - _headFy * dstH;
     final dstLeft = w * 0.5 - _headFx * dstW;
     final headR = _headRFrac * dstW;
-    final giftCenter = Offset(w * 0.5, h * 0.26);
+    final giftCenter = SuperficiDelSoffio.discoDentro(size);
 
     // --- Visivo del dono, provvisorio: una forma energetica che si accende ---
     // man mano che le scintille dei semi salgono a comporla. La forma vera

@@ -25,7 +25,16 @@ class GuidaDelRespiro extends StatefulWidget {
     required this.colore,
     this.figura,
     this.onFinito,
+    this.chiaveDellaFigura,
   });
+
+  /// Chi ha bisogno di sapere DOVE sta la figura che respira la aggancia qui.
+  ///
+  /// Serve al Soffio, che deve far cadere il disco luminoso della scena
+  /// esattamente attorno a questo anello: senza una chiave sulla figura si
+  /// misurerebbe il centro della colonna, che comprende anche il conteggio
+  /// sotto e sta quindi piu' in basso del centro dell'anello.
+  final GlobalKey? chiaveDellaFigura;
 
   /// La cadenza dichiarata dal rito del giorno.
   final TempiDelRespiro tempi;
@@ -100,7 +109,14 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
             Transform.scale(
               key: const Key('respiro_figura'),
               scale: _riduciMovimento ? 1.0 : misura,
-              child: figura,
+              // La chiave sta sul FIGLIO e non sulla scala: un `Transform` non
+              // cambia la misura del riquadro che occupa, quindi il suo
+              // rettangolo direbbe la posizione a riposo anche mentre la figura
+              // si espande, e chi la insegue si fermerebbe un po' fuori centro.
+              child: KeyedSubtree(
+                key: widget.chiaveDellaFigura,
+                child: figura,
+              ),
             ),
             const SizedBox(height: 16),
             // IL CONTEGGIO, che resta sempre. E' l'unica cosa che chi ha
