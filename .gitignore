@@ -5,6 +5,11 @@
 # va versionato. Senza, l'albero delle dipendenze resta flottante e una
 # pubblicazione a monte puo' rompere la build senza che nulla cambi qui.
 !pubspec.lock
+# Stessa eccezione, stessa ragione, per il lock dei pod iOS. Il file oggi non
+# esiste ancora: nasce dal primo pod install, che gira solo su macOS, e la
+# build lo consegna fra gli artefatti. Quando arrivera', git deve vederlo
+# invece di mangiarselo in silenzio con la regola *.lock qui sopra.
+!ios/Podfile.lock
 *.log
 *.pyc
 *.swp

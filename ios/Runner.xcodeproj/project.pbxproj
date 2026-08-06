@@ -364,14 +364,19 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				/* QUINDICI, E LO IMPONE FIREBASE. Non e' una scelta di gusto:
-				   firebase_core 4.11.0, cloud_firestore 6.6.0, firebase_auth
-				   6.5.4, firebase_ai 3.14.1 e firebase_app_check 0.4.5 dichiarano
-				   tutti ios.deployment_target 15.0 nei loro podspec, letti nella
-				   cache di pub il 6 agosto 2026. Con 13.0 il pod install fallisce
-				   prima ancora di compilare. Chi vuole riabbassarlo deve prima
-				   togliere Firebase, non questa riga. */
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				/* QUINDICI E MEZZO, E LO IMPONE ML KIT. Il 15.0 di prima era
+				   stato misurato sui soli podspec di Firebase, e la terza build
+				   e' caduta in pod install proprio per questo: era la misura di
+				   un sottoinsieme. Questo numero e' il massimo sui podspec di
+				   TUTTI i 20 plugin iOS del progetto, letti nella cache di pub
+				   il 6 agosto 2026: lo impongono google_mlkit_commons 0.11.1 e
+				   google_mlkit_face_detection 0.13.2, che dichiarano 15.5;
+				   Firebase si ferma a 15.0, tutti gli altri sotto. La prova
+				   il_target_ios_e_il_massimo_dei_plugin_test.dart rifa' questa
+				   misura a ogni giro: se un plugin nuovo pretende di piu',
+				   cade lei prima del pod install. Lo stesso numero sta in
+				   ios/Podfile, e i due devono coincidere. */
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
@@ -497,14 +502,19 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				/* QUINDICI, E LO IMPONE FIREBASE. Non e' una scelta di gusto:
-				   firebase_core 4.11.0, cloud_firestore 6.6.0, firebase_auth
-				   6.5.4, firebase_ai 3.14.1 e firebase_app_check 0.4.5 dichiarano
-				   tutti ios.deployment_target 15.0 nei loro podspec, letti nella
-				   cache di pub il 6 agosto 2026. Con 13.0 il pod install fallisce
-				   prima ancora di compilare. Chi vuole riabbassarlo deve prima
-				   togliere Firebase, non questa riga. */
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				/* QUINDICI E MEZZO, E LO IMPONE ML KIT. Il 15.0 di prima era
+				   stato misurato sui soli podspec di Firebase, e la terza build
+				   e' caduta in pod install proprio per questo: era la misura di
+				   un sottoinsieme. Questo numero e' il massimo sui podspec di
+				   TUTTI i 20 plugin iOS del progetto, letti nella cache di pub
+				   il 6 agosto 2026: lo impongono google_mlkit_commons 0.11.1 e
+				   google_mlkit_face_detection 0.13.2, che dichiarano 15.5;
+				   Firebase si ferma a 15.0, tutti gli altri sotto. La prova
+				   il_target_ios_e_il_massimo_dei_plugin_test.dart rifa' questa
+				   misura a ogni giro: se un plugin nuovo pretende di piu',
+				   cade lei prima del pod install. Lo stesso numero sta in
+				   ios/Podfile, e i due devono coincidere. */
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -555,14 +565,19 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				/* QUINDICI, E LO IMPONE FIREBASE. Non e' una scelta di gusto:
-				   firebase_core 4.11.0, cloud_firestore 6.6.0, firebase_auth
-				   6.5.4, firebase_ai 3.14.1 e firebase_app_check 0.4.5 dichiarano
-				   tutti ios.deployment_target 15.0 nei loro podspec, letti nella
-				   cache di pub il 6 agosto 2026. Con 13.0 il pod install fallisce
-				   prima ancora di compilare. Chi vuole riabbassarlo deve prima
-				   togliere Firebase, non questa riga. */
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				/* QUINDICI E MEZZO, E LO IMPONE ML KIT. Il 15.0 di prima era
+				   stato misurato sui soli podspec di Firebase, e la terza build
+				   e' caduta in pod install proprio per questo: era la misura di
+				   un sottoinsieme. Questo numero e' il massimo sui podspec di
+				   TUTTI i 20 plugin iOS del progetto, letti nella cache di pub
+				   il 6 agosto 2026: lo impongono google_mlkit_commons 0.11.1 e
+				   google_mlkit_face_detection 0.13.2, che dichiarano 15.5;
+				   Firebase si ferma a 15.0, tutti gli altri sotto. La prova
+				   il_target_ios_e_il_massimo_dei_plugin_test.dart rifa' questa
+				   misura a ogni giro: se un plugin nuovo pretende di piu',
+				   cade lei prima del pod install. Lo stesso numero sta in
+				   ios/Podfile, e i due devono coincidere. */
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;

@@ -26,12 +26,22 @@ leggere l'errore, ed e' la parte piu' utile di questo documento.
 **Da fare a mano, e sono i passi qui sotto:** il gruppo dei tester, la variabile
 con la configurazione Firebase, la chiave privata del certificato, e il lancio.
 
-### Perche' nella cartella `ios/` non c'e' il Podfile
+### Il Podfile adesso c'e', ed e' versionato
 
-Non manca niente. Il `Podfile` lo genera Flutter alla prima build **su macOS**,
-e su Windows non si puo' produrre: per questo non e' nel repository. Il workflow
-lo fa creare da solo, con `flutter build ios --config-only --no-codesign`, prima
-di installare i pod. Se apri la cartella `ios/` e non lo trovi, e' normale.
+All'inizio non c'era: lo generava Flutter in macchina alla prima build. La
+terza build ha mostrato il costo di quella scelta: CocoaPods, non trovando una
+piattaforma dichiarata, la assegnava da solo copiando il numero dal progetto
+Xcode, e quel numero era stato misurato sui soli pod di Firebase. ML Kit
+pretende iOS 15.5, e la build e' caduta in pod install. Adesso `ios/Podfile` e'
+nel repository, con `platform :ios, '15.5'` scritto esplicito e la ragione
+accanto: il numero e' il massimo sui podspec di tutti i 20 plugin iOS del
+progetto, e una prova della suite rifa' la misura a ogni giro.
+
+Il `Podfile.lock` invece non c'e' ancora, e non va inventato: nasce dal primo
+`pod install`, che gira solo su macOS. La build lo consegna fra gli artefatti:
+quando la prima build riesce, scaricalo e mandamelo, cosi' si versiona con la
+stessa ragione per cui e' versionato `pubspec.lock`. Il `.gitignore` ha gia'
+l'eccezione pronta per accoglierlo.
 
 ---
 

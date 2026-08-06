@@ -109,19 +109,26 @@ void main() {
             '$nome: i due identificativi si sono scollegati.');
   });
 
-  test('la versione minima di iOS e\' quella che Firebase pretende', () {
-    // Non e' una scelta di gusto: con 13.0 il `pod install` fallisce prima
-    // ancora di compilare. La ragione sta scritta accanto al numero.
+  test('la versione minima di iOS e\' una sola, detta in tre punti', () {
+    // QUI NON C'E' PIU' UN NUMERO FISSO, ED E' UNA LEZIONE PAGATA. Questa
+    // prova inchiodava 15.0, misurato sui soli podspec di Firebase, e la
+    // terza build e' caduta in pod install perche' ML Kit pretende 15.5: la
+    // costante dichiarava il falso. QUALE numero serva lo decide la misura
+    // su tutti i plugin, in il_target_ios_e_il_massimo_dei_plugin_test.dart;
+    // qui resta cio' che quella prova non copre gia': che le dichiarazioni
+    // siano esattamente tre, una per configurazione, e tutte uguali.
     final testo = pbx.readAsStringSync();
-    expect(testo.contains('IPHONEOS_DEPLOYMENT_TARGET = 13.0'), isFalse,
-        reason: 'Il progetto dichiara ancora iOS 13.0 da qualche parte: i pod '
-            'di Firebase pretendono 15.0 e il pod install cadra\'.');
-    final quanti =
-        RegExp('IPHONEOS_DEPLOYMENT_TARGET = 15.0').allMatches(testo).length;
-    expect(quanti, 3,
-        reason: 'La versione minima e\' dichiarata in $quanti punti invece di '
-            'tre: le tre configurazioni del progetto devono dire lo stesso '
-            'numero.');
+    final dichiarati = RegExp(r'IPHONEOS_DEPLOYMENT_TARGET = (\d+\.\d+);')
+        .allMatches(testo)
+        .map((m) => m.group(1)!)
+        .toList();
+    expect(dichiarati.length, 3,
+        reason: 'La versione minima e\' dichiarata in ${dichiarati.length} '
+            'punti invece di tre: Debug, Release e Profile devono averla '
+            'tutti.');
+    expect(dichiarati.toSet().length, 1,
+        reason: 'Le tre configurazioni dichiarano numeri diversi fra loro '
+            '($dichiarati): devono dire lo stesso.');
   });
 
   test('il pbxproj e\' rimasto strutturalmente sano', () {

@@ -147,12 +147,15 @@ workflows:
 
       - name: I pod
         script: |
-          # **IL PODFILE NON ESISTE NEL REPOSITORY, e non e' una dimenticanza.**
-          # Lo genera Flutter alla prima build su macOS, e su Windows non si
-          # puo' produrre. Se non c'e', lo si fa creare con una build di prova
-          # senza firma, poi si installano i pod.
+          # **IL PODFILE E' VERSIONATO IN ios/, dalla terza build in poi.**
+          # Prima non c'era e lo generava Flutter in macchina: cosi' CocoaPods
+          # assegnava la piattaforma da solo e la terza build e' caduta,
+          # perche' ML Kit pretende iOS 15.5 e il numero non viveva in nessun
+          # posto leggibile. Adesso `platform :ios` sta scritto nel Podfile.
+          # Il ramo qui sotto resta come rete: se il Podfile sparisse, lo
+          # rigenera Flutter invece di far morire la build.
           if [ ! -f ios/Podfile ]; then
-            echo "Podfile assente: lo genera Flutter, come da progetto."
+            echo "Podfile assente: lo rigenera Flutter. Non dovrebbe accadere, e' versionato."
             flutter build ios --config-only --no-codesign
           fi
           find . -name "Podfile" -execdir pod install \;
@@ -225,6 +228,10 @@ workflows:
 
     artifacts:
       - build/ios/ipa/*.ipa
+      # Il lock dei pod, per versionarlo: nasce dal pod install, che gira solo
+      # su macOS. Si scarica da qui e si committa, con la stessa ragione di
+      # pubspec.lock, che nel .gitignore ha gia' la sua eccezione scritta.
+      - ios/Podfile.lock
       # I registri di Xcode: alla prima build di un progetto mai compilato sono
       # la cosa che serve di piu', perche' l'errore vero sta li' dentro e non
       # nel riassunto a video.
