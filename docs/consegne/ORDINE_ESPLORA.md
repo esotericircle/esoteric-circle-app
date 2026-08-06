@@ -219,3 +219,60 @@ cambio di rotta. Va **misurato** sulla Stesa a settantotto carte, non stimato.
 falso e la striscia sparisce senza dire niente. La prova che enumera protegge il
 **sorgente**, non il caso a **runtime**: quello e' un ripiego che non dichiara di
 esserlo.
+
+
+---
+
+# ESITO DEL 6 AGOSTO, SECONDA TORNATA: la causa vera delle due barre
+
+Commit `b7b0651`. Chiude le voci A gia' aperta in altra forma, B e F.
+
+## La causa non era quella che sembrava
+
+Sul telefono, nella 2153, nel Santuario si vedevano due barre. L'ipotesi era che
+il difetto vivesse nella prima passata fatta a mano in `initState`, cioe' che
+alla prima valutazione l'albero non fosse ancora completo. **Quell'ipotesi e'
+caduta, misurata montando l'app dall'avvio vero:** al primo `pump` e a 900 ms nel
+Santuario Esplora era gia' ASSENTE.
+
+Il difetto stava dopo. `_aggiornaSchermata` girava **una volta per evento di
+navigazione**, dentro un post frame callback, e in quel momento la rotta
+**uscente** era ancora montata. Tornando dal dominio l'albero conteneva ancora
+`DomainScreen`, la decisione diceva `presente`, e **nessun altro evento arrivava
+a correggerla**: la striscia restava accesa sopra la barra del guscio, e ci
+restava.
+
+La correzione: la schermata in cima si chiede alla **pila** dell'osservatore, che
+in `didPop` toglie la rotta subito, quindi `pila.last` e' gia' quella giusta
+quando l'evento arriva. Cade con essa anche il costo della visita all'albero
+intero a ogni push e a ogni pop, che era il rilievo F.
+
+## Le quattro premesse cadute, misurate
+
+| premessa dell'ordine | esito |
+|---|---|
+| due barre nel Santuario | **falsa al primo fotogramma**: a `pump` e a 900 ms Esplora era assente |
+| sparisce dopo un push e un pop | **falsa e invertita**: dopo il pop **compariva** e restava |
+| due barre anche nei domini | **falsa**: nel dominio non esiste nessuna `BottomNavigationBar`, ed Esplora e' una sola |
+| tutte e cinque le etichette sottolineate | **vera solo per la linguetta**: le altre erano della barra del guscio |
+
+## Le etichette
+
+L'ipotesi del `Text` senza antenato `Material` **reggeva**: la linguetta usciva
+con `TextDecoration.underline`, mentre le voci della barra del guscio, che un
+`Material` ce l'hanno, uscivano con `none`. La correzione e' un `Material`
+trasparente attorno alla striscia, in un posto solo.
+
+## La prova guardava la cosa sbagliata
+
+Quella di prima verificava lo stato **assestato**, ed e' per questo che era
+rimasta verde mentre sul telefono si vedevano due barre. Ora guarda il **primo
+fotogramma** e poi il **ritorno da un push**. Rosso eseguito rimettendo la visita
+all'albero: la striscia resta accesa dopo il pop e la prova cade.
+
+## Cosa resta aperto
+
+Le voci **1b, 1c, 1d, 1f**, la **voce 2** sui Doni e la **voce 3** sull'aura
+passano a una sessione nuova: i tocchi nelle chat, il movimento continuo, le
+liste che non devono divergere, i Doni che nominano il Maestro, la leggibilita'
+del Soffio e l'alone dietro le figure.
