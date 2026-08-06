@@ -147,6 +147,21 @@ class _EsploraScopeState extends State<EsploraScope> {
     final presenza = presenzaPerSchermata[_schermata];
     final siVede = presenza == PresenzaEsplora.presente;
 
+    // LE SI FA POSTO, non le si mette sopra il contenuto.
+    //
+    // Esplora e' un `Positioned` sopra tutto: senza questo, in chat copriva
+    // meta' del campo di scrittura e il pulsante di invio, e li rendeva anche
+    // INTOCCABILI, perche' i tocchi finivano su di lei. Si aggiunge la sua
+    // altezza al padding basso, che e' il canale da cui ogni `SafeArea` gia'
+    // esistente prende le sue distanze: cosi' la correzione sta qui, in un
+    // posto solo, e non dentro le schermate.
+    final mq = MediaQuery.of(context);
+    final quantoOccupa = !siVede
+        ? 0.0
+        : (_aperta
+            ? EsploraStriscia.altezzaAperta
+            : EsploraStriscia.altezzaLinguetta);
+
     return Stack(
       children: [
         // LO SCORRIMENTO GOVERNA LA STRISCIA, e nient'altro. Scorrendo verso il
@@ -168,7 +183,15 @@ class _EsploraScopeState extends State<EsploraScope> {
             }
             return false;
           },
-          child: widget.child,
+          child: MediaQuery(
+            data: mq.copyWith(
+              padding: mq.padding.copyWith(
+                  bottom: mq.padding.bottom + quantoOccupa),
+              viewPadding: mq.viewPadding.copyWith(
+                  bottom: mq.viewPadding.bottom + quantoOccupa),
+            ),
+            child: widget.child,
+          ),
         ),
         if (siVede)
           Positioned(
@@ -198,6 +221,20 @@ class EsploraStriscia extends StatelessWidget {
   final bool aperta;
   final VoidCallback onLinguetta;
   final VoidCallback onChiudi;
+
+  /// QUANTO SPAZIO SI PRENDE, in punti logici.
+  ///
+  /// Serve a farle posto invece che a coprirci sotto: `EsploraScope` aggiunge
+  /// questi punti al padding basso, cosi' ogni `SafeArea` gia' esistente ne
+  /// tiene conto da sola e nessuna schermata deve saperlo.
+  ///
+  /// **Sono due numeri che descrivono una resa, quindi scadono se la striscia
+  /// cambia forma.** Li sorveglia `test/esplora_si_comporta_test.dart`, che
+  /// disegna la striscia davvero e confronta l'altezza vera con questi valori:
+  /// senza quella prova sarebbero due costanti che dichiarano il falso, ed e'
+  /// gia' successo su questo progetto.
+  static const double altezzaLinguetta = 35;
+  static const double altezzaAperta = 62;
 
   /// Il titolo a video. Un sostantivo e non un verbo: su una linguetta sottile
   /// un sostantivo si legge come l'etichetta di un luogo, un verbo come un

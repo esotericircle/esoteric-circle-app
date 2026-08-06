@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/features/shell/esplora.dart';
@@ -10,6 +11,7 @@ import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// COME SI COMPORTA ESPLORA, misurato sull'app montata.
@@ -69,14 +71,26 @@ void main() {
       find.byKey(const Key('esplora_aperta')).evaluate().isNotEmpty;
   bool esploraCE() => linguettaVisibile() || apertaVisibile();
 
-  testWidgets('nel Cerchio Esplora c\'e\', in una immersiva non c\'e\' affatto',
+  testWidgets('dove il guscio ha gia\' la sua barra, Esplora non c\'e\'',
+      (tester) async {
+    await monta(tester);
+    // NEL SANTUARIO NON CI VA, e non e' questione di gusto: Esplora e' un
+    // Positioned sopra il contenuto, quindi intercettava i tocchi della
+    // SantuarioBottomBar e la barra del guscio non rispondeva piu'. Undici
+    // prove lo hanno preso il 6 agosto 2026, fra cui il tocco su Passport,
+    // l'icona Maestro che non portava al dominio e le Impostazioni
+    // irraggiungibili.
+    expect(esploraCE(), isFalse,
+        reason: 'Nel Santuario la barra del guscio c\'e\' gia\': Esplora la '
+            'duplicherebbe, e stando sopra le ruberebbe i tocchi.');
+  });
+
+  testWidgets('nelle chat c\'e\', in una immersiva non c\'e\' affatto',
       (tester) async {
     final nav = await monta(tester);
-    expect(esploraCE(), isTrue,
-        reason: 'Nel Santuario la striscia deve esserci, almeno a linguetta.');
 
     // La chat e' una rotta spinta SOPRA il guscio, col proprio Scaffold: e' il
-    // caso che ha generato Esplora, e il piu' facile da perdere.
+    // caso che ha generato Esplora, ed e' il piu' facile da perdere.
     nav.push(MaestroChatScreen.route(
         maestro: Maestro.medora, services: AppServices.offline()));
     await respira(tester);
@@ -95,8 +109,18 @@ void main() {
             'nemmeno a linguetta: l\'assenza e\' una scelta.');
   });
 
+  /// Apre una chat, che e' una delle schermate dove Esplora c'e'. Il Santuario
+  /// non serve piu' a queste prove: li' il guscio ha gia' la sua barra e
+  /// Esplora non compare.
+  Future<void> inChat(WidgetTester tester) async {
+    final nav = await monta(tester);
+    nav.push(MaestroChatScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await respira(tester);
+  }
+
   testWidgets('si chiude scorrendo giu\' e torna scorrendo su', (tester) async {
-    await monta(tester);
+    await inChat(tester);
     // Si parte a linguetta: non e' la primissima apertura.
     expect(linguettaVisibile(), isTrue);
 
@@ -123,7 +147,7 @@ void main() {
   });
 
   testWidgets('nessun timer chiude la striscia', (tester) async {
-    await monta(tester);
+    await inChat(tester);
     final scorribile = ilCorpo().first;
     await tester.drag(scorribile, const Offset(0, 220));
     await respira(tester);
@@ -214,9 +238,52 @@ void main() {
             'stato sfilato.');
   });
 
+  testWidgets('le due altezze dichiarate sono quelle vere', (tester) async {
+    // DUE COSTANTI CHE DESCRIVONO UNA RESA, quindi vanno confrontate con la
+    // resa. Servono a `EsploraScope` per fare posto alla striscia invece di
+    // coprirci sotto: se scadessero, il contenuto tornerebbe sotto la striscia
+    // senza che niente lo dica.
+    for (final aperta in const [false, true]) {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: Align(
+            alignment: Alignment.bottomCenter,
+            child: MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => MaestroController()),
+              ],
+              child: EsploraStriscia(
+                aperta: aperta,
+                onLinguetta: () {},
+                onChiudi: () {},
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      final vera = tester.getSize(find.byType(EsploraStriscia)).height;
+      final dichiarata = aperta
+          ? EsploraStriscia.altezzaAperta
+          : EsploraStriscia.altezzaLinguetta;
+      // Due punti di tolleranza: il bordo e l'arrotondamento del testo muovono
+      // la resa di qualche decimo, non di piu'.
+      expect((vera - dichiarata).abs(), lessThanOrEqualTo(2.0),
+          reason: 'La striscia ${aperta ? "aperta" : "a linguetta"} misura '
+              '${vera.toStringAsFixed(1)} punti, ma ne dichiara $dichiarata. '
+              'EsploraScope usa il numero dichiarato per fare posto: se e\' '
+              'falso, il contenuto torna sotto la striscia.');
+    }
+  });
+
   testWidgets('si presenta aperta solo alla primissima apertura',
       (tester) async {
-    await monta(tester, giaRisvegliato: false);
+    // Si guarda in chat e non nel Santuario: nel Santuario il guscio ha gia' la
+    // sua barra e Esplora non compare affatto.
+    final nav = await monta(tester, giaRisvegliato: false);
+    nav.push(MaestroChatScreen.route(
+        maestro: Maestro.medora, services: AppServices.offline()));
+    await respira(tester);
     expect(apertaVisibile(), isTrue,
         reason: 'Alla primissima apertura in assoluto la striscia si presenta '
             'aperta, per insegnare che esiste.');
@@ -224,7 +291,7 @@ void main() {
 
   testWidgets('a ogni ritorno successivo si presenta a linguetta',
       (tester) async {
-    await monta(tester, giaRisvegliato: true);
+    await inChat(tester);
     expect(apertaVisibile(), isFalse,
         reason: 'Aprirsi a ogni ritorno diventerebbe un tic.');
     expect(linguettaVisibile(), isTrue,

@@ -31,6 +31,20 @@ enum PresenzaEsplora {
   /// interrompe. Si esce col tasto indietro, che resta.
   immersiva,
 
+  /// Il guscio ha gia' la sua barra: Esplora non ci va, perche' duplicherebbe.
+  ///
+  /// Sono il Santuario e il Cosmic Passport, cioe' le due sole viste di
+  /// `ShellView`, dove `SantuarioBottomBar` mostra gia' il Cerchio, i tre
+  /// Maestri e il Passport. **Non e' una questione di gusto: era una
+  /// regressione.** Esplora e' un `Positioned` sopra il contenuto, quindi
+  /// intercettava i tocchi della barra del guscio e nel Santuario e nel
+  /// Passport la barra non rispondeva piu'. Undici prove lo hanno preso il 6
+  /// agosto 2026, fra cui il tocco su Passport, l'icona Maestro che non portava
+  /// al dominio e le Impostazioni irraggiungibili.
+  ///
+  /// Esplora accorcia le strade dove non ce n'e' gia' una: qui ce n'e' una.
+  barraDelGuscio,
+
   /// Soglia: si e' prima del Cerchio, oppure fuori dal suo corpo navigabile.
   ///
   /// L'onboarding, la rivelazione del Maestro, i dati di nascita, l'intro di
@@ -47,9 +61,11 @@ enum PresenzaEsplora {
 /// sorgenti: cosi' una schermata nuova fa cadere la prova finche' qualcuno non
 /// dichiara cosa deve succedere, invece di ereditare un comportamento per caso.
 const Map<String, PresenzaEsplora> presenzaPerSchermata = {
+  // --- Le due viste del guscio, che la barra ce l'hanno gia' --------------
+  'SantuarioScreen': PresenzaEsplora.barraDelGuscio,
+  'CosmicPassport': PresenzaEsplora.barraDelGuscio,
+
   // --- Il corpo navigabile del Cerchio -----------------------------------
-  'SantuarioScreen': PresenzaEsplora.presente,
-  'CosmicPassport': PresenzaEsplora.presente,
   'DomainScreen': PresenzaEsplora.presente,
   'MaestroScreen': PresenzaEsplora.presente,
   'MaestroChatScreen': PresenzaEsplora.presente,
