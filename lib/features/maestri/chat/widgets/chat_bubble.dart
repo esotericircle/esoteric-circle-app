@@ -105,17 +105,35 @@ class ChatBubble extends StatefulWidget {
   /// sul fondo della palette. A occhio la superficie e' identica, ma sotto non
   /// passa piu' niente.
   static List<Color> superficieDi(MaestroPalette palette, {required bool isUser}) {
+    // LA TESSERA DELLA PERSONA E' NEUTRA E UNA SOLA, ordine 2163 voce 8:
+    // prima era l'oro al 20 per cento composto sul fondale della casa, che
+    // a video usciva verde oliva, un colore di nessuna palette, quasi
+    // uguale nelle tre chat senza essere mai stato scelto. La persona e'
+    // sempre la stessa in tutte le case: la sua tessera viene dalla palette
+    // NEUTRA del design system, composta piena, distinta dalla bolla del
+    // Maestro senza litigare col suo colore. Il contrasto del testo la
+    // prova lo MISURA, non lo giudica a occhio.
+    if (isUser) {
+      const neutra = MaestroPalette.neutral;
+      // PIU' SCURA della bolla del Maestro, misurato: al 95 per cento la
+      // tessera indaco non si distingueva dal blu di casa Medora. Scura si
+      // distingue in tutte e tre le case e il testo ci guadagna contrasto.
+      return [
+        Color.alphaBlend(
+            neutra.surfaceElevated.withValues(alpha: 0.45), neutra.deepest),
+        Color.alphaBlend(
+            neutra.surface.withValues(alpha: 0.25), neutra.deepest),
+      ];
+    }
     final fondo = palette.deepest;
-    final tinte = isUser
-        ? [
-            palette.gold.withValues(alpha: 0.20),
-            palette.gold.withValues(alpha: 0.08),
-          ]
-        : [
-            palette.surfaceElevated.withValues(alpha: 0.95),
-            palette.surface.withValues(alpha: 0.80),
-          ];
-    return [for (final t in tinte) Color.alphaBlend(t, fondo)];
+    const tinteDelMaestro = [0.95, 0.80];
+    return [
+      Color.alphaBlend(
+          palette.surfaceElevated.withValues(alpha: tinteDelMaestro[0]),
+          fondo),
+      Color.alphaBlend(
+          palette.surface.withValues(alpha: tinteDelMaestro[1]), fondo),
+    ];
   }
 
   @override
