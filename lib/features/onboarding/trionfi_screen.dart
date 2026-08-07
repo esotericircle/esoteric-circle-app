@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/angels/angel_catalog.dart';
 import '../../core/angels/guardian_angels.dart';
+import '../../core/onboarding/scheda_della_scelta.dart';
 import '../../core/rituals/animal_catalog.dart';
 import '../angels/angelo_ingrandito.dart';
 import '../../core/assets/family_image.dart';
@@ -10,6 +11,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../maestri/caligo/animal/animal_reveal.dart';
+import 'riquadro_della_scelta.dart';
 
 /// I due traguardi dell'onboarding, messi in scena come traguardi.
 ///
@@ -59,9 +61,15 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
     with SingleTickerProviderStateMixin {
   late final AnimationController _scena;
 
+  /// La scheda del riquadro, generata UNA volta: il contenuto viene dal
+  /// generatore in core/onboarding, non da questa schermata (ordine 2163,
+  /// voce 12).
+  late final SchedaDellaScelta _scheda;
+
   @override
   void initState() {
     super.initState();
+    _scheda = GeneratoreDellaScheda.perAnimale(widget.animale);
     // Un tempo solo governa tutta la scena: la nebbia che si apre, il nome che
     // si scrive, l'invito che compare. Cosi' nulla resta appeso quando la
     // schermata muore.
@@ -153,6 +161,12 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                             textAlign: TextAlign.center,
                             style: TypographyTokens.body(size: 15).copyWith(
                                 color: ColorTokens.textPrimary, height: 1.45)),
+                        // IL RIQUADRO DELLA SCELTA, ordine 2163 voce 12:
+                        // sotto il nome restava mezzo schermo vuoto. Entra
+                        // col nome, perche' e' parte della stessa risposta.
+                        const SizedBox(height: SpacingTokens.md),
+                        RiquadroDellaScelta(
+                            scheda: _scheda, palette: widget.palette),
                       ],
                     ),
                   ),
@@ -223,9 +237,14 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
     with SingleTickerProviderStateMixin {
   late final AnimationController _scena;
 
+  /// La scheda del riquadro, la STESSA forma del trionfo dell'Animale:
+  /// un componente solo, usato due volte (ordine 2163, voce 12).
+  late final SchedaDellaScelta _scheda;
+
   @override
   void initState() {
     super.initState();
+    _scheda = GeneratoreDellaScheda.perAngeli(widget.triade);
     final quanti = widget.triade.known.length;
     _scena = AnimationController(
       vsync: this,
@@ -311,6 +330,14 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
                         ),
                       ),
                   ],
+                ),
+                // IL RIQUADRO DELLA SCELTA, la stessa forma dell'Animale:
+                // arriva con l'invito, quando i tre si sono gia' accesi.
+                const SizedBox(height: SpacingTokens.md),
+                Opacity(
+                  opacity: invito,
+                  child: RiquadroDellaScelta(
+                      scheda: _scheda, palette: widget.palette),
                 ),
                 const Spacer(flex: 2),
                 Opacity(

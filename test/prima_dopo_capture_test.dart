@@ -9,6 +9,10 @@ import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
+import 'package:esoteric_circle/core/angels/angel_catalog.dart';
+import 'package:esoteric_circle/core/angels/guardian_angels.dart';
+import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
+import 'package:esoteric_circle/features/onboarding/trionfi_screen.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
@@ -40,6 +44,7 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -1670,6 +1675,69 @@ void main() {
       await tester.pump(const Duration(milliseconds: 300));
     }
     await scattaApp(tester, radice, 'soffio_conto');
+  });
+
+  // ORDINE 2163, VOCE 12: i due trionfi dell'onboarding. Nella prima sotto
+  // l'animale e sotto i tre angeli resta il vuoto; nella dopo c'e' il
+  // riquadro della scelta con le caratteristiche e la ragione. I trionfi si
+  // montano come li monta il viaggio del risveglio, con dati fissi.
+  testWidgets('2163, i riquadri dei trionfi', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({'onboarding.done': true});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final paletteCaligo =
+        MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
+    final radice = GlobalKey();
+
+    Future<void> monta(Widget trionfo) async {
+      await tester.pumpWidget(RepaintBoundary(
+        key: radice,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            backgroundColor: const Color(0xFF05060A),
+            body: MediaQuery(
+              data: const MediaQueryData(disableAnimations: true),
+              child: trionfo,
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      // L'arte del totem e delle carte si decodifica dentro runAsync.
+      await tester.runAsync(() => Future<void>.delayed(
+          const Duration(milliseconds: 400)));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 80));
+    }
+
+    await monta(TrionfoAnimale(
+      animale: GuideAnimalDerivation.forSign(Zodiac.taurus),
+      palette: paletteCaligo,
+      reduceMotion: true,
+      onContinue: () {},
+    ));
+    await scattaApp(tester, radice, 'trionfo_animale');
+
+    await monta(TrionfoAngeli(
+      triade: AngelTriad(
+        guardian: AngelCatalog.byNumber(3),
+        heart: AngelCatalog.byNumber(31),
+        intellect: GuardianAngels.intellectFor(10, 30),
+        sunLongitude: 134.6,
+        dayOfYear: 219,
+        minuteOfDay: 10 * 60 + 30,
+      ),
+      palette: paletteCaligo,
+      reduceMotion: true,
+      onContinue: () {},
+    ));
+    await scattaApp(tester, radice, 'trionfo_angeli');
   });
 
   // VOCE 4: il fondo della home, scorso davvero, dove la striscia delle
