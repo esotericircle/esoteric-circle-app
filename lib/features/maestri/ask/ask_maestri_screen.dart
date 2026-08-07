@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../shell/spazio_della_barra.dart';
@@ -128,6 +130,24 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
   /// I Maestri per cui si sta ancora attendendo la risposta.
   final Set<Maestro> _loading = {};
 
+  /// LE SCHEDE GIA' SCRITTE, ordine 2163 voce 10: lo stato della macchina
+  /// da scrivere vive QUI, nel dato, non nella scheda. La lista smonta gli
+  /// elementi fuori vista, e con lo stato nel widget la prima scheda,
+  /// uscita e rientrata, si cancellava e ripartiva da capo. Una risposta
+  /// gia' mostrata resta ferma per sempre: quando la sua scrittura si e'
+  /// esaurita (il tetto dei tempi piu' un respiro), il Maestro entra qui e
+  /// la sua scheda non si riscrive mai piu'.
+  final Set<Maestro> _scritte = {};
+  final List<Timer> _timerDiScrittura = [];
+
+  void _pianificaLaMarca(Maestro m) {
+    _timerDiScrittura.add(Timer(
+        TempiDellAttesa.tettoAlTestoCompleto + const Duration(seconds: 1),
+        () {
+      if (mounted) setState(() => _scritte.add(m));
+    }));
+  }
+
   /// La Sintesi comparativa generata da Gemini dalle lenti gia' ottenute. Null
   /// finche' non arriva o se il provider non e' pronto: allora si mostra la
   /// sintesi deterministica di ripiego (`MaestroOracle.synthesisFor`).
@@ -144,6 +164,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     for (final lente in widget.lentiIniziali) {
       _responders.add(lente.maestro);
       _lenses[lente.maestro] = lente;
+      _pianificaLaMarca(lente.maestro);
     }
     // LA DOMANDA ARRIVA DA FUORI, e non si riscrive qui.
     //
@@ -204,8 +225,21 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
 
   @override
   void dispose() {
+    for (final t in _timerDiScrittura) {
+      t.cancel();
+    }
     super.dispose();
   }
+
+  /// L'ORDINE DEL CONFRONTO, ordine 2163 voce 10: prima il Maestro da cui
+  /// il confronto e' partito, cioe' l'ultimo interpellato, poi gli altri
+  /// nell'ordine fisso del cerchio. Prima l'elenco a video partiva sempre
+  /// da Medora, chiunque avesse aperto la stanza.
+  List<Maestro> get _ordineDelConfronto => [
+        widget.starter,
+        for (final m in Maestro.fixedOrder)
+          if (m != widget.starter) m,
+      ];
 
   /// Le lenti risolte, nell'ordine fisso del cerchio.
   List<MaestroLens> get _orderedLenses => [
@@ -279,6 +313,9 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       _lenses[maestro] = lens!;
       _loading.remove(maestro);
     });
+    // La scheda appena arrivata si scrive UNA volta: quando la scrittura si
+    // sara' esaurita, la marca la congela per sempre (voce 10).
+    _pianificaLaMarca(maestro);
     // Quando gli sguardi sono piu' di uno, la Sintesi comparativa in cima la
     // genera Gemini dalle lenti gia' ottenute, con ripiego deterministico.
     if (_orderedLenses.length > 1) {
@@ -491,7 +528,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                           SpacingTokens.xxxl +
                               SpazioDellaBarraNelloScroll.quanto(context)),
                       children: [
-                        for (final m in Maestro.fixedOrder)
+                        for (final m in _ordineDelConfronto)
                           if (_responders.contains(m)) ...[
                             // LA CARTA C'E' IN TUTTI E DUE GLI STATI, e porta
                             // la stessa chiave: e' cio' che permette di
@@ -514,7 +551,9 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
                                   // ferma.
                                   _LensLoadingCard(maestro: m),
                                 ] else ...[
-                                  _LensCard(lens: _lenses[m]!),
+                                  _LensCard(
+                                      lens: _lenses[m]!,
+                                      scriviti: !_scritte.contains(m)),
                                   // SOTTO OGNI CARTA, e non solo sotto quella
                                   // di partenza: con tre carte, da due delle
                                   // tre non si potrebbe proseguire.
@@ -781,9 +820,13 @@ class _TestaDellaCarta extends StatelessWidget {
 
 /// La lettura di un Maestro, nella sua palette: colpo d'occhio, testo, invito.
 class _LensCard extends StatelessWidget {
-  const _LensCard({required this.lens});
+  const _LensCard({required this.lens, this.scriviti = true});
 
   final MaestroLens lens;
+
+  /// Falso quando la scheda e' gia' stata scritta una volta: il testo
+  /// compare intero e fermo. La regola vive nel dato della schermata.
+  final bool scriviti;
 
   @override
   Widget build(BuildContext context) {
@@ -792,7 +835,8 @@ class _LensCard extends StatelessWidget {
     // chiesto di non vedere movimento, e chi sta su un apparecchio che non ce
     // la fa. Il contenuto non cambia mai: cio' che si toglie e' il tempo che
     // ci mette a comparire.
-    final scrive = !MediaQuery.of(context).disableAnimations &&
+    final scrive = scriviti &&
+        !MediaQuery.of(context).disableAnimations &&
         context.watch<QualityTierController>().tier != QualityTier.low;
     return Container(
       key: Key('ask_lens_${lens.maestro.id}'),
