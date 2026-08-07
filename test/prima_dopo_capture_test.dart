@@ -1,11 +1,14 @@
 import 'package:esoteric_circle/app.dart';
 import 'dart:io';
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/rituals/runes.dart';
+import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/diagnostics_dialog.dart';
 import 'package:esoteric_circle/services/firebase/attestazione.dart';
@@ -1272,6 +1275,83 @@ void main() {
 
     await scattaApp(tester, radice, 'famiglie_domande');
   });
+
+  // VOCE 6: la gettata fissa (dove l'acqua rossa non c'e' piu': le pietre
+  // cadono sul cosmo) e il getto sul telo (dove il panno di Tacito resta,
+  // ma coi bordi morbidi e irregolari).
+  for (final caso in const ['fissa', 'telo']) {
+    testWidgets('2161, la gettata $caso', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      SharedPreferences.setMockInitialValues({});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2391);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final radice = GlobalKey();
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (_) => MaestroController(
+                  initial: const ThemeKey.of(Maestro.caligo))),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(child: child!),
+          ),
+          home: RepaintBoundary(
+            key: radice,
+            child: RuneDrawScreen(
+                userSign: Zodiac.aries, random: math.Random(7)),
+          ),
+        ),
+      ));
+      await tester.pump(const Duration(milliseconds: 400));
+
+      // LE PIETRE SI PRECARICANO, SEMPRE: in headless un'immagine non si
+      // decodifica da sola, e senza queste righe la gettata mostrava ombre
+      // e cerchi senza pietre, cioe' il falso. Tutte e ventiquattro, nelle
+      // due misure: quale esca lo decide la sorte col suo seme.
+      await tester.runAsync(() async {
+        final el = tester.element(find.byType(MaterialApp));
+        for (final r in kElderFuthark) {
+          if (r.thumbPath != null) {
+            await precacheImage(AssetImage(r.thumbPath!), el);
+          }
+          if (r.fullPath != null) {
+            await precacheImage(AssetImage(r.fullPath!), el);
+          }
+        }
+      });
+      await tester.pump();
+
+      if (caso == 'telo') {
+        await tester.ensureVisible(find.text('Il getto sul telo'));
+        await tester.pump(const Duration(milliseconds: 120));
+        await tester.tap(find.text('Il getto sul telo'), warnIfMissed: false);
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+      await tester.ensureVisible(find.byKey(const Key('rune_cast_button')));
+      await tester.pump(const Duration(milliseconds: 200));
+      await tester.tap(find.byKey(const Key('rune_cast_button')));
+      await tester.pump();
+      for (var i = 0; i < 30; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      await tester.ensureVisible(find.byKey(const Key('rune_well')));
+      await tester.pump(const Duration(milliseconds: 300));
+
+      await scattaApp(tester, radice, 'gettata_$caso');
+    });
+  }
 
   // VOCE 4: il fondo della home, scorso davvero, dove la striscia delle
   // altre arti adesso c'e' e prima non c'era.

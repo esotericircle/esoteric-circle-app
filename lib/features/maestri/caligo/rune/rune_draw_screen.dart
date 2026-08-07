@@ -1339,8 +1339,13 @@ class _PietraPosata extends StatelessWidget {
 }
 
 
-/// L'acqua immobile del Pozzo, le radici di Yggdrasil, i cerchi concentrici dai
-/// punti di caduta e i fili delle Norne. Statico quando le onde sono spente.
+/// I cerchi concentrici dai punti di caduta, i fili delle Norne e, nel getto
+/// libero, il panno di Tacito. Statico quando le onde sono spente.
+///
+/// L'ACQUA ROSSA DEL POZZO NON C'E' PIU', ordine 2161 voce 6: era un
+/// `drawRect` col rosso di Caligo sotto le pietre, un fondale bespoke
+/// squadrato contro la regola del cosmo condiviso. Nelle stese fisse le
+/// pietre cadono sul cosmo, che c'e' gia'.
 class _PozzoPainter extends CustomPainter {
   _PozzoPainter({
     required this.palette,
@@ -1365,10 +1370,11 @@ class _PozzoPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
 
+    // Solo il getto libero ha un fondo suo, il panno di Tacito, che e' la
+    // fonte del rito e non decorazione. Le stese fisse non dipingono fondo:
+    // il rettangolo rosso dell'acqua e' quello che Mauro ha bocciato.
     if (libera) {
       _telo(canvas, size, rect);
-    } else {
-      _acqua(canvas, size, rect);
     }
 
     if (!posato) return;
@@ -1425,58 +1431,35 @@ class _PozzoPainter extends CustomPainter {
     }
   }
 
-  /// L'acqua immobile del Pozzo di Urdhr, scura, con le radici di Yggdrasil che
-  /// scendono e un alone caldo al centro.
-  void _acqua(Canvas canvas, Size size, Rect rect) {
-    canvas.drawRect(
-      rect,
-      Paint()
-        ..shader = RadialGradient(
-          center: const Alignment(0, -0.1),
-          radius: 0.9,
-          colors: [
-            palette.surfaceElevated.withValues(alpha: 0.9),
-            palette.deepest,
-          ],
-        ).createShader(rect),
-    );
-    final radice = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
-      ..color = palette.gold.withValues(alpha: 0.18);
-    for (var i = 0; i < 5; i++) {
-      final x = size.width * (0.15 + 0.175 * i);
-      final path = Path()..moveTo(x, 0);
-      path.cubicTo(x + 12, size.height * 0.18, x - 14, size.height * 0.3,
-          x + 6, size.height * 0.42);
-      canvas.drawPath(path, radice);
-    }
-    canvas.drawCircle(
-      Offset(size.width / 2, size.height * 0.45),
-      size.shortestSide * 0.5,
-      Paint()
-        ..shader = RadialGradient(colors: [
-          palette.gold.withValues(alpha: 0.12),
-          palette.primary.withValues(alpha: 0.0),
-        ]).createShader(Rect.fromCircle(
-            center: Offset(size.width / 2, size.height * 0.45),
-            radius: size.shortestSide * 0.5)),
-    );
-  }
-
   /// Il panno bianco di Tacito: un telo chiaro e caldo con una trama leggera e
   /// un segno d'oro al centro, dove la vicinanza pesa.
+  ///
+  /// NON E' UN RETTANGOLO, dall'ordine 2161 voce 6: un panno gettato a terra
+  /// non ha angoli retti ne' bordi dritti. La sagoma e' un superellisse con
+  /// quattro armoniche di ondulazione, fisse e dichiarate: stessa forma a
+  /// ogni apertura, perche' il panno e' un oggetto del rito, non una sorte.
+  /// Il bordo e' morbido per la sfumatura sul riempimento; la trama e i
+  /// segni del centro restano ritagliati dentro la sagoma viva.
+  ///
+  /// Il panno resta perche' E' LA FONTE: Tacito, Germania, capitolo dieci,
+  /// le sorti incise gettate sopra un candido panno. E' nominato nel
+  /// pannello Fonti e metodo (kRuneFontiEMetodo).
   void _telo(Canvas canvas, Size size, Rect rect) {
-    canvas.drawRect(
-      rect,
+    final sagoma = _sagomaDelPanno(size);
+    canvas.drawPath(
+      sagoma,
       Paint()
         ..shader = const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [Color(0xFFF0E7D3), Color(0xFFD2C09B)],
-        ).createShader(rect),
+        ).createShader(rect)
+        // Il bordo morbido: la stoffa non taglia l'aria come una lama.
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
     );
-    // Trama del tessuto, righe tenui nelle due direzioni.
+    canvas.save();
+    canvas.clipPath(sagoma);
+    // Trama del tessuto, righe tenui nelle due direzioni, dentro la sagoma.
     final trama = Paint()
       ..strokeWidth = 1
       ..color = const Color(0xFF7A6A4A).withValues(alpha: 0.08);
@@ -1498,6 +1481,38 @@ class _PozzoPainter extends CustomPainter {
     );
     canvas.drawCircle(
         c, 2.5, Paint()..color = palette.gold.withValues(alpha: 0.6));
+    canvas.restore();
+  }
+
+  /// La sagoma del panno: un superellisse (esponente 2,6, che gonfia verso
+  /// gli angoli piu' di un'ellisse senza mai farli retti) modulato da
+  /// quattro armoniche fisse. Le fasi sono scelte perche' le derivate non si
+  /// annullino insieme in nessun punto: e' cio' che impedisce al bordo di
+  /// tenere la stessa quota per una corsa lunga, cioe' di tornare dritto.
+  Path _sagomaDelPanno(Size size) {
+    const passi = 96;
+    const p = 2.6;
+    final cx = size.width / 2, cy = size.height / 2;
+    final rx = size.width * 0.475, ry = size.height * 0.465;
+    final path = Path();
+    for (var i = 0; i <= passi; i++) {
+      final t = i / passi * 2 * math.pi;
+      final onda = 1 +
+          0.045 * math.sin(2 * t + 0.9) +
+          0.030 * math.sin(5 * t + 2.2) +
+          0.024 * math.sin(9 * t + 4.1) +
+          0.017 * math.sin(13 * t + 1.3);
+      final c = math.cos(t), s = math.sin(t);
+      final x = cx + rx * onda * c.sign * math.pow(c.abs(), 2 / p);
+      final y = cy + ry * onda * s.sign * math.pow(s.abs(), 2 / p);
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+    path.close();
+    return path;
   }
 
   @override
