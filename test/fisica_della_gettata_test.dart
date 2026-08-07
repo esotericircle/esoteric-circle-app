@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-import 'dart:ui' show Offset;
 
 import 'package:esoteric_circle/features/maestri/caligo/rune/fisica_della_gettata.dart';
 import 'package:flutter_test/flutter_test.dart';

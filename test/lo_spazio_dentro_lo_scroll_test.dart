@@ -151,7 +151,8 @@ void main() {
               'fisso ancora vivo.');
       // Qui la coda e' il padding basso della lista, che include lo spazio
       // della barra: si misura sull'effetto, non sul widget.
-      final lista = tester.widget<ListView>(find.byKey(const Key('ask_results')));
+      final lista =
+          tester.widget<ListView>(find.byKey(const Key('ask_results')));
       final padding = (lista.padding as EdgeInsets?)?.bottom ?? 0;
       expect(padding, greaterThanOrEqualTo(BarraDelCerchio.altezza),
           reason: 'Il fondo della lista del Consiglio e\' di $padding punti: '
@@ -165,7 +166,7 @@ void main() {
           maestro: Maestro.medora, services: AppServices.offline()));
       await respira(tester);
       final campo = tester.getRect(find.byType(TextField).first);
-      final cimaBarra = fondoSchermo - BarraDelCerchio.altezza;
+      const cimaBarra = fondoSchermo - BarraDelCerchio.altezza;
       expect(campo.bottom, lessThanOrEqualTo(cimaBarra + 1),
           reason: 'Il campo di scrittura finisce a ${campo.bottom}, sotto la '
               'cima della barra ($cimaBarra): uno strumento ancorato sotto la '
@@ -201,7 +202,7 @@ void main() {
       await monta(tester);
       final testo =
           tester.widget<Text>(find.byKey(const Key('barra_titolo')));
-      final palette = MaestroPalette.neutral;
+      const palette = MaestroPalette.neutral;
       expect(testo.style?.color, SantuarioBottomBar.coloreDelTitolo(palette),
           reason: 'Il titolo non ha il colore del punto unico: o e\' tornato '
               'grigio, o qualcuno lo ha scritto a mano.');

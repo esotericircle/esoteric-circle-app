@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../design_system/components/riga_del_dono.dart';
 import 'package:flutter/scheduler.dart' show Ticker;
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
