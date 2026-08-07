@@ -214,7 +214,12 @@ class SantuarioBottomBar extends StatelessWidget {
   /// la resa vera. Vive qui perche' serve al gradiente per convertire la
   /// fascia del titolo in uno stop, senza importare la barra (che importa
   /// questo file).
-  static const double altezzaResa = 123;
+  /// CENTOVENTINOVE E NON PIU' CENTOVENTITRE, ordine 2164 voce 1: l'alone
+  /// morbido dietro il titolo porta tre punti di respiro sopra e tre sotto,
+  /// e la barra e' cresciuta di sei. Il numero NON e' una stima: la prova
+  /// `una_barra_sola_test` confronta cio' che qui si dichiara con la resa
+  /// vera e cade se divergono, ed e' lei che ha denunciato i sei punti.
+  static const double altezzaResa = 129;
 
   /// IL COLORE DEL TITOLO: L'ORO DELLA PALETTE. Deciso da Mauro il 7 agosto
   /// 2026, e SUPERA la decisione del mattino del 6 agosto che lo voleva nel
