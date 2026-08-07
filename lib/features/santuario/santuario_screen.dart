@@ -22,6 +22,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../account/account_screen.dart';
 import '../maestri/art_navigation.dart';
+import '../maestri/widgets/striscia_altre_arti.dart';
 import '../maestri/domain_screen.dart';
 import 'daily_strip.dart';
 import 'sky_overview_screen.dart';
@@ -377,6 +378,13 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         // aggiunto la nuova lasciando la vecchia, quindi nel
                         // Santuario c'erano due titoli e due elenchi della
                         // stessa cosa.
+                        // La striscia delle arti da scoprire, la STESSA del
+                        // dominio: un widget condiviso, non una copia. Qui
+                        // `corrente` e' nullo perche' la home non e' il
+                        // dominio di nessun Maestro: si esclude solo cio' che
+                        // sta gia' nello scaffale qui sopra. Ordine 2161,
+                        // voce 4.
+                        const StrisciaAltreArti(),
                         // La coda che riporta l'ultimo scaffale sopra la barra.
                         const SpazioDellaBarraNelloScroll(),
                       ],
