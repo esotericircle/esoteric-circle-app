@@ -592,22 +592,40 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                     transitionBuilder: (figlio, anim) =>
                         FadeTransition(opacity: anim, child: figlio),
                     child: controller.mostraLaScenaDiAttesa
-                        ? DecoratedBox(
-                            // IL VELO: quando la scena si stende sopra la
-                            // conversazione piena, sotto ci sono messaggi, e
-                            // frasi sopra frasi non si leggono. Sul vuoto il
-                            // velo scurisce appena il cosmo e non si nota.
+                        ? Container(
+                            // IL RIQUADRO DELLA SCENA, ordine 2163 voce 5:
+                            // il velo sfumato lasciava l'emblema e la frase
+                            // cadere SOPRA le bolle. Adesso la scena vive in
+                            // un riquadro dichiarato e OPACO (il colore e'
+                            // composto, voce 1): la conversazione ci scorre
+                            // sotto e ci SPARISCE dietro, l'emblema si
+                            // dimensiona dentro il riquadro e la frase sta
+                            // sotto di lui. I tempi del 4 agosto e il minimo
+                            // del 2161 non si toccano.
+                            key: const Key('riquadro_attesa'),
+                            margin: const EdgeInsets.fromLTRB(
+                                SpacingTokens.md,
+                                SpacingTokens.sm,
+                                SpacingTokens.md,
+                                SpacingTokens.sm),
+                            clipBehavior: Clip.antiAlias,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                                 colors: [
-                                  palette.deepest.withValues(alpha: 0.94),
-                                  palette.deepest.withValues(alpha: 0.86),
-                                  palette.deepest.withValues(alpha: 0.0),
+                                  Color.alphaBlend(
+                                      palette.surfaceElevated
+                                          .withValues(alpha: 0.4),
+                                      palette.deepest),
+                                  palette.deepest,
                                 ],
-                                stops: const [0.0, 0.82, 1.0],
                               ),
+                              borderRadius: BorderRadius.circular(
+                                  SpacingTokens.radiusLg),
+                              border: Border.all(
+                                  color: palette.gold
+                                      .withValues(alpha: 0.28)),
                             ),
                             child: ConsultoDelCieloView(
                             // La chiave porta CHI si consulta: cambiando voce
