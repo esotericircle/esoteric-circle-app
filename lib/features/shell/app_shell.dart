@@ -8,7 +8,6 @@ import '../../design_system/components/tap_wave.dart';
 import '../passport/cosmic_passport_screen.dart';
 import '../santuario/santuario_screen.dart';
 import 'navigation_controller.dart';
-import 'santuario_bottom_bar.dart';
 
 /// Contenitore principale dell'app: cosmo immersivo, schermata dello shell e
 /// bottom bar. Lo shell mostra il Santuario oppure il Cosmic Passport; il

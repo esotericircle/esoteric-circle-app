@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../shell/spazio_della_barra.dart';
 
 import '../../core/astro/night_sky.dart';
 import '../../core/identity/birth_identity.dart';
@@ -58,7 +59,12 @@ class CosmicPassport extends StatelessWidget {
     final id = identity ?? BirthIdentity.example;
     final profile = context.watch<ProfileController>();
 
+    // **LO SPAZIO DELLA BARRA STA DENTRO LO SCROLL.** Decisione di Mauro del
+    // 7 agosto 2026, ragione intera su SpazioDellaBarraNelloScroll: il
+    // contenuto scorre sotto la barra e l'ultimo elemento risale sopra grazie
+    // alla coda in fondo agli sliver.
     return SafeArea(
+      bottom: false,
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -173,6 +179,8 @@ class CosmicPassport extends StatelessWidget {
           const SliverToBoxAdapter(
             child: SizedBox(height: SpacingTokens.xxxl),
           ),
+          // La coda che riporta l'ultima voce sopra la barra.
+          const SliverSpazioDellaBarra(),
         ],
       ),
     );

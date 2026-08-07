@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/maestro/maestro.dart';
+import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -81,16 +82,15 @@ class SantuarioBottomBar extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // IL TITOLO, SMORZATO. E' una nota di servizio, non una sesta
-              // destinazione: nella versione precedente cinque voci dorate piu'
-              // un titolo dorato producevano una fascia illeggibile. Sta sopra
-              // le voci, piccolo, nel grigio del testo smorzato, senza icona e
-              // senza tocco, e la sua riga e' alta quanto una lettera.
+              // IL TITOLO, IN ORO. Sta sopra le voci, piccolo, senza icona e
+              // senza tocco, e la sua riga e' alta quanto una lettera. Il
+              // colore si legge da [coloreDelTitolo], un punto solo: chi lo
+              // scrive a mano qui dentro fa cadere una prova.
               Text(
                 titolo,
                 key: const Key('barra_titolo'),
                 style: TypographyTokens.label(size: 11).copyWith(
-                  color: ColorTokens.textMuted,
+                  color: coloreDelTitolo(palette),
                   letterSpacing: 3.2,
                 ),
               ),
@@ -141,6 +141,15 @@ class SantuarioBottomBar extends StatelessWidget {
 
   /// Il titolo della barra, deciso da Mauro il 6 agosto 2026.
   static const String titolo = 'ESPLORA';
+
+  /// IL COLORE DEL TITOLO: L'ORO DELLA PALETTE. Deciso da Mauro il 7 agosto
+  /// 2026, e SUPERA la decisione del mattino del 6 agosto che lo voleva nel
+  /// grigio del testo smorzato. Quella decisione nasceva da una misura vera,
+  /// cinque voci dorate piu' un titolo dorato facevano una fascia illeggibile,
+  /// ma Mauro l'ha cambiata: chi legge la vecchia decisione NON lo rimetta
+  /// grigio. Il colore vive QUI e in nessun altro posto: una prova legge
+  /// questo punto e cade se qualcuno lo scrive a mano altrove.
+  static Color coloreDelTitolo(MaestroPalette palette) => palette.gold;
 }
 
 class _BarItem extends StatelessWidget {

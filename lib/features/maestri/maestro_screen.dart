@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../shell/spazio_della_barra.dart';
 
 import '../../core/arts/art_catalog.dart';
 import '../../core/astro/night_sky.dart';
@@ -147,6 +148,10 @@ class _MaestroScreenState extends State<MaestroScreen> {
           const SliverToBoxAdapter(
             child: SizedBox(height: SpacingTokens.xxxl),
           ),
+          // La coda che riporta l'ultima carta sopra la barra: prima l'ultimo
+          // elemento si fermava sotto la barra visibile, e si leggeva solo
+          // quando la barra si era ritirata.
+          const SliverSpazioDellaBarra(),
         ],
       ),
     );

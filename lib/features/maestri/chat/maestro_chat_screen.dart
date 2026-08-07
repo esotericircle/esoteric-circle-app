@@ -479,6 +479,15 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       body: CosmosBackground(
         seed: 11,
         showZodiac: false,
+        // **QUI IL SAFEAREA CONSUMA ANCHE IL FONDO, ED E' L'ECCEZIONE
+        // DICHIARATA.** La decisione del 7 agosto 2026, lo spazio della barra
+        // dentro cio' che scorre, vale per le altre quattro schermate: nella
+        // chat il fondo e' il campo di scrittura, che non e' contenuto che
+        // scorre, e' uno strumento ancorato. Sotto la barra sarebbe
+        // inutilizzabile, e la 2156 ha misurato cosa succede a farlo saltare:
+        // 123 punti in un fotogramma. I messaggi scorrono gia' dietro il
+        // campo, che e' il comportamento del dominio applicato alla parte che
+        // scorre. La ragione intera sta su SpazioDellaBarraNelloScroll.
         child: SafeArea(
           child: Column(
             children: [

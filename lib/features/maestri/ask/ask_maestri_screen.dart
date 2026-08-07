@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../shell/spazio_della_barra.dart';
 
 import '../../../core/entitlement/entitlement_service.dart';
 import '../../../core/entitlement/esito_del_turno.dart';
@@ -468,8 +469,13 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
               maxLines: 1, style: TypographyTokens.display(size: 20)),
         ),
       ),
+      // **LO SPAZIO DELLA BARRA STA DENTRO LA LISTA.** Decisione di Mauro
+      // del 7 agosto 2026, ragione intera su SpazioDellaBarraNelloScroll: le
+      // carte scorrono sotto la barra e l'ultima risale grazie al fondo della
+      // lista qui sotto.
       body: SafeArea(
         top: false,
+        bottom: false,
         child: Column(
           children: [
             Expanded(
@@ -478,8 +484,12 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
               // invitare a fare. Un invito senza uscita e' un vicolo cieco.
               child: ListView(
                       key: const Key('ask_results'),
-                      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
-                          SpacingTokens.lg, SpacingTokens.xxxl),
+                      padding: EdgeInsets.fromLTRB(
+                          SpacingTokens.lg,
+                          0,
+                          SpacingTokens.lg,
+                          SpacingTokens.xxxl +
+                              SpazioDellaBarraNelloScroll.quanto(context)),
                       children: [
                         for (final m in Maestro.fixedOrder)
                           if (_responders.contains(m)) ...[

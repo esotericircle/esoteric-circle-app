@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../shell/spazio_della_barra.dart';
 
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/zodiac.dart';
@@ -321,7 +322,13 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       onPointerDown: (_) {
         if (_showSkyHint) _dismissSkyHint();
       },
+      // **LO SPAZIO DELLA BARRA STA DENTRO LO SCROLL, NON QUI.** Decisione di
+      // Mauro del 7 agosto 2026: ovunque il comportamento del dominio, il
+      // contenuto scorre sotto la barra. Prima il SafeArea consumava anche il
+      // fondo, e quello era lo slot fisso che rimpiccioliva la schermata: la
+      // ragione intera sta su SpazioDellaBarraNelloScroll.
       child: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             // La striscia del giorno, fissa in cima e sempre visibile: i quattro
@@ -333,7 +340,15 @@ class _SantuarioScreenState extends State<SantuarioScreen>
             Expanded(
               child: LayoutBuilder(
                 builder: (context, outer) {
-                  final viewportH = outer.maxHeight;
+                  // L'EROE RESTA ALTO COME PRIMA. Il viewport adesso arriva
+                  // fino in fondo allo schermo, sotto la barra: se l'eroe lo
+                  // riempisse tutto, i busti crescerebbero e il pulsante
+                  // finirebbe sotto la barra. Si sottrae lo spazio della
+                  // barra, che e' esattamente quanto il SafeArea consumava
+                  // prima: i tre Maestri non cambiano grandezza di un punto,
+                  // e la prova che li sorveglia resta verde senza allentarsi.
+                  final viewportH = outer.maxHeight -
+                      SpazioDellaBarraNelloScroll.quanto(context);
                   return SingleChildScrollView(
                     child: Column(
                       children: [
@@ -362,6 +377,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         // aggiunto la nuova lasciando la vecchia, quindi nel
                         // Santuario c'erano due titoli e due elenchi della
                         // stessa cosa.
+                        // La coda che riporta l'ultimo scaffale sopra la barra.
+                        const SpazioDellaBarraNelloScroll(),
                       ],
                     ),
                   );
