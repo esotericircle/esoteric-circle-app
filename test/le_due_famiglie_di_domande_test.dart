@@ -81,13 +81,10 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 600));
 
-      // Dal 2163 le famiglie vivono nel pannello: lo si apre dalla porta
-      // vera, l'invito alle stelline del primo schermo, portato in chiaro
-      // sopra il vetro con lo scorrimento, come farebbe il dito.
-      await tester.drag(find.byType(SingleChildScrollView).first,
-          const Offset(0, -160), warnIfMissed: false);
-      await tester.pump(const Duration(milliseconds: 300));
-      await tester.tap(find.byKey(const Key('chat_invito_stelline')),
+      // Dal 2163 le famiglie vivono nel pannello, e dal 2164 (voci 3 e 4)
+      // la porta che lo apre e' UNA SOLA: l'icona a stelline accanto al
+      // campo. L'invito che questa prova toccava prima non esiste piu'.
+      await tester.tap(find.byKey(const Key('chat_stelline')),
           warnIfMissed: false);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 500));
@@ -106,11 +103,17 @@ void main() {
         return find.text(domanda).evaluate().isNotEmpty;
       }
 
+      // **LE DUE FAMIGLIE ADESSO SONO DUE TITOLI SELEZIONABILI**, ordine
+      // 2164 voce 7: prima stavano una dopo l'altra nello stesso
+      // scorrevole e si raggiungevano scorrendo. I titoli ci sono tutti e
+      // due subito, e le personali si leggono dopo aver toccato il loro.
+      // La regola provata NON cambia: le liste restano intere e le
+      // personali passano dal filtro del vero.
       if (find.text('DOMANDE FREQUENTI').evaluate().isEmpty) {
         colpe.add('${maestro.displayName}: manca la famiglia delle '
             'frequenti nel pannello');
       }
-      if (!await trovaScorrendo('DOMANDE PERSONALI')) {
+      if (find.text('DOMANDE PERSONALI').evaluate().isEmpty) {
         colpe.add('${maestro.displayName}: manca la famiglia delle '
             'personali nel pannello');
       }
@@ -123,6 +126,11 @@ void main() {
         colpe.add('${maestro.displayName}: frequenti nel pannello $visti '
             'su $attese, il taglio e\' tornato');
       }
+      // Si passa alle personali col tocco sul loro titolo.
+      await tester.tap(find.byKey(const Key('titolo_personali')),
+          warnIfMissed: false);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
       // Le personali disponibili con la sola data: quelle sul Sole, tutte.
       // Quelle su Luna e Ascendente non devono esserci: direbbero il falso.
       for (final domanda in SuggestionSets.personal(maestro)) {

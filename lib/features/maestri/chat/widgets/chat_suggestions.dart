@@ -174,13 +174,20 @@ class SuggestionSets {
 
 /// Apre il pannello dei suggerimenti che sale dal basso sopra il feed.
 ///
-/// LE DUE FAMIGLIE INSIEME, ordine 2163 voce 3: prima erano due linguette
-/// alternative e se ne leggeva una per volta. Adesso e' UN solo riquadro
-/// scorrevole: l'intestazione DOMANDE FREQUENTI con le sue voci, poi
-/// DOMANDE PERSONALI con le sue, e le intestazioni restano appiccicate in
-/// alto mentre si scorre la loro sezione. Le liste arrivano dalla schermata
-/// GIA' filtrate sul vero: una famiglia vuota non porta intestazione, per
-/// la stessa regola del primo schermo. Il tocco su una domanda la invia e
+/// **I DUE TITOLI SELEZIONABILI, ORDINE 2164 VOCE 7, E QUESTA RIGA DISFA UNA
+/// DECISIONE DELL'ARCHITETTO.** Con l'ordine 2163 voce 3 le due famiglie
+/// erano state unite in un solo riquadro scorrevole con le intestazioni
+/// appiccicate, perche' l'ordine diceva "le due famiglie insieme, non a
+/// linguette": era una lettura sbagliata delle parole di Mauro. Lui vuole i
+/// DUE TITOLI, com'era nelle build precedenti, e questa scelta supera la
+/// mia: non e' una regressione, e nessuno la ribalti domani.
+///
+/// In cima al pannello due titoli affiancati, DOMANDE FREQUENTI e DOMANDE
+/// PERSONALI. All'apertura e' gia' selezionato DOMANDE FREQUENTI con sotto
+/// le sue domande; toccando l'altro l'elenco si aggiorna. Il titolo scelto
+/// si distingue da quello spento in modo evidente. Le liste arrivano dalla
+/// schermata GIA' filtrate sul vero: una famiglia vuota non porta il suo
+/// titolo, per la regola del vero. Il tocco su una domanda la invia e
 /// chiude il pannello.
 Future<void> showSuggestionsPanel(
   BuildContext context, {
@@ -211,7 +218,7 @@ Future<void> showSuggestionsPanel(
   );
 }
 
-class _SuggestionsPanel extends StatelessWidget {
+class _SuggestionsPanel extends StatefulWidget {
   const _SuggestionsPanel({
     required this.maestro,
     required this.onSend,
@@ -224,37 +231,25 @@ class _SuggestionsPanel extends StatelessWidget {
   final List<String> frequenti;
   final List<String> personali;
 
-  void _send(BuildContext context, String question) {
-    onSend(question);
+  @override
+  State<_SuggestionsPanel> createState() => _SuggestionsPanelState();
+}
+
+class _SuggestionsPanelState extends State<_SuggestionsPanel> {
+  /// LA FAMIGLIA SCELTA: all'apertura sono le FREQUENTI, come ordina la
+  /// voce 7. Vive nello State del pannello, che e' il solo posto che la
+  /// conosce: il chiamante passa le liste, non la scelta.
+  SuggestionGroup _scelta = SuggestionGroup.frequent;
+
+  void _send(String question) {
+    widget.onSend(question);
     Navigator.of(context).pop();
   }
 
-  /// Una famiglia: l'intestazione appiccicata e le sue voci. La forma e'
-  /// una sola per tutte e due, cosi' non possono divergere.
-  List<Widget> _famiglia(BuildContext context, String titolo,
-      List<String> domande, MaestroPalette palette) {
-    return [
-      SliverPersistentHeader(
-        pinned: true,
-        delegate: _IntestazioneFamiglia(titolo: titolo, palette: palette),
-      ),
-      SliverList.separated(
-        itemCount: domande.length,
-        separatorBuilder: (_, __) => Divider(
-          height: 1,
-          color: palette.gold.withValues(alpha: 0.12),
-        ),
-        itemBuilder: (context, i) => Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-          child: _QuestionRow(
-            question: domande[i],
-            onTap: () => _send(context, domande[i]),
-          ),
-        ),
-      ),
-    ];
-  }
+  List<String> get _domande => switch (_scelta) {
+        SuggestionGroup.frequent => widget.frequenti,
+        SuggestionGroup.personal => widget.personali,
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -291,25 +286,58 @@ class _SuggestionsPanel extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.sm),
+          // I DUE TITOLI AFFIANCATI. Una famiglia vuota non porta il suo
+          // titolo: la regola del vero, mai un titolo che apre il nulla.
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+            child: Row(
+              children: [
+                if (widget.frequenti.isNotEmpty)
+                  Expanded(
+                    child: _TitoloDiFamiglia(
+                      key: const Key('titolo_frequenti'),
+                      testo: 'DOMANDE FREQUENTI',
+                      scelto: _scelta == SuggestionGroup.frequent,
+                      palette: palette,
+                      onTap: () => setState(
+                          () => _scelta = SuggestionGroup.frequent),
+                    ),
+                  ),
+                if (widget.personali.isNotEmpty)
+                  Expanded(
+                    child: _TitoloDiFamiglia(
+                      key: const Key('titolo_personali'),
+                      testo: 'DOMANDE PERSONALI',
+                      scelto: _scelta == SuggestionGroup.personal,
+                      palette: palette,
+                      onTap: () => setState(
+                          () => _scelta = SuggestionGroup.personal),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.xs),
           Flexible(
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * 0.55,
               ),
-              child: CustomScrollView(
+              child: ListView.separated(
+                key: const Key('elenco_suggerimenti'),
                 shrinkWrap: true,
-                slivers: [
-                  // La famiglia vuota non porta intestazione: la regola del
-                  // vero vale anche qui, mai un segnaposto.
-                  if (frequenti.isNotEmpty)
-                    SliverMainAxisGroup(
-                        slivers: _famiglia(context, 'DOMANDE FREQUENTI',
-                            frequenti, palette)),
-                  if (personali.isNotEmpty)
-                    SliverMainAxisGroup(
-                        slivers: _famiglia(context, 'DOMANDE PERSONALI',
-                            personali, palette)),
-                ],
+                padding: const EdgeInsets.symmetric(
+                    horizontal: SpacingTokens.lg),
+                itemCount: _domande.length,
+                separatorBuilder: (_, __) => Divider(
+                  height: 1,
+                  color: palette.gold.withValues(alpha: 0.12),
+                ),
+                itemBuilder: (context, i) => _QuestionRow(
+                  question: _domande[i],
+                  onTap: () => _send(_domande[i]),
+                ),
               ),
             ),
           ),
@@ -319,44 +347,52 @@ class _SuggestionsPanel extends StatelessWidget {
   }
 }
 
-/// L'intestazione di una famiglia, appiccicata in alto mentre si scorre la
-/// sua sezione. Il fondo e' OPACO apposta (voce 1 dello stesso ordine): le
-/// voci le scorrono sotto e spariscono, non si intravedono.
-class _IntestazioneFamiglia extends SliverPersistentHeaderDelegate {
-  const _IntestazioneFamiglia({required this.titolo, required this.palette});
+/// Uno dei due titoli in cima al pannello: acceso quello scelto, spento
+/// l'altro. La differenza NON e' solo di colore: il titolo scelto porta
+/// anche la sua riga sotto, cosi' si distingue anche a colpo d'occhio e
+/// anche per chi il colore lo vede male.
+class _TitoloDiFamiglia extends StatelessWidget {
+  const _TitoloDiFamiglia({
+    super.key,
+    required this.testo,
+    required this.scelto,
+    required this.palette,
+    required this.onTap,
+  });
 
-  final String titolo;
+  final String testo;
+  final bool scelto;
   final MaestroPalette palette;
-
-  static const double _altezza = 36;
-
-  @override
-  double get minExtent => _altezza;
+  final VoidCallback onTap;
 
   @override
-  double get maxExtent => _altezza;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      height: _altezza,
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-      color: palette.surfaceElevated,
-      child: Text(
-        titolo,
-        style: TypographyTokens.label(size: 12.5).copyWith(
-          color: palette.goldSoft,
-          letterSpacing: 1.2,
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: scelto
+                  ? palette.gold
+                  : palette.gold.withValues(alpha: 0.12),
+              width: scelto ? 2 : 1,
+            ),
+          ),
+        ),
+        child: Text(
+          testo,
+          textAlign: TextAlign.center,
+          style: TypographyTokens.label(size: 12).copyWith(
+            color: scelto ? palette.goldSoft : ColorTokens.textMuted,
+            letterSpacing: 1.1,
+          ),
         ),
       ),
     );
   }
-
-  @override
-  bool shouldRebuild(_IntestazioneFamiglia old) =>
-      old.titolo != titolo || old.palette != palette;
 }
 
 class _QuestionRow extends StatelessWidget {

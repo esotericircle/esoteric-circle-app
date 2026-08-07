@@ -16,13 +16,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// IL PANNELLO MOSTRA LE DUE FAMIGLIE INSIEME, NON A LINGUETTE.
+/// IL PANNELLO PORTA LE DUE FAMIGLIE, ED E' RAGGIUNGIBILE SEMPRE.
 ///
-/// Ordine 2163, voce 3. Visto: due schede alternative, se ne leggeva una per
-/// volta. Mauro le vuole tutte e due nello stesso riquadro scorrevole, con
-/// le intestazioni che restano appiccicate in alto mentre si scorre la loro
-/// sezione. Il pannello resta raggiungibile in qualunque momento della
-/// conversazione, e le personali senza il loro dato NON compaiono.
+/// **QUESTA PROVA E' STATA RISCRITTA, non allentata, ordine 2164 voce 7.**
+/// Nasceva con l'ordine 2163 voce 3, che chiedeva le due famiglie unite in
+/// un solo scorrevole "non a linguette": quella era una lettura sbagliata
+/// delle parole di Mauro da parte dell'Architetto, e Mauro l'ha superata
+/// chiedendo i DUE TITOLI selezionabili, com'era nelle build precedenti.
+/// Cio' che questa prova sorveglia resta: le due famiglie ci sono tutte e
+/// due nello stesso pannello, il pannello si apre in qualunque momento
+/// della conversazione, e le personali senza il loro dato NON compaiono.
+/// Cambia il modo in cui la seconda famiglia si raggiunge: un tocco sul
+/// suo titolo invece dello scorrimento.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -95,6 +100,7 @@ void main() {
 
     expect(find.byKey(const Key('pannello_suggerimenti')), findsOneWidget);
     // TUTTE E DUE, senza toccare nulla: non sono piu' linguette alternative.
+    // I due titoli affiancati, tutti e due nell'albero senza nessun tocco.
     expect(find.text('DOMANDE FREQUENTI'), findsOneWidget,
         reason: 'L\'intestazione delle frequenti non e\' nel pannello.');
     expect(find.text('DOMANDE PERSONALI'), findsOneWidget,
