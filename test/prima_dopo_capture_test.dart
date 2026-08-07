@@ -1424,6 +1424,53 @@ void main() {
     });
   }
 
+  // ORDINE 2163, VOCE 1: il campo di scrittura opaco. Una risposta lunga
+  // scorre dietro al campo: nella prima si legge attraverso, nella dopo
+  // sparisce sotto.
+  testWidgets('2163, il campo opaco', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({'onboarding.done': true});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final servizi = AppServices(
+      ai: _VoceConUnTesto(List.filled(
+              12,
+              'Il cielo tiene aperta la tua domanda e la osserva con te, '
+              'riga dopo riga, senza fretta.')
+          .join(' ')),
+      memory: InMemoryMaestroMemoryRepository(),
+      memoryPersistent: false,
+    );
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(conIntro: false, services: servizi),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(
+        MaestroChatScreen.route(maestro: Maestro.caligo, services: servizi));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.enterText(find.byType(TextField).first, 'Chi sei tu?');
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    await tester.pump();
+    for (var i = 0; i < 24; i++) {
+      await tester.pump(const Duration(milliseconds: 500));
+    }
+    // La risposta lunga si porta dietro al campo, come negli screenshot.
+    await tester.drag(find.byType(ListView).first, const Offset(0, 140),
+        warnIfMissed: false);
+    await tester.pump(const Duration(milliseconds: 400));
+
+    await scattaApp(tester, radice, 'campo_opaco');
+  });
+
   // VOCE 4: il fondo della home, scorso davvero, dove la striscia delle
   // altre arti adesso c'e' e prima non c'era.
   testWidgets('2161, la striscia in fondo alla home', (tester) async {

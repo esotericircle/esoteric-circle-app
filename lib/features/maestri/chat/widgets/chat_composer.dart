@@ -102,8 +102,16 @@ class _ChatComposerState extends State<ChatComposer> {
           ],
           Expanded(
             child: Container(
+              key: const Key('chat_campo'),
               decoration: BoxDecoration(
-                color: palette.surface.withValues(alpha: 0.6),
+                // OPACO, ordine 2163 voce 1: il testo delle bolle si leggeva
+                // ATTRAVERSO il campo. Il colore e' lo stesso di prima
+                // (surface al 60 per cento posata sul fondale), ma composto
+                // una volta per tutte invece che lasciato comporre a video
+                // con quello che passa dietro: il contenuto scorre sotto e
+                // sparisce, non si intravede.
+                color: Color.alphaBlend(
+                    palette.surface.withValues(alpha: 0.6), palette.deepest),
                 borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
                 border: Border.all(
                   color: palette.gold.withValues(alpha: 0.3),
@@ -193,6 +201,7 @@ class _SendButton extends StatelessWidget {
             }
           : null,
       child: AnimatedContainer(
+        key: const Key('chat_invio'),
         duration: const Duration(milliseconds: 200),
         width: 48,
         height: 48,
@@ -201,11 +210,18 @@ class _SendButton extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
+            // Anche il tondo di invio e' OPACO in tutti e due gli stati,
+            // ordine 2163 voce 1: da spento era semitrasparente e le bolle
+            // ci passavano dietro. Stesso colore percepito, composto.
             colors: enabled
                 ? [palette.goldSoft, palette.gold]
                 : [
-                    palette.surface.withValues(alpha: 0.6),
-                    palette.surface.withValues(alpha: 0.4),
+                    Color.alphaBlend(
+                        palette.surface.withValues(alpha: 0.6),
+                        palette.deepest),
+                    Color.alphaBlend(
+                        palette.surface.withValues(alpha: 0.4),
+                        palette.deepest),
                   ],
           ),
           boxShadow: enabled
