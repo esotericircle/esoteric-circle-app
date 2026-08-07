@@ -25,6 +25,7 @@ import '../../../core/maestro/sorgente_natale.dart';
 import '../../../design_system/components/consulto_del_cielo_view.dart';
 import '../../../design_system/components/scena_sopra_la_conversazione.dart';
 import '../../../design_system/components/cosmos_background.dart';
+import '../../shell/spazio_della_barra.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -164,6 +165,26 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   /// ripetono la stessa formula. Chiave per Maestro.
   static const String _kRotationPrefix = 'maestro.welcome.rotation.';
   int _welcomeRotation = 0;
+
+  /// IL COMPOSITORE SI MISURA, NON SI STIMA. La lista scorre sotto di lui e
+  /// sotto la barra, quindi il suo fondo interno deve valere l'altezza vera
+  /// del campo, che cresce fino a cinque righe: una costante mentirebbe alla
+  /// prima riga in piu'. Si misura a fotogramma disegnato e si aggiorna solo
+  /// quando cambia davvero.
+  final GlobalKey _chiaveComposer = GlobalKey();
+  double _altezzaComposer = 88;
+
+  void _misuraComposer() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final resa = _chiaveComposer.currentContext?.findRenderObject();
+      if (resa is RenderBox && resa.hasSize) {
+        if ((resa.size.height - _altezzaComposer).abs() > 0.5) {
+          setState(() => _altezzaComposer = resa.size.height);
+        }
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -488,8 +509,17 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         // 123 punti in un fotogramma. I messaggi scorrono gia' dietro il
         // campo, che e' il comportamento del dominio applicato alla parte che
         // scorre. La ragione intera sta su SpazioDellaBarraNelloScroll.
+        // **L'ECCEZIONE SULLA CHAT E' REVOCATA DA MAURO, ordine 2161.** Il
+        // fondo non si consuma piu' qui: i messaggi scorrono sotto il
+        // compositore e sotto la barra, il vetro della barra si legge
+        // perche' sotto c'e' contenuto, e il compositore resta ancorato
+        // SOPRA la barra come strumento, senza fascia vuota sotto di lui:
+        // sotto c'e' la barra, e sotto la barra scorrono i messaggi.
         child: SafeArea(
-          child: Column(
+          bottom: false,
+          child: Stack(
+            children: [
+              Column(
             children: [
               // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
               // la conversazione, cioe' nello spazio che rovesciando la lista
@@ -589,29 +619,57 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               // apriva un confronto fra una voce sola e nessun'altra. La
               // regola sta nel dato, `AltreVoci.siPuoSintetizzare`, e conta le
               // letture VERE: due ripieghi non sono due voci.
-              if (!controller.aiReady)
-                _ConfigNotice(palette: palette, maestro: widget.maestro),
-              ChatComposer(
-                enabled: controller.aiReady && !controller.sending,
-                hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
-                    '${widget.maestro.displayName}',
-                // A chat vuota, se si arriva dalla chiusura del cerchio, il
-                // campo si apre gia' col tema del Consulta.
-                initialText: hasMessages ? null : widget.initialTheme,
-                onSend: controller.send,
-                // A conversazione avviata, un solo controllo discreto apre il
-                // pannello dei suggerimenti. A chat vuota gli spunti sono i chip
-                // d'avvio al centro, quindi qui non serve.
-                onSuggestions: hasMessages
-                    ? () => showSuggestionsPanel(
-                          context,
-                          maestro: widget.maestro,
-                          onSend: controller.send,
-                        )
-                    : null,
+            ],
               ),
+              _composerSospeso(controller),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  /// Il compositore, sopra la barra, con la sua misura presa a ogni
+  /// fotogramma: la lista scorre sotto di lui e sotto la barra.
+  Widget _composerSospeso(MaestroChatController controller) {
+    final spazioBarra = SpazioDellaBarraNelloScroll.quanto(context);
+    final hasMessages = controller.messages.isNotEmpty;
+    _misuraComposer();
+    return Positioned(
+      left: 0,
+      right: 0,
+      bottom: spazioBarra,
+      child: KeyedSubtree(
+        key: _chiaveComposer,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // L'avviso di configurazione e' uno strumento come il campo:
+            // sta sopra di lui, non in fondo alla colonna del contenuto,
+            // altrimenti torna la fascia piena sotto la barra.
+            if (!controller.aiReady)
+              _ConfigNotice(
+                  palette: context.palette, maestro: widget.maestro),
+            ChatComposer(
+          enabled: controller.aiReady && !controller.sending,
+          hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
+              '${widget.maestro.displayName}',
+          // A chat vuota, se si arriva dalla chiusura del cerchio, il
+          // campo si apre gia' col tema del Consulta.
+          initialText: hasMessages ? null : widget.initialTheme,
+          onSend: controller.send,
+          // A conversazione avviata, un solo controllo discreto apre il
+          // pannello dei suggerimenti. A chat vuota gli spunti sono i chip
+          // d'avvio al centro, quindi qui non serve.
+          onSuggestions: hasMessages
+              ? () => showSuggestionsPanel(
+                    context,
+                    maestro: widget.maestro,
+                    onSend: controller.send,
+                  )
+              : null,
+            ),
+          ],
         ),
       ),
     );
@@ -661,9 +719,16 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       // fascia vuota. Con la misura vera, una chat corta lascia libero cio'
       // che non usa, e una chat lunga non lascia niente.
       shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(
-        horizontal: SpacingTokens.md,
-        vertical: SpacingTokens.md,
+      // IL FONDO INTERNO PORTA IL COMPOSITORE E LA BARRA: la lista scorre
+      // sotto tutti e due, e l'ultimo messaggio risale sopra il compositore
+      // grazie a questa misura, presa dal campo vero e non da una costante.
+      padding: EdgeInsets.fromLTRB(
+        SpacingTokens.md,
+        SpacingTokens.md,
+        SpacingTokens.md,
+        SpacingTokens.md +
+            _altezzaComposer +
+            SpazioDellaBarraNelloScroll.quanto(context),
       ),
       itemCount: messaggi.length,
       itemBuilder: (context, index) {

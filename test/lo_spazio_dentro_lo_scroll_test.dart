@@ -8,6 +8,7 @@ import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
 import 'package:esoteric_circle/features/shell/barra_del_cerchio.dart';
 import 'package:esoteric_circle/features/shell/santuario_bottom_bar.dart';
+import 'package:esoteric_circle/design_system/components/scena_sopra_la_conversazione.dart';
 import 'package:esoteric_circle/features/shell/spazio_della_barra.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -159,18 +160,62 @@ void main() {
               'meno dell\'altezza della barra, l\'ultima carta resta coperta.');
     });
 
-    testWidgets('nella chat il campo resta sopra la barra, ed e\' l\'eccezione '
-        'dichiarata', (tester) async {
+    testWidgets('nella chat l\'eccezione e\' REVOCATA: contenuto fino in '
+        'fondo e campo sopra la barra', (tester) async {
+      // L'ECCEZIONE DELLA 2158 E' REVOCATA DA MAURO, ordine 2161: anche
+      // nella chat il contenuto arriva sotto la barra, e il vetro si legge
+      // perche' sotto c'e' qualcosa. Il campo resta ancorato SOPRA la barra
+      // come strumento: sotto di lui sta la barra, e sotto la barra scorrono
+      // i messaggi, nessuna fascia vuota.
       final nav = await monta(tester);
       nav.push(MaestroChatScreen.route(
           maestro: Maestro.medora, services: AppServices.offline()));
       await respira(tester);
+      final regione =
+          tester.getRect(find.byType(ScenaSopraLaConversazione).first);
+      expect(regione.bottom, greaterThanOrEqualTo(fondoSchermo - 1),
+          reason: 'La regione dei messaggi finisce a ${regione.bottom} su '
+              '$fondoSchermo: sotto la barra della chat torna una fascia '
+              'senza contenuto, cioe\' il rettangolo pieno visto da Mauro.');
       final campo = tester.getRect(find.byType(TextField).first);
       const cimaBarra = fondoSchermo - BarraDelCerchio.altezza;
       expect(campo.bottom, lessThanOrEqualTo(cimaBarra + 1),
           reason: 'Il campo di scrittura finisce a ${campo.bottom}, sotto la '
               'cima della barra ($cimaBarra): uno strumento ancorato sotto la '
               'barra non si puo\' usare.');
+    });
+
+    testWidgets('LE CINQUE SCHERMATE, enumerate: sotto la barra sempre '
+        'contenuto', (tester) async {
+      // Una prova sola che le elenca, non una per schermata: se una delle
+      // cinque torna a consumare il fondo, cade nominandola.
+      final nav = await monta(tester);
+      final regioni = <String, double>{};
+      regioni['home'] = tester.getRect(loScorrevole().first).bottom;
+      await tester.tap(find.byKey(const Key('via_icona_passport')).first);
+      await respira(tester);
+      regioni['passport'] = tester.getRect(loScorrevole().first).bottom;
+      nav.push(DomainScreen.route(
+          maestro: Maestro.caligo, services: AppServices.offline()));
+      await respira(tester);
+      regioni['dominio'] = tester.getRect(loScorrevole().first).bottom;
+      nav.push(MaestroChatScreen.route(
+          maestro: Maestro.medora, services: AppServices.offline()));
+      await respira(tester);
+      regioni['chat'] =
+          tester.getRect(find.byType(ScenaSopraLaConversazione).first).bottom;
+      nav.push(versoIlConsiglio());
+      await respira(tester);
+      regioni['consiglio'] = tester.getRect(loScorrevole().first).bottom;
+
+      final colpevoli = regioni.entries
+          .where((e) => e.value < fondoSchermo - 1)
+          .map((e) => '${e.key} (${e.value})')
+          .toList();
+      expect(colpevoli, isEmpty,
+          reason: 'Sotto la barra torna una fascia senza contenuto in: '
+              '$colpevoli. Il vetro si legge solo se sotto scorre qualcosa, '
+              'per tutte e cinque senza eccezioni.');
     });
   });
 
