@@ -592,41 +592,13 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                     transitionBuilder: (figlio, anim) =>
                         FadeTransition(opacity: anim, child: figlio),
                     child: controller.mostraLaScenaDiAttesa
-                        ? Container(
-                            // IL RIQUADRO DELLA SCENA, ordine 2163 voce 5:
-                            // il velo sfumato lasciava l'emblema e la frase
-                            // cadere SOPRA le bolle. Adesso la scena vive in
-                            // un riquadro dichiarato e OPACO (il colore e'
-                            // composto, voce 1): la conversazione ci scorre
-                            // sotto e ci SPARISCE dietro, l'emblema si
-                            // dimensiona dentro il riquadro e la frase sta
-                            // sotto di lui. I tempi del 4 agosto e il minimo
-                            // del 2161 non si toccano.
+                        ? Padding(
                             key: const Key('riquadro_attesa'),
-                            margin: const EdgeInsets.fromLTRB(
+                            padding: const EdgeInsets.fromLTRB(
                                 SpacingTokens.md,
                                 SpacingTokens.sm,
                                 SpacingTokens.md,
                                 SpacingTokens.sm),
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color.alphaBlend(
-                                      palette.surfaceElevated
-                                          .withValues(alpha: 0.4),
-                                      palette.deepest),
-                                  palette.deepest,
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(
-                                  SpacingTokens.radiusLg),
-                              border: Border.all(
-                                  color: palette.gold
-                                      .withValues(alpha: 0.28)),
-                            ),
                             child: ConsultoDelCieloView(
                             // La chiave porta CHI si consulta: cambiando voce
                             // la scena si rifa' con le battute di quel Maestro
@@ -734,31 +706,13 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       return const SizedBox.shrink();
     }
     if (controller.messages.isEmpty) {
-      // LE DUE FAMIGLIE, INTERE E DIVISE, sulla prima schermata: le
-      // frequenti tutte, le personali filtrate sul dato vero e ruotate in
-      // modo deterministico su persona e giorno. Il tre scritto a mano dei
-      // soli starters e' la riduzione del 12 luglio che Mauro ha revocato.
-      final famiglie = _famiglieCorrenti(context);
+      // IL SOLO BENVENUTO, ordine 2164 voci 3 e 4: qui passavano anche
+      // l'assaggio di tre domande e il pulsante che apriva il pannello.
+      // Sono spariti, e con loro le due porte in piu': resta l'icona a
+      // stelline accanto al campo.
       return ChatEmptyState(
         maestro: widget.maestro,
         greeting: _welcomeFor(controller),
-        // L'ASSAGGIO: tre voci in una riga, non la colonna. Le famiglie
-        // intere e divise vivono nel pannello (ordine 2163, voci 3 e 4).
-        assaggio: famiglie.frequenti.take(3).toList(),
-        onSuggerimenti: () {
-          showSuggestionsPanel(
-            context,
-            maestro: widget.maestro,
-            onSend: controller.send,
-            frequenti: famiglie.frequenti,
-            personali: famiglie.personali,
-          );
-        },
-        onStarter: controller.send,
-        enabled: controller.aiReady,
-        // La stessa misura del fondo della lista dei messaggi: il primo
-        // schermo scorre sotto il compositore e sotto la barra, ma da fermo
-        // le famiglie si leggono sopra il vetro, non dietro.
         spazioInFondo: _altezzaComposer +
             SpazioDellaBarraNelloScroll.quanto(context),
       );

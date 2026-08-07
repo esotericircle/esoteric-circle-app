@@ -87,19 +87,17 @@ class _ChatComposerState extends State<ChatComposer> {
         // centotrentacinque punti di vuoto sotto il campo, misurati.
         bottom: SpacingTokens.sm,
       ),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            palette.deepest.withValues(alpha: 0.0),
-            palette.deepest.withValues(alpha: 0.9),
-            palette.deepest,
-          ],
-        ),
-      ),
+      // NESSUN FONDO DIETRO LA RIGA, ordine 2164 voce 2. Qui c'era una
+      // fascia scura piena, larga quanto lo schermo, che sfumava da
+      // trasparente a fondale pieno: Mauro l'ha tolta. Restano il campo e il
+      // tondo di invio, che sono opachi LORO (ordine 2163 voce 1) e lo
+      // restano, appoggiati direttamente sul cosmo.
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        // AL CENTRO, ordine 2164 voce 5: allineate in fondo, le stelline
+        // salivano sopra il campo e la scritta Suggerimenti finiva sopra il
+        // contenuto. Adesso icona e scritta stanno sulla stessa riga del
+        // campo, centrate come la freccia di invio dall'altro lato.
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (widget.onSuggestions != null) ...[
             _SuggestionsControl(onTap: widget.onSuggestions!),
@@ -169,21 +167,23 @@ class _SuggestionsControl extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 4),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.auto_awesome_outlined,
-                color: palette.goldSoft, size: 24),
-            const SizedBox(height: 2),
-            Text(
-              'Suggerimenti',
-              style: TypographyTokens.body(size: 13)
-                  .copyWith(color: ColorTokens.textMuted),
-            ),
-          ],
-        ),
+      // NIENTE PADDING IN FONDO, ordine 2164 voce 5: quel respiro serviva
+      // ad allineare la colonna quando la riga era allineata in basso, e
+      // adesso alzerebbe di nuovo l'icona sopra il campo. La colonna e'
+      // stretta al minimo e la Row la centra sul campo.
+      child: Column(
+        key: const Key('chat_stelline'),
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.auto_awesome_outlined,
+              color: palette.goldSoft, size: 24),
+          const SizedBox(height: 2),
+          Text(
+            'Suggerimenti',
+            style: TypographyTokens.body(size: 13)
+                .copyWith(color: ColorTokens.textMuted),
+          ),
+        ],
       ),
     );
   }

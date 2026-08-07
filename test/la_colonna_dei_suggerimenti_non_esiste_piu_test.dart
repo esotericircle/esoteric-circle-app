@@ -42,8 +42,8 @@ void main() {
     }
   }
 
-  testWidgets('a chat vuota: benvenuto, invito alle stelline, assaggio in '
-      'riga', (tester) async {
+  testWidgets('a chat vuota resta il solo benvenuto, e la porta e\' una',
+      (tester) async {
     silenzia();
     SharedPreferences.setMockInitialValues({
       'onboarding.done': true,
@@ -70,47 +70,26 @@ void main() {
     expect(find.byKey(const Key('chat_famiglia_personali')), findsNothing,
         reason: 'La colonna delle personali sta ancora sul primo schermo.');
 
-    // L'invito alle stelline c'e' ED E' UN GESTO VERO: si tocca e il
-    // pannello si apre. Trovarlo senza toccarlo non prova niente.
-    expect(find.byKey(const Key('chat_invito_stelline')), findsOneWidget,
-        reason: 'Manca l\'invito a toccare le stelline.');
-    // Si scorre come farebbe il dito: col greeting lungo l'invito puo'
-    // nascere dietro il vetro del blocco sospeso, e dietro il vetro non si
-    // tocca. E' il contenuto che passa sotto, la regola della 2161.
-    await tester.drag(find.byType(SingleChildScrollView).first,
-        const Offset(0, -160), warnIfMissed: false);
-    await tester.pump(const Duration(milliseconds: 300));
-    await tester.tap(find.byKey(const Key('chat_invito_stelline')));
+    // **LE ALTRE DUE PORTE SONO SPARITE, ordine 2164 voci 3 e 4.** Questa
+    // prova pretendeva l'invito e l'assaggio, che erano la risposta della
+    // voce 4 del 2163; Mauro li ha tolti (bolle inutili e ripetitive, e il
+    // pulsante ripeteva le stelline). Non e' un allentamento: e' la stessa
+    // prova sulla stessa regola, col numero di porte che passa da tre a una.
+    expect(find.byKey(const Key('chat_invito_stelline')), findsNothing,
+        reason: 'Il pulsante "Tocca per tutte le domande" e\' tornato.');
+    expect(find.byKey(const Key('chat_assaggio')), findsNothing,
+        reason: 'La riga di bolle orizzontali e\' tornata.');
+    expect(find.byKey(const Key('chat_benvenuto')), findsOneWidget,
+        reason: 'Il primo schermo resta col benvenuto del Maestro.');
+
+    // E LA PORTA CHE RESTA E' UN GESTO VERO: si tocca e il pannello si
+    // apre. Trovarla senza toccarla non proverebbe niente.
+    await tester.tap(find.byKey(const Key('chat_stelline')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
     expect(find.byKey(const Key('pannello_suggerimenti')), findsOneWidget,
-        reason: 'Il tocco sull\'invito alle stelline non apre il pannello: '
-            'l\'invito e\' una scritta, non un gesto.');
-    await tester.tapAt(const Offset(10, 60));
-    await tester.pump(const Duration(milliseconds: 400));
-
-    // L'assaggio: al massimo tre voci, in UNA riga, dentro i margini.
-    final assaggio = find.byKey(const Key('chat_assaggio'));
-    if (assaggio.evaluate().isNotEmpty) {
-      final chips = find.descendant(
-          of: assaggio, matching: find.byKey(const Key('chat_assaggio_voce'),
-              skipOffstage: false));
-      final quanti = chips.evaluate().length;
-      expect(quanti, lessThanOrEqualTo(3),
-          reason: 'L\'assaggio porta $quanti voci: al massimo tre.');
-      final rettangoli = [
-        for (var i = 0; i < quanti; i++) tester.getRect(chips.at(i))
-      ];
-      final quote = rettangoli.map((r) => r.top).toSet();
-      expect(quote.length, 1,
-          reason: 'Le voci d\'assaggio non stanno su UNA riga: quote '
-              '$quote. La colonna e\' tornata.');
-      final schermo = tester.view.physicalSize.width;
-      final rigaRect = tester.getRect(assaggio);
-      expect(rigaRect.left, greaterThanOrEqualTo(0));
-      expect(rigaRect.width, lessThanOrEqualTo(schermo + 0.1),
-          reason: 'La riga d\'assaggio esce dai margini dello schermo.');
-    }
+        reason: 'Il tocco sulle stelline non apre il pannello: l\'unica '
+            'porta rimasta non funziona.');
   });
 
   test('oltre il pannello, al massimo UNA porta mostra suggerimenti', () {
@@ -120,6 +99,8 @@ void main() {
     // (chat_famiglia_*) non devono esistere piu' in lib.
     var famiglie = 0;
     var assaggi = 0;
+    var inviti = 0;
+    var stelline = 0;
     var pannelli = 0;
     for (final f in Directory('lib')
         .listSync(recursive: true)
@@ -128,6 +109,8 @@ void main() {
       final testo = f.readAsStringSync();
       famiglie += "Key('chat_famiglia_".allMatches(testo).length;
       assaggi += "Key('chat_assaggio')".allMatches(testo).length;
+      inviti += "Key('chat_invito_stelline')".allMatches(testo).length;
+      stelline += "Key('chat_stelline')".allMatches(testo).length;
       pannelli += "Key('pannello_suggerimenti')".allMatches(testo).length;
     }
     expect(famiglie, 0,
@@ -135,8 +118,18 @@ void main() {
             'lib: la seconda porta non e\' stata tolta.');
     expect(pannelli, 1,
         reason: 'Il pannello deve avere UNA definizione.');
-    expect(assaggi, lessThanOrEqualTo(1),
-        reason: 'L\'assaggio deve essere al massimo UNO oltre il pannello: '
-            'trovati $assaggi.');
+    // ORDINE 2164 VOCI 3 E 4: LE PORTE PASSANO DA TRE A UNA. Erano il
+    // pulsante d'invito, la riga d'assaggio e le stelline accanto al campo.
+    // Adesso la porta e' una sola, e questa prova cade se qualcuno ne
+    // riapre una seconda.
+    expect(assaggi, 0,
+        reason: 'La riga d\'assaggio vive ancora in lib: trovata $assaggi '
+            'volte. La voce 3 chiedeva di toglierla, non di nasconderla.');
+    expect(inviti, 0,
+        reason: 'Il pulsante d\'invito vive ancora in lib: trovato $inviti '
+            'volte. La voce 4 chiedeva di toglierlo.');
+    expect(stelline, 1,
+        reason: 'Le porte ai suggerimenti non sono piu\' UNA: le stelline '
+            'compaiono $stelline volte in lib.');
   });
 }
