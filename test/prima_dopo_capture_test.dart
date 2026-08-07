@@ -9,6 +9,7 @@ import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
+import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/diagnostics_dialog.dart';
@@ -1602,6 +1603,73 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
 
     await scattaApp(tester, radice, 'campo_opaco');
+  });
+
+  // ORDINE 2163, VOCE 11: il Soffio dentro l'app. Nella prima il respiro
+  // parte DA SOLO: la scena dell'invito non ha nessun pulsante, e la seconda
+  // scatta mostra "Inspira" gia' in corso senza che nessuno abbia toccato.
+  // Nella dopo c'e' il pulsante "Tocca per cominciare" e la seconda scatta
+  // mostra il conto alla rovescia sul 2. Lo stesso file gira sui due alberi,
+  // quindi il ramo si sceglie guardando se il pulsante esiste.
+  testWidgets('2163, il soffio parte quando decidi tu', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({'onboarding.done': true});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child:
+          EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(BreathDestinyScreen.route(now: DateTime(2026, 8, 7, 10, 30)));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
+    // I livelli del prato e del soffione si decodificano solo dentro
+    // runAsync: senza questo giro la prima scatta esce su fondo nero.
+    await tester.runAsync(() async {
+      final ctx = tester.element(find.byType(BreathDestinyScreen));
+      for (final asset in const [
+        'assets/ritual_backgrounds/breath_meadow.png',
+        'assets/ritual_backgrounds/breath_dandelion.png',
+      ]) {
+        await precacheImage(AssetImage(asset), ctx);
+      }
+    });
+    await tester.pump(const Duration(milliseconds: 600));
+
+    // Il gesto col ripiego tattile: il respiro compare a dono rivelato.
+    await tester.longPress(find.byKey(const Key('ritual_gesture')));
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await scattaApp(tester, radice, 'soffio_invito');
+
+    final tocca = find.byKey(const Key('respiro_tocca'));
+    if (tocca.evaluate().isNotEmpty) {
+      await tester.tap(tocca);
+      await tester.pump();
+      // Un secondo dopo il tocco il conto dice 2; ancora un decimo perche'
+      // il numero appena nato si veda pieno.
+      await tester.pump(const Duration(milliseconds: 1000));
+      await tester.pump(const Duration(milliseconds: 120));
+    } else {
+      // Albero vecchio: si aspetta e il respiro parte da solo, che e'
+      // esattamente il difetto da mostrare. La guida nasce a fine
+      // dispersione, circa un secondo e mezzo dopo il gesto, e il suo timer
+      // dura altri due: la prima stesura aspettava 1,7 secondi e fotografava
+      // ancora l'apertura, misurato sulla scatta stessa.
+      await tester.pump(const Duration(milliseconds: 2600));
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    await scattaApp(tester, radice, 'soffio_conto');
   });
 
   // VOCE 4: il fondo della home, scorso davvero, dove la striscia delle

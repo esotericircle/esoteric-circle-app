@@ -4193,7 +4193,11 @@ void main() {
     await tester.pump();
     await capture(tester, rootKey, 'respiro-apertura.png');
 
-    await tester.pump(ParoleDelRespiro.attesaDellApertura);
+    // ORDINE 2163 VOCE 11: il respiro parte col tocco e dopo il conto, non
+    // piu' da solo. Per la scena del gesto si tocca e si attraversa il conto.
+    await tester.tap(find.byKey(const Key('respiro_tocca')));
+    await tester.pump();
+    await tester.pump(ParoleDelRespiro.durataDelConto);
     await tester.pump(const Duration(milliseconds: 300));
     await capture(tester, rootKey, 'respiro-inspira.png');
 

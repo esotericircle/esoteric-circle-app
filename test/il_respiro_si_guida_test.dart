@@ -103,6 +103,16 @@ void main() {
   });
 
   group('La guida a schermo', () {
+    // ORDINE 2163 VOCE 11: il respiro parte col tocco e dopo il conto alla
+    // rovescia, mai da solo. Il no-tocco e il conto hanno le loro prove in
+    // il_respiro_parte_quando_decidi_tu_test.dart: qui si attraversano.
+    Future<void> comincia(WidgetTester tester) async {
+      await tester.tap(find.byKey(const Key('respiro_tocca')));
+      await tester.pump();
+      await tester.pump(ParoleDelRespiro.durataDelConto);
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+
     Widget host({bool riduciMovimento = false}) => MaterialApp(
           home: Builder(
             builder: (ctx) => MediaQuery(
@@ -128,8 +138,9 @@ void main() {
       // "Inspira" ed "Espira", e il giro resta sotto come riga di servizio.
       await tester.pumpWidget(host());
       await tester.pump();
-      // Il conteggio parte dopo l'apertura, che resta due secondi pieni.
-      await tester.pump(ParoleDelRespiro.attesaDellApertura);
+      // ORDINE 2163 VOCE 11: il rito parte col tocco, poi il conto di quattro
+      // secondi. Il vecchio timer automatico non esiste piu'.
+      await comincia(tester);
       await tester.pump(const Duration(milliseconds: 300));
 
       String conteggio() => tester
@@ -167,9 +178,9 @@ void main() {
           .transform
           .storage[0];
 
-      // Il motore parte dopo l'apertura: prima la figura sta ferma, ed e'
-      // giusto, perche' il rito non e' ancora cominciato.
-      await tester.pump(ParoleDelRespiro.attesaDellApertura);
+      // Il motore parte dopo il tocco e il conto: prima la figura sta ferma,
+      // ed e' giusto, perche' il rito non e' ancora cominciato.
+      await comincia(tester);
       await tester.pump(const Duration(milliseconds: 100));
       final inizio = scala();
       await tester.pump(const Duration(milliseconds: 3900));
@@ -203,7 +214,7 @@ void main() {
           .transform
           .storage[0];
 
-      await tester.pump(ParoleDelRespiro.attesaDellApertura);
+      await comincia(tester);
       await tester.pump(const Duration(milliseconds: 100));
       expect(scala(), closeTo(1.0, 0.001));
       await tester.pump(const Duration(milliseconds: 3900));

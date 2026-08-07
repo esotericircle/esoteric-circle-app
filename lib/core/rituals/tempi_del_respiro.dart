@@ -115,12 +115,18 @@ class ParoleDelRespiro {
   /// La chiusura, quando l'ultimo giro si e' chiuso.
   static const String compiuto = 'Il respiro è compiuto.';
 
-  /// Quanto resta a video l'apertura prima che il conteggio parta.
+  /// La parola del pulsante che fa partire il conto.
   ///
-  /// Due secondi pieni, e non e' un tempo scelto a occhio: e' una frase da
-  /// LEGGERE, non da intravedere, e sotto ce n'e' una seconda che dichiara la
-  /// forma del rito. Chi comincia a respirare senza averle lette respira a caso.
-  static const Duration attesaDellApertura = Duration(seconds: 2);
+  /// ORDINE 2163, VOCE 11: il respiro non parte piu' da solo. L'apertura resta
+  /// a video FINCHE' la persona non tocca, e il tempo di lettura lo decide lei.
+  static const String tocca = 'Tocca per cominciare';
+
+  /// Quanto dura il conto alla rovescia, dal tocco al primo gesto.
+  ///
+  /// Quattro secondi: 3, 2, 1, 0, un numero al secondo, deterministico. Non e'
+  /// piu' l'attesa dell'apertura di due secondi: quel timer partiva da solo, e
+  /// Mauro l'ha revocato con l'ordine 2163.
+  static const Duration durataDelConto = Duration(seconds: 4);
 
   /// LA FORMA DEL RITO, coi numeri VERI.
   ///

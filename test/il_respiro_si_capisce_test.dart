@@ -23,39 +23,46 @@ void main() {
         ),
       );
 
+  // IL RITO PARTE COL TOCCO, ordine 2163 voce 11: il vecchio timer di due
+  // secondi e' stato revocato da Mauro. Per arrivare al respiro si tocca il
+  // pulsante e si attraversa il conto alla rovescia, quattro secondi pieni.
+  // Il no-tocco e il conto sono provati in
+  // il_respiro_parte_quando_decidi_tu_test.dart: qui si attraversano e basta.
+  Future<void> comincia(WidgetTester tester) async {
+    await tester.tap(find.byKey(const Key('respiro_tocca')));
+    await tester.pump();
+    await tester.pump(ParoleDelRespiro.durataDelConto);
+    await tester.pump(const Duration(milliseconds: 50));
+  }
+
   group('le tre parole, nei tre momenti', () {
-    testWidgets('prima del conteggio dice di prepararsi, e resta due secondi',
-        (tester) async {
+    testWidgets('prima del conto dice di prepararsi, e resta finche\' non '
+        'decidi tu', (tester) async {
       await tester.pumpWidget(attorno(
           const TempiDelRespiro(tempi: 4, giri: 3)));
       await tester.pump();
       expect(find.text(ParoleDelRespiro.preparati), findsOneWidget,
           reason: 'Il rito parte senza dire che sta per partire.');
 
-      // **LA GRANDEZZA E' CAMBIATA, e va detto.** La prima stesura chiedeva
-      // che a un secondo e mezzo "Preparati a respirare" ci fosse ancora, e
-      // restava verde anche accorciando l'attesa a due decimi di secondo:
-      // quella frase resta nell'albero mentre ESCE, perche' la transizione
-      // tiene per un istante tutte e due le parole. Misurato stampando cio' che
-      // c'e' davvero a video: con l'attesa accorciata, a un secondo e mezzo si
-      // leggevano insieme "Preparati a respirare" e "Inspira".
-      //
-      // Si misura percio' l'ASSENZA della parola del respiro: finche' l'apertura
-      // dura, il gesto non e' ancora cominciato.
-      await tester.pump(const Duration(milliseconds: 1500));
+      // **LA GRANDEZZA E' CAMBIATA UNA SECONDA VOLTA, e va detto.** La prima
+      // stesura chiedeva che a un secondo e mezzo la frase ci fosse ancora,
+      // perche' il conteggio partiva da solo dopo due secondi. Con l'ordine
+      // 2163 voce 11 quel timer non esiste piu': la frase resta finche' la
+      // persona non tocca, quindi qui si aspetta piu' a lungo del vecchio
+      // limite e si verifica che NIENTE sia partito.
+      await tester.pump(const Duration(milliseconds: 3500));
       expect(find.text(ParoleDelRespiro.inspira), findsNothing,
-          reason: 'Il conteggio e\' partito prima dei due secondi pieni: chi '
-              'sta ancora leggendo l\'apertura si trova gia\' dentro il '
-              'respiro.');
+          reason: 'Il respiro e\' partito senza il tocco: il timer revocato '
+              'e\' tornato.');
       expect(find.text(ParoleDelRespiro.preparati), findsOneWidget);
 
-      await tester.pump(const Duration(milliseconds: 700));
-      // Un fotogramma in piu' per la dissolvenza fra le due parole: dura 180
-      // millisecondi, e finche' corre le due convivono. Non e' una tolleranza
-      // sulla regola, e' il tempo del cambio.
+      await comincia(tester);
+      // Un fotogramma in piu' per la transizione della parola: dura 180
+      // millisecondi. Non e' una tolleranza sulla regola, e' il tempo del
+      // cambio.
       await tester.pump(const Duration(milliseconds: 300));
       expect(find.text(ParoleDelRespiro.inspira), findsOneWidget,
-          reason: 'Passati i due secondi il conteggio deve essere partito.');
+          reason: 'Finito il conto il respiro deve essere partito.');
       expect(find.text(ParoleDelRespiro.preparati), findsNothing,
           reason: 'E la frase di apertura deve avere finito di uscire.');
     });
@@ -64,7 +71,8 @@ void main() {
         (tester) async {
       const tempi = TempiDelRespiro(tempi: 2, giri: 2);
       await tester.pumpWidget(attorno(tempi));
-      await tester.pump(ParoleDelRespiro.attesaDellApertura);
+      await tester.pump();
+      await comincia(tester);
       await tester.pump(const Duration(milliseconds: 100));
 
       expect(find.text(ParoleDelRespiro.inspira), findsOneWidget,
@@ -85,7 +93,8 @@ void main() {
     testWidgets('alla fine dice che il respiro e\' compiuto', (tester) async {
       const tempi = TempiDelRespiro(tempi: 1, giri: 1);
       await tester.pumpWidget(attorno(tempi));
-      await tester.pump(ParoleDelRespiro.attesaDellApertura);
+      await tester.pump();
+      await comincia(tester);
       await tester.pump(tempi.intero + const Duration(milliseconds: 200));
       expect(find.text(ParoleDelRespiro.compiuto), findsOneWidget);
     });
@@ -124,7 +133,8 @@ void main() {
     testWidgets('il giro mostrato e\' quello in corso', (tester) async {
       const tempi = TempiDelRespiro(tempi: 1, giri: 3);
       await tester.pumpWidget(attorno(tempi));
-      await tester.pump(ParoleDelRespiro.attesaDellApertura);
+      await tester.pump();
+      await comincia(tester);
       await tester.pump(const Duration(milliseconds: 100));
       expect(find.text(ParoleDelRespiro.giro(1, 3)), findsOneWidget);
       await tester.pump(tempi.giro);
@@ -136,6 +146,7 @@ void main() {
       // una pausa che l'animazione non fa.
       final tutte = [
         ParoleDelRespiro.preparati,
+        ParoleDelRespiro.tocca,
         ParoleDelRespiro.inspira,
         ParoleDelRespiro.espira,
         ParoleDelRespiro.compiuto,
@@ -177,8 +188,8 @@ void main() {
       (tester) async {
     const tempi = TempiDelRespiro(tempi: 1, giri: 2);
     await tester.pumpWidget(attorno(tempi, riduciMovimento: true));
-    await tester.pump(ParoleDelRespiro.attesaDellApertura);
-    await tester.pump(const Duration(milliseconds: 50));
+    await tester.pump();
+    await comincia(tester);
     expect(find.text(ParoleDelRespiro.inspira), findsOneWidget);
     // Passata la fase, la parola nuova c'e' e la vecchia non c'e' piu' nello
     // stesso fotogramma: con la dissolvenza convivrebbero per un istante.

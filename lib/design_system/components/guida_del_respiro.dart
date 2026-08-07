@@ -70,7 +70,16 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
   /// subito e la persona si trovava dentro un respiro guidato senza sapere che
   /// stava per cominciare: la parola grande cambiava e lei rincorreva.
   bool _apertura = true;
-  Timer? _viaLApertura;
+
+  /// IL NUMERO DEL CONTO ALLA ROVESCIA, nullo fuori dal conto.
+  ///
+  /// ORDINE 2163, VOCE 11: il respiro partiva DA SOLO, con un timer di due
+  /// secondi dopo la frase di apertura. Mauro vuole che parta quando decide
+  /// lui: sotto la frase c'e' un pulsante vero, al tocco parte il conto da
+  /// 3 a 0, un numero al secondo, deterministico, e SOLO alla fine comincia
+  /// il respiro. Niente parte prima del tocco.
+  int? _conto;
+  Timer? _battitoDelConto;
 
   bool get _riduciMovimento => MediaQuery.of(context).disableAnimations;
 
@@ -84,18 +93,31 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
         widget.onFinito?.call();
       }
     });
-    // L'apertura resta due secondi pieni, poi parte il conteggio: e' l'unico
-    // timer di questa schermata, e serve a dare il tempo di leggere.
-    _viaLApertura = Timer(ParoleDelRespiro.attesaDellApertura, () {
+  }
+
+  /// Il tocco della persona: parte il conto, un numero al secondo.
+  void _cominciaIlConto() {
+    if (_conto != null || !_apertura) return;
+    setState(() => _conto = 3);
+    _battitoDelConto = Timer.periodic(const Duration(seconds: 1), (t) {
       if (!mounted) return;
-      setState(() => _apertura = false);
-      _motore.forward();
+      final prossimo = _conto! - 1;
+      if (prossimo < 0) {
+        t.cancel();
+        setState(() {
+          _conto = null;
+          _apertura = false;
+        });
+        _motore.forward();
+      } else {
+        setState(() => _conto = prossimo);
+      }
     });
   }
 
   @override
   void dispose() {
-    _viaLApertura?.cancel();
+    _battitoDelConto?.cancel();
     _motore.dispose();
     super.dispose();
   }
@@ -160,26 +182,62 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  AnimatedSwitcher(
-                    duration: _riduciMovimento
-                        ? Duration.zero
-                        : const Duration(milliseconds: 180),
-                    child: Text(
-                      _apertura
-                          ? ParoleDelRespiro.preparati
-                          : (m == null
-                              ? ParoleDelRespiro.compiuto
-                              : m.parola),
-                      key: ValueKey<String>(_apertura
-                          ? 'apertura'
-                          : (m == null ? 'fine' : m.parola)),
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.display(size: 26).copyWith(
-                        color: inchiostroDelConteggio,
-                        letterSpacing: 0.8,
+                  if (_conto != null)
+                    // IL CONTO ALLA ROVESCIA: numeri grandi che
+                    // rimpiccioliscono e svaniscono, uno al secondo. Con
+                    // Riduci Movimento appaiono e spariscono secchi, senza
+                    // rimpicciolire: il conto resta.
+                    SizedBox(
+                      height: 84,
+                      child: Center(
+                        child: _riduciMovimento
+                            ? Text('$_conto',
+                                key: ValueKey<int>(_conto!),
+                                style: TypographyTokens.display(size: 64)
+                                    .copyWith(
+                                        color: inchiostroDelConteggio))
+                            : TweenAnimationBuilder<double>(
+                                key: ValueKey<int>(_conto!),
+                                tween: Tween(begin: 0.0, end: 1.0),
+                                duration:
+                                    const Duration(milliseconds: 900),
+                                builder: (context, t, _) =>
+                                    Transform.scale(
+                                  scale: 1.25 - 0.55 * t,
+                                  child: Opacity(
+                                    opacity: (1.0 - t).clamp(0.0, 1.0),
+                                    child: Text('$_conto',
+                                        style: TypographyTokens.display(
+                                                size: 64)
+                                            .copyWith(
+                                                color:
+                                                    inchiostroDelConteggio)),
+                                  ),
+                                ),
+                              ),
+                      ),
+                    )
+                  else
+                    AnimatedSwitcher(
+                      duration: _riduciMovimento
+                          ? Duration.zero
+                          : const Duration(milliseconds: 180),
+                      child: Text(
+                        _apertura
+                            ? ParoleDelRespiro.preparati
+                            : (m == null
+                                ? ParoleDelRespiro.compiuto
+                                : m.parola),
+                        key: ValueKey<String>(_apertura
+                            ? 'apertura'
+                            : (m == null ? 'fine' : m.parola)),
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.display(size: 26).copyWith(
+                          color: inchiostroDelConteggio,
+                          letterSpacing: 0.8,
+                        ),
                       ),
                     ),
-                  ),
                   const SizedBox(height: 2),
                   // LA RIGA DI SERVIZIO, smorzata: dice la forma del rito
                   // prima, il giro durante. Non compete con la parola grande,
@@ -197,6 +255,32 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
                       letterSpacing: 1.2,
                     ),
                   ),
+                  if (_apertura && _conto == null) ...[
+                    const SizedBox(height: 10),
+                    // UN PULSANTE VERO con area di tocco piena, non una
+                    // scritta. Il testo e' uno dei due ammessi dall'ordine.
+                    TextButton(
+                      key: const Key('respiro_tocca'),
+                      onPressed: _cominciaIlConto,
+                      style: TextButton.styleFrom(
+                        minimumSize: const Size(0, 44),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 10),
+                        backgroundColor:
+                            inchiostroDelConteggio.withValues(alpha: 0.12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(999),
+                          side: BorderSide(
+                              color: inchiostroDelConteggio
+                                  .withValues(alpha: 0.55)),
+                        ),
+                      ),
+                      child: Text(ParoleDelRespiro.tocca,
+                          style: TypographyTokens.label(size: 13).copyWith(
+                              color: inchiostroDelConteggio,
+                              letterSpacing: 0.6)),
+                    ),
+                  ],
                 ],
               ),
             ),
