@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../core/diagnosi/briciole.dart';
 import '../../core/identity/circle_seal.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -68,6 +69,9 @@ class _SigilloStepState extends State<SigilloStep>
   @override
   void initState() {
     super.initState();
+    // La briciola del numero della vita: il Sigillo e' l'ultimo passo
+    // dell'onboarding, quello che il numero lo mostra.
+    Briciole.lascia('numero_della_vita_mostrato');
     _cuore = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1600),

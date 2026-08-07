@@ -17,7 +17,12 @@ class AnimalReveal extends StatefulWidget {
     required this.assetTotem,
     required this.palette,
     this.lato = 300,
+    this.conNebbia = true,
   });
+
+  /// SOLO PER LA BUILD DIAGNOSTICA: a falso, il totem si mostra subito senza
+  /// la nebbia che si dirada, lo stesso ramo di Riduci Movimento.
+  final bool conNebbia;
 
   final String assetTotem;
   final MaestroPalette palette;
@@ -37,7 +42,7 @@ class _AnimalRevealState extends State<AnimalReveal>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (ScrollReveal.motionOff(context)) {
+    if (!widget.conNebbia || ScrollReveal.motionOff(context)) {
       _c.value = 1.0; // subito il totem, nessuna nebbia
     } else if (!_c.isAnimating && _c.value == 0) {
       _c.forward();

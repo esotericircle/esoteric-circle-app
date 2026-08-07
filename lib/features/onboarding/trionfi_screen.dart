@@ -31,7 +31,15 @@ class TrionfoAnimale extends StatefulWidget {
     required this.onContinue,
     this.onBack,
     this.reduceMotion = false,
+    this.mostraImmagine = true,
+    this.mostraNebbia = true,
   });
+
+  /// SOLO PER LA BUILD DIAGNOSTICA (kDiagnosiAttiva): l'ingresso a tappe
+  /// monta prima i testi senza immagine, poi l'immagine senza nebbia, poi
+  /// tutto. Fuori dalla diagnosi restano veri e non cambiano niente.
+  final bool mostraImmagine;
+  final bool mostraNebbia;
 
   final GuideAnimal animale;
   final MaestroPalette palette;
@@ -118,11 +126,17 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                         color: widget.palette.goldSoft, letterSpacing: 3)),
                 const SizedBox(height: SpacingTokens.lg),
                 // La rivelazione con la nebbia, gia' scritta per Caligo.
-                AnimalReveal(
-                  assetTotem: widget.animale.fullPath,
-                  palette: widget.palette,
-                  lato: 280,
-                ),
+                // In diagnosi l'immagine e la nebbia entrano a tappe: senza
+                // immagine resta il suo ingombro, cosi' i testi non saltano.
+                if (!widget.mostraImmagine)
+                  const SizedBox(width: 280, height: 280)
+                else
+                  AnimalReveal(
+                    assetTotem: widget.animale.fullPath,
+                    palette: widget.palette,
+                    lato: 280,
+                    conNebbia: widget.mostraNebbia,
+                  ),
                 const SizedBox(height: SpacingTokens.lg),
                 Opacity(
                   opacity: nome,

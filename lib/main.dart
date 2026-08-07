@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app.dart';
+import 'core/diagnosi/briciole.dart';
 import 'services/app_services.dart';
 
 /// Punto di ingresso di Esoteric Circle.
@@ -18,6 +19,18 @@ import 'services/app_services.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // LE BRICIOLE DELLA DIAGNOSI, prima di ogni altra cosa: la cartella si
+  // risolve qui, una volta, cosi' ogni tappa successiva scrive in modo
+  // sincrono. Se la preparazione fallisce l'app parte lo stesso e lo dice.
+  try {
+    await Briciole.prepara();
+  } catch (errore) {
+    // DICHIARATO: senza briciole si vola alla cieca, ma si vola.
+    // ignore: avoid_print
+    print('briciole non preparate: $errore');
+  }
+  Briciole.lascia('main_avviato');
+
   // Barre di sistema trasparenti per l'esperienza full-bleed.
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -28,6 +41,7 @@ Future<void> main() async {
   );
 
   final services = await AppServices.bootstrap();
+  if (Firebase.apps.isNotEmpty) Briciole.lascia('firebase_inizializzato');
 
   // GLI OCCHI SUI CRASH, dal 7 agosto 2026. La 2157 iOS moriva MUTA
   // sull'iPhone di Mauro, crash deterministico all'ingresso del trionfo
@@ -54,6 +68,7 @@ Future<void> main() async {
       FirebaseCrashlytics.instance.recordError(errore, pila, fatal: true);
       return true;
     };
+    Briciole.lascia('crashlytics_armato');
   }
 
   runApp(EsotericCircleApp(services: services));

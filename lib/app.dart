@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/diagnosi/racconto_della_corsa.dart';
 import 'core/archetypes/archetype_history.dart';
 import 'core/astro/natal_chart_controller.dart';
 import 'core/astro/zodiac_controller.dart';
@@ -213,7 +214,11 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
                 // motivo per cui ne serviva una seconda. E' il solo punto che
                 // decide dove la barra si vede: le schermate non lo sanno e non
                 // lo devono sapere.
-                child: SequenzaIntro(
+                // IL RACCONTO DELLA DIAGNOSI sta SOPRA l'intro: l'app muore
+                // anche durante l'intro, e la briciola della corsa prima si
+                // deve leggere comunque. Fuori diagnosi e' trasparente.
+                child: RaccontoDellaCorsa(
+                    child: SequenzaIntro(
                   mostra: widget.conIntro,
                   // Il silenzio dell'app vale anche per l'apertura. Passa da
                   // qui e non si legge dentro l'intro perche' l'intro e' gia'
@@ -224,7 +229,7 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
                     observatore: _pila,
                     child: child ?? const SizedBox.shrink(),
                   ),
-                ),
+                )),
               );
             },
           ),

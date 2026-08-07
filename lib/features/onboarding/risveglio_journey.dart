@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/diagnosi/briciole.dart';
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/natal_chart_controller.dart';
 import '../../core/angels/guardian_angels.dart';
@@ -67,12 +70,54 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
   Maestro _assigned = Maestro.medora;
   Resonance? _resonance;
 
+  /// SOLO PER LA BUILD DIAGNOSTICA (kDiagnosiAttiva): l'ingresso incriminato
+  /// entra un pezzo alla volta, con una briciola e un'etichetta a schermo per
+  /// pezzo, circa tre secondi l'uno. E' qui che la 2159 muore senza dire
+  /// niente: cosi' il pezzo che uccide resta scritto come ultima briciola.
+  /// Temporaneo e dichiarato, debito annotato in STATO_VIVO.
+  int _tappaDiagnosi = 0;
+  Timer? _passiDiagnosi;
+
+  static const List<String> _briciole = [
+    'risveglio_a_impalcatura_vuota',
+    'risveglio_b_cosmo',
+    'risveglio_c_testi_trionfo',
+    'risveglio_d_immagine_totem',
+    'risveglio_e_nebbia_completa',
+    'risveglio_f_compute_chart',
+  ];
+
   @override
   void initState() {
     super.initState();
+    if (kDiagnosiAttiva) {
+      // FINO ALLA TAPPA f _computeChart NON DEVE PARTIRE: la callable con
+      // App Check e' uno dei sospettati, e va isolata come gli altri.
+      Briciole.lascia(_briciole[0]);
+      _passiDiagnosi =
+          Timer.periodic(const Duration(seconds: 3), (timer) {
+        if (!mounted || _tappaDiagnosi >= 5) {
+          timer.cancel();
+          return;
+        }
+        setState(() => _tappaDiagnosi++);
+        Briciole.lascia(_briciole[_tappaDiagnosi]);
+        if (_tappaDiagnosi == 5) {
+          timer.cancel();
+          _computeChart();
+        }
+      });
+      return;
+    }
     // La carta si calcola mentre la persona contempla il cielo reale: e' pronta
     // quando prosegue. Ripiego sul cielo essenziale se l'API non risponde.
     WidgetsBinding.instance.addPostFrameCallback((_) => _computeChart());
+  }
+
+  @override
+  void dispose() {
+    _passiDiagnosi?.cancel();
+    super.dispose();
   }
 
   Future<void> _computeChart() async {
@@ -137,12 +182,83 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) _indietroDiFase();
       },
-      child: ImmersiveScaffold(
-        seed: 14,
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 450),
-          child: _buildPhase(),
-        ),
+      child: _corpo(),
+    );
+  }
+
+  Widget _corpo() {
+    // L'INGRESSO A TAPPE della diagnosi, solo sulla fase incriminata.
+    if (kDiagnosiAttiva && _phase == _Phase.animale) {
+      const etichette = [
+        'A. IMPALCATURA VUOTA',
+        'B. COSMO',
+        'C. TESTI DEL TRIONFO',
+        'D. IMMAGINE DEL TOTEM',
+        'E. NEBBIA COMPLETA',
+        'F. CARTA IN CALCOLO',
+      ];
+      final Widget contenuto;
+      if (_tappaDiagnosi == 0) {
+        // a. la rotta con un'impalcatura VUOTA: niente cosmo, niente scena.
+        contenuto = Container(color: const Color(0xFF05060A));
+      } else if (_tappaDiagnosi == 1) {
+        // b. entra ImmersiveScaffold col cosmo, ancora senza scena.
+        contenuto = const ImmersiveScaffold(
+            seed: 14, child: SizedBox.expand());
+      } else {
+        // c/d/e/f: entra il trionfo, coi pezzi che si aggiungono.
+        contenuto = ImmersiveScaffold(
+          seed: 14,
+          child: TrionfoAnimale(
+            key: const ValueKey('animale'),
+            animale: GuideAnimalDerivation.forSign(
+                NightSky.sunSign(widget.details.dateTime)),
+            palette: context.palette,
+            reduceMotion: MediaQuery.of(context).disableAnimations,
+            onContinue: _onAnimaleContinue,
+            mostraImmagine: _tappaDiagnosi >= 3,
+            mostraNebbia: _tappaDiagnosi >= 4,
+          ),
+        );
+      }
+      return Stack(
+        children: [
+          Positioned.fill(child: contenuto),
+          // L'ETICHETTA GRANDE: Mauro vede a occhio quale pezzo era a
+          // schermo quando l'app e' scomparsa.
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xCC05060A),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: const Color(0xFFC9A961)),
+                  ),
+                  child: Text(
+                    etichette[_tappaDiagnosi],
+                    style: const TextStyle(
+                        color: Color(0xFFC9A961),
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.5),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+    return ImmersiveScaffold(
+      seed: 14,
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 450),
+        child: _buildPhase(),
       ),
     );
   }

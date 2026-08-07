@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/diagnosi/briciole.dart';
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/birth_place.dart' as astro;
 import '../../core/astro/city_catalog.dart';
@@ -95,6 +96,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   void initState() {
     super.initState();
+    Briciole.lascia('onboarding_entrato');
     _ignite = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),

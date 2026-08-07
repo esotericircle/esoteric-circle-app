@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../core/diagnosi/briciole.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 
@@ -127,6 +128,7 @@ class _SequenzaIntroState extends State<SequenzaIntro>
       return;
     }
     WidgetsBinding.instance.addObserver(this);
+    Briciole.lascia('intro_montata');
     WidgetsBinding.instance.addPostFrameCallback((_) => _avvia());
   }
 
@@ -204,6 +206,7 @@ class _SequenzaIntroState extends State<SequenzaIntro>
     // NESSUN COLORE INTERMEDIO, quindi nessun lampo.
     setState(() => _visibile = false);
     _uscita = Timer(SequenzaIntro.dissolvenza, () {
+      Briciole.lascia('intro_conclusa');
       if (mounted) setState(() => _momento = MomentoIntro.finita);
     });
   }
