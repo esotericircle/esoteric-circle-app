@@ -25,7 +25,9 @@ import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
 import 'bindrune.dart';
 import 'rune_share_card.dart';
+import 'fisica_della_gettata.dart';
 import '../../rotta_arte.dart';
+import '../../../../core/sensi/catalogo_suoni.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
@@ -132,6 +134,29 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
     setState(() => _esito = RuneCast.getta(_gettata, random: widget.random));
   }
 
+  /// IL SEME DELLA FISICA: persona, giorno, domanda e rune uscite.
+  ///
+  /// L'estrazione resta un caso vero e dichiarato, sta scritto perfino nel
+  /// testo a video di Fonti e metodo: "a richiesta e casuale". Ma la CADUTA
+  /// non inventa niente: a parita' di questi dati la disposizione finale e'
+  /// identica al decimo di punto. E' la stessa distinzione dell'Oroscopo,
+  /// sopra un fatto si apre un ventaglio di dizione e mai di sostanza: qui
+  /// sopra una sorte si apre una caduta, e la caduta non e' una seconda
+  /// sorte.
+  int _semeDellaGettata(EsitoGettata esito) {
+    final persona =
+        widget.userBirth?.toIso8601String() ?? widget.userSign.name;
+    return FisicaDellaGettata.semeDa(
+      persona,
+      DateTime.now(),
+      _domanda.text.trim(),
+      [
+        for (final r in esito.gettata.libera ? esito.sparse : esito.rune)
+          r.rune.name
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
@@ -169,6 +194,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
               : _Responso(
                   palette: palette,
                   esito: _esito!,
+                  seme: _semeDellaGettata(_esito!),
                   domanda: _domanda.text.trim(),
                   animazioni: _animazioni,
                   onAncora: _gettaAncora,
@@ -352,6 +378,7 @@ class _Preparazione extends StatelessWidget {
             palette: palette,
             gettata: gettata,
             esito: null,
+            seme: 0,
             animazioni: animazioni,
           ),
           const SizedBox(height: SpacingTokens.md),
@@ -393,6 +420,7 @@ class _Responso extends StatelessWidget {
   const _Responso({
     required this.palette,
     required this.esito,
+    required this.seme,
     required this.domanda,
     required this.animazioni,
     required this.onAncora,
@@ -400,6 +428,7 @@ class _Responso extends StatelessWidget {
 
   final MaestroPalette palette;
   final EsitoGettata esito;
+  final int seme;
   final String domanda;
   final bool animazioni;
   final VoidCallback onAncora;
@@ -426,6 +455,7 @@ class _Responso extends StatelessWidget {
             palette: palette,
             gettata: esito.gettata,
             esito: esito,
+            seme: seme,
             animazioni: animazioni,
           ),
           if (domanda.isNotEmpty) ...[
@@ -848,12 +878,17 @@ class _PozzoUrdhr extends StatefulWidget {
     required this.palette,
     required this.gettata,
     required this.esito,
+    required this.seme,
     required this.animazioni,
   });
 
   final MaestroPalette palette;
   final GettataRune gettata;
   final EsitoGettata? esito;
+
+  /// Il seme della fisica, da persona, giorno, domanda e rune uscite: la
+  /// caduta e' deterministica, mai un caso vero. Vedi FisicaDellaGettata.
+  final int seme;
   final bool animazioni;
 
   @override
@@ -861,32 +896,90 @@ class _PozzoUrdhr extends StatefulWidget {
 }
 
 class _PozzoUrdhrState extends State<_PozzoUrdhr>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final AnimationController _onde = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 1400),
   );
 
+  /// LA CADUTA. Milletrecento millisecondi per l'intera cascata: le pietre
+  /// scendono, rimbalzano due volte smorzate, si fermano storte. Con Riduci
+  /// Movimento diventa una dissolvenza breve sulle posizioni finali: il
+  /// risultato non si perde, si perde solo il moto.
+  late final AnimationController _caduta = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1300),
+  );
+
+  /// La fisica della gettata in corso, costruita quando si conosce la
+  /// larghezza vera del pozzo. Nulla in preparazione.
+  FisicaDellaGettata? _fisica;
+  double _larghezzaFisica = 0;
+
+  /// Le pietre che hanno gia' toccato: a ogni contatto la vibrazione, al
+  /// primo anche il suono, dietro l'interruttore unico che gia' esiste.
+  final Set<int> _toccate = {};
+
   @override
   void initState() {
     super.initState();
-    if (widget.esito != null && widget.animazioni) _onde.forward(from: 0);
+    _caduta.addListener(_alPassoDellaCaduta);
+    _caduta.addStatusListener((s) {
+      // L'acqua si increspa quando le pietre sono POSATE, non prima: i
+      // cerchi nascono dal contatto, e prima del contatto non c'e' niente
+      // che li generi.
+      if (s == AnimationStatus.completed && widget.animazioni) {
+        _onde.forward(from: 0);
+      }
+    });
+    if (widget.esito != null) _parteLaCaduta();
   }
 
   @override
   void didUpdateWidget(_PozzoUrdhr old) {
     super.didUpdateWidget(old);
-    // A ogni nuova gettata, l'acqua torna a incresparsi dal punto di caduta.
-    if (widget.esito != null &&
-        widget.animazioni &&
-        !identical(widget.esito, old.esito)) {
-      _onde.forward(from: 0);
+    if (widget.esito != null && !identical(widget.esito, old.esito)) {
+      _parteLaCaduta();
+    }
+  }
+
+  void _parteLaCaduta() {
+    _fisica = null; // si ricostruisce con la larghezza vera al primo build
+    _toccate.clear();
+    if (widget.animazioni) {
+      _caduta.duration = const Duration(milliseconds: 1300);
+      _caduta.forward(from: 0);
+    } else {
+      // Riduci Movimento: la dissolvenza breve, senza perdere il risultato.
+      _caduta.duration = const Duration(milliseconds: 250);
+      _caduta.forward(from: 0);
+    }
+  }
+
+  void _alPassoDellaCaduta() {
+    final f = _fisica;
+    if (f == null || !widget.animazioni || !mounted) return;
+    for (var i = 0; i < f.quante; i++) {
+      if (!_toccate.contains(i) && _caduta.value >= f.primoContatto(i)) {
+        _toccate.add(i);
+        if (_toccate.length == 1) {
+          // Il primo sasso che tocca: vibrazione piena e il suono della
+          // pietra, dietro l'interruttore di silenzio che gia' esiste.
+          PaletteSensoriale.momento(context,
+              aptica: SchemaAptico.conferma, suono: SuonoDelCerchio.pietra);
+        } else {
+          // Gli altri: un tick leggero ciascuno, il contatto si sente ma
+          // non diventa una raffica.
+          PaletteSensoriale.vibra(context, SchemaAptico.tocco);
+        }
+      }
     }
   }
 
   @override
   void dispose() {
     _onde.dispose();
+    _caduta.dispose();
     super.dispose();
   }
 
@@ -939,17 +1032,54 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
         builder: (context, box) {
           final w = box.maxWidth;
           const h = 300.0;
+          // LA FISICA SI COSTRUISCE QUI, dove la larghezza e' quella vera:
+          // le semiestensioni normalizzate delle pietre, 52 per 64 punti,
+          // dipendono dal telo reale e non da una stima. E' una costruzione
+          // pura e costa una manciata di conti, quindi puo' vivere nel build.
+          if (esito != null &&
+              (_fisica == null || _larghezzaFisica != w) &&
+              pietre.isNotEmpty) {
+            _fisica = FisicaDellaGettata(
+              seme: widget.seme,
+              arrivi: [for (final e in pietre) e.value],
+              semiLarghezza: 26 / w,
+              semiAltezza: 32 / h,
+            );
+            _larghezzaFisica = w;
+          }
+          final fisica = _fisica;
           return AnimatedBuilder(
-            animation: _onde,
+            animation: Listenable.merge([_onde, _caduta]),
             builder: (context, _) {
+              final t = _caduta.value;
+              final inVolo =
+                  widget.animazioni && fisica != null && !_caduta.isCompleted;
+              // I punti di lettura seguono le pietre SEPARATE: i fili delle
+              // Norne e i cerchi devono toccare le pietre dove stanno
+              // davvero, non dove il caso le aveva ammucchiate.
+              final lettura = <Offset>[];
+              if (esito != null && fisica != null) {
+                if (libera) {
+                  for (final r in esito.rune) {
+                    for (var i = 0; i < pietre.length; i++) {
+                      if (pietre[i].key.rune.name == r.rune.name) {
+                        lettura.add(fisica.arrivi[i]);
+                        break;
+                      }
+                    }
+                  }
+                } else {
+                  lettura.addAll(fisica.arrivi);
+                }
+              }
               return Stack(
                 children: [
                   Positioned.fill(
                     child: CustomPaint(
                       painter: _PozzoPainter(
                         palette: widget.palette,
-                        punti: puntiLettura,
-                        posato: esito != null,
+                        punti: lettura.isNotEmpty ? lettura : puntiLettura,
+                        posato: esito != null && !inVolo,
                         libera: libera,
                         onda: (esito != null && _onde.isAnimating)
                             ? _onde.value
@@ -957,15 +1087,9 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
                       ),
                     ),
                   ),
-                  for (final e in pietre)
-                    Positioned(
-                      left: e.value.dx * w - 26,
-                      top: e.value.dy * h - 32,
-                      child: _PietraPosata(
-                          runa: e.key,
-                          palette: widget.palette,
-                          coperta: e.key.coperta),
-                    ),
+                  if (fisica != null)
+                    for (var i = 0; i < pietre.length; i++)
+                      ..._pietraConOmbra(fisica, i, pietre[i].key, t, w, h),
                 ],
               );
             },
@@ -974,13 +1098,79 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
       ),
     );
   }
+
+  /// La pietra [i] al tempo [t] della caduta, con la sua ombra a terra.
+  ///
+  /// L'ombra sta sul telo nel punto di caduta: larga e chiara quando la
+  /// pietra e' in aria, stretta e scura al contatto, e il piccolo rimbalzo
+  /// dell'ombra viene da se', perche' segue la quota che rimbalza.
+  List<Widget> _pietraConOmbra(FisicaDellaGettata fisica, int i,
+      RunaGettata runa, double t, double w, double h) {
+    final StatoPietra stato;
+    if (widget.animazioni) {
+      stato = fisica.a(i, t);
+    } else {
+      // Riduci Movimento: gia' posata, la dissolvenza la fa l'opacita'.
+      stato = StatoPietra(
+        posizione: fisica.arrivi[i],
+        rotazione: fisica.inclinazioniFinali[i],
+        quota: 0,
+        visibile: true,
+      );
+    }
+    if (!stato.visibile) return const [];
+    final suolo = Offset(stato.posizione.dx * w, stato.posizione.dy * h);
+    // Quanto la pietra si alza dal telo, in punti, alla quota massima.
+    const alzata = 70.0;
+    final scalaOmbra = 1 + 0.8 * stato.quota;
+    final opacita = widget.animazioni ? 1.0 : t.clamp(0.0, 1.0);
+    return [
+      Positioned(
+        left: suolo.dx - 22 * scalaOmbra,
+        top: suolo.dy + 22 - 6 * scalaOmbra,
+        child: IgnorePointer(
+          child: Opacity(
+            opacity: opacita,
+            child: Container(
+              width: 44 * scalaOmbra,
+              height: 12 * scalaOmbra,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.elliptical(
+                    22 * scalaOmbra, 6 * scalaOmbra)),
+                color: Colors.black
+                    .withValues(alpha: 0.30 * (1 - 0.55 * stato.quota)),
+              ),
+            ),
+          ),
+        ),
+      ),
+      Positioned(
+        left: suolo.dx - 26,
+        top: suolo.dy - 32 - alzata * stato.quota,
+        child: Opacity(
+          opacity: opacita,
+          child: Transform.rotate(
+            angle: stato.rotazione,
+            child: _PietraPosata(
+                key: Key('runa_posata_$i'),
+                runa: runa,
+                palette: widget.palette,
+                coperta: runa.coperta),
+          ),
+        ),
+      ),
+    ];
+  }
 }
 
 /// Una pietra posata, piccola, capovolta se in merkstave. Sul telo, se coperta
 /// resta velata, il verso d'ombra della sorte libera.
 class _PietraPosata extends StatelessWidget {
   const _PietraPosata(
-      {required this.runa, required this.palette, this.coperta = false});
+      {super.key,
+      required this.runa,
+      required this.palette,
+      this.coperta = false});
 
   final RunaGettata runa;
   final MaestroPalette palette;

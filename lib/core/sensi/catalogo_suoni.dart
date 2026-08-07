@@ -45,7 +45,18 @@ enum SuonoDelCerchio {
   ///
   /// Il rifiuto non merita teatro: un suono drammatico su un limite lo
   /// trasformerebbe nel momento piu' memorabile dell'app.
-  rifiuto('rifiuto.mp3', Duration(milliseconds: 300));
+  rifiuto('rifiuto.mp3', Duration(milliseconds: 300)),
+
+  /// Il contatto delle pietre runiche col telo, nella gettata. Un tocco di
+  /// pietra, secco e breve.
+  ///
+  /// SETTIMO, entrato dal catalogo come vuole la regola: la gettata fisica
+  /// del 7 agosto 2026 fa cadere le pietre davvero, e un sasso che tocca
+  /// senza suono e' un sasso finto. L'asset non e' ancora prodotto: finche'
+  /// manca vale il ripiego silenzioso dichiarato della palette, la vibrazione
+  /// arriva comunque, e questo commento sparisce quando `pietra.mp3` entra in
+  /// `assets/audio/`.
+  pietra('pietra.mp3', Duration(milliseconds: 400));
 
   const SuonoDelCerchio(this.file, this.durataAttesa);
 

@@ -166,11 +166,12 @@ void main() {
   group('I suoni del catalogo, e nessuno fuori', () {
     test('Sono esattamente cinque', () {
       // SEI dal primo agosto 2026: si e' aggiunta la voce del principio,
-      // sulla schermata nera dell'intro. Il numero non e' sacro, il catalogo
-      // si': un suono in piu' entra qui e viene contato, invece di nascere
-      // fuori dove nessuno lo vede. La regola ha fatto il suo mestiere, e ha
-      // costretto la voce a passare da qui.
-      expect(SuonoDelCerchio.values.length, 6,
+      // sulla schermata nera dell'intro. SETTE dal 7 agosto 2026: il
+      // contatto delle pietre runiche, entrato con la gettata fisica. Il
+      // numero non e' sacro, il catalogo si': un suono in piu' entra qui e
+      // viene contato, invece di nascere fuori dove nessuno lo vede. La
+      // regola ha fatto il suo mestiere due volte.
+      expect(SuonoDelCerchio.values.length, 7,
           reason: 'il silenzio e cio che rende un suono importante: le app che '
               'stancano suonano a ogni tocco');
     });
