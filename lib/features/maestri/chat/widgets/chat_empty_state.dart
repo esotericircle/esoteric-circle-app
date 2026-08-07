@@ -70,9 +70,14 @@ class ChatEmptyState extends StatelessWidget {
           const SizedBox(height: SpacingTokens.md),
           Text(
             greeting,
+            key: const Key('chat_benvenuto'),
             textAlign: TextAlign.center,
+            // AL PRIMARIO, ordine 2163 voce 9: il benvenuto era grigio
+            // (textSecondary) sul fondale scuro, la prima cosa che si legge
+            // ed era la meno leggibile. Il minimo dichiarato per il testo
+            // d'apertura e' 7 di contrasto, misurato dalla prova.
             style: TypographyTokens.body(size: 18).copyWith(
-              color: ColorTokens.textSecondary,
+              color: ColorTokens.textPrimary,
               height: 1.5,
             ),
           ),

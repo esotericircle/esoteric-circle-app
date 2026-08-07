@@ -76,11 +76,16 @@ class _ChatComposerState extends State<ChatComposer> {
     final canSend = widget.enabled && _hasText;
 
     return Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: SpacingTokens.md,
         right: SpacingTokens.md,
         top: SpacingTokens.sm,
-        bottom: SpacingTokens.sm + MediaQuery.of(context).padding.bottom,
+        // SOLO IL RESPIRO, ordine 2163 voce 9: qui si aggiungeva anche il
+        // padding di sistema, che DENTRO la barra del Cerchio vale la barra
+        // intera piu' l'inset. Ma il compositore e' gia' sollevato sopra la
+        // barra dal Positioned della schermata: il doppio conteggio erano
+        // centotrentacinque punti di vuoto sotto il campo, misurati.
+        bottom: SpacingTokens.sm,
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
