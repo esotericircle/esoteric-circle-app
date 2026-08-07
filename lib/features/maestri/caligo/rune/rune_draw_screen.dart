@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 import '../../../../core/astro/zodiac.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/rune_cast.dart';
+import '../../../../core/rituals/rune_lore.g.dart';
 import '../../../../core/rituals/rune_presage.dart';
+import '../../../../core/rituals/rune_voce.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
@@ -209,6 +211,9 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   esito: _esito!,
                   seme: _semeDellaGettata(_esito!),
                   domanda: _domanda.text.trim(),
+                  persona: widget.userBirth?.toIso8601String() ??
+                      widget.userSign.name,
+                  giorno: DateTime.now(),
                   animazioni: _animazioni,
                   onAncora: _gettaAncora,
                 ),
@@ -248,6 +253,14 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
                 Text(kRuneFontiEMetodo,
+                    style: TypographyTokens.body(size: 15).copyWith(
+                        color: ColorTokens.textPrimary, height: 1.45)),
+                const SizedBox(height: SpacingTokens.sm),
+                // L'ESTENSIONE DEL 7 AGOSTO 2026: le strofe dei tre poemi
+                // runici col loro conto esatto, e la Voce della Runa
+                // dichiarata come curatela. Vive in kRuneFontiPoemi.
+                Text(kRuneFontiPoemi,
+                    key: const Key('rune_fonti_poemi'),
                     style: TypographyTokens.body(size: 15).copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
                 const SizedBox(height: SpacingTokens.lg),
@@ -456,6 +469,8 @@ class _Responso extends StatelessWidget {
     required this.esito,
     required this.seme,
     required this.domanda,
+    required this.persona,
+    required this.giorno,
     required this.animazioni,
     required this.onAncora,
   });
@@ -464,12 +479,26 @@ class _Responso extends StatelessWidget {
   final EsitoGettata esito;
   final int seme;
   final String domanda;
+  final String persona;
+  final DateTime giorno;
   final bool animazioni;
   final VoidCallback onAncora;
 
   @override
   Widget build(BuildContext context) {
     final presagio = RunePresagio.componi(esito);
+    // LA VOCE DELLA RUNA: la runa dentro la domanda e dentro il giorno,
+    // agganciata al cielo vero. Il perche' sta su RuneVoce.
+    final voci = [
+      for (final r in esito.rune)
+        RuneVoce.voce(
+            runa: r, persona: persona, giorno: giorno, domanda: domanda),
+    ];
+    // IL VERSO DELLE NORNE: le tre letture legate da giunture che variano
+    // su giorno E posizione, mai su un asse solo.
+    final giunture = esito.gettata.id == 'norne'
+        ? RuneVoce.giuntureNorne(giorno)
+        : null;
     return SingleChildScrollView(
       key: const Key('rune_result'),
       padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -519,7 +548,11 @@ class _Responso extends StatelessWidget {
                 runa: esito.rune[i],
                 indice: i,
                 palette: palette,
-                libera: esito.gettata.libera),
+                libera: esito.gettata.libera,
+                voce: i < voci.length ? voci[i] : null,
+                giuntura: giunture != null && i < giunture.length
+                    ? giunture[i]
+                    : null),
             const SizedBox(height: SpacingTokens.md),
           ],
           // IL PRESAGIO, la lettura sola che intreccia le rune.
@@ -613,7 +646,9 @@ class _LetturaRuna extends StatelessWidget {
       {required this.runa,
       required this.indice,
       required this.palette,
-      this.libera = false});
+      this.libera = false,
+      this.voce,
+      this.giuntura});
 
   final RunaGettata runa;
   final int indice;
@@ -621,6 +656,12 @@ class _LetturaRuna extends StatelessWidget {
 
   /// Nel getto libero le rune lette sono in luce, non hanno il verso d'ombra.
   final bool libera;
+
+  /// La Voce della Runa: la runa dentro la domanda e dentro il giorno.
+  final String? voce;
+
+  /// La giuntura del Verso delle Norne, quando la stesa e' a tre.
+  final String? giuntura;
 
   @override
   Widget build(BuildContext context) {
@@ -633,6 +674,17 @@ class _LetturaRuna extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // LA GIUNTURA DELLE NORNE: il filo che lega le tre letture,
+            // prima della carta, cosi' i tre blocchi diventano un verso.
+            if (giuntura != null) ...[
+              Text(giuntura!,
+                  key: Key('rune_giuntura_$indice'),
+                  style: TypographyTokens.body(size: 13).copyWith(
+                      color: palette.goldSoft,
+                      fontStyle: FontStyle.italic,
+                      height: 1.4)),
+              const SizedBox(height: SpacingTokens.xs),
+            ],
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -672,6 +724,28 @@ class _LetturaRuna extends StatelessWidget {
             Text(runa.riga,
                 style: TypographyTokens.body(size: 15).copyWith(
                     color: ColorTokens.textPrimary, height: 1.5)),
+            // LA VOCE DELLA RUNA, di Caligo: la runa nel tuo giorno. E'
+            // curatela dichiarata, mai tradizione, e per questo NON sta
+            // accanto alla strofa con la fonte.
+            if (voce != null) ...[
+              const SizedBox(height: SpacingTokens.sm),
+              Text(voce!,
+                  key: Key('rune_voce_$indice'),
+                  style: TypographyTokens.body(size: 14).copyWith(
+                      color: palette.goldSoft, height: 1.5)),
+            ],
+            // LA STROFA ATTESTATA, con la fonte nominata: la materia vera
+            // della runa. Quando la strofa norrena non esiste, qui compare
+            // comunque l'anglosassone, che copre tutte e ventiquattro.
+            if (kRuneLore[runa.rune.name] != null) ...[
+              const SizedBox(height: SpacingTokens.sm),
+              Text(
+                  '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
+                  '«${kRuneLore[runa.rune.name]!.strofe.first.traduzione}»',
+                  key: Key('rune_strofa_$indice'),
+                  style: TypographyTokens.label(size: 12).copyWith(
+                      color: ColorTokens.textSecondary, height: 1.45)),
+            ],
           ],
         ),
       ),
