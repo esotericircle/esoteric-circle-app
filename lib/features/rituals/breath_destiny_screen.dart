@@ -413,7 +413,7 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
             child: Column(
               children: [
                 Expanded(
-                  flex: 5,
+                  flex: 6,
                   child: Semantics(
                     button: true,
                     label: 'Libera il tuo destino. Soffia, oppure spazza col '
@@ -465,8 +465,21 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                     ),
                   ),
                 ),
+                // LA SCHEDA STA SOTTO IL RESPIRO, MAI SOPRA, ordine 2164
+                // voce 8. Visto da Mauro: il pulsante "Tocca per cominciare"
+                // era tagliato a meta' dalla scheda dell'intenzione, quindi
+                // non si poteva nemmeno premere per intero.
+                //
+                // La causa misurata: la guida del respiro insegue il disco
+                // luminoso con una traslazione verso il basso, e con le
+                // barre di sistema del telefono (una quarantina di punti in
+                // meno) SBORDAVA dalla sua zona; la scheda, che viene dopo
+                // nella colonna, si dipinge sopra e se lo mangiava. Con
+                // sei contro tre la zona del respiro torna a contenerlo:
+                // misurato 25,1 punti coperti prima, zero adesso, e il
+                // tocco al centro arriva.
                 Expanded(
-                  flex: 4,
+                  flex: 3,
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
                         SpacingTokens.lg, SpacingTokens.lg),

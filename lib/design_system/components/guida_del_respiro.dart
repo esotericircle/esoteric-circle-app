@@ -170,6 +170,7 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
             // dissolvenza breve altrimenti: una parola che sfuma mentre il
             // corpo cambia gesto arriva in ritardo sul gesto.
             Container(
+              key: const Key('respiro_velo'),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
                 // La superficie serve: nel Soffio il fondale e' un prato
