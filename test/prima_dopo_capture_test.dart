@@ -1430,7 +1430,12 @@ void main() {
   testWidgets('2163, il pannello nel colore di casa', (tester) async {
     if (_stato.isEmpty) return;
     silence();
-    SharedPreferences.setMockInitialValues({'onboarding.done': true});
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      // La data c'e': la famiglia delle personali compare, ed e' la coppia
+      // che serve anche alla voce 3, il pannello unito.
+      'profile.birthDate': '1990-08-15',
+    });
     tester.view.devicePixelRatio = 3.0;
     tester.view.physicalSize = const Size(1080, 2391);
     addTearDown(tester.view.resetPhysicalSize);

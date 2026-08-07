@@ -174,13 +174,20 @@ class SuggestionSets {
 
 /// Apre il pannello dei suggerimenti che sale dal basso sopra il feed.
 ///
-/// In cima il selettore a due segmenti, sotto l'elenco scorrevole (fino a
-/// dodici). Il tocco su una domanda la invia e chiude il pannello. Cambiare
-/// segmento cambia l'elenco nello stesso pannello.
+/// LE DUE FAMIGLIE INSIEME, ordine 2163 voce 3: prima erano due linguette
+/// alternative e se ne leggeva una per volta. Adesso e' UN solo riquadro
+/// scorrevole: l'intestazione DOMANDE FREQUENTI con le sue voci, poi
+/// DOMANDE PERSONALI con le sue, e le intestazioni restano appiccicate in
+/// alto mentre si scorre la loro sezione. Le liste arrivano dalla schermata
+/// GIA' filtrate sul vero: una famiglia vuota non porta intestazione, per
+/// la stessa regola del primo schermo. Il tocco su una domanda la invia e
+/// chiude il pannello.
 Future<void> showSuggestionsPanel(
   BuildContext context, {
   required Maestro maestro,
   required ValueChanged<String> onSend,
+  required List<String> frequenti,
+  required List<String> personali,
 }) {
   return showModalBottomSheet<void>(
     context: context,
@@ -194,34 +201,64 @@ Future<void> showSuggestionsPanel(
     // rotta e si legge da UN punto, questo.
     builder: (_) => MaestroScope(
       maestro: maestro,
-      child: _SuggestionsPanel(maestro: maestro, onSend: onSend),
+      child: _SuggestionsPanel(
+        maestro: maestro,
+        onSend: onSend,
+        frequenti: frequenti,
+        personali: personali,
+      ),
     ),
   );
 }
 
-class _SuggestionsPanel extends StatefulWidget {
-  const _SuggestionsPanel({required this.maestro, required this.onSend});
+class _SuggestionsPanel extends StatelessWidget {
+  const _SuggestionsPanel({
+    required this.maestro,
+    required this.onSend,
+    required this.frequenti,
+    required this.personali,
+  });
 
   final Maestro maestro;
   final ValueChanged<String> onSend;
+  final List<String> frequenti;
+  final List<String> personali;
 
-  @override
-  State<_SuggestionsPanel> createState() => _SuggestionsPanelState();
-}
-
-class _SuggestionsPanelState extends State<_SuggestionsPanel> {
-  SuggestionGroup _group = SuggestionGroup.frequent;
-
-  void _send(String question) {
-    widget.onSend(question);
+  void _send(BuildContext context, String question) {
+    onSend(question);
     Navigator.of(context).pop();
+  }
+
+  /// Una famiglia: l'intestazione appiccicata e le sue voci. La forma e'
+  /// una sola per tutte e due, cosi' non possono divergere.
+  List<Widget> _famiglia(BuildContext context, String titolo,
+      List<String> domande, MaestroPalette palette) {
+    return [
+      SliverPersistentHeader(
+        pinned: true,
+        delegate: _IntestazioneFamiglia(titolo: titolo, palette: palette),
+      ),
+      SliverList.separated(
+        itemCount: domande.length,
+        separatorBuilder: (_, __) => Divider(
+          height: 1,
+          color: palette.gold.withValues(alpha: 0.12),
+        ),
+        itemBuilder: (context, i) => Padding(
+          padding:
+              const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+          child: _QuestionRow(
+            question: domande[i],
+            onTap: () => _send(context, domande[i]),
+          ),
+        ),
+      ),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final questions = SuggestionSets.forGroup(widget.maestro, _group);
-
     return Container(
       key: const Key('pannello_suggerimenti'),
       padding: EdgeInsets.only(
@@ -248,36 +285,31 @@ class _SuggestionsPanelState extends State<_SuggestionsPanel> {
               height: 4,
               decoration: BoxDecoration(
                 color: palette.gold.withValues(alpha: 0.5),
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+                borderRadius:
+                    BorderRadius.circular(SpacingTokens.radiusPill),
               ),
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          Center(
-            child: _SegmentedControl(
-              value: _group,
-              onChanged: (g) => setState(() => _group = g),
             ),
           ),
           const SizedBox(height: SpacingTokens.sm),
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.42,
-            ),
-            child: ListView.separated(
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(
-                horizontal: SpacingTokens.lg,
-                vertical: SpacingTokens.xs,
+          Flexible(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.55,
               ),
-              itemCount: questions.length,
-              separatorBuilder: (_, __) => Divider(
-                height: 1,
-                color: palette.gold.withValues(alpha: 0.12),
-              ),
-              itemBuilder: (context, i) => _QuestionRow(
-                question: questions[i],
-                onTap: () => _send(questions[i]),
+              child: CustomScrollView(
+                shrinkWrap: true,
+                slivers: [
+                  // La famiglia vuota non porta intestazione: la regola del
+                  // vero vale anche qui, mai un segnaposto.
+                  if (frequenti.isNotEmpty)
+                    SliverMainAxisGroup(
+                        slivers: _famiglia(context, 'DOMANDE FREQUENTI',
+                            frequenti, palette)),
+                  if (personali.isNotEmpty)
+                    SliverMainAxisGroup(
+                        slivers: _famiglia(context, 'DOMANDE PERSONALI',
+                            personali, palette)),
+                ],
               ),
             ),
           ),
@@ -287,79 +319,44 @@ class _SuggestionsPanelState extends State<_SuggestionsPanel> {
   }
 }
 
-class _SegmentedControl extends StatelessWidget {
-  const _SegmentedControl({required this.value, required this.onChanged});
+/// L'intestazione di una famiglia, appiccicata in alto mentre si scorre la
+/// sua sezione. Il fondo e' OPACO apposta (voce 1 dello stesso ordine): le
+/// voci le scorrono sotto e spariscono, non si intravedono.
+class _IntestazioneFamiglia extends SliverPersistentHeaderDelegate {
+  const _IntestazioneFamiglia({required this.titolo, required this.palette});
 
-  final SuggestionGroup value;
-  final ValueChanged<SuggestionGroup> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    return Container(
-      padding: const EdgeInsets.all(3),
-      decoration: BoxDecoration(
-        color: palette.deepest.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
-      ),
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            for (final group in SuggestionGroup.values)
-              _Segment(
-                label: group.label,
-                selected: group == value,
-                onTap: () => onChanged(group),
-                palette: palette,
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _Segment extends StatelessWidget {
-  const _Segment({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-    required this.palette,
-  });
-
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
+  final String titolo;
   final MaestroPalette palette;
 
+  static const double _altezza = 36;
+
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.md,
-          vertical: SpacingTokens.xs,
-        ),
-        decoration: BoxDecoration(
-          color: selected
-              ? palette.gold.withValues(alpha: 0.20)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        ),
-        child: Text(
-          label,
-          style: TypographyTokens.label(size: 12).copyWith(
-            color: selected ? palette.goldSoft : ColorTokens.textMuted,
-          ),
+  double get minExtent => _altezza;
+
+  @override
+  double get maxExtent => _altezza;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      height: _altezza,
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+      color: palette.surfaceElevated,
+      child: Text(
+        titolo,
+        style: TypographyTokens.label(size: 12.5).copyWith(
+          color: palette.goldSoft,
+          letterSpacing: 1.2,
         ),
       ),
     );
   }
+
+  @override
+  bool shouldRebuild(_IntestazioneFamiglia old) =>
+      old.titolo != titolo || old.palette != palette;
 }
 
 class _QuestionRow extends StatelessWidget {

@@ -389,6 +389,29 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   NatalContext _natalCorrente(BuildContext context) =>
       SorgenteNatale.daIdentita(context.read<BirthIdentityController>());
 
+  /// LE DUE FAMIGLIE DI DOMANDE, DA UNA PORTA SOLA: le frequenti intere, le
+  /// personali filtrate sul dato VERO della persona e ruotate sul giorno.
+  /// Le leggono il primo schermo e il pannello: se la regola vivesse in due
+  /// punti, prima o poi uno dei due mostrerebbe una domanda su un dato che
+  /// non c'e'. Ordine 2163, voce 3.
+  ({List<String> frequenti, List<String> personali}) _famiglieCorrenti(
+      BuildContext context) {
+    final natale = _natalCorrente(context);
+    return (
+      frequenti: SuggestionSets.frequent(widget.maestro),
+      personali: SuggestionSets.ruotaPerGiorno(
+        SuggestionSets.personalDisponibili(
+          widget.maestro,
+          sunSign: natale.sunSign,
+          moonSign: natale.moonSign,
+          ascendant: natale.ascendant,
+        ),
+        natale.sunSign ?? 'viandante',
+        DateTime.now(),
+      ),
+    );
+  }
+
   void _maybeSendInitial(MaestroChatController controller) {
     if (_initialSent || controller.loading) return;
     final testo = widget.initialUserMessage?.trim();
@@ -657,16 +680,19 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
           // campo si apre gia' col tema del Consulta.
           initialText: hasMessages ? null : widget.initialTheme,
           onSend: controller.send,
-          // A conversazione avviata, un solo controllo discreto apre il
-          // pannello dei suggerimenti. A chat vuota gli spunti sono i chip
-          // d'avvio al centro, quindi qui non serve.
-          onSuggestions: hasMessages
-              ? () => showSuggestionsPanel(
-                    context,
-                    maestro: widget.maestro,
-                    onSend: controller.send,
-                  )
-              : null,
+          // Il pannello e' raggiungibile in QUALUNQUE momento, anche a chat
+          // vuota: ordine 2163, voce 3. Le famiglie gli arrivano gia'
+          // filtrate sul vero dalla porta unica _famiglieCorrenti.
+          onSuggestions: () {
+            final famiglie = _famiglieCorrenti(context);
+            showSuggestionsPanel(
+              context,
+              maestro: widget.maestro,
+              onSend: controller.send,
+              frequenti: famiglie.frequenti,
+              personali: famiglie.personali,
+            );
+          },
             ),
           ],
         ),
@@ -694,21 +720,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       // frequenti tutte, le personali filtrate sul dato vero e ruotate in
       // modo deterministico su persona e giorno. Il tre scritto a mano dei
       // soli starters e' la riduzione del 12 luglio che Mauro ha revocato.
-      final natale = _natalCorrente(context);
+      final famiglie = _famiglieCorrenti(context);
       return ChatEmptyState(
         maestro: widget.maestro,
         greeting: _welcomeFor(controller),
-        starters: SuggestionSets.frequent(widget.maestro),
-        personali: SuggestionSets.ruotaPerGiorno(
-          SuggestionSets.personalDisponibili(
-            widget.maestro,
-            sunSign: natale.sunSign,
-            moonSign: natale.moonSign,
-            ascendant: natale.ascendant,
-          ),
-          natale.sunSign ?? 'viandante',
-          DateTime.now(),
-        ),
+        starters: famiglie.frequenti,
+        personali: famiglie.personali,
         onStarter: controller.send,
         enabled: controller.aiReady,
         // La stessa misura del fondo della lista dei messaggi: il primo
