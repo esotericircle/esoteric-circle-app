@@ -482,7 +482,8 @@ void main() {
       late _Campo campo;
       await tester.runAsync(() async {
         final nuda = await pixelDi(
-            dyn.copiaCon(progresso: 0.0, completa: false) as CustomPainter);
+            dyn.copiaCon(progresso: 0.0, completa: false, conTavola: true)
+                as CustomPainter);
         campo = _Campo(await pixelDi(painter), nuda, lato.round(),
             lato.round(), riquadroDelGlifo);
       });
@@ -556,8 +557,18 @@ void main() {
 /// Ricostruisce il painter dell'incisione allo stato voluto. Il tipo e' privato
 /// al file della schermata, quindi si passa dalla copia esposta dal painter
 /// stesso: e' l'unico modo di misurare il rendering vero senza aprire il tipo.
+///
+/// LA TAVOLA SI RIACCENDE APPOSTA: dall'ordine 2161 (voce 9) nella scena vera
+/// il painter scava sull'osso vergine e non dipinge piu' la sua tavola. Qui
+/// pero' si fotografa il painter DA SOLO, senza l'albero ne' l'asset: senza
+/// una pietra sotto, le ombre non hanno niente su cui leggersi e le misure
+/// diventano cieche. La tavola di ripiego e' la superficie su cui queste
+/// soglie sono state calibrate, e resta quella della misura.
 CustomPainter _conStato(dynamic painter, double progresso, bool completa) =>
-    painter.copiaCon(progresso: progresso, completa: completa) as CustomPainter;
+    painter.copiaCon(
+        progresso: progresso,
+        completa: completa,
+        conTavola: true) as CustomPainter;
 
 /// Un campo di pixel letto dalla tela, con le classi delle definizioni gia'
 /// precalcolate: le misure sono su decine di migliaia di punti, quindi si

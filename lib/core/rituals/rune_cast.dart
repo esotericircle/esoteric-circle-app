@@ -189,7 +189,7 @@ const String kRuneFontiEMetodo =
     "nelle tre aett di Freyr, Hagal e Tyr. I significati affondano nei tre Carmi "
     "Runici, l'anglosassone, il norvegese, l'islandese. La sorte tratta a segni "
     "è descritta da Tacito nella Germania, capitolo dieci: le sorti incise si "
-    "gettano sopra un candido panno, ed è quel panno che il getto libero "
+    "gettano sopra un candido panno, quello stesso che il getto libero "
     "stende. La cornice delle Norne e del Pozzo di "
     "Urdhr viene dall'Edda poetica (la Voluspa) e dalla Gylfaginning di Snorri "
     "Sturluson.\n\n"

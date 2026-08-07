@@ -1745,13 +1745,19 @@ class _IncisionePainter extends CustomPainter {
   /// Lo stesso painter a un altro avanzamento. Serve alla misura dei pixel del
   /// solco, che deve poter fotografare stati diversi del rendering vero senza
   /// ricostruirne una copia approssimata.
-  _IncisionePainter copiaCon({double? progresso, bool? completa}) =>
+  /// [conTavola] si puo' forzare: la misura a pixel fotografa il painter DA
+  /// SOLO, fuori dall'albero, dove l'osso vergine vero non c'e'. Senza una
+  /// pietra sotto, le ombre del solco non hanno niente su cui leggersi e la
+  /// misura diventa cieca: per misurare si riaccende la tavola di ripiego,
+  /// che e' la stessa su cui quelle soglie sono state calibrate.
+  _IncisionePainter copiaCon(
+          {double? progresso, bool? completa, bool? conTavola}) =>
       _IncisionePainter(
         runeName: runeName,
         progresso: progresso ?? this.progresso,
         palette: palette,
         completa: completa ?? this.completa,
-        conTavola: conTavola,
+        conTavola: conTavola ?? this.conTavola,
         fantasma: fantasma,
       );
 

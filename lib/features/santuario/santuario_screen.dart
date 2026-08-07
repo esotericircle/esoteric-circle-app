@@ -7,7 +7,6 @@ import '../shell/spazio_della_barra.dart';
 
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/zodiac.dart';
-import '../../core/astro/zodiac_controller.dart';
 import '../../core/astro/night_sky.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';

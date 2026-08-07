@@ -9,7 +9,6 @@ import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
-import 'package:esoteric_circle/features/rituals/retro_della_runa.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/diagnostics_dialog.dart';
