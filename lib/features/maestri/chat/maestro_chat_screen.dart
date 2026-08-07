@@ -510,10 +510,17 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               // emblema grande avrebbe spinto giu' i messaggi a ogni consulto.
               // `ScenaSopraLaConversazione` rovescia l'ordine di misurazione:
               // la conversazione si dispone per prima e prende cio' che le
-              // serve, poi alla scena si dice quanto e' rimasto. Con la
-              // conversazione piena resta zero, e la scena lo sa gestire.
+              // serve, poi alla scena si dice quanto e' rimasto. **Con la
+              // conversazione piena non restava ZERO e la scena spariva da
+              // tutte le chat col passare della storia**: dal 7 agosto 2026
+              // la scena VIVA pretende la sua altezza minima e si stende
+              // sopra la cima della conversazione, che non si muove. La
+              // ragione intera sta su ScenaSopraLaConversazione.
               Expanded(
                 child: ScenaSopraLaConversazione(
+                  altezzaMinimaDellaScena: controller.mostraLaScenaDiAttesa
+                      ? ScenaSopraLaConversazione.altezzaDelConsulto
+                      : 0,
                   scena: AnimatedSwitcher(
                     // A MOTO FERMO LA SCENA NON COMPARE, C'E'.
                     //
@@ -533,7 +540,24 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                     transitionBuilder: (figlio, anim) =>
                         FadeTransition(opacity: anim, child: figlio),
                     child: controller.mostraLaScenaDiAttesa
-                        ? ConsultoDelCieloView(
+                        ? DecoratedBox(
+                            // IL VELO: quando la scena si stende sopra la
+                            // conversazione piena, sotto ci sono messaggi, e
+                            // frasi sopra frasi non si leggono. Sul vuoto il
+                            // velo scurisce appena il cosmo e non si nota.
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  palette.deepest.withValues(alpha: 0.94),
+                                  palette.deepest.withValues(alpha: 0.86),
+                                  palette.deepest.withValues(alpha: 0.0),
+                                ],
+                                stops: const [0.0, 0.82, 1.0],
+                              ),
+                            ),
+                            child: ConsultoDelCieloView(
                             // La chiave porta CHI si consulta: cambiando voce
                             // la scena si rifa' con le battute di quel Maestro
                             // invece di restare su quelle di prima.
@@ -551,7 +575,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                             archetipo:
                                 context.watch<ArchetypeHistory>().ultimo?.dominante,
                             rotazione: controller.rotazioneDelConsulto,
-                          )
+                          ))
                         : const SizedBox.shrink(
                             key: ValueKey('nessun consulto')),
                   ),
