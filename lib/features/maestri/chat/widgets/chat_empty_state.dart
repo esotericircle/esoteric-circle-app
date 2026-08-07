@@ -24,6 +24,7 @@ class ChatEmptyState extends StatelessWidget {
     required this.onStarter,
     this.personali = const [],
     this.enabled = true,
+    this.spazioInFondo = 0,
   });
 
   final Maestro maestro;
@@ -40,13 +41,22 @@ class ChatEmptyState extends StatelessWidget {
   final ValueChanged<String> onStarter;
   final bool enabled;
 
+  /// IL FONDO PORTA IL COMPOSITORE E LA BARRA, come nella lista dei
+  /// messaggi: senza questa misura le famiglie di domande riposavano DIETRO
+  /// il compositore sospeso, e per leggerle bisognava indovinare che sotto
+  /// il vetro ci fosse qualcosa. La misura arriva dalla schermata, che e'
+  /// l'unica a conoscere l'altezza vera del suo compositore.
+  final double spazioInFondo;
+
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(
-        horizontal: SpacingTokens.lg,
-        vertical: SpacingTokens.lg,
+      padding: EdgeInsets.fromLTRB(
+        SpacingTokens.lg,
+        SpacingTokens.lg,
+        SpacingTokens.lg,
+        SpacingTokens.lg + spazioInFondo,
       ),
       child: Column(
         children: [

@@ -712,6 +712,11 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         ),
         onStarter: controller.send,
         enabled: controller.aiReady,
+        // La stessa misura del fondo della lista dei messaggi: il primo
+        // schermo scorre sotto il compositore e sotto la barra, ma da fermo
+        // le famiglie si leggono sopra il vetro, non dietro.
+        spazioInFondo: _altezzaComposer +
+            SpazioDellaBarraNelloScroll.quanto(context),
       );
     }
     // ROVESCIATA, e non e' un dettaglio di scorrimento: e' il motivo per cui

@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/app.dart';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -1112,6 +1113,194 @@ void main() {
       });
     });
   }
+
+  // LE COPPIE DELL'ORDINE 2161, voci 1..4. Tutte montano l'APP INTERA
+  // dall'avvio, non una schermata a mano: le regressioni di quest'ordine
+  // vivevano proprio nella differenza fra il widget isolato, dove le prove
+  // erano verdi, e l'app vera, dove Mauro non vedeva niente.
+
+  /// Uno scatto dell'app intera, con la radice avvolta nel RepaintBoundary.
+  Future<void> scattaApp(
+      WidgetTester tester, GlobalKey radice, String nome) async {
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final img = await rb.toImage(pixelRatio: 3.0);
+      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+      final dir = Directory('docs/preview/prima_dopo');
+      if (!dir.existsSync()) dir.createSync(recursive: true);
+      File('${dir.path}/${nome}_$_stato.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
+      img.dispose();
+    });
+  }
+
+  // VOCE 1: la scena di attesa sopra una conversazione PIENA, alla misura
+  // del telefono del fondatore. La conversazione si riempie con tre scambi
+  // interi, che e' la condizione vera della regressione: e' col passare
+  // della storia che la scena spariva.
+  testWidgets('2161, la scena di attesa in chat piena', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'profile.birthDate': '1990-08-15',
+    });
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final servizi = AppServices(
+      ai: const _VoceLenta(),
+      memory: InMemoryMaestroMemoryRepository(),
+      memoryPersistent: false,
+    );
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(conIntro: false, services: servizi),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(MaestroChatScreen.route(maestro: Maestro.aura, services: servizi));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+
+    // Due scambi interi riempiono la conversazione. NON tre: il cammino
+    // prevede tre domande al giorno, e al quarto invio risponderebbe il
+    // limite, che e' istantaneo e non ha attesa da fotografare.
+    for (final battuta in const [
+      'Chi sei tu?',
+      'Continua il discorso, ti ascolto.',
+    ]) {
+      await tester.enterText(find.byType(TextField).first, battuta);
+      await tester.testTextInput.receiveAction(TextInputAction.send);
+      await tester.pump();
+      for (var i = 0; i < 24; i++) {
+        await tester.pump(const Duration(milliseconds: 500));
+      }
+    }
+    // Terzo invio, l'ultimo del giorno: lo scatto cade nel mezzo dell'attesa.
+    await tester.enterText(
+        find.byType(TextField).first, 'E adesso dove guardo?');
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+
+    await scattaApp(tester, radice, 'attesa_chat');
+
+    // Si esaurisce l'attesa residua, per chiudere senza lavori in volo.
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 500));
+    }
+  });
+
+  // VOCE 2: la barra della chat, con cio' che le passa sotto. L'eccezione
+  // e' revocata: anche qui il vetro deve avere contenuto da mostrare.
+  testWidgets('2161, la barra nella chat', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({'onboarding.done': true});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final servizi = AppServices.offline();
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(conIntro: false, services: servizi),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(
+        MaestroChatScreen.route(maestro: Maestro.caligo, services: servizi));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 800));
+
+    await scattaApp(tester, radice, 'barra_chat');
+  });
+
+  // VOCE 3: le due famiglie di domande sulla prima schermata. La data di
+  // nascita c'e', quindi le personali sul Sole compaiono e dicono il vero.
+  // La voce e' accesa: cosi' i chip si vedono vivi e senza l'avviso di
+  // configurazione davanti. Si scorre fino alle famiglie, come farebbe la
+  // persona: e' il contenuto della voce, non il mezzo busto.
+  testWidgets('2161, le due famiglie di domande', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'profile.birthDate': '1990-08-15',
+    });
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final servizi = AppServices(
+      ai: const _VoceLenta(),
+      memory: InMemoryMaestroMemoryRepository(),
+      memoryPersistent: false,
+    );
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(conIntro: false, services: servizi),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(
+        MaestroChatScreen.route(maestro: Maestro.medora, services: servizi));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 800));
+
+    // Fino in fondo al primo schermo: le famiglie stanno sotto il mezzo
+    // busto, e il fondo dichiarato dal primo schermo le porta sopra il
+    // compositore, non dietro.
+    for (var i = 0; i < 4; i++) {
+      await tester.drag(find.byType(MaestroChatScreen), const Offset(0, -400),
+          warnIfMissed: false);
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await tester.pump(const Duration(milliseconds: 300));
+
+    await scattaApp(tester, radice, 'famiglie_domande');
+  });
+
+  // VOCE 4: il fondo della home, scorso davvero, dove la striscia delle
+  // altre arti adesso c'e' e prima non c'era.
+  testWidgets('2161, la striscia in fondo alla home', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({'onboarding.done': true});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2392);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+
+    final scroll = find.byType(SingleChildScrollView).first;
+    for (var i = 0; i < 20; i++) {
+      await tester.drag(scroll, const Offset(0, -500), warnIfMissed: false);
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await tester.pump(const Duration(milliseconds: 400));
+
+    await scattaApp(tester, radice, 'striscia_home');
+  });
 }
 
 /// Una carta natale piena, per le anteprime del consulto.
@@ -1297,4 +1486,58 @@ class _VoceCheTace implements MaestroAiProvider {
     required List<ChatMessage> history,
   }) async =>
       throw Exception('firebasevertexai.googleapis.com non abilitata');
+}
+
+/// Una voce pronta che risponde con calma: quanto basta perche' l'attesa
+/// esista e la scena della voce 1 abbia qualcosa da accompagnare.
+class _VoceLenta implements MaestroAiProvider {
+  const _VoceLenta();
+
+  @override
+  bool get isReady => true;
+
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<ChatMessage> history,
+    required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
+    String? rispostaGiaData,
+  }) async {
+    await Future<void>.delayed(const Duration(milliseconds: 400));
+    return 'Il cielo osserva con te questa domanda e la tiene aperta. '
+        'Guarda quel che torna due volte nello stesso giorno. '
+        'Consiglio: annota stasera quel che il mattino ti ha detto.';
+  }
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  Future<MemoryDigest?> distill({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory previous,
+    required List<ChatMessage> history,
+  }) async =>
+      null;
 }
