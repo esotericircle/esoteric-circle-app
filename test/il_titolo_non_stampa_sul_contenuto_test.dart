@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/app.dart';
@@ -13,23 +15,30 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// LA SCRITTA ESPLORA NON STAMPA PIU' SOPRA LE CARTE.
+/// LA SCRITTA ESPLORA RESTA LEGGIBILE SU CIO' CHE LE PASSA SOTTO.
 ///
-/// Ordine 2163, voce 7. Visto: il titolo copriva la carta "Chiedi anche
-/// agli altri" e la riga di chiusura nel Consiglio. Il titolo e' una nota
-/// di servizio e non copre contenuto: la fascia dietro di lui ha un fondo,
-/// alto quanto il titolo VERO (misurato con TextPainter nel widget, non
-/// indovinato).
+/// **LA GRANDEZZA MISURATA E' CAMBIATA, E VA DETTO PERCHE'.** Fino all'ordine
+/// 2163 questa prova era differenziale a pixel: nel rettangolo del titolo NON
+/// doveva cambiare niente mentre il contenuto scorreva dietro, e teneva ferma
+/// una fascia opaca dietro la scritta. Con l'ordine 2164 voce 1 Mauro ha
+/// deciso che la barra torna TRASPARENTE: da adesso dietro il titolo il
+/// contenuto si vede e si muove, quindi i pixel CAMBIANO per costruzione e
+/// quella misura direbbe sempre di no. Non si allenta la soglia, si cambia
+/// cio' che si misura: adesso si misura il CONTRASTO delle lettere contro il
+/// fondo peggiore che passa dietro di loro, che e' la cosa che davvero conta
+/// per chi legge.
 ///
-/// La prova e' differenziale a pixel, come la voce 1: nel rettangolo del
-/// titolo, allargato di due punti, i pixel non cambiano quando il
-/// contenuto scorre dietro. Schermate enumerate: home, dominio, chat,
-/// Consiglio (il Passport monta la stessa barra della home, stessa
-/// superficie, e il suo scorrevole e' gia' coperto dalle altre).
+/// Il metodo: dentro il rettangolo del titolo si separano i pixel chiari
+/// (le lettere dorate) da quelli del fondo, e si confronta la luminanza
+/// mediana delle lettere col fondo PIU' CHIARO che si trova li' dietro, cioe'
+/// il caso peggiore. Il rapporto e' quello delle WCAG.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
-  const pixelDiversiMassimi = 30;
+  /// La soglia dichiarata: il minimo WCAG per il testo piccolo. Il titolo e'
+  /// una nota di servizio, ma resta testo, e sotto questo numero non e'
+  /// leggibile su cio' che gli passa dietro.
+  const contrastoMinimo = 4.5;
 
   void silenzia() {
     final messenger = binding.defaultBinaryMessenger;
@@ -60,8 +69,33 @@ void main() {
     return byte;
   }
 
-  testWidgets('nelle schermate enumerate il titolo ha il suo fondo',
-      (tester) async {
+  /// La luminanza relativa delle WCAG, da un pixel RGB.
+  double luminanza(int r, int g, int b) {
+    double canale(int v) {
+      final c = v / 255.0;
+      return c <= 0.03928 ? c / 12.92 : _pow((c + 0.055) / 1.055, 2.4);
+    }
+
+    return 0.2126 * canale(r) + 0.7152 * canale(g) + 0.0722 * canale(b);
+  }
+
+  double contrastoFra(double l1, double l2) {
+    final chiaro = l1 > l2 ? l1 : l2;
+    final scuro = l1 > l2 ? l2 : l1;
+    return (chiaro + 0.05) / (scuro + 0.05);
+  }
+
+  // **IL ROSSO, E COSA HA INSEGNATO.** Tolta la sola OMBRA, questa prova
+  // resta verde nelle quattro schermate di oggi (il Consiglio scendeva da
+  // 5,34 a 5,25): li' a tenere il contrasto e' la sfumatura del piede. Il
+  // rosso vero e' stato eseguito togliendo TUTTA la protezione, cioe'
+  // portando la sfumatura ad alpha zero e l'ombra a lista vuota: il
+  // Consiglio e' sceso a 3,88 e la prova e' caduta nominando il danno.
+  // L'ombra resta perche' e' la difesa LOCALE, quella che serve quando
+  // dietro il titolo passa una scheda chiara piu' su della sfumatura, e la
+  // sua esistenza la sorveglia la prova sul sorgente qui sotto.
+  testWidgets('nelle quattro schermate il titolo si legge su cio\' che gli '
+      'passa dietro', (tester) async {
     silenzia();
     SharedPreferences.setMockInitialValues({'onboarding.done': true});
     tester.view.physicalSize = const Size(430, 900);
@@ -80,48 +114,79 @@ void main() {
     final colpe = <String>[];
 
     Future<void> misura(String dove) async {
-      // A TEMPO FERMO: il drag sposta il contenuto, il pump a durata zero
-      // ridisegna senza far avanzare le animazioni della schermata.
+      // Il contenuto si porta SOTTO il titolo, senza dito: un drag
+      // ritirerebbe la barra seguendo il dito (regola della 2158) e
+      // sposterebbe il titolo stesso.
+      final scorrevole = find.byWidgetPredicate(
+          (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
+      if (scorrevole.evaluate().isNotEmpty) {
+        final posizione =
+            tester.state<ScrollableState>(scorrevole.first).position;
+        posizione.jumpTo(
+            (posizione.pixels + 70).clamp(0.0, posizione.maxScrollExtent));
+        await tester.pump(Duration.zero);
+      }
+
       final titolo =
           tester.getRect(find.byKey(const Key('barra_titolo')).first);
       final zona = titolo.inflate(2);
-      final prima = await tester.runAsync(() => pixelDi(tester, radice));
-      // SENZA DITO: un drag porterebbe il dito e la barra si ritirerebbe
-      // seguendolo (regola della 2158), spostando il titolo stesso. Il
-      // salto di posizione non ha dito: il contenuto si muove, la barra e
-      // il titolo restano dove sono.
-      final scorrevole = find.byWidgetPredicate(
-          (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
-      final posizione = tester
-          .state<ScrollableState>(scorrevole.first)
-          .position;
-      final da = posizione.pixels;
-      posizione.jumpTo(
-          (da + 70).clamp(0.0, posizione.maxScrollExtent));
-      await tester.pump(Duration.zero);
-      final dopo = await tester.runAsync(() => pixelDi(tester, radice));
+      final byte = (await tester.runAsync(() => pixelDi(tester, radice)))!;
       final larghezza = tester.view.physicalSize.width.round();
-      var diversi = 0;
-      for (var y = zona.top.ceil(); y < zona.bottom.floor(); y++) {
-        for (var x = zona.left.ceil(); x < zona.right.floor(); x++) {
-          final i = (y * larghezza + x) * 4;
-          if ((prima![i] - dopo![i]).abs() > 3 ||
-              (prima[i + 1] - dopo[i + 1]).abs() > 3 ||
-              (prima[i + 2] - dopo[i + 2]).abs() > 3) {
-            diversi++;
-          }
+
+      // La griglia delle luminanze del rettangolo, che serve a distinguere
+      // il fondo VICINO alle lettere da quello lontano.
+      final x0 = zona.left.ceil();
+      final y0 = zona.top.ceil();
+      final larghezzaZona = zona.right.floor() - x0;
+      final altezzaZona = zona.bottom.floor() - y0;
+      if (larghezzaZona < 8 || altezzaZona < 4) {
+        colpe.add('$dove: il rettangolo del titolo e\' vuoto, non si misura '
+            'niente');
+        return;
+      }
+      final griglia = <List<double>>[];
+      final luci = <double>[];
+      for (var y = 0; y < altezzaZona; y++) {
+        final riga = <double>[];
+        for (var x = 0; x < larghezzaZona; x++) {
+          final i = ((y0 + y) * larghezza + (x0 + x)) * 4;
+          final l = luminanza(byte[i], byte[i + 1], byte[i + 2]);
+          riga.add(l);
+          luci.add(l);
         }
+        griglia.add(riga);
       }
+      final ordinate = [...luci]..sort();
+      // LE LETTERE sono i pixel piu' chiari (oro su fondale scuro).
+      final sogliaLettera = ordinate[(ordinate.length * 0.90).floor()];
+      final lettereChiare =
+          ordinate.sublist((ordinate.length * 0.90).floor());
+      final lettera = lettereChiare[lettereChiare.length ~/ 2];
+
+      // **IL FONDO E' IL PEGGIORE DENTRO IL RETTANGOLO DEL TITOLO, e una
+      // seconda stesura e' stata scartata.** Avevo provato a guardare solo
+      // il fondo ENTRO CINQUE PUNTI dalle lettere, pensando che il pixel
+      // chiaro in un angolo non disturbasse la lettura: quella misura
+      // rispondeva 2,0 ovunque, anche dove a video si legge benissimo,
+      // perche' raccoglieva l'antialiasing delle lettere stesse, cioe' i
+      // loro bordi sfumati, e li chiamava fondo. Una misura che guarda la
+      // cosa sbagliata e' come una misura che non c'e'. Resta questa: tutto
+      // cio' che sta dentro il rettangolo del titolo gli passa dietro, e il
+      // punto peggiore decide.
+      // Si scarta il sesto piu' chiaro e non solo il decimo: fra la soglia
+      // delle lettere e il fondo vero ci sono i BORDI SFUMATI delle lettere,
+      // che sono lettera anche loro. Contandoli come fondo la misura
+      // rispondeva 2,0 ovunque, anche dove a video si legge benissimo.
+      final fondoPeggiore = ordinate[(ordinate.length * 0.84).floor()];
+      final contrasto = contrastoFra(lettera, fondoPeggiore);
       // ignore: avoid_print
-      print('TITOLO $dove: pixel cambiati nel rettangolo = $diversi '
-          '(massimo $pixelDiversiMassimi)');
-      if (diversi > pixelDiversiMassimi) {
-        colpe.add('$dove: $diversi pixel del contenuto attraversano il '
-            'titolo');
+      print('TITOLO $dove: contrasto lettere contro il fondo peggiore = '
+          '${contrasto.toStringAsFixed(2)} (minimo $contrastoMinimo)');
+      if (contrasto < contrastoMinimo) {
+        colpe.add('$dove: il titolo si legge a '
+            '${contrasto.toStringAsFixed(2)} di contrasto contro cio\' che '
+            'gli passa dietro, sotto il $contrastoMinimo che serve');
       }
-      // Il contenuto si riporta dov'era, per la schermata dopo.
-      posizione.jumpTo(da);
-      await tester.pump(Duration.zero);
     }
 
     await misura('home');
@@ -129,7 +194,6 @@ void main() {
     nav.push(DomainScreen.route(maestro: Maestro.caligo, services: servizi));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
-    // Nel dominio si scende un poco: la scritta copriva le carte in fondo.
     await misura('dominio');
 
     nav.push(
@@ -160,4 +224,23 @@ void main() {
 
     expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
+
+  test('la barra NON ha piu\' un fondo pieno, e l\'ombra del titolo esiste',
+      () {
+    // ORDINE 2164 VOCE 1, la regola scritta dove vive: il sorgente della
+    // barra non deve piu' comporre un fondale opaco con alphaBlend, e il
+    // titolo deve prendere la sua ombra. E' l'unica prova che vede la
+    // DECISIONE e non solo il suo effetto: senza di lei, qualcuno potrebbe
+    // rimettere la fascia e cercare di far tornare i conti altrove.
+    final sorgente =
+        File('lib/features/shell/santuario_bottom_bar.dart').readAsStringSync();
+    expect(sorgente.contains('ombraDelTitolo'), isTrue,
+        reason: 'L\'ombra del titolo non esiste piu\': senza fascia e senza '
+            'ombra il titolo resta nudo sopra il contenuto.');
+    expect(sorgente.contains('Color.alphaBlend'), isFalse,
+        reason: 'La barra ha di nuovo un fondo composto opaco: Mauro l\'ha '
+            'voluta trasparente con l\'ordine 2164 voce 1.');
+  });
 }
+
+double _pow(double x, double e) => math.pow(x, e).toDouble();

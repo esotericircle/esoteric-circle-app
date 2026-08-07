@@ -61,50 +61,40 @@ class SantuarioBottomBar extends StatelessWidget {
     // e la barra non si costruiva affatto. Trasparente, perche' il fondo lo
     // dipinge gia' il gradiente qui sotto, e in un posto solo: cosi' vale
     // ovunque la si monti, e non dipende da chi la monta.
-    // LA FASCIA DEL TITOLO HA UN FONDO, ordine 2163 voce 7: il gradiente
-    // partiva da alpha zero in cima, e la scritta ESPLORA si stampava sopra
-    // le carte che passavano dietro. La misura NON e' indovinata: e'
-    // l'altezza vera del titolo, dipinta qui sotto con lo stesso stile, piu'
-    // il respiro sopra di lui. Fino a quella quota il fondo e' quasi pieno.
-    final pittoreDelTitolo = TextPainter(
-      text: TextSpan(
-        text: titolo,
-        style: TypographyTokens.label(size: 11)
-            .copyWith(letterSpacing: 3.2),
-      ),
-      textDirection: TextDirection.ltr,
-      textScaler: MediaQuery.textScalerOf(context),
-    )..layout();
-    final fasciaDelTitolo =
-        SpacingTokens.sm + pittoreDelTitolo.height + 2;
-
+    // LA BARRA E' TRASPARENTE, ORDINE 2164 VOCE 1.
+    //
+    // **QUESTA RIGA DISFA UNA DECISIONE DELL'ARCHITETTO, e non e' una
+    // regressione.** Con l'ordine 2163 voce 7 questa superficie era stata
+    // resa OPACA, con una fascia misurata col TextPainter dietro il titolo,
+    // per impedire che ESPLORA si stampasse sopra le carte. Mauro ha
+    // guardato la 2163 e ha deciso il contrario: la barra deve essere
+    // trasparente. E' una scelta sua che supera la mia, e sta scritta qui
+    // perche' nessuno la ribalti domani credendo di correggere un difetto.
+    //
+    // Il difetto che la fascia risolveva NON e' stato dimenticato: il
+    // titolo adesso porta la sua OMBRA MORBIDA (vedi [ombraDelTitolo]), che
+    // lo tiene leggibile su qualunque cosa passi sotto senza mettergli
+    // dietro un fondo pieno. La prova a pixel di ieri e' stata cambiata di
+    // grandezza, non allentata: adesso misura il contrasto del titolo.
     return Material(
       type: MaterialType.transparency,
       child: Container(
       decoration: BoxDecoration(
-        // OPACA, per la stessa regola della voce 1: una trasparenza
-        // semplice lascia leggere cio' che passa dietro, e il differenziale
-        // a pixel lo denuncia con qualunque velo. Il colore e' COMPOSTO:
-        // in cima un filo piu' chiaro, in fondo il fondale pieno, cosi' la
-        // profondita' resta senza che il contenuto attraversi il titolo.
-        // La fascia del titolo e' misurata dal testo vero qui sopra.
+        // Una sfumatura morbida che nasce dal basso e muore molto prima del
+        // titolo: da' peso al piede della barra senza essere un fondo.
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color.alphaBlend(
-                palette.surfaceElevated.withValues(alpha: 0.25),
-                palette.deepest),
-            Color.alphaBlend(
-                palette.surfaceElevated.withValues(alpha: 0.10),
-                palette.deepest),
-            palette.deepest,
+            palette.deepest.withValues(alpha: 0.12),
+            palette.deepest.withValues(alpha: 0.78),
+            palette.deepest.withValues(alpha: 0.90),
           ],
-          stops: [
-            0.0,
-            (fasciaDelTitolo / altezzaResa).clamp(0.0, 1.0),
-            1.0,
-          ],
+          // La sfumatura sale in fretta: il titolo vive nei primi venti punti
+          // della barra, e con la salita lenta il contrasto nel Consiglio si
+          // fermava a 4,23 contro il 4,5 richiesto. In cima resta comunque
+          // trasparente, cioe' il contenuto entra nella barra e si vede.
+          stops: const [0.0, 0.18, 1.0],
         ),
       ),
       child: SafeArea(
@@ -132,6 +122,10 @@ class SantuarioBottomBar extends StatelessWidget {
                 style: TypographyTokens.label(size: 11).copyWith(
                   color: coloreDelTitolo(palette),
                   letterSpacing: 3.2,
+                  // L'OMBRA AL POSTO DELLA FASCIA, ordine 2164 voce 1: e'
+                  // cio' che tiene il titolo leggibile adesso che dietro
+                  // di lui passa il contenuto.
+                  shadows: ombraDelTitolo(palette),
                 ),
               ),
               const SizedBox(height: 2),
@@ -204,6 +198,25 @@ class SantuarioBottomBar extends StatelessWidget {
   /// grigio. Il colore vive QUI e in nessun altro posto: una prova legge
   /// questo punto e cade se qualcuno lo scrive a mano altrove.
   static Color coloreDelTitolo(MaestroPalette palette) => palette.gold;
+
+  /// L'OMBRA DEL TITOLO, ordine 2164 voce 1, punto unico.
+  ///
+  /// Sostituisce la fascia piena dietro ESPLORA: due aloni del fondale, uno
+  /// stretto e quasi pieno che stacca le lettere e uno largo e piu' tenue
+  /// che spegne il contrasto locale di cio' che passa sotto. Il colore e'
+  /// il fondale del Maestro, non un nero fisso, cosi' l'ombra appartiene
+  /// alla casa in cui si e'.
+  /// I TRE ALONI SONO MISURATI, non scelti a occhio: con due soli aloni
+  /// (0,95 a raggio 4 e 0,85 a raggio 10) nel Consiglio il contrasto
+  /// scendeva a 3,32 contro il 4,5 richiesto, perche' li' dietro il titolo
+  /// passano le schede chiare. Il terzo alone largo spegne proprio quel
+  /// fondo. Chi li tocca rilegga il numero che la prova stampa.
+  static List<Shadow> ombraDelTitolo(MaestroPalette palette) => [
+        Shadow(color: palette.deepest, blurRadius: 3),
+        Shadow(color: palette.deepest, blurRadius: 10),
+        Shadow(
+            color: palette.deepest.withValues(alpha: 0.98), blurRadius: 22),
+      ];
 }
 
 class _BarItem extends StatelessWidget {
