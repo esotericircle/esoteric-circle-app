@@ -145,7 +145,6 @@ void main() {
       }
       final ordinate = [...luci]..sort();
       // LE LETTERE sono i pixel piu' chiari (oro su fondale scuro).
-      final sogliaLettera = ordinate[(ordinate.length * 0.90).floor()];
       final lettereChiare =
           ordinate.sublist((ordinate.length * 0.90).floor());
       final lettera = lettereChiare[lettereChiare.length ~/ 2];
