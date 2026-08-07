@@ -9,6 +9,8 @@ import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
+import 'package:esoteric_circle/features/rituals/retro_della_runa.dart';
+import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/diagnostics_dialog.dart';
 import 'package:esoteric_circle/services/firebase/attestazione.dart';
@@ -1350,6 +1352,76 @@ void main() {
       await tester.pump(const Duration(milliseconds: 300));
 
       await scattaApp(tester, radice, 'gettata_$caso');
+    });
+  }
+
+  // VOCI 9 E 11: il Tramonto. L'incisione a meta' sulla pietra vergine
+  // vera (voce 9) e la lettura con l'invito "Gira la pietra" subito sotto
+  // la pietra (voce 11).
+  for (final caso in const ['incisione', 'invito']) {
+    testWidgets('2161, il tramonto $caso', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      SharedPreferences.setMockInitialValues({});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2391);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final radice = GlobalKey();
+      await tester.pumpWidget(MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (ctx, child) => MediaQuery(
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+          child: child!,
+        ),
+        home: RepaintBoundary(
+          key: radice,
+          child: SunsetRuneScreen(
+              now: DateTime(2026, 8, 6, 21, 30),
+              dataNascita: DateTime(1988, 7, 5)),
+        ),
+      ));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+      // La pietra vergine si precarica, sempre: headless non decodifica.
+      await tester.runAsync(() async {
+        final el = tester.element(find.byType(MaterialApp));
+        for (final r in kElderFuthark) {
+          final vergine = pathVergineDi(r.stem);
+          if (vergine != null) {
+            await precacheImage(AssetImage(vergine), el);
+          }
+          if (r.fullPath != null) {
+            await precacheImage(AssetImage(r.fullPath!), el);
+          }
+        }
+      });
+      await tester.pump(const Duration(milliseconds: 300));
+
+      await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
+      for (var i = 0; i < 4; i++) {
+        await tester.pump(const Duration(milliseconds: 150));
+      }
+      await tester.tap(find.byKey(const Key('sunset_incisione_gesture')));
+      if (caso == 'incisione') {
+        // A meta' del segno: col movimento ridotto l'incisione va da se'
+        // in 1,2 secondi, tre passi da 200 ms sono circa meta'.
+        await tester.pump(const Duration(milliseconds: 200));
+        await tester.pump(const Duration(milliseconds: 200));
+        await tester.pump(const Duration(milliseconds: 200));
+      } else {
+        for (var i = 0; i < 20; i++) {
+          await tester.pump(const Duration(milliseconds: 200));
+        }
+      }
+
+      await scattaApp(tester, radice, 'tramonto_$caso');
+
+      // Si esaurisce il rito, per chiudere senza lavori in volo.
+      for (var i = 0; i < 15; i++) {
+        await tester.pump(const Duration(milliseconds: 200));
+      }
     });
   }
 

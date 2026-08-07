@@ -185,7 +185,6 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   int _trattiFatti = 0; // per il feedback aptico a ogni tratto
   bool _completa = false; // crossfade tratti verso l'asset avvenuto
   bool _premuto = false;
-  Offset? _ultimoPunto; // dove stava il dito al passo precedente del tracciato
   bool _giroFatto = false;
   bool _riduciMovimento = false;
 
@@ -198,6 +197,11 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   // L'ora del tramonto e l'identita' deterministica.
   DateTime? _tramonto;
   bool _stimata = true;
+
+  /// Vero quando il sistema ha detto che il permesso e' negato PER SEMPRE:
+  /// da quel momento il pulsante porta alle impostazioni, perche' il dialogo
+  /// di sistema non comparira' mai piu'. Ordine 2161, voce 10.
+  bool _posizioneNegataPerSempre = false;
   bool _oraNota = false;
   String _identita = ''; // risolta una sola volta, riusata a ogni riestrazione
 
@@ -411,18 +415,15 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   // e' il gesto vero del rituale e arriva in fondo prima. Nessuno dei due fa mai
   // regredire il progresso.
 
-  /// Quanto percorso serve, in punti logici, perche' il solo tracciamento
-  /// compia il segno. Cresce coi tratti come la durata a dito fermo: la pietra
-  /// e' larga duecentoquaranta punti, quindi una runa a due tratti si incide con
-  /// un paio di passate decise, e tracciando si arriva prima che stando fermi.
-  double get _percorsoPerCompletare => _numeroTratti * 260.0;
-
-  void _inizioIncisione([Offset? punto]) {
+  // DECISIONE DI MAURO, ordine 2161 voce 7: il gesto e' TENERE PREMUTO.
+  // Qui vivevano _muoveIncisione e il percorso per completare, cioe' il
+  // tracciamento col dito che scorre: sono stati tolti apposta e non si
+  // ricostruiscono. Il segno avanza solo col tempo di pressione.
+  void _inizioIncisione() {
     if (_fase != _Fase.incisione || _completa) return;
     // Il dito e' arrivato: l'invito ha finito il suo compito.
     _spegniFantasma();
     _premuto = true;
-    _ultimoPunto = punto;
     // Alla ripresa NON si azzera il progresso: il primo tick fissa solo la base
     // temporale, cosi' una pausa lunga fra due pressioni non incide di colpo.
     _primoTick = true;
@@ -431,22 +432,9 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     setState(() {});
   }
 
-  /// Il dito che traccia: ogni pezzo di percorso scava, in proporzione alla
-  /// distanza coperta. Solo avanti, mai indietro.
-  void _muoveIncisione(Offset punto) {
-    if (_fase != _Fase.incisione || _completa) return;
-    final precedente = _ultimoPunto;
-    _ultimoPunto = punto;
-    if (precedente == null) return;
-    final tratto = (punto - precedente).distance;
-    if (tratto <= 0) return;
-    _avanza(tratto / _percorsoPerCompletare);
-  }
-
   void _fineIncisione() {
     if (_fase != _Fase.incisione) return;
     _premuto = false;
-    _ultimoPunto = null;
     // Il progresso resta dov'e', ma il ticker si ferma: mentre il dito e'
     // alzato il tempo non deve accumularsi e poi scaricarsi tutto alla ripresa.
     // Nel ripiego Riduci Movimento l'incisione va da se', quindi non si ferma.
@@ -762,9 +750,24 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         const SizedBox(height: SpacingTokens.sm),
         // L'unica cosa toccabile della schermata, e si vede che lo e': bordo,
         // riempimento tenue in chiave oro, area di tocco piena.
+        // I TRE ESITI FINO A SCHERMO, ordine 2161 voce 10: finche' si puo'
+        // chiedere, il pulsante chiede; quando il no e' per sempre, il
+        // dialogo di sistema non comparira' mai piu', quindi il pulsante
+        // porta alle impostazioni e il testo sopra spiega perche'.
+        if (_posizioneNegataPerSempre) ...[
+          Text(
+              'La posizione è negata per sempre per questa app: il sistema '
+              'non mostrerà più la richiesta. Si riattiva dalle impostazioni.',
+              key: const Key('sunset_posizione_negata_per_sempre'),
+              textAlign: TextAlign.center,
+              style: stile),
+          const SizedBox(height: SpacingTokens.xs),
+        ],
         OutlinedButton(
           key: const Key('sunset_attiva'),
-          onPressed: _attivaPosizione,
+          onPressed: _posizioneNegataPerSempre
+              ? widget.location.apriImpostazioni
+              : _attivaPosizione,
           style: OutlinedButton.styleFrom(
             minimumSize: const Size(0, 44),
             padding: const EdgeInsets.symmetric(
@@ -775,7 +778,10 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 borderRadius:
                     BorderRadius.circular(SpacingTokens.radiusPill)),
           ),
-          child: Text('Attiva la posizione',
+          child: Text(
+              _posizioneNegataPerSempre
+                  ? 'Apri le impostazioni'
+                  : 'Attiva la posizione',
               style: TypographyTokens.label(size: 12.5)
                   .copyWith(color: _palette.goldSoft, letterSpacing: 0.6)),
         ),
@@ -787,11 +793,21 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     // Riprova a risolvere la posizione, non blocca la scena.
     // Qui, e solo qui, si puo' chiedere il permesso: e' il gesto esplicito
     // dell'utente. Passa dalla sorgente iniettata, cosi' il ramo e' testabile.
-    final luogo = await widget.location.resolve();
+    // Si chiede CON L'ESITO, non col solo luogo: i tre esiti restano
+    // distinti fino a schermo (ordine 2161, voce 10).
+    final risposta = await widget.location.chiedi();
     if (!mounted) return;
+    final luogo = risposta.luogo;
     if (luogo == null) {
-      // Permesso negato o posizione assente: si spiega, in voce neutra, che si
-      // usa un tramonto medio. Il Dono resta pienamente funzionante.
+      if (risposta.esito == EsitoPosizione.negataPerSempre) {
+        // Il no per sempre cambia la schermata: testo che spiega e pulsante
+        // che porta alle impostazioni, perche' richiedere sarebbe una bugia.
+        setState(() => _posizioneNegataPerSempre = true);
+        return;
+      }
+      // Permesso negato una volta o posizione assente: si spiega, in voce
+      // neutra, che si usa un tramonto medio, e il pulsante resta li' e puo'
+      // chiedere di nuovo. Il Dono resta pienamente funzionante.
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           key: Key('sunset_posizione_negata'),
@@ -876,12 +892,16 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         ),
       );
     }
-    // Incisione: si tiene il dito e il segno si scava un tratto alla volta.
+    // Incisione: si tiene il dito e il segno si scava col tempo di pressione.
+    //
+    // DECISIONE DI MAURO, ordine 2161 voce 7, da non ribaltare mai piu': il
+    // gesto e' TENERE PREMUTO sulla pietra. Il tracciamento col dito che
+    // scorre non esiste e non si costruisce: chi in futuro trovera' questo
+    // onLongPress senza onLongPressMoveUpdate non lo consideri un difetto.
     return GestureDetector(
       key: const Key('sunset_incisione_gesture'),
       behavior: HitTestBehavior.opaque,
-      onLongPressStart: (d) => _inizioIncisione(d.localPosition),
-      onLongPressMoveUpdate: (d) => _muoveIncisione(d.localPosition),
+      onLongPressStart: (_) => _inizioIncisione(),
       onLongPressEnd: (_) => _fineIncisione(),
       onTap: _riduciMovimento ? _inizioIncisione : null,
       child: SizedBox(
@@ -890,6 +910,15 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         child: Stack(
           alignment: Alignment.center,
           children: [
+            // LA PIETRA VERGINE STA SOTTO FIN DAL PRIMO ISTANTE, ordine 2161
+            // voce 9: il solco si scava sopra di lei, dalla porta unica
+            // RetroDellaRuna, e al termine non c'e' nessuna sostituzione di
+            // pietra, cambia solo il solco.
+            SizedBox(
+              width: lato,
+              height: lato,
+              child: _pietraVergine(lato),
+            ),
             // I tratti scavati, che sfumano quando arriva l'asset. Il fantasma
             // del gesto vive dentro lo stesso painter, sopra la pietra e sotto
             // i segni incisi.
@@ -906,6 +935,10 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                     progresso: _incisione,
                     palette: _palette,
                     completa: _completa,
+                    // Con l'osso vero sotto, il painter non dipinge la sua
+                    // tavola: scava soltanto. La tavola resta il ripiego di
+                    // quando l'asset manca dal bundle.
+                    conTavola: !_ossoVergineCe,
                     fantasma: _fantasmaVisibile
                         ? (_riduciMovimento ? -1.0 : _fantasma.value)
                         : null,
@@ -982,7 +1015,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       return 'Scuoti il telefono o tocca la pietra\nper gettarla.';
     }
     if (_riduciMovimento) return 'Tocca la pietra per incidere il simbolo.';
-    return 'Traccia con il dito sulla pietra\ne scopri il simbolo.';
+    return 'Tieni premuto sulla pietra\ne scopri il simbolo.';
   }
 
   Widget _invito() {
@@ -1037,8 +1070,25 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                   style: TypographyTokens.label(size: 12.5).copyWith(
                       color: _palette.goldSoft, letterSpacing: 0.4, height: 1.4)),
             ),
-          // La pietra che gira per svelare la seconda voce.
-          Center(child: _pietraGirata()),
+          // La pietra che gira per svelare la seconda voce. IL DOPPIO TOCCO
+          // STA SULLA PIETRA, ordine 2161 voce 8: l'invito nomina la pietra,
+          // quindi l'area di tocco copre la pietra intera, non solo il
+          // riquadro col testo, che resta toccabile come cortesia.
+          Center(
+            child: GestureDetector(
+              key: const Key('sunset_pietra_lettura'),
+              behavior: HitTestBehavior.opaque,
+              onDoubleTap: _gira,
+              child: _pietraGirata(),
+            ),
+          ),
+          // L'INVITO SUBITO SOTTO LA PIETRA, ordine 2161 voce 11: prima fra
+          // la pietra e "Gira la pietra" stavano il nome, il verso, la Voce A
+          // e la trasparenza. La distanza e' la costante dichiarata qui sotto.
+          if (!_giroFatto) ...[
+            const SizedBox(height: _distanzaPietraInvito),
+            _invitoGira(),
+          ],
           const SizedBox(height: SpacingTokens.md),
           Center(
             child: Text(_e.rune.name.toUpperCase(),
@@ -1069,13 +1119,14 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
               key: const Key('sunset_trasparenza'),
               style: TypographyTokens.label(size: 12.5).copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.2)),
-          const SizedBox(height: SpacingTokens.lg),
-          // Voce B dietro la rotazione della pietra.
-          if (!_giroFatto)
-            _invitoGira()
-          else
+          // Voce B dietro la rotazione della pietra: appare QUI, dopo la
+          // Voce A e la trasparenza, cosi' le due voci si leggono nell'ordine
+          // del rito anche se l'invito che la svela sta su, sotto la pietra.
+          if (_giroFatto) ...[
+            const SizedBox(height: SpacingTokens.lg),
             _bloccoVoce('Cosa porti dentro la notte', _vocePortare(),
                 const Key('sunset_voce_due')),
+          ],
           const SizedBox(height: SpacingTokens.lg),
           _striscia(),
           if (_settimaSera) ...[
@@ -1089,6 +1140,11 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       ),
     );
   }
+
+  /// La distanza fra il bordo basso della pietra e l'invito "Gira la
+  /// pietra": una costante dichiarata, non un numero sparso. Ordine 2161,
+  /// voce 11: l'invito sta SUBITO sotto la pietra.
+  static const double _distanzaPietraInvito = SpacingTokens.sm;
 
   Widget _pietraGirata() {
     return AnimatedBuilder(
@@ -1667,6 +1723,7 @@ class _IncisionePainter extends CustomPainter {
     required this.progresso,
     required this.palette,
     required this.completa,
+    this.conTavola = true,
     this.fantasma,
   });
 
@@ -1674,6 +1731,11 @@ class _IncisionePainter extends CustomPainter {
   final double progresso;
   final MaestroPalette palette;
   final bool completa;
+
+  /// Se dipingere la tavola di pietra del painter. FALSO quando sotto c'e'
+  /// l'osso vergine vero (ordine 2161, voce 9): allora questo painter scava
+  /// soltanto, e la tavola dipinta resta il ripiego per l'asset assente.
+  final bool conTavola;
 
   /// Il fantasma del gesto: null quando non si mostra, da 0 a 1 la posizione nel
   /// ciclo del punto che viaggia, e il valore convenzionale -1 per il velo fermo
@@ -1689,6 +1751,7 @@ class _IncisionePainter extends CustomPainter {
         progresso: progresso ?? this.progresso,
         palette: palette,
         completa: completa ?? this.completa,
+        conTavola: conTavola,
         fantasma: fantasma,
       );
 
@@ -1699,7 +1762,9 @@ class _IncisionePainter extends CustomPainter {
     // La tavola di pietra scoperta su cui si scava: la stessa sagoma ad arco
     // della pietra velata, senza il velo, cosi' il getto atterra qui e la
     // superficie da incidere e' sempre visibile, anche prima del primo tratto.
-    _tavola(canvas, size);
+    // Solo come RIPIEGO: con l'osso vergine vero sotto, la tavola non si
+    // dipinge e il solco si scava sulla pietra vera.
+    if (conTavola) _tavola(canvas, size);
     // Il lato del glifo nasce dalla larghezza vera della pietra, con un margine
     // interno del 18% per lato: cosi' anche Dagaz, Gebo e Ingwaz restano dentro.
     final larghezzaPietra = size.width * 0.52;
@@ -1982,6 +2047,7 @@ class _IncisionePainter extends CustomPainter {
   bool shouldRepaint(_IncisionePainter old) =>
       old.progresso != progresso ||
       old.completa != completa ||
+      old.conTavola != conTavola ||
       old.fantasma != fantasma;
 }
 

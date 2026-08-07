@@ -41,8 +41,18 @@ enum EsitoPosizione {
   /// Permesso concesso e coordinate ottenute.
   concessa,
 
-  /// La persona ha detto di no, adesso o per sempre.
+  /// La persona ha detto di no QUESTA VOLTA: il dialogo di sistema puo'
+  /// ancora ricomparire, quindi il pulsante puo' chiedere di nuovo.
   negata,
+
+  /// La persona ha detto di no PER SEMPRE: il dialogo di sistema non
+  /// comparira' mai piu', quindi ripetere la richiesta e' una bugia. L'unica
+  /// via vera sono le impostazioni del sistema, e la schermata deve portarci.
+  ///
+  /// Ordine 2161, voce 10: prima questo esito veniva APPIATTITO su [negata],
+  /// cioe' un'informazione che esisteva veniva buttata a monte, la stessa
+  /// forma di difetto della regola messa in una porta sola.
+  negataPerSempre,
 
   /// Il permesso c'e' o si potrebbe chiedere, ma la posizione del telefono e'
   /// spenta di sistema: si rimanda alle impostazioni del dispositivo, non a
@@ -97,6 +107,11 @@ abstract class SkyLocation {
   /// mai nulla e non apre alcun dialogo: e' la via che possono usare le viste
   /// che si aprono da sole, come la striscia dei Doni del Santuario.
   Future<SkyPlace?> resolveSeConcesso();
+
+  /// Apre le impostazioni dell'app nel sistema: e' l'unica via vera quando
+  /// il permesso e' stato negato per sempre. Nel ripiego non fa nulla e dice
+  /// falso, cosi' le prove possono osservare la chiamata.
+  Future<bool> apriImpostazioni() async => false;
 }
 
 /// Ripiego: nessuna posizione, nessuna richiesta. E' il default, cosi' i test
@@ -141,8 +156,13 @@ class GeolocatorSkyLocation extends SkyLocation {
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
       }
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
+      // I DUE NO RESTANO DISTINTI FINO A SCHERMO: negato una volta puo'
+      // richiedere, negato per sempre porta alle impostazioni. Appiattirli
+      // era il difetto della voce 10 del 2161.
+      if (permission == LocationPermission.deniedForever) {
+        return const RispostaPosizione(EsitoPosizione.negataPerSempre);
+      }
+      if (permission == LocationPermission.denied) {
         return const RispostaPosizione(EsitoPosizione.negata);
       }
       if (!await Geolocator.isLocationServiceEnabled()) {
@@ -158,6 +178,9 @@ class GeolocatorSkyLocation extends SkyLocation {
       return const RispostaPosizione(EsitoPosizione.nonDisponibile);
     }
   }
+
+  @override
+  Future<bool> apriImpostazioni() => Geolocator.openAppSettings();
 
   @override
   Future<SkyPlace?> resolveSeConcesso() async {

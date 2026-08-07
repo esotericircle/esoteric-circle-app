@@ -167,10 +167,10 @@ void main() {
         0);
   });
 
-  testWidgets('Il tracciato del dito incide, senza aspettare il tempo',
+  testWidgets('Il dito che scorre non incide: il segno avanza solo premendo',
       (tester) async {
-    // La riga di invito promette "Traccia con il dito sulla pietra":
-    // qui si blocca quella promessa. Il dito si muove entro un solo frame, quindi
+    // La riga di invito dice "Tieni premuto sulla pietra": qui si blocca
+    // quella promessa. Il dito si muove entro un solo frame, quindi
     // il contributo del tempo di pressione e' trascurabile: se il segno avanza,
     // avanza per il movimento.
     SharedPreferences.setMockInitialValues({});
@@ -183,8 +183,9 @@ void main() {
     await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
     await tester.pump(const Duration(milliseconds: 300));
 
-    // Senza Riduci Movimento la riga promette il tracciamento.
-    expect(find.text('Traccia con il dito sulla pietra\ne scopri il simbolo.'),
+    // DECISIONE DI MAURO, ordine 2161 voce 7: il gesto e' tenere premuto,
+    // e la riga lo dice.
+    expect(find.text('Tieni premuto sulla pietra\ne scopri il simbolo.'),
         findsOneWidget);
 
     final gesto = find.byKey(const Key('sunset_incisione_gesture'));
@@ -194,25 +195,30 @@ void main() {
             .painter! as dynamic)
         .progresso as double;
 
-    // Preme e supera la soglia del tocco prolungato, senza muoversi.
+    // Preme e supera la soglia del tocco prolungato, senza muoversi. Il
+    // tempo avanza a battute: il segno cresce a ogni battuta di pressione.
     final g = await tester.startGesture(centro);
     await tester.pump(const Duration(milliseconds: 600));
+    await tester.pump(const Duration(milliseconds: 120));
+    await tester.pump(const Duration(milliseconds: 120));
     final fermo = progresso();
+    expect(fermo, greaterThan(0),
+        reason: 'tenere premuto non incide: il gesto deciso non funziona');
 
-    // Ora traccia, dentro un solo frame: nessun tempo in piu', solo percorso.
+    // Il dito che scorre, dentro un solo frame: NON deve valere niente,
+    // perche' il tracciamento e' stato revocato e tolto dal codice.
     for (var i = 0; i < 6; i++) {
       await g.moveBy(const Offset(0, 40));
     }
     await tester.pump(const Duration(milliseconds: 1));
-    final tracciato = progresso();
+    final dopoIlTratto = progresso();
     await g.up();
     await tester.pump(const Duration(milliseconds: 200));
 
-    expect(tracciato, greaterThan(fermo),
-        reason: 'il tracciato del dito non fa avanzare il segno');
-    // E il guadagno e' quello del percorso, non un'inezia: duecentoquaranta
-    // punti su una runa a due tratti valgono quasi mezzo segno.
-    expect(tracciato - fermo, greaterThan(0.2));
+    expect(dopoIlTratto - fermo, lessThan(0.02),
+        reason: 'il dito che scorre fa ancora avanzare il segno di '
+            '${(dopoIlTratto - fermo).toStringAsFixed(3)}: il tracciamento '
+            'doveva essere tolto, non solo taciuto');
   });
 
   testWidgets('Il tracciato non fa mai regredire il segno', (tester) async {
