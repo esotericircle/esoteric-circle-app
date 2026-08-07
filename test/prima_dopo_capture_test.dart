@@ -1424,6 +1424,48 @@ void main() {
     });
   }
 
+  // ORDINE 2163, VOCE 2: il pannello dei suggerimenti nel colore di casa.
+  // In casa Medora, blu notte: nella prima esce col colore sbagliato, nella
+  // dopo veste il blu della schermata.
+  testWidgets('2163, il pannello nel colore di casa', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({'onboarding.done': true});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final servizi = AppServices(
+      ai: _VoceConUnTesto('Il cielo osserva con te questa domanda.'),
+      memory: InMemoryMaestroMemoryRepository(),
+      memoryPersistent: false,
+    );
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(conIntro: false, services: servizi),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(
+        MaestroChatScreen.route(maestro: Maestro.medora, services: servizi));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.enterText(find.byType(TextField).first, 'Ciao');
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    await tester.pump();
+    for (var i = 0; i < 16; i++) {
+      await tester.pump(const Duration(milliseconds: 500));
+    }
+    await tester.tap(find.text('Suggerimenti').first, warnIfMissed: false);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+
+    await scattaApp(tester, radice, 'pannello_colore');
+  });
+
   // ORDINE 2163, VOCE 1: il campo di scrittura opaco. Una risposta lunga
   // scorre dietro al campo: nella prima si legge attraverso, nella dopo
   // sparisce sotto.

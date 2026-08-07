@@ -187,8 +187,13 @@ Future<void> showSuggestionsPanel(
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     // Il foglio vive nell'overlay del navigator, fuori dal MaestroScope della
-    // schermata: lo riavvolgiamo cosi' ritrova la palette del Maestro attivo.
+    // schermata: lo riavvolgiamo COL MAESTRO DELLA SCHERMATA, che arriva qui
+    // dalla rotta. Ordine 2163, voce 2: senza il parametro lo scope leggeva
+    // il controller, cioe' l'ultimo Maestro toccato altrove, e nella chat di
+    // Medora il pannello usciva rosso di Caligo. Il colore si deriva dalla
+    // rotta e si legge da UN punto, questo.
     builder: (_) => MaestroScope(
+      maestro: maestro,
       child: _SuggestionsPanel(maestro: maestro, onSend: onSend),
     ),
   );
@@ -218,6 +223,7 @@ class _SuggestionsPanelState extends State<_SuggestionsPanel> {
     final questions = SuggestionSets.forGroup(widget.maestro, _group);
 
     return Container(
+      key: const Key('pannello_suggerimenti'),
       padding: EdgeInsets.only(
         top: SpacingTokens.md,
         bottom: SpacingTokens.md + MediaQuery.of(context).padding.bottom,
