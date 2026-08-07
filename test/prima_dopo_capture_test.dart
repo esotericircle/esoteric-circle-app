@@ -1,4 +1,5 @@
 import 'package:esoteric_circle/app.dart';
+import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
@@ -1681,6 +1682,158 @@ void main() {
   // l'animale e sotto i tre angeli resta il vuoto; nella dopo c'e' il
   // riquadro della scelta con le caratteristiche e la ragione. I trionfi si
   // montano come li monta il viaggio del risveglio, con dati fissi.
+  // ORDINE 2164. Le scene delle otto voci di pulizia, tutte a 1080 pixel di
+  // larghezza sulla misura del fondatore.
+  //
+  // - chat_pulita: il primo schermo (voci 3 e 4: via l'assaggio e il
+  //   pulsante) piu' la riga del campo senza fascia (voce 2) e le stelline
+  //   al centro (voce 5).
+  // - barra_trasparente: la barra in fondo alla home (voce 1).
+  // - scena_senza_riquadro: la scena di attesa sopra una conversazione
+  //   (voce 6).
+  // - pannello_due_titoli: il pannello dei suggerimenti (voce 7).
+  // - soffio_pulsante: il pulsante del respiro con la scheda sotto (voce 8).
+  testWidgets('2164, la chat pulita e la barra trasparente', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'profile.birthDate': '1990-08-15',
+    });
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final servizi = AppServices(
+      ai: _VoceConUnTesto('Il cielo osserva con te questa domanda, e la '
+          'risposta si posa dove tu la stai gia\' cercando.'),
+      memory: InMemoryMaestroMemoryRepository(),
+      memoryPersistent: false,
+    );
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(conIntro: false, services: servizi),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+
+    // LA BARRA nella home, dove la sfumatura si posa sul contenuto.
+    final scroll = find.byType(SingleChildScrollView);
+    if (scroll.evaluate().isNotEmpty) {
+      for (var i = 0; i < 8; i++) {
+        await tester.drag(scroll.first, const Offset(0, -300),
+            warnIfMissed: false);
+        await tester.pump(const Duration(milliseconds: 120));
+      }
+    }
+    await tester.pump(const Duration(milliseconds: 400));
+    await scattaApp(tester, radice, 'barra_trasparente');
+
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(
+        MaestroChatScreen.route(maestro: Maestro.medora, services: servizi));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    await scattaApp(tester, radice, 'chat_pulita');
+
+    // IL PANNELLO: si apre dall'unica porta rimasta, le stelline.
+    final stelline = find.byKey(const Key('chat_stelline'));
+    await tester.tap(
+        stelline.evaluate().isNotEmpty
+            ? stelline
+            : find.text('Suggerimenti').first,
+        warnIfMissed: false);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    await scattaApp(tester, radice, 'pannello_due_titoli');
+  });
+
+  testWidgets('2164, la scena di attesa senza riquadro', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({'onboarding.done': true});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    // La voce tace: la scena di attesa resta a video, che e' cio' che si
+    // deve guardare.
+    final servizi = AppServices(
+      ai: _VoceCheTace(),
+      memory: InMemoryMaestroMemoryRepository(),
+      memoryPersistent: false,
+    );
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(conIntro: false, services: servizi),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(
+        MaestroChatScreen.route(maestro: Maestro.medora, services: servizi));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.enterText(
+        find.byType(TextField).first, 'Cosa dicono le stelle sul mio amore?');
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 1200));
+    await scattaApp(tester, radice, 'scena_senza_riquadro');
+    // La scena del consulto fa ruotare le sue frasi con un timer: si lascia
+    // scadere, altrimenti resta pendente e la cattura cade dopo aver gia'
+    // scattato bene.
+    await tester.pump(const Duration(seconds: 5));
+  });
+
+  testWidgets('2164, il pulsante del Soffio', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({'onboarding.done': true});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        // LE BARRE DI SISTEMA: senza di loro il difetto non esiste, ed e'
+        // il motivo per cui su schermo nudo non si vedeva.
+        home: MediaQuery(
+          data: const MediaQueryData(
+            size: Size(360, 797),
+            padding: EdgeInsets.only(top: 40, bottom: 24),
+          ),
+          child: BreathDestinyScreen(now: DateTime(2026, 8, 7, 10, 30)),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
+    await tester.runAsync(() async {
+      final ctx = tester.element(find.byType(BreathDestinyScreen));
+      for (final asset in const [
+        'assets/ritual_backgrounds/breath_meadow.png',
+        'assets/ritual_backgrounds/breath_dandelion.png',
+      ]) {
+        await precacheImage(AssetImage(asset), ctx);
+      }
+    });
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.longPress(find.byKey(const Key('ritual_gesture')));
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await scattaApp(tester, radice, 'soffio_pulsante');
+  });
+
   testWidgets('2163, i riquadri dei trionfi', (tester) async {
     if (_stato.isEmpty) return;
     silence();
