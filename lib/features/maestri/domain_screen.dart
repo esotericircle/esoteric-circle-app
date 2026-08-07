@@ -33,7 +33,12 @@ class DomainScreen extends StatelessWidget {
       // dichiara senza doverlo sapere. Il perche' un nome o un tipo non
       // bastano sta scritto su DestinazioneDominio.
       settings: RouteSettings(arguments: DestinazioneDominio(maestro)),
-      builder: (_) => MaestroScope(child: DomainScreen(maestro: maestro)),
+      // LA ROTTA DICHIARA ANCHE IL PROPRIETARIO, ordine 2163 voce 6: senza
+      // `maestro:` lo scope seguiva il controller, e la barra dentro il
+      // dominio non sapeva di chi fosse la stanza (voce spenta, colore
+      // della provenienza). E' la stessa dichiarazione che la chat fa gia'.
+      builder: (_) => MaestroScope(
+          maestro: maestro, child: DomainScreen(maestro: maestro)),
     );
   }
 

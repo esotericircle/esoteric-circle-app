@@ -17,10 +17,17 @@ class MaestroScope extends StatefulWidget {
     super.key,
     required this.child,
     this.maestro,
+    this.neutro = false,
     this.transitionDuration = const Duration(milliseconds: 850),
   });
 
   final Widget child;
+
+  /// Vero per le schermate che NON sono di nessuno, come il Consiglio dei
+  /// Maestri: la palette resta quella neutra, senza seguire ne' un
+  /// proprietario ne' il Maestro attivo. Ordine 2163, voce 6: nel Consiglio
+  /// il fondo della barra e' neutro, e la regola vive qui, non nella barra.
+  final bool neutro;
 
   /// Il proprietario di questa parte dell'albero, quando ce n'e' uno.
   ///
@@ -72,14 +79,32 @@ class _MaestroScopeState extends State<MaestroScope>
   /// tema avvenuto fuori non fa virare il colore sotto i piedi di chi sta
   /// usando l'arte.
   ThemeKey _chiaveDaMostrare() {
+    if (widget.neutro) return const ThemeKey.neutral();
     final proprietario = widget.maestro;
     if (proprietario != null) return ThemeKey.of(proprietario);
     return context.watch<MaestroController>().activeKey;
   }
 
   @override
+  void didUpdateWidget(MaestroScope old) {
+    super.didUpdateWidget(old);
+    // IL PROPRIETARIO PUO' CAMBIARE DA FUORI: la barra del Cerchio passa il
+    // Maestro della rotta, che arriva un frame dopo il push. Il ricalcolo
+    // in sola didChangeDependencies non lo vede, perche' un parametro non
+    // e' una dipendenza ereditata: senza queste righe la barra restava
+    // neutra dentro il dominio. Ordine 2163, voce 6.
+    if (old.maestro != widget.maestro || old.neutro != widget.neutro) {
+      _aggiornaChiave();
+    }
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _aggiornaChiave();
+  }
+
+  void _aggiornaChiave() {
     final key = _chiaveDaMostrare();
     if (key == _lastKey) return;
     final target = MaestroPalette.forKey(key);

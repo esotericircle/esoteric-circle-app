@@ -203,7 +203,7 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
               ),
               // LA BARRA E' QUELLA STORICA, non ridisegnata: stesse cinque
               // voci, stesse icone, stessa gerarchia fra accesa e smorzate.
-              child: _LaBarra(maestro: _maestro),
+              child: _LaBarra(maestro: _maestro, schermata: _schermata),
             ),
           ),
       ],
@@ -212,27 +212,38 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
 }
 
 class _LaBarra extends StatelessWidget {
-  const _LaBarra({required this.maestro});
+  const _LaBarra({required this.maestro, required this.schermata});
 
   /// Di chi e' la schermata in cima, letto quando la rotta e' montata.
   final Maestro? maestro;
 
+  /// Il nome della schermata in cima, per riconoscere il Consiglio.
+  final String? schermata;
+
   @override
   Widget build(BuildContext context) {
     final nav = context.watch<NavigationController>();
-    // **LO SCOPE SE LO PORTA DIETRO.** La barra legge `context.palette`, e
-    // `MaestroScope` avvolge la home, non il builder: da sopra il Navigator
-    // l'assert cade e la barra non si costruisce affatto. Lo scope si monta qui
-    // e legge lo stesso `MaestroController` che gia' sta sopra `MaterialApp`,
-    // quindi non nasce una seconda porta sullo stesso dato: nasce lo stesso
-    // colore, disponibile anche dove la home non arriva.
+    // **LO SCOPE SE LO PORTA DIETRO, E IL COLORE VIENE DALLA ROTTA.**
+    // Ordine 2163, voce 6: nella chat di Medora il fondo della barra
+    // restava rosso perche' lo scope senza maestro seguiva il controller,
+    // cioe' l'ultimo Maestro toccato altrove. Adesso: se la rotta ha un
+    // proprietario, il suo colore; se la rotta e' il Consiglio, che non e'
+    // di nessuno, il neutro; solo dentro il guscio si segue il Maestro
+    // attivo, perche' li' "dove sei" lo dice la vista.
+    // Fuori dal guscio = una rotta spinta sopra: dominio, chat, Consiglio.
+    final fuoriDalGuscio = schermata != null &&
+        schermata != 'SantuarioScreen' &&
+        schermata != 'CosmicPassport';
     return MaestroScope(
+      maestro: maestro,
+      neutro: schermata == 'AskMaestriScreen',
       child: SantuarioBottomBar(
         view: nav.view,
         // DOVE SEI, ACCESA. Dentro il guscio lo dice la vista; fuori dal guscio
       // lo dice il Maestro di cui si sta guardando il dominio o la chat, che e'
       // lo stesso dato da cui la palette prende il colore.
         maestroCorrente: maestro,
+        fuoriDalGuscio: fuoriDalGuscio,
         onSantuario: () => NavigazioneDellaBarra.alCerchio(context),
         onMaestro: (m) => NavigazioneDellaBarra.alDominio(context, m),
         onPassport: () => NavigazioneDellaBarra.alPassport(context),
@@ -353,6 +364,11 @@ class NavigazioneDellaBarra {
     if (cima == null || cima == 'SantuarioScreen' || cima == 'CosmicPassport') {
       return null;
     }
+    // IL CONSIGLIO NON E' DI NESSUNO DEI TRE, ordine 2163 voce 6: la
+    // schermata porta lo scope del Maestro da cui la si e' aperta, ma quello
+    // e' il colore della PROVENIENZA, non della stanza. Con questo ramo
+    // assente la barra accendeva Caligo dentro il Consiglio, visto da Mauro.
+    if (cima == 'AskMaestriScreen') return null;
     return oss.maestroInCima();
   }
 

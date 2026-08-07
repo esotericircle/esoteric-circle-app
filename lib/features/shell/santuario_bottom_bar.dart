@@ -24,7 +24,15 @@ class SantuarioBottomBar extends StatelessWidget {
     required this.onMaestro,
     required this.onPassport,
     this.maestroCorrente,
+    this.fuoriDalGuscio = false,
   });
+
+  /// Vero quando la schermata in cima e' una rotta spinta SOPRA il guscio
+  /// (dominio, chat, Consiglio): le voci del guscio, Il Cerchio e Passport,
+  /// restano SPENTE, perche' la vista sotto e' solo la provenienza. Ordine
+  /// 2163, voce 6: nel Consiglio, arrivandoci dal Passport, la voce
+  /// Passport restava accesa mentre la schermata era il Consiglio.
+  final bool fuoriDalGuscio;
 
   /// Il Maestro di cui si sta guardando il dominio o la chat, quando si e'
   /// fuori dal guscio.
@@ -121,11 +129,13 @@ class SantuarioBottomBar extends StatelessWidget {
                   // dice il Maestro di cui si sta guardando il dominio o la
                   // chat, e allora la sua voce si accende.
                   selected: switch (via.specie) {
-                    SpecieDiVia.cerchio =>
-                      maestroCorrente == null && onSantuarioView,
+                    SpecieDiVia.cerchio => !fuoriDalGuscio &&
+                        maestroCorrente == null &&
+                        onSantuarioView,
                     SpecieDiVia.maestro => via.maestro == maestroCorrente,
-                    SpecieDiVia.passport =>
-                      maestroCorrente == null && view == ShellView.passport,
+                    SpecieDiVia.passport => !fuoriDalGuscio &&
+                        maestroCorrente == null &&
+                        view == ShellView.passport,
                   },
                   onTap: () => switch (via.specie) {
                     SpecieDiVia.cerchio => onSantuario(),

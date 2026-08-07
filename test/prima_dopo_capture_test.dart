@@ -1471,6 +1471,50 @@ void main() {
     await scattaApp(tester, radice, 'pannello_colore');
   });
 
+  // ORDINE 2163, VOCE 6: la barra nel Consiglio. Nella prima una voce di
+  // Maestro e' accesa e il fondo e' colorato; nella dopo nessuna voce e
+  // fondo neutro, perche' il Consiglio non e' di nessuno.
+  testWidgets('2163, la barra nel consiglio', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({'onboarding.done': true});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(
+          conIntro: false, services: AppServices.offline()),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(AskMaestriScreen.perLaSintesi(
+      starter: Maestro.caligo,
+      tema: 'una scelta da fare',
+      lenti: [
+        MaestroLens.strati(
+            maestro: Maestro.medora,
+            glance: 'le stelle',
+            reading: 'il cielo tiene aperta la domanda',
+            invite: 'guarda stasera'),
+        MaestroLens.strati(
+            maestro: Maestro.aura,
+            glance: 'il respiro',
+            reading: 'il corpo conosce il suo passo',
+            invite: 'ascolta il ritmo'),
+      ],
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 800));
+    await tester.pump(const Duration(milliseconds: 1200));
+
+    await scattaApp(tester, radice, 'barra_consiglio');
+  });
+
   // ORDINE 2163, VOCE 4: il primo schermo della chat. Nella prima la
   // colonna lunga dei suggerimenti; nella dopo il benvenuto, l'invito alle
   // stelline e l'assaggio di tre in riga.

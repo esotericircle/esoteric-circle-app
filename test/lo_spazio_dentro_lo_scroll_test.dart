@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
@@ -186,27 +187,86 @@ void main() {
     });
 
     testWidgets('LE CINQUE SCHERMATE, enumerate: sotto la barra sempre '
-        'contenuto', (tester) async {
+        'contenuto, la voce giusta accesa, il colore della rotta',
+        (tester) async {
       // Una prova sola che le elenca, non una per schermata: se una delle
-      // cinque torna a consumare il fondo, cade nominandola.
+      // cinque torna a consumare il fondo, o accende la voce sbagliata, o
+      // veste il colore di un'altra rotta, cade nominandola. Allargata
+      // dall'ordine 2163, voce 6.
       final nav = await monta(tester);
+      final colpe = <String>[];
+
+      // La voce accesa si legge dal dato del widget della voce; il colore
+      // del fondo dallo scope RISOLTO da cui la barra dipinge.
+      String nomeDi(ThemeKey k) => k.maestro?.displayName ?? 'neutro';
+
+      Future<void> guardaLaBarra(String dove,
+          {String? vociAccese, ThemeKey? chiaveAttesa}) async {
+        // La palette dello scope SFUMA in 850 ms: il colore si legge a
+        // transizione finita, come lo vede una persona, non a meta' viraggio.
+        await tester.pump(const Duration(milliseconds: 1000));
+        for (final id in const [
+          'cerchio',
+          'medora',
+          'caligo',
+          'aura',
+          'passport'
+        ]) {
+          final voce = find.byKey(Key('barra_voce_$id'));
+          if (voce.evaluate().isEmpty) continue;
+          final accesa = (tester.widget(voce.first) as dynamic).selected
+              as bool;
+          final dovrebbe = vociAccese == id;
+          if (accesa != dovrebbe) {
+            colpe.add('$dove: la voce $id e\' '
+                '${accesa ? 'ACCESA' : 'spenta'} e dovrebbe essere '
+                '${dovrebbe ? 'accesa' : 'spenta'}');
+          }
+        }
+        if (chiaveAttesa != null) {
+          final barra = find.byType(SantuarioBottomBar);
+          if (barra.evaluate().isNotEmpty) {
+            final palette = MaestroScope.of(tester.element(barra.first));
+            if (palette.key != chiaveAttesa) {
+              colpe.add('$dove: il fondo della barra veste '
+                  '${nomeDi(palette.key)} invece di '
+                  '${nomeDi(chiaveAttesa)}');
+            }
+          }
+        }
+      }
+
       final regioni = <String, double>{};
       regioni['home'] = tester.getRect(loScorrevole().first).bottom;
+      await guardaLaBarra('home', vociAccese: 'cerchio');
       await tester.tap(find.byKey(const Key('via_icona_passport')).first);
       await respira(tester);
       regioni['passport'] = tester.getRect(loScorrevole().first).bottom;
+      await guardaLaBarra('passport', vociAccese: 'passport');
       nav.push(DomainScreen.route(
           maestro: Maestro.caligo, services: AppServices.offline()));
       await respira(tester);
       regioni['dominio'] = tester.getRect(loScorrevole().first).bottom;
+      await guardaLaBarra('dominio di Caligo',
+          vociAccese: 'caligo',
+          chiaveAttesa: const ThemeKey.of(Maestro.caligo));
       nav.push(MaestroChatScreen.route(
           maestro: Maestro.medora, services: AppServices.offline()));
       await respira(tester);
       regioni['chat'] =
           tester.getRect(find.byType(ScenaSopraLaConversazione).first).bottom;
+      // La chat di MEDORA arrivando dal dominio di CALIGO: e' il caso visto
+      // da Mauro, il fondo restava rosso.
+      await guardaLaBarra('chat di Medora',
+          vociAccese: 'medora',
+          chiaveAttesa: const ThemeKey.of(Maestro.medora));
       nav.push(versoIlConsiglio());
       await respira(tester);
       regioni['consiglio'] = tester.getRect(loScorrevole().first).bottom;
+      // Il Consiglio non e' di nessuno: nessuna voce di Maestro accesa e
+      // fondo neutro.
+      await guardaLaBarra('consiglio',
+          vociAccese: null, chiaveAttesa: const ThemeKey.neutral());
 
       final colpevoli = regioni.entries
           .where((e) => e.value < fondoSchermo - 1)
@@ -216,6 +276,7 @@ void main() {
           reason: 'Sotto la barra torna una fascia senza contenuto in: '
               '$colpevoli. Il vetro si legge solo se sotto scorre qualcosa, '
               'per tutte e cinque senza eccezioni.');
+      expect(colpe, isEmpty, reason: colpe.join('\n'));
     });
   });
 
