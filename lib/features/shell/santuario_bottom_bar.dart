@@ -86,15 +86,15 @@ class SantuarioBottomBar extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            palette.deepest.withValues(alpha: 0.12),
-            palette.deepest.withValues(alpha: 0.78),
-            palette.deepest.withValues(alpha: 0.90),
+            palette.deepest.withValues(alpha: 0.38),
+            palette.deepest.withValues(alpha: 0.88),
+            palette.deepest.withValues(alpha: 0.94),
           ],
           // La sfumatura sale in fretta: il titolo vive nei primi venti punti
           // della barra, e con la salita lenta il contrasto nel Consiglio si
           // fermava a 4,23 contro il 4,5 richiesto. In cima resta comunque
           // trasparente, cioe' il contenuto entra nella barra e si vede.
-          stops: const [0.0, 0.18, 1.0],
+          stops: const [0.0, 0.16, 1.0],
         ),
       ),
       child: SafeArea(
@@ -116,7 +116,32 @@ class SantuarioBottomBar extends StatelessWidget {
               // senza tocco, e la sua riga e' alta quanto una lettera. Il
               // colore si legge da [coloreDelTitolo], un punto solo: chi lo
               // scrive a mano qui dentro fa cadere una prova.
-              Text(
+              // L'ALONE MORBIDO DIETRO LA SCRITTA, ordine 2164 voce 1.
+              //
+              // **Non e' la fascia che Mauro ha tolto, e la differenza si
+              // vede.** La fascia del 2163 era un rettangolo pieno alto
+              // quanto il titolo e largo quanto lo schermo: un fondo. Questo
+              // e' un alone radiale che sfuma a zero, senza bordi, cioe' cio'
+              // che l'ordine chiama ombra morbida. Serve perche' gli aloni
+              // del testo nascono dai glifi e sopra e sotto le lettere si
+              // spengono: col solo testo ombreggiato il Consiglio misurava
+              // 3,85 di contrasto contro il 4,5 richiesto, con le schede
+              // chiare che gli passavano dietro.
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18, vertical: 3),
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    radius: 0.85,
+                    colors: [
+                      palette.deepest,
+                      palette.deepest.withValues(alpha: 0.92),
+                      palette.deepest.withValues(alpha: 0.0),
+                    ],
+                    stops: const [0.0, 0.62, 1.0],
+                  ),
+                ),
+                child: Text(
                 titolo,
                 key: const Key('barra_titolo'),
                 style: TypographyTokens.label(size: 11).copyWith(
@@ -126,6 +151,7 @@ class SantuarioBottomBar extends StatelessWidget {
                   // cio' che tiene il titolo leggibile adesso che dietro
                   // di lui passa il contenuto.
                   shadows: ombraDelTitolo(palette),
+                ),
                 ),
               ),
               const SizedBox(height: 2),
@@ -213,9 +239,11 @@ class SantuarioBottomBar extends StatelessWidget {
   /// fondo. Chi li tocca rilegga il numero che la prova stampa.
   static List<Shadow> ombraDelTitolo(MaestroPalette palette) => [
         Shadow(color: palette.deepest, blurRadius: 3),
-        Shadow(color: palette.deepest, blurRadius: 10),
+        Shadow(color: palette.deepest, blurRadius: 8),
+        Shadow(color: palette.deepest, blurRadius: 14),
+        Shadow(color: palette.deepest, blurRadius: 20),
         Shadow(
-            color: palette.deepest.withValues(alpha: 0.98), blurRadius: 22),
+            color: palette.deepest.withValues(alpha: 0.98), blurRadius: 28),
       ];
 }
 

@@ -113,20 +113,7 @@ void main() {
 
     final colpe = <String>[];
 
-    Future<void> misura(String dove) async {
-      // Il contenuto si porta SOTTO il titolo, senza dito: un drag
-      // ritirerebbe la barra seguendo il dito (regola della 2158) e
-      // sposterebbe il titolo stesso.
-      final scorrevole = find.byWidgetPredicate(
-          (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
-      if (scorrevole.evaluate().isNotEmpty) {
-        final posizione =
-            tester.state<ScrollableState>(scorrevole.first).position;
-        posizione.jumpTo(
-            (posizione.pixels + 70).clamp(0.0, posizione.maxScrollExtent));
-        await tester.pump(Duration.zero);
-      }
-
+    Future<double> misuraQui() async {
       final titolo =
           tester.getRect(find.byKey(const Key('barra_titolo')).first);
       final zona = titolo.inflate(2);
@@ -140,9 +127,9 @@ void main() {
       final larghezzaZona = zona.right.floor() - x0;
       final altezzaZona = zona.bottom.floor() - y0;
       if (larghezzaZona < 8 || altezzaZona < 4) {
-        colpe.add('$dove: il rettangolo del titolo e\' vuoto, non si misura '
-            'niente');
-        return;
+        // Un rettangolo vuoto non si misura: torna il peggior voto
+        // possibile, e la colpa la scrive chi ha chiesto la misura.
+        return 0.0;
       }
       final griglia = <List<double>>[];
       final luci = <double>[];
@@ -178,13 +165,51 @@ void main() {
       // che sono lettera anche loro. Contandoli come fondo la misura
       // rispondeva 2,0 ovunque, anche dove a video si legge benissimo.
       final fondoPeggiore = ordinate[(ordinate.length * 0.84).floor()];
-      final contrasto = contrastoFra(lettera, fondoPeggiore);
+      return contrastoFra(lettera, fondoPeggiore);
+    }
+
+    Future<void> misura(String dove) async {
+      // **IL PUNTO DI MISURA E' DETERMINISTICO, e va detto perche'.** La
+      // prima stesura scorreva di settanta punti e misurava subito: nel
+      // Consiglio, dove le schede si SCRIVONO una lettera per volta, la
+      // quantita' di testo chiaro sotto il titolo cambiava da corsa a
+      // corsa, e la stessa prova ha misurato 5,34 e poi 2,42 senza che il
+      // codice cambiasse. Una misura che non si ripete non e' una misura.
+      // Adesso si aspetta che la scrittura finisca e si va a FONDO CORSA,
+      // che e' un punto solo e sempre lo stesso.
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 500));
+      }
+      // **SI CERCA IL PUNTO PEGGIORE, non uno qualsiasi, e la grandezza e'
+      // cambiata due volte.** A fondo corsa la misura era stabile ma NON
+      // mordeva: dietro il titolo non capitava niente di chiaro e il rosso
+      // (protezione tolta) restava verde. Adesso si guardano cinque quote
+      // FISSE dello scorrimento e si tiene la peggiore: fisse, quindi la
+      // misura si ripete; cinque, quindi il contenuto chiaro che passa
+      // dietro il titolo viene trovato dove c'e'.
+      final scorrevole = find.byWidgetPredicate(
+          (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
+      final quote = <double>[0.0, 0.25, 0.5, 0.75, 1.0];
+      var peggiore = double.infinity;
+      for (final q in quote) {
+        if (scorrevole.evaluate().isNotEmpty) {
+          final posizione =
+              tester.state<ScrollableState>(scorrevole.first).position;
+          // Senza dito: un drag ritirerebbe la barra seguendolo (regola
+          // della 2158) e sposterebbe il titolo stesso.
+          posizione.jumpTo(posizione.maxScrollExtent * q);
+          await tester.pump(Duration.zero);
+        }
+        final c = await misuraQui();
+        if (c < peggiore) peggiore = c;
+        if (scorrevole.evaluate().isEmpty) break;
+      }
       // ignore: avoid_print
-      print('TITOLO $dove: contrasto lettere contro il fondo peggiore = '
-          '${contrasto.toStringAsFixed(2)} (minimo $contrastoMinimo)');
-      if (contrasto < contrastoMinimo) {
+      print('TITOLO $dove: contrasto peggiore fra le cinque quote = '
+          '${peggiore.toStringAsFixed(2)} (minimo $contrastoMinimo)');
+      if (peggiore < contrastoMinimo) {
         colpe.add('$dove: il titolo si legge a '
-            '${contrasto.toStringAsFixed(2)} di contrasto contro cio\' che '
+            '${peggiore.toStringAsFixed(2)} di contrasto contro cio\' che '
             'gli passa dietro, sotto il $contrastoMinimo che serve');
       }
     }
