@@ -103,7 +103,9 @@ void main() {
         tester.element(find.byType(MaterialApp)).read<MaestroController>();
 
     // L'icona nella barra non centra soltanto: apre il dominio del Maestro.
-    await tester.tap(find.text('Aura'));
+    // Per chiave e non per testo: dalla voce 4 del 2161 il nome del
+    // Maestro compare anche nella striscia delle arti in fondo alla home.
+    await tester.tap(find.byKey(const Key('barra_voce_aura')));
     await step(tester);
     await step(tester);
     expect(find.text('Consulta Aura'), findsOneWidget);

@@ -3124,6 +3124,20 @@ void main() {
         await step(tester);
       }
       if (dopoIlTocco) {
+        // LA FRECCIA VA PRIMA PORTATA IN VISTA: la chat scorre all'inizio
+        // della risposta, quindi il fondo della bolla, con la freccia, resta
+        // sotto la piega, dietro il compositore sospeso della voce 2 del
+        // 2161. Un tocco fuori vista non tocca niente, e l'attesa che questa
+        // cattura fotografa non partirebbe mai.
+        // In vista non basta: sotto il vetro della barra il contenuto si
+        // vede ma il tocco lo prende il vetro. Si porta la lista a fondo
+        // corsa, dove il fondo interno solleva l'ultima bolla sopra il
+        // compositore, come farebbe il dito di chi vuole toccare.
+        for (var i = 0; i < 3; i++) {
+          await tester.drag(find.byType(ListView).first,
+              const Offset(0, -400), warnIfMissed: false);
+          await step(tester);
+        }
         await tester.tap(find.byKey(const Key('chat_approfondisci')));
         // DUE PASSI SOLI PER L'ATTESA, e non dodici: con dodici il seguito
         // sarebbe gia' sceso e l'immagine mostrerebbe l'altro fotogramma.

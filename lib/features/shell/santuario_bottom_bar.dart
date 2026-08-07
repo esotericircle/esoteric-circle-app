@@ -108,6 +108,11 @@ class SantuarioBottomBar extends StatelessWidget {
                     color: palette.gold.withValues(alpha: 0.2),
                   ),
                 _BarItem(
+                  // La chiave dichiara QUALE voce e': da quando la striscia
+                  // delle arti vive anche in home, il nome di un Maestro a
+                  // video non e' piu' uno solo, e chi deve toccare la barra
+                  // la nomina per chiave, non per testo.
+                  key: Key('barra_voce_${via.id}'),
                   label: via.etichetta,
                   icona: via.icona,
                   // DOVE SEI, ACCESA. Dentro il guscio lo dice la vista: nel
@@ -154,6 +159,7 @@ class SantuarioBottomBar extends StatelessWidget {
 
 class _BarItem extends StatelessWidget {
   const _BarItem({
+    super.key,
     required this.label,
     required this.selected,
     required this.onTap,

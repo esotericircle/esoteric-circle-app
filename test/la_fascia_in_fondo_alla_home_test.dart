@@ -72,25 +72,32 @@ void main() {
         reason: 'La fascia in fondo alla home non viene proprio costruita.');
   });
 
-  testWidgets('si raggiunge scorrendo, e sta tutta sopra la barra',
+  testWidgets('si raggiunge scorrendo, e si legge intera sopra la barra',
       (tester) async {
     await monta(tester);
-    await finoInFondo(tester);
 
+    // DALLA VOCE 4 DEL 2161 LA FASCIA NON E' PIU' L'ULTIMA SEZIONE: sotto
+    // vive la striscia delle altre arti, quindi a fondo corsa il titolo
+    // della fascia esce dal bordo alto, e non e' un difetto. L'intento
+    // della guardia resta quello del 2156: scorrendo come un dito, la
+    // fascia DEVE arrivare a leggersi intera sopra la barra. Si scorre a
+    // passi e ci si ferma quando la si legge, come farebbe una persona.
     final fascia = find.byKey(const Key('tue_arti_titolo'));
-    expect(fascia, findsOneWidget,
-        reason: 'Scorrendo fino in fondo la fascia non si vede.');
-
-    final r = tester.getRect(fascia);
     final schermo =
         tester.view.physicalSize.height / tester.view.devicePixelRatio;
-    expect(r.top, greaterThanOrEqualTo(0.0),
-        reason: 'La fascia e\' uscita sopra il bordo dello schermo.');
-    expect(r.bottom, lessThanOrEqualTo(schermo - BarraDelCerchio.altezza),
-        reason: 'La fascia finisce a ${r.bottom.toStringAsFixed(1)} punti, '
-            'cioe\' sotto la barra, che comincia a '
-            '${(schermo - BarraDelCerchio.altezza).toStringAsFixed(1)}: e\' '
-            'proprio il caso in cui, guardando, la fascia sembra sparita.');
+    var letta = false;
+    for (var i = 0; i < 12 && !letta; i++) {
+      await tester.drag(ilCorpo().first, const Offset(0, -300));
+      await tester.pump(const Duration(milliseconds: 120));
+      if (fascia.evaluate().isEmpty) continue;
+      final r = tester.getRect(fascia);
+      letta = r.top >= 0.0 &&
+          r.bottom <= schermo - BarraDelCerchio.altezza;
+    }
+    expect(letta, isTrue,
+        reason: 'Scorrendo la home a passi la fascia non arriva mai a '
+            'leggersi intera sopra la barra: e\' il caso del 2156 in cui, '
+            'guardando, la fascia sembra sparita.');
   });
 
   testWidgets('resta raggiungibile anche con la barra fuori', (tester) async {
