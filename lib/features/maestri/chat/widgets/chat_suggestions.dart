@@ -136,6 +136,40 @@ class SuggestionSets {
         SuggestionGroup.frequent => frequent(maestro),
         SuggestionGroup.personal => personal(maestro),
       };
+
+  /// LE PERSONALI DISPONIBILI: una domanda che nomina un dato assente NON
+  /// compare, invece di uscire col segnaposto. Il Sole chiede la data di
+  /// nascita, la Luna e l'Ascendente chiedono la carta: se il contesto non
+  /// li porta, le domande che li userebbero tacciono, per la regola del
+  /// vero. Ordine 2161, voce 3.
+  static List<String> personalDisponibili(
+    Maestro maestro, {
+    String? sunSign,
+    String? moonSign,
+    String? ascendant,
+  }) =>
+      personal(maestro).where((domanda) {
+        final b = domanda.toLowerCase();
+        if (b.contains('sole') && sunSign == null) return false;
+        if (b.contains('luna') && moonSign == null) return false;
+        if (b.contains('ascendente') && ascendant == null) return false;
+        return true;
+      }).toList(growable: false);
+
+  /// LA ROTAZIONE E' DETERMINISTICA: stessa persona e stesso giorno, stesso
+  /// ordine. E' l'hash FNV gia' usato altrove, mai un caso vero.
+  static List<String> ruotaPerGiorno(
+      List<String> domande, String persona, DateTime giorno) {
+    if (domande.isEmpty) return domande;
+    var h = 0x811c9dc5;
+    for (final c
+        in '$persona|${giorno.year}-${giorno.month}-${giorno.day}'.codeUnits) {
+      h ^= c;
+      h = (h * 0x01000193) & 0x7fffffff;
+    }
+    final da = h % domande.length;
+    return [...domande.sublist(da), ...domande.sublist(0, da)];
+  }
 }
 
 /// Apre il pannello dei suggerimenti che sale dal basso sopra il feed.

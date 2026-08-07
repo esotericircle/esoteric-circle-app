@@ -691,10 +691,25 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       return const SizedBox.shrink();
     }
     if (controller.messages.isEmpty) {
+      // LE DUE FAMIGLIE, INTERE E DIVISE, sulla prima schermata: le
+      // frequenti tutte, le personali filtrate sul dato vero e ruotate in
+      // modo deterministico su persona e giorno. Il tre scritto a mano dei
+      // soli starters e' la riduzione del 12 luglio che Mauro ha revocato.
+      final natale = _natalCorrente(context);
       return ChatEmptyState(
         maestro: widget.maestro,
         greeting: _welcomeFor(controller),
-        starters: SuggestionSets.starters(widget.maestro),
+        starters: SuggestionSets.frequent(widget.maestro),
+        personali: SuggestionSets.ruotaPerGiorno(
+          SuggestionSets.personalDisponibili(
+            widget.maestro,
+            sunSign: natale.sunSign,
+            moonSign: natale.moonSign,
+            ascendant: natale.ascendant,
+          ),
+          natale.sunSign ?? 'viandante',
+          DateTime.now(),
+        ),
         onStarter: controller.send,
         enabled: controller.aiReady,
       );

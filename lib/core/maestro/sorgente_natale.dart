@@ -22,9 +22,25 @@ class SorgenteNatale {
   /// `BuildContext`. Cosi' si prova senza montare uno schermo.
   static NatalContext daIdentita(BirthIdentityController identita) {
     if (!identita.hasBirth) return NatalContext.none;
-    return NatalContext.fromNatal(
+    final base = NatalContext.fromNatal(
       chart: identita.chart,
       facts: identita.facts,
     );
+    // IL SEGNO SOLARE NON HA BISOGNO DELLA CARTA: basta la data, e il
+    // controller lo sa gia' (identita.sunSign, con la ragione scritta la').
+    // Senza questa riga, prima che la carta arrivi il contesto usciva senza
+    // segno, e tutto cio' che sul segno si personalizza, l'emblema
+    // dell'attesa, le domande personali sul Sole, taceva pur avendo il dato.
+    if (base.sunSign == null && identita.sunSign != null) {
+      return NatalContext(
+        sunSign: identita.sunSign!.italianName,
+        moonSign: base.moonSign,
+        ascendant: base.ascendant,
+        lifeNumber: base.lifeNumber,
+        lifeNumberTitle: base.lifeNumberTitle,
+        moonIllumination: base.moonIllumination,
+      );
+    }
+    return base;
   }
 }

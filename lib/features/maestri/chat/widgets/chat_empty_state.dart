@@ -22,12 +22,21 @@ class ChatEmptyState extends StatelessWidget {
     required this.greeting,
     required this.starters,
     required this.onStarter,
+    this.personali = const [],
     this.enabled = true,
   });
 
   final Maestro maestro;
   final String greeting;
+
+  /// LE DUE FAMIGLIE TORNANO A VIDEO, ordine 2161 voce 3. Il 12 luglio 2026,
+  /// commit 93e1481, il pannello coi due segmenti fu sostituito da tre chip
+  /// con le famiglie dietro un bottone: Mauro le rivuole divise e visibili
+  /// sulla prima schermata. [starters] sono le frequenti, [personali] le
+  /// personali GIA' filtrate sul dato vero della persona: se una famiglia
+  /// arriva vuota, la sua etichetta non compare, per la regola del vero.
   final List<String> starters;
+  final List<String> personali;
   final ValueChanged<String> onStarter;
   final bool enabled;
 
@@ -53,24 +62,76 @@ class ChatEmptyState extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
-          Opacity(
-            opacity: enabled ? 1.0 : 0.4,
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              spacing: SpacingTokens.xs,
-              runSpacing: SpacingTokens.xs,
-              children: [
-                for (final s in starters)
-                  _StarterChip(
-                    label: s,
-                    onTap: enabled ? () => onStarter(s) : null,
-                    palette: palette,
-                  ),
-              ],
+          if (starters.isNotEmpty)
+            _Famiglia(
+              chiave: const Key('chat_famiglia_frequenti'),
+              etichetta: 'Domande frequenti',
+              domande: starters,
+              enabled: enabled,
+              onStarter: onStarter,
+              palette: palette,
             ),
-          ),
+          if (personali.isNotEmpty) ...[
+            const SizedBox(height: SpacingTokens.md),
+            _Famiglia(
+              chiave: const Key('chat_famiglia_personali'),
+              etichetta: 'Domande personali',
+              domande: personali,
+              enabled: enabled,
+              onStarter: onStarter,
+              palette: palette,
+            ),
+          ],
         ],
       ),
+    );
+  }
+}
+
+/// Una famiglia di domande, con la sua etichetta sopra i chip.
+class _Famiglia extends StatelessWidget {
+  const _Famiglia({
+    required this.chiave,
+    required this.etichetta,
+    required this.domande,
+    required this.enabled,
+    required this.onStarter,
+    required this.palette,
+  });
+
+  final Key chiave;
+  final String etichetta;
+  final List<String> domande;
+  final bool enabled;
+  final ValueChanged<String> onStarter;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      key: chiave,
+      children: [
+        Text(etichetta,
+            style: TypographyTokens.label(size: 12).copyWith(
+                color: palette.goldSoft, letterSpacing: 1.2)),
+        const SizedBox(height: SpacingTokens.xs),
+        Opacity(
+          opacity: enabled ? 1.0 : 0.4,
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: SpacingTokens.xs,
+            runSpacing: SpacingTokens.xs,
+            children: [
+              for (final s in domande)
+                _StarterChip(
+                  label: s,
+                  onTap: enabled ? () => onStarter(s) : null,
+                  palette: palette,
+                ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
