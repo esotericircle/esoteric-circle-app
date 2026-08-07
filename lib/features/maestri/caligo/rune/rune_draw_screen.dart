@@ -1,10 +1,8 @@
-import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:sensors_plus/sensors_plus.dart';
 
 import '../../../../core/astro/zodiac.dart';
 import '../../../../core/maestro/maestro.dart';
@@ -20,13 +18,14 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/app_services.dart';
 import '../../../../core/rituals/runes.dart';
 import '../../../rituals/rune_strokes.dart';
-import '../../../rituals/sunset_rune_screen.dart' show pathVergineDi;
+import '../../../rituals/retro_della_runa.dart';
 import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
 import 'bindrune.dart';
 import 'rune_share_card.dart';
 import 'fisica_della_gettata.dart';
 import '../../rotta_arte.dart';
+import '../../../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../../../core/sensi/catalogo_suoni.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
 
@@ -39,7 +38,12 @@ class RuneDrawScreen extends StatefulWidget {
     required this.userSign,
     this.userBirth,
     this.random,
+    this.scuotimento,
   });
+
+  /// L'ascoltatore di scuotimento, iniettabile nelle prove: a runtime resta
+  /// null e la schermata usa la porta unica dell'app.
+  final AscoltatoreScuotimento? scuotimento;
 
   final Zodiac userSign;
 
@@ -78,12 +82,23 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   _Fase _fase = _Fase.preparazione;
   EsitoGettata? _esito;
   bool _animazioni = true;
-  StreamSubscription<AccelerometerEvent>? _shakeSub;
+
+  /// LO SCUOTIMENTO PASSA DALLA PORTA UNICA, e NON SI SPEGNE MAI qui dentro.
+  ///
+  /// La versione precedente apriva il proprio flusso col samplingPeriod
+  /// vietato e CANCELLAVA la sottoscrizione alla prima gettata senza che
+  /// nessuno la riarmasse: lo scuotimento valeva una volta per vita della
+  /// schermata, ed e' il "non funziona" visto da Mauro. Adesso l'ascoltatore
+  /// vive quanto la schermata, l'antirimbalzo sta nella porta unica, e dopo
+  /// una gettata lo scuotimento getta ancora.
+  late final AscoltatoreScuotimento _scuotimento =
+      widget.scuotimento ?? AscoltatoreScuotimento();
 
   @override
   void initState() {
     super.initState();
-    _ascoltaScuotimento();
+    _scuotimento.onScuotimento = _dalloScuotimento;
+    _scuotimento.start();
   }
 
   @override
@@ -94,23 +109,21 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
 
   @override
   void dispose() {
-    _shakeSub?.cancel();
+    // Se l'ascoltatore e' iniettato dalle prove, a spegnerlo e' chi lo ha
+    // creato: qui si stacca solo il passo.
+    _scuotimento.onScuotimento = null;
+    if (widget.scuotimento == null) _scuotimento.dispose();
     _domanda.dispose();
     super.dispose();
   }
 
-  // Scuotimento: un picco netto dell'accelerazione getta le rune. Il tocco sul
-  // pulsante resta il ripiego tattile universale.
-  void _ascoltaScuotimento() {
-    try {
-      _shakeSub = accelerometerEventStream(
-        samplingPeriod: const Duration(milliseconds: 66),
-      ).listen((e) {
-        final m = math.sqrt(e.x * e.x + e.y * e.y + e.z * e.z);
-        if (m > 22) _getta();
-      }, onError: (_) {}, cancelOnError: false);
-    } catch (_) {
-      // Nessun accelerometro: si getta col pulsante.
+  void _dalloScuotimento() {
+    if (!mounted) return;
+    // In preparazione getta; nel responso getta ancora: e' il riarmo.
+    if (_fase == _Fase.preparazione) {
+      _getta();
+    } else {
+      _gettaAncora();
     }
   }
 
@@ -122,7 +135,6 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   void _getta() {
     if (_fase == _Fase.responso) return;
     PaletteSensoriale.eseguiSchema(SchemaAptico.conferma);
-    _shakeSub?.cancel();
     setState(() {
       _esito = RuneCast.getta(_gettata, random: widget.random);
       _fase = _Fase.responso;
@@ -190,6 +202,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   animazioni: _animazioni,
                   onGettata: _cambiaGettata,
                   onGetta: _getta,
+                  statoScuotimento: _scuotimento.stato,
                 )
               : _Responso(
                   palette: palette,
@@ -266,6 +279,7 @@ class _Preparazione extends StatelessWidget {
     required this.animazioni,
     required this.onGettata,
     required this.onGetta,
+    required this.statoScuotimento,
   });
 
   final MaestroPalette palette;
@@ -274,6 +288,10 @@ class _Preparazione extends StatelessWidget {
   final bool animazioni;
   final ValueChanged<GettataRune> onGettata;
   final VoidCallback onGetta;
+
+  /// Lo stato del sensore, dalla porta unica: quando dice assente, la riga
+  /// dell'aiuto dichiara il ripiego invece di promettere lo scuotimento.
+  final ValueNotifier<StatoScuotimento> statoScuotimento;
 
   @override
   Widget build(BuildContext context) {
@@ -393,19 +411,35 @@ class _Preparazione extends StatelessWidget {
             label: const Text('Getta le rune'),
           ),
           const SizedBox(height: SpacingTokens.xs),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.vibration, size: 13, color: palette.goldSoft),
-              const SizedBox(width: 6),
-              Flexible(
-                child: Text(
-                    'Scuoti il telefono, oppure tocca: il ripiego vale sempre.',
-                    style: TypographyTokens.label(size: 11).copyWith(
-                        color: palette.goldSoft.withValues(alpha: 0.7),
-                        letterSpacing: 0.3)),
-              ),
-            ],
+          // IL RIPIEGO TATTILE, DICHIARATO A SCHERMO. Quando il sensore
+          // non c'e', la riga smette di promettere lo scuotimento e dice
+          // la strada che resta: mai lasciare la persona senza la sua arte.
+          ValueListenableBuilder<StatoScuotimento>(
+            valueListenable: statoScuotimento,
+            builder: (context, stato, _) => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                    stato == StatoScuotimento.assente
+                        ? Icons.touch_app_outlined
+                        : Icons.vibration,
+                    size: 13,
+                    color: palette.goldSoft),
+                const SizedBox(width: 6),
+                Flexible(
+                  child: Text(
+                      stato == StatoScuotimento.assente
+                          ? 'Questo telefono non offre lo scuotimento: '
+                              'getta col tocco, che vale sempre.'
+                          : 'Scuoti il telefono, oppure tocca: il ripiego '
+                              'vale sempre.',
+                      key: const Key('rune_ripiego_riga'),
+                      style: TypographyTokens.label(size: 11).copyWith(
+                          color: palette.goldSoft.withValues(alpha: 0.7),
+                          letterSpacing: 0.3)),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: SpacingTokens.xxxl),
         ],
@@ -1163,8 +1197,13 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
   }
 }
 
-/// Una pietra posata, piccola, capovolta se in merkstave. Sul telo, se coperta
-/// resta velata, il verso d'ombra della sorte libera.
+/// Una pietra posata, piccola, capovolta se in merkstave.
+///
+/// **Se coperta, mostra IL RETRO VERGINE della SUA pietra**, dalla porta
+/// unica RetroDellaRuna. Prima mostrava la miniatura del FRONTE a opacita'
+/// 0,35: il fronte velato, peggio di uno slot, perche' anticipava la runa che
+/// la persona doveva ancora scoprire. Visto da Mauro sul telefono, ordine del
+/// 7 agosto 2026.
 class _PietraPosata extends StatelessWidget {
   const _PietraPosata(
       {super.key,
@@ -1178,6 +1217,17 @@ class _PietraPosata extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (coperta) {
+      // La runa non si e' ancora mostrata: si vede il retro della sua
+      // pietra, mai il fronte, nemmeno velato. Il retro non si capovolge:
+      // un dorso non ha un verso leggibile.
+      return RetroDellaRuna(
+        stem: runa.rune.stem,
+        width: 52,
+        height: 64,
+        ripiego: (_) => _sassoDelTelo(),
+      );
+    }
     final img = SizedBox(
       width: 52,
       height: 64,
@@ -1199,11 +1249,22 @@ class _PietraPosata extends StatelessWidget {
                   intensity: 1.0),
             ),
     );
-    final pietra =
-        runa.inOmbra ? Transform.rotate(angle: math.pi, child: img) : img;
-    return coperta ? Opacity(opacity: 0.35, child: pietra) : pietra;
+    return runa.inOmbra ? Transform.rotate(angle: math.pi, child: img) : img;
   }
+
+  /// Il sasso dipinto del telo, quando l'asset del retro manca.
+  Widget _sassoDelTelo() => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          gradient: const RadialGradient(colors: [
+            Color(0xFFE8DFC9),
+            Color(0xFFCFC3A6),
+          ]),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
+        ),
+      );
 }
+
 
 /// L'acqua immobile del Pozzo, le radici di Yggdrasil, i cerchi concentrici dai
 /// punti di caduta e i fili delle Norne. Statico quando le onde sono spente.
@@ -1414,9 +1475,11 @@ class _PietreCoperte extends StatelessWidget {
                 // Un filo di inclinazione alternata: pietre allineate in
                 // riga sembrano un menu, non un pugno di sassi.
                 angle: (i.isEven ? 1 : -1) * 0.06 * (i + 1),
-                child: _RetroDellaPietra(
+                // LA PORTA UNICA DEL RETRO: ragione su RetroDellaRuna.
+                child: RetroDellaRuna(
                     stem: kElderFuthark[i % kElderFuthark.length].stem,
-                    palette: palette),
+                    width: 62,
+                    height: 76),
               ),
             ),
         ],
@@ -1426,37 +1489,3 @@ class _PietreCoperte extends StatelessWidget {
   }
 }
 
-/// Il retro di una pietra, con lo stesso ripiego dipinto delle altre superfici.
-class _RetroDellaPietra extends StatelessWidget {
-  const _RetroDellaPietra({required this.stem, required this.palette});
-
-  final String? stem;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    final percorso = pathVergineDi(stem);
-    return SizedBox(
-      width: 62,
-      height: 76,
-      child: percorso == null
-          ? _ripiego()
-          : Image.asset(percorso,
-              fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) => _ripiego()),
-    );
-  }
-
-  /// Quando il retro manca, un sasso dipinto: mai un vuoto al posto di una
-  /// pietra, che si leggerebbe come un guasto.
-  Widget _ripiego() => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
-          gradient: const RadialGradient(colors: [
-            Color(0xFFE8DFC9),
-            Color(0xFFCFC3A6),
-          ]),
-          border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
-        ),
-      );
-}

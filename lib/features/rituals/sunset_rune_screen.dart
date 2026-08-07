@@ -1,3 +1,5 @@
+import 'retro_della_runa.dart';
+export 'retro_della_runa.dart' show pathVergineDi;
 import 'dart:async';
 import 'dart:math' as math;
 
@@ -31,6 +33,7 @@ import '../maestri/chat/chat_openers.dart';
 import '../maestri/chat/maestro_chat_screen.dart';
 import 'rune_strokes.dart';
 import 'sunset_rune_card.dart';
+import '../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../core/sensi/palette_sensoriale.dart';
 
 /// La Runa del Tramonto, dominio Caligo, versione definitiva.
@@ -103,16 +106,9 @@ List<Offset> primoTrattoDi(String nomeRuna) {
   return strokes.first;
 }
 
-/// Il percorso della pietra vergine, cioe' l'osso senza segno, a partire dallo
-/// stem della runa. Gli stem di `kElderFuthark` finiscono gia' in `_v1`, quindi
-/// il suffisso di versione va tolto prima di riapplicarlo: senza questo il nome
-/// uscirebbe con due versioni in coda e non troverebbe mai il file.
-/// Null quando la runa non ha arte.
-String? pathVergineDi(String? stem) {
-  if (stem == null) return null;
-  final base = stem.endsWith('_v1') ? stem.substring(0, stem.length - 3) : stem;
-  return 'assets/img/rune_bone_vergine/${base}_vergine_v1.webp';
-}
+// Il percorso della pietra vergine vive in retro_della_runa.dart, la porta
+// unica del retro: qui si RIESPORTA per chi lo importava da questa schermata,
+// e la regola non abita piu' dentro una schermata.
 
 /// La scala orizzontale del contenuto visibile della pietra girata al valore di
 /// flip [t]. Con la faccia B controruotata resta sempre positiva, cioe' il
@@ -180,7 +176,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   static const Duration _silenzioPrimaDelFantasma = Duration(milliseconds: 1500);
 
   Ticker? _incisioneTicker;
-  StreamSubscription<AccelerometerEvent>? _shakeSub;
+  AscoltatoreScuotimento? _scuotimento;
   StreamSubscription<GyroscopeEvent>? _giroSub;
   Duration _ultimoTick = Duration.zero;
   bool _primoTick = true; // alla ripresa il primo tick fissa la base, non avanza
@@ -350,7 +346,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     _attesaFantasma?.cancel();
     _fantasma.dispose();
     _incisioneTicker?.dispose();
-    _shakeSub?.cancel();
+    _scuotimento?.dispose();
     _giroSub?.cancel();
     _ingresso.dispose();
     _alone.dispose();
@@ -389,24 +385,20 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       );
 
   void _ascoltaScuotimento() {
-    try {
-      _shakeSub = accelerometerEventStream(
-              samplingPeriod: const Duration(milliseconds: 66))
-          .listen((ev) {
-        final m = math.sqrt(ev.x * ev.x + ev.y * ev.y + ev.z * ev.z);
-        if (m > 22) _getta();
-      }, onError: (_) {}, cancelOnError: false);
-    } catch (_) {
-      // Nessun accelerometro: resta il tocco.
-    }
+    // LA PORTA UNICA: soglia, antirimbalzo e niente samplingPeriod stanno
+    // in AscoltatoreScuotimento, con le loro ragioni scritte accanto.
+    _scuotimento = AscoltatoreScuotimento(onScuotimento: _getta)..start();
   }
 
   // --- Gesto uno: il getto ---
   void _getta() {
     if (_fase != _Fase.getto) return;
     PaletteSensoriale.eseguiSchema(SchemaAptico.conferma);
-    _shakeSub?.cancel();
-    _shakeSub = null;
+    // Il Tramonto e' un dono che si compie una volta: gettato, l'ascolto
+    // si spegne, e non e' il difetto del riarmo dell'Estrazione, dove
+    // Getta ancora esiste. Qui non esiste.
+    _scuotimento?.dispose();
+    _scuotimento = null;
     if (!_riduciMovimento) _rimbalzo.forward(from: 0);
     setState(() => _fase = _Fase.incisione);
     // Da qui parte il silenzio: se il dito non arriva, l'invito si mostra.
@@ -852,10 +844,15 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
 
   Widget _pietraVergine(double lato) {
     if (_ossoVergineCe) {
-      return Image.asset(
-        _ossoVerginePath!,
+      // LA PORTA UNICA DEL RETRO: la ragione sta su RetroDellaRuna.
+      return RetroDellaRuna(
         key: const Key('sunset_stone_vergine'),
-        fit: BoxFit.contain,
+        stem: _e.rune.stem,
+        ripiego: (_) => CustomPaint(
+          size: Size(lato, lato),
+          painter:
+              _PietraVelataPainter(palette: _palette, respiro: _alone.value),
+        ),
       );
     }
     return CustomPaint(

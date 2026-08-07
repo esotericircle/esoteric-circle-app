@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/tarot/tarot_reading.dart';
 import '../../core/tarot/tarot_spread.dart';
@@ -124,7 +125,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       vsync: this, duration: const Duration(seconds: 6));
 
   /// Lo scuotimento del telefono, quando c'e' l'accelerometro.
-  ShakeListener? _shake;
+  AscoltatoreScuotimento? _shake;
 
   /// Vero quando le animazioni di sistema sono spente: tutto arriva subito
   /// allo stato finale, senza moto.
@@ -158,7 +159,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _reduceMotion = MediaQuery.of(context).disableAnimations;
     if (_avviata) return;
     _avviata = true;
-    _shake = ShakeListener(onShake: _mischia)..start();
+    _shake = AscoltatoreScuotimento(onScuotimento: _mischia)..start();
     // Il giroscopio e il galleggiamento solo se il moto e' concesso: con
     // Riduci Movimento le carte stanno ferme e composte.
     if (!_reduceMotion) {

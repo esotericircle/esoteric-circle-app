@@ -41,17 +41,15 @@ void main() {
   });
 
   test('Una sola iscrizione all\'accelerometro per la parallasse', () {
-    // Le iscrizioni legittime: quella del ParallaxController, unica per la
-    // parallasse, e quelle dello SCUOTIMENTO nei riti, che sono un'altra
-    // funzione con la loro soglia. Il ripiego del cosmo per i montaggi senza
-    // provider crea al piu' UN controller condiviso, quindi non e' una
-    // seconda iscrizione.
+    // Le iscrizioni legittime sono DUE: quella del ParallaxController,
+    // unica per la parallasse, e quella di AscoltatoreScuotimento, la porta
+    // unica dello scuotimento dal 7 agosto 2026. Le quattro superfici che
+    // ascoltavano ognuna per conto suo, Estrazione, Tramonto, rito e Stesa,
+    // passano tutte da quella porta e NON possono tornare a iscriversi da
+    // sole: se una riappare qui sotto, e' una porta riaperta.
     final consentite = {
       'lib/core/motion/parallax_controller.dart',
-      'lib/features/maestri/caligo/rune/rune_draw_screen.dart',
-      'lib/features/rituals/ritual_view.dart',
-      'lib/features/rituals/sunset_rune_screen.dart',
-      'lib/features/tarot/stesa_choreography.dart',
+      'lib/core/sensi/ascoltatore_scuotimento.dart',
     };
     final fuori = <String>[];
     for (final e in sorgenti.entries) {

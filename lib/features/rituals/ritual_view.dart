@@ -1,9 +1,7 @@
-import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:sensors_plus/sensors_plus.dart';
 
+import '../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../design_system/components/ritual_backdrop.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -71,7 +69,7 @@ class _RitualViewState extends State<RitualView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _pulse;
   bool _revealed = false;
-  StreamSubscription<AccelerometerEvent>? _shakeSub;
+  AscoltatoreScuotimento? _scuotimento;
 
   @override
   void initState() {
@@ -86,21 +84,14 @@ class _RitualViewState extends State<RitualView>
   // Scuotimento: un picco netto dell'accelerazione svela. Se il sensore manca,
   // resta il tocco come ripiego tattile universale.
   void _listenShake() {
-    try {
-      _shakeSub = accelerometerEventStream(
-        samplingPeriod: const Duration(milliseconds: 66),
-      ).listen((e) {
-        final m = math.sqrt(e.x * e.x + e.y * e.y + e.z * e.z);
-        if (m > 22) _reveal();
-      }, onError: (_) {}, cancelOnError: false);
-    } catch (_) {
-      // Nessun accelerometro: si compie il rito col tocco.
-    }
+    // LA PORTA UNICA: soglia, antirimbalzo e niente samplingPeriod stanno
+    // in AscoltatoreScuotimento, con le loro ragioni scritte accanto.
+    _scuotimento = AscoltatoreScuotimento(onScuotimento: _reveal)..start();
   }
 
   @override
   void dispose() {
-    _shakeSub?.cancel();
+    _scuotimento?.dispose();
     _pulse.dispose();
     super.dispose();
   }

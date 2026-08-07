@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:sensors_plus/sensors_plus.dart';
 
 /// Le scene della Stesa, nell'ordine in cui vanno in onda.
 ///
@@ -178,49 +176,9 @@ class CutPose {
   }
 }
 
-/// Ascolta lo scuotimento del telefono, quando c'e' un accelerometro.
-///
-/// Se il sensore manca, se il permesso non c'e' o se lo stream muore, non
-/// succede nulla di male: resta il tasto Mischia, che e' sempre in campo. Il
-/// gesto e' un di piu', mai l'unica strada.
-class ShakeListener {
-  ShakeListener({required this.onShake, this.soglia = 22});
+// IL ShakeListener NON VIVE PIU' QUI. Era una delle quattro porte che
+// ascoltavano lo scuotimento ognuna per conto suo, e passava al sensore il
+// samplingPeriod che su un telefono senza accelerometro solleva
+// un'eccezione asincrona: la porta unica e' AscoltatoreScuotimento in
+// core/sensi, senza quel parametro e con l'antirimbalzo dentro.
 
-  final VoidCallback onShake;
-
-  /// Il picco di accelerazione che vale come scuotimento.
-  final double soglia;
-
-  StreamSubscription<AccelerometerEvent>? _sub;
-  DateTime? _ultimo;
-
-  /// Vero se il sensore sta davvero mandando dati.
-  bool get attivo => _sub != null;
-
-  void start() {
-    if (_sub != null) return;
-    try {
-      _sub = accelerometerEventStream(
-        samplingPeriod: const Duration(milliseconds: 66),
-      ).listen((e) {
-        final m = math.sqrt(e.x * e.x + e.y * e.y + e.z * e.z);
-        if (m < soglia) return;
-        // Un solo mescolamento per scuotimento, altrimenti parte a raffica.
-        final ora = DateTime.now();
-        if (_ultimo != null &&
-            ora.difference(_ultimo!) < const Duration(milliseconds: 900)) {
-          return;
-        }
-        _ultimo = ora;
-        onShake();
-      }, onError: (_) {}, cancelOnError: false);
-    } catch (_) {
-      // Nessun accelerometro: si mischia col tasto.
-    }
-  }
-
-  void dispose() {
-    _sub?.cancel();
-    _sub = null;
-  }
-}
