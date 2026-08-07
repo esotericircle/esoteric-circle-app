@@ -79,23 +79,30 @@ class _QuelloCheAvanza extends MultiChildLayoutDelegate {
 
   @override
   void performLayout(Size size) {
-    // PRIMA LA CONVERSAZIONE, con vincoli larghi: prende cio' che le serve e
-    // non un pixel di piu'.
+    // **LA SCENA NON SI SOVRAPPONE A NIENTE, ordine 2164 voce 6.** Prima la
+    // conversazione veniva misurata su TUTTA l'altezza e la scena le si
+    // stendeva sopra: il riquadro opaco della scena copriva l'ultima bolla,
+    // e sullo scatto di Mauro si leggeva "amore?" tagliato a meta'. Tolto
+    // il riquadro (stessa voce), coprire non basta piu' nemmeno a
+    // nascondere: adesso la fascia della scena si RISERVA prima, e la
+    // conversazione riceve solo cio' che resta. Per il tempo dell'attesa la
+    // conversazione perde altezza, come Mauro ha chiesto, e nessun
+    // messaggio finisce dietro l'emblema.
+    final fascia = math.min(minima, size.height);
+
     var altezzaConversazione = 0.0;
     if (hasChild(ScenaSopraLaConversazione.idConversazione)) {
       final misura = layoutChild(
         ScenaSopraLaConversazione.idConversazione,
-        BoxConstraints.loose(size),
+        BoxConstraints.loose(
+            Size(size.width, math.max(0.0, size.height - fascia))),
       );
       altezzaConversazione = misura.height;
     }
 
-    // Cio' che avanza, MA MAI SOTTO LA MINIMA quando una minima c'e': la
-    // scena viva si prende il suo posto sopra la conversazione, che resta
-    // ferma. La ragione intera sta su altezzaMinimaDellaScena.
+    // Cio' che avanza, MA MAI SOTTO LA MINIMA quando una minima c'e'.
     final avanza = math.max(
-        math.min(minima, size.height),
-        math.max(0.0, size.height - altezzaConversazione));
+        fascia, math.max(0.0, size.height - altezzaConversazione));
 
     if (hasChild(ScenaSopraLaConversazione.idScena)) {
       layoutChild(
