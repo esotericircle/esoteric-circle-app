@@ -7,6 +7,9 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
     // Firebase: applica la configurazione da google-services.json.
     id("com.google.gms.google-services")
+    // Crashlytics: genera il build ID senza cui la libreria uccide l'app
+    // all'avvio. La ragione intera sta in settings.gradle.kts, ordine 2162.
+    id("com.google.firebase.crashlytics")
 }
 
 android {
