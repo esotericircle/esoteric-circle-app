@@ -724,8 +724,18 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       return ChatEmptyState(
         maestro: widget.maestro,
         greeting: _welcomeFor(controller),
-        starters: famiglie.frequenti,
-        personali: famiglie.personali,
+        // L'ASSAGGIO: tre voci in una riga, non la colonna. Le famiglie
+        // intere e divise vivono nel pannello (ordine 2163, voci 3 e 4).
+        assaggio: famiglie.frequenti.take(3).toList(),
+        onSuggerimenti: () {
+          showSuggestionsPanel(
+            context,
+            maestro: widget.maestro,
+            onSend: controller.send,
+            frequenti: famiglie.frequenti,
+            personali: famiglie.personali,
+          );
+        },
         onStarter: controller.send,
         enabled: controller.aiReady,
         // La stessa misura del fondo della lista dei messaggi: il primo

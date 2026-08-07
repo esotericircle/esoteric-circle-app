@@ -1471,6 +1471,48 @@ void main() {
     await scattaApp(tester, radice, 'pannello_colore');
   });
 
+  // ORDINE 2163, VOCE 4: il primo schermo della chat. Nella prima la
+  // colonna lunga dei suggerimenti; nella dopo il benvenuto, l'invito alle
+  // stelline e l'assaggio di tre in riga.
+  testWidgets('2163, il primo schermo della chat', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'profile.birthDate': '1990-08-15',
+    });
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final servizi = AppServices(
+      ai: _VoceConUnTesto('Il cielo osserva con te questa domanda.'),
+      memory: InMemoryMaestroMemoryRepository(),
+      memoryPersistent: false,
+    );
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(conIntro: false, services: servizi),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(
+        MaestroChatScreen.route(maestro: Maestro.medora, services: servizi));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 800));
+    // Il mezzo busto si precarica, sempre: in headless nessuno lo decodifica.
+    await tester.runAsync(() async {
+      final el = tester.element(find.byType(MaterialApp));
+      await precacheImage(AssetImage(Maestro.medora.avatarAsset), el);
+    });
+    await tester.pump(const Duration(milliseconds: 300));
+
+    await scattaApp(tester, radice, 'primo_schermo');
+  });
+
   // ORDINE 2163, VOCE 1: il campo di scrittura opaco. Una risposta lunga
   // scorre dietro al campo: nella prima si legge attraverso, nella dopo
   // sparisce sotto.

@@ -4,19 +4,30 @@ import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_suggestions.dart';
+import 'package:esoteric_circle/core/chat/chat_message.dart';
+import 'package:esoteric_circle/core/chat/maestro_memory.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/maestro/consult_depth.dart';
+import 'package:esoteric_circle/core/maestro/maestro_reply.dart';
+import 'package:esoteric_circle/core/maestro/natal_context.dart';
+import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
+import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/app_services.dart';
+import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// LE DUE FAMIGLIE DI DOMANDE, INTERE E DIVISE, SULLA PRIMA SCHERMATA.
+/// LE DUE FAMIGLIE DI DOMANDE, INTERE E DIVISE, NEL PANNELLO.
 ///
-/// La regressione: il 12 luglio 2026, commit 93e1481, il pannello coi due
-/// segmenti fu sostituito da TRE chip senza famiglie, col resto dietro un
-/// bottone discreto. Mauro le rivuole a video, divise in frequenti e
-/// personali. Le personali dicono il vero: una domanda che nomina un dato
-/// assente non compare, e la rotazione nel giorno e' deterministica.
+/// Storia a due tempi. Il 12 luglio 2026 (93e1481) le famiglie sparirono
+/// dietro un bottone; l'ordine 2161 le riporto' sul primo schermo; l'ordine
+/// 2163 (voci 3 e 4) le ha spostate nel PANNELLO unito, che e' la casa
+/// definitiva: sul primo schermo resta un assaggio di tre voci in riga.
+/// Questa prova custodisce cio' che non cambia: le famiglie INTERE e
+/// DIVISE, il vero sulle personali (una domanda che nomina un dato assente
+/// non compare), la rotazione deterministica sul giorno.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -52,7 +63,11 @@ void main() {
     tester.view.physicalSize = const Size(1080, 2391);
     tester.view.devicePixelRatio = 3.0;
     addTearDown(tester.view.reset);
-    final servizi = AppServices.offline();
+    final servizi = AppServices(
+      ai: const _VocePronta(),
+      memory: InMemoryMaestroMemoryRepository(),
+      memoryPersistent: false,
+    );
     await tester.pumpWidget(
         EsotericCircleApp(conIntro: false, services: servizi));
     await tester.pump();
@@ -66,45 +81,68 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 600));
 
-      final frequenti =
-          find.byKey(const Key('chat_famiglia_frequenti')).evaluate();
-      final personali =
-          find.byKey(const Key('chat_famiglia_personali')).evaluate();
-      if (frequenti.isEmpty) {
-        colpe.add('${maestro.displayName}: manca la famiglia delle '
-            'frequenti');
+      // Dal 2163 le famiglie vivono nel pannello: lo si apre dalla porta
+      // vera, l'invito alle stelline del primo schermo, portato in chiaro
+      // sopra il vetro con lo scorrimento, come farebbe il dito.
+      await tester.drag(find.byType(SingleChildScrollView).first,
+          const Offset(0, -160), warnIfMissed: false);
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.tap(find.byKey(const Key('chat_invito_stelline')),
+          warnIfMissed: false);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      // Il pannello e' scorrevole e PIGRO: cio' che sta sotto la piega non
+      // e' ancora costruito, quindi ogni pretesa si cerca scorrendo.
+      Future<bool> trovaScorrendo(String domanda) async {
+        var c = 0;
+        while (find.text(domanda).evaluate().isEmpty && c < 12) {
+          await tester.drag(
+              find.byKey(const Key('pannello_suggerimenti')),
+              const Offset(0, -120),
+              warnIfMissed: false);
+          await tester.pump(const Duration(milliseconds: 120));
+          c++;
+        }
+        return find.text(domanda).evaluate().isNotEmpty;
       }
-      if (personali.isEmpty) {
+
+      if (find.text('DOMANDE FREQUENTI').evaluate().isEmpty) {
         colpe.add('${maestro.displayName}: manca la famiglia delle '
-            'personali');
+            'frequenti nel pannello');
       }
-      // Il conto: le frequenti TUTTE, non un tre scritto a mano.
+      if (!await trovaScorrendo('DOMANDE PERSONALI')) {
+        colpe.add('${maestro.displayName}: manca la famiglia delle '
+            'personali nel pannello');
+      }
       final attese = SuggestionSets.frequent(maestro).length;
       var visti = 0;
       for (final domanda in SuggestionSets.frequent(maestro)) {
-        if (find.text(domanda).evaluate().isNotEmpty) visti++;
+        if (await trovaScorrendo(domanda)) visti++;
       }
       if (visti < attese) {
-        colpe.add('${maestro.displayName}: frequenti a video $visti su '
-            '$attese, il taglio a tre e\' tornato');
+        colpe.add('${maestro.displayName}: frequenti nel pannello $visti '
+            'su $attese, il taglio e\' tornato');
       }
       // Le personali disponibili con la sola data: quelle sul Sole, tutte.
       // Quelle su Luna e Ascendente non devono esserci: direbbero il falso.
       for (final domanda in SuggestionSets.personal(maestro)) {
         final b = domanda.toLowerCase();
-        final visibile = find.text(domanda).evaluate().isNotEmpty;
-        if ((b.contains('luna') || b.contains('ascendente')) && visibile) {
+        if (b.contains('sole') &&
+            !b.contains('luna') &&
+            !b.contains('ascendente')) {
+          if (!await trovaScorrendo(domanda)) {
+            colpe.add('${maestro.displayName}: "$domanda" ha il suo dato '
+                'e non compare nel pannello');
+          }
+        } else if ((b.contains('luna') || b.contains('ascendente')) &&
+            find.text(domanda).evaluate().isNotEmpty) {
           colpe.add('${maestro.displayName}: "$domanda" nomina un dato '
               'assente ed e\' comparsa lo stesso');
         }
-        if (b.contains('sole') &&
-            !b.contains('luna') &&
-            !b.contains('ascendente') &&
-            !visibile) {
-          colpe.add('${maestro.displayName}: "$domanda" ha il suo dato '
-              'e non compare');
-        }
       }
+      // Si chiude il pannello prima di lasciare la stanza.
+      await tester.tapAt(const Offset(10, 60));
+      await tester.pump(const Duration(milliseconds: 400));
       nav.pop();
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
@@ -133,4 +171,54 @@ void main() {
     expect(a, isNot(c),
         reason: 'Due giorni diversi, stesso ordine: la rotazione non ruota.');
   });
+}
+
+/// Una voce pronta: con la voce spenta l'invito alle stelline e' spento
+/// anch'esso, e il pannello non si aprirebbe.
+class _VocePronta implements MaestroAiProvider {
+  const _VocePronta();
+
+  @override
+  bool get isReady => true;
+
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<ChatMessage> history,
+    required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
+    String? rispostaGiaData,
+  }) async =>
+      'Il cielo osserva con te questa domanda e la tiene aperta.';
+
+  @override
+  Future<MaestroReply> consult({
+    required Maestro maestro,
+    required String theme,
+    required UserProfile profile,
+    MaestroMemory memory = MaestroMemory.empty,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  Future<String> synthesize({
+    required String theme,
+    required List<MaestroLens> lenses,
+    NatalContext? natal,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
+  @override
+  Future<MemoryDigest?> distill({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory previous,
+    required List<ChatMessage> history,
+  }) async =>
+      null;
 }

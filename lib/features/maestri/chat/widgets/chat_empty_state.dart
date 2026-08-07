@@ -10,19 +10,20 @@ import '../../widgets/maestro_presence.dart';
 
 /// Apertura della chat prima del primo messaggio.
 ///
-/// Immersione a riposo: il Maestro col mezzo busto piu' grande in alto, con la
-/// sola animazione idle di respiro (segnaposto), un invito caldo e alcuni chip
-/// di avvio al centro. Al primo messaggio tutto questo sparisce e il busto si
-/// rimpicciolisce nell'avatar dell'header. Il livello visivo arriva prima del
-/// testo, come vuole la legge del visivo.
+/// Il Maestro col mezzo busto in alto, il benvenuto, l'INVITO A TOCCARE LE
+/// STELLINE e un assaggio di TRE domande in una riga orizzontale dentro i
+/// margini. Ordine 2163, voce 4: la colonna lunga delle famiglie che viveva
+/// qui era una SECONDA PORTA per cio' che il pannello gia' offre, scorreva
+/// dietro al campo e dietro alla barra, ed e' stata TOLTA, non corretta.
+/// Le famiglie intere e divise vivono nel pannello dei suggerimenti.
 class ChatEmptyState extends StatelessWidget {
   const ChatEmptyState({
     super.key,
     required this.maestro,
     required this.greeting,
-    required this.starters,
+    required this.assaggio,
     required this.onStarter,
-    this.personali = const [],
+    required this.onSuggerimenti,
     this.enabled = true,
     this.spazioInFondo = 0,
   });
@@ -30,27 +31,28 @@ class ChatEmptyState extends StatelessWidget {
   final Maestro maestro;
   final String greeting;
 
-  /// LE DUE FAMIGLIE TORNANO A VIDEO, ordine 2161 voce 3. Il 12 luglio 2026,
-  /// commit 93e1481, il pannello coi due segmenti fu sostituito da tre chip
-  /// con le famiglie dietro un bottone: Mauro le rivuole divise e visibili
-  /// sulla prima schermata. [starters] sono le frequenti, [personali] le
-  /// personali GIA' filtrate sul dato vero della persona: se una famiglia
-  /// arriva vuota, la sua etichetta non compare, per la regola del vero.
-  final List<String> starters;
-  final List<String> personali;
+  /// L'assaggio: al massimo tre domande, in una riga che scorre in
+  /// orizzontale. Chi ne passa di piu' ne vede tre: il taglio sta qui,
+  /// dichiarato, cosi' nessun chiamante puo' ricostruire la colonna.
+  final List<String> assaggio;
+
   final ValueChanged<String> onStarter;
+
+  /// Apre il pannello dei suggerimenti: e' lo stesso gesto delle stelline
+  /// accanto al campo, offerto anche come invito al centro della schermata.
+  final VoidCallback onSuggerimenti;
+
   final bool enabled;
 
   /// IL FONDO PORTA IL COMPOSITORE E LA BARRA, come nella lista dei
-  /// messaggi: senza questa misura le famiglie di domande riposavano DIETRO
-  /// il compositore sospeso, e per leggerle bisognava indovinare che sotto
-  /// il vetro ci fosse qualcosa. La misura arriva dalla schermata, che e'
-  /// l'unica a conoscere l'altezza vera del suo compositore.
+  /// messaggi: la misura arriva dalla schermata, che e' l'unica a conoscere
+  /// l'altezza vera del suo compositore.
   final double spazioInFondo;
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    final voci = assaggio.take(3).toList();
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(
         SpacingTokens.lg,
@@ -60,8 +62,11 @@ class ChatEmptyState extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Mezzo busto piu' grande, respiro idle come segnaposto.
-          MaestroPresence(maestro: maestro, height: 280),
+          // 220 E NON 280, misurato sulla misura del fondatore (360x797):
+          // con 280 l'assaggio nasceva DIETRO il vetro del campo sospeso, e
+          // il primo sguardo deve avere invito e assaggio in chiaro sopra
+          // il campo, senza scorrere. Ordine 2163, voce 4.
+          MaestroPresence(maestro: maestro, height: 220),
           const SizedBox(height: SpacingTokens.md),
           Text(
             greeting,
@@ -72,24 +77,53 @@ class ChatEmptyState extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
-          if (starters.isNotEmpty)
-            _Famiglia(
-              chiave: const Key('chat_famiglia_frequenti'),
-              etichetta: 'Domande frequenti',
-              domande: starters,
-              enabled: enabled,
-              onStarter: onStarter,
-              palette: palette,
+          // L'INVITO ALLE STELLINE: un pulsante vero con area di tocco
+          // piena, non una scritta.
+          TextButton.icon(
+            key: const Key('chat_invito_stelline'),
+            // APRE SEMPRE, anche a voce spenta: guardare le domande non
+            // richiede la voce, e l'icona accanto al campo non ha guardia.
+            // Due porte sullo stesso pannello, UNA regola di accesso.
+            onPressed: onSuggerimenti,
+            style: TextButton.styleFrom(
+              minimumSize: const Size(0, 44),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: SpacingTokens.lg, vertical: 10),
+              backgroundColor: palette.gold.withValues(alpha: 0.14),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(SpacingTokens.radiusPill),
+                side: BorderSide(
+                    color: palette.gold.withValues(alpha: 0.5)),
+              ),
             ),
-          if (personali.isNotEmpty) ...[
-            const SizedBox(height: SpacingTokens.md),
-            _Famiglia(
-              chiave: const Key('chat_famiglia_personali'),
-              etichetta: 'Domande personali',
-              domande: personali,
-              enabled: enabled,
-              onStarter: onStarter,
-              palette: palette,
+            icon: Icon(Icons.auto_awesome_outlined,
+                color: palette.goldSoft, size: 18),
+            label: Text(
+              'Tocca per tutte le domande',
+              style: TypographyTokens.label(size: 13)
+                  .copyWith(color: palette.goldSoft, letterSpacing: 0.4),
+            ),
+          ),
+          if (voci.isNotEmpty) ...[
+            const SizedBox(height: SpacingTokens.lg),
+            // L'assaggio: UNA riga che scorre in orizzontale, dentro i
+            // margini. Mai una colonna che occupa la schermata.
+            SizedBox(
+              key: const Key('chat_assaggio'),
+              height: 40,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: voci.length,
+                separatorBuilder: (_, __) =>
+                    const SizedBox(width: SpacingTokens.xs),
+                itemBuilder: (context, i) => _VoceDAssaggio(
+                  key: const Key('chat_assaggio_voce'),
+                  label: voci[i],
+                  onTap: enabled ? () => onStarter(voci[i]) : null,
+                  palette: palette,
+                ),
+              ),
             ),
           ],
         ],
@@ -98,56 +132,9 @@ class ChatEmptyState extends StatelessWidget {
   }
 }
 
-/// Una famiglia di domande, con la sua etichetta sopra i chip.
-class _Famiglia extends StatelessWidget {
-  const _Famiglia({
-    required this.chiave,
-    required this.etichetta,
-    required this.domande,
-    required this.enabled,
-    required this.onStarter,
-    required this.palette,
-  });
-
-  final Key chiave;
-  final String etichetta;
-  final List<String> domande;
-  final bool enabled;
-  final ValueChanged<String> onStarter;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      key: chiave,
-      children: [
-        Text(etichetta,
-            style: TypographyTokens.label(size: 12).copyWith(
-                color: palette.goldSoft, letterSpacing: 1.2)),
-        const SizedBox(height: SpacingTokens.xs),
-        Opacity(
-          opacity: enabled ? 1.0 : 0.4,
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            spacing: SpacingTokens.xs,
-            runSpacing: SpacingTokens.xs,
-            children: [
-              for (final s in domande)
-                _StarterChip(
-                  label: s,
-                  onTap: enabled ? () => onStarter(s) : null,
-                  palette: palette,
-                ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _StarterChip extends StatelessWidget {
-  const _StarterChip({
+class _VoceDAssaggio extends StatelessWidget {
+  const _VoceDAssaggio({
+    super.key,
     required this.label,
     required this.onTap,
     required this.palette,
@@ -162,9 +149,9 @@ class _StarterChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(
           horizontal: SpacingTokens.md,
-          vertical: SpacingTokens.xs,
         ),
         decoration: BoxDecoration(
           color: palette.surface.withValues(alpha: 0.55),
@@ -173,7 +160,7 @@ class _StarterChip extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TypographyTokens.body(size: 15)
+          style: TypographyTokens.body(size: 14)
               .copyWith(color: palette.goldSoft),
         ),
       ),
