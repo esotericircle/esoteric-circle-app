@@ -155,6 +155,36 @@ def prova_di_accensione(archivio, attesa_secondi=12):
             break
 
 
+def numero_da_aapt2(archivio):
+    """Il versionCode letto dall'archivio con aapt2, quando nessun dispositivo
+    lo ha potuto leggere. Serve al registro: il numero e' dell'ARCHIVIO, mai
+    del pubspec."""
+    radice = os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Android',
+                          'sdk', 'build-tools')
+    aapt2 = None
+    if os.path.isdir(radice):
+        for versione in sorted(os.listdir(radice), reverse=True):
+            candidato = os.path.join(radice, versione, 'aapt2.exe')
+            if os.path.isfile(candidato):
+                aapt2 = candidato
+                break
+    if not aapt2:
+        raise SystemExit('aapt2 non trovato sotto ' + radice + ': senza '
+                         'dispositivo e senza aapt2 il numero non si legge, '
+                         'e un registro col numero del pubspec direbbe una '
+                         'cosa non misurata.')
+    codice, fuori = _corri([aapt2, 'dump', 'badging', archivio])
+    if codice != 0:
+        raise SystemExit('aapt2 dump badging fallito:\n' + fuori)
+    for pezzo in fuori.split():
+        if pezzo.startswith("versionCode='"):
+            numero = pezzo.split("'")[1]
+            os.environ.setdefault('NUMERO_CONSEGNATO', numero)
+            print('numero letto dall\'archivio con aapt2: ' + numero)
+            return
+    raise SystemExit('aapt2 non ha stampato un versionCode:\n' + fuori[:400])
+
+
 def main():
     if len(sys.argv) < 3:
         raise SystemExit('uso: consegna.py <archivio> "<note>" oppure '
@@ -190,7 +220,20 @@ def main():
     # avvia, si pretende il processo vivo e il primo fotogramma disegnato, e
     # nessun FATAL EXCEPTION nel log. Se non c'e' un dispositivo, ci si ferma:
     # non si consegna al buio.
-    prova_di_accensione(archivio)
+    # L'UNICO SALTO AMMESSO e' un ORDINE ESPLICITO di Mauro, scritto nella
+    # variabile con la ragione: la consegna lo dichiara a voce alta e il
+    # numero si legge dall'archivio con aapt2 invece che dal dispositivo.
+    # E' un ripiego e si dichiara come tale: l'APK parte senza che nessun
+    # dispositivo lo abbia acceso.
+    salto = os.environ.get('ACCENSIONE_SALTATA_PER_ORDINE', '').strip()
+    if salto:
+        print('ATTENZIONE: prova di accensione SALTATA per ordine esplicito: '
+              + salto)
+        print('Questa consegna parte al buio: nessun dispositivo ha acceso '
+              'questo archivio prima del caricamento.')
+        numero_da_aapt2(archivio)
+    else:
+        prova_di_accensione(archivio)
 
     peso = os.path.getsize(archivio)
     print('archivio: ' + archivio + '  ' + '{:,}'.format(peso).replace(',', '.')
