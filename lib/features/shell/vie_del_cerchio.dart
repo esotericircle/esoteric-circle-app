@@ -31,6 +31,41 @@ import '../../design_system/components/icona_del_cerchio.dart';
 /// superfici da solo.
 enum SpecieDiVia { cerchio, maestro, passport }
 
+/// LA DESTINAZIONE CHE UNA ROTTA DI DOMINIO DICHIARA DI ESSERE.
+///
+/// **Perche' esiste, e perche' il nome non basta.** La regola contro il
+/// doppione confrontava il NOME della classe della schermata, `'DomainScreen'`,
+/// letto dall'albero: cosi' il dominio di Medora e quello di Caligo risultavano
+/// LA STESSA schermata, e toccare Caligo dalla stanza di Medora tornava sulla
+/// stanza di Medora ripitturata di rosso. Visto sul telefono il 7 agosto 2026:
+/// il colore cambiava, il dominio no. Il 6 agosto era gia' stata scritta la
+/// decisione che l'osservatore riconosce il tipo e non un nome, perche' un nome
+/// e' una stringa che chiunque puo' scrivere diversa: ma nemmeno il TIPO basta,
+/// perche' un tipo solo veste tre stanze diverse. Cio' che identifica una
+/// stanza e' la DESTINAZIONE, cioe' la rotta PIU' il suo argomento.
+///
+/// La dichiara la fabbrica della rotta, `DomainScreen.route`, dentro
+/// `RouteSettings.arguments`: cosi' ogni porta che apre un dominio, la barra,
+/// il Santuario, il guscio, la dichiara senza saperlo, perche' passano tutte
+/// da quella fabbrica. E' un valore tipizzato e non una stringa, quindi non
+/// esiste il modo di scriverlo "quasi uguale".
+@immutable
+class DestinazioneDominio {
+  const DestinazioneDominio(this.maestro);
+
+  final Maestro maestro;
+
+  @override
+  bool operator ==(Object other) =>
+      other is DestinazioneDominio && other.maestro == maestro;
+
+  @override
+  int get hashCode => maestro.hashCode;
+
+  @override
+  String toString() => 'DestinazioneDominio(${maestro.id})';
+}
+
 @immutable
 class ViaDelCerchio {
   const ViaDelCerchio._(this.specie, [this.maestro]);

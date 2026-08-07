@@ -403,37 +403,64 @@ class NavigazioneDellaBarra {
   }
 
   /// Apre il dominio di un Maestro, oppure ci TORNA se e' gia' nella pila.
+  ///
+  /// **IL COLORE CAMBIA INSIEME ALLA ROTTA, MAI PRIMA.** La versione
+  /// precedente chiamava `selectMaestro` PRIMA di decidere se muoversi: quando
+  /// il confronto sbagliava stanza, il colore virava e la rotta restava, e a
+  /// video il tema dichiarava un passaggio mai avvenuto. Visto sul telefono il
+  /// 7 agosto 2026, dal dominio di Medora toccando Caligo. Un colore che
+  /// cambia da solo e' peggio di un tocco a vuoto: mente. Qui il Maestro si
+  /// seleziona dentro `apriUnaVoltaSola`, nel punto esatto in cui il movimento
+  /// e' deciso, cosi' non esiste un cammino che cambia il colore senza
+  /// cambiare la rotta.
   static void alDominio(BuildContext context, Maestro maestro) {
-    context.read<MaestroController>().selectMaestro(maestro);
+    final controller = context.read<MaestroController>();
     final servizi = context.read<AppServices>();
     apriUnaVoltaSola(
-      tipo: 'DomainScreen',
+      destinazione: DestinazioneDominio(maestro),
+      quandoCiSiMuove: () => controller.selectMaestro(maestro),
       costruisci: () =>
           DomainScreen.route(maestro: maestro, services: servizi),
     );
   }
 
-  /// Spinge la rotta solo se una schermata dello stesso tipo non e' gia' viva
-  /// piu' in basso; in quel caso ci si torna.
+  /// Spinge la rotta solo se la stessa DESTINAZIONE non e' gia' viva piu' in
+  /// basso; in quel caso ci si torna.
   ///
   /// **Serve ancora, e non e' un residuo di Esplora.** La barra porta alle
   /// stesse cinque destinazioni da ogni schermata, quindi senza questa regola
   /// bastano due tocchi per avere due domini dello stesso Maestro impilati, e
-  /// il tasto indietro ne chiederebbe due per uscire da una sola stanza. Il
-  /// confronto e' sul TIPO, lo stesso criterio con cui l'elenco classifica.
+  /// il tasto indietro ne chiederebbe due per uscire da una sola stanza.
+  ///
+  /// **Il confronto e' sulla DESTINAZIONE, non sul tipo ne' sul nome.** Il
+  /// confronto sul nome di classe, `'DomainScreen'`, faceva di tre stanze una
+  /// sola: dal dominio di Medora il tocco su Caligo TORNAVA da Medora invece
+  /// di aprire Caligo, perche' una stanza di quel tipo c'era gia'. Un nome poi
+  /// e' una stringa che chiunque puo' scrivere diversa, e un tipo veste tre
+  /// stanze: la destinazione, rotta piu' argomento, la dichiara la fabbrica
+  /// della rotta dentro `RouteSettings.arguments`, tipizzata, e qui la si
+  /// confronta con `==`.
+  ///
+  /// [quandoCiSiMuove] corre nel punto esatto in cui il movimento e' deciso,
+  /// sia che si torni sia che si apra: e' il posto dello stato che deve
+  /// seguire la rotta, il colore del Maestro, e non puo' correre prima del
+  /// confronto per la ragione scritta su [alDominio].
   static void apriUnaVoltaSola({
-    required String tipo,
+    required Object destinazione,
     required Route<void> Function() costruisci,
+    VoidCallback? quandoCiSiMuove,
   }) {
     final oss = osservatore;
     if (oss != null) {
       for (var i = oss.pila.length - 1; i >= 0; i--) {
-        if (OsservatoreDellaPila.tipoDellaRotta(oss.pila[i]) == tipo) {
+        if (oss.pila[i].settings.arguments == destinazione) {
+          quandoCiSiMuove?.call();
           _navigatore().popUntil((r) => identical(r, oss.pila[i]));
           return;
         }
       }
     }
+    quandoCiSiMuove?.call();
     _navigatore().push(costruisci());
   }
 }

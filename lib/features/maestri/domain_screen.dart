@@ -5,6 +5,7 @@ import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import '../shell/vie_del_cerchio.dart';
 import 'maestro_screen.dart';
 import 'widgets/domain_pillars.dart';
 
@@ -24,6 +25,14 @@ class DomainScreen extends StatelessWidget {
     required AppServices services,
   }) {
     return MaterialPageRoute<void>(
+      // LA ROTTA DICHIARA LA PROPRIA DESTINAZIONE, rotta piu' argomento.
+      //
+      // E' il dato su cui la barra decide se TORNARE a una stanza gia' aperta
+      // o aprirne una nuova. Sta QUI, nella fabbrica, e non in chi spinge:
+      // cosi' ogni porta che apre un dominio, barra, Santuario o guscio, la
+      // dichiara senza doverlo sapere. Il perche' un nome o un tipo non
+      // bastano sta scritto su DestinazioneDominio.
+      settings: RouteSettings(arguments: DestinazioneDominio(maestro)),
       builder: (_) => MaestroScope(child: DomainScreen(maestro: maestro)),
     );
   }

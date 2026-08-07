@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/maestro/maestro.dart';
-import '../../core/maestro/maestro_controller.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/tap_wave.dart';
-import '../../services/app_services.dart';
-import '../maestri/domain_screen.dart';
 import '../passport/cosmic_passport_screen.dart';
 import '../santuario/santuario_screen.dart';
 import 'navigation_controller.dart';
@@ -28,17 +24,11 @@ class AppShell extends StatelessWidget {
   /// del giorno ed eroe centrale si possano fissare a una fascia oraria.
   final DateTime Function()? clock;
 
-  // L'icona Maestro nella barra e' una porta diretta al dominio: seleziona il
-  // Maestro (cosi' al ritorno resta il centro) e spinge la route del dominio.
-  void _openDomain(BuildContext context, Maestro maestro) {
-    context.read<MaestroController>().selectMaestro(maestro);
-    Navigator.of(context).push(
-      DomainScreen.route(
-        maestro: maestro,
-        services: context.read<AppServices>(),
-      ),
-    );
-  }
+  // QUI NON C'E' PIU' NESSUNA PORTA VERSO IL DOMINIO. `_openDomain` viveva
+  // qui dai tempi in cui la barra stava nel guscio: selezionava il Maestro e
+  // spingeva la rotta SENZA la regola contro il doppione, cioe' era una
+  // seconda porta con una regola in meno. La sola porta e'
+  // `NavigazioneDellaBarra.alDominio`, che confronta le destinazioni.
 
   @override
   Widget build(BuildContext context) {
