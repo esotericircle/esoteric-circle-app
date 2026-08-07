@@ -75,8 +75,10 @@ class RiquadroDellaScelta extends StatelessWidget {
             ),
           ],
           const SizedBox(height: SpacingTokens.xs),
+          // Al minimo del token, non sotto: la gerarchia con la ragione la
+          // fa il colore smorzato, non una misura che il clamp rialzerebbe.
           Text(scheda.chiave,
-              style: TypographyTokens.body(size: 11).copyWith(
+              style: TypographyTokens.body(size: 13).copyWith(
                   color: ColorTokens.textMuted, height: 1.3)),
         ],
       ),

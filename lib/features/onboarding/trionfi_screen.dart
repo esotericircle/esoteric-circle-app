@@ -122,82 +122,96 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
   }
 
   Widget _corpoAnimale(double t, double nome, double invito) {
-    return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xl),
-            child: Column(
-              children: [
-                const Spacer(flex: 2),
-                Text('Chi ti accompagna',
-                    key: const Key('trionfo_animale'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 13).copyWith(
-                        color: widget.palette.goldSoft, letterSpacing: 3)),
-                const SizedBox(height: SpacingTokens.lg),
-                // La rivelazione con la nebbia, gia' scritta per Caligo.
-                // In diagnosi l'immagine e la nebbia entrano a tappe: senza
-                // immagine resta il suo ingombro, cosi' i testi non saltano.
-                if (!widget.mostraImmagine)
-                  const SizedBox(width: 280, height: 280)
-                else
-                  AnimalReveal(
-                    assetTotem: widget.animale.fullPath,
-                    palette: widget.palette,
-                    lato: 280,
-                    conNebbia: widget.mostraNebbia,
-                  ),
-                const SizedBox(height: SpacingTokens.lg),
-                Opacity(
-                  opacity: nome,
-                  child: Transform.translate(
-                    offset: Offset(0, 12 * (1 - nome)),
-                    child: Column(
-                      children: [
-                        Text(widget.animale.name,
-                            textAlign: TextAlign.center,
-                            style: TypographyTokens.display(size: 32)
-                                .copyWith(color: widget.palette.goldSoft)),
-                        const SizedBox(height: SpacingTokens.xs),
-                        Text(widget.animale.summary,
-                            textAlign: TextAlign.center,
-                            style: TypographyTokens.body(size: 15).copyWith(
-                                color: ColorTokens.textPrimary, height: 1.45)),
-                        // IL RIQUADRO DELLA SCELTA, ordine 2163 voce 12:
-                        // sotto il nome restava mezzo schermo vuoto. Entra
-                        // col nome, perche' e' parte della stessa risposta.
-                        const SizedBox(height: SpacingTokens.md),
-                        RiquadroDellaScelta(
-                            scheda: _scheda, palette: widget.palette),
-                      ],
+    // SCORRE SOLO SE NON C'E' POSTO: col riquadro della scelta (voce 12) il
+    // contenuto su uno schermo basso sborda, misurato dalla prova
+    // dell'onboarding a seicento punti (88 oltre il fondo). Quando l'altezza
+    // basta gli Spacer respirano come prima e nulla scorre.
+    return LayoutBuilder(
+      builder: (context, vincoli) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: vincoli.maxHeight),
+          child: IntrinsicHeight(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xl),
+              child: Column(
+                children: [
+                  const Spacer(flex: 2),
+                  Text('Chi ti accompagna',
+                      key: const Key('trionfo_animale'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.label(size: 13).copyWith(
+                          color: widget.palette.goldSoft, letterSpacing: 3)),
+                  const SizedBox(height: SpacingTokens.lg),
+                  // La rivelazione con la nebbia, gia' scritta per Caligo.
+                  // In diagnosi l'immagine e la nebbia entrano a tappe: senza
+                  // immagine resta il suo ingombro, cosi' i testi non saltano.
+                  if (!widget.mostraImmagine)
+                    const SizedBox(width: 280, height: 280)
+                  else
+                    AnimalReveal(
+                      assetTotem: widget.animale.fullPath,
+                      palette: widget.palette,
+                      lato: 280,
+                      conNebbia: widget.mostraNebbia,
                     ),
-                  ),
-                ),
-                const Spacer(flex: 3),
-                Opacity(
-                  opacity: invito,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: FilledButton(
-                      key: const Key('trionfo_animale_avanti'),
-                      style: FilledButton.styleFrom(
-                        backgroundColor: widget.palette.gold,
-                        foregroundColor: widget.palette.deepest,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: SpacingTokens.md),
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(SpacingTokens.radiusPill),
-                        ),
+                  const SizedBox(height: SpacingTokens.lg),
+                  Opacity(
+                    opacity: nome,
+                    child: Transform.translate(
+                      offset: Offset(0, 12 * (1 - nome)),
+                      child: Column(
+                        children: [
+                          Text(widget.animale.name,
+                              textAlign: TextAlign.center,
+                              style: TypographyTokens.display(size: 32)
+                                  .copyWith(color: widget.palette.goldSoft)),
+                          const SizedBox(height: SpacingTokens.xs),
+                          Text(widget.animale.summary,
+                              textAlign: TextAlign.center,
+                              style: TypographyTokens.body(size: 15).copyWith(
+                                  color: ColorTokens.textPrimary,
+                                  height: 1.45)),
+                          // IL RIQUADRO DELLA SCELTA, ordine 2163 voce 12:
+                          // sotto il nome restava mezzo schermo vuoto. Entra
+                          // col nome, perche' e' parte della stessa risposta.
+                          const SizedBox(height: SpacingTokens.md),
+                          RiquadroDellaScelta(
+                              scheda: _scheda, palette: widget.palette),
+                        ],
                       ),
-                      onPressed: invito > 0.5 ? widget.onContinue : null,
-                      child: Text('Chi altro veglia su di me',
-                          style: TypographyTokens.body(size: 16, weight: 600)
-                              .copyWith(color: widget.palette.deepest)),
                     ),
                   ),
-                ),
-                const SizedBox(height: SpacingTokens.lg),
-              ],
+                  const Spacer(flex: 3),
+                  Opacity(
+                    opacity: invito,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        key: const Key('trionfo_animale_avanti'),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: widget.palette.gold,
+                          foregroundColor: widget.palette.deepest,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: SpacingTokens.md),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(SpacingTokens.radiusPill),
+                          ),
+                        ),
+                        onPressed: invito > 0.5 ? widget.onContinue : null,
+                        child: Text('Chi altro veglia su di me',
+                            style: TypographyTokens.body(size: 16, weight: 600)
+                                .copyWith(color: widget.palette.deepest)),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: SpacingTokens.lg),
+                ],
+              ),
             ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -295,77 +309,88 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
   }
 
   Widget _corpoAngeli(List<Angel> angeli, double t, double invito) {
-    return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-            child: Column(
-              children: [
-                const Spacer(),
-                Text('I tuoi Angeli',
-                    key: const Key('trionfo_angeli'),
+    // Lo stesso scorri-solo-se-serve del trionfo dell'Animale, per la
+    // stessa ragione: il riquadro della scelta su uno schermo basso.
+    return LayoutBuilder(
+      builder: (context, vincoli) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: vincoli.maxHeight),
+          child: IntrinsicHeight(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+              child: Column(
+                children: [
+                  const Spacer(),
+                  Text('I tuoi Angeli',
+                      key: const Key('trionfo_angeli'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.label(size: 13).copyWith(
+                          color: widget.palette.goldSoft, letterSpacing: 3)),
+                  const SizedBox(height: SpacingTokens.md),
+                  Text(
+                    'Tre nomi dalla tradizione dei settantadue. Tocca una '
+                    'carta per conoscerla.',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 13).copyWith(
-                        color: widget.palette.goldSoft, letterSpacing: 3)),
-                const SizedBox(height: SpacingTokens.md),
-                Text(
-                  'Tre nomi dalla tradizione dei settantadue. Tocca una '
-                  'carta per conoscerla.',
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.body(size: 14).copyWith(
-                      color: ColorTokens.textSecondary, height: 1.45),
-                ),
-                const SizedBox(height: SpacingTokens.xl),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    for (var i = 0; i < angeli.length; i++)
-                      Expanded(
-                        child: _AngeloInScena(
-                          angelo: angeli[i],
-                          ruolo: RuoloAngelo.perIndice(i),
-                          palette: widget.palette,
-                          // La finestra di ciascuno: il primo apre, gli altri
-                          // seguono a distanza, mai insieme.
-                          avanzamento: ((t * (angeli.length + 1) - i) / 1.0)
-                              .clamp(0.0, 1.0),
+                    style: TypographyTokens.body(size: 14).copyWith(
+                        color: ColorTokens.textSecondary, height: 1.45),
+                  ),
+                  const SizedBox(height: SpacingTokens.xl),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (var i = 0; i < angeli.length; i++)
+                        Expanded(
+                          child: _AngeloInScena(
+                            angelo: angeli[i],
+                            ruolo: RuoloAngelo.perIndice(i),
+                            palette: widget.palette,
+                            // La finestra di ciascuno: il primo apre, gli altri
+                            // seguono a distanza, mai insieme.
+                            avanzamento: ((t * (angeli.length + 1) - i) / 1.0)
+                                .clamp(0.0, 1.0),
+                          ),
                         ),
-                      ),
-                  ],
-                ),
-                // IL RIQUADRO DELLA SCELTA, la stessa forma dell'Animale:
-                // arriva con l'invito, quando i tre si sono gia' accesi.
-                const SizedBox(height: SpacingTokens.md),
-                Opacity(
-                  opacity: invito,
-                  child: RiquadroDellaScelta(
-                      scheda: _scheda, palette: widget.palette),
-                ),
-                const Spacer(flex: 2),
-                Opacity(
-                  opacity: invito,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: FilledButton(
-                      key: const Key('trionfo_angeli_avanti'),
-                      style: FilledButton.styleFrom(
-                        backgroundColor: widget.palette.gold,
-                        foregroundColor: widget.palette.deepest,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: SpacingTokens.md),
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(SpacingTokens.radiusPill),
+                    ],
+                  ),
+                  // IL RIQUADRO DELLA SCELTA, la stessa forma dell'Animale:
+                  // arriva con l'invito, quando i tre si sono gia' accesi.
+                  const SizedBox(height: SpacingTokens.md),
+                  Opacity(
+                    opacity: invito,
+                    child: RiquadroDellaScelta(
+                        scheda: _scheda, palette: widget.palette),
+                  ),
+                  const Spacer(flex: 2),
+                  Opacity(
+                    opacity: invito,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        key: const Key('trionfo_angeli_avanti'),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: widget.palette.gold,
+                          foregroundColor: widget.palette.deepest,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: SpacingTokens.md),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(SpacingTokens.radiusPill),
+                          ),
                         ),
+                        onPressed: invito > 0.5 ? widget.onContinue : null,
+                        child: Text('Continua',
+                            style: TypographyTokens.body(size: 16, weight: 600)
+                                .copyWith(color: widget.palette.deepest)),
                       ),
-                      onPressed: invito > 0.5 ? widget.onContinue : null,
-                      child: Text('Continua',
-                          style: TypographyTokens.body(size: 16, weight: 600)
-                              .copyWith(color: widget.palette.deepest)),
                     ),
                   ),
-                ),
-                const SizedBox(height: SpacingTokens.lg),
-              ],
+                  const SizedBox(height: SpacingTokens.lg),
+                ],
+              ),
             ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -402,81 +427,82 @@ class _AngeloInScena extends StatelessWidget {
             AngeloIngrandito.apri(context, angelo: angelo, ruolo: ruolo),
         behavior: HitTestBehavior.opaque,
         child: Column(
-        children: [
-          // L'alone che si accende dietro la carta.
-          SizedBox(
-            height: 150,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Opacity(
-                  opacity: k,
-                  child: Container(
-                    width: 110 * (0.6 + 0.4 * k),
-                    height: 110 * (0.6 + 0.4 * k),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(colors: [
-                        palette.goldSoft.withValues(alpha: 0.45 * k),
-                        Colors.transparent,
-                      ]),
+          children: [
+            // L'alone che si accende dietro la carta.
+            SizedBox(
+              height: 150,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Opacity(
+                    opacity: k,
+                    child: Container(
+                      width: 110 * (0.6 + 0.4 * k),
+                      height: 110 * (0.6 + 0.4 * k),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: RadialGradient(colors: [
+                          palette.goldSoft.withValues(alpha: 0.45 * k),
+                          Colors.transparent,
+                        ]),
+                      ),
                     ),
                   ),
-                ),
-                Opacity(
-                  opacity: k,
-                  child: Transform.scale(
-                    scale: 0.88 + 0.12 * k,
-                    // Proporzione da carta, non quadrata: l'arte degli Angeli
-                    // e' verticale, e in un quadrato perderebbe i bordi.
-                    child: AspectRatio(
-                      aspectRatio: 2 / 3,
-                      child: ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(SpacingTokens.radiusSm),
-                        child: Image.asset(
-                          FamilyImage.thumb(AssetFamily.angeli, angelo.artStem),
-                          fit: BoxFit.contain,
-                          errorBuilder: (_, __, ___) => Icon(
-                            Icons.auto_awesome,
-                            color: palette.goldSoft,
-                            size: 28,
+                  Opacity(
+                    opacity: k,
+                    child: Transform.scale(
+                      scale: 0.88 + 0.12 * k,
+                      // Proporzione da carta, non quadrata: l'arte degli Angeli
+                      // e' verticale, e in un quadrato perderebbe i bordi.
+                      child: AspectRatio(
+                        aspectRatio: 2 / 3,
+                        child: ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(SpacingTokens.radiusSm),
+                          child: Image.asset(
+                            FamilyImage.thumb(
+                                AssetFamily.angeli, angelo.artStem),
+                            fit: BoxFit.contain,
+                            errorBuilder: (_, __, ___) => Icon(
+                              Icons.auto_awesome,
+                              color: palette.goldSoft,
+                              size: 28,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: SpacingTokens.xs),
-          Opacity(
-            opacity: nome,
-            child: Column(
-              children: [
-                Text(angelo.name,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    style: TypographyTokens.body(size: 14)
-                        .copyWith(color: ColorTokens.textPrimary)),
-                // Una riga sola e nessuna spezzatura: "Dell\'intelletto" si
-                // rompeva a meta' parola su due righe, che e' il modo piu'
-                // rapido per rendere illeggibile un'etichetta corta.
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(ruolo.titolo,
+            const SizedBox(height: SpacingTokens.xs),
+            Opacity(
+              opacity: nome,
+              child: Column(
+                children: [
+                  Text(angelo.name,
                       textAlign: TextAlign.center,
-                      maxLines: 1,
-                      softWrap: false,
-                      style: TypographyTokens.label(size: 11).copyWith(
-                          color: palette.goldSoft.withValues(alpha: 0.75),
-                          letterSpacing: 1.2)),
-                ),
-              ],
+                      maxLines: 2,
+                      style: TypographyTokens.body(size: 14)
+                          .copyWith(color: ColorTokens.textPrimary)),
+                  // Una riga sola e nessuna spezzatura: "Dell\'intelletto" si
+                  // rompeva a meta' parola su due righe, che e' il modo piu'
+                  // rapido per rendere illeggibile un'etichetta corta.
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(ruolo.titolo,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        softWrap: false,
+                        style: TypographyTokens.label(size: 11).copyWith(
+                            color: palette.goldSoft.withValues(alpha: 0.75),
+                            letterSpacing: 1.2)),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
         ),
       ),
     );
