@@ -22,11 +22,16 @@ import 'package:path_provider/path_provider.dart';
 
 /// IL FLAG DELLA DIAGNOSI, uno solo e riconoscibile.
 ///
-/// Vero sull'app vera, falso dentro le prove: la diagnosi e' un'impalcatura
-/// temporanea attorno all'app, e le prove misurano l'app, non l'impalcatura.
-/// `FLUTTER_TEST` sta nell'ambiente di ogni prova Flutter.
-final bool kDiagnosiAttiva =
-    !Platform.environment.containsKey('FLUTTER_TEST');
+/// SPENTO, per ordine 2161: una build di consegna non parte mai con la
+/// diagnosi accesa. L'interruttore resta nel codice: per una build
+/// diagnostica lo si accende A MANO, qui, e si consegna con un numero suo,
+/// mai col numero di una consegna ordinaria. A guardia c'e'
+/// `test/la_consegna_parte_a_diagnosi_spenta_test.dart`: con il flag acceso
+/// il verde di consegna cade, quindi nessuna 2161+n puo' partire accesa per
+/// distrazione. Prima era legato all'ambiente (acceso su ogni app vera,
+/// spento nelle prove): con quella forma la 2161 sarebbe uscita diagnostica
+/// senza che nessuna prova cadesse.
+const bool kDiagnosiAttiva = false;
 
 /// Le briciole: una tappa alla volta, su disco, in modo sincrono.
 class Briciole {
