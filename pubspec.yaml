@@ -50,6 +50,15 @@ dependencies:
   # App Check: protegge le chiamate all'AI Logic dagli abusi.
   firebase_app_check: 0.4.5
 
+  # Crashlytics: gli occhi sui crash, dal 7 agosto 2026. La 2157 iOS moriva
+  # MUTA sull'iPhone di Mauro all'ingresso del trionfo dell'Animale Guida, e
+  # senza rapporti si sarebbe corretto alla cieca. 5.2.4 e' MISURATA, non
+  # stimata: pubblicata lo stesso giorno di firebase_core 4.11.0 e ultima a
+  # chiedere ^4.11.0, dalla 5.2.5 serve un core piu' nuovo che questo set
+  # inchiodato non puo' dare. Si rialza insieme a tutto il set, come dice il
+  # commento del set.
+  firebase_crashlytics: 5.2.4
+
   # Auth anonima: un uid stabile su cui appendere la memoria dell'utente.
   firebase_auth: 6.5.4
 

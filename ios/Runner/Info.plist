@@ -74,5 +74,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<!-- NIENTE CRITTOGRAFIA PROPRIA, dichiarato una volta per tutte: l'app usa
+	     solo l'HTTPS di sistema, che e' esente. Senza questa chiave, App Store
+	     Connect fa la domanda sulla crittografia A OGNI caricamento su
+	     TestFlight, a mano. Dal 7 agosto 2026. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

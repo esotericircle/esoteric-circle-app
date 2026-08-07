@@ -226,6 +226,28 @@ workflows:
           flutter build ipa --release \
             --export-options-plist=/Users/builder/export_options.plist
 
+      - name: I simboli dSYM su Crashlytics
+        script: |
+          # **SENZA SIMBOLI I RAPPORTI IOS ARRIVANO ILLEGGIBILI**: indirizzi
+          # esadecimali al posto dei nomi delle funzioni. Crashlytics e' entrato
+          # il 7 agosto 2026 proprio perche' la 2157 moriva muta: un rapporto
+          # senza simboli sarebbe un secondo modo di restare muti.
+          #
+          # Il caricatore sta nel pod di Crashlytics, installato dal passo dei
+          # pod; il plist glielo ha scritto il passo di Firebase. NIENTE
+          # RIPIEGHI MUTI: se i dSYM non ci sono o il caricamento fallisce,
+          # questo passo muore dicendolo, perche' una build coi rapporti ciechi
+          # e' il difetto che questo passo esiste per impedire.
+          dsym=$(find build/ios/archive/Runner.xcarchive/dSYMs -name "*.dSYM" -print -quit)
+          if [ -z "$dsym" ]; then
+            echo "Nessun dSYM nell'archivio: senza simboli i rapporti sono ciechi." >&2
+            exit 1
+          fi
+          echo "Carico i simboli da build/ios/archive/Runner.xcarchive/dSYMs"
+          ios/Pods/FirebaseCrashlytics/upload-symbols \
+            -gsp ios/Runner/GoogleService-Info.plist \
+            -p ios build/ios/archive/Runner.xcarchive/dSYMs
+
     artifacts:
       - build/ios/ipa/*.ipa
       # Il lock dei pod, per versionarlo: nasce dal pod install, che gira solo
