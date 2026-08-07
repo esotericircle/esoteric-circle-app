@@ -233,18 +233,44 @@ workflows:
           # il 7 agosto 2026 proprio perche' la 2157 moriva muta: un rapporto
           # senza simboli sarebbe un secondo modo di restare muti.
           #
-          # Il caricatore sta nel pod di Crashlytics, installato dal passo dei
-          # pod; il plist glielo ha scritto il passo di Firebase. NIENTE
-          # RIPIEGHI MUTI: se i dSYM non ci sono o il caricamento fallisce,
-          # questo passo muore dicendolo, perche' una build coi rapporti ciechi
-          # e' il difetto che questo passo esiste per impedire.
+          # **IL CARICATORE SI CERCA, NON SI DICHIARA.** La 2158 e' morta qui
+          # con status 127: il passo cercava upload-symbols dentro
+          # ios/Pods/FirebaseCrashlytics, ma in questo progetto Firebase NON
+          # passa da CocoaPods, viaggia con Swift Package Manager, e da
+          # CocoaPods passano solo i tre plugin che SPM non supporta. Quella
+          # cartella non esiste e non esistera' mai: era una costante che
+          # dichiarava il falso. Adesso il binario si TROVA nel checkout SPM
+          # di firebase-ios-sdk, dovunque la macchina lo abbia messo:
+          # zero trovati o piu' d'uno fermano il passo dicendo cosa hanno
+          # visto, perche' scegliere a caso sarebbe un'altra dichiarazione
+          # non misurata. NIENTE RIPIEGHI MUTI, ne' qui ne' sul caricamento.
           dsym=$(find build/ios/archive/Runner.xcarchive/dSYMs -name "*.dSYM" -print -quit)
           if [ -z "$dsym" ]; then
             echo "Nessun dSYM nell'archivio: senza simboli i rapporti sono ciechi." >&2
             exit 1
           fi
+          radici="$HOME/Library/Developer/Xcode/DerivedData $CM_BUILD_DIR"
+          caricatori=$(find $radici -type f -name "upload-symbols" -path "*firebase-ios-sdk*" 2>/dev/null)
+          quanti=$(printf '%s' "$caricatori" | grep -c . || true)
+          if [ "$quanti" -eq 0 ]; then
+            echo "upload-symbols NON TROVATO nel checkout SPM di firebase-ios-sdk." >&2
+            echo "Radici cercate: $radici" >&2
+            for r in $radici; do
+              echo "--- contenuto di $r:" >&2
+              ls "$r" >&2 || echo "(radice assente)" >&2
+            done
+            exit 1
+          fi
+          if [ "$quanti" -gt 1 ]; then
+            echo "upload-symbols trovato $quanti volte: sceglierne uno a caso" >&2
+            echo "sarebbe una dichiarazione non misurata. Trovati:" >&2
+            printf '%s\n' "$caricatori" >&2
+            exit 1
+          fi
+          echo "Caricatore trovato: $caricatori"
+          chmod +x "$caricatori"
           echo "Carico i simboli da build/ios/archive/Runner.xcarchive/dSYMs"
-          ios/Pods/FirebaseCrashlytics/upload-symbols \
+          "$caricatori" \
             -gsp ios/Runner/GoogleService-Info.plist \
             -p ios build/ios/archive/Runner.xcarchive/dSYMs
 

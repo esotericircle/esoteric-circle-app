@@ -81,4 +81,53 @@ void main() {
         reason: 'Il passo dei dSYM non muore piu\' quando i simboli mancano: '
             'un caricamento saltato in silenzio e\' un ripiego muto.');
   });
+
+  test('il caricatore dei simboli SI CERCA nel checkout SPM, non si dichiara',
+      () {
+    // LA LEZIONE DELLA 2158, morta con status 127: il passo dichiarava
+    // ios/Pods/FirebaseCrashlytics/upload-symbols, ma Firebase viaggia con
+    // Swift Package Manager e quella cartella non esiste e non esistera'
+    // mai. Era una costante che dichiarava il falso: adesso il binario si
+    // TROVA, e questa prova tiene ferma la forma della ricerca.
+    final yaml = File('codemagic.yaml').readAsStringSync();
+    final passo = yaml.substring(yaml.indexOf('I simboli dSYM'));
+    // SI GUARDA IL CODICE, NON I COMMENTI: il passo racconta nella propria
+    // storia il percorso che ha ucciso la 2158, e bocciarlo perche' spiega
+    // la propria regola guarderebbe la cosa sbagliata, come la prova delle
+    // credenziali ha gia' imparato.
+    final codice = passo
+        .split('\n')
+        .where((r) => !r.trimLeft().startsWith('#'))
+        .join('\n');
+    // Il percorso finto di CocoaPods non deve tornare, nemmeno per scorciatoia.
+    expect(codice.contains('ios/Pods/FirebaseCrashlytics'), isFalse,
+        reason: 'Il percorso di CocoaPods e\' tornato nel passo dei dSYM: '
+            'Firebase passa da Swift Package Manager e quella cartella non '
+            'esiste, e\' la costante falsa che ha ucciso la 2158.');
+    // La ricerca: un find sul checkout SPM di firebase-ios-sdk.
+    expect(
+        passo.contains('find') && passo.contains('firebase-ios-sdk'),
+        isTrue,
+        reason: 'Il passo non CERCA piu\' upload-symbols nel checkout SPM di '
+            'firebase-ios-sdk: senza ricerca si torna a un percorso '
+            'dichiarato, cioe\' a una costante che prima o poi mente.');
+    // Il fallimento parlante nei DUE versi: zero trovati, e piu' d'uno.
+    expect(passo.contains('NON TROVATO'), isTrue,
+        reason: 'Il ramo dello zero non parla piu\': se il binario manca, il '
+            'passo deve dire dove ha cercato e cosa c\'era.');
+    // LA GRANDEZZA E' CAMBIATA, e va detto: la prima stesura cercava la
+    // frase "a caso", che vive anche nel COMMENTO del passo, quindi il rosso
+    // non scattava togliendo il ramo vero. Si misura il CODICE: il ramo
+    // dell'ambiguita' esiste solo se il confronto -gt 1 esiste.
+    expect(codice.contains('-gt 1'), isTrue,
+        reason: 'Il ramo del piu\' d\'uno e\' sparito dal codice: con due '
+            'caricatori trovati il passo ne sceglierebbe uno a caso, cioe\' '
+            'un\'altra dichiarazione non misurata.');
+    // E i due rami muoiono davvero: due exit 1 oltre a quello dei dSYM.
+    final quantiExit = 'exit 1'.allMatches(passo).length;
+    expect(quantiExit, greaterThanOrEqualTo(3),
+        reason: 'Il passo ha $quantiExit uscite di errore invece di almeno '
+            'tre: dSYM assenti, caricatore assente, caricatore ambiguo '
+            'devono morire tutti e tre dicendolo.');
+  });
 }
