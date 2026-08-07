@@ -61,17 +61,49 @@ class SantuarioBottomBar extends StatelessWidget {
     // e la barra non si costruiva affatto. Trasparente, perche' il fondo lo
     // dipinge gia' il gradiente qui sotto, e in un posto solo: cosi' vale
     // ovunque la si monti, e non dipende da chi la monta.
+    // LA FASCIA DEL TITOLO HA UN FONDO, ordine 2163 voce 7: il gradiente
+    // partiva da alpha zero in cima, e la scritta ESPLORA si stampava sopra
+    // le carte che passavano dietro. La misura NON e' indovinata: e'
+    // l'altezza vera del titolo, dipinta qui sotto con lo stesso stile, piu'
+    // il respiro sopra di lui. Fino a quella quota il fondo e' quasi pieno.
+    final pittoreDelTitolo = TextPainter(
+      text: TextSpan(
+        text: titolo,
+        style: TypographyTokens.label(size: 11)
+            .copyWith(letterSpacing: 3.2),
+      ),
+      textDirection: TextDirection.ltr,
+      textScaler: MediaQuery.textScalerOf(context),
+    )..layout();
+    final fasciaDelTitolo =
+        SpacingTokens.sm + pittoreDelTitolo.height + 2;
+
     return Material(
       type: MaterialType.transparency,
       child: Container(
       decoration: BoxDecoration(
+        // OPACA, per la stessa regola della voce 1: una trasparenza
+        // semplice lascia leggere cio' che passa dietro, e il differenziale
+        // a pixel lo denuncia con qualunque velo. Il colore e' COMPOSTO:
+        // in cima un filo piu' chiaro, in fondo il fondale pieno, cosi' la
+        // profondita' resta senza che il contenuto attraversi il titolo.
+        // La fascia del titolo e' misurata dal testo vero qui sopra.
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            palette.deepest.withValues(alpha: 0.0),
-            palette.deepest.withValues(alpha: 0.85),
+            Color.alphaBlend(
+                palette.surfaceElevated.withValues(alpha: 0.25),
+                palette.deepest),
+            Color.alphaBlend(
+                palette.surfaceElevated.withValues(alpha: 0.10),
+                palette.deepest),
             palette.deepest,
+          ],
+          stops: [
+            0.0,
+            (fasciaDelTitolo / altezzaResa).clamp(0.0, 1.0),
+            1.0,
           ],
         ),
       ),
@@ -156,6 +188,13 @@ class SantuarioBottomBar extends StatelessWidget {
 
   /// Il titolo della barra, deciso da Mauro il 6 agosto 2026.
   static const String titolo = 'ESPLORA';
+
+  /// L'altezza resa della barra intera, titolo compreso: la stessa misura
+  /// che `BarraDelCerchio.altezza` dichiara e che una prova confronta con
+  /// la resa vera. Vive qui perche' serve al gradiente per convertire la
+  /// fascia del titolo in uno stop, senza importare la barra (che importa
+  /// questo file).
+  static const double altezzaResa = 123;
 
   /// IL COLORE DEL TITOLO: L'ORO DELLA PALETTE. Deciso da Mauro il 7 agosto
   /// 2026, e SUPERA la decisione del mattino del 6 agosto che lo voleva nel

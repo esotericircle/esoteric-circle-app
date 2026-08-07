@@ -43,7 +43,9 @@ class BarraDelCerchio extends StatefulWidget {
   /// conto da sola e nessuna schermata deve saperlo. **E' una misura che
   /// descrive una resa**, quindi una prova la confronta con l'altezza vera:
   /// centoventitre punti, misurati e non stimati, col titolo compreso.
-  static const double altezza = 123;
+  /// Il numero vive in [SantuarioBottomBar.altezzaResa], che ne ha bisogno
+  /// per il fondo dietro il titolo: UNA porta, riletta da qui.
+  static const double altezza = SantuarioBottomBar.altezzaResa;
 
   /// LA CORSA: quanto la barra puo' scendere prima di sparire del tutto.
   ///
