@@ -49,7 +49,13 @@ class CartaConservata {
     try {
       final mappa = jsonDecode(testo) as Map<String, dynamic>;
       return _daMappa(mappa);
-    } catch (_) {
+    } catch (errore) {
+      // NON E' UN GUASTO DA SEGNALARE, ed e' scritto invece di essere
+      // taciuto: qui dentro c'e' una carta scritta da una versione che non
+      // sappiamo piu' leggere. Una carta illeggibile vale come una carta
+      // assente, e per quel caso l'app ha gia' il suo ripiego dichiarato:
+      // chiede di nuovo i dati e la ricalcola. Sollevare, invece, farebbe
+      // morire l'avvio per un dato di comodo.
       return null;
     }
   }

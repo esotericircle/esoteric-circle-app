@@ -79,7 +79,7 @@ class RegistroDeiPermessi {
       vociAndroid: ['android.permission.CAMERA'],
       doveSiChiede: 'lib/features/synastry/user_photo.dart',
       ripiego: 'La card della Sinastria si compone col simbolo del segno al '
-          'posto del volto, e la Costellazione del Viso resta toccabile.',
+          'posto del volto. La Costellazione del Viso resta toccabile.',
     ),
     VoceDelRegistro(
       permesso: AppPermission.photoLibrary,
@@ -104,8 +104,8 @@ class RegistroDeiPermessi {
           'il sistema.',
       vociAndroid: ['android.permission.POST_NOTIFICATIONS'],
       doveSiChiede: 'lib/services/avvisi_locali.dart',
-      ripiego: 'Il Rito dell\'Alba si apre lo stesso dall\'app, e la striscia '
-          'del giorno dice che l\'avviso non arrivera\'.',
+      ripiego: 'Il Rito dell\'Alba si apre lo stesso dall\'app. La striscia '
+          'del giorno dice che l\'avviso non arriverà.',
     ),
     VoceDelRegistro(
       permesso: AppPermission.motion,

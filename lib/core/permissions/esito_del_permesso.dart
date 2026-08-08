@@ -61,9 +61,13 @@ class PortaDelPermesso {
     bool concesso;
     try {
       concesso = await richiestaDiSistema();
-    } catch (_) {
-      // Un plugin che solleva vuol dire piattaforma senza quel sensore: e'
-      // un caso diverso da un no, e la schermata lo dice diversamente.
+    } catch (errore) {
+      // NON SI TACE: si traduce. Un plugin che solleva qui vuol dire
+      // piattaforma senza quel sensore, ed e' un caso DIVERSO da un no della
+      // persona: la schermata lo dice con altre parole e non offre di
+      // richiedere, perche' non ci sarebbe niente da chiedere. L'errore non
+      // si propaga perche' un rito non deve morire quando manca un sensore,
+      // e il suo ripiego e' gia' dichiarato.
       return EsitoDelPermesso.nonDisponibile;
     }
     await prefs.setBool(_chiave(permesso), true);
@@ -107,7 +111,7 @@ class ParoleDelPermesso {
       {required String ripiego}) {
     switch (esito) {
       case EsitoDelPermesso.negatoPerSempre:
-        return 'Il sistema non mostrera\' piu\' la richiesta: si riapre solo '
+        return 'Il sistema non mostrerà più la richiesta: si riapre solo '
             'dalle impostazioni del telefono. $ripiego';
       case EsitoDelPermesso.nonDisponibile:
         return 'Qui manca il sensore che servirebbe. $ripiego';
