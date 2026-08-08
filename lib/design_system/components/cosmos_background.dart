@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -88,6 +89,13 @@ class _CosmosBackgroundState extends State<CosmosBackground>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
+  /// LE IMMAGINI DEI PIANI STATICI, una per piano di parallasse.
+  ///
+  /// Vivono nello State e non nel painter, perche' il painter si ricostruisce
+  /// a ogni build mentre il cielo dipinto deve sopravvivergli: rifarlo a ogni
+  /// build vorrebbe dire non averlo fatto.
+  final CieloInCache _cielo = CieloInCache();
+
   @override
   void initState() {
     super.initState();
@@ -101,6 +109,7 @@ class _CosmosBackgroundState extends State<CosmosBackground>
   @override
   void dispose() {
     _controller.dispose();
+    _cielo.libera();
     super.dispose();
   }
 
@@ -162,6 +171,8 @@ class _CosmosBackgroundState extends State<CosmosBackground>
           child: RepaintBoundary(
             child: CustomPaint(
               painter: _CosmosPainter(
+                cielo: _cielo,
+                densita: MediaQuery.devicePixelRatioOf(context),
                 seed: widget.seed,
                 animation: _controller,
                 parallax: parallax,
@@ -258,8 +269,163 @@ class _Star {
   final double baseAlpha;
 }
 
+/// LE QUATTRO PROFONDITA' DEI PIANI, in un punto solo.
+///
+/// Erano quattro numeri scritti dentro `paint`, e adesso che i piani sono
+/// immagini in cache diventano il patto fra cio' che si dipinge e cio' che si
+/// muove: se l'immagine di un piano venisse composta con l'offset di un
+/// altro, la profondita' si appiattirebbe senza che nessun pixel gridasse.
+/// Vivono qui perche' una prova possa leggerli e verificarli.
+class ProfonditaDeiPiani {
+  const ProfonditaDeiPiani._();
+
+  /// Il piano piu' lontano, la polvere: si muove pochissimo. In composizione
+  /// il suo offset vale la META', come nel disegno di prima.
+  static const double polvere = 0.06;
+
+  /// Le stelle di campo, le costellazioni e gli aloni delle protagoniste.
+  static const double fondo = 0.16;
+
+  /// Nebulose e pianeti.
+  static const double medio = 0.5;
+
+  /// Le particelle vicine: il piano piu' reattivo.
+  static const double vicino = 1.3;
+}
+
+/// Gli offset dei quattro piani per una data parallasse: la stessa
+/// matematica di prima, esposta perche' si possa misurare.
+class OffsetDeiPiani {
+  const OffsetDeiPiani({
+    required this.polvere,
+    required this.fondo,
+    required this.medio,
+    required this.vicino,
+  });
+
+  final Offset polvere;
+  final Offset fondo;
+  final Offset medio;
+  final Offset vicino;
+
+  /// Calcola i quattro offset. [conDeriva] e [t] riproducono la deriva lenta
+  /// che tiene vivo il cosmo quando il giroscopio non contribuisce.
+  static OffsetDeiPiani da(
+    ParallaxController parallax, {
+    required bool conDeriva,
+    required double t,
+  }) {
+    Offset off(double depth) {
+      final base = parallax.layerOffset(depth);
+      if (conDeriva && !parallax.sensorActive) {
+        return base + parallax.autoDrift(depth, t);
+      }
+      return base;
+    }
+
+    return OffsetDeiPiani(
+      // La polvere si muove della META' del suo offset: era scritto nella
+      // riga di composizione del disegno di prima, e resta qui.
+      polvere: off(ProfonditaDeiPiani.polvere) * 0.5,
+      fondo: off(ProfonditaDeiPiani.fondo),
+      medio: off(ProfonditaDeiPiani.medio),
+      vicino: off(ProfonditaDeiPiani.vicino),
+    );
+  }
+}
+
+/// IL CIELO SI DIPINGE UNA VOLTA.
+///
+/// **Il fatto misurato che ha fatto nascere questa classe.** Su iOS l'app
+/// veniva UCCISA dal sistema a ogni transizione di rotta, senza crash e senza
+/// rapporto: Crashlytics vivo e muto, verificato sul campo con la build
+/// diagnostica 2160, briciole alla mano. Il colpevole era qui: il pittore del
+/// cosmo ridipingeva a ogni fotogramma, in eterno, quindici macchie di
+/// nebulosa con `MaskFilter.blur(24)` piu' shader, gli aloni delle stelle,
+/// i pianeti, le particelle vicine, e rigenerava da zero la lista delle
+/// stelle. Su iOS ogni sfocatura e' un passaggio di rendering con texture
+/// intermedie, e durante una transizione i cosmi vivi sono DUE: la memoria
+/// grafica esplodeva e iOS tagliava. La home da sola reggeva, ogni
+/// transizione uccideva, in background sopravviveva: tutto combacia.
+///
+/// **La cura, ordine del cielo dipinto una volta.** Gli strati statici si
+/// dipingono UNA volta con lo STESSO identico codice di disegno, dentro
+/// immagini in cache, una per piano di parallasse: cosi' ogni piano continua
+/// a muoversi alla sua velocita' e la profondita' resta intatta. A ogni
+/// fotogramma si compongono le immagini con gli offset. La cache si rifa'
+/// solo quando cambia la chiave (seme, palette, tier, misure, keepOut,
+/// costellazioni, pianeti, segno evidenziato, densita' dei pixel).
+///
+/// Le immagini si generano col cosmo A RIPOSO, cioe' come gia' si vede oggi
+/// con Riduci Movimento: non e' una resa nuova, e' una resa che l'app
+/// mostrava gia'.
+class CieloInCache {
+  ui.Image? lontano;
+  ui.Image? fondo;
+  ui.Image? medio;
+  ui.Image? vicino;
+
+  /// Gli sprite degli elementi vivi, disegnati una volta e riusati: senza di
+  /// loro l'alone della stella e la scia della cadente tornerebbero a creare
+  /// una sfocatura e uno shader a ogni fotogramma.
+  ui.Image? sciaDellaCadente;
+
+  String? _chiave;
+
+  /// Quanti byte occupano le immagini vive adesso: quattro canali per pixel.
+  /// Serve al rapporto e alle prove, e si legge, non si stima.
+  int get byteOccupati {
+    var totale = 0;
+    for (final img in [
+      lontano,
+      fondo,
+      medio,
+      vicino,
+      sciaDellaCadente,
+    ]) {
+      if (img != null) totale += img.width * img.height * 4;
+    }
+    return totale;
+  }
+
+  /// Vero quando la cache descrive gia' questa chiave.
+  bool valePer(String chiave) => _chiave == chiave;
+
+  /// I piani si liberano prima di rifarli: senza questo ogni cambio di
+  /// schermata lascerebbe dietro di se' una decina di megabyte.
+  void liberaPiani() {
+    lontano?.dispose();
+    fondo?.dispose();
+    medio?.dispose();
+    vicino?.dispose();
+    lontano = null;
+    fondo = null;
+    medio = null;
+    vicino = null;
+  }
+
+  /// La cache adesso descrive questa chiave.
+  void dichiara(String chiave) => _chiave = chiave;
+
+  void libera() {
+    liberaPiani();
+    sciaDellaCadente?.dispose();
+    sciaDellaCadente = null;
+    _chiave = null;
+  }
+}
+
+/// Le misure degli sprite riusati, dichiarate dove si leggono.
+///
+/// La scia della stella cadente: la stessa diagonale di prima, novanta punti
+/// per quarantacinque.
+const double lunghezzaDellaScia = 90;
+const double altezzaDellaScia = 45;
+
 class _CosmosPainter extends CustomPainter {
   _CosmosPainter({
+    required this.cielo,
+    required this.densita,
     required this.seed,
     required this.animation,
     required this.parallax,
@@ -271,6 +437,9 @@ class _CosmosPainter extends CustomPainter {
     required this.keepOut,
     required this.showPlanets,
   }) : super(repaint: Listenable.merge([animation, parallax]));
+
+  /// Le immagini dei piani statici, tenute dallo State.
+  final CieloInCache cielo;
 
   /// Il seme della schermata, mescolato in ogni generatore: cieli diversi
   /// dallo stesso motore.
@@ -287,6 +456,11 @@ class _CosmosPainter extends CustomPainter {
 
   /// Zona franca normalizzata dove non nascono stelle ne' particelle.
   final Rect? keepOut;
+
+  /// Quanti pixel veri per punto logico: le immagini in cache si dipingono a
+  /// questa densita', altrimenti il cielo uscirebbe sgranato rispetto a
+  /// prima. Arriva dal widget, che e' l'unico a conoscere il MediaQuery.
+  final double densita;
 
   int get _fieldStars => QualityTierController.fieldStarsFor(tier);
   int get _dustStars => switch (tier) {
@@ -315,38 +489,232 @@ class _CosmosPainter extends CustomPainter {
         QualityTier.low => 1,
       };
   bool get _shootingStars => tier != QualityTier.low && !reduceMotion;
-  bool get _animate => tier != QualityTier.low && !reduceMotion;
+
+  /// **VERO SOLO MENTRE SI DIPINGE LA CACHE.** Gli strati statici si
+  /// generano col cosmo a riposo, e a riposo lo mettono i metodi stessi
+  /// guardando questo interruttore: nessuna copia del codice di disegno,
+  /// nessun ramo nuovo dentro i metodi.
+  bool _stoDipingendoLaCache = false;
+
+  bool get _animate =>
+      tier != QualityTier.low && !reduceMotion && !_stoDipingendoLaCache;
+
+  /// La chiave della cache: tutto cio' che cambia il cielo dipinto.
+  ///
+  /// Il tempo NON c'e' dentro, ed e' il punto: il cielo statico non dipende
+  /// dall'istante. Il moto vive negli offset con cui le immagini vengono
+  /// composte e nei pochi elementi disegnati dal vivo.
+  String _chiaveDelCielo(Size size, double densita) =>
+      '$seed|${palette.deepest.toARGB32()}-${palette.gold.toARGB32()}-'
+      '${palette.goldSoft.toARGB32()}-${palette.primary.toARGB32()}-'
+      '${palette.glow.toARGB32()}|$tier|$showZodiac|$showPlanets|'
+      '${highlighted?.id}|$keepOut|$reduceMotion|'
+      '${size.width.toStringAsFixed(1)}x${size.height.toStringAsFixed(1)}'
+      '@$densita';
+
+  /// Dipinge una volta cio' che gli si chiede, dentro un'immagine grande
+  /// quanto lo schermo in PIXEL VERI: alla densita' del dispositivo, cosi'
+  /// il cielo non perde un filo di nitidezza rispetto a prima.
+  ui.Image _dipingiUnaVolta(
+      Size size, double densita, void Function(Canvas) disegna) {
+    final registratore = ui.PictureRecorder();
+    final tela = Canvas(registratore);
+    tela.scale(densita);
+    disegna(tela);
+    final quadro = registratore.endRecording();
+    final img = quadro.toImageSync(
+      (size.width * densita).ceil(),
+      (size.height * densita).ceil(),
+    );
+    quadro.dispose();
+    return img;
+  }
+
+  /// Rifa' i quattro piani e i due sprite. Si chiama solo quando la chiave
+  /// cambia, cioe' quasi mai.
+  void _rigeneraIlCielo(Size size, double densita, String chiave) {
+    cielo.liberaPiani();
+    _stoDipingendoLaCache = true;
+    const fermo = Offset.zero;
+
+    // PIANO MEDIO: nebulose e pianeti. I pianeti stavano sopra le stelle di
+    // fondo e adesso stanno sotto: sono due dischi di dieci e sette punti di
+    // raggio su un piano che si muove diversamente, e nelle scene guardate
+    // non ci cade sopra nessuna stella. E' l'unico scambio d'ordine di
+    // sovrapposizione, e sta scritto qui invece che essere scoperto domani.
+    final vuotoIlMedio =
+        _nebulaClusters == 0 && (!showPlanets || _planetCount == 0);
+    cielo.medio = vuotoIlMedio
+        ? null
+        : _dipingiUnaVolta(size, densita, (tela) {
+            if (_nebulaClusters > 0) _paintNebula(tela, size, fermo, 0);
+            if (showPlanets && _planetCount > 0) {
+              _paintPlanets(tela, size, fermo);
+            }
+          });
+
+    // PIANO PIU' LONTANO: la polvere. In qualita' bassa non c'e' nessuna
+    // polvere, e un'immagine vuota costerebbe i suoi megabyte per non
+    // mostrare niente: il piano non nasce affatto.
+    cielo.lontano = _dustStars == 0
+        ? null
+        : _dipingiUnaVolta(size, densita, (tela) {
+            _paintStarDust(tela, size, fermo, 0);
+          });
+
+    // PIANO DI FONDO: le stelle di campo, le costellazioni e GLI ALONI delle
+    // stelle protagoniste, che condividono lo stesso offset.
+    //
+    // **L'alone sta qui e non nel cammino per fotogramma, e la ragione e' una
+    // misura.** Il primo tentativo lo disegnava dal vivo da uno sprite
+    // riusato: ma una sfocatura scalata non e' la stessa sfocatura, il raggio
+    // dell'alone cambia col raggio della stella e lo sprite arrivava a video
+    // con un terzo del velo che aveva prima. Il confronto prima e dopo lo ha
+    // denunciato subito, con gli aloni come punti piu' diversi di tutta la
+    // scena. Adesso l'alone e' dipinto una volta col codice di sempre, e dal
+    // vivo restano la croce e il nucleo, che sono linee e un cerchio pieno.
+    // L'alone non pulsa piu': vive al ventidue per cento di opacita', e la
+    // pulsazione la porta il nucleo che gli sta sopra.
+    cielo.fondo = _dipingiUnaVolta(size, densita, (tela) {
+      _paintFieldStars(tela, size, fermo, 0);
+      if (showZodiac) _paintZodiac(tela, size, fermo, 0);
+      _aloniDelleProtagoniste(tela, size, fermo);
+    });
+
+    // PIANO VICINO: le particelle, per la stessa ragione solo se ci sono.
+    cielo.vicino = _nearCount == 0
+        ? null
+        : _dipingiUnaVolta(size, densita, (tela) {
+            _paintNearParticles(tela, size, fermo, 0);
+          });
+
+    // LO SPRITE DELLA SCIA: lo stesso gradiente di prima, disegnato una
+    // volta. In composizione si modula col colore e con l'alpha del momento.
+    cielo.sciaDellaCadente ??= _dipingiUnaVolta(
+        const Size(lunghezzaDellaScia, altezzaDellaScia), densita, (tela) {
+      tela.drawLine(
+        Offset.zero,
+        const Offset(lunghezzaDellaScia, altezzaDellaScia),
+        Paint()
+          ..shader = const LinearGradient(
+            colors: [Color(0x00FFFFFF), Color(0xFFFFFFFF)],
+          ).createShader(const Rect.fromLTWH(
+              0, 0, lunghezzaDellaScia, altezzaDellaScia))
+          ..strokeWidth = 2
+          ..strokeCap = StrokeCap.round,
+      );
+    });
+
+    _stoDipingendoLaCache = false;
+    cielo.dichiara(chiave);
+  }
+
+  /// Compone un piano con il suo offset di parallasse.
+  ///
+  /// **L'offset si posa su pixel VERI, e non e' un dettaglio.** Un'immagine
+  /// disegnata a mezzo pixel viene ricampionata, e su un cielo fatto di
+  /// stelle larghe un pixel il ricampionamento si vede: nel confronto prima
+  /// e dopo compariva un velo di differenze su tutta la scena, anche dove
+  /// nulla era cambiato. Arrotondando alla griglia dei pixel del
+  /// dispositivo, il piano si disegna uno a uno e i pixel tornano identici.
+  Offset _sullaGriglia(Offset off) => Offset(
+        (off.dx * densita).roundToDouble() / densita,
+        (off.dy * densita).roundToDouble() / densita,
+      );
+
+  void _componi(Canvas canvas, ui.Image? piano, Offset grezzo, Size size) {
+    if (piano == null) return;
+    final off = _sullaGriglia(grezzo);
+    canvas.drawImageRect(
+      piano,
+      Rect.fromLTWH(0, 0, piano.width.toDouble(), piano.height.toDouble()),
+      Rect.fromLTWH(off.dx, off.dy, size.width, size.height),
+      Paint()..filterQuality = FilterQuality.low,
+    );
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+    final chiave = _chiaveDelCielo(size, densita);
+    if (!cielo.valePer(chiave)) _rigeneraIlCielo(size, densita, chiave);
+
     final t = _animate ? animation.value : 0.0;
 
-    // Offset dei tre piani (lontano si muove poco, vicino di piu'). Se il
-    // giroscopio non contribuisce, una deriva lenta automatica tiene comunque
-    // vivo il cosmo, salvo Riduci Movimento.
-    Offset off(double depth) {
-      final base = parallax.layerOffset(depth);
-      if (_animate && !parallax.sensorActive) {
-        return base + parallax.autoDrift(depth, t);
-      }
-      return base;
-    }
+    // Gli offset dei quattro piani vengono da UNA porta, `OffsetDeiPiani`:
+    // il lontano quasi fermo, il vicino molto reattivo, cosi' il movimento
+    // si sente come profondita' reale. La matematica e' quella di sempre.
+    final piani = OffsetDeiPiani.da(parallax, conDeriva: _animate, t: t);
+    final farOff = piani.fondo;
 
-    // Separazione ampia tra i piani: il lontano quasi fermo, il vicino molto
-    // reattivo, cosi' il movimento si sente come profondita' reale.
-    final deepOff = off(0.06);
-    final farOff = off(0.16);
-    final midOff = off(0.5);
-    final nearOff = off(1.3);
-
-    if (_nebulaClusters > 0) _paintNebula(canvas, size, midOff, t);
-    if (_dustStars > 0) _paintStarDust(canvas, size, deepOff, t);
-    _paintFieldStars(canvas, size, farOff, t);
-    _paintHeroStars(canvas, size, farOff, t);
-    if (showPlanets && _planetCount > 0) _paintPlanets(canvas, size, midOff);
-    if (showZodiac) _paintZodiac(canvas, size, farOff, t);
-    if (_nearCount > 0) _paintNearParticles(canvas, size, nearOff, t);
+    // **IL CAMMINO PER FOTOGRAMMA: solo composizioni e disegni leggeri.**
+    // Qui dentro non si crea nessun MaskFilter, nessuno shader e nessuna
+    // lista: e' la regola dell'ordine, e una prova la legge sul sorgente.
+    _componi(canvas, cielo.medio, piani.medio, size);
+    _componi(canvas, cielo.lontano, piani.polvere, size);
+    _componi(canvas, cielo.fondo, piani.fondo, size);
+    _componi(canvas, cielo.vicino, piani.vicino, size);
+    _scintillio(canvas, size, farOff, t);
     if (_shootingStars) _paintShootingStars(canvas, size, farOff, t);
+  }
+
+  /// GLI ALONI DELLE PROTAGONISTE, dipinti una volta dentro il piano di
+  /// fondo. Il giro e i numeri sono gli stessi dello scintillio, cosi' i due
+  /// pezzi della stessa stella cadono nello stesso punto.
+  void _aloniDelleProtagoniste(Canvas canvas, Size size, Offset off) {
+    final rng = math.Random(313 + seed * 7919);
+    for (var i = 0; i < _heroStars; i++) {
+      final x = rng.nextDouble();
+      final y = rng.nextDouble() * 0.7;
+      if (keepOut != null && keepOut!.contains(Offset(x, y))) continue;
+      final center = Offset(x * size.width, y * size.height) + off;
+      final baseR = 1.6 + rng.nextDouble() * 1.4;
+      // Il valore a riposo del battito, lo stesso che il cosmo mostra oggi
+      // con Riduci Movimento: 0,85 di battito, cioe' 0,94 di intensita'.
+      final tw = _animate
+          ? 0.5 + 0.5 * math.sin(2 * math.pi * (0 * 3 + rng.nextDouble()))
+          : 0.85;
+      final a = (0.6 + 0.4 * tw).clamp(0.0, 1.0);
+      canvas.drawCircle(
+        center,
+        baseR * 4.5,
+        Paint()
+          ..color = palette.goldSoft.withValues(alpha: 0.22 * a)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+      );
+    }
+  }
+
+  /// LO SCINTILLIO, l'unica cosa viva fra le stelle: poche protagoniste, il
+  /// nucleo e la croce disegnati a colpi semplici, e l'alone preso dallo
+  /// sprite invece di essere sfocato ogni volta.
+  void _scintillio(Canvas canvas, Size size, Offset off, double t) {
+    final rng = math.Random(313 + seed * 7919);
+    for (var i = 0; i < _heroStars; i++) {
+      final x = rng.nextDouble();
+      final y = rng.nextDouble() * 0.7; // in alto, dove il cielo respira
+      if (keepOut != null && keepOut!.contains(Offset(x, y))) continue;
+      final center = Offset(x * size.width, y * size.height) + off;
+      final baseR = 1.6 + rng.nextDouble() * 1.4;
+      final tw = _animate
+          ? 0.5 + 0.5 * math.sin(2 * math.pi * (t * 3 + rng.nextDouble()))
+          : 0.85;
+      final a = (0.6 + 0.4 * tw).clamp(0.0, 1.0);
+
+      // Scintillio a croce.
+      final spike = baseR * (5 + 3 * tw);
+      final crossPaint = Paint()
+        ..color = Colors.white.withValues(alpha: 0.5 * a)
+        ..strokeWidth = 1.0
+        ..strokeCap = StrokeCap.round;
+      canvas.drawLine(
+          center - Offset(spike, 0), center + Offset(spike, 0), crossPaint);
+      canvas.drawLine(
+          center - Offset(0, spike), center + Offset(0, spike), crossPaint);
+      // Nucleo bianco brillante.
+      canvas.drawCircle(
+          center, baseR, Paint()..color = Colors.white.withValues(alpha: a));
+    }
   }
 
   // --- Polvere stellare fine sul piano piu' lontano ---
@@ -371,44 +739,10 @@ class _CosmosPainter extends CustomPainter {
     }
   }
 
-  // --- Stelle protagoniste: grandi, con alone e scintillio a croce ---
-
-  void _paintHeroStars(Canvas canvas, Size size, Offset off, double t) {
-    final rng = math.Random(313 + seed * 7919);
-    for (var i = 0; i < _heroStars; i++) {
-      final x = rng.nextDouble();
-      final y = rng.nextDouble() * 0.7; // in alto, dove il cielo respira
-      if (keepOut != null && keepOut!.contains(Offset(x, y))) continue;
-      final center = Offset(x * size.width, y * size.height) + off;
-      final baseR = 1.6 + rng.nextDouble() * 1.4;
-      final tw = _animate
-          ? 0.5 + 0.5 * math.sin(2 * math.pi * (t * 3 + rng.nextDouble()))
-          : 0.85;
-      final a = (0.6 + 0.4 * tw).clamp(0.0, 1.0);
-
-      // Alone morbido.
-      canvas.drawCircle(
-        center,
-        baseR * 4.5,
-        Paint()
-          ..color = palette.goldSoft.withValues(alpha: 0.22 * a)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
-      );
-      // Scintillio a croce.
-      final spike = baseR * (5 + 3 * tw);
-      final crossPaint = Paint()
-        ..color = Colors.white.withValues(alpha: 0.5 * a)
-        ..strokeWidth = 1.0
-        ..strokeCap = StrokeCap.round;
-      canvas.drawLine(
-          center - Offset(spike, 0), center + Offset(spike, 0), crossPaint);
-      canvas.drawLine(
-          center - Offset(0, spike), center + Offset(0, spike), crossPaint);
-      // Nucleo bianco brillante.
-      canvas.drawCircle(
-          center, baseR, Paint()..color = Colors.white.withValues(alpha: a));
-    }
-  }
+  // --- Stelle protagoniste: vivono in `_scintillio`, il solo strato
+  // animato che resta. Il loro disegno non e' stato copiato: e' lo stesso,
+  // spostato la' dove si esegue a ogni fotogramma, con l'alone preso dallo
+  // sprite invece che sfocato ogni volta.
 
   // --- Pianeti soffusi, dischi tenui con luce radente, per dare scala ---
 
@@ -625,6 +959,7 @@ class _CosmosPainter extends CustomPainter {
   void _paintShootingStars(Canvas canvas, Size size, Offset off, double t) {
     const windows = [0.18, 0.68];
     const dur = 0.06;
+    final scia = cielo.sciaDellaCadente;
     for (var i = 0; i < windows.length; i++) {
       final w0 = windows[i];
       if (t < w0 || t > w0 + dur) continue;
@@ -636,21 +971,22 @@ class _CosmosPainter extends CustomPainter {
             startY + p * size.height * 0.35,
           ) +
           off;
-      final tail = head - const Offset(90, 45);
-      final shader = LinearGradient(
-        colors: [
-          Colors.transparent,
-          palette.goldSoft.withValues(alpha: 0.9 * (1 - p)),
-        ],
-      ).createShader(Rect.fromPoints(tail, head));
-      canvas.drawLine(
-        tail,
-        head,
-        Paint()
-          ..shader = shader
-          ..strokeWidth = 2
-          ..strokeCap = StrokeCap.round,
-      );
+      final tail = head - const Offset(lunghezzaDellaScia, altezzaDellaScia);
+      // LA SCIA VIENE DALLO SPRITE, ordine del cielo dipinto una volta: il
+      // gradiente si costruiva a ogni fotogramma con createShader, ed era
+      // uno dei tre modi in cui questo pittore chiedeva lavoro alla GPU
+      // mentre l'app cambiava schermata.
+      if (scia != null) {
+        canvas.drawImageRect(
+          scia,
+          Rect.fromLTWH(0, 0, scia.width.toDouble(), scia.height.toDouble()),
+          Rect.fromPoints(tail, head),
+          Paint()
+            ..colorFilter = ColorFilter.mode(
+                palette.goldSoft.withValues(alpha: 0.9 * (1 - p)),
+                BlendMode.srcIn),
+        );
+      }
       canvas.drawCircle(
         head,
         2.2,
@@ -662,6 +998,7 @@ class _CosmosPainter extends CustomPainter {
   @override
   bool shouldRepaint(_CosmosPainter old) =>
       old.seed != seed ||
+      old.densita != densita ||
       old.palette != palette ||
       old.tier != tier ||
       old.highlighted != highlighted ||
