@@ -10,6 +10,7 @@ import 'core/entitlement/question_allowance.dart';
 import 'core/feature_flags/feature_flag_service.dart';
 import 'core/identity/identity_controller.dart';
 import 'core/identity/natal_identity.dart';
+import 'core/identity/ponte_della_carta.dart';
 import 'core/identity/profile_controller.dart';
 import 'core/maestro/maestro_controller.dart';
 import 'core/motion/parallax_controller.dart';
@@ -172,7 +173,12 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
           },
         ),
       ],
-      child: MaterialApp(
+      // IL PONTE DELLA CARTA, dentro i provider e sopra tutta l'app: quando i
+      // dati di nascita ci sono e la carta no, la fa assicurare al motore e
+      // la consegna alla porta che la legge. Serve a chi il Risveglio l'ha
+      // gia' fatto, che altrimenti resterebbe senza carta per sempre.
+      child: PonteDellaCarta(
+        child: MaterialApp(
         title: 'Esoteric Circle',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.dark(),
@@ -248,6 +254,7 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         home: _OnboardingLauncher(
           child: MaestroScope(child: AppShell(clock: clock)),
         ),
+      ),
       ),
     );
   }
