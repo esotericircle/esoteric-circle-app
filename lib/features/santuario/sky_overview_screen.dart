@@ -674,11 +674,11 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
               ),
               const SizedBox(height: SpacingTokens.sm),
               Text(
-                'Con il tuo permesso leggo dove ti trovi, così la volta sopra di '
-                'te si dispone come la vedi davvero da lì. Le coordinate '
-                'servono solo a orientare le stelle, e a dare un nome al luogo '
-                'in cui ti trovi. La posizione esatta di ogni astro nel cielo '
-                'arriva col motore a effemeridi.',
+                'Con il tuo permesso leggo dove ti trovi, così la volta sopra '
+                'di te si dispone come la vedi davvero da lì. Le coordinate '
+                'servono a orientare le stelle e a dare un nome al luogo in '
+                'cui ti trovi. La Luna e le costellazioni le disegno con '
+                'altezza e direzione vere, calcolate da lì.',
                 style: TypographyTokens.body(size: 14)
                     .copyWith(color: ColorTokens.textSecondary),
               ),
@@ -1692,7 +1692,7 @@ class _SkyInfoCard extends StatelessWidget {
                     '${luogo!.longitude.toStringAsFixed(4)}',
               ].join('  '),
               key: const Key('sky_da_dove'),
-              style: TypographyTokens.body(size: 12).copyWith(
+              style: TypographyTokens.body(size: 13).copyWith(
                   color: ColorTokens.textMuted, height: 1.3),
             ),
           ],
