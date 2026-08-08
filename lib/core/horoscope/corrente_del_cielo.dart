@@ -506,6 +506,30 @@ class CorrenteDelCielo {
     if (!cielo.ceCieloVero) return null;
     final sue = vociPer(cielo, dominio);
     if (sue.isEmpty) return null;
+
+    // **LA PROFONDA ATTINGE AL RESTO DEL CIELO QUANDO IL DOMINIO NON BASTA.**
+    //
+    // Registro voce 62, ordine 2168. Il selettore Profonda prende tre voci
+    // invece di una, ma il filtro del dominio ne lascia spesso UNA SOLA:
+    // misurato, su Amore e Carriera il testo profondo usciva IDENTICO al
+    // breve, cioe' il comando non comandava niente proprio dove la persona
+    // se lo aspettava di piu'. Non e' un difetto di cablaggio, e' che non
+    // c'era altro da dire DENTRO il dominio.
+    //
+    // Le voci che si aggiungono sono transiti VERI dello stesso cielo, solo
+    // non specifici di quel dominio: si mettono in coda, dopo le sue, e mai
+    // al posto loro. Chi legge Amore trova prima l'amore, poi il resto del
+    // cielo di oggi. Niente si inventa: se il cielo ha una voce sola, la
+    // profonda dira' una cosa sola, e sara' la verita' del giorno.
+    final quante = quanteVoci(profonda: profonda);
+    final scelte = <VoceDelCielo>[...sue.take(quante)];
+    if (profonda && scelte.length < quante) {
+      for (final v in cielo.voci) {
+        if (scelte.length >= quante) break;
+        if (scelte.contains(v)) continue;
+        scelte.add(v);
+      }
+    }
     final forma = formaDellaScheda(
       giornoOrdinale: giornoOrdinale,
       indiceDelSegno: indiceDelSegno,
@@ -513,7 +537,7 @@ class CorrenteDelCielo {
     );
     final gia = <String>{};
     final pezzi = <String>[];
-    for (final v in sue.take(quanteVoci(profonda: profonda))) {
+    for (final v in scelte) {
       final scritta = frase(v, gia: gia, forma: forma);
       // La GIUNTURA solo sulla prima: le altre seguono un discorso gia'
       // aperto, e un connettivo a ogni frase sarebbe una cantilena.
