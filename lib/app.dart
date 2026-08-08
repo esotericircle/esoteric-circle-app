@@ -118,7 +118,13 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
           create: (_) => BirthIdentityController(),
           update: (_, profilo, nascita) =>
               (nascita ?? BirthIdentityController())
-                ..riprendiDa(profilo.identity),
+                ..riprendiDa(profilo.identity)
+                // E LA CARTA CONSERVATA, che e' l'altra meta': `riprendiDa`
+                // riporta cio' che la persona ha dato, questa riporta il
+                // cielo che ne discende. Senza, l'app riapriva sapendo chi
+                // sei e non sapendo piu' il tuo cielo, e lo dichiarava come
+                // se non gliel'avessi mai detto. Voce 60 del Registro.
+                ..riprendiLaCarta(),
         ),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()..load()),

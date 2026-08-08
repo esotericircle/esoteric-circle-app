@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import '../astro/birth_details.dart';
 import 'birth_identity.dart';
 import '../astro/celestial.dart';
+import '../astro/carta_conservata.dart';
 import '../astro/natal_chart.dart';
 import '../astro/zodiac.dart';
 import '../astro/moon_phase.dart';
@@ -206,8 +208,41 @@ class BirthIdentityController extends ChangeNotifier {
     _details = details;
     _chart = chart;
     _facts = NatalFacts.from(details: details, chart: chart);
+    // LA CARTA SI CONSERVA APPENA NASCE. Prima viveva solo qui dentro, e
+    // questo controller muore col processo: riaperta l'app la carta non
+    // c'era piu', il livello ricadeva su "solo segno" e l'Oroscopo diceva a
+    // chi aveva dato ora e luogo che non li aveva dati. Voce 60 del
+    // Registro, ordine 2166 voce 4.
+    //
+    // **SOLO QUANDO C'E' UNA CARTA, e la ragione l'ha trovata una prova.**
+    // `riprendiDa`, che all'avvio riporta i dati del profilo, passa di qui
+    // con la carta ancora nulla: conservare quel nulla CANCELLAVA la carta
+    // appena riletta dal disco, e il difetto tornava identico da un'altra
+    // porta. Chi vuole dimenticare la carta lo dice con `clear`, che la
+    // cancella per davvero.
+    if (chart != null) unawaited(CartaConservata.conserva(chart));
     notifyListeners();
   }
+
+  /// RIPRENDE LA CARTA CONSERVATA, all'avvio.
+  ///
+  /// Va chiamata insieme a [riprendiDa]: quella riporta cio' che la persona
+  /// ha DATO, questa riporta il calcolo che ne discende. Senza, l'app sa chi
+  /// sei ma non sa piu' il tuo cielo, e lo dichiara come se non gliel'avessi
+  /// mai detto.
+  Future<void> riprendiLaCarta() async {
+    if (_chart != null) return;
+    final carta = await CartaConservata.riprendi();
+    if (carta == null) return;
+    _chart = carta;
+    final d = _details;
+    if (d != null) _facts = NatalFacts.from(details: d, chart: carta);
+    notifyListeners();
+  }
+
+  /// Scrive subito la carta corrente: serve a chi vuole aspettare la
+  /// scrittura, come le prove.
+  Future<void> conservaLaCarta() => CartaConservata.conserva(_chart);
 
   /// RIPRENDE I DATI DI NASCITA DAL PROFILO, che e' l'unico posto dove sono
   /// persistiti.
@@ -243,6 +278,7 @@ class BirthIdentityController extends ChangeNotifier {
     _details = null;
     _chart = null;
     _facts = null;
+    unawaited(CartaConservata.conserva(null));
     notifyListeners();
   }
 }
