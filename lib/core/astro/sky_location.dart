@@ -1,13 +1,30 @@
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 /// Un luogo sulla Terra, ridotto a cio' che serve per orientare il cielo:
 /// latitudine e longitudine. Nessun indirizzo, nessun nome, solo le coordinate
 /// che restano sul dispositivo.
 class SkyPlace {
-  const SkyPlace({required this.latitude, required this.longitude});
+  const SkyPlace({
+    required this.latitude,
+    required this.longitude,
+    this.citta,
+  });
 
   final double latitude;
   final double longitude;
+
+  /// IL NOME DELLA CITTA', quando il sistema sa dirlo. Ordine 2168, voce 4.
+  ///
+  /// **Nullo e' un valore pieno, non una mancanza da riempire.** Mauro ha
+  /// deciso il ripiego: se il nome non arriva, il nome SPARISCE e restano le
+  /// sole coordinate, senza nessun testo al posto suo. Un "luogo
+  /// sconosciuto" scritto sotto il cielo sarebbe rumore che occupa la riga
+  /// di una cosa vera.
+  final String? citta;
+
+  SkyPlace conCitta(String? nome) =>
+      SkyPlace(latitude: latitude, longitude: longitude, citta: nome);
 }
 
 /// Da dove vengono le coordinate con cui il cielo e' stato calcolato.
@@ -112,6 +129,19 @@ abstract class SkyLocation {
   /// il permesso e' stato negato per sempre. Nel ripiego non fa nulla e dice
   /// falso, cosi' le prove possono osservare la chiamata.
   Future<bool> apriImpostazioni() async => false;
+
+  /// IL NOME DELLA CITTA' per delle coordinate, quando il sistema sa dirlo.
+  ///
+  /// Ordine 2168, voce 4. **Passa dai servizi del sistema operativo, quindi
+  /// dalla rete**, ed e' l'unico punto dell'app che lo fa per la posizione:
+  /// sta qui, dietro l'astrazione, cosi' le prove e le anteprime non
+  /// chiamano mai niente e la promessa fatta alla persona resta misurabile
+  /// in un posto solo.
+  ///
+  /// Nullo quando il nome non arriva: chi lo riceve fa sparire il nome e
+  /// lascia le coordinate, senza scrivere niente al posto suo.
+  Future<String?> nomeDelLuogo(double latitudine, double longitudine) async =>
+      null;
 }
 
 /// Ripiego: nessuna posizione, nessuna richiesta. E' il default, cosi' i test
@@ -181,6 +211,30 @@ class GeolocatorSkyLocation extends SkyLocation {
 
   @override
   Future<bool> apriImpostazioni() => Geolocator.openAppSettings();
+
+  @override
+  Future<String?> nomeDelLuogo(double latitudine, double longitudine) async {
+    try {
+      final luoghi = await placemarkFromCoordinates(latitudine, longitudine);
+      if (luoghi.isEmpty) return null;
+      final p = luoghi.first;
+      // La citta' prima di tutto; se il servizio non la sa, la localita' o
+      // la zona amministrativa. Se non sa niente di leggibile, NULLO: il
+      // nome sparisce e restano le coordinate, che sono vere comunque.
+      for (final candidato in [p.locality, p.subAdministrativeArea,
+        p.administrativeArea]) {
+        if (candidato != null && candidato.trim().isNotEmpty) {
+          return candidato.trim();
+        }
+      }
+      return null;
+    } catch (errore) {
+      // NON E' UN GUASTO DA MOSTRARE: senza rete, senza servizio o con una
+      // piattaforma che non lo espone, il nome semplicemente non c'e'. Il
+      // cielo si calcola lo stesso dalle coordinate, che sono gia' in mano.
+      return null;
+    }
+  }
 
   @override
   Future<SkyPlace?> resolveSeConcesso() async {

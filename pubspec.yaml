@@ -80,6 +80,13 @@ dependencies:
   path_provider: ^2.1.6
   geolocator: ^14.0.3
 
+  # IL NOME DEL LUOGO, non le sue coordinate. Ordine 2168, voce 4: la scheda
+  # del cielo dice da dove il cielo e' calcolato, e le coordinate da sole non
+  # dicono niente a chi legge. La geocodifica inversa passa dai servizi del
+  # sistema operativo, quindi dalla rete: vive dietro `SkyLocation`, in un
+  # punto solo, e nelle prove e nelle anteprime non viene mai chiamata.
+  geocoding: ^4.0.0
+
   # Microfono: coglie il soffio nel Soffio del Destino leggendo il livello
   # audio. Con ripiego tattile se il permesso manca o il device non ha il
   # microfono. Nessuna registrazione salvata, solo l'ampiezza in tempo reale.

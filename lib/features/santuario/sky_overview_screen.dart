@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'dart:math' as math;
 
 import 'dart:io';
@@ -344,6 +346,25 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
 
   /// Calcola il cielo col luogo migliore disponibile.
   ///
+  /// IL NOME DEL LUOGO, chiesto ai servizi di sistema attraverso l'unica
+  /// porta che li conosce, `SkyLocation`.
+  ///
+  /// **Il ripiego l'ha deciso Mauro**: se il nome non arriva, non arriva, e
+  /// la riga mostra le sole coordinate. Nessuna scritta al posto suo.
+  Future<void> _chiediIlNomeDelLuogo(SkyPlace? luogo) async {
+    if (luogo == null) return;
+    final nome =
+        await widget.location.nomeDelLuogo(luogo.latitude, luogo.longitude);
+    if (!mounted || nome == null || nome.isEmpty) return;
+    // La posizione puo' essere cambiata mentre si aspettava: il nome vale
+    // solo per le coordinate per cui era stato chiesto.
+    if (_place?.latitude != luogo.latitude ||
+        _place?.longitude != luogo.longitude) {
+      return;
+    }
+    setState(() => _place = _place!.conCitta(nome));
+  }
+
   /// Ordine di preferenza: la posizione del dispositivo se concessa, poi il
   /// luogo di nascita del profilo. Senza nessuno dei due non si calcola e non si
   /// finge: la schermata lo dichiara nel riquadro del metodo.
@@ -565,6 +586,11 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
       // non sta mai dietro un'attesa di scrittura.
       final primaLat = _cielo?.latitude;
       setState(() => _place = risposta.luogo);
+      // IL NOME DEL LUOGO ARRIVA DOPO, e non fa aspettare il cielo. Il cielo
+      // si orienta sulle coordinate, che ci sono gia': il nome e' una
+      // cortesia che si aggiunge quando i servizi di sistema rispondono, e se
+      // non rispondono la riga resta con le sole coordinate.
+      unawaited(_chiediIlNomeDelLuogo(risposta.luogo));
       // La memoria del consenso viaggia da sola: se non arriva, al massimo la
       // posizione verra' richiesta un'altra volta.
       _ricordaConsenso();
@@ -649,9 +675,10 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
               const SizedBox(height: SpacingTokens.sm),
               Text(
                 'Con il tuo permesso leggo dove ti trovi, così la volta sopra di '
-                'te si dispone come la vedi davvero da lì. La posizione resta sul '
-                'dispositivo: serve solo a orientare le stelle. La posizione '
-                'esatta di ogni astro nel cielo arriva col motore a effemeridi.',
+                'te si dispone come la vedi davvero da lì. Le coordinate '
+                'servono solo a orientare le stelle, e a dare un nome al luogo '
+                'in cui ti trovi. La posizione esatta di ogni astro nel cielo '
+                'arriva col motore a effemeridi.',
                 style: TypographyTokens.body(size: 14)
                     .copyWith(color: ColorTokens.textSecondary),
               ),
@@ -710,6 +737,18 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
   /// cielo.
   static double altezzaMassimaScheda(double altezzaSchermo) =>
       altezzaSchermo * 0.24;
+
+  /// QUANTO OCCUPA LA SCHEDA ANCHE QUANDO NESSUN CORPO E' TOCCATO.
+  ///
+  /// **La scheda non e' mai assente: la frase che dice cos'e' il cielo c'e'
+  /// sempre.** Il conto dello spazio libero la sottraeva solo con un corpo
+  /// selezionato, quindi con nessun corpo toccato i corpi bassi arrivavano a
+  /// toccarla. Ci si stava per un pelo, e la riga del luogo (ordine 2168,
+  /// voce 4) ha fatto sforare quel pelo: la falla e' il conto, non la riga.
+  /// Misurata a 797 e a 844 punti di schermo, la scheda chiusa e' alta 99
+  /// punti: questa quota la copre in tutte e due.
+  static double altezzaMinimaScheda(double altezzaSchermo) =>
+      altezzaSchermo * 0.14;
 
   /// Quanto sporge l'etichetta sotto il disegno del corpo.
   static const double _sporgenzaEtichetta = 36;
@@ -905,7 +944,9 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     // costruzione: si somma qui, non si spera che qualcuno se ne ricordi.
     final piede = SpacingTokens.lg +
         sicuro.bottom +
-        (_selectedKey != null ? altezzaMassimaScheda(schermo.height) : 0.0) +
+        (_selectedKey != null
+            ? altezzaMassimaScheda(schermo.height)
+            : altezzaMinimaScheda(schermo.height)) +
         (widget.ctaLabel != null ? _altezzaPulsanteInFondo : 0.0);
     final fondoLibero = schermo.height - piede - _sporgenzaEtichetta;
     final campo = Rect.fromLTRB(
@@ -1051,6 +1092,11 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                             selected: selected,
                             palette: palette,
                             oriented: _place != null,
+                            // Il luogo si passa SOLO quando il cielo e'
+                            // orientato sulla posizione del dispositivo: il
+                            // cielo di nascita ha gia' la sua riga, e dire
+                            // "da dove" li' vorrebbe dire un'altra cosa.
+                            luogo: _place,
                             birth: widget.birth,
                             // Il tratto che nessuno percorreva: la schermata
                             // non aveva mai letto il profilo, quindi la nota
@@ -1566,7 +1612,13 @@ class _SkyInfoCard extends StatelessWidget {
     this.oriented = false,
     this.birth = false,
     this.registrata = false,
+    this.luogo,
   });
+
+  /// DA DOVE IL CIELO E' CALCOLATO, quando quel luogo e' la posizione del
+  /// dispositivo. Nullo quando il cielo non e' orientato su di lei: in quel
+  /// caso la riga non compare affatto.
+  final SkyPlace? luogo;
 
   final _SkyBody? selected;
   final MaestroPalette palette;
@@ -1623,7 +1675,28 @@ class _SkyInfoCard extends StatelessWidget {
             style: TypographyTokens.body(size: 13)
                 .copyWith(color: ColorTokens.textSecondary, height: 1.35),
           ),
-          // 2. LE COORDINATE DEL CORPO TOCCATO, che cambiano a ogni tocco.
+          // 2. DA DOVE E' CALCOLATO, ordine 2168 voce 4.
+          //
+          // **IL RIPIEGO L'HA DECISO MAURO, e non e' quello che verrebbe da
+          // scrivere.** Se il nome della citta' non arriva, il nome SPARISCE
+          // e restano le sole coordinate: nessun "luogo sconosciuto", nessun
+          // trattino, niente al posto suo. Una riga che dice di non sapere
+          // occupa lo spazio di una che dice qualcosa. Se non ci sono
+          // nemmeno le coordinate, la riga non compare.
+          if (luogo != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              [
+                if (luogo!.citta != null) luogo!.citta!,
+                '${luogo!.latitude.toStringAsFixed(4)}, '
+                    '${luogo!.longitude.toStringAsFixed(4)}',
+              ].join('  '),
+              key: const Key('sky_da_dove'),
+              style: TypographyTokens.body(size: 12).copyWith(
+                  color: ColorTokens.textMuted, height: 1.3),
+            ),
+          ],
+          // 3. LE COORDINATE DEL CORPO TOCCATO, che cambiano a ogni tocco.
           if (s != null) ...[
             const SizedBox(height: SpacingTokens.sm),
             Text(

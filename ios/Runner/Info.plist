@@ -27,7 +27,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>La posizione serve solo a orientare il cielo sopra di te sul luogo reale in cui ti trovi. Resta sul dispositivo.</string>
+	<string>La posizione serve a orientare il cielo sopra di te sul luogo reale in cui ti trovi. Le coordinate restano sul dispositivo; per scrivere il nome della citta' sotto il cielo le chiedo ai servizi di sistema.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Il microfono coglie il tuo soffio nel Soffio del Destino, per liberare i semi. Resta sul dispositivo, con ripiego tattile se preferisci.</string>
 	<key>NSCameraUsageDescription</key>

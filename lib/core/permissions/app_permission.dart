@@ -89,7 +89,7 @@ PermissionCopy permissionCopy(AppPermission p, {Maestro? maestro}) {
         icon: Icons.place_outlined,
         title: 'Il cielo del luogo in cui sei',
         body:
-            'La posizione serve solo a mostrare il cielo sopra di te ora. Resta sul dispositivo, non viene condivisa.',
+            'La posizione serve a mostrare il cielo sopra di te ora. Le coordinate restano qui; il solo nome del luogo lo chiedo al sistema del telefono.',
         cta: 'Usa la mia posizione',
       );
   }
