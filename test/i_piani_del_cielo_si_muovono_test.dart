@@ -135,8 +135,11 @@ void main() {
   /// banda interna, dove non entra ne' esce niente, e trova lo spostamento
   /// vero.
   int scorrimentoFra(List<double> a, List<double> b, int massimo) {
-    final alto = 150;
-    final basso = a.length - 150;
+    // La banda interna: centocinquanta punti di margine sopra e sotto, cioe'
+    // piu' dello spostamento massimo che si misura, cosi' nel conto non
+    // entra mai cio' che esce dallo schermo.
+    const alto = 150;
+    final basso = a.length - alto;
     var migliore = 0;
     var minimo = double.infinity;
     for (var s = -massimo; s <= massimo; s++) {

@@ -45,6 +45,8 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
+import 'package:esoteric_circle/design_system/components/cosmos_background.dart';
+import 'package:esoteric_circle/features/maestri/domain_screen.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -1693,6 +1695,108 @@ void main() {
   //   (voce 6).
   // - pannello_due_titoli: il pannello dei suggerimenti (voce 7).
   // - soffio_pulsante: il pulsante del respiro con la scheda sotto (voce 8).
+  // ORDINE DEL CIELO DIPINTO UNA VOLTA: LA PARITA' VISIVA.
+  //
+  // Cinque scene rappresentative, le stesse prima e dopo, per guardare se
+  // l'occhio si accorge di qualcosa. Il criterio e' dichiarato nell'ordine:
+  // se qualcosa cambia visibilmente e' un difetto da correggere, non un
+  // compromesso da accettare.
+  //
+  // **Le scene si catturano a MOTO FERMO**, con Riduci Movimento acceso: non
+  // per nascondere qualcosa, ma perche' un cielo che scintilla fotografato in
+  // due istanti diversi darebbe due immagini diverse anche senza toccare una
+  // riga, e il confronto non direbbe piu' niente. Cio' che questa coppia deve
+  // mostrare e' la GEOMETRIA e il COLORE del cielo: stesse stelle, stesse
+  // nebulose, stessi pianeti, stesse costellazioni, stessa parallasse.
+  testWidgets('cielo, le cinque scene', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'profile.birthDate': '1990-08-15',
+    });
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final servizi = AppServices(
+      ai: _VoceConUnTesto('Il cielo osserva con te questa domanda.'),
+      memory: InMemoryMaestroMemoryRepository(),
+      memoryPersistent: false,
+    );
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: MediaQuery(
+        data: const MediaQueryData(disableAnimations: true),
+        child: EsotericCircleApp(conIntro: false, services: servizi),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    await scattaApp(tester, radice, 'cielo_home');
+
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
+    nav.push(DomainScreen.route(maestro: Maestro.caligo, services: servizi));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 700));
+    await scattaApp(tester, radice, 'cielo_dominio');
+
+    nav.push(
+        MaestroChatScreen.route(maestro: Maestro.medora, services: servizi));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 700));
+    await scattaApp(tester, radice, 'cielo_chat');
+
+    nav.pop();
+    await tester.pump();
+    nav.pop();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+
+    // IL RITO: il cosmo con la palette imposta dall'elemento del giorno.
+    nav.push(MaterialPageRoute<void>(
+      // Il rito monta il cosmo con la palette imposta, come fanno i riti
+      // quotidiani: fuori dal guscio serve lo scope, che dentro l'app c'e'
+      // sempre e in una rotta nuda no.
+      builder: (_) => const MaestroScope(
+        maestro: Maestro.aura,
+        child: CosmosBackground(
+          seed: 41,
+          showZodiac: true,
+          child: SizedBox.expand(),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 700));
+    await scattaApp(tester, radice, 'cielo_rito');
+  });
+
+  testWidgets('cielo, l\'onboarding', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: MediaQuery(
+        data: const MediaQueryData(disableAnimations: true),
+        child: EsotericCircleApp(
+            conIntro: false, services: AppServices.offline()),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    await scattaApp(tester, radice, 'cielo_onboarding');
+  });
+
   testWidgets('2164, la chat pulita e la barra trasparente', (tester) async {
     if (_stato.isEmpty) return;
     silence();

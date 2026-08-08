@@ -9,7 +9,7 @@ publish_to: "none"
 # lo split somma duemila per l'ABI arm64, quindi si riparte da sopra quella
 # soglia. Il lucchetto e' test/versione_build_test.dart, che confronta il
 # numero con docs/versione_distribuita.json.
-version: 0.1.0+2164
+version: 0.1.0+2165
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
