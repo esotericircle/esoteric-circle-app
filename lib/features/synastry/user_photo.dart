@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../core/permissions/app_permission.dart';
+import '../../core/permissions/esito_del_permesso.dart';
+
 /// Da dove arriva la foto dell'utente per la card.
 enum UserPhotoSource { camera, gallery }
 
@@ -20,19 +23,38 @@ class ImagePickerPhotoService implements UserPhotoService {
 
   final ImagePicker _picker;
 
+  /// L'ESITO DELL'ULTIMA SCELTA, nei tre valori distinti.
+  ///
+  /// Ordine 2166, voce 2: il selettore torna una foto oppure niente, e
+  /// "niente" valeva sia per chi ha annullato sia per chi ha negato il
+  /// permesso per sempre. Adesso i due casi si distinguono, e la schermata
+  /// puo' dire la cosa giusta invece di lasciare la card vuota in silenzio.
+  EsitoDelPermesso? esitoDelPermesso;
+
   @override
   Future<Uint8List?> pick(UserPhotoSource source) async {
-    final file = await _picker.pickImage(
-      source: source == UserPhotoSource.camera
-          ? ImageSource.camera
-          : ImageSource.gallery,
-      maxWidth: 1024,
-      maxHeight: 1024,
-      imageQuality: 88,
-      preferredCameraDevice: CameraDevice.front,
+    final permesso = source == UserPhotoSource.camera
+        ? AppPermission.camera
+        : AppPermission.photoLibrary;
+    Uint8List? scelta;
+    esitoDelPermesso = await PortaDelPermesso.chiedi(
+      permesso,
+      richiestaDiSistema: () async {
+        final file = await _picker.pickImage(
+          source: source == UserPhotoSource.camera
+              ? ImageSource.camera
+              : ImageSource.gallery,
+          maxWidth: 1024,
+          maxHeight: 1024,
+          imageQuality: 88,
+          preferredCameraDevice: CameraDevice.front,
+        );
+        if (file == null) return false;
+        scelta = await file.readAsBytes();
+        return true;
+      },
     );
-    if (file == null) return null;
-    return file.readAsBytes();
+    return scelta;
   }
 }
 

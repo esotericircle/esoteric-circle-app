@@ -1,4 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+import '../core/permissions/app_permission.dart';
+import '../core/permissions/esito_del_permesso.dart';
 import 'package:timezone/data/latest_10y.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -61,8 +64,25 @@ class AvvisiLocali extends ServizioAvvisi {
     _pronto = true;
   }
 
+  /// L'ESITO DELL'ULTIMA RICHIESTA, nei tre valori distinti.
+  ///
+  /// Ordine 2166, voce 2: `chiediPermesso` torna un si' o un no, e i due no
+  /// finivano nello stesso valore. Chi aveva negato per sempre non vedeva
+  /// piu' nessuna richiesta e il rito non diceva che l'unica via erano le
+  /// impostazioni.
+  EsitoDelPermesso? esitoDelPermesso;
+
   @override
   Future<bool> chiediPermesso() async {
+    esitoDelPermesso = await PortaDelPermesso.chiedi(
+      AppPermission.notifications,
+      richiestaDiSistema: _chiediAlSistema,
+    );
+    return esitoDelPermesso == EsitoDelPermesso.concesso;
+  }
+
+  /// La richiesta nuda al sistema, che sa dire solo si' o no.
+  Future<bool> _chiediAlSistema() async {
     await _prepara();
     final android = _plugin.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();

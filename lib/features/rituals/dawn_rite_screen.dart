@@ -14,6 +14,8 @@ import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
 import '../../core/astro/sky_location.dart';
 import '../../core/permissions/app_permission.dart';
+import '../../core/permissions/avviso_del_permesso.dart';
+import '../../core/permissions/esito_del_permesso.dart';
 import '../../core/rituals/avvisi_del_rito.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
@@ -79,6 +81,13 @@ class DawnRiteScreen extends StatefulWidget {
 
 class _DawnRiteScreenState extends State<DawnRiteScreen>
     with TickerProviderStateMixin {
+
+  /// L'ESITO DEL PERMESSO DEGLI AVVISI, nei tre valori distinti.
+  ///
+  /// Ordine 2166, voce 2. La richiesta tornava un si' o un no, quindi chi
+  /// aveva negato per sempre restava senza avvisi e senza saperlo: il rito
+  /// non diceva niente e le impostazioni erano l'unica via, mai nominata.
+  EsitoDelPermesso? _esitoDegliAvvisi;
   // Livello di sollevamento dell'alba, da 0 (velato) a 1 (alba sollevata).
   double _progress = 0;
   bool _revealed = false;
@@ -305,7 +314,18 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
         body: AvvisiDelRito.spiegazione,
         cta: 'Avvisami all\'alba',
       ),
-      systemRequest: widget.avvisi.chiediPermesso,
+      // LA PORTA UNICA DEI TRE ESITI: il plugin sa dire solo si' o no, e la
+      // porta ricava il no per sempre dal fatto che il dialogo di sistema
+      // compare una volta sola. La ragione per esteso sta su
+      // `PortaDelPermesso`.
+      systemRequest: () async {
+        final esito = await PortaDelPermesso.chiedi(
+          AppPermission.notifications,
+          richiestaDiSistema: widget.avvisi.chiediPermesso,
+        );
+        if (mounted) setState(() => _esitoDegliAvvisi = esito);
+        return esito == EsitoDelPermesso.concesso;
+      },
     );
     await _programmaAvviso();
   }
@@ -448,13 +468,51 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
                     padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
                         SpacingTokens.lg, SpacingTokens.lg),
                     child: (_revealed && _gift != null)
-                        ? RitualGiftCard(
-                            key: const Key('ritual_content'),
-                            gift: _gift!,
-                            dono: DailyElement.dawn,
-                            giorno: widget.now ?? DateTime.now(),
-                            streak: _streak,
-                            onShare: () => _shareWord(_gift!),
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              RitualGiftCard(
+                                key: const Key('ritual_content'),
+                                gift: _gift!,
+                                dono: DailyElement.dawn,
+                                giorno: widget.now ?? DateTime.now(),
+                                streak: _streak,
+                                onShare: () => _shareWord(_gift!),
+                              ),
+                              // L'ESITO DEGLI AVVISI, detto qui e non
+                              // taciuto: chi ha negato per sempre non vedra'
+                              // mai piu' comparire la richiesta, e senza
+                              // questa riga il rito resterebbe muto sul
+                              // perche' l'alba non lo chiama.
+                              if (_esitoDegliAvvisi != null &&
+                                  _esitoDegliAvvisi !=
+                                      EsitoDelPermesso.concesso) ...[
+                                const SizedBox(height: SpacingTokens.md),
+                                AvvisoDelPermesso(
+                                  chiave: 'alba',
+                                  permesso: AppPermission.notifications,
+                                  esito: _esitoDegliAvvisi!,
+                                  palette: MaestroPalette.forKey(ThemeKey.of(
+                                      DailyRituals.dawnMaestro(
+                                          widget.now ?? DateTime.now()))),
+                                  onRichiedi: () async {
+                                    final esito =
+                                        await PortaDelPermesso.chiedi(
+                                      AppPermission.notifications,
+                                      richiestaDiSistema:
+                                          widget.avvisi.chiediPermesso,
+                                    );
+                                    if (!mounted) return;
+                                    setState(
+                                        () => _esitoDegliAvvisi = esito);
+                                    if (esito ==
+                                        EsitoDelPermesso.concesso) {
+                                      await _programmaAvviso();
+                                    }
+                                  },
+                                ),
+                              ],
+                            ],
                           )
                         : const SizedBox.shrink(),
                   ),

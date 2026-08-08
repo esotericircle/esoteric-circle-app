@@ -4,6 +4,9 @@ import 'dart:typed_data';
 
 import 'package:record/record.dart';
 
+import '../core/permissions/app_permission.dart';
+import '../core/permissions/esito_del_permesso.dart';
+
 /// Rileva il soffio dal microfono, come livello sonoro normalizzato.
 ///
 /// E' pensato per fallire con grazia: se il permesso manca, il microfono non
@@ -20,10 +23,22 @@ class BreathDetector {
   Stream<double> get level => _levels.stream;
   bool get isActive => _active;
 
+  /// L'ESITO DELL'ULTIMA RICHIESTA, nei tre valori distinti.
+  ///
+  /// Ordine 2166, voce 2: `start` tornava un si' o un no, e chi aveva negato
+  /// per sempre restava senza soffio e senza sapere che l'unica via erano le
+  /// impostazioni. Adesso l'esito c'e', e chi monta il rilevatore puo' dirlo.
+  EsitoDelPermesso? get esitoDelPermesso => _esito;
+  EsitoDelPermesso? _esito;
+
   /// Avvia l'ascolto. Ritorna true se il microfono e' realmente disponibile.
   Future<bool> start() async {
     try {
-      if (!await _recorder.hasPermission()) return false;
+      _esito = await PortaDelPermesso.chiedi(
+        AppPermission.microphone,
+        richiestaDiSistema: _recorder.hasPermission,
+      );
+      if (_esito != EsitoDelPermesso.concesso) return false;
       final stream = await _recorder.startStream(
         const RecordConfig(
           encoder: AudioEncoder.pcm16bits,

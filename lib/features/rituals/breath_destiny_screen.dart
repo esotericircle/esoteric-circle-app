@@ -11,6 +11,9 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/permissions/app_permission.dart';
+import '../../core/permissions/avviso_del_permesso.dart';
+import '../../core/permissions/esito_del_permesso.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/ritual_streak.dart';
@@ -114,6 +117,15 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   /// suo: una risposta senza cielo sarebbe un oroscopo da giornale.
   RispostaDelSoffio? _risposta;
 
+  /// L'ESITO DEL PERMESSO DEL MICROFONO, nei suoi tre valori distinti.
+  ///
+  /// Ordine 2166, voce 2. Prima qui c'era solo il silenzio: `hasPermission`
+  /// torna si' o no, e un no valeva per tutti e due i no. Chi aveva negato
+  /// per sempre non vedeva comparire nessun dialogo e non veniva avvisato di
+  /// niente: il rito sembrava sordo. Adesso l'esito arriva dalla porta unica
+  /// e la scena lo dice.
+  EsitoDelPermesso? _esitoDelMicrofono;
+
   late final AnimationController _disperse;
   Animation<double>? _disperseAnim;
   late final AnimationController _ambient; // brezza e brillio
@@ -187,7 +199,13 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   // ripiego tattile, senza mai sollevare un errore.
   Future<void> _startMic() async {
     try {
-      if (!await _recorder.hasPermission()) return;
+      // LA PORTA UNICA: torna i tre esiti distinti, non un si' o un no.
+      final esito = await PortaDelPermesso.chiedi(
+        AppPermission.microphone,
+        richiestaDiSistema: _recorder.hasPermission,
+      );
+      if (mounted) setState(() => _esitoDelMicrofono = esito);
+      if (esito != EsitoDelPermesso.concesso) return;
       final stream = await _recorder.startStream(
         const RecordConfig(
           encoder: AudioEncoder.pcm16bits,
@@ -432,6 +450,27 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                             Align(
                               alignment: const Alignment(0, -0.55),
                               child: _BreathPrompt(palette: palette),
+                            ),
+                          // L'ESITO DEL MICROFONO, detto a schermo: il rito
+                          // resta compibile col dito in ogni caso, ma chi ha
+                          // negato deve sapere perche' il soffio non viene
+                          // ascoltato, e chi ha negato PER SEMPRE deve sapere
+                          // che l'unica via sono le impostazioni.
+                          if (!_revealed &&
+                              _esitoDelMicrofono != null &&
+                              _esitoDelMicrofono !=
+                                  EsitoDelPermesso.concesso)
+                            Align(
+                              alignment: const Alignment(0, 0.62),
+                              child: AvvisoDelPermesso(
+                                chiave: 'soffio',
+                                permesso: AppPermission.microphone,
+                                esito: _esitoDelMicrofono!,
+                                palette: palette,
+                                onRichiedi: () async {
+                                  await _startMic();
+                                },
+                              ),
                             ),
                           // IL RESPIRO SI GUIDA, NON SI LEGGE.
                           //
