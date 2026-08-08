@@ -111,12 +111,12 @@ void main() {
   });
 }
 
-NatalChart _cartaVera() => NatalChart(
+NatalChart _cartaVera() => const NatalChart(
       sunSign: Zodiac.leo,
       ascendant: Zodiac.scorpio,
       ascendantLongitude: 215.4,
       hasTime: true,
-      planets: const [
+      planets: [
         PlanetPosition(
             id: 'sun',
             name: 'Sole',
