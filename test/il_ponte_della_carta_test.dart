@@ -81,6 +81,39 @@ void main() {
     expect(identita.chart!.hasTime, isTrue);
   });
 
+  testWidgets('i dati arrivano DOPO il mount, e il ponte si riarma',
+      (tester) async {
+    // **LA CORSA CHE IL PONTE PERDEVA.** Le altre prove preparano lo stato
+    // PRIMA di montare, e cosi' il ponte trova tutto pronto al suo unico
+    // tentativo di fine fotogramma. Nell'app vera non va cosi': il profilo
+    // si carica dal DISCO in modo asincrono, e se il disco arriva dopo quel
+    // fotogramma il ponte trovava i dati nulli, usciva e non riprovava piu'.
+    // La correzione viveva o moriva a seconda di chi arrivava prima, e
+    // nessuna delle prove esistenti lo coglieva.
+    SharedPreferences.setMockInitialValues({});
+    final identita = BirthIdentityController();
+    final motore = _MotoreCheHaGiaLaCarta();
+
+    // Si monta col controller VUOTO, come all'avvio vero.
+    await tester.pumpWidget(attorno(identita: identita, motore: motore));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(motore.assicurato, 0,
+        reason: 'Senza dati non si chiede niente, ed e\' giusto.');
+
+    // E ADESSO arriva il disco, come fa il profilo a caricamento finito.
+    identita.setBirth(dettagliCompleti(), null);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+
+    expect(motore.assicurato, greaterThanOrEqualTo(1),
+        reason: 'I dati di nascita sono arrivati dopo il primo fotogramma e '
+            'il ponte non si e\' riarmato: chi carica il profilo un istante '
+            'piu\' tardi resta senza carta per tutta la sessione.');
+    expect(identita.chart, isNotNull,
+        reason: 'La carta non e\' arrivata alla porta che la legge.');
+  });
+
   testWidgets('se la carta c\'e\' gia\', il ponte non chiede niente',
       (tester) async {
     SharedPreferences.setMockInitialValues({});

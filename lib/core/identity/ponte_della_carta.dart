@@ -41,17 +41,45 @@ class _PonteDellaCartaState extends State<PonteDellaCarta> {
   /// comincerebbe un altro e la rete verrebbe interrogata in cerchio.
   bool _inCorso = false;
 
+  /// La porta a cui il ponte e' iscritto, tenuta per potersi disiscrivere.
+  BirthIdentityController? _ascoltata;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // **A FINE FOTOGRAMMA, e non durante la costruzione dell'albero.** Il
-    // ponte consegna la carta alla porta, che NOTIFICA: farlo mentre l'albero
-    // si sta costruendo fa cadere Flutter con un errore di stato sporco, e
-    // la prova l'ha preso al primo giro. Qui si aspetta che il fotogramma
-    // sia finito, poi si lavora.
+    // **IL PONTE SI RIARMA, e la ragione e' una corsa persa.** Con un solo
+    // tentativo a fine primo fotogramma, il ponte moriva su una gara: il
+    // profilo si carica dal DISCO in modo asincrono, e se il disco arriva
+    // dopo quel fotogramma il ponte trova i dati nulli, esce e non riprova
+    // piu'. La correzione viveva o moriva a seconda di chi arrivava prima.
+    //
+    // Adesso il ponte ascolta la porta e rifa' il giro a ogni notifica,
+    // sempre a fine fotogramma. **Si ascolta, non si guarda**: con un
+    // `context.watch` tutta l'app si ricostruirebbe a ogni notifica dei dati
+    // di nascita, e questo widget sta sopra il Navigator.
+    final identita = context.read<BirthIdentityController>();
+    if (!identical(identita, _ascoltata)) {
+      _ascoltata?.removeListener(_allaNotifica);
+      identita.addListener(_allaNotifica);
+      _ascoltata = identita;
+    }
+    _allaNotifica();
+  }
+
+  void _allaNotifica() {
+    // A fine fotogramma e non durante la costruzione dell'albero: il ponte
+    // consegna la carta alla porta, che NOTIFICA a sua volta, e farlo mentre
+    // l'albero si costruisce fa cadere Flutter con un errore di stato
+    // sporco. La prova l'ha preso al primo giro.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) _colmaSeManca();
     });
+  }
+
+  @override
+  void dispose() {
+    _ascoltata?.removeListener(_allaNotifica);
+    super.dispose();
   }
 
   Future<void> _colmaSeManca() async {
