@@ -169,9 +169,32 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
             // **Il cambio di parola e' SECCO con Riduci Movimento**, e con una
             // dissolvenza breve altrimenti: una parola che sfuma mentre il
             // corpo cambia gesto arriva in ritardo sul gesto.
-            Container(
+            // **LA PILLOLA HA UN TETTO, ordine 2168 voce 3, e la causa non
+            // era quella che sembrava.** L'ordine diceva che a decidere la
+            // larghezza fosse la parola "Preparati a respirare": misurato,
+            // quella parola sta in 238 punti, mentre a spingere la pillola a
+            // occupare TUTTI i 360 punti dello schermo era la RIGA DI
+            // SERVIZIO sotto, "Quattro tempi dentro, quattro fuori. Tre
+            // volte.", larga 328 punti piu' i margini. Stringere il solo
+            // titolo non avrebbe cambiato niente a video.
+            //
+            // Il tetto sta al 72 per cento della larghezza disponibile: il
+            // titolo ci sta intero su una riga, la riga di servizio va a
+            // capo, ed e' testo secondario che su due righe si legge uguale.
+            // Vale per tutti e tre i riti che montano questa guida.
+            LayoutBuilder(
+              builder: (context, vincoli) => ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: vincoli.maxWidth.isFinite
+                      ? vincoli.maxWidth * quotaDellaPillola
+                      : double.infinity,
+                ),
+                child: Container(
               key: const Key('respiro_velo'),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              // Il respiro laterale scende da sedici a quattordici: dentro
+              // il tetto della pillola servono quei due punti perche' la
+              // parola piu' lunga resti su una riga sola invece di spezzarsi.
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               decoration: BoxDecoration(
                 // La superficie serve: nel Soffio il fondale e' un prato
                 // chiaro, e una parola chiara su un prato chiaro non si legge.
@@ -233,9 +256,18 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
                             ? 'apertura'
                             : (m == null ? 'fine' : m.parola)),
                         textAlign: TextAlign.center,
-                        style: TypographyTokens.display(size: 26).copyWith(
+                        // DICIOTTO E NON VENTISEI, ordine 2168 voce 3, e la
+                        // misura viene dal riquadro reso e non dal
+                        // carattere: a ventisei "Preparati a respirare"
+                        // faceva una pillola larga TUTTI i 360 punti dello
+                        // schermo del fondatore, cioe' il cento per cento, e
+                        // la parola sola comandava la scena col mandala
+                        // dietro. La regola vale per tutti e tre i riti che
+                        // montano questa guida: un caso speciale per il
+                        // Soffio sarebbe un'altra regola su una porta sola.
+                        style: TypographyTokens.display(size: 18).copyWith(
                           color: inchiostroDelConteggio,
-                          letterSpacing: 0.8,
+                          letterSpacing: 0.4,
                         ),
                       ),
                     ),
@@ -285,6 +317,8 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
                 ],
               ),
             ),
+              ),
+            ),
           ],
         );
       },
@@ -296,6 +330,16 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
 /// qui che si dipingono. Il Soffio li rilegge da qui per le proprie superfici,
 /// cosi' la misura del contrasto vale su quello che si vede davvero e i due
 /// veli della stessa schermata non possono diventare due grigi diversi.
+/// QUANTO LARGA PUO' FARSI LA PILLOLA DELLA PAROLA, in frazione della
+/// larghezza disponibile. Ordine 2168 voce 3: senza tetto arrivava al cento
+/// per cento dello schermo del fondatore, e la scritta comandava la scena col
+/// mandala dietro. Il numero sta qui perche' una prova possa leggerlo e
+/// misurarlo sul riquadro reso.
+/// SETTANTA E NON SETTANTADUE: con la quota esattamente uguale alla soglia
+/// della prova, l'arrotondamento in virgola mobile la faceva sforare di un
+/// milionesimo. Il margine si prende nel PRODOTTO, non allentando la prova.
+const double quotaDellaPillola = 0.70;
+
 const Color veloDelConteggio = Color(0xEB0B1410);
 const Color inchiostroDelConteggio = Color(0xFFF3EFE6);
 
