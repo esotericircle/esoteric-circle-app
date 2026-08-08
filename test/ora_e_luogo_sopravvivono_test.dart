@@ -90,9 +90,19 @@ void main() {
   });
 
   test('Le porte che riempiono i dati di nascita sono enumerate', () {
-    // Prima era una sola, il Risveglio, ed e' esattamente il difetto. Adesso
-    // sono due, e la seconda passa dal profilo persistito, quindi vale per ogni
-    // riapertura dell'app senza che nessuno debba ricordarsene.
+    // Prima era una sola, il Risveglio, ed e' esattamente il difetto. Poi
+    // sono diventate due, e la seconda passa dal profilo persistito, quindi
+    // vale per ogni riapertura dell'app senza che nessuno debba ricordarsene.
+    //
+    // **LA TERZA E' IL PONTE DELLA CARTA, ed e' stata questa prova a
+    // segnalarla.** Ordine 2167: il ponte consegna la carta natale alla
+    // porta di lettura per chi il Risveglio l'ha gia' fatto. Passa da
+    // `setBirth`, quindi finisce in questo conto, ed e' giusto che ci
+    // finisca. E' stata verificata prima di aggiornare il numero: i dati di
+    // nascita che il ponte passa NON sono una copia sua, sono quelli che la
+    // porta ha gia' (`identita.details`), che a loro volta vengono dal
+    // profilo persistito. Non introduce una fonte nuova: consegna un cielo
+    // ai dati che ci sono gia'.
     final porte = <String>[];
     for (final f in Directory('lib').listSync(recursive: true)) {
       if (f is! File || !f.path.endsWith('.dart')) continue;
@@ -103,9 +113,9 @@ void main() {
         porte.add(p);
       }
     }
-    expect(porte.length, 2,
+    expect(porte.length, 3,
         reason: 'le porte che riempiono i dati di nascita sono '
-            '${porte.length} ($porte): se ne nasce una terza, verifica che i '
+            '${porte.length} ($porte): se ne nasce una quarta, verifica che i '
             'dati vengano dal profilo e non da una copia che non persiste');
   });
 }
