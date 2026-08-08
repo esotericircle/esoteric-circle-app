@@ -34,6 +34,8 @@
 	<string>La fotocamera serve se scegli di mettere il tuo volto nella card della Sinastria o di leggere i tuoi tratti nella Costellazione del Viso. Tutto resta sul dispositivo: nessuna immagine viene caricata, nessuna foto viene salvata oltre l'uso del momento.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>La galleria serve solo se scegli una tua foto per la card della Sinastria. La foto resta sul dispositivo, entra solo nella card che decidi di condividere, senza mai essere caricata da nessuna parte.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>I sensori di movimento fanno respirare il cielo quando inclini il telefono, e riconoscono lo scuotimento con cui si gettano le rune. Puoi fare tutto anche col dito: il movimento e' un di piu', mai l'unica via.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -8,7 +8,20 @@ import '../maestro/maestro.dart';
 
 /// I permessi di sistema che l'app puo' chiedere. Ognuno si chiede solo nel
 /// momento in cui serve la sua funzione, mai tutti all'avvio.
-enum AppPermission { microphone, camera, motion, notifications, location }
+/// I permessi di sistema che l'app puo' chiedere. Ognuno si chiede solo nel
+/// momento in cui serve la sua funzione, mai tutti all'avvio.
+///
+/// L'elenco delle chiavi di sistema, delle voci del manifest e dei ripieghi
+/// vive in `registro_dei_permessi.dart`, che una prova confronta coi file
+/// veri di iOS e di Android.
+enum AppPermission {
+  microphone,
+  camera,
+  photoLibrary,
+  motion,
+  notifications,
+  location,
+}
 
 /// Testo del pre-avviso, nel tono del Maestro quando pertinente. E' onesto: dice
 /// a cosa serve e cosa NON fa.
@@ -38,6 +51,14 @@ PermissionCopy permissionCopy(AppPermission p, {Maestro? maestro}) {
         body:
             'Per soffiare con $name, il microfono ascolta solo il tuo soffio, non registra nulla né conserva audio.',
         cta: 'Attiva il microfono',
+      );
+    case AppPermission.photoLibrary:
+      return const PermissionCopy(
+        icon: Icons.photo_library_outlined,
+        title: 'La tua foto entra solo nella card',
+        body:
+            'Scegli tu quale immagine mettere nella card della Sinastria. Resta sul dispositivo e non viene caricata da nessuna parte.',
+        cta: 'Scegli una foto',
       );
     case AppPermission.camera:
       return const PermissionCopy(
