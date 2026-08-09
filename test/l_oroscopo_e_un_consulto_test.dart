@@ -60,6 +60,21 @@ void main() {
     expect(find.byType(TestoCheSiScrive), findsNothing,
         reason: 'prima del tocco c\'e\' gia\' un responso a schermo: e\' la '
             'pagina uscita dalla macchina, senza nessuno che l\'abbia chiesta');
+    // **E NON SI PORTA CON SE' CIO' CHE NON SI E' LETTO.** Trovato guardando
+    // l'anteprima rigenerata: sotto la pagina ancora muta c'era "Porta il tuo
+    // cielo di oggi con te" col pulsante Condividi, e la card che ne sarebbe
+    // uscita portava i quattro responsi mai comparsi a video. Togliere il
+    // testo e lasciare il modo di spedirlo non toglie il difetto, lo nasconde.
+    expect(find.byKey(const Key('oroscopo_share')), findsNothing,
+        reason: 'prima del consulto si puo\' gia\' condividere l\'oroscopo: '
+            'si spedirebbe una lettura che nessuno ha chiesto ne\' letto');
+
+    await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
+    expect(find.byKey(const Key('oroscopo_share')), findsOneWidget,
+        reason: 'dopo il consulto non si puo\' piu\' condividere: la '
+            'correzione ha tolto la funzione invece di rimandarla');
   });
 
   testWidgets('il titolo e\' il nome del segno, e sta sopra l\'emblema',

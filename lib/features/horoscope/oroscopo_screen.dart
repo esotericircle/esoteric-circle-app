@@ -321,11 +321,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         completa: cielo.ceCieloVero),
                     const SizedBox(height: SpacingTokens.md),
                   ],
-                  _ShareBlock(
-                    palette: palette,
-                    sharing: _sharing,
-                    onShare: _onShare,
-                  ),
+                  // SI PORTA CON SE' SOLO CIO' CHE SI E' LETTO. Prima del
+                  // consulto la schermata offriva di condividere un oroscopo
+                  // che nessuno aveva ancora chiesto, e la card che ne usciva
+                  // portava testi mai comparsi a video: e' lo stesso difetto
+                  // che il gesto Interroga il cielo esiste per togliere.
+                  if (_interrogato)
+                    _ShareBlock(
+                      palette: palette,
+                      sharing: _sharing,
+                      onShare: _onShare,
+                    ),
             // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
             //
             // Le linee guida dicevano da sempre "una volta sola", e per

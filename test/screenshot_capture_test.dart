@@ -2150,6 +2150,15 @@ void main() {
           AssetImage(ZodiacArt.emblemPath(Zodiac.aries)), element);
     });
     await step(tester);
+    // **SI APRE IL CONSULTO**, altrimenti l'anteprima del corredo mostra una
+    // pagina muta con mezzo schermo vuoto: dall'ordine 2171, voce 5, i responsi
+    // arrivano solo dopo Interroga il cielo. Questa immagine deve mostrare la
+    // funzione, non la sua soglia; l'apertura ha la sua anteprima a parte,
+    // `oroscopo_apertura_dopo.png`.
+    await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+    await step(tester);
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(seconds: 3));
     // Lascia completare la micro-animazione di riempimento delle forme.
     await tester.pump(const Duration(seconds: 2));
     await capture(tester, rootKey, 'oroscopo.png');
