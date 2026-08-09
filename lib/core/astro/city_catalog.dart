@@ -64,6 +64,17 @@ class City {
 /// Finche' l'asset non e' caricato, e se il caricamento fallisce, resta in piedi
 /// il seme compilato qui sotto: poche decine di citta', abbastanza perche' la
 /// schermata non sia mai muta.
+///
+/// **QUANTO COPRE DAVVERO, misurato il 9 agosto 2026 (ordine 2169, voce 2).**
+/// Undicimilacinquecentoquarantasei citta': 8.438 italiane in 107 province, il
+/// 73,1 per cento del totale, e 3.108 estere in 241 paesi. La copertura fuori
+/// dall'Italia e' povera e conviene saperlo prima del lancio invece che dopo:
+/// 116 paesi hanno UNA sola citta' in elenco e 153 ne hanno al massimo tre.
+/// Francia 13, Svizzera 3, Albania 1, Romania 15, Germania 45, Spagna 37,
+/// Regno Unito 40, contro Cina 430, India 262, Brasile 170, Stati Uniti 132.
+/// Chi e' nato in un paese europeo vicino ha buone probabilita' di non trovare
+/// la propria citta': quando la ricerca non trova niente l'app lo dichiara e
+/// offre di proseguire senza, invece di lasciare il campo muto.
 class CityCatalog {
   const CityCatalog._();
 
