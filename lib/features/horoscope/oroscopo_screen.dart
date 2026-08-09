@@ -14,6 +14,7 @@ import '../../core/identity/natal_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/cosmos_background.dart';
+import '../../design_system/components/testo_che_si_scrive.dart';
 import '../../design_system/components/entrance_cascade.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -48,6 +49,17 @@ enum HoroscopePeriod {
 
   final String label;
   final bool unlocked;
+
+  /// IL SOTTOTITOLO CHE SEGUE LA SCELTA, ordine 2171 voce 5.
+  ///
+  /// Diceva "del giorno" sempre, anche a chi aveva scelto la settimana o il
+  /// mese: una riga che non guarda la scelta della persona e' una riga che
+  /// prima o poi dice il falso.
+  String get sottotitolo => switch (this) {
+        HoroscopePeriod.giorno => 'Oroscopo Personalizzato del giorno',
+        HoroscopePeriod.settimana => 'Oroscopo Personalizzato della settimana',
+        HoroscopePeriod.mese => 'Oroscopo Personalizzato del mese',
+      };
 }
 
 /// Oroscopo Personalizzato, la headline di Medora.
@@ -82,6 +94,42 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   late final int _year = _date.year;
 
   HoroscopePeriod _period = HoroscopePeriod.giorno;
+
+  /// IL CIELO SI INTERROGA, NON SI APRE GIA' PRONTO. Ordine 2171, voce 5.
+  ///
+  /// Prima la schermata mostrava l'oroscopo dal primo fotogramma: sembrava
+  /// uscito da una macchina, senza studio ne' interpretazione. Adesso c'e' un
+  /// gesto, e i testi si compongono dopo.
+  bool _interrogato = false;
+
+  /// Vero mentre l'emblema pulsa: dal tocco fino a [_durataInterrogazione].
+  bool _interrogazione = false;
+
+  /// Quanto dura la pulsazione dell'emblema prima che i testi comincino a
+  /// scriversi. Due secondi: il tempo di capire che qualcosa sta accadendo,
+  /// senza che diventi un'attesa.
+  static const Duration _durataInterrogazione = Duration(seconds: 2);
+
+  /// Quanto ci mette un responso a scriversi per intero, al massimo. La
+  /// velocita' vive qui e non dentro il widget: e' una scelta del rito, e chi
+  /// la cambia deve vederla dichiarata.
+  static const Duration _durataScrittura = Duration(milliseconds: 2600);
+
+  Future<void> _interrogaIlCielo() async {
+    if (_interrogato) return;
+    setState(() {
+      _interrogato = true;
+      _interrogazione = true;
+    });
+    // Con Riduci Movimento non c'e' pulsazione da aspettare: il responso
+    // compare intero, subito.
+    if (MediaQuery.of(context).disableAnimations) {
+      setState(() => _interrogazione = false);
+      return;
+    }
+    await Future<void>.delayed(_durataInterrogazione);
+    if (mounted) setState(() => _interrogazione = false);
+  }
 
   // La tradizione scelta e il micro messaggio del Maestro sull'ultima
   // tradizione ancora chiusa che e' stata toccata.
@@ -190,9 +238,29 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                 // Nessun vuoto sopra l'eroe: il segno parte in alto.
                 padding: const EdgeInsets.fromLTRB(
                     SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.lg),
-                hero: _Hero(sign: widget.userSign, palette: palette, pulse: _pulse),
+                hero: Column(
+                  children: [
+                    // IL NOME DEL SEGNO, GRANDE, SOPRA L'EMBLEMA: e' la prima
+                    // cosa che la persona cerca, e stava sotto la figura.
+                    Text(widget.userSign.italianName,
+                        key: const Key('oroscopo_sign_name'),
+                        style: TypographyTokens.display(size: 34)
+                            .copyWith(color: palette.goldSoft)),
+                    const SizedBox(height: SpacingTokens.xs),
+                    _Hero(
+                      sign: widget.userSign,
+                      palette: palette,
+                      pulse: _pulse,
+                      // L'EMBLEMA PULSA MENTRE IL CIELO SI INTERROGA: e' il
+                      // segno che qualcosa sta accadendo, e dura quanto la
+                      // pausa dichiarata.
+                      interrogazione: _interrogazione,
+                    ),
+                  ],
+                ),
                 items: [
-                  _Heading(sign: widget.userSign, date: _date, palette: palette),
+                  _Heading(
+                      periodo: _period, date: _date, palette: palette),
                   const SizedBox(height: SpacingTokens.md),
                   _PeriodTabs(
                     current: _period,
@@ -216,8 +284,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         !_traditionRevealed.contains(_traditionMessage),
                   ),
                   const SizedBox(height: SpacingTokens.md),
-                  for (final card in cards) ...[
+                  // IL GESTO CHE APRE IL CONSULTO. Prima del tocco l'oroscopo
+                  // non si vede: il cielo si interroga.
+                  if (!_interrogato)
+                    _InterrogaIlCielo(
+                      palette: palette,
+                      onTap: _interrogaIlCielo,
+                    ),
+                  if (_interrogato)
+                    for (final card in cards) ...[
                     _HoroscopeCardView(
+                      scrivendo: !_interrogazione,
+                      durataScrittura: _durataScrittura,
                       card: card,
                       palette: palette,
                       pulse: _pulse,
@@ -349,12 +427,117 @@ class _OroscopoScreenState extends State<OroscopoScreen>
 
 /// L'eroe: l'emblema 3D del segno della persona, grande, dentro un alone che
 /// respira. Nessun altro segno, l'oroscopo e' personalizzato.
+/// IL RESPONSO CHE SI SCRIVE, e che un tocco completa.
+///
+/// Ordine 2171, voce 5. Il testo si compone a macchina da scrivere, con la
+/// velocita' dichiarata dalla schermata. Con Riduci Movimento compare intero:
+/// l'informazione non dipende dal moto.
+class _ResponsoCheSiScrive extends StatefulWidget {
+  const _ResponsoCheSiScrive({
+    super.key,
+    required this.testo,
+    required this.durataScrittura,
+    required this.scrivendo,
+  });
+
+  final String testo;
+  final Duration durataScrittura;
+  final bool scrivendo;
+
+  @override
+  State<_ResponsoCheSiScrive> createState() => _ResponsoCheSiScriveState();
+}
+
+class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
+  final GlobalKey<TestoCheSiScriveState> _scrittura =
+      GlobalKey<TestoCheSiScriveState>();
+
+  @override
+  Widget build(BuildContext context) {
+    final attiva =
+        widget.scrivendo && !MediaQuery.of(context).disableAnimations;
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => _scrittura.currentState?.completa(),
+      child: TestoCheSiScrive(
+        key: _scrittura,
+        testo: widget.testo,
+        stile: TypographyTokens.body(size: 17)
+            .copyWith(color: ColorTokens.textPrimary, height: 1.5),
+        durataMassima: widget.durataScrittura,
+        attiva: attiva,
+      ),
+    );
+  }
+}
+
+/// IL GESTO CHE APRE IL CONSULTO.
+///
+/// Ordine 2171, voce 5. Prima la schermata si apriva con l'oroscopo gia'
+/// scritto: sembrava uscito da una macchina, senza studio ne' interpretazione.
+/// Un consulto comincia quando qualcuno lo chiede.
+class _InterrogaIlCielo extends StatelessWidget {
+  const _InterrogaIlCielo({required this.palette, required this.onTap});
+
+  final MaestroPalette palette;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          key: const Key('oroscopo_interroga'),
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: SpacingTokens.lg, vertical: SpacingTokens.md),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+              gradient: LinearGradient(colors: [
+                palette.primary.withValues(alpha: 0.85),
+                palette.surfaceElevated.withValues(alpha: 0.85),
+              ]),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.7)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.auto_awesome, size: 18, color: palette.goldSoft),
+                const SizedBox(width: SpacingTokens.sm),
+                Text('Interroga il cielo',
+                    style: TypographyTokens.display(size: 17)
+                        .copyWith(color: palette.goldSoft)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _Hero extends StatelessWidget {
-  const _Hero({required this.sign, required this.palette, required this.pulse});
+  const _Hero({
+    required this.sign,
+    required this.palette,
+    required this.pulse,
+    this.interrogazione = false,
+  });
 
   final Zodiac sign;
   final MaestroPalette palette;
   final Animation<double> pulse;
+
+  /// Vero mentre il cielo si interroga: l'alone si accende di piu', perche' si
+  /// capisca che c'e' un'elaborazione in corso e non un'attesa vuota.
+  ///
+  /// Con Riduci Movimento il respiro non c'e', ma il bagliore resta acceso e
+  /// fermo: chi ha tolto le animazioni deve vedere lo stesso che sta
+  /// succedendo qualcosa.
+  final bool interrogazione;
 
   @override
   Widget build(BuildContext context) {
@@ -363,13 +546,22 @@ class _Hero extends StatelessWidget {
       child: AnimatedBuilder(
         animation: pulse,
         builder: (context, _) {
-          final breathe = 0.5 + 0.5 * (1 - (pulse.value - 0.5).abs() * 2);
+          final riduciMovimento = MediaQuery.of(context).disableAnimations;
+          final respiro = 0.5 + 0.5 * (1 - (pulse.value - 0.5).abs() * 2);
+          // Mentre si interroga il cielo il respiro si fa piu' ampio; fermo,
+          // ma acceso, quando le animazioni sono spente.
+          final breathe = interrogazione
+              ? (riduciMovimento ? 1.0 : 0.6 + 0.4 * respiro)
+              : respiro;
           return Stack(
             alignment: Alignment.center,
             children: [
               Container(
-                width: 250 + 28 * breathe,
-                height: 250 + 28 * breathe,
+                key: interrogazione
+                    ? const Key('oroscopo_emblema_pulsa')
+                    : const Key('oroscopo_emblema'),
+                width: 250 + (interrogazione ? 44 : 28) * breathe,
+                height: 250 + (interrogazione ? 44 : 28) * breathe,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(colors: [
@@ -399,9 +591,9 @@ class _Hero extends StatelessWidget {
 /// Intestazione: nome del segno, titolo e data locale.
 class _Heading extends StatelessWidget {
   const _Heading(
-      {required this.sign, required this.date, required this.palette});
+      {required this.periodo, required this.date, required this.palette});
 
-  final Zodiac sign;
+  final HoroscopePeriod periodo;
   final DateTime date;
   final MaestroPalette palette;
 
@@ -409,12 +601,7 @@ class _Heading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(sign.italianName,
-            key: const Key('oroscopo_sign_name'),
-            style: TypographyTokens.display(size: 28)
-                .copyWith(color: palette.goldSoft)),
-        const SizedBox(height: 2),
-        Text('Oroscopo Personalizzato del giorno',
+        Text(periodo.sottotitolo,
             key: const Key('oroscopo_heading'),
             textAlign: TextAlign.center,
             style: TypographyTokens.label(size: 11).copyWith(
@@ -726,6 +913,8 @@ class _PeriodTab extends StatelessWidget {
 
 class _HoroscopeCardView extends StatelessWidget {
   const _HoroscopeCardView({
+    required this.scrivendo,
+    required this.durataScrittura,
     required this.card,
     required this.palette,
     required this.pulse,
@@ -734,6 +923,17 @@ class _HoroscopeCardView extends StatelessWidget {
     required this.onDepthLocked,
     required this.premiumUnlocked,
   });
+
+  /// Se il responso si sta componendo adesso, a macchina da scrivere.
+  ///
+  /// Ordine 2171 voce 5: i testi non compaiono interi, si scrivono. Con
+  /// Riduci Movimento compaiono interi lo stesso, perche' l'informazione non
+  /// dipende dal moto.
+  final bool scrivendo;
+
+  /// Quanto ci mette un responso a scriversi per intero. La velocita' vive
+  /// nella schermata e arriva qui dichiarata: chi la cambia la vede.
+  final Duration durataScrittura;
 
   final HoroscopeCard card;
   final MaestroPalette palette;
@@ -832,9 +1032,15 @@ class _HoroscopeCardView extends StatelessWidget {
                     fontStyle: FontStyle.italic)),
             const SizedBox(height: SpacingTokens.sm),
           ],
-          Text(card.text,
-              style: TypographyTokens.body(size: 17)
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
+          // IL RESPONSO SI COMPONE, ordine 2171 voce 5. **Un tocco sul testo
+          // lo completa subito**: un'animazione da cui non si puo' uscire e'
+          // una gabbia, e chi ha fretta non deve aspettare il rito.
+          _ResponsoCheSiScrive(
+            key: Key('oroscopo_testo_${card.domain.name}'),
+            testo: card.text,
+            durataScrittura: durataScrittura,
+            scrivendo: scrivendo,
+          ),
           if (card.domain == HoroscopeDomain.fortuna) ...[
             const SizedBox(height: SpacingTokens.md),
             _FortunaFooter(card: card, palette: palette),

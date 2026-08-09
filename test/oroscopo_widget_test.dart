@@ -138,6 +138,15 @@ void main() {
       // Niente pumpAndSettle: la pulsazione dell'emblema si ripete all'infinito.
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 600));
+      // **IL CIELO SI INTERROGA, ordine 2171 voce 5.** Dal 10 agosto 2026
+      // l'oroscopo non si apre gia' scritto: prima del tocco non c'e' nessun
+      // responso da misurare, e queste prove misurano i responsi.
+      final interroga = find.byKey(const Key('oroscopo_interroga'));
+      if (interroga.evaluate().isNotEmpty) {
+        await tester.tap(interroga);
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 600));
+      }
     }
 
     testWidgets('Non c\'e\' piu\' il selettore dei segni', (tester) async {
@@ -334,9 +343,18 @@ void main() {
       final emblema = tester.getRect(find.byKey(const Key('oroscopo_emblem')));
       expect(emblema.width, greaterThanOrEqualTo(240),
           reason: 'emblema troppo piccolo');
-      // Nessun vuoto sopra: il blocco eroe parte vicino al bordo alto.
+      // **NESSUN VUOTO SOPRA, e adesso sopra c'e' il nome del segno.**
+      // Ordine 2171 voce 5: il nome e' salito sopra l'emblema, perche' e' la
+      // prima cosa che la persona cerca e stava sotto la figura. Quello che
+      // non deve esserci resta il VUOTO: si misura quindi da dove comincia il
+      // nome, e che l'emblema gli stia subito sotto.
       final lista = tester.getRect(find.byKey(const Key('oroscopo_list')));
-      expect(emblema.top - lista.top, lessThan(40),
+      final nome = tester.getRect(find.byKey(const Key('oroscopo_sign_name')));
+      expect(nome.top - lista.top, lessThan(40),
+          reason: 'sopra il nome del segno si e\' aperto un vuoto');
+      expect(emblema.top - nome.bottom, lessThan(24),
+          reason: 'fra il nome e l\'emblema si e\' aperto un vuoto');
+      expect(emblema.top - lista.top, lessThan(90),
           reason: 'troppo vuoto sopra l\'emblema');
     });
   });

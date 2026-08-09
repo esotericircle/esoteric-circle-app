@@ -14,6 +14,7 @@ import 'package:esoteric_circle/core/angels/angel_catalog.dart';
 import 'package:esoteric_circle/core/angels/guardian_angels.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:esoteric_circle/features/onboarding/planisfero.dart';
+import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/features/onboarding/trionfi_screen.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
@@ -2034,6 +2035,57 @@ void main() {
   // ORDINE 2171, VOCE 6: la scena a taglio compiuto. Il gesto adesso taglia
   // davvero il mazzo, e questa cattura mostra il ventaglio risteso dopo il
   // taglio.
+  // ORDINE 2171, VOCE 5: l'Oroscopo come consulto. Due scatti, all'apertura
+  // e dopo il tocco, perche' la differenza sta proprio fra i due momenti.
+  testWidgets('2171, l Oroscopo all apertura e dopo il tocco',
+      (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2400);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => EntitlementService()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: RepaintBoundary(
+          key: radice,
+          child: MaestroScope(
+            child: OroscopoScreen(
+              userSign: Zodiac.leo,
+              now: DateTime(2026, 7, 10),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    await scattaApp(tester, radice, 'oroscopo_apertura');
+
+    final interroga = find.byKey(const Key('oroscopo_interroga'));
+    if (interroga.evaluate().isNotEmpty) {
+      await tester.tap(interroga);
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 3));
+      await tester.pump(const Duration(seconds: 3));
+    }
+    await scattaApp(tester, radice, 'oroscopo_consulto');
+  });
+
+
   testWidgets('2171, la stesa a taglio compiuto', (tester) async {
     if (_stato.isEmpty) return;
     silence();
