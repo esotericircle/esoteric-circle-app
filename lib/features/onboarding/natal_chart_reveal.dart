@@ -10,6 +10,7 @@ import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/natal_wheel.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../identity/completa_il_luogo.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -135,6 +136,12 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
             _NotaDelRipiego(
               testo: controller.note!,
               palette: palette,
+              // DUE CASI DIVERSI, DUE GESTI DIVERSI, ordine 2169 voce 3.
+              // Quando manca il luogo, riprovare non serve a niente: si
+              // riotterrebbe lo stesso ripiego all'infinito. Il gesto giusto
+              // e' completare il dato, e adesso da qui si puo' fare.
+              mancaIlLuogo: controller.mancaIlLuogo,
+              onCompleta: () => CompletaIlLuogo.chiedi(context),
               onRiprova: () => context
                   .read<NatalChartController>()
                   .riprova(identity.details!),
@@ -408,11 +415,19 @@ class _NotaDelRipiego extends StatelessWidget {
     required this.testo,
     required this.palette,
     required this.onRiprova,
+    required this.mancaIlLuogo,
+    required this.onCompleta,
   });
 
   final String testo;
   final MaestroPalette palette;
   final VoidCallback onRiprova;
+
+  /// Se cio' che manca e' il LUOGO, cioe' un dato che la persona ha e noi no.
+  final bool mancaIlLuogo;
+
+  /// Il gesto che porta a darcelo.
+  final VoidCallback onCompleta;
 
   @override
   Widget build(BuildContext context) {
@@ -434,13 +449,25 @@ class _NotaDelRipiego extends StatelessWidget {
           const SizedBox(height: SpacingTokens.sm),
           Align(
             alignment: Alignment.centerRight,
-            child: TextButton(
-              key: const Key('carta_natale_riprova'),
-              onPressed: onRiprova,
-              child: Text('Riprova',
-                  style: TypographyTokens.label(size: 13)
-                      .copyWith(color: palette.goldSoft)),
-            ),
+            child: mancaIlLuogo
+                // Il dato manca: si offre di darlo, non di riprovare. Il
+                // testo dice cosa succede, perche' un pulsante che non
+                // dichiara il proprio effetto e' cio' che ha lasciato senza
+                // luogo di nascita chi il luogo credeva di averlo dato.
+                ? TextButton(
+                    key: const Key('carta_natale_completa_luogo'),
+                    onPressed: onCompleta,
+                    child: Text('Aggiungi il luogo di nascita',
+                        style: TypographyTokens.label(size: 13)
+                            .copyWith(color: palette.goldSoft)),
+                  )
+                : TextButton(
+                    key: const Key('carta_natale_riprova'),
+                    onPressed: onRiprova,
+                    child: Text('Riprova',
+                        style: TypographyTokens.label(size: 13)
+                            .copyWith(color: palette.goldSoft)),
+                  ),
           ),
         ],
       ),

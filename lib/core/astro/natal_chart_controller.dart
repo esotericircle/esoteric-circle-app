@@ -57,8 +57,19 @@ class NatalChartController extends ChangeNotifier {
   /// fosse sintomo.
   String? causa;
 
-  /// Se il ripiego dipende dal luogo di nascita mancante, che e' l'unica delle
-  /// cause possibili che la persona puo' risolvere da sola.
+  /// SE IL RIPIEGO DIPENDE DAL LUOGO DI NASCITA MANCANTE.
+  ///
+  /// **Dato mancante e calcolo fallito non sono la stessa cosa**, e finora la
+  /// differenza moriva dentro il testo della nota: la schermata riceveva due
+  /// frasi diverse ma nessun modo per comportarsi in modo diverso, quindi
+  /// offriva "Riprova" anche a chi non aveva niente da riprovare. Riprovare
+  /// mille volte senza il luogo da' mille volte lo stesso ripiego.
+  ///
+  /// Un dato mancante la persona lo risolve in trenta secondi; un calcolo
+  /// fallito non dipende da lei e si riprova piu' tardi. Qui la differenza
+  /// diventa un fatto leggibile, non una sfumatura di testo.
+  bool mancaIlLuogo = false;
+
   static bool _mancaIlLuogo(BirthDetails details) => details.place == null;
 
   /// Segno solare risultante (per evidenziare la costellazione nel cosmo).
@@ -147,6 +158,7 @@ class NatalChartController extends ChangeNotifier {
         hasTime: details.hasTime,
       );
       ripiego = true;
+      mancaIlLuogo = _mancaIlLuogo(details);
       // LA CAUSA NON SI PERDE PIU'. Prima `compute` catturava tutto e ripiegava
       // in silenzio: il ripiego e' diventato il caso normale e nessuno poteva
       // sapere perche', perche' l'unico che lo sapeva era l'eccezione, e
@@ -170,6 +182,7 @@ class NatalChartController extends ChangeNotifier {
   Future<void> riprova(BirthDetails details) async {
     await _archivio.dimentica(_chiaveDi(details));
     ripiego = false;
+    mancaIlLuogo = false;
     await compute(details);
   }
 
@@ -178,6 +191,7 @@ class NatalChartController extends ChangeNotifier {
     chart = null;
     note = null;
     ripiego = false;
+    mancaIlLuogo = false;
     _chiaveCorrente = null;
     notifyListeners();
   }
