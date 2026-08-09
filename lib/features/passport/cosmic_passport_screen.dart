@@ -3,6 +3,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'specchio_dei_dati.dart';
 import '../shell/spazio_della_barra.dart';
 
 import '../../core/astro/night_sky.dart';
@@ -156,6 +158,12 @@ class CosmicPassport extends StatelessWidget {
                   _AngelsCard(identity: id),
                   const SizedBox(height: SpacingTokens.sm),
                   _NatalChartCard(identity: id),
+                  const SizedBox(height: SpacingTokens.sm),
+                  // LO SPECCHIO DEI DATI, ordine 2169 voce 8. Sta qui e non
+                  // nelle impostazioni perche' il Passaporto e' gia' il posto
+                  // dove la persona viene a vedere chi e' per il Cerchio: cio'
+                  // che il Cerchio ricorda di lei appartiene a questa pagina.
+                  const SpecchioDeiDati(),
                   const SizedBox(height: SpacingTokens.sm),
                   // L'ARCHETIPO, VIVO SE IL TEST E' STATO FATTO.
                   //
