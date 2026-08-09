@@ -100,6 +100,17 @@ void main() {
     ));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
+
+    // **SI APRE IL CONSULTO PRIMA DI GUARDARE.** Dall'ordine 2171, voce 5,
+    // l'oroscopo non si da' piu' da solo all'apertura: lo si chiede col gesto
+    // Interroga il cielo. Con Riduci Movimento, che qui e' acceso, il responso
+    // compare subito e per intero, quindi non c'e' nessuna attesa da simulare.
+    // La prova continua a misurare la stessa cosa di prima, la profondita' che
+    // cambia il testo a video: cambia solo il modo in cui quel testo arriva
+    // sullo schermo.
+    await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
   }
 
   /// Il testo della scheda Generale come sta a video.

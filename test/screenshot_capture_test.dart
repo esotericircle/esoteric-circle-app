@@ -2220,13 +2220,25 @@ void main() {
           AssetImage(ZodiacArt.emblemPath(Zodiac.leo)), element);
     });
     await step(tester);
+    // **SI CHIEDE IL CONSULTO.** Dall'ordine 2171, voce 5, l'oroscopo non e'
+    // piu' a schermo all'apertura: lo si domanda col gesto Interroga il cielo.
+    // Poi si aspettano i due tempi dichiarati dalla schermata, la pulsazione
+    // dell'emblema e la scrittura dei responsi, perche' l'anteprima deve
+    // mostrare i testi interi e non a meta' riga.
+    await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+    await step(tester);
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(seconds: 3));
+    await step(tester);
     // Si sceglie la Profonda sulla scheda Generale: e' il gesto che ieri non
     // faceva niente.
     await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
     await step(tester);
     await tester.tap(find.text('Profonda').last);
     await step(tester);
-    await tester.pump(const Duration(seconds: 2));
+    // Cambiando profondita' il testo e' un altro e si riscrive: due secondi
+    // non bastavano piu', la scrittura ne dichiara due e sei decimi.
+    await tester.pump(const Duration(seconds: 4));
     // IL GUARDIANO: se il testo non nominasse un transito vero, questa
     // immagine mostrerebbe il ripiego e direbbe il falso col suo nome.
     expect(find.textContaining('casa'), findsWidgets,
