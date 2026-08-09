@@ -69,7 +69,7 @@ void main() {
 
   test('TAGLIA porta sopra la meta\' di sotto, e non perde niente', () {
     final mazzo = TarotSpread.mazzoMescolato(seed: 3);
-    final punto = 26;
+    const punto = 26;
     final tagliato = TarotSpread.taglia(mazzo, punto);
 
     expect(tagliato.first, mazzo[punto],
