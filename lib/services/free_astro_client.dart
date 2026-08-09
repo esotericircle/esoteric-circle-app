@@ -28,6 +28,15 @@ typedef NatalChartCaller = Future<Object?> Function(Map<String, Object?> data);
 /// protetta da App Check. Il client invia i dati di nascita e riceve il JSON di
 /// FreeAstroAPI, che interpreta con lo stesso parsing di prima. Il trasporto e'
 /// iniettabile ([caller]) per i test con callable simulata.
+/// IL SISTEMA DI CASE CHE L'APP SI ASPETTA, e su cui sono tarate tutte le
+/// prove del cielo di nascita.
+///
+/// Placidus e' quello che il fornitore restituisce oggi, verificato sulle tre
+/// risposte conservate nel repository (Roma, Sydney, Reykjavik). Non e' una
+/// preferenza estetica: le cuspidi che la ruota disegna, gli aspetti e le
+/// case dei pianeti dipendono da questa scelta.
+const String sistemaDiCaseAtteso = 'placidus';
+
 class FreeAstroClient {
   FreeAstroClient({NatalChartCaller? caller})
       : _caller = caller ?? _firebaseCaller;
@@ -117,6 +126,29 @@ class FreeAstroClient {
     // La verita' sull'ora e' quella data dall'utente: senza ora, Ascendente e
     // Case non hanno senso anche se l'API le calcola dal mezzogiorno di default.
     final hasTime = details.hasTime;
+
+    // IL SISTEMA DI CASE DELLA RISPOSTA, CONTROLLATO PRIMA DI CREDERLE.
+    //
+    // **Ordine 2170, voce 4.** Placidus, Koch e Case Uguali danno cuspidi
+    // diverse per la stessa nascita: se il fornitore cambiasse default,
+    // tutte le carte cambierebbero sotto i piedi delle persone e nessun
+    // numero in questo codice se ne accorgerebbe. Adesso se ne accorge qui.
+    //
+    // **Il campo non si spedisce ANCORA nella richiesta**, ed e' voluto: la
+    // callable in produzione rifiuta i campi che non conosce, quindi una
+    // versione dell'app che lo mandasse verrebbe respinta finche' la
+    // funzione aggiornata non e' pubblicata. Il lato server e' pronto
+    // (`functions/src/validate.ts` accetta `house_system` e
+    // `functions/src/index.ts` verifica la risposta): il giorno del deploy
+    // basta aggiungere il campo al payload qui sopra.
+    final sistemaCase = ((d['subject'] as Map<String, dynamic>?)?['settings']
+        as Map<String, dynamic>?)?['house_system'];
+    if (sistemaCase != null && sistemaCase != sistemaDiCaseAtteso) {
+      throw AstroApiException(
+        'Il cielo ha risposto con un altro modo di dividere le case '
+        '($sistemaCase invece di $sistemaDiCaseAtteso).',
+      );
+    }
 
     final planetsRaw = d['planets'];
     if (planetsRaw is! List || planetsRaw.isEmpty) {

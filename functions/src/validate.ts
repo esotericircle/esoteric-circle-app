@@ -24,6 +24,20 @@ export interface NatalInput {
   lat: number;
   lng: number;
   tz_str: string;
+  /**
+   * IL SISTEMA DI CASE, CHIESTO E NON SPERATO. Ordine 2170, voce 4.
+   *
+   * Fino a oggi non lo mandava nessuno, quindi arrivava il default del
+   * fornitore: il giorno che quel default cambia, TUTTE le carte cambiano
+   * sotto i piedi delle persone e nessuno se ne accorge, perche' nessun
+   * numero nel nostro codice dice quale ci aspettiamo.
+   *
+   * Facoltativo, e resta facoltativo apposta: le app gia' installate non
+   * lo mandano, e devono continuare a funzionare. Quando manca vale
+   * "placidus", che e' quello che il fornitore restituisce oggi, verificato
+   * sulle tre risposte conservate nel repository.
+   */
+  house_system: string;
 }
 
 /** Il motivo per cui un corpo non passa, in italiano, per il messaggio. */
@@ -98,6 +112,7 @@ export function validateNatalInput(
 
   const ammessi = [
     "year", "month", "day", "hour", "minute", "lat", "lng", "tz_str",
+    "house_system",
   ];
   const estranei = Object.keys(data).filter((k) => !ammessi.includes(k));
   if (estranei.length > 0) {
@@ -128,5 +143,24 @@ export function validateNatalInput(
     throw new ValidationError(`Il fuso orario ${tz} non e' un nome IANA.`);
   }
 
-  return {year, month, day, hour, minute, lat, lng, tz_str: tz};
+  // Il sistema di case: una sigla di una lettera, come vuole Swiss Ephemeris
+  // (P sta per Placidus). Si accetta solo cio' che sappiamo interpretare:
+  // una sigla sconosciuta darebbe cuspidi che nessuna nostra prova sorveglia.
+  const sigleNote = ["P", "K", "O", "R", "C", "W"];
+  const grezzoCase = data["house_system"];
+  let houseSystem = "P";
+  if (grezzoCase !== undefined) {
+    if (typeof grezzoCase !== "string" || !sigleNote.includes(grezzoCase)) {
+      throw new ValidationError(
+        `Il sistema di case ${String(grezzoCase)} non e' fra quelli noti ` +
+        `(${sigleNote.join(", ")}).`
+      );
+    }
+    houseSystem = grezzoCase;
+  }
+
+  return {
+    year, month, day, hour, minute, lat, lng, tz_str: tz,
+    house_system: houseSystem,
+  };
 }

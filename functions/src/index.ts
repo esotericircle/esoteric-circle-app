@@ -77,6 +77,9 @@ export const natalChart = onCall(
       throw new HttpsError("invalid-argument", motivo);
     }
 
+    // Il corpo per il fornitore: i campi che conosce, senza il nostro.
+    const {house_system: sistemaChiesto, ...alFornitore} = data;
+
     let res: Response;
     try {
       res = await fetch(`${FREEASTRO_BASE_URL}${NATAL_PATH}`, {
@@ -86,7 +89,12 @@ export const natalChart = onCall(
           "Content-Type": "application/json",
           "Accept": "application/json",
         },
-        body: JSON.stringify(data),
+        // AL FORNITORE SI MANDA CIO' CHE IL FORNITORE CONOSCE. Il sistema di
+        // case NON viaggia da qui: FreeAstroAPI oggi non documenta un campo
+        // per sceglierlo, e mandargliene uno a caso significherebbe farsi
+        // rifiutare la chiamata. Cio' che si fa col sistema chiesto e'
+        // CONTROLLARE la risposta, qui sotto.
+        body: JSON.stringify(alFornitore),
         signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
       });
     } catch (err) {
@@ -116,7 +124,31 @@ export const natalChart = onCall(
       const pianeti = Array.isArray((carta as {planets?: unknown[]})?.planets) ?
         (carta as {planets: unknown[]}).planets.length :
         0;
-      logger.info("natalChart: carta calcolata", {pianeti});
+      // IL SISTEMA DI CASE DELLA RISPOSTA E' QUELLO CHE ABBIAMO CHIESTO,
+      // oppure la chiamata fallisce. Ordine 2170, voce 4.
+      //
+      // Fino a oggi il sistema arrivava come default del fornitore e nessuno
+      // lo guardava: il giorno che quel default fosse cambiato, tutte le
+      // carte sarebbero cambiate sotto i piedi delle persone senza che
+      // nessuna riga di codice se ne accorgesse. Adesso se ne accorge questa.
+      const atteso: Record<string, string> = {
+        P: "placidus", K: "koch", O: "porphyry",
+        R: "regiomontanus", C: "campanus", W: "whole_sign",
+      };
+      const risposto = (carta as {
+        subject?: {settings?: {house_system?: unknown}}
+      })?.subject?.settings?.house_system;
+      const voluto = atteso[sistemaChiesto] ?? "placidus";
+      if (typeof risposto === "string" && risposto !== voluto) {
+        logger.error("natalChart: sistema di case inatteso", {
+          chiesto: voluto, risposto,
+        });
+        throw new HttpsError(
+          "failed-precondition",
+          "Il motore astrologico ha calcolato le case con un altro sistema."
+        );
+      }
+      logger.info("natalChart: carta calcolata", {pianeti, case: risposto});
       return carta;
     } catch (err) {
       logger.error("natalChart: risposta non leggibile", {err: String(err)});
