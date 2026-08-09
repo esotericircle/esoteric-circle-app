@@ -109,41 +109,30 @@ void main() {
         reason: 'si chiede un luogo che la persona ha gia\' dato');
   });
 
-  testWidgets('il gesto apre la porta del luogo, e da li\' si sceglie',
-      (tester) async {
+  testWidgets('il gesto porta dove il luogo si da\' davvero', (tester) async {
     await apri(tester, senzaLuogo);
 
     await tester.tap(find.byKey(const Key('carta_natale_completa_luogo')));
-    // **NIENTE pumpAndSettle DA QUI IN POI.** Il campo del foglio nasce col
-    // fuoco, e un cursore che lampeggia e' un'animazione che non finisce mai:
-    // pumpAndSettle aspetterebbe la quiete fino allo scadere del tempo.
-    for (var i = 0; i < 6; i++) {
+    // **NIENTE pumpAndSettle**: la schermata dei dati di nascita ha un campo
+    // col fuoco, e un cursore che lampeggia e' un'animazione che non finisce
+    // mai.
+    for (var i = 0; i < 8; i++) {
       await tester.pump(const Duration(milliseconds: 150));
     }
 
-    expect(find.byKey(const Key('completa_luogo_foglio')), findsOneWidget,
-        reason: 'il gesto non apre niente');
-    // Il pulsante nasce spento: qui non deve poter significare due cose,
-    // che e' il difetto disinnescato al Risveglio.
-    final conferma = tester.widget<FilledButton>(
-        find.byKey(const Key('completa_luogo_conferma')));
-    expect(conferma.onPressed, isNull,
-        reason: 'si puo\' salvare un luogo che nessuno ha scelto');
-
-    await tester.enterText(
-        find.byKey(const Key('completa_luogo_campo')), 'Cattolica');
-    for (var i = 0; i < 4; i++) {
-      await tester.pump(const Duration(milliseconds: 150));
-    }
-    expect(find.byKey(const Key('completa_luogo_scelto')), findsOneWidget,
-        reason: 'la regola del nome unico non vale in questa porta: sarebbe '
-            'la stessa regola scritta in due posti, che e\' il modo in cui '
-            'due porte finiscono per rispondere in modo diverso');
-    final conferma2 = tester.widget<FilledButton>(
-        find.byKey(const Key('completa_luogo_conferma')));
-    expect(conferma2.onPressed, isNotNull,
-        reason: 'scelto il luogo, salvarlo resta impossibile');
+    // **E' LA SCHERMATA CHE ESISTE GIA', non un foglio nuovo.** La prima
+    // stesura di questo ordine apriva un proprio foglio con la propria
+    // ricerca delle citta': una seconda porta per lo stesso dato, che la
+    // prova enumerante `dati_nascita_sbloccano_test` ha preso in pieno,
+    // vedendo le porte diventare tre. Qui si pretende che il gesto porti dove
+    // i dati di nascita si correggono da sempre.
+    expect(find.byKey(const Key('nascita_luogo_field')), findsOneWidget,
+        reason: 'il gesto non porta alla schermata dei dati di nascita: se '
+            'apre un posto suo, il luogo si da\' in due modi diversi, '
+            'ed e\' la forma di difetto che questo progetto ha gia\' '
+            'pagato undici volte');
   });
+
 
   test('la causa risolvibile e\' un fatto, non una sfumatura di testo', () {
     // **IL PRESIDIO.** Se domani qualcuno togliesse `mancaIlLuogo` e tornasse

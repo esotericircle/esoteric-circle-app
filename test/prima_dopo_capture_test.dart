@@ -13,6 +13,7 @@ import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.da
 import 'package:esoteric_circle/core/angels/angel_catalog.dart';
 import 'package:esoteric_circle/core/angels/guardian_angels.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
+import 'package:esoteric_circle/features/onboarding/planisfero.dart';
 import 'package:esoteric_circle/features/onboarding/trionfi_screen.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
@@ -2024,6 +2025,49 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
 
     await scattaApp(tester, radice, 'striscia_home');
+  });
+
+  // ORDINE 2169, VOCE 9: il luogo scelto sul planisfero. La "prima" e' la
+  // stella con l'alone e i quattro raggi, la "dopo" sono le tre onde
+  // concentriche che si allargano dal punto.
+  testWidgets('2169, il punto del luogo sul planisfero', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    // Il rapporto e' quello del corredo, tre, come tutte le altre catture:
+    // la misura fisica e' percio' tre volte lo spazio logico che serve.
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(2160, 1140);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: const Color(0xFF05040A),
+          body: RepaintBoundary(
+            key: radice,
+            child: const SizedBox(
+              width: 720,
+              height: 380,
+              // Torino, come nel Risveglio di chi sceglie la propria citta'.
+              child: Planisfero(
+                palette: MaestroPalette.neutral,
+                luogo: (lat: 45.07, lon: 7.69),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 120));
+
+    await scattaApp(tester, radice, 'planisfero_luogo');
   });
 }
 

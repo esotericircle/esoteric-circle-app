@@ -28,8 +28,20 @@ class SpecchioDeiDati extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = context.palette;
-    final porta = context.watch<BirthIdentityController>();
-    final motore = context.watch<NatalChartController>();
+    // **L'ALBERO PIU' POVERO NON E' UN GUASTO, ed e' l'unico errore che qui si
+    // ignora.** Nell'app vera i due controller stanno sopra tutto, in
+    // `app.dart`: se mancano, siamo in una prova o in un'anteprima che monta
+    // il Passaporto da solo. Li' lo specchio non ha niente da rispecchiare e
+    // sparisce, invece di far cadere la schermata intera addosso a chi stava
+    // misurando un'altra cosa. Qualunque ALTRO errore passa.
+    final BirthIdentityController porta;
+    final NatalChartController motore;
+    try {
+      porta = context.watch<BirthIdentityController>();
+      motore = context.watch<NatalChartController>();
+    } on ProviderNotFoundException catch (_) {
+      return const SizedBox.shrink();
+    }
     final dettagli = porta.details;
 
     // Il cielo vero, il ripiego e il niente sono TRE stati, non due: dire
