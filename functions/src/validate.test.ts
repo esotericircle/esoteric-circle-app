@@ -25,7 +25,11 @@ const buono = {
 
 test("un corpo buono passa e torna pulito", () => {
   const out = validateNatalInput(buono, ANNO);
-  assert.deepEqual(out, buono);
+  // IL SISTEMA DI CASE ARRIVA ANCHE QUANDO NON LO SI CHIEDE, ordine 2170
+  // voce 4: le app gia' installate non lo mandano e devono continuare a
+  // funzionare, quindi vale "P" come Placidus, che e' cio' che il fornitore
+  // restituisce oggi.
+  assert.deepEqual(out, {...buono, house_system: "P"});
 });
 
 test("campo mancante: senza minute non passa", () => {
@@ -135,4 +139,25 @@ test("un corpo che non e' un oggetto", () => {
   assert.throws(() => validateNatalInput(null, ANNO), ValidationError);
   assert.throws(() => validateNatalInput([1, 2], ANNO), ValidationError);
   assert.throws(() => validateNatalInput("ciao", ANNO), ValidationError);
+});
+
+// IL SISTEMA DI CASE, ordine 2170 voce 4 e 2171 voce 3.
+test("il sistema di case si puo' chiedere, e vale P quando manca", () => {
+  const conKoch = validateNatalInput({...buono, house_system: "K"}, ANNO);
+  assert.equal(conKoch.house_system, "K");
+  const senza = validateNatalInput(buono, ANNO);
+  assert.equal(senza.house_system, "P");
+});
+
+test("una sigla di case sconosciuta non passa", () => {
+  // Una sigla che non sappiamo interpretare darebbe cuspidi che nessuna
+  // nostra prova sorveglia: meglio un rifiuto chiaro.
+  assert.throws(
+    () => validateNatalInput({...buono, house_system: "Z"}, ANNO),
+    ValidationError
+  );
+  assert.throws(
+    () => validateNatalInput({...buono, house_system: 7}, ANNO),
+    ValidationError
+  );
 });

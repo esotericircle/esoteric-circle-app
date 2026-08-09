@@ -7,32 +7,27 @@ import 'package:esoteric_circle/services/free_astro_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// PLACIDUS SI CHIEDE, NON SI SPERA.
+/// PLACIDUS SI CHIEDE, E LA SEQUENZA E' COMPLETA.
 ///
-/// Ordine 2170, voce 4. Il sistema di case arrivava come default del
-/// fornitore: il giorno che lo cambia, tutte le carte cambiano sotto i piedi
-/// delle persone e nessuno se ne accorge, perche' nessun numero nel nostro
-/// codice dice quale ci aspettiamo.
+/// Ordine 2170 voce 4, chiuso dall'ordine 2171 voce 3. Il sistema di case
+/// arrivava come default del fornitore: il giorno che lo cambia, tutte le
+/// carte cambiano sotto i piedi delle persone e nessuno se ne accorge.
 ///
-/// **LA CALLABLE OGGI NON ACCETTA IL PARAMETRO, ed e' stato verificato
-/// chiamandola.** Con `house_system`, `houses_system_identifier` e
-/// `houses_system` risponde 400 "Campi non ammessi": la validazione lato
-/// server ricostruisce il corpo campo per campo, apposta, e un campo che non
-/// conosce non passa.
+/// **LA SEQUENZA, eseguita in quest'ordine il 10 agosto 2026:**
+///  1. la funzione con la validazione nuova e' stata DEPLOYATA in produzione
+///     (`firebase deploy --only functions:natalChart`, aggiornamento riuscito
+///     su `natalChart(europe-west1)`);
+///  2. il deploy e' stato VERIFICATO chiamando la callable vera: senza il
+///     campo risponde `placidus`, con `house_system: P` risponde `placidus`,
+///     con una sigla ignota risponde 400 "Il sistema di case Z non e' fra
+///     quelli noti";
+///  3. solo allora l'app ha cominciato a SPEDIRE il campo, e una carta vera
+///     chiesta al motore con quel payload ha risposto
+///     `subject.settings.house_system = placidus`.
 ///
-/// Quindi si e' fatto quello che l'ordine prescrive in questo caso, e in piu'
-/// si e' preparato il lato server:
-///  - `functions/src/validate.ts` adesso ACCETTA `house_system`, facoltativo,
-///    con "P" come valore quando manca;
-///  - `functions/src/index.ts` CONTROLLA che la risposta porti il sistema
-///    chiesto, e fallisce se non lo porta;
-///  - l'app RIFIUTA una risposta con un sistema diverso da quello atteso, ed
-///    e' quello che queste prove misurano.
-///
-/// **L'app non spedisce ancora il campo, e non e' una dimenticanza:** la
-/// funzione in produzione e' ancora quella vecchia, che i campi sconosciuti li
-/// respinge. Una versione dell'app che lo mandasse oggi verrebbe rifiutata a
-/// ogni carta. Il campo si aggiunge al payload il giorno del deploy.
+/// L'ordine dei tre passi non era un dettaglio: la funzione precedente
+/// rifiutava i campi che non conosceva, quindi un'app che avesse spedito il
+/// campo prima del deploy sarebbe stata respinta a ogni carta.
 void main() {
   Map<String, dynamic> rispostaDiRoma() =>
       jsonDecode(File('assets/data/sample_natal_rome.json').readAsStringSync())
@@ -100,5 +95,22 @@ void main() {
     expect(index.contains('sistema di case inatteso'), isTrue,
         reason: 'la funzione non controlla piu\' il sistema di case della '
             'risposta: torna a valere il default del fornitore, in silenzio');
+  });
+
+  test('l\'app SPEDISCE il sistema di case, e chiede quello che controlla',
+      () {
+    // **I DUE LATI DEVONO PARLARE DELLA STESSA COSA.** Chiedere Placidus e
+    // controllare Koch sarebbe peggio che non chiedere niente: la richiesta
+    // direbbe una cosa e il presidio un'altra, e nessuno se ne accorgerebbe
+    // finche' le carte non fossero gia' sbagliate.
+    final client =
+        File('lib/services/free_astro_client.dart').readAsStringSync();
+    expect(
+        client.contains("'house_system': sigla(sistemaDiCaseAtteso)"), isTrue,
+        reason: 'l\'app non spedisce piu\' il sistema di case nel payload: si '
+            'torna al default del fornitore, che era il difetto da chiudere');
+    expect(sigla(sistemaDiCaseAtteso), 'P',
+        reason: 'la sigla spedita non corrisponde al sistema atteso: si '
+            'chiede una cosa e se ne controlla un\'altra');
   });
 }

@@ -37,6 +37,22 @@ typedef NatalChartCaller = Future<Object?> Function(Map<String, Object?> data);
 /// case dei pianeti dipendono da questa scelta.
 const String sistemaDiCaseAtteso = 'placidus';
 
+/// La sigla di una lettera con cui il sistema di case viaggia nella richiesta,
+/// quella di Swiss Ephemeris: P sta per Placidus.
+///
+/// Le due forme servono a due mestieri diversi: la sigla e' cio' che si
+/// CHIEDE, il nome esteso e' cio' che il fornitore RISPONDE. Tenerle appaiate
+/// qui evita che qualcuno un giorno chieda una cosa e ne controlli un'altra.
+String sigla(String sistema) => const {
+      'placidus': 'P',
+      'koch': 'K',
+      'porphyry': 'O',
+      'regiomontanus': 'R',
+      'campanus': 'C',
+      'whole_sign': 'W',
+    }[sistema] ??
+    'P';
+
 class FreeAstroClient {
   FreeAstroClient({NatalChartCaller? caller})
       : _caller = caller ?? _firebaseCaller;
@@ -94,6 +110,18 @@ class FreeAstroClient {
       'lat': place.latitude,
       'lng': place.longitude,
       'tz_str': place.timezone,
+      // IL SISTEMA DI CASE SI CHIEDE, ordine 2171 voce 3.
+      //
+      // Fino al 10 agosto 2026 non lo mandava nessuno e arrivava il default
+      // del fornitore: il giorno che quel default fosse cambiato, tutte le
+      // carte sarebbero cambiate sotto i piedi delle persone senza che una
+      // riga di codice se ne accorgesse.
+      //
+      // Si e' potuto cominciare a mandarlo solo DOPO il deploy della funzione
+      // che lo accetta: la versione precedente rifiutava i campi che non
+      // conosceva, quindi un'app che l'avesse spedito prima sarebbe stata
+      // respinta a ogni carta. La sequenza e' stata quella, in quest'ordine.
+      'house_system': sigla(sistemaDiCaseAtteso),
     };
 
     Object? raw;
