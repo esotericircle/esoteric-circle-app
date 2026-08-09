@@ -182,3 +182,7 @@ sound_effect/
 # e la cartella si chiamava con uno spazio dentro, quindi nessuna regola
 # esistente la prendeva. Regola aggiunta il 5 agosto 2026.
 intro video/
+
+# Gli strumenti da PC di sviluppo tirano giu' le proprie dipendenze, che
+# NON entrano nell'app: Swiss Ephemeris e' AGPL e resta qui.
+tool/node_modules/
