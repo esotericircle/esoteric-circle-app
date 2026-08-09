@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/astro/zodiac.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/rune_cast.dart';
+import '../../../../core/rituals/sunset_rune_corpus.dart';
 import '../../../../core/rituals/rune_lore.g.dart';
 import '../../../../core/rituals/rune_presage.dart';
 import '../../../../core/rituals/rune_voce.dart';
@@ -703,9 +704,17 @@ class _LetturaRuna extends StatelessWidget {
                               letterSpacing: 0.4)),
                       const SizedBox(height: 2),
                       Text(
+                          // **LE SIMMETRICHE LO DICHIARANO ANCHE QUI**, ordine
+                          // 2171 voce 4: "diritta" su una runa che diritta lo
+                          // e' sempre non e' falso, ma lascia credere che
+                          // sarebbe potuta uscire al contrario.
                           libera
                               ? 'in luce'
-                              : (runa.inOmbra ? 'in merkstave' : 'diritta'),
+                              : (kRuneSimmetriche.contains(runa.rune.name)
+                                  ? SunsetRuneCorpus.noteSimmetrica
+                                  : (runa.inOmbra
+                                      ? 'in merkstave'
+                                      : 'diritta')),
                           style: TypographyTokens.label(size: 11).copyWith(
                               color: ColorTokens.textSecondary,
                               letterSpacing: 0.6)),

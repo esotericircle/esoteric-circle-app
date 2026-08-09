@@ -25,6 +25,43 @@ class SunsetRuneCorpus {
   /// La nota sotto il nome per una runa senza rovescio.
   static const String noteSimmetrica = "segno simmetrico, non ha rovescio";
 
+  /// L'INVITO A GIRARE LA PIETRA, per le rune che un rovescio non ce l'hanno.
+  ///
+  /// **Segnalazione della fondatrice Dora su Gebo, ordine 2171 voce 4.** L'app
+  /// invitava a girare la pietra promettendo "il suo rovescio", e subito sotto
+  /// dichiarava che quella runa il rovescio non ce l'ha. Il difetto non era il
+  /// contenuto, che era giusto: era la promessa.
+  ///
+  /// Il gesto resta, perche' girare la pietra e' parte del rito e il retro
+  /// inciso c'e' comunque: cambia cio' che si promette.
+  static const String invitoSimmetrica =
+      "Tocca due volte: la pietra mostra il suo retro.";
+
+  static const String invitoSimmetricaConInclinazione =
+      "Inclina il telefono sull'asse lungo, oppure tocca due volte: la pietra "
+      "mostra il suo retro.";
+
+  /// PERCHE' QUESTA RUNA NON SI ROVESCIA, e come si legge invece.
+  ///
+  /// Otto rune dell'Elder Futhark sono identiche se le giri: Gebo, Hagalaz,
+  /// Isa, Jera, Eihwaz, Sowilo, Ingwaz e Dagaz. Alcune scuole aggiungono
+  /// Nauthiz; il Cerchio adotta le otto, e l'insieme vive in un punto solo,
+  /// `kRuneSimmetriche`.
+  static String perche(String nome) =>
+      "$nome e' identica se la giri: il suo segno non ha un sopra e un sotto, "
+      "quindi non ha verso d'ombra. Non e' un'informazione che manca: si legge "
+      "dal contesto della sera e dalla posizione che occupa nella stesa.";
+
+  /// LA TRASPARENZA SUL ROVESCIO, che vale per tutte e ventiquattro.
+  ///
+  /// Il verso d'ombra e' pratica moderna: nelle fonti storiche, dai poemi
+  /// runici anglosassone, norvegese e islandese alle iscrizioni, non c'e'
+  /// traccia di una lettura al contrario. Dirlo non toglie niente al rito, e
+  /// non dirlo sarebbe far passare per antico cio' che antico non e'.
+  static const String rovescioEPraticaModerna =
+      "Il verso d'ombra e' pratica moderna: le fonti storiche non attestano "
+      "una lettura al contrario delle rune.";
+
   // Verso dritto: tutte e ventiquattro le rune.
   static const Map<String, VoceRuna> _dritto = {
     "Fehu": VoceRuna(

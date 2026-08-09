@@ -1111,11 +1111,30 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                     color: _palette.goldSoft.withValues(alpha: 0.8),
                     letterSpacing: 0.6)),
           ),
+          // PERCHE' QUESTA RUNA NON SI ROVESCIA, e come si legge invece.
+          // Dire "non ha rovescio" senza dire come si legge lascia la persona
+          // con un'informazione che sembra mancare, e non manca niente.
+          if (_e.simmetrica) ...[
+            const SizedBox(height: SpacingTokens.xs),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+              child: Text(
+                SunsetRuneCorpus.perche(_e.rune.name),
+                key: const Key('sunset_perche_simmetrica'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.body(size: 13).copyWith(
+                    color: ColorTokens.textSecondary, height: 1.35),
+              ),
+            ),
+          ],
           const SizedBox(height: SpacingTokens.lg),
           // Voce A: cosa lasci fuori.
           _bloccoVoce('Cosa lasci fuori', _vocePrima(), const Key('sunset_voce_uno')),
           const SizedBox(height: SpacingTokens.sm),
-          Text(SunsetRuneCorpus.trasparenza(_e),
+          Text(
+              '${SunsetRuneCorpus.trasparenza(_e)} '
+              '${SunsetRuneCorpus.rovescioEPraticaModerna}',
               key: const Key('sunset_trasparenza'),
               style: TypographyTokens.label(size: 12.5).copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.2)),
@@ -1195,10 +1214,22 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             // L'inclinazione si nomina solo quando il giroscopio ha risposto:
             // mai promettere un gesto che su questo dispositivo non funziona.
             Text(
-                _puoInclinare
-                    ? 'Inclina il telefono sull\'asse lungo, oppure tocca due '
-                        'volte: la pietra mostra il suo rovescio.'
-                    : 'Tocca due volte: la pietra mostra il suo rovescio.',
+                // **NON SI PROMETTE UN ROVESCIO A CHI NON CE L'HA**, ordine
+                // 2171 voce 4, dalla segnalazione della fondatrice Dora su
+                // Gebo. Otto rune sono identiche se le giri: l'invito diceva
+                // "mostra il suo rovescio" e la scheda dichiarava due righe
+                // sotto che quella runa il rovescio non ce l'ha. Il gesto
+                // resta, perche' il retro inciso c'e' comunque: cambia cio'
+                // che si promette.
+                _e.simmetrica
+                    ? (_puoInclinare
+                        ? SunsetRuneCorpus.invitoSimmetricaConInclinazione
+                        : SunsetRuneCorpus.invitoSimmetrica)
+                    : (_puoInclinare
+                        ? 'Inclina il telefono sull\'asse lungo, oppure tocca '
+                            'due volte: la pietra mostra il suo rovescio.'
+                        : 'Tocca due volte: la pietra mostra il suo rovescio.'),
+                key: const Key('sunset_gira_invito'),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.label(size: 12.5).copyWith(
                     color: ColorTokens.textSecondary, height: 1.4)),
