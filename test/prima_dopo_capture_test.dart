@@ -14,6 +14,7 @@ import 'package:esoteric_circle/core/angels/angel_catalog.dart';
 import 'package:esoteric_circle/core/angels/guardian_angels.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:esoteric_circle/features/onboarding/planisfero.dart';
+import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/features/onboarding/trionfi_screen.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
@@ -2030,6 +2031,46 @@ void main() {
   // ORDINE 2169, VOCE 9: il luogo scelto sul planisfero. La "prima" e' la
   // stella con l'alone e i quattro raggi, la "dopo" sono le tre onde
   // concentriche che si allargano dal punto.
+  // ORDINE 2171, VOCE 6: la scena a taglio compiuto. Il gesto adesso taglia
+  // davvero il mazzo, e questa cattura mostra il ventaglio risteso dopo il
+  // taglio.
+  testWidgets('2171, la stesa a taglio compiuto', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2400);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: RepaintBoundary(
+          key: radice,
+          child: const MaestroScope(
+            child: StesaTreCarteScreen(seed: 4),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 4));
+
+    await tester.tap(find.byKey(const Key('stesa_taglia')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
+
+    await scattaApp(tester, radice, 'stesa_taglio');
+  });
+
+
   testWidgets('2169, il punto del luogo sul planisfero', (tester) async {
     if (_stato.isEmpty) return;
     silence();

@@ -1,10 +1,12 @@
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/material.dart';
 
 import '../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/tarot/tarot_reading.dart';
+import '../../core/tarot/tarot_card.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -71,7 +73,27 @@ class StesaTreCarteScreen extends StatefulWidget {
 
 class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     with TickerProviderStateMixin {
-  late final TarotSpread _spread = TarotSpread.draw(seed: widget.seed);
+  /// L'ORDINE DEL MAZZO, che i gesti cambiano davvero.
+  ///
+  /// **Ordine 2171 voce 6.** Fino al 10 agosto 2026 Taglia e Mischia
+  /// lanciavano un'animazione e basta: la stesa restava quella pescata
+  /// all'apertura, qualunque cosa facesse la persona. Un gesto che non tocca
+  /// il risultato non e' un rito, e' una decorazione.
+  late List<int> _mazzo = TarotSpread.mazzoMescolato(seed: widget.seed);
+
+  /// Il seme che decide i versi: resta quello della stesa, cosi' lo stesso
+  /// ordine da' sempre la stessa lettura.
+  late final int _seme = widget.seed ?? 0;
+
+  late TarotSpread _spread = TarotSpread.dalMazzo(_mazzo, seed: _seme);
+
+  /// LE TRE CARTE CHE IL MAZZO HA IN CIMA IN QUESTO MOMENTO.
+  ///
+  /// Serve alle prove: a ventaglio coperto i nomi non sono ancora a schermo,
+  /// e senza questa finestra l'unico modo di sapere se Mischia ha davvero
+  /// mosso il mazzo sarebbe scoprire le carte, cioe' finire il rito.
+  @visibleForTesting
+  TarotSpread get stesaCorrente => _spread;
 
   // --- La regia della scena ---
 
@@ -199,7 +221,16 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _respiro.repeat();
   }
 
-  /// Il taglio del mazzo, prima di mescolare.
+  /// IL TAGLIO, che taglia davvero.
+  ///
+  /// La coreografia e' quella approvata nelle Decisioni del 3 agosto 2026: il
+  /// ventaglio si ricompone in mazzo, il mazzo si divide in due, il taglio si
+  /// ricompone, le carte si ristendono a partire dal mazzo.
+  ///
+  /// **E l'ordine cambia per davvero**: la meta' sotto sale sopra, quindi le
+  /// tre carte che si pescheranno sono altre. Con Riduci Movimento il taglio
+  /// avviene lo stesso, senza il volo: chi ha tolto le animazioni non perde
+  /// il gesto, perde solo il moto.
   Future<void> _taglia() async {
     if (!_scene.accettaGesti) return;
     _sensi.momento(MomentoSensoriale.taglio);
@@ -213,7 +244,15 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       if (!mounted) return;
     }
     _taglio.value = 0;
-    setState(() => _scene = StesaScene.riposo);
+    setState(() {
+      // Il punto vero del taglio nel mazzo intero, non nel solo ventaglio:
+      // tagliare nove carte su settantotto sarebbe un taglio finto.
+      final punto = (_taglioIndice * TarotDeck.cards.length) ~/
+          TarotSpread.fanSize;
+      _mazzo = TarotSpread.taglia(_mazzo, punto);
+      _spread = TarotSpread.dalMazzo(_mazzo, seed: _seme);
+      _scene = StesaScene.riposo;
+    });
   }
 
   /// Il mescolamento a vortice, da scuotimento o dal tasto.
@@ -226,7 +265,14 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       if (!mounted) return;
     }
     _mescola.value = 0;
-    setState(() => _scene = StesaScene.riposo);
+    setState(() {
+      // **IL MAZZO SI MESCOLA DAVVERO.** Senza questa riga il vortice era una
+      // bella animazione sopra un mazzo immobile, e le tre carte restavano
+      // quelle di prima: e' il difetto che Mauro e Dora hanno segnalato.
+      _mazzo = [..._mazzo]..shuffle();
+      _spread = TarotSpread.dalMazzo(_mazzo, seed: _seme);
+      _scene = StesaScene.riposo;
+    });
   }
 
   @override

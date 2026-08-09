@@ -85,6 +85,43 @@ class TarotSpread {
       'I tarocchi sono tradizione reale, qui per intrattenimento e crescita: '
       'nessuna promessa sul futuro, sempre uno spazio di scelta.';
 
+  /// IL MAZZO IN ORDINE, come lista di indici del corpus.
+  ///
+  /// **Perche' esiste, ordine 2171 voce 6.** Fino al 10 agosto 2026 Taglia e
+  /// Mischia erano gesti simbolici: lanciavano un'animazione e la stesa
+  /// restava quella pescata all'apertura. Adesso il mazzo ha un ordine vero
+  /// che i due gesti cambiano davvero, e le tre carte si prendono da li'.
+  static List<int> mazzoMescolato({int? seed}) {
+    final random = seed == null ? Random() : Random(seed);
+    return List<int>.generate(TarotDeck.cards.length, (i) => i)
+      ..shuffle(random);
+  }
+
+  /// La stesa che viene da un mazzo gia' ordinato: le prime tre carte, in
+  /// cima, come le prenderebbe una mano.
+  ///
+  /// Il verso di ciascuna dipende dal seme e dalla posizione nel mazzo, non
+  /// dal caso del momento: due tagli che riportano lo stesso ordine danno la
+  /// stessa stesa, ed e' cio' che ci si aspetta da un mazzo di carte.
+  static TarotSpread dalMazzo(List<int> ordine, {int seed = 0}) {
+    return TarotSpread([
+      for (var i = 0; i < SpreadPosition.values.length; i++)
+        DrawnCard(
+          card: TarotDeck.cards[ordine[i]],
+          position: SpreadPosition.values[i],
+          reversed:
+              Random(ordine[i] * 7919 + seed).nextDouble() < reversedChance,
+        ),
+    ]);
+  }
+
+  /// Il mazzo tagliato in [punto]: la meta' sotto sale sopra, come nel gesto
+  /// vero. Un taglio non mescola niente, cambia solo da dove si comincia.
+  static List<int> taglia(List<int> ordine, int punto) {
+    final k = punto % ordine.length;
+    return [...ordine.sublist(k), ...ordine.sublist(0, k)];
+  }
+
   /// Pesca tre carte distinte dal mazzo, ognuna dritta o rovesciata.
   ///
   /// Con [seed] la stesa e' riproducibile: stesso seme, stessa stesa. Senza,
