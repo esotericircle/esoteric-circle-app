@@ -129,6 +129,23 @@ class Effemeridi {
   /// `effemeridi_contro_fonte_terza_test.dart`, su tre date distanti fra loro.
   /// Stanno qui perche' servono a calcolare quanto e' incerto il GIORNO di un
   /// transito, e perche' chi cambia una serie deve vedere subito cosa promette.
+  /// **E VALGONO PER IL CIELO DI OGGI, NON PER UNA NASCITA.** Misurato il 9
+  /// agosto 2026, ordine 2169 voce 5: alle date del 2026 Saturno sbaglia 0,141
+  /// gradi, ma al 21 marzo 1950 ne sbaglia **0,570**, quattro volte tanto.
+  /// Sole e Luna reggono in tutte e due le epoche (Sole 0,003 e 0,006, Luna
+  /// 0,042 e 0,157).
+  ///
+  /// La causa e' la forma stessa di questi polinomi, costruiti attorno
+  /// all'epoca corrente: piu' ci si allontana, piu' i pianeti lenti sbandano.
+  ///
+  /// **Cosa vuol dire in pratica.** Questo motore serve ai TRANSITI e al cielo
+  /// di stanotte, dove regge. La carta di NASCITA viene dal motore remoto, che
+  /// e' esatto al mezzo millesimo di grado su tre nascite in tre epoche
+  /// (ordine 2170). Il giorno che qualcuno volesse calcolare una carta natale
+  /// in locale, mezzo grado su Saturno sposta un aspetto e cambia la casa di
+  /// un pianeta: quel mezzo grado va risolto PRIMA, non dopo.
+  ///
+  /// A sorvegliarlo c'e' `il_motore_locale_e_per_oggi_test.dart`.
   static const Map<CorpoCeleste, double> scartoMisurato = {
     CorpoCeleste.sole: 0.0062,
     CorpoCeleste.luna: 0.1542,
@@ -153,6 +170,19 @@ class Effemeridi {
   ///
   /// Il caso peggiore sono i lenti: precisi in posizione, lentissimi, quindi
   /// il giorno esatto e' l'informazione che il motore non sa dare.
+  /// L'EPOCA PER CUI QUESTO MOTORE E' STATO VERIFICATO, in anni.
+  ///
+  /// Fuori da qui gli scarti qui sopra non valgono piu': al 1950 Saturno ne
+  /// sbaglia quattro volte tanto. Non e' un divieto tecnico, il calcolo torna
+  /// comunque un numero: e' il confine oltre il quale quel numero non e' stato
+  /// misurato da nessuno, e percio' non si puo' promettere.
+  static const int primoAnnoVerificato = 2020;
+  static const int ultimoAnnoVerificato = 2030;
+
+  /// Se quell'istante sta dentro l'epoca verificata.
+  static bool dentroEpocaVerificata(DateTime quando) =>
+      quando.year >= primoAnnoVerificato && quando.year <= ultimoAnnoVerificato;
+
   static double giorniDiIncertezza(CorpoCeleste corpo, double jd) {
     final velocita = velocitaGiornaliera(corpo, jd).abs();
     if (velocita < 1e-9) return double.infinity;
