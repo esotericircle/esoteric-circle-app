@@ -170,7 +170,27 @@ class FreeAstroClient {
           (mcLon != null ? _signFromLon(mcLon) : null);
     }
 
-    // Case.
+    // CASE, E IL SISTEMA E' PLACIDUS.
+    //
+    // **Non era dichiarato da nessuna parte**, e senza saperlo le cuspidi non
+    // sono nemmeno confrontabili con una fonte terza: Placidus, Koch e Case
+    // Uguali danno numeri diversi per la stessa nascita, quindi uno scarto di
+    // tre gradi puo' voler dire "abbiamo un difetto" oppure "stiamo
+    // confrontando due cose diverse".
+    //
+    // Il dato non e' un'ipotesi: la risposta del motore lo porta scritto in
+    // `subject.settings.house_system`, e nella risposta conservata in
+    // `assets/data/sample_natal_rome.json` quel campo vale "placidus". Lo
+    // conferma la forma delle cuspidi: non sono equidistanti (26,7 gradi fra
+    // la prima e la seconda, 34,1 fra la terza e la quarta), quindi non e'
+    // Case Uguali ne' Whole Sign; e le opposte stanno esattamente a 180
+    // gradi, come in tutti i sistemi a quadranti.
+    //
+    // NOI NON LO CHIEDIAMO: la richiesta non porta nessun parametro di
+    // sistema, quindi quello che arriva e' il default del motore. Se un
+    // giorno cambiasse default, le carte cambierebbero sotto i piedi senza
+    // che nessuno tocchi una riga: e' il motivo per cui esiste
+    // `test/il_sistema_delle_case_e_dichiarato_test.dart`.
     final houses = <HouseCusp>[];
     if (hasTime && d['houses'] is List) {
       for (final h in d['houses'] as List) {
