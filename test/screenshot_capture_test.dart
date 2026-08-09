@@ -3410,8 +3410,11 @@ void main() {
     await tester.enterText(
         find.byKey(const Key('risveglio_luogo_field')), 'Roma');
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('citta_Roma_RM')));
-    await tester.pumpAndSettle();
+    // **NESSUN TOCCO SULL'ELENCO, e non e' una semplificazione.** Dall'ordine
+    // 2169 voce 1, scrivere per intero il nome di una citta' che nel catalogo
+    // e' unica la sceglie da sola, e Roma nel catalogo e' una sola: l'elenco
+    // non compare affatto. Questa cattura mostra percio' cio' che vede
+    // davvero chi scrive il nome della propria citta'.
     await capture(tester, rootKey, 'risveglio-luogo-scelto.png');
   });
 

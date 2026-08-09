@@ -215,8 +215,13 @@ void main() {
       expect(find.textContaining('Ascendente'), findsOneWidget);
 
       // Si cerca e si sceglie: il suggerimento e' un tocco vero.
+      //
+      // **Si scrive un nome PARZIALE.** Dall'ordine 2169 voce 1, scrivere per
+      // intero il nome di una citta' che nel catalogo e' unica la sceglie da
+      // sola e l'elenco non compare: qui si vuole misurare l'altra strada,
+      // quella del tocco sul suggerimento.
       await tester.enterText(
-          find.byKey(const Key('risveglio_luogo_field')), 'busto Arsizio');
+          find.byKey(const Key('risveglio_luogo_field')), 'busto Arsiz');
       await passo(tester);
       expect(find.byKey(const Key('citta_Busto Arsizio_VA')), findsOneWidget);
       await tester.tap(find.byKey(const Key('citta_Busto Arsizio_VA')));

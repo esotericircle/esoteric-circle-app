@@ -170,11 +170,16 @@ void main() {
     final elenco = consumatori();
     // ignore: avoid_print
     print('CATENA: ${elenco.map((p) => p.split("/").last).join(", ")}');
-    // Erano undici quando questa prova e' nata, poche ore fa. La dodicesima e'
-    // lo Specchio dei dati della voce 8, e a segnalarla e' stata proprio
-    // questa prova: e' il mestiere per cui esiste. Il suo collegamento alla
-    // porta e' stato verificato prima di alzare il numero.
-    expect(elenco.length, 12,
+    // **UNDICI, ed e' passato da dodici e poi di nuovo da undici in un
+    // giorno solo.** Lo Specchio dei dati della voce 8 e' entrato
+    // nell'elenco, e a segnalarlo e' stata questa prova, che e' il mestiere
+    // per cui esiste. Poi ne e' uscito CompletaIlLuogo: quando ho scoperto
+    // che apriva una seconda porta per lo stesso dato l'ho ridotto a un
+    // rimando alla schermata che esisteva gia', e un rimando non chiede
+    // niente a nessun controller. Il conto torna a undici da una strada
+    // diversa, e queste due righe di storia servono a non farlo sembrare un
+    // caso.
+    expect(elenco.length, 11,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
             '${elenco.length} invece di 12:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '

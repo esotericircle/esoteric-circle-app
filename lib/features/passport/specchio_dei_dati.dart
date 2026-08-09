@@ -39,7 +39,16 @@ class SpecchioDeiDati extends StatelessWidget {
     try {
       porta = context.watch<BirthIdentityController>();
       motore = context.watch<NatalChartController>();
-    } on ProviderNotFoundException catch (_) {
+    } on ProviderNotFoundException catch (assente) {
+      // Si ignora QUESTO errore e nessun altro, e si dichiara quale: senza il
+      // nome, fra un anno nessuno saprebbe piu' cosa si stava ingoiando.
+      assert(() {
+        // ignore: avoid_print
+        print('Specchio dei dati: nessun controller sopra di me ($assente), '
+            'sono in una prova o in un\'anteprima e non ho niente da '
+            'rispecchiare.');
+        return true;
+      }());
       return const SizedBox.shrink();
     }
     final dettagli = porta.details;
