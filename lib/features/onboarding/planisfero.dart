@@ -168,33 +168,48 @@ class _PlanisferoPainter extends CustomPainter {
       );
     }
 
-    // La stella del luogo scelto: piu' grande, con l'alone, e con un piccolo
-    // cerchio che la circonda perche' si trovi a colpo d'occhio.
+    // IL LUOGO SCELTO CHIAMA L'OCCHIO CON UN'ONDA, ordine 2169 voce 9.
+    //
+    // Prima c'erano un alone e quattro raggi corti: una stella ferma in mezzo
+    // a undicimila punti che pulsano, cioe' una cosa in piu' da cercare.
+    // Adesso e' un segnale: cerchi concentrici che partono dal punto, si
+    // allargano e si spengono, come un'onda sull'acqua. Il punto al centro
+    // resta fermo, perche' quello e' il luogo: a muoversi e' cio' che lo
+    // annuncia.
     final l = luogo;
     if (l != null) {
       final p = suSchermo(l);
-      final respiro = 0.5 + 0.5 * math.sin(2 * math.pi * t * 2);
-
-      canvas.drawCircle(
-        p,
-        16 + 4 * respiro,
-        Paint()
-          ..shader = RadialGradient(colors: [
-            palette.goldSoft.withValues(alpha: 0.55),
-            palette.goldSoft.withValues(alpha: 0.0),
-          ]).createShader(Rect.fromCircle(center: p, radius: 16 + 4 * respiro)),
-      );
-      canvas.drawCircle(p, 3.4, Paint()..color = palette.goldSoft);
-      // I quattro raggi corti: una stella, non un puntino grosso.
-      final raggio = Paint()
-        ..strokeWidth = 1.4
-        ..strokeCap = StrokeCap.round
-        ..color = palette.goldSoft.withValues(alpha: 0.9);
-      for (var i = 0; i < 4; i++) {
-        final a = i * math.pi / 2;
-        final d = Offset(math.cos(a), math.sin(a));
-        canvas.drawLine(p + d * 5, p + d * (9 + 2 * respiro), raggio);
+      // Tre onde sfasate di un terzo: quando la prima si spegne al bordo, la
+      // terza sta appena nascendo, e il richiamo non ha buchi.
+      const quante = 3;
+      const raggioMassimo = 26.0;
+      for (var i = 0; i < quante; i++) {
+        // **DETERMINISTICO COME IL RESTO DEL PLANISFERO**: la fase dipende
+        // solo dal tempo dell'animazione e dall'indice dell'onda, mai dal
+        // caso. Lo stesso istante disegna sempre la stessa scena.
+        final avanzamento = (t * 2 + i / quante) % 1.0;
+        final r = 4 + raggioMassimo * avanzamento;
+        // L'onda si spegne mentre si allarga: piena appena nata, invisibile
+        // al bordo.
+        final opacita = (1.0 - avanzamento) * 0.55;
+        if (opacita <= 0.01) continue;
+        canvas.drawCircle(
+          p,
+          r,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.6 * (1.0 - avanzamento) + 0.6
+            ..color = palette.goldSoft.withValues(alpha: opacita),
+        );
       }
+      // **CON RIDUCI MOVIMENTO I CERCHI RESTANO, FERMI.** Chi ha tolto le
+      // animazioni non deve perdere il proprio luogo: con `t` fermo a zero le
+      // tre onde restano dove sono nate, a 4, 12 e 21 punti dal centro, e
+      // diventano tre anelli quieti. Il richiamo non sparisce, smette solo di
+      // muoversi, ed e' la regola della casa: mai togliere l'informazione a
+      // chi ha tolto il moto.
+      // Il punto fermo al centro, che e' il luogo vero e proprio.
+      canvas.drawCircle(p, 3.4, Paint()..color = palette.goldSoft);
     }
   }
 
