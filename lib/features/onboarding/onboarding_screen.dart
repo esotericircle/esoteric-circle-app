@@ -89,6 +89,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   int? _minute;
   BirthPlace? _place;
   final TextEditingController _placeCtrl = TextEditingController();
+  final FocusNode _luogoFocus = FocusNode();
+  /// Dove sta l'elenco dei suggerimenti nell'albero, per poterlo portare sotto
+  /// gli occhi quando la tastiera lo spinge fuori.
+  final GlobalKey _luogoElenco = GlobalKey();
   List<City> _placeResults = const [];
   final TextEditingController _nameCtrl = TextEditingController();
   CourtesyForm? _courtesy;
@@ -120,6 +124,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   void dispose() {
     _ignite.dispose();
+    _luogoFocus.dispose();
     _placeCtrl.dispose();
     _nameCtrl.dispose();
     super.dispose();
@@ -252,7 +257,78 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _searchPlace(String query) {
-    setState(() => _placeResults = CityCatalog.search(query));
+    // **UN SOLO CANDIDATO NON E' UNA SCELTA, E' GIA' LA RISPOSTA.** Chi scrive
+    // per intero il nome della propria citta' ha gia' detto tutto: se in
+    // catalogo quel nome e' unico, il luogo si sceglie da solo e nessuno gli
+    // chiede di confermare cio' che ha appena scritto. Se il nome e' ambiguo
+    // qui non succede niente, perche' quale sia delle due lo sa solo lei.
+    final unica = CityCatalog.unicaEsatta(query);
+    if (unica != null) {
+      setState(() {
+        _place = unica.toPlace();
+        _placeResults = const [];
+      });
+      return;
+    }
+    setState(() {
+      _placeResults = CityCatalog.search(query);
+      // Se stava riscrivendo, la scelta di prima non vale piu': tenerla
+      // farebbe partire un cielo calcolato su una citta' che nel campo non
+      // c'e' piu'.
+      if (_place != null && _placeCtrl.text.trim() != _place!.city) {
+        _place = null;
+      }
+    });
+  }
+
+  /// Cosa dice il pulsante al passo del luogo, e cosa fa.
+  ///
+  /// **QUI STAVA LA TRAPPOLA.** L'etichetta guardava solo se il luogo era
+  /// stato scelto, quindi a chi aveva scritto per intero il nome della propria
+  /// citta' senza toccare l'elenco diceva "Salta per ora". La persona la
+  /// premeva credendo di confermare, e restava senza luogo per mesi. Adesso
+  /// l'etichetta guarda anche il CAMPO: con del testo scritto non si parla mai
+  /// di saltare, perche' chi ha scritto non sta saltando.
+  ///
+  /// Saltare resta possibile in tutti i casi, ma come gesto voluto: o il campo
+  /// e' vuoto, o il luogo scritto non esiste in elenco e il pulsante lo dice.
+  ({String etichetta, VoidCallback azione}) _invitoDelLuogo() {
+    if (_place != null) {
+      return (etichetta: 'Continua', azione: _goNext);
+    }
+    final scritto = _placeCtrl.text.trim();
+    if (scritto.isEmpty) {
+      return (etichetta: 'Salta per ora', azione: _goNext);
+    }
+    if (_placeResults.isEmpty) {
+      // Il luogo scritto non e' in elenco: proseguire e' l'unica strada che
+      // resta, e il pulsante dice esattamente cosa succede invece di
+      // chiamarlo un salto.
+      return (etichetta: 'Prosegui senza il luogo', azione: _goNext);
+    }
+    // Ci sono candidati: il pulsante porta alla scelta, non oltre.
+    return (
+      etichetta: 'Scegli la città',
+      azione: () {
+        _luogoFocus.requestFocus();
+        _mostraISuggerimenti();
+      }
+    );
+  }
+
+  /// Porta l'elenco dei suggerimenti dentro la parte di schermo che la persona
+  /// vede davvero, cioe' sopra la tastiera e sopra il pulsante.
+  void _mostraISuggerimenti() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final ctx = _luogoElenco.currentContext;
+      if (ctx == null) return;
+      Scrollable.ensureVisible(
+        ctx,
+        alignment: 0.5,
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOutCubic,
+      );
+    });
   }
 
   void _pickCity(City city) {
@@ -509,10 +585,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         children: [
           _PlaceField(
             controller: _placeCtrl,
+            fuoco: _luogoFocus,
+            chiaveElenco: _luogoElenco,
             results: _placeResults,
             chosen: _place,
             palette: _palette,
-            onChanged: _searchPlace,
+            onChanged: (q) {
+              _searchPlace(q);
+              // L'elenco che compare deve trovarsi sotto gli occhi, non sotto
+              // la tastiera: e' il motivo per cui la persona non lo vedeva.
+              if (_placeResults.isNotEmpty) _mostraISuggerimenti();
+            },
             onPick: _pickCity,
           ),
           // Chi salta deve sapere cosa lascia, detto una volta e senza colpa.
@@ -522,7 +605,23 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           // Mentre l'elenco dei suggerimenti e' aperto la nota tace: li' la
           // persona sta scegliendo, non saltando, e con otto risultati sopra
           // finirebbe comunque fuori dallo schermo, cioe' detta a nessuno.
-          if (_place == null && _placeResults.isEmpty) ...[
+          // Il luogo scritto non e' in elenco: si dice, invece di lasciare la
+          // persona davanti a un campo che non risponde. Il catalogo e'
+          // offline e non contiene tutto il mondo (voce 2 dell'ordine 2169).
+          if (_place == null &&
+              _placeResults.isEmpty &&
+              _placeCtrl.text.trim().length >= 2) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            const _NotaGentile(
+              key: Key('risveglio_luogo_non_trovato'),
+              text: 'Questo luogo non è nel nostro elenco. Puoi proseguire '
+                  'senza: restano fuori l\'Ascendente e le case, il resto del '
+                  'tuo cielo resta saldo.',
+            ),
+          ],
+          if (_place == null &&
+              _placeResults.isEmpty &&
+              _placeCtrl.text.trim().length < 2) ...[
             const SizedBox(height: SpacingTokens.sm),
             const _NotaGentile(
               key: Key('risveglio_luogo_nota'),
@@ -532,11 +631,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           ],
         ],
       ),
-      cta: _Cta(
-        label: _place == null ? 'Salta per ora' : 'Continua',
-        palette: _palette,
-        onTap: _goNext,
-      ),
+      cta: Builder(builder: (_) {
+        final invito = _invitoDelLuogo();
+        return _Cta(
+          label: invito.etichetta,
+          palette: _palette,
+          onTap: invito.azione,
+        );
+      }),
     );
   }
 
@@ -1101,6 +1203,8 @@ class _NotaGentile extends StatelessWidget {
 class _PlaceField extends StatelessWidget {
   const _PlaceField({
     required this.controller,
+    required this.fuoco,
+    required this.chiaveElenco,
     required this.results,
     required this.chosen,
     required this.palette,
@@ -1109,6 +1213,13 @@ class _PlaceField extends StatelessWidget {
   });
 
   final TextEditingController controller;
+
+  /// Il fuoco del campo, per riaprire la tastiera quando il pulsante riporta
+  /// la persona alla scelta invece di portarla oltre.
+  final FocusNode fuoco;
+
+  /// La chiave dell'elenco, che serve a portarlo sotto gli occhi.
+  final GlobalKey chiaveElenco;
   final List<City> results;
   final BirthPlace? chosen;
   final MaestroPalette palette;
@@ -1122,6 +1233,7 @@ class _PlaceField extends StatelessWidget {
         TextField(
           key: const Key('risveglio_luogo_field'),
           controller: controller,
+          focusNode: fuoco,
           textAlign: TextAlign.center,
           onChanged: onChanged,
           style: TypographyTokens.body(size: 17)
@@ -1143,6 +1255,10 @@ class _PlaceField extends StatelessWidget {
         ),
         if (results.isNotEmpty)
           Container(
+            // Due chiavi per due mestieri: la globale porta l'elenco sotto gli
+            // occhi quando la tastiera lo spinge fuori, la nominata lo rende
+            // cercabile dalla prova che ne misura la posizione.
+            key: chiaveElenco,
             margin: const EdgeInsets.only(top: SpacingTokens.sm),
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
@@ -1187,6 +1303,7 @@ class _PlaceField extends StatelessWidget {
         if (chosen != null && results.isEmpty) ...[
           const SizedBox(height: SpacingTokens.sm),
           Row(
+            key: const Key('risveglio_luogo_scelto'),
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.public_rounded, size: 16, color: palette.goldSoft),

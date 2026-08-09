@@ -79,8 +79,14 @@ void main() {
     await continua(tester); // -> data
     await continua(tester); // -> ora
     await continua(tester); // -> luogo
+    // **SI SCRIVE UN NOME PARZIALE, non "Torino" per intero.** Dall'ordine
+    // 2169 voce 1, scrivere per intero il nome di una citta' che nel catalogo
+    // e' unica la sceglie da sola, e l'elenco non compare affatto: un solo
+    // candidato non e' una scelta. Qui si vuole misurare l'altra strada,
+    // quella in cui la persona sceglie dall'elenco, e per averla serve un
+    // testo che di candidati ne lasci piu' d'uno.
     await tester.enterText(
-        find.byKey(const Key('risveglio_luogo_field')), 'Torino');
+        find.byKey(const Key('risveglio_luogo_field')), 'Torin');
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('citta_Torino_Italia')), findsOneWidget);
     await tester.tap(find.byKey(const Key('citta_Torino_Italia')));

@@ -200,6 +200,32 @@ class CityCatalog {
     return [...starts, ...contains].take(limit).toList(growable: false);
   }
 
+  /// L'UNICA citta' che porta esattamente questo nome, oppure nulla.
+  ///
+  /// **Un candidato solo non e' una scelta, e' gia' la risposta.** Chi scrive
+  /// per intero il nome della propria citta' e poi preme il pulsante ha gia'
+  /// detto tutto quello che c'era da dire: chiedergli di sceglierla da un
+  /// elenco di uno e' un passaggio che serve solo a noi. Se il nome e'
+  /// ambiguo, e Cattolica non lo e' ma San Giorgio si', qui non si sceglie
+  /// niente e la scelta resta alla persona, che e' l'unica a sapere quale.
+  ///
+  /// Il confronto passa dalla stessa normalizzazione della ricerca, quindi
+  /// combacia anche senza accenti e senza maiuscole, e guarda anche il nome
+  /// alternativo: chi scrive London trova Londra.
+  static City? unicaEsatta(String query) {
+    final q = _fold(query);
+    if (q.isEmpty) return null;
+    City? trovata;
+    for (final c in _cities) {
+      final combacia =
+          _fold(c.name) == q || (c.aka.isNotEmpty && _fold(c.aka) == q);
+      if (!combacia) continue;
+      if (trovata != null) return null; // due omonime: sceglie la persona
+      trovata = c;
+    }
+    return trovata;
+  }
+
   /// La citta' in elenco piu' vicina a un punto, per il ripiego quando la citta'
   /// cercata non c'e'. Distanza sulla sfera, formula dell'emisenoverso.
   static City nearest(double latitude, double longitude) {
