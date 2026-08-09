@@ -201,7 +201,24 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
                 // Il contrasto contro questo velo si misura, e sta in
                 // `test/il_respiro_si_capisce_test.dart`.
                 color: veloDelConteggio,
-                borderRadius: BorderRadius.circular(999),
+                // **RAGGIO FINITO, NON LO STADIO**, ordine 2171 voce 7.
+                //
+                // Con 999 il contenitore diventa una pillola: gli angoli
+                // curvano di meta' della sua altezza, e questo velo e' alto
+                // piu' di cento punti quando porta il conto. Misurato
+                // sull'anteprima a 360 punti: alla quota della prima riga di
+                // lettere il velo cominciava a 250 mentre il testo cominciava
+                // a 220, e a destra il velo finiva a 832 mentre il testo
+                // arrivava a 860. La P e la E finali stavano FUORI dalla
+                // superficie scura, sul prato chiaro, che e' esattamente il
+                // difetto di contrasto per cui questo velo esiste.
+                //
+                // Ventotto punti sono la curvatura giusta per un riquadro di
+                // questa altezza: gli angoli restano morbidi e nessuna lettera
+                // esce. La prova non guarda piu' se la parola sta su una riga,
+                // che era vero anche mentre le lettere erano fuori: guarda che
+                // ogni pixel sotto il titolo sia velo e non prato.
+                borderRadius: BorderRadius.circular(28),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
