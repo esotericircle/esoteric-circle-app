@@ -202,7 +202,10 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
   /// transiti da leggere, e la riga sparisce invece di dire di aspettare.
   NatalChart? _carta() {
     try {
-      return context.read<BirthIdentityController>().chart;
+      // IL CIELO VERO, non il ripiego. `chart` torna anche la carta
+      // essenziale, che ha un astro solo: leggerci dei transiti vorrebbe dire
+      // dichiarare un cielo che non e' stato calcolato.
+      return context.read<BirthIdentityController>().cartaCompleta;
     } on ProviderNotFoundException catch (assente) {
       // NON E' UN CATCH MUTO, ed e' l'unico errore che qui si ignora.
       //

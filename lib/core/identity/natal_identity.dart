@@ -180,6 +180,29 @@ class BirthIdentityController extends ChangeNotifier {
 
   BirthDetails? get details => _details;
   NatalChart? get chart => _chart;
+
+  /// SE LA CARTA IN MANO E' IL RIPIEGO E NON IL CIELO VERO.
+  ///
+  /// **Il ripiego si travestiva da carta.** Quando il calcolo fallisce,
+  /// `NatalChart.essential` fabbrica un cielo col solo Sole, e quello e'
+  /// comunque un oggetto carta: da li' in poi chiunque controllasse
+  /// `chart != null` credeva di avere il cielo. Il ponte non colmava piu'
+  /// niente, i riti leggevano transiti su una carta con un astro solo, e
+  /// nessuno riprovava mai, perche' per tutti la carta c'era.
+  ///
+  /// Il ripiego non si toglie, e' giusto che ci sia: si etichetta.
+  bool get cartaEssenziale => _chart?.isEssential ?? false;
+
+  /// LA CARTA VERA, oppure nulla.
+  ///
+  /// Chi ha bisogno del cielo completo (transiti, case, aspetti) chiede
+  /// QUESTA, e cosi' il ripiego non gli passa per buono. Chi ha bisogno del
+  /// solo segno continua a usare [sunSign], che il ripiego ce l'ha giusto.
+  NatalChart? get cartaCompleta {
+    final c = _chart;
+    if (c == null || c.isEssential) return null;
+    return c;
+  }
   NatalFacts? get facts => _facts;
   bool get hasBirth => _details != null;
 

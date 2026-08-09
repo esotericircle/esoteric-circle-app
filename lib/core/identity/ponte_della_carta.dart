@@ -82,6 +82,11 @@ class _PonteDellaCartaState extends State<PonteDellaCarta> {
     super.dispose();
   }
 
+  /// Se in questa sessione si e' gia' riprovato a sostituire il ripiego col
+  /// cielo vero. Riprovare a ogni fotogramma sarebbe una chiamata di rete per
+  /// ogni ricostruzione dell'albero.
+  bool _riprovatoInQuestaSessione = false;
+
   Future<void> _colmaSeManca() async {
     if (_inCorso) return;
     final identita = context.read<BirthIdentityController>();
@@ -91,7 +96,21 @@ class _PonteDellaCartaState extends State<PonteDellaCarta> {
     // sarebbe una chiamata sprecata: l'app ha gia' il suo ripiego per chi
     // non li ha dati, ed e' dichiarato a schermo.
     if (dettagli == null) return;
-    if (identita.chart != null) return;
+    // **IL RIPIEGO NON CONTA COME CARTA, ordine 2169 voce 4.** `chart` torna
+    // anche il cielo essenziale, che ha un astro solo: fermandosi qui il
+    // ponte non colmava piu' niente per chi una volta aveva ripiegato, e la
+    // carta vera non arrivava mai piu'.
+    if (identita.cartaCompleta != null) return;
+    // Ma non si insiste a vuoto. Se il ripiego dipende dal LUOGO che manca,
+    // richiedere il calcolo a ogni avvio dara' sempre lo stesso ripiego: quel
+    // caso si risolve dando il luogo, e l'app adesso offre come (voce 3).
+    if (identita.cartaEssenziale && dettagli.place == null) return;
+    // Col cielo essenziale in mano si riprova UNA volta per sessione: e' il
+    // caso di chi ha ripiegato ieri perche' la rete non c'era.
+    if (identita.cartaEssenziale) {
+      if (_riprovatoInQuestaSessione) return;
+      _riprovatoInQuestaSessione = true;
+    }
 
     _inCorso = true;
     try {

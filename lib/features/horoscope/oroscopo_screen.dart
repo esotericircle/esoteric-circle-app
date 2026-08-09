@@ -146,8 +146,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // persone dello stesso segno nate a vent'anni di distanza. Adesso, con la
     // carta natale, la scrive il cielo. Senza carta si torna alla hash, e la
     // nota qui sotto lo dichiara invece di lasciarlo credere.
+    // IL CIELO VERO, non il ripiego, ordine 2169 voce 4. `chart` torna anche
+    // la carta essenziale, che ha il solo Sole: i transiti su un cielo di un
+    // astro non sono transiti. Il livello a valle ripiegava gia' sul pool a
+    // hash quando la carta era essenziale, ma lo capiva guardando dentro
+    // l'oggetto: adesso la distinzione la fa la porta, una volta per tutti.
     final cielo = CieloDiOggi.perIlGiorno(
-        adesso: _date, carta: context.watch<BirthIdentityController>().chart);
+        adesso: _date,
+        carta: context.watch<BirthIdentityController>().cartaCompleta);
     final notaDelCielo = CorrenteDelCielo.notaDelLivello(cielo);
     final cards = Horoscope.forSign(
         sign: widget.userSign,
