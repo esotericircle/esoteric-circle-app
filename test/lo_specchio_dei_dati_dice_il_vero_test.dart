@@ -74,9 +74,9 @@ void main() {
         ChangeNotifierProvider(create: (_) => NatalChartController()),
         ChangeNotifierProvider<BirthIdentityController>.value(value: porta),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: MaestroScope(
-          child: const Scaffold(body: SpecchioDeiDati()),
+          child: Scaffold(body: SpecchioDeiDati()),
         ),
       ),
     ));

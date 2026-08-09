@@ -4,7 +4,6 @@ import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/identity/birth_place.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -171,9 +170,13 @@ void main() {
     final elenco = consumatori();
     // ignore: avoid_print
     print('CATENA: ${elenco.map((p) => p.split("/").last).join(", ")}');
-    expect(elenco.length, 11,
+    // Erano undici quando questa prova e' nata, poche ore fa. La dodicesima e'
+    // lo Specchio dei dati della voce 8, e a segnalarla e' stata proprio
+    // questa prova: e' il mestiere per cui esiste. Il suo collegamento alla
+    // porta e' stato verificato prima di alzare il numero.
+    expect(elenco.length, 12,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
-            '${elenco.length} invece di 11:\n${elenco.join("\n")}\n'
+            '${elenco.length} invece di 12:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
             'aggiorna questo numero. Se ne hai tolta una, idem.');
   });
