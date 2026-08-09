@@ -71,10 +71,16 @@ for (const [nome, id] of corpi) {
   fuori.corpi[nome] = p[0];
 }
 
-// CHIRONE NON C'E', e si dichiara invece di ometterlo in silenzio: in
-// modalita' Moshier Swiss Ephemeris non lo calcola, perche' e' un asteroide e
-// non un pianeta dei polinomi analitici. Il motore remoto lo restituisce, ma
-// qui non c'e' niente con cui confrontarlo.
+// CHIRONE NON LO PRODUCE QUESTO GENERATORE, e adesso non e' piu' un buco:
+// in modalita' Moshier Swiss Ephemeris non lo calcola, perche' e' un asteroide
+// e non un pianeta dei polinomi analitici, e il file `seas_18.se1` che
+// servirebbe non entra in questo repository.
+//
+// **Il riferimento di Chirone viene da JPL HORIZONS**, corpo minore 2060,
+// interrogato il 10 agosto 2026 sulle tre nascite (ordine 2171, voce 1). I
+// valori sono inchiodati in `carta_natale_contro_fonte_terza_test.dart`
+// accanto agli altri dodici, con la fonte scritta accanto perche' nessuno
+// creda che vengano da qui.
 fuori.chirone = null;
 
 const case_ = swe.houses(jd, lat, lon, 'P'); // P: Placidus

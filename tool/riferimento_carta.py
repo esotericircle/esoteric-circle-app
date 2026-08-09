@@ -57,21 +57,23 @@ CONTROLLO = {
 
 # Alla QUARTA cifra decimale, come chiede l'ordine: un decimillesimo di grado.
 #
-# **PERCHE' UN DECIMILLESIMO E NON MEZZO, e come si e' scoperto.** La prima
-# stesura pretendeva 0,00006, cioe' il mezzo dell'ultima cifra, e su
-# ventisette quantita' ne cadeva una sola: la Luna, 345,636488 contro i
-# 345,6364 scritti nell'ordine, scarto 0,000088. A dire chi avesse ragione e'
-# stata una terza fonte gia' inchiodata in questo repository: JPL Horizons da'
-# 345,6364781 per quell'istante, e il generatore ne dista 0,00001 gradi
-# mentre il numero dell'ordine ne dista 0,000078. Il generatore e' giusto: e'
-# il numero di controllo a essere TRONCATO alla quarta cifra invece che
-# arrotondato (345,636488 troncato fa 345,6364, arrotondato farebbe 345,6365).
+# **LA RAGIONE VERA DELLA DIFFERENZA SULLA LUNA, corretta il 10 agosto 2026.**
+# La prima stesura pretendeva 0,00006 e su ventisette quantita' ne cadeva una:
+# la Luna, 345,636488 qui contro i 345,6364 dell'ordine 2170, scarto 0,000088.
+# Avevo scritto che era un troncamento della quarta cifra. **Non lo era.**
 #
-# Con numeri di riferimento troncati, il margine giusto e' un'unita' intera
-# dell'ultima cifra e non mezza. Non e' una soglia allentata per far passare
-# qualcosa: e' la soglia che tiene conto di come sono scritti i numeri con cui
-# ci si confronta, e la verifica di chi avesse ragione l'ha fatta una fonte
-# terza, non io.
+# Sono TRE DECIMI DI SECONDO D'ARCO fra due modalita' dello stesso Swiss
+# Ephemeris: quella analitica di Moshier, che questo generatore usa perche' non
+# vuole file da scaricare, e quella coi file di effemeridi con cui i numeri di
+# controllo erano stati presi a monte. Le due divergono di quest'ordine di
+# grandezza sulla Luna, che e' il corpo piu' veloce e il piu' sensibile alle
+# perturbazioni.
+#
+# **Contava saperlo anche se il numero non cambiava:** un troncamento non
+# peggiora mai, una differenza di modello puo' crescere su altri corpi o altre
+# epoche. A dire quale delle due modalita' sia piu' vicina al cielo vero e'
+# stata una terza fonte: JPL Horizons da' 345,6364781, e la Moshier ne dista un
+# centomillesimo di grado contro i sette dell'altra.
 TOLLERANZA = 0.0001
 
 

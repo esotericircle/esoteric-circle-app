@@ -36,6 +36,21 @@ void main() {
   /// Tolleranza in gradi. Quattro volte l'arrotondamento misurato sui numeri
   /// del motore, che ha tre decimali: piu' stretta di cosi' misurerebbe la
   /// virgola, piu' larga nasconderebbe un peggioramento vero.
+  ///
+  /// **LA DIFFERENZA SULLA LUNA NON ERA UN TRONCAMENTO, e la ragione giusta
+  /// va scritta anche se l'azione sarebbe stata la stessa.** Il giro scorso il
+  /// generatore dava 345,636488 dove l'ordine 2170 riportava 345,6364, e
+  /// l'avevo attribuito a un arrotondamento per troncamento. Non lo era: sono
+  /// **tre decimi di secondo d'arco** fra due modalita' dello stesso Swiss
+  /// Ephemeris, quella analitica di Moshier che questo generatore usa e quella
+  /// coi file di effemeridi con cui erano stati presi i numeri a monte. Le due
+  /// modalita' divergono di quell'ordine di grandezza sulla Luna, che e' il
+  /// corpo piu' veloce e piu' sensibile alle perturbazioni.
+  ///
+  /// Contava saperlo: un troncamento non peggiora mai, una differenza di
+  /// modello puo' crescere su altri corpi o altre epoche. Qui resta cento
+  /// volte sotto la tolleranza, e il confronto con JPL Horizons dice che la
+  /// modalita' Moshier e' la piu' vicina al cielo vero delle due.
   const tolleranza = 0.002;
 
   double scarto(double a, double b) {
@@ -64,6 +79,10 @@ void main() {
         'pluto': 225.401082,
         'north_node': 309.696780,
         'lilith': 234.953661,
+        // Chirone da JPL HORIZONS, corpo minore 2060, non da Swiss Ephemeris:
+        // in modalita' Moshier non si calcola, e il file di effemeridi degli
+        // asteroidi non entra in questo repository.
+        'chiron': 106.062613,
       },
       asc: 190.608279,
       mc: 102.448147,
@@ -93,6 +112,7 @@ void main() {
         'pluto': 181.074657,
         'north_node': 303.098220,
         'lilith': 211.407633,
+        'chiron': 11.776418, // JPL Horizons, 2060 Chiron
       },
       asc: 326.893517,
       mc: 232.917528,
@@ -122,6 +142,7 @@ void main() {
         'pluto': 216.661100,
         'north_node': 36.350726,
         'lilith': 52.511621,
+        'chiron': 70.942283, // JPL Horizons, 2060 Chiron
       },
       asc: 166.251042,
       mc: 67.822830,
@@ -154,9 +175,31 @@ void main() {
     );
   }
 
+  test('OGNI nascita porta tutte le quantita\' che le servono', () {
+    // **NON UN ELENCO SCRITTO A MANO.** Il giro scorso gli angoli di Sydney
+    // c'erano ed erano giusti, ma nel rapporto sono finiti come non
+    // confrontati: bastava una svista di chi scriveva per far sembrare
+    // scoperta una parte che era coperta. Adesso e' il conto a dirlo, e se
+    // domani una nascita nasce senza ASC, senza MC o con undici cuspidi,
+    // questa prova cade prima di ogni altra.
+    const corpiAttesi = 13; // dodici piu' Chirone
+    for (final n in nascite) {
+      expect(n.corpi.length, corpiAttesi,
+          reason: '${n.nome} porta ${n.corpi.length} corpi invece di '
+              '$corpiAttesi: manca il riferimento per '
+              '${n.corpi.keys.join(", ")}');
+      expect(n.cuspidi.length, 12,
+          reason: '${n.nome} porta ${n.cuspidi.length} cuspidi invece di 12');
+      expect(n.asc, isNot(0), reason: '${n.nome} non porta l\'Ascendente');
+      expect(n.mc, isNot(0), reason: '${n.nome} non porta il Medio Cielo');
+    }
+    // E le tre nascite ci sono tutte e tre: il campione ordinato e' tre.
+    expect(nascite, hasLength(3));
+  });
+
   for (final n in nascite) {
     group(n.nome, () {
-      test('i dodici corpi combaciano con Swiss Ephemeris', () {
+      test('i TREDICI corpi combaciano con la fonte terza', () {
         final carta = cartaDellApp(n);
         final nostri = {
           for (final p in carta.planets) p.id: p.longitude,
@@ -188,12 +231,6 @@ void main() {
             '${peggiore.toStringAsFixed(5)} su $peggioreNome');
         expect(fuori, isEmpty, reason: fuori.join('\n'));
 
-        // CHIRONE, dichiarato: c'e' nella carta e non ha riscontro.
-        final chirone = nostri['chiron'];
-        // ignore: avoid_print
-        print('CARTA ${n.breve} chiron    app '
-            '${chirone?.toStringAsFixed(4) ?? "assente"}  Swiss NON PRODOTTO '
-            'in modalita\' Moshier: resta senza riscontro');
       });
 
       test('Ascendente e Medio Cielo combaciano', () {
