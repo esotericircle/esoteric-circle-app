@@ -87,13 +87,27 @@ void main() {
     }
   });
 
-  test('la richiesta NON impone un sistema, e questo va saputo', () {
-    // Il fatto scomodo, scritto invece che scoperto fra un anno: il sistema
-    // che usiamo e' quello che il motore decide di usare.
+  test('la richiesta CONOSCE il sistema di case, dall\'ordine 2170', () {
+    // **QUESTA PROVA HA CAMBIATO SEGNO, ed e' una buona notizia.** Fino al 9
+    // agosto 2026 pretendeva il contrario: che la callable NON nominasse il
+    // sistema di case, perche' allora arrivava come default del fornitore e il
+    // fatto andava saputo invece che scoperto un anno dopo. La voce 4
+    // dell'ordine 2170 ha chiuso quel buco, e adesso questa prova sorveglia
+    // che resti chiuso.
+    //
+    // La callable in PRODUZIONE e' ancora quella vecchia: il deploy non era in
+    // quell'ordine, e finche' non avviene l'app non spedisce il campo, perche'
+    // verrebbe rifiutata. Cio' che c'e' gia' e' il codice che lo accettera' e
+    // il controllo sulla risposta.
+    final validate = File('functions/src/validate.ts').readAsStringSync();
+    expect(validate.contains('house_system'), isTrue,
+        reason: 'la validazione lato server non accetta piu\' il sistema di '
+            'case: senza, l\'app non potra\' mai chiederlo e si torna al '
+            'default del fornitore');
     final funzione = File('functions/src/index.ts').readAsStringSync();
-    expect(funzione.contains('house_system'), isFalse,
-        reason: 'adesso la callable impone un sistema di case: se e\' una '
-            'scelta voluta va scritta qui, perche\' questa prova esisteva per '
-            'dichiarare il contrario');
+    expect(funzione.contains('sistema di case inatteso'), isTrue,
+        reason: 'la funzione non verifica piu\' il sistema della risposta: se '
+            'il fornitore cambiasse default, le carte cambierebbero in '
+            'silenzio sotto i piedi delle persone');
   });
 }
