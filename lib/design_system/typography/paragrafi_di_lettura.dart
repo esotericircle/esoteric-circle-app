@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../tokens/spacing_tokens.dart';
+import '../tokens/typography_tokens.dart';
 
 /// LA REGOLA DEI PARAGRAFI, IN UN PUNTO SOLO PER TUTTA L'APP.
 ///
@@ -209,11 +210,39 @@ class ParagrafiDiLettura extends StatelessWidget {
     super.key,
     required this.testo,
     required this.stile,
+    this.titolo,
+    this.sottotitolo,
+    this.stileTitolo,
+    this.stileSottotitolo,
+    this.oro,
     this.textAlign,
   });
 
   final String testo;
   final TextStyle stile;
+
+  /// Il titolo sopra il testo, quando il blocco narrato lo porta con se':
+  /// cosi' titolo e paragrafi restano una cosa sola e nessuna schermata li
+  /// ricompone per conto suo.
+  final String? titolo;
+
+  /// La riga sotto il titolo, piu' discreta.
+  final String? sottotitolo;
+
+  /// Gli stili di titolo e sottotitolo, coi ruoli come default: chi non li
+  /// passa ottiene `titoloScheda` e `didascalia`.
+  final TextStyle? stileTitolo;
+  final TextStyle? stileSottotitolo;
+
+  /// Il colore dell'ORO per il blocco che porta il senso.
+  ///
+  /// **Un solo blocco, e solo quando i blocchi sono due o piu'**: con un
+  /// blocco solo due pesi nella stessa colonna non sono una gerarchia, sono
+  /// un'incertezza, ed e' la stessa regola che l'Oroscopo si porta dall'ordine
+  /// B. Il blocco dorato e' il PRIMO, perche' e' quello che apre la lettura e
+  /// ne dichiara il senso. Nullo vuol dire nessun oro.
+  final Color? oro;
+
   final TextAlign? textAlign;
 
   @override
@@ -222,14 +251,31 @@ class ParagrafiDiLettura extends StatelessWidget {
     // Il doppio della misura del testo, presa dallo stile e non riscritta a
     // mano: se domani il ruolo cambia misura, la distanza lo segue.
     final distanza = (stile.fontSize ?? 12) * 2;
+    final croce = textAlign == TextAlign.center
+        ? CrossAxisAlignment.center
+        : CrossAxisAlignment.start;
     return Column(
-      crossAxisAlignment: textAlign == TextAlign.center
-          ? CrossAxisAlignment.center
-          : CrossAxisAlignment.start,
+      crossAxisAlignment: croce,
       children: [
+        if (titolo != null) ...[
+          Text(titolo!,
+              style: stileTitolo ?? TypographyTokens.titoloScheda(),
+              textAlign: textAlign),
+          SizedBox(height: (stile.fontSize ?? 12) * 0.5),
+        ],
+        if (sottotitolo != null) ...[
+          Text(sottotitolo!,
+              style: stileSottotitolo ?? TypographyTokens.didascalia(),
+              textAlign: textAlign),
+          SizedBox(height: (stile.fontSize ?? 12) * 0.75),
+        ],
         for (var i = 0; i < blocchi.length; i++) ...[
           if (i > 0) SizedBox(height: distanza),
-          Text(blocchi[i], style: stile, textAlign: textAlign),
+          Text(blocchi[i],
+              style: oro != null && blocchi.length >= 2 && i == 0
+                  ? stile.copyWith(color: oro)
+                  : stile,
+              textAlign: textAlign),
         ],
       ],
     );

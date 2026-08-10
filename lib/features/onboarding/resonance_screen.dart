@@ -9,6 +9,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// La risonanza coi tre Maestri: tre aure che pulsano a intensita' diversa. La
 /// piu' forte si fa avanti, ed e' il Maestro che risuona con il tuo cielo.
@@ -72,12 +73,8 @@ class ResonanceScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  resonance.reason,
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.lettura()
-                      .copyWith(color: ColorTokens.textPrimary, height: 1.45),
-                ),
+                ParagrafiDiLettura(testo: resonance.reason, textAlign: TextAlign.center, stile: TypographyTokens.lettura()
+                      .copyWith(color: ColorTokens.textPrimary, height: 1.45)),
                 // Pareggio vero: due numeri identici e un vincitore sono una
                 // contraddizione, a meno di dire con che criterio uno passa
                 // avanti. Il criterio esiste gia' nel motore, e' il fattore
@@ -87,7 +84,7 @@ class ResonanceScreen extends StatelessWidget {
                   Text(
                     'Due voci pesano uguale: a decidere è ${resonance.deciding}.',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.etichetta().copyWith(
+                    style: TypographyTokens.corpo().copyWith(
                         color: palette.goldSoft.withValues(alpha: 0.85),
                         height: 1.4),
                   ),
@@ -109,8 +106,7 @@ class ResonanceScreen extends StatelessWidget {
                 ),
               ),
               onPressed: onContinue,
-              child: Text('Rivela il tuo Maestro',
-                  style: TypographyTokens.lettura(weight: 600)
+              child: ParagrafiDiLettura(testo: 'Rivela il tuo Maestro', stile: TypographyTokens.lettura(weight: 600)
                       .copyWith(color: palette.deepest)),
             ),
           ),

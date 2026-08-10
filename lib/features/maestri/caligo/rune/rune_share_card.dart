@@ -64,12 +64,12 @@ class RuneShareCard extends StatelessWidget {
               lato: 190,
             ),
             Text('Il sigillo del giorno, una bindrune',
-                style: TypographyTokens.etichetta().copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.85),
                     letterSpacing: 0.8)),
             Text('glifi intrecciati autentici della tradizione runica',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.etichetta().copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.textPrimary.withValues(alpha: 0.6),
                     letterSpacing: 0.3)),
             const SizedBox(height: SpacingTokens.md),
@@ -99,7 +99,7 @@ class RuneShareCard extends StatelessWidget {
                     letterSpacing: 1.0)),
             const SizedBox(height: 2),
             Text('Getta le rune su Esoteric Circle',
-                style: TypographyTokens.etichetta().copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.textPrimary.withValues(alpha: 0.6),
                     letterSpacing: 0.4)),
           ],

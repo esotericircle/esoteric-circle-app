@@ -160,13 +160,9 @@ class _AngelsScreenState extends State<AngelsScreen>
               SpacingTokens.xxxl,
             ),
             children: [
-              Text(
-                'La tradizione ne assegna tre, uno per ogni strato: il corpo, '
-                'il cuore, la mente.',
-                textAlign: TextAlign.center,
-                style: TypographyTokens.lettura()
-                    .copyWith(color: ColorTokens.textSecondary, height: 1.4),
-              ),
+              ParagrafiDiLettura(testo: 'La tradizione ne assegna tre, uno per ogni strato: il corpo, '
+                'il cuore, la mente.', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
               const SizedBox(height: SpacingTokens.lg),
 
               _CartaAngelo(

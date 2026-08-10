@@ -343,7 +343,7 @@ class _Preparazione extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('${gettata.nome} · ${gettata.sottotitolo}',
-                    style: TypographyTokens.etichetta().copyWith(
+                    style: TypographyTokens.corpo().copyWith(
                         color: palette.goldSoft, letterSpacing: 0.6)),
                 const SizedBox(height: SpacingTokens.xs),
                 // Il responso di Caligo e' testo che si LEGGE, quindi il ruolo
@@ -619,7 +619,7 @@ class _Responso extends StatelessWidget {
                   const SizedBox(height: SpacingTokens.sm),
                   Text(kRuneBindruneNota,
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.etichetta().copyWith(
+                      style: TypographyTokens.corpo().copyWith(
                           color: ColorTokens.textSecondary, height: 1.4)),
                 ],
               ),
@@ -704,7 +704,7 @@ class _LetturaRuna extends StatelessWidget {
                               .copyWith(color: palette.goldSoft)),
                       Text(
                           '${runa.posizione.titolo} · ${runa.posizione.glossa}',
-                          style: TypographyTokens.etichetta().copyWith(
+                          style: TypographyTokens.corpo().copyWith(
                               color: palette.goldSoft.withValues(alpha: 0.8),
                               letterSpacing: 0.4)),
                       const SizedBox(height: 2),
@@ -756,7 +756,7 @@ class _LetturaRuna extends StatelessWidget {
                   '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
                   '«${kRuneLore[runa.rune.name]!.strofe.first.traduzione}»',
                   key: Key('rune_strofa_$indice'),
-                  style: TypographyTokens.etichetta().copyWith(
+                  style: TypographyTokens.corpo().copyWith(
                       color: ColorTokens.textSecondary, height: 1.45)),
             ],
           ],

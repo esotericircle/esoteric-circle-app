@@ -1183,7 +1183,7 @@ class _EnterDomainButton extends StatelessWidget {
                   'Entra nel Dominio di ${maestro.displayName}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TypographyTokens.etichetta()
+                  style: TypographyTokens.corpo()
                       .copyWith(color: palette.goldSoft, letterSpacing: 0.3),
                 ),
               ),

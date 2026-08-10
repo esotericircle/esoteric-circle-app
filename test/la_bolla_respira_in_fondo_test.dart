@@ -200,12 +200,28 @@ void main() {
     late final int fondoDeiGlifi;
     await tester.runAsync(() async {
       final immagine = await _scatta(tester, chiaveDelloSchermo);
+      // IL BORDO DELLA BOLLA NON E' UN GLIFO, e la misura lo escludeva solo
+      // per fortuna: l'oro al trenta per cento sopra il fondo scuro stava
+      // sotto la soglia di luminanza, ma quando la bolla si allunga e il suo
+      // fondo passa sopra una superficie chiara (il campo di scrittura), lo
+      // stesso bordo la supera e la misura lo scambiava per l'ultima riga di
+      // testo, dichiarando 0,33 punti di respiro con l'ultimo glifo a sedici
+      // punti dal bordo. Due punti tolti in fondo: lo spessore del bordo piu'
+      // l'antialiasing.
       fondoDeiGlifi = await _ultimaRigaConTestoDa(
         immagine,
         da: ((testo.top - 4) * densita).round(),
-        a: (bolla.bottom * densita).round(),
-        sinistra: (bolla.left * densita).round() + 6,
-        destra: (bolla.right * densita).round() - 6,
+        a: ((bolla.bottom - 2) * densita).round(),
+        // OLTRE IL RAGGIO DEGLI ANGOLI, non sei pixel: il riquadro della
+        // bolla e' un rettangolo ma la superficie e' arrotondata, e negli
+        // angoli il COSMO resta visibile dentro il rettangolo. Una stella
+        // luminosa caduta li' veniva contata come ultima riga di testo, e la
+        // prova accusava 2,33 punti di respiro mentre l'ultimo glifo vero
+        // stava a tredici dal bordo: guardato sui pixel ritagliati, non
+        // dedotto. Ventotto punti sono il raggio della bolla piu' due di
+        // antialiasing.
+        sinistra: ((bolla.left + 28) * densita).round(),
+        destra: ((bolla.right - 28) * densita).round(),
       );
     });
     final respiro = (bolla.bottom * densita - fondoDeiGlifi) / densita;
@@ -251,7 +267,13 @@ void main() {
     final bolla = riquadroDellaBolla(tester, corpo.first);
     final cima = testo.top - bolla.top;
     stdout.writeln('respiro in cima: $cima punti');
-    expect(cima, lessThanOrEqualTo(14.0),
+    // DICIOTTO E NON PIU' QUATTORDICI, dall'ordine H: il riempimento
+    // verticale della bolla e' cresciuto da dodici a sedici punti quando il
+    // testo della chat e' passato da quattordici a sedici (ordine E), quindi
+    // la cima legittima e' sedici piu' l'antialiasing. Il tetto esiste ancora
+    // per la stessa ragione di prima: impedire che una correzione del fondo
+    // gonfi la cima senza che nessuno se ne accorga.
+    expect(cima, lessThanOrEqualTo(18.0),
         reason: 'la cima della bolla si e\' allargata a $cima punti: la '
             'correzione del fondo ha alzato la costante simmetrica, e adesso '
             'ogni bolla dell\'app e\' piu\' alta senza che nessuno lo abbia '

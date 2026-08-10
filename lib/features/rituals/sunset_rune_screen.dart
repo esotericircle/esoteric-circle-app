@@ -26,6 +26,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../services/app_services.dart';
 import '../maestri/caligo/rune/bindrune.dart';
 import '../maestri/chat/chat_openers.dart';
@@ -1449,8 +1450,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                     style: TypographyTokens.display(size: 20)
                         .copyWith(color: _palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
-                Text(_fontiEMetodo(tramonto),
-                    style: TypographyTokens.body(size: 17).copyWith(
+                ParagrafiDiLettura(testo: _fontiEMetodo(tramonto), stile: TypographyTokens.lettura().copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
                 const SizedBox(height: SpacingTokens.lg),
                 Align(

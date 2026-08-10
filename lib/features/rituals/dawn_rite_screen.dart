@@ -577,7 +577,7 @@ class _LiftPrompt extends StatelessWidget {
           const SizedBox(height: SpacingTokens.sm),
           Text(
             'Oppure tocca o tieni premuto',
-            style: TypographyTokens.etichetta().copyWith(
+            style: TypographyTokens.corpo().copyWith(
               color: palette.goldSoft.withValues(alpha: 0.85),
               letterSpacing: 0.3,
             ),

@@ -14,6 +14,7 @@ import '../identity/completa_il_luogo.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../identity/widgets/identity_widgets.dart';
 import '../identity/widgets/birth_companions.dart';
 import 'widgets/nature_emblem.dart';
@@ -225,8 +226,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
                 ),
               ),
               onPressed: widget.onContinue,
-              child: Text(widget.etichettaAzione ?? 'Scopri chi risuona con te',
-                  style: TypographyTokens.lettura(weight: 600)
+              child: ParagrafiDiLettura(testo: widget.etichettaAzione ?? 'Scopri chi risuona con te', stile: TypographyTokens.lettura(weight: 600)
                       .copyWith(color: palette.deepest)),
             ),
           ),
@@ -255,21 +255,13 @@ class _AscendantNote extends StatelessWidget {
           borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
           border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
         ),
-        child: Text(
-          'Ascendente in ${chart.ascendant!.italianName}: la soglia da cui ti mostri al mondo.',
-          textAlign: TextAlign.center,
-          style: TypographyTokens.lettura()
-              .copyWith(color: palette.goldSoft, height: 1.4),
-        ),
+        child: ParagrafiDiLettura(testo: 'Ascendente in ${chart.ascendant!.italianName}: la soglia da cui ti mostri al mondo.', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
+              .copyWith(color: palette.goldSoft, height: 1.4)),
       );
     }
     // Solo senza ora, il messaggio velato.
-    return Text(
-      'Senza l\'ora di nascita l\'Ascendente e le Case restano velati. Potrai aggiungerla per completare il cielo.',
-      textAlign: TextAlign.center,
-      style: TypographyTokens.lettura()
-          .copyWith(color: ColorTokens.textPrimary, height: 1.4),
-    );
+    return ParagrafiDiLettura(testo: 'Senza l\'ora di nascita l\'Ascendente e le Case restano velati. Potrai aggiungerla per completare il cielo.', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
+          .copyWith(color: ColorTokens.textPrimary, height: 1.4));
   }
 }
 
@@ -362,8 +354,7 @@ class _PlanetTile extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 3),
-                      Text(NatalPoetics.meaningOf(planet.id),
-                          style: TypographyTokens.lettura()
+                      ParagrafiDiLettura(testo: NatalPoetics.meaningOf(planet.id), stile: TypographyTokens.lettura()
                               .copyWith(color: ColorTokens.textPrimary)),
                     ],
                   ),
@@ -443,8 +434,7 @@ class _NotaDelRipiego extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(testo,
-              style: TypographyTokens.lettura()
+          ParagrafiDiLettura(testo: testo, stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary)),
           const SizedBox(height: SpacingTokens.sm),
           Align(
@@ -497,20 +487,12 @@ class _SenzaDati extends StatelessWidget {
           children: [
             Icon(Icons.auto_awesome_outlined, color: palette.goldSoft, size: 38),
             const SizedBox(height: SpacingTokens.md),
-            Text(
-              'Il tuo cielo aspetta la tua data di nascita.',
-              textAlign: TextAlign.center,
-              style: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textPrimary),
-            ),
+            ParagrafiDiLettura(testo: 'Il tuo cielo aspetta la tua data di nascita.', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary)),
             const SizedBox(height: SpacingTokens.sm),
-            Text(
-              'Senza il giorno in cui sei nato non posso tracciare niente. '
-              'Preferisco dirtelo invece di farti aspettare.',
-              textAlign: TextAlign.center,
-              style: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textSecondary),
-            ),
+            ParagrafiDiLettura(testo: 'Senza il giorno in cui sei nato non posso tracciare niente. '
+              'Preferisco dirtelo invece di farti aspettare.', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textSecondary)),
             const SizedBox(height: SpacingTokens.lg),
             TextButton(
               onPressed: onContinue,
@@ -543,8 +525,7 @@ class _Loading extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.md),
-          Text('Traccio il tuo cielo...',
-              style: TypographyTokens.lettura()
+          ParagrafiDiLettura(testo: 'Traccio il tuo cielo...', stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary)),
         ],
       ),

@@ -350,7 +350,7 @@ class _Soglia extends StatelessWidget {
               onPressed: onRipiego,
               icon: Icon(Icons.touch_app_outlined, color: palette.goldSoft),
               label: Text('Non hai la fotocamera? Tocca qui',
-                  style: TypographyTokens.etichetta()
+                  style: TypographyTokens.corpo()
                       .copyWith(color: palette.goldSoft)),
             ),
             if (rimanenti != null) ...[

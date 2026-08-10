@@ -592,7 +592,7 @@ class _ExampleNote extends StatelessWidget {
         Flexible(
           child: Text(
             'Valore d\'esempio: si compone con la tua data di nascita.',
-            style: TypographyTokens.etichetta().copyWith(
+            style: TypographyTokens.corpo().copyWith(
               color: palette.goldSoft.withValues(alpha: 0.7),
               letterSpacing: 0.4,
             ),

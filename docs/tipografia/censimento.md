@@ -1,6 +1,6 @@
 # Censimento delle misure tipografiche scritte a mano
 
-<!-- TOTALE_CENSITO: 238 -->
+<!-- TOTALE_CENSITO: 237 -->
 <!-- FILE_CENSITI: 60 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- LETTURA_SOTTO_16: 0 -->
@@ -20,7 +20,7 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 
 | Grandezza | Valore |
 | --- | --- |
-| Misure esplicite sotto `lib/` | **238** |
+| Misure esplicite sotto `lib/` | **237** |
 | File che ne contengono | **60** |
 | Sotto il pavimento assoluto di 12 | **0** |
 | Sotto 16 in contesto di lettura | **0** |
@@ -39,7 +39,7 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 
 | File | Misure | Sotto 12 | Lettura sotto 16 |
 | --- | ---: | ---: | ---: |
-| `lib/features/rituals/sunset_rune_screen.dart` | 19 | 0 | 0 |
+| `lib/features/rituals/sunset_rune_screen.dart` | 18 | 0 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 14 | 0 | 0 |
 | `lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart` | 11 | 0 | 0 |
 | `lib/features/rituals/dream_rite_screen.dart` | 11 | 0 | 0 |

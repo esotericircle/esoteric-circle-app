@@ -146,8 +146,15 @@ class TypographyTokens {
 
   /// La riga di servizio sotto un contenuto: una fonte, una nota, un dettaglio
   /// che non chiede di essere letto per primo.
+  ///
+  /// **SEDICI E NON PIU' QUATTORDICI, dall'ordine H**: quattordici punti erano
+  /// leggibili ma faticosi, e le didascalie di questa app portano spesso testo
+  /// che si legge davvero (fonti, note di metodo, glosse). La differenza dal
+  /// [corpo] resta semantica, non di misura: la didascalia e' testo di
+  /// servizio, il corpo e' testo di contenuto, e chi legge il codice deve
+  /// sapere quale dei due sta scrivendo.
   static TextStyle didascalia({double weight = 400}) =>
-      body(size: 14, weight: weight);
+      body(size: 16, weight: weight);
 
   /// L'etichetta cerimoniale in maiuscoletto spaziato. E' il ruolo piu' piccolo
   /// dell'app e vale esattamente il pavimento: sotto non si scende.

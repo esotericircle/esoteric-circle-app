@@ -16,6 +16,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../services/breath_detector.dart';
 import 'widgets/maestro_card.dart';
 import 'widgets/ritual_object.dart';
@@ -283,14 +284,10 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
               // sparisce finche' la persona non ha deciso.
               Column(
                 children: [
-                  Text(
-                    _micAvailable
+                  ParagrafiDiLettura(testo: _micAvailable
                         ? 'Soffia dolcemente, oppure trascina il dito per svelare'
-                        : 'Trascina il dito per svelare, come un gratta e vinci',
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.lettura()
-                        .copyWith(color: ColorTokens.textPrimary, height: 1.4),
-                  ),
+                        : 'Trascina il dito per svelare, come un gratta e vinci', textAlign: TextAlign.center, stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
                   // Il microfono si chiede solo qui, quando l'utente sceglie la
                   // voce, con un pre-avviso in tono. Rifiutare non blocca nulla.
                   if (!_micAvailable && !_micAsked) ...[
@@ -497,8 +494,7 @@ class _SafetyTapInvite extends StatelessWidget {
           children: [
             Icon(Icons.touch_app, color: palette.goldSoft, size: 24),
             const SizedBox(width: SpacingTokens.xs),
-            Text('Tocca per svelare',
-                style: TypographyTokens.lettura(weight: 600)
+            ParagrafiDiLettura(testo: 'Tocca per svelare', stile: TypographyTokens.lettura(weight: 600)
                     .copyWith(color: palette.goldSoft)),
           ],
         ),
@@ -581,12 +577,8 @@ class _RevealedFooter extends StatelessWidget {
               borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
               border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
             ),
-            child: Text(
-              first,
-              textAlign: TextAlign.center,
-              style: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.5),
-            ),
+            child: ParagrafiDiLettura(testo: first, textAlign: TextAlign.center, stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
           ),
         const SizedBox(height: SpacingTokens.md),
         SizedBox(

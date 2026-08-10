@@ -105,7 +105,7 @@ class PricingScreen extends StatelessWidget {
                 child: Text(
                   'Nella demo i piani sono visibili ma il pagamento non è integrato.',
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.etichetta().copyWith(
+                  style: TypographyTokens.corpo().copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.8),
                     letterSpacing: 0.3,
                   ),
@@ -227,7 +227,7 @@ class _PlanCardState extends State<_PlanCard> {
             Padding(
               padding: const EdgeInsets.only(top: SpacingTokens.xs),
               child: Text('Accesso base, con un piccolo banner in basso.',
-                  style: TypographyTokens.etichetta().copyWith(
+                  style: TypographyTokens.corpo().copyWith(
                     color: ColorTokens.textSecondary,
                     letterSpacing: 0.2,
                   )),

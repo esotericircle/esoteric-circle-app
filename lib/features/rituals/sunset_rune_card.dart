@@ -100,7 +100,7 @@ class SunsetRuneCard extends StatelessWidget {
             const SizedBox(height: 2),
             Text('La runa che scende con la sera, su Esoteric Circle',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.etichetta().copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.textPrimary.withValues(alpha: 0.6),
                     letterSpacing: 0.4)),
           ],

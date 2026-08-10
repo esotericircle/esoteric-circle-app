@@ -18,6 +18,7 @@ import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../widgets/maestro_bust.dart';
 import 'astral_typing_indicator.dart';
 
@@ -364,16 +365,12 @@ class _ChatBubbleState extends State<ChatBubble> {
                 if (message.seguito != null &&
                     message.seguito!.trim().isNotEmpty) ...[
                   const SizedBox(height: SpacingTokens.sm),
-                  Text(
-                    message.seguito!,
-                    key: const Key('chat_seguito'),
-                    style: TypographyTokens.lettura().copyWith(
+                  ParagrafiDiLettura(key: const Key('chat_seguito'), testo: message.seguito!, stile: TypographyTokens.lettura().copyWith(
                       color: isUser
                           ? ColorTokens.textPrimary
                           : palette.textPrimary,
                       height: 1.5,
-                    ),
-                  ),
+                    )),
                 ],
                 // L'ATTESA DEL SEGUITO, DENTRO LA BOLLA.
                 //

@@ -87,7 +87,7 @@ class DreamRiteCard extends StatelessWidget {
             const SizedBox(height: 2),
             Text('Il cielo notturno reale di questa notte',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.etichetta().copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.textPrimary.withValues(alpha: 0.6),
                     letterSpacing: 0.4)),
           ],
