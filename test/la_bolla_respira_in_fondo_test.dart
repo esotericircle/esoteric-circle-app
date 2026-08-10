@@ -179,8 +179,31 @@ void main() {
         reason: 'senza il contatore a video questa prova misura un\'altra '
             'bolla, e il difetto sta proprio sotto quella riga');
 
+    // LA BOLLA SI PORTA SOPRA IL COMPOSER PRIMA DI MISURARLA: i messaggi
+    // scorrono sotto il campo per scelta dichiarata (2161), e dall'ordine H la
+    // riga del composer ha un fondo suo e la bolla dei Suggerimenti. Quando il
+    // fondo della bolla sta sotto quella fascia, i pixel misurati sono i
+    // controlli, non i glifi: si scorre in su e si misura dove e' scoperta.
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -160));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
     final testo = tester.getRect(residuo);
     final bolla = riquadroDellaBolla(tester, residuo);
+    // LA MISURA SI FERMA SOPRA IL COMPOSER. I messaggi scorrono sotto il
+    // campo di scrittura per scelta dichiarata (2161), e dall'ordine H la
+    // riga del composer ha un fondo suo e la bolla dei Suggerimenti: quando
+    // la bolla del messaggio finisce sotto quella fascia, i pixel che vi si
+    // misurano sono i controlli del composer, non i glifi del messaggio. La
+    // scansione si ferma un punto sopra la cima del composer.
+    final composer = tester.getRect(find.byType(ChatComposer));
+    // Una finestra vuota non e' una misura: se anche dopo lo scorrimento la
+    // bolla resta sotto il composer, la prova deve dirlo, non passare per
+    // cecita'.
+    expect(bolla.bottom - 2, lessThan(composer.top - 1),
+        reason: 'il fondo della bolla (${bolla.bottom}) resta sotto la cima '
+            'del composer (${composer.top}): la finestra di misura e\' vuota '
+            'e il respiro non si puo\' misurare');
 
     // SI MISURANO I PIXEL, non i riquadri di impaginazione.
     //
@@ -211,7 +234,11 @@ void main() {
       fondoDeiGlifi = await _ultimaRigaConTestoDa(
         immagine,
         da: ((testo.top - 4) * densita).round(),
-        a: ((bolla.bottom - 2) * densita).round(),
+        a: (((bolla.bottom - 2) < (composer.top - 1)
+                    ? (bolla.bottom - 2)
+                    : (composer.top - 1)) *
+                densita)
+            .round(),
         // OLTRE IL RAGGIO DEGLI ANGOLI, non sei pixel: il riquadro della
         // bolla e' un rettangolo ma la superficie e' arrotondata, e negli
         // angoli il COSMO resta visibile dentro il rettangolo. Una stella

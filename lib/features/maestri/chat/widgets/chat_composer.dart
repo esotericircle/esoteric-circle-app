@@ -87,11 +87,26 @@ class _ChatComposerState extends State<ChatComposer> {
         // centotrentacinque punti di vuoto sotto il campo, misurati.
         bottom: SpacingTokens.sm,
       ),
-      // NESSUN FONDO DIETRO LA RIGA, ordine 2164 voce 2. Qui c'era una
-      // fascia scura piena, larga quanto lo schermo, che sfumava da
-      // trasparente a fondale pieno: Mauro l'ha tolta. Restano il campo e il
-      // tondo di invio, che sono opachi LORO (ordine 2163 voce 1) e lo
-      // restano, appoggiati direttamente sul cosmo.
+      // IL FONDO DIETRO LA RIGA E' TORNATO, ordine H voce 3a, e non e' un
+      // ripensamento di nascosto: l'ordine 2164 lo aveva tolto e Mauro lo ha
+      // rivoluto quando, con la tastiera alzata, i messaggi scorrevano DIETRO
+      // il campo e si leggevano attraverso gli spazi della riga. Il campo era
+      // opaco lui, ma la riga che lo ospita no: fra il campo, il tondo di
+      // invio e i Suggerimenti il contenuto passava e si vedeva. Adesso la
+      // riga intera ha un fondo suo, ancorato con lei: sfuma in cima per non
+      // fare uno scalino e diventa pieno dove vivono i controlli.
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            palette.deepest.withValues(alpha: 0.0),
+            palette.deepest.withValues(alpha: 0.92),
+            palette.deepest.withValues(alpha: 0.96),
+          ],
+          stops: const [0.0, 0.35, 1.0],
+        ),
+      ),
       child: Row(
         // AL CENTRO, ordine 2164 voce 5: allineate in fondo, le stelline
         // salivano sopra il campo e la scritta Suggerimenti finiva sopra il
@@ -164,26 +179,37 @@ class _SuggestionsControl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    // DENTRO UNA BOLLA, ordine H voce 3b: l'icona con l'etichetta
+    // galleggiava nuda sul cosmo, unico controllo della riga senza un
+    // contenitore, e non si leggeva come qualcosa che si tocca. La bolla ha
+    // lo stesso fondo e lo stesso bordo del campo accanto, cosi' la riga
+    // parla una lingua sola.
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
-      // NIENTE PADDING IN FONDO, ordine 2164 voce 5: quel respiro serviva
-      // ad allineare la colonna quando la riga era allineata in basso, e
-      // adesso alzerebbe di nuovo l'icona sopra il campo. La colonna e'
-      // stretta al minimo e la Row la centra sul campo.
-      child: Column(
+      child: Container(
         key: const Key('chat_stelline'),
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.auto_awesome_outlined,
-              color: palette.goldSoft, size: 24),
-          const SizedBox(height: 2),
-          Text(
-            'Suggerimenti',
-            style: TypographyTokens.didascalia()
-                .copyWith(color: ColorTokens.textMuted),
-          ),
-        ],
+        padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.sm, vertical: 6),
+        decoration: BoxDecoration(
+          color: Color.alphaBlend(
+              palette.surface.withValues(alpha: 0.6), palette.deepest),
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.auto_awesome_outlined,
+                color: palette.goldSoft, size: 22),
+            const SizedBox(height: 2),
+            Text(
+              'Suggerimenti',
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: ColorTokens.textMuted, letterSpacing: 0.4),
+            ),
+          ],
+        ),
       ),
     );
   }
