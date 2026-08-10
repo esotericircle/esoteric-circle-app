@@ -315,16 +315,20 @@ class _BindrunePainter extends CustomPainter {
           ..color = osso);
 
     // I rami, ognuno a una quota diversa lungo lo stelo.
+    //
+    // DALL'ORDINE H il tratto dei rami sale da 0,03 a 0,042 del riquadro: a
+    // 0,03 i rami si leggevano come fili accanto a uno stelo di 0,055, e un
+    // sigillo e' un segno inciso, non un ricamo. Il bagliore segue.
     final glow = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = box * 0.045
+      ..strokeWidth = box * 0.055
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..color = ambra.withValues(alpha: 0.5)
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, box * 0.04);
     final tratto = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = box * 0.03
+      ..strokeWidth = box * 0.042
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..color = osso;

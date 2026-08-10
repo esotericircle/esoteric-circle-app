@@ -335,6 +335,31 @@ class _Preparazione extends StatelessWidget {
           _SelettoreGettate(
               corrente: gettata, palette: palette, onSelect: onGettata),
           const SizedBox(height: SpacingTokens.md),
+          // L'ANIMAZIONE E IL GESTO STANNO IN ALTO, dall'ordine H: il pozzo
+          // col bottone del getto era in fondo, dopo la domanda e i
+          // suggerimenti, e per gettare si scorreva oltre cio' che si era
+          // gia' letto. Il gesto sta subito sotto la scena che lo mostra.
+          const SizedBox(height: SpacingTokens.lg),
+          // IL POZZO DI URDHR in attesa, col lancio.
+          _PozzoUrdhr(
+            palette: palette,
+            gettata: gettata,
+            esito: null,
+            seme: 0,
+            animazioni: animazioni,
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          FilledButton.icon(
+            key: const Key('rune_cast_button'),
+            style: FilledButton.styleFrom(
+                backgroundColor: palette.primary,
+                foregroundColor: palette.onPrimary,
+                minimumSize: const Size.fromHeight(52)),
+            onPressed: onGetta,
+            icon: const Icon(Icons.casino_outlined),
+            label: const Text('Getta le rune'),
+          ),
+
           // IL TESTO DINAMICO, che cambia con la scelta.
           DepthCard(
             key: const Key('rune_dynamic_text'),
@@ -408,26 +433,7 @@ class _Preparazione extends StatelessWidget {
                 ),
             ],
           ),
-          const SizedBox(height: SpacingTokens.lg),
-          // IL POZZO DI URDHR in attesa, col lancio.
-          _PozzoUrdhr(
-            palette: palette,
-            gettata: gettata,
-            esito: null,
-            seme: 0,
-            animazioni: animazioni,
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          FilledButton.icon(
-            key: const Key('rune_cast_button'),
-            style: FilledButton.styleFrom(
-                backgroundColor: palette.primary,
-                foregroundColor: palette.onPrimary,
-                minimumSize: const Size.fromHeight(52)),
-            onPressed: onGetta,
-            icon: const Icon(Icons.casino_outlined),
-            label: const Text('Getta le rune'),
-          ),
+
           const SizedBox(height: SpacingTokens.xs),
           // IL RIPIEGO TATTILE, DICHIARATO A SCHERMO. Quando il sensore
           // non c'e', la riga smette di promettere lo scuotimento e dice
@@ -526,6 +532,20 @@ class _Responso extends StatelessWidget {
             seme: seme,
             animazioni: animazioni,
           ),
+          // GETTA ANCORA STA QUI, subito sotto la scena, dall'ordine H: era in
+          // fondo, dopo presagio e sigillo, e per rigettare si attraversava
+          // tutta la lettura.
+          const SizedBox(height: SpacingTokens.md),
+          OutlinedButton.icon(
+            key: const Key('rune_recast'),
+            style: OutlinedButton.styleFrom(
+                foregroundColor: palette.goldSoft,
+                side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
+            onPressed: onAncora,
+            icon: const Icon(Icons.casino_outlined),
+            label: const Text('Getta ancora'),
+          ),
+
           if (domanda.isNotEmpty) ...[
             const SizedBox(height: SpacingTokens.md),
             DepthCard(
@@ -580,10 +600,12 @@ class _Responso extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.xs),
-                  Text(presagio,
+                  ParagrafiDiLettura(
                       key: const Key('rune_presage_text'),
-                      style: TypographyTokens.corpo().copyWith(
-                          color: ColorTokens.textPrimary, height: 1.55)),
+                      testo: presagio,
+                      oro: palette.goldSoft,
+                      stile: TypographyTokens.lettura()
+                          .copyWith(color: ColorTokens.textPrimary)),
                 ],
               ),
             ),
@@ -610,12 +632,28 @@ class _Responso extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.sm),
+                  // AL MASSIMO TRE RUNE NEL SIGILLO, dichiarato: col getto
+                  // sul telo le lette sono sette, e sette segni intrecciati
+                  // sono un groviglio, non una bindrune. Si intrecciano le
+                  // tre piu' vicine al centro, cioe' le prime della lettura,
+                  // e la didascalia sotto lo dice.
                   BindruneSigillo(
-                    runeNames: [for (final r in esito.rune) r.rune.name],
+                    runeNames: [
+                      for (final r in esito.rune.take(3)) r.rune.name
+                    ],
                     oro: palette.gold,
                     alone: palette.goldSoft,
-                    lato: 168,
+                    lato: 176,
                   ),
+                  if (esito.rune.length > 3) ...[
+                    const SizedBox(height: SpacingTokens.xs),
+                    Text(
+                      'Intreccia le tre rune più vicine al centro.',
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: ColorTokens.textSecondary),
+                    ),
+                  ],
                   const SizedBox(height: SpacingTokens.sm),
                   Text(kRuneBindruneNota,
                       textAlign: TextAlign.center,
@@ -624,16 +662,6 @@ class _Responso extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          OutlinedButton.icon(
-            key: const Key('rune_recast'),
-            style: OutlinedButton.styleFrom(
-                foregroundColor: palette.goldSoft,
-                side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
-            onPressed: onAncora,
-            icon: const Icon(Icons.casino_outlined),
-            label: const Text('Getta ancora'),
           ),
           const SizedBox(height: SpacingTokens.md),
           _Azioni(palette: palette, esito: esito, presagio: presagio),
@@ -734,18 +762,23 @@ class _LetturaRuna extends StatelessWidget {
               ],
             ),
             const SizedBox(height: SpacingTokens.sm),
-            Text(runa.riga,
-                style: TypographyTokens.didascalia().copyWith(
-                    color: ColorTokens.textPrimary, height: 1.5)),
+            // La lettura della scheda passa dalla porta unica dei paragrafi:
+            // sotto cinque righe non divide, quindi le righe brevi restano
+            // come sono e quelle lunghe respirano.
+            ParagrafiDiLettura(
+                testo: runa.riga,
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary)),
             // LA VOCE DELLA RUNA, di Caligo: la runa nel tuo giorno. E'
             // curatela dichiarata, mai tradizione, e per questo NON sta
             // accanto alla strofa con la fonte.
             if (voce != null) ...[
               const SizedBox(height: SpacingTokens.sm),
-              Text(voce!,
+              ParagrafiDiLettura(
                   key: Key('rune_voce_$indice'),
-                  style: TypographyTokens.didascalia().copyWith(
-                      color: palette.goldSoft, height: 1.5)),
+                  testo: voce!,
+                  stile: TypographyTokens.lettura()
+                      .copyWith(color: palette.goldSoft)),
             ],
             // LA STROFA ATTESTATA, con la fonte nominata: la materia vera
             // della runa. Quando la strofa norrena non esiste, qui compare

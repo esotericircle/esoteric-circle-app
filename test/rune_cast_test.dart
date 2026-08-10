@@ -94,39 +94,59 @@ void main() {
     const centro = Offset(0.5, 0.5);
     double dist(Offset p) => (p - centro).distance;
 
-    test('Sparge sette rune, ne legge fino a tre in luce vicine al centro', () {
+    test('Sparge sette rune e le legge TUTTE, ordinate dal centro', () {
+      // DALL'ORDINE H sul telo non esistono pietre nude ne' letture a tre:
+      // ogni pietra gettata mostra il suo simbolo e ha la sua scheda. La
+      // prova vecchia pretendeva "fino a tre in luce": e' stata cambiata di
+      // grandezza, non allentata, perche' la regola che sorvegliava non
+      // esiste piu'.
       for (var seme = 0; seme < 300; seme++) {
         final esito = RuneCast.getta(gettataTelo, random: Random(seme));
-        // Sette rune sparse, tutte diverse, ognuna con un punto sul telo.
         expect(esito.sparse.length, 7, reason: 'seme $seme');
         final nomiSparse = esito.sparse.map((s) => s.rune.name).toSet();
         expect(nomiSparse.length, 7, reason: 'sparse ripetute seme $seme');
         for (final s in esito.sparse) {
           expect(s.punto, isNotNull);
+          expect(s.coperta, isFalse,
+              reason: 'seme $seme: una pietra nuda sul telo');
         }
-        // Si legge fino a tre, mai piu'.
-        expect(esito.rune.length, inInclusiveRange(1, 3), reason: 'seme $seme');
-        // Le lette sono in luce, mai coperte, e stanno fra le sparse.
-        for (final r in esito.rune) {
-          expect(r.coperta, isFalse);
-          expect(esito.sparse.map((s) => s.rune.name), contains(r.rune.name));
-        }
-        // Ordinate per vicinanza al centro, la piu' vicina per prima.
+        // TUTTE lette: sette pietre, sette schede.
+        expect(esito.rune.length, 7, reason: 'seme $seme');
+        // Ordinate per vicinanza al centro, e la prima e' la piu' vicina.
+        double d(Offset p) => (p - const Offset(0.5, 0.5)).distance;
         for (var i = 1; i < esito.rune.length; i++) {
-          expect(dist(esito.rune[i].punto!),
-              greaterThanOrEqualTo(dist(esito.rune[i - 1].punto!)),
-              reason: 'ordine vicinanza seme $seme');
+          expect(d(esito.rune[i].punto!) >= d(esito.rune[i - 1].punto!), isTrue,
+              reason: 'seme $seme: lettura non ordinata dal centro');
+        }
+        // Dalla quarta in poi la posizione dichiarata e' l'ultima, i margini.
+        for (var i = 3; i < esito.rune.length; i++) {
+          expect(esito.rune[i].posizione.titolo,
+              gettataTelo.posizioni.last.titolo,
+              reason: 'seme $seme');
         }
       }
     });
 
-    test('Sul telo nessuna runa esce in merkstave, tutte diritte', () {
+    test('Sul telo i versi escono a sorte, e le simmetriche restano dritte',
+        () {
+      // Anche questa e' cambiata di grandezza: prima pretendeva tutte
+      // diritte, perche' il verso d'ombra era riservato alle gettate a
+      // posizioni. Adesso il rovescio esiste anche sul telo, e cio' che resta
+      // invariante e' la regola unica delle simmetriche.
+      var rovesce = 0;
       for (var seme = 0; seme < 200; seme++) {
         final esito = RuneCast.getta(gettataTelo, random: Random(seme));
         for (final s in esito.sparse) {
-          expect(s.inOmbra, isFalse, reason: 'seme $seme');
+          if (kRuneSimmetriche.contains(s.rune.name)) {
+            expect(s.inOmbra, isFalse,
+                reason: 'seme $seme: una simmetrica rovesciata');
+          }
+          if (s.inOmbra) rovesce++;
         }
       }
+      expect(rovesce, greaterThan(0),
+          reason: 'in duecento gettate nessuna runa rovesciata: la sorte del '
+              'verso non sta girando');
     });
   });
 

@@ -298,6 +298,15 @@ class RuneCast {
   /// vicine al centro, fino alle posizioni previste. Le simmetriche restano
   /// sempre diritte, come nelle altre gettate.
   static EsitoGettata _gettaLibera(GettataRune gettata, Random rng) {
+    // **SUL TELO NON ESISTONO PIETRE NUDE, dall'ordine H.** Prima il 42 per
+    // cento delle pietre cadeva "coperto", cioe' a faccia in giu' col retro
+    // vergine, e si leggevano solo le scoperte piu' vicine al centro, fino a
+    // tre: sette pietre gettate, tre schede, e un telo pieno di ossi muti.
+    // Adesso ogni pietra gettata mostra il suo simbolo, DRITTA O ROVESCIATA
+    // come nelle altre gettate (le otto simmetriche sempre dritte, regola
+    // unica in kRuneSimmetriche), e OGNI pietra ha la sua scheda: la sorte
+    // decide il verso e la vicinanza al centro decide l'ordine di lettura,
+    // non chi parla e chi tace.
     final indici = List<int>.generate(kElderFuthark.length, (i) => i)
       ..shuffle(rng);
     final sparse = <RunaGettata>[];
@@ -305,35 +314,26 @@ class RuneCast {
       final r = kElderFuthark[indici[i]];
       final x = 0.14 + rng.nextDouble() * 0.72;
       final y = 0.14 + rng.nextDouble() * 0.72;
-      final inLuce = rng.nextDouble() < 0.58;
+      final rovescia =
+          !kRuneSimmetriche.contains(r.name) && rng.nextDouble() < 0.35;
       sparse.add(RunaGettata(
         rune: r,
-        verso: RuneVerso.dritto,
+        verso: rovescia ? RuneVerso.merkstave : RuneVerso.dritto,
         posizione: _sulTelo,
         punto: Offset(x, y),
-        coperta: !inLuce,
       ));
     }
-    // Le rune lette: quelle in luce, ordinate per vicinanza al centro.
-    final inLuce = sparse.where((s) => !s.coperta).toList()
-      ..sort((a, b) =>
-          _distanzaDalCentro(a.punto!).compareTo(_distanzaDalCentro(b.punto!)));
-    final lette = <RunaGettata>[];
-    final quante =
-        inLuce.length < gettata.posizioni.length ? inLuce.length : gettata.posizioni.length;
-    for (var i = 0; i < quante; i++) {
-      lette.add(inLuce[i].copyWith(posizione: gettata.posizioni[i]));
-    }
-    // Se nessuna e' caduta in luce, si scopre la piu' vicina al centro.
-    if (lette.isEmpty && sparse.isNotEmpty) {
-      final piuVicina = [...sparse]..sort((a, b) =>
-          _distanzaDalCentro(a.punto!).compareTo(_distanzaDalCentro(b.punto!)));
-      final scelta = piuVicina.first
-          .copyWith(coperta: false, posizione: gettata.posizioni.first);
-      final idx = sparse.indexOf(piuVicina.first);
-      sparse[idx] = scelta;
-      lette.add(scelta);
-    }
+    // TUTTE lette, ordinate per vicinanza al centro. Le posizioni dichiarate
+    // sono tre (centro, presso il centro, margini): dalla terza in poi si
+    // resta "ai margini", perche' e' la verita' della disposizione.
+    final ordinate = [...sparse]..sort((a, b) =>
+        _distanzaDalCentro(a.punto!).compareTo(_distanzaDalCentro(b.punto!)));
+    final lette = <RunaGettata>[
+      for (var i = 0; i < ordinate.length; i++)
+        ordinate[i].copyWith(
+            posizione: gettata.posizioni[
+                i < gettata.posizioni.length ? i : gettata.posizioni.length - 1]),
+    ];
     return EsitoGettata(gettata: gettata, rune: lette, sparse: sparse);
   }
 

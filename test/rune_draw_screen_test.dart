@@ -141,10 +141,13 @@ void main() {
     expect(find.byKey(const Key('rune_card_2')), findsOneWidget);
     expect(find.byKey(const Key('rune_card_3')), findsNothing);
     expect(find.byKey(const Key('rune_presage')), findsOneWidget);
-    final presagio = tester
-        .widget<Text>(find.byKey(const Key('rune_presage_text')))
-        .data!;
-    expect(presagio.trim(), isNotEmpty);
+    // Il presagio passa dalla porta unica dei paragrafi, quindi non e' piu'
+    // un Text solo: si verifica che il blocco ci sia e porti del testo.
+    final presagio = find.descendant(
+        of: find.byKey(const Key('rune_presage_text')),
+        matching: find.byType(Text));
+    expect(presagio, findsWidgets);
+    expect(tester.widget<Text>(presagio.first).data!.trim(), isNotEmpty);
     expect(find.byKey(const Key('rune_share')), findsOneWidget);
     expect(find.byKey(const Key('rune_consulta')), findsOneWidget);
   });

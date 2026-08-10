@@ -37,7 +37,11 @@ class RunePresagio {
   static String _baseLibera(EsitoGettata esito) {
     final parti = <String>['Le rune cadono sparse sul telo di Tacito.'];
     for (final r in esito.rune) {
-      parti.add('Per ${r.posizione.glossa}, ${r.rune.name} in luce: '
+      // DALL'ORDINE H sul telo non esistono piu' pietre coperte: ogni runa
+      // mostra il suo simbolo, dritta o rovesciata, e la frase dice il VERSO
+      // invece della luce, perche' la luce non e' piu' una sorte.
+      final verso = r.verso == RuneVerso.merkstave ? 'rovesciata' : 'dritta';
+      parti.add('Per ${r.posizione.glossa}, ${r.rune.name} $verso: '
           '${_primaFrase(r.riga)}.');
     }
     parti.add(_sintesiLibera(esito));
@@ -45,19 +49,21 @@ class RunePresagio {
   }
 
   static String _sintesiLibera(EsitoGettata esito) {
-    final inLuce = esito.sparse.where((s) => !s.coperta).length;
-    final coperte = esito.sparse.where((s) => s.coperta).length;
+    final dritte =
+        esito.sparse.where((s) => s.verso == RuneVerso.dritto).length;
+    final rovesce =
+        esito.sparse.where((s) => s.verso == RuneVerso.merkstave).length;
 
     final String luce;
-    if (coperte == 0) {
-      luce = 'Tutte le rune sono cadute in luce: il telo si mostra aperto, '
-          'nulla resta velato.';
-    } else if (inLuce <= coperte) {
-      luce = "Poche rune in luce, molte coperte nell'ombra: leggi il poco che "
-          'si mostra, il resto tace.';
+    if (rovesce == 0) {
+      luce = 'Tutte le rune sono cadute dritte: il telo si mostra aperto, '
+          'nessun segno rema contro.';
+    } else if (dritte <= rovesce) {
+      luce = 'Molte rune rovesciate: il telo chiede prudenza, i segni '
+          'lavorano in controluce.';
     } else {
-      luce = "Più rune in luce che nell'ombra: il telo parla chiaro, qualche "
-          'segno resta per te solo.';
+      luce = 'Più rune dritte che rovesciate: il telo parla chiaro, qualche '
+          'segno va preso al contrario.';
     }
 
     final fam = _famiglia(_aettDominante(esito.rune));
