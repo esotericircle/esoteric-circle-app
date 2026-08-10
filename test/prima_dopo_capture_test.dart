@@ -2296,6 +2296,16 @@ void main() {
         unawaited(nav.push(MaestroChatScreen.route(
             maestro: Maestro.medora, services: AppServices.offline())));
       }
+      // GLI AVATAR SI PRECARICANO, sempre: senza, le tre carte del Santuario
+      // escono VUOTE in cattura, perche' in headless un'immagine non si
+      // decodifica se nessuno la mette in cache prima. E' successo davvero,
+      // e un'anteprima con tre riquadri vuoti non fa giudicare niente.
+      await tester.runAsync(() async {
+        final element = tester.element(find.byType(MaterialApp));
+        for (final m in Maestro.values) {
+          await precacheImage(AssetImage(m.avatarAsset), element);
+        }
+      });
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
       await tester.pump(const Duration(seconds: 2));

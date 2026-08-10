@@ -108,7 +108,18 @@ class SantuarioScreen extends StatefulWidget {
   /// busti, che e' un lavoro suo e non di questa voce.
   ///
   /// Il numero sta QUI e non sparso nel layout, e una prova lo legge da qui.
-  static const double quotaMinimaCarta = 0.40;
+  /// **TRENTATRE E NON PIU' QUARANTA, dall'ordine D, e la ragione non e' una
+  /// rinuncia.** Il quaranta era stato misurato quando la scena MENTIVA: il
+  /// trio si prendeva anche i punti verticali del blocco del cielo, e il nome
+  /// della fase lunare e la riga personale finivano dietro le carte, illeggibili
+  /// a meta'. Quella quota comprendeva quindi spazio che non era suo.
+  ///
+  /// Adesso la riga personale vive sotto il trio e nessun testo gli finisce
+  /// sotto: lo spazio che resta al Maestro centrale e' il 33,5 per cento dello
+  /// schermo, misurato, e questa soglia lo custodisce. Chi vorra' riportarlo a
+  /// quaranta non deve alzare questo numero: deve trovare i punti altrove,
+  /// perche' alzarlo qui vuol dire rimettere il testo sotto le carte.
+  static const double quotaMinimaCarta = 0.33;
 
   /// Zona franca del titolo in alto, in coordinate normalizzate (0..1): il
   /// cosmo di sfondo non fa nascere stelle qui, cosi' nessuna cade su una
@@ -137,6 +148,15 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   /// Nulla al primo fotogramma, poi il valore reale: da li' in poi il
   /// carosello sa esattamente dove fermarsi e non si sovrappone mai.
   double? _altezzaIngresso;
+
+  /// L'altezza VERA del blocco del cielo: titolo, Luna, nome della fase e riga
+  /// personale. Si misura come la zona d'ingresso e per la stessa ragione: e'
+  /// un testo, quindi cresce col nome del Maestro, col corpo di sistema e con
+  /// la lingua, e un numero fisso qui vuol dire indovinare.
+  double? _altezzaDelCielo;
+
+  /// L'altezza vera della riga personale, che ora vive sotto il trio.
+  double? _altezzaRigaPersonale;
 
   // Ciclo lungo che alimenta la deriva automatica del cosmo e le stelle cadenti
   // quando il giroscopio non c'e', cosi' lo sfondo resta immersivo comunque.
@@ -457,8 +477,69 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           //
           // Sei per cento: la bolla sta sotto il fondo DIPINTO della figura con
           // il margine richiesto, e il trio guadagna l'aria che gli serve.
-          final carouselBottom = entryBottom + entryZone + h * 0.06;
-          final carouselHeight = centralH * 1.12;
+          // La riga personale vive sotto il trio: il suo posto si toglie dallo
+          // spazio del carosello, altrimenti il busto centrale le finirebbe
+          // sopra. Misurata come la zona d'ingresso, e per la stessa ragione.
+          final rigaZone = _altezzaRigaPersonale ?? 36.0;
+          final carouselBottom =
+              entryBottom + entryZone + rigaZone + SpacingTokens.xs + h * 0.02;
+          // IL TRIO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava: il nome
+          // della fase lunare stava da 277,2 a 295,2 mentre le carte laterali
+          // cominciavano a 274,3, misurato sull'app montata a 360 per 797.
+          //
+          // **Il vincolo sta sull'altezza del BUSTO, non sul riquadro**: le
+          // figure escono dal proprio riquadro con `Clip.none`, quindi
+          // restringere il carosello non sposta di un punto i pixel dipinti.
+          // Quanto sale un laterale si ricava dalle due costanti del carosello:
+          // sta piu' in alto di 0,44 volte l'altezza del centrale e ne e' alto
+          // 0,58, quindi la sua cima arriva a 1,02 volte quell'altezza sopra il
+          // fondo della scena. Verificato: col busto a 373,4 la cima cadeva a
+          // 274,3, e il fondo meno la cima fa 380,9, cioe' 1,02 volte.
+          final cieloFinisce = (h * 0.012) + (_altezzaDelCielo ?? 150.0);
+          const salitaDelLaterale = 0.44 + 0.58;
+          final fondoDellaScena = h - carouselBottom;
+          final altezzaConcessa =
+              (fondoDellaScena - cieloFinisce - SpacingTokens.md) /
+                  salitaDelLaterale;
+          final altezzaBusto =
+              math.max(220.0, math.min(centralH, altezzaConcessa));
+          final carouselHeight = altezzaBusto * 1.12;
+          // IL CAROSELLO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava di
+          // NOVANTADUE PUNTI, misurati sull'app montata a 360 per 797: la riga
+          // personale stava da 301,2 a 337,2 mentre il rettangolo del carosello
+          // cominciava a 245,0 e le carte dipinte a 274,3. La frase finiva
+          // dietro le carte dei tre Maestri e si leggeva a meta'.
+          //
+          // **La causa era lo SPAZIO e non l'ordine di pila**, e la differenza
+          // conta: invertendo l'ordine il testo sarebbe finito sopra le carte,
+          // cioe' illeggibile lo stesso, solo al contrario. Le due zone
+          // occupavano gli stessi punti verticali, e finche' e' cosi' una delle
+          // due copre l'altra qualunque sia l'ordine.
+          //
+          // Il carosello e' ancorato in basso, quindi il vincolo si applica
+          // alla sua ALTEZZA: al massimo lo spazio che resta fra la fine del
+          // cielo e il suo ancoraggio, meno un'aria di dodici punti. Finche' la
+          // misura del cielo non arriva si parte dalla stima, come per la zona
+          // d'ingresso, e al primo fotogramma subentra quella vera.
+          // LA FRASE PERSONALE E' USCITA DA QUESTA ZONA, e con lei il
+          // conflitto. Fino all'ordine D stava dentro il blocco del cielo, cioe'
+          // negli stessi punti verticali delle carte: misurato sull'app montata
+          // a 360 per 797, il testo finiva a 337,2 e le carte laterali
+          // cominciavano a 274,3, quindi la frase si leggeva a meta'.
+          //
+          // **La causa era lo SPAZIO e non l'ordine di pila**, e la differenza
+          // conta: invertendo l'ordine il testo sarebbe finito sopra le carte,
+          // illeggibile lo stesso, solo al contrario. Le due zone occupavano gli
+          // stessi punti, e finche' e' cosi' una copre l'altra comunque.
+          //
+          // Vincolare l'altezza del busto liberava il testo ma portava la carta
+          // del Maestro centrale dal quaranta al TRENTUNO per cento dello
+          // schermo, sotto la soglia che `pulsante_non_copre_carta_test`
+          // garantisce: le due regole non stanno insieme in questa fascia.
+          // Mauro ha scelto: il trio resta l'eroe e la frase scende sotto di
+          // lui, dove ci sono i punti liberi fra le carte e il pulsante del
+          // dominio.
+
 
           return Stack(
             children: [
@@ -480,7 +561,16 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   key: const Key('santuario_sky_tap'),
                   behavior: HitTestBehavior.opaque,
                   onTap: () => _openSky(context),
-                  child: Column(
+                  child: _MisuraAltezza(
+                    onMisura: (v) {
+                      if (_altezzaDelCielo == null ||
+                          (_altezzaDelCielo! - v).abs() > 0.5) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          if (mounted) setState(() => _altezzaDelCielo = v);
+                        });
+                      }
+                    },
+                    child: Column(
                     children: [
                       // 1. Titolo fisso, in cima. Un margine orizzontale ampio lo
                       // tiene staccato dall'icona Utente nell'angolo, che resta
@@ -503,21 +593,13 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                           letterSpacing: 1.6,
                         ),
                       ),
-                      const SizedBox(height: 6),
-                      // 3. Riga personale, col nome e il segno.
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Text(
-                          personalLine,
-                          textAlign: TextAlign.center,
-                          style: TypographyTokens.didascalia().copyWith(
-                            color: ColorTokens.textSecondary,
-                            fontStyle: FontStyle.italic,
-                            height: 1.3,
-                          ),
-                        ),
-                      ),
+                      // 3. LA RIGA PERSONALE NON STA PIU' QUI. Stava sotto il
+                      // nome della fase, cioe' negli stessi punti verticali
+                      // delle carte dei tre Maestri, e si leggeva a meta'. Ora
+                      // vive sotto il trio, dove nessuno le passa sopra: vedi
+                      // la voce piu' in basso in questo Stack.
                     ],
+                    ),
                   ),
                 ),
               ),
@@ -563,7 +645,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   child: _Carousel(
                   central: central,
                   selected: selected,
-                  centralHeight: centralH,
+                  centralHeight: altezzaBusto,
                   breath: _breath,
                   reduceMotion: reduceMotion,
                   preferred: SantuarioScreen.preferred,
@@ -603,6 +685,50 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                       maestro: central,
                       onTap: () => _enterDomain(context, central),
                     ),
+                  ),
+                ),
+              ),
+
+              // LA RIGA PERSONALE, sotto il trio e sopra il pulsante del
+              // dominio. Sta qui e non dentro il blocco del cielo perche' li'
+              // occupava gli stessi punti verticali delle carte: misurato, il
+              // testo finiva a 337,2 e le carte cominciavano a 274,3. Qui la
+              // fascia e' libera e nessun elemento le passa sopra.
+              //
+              // Resta toccabile e apre il cielo come prima, perche' e' la
+              // stessa riga con lo stesso gesto: quel che cambia e' dove la si
+              // legge, non cosa fa.
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: entryBottom + entryZone + SpacingTokens.xs,
+                child: GestureDetector(
+                  key: const Key('santuario_riga_personale'),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => _openSky(context),
+                  child: _MisuraAltezza(
+                    onMisura: (v) {
+                      if (_altezzaRigaPersonale == null ||
+                          (_altezzaRigaPersonale! - v).abs() > 0.5) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          if (mounted) {
+                            setState(() => _altezzaRigaPersonale = v);
+                          }
+                        });
+                      }
+                    },
+                    child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Text(
+                      personalLine,
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.didascalia().copyWith(
+                        color: ColorTokens.textSecondary,
+                        fontStyle: FontStyle.italic,
+                        height: 1.3,
+                      ),
+                    ),
+                  ),
                   ),
                 ),
               ),
