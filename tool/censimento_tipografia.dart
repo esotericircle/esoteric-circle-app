@@ -79,6 +79,29 @@ String _num(double v) => v == v.roundToDouble()
     ? v.toStringAsFixed(0)
     : v.toString().replaceAll('.', ',');
 
+/// Il pavimento dell'app, ripetuto qui perche' questo strumento gira senza
+/// Flutter e non puo' importare i token. Se i due numeri divergessero il
+/// censimento direbbe il falso, quindi `test/tipografia_nel_dato_test.dart` li
+/// confronta con `TypographyTokens.pavimento`.
+const double pavimentoDellApp = 12;
+
+/// Se [m] viola il pavimento dell'app.
+///
+/// **LO ZERO SI DECIDE QUI, UNA VOLTA SOLA, e prima si decideva due.** Il
+/// documento aveva due contatori che rispondevano diversamente sulla stessa
+/// misura: il riepilogo dichiarava zero violazioni e la riga di
+/// `tarot_cartiglio.dart` ne dichiarava una, perche' il primo escludeva la
+/// misura nulla e la seconda la contava. Due numeri veri per due definizioni
+/// diverse fanno un documento che si contraddice, e un documento che si
+/// contraddice non e' sovrano di niente.
+///
+/// La decisione: una misura ZERO non e' debito. Non e' testo troppo piccolo,
+/// e' assenza di testo, cioe' il valore che un calcolo restituisce quando non
+/// c'e' niente da scrivere. Chiedergli il pavimento vorrebbe dire riservare
+/// l'altezza di una riga a un carattere che non esiste.
+bool sottoIlPavimentoDellApp(MisuraEsplicita m) =>
+    m.misura > 0 && m.misura < pavimentoDellApp;
+
 /// Enumera tutte le misure esplicite sotto [radice].
 ///
 /// Ordina per file e poi per riga, cosi' due esecuzioni sulla stessa base danno
@@ -155,22 +178,76 @@ int _rigaDi(List<int> inizi, int offset) {
   return basso + 1;
 }
 
-/// Il totale registrato nel censimento, letto dal documento stesso.
+/// I tre numeri registrati nel censimento, letti dal documento stesso.
 ///
-/// Il numero vive in un posto solo, dentro `docs/tipografia/censimento.md`: la
-/// guardia lo rilegge da li' invece di portarne una copia, cosi' aggiornare il
-/// censimento e aggiornare la soglia sono la stessa azione e non due.
-int totaleRegistrato({String documento = 'docs/tipografia/censimento.md'}) {
-  final testo = File(documento).readAsStringSync();
-  final m = RegExp(r'<!-- TOTALE_CENSITO:\s*(\d+)\s*-->').firstMatch(testo);
+/// Vivono in un posto solo, dentro `docs/tipografia/censimento.md`: la guardia
+/// li rilegge da li' invece di portarne una copia, cosi' aggiornare il
+/// censimento e aggiornare le soglie sono la stessa azione e non due.
+///
+/// **Sono TRE e non uno**, e la ragione e' che il totale da solo si lascia
+/// aggirare: si puo' spostare una misura da un file all'altro, oppure rimettere
+/// in vita una misura sotto il pavimento togliendone un'altra altrove, e il
+/// totale non cambia di un'unita'. Il numero dei file dice se il debito si sta
+/// spargendo, quello sotto il pavimento dice se sta tornando illeggibile.
+class NumeriRegistrati {
+  const NumeriRegistrati({
+    required this.totale,
+    required this.file,
+    required this.sottoIlPavimento,
+  });
+
+  final int totale;
+  final int file;
+  final int sottoIlPavimento;
+}
+
+int _marca(String testo, String nome, String documento) {
+  final m = RegExp('<!-- $nome:' r'\s*(\d+)\s*' '-->').firstMatch(testo);
   if (m == null) {
     throw StateError(
-        'In $documento manca la marca <!-- TOTALE_CENSITO: n -->, che e\' il '
-        'numero su cui si regge la guardia. Rigenera il censimento con '
+        'In $documento manca la marca <!-- $nome: n -->, che e\' uno dei '
+        'numeri su cui si regge la guardia. Rigenera il censimento con '
         'dart run tool/censimento_tipografia.dart');
   }
   return int.parse(m.group(1)!);
 }
+
+NumeriRegistrati numeriRegistrati(
+    {String documento = 'docs/tipografia/censimento.md'}) {
+  final testo = File(documento).readAsStringSync();
+  return NumeriRegistrati(
+    totale: _marca(testo, 'TOTALE_CENSITO', documento),
+    file: _marca(testo, 'FILE_CENSITI', documento),
+    sottoIlPavimento: _marca(testo, 'SOTTO_IL_PAVIMENTO', documento),
+  );
+}
+
+/// I DUE CONTATORI DEL DOCUMENTO, riletti dalla tabella per file.
+///
+/// La marca in cima e la tabella in fondo sono scritte dallo stesso programma
+/// ma da due conti diversi, e il giorno che divergono il documento dice due
+/// cose. Questa funzione somma le colonne della tabella, cosi' la guardia puo'
+/// confrontarle con le marche invece di fidarsi che siano d'accordo.
+({int totale, int file, int sottoIlPavimento}) sommeDellaTabella(
+    {String documento = 'docs/tipografia/censimento.md'}) {
+  final righe = File(documento).readAsLinesSync();
+  final riga = RegExp(r'^\|\s*`([^`]+)`\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|');
+  var totale = 0;
+  var file = 0;
+  var sotto = 0;
+  for (final r in righe) {
+    final m = riga.firstMatch(r);
+    if (m == null) continue;
+    file++;
+    totale += int.parse(m.group(2)!);
+    sotto += int.parse(m.group(3)!);
+  }
+  return (totale: totale, file: file, sottoIlPavimento: sotto);
+}
+
+/// Il totale, per chi ha bisogno del solo numero.
+int totaleRegistrato({String documento = 'docs/tipografia/censimento.md'}) =>
+    numeriRegistrati(documento: documento).totale;
 
 void main(List<String> argomenti) {
   final misure = censisci();
@@ -187,12 +264,7 @@ void main(List<String> argomenti) {
   for (final m in misure) {
     perFile.putIfAbsent(m.file, () => []).add(m);
   }
-  // ZERO NON E' UNA MISURA TROPPO PICCOLA, e' l'assenza di testo: e' il valore
-  // che un calcolo restituisce quando non c'e' niente da scrivere, e trattarlo
-  // come una violazione del pavimento vorrebbe dire chiedere una misura
-  // leggibile per un carattere che non esiste.
-  final sottoIlPavimento =
-      misure.where((m) => m.misura > 0 && m.misura < 12).toList();
+  final sottoIlPavimento = misure.where(sottoIlPavimentoDellApp).toList();
   final letturaSotto16 =
       misure.where((m) => m.diLettura && m.misura < 16).toList();
 
@@ -200,6 +272,8 @@ void main(List<String> argomenti) {
     ..writeln('# Censimento delle misure tipografiche scritte a mano')
     ..writeln()
     ..writeln('<!-- TOTALE_CENSITO: ${misure.length} -->')
+    ..writeln('<!-- FILE_CENSITI: ${perFile.length} -->')
+    ..writeln('<!-- SOTTO_IL_PAVIMENTO: ${sottoIlPavimento.length} -->')
     ..writeln('<!-- Generato da tool/censimento_tipografia.dart. Non si '
         'scrive a mano: si rigenera. -->')
     ..writeln()
@@ -272,12 +346,18 @@ void main(List<String> argomenti) {
   b
     ..writeln('## Dove il pavimento NON arriva, e perche\'')
     ..writeln()
-    ..writeln(
-        'Il pavimento vive dentro i token, quindi governa chi passa da loro. '
-        'Un `TextStyle` costruito a mano gli sfugge per costruzione, e le '
-        'quattro misure elencate qui sopra sono esattamente quelle: nessun '
-        'assert le prende, solo questo censimento. Vanno tolte, e finche\' ci '
-        'sono stanno scritte.')
+    ..writeln(sottoIlPavimento.isEmpty
+        ? 'Il pavimento vive dentro i token, quindi governa chi passa da loro, '
+            'e un `TextStyle` costruito a mano gli sfugge per costruzione: '
+            'nessun assert lo prende, solo questo censimento. Oggi non gli '
+            'sfugge nessuno, quindi qui sopra non ce n\'e\' nessun elenco: il '
+            'rimando a una sezione che non esiste era la prima cosa che questo '
+            'documento diceva di falso.'
+        : 'Il pavimento vive dentro i token, quindi governa chi passa da loro. '
+            'Un `TextStyle` costruito a mano gli sfugge per costruzione, e le '
+            '${sottoIlPavimento.length} misure elencate nella sezione qui sopra '
+            'sono esattamente quelle: nessun assert le prende, solo questo '
+            'censimento. Vanno tolte, e finche\' ci sono stanno scritte.')
     ..writeln()
     ..writeln(
         'L\'unico punto che ha DIRITTO di scegliere la propria misura e\' '
@@ -306,7 +386,7 @@ void main(List<String> argomenti) {
     });
   for (final file in ordinati) {
     final righe = perFile[file]!;
-    final sotto12 = righe.where((m) => m.misura < 12).length;
+    final sotto12 = righe.where(sottoIlPavimentoDellApp).length;
     final lettura = righe.where((m) => m.diLettura && m.misura < 16).length;
     b.writeln('| `$file` | ${righe.length} | $sotto12 | $lettura |');
   }

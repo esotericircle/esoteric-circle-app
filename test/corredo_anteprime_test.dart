@@ -188,7 +188,19 @@ void main() {
       final t = f.readAsLinesSync()
           .where((r) => !r.trimLeft().startsWith('//'))
           .join('\n');
-      if (t.contains("docs/preview")) fuori.add(nome);
+      // SI CERCA LA SCRITTURA, non la menzione. Il lucchetto guardava se il
+      // file nominasse `docs/preview` in qualunque modo, quindi prendeva anche
+      // chi quelle immagini si limita a LEGGERLE per misurarle, per esempio il
+      // guardiano che verifica se un'anteprima e' stata colta a meta'
+      // dissolvenza. Una seconda porta e' chi SCRIVE, non chi guarda.
+      final scrive = RegExp(
+              r'(writeAsBytes|writeAsString|createSync|copySync)[^;]{0,200}'
+              r'docs/preview|docs/preview[^;]{0,200}'
+              r'(writeAsBytes|writeAsString|copySync)',
+              dotAll: true)
+          .hasMatch(t);
+      if (!scrive) continue;
+      fuori.add(nome);
     }
     expect(fuori, isEmpty,
         reason: 'questi file scrivono anteprime fuori dal corredo: '

@@ -1,6 +1,8 @@
 # Censimento delle misure tipografiche scritte a mano
 
 <!-- TOTALE_CENSITO: 471 -->
+<!-- FILE_CENSITI: 70 -->
+<!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- Generato da tool/censimento_tipografia.dart. Non si scrive a mano: si rigenera. -->
 
 Ogni riga qui sotto e' un punto in cui la misura di un carattere e' decisa a mano invece di venire da un ruolo. Il numero totale puo' solo SCENDERE: `test/tipografia_nel_dato_test.dart` lo rilegge da questo documento e cade se qualcuno ne aggiunge una.
@@ -26,7 +28,7 @@ Contesto di lettura vuol dire testo che si legge e non si guarda: la famiglia de
 
 ## Dove il pavimento NON arriva, e perche'
 
-Il pavimento vive dentro i token, quindi governa chi passa da loro. Un `TextStyle` costruito a mano gli sfugge per costruzione, e le quattro misure elencate qui sopra sono esattamente quelle: nessun assert le prende, solo questo censimento. Vanno tolte, e finche' ci sono stanno scritte.
+Il pavimento vive dentro i token, quindi governa chi passa da loro, e un `TextStyle` costruito a mano gli sfugge per costruzione: nessun assert lo prende, solo questo censimento. Oggi non gli sfugge nessuno, quindi qui sopra non ce n'e' nessun elenco: il rimando a una sezione che non esiste era la prima cosa che questo documento diceva di falso.
 
 L'unico punto che ha DIRITTO di scegliere la propria misura e' l'anello curvo della ruota archetipica (`lib/features/maestri/aura/archetype/archetype_wheel.dart`), dove i dodici nomi si dispongono lungo una circonferenza e la taglia si calcola per farceli stare: nessun ruolo puo' saperlo in anticipo. Quel punto si costruisce lo stile a mano proprio per questo, e la ragione sta scritta accanto al codice.
 
@@ -105,5 +107,5 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/features/onboarding/widgets/sky_thread.dart` | 1 | 0 | 1 |
 | `lib/features/onboarding/widgets/stardust_name.dart` | 1 | 0 | 0 |
 | `lib/features/santuario/greeting_banner.dart` | 1 | 0 | 1 |
-| `lib/features/tarot/tarot_cartiglio.dart` | 1 | 1 | 1 |
+| `lib/features/tarot/tarot_cartiglio.dart` | 1 | 0 | 1 |
 

@@ -25,7 +25,7 @@ import '../tool/censimento_tipografia.dart';
 void main() {
   test('Le misure tipografiche scritte a mano non aumentano', () {
     final misure = censisci();
-    final registrato = totaleRegistrato();
+    final registrato = numeriRegistrati().totale;
 
     expect(
       misure.length,
@@ -52,6 +52,61 @@ void main() {
     );
   });
 
+
+  test('Il debito non si sparge su piu\' file', () {
+    // IL TOTALE DA SOLO SI LASCIA AGGIRARE: spostando una misura da un file
+    // all'altro non cambia di un'unita', mentre il debito si allarga a una
+    // schermata in piu'. Questo numero dice se si sta spargendo.
+    final file = censisci().map((m) => m.file).toSet().length;
+    final registrato = numeriRegistrati().file;
+    expect(file, lessThanOrEqualTo(registrato),
+        reason: 'i file che portano misure a mano sono passati da $registrato '
+            'a $file: il debito si sta spargendo su schermate nuove');
+    expect(file, registrato,
+        reason: 'i file sono scesi a $file ma il censimento dice ancora '
+            '$registrato: rigeneralo e committalo insieme al codice');
+  });
+
+  test('Sotto il pavimento non torna nessuno', () {
+    // La terza grandezza, e la piu' grave: le altre due misurano il debito,
+    // questa misura il testo illeggibile.
+    final sotto = censisci().where(sottoIlPavimentoDellApp).length;
+    final registrato = numeriRegistrati().sottoIlPavimento;
+    expect(sotto, lessThanOrEqualTo(registrato),
+        reason: 'le misure sotto il pavimento sono passate da $registrato a '
+            '$sotto: qualcuno ha rimesso a video del testo che non si legge');
+    expect(sotto, registrato,
+        reason: 'le misure sotto il pavimento sono scese a $sotto ma il '
+            'censimento dice ancora $registrato: rigeneralo e committalo');
+  });
+
+  test('Il documento non si contraddice', () {
+    // **IL DOCUMENTO SOVRANO DEL DEBITO DICEVA DUE COSE.** Il riepilogo in
+    // cima dichiarava zero misure sotto il pavimento e la riga di
+    // `tarot_cartiglio.dart`, nella tabella in fondo, ne dichiarava una: due
+    // numeri veri per due definizioni diverse dello stesso zero. Adesso la
+    // definizione e' una sola, e questa prova impedisce che tornino a essere
+    // due, confrontando le marche in cima con le somme della tabella in fondo.
+    final marche = numeriRegistrati();
+    final tabella = sommeDellaTabella();
+    expect(tabella.totale, marche.totale,
+        reason: 'la tabella per file somma ${tabella.totale} misure e la marca '
+            'in cima ne dichiara ${marche.totale}: il documento si contraddice');
+    expect(tabella.file, marche.file,
+        reason: 'la tabella ha ${tabella.file} righe e la marca dichiara '
+            '${marche.file} file');
+    expect(tabella.sottoIlPavimento, marche.sottoIlPavimento,
+        reason: 'la tabella somma ${tabella.sottoIlPavimento} misure sotto il '
+            'pavimento e la marca ne dichiara ${marche.sottoIlPavimento}: e\' '
+            'esattamente la contraddizione che l\'ordine C ha chiuso');
+  });
+
+  test('Il pavimento dello strumento e\' quello dei token', () {
+    // Lo strumento gira senza Flutter e non puo' importare i token, quindi si
+    // porta il numero in copia: qui si verifica che le due copie coincidano,
+    // altrimenti il censimento misurerebbe un pavimento che l'app non ha.
+    expect(pavimentoDellApp, TypographyTokens.pavimento);
+  });
   test('Il pavimento e\' il ruolo piu\' piccolo che esista', () {
     // Non e' una tautologia: dice che nessuno puo' abbassare un ruolo sotto il
     // pavimento senza accorgersene, perche' il pavimento e' l'etichetta.
