@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
+import 'package:esoteric_circle/design_system/components/testo_che_si_scrive.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -189,6 +190,29 @@ void main() {
               'paragrafi in oro nella stessa scheda sono un difetto, non '
               'un\'enfasi, perche\' l\'occhio non sa piu\' quale dei due porta '
               'il senso.');
+
+      // ORDINE B, voce 1e: L'ORO SEGUE IL NUMERO DEI BLOCCHI. Quando il
+      // responso non si divide, un paragrafo dorato non esiste: al massimo una
+      // frase INTERA puo' esserlo, e puo' anche non esserci. Con un blocco solo
+      // due pesi diversi nella stessa colonna di testo non sono una gerarchia,
+      // sono un'incertezza.
+      final blocchi = tester
+          .widgetList<TestoCheSiScrive>(find.descendant(
+              of: find.byKey(Key('oroscopo_testo_${dominio.name}')),
+              matching: find.byType(TestoCheSiScrive)))
+          .length;
+      if (blocchi <= 1) {
+        for (final d in dorati) {
+          final testo = d.substring(1, d.length - 1);
+          expect(frasiDi(testo).length, 1,
+              reason: 'la scheda ${dominio.name} ha un blocco solo e mette in '
+                  'oro piu\' di una frase: $d. Con un blocco solo l\'oro puo\' '
+                  'essere al massimo UNA frase intera.');
+          expect(RegExp(r'[.!?]$').hasMatch(testo.trim()), isTrue,
+              reason: 'la scheda ${dominio.name} mette in oro un pezzo di '
+                  'frase: $d. Mai un pezzo, sempre una frase intera.');
+        }
+      }
     }
     // ROSSO ESEGUITO: dando all'apertura della scheda anche il colore oro sul
     // responso, la Generale e' passata a 2 blocchi dorati e la prova e' caduta
@@ -233,27 +257,119 @@ void main() {
     // schermata ha ricevuto 3,0 invece di 1,3 e la prova e' caduta.
   });
 
-  test('Il responso si spezza in paragrafi da tre o quattro righe', () {
-    // La spezzatura e' una funzione pura, quindi si misura senza montare
-    // niente: qui si guarda la regola, nell'albero si guarda la resa.
-    const testo =
-        'Il cielo di oggi ti chiede attenzione. Marte scivola nel tuo settore '
-        'delle prove e porta una fretta che non e\' tua. Prendi il tempo che '
-        'serve, perche\' la giornata non premia chi corre. La Luna, dal canto '
-        'suo, apre uno spiraglio nella sera. Ascolta chi ti parla piano.';
-    final paragrafi = spezzaInParagrafi(testo);
+  group('Si spezza solo cio\' che e\' lungo', () {
+    // LA GRANDEZZA MISURATA SONO LE RIGHE RESE, non i caratteri e non le
+    // parole. Due frasi della stessa lunghezza in caratteri possono occupare
+    // righe diverse, perche' a mandare a capo e' la parola che non ci sta: la
+    // vecchia stima a 36 caratteri per riga sbagliava proprio li'. Si misura
+    // alla larghezza di riferimento, quella dei 360 punti logici del telefono
+    // su cui l'app si giudica, dove il testo va a capo prima che altrove.
+    //
+    // I font veri sono caricati per tutta la suite da `flutter_test_config`,
+    // quindi queste righe sono quelle che la persona vede, non quelle del
+    // carattere di ripiego.
+    // LE SOGLIE DELLA PROVA SONO SUE, non quelle del codice, e il rosso lo ha
+    // preteso. Prima queste prove leggevano `righeMinimeDiBlocco`,
+    // `sogliaDivisione` e `sogliaBlocchiLunghi` dal codice sotto misura:
+    // abbassando la costante a 2 il codice produceva blocchi da due righe e la
+    // prova restava verde, perche' scendeva insieme a lui. Una prova che si
+    // adatta a cio' che misura non misura niente. Qui i numeri sono scritti a
+    // mano, e sono quelli dell'ordine: tre righe minime, cinque per dividere,
+    // dieci per passare ai blocchi lunghi.
+    const minimeAttese = 3;
+    const divisioneAttesa = 5;
+    const lunghiAttesi = 10;
 
-    expect(paragrafi.length, greaterThan(1),
-        reason: 'il responso resta un blocco unico: e\' il muro di testo');
-    for (final p in paragrafi) {
-      final righe = (p.length / caratteriPerRigaDelResponso).ceil();
-      expect(righe, lessThanOrEqualTo(5),
-          reason: 'un paragrafo di $righe righe non e\' un paragrafo: "$p"');
+    int righe(String t) => righeRese(t, stileDelResponso);
+
+    /// Un testo lungo quanto serve, composto di frasi vere: si allunga
+    /// aggiungendo frasi finche' non raggiunge le righe volute, cosi' la prova
+    /// non dipende da un testo inventato a mano che domani non misura piu'
+    /// quello che dice di misurare.
+    String testoDa(int righeVolute) {
+      const frasi = [
+        'Il cielo di oggi ti chiede attenzione.',
+        'Marte scivola nel tuo settore delle prove e porta una fretta che non e\' tua.',
+        'Prendi il tempo che serve, perche\' la giornata non premia chi corre.',
+        'La Luna, dal canto suo, apre uno spiraglio nella sera.',
+        'Ascolta chi ti parla piano, anche quando dice cose scomode.',
+        'Un incontro breve conta piu\' di un programma lungo.',
+        'Verso sera la stanchezza chiede il suo, e non e\' una resa.',
+        'Domani il passo torna leggero, se stanotte lo lasci posare.',
+      ];
+      final b = StringBuffer();
+      var i = 0;
+      while (righe(b.toString()) < righeVolute) {
+        if (b.isNotEmpty) b.write(' ');
+        b.write(frasi[i % frasi.length]);
+        i++;
+        if (i > 60) break;
+      }
+      return b.toString();
     }
-    // Nessuna parola si perde per strada, e nessuna si duplica.
-    expect(paragrafi.join(' ').replaceAll(RegExp(r'\s+'), ' '),
-        testo.replaceAll(RegExp(r'\s+'), ' '),
-        reason: 'la spezzatura ha cambiato il testo: un paragrafo si taglia, '
-            'non si riscrive');
+
+    List<String> spezza(String t) =>
+        spezzaInParagrafi(t, stile: stileDelResponso);
+
+    test('Sotto cinque righe non si divide niente', () {
+      for (final volute in [1, 2, 3, 4]) {
+        final t = testoDa(volute);
+        if (righe(t) >= divisioneAttesa) continue;
+        final blocchi = spezza(t);
+        expect(blocchi.length, 1,
+            reason: 'un responso di ${righe(t)} righe e\' stato diviso in '
+                '${blocchi.length} blocchi: sotto $divisioneAttesa righe non '
+                'c\'e\' nessun muro da rompere, e dividere due frasi corte fa '
+                'sembrare la lettura sbriciolata');
+      }
+    });
+
+    test('Da cinque a dieci righe, al massimo due blocchi', () {
+      for (var volute = divisioneAttesa; volute <= lunghiAttesi; volute++) {
+        final t = testoDa(volute);
+        final blocchi = spezza(t);
+        expect(blocchi.length, lessThanOrEqualTo(2),
+            reason: 'un responso di ${righe(t)} righe e\' uscito in '
+                '${blocchi.length} blocchi invece di due al massimo');
+      }
+    });
+
+    test('Nessun blocco sta sotto tre righe', () {
+      for (var volute = 1; volute <= 20; volute++) {
+        final t = testoDa(volute);
+        final blocchi = spezza(t);
+        if (blocchi.length < 2) continue;
+        for (final b in blocchi) {
+          expect(righe(b), greaterThanOrEqualTo(minimeAttese),
+              reason: 'in un responso di ${righe(t)} righe c\'e\' un blocco di '
+                  '${righe(b)} righe: "$b". Una coda di una o due righe non e\' '
+                  'un paragrafo, si legge come un errore di composizione');
+        }
+      }
+    });
+
+    test('Oltre dieci righe i blocchi stanno fra quattro e sei righe', () {
+      for (var volute = lunghiAttesi + 1; volute <= 24; volute++) {
+        final t = testoDa(volute);
+        final blocchi = spezza(t);
+        if (blocchi.length < 2) continue;
+        // L'ultimo puo' essere piu' corto solo perche' la coda si e' fusa: e'
+        // gia' sorvegliato dalla prova sopra, che pretende almeno tre righe.
+        for (final b in blocchi) {
+          expect(righe(b), lessThanOrEqualTo(6),
+              reason: 'un blocco di ${righe(b)} righe supera le sei: "$b"');
+        }
+      }
+    });
+
+    test('La spezzatura non cambia il testo', () {
+      for (var volute = 1; volute <= 20; volute++) {
+        final t = testoDa(volute);
+        expect(spezza(t).join(' ').replaceAll(RegExp(r'\s+'), ' '),
+            t.replaceAll(RegExp(r'\s+'), ' '),
+            reason: 'la spezzatura ha cambiato il testo: un paragrafo si '
+                'taglia, non si riscrive');
+      }
+    });
   });
 }

@@ -433,35 +433,56 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   }
 }
 
-/// Quanti caratteri stanno su una riga del responso.
+/// Lo stile del responso, in un punto solo.
 ///
-/// Non e' una stima a occhio: la scheda dell'oroscopo su un telefono da 360
-/// punti logici lascia al testo circa 264 punti (due volte il margine della
-/// lista piu' due volte il riempimento della scheda), e a diciotto punti la
-/// serif del corpo occupa in media poco piu' di sette punti per carattere. Il
-/// numero e' verificato da `test/oroscopo_tipografia_test.dart`, che misura le
-/// righe vere con un TextPainter alla larghezza vera invece di fidarsi di
-/// questa riga.
-const int caratteriPerRigaDelResponso = 36;
+/// Serve a due cose che devono restare d'accordo: dipingere il testo e MISURARE
+/// quante righe occupa. Se lo stile vivesse in due posti, la divisione in
+/// blocchi si calcolerebbe su un carattere e la resa userebbe l'altro, e la
+/// regola delle righe direbbe il falso senza che nessuno se ne accorga.
+final TextStyle stileDelResponso =
+    TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary);
 
-/// Il responso si spezza in paragrafi da tre o quattro righe.
+/// La larghezza che il responso ha davvero, sul telefono di riferimento.
 ///
-/// Un responso arriva come un blocco unico di sei o sette righe, ed e' un muro:
-/// l'occhio non trova dove riposare e la lettura si interrompe alla terza riga.
-/// Si taglia sulle FRASI e mai a meta' di una, perche' un paragrafo che comincia
-/// con un pezzo di frase e' peggio del muro. Quando una frase da sola supera il
-/// tetto resta un paragrafo suo: spezzarla vorrebbe dire rompere il senso per
-/// rispettare un conteggio.
-List<String> spezzaInParagrafi(
-  String testo, {
-  int righeMinime = 3,
-  int righeMassime = 4,
-  int caratteriPerRiga = caratteriPerRigaDelResponso,
+/// Trecentosessanta punti logici e' la misura su cui si giudica l'app, ed e' la
+/// piu' stretta: a 360 il testo va a capo prima che altrove, quindi e' il caso
+/// che decide. Dentro ci stanno due volte il margine della lista e due volte il
+/// riempimento della scheda, tutti e quattro `SpacingTokens.lg`.
+///
+/// **La divisione si calcola SEMPRE qui, anche su uno schermo piu' largo, ed e'
+/// una scelta.** Spezzare il responso e' un atto editoriale, non un
+/// adattamento al pixel: se dipendesse dalla larghezza vera, la stessa lettura
+/// avrebbe due blocchi su un telefono e uno su un altro, e la regola non
+/// sarebbe piu' verificabile. Su uno schermo largo i blocchi restano quelli, e
+/// ciascuno occupa semplicemente meno righe.
+const double larghezzaDiRiferimentoDelResponso = 360 - SpacingTokens.lg * 4;
+
+/// Quante righe occupa [testo] reso con [stile] alla larghezza di riferimento.
+///
+/// E' la grandezza su cui si decide tutto, e non sono ne' i caratteri ne' le
+/// parole: due frasi della stessa lunghezza in caratteri possono occupare righe
+/// diverse, perche' a mandare a capo e' la parola che non ci sta. Si misura col
+/// motore che dipinge davvero il testo.
+int righeRese(
+  String testo,
+  TextStyle stile, {
+  double larghezza = larghezzaDiRiferimentoDelResponso,
 }) {
+  if (testo.trim().isEmpty) return 0;
+  final tp = TextPainter(
+    text: TextSpan(text: testo.trim(), style: stile),
+    textDirection: TextDirection.ltr,
+  )..layout(maxWidth: larghezza);
+  return tp.computeLineMetrics().length;
+}
+
+/// Le frasi di [testo], con la loro punteggiatura attaccata.
+///
+/// Si taglia DOPO il punto e mai dentro una frase: un blocco che comincia con
+/// un pezzo di frase e' peggio del muro che si voleva evitare.
+List<String> frasiDi(String testo) {
   final pulito = testo.trim();
   if (pulito.isEmpty) return const [];
-
-  // Le frasi, con la loro punteggiatura attaccata: si taglia DOPO il punto.
   final frasi = <String>[];
   final corrente = StringBuffer();
   for (var i = 0; i < pulito.length; i++) {
@@ -476,34 +497,133 @@ List<String> spezzaInParagrafi(
   if (corrente.toString().trim().isNotEmpty) {
     frasi.add(corrente.toString().trim());
   }
+  return frasi;
+}
 
-  int righeDi(String s) => (s.length / caratteriPerRiga).ceil();
+/// SI SPEZZA SOLO CIO' CHE E' LUNGO.
+///
+/// La prima stesura di questa regola divideva a prescindere: contava i
+/// caratteri con una costante e chiudeva un blocco appena arrivava a tre righe
+/// stimate, quindi un responso di cinque righe usciva in tre piu' due e quel
+/// due era una coda, non un paragrafo. Adesso il numero di righe RESE decide
+/// prima di tutto se dividere, e poi come.
+///
+/// Le soglie, in righe rese alla larghezza di riferimento:
+///
+/// - sotto [sogliaDivisione] (5): un blocco solo, nessuna divisione;
+/// - da 5 a [sogliaBlocchiLunghi] (10): al massimo due blocchi, e nessuno dei
+///   due sotto [righeMinimeDiBlocco] (3);
+/// - oltre 10: blocchi da 4 a 6 righe, nessuno sotto 3.
+///
+/// E una regola sta PRIMA di tutte: un blocco finale di una o due righe non
+/// esiste, si fonde con quello che lo precede. Vale a qualunque lunghezza,
+/// perche' una coda corta in fondo a una lettura si legge come un errore di
+/// composizione, non come un paragrafo.
+const int righeMinimeDiBlocco = 3;
+const int sogliaDivisione = 5;
+const int sogliaBlocchiLunghi = 10;
 
-  final paragrafi = <String>[];
-  var accumulato = '';
+List<String> spezzaInParagrafi(
+  String testo, {
+  required TextStyle stile,
+  double larghezza = larghezzaDiRiferimentoDelResponso,
+}) {
+  final pulito = testo.trim();
+  if (pulito.isEmpty) return const [];
+
+  int righe(String s) => righeRese(s, stile, larghezza: larghezza);
+  final totali = righe(pulito);
+
+  // (a) Sotto cinque righe non si divide niente: non c'e' nessun muro da
+  // rompere, e dividere due frasi corte fa sembrare la lettura sbriciolata.
+  if (totali < sogliaDivisione) return [pulito];
+
+  final frasi = frasiDi(pulito);
+  // Una frase sola, per quanto lunga, resta un blocco: spezzarla vorrebbe dire
+  // rompere il senso per rispettare un conteggio.
+  if (frasi.length < 2) return [pulito];
+
+  // (b) Da cinque a dieci righe: due blocchi, e si sceglie il taglio piu'
+  // vicino alla meta' fra quelli che lasciano tre righe da tutte e due le
+  // parti. Se nessun taglio le lascia, il testo resta intero: meglio un blocco
+  // lungo che un blocco monco.
+  if (totali <= sogliaBlocchiLunghi) {
+    int? migliore;
+    var scarto = double.infinity;
+    for (var t = 1; t < frasi.length; t++) {
+      final primo = frasi.take(t).join(' ');
+      final secondo = frasi.skip(t).join(' ');
+      final rp = righe(primo);
+      final rs = righe(secondo);
+      if (rp < righeMinimeDiBlocco || rs < righeMinimeDiBlocco) continue;
+      final d = (rp - rs).abs().toDouble();
+      if (d < scarto) {
+        scarto = d;
+        migliore = t;
+      }
+    }
+    if (migliore == null) return [pulito];
+    return [
+      frasi.take(migliore).join(' '),
+      frasi.skip(migliore).join(' '),
+    ];
+  }
+
+  // (c) Oltre dieci righe: si accumula fino a quattro righe e si chiude, senza
+  // mai superare sei. Una frase che da sola supera il tetto chiude comunque il
+  // suo blocco, perche' l'alternativa sarebbe tagliarla.
+  //
+  // I blocchi si tengono come LISTE DI FRASI e non come stringhe gia' unite,
+  // perche' l'ultimo passaggio ha bisogno di spostare una frase da un blocco
+  // all'altro: su una stringa unita si potrebbe solo fondere.
+  const desiderate = 4;
+  const massime = 6;
+  final blocchi = <List<String>>[];
+  var accumulato = <String>[];
   for (final frase in frasi) {
-    final unito = accumulato.isEmpty ? frase : '$accumulato $frase';
-    if (accumulato.isNotEmpty && righeDi(unito) > righeMassime) {
-      paragrafi.add(accumulato);
-      accumulato = frase;
+    final provato = [...accumulato, frase];
+    if (accumulato.isNotEmpty && righe(provato.join(' ')) > massime) {
+      blocchi.add(accumulato);
+      accumulato = [frase];
       continue;
     }
-    accumulato = unito;
-    if (righeDi(accumulato) >= righeMinime) {
-      paragrafi.add(accumulato);
-      accumulato = '';
+    accumulato = provato;
+    if (righe(accumulato.join(' ')) >= desiderate) {
+      blocchi.add(accumulato);
+      accumulato = [];
     }
   }
-  if (accumulato.isNotEmpty) {
-    // Una coda di una riga sola non fa un paragrafo: torna a chi la precede, a
-    // meno che non sia l'unica cosa che c'e'.
-    if (paragrafi.isNotEmpty && righeDi(accumulato) < 2) {
-      paragrafi[paragrafi.length - 1] = '${paragrafi.last} $accumulato';
-    } else {
-      paragrafi.add(accumulato);
+  if (accumulato.isNotEmpty) blocchi.add(accumulato);
+
+  // LA CODA CORTA NON ESISTE, ed e' la regola che viene prima di tutte. Si
+  // prova PRIMA a travasarle una frase dal blocco che la precede, e solo se il
+  // travaso non basta la si fonde.
+  //
+  // **Fondere e basta produceva blocchi da sette righe**, misurato: la coda
+  // finiva dentro un blocco gia' pieno e il tetto delle sei righe saltava
+  // proprio nell'ultimo pezzo della lettura, dove la stanchezza e' massima. Col
+  // travaso le due regole stanno in piedi insieme, e la fusione resta come
+  // ultima risorsa per i casi in cui non c'e' niente da spostare.
+  while (blocchi.length > 1 &&
+      righe(blocchi.last.join(' ')) < righeMinimeDiBlocco) {
+    final penultimo = blocchi[blocchi.length - 2];
+    final ultimo = blocchi.last;
+    if (penultimo.length > 1) {
+      final travasato = [penultimo.last, ...ultimo];
+      final restante = penultimo.sublist(0, penultimo.length - 1);
+      if (righe(restante.join(' ')) >= righeMinimeDiBlocco &&
+          righe(travasato.join(' ')) >= righeMinimeDiBlocco &&
+          righe(travasato.join(' ')) <= massime) {
+        blocchi[blocchi.length - 2] = restante;
+        blocchi[blocchi.length - 1] = travasato;
+        break;
+      }
     }
+    blocchi.removeLast();
+    blocchi[blocchi.length - 1] = [...blocchi.last, ...ultimo];
   }
-  return paragrafi;
+
+  return blocchi.map((b) => b.join(' ')).toList();
 }
 
 /// L'eroe: l'emblema 3D del segno della persona, grande, dentro un alone che
@@ -536,7 +656,8 @@ class _ResponsoCheSiScrive extends StatefulWidget {
 }
 
 class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
-  late List<String> _paragrafi = spezzaInParagrafi(widget.testo);
+  late List<String> _paragrafi =
+      spezzaInParagrafi(widget.testo, stile: stileDelResponso);
   late List<GlobalKey<TestoCheSiScriveState>> _chiavi = _nuoveChiavi();
   int _inScrittura = 0;
   Timer? _passaggio;
@@ -549,7 +670,7 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
     super.didUpdateWidget(vecchio);
     if (vecchio.testo != widget.testo) {
       _passaggio?.cancel();
-      _paragrafi = spezzaInParagrafi(widget.testo);
+      _paragrafi = spezzaInParagrafi(widget.testo, stile: stileDelResponso);
       _chiavi = _nuoveChiavi();
       _inScrittura = 0;
     }
@@ -604,8 +725,7 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
     final attiva = widget.scrivendo &&
         !_completato &&
         !MediaQuery.of(context).disableAnimations;
-    final stile = TypographyTokens.lettura()
-        .copyWith(color: ColorTokens.textPrimary);
+    final stile = stileDelResponso;
     // Il doppio della misura del testo, presa dallo stile e non riscritta a
     // mano: se domani il ruolo cambia misura, la distanza lo segue.
     final distanza = (stile.fontSize ?? TypographyTokens.pavimento) * 2;
