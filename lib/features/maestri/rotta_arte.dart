@@ -280,7 +280,7 @@ class CuorePreferita extends StatelessWidget {
         duration: const Duration(seconds: 3),
         backgroundColor: palette.surfaceElevated,
         content: Text(testo,
-            style: TypographyTokens.body(size: 14)
+            style: TypographyTokens.corpo()
                 .copyWith(color: palette.textPrimary)),
       ));
   }

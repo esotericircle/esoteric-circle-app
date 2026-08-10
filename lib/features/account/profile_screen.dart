@@ -66,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
                     : 'Metti il tuo volto nel Cerchio, o lascia parlare il tuo segno.',
                 key: const Key('profile_avatar_invite'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 15)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4),
               ),
             ),
@@ -143,7 +143,7 @@ class _ConsentSheet extends StatelessWidget {
             Text(
               'La tua foto resta solo su questo dispositivo, non lascia mai il '
               'Cerchio. Puoi toglierla quando vuoi.',
-              style: TypographyTokens.body(size: 14)
+              style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.4),
             ),
             const SizedBox(height: SpacingTokens.lg),
@@ -196,7 +196,7 @@ class _SourceButton extends StatelessWidget {
               Icon(icon, color: ColorTokens.goldLight, size: 22),
               const SizedBox(width: SpacingTokens.md),
               Text(label,
-                  style: TypographyTokens.body(size: 15)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textPrimary)),
             ],
           ),
@@ -234,7 +234,7 @@ class _Action extends StatelessWidget {
               const SizedBox(width: SpacingTokens.md),
               Expanded(
                 child: Text(label,
-                    style: TypographyTokens.body(size: 15)
+                    style: TypographyTokens.corpo()
                         .copyWith(color: ColorTokens.textPrimary)),
               ),
               const Icon(Icons.chevron_right_rounded,

@@ -62,7 +62,7 @@ class PricingScreen extends StatelessWidget {
                   Text(
                     'Scegli quanto lontano portare il tuo cammino. Ogni livello '
                     'apre nuove porte del cerchio.',
-                    style: TypographyTokens.body(size: 15)
+                    style: TypographyTokens.corpo()
                         .copyWith(color: ColorTokens.textSecondary),
                   ),
                   const SizedBox(height: SpacingTokens.lg),
@@ -148,7 +148,7 @@ class _DemoCard extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           Text('Tutte le funzioni attive, per la presentazione.',
-              style: TypographyTokens.body(size: 14)
+              style: TypographyTokens.corpo()
                   .copyWith(color: palette.goldSoft)),
         ],
       ),
@@ -204,7 +204,7 @@ class _PlanCardState extends State<_PlanCard> {
           ),
           const SizedBox(height: 2),
           Text(plan.identity,
-              style: TypographyTokens.body(size: 14)
+              style: TypographyTokens.corpo()
                   .copyWith(color: palette.goldSoft)),
           const SizedBox(height: SpacingTokens.md),
           for (final benefit in plan.highlights) ...[
@@ -216,7 +216,7 @@ class _PlanCardState extends State<_PlanCard> {
                 const SizedBox(width: SpacingTokens.sm),
                 Expanded(
                   child: Text(benefit,
-                      style: TypographyTokens.body(size: 14).copyWith(
+                      style: TypographyTokens.corpo().copyWith(
                           color: ColorTokens.textPrimary, height: 1.3)),
                 ),
               ],
@@ -513,11 +513,11 @@ class _ComparativeTable extends StatelessWidget {
     final labelStyle = header
         ? TypographyTokens.etichetta()
             .copyWith(color: palette.goldSoft, letterSpacing: 0.4)
-        : TypographyTokens.body(size: 13)
+        : TypographyTokens.corpo()
             .copyWith(color: ColorTokens.textPrimary, height: 1.25);
     final cellStyle = header
         ? TypographyTokens.display(size: 16).copyWith(color: palette.goldSoft)
-        : TypographyTokens.body(size: 13)
+        : TypographyTokens.corpo()
             .copyWith(color: ColorTokens.textSecondary, height: 1.25);
     return Container(
       color: shaded ? palette.surfaceElevated.withValues(alpha: 0.18) : null,
@@ -635,7 +635,7 @@ class _ChoosePlanButton extends StatelessWidget {
                 'Nella demo il pagamento non è integrato: l\'abbonamento reale '
                 'arriverà dal web. Puoi comunque provare questo livello in '
                 'modalità Demo, per vedere cosa apre.',
-                style: TypographyTokens.body(size: 14)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary),
               ),
               const SizedBox(height: SpacingTokens.lg),

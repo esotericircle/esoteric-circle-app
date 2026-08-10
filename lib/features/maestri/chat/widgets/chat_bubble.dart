@@ -169,9 +169,16 @@ class _ChatBubbleState extends State<ChatBubble> {
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width * 0.78,
       ),
+      // SEDICI E NON DODICI IN VERTICALE, dall'ordine E: il testo della chat e'
+      // passato dal ruolo `didascalia` al ruolo `corpo`, cioe' da quattordici a
+      // sedici punti, e con lui e' cresciuto lo spazio che i glifi occupano
+      // dentro la riga. Il respiro sotto l'ultima riga e' sceso a 0,33 punti
+      // contro gli otto che `la_bolla_respira_in_fondo_test` pretende, cioe' il
+      // testo toccava il bordo. Il riempimento cresce quanto e' cresciuto il
+      // testo.
       padding: const EdgeInsets.symmetric(
         horizontal: SpacingTokens.md,
-        vertical: SpacingTokens.sm,
+        vertical: SpacingTokens.md,
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(

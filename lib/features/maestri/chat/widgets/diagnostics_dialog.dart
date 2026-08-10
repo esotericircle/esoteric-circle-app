@@ -160,20 +160,20 @@ class PannelloDiMessaAPunto extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xs),
           Text(
             Attestazione.ragioneDi(attestazione),
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
           if (nota != null && nota!.trim().isNotEmpty) ...[
             const SizedBox(height: SpacingTokens.sm),
             Text(
               'Nota dell\'avvio',
-              style: TypographyTokens.body(size: 15, weight: 600)
+              style: TypographyTokens.corpo(weight: 600)
                   .copyWith(color: palette.goldSoft),
             ),
             const SizedBox(height: SpacingTokens.xxs),
             Text(
               nota!,
-              style: TypographyTokens.body(size: 13)
+              style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary),
             ),
           ],
@@ -181,7 +181,7 @@ class PannelloDiMessaAPunto extends StatelessWidget {
             const SizedBox(height: SpacingTokens.lg),
             Text(
               'Ultimo guasto della voce',
-              style: TypographyTokens.body(size: 15, weight: 600)
+              style: TypographyTokens.corpo(weight: 600)
                   .copyWith(color: palette.goldSoft),
             ),
             const SizedBox(height: SpacingTokens.xs),
@@ -190,7 +190,7 @@ class PannelloDiMessaAPunto extends StatelessWidget {
           const SizedBox(height: SpacingTokens.lg),
           Text(
             'Token di debug App Check',
-            style: TypographyTokens.body(size: 15, weight: 600)
+            style: TypographyTokens.corpo(weight: 600)
                 .copyWith(color: palette.goldSoft),
           ),
           const SizedBox(height: SpacingTokens.xs),
@@ -210,7 +210,7 @@ class PannelloDiMessaAPunto extends StatelessWidget {
                     'a servire quando l\'app sarà sul Play Store.'
                 : 'Serve solo per attivare l\'imposizione di App Check. Per la '
                     'prima prova non è necessario.',
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
           if (attestazione != EsitoAttestazione.nonInstallataPerScelta) ...[
@@ -249,12 +249,12 @@ class _StatusRow extends StatelessWidget {
           const SizedBox(width: SpacingTokens.sm),
           Text(
             '$label: ',
-            style: TypographyTokens.body(size: 15)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
           Text(
             value,
-            style: TypographyTokens.body(size: 15, weight: 600),
+            style: TypographyTokens.corpo(weight: 600),
           ),
         ],
       ),
@@ -291,7 +291,7 @@ class _CausaBox extends StatelessWidget {
               Expanded(
                 child: Text(
                   '${guasto.operazione}: ${guasto.tipo}',
-                  style: TypographyTokens.body(size: 14, weight: 600),
+                  style: TypographyTokens.corpo(weight: 600),
                 ),
               ),
               GestureDetector(
@@ -309,7 +309,7 @@ class _CausaBox extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xs),
           Text(
             guasto.messaggio,
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
           if (guasto.eLApiSpenta) ...[
@@ -318,7 +318,7 @@ class _CausaBox extends StatelessWidget {
               'Non è un difetto dell\'app. Sul progetto Google manca l\'API '
               'firebasevertexai.googleapis.com: finché resta spenta nessuna '
               'chiamata arriva a Gemini.',
-              style: TypographyTokens.body(size: 13)
+              style: TypographyTokens.corpo()
                   .copyWith(color: palette.goldSoft),
             ),
           ],
@@ -350,7 +350,7 @@ class _DebugTokenBox extends StatelessWidget {
             child: Text(
               token ??
                   'Non disponibile in questa build. Compare quando la chat gira su Firebase in debug.',
-              style: TypographyTokens.body(size: 14).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                 color: token != null
                     ? ColorTokens.textPrimary
                     : ColorTokens.textMuted,

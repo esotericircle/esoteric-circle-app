@@ -95,7 +95,7 @@ class ArtIntroScreen extends StatelessWidget {
                   'L\'esperienza piena di quest\'arte sta prendendo forma nelle '
                   'mani di ${maestro.displayName}. Intanto puoi portargliela '
                   'come domanda: il Cerchio risponde già adesso.',
-                  style: TypographyTokens.body(size: 15).copyWith(
+                  style: TypographyTokens.corpo().copyWith(
                     color: ColorTokens.textSecondary,
                     height: 1.45,
                   ),

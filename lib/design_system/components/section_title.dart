@@ -40,7 +40,7 @@ class SectionTitle extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xxs),
           Text(
             subtitle!,
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
         ],

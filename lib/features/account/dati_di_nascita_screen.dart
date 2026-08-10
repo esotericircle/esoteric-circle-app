@@ -208,7 +208,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                 Text(
                   'Se non la conosci lascia i campi vuoti: il resto del tuo '
                   'cielo resta saldo lo stesso.',
-                  style: TypographyTokens.body(size: 13)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
                 const SizedBox(height: SpacingTokens.lg),
@@ -241,7 +241,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                     key: Key('citta_${c.name}_${c.country}'),
                     dense: true,
                     title: Text(c.label,
-                        style: TypographyTokens.body(size: 15)
+                        style: TypographyTokens.corpo()
                             .copyWith(color: ColorTokens.textPrimary)),
                     onTap: () => _scegliCitta(c),
                   ),
@@ -249,7 +249,7 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
                 Text(
                   'Serve alla carta natale: senza il luogo non si calcolano '
                   'Ascendente, Case e la mappa dei pianeti.',
-                  style: TypographyTokens.body(size: 13)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
                 const SizedBox(height: SpacingTokens.lg),

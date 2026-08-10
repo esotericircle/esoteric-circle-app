@@ -167,7 +167,7 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                     child: Center(
                       child: Text('Nessun VIP con questo nome.',
                           key: const Key('sinastria_gallery_empty'),
-                          style: TypographyTokens.body(size: 15).copyWith(
+                          style: TypographyTokens.corpo().copyWith(
                               color: ColorTokens.textSecondary)),
                     ),
                   ),
@@ -221,12 +221,12 @@ class _BarraRicerca extends StatelessWidget {
       key: const Key('sinastria_search'),
       controller: controller,
       onChanged: onCambia,
-      style: TypographyTokens.body(size: 15)
+      style: TypographyTokens.corpo()
           .copyWith(color: ColorTokens.textPrimary),
       cursorColor: palette.goldSoft,
       decoration: InputDecoration(
         hintText: 'Cerca un VIP per nome',
-        hintStyle: TypographyTokens.body(size: 15)
+        hintStyle: TypographyTokens.corpo()
             .copyWith(color: ColorTokens.textSecondary),
         prefixIcon: Icon(Icons.search_rounded, color: palette.goldSoft),
         filled: true,

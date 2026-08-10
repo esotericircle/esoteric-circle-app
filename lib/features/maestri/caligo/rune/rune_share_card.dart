@@ -90,7 +90,7 @@ class RuneShareCard extends StatelessWidget {
             const SizedBox(height: SpacingTokens.sm),
             Text(presagio,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 13).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.textPrimary, height: 1.45)),
             const SizedBox(height: SpacingTokens.md),
             Text('Esoteric Circle · Caligo',

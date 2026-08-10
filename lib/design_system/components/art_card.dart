@@ -114,7 +114,7 @@ class ArtCard extends StatelessWidget {
                 const SizedBox(height: SpacingTokens.xs),
                 Text(
                   art.teaser,
-                  style: TypographyTokens.body(size: 13).copyWith(
+                  style: TypographyTokens.corpo().copyWith(
                     color: ColorTokens.textSecondary,
                     height: 1.35,
                   ),

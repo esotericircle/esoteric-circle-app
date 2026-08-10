@@ -233,7 +233,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
                 'prima ascolti chi sei nel profondo, il tuo totem ti somiglierà '
                 'di più. Il Test Archetipo dura tre minuti e rende questa '
                 'rivelazione tua fino in fondo.',
-                style: TypographyTokens.body(size: 15).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: ColorTokens.textPrimary, height: 1.5),
               ),
               const SizedBox(height: SpacingTokens.lg),
@@ -304,7 +304,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(GuideAnimalCorpus.fontiEMetodo,
-                  style: TypographyTokens.body(size: 15).copyWith(
+                  style: TypographyTokens.corpo().copyWith(
                       color: ColorTokens.textPrimary, height: 1.45)),
               const SizedBox(height: SpacingTokens.lg),
               Align(
@@ -438,7 +438,7 @@ class _Trasparenza extends StatelessWidget {
   Widget build(BuildContext context) {
     final etichetta = TypographyTokens.etichetta()
         .copyWith(color: palette.goldSoft, letterSpacing: 0.5);
-    final corpo = TypographyTokens.body(size: 14)
+    final corpo = TypographyTokens.corpo()
         .copyWith(color: ColorTokens.textPrimary, height: 1.4);
     return DepthCard(
       key: const Key('animal_transparency'),

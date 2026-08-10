@@ -55,7 +55,7 @@ class RiquadroDellaScelta extends StatelessWidget {
               const SizedBox(height: 2),
             ],
             Text(scheda.caratteristiche[i].testo,
-                style: TypographyTokens.body(size: 13.5).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: ColorTokens.textPrimary, height: 1.4)),
           ],
           if (scheda.ragione != null) ...[
@@ -68,7 +68,7 @@ class RiquadroDellaScelta extends StatelessWidget {
                 Expanded(
                   child: Text(scheda.ragione!,
                       key: const Key('riquadro_ragione'),
-                      style: TypographyTokens.body(size: 13).copyWith(
+                      style: TypographyTokens.corpo().copyWith(
                           color: palette.goldSoft, height: 1.35)),
                 ),
               ],
@@ -78,7 +78,7 @@ class RiquadroDellaScelta extends StatelessWidget {
           // Al minimo del token, non sotto: la gerarchia con la ragione la
           // fa il colore smorzato, non una misura che il clamp rialzerebbe.
           Text(scheda.chiave,
-              style: TypographyTokens.body(size: 13).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                   color: ColorTokens.textMuted, height: 1.3)),
         ],
       ),

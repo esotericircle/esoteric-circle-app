@@ -55,7 +55,7 @@ class InterruttoreDelCerchio extends StatelessWidget {
           : Padding(
               padding: const EdgeInsets.only(top: SpacingTokens.xs),
               child: Text(sotto,
-                  style: TypographyTokens.body(size: 13)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary)),
             ),
     );

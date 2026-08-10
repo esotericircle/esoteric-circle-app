@@ -156,7 +156,7 @@ class _CircleSealScreenState extends State<CircleSealScreen>
                 '${_seal.sign.italianName} · Elemento ${_seal.element.label} · '
                 'Numero ${_seal.lifePath}',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 14)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary),
               ),
               const SizedBox(height: SpacingTokens.md),
@@ -211,7 +211,7 @@ class _MedoraSubtitle extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: TypographyTokens.body(size: 15).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                 color: ColorTokens.textPrimary,
                 fontStyle: FontStyle.italic,
                 height: 1.35,
@@ -345,7 +345,7 @@ class _MeaningBlock extends StatelessWidget {
                       .copyWith(color: ColorTokens.textPrimary)),
               const SizedBox(height: 2),
               Text(body,
-                  style: TypographyTokens.body(size: 13).copyWith(
+                  style: TypographyTokens.corpo().copyWith(
                       color: ColorTokens.textSecondary, height: 1.35)),
               if (steps != null) ...[
                 const SizedBox(height: SpacingTokens.sm),
@@ -353,7 +353,7 @@ class _MeaningBlock extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 3),
                     child: Text(line,
-                        style: TypographyTokens.body(size: 13).copyWith(
+                        style: TypographyTokens.corpo().copyWith(
                           color: palette.goldSoft,
                           height: 1.3,
                         )),

@@ -699,7 +699,7 @@ class _SynthesisCard extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.sm),
           Text(synthesis,
-              style: TypographyTokens.body(size: 15)
+              style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
         ],
       ),
@@ -868,7 +868,7 @@ class _LensCard extends StatelessWidget {
           if (lens.glance.trim().isNotEmpty) ...[
             const SizedBox(height: SpacingTokens.sm),
             Text(lens.glance,
-                style: TypographyTokens.body(size: 15).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                   color: palette.goldSoft,
                   fontStyle: FontStyle.italic,
                   height: 1.35,
@@ -923,7 +923,7 @@ class _LensCard extends StatelessWidget {
                 Flexible(
                   child: Text(
                     RipiegoDelMaestro.etichettaDi(lens.maestro),
-                    style: TypographyTokens.body(size: 13)
+                    style: TypographyTokens.corpo()
                         .copyWith(color: ColorTokens.textMuted),
                   ),
                 ),

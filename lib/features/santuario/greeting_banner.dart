@@ -95,7 +95,7 @@ class _GreetingBannerState extends State<GreetingBanner> {
                 Flexible(
                   child: Text(
                     text,
-                    style: TypographyTokens.body(size: 15).copyWith(
+                    style: TypographyTokens.corpo().copyWith(
                       color: ColorTokens.textPrimary,
                       height: 1.3,
                     ),

@@ -9,6 +9,8 @@ library;
 
 import 'package:flutter/material.dart';
 
+import '../../design_system/tokens/typography_tokens.dart';
+
 import 'briciole.dart';
 
 class RaccontoDellaCorsa extends StatefulWidget {
@@ -43,12 +45,14 @@ class _RaccontoDellaCorsaState extends State<RaccontoDellaCorsa> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text('BUILD DIAGNOSTICA',
+                // Schermata di diagnosi, mostrata quando l'app muore
+                // all'avvio: e' l'ultima cosa che si legge prima del nero,
+                // quindi la si legge col ruolo come tutto il resto.
+                Text('BUILD DIAGNOSTICA',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Color(0xFFC9A961),
-                        fontSize: 14,
-                        letterSpacing: 3)),
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: const Color(0xFFC9A961),
+                            letterSpacing: 3)),
                 const SizedBox(height: 24),
                 const Text('Ultima tappa raggiunta:',
                     textAlign: TextAlign.center,
@@ -63,8 +67,8 @@ class _RaccontoDellaCorsaState extends State<RaccontoDellaCorsa> {
                 const SizedBox(height: 8),
                 Text(orario,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        color: Colors.white54, fontSize: 14)),
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: Colors.white54)),
                 const SizedBox(height: 40),
                 FilledButton(
                   onPressed: () => setState(() => _proseguito = true),

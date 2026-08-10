@@ -169,7 +169,7 @@ class _AccountTile extends StatelessWidget {
               Text(
                 'Questa sezione sta per aprirsi nel Cerchio. Torna presto per '
                 'trovarla pronta.',
-                style: TypographyTokens.body(size: 15)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4),
               ),
               const SizedBox(height: SpacingTokens.lg),
@@ -227,7 +227,7 @@ class _AccountTile extends StatelessWidget {
                         style: TypographyTokens.display(size: 17)),
                     const SizedBox(height: 2),
                     Text(entry.subtitle,
-                        style: TypographyTokens.body(size: 13).copyWith(
+                        style: TypographyTokens.corpo().copyWith(
                             color: ColorTokens.textSecondary, height: 1.3)),
                   ],
                 ),

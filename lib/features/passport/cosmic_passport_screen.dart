@@ -232,7 +232,7 @@ class _BirthSkyPortalCard extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     'La volta della tua prima notte, da esplorare con Medora.',
-                    style: TypographyTokens.body(size: 14)
+                    style: TypographyTokens.corpo()
                         .copyWith(color: ColorTokens.textSecondary),
                   ),
                 ],
@@ -287,7 +287,7 @@ class _CircleSealCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   'Il tuo emblema, dal segno, dal numero e dall\'elemento.',
-                  style: TypographyTokens.body(size: 14)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
               ],
@@ -558,7 +558,7 @@ class _ActiveFactCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   meaning,
-                  style: TypographyTokens.body(size: 14)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
                 if (isExample) ...[
@@ -775,7 +775,7 @@ class _TesseraArchetipo extends StatelessWidget {
                 Text(
                   dominante.conArticolo,
                   key: const Key('passport_archetipo_nome'),
-                  style: TypographyTokens.body(size: 14)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: palette.goldSoft),
                 ),
                 const SizedBox(height: 2),
@@ -843,7 +843,7 @@ class _PassportEntryCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   entry.description,
-                  style: TypographyTokens.body(size: 14)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
               ],

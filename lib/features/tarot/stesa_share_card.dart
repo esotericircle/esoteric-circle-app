@@ -69,7 +69,7 @@ class StesaShareCard extends StatelessWidget {
           Text(topic.label,
               key: const Key('share_topic'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 13).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                   color: ColorTokens.textSecondary,
                   fontStyle: FontStyle.italic)),
           const SizedBox(height: SpacingTokens.md),
@@ -127,7 +127,7 @@ class StesaShareCard extends StatelessWidget {
           Text(reading.dialogo.text,
               key: const Key('share_dialogo'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 13).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                   color: ColorTokens.textPrimary, height: 1.4)),
           const SizedBox(height: SpacingTokens.sm),
           // La carta chiave, il cuore della stesa.
@@ -157,13 +157,13 @@ class StesaShareCard extends StatelessWidget {
             child: Text(reading.consiglio,
                 key: const Key('share_consiglio'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 13).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.goldSoft, height: 1.4)),
           ),
           const SizedBox(height: SpacingTokens.sm),
           Text(TarotSpread.closing,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 13).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                   color: ColorTokens.textSecondary,
                   height: 1.35,
                   fontStyle: FontStyle.italic)),

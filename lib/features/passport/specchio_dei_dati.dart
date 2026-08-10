@@ -160,7 +160,7 @@ class _Riga extends StatelessWidget {
           SizedBox(
             width: 92,
             child: Text(nome,
-                style: TypographyTokens.body(size: 13)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary)),
           ),
           Expanded(
@@ -168,7 +168,7 @@ class _Riga extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(valore,
-                    style: TypographyTokens.body(size: 14).copyWith(
+                    style: TypographyTokens.corpo().copyWith(
                       color: manca ? ColorTokens.textMuted : p.goldSoft,
                       height: 1.35,
                     )),

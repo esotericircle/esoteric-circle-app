@@ -147,7 +147,7 @@ class SinastriaShareCard extends StatelessWidget {
           const SizedBox(height: SpacingTokens.md),
           Text(SynastryReport.challengeLine(vip.name),
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 13)
+              style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.3)),
           const SizedBox(height: 6),
           Text('Esoteric Circle',
@@ -296,7 +296,7 @@ class SynastryBarRow extends StatelessWidget {
         if (isMeeting) ...[
           const SizedBox(height: 2),
           Text(bar.quip,
-              style: TypographyTokens.body(size: 13).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                   color: ColorTokens.textSecondary,
                   fontStyle: FontStyle.italic)),
         ],

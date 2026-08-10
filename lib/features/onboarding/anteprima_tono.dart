@@ -107,7 +107,7 @@ class _AnteprimaTonoState extends State<AnteprimaTono>
           'Scegli qui sopra per sentire come suona.',
           key: const Key('anteprima_tono_invito'),
           textAlign: TextAlign.center,
-          style: TypographyTokens.body(size: 14)
+          style: TypographyTokens.corpo()
               .copyWith(color: ColorTokens.textSecondary, height: 1.5),
         ),
       );
@@ -140,7 +140,7 @@ class _AnteprimaTonoState extends State<AnteprimaTono>
               RichText(
                 textAlign: TextAlign.start,
                 text: TextSpan(
-                  style: TypographyTokens.body(size: 15).copyWith(
+                  style: TypographyTokens.corpo().copyWith(
                       color: ColorTokens.textPrimary, height: 1.5),
                   children: [
                     TextSpan(text: frase.substring(0, quante)),

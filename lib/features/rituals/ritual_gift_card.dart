@@ -352,7 +352,7 @@ class _BaseRow extends StatelessWidget {
         const SizedBox(height: 2),
         Text(
           value,
-          style: TypographyTokens.body(size: 14).copyWith(
+          style: TypographyTokens.corpo().copyWith(
             color: provisional ? _dayInkSoft : _dayInk,
             height: 1.4,
             fontStyle: provisional ? FontStyle.italic : FontStyle.normal,

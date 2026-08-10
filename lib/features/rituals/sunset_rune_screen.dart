@@ -1123,7 +1123,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 SunsetRuneCorpus.perche(_e.rune.name),
                 key: const Key('sunset_perche_simmetrica'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 13).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: ColorTokens.textSecondary, height: 1.35),
               ),
             ),

@@ -53,7 +53,7 @@ Future<bool> showUpgradeInvite(
             ),
             const SizedBox(height: SpacingTokens.sm),
             Text(message,
-                style: TypographyTokens.body(size: 15)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
             const SizedBox(height: SpacingTokens.lg),
             Row(

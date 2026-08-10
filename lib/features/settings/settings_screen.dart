@@ -193,7 +193,7 @@ class SettingsScreen extends StatelessWidget {
                     Expanded(
                       child: Text(
                         ArtCatalog.disclaimerCornice,
-                        style: TypographyTokens.body(size: 14).copyWith(
+                        style: TypographyTokens.corpo().copyWith(
                           color: ColorTokens.textSecondary,
                           height: 1.45,
                         ),
@@ -293,7 +293,7 @@ class _ToggleRow extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: TypographyTokens.body(size: 13)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
               ],
@@ -344,7 +344,7 @@ class _DeleteDataTile extends StatelessWidget {
           'Lasceremo andare tutto il tuo cammino: profilo, ricordi dei Maestri '
           'e conversazioni. Non è una perdita, è il tuo diritto. Il cerchio '
           'ti accoglierà di nuovo come il primo giorno.',
-          style: TypographyTokens.body(size: 15)
+          style: TypographyTokens.corpo()
               .copyWith(color: ColorTokens.textSecondary),
         ),
         actions: [
@@ -352,7 +352,7 @@ class _DeleteDataTile extends StatelessWidget {
             onPressed: () => Navigator.of(dialogContext).pop(false),
             child: Text('Resta',
                 style:
-                    TypographyTokens.body(size: 15).copyWith(color: palette.goldSoft)),
+                    TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
           ),
           FilledButton(
             key: const Key('settings_delete_confirm'),
@@ -412,7 +412,7 @@ class _DeleteDataTile extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   'Profilo, ricordi e conversazioni. Il tuo diritto all\'oblio.',
-                  style: TypographyTokens.body(size: 13)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
               ],
@@ -459,7 +459,7 @@ class _PermessiTile extends StatelessWidget {
                 Text(
                   'Apri i permessi di sistema. Ogni esperienza che li usa '
                   'funziona anche col solo tocco.',
-                  style: TypographyTokens.body(size: 13)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
               ],
@@ -500,7 +500,7 @@ class _PlanTile extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   'Vedi i piani del Cerchio e cosa aprono.',
-                  style: TypographyTokens.body(size: 13)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
               ],

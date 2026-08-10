@@ -106,7 +106,7 @@ class FaceShareCard extends StatelessWidget {
             // La sintesi breve: la frase del tratto dominante.
             Text(FaceCorpus.frase(dom),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 14).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.textPrimary, fontStyle: FontStyle.italic)),
             const SizedBox(height: SpacingTokens.md),
             for (final t in principali)
@@ -118,7 +118,7 @@ class FaceShareCard extends StatelessWidget {
                     const SizedBox(width: SpacingTokens.sm),
                     Expanded(
                       child: Text(t.nome,
-                          style: TypographyTokens.body(size: 14).copyWith(
+                          style: TypographyTokens.corpo().copyWith(
                               color: t == dom
                                   ? palette.goldSoft
                                   : palette.textPrimary,

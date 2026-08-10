@@ -242,7 +242,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
                         color: palette.gold.withValues(alpha: 0.4)),
                   ),
                   child: Text(s,
-                      style: TypographyTokens.body(size: 14)
+                      style: TypographyTokens.corpo()
                           .copyWith(color: ColorTokens.textSecondary)),
                 ),
               ),
@@ -275,7 +275,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
             'Servono almeno due lettere diverse: il sigillo è un cammino, '
             'quindi ha bisogno di due punti.',
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textMuted, height: 1.4),
           ),
         ],
@@ -320,7 +320,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           const SizedBox(height: SpacingTokens.xxs),
           Text(lettura.via.dominio,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 15)
+              style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary)),
           const SizedBox(height: SpacingTokens.md),
           DepthCard(
@@ -341,7 +341,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
                     'lo traccia, mai sulla volontà di un terzo, quindi ho '
                     'riportato la tua intenzione su di te: è lì che ha forza.',
                     key: const Key('sigillo_riformulata'),
-                    style: TypographyTokens.body(size: 14).copyWith(
+                    style: TypographyTokens.corpo().copyWith(
                         color: ColorTokens.textSecondary, height: 1.45),
                   ),
                 ],
@@ -360,7 +360,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
                               'tue parole, quindi ho scelto la Via Bianca, '
                               'che è quella della chiarezza.',
                   key: const Key('sigillo_perche'),
-                  style: TypographyTokens.body(size: 14).copyWith(
+                  style: TypographyTokens.corpo().copyWith(
                       color: ColorTokens.textSecondary, height: 1.45),
                 ),
               ],
@@ -402,7 +402,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           Text(
             'Traccio il tuo cammino sulle lettere...',
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 15)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
       ],
@@ -435,7 +435,7 @@ class _FontiEMetodo extends StatelessWidget {
             'della Golden Dawn, che nella sua forma storica porta lettere '
             'ebraiche: qui è adattata alle nostre, con un adattamento che è '
             'nostro. I testi che leggi sono curatela originale del Cerchio.',
-            style: TypographyTokens.body(size: 14)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.5),
           ),
         ],

@@ -76,7 +76,7 @@ class GuideAnimalShareCard extends StatelessWidget {
             const SizedBox(height: 2),
             Text(animal.summary,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 15).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.textPrimary, fontStyle: FontStyle.italic)),
             const SizedBox(height: SpacingTokens.sm),
             Text(origine,

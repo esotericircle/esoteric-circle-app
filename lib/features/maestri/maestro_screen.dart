@@ -592,7 +592,7 @@ class _ConsultaMaestroCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   'Dialoga, chiedi e metti a confronto gli sguardi del Cerchio.',
-                  style: TypographyTokens.body(size: 14)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
               ],
@@ -658,11 +658,11 @@ Future<void> showArtPreview(
             ),
             const SizedBox(height: SpacingTokens.sm),
             Text(art.teaser,
-                style: TypographyTokens.body(size: 15)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
             const SizedBox(height: SpacingTokens.sm),
             Text(riga,
-                style: TypographyTokens.body(size: 14)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
             // LA CORNICE ONESTA E' USCITA DA QUI, ed era uno dei SETTE
             // disclaimer a schermo. Le linee guida dicevano da sempre

@@ -93,14 +93,14 @@ class AppCheckDebugTokenRow extends StatelessWidget {
           children: [
             Text(
               'Token di debug App Check',
-              style: TypographyTokens.body(size: 13, weight: 600)
+              style: TypographyTokens.corpo(weight: 600)
                   .copyWith(color: palette.goldSoft),
             ),
             const SizedBox(height: SpacingTokens.xxs),
             Text(
               'Tocca per copiarlo. Serve solo per l\'enforcement. Questa riga '
               'non compare nelle build pubbliche.',
-              style: TypographyTokens.body(size: 13)
+              style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary),
             ),
             const SizedBox(height: SpacingTokens.xs),
@@ -159,7 +159,7 @@ class RipristinaRisveglioRow extends StatelessWidget {
                   Text(
                     'Azzera profilo e identità, poi riapre il rito. Solo '
                     'nelle build di prova.',
-                    style: TypographyTokens.body(size: 13)
+                    style: TypographyTokens.corpo()
                         .copyWith(color: ColorTokens.textSecondary),
                   ),
                 ],

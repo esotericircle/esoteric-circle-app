@@ -84,7 +84,7 @@ class SunsetRuneCard extends StatelessWidget {
                             ? 'verso d\'ombra'
                             : 'verso dritto')),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 15).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.textPrimary, fontStyle: FontStyle.italic)),
             const SizedBox(height: SpacingTokens.md),
             Text(SunsetRuneCorpus.trasparenza(estrazione),

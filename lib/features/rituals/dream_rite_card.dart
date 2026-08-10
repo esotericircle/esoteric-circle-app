@@ -71,7 +71,7 @@ class DreamRiteCard extends StatelessWidget {
             const SizedBox(height: SpacingTokens.sm),
             Text(saluto,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 13)
+                style: TypographyTokens.corpo()
                     .copyWith(color: palette.textPrimary, height: 1.5)),
             const SizedBox(height: SpacingTokens.md),
             Text(DreamRiteCorpus.provenienza(luna),

@@ -321,7 +321,7 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
         // Il rilancio e il tasto Condividi.
         Text(SynastryReport.challengeLine(_vip.name),
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 14)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
         const SizedBox(height: SpacingTokens.sm),
         Center(
@@ -429,7 +429,7 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
                 const SizedBox(height: SpacingTokens.sm),
                 Text(
                     'La foto resta sul tuo dispositivo. Entra solo nella card che decidi di condividere, senza mai essere caricata da nessuna parte. Se preferisci, resta il tuo avatar a costellazione.',
-                    style: TypographyTokens.body(size: 14).copyWith(
+                    style: TypographyTokens.corpo().copyWith(
                         color: ColorTokens.textSecondary, height: 1.4)),
                 const SizedBox(height: SpacingTokens.lg),
                 FilledButton.icon(

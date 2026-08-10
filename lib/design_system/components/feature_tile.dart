@@ -83,7 +83,7 @@ class FeatureTile extends StatelessWidget {
               const SizedBox(height: SpacingTokens.xxs),
               Text(
                 feature.teaser,
-                style: TypographyTokens.body(size: 13)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,

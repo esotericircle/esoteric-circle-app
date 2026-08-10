@@ -94,7 +94,7 @@ class RigaDelConsiglio extends StatelessWidget {
           Expanded(
             child: Text(
               riga,
-              style: TypographyTokens.body(size: 14).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                 color: tinta.goldSoft,
                 height: 1.35,
               ),

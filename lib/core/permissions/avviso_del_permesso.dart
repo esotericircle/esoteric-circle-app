@@ -80,7 +80,7 @@ class AvvisoDelPermesso extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xs),
           Text(
             ParoleDelPermesso.corpo(permesso, esito, ripiego: ripiego),
-            style: TypographyTokens.body(size: 13.5)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.4),
           ),
           if (azione != null) ...[

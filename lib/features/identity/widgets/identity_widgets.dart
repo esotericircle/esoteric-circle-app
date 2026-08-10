@@ -177,7 +177,7 @@ class _BirthSkyPortalState extends State<BirthSkyPortal> {
                     style: TypographyTokens.display(size: 19)),
                 const SizedBox(height: 4),
                 Text('Tocca per rivedere il cielo autentico della tua notte.',
-                    style: TypographyTokens.body(size: 15).copyWith(
+                    style: TypographyTokens.corpo().copyWith(
                         color: ColorTokens.textSecondary, height: 1.35)),
               ],
             ),

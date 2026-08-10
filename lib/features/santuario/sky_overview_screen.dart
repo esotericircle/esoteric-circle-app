@@ -128,7 +128,7 @@ String sottoLOrizzonte(Zodiac sign, SkySnapshot cielo,
       ),
     );
   }
-  final due = (int n) => n.toString().padLeft(2, '0');
+  String due(int n) => n.toString().padLeft(2, '0');
   final quando = sorge == null
       ? ''
       : ' Sorge${birth ? "va" : ""} alle '
@@ -447,7 +447,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                 'Le posizioni vengono da un motore a effemeridi che gira sul '
                 'telefono, senza rete. Qui sotto ci sono i valori che ha usato '
                 'davvero: confrontali con qualunque effemeride.',
-                style: TypographyTokens.body(size: 13)
+                style: TypographyTokens.corpo()
                     .copyWith(color: palette.textSecondary),
               ),
               const SizedBox(height: SpacingTokens.md),
@@ -457,7 +457,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                   'guardarlo. Concedi la posizione, oppure registra il tuo '
                   'luogo di nascita.',
                   key: const Key('sky_fonti_nessun_calcolo'),
-                  style: TypographyTokens.body(size: 14)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: palette.goldSoft),
                 )
               else
@@ -498,7 +498,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                           ? 'nessuna'
                           : cielo.nomiVisibili.join(', '),
                       key: const Key('sky_fonti_costellazioni'),
-                      style: TypographyTokens.body(size: 13)
+                      style: TypographyTokens.corpo()
                           .copyWith(color: palette.textPrimary),
                     ),
                   ],
@@ -525,7 +525,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
           Expanded(
             child: Text(valore,
                 key: Key('sky_valore_$nome'),
-                style: TypographyTokens.body(size: 13)
+                style: TypographyTokens.corpo()
                     .copyWith(color: palette.textPrimary)),
           ),
         ],
@@ -679,7 +679,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                 'servono a orientare le stelle e a dare un nome al luogo in '
                 'cui ti trovi. La Luna e le costellazioni le disegno con '
                 'altezza e direzione vere, calcolate da lì.',
-                style: TypographyTokens.body(size: 14)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary),
               ),
               const SizedBox(height: SpacingTokens.md),
@@ -1672,7 +1672,7 @@ class _SkyInfoCard extends StatelessWidget {
                     'con la loro altezza vera su quell\'orizzonte.'
                 : 'Il cielo di stanotte: i corpi che ci saranno davvero a '
                     'mezzanotte, con la loro altezza vera sul tuo orizzonte.',
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.35),
           ),
           // 2. DA DOVE E' CALCOLATO, ordine 2168 voce 4.
@@ -1692,7 +1692,7 @@ class _SkyInfoCard extends StatelessWidget {
                     '${luogo!.longitude.toStringAsFixed(4)}',
               ].join('  '),
               key: const Key('sky_da_dove'),
-              style: TypographyTokens.body(size: 13).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                   color: ColorTokens.textMuted, height: 1.3),
             ),
           ],
@@ -1750,7 +1750,7 @@ class _FormatOption extends StatelessWidget {
                   Text(title, style: TypographyTokens.display(size: 17)),
                   Text(
                     subtitle,
-                    style: TypographyTokens.body(size: 13)
+                    style: TypographyTokens.corpo()
                         .copyWith(color: ColorTokens.textSecondary),
                   ),
                 ],

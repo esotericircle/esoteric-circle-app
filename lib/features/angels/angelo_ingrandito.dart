@@ -157,7 +157,7 @@ class AngeloIngrandito extends StatelessWidget {
               'Coro dei ${angelo.choir.name}, retto da '
               '${angelo.choir.archangel}',
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 14)
+              style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary),
             ),
             const SizedBox(height: SpacingTokens.md),
@@ -187,7 +187,7 @@ class AngeloIngrandito extends StatelessWidget {
                 key: const Key('angelo_ingrandito_chiudi'),
                 onPressed: () => Navigator.of(context).maybePop(),
                 child: Text('Torna ai tre',
-                    style: TypographyTokens.body(size: 15)
+                    style: TypographyTokens.corpo()
                         .copyWith(color: palette.goldSoft)),
               ),
             ),
@@ -221,7 +221,7 @@ class _Riga extends StatelessWidget {
                   color: palette.goldSoft, letterSpacing: 1.6)),
           const SizedBox(height: SpacingTokens.xxs),
           Text(testo,
-              style: TypographyTokens.body(size: 15).copyWith(height: 1.45)),
+              style: TypographyTokens.corpo().copyWith(height: 1.45)),
         ],
       ),
     );

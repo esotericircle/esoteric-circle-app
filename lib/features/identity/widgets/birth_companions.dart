@@ -143,7 +143,7 @@ class BirthCompanions extends StatelessWidget {
                             const SizedBox(height: SpacingTokens.xxs),
                             Text(
                               a.name,
-                              style: TypographyTokens.body(size: 13),
+                              style: TypographyTokens.corpo(),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -157,7 +157,7 @@ class BirthCompanions extends StatelessWidget {
                 const SizedBox(height: SpacingTokens.xs),
                 Text(
                   'Il terzo Angelo arriva con l\'ora di nascita.',
-                  style: TypographyTokens.body(size: 13)
+                  style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textMuted),
                 ),
               ],

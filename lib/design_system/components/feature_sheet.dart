@@ -120,7 +120,7 @@ class _FeatureSheetContent extends StatelessWidget {
                 isPremium
                     ? 'Scopri l\'abbonamento (${feature.requiredTier.label})'
                     : 'Avvisami quando arriva',
-                style: TypographyTokens.body(size: 15, weight: 600)
+                style: TypographyTokens.corpo(weight: 600)
                     .copyWith(color: palette.deepest),
               ),
             ),
@@ -131,7 +131,7 @@ class _FeatureSheetContent extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 'Chiudi',
-                style: TypographyTokens.body(size: 14)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textMuted),
               ),
             ),

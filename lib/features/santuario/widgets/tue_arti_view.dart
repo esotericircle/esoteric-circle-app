@@ -190,7 +190,7 @@ class _FoglioScelta extends StatelessWidget {
               'Scegline fino a ${ArtiPreferiteController.tetto}: saranno le '
               'prime che trovi nel Cerchio. Niente di tutto questo dipende dal '
               'tuo piano.',
-              style: TypographyTokens.body(size: 13)
+              style: TypographyTokens.corpo()
                   .copyWith(color: palette.textSecondary),
             ),
             const SizedBox(height: SpacingTokens.md),
@@ -219,7 +219,7 @@ class _FoglioScelta extends StatelessWidget {
                   activeColor: MaestroPalette.forKey(ThemeKey.of(m)).primary,
                   checkColor: palette.textPrimary,
                   title: Text(arte.title,
-                      style: TypographyTokens.body(size: 14)
+                      style: TypographyTokens.corpo()
                           .copyWith(color: palette.textPrimary)),
                 ),
             ],

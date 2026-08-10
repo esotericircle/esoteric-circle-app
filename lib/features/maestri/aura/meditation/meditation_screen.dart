@@ -189,7 +189,7 @@ class _MeditationScreenState extends State<MeditationScreen>
                           _preset.binaural
                               ? 'Metti le cuffie: il battito nasce fra i due orecchi.'
                               : 'Con le cuffie l\'ascolto si fa più pieno.',
-                          style: TypographyTokens.body(size: 13)
+                          style: TypographyTokens.corpo()
                               .copyWith(color: ColorTokens.textSecondary),
                         ),
                       ),

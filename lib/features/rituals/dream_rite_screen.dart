@@ -469,7 +469,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             '${_figura.points.length}.',
             key: const Key('dream_conteggio'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 14)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.45)),
         const SizedBox(height: SpacingTokens.sm),
         _Riga(
@@ -561,7 +561,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                         .copyWith(color: _palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
                 Text(DreamRiteCorpus.daDoveNasce(_luna),
-                    style: TypographyTokens.body(size: 15).copyWith(
+                    style: TypographyTokens.corpo().copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
                 const SizedBox(height: SpacingTokens.lg),
                 Align(

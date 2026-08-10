@@ -112,7 +112,7 @@ class ArchetypeShareCard extends StatelessWidget {
             // Il motto, cioe' l'essenza dal corpus.
             Text(ritratto.essenza,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 14).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: palette.textPrimary, fontStyle: FontStyle.italic)),
             const SizedBox(height: SpacingTokens.md),
             // La prima bolla del responso, "La sua luce", nello stesso stile.
@@ -190,7 +190,7 @@ class _Bolla extends StatelessWidget {
                   .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: SpacingTokens.xs),
           Text(testo,
-              style: TypographyTokens.body(size: 15)
+              style: TypographyTokens.corpo()
                   .copyWith(color: palette.textPrimary, height: 1.55)),
         ],
       ),
@@ -241,7 +241,7 @@ class _RigaTre extends StatelessWidget {
         const SizedBox(width: SpacingTokens.sm),
         Expanded(
           child: Text(archetipo.nome,
-              style: TypographyTokens.body(size: 14).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                   color:
                       dominante ? palette.goldSoft : palette.textPrimary,
                   fontWeight:
