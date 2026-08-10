@@ -555,7 +555,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   }
 
   void _passoGiro(GyroscopeEvent ev) {
-    if (_giroFatto || !mounted) return;
+    if (!mounted) return;
     // Al primo evento reale il giroscopio e' confermato: solo ora la scena puo'
     // proporre l'inclinazione, mai prima, cosi' non promette un gesto assente.
     if (!_giroDisponibile) {
@@ -570,14 +570,26 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   }
 
   void _gira() {
-    if (_giroFatto) return;
+    // IL GIRO E' RIPETIBILE, dall'ordine H: prima il primo scatto spegneva il
+    // gesto per sempre, e chi voleva rileggere la faccia dritta restava con
+    // la pietra bloccata sul rovescio. Adesso ogni gesto alterna le due
+    // facce; la Voce B, una volta svelata, resta.
     PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
-    // Dopo lo scatto niente piu' eventi: fine gesto, nessun rimbalzo.
-    _giroSub?.cancel();
-    _giroSub = null;
     setState(() => _giroFatto = true);
-    if (!_riduciMovimento) _flip.forward(from: 0);
+    if (_riduciMovimento) {
+      setState(() => _latoOmbra = !_latoOmbra);
+      return;
+    }
+    if (_flip.isAnimating) return;
+    if (_flip.value >= 0.5) {
+      _flip.reverse();
+    } else {
+      _flip.forward();
+    }
   }
+
+  /// Con Riduci Movimento il flip non anima: questo dice quale faccia si vede.
+  bool _latoOmbra = false;
 
   bool get _settimaSera => _settimana.length >= 7;
 
@@ -748,43 +760,34 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             key: const Key('sunset_stimata'),
             textAlign: TextAlign.center,
             style: stile),
-        const SizedBox(height: SpacingTokens.sm),
-        // L'unica cosa toccabile della schermata, e si vede che lo e': bordo,
-        // riempimento tenue in chiave oro, area di tocco piena.
-        // I TRE ESITI FINO A SCHERMO, ordine 2161 voce 10: finche' si puo'
-        // chiedere, il pulsante chiede; quando il no e' per sempre, il
-        // dialogo di sistema non comparira' mai piu', quindi il pulsante
-        // porta alle impostazioni e il testo sopra spiega perche'.
-        if (_posizioneNegataPerSempre) ...[
-          Text(
-              'La posizione è negata per sempre per questa app: il sistema '
-              'non mostrerà più la richiesta. Si riattiva dalle impostazioni.',
-              key: const Key('sunset_posizione_negata_per_sempre'),
-              textAlign: TextAlign.center,
-              style: stile),
-          const SizedBox(height: SpacingTokens.xs),
-        ],
-        OutlinedButton(
+        const SizedBox(height: SpacingTokens.xs),
+        // UNA RIGA DISCRETA, NON UN PULSANTE, dall'ordine H: la pillola con
+        // bordo e riempimento compariva e scompariva a seconda dell'esito del
+        // permesso, ed era l'elemento piu' acceso della schermata per una
+        // scelta che non e' il rito. Chi non concede la posizione vede l'ora
+        // stimata, dichiarata come stimata, e questa riga sotto: un invito
+        // sottolineato, sempre uguale, mai una richiesta.
+        GestureDetector(
           key: const Key('sunset_attiva'),
-          onPressed: _posizioneNegataPerSempre
+          behavior: HitTestBehavior.opaque,
+          onTap: _posizioneNegataPerSempre
               ? widget.location.apriImpostazioni
               : _attivaPosizione,
-          style: OutlinedButton.styleFrom(
-            minimumSize: const Size(0, 44),
-            padding: const EdgeInsets.symmetric(
-                horizontal: SpacingTokens.lg, vertical: 10),
-            backgroundColor: _palette.gold.withValues(alpha: 0.16),
-            side: BorderSide(color: _palette.gold.withValues(alpha: 0.75)),
-            shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(SpacingTokens.radiusPill)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: Text(
+                _posizioneNegataPerSempre
+                    ? 'Apri le impostazioni per riattivarla'
+                    : 'Attiva la posizione',
+                textAlign: TextAlign.center,
+                style: TypographyTokens.corpo().copyWith(
+                  color: _palette.goldSoft,
+                  decoration: TextDecoration.underline,
+                  decorationColor:
+                      _palette.goldSoft.withValues(alpha: 0.6),
+                  shadows: _ombraTesto,
+                )),
           ),
-          child: Text(
-              _posizioneNegataPerSempre
-                  ? 'Apri le impostazioni'
-                  : 'Attiva la posizione',
-              style: TypographyTokens.label(size: 12.5)
-                  .copyWith(color: _palette.goldSoft, letterSpacing: 0.6)),
         ),
       ],
     );
@@ -1086,10 +1089,11 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           // L'INVITO SUBITO SOTTO LA PIETRA, ordine 2161 voce 11: prima fra
           // la pietra e "Gira la pietra" stavano il nome, il verso, la Voce A
           // e la trasparenza. La distanza e' la costante dichiarata qui sotto.
-          if (!_giroFatto) ...[
-            const SizedBox(height: _distanzaPietraInvito),
-            _invitoGira(),
-          ],
+          // SEMPRE VISIBILE, dall'ordine H: il giro e' ripetibile, quindi
+          // l'invito non ha una scadenza. Chi ha gia' girato lo rilegge come
+          // promemoria del gesto, non come novita'.
+          const SizedBox(height: _distanzaPietraInvito),
+          _invitoGira(),
           const SizedBox(height: SpacingTokens.md),
           Center(
             child: Text(_e.rune.name.toUpperCase(),
@@ -1170,7 +1174,9 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     return AnimatedBuilder(
       animation: Listenable.merge([_alone, _flip]),
       builder: (context, _) {
-        final t = _giroFatto ? (_riduciMovimento ? 1.0 : _flip.value) : 0.0;
+        final t = _giroFatto
+            ? (_riduciMovimento ? (_latoOmbra ? 1.0 : 0.0) : _flip.value)
+            : 0.0;
         final angolo = math.pi * t;
         final mostraRetro = angolo > math.pi / 2;
         final m = Matrix4.identity()
