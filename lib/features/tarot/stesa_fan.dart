@@ -207,25 +207,36 @@ class _StesaFanState extends State<StesaFan> {
         scala *= 1 + 0.012 * battito;
         opacita *= 0.94 + 0.06 * ((battito + 1) / 2);
       }
+      // LA SCENA RACCONTA IL GESTO, ordine H voce 5: il ventaglio si
+      // ricompone in mazzo, il mazzo si mescola (o si taglia in due e si
+      // ricompone), le carte si ristendono. Le pose sono ASSOLUTE: per
+      // chiudere il ventaglio bisogna annullare lo sventagliamento, quindi
+      // decidono loro dove sta la carta, non un ritocco sopra la sede.
+      final mazzo = Offset(w / 2 - cardW / 2, StesaFan.arcoDi(0) + 44);
       if (widget.taglio > 0 && widget.taglio < 1) {
-        offset += CutPose.offsetOf(
+        final posa = TaglioPose.of(
+          sede: offset,
+          mazzo: mazzo,
           index: indice,
           count: widget.carte,
           taglioA: widget.taglioIndice,
           t: widget.taglio,
+          angoloSede: angolo,
         );
+        offset = posa.offset;
+        angolo = posa.angolo;
       }
       if (widget.mescolamento > 0 && widget.mescolamento < 1) {
-        offset += VortexPose.offsetOf(
+        final posa = MischiaPose.of(
+          sede: offset,
+          mazzo: mazzo,
           index: indice,
           count: widget.carte,
           t: widget.mescolamento,
+          angoloSede: angolo,
         );
-        angolo += VortexPose.angleOf(
-          index: indice,
-          count: widget.carte,
-          t: widget.mescolamento,
-        );
+        offset = posa.offset;
+        angolo = posa.angolo;
       }
     }
 
