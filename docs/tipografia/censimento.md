@@ -3,6 +3,7 @@
 <!-- TOTALE_CENSITO: 369 -->
 <!-- FILE_CENSITI: 66 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
+<!-- LETTURA_SOTTO_16: 131 -->
 <!-- Generato da tool/censimento_tipografia.dart. Non si scrive a mano: si rigenera. -->
 
 Ogni riga qui sotto e' un punto in cui la misura di un carattere e' decisa a mano invece di venire da un ruolo. Il numero totale puo' solo SCENDERE: `test/tipografia_nel_dato_test.dart` lo rilegge da questo documento e cade se qualcuno ne aggiunge una.
@@ -22,7 +23,7 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 | Misure esplicite sotto `lib/` | **369** |
 | File che ne contengono | **66** |
 | Sotto il pavimento assoluto di 12 | **0** |
-| Sotto 16 in contesto di lettura | **132** |
+| Sotto 16 in contesto di lettura | **131** |
 
 Contesto di lettura vuol dire testo che si legge e non si guarda: la famiglia del corpo (`body`) e i `fontSize` sciolti, che nell'app stanno quasi sempre su testo narrato. Le etichette cerimoniali in maiuscoletto e i titoli restano fuori, perche' li' sotto sedici punti e' una scelta di composizione, non un problema di lettura.
 
@@ -103,5 +104,5 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/features/onboarding/widgets/sky_thread.dart` | 1 | 0 | 1 |
 | `lib/features/onboarding/widgets/stardust_name.dart` | 1 | 0 | 0 |
 | `lib/features/santuario/greeting_banner.dart` | 1 | 0 | 1 |
-| `lib/features/tarot/tarot_cartiglio.dart` | 1 | 0 | 1 |
+| `lib/features/tarot/tarot_cartiglio.dart` | 1 | 0 | 0 |
 

@@ -1,6 +1,7 @@
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../tool/censimento_spazi.dart';
 import '../tool/censimento_tipografia.dart';
 
 /// LA TIPOGRAFIA VIVE NEL DATO, E IL DEBITO PUO' SOLO SCENDERE.
@@ -80,6 +81,38 @@ void main() {
             'censimento dice ancora $registrato: rigeneralo e committalo');
   });
 
+  test('Il testo che si legge non torna piccolo', () {
+    // LA QUARTA GRANDEZZA, e dice una cosa diversa dalle altre tre: quelle
+    // misurano il debito, questa misura se l'app si LEGGE. Un totale che scende
+    // mentre questa sale vorrebbe dire che si stanno togliendo misure a mano
+    // dalle etichette e lasciando piccolo il testo narrato.
+    final lettura = censisci().where(sottoLaLettura).length;
+    final registrato = numeriRegistrati().letturaSotto16;
+    expect(lettura, lessThanOrEqualTo(registrato),
+        reason: 'il testo di lettura sotto i sedici punti passa da '
+            '$registrato a $lettura: qualcosa si e\' rimpicciolito');
+    expect(lettura, registrato,
+        reason: 'il testo di lettura sotto i sedici punti scende a $lettura '
+            'ma il censimento dice ancora $registrato: rigeneralo e committalo');
+  });
+
+  test('I vuoti verticali non crescono', () {
+    // Il gemello della guardia tipografica, sul documento dei vuoti: stessa
+    // regola, il numero puo' solo scendere e il documento va rigenerato quando
+    // scende, altrimenti resta scritto un numero che non e' piu' vero.
+    final vuoti = censisciVuoti();
+    final eccessivi =
+        vuoti.where((v) => v.punti > sogliaDelVuotoEccessivo).length;
+    final registrati = vuotiRegistrati();
+    expect(vuoti.length, registrati.totale,
+        reason: 'i vuoti verticali dichiarati sono ${vuoti.length} e il '
+            'documento ne registra ${registrati.totale}: rigeneralo con '
+            'dart run tool/censimento_spazi.dart');
+    expect(eccessivi, lessThanOrEqualTo(registrati.eccessivi),
+        reason: 'i vuoti oltre la soglia di $sogliaDelVuotoEccessivo punti '
+            'sono passati da ${registrati.eccessivi} a $eccessivi');
+  });
+
   test('Il documento non si contraddice', () {
     // **IL DOCUMENTO SOVRANO DEL DEBITO DICEVA DUE COSE.** Il riepilogo in
     // cima dichiarava zero misure sotto il pavimento e la riga di
@@ -95,6 +128,9 @@ void main() {
     expect(tabella.file, marche.file,
         reason: 'la tabella ha ${tabella.file} righe e la marca dichiara '
             '${marche.file} file');
+    expect(tabella.letturaSotto16, marche.letturaSotto16,
+        reason: 'la tabella somma ${tabella.letturaSotto16} misure di lettura '
+            'sotto i sedici e la marca ne dichiara ${marche.letturaSotto16}');
     expect(tabella.sottoIlPavimento, marche.sottoIlPavimento,
         reason: 'la tabella somma ${tabella.sottoIlPavimento} misure sotto il '
             'pavimento e la marca ne dichiara ${marche.sottoIlPavimento}: e\' '

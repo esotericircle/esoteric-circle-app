@@ -34,6 +34,18 @@ import 'package:flutter_test/flutter_test.dart';
 /// in proporzione esatta all'alfa. Misurato: le anteprime piene stanno fra 213
 /// e 255, e la stessa immagine velata ad alfa 194 scende a 186. Fra i due
 /// gruppi c'e' un vuoto di ventisette livelli, e la soglia sta nel mezzo.
+/// **DUECENTO, e quanto e' stretta.** I margini veri, misurati e non stimati:
+/// il minimo legittimo su tutte e centoquarantacinque le anteprime del corredo
+/// e' 213 (`respiro-inspira.png`, una scena quasi vuota), e la stessa immagine
+/// velata ad alfa 194 scende a 186. Fra i due gruppi ci sono ventisette
+/// livelli, e la soglia sta nel mezzo: tredici sopra il velato e tredici sotto
+/// il legittimo peggiore.
+///
+/// **QUANDO QUESTA PROVA DIVENTERA' ROSSA, si guarda l'immagine.** Non si
+/// abbassa il numero: sotto i duecento c'e' il velo, e abbassare la soglia vuol
+/// dire smettere di vederlo. Se un'anteprima nuova nasce legittimamente scura,
+/// il posto giusto e' un'eccezione dichiarata con il suo nome e la sua ragione,
+/// non una soglia piu' bassa per tutti.
 const double sogliaDelPuntoPiuChiaro = 200;
 
 /// **IL CANALE E' PREMOLTIPLICATO, e va dichiarato.**

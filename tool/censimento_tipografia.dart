@@ -102,6 +102,16 @@ const double pavimentoDellApp = 12;
 bool sottoIlPavimentoDellApp(MisuraEsplicita m) =>
     m.misura > 0 && m.misura < pavimentoDellApp;
 
+/// Se [m] e' testo di lettura sotto i sedici punti.
+///
+/// **LO ZERO ESCE ANCHE DA QUI, e per la stessa ragione scritta sopra**: non e'
+/// testo piccolo, e' assenza di testo. Fino all'ordine D il filtro del pavimento
+/// lo escludeva e questo no, quindi la riga di `tarot_cartiglio.dart` portava
+/// zero in una colonna e uno nell'altra sulla stessa misura. La ragione era gia'
+/// scritta: mancava solo di applicarla dove non era arrivata.
+bool sottoLaLettura(MisuraEsplicita m) =>
+    m.diLettura && m.misura > 0 && m.misura < 16;
+
 /// Enumera tutte le misure esplicite sotto [radice].
 ///
 /// Ordina per file e poi per riga, cosi' due esecuzioni sulla stessa base danno
@@ -194,11 +204,16 @@ class NumeriRegistrati {
     required this.totale,
     required this.file,
     required this.sottoIlPavimento,
+    required this.letturaSotto16,
   });
 
   final int totale;
   final int file;
   final int sottoIlPavimento;
+
+  /// La quarta grandezza: quanto testo che si LEGGE sta ancora sotto i sedici
+  /// punti. E' quella che dice se l'app si legge, non solo se il debito cala.
+  final int letturaSotto16;
 }
 
 int _marca(String testo, String nome, String documento) {
@@ -219,6 +234,7 @@ NumeriRegistrati numeriRegistrati(
     totale: _marca(testo, 'TOTALE_CENSITO', documento),
     file: _marca(testo, 'FILE_CENSITI', documento),
     sottoIlPavimento: _marca(testo, 'SOTTO_IL_PAVIMENTO', documento),
+    letturaSotto16: _marca(testo, 'LETTURA_SOTTO_16', documento),
   );
 }
 
@@ -228,21 +244,30 @@ NumeriRegistrati numeriRegistrati(
 /// ma da due conti diversi, e il giorno che divergono il documento dice due
 /// cose. Questa funzione somma le colonne della tabella, cosi' la guardia puo'
 /// confrontarle con le marche invece di fidarsi che siano d'accordo.
-({int totale, int file, int sottoIlPavimento}) sommeDellaTabella(
+({int totale, int file, int sottoIlPavimento, int letturaSotto16})
+    sommeDellaTabella(
     {String documento = 'docs/tipografia/censimento.md'}) {
   final righe = File(documento).readAsLinesSync();
-  final riga = RegExp(r'^\|\s*`([^`]+)`\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|');
+  final riga = RegExp(
+      r'^\|\s*`([^`]+)`\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|');
   var totale = 0;
   var file = 0;
   var sotto = 0;
+  var lettura = 0;
   for (final r in righe) {
     final m = riga.firstMatch(r);
     if (m == null) continue;
     file++;
     totale += int.parse(m.group(2)!);
     sotto += int.parse(m.group(3)!);
+    lettura += int.parse(m.group(4)!);
   }
-  return (totale: totale, file: file, sottoIlPavimento: sotto);
+  return (
+    totale: totale,
+    file: file,
+    sottoIlPavimento: sotto,
+    letturaSotto16: lettura
+  );
 }
 
 /// Il totale, per chi ha bisogno del solo numero.
@@ -265,8 +290,7 @@ void main(List<String> argomenti) {
     perFile.putIfAbsent(m.file, () => []).add(m);
   }
   final sottoIlPavimento = misure.where(sottoIlPavimentoDellApp).toList();
-  final letturaSotto16 =
-      misure.where((m) => m.diLettura && m.misura < 16).toList();
+  final letturaSotto16 = misure.where(sottoLaLettura).toList();
 
   final b = StringBuffer()
     ..writeln('# Censimento delle misure tipografiche scritte a mano')
@@ -274,6 +298,7 @@ void main(List<String> argomenti) {
     ..writeln('<!-- TOTALE_CENSITO: ${misure.length} -->')
     ..writeln('<!-- FILE_CENSITI: ${perFile.length} -->')
     ..writeln('<!-- SOTTO_IL_PAVIMENTO: ${sottoIlPavimento.length} -->')
+    ..writeln('<!-- LETTURA_SOTTO_16: ${letturaSotto16.length} -->')
     ..writeln('<!-- Generato da tool/censimento_tipografia.dart. Non si '
         'scrive a mano: si rigenera. -->')
     ..writeln()
@@ -387,7 +412,7 @@ void main(List<String> argomenti) {
   for (final file in ordinati) {
     final righe = perFile[file]!;
     final sotto12 = righe.where(sottoIlPavimentoDellApp).length;
-    final lettura = righe.where((m) => m.diLettura && m.misura < 16).length;
+    final lettura = righe.where(sottoLaLettura).length;
     b.writeln('| `$file` | ${righe.length} | $sotto12 | $lettura |');
   }
   b.writeln();
