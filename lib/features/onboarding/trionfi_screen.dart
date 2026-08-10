@@ -495,7 +495,7 @@ class _AngeloInScena extends StatelessWidget {
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         softWrap: false,
-                        style: TypographyTokens.label(size: 11).copyWith(
+                        style: TypographyTokens.etichetta().copyWith(
                             color: palette.goldSoft.withValues(alpha: 0.75),
                             letterSpacing: 1.2)),
                   ),

@@ -128,8 +128,13 @@ class SantuarioBottomBar extends StatelessWidget {
               // 3,85 di contrasto contro il 4,5 richiesto, con le schede
               // chiare che gli passavano dietro.
               Container(
+                // CINQUE E NON TRE, dall'ordine A: il titolo e' passato da
+                // undici punti al pavimento di dodici, quindi il suo rettangolo
+                // e' cresciuto e l'alone, restando fermo, ne copriva una quota
+                // minore. Misurato nel Consiglio: 4,31 di contrasto contro il
+                // 4,5 richiesto. L'alone cresce quanto e' cresciuto il testo.
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 18, vertical: 3),
+                    const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
                 decoration: BoxDecoration(
                   gradient: RadialGradient(
                     radius: 0.85,
@@ -144,7 +149,7 @@ class SantuarioBottomBar extends StatelessWidget {
                 child: Text(
                 titolo,
                 key: const Key('barra_titolo'),
-                style: TypographyTokens.label(size: 11).copyWith(
+                style: TypographyTokens.etichetta().copyWith(
                   color: coloreDelTitolo(palette),
                   letterSpacing: 3.2,
                   // L'OMBRA AL POSTO DELLA FASCIA, ordine 2164 voce 1: e'
@@ -219,7 +224,12 @@ class SantuarioBottomBar extends StatelessWidget {
   /// e la barra e' cresciuta di sei. Il numero NON e' una stima: la prova
   /// `una_barra_sola_test` confronta cio' che qui si dichiara con la resa
   /// vera e cade se divergono, ed e' lei che ha denunciato i sei punti.
-  static const double altezzaResa = 129;
+  /// CENTOTRENTAQUATTRO DALL'ORDINE A: il titolo e' passato da undici punti al
+  /// pavimento di dodici e l'alone dietro di lui e' cresciuto da tre a cinque
+  /// per lato, quindi la barra e' cresciuta di cinque. Anche stavolta il numero
+  /// non e' una stima: e' la stessa prova che lo ha denunciato, misurando 5,0
+  /// di scarto contro i 2,0 che tollera.
+  static const double altezzaResa = 134;
 
   /// IL COLORE DEL TITOLO: L'ORO DELLA PALETTE. Deciso da Mauro il 7 agosto
   /// 2026, e SUPERA la decisione del mattino del 6 agosto che lo voleva nel

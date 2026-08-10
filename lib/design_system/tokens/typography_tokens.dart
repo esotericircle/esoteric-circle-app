@@ -44,6 +44,19 @@ class TypographyTokens {
   static const double minBody = 13;
   static const double minLabel = 11;
 
+  /// Il pavimento assoluto dell'app: sotto dodici punti non si scrive nulla,
+  /// qualunque sia la famiglia.
+  ///
+  /// I tre minimi qui sopra sono per famiglia e nascono da una storia; questo
+  /// invece e' una riga sola per tutta l'app, ed e' la stessa misura del ruolo
+  /// piu' piccolo che esista, [etichetta]. Chi ha bisogno di qualcosa di piu'
+  /// piccolo non ha un problema di tipografia, ha un problema di layout.
+  ///
+  /// Chi lo viola lo scopre subito: in debug scatta un assert che nomina il
+  /// punto di chiamata e la misura chiesta, in release resta il taglio, perche'
+  /// un'app che muore per un font non si spedisce.
+  static const double pavimento = 12;
+
   /// Dimensione del corpo informativo: ogni testo che spiega, istruisce o guida
   /// (sottotitoli, istruzioni del gesto, righe di aiuto, descrizioni) usa questa
   /// misura generosa, ben leggibile sul cosmo. Le etichette decorative in
@@ -57,10 +70,101 @@ class TypographyTokens {
   static List<FontVariation> _wght(double weight) =>
       [FontVariation('wght', weight)];
 
+  /// Il controllo del pavimento, unico per tutte e tre le famiglie.
+  ///
+  /// In debug il blocco dell'assert gira e solleva, nominando il punto di
+  /// chiamata e la misura chiesta: e' la fine del taglio silenzioso, che per
+  /// anni ha fatto rendere identiche due misure diverse senza che nessuno se ne
+  /// accorgesse. In release il blocco non viene nemmeno compilato e resta il
+  /// solo taglio.
+  static double _misura(double size, double minimoFamiglia) {
+    assert(() {
+      if (size < pavimento) {
+        throw FlutterError.fromParts([
+          // Accenti veri: questo messaggio lo LEGGE una persona, in debug, e
+          // vale la stessa regola di ogni altra frase che arriva a video.
+          ErrorSummary('Misura tipografica sotto il pavimento dell\'app: '
+              'chiesti $size punti, il pavimento è $pavimento.'),
+          ErrorDescription('Chiamata da:\n${_chiamante()}'),
+          ErrorHint(
+              'Usa un ruolo invece di una misura a mano: TypographyTokens.'
+              'etichetta è il più piccolo che esista ed è esattamente il '
+              'pavimento. Se il testo non ci sta, il problema è il layout, '
+              'non il carattere.'),
+        ]);
+      }
+      return true;
+    }());
+    return math.max(size, math.max(minimoFamiglia, pavimento));
+  }
+
+  /// La prima riga della pila che non appartiene a questo file: e' il punto che
+  /// ha chiesto la misura, cioe' quello che va corretto. Senza questa riga
+  /// l'assert direbbe soltanto che qualcuno da qualche parte ha sbagliato.
+  static String _chiamante() {
+    for (final riga in StackTrace.current.toString().split('\n')) {
+      if (riga.contains('typography_tokens.dart')) continue;
+      if (riga.trim().isEmpty) continue;
+      return riga.trim();
+    }
+    return 'punto di chiamata non ricostruibile dalla pila';
+  }
+
+  // ---------------------------------------------------------------------
+  // I RUOLI. Non prendono una misura, quindi non c'e' piu' niente da tagliare:
+  // il posto che il testo occupa nella pagina si dichiara col nome, e la misura
+  // e' una conseguenza. Chi domani volesse cambiare la scala dell'app cambia
+  // otto numeri qui, non settecento sparsi per le schermate.
+  // ---------------------------------------------------------------------
+
+  /// La soglia di una cerimonia: il nome del segno, il momento della
+  /// rivelazione. Uno per schermata, mai due.
+  static TextStyle cerimonialeGrande({double weight = 700}) =>
+      display(size: 34, weight: weight);
+
+  /// Il titolo di una schermata cerimoniale.
+  static TextStyle cerimoniale({double weight = 600}) =>
+      display(size: 28, weight: weight);
+
+  /// Il titolo di una sezione dentro una schermata.
+  static TextStyle titoloSezione({double weight = 600}) =>
+      display(size: 22, weight: weight);
+
+  /// Il titolo di una scheda, cioe' di un blocco di contenuto.
+  static TextStyle titoloScheda({double weight = 600}) =>
+      display(size: 18, weight: weight);
+
+  /// Il testo che si LEGGE per intero: un responso, una narrazione, una lettura
+  /// lunga. Interlinea 1,55, piu' larga del corpo, perche' qui l'occhio deve
+  /// tornare a capo molte volte di seguito.
+  static TextStyle lettura({double weight = 400}) =>
+      body(size: 18, weight: weight).copyWith(height: 1.55);
+
+  /// Il testo informativo ordinario, quello che accompagna e spiega.
+  static TextStyle corpo({double weight = 400}) =>
+      body(size: 16, weight: weight).copyWith(height: 1.5);
+
+  /// La riga di servizio sotto un contenuto: una fonte, una nota, un dettaglio
+  /// che non chiede di essere letto per primo.
+  static TextStyle didascalia({double weight = 400}) =>
+      body(size: 14, weight: weight);
+
+  /// L'etichetta cerimoniale in maiuscoletto spaziato. E' il ruolo piu' piccolo
+  /// dell'app e vale esattamente il pavimento: sotto non si scende.
+  static TextStyle etichetta({double weight = 600}) =>
+      label(size: pavimento, weight: weight);
+
   /// Serif cerimoniale per display, titoli e nomi dei Maestri.
+  ///
+  /// CHIAMARLA CON UNA MISURA E' DEBITO, non una eccezione. L'unico punto che
+  /// ha davvero bisogno di scegliere il numero e' l'anello curvo della ruota
+  /// archetipica, dove la dimensione si calcola per far stare i dodici nomi
+  /// sull'arco e nessun ruolo puo' saperlo in anticipo. Tutti gli altri punti
+  /// che passano di qui sono elencati uno per uno in
+  /// `docs/tipografia/censimento.md`, e quel numero puo' solo scendere.
   static TextStyle display({double size = 34, double weight = 600}) => TextStyle(
         fontFamily: _display,
-        fontSize: math.max(size, minDisplay),
+        fontSize: _misura(size, minDisplay),
         fontVariations: _wght(weight),
         fontWeight: _nearest(weight),
         height: 1.18,
@@ -69,9 +173,12 @@ class TypographyTokens {
       );
 
   /// Serif leggibile per il testo narrato e il corpo.
+  ///
+  /// Come [display]: con una misura esplicita e' debito censito, non una scelta.
+  /// I ruoli da usare sono [lettura], [corpo] e [didascalia].
   static TextStyle body({double size = 16, double weight = 400}) => TextStyle(
         fontFamily: _body,
-        fontSize: math.max(size, minBody),
+        fontSize: _misura(size, minBody),
         fontVariations: _wght(weight),
         fontWeight: _nearest(weight),
         height: 1.5,
@@ -79,9 +186,12 @@ class TypographyTokens {
       );
 
   /// Etichetta in stile cerimoniale (maiuscoletto spaziato).
+  ///
+  /// Come [display]: con una misura esplicita e' debito censito. Il ruolo da
+  /// usare e' [etichetta].
   static TextStyle label({double size = 13, double weight = 600}) => TextStyle(
         fontFamily: _display,
-        fontSize: math.max(size, minLabel),
+        fontSize: _misura(size, minLabel),
         fontVariations: _wght(weight),
         fontWeight: _nearest(weight),
         letterSpacing: 1.6,

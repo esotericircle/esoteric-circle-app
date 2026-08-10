@@ -134,7 +134,7 @@ class _AnteprimaTonoState extends State<AnteprimaTono>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('LA TUA GUIDA TI DIRÀ',
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                       color: widget.palette.goldSoft, letterSpacing: 2)),
               const SizedBox(height: SpacingTokens.xs),
               RichText(

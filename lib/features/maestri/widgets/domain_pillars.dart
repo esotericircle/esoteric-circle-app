@@ -45,7 +45,7 @@ class DomainPillars extends StatelessWidget {
       maxLines: 1,
       textAlign: TextAlign.center,
       overflow: TextOverflow.ellipsis,
-      style: TypographyTokens.label(size: 11).copyWith(
+      style: TypographyTokens.etichetta().copyWith(
         color: palette.goldSoft.withValues(alpha: 0.85),
         letterSpacing: 0.9,
       ),

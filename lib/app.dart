@@ -217,6 +217,24 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
                 data: mq.copyWith(
                   disableAnimations:
                       mq.disableAnimations || settings.reduceAnimations,
+                  // IL CORPO DEL TESTO DI SISTEMA SI RISPETTA, NON SI SPEGNE.
+                  // Chi ha alzato il carattere nelle impostazioni del telefono
+                  // lo ha fatto per un motivo, spesso perche' senza non legge,
+                  // quindi la scala arriva fino a 1,3 e l'app si allarga con
+                  // lei. Il tetto esiste perche' oltre quella soglia le nostre
+                  // schermate non si limitano a diventare grandi: le cornici
+                  // cerimoniali, gli anelli e le carte hanno misure fisse e il
+                  // testo comincia a uscirne. Il pavimento a 0,9 e' l'altra
+                  // meta' della stessa regola: chi rimpicciolisce il sistema
+                  // non deve poter portare l'app sotto la soglia di
+                  // leggibilita' che i token difendono in ogni altro punto.
+                  // Sta QUI e in nessun altro posto, sopra il Navigator, cosi'
+                  // vale anche per le rotte spinte sopra il guscio, comprese le
+                  // chat e le immersive, che hanno un proprio Scaffold.
+                  textScaler: mq.textScaler.clamp(
+                    minScaleFactor: 0.9,
+                    maxScaleFactor: 1.3,
+                  ),
                 ),
                 // LA BARRA STA QUI, e ci sta per la stessa ragione dell'intro:
                 // il builder avvolge il Navigator INTERO, quindi vede anche le

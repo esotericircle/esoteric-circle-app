@@ -507,7 +507,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         const SizedBox(height: SpacingTokens.sm),
         Text(DreamRiteCorpus.provenienza(_luna),
             key: const Key('dream_provenienza'),
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
                 color: _palette.goldSoft.withValues(alpha: 0.85),
                 letterSpacing: 0.5)),
         const SizedBox(height: SpacingTokens.lg),
@@ -600,7 +600,7 @@ class _Riga extends StatelessWidget {
         const SizedBox(width: 6),
         Expanded(
           child: Text(testo,
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                 color: palette.goldSoft.withValues(alpha: 0.75),
                 letterSpacing: 0.2,
                 height: 1.4,

@@ -207,7 +207,7 @@ class _MeditationScreenState extends State<MeditationScreen>
                         child: Text(
                           'Cornice di benessere, non cura. Le frequenze Solfeggio '
                           'e il 432 sono tradizione culturale, non un fatto medico.',
-                          style: TypographyTokens.label(size: 11).copyWith(
+                          style: TypographyTokens.etichetta().copyWith(
                             color: palette.goldSoft.withValues(alpha: 0.7),
                             letterSpacing: 0.3,
                             height: 1.4,
@@ -325,7 +325,7 @@ class _PresetChip extends StatelessWidget {
               Text(
                 preset.subtitle,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 11).copyWith(
+                style: TypographyTokens.etichetta().copyWith(
                   color: selected
                       ? palette.goldSoft.withValues(alpha: 0.8)
                       : ColorTokens.textSecondary.withValues(alpha: 0.8),

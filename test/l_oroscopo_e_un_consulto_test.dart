@@ -147,19 +147,26 @@ void main() {
 
     final testo = find.byKey(const Key('oroscopo_testo_generale'));
     expect(testo, findsOneWidget);
-    // A meta' scrittura il testo non e' ancora intero.
+    // ORDINE A: il responso non e' piu' un blocco solo ma una fila di
+    // paragrafi, quindi i widget di scrittura sono tanti quanti loro e si
+    // guarda l'insieme. Il primo e' quello che batte.
     await tester.pump(const Duration(milliseconds: 300));
-    final scrittura = tester.state<TestoCheSiScriveState>(
-        find.descendant(of: testo, matching: find.byType(TestoCheSiScrive)));
-    expect(scrittura.staScrivendo, isTrue,
+    final scritture = tester
+        .stateList<TestoCheSiScriveState>(
+            find.descendant(of: testo, matching: find.byType(TestoCheSiScrive)))
+        .toList();
+    expect(scritture, isNotEmpty,
+        reason: 'il responso non ha nessun paragrafo che si scrive');
+    expect(scritture.any((s) => s.staScrivendo), isTrue,
         reason: 'il responso e\' gia\' intero dopo tre decimi: non si sta '
             'scrivendo affatto');
 
     await tester.tap(testo);
     await tester.pump();
-    expect(scrittura.staScrivendo, isFalse,
+    expect(scritture.every((s) => !s.staScrivendo), isTrue,
         reason: 'il tocco non completa il testo: un\'animazione da cui non si '
-            'puo\' uscire e\' una gabbia');
+            'puo\' uscire e\' una gabbia, e con i paragrafi sarebbe una gabbia '
+            'con tre porte');
   });
 
   testWidgets('con Riduci Movimento il responso compare intero, senza moto',
@@ -172,11 +179,11 @@ void main() {
     final testo = find.descendant(
         of: find.byKey(const Key('oroscopo_testo_generale')),
         matching: find.byType(TestoCheSiScrive));
-    expect(testo, findsOneWidget,
+    expect(testo, findsWidgets,
         reason: 'con Riduci Movimento il responso non compare: chi ha tolto '
             'le animazioni resta senza oroscopo');
-    final scrittura = tester.state<TestoCheSiScriveState>(testo);
-    expect(scrittura.staScrivendo, isFalse,
+    final scritture = tester.stateList<TestoCheSiScriveState>(testo).toList();
+    expect(scritture.every((s) => !s.staScrivendo), isTrue,
         reason: 'con Riduci Movimento il testo si sta ancora scrivendo');
   });
 }

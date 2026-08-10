@@ -67,7 +67,11 @@ class _LifeNumberEmblemState extends State<LifeNumberEmblem>
           child: Center(
             child: Text(
               '${widget.number}',
-              style: TypographyTokens.display(size: widget.size * 0.32)
+              // Come nell'avatar: la misura segue l'emblema ma non scende
+              // sotto il pavimento dell'app.
+              style: TypographyTokens.display(
+                      size: math.max(
+                          widget.size * 0.32, TypographyTokens.pavimento))
                   .copyWith(color: widget.palette.goldSoft),
             ),
           ),

@@ -491,7 +491,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                       child: Text(
                         residuoDeiConfronti,
                         key: const Key('chat_residuo_confronti'),
-                        style: TypographyTokens.label(size: 11).copyWith(
+                        style: TypographyTokens.etichetta().copyWith(
                           color: ColorTokens.textSecondary,
                           letterSpacing: 0.3,
                         ),

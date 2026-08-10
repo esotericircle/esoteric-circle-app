@@ -120,7 +120,7 @@ class AnswerDepthSelector extends StatelessWidget {
                 const SizedBox(width: SpacingTokens.xs),
                 Expanded(
                   child: Text(depth.label,
-                      style: TypographyTokens.body(size: 14).copyWith(
+                      style: TypographyTokens.didascalia().copyWith(
                         color: _locked(depth)
                             ? ColorTokens.textSecondary
                             : ColorTokens.textPrimary,
@@ -148,7 +148,7 @@ class AnswerDepthSelector extends StatelessWidget {
           children: [
             if (!compact) ...[
               Text('PROFONDITÀ',
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                       color: ColorTokens.textSecondary, letterSpacing: 0.8)),
               const SizedBox(height: 2),
             ],
@@ -156,7 +156,7 @@ class AnswerDepthSelector extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(current.label,
-                    style: TypographyTokens.body(size: 14)
+                    style: TypographyTokens.didascalia()
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(width: 4),
                 // Il lucchetto sul chip solo se la voce MOSTRATA e' bloccata.

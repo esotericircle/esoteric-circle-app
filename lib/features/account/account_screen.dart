@@ -245,7 +245,7 @@ class _AccountTile extends StatelessWidget {
                         Border.all(color: ColorTokens.gold.withValues(alpha: 0.5)),
                   ),
                   child: Text('In arrivo',
-                      style: TypographyTokens.label(size: 11)
+                      style: TypographyTokens.etichetta()
                           .copyWith(color: ColorTokens.goldLight)),
                 ),
               const SizedBox(width: SpacingTokens.xs),

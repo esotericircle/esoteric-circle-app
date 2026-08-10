@@ -288,7 +288,7 @@ class _CartaAngelo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(ruolo.toUpperCase(),
-                          style: TypographyTokens.label(size: 11).copyWith(
+                          style: TypographyTokens.etichetta().copyWith(
                               color: palette.goldSoft, letterSpacing: 2)),
                       Text(sottotitolo,
                           style: TypographyTokens.body(size: 13)
@@ -344,7 +344,7 @@ class _CartaAngelo extends StatelessWidget {
                 // tradizione documentata: si mostra come voce del Maestro,
                 // staccata da cio' che viene dalle fonti.
                 Text('MEDORA LA LEGGE COSÌ',
-                    style: TypographyTokens.label(size: 11).copyWith(
+                    style: TypographyTokens.etichetta().copyWith(
                         color: palette.goldSoft, letterSpacing: 2)),
                 const SizedBox(height: 2),
                 Text(lore.reading,
@@ -435,7 +435,7 @@ class _IntellettoMancante extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('ANGELO DELL\'INTELLETTO',
-              style: TypographyTokens.label(size: 11)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 2)),
           const SizedBox(height: SpacingTokens.xs),
           Text(

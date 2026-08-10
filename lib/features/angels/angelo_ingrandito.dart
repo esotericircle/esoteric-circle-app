@@ -146,7 +146,7 @@ class AngeloIngrandito extends StatelessWidget {
                 maxLines: 1,
                 softWrap: false,
                 overflow: TextOverflow.visible,
-                style: TypographyTokens.label(size: 11).copyWith(
+                style: TypographyTokens.etichetta().copyWith(
                     color: palette.goldSoft, letterSpacing: 2)),
             const SizedBox(height: SpacingTokens.xxs),
             Text('${angelo.number}. ${angelo.name}',
@@ -217,7 +217,7 @@ class _Riga extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(titolo.toUpperCase(),
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: palette.goldSoft, letterSpacing: 1.6)),
           const SizedBox(height: SpacingTokens.xxs),
           Text(testo,

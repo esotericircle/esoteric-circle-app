@@ -806,7 +806,7 @@ class _TestaDellaCarta extends StatelessWidget {
               Text(maestro.domainArtsPhrase,
                   key: Key('ask_dominio_${maestro.id}'),
                   softWrap: true,
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.8),
                     letterSpacing: 0.8,
                   )),

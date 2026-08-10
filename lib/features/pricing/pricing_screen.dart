@@ -105,7 +105,7 @@ class PricingScreen extends StatelessWidget {
                 child: Text(
                   'Nella demo i piani sono visibili ma il pagamento non è integrato.',
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.8),
                     letterSpacing: 0.3,
                   ),
@@ -227,7 +227,7 @@ class _PlanCardState extends State<_PlanCard> {
             Padding(
               padding: const EdgeInsets.only(top: SpacingTokens.xs),
               child: Text('Accesso base, con un piccolo banner in basso.',
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                     color: ColorTokens.textSecondary,
                     letterSpacing: 0.2,
                   )),
@@ -350,7 +350,7 @@ class _CycleBox extends StatelessWidget {
                     child: Text(cycle.label,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TypographyTokens.label(size: 11).copyWith(
+                        style: TypographyTokens.etichetta().copyWith(
                           color: palette.goldSoft,
                           letterSpacing: 0.6,
                         )),
@@ -368,13 +368,13 @@ class _CycleBox extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(price.yearlyPerMonth,
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 11).copyWith(
+                    style: TypographyTokens.etichetta().copyWith(
                       color: ColorTokens.textSecondary,
                       letterSpacing: 0.2,
                     )),
                 Text('sconto ${price.yearlyDiscountPercent}%',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 11).copyWith(
+                    style: TypographyTokens.etichetta().copyWith(
                       color: palette.goldSoft,
                       letterSpacing: 0.2,
                     )),
@@ -405,7 +405,7 @@ class _Badge extends StatelessWidget {
       ),
       child: Text(text,
           style:
-              TypographyTokens.label(size: 11).copyWith(color: palette.goldSoft)),
+              TypographyTokens.etichetta().copyWith(color: palette.goldSoft)),
     );
   }
 }
@@ -511,7 +511,7 @@ class _ComparativeTable extends StatelessWidget {
     bool shaded = false,
   }) {
     final labelStyle = header
-        ? TypographyTokens.label(size: 11)
+        ? TypographyTokens.etichetta()
             .copyWith(color: palette.goldSoft, letterSpacing: 0.4)
         : TypographyTokens.body(size: 13)
             .copyWith(color: ColorTokens.textPrimary, height: 1.25);

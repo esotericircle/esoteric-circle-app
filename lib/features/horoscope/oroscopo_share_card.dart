@@ -70,7 +70,7 @@ class OroscopoShareCard extends StatelessWidget {
         children: [
           Text('OROSCOPO',
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 4.0)),
           const SizedBox(height: SpacingTokens.sm),
           Center(
@@ -107,7 +107,7 @@ class OroscopoShareCard extends StatelessWidget {
             ),
             child: Text(synthesis,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 14)
+                style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
           ),
           const SizedBox(height: SpacingTokens.md),
@@ -147,7 +147,7 @@ class OroscopoShareCard extends StatelessWidget {
                     palette: palette,
                     child: Text('${fortuna.luckyNumber}',
                         textAlign: TextAlign.center,
-                        style: TypographyTokens.display(size: 22)
+                        style: TypographyTokens.titoloSezione()
                             .copyWith(color: palette.goldSoft)),
                   ),
                 ),
@@ -174,7 +174,7 @@ class OroscopoShareCard extends StatelessWidget {
                         Flexible(
                           child: Text(fortuna.dayColor ?? '',
                               maxLines: 1,
-                              style: TypographyTokens.body(size: 13)
+                              style: TypographyTokens.didascalia()
                                   .copyWith(color: ColorTokens.textPrimary)),
                         ),
                       ],
@@ -190,11 +190,11 @@ class OroscopoShareCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(BrandMark.wordmark,
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 11)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
           Text('esotericircle.com/oroscopo',
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.6)),
         ],
       ),
@@ -235,12 +235,11 @@ class _LevelTile extends StatelessWidget {
             iconSize: 13,
             gap: 2,
             animateFill: false,
-            numberSize: 9,
           ),
           const SizedBox(height: 4),
           Text(card.domain.label.toUpperCase(),
               maxLines: 1,
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.8)),
           // Titolo intero: va a capo e si rimpicciolisce, nessuna ellissi.
           Text(card.title,
@@ -282,7 +281,7 @@ class _InfoBubble extends StatelessWidget {
         children: [
           Text(label.toUpperCase(),
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.8)),
           const SizedBox(height: 4),
           Center(child: child),

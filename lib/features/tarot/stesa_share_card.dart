@@ -62,7 +62,7 @@ class StesaShareCard extends StatelessWidget {
         children: [
           Text('STESA A TRE CARTE',
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 11)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 3.0)),
           const SizedBox(height: 2),
           // L'argomento su cui la lettura e' stata direzionata.
@@ -96,7 +96,7 @@ class StesaShareCard extends StatelessWidget {
                   SizedBox(
                     width: 74,
                     child: Text(drawn.position.label.toUpperCase(),
-                        style: TypographyTokens.label(size: 11).copyWith(
+                        style: TypographyTokens.etichetta().copyWith(
                             color: palette.goldSoft, letterSpacing: 0.8)),
                   ),
                   Expanded(
@@ -135,7 +135,7 @@ class StesaShareCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('LA CARTA CHIAVE  ',
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                       color: ColorTokens.textSecondary, letterSpacing: 1.4)),
               Flexible(
                 child: Text(reading.chiave.drawn.displayName,
@@ -172,11 +172,11 @@ class StesaShareCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(BrandMark.wordmark,
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 11)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
           Text('esotericircle.com/tarocchi',
               textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.6)),
         ],
       ),

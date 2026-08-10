@@ -26,7 +26,6 @@ class DomainLevel extends StatelessWidget {
     this.gap = 4,
     this.animateFill = true,
     this.showNumber = true,
-    this.numberSize = 11,
   });
 
   final HoroscopeDomain domain;
@@ -44,7 +43,6 @@ class DomainLevel extends StatelessWidget {
   /// Se falso le icone partono gia' piene (per la card statica).
   final bool animateFill;
   final bool showNumber;
-  final double numberSize;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +81,7 @@ class DomainLevel extends StatelessWidget {
               if (showNumber) ...[
                 SizedBox(width: gap + 3),
                 Text('$value su ${Horoscope.indicatorMax}',
-                    style: TypographyTokens.label(size: numberSize).copyWith(
+                    style: TypographyTokens.etichetta().copyWith(
                         color: ColorTokens.textSecondary, letterSpacing: 0.4)),
               ],
             ],

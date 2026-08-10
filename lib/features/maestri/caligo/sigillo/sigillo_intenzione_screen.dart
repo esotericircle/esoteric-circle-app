@@ -216,7 +216,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
         ),
         const SizedBox(height: SpacingTokens.md),
         Text('Oppure parti da qui',
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
                 color: palette.goldSoft, letterSpacing: 2)),
         const SizedBox(height: SpacingTokens.sm),
         Wrap(
@@ -328,7 +328,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('LA TUA INTENZIONE',
-                    style: TypographyTokens.label(size: 11).copyWith(
+                    style: TypographyTokens.etichetta().copyWith(
                         color: palette.goldSoft, letterSpacing: 2)),
                 const SizedBox(height: SpacingTokens.xxs),
                 Text('"${lettura.riformulata}"',
@@ -424,7 +424,7 @@ class _FontiEMetodo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('FONTI E METODO',
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: palette.goldSoft, letterSpacing: 2)),
           const SizedBox(height: SpacingTokens.xs),
           Text(

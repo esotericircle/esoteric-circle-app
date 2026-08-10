@@ -243,7 +243,7 @@ class _TokenLineState extends State<_TokenLine> {
       _copiato ? 'Token copiato' : token,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      style: TypographyTokens.label(size: 11).copyWith(
+      style: TypographyTokens.etichetta().copyWith(
         color: _copiato ? ColorTokens.gold : ColorTokens.textPrimary,
         letterSpacing: 0.2,
       ),

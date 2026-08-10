@@ -2162,6 +2162,88 @@ void main() {
 
     await scattaApp(tester, radice, 'planisfero_luogo');
   });
+
+  // ORDINE A: LA TIPOGRAFIA DELL'OROSCOPO.
+  //
+  // **Perche' sta qui e non nel corredo.** Il corredo rigenera tutto a ogni
+  // giro, quindi la "prima" verrebbe riscritta col codice di oggi e sparirebbe
+  // al primo aggiornamento: e' la stessa ragione per cui questo file esiste. Le
+  // due fasi si producono con lo STESSO blocco, la stessa misura e gli stessi
+  // tempi, cambiando solo l'albero sotto, cioe' lanciandolo una volta su un
+  // albero di lavoro fermo al commit precedente.
+  //
+  // I FONT SI CARICANO A MANO, e non e' un dettaglio: senza, il testo esce col
+  // ripiego, cioe' blocchi neri in cattura, e un'anteprima della TIPOGRAFIA
+  // scritta col carattere sbagliato non prova assolutamente niente.
+  testWidgets('A, la tipografia dell\'Oroscopo', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    for (final (famiglia, percorso) in const [
+      ('Cinzel', 'assets/fonts/Cinzel-variable.ttf'),
+      ('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf'),
+    ]) {
+      final loader = FontLoader(famiglia);
+      final bytes = File(percorso).readAsBytesSync();
+      loader.addFont(Future.value(ByteData.view(bytes.buffer)));
+      await loader.load();
+    }
+    SharedPreferences.setMockInitialValues(
+        const {'onboarding.done': true, 'santuario.greeted': true});
+    // La misura del telefono di Mauro: 360 per 797 punti logici, che a rapporto
+    // tre fanno i 1080 per 2391 pixel del corredo.
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(OroscopoScreen.route(
+        userSign: Zodiac.aries, now: DateTime(2026, 7, 10))));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(OroscopoScreen));
+      await precacheImage(
+          AssetImage(ZodiacArt.emblemPath(Zodiac.aries)), element);
+    });
+    // LA CASCATA D'INGRESSO DEVE AVER FINITO. Con due soli quarti di secondo le
+    // voci sotto i periodi erano ancora trasparenti: meta' immagine vuota, e il
+    // confronto avrebbe attribuito alla tipografia un vuoto che era soltanto
+    // un'animazione colta a meta'.
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pump(const Duration(seconds: 2));
+    await scattaApp(tester, radice, 'oroscopo_tipografia');
+
+    // E la stessa scena a consulto aperto, dove vive il responso: e' li' che si
+    // vede se il testo e' un muro oppure respira.
+    await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(seconds: 2));
+    // Si scorre fino al responso: senza, l'immagine si ferma sull'emblema e
+    // mostra due righe di testo su millecinquecento pixel di ariete. La quota
+    // e' dichiarata invece che cercata, cosi' le due fasi guardano lo stesso
+    // punto della pagina anche se il testo sotto e' composto in modo diverso.
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -1500));
+    await tester.pump();
+    // Le schede sotto la piega nascono quando ci si arriva, quindi il loro
+    // responso comincia a comporsi adesso: senza questa attesa il primo scatto
+    // le coglieva a meta' frase.
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(seconds: 2));
+    await scattaApp(tester, radice, 'oroscopo_tipografia_consulto');
+  });
 }
 
 /// Una carta natale piena, per le anteprime del consulto.

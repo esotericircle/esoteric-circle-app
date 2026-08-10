@@ -1402,7 +1402,7 @@ class _BodyView extends StatelessWidget {
           Text(
             body.label,
             maxLines: 1,
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
               color: selected ? palette.goldSoft : ColorTokens.textSecondary,
               letterSpacing: 1.2,
             ),

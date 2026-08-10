@@ -69,7 +69,7 @@ class BirthCompanions extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Animale guida',
-                        style: TypographyTokens.label(size: 11).copyWith(
+                        style: TypographyTokens.etichetta().copyWith(
                             color: palette.goldSoft, letterSpacing: 2)),
                     Text(animale.name,
                         style: TypographyTokens.display(size: 18)),
@@ -94,7 +94,7 @@ class BirthCompanions extends StatelessWidget {
               Row(
                 children: [
                   Text('I tuoi Angeli',
-                      style: TypographyTokens.label(size: 11).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                           color: palette.goldSoft, letterSpacing: 2)),
                   const Spacer(),
                   if (identity != null)

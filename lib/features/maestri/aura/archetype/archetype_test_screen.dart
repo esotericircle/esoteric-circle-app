@@ -1150,7 +1150,7 @@ class _Confronto extends StatelessWidget {
                     _Statua(archetipo: e.dominante, lato: 44, palette: palette),
                     const SizedBox(height: 2),
                     Text('${e.quando.day}/${e.quando.month}',
-                        style: TypographyTokens.label(size: 11)
+                        style: TypographyTokens.etichetta()
                             .copyWith(color: ColorTokens.textSecondary)),
                   ],
                 );

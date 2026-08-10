@@ -272,7 +272,7 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
                                 .copyWith(color: palette.goldSoft)),
                         Text(report.band,
                             textAlign: TextAlign.center,
-                            style: TypographyTokens.label(size: 11).copyWith(
+                            style: TypographyTokens.etichetta().copyWith(
                                 color: ColorTokens.textSecondary,
                                 letterSpacing: 0.6)),
                       ],
@@ -509,13 +509,13 @@ class _Pole extends StatelessWidget {
           portrait,
           const SizedBox(height: SpacingTokens.sm),
           Text(sign.italianName,
-              style: TypographyTokens.label(size: 11)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
           if (hint != null) ...[
             const SizedBox(height: 2),
             Text(hint!,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 11).copyWith(
+                style: TypographyTokens.etichetta().copyWith(
                     color: ColorTokens.textSecondary, letterSpacing: 0.3)),
           ],
         ],

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -244,7 +246,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                     // cosa che la persona cerca, e stava sotto la figura.
                     Text(widget.userSign.italianName,
                         key: const Key('oroscopo_sign_name'),
-                        style: TypographyTokens.display(size: 34)
+                        style: TypographyTokens.cerimonialeGrande()
                             .copyWith(color: palette.goldSoft)),
                     const SizedBox(height: SpacingTokens.xs),
                     _Hero(
@@ -431,6 +433,79 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   }
 }
 
+/// Quanti caratteri stanno su una riga del responso.
+///
+/// Non e' una stima a occhio: la scheda dell'oroscopo su un telefono da 360
+/// punti logici lascia al testo circa 264 punti (due volte il margine della
+/// lista piu' due volte il riempimento della scheda), e a diciotto punti la
+/// serif del corpo occupa in media poco piu' di sette punti per carattere. Il
+/// numero e' verificato da `test/oroscopo_tipografia_test.dart`, che misura le
+/// righe vere con un TextPainter alla larghezza vera invece di fidarsi di
+/// questa riga.
+const int caratteriPerRigaDelResponso = 36;
+
+/// Il responso si spezza in paragrafi da tre o quattro righe.
+///
+/// Un responso arriva come un blocco unico di sei o sette righe, ed e' un muro:
+/// l'occhio non trova dove riposare e la lettura si interrompe alla terza riga.
+/// Si taglia sulle FRASI e mai a meta' di una, perche' un paragrafo che comincia
+/// con un pezzo di frase e' peggio del muro. Quando una frase da sola supera il
+/// tetto resta un paragrafo suo: spezzarla vorrebbe dire rompere il senso per
+/// rispettare un conteggio.
+List<String> spezzaInParagrafi(
+  String testo, {
+  int righeMinime = 3,
+  int righeMassime = 4,
+  int caratteriPerRiga = caratteriPerRigaDelResponso,
+}) {
+  final pulito = testo.trim();
+  if (pulito.isEmpty) return const [];
+
+  // Le frasi, con la loro punteggiatura attaccata: si taglia DOPO il punto.
+  final frasi = <String>[];
+  final corrente = StringBuffer();
+  for (var i = 0; i < pulito.length; i++) {
+    corrente.write(pulito[i]);
+    final fine = pulito[i] == '.' || pulito[i] == '!' || pulito[i] == '?';
+    final seguito = i + 1 < pulito.length ? pulito[i + 1] : ' ';
+    if (fine && (seguito == ' ' || seguito == '\n')) {
+      frasi.add(corrente.toString().trim());
+      corrente.clear();
+    }
+  }
+  if (corrente.toString().trim().isNotEmpty) {
+    frasi.add(corrente.toString().trim());
+  }
+
+  int righeDi(String s) => (s.length / caratteriPerRiga).ceil();
+
+  final paragrafi = <String>[];
+  var accumulato = '';
+  for (final frase in frasi) {
+    final unito = accumulato.isEmpty ? frase : '$accumulato $frase';
+    if (accumulato.isNotEmpty && righeDi(unito) > righeMassime) {
+      paragrafi.add(accumulato);
+      accumulato = frase;
+      continue;
+    }
+    accumulato = unito;
+    if (righeDi(accumulato) >= righeMinime) {
+      paragrafi.add(accumulato);
+      accumulato = '';
+    }
+  }
+  if (accumulato.isNotEmpty) {
+    // Una coda di una riga sola non fa un paragrafo: torna a chi la precede, a
+    // meno che non sia l'unica cosa che c'e'.
+    if (paragrafi.isNotEmpty && righeDi(accumulato) < 2) {
+      paragrafi[paragrafi.length - 1] = '${paragrafi.last} $accumulato';
+    } else {
+      paragrafi.add(accumulato);
+    }
+  }
+  return paragrafi;
+}
+
 /// L'eroe: l'emblema 3D del segno della persona, grande, dentro un alone che
 /// respira. Nessun altro segno, l'oroscopo e' personalizzato.
 /// IL RESPONSO CHE SI SCRIVE, e che un tocco completa.
@@ -438,6 +513,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
 /// Ordine 2171, voce 5. Il testo si compone a macchina da scrivere, con la
 /// velocita' dichiarata dalla schermata. Con Riduci Movimento compare intero:
 /// l'informazione non dipende dal moto.
+///
+/// Ordine A. Il responso non e' piu' un muro: si legge nel ruolo [lettura],
+/// diciotto punti con interlinea larga, spezzato in paragrafi da tre o quattro
+/// righe, distanti fra loro il DOPPIO della misura del testo. I paragrafi si
+/// scrivono in fila, uno dopo l'altro, non tutti insieme: la macchina da
+/// scrivere sarebbe diventata quattro macchine che battono in coro.
 class _ResponsoCheSiScrive extends StatefulWidget {
   const _ResponsoCheSiScrive({
     super.key,
@@ -455,23 +536,109 @@ class _ResponsoCheSiScrive extends StatefulWidget {
 }
 
 class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
-  final GlobalKey<TestoCheSiScriveState> _scrittura =
-      GlobalKey<TestoCheSiScriveState>();
+  late List<String> _paragrafi = spezzaInParagrafi(widget.testo);
+  late List<GlobalKey<TestoCheSiScriveState>> _chiavi = _nuoveChiavi();
+  int _inScrittura = 0;
+  Timer? _passaggio;
+
+  List<GlobalKey<TestoCheSiScriveState>> _nuoveChiavi() => List.generate(
+      _paragrafi.length, (_) => GlobalKey<TestoCheSiScriveState>());
+
+  @override
+  void didUpdateWidget(_ResponsoCheSiScrive vecchio) {
+    super.didUpdateWidget(vecchio);
+    if (vecchio.testo != widget.testo) {
+      _passaggio?.cancel();
+      _paragrafi = spezzaInParagrafi(widget.testo);
+      _chiavi = _nuoveChiavi();
+      _inScrittura = 0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _passaggio?.cancel();
+    super.dispose();
+  }
+
+  /// La fetta di tempo del paragrafo che sta scrivendo, in proporzione alla sua
+  /// lunghezza: cosi' il responso intero resta dentro il budget dichiarato dalla
+  /// schermata, comunque lo si spezzi.
+  Duration _durataDi(int indice) {
+    final totale = _paragrafi.fold<int>(0, (s, p) => s + p.length);
+    if (totale == 0) return Duration.zero;
+    return widget.durataScrittura * (_paragrafi[indice].length / totale);
+  }
+
+  void _programmaIlPassaggio() {
+    if (_inScrittura >= _paragrafi.length - 1) return;
+    _passaggio?.cancel();
+    _passaggio = Timer(_durataDi(_inScrittura), () {
+      if (!mounted) return;
+      setState(() => _inScrittura++);
+      _programmaIlPassaggio();
+    });
+  }
+
+  /// Il tocco completa TUTTO il responso, non il solo paragrafo in corso: chi
+  /// tocca vuole leggere adesso, e lasciargli tre paragrafi ancora da aspettare
+  /// sarebbe la stessa gabbia con tre porte.
+  void _completaTutto() {
+    _passaggio?.cancel();
+    // PRIMA si spegne la scrittura, POI si completa. Al contrario non
+    // funzionava, ed e' un difetto che la prova ha preso: portando il turno
+    // all'ultimo paragrafo, quello passava da fermo a attivo e RIPARTIVA da
+    // zero, quindi il tocco che doveva chiudere il responso ne riapriva un
+    // pezzo.
+    if (!_completato) setState(() => _completato = true);
+    for (final chiave in _chiavi) {
+      chiave.currentState?.completa();
+    }
+  }
+
+  /// Vero dal tocco in poi: nessun paragrafo batte piu' e tutti si vedono.
+  bool _completato = false;
 
   @override
   Widget build(BuildContext context) {
-    final attiva =
-        widget.scrivendo && !MediaQuery.of(context).disableAnimations;
+    final attiva = widget.scrivendo &&
+        !_completato &&
+        !MediaQuery.of(context).disableAnimations;
+    final stile = TypographyTokens.lettura()
+        .copyWith(color: ColorTokens.textPrimary);
+    // Il doppio della misura del testo, presa dallo stile e non riscritta a
+    // mano: se domani il ruolo cambia misura, la distanza lo segue.
+    final distanza = (stile.fontSize ?? TypographyTokens.pavimento) * 2;
+
+    if (attiva && _passaggio == null && _paragrafi.length > 1) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && _passaggio == null) _programmaIlPassaggio();
+      });
+    }
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => _scrittura.currentState?.completa(),
-      child: TestoCheSiScrive(
-        key: _scrittura,
-        testo: widget.testo,
-        stile: TypographyTokens.body(size: 17)
-            .copyWith(color: ColorTokens.textPrimary, height: 1.5),
-        durataMassima: widget.durataScrittura,
-        attiva: attiva,
+      onTap: _completaTutto,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (var i = 0; i < _paragrafi.length; i++) ...[
+            if (i > 0) SizedBox(height: distanza),
+            // Solo il paragrafo di turno batte. Quelli prima sono gia' scritti;
+            // quelli dopo stanno in albero trasparenti, quindi tengono il posto
+            // che occuperanno e nulla salta sotto quando arriva il loro turno.
+            Opacity(
+              opacity: attiva && i > _inScrittura ? 0 : 1,
+              child: TestoCheSiScrive(
+                key: _chiavi[i],
+                testo: _paragrafi[i],
+                stile: stile,
+                durataMassima: _durataDi(i),
+                attiva: attiva && i == _inScrittura,
+              ),
+            ),
+          ],
+        ],
       ),
     );
   }
@@ -514,7 +681,7 @@ class _InterrogaIlCielo extends StatelessWidget {
                 Icon(Icons.auto_awesome, size: 18, color: palette.goldSoft),
                 const SizedBox(width: SpacingTokens.sm),
                 Text('Interroga il cielo',
-                    style: TypographyTokens.display(size: 17)
+                    style: TypographyTokens.titoloScheda()
                         .copyWith(color: palette.goldSoft)),
               ],
             ),
@@ -610,12 +777,12 @@ class _Heading extends StatelessWidget {
         Text(periodo.sottotitolo,
             key: const Key('oroscopo_heading'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
                 color: ColorTokens.textSecondary, letterSpacing: 1.2)),
         Text(italianLongDate(date),
             key: const Key('oroscopo_date'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary)),
       ],
     );
@@ -755,7 +922,7 @@ class _TraditionChip extends StatelessWidget {
               children: [
                 Text(
                   tradition.label,
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                     color: selected
                         ? palette.goldSoft
                         : ColorTokens.textSecondary
@@ -776,7 +943,7 @@ class _TraditionChip extends StatelessWidget {
               Text(
                 'In arrivo$fase',
                 key: Key('oroscopo_tradition_soon_${tradition.name}'),
-                style: TypographyTokens.label(size: 11).copyWith(
+                style: TypographyTokens.etichetta().copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.6),
                   letterSpacing: 0.3,
                 ),
@@ -827,7 +994,7 @@ class _TraditionInvite extends StatelessWidget {
           Expanded(
             child: Text(
               t.invito,
-              style: TypographyTokens.body(size: 13).copyWith(
+              style: TypographyTokens.didascalia().copyWith(
                 color: ColorTokens.textPrimary,
                 height: 1.35,
                 fontStyle: FontStyle.italic,
@@ -890,7 +1057,7 @@ class _PeriodTab extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(period.label,
-                style: TypographyTokens.label(size: 12).copyWith(
+                style: TypographyTokens.etichetta().copyWith(
                   color: selected
                       ? palette.goldSoft
                       : ColorTokens.textSecondary
@@ -993,10 +1160,10 @@ class _HoroscopeCardView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(card.title,
-                        style: TypographyTokens.display(size: 18)
+                        style: TypographyTokens.titoloScheda()
                             .copyWith(color: palette.goldSoft, height: 1.1)),
                     Text(card.domain.label.toUpperCase(),
-                        style: TypographyTokens.label(size: 11).copyWith(
+                        style: TypographyTokens.etichetta().copyWith(
                             color: ColorTokens.textSecondary,
                             letterSpacing: 1.4)),
                   ],
@@ -1032,7 +1199,7 @@ class _HoroscopeCardView extends StatelessWidget {
           if (card.opening != null) ...[
             Text(card.opening!,
                 key: const Key('oroscopo_opening'),
-                style: TypographyTokens.body(size: 17).copyWith(
+                style: TypographyTokens.lettura().copyWith(
                     color: palette.goldSoft,
                     height: 1.5,
                     fontStyle: FontStyle.italic)),
@@ -1087,7 +1254,7 @@ class _NotaDelCielo extends StatelessWidget {
           const SizedBox(width: SpacingTokens.sm),
           Expanded(
             child: Text(testo,
-                style: TypographyTokens.body(size: 13).copyWith(
+                style: TypographyTokens.didascalia().copyWith(
                     color: ColorTokens.textSecondary, height: 1.45)),
           ),
         ],
@@ -1110,7 +1277,7 @@ class _ShareBlock extends StatelessWidget {
       children: [
         Text('Porta il tuo cielo di oggi con te',
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 14)
+            style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary)),
         const SizedBox(height: SpacingTokens.sm),
         FilledButton.icon(
@@ -1130,7 +1297,7 @@ class _ShareBlock extends StatelessWidget {
               : const Icon(Icons.ios_share_rounded, size: 18),
           label: Text(sharing ? 'Preparo la card' : 'Condividi',
               style:
-                  TypographyTokens.label(size: 13).copyWith(letterSpacing: 0.6)),
+                  TypographyTokens.etichetta().copyWith(letterSpacing: 0.6)),
         ),
       ],
     );
@@ -1152,7 +1319,7 @@ class _FortunaFooter extends StatelessWidget {
           label: 'Numero',
           palette: palette,
           child: Text('${card.luckyNumber}',
-              style: TypographyTokens.display(size: 20)
+              style: TypographyTokens.titoloScheda()
                   .copyWith(color: palette.goldSoft)),
         ),
         const SizedBox(width: SpacingTokens.sm),
@@ -1178,7 +1345,7 @@ class _FortunaFooter extends StatelessWidget {
                   child: Text(card.dayColor ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TypographyTokens.body(size: 13)
+                      style: TypographyTokens.didascalia()
                           .copyWith(color: ColorTokens.textPrimary)),
                 ),
               ],
@@ -1213,7 +1380,7 @@ class _Pill extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(label.toUpperCase(),
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.8)),
           const SizedBox(height: 2),
           child,

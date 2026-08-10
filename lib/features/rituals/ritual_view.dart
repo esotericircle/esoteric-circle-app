@@ -259,7 +259,7 @@ class _HintRow extends StatelessWidget {
         const SizedBox(width: 6),
         Expanded(
           child: Text(text,
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                 color: palette.goldSoft.withValues(alpha: 0.7),
                 letterSpacing: 0.3,
                 height: 1.4,

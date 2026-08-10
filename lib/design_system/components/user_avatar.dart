@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -140,7 +142,13 @@ class UserAvatar extends StatelessWidget {
       return Text(
         initials,
         key: const Key('user_avatar_initials'),
-        style: TypographyTokens.display(size: size * 0.42)
+        // La misura segue il cerchio, ma non scende sotto il pavimento
+        // dell'app: su un avatar da ventotto punti la proporzione darebbe
+        // 11,76, cioe' una lettera sotto la soglia di leggibilita'. Se
+        // l'iniziale non ci sta, il cerchio e' troppo piccolo: il problema e'
+        // il layout, non il carattere.
+        style: TypographyTokens.display(
+                size: math.max(size * 0.42, TypographyTokens.pavimento))
             .copyWith(color: ColorTokens.goldLight),
       );
     }

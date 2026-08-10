@@ -528,7 +528,7 @@ class CircleArtTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(maestro.displayName,
-                      style: TypographyTokens.label(size: 11).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                         color: propria.goldSoft.withValues(alpha: 0.95),
                         letterSpacing: 0.6,
                       )),

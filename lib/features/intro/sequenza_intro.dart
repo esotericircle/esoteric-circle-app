@@ -295,7 +295,7 @@ class _InvitoASaltare extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 44),
         child: Text(
           'Tocca per entrare',
-          style: TypographyTokens.label(size: 11).copyWith(
+          style: TypographyTokens.etichetta().copyWith(
             color: ColorTokens.textSecondary.withValues(alpha: 0.6),
             letterSpacing: 2,
             decoration: TextDecoration.none,

@@ -248,7 +248,7 @@ void _showElementInfo(
                 const SizedBox(width: 6),
                 Text(
                   'Alle ${element.clockLabel}',
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                     color: ColorTokens.textSecondary,
                   ),
                 ),
@@ -360,8 +360,19 @@ class _DailyStripState extends State<DailyStrip>
   /// mangiare spazio all'eroe. L'ho cambiata: dodici punti su
   /// settecentonovantasette sono un prezzo piccolo, e le alternative
   /// toccavano l'allineamento delle caselle, che e' piu' fragile.
-  static const double _heightLarga = 144;
-  static const double _heightStretta = 144;
+  /// **CENTOQUARANTOTTO DALL'ORDINE A**, e il commento qui sotto lo aveva
+  /// previsto: "se domani l'etichetta cresce, la soglia e' gia' il posto dove
+  /// dirlo". L'etichetta e' cresciuta, da undici punti al pavimento di dodici,
+  /// e la casella ha cominciato a sbordare di 2,0 pixel in basso, misurati su
+  /// tre rapporti di schermo diversi. Quattro punti invece di due perche' il
+  /// margine di prima era esattamente zero, ed e' il motivo per cui e' bastato
+  /// un punto di carattere per romperlo. Due punti vengono da qui e due dallo
+  /// stacco fra icona ed etichetta, perche' prenderli tutti e quattro da qui
+  /// avrebbe fatto scendere la carta del Maestro centrale sotto il quaranta per
+  /// cento dello schermo che `SantuarioScreen.quotaMinimaCarta` le garantisce:
+  /// misurato, 39,9 contro 40,0.
+  static const double _heightLarga = 146;
+  static const double _heightStretta = 146;
 
   /// L'altezza della fascia, che SI ADATTA alla larghezza.
   ///
@@ -541,7 +552,7 @@ class _DailyStripState extends State<DailyStrip>
             maxLines: 1,
             softWrap: false,
             overflow: TextOverflow.visible,
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
               color: ColorTokens.textSecondary,
               letterSpacing: 1.2,
             ),
@@ -729,7 +740,7 @@ class _StripItem extends StatelessWidget {
     final tp = TextPainter(
       text: TextSpan(
         text: element.shortLabel,
-        style: TypographyTokens.label(size: 11).copyWith(letterSpacing: 0.4),
+        style: TypographyTokens.etichetta().copyWith(letterSpacing: 0.4),
       ),
       maxLines: 1,
       textDirection: TextDirection.ltr,
@@ -783,7 +794,12 @@ class _StripItem extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 6),
+            // Quattro e non sei: i due punti recuperati qui sono meta' di
+            // quelli che l'etichetta piu' grande ha chiesto, e vengono da uno
+            // stacco che non li usava. L'altra meta' viene dall'altezza della
+            // fascia. Prenderli tutti dalla fascia avrebbe tolto alla carta del
+            // Maestro centrale lo spazio che una prova le garantisce.
+            const SizedBox(height: 4),
             // Etichetta e, a fianco, il cerchio "?" che apre la spiegazione.
             //
             // Dentro un FittedBox: la riga e' etichetta piu' cinque piu'
@@ -803,7 +819,7 @@ class _StripItem extends StatelessWidget {
                   element.shortLabel,
                   maxLines: 1,
                   softWrap: false,
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                     color: active ? _gold : ColorTokens.textSecondary,
                     letterSpacing: 0.4,
                   ),
@@ -825,7 +841,7 @@ class _StripItem extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     '?',
-                    style: TypographyTokens.label(size: 11).copyWith(
+                    style: TypographyTokens.etichetta().copyWith(
                       color: accent.withValues(alpha: 0.95),
                       letterSpacing: 0,
                     ),
@@ -844,7 +860,7 @@ class _StripItem extends StatelessWidget {
                       key: Key('daily_conto_${element.name}'),
                       maxLines: 1,
                       softWrap: false,
-                      style: TypographyTokens.label(size: 11).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                         color: accent.withValues(alpha: 0.95),
                         letterSpacing: 0.2,
                       ),

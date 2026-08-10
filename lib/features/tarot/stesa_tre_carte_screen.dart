@@ -572,7 +572,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 : 'Tocca Mischia per mescolare il mazzo',
             key: const Key('stesa_suggerimento_gesto'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
                 color: ColorTokens.textSecondary, letterSpacing: 0.8),
           ),
           const SizedBox(height: SpacingTokens.lg),
@@ -594,7 +594,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // rendeva una formula.
           Text('${_reading.posizioni.first.apertura}, carta per carta',
               key: const Key('stesa_lente'),
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.9),
                   letterSpacing: 1.2)),
           const SizedBox(height: SpacingTokens.xs),
@@ -793,7 +793,7 @@ class _Slot extends StatelessWidget {
         const SizedBox(height: SpacingTokens.xs),
         Text(position.label.toUpperCase(),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
                 color: palette.goldSoft, letterSpacing: 1.2)),
         if (drawn != null) ...[
           // Il nome in chiaro, grande e leggibile: nel cartiglio resta piccolo
@@ -813,7 +813,7 @@ class _Slot extends StatelessWidget {
             Text(drawn!.versoLabel,
                 key: Key('stesa_reversed_${position.name}'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 11).copyWith(
+                style: TypographyTokens.etichetta().copyWith(
                     color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: 2),
           // Sotto la carta resta la sintesi breve: il testo ricco ha il suo
@@ -983,7 +983,7 @@ class _Strato extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(titolo.toUpperCase(),
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.85),
                   letterSpacing: 1.4)),
           const SizedBox(height: 6),
@@ -1031,7 +1031,7 @@ class _StratoPosizione extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(letta.drawn.position.label.toUpperCase(),
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.85),
                   letterSpacing: 1.4)),
           const SizedBox(height: 4),

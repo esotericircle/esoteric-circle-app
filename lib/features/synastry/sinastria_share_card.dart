@@ -127,7 +127,7 @@ class SinastriaShareCard extends StatelessWidget {
                             .copyWith(color: palette.goldSoft)),
                     Text(report.band.toUpperCase(),
                         textAlign: TextAlign.center,
-                        style: TypographyTokens.label(size: 11).copyWith(
+                        style: TypographyTokens.etichetta().copyWith(
                             color: ColorTokens.textSecondary,
                             letterSpacing: 0.6)),
                   ],
@@ -151,7 +151,7 @@ class SinastriaShareCard extends StatelessWidget {
                   .copyWith(color: ColorTokens.textPrimary, height: 1.3)),
           const SizedBox(height: 6),
           Text('Esoteric Circle',
-              style: TypographyTokens.label(size: 11)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 1.6)),
         ],
       ),
@@ -177,7 +177,7 @@ class _CardPole extends StatelessWidget {
         portrait,
         const SizedBox(height: 6),
         Text(sign.italianName,
-            style: TypographyTokens.label(size: 11)
+            style: TypographyTokens.etichetta()
                 .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
       ],
     );
@@ -264,11 +264,11 @@ class SynastryBarRow extends StatelessWidget {
           children: [
             Expanded(
               child: Text(bar.label,
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                       color: ColorTokens.textPrimary, letterSpacing: 0.4)),
             ),
             Text(valueText,
-                style: TypographyTokens.label(size: 11)
+                style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft)),
           ],
         ),

@@ -31,10 +31,21 @@ const debitoStorico = <String>{};
 
 void main() {
   test('Nessuna misura tipografica sotto il minimo del suo token', () {
+    // IL MINIMO VERO E' IL PIU' ALTO FRA QUELLO DI FAMIGLIA E IL PAVIMENTO.
+    //
+    // Dall'ordine A il pavimento dell'app vale 12 e nessuna famiglia puo'
+    // scendere sotto. Senza questo massimo le due regole direbbero cose
+    // diverse: `label(size: 11)` sarebbe lecita qui, perche' `minLabel` vale
+    // 11, e in debug farebbe scattare l'assert del pavimento. Una regola che
+    // vale a runtime e non nel sorgente si scopre sempre troppo tardi.
+    double minimoVero(double diFamiglia) =>
+        diFamiglia > TypographyTokens.pavimento
+            ? diFamiglia
+            : TypographyTokens.pavimento;
     final minimi = <String, double>{
-      'label': TypographyTokens.minLabel,
-      'body': TypographyTokens.minBody,
-      'display': TypographyTokens.minDisplay,
+      'label': minimoVero(TypographyTokens.minLabel),
+      'body': minimoVero(TypographyTokens.minBody),
+      'display': minimoVero(TypographyTokens.minDisplay),
     };
     // Cattura TypographyTokens.label(size: 10), anche con altri argomenti dopo.
     final chiamata = RegExp(

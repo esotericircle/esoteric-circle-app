@@ -585,7 +585,7 @@ class _LaRisposta extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('LA RISPOSTA',
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
                 // Il Soffio e' di Aura, quindi il suo titolo e' verde, portato
                 // dove si legge dalla stessa regola della scheda dei Doni.
                 color: AccentoDelMaestro.su(Maestro.aura,
@@ -655,7 +655,7 @@ class _BreathPrompt extends StatelessWidget {
           const SizedBox(height: SpacingTokens.sm),
           Text(
             'Oppure spazza col dito o tieni premuto',
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
               color: palette.goldSoft.withValues(alpha: 0.85),
               letterSpacing: 0.3,
             ),

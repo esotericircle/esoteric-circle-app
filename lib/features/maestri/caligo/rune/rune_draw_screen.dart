@@ -447,7 +447,7 @@ class _Preparazione extends StatelessWidget {
                           : 'Scuoti il telefono, oppure tocca: il ripiego '
                               'vale sempre.',
                       key: const Key('rune_ripiego_riga'),
-                      style: TypographyTokens.label(size: 11).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                           color: palette.goldSoft.withValues(alpha: 0.7),
                           letterSpacing: 0.3)),
                 ),
@@ -614,7 +614,7 @@ class _Responso extends StatelessWidget {
                   const SizedBox(height: SpacingTokens.sm),
                   Text(kRuneBindruneNota,
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.label(size: 11).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                           color: ColorTokens.textSecondary, height: 1.4)),
                 ],
               ),
@@ -699,7 +699,7 @@ class _LetturaRuna extends StatelessWidget {
                               .copyWith(color: palette.goldSoft)),
                       Text(
                           '${runa.posizione.titolo} · ${runa.posizione.glossa}',
-                          style: TypographyTokens.label(size: 11).copyWith(
+                          style: TypographyTokens.etichetta().copyWith(
                               color: palette.goldSoft.withValues(alpha: 0.8),
                               letterSpacing: 0.4)),
                       const SizedBox(height: 2),
@@ -715,7 +715,7 @@ class _LetturaRuna extends StatelessWidget {
                                   : (runa.inOmbra
                                       ? 'in merkstave'
                                       : 'diritta')),
-                          style: TypographyTokens.label(size: 11).copyWith(
+                          style: TypographyTokens.etichetta().copyWith(
                               color: ColorTokens.textSecondary,
                               letterSpacing: 0.6)),
                       const SizedBox(height: 2),
@@ -942,7 +942,7 @@ class _SelettoreGettate extends StatelessWidget {
                       )),
                   Text(g.sottotitolo,
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.label(size: 11).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                         color: g.id == corrente.id
                             ? palette.goldSoft.withValues(alpha: 0.8)
                             : ColorTokens.textSecondary.withValues(alpha: 0.7),
@@ -978,7 +978,7 @@ class _Suggerimento extends StatelessWidget {
           border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
         ),
         child: Text(testo,
-            style: TypographyTokens.label(size: 11)
+            style: TypographyTokens.etichetta()
                 .copyWith(color: palette.goldSoft, letterSpacing: 0.2)),
       ),
     );

@@ -122,7 +122,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                   Flexible(
                     child: Text(
                       gift.kind.label.toUpperCase(),
-                      style: TypographyTokens.label(size: 11).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                         color: accento,
                         letterSpacing: 2.4,
                       ),
@@ -157,7 +157,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 const SizedBox(height: SpacingTokens.lg),
                 Text(
                   'PAROLA DEL GIORNO',
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                     color: _dayInkSoft,
                     letterSpacing: 3,
                   ),
@@ -242,7 +242,7 @@ class _BaseToggle extends StatelessWidget {
             const SizedBox(width: 6),
             Text(
               'Da dove nasce questo dono',
-              style: TypographyTokens.label(size: 11).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                 color: accento,
                 letterSpacing: 0.4,
               ),
@@ -338,7 +338,7 @@ class _BaseRow extends StatelessWidget {
             Flexible(
               child: Text(
                 label.toUpperCase(),
-                style: TypographyTokens.label(size: 11).copyWith(
+                style: TypographyTokens.etichetta().copyWith(
                   color: _dayInkSoft,
                   letterSpacing: 1.6,
                 ),
@@ -424,7 +424,7 @@ class _StreakChip extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label,
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
               color: accento,
               letterSpacing: 0.4,
             ),

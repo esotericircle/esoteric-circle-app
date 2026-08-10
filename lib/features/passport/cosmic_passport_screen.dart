@@ -548,7 +548,7 @@ class _ActiveFactCard extends StatelessWidget {
               children: [
                 Text(
                   overline.toUpperCase(),
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.8),
                     letterSpacing: 1.4,
                   ),
@@ -592,7 +592,7 @@ class _ExampleNote extends StatelessWidget {
         Flexible(
           child: Text(
             'Valore d\'esempio: si compone con la tua data di nascita.',
-            style: TypographyTokens.label(size: 11).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
               color: palette.goldSoft.withValues(alpha: 0.7),
               letterSpacing: 0.4,
             ),
@@ -790,7 +790,7 @@ class _TesseraArchetipo extends StatelessWidget {
                   'Scoperto il ${ultimo!.quando.day}/${ultimo.quando.month}/'
                   '${ultimo.quando.year}',
                   key: const Key('passport_archetipo_quando'),
-                  style: TypographyTokens.label(size: 11)
+                  style: TypographyTokens.etichetta()
                       .copyWith(color: ColorTokens.textSecondary),
                 ),
               ],
@@ -877,7 +877,7 @@ class _VeilBadge extends StatelessWidget {
       ),
       child: Text(
         'Dietro il velo',
-        style: TypographyTokens.label(size: 11).copyWith(color: palette.gold),
+        style: TypographyTokens.etichetta().copyWith(color: palette.gold),
       ),
     );
   }

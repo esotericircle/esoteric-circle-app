@@ -265,7 +265,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
               const SizedBox(height: SpacingTokens.sm),
               Text(
                 'Potrai tornare e rivederlo quando vuoi, o dopo aver fatto il Test.',
-                style: TypographyTokens.label(size: 11).copyWith(
+                style: TypographyTokens.etichetta().copyWith(
                     color: ColorTokens.textSecondary, letterSpacing: 0.3),
               ),
             ],
@@ -436,7 +436,7 @@ class _Trasparenza extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final etichetta = TypographyTokens.label(size: 11)
+    final etichetta = TypographyTokens.etichetta()
         .copyWith(color: palette.goldSoft, letterSpacing: 0.5);
     final corpo = TypographyTokens.body(size: 14)
         .copyWith(color: ColorTokens.textPrimary, height: 1.4);
@@ -522,7 +522,7 @@ class _Identita extends StatelessWidget {
               padding: const EdgeInsets.only(top: 2),
               child: Text(origine,
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                       color: palette.goldSoft.withValues(alpha: 0.8),
                       letterSpacing: 0.5)),
             ),

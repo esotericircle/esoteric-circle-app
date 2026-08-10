@@ -50,7 +50,7 @@ class RiquadroDellaScelta extends StatelessWidget {
             if (i > 0) const SizedBox(height: SpacingTokens.sm),
             if (scheda.caratteristiche[i].titolo != null) ...[
               Text(scheda.caratteristiche[i].titolo!.toUpperCase(),
-                  style: TypographyTokens.label(size: 11).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                       color: palette.goldSoft, letterSpacing: 1.4)),
               const SizedBox(height: 2),
             ],
