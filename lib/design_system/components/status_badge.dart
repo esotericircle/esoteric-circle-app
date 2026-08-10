@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/feature_flags/feature_flag.dart';
 import '../theme/maestro_scope.dart';
 import '../tokens/spacing_tokens.dart';
+import '../tokens/typography_tokens.dart';
 
 /// Badge dorato che comunica lo stato non attivo di una funzione: "Coming soon"
 /// oppure "Premium" con lucchetto.
@@ -42,12 +43,14 @@ class StatusBadge extends StatelessWidget {
             Icon(icon, size: 12, color: palette.goldSoft),
             const SizedBox(width: 4),
           ],
+          // ORDINE B: era un TextStyle a mano a 10,5 punti, cioe' sotto il
+          // pavimento dell'app, e costruito a mano sfuggiva anche all'assert
+          // che il pavimento porta con se'. Adesso e' il ruolo `etichetta`, la
+          // spaziatura resta quella che il badge aveva.
           Text(
             label,
-            style: TextStyle(
+            style: TypographyTokens.etichetta().copyWith(
               color: palette.goldSoft,
-              fontSize: 10.5,
-              fontWeight: FontWeight.w600,
               letterSpacing: 0.6,
             ),
           ),

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
+import '../../design_system/tokens/typography_tokens.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/diagnosi/briciole.dart';
@@ -241,11 +243,10 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
                   ),
                   child: Text(
                     etichette[_tappaDiagnosi],
-                    style: const TextStyle(
-                        color: Color(0xFFC9A961),
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.5),
+                    style: TypographyTokens.titoloSezione(weight: 700)
+                        .copyWith(
+                            color: const Color(0xFFC9A961),
+                            letterSpacing: 1.5),
                   ),
                 ),
               ),

@@ -125,7 +125,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
         children: [
           const SizedBox(height: SpacingTokens.sm),
           Text('IL TUO CIELO',
-              style: TypographyTokens.label(size: 13)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 3)),
           const SizedBox(height: SpacingTokens.md),
           // LA NOTA DEL RIPIEGO, che prima non leggeva nessuno: era scritta nel
@@ -158,7 +158,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
           Text(
             NatalPoetics.glanceSummary(chart),
             textAlign: TextAlign.center,
-            style: TypographyTokens.display(size: 22).copyWith(height: 1.4),
+            style: TypographyTokens.titoloSezione().copyWith(height: 1.4),
           ),
           const SizedBox(height: SpacingTokens.sm),
           _AscendantNote(chart: chart),
@@ -195,7 +195,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
               'case e gli aspetti arrivano con la mappa completa.',
               key: const Key('carta_natale_ruota_ridotta'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 13)
+              style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary),
             ),
           ],
@@ -226,7 +226,7 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
               ),
               onPressed: widget.onContinue,
               child: Text(widget.etichettaAzione ?? 'Scopri chi risuona con te',
-                  style: TypographyTokens.body(size: 17, weight: 600)
+                  style: TypographyTokens.lettura(weight: 600)
                       .copyWith(color: palette.deepest)),
             ),
           ),
@@ -258,7 +258,7 @@ class _AscendantNote extends StatelessWidget {
         child: Text(
           'Ascendente in ${chart.ascendant!.italianName}: la soglia da cui ti mostri al mondo.',
           textAlign: TextAlign.center,
-          style: TypographyTokens.body(size: TypographyTokens.guide)
+          style: TypographyTokens.lettura()
               .copyWith(color: palette.goldSoft, height: 1.4),
         ),
       );
@@ -267,7 +267,7 @@ class _AscendantNote extends StatelessWidget {
     return Text(
       'Senza l\'ora di nascita l\'Ascendente e le Case restano velati. Potrai aggiungerla per completare il cielo.',
       textAlign: TextAlign.center,
-      style: TypographyTokens.body(size: TypographyTokens.guide)
+      style: TypographyTokens.lettura()
           .copyWith(color: ColorTokens.textPrimary, height: 1.4),
     );
   }
@@ -283,7 +283,7 @@ class _LegendHeader extends StatelessWidget {
         Container(width: 20, height: 1, color: palette.gold.withValues(alpha: 0.6)),
         const SizedBox(width: SpacingTokens.xs),
         Text('LA LEGENDA VIVA',
-            style: TypographyTokens.label(size: 13).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
                 color: palette.goldSoft, letterSpacing: 2)),
         const SizedBox(width: SpacingTokens.xs),
         Container(width: 20, height: 1, color: palette.gold.withValues(alpha: 0.6)),
@@ -349,21 +349,21 @@ class _PlanetTile extends StatelessWidget {
                         children: [
                           _sym(planet.glyph, palette.goldSoft, 16),
                           Text(planet.name,
-                              style: TypographyTokens.display(size: 16)),
+                              style: TypographyTokens.titoloScheda()),
                           _sym(planet.sign.symbol, palette.goldSoft, 14),
                           Text(planet.sign.italianName,
-                              style: TypographyTokens.body(size: 13).copyWith(
+                              style: TypographyTokens.didascalia().copyWith(
                                   color: ColorTokens.textSecondary)),
                           if (planet.retrograde)
                             Text('R',
-                                style: TypographyTokens.body(size: 13).copyWith(
+                                style: TypographyTokens.didascalia().copyWith(
                                     color: const Color(0xFFE0733A),
                                     fontWeight: FontWeight.w700)),
                         ],
                       ),
                       const SizedBox(height: 3),
                       Text(NatalPoetics.meaningOf(planet.id),
-                          style: TypographyTokens.body(size: TypographyTokens.guide)
+                          style: TypographyTokens.lettura()
                               .copyWith(color: ColorTokens.textPrimary)),
                     ],
                   ),
@@ -444,7 +444,7 @@ class _NotaDelRipiego extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(testo,
-              style: TypographyTokens.body(size: TypographyTokens.guide)
+              style: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary)),
           const SizedBox(height: SpacingTokens.sm),
           Align(
@@ -458,14 +458,14 @@ class _NotaDelRipiego extends StatelessWidget {
                     key: const Key('carta_natale_completa_luogo'),
                     onPressed: onCompleta,
                     child: Text('Aggiungi il luogo di nascita',
-                        style: TypographyTokens.label(size: 13)
+                        style: TypographyTokens.etichetta()
                             .copyWith(color: palette.goldSoft)),
                   )
                 : TextButton(
                     key: const Key('carta_natale_riprova'),
                     onPressed: onRiprova,
                     child: Text('Riprova',
-                        style: TypographyTokens.label(size: 13)
+                        style: TypographyTokens.etichetta()
                             .copyWith(color: palette.goldSoft)),
                   ),
           ),
@@ -500,7 +500,7 @@ class _SenzaDati extends StatelessWidget {
             Text(
               'Il tuo cielo aspetta la tua data di nascita.',
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: TypographyTokens.guide)
+              style: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary),
             ),
             const SizedBox(height: SpacingTokens.sm),
@@ -508,14 +508,14 @@ class _SenzaDati extends StatelessWidget {
               'Senza il giorno in cui sei nato non posso tracciare niente. '
               'Preferisco dirtelo invece di farti aspettare.',
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: TypographyTokens.guide)
+              style: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary),
             ),
             const SizedBox(height: SpacingTokens.lg),
             TextButton(
               onPressed: onContinue,
               child: Text('Torna indietro',
-                  style: TypographyTokens.label(size: 13)
+                  style: TypographyTokens.etichetta()
                       .copyWith(color: palette.goldSoft)),
             ),
           ],
@@ -544,7 +544,7 @@ class _Loading extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.md),
           Text('Traccio il tuo cielo...',
-              style: TypographyTokens.body(size: TypographyTokens.guide)
+              style: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary)),
         ],
       ),

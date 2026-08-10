@@ -2244,6 +2244,61 @@ void main() {
     await tester.pump(const Duration(seconds: 2));
     await scattaApp(tester, radice, 'oroscopo_tipografia_consulto');
   });
+
+  // ORDINE B, voce 2: IL PERCORSO PRIORITARIO NEI RUOLI.
+  //
+  // Quattro scene, le stesse quattro che l'ordine nomina: il Risveglio, il
+  // Santuario, la Stesa e la chat. Stessa misura, stessi tempi e stesso blocco
+  // per tutte e due le fasi, cosi' il confronto misura la tipografia e non
+  // l'apparato.
+  for (final scena in const ['risveglio', 'santuario', 'stesa', 'chat']) {
+    testWidgets('B, il percorso prioritario, $scena', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      for (final (famiglia, percorso) in const [
+        ('Cinzel', 'assets/fonts/Cinzel-variable.ttf'),
+        ('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf'),
+      ]) {
+        final loader = FontLoader(famiglia);
+        final bytes = File(percorso).readAsBytesSync();
+        loader.addFont(Future.value(ByteData.view(bytes.buffer)));
+        await loader.load();
+      }
+      // Il Risveglio si apre solo a chi non l'ha ancora fatto: per le altre tre
+      // scene si parte da chi torna, altrimenti l'app mostra l'onboarding.
+      SharedPreferences.setMockInitialValues(scena == 'risveglio'
+          ? const {}
+          : const {'onboarding.done': true, 'santuario.greeted': true});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2391);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final radice = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: radice,
+        child:
+            EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+      ));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.pump(const Duration(seconds: 2));
+
+      if (scena == 'stesa') {
+        final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+        unawaited(nav.push(StesaTreCarteScreen.route(seed: 7)));
+      } else if (scena == 'chat') {
+        final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+        unawaited(nav.push(MaestroChatScreen.route(
+            maestro: Maestro.medora, services: AppServices.offline())));
+      }
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
+      await scattaApp(tester, radice, 'percorso_$scena');
+    });
+  }
 }
 
 /// Una carta natale piena, per le anteprime del consulto.

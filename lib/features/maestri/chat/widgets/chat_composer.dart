@@ -134,13 +134,13 @@ class _ChatComposerState extends State<ChatComposer> {
                 onSubmitted: (_) => _submit(),
                 keyboardType: TextInputType.multiline,
                 textCapitalization: TextCapitalization.sentences,
-                style: TypographyTokens.body(size: 17),
+                style: TypographyTokens.lettura(),
                 cursorColor: palette.goldSoft,
                 decoration: InputDecoration(
                   isDense: true,
                   border: InputBorder.none,
                   hintText: widget.hintText,
-                  hintStyle: TypographyTokens.body(size: 17)
+                  hintStyle: TypographyTokens.lettura()
                       .copyWith(color: ColorTokens.textMuted),
                 ),
               ),
@@ -180,7 +180,7 @@ class _SuggestionsControl extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             'Suggerimenti',
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textMuted),
           ),
         ],

@@ -145,7 +145,17 @@ CartiglioAreaFit resolveCartiglioArea({
   required double maxHeight,
 }) {
   if (righe.isEmpty || maxWidth <= 0 || maxHeight <= 0) {
-    return const CartiglioAreaFit(fontSize: 1, letterSpacing: 0);
+    // IL RAMO IN CUI NON C'E' NIENTE DA SCRIVERE, e la misura che restituisce
+    // e' una misura di CARATTERE, non un fattore di scala: finisce dritta nel
+    // `fontSize` di un TextStyle vero, poche righe piu' sotto. Il numero uno
+    // era percio' una misura sotto il pavimento dell'app, anche se nessuno la
+    // vedeva mai a video, perche' ci si arriva solo quando le righe sono vuote
+    // o l'area e' nulla, cioe' quando non c'e' testo da disegnare.
+    //
+    // Resta zero, e non il pavimento: a un carattere che non esiste non si da'
+    // una misura leggibile, gli si da' NIENTE. Dodici punti qui vorrebbero dire
+    // riservare l'altezza di una riga a un cartiglio vuoto.
+    return const CartiglioAreaFit(fontSize: 0, letterSpacing: 0);
   }
   const probe = 100.0;
 

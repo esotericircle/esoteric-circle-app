@@ -571,9 +571,13 @@ class RuotaSigilloPainter extends CustomPainter {
     final tp = TextPainter(
       text: TextSpan(
         text: testo,
+        // ORDINE B: era 11, sotto il pavimento dell'app. Dipinta su tela e non
+        // in albero, questa lettera non passa dai token e nessun assert la
+        // vedeva: adesso la misura viene dal pavimento, che e' il numero da cui
+        // dipende, invece che da una costante che lo ignora.
         style: TextStyle(
           color: colore,
-          fontSize: 11,
+          fontSize: TypographyTokens.pavimento,
           fontFamily: 'CormorantGaramond',
         ),
       ),

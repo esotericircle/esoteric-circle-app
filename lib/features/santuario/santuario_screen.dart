@@ -510,7 +510,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         child: Text(
                           personalLine,
                           textAlign: TextAlign.center,
-                          style: TypographyTokens.body(size: 13).copyWith(
+                          style: TypographyTokens.didascalia().copyWith(
                             color: ColorTokens.textSecondary,
                             fontStyle: FontStyle.italic,
                             height: 1.3,
@@ -637,7 +637,7 @@ class _SkyTitle extends StatelessWidget {
       'Il Cielo Sopra di Te, Adesso',
       textAlign: TextAlign.center,
       maxLines: 2,
-      style: TypographyTokens.display(size: 16),
+      style: TypographyTokens.titoloScheda(),
     );
   }
 }
@@ -1057,7 +1057,7 @@ class _EnterDomainButton extends StatelessWidget {
                   'Entra nel Dominio di ${maestro.displayName}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TypographyTokens.label(size: 12)
+                  style: TypographyTokens.etichetta()
                       .copyWith(color: palette.goldSoft, letterSpacing: 0.3),
                 ),
               ),
@@ -1146,14 +1146,14 @@ class ShelfCard extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(titolo,
                         maxLines: 1,
-                        style: TypographyTokens.display(size: 17)
+                        style: TypographyTokens.titoloScheda()
                             .copyWith(color: palette.textPrimary)),
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(anticipo,
                     maxLines: 2,
-                    style: TypographyTokens.body(size: 13)
+                    style: TypographyTokens.didascalia()
                         .copyWith(color: ColorTokens.textSecondary)),
               ],
             ),

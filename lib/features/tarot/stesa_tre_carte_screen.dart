@@ -366,7 +366,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // stese da sette e dieci carte il titolo cambiera' da solo.
         title: Text(_setup.tipo.nome,
             key: const Key('stesa_titolo'),
-            style: TypographyTokens.display(size: 20)),
+            style: TypographyTokens.titoloSezione()),
       ),
       body: CosmosBackground(
         seed: 19,
@@ -502,7 +502,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 : 'Scegli ancora ${SpreadPosition.values.length - _drawn}',
             key: const Key('stesa_prompt'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 12).copyWith(
+            style: TypographyTokens.etichetta().copyWith(
                 color: ColorTokens.textSecondary, letterSpacing: 1.2),
           ),
           const SizedBox(height: SpacingTokens.md),
@@ -582,7 +582,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           Text(_reading.sintesi,
               key: const Key('stesa_synthesis'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.display(size: 22)
+              style: TypographyTokens.titoloSezione()
                   .copyWith(color: palette.goldSoft, height: 1.25)),
           const SizedBox(height: SpacingTokens.md),
         ],
@@ -645,7 +645,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           Text(TarotSpread.closing,
               key: const Key('stesa_closing'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 15).copyWith(
+              style: TypographyTokens.didascalia().copyWith(
                   color: palette.goldSoft,
                   height: 1.4,
                   fontStyle: FontStyle.italic)),
@@ -667,7 +667,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                       child: CircularProgressIndicator(strokeWidth: 2))
                   : const Icon(Icons.ios_share_rounded, size: 18),
               label: Text(_sharing ? 'Preparo la card' : 'Condividi',
-                  style: TypographyTokens.label(size: 13)
+                  style: TypographyTokens.etichetta()
                       .copyWith(letterSpacing: 0.6)),
             ),
           ),
@@ -806,7 +806,7 @@ class _Slot extends StatelessWidget {
             child: Text(splitNomeCartiglio(drawn!.card.name).join('\n'),
                 key: Key('stesa_name_${position.name}'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 16)
+                style: TypographyTokens.titoloScheda()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.15)),
           ),
           if (drawn!.reversed)
@@ -822,7 +822,7 @@ class _Slot extends StatelessWidget {
           Text(drawn!.summary,
               key: Key('stesa_meaning_${position.name}'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 13).copyWith(
+              style: TypographyTokens.didascalia().copyWith(
                   color: ColorTokens.textSecondary, height: 1.35)),
         ],
       ],
@@ -989,12 +989,12 @@ class _Strato extends StatelessWidget {
           const SizedBox(height: 6),
           if (occhiello != null) ...[
             Text(occhiello!,
-                style: TypographyTokens.display(size: 17)
+                style: TypographyTokens.titoloScheda()
                     .copyWith(color: palette.goldSoft, height: 1.2)),
             const SizedBox(height: 4),
           ],
           Text(testo,
-              style: TypographyTokens.body(size: 16).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                 color: inEvidenza ? palette.goldSoft : ColorTokens.textPrimary,
                 height: 1.5,
                 fontStyle: corsivo ? FontStyle.italic : FontStyle.normal,
@@ -1036,11 +1036,11 @@ class _StratoPosizione extends StatelessWidget {
                   letterSpacing: 1.4)),
           const SizedBox(height: 4),
           Text(letta.drawn.displayName,
-              style: TypographyTokens.display(size: 17)
+              style: TypographyTokens.titoloScheda()
                   .copyWith(color: palette.goldSoft, height: 1.2)),
           const SizedBox(height: 6),
           Text(letta.testo,
-              style: TypographyTokens.body(size: 16).copyWith(
+              style: TypographyTokens.corpo().copyWith(
                   color: ColorTokens.textPrimary, height: 1.5)),
         ],
       ),
@@ -1094,7 +1094,7 @@ class _GestoMazzo extends StatelessWidget {
                 Icon(icona, size: 15, color: palette.goldSoft),
                 const SizedBox(width: 6),
                 Text(label,
-                    style: TypographyTokens.body(size: 14)
+                    style: TypographyTokens.didascalia()
                         .copyWith(color: palette.goldSoft)),
               ],
             ),

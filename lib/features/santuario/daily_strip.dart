@@ -233,7 +233,7 @@ void _showElementInfo(
                 Expanded(
                   child: Text(
                     element.title,
-                    style: TypographyTokens.display(size: 18).copyWith(
+                    style: TypographyTokens.titoloScheda().copyWith(
                       color: _gold,
                     ),
                   ),
@@ -257,14 +257,14 @@ void _showElementInfo(
             const SizedBox(height: 6),
             Text(
               _guideLine(element, maestro),
-              style: TypographyTokens.body(size: 14).copyWith(
+              style: TypographyTokens.didascalia().copyWith(
                 color: accent.withValues(alpha: 0.95),
               ),
             ),
             const SizedBox(height: SpacingTokens.sm),
             Text(
               element.description,
-              style: TypographyTokens.body(size: 15).copyWith(
+              style: TypographyTokens.didascalia().copyWith(
                 color: ColorTokens.textPrimary,
               ),
             ),
@@ -276,7 +276,7 @@ void _showElementInfo(
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text(
                   'Ho capito',
-                  style: TypographyTokens.label(size: 12).copyWith(color: _gold),
+                  style: TypographyTokens.etichetta().copyWith(color: _gold),
                 ),
               ),
             ),

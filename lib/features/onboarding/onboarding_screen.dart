@@ -455,7 +455,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         'Nulla di inventato: quel che non si può ancora calcolare resta '
         'marcato. La tua Guida si rivelerà solo alla fine.',
         textAlign: TextAlign.center,
-        style: TypographyTokens.body(size: 14).copyWith(
+        style: TypographyTokens.didascalia().copyWith(
           color: ColorTokens.textSecondary,
           height: 1.5,
         ),
@@ -657,12 +657,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         controller: _nameCtrl,
         textAlign: TextAlign.center,
         onChanged: (_) => setState(() {}),
-        style: TypographyTokens.display(size: 22)
+        style: TypographyTokens.titoloSezione()
             .copyWith(color: _palette.goldSoft),
         cursorColor: _palette.goldSoft,
         decoration: InputDecoration(
           hintText: 'Il tuo nome',
-          hintStyle: TypographyTokens.body(size: 16)
+          hintStyle: TypographyTokens.corpo()
               .copyWith(color: ColorTokens.textSecondary),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
@@ -787,14 +787,14 @@ class _StepBody extends StatelessWidget {
                 Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.display(size: 24)
+                  style: TypographyTokens.cerimoniale()
                       .copyWith(color: const Color(0xFFE8C463)),
                 ),
                 const SizedBox(height: SpacingTokens.sm),
                 Text(
                   subtitle,
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.body(size: 15).copyWith(
+                  style: TypographyTokens.didascalia().copyWith(
                     color: ColorTokens.textPrimary,
                     height: 1.45,
                   ),
@@ -874,7 +874,7 @@ class _NameGlow extends StatelessWidget {
         builder: (_, __) => Text(
           name.isEmpty ? '...' : name,
           textAlign: TextAlign.center,
-          style: TypographyTokens.display(size: 34).copyWith(
+          style: TypographyTokens.cerimonialeGrande().copyWith(
             color: palette.goldSoft,
             shadows: [
               Shadow(
@@ -929,7 +929,7 @@ class _Cta extends StatelessWidget {
                     Border.all(color: palette.gold.withValues(alpha: 0.7)),
               ),
               child: Text(label,
-                  style: TypographyTokens.display(size: 17)
+                  style: TypographyTokens.titoloScheda()
                       .copyWith(color: palette.goldSoft)),
             ),
           ),
@@ -1020,7 +1020,7 @@ class _DatePicker extends StatelessWidget {
         dropdownColor: palette.deepest,
         underline: const SizedBox.shrink(),
         iconEnabledColor: palette.goldSoft,
-        style: TypographyTokens.display(size: 18)
+        style: TypographyTokens.titoloScheda()
             .copyWith(color: palette.goldSoft),
         items: [
           for (final it in items)
@@ -1068,7 +1068,7 @@ class _TimePicker extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.sm),
             child: Text(':',
-                style: TypographyTokens.display(size: 20)
+                style: TypographyTokens.titoloSezione()
                     .copyWith(color: palette.goldSoft)),
           ),
           _wheel(
@@ -1103,12 +1103,12 @@ class _TimePicker extends StatelessWidget {
         // L'invito, quando non si e' ancora scelto: prima la pillola era muta,
         // col solo triangolino, e nessuno sapeva se fosse l'ora o il minuto.
         hint: Text(invito,
-            style: TypographyTokens.label(size: 12)
+            style: TypographyTokens.etichetta()
                 .copyWith(color: ColorTokens.textSecondary)),
         dropdownColor: palette.deepest,
         underline: const SizedBox.shrink(),
         iconEnabledColor: palette.goldSoft,
-        style: TypographyTokens.display(size: 18)
+        style: TypographyTokens.titoloScheda()
             .copyWith(color: palette.goldSoft),
         items: [
           for (final it in items)
@@ -1147,7 +1147,7 @@ class _SkipTimeToggle extends StatelessWidget {
       ),
       label: Text(
         'Non la so',
-        style: TypographyTokens.body(size: 14)
+        style: TypographyTokens.didascalia()
             .copyWith(color: palette.goldSoft),
       ),
     );
@@ -1190,7 +1190,7 @@ class _NotaGentile extends StatelessWidget {
           const SizedBox(width: SpacingTokens.sm),
           Expanded(
             child: Text(text,
-                style: TypographyTokens.body(size: 13).copyWith(
+                style: TypographyTokens.didascalia().copyWith(
                     color: ColorTokens.textSecondary, height: 1.4)),
           ),
         ],
@@ -1236,12 +1236,12 @@ class _PlaceField extends StatelessWidget {
           focusNode: fuoco,
           textAlign: TextAlign.center,
           onChanged: onChanged,
-          style: TypographyTokens.body(size: 17)
+          style: TypographyTokens.lettura()
               .copyWith(color: palette.goldSoft),
           cursorColor: palette.goldSoft,
           decoration: InputDecoration(
             hintText: 'Cerca la tua città',
-            hintStyle: TypographyTokens.body(size: 16)
+            hintStyle: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary),
             prefixIcon: Icon(Icons.search_rounded, color: palette.goldSoft),
             enabledBorder: UnderlineInputBorder(
@@ -1288,7 +1288,7 @@ class _PlaceField extends StatelessWidget {
                             const SizedBox(width: SpacingTokens.sm),
                             Expanded(
                               child: Text(c.label,
-                                  style: TypographyTokens.body(size: 15)
+                                  style: TypographyTokens.didascalia()
                                       .copyWith(
                                           color: ColorTokens.textPrimary)),
                             ),
@@ -1309,7 +1309,7 @@ class _PlaceField extends StatelessWidget {
               Icon(Icons.public_rounded, size: 16, color: palette.goldSoft),
               const SizedBox(width: SpacingTokens.sm),
               Text('${chosen!.city} · ${chosen!.timeZoneId}',
-                  style: TypographyTokens.body(size: 13)
+                  style: TypographyTokens.didascalia()
                       .copyWith(color: ColorTokens.textSecondary)),
             ],
           ),
@@ -1324,7 +1324,7 @@ class _PlaceField extends StatelessWidget {
             'Non è in elenco? Scegli la città grande più vicina: '
             'il cielo si ancora comunque.',
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 13)
+            style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4),
           ),
         ],
@@ -1391,7 +1391,7 @@ class _VocativoChoice extends StatelessWidget {
                 color: palette.gold.withValues(alpha: on ? 0.9 : 0.35)),
           ),
           child: Text(label,
-              style: TypographyTokens.display(size: 16).copyWith(
+              style: TypographyTokens.titoloScheda().copyWith(
                   color: on ? palette.goldSoft : ColorTokens.textSecondary)),
         ),
       ),
@@ -1422,7 +1422,7 @@ class _SignBadge extends StatelessWidget {
           Icon(Icons.wb_sunny_rounded, size: 18, color: palette.goldSoft),
           const SizedBox(width: SpacingTokens.sm),
           Text('Sole in ${sign.italianName}',
-              style: TypographyTokens.display(size: 16)
+              style: TypographyTokens.titoloScheda()
                   .copyWith(color: palette.goldSoft)),
           const SizedBox(width: SpacingTokens.sm),
           // Il simbolo del segno, tracciato a vettori dal codice, non un glifo

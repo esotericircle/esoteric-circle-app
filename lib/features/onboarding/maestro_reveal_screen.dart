@@ -229,13 +229,13 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
             const SizedBox(height: SpacingTokens.md),
             Text(
               _revealed ? 'Il tuo Maestro' : 'La rivelazione',
-              style: TypographyTokens.label(size: 13)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 3),
             ),
             const SizedBox(height: SpacingTokens.xs),
             Text(
               _revealed ? widget.maestro.displayName : _title,
-              style: TypographyTokens.display(size: 28),
+              style: TypographyTokens.cerimoniale(),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: SpacingTokens.md),
@@ -288,7 +288,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
                         ? 'Soffia dolcemente, oppure trascina il dito per svelare'
                         : 'Trascina il dito per svelare, come un gratta e vinci',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.body(size: TypographyTokens.guide)
+                    style: TypographyTokens.lettura()
                         .copyWith(color: ColorTokens.textPrimary, height: 1.4),
                   ),
                   // Il microfono si chiede solo qui, quando l'utente sceglie la
@@ -498,8 +498,7 @@ class _SafetyTapInvite extends StatelessWidget {
             Icon(Icons.touch_app, color: palette.goldSoft, size: 24),
             const SizedBox(width: SpacingTokens.xs),
             Text('Tocca per svelare',
-                style: TypographyTokens.body(
-                        size: TypographyTokens.guide, weight: 600)
+                style: TypographyTokens.lettura(weight: 600)
                     .copyWith(color: palette.goldSoft)),
           ],
         ),
@@ -533,7 +532,7 @@ class _VoiceInvite extends StatelessWidget {
             Icon(Icons.mic_none_rounded, color: palette.goldSoft, size: 20),
             const SizedBox(width: 6),
             Text('Soffia con la voce',
-                style: TypographyTokens.body(size: 16)
+                style: TypographyTokens.corpo()
                     .copyWith(color: palette.goldSoft)),
           ],
         ),
@@ -570,7 +569,7 @@ class _RevealedFooter extends StatelessWidget {
         Text(
           identity.welcome(),
           textAlign: TextAlign.center,
-          style: TypographyTokens.display(size: 20)
+          style: TypographyTokens.titoloSezione()
               .copyWith(color: palette.goldSoft),
         ),
         const SizedBox(height: SpacingTokens.sm),
@@ -585,7 +584,7 @@ class _RevealedFooter extends StatelessWidget {
             child: Text(
               first,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: TypographyTokens.guide)
+              style: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5),
             ),
           ),
@@ -603,7 +602,7 @@ class _RevealedFooter extends StatelessWidget {
             ),
             onPressed: onEnter,
             child: Text('Entra nel Cerchio',
-                style: TypographyTokens.body(size: 16, weight: 600)
+                style: TypographyTokens.corpo(weight: 600)
                     .copyWith(color: palette.deepest)),
           ),
         ),

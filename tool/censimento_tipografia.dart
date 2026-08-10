@@ -187,7 +187,12 @@ void main(List<String> argomenti) {
   for (final m in misure) {
     perFile.putIfAbsent(m.file, () => []).add(m);
   }
-  final sottoIlPavimento = misure.where((m) => m.misura < 12).toList();
+  // ZERO NON E' UNA MISURA TROPPO PICCOLA, e' l'assenza di testo: e' il valore
+  // che un calcolo restituisce quando non c'e' niente da scrivere, e trattarlo
+  // come una violazione del pavimento vorrebbe dire chiedere una misura
+  // leggibile per un carattere che non esiste.
+  final sottoIlPavimento =
+      misure.where((m) => m.misura > 0 && m.misura < 12).toList();
   final letturaSotto16 =
       misure.where((m) => m.diLettura && m.misura < 16).toList();
 

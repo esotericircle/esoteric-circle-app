@@ -37,11 +37,11 @@ class ResonanceScreen extends StatelessWidget {
         children: [
           const SizedBox(height: SpacingTokens.sm),
           Text('LA RISONANZA',
-              style: TypographyTokens.label(size: 13)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 3)),
           const SizedBox(height: SpacingTokens.xs),
           Text('Chi risuona con te',
-              style: TypographyTokens.display(size: 28),
+              style: TypographyTokens.cerimoniale(),
               textAlign: TextAlign.center),
           Expanded(
             child: Row(
@@ -75,7 +75,7 @@ class ResonanceScreen extends StatelessWidget {
                 Text(
                   resonance.reason,
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.body(size: TypographyTokens.guide)
+                  style: TypographyTokens.lettura()
                       .copyWith(color: ColorTokens.textPrimary, height: 1.45),
                 ),
                 // Pareggio vero: due numeri identici e un vincitore sono una
@@ -87,7 +87,7 @@ class ResonanceScreen extends StatelessWidget {
                   Text(
                     'Due voci pesano uguale: a decidere è ${resonance.deciding}.',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 12).copyWith(
+                    style: TypographyTokens.etichetta().copyWith(
                         color: palette.goldSoft.withValues(alpha: 0.85),
                         height: 1.4),
                   ),
@@ -110,7 +110,7 @@ class ResonanceScreen extends StatelessWidget {
               ),
               onPressed: onContinue,
               child: Text('Rivela il tuo Maestro',
-                  style: TypographyTokens.body(size: 17, weight: 600)
+                  style: TypographyTokens.lettura(weight: 600)
                       .copyWith(color: palette.deepest)),
             ),
           ),
@@ -205,9 +205,10 @@ class _MaestroAuraState extends State<_MaestroAura>
                       softWrap: false,
                       overflow: TextOverflow.visible,
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.display(
-                        size: widget.isWinner ? 24 : 20,
-                      ).copyWith(
+                      style: (widget.isWinner
+                              ? TypographyTokens.cerimoniale()
+                              : TypographyTokens.titoloSezione())
+                          .copyWith(
                         color: widget.isWinner
                             ? p.goldSoft
                             : ColorTokens.textSecondary,
@@ -217,7 +218,7 @@ class _MaestroAuraState extends State<_MaestroAura>
                 ),
                 Text(
                   widget.etichetta,
-                  style: TypographyTokens.body(size: 13).copyWith(
+                  style: TypographyTokens.didascalia().copyWith(
                       color: ColorTokens.textMuted, letterSpacing: 1),
                 ),
               ],

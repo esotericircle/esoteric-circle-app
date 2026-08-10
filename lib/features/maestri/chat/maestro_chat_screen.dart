@@ -883,13 +883,13 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(intent.buttonLabel,
-                  style: TypographyTokens.display(size: 19)
+                  style: TypographyTokens.titoloScheda()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(
                 'Questa esperienza sta per aprirsi nel cerchio. Arriva presto, '
                 'con tutta la sua immersione.',
-                style: TypographyTokens.body(size: 15)
+                style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textSecondary),
               ),
               const SizedBox(height: SpacingTokens.lg),
@@ -898,7 +898,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                 child: TextButton(
                   onPressed: () => Navigator.of(sheetContext).pop(),
                   child: Text('Va bene',
-                      style: TypographyTokens.label(size: 13)
+                      style: TypographyTokens.etichetta()
                           .copyWith(color: palette.goldSoft)),
                 ),
               ),
@@ -1012,11 +1012,11 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             ],
             Text(maestro.displayName,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.display(size: 20)),
+                style: TypographyTokens.titoloSezione()),
             Text(
               maestro.domainArtsPhrase,
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 13)
+              style: TypographyTokens.didascalia()
                   .copyWith(color: palette.goldSoft),
             ),
           ],
@@ -1063,7 +1063,7 @@ class _ConfigNotice extends StatelessWidget {
               'Il cerchio non è ancora acceso. '
               '${maestro.displayName} risponde '
               'quando la configurazione AI è completa.',
-              style: TypographyTokens.body(size: 14)
+              style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary),
             ),
           ),

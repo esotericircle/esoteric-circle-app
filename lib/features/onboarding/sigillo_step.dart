@@ -146,13 +146,13 @@ class _SigilloStepState extends State<SigilloStep>
                 children: [
                   Text('Il tuo Sigillo',
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.display(size: 24)
+                      style: TypographyTokens.cerimoniale()
                           .copyWith(color: widget.palette.goldSoft)),
                   const SizedBox(height: SpacingTokens.xs),
                   Text(
                     'Il numero che nasce dal tuo nome e dal tuo cielo.',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.body(size: 14).copyWith(
+                    style: TypographyTokens.didascalia().copyWith(
                         color: ColorTokens.textSecondary, height: 1.45),
                   ),
                 ],
@@ -235,7 +235,7 @@ class _SigilloStepState extends State<SigilloStep>
                       'Posa il dito sul numero al centro',
                       key: const Key('sigillo_istruzione'),
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.body(size: 16).copyWith(
+                      style: TypographyTokens.corpo().copyWith(
                           color: ColorTokens.textPrimary, height: 1.4),
                     ),
                     const SizedBox(height: SpacingTokens.md),
@@ -247,7 +247,7 @@ class _SigilloStepState extends State<SigilloStep>
                       '${widget.seal.name} · ${widget.seal.sign.italianName} '
                       '· ${widget.seal.lifePath}',
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.label(size: 13).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                         color: widget.palette.goldSoft.withValues(alpha: 0.8),
                         letterSpacing: 1.6,
                       ),
@@ -269,7 +269,7 @@ class _SigilloStepState extends State<SigilloStep>
                 child: Text(
                   'Il Cerchio ti riconosce',
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.display(size: 20)
+                  style: TypographyTokens.titoloSezione()
                       .copyWith(color: widget.palette.goldSoft),
                 ),
               ),

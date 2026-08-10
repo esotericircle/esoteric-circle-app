@@ -223,7 +223,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                                   message.text,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TypographyTokens.body(size: 15)
+                                  style: TypographyTokens.didascalia()
                                       .copyWith(
                                           color: ColorTokens.textSecondary),
                                 ),
@@ -271,7 +271,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                   // scritto, quindi compare, non si scrive.
                   attiva: scrive && !message.approfondita,
                   durataMassima: widget.durataMassimaDiScrittura,
-                  stile: TypographyTokens.body(size: 17).copyWith(
+                  stile: TypographyTokens.lettura().copyWith(
                     color: isUser
                         ? ColorTokens.textPrimary
                         : palette.textPrimary,
@@ -321,7 +321,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                       Flexible(
                         child: Text(
                           RipiegoDelMaestro.etichettaDi(maestro),
-                          style: TypographyTokens.body(size: 13)
+                          style: TypographyTokens.didascalia()
                               .copyWith(color: ColorTokens.textMuted),
                         ),
                       ),
@@ -360,7 +360,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                   Text(
                     message.seguito!,
                     key: const Key('chat_seguito'),
-                    style: TypographyTokens.body(size: 17).copyWith(
+                    style: TypographyTokens.lettura().copyWith(
                       color: isUser
                           ? ColorTokens.textPrimary
                           : palette.textPrimary,
@@ -394,7 +394,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                       const SizedBox(width: 8),
                       Text(
                         'Sto scendendo più a fondo',
-                        style: TypographyTokens.body(size: 13)
+                        style: TypographyTokens.didascalia()
                             .copyWith(color: palette.goldSoft),
                       ),
                     ],
@@ -438,7 +438,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                         const SizedBox(width: 4),
                         Text(
                           'Vai più a fondo',
-                          style: TypographyTokens.body(size: 14, weight: 600)
+                          style: TypographyTokens.didascalia(weight: 600)
                               .copyWith(color: palette.goldSoft),
                         ),
                       ],
@@ -468,7 +468,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                         const SizedBox(width: 2),
                         Text(
                           'Chiedi anche agli altri',
-                          style: TypographyTokens.body(size: 14, weight: 600)
+                          style: TypographyTokens.didascalia(weight: 600)
                               .copyWith(color: palette.goldSoft),
                         ),
                       ],
@@ -517,7 +517,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                         const SizedBox(width: 4),
                         Text(
                           'Riprova',
-                          style: TypographyTokens.body(size: 14)
+                          style: TypographyTokens.didascalia()
                               .copyWith(color: palette.goldSoft),
                         ),
                       ],
@@ -622,7 +622,7 @@ class _IntentButton extends StatelessWidget {
               const SizedBox(width: SpacingTokens.sm),
               Flexible(
                 child: Text(intent.buttonLabel,
-                    style: TypographyTokens.display(size: 16)
+                    style: TypographyTokens.titoloScheda()
                         .copyWith(color: palette.goldSoft)),
               ),
             ],

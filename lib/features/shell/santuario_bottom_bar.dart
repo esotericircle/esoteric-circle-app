@@ -286,12 +286,42 @@ class _BarItem extends StatelessWidget {
     final palette = context.palette;
     final Color color = selected ? palette.goldSoft : ColorTokens.textMuted;
 
-    return Expanded(
+    // LO SPAZIO SEGUE IL NOME, e non e' un dettaglio di layout: e' la ragione
+    // per cui una voce si vedeva monca.
+    //
+    // Con `Expanded` ogni voce prendeva un quinto della barra, cioe' 62,4 punti
+    // su un telefono da 360, uguali per tutte. Ma i nomi non sono uguali: a
+    // dodici punti "Il Cerchio" ne chiede 70,4 e "Aura" 33,4, quindi la prima
+    // usciva troncata in "Il" mentre l'ultima nuotava nel vuoto. Alzare il
+    // numero non era una via, e rimpicciolire il carattere nemmeno: il problema
+    // era lo spazio, e si risolve qui.
+    //
+    // Adesso ogni voce e' larga quanto le serve e il resto si distribuisce fra
+    // loro. La somma dei cinque nomi misura 264,3 punti contro i 312 che la
+    // barra ha, quindi ci stanno tutti con quarantotto punti di margine.
+    // LO SPAZIO SI DIVIDE IN PROPORZIONE AL NOME, e il peso e' la larghezza
+    // vera del testo.
+    //
+    // Le voci naturali, senza nessun vincolo, stavano bene a scala uno e
+    // uscivano dalla barra di 27 pixel quando il corpo del testo di sistema
+    // sale a 1,3, che e' il tetto che l'app concede: misurato dalla prova del
+    // textScaler. `Expanded` e `Flexible` a peso uguale hanno il difetto
+    // opposto, perche' danno un quinto a testa e "Il Cerchio" ne chiede di
+    // piu' di "Aura", tanto che usciva troncato in "Il".
+    //
+    // Col peso proporzionale valgono tutti e due i casi: a scala normale
+    // ciascuna voce riceve piu' o meno quello che le serve, e quando la scala
+    // cresce si stringono tutte insieme invece che una sola.
+    final peso = _larghezzaDel(label, selected);
+    return Flexible(
+      flex: peso,
+      fit: FlexFit.loose,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: SpacingTokens.xs),
+          padding: const EdgeInsets.symmetric(
+              vertical: SpacingTokens.xs, horizontal: 2),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -324,19 +354,55 @@ class _BarItem extends StatelessWidget {
                 child: icona(color, 21),
               ),
               const SizedBox(height: 4),
+              // ORDINE B: il nome della via era un TextStyle costruito a mano a
+              // 10,5 punti, cioe' sotto il pavimento dell'app, e i token non lo
+              // vedevano nemmeno per dirlo. Adesso e' il ruolo `etichetta`,
+              // dodici punti, e la barra sta sotto OGNI schermata: era il posto
+              // dove un testo troppo piccolo si vedeva piu' spesso di ogni
+              // altro.
+              //
+              // La spaziatura fra le lettere scende da 1,6 a 0,2, e non e' un
+              // modo per rimpicciolire di nascosto: la misura resta dodici. Il
+              // valore alto del ruolo serve al maiuscoletto cerimoniale, che
+              // qui non c'e', e in una casella larga un quinto di schermo
+              // ruberebbe piu' spazio delle lettere stesse.
               Text(
                 label,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 10.5,
-                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                  letterSpacing: 0.3,
-                ),
+                maxLines: 1,
+                // L'ellissi esiste solo per il caso estremo del corpo di
+                // sistema al massimo: a scala normale nessuna voce ci arriva.
+                overflow: TextOverflow.ellipsis,
+                style: _stileDellaVoce(color, selected),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  /// Lo stile del nome della via, in un punto solo: lo usano il disegno e la
+  /// misura del peso, e se vivesse in due copie il peso non descriverebbe piu'
+  /// il testo che si vede.
+  ///
+  /// La spaziatura fra le lettere scende da 1,6 a 0,2, e non e' un modo per
+  /// rimpicciolire di nascosto: la misura resta dodici, cioe' il pavimento. Il
+  /// valore alto del ruolo serve al maiuscoletto cerimoniale, che qui non c'e',
+  /// e in una casella stretta ruberebbe piu' spazio delle lettere stesse.
+  static TextStyle _stileDellaVoce(Color color, bool selected) =>
+      TypographyTokens.etichetta(weight: selected ? 700 : 500)
+          .copyWith(color: color, letterSpacing: 0.2);
+
+  /// La larghezza vera del nome, arrotondata: e' il peso con cui la voce
+  /// concorre allo spazio della barra.
+  static int _larghezzaDel(String label, bool selected) {
+    final tp = TextPainter(
+      text: TextSpan(
+          text: label, style: _stileDellaVoce(const Color(0xFFFFFFFF), selected)),
+      textDirection: TextDirection.ltr,
+      maxLines: 1,
+    )..layout();
+    // Mai zero: un peso nullo toglierebbe alla voce ogni spazio.
+    return tp.width.ceil().clamp(1, 1000);
   }
 }

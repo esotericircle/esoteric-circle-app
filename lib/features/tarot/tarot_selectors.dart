@@ -158,7 +158,7 @@ class TarotSetupPanel extends StatelessWidget {
                 child: Text(setup.riepilogo,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TypographyTokens.body(size: 13)
+                    style: TypographyTokens.didascalia()
                         .copyWith(color: ColorTokens.textSecondary)),
               ),
               // IL TRIANGOLO DEL SELETTORE, non la freccia in giu'.
@@ -394,7 +394,7 @@ class TendinaSelettore<T> extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(etichetta(v),
-                      style: TypographyTokens.body(size: 14).copyWith(
+                      style: TypographyTokens.didascalia().copyWith(
                         color: bloccato
                             ? ColorTokens.textSecondary
                             : (v == corrente
@@ -404,7 +404,7 @@ class TendinaSelettore<T> extends StatelessWidget {
                   if (nota != null)
                     Text(nota,
                         maxLines: 2,
-                        style: TypographyTokens.body(size: 13).copyWith(
+                        style: TypographyTokens.didascalia().copyWith(
                             color: ColorTokens.textSecondary,
                             fontStyle: FontStyle.italic)),
                 ],
@@ -460,7 +460,7 @@ class TendinaSelettore<T> extends StatelessWidget {
                   child: Text(etichetta(corrente),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TypographyTokens.body(size: 13)
+                      style: TypographyTokens.didascalia()
                           .copyWith(color: palette.goldSoft)),
                 ),
                 // Il lucchetto sul chip solo se la voce MOSTRATA e' bloccata.

@@ -139,7 +139,7 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                   Text('Chi ti accompagna',
                       key: const Key('trionfo_animale'),
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.label(size: 13).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                           color: widget.palette.goldSoft, letterSpacing: 3)),
                   const SizedBox(height: SpacingTokens.lg),
                   // La rivelazione con la nebbia, gia' scritta per Caligo.
@@ -163,12 +163,12 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                         children: [
                           Text(widget.animale.name,
                               textAlign: TextAlign.center,
-                              style: TypographyTokens.display(size: 32)
+                              style: TypographyTokens.cerimonialeGrande()
                                   .copyWith(color: widget.palette.goldSoft)),
                           const SizedBox(height: SpacingTokens.xs),
                           Text(widget.animale.summary,
                               textAlign: TextAlign.center,
-                              style: TypographyTokens.body(size: 15).copyWith(
+                              style: TypographyTokens.didascalia().copyWith(
                                   color: ColorTokens.textPrimary,
                                   height: 1.45)),
                           // IL RIQUADRO DELLA SCELTA, ordine 2163 voce 12:
@@ -200,7 +200,7 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                         ),
                         onPressed: invito > 0.5 ? widget.onContinue : null,
                         child: Text('Chi altro veglia su di me',
-                            style: TypographyTokens.body(size: 16, weight: 600)
+                            style: TypographyTokens.corpo(weight: 600)
                                 .copyWith(color: widget.palette.deepest)),
                       ),
                     ),
@@ -324,14 +324,14 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
                   Text('I tuoi Angeli',
                       key: const Key('trionfo_angeli'),
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.label(size: 13).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                           color: widget.palette.goldSoft, letterSpacing: 3)),
                   const SizedBox(height: SpacingTokens.md),
                   Text(
                     'Tre nomi dalla tradizione dei settantadue. Tocca una '
                     'carta per conoscerla.',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.body(size: 14).copyWith(
+                    style: TypographyTokens.didascalia().copyWith(
                         color: ColorTokens.textSecondary, height: 1.45),
                   ),
                   const SizedBox(height: SpacingTokens.xl),
@@ -379,7 +379,7 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
                         ),
                         onPressed: invito > 0.5 ? widget.onContinue : null,
                         child: Text('Continua',
-                            style: TypographyTokens.body(size: 16, weight: 600)
+                            style: TypographyTokens.corpo(weight: 600)
                                 .copyWith(color: widget.palette.deepest)),
                       ),
                     ),
@@ -484,7 +484,7 @@ class _AngeloInScena extends StatelessWidget {
                   Text(angelo.name,
                       textAlign: TextAlign.center,
                       maxLines: 2,
-                      style: TypographyTokens.body(size: 14)
+                      style: TypographyTokens.didascalia()
                           .copyWith(color: ColorTokens.textPrimary)),
                   // Una riga sola e nessuna spezzatura: "Dell\'intelletto" si
                   // rompeva a meta' parola su due righe, che e' il modo piu'
