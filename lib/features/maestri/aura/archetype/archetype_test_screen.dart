@@ -19,6 +19,7 @@ import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../../services/app_services.dart';
 import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
@@ -161,7 +162,7 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
       backgroundColor: Colors.transparent,
       appBar: BarraArte(
         titolo: Text('Test Archetipo',
-            style: TypographyTokens.display(size: 19)),
+            style: TypographyTokens.titoloScheda()),
         azioni: [
           IconButton(
             key: const Key('archetype_sources'),
@@ -234,11 +235,11 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Fonti e metodo',
-                  style: TypographyTokens.display(size: 19)
+                  style: TypographyTokens.titoloScheda()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(ArchetypeCorpus.fontiEMetodo,
-                  style: TypographyTokens.body(size: 15).copyWith(
+                  style: TypographyTokens.didascalia().copyWith(
                       color: ColorTokens.textPrimary, height: 1.45)),
               const SizedBox(height: SpacingTokens.lg),
               Align(
@@ -246,7 +247,7 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
                 child: TextButton(
                   onPressed: () => Navigator.of(sheet).pop(),
                   child: Text('Va bene',
-                      style: TypographyTokens.label(size: 13)
+                      style: TypographyTokens.etichetta()
                           .copyWith(color: palette.goldSoft)),
                 ),
               ),
@@ -288,13 +289,13 @@ class _Soglia extends StatelessWidget {
         children: [
           const SizedBox(height: SpacingTokens.xl),
           Text('Quale dei dodici archetipi ti guida?',
-              style: TypographyTokens.display(size: 24)
+              style: TypographyTokens.cerimoniale()
                   .copyWith(color: palette.goldSoft)),
           const SizedBox(height: SpacingTokens.sm),
           Text(
             'Dodici domande, una alla volta. Rispondi di pancia: non ci sono '
             'risposte giuste, ci sono risposte tue.',
-            style: TypographyTokens.body(size: 16)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.5),
           ),
           const SizedBox(height: SpacingTokens.lg),
@@ -327,7 +328,7 @@ class _Soglia extends StatelessWidget {
           if (consentito && rimanenti != null) ...[
             const SizedBox(height: SpacingTokens.sm),
             Text(rimanenti == 1 ? 'Ne hai uno oggi.' : 'Ne hai $rimanenti oggi.',
-                style: TypographyTokens.label(size: 12)
+                style: TypographyTokens.etichetta()
                     .copyWith(color: ColorTokens.textSecondary)),
           ],
         ],
@@ -356,7 +357,7 @@ class _Bloccato extends StatelessWidget {
             Expanded(
               child: Text(
                 'Per oggi hai già guardato dentro di te. Il Cerchio ne apre di più.',
-                style: TypographyTokens.body(size: 15)
+                style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.4),
               ),
             ),
@@ -365,7 +366,7 @@ class _Bloccato extends StatelessWidget {
         if (ultimo != null) ...[
           const SizedBox(height: SpacingTokens.lg),
           Text('Il tuo ultimo responso',
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: SpacingTokens.sm),
           DepthCard(
@@ -381,11 +382,11 @@ class _Bloccato extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(ultimo!.dominante.conArticolo,
-                          style: TypographyTokens.display(size: 20)
+                          style: TypographyTokens.titoloSezione()
                               .copyWith(color: palette.goldSoft)),
                       const SizedBox(height: 2),
                       Text(ArchetypeCorpus.di(ultimo!.dominante).essenza,
-                          style: TypographyTokens.body(size: 14).copyWith(
+                          style: TypographyTokens.didascalia().copyWith(
                               color: ColorTokens.textSecondary, height: 1.35)),
                     ],
                   ),
@@ -423,7 +424,7 @@ class _Domande extends StatelessWidget {
           const SizedBox(height: SpacingTokens.lg),
           Text('${indice + 1} di $quante',
               key: const Key('archetype_progress'),
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 1.0)),
           const SizedBox(height: SpacingTokens.xs),
           ClipRRect(
@@ -438,7 +439,7 @@ class _Domande extends StatelessWidget {
           const SizedBox(height: SpacingTokens.lg),
           Text(d.testo,
               key: const Key('archetype_question'),
-              style: TypographyTokens.display(size: 22)
+              style: TypographyTokens.titoloSezione()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.3)),
           const SizedBox(height: SpacingTokens.lg),
           // Solo il testo della risposta: l'etichetta archetipo non si vede mai,
@@ -453,7 +454,7 @@ class _Domande extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(d.risposte[i].testo,
-                        style: TypographyTokens.body(size: 16)
+                        style: TypographyTokens.corpo()
                             .copyWith(color: ColorTokens.textPrimary)),
                   ),
                   Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
@@ -642,7 +643,7 @@ class _RisultatoState extends State<_Risultato>
                       : 'non legato ai transiti astrologici',
                   key: const Key('archetype_mode_subtitle'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.label(size: 12).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                       color: palette.goldSoft, letterSpacing: 1.0),
                 ),
               ),
@@ -684,13 +685,16 @@ class _RisultatoState extends State<_Risultato>
               Center(
                 child: Text(dom.conArticolo.toUpperCase(),
                     key: const Key('archetype_name'),
-                    style: TypographyTokens.display(size: 30)
+                    style: TypographyTokens.cerimoniale()
                         .copyWith(color: palette.goldSoft)),
               ),
               Center(
-                child: Text(ritratto.essenza,
+                // L'essenza dell'archetipo e' il responso del Test: ruolo
+                // lettura e regola comune dei paragrafi.
+                child: ParagrafiDiLettura(
+                    testo: ritratto.essenza,
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.body(size: 16).copyWith(
+                    stile: TypographyTokens.lettura().copyWith(
                         color: ColorTokens.textSecondary,
                         fontStyle: FontStyle.italic)),
               ),
@@ -700,7 +704,7 @@ class _RisultatoState extends State<_Risultato>
                   child: Text('Accanto, in tono minore, ${delTest.secondo!.conArticolo}.',
                       key: const Key('archetype_second'),
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.body(size: 14)
+                      style: TypographyTokens.didascalia()
                           .copyWith(color: ColorTokens.textSecondary)),
                 ),
               ],
@@ -717,11 +721,11 @@ class _RisultatoState extends State<_Risultato>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('La sua luce',
-                          style: TypographyTokens.label(size: 12).copyWith(
+                          style: TypographyTokens.etichetta().copyWith(
                               color: palette.goldSoft, letterSpacing: 0.6)),
                       const SizedBox(height: SpacingTokens.xs),
                       Text(ritratto.luce,
-                          style: TypographyTokens.body(size: 16).copyWith(
+                          style: TypographyTokens.corpo().copyWith(
                               color: ColorTokens.textPrimary, height: 1.55)),
                     ],
                   ),
@@ -783,11 +787,11 @@ class _RisultatoState extends State<_Risultato>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('La sua ombra',
-                                style: TypographyTokens.label(size: 12).copyWith(
+                                style: TypographyTokens.etichetta().copyWith(
                                     color: palette.goldSoft, letterSpacing: 0.6)),
                             const SizedBox(height: SpacingTokens.xs),
                             Text(ritratto.ombra,
-                                style: TypographyTokens.body(size: 15).copyWith(
+                                style: TypographyTokens.didascalia().copyWith(
                                     color: ColorTokens.textPrimary, height: 1.45)),
                           ],
                         ),
@@ -850,7 +854,7 @@ class _RisultatoState extends State<_Risultato>
                   'La tua figura è nel Passaporto, con la data di oggi.',
                   key: const Key('archetype_passaporto_aggiornato'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.body(size: 13).copyWith(
+                  style: TypographyTokens.didascalia().copyWith(
                       color: ColorTokens.textSecondary,
                       fontStyle: FontStyle.italic),
                 ),
@@ -916,11 +920,11 @@ class _Bolla extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(titolo,
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: SpacingTokens.xs),
           Text(testo,
-              style: TypographyTokens.body(size: 16)
+              style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.55)),
         ],
       ),
@@ -945,7 +949,7 @@ class _ClassificaPercentuali extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('I dodici in te',
-            style: TypographyTokens.label(size: 12)
+            style: TypographyTokens.etichetta()
                 .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
         const SizedBox(height: SpacingTokens.sm),
         for (final a in ordinati) ...[
@@ -1009,7 +1013,7 @@ class _RigaClassifica extends StatelessWidget {
           const SizedBox(width: SpacingTokens.sm),
           Expanded(
             child: Text(archetipo.nome,
-                style: TypographyTokens.body(size: 15).copyWith(
+                style: TypographyTokens.didascalia().copyWith(
                     color: dominante
                         ? palette.goldSoft
                         : ColorTokens.textPrimary,
@@ -1017,7 +1021,7 @@ class _RigaClassifica extends StatelessWidget {
                         dominante ? FontWeight.w700 : FontWeight.w400)),
           ),
           Text('$percentuale%',
-              style: TypographyTokens.label(size: 13).copyWith(
+              style: TypographyTokens.etichetta().copyWith(
                   color: dominante
                       ? palette.goldSoft
                       : ColorTokens.textSecondary,
@@ -1058,7 +1062,7 @@ class _Transiti extends StatelessWidget {
         if (mod != null) ...[
           Text(ArchetypeTransits.corniceSincronicita,
               key: const Key('archetype_synchronicity'),
-              style: TypographyTokens.body(size: 13).copyWith(
+              style: TypographyTokens.didascalia().copyWith(
                   color: ColorTokens.textSecondary,
                   height: 1.4,
                   fontStyle: FontStyle.italic)),
@@ -1077,7 +1081,7 @@ class _Transiti extends StatelessWidget {
               'Oggi il cielo accende in te ${mod.modulato.dominante.conArticolo}, '
               'che non prende il posto della tua figura: la affianca per un giorno.',
               key: const Key('archetype_figura_del_giorno'),
-              style: TypographyTokens.body(size: 14).copyWith(
+              style: TypographyTokens.didascalia().copyWith(
                   color: palette.goldSoft, height: 1.4),
             ),
             const SizedBox(height: SpacingTokens.sm),
@@ -1093,7 +1097,7 @@ class _Transiti extends StatelessWidget {
                   const SizedBox(width: SpacingTokens.sm),
                   Expanded(
                     child: Text(r.testo,
-                        style: TypographyTokens.body(size: 15).copyWith(
+                        style: TypographyTokens.didascalia().copyWith(
                             color: ColorTokens.textPrimary, height: 1.4)),
                   ),
                 ],
@@ -1126,12 +1130,12 @@ class _Confronto extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Nel tempo',
-            style: TypographyTokens.label(size: 12)
+            style: TypographyTokens.etichetta()
                 .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
         const SizedBox(height: SpacingTokens.xs),
         Text(storico.confrontoCon(precedente, adesso) ?? '',
             key: const Key('archetype_comparison'),
-            style: TypographyTokens.body(size: 15)
+            style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.45)),
         if (righe.length > 1) ...[
           const SizedBox(height: SpacingTokens.sm),

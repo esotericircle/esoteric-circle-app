@@ -17,6 +17,7 @@ import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../../services/app_services.dart';
 import '../../../../core/rituals/runes.dart';
 import '../../../rituals/rune_strokes.dart';
@@ -181,7 +182,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
         titolo: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text('Estrazione Rune',
-              maxLines: 1, style: TypographyTokens.display(size: 19)),
+              maxLines: 1, style: TypographyTokens.titoloScheda()),
         ),
         azioni: [
           IconButton(
@@ -249,11 +250,11 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Fonti e metodo',
-                    style: TypographyTokens.display(size: 19)
+                    style: TypographyTokens.titoloScheda()
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
                 Text(kRuneFontiEMetodo,
-                    style: TypographyTokens.body(size: 15).copyWith(
+                    style: TypographyTokens.didascalia().copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
                 const SizedBox(height: SpacingTokens.sm),
                 // L'ESTENSIONE DEL 7 AGOSTO 2026: le strofe dei tre poemi
@@ -261,7 +262,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                 // dichiarata come curatela. Vive in kRuneFontiPoemi.
                 Text(kRuneFontiPoemi,
                     key: const Key('rune_fonti_poemi'),
-                    style: TypographyTokens.body(size: 15).copyWith(
+                    style: TypographyTokens.didascalia().copyWith(
                         color: ColorTokens.textPrimary, height: 1.45)),
                 const SizedBox(height: SpacingTokens.lg),
                 Align(
@@ -269,7 +270,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   child: TextButton(
                     onPressed: () => Navigator.of(sheet).pop(),
                     child: Text('Va bene',
-                        style: TypographyTokens.label(size: 13)
+                        style: TypographyTokens.etichetta()
                             .copyWith(color: palette.goldSoft)),
                   ),
                 ),
@@ -321,7 +322,7 @@ class _Preparazione extends StatelessWidget {
             'il segno.',
             key: const Key('rune_intro'),
             textAlign: TextAlign.center,
-            style: TypographyTokens.body(size: 16)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.5),
           ),
           const SizedBox(height: SpacingTokens.lg),
@@ -342,12 +343,16 @@ class _Preparazione extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('${gettata.nome} · ${gettata.sottotitolo}',
-                    style: TypographyTokens.label(size: 12).copyWith(
+                    style: TypographyTokens.etichetta().copyWith(
                         color: palette.goldSoft, letterSpacing: 0.6)),
                 const SizedBox(height: SpacingTokens.xs),
-                Text(gettata.testoDinamico,
-                    style: TypographyTokens.body(size: 14).copyWith(
-                        color: ColorTokens.textPrimary, height: 1.5)),
+                // Il responso di Caligo e' testo che si LEGGE, quindi il ruolo
+                // e' lettura e la regola dei paragrafi e' quella comune: qui
+                // non se ne scrive una seconda.
+                ParagrafiDiLettura(
+                    testo: gettata.testoDinamico,
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textPrimary)),
               ],
             ),
           ),
@@ -361,7 +366,7 @@ class _Preparazione extends StatelessWidget {
           const SizedBox(height: SpacingTokens.lg),
           // LA DOMANDA, solo intenzione, coi suggerimenti tappabili.
           Text('La tua domanda',
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: SpacingTokens.xs),
           TextField(
@@ -369,11 +374,11 @@ class _Preparazione extends StatelessWidget {
             controller: domanda,
             maxLines: 2,
             minLines: 1,
-            style: TypographyTokens.body(size: 15)
+            style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textPrimary),
             decoration: InputDecoration(
               hintText: 'Tieni in mente una domanda, oppure scrivila.',
-              hintStyle: TypographyTokens.body(size: 14)
+              hintStyle: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary),
               filled: true,
               fillColor: palette.deepest.withValues(alpha: 0.4),
@@ -509,7 +514,7 @@ class _Responso extends StatelessWidget {
           Center(
             child: Text(esito.gettata.nome.toUpperCase(),
                 key: const Key('rune_result_title'),
-                style: TypographyTokens.display(size: 24)
+                style: TypographyTokens.cerimoniale()
                     .copyWith(color: palette.goldSoft)),
           ),
           const SizedBox(height: SpacingTokens.md),
@@ -533,7 +538,7 @@ class _Responso extends StatelessWidget {
                   const SizedBox(width: SpacingTokens.xs),
                   Expanded(
                     child: Text(domanda,
-                        style: TypographyTokens.body(size: 15).copyWith(
+                        style: TypographyTokens.didascalia().copyWith(
                             color: ColorTokens.textPrimary,
                             fontStyle: FontStyle.italic)),
                   ),
@@ -570,14 +575,14 @@ class _Responso extends StatelessWidget {
                       Icon(Icons.auto_awesome, size: 16, color: palette.goldSoft),
                       const SizedBox(width: SpacingTokens.xs),
                       Text('Il presagio di Caligo',
-                          style: TypographyTokens.label(size: 12).copyWith(
+                          style: TypographyTokens.etichetta().copyWith(
                               color: palette.goldSoft, letterSpacing: 0.6)),
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.xs),
                   Text(presagio,
                       key: const Key('rune_presage_text'),
-                      style: TypographyTokens.body(size: 16).copyWith(
+                      style: TypographyTokens.corpo().copyWith(
                           color: ColorTokens.textPrimary, height: 1.55)),
                 ],
               ),
@@ -600,7 +605,7 @@ class _Responso extends StatelessWidget {
                           size: 16, color: palette.goldSoft),
                       const SizedBox(width: SpacingTokens.xs),
                       Text('Il sigillo del giorno',
-                          style: TypographyTokens.label(size: 12).copyWith(
+                          style: TypographyTokens.etichetta().copyWith(
                               color: palette.goldSoft, letterSpacing: 0.6)),
                     ],
                   ),
@@ -679,7 +684,7 @@ class _LetturaRuna extends StatelessWidget {
             if (giuntura != null) ...[
               Text(giuntura!,
                   key: Key('rune_giuntura_$indice'),
-                  style: TypographyTokens.body(size: 13).copyWith(
+                  style: TypographyTokens.didascalia().copyWith(
                       color: palette.goldSoft,
                       fontStyle: FontStyle.italic,
                       height: 1.4)),
@@ -695,7 +700,7 @@ class _LetturaRuna extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(runa.rune.name,
-                          style: TypographyTokens.display(size: 20)
+                          style: TypographyTokens.titoloSezione()
                               .copyWith(color: palette.goldSoft)),
                       Text(
                           '${runa.posizione.titolo} · ${runa.posizione.glossa}',
@@ -720,7 +725,7 @@ class _LetturaRuna extends StatelessWidget {
                               letterSpacing: 0.6)),
                       const SizedBox(height: 2),
                       Text(runa.rune.keyword,
-                          style: TypographyTokens.body(size: 14).copyWith(
+                          style: TypographyTokens.didascalia().copyWith(
                               color: ColorTokens.textPrimary,
                               fontStyle: FontStyle.italic)),
                     ],
@@ -730,7 +735,7 @@ class _LetturaRuna extends StatelessWidget {
             ),
             const SizedBox(height: SpacingTokens.sm),
             Text(runa.riga,
-                style: TypographyTokens.body(size: 15).copyWith(
+                style: TypographyTokens.didascalia().copyWith(
                     color: ColorTokens.textPrimary, height: 1.5)),
             // LA VOCE DELLA RUNA, di Caligo: la runa nel tuo giorno. E'
             // curatela dichiarata, mai tradizione, e per questo NON sta
@@ -739,7 +744,7 @@ class _LetturaRuna extends StatelessWidget {
               const SizedBox(height: SpacingTokens.sm),
               Text(voce!,
                   key: Key('rune_voce_$indice'),
-                  style: TypographyTokens.body(size: 14).copyWith(
+                  style: TypographyTokens.didascalia().copyWith(
                       color: palette.goldSoft, height: 1.5)),
             ],
             // LA STROFA ATTESTATA, con la fonte nominata: la materia vera
@@ -751,7 +756,7 @@ class _LetturaRuna extends StatelessWidget {
                   '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
                   '«${kRuneLore[runa.rune.name]!.strofe.first.traduzione}»',
                   key: Key('rune_strofa_$indice'),
-                  style: TypographyTokens.label(size: 12).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                       color: ColorTokens.textSecondary, height: 1.45)),
             ],
           ],
@@ -934,7 +939,7 @@ class _SelettoreGettate extends StatelessWidget {
                   // Nome per intero, senza ellissi: la pillola cresce col testo.
                   Text(g.nome,
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.label(size: 12).copyWith(
+                      style: TypographyTokens.etichetta().copyWith(
                         color: g.id == corrente.id
                             ? palette.goldSoft
                             : ColorTokens.textSecondary,

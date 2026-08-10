@@ -11,6 +11,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../core/maestro/maestro.dart';
 
 /// I tre Angeli della persona, di dominio Medora.
@@ -86,20 +87,20 @@ class _AngelsScreenState extends State<AngelsScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Fonti e metodo',
-                style: TypographyTokens.display(size: 20)),
+                style: TypographyTokens.titoloSezione()),
             const SizedBox(height: SpacingTokens.sm),
             Text(
               'Sono i settantadue nomi dello Shemhamphorash, dalla tradizione '
               'cabalistica: dal versetto triplice dell\'Esodo si ricavano '
               'settantadue nomi, disposti in nove cori da otto.',
-              style: TypographyTokens.body(size: 15).copyWith(height: 1.45),
+              style: TypographyTokens.didascalia().copyWith(height: 1.45),
             ),
             const SizedBox(height: SpacingTokens.sm),
             Text(
               'I tuoi tre si ricavano da tre cose diverse: la posizione del '
               'Sole alla tua nascita, in archi di cinque gradi, il giorno in '
               'cui sei nato, l\'ora esatta.',
-              style: TypographyTokens.body(size: 15).copyWith(height: 1.45),
+              style: TypographyTokens.didascalia().copyWith(height: 1.45),
             ),
             const SizedBox(height: SpacingTokens.sm),
             Text(
@@ -107,7 +108,7 @@ class _AngelsScreenState extends State<AngelsScreen>
               'Le fonti sono repertori che dichiarano di derivare da Lenain e '
               'da Ambelain. Le tavole originali non sono state consultate in '
               'edizione primaria.',
-              style: TypographyTokens.body(size: 15)
+              style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.45),
             ),
             const SizedBox(height: SpacingTokens.md),
@@ -137,7 +138,7 @@ class _AngelsScreenState extends State<AngelsScreen>
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: Text('I tuoi tre Angeli',
-            style: TypographyTokens.display(size: 20)),
+            style: TypographyTokens.titoloSezione()),
         actions: [
           IconButton(
             key: const Key('angeli_fonti_metodo'),
@@ -163,7 +164,7 @@ class _AngelsScreenState extends State<AngelsScreen>
                 'La tradizione ne assegna tre, uno per ogni strato: il corpo, '
                 'il cuore, la mente.',
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: TypographyTokens.guide)
+                style: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4),
               ),
               const SizedBox(height: SpacingTokens.lg),
@@ -291,16 +292,16 @@ class _CartaAngelo extends StatelessWidget {
                           style: TypographyTokens.etichetta().copyWith(
                               color: palette.goldSoft, letterSpacing: 2)),
                       Text(sottotitolo,
-                          style: TypographyTokens.body(size: 13)
+                          style: TypographyTokens.didascalia()
                               .copyWith(color: ColorTokens.textMuted)),
                       const SizedBox(height: SpacingTokens.xs),
                       Text('${angelo.number}. ${angelo.name}',
-                          style: TypographyTokens.display(size: 22)),
+                          style: TypographyTokens.titoloSezione()),
                       const SizedBox(height: 2),
                       Text(
                         'Coro dei ${angelo.choir.name}, retto da '
                         '${angelo.choir.archangel}',
-                        style: TypographyTokens.body(size: 13)
+                        style: TypographyTokens.didascalia()
                             .copyWith(color: ColorTokens.textSecondary),
                       ),
                     ],
@@ -311,11 +312,11 @@ class _CartaAngelo extends StatelessWidget {
             const SizedBox(height: SpacingTokens.sm),
             Text(
               'Il suo coro veglia su ${angelo.choir.domain}.',
-              style: TypographyTokens.body(size: 15).copyWith(height: 1.4),
+              style: TypographyTokens.didascalia().copyWith(height: 1.4),
             ),
             const SizedBox(height: SpacingTokens.xs),
             Text(perche,
-                style: TypographyTokens.body(size: 15)
+                style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
             const SizedBox(height: SpacingTokens.sm),
             if (lore != null) ...[
@@ -323,19 +324,19 @@ class _CartaAngelo extends StatelessWidget {
               // questo angelo e' il tuo, detta col cielo alla mano.
               Text(
                 '${lore.degrees} dello zodiaco, nel segno ${lore.sign}.',
-                style: TypographyTokens.body(size: 15)
+                style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textSecondary, height: 1.4),
               ),
               if (lore.psalm.isNotEmpty) ...[
                 const SizedBox(height: SpacingTokens.xs),
                 Text(lore.psalm,
-                    style: TypographyTokens.body(size: 15)
+                    style: TypographyTokens.didascalia()
                         .copyWith(height: 1.45)),
               ],
               if (lore.tradition.isNotEmpty && !lore.confidenzaBassa) ...[
                 const SizedBox(height: SpacingTokens.xs),
                 Text(lore.tradition,
-                    style: TypographyTokens.body(size: 15)
+                    style: TypographyTokens.didascalia()
                         .copyWith(height: 1.45)),
               ],
               if (lore.reading.isNotEmpty) ...[
@@ -347,9 +348,12 @@ class _CartaAngelo extends StatelessWidget {
                     style: TypographyTokens.etichetta().copyWith(
                         color: palette.goldSoft, letterSpacing: 2)),
                 const SizedBox(height: 2),
-                Text(lore.reading,
-                    style: TypographyTokens.body(size: 15).copyWith(
-                        color: ColorTokens.textSecondary, height: 1.45)),
+                // La lettura di Medora e' il responso della scheda: ruolo
+                // lettura e regola comune dei paragrafi.
+                ParagrafiDiLettura(
+                    testo: lore.reading,
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textSecondary)),
               ],
             ],
           ],
@@ -442,7 +446,7 @@ class _IntellettoMancante extends StatelessWidget {
             'Questo terzo angelo nasce dall\'ora esatta della nascita, che non '
             'ci hai ancora detto. Quando la troverai, comparirà qui: come '
             'l\'Ascendente e le case, senza ora non si calcola.',
-            style: TypographyTokens.body(size: 15)
+            style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4),
           ),
         ],
@@ -466,10 +470,10 @@ class _ComeSonoScelti extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(titolo,
-                  style: TypographyTokens.body(size: 15, weight: 600)
+                  style: TypographyTokens.didascalia(weight: 600)
                       .copyWith(color: palette.goldSoft)),
               Text(testo,
-                  style: TypographyTokens.body(size: 15)
+                  style: TypographyTokens.didascalia()
                       .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
             ],
           ),
@@ -483,7 +487,7 @@ class _ComeSonoScelti extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Come vengono scelti',
-              style: TypographyTokens.display(size: 18)),
+              style: TypographyTokens.titoloScheda()),
           const SizedBox(height: SpacingTokens.sm),
           riga(
             'Il Custode, dal cielo',

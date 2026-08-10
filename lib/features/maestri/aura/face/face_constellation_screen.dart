@@ -24,6 +24,7 @@ import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../../services/app_services.dart';
 import '../../chat/chat_openers.dart';
 import '../../chat/maestro_chat_screen.dart';
@@ -153,7 +154,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
         titolo: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text('Costellazione del Viso',
-              maxLines: 1, style: TypographyTokens.display(size: 19)),
+              maxLines: 1, style: TypographyTokens.titoloScheda()),
         ),
         azioni: [
           IconButton(
@@ -232,11 +233,11 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Fonti e metodo',
-                  style: TypographyTokens.display(size: 19)
+                  style: TypographyTokens.titoloScheda()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(FaceCorpus.fontiEMetodo,
-                  style: TypographyTokens.body(size: 15).copyWith(
+                  style: TypographyTokens.didascalia().copyWith(
                       color: ColorTokens.textPrimary, height: 1.45)),
               const SizedBox(height: SpacingTokens.lg),
               Align(
@@ -244,7 +245,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                 child: TextButton(
                   onPressed: () => Navigator.of(sheet).pop(),
                   child: Text('Va bene',
-                      style: TypographyTokens.label(size: 13)
+                      style: TypographyTokens.etichetta()
                           .copyWith(color: palette.goldSoft)),
                 ),
               ),
@@ -288,14 +289,14 @@ class _Soglia extends StatelessWidget {
         children: [
           const SizedBox(height: SpacingTokens.xl),
           Text('I tratti del tuo volto, una costellazione',
-              style: TypographyTokens.display(size: 24)
+              style: TypographyTokens.cerimoniale()
                   .copyWith(color: palette.goldSoft)),
           const SizedBox(height: SpacingTokens.sm),
           Text(
             'La fotocamera legge la geometria del tuo viso e la unisce in una '
             'costellazione. I significati sono la Personologia, la fisiognomica '
             'di Jones e Tickle, con la nostra curatela.',
-            style: TypographyTokens.body(size: 16)
+            style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.5),
           ),
           const SizedBox(height: SpacingTokens.md),
@@ -311,7 +312,7 @@ class _Soglia extends StatelessWidget {
                     'Tutto resta sul tuo dispositivo: nessuna immagine viene '
                     'inviata, nessuna foto viene salvata oltre l\'uso del momento.',
                     key: const Key('face_privacy'),
-                    style: TypographyTokens.body(size: 14).copyWith(
+                    style: TypographyTokens.didascalia().copyWith(
                         color: ColorTokens.textSecondary, height: 1.4),
                   ),
                 ),
@@ -349,7 +350,7 @@ class _Soglia extends StatelessWidget {
               onPressed: onRipiego,
               icon: Icon(Icons.touch_app_outlined, color: palette.goldSoft),
               label: Text('Non hai la fotocamera? Tocca qui',
-                  style: TypographyTokens.label(size: 13)
+                  style: TypographyTokens.etichetta()
                       .copyWith(color: palette.goldSoft)),
             ),
             if (rimanenti != null) ...[
@@ -358,7 +359,7 @@ class _Soglia extends StatelessWidget {
                   rimanenti == 1
                       ? 'Ne hai una oggi.'
                       : 'Ne hai $rimanenti oggi.',
-                  style: TypographyTokens.label(size: 12)
+                  style: TypographyTokens.etichetta()
                       .copyWith(color: ColorTokens.textSecondary)),
             ],
           ] else
@@ -391,7 +392,7 @@ class _Bloccato extends StatelessWidget {
             Expanded(
               child: Text(
                 'Per oggi hai già guardato il tuo volto. Il Cerchio ne apre di più.',
-                style: TypographyTokens.body(size: 15)
+                style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.4),
               ),
             ),
@@ -400,7 +401,7 @@ class _Bloccato extends StatelessWidget {
         if (ultimo != null) ...[
           const SizedBox(height: SpacingTokens.lg),
           Text('La tua ultima lettura',
-              style: TypographyTokens.label(size: 12)
+              style: TypographyTokens.etichetta()
                   .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
           const SizedBox(height: SpacingTokens.sm),
           DepthCard(
@@ -415,11 +416,11 @@ class _Bloccato extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(ultimo!.reading.dominante.titoloEvocativo,
-                          style: TypographyTokens.display(size: 18)
+                          style: TypographyTokens.titoloScheda()
                               .copyWith(color: palette.goldSoft)),
                       const SizedBox(height: 2),
                       Text(ultimo!.reading.dominante.nome,
-                          style: TypographyTokens.body(size: 14).copyWith(
+                          style: TypographyTokens.didascalia().copyWith(
                               color: ColorTokens.textSecondary)),
                     ],
                   ),
@@ -552,7 +553,7 @@ class _CatturaState extends State<_Cattura>
           Text('Centra il viso nel cerchio, sguardo dritto.',
               key: const Key('face_guide'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.body(size: 15)
+              style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textPrimary)),
           const SizedBox(height: SpacingTokens.md),
           Expanded(
@@ -606,7 +607,7 @@ class _CatturaState extends State<_Cattura>
           TextButton(
             onPressed: widget.onRipiego,
             child: Text('Preferisci scegliere a mano? Tocca qui',
-                style: TypographyTokens.label(size: 12)
+                style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft)),
           ),
         ],
@@ -774,7 +775,7 @@ class _RisultatoState extends State<_Risultato>
                       : 'non legato ai transiti astrologici',
                   key: const Key('face_mode_subtitle'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.label(size: 12).copyWith(
+                  style: TypographyTokens.etichetta().copyWith(
                       color: palette.goldSoft, letterSpacing: 1.0),
                 ),
               ),
@@ -797,14 +798,14 @@ class _RisultatoState extends State<_Risultato>
                 child: Text(dom.titoloEvocativo,
                     key: const Key('face_title'),
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.display(size: 28)
+                    style: TypographyTokens.cerimoniale()
                         .copyWith(color: palette.goldSoft)),
               ),
               Center(
                 child: Text(dom.nome,
                     key: const Key('face_dominant_name'),
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.body(size: 16).copyWith(
+                    style: TypographyTokens.corpo().copyWith(
                         color: ColorTokens.textSecondary,
                         fontStyle: FontStyle.italic)),
               ),
@@ -820,12 +821,15 @@ class _RisultatoState extends State<_Risultato>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('La tua sintesi',
-                          style: TypographyTokens.label(size: 12).copyWith(
+                          style: TypographyTokens.etichetta().copyWith(
                               color: palette.goldSoft, letterSpacing: 0.6)),
                       const SizedBox(height: SpacingTokens.xs),
-                      Text(FaceCorpus.sintesi(reading.marcati),
-                          style: TypographyTokens.body(size: 16).copyWith(
-                              color: ColorTokens.textPrimary, height: 1.55)),
+                      // La sintesi del volto e' il responso della funzione:
+                      // ruolo lettura e regola comune dei paragrafi.
+                      ParagrafiDiLettura(
+                          testo: FaceCorpus.sintesi(reading.marcati),
+                          stile: TypographyTokens.lettura()
+                              .copyWith(color: ColorTokens.textPrimary)),
                     ],
                   ),
                 ),
@@ -833,7 +837,7 @@ class _RisultatoState extends State<_Risultato>
               const SizedBox(height: SpacingTokens.lg),
               // L'ELENCO dei tratti letti, ognuno con la sua stella e la frase.
               Text('I tratti del tuo volto',
-                  style: TypographyTokens.label(size: 12)
+                  style: TypographyTokens.etichetta()
                       .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
               const SizedBox(height: SpacingTokens.sm),
               for (final t in reading.marcati)
@@ -970,7 +974,7 @@ class _RigaTratto extends StatelessWidget {
           Expanded(
             child: RichText(
               text: TextSpan(
-                style: TypographyTokens.body(size: 15)
+                style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.4),
                 children: [
                   TextSpan(
@@ -1017,7 +1021,7 @@ class _Transiti extends StatelessWidget {
         ),
         if (riga != null) ...[
           Text(FaceTransits.cornice,
-              style: TypographyTokens.body(size: 13).copyWith(
+              style: TypographyTokens.didascalia().copyWith(
                   color: ColorTokens.textSecondary,
                   height: 1.4,
                   fontStyle: FontStyle.italic)),
@@ -1030,7 +1034,7 @@ class _Transiti extends StatelessWidget {
               const SizedBox(width: SpacingTokens.sm),
               Expanded(
                 child: Text(riga!,
-                    style: TypographyTokens.body(size: 15).copyWith(
+                    style: TypographyTokens.didascalia().copyWith(
                         color: ColorTokens.textPrimary, height: 1.4)),
               ),
             ],
@@ -1077,19 +1081,19 @@ class _RipiegoState extends State<_Ripiego> {
         children: [
           const SizedBox(height: SpacingTokens.sm),
           Text('Scegli a mano',
-              style: TypographyTokens.display(size: 22)
+              style: TypographyTokens.titoloSezione()
                   .copyWith(color: palette.goldSoft)),
           const SizedBox(height: SpacingTokens.xs),
           Text(
             'Guarda il tuo viso allo specchio e scegli, per ogni tratto, la '
             'forma che ti somiglia di più. Alimenta la stessa lettura.',
-            style: TypographyTokens.body(size: 15)
+            style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.45),
           ),
           const SizedBox(height: SpacingTokens.lg),
           for (final cat in _categorie) ...[
             Text(cat.titolo,
-                style: TypographyTokens.label(size: 12)
+                style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
             const SizedBox(height: SpacingTokens.xs),
             Wrap(
@@ -1173,7 +1177,7 @@ class _Scelta extends StatelessWidget {
                 color: scelto ? palette.goldSoft : ColorTokens.textSecondary),
             const SizedBox(width: SpacingTokens.xs),
             Text(tratto.nome,
-                style: TypographyTokens.body(size: 14).copyWith(
+                style: TypographyTokens.didascalia().copyWith(
                     color: scelto
                         ? palette.goldSoft
                         : ColorTokens.textPrimary)),

@@ -1,4 +1,8 @@
 import 'package:esoteric_circle/app.dart';
+import 'package:esoteric_circle/core/identity/birth_identity.dart';
+import 'package:esoteric_circle/features/maestri/aura/face/face_constellation_screen.dart';
+import 'package:esoteric_circle/features/maestri/aura/archetype/archetype_test_screen.dart';
+import 'package:esoteric_circle/features/angels/angels_screen.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
@@ -2297,6 +2301,65 @@ void main() {
       await tester.pump(const Duration(seconds: 2));
       await tester.pump(const Duration(seconds: 2));
       await scattaApp(tester, radice, 'percorso_$scena');
+    });
+  }
+
+  // ORDINE C, voce 2: LE QUATTRO SCHERMATE PIU' PESANTI.
+  //
+  // Stessa misura, stessi tempi e stesso blocco per le due fasi, come per le
+  // altre coppie: si lancia questo file su un albero fermo al commit precedente
+  // con STATO=prima, e sull'albero corrente con STATO=dopo.
+  for (final scena in const ['angeli', 'archetipo', 'volto', 'rune']) {
+    testWidgets('C, le quattro schermate, $scena', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      for (final (famiglia, percorso) in const [
+        ('Cinzel', 'assets/fonts/Cinzel-variable.ttf'),
+        ('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf'),
+      ]) {
+        final loader = FontLoader(famiglia);
+        final bytes = File(percorso).readAsBytesSync();
+        loader.addFont(Future.value(ByteData.view(bytes.buffer)));
+        await loader.load();
+      }
+      SharedPreferences.setMockInitialValues(
+          const {'onboarding.done': true, 'santuario.greeted': true});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2391);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final radice = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: radice,
+        child:
+            EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+      ));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.pump(const Duration(seconds: 2));
+
+      final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+      switch (scena) {
+        case 'angeli':
+          unawaited(nav.push(AngelsScreen.route(
+              identity: BirthIdentity(
+                  birthMoment: DateTime(1990, 6, 15, 14, 30)))));
+        case 'archetipo':
+          unawaited(nav.push(ArchetypeTestScreen.route()));
+        case 'volto':
+          unawaited(nav.push(FaceConstellationScreen.route()));
+        case 'rune':
+          unawaited(nav.push(RuneDrawScreen.route(
+              userSign: Zodiac.aries,
+              userBirth: DateTime(1990, 6, 15),
+              random: math.Random(7))));
+      }
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
+      await scattaApp(tester, radice, 'schermata_$scena');
     });
   }
 }

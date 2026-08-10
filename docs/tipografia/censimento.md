@@ -1,7 +1,7 @@
 # Censimento delle misure tipografiche scritte a mano
 
-<!-- TOTALE_CENSITO: 471 -->
-<!-- FILE_CENSITI: 70 -->
+<!-- TOTALE_CENSITO: 369 -->
+<!-- FILE_CENSITI: 66 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- Generato da tool/censimento_tipografia.dart. Non si scrive a mano: si rigenera. -->
 
@@ -19,10 +19,10 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 
 | Grandezza | Valore |
 | --- | --- |
-| Misure esplicite sotto `lib/` | **471** |
-| File che ne contengono | **70** |
+| Misure esplicite sotto `lib/` | **369** |
+| File che ne contengono | **66** |
 | Sotto il pavimento assoluto di 12 | **0** |
-| Sotto 16 in contesto di lettura | **177** |
+| Sotto 16 in contesto di lettura | **132** |
 
 Contesto di lettura vuol dire testo che si legge e non si guarda: la famiglia del corpo (`body`) e i `fontSize` sciolti, che nell'app stanno quasi sempre su testo narrato. Le etichette cerimoniali in maiuscoletto e i titoli restano fuori, perche' li' sotto sedici punti e' una scelta di composizione, non un problema di lettura.
 
@@ -38,12 +38,8 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 
 | File | Misure | Sotto 12 | Lettura sotto 16 |
 | --- | ---: | ---: | ---: |
-| `lib/features/maestri/aura/archetype/archetype_test_screen.dart` | 33 | 0 | 11 |
-| `lib/features/maestri/aura/face/face_constellation_screen.dart` | 28 | 0 | 10 |
-| `lib/features/maestri/caligo/rune/rune_draw_screen.dart` | 23 | 0 | 10 |
 | `lib/features/rituals/sunset_rune_screen.dart` | 20 | 0 | 1 |
 | `lib/features/santuario/sky_overview_screen.dart` | 19 | 0 | 8 |
-| `lib/features/angels/angels_screen.dart` | 18 | 0 | 14 |
 | `lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart` | 18 | 0 | 7 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 17 | 0 | 3 |
 | `lib/features/pricing/pricing_screen.dart` | 17 | 0 | 7 |
