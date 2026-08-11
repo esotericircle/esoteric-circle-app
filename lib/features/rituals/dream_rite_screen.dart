@@ -16,6 +16,7 @@ import '../../core/rituals/sunset_rune.dart';
 import '../../core/rituals/sunset_rune_memory.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/zodiac_figures.dart';
+import '../../design_system/components/stelle_da_unire.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -85,11 +86,6 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     duration: const Duration(seconds: 12),
   )..repeat();
 
-  /// Il lampo morbido quando una stella si unisce.
-  late final AnimationController _lampo = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 620),
-  );
 
   final BreathDetector _fiato = BreathDetector();
   final TiltListener _tilt = TiltListener();
@@ -103,9 +99,19 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   double _micLivello = 0;
   double _spintaDito = 0;
 
-  /// Le stelle gia' unite, in ordine.
-  final List<int> _accese = [];
+  /// LO STATO DELLA FIGURA arriva dal componente unico StelleDaUnire,
+  /// ordine L voce 3: qui restano i due specchi che i testi leggono.
+  int _unite = 0;
   bool _completa = false;
+
+  /// La figura del segno della Luna, nella lingua del componente unico.
+  late final FiguraDaUnire _figuraDaUnire = FiguraDaUnire(
+    punti: [
+      for (var i = 0; i < _figura.points.length; i++)
+        PuntoDaUnire('stella ${i + 1}', _figura.points[i]),
+    ],
+    fili: _figura.edges,
+  );
 
   /// Lo spostamento della vista col dito, quando il giroscopio non c'e'.
   Offset _panDito = Offset.zero;
@@ -151,7 +157,6 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     _fiato.dispose();
     _tilt.removeListener(_ridisegna);
     _tilt.dispose();
-    _lampo.dispose();
     _pulse.dispose();
     if (_suono) widget.player.stop();
     super.dispose();
@@ -200,17 +205,15 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     });
   }
 
-  void _tocca(int indice) {
-    if (_fase != _Fase.cielo || _completa) return;
-    if (indice != _accese.length) return; // si uniscono in sequenza
-    setState(() => _accese.add(indice));
-    if (!_riduciMovimento) _lampo.forward(from: 0);
-    if (_accese.length == _figura.points.length) {
-      _completa = true;
-      Future<void>.delayed(const Duration(milliseconds: 900), () {
-        if (mounted) setState(() => _fase = _Fase.messaggio);
-      });
-    }
+  void _allUnione(int indice) {
+    setState(() => _unite = indice + 1);
+  }
+
+  void _allaFiguraCompleta() {
+    setState(() => _completa = true);
+    Future<void>.delayed(const Duration(milliseconds: 900), () {
+      if (mounted) setState(() => _fase = _Fase.messaggio);
+    });
   }
 
   Future<void> _cambiaSuono() async {
@@ -349,25 +352,6 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     // Il piano della costellazione si muove meno del primo piano.
     final off = _spostamento * 0.55;
     return [
-      Positioned.fill(
-        child: IgnorePointer(
-          child: AnimatedBuilder(
-            animation: Listenable.merge([_pulse, _lampo]),
-            builder: (context, _) => CustomPaint(
-              painter: _FigureLuminosePainter(
-                figura: _figura,
-                palette: _palette,
-                accese: _accese,
-                completa: _completa,
-                t: _riduciMovimento ? 0.22 : _pulse.value,
-                lampo: _lampo.isAnimating ? _lampo.value : -1,
-                spostamento: off,
-                fascia: _fasciaCielo,
-              ),
-            ),
-          ),
-        ),
-      ),
       // Il ripiego a dito: si sposta la vista trascinando, quando il giroscopio
       // non c'e'. Sta sotto le stelle, cosi' il tocco sulla stella vince.
       if (!_riduciMovimento)
@@ -383,27 +367,25 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             }),
           ),
         ),
-      // Le zone toccabili delle stelle, sullo stesso piano dei fili.
-      for (var i = 0; i < _figura.points.length; i++)
-        _stellaToccabile(i, w, h, off),
-    ];
-  }
-
-  /// Il punto toccabile di una stella. Il disegno lo fa il painter.
-  Widget _stellaToccabile(int i, double w, double h, Offset off) {
-    final p = _figura.points[i];
-    final x = (0.12 + p.dx * 0.76) * w + off.dx;
-    final y = (0.13 + p.dy * 0.30) * h + off.dy;
-    return Positioned(
-      left: x - 26,
-      top: y - 26,
-      child: GestureDetector(
-        key: Key('dream_star_$i'),
-        behavior: HitTestBehavior.opaque,
-        onTap: () => _tocca(i),
-        child: const SizedBox(width: 52, height: 52),
+      // IL COMPONENTE UNICO, ordine L voce 3: fili, stelle grandi, la stella
+      // che chiama il tocco e le zone toccabili vivono in StelleDaUnire, lo
+      // stesso della rivelazione dell'Animale Guida. Qui restano la fascia
+      // di cielo e la parallasse, che sono della scena.
+      Positioned.fill(
+        child: StelleDaUnire(
+          figura: _figuraDaUnire,
+          palette: _palette,
+          keyPrefix: 'dream_star',
+          spostamento: off,
+          mappa: (p) => Offset(
+            (0.12 + p.dx * 0.76) * w + off.dx,
+            (0.13 + p.dy * 0.30) * h + off.dy,
+          ),
+          onTocco: _allUnione,
+          onCompleta: _allaFiguraCompleta,
+        ),
       ),
-    );
+    ];
   }
 
   // --- I tre momenti sotto la fascia di cielo ---
@@ -455,7 +437,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         Text(
             _completa
                 ? 'La figura è unita.'
-                : (_accese.isEmpty
+                : (_unite == 0
                     ? 'Alza il telefono verso il cielo.'
                     : 'Unisci le stelle.'),
             key: const Key('dream_invito_cielo'),
@@ -465,7 +447,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         const SizedBox(height: SpacingTokens.xs),
         Text(
             'La costellazione di ${_luna.sign.italianName}, il segno in cui si '
-            'trova la Luna adesso. Stelle unite ${_accese.length} su '
+            'trova la Luna adesso. Stelle unite $_unite su '
             '${_figura.points.length}.',
             key: const Key('dream_conteggio'),
             textAlign: TextAlign.center,
@@ -688,30 +670,6 @@ class _AzioniState extends State<_Azioni> {
 // I painter della scena: Luna reale, stelle vicine, foschia, fili di luce.
 // ---------------------------------------------------------------------------
 
-/// Un filamento a fuso fra due stelle: spessore [wEstremi] alle punte e
-/// [wCentro] al centro, cosi' la linea non e' un tratto uniforme ma si assottiglia
-/// verso le stelle. Due archi quadratici, uno per lato.
-Path _fuso(Offset a, Offset b, double wEstremi, double wCentro) {
-  final d = b - a;
-  final len = d.distance;
-  if (len < 0.5) return Path();
-  final n = Offset(-d.dy / len, d.dx / len); // perpendicolare unitaria
-  final m = Offset.lerp(a, b, 0.5)!;
-  // Il controllo che fa passare l'arco per il punto di mezzo alla larghezza data.
-  final k = 2 * wCentro - wEstremi;
-  final ca = m + n * k;
-  final cb = m - n * k;
-  final a1 = a + n * wEstremi;
-  final b1 = b + n * wEstremi;
-  final b2 = b - n * wEstremi;
-  final a2 = a - n * wEstremi;
-  return Path()
-    ..moveTo(a1.dx, a1.dy)
-    ..quadraticBezierTo(ca.dx, ca.dy, b1.dx, b1.dy)
-    ..lineTo(b2.dx, b2.dy)
-    ..quadraticBezierTo(cb.dx, cb.dy, a2.dx, a2.dy)
-    ..close();
-}
 
 /// Disegna una stella premium: alone a gradiente, nucleo e una piccola raggiera.
 void _stellaPremium(
@@ -991,112 +949,3 @@ class _FoschiaPainter extends CustomPainter {
 /// La costellazione reale del segno della Luna: filamenti d'oro luminosi con
 /// alone esterno, uno scintillio che corre lungo la linea, e le stelle della
 /// figura che si accendono con un lampo morbido quando vengono unite.
-class _FigureLuminosePainter extends CustomPainter {
-  _FigureLuminosePainter({
-    required this.figura,
-    required this.palette,
-    required this.accese,
-    required this.completa,
-    required this.t,
-    required this.lampo,
-    required this.spostamento,
-    required this.fascia,
-  });
-
-  final ZodiacConstellation figura;
-  final MaestroPalette palette;
-  final List<int> accese;
-  final bool completa;
-  final double t;
-
-  /// Avanzamento del lampo dell'ultima stella unita, negativo se fermo.
-  final double lampo;
-
-  final Offset spostamento;
-  final double fascia;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Offset map(Offset p) => Offset(
-          (0.12 + p.dx * 0.76) * size.width + spostamento.dx,
-          (0.13 + p.dy * 0.30) * size.height + spostamento.dy,
-        );
-
-    final respiro = completa ? 0.75 + 0.25 * math.sin(t * math.pi * 2) : 1.0;
-
-    // I filamenti: alone esterno morbido, poi il cuore luminoso. Non tratti
-    // uniformi ma fusi, sottili vicino alle stelle e appena piu' pieni al
-    // centro, cosi' sembrano incisi di luce.
-    final alone = Paint()
-      ..style = PaintingStyle.fill
-      ..color = palette.gold.withValues(alpha: 0.20 * respiro)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
-    final cuore = Paint()
-      ..style = PaintingStyle.fill
-      ..color = const Color(0xFFFFF0C4).withValues(alpha: 0.92 * respiro);
-    final pieno = completa ? 1.35 : 1.05;
-
-    var e = 0;
-    for (final (a, b) in figura.edges) {
-      if (!accese.contains(a) || !accese.contains(b)) {
-        e++;
-        continue;
-      }
-      final pa = map(figura.points[a]);
-      final pb = map(figura.points[b]);
-      canvas.drawPath(_fuso(pa, pb, 1.1, 3.4), alone);
-      canvas.drawPath(_fuso(pa, pb, 0.3, pieno), cuore);
-      // Lo scintillio che corre lungo il filamento.
-      final s = ((t * 3 + e * 0.31) % 1.0);
-      final punto = Offset.lerp(pa, pb, s)!;
-      canvas.drawCircle(
-        punto,
-        3.4,
-        Paint()
-          ..color = const Color(0xFFFFF6DA).withValues(alpha: 0.75 * respiro)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5),
-      );
-      e++;
-    }
-
-    // Le stelle della figura: piu' brillanti delle altre.
-    for (var i = 0; i < figura.points.length; i++) {
-      final c = map(figura.points[i]);
-      final unita = accese.contains(i);
-      final prossima = !completa && i == accese.length;
-      final battito = prossima
-          ? 0.6 + 0.4 * math.sin(t * math.pi * 6)
-          : (unita ? respiro : 0.7);
-      // Niente croce sulle stelle della figura: parlano gia' col nucleo pieno,
-      // con l'alone e coi filamenti. La raggiera resta alle pochissime del cielo.
-      _stellaPremium(
-        canvas,
-        c,
-        unita ? 2.3 : 1.7,
-        unita ? 1.0 * battito : 0.8 * battito,
-        colore: unita ? const Color(0xFFFFF6DA) : const Color(0xFFEAF0FF),
-      );
-      // Il lampo morbido dell'ultima stella unita.
-      if (lampo >= 0 && unita && i == accese.length - 1) {
-        final f = lampo.clamp(0.0, 1.0);
-        canvas.drawCircle(
-          c,
-          8 + f * 34,
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 2.4 * (1 - f)
-            ..color = const Color(0xFFFFF0C4).withValues(alpha: 0.7 * (1 - f))
-            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
-        );
-      }
-    }
-  }
-
-  @override
-  bool shouldRepaint(_FigureLuminosePainter old) =>
-      old.accese.length != accese.length ||
-      old.completa != completa ||
-      old.t != t ||
-      old.lampo != lampo ||
-      old.spostamento != spostamento;
-}

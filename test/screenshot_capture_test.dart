@@ -1752,16 +1752,6 @@ void main() {
     await step(tester);
   }
 
-  // Precarica l'arte di scena del tamburo, cosi' l'immagine compare nel viaggio.
-  Future<void> precacheTamburo(WidgetTester tester) async {
-    await tester.runAsync(() async {
-      final element = tester.element(find.byType(GuideAnimalScreen));
-      await precacheImage(
-          const AssetImage('assets/img/caligo/tamburo_sciamanico_v1.webp'),
-          element);
-    });
-    await step(tester);
-  }
 
   void seedArchetipoCaligo() {
     final esito = ArchetypeEsito(
@@ -1795,12 +1785,12 @@ void main() {
     final rootKey = await mountAnimal(
         tester, const GuideAnimalScreen(userSign: Zodiac.cancer),
         size: const Size(360, 900));
-    await precacheTamburo(tester);
     expect(find.byKey(const Key('animal_journey')), findsOneWidget);
-    // Un paio di battiti, cosi' i pallini si accendono e gli occhi affiorano.
-    await tester.tap(find.byKey(const Key('animal_drum')));
+    // DALL'ORDINE L il viaggio e' la costellazione: si uniscono due stelle,
+    // cosi' i pallini si accendono e la scena mostra la sagoma in cammino.
+    await tester.tap(find.byKey(const Key('animal_star_0')));
     await step(tester);
-    await tester.tap(find.byKey(const Key('animal_drum')));
+    await tester.tap(find.byKey(const Key('animal_star_1')));
     await step(tester);
     await capture(tester, rootKey, 'guide-animale-viaggio.png');
   });

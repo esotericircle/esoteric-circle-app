@@ -180,7 +180,9 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
                     )
                   : switch (_fase) {
                       _Fase.viaggio => AnimalJourney(
-                          palette: palette, onComplete: _viaggioCompiuto),
+                          palette: palette,
+                          animal: _animal,
+                          onComplete: _viaggioCompiuto),
                       _Fase.messaggio => _Messaggio(
                           palette: palette,
                           animal: _animal,

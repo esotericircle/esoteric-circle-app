@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:esoteric_circle/core/archetypes/archetype.dart';
+import 'package:esoteric_circle/core/rituals/animal_constellations.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_scoring.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
@@ -65,7 +66,14 @@ void main() {
 
   // Compie il viaggio: un tocco al tamburo basta con disableAnimations.
   Future<void> viaggia(WidgetTester tester) async {
-    await tester.tap(find.byKey(const Key('animal_drum')));
+    // DALL'ORDINE L il viaggio e' la costellazione: si uniscono le stelle
+    // dell'animale nell'ordine dichiarato dalla sua figura.
+    final figura = costellazioneDi('Lupo').figura;
+    for (var i = 0; i < figura.punti.length; i++) {
+      await tester.tap(find.byKey(Key('animal_star_$i')));
+      await tester.pump(const Duration(milliseconds: 60));
+    }
+    await passo(tester);
     await passo(tester);
   }
 
@@ -110,7 +118,7 @@ void main() {
     expect(find.byKey(const Key('animal_natura')), findsNothing);
   });
 
-  testWidgets('Il viaggio col tamburo porta al Messaggio del Giorno',
+  testWidgets('Il viaggio a costellazione porta al Messaggio del Giorno',
       (tester) async {
     seedArchetipo();
     tester.view.physicalSize = const Size(430, 2600);
@@ -123,7 +131,7 @@ void main() {
     // Niente popup con un archetipo salvato: si parte dal viaggio.
     expect(find.byKey(const Key('animal_test_popup')), findsNothing);
     expect(find.byKey(const Key('animal_journey')), findsOneWidget);
-    expect(find.byKey(const Key('animal_drum')), findsOneWidget);
+    expect(find.byKey(const Key('animal_star_0')), findsOneWidget);
 
     await viaggia(tester);
     expect(find.byKey(const Key('animal_result')), findsOneWidget);
