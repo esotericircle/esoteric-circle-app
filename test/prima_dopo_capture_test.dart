@@ -26,6 +26,10 @@ import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.da
 import 'package:esoteric_circle/core/angels/angel_catalog.dart';
 import 'package:esoteric_circle/core/angels/guardian_angels.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
+import 'package:esoteric_circle/core/identity/account_del_cerchio.dart';
+import 'package:esoteric_circle/features/account/custodia_del_cielo.dart';
+import 'package:esoteric_circle/features/onboarding/custodia_del_cielo_step.dart';
+import 'package:esoteric_circle/features/onboarding/maestro_reveal_screen.dart';
 import 'package:esoteric_circle/features/onboarding/planisfero.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
@@ -3205,6 +3209,134 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
     await scattaApp(tester, radice, 'home_fondo_m');
   });
+
+  // ORDINE N: le due scene dell'identita'.
+  //
+  // - `custodia_risveglio_n`: l'ULTIMO passo del Risveglio, dove si chiede di
+  //   non perdere il proprio cielo. Nella prima non esiste: il Risveglio
+  //   finiva alla rivelazione del Maestro e nessuno chiedeva niente, quindi
+  //   la scena si monta lo stesso e mostra cosa c'era al posto suo.
+  // - `invito_a_custodire_n`: l'invito che torna a chi ha rimandato, col
+  //   numero VERO dei momenti custoditi. Nella prima non esisteva.
+  //
+  // Le due scene si montano fuori dal Risveglio intero: montarlo tutto
+  // vorrebbe dire attraversare il calcolo della carta, che senza rete non
+  // arriva, e l'anteprima mostrerebbe un'attesa invece della scena.
+  testWidgets('N, la custodia del cielo e l invito', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues(const {});
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    for (final (famiglia, percorso) in const [
+      ('Cinzel', 'assets/fonts/Cinzel-variable.ttf'),
+      ('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf'),
+    ]) {
+      final loader = FontLoader(famiglia);
+      loader.addFont(
+          Future.value(ByteData.view(File(percorso).readAsBytesSync().buffer)));
+      await loader.load();
+    }
+
+    final radice = GlobalKey();
+    final account = AccountDelCerchio(porta: _IdentitaPerAnteprima());
+    await account.avvia();
+
+    Future<void> monta(Widget scena) async {
+      await tester.pumpWidget(RepaintBoundary(
+        key: radice,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ChangeNotifierProvider(create: (_) => ZodiacController()),
+            ChangeNotifierProvider<AccountDelCerchio>.value(value: account),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.dark(),
+            builder: (ctx, child) => MaestroScope(child: child!),
+            home: scena,
+          ),
+        ),
+      ));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 900));
+    }
+
+    // LA PRIMA non ha ne' la scena ne' l'invito: al loro posto c'era la
+    // rivelazione del Maestro, che chiudeva il Risveglio senza chiedere
+    // niente. Si fotografa quella, cosi' il confronto mostra cosa e' stato
+    // aggiunto e non un rettangolo vuoto.
+    if (_stato == 'prima') {
+      await monta(MaestroRevealScreen(
+        maestro: Maestro.medora,
+        onRevealed: (_) {},
+      ));
+      await tester.pump(const Duration(seconds: 3));
+      await scattaApp(tester, radice, 'custodia_risveglio_n');
+      await scattaApp(tester, radice, 'invito_a_custodire_n');
+      return;
+    }
+
+    await monta(CustodiaDelCieloStep(
+      maestro: Maestro.medora,
+      suFine: () {},
+    ));
+    await scattaApp(tester, radice, 'custodia_risveglio_n');
+
+    // L'INVITO col numero vero: sette momenti, come li conterebbe la memoria
+    // di chi ha gia' parlato coi Maestri.
+    await monta(
+      Builder(
+        builder: (ctx) => Scaffold(
+          backgroundColor: const Color(0xFF05060A),
+          body: Center(
+            child: TextButton(
+              onPressed: () => mostraInvitoACustodire(ctx, momenti: 7),
+              child: const Text('apri'),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('apri'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    await scattaApp(tester, radice, 'invito_a_custodire_n');
+  });
+}
+
+/// L'identita' per l'anteprima: un account anonimo che non tocca nessuna rete.
+class _IdentitaPerAnteprima implements PortaDellIdentita {
+  @override
+  String? get uid => 'anteprima';
+
+  @override
+  bool get anonimo => true;
+
+  @override
+  String? get email => null;
+
+  @override
+  List<String> get fornitori => const [];
+
+  @override
+  Future<String?> assicuraUnAccount() async => 'anteprima';
+
+  @override
+  Future<void> ricarica() async {}
+
+  @override
+  Future<EsitoDellaCustodia> eleva(
+    ViaDellaCustodia via, {
+    String? email,
+    String? parola,
+  }) async =>
+      EsitoDellaCustodia.nonRiuscita;
 }
 
 /// Una carta natale piena, per le anteprime del consulto.
