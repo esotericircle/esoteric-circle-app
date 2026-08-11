@@ -392,7 +392,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       context,
       title: 'La profondità ${depth.label} è del Cerchio Premium',
       message: 'Col piano superiore scegli quanto approfondire ogni scheda, '
-          '${domain.label} compresa, e la lettura ti segue in profondità.',
+          '${domain.label} compresa: la lettura ti segue in profondità.',
     );
   }
 

@@ -59,7 +59,11 @@ class _AnimalJourneyState extends State<AnimalJourney> {
     // Un attimo perche' la sagoma unita resti negli occhi, poi la
     // rivelazione. Con Riduci Movimento la figura si compone senza volo e
     // il passaggio e' immediato: chi toglie il moto non perde il rito.
-    final attesa = ScrollReveal.motionOff(context)
+    // LETTURA SENZA ASCOLTO: siamo dentro un gesto, non in una build, e
+    // Provider con l'ascolto acceso qui solleva. Preso dalla cattura ad
+    // animazioni accese: la prova col solo Riduci Movimento usciva prima
+    // della lettura e non lo vedeva.
+    final attesa = ScrollReveal.motionOff(context, listen: false)
         ? Duration.zero
         : const Duration(milliseconds: 900);
     Future<void>.delayed(attesa, () {

@@ -13,6 +13,11 @@ import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart' as luogo;
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
+import 'dart:convert' show jsonEncode;
+import 'package:esoteric_circle/core/archetypes/archetype.dart';
+import 'package:esoteric_circle/core/archetypes/archetype_scoring.dart';
+import 'package:esoteric_circle/features/maestri/caligo/animal/guide_animal_screen.dart';
+import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
@@ -2792,6 +2797,348 @@ void main() {
       }
       await scattaApp(tester, radice, scena);
       await tester.pump(const Duration(seconds: 3));
+    });
+  }
+
+  // ORDINE L: LE NOVE SCENE, prima e dopo. L'Oroscopo dopo lo scorrimento e
+  // la bolla del premium; la testa delle rune col conto (pieno, a due, a
+  // zero); la stella che chiama nel Sogno; l'Animale in tre momenti.
+  final cartaOrdineL = NatalChart(
+    sunSign: Zodiac.leo,
+    planets: const [
+      PlanetPosition(
+          id: 'sun',
+          name: 'Sole',
+          glyph: '\u2609',
+          longitude: 128.4,
+          sign: Zodiac.leo),
+      PlanetPosition(
+          id: 'moon',
+          name: 'Luna',
+          glyph: '\u263d',
+          longitude: 12.7,
+          sign: Zodiac.leo),
+      PlanetPosition(
+          id: 'venus',
+          name: 'Venere',
+          glyph: '\u2640',
+          longitude: 150.2,
+          sign: Zodiac.leo),
+      PlanetPosition(
+          id: 'mars',
+          name: 'Marte',
+          glyph: '\u2642',
+          longitude: 61.9,
+          sign: Zodiac.leo),
+      PlanetPosition(
+          id: 'saturn',
+          name: 'Saturno',
+          glyph: '\u2644',
+          longitude: 300.5,
+          sign: Zodiac.leo),
+    ],
+    ascendantLongitude: 205.0,
+    midheavenLongitude: 115.0,
+    houses: [
+      for (var n = 1; n <= 12; n++)
+        HouseCusp(number: n, longitude: (205.0 + (n - 1) * 30.0) % 360.0),
+    ],
+    hasTime: true,
+  );
+
+  for (final scena in const [
+    'oroscopo_ritorno_l',
+    'oroscopo_bolla_premium_l',
+    'rune_testa_l',
+    'rune_conto_due_l',
+    'rune_conto_zero_l',
+    'sogno_stella_l',
+    'animale_punti_l',
+    'animale_sagoma_l',
+    'animale_rivelato_l',
+  ]) {
+    testWidgets('L, la scena $scena', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      for (final (famiglia, percorso) in const [
+        ('Cinzel', 'assets/fonts/Cinzel-variable.ttf'),
+        ('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf'),
+      ]) {
+        final loader = FontLoader(famiglia);
+        final bytes = File(percorso).readAsBytesSync();
+        loader.addFont(Future.value(ByteData.view(bytes.buffer)));
+        await loader.load();
+      }
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2391);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final radice = GlobalKey();
+
+      Future<void> attesa([int ms = 1200]) async {
+        await tester.pump();
+        await tester.pump(Duration(milliseconds: ms));
+        await tester.pump(const Duration(milliseconds: 400));
+      }
+
+      Future<void> montaOroscopo({required Tier piano}) async {
+        SharedPreferences.setMockInitialValues(const {});
+        final nascita = BirthIdentityController();
+        nascita.setBirth(
+          BirthDetails(
+            date: DateTime(1990, 8, 10),
+            time: const TimeOfDay(hour: 12, minute: 0),
+            place: const luogo.BirthPlace(
+                label: 'Roma',
+                latitude: 41.9,
+                longitude: 12.5,
+                timezone: 'Europe/Rome'),
+          ),
+          cartaOrdineL,
+        );
+        await tester.pumpWidget(RepaintBoundary(
+          key: radice,
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => MaestroController()),
+              ChangeNotifierProvider(
+                  create: (_) => EntitlementService(initial: piano)),
+              ChangeNotifierProvider(create: (_) => QualityTierController()),
+              ChangeNotifierProvider(create: (_) => ParallaxController()),
+              ChangeNotifierProvider(create: (_) => ZodiacController()),
+              ChangeNotifierProvider(create: (_) => ProfileController()),
+              ChangeNotifierProvider<BirthIdentityController>.value(
+                  value: nascita),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.dark(),
+              // LO SCOPE DICHIARA MEDORA, come fa la rotta vera con
+              // SogliaArte: senza, la bolla dell'invito esce nel viola
+              // neutro invece che nel blu di Medora. Visto sull'anteprima.
+              builder: (ctx, child) =>
+                  MaestroScope(maestro: Maestro.medora, child: child!),
+              home: OroscopoScreen(
+                  userSign: Zodiac.leo, now: DateTime.utc(2026, 8, 5, 12)),
+            ),
+          ),
+        ));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 400));
+        await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 2));
+        for (var i = 0; i < 8; i++) {
+          await tester.pump(const Duration(milliseconds: 500));
+        }
+      }
+
+      Future<void> montaRune() async {
+        SharedPreferences.setMockInitialValues(const {});
+        await tester.pumpWidget(RepaintBoundary(
+          key: radice,
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                  create: (_) => MaestroController(
+                      initial: const ThemeKey.of(Maestro.caligo))),
+              ChangeNotifierProvider(create: (_) => QualityTierController()),
+              ChangeNotifierProvider(create: (_) => ParallaxController()),
+              ChangeNotifierProvider(create: (_) => ZodiacController()),
+              ChangeNotifierProvider(create: (_) => EntitlementService()),
+              ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.dark(),
+              builder: (ctx, child) => MaestroScope(child: child!),
+              home: RuneDrawScreen(
+                  userSign: Zodiac.aries, random: math.Random(9)),
+            ),
+          ),
+        ));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 600));
+        await tester.runAsync(() async {
+          final el = tester.element(find.byType(MaterialApp));
+          for (final r in kElderFuthark) {
+            if (r.thumbPath != null) {
+              await precacheImage(AssetImage(r.thumbPath!), el);
+            }
+            if (r.fullPath != null) {
+              await precacheImage(AssetImage(r.fullPath!), el);
+            }
+          }
+        });
+      }
+
+      Future<void> gettaUna() async {
+        await tester.ensureVisible(find.byKey(const Key('rune_cast_button')));
+        await tester.pump();
+        await tester.tap(find.byKey(const Key('rune_cast_button')));
+        await attesa(800);
+      }
+
+      Future<void> gettaAncora() async {
+        await tester.ensureVisible(find.byKey(const Key('rune_recast')));
+        await tester.pump();
+        await tester.tap(find.byKey(const Key('rune_recast')));
+        await attesa(800);
+      }
+
+      Future<void> montaAnimale() async {
+        final esito = ArchetypeEsito(
+          quando: DateTime(2026, 7, 22, 10),
+          percentuali:
+              ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
+          dominante: Archetype.realista,
+        );
+        SharedPreferences.setMockInitialValues({
+          'archetipo.storico': [jsonEncode(esito.toJson())],
+        });
+        await tester.pumpWidget(RepaintBoundary(
+          key: radice,
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                  create: (_) => MaestroController(
+                      initial: const ThemeKey.of(Maestro.caligo))),
+              ChangeNotifierProvider(create: (_) => QualityTierController()),
+              ChangeNotifierProvider(create: (_) => ParallaxController()),
+              ChangeNotifierProvider(create: (_) => ZodiacController()),
+              ChangeNotifierProvider(create: (_) => EntitlementService()),
+              ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+              ChangeNotifierProvider(create: (_) => ArchetypeHistory()..carica()),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.dark(),
+              builder: (ctx, child) => MaestroScope(child: child!),
+              home: const GuideAnimalScreen(userSign: Zodiac.cancer),
+            ),
+          ),
+        ));
+        await attesa(800);
+        await tester.runAsync(() async {
+          final el = tester.element(find.byType(MaterialApp));
+          final animal = GuideAnimalDerivation.forSign(Zodiac.cancer);
+          await precacheImage(AssetImage(animal.fullPath), el);
+        });
+        await attesa(400);
+      }
+
+      /// Unisce le stelle dell'animale se la scena nuova c'e'; altrimenti
+      /// batte il tamburo dell'albero vecchio: il blocco gira su tutti e due.
+      Future<void> avanzaIlViaggio(int passi) async {
+        final stelle = find.byKey(const Key('animal_star_0'));
+        if (stelle.evaluate().isNotEmpty) {
+          for (var i = 0; i < passi; i++) {
+            final k = find.byKey(Key('animal_star_$i'));
+            if (k.evaluate().isEmpty) break;
+            await tester.tap(k, warnIfMissed: false);
+            await tester.pump(const Duration(milliseconds: 120));
+          }
+        } else {
+          for (var i = 0; i < passi; i++) {
+            final tamburo = find.byKey(const Key('animal_drum'));
+            if (tamburo.evaluate().isEmpty) break;
+            await tester.tap(tamburo, warnIfMissed: false);
+            await tester.pump(const Duration(milliseconds: 120));
+          }
+        }
+      }
+
+      switch (scena) {
+        case 'oroscopo_ritorno_l':
+          await montaOroscopo(piano: Tier.tier1);
+          // GIU' e poi SU: nel prima le schede rinascono vergini e si
+          // riscrivono, nel dopo restano intere e ferme.
+          final lista = find.byType(Scrollable).first;
+          for (var i = 0; i < 5; i++) {
+            await tester.drag(lista, const Offset(0, -700));
+            await tester.pump(const Duration(milliseconds: 120));
+          }
+          for (var i = 0; i < 5; i++) {
+            await tester.drag(lista, const Offset(0, 700));
+            await tester.pump(const Duration(milliseconds: 120));
+          }
+          // La Generale in quadro col suo TESTO: e' li' che nel prima la
+          // scrittura riparte monca e nel dopo resta intera e ferma.
+          await tester.drag(lista, const Offset(0, -560));
+          await tester.pump(const Duration(milliseconds: 350));
+        case 'oroscopo_bolla_premium_l':
+          await montaOroscopo(piano: Tier.free);
+          await tester.scrollUntilVisible(
+              find.byKey(const Key('oroscopo_depth_generale')), 300,
+              scrollable: find.byType(Scrollable).first);
+          await tester.pump();
+          await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 300));
+          await tester.tap(find.text('Profonda').last);
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 400));
+        case 'rune_testa_l':
+          await montaRune();
+        case 'rune_conto_due_l':
+          await montaRune();
+          await gettaUna();
+          await tester.ensureVisible(find.byKey(const Key('rune_recast')));
+          await tester.pump(const Duration(milliseconds: 300));
+        case 'rune_conto_zero_l':
+          await montaRune();
+          await gettaUna();
+          await gettaAncora();
+          await gettaAncora();
+          await tester.ensureVisible(find.byKey(const Key('rune_recast')));
+          await tester.pump(const Duration(milliseconds: 300));
+        case 'sogno_stella_l':
+          SharedPreferences.setMockInitialValues(const {});
+          await tester.pumpWidget(RepaintBoundary(
+            key: radice,
+            child: MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => MaestroController()),
+                ChangeNotifierProvider(
+                    create: (_) => QualityTierController()),
+                ChangeNotifierProvider(create: (_) => ParallaxController()),
+                ChangeNotifierProvider(create: (_) => ZodiacController()),
+              ],
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: AppTheme.dark(),
+                builder: (ctx, child) => MaestroScope(child: child!),
+                home: DreamRiteScreen(now: DateTime(2026, 8, 10, 22, 30)),
+              ),
+            ),
+          ));
+          await attesa(800);
+          await tester.tap(find.byKey(const Key('dream_fog_skip')));
+          await attesa(800);
+          // La prima stella si unisce: adesso la SECONDA chiama il tocco.
+          await tester.tap(find.byKey(const Key('dream_star_0')),
+              warnIfMissed: false);
+          await tester.pump(const Duration(milliseconds: 400));
+          await tester.pump(const Duration(milliseconds: 400));
+        case 'animale_punti_l':
+          await montaAnimale();
+        case 'animale_sagoma_l':
+          await montaAnimale();
+          await avanzaIlViaggio(12);
+          // Subito dopo l'ultima stella: la sagoma unita, prima del volo.
+          await tester.pump(const Duration(milliseconds: 250));
+        case 'animale_rivelato_l':
+          await montaAnimale();
+          await tester.ensureVisible(
+              find.byKey(const Key('animal_journey_skip')));
+          await tester.pump();
+          await tester.tap(find.byKey(const Key('animal_journey_skip')));
+          await attesa(1200);
+          await attesa(1600);
+      }
+      await scattaApp(tester, radice, scena);
+      await tester.pump(const Duration(seconds: 4));
     });
   }
 }
