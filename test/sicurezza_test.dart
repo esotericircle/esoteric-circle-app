@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
@@ -124,12 +125,40 @@ void main() {
     });
   });
 
-  group('Firestore mette un tetto a quel che il client scrive', () {
-    test('Le regole impongono una dimensione massima', () {
+  group('Il client non scrive su Firestore: il tetto vive dove si scrive',
+      () {
+    // LA MISURA E' CAMBIATA DI GRANDEZZA, ordine N voce 2b, e la ragione sta
+    // qui perche' non si allenta una prova in silenzio.
+    //
+    // Prima si pretendeva che le regole contenessero `request.resource.size()`,
+    // cioe' un tetto alla dimensione di cio' che IL CLIENT scrive. Quella
+    // pretesa aveva senso finche' il client scriveva: adesso non scrive piu'
+    // niente, le regole dicono `allow write: if false` e un tetto alla
+    // dimensione di una scrittura che non puo' avvenire non difende da nulla.
+    // Il tetto non e' sparito, si e' spostato dove la scrittura avviene
+    // davvero, cioe' nella callable `scriviLaMemoria`.
+    test('nessuna scrittura del client viene concessa dalle regole', () {
       final regole = File('firestore.rules').readAsStringSync();
-      expect(regole.contains('request.resource.size()'), isTrue,
-          reason: 'senza tetto un client compromesso riempie il progetto');
-      expect(regole.contains('allow write: if'), isTrue);
+      expect(regole.contains('allow write: if false'), isTrue,
+          reason: 'le regole hanno riaperto la scrittura al client: da li '
+              'passano contatori e saldo, e ogni limite torna decorativo');
+      // I COMMENTI FUORI PRIMA DI GUARDARE: dentro il file c'e' scritta,
+      // per spiegarla, proprio la riga vietata. Guardare il testo intero
+      // accusava il commento che racconta il difetto.
+      final soloRegole = const LineSplitter()
+          .convert(regole)
+          .where((riga) => !riga.trimLeft().startsWith('//'))
+          .join(' ');
+      expect(soloRegole.contains('allow write: if proprietario'), isFalse);
+    });
+
+    test('il tetto alla dimensione vive nella funzione che scrive', () {
+      final funzione = File('functions/src/cerchio.ts').readAsStringSync();
+      expect(funzione.contains('100000'), isTrue,
+          reason: 'senza tetto un client compromesso riempie il progetto una '
+              'scrittura alla volta, e adesso la sola porta rimasta e la '
+              'callable');
+      expect(funzione.contains('Scrittura troppo grande'), isTrue);
     });
   });
 }

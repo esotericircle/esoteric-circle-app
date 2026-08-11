@@ -39,6 +39,15 @@ abstract interface class MaestroMemoryRepository {
   Future<void> sostituisciUltimoMessaggio(
       Maestro maestro, ChatMessage messaggio);
 
+  /// QUANTI MOMENTI il Cerchio custodisce di questa persona.
+  ///
+  /// Serve all'invito a custodire il proprio cielo, che dice un numero VERO:
+  /// "il Cerchio custodisce N tuoi momenti". Un numero inventato, o gonfiato
+  /// con cio' che la persona non riconoscerebbe come suo, farebbe di quella
+  /// frase una vanteria. Si contano i turni di conversazione e i fatti che i
+  /// Maestri ricordano, cioe' le due cose che si perderebbero davvero.
+  Future<int> quantiMomenti();
+
   /// Cancella tutta la memoria dell'utente, per il diritto all'oblio (GDPR):
   /// profilo, memoria di ogni Maestro e cronologia completa, più gli eventuali
   /// livelli profondi predisposti (indice semantico, archivio freddo). Isolata

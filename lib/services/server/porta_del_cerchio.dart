@@ -1,0 +1,263 @@
+import 'dart:math' as math;
+
+import 'package:cloud_functions/cloud_functions.dart';
+
+/// LO STATO DEL CERCHIO COME LO DICE IL SERVER.
+///
+/// Il giorno e' una stringa OPACA: il client non la ricalcola e non la
+/// interpreta, la conserva e la confronta. E' cosi' che spostare l'orologio
+/// del telefono smette di avere effetto sui contatori.
+class StatoDelCerchio {
+  const StatoDelCerchio({
+    required this.giorno,
+    required this.piano,
+    required this.spesi,
+    required this.saldoEos,
+  });
+
+  final String giorno;
+  final String piano;
+
+  /// Quanto e' stato speso oggi, budget per budget, come lo conta il server.
+  final Map<String, int> spesi;
+
+  final int saldoEos;
+
+  static StatoDelCerchio? daMappa(Object? risposta) {
+    if (risposta is! Map) return null;
+    final giorno = risposta['giorno'];
+    if (giorno is! String || giorno.isEmpty) return null;
+    final spesi = <String, int>{};
+    final grezzi = risposta['spesi'];
+    if (grezzi is Map) {
+      for (final voce in grezzi.entries) {
+        final valore = voce.value;
+        if (valore is num) spesi['${voce.key}'] = valore.toInt();
+      }
+    }
+    final saldo = risposta['saldoEos'];
+    return StatoDelCerchio(
+      giorno: giorno,
+      piano: risposta['piano'] is String ? risposta['piano'] as String : 'free',
+      spesi: spesi,
+      saldoEos: saldo is num ? saldo.toInt() : 0,
+    );
+  }
+}
+
+/// L'esito di un consumo, come lo decide il server.
+class EsitoDelConsumo {
+  const EsitoDelConsumo({
+    required this.concesso,
+    this.resta,
+    this.giorno,
+    this.motivo,
+  });
+
+  final bool concesso;
+
+  /// Quanto resta dopo, oppure nullo se quel budget non ha limite.
+  final int? resta;
+  final String? giorno;
+  final String? motivo;
+}
+
+/// LA PORTA UNICA VERSO IL SERVER DEL CERCHIO, ordine N.
+///
+/// **Perche' una porta sola.** I contatori del giorno, il saldo Eos e la
+/// memoria si scrivono in un posto solo, che e' il server: se le chiamate
+/// nascessero sparse nelle schermate, prima o poi una scriverebbe dritto su
+/// Firestore e il limite tornerebbe a essere decorativo. Qui c'e' l'unico
+/// punto che conosce i nomi delle callable.
+///
+/// **E' astratta perche' le prove non devono toccare la rete**, e perche'
+/// senza rete l'app deve restare intera: la porta spenta risponde "non lo so"
+/// e chi la usa sa gia' cosa fare, invece di sollevare.
+abstract class PortaDelCerchio {
+  const PortaDelCerchio();
+
+  /// Vero se questa porta puo' davvero parlare col server.
+  bool get viva;
+
+  /// Lo stato del giorno, oppure nullo se il server non risponde.
+  Future<StatoDelCerchio?> stato();
+
+  /// Chiede di consumare un budget. Nullo se il server non risponde: chi
+  /// chiama accoda e riprova, non inventa una risposta.
+  Future<EsitoDelConsumo?> consuma({
+    required String budget,
+    required String idMovimento,
+  });
+
+  /// Muove gli Eos. Torna il saldo nuovo, oppure nullo se non si e' potuto.
+  Future<int?> muoviGliEos({
+    required String causale,
+    required String motivo,
+    required String idMovimento,
+    int? quanti,
+  });
+
+  /// Scrive un pezzo di memoria. Torna vero se il server ha scritto.
+  Future<bool> scriviLaMemoria({
+    required String operazione,
+    String? maestro,
+    Map<String, Object?> campi = const {},
+  });
+
+  /// Il diritto all'oblio: cancella dati e account. Vero se i dati non ci
+  /// sono piu'.
+  Future<bool> cancellaIlCerchio();
+
+  /// UN IDENTIFICATIVO PER OGNI GESTO, e serve davvero.
+  ///
+  /// Senza rete il gesto si accoda e si rimanda dopo: se la risposta si
+  /// perdesse e il client ritentasse, senza questo la persona pagherebbe due
+  /// volte lo stesso gesto. Il server tiene il segno di ogni identificativo
+  /// gia' visto e ripete la risposta di allora.
+  static String nuovoIdentificativo(String cosa) {
+    final quando = DateTime.now().microsecondsSinceEpoch;
+    final caso = math.Random().nextInt(1 << 32);
+    return '$cosa-$quando-$caso';
+  }
+}
+
+/// La porta vera, sopra le callable in `europe-west1`.
+class PortaVeraDelCerchio extends PortaDelCerchio {
+  PortaVeraDelCerchio({FirebaseFunctions? funzioni})
+      : _funzioni =
+            funzioni ?? FirebaseFunctions.instanceFor(region: 'europe-west1');
+
+  final FirebaseFunctions _funzioni;
+
+  @override
+  bool get viva => true;
+
+  Future<Object?> _chiama(String nome, Map<String, Object?> corpo) async {
+    try {
+      final esito = await _funzioni.httpsCallable(nome).call<Object?>(corpo);
+      return esito.data;
+    } on FirebaseFunctionsException catch (errore) {
+      // SI DISTINGUE IL NO DAL NON LO SO, e non e' pignoleria: un rifiuto del
+      // server e' una risposta e va rispettata, una rete assente non lo e'.
+      // Chi chiama vede nullo in tutti e due i casi, ma il motivo del rifiuto
+      // arriva col suo codice a chi lo vuole guardare.
+      if (errore.code == 'unauthenticated' ||
+          errore.code == 'permission-denied' ||
+          errore.code == 'invalid-argument' ||
+          errore.code == 'failed-precondition') {
+        rethrow;
+      }
+      return null;
+    } catch (errore) {
+      // Si ignora, e il nulla che si torna E' la risposta: rete giu',
+      // funzione non ancora distribuita, tempo scaduto. Chi chiama accoda e
+      // riprova, e non deve distinguere fra questi casi perche' la condotta
+      // e' la stessa.
+      return null;
+    }
+  }
+
+  @override
+  Future<StatoDelCerchio?> stato() async =>
+      StatoDelCerchio.daMappa(await _chiama('statoDelCerchio', const {}));
+
+  @override
+  Future<EsitoDelConsumo?> consuma({
+    required String budget,
+    required String idMovimento,
+  }) async {
+    final risposta = await _chiama('consumaDelGiorno', {
+      'budget': budget,
+      'idMovimento': idMovimento,
+    });
+    if (risposta is! Map) return null;
+    final resta = risposta['resta'];
+    return EsitoDelConsumo(
+      concesso: risposta['concesso'] == true,
+      resta: resta is num ? resta.toInt() : null,
+      giorno: risposta['giorno'] is String ? risposta['giorno'] as String : null,
+      motivo: risposta['motivo'] is String ? risposta['motivo'] as String : null,
+    );
+  }
+
+  @override
+  Future<int?> muoviGliEos({
+    required String causale,
+    required String motivo,
+    required String idMovimento,
+    int? quanti,
+  }) async {
+    final risposta = await _chiama('muoviGliEos', {
+      'causale': causale,
+      'motivo': motivo,
+      'idMovimento': idMovimento,
+      if (quanti != null) 'quanti': quanti,
+    });
+    if (risposta is! Map) return null;
+    final saldo = risposta['saldo'];
+    return saldo is num ? saldo.toInt() : null;
+  }
+
+  @override
+  Future<bool> scriviLaMemoria({
+    required String operazione,
+    String? maestro,
+    Map<String, Object?> campi = const {},
+  }) async {
+    final risposta = await _chiama('scriviLaMemoria', {
+      'operazione': operazione,
+      if (maestro != null) 'maestro': maestro,
+      'campi': campi,
+    });
+    return risposta is Map && risposta['scritto'] == true;
+  }
+
+  @override
+  Future<bool> cancellaIlCerchio() async {
+    final risposta = await _chiama('cancellaIlCerchio', const {});
+    return risposta is Map && risposta['datiCancellati'] == true;
+  }
+}
+
+/// La porta spenta: non chiama niente e non fallisce mai.
+///
+/// E' il valore di difetto ovunque, cosi' nessuna prova tocca la rete per
+/// sbaglio, ed e' anche cio' che l'app usa quando Firebase non e' partito:
+/// senza server il Cerchio resta usabile, con le regole dichiarate accanto a
+/// `QuestionAllowance`.
+class PortaSpentaDelCerchio extends PortaDelCerchio {
+  const PortaSpentaDelCerchio();
+
+  @override
+  bool get viva => false;
+
+  @override
+  Future<StatoDelCerchio?> stato() async => null;
+
+  @override
+  Future<EsitoDelConsumo?> consuma({
+    required String budget,
+    required String idMovimento,
+  }) async =>
+      null;
+
+  @override
+  Future<int?> muoviGliEos({
+    required String causale,
+    required String motivo,
+    required String idMovimento,
+    int? quanti,
+  }) async =>
+      null;
+
+  @override
+  Future<bool> scriviLaMemoria({
+    required String operazione,
+    String? maestro,
+    Map<String, Object?> campi = const {},
+  }) async =>
+      false;
+
+  @override
+  Future<bool> cancellaIlCerchio() async => false;
+}

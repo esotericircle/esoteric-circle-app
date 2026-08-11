@@ -1,5 +1,4 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
@@ -11,6 +10,8 @@ import 'firebase/app_check_debug.dart';
 import 'firebase/attestazione.dart';
 import 'memory/firestore_maestro_memory_repository.dart';
 import 'memory/in_memory_maestro_memory_repository.dart';
+import 'server/porta_del_cerchio.dart';
+import '../core/identity/account_del_cerchio.dart';
 import 'memory/maestro_memory_repository.dart';
 
 /// Contenitore dei servizi a runtime, costruito una volta all'avvio.
@@ -28,7 +29,17 @@ class AppServices {
     this.appCheckDebugToken,
     this.showAppCheckDebugToken = false,
     this.diagnostics,
+    this.porta = const PortaSpentaDelCerchio(),
+    this.identita,
   });
+
+  /// LA PORTA DEL SERVER, ordine N: contatori, memoria e saldo passano di
+  /// qui. Spenta nei servizi offline e nelle prove, viva nell'app vera.
+  final PortaDelCerchio porta;
+
+  /// LA PORTA DELL'IDENTITA', per elevare l'account anonimo ad account vero
+  /// senza perdere niente. Nulla quando Firebase non e' partito.
+  final PortaDellIdentita? identita;
 
   /// Monta i servizi avvolgendo la voce nella sorveglianza, sempre.
   ///
@@ -47,6 +58,8 @@ class AppServices {
     String? appCheckDebugToken,
     bool showAppCheckDebugToken = false,
     String? diagnostics,
+    PortaDelCerchio porta = const PortaSpentaDelCerchio(),
+    PortaDellIdentita? identita,
   }) {
     final VoceSorvegliata sorvegliata;
     if (ai is VoceSorvegliata) {
@@ -64,6 +77,8 @@ class AppServices {
       appCheckDebugToken: appCheckDebugToken,
       showAppCheckDebugToken: showAppCheckDebugToken,
       diagnostics: diagnostics,
+      porta: porta,
+      identita: identita,
     );
   }
 
@@ -151,12 +166,20 @@ class AppServices {
     MaestroMemoryRepository memory = InMemoryMaestroMemoryRepository();
     bool persistent = false;
     String? note;
+    // LA PORTA DEL SERVER E QUELLA DELL'IDENTITA', ordine N.
+    //
+    // Da qui in avanti i contatori del giorno, il saldo Eos e le scritture
+    // della memoria passano dalle callable: le regole di Firestore vietano al
+    // telefono di scrivere sotto `users/{uid}`, quindi questa non e' una via
+    // preferita, e' l'unica.
+    PortaDelCerchio porta = const PortaSpentaDelCerchio();
+    PortaDellIdentita? identita;
     try {
-      final auth = FirebaseAuth.instance;
-      final user =
-          auth.currentUser ?? (await auth.signInAnonymously()).user;
-      if (user != null) {
-        memory = FirestoreMaestroMemoryRepository(uid: user.uid);
+      identita = PortaDellIdentitaFirebase();
+      final uid = await identita.assicuraUnAccount();
+      if (uid != null) {
+        porta = PortaVeraDelCerchio();
+        memory = FirestoreMaestroMemoryRepository(uid: uid, porta: porta);
         persistent = true;
       } else {
         note = 'Auth anonima senza utente: memoria solo di sessione.';
@@ -169,6 +192,8 @@ class AppServices {
       ai: ai,
       memory: memory,
       memoryPersistent: persistent,
+      porta: porta,
+      identita: identita,
       guasti: registro,
       attestazione: esitoAttestazione,
       appCheckDebugToken: debugToken,

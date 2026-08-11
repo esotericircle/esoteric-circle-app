@@ -4,6 +4,7 @@ import '../../core/chat/chat_message.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/maestro.dart';
+import '../server/porta_del_cerchio.dart';
 import 'maestro_memory_repository.dart';
 import 'memory_hooks.dart';
 
@@ -24,9 +25,36 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
     FirebaseFirestore? firestore,
     SemanticIndexHook semanticIndex = const NoopSemanticIndexHook(),
     HistoryArchiveHook archive = const NoopHistoryArchiveHook(),
+    PortaDelCerchio porta = const PortaSpentaDelCerchio(),
   })  : _db = firestore ?? FirebaseFirestore.instance,
         _semanticIndex = semanticIndex,
-        _archive = archive;
+        _archive = archive,
+        _porta = porta;
+
+  /// LA PORTA DEL SERVER, ordine N voce 2b.
+  ///
+  /// **La memoria si legge dritta e si scrive solo da la'.** Le regole di
+  /// sicurezza vietano al telefono ogni scrittura sotto `users/{uid}`: una
+  /// porta lasciata aperta su un ramo e' aperta su tutto il ramo, e su quel
+  /// ramo ci sono anche i contatori e il saldo. Le letture restano dirette
+  /// perche' sono quelle che devono essere veloci e funzionare con la cache.
+  ///
+  /// **Con la porta spenta si scrive dritto, e succede solo dove non ci sono
+  /// regole a impedirlo: nelle prove.** Nell'app vera la porta e' sempre
+  /// quella vera, e una guardia enumera i punti di `lib` che costruiscono
+  /// questo repository perche' resti cosi'.
+  final PortaDelCerchio _porta;
+
+  /// CIO' CHE IL SERVER NON HA ANCORA PRESO, ordine N voce 2e.
+  ///
+  /// Senza rete la conversazione continua e la memoria di questa sessione
+  /// resta viva in RAM: le scritture si accodano qui e partono alla prima
+  /// che riesce. Se l'app muore prima del ritorno della rete, quei turni non
+  /// sono ricordati: e' la perdita dichiarata, e si preferisce a un turno
+  /// scritto sul telefono che il server non conoscera' mai.
+  final List<Map<String, Object?>> _daMandare = [];
+
+  int get scrittureInAttesa => _daMandare.length;
 
   final String uid;
   final FirebaseFirestore _db;
@@ -60,14 +88,60 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
 
   @override
   Future<void> saveProfile(UserProfile profile) async {
-    await _userDoc.set({
-      'displayName': profile.displayName,
-      'courtesyForm': profile.courtesyForm.name,
-      'disclaimerAcceptedAt': profile.disclaimerAcceptedAt == null
-          ? null
-          : Timestamp.fromDate(profile.disclaimerAcceptedAt!),
-      'updatedAt': FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
+    await _scrivi(
+      operazione: 'profilo',
+      campi: {
+        'displayName': profile.displayName,
+        'courtesyForm': profile.courtesyForm.name,
+        'disclaimerAcceptedAt':
+            profile.disclaimerAcceptedAt?.toIso8601String(),
+      },
+      dritto: () => _userDoc.set({
+        'displayName': profile.displayName,
+        'courtesyForm': profile.courtesyForm.name,
+        'disclaimerAcceptedAt': profile.disclaimerAcceptedAt == null
+            ? null
+            : Timestamp.fromDate(profile.disclaimerAcceptedAt!),
+        'updatedAt': FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true)),
+    );
+  }
+
+  /// LA SCRITTURA PASSA DAL SERVER, e questa e' l'unica via.
+  ///
+  /// Se la porta e' viva ma non risponde (rete assente, funzione non ancora
+  /// distribuita) la scrittura si accoda e si riprova alla prossima: non si
+  /// ripiega MAI sulla scrittura diretta, che le regole respingerebbero e che
+  /// comunque farebbe rientrare dalla finestra cio' che si e' chiuso.
+  Future<void> _scrivi({
+    required String operazione,
+    required Map<String, Object?> campi,
+    String? maestro,
+    required Future<void> Function() dritto,
+  }) async {
+    if (!_porta.viva) {
+      await dritto();
+      return;
+    }
+    _daMandare.add({
+      'operazione': operazione,
+      'maestro': maestro,
+      'campi': campi,
+    });
+    await _svuotaLaCoda();
+  }
+
+  Future<void> _svuotaLaCoda() async {
+    while (_daMandare.isNotEmpty) {
+      final primo = _daMandare.first;
+      final fatto = await _porta.scriviLaMemoria(
+        operazione: primo['operazione']! as String,
+        maestro: primo['maestro'] as String?,
+        campi: (primo['campi'] as Map).cast<String, Object?>(),
+      );
+      if (!fatto) return;
+      _daMandare.removeAt(0);
+    }
   }
 
   @override
@@ -88,11 +162,19 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
 
   @override
   Future<void> saveMemory(Maestro maestro, MaestroMemory memory) async {
-    await _maestroDoc(maestro).set({
-      'facts': memory.facts,
-      'sessionSummary': memory.sessionSummary,
-      'updatedAt': FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
+    await _scrivi(
+      operazione: 'memoriaDelMaestro',
+      maestro: maestro.id,
+      campi: {
+        'facts': memory.facts,
+        'sessionSummary': memory.sessionSummary,
+      },
+      dritto: () => _maestroDoc(maestro).set({
+        'facts': memory.facts,
+        'sessionSummary': memory.sessionSummary,
+        'updatedAt': FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true)),
+    );
   }
 
   @override
@@ -112,7 +194,12 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
 
   @override
   Future<void> appendMessage(Maestro maestro, ChatMessage message) async {
-    await _messagesCol(maestro).add(_datiDi(message));
+    await _scrivi(
+      operazione: 'messaggio',
+      maestro: maestro.id,
+      campi: _datiTrasportabili(message),
+      dritto: () => _messagesCol(maestro).add(_datiDi(message)),
+    );
     // Prese verso i livelli profondi: a vuoto per default.
     await _semanticIndex.index(uid, maestro, message);
     await _archive.archive(uid, maestro, message);
@@ -131,7 +218,12 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
     }
     // `set` e non `update`: il turno in attesa era stato scritto con gli stessi
     // campi, e qui li si riscrive tutti, compresi quelli che tornano falsi.
-    await ultimo.docs.first.reference.set(_datiDi(messaggio));
+    await _scrivi(
+      operazione: 'ultimoMessaggio',
+      maestro: maestro.id,
+      campi: _datiTrasportabili(messaggio),
+      dritto: () => ultimo.docs.first.reference.set(_datiDi(messaggio)),
+    );
     await _semanticIndex.index(uid, maestro, messaggio);
     await _archive.archive(uid, maestro, messaggio);
   }
@@ -157,8 +249,42 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
         if (m.tipo != null) 'tipo': m.tipo!.name,
       };
 
+  /// GLI STESSI CAMPI, ma trasportabili in una chiamata.
+  ///
+  /// `FieldValue.serverTimestamp()` e' un ordine per Firestore, non un dato:
+  /// dentro il corpo di una callable non ci sta. L'orario lo mette il server
+  /// quando scrive, che e' anche l'unico orario di cui ci si puo' fidare.
+  Map<String, Object?> _datiTrasportabili(ChatMessage m) {
+    final dati = Map<String, Object?>.from(_datiDi(m));
+    dati.remove('createdAt');
+    return dati;
+  }
+
+  @override
+  Future<int> quantiMomenti() async {
+    var quanti = 0;
+    for (final maestro in Maestro.values) {
+      final messaggi = await _messagesCol(maestro).limit(500).get();
+      quanti += messaggi.docs.length;
+      final memoria = await _maestroDoc(maestro).get();
+      final fatti = memoria.data()?['facts'];
+      if (fatti is List) quanti += fatti.length;
+    }
+    return quanti;
+  }
+
   @override
   Future<void> deleteAllData() async {
+    // L'OBLIO PASSA DAL SERVER quando c'e': cancella il ramo intero, anche i
+    // documenti che il client non conosce (contatori, movimenti, consumi), e
+    // poi l'account. Il giro qui sotto resta per le prove e per il caso in
+    // cui il server non risponda, dove almeno cio' che si vede sparisce.
+    if (_porta.viva && await _porta.cancellaIlCerchio()) {
+      _daMandare.clear();
+      await _semanticIndex.forget(uid);
+      await _archive.purge(uid);
+      return;
+    }
     // Diritto all'oblio: si cancella tutto e solo sotto questo utente. Prima la
     // cronologia di ogni Maestro, poi i documenti dei Maestri, infine il
     // profilo. Le prese profonde vengono ripulite in coda.

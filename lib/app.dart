@@ -28,6 +28,7 @@ import 'features/santuario/greeting_controller.dart';
 import 'features/shell/app_shell.dart';
 import 'features/shell/barra_del_cerchio.dart';
 import 'features/shell/navigation_controller.dart';
+import 'core/identity/account_del_cerchio.dart';
 import 'services/app_services.dart';
 import 'services/apertura_delle_chiamate.dart';
 import 'services/avvisi_locali.dart';
@@ -154,7 +155,25 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
                 ..riprendiLaCarta(),
         ),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
-        ChangeNotifierProvider(create: (_) => QuestionAllowance()..load()),
+        // I CONTATORI PARLANO COL SERVER, ordine N: la porta arriva dai
+        // servizi, quindi nelle prove e nelle anteprime resta spenta e i
+        // numeri restano locali, mentre sul telefono il giorno e i residui
+        // li decide il server.
+        ChangeNotifierProvider(
+          create: (_) => QuestionAllowance(porta: runtime.porta)
+            // Prima il conto locale, che c'e' subito, poi quello del server,
+            // che e' la verita': cosi' non si resta senza numeri per il tempo
+            // di una chiamata.
+            ..load()
+            ..sincronizza(),
+        ),
+        // L'ACCOUNT DEL CERCHIO: anonimo dal primo secondo, elevabile senza
+        // perdere niente.
+        ChangeNotifierProvider(
+          create: (_) => AccountDelCerchio(
+            porta: runtime.identita ?? const IdentitaAssente(),
+          )..rileggi(),
+        ),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),

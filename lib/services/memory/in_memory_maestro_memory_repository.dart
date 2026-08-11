@@ -76,6 +76,18 @@ class InMemoryMaestroMemoryRepository implements MaestroMemoryRepository {
   }
 
   @override
+  Future<int> quantiMomenti() async {
+    var quanti = 0;
+    for (final voce in _messages.entries) {
+      quanti += voce.value.length;
+    }
+    for (final voce in _memory.entries) {
+      quanti += voce.value.facts.length;
+    }
+    return quanti;
+  }
+
+  @override
   Future<void> deleteAllData() async {
     _profile = UserProfile.empty;
     _memory.clear();

@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'plan_catalog.dart';
+import '../../services/server/porta_del_cerchio.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'tier.dart';
 
@@ -19,9 +22,44 @@ class QuestionAllowance extends ChangeNotifier {
   QuestionAllowance({
     DateTime Function()? clock,
     this.freeDailyLimit,
-  }) : _clock = clock ?? DateTime.now;
+    PortaDelCerchio porta = const PortaSpentaDelCerchio(),
+  })  : _clock = clock ?? DateTime.now,
+        _porta = porta;
 
   final DateTime Function() _clock;
+
+  /// LA PORTA DEL SERVER, ordine N voce 2c.
+  final PortaDelCerchio _porta;
+
+  /// IL GIORNO LO DICE IL SERVER, e finche' lo dice l'orologio del telefono
+  /// non conta piu' niente.
+  ///
+  /// **Perche'.** Fino a oggi il giorno nasceva da `DateTime.now()`: spostando
+  /// l'ora del telefono avanti di un giorno tutti e quattro i budget tornavano
+  /// interi, verificato eseguendo. Adesso questa stringa arriva dal server ed
+  /// e' OPACA: non si ricalcola e non si interpreta, si confronta. Resta nulla
+  /// solo finche' il server non ha mai risposto, e in quel caso vale il
+  /// ripiego locale, che e' meglio di un'app che non conta niente.
+  String? _giornoDelServer;
+
+  /// IL SALDO EOS, che il client non scrive mai: lo legge e lo mostra.
+  int _saldoEos = 0;
+  int get saldoEos => _saldoEos;
+
+  /// I GESTI CHE IL SERVER NON HA ANCORA PRESO, ordine N voce 2e.
+  ///
+  /// Senza rete il gesto si compie lo stesso e si segna qui col suo
+  /// identificativo: al ritorno partono tutti, e il server li conta una volta
+  /// sola perche' l'identificativo e' la sua garanzia. Se nel frattempo il
+  /// budget era finito, al ritorno il server dice di no e il conto locale si
+  /// allinea al suo: **in caso di disaccordo vince sempre il server**, anche
+  /// quando la risposta e' "hai gia' finito".
+  final List<Map<String, String>> _daMandare = [];
+
+  int get gestiInAttesa => _daMandare.length;
+
+  /// Vero se i numeri che si stanno mostrando vengono dal server.
+  bool get dalServer => _giornoDelServer != null;
 
   /// Un limite imposto dall'esterno, solo per i test: nell'app resta nullo e
   /// il numero arriva dalla matrice.
@@ -90,6 +128,7 @@ class QuestionAllowance extends ChangeNotifier {
     _approfondimenti++;
     notifyListeners();
     _persist();
+    _chiediAlServer('approfondimenti');
   }
 
   static const _kDay = 'allowance.day';
@@ -97,6 +136,9 @@ class QuestionAllowance extends ChangeNotifier {
   static const _kApprofondimenti = 'allowance.approfondimenti';
   static const _kConfronti = 'allowance.confronti';
   static const _kGettate = 'allowance.gettate';
+  static const _kGiornoDelServer = 'allowance.giornoDelServer';
+  static const _kCoda = 'allowance.coda';
+  static const _kSaldo = 'allowance.saldoEos';
 
   int _count = 0;
   int _approfondimenti = 0;
@@ -110,7 +152,8 @@ class QuestionAllowance extends ChangeNotifier {
   /// confine copiarlo avrebbe voluto dire due definizioni dello stesso giorno
   /// che devono restare d'accordo. Vedi `ConfineDelGiorno`, dove sta anche la
   /// ragione per cui il confine RITUALE, a mezzogiorno, e' un'altra cosa.
-  String _today() => ConfineDelGiorno.chiaveDi(_clock());
+  String _today() =>
+      _giornoDelServer ?? ConfineDelGiorno.chiaveDi(_clock());
 
   // Se e' cambiato il giorno, azzera il conteggio.
   void _rollover() {
@@ -198,6 +241,7 @@ class QuestionAllowance extends ChangeNotifier {
     _confronti++;
     notifyListeners();
     _persist();
+    _chiediAlServer('confronti');
   }
 
   /// COME SI DICE IL RESIDUO, prima del tocco.
@@ -268,6 +312,7 @@ class QuestionAllowance extends ChangeNotifier {
     _gettate++;
     notifyListeners();
     _persist();
+    _chiediAlServer('gettate');
   }
 
   /// Registra una domanda consumata. I tier con un limite finito intaccano il
@@ -278,9 +323,15 @@ class QuestionAllowance extends ChangeNotifier {
     _count++;
     notifyListeners();
     _persist();
+    _chiediAlServer('domande');
   }
 
   /// Carica il conteggio salvato, best effort.
+  ///
+  /// Il conto locale e' una COPIA di cio' che il server sa, non la verita': la
+  /// verita' arriva con [sincronizza], e quello che c'e' qui serve a non
+  /// restare senza numeri prima che la rete risponda e a non perdere i gesti
+  /// compiuti offline.
   Future<void> load() async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -289,10 +340,114 @@ class QuestionAllowance extends ChangeNotifier {
       _approfondimenti = prefs.getInt(_kApprofondimenti) ?? 0;
       _confronti = prefs.getInt(_kConfronti) ?? 0;
       _gettate = prefs.getInt(_kGettate) ?? 0;
+      _giornoDelServer = prefs.getString(_kGiornoDelServer);
+      _saldoEos = prefs.getInt(_kSaldo) ?? 0;
+      _daMandare
+        ..clear()
+        ..addAll(_codaDaTesto(prefs.getString(_kCoda)));
       _rollover();
       notifyListeners();
     } catch (_) {
       // Nessuna persistenza: si resta sui valori in memoria.
+    }
+  }
+
+  /// CHIEDE AL SERVER COM'E' MESSO IL GIORNO, e si allinea a cio' che dice.
+  ///
+  /// Si chiama all'avvio e al ritorno in primo piano. Se il server non
+  /// risponde non cambia niente: si resta sui numeri locali, che e' la scelta
+  /// dichiarata per l'assenza di rete.
+  Future<void> sincronizza() async {
+    await _svuotaLaCoda();
+    final stato = await _porta.stato();
+    if (stato == null) return;
+    _giornoDelServer = stato.giorno;
+    if (_day != stato.giorno) _day = stato.giorno;
+    _count = stato.spesi['domande'] ?? 0;
+    _approfondimenti = stato.spesi['approfondimenti'] ?? 0;
+    _confronti = stato.spesi['confronti'] ?? 0;
+    _gettate = stato.spesi['gettate'] ?? 0;
+    _saldoEos = stato.saldoEos;
+    notifyListeners();
+    await _persist();
+  }
+
+  /// Segna il gesto per il server e prova a mandarlo subito.
+  void _chiediAlServer(String budget) {
+    if (!_porta.viva) return;
+    _daMandare.add({
+      'budget': budget,
+      'id': PortaDelCerchio.nuovoIdentificativo('$_day-$budget'),
+    });
+    _persist();
+    _svuotaLaCoda();
+  }
+
+  /// Manda i gesti in attesa, uno alla volta e in ordine. Al primo che non
+  /// passa ci si ferma: la coda tiene l'ordine dei gesti, e mandarne uno
+  /// fuori ordine cambierebbe chi ha esaurito cosa.
+  /// UNA SVUOTATA PER VOLTA, e non e' prudenza eccessiva: due gesti di
+  /// seguito ne avviavano due, e la seconda toglieva dalla coda un elemento
+  /// che la prima aveva gia' tolto. Trovato dalla prova, non ragionato.
+  bool _stoSvuotando = false;
+
+  Future<void> _svuotaLaCoda() async {
+    if (!_porta.viva || _stoSvuotando) return;
+    _stoSvuotando = true;
+    try {
+      await _svuotaDavvero();
+    } finally {
+      _stoSvuotando = false;
+    }
+  }
+
+  Future<void> _svuotaDavvero() async {
+    while (_daMandare.isNotEmpty) {
+      final primo = _daMandare.first;
+      final esito = await _porta.consuma(
+        budget: primo['budget']!,
+        idMovimento: primo['id']!,
+      );
+      if (esito == null) return;
+      _daMandare.removeAt(0);
+      if (!esito.concesso) {
+        // IL SERVER HA DETTO DI NO: il conto locale si allinea a lui, anche
+        // se vuol dire togliere qualcosa che il telefono si era gia' preso.
+        await _allineaAlNo(primo['budget']!);
+      }
+    }
+    await _persist();
+  }
+
+  Future<void> _allineaAlNo(String budget) async {
+    switch (budget) {
+      case 'domande':
+        _count = 1 << 20;
+      case 'approfondimenti':
+        _approfondimenti = 1 << 20;
+      case 'confronti':
+        _confronti = 1 << 20;
+      case 'gettate':
+        _gettate = 1 << 20;
+    }
+    notifyListeners();
+  }
+
+  static List<Map<String, String>> _codaDaTesto(String? testo) {
+    if (testo == null || testo.isEmpty) return const [];
+    try {
+      final letta = jsonDecode(testo);
+      if (letta is! List) return const [];
+      return [
+        for (final voce in letta)
+          if (voce is Map && voce['budget'] is String && voce['id'] is String)
+            {'budget': '${voce['budget']}', 'id': '${voce['id']}'},
+      ];
+    } catch (errore) {
+      // Si ignora: una coda illeggibile (preferenze corrotte, formato
+      // vecchio) vale come coda vuota. Il conto vero e' quello del server, e
+      // alla prima sincronia torna tutto a posto.
+      return const [];
     }
   }
 
@@ -304,6 +459,11 @@ class QuestionAllowance extends ChangeNotifier {
       await prefs.setInt(_kApprofondimenti, _approfondimenti);
       await prefs.setInt(_kConfronti, _confronti);
       await prefs.setInt(_kGettate, _gettate);
+      await prefs.setInt(_kSaldo, _saldoEos);
+      await prefs.setString(_kCoda, jsonEncode(_daMandare));
+      if (_giornoDelServer != null) {
+        await prefs.setString(_kGiornoDelServer, _giornoDelServer!);
+      }
     } catch (_) {
       // Best effort.
     }

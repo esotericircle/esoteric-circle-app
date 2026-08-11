@@ -3,6 +3,17 @@ import {defineSecret} from "firebase-functions/params";
 import * as logger from "firebase-functions/logger";
 import {validateNatalInput, ValidationError, NatalInput} from "./validate";
 
+// LE CALLABLE DEL CERCHIO, ordine N: identita', contatori, memoria, Eos e
+// oblio vivono in `cerchio.ts` e si esportano da qui, che resta il punto
+// unico che Firebase guarda per sapere quali funzioni esistono.
+export {
+  statoDelCerchio,
+  consumaDelGiorno,
+  muoviGliEos,
+  scriviLaMemoria,
+  cancellaIlCerchio,
+} from "./cerchio";
+
 /**
  * Chiave del motore astrologico FreeAstroAPI.
  *
