@@ -26,7 +26,16 @@ class RegiaDelCammino {
     String gesto, {
     String? oraRituale,
   }) async {
-    final diario = context.read<DiarioDelCammino>();
+    // SE L'ALBERO NON PORTA IL DIARIO non si registra niente e non si cade:
+    // succede in ogni prova che monta una scena d'arte da sola, e una scena
+    // che casca perche' manca il provider di un traguardo sarebbe un difetto
+    // peggiore del traguardo mancato.
+    final DiarioDelCammino diario;
+    try {
+      diario = context.read<DiarioDelCammino>();
+    } catch (errore) {
+      return;
+    }
     await diario.segna(gesto, oraRituale: oraRituale);
     if (!context.mounted) return;
     await guardaCosaSiAccende(context);
@@ -36,8 +45,17 @@ class RegiaDelCammino {
   /// all'avvio: un traguardo del cielo puo' essersi acceso mentre l'app era
   /// chiusa, e trovarlo acceso al ritorno e' proprio il punto.
   static Future<void> guardaCosaSiAccende(BuildContext context) async {
-    final diario = context.read<DiarioDelCammino>();
-    final carta = context.read<NatalChartController>().chart;
+    final DiarioDelCammino diario;
+    final NatalChartController carte;
+    try {
+      diario = context.read<DiarioDelCammino>();
+      carte = context.read<NatalChartController>();
+    } catch (errore) {
+      // Stessa ragione di sopra: senza l'albero completo non c'e' cammino da
+      // guardare, e non c'e' niente da rompere.
+      return;
+    }
+    final carta = carte.chart;
     final stato = diario.statoDelCammino(
       carta: carta,
       segno: carta?.sunSign,

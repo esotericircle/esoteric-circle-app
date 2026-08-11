@@ -18,19 +18,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// IL LIMITE DELLE GETTATE DI RUNE, ordine I voce 3.
+/// IL LIMITE DELLE GETTATE DI RUNE.
 ///
-/// Tre gettate al giorno per il Viandante, illimitate dal Tier 1 in su. Il
+/// UNA gettata al giorno per il Viandante dall'ordine O del 12 agosto 2026,
+/// illimitate dal Tier 1 in su. Erano TRE dall'ordine I: il numero e' sceso
+/// per decisione di Mauro, perche' la gettata e' il gesto che riporta indietro
+/// domani e tre al giorno lo consumavano in un pomeriggio. Il
 /// numero vive nella MATRICE dei piani, il conteggio in `QuestionAllowance`
 /// col reset giornaliero gia' in uso per le altre arti, e a quota esaurita il
 /// pulsante e' grigio col tocco che apre l'invito: mai un blocco muto.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  test('il numero tre vive nel dato, con gli altri limiti giornalieri', () {
+  test('il numero uno vive nel dato, con gli altri limiti giornalieri', () {
     expect(PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, Tier.free),
-        3,
-        reason: 'La matrice non promette piu\' tre gettate al Viandante.');
+        1,
+        reason: 'La matrice non promette piu\' una gettata al Viandante.');
     for (final t in [Tier.tier1, Tier.tier2, Tier.tier3]) {
       expect(PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, t), isNull,
           reason: 'Dal Tier 1 in su le gettate sono illimitate, e per '
@@ -89,9 +92,9 @@ void main() {
     await getta(tester);
     await ancora(tester);
     await ancora(tester);
-    // Tre gettate fatte: la quota del giorno e' spesa.
+    // Una gettata fatta: la quota del giorno e' spesa.
     expect(borsa.gettateRimaste(Tier.free), 0,
-        reason: 'Dopo tre getti al Viandante deve restare zero.');
+        reason: 'Dopo un getto al Viandante deve restare zero.');
     // Il pulsante lo dice col colore e col lucchetto, prima di ogni tocco.
     expect(
         find.descendant(

@@ -27,6 +27,10 @@ import 'package:esoteric_circle/core/angels/angel_catalog.dart';
 import 'package:esoteric_circle/core/angels/guardian_angels.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:esoteric_circle/core/identity/account_del_cerchio.dart';
+import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
+import 'package:esoteric_circle/core/sigilli/sentieri.dart';
+import 'package:esoteric_circle/features/sigilli/celebrazione.dart';
+import 'package:esoteric_circle/features/sigilli/sentiero_screen.dart';
 import 'package:esoteric_circle/features/account/custodia_del_cielo.dart';
 import 'package:esoteric_circle/features/onboarding/custodia_del_cielo_step.dart';
 import 'package:esoteric_circle/features/onboarding/maestro_reveal_screen.dart';
@@ -3308,6 +3312,147 @@ void main() {
     await tester.pump(const Duration(milliseconds: 600));
     await scattaApp(tester, radice, 'invito_a_custodire_n');
   });
+
+  // ORDINE O: le scene dei Sigilli del Cammino.
+  //
+  // Nella PRIMA non esiste niente di tutto questo: i sentieri, la
+  // celebrazione e il saldo nascono adesso, quindi la prima fotografa il
+  // Passaporto com'era, che e' il posto da cui i sentieri si aprono.
+  for (final scena in const [
+    'sentiero_costellazione_o',
+    'sentiero_albero_o',
+    'sentiero_loto_o',
+    'sentiero_a_meta_o',
+    'celebrazione_grande_o',
+    'sovrimpressione_mini_o',
+    'card_riaperta_o',
+  ]) {
+    testWidgets('O, la scena $scena', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      SharedPreferences.setMockInitialValues(const {});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2391);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      for (final (famiglia, percorso) in const [
+        ('Cinzel', 'assets/fonts/Cinzel-variable.ttf'),
+        ('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf'),
+      ]) {
+        final loader = FontLoader(famiglia);
+        loader.addFont(Future.value(
+            ByteData.view(File(percorso).readAsBytesSync().buffer)));
+        await loader.load();
+      }
+
+      final radice = GlobalKey();
+      final diario = DiarioDelCammino();
+      await diario.carica();
+      // UN CAMMINO GIA' COMINCIATO per la scena a meta': dodici Sigilli
+      // accesi sulla Costellazione, cosi' la discesa si ferma davvero a
+      // meta' strada invece che in cima.
+      if (scena == 'sentiero_a_meta_o' ||
+          scena == 'card_riaperta_o' ||
+          scena == 'celebrazione_grande_o') {
+        for (final t in Sentieri.miniDi(Sentiero.costellazione).take(12)) {
+          await diario.accendi(t.id);
+        }
+        for (final t in Sentieri.miniDi(Sentiero.albero).take(4)) {
+          await diario.accendi(t.id);
+        }
+      }
+      final borsa = QuestionAllowance();
+
+      Future<void> monta(Widget scena) async {
+        await tester.pumpWidget(RepaintBoundary(
+          key: radice,
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => MaestroController()),
+              ChangeNotifierProvider(create: (_) => QualityTierController()),
+              ChangeNotifierProvider(create: (_) => ParallaxController()),
+              ChangeNotifierProvider(create: (_) => ZodiacController()),
+              ChangeNotifierProvider(create: (_) => EntitlementService()),
+              ChangeNotifierProvider<QuestionAllowance>.value(value: borsa),
+              ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.dark(),
+              builder: (ctx, child) => MaestroScope(child: child!),
+              home: scena,
+            ),
+          ),
+        ));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 900));
+      }
+
+      switch (scena) {
+        case 'sentiero_costellazione_o':
+          await monta(const SentieroScreen(
+              sentiero: Sentiero.costellazione, senzaVolo: true));
+        case 'sentiero_albero_o':
+          await monta(
+              const SentieroScreen(sentiero: Sentiero.albero, senzaVolo: true));
+        case 'sentiero_loto_o':
+          await monta(
+              const SentieroScreen(sentiero: Sentiero.loto, senzaVolo: true));
+        case 'sentiero_a_meta_o':
+          await monta(const SentieroScreen(
+              sentiero: Sentiero.costellazione, senzaVolo: true));
+          await tester.pump(const Duration(milliseconds: 600));
+        case 'celebrazione_grande_o':
+          await monta(CelebrazioneAScermoPieno(
+            traguardo: Sentieri.grandiDi(Sentiero.costellazione).first,
+            sentiero: Sentiero.costellazione,
+            serie: 'settimo giorno di seguito',
+          ));
+          await tester.pump(const Duration(milliseconds: 1400));
+        case 'sovrimpressione_mini_o':
+          await monta(Builder(
+            builder: (ctx) => Scaffold(
+              backgroundColor: const Color(0xFF05060A),
+              body: Center(
+                child: ElevatedButton(
+                  onPressed: () => mostraLaSovrimpressione(
+                    ctx,
+                    traguardo: Sentieri.miniDi(Sentiero.albero)[4],
+                    sentiero: Sentiero.albero,
+                    serie: 'terzo giorno di seguito',
+                  ),
+                  child: const Text('quello che stavo facendo'),
+                ),
+              ),
+            ),
+          ));
+          await tester.tap(find.text('quello che stavo facendo'));
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 700));
+        case 'card_riaperta_o':
+          await monta(Builder(
+            builder: (ctx) => Scaffold(
+              backgroundColor: const Color(0xFF05060A),
+              body: Center(
+                child: ElevatedButton(
+                  onPressed: () => mostraLaCardDelTraguardo(
+                    ctx,
+                    traguardo: Sentieri.miniDi(Sentiero.costellazione)[5],
+                    sentiero: Sentiero.costellazione,
+                  ),
+                  child: const Text('riapri'),
+                ),
+              ),
+            ),
+          ));
+          await tester.tap(find.text('riapri'));
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 700));
+      }
+      await scattaApp(tester, radice, scena);
+      await tester.pump(const Duration(seconds: 2));
+    });
+  }
 }
 
 /// L'identita' per l'anteprima: un account anonimo che non tocca nessuna rete.

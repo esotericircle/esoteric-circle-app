@@ -1,3 +1,4 @@
+import '../config/app_flags.dart';
 import 'sentiero_albero.dart';
 import 'sentiero_costellazione.dart';
 import 'sentiero_loto.dart';
@@ -91,6 +92,11 @@ class Sentieri {
   /// per aver camminato.
   static const int ultimoTraguardoGratuito = 20;
 
+  /// IN DEMO NESSUN TRAGUARDO E' CHIUSO, decisione di Mauro dell'ordine O:
+  /// i tre Journal sono vivi in Demo con tutti i traguardi raggiungibili, e
+  /// questo cambia lo scope che il Briefing Operativo congelava a "Coming
+  /// soon". Fuori dalla Demo il gating resta quello deciso: gratuito fino al
+  /// ventesimo, dal ventunesimo il Tier 1, e gli Eos gia' presi restano.
   static bool chiedeIlTier(Traguardo traguardo) =>
-      traguardo.posizione > ultimoTraguardoGratuito;
+      !AppFlags.isDemo && traguardo.posizione > ultimoTraguardoGratuito;
 }

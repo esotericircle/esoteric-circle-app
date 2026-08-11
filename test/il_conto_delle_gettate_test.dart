@@ -75,22 +75,20 @@ void main() {
     return t.data!;
   }
 
-  testWidgets('i tre stati del conto: pieno, a meta\', finito', (tester) async {
+  // I DUE STATI DEL CONTO, e sono due perche' il limite e' UNO dall'ordine O
+  // del 12 agosto 2026, per decisione di Mauro: erano tre dall'ordine I.
+  // Con una gettata sola il passo intermedio non esiste piu' nel dato, e
+  // pretenderlo vorrebbe dire pretendere un numero che nessuno promette.
+  testWidgets('i due stati del conto: pieno e finito', (tester) async {
     await monta(tester, piano: Tier.free);
     // Sempre presente per chi ha un limite, gia' prima del primo getto.
-    expect(conto(tester), 'Gettate di oggi: 3 di 3',
-        reason: 'Prima del primo getto il conto non dice tre di tre.');
+    expect(conto(tester), 'Gettate di oggi: 1 di 1',
+        reason: 'Prima del primo getto il conto non dice uno di uno.');
     await getta(tester);
-    expect(conto(tester), 'Gettate di oggi: 2 di 3',
-        reason: 'Dopo un getto il conto non dice due di tre: non cala '
-            'nell\'istante della gettata, o cala di un passo sbagliato.');
-    await ancora(tester);
-    expect(conto(tester), 'Gettate di oggi: 1 di 3',
-        reason: 'Dopo due getti il conto non dice uno di tre.');
-    await ancora(tester);
     expect(conto(tester),
         'Le gettate di oggi sono finite: si riparte domani.',
-        reason: 'A zero il conto non dice che si riparte domani.');
+        reason: 'Dopo la gettata del giorno il conto non dice che si riparte '
+            'domani.');
   });
 
   testWidgets('chi non ha limite non vede nessun conto', (tester) async {

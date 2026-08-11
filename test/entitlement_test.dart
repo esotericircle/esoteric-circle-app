@@ -163,8 +163,10 @@ void main() {
       expect(PlanCatalog.matrix.length, 26);
       final gettate = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Gettate di rune');
+      // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di
+      // Mauro: erano tre dall'ordine I.
       expect(gettate.values,
-          ['3 al giorno', 'Illimitate', 'Illimitate', 'Illimitate']);
+          ['1 al giorno', 'Illimitate', 'Illimitate', 'Illimitate']);
       for (final row in PlanCatalog.matrix) {
         expect(row.values.length, 4, reason: 'riga ${row.label}');
       }

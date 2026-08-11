@@ -103,8 +103,12 @@ class _SentieroScreenState extends State<SentieroScreen> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
+          // IL TITOLO INTERO, e non tagliato: "Costellazione pers..." era
+          // quello che si leggeva nell'anteprima, e un titolo troncato dice
+          // che la schermata non e' finita.
           title: Text(widget.sentiero.titolo,
-              style: TypographyTokens.titoloSezione()
+              maxLines: 2,
+              style: TypographyTokens.titoloScheda()
                   .copyWith(color: palette.goldSoft)),
           actions: [
             // IL SALDO EOS, che legge dal server e non finge: finche' le
@@ -224,16 +228,22 @@ class _GradinoDelSentiero extends StatelessWidget {
             ? palette.goldSoft.withValues(alpha: 0.7)
             : ColorTokens.textSecondary.withValues(alpha: 0.35);
 
+    // IL GRIGIO TRASPARENTE dei non conquistati resta, ma leggibile: a 0,55
+    // sul cosmo i nomi sparivano, e un sentiero che non si legge non invita
+    // a percorrerlo.
     return Opacity(
-      opacity: acceso || prossimo ? 1 : 0.55,
+      opacity: acceso || prossimo ? 1 : 0.78,
       child: ListTile(
         key: Key('gradino_${traguardo.id}'),
+        // IL LUCCHETTO SOLO DOVE C'E' DAVVERO UN BLOCCO: in Demo non ce n'e'
+        // nessuno, e un sentiero pieno di lucchetti diceva "chiuso" a chi
+        // poteva percorrerlo tutto. Visto sull'anteprima, non ragionato.
         leading: Icon(
           acceso
               ? Icons.auto_awesome
-              : prossimo
-                  ? Icons.radio_button_unchecked
-                  : Icons.lock_outline_rounded,
+              : bloccato
+                  ? Icons.lock_outline_rounded
+                  : Icons.radio_button_unchecked,
           color: colore,
         ),
         title: Text(traguardo.nome,
