@@ -288,6 +288,11 @@ class PlanCatalog {
   static const String rigaSinastria = 'Sinastria VIP';
   static const String rigaCartaSingola = 'Tarocchi carta singola';
 
+  /// Quante gettate di rune al giorno. IL NUMERO VIVE QUI, ordine I voce 3:
+  /// tre per il Viandante, illimitate dall'Iniziato in su. La schermata delle
+  /// rune lo legge dalla matrice e non lo riscrive.
+  static const String rigaGettate = 'Gettate di rune';
+
   static const List<FeatureRow> matrix = [
     FeatureRow('Pubblicità banner inferiore', ['Sì', 'No', 'No', 'No']),
     FeatureRow('Carta natale occidentale',
@@ -321,6 +326,10 @@ class PlanCatalog {
         ['Eos pieno', 'Eos scontati', '5 al giorno', 'Illimitate']),
     FeatureRow('Rune, I-Ching, Pendolo',
         ['Eos', 'Eos scontati', 'Inclusi', 'Inclusi']),
+    // TRE GETTATE AL GIORNO PER IL VIANDANTE, deciso dall'ordine I del
+    // 11 agosto 2026: dal Tier 1 in su sono illimitate.
+    FeatureRow('Gettate di rune',
+        ['3 al giorno', 'Illimitate', 'Illimitate', 'Illimitate']),
     FeatureRow('Sinastria VIP',
         ['3 al giorno', '5 al giorno', '5 al giorno', 'Illimitata']),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),

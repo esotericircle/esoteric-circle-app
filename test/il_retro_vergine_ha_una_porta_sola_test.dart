@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
+import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -59,6 +61,8 @@ void main() {
                 MaestroController(initial: const ThemeKey.of(Maestro.caligo))),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => EntitlementService()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
         ChangeNotifierProvider(create: (_) => SettingsController()),
       ],

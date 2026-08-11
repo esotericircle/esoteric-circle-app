@@ -96,10 +96,12 @@ class QuestionAllowance extends ChangeNotifier {
   static const _kCount = 'allowance.count';
   static const _kApprofondimenti = 'allowance.approfondimenti';
   static const _kConfronti = 'allowance.confronti';
+  static const _kGettate = 'allowance.gettate';
 
   int _count = 0;
   int _approfondimenti = 0;
   int _confronti = 0;
+  int _gettate = 0;
   String _day = '';
 
   /// Il giorno d'uso, dal punto SOLO in cui e' definito.
@@ -116,13 +118,16 @@ class QuestionAllowance extends ChangeNotifier {
     if (t != _day) {
       _day = t;
       _count = 0;
-      // I TRE budget ribaltano INSIEME, perche' il giorno e' lo stesso.
+      // I QUATTRO budget ribaltano INSIEME, perche' il giorno e' lo stesso.
       //
       // Un secondo confine del giorno accanto a questo divergerebbe alla prima
-      // ora legale: `ConfineDelGiorno` e' uno, e questi tre contatori lo
-      // guardano tutti da qui.
+      // ora legale: `ConfineDelGiorno` e' uno, e questi contatori lo
+      // guardano tutti da qui. Le gettate di rune stanno qui per lo stesso
+      // motivo, ordine I voce 3: il reset e' quello gia' in uso, non un
+      // contatore nuovo con un giorno suo.
       _approfondimenti = 0;
       _confronti = 0;
+      _gettate = 0;
     }
   }
 
@@ -234,6 +239,37 @@ class QuestionAllowance extends ChangeNotifier {
     return 'Oggi te ne restano $quanti su $limite';
   }
 
+  /// Quante gettate di rune al giorno prevede il piano, oppure null se
+  /// illimitate. Il numero sta nella matrice, riga [PlanCatalog.rigaGettate].
+  int? limiteGettate(Tier tier) =>
+      PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, tier);
+
+  /// Quante gettate restano oggi, oppure null se sono illimitate.
+  int? gettateRimaste(Tier tier) {
+    final limite = limiteGettate(tier);
+    if (limite == null) return null;
+    _rollover();
+    final resta = limite - _gettate;
+    return resta < 0 ? 0 : resta;
+  }
+
+  /// Se si puo' gettare adesso. La gettata e' un calcolo locale, quindi per
+  /// chi non ha limite non serve nemmeno il tetto di correttezza: non c'e'
+  /// nessun modello da difendere da un tocco ripetuto.
+  bool puoiGettare(Tier tier) {
+    final resta = gettateRimaste(tier);
+    return resta == null || resta > 0;
+  }
+
+  /// Registra una gettata consumata. Chi ha l'illimitato non intacca niente.
+  void registraGettata(Tier tier) {
+    if (limiteGettate(tier) == null) return;
+    _rollover();
+    _gettate++;
+    notifyListeners();
+    _persist();
+  }
+
   /// Registra una domanda consumata. I tier con un limite finito intaccano il
   /// contatore; quello illimitato no.
   void record(Tier tier) {
@@ -252,6 +288,7 @@ class QuestionAllowance extends ChangeNotifier {
       _count = prefs.getInt(_kCount) ?? 0;
       _approfondimenti = prefs.getInt(_kApprofondimenti) ?? 0;
       _confronti = prefs.getInt(_kConfronti) ?? 0;
+      _gettate = prefs.getInt(_kGettate) ?? 0;
       _rollover();
       notifyListeners();
     } catch (_) {
@@ -266,6 +303,7 @@ class QuestionAllowance extends ChangeNotifier {
       await prefs.setInt(_kCount, _count);
       await prefs.setInt(_kApprofondimenti, _approfondimenti);
       await prefs.setInt(_kConfronti, _confronti);
+      await prefs.setInt(_kGettate, _gettate);
     } catch (_) {
       // Best effort.
     }

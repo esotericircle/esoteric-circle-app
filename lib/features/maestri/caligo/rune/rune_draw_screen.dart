@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/astro/zodiac.dart';
+import '../../../../core/entitlement/entitlement_service.dart';
+import '../../../../core/entitlement/question_allowance.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/rune_cast.dart';
 import '../../../../core/rituals/sunset_rune_corpus.dart';
@@ -27,6 +29,7 @@ import '../../chat/maestro_chat_screen.dart';
 import 'bindrune.dart';
 import 'rune_share_card.dart';
 import 'fisica_della_gettata.dart';
+import '../../../pricing/upgrade_invite.dart';
 import '../../rotta_arte.dart';
 import '../../../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../../../core/sensi/catalogo_suoni.dart';
@@ -135,8 +138,32 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
     setState(() => _gettata = g);
   }
 
+  /// IL LIMITE DELLE GETTATE, ordine I voce 3. Il numero vive nella matrice
+  /// dei piani (tre al giorno per il Viandante, illimitate dal Tier 1) e il
+  /// conteggio sta in `QuestionAllowance`, col reset giornaliero gia' in uso
+  /// per le altre arti. Esaurite le gettate il pulsante e' grigio e il tocco
+  /// apre l'invito del gating: mai un blocco muto.
+  bool _consumaUnaGettata() {
+    final piano = context.read<EntitlementService>().tier;
+    final borsa = context.read<QuestionAllowance>();
+    if (!borsa.puoiGettare(piano)) {
+      showUpgradeInvite(
+        context,
+        title: 'Le gettate di oggi sono finite',
+        message: 'Le tre gettate del giorno sono state fatte. Puoi '
+            'riscattarne una con gli Eos, quando il borsellino arriva '
+            'nell\'app, oppure salire di livello nel Cerchio: dall\'Iniziato '
+            'in su le gettate sono senza limiti.',
+      );
+      return false;
+    }
+    borsa.registraGettata(piano);
+    return true;
+  }
+
   void _getta() {
     if (_fase == _Fase.responso) return;
+    if (!_consumaUnaGettata()) return;
     PaletteSensoriale.eseguiSchema(SchemaAptico.conferma);
     setState(() {
       _esito = RuneCast.getta(_gettata, random: widget.random);
@@ -145,6 +172,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   }
 
   void _gettaAncora() {
+    if (!_consumaUnaGettata()) return;
     PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
     setState(() => _esito = RuneCast.getta(_gettata, random: widget.random));
   }
@@ -175,6 +203,11 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
+    // Il pulsante del getto si spegne quando le gettate del giorno sono
+    // finite: si guarda il contatore, cosi' il grigio arriva da solo.
+    final piano = context.watch<EntitlementService>().tier;
+    final gettateFinite =
+        !context.watch<QuestionAllowance>().puoiGettare(piano);
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
@@ -205,6 +238,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   animazioni: _animazioni,
                   onGettata: _cambiaGettata,
                   onGetta: _getta,
+                  gettateFinite: gettateFinite,
                   statoScuotimento: _scuotimento.stato,
                 )
               : _Responso(
@@ -217,6 +251,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   giorno: DateTime.now(),
                   animazioni: _animazioni,
                   onAncora: _gettaAncora,
+                  gettateFinite: gettateFinite,
                 ),
         ),
       ),
@@ -293,6 +328,7 @@ class _Preparazione extends StatelessWidget {
     required this.animazioni,
     required this.onGettata,
     required this.onGetta,
+    required this.gettateFinite,
     required this.statoScuotimento,
   });
 
@@ -302,6 +338,10 @@ class _Preparazione extends StatelessWidget {
   final bool animazioni;
   final ValueChanged<GettataRune> onGettata;
   final VoidCallback onGetta;
+
+  /// Vero quando le gettate del giorno sono esaurite: il pulsante si spegne
+  /// nel colore, ma resta toccabile perche' il tocco spiega, mai muto.
+  final bool gettateFinite;
 
   /// Lo stato del sensore, dalla porta unica: quando dice assente, la riga
   /// dell'aiuto dichiara il ripiego invece di promettere lo scuotimento.
@@ -351,12 +391,21 @@ class _Preparazione extends StatelessWidget {
           const SizedBox(height: SpacingTokens.md),
           FilledButton.icon(
             key: const Key('rune_cast_button'),
+            // ESAURITE LE GETTATE IL PULSANTE E' GRIGIO, ordine I voce 3:
+            // il tocco resta vivo e apre l'invito del gating, mai un blocco
+            // muto e mai un pulsante che sembra rotto.
             style: FilledButton.styleFrom(
-                backgroundColor: palette.primary,
-                foregroundColor: palette.onPrimary,
+                backgroundColor: gettateFinite
+                    ? ColorTokens.textSecondary.withValues(alpha: 0.25)
+                    : palette.primary,
+                foregroundColor: gettateFinite
+                    ? ColorTokens.textSecondary
+                    : palette.onPrimary,
                 minimumSize: const Size.fromHeight(52)),
             onPressed: onGetta,
-            icon: const Icon(Icons.casino_outlined),
+            icon: Icon(gettateFinite
+                ? Icons.lock_outline_rounded
+                : Icons.casino_outlined),
             label: const Text('Getta le rune'),
           ),
 
@@ -484,6 +533,7 @@ class _Responso extends StatelessWidget {
     required this.giorno,
     required this.animazioni,
     required this.onAncora,
+    required this.gettateFinite,
   });
 
   final MaestroPalette palette;
@@ -494,6 +544,10 @@ class _Responso extends StatelessWidget {
   final DateTime giorno;
   final bool animazioni;
   final VoidCallback onAncora;
+
+  /// Vero quando le gettate del giorno sono esaurite: Getta ancora si spegne
+  /// nel colore, e il tocco apre l'invito del gating.
+  final bool gettateFinite;
 
   @override
   Widget build(BuildContext context) {
@@ -538,11 +592,19 @@ class _Responso extends StatelessWidget {
           const SizedBox(height: SpacingTokens.md),
           OutlinedButton.icon(
             key: const Key('rune_recast'),
+            // GRIGIO A GETTATE ESAURITE, ordine I voce 3, e il tocco spiega.
             style: OutlinedButton.styleFrom(
-                foregroundColor: palette.goldSoft,
-                side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
+                foregroundColor: gettateFinite
+                    ? ColorTokens.textSecondary
+                    : palette.goldSoft,
+                side: BorderSide(
+                    color: gettateFinite
+                        ? ColorTokens.textSecondary.withValues(alpha: 0.4)
+                        : palette.gold.withValues(alpha: 0.6))),
             onPressed: onAncora,
-            icon: const Icon(Icons.casino_outlined),
+            icon: Icon(gettateFinite
+                ? Icons.lock_outline_rounded
+                : Icons.casino_outlined),
             label: const Text('Getta ancora'),
           ),
 
