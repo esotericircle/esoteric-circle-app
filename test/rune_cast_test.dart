@@ -92,7 +92,6 @@ void main() {
 
   group('Il getto sul telo', () {
     const centro = Offset(0.5, 0.5);
-    double dist(Offset p) => (p - centro).distance;
 
     test('Sparge sette rune e le legge TUTTE, ordinate dal centro', () {
       // DALL'ORDINE H sul telo non esistono pietre nude ne' letture a tre:

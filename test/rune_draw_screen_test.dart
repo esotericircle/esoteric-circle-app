@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
+import 'package:esoteric_circle/core/rituals/sunset_rune_corpus.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/bindrune.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
@@ -237,7 +238,17 @@ void main() {
     expect(find.byKey(const Key('rune_result')), findsOneWidget);
     // Si legge almeno una runa, in luce.
     expect(find.byKey(const Key('rune_card_0')), findsOneWidget);
-    expect(find.text('in luce'), findsWidgets);
+    // DALL'ORDINE H sul telo il verso esce a sorte come nelle altre gettate:
+    // la scheda dice "diritta", "in merkstave" o la nota della simmetrica,
+    // mai piu' "in luce", che direbbe il falso su una runa rovesciata.
+    expect(find.text('in luce'), findsNothing);
+    expect(
+        find.byWidgetPredicate((w) =>
+            w is Text &&
+            (w.data == 'diritta' ||
+                w.data == 'in merkstave' ||
+                w.data == SunsetRuneCorpus.noteSimmetrica)),
+        findsWidgets);
     // Il sigillo del giorno con la bindrune.
     expect(find.byKey(const Key('rune_sigillo')), findsOneWidget);
     expect(find.byKey(const Key('bindrune')), findsOneWidget);

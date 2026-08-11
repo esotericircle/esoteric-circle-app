@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
@@ -189,8 +188,10 @@ class _SuggestionsControl extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: Container(
         key: const Key('chat_stelline'),
+        // Verticale a quattro: a sei la bolla usciva di tre punti sopra il
+        // campo, misurato dalla prova della riga pulita.
         padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.sm, vertical: 6),
+            horizontal: SpacingTokens.sm, vertical: 4),
         decoration: BoxDecoration(
           color: Color.alphaBlend(
               palette.surface.withValues(alpha: 0.6), palette.deepest),
@@ -201,8 +202,7 @@ class _SuggestionsControl extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.auto_awesome_outlined,
-                color: palette.goldSoft, size: 22),
-            const SizedBox(height: 2),
+                color: palette.goldSoft, size: 19),
             Text(
               'Suggerimenti',
               style: TypographyTokens.etichetta()

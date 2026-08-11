@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:esoteric_circle/features/tarot/stesa_choreography.dart';
 import 'package:flutter_test/flutter_test.dart';
 

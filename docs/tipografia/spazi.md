@@ -22,15 +22,15 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 65 |
+| 2 | 64 |
 | 3 | 8 |
-| 4 | 24 |
+| 4 | 25 |
 | 5 | 1 |
-| 6 | 14 |
+| 6 | 15 |
 | 7 | 2 |
 | 8 | 7 |
 | 9 | 2 |
-| 10 | 4 |
+| 10 | 3 |
 | 12 | 1 |
 | 16 | 1 |
 | 24 | 1 |

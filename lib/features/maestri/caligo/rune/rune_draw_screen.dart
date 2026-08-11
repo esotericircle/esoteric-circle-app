@@ -736,21 +736,28 @@ class _LetturaRuna extends StatelessWidget {
                               color: palette.goldSoft.withValues(alpha: 0.8),
                               letterSpacing: 0.4)),
                       const SizedBox(height: 2),
-                      Text(
-                          // **LE SIMMETRICHE LO DICHIARANO ANCHE QUI**, ordine
-                          // 2171 voce 4: "diritta" su una runa che diritta lo
-                          // e' sempre non e' falso, ma lascia credere che
-                          // sarebbe potuta uscire al contrario.
-                          libera
-                              ? 'in luce'
-                              : (kRuneSimmetriche.contains(runa.rune.name)
-                                  ? SunsetRuneCorpus.noteSimmetrica
-                                  : (runa.inOmbra
-                                      ? 'in merkstave'
-                                      : 'diritta')),
-                          style: TypographyTokens.etichetta().copyWith(
-                              color: ColorTokens.textSecondary,
-                              letterSpacing: 0.6)),
+                      // **LE SIMMETRICHE LO DICHIARANO ANCHE QUI**, ordine
+                      // 2171 voce 4: "diritta" su una runa che diritta lo
+                      // e' sempre non e' falso, ma lascia credere che
+                      // sarebbe potuta uscire al contrario.
+                      // DALL'ORDINE H anche sul telo il verso esce a
+                      // sorte: "in luce" direbbe il falso su una runa
+                      // rovesciata, quindi la scheda dice il verso come
+                      // nelle altre gettate. E LA NOTA LUNGA NON E'
+                      // MAIUSCOLETTO: accanto alla miniatura la colonna e'
+                      // stretta, la nota delle simmetriche andava su due
+                      // righe di lettere larghe, vista sull'anteprima.
+                      // Un'etichetta che supera una riga passa a corpo,
+                      // regola dell'ordine H voce 1.
+                      if (kRuneSimmetriche.contains(runa.rune.name))
+                        Text(SunsetRuneCorpus.noteSimmetrica,
+                            style: TypographyTokens.didascalia().copyWith(
+                                color: ColorTokens.textSecondary))
+                      else
+                        Text(runa.inOmbra ? 'in merkstave' : 'diritta',
+                            style: TypographyTokens.etichetta().copyWith(
+                                color: ColorTokens.textSecondary,
+                                letterSpacing: 0.6)),
                       const SizedBox(height: 2),
                       Text(runa.rune.keyword,
                           style: TypographyTokens.didascalia().copyWith(

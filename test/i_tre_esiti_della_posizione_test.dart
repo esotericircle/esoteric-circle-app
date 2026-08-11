@@ -114,11 +114,12 @@ void main() {
     for (var i = 0; i < 4; i++) {
       await tester.pump(const Duration(milliseconds: 150));
     }
-    expect(find.byKey(const Key('sunset_posizione_negata_per_sempre')),
-        findsOneWidget,
-        reason: 'Il no per sempre non viene spiegato a schermo.');
-    expect(find.text('Apri le impostazioni'), findsOneWidget,
-        reason: 'Il pulsante ripete una richiesta che il sistema non '
+    // DALL'ORDINE H la posizione e' una riga discreta, non un pannello che
+    // spiega: chi ha detto no per sempre vede l'ora stimata e una riga che
+    // porta alle impostazioni, e nessuno gli chiede altro. La prova e'
+    // cambiata di grandezza con la regola.
+    expect(find.text('Apri le impostazioni per riattivarla'), findsOneWidget,
+        reason: 'La riga ripete una richiesta che il sistema non '
             'mostrera\' mai piu\', invece di portare alle impostazioni.');
     await tester.ensureVisible(find.byKey(const Key('sunset_attiva')));
     await tester.tap(find.byKey(const Key('sunset_attiva')));

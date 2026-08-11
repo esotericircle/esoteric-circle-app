@@ -212,7 +212,10 @@ class _StesaFanState extends State<StesaFan> {
       // ricompone), le carte si ristendono. Le pose sono ASSOLUTE: per
       // chiudere il ventaglio bisogna annullare lo sventagliamento, quindi
       // decidono loro dove sta la carta, non un ritocco sopra la sede.
-      final mazzo = Offset(w / 2 - cardW / 2, StesaFan.arcoDi(0) + 44);
+      // Il mazzo si compone DENTRO l'arco del ventaglio, non sotto: a +44 le
+      // carte raccolte uscivano dal ritaglio della fascia e il taglio si
+      // vedeva come un ventaglio vuoto. Visto sull'anteprima, non dedotto.
+      final mazzo = Offset(w / 2 - cardW / 2, StesaFan.arcoDi(0) - 8);
       if (widget.taglio > 0 && widget.taglio < 1) {
         final posa = TaglioPose.of(
           sede: offset,

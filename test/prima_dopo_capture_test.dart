@@ -13,6 +13,7 @@ import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
+import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
 import 'package:esoteric_circle/core/angels/angel_catalog.dart';
 import 'package:esoteric_circle/core/angels/guardian_angels.dart';
@@ -952,7 +953,7 @@ void main() {
                 body: Center(
                   child: RepaintBoundary(
                     key: radice,
-                    child: PannelloDiMessaAPunto(
+                    child: const PannelloDiMessaAPunto(
                       aiReady: true,
                       memoryPersistent: false,
                       attestazione:
@@ -2370,6 +2371,165 @@ void main() {
       await tester.pump(const Duration(seconds: 2));
       await tester.pump(const Duration(seconds: 2));
       await scattaApp(tester, radice, 'schermata_$scena');
+    });
+  }
+
+  // ORDINE H: LE OTTO SCENE, prima e dopo. Stesso blocco, stessa misura,
+  // stessi tempi sui due alberi.
+  for (final scena in const [
+    'rune_telo',
+    'rune_scheda',
+    'rune_presagio',
+    'rune_sigillo',
+    'chat_tastiera',
+    'tramonto_h',
+    'stesa_mischia',
+    'stesa_taglio',
+  ]) {
+    testWidgets('H, la scena $scena', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      for (final (famiglia, percorso) in const [
+        ('Cinzel', 'assets/fonts/Cinzel-variable.ttf'),
+        ('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf'),
+      ]) {
+        final loader = FontLoader(famiglia);
+        final bytes = File(percorso).readAsBytesSync();
+        loader.addFont(Future.value(ByteData.view(bytes.buffer)));
+        await loader.load();
+      }
+      SharedPreferences.setMockInitialValues(
+          const {'onboarding.done': true, 'santuario.greeted': true});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2391);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final radice = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: radice,
+        child:
+            EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+      ));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 2));
+      final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+
+      Future<void> attesa([int ms = 2400]) async {
+        await tester.pump();
+        await tester.pump(Duration(milliseconds: ms));
+        await tester.pump(const Duration(milliseconds: 600));
+      }
+
+      switch (scena) {
+        case 'rune_telo' || 'rune_scheda' || 'rune_presagio' || 'rune_sigillo':
+          unawaited(nav.push(RuneDrawScreen.route(
+              userSign: Zodiac.aries,
+              userBirth: DateTime(1990, 6, 15),
+              random: math.Random(7))));
+          await attesa();
+          // La gettata sul telo, che e' la scena dell'ordine.
+          await tester.ensureVisible(find.text('Il getto sul telo'));
+          await tester.pump();
+          await tester.tap(find.text('Il getto sul telo'),
+              warnIfMissed: false);
+          await attesa(800);
+          await tester.runAsync(() async {
+            final el = tester.element(find.byType(MaterialApp));
+            for (final r in kElderFuthark) {
+              if (r.thumbPath != null) {
+                await precacheImage(AssetImage(r.thumbPath!), el);
+              }
+              // ANCHE LA PIETRA PIENA: la card della scheda usa fullPath,
+              // non thumbPath, e in una corsa a scena singola nessun'altra
+              // prova l'ha gia' decodificata: senza questa riga la
+              // miniatura della scheda esce vuota, visto sull'anteprima.
+              if (r.fullPath != null) {
+                await precacheImage(AssetImage(r.fullPath!), el);
+              }
+            }
+          });
+          await tester.ensureVisible(
+              find.byKey(const Key('rune_cast_button')));
+          await tester.pump();
+          await tester.tap(find.byKey(const Key('rune_cast_button')),
+              warnIfMissed: false);
+          await attesa(3200);
+          if (scena == 'rune_scheda') {
+            await tester.drag(
+                find.byKey(const Key('rune_result')), const Offset(0, -700));
+            await attesa(600);
+          } else if (scena == 'rune_presagio') {
+            await tester.scrollUntilVisible(
+                find.byKey(const Key('rune_presage')), 400,
+                scrollable: find.byType(Scrollable).first);
+            await attesa(600);
+          } else if (scena == 'rune_sigillo') {
+            await tester.scrollUntilVisible(
+                find.byKey(const Key('rune_sigillo')), 400,
+                scrollable: find.byType(Scrollable).first);
+            await attesa(600);
+          }
+        case 'chat_tastiera':
+          unawaited(nav.push(MaestroChatScreen.route(
+              maestro: Maestro.medora, services: AppServices.offline())));
+          await attesa();
+          // LA TASTIERA APERTA: si simula l'inset di sistema, che e' cio'
+          // che la tastiera fa allo schermo, e si mette il fuoco nel campo.
+          tester.view.viewInsets = const FakeViewPadding(bottom: 280 * 3);
+          await tester.showKeyboard(find.byType(TextField).first);
+          await tester.enterText(
+              find.byType(TextField).first, 'Che mi dice il cielo stasera?');
+          await attesa(800);
+        case 'tramonto_h':
+          unawaited(nav.push(SunsetRuneScreen.route(
+              now: DateTime(2026, 8, 10, 21, 30),
+              dataNascita: DateTime(1988, 7, 5))));
+          await attesa();
+          await tester.runAsync(() async {
+            final el = tester.element(find.byType(MaterialApp));
+            for (final r in kElderFuthark) {
+              final vergine = pathVergineDi(r.stem);
+              if (vergine != null) {
+                await precacheImage(AssetImage(vergine), el);
+              }
+            }
+          });
+          await attesa(600);
+        case 'stesa_mischia' || 'stesa_taglio':
+          unawaited(nav.push(StesaTreCarteScreen.route(seed: 7)));
+          // A passi brevi: la regia porta la scena a riposo in una catena di
+          // callback, e un pump solo da tre secondi la lascia a meta'.
+          for (var i = 0; i < 10; i++) {
+            await tester.pump(const Duration(milliseconds: 400));
+          }
+          // Il dorso del mazzo si precarica: in headless un'immagine non
+          // decodificata non si dipinge, e le carte del gesto sarebbero
+          // contorni invisibili sul cosmo.
+          await tester.runAsync(() async {
+            final el = tester.element(find.byType(MaterialApp));
+            await precacheImage(AssetImage(TarotDeck.dorsoThumb), el);
+            await precacheImage(AssetImage(TarotDeck.dorsoFull), el);
+          });
+          await attesa(400);
+          final gesto = scena == 'stesa_mischia' ? 'Mischia' : 'Taglia';
+          await tester.ensureVisible(find.text(gesto));
+          await tester.pump();
+          await tester.tap(find.text(gesto));
+          await tester.pump();
+          // A META' DELL'ATTO CENTRALE: la mescola vive fra 0,30 e 0,70 di
+          // 1600 ms, il taglio in divisione fra 0,28 e 0,52 di 1400 ms. A
+          // passi brevi e non con un salto solo, cosi' il ticker macina frame
+          // veri come sul telefono.
+          final passi = scena == 'stesa_mischia' ? 8 : 5;
+          for (var i = 0; i < passi; i++) {
+            await tester.pump(const Duration(milliseconds: 100));
+          }
+      }
+      await scattaApp(tester, radice, scena);
+      // La stesa resta a meta' animazione: si lascia finire, altrimenti il
+      // tester segnala il timer vivo.
+      await tester.pump(const Duration(seconds: 3));
     });
   }
 }

@@ -45,8 +45,8 @@ void main() {
             'La porta e\' retro_della_runa.dart, una sola.');
   });
 
-  testWidgets('sul telo, ogni runa coperta mostra il retro vergine e mai il '
-      'fronte', (tester) async {
+  testWidgets('sul telo nessuna pietra e\' coperta: ogni runa mostra il suo '
+      'simbolo', (tester) async {
     SharedPreferences.setMockInitialValues({});
     tester.view.physicalSize = const Size(1080, 2391);
     tester.view.devicePixelRatio = 3.0;
@@ -83,55 +83,51 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
 
-    // La stessa sorte del telefono di prova: stesso seme, stesso esito.
+    // DALL'ORDINE H sul telo non esistono piu' pietre coperte: ogni pietra
+    // gettata mostra il suo simbolo, dritta o rovesciata. La prova e'
+    // CAMBIATA DI GRANDEZZA con la regola, non allentata: prima pretendeva
+    // il retro vergine sulle coperte, adesso pretende che NESSUNA pietra
+    // posata passi dal retro, perche' un dorso sul telo vorrebbe dire una
+    // pietra tornata muta. La porta unica del retro resta sorvegliata dalle
+    // prove statiche qui sopra e sotto, e serve ancora alla Runa del
+    // Tramonto prima del giro.
     final atteso = RuneCast.getta(gettataTelo, random: math.Random(5));
-    final coperte = <int>[];
-    for (var i = 0; i < atteso.sparse.length; i++) {
-      if (atteso.sparse[i].coperta) coperte.add(i);
-    }
-    expect(coperte, isNotEmpty,
-        reason: 'Il seme di prova non ha prodotto pietre coperte: cambiare '
-            'seme, non allentare la prova.');
+    expect(atteso.sparse.where((s) => s.coperta), isEmpty,
+        reason: 'Il modello ha prodotto pietre coperte sul telo: la regola '
+            'dell\'ordine H, ogni pietra mostra il suo simbolo, non sta '
+            'girando.');
 
-    for (final i in coperte) {
+    for (var i = 0; i < atteso.sparse.length; i++) {
       final pietra = find.byKey(Key('runa_posata_$i'));
       expect(pietra, findsOneWidget,
-          reason: 'La pietra coperta $i non e\' sul telo.');
+          reason: 'La pietra $i non e\' sul telo.');
       expect(
           find.descendant(
               of: pietra, matching: find.byType(RetroDellaRuna)),
-          findsOneWidget,
-          reason: 'La pietra coperta $i non passa dalla porta unica del '
-              'retro: qualcosa la disegna da se\'.');
-      // NESSUN PIXEL DEL FRONTE. La misura e' strutturale e non a pixel,
-      // dichiarato: il fronte puo' entrare in scena solo dal suo asset o dal
-      // glifo dipinto, quindi si pretende che sotto una pietra coperta non
-      // esista ne' l'uno ne' l'altro. Un confronto di pixel avrebbe misurato
-      // la resa del decodificatore, non la scelta del volto.
+          findsNothing,
+          reason: 'La pietra $i mostra il dorso: dall\'ordine H sul telo '
+              'ogni pietra mostra il suo simbolo.');
+      // E il volto e' quello della SUA runa: la miniatura del fronte porta
+      // lo stem giusto, o in sua assenza c'e' il glifo dipinto.
       final immagini = find
           .descendant(of: pietra, matching: find.byType(Image))
           .evaluate()
           .map((e) => ((e.widget as Image).image as AssetImage).assetName)
           .toList();
-      for (final nome in immagini) {
-        expect(nome.contains('rune_bone_vergine'), isTrue,
-            reason: 'Sotto la pietra coperta $i c\'e\' l\'immagine $nome, '
-                'che non e\' un retro vergine: il fronte trapela.');
+      final glifi = find
+          .descendant(of: pietra, matching: find.byType(CustomPaint))
+          .evaluate();
+      expect(immagini.isNotEmpty || glifi.isNotEmpty, isTrue,
+          reason: 'La pietra $i non mostra ne\' miniatura ne\' glifo: una '
+              'pietra nuda sul telo.');
+      final stem = atteso.sparse[i].rune.stem;
+      if (stem != null) {
+        for (final nome in immagini) {
+          expect(nome.contains(stem), isTrue,
+              reason: 'Sotto la pietra $i c\'e\' l\'immagine $nome, che non '
+                  'e\' la sua runa.');
+        }
       }
-      expect(
-          find.descendant(of: pietra, matching: find.byType(CustomPaint)),
-          findsNothing,
-          reason: 'Sotto la pietra coperta $i c\'e\' un glifo dipinto: e\' '
-              'il fronte per via di pennello.');
-    }
-
-    // E il retro e' quello della SUA pietra: lo stem nel percorso coincide.
-    for (final i in coperte) {
-      final retro = tester.widget<RetroDellaRuna>(find.descendant(
-          of: find.byKey(Key('runa_posata_$i')),
-          matching: find.byType(RetroDellaRuna)));
-      expect(retro.stem, atteso.sparse[i].rune.stem,
-          reason: 'La pietra coperta $i porta il retro di un\'altra runa.');
     }
   });
 

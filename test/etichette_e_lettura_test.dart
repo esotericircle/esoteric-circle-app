@@ -109,6 +109,16 @@ void main() {
           } else if (c == inStringa) {
             inStringa = null;
           }
+        } else if (c == '/' &&
+            j + 1 < s.length &&
+            s[j + 1] == '/') {
+          // I COMMENTI SI SALTANO: un apostrofo dentro un commento ("e'
+          // sempre") apriva una stringa fittizia e il bilanciatore inghiottiva
+          // il widget successivo, accusando un Text per il ParagrafiDiLettura
+          // del vicino. Preso al primo giro sulla scheda della runa.
+          final fine = s.indexOf('\n', j);
+          if (fine == -1) return null;
+          j = fine;
         } else if (c == "'" || c == '"') {
           inStringa = c;
         } else if (c == '(') {
