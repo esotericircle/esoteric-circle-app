@@ -10,6 +10,9 @@ import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/core/astro/celestial.dart';
+import 'package:esoteric_circle/core/astro/birth_details.dart';
+import 'package:esoteric_circle/core/astro/birth_place.dart' as luogo;
+import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
@@ -55,6 +58,7 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/design_system/components/consulto_del_cielo_view.dart';
 import 'package:esoteric_circle/design_system/components/cosmos_background.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
+import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -2529,6 +2533,264 @@ void main() {
       await scattaApp(tester, radice, scena);
       // La stesa resta a meta' animazione: si lascia finire, altrimenti il
       // tester segnala il timer vivo.
+      await tester.pump(const Duration(seconds: 3));
+    });
+  }
+
+  // ORDINE I: LE SETTE SCENE, prima e dopo. I tre domini col busto, la chat
+  // di un Maestro, la scheda Carriera in Breve e in Profonda, le rune col
+  // pulsante esaurito.
+  final cartaOrdineI = NatalChart(
+    sunSign: Zodiac.leo,
+    planets: const [
+      PlanetPosition(
+          id: 'sun',
+          name: 'Sole',
+          glyph: '\u2609',
+          longitude: 128.4,
+          sign: Zodiac.leo),
+      PlanetPosition(
+          id: 'moon',
+          name: 'Luna',
+          glyph: '\u263d',
+          longitude: 12.7,
+          sign: Zodiac.leo),
+      PlanetPosition(
+          id: 'venus',
+          name: 'Venere',
+          glyph: '\u2640',
+          longitude: 150.2,
+          sign: Zodiac.leo),
+      PlanetPosition(
+          id: 'mars',
+          name: 'Marte',
+          glyph: '\u2642',
+          longitude: 61.9,
+          sign: Zodiac.leo),
+      PlanetPosition(
+          id: 'saturn',
+          name: 'Saturno',
+          glyph: '\u2644',
+          longitude: 300.5,
+          sign: Zodiac.leo),
+    ],
+    ascendantLongitude: 205.0,
+    midheavenLongitude: 115.0,
+    houses: [
+      for (var n = 1; n <= 12; n++)
+        HouseCusp(number: n, longitude: (205.0 + (n - 1) * 30.0) % 360.0),
+    ],
+    hasTime: true,
+  );
+
+  for (final scena in const [
+    'dominio_medora',
+    'dominio_caligo',
+    'dominio_aura',
+    'chat_maestro_i',
+    'oroscopo_breve_i',
+    'oroscopo_profonda_i',
+    'rune_esaurite',
+  ]) {
+    testWidgets('I, la scena $scena', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      for (final (famiglia, percorso) in const [
+        ('Cinzel', 'assets/fonts/Cinzel-variable.ttf'),
+        ('EBGaramond', 'assets/fonts/EBGaramond-variable.ttf'),
+      ]) {
+        final loader = FontLoader(famiglia);
+        final bytes = File(percorso).readAsBytesSync();
+        loader.addFont(Future.value(ByteData.view(bytes.buffer)));
+        await loader.load();
+      }
+      SharedPreferences.setMockInitialValues(
+          const {'onboarding.done': true, 'santuario.greeted': true});
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2391);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final radice = GlobalKey();
+
+      Future<void> attesa([int ms = 2400]) async {
+        await tester.pump();
+        await tester.pump(Duration(milliseconds: ms));
+        await tester.pump(const Duration(milliseconds: 600));
+      }
+
+      Future<void> precaricaAvatar() async {
+        await tester.runAsync(() async {
+          final el = tester.element(find.byType(MaterialApp));
+          for (final m in Maestro.values) {
+            await precacheImage(AssetImage(m.avatarAsset), el);
+          }
+        });
+      }
+
+      switch (scena) {
+        case 'dominio_medora' || 'dominio_caligo' || 'dominio_aura':
+          await tester.pumpWidget(RepaintBoundary(
+            key: radice,
+            child: EsotericCircleApp(
+                conIntro: false, services: AppServices.offline()),
+          ));
+          await tester.pump();
+          await tester.pump(const Duration(seconds: 2));
+          final nav =
+              tester.state<NavigatorState>(find.byType(Navigator).first);
+          final maestro = switch (scena) {
+            'dominio_medora' => Maestro.medora,
+            'dominio_caligo' => Maestro.caligo,
+            _ => Maestro.aura,
+          };
+          unawaited(nav.push(DomainScreen.route(
+              maestro: maestro, services: AppServices.offline())));
+          await attesa();
+          await precaricaAvatar();
+          await attesa(800);
+        case 'chat_maestro_i':
+          await tester.pumpWidget(RepaintBoundary(
+            key: radice,
+            child: EsotericCircleApp(
+                conIntro: false, services: AppServices.offline()),
+          ));
+          await tester.pump();
+          await tester.pump(const Duration(seconds: 2));
+          final nav =
+              tester.state<NavigatorState>(find.byType(Navigator).first);
+          unawaited(nav.push(MaestroChatScreen.route(
+              maestro: Maestro.caligo, services: AppServices.offline())));
+          await attesa();
+          await precaricaAvatar();
+          await attesa(800);
+        case 'oroscopo_breve_i' || 'oroscopo_profonda_i':
+          final nascita = BirthIdentityController();
+          nascita.setBirth(
+            BirthDetails(
+              date: DateTime(1990, 8, 10),
+              time: const TimeOfDay(hour: 12, minute: 0),
+              place: const luogo.BirthPlace(
+                  label: 'Roma',
+                  latitude: 41.9,
+                  longitude: 12.5,
+                  timezone: 'Europe/Rome'),
+            ),
+            cartaOrdineI,
+          );
+          await tester.pumpWidget(RepaintBoundary(
+            key: radice,
+            child: MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => MaestroController()),
+                ChangeNotifierProvider(
+                    create: (_) => EntitlementService(initial: Tier.tier1)),
+                ChangeNotifierProvider(
+                    create: (_) => QualityTierController()),
+                ChangeNotifierProvider(create: (_) => ParallaxController()),
+                ChangeNotifierProvider(create: (_) => ZodiacController()),
+                ChangeNotifierProvider(create: (_) => ProfileController()),
+                ChangeNotifierProvider<BirthIdentityController>.value(
+                    value: nascita),
+              ],
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: AppTheme.dark(),
+                builder: (ctx, child) => MaestroScope(child: child!),
+                home: OroscopoScreen(
+                    userSign: Zodiac.leo,
+                    now: DateTime.utc(2026, 8, 5, 12)),
+              ),
+            ),
+          ));
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 400));
+          await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+          await tester.pump();
+          await tester.pump(const Duration(seconds: 2));
+          for (var i = 0; i < 8; i++) {
+            await tester.pump(const Duration(milliseconds: 500));
+          }
+          await tester.scrollUntilVisible(
+              find.byKey(const Key('oroscopo_depth_carriera')), 400,
+              scrollable: find.byType(Scrollable).first);
+          await tester.pump();
+          if (scena == 'oroscopo_profonda_i') {
+            await tester
+                .tap(find.byKey(const Key('oroscopo_depth_carriera')));
+            await tester.pump();
+            await tester.pump(const Duration(milliseconds: 300));
+            await tester.tap(find.text('Profonda').last);
+            await tester.pump();
+            for (var i = 0; i < 14; i++) {
+              await tester.pump(const Duration(milliseconds: 500));
+            }
+          }
+          // La scheda Carriera in vista, col suo inizio in alto. LO
+          // SCORRIMENTO RIMONTA LA CARD e la scrittura riparte da capo:
+          // la si lascia finire, altrimenti la scena esce a meta' riga.
+          await tester.dragUntilVisible(
+              find.byKey(const Key('oroscopo_card_carriera')),
+              find.byType(Scrollable).first,
+              const Offset(0, -80));
+          await tester.pump(const Duration(milliseconds: 300));
+          for (var i = 0; i < 8; i++) {
+            await tester.pump(const Duration(milliseconds: 500));
+          }
+        case 'rune_esaurite':
+          await tester.pumpWidget(RepaintBoundary(
+            key: radice,
+            child: MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                    create: (_) => MaestroController(
+                        initial: const ThemeKey.of(Maestro.caligo))),
+                ChangeNotifierProvider(
+                    create: (_) => QualityTierController()),
+                ChangeNotifierProvider(create: (_) => ParallaxController()),
+                ChangeNotifierProvider(create: (_) => ZodiacController()),
+                ChangeNotifierProvider(create: (_) => EntitlementService()),
+                ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+              ],
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: AppTheme.dark(),
+                builder: (ctx, child) => MaestroScope(child: child!),
+                home: RuneDrawScreen(
+                    userSign: Zodiac.aries, random: math.Random(9)),
+              ),
+            ),
+          ));
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 600));
+          await tester.runAsync(() async {
+            final el = tester.element(find.byType(MaterialApp));
+            for (final r in kElderFuthark) {
+              if (r.thumbPath != null) {
+                await precacheImage(AssetImage(r.thumbPath!), el);
+              }
+              if (r.fullPath != null) {
+                await precacheImage(AssetImage(r.fullPath!), el);
+              }
+            }
+          });
+          // Tre getti: il primo dal pulsante, gli altri da Getta ancora.
+          await tester
+              .ensureVisible(find.byKey(const Key('rune_cast_button')));
+          await tester.pump();
+          await tester.tap(find.byKey(const Key('rune_cast_button')));
+          await attesa(800);
+          for (var i = 0; i < 2; i++) {
+            await tester
+                .ensureVisible(find.byKey(const Key('rune_recast')));
+            await tester.pump();
+            await tester.tap(find.byKey(const Key('rune_recast')));
+            await attesa(800);
+          }
+          await tester.ensureVisible(find.byKey(const Key('rune_recast')));
+          await tester.pump(const Duration(milliseconds: 400));
+      }
+      await scattaApp(tester, radice, scena);
       await tester.pump(const Duration(seconds: 3));
     });
   }
