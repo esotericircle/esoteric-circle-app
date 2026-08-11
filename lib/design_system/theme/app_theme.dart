@@ -38,6 +38,15 @@ class AppTheme {
         foregroundColor: ColorTokens.textPrimary,
       ),
       iconTheme: const IconThemeData(color: ColorTokens.textPrimary),
+      // NESSUN AVVISO DI SISTEMA COL FONDO BIANCO, ordine L voce 1c. Il
+      // gating non passa piu' dalle SnackBar, ma le poche di servizio che
+      // restano (condivisioni fallite, esiti brevi) devono vestire il buio
+      // dell'app, non la superficie inversa chiara di fabbrica.
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: base.surfaceElevated,
+        contentTextStyle: TypographyTokens.corpo()
+            .copyWith(color: ColorTokens.textPrimary),
+      ),
     );
   }
 }

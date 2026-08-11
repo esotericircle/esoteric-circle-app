@@ -25,6 +25,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'answer_depth.dart';
+import '../pricing/upgrade_invite.dart';
 import 'horoscope_visuals.dart';
 import 'oroscopo_colors.dart';
 import 'oroscopo_share_card.dart';
@@ -170,6 +171,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     setState(() => _depth[dominio] = scelta);
   }
 
+  /// I TESTI GIA' SCRITTI, ordine L voce 1. Lo stato del "gia' scritto" vive
+  /// QUI, accanto alla risposta, con la chiave scheda piu' profondita' piu'
+  /// giorno: viveva dentro lo State del widget della scheda, e la lista
+  /// smonta le schede fuori dalla finestra di cache, quindi ogni ritorno le
+  /// faceva rinascere vergini e la macchina da scrivere ripartiva da capo.
+  /// Chi rinasce ora chiede a questo insieme e trova il testo gia' finito.
+  final Set<String> _testiScritti = {};
+
+  String _chiaveDelTesto(HoroscopeDomain dominio) =>
+      '${dominio.name}|${_depth[dominio]!.name}|$_year-$_dayOfYear';
+
   @override
   void dispose() {
     _pulse.dispose();
@@ -303,6 +315,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       palette: palette,
                       pulse: _pulse,
                       depth: _depth[card.domain]!,
+                      // Il "gia' scritto" abita la schermata: la scheda lo
+                      // legge quando nasce e lo dichiara quando finisce.
+                      // LETTURA VIVA, non un booleano catturato: i widget
+                      // della lista vengono costruiti una volta e rinascono
+                      // dopo, quindi un valore fissato alla costruzione
+                      // sarebbe sempre vecchio. Il gancio legge il registro
+                      // nel momento della rinascita.
+                      giaScritto: () =>
+                          _testiScritti.contains(_chiaveDelTesto(card.domain)),
+                      onScritto: () =>
+                          _testiScritti.add(_chiaveDelTesto(card.domain)),
                       onDepthSelected: (depth) =>
                           _scegliProfondita(card.domain, depth),
                       onDepthLocked: (depth) => _showDepthLocked(card.domain, depth),
@@ -362,11 +385,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   }
 
   void _showDepthLocked(HoroscopeDomain domain, AnswerDepth depth) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-            'La profondità ${depth.label} è del Cerchio Premium. Abbonati per approfondire ${domain.label}.'),
-      ),
+    // LA BOLLA DEL MAESTRO, non una SnackBar di sistema, ordine L voce 1c:
+    // l'avviso col fondo bianco e' sparito, e al tocco sul lucchetto sale
+    // dal basso l'invito gia' esistente, nel blu di Medora.
+    showUpgradeInvite(
+      context,
+      title: 'La profondità ${depth.label} è del Cerchio Premium',
+      message: 'Col piano superiore scegli quanto approfondire ogni scheda, '
+          '${domain.label} compresa, e la lettura ti segue in profondità.',
     );
   }
 
@@ -375,12 +401,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       setState(() => _period = period);
       return;
     }
-    // Mai un vicolo cieco: il periodo bloccato invita all'abbonamento.
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-            'L\'oroscopo della ${period.label.toLowerCase()} arriva col Cerchio Premium.'),
-      ),
+    // Mai un vicolo cieco: il periodo bloccato invita all'abbonamento, con
+    // la bolla del Maestro e non con una SnackBar di sistema.
+    showUpgradeInvite(
+      context,
+      title: 'L\'oroscopo della ${period.label.toLowerCase()} è del Cerchio '
+          'Premium',
+      message: 'Col piano superiore leggi anche la ${period.label.toLowerCase()}, '
+          'oltre il giorno.',
     );
   }
 
@@ -462,11 +490,22 @@ class _ResponsoCheSiScrive extends StatefulWidget {
     required this.testo,
     required this.durataScrittura,
     required this.scrivendo,
+    required this.giaScritto,
+    required this.onScritto,
   });
 
   final String testo;
   final Duration durataScrittura;
   final bool scrivendo;
+
+  /// Se questo testo e' gia' stato scritto: si mostra intero e fermo. Lo
+  /// dice la schermata, che tiene il registro accanto alla risposta: tenerlo
+  /// qui dentro non basta, perche' la lista smonta e rimonta. Gancio vivo,
+  /// letto a ogni build.
+  final bool Function() giaScritto;
+
+  /// La dichiarazione di fine scrittura, verso il registro della schermata.
+  final VoidCallback onScritto;
 
   @override
   State<_ResponsoCheSiScrive> createState() => _ResponsoCheSiScriveState();
@@ -481,6 +520,20 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
 
   List<GlobalKey<TestoCheSiScriveState>> _nuoveChiavi() => List.generate(
       _paragrafi.length, (_) => GlobalKey<TestoCheSiScriveState>());
+
+  /// Il termine della scrittura, dichiarato al registro. Parte quando la
+  /// scrittura comincia, per l'intero budget dichiarato: le fette dei
+  /// paragrafi sommano esattamente a quel budget, quindi allo scadere il
+  /// testo e' intero. Il tocco che completa dichiara subito.
+  Timer? _fine;
+
+  void _armaLaFine() {
+    _fine?.cancel();
+    _fine = Timer(widget.durataScrittura + const Duration(milliseconds: 50),
+        () {
+      if (mounted) widget.onScritto();
+    });
+  }
 
   @override
   void didUpdateWidget(_ResponsoCheSiScrive vecchio) {
@@ -497,14 +550,17 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
       _chiavi = _nuoveChiavi();
       _inScrittura = 0;
       // Il testo nuovo e' un responso nuovo: anche il tocco che aveva
-      // completato il vecchio non vale piu'.
+      // completato il vecchio non vale piu', e la fine si riarma.
       _completato = false;
+      _fine?.cancel();
+      _fine = null;
     }
   }
 
   @override
   void dispose() {
     _passaggio?.cancel();
+    _fine?.cancel();
     super.dispose();
   }
 
@@ -541,6 +597,9 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
     for (final chiave in _chiavi) {
       chiave.currentState?.completa();
     }
+    // Chi completa col tocco ha il testo intero adesso: si dichiara subito.
+    _fine?.cancel();
+    widget.onScritto();
   }
 
   /// Vero dal tocco in poi: nessun paragrafo batte piu' e tutti si vedono.
@@ -548,10 +607,17 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
 
   @override
   Widget build(BuildContext context) {
+    // Un testo GIA' SCRITTO non si riscrive: nasce intero e fermo, anche se
+    // questo State e' appena rinato dopo uno scorrimento.
     final attiva = widget.scrivendo &&
+        !widget.giaScritto() &&
         !_completato &&
         !MediaQuery.of(context).disableAnimations;
     final stile = stileDelResponso;
+
+    if (attiva && _fine == null) {
+      _armaLaFine();
+    }
     // Il doppio della misura del testo, presa dallo stile e non riscritta a
     // mano: se domani il ruolo cambia misura, la distanza lo segue.
     final distanza = (stile.fontSize ?? TypographyTokens.pavimento) * 2;
@@ -1041,7 +1107,18 @@ class _HoroscopeCardView extends StatelessWidget {
     required this.onDepthSelected,
     required this.onDepthLocked,
     required this.premiumUnlocked,
+    required this.giaScritto,
+    required this.onScritto,
   });
+
+  /// Se questo testo e' gia' stato scritto una volta: la macchina da
+  /// scrivere non riparte, il testo nasce intero e fermo. E' un gancio e non
+  /// un booleano: si legge alla rinascita, non alla costruzione.
+  final bool Function() giaScritto;
+
+  /// Chiamato quando la scrittura di questo testo finisce, per intero o per
+  /// tocco: la schermata se lo segna accanto alla risposta.
+  final VoidCallback onScritto;
 
   /// Se il responso si sta componendo adesso, a macchina da scrivere.
   ///
@@ -1159,6 +1236,8 @@ class _HoroscopeCardView extends StatelessWidget {
             testo: card.text,
             durataScrittura: durataScrittura,
             scrivendo: scrivendo,
+            giaScritto: giaScritto,
+            onScritto: onScritto,
           ),
           if (card.domain == HoroscopeDomain.fortuna) ...[
             const SizedBox(height: SpacingTokens.md),

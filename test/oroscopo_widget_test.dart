@@ -314,12 +314,15 @@ void main() {
       await tester.pump(const Duration(milliseconds: 400));
 
       // La profondita' resta Breve e arriva l'invito ad abbonarsi.
+      // DALL'ORDINE L l'invito e' la bolla del Maestro, showUpgradeInvite,
+      // non piu' una SnackBar di sistema col fondo bianco.
       expect(
           find.descendant(
               of: find.byKey(const Key('oroscopo_depth_generale')),
               matching: find.text('Breve')),
           findsOneWidget);
-      expect(find.byType(SnackBar), findsOneWidget);
+      expect(find.byKey(const Key('upgrade_invite')), findsOneWidget);
+      expect(find.byType(SnackBar), findsNothing);
     });
 
     testWidgets('Le bolle sono nel blu di Medora, non nel viola neutro',
