@@ -13,6 +13,7 @@ import {
 } from "./budget";
 import {
   CAUSALI_CHIEDIBILI,
+  TETTO_CONDIVISIONI_PREMIATE,
   causaleValida,
   importoRichiesto,
   saldoDopo,
@@ -227,12 +228,34 @@ export const muoviGliEos = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     throw new HttpsError("invalid-argument", "Movimento non ammesso.");
   }
 
+  const giorno = chiaveDelGiorno();
+
   return db.runTransaction(async (tx) => {
     const movimento = utente(uid).collection("movimenti").doc(id);
     const gia = await tx.get(movimento);
     const snap = await tx.get(borsellinoDoc(uid));
+    const contatori = await tx.get(contatoriDoc(uid));
     const saldo = (snap.data()?.saldo as number) ?? 0;
     if (gia.exists) return {saldo, applicato: false, gia: true};
+
+    // IL TETTO GIORNALIERO ANTI FARMING, dentro la stessa transazione del
+    // saldo: contarlo fuori vorrebbe dire poterlo aggirare con due richieste
+    // che arrivano insieme. Superato il tetto il Sigillo resta acceso e il
+    // bonus non si accredita: si risponde con quanto e' stato accreditato,
+    // cioe' niente, senza fingere il contrario.
+    const dati = contatori.data();
+    const spesiOggi: Record<string, number> =
+      dati && dati.giorno === giorno ?
+        {...((dati.spesi ?? {}) as Record<string, number>)} :
+        {};
+    if (causale === "bonus_condivisione") {
+      const gia = spesiOggi.condivisioni_premiate ?? 0;
+      if (gia >= TETTO_CONDIVISIONI_PREMIATE) {
+        return {saldo, applicato: false, tettoRaggiunto: true};
+      }
+      spesiOggi.condivisioni_premiate = gia + 1;
+      tx.set(contatoriDoc(uid), {giorno, spesi: spesiOggi});
+    }
 
     const dopo = saldoDopo(saldo, importo);
     if (dopo === null) {

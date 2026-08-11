@@ -1,3 +1,5 @@
+import '../sigilli/sentiero_screen.dart';
+import '../../core/sigilli/sentieri.dart';
 import '../../core/archetypes/archetype_history.dart';
 import 'dart:math' as math;
 
@@ -145,6 +147,12 @@ class CosmicPassport extends StatelessWidget {
             sliver: SliverToBoxAdapter(
               child: Column(
                 children: [
+                  // I TRE SENTIERI DEI SIGILLI, ordine O: il Cosmic Journal
+                  // vive qui, dove la persona viene a vedere chi e' per il
+                  // Cerchio. Il cammino e' parte della sua identita', non una
+                  // classifica.
+                  const _SentieriDelCammino(),
+                  const SizedBox(height: SpacingTokens.sm),
                   _BirthSkyPortalCard(birthMoment: id.birthMoment),
                   const SizedBox(height: SpacingTokens.sm),
                   _CircleSealCard(identity: id),
@@ -879,6 +887,44 @@ class _VeilBadge extends StatelessWidget {
         'Dietro il velo',
         style: TypographyTokens.etichetta().copyWith(color: palette.gold),
       ),
+    );
+  }
+}
+
+/// LE TRE PORTE DEI SENTIERI: Costellazione, Albero, Loto.
+class _SentieriDelCammino extends StatelessWidget {
+  const _SentieriDelCammino();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      key: const Key('sentieri_del_cammino'),
+      children: [
+        for (final sentiero in Sentieri.tutti) ...[
+          ListTile(
+            key: Key('porta_${sentiero.name}'),
+            leading: Icon(
+              switch (sentiero) {
+                Sentiero.costellazione => Icons.star_rounded,
+                Sentiero.albero => Icons.spa_rounded,
+                Sentiero.loto => Icons.local_florist_rounded,
+              },
+              color: ColorTokens.goldLight,
+            ),
+            title: Text(sentiero.titolo,
+                style: TypographyTokens.titoloScheda()),
+            subtitle: Text(
+              'I tuoi ${sentiero.nomeDelMini}: cinquanta, e cinque grandi',
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+            trailing: const Icon(Icons.chevron_right_rounded,
+                color: ColorTokens.goldLight),
+            onTap: () =>
+                Navigator.of(context).push(SentieroScreen.route(sentiero)),
+          ),
+        ],
+      ],
     );
   }
 }

@@ -29,7 +29,7 @@ const LIMITI: Record<Budget, (number | null)[]> = {
   domande: [3, 5, 10, null],
   approfondimenti: [0, 3, 10, null],
   confronti: [0, 3, 5, null],
-  gettate: [3, null, null, null],
+  gettate: [1, null, null, null],
 };
 
 /**

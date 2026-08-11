@@ -20,6 +20,7 @@ import '../../core/rituals/ritual_streak.dart';
 import '../../design_system/components/guida_del_respiro.dart';
 import '../../design_system/theme/accento_del_maestro.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../sigilli/regia_del_cammino.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -332,6 +333,8 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   Future<void> _recordStreak(DateTime date) async {
     final n = await const RitualStreak(id: 'breath').recordToday(date);
     if (!mounted) return;
+    // IL CAMMINO SE NE ACCORGE: il rito e' compiuto, non aperto.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'soffio', oraRituale: null));
     setState(() => _streak = n);
   }
 

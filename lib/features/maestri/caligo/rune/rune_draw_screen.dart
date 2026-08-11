@@ -23,6 +23,7 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../../services/app_services.dart';
 import '../../../../services/regia_delle_chiamate.dart';
+import '../../../sigilli/regia_del_cammino.dart';
 import '../../../../core/rituals/runes.dart';
 import '../../../rituals/rune_strokes.dart';
 import '../../../rituals/retro_della_runa.dart';
@@ -160,6 +161,9 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
       return false;
     }
     borsa.registraGettata(piano);
+    // IL CAMMINO SE NE ACCORGE, ordine O: il gesto e' compiuto adesso, non
+    // quando la scena si e' aperta.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'gettata'));
     // LA CHIAMATA DEL RITORNO, ordine M voce 2e: chi consuma qui l'ultima
     // gettata del giorno riceve domattina l'avviso che sono tornate. Si
     // riprogramma adesso, perche' domattina l'app potrebbe non aprirsi.

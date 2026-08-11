@@ -29,6 +29,7 @@ import 'features/shell/app_shell.dart';
 import 'features/shell/barra_del_cerchio.dart';
 import 'features/shell/navigation_controller.dart';
 import 'core/identity/account_del_cerchio.dart';
+import 'core/sigilli/diario_del_cammino.dart';
 import 'services/app_services.dart';
 import 'services/apertura_delle_chiamate.dart';
 import 'services/avvisi_locali.dart';
@@ -167,6 +168,10 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
             ..load()
             ..sincronizza(),
         ),
+        // IL DIARIO DEL CAMMINO: cio' che hai fatto e quali Sigilli si sono
+        // accesi. Vive accanto ai contatori, non dentro: i budget del giorno
+        // sono del server, la storia del cammino e' del dispositivo.
+        ChangeNotifierProvider(create: (_) => DiarioDelCammino()..carica()),
         // L'ACCOUNT DEL CERCHIO: anonimo dal primo secondo, elevabile senza
         // perdere niente.
         ChangeNotifierProvider(

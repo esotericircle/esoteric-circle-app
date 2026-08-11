@@ -326,10 +326,12 @@ class PlanCatalog {
         ['Eos pieno', 'Eos scontati', '5 al giorno', 'Illimitate']),
     FeatureRow('Rune, I-Ching, Pendolo',
         ['Eos', 'Eos scontati', 'Inclusi', 'Inclusi']),
-    // TRE GETTATE AL GIORNO PER IL VIANDANTE, deciso dall'ordine I del
-    // 11 agosto 2026: dal Tier 1 in su sono illimitate.
+    // UNA GETTATA AL GIORNO PER IL VIANDANTE, deciso da Mauro con l'ordine O
+    // del 12 agosto 2026. Erano tre dall'ordine I: il numero e' sceso perche'
+    // la gettata e' il gesto che porta indietro domani, e tre al giorno lo
+    // consumavano in un pomeriggio. Dal Tier 1 in su restano illimitate.
     FeatureRow('Gettate di rune',
-        ['3 al giorno', 'Illimitate', 'Illimitate', 'Illimitate']),
+        ['1 al giorno', 'Illimitate', 'Illimitate', 'Illimitate']),
     FeatureRow('Sinastria VIP',
         ['3 al giorno', '5 al giorno', '5 al giorno', 'Illimitata']),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),

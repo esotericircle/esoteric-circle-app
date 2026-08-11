@@ -51,6 +51,10 @@ class AvvisiLocali extends ServizioAvvisi {
       'Un avviso al mattino col transito vero del tuo giorno. Parte solo '
           'quando il cielo ha qualcosa da dire.'
     ),
+    'sigilli_del_cammino': (
+      'Sigilli del Cammino',
+      'Un avviso quando sei a un passo da un traguardo del tuo cammino.'
+    ),
     'gettate_rune': (
       'Gettate di rune',
       'Un avviso al mattino quando le tue gettate del giorno sono tornate.'

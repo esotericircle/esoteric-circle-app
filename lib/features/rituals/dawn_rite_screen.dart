@@ -24,6 +24,7 @@ import '../../core/rituals/rito_alba.dart';
 import '../../core/rituals/ritual_streak.dart';
 import 'ritual_gift_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../sigilli/regia_del_cammino.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -371,6 +372,8 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
   Future<void> _recordStreak(DateTime date) async {
     final n = await const RitualStreak(id: 'dawn').recordToday(date);
     if (!mounted) return;
+    // IL CAMMINO SE NE ACCORGE: il rito e' compiuto, non aperto.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'alba', oraRituale: 'alba'));
     setState(() => _streak = n);
   }
 

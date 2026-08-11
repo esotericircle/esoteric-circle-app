@@ -246,12 +246,19 @@ class AvvisiDelRito {
   /// solo: Mauro sta decidendo se portarle a tre come prevede il Briefing
   /// Operativo V5, e il cambio deve essere una riga, non una caccia nel
   /// codice. Oggi due: una del mattino e una della sera.
-  static const int chiamateAlGiorno = 2;
+  static const int chiamateAlGiorno = 3;
 
   /// Gli id delle chiamate del giorno: uno per chiamata, sempre gli stessi,
   /// cosi' riprogrammare sostituisce invece di affiancare.
   static const int idChiamataDellaSera = 1002;
   static const int idChiamataDelMattino = 1003;
+
+  /// LA TERZA CHIAMATA, ordine O: il traguardo a un passo. Parte solo se un
+  /// traguardo e' davvero vicino, cioe' se il cammino ha qualcosa da dire:
+  /// senza, resta zero, che sta sempre sopra il rumore.
+  static const int idChiamataDelTraguardo = 1004;
+  static const String canaleTraguardo = 'sigilli_del_cammino';
+  static const String caricoTraguardo = 'sigilli';
 
   /// I canali e i carichi delle chiamate: il carico apre la SCENA promessa.
   static const String canaleTramonto = 'runa_tramonto';
@@ -283,6 +290,7 @@ class AvvisiDelRito {
     DateTime? tramontoDiDomani,
     String? fattoDiDomani,
     bool gettateEsaurite = false,
+    String? traguardoVicino,
   }) async {
     if (!servizio.disponibile || !await servizio.permessoConcesso()) {
       return const [];
@@ -327,6 +335,18 @@ class AvvisiDelRito {
         testo: fattoDiDomani,
         canale: canaleOroscopo,
         carico: caricoOroscopo,
+      ));
+    }
+
+    // IL TRAGUARDO A UN PASSO, se c'e': terza e ultima voce del giorno.
+    if (traguardoVicino != null && traguardoVicino.trim().isNotEmpty) {
+      candidate.add((
+        id: idChiamataDelTraguardo,
+        quando: mattino.add(const Duration(hours: 10)),
+        titolo: 'Sei a un passo',
+        testo: traguardoVicino,
+        canale: canaleTraguardo,
+        carico: caricoTraguardo,
       ));
     }
 
