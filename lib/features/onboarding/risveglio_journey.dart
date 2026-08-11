@@ -20,6 +20,7 @@ import '../../core/onboarding/onboarding_controller.dart';
 import '../../design_system/components/immersive_scaffold.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../santuario/sky_overview_screen.dart';
+import 'custodia_del_cielo_step.dart';
 import 'maestro_reveal_screen.dart';
 import 'natal_chart_reveal.dart';
 import 'resonance_screen.dart';
@@ -65,7 +66,10 @@ class RisveglioJourney extends StatefulWidget {
 /// L'ordine e' quello di un racconto: prima i compagni uno per uno, poi il
 /// cielo in cui sono nati, poi il ritratto d'insieme che li raccoglie, infine
 /// la guida.
-enum _Phase { animale, angeli, heaven, chart, resonance, reveal }
+/// L'ULTIMA TAPPA E' LA CUSTODIA, ordine N voce 1b: la richiesta di non
+/// perdere il proprio cielo arriva DOPO la rivelazione del Maestro, cioe'
+/// quando c'e' davvero qualcosa da perdere. Chi rimanda entra lo stesso.
+enum _Phase { animale, angeli, heaven, chart, resonance, reveal, custodia }
 
 class _RisveglioJourneyState extends State<RisveglioJourney> {
   _Phase _phase = _Phase.animale;
@@ -156,7 +160,15 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
     context.read<MaestroController>().selectMaestro(maestro);
     final sun = context.read<NatalChartController>().sunSign;
     if (sun != null) context.read<ZodiacController>().setSunSign(sun);
-    // Chiude il Risveglio ed entra nel Cerchio (il Santuario resta la home).
+    _assigned = maestro;
+    // NON si chiude ancora: resta la custodia del cielo, che e' l'ultimo
+    // passo. Chiudere qui vorrebbe dire chiedere l'account dopo, a freddo,
+    // ed e' esattamente cio' che l'ordine N vieta.
+    setState(() => _phase = _Phase.custodia);
+  }
+
+  /// La fine vera del Risveglio, custodito o rimandato che sia.
+  void _chiudiIlRisveglio() {
     context.read<OnboardingController>().complete();
     // pop e non maybePop: maybePop passa dal PopScope qui sotto, che rifiuta
     // sempre. Questa e' l'uscita legittima, la sola, e deve poter uscire.
@@ -326,6 +338,12 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
           key: const ValueKey('reveal'),
           maestro: _assigned,
           onRevealed: _onRevealed,
+        );
+      case _Phase.custodia:
+        return CustodiaDelCieloStep(
+          key: const ValueKey('custodia'),
+          maestro: _assigned,
+          suFine: _chiudiIlRisveglio,
         );
     }
   }

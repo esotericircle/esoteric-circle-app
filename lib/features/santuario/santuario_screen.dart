@@ -20,7 +20,12 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../core/identity/account_del_cerchio.dart';
+import '../../core/identity/quando_chiedere_la_custodia.dart';
 import '../account/account_screen.dart';
+import '../account/custodia_del_cielo.dart';
 import '../maestri/art_navigation.dart';
 import '../maestri/widgets/striscia_altre_arti.dart';
 import '../maestri/domain_screen.dart';
@@ -193,6 +198,48 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       duration: const Duration(milliseconds: 1500),
     )..repeat();
     _armSkyHint();
+    // L'INVITO A CUSTODIRE IL PROPRIO CIELO, ordine N voce 1c: si presenta
+    // qui, in casa, e non addosso a un rito. La regola di QUANDO chiedere sta
+    // in un punto solo, e questa schermata si limita a obbedirle.
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _forseChiediLaCustodia());
+  }
+
+  static const _chiaveUltimoInvito = 'account.ultimoInvito';
+
+  Future<void> _forseChiediLaCustodia() async {
+    if (!mounted) return;
+    // SE L'ALBERO NON PORTA L'ACCOUNT non si chiede niente: succede nelle
+    // prove che montano la home da sola e nelle anteprime, e una home che
+    // cade perche' manca un provider di un invito sarebbe un difetto peggiore
+    // dell'invito che non compare.
+    final AccountDelCerchio account;
+    try {
+      account = context.read<AccountDelCerchio>();
+    } catch (errore) {
+      // Si ignora: l'assenza del provider e' la condizione normale delle
+      // prove e delle anteprime, non un guasto da raccontare.
+      return;
+    }
+    if (!account.eAnonimo) return;
+    final prefs = await SharedPreferences.getInstance();
+    final ultima = DateTime.tryParse(prefs.getString(_chiaveUltimoInvito) ?? '');
+    if (!mounted) return;
+    final momenti = await context.read<AppServices>().memory.quantiMomenti();
+    if (!mounted) return;
+    if (!QuandoChiedereLaCustodia.eIlMomento(
+      anonimo: account.eAnonimo,
+      momenti: momenti,
+      rimandi: account.rimandi,
+      adesso: DateTime.now(),
+      ultimaRichiesta: ultima,
+    )) {
+      return;
+    }
+    await prefs.setString(
+        _chiaveUltimoInvito, DateTime.now().toIso8601String());
+    if (!mounted) return;
+    await mostraInvitoACustodire(context, momenti: momenti);
   }
 
   // Arma l'invito al cielo: dopo tre secondi senza tocco, lo mostra.

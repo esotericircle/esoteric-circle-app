@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../core/identity/account_del_cerchio.dart';
+import '../../services/app_services.dart';
+import 'custodia_del_cielo.dart';
 
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -72,6 +77,35 @@ class AccountScreen extends StatelessWidget {
         subtitle: 'Dati, consensi e sicurezza',
         icon: Icons.shield_outlined,
       ),
+      // CUSTODIRE IL PROPRIO CIELO, ordine N voce 1c: la via che resta a chi
+      // ha rimandato. La voce compare SOLO a chi e' ancora anonimo, perche' a
+      // chi ha gia' custodito direbbe una cosa gia' fatta.
+      if (_eAnonimo(context))
+        _AccountEntry(
+          id: 'custodia',
+          title: 'Custodisci il tuo cielo',
+          subtitle: 'Collegalo a te: ti segue anche se cambi telefono',
+          icon: Icons.shield_moon_outlined,
+          onTap: (context) async {
+            final momenti =
+                await context.read<AppServices>().memory.quantiMomenti();
+            if (!context.mounted) return;
+            // Dall'area account si chiede sempre, anche con zero momenti: qui
+            // e' la persona ad averlo cercato, e un invito che non si apre
+            // sarebbe un vicolo cieco.
+            await mostraInvitoACustodire(context,
+                momenti: momenti > 0 ? momenti : 1);
+          },
+        ),
+      // IL DIRITTO ALL'OBLIO, voce 1f: e' un obbligo, non una gentilezza, e
+      // cancella anche cio' che vive sul server.
+      _AccountEntry(
+        id: 'oblio',
+        title: 'Cancella il tuo account',
+        subtitle: 'Il Cerchio dimentica tutto, qui e sul server',
+        icon: Icons.delete_outline_rounded,
+        onTap: (context) => _chiediLOblio(context),
+      ),
     ];
 
     return Scaffold(
@@ -100,6 +134,65 @@ class AccountScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+/// L'account, se l'albero ce l'ha. Le prove che montano questa schermata da
+/// sola non lo hanno, e devono poterla montare lo stesso: senza account la
+/// voce della custodia semplicemente non c'e'.
+bool _eAnonimo(BuildContext context) {
+  try {
+    return context.watch<AccountDelCerchio>().eAnonimo;
+  } catch (errore) {
+    // Si ignora: senza account nell'albero la voce della custodia non c'e',
+    // ed e' il comportamento voluto nelle prove che montano la schermata da
+    // sola.
+    return false;
+  }
+}
+
+/// LA DOMANDA PRIMA DELL'OBLIO, che si fa una volta sola e per intero.
+///
+/// Si dice cosa sparisce, e non "sei sicuro?": chi cancella deve sapere che
+/// se ne vanno la carta natale, la memoria dei Maestri, i Sigilli e gli Eos,
+/// e che non c'e' un ripensamento dopo.
+Future<void> _chiediLOblio(BuildContext context) async {
+  final conferma = await showDialog<bool>(
+    context: context,
+    builder: (dialogo) => AlertDialog(
+      key: const Key('oblio_conferma'),
+      backgroundColor: ColorTokens.neutralSurface,
+      title: Text('Cancellare tutto?',
+          style: TypographyTokens.titoloScheda()),
+      content: Text(
+        'Spariscono la tua carta natale, la memoria dei Maestri, i tuoi '
+        'Sigilli e i tuoi Eos, qui e sul server. Non si torna indietro.',
+        style: TypographyTokens.corpo()
+            .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(dialogo).pop(false),
+          child: const Text('Resto nel Cerchio'),
+        ),
+        TextButton(
+          key: const Key('oblio_conferma_si'),
+          onPressed: () => Navigator.of(dialogo).pop(true),
+          child: const Text('Cancella tutto'),
+        ),
+      ],
+    ),
+  );
+  if (conferma != true || !context.mounted) return;
+  final servizi = context.read<AppServices>();
+  await servizi.memory.deleteAllData();
+  if (!context.mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      key: Key('oblio_fatto'),
+      content: Text('Il Cerchio ti ha dimenticato. Puoi ricominciare quando '
+          'vuoi.'),
+    ),
+  );
 }
 
 class _AccountEntry {
