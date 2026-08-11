@@ -3141,6 +3141,70 @@ void main() {
       await tester.pump(const Duration(seconds: 4));
     });
   }
+
+  // ORDINE M: LA HOME IN TRE QUADRI, prima e dopo. In cima la frase
+  // personale, che nella prima sta sopra il pulsante del Dominio e passa
+  // sopra il Maestro e nella dopo torna sotto la Luna; le Arti, dove la
+  // descrizione dell'Oroscopo nella prima si taglia su "sul tuo segno di";
+  // il fondo, dove nella prima la coda dello scorrimento non riservava la
+  // barra. Le scene sono a moto fermo per confrontare la geometria: per il
+  // MOVIMENTO l'anteprima non basta e fa fede la misura dichiarata nel
+  // rapporto, campioni di pixel cambiati con l'interruttore di release.
+  testWidgets('M, la home in cima, le arti e il fondo', (tester) async {
+    if (_stato.isEmpty) return;
+    silence();
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'profile.birthDate': '1990-08-15',
+    });
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1080, 2391);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final radice = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: radice,
+      child: MediaQuery(
+        data: const MediaQueryData(disableAnimations: true),
+        child: EsotericCircleApp(
+            conIntro: false, services: AppServices.offline()),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    // I BUSTI DEI MAESTRI si decodificano solo col tempo vero: senza questo
+    // giro la prima scatta esce coi dorsi vuoti, misurato sulla scatta
+    // stessa.
+    await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 150)));
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 150)));
+    await tester.pump(const Duration(milliseconds: 400));
+    await scattaApp(tester, radice, 'home_cima_m');
+
+    // LE ARTI: si scende finche' la card dell'Oroscopo non e' in quadro.
+    final scroll = find.byType(SingleChildScrollView).first;
+    for (var i = 0;
+        i < 12 && find.textContaining('Oroscopo').evaluate().isEmpty;
+        i++) {
+      await tester.drag(scroll, const Offset(0, -400), warnIfMissed: false);
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await tester.drag(scroll, const Offset(0, -200), warnIfMissed: false);
+    await tester.pump(const Duration(milliseconds: 400));
+    await scattaApp(tester, radice, 'arti_oroscopo_m');
+
+    // IL FONDO, scorso davvero come nella scena della striscia.
+    for (var i = 0; i < 20; i++) {
+      await tester.drag(scroll, const Offset(0, -500), warnIfMissed: false);
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await tester.pump(const Duration(milliseconds: 400));
+    await scattaApp(tester, radice, 'home_fondo_m');
+  });
 }
 
 /// Una carta natale piena, per le anteprime del consulto.
