@@ -41,11 +41,18 @@ abstract class ServizioAvvisi {
   ///
   /// **La consegna è APPROSSIMATA, non all'istante esatto**, ed è una scelta
   /// obbligata: vedi la nota su Android 14 in [AvvisiDelRito].
+  ///
+  /// [canale] è il canale di sistema su cui l'avviso arriva: ogni chiamata
+  /// ha il suo, con nome e descrizione chiari, e si spegne da solo nelle
+  /// impostazioni. [carico] è cio' che l'apertura riceve per portare alla
+  /// SCENA che l'avviso promette, mai alla home.
   Future<void> programma({
     required int id,
     required DateTime quando,
     required String titolo,
     required String testo,
+    String canale = 'rito_alba',
+    String carico = '',
   });
 
   /// Annulla un avviso già programmato.
@@ -77,6 +84,8 @@ class AvvisiSpenti extends ServizioAvvisi {
     required DateTime quando,
     required String titolo,
     required String testo,
+    String canale = 'rito_alba',
+    String carico = '',
   }) async {}
 
   @override
@@ -229,6 +238,112 @@ class AvvisiDelRito {
       }());
       return true;
     }
+  }
+
+  // ------------------- LE CHIAMATE DEL GIORNO, ordine M -------------------
+
+  /// QUANTE CHIAMATE AL GIORNO, in tutto. Vive QUI, nel dato, in un punto
+  /// solo: Mauro sta decidendo se portarle a tre come prevede il Briefing
+  /// Operativo V5, e il cambio deve essere una riga, non una caccia nel
+  /// codice. Oggi due: una del mattino e una della sera.
+  static const int chiamateAlGiorno = 2;
+
+  /// Gli id delle chiamate del giorno: uno per chiamata, sempre gli stessi,
+  /// cosi' riprogrammare sostituisce invece di affiancare.
+  static const int idChiamataDellaSera = 1002;
+  static const int idChiamataDelMattino = 1003;
+
+  /// I canali e i carichi delle chiamate: il carico apre la SCENA promessa.
+  static const String canaleTramonto = 'runa_tramonto';
+  static const String canaleOroscopo = 'oroscopo_giorno';
+  static const String canaleGettate = 'gettate_rune';
+  static const String caricoTramonto = 'runa_tramonto';
+  static const String caricoOroscopo = 'oroscopo';
+  static const String caricoGettate = 'gettate';
+
+  /// PROGRAMMA LE CHIAMATE DEL GIORNO. Le regole, tutte qui:
+  ///
+  /// - senza permesso non parte niente;
+  /// - LA SERA: la Runa del Tramonto chiama all'ora del tramonto gia'
+  ///   calcolata dalla scena ([tramonto]); se l'ora e' passata si guarda al
+  ///   tramonto di domani, che il chiamante fornisce con [tramontoDiDomani];
+  /// - IL MATTINO (ora media dell'alba di domani): UNA chiamata sola, la
+  ///   prima disponibile fra il ritorno delle gettate (per chi ha chiuso la
+  ///   giornata a zero) e l'oroscopo col FATTO VERO del giorno
+  ///   ([fattoDiDomani], nullo se il cielo non dice niente). QUANDO NON C'E'
+  ///   NIENTE DI VERO DA DIRE, LA CHIAMATA NON PARTE: meglio zero che rumore;
+  /// - MAI piu' di [chiamateAlGiorno] chiamate: i candidati oltre il tetto
+  ///   non si programmano.
+  ///
+  /// Torna gli id programmati, cosi' una prova li conta.
+  static Future<List<int>> programmaLeChiamateDelGiorno({
+    required ServizioAvvisi servizio,
+    required DateTime adesso,
+    DateTime? tramonto,
+    DateTime? tramontoDiDomani,
+    String? fattoDiDomani,
+    bool gettateEsaurite = false,
+  }) async {
+    if (!servizio.disponibile || !await servizio.permessoConcesso()) {
+      return const [];
+    }
+
+    final candidate = <({int id, DateTime quando, String titolo, String testo,
+        String canale, String carico})>[];
+
+    // LA SERA.
+    final seraOggi = tramonto != null && tramonto.isAfter(adesso)
+        ? tramonto
+        : tramontoDiDomani;
+    if (seraOggi != null && seraOggi.isAfter(adesso)) {
+      candidate.add((
+        id: idChiamataDellaSera,
+        quando: seraOggi,
+        titolo: 'La Runa del Tramonto',
+        testo: 'Il sole scende: la tua runa della sera ti aspetta.',
+        canale: canaleTramonto,
+        carico: caricoTramonto,
+      ));
+    }
+
+    // IL MATTINO: una sola voce, con le gettate davanti all'oroscopo perche'
+    // parlano di un limite che la persona ha toccato ieri con le sue mani.
+    final mattino = SunsetTime.oraMediaAlba(adesso.add(const Duration(days: 1)));
+    if (gettateEsaurite) {
+      candidate.add((
+        id: idChiamataDelMattino,
+        quando: mattino,
+        titolo: 'Le tue gettate sono tornate',
+        testo: 'Il giorno è nuovo: le tue tre gettate di rune sono di '
+            'nuovo intere.',
+        canale: canaleGettate,
+        carico: caricoGettate,
+      ));
+    } else if (fattoDiDomani != null && fattoDiDomani.trim().isNotEmpty) {
+      candidate.add((
+        id: idChiamataDelMattino,
+        quando: mattino,
+        titolo: 'Il tuo cielo di oggi',
+        testo: fattoDiDomani,
+        canale: canaleOroscopo,
+        carico: caricoOroscopo,
+      ));
+    }
+
+    final programmate = <int>[];
+    for (final c in candidate.take(chiamateAlGiorno)) {
+      await servizio.annulla(c.id);
+      await servizio.programma(
+        id: c.id,
+        quando: c.quando,
+        titolo: c.titolo,
+        testo: c.testo,
+        canale: c.canale,
+        carico: c.carico,
+      );
+      programmate.add(c.id);
+    }
+    return programmate;
   }
 
   /// Segna che la spiegazione e' stata mostrata, quale che sia stata la

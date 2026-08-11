@@ -77,6 +77,7 @@ import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
+import 'package:esoteric_circle/core/rituals/avvisi_del_rito.dart';
 import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
 import 'package:esoteric_circle/core/rituals/sunset_rune.dart';
@@ -1045,7 +1046,12 @@ void main() {
     await step(tester);
 
     final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-    unawaited(nav.push(DawnRiteScreen.route(now: DateTime(2026, 7, 13))));
+    // GLI AVVISI SPENTI, dall'ordine M: la rotta vera parla col servizio
+    // vero, che alla prima apertura porge la spiegazione del permesso. La
+    // cattura fotografa il RITO, non la richiesta: il servizio spento tiene
+    // la scena com'era, che e' quella approvata.
+    unawaited(nav.push(DawnRiteScreen.route(
+        now: DateTime(2026, 7, 13), avvisi: const AvvisiSpenti())));
     await step(tester);
     await step(tester);
     // Lascia che lo screen risolva i tre livelli dalla cache immagini.

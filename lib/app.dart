@@ -29,6 +29,9 @@ import 'features/shell/app_shell.dart';
 import 'features/shell/barra_del_cerchio.dart';
 import 'features/shell/navigation_controller.dart';
 import 'services/app_services.dart';
+import 'services/apertura_delle_chiamate.dart';
+import 'services/avvisi_locali.dart';
+import 'services/regia_delle_chiamate.dart';
 import 'features/intro/sequenza_intro.dart';
 
 /// Radice dell'app: registra i servizi condivisi e monta lo shell.
@@ -82,10 +85,33 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
   /// vale per tutte, comprese quelle che non esistono ancora.
   late final GuardiaDelSuono _guardia;
 
+  /// La chiave del Navigator, per aprire la scena promessa da un avviso
+  /// anche quando il tocco arriva a app spenta. Ordine M voce 2f.
+  final GlobalKey<NavigatorState> _navigatore = GlobalKey<NavigatorState>();
+
   @override
   void initState() {
     super.initState();
     _guardia = GuardiaDelSuono(motore: MotoreAudio.condiviso)..avvia();
+    // OGNI AVVISO APRE LA SCENA CHE PROMETTE, mai la home: il carico
+    // dell'avviso toccato passa dalla mappa unica delle aperture.
+    AvvisiLocali.suApertura = (carico) {
+      final nav = _navigatore.currentState;
+      final ctx = _navigatore.currentContext;
+      if (nav == null || ctx == null) return;
+      final rotta = AperturaDelleChiamate.rottaPer(carico, ctx);
+      if (rotta != null) nav.push(rotta);
+    };
+    // LA REGIA DELLE CHIAMATE DEL GIORNO: a ogni avvio, se il permesso e'
+    // gia' stato concesso, si riprogrammano le chiamate coi dati veri del
+    // momento. Dopo il primo fotogramma, quando i provider sono vivi.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _programmaLeChiamate());
+  }
+
+  Future<void> _programmaLeChiamate() async {
+    final ctx = _navigatore.currentContext;
+    if (ctx == null || !ctx.mounted) return;
+    await RegiaDelleChiamate.riprogramma(ctx);
   }
 
   @override
@@ -179,6 +205,7 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
       // gia' fatto, che altrimenti resterebbe senza carta per sempre.
       child: PonteDellaCarta(
         child: MaterialApp(
+        navigatorKey: _navigatore,
         title: 'Esoteric Circle',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.dark(),

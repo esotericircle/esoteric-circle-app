@@ -17,6 +17,7 @@ import '../../core/permissions/app_permission.dart';
 import '../../core/permissions/avviso_del_permesso.dart';
 import '../../core/permissions/esito_del_permesso.dart';
 import '../../core/rituals/avvisi_del_rito.dart';
+import '../../services/avvisi_locali.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/rito_alba.dart';
@@ -65,12 +66,18 @@ class DawnRiteScreen extends StatefulWidget {
   /// il sensore.
   final SkyLocation location;
 
-  static Route<void> route({DateTime? now, SkyLocation? location}) =>
+  /// La rotta dell'app vera parla col servizio VERO: fino all'ordine M
+  /// nessuno costruiva `AvvisiLocali`, quindi il rito chiedeva il permesso e
+  /// poi programmava sull'implementazione spenta di default, e nessun avviso
+  /// partiva davvero sul telefono. Le prove continuano a iniettare il finto.
+  static Route<void> route(
+          {DateTime? now, SkyLocation? location, ServizioAvvisi? avvisi}) =>
       MaterialPageRoute<void>(
         builder: (_) => MaestroScope(
           child: DawnRiteScreen(
             now: now,
             location: location ?? const GeolocatorSkyLocation(),
+            avvisi: avvisi ?? avvisiDelCerchio,
           ),
         ),
       );

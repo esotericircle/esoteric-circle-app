@@ -183,10 +183,20 @@ void main() {
     // scorrono sotto il campo per scelta dichiarata (2161), e dall'ordine H la
     // riga del composer ha un fondo suo e la bolla dei Suggerimenti. Quando il
     // fondo della bolla sta sotto quella fascia, i pixel misurati sono i
-    // controlli, non i glifi: si scorre in su e si misura dove e' scoperta.
-    await tester.drag(find.byType(Scrollable).first, const Offset(0, -160));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
+    // controlli, non i glifi: si scorre in su FINCHE' non e' scoperta, non di
+    // un numero fisso. Il numero fisso (160) e' morto con l'ordine M voce 1e:
+    // la coda della barra e' diventata la misura piena anche dove la barra
+    // non c'e', il composer e' salito di 134 punti e la finestra di misura
+    // si era svuotata.
+    for (var giro = 0;
+        giro < 6 &&
+            tester.getRect(find.byType(ChatComposer)).top - 1 <=
+                riquadroDellaBolla(tester, residuo).bottom - 2;
+        giro++) {
+      await tester.drag(find.byType(Scrollable).first, const Offset(0, -160));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+    }
 
     final testo = tester.getRect(residuo);
     final bolla = riquadroDellaBolla(tester, residuo);

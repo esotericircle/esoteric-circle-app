@@ -37,6 +37,8 @@ class _AvvisiFinti extends ServizioAvvisi {
     required DateTime quando,
     required String titolo,
     required String testo,
+    String canale = 'rito_alba',
+    String carico = '',
   }) async {
     programmati[id] = (quando: quando, titolo: titolo, testo: testo);
   }

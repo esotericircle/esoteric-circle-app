@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 135 -->
+<!-- VUOTI_CENSITI: 136 -->
 <!-- FILE_CON_VUOTI: 52 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **135** |
+| Vuoti verticali dichiarati | **136** |
 | File che ne contengono | **52** |
 | Oltre la soglia di 48 punti | **2** |
 
@@ -24,7 +24,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | 0 | 1 |
 | 2 | 64 |
 | 3 | 8 |
-| 4 | 25 |
+| 4 | 26 |
 | 5 | 1 |
 | 6 | 15 |
 | 7 | 2 |
@@ -51,10 +51,10 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/passport/cosmic_passport_screen.dart` | 7 | 0 |
 | `lib/features/tarot/stesa_tre_carte_screen.dart` | 7 | 0 |
 | `lib/features/santuario/daily_strip.dart` | 6 | 0 |
+| `lib/features/santuario/santuario_screen.dart` | 6 | 0 |
 | `lib/features/synastry/sinastria_share_card.dart` | 6 | 1 |
 | `lib/design_system/components/guida_del_respiro.dart` | 5 | 0 |
 | `lib/features/identity/widgets/identity_widgets.dart` | 5 | 0 |
-| `lib/features/santuario/santuario_screen.dart` | 5 | 0 |
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_screen.dart` | 4 | 0 |
 | `lib/features/maestri/maestro_screen.dart` | 4 | 0 |

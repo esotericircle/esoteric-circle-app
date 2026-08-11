@@ -492,6 +492,34 @@ class CorrenteDelCielo {
         : 'al tuo ${v.bersaglio} di nascita';
   }
 
+  /// L'ARTICOLO DI UN ASPETTO, per nominarlo in una frase nuova.
+  static const Map<AspectType, String> articoloDellAspetto = {
+    AspectType.conjunction: 'una congiunzione',
+    AspectType.sextile: 'un sestile',
+    AspectType.square: 'una quadratura',
+    AspectType.trine: 'un trigono',
+    AspectType.opposition: 'un\'opposizione',
+  };
+
+  /// IL FATTO VERO DEL GIORNO, per la chiamata del mattino. Ordine M voce 2c.
+  ///
+  /// Una riga sola, presa dal transito piu' forte del giorno: "Oggi Marte
+  /// forma un trigono al tuo Ascendente che si sta sciogliendo." Nullo quando
+  /// il cielo non porta niente di vero da dire: in quel caso LA CHIAMATA NON
+  /// PARTE, perche' un testo generico e' un volantino che consuma il permesso
+  /// senza restituirlo. La regola vive qui, nel dato, e una prova la tiene.
+  static String? fattoDelGiorno(CieloDiOggi cielo) {
+    if (!cielo.ceCieloVero || cielo.voci.isEmpty) return null;
+    final v = cielo.voci.first;
+    final coda = switch (v.applicativo) {
+      true => ' che si sta stringendo',
+      false => ' che si sta sciogliendo',
+      null => '',
+    };
+    return 'Oggi ${v.transito.nome} forma '
+        '${articoloDellAspetto[v.aspetto]} ${_alBersaglio(v)}$coda.';
+  }
+
   /// IL TESTO DEL GIORNO PER UN DOMINIO, oppure nullo se il cielo non c'e'.
   ///
   /// Nullo vuol dire che chi compone deve ripiegare sulla hash E dichiararlo:

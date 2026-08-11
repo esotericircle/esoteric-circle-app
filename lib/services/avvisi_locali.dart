@@ -33,13 +33,35 @@ class AvvisiLocali extends ServizioAvvisi {
   final FlutterLocalNotificationsPlugin _plugin;
   bool _pronto = false;
 
-  /// Il canale Android su cui arriva l'avviso. Uno solo, con un nome che la
-  /// persona riconosce nelle impostazioni di sistema.
-  static const String _canaleId = 'rito_alba';
-  static const String _canaleNome = 'Rito dell\'Alba';
-  static const String _canaleDescrizione =
+  /// I CANALI, uno per chiamata, coi nomi che la persona riconosce nelle
+  /// impostazioni di sistema: ognuno si spegne da solo, ordine M voce 2g.
+  static const Map<String, (String, String)> canali = {
+    'rito_alba': (
+      'Rito dell\'Alba',
       'Un avviso al giorno, quando il sole sorge, che il Rito dell\'Alba è '
-      'pronto.';
+          'pronto.'
+    ),
+    'runa_tramonto': (
+      'Runa del Tramonto',
+      'Un avviso la sera, quando il sole scende, che la runa della sera ti '
+          'aspetta.'
+    ),
+    'oroscopo_giorno': (
+      'Il cielo di oggi',
+      'Un avviso al mattino col transito vero del tuo giorno. Parte solo '
+          'quando il cielo ha qualcosa da dire.'
+    ),
+    'gettate_rune': (
+      'Gettate di rune',
+      'Un avviso al mattino quando le tue gettate del giorno sono tornate.'
+    ),
+  };
+
+  /// CHI APRE LA SCENA PROMESSA. L'app lo imposta all'avvio: riceve il
+  /// carico dell'avviso toccato e porta alla scena, mai alla home. Statico
+  /// perche' il tocco su una notifica puo' arrivare prima di qualunque
+  /// widget.
+  static void Function(String carico)? suApertura;
 
   @override
   bool get disponibile => true;
@@ -50,6 +72,10 @@ class AvvisiLocali extends ServizioAvvisi {
     if (_pronto) return;
     tzdata.initializeTimeZones();
     await _plugin.initialize(
+      onDidReceiveNotificationResponse: (risposta) {
+        final carico = risposta.payload ?? '';
+        if (carico.isNotEmpty) AvvisiLocali.suApertura?.call(carico);
+      },
       settings: const InitializationSettings(
         android: AndroidInitializationSettings('@mipmap/ic_launcher'),
         iOS: DarwinInitializationSettings(
@@ -83,7 +109,13 @@ class AvvisiLocali extends ServizioAvvisi {
 
   /// La richiesta nuda al sistema, che sa dire solo si' o no.
   Future<bool> _chiediAlSistema() async {
-    await _prepara();
+    try {
+      await _prepara();
+    } catch (errore) {
+      // Si ignora e si risponde no: senza piattaforma (le prove, un ambiente
+      // monco) chiedere il permesso non ha senso, e un no e' la verita'.
+      return false;
+    }
     final android = _plugin.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
     if (android != null) {
@@ -99,7 +131,16 @@ class AvvisiLocali extends ServizioAvvisi {
 
   @override
   Future<bool> permessoConcesso() async {
-    await _prepara();
+    // SENZA PIATTAFORMA NIENTE PANICO: nelle prove il plugin non esiste e
+    // ogni chiamata solleverebbe. Un servizio di avvisi che non riesce a
+    // rispondere risponde no, e l'app resta intera.
+    try {
+      await _prepara();
+    } catch (errore) {
+      // Si ignora e si risponde no: un servizio di avvisi che non riesce a
+      // prepararsi non ha il permesso, qualunque cosa sia andata storta.
+      return false;
+    }
     final android = _plugin.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
     if (android != null) {
@@ -117,25 +158,29 @@ class AvvisiLocali extends ServizioAvvisi {
     required DateTime quando,
     required String titolo,
     required String testo,
+    String canale = 'rito_alba',
+    String carico = '',
   }) async {
     await _prepara();
+    final (nome, descrizione) = canali[canale] ?? canali['rito_alba']!;
     await _plugin.zonedSchedule(
       id: id,
       title: titolo,
       body: testo,
+      payload: carico,
       scheduledDate: tz.TZDateTime.from(quando, tz.local),
       // QUI sta la scelta obbligata: consegna approssimata, nessuna permission
       // ristretta, nessun rischio di rifiuto dello store.
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-      notificationDetails: const NotificationDetails(
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
-          _canaleId,
-          _canaleNome,
-          channelDescription: _canaleDescrizione,
+          canale,
+          nome,
+          channelDescription: descrizione,
           importance: Importance.defaultImportance,
           priority: Priority.defaultPriority,
         ),
-        iOS: DarwinNotificationDetails(),
+        iOS: const DarwinNotificationDetails(),
       ),
     );
   }
@@ -153,3 +198,11 @@ class AvvisiLocali extends ServizioAvvisi {
     return attesi.map((a) => a.id).toList(growable: false);
   }
 }
+
+/// IL SERVIZIO CONDIVISO DELL'APP, uno solo.
+///
+/// **Prima non esisteva, e va detto forte: nessun punto di lib costruiva
+/// `AvvisiLocali`,** quindi il Rito dell'Alba parlava col servizio SPENTO di
+/// default e nessun avviso partiva davvero sul telefono. Le scene continuano
+/// ad accettare l'iniezione per le prove; l'app vera passa questo.
+final AvvisiLocali avvisiDelCerchio = AvvisiLocali();
