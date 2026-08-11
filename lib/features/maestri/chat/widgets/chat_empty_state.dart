@@ -4,7 +4,7 @@ import '../../../../core/maestro/maestro.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
-import '../../widgets/maestro_presence.dart';
+import '../../widgets/busto_del_maestro.dart';
 
 /// Apertura della chat prima del primo messaggio: IL MAESTRO E IL SUO
 /// BENVENUTO, e nient'altro.
@@ -43,11 +43,12 @@ class ChatEmptyState extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // 220 E NON 280, misurato sulla misura del fondatore (360x797):
-          // con 280 cio' che segue nasceva DIETRO il vetro del campo
-          // sospeso, e il primo sguardo deve essere in chiaro sopra il
-          // campo, senza scorrere.
-          MaestroPresence(maestro: maestro, height: 220),
+          // IL BUSTO DALLA PORTA UNICA, ordine I voce 1, alla grandezza
+          // canonica della Stesa: la figura intera in alto non esiste piu'.
+          // La misura 220 del 2164 apparteneva alla figura intera; il busto
+          // canonico e' piu' alto ma ritagliato, e il benvenuto resta il
+          // primo testo sotto di lui.
+          BustoDelMaestro(maestro: maestro),
           const SizedBox(height: SpacingTokens.md),
           Text(
             greeting,

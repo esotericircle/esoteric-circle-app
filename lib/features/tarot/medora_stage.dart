@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../core/maestro/maestro.dart';
 import '../../core/tarot/tarot_card.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../maestri/widgets/busto_del_maestro.dart';
 
 /// L'espressione di Medora mentre presiede la stesa.
 ///
@@ -38,8 +40,8 @@ enum MedoraExpression {
 /// La scena di Medora: il mezzo busto che presiede la stesa, con le carte
 /// davanti a lei.
 ///
-/// Oggi mostra il segnaposto `assets/avatars_webp/Medora-1.webp` che respira con
-/// un micro movimento di scala e un alone che pulsa. Gli stati (espressione,
+/// Oggi mostra il ritratto unico di Medora, letto dalla porta del busto, che
+/// respira con un micro movimento di scala e un alone che pulsa. Gli stati (espressione,
 /// carta attiva, luce o ombra) sono gia' quelli definitivi: quando arrivera'
 /// l'animazione finale bastera' sostituire il corpo della scena, senza rifare ne'
 /// gli stati ne' il resto della schermata.
@@ -81,8 +83,9 @@ class MedoraStage extends StatefulWidget {
 
   /// Il ritratto unico, che c'e' sempre. E' il ripiego: se i tre ritratti
   /// d'espressione non sono ancora stati prodotti, la scena usa questo e non
-  /// resta mai vuota.
-  static const String placeholderAsset = 'assets/avatars_webp/Medora-1.webp';
+  /// resta mai vuota. DALL'ORDINE I la scelta dell'immagine vive nella porta
+  /// unica del busto, e questa costante la legge da li'.
+  static String get placeholderAsset => BustoDelMaestro.assetDi(Maestro.medora);
 
   /// I tre ritratti d'espressione, che Mauro produrra'.
   ///
@@ -102,7 +105,9 @@ class MedoraStage extends StatefulWidget {
 
   /// Quanta parte dell'avatar a figura intera resta in scena quando Medora ha
   /// tutto il suo spazio: dalla testa fino sotto le mani che reggono le carte.
-  static const double bustoPieno = 0.58;
+  /// Il numero vive nella porta unica del busto, di cui la Stesa e' il
+  /// riferimento dichiarato.
+  static const double bustoPieno = BustoDelMaestro.fattoreDelBusto;
 
   @override
   State<MedoraStage> createState() => _MedoraStageState();
@@ -200,45 +205,18 @@ class _MedoraStageState extends State<MedoraStage>
                             Colors.transparent,
                           ],
                   ).createShader(rect),
-                  // Mezzo busto: dell'avatar a figura intera si tiene la parte
-                  // alta, cosi' Medora presiede da vicino. L'OverflowBox serve
-                  // perche' altrimenti lo Stack schiaccerebbe l'immagine prima
-                  // del ritaglio, e resterebbe una figura intera rimpicciolita.
-                  child: SizedBox(
+                  // Mezzo busto: DALLA PORTA UNICA, ordine I voce 1. Il
+                  // ritaglio, la sfumatura e la scelta dell'immagine vivono
+                  // in BustoDelMaestro; qui restano solo gli stati della
+                  // scena (espressione, incupimento, respiro della stesa).
+                  // L'aura e' spenta perche' la scena ha gia' la sua.
+                  child: BustoDelMaestro(
+                    maestro: Maestro.medora,
                     height: widget.height,
-                    // La larghezza si stringe sul volto quando serve.
-                    width: widget.bustoLarghezza < 1
-                        ? widget.height * widget.bustoLarghezza
-                        : null,
-                    // Il taglio del busto sfuma, non e' una linea netta.
-                    child: ShaderMask(
-                      blendMode: BlendMode.dstIn,
-                      shaderCallback: (rect) => const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.white,
-                          Colors.white,
-                          Colors.transparent
-                        ],
-                        stops: [0.0, 0.86, 1.0],
-                      ).createShader(rect),
-                      child: ClipRect(
-                        child: OverflowBox(
-                          alignment: Alignment.topCenter,
-                          minWidth: 0,
-                          maxWidth: double.infinity,
-                          minHeight: widget.height / widget.bustoFactor,
-                          maxHeight: widget.height / widget.bustoFactor,
-                          child: Image.asset(
-                            MedoraStage.placeholderAsset,
-                            fit: BoxFit.contain,
-                            errorBuilder: (_, __, ___) =>
-                                const SizedBox.shrink(),
-                          ),
-                        ),
-                      ),
-                    ),
+                    fattore: widget.bustoFactor,
+                    larghezza: widget.bustoLarghezza,
+                    aura: false,
+                    respira: false,
                   ),
                 ),
               ),

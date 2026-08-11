@@ -23,7 +23,7 @@ import 'package:esoteric_circle/features/maestri/art_navigation.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
 import 'package:esoteric_circle/features/maestri/maestro_screen.dart';
 import 'package:esoteric_circle/features/maestri/widgets/domain_pillars.dart';
-import 'package:esoteric_circle/features/maestri/widgets/maestro_presence.dart';
+import 'package:esoteric_circle/features/maestri/widgets/busto_del_maestro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -790,7 +790,7 @@ void main() {
           greaterThan(tester.getCenter(find.text('Medora')).dy));
       // E sopra l'immagine dell'eroe.
       expect(tester.getBottomLeft(pilastri).dy,
-          lessThan(tester.getTopLeft(find.byType(MaestroPresence)).dy));
+          lessThan(tester.getTopLeft(find.byType(BustoDelMaestro)).dy));
 
       // Centrati sulla larghezza della SCHERMATA, non sullo spazio che avanza
       // accanto alla freccia: il centro dei due testi cade sulla meta' esatta.

@@ -33,7 +33,7 @@ import '../../services/app_services.dart';
 import 'art_navigation.dart';
 import 'chat/maestro_chat_screen.dart';
 import 'immersive_navigation.dart';
-import 'widgets/maestro_presence.dart';
+import 'widgets/busto_del_maestro.dart';
 
 /// Sezione di un Maestro.
 ///
@@ -103,8 +103,10 @@ class _MaestroScreenState extends State<MaestroScreen> {
                 children: [
                   // In cima la presenza del Maestro: il nome e i tre pilastri
                   // del dominio stanno gia' nella barra, quindi qui nessuna
-                  // carta identitaria ridondante.
-                  MaestroPresence(maestro: widget.maestro, height: 250),
+                  // carta identitaria ridondante. IL BUSTO DALLA PORTA UNICA,
+                  // ordine I voce 1: la figura intera in alto non esiste piu',
+                  // e la grandezza e' quella canonica della Stesa.
+                  BustoDelMaestro(maestro: widget.maestro),
                   const SizedBox(height: SpacingTokens.md),
                   // Poi il titolo del dominio, poi l'azione principale.
                   SectionTitle(
