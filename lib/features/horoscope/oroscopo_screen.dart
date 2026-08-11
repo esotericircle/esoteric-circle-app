@@ -487,9 +487,18 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
     super.didUpdateWidget(vecchio);
     if (vecchio.testo != widget.testo) {
       _passaggio?.cancel();
+      // **IL TIMER TORNA NULLO, ordine I voce 2.** Cancellarlo non basta: la
+      // build riarma il passaggio solo quando `_passaggio == null`, e un
+      // timer cancellato ma ancora in mano teneva il turno fermo al primo
+      // paragrafo per sempre. Era la causa della scheda Profonda vista da
+      // Mauro: testo cancellato, un paragrafo solo, il vuoto sotto.
+      _passaggio = null;
       _paragrafi = spezzaInParagrafi(widget.testo, stile: stileDelResponso);
       _chiavi = _nuoveChiavi();
       _inScrittura = 0;
+      // Il testo nuovo e' un responso nuovo: anche il tocco che aveva
+      // completato il vecchio non vale piu'.
+      _completato = false;
     }
   }
 
@@ -559,22 +568,22 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (var i = 0; i < _paragrafi.length; i++) ...[
-            if (i > 0) SizedBox(height: distanza),
-            // Solo il paragrafo di turno batte. Quelli prima sono gia' scritti;
-            // quelli dopo stanno in albero trasparenti, quindi tengono il posto
-            // che occuperanno e nulla salta sotto quando arriva il loro turno.
-            Opacity(
-              opacity: attiva && i > _inScrittura ? 0 : 1,
-              child: TestoCheSiScrive(
+          // L'ALTEZZA SEGUE IL TESTO CHE C'E' DAVVERO, ordine I voce 2b. I
+          // paragrafi non ancora scritti stavano in albero trasparenti per
+          // riservare il posto: quel posto era il vuoto sotto la scheda, e il
+          // ramo e' stato tolto. Mentre si scrive la scheda cresce paragrafo
+          // dopo paragrafo, e a scrittura finita non c'e' nessuna riserva.
+          for (var i = 0; i < _paragrafi.length; i++)
+            if (!attiva || i <= _inScrittura) ...[
+              if (i > 0) SizedBox(height: distanza),
+              TestoCheSiScrive(
                 key: _chiavi[i],
                 testo: _paragrafi[i],
                 stile: stile,
                 durataMassima: _durataDi(i),
                 attiva: attiva && i == _inScrittura,
               ),
-            ),
-          ],
+            ],
         ],
       ),
     );
