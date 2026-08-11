@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'santuario_bottom_bar.dart';
+
 /// LO SPAZIO DELLA BARRA VIVE DENTRO CIO' CHE SCORRE.
 ///
 /// **Decisione di Mauro del 7 agosto 2026, che SUPERA il compromesso della
@@ -33,8 +35,24 @@ class SpazioDellaBarraNelloScroll extends StatelessWidget {
   const SpazioDellaBarraNelloScroll({super.key});
 
   /// Quanto spazio serve in coda: la barra piu' il bordo di sistema.
-  static double quanto(BuildContext context) =>
-      MediaQuery.of(context).padding.bottom;
+  ///
+  /// **COSTANTE, non piu' il padding vivo, ordine M voce 1e.** Il padding
+  /// iniettato dalla barra vale zero quando la barra e' ritirata: la coda si
+  /// accorciava, lo scorrimento arrivava piu' in basso, e quando la barra
+  /// tornava le ultime card restavano sotto di lei e sotto ESPLORA. Con la
+  /// misura piena e ferma, il fondo dello scorrimento tiene sempre l'ultima
+  /// card sopra la barra, qualunque sia lo stato della corsa.
+  static double quanto(BuildContext context) {
+    // La barra, quando e' visibile, INIETTA gia' la propria altezza nel
+    // padding basso: in quel caso il padding vivo E' la misura piena e
+    // sommarle la barra la conterebbe due volte. Quando e' ritirata, o non
+    // c'e' (le prove che montano la schermata da sola), il padding porta solo
+    // il bordo di sistema e la barra va aggiunta.
+    final vivo = MediaQuery.paddingOf(context).bottom;
+    return vivo >= SantuarioBottomBar.altezzaResa
+        ? vivo
+        : vivo + SantuarioBottomBar.altezzaResa;
+  }
 
   @override
   Widget build(BuildContext context) =>

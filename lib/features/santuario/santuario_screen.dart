@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../shell/spazio_della_barra.dart';
+import '../shell/santuario_bottom_bar.dart';
 
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/zodiac.dart';
@@ -121,6 +122,13 @@ class SantuarioScreen extends StatefulWidget {
   /// perche' alzarlo qui vuol dire rimettere il testo sotto le carte.
   static const double quotaMinimaCarta = 0.33;
 
+  /// La zona della barra che l'eroe non possiede, per la prova della quota:
+  /// l'altezza resa della barra piu' il bordo di sistema dell'imbracatura
+  /// (ventiquattro punti). Vive qui accanto alla quota perche' le due misure
+  /// si leggono insieme.
+  static const double zonaDellaBarraPerLaProva =
+      SantuarioBottomBar.altezzaResa + 24;
+
   /// Zona franca del titolo in alto, in coordinate normalizzate (0..1): il
   /// cosmo di sfondo non fa nascere stelle qui, cosi' nessuna cade su una
   /// lettera. La legge il cosmo dello shell quando mostra il Santuario.
@@ -156,7 +164,6 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   double? _altezzaDelCielo;
 
   /// L'altezza vera della riga personale, che ora vive sotto il trio.
-  double? _altezzaRigaPersonale;
 
   // Ciclo lungo che alimenta la deriva automatica del cosmo e le stelle cadenti
   // quando il giroscopio non c'e', cosi' lo sfondo resta immersivo comunque.
@@ -386,6 +393,17 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                               parallax,
                               depth),
                         ),
+                        // L'ARIA DELLA BARRA, ordine M voce 1e: l'eroe e'
+                        // alto schermo meno barra, quindi cio' che segue
+                        // nasceva ESATTAMENTE nella zona della barra e a
+                        // riposo in cima le prime card si leggevano in
+                        // trasparenza sotto ESPLORA. Con quest'aria, a
+                        // riposo sotto la barra c'e' solo cielo; durante lo
+                        // scorrimento il contenuto continua a passarle
+                        // sotto, che e' la scelta approvata del 2164.
+                        SizedBox(
+                            height:
+                                SpazioDellaBarraNelloScroll.quanto(context)),
                         // Lo scaffale personale viene PRIMA dell'elenco
                         // completo: quello che si e' scelto sta davanti a
                         // quello che il Cerchio propone.
@@ -477,12 +495,17 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           //
           // Sei per cento: la bolla sta sotto il fondo DIPINTO della figura con
           // il margine richiesto, e il trio guadagna l'aria che gli serve.
-          // La riga personale vive sotto il trio: il suo posto si toglie dallo
-          // spazio del carosello, altrimenti il busto centrale le finirebbe
-          // sopra. Misurata come la zona d'ingresso, e per la stessa ragione.
-          final rigaZone = _altezzaRigaPersonale ?? 36.0;
+          // La riga personale e' tornata sotto la Luna (ordine M): il blocco
+          // del cielo la misura con se', e il carosello prende cio' che resta.
+          // La fascia della riga personale non esiste piu' quaggiu': la riga
+          // e' tornata sotto la Luna (ordine M voce 1c) e il suo posto e'
+          // stato reso al carosello.
+          // Il cuscino sotto la figura: la carta del centrale sborda coi
+          // pixel dipinti, e la bolla d'ingresso pretende otto punti d'aria
+          // veri, misurati dalla prova della bolla. Dodici punti li danno
+          // con margine su tutte le misure provate.
           final carouselBottom =
-              entryBottom + entryZone + rigaZone + SpacingTokens.xs + h * 0.02;
+              entryBottom + entryZone + 12.0 + h * 0.02;
           // IL TRIO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava: il nome
           // della fase lunare stava da 277,2 a 295,2 mentre le carte laterali
           // cominciavano a 274,3, misurato sull'app montata a 360 per 797.
@@ -593,11 +616,31 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                           letterSpacing: 1.6,
                         ),
                       ),
-                      // 3. LA RIGA PERSONALE NON STA PIU' QUI. Stava sotto il
-                      // nome della fase, cioe' negli stessi punti verticali
-                      // delle carte dei tre Maestri, e si leggeva a meta'. Ora
-                      // vive sotto il trio, dove nessuno le passa sopra: vedi
-                      // la voce piu' in basso in questo Stack.
+                      // 3. LA RIGA PERSONALE TORNA QUI, ordine M voce 1c,
+                      // sotto la Luna dove stava prima dell'ordine D. Il
+                      // conflitto di allora non torna PER COSTRUZIONE: la
+                      // riga vive DENTRO il blocco misurato del cielo
+                      // (`_altezzaDelCielo` la conta), e il carosello riceve
+                      // solo lo spazio che resta sotto quel blocco, quindi
+                      // le carte non possono piu' condividere i suoi punti
+                      // verticali. Lo spazio si ripaga da solo: la fascia
+                      // che la riga occupava sotto il trio e' stata resa al
+                      // carosello.
+                      const SizedBox(height: 4),
+                      Padding(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 40),
+                        child: Text(
+                          personalLine,
+                          key: const Key('santuario_riga_personale'),
+                          textAlign: TextAlign.center,
+                          style: TypographyTokens.didascalia().copyWith(
+                            color: ColorTokens.textSecondary,
+                            fontStyle: FontStyle.italic,
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
                     ],
                     ),
                   ),
@@ -689,49 +732,6 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 ),
               ),
 
-              // LA RIGA PERSONALE, sotto il trio e sopra il pulsante del
-              // dominio. Sta qui e non dentro il blocco del cielo perche' li'
-              // occupava gli stessi punti verticali delle carte: misurato, il
-              // testo finiva a 337,2 e le carte cominciavano a 274,3. Qui la
-              // fascia e' libera e nessun elemento le passa sopra.
-              //
-              // Resta toccabile e apre il cielo come prima, perche' e' la
-              // stessa riga con lo stesso gesto: quel che cambia e' dove la si
-              // legge, non cosa fa.
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: entryBottom + entryZone + SpacingTokens.xs,
-                child: GestureDetector(
-                  key: const Key('santuario_riga_personale'),
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => _openSky(context),
-                  child: _MisuraAltezza(
-                    onMisura: (v) {
-                      if (_altezzaRigaPersonale == null ||
-                          (_altezzaRigaPersonale! - v).abs() > 0.5) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          if (mounted) {
-                            setState(() => _altezzaRigaPersonale = v);
-                          }
-                        });
-                      }
-                    },
-                    child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: Text(
-                      personalLine,
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.didascalia().copyWith(
-                        color: ColorTokens.textSecondary,
-                        fontStyle: FontStyle.italic,
-                        height: 1.3,
-                      ),
-                    ),
-                  ),
-                  ),
-                ),
-              ),
 
               // Icona Utente in alto a destra: apre l'area account, distinta dal
               // Passport (che resta il profilo esoterico nella barra in basso).
@@ -1277,8 +1277,13 @@ class ShelfCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 2),
+                // L'ANTICIPO SI LEGGE INTERO, ordine M voce 1d: con due righe
+                // secche e nessun overflow dichiarato il taglio era a meta'
+                // frase ("sul tuo segno di"), da quando l'ordine H ha portato
+                // la didascalia a sedici punti. La card cresce di una riga
+                // invece di tagliare.
                 Text(anticipo,
-                    maxLines: 2,
+                    maxLines: 3,
                     style: TypographyTokens.didascalia()
                         .copyWith(color: ColorTokens.textSecondary)),
               ],

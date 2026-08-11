@@ -317,8 +317,16 @@ class OffsetDeiPiani {
   }) {
     Offset off(double depth) {
       final base = parallax.layerOffset(depth);
-      if (conDeriva && !parallax.sensorActive) {
-        return base + parallax.autoDrift(depth, t);
+      // LA DERIVA NON SI SPEGNE PIU' COL SENSORE ATTIVO, ordine M voce 1a.
+      // Su un telefono vero il sensore contribuisce sempre, quindi la
+      // condizione vecchia (deriva solo senza sensore) spegneva il respiro
+      // del cielo proprio dove l'app vive: col telefono posato sul tavolo
+      // il cosmo restava immobile. Adesso la deriva c'e' sempre; quando il
+      // sensore contribuisce va a meta' ampiezza, cosi' l'inclinazione
+      // resta la protagonista e il respiro non sparisce.
+      if (conDeriva) {
+        final deriva = parallax.autoDrift(depth, t);
+        return base + (parallax.sensorActive ? deriva * 0.5 : deriva);
       }
       return base;
     }
@@ -655,7 +663,44 @@ class _CosmosPainter extends CustomPainter {
     _componi(canvas, cielo.fondo, piani.fondo, size);
     _componi(canvas, cielo.vicino, piani.vicino, size);
     _scintillio(canvas, size, farOff, t);
+    if (_animate) _respiroDelCampo(canvas, size, farOff, t);
     if (_shootingStars) _paintShootingStars(canvas, size, farOff, t);
+  }
+
+  /// Quante stelle di campo respirano per fotogramma, oltre le protagoniste.
+  int get _stelleCheRespirano => switch (tier) {
+        QualityTier.high => 26,
+        QualityTier.medium => 14,
+        QualityTier.low => 0,
+      };
+
+  /// IL RESPIRO DEL CAMPO, ordine M voce 1a. La cache dell'8 agosto aveva
+  /// congelato il brulichio di TUTTE le stelle dentro le immagini statiche:
+  /// sul telefono, col sensore attivo che spegneva anche la deriva, il cielo
+  /// a riposo era immobile. Qui una quota delle stesse stelle del campo,
+  /// STESSO seme e stesso ordine di estrazione del disegno in cache, torna a
+  /// battere per fotogramma: cerchi semplici senza sfocature, quindi il
+  /// prezzo che ha motivato la cache non torna.
+  void _respiroDelCampo(Canvas canvas, Size size, Offset off, double t) {
+    final rng = math.Random(7 + seed * 7919);
+    final quante = math.min(_stelleCheRespirano, _fieldStars);
+    final paint = Paint()..style = PaintingStyle.fill;
+    for (var i = 0; i < quante; i++) {
+      // Lo stesso ordine di estrazione di _paintFieldStars: rr, x, y, fase,
+      // alfa. Cambiare la' vuol dire cambiare qui, e la prova del moto cade.
+      final rr = rng.nextDouble();
+      final x = rng.nextDouble();
+      final y = rng.nextDouble();
+      final radius = 0.4 + rr * rr * 2.6;
+      final phase = rng.nextDouble();
+      final baseAlpha = 0.28 + rng.nextDouble() * 0.62;
+      if (keepOut != null && keepOut!.contains(Offset(x, y))) continue;
+      final battito = 0.5 + 0.5 * math.sin(2 * math.pi * (t * 3 + phase * 7));
+      final center = Offset(x * size.width, y * size.height) + off;
+      paint.color = const Color(0xFFFFFFFF)
+          .withValues(alpha: (baseAlpha * 0.85 * battito).clamp(0.0, 1.0));
+      canvas.drawCircle(center, radius * (0.9 + 0.5 * battito), paint);
+    }
   }
 
   /// GLI ALONI DELLE PROTAGONISTE, dipinti una volta dentro il piano di

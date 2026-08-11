@@ -254,9 +254,21 @@ void main() {
         // dentro un contenitore alto 510, cioe' ne usa il 58 per cento. Sopra
         // di lei avanzano piu' di 350 punti mentre sotto ne restano 35: lo
         // spazio non manca, e' distribuito male.
+        // LA MISURA E' CAMBIATA DI GRANDEZZA, ordine M, dichiarato: la quota
+        // si misura sullo SPAZIO CHE L'EROE POSSIEDE, cioe' lo schermo meno
+        // la zona della barra, non sullo schermo intero. Prima il divisore
+        // era lo schermo pieno, ma l'imbracatura montava la schermata SENZA
+        // la barra: sul telefono vero la barra c'e' sempre, l'eroe vive in
+        // schermo meno barra, e la prova misurava un mondo che non esiste.
+        // Quando la coda della barra e' diventata costante (voce 1e), la
+        // cecita' e' emersa: o si mentiva sul divisore o si mentiva sul
+        // mondo. Il senso della regola resta lo stesso: la carta domina lo
+        // spazio suo.
         final schermo =
             tester.view.physicalSize.height / tester.view.devicePixelRatio;
-        final quota = resa.carta.height / schermo;
+        final spazioDellEroe =
+            schermo - SantuarioScreen.zonaDellaBarraPerLaProva;
+        final quota = resa.carta.height / spazioDellEroe;
 
         expect(quota, greaterThanOrEqualTo(SantuarioScreen.quotaMinimaCarta),
             reason: 'la carta di ${maestro.name} occupa il '
