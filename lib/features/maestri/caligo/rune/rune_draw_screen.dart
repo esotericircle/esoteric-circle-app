@@ -206,8 +206,13 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
     // Il pulsante del getto si spegne quando le gettate del giorno sono
     // finite: si guarda il contatore, cosi' il grigio arriva da solo.
     final piano = context.watch<EntitlementService>().tier;
-    final gettateFinite =
-        !context.watch<QuestionAllowance>().puoiGettare(piano);
+    final borsa = context.watch<QuestionAllowance>();
+    final gettateFinite = !borsa.puoiGettare(piano);
+    // Il conto del giorno: nullo per chi non ha limite, perche' un contatore
+    // a infinito e' rumore. Cala nello stesso istante della gettata, perche'
+    // qui si guarda il contatore vero.
+    final gettateRimaste = borsa.gettateRimaste(piano);
+    final gettateLimite = borsa.limiteGettate(piano);
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
@@ -239,6 +244,8 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   onGettata: _cambiaGettata,
                   onGetta: _getta,
                   gettateFinite: gettateFinite,
+                  gettateRimaste: gettateRimaste,
+                  gettateLimite: gettateLimite,
                   statoScuotimento: _scuotimento.stato,
                 )
               : _Responso(
@@ -252,6 +259,8 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   animazioni: _animazioni,
                   onAncora: _gettaAncora,
                   gettateFinite: gettateFinite,
+                  gettateRimaste: gettateRimaste,
+                  gettateLimite: gettateLimite,
                 ),
         ),
       ),
@@ -329,6 +338,8 @@ class _Preparazione extends StatelessWidget {
     required this.onGettata,
     required this.onGetta,
     required this.gettateFinite,
+    required this.gettateRimaste,
+    required this.gettateLimite,
     required this.statoScuotimento,
   });
 
@@ -342,6 +353,11 @@ class _Preparazione extends StatelessWidget {
   /// Vero quando le gettate del giorno sono esaurite: il pulsante si spegne
   /// nel colore, ma resta toccabile perche' il tocco spiega, mai muto.
   final bool gettateFinite;
+
+  /// Quante gettate restano oggi e quante ne promette il piano. Nulli per
+  /// chi non ha limite: il conto non si mostra, un infinito e' rumore.
+  final int? gettateRimaste;
+  final int? gettateLimite;
 
   /// Lo stato del sensore, dalla porta unica: quando dice assente, la riga
   /// dell'aiuto dichiara il ripiego invece di promettere lo scuotimento.
@@ -408,6 +424,10 @@ class _Preparazione extends StatelessWidget {
                 : Icons.casino_outlined),
             label: const Text('Getta le rune'),
           ),
+          _ContoDelleGettate(
+              rimaste: gettateRimaste,
+              limite: gettateLimite,
+              palette: palette),
 
           // IL TESTO DINAMICO, che cambia con la scelta.
           DepthCard(
@@ -534,6 +554,8 @@ class _Responso extends StatelessWidget {
     required this.animazioni,
     required this.onAncora,
     required this.gettateFinite,
+    required this.gettateRimaste,
+    required this.gettateLimite,
   });
 
   final MaestroPalette palette;
@@ -548,6 +570,10 @@ class _Responso extends StatelessWidget {
   /// Vero quando le gettate del giorno sono esaurite: Getta ancora si spegne
   /// nel colore, e il tocco apre l'invito del gating.
   final bool gettateFinite;
+
+  /// Il conto del giorno, nullo per chi non ha limite.
+  final int? gettateRimaste;
+  final int? gettateLimite;
 
   @override
   Widget build(BuildContext context) {
@@ -607,6 +633,10 @@ class _Responso extends StatelessWidget {
                 : Icons.casino_outlined),
             label: const Text('Getta ancora'),
           ),
+          _ContoDelleGettate(
+              rimaste: gettateRimaste,
+              limite: gettateLimite,
+              palette: palette),
 
           if (domanda.isNotEmpty) ...[
             const SizedBox(height: SpacingTokens.md),
@@ -1096,6 +1126,45 @@ class _Suggerimento extends StatelessWidget {
 /// Yggdrasil, coi cerchi concentrici dove ognuna tocca e i fili sottili delle
 /// Norne che le collegano. Con Riduci Movimento o Quality Tier basso, niente
 /// increspature ne parallasse: la gettata resta statica, gia' posata.
+/// IL CONTO DELLE GETTATE DEL GIORNO, ordine L voce 2b.
+///
+/// Leggibile e sempre presente per chi ha un limite: "2 di 3", "1 di 3", e a
+/// zero il messaggio dice che si riparte domani. Chi non ha limite non vede
+/// nessun conto, perche' un contatore a infinito e' rumore. Il numero viene
+/// dallo stesso budget dell'ordine I (QuestionAllowance) e cala nello stesso
+/// istante in cui la gettata parte, perche' la schermata guarda il contatore.
+class _ContoDelleGettate extends StatelessWidget {
+  const _ContoDelleGettate({
+    required this.rimaste,
+    required this.limite,
+    required this.palette,
+  });
+
+  final int? rimaste;
+  final int? limite;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    if (rimaste == null || limite == null) return const SizedBox.shrink();
+    final testo = rimaste! > 0
+        ? 'Gettate di oggi: $rimaste di $limite'
+        : 'Le gettate di oggi sono finite: si riparte domani.';
+    return Padding(
+      padding: const EdgeInsets.only(top: SpacingTokens.xs),
+      child: Text(
+        testo,
+        key: const Key('rune_conto_gettate'),
+        textAlign: TextAlign.center,
+        style: TypographyTokens.didascalia().copyWith(
+            color: rimaste! > 0
+                ? ColorTokens.textSecondary
+                : palette.goldSoft),
+      ),
+    );
+  }
+}
+
 class _PozzoUrdhr extends StatefulWidget {
   const _PozzoUrdhr({
     required this.palette,
@@ -1250,11 +1319,14 @@ class _PozzoUrdhrState extends State<_PozzoUrdhr>
     }
     return SizedBox(
       key: const Key('rune_well'),
-      height: 300,
+      // PRIMA DEL GETTO NIENTE RIQUADRO RISERVATO, ordine L voce 2a: il telo
+      // in attesa e' un accenno di 140 punti, non una scena vuota da 300. I
+      // 300 servono solo quando le pietre ci sono davvero.
+      height: esito == null ? 140 : 300,
       child: LayoutBuilder(
         builder: (context, box) {
           final w = box.maxWidth;
-          const h = 300.0;
+          final h = box.maxHeight;
           // LA FISICA SI COSTRUISCE QUI, dove la larghezza e' quella vera:
           // le semiestensioni normalizzate delle pietre, 52 per 64 punti,
           // dipendono dal telo reale e non da una stima. E' una costruzione
