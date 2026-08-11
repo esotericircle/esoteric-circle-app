@@ -62,7 +62,10 @@ void main() {
     expect(find.byIcon(Icons.arrow_back_rounded), findsOneWidget);
     expect(navOf(tester).canPop(), isTrue);
 
-    // Dal dominio entra nella chat.
+    // Dal dominio entra nella chat. DALL'ORDINE I il busto canonico e' piu'
+    // alto: sulla finestra di prova la carta va prima portata in vista.
+    await tester.ensureVisible(find.text('Consulta Medora'));
+    await tester.pump();
     await tester.tap(find.text('Consulta Medora'));
     await step(tester);
     await step(tester);

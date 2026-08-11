@@ -57,6 +57,11 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
+    // DALL'ORDINE I il busto canonico in cima al dominio e' piu' alto della
+    // vecchia presenza: sulla finestra di prova la carta Consulta scivola
+    // sotto il bordo, e prima di toccarla la si porta in vista.
+    await tester.ensureVisible(find.text('Consulta ${maestro.displayName}'));
+    await tester.pump();
     await tester.tap(find.text('Consulta ${maestro.displayName}'));
     await step(tester);
   }

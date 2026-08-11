@@ -158,7 +158,13 @@ void main() {
       // che e' un budget a se' e non una variante delle domande.
       // VENTICINQUE dal 4 agosto 2026: si e' aggiunta la riga dei confronti
       // nel Cerchio, che e' il tetto separato del Consiglio.
-      expect(PlanCatalog.matrix.length, 25);
+      // VENTISEI dall'11 agosto 2026, ordine I voce 3: la riga delle gettate
+      // di rune, tre al giorno per il Viandante e illimitate dal Tier 1.
+      expect(PlanCatalog.matrix.length, 26);
+      final gettate = PlanCatalog.matrix
+          .firstWhere((r) => r.label == 'Gettate di rune');
+      expect(gettate.values,
+          ['3 al giorno', 'Illimitate', 'Illimitate', 'Illimitate']);
       for (final row in PlanCatalog.matrix) {
         expect(row.values.length, 4, reason: 'riga ${row.label}');
       }

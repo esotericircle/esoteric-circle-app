@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../../../core/maestro/maestro.dart';
@@ -74,6 +76,16 @@ class BustoDelMaestro extends StatefulWidget {
   /// cento, poi si spegne. Le stesse della Stesa.
   static const List<double> fermateDellaSfumatura = [0.0, 0.86, 1.0];
 
+  /// L'altezza della tela degli avatar, la stessa di
+  /// `tool/normalizza_avatar.py` e di `avatar_dei_maestri_test.dart`.
+  ///
+  /// **L'avatar non si disegna mai oltre la sua tela**: stirarlo lo sfoca, e
+  /// la guardia `nessuno_disegna_oltre_la_tela_test` cade. Sul telefono di
+  /// riferimento (rapporto 3) l'altezza canonica sta sotto il tetto; sugli
+  /// schermi a rapporto 4 il busto si riduce di quel tanto che basta perche'
+  /// l'immagine resti alla grandezza vera dei suoi pixel.
+  static const int telaAvatarAltezza = 1700;
+
   /// L'immagine del Maestro, scelta in un punto solo: l'avatar intero
   /// dichiarato dal Maestro stesso. Chi ha bisogno del percorso, per
   /// precaricare o per verificare, lo chiede da qui.
@@ -113,9 +125,17 @@ class _BustoDelMaestroState extends State<BustoDelMaestro>
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(ThemeKey.of(widget.maestro));
+    // Il tetto della tela: l'immagine intera si disegna alta height/fattore,
+    // e in pixel fisici non deve superare la tela dell'asset. Dove il
+    // rapporto di pixel e' alto, l'altezza scende di conseguenza.
+    final dpr = MediaQuery.of(context).devicePixelRatio;
+    final tettoImmagine =
+        BustoDelMaestro.telaAvatarAltezza / dpr - 0.01;
+    final altezza =
+        math.min(widget.height, tettoImmagine * widget.fattore);
     return SizedBox(
       key: Key('busto_${widget.maestro.id}'),
-      height: widget.height,
+      height: altezza,
       child: AnimatedBuilder(
         animation: _respiro,
         builder: (context, _) {
@@ -128,8 +148,8 @@ class _BustoDelMaestroState extends State<BustoDelMaestro>
               if (widget.aura)
                 Center(
                   child: Container(
-                    width: widget.height * 0.92,
-                    height: widget.height * 0.92,
+                    width: altezza * 0.92,
+                    height: altezza * 0.92,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: RadialGradient(colors: [
@@ -144,9 +164,9 @@ class _BustoDelMaestroState extends State<BustoDelMaestro>
                 scale: scala,
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
-                  height: widget.height,
+                  height: altezza,
                   width: widget.larghezza < 1
-                      ? widget.height * widget.larghezza
+                      ? altezza * widget.larghezza
                       : null,
                   // Il taglio del busto sfuma, non e' una linea netta.
                   child: ShaderMask(
@@ -166,15 +186,15 @@ class _BustoDelMaestroState extends State<BustoDelMaestro>
                         alignment: Alignment.topCenter,
                         minWidth: 0,
                         maxWidth: double.infinity,
-                        minHeight: widget.height / widget.fattore,
-                        maxHeight: widget.height / widget.fattore,
+                        minHeight: altezza / widget.fattore,
+                        maxHeight: altezza / widget.fattore,
                         child: Image.asset(
                           BustoDelMaestro.assetDi(widget.maestro),
                           fit: BoxFit.contain,
                           errorBuilder: (_, __, ___) => Center(
                             child: Icon(widget.maestro.icon,
                                 color: palette.goldSoft,
-                                size: widget.height * 0.2),
+                                size: altezza * 0.2),
                           ),
                         ),
                       ),

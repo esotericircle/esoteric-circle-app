@@ -1716,6 +1716,10 @@ void main() {
               create: (_) => QualityTierController()..setTier(QualityTier.medium)),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
+          // Il piano e il contatore delle gettate, dall'ordine I: la
+          // schermata delle rune li legge per il limite giornaliero.
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
           // LO STORICO CONDIVISO, che le schermate non si costruiscono piu' da
           // sole: chi le monta glielo fornisce, qui come nell'app.
           ChangeNotifierProvider(create: (_) => ArchetypeHistory()..carica()),
