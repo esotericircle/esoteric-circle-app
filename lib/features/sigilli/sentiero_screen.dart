@@ -18,6 +18,7 @@ import '../pricing/upgrade_invite.dart';
 import 'celebrazione.dart';
 import 'disegno_del_sentiero.dart';
 import 'le_tre_righe_del_sentiero.dart';
+import '../../design_system/components/icona_degli_eos.dart';
 
 /// IL SENTIERO DEI SIGILLI: Albero, Costellazione o Loto.
 ///
@@ -197,14 +198,25 @@ class _SentieroScreenState extends State<SentieroScreen> {
           azioni: [
             // IL SALDO EOS, che legge dal server e non finge: finche' le
             // funzioni non sono distribuite mostra l'ultimo saldo noto.
+            // **IL SALDO SI STRINGE PERCHE' IL TITOLO NON SI TRONCHI.** Con la
+            // parola Eos accanto al numero la riga e' cresciuta, e nell'anteprima
+            // il titolo e' tornato a leggersi "Costellazio ne persona...", che e'
+            // esattamente il difetto che l'ordine P aveva chiuso. Lo spazio a
+            // destra scende da `md` a `xs` e lo stacco fra icona e numero da
+            // quattro a tre: sono i punti che servivano al titolo, e il saldo non
+            // perde niente perche' era il suo margine, non il suo contenuto.
             Padding(
-              padding: const EdgeInsets.only(right: SpacingTokens.md),
+              padding: const EdgeInsets.only(right: SpacingTokens.xs),
               child: Row(
                 key: const Key('saldo_eos'),
                 children: [
-                  Icon(Icons.auto_awesome, size: 16, color: palette.goldSoft),
-                  const SizedBox(width: 4),
-                  Text('${borsa.saldoEos}',
+                  // L'ICONA NOSTRA E LA PAROLA. Ordine S voce 05: qui c'era
+                  // `Icons.auto_awesome`, la scintilla di serie, e un numero
+                  // nudo: nessuno capiva che fossero Eos, e chi ci provava
+                  // leggeva "stelle".
+                  IconaDegliEos(misura: 15, colore: palette.goldSoft),
+                  const SizedBox(width: 3),
+                  Text('${borsa.saldoEos} Eos',
                       key: const Key('saldo_eos_numero'),
                       style: TypographyTokens.etichetta()
                           .copyWith(color: palette.goldSoft)),
@@ -507,9 +519,19 @@ class GradinoDelSentiero extends StatelessWidget {
             const SizedBox(width: SpacingTokens.sm),
             Padding(
               padding: const EdgeInsets.only(top: 2),
-              child: Text('${traguardo.eos}',
-                  style:
-                      TypographyTokens.etichetta().copyWith(color: colore)),
+              // IL PREMIO DELLA RIGA porta la sua icona, la stessa della barra:
+              // un numero nudo in fondo a una riga non dice di cosa e' il
+              // numero, e cinquantacinque righe con un numero nudo non lo
+              // insegnano.
+              child: Row(
+                children: [
+                  IconaDegliEos(misura: 12, colore: colore),
+                  const SizedBox(width: 3),
+                  Text('${traguardo.eos}',
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: colore)),
+                ],
+              ),
             ),
           ],
         ),

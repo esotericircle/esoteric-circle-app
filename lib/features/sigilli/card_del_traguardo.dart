@@ -8,6 +8,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/components/icona_degli_eos.dart';
 
 /// LA CARD CONDIVISIBILE DI UN TRAGUARDO, nel formato unico gia' in uso.
 ///
@@ -67,7 +68,7 @@ class CardDelTraguardo extends StatelessWidget {
           const SizedBox(height: SpacingTokens.md),
           Row(
             children: [
-              Icon(Icons.auto_awesome, size: 16, color: palette.goldSoft),
+              IconaDegliEos(misura: 16, colore: palette.goldSoft),
               const SizedBox(width: SpacingTokens.xs),
               Text('${traguardo.eos} Eos',
                   style: TypographyTokens.etichetta()

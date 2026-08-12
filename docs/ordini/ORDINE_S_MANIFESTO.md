@@ -215,7 +215,41 @@ chiusa: committare non e' consegnare.
     c'e' nessun dispositivo, e tenere la riga aperta per una cosa che in questa
     stanza non si puo' fare sarebbe lasciare il conto in sospeso su un lavoro
     inesistente.
-- **S.05** Gli Eos hanno un nome e una loro icona — APERTA
+- **S.05** Gli Eos hanno un nome e una loro icona — CHIUSA
+  - Il difetto: in barra il saldo era `Icons.auto_awesome`, la scintilla di serie
+    di Android, con accanto un numero e nessuna parola. Nessuno capiva che fossero
+    Eos, e chi ci provava leggeva "stelle". Peggio: quella scintilla e' l'icona che
+    il framework mette su mezza app, quindi il denaro del Cerchio portava lo stesso
+    segno di un effetto speciale qualunque.
+  - **Un'alba e non una moneta**, e la ragione sta nel nome: Eos e' l'aurora. Il
+    segno e' un sole che sorge sopra la linea dell'orizzonte con tre raggi, in
+    `lib/design_system/components/icona_degli_eos.dart`, un punto solo da cui ogni
+    schermata la prende. Una moneta o un gettone avrebbero detto "valuta di gioco",
+    che e' precisamente cio' che gli Eos non devono sembrare. Tre raggi e non
+    cinque: a sedici punti il quarto e il quinto si toccano e diventano una macchia.
+  - Agganciata in quattro punti: il saldo in barra (con la parola Eos accanto al
+    numero), il premio di ogni riga dell'elenco, la card del traguardo, e gli Eos
+    che si contano nella celebrazione.
+  - Misura: `test/gli_eos_hanno_un_nome_test.dart`, cinque prove. ENUMERA i punti
+    che mostrano Eos e cade col nome del file se uno non usa l'icona del design
+    system; e una prova cade se un file NUOVO mostra Eos e non e' nell'elenco,
+    perche' e' l'unico modo in cui un'enumerazione resta vera invece di invecchiare
+    in silenzio. L'ultima misura che l'icona DIPINGA davvero a sedici punti, fra il
+    4 e il 55 per cento dei pixel: un'icona vuota passerebbe qualunque prova
+    strutturale. Rosso eseguito rimettendo la scintilla in barra.
+  - **LA GRANDEZZA MISURATA E' CAMBIATA DUE VOLTE**, e sta scritto nella prova. La
+    prima stesura cercava la scintilla in tutto il file e accusava un'icona che non
+    e' quella del saldo, il segno del Sigillo acceso nelle righe dell'elenco: si
+    guarda percio' la VICINANZA, sei righe attorno a un numero in Eos. La seconda
+    accusava un COMMENTO, quello che spiega quale icona c'era prima: un commento non
+    disegna niente, e si salta cio' che comincia con la doppia barra.
+  - Difetto trovato GUARDANDO l'anteprima: con la parola Eos accanto al numero la
+    riga in barra e' cresciuta e il titolo e' tornato a troncarsi in "Costellazio ne
+    persona...", che e' il difetto che l'ordine P aveva chiuso. Il saldo si e'
+    stretto di cio' che era margine e non contenuto, e adesso il titolo si legge
+    INTERO. Va detto per intero: su due righe la parola lunga si spezza
+    ("Costellazion / e personale"), che e' brutto ma non e' un troncamento, e
+    accorciare il nome del sentiero sarebbe una decisione di Mauro sul contenuto.
 - **S.06** Il borsellino e' sempre visibile — APERTA
 - **S.07** Gli Eos volano dalla celebrazione al borsellino — APERTA
 - **S.08** I tre pulsanti della celebrazione grande non fanno niente — APERTA
@@ -380,6 +414,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 4
+VOCI_CHIUSE: 5
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

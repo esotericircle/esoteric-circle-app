@@ -15,6 +15,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import 'card_del_traguardo.dart';
 import 'sentiero_screen.dart';
+import '../../design_system/components/icona_degli_eos.dart';
 
 /// LA CELEBRAZIONE DI UN TRAGUARDO, nelle sue due forme.
 ///
@@ -353,7 +354,7 @@ class EosCheVolano extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.auto_awesome, size: 18, color: palette.goldSoft),
+            IconaDegliEos(misura: 18, colore: palette.goldSoft),
             const SizedBox(width: 6),
             Text('+$visti Eos',
                 key: const Key('eos_contati'),
