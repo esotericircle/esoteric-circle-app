@@ -87,4 +87,60 @@ void main() {
             'soglia di $sogliaPunti: fra loro c\'e\' ancora altro, e Mauro '
             'lo vuole SUBITO sotto.');
   });
+
+  testWidgets('la pietra e\' la prima cosa che si vede, e il testo viene dopo',
+      (tester) async {
+    // **ORDINE S VOCE 11, misurato a schermo.** Le tre righe "Cosa fai",
+    // "Perche\'" e "Cosa ti resta" stavano SOPRA la pietra nella stessa colonna e
+    // la spingevano in basso: la schermata si leggeva come un foglio di istruzioni
+    // con una runa in mezzo. Qui si misura la sola cosa che conta: **dove sta la
+    // pietra quando la lettura si apre**, e se il testo le sta sopra.
+    SharedPreferences.setMockInitialValues({});
+    silenzia();
+    // La misura del telefono di Mauro: su una finestra alta 2600 punti la pietra
+    // ci starebbe comunque, e la prova non misurerebbe niente.
+    tester.view.physicalSize = const Size(1080, 2391);
+    tester.view.devicePixelRatio = 3.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(MaterialApp(
+      builder: (ctx, child) => MediaQuery(
+        data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+        child: child!,
+      ),
+      home: SunsetRuneScreen(now: ora, dataNascita: DateTime(1988, 7, 5)),
+    ));
+    for (var i = 0; i < 5; i++) {
+      await tester.pump(const Duration(milliseconds: 150));
+    }
+    await tester.tap(find.byKey(const Key('sunset_getto_gesture')));
+    for (var i = 0; i < 5; i++) {
+      await tester.pump(const Duration(milliseconds: 150));
+    }
+    await tester.tap(find.byKey(const Key('sunset_incisione_gesture')));
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+
+    final pietra = tester.getRect(find.byKey(const Key('sunset_pietra_lettura')));
+    final righe =
+        tester.getRect(find.byKey(const Key('tre_righe_rune')));
+    // ignore: avoid_print
+    print('TRAMONTO: pietra da ${pietra.top.toStringAsFixed(1)} a '
+        '${pietra.bottom.toStringAsFixed(1)}, tre righe da '
+        '${righe.top.toStringAsFixed(1)}');
+
+    expect(righe.top, greaterThan(pietra.bottom),
+        reason: 'le tre righe cominciano a ${righe.top.toStringAsFixed(1)} e la '
+            'pietra finisce a ${pietra.bottom.toStringAsFixed(1)}: il testo sta '
+            'ancora sopra la pietra, e la pietra e\' la protagonista');
+
+    // **E LA PIETRA STA NEL PRIMO SGUARDO.** Non basta che il testo sia sotto: se
+    // la pietra cominciasse a meta\' schermo, la prima cosa che si vede sarebbe
+    // ancora altro. La soglia e\' un terzo dell\'altezza utile, dichiarata qui.
+    final altezza = tester.view.physicalSize.height / tester.view.devicePixelRatio;
+    expect(pietra.top, lessThan(altezza / 3),
+        reason: 'la pietra comincia a ${pietra.top.toStringAsFixed(1)} su '
+            '${altezza.toStringAsFixed(0)} punti di schermo: piu\' di un terzo '
+            'sopra di lei c\'e\' altro, e non e\' lei la prima cosa che si vede');
+  });
 }

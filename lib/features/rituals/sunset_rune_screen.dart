@@ -1082,13 +1082,14 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             giorno: _e.giornoRituale,
             superficie: ColorTokens.neutralDeepest,
           ),
-          // LE TRE RIGHE DEL RITO, ordine P voce 17.
-          LeTreRigheDelRito(
-            rito: DailyElement.rune,
-            inchiostro: ColorTokens.textPrimary,
-            accento: _palette.goldSoft,
-          ),
-          const SizedBox(height: SpacingTokens.sm),
+          // **LE TRE RIGHE SCENDONO SOTTO LA PIETRA, ordine S voce 11.** Stavano
+          // QUI, fra chi parla e la pietra: tre etichette con tre frasi spingono
+          // la pietra in basso, e la schermata si legge come un foglio di
+          // istruzioni con una runa in mezzo. La runa e' la protagonista, e il
+          // livello visivo viene prima del testo. Le righe restano, perche' la
+          // voce P.17 le ha volute e la terza e' la sola che produce ritorno: si
+          // leggono dopo aver visto la pietra, che e' l'ordine in cui una persona
+          // guarda una cosa e poi chiede cosa sia.
           if (_ritorno)
             Padding(
               padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
@@ -1157,6 +1158,15 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
               ),
             ),
           ],
+          // LE TRE RIGHE DEL RITO, ordine P voce 17, portate SOTTO la pietra
+          // dalla voce S.11: prima stavano sopra e la spingevano fuori dal primo
+          // sguardo.
+          const SizedBox(height: SpacingTokens.md),
+          LeTreRigheDelRito(
+            rito: DailyElement.rune,
+            inchiostro: ColorTokens.textPrimary,
+            accento: _palette.goldSoft,
+          ),
           const SizedBox(height: SpacingTokens.lg),
           // Voce A: cosa lasci fuori.
           _bloccoVoce('Cosa lasci fuori', _vocePrima(), const Key('sunset_voce_uno')),

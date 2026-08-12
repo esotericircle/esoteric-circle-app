@@ -557,7 +557,38 @@ chiusa: committare non e' consegnare.
     alla larghezza reale. **Difetto della cattura, trovato guardando:** la prima
     versione muoveva `find.byType(Scrollable).first`, che e' la striscia ORIZZONTALE
     dei doni del giorno, e l'immagine restava in cima alla home.
-- **S.11** Il Rito del Tramonto: i testi soffocano la runa — APERTA
+- **S.11** Il Rito del Tramonto: i testi soffocano la runa — CHIUSA
+  - Il difetto: le tre righe "Cosa fai", "Perche'" e "Cosa ti resta" stavano SOPRA la
+    pietra, nella stessa colonna, fra chi parla e la pietra. Tre etichette con tre
+    frasi spingono la pietra in basso, e la schermata si legge come un foglio di
+    istruzioni con una runa in mezzo.
+  - **LE RIGHE RESTANO E SCENDONO SOTTO LA PIETRA.** La voce P.17 le ha volute e la
+    terza e' la sola che produce ritorno: si leggono dopo aver visto la pietra, che e'
+    l'ordine in cui una persona guarda una cosa e poi chiede cosa sia.
+  - Misura a schermo, alla misura del telefono: **la pietra comincia a 140 punti su
+    797 e finisce a 308; le tre righe cominciano a 525.** Prima la pietra cominciava a
+    294 e le righe a 140. Due condizioni, non una: il testo sta sotto la pietra, e la
+    pietra sta nel primo terzo dello schermo, perche' se cominciasse a meta' la prima
+    cosa che si vede sarebbe ancora altro.
+  - **IL PRINCIPIO E' TRASVERSALE, e l'ordine chiedeva di guardare gli altri riti.**
+    Guardati: dei quattro che montano le tre righe, TRE non avevano il difetto, e la
+    ragione e' che il loro livello visivo non sta nella stessa colonna. Alba e Soffio
+    mostrano il dono in una SCHEDA che poggia sopra la scena, e il sole sollevato
+    occupa i due terzi alti: le tre righe in cima alla scheda vengono comunque dopo.
+    Lo stesso per il saluto della notte, che arriva dopo il cielo, e per l'Oracolo,
+    dove il disco sta sopra la lettura.
+  - Misure: `test/il_livello_visivo_prima_del_testo_nei_riti_test.dart`, tre prove che
+    ENUMERANO i riti, piu' la misura a schermo dentro
+    `test/l_invito_sta_subito_sotto_la_pietra_test.dart`. La guardia trasversale
+    sorveglia l'ordine di dichiarazione solo dove il visivo vive nella STESSA colonna,
+    perche' solo li' quell'ordine decide chi si vede prima; per gli altri pretende una
+    ragione scritta, e cade se un rito nuovo monta le tre righe senza dichiarare dove
+    sta il suo livello visivo.
+  - Rosso eseguito rimettendo le righe sopra la pietra: cade dicendo "le tre righe
+    cominciano a 140.0 e la pietra finisce a 462.0".
+  - Anteprima GUARDATA: `docs/preview/runa-tramonto-voce-uno.png`. Adesso si legge
+    barra, la riga di chi parla, la pietra, "Gira la pietra", il nome della runa, e
+    solo dopo le tre righe.
 - **S.12** L'Oracolo del Giorno dichiara cosa e' e cosa da' — APERTA
 - **S.13** Il respiro guidato esce dal Rito dell'Alba — APERTA
 - **S.14** L'accesso si apre davvero: Google su Android e su iPhone, Apple su iPhone — APERTA
@@ -716,6 +747,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 10
+VOCI_CHIUSE: 11
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
