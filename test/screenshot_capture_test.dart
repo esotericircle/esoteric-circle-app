@@ -84,6 +84,7 @@ import 'package:esoteric_circle/core/rituals/sunset_rune.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_glyph.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
@@ -93,6 +94,9 @@ import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
 import 'package:esoteric_circle/features/tarot/stesa_reveal.dart';
 import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
+import 'package:esoteric_circle/features/maestri/widgets/busto_del_maestro.dart';
+import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
+import 'package:esoteric_circle/features/tarot/stesa_choreography.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
@@ -860,6 +864,11 @@ void main() {
   // in headless, quindi si usa la sagoma neutra come stand-in deterministico. ---
   Widget faceApp(Widget schermata) => MultiProvider(
         providers: [
+          // LO SCAFFALE PERSONALE, ordine P voce 27: senza di lui il cuore
+          // delle arti preferite non si disegna, e l'anteprima mostrerebbe una
+          // barra che nell'app ha un elemento in piu'.
+          ChangeNotifierProvider(
+              create: (_) => ArtiPreferiteController(maestroAssegnato: Maestro.aura)),
           ChangeNotifierProvider(
               create: (_) =>
                   MaestroController(initial: const ThemeKey.of(Maestro.aura))),
@@ -876,14 +885,26 @@ void main() {
             home: MaestroScope(child: schermata)),
       );
 
+  /// LA CATTURA MONTA CIO' CHE L'APP MONTA, ordine P voce 27.
+  ///
+  /// **Il difetto: queste catture montavano la schermata NUDA.** L'app la monta
+  /// dentro `SogliaArte`, che porta `ArteCorrente` e `ConCuore`, cioe' il cuore
+  /// delle arti preferite nella barra, e fissa la palette sul proprietario
+  /// dell'arte invece di prenderla dal controller. Le sedici anteprime dei
+  /// quattro flussi provavano una scena che nell'app non esiste, e il cuore non
+  /// si vedeva in nessuna.
+  ///
+  /// La soglia non si ricostruisce qui: si chiede alla schermata, che la
+  /// dichiara una volta sola per se' e per la sua rotta.
   Future<GlobalKey> mountFace(WidgetTester tester, Widget schermata,
       {required Size size}) async {
     montaLoSchermo(tester, size);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
-    await tester.pumpWidget(
-        RepaintBoundary(key: rootKey, child: faceApp(schermata)));
+    await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: faceApp(FaceConstellationScreen.conLaSoglia(schermata))));
     await step(tester);
     await step(tester);
     return rootKey;
@@ -1715,6 +1736,11 @@ void main() {
   // --- L'Animale Guida di Caligo: popup, rivelazione, responso, card ---
   Widget caligoApp(Widget schermata) => MultiProvider(
         providers: [
+          // LO SCAFFALE PERSONALE, ordine P voce 27: senza di lui il cuore
+          // delle arti preferite non si disegna, e l'anteprima mostrerebbe una
+          // barra che nell'app ha un elemento in piu'.
+          ChangeNotifierProvider(
+              create: (_) => ArtiPreferiteController(maestroAssegnato: Maestro.caligo)),
           ChangeNotifierProvider(
               create: (_) =>
                   MaestroController(initial: const ThemeKey.of(Maestro.caligo))),
@@ -1736,14 +1762,29 @@ void main() {
             home: MaestroScope(child: schermata)),
       );
 
+  /// Come `mountFace`, ordine P voce 27: la schermata entra dentro la SUA
+  /// soglia, che la dichiara lei. Questo aggancio serve due arti di Caligo,
+  /// l'Animale Guida e l'Estrazione Rune, e ognuna porta la propria.
+  /// LA SOGLIA DELL'ARTE CHE SI STA MONTANDO, chiesta all'arte.
+  ///
+  /// L'aggancio delle catture di Caligo serve due arti: l'identificativo e il
+  /// proprietario li dichiara ciascuna per se', qui si sceglie solo a quale
+  /// chiederli. Scriverli in questo file sarebbe la seconda dichiarazione, ed e'
+  /// il difetto che la voce 27 chiude.
+  Widget _conLaSuaSoglia(Widget schermata) => switch (schermata) {
+        RuneDrawScreen() => RuneDrawScreen.conLaSoglia(schermata),
+        GuideAnimalScreen() => GuideAnimalScreen.conLaSoglia(schermata),
+        _ => schermata,
+      };
+
   Future<GlobalKey> mountAnimal(WidgetTester tester, Widget schermata,
       {required Size size}) async {
     montaLoSchermo(tester, size);
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final rootKey = GlobalKey();
-    await tester.pumpWidget(
-        RepaintBoundary(key: rootKey, child: caligoApp(schermata)));
+    await tester.pumpWidget(RepaintBoundary(
+        key: rootKey, child: caligoApp(_conLaSuaSoglia(schermata))));
     await step(tester);
     await step(tester);
     return rootKey;
@@ -2311,6 +2352,118 @@ void main() {
     await capture(tester, rootKey, 'oroscopo-card.png');
   });
 
+  // --- LE DUE PROPOSTE PER IL TRANSITO NELLA CARD. Ordine P voce 25 ---
+  //
+  // **Due anteprime alla larghezza vera, e nessuna scelta.** La voce chiede di
+  // mostrare due modi di far entrare il transito nella card condivisibile e di
+  // fermarsi li': la scelta e' di Mauro. Le due catture montano la stessa card
+  // con gli stessi dati, e cambiano soltanto la disposizione, quindi il
+  // confronto e' fra due composizioni e non fra due contenuti.
+  for (final proposta in const [
+    (DisposizioneDelTransito.rigaSottoLaSintesi, 'A-riga-sotto-la-sintesi'),
+    (DisposizioneDelTransito.fasciaInCima, 'B-fascia-in-cima'),
+  ]) {
+    testWidgets('Cattura la proposta ${proposta.$2} del transito',
+        (tester) async {
+      await loadFonts();
+      final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+      // **IL CIELO VERO, altrimenti le due proposte mostrerebbero il vuoto.**
+      // La riga del transito esiste solo quando la corrente del giorno viene
+      // dai fatti: con la hash `rigaDelCielo` e' nulla, e le due immagini
+      // sarebbero identiche fra loro e identiche alla card di oggi. Quindi si
+      // monta una carta natale completa e si legge il cielo dal motore locale,
+      // come fa l'app.
+      final carta = NatalChart(
+        sunSign: Zodiac.aries,
+        planets: const [
+          PlanetPosition(
+              id: 'sun',
+              name: 'Sole',
+              glyph: '☉',
+              longitude: 18.4,
+              sign: Zodiac.aries),
+          PlanetPosition(
+              id: 'moon',
+              name: 'Luna',
+              glyph: '☽',
+              longitude: 102.7,
+              sign: Zodiac.cancer),
+          PlanetPosition(
+              id: 'venus',
+              name: 'Venere',
+              glyph: '♀',
+              longitude: 40.2,
+              sign: Zodiac.taurus),
+          PlanetPosition(
+              id: 'mars',
+              name: 'Marte',
+              glyph: '♂',
+              longitude: 251.9,
+              sign: Zodiac.sagittarius),
+          PlanetPosition(
+              id: 'saturn',
+              name: 'Saturno',
+              glyph: '♄',
+              longitude: 300.5,
+              sign: Zodiac.aquarius),
+        ],
+        ascendantLongitude: 205.0,
+        midheavenLongitude: 115.0,
+        houses: [
+          for (var n = 1; n <= 12; n++)
+            HouseCusp(number: n, longitude: (205.0 + (n - 1) * 30.0) % 360.0),
+        ],
+        hasTime: true,
+      );
+      final cielo = CieloDiOggi.perIlGiorno(
+          adesso: DateTime.utc(2026, 7, 9, 12), carta: carta);
+      // IL GUARDIANO: senza fatti veri le due proposte non mostrerebbero
+      // niente, e chi guarda crederebbe che la card non cambi.
+      expect(cielo.ceCieloVero, isTrue,
+          reason: 'il cielo del giorno scelto non porta nessun fatto: le due '
+              'proposte mostrerebbero il vuoto');
+      // Lo stesso segno e lo stesso giorno per le due immagini: fra loro cambia
+      // solo la disposizione.
+      final cards = Horoscope.forSign(
+          sign: Zodiac.aries, dayOfYear: 190, year: 2026, cielo: cielo);
+      expect(
+          cards
+              .firstWhere((c) => c.domain == HoroscopeDomain.generale)
+              .rigaDelCielo,
+          isNotNull,
+          reason: 'la riga del cielo non si stacca dalla sintesi: le due '
+              'anteprime non mostrerebbero la differenza che devono mostrare');
+      montaLoSchermo(tester, const Size(400, 980));
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0A0E24),
+            body: Center(
+              child: SingleChildScrollView(
+                child: OroscopoShareCard(
+                    sign: Zodiac.aries,
+                    cards: cards,
+                    palette: palette,
+                    transito: proposta.$1),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      await tester.runAsync(() async => precacheImage(
+          AssetImage(ZodiacArt.emblemPath(Zodiac.aries)),
+          tester.element(find.byType(OroscopoShareCard))));
+      await tester.pumpAndSettle();
+      await capture(tester, rootKey, 'oroscopo-transito-${proposta.$2}.png');
+    });
+  }
+
   // --- La Stesa a Tre Carte, con una carta rovesciata ---
   testWidgets('Cattura la Stesa a Tre Carte', (tester) async {
     silenceSensors();
@@ -2377,6 +2530,125 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
     await tester.pump(const Duration(milliseconds: 100));
     await capture(tester, rootKey, 'stesa-scena.png');
+  });
+
+  // --- LE QUATTRO FASI DEL TAGLIO, una per una. Ordine P voce 05 ---
+  //
+  // **La voce 05 era stata MISURATA e non GUARDATA, e la differenza e' questa.**
+  // Una prova sa dire che le fasi sono quattro, che la durata sta scritta in un
+  // punto solo e che la meta' di sotto passa sopra: non sa dire se il gesto si
+  // capisce guardandolo. Queste quattro immagini sono lo stesso taglio colto nel
+  // mezzo di ciascuna fase, cioe' dove la fase e' al suo pieno.
+  testWidgets('Cattura le quattro fasi del taglio', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    montaLoSchermo(tester, const Size(360, 1020));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(seed: 1, skipIntro: true),
+      ),
+    )));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), element);
+    });
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 100));
+    // IL GESTO VERO, quello che la persona fa col dito.
+    await tester.tap(find.byKey(const Key('stesa_taglia')));
+    await tester.pump();
+    // Si cammina fino alla META' di ogni fase, e la si chiede alla schermata
+    // invece di contare i millisecondi qui: se domani le durate cambiassero,
+    // queste quattro immagini resterebbero al centro delle fasi nuove.
+    final stato = tester.state(find.byType(StesaTreCarteScreen)) as dynamic;
+    var orologio = Duration.zero;
+    for (var i = 0; i < TaglioFasi.fasi.length; i++) {
+      final fase = TaglioFasi.fasi[i];
+      // **IL CENTRO SI CHIEDE ALLA COREOGRAFIA**, `TaglioFasi.centroDi`, che
+      // esiste per questo: sommare le durate qui vorrebbe dire scrivere una
+      // seconda volta un conto che sta gia' scritto, e la prima stesura
+      // sbagliava proprio quel conto, accumulando i centri invece degli inizi.
+      final centro = StesaTiming.taglio * TaglioFasi.centroDi(i);
+      await tester.pump(centro - orologio);
+      orologio = centro;
+      expect(stato.faseDelTaglioInScena, i,
+          reason: 'a meta\' della fase ${fase.nome} la scena dice di essere '
+              'nella fase ${stato.faseDelTaglioInScena}: l\'immagine '
+              'mostrerebbe un\'altra fase da quella che il nome promette');
+      await capture(tester, rootKey, 'stesa-taglio-${i + 1}-${fase.nome}.png');
+    }
+    // Il taglio finisce, altrimenti la prova chiude con un tempo ancora vivo.
+    await tester.pump(TaglioFasi.totale);
+    await tester.pump(const Duration(seconds: 6));
+  });
+
+  // --- MEDORA CI PENSA, PRIMA DI RISPONDERE. Ordine P voce 06 ---
+  //
+  // **L'anteprima che dice se l'attesa e' un'attesa e non un vuoto.** La prova
+  // della voce sa contare le cinque righe e sa che i tempi vengono da
+  // `TempiDellAttesa`: non sa dire se, guardandola, si capisce che dall'altra
+  // parte qualcuno sta pensando.
+  testWidgets('Cattura l\'attesa di Medora', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    montaLoSchermo(tester, const Size(360, 1020));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(seed: 1, skipIntro: true),
+      ),
+    )));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), element);
+      // Il ritratto dalla PORTA UNICA del busto, la stessa che l'attesa usa.
+      await precacheImage(
+          AssetImage(BustoDelMaestro.assetDi(Maestro.medora)), element);
+      for (final drawn in TarotSpread.draw(seed: 1).cards) {
+        await precacheImage(AssetImage(drawn.card.fullPath), element);
+      }
+    });
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 100));
+    // LE TRE CARTE, col gesto vero: l'attesa arriva solo dopo la terza.
+    //
+    // **Gli indici sono quelli del ventaglio A SCHERMO, non quelli del mazzo.**
+    // Il ventaglio ne mostra una quindicina attorno al centro, quindi chiedere
+    // la carta 20 vuol dire chiedere una carta che non e' montata: la prima
+    // stesura cascava li'.
+    for (final indice in const [38, 36, 41]) {
+      await tester.tap(find.byKey(Key('stesa_fan_$indice')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(milliseconds: 200));
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    // Dentro l'attesa, oltre la dissolvenza di ingresso: la si vuole piena.
+    await tester.pump(AttesaDiMedora.dissolvenza);
+    await tester.pump(const Duration(milliseconds: 900));
+    expect(find.byKey(const Key('stesa_attesa')), findsOneWidget,
+        reason: 'l\'attesa non e\' in scena: l\'immagine mostrerebbe la '
+            'schermata di prima e la voce 06 resterebbe non guardata');
+    await capture(tester, rootKey, 'stesa-attesa-di-medora.png');
+    // Si lascia scadere l'attesa e la scrittura del responso.
+    //
+    // **Non `pumpAndSettle`**: il cerchio di dodici stelle gira senza fine, che
+    // e' cio' che lo rende un'attesa e non un vuoto, quindi la scena non si
+    // assesta mai e la prova cadrebbe per un tempo scaduto invece che per
+    // l'immagine. Si avanza a passi dichiarati.
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(seconds: 1));
+    }
   });
 
   // --- La Stesa con una carta gia' scelta, per vedere slot e ventaglio ---

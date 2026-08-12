@@ -89,6 +89,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'attorno_al_soffio.dart';
+
 /// LE IMMAGINI PRIMA E DOPO, che l'Architetto apre dal remoto prima che il
 /// fondatore installi.
 ///
@@ -1929,19 +1931,16 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     final radice = GlobalKey();
+    // L'IMPALCATURA VIVE IN UN PUNTO SOLO, ordine P voce 26: il Soffio porta il
+    // cosmo condiviso, che pretende lo scope e i suoi controller. LE BARRE DI
+    // SISTEMA restano, perche' senza di loro il difetto che questa cattura
+    // documenta non esiste: e' il motivo per cui su schermo nudo non si vedeva.
     await tester.pumpWidget(RepaintBoundary(
       key: radice,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        // LE BARRE DI SISTEMA: senza di loro il difetto non esiste, ed e'
-        // il motivo per cui su schermo nudo non si vedeva.
-        home: MediaQuery(
-          data: const MediaQueryData(
-            size: Size(360, 797),
-            padding: EdgeInsets.only(top: 40, bottom: 24),
-          ),
-          child: BreathDestinyScreen(now: DateTime(2026, 8, 7, 10, 30)),
-        ),
+      child: attornoAlSoffio(
+        BreathDestinyScreen(now: DateTime(2026, 8, 7, 10, 30)),
+        finestra: const Size(360, 797),
+        rientri: const EdgeInsets.only(top: 40, bottom: 24),
       ),
     ));
     await tester.pump();
@@ -3323,6 +3322,13 @@ void main() {
     'sentiero_albero_o',
     'sentiero_loto_o',
     'sentiero_a_meta_o',
+    // ORDINE P VOCE 33: le tre catture del DISEGNO, in cima, che e' la cosa
+    // che l'ordine O aveva catturato e non aveva visto. Le tre sopra
+    // fotografano l'elenco, dove la discesa si ferma: sono la seconda
+    // lettura, e da sole non mostrano il disegno.
+    'disegno_costellazione_p',
+    'disegno_albero_p',
+    'disegno_loto_p',
     'celebrazione_grande_o',
     'sovrimpressione_mini_o',
     'card_riaperta_o',
@@ -3398,6 +3404,20 @@ void main() {
         case 'sentiero_loto_o':
           await monta(
               const SentieroScreen(sentiero: Sentiero.loto, senzaVolo: true));
+        case 'disegno_costellazione_p':
+        case 'disegno_albero_p':
+        case 'disegno_loto_p':
+          final quale = switch (scena) {
+            'disegno_costellazione_p' => Sentiero.costellazione,
+            'disegno_albero_p' => Sentiero.albero,
+            _ => Sentiero.loto,
+          };
+          await monta(SentieroScreen(sentiero: quale, senzaVolo: true));
+          // SI RISALE IN CIMA: la discesa porta al punto raggiunto, che sta
+          // piu' in basso. Il disegno vive in cima ed e' quello che va visto.
+          await tester.drag(find.byKey(const Key('sentiero_scorrimento')),
+              const Offset(0, 8000));
+          await tester.pump(const Duration(milliseconds: 400));
         case 'sentiero_a_meta_o':
           await monta(const SentieroScreen(
               sentiero: Sentiero.costellazione, senzaVolo: true));
