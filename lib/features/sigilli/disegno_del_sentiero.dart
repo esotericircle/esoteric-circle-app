@@ -116,6 +116,12 @@ class GeometriaDelSentiero {
   /// su uno schermo diverso.
   static const double compressioneVerticale = 0.70;
 
+  /// Per il Loto la conversione e' un'altra: il pittore prende le lunghezze dal
+  /// lato corto su tutti e due gli assi, quindi il punto deve fare lo stesso.
+  /// Il numero e' il rapporto fra il lato corto e l'altezza della tela del
+  /// disegno, 360 su 462 punti: e' la tela vera della voce 01, non una stima.
+  static const double misuraQuadra = 0.78;
+
   /// LA SPINA DORSALE DELLA COSTELLAZIONE: i cinque punti principali.
   ///
   /// **Una figura sola, non cinque figurine.** Prima erano cinque gruppi da
@@ -304,7 +310,16 @@ class GeometriaDelSentiero {
         final apertura = (0.075 + 0.052 * passo) *
             (1.0 - 0.24 * ramo / 4) *
             respiroDeiRami[ramo][quale];
-        final caduta =
+        // **I RAMI SI ALTERNANO invece di specchiarsi.** Due rami che partono
+        // dalla stessa altezza a destra e a sinistra fanno una croce, e cinque
+        // croci in colonna fanno un'antenna: l'anteprima lo ha mostrato. Uno
+        // parte sotto il nodo e l'altro sopra, e da un ramo all'altro il verso
+        // si scambia.
+        final scarto = (quale == 0 ? -1.0 : 1.0) *
+            (ramo.isEven ? 1.0 : -1.0) *
+            0.026 *
+            compressioneVerticale;
+        final caduta = scarto +
             pendenzaDeiRami[ramo] * passo * compressioneVerticale;
         punti.add(PuntoDelSentiero(
           traguardo: mini[indice],
@@ -327,10 +342,10 @@ class GeometriaDelSentiero {
   static List<SegmentoDelSentiero> _ossaturaAlbero() {
     final ossa = <SegmentoDelSentiero>[];
     for (var ramo = 0; ramo < 5; ramo++) {
+      // NESSUN SEGMENTO FRA LE SEFIROT: quello e' il TRONCO, che si accende
+      // fino a dove sei arrivato. Una linea sopra il tronco sarebbe una seconda
+      // spina disegnata sulla prima.
       final sefirah = indiceDelGrande(ramo);
-      if (ramo < 4) {
-        ossa.add(SegmentoDelSentiero(sefirah, indiceDelGrande(ramo + 1)));
-      }
       for (final lato in const [0, 1]) {
         var precedente = sefirah;
         for (var passo = 0; passo < 5; passo++) {
@@ -346,67 +361,112 @@ class GeometriaDelSentiero {
     return ossa;
   }
 
-  /// Il cuore del loto e i raggi delle cinque corone di petali.
-  static const Offset cuoreDelLoto = Offset(0.5, 0.46);
-  static const List<double> raggiDelLoto = [0.095, 0.155, 0.215, 0.275, 0.335];
+  /// IL CUORE DEL LOTO, e sta in BASSO perche' il fiore si guarda di lato.
+  ///
+  /// **Il loto era un soffione, ed era un guaio doppio.** Cinquanta petali
+  /// identici irraggiati da un centro sono una margherita vista dall'alto, e il
+  /// soffione nell'app esiste gia': e' il Soffio del Destino, e due soffioni si
+  /// pestano i piedi. Un loto ha POCHI PETALI LARGHI E APPUNTITI su pochi giri,
+  /// e si guarda di lato, perche' e' un fiore che si apre verso l'alto.
+  /// **IL CUORE STA IN BASSO, e lo stelo e' corto.** Ordine S voce 02, punto D:
+  /// lo stelo si prendeva mezza tela e il fiore restava un francobollo in cima.
+  /// Il 58 per cento dell'altezza conquistato con la voce 01 deve andare al
+  /// FIORE, quindi il cuore scende quasi in fondo e lo stelo diventa il dettaglio
+  /// che era: sotto di lui resta un ottavo della tela.
+  static const Offset cuoreDelLoto = Offset(0.5, 0.84);
+
+  /// QUANTI MINI PER GIRO, dal giro piu' esterno al piu' interno.
+  ///
+  /// Sei piu' otto piu' dieci piu' dodici piu' quattordici fa cinquanta: i
+  /// cinquanta mini ci stanno esatti, e ogni giro porta in piu' il suo grande,
+  /// che e' il petalo CENTRALE del giro.
+  static const List<int> miniPerGiro = [6, 8, 10, 12, 14];
+
+  /// Quanto e' lungo un petalo di ogni giro: i giri esterni sono i piu' grandi.
+  /// Quanto e' lungo un petalo di ogni giro, in frazione del lato CORTO: il giro
+  /// esterno arriva a mezza tela, perche' il fiore e' il disegno.
+  /// **I NUMERI STANNO DENTRO LA TELA, e la prova della voce P.33 lo pretende.**
+  /// Col giro esterno a 0,52 i petali estremi, che stanno quasi in orizzontale,
+  /// uscivano dal riquadro e venivano tagliati di netto: cinquanta pixel sui
+  /// fianchi, misurati. Il fiore resta grande e ci sta dentro.
+  static const List<double> lunghezzaDelGiro = [0.40, 0.335, 0.275, 0.21, 0.15];
+
+  /// Quanto e' largo un petalo, in frazione della sua lunghezza. **I petali dei
+  /// giri diversi hanno FORMA diversa e non la stessa forma ruotata**: i piu'
+  /// esterni sono larghi e distesi, i piu' interni stretti ed eretti.
+  static const List<double> larghezzaDelGiro = [0.42, 0.36, 0.30, 0.24, 0.18];
+
+  /// Quanto si apre il ventaglio di ogni giro, in radianti da una parte sola del
+  /// verticale: il giro esterno si distende quasi in orizzontale, quello interno
+  /// resta raccolto attorno al centro.
+  static const List<double> aperturaDelGiro = [1.16, 0.99, 0.80, 0.57, 0.33];
+
+  /// QUANTO UN PETALO CHIUSO E' PIU' STRETTO, PIU' CORTO E PIU' ERETTO.
+  ///
+  /// **Ordine S voce 02, ed e' il difetto piu' grave che l'anteprima ha
+  /// mostrato**: a zero traguardi la corolla era tutta li', solo in grigio, e
+  /// non c'era niente da scoprire. "I petali si aprono" era stato letto come "i
+  /// petali sono disegnati spenti". Un petalo chiuso e' STRETTO, CORTO e tirato
+  /// verso il verticale: a zero traguardi si vede un BOCCIOLO.
+  static const double corpoDelPetaloChiuso = 0.52;
+  static const double larghezzaDelPetaloChiuso = 0.30;
+  static const double erezioneDelPetaloChiuso = 0.78;
+
+  /// L'angolo di un petalo, aperto oppure chiuso: da qui passano il disegno e la
+  /// prova, cosi' non esistono due conti dello stesso angolo.
+  static double angoloDelPetalo(double angoloAperto, {required bool aperto}) {
+    if (aperto) return angoloAperto;
+    // Verso l'alto, cioe' verso meno mezzo pi greco: il bocciolo e' raccolto.
+    const eretto = -math.pi / 2;
+    return angoloAperto +
+        (eretto - angoloAperto) * erezioneDelPetaloChiuso;
+  }
 
   static List<PuntoDelSentiero> _loto() {
     final mini = Sentieri.miniDi(Sentiero.loto);
     final grandi = Sentieri.grandiDi(Sentiero.loto);
     final punti = <PuntoDelSentiero>[];
-    for (var corona = 0; corona < 5; corona++) {
-      final raggio = raggiDelLoto[corona];
-      for (var k = 0; k < 10; k++) {
-        final indice = corona * 10 + k;
-        // **UN FIORE SOLO**: giri concentrici attorno allo stesso cuore, ognuno
-        // ruotato sul precedente, cosi' i petali si incastrano invece di
-        // allinearsi in raggi dritti.
-        final angolo = 2 * math.pi * k / 10 + corona * 0.314 - math.pi / 2;
+    var presi = 0;
+    for (var giro = 0; giro < 5; giro++) {
+      final quanti = miniPerGiro[giro] + 1;
+      final centrale = quanti ~/ 2;
+      final apertura = aperturaDelGiro[giro];
+      final lungo = lunghezzaDelGiro[giro];
+      for (var k = 0; k < quanti; k++) {
+        // Il ventaglio, da un lato all'altro del verticale.
+        final angolo = -math.pi / 2 +
+            (quanti == 1
+                ? 0.0
+                : (k - (quanti - 1) / 2) * (2 * apertura / (quanti - 1)));
+        final eIlGrande = k == centrale;
+        final traguardo = eIlGrande ? grandi[giro] : mini[presi++];
+        // Il vicino del petalo centrale articola il giro; gli altri lo
+        // riempiono.
+        final vicino = (k - centrale).abs() == 1;
         punti.add(PuntoDelSentiero(
-          traguardo: mini[indice],
+          traguardo: traguardo,
+          // **NIENTE COMPRESSIONE QUI**, e il perche' e' che il pittore non la
+          // usa: il petalo si disegna con le lunghezze prese dal lato corto su
+          // tutti e due gli assi. Comprimere solo il punto lo staccherebbe dal
+          // suo petalo, e il tocco cadrebbe accanto invece che sopra.
           dove: Offset(
-            cuoreDelLoto.dx + raggio * math.cos(angolo),
-            cuoreDelLoto.dy + raggio * math.sin(angolo) * compressioneVerticale,
+            cuoreDelLoto.dx + lungo * math.cos(angolo),
+            cuoreDelLoto.dy +
+                lungo * math.sin(angolo) * misuraQuadra,
           ),
-          grandezza: k.isEven
-              ? GrandezzaDelPunto.media
-              : GrandezzaDelPunto.piccola,
+          grandezza: eIlGrande
+              ? GrandezzaDelPunto.principale
+              : (vicino
+                  ? GrandezzaDelPunto.media
+                  : GrandezzaDelPunto.piccola),
           angolo: angolo,
-          gruppo: corona,
+          gruppo: giro,
         ));
       }
-      // LA FIORITURA, il petalo che regge il suo giro. Le cinque sono
-      // distribuite sui cinque quinti del cerchio: tutte in cima si
-      // impilavano in una torre di losanghe che sbilanciava il fiore.
-      final direzione = -math.pi / 2 + corona * 2 * math.pi / 5;
-      final quanto = raggio * 1.05;
-      punti.add(PuntoDelSentiero(
-        traguardo: grandi[corona],
-        dove: Offset(
-          cuoreDelLoto.dx + quanto * math.cos(direzione),
-          cuoreDelLoto.dy + quanto * math.sin(direzione) * compressioneVerticale,
-        ),
-        grandezza: GrandezzaDelPunto.principale,
-        angolo: direzione,
-        gruppo: corona,
-      ));
     }
     return punti;
   }
 
-  /// IL LOTO NON HA OSSATURA, e non e' una rinuncia.
-  ///
-  /// **Guardando l'anteprima: le catene fra petali disegnavano poligoni.** Legare
-  /// i dieci petali di un giro con dei segmenti dritti produce un decagono, e
-  /// cinque giri producevano cinque decagoni sovrapposti piu' le corde della
-  /// spina: a schermo non era un fiore, era un mandala geometrico con dei
-  /// quadrati dentro. Un fiore non ha spigoli.
-  ///
-  /// La figura sola, che l'ordine chiede, il Loto la ha per costruzione: giri
-  /// concentrici attorno allo STESSO cuore, con lo stelo che li tiene. E la
-  /// crescita si vede nei petali, che sono forme piene e tenui quando sono chiusi
-  /// e si aprono accendendosi: non serve nessuna linea per dirlo, e ogni linea
-  /// che si aggiunge toglie al fiore.
   static List<SegmentoDelSentiero> _ossaturaLoto() => const [];
 
 }
@@ -586,6 +646,40 @@ abstract class _PittoreDelSentiero extends CustomPainter {
     }
   }
 
+  /// L'OSSATURA CURVA: la stessa regola dell'ossatura, con una piega.
+  ///
+  /// Serve ai rami dell'Albero, che dritti sono segmenti. La piega e' la
+  /// distanza del punto di controllo dalla corda, in frazione della lunghezza del
+  /// segmento: il verso lo da' la posizione del punto rispetto al tronco, cosi'
+  /// i rami di destra e di sinistra si piegano in modo speculare.
+  void ossaturaCurva(
+      Canvas tela, Size misura, List<SegmentoDelSentiero> ossa,
+      {required double piega}) {
+    final c = corto(misura);
+    for (final osso in ossa) {
+      final a = punti[osso.da];
+      final b = punti[osso.a];
+      if (!acceso(a) || !acceso(b)) continue;
+      final da = assoluto(a, misura);
+      final ad = assoluto(b, misura);
+      final verso = b.dove.dx >= 0.5 ? 1.0 : -1.0;
+      final meta = Offset((da.dx + ad.dx) / 2, (da.dy + ad.dy) / 2);
+      final lunghezza = (ad - da).distance;
+      // Il controllo sta sopra la corda, dal lato in cui il ramo cresce.
+      final controllo = Offset(
+          meta.dx, meta.dy - verso * 0 - lunghezza * piega);
+      tela.drawPath(
+          Path()
+            ..moveTo(da.dx, da.dy)
+            ..quadraticBezierTo(controllo.dx, controllo.dy, ad.dx, ad.dy),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeCap = StrokeCap.round
+            ..strokeWidth = c * 0.0040 * osso.spessore
+            ..color = oro.withValues(alpha: 0.82));
+    }
+  }
+
   /// UN PUNTO SPENTO E' UN PUNTO, NON UN ANELLO. Ordine S voce 02.
   ///
   /// **Un cerchio col bordo e il centro vuoto si legge come una casella da
@@ -682,26 +776,68 @@ class PittoreDellAlbero extends _PittoreDelSentiero {
   @override
   void paint(Canvas tela, Size misura) {
     final c = corto(misura);
-    final asse = misura.width * 0.5;
-
-    // 1. IL TRONCO, sempre visibile: e' la struttura, e un albero senza tronco
-    // non e' un albero. Si assottiglia salendo.
-    final tronco = Path()..moveTo(asse - c * 0.011, misura.height * 1.02);
-    tronco
-      ..lineTo(asse - c * 0.0028, misura.height * 0.05)
-      ..lineTo(asse + c * 0.0028, misura.height * 0.05)
-      ..lineTo(asse + c * 0.011, misura.height * 1.02)
+    // 1. IL TRONCO, e finisce dove finisce l'albero.
+    //
+    // **Era una retta di spessore costante che sporgeva sopra Keter e sotto la
+    // prima Sefirah**, e a video si leggeva come un'antenna. Adesso si
+    // assottiglia salendo come i rami, e va dal primo nodo all'ultimo senza
+    // monconi: un tronco che sbuca oltre la cima non e' un tronco.
+    final principali = punti.where((p) => p.eGrande).toList()
+      ..sort((a, b) => b.dove.dy.compareTo(a.dove.dy));
+    final base = assoluto(principali.first, misura);
+    final cima = assoluto(principali.last, misura);
+    final largoInBasso = c * 0.019;
+    final largoInCima = c * 0.0045;
+    final tronco = Path()
+      ..moveTo(base.dx - largoInBasso, base.dy)
+      ..quadraticBezierTo(base.dx - largoInBasso * 0.55,
+          (base.dy + cima.dy) / 2, cima.dx - largoInCima, cima.dy)
+      ..lineTo(cima.dx + largoInCima, cima.dy)
+      ..quadraticBezierTo(base.dx + largoInBasso * 0.55,
+          (base.dy + cima.dy) / 2, base.dx + largoInBasso, base.dy)
       ..close();
     tela.drawPath(tronco, Paint()..color = oroTenue.withValues(alpha: 0.46));
 
-    // 2. L'OSSATURA, solo fra punti accesi: i rami crescono davvero.
+    // 1b. IL TRONCO SI ACCENDE FINO A DOVE SEI ARRIVATO: e' la spina, e cresce.
+    // Per questo l'ossatura dell'Albero non porta segmenti fra le Sefirot: sono
+    // il tronco, e disegnarci sopra una linea sarebbe una seconda spina.
+    final accese = principali.where(acceso).toList();
+    if (accese.isNotEmpty) {
+      final fin = assoluto(accese.last, misura);
+      tela.drawLine(
+          Offset(base.dx, base.dy),
+          Offset(fin.dx, fin.dy),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeCap = StrokeCap.round
+            ..strokeWidth = c * 0.0075
+            ..color = oro.withValues(alpha: 0.55));
+    }
+
+    // 1c. LE RADICI: un albero che finisce nel vuoto galleggia.
+    for (final verso in const [-1.0, -0.45, 0.45, 1.0]) {
+      final radice = Path()
+        ..moveTo(base.dx, base.dy)
+        ..quadraticBezierTo(
+            base.dx + verso * c * 0.06,
+            base.dy + c * 0.035,
+            base.dx + verso * c * 0.135,
+            base.dy + c * 0.075);
+      tela.drawPath(
+          radice,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeCap = StrokeCap.round
+            ..strokeWidth = c * (verso.abs() == 1.0 ? 0.0060 : 0.0042)
+            ..color = oroTenue.withValues(alpha: 0.40));
+    }
+
+    // 2. L'OSSATURA DEI RAMI, solo fra punti accesi, e CURVA.
     //
-    // **La regola nuova supera la prima stesura della voce**, che teneva i rami
-    // e i sentieri fra le Sefirot visibili anche a frutti spenti: con tutto il
-    // reticolo li' dall'inizio l'albero era gia' fatto, e restava solo da
-    // colorarlo. Il tronco resta, perche' quello e' l'albero; i rami sono la
-    // crescita.
-    ossatura(tela, misura, GeometriaDelSentiero.ossatura(Sentiero.albero));
+    // **Un ramo dritto e' un segmento, non un ramo**: si piega dalla parte in
+    // cui cresce, e la piega e' proporzionale alla sua lunghezza.
+    ossaturaCurva(tela, misura, GeometriaDelSentiero.ossatura(Sentiero.albero),
+        piega: 0.22);
 
     // 3. I FRUTTI e le Sefirot, dai piccoli ai principali.
     for (final grandezza in GrandezzaDelPunto.values.reversed) {
@@ -720,17 +856,14 @@ class PittoreDellAlbero extends _PittoreDelSentiero {
               ..color = oro.withValues(alpha: 0.26)
               ..maskFilter = MaskFilter.blur(BlurStyle.normal, r));
         tela.drawCircle(centro, r, Paint()..color = oro);
-        // Il riflesso: un frutto e' una cosa tonda che prende luce.
-        tela.drawCircle(centro.translate(-r * 0.3, -r * 0.3), r * 0.34,
-            Paint()..color = Colors.white.withValues(alpha: 0.80));
+        // **NESSUN GLIFO DENTRO IL NODO.** Qui c'era un cerchietto bianco
+        // spostato in alto a sinistra, pensato come riflesso: sui nodi grandi si
+        // leggeva come una mezzaluna appiccicata, cioe' un distintivo dentro il
+        // disegno. Il rilievo si fa col centro piu' chiaro, che e' luce e non un
+        // segno.
+        tela.drawCircle(centro, r * 0.46,
+            Paint()..color = Colors.white.withValues(alpha: 0.42));
         if (grandezza == GrandezzaDelPunto.principale) {
-          tela.drawCircle(
-              centro,
-              r * 0.58,
-              Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = c * 0.0028
-                ..color = Colors.white.withValues(alpha: 0.85));
           // **KETER SI VEDE CHE E' L'ULTIMA**, come l'ordine chiede: la Sefirah
           // in cima porta una corona di luce che le altre non hanno. Senza
           // questo le cinque erano identiche e la salita non finiva da nessuna
@@ -756,7 +889,7 @@ class PittoreDellAlbero extends _PittoreDelSentiero {
   }
 }
 
-/// IL FIORE DI LOTO DI AURA: lo stelo, le corone di petali, le Fioriture.
+/// IL FIORE DI LOTO DI AURA, visto di lato: pochi petali larghi che si aprono.
 class PittoreDelLoto extends _PittoreDelSentiero {
   const PittoreDelLoto({
     required super.punti,
@@ -766,39 +899,24 @@ class PittoreDelLoto extends _PittoreDelSentiero {
     required super.oroTenue,
   });
 
-  /// UN PETALO, ordine P voce 33.
+  /// UN PETALO: una goccia appuntita che parte dal cuore e si apre in punta.
   ///
-  /// **La prima stesura non era un loto.** Tutti i petali partivano dal cuore
-  /// e la loro lunghezza cresceva con la corona: le corone esterne uscivano
-  /// dalla tela e si accavallavano, e a schermo si vedeva un groviglio di
-  /// raggi, non un fiore. L'anteprima lo ha mostrato, la lettura del codice
-  /// no.
-  ///
-  /// **Come si costruisce un loto.** Ogni corona di petali PARTE dove finisce
-  /// la precedente, non dal cuore: petali corti e larghi, che si sovrappongono
-  /// come le squame di un fiore vero. Aperto quando il traguardo e' raggiunto,
-  /// stretto e piu' corto quando non lo e' ancora, perche' **i petali chiusi
-  /// si vedono**: sono la parte di loto che deve ancora aprirsi.
-  Path _petalo(
-    Offset cuore,
-    double da,
-    double a,
-    double largo,
-    double angolo,
-  ) {
-    final base = Offset(
-        cuore.dx + da * math.cos(angolo), cuore.dy + da * math.sin(angolo) * 0.92);
-    final punta = Offset(
-        cuore.dx + a * math.cos(angolo), cuore.dy + a * math.sin(angolo) * 0.92);
+  /// **Non e' un ovale ruotato.** La larghezza sta al terzo della lunghezza, non
+  /// a meta': e' quello che da' la punta, e un petalo di loto e' appuntito.
+  Path _petalo(Offset cuore, double lungo, double largo, double angolo) {
+    final punta = Offset(cuore.dx + lungo * math.cos(angolo),
+        cuore.dy + lungo * math.sin(angolo));
     final normale = angolo + math.pi / 2;
-    final fianco = Offset(largo * math.cos(normale), largo * math.sin(normale));
-    final meta = Offset((base.dx + punta.dx) / 2, (base.dy + punta.dy) / 2);
+    final fianco =
+        Offset(largo * math.cos(normale), largo * math.sin(normale));
+    final terzo = Offset(cuore.dx + lungo * 0.34 * math.cos(angolo),
+        cuore.dy + lungo * 0.34 * math.sin(angolo));
     return Path()
-      ..moveTo(base.dx, base.dy)
+      ..moveTo(cuore.dx, cuore.dy)
+      ..quadraticBezierTo(terzo.dx + fianco.dx, terzo.dy + fianco.dy, punta.dx,
+          punta.dy)
       ..quadraticBezierTo(
-          meta.dx + fianco.dx, meta.dy + fianco.dy, punta.dx, punta.dy)
-      ..quadraticBezierTo(
-          meta.dx - fianco.dx, meta.dy - fianco.dy, base.dx, base.dy)
+          terzo.dx - fianco.dx, terzo.dy - fianco.dy, cuore.dx, cuore.dy)
       ..close();
   }
 
@@ -808,90 +926,70 @@ class PittoreDelLoto extends _PittoreDelSentiero {
     final cuore = Offset(GeometriaDelSentiero.cuoreDelLoto.dx * misura.width,
         GeometriaDelSentiero.cuoreDelLoto.dy * misura.height);
 
-    double raggioDi(int corona) => GeometriaDelSentiero.raggiDelLoto[corona] * c;
-    double partenzaDi(int corona) =>
-        corona == 0 ? c * 0.030 : raggioDi(corona - 1) * 0.86;
-
-    // 1. LO STELO, sempre visibile: il loto non galleggia da solo.
+    // 1. LO STELO, CORTO: e' un dettaglio in fondo e non la meta' del disegno.
+    //
+    // **Prima si prendeva mezza tela** e il fiore restava un francobollo in
+    // cima: il 58 per cento dell'altezza conquistato con la voce 01 deve andare
+    // al FIORE.
+    final fondo = misura.height * 0.98;
     final stelo = Path()
-      ..moveTo(cuore.dx, misura.height)
+      ..moveTo(cuore.dx, fondo)
       ..quadraticBezierTo(
-          cuore.dx + c * 0.06, misura.height * 0.78, cuore.dx, cuore.dy);
+          cuore.dx + c * 0.05, (fondo + cuore.dy) / 2, cuore.dx, cuore.dy);
     tela.drawPath(
         stelo,
         Paint()
           ..style = PaintingStyle.stroke
-          ..strokeWidth = c * 0.010
+          ..strokeWidth = c * 0.011
           ..strokeCap = StrokeCap.round
-          ..color = oroTenue.withValues(alpha: 0.50));
+          ..color = oroTenue.withValues(alpha: 0.55));
+    // Due foglie alla base dello stelo: un fiore esce da qualcosa.
+    for (final lato in const [-1.0, 1.0]) {
+      final foglia = _petalo(Offset(cuore.dx, fondo - c * 0.03), c * 0.10,
+          c * 0.030, lato > 0 ? -0.25 : math.pi + 0.25);
+      tela.drawPath(foglia, Paint()..color = oroTenue.withValues(alpha: 0.34));
+    }
 
-    // 2. L'OSSATURA, solo fra petali aperti: il giro si chiude man mano.
-    ossatura(tela, misura, GeometriaDelSentiero.ossatura(Sentiero.loto));
-
-    // 3. I PETALI, dalla corona piu' esterna verso il cuore, cosi' i vicini
-    // coprono i lontani come in un fiore vero.
-    final mini = punti.where((p) => !p.eGrande).toList()
-      ..sort((a, b) => b.gruppo.compareTo(a.gruppo));
-    for (final p in mini) {
+    // 2. I PETALI, dal giro piu' esterno al piu' interno: i vicini coprono i
+    // lontani, come in un fiore vero guardato di fronte.
+    final ordinati = punti.toList()
+      ..sort((a, b) => a.gruppo.compareTo(b.gruppo));
+    for (final p in ordinati) {
       final aperto = acceso(p);
-      final da = partenzaDi(p.gruppo);
-      final a = raggioDi(p.gruppo) * (aperto ? 1.0 : 0.84);
-      final largo = (a - da) * (aperto ? 0.62 : 0.34);
-      final via = _petalo(cuore, da, a, largo, p.angolo);
-      if (aperto) {
-        tela.drawPath(via, Paint()..color = oro.withValues(alpha: 0.30));
-        tela.drawPath(
-            via,
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = c * 0.0030
-              ..color = oro.withValues(alpha: 0.95));
-      } else {
-        // **UN PETALO CHIUSO E' UNA FORMA PIENA E TENUE, non un contorno
-        // vuoto**, ordine S voce 02: il contorno si legge come una casella da
-        // spuntare, e un fiore non ha caselle.
-        tela.drawPath(via, Paint()..color = oroTenue.withValues(alpha: 0.26));
-      }
+      final giro = p.gruppo;
+      final lungo = GeometriaDelSentiero.lunghezzaDelGiro[giro] *
+          c *
+          (aperto ? 1.0 : GeometriaDelSentiero.corpoDelPetaloChiuso);
+      final largo = lungo *
+          GeometriaDelSentiero.larghezzaDelGiro[giro] *
+          (aperto ? 1.0 : GeometriaDelSentiero.larghezzaDelPetaloChiuso);
+      final angolo =
+          GeometriaDelSentiero.angoloDelPetalo(p.angolo, aperto: aperto);
+      final via = _petalo(cuore, lungo, largo, angolo);
       if (p.traguardo.id == evidenziato) {
         alone(tela, assoluto(p, misura), p.raggio * c);
       }
-    }
-
-    // 3. LE CINQUE FIORITURE: un petalo piu' grande in cima alla sua corona,
-    // e non piu' un anello geometrico intero. L'anello tagliava il fiore da
-    // parte a parte e si leggeva come una circonferenza, non come un livello
-    // di apertura.
-    for (final p in punti.where((p) => p.eGrande)) {
-      final centro = assoluto(p, misura);
-      final r = p.raggio * c;
-      if (p.traguardo.id == evidenziato) alone(tela, centro, r);
-      final da = partenzaDi(p.gruppo);
-      final a = raggioDi(p.gruppo) * 1.05;
-      final via = _petalo(cuore, da, a, (a - da) * 0.44, p.angolo);
-      if (acceso(p)) {
-        tela.drawPath(via, Paint()..color = oro.withValues(alpha: 0.42));
+      if (aperto) {
+        tela.drawPath(via, Paint()..color = oro.withValues(alpha: 0.34));
         tela.drawPath(
             via,
             Paint()
               ..style = PaintingStyle.stroke
-              ..strokeWidth = c * 0.0044
-              ..color = Colors.white.withValues(alpha: 0.90));
+              ..strokeWidth =
+                  c * (p.eGrande ? 0.0044 : 0.0028)
+              ..color = p.eGrande
+                  ? Colors.white.withValues(alpha: 0.92)
+                  : oro.withValues(alpha: 0.92));
       } else {
-        // La Fioritura chiusa e' piu' presente delle altre, perche' e' una delle
-        // cinque che reggono il fiore, ma resta una forma piena.
-        tela.drawPath(via, Paint()..color = oroTenue.withValues(alpha: 0.38));
+        // **CHIUSO E' CHIUSO**: forma piena e tenue, stretta ed eretta. A zero
+        // traguardi tutti insieme fanno un bocciolo.
+        tela.drawPath(via,
+            Paint()..color = oroTenue.withValues(alpha: p.eGrande ? 0.38 : 0.26));
       }
     }
 
-    // 4. IL CUORE del fiore, sempre.
+    // 3. IL CUORE del fiore, sempre: e' il punto da cui tutto parte.
     tela.drawCircle(
-        cuore, c * 0.022, Paint()..color = oro.withValues(alpha: 0.70));
-    tela.drawCircle(
-        cuore,
-        c * 0.022,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = c * 0.003
-          ..color = Colors.white.withValues(alpha: 0.55));
+        cuore, c * 0.013, Paint()..color = oro.withValues(alpha: 0.72));
   }
 }

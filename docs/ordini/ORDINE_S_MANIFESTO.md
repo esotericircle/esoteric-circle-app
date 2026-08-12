@@ -50,13 +50,32 @@ chiusa: committare non e' consegnare.
     punti invece di 0, e a 3.216 con Riduci Movimento.
   - Anteprime rigenerate e GUARDATE: `docs/preview/sentiero-costellazione-apertura.png`,
     `-albero-`, `-loto-`.
-- **S.02** I tre disegni sono fatti bene — APERTA
-  - **Il lavoro e' fatto e committato, la voce resta aperta per una ragione
-    sola**: il criterio di giudizio chiede di GUARDARE tre anteprime per
-    sentiero, nove in tutto, e ne ho guardate sei. Restano
-    `sentiero-albero-zero`, `sentiero-albero-meta` e `sentiero-loto-zero`.
-    Dichiararla chiusa avendone guardate sei su nove sarebbe la cosa che questo
-    progetto non fa.
+- **S.02** I tre disegni sono fatti bene — CHIUSA
+  - **Tutte e nove le anteprime rigenerate e GUARDATE**, e il giudizio sulle tre
+    domande del criterio sta nel rapporto, sentiero per sentiero e stato per
+    stato. La prima stesura della voce era stata dichiarata con sei anteprime
+    guardate su nove, ed e' rimasta aperta finche' non sono state nove.
+  - **Quattro difetti trovati dall'Architetto sulle tre anteprime che
+    mancavano**, e tutti e quattro corretti: l'Albero era un'antenna, il Loto
+    aveva il fiore GIA' APERTO a zero, il Loto era un soffione (e il soffione
+    nell'app esiste gia', e' il Soffio del Destino), lo stelo si prendeva mezza
+    altezza.
+  - L'ALBERO: il tronco si assottiglia salendo e non sporge oltre il primo e
+    l'ultimo nodo; i rami CURVANO, si alternano in altezza invece di specchiarsi
+    a coppie, e si assottigliano verso la punta; alla base ci sono le radici,
+    perche' un albero che finisce nel vuoto galleggia; il tronco si ACCENDE fino
+    a dove sei arrivato, ed e' per questo che l'ossatura non porta segmenti fra
+    le Sefirot: sono il tronco. Via il cerchietto bianco spostato dentro i nodi,
+    che sui grandi si leggeva come una mezzaluna appiccicata.
+  - IL LOTO: pochi petali larghi e appuntiti su cinque giri di forma DIVERSA, non
+    la stessa forma ruotata; i giri sono 6, 8, 10, 12 e 14 mini piu' il petalo
+    centrale che e' il grande, e fanno cinquanta esatti. **Un petalo chiuso e'
+    chiuso**: piu' corto, piu' stretto e tirato verso il verticale, quindi a zero
+    si vede un BOCCIOLO. Il fiore prende l'altezza e lo stelo e' il dettaglio in
+    fondo che era.
+  - Numeri corretti dopo una prova rossa della voce P.33: col giro esterno a 0,52
+    del lato corto i petali estremi uscivano dalla tela, cinquanta pixel sui
+    fianchi misurati. Adesso 0,40 e il fiore ci sta dentro.
   - UNA FIGURA SOLA, non cinque figurine: i cinque principali stanno su una
     SPINA e ogni parte cresce da lei con due braccia. I cinque grandi sono le
     stelle che reggono la forma, i cinquanta mini la riempiono.
@@ -252,6 +271,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 1
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

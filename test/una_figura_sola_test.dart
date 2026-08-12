@@ -178,24 +178,19 @@ void main() {
         final piena = await dipingi(sentiero, tutti);
         final punti = GeometriaDelSentiero.punti(sentiero);
         final fermi = <String>[];
-        // **SI GUARDA IN MEZZO AL PETALO, non sulla sua punta.** Il punto di un
-        // petalo sta sulla punta, e la' i petali dei giri vicini si
-        // sovrappongono: una punta coperta da un petalo interno non cambia
-        // aprendosi, e la prova accuserebbe il fiore per una cosa giusta. Il
-        // corpo del petalo va dal raggio del giro di sotto al suo.
+        // **SI GUARDA DOVE IL PETALO APERTO ARRIVA, e non dove sta chiuso.**
+        // Un petalo chiuso e' corto, stretto ed eretto: il posto dove finira'
+        // quando si apre e' vuoto adesso, e pieno dopo. E' la traduzione esatta
+        // di "i petali si aprono".
         const c = 360.0;
         final cuore = Offset(GeometriaDelSentiero.cuoreDelLoto.dx * 360,
             GeometriaDelSentiero.cuoreDelLoto.dy * 520);
         for (final punto in punti) {
-          final g = punto.gruppo;
-          final da = g == 0
-              ? 0.030
-              : GeometriaDelSentiero.raggiDelLoto[g - 1] * 0.86;
-          final a = GeometriaDelSentiero.raggiDelLoto[g];
-          final mezzo = (da + a) / 2 * c;
+          final lungo =
+              GeometriaDelSentiero.lunghezzaDelGiro[punto.gruppo] * c * 0.72;
           final dove = Offset(
-            cuore.dx + mezzo * math.cos(punto.angolo),
-            cuore.dy + mezzo * math.sin(punto.angolo) * 0.92,
+            cuore.dx + lungo * math.cos(punto.angolo),
+            cuore.dy + lungo * math.sin(punto.angolo),
           );
           final comparsa = luceAttorno(piena, dove) - luceAttorno(buio, dove);
           if (comparsa < 25) fermi.add('${punto.traguardo.id} a $comparsa');
