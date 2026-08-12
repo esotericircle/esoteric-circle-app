@@ -16,6 +16,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -144,7 +145,7 @@ void main() {
                   initial: const ThemeKey.of(Maestro.caligo))),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ParallaxController()),
-          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => EntitlementService(initial: Tier.tier1, )),
         ChangeNotifierProvider(create: (_) => QuestionAllowance()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
           ChangeNotifierProvider(create: (_) => SettingsController()),

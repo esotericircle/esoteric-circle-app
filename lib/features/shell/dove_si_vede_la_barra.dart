@@ -47,10 +47,14 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   // Il Consiglio: la classe si chiama ancora AskMaestriScreen,
   // dal nome che la funzione aveva prima.
   'AskMaestriScreen': PresenzaDellaBarra.presente,
+  // I SENTIERI DEI SIGILLI, ordine O: si aprono dal Passaporto e sono un
+  // luogo dove si guarda il proprio cammino, non uno da cui si naviga: la
+  // barra non li accompagna, come per le altre scene d'arte.
 
   // --- I CINQUE DONI DEL GIORNO ------------------------------------------
   // Ognuno e' un appuntamento che si compie con un gesto: la barra li
   // interromperebbe proprio mentre il gesto e' in corso.
+  'SentieroScreen': PresenzaDellaBarra.assente,
   'DawnRiteScreen': PresenzaDellaBarra.assente,
   'BreathDestinyScreen': PresenzaDellaBarra.assente,
   'DayOracleScreen': PresenzaDellaBarra.assente,

@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 136 -->
-<!-- FILE_CON_VUOTI: 52 -->
+<!-- VUOTI_CENSITI: 138 -->
+<!-- FILE_CON_VUOTI: 54 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **136** |
-| File che ne contengono | **52** |
+| Vuoti verticali dichiarati | **138** |
+| File che ne contengono | **54** |
 | Oltre la soglia di 48 punti | **2** |
 
 ## Da dove viene la soglia
@@ -22,9 +22,9 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 64 |
+| 2 | 65 |
 | 3 | 8 |
-| 4 | 26 |
+| 4 | 27 |
 | 5 | 1 |
 | 6 | 15 |
 | 7 | 2 |
@@ -98,5 +98,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/onboarding/onboarding_screen.dart` | 1 | 0 |
 | `lib/features/onboarding/riquadro_della_scelta.dart` | 1 | 0 |
 | `lib/features/rituals/dream_rite_card.dart` | 1 | 0 |
+| `lib/features/sigilli/celebrazione.dart` | 1 | 0 |
+| `lib/features/sigilli/sentiero_screen.dart` | 1 | 0 |
 | `lib/features/synastry/sinastria_gallery_screen.dart` | 1 | 0 |
 | `lib/features/tarot/stesa_fan.dart` | 1 | 0 |

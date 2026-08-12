@@ -86,7 +86,7 @@ final List<Traguardo> sentieroDellAlbero = [
       9),
   _t('cal_10', 'La Luna calante', FamigliaDelTraguardo.cielo,
       const FinestraDelCielo(EventiDelCielo.lunaCalante, conGesto: 'sogno'),
-      'Hai sognato mentre la Luna calava: è la fase che porta via, e tu le hai dato qualcosa.',
+      'Hai sognato mentre la Luna calava: è la fase che porta via: tu le hai affidato qualcosa.',
       10),
   _t('cal_11', 'Le rune ricordano', FamigliaDelTraguardo.memoria,
       const MemoriaDelCerchio('momenti', 12),

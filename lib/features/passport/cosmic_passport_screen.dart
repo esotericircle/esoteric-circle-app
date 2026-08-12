@@ -385,8 +385,8 @@ class _AngelsCard extends StatelessWidget {
           ? 'Custode, Cuore e Intelletto: i tre che ti accompagnano.'
           : 'Custode e Cuore. Il terzo arriva con l\'ora di nascita.',
       isExample: identity.isExample,
-      onTap: () => Navigator.of(context)
-          .push(AngelsScreen.route(identity: identity)),
+      onTap: () =>
+          Navigator.of(context).push(AngelsScreen.route(identity: identity)),
       // L'angelo e' una CARTA: rettangolare verticale. In un quadrato da 52
       // con `cover` la figura veniva mozzata sui lati, e la cornice sparita.
       emblem: MiniaturaIntera.carta(
@@ -656,7 +656,8 @@ class _LifePathSigil extends CustomPainter {
     for (var i = 0; i < ticks; i++) {
       final a = 2 * math.pi * i / ticks - math.pi / 2;
       final dir = Offset(math.cos(a), math.sin(a));
-      canvas.drawLine(center + dir * (r * 0.9), center + dir * (r * 0.99), tick);
+      canvas.drawLine(
+          center + dir * (r * 0.9), center + dir * (r * 0.99), tick);
     }
 
     // La cifra al centro, in Cinzel.
@@ -760,8 +761,8 @@ class _TesseraArchetipo extends StatelessWidget {
               // `cover` le taglia i bordi. Lo dice una prova che enumera tutti
               // i punti dove queste immagini compaiono, e l'ha presa.
               fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) => Icon(Icons.psychology_alt,
-                  color: palette.goldSoft, size: 28),
+              errorBuilder: (_, __, ___) =>
+                  Icon(Icons.psychology_alt, color: palette.goldSoft, size: 28),
             ),
           ),
           const SizedBox(width: SpacingTokens.md),
@@ -775,8 +776,7 @@ class _TesseraArchetipo extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
                     child: Text('Archetipo',
-                        maxLines: 1,
-                        style: TypographyTokens.display(size: 18)),
+                        maxLines: 1, style: TypographyTokens.display(size: 18)),
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -897,34 +897,41 @@ class _SentieriDelCammino extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      key: const Key('sentieri_del_cammino'),
-      children: [
-        for (final sentiero in Sentieri.tutti) ...[
-          ListTile(
-            key: Key('porta_${sentiero.name}'),
-            leading: Icon(
-              switch (sentiero) {
-                Sentiero.costellazione => Icons.star_rounded,
-                Sentiero.albero => Icons.spa_rounded,
-                Sentiero.loto => Icons.local_florist_rounded,
-              },
-              color: ColorTokens.goldLight,
+    // IL MATERIAL SOPRA LE TRE PORTE: il Passaporto e' contenuto puro, senza
+    // Scaffold, e un ListTile senza Material sopra fa cadere l'intera
+    // schermata. Lo ha trovato la cattura del Passport, non una prova di
+    // questo lavoro.
+    return Material(
+      type: MaterialType.transparency,
+      child: Column(
+        key: const Key('sentieri_del_cammino'),
+        children: [
+          for (final sentiero in Sentieri.tutti) ...[
+            ListTile(
+              key: Key('porta_${sentiero.name}'),
+              leading: Icon(
+                switch (sentiero) {
+                  Sentiero.costellazione => Icons.star_rounded,
+                  Sentiero.albero => Icons.spa_rounded,
+                  Sentiero.loto => Icons.local_florist_rounded,
+                },
+                color: ColorTokens.goldLight,
+              ),
+              title:
+                  Text(sentiero.titolo, style: TypographyTokens.titoloScheda()),
+              subtitle: Text(
+                'I tuoi ${sentiero.nomeDelMini}: cinquanta piccoli con cinque grandi',
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+              trailing: const Icon(Icons.chevron_right_rounded,
+                  color: ColorTokens.goldLight),
+              onTap: () =>
+                  Navigator.of(context).push(SentieroScreen.route(sentiero)),
             ),
-            title: Text(sentiero.titolo,
-                style: TypographyTokens.titoloScheda()),
-            subtitle: Text(
-              'I tuoi ${sentiero.nomeDelMini}: cinquanta, e cinque grandi',
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: ColorTokens.textSecondary),
-            ),
-            trailing: const Icon(Icons.chevron_right_rounded,
-                color: ColorTokens.goldLight),
-            onTap: () =>
-                Navigator.of(context).push(SentieroScreen.route(sentiero)),
-          ),
+          ],
         ],
-      ],
+      ),
     );
   }
 }

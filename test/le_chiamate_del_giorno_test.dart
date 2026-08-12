@@ -170,8 +170,11 @@ void main() {
               'delle gettate, non dell\'oroscopo.');
     });
 
-    test('il numero vive in un dato solo, e vale due', () {
-      expect(AvvisiDelRito.chiamateAlGiorno, 2,
+    test('il numero vive in un dato solo, e vale tre', () {
+      // TRE dall'ordine O del 12 agosto 2026, per decisione di Mauro: erano
+      // due, e la terza voce e' il traguardo a un passo, che parte solo se un
+      // traguardo e' davvero vicino.
+      expect(AvvisiDelRito.chiamateAlGiorno, 3,
           reason: 'Il numero delle chiamate del giorno e\' un dato di '
               'prodotto: se cambia, deve cambiare per scelta e non per caso.');
     });

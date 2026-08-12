@@ -100,17 +100,19 @@ class _SentieroScreenState extends State<SentieroScreen> {
       seed: 19,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
+        // LA BARRA UNICA DELLE ARTI, non una AppBar montata a mano: e' la
+        // regola che tiene insieme il cuore delle arti preferite e le azioni
+        // di ogni schermata, e una barra fatta in casa e' il modo in cui il
+        // difetto era nato la prima volta.
+        appBar: BarraArte(
           // IL TITOLO INTERO, e non tagliato: "Costellazione pers..." era
           // quello che si leggeva nell'anteprima, e un titolo troncato dice
           // che la schermata non e' finita.
-          title: Text(widget.sentiero.titolo,
+          titolo: Text(widget.sentiero.titolo,
               maxLines: 2,
               style: TypographyTokens.titoloScheda()
                   .copyWith(color: palette.goldSoft)),
-          actions: [
+          azioni: [
             // IL SALDO EOS, che legge dal server e non finge: finche' le
             // funzioni non sono distribuite mostra l'ultimo saldo noto.
             Padding(
@@ -274,7 +276,7 @@ class _GradinoDelSentiero extends StatelessWidget {
                       message:
                           'I primi venti traguardi di ogni sentiero sono di '
                           'tutti. Dal ventunesimo il cammino prosegue con '
-                          'l\'Iniziato, e gli Eos che hai già preso restano '
+                          'l\'Iniziato: gli Eos che hai già preso restano '
                           'tuoi per sempre.',
                     )
                 : null,

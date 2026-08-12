@@ -179,7 +179,11 @@ void main() {
     // niente a nessun controller. Il conto torna a undici da una strada
     // diversa, e queste due righe di storia servono a non farlo sembrare un
     // caso.
-    expect(elenco.length, 11,
+    // DODICI dall'ordine O del 12 agosto 2026: la regia dei Sigilli del
+    // Cammino chiede la carta natale per sapere se un traguardo del cielo si
+    // e' acceso, e la chiede alla porta unica come tutti gli altri. E' un
+    // consumatore vero, non un passante: entra nel conto.
+    expect(elenco.length, 12,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
             '${elenco.length} invece di 12:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
