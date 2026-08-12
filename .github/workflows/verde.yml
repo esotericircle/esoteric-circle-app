@@ -6,8 +6,11 @@
 # leggibile anche dal telefono guardando la spunta verde su GitHub: il codice
 # sul branch e' ancora sano?
 #
-# La build dell'APK resta in android-build.yml, le anteprime in
-# chat-screenshot.yml. Qui non si tocca l'albero: i test di cattura scrivono in
+# La build dell'APK resta in android-build.yml. Le anteprime NON le fa nessuna
+# azione: l'azione che le rigenerava e le committava da sola sul ramo canonico e'
+# stata disattivata e tolta dal repository il 12 agosto 2026, dopo due conflitti.
+# Si rigenerano da chi lavora, con AGGIORNA_ANTEPRIME=1, e finiscono nello stesso
+# commit del codice. Qui non si tocca l'albero: i test di cattura scrivono in
 # build/preview, che non e' versionata.
 name: Verde di base (analyze e test)
 
