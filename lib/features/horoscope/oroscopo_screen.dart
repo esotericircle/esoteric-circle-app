@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../sigilli/regia_del_cammino.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/entitlement/entitlement_service.dart';
@@ -125,6 +126,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       _interrogato = true;
       _interrogazione = true;
     });
+    // L'OROSCOPO ENTRA NEL CAMMINO, ordine P voce 35. Il gesto e'
+    // l'interrogazione del cielo, non l'apertura della scena: una scena si
+    // apre anche per sbaglio, un'interrogazione no.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'oroscopo'));
     // Con Riduci Movimento non c'e' pulsazione da aspettare: il responso
     // compare intero, subito.
     if (MediaQuery.of(context).disableAnimations) {

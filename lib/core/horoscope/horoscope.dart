@@ -69,6 +69,24 @@ class HoroscopeCard {
   /// c'era una carta natale da interrogare. Chi mostra la scheda deve
   /// dichiararlo, e c'e' una prova che casca se non lo fa.
   final bool dalCieloVero;
+
+  /// LA RIGA DEL CIELO, separata dalla sintesi dell'ancora. Ordine P voce 25.
+  ///
+  /// **Non e' un campo nuovo: e' il testo che c'e' gia', letto per quello che
+  /// e'.** Il testo di una scheda nasce come sintesi dell'ancora piu' la riga
+  /// del cielo di oggi, e la sintesi la scheda ce l'ha per suo conto: la riga
+  /// del cielo e' cio' che resta. Aggiungere un campo avrebbe voluto dire
+  /// scrivere due volte la stessa stringa.
+  ///
+  /// Nulla quando la scheda non viene dal cielo vero: in quel caso non c'e'
+  /// nessun transito da mostrare, e mostrarne uno finto sarebbe peggio di non
+  /// mostrarlo.
+  String? get rigaDelCielo {
+    if (!dalCieloVero) return null;
+    if (!text.startsWith(synthesis)) return null;
+    final resto = text.substring(synthesis.length).trim();
+    return resto.isEmpty ? null : resto;
+  }
 }
 
 /// La composizione deterministica dell'Oroscopo a quattro schede.

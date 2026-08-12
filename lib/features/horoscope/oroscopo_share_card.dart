@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../core/astro/zodiac.dart';
 import '../../core/horoscope/horoscope.dart';
@@ -15,12 +14,57 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'horoscope_visuals.dart';
 import 'oroscopo_colors.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
 
 /// La card verticale condivisibile dell'Oroscopo, formato storia social:
 /// emblema e nome del segno, la riga di sintesi (ancora del Generale), le quattro
 /// schede in forma compatta con la loro forma a tema e il livello col numero,
 /// numero fortunato e colore del giorno, marchio e deep link. Tutto
 /// deterministico.
+/// LE DUE PROPOSTE PER FAR ENTRARE IL TRANSITO NELLA CARD. Ordine P voce 25.
+///
+/// **Il difetto.** La card mostra la sola frase del segno: il transito vero, nel
+/// solo posto in cui l'Oroscopo diventa un'immagine che la gente manda agli
+/// altri, non compare. Quindi cio' che si condivide e' la parte generica, e la
+/// parte che nessun'altra app puo' dare resta dentro l'app.
+///
+/// **Non si decide da soli.** Farlo entrare e' una scelta di composizione
+/// visiva, e la scelta e' di Mauro: qui ci sono due modi, montati entrambi, e
+/// nient'altro. Finche' Mauro non sceglie, la card resta quella di prima:
+/// [DisposizioneDelTransito.assente] e' il valore di difetto, quindi l'app non
+/// cambia di un pixel.
+enum DisposizioneDelTransito {
+  /// Come oggi: il transito non entra. E' il difetto della voce 25, e resta il
+  /// valore di partenza finche' la scelta non e' stata fatta.
+  assente,
+
+  /// PROPOSTA A, LA RIGA SOTTO LA SINTESI.
+  ///
+  /// Il transito e' una riga in oro sotto la bolla della sintesi, con un glifo
+  /// piccolo davanti. Non tocca la gerarchia: l'emblema resta il colpo
+  /// d'occhio, la sintesi resta la frase che si legge, e il cielo e' la firma
+  /// che dice da dove viene. Costa tre righe di altezza.
+  rigaSottoLaSintesi,
+
+  /// PROPOSTA B, LA FASCIA IN CIMA.
+  ///
+  /// Il transito e' una fascia sopra l'emblema, con la sua etichetta IL CIELO DI
+  /// OGGI. Cambia la gerarchia: la prima cosa che si legge non e' piu' il segno
+  /// ma il cielo, e il segno diventa la risposta. Piu' forte e piu' rischiosa:
+  /// chi condivide sta condividendo il proprio segno, e questa disposizione mette
+  /// il segno al secondo posto.
+  ///
+  /// **UNA CONSEGUENZA VISTA GUARDANDO L'ANTEPRIMA, e va detta perche' pesa
+  /// sulla scelta.** Sotto l'etichetta la riga si ripete: la giuntura che apre
+  /// il transito dice a parole quello che l'etichetta dice sopra, quindi si
+  /// legge IL CIELO DI OGGI e subito sotto "Il cielo di oggi lo dice cosi'".
+  /// Non e' un difetto di questa disposizione, e' il suo prezzo: la giuntura
+  /// serve dentro un testo che scorre e diventa un doppione sotto un titolo.
+  /// Sceglierla vuol dire togliere la giuntura dalla riga della card, e le
+  /// giunture sono testo, cioe' materiale di Mauro.
+  fasciaInCima,
+}
+
 class OroscopoShareCard extends StatelessWidget {
   const OroscopoShareCard({
     super.key,
@@ -28,7 +72,13 @@ class OroscopoShareCard extends StatelessWidget {
     required this.cards,
     required this.palette,
     this.width = 360,
+    this.transito = DisposizioneDelTransito.assente,
   });
+
+  /// COME IL TRANSITO ENTRA NELLA CARD, o se non entra. Ordine P voce 25: il
+  /// valore di difetto e' l'assenza, cioe' la card di oggi, finche' Mauro non
+  /// sceglie fra le due proposte.
+  final DisposizioneDelTransito transito;
 
   final Zodiac sign;
   final List<HoroscopeCard> cards;
@@ -46,6 +96,11 @@ class OroscopoShareCard extends StatelessWidget {
     final synthesis = cards
         .firstWhere((c) => c.domain == HoroscopeDomain.generale)
         .synthesis;
+    // LA RIGA DEL CIELO, dalla scheda Generale: la stessa che l'app mostra
+    // dentro, non una seconda composizione.
+    final rigaDelCielo = cards
+        .firstWhere((c) => c.domain == HoroscopeDomain.generale)
+        .rigaDelCielo;
     const still = AlwaysStoppedAnimation<double>(0.5);
 
     return Container(
@@ -68,6 +123,32 @@ class OroscopoShareCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          if (transito == DisposizioneDelTransito.fasciaInCima &&
+              rigaDelCielo != null) ...[
+            Container(
+              key: const Key('share_transito_fascia'),
+              padding: const EdgeInsets.all(SpacingTokens.sm),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                color: palette.primary.withValues(alpha: 0.5),
+                border:
+                    Border.all(color: palette.gold.withValues(alpha: 0.55)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('IL CIELO DI OGGI',
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette.goldSoft, letterSpacing: 2.0)),
+                  const SizedBox(height: SpacingTokens.xxs),
+                  Text(rigaDelCielo,
+                      style: TypographyTokens.didascalia().copyWith(
+                          color: ColorTokens.textPrimary, height: 1.35)),
+                ],
+              ),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+          ],
           Text('OROSCOPO',
               textAlign: TextAlign.center,
               style: TypographyTokens.etichetta()
@@ -110,6 +191,24 @@ class OroscopoShareCard extends StatelessWidget {
                 style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
           ),
+          if (transito == DisposizioneDelTransito.rigaSottoLaSintesi &&
+              rigaDelCielo != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Row(
+              key: const Key('share_transito_riga'),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.auto_awesome,
+                    size: 14, color: palette.goldSoft),
+                const SizedBox(width: SpacingTokens.xxs),
+                Expanded(
+                  child: Text(rigaDelCielo,
+                      style: TypographyTokens.didascalia().copyWith(
+                          color: palette.goldSoft, height: 1.35)),
+                ),
+              ],
+            ),
+          ],
           const SizedBox(height: SpacingTokens.md),
           // Le quattro bolle, ognuna con la sua forma a tema e il livello.
           IntrinsicHeight(
@@ -302,8 +401,6 @@ Future<bool> shareOroscopoCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/oroscopo_card.png');
   await file.writeAsBytes(png, flush: true);
-  await SharePlus.instance.share(
-    ShareParams(files: [XFile(file.path)], text: text),
-  );
+  await PortaDellaCondivisione.daFile(file.path, testo: text);
   return true;
 }
