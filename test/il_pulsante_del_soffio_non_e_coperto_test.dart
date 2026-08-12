@@ -2,8 +2,11 @@ import 'package:esoteric_circle/core/rituals/tempi_del_respiro.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'attorno_al_soffio.dart';
 
 /// IL PULSANTE DEL SOFFIO NON LO TAGLIA NESSUNO.
 ///
@@ -31,14 +34,12 @@ void main() {
     // stato e in fondo quella di navigazione, cioe' una quarantina di punti
     // in meno, ed e' li' che il pulsante entrava sotto la scheda. Senza
     // questi inserti la prova misurerebbe un telefono che non esiste.
-    await tester.pumpWidget(MaterialApp(
-      home: MediaQuery(
-        data: const MediaQueryData(
-          size: Size(360, 797),
-          padding: EdgeInsets.only(top: 40, bottom: 24),
-        ),
-        child: BreathDestinyScreen(now: DateTime(2026, 8, 7, 10, 30)),
-      ),
+    // Gli inserti restano quelli, e passano dall'impalcatura unica: la voce 26
+    // ha portato il cosmo condiviso dentro il Soffio, e con lui lo scope.
+    await tester.pumpWidget(attornoAlSoffio(
+      BreathDestinyScreen(now: DateTime(2026, 8, 7, 10, 30)),
+      finestra: const Size(360, 797),
+      rientri: const EdgeInsets.only(top: 40, bottom: 24),
     ));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));

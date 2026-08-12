@@ -3,8 +3,11 @@ import 'package:esoteric_circle/design_system/theme/accento_del_maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'attorno_al_soffio.dart';
 
 /// IL SOFFIO SI DEVE LEGGERE, e le cose si misurano.
 ///
@@ -85,10 +88,14 @@ void main() {
     addTearDown(tester.view.reset);
     SharedPreferences.setMockInitialValues({});
 
-    // Senza `MaestroScope` attorno: la schermata legge la palette di Aura da
-    // se', e lo scope pretenderebbe un `MaestroController` che qui non serve.
-    await tester.pumpWidget(MaterialApp(
-      home: BreathDestinyScreen(now: DateTime(2026, 8, 6, 10, 30)),
+    // L'IMPALCATURA VIVE IN UN PUNTO SOLO, ordine P voce 26. Qui c'era un
+    // `MaterialApp` nudo, e il commento diceva che lo scope non serviva: era
+    // vero finche' il Soffio si dipingeva il prato da se'. Adesso il fondale e'
+    // il cosmo condiviso, che pretende lo scope e i suoi controller, ed e'
+    // questo il costo vero della voce 26.
+    await tester.pumpWidget(attornoAlSoffio(
+      BreathDestinyScreen(now: DateTime(2026, 8, 6, 10, 30)),
+      finestra: const Size(360, 797),
     ));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
@@ -109,7 +116,15 @@ void main() {
       return;
     }
 
-    final scena = tester.getRect(find.byType(Stack).first);
+    // SI CHIEDE ALLA SCENA PER NOME, non al primo Stack dell'albero.
+    //
+    // **La misura era fragile e la voce 26 l'ha fatta cadere.** `Stack.first`
+    // era questa scena finche' la schermata cominciava col suo Scaffold; col
+    // cosmo condiviso davanti il primo Stack e' quello del cosmo, alto 797
+    // invece di 741 e ancorato a zero invece che sotto la barra. La prova
+    // dichiarava 41,4 punti di scarto mentre l'anello era centrato: misurava
+    // un altro riquadro. Cambiata la grandezza misurata, non la soglia.
+    final scena = tester.getRect(find.byKey(const Key('soffio_scena')));
     final centroAnello = tester.getCenter(figura);
     final voluto = SuperficiDelSoffio.discoDentro(scena.size);
     final scarto = (centroAnello.dy - scena.top) - voluto.dy;

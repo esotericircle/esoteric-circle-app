@@ -6,7 +6,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:record/record.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
@@ -19,6 +18,7 @@ import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/ritual_streak.dart';
 import '../../design_system/components/guida_del_respiro.dart';
 import '../../design_system/theme/accento_del_maestro.dart';
+import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../sigilli/regia_del_cammino.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -31,6 +31,7 @@ import '../../core/astro/natal_chart_controller.dart';
 import '../../core/horoscope/cielo_di_oggi.dart';
 import '../../core/rituals/risposta_del_soffio.dart';
 import 'ritual_gift_card.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
 
 /// Soffio del Destino, dominio Aura.
 ///
@@ -131,7 +132,9 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   Animation<double>? _disperseAnim;
   late final AnimationController _ambient; // brezza e brillio
 
-  ui.Image? _meadowImg;
+  // IL PRATO NON SI CARICA PIU', ordine P voce 26: il fondale e' il cosmo
+  // condiviso, e un asset che nessuno dipinge sarebbe memoria decodificata per
+  // niente.
   ui.Image? _dandelionImg;
 
   final AudioRecorder _recorder = AudioRecorder();
@@ -162,15 +165,10 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
 
   Future<void> _loadLayers() async {
     try {
-      final imgs = await Future.wait([
-        _resolveAsset('assets/ritual_backgrounds/breath_meadow.png'),
-        _resolveAsset('assets/ritual_backgrounds/breath_dandelion.png'),
-      ]);
+      final soffione =
+          await _resolveAsset('assets/ritual_backgrounds/breath_dandelion.png');
       if (!mounted) return;
-      setState(() {
-        _meadowImg = imgs[0];
-        _dandelionImg = imgs[1];
-      });
+      setState(() => _dandelionImg = soffione);
     } catch (_) {
       // Senza livelli il motore non disegna la scena, ma il rito resta
       // compibile col ripiego e il dono appare comunque.
@@ -240,7 +238,6 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     _stopMic();
     _disperse.dispose();
     _ambient.dispose();
-    _meadowImg?.dispose();
     _dandelionImg?.dispose();
     super.dispose();
   }
@@ -342,12 +339,8 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     final word = gift.word;
     if (word == null) return;
     try {
-      await SharePlus.instance.share(
-        ShareParams(
-          text: 'La mia parola del giorno dal Soffio del Destino: $word. '
-              '${gift.orientation} Con Esoteric Circle.',
-        ),
-      );
+      await PortaDellaCondivisione.testo('La mia parola del giorno dal Soffio del Destino: $word. '
+              '${gift.orientation} Con Esoteric Circle.');
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -394,8 +387,14 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     // davvero: durante il build hanno ancora la misura del giro precedente.
     WidgetsBinding.instance.addPostFrameCallback((_) => _allineaLAnello());
 
-    return Scaffold(
-      backgroundColor: ColorTokens.neutralDeepest,
+    // IL FONDALE E' IL COSMO CONDIVISO, ordine P voce 26. Prima il Soffio si
+    // dipingeva un prato suo dentro il pittore della scena: adesso passa da
+    // `CosmosBackground`, la stessa porta del Rito del Sogno, quindi il cielo in
+    // parallasse arriva anche qui e non c'e' un secondo fondale da mantenere.
+    return CosmosBackground(
+      seed: 31,
+      child: Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: palette.deepest.withValues(alpha: 0.4),
         elevation: 0,
@@ -408,7 +407,21 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
         title:
             Text('Soffio del Destino', style: TypographyTokens.display(size: 20)),
       ),
-      body: Stack(
+      // LA SCENA HA UN NOME, ordine P voce 26.
+      //
+      // **Non e' una comodita' per le prove: e' la correzione di una misura
+      // fragile.** La prova della concentricita' prendeva `Stack.first`, cioe'
+      // il primo Stack che incontrava scendendo nell'albero, e finche' la
+      // schermata cominciava col suo Scaffold quello era questa scena. Col cosmo
+      // condiviso davanti il primo Stack e' quello del cosmo, alto 797 invece di
+      // 741 e ancorato a zero invece che sotto la barra: la prova misurava un
+      // altro riquadro e dichiarava 41,4 punti di scarto mentre l'anello era
+      // centrato. L'inseguimento, misurato, converge a zero.
+      //
+      // Un riquadro che una prova deve misurare si chiama per nome.
+      body: KeyedSubtree(
+        key: const Key('soffio_scena'),
+        child: Stack(
         key: _scena,
         fit: StackFit.expand,
         children: [
@@ -422,7 +435,6 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                     ambient: _reduceMotion ? 0 : _ambient.value,
                     reduceMotion: _reduceMotion,
                     palette: palette,
-                    meadow: _meadowImg,
                     dandelion: _dandelionImg,
                   ),
                 ),
@@ -551,6 +563,8 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
             ),
           ),
         ],
+        ),
+      ),
       ),
     );
   }
@@ -676,7 +690,6 @@ class _BreathScenePainter extends CustomPainter {
     required this.ambient,
     required this.reduceMotion,
     required this.palette,
-    required this.meadow,
     required this.dandelion,
   });
 
@@ -684,7 +697,6 @@ class _BreathScenePainter extends CustomPainter {
   final double ambient;
   final bool reduceMotion;
   final MaestroPalette palette;
-  final ui.Image? meadow;
   final ui.Image? dandelion;
 
   // Testa del soffione nell'immagine (centro e raggio come frazioni).
@@ -694,14 +706,24 @@ class _BreathScenePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final meadow = this.meadow, dandelion = this.dandelion;
-    if (meadow == null || dandelion == null) return;
+    // IL PRATO NON SI DIPINGE PIU' QUI, ordine P voce 26.
+    //
+    // **Non era un fondale: era un LIVELLO dentro questo pittore**, che sulla
+    // stessa tela disegna anche il soffione e i semi che volano al soffio,
+    // cioe' il gesto del rito. Per questo toglierlo obbligava a decidere cosa
+    // succede al soffione, e per questo era rimasto due volte.
+    //
+    // La decisione: il soffione resta esattamente dov'e', dipinto da qui,
+    // perche' e' il gesto e non lo sfondo; il fondale passa a
+    // `CosmosBackground`, che e' la destinazione gia' precedentata dal Rito del
+    // Sogno. Sotto il soffione resta l'alone verde di Aura, che c'era gia' e
+    // che adesso fa anche da terreno: un soffione sospeso nel vuoto non e'
+    // quello che si voleva.
+    final dandelion = this.dandelion;
+    if (dandelion == null) return;
     final p = progress.clamp(0.0, 1.0);
     final w = size.width, h = size.height;
     final rect = Offset.zero & size;
-
-    // --- Prato, cover ---
-    _drawCover(canvas, meadow, size, Paint());
 
     // --- Alone verde di Aura del dominio, dal basso ---
     canvas.drawRect(
@@ -771,6 +793,33 @@ class _BreathScenePainter extends CustomPainter {
         Paint()..color = Colors.white.withValues(alpha: headOpacity),
       );
     }
+
+    // --- IL TERRENO: un orizzonte sfumato che assorbe la fine dello stelo ---
+    //
+    // **Difetto trovato GUARDANDO l'anteprima, non ragionando.** Tolto il prato
+    // della voce 26, lo stelo del soffione finiva nel vuoto: l'immagine termina
+    // a 637 punti su 741, e i cento punti sotto restavano cielo con un gambo
+    // tagliato in mezzo. Il prato quella terminazione la copriva, ed e' il
+    // secondo modo in cui il prato non era "solo un fondale".
+    //
+    // Il rimedio non e' rimettere una fotografia: e' un orizzonte, cioe' il
+    // verde di Aura che sale dal bordo basso e assorbe lo stelo. Sta SOPRA il
+    // soffione perche' deve assorbirlo, e SOTTO i semi perche' quelli volano.
+    final orizzonte = Rect.fromLTWH(0, h * 0.72, w, h * 0.28);
+    canvas.drawRect(
+      orizzonte,
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            palette.glow.withValues(alpha: 0.0),
+            palette.primary.withValues(alpha: 0.55),
+            palette.deepest.withValues(alpha: 0.9),
+          ],
+          stops: const [0.0, 0.45, 1.0],
+        ).createShader(orizzonte),
+    );
 
     // --- Semi che volano via verso l'alto come scintille, con deriva di vento --
     _paintSeeds(canvas, headCenter, headR, giftCenter, p);
@@ -903,6 +952,5 @@ class _BreathScenePainter extends CustomPainter {
       old.ambient != ambient ||
       old.reduceMotion != reduceMotion ||
       old.palette != palette ||
-      old.meadow != meadow ||
       old.dandelion != dandelion;
 }
