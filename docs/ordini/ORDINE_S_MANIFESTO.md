@@ -143,6 +143,18 @@ chiusa: committare non e' consegnare.
     un punto solo, e i tre sentieri le compongono dalla stessa struttura cambiando
     la sola voce: DOVE SEI col numero dal dato e scritto in parole, COSA VEDI in
     una frase del Maestro, COSA GUADAGNI detto una volta.
+  - **NON SI DICHIARA UNICO CIO' CHE UNICO NON E'.** La Costellazione personale e'
+    inventata e nel cielo di nessun altro esiste, quindi la sua riga puo' dirlo.
+    L'Albero della Vita NO: le dieci Sefirot, i ventidue sentieri e la loro
+    disposizione sono gli stessi per chiunque, e il loto e' un simbolo condiviso.
+    Cio' che e' unico sono i frutti maturati e i petali aperti: la struttura e' di
+    tutti, il cammino sopra e' suo. L'Albero lo diceva gia' cosi', "questo porta i
+    TUOI frutti"; il Loto diceva soltanto cosa fa un loto e non nominava la parte
+    che e' della persona, ed e' stata riscritta: "Il loto e' un simbolo di tutti:
+    questi petali li hai aperti tu." Una prova vieta le rivendicazioni di unicita'
+    sull'Albero e sul Loto e le PRETENDE sulla Costellazione, e chiede che le due
+    righe nominino la parte che e' della persona. Rosso eseguito mettendo sul Loto
+    "Nessun altro loto e' come questo: e' solo tuo."
   - **La riga "cosa vedi" NON spiega il disegno.** Adesso che il disegno e' buono,
     spiegarne il meccanismo lo insulterebbe: dice cosa E' la figura. Una prova
     vieta le parole del tutorial ("tocca", "scorri", "quando accendi", "vedrai")

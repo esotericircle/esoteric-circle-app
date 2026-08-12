@@ -40,13 +40,26 @@ class LeTreRigheDelSentiero extends StatelessWidget {
   final MaestroPalette palette;
 
   /// COSA E' LA FIGURA, una frase per Maestro. Non come funziona.
+  ///
+  /// **NON SI DICHIARA UNICO CIO' CHE UNICO NON E', ed e' una differenza fra i
+  /// tre.** La Costellazione personale e' inventata e nel cielo di nessun altro
+  /// esiste, quindi la sua riga puo' dirlo. L'Albero della Vita no: le dieci
+  /// Sefirot, i ventidue sentieri e la loro disposizione sono gli stessi per
+  /// chiunque, e una riga che lasciasse intendere che quell'albero e' solo tuo
+  /// direbbe il falso, nella stessa famiglia dell'avviso che diceva alla persona
+  /// che l'app non sapeva chi fosse. Il loto e' un simbolo condiviso, in misura
+  /// minore.
+  ///
+  /// **Cio' che e' unico nei due casi non e' la figura: sono i frutti che quella
+  /// persona ha maturato e i petali che ha aperto.** La struttura e' di tutti, il
+  /// cammino sopra e' suo, e le righe lo dicono in quest'ordine.
   static String cosaVedi(Sentiero sentiero) => switch (sentiero) {
         Sentiero.costellazione =>
           'Nessun altro cielo ha questa figura: è la tua, e la disegni tu.',
         Sentiero.albero =>
           'Un albero cresce dove lo curi: questo porta i tuoi frutti.',
         Sentiero.loto =>
-          'Il loto si schiude quando il respiro ha smesso di essere una scelta.',
+          'Il loto è un simbolo di tutti: questi petali li hai aperti tu.',
       };
 
   /// COME SI CHIAMANO I PUNTI di questa figura, al plurale e al singolare.

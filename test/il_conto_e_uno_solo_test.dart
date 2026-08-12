@@ -120,6 +120,44 @@ void main() {
       }
     });
 
+    test('non si dichiara unico cio\' che unico non e\'', () {
+      // **La Costellazione personale puo' dirsi unica, l'Albero della Vita
+      // no.** Le dieci Sefirot, i ventidue sentieri e la loro disposizione sono
+      // gli stessi per chiunque; il loto e' un simbolo condiviso. Una riga che
+      // lasciasse intendere il contrario direbbe il falso, ed e' la stessa
+      // famiglia dell'avviso che diceva alla persona che l'app non sapeva chi
+      // fosse. Cio' che e' unico sono i frutti maturati e i petali aperti: la
+      // struttura e' di tutti, il cammino sopra e' suo.
+      const rivendicazioni = [
+        'nessun altro', 'nessun\'altra', 'solo tuo', 'solo tua', 'unico',
+        'unica', 'esiste solo',
+      ];
+      for (final sentiero in const [Sentiero.albero, Sentiero.loto]) {
+        final riga = LeTreRigheDelSentiero.cosaVedi(sentiero).toLowerCase();
+        for (final r in rivendicazioni) {
+          expect(riga.contains(r), isFalse,
+              reason: 'la riga di ${sentiero.name} dichiara unica una struttura '
+                  'tradizionale con "$r": l\'Albero della Vita e il loto '
+                  'sono di tutti, e cio\' che e\' suo e\' il cammino sopra. '
+                  '«$riga»');
+        }
+        // E la parte che E' sua va nominata: i frutti, i petali.
+        final suo = sentiero == Sentiero.albero ? 'tuoi frutti' : 'petali';
+        expect(riga, contains(suo),
+            reason: 'la riga di ${sentiero.name} non dice quale parte e\' '
+                'della persona: la struttura e\' di tutti, ma il cammino sopra '
+                'e\' suo, e se non lo si dice la riga descrive un simbolo '
+                'qualunque');
+      }
+      // La Costellazione, invece, e' inventata: la sua rivendicazione e' vera.
+      expect(
+          LeTreRigheDelSentiero.cosaVedi(Sentiero.costellazione).toLowerCase(),
+          contains('nessun altro'),
+          reason: 'la Costellazione personale e\' l\'unica delle tre che puo\' '
+              'dirsi unica, perche\' e\' inventata: se perde questa riga perde '
+              'la cosa che la distingue');
+    });
+
     test('le tre righe restano TRE, e brevi', () {
       for (final sentiero in Sentiero.values) {
         final righe = [
