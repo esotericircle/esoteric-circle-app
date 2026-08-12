@@ -167,7 +167,7 @@ chiusa: committare non e' consegnare.
     mano, perche' e' cosi' che i conti tornano a essere due. Verificato a video su
     `docs/preview/sentiero-costellazione-meta.png`: "Ventisei stelle accese su
     cinquantacinque", e nella lista "54 di 55".
-- **S.04** Perche' il borsellino e' a zero — APERTA
+- **S.04** Perche' il borsellino e' a zero — CHIUSA
   - **PRIMO PASSO FATTO: il fallimento e' leggibile.** Il `catch` attorno
     all'accredito non registrava niente, quindi se l'accredito falliva non lo
     sapeva nessuno: ne' la persona, ne' un registro, ne' una prova. Finche' era
@@ -190,12 +190,31 @@ chiusa: committare non e' consegnare.
     per sempre), e la porta spenta NON finge un accredito, perche' un saldo
     inventato in barra e' peggio di un saldo fermo. Rosso eseguito rimettendo il
     catch muto e la seconda chiamata.
-  - **COSA RESTA, e per questo la voce e' ancora aperta**: il criterio di chiusura
-    chiede una prova che monti un traguardo, lo accenda e cada se il saldo in barra
-    resta fermo, cioe' il giro intero dalla regia alla barra con una porta finta
-    che risponde. E le strade (c), l'utente anonimo con un ramo diverso sul server
-    dopo una disinstallazione, e (d), le marcature "Eos in attesa", chiedono un
-    dispositivo.
+  - **IL CRITERIO DI CHIUSURA E' SODDISFATTO**, ed e' il giro intero dalla regia
+    alla barra: `test/il_saldo_in_barra_si_muove_test.dart` monta un albero vero
+    con una porta che risponde, compie tre stese (il traguardo `med_5` chiede tre
+    gesti: con uno solo non si accende niente e la prova misurerebbe soltanto che
+    non e' successo nulla), e legge il NUMERO A VIDEO. Rosso eseguito rimettendo
+    la seconda chiamata al posto di `applicaSaldo`: la barra resta a zero e la
+    prova cade dicendo che la persona vede "+10 Eos" nella festa e zero nel
+    borsellino.
+  - La prova gemella misura il contrario, e serve: **se il server tace il numero
+    resta fermo** e il guasto e' scritto nel registro. Senza di lei si potrebbe far
+    passare la prima inventando un saldo quando il server non risponde, e una cifra
+    che sul server non esiste e' peggio di una cifra ferma.
+  - Le due prove non usano `pumpAndSettle`: la celebrazione porta animazioni che
+    non si assestano mai, e la prova cadrebbe per un tempo scaduto invece che per
+    il saldo. Si avanza a passi dichiarati.
+  - **LE STRADE (c) E (d) SONO VERIFICA DI MAURO SUL DISPOSITIVO, e non lavoro
+    lasciato indietro.** (c) l'utente anonimo che dopo una disinstallazione ha un
+    ramo diverso sul server, quindi un saldo che esiste e non e' il suo: si vede
+    solo installando, disinstallando e reinstallando su un telefono. (d) le
+    marcature "Eos in attesa", che segnalerebbero un bonus di condivisione mai
+    incassato: dipendono dalla voce S.08, perche' finche' i tre pulsanti della
+    celebrazione non fanno niente quel bonus non e' incassabile da nessuno. Qui non
+    c'e' nessun dispositivo, e tenere la riga aperta per una cosa che in questa
+    stanza non si puo' fare sarebbe lasciare il conto in sospeso su un lavoro
+    inesistente.
 - **S.05** Gli Eos hanno un nome e una loro icona — APERTA
 - **S.06** Il borsellino e' sempre visibile — APERTA
 - **S.07** Gli Eos volano dalla celebrazione al borsellino — APERTA
@@ -361,6 +380,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 3
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
