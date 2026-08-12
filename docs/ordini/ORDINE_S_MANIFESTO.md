@@ -246,10 +246,46 @@ chiusa: committare non e' consegnare.
   - Difetto trovato GUARDANDO l'anteprima: con la parola Eos accanto al numero la
     riga in barra e' cresciuta e il titolo e' tornato a troncarsi in "Costellazio ne
     persona...", che e' il difetto che l'ordine P aveva chiuso. Il saldo si e'
-    stretto di cio' che era margine e non contenuto, e adesso il titolo si legge
-    INTERO. Va detto per intero: su due righe la parola lunga si spezza
-    ("Costellazion / e personale"), che e' brutto ma non e' un troncamento, e
-    accorciare il nome del sentiero sarebbe una decisione di Mauro sul contenuto.
+    stretto di cio' che era margine e non contenuto.
+  - **LA CORREZIONE DEL TITOLO, decisa da Mauro e valida per TUTTE le arti.** Il
+    nome del sentiero non si accorcia: "Costellazione personale" vive nel briefing,
+    nel Cosmic Passport e nella schermata, e cambiarlo in un posto solo creerebbe
+    due nomi per la stessa cosa, che e' la famiglia delle due porte. Si adatta
+    percio' la misura del testo e non il testo, in quest'ordine: a capo FRA le
+    parole e mai dentro una parola; se la parola piu' lunga non entra, il titolo
+    scende di misura fino a entrare, entro un minimo dichiarato di quattordici punti
+    che sta sopra il pavimento tipografico dell'app; non si tronca e non si mettono
+    i puntini, perche' l'ellissi e' gia' costata una voce nell'ordine P.
+  - Fatto in `lib/design_system/components/titolo_che_non_si_rompe.dart`, un punto
+    solo. **Basta guardare la parola piu' lunga**: un motore di testo spezza una
+    parola solo quando quella parola, da sola, non sta in una riga, quindi se la
+    piu' lunga entra nessuna si spezza.
+  - **IL DIFETTO VERO ERA IL SOFTWRAP EREDITATO, e va detto perche' nessuna misura
+    sulle righe poteva vederlo.** L'AppBar avvolge il titolo in un
+    `DefaultTextStyle` con `softWrap: false`: un `Text` che non lo dichiara eredita
+    quel no, resta su UNA riga e, con `overflow: visible`, dipinge fuori dalla
+    propria scatola passando sopra le azioni della barra. Una riga non supera mai il
+    tetto di due, percio' `didExceedMaxLines` non scattava: la prova adesso
+    confronta l'ALTEZZA resa con quella che il testo occuperebbe andando a capo.
+  - Misura: `test/il_titolo_non_si_rompe_test.dart`, quattro prove che montano la
+    schermata VERA dalla sua rotta, con le sue azioni, il saldo e il cuore, e
+    misurano la larghezza dalla resa. La prima stesura scriveva 176 punti presi a
+    occhio e passava col difetto in piedi, percio' si e' buttata: a quella larghezza
+    inventata la parola lunga entrava, nella barra vera no.
+  - **UNA PORTA SOLA per tutte le arti**, e la prova le ENUMERA. Tre schermate
+    (Viso, Animale Guida, Estrazione Rune) avvolgevano il titolo in un `FittedBox`,
+    che lo rimpicciolisce senza fondo per tenerlo su una riga e percio' puo' finire
+    sotto il pavimento tipografico, e non va a capo mai; il Test Archetipo passava
+    un `Text` nudo. Sono tre modi diversi di rompere lo stesso titolo, e adesso una
+    prova cade col nome del file se una barra monta il titolo per conto suo.
+  - Rossi eseguiti: `Text` con l'ellissi al posto del componente (cade su "la parola
+    viene spezzata a meta'" e su "tornato a poter mettere i puntini"), e togliendo il
+    `softWrap: true` (cade su "sta dipingendo fuori dalla sua scatola e passa sopra
+    le azioni della barra").
+  - GUARDATE alla larghezza reale cinque barre: "Costellazione / personale",
+    "Costellazione / del Viso", "Estrazione / Rune", "Animale Guida" e "Test
+    Archetipo". Nomi interi, a capo fra le parole, nessuna sovrapposizione con
+    l'icona degli Eos ne' col cuore.
 - **S.06** Il borsellino e' sempre visibile — APERTA
 - **S.07** Gli Eos volano dalla celebrazione al borsellino — APERTA
 - **S.08** I tre pulsanti della celebrazione grande non fanno niente — APERTA

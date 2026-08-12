@@ -29,6 +29,7 @@ import 'archetype_share_card.dart';
 import 'archetype_wheel.dart';
 import '../../rotta_arte.dart';
 import '../../../../design_system/components/interruttore_del_cerchio.dart';
+import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// Il Test Archetipo, dominio Aura.
 ///
@@ -166,8 +167,11 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
       appBar: BarraArte(
-        titolo: Text('Test Archetipo',
-            style: TypographyTokens.titoloScheda()),
+        // Lo stesso titolo di tutte le arti: va a capo fra le parole e non si
+        // rompe, qualunque cosa cresca nelle azioni accanto.
+        titolo: TitoloCheNonSiRompe(
+            testo: 'Test Archetipo',
+            stile: TypographyTokens.titoloScheda()),
         azioni: [
           IconButton(
             key: const Key('archetype_sources'),

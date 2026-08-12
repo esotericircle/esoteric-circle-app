@@ -35,6 +35,7 @@ import 'face_share_card.dart';
 import 'face_silhouette.dart';
 import '../../rotta_arte.dart';
 import '../../../../design_system/components/interruttore_del_cerchio.dart';
+import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// La Costellazione del Viso, dominio Aura.
 ///
@@ -168,11 +169,14 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
       appBar: BarraArte(
-        titolo: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text('Costellazione del Viso',
-              maxLines: 1, style: TypographyTokens.titoloScheda()),
-        ),
+        // **NIENTE FittedBox.** Rimpiccioliva il titolo senza fondo per
+        // tenerlo su una riga, quindi poteva scendere sotto il pavimento
+        // tipografico dell'app, e non andava a capo mai. La regola e'
+        // un'altra: a capo FRA le parole, e la misura scende solo quanto
+        // serve, entro un minimo dichiarato.
+        titolo: TitoloCheNonSiRompe(
+            testo: 'Costellazione del Viso',
+            stile: TypographyTokens.titoloScheda()),
         azioni: [
           IconButton(
             key: const Key('face_sources'),

@@ -26,6 +26,7 @@ import 'animal_journey.dart';
 import 'animal_reveal.dart';
 import 'guide_animal_share_card.dart';
 import '../../rotta_arte.dart';
+import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// Come si entra nell'Animale Guida.
 ///
@@ -169,11 +170,13 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
       appBar: BarraArte(
-        titolo: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text('Animale Guida',
-              maxLines: 1, style: TypographyTokens.display(size: 19)),
-        ),
+        // **NIENTE FittedBox.** Rimpiccioliva il titolo senza fondo per
+        // tenerlo su una riga, quindi poteva scendere sotto il pavimento
+        // tipografico dell'app, e non andava a capo mai. La regola e'
+        // un'altra: a capo FRA le parole, e la misura scende solo quanto
+        // serve, entro un minimo dichiarato.
+        titolo: TitoloCheNonSiRompe(
+            testo: 'Animale Guida', stile: TypographyTokens.display(size: 19)),
         azioni: [
           IconButton(
             key: const Key('animal_sources'),

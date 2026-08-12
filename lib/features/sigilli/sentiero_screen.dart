@@ -19,6 +19,7 @@ import 'celebrazione.dart';
 import 'disegno_del_sentiero.dart';
 import 'le_tre_righe_del_sentiero.dart';
 import '../../design_system/components/icona_degli_eos.dart';
+import '../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// IL SENTIERO DEI SIGILLI: Albero, Costellazione o Loto.
 ///
@@ -191,10 +192,16 @@ class _SentieroScreenState extends State<SentieroScreen> {
           // IL TITOLO INTERO, e non tagliato: "Costellazione pers..." era
           // quello che si leggeva nell'anteprima, e un titolo troncato dice
           // che la schermata non e' finita.
-          titolo: Text(widget.sentiero.titolo,
-              maxLines: 2,
-              style: TypographyTokens.titoloScheda()
-                  .copyWith(color: palette.goldSoft)),
+          // **IL TITOLO VA A CAPO FRA LE PAROLE, MAI DENTRO UNA PAROLA.** Con
+          // un `Text` normale "Costellazione personale" si spezzava in
+          // "Costellazio / ne persona..." appena la riga delle azioni cresceva:
+          // il nome non si accorcia, perche' vive anche nel briefing e nel
+          // Passport, quindi si adatta la misura del testo e non il testo.
+          titolo: TitoloCheNonSiRompe(
+            testo: widget.sentiero.titolo,
+            stile: TypographyTokens.titoloScheda()
+                .copyWith(color: palette.goldSoft),
+          ),
           azioni: [
             // IL SALDO EOS, che legge dal server e non finge: finche' le
             // funzioni non sono distribuite mostra l'ultimo saldo noto.

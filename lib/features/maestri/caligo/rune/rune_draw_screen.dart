@@ -37,6 +37,7 @@ import '../../rotta_arte.dart';
 import '../../../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../../../core/sensi/catalogo_suoni.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
+import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
 /// selettore del tipo di gettata. Il caso e' voluto e autentico, e' gettare le
@@ -243,11 +244,13 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.transparent,
       appBar: BarraArte(
-        titolo: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text('Estrazione Rune',
-              maxLines: 1, style: TypographyTokens.titoloScheda()),
-        ),
+        // **NIENTE FittedBox.** Rimpiccioliva il titolo senza fondo per
+        // tenerlo su una riga, quindi poteva scendere sotto il pavimento
+        // tipografico dell'app, e non andava a capo mai. La regola e'
+        // un'altra: a capo FRA le parole, e la misura scende solo quanto
+        // serve, entro un minimo dichiarato.
+        titolo: TitoloCheNonSiRompe(
+            testo: 'Estrazione Rune', stile: TypographyTokens.titoloScheda()),
         azioni: [
           IconButton(
             key: const Key('rune_sources'),
