@@ -32,6 +32,50 @@ import '../../design_system/theme/maestro_scope.dart';
 /// qui una volta e li leggono sia il pittore sia il riconoscimento del tocco:
 /// se fossero due elenchi, prima o poi il tocco cadrebbe accanto alla stella
 /// invece che su di lei, e nessuno saprebbe dire quale dei due ha ragione.
+/// LE TRE GRANDEZZE DI UN PUNTO, dichiarate come DATO e non scelte a caso.
+///
+/// **Ordine S voce 02.** Le costellazioni che tutti riconoscono hanno poche
+/// stelle principali e decine di stelle deboli attorno: Orione si riconosce da
+/// sette punti. Senza gerarchia cinquantacinque punti diventano un groviglio.
+/// Quale punto sia di quale grandezza fa parte del disegno della figura, e sta
+/// scritto nella geometria accanto al punto.
+enum GrandezzaDelPunto {
+  /// I CINQUE GRANDI: le stelle che reggono la forma. Ogni grande che si accende
+  /// cambia visibilmente la figura, non aggiunge un punto fra tanti.
+  principale(0.0290),
+
+  /// Le medie: articolano la figura, cioe' dicono dove una parte comincia.
+  media(0.0165),
+
+  /// Le piccole: la riempiono.
+  piccola(0.0098);
+
+  const GrandezzaDelPunto(this.raggio);
+
+  /// Quanto e' grande, in frazione del lato corto della tela.
+  final double raggio;
+}
+
+/// UN SEGMENTO DELL'OSSATURA: due indici nella lista dei punti.
+///
+/// **Si disegna SOLO se i suoi due capi sono accesi**, ordine S voce 02: con il
+/// reticolo intero visibile da subito la forma finale si vede prima di
+/// meritarla, e non resta niente da scoprire.
+class SegmentoDelSentiero {
+  const SegmentoDelSentiero(this.da, this.a, {this.spessore = 1.0});
+
+  final int da;
+  final int a;
+
+  /// QUANTO E' SPESSO, in frazione dello spessore normale.
+  ///
+  /// **Serve all'Albero e non e' un vezzo.** Un ramo con lo spessore costante
+  /// dal tronco alla punta non e' un ramo, e' un filo: l'ordine chiede rami che
+  /// si assottiglino allontanandosi. Lo spessore fa parte del disegno, quindi
+  /// sta nel dato accanto al segmento e non in un conto dentro il pittore.
+  final double spessore;
+}
+
 class GeometriaDelSentiero {
   const GeometriaDelSentiero._();
 
@@ -39,6 +83,11 @@ class GeometriaDelSentiero {
   ///
   /// Deterministici e senza caso: un disegno che cambia a ogni montaggio non
   /// si puo' provare a pixel, e soprattutto non e' piu' il TUO cammino.
+  ///
+  /// **L'ordine della lista e' quello del cammino**: per ciascuna delle cinque
+  /// parti i dieci mini e poi il grande che la chiude. Quindi il punto del
+  /// grande della parte i sta all'indice `i * 11 + 10`, e l'ossatura ci conta
+  /// sopra.
   static List<PuntoDelSentiero> punti(Sentiero sentiero) =>
       switch (sentiero) {
         Sentiero.costellazione => _costellazione(),
@@ -46,85 +95,259 @@ class GeometriaDelSentiero {
         Sentiero.loto => _loto(),
       };
 
-  /// I cinque centri delle figure della costellazione: cinque gruppi da dieci
-  /// stelle, sparsi come si sparge un cielo e non allineati come un elenco.
-  static const List<Offset> centriDelleFigure = [
-    Offset(0.27, 0.18),
-    Offset(0.73, 0.30),
-    Offset(0.28, 0.53),
-    Offset(0.74, 0.72),
-    Offset(0.46, 0.88),
+  /// L'OSSATURA della figura: quali punti si uniscono quando sono accesi.
+  static List<SegmentoDelSentiero> ossatura(Sentiero sentiero) =>
+      switch (sentiero) {
+        Sentiero.costellazione => _ossaturaCostellazione(),
+        Sentiero.albero => _ossaturaAlbero(),
+        Sentiero.loto => _ossaturaLoto(),
+      };
+
+  /// L'indice del grande che chiude la parte [parte].
+  static int indiceDelGrande(int parte) => parte * 11 + 10;
+
+  /// L'indice del mini [k] della parte [parte].
+  static int indiceDelMini(int parte, int k) => parte * 11 + k;
+
+  /// LA TELA E' PIU' ALTA CHE LARGA, e le coordinate sono normalizzate sui due
+  /// lati separatamente: uno spostamento di un decimo verso il basso vale piu'
+  /// pixel dello stesso spostamento verso destra. Senza questa compressione le
+  /// figure si allungherebbero in verticale e nessuna somiglierebbe a se stessa
+  /// su uno schermo diverso.
+  static const double compressioneVerticale = 0.70;
+
+  /// LA SPINA DORSALE DELLA COSTELLAZIONE: i cinque punti principali.
+  ///
+  /// **Una figura sola, non cinque figurine.** Prima erano cinque gruppi da
+  /// dieci con una forma chiusa ciascuno, sparsi nel cielo: a schermo si
+  /// leggevano come cinque figurine slegate, e i cinque grandi come cinque
+  /// disegni invece che come i cinque momenti in cui una parte della STESSA
+  /// figura si chiude. Adesso i cinque principali stanno su una spina che sale,
+  /// e ogni parte cresce da lei.
+  ///
+  /// La figura e' INVENTATA, perche' e' la costellazione personale e nel cielo
+  /// di nessun altro esiste, ma ha la grammatica di una vera: una spina, un
+  /// centro (il terzo punto, il piu' alto in luce), e proporzioni credibili.
+  static const List<Offset> spinaDellaCostellazione = [
+    Offset(0.355, 0.870),
+    Offset(0.545, 0.710),
+    Offset(0.430, 0.520),
+    Offset(0.630, 0.350),
+    Offset(0.480, 0.150),
+  ];
+
+  /// LE DUE BRACCIA DI OGNI PARTE, in radianti, e la loro lunghezza.
+  ///
+  /// Zero punta a destra, mezzo pi greco punta in basso. Le direzioni non sono
+  /// casuali: la base si allarga come due piedi, il fianco si apre quasi
+  /// orizzontale, il cuore alza due ali, la corona si stringe.
+  static const List<List<double>> direzioniDelleBraccia = [
+    [2.70, 0.50],
+    [3.10, 0.05],
+    [3.55, -0.45],
+    [3.35, 0.60],
+    [3.30, -0.20],
+  ];
+
+  /// Quanto e' lunga ogni braccia, parte per parte: la figura si stringe
+  /// salendo, come tutte le figure che stanno in piedi.
+  static const List<double> lunghezzaDelleBraccia = [
+    1.00,
+    0.92,
+    1.08,
+    0.84,
+    0.66,
+  ];
+
+  /// Le cinque distanze dei punti lungo una braccia, dal principale in fuori.
+  static const List<double> passiDellaBraccia = [
+    0.052,
+    0.086,
+    0.116,
+    0.142,
+    0.164,
+  ];
+
+  /// L'ARRICCIATURA DI OGNI PARTE, e i due numeri sono per le due braccia.
+  ///
+  /// **Senza questa tabella le cinque parti erano cinque coppe identiche**, e si
+  /// vede nell'anteprima: con la stessa arricciatura specchiata su tutte e cinque
+  /// la figura diventava un ritmo, cioe' un motivo decorativo che si ripete, non
+  /// una figura. Una costellazione vera non ha due meta' uguali da nessuna parte.
+  /// Numeri diversi e segni diversi: una parte si chiude, un'altra si apre, una
+  /// terza piega da un lato solo.
+  static const List<List<double>> arricciaturaDelleBraccia = [
+    [0.16, -0.05],
+    [-0.06, 0.14],
+    [0.20, 0.20],
+    [-0.13, -0.02],
+    [0.07, -0.17],
+  ];
+
+  /// QUANTO E' LUNGA CIASCUNA DELLE DUE BRACCIA, parte per parte.
+  ///
+  /// Mai uguali fra loro: due braccia della stessa lunghezza fanno una figura
+  /// simmetrica, e nessuna costellazione lo e'.
+  static const List<List<double>> respiroDelleBraccia = [
+    [1.00, 0.72],
+    [0.68, 1.00],
+    [0.94, 0.80],
+    [1.00, 0.62],
+    [0.74, 0.96],
   ];
 
   static List<PuntoDelSentiero> _costellazione() {
     final mini = Sentieri.miniDi(Sentiero.costellazione);
     final grandi = Sentieri.grandiDi(Sentiero.costellazione);
     final punti = <PuntoDelSentiero>[];
-    for (var figura = 0; figura < 5; figura++) {
-      final centro = centriDelleFigure[figura];
+    for (var parte = 0; parte < 5; parte++) {
+      final centro = spinaDellaCostellazione[parte];
+      final scala = lunghezzaDelleBraccia[parte];
       for (var k = 0; k < 10; k++) {
-        final indice = figura * 10 + k;
-        // L'irregolarita' e' calcolata, non estratta: una figura perfettamente
-        // circolare non somiglia a nessuna costellazione vera.
-        final angolo = 2 * math.pi * k / 10 + figura * 0.37;
-        final raggio = 0.105 * (0.58 + 0.42 * math.sin(k * (figura + 2) + 1.1));
+        final indice = parte * 10 + k;
+        // Due braccia da cinque: la prima cresce, poi la seconda. Cosi' la
+        // figura si allunga in una direzione e poi nell'altra, e a meta' si
+        // capisce da che parte sta andando.
+        final quale = k < 5 ? 0 : 1;
+        final passo = k % 5;
+        // L'arricciatura e il respiro vengono dalle due tabelle: sono il
+        // CARATTERE di questa parte, e sono la ragione per cui le cinque non si
+        // somigliano.
+        final angolo = direzioniDelleBraccia[parte][quale] +
+            arricciaturaDelleBraccia[parte][quale] * passo;
+        final quanto = passiDellaBraccia[passo] *
+            scala *
+            respiroDelleBraccia[parte][quale];
         punti.add(PuntoDelSentiero(
           traguardo: mini[indice],
           dove: Offset(
-            centro.dx + raggio * math.cos(angolo) * 1.15,
-            centro.dy + raggio * math.sin(angolo),
+            centro.dx + quanto * math.cos(angolo),
+            centro.dy + quanto * math.sin(angolo) * compressioneVerticale,
           ),
-          raggio: 0.0135,
-          gruppo: figura,
+          // Il primo punto di ogni braccia e' medio: dice dove la parte
+          // comincia. Gli altri quattro la riempiono.
+          grandezza:
+              passo == 0 ? GrandezzaDelPunto.media : GrandezzaDelPunto.piccola,
+          gruppo: parte,
         ));
       }
       punti.add(PuntoDelSentiero(
-        traguardo: grandi[figura],
+        traguardo: grandi[parte],
         dove: centro,
-        raggio: 0.030,
-        gruppo: figura,
+        grandezza: GrandezzaDelPunto.principale,
+        gruppo: parte,
       ));
     }
     return punti;
   }
 
+  static List<SegmentoDelSentiero> _ossaturaCostellazione() {
+    final ossa = <SegmentoDelSentiero>[];
+    for (var parte = 0; parte < 5; parte++) {
+      final principale = indiceDelGrande(parte);
+      // LA SPINA: il principale di questa parte col principale della prossima.
+      if (parte < 4) {
+        ossa.add(SegmentoDelSentiero(principale, indiceDelGrande(parte + 1)));
+      }
+      for (final quale in const [0, 1]) {
+        // Ogni braccia parte dal principale e si allunga di punto in punto.
+        var precedente = principale;
+        for (var passo = 0; passo < 5; passo++) {
+          final punto = indiceDelMini(parte, quale * 5 + passo);
+          ossa.add(SegmentoDelSentiero(precedente, punto));
+          precedente = punto;
+        }
+      }
+    }
+    return ossa;
+  }
+
   /// Le cinque Sefirot Maggiori sul pilastro centrale, dal Regno alla Corona.
   static const List<double> altezzeDelleSefirot = [0.86, 0.68, 0.50, 0.30, 0.10];
+
+  /// IL CARATTERE DEI CINQUE RAMI: quanto sono lunghi i due lati e quanto
+  /// pendono.
+  ///
+  /// **Senza questa tabella l'Albero era un abete**, e si vede nell'anteprima:
+  /// cinque coppie di rami orizzontali, tutte della stessa lunghezza e con la
+  /// stessa piega, cioe' uno stampino di albero di Natale. Un albero vero ha rami
+  /// disuguali, e i piu' bassi pendono piu' dei piu' alti perche' portano piu'
+  /// peso.
+  static const List<List<double>> respiroDeiRami = [
+    [1.00, 0.78],
+    [0.74, 1.00],
+    [0.96, 0.86],
+    [0.80, 1.00],
+    [0.66, 0.72],
+  ];
+
+  /// Quanto pende ogni ramo, dal basso in alto: i bassi portano piu' peso.
+  static const List<double> pendenzaDeiRami = [0.030, 0.024, 0.017, 0.011, 0.006];
 
   static List<PuntoDelSentiero> _albero() {
     final mini = Sentieri.miniDi(Sentiero.albero);
     final grandi = Sentieri.grandiDi(Sentiero.albero);
     final punti = <PuntoDelSentiero>[];
     for (var ramo = 0; ramo < 5; ramo++) {
-      final base = ramo == 0 ? 0.99 : altezzeDelleSefirot[ramo - 1];
       final cima = altezzeDelleSefirot[ramo];
+      // **UN ALBERO SOLO, con le Sefirot sullo stesso tronco.** I dieci frutti
+      // di ogni parte stanno su DUE rami che nascono dalla sua Sefirah, non
+      // sparsi lungo il fusto: quando la Sefirah si accende, i due rami si
+      // attaccano al tronco tutti insieme.
       for (var k = 0; k < 10; k++) {
         final indice = ramo * 10 + k;
-        final t = (k + 1) / 11;
-        // I frutti si alternano ai due lati del tronco, e piu' si sale piu'
-        // il ramo si accorcia: un albero si stringe verso la cima.
-        final lato = k.isEven ? -1.0 : 1.0;
-        final apertura = (0.11 + 0.19 * math.sin(math.pi * t)) *
-            (1.0 - 0.32 * ramo / 4);
+        final quale = k < 5 ? 0 : 1;
+        final lato = quale == 0 ? -1.0 : 1.0;
+        final passo = k % 5;
+        // Il ramo si allontana e scende: un frutto pesa, e i rami bassi
+        // portano piu' peso.
+        final apertura = (0.075 + 0.052 * passo) *
+            (1.0 - 0.24 * ramo / 4) *
+            respiroDeiRami[ramo][quale];
+        final caduta =
+            pendenzaDeiRami[ramo] * passo * compressioneVerticale;
         punti.add(PuntoDelSentiero(
           traguardo: mini[indice],
-          dove: Offset(0.5 + lato * apertura, base + (cima - base) * t),
-          raggio: 0.011,
+          dove: Offset(0.5 + lato * apertura, cima + caduta),
+          grandezza:
+              passo == 0 ? GrandezzaDelPunto.media : GrandezzaDelPunto.piccola,
           gruppo: ramo,
         ));
       }
       punti.add(PuntoDelSentiero(
         traguardo: grandi[ramo],
         dove: Offset(0.5, cima),
-        raggio: 0.028,
+        grandezza: GrandezzaDelPunto.principale,
         gruppo: ramo,
       ));
     }
     return punti;
   }
 
+  static List<SegmentoDelSentiero> _ossaturaAlbero() {
+    final ossa = <SegmentoDelSentiero>[];
+    for (var ramo = 0; ramo < 5; ramo++) {
+      final sefirah = indiceDelGrande(ramo);
+      if (ramo < 4) {
+        ossa.add(SegmentoDelSentiero(sefirah, indiceDelGrande(ramo + 1)));
+      }
+      for (final lato in const [0, 1]) {
+        var precedente = sefirah;
+        for (var passo = 0; passo < 5; passo++) {
+          final frutto = indiceDelMini(ramo, lato * 5 + passo);
+          // IL RAMO SI ASSOTTIGLIA: pieno all'attacco col tronco, sottile in
+          // punta. Un ramo di spessore costante e' un filo.
+          ossa.add(SegmentoDelSentiero(precedente, frutto,
+              spessore: 1.45 - 0.22 * passo));
+          precedente = frutto;
+        }
+      }
+    }
+    return ossa;
+  }
+
   /// Il cuore del loto e i raggi delle cinque corone di petali.
-  static const Offset cuoreDelLoto = Offset(0.5, 0.44);
+  static const Offset cuoreDelLoto = Offset(0.5, 0.46);
   static const List<double> raggiDelLoto = [0.095, 0.155, 0.215, 0.275, 0.335];
 
   static List<PuntoDelSentiero> _loto() {
@@ -135,43 +358,57 @@ class GeometriaDelSentiero {
       final raggio = raggiDelLoto[corona];
       for (var k = 0; k < 10; k++) {
         final indice = corona * 10 + k;
-        // Ogni corona e' ruotata rispetto alla precedente, cosi' i petali si
-        // incastrano invece di sovrapporsi in raggi dritti.
+        // **UN FIORE SOLO**: giri concentrici attorno allo stesso cuore, ognuno
+        // ruotato sul precedente, cosi' i petali si incastrano invece di
+        // allinearsi in raggi dritti.
         final angolo = 2 * math.pi * k / 10 + corona * 0.314 - math.pi / 2;
         punti.add(PuntoDelSentiero(
           traguardo: mini[indice],
           dove: Offset(
             cuoreDelLoto.dx + raggio * math.cos(angolo),
-            cuoreDelLoto.dy + raggio * math.sin(angolo) * 0.92,
+            cuoreDelLoto.dy + raggio * math.sin(angolo) * compressioneVerticale,
           ),
-          raggio: 0.013,
+          grandezza: k.isEven
+              ? GrandezzaDelPunto.media
+              : GrandezzaDelPunto.piccola,
           angolo: angolo,
           gruppo: corona,
         ));
       }
-      // LA FIORITURA HA LA SUA DIREZIONE, una per corona.
-      //
-      // **Erano tutte e cinque in cima.** Con l'angolo fisso a -pi/2 le cinque
-      // Fioriture si impilavano una sull'altra sopra il cuore e formavano una
-      // torre di losanghe che sbilanciava il fiore e copriva i petali della
-      // corona piu' alta: si vede nell'anteprima, non nel codice. Distribuite
-      // sui cinque quinti del giro, ognuna e' il petalo grande della sua
-      // direzione e il fiore resta in equilibrio.
+      // LA FIORITURA, il petalo che regge il suo giro. Le cinque sono
+      // distribuite sui cinque quinti del cerchio: tutte in cima si
+      // impilavano in una torre di losanghe che sbilanciava il fiore.
       final direzione = -math.pi / 2 + corona * 2 * math.pi / 5;
       final quanto = raggio * 1.05;
       punti.add(PuntoDelSentiero(
         traguardo: grandi[corona],
         dove: Offset(
           cuoreDelLoto.dx + quanto * math.cos(direzione),
-          cuoreDelLoto.dy + quanto * math.sin(direzione) * 0.92,
+          cuoreDelLoto.dy + quanto * math.sin(direzione) * compressioneVerticale,
         ),
-        raggio: 0.024,
+        grandezza: GrandezzaDelPunto.principale,
         angolo: direzione,
         gruppo: corona,
       ));
     }
     return punti;
   }
+
+  /// IL LOTO NON HA OSSATURA, e non e' una rinuncia.
+  ///
+  /// **Guardando l'anteprima: le catene fra petali disegnavano poligoni.** Legare
+  /// i dieci petali di un giro con dei segmenti dritti produce un decagono, e
+  /// cinque giri producevano cinque decagoni sovrapposti piu' le corde della
+  /// spina: a schermo non era un fiore, era un mandala geometrico con dei
+  /// quadrati dentro. Un fiore non ha spigoli.
+  ///
+  /// La figura sola, che l'ordine chiede, il Loto la ha per costruzione: giri
+  /// concentrici attorno allo STESSO cuore, con lo stelo che li tiene. E la
+  /// crescita si vede nei petali, che sono forme piene e tenui quando sono chiusi
+  /// e si aprono accendendosi: non serve nessuna linea per dirlo, e ogni linea
+  /// che si aggiunge toglie al fiore.
+  static List<SegmentoDelSentiero> _ossaturaLoto() => const [];
+
 }
 
 /// UN PUNTO DEL DISEGNO: una stella, un frutto, un petalo.
@@ -179,7 +416,7 @@ class PuntoDelSentiero {
   const PuntoDelSentiero({
     required this.traguardo,
     required this.dove,
-    required this.raggio,
+    required this.grandezza,
     required this.gruppo,
     this.angolo = 0,
   });
@@ -189,13 +426,16 @@ class PuntoDelSentiero {
   /// Dove sta, fra 0 e 1 sui due lati della tela.
   final Offset dove;
 
+  /// Quale delle tre grandezze e', e da lei viene il raggio.
+  final GrandezzaDelPunto grandezza;
+
   /// Quanto e' grande, in frazione del lato corto della tela.
-  final double raggio;
+  double get raggio => grandezza.raggio;
 
   /// Verso dove punta, per i petali del loto.
   final double angolo;
 
-  /// A quale dei cinque gruppi appartiene: la figura, il ramo, la corona.
+  /// A quale delle cinque parti appartiene.
   final int gruppo;
 
   bool get eGrande => traguardo.eGrande;
@@ -311,6 +551,52 @@ abstract class _PittoreDelSentiero extends CustomPainter {
 
   double corto(Size s) => math.min(s.width, s.height);
 
+  /// L'OSSATURA, e si disegna SOLO fra punti accesi. Ordine S voce 02.
+  ///
+  /// **Il reticolo intero era il difetto.** Con tutti i segmenti visibili da
+  /// subito, a zero traguardi la forma finale si vedeva prima di meritarla e non
+  /// restava niente da scoprire. Adesso un segmento esiste quando esistono i
+  /// suoi due capi: la figura si compone davanti alla persona.
+  void ossatura(Canvas tela, Size misura, List<SegmentoDelSentiero> ossa) {
+    final c = corto(misura);
+    final viva = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = c * 0.0040
+      ..color = oro.withValues(alpha: 0.82);
+    // La spina, cioe' i segmenti fra due principali, e' piu' spessa: e' quella
+    // che tiene la figura insieme.
+    final spina = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = c * 0.0062
+      ..color = oro.withValues(alpha: 0.92);
+    for (final osso in ossa) {
+      final a = punti[osso.da];
+      final b = punti[osso.a];
+      if (!acceso(a) || !acceso(b)) continue;
+      final dueGrandi = a.eGrande && b.eGrande;
+      final penna = dueGrandi ? spina : viva;
+      tela.drawLine(assoluto(a, misura), assoluto(b, misura),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeCap = StrokeCap.round
+            ..strokeWidth = penna.strokeWidth * osso.spessore
+            ..color = penna.color);
+    }
+  }
+
+  /// UN PUNTO SPENTO E' UN PUNTO, NON UN ANELLO. Ordine S voce 02.
+  ///
+  /// **Un cerchio col bordo e il centro vuoto si legge come una casella da
+  /// spuntare**, e a video era esattamente cosi': cinquantacinque caselle su un
+  /// cielo. Una stella non ancora accesa e' un punto tenue, piccolo, senza
+  /// contorno: si intuisce la forma senza vederla.
+  void puntoSpento(Canvas tela, Offset centro, double raggio) {
+    tela.drawCircle(centro, raggio * 0.52,
+        Paint()..color = oroTenue.withValues(alpha: 0.42));
+  }
+
   /// L'ALONE del punto che l'elenco sta evidenziando: e' il modo in cui il
   /// traguardo scelto nell'elenco si fa riconoscere dentro il disegno.
   void alone(Canvas tela, Offset centro, double raggio) {
@@ -343,51 +629,24 @@ class PittoreDellaCostellazione extends _PittoreDelSentiero {
   @override
   void paint(Canvas tela, Size misura) {
     final c = corto(misura);
-    final perGruppo = <int, List<PuntoDelSentiero>>{};
-    for (final p in punti.where((p) => !p.eGrande)) {
-      perGruppo.putIfAbsent(p.gruppo, () => []).add(p);
-    }
 
-    // 1. LA FORMA CHE MANCA, sempre visibile: il filo tenue che chiude ogni
-    // figura anche quando nessuna delle sue stelle e' accesa. Senza questo
-    // non si vedrebbe dove si sta andando, e un cammino di cui non si vede la
-    // meta non e' un cammino.
-    final tenue = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = c * 0.0032
-      ..color = oroTenue.withValues(alpha: 0.40);
-    for (final gruppo in perGruppo.values) {
-      final via = Path()..moveTo(assoluto(gruppo.first, misura).dx,
-          assoluto(gruppo.first, misura).dy);
-      for (final p in gruppo.skip(1)) {
-        final a = assoluto(p, misura);
-        via.lineTo(a.dx, a.dy);
-      }
-      via.close();
-      tela.drawPath(via, tenue);
-    }
+    // 1. L'OSSATURA, solo fra stelle accese: la figura si compone.
+    ossatura(tela, misura, GeometriaDelSentiero.ossatura(Sentiero.costellazione));
 
-    // 2. LA LINEA LUMINOSA fra le stelle accese consecutive: e' il tratto che
-    // la persona ha davvero percorso.
-    final viva = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = c * 0.0042
-      ..strokeCap = StrokeCap.round
-      ..color = oro.withValues(alpha: 0.85);
-    for (final gruppo in perGruppo.values) {
-      for (var i = 0; i < gruppo.length - 1; i++) {
-        if (!acceso(gruppo[i]) || !acceso(gruppo[i + 1])) continue;
-        tela.drawLine(
-            assoluto(gruppo[i], misura), assoluto(gruppo[i + 1], misura), viva);
-      }
-    }
-
-    // 3. LE STELLE. Le spente ci sono, in trasparenza: e' la forma che manca.
-    for (final p in punti.where((p) => !p.eGrande)) {
-      final centro = assoluto(p, misura);
-      final r = p.raggio * c;
-      if (p.traguardo.id == evidenziato) alone(tela, centro, r);
-      if (acceso(p)) {
+    // 2. LE STELLE, dalle piccole alle principali, cosi' le grandi restano
+    // sopra e la gerarchia si legge anche dove i punti si avvicinano.
+    for (final grandezza in GrandezzaDelPunto.values.reversed) {
+      for (final punto in punti.where((p) => p.grandezza == grandezza)) {
+        final centro = assoluto(punto, misura);
+        final r = punto.raggio * c;
+        if (punto.traguardo.id == evidenziato) alone(tela, centro, r);
+        if (!acceso(punto)) {
+          puntoSpento(tela, centro, r);
+          continue;
+        }
+        // L'alone, il corpo bianco, e i quattro raggi solo sulle stelle che
+        // reggono la figura: quattro raggi su cinquanta punti sarebbero un
+        // istrice.
         tela.drawCircle(
             centro,
             r * 2.2,
@@ -395,53 +654,16 @@ class PittoreDellaCostellazione extends _PittoreDelSentiero {
               ..color = oro.withValues(alpha: 0.30)
               ..maskFilter = MaskFilter.blur(BlurStyle.normal, r));
         tela.drawCircle(centro, r, Paint()..color = Colors.white);
-        // I quattro raggi: una stella accesa non e' un pallino.
-        final raggio = Paint()
-          ..strokeWidth = c * 0.0018
-          ..color = oro.withValues(alpha: 0.9);
-        tela.drawLine(centro.translate(-r * 2.6, 0),
-            centro.translate(r * 2.6, 0), raggio);
-        tela.drawLine(centro.translate(0, -r * 2.6),
-            centro.translate(0, r * 2.6), raggio);
-      } else {
-        tela.drawCircle(
-            centro,
-            r * 0.84,
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = c * 0.0026
-              ..color = oroTenue.withValues(alpha: 0.66));
-      }
-    }
-
-    // 4. LE CINQUE COSTELLAZIONI: il grande al centro della sua figura.
-    for (final p in punti.where((p) => p.eGrande)) {
-      final centro = assoluto(p, misura);
-      final r = p.raggio * c;
-      if (p.traguardo.id == evidenziato) alone(tela, centro, r);
-      final punte = Path();
-      for (var i = 0; i < 10; i++) {
-        final ang = -math.pi / 2 + math.pi * i / 5;
-        final lungo = i.isEven ? r : r * 0.42;
-        final punto = Offset(
-            centro.dx + lungo * math.cos(ang), centro.dy + lungo * math.sin(ang));
-        i == 0 ? punte.moveTo(punto.dx, punto.dy) : punte.lineTo(punto.dx, punto.dy);
-      }
-      punte.close();
-      if (acceso(p)) {
-        tela.drawPath(
-            punte,
-            Paint()
-              ..color = oro
-              ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.5));
-        tela.drawPath(punte, Paint()..color = Colors.white.withValues(alpha: 0.92));
-      } else {
-        tela.drawPath(
-            punte,
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = c * 0.0034
-              ..color = oroTenue.withValues(alpha: 0.62));
+        if (grandezza != GrandezzaDelPunto.piccola) {
+          final raggio = Paint()
+            ..strokeWidth = c * 0.0020
+            ..color = oro.withValues(alpha: 0.85);
+          final lungo = r * (grandezza == GrandezzaDelPunto.principale ? 2.4 : 1.9);
+          tela.drawLine(centro.translate(-lungo, 0), centro.translate(lungo, 0),
+              raggio);
+          tela.drawLine(centro.translate(0, -lungo), centro.translate(0, lungo),
+              raggio);
+        }
       }
     }
   }
@@ -460,15 +682,10 @@ class PittoreDellAlbero extends _PittoreDelSentiero {
   @override
   void paint(Canvas tela, Size misura) {
     final c = corto(misura);
-
     final asse = misura.width * 0.5;
 
-    // 1. IL TRONCO, sempre visibile: si assottiglia salendo, come un tronco.
-    //
-    // **Era una tavola.** Nella prima stesura andava da 0,020 a 0,005 del lato
-    // corto e a schermo si leggeva come un rettangolo pieno tagliato di netto
-    // in basso: l'anteprima lo ha mostrato. Adesso e' un pilastro sottile che
-    // esce dal bordo, e le Sefirot si leggono sopra invece che dentro.
+    // 1. IL TRONCO, sempre visibile: e' la struttura, e un albero senza tronco
+    // non e' un albero. Si assottiglia salendo.
     final tronco = Path()..moveTo(asse - c * 0.011, misura.height * 1.02);
     tronco
       ..lineTo(asse - c * 0.0028, misura.height * 0.05)
@@ -477,62 +694,25 @@ class PittoreDellAlbero extends _PittoreDelSentiero {
       ..close();
     tela.drawPath(tronco, Paint()..color = oroTenue.withValues(alpha: 0.46));
 
-    // 1b. I SENTIERI FRA LE SEFIROT, che l'ordine chiede espressamente
-    // ("i rami e i sentieri fra le Sefirot si vedono anche quando i frutti
-    // sono spenti"): due archi laterali per ogni coppia, cioe' i due pilastri
-    // esterni dell'Albero, sempre visibili.
-    final grandi = punti.where((p) => p.eGrande).toList()
-      ..sort((a, b) => b.dove.dy.compareTo(a.dove.dy));
-    for (var i = 0; i < grandi.length - 1; i++) {
-      final basso = assoluto(grandi[i], misura);
-      final alto = assoluto(grandi[i + 1], misura);
-      final ampiezza = c * (0.20 - 0.028 * i);
-      for (final lato in const [-1.0, 1.0]) {
-        final sentiero = Path()
-          ..moveTo(basso.dx, basso.dy)
-          ..quadraticBezierTo(
-            basso.dx + lato * ampiezza,
-            (basso.dy + alto.dy) / 2,
-            alto.dx,
-            alto.dy,
-          );
-        tela.drawPath(
-            sentiero,
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = c * 0.0026
-              ..color = (acceso(grandi[i]) && acceso(grandi[i + 1]))
-                  ? oro.withValues(alpha: 0.72)
-                  : oroTenue.withValues(alpha: 0.40));
-      }
-    }
+    // 2. L'OSSATURA, solo fra punti accesi: i rami crescono davvero.
+    //
+    // **La regola nuova supera la prima stesura della voce**, che teneva i rami
+    // e i sentieri fra le Sefirot visibili anche a frutti spenti: con tutto il
+    // reticolo li' dall'inizio l'albero era gia' fatto, e restava solo da
+    // colorarlo. Il tronco resta, perche' quello e' l'albero; i rami sono la
+    // crescita.
+    ossatura(tela, misura, GeometriaDelSentiero.ossatura(Sentiero.albero));
 
-    // 2. I RAMI, uno per frutto, e si vedono anche a frutto spento: e' la
-    // struttura dell'Albero, non la ricompensa.
-    for (final p in punti.where((p) => !p.eGrande)) {
-      final meta = assoluto(p, misura);
-      final attacco = Offset(asse, meta.dy + c * 0.045);
-      final ramo = Path()
-        ..moveTo(attacco.dx, attacco.dy)
-        ..quadraticBezierTo(
-            (attacco.dx + meta.dx) / 2, attacco.dy - c * 0.012, meta.dx, meta.dy);
-      tela.drawPath(
-          ramo,
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = c * (acceso(p) ? 0.0042 : 0.0030)
-            ..strokeCap = StrokeCap.round
-            ..color = acceso(p)
-                ? oro.withValues(alpha: 0.80)
-                : oroTenue.withValues(alpha: 0.46));
-    }
-
-    // 3. I FRUTTI.
-    for (final p in punti.where((p) => !p.eGrande)) {
-      final centro = assoluto(p, misura);
-      final r = p.raggio * c;
-      if (p.traguardo.id == evidenziato) alone(tela, centro, r);
-      if (acceso(p)) {
+    // 3. I FRUTTI e le Sefirot, dai piccoli ai principali.
+    for (final grandezza in GrandezzaDelPunto.values.reversed) {
+      for (final punto in punti.where((p) => p.grandezza == grandezza)) {
+        final centro = assoluto(punto, misura);
+        final r = punto.raggio * c;
+        if (punto.traguardo.id == evidenziato) alone(tela, centro, r);
+        if (!acceso(punto)) {
+          puntoSpento(tela, centro, r);
+          continue;
+        }
         tela.drawCircle(
             centro,
             r * 2.0,
@@ -540,47 +720,37 @@ class PittoreDellAlbero extends _PittoreDelSentiero {
               ..color = oro.withValues(alpha: 0.26)
               ..maskFilter = MaskFilter.blur(BlurStyle.normal, r));
         tela.drawCircle(centro, r, Paint()..color = oro);
+        // Il riflesso: un frutto e' una cosa tonda che prende luce.
         tela.drawCircle(centro.translate(-r * 0.3, -r * 0.3), r * 0.34,
-            Paint()..color = Colors.white.withValues(alpha: 0.8));
-      } else {
-        tela.drawCircle(
-            centro,
-            r * 0.86,
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = c * 0.0026
-              ..color = oroTenue.withValues(alpha: 0.66));
-      }
-    }
-
-    // 4. LE CINQUE SEFIROT sul pilastro, fino a Keter in cima.
-    for (final p in punti.where((p) => p.eGrande)) {
-      final centro = assoluto(p, misura);
-      final r = p.raggio * c;
-      if (p.traguardo.id == evidenziato) alone(tela, centro, r);
-      if (acceso(p)) {
-        tela.drawCircle(
-            centro,
-            r * 1.9,
-            Paint()
-              ..color = oro.withValues(alpha: 0.30)
-              ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.9));
-        tela.drawCircle(centro, r, Paint()..color = oro);
-        tela.drawCircle(
-            centro,
-            r * 0.58,
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = c * 0.0028
-              ..color = Colors.white.withValues(alpha: 0.85));
-      } else {
-        tela.drawCircle(
-            centro,
-            r,
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = c * 0.0040
-              ..color = oroTenue.withValues(alpha: 0.68));
+            Paint()..color = Colors.white.withValues(alpha: 0.80));
+        if (grandezza == GrandezzaDelPunto.principale) {
+          tela.drawCircle(
+              centro,
+              r * 0.58,
+              Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = c * 0.0028
+                ..color = Colors.white.withValues(alpha: 0.85));
+          // **KETER SI VEDE CHE E' L'ULTIMA**, come l'ordine chiede: la Sefirah
+          // in cima porta una corona di luce che le altre non hanno. Senza
+          // questo le cinque erano identiche e la salita non finiva da nessuna
+          // parte.
+          if (punto.gruppo == 4) {
+            tela.drawCircle(
+                centro,
+                r * 1.55,
+                Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = c * 0.0024
+                  ..color = oro.withValues(alpha: 0.75));
+            tela.drawCircle(
+                centro,
+                r * 2.9,
+                Paint()
+                  ..color = oro.withValues(alpha: 0.22)
+                  ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 1.2));
+          }
+        }
       }
     }
   }
@@ -655,7 +825,10 @@ class PittoreDelLoto extends _PittoreDelSentiero {
           ..strokeCap = StrokeCap.round
           ..color = oroTenue.withValues(alpha: 0.50));
 
-    // 2. I PETALI, dalla corona piu' esterna verso il cuore, cosi' i vicini
+    // 2. L'OSSATURA, solo fra petali aperti: il giro si chiude man mano.
+    ossatura(tela, misura, GeometriaDelSentiero.ossatura(Sentiero.loto));
+
+    // 3. I PETALI, dalla corona piu' esterna verso il cuore, cosi' i vicini
     // coprono i lontani come in un fiore vero.
     final mini = punti.where((p) => !p.eGrande).toList()
       ..sort((a, b) => b.gruppo.compareTo(a.gruppo));
@@ -674,12 +847,10 @@ class PittoreDelLoto extends _PittoreDelSentiero {
               ..strokeWidth = c * 0.0030
               ..color = oro.withValues(alpha: 0.95));
       } else {
-        tela.drawPath(
-            via,
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = c * 0.0026
-              ..color = oroTenue.withValues(alpha: 0.58));
+        // **UN PETALO CHIUSO E' UNA FORMA PIENA E TENUE, non un contorno
+        // vuoto**, ordine S voce 02: il contorno si legge come una casella da
+        // spuntare, e un fiore non ha caselle.
+        tela.drawPath(via, Paint()..color = oroTenue.withValues(alpha: 0.26));
       }
       if (p.traguardo.id == evidenziato) {
         alone(tela, assoluto(p, misura), p.raggio * c);
@@ -706,12 +877,9 @@ class PittoreDelLoto extends _PittoreDelSentiero {
               ..strokeWidth = c * 0.0044
               ..color = Colors.white.withValues(alpha: 0.90));
       } else {
-        tela.drawPath(
-            via,
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = c * 0.0036
-              ..color = oroTenue.withValues(alpha: 0.64));
+        // La Fioritura chiusa e' piu' presente delle altre, perche' e' una delle
+        // cinque che reggono il fiore, ma resta una forma piena.
+        tela.drawPath(via, Paint()..color = oroTenue.withValues(alpha: 0.38));
       }
     }
 

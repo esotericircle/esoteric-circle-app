@@ -256,13 +256,17 @@ class _SentieroScreenState extends State<SentieroScreen> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: _FasciaDeiGrandi(
-                sentiero: widget.sentiero,
-                diario: diario,
-                suTocco: _vaiAlTraguardo,
-              ),
-            ),
+            // LA FASCIA DEI CINQUE GRANDI NON C'E' PIU'. Ordine S voce 02,
+            // punto 7, ed e' la strada che l'Architetto raccomandava.
+            //
+            // Erano cinque anelli grigi coi numeri 10, 20, 30, 40 e 50: una
+            // tessera punti di sistema appoggiata sopra un cielo, che con la
+            // gerarchia nuova diceva una cosa che il disegno dice meglio. Le
+            // cinque stelle principali stanno dentro la figura e si vedono
+            // SPENTE in anticipo: e' quella la tessera punti, ed e' fatta della
+            // materia del sentiero invece che di cerchi di sistema. Tenerla
+            // avrebbe voluto dire due tessere per lo stesso conto, e una delle
+            // due con le icone di serie dentro.
             SliverPadding(
               padding: const EdgeInsets.symmetric(
                   horizontal: SpacingTokens.lg, vertical: SpacingTokens.md),
@@ -300,74 +304,6 @@ class _SentieroScreenState extends State<SentieroScreen> {
   }
 }
 
-/// I CINQUE GRANDI, sempre visibili in anticipo: modello tessera punti.
-class _FasciaDeiGrandi extends StatelessWidget {
-  const _FasciaDeiGrandi({
-    required this.sentiero,
-    required this.diario,
-    required this.suTocco,
-  });
-
-  final Sentiero sentiero;
-  final DiarioDelCammino diario;
-  final void Function(Traguardo traguardo) suTocco;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    return Container(
-      key: const Key('fascia_dei_grandi'),
-      padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.lg, vertical: SpacingTokens.sm),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          for (final grande in Sentieri.grandiDi(sentiero))
-            GestureDetector(
-              onTap: () => suTocco(grande),
-              child: Column(
-                children: [
-                  Icon(
-                    diario.eAcceso(grande.id)
-                        ? Icons.auto_awesome
-                        : Icons.circle_outlined,
-                    size: 26,
-                    color: diario.eAcceso(grande.id)
-                        ? palette.goldSoft
-                        : ColorTokens.textSecondary
-                            .withValues(alpha: SogliaDelLeggibile.alfaDelloSpento),
-                  ),
-                  const SizedBox(height: 2),
-                  Text('${grande.posizione}',
-                      style: TypographyTokens.etichetta().copyWith(
-                        color: diario.eAcceso(grande.id)
-                            ? palette.goldSoft
-                            : ColorTokens.textSecondary,
-                      )),
-                ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-/// LE OPACITA' DEL SENTIERO, UNA SOLA PER STATO. Ordine P voce 37.
-///
-/// **Il difetto, coi numeri.** Il colore del non raggiunto era
-/// `textSecondary` ad alfa 0,35 e l'intera riga era avvolta in
-/// `Opacity(opacity: 0.78)`. Le due si moltiplicavano: l'alfa effettivo del
-/// titolo era **0,273**, cioe' un contrasto di 1,76 a 1 sul fondo reale, sotto
-/// la meta' della soglia. Il commento accanto al codice diceva che a 0,55 i
-/// nomi sparivano e che il grigio era stato reso leggibile: la misura diceva
-/// il contrario, e ha vinto la misura.
-///
-/// **La regola.** Una sola opacita' governa lo stato, mai due che si
-/// moltiplicano, e il valore non si sceglie a occhio: si sceglie perche' il
-/// contrasto del titolo sul fondo reale soddisfi la soglia della voce P.12,
-/// 4,5 a 1. A 0,80 il caso peggiore dei tre sentieri, il verde di Aura, misura
-/// 4,85 a 1.
 class SogliaDelLeggibile {
   const SogliaDelLeggibile._();
 

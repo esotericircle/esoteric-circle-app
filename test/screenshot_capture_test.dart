@@ -2327,9 +2327,20 @@ void main() {
   // schermata scendeva da se' al traguardo raggiunto, quindi il disegno esisteva
   // e nessuno lo vedeva: queste tre immagini sono la prova a video che adesso e'
   // la prima cosa che si vede, e sono anche le tre che la voce S.02 confronta.
+  //
+  // **TRE STATI PER SENTIERO, e servono tutti e tre**, ordine S voce 02: a ZERO
+  // si deve INTUIRE la forma senza vederla, a META' si deve capire in che
+  // direzione sta crescendo, COMPLETA si deve riconoscere una figura e non una
+  // nuvola di punti. Se a zero si vede gia' tutto, o se a meta' non si capisce
+  // dove va, il disegno non e' finito.
   for (final sentiero in Sentiero.values) {
-    testWidgets('Cattura il sentiero ${sentiero.name} all\'apertura',
-        (tester) async {
+    for (final stato in const [
+      ('zero', 0, 0),
+      ('meta', 25, 2),
+      ('completo', 50, 5),
+    ]) {
+      testWidgets('Cattura il sentiero ${sentiero.name} ${stato.$1}',
+          (tester) async {
       silenceSensors();
       await loadFonts();
       final rootKey =
@@ -2337,8 +2348,14 @@ void main() {
       final ctx = tester.element(find.byType(MaterialApp));
       // UN CAMMINO A META', altrimenti il disegno e' tutto spento e non si
       // vedrebbe la figura che si compone coi gesti.
+      // I MINI E I GRANDI dello stato chiesto: i grandi non si accendono da se'
+      // quando i mini salgono, hanno le loro condizioni, e senza accenderli la
+      // figura resterebbe senza le stelle che la reggono.
       final diario = ctx.read<DiarioDelCammino>();
-      for (final t in Sentieri.miniDi(sentiero).take(17)) {
+      for (final t in Sentieri.miniDi(sentiero).take(stato.$2)) {
+        await tester.runAsync(() => diario.accendi(t.id));
+      }
+      for (final t in Sentieri.grandiDi(sentiero).take(stato.$3)) {
         await tester.runAsync(() => diario.accendi(t.id));
       }
       await step(tester);
@@ -2354,8 +2371,10 @@ void main() {
       expect(scorrimento.pixels, 0.0,
           reason: 'la schermata si e\' mossa da se\': l\'anteprima mostrerebbe '
               'l\'elenco invece del disegno');
-      await capture(tester, rootKey, 'sentiero-${sentiero.name}-apertura.png');
-    });
+      await capture(
+            tester, rootKey, 'sentiero-${sentiero.name}-${stato.$1}.png');
+      });
+    }
   }
 
   // --- La card condivisibile dell'Oroscopo, CON LA RIGA DEL CIELO ---

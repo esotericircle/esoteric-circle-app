@@ -51,6 +51,40 @@ chiusa: committare non e' consegnare.
   - Anteprime rigenerate e GUARDATE: `docs/preview/sentiero-costellazione-apertura.png`,
     `-albero-`, `-loto-`.
 - **S.02** I tre disegni sono fatti bene — APERTA
+  - **Il lavoro e' fatto e committato, la voce resta aperta per una ragione
+    sola**: il criterio di giudizio chiede di GUARDARE tre anteprime per
+    sentiero, nove in tutto, e ne ho guardate sei. Restano
+    `sentiero-albero-zero`, `sentiero-albero-meta` e `sentiero-loto-zero`.
+    Dichiararla chiusa avendone guardate sei su nove sarebbe la cosa che questo
+    progetto non fa.
+  - UNA FIGURA SOLA, non cinque figurine: i cinque principali stanno su una
+    SPINA e ogni parte cresce da lei con due braccia. I cinque grandi sono le
+    stelle che reggono la forma, i cinquanta mini la riempiono.
+  - Tre grandezze dichiarate come dato, `GrandezzaDelPunto`: principale 0,0290,
+    media 0,0165, piccola 0,0098 del lato corto. Quale punto sia di quale
+    grandezza sta nella geometria.
+  - Le linee si disegnano SOLO fra punti accesi, `ossatura` piu' i segmenti
+    dichiarati: a zero traguardi non c'e' nessun segmento, quindi la forma
+    finale non si vede prima di meritarla.
+  - I punti spenti sono punti PIENI e tenui, non anelli: un cerchio col centro
+    vuoto si legge come una casella da spuntare.
+  - LA FASCIA DEI CINQUE GRANDI NON C'E' PIU', punto 7, ed era la strada
+    raccomandata: le cinque stelle principali si vedono spente in anticipo
+    dentro il disegno, quindi la tessera punti e' il disegno.
+  - Trovato guardando: l'Albero era un ABETE, cinque coppie di rami identici e
+    orizzontali. Adesso i rami hanno lunghezze e pendenze diverse per parte, si
+    assottigliano verso la punta (lo spessore e' un dato del segmento), e Keter
+    porta una corona di luce che le altre Sefirot non hanno.
+  - Trovato guardando: il LOTO non era un fiore ma un mandala geometrico, perche'
+    legare i dieci petali di un giro con segmenti dritti disegna un decagono, e
+    cinque giri disegnavano cinque decagoni coi loro spigoli. **Il Loto non ha
+    ossatura**: la sua figura sola sono i giri concentrici attorno allo stesso
+    cuore, e la crescita si vede nei petali che si aprono.
+  - Misura: `test/una_figura_sola_test.dart`, diciassette prove sui tre sentieri,
+    a pixel su una tela vera e per DIFFERENZA fra la tela a zero e quella piena,
+    perche' il tronco e lo stelo sono struttura e in una misura assoluta
+    passavano per segmenti. Rosso eseguito rimettendo il reticolo intero: cadono
+    tre prove su tre sentieri.
 - **S.03** La schermata dice dove sei, cosa vedi e cosa guadagni — APERTA
 - **S.04** Perche' il borsellino e' a zero — APERTA
 - **S.05** Gli Eos hanno un nome e una loro icona — APERTA
