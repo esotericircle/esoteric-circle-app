@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/circle_seal.dart';
@@ -16,6 +15,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'seal_painter.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
 
 /// Il Sigillo del Cerchio, a fine onboarding subito dopo la carta natale.
 ///
@@ -95,13 +95,8 @@ class _CircleSealScreenState extends State<CircleSealScreen>
       final dir = await getTemporaryDirectory();
       final file = File('${dir.path}/sigillo_del_cerchio.png');
       await file.writeAsBytes(bytes);
-      await SharePlus.instance.share(
-        ShareParams(
-          files: [XFile(file.path, mimeType: 'image/png')],
-          text:
-              'Il mio Sigillo del Cerchio. Scopri il tuo con Esoteric Circle. #EsotericCircle',
-        ),
-      );
+      await PortaDellaCondivisione.daFile(file.path, testo:
+              'Il mio Sigillo del Cerchio. Scopri il tuo con Esoteric Circle. #EsotericCircle');
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
