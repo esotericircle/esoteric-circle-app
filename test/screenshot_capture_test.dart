@@ -91,6 +91,9 @@ import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
+import 'package:esoteric_circle/core/sigilli/sentieri.dart';
+import 'package:esoteric_circle/features/sigilli/sentiero_screen.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
 import 'package:esoteric_circle/features/tarot/stesa_reveal.dart';
 import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
@@ -2317,6 +2320,43 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
     await capture(tester, rootKey, 'oroscopo-due-schede-affiancate.png');
   });
+
+  // --- I TRE SENTIERI ALL'APERTURA. Ordine S voci 01 e 02 ---
+  //
+  // **All'apertura si resta sul disegno, fermi.** Prima della voce S.01 la
+  // schermata scendeva da se' al traguardo raggiunto, quindi il disegno esisteva
+  // e nessuno lo vedeva: queste tre immagini sono la prova a video che adesso e'
+  // la prima cosa che si vede, e sono anche le tre che la voce S.02 confronta.
+  for (final sentiero in Sentiero.values) {
+    testWidgets('Cattura il sentiero ${sentiero.name} all\'apertura',
+        (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey =
+          await mount(tester, await buildServices(Maestro.medora, seeded: false));
+      final ctx = tester.element(find.byType(MaterialApp));
+      // UN CAMMINO A META', altrimenti il disegno e' tutto spento e non si
+      // vedrebbe la figura che si compone coi gesti.
+      final diario = ctx.read<DiarioDelCammino>();
+      for (final t in Sentieri.miniDi(sentiero).take(17)) {
+        await tester.runAsync(() => diario.accendi(t.id));
+      }
+      await step(tester);
+      final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+      unawaited(nav.push(SentieroScreen.route(sentiero)));
+      await step(tester);
+      await step(tester);
+      await tester.pump(const Duration(seconds: 1));
+      // IL GUARDIANO: se lo scorrimento non fosse a zero, l'immagine mostrerebbe
+      // l'elenco e la voce S.01 non sarebbe quella che si vede.
+      final scorrimento =
+          tester.state<ScrollableState>(find.byType(Scrollable).last).position;
+      expect(scorrimento.pixels, 0.0,
+          reason: 'la schermata si e\' mossa da se\': l\'anteprima mostrerebbe '
+              'l\'elenco invece del disegno');
+      await capture(tester, rootKey, 'sentiero-${sentiero.name}-apertura.png');
+    });
+  }
 
   // --- La card condivisibile dell'Oroscopo, CON LA RIGA DEL CIELO ---
   //

@@ -25,7 +25,31 @@ chiusa: committare non e' consegnare.
 
 ## Sezione Zero. Quello che la 2177 ha lasciato aperto. Si esegue per prima
 
-- **S.01** Il disegno del sentiero e' il protagonista — APERTA
+- **S.01** Il disegno del sentiero e' il protagonista — CHIUSA
+  - Causa: DUE regole dello stesso ordine P che si combattevano. La P.33 vuole il
+    disegno come prima cosa che si vede, la P.36 fa scendere lo scorrimento al
+    traguardo raggiunto appena la schermata si apre. Vinceva la discesa, quindi
+    chi apriva atterrava sull'elenco e il disegno non lo vedeva mai: non era un
+    difetto di nessuna delle due, era la loro somma.
+  - Decisione di Mauro, e supera la P.36: la discesa automatica si toglie. **Il
+    codice della misura non si e' buttato, si e' spostato sul TOCCO**, il comando
+    discreto "Vai al punto in cui sei" sotto il disegno: quella misura e' costata
+    una voce intera, perche' prima il punto d'arrivo si stimava da un'altezza
+    scritta a mano e scivolava.
+  - Il disegno non e' piu' un quadrato: `quotaDelDisegno = 0,58` dell'altezza
+    UTILE, che si misura dove il viewport la dichiara e non dedotta dallo schermo
+    sottraendo barra e intestazione a mano. Misurato sulla resa a 360 per 797:
+    **il disegno prende il 58,0 per cento** e all'apertura ci sta dentro tutto.
+    Non e' un quadrato e i pittori non ne soffrono: pongono i punti su coordinate
+    normalizzate e prendono i raggi dal lato corto.
+  - Con Riduci Movimento vale lo stesso: nessuno scorrimento all'apertura, e il
+    tocco porta al punto senza volo, misurato su UN solo fotogramma.
+  - File: `lib/features/sigilli/sentiero_screen.dart`.
+  - Misura: `test/il_disegno_e_il_protagonista_test.dart`, quattro prove. Rosso
+    eseguito rimettendo la discesa automatica: lo scorrimento si apriva a 3.042
+    punti invece di 0, e a 3.216 con Riduci Movimento.
+  - Anteprime rigenerate e GUARDATE: `docs/preview/sentiero-costellazione-apertura.png`,
+    `-albero-`, `-loto-`.
 - **S.02** I tre disegni sono fatti bene — APERTA
 - **S.03** La schermata dice dove sei, cosa vedi e cosa guadagni — APERTA
 - **S.04** Perche' il borsellino e' a zero — APERTA
@@ -194,6 +218,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 0
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

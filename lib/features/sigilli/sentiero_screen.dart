@@ -29,10 +29,16 @@ import 'disegno_del_sentiero.dart';
 /// punto si va al suo traguardo, e toccando un traguardo si evidenzia il suo
 /// punto.
 ///
-/// **L'apertura viene dall'alto**, come deciso: prima il traguardo 50 in
-/// piena luce, poi lo scorrimento scende a ritroso e si ferma sul punto
-/// raggiunto. Non e' un vezzo: chi apre un journal vuoto deve vedere prima
-/// dove si arriva, non dove non e' ancora arrivato.
+/// **ALL'APERTURA SI RESTA SUL DISEGNO, FERMI. Ordine S voce 01, e supera la
+/// voce P.36.** Erano due regole dello stesso ordine P che si combattevano: la
+/// discesa automatica al punto raggiunto e "il disegno e' la prima cosa che si
+/// vede". Vinceva la discesa, quindi chi apriva il sentiero atterrava
+/// sull'elenco e il disegno non lo vedeva mai. Adesso la discesa non parte da
+/// se': **il codice della misura non si e' buttato, si e' spostato sul TOCCO**,
+/// il comando "Vai al punto in cui sei" sotto il disegno.
+///
+/// Il disegno non e' piu' un quadrato: prende almeno il
+/// [quotaDelDisegno] dell'altezza utile, e all'apertura ci sta dentro tutto.
 class SentieroScreen extends StatefulWidget {
   const SentieroScreen({super.key, required this.sentiero, this.senzaVolo = false});
 
@@ -64,11 +70,19 @@ class _SentieroScreenState extends State<SentieroScreen> {
   /// Il traguardo che il disegno deve evidenziare.
   String? _evidenziato;
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scendiAlPunto());
-  }
+  /// QUANTA ALTEZZA UTILE PRENDE IL DISEGNO.
+  ///
+  /// L'ordine S voce 01 chiede almeno il 55 per cento, misurato sulla resa: qui
+  /// c'e' 0,58, che lo supera e lascia il resto per il comando del tocco piu'
+  /// l'inizio dell'elenco, cosi' si capisce che sotto c'e' altro da leggere.
+  /// **Non e' un quadrato**, e il disegno non ne soffre: i tre pittori pongono i
+  /// punti su coordinate normalizzate e prendono i raggi dal lato corto, quindi
+  /// una scatola piu' alta che larga li allarga senza deformare i cerchi.
+  static const double quotaDelDisegno = 0.58;
+
+  // NESSUN initState CHE SCORRE. Prima qui c'era un post frame callback che
+  // chiamava `_scendiAlPunto`, e quello era il difetto della voce S.01: il
+  // disegno esisteva e nessuno lo vedeva.
 
   @override
   void dispose() {
@@ -82,7 +96,10 @@ class _SentieroScreenState extends State<SentieroScreen> {
     return mini[accesi.clamp(0, mini.length - 1)];
   }
 
-  /// LA DISCESA: dal 50 in luce fino al punto raggiunto.
+  /// LA DISCESA AL PUNTO RAGGIUNTO, **e adesso la chiede un TOCCO**.
+  ///
+  /// Ordine S voce 01: all'apertura non parte piu' da se'. La misura resta
+  /// identica, perche' era giusta ed era costata una voce intera.
   ///
   /// **Il conto era rovesciato, ordine P voce 36.** Qui c'era
   /// `(50 - gradini) * altezzaDelGradino` con `gradini = (50 - accesi)`, cioe',
@@ -199,7 +216,13 @@ class _SentieroScreenState extends State<SentieroScreen> {
         // cosa che si vede, l'elenco arriva scorrendo. Le cinquanta righe si
         // costruiscono tutte, non a domanda: sono cinquanta, e servono
         // disposte perche' la discesa possa MISURARE dove si ferma.
-        body: CustomScrollView(
+        // **L'ALTEZZA UTILE SI MISURA QUI**, dove il viewport la dichiara. Dentro
+        // uno sliver il vincolo verticale e' infinito, quindi chiederla la'
+        // vorrebbe dire dedurla dallo schermo e sottrarre a mano barra e
+        // intestazione: due conti che divergono al primo cambiamento.
+        body: LayoutBuilder(builder: (context, vincoli) {
+          final altezzaDelDisegno = vincoli.maxHeight * quotaDelDisegno;
+          return CustomScrollView(
           key: const Key('sentiero_scorrimento'),
           controller: _scorrimento,
           slivers: [
@@ -207,14 +230,29 @@ class _SentieroScreenState extends State<SentieroScreen> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(SpacingTokens.md,
                     SpacingTokens.sm, SpacingTokens.md, SpacingTokens.sm),
-                child: AspectRatio(
-                  aspectRatio: 1,
+                child: SizedBox(
+                  key: const Key('sentiero_disegno'),
+                  height: altezzaDelDisegno,
                   child: DisegnoDelSentiero(
                     sentiero: widget.sentiero,
                     accesi: accesi,
                     evidenziato: _evidenziato,
                     suTocco: _vaiAlTraguardo,
                   ),
+                ),
+              ),
+            ),
+            // IL COMANDO DISCRETO, che fa quello che prima si faceva da se'.
+            SliverToBoxAdapter(
+              child: Center(
+                child: TextButton.icon(
+                  key: const Key('sentiero_vai_al_punto'),
+                  onPressed: _scendiAlPunto,
+                  style: TextButton.styleFrom(
+                      foregroundColor: palette.goldSoft,
+                      textStyle: TypographyTokens.didascalia()),
+                  icon: const Icon(Icons.south_rounded, size: 15),
+                  label: const Text('Vai al punto in cui sei'),
                 ),
               ),
             ),
@@ -255,7 +293,8 @@ class _SentieroScreenState extends State<SentieroScreen> {
               ),
             ),
           ],
-        ),
+          );
+        }),
       ),
     );
   }
