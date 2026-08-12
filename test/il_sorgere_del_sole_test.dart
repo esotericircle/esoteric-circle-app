@@ -1,4 +1,4 @@
-import 'package:esoteric_circle/core/astro/sunset_time.dart';
+import 'package:esoteric_circle/core/astro/solar_time.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// IL SORGERE DEL SOLE, CONTRO UNA FONTE ESTERNA.

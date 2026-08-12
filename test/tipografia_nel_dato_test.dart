@@ -1,6 +1,9 @@
+import 'package:esoteric_circle/design_system/theme/accento_del_maestro.dart';
+import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../tool/censimento_contrasto.dart';
 import '../tool/censimento_spazi.dart';
 import '../tool/censimento_tipografia.dart';
 
@@ -53,6 +56,80 @@ void main() {
     );
   });
 
+
+  // --- IL CONTRASTO, ordine P voce 14 ---
+  //
+  // **Il censimento tipografico non vede questo difetto.** Misura le
+  // dimensioni, e `SOTTO_IL_PAVIMENTO: 0` resta vero mentre un testo e'
+  // illeggibile: un testo a 18 punti in oro su avorio si legge peggio di uno a
+  // 14 in bianco su nero. Da qui in avanti anche il contrasto ha il suo
+  // cricchetto, e sta in questa guardia perche' e' la stessa famiglia di
+  // debito, non una guardia nuova accanto.
+  group('Il contrasto', () {
+    test('Le coppie sotto il contrasto non aumentano', () {
+      final coppie = censisciIlContrasto();
+      final sotto = coppie.where((c) => !c.passa).toList();
+      final registrati = numeriDelContrasto();
+
+      expect(sotto.length, lessThanOrEqualTo(registrati.sotto),
+          reason: 'le coppie di colori sotto '
+              '${sogliaDiLettura.toStringAsFixed(1)} a 1 sono passate da '
+              '${registrati.sotto} a ${sotto.length}. Da qui in avanti quel '
+              'numero puo\' solo scendere.\nLe peggiori:\n'
+              '${sotto.take(6).map((c) => '  ${c.inchiostro.nome} su ${c.superficie.nome}: ${c.contrasto.toStringAsFixed(2)}').join('\n')}');
+      expect(sotto.length, registrati.sotto,
+          reason: 'le coppie sotto soglia sono scese a ${sotto.length} ma il '
+              'censimento dice ancora ${registrati.sotto}: rigeneralo con\n'
+              '  dart run tool/censimento_contrasto.dart\n'
+              'e committalo insieme al codice, cosi\' la soglia scende con lui.');
+      expect(coppie.length, registrati.censite,
+          reason: 'le coppie censite sono ${coppie.length} e il documento ne '
+              'dichiara ${registrati.censite}: rigenera il censimento');
+    });
+
+    test('La formula dello strumento e quella dell\'app dicono lo stesso numero',
+        () {
+      // **DUE COPIE DELLA STESSA ARITMETICA DIVERGONO.** Lo strumento gira
+      // sulla VM senza motore grafico, quindi non puo' importare
+      // `AccentoDelMaestro` e la formula WCAG e' scritta due volte. Questa prova
+      // e' cio' che rende sopportabile la seconda copia: se un giorno le due
+      // smettessero di dire lo stesso numero, si saprebbe subito.
+      const campioni = [
+        [ColorTokens.textPrimary, ColorTokens.medoraDeepest],
+        [ColorTokens.textMuted, ColorTokens.auraSurface],
+        [ColorTokens.gold, ColorTokens.caligoDeep],
+        [ColorTokens.goldDeep, ColorTokens.neutralSurface],
+        [ColorTokens.textSecondary, ColorTokens.medoraSurface],
+      ];
+      for (final coppia in campioni) {
+        final a = coppia[0];
+        final b = coppia[1];
+        final dallApp = AccentoDelMaestro.contrastoFra(a, b);
+        final dalloStrumento = contrastoFra(
+          ColoreDichiarato(
+              nome: 'a',
+              file: '',
+              riga: 0,
+              valore: 0xFF000000 |
+                  ((a.r * 255).round() << 16) |
+                  ((a.g * 255).round() << 8) |
+                  (a.b * 255).round()),
+          ColoreDichiarato(
+              nome: 'b',
+              file: '',
+              riga: 0,
+              valore: 0xFF000000 |
+                  ((b.r * 255).round() << 16) |
+                  ((b.g * 255).round() << 8) |
+                  (b.b * 255).round()),
+        );
+        expect(dalloStrumento, closeTo(dallApp, 0.01),
+            reason: 'lo strumento dice ${dalloStrumento.toStringAsFixed(3)} e '
+                'l\'app ${dallApp.toStringAsFixed(3)}: le due copie della '
+                'formula WCAG hanno smesso di essere d\'accordo');
+      }
+    });
+  });
 
   test('Il debito non si sparge su piu\' file', () {
     // IL TOTALE DA SOLO SI LASCIA AGGIRARE: spostando una misura da un file

@@ -9,14 +9,21 @@ import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/rituals/ritual_gift_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:esoteric_circle/design_system/tokens/regime_chiaro.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// LA PROVA DELLA VOCE 2: il colore della scheda nasce dal Maestro del giorno.
 void main() {
-  /// Il vetro della bolla, reso opaco: e' contro questo che si misura la
-  /// leggibilita', perche' la scheda compare a gesto completato, cioe' a luce
-  /// piena.
-  const vetro = Color(0xFFFBF4E2);
+  /// LA SUPERFICIE SU CUI SI MISURA, ed e' cambiata con la voce 12.
+  ///
+  /// **Qui c'era il colore che il vetro DICHIARA, scritto a mano.** Ma il vetro
+  /// e' semitrasparente al settantotto per cento sopra una fotografia del sole
+  /// che sale: cio' che una lettera trova sotto di se' non e' quel colore.
+  /// Misurato sul fotogramma vero, il fondo reso scende fino a #B7B8AD, e su
+  /// quel fondo il conto che tornava a 4,5 valeva 3,39. La superficie vera vive
+  /// in RegimeChiaro.superficieChiara, che dichiara il caso PEGGIORE misurato:
+  /// si chiede a lei invece di riscrivere un colore che il tempo ha smentito.
+  final vetro = RegimeChiaro.superficieChiara;
 
   double _canale(double v) =>
       v <= 0.03928 ? v / 12.92 : math.pow((v + 0.055) / 1.055, 2.4).toDouble();
@@ -99,23 +106,42 @@ void main() {
       }
     });
 
-    testWidgets('il verde di Aura e\' stato scurito, gli altri due no',
+    testWidgets('nessun accento viene scurito piu\' del necessario',
         (tester) async {
-      // La regola non deve toccare chi gia' passa: se scurisse tutti, il blu e
-      // il rosso perderebbero forza senza motivo.
-      for (final m in [Maestro.medora, Maestro.caligo]) {
+      // **QUESTA PROVA MISURAVA UN'ALTRA COSA, e quella cosa non e' piu'
+      // vera.** Diceva "il verde di Aura e' stato scurito, gli altri due no", e
+      // contro il vetro DICHIARATO era vero: blu e rosso passavano al primo
+      // giro. Con la voce 12 la superficie dichiarata e' diventata il fondo
+      // PEGGIORE MISURATO, `#B7B8AD` invece di `#FBF4E2`, e su quel fondo non
+      // passa piu' nessuno dei tre al primo giro: adesso la regola scurisce
+      // tutti e tre. Non e' una regressione, e' l'unico modo di essere
+      // leggibili sul fondo che c'e' davvero.
+      //
+      // Cio' che la prova voleva impedire pero' resta valido: che la regola
+      // scurisca PIU' DEL NECESSARIO, togliendo forza al colore del Maestro
+      // senza guadagnare leggibilita'. Si misura quello, ed e' un vincolo piu'
+      // stretto di prima: l'accento deve essere il PRIMO valore della discesa
+      // che raggiunge la soglia, cioe' un passo piu' chiaro deve cadere sotto.
+      for (final m in Maestro.values) {
         final accento = await accentoMostrato(tester, m);
-        expect(accento, MaestroPalette.forKey(ThemeKey.of(m)).primary,
-            reason: '${m.name} passava gia\' la soglia e non andava toccato');
+        expect(contrasto(accento, vetro), greaterThanOrEqualTo(4.5),
+            reason: '${m.name} non arriva alla soglia sul fondo vero');
+        final base = MaestroPalette.forKey(ThemeKey.of(m)).primary;
+        // Se il colore di partenza passava gia', non c'e' nessuna discesa da
+        // giudicare: l'accento e' il primario e la porta non l'ha toccato.
+        if (accento == base) continue;
+        // Un passo indietro nella discesa: il passo dichiarato e' 0,95.
+        final unPassoPiuChiaro = Color.from(
+          alpha: accento.a,
+          red: (accento.r / 0.95).clamp(0.0, 1.0),
+          green: (accento.g / 0.95).clamp(0.0, 1.0),
+          blue: (accento.b / 0.95).clamp(0.0, 1.0),
+        );
+        expect(contrasto(unPassoPiuChiaro, vetro), lessThan(4.5),
+            reason: '${m.name} e\' stato scurito piu\' del necessario: un '
+                'passo piu\' chiaro passerebbe lo stesso, e il colore del '
+                'Maestro ha perso forza per niente');
       }
-      final aura = await accentoMostrato(tester, Maestro.aura);
-      final auraBase = MaestroPalette.forKey(ThemeKey.of(Maestro.aura)).primary;
-      expect(aura, isNot(auraBase),
-          reason: 'il verde di Aura non e\' stato scurito, quindi resta '
-              'illeggibile');
-      expect(contrasto(auraBase, vetro), lessThan(4.5),
-          reason: 'se il verde di partenza passasse gia\', questa prova non '
-              'starebbe verificando niente');
     });
 
     testWidgets('il testo NON si tinge, resta l\'inchiostro scuro',
@@ -137,12 +163,15 @@ void main() {
           ),
         ));
         await tester.pump();
-        final corpo = tester
-            .widgetList<Text>(find.byType(Text))
-            .where((t) => (t.style?.fontSize ?? 0) == 16)
-            .toList();
-        expect(corpo, isNotEmpty);
-        corpi.add(corpo.first.style!.color!);
+        // **SI CHIEDE ALLA CHIAVE, non alla prima riga a sedici punti.** Con
+        // la voce 13 le etichette dell'Alba sono passate da dodici a sedici,
+        // quindi la prima riga a sedici non e' piu' l'orientamento: e' la riga
+        // che dichiara chi parla, e quella il colore del Maestro ce l'ha per
+        // mestiere. La prova accusava una riga sana. Cambiata la grandezza
+        // misurata, non la soglia.
+        final corpo =
+            tester.widget<Text>(find.byKey(const Key('alba_orientamento')));
+        corpi.add(corpo.style!.color!);
       }
       expect(corpi, hasLength(1),
           reason: 'il corpo del testo cambia col Maestro: si sta tingendo '

@@ -35,8 +35,22 @@ class AccentoDelMaestro {
   /// un vetro chiaro il colore scende, su un fondale scuro sale: la regola
   /// scritta in un verso solo avrebbe reso illeggibili proprio le schermate dei
   /// riti, che sono le piu' scure dell'app.
-  static Color su(Maestro maestro, {Color superficie = vetro}) {
-    var colore = MaestroPalette.forKey(ThemeKey.of(maestro)).primary;
+  static Color su(Maestro maestro, {Color superficie = vetro}) => portatoSu(
+        MaestroPalette.forKey(ThemeKey.of(maestro)).primary,
+        superficie,
+      );
+
+  /// QUALUNQUE COLORE, portato su [superficie] quanto basta a leggersi.
+  ///
+  /// **Perche' e' stata generalizzata, ordine P voce 12.** La regola valeva solo
+  /// per i tre colori dei Maestri, quindi il regime chiaro aveva un inchiostro
+  /// muto scelto a mano: `0xFF6E5B33`, che sulla superficie DICHIARATA misurava
+  /// 4,25 a 1 e su quella RESA 3,82. Un colore scelto a mano invecchia appena la
+  /// superficie sotto cambia, e la superficie sotto qui e' una fotografia del
+  /// sole che sale. Adesso anche l'inchiostro muto passa da questa porta.
+  static Color portatoSu(Color partenza, Color superficie,
+      [double soglia = contrastoMinimo]) {
+    var colore = partenza;
     final versoIlBasso = _luminanzaRelativa(superficie) > 0.18;
     final passo = versoIlBasso ? 0.95 : 1.0 / 0.95;
     // Venti passi bastano e avanzano: ogni passo sposta il cinque per cento, e
@@ -44,7 +58,7 @@ class AccentoDelMaestro {
     // partenza. Il tetto e' una cintura contro un ciclo infinito, non un limite
     // atteso.
     for (var i = 0; i < 20; i++) {
-      if (contrastoFra(colore, superficie) >= contrastoMinimo) return colore;
+      if (contrastoFra(colore, superficie) >= soglia) return colore;
       // TUTTO IN FRAZIONI DI UNO, e non a meta' per canale.
       //
       // Qui c'era `Color.fromARGB`, che vuole gli interi da zero a 255, e i tre

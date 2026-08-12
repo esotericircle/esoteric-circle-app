@@ -1,6 +1,6 @@
 # Censimento delle misure tipografiche scritte a mano
 
-<!-- TOTALE_CENSITO: 236 -->
+<!-- TOTALE_CENSITO: 233 -->
 <!-- FILE_CENSITI: 60 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- LETTURA_SOTTO_16: 0 -->
@@ -20,7 +20,7 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 
 | Grandezza | Valore |
 | --- | --- |
-| Misure esplicite sotto `lib/` | **236** |
+| Misure esplicite sotto `lib/` | **233** |
 | File che ne contengono | **60** |
 | Sotto il pavimento assoluto di 12 | **0** |
 | Sotto 16 in contesto di lettura | **0** |
@@ -67,7 +67,6 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/features/maestri/aura/meditation/meditation_screen.dart` | 3 | 0 | 0 |
 | `lib/features/maestri/caligo/rune/rune_share_card.dart` | 3 | 0 | 0 |
 | `lib/features/pricing/upgrade_invite.dart` | 3 | 0 | 0 |
-| `lib/features/rituals/ritual_gift_card.dart` | 3 | 0 | 0 |
 | `lib/features/tarot/stesa_share_card.dart` | 3 | 0 | 0 |
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 2 | 0 | 0 |
 | `lib/core/permissions/avviso_del_permesso.dart` | 2 | 0 | 0 |
@@ -79,7 +78,6 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/features/maestri/caligo/animal/guide_animal_share_card.dart` | 2 | 0 | 0 |
 | `lib/features/maestri/chat/widgets/chat_suggestions.dart` | 2 | 0 | 0 |
 | `lib/features/passport/specchio_dei_dati.dart` | 2 | 0 | 0 |
-| `lib/features/rituals/dawn_rite_screen.dart` | 2 | 0 | 0 |
 | `lib/features/rituals/day_oracle_screen.dart` | 2 | 0 | 0 |
 | `lib/features/rituals/dream_rite_card.dart` | 2 | 0 | 0 |
 | `lib/features/rituals/ritual_view.dart` | 2 | 0 | 0 |
@@ -89,7 +87,6 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/design_system/components/art_card.dart` | 1 | 0 | 0 |
 | `lib/design_system/components/feature_tile.dart` | 1 | 0 | 0 |
 | `lib/design_system/components/interruttore_del_cerchio.dart` | 1 | 0 | 0 |
-| `lib/design_system/components/riga_del_dono.dart` | 1 | 0 | 0 |
 | `lib/design_system/components/section_title.dart` | 1 | 0 | 0 |
 | `lib/features/angels/angelo_ingrandito.dart` | 1 | 0 | 0 |
 | `lib/features/debug/app_check_debug_view.dart` | 1 | 0 | 0 |
@@ -98,5 +95,8 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/features/maestri/chat/widgets/diagnostics_dialog.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/domain_screen.dart` | 1 | 0 | 0 |
 | `lib/features/onboarding/widgets/stardust_name.dart` | 1 | 0 | 0 |
+| `lib/features/rituals/dawn_rite_screen.dart` | 1 | 0 | 0 |
+| `lib/features/rituals/ritual_gift_card.dart` | 1 | 0 | 0 |
+| `lib/features/tarot/attesa_di_medora.dart` | 1 | 0 | 0 |
 | `lib/features/tarot/tarot_cartiglio.dart` | 1 | 0 | 0 |
 

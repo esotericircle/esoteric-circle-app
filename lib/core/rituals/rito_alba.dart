@@ -1,7 +1,8 @@
 import '../astro/moon_phase.dart';
 import '../astro/night_sky.dart';
+import '../astro/luogo_attuale.dart';
 import '../astro/sky_location.dart';
-import '../astro/sunset_time.dart';
+import '../astro/solar_time.dart';
 import '../astro/zodiac.dart';
 import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
@@ -22,6 +23,19 @@ enum OrigineDellAlba {
   /// Dal GPS del telefono. Coordinate e scarto di fuso vengono dallo stesso
   /// dispositivo, quindi l'ora del sorgere è quella vera di dove sei.
   dispositivo,
+
+  /// DICHIARATA DALLA PERSONA, scegliendo la citta' in cui vive.
+  ///
+  /// **Ordine P voce 23, e vale quanto il dispositivo.** Il sorgere dipende da
+  /// latitudine e longitudine, e dentro una citta' la differenza fra un
+  /// quartiere e l'altro non arriva al minuto: chi dichiara "vivo a Milano" ha
+  /// detto tutto quello che serve. Lo scarto di fuso resta quello del telefono,
+  /// che per chi vive dove ha dichiarato e' lo stesso della citta': l'invariante
+  /// delle due origini regge, perche' entrambe descrivono dove la persona STA.
+  ///
+  /// Esiste perche' senza di lei chi non concede il permesso non vede mai l'ora
+  /// del sorgere, e sono la maggioranza.
+  dichiarata,
 
   /// Dedotta dallo scarto di fuso: la longitudine si ricava dall'offset, la
   /// latitudine è quella dichiarata di ripiego. Coordinate e fuso restano della
@@ -56,13 +70,28 @@ class PosizioneDiStamattina {
   /// [luogo] è quello che torna `SkyLocation.resolveSeConcesso()`, cioè la
   /// posizione reale **solo se il permesso è già stato concesso**: il Rito
   /// dell'Alba non apre una richiesta di permesso all'alba.
-  factory PosizioneDiStamattina.da(SkyPlace? luogo, Duration scartoDiFuso) {
+  /// [dichiarato] e' la citta' che la persona ha scelto nel profilo, ordine P
+  /// voce 23: si usa quando il dispositivo non ha risposto, prima di ripiegare
+  /// sulla stima dal fuso.
+  factory PosizioneDiStamattina.da(SkyPlace? luogo, Duration scartoDiFuso,
+      {LuogoAttuale? dichiarato}) {
     if (luogo != null) {
       return PosizioneDiStamattina(
         lat: luogo.latitude,
         lon: luogo.longitude,
         scartoDiFuso: scartoDiFuso,
         origine: OrigineDellAlba.dispositivo,
+      );
+    }
+    // LA CITTA' DICHIARATA VIENE PRIMA DELLA STIMA, ordine P voce 23. La stima
+    // dal fuso puo' sbagliare di centinaia di chilometri e non si puo'
+    // dichiarare; una citta' scelta dalla persona e' un punto vero.
+    if (dichiarato != null) {
+      return PosizioneDiStamattina(
+        lat: dichiarato.lat,
+        lon: dichiarato.lon,
+        scartoDiFuso: scartoDiFuso,
+        origine: OrigineDellAlba.dichiarata,
       );
     }
     // Il ripiego sta tutto dentro `SunsetTime` e non apre una seconda porta: la
@@ -78,10 +107,17 @@ class PosizioneDiStamattina {
 
   /// Se l'ora del sorgere si puo' DICHIARARE alla persona.
   ///
-  /// Solo col dispositivo. Una longitudine dedotta dal fuso puo' sbagliare di
-  /// mezz'ora abbondante, e un'ora sbagliata detta come esatta è una promessa
-  /// che non possiamo mantenere: vale la stessa regola del caso senza luogo.
-  bool get oraDichiarabile => origine == OrigineDellAlba.dispositivo;
+  /// Col dispositivo oppure con la citta' DICHIARATA dalla persona. Una
+  /// longitudine dedotta dal fuso puo' sbagliare di mezz'ora abbondante, e
+  /// un'ora sbagliata detta come esatta è una promessa che non possiamo
+  /// mantenere: vale la stessa regola del caso senza luogo.
+  ///
+  /// **La citta' scelta entra qui con l'ordine P voce 23**, ed e' cio' che
+  /// rende la fascia raggiungibile a chi non concede il permesso: prima erano
+  /// escluse tutte e due le strade tranne il GPS.
+  bool get oraDichiarabile =>
+      origine == OrigineDellAlba.dispositivo ||
+      origine == OrigineDellAlba.dichiarata;
 }
 
 /// IL CIELO DI STAMATTINA, cioe' i dati veri che il rito puo' nominare.

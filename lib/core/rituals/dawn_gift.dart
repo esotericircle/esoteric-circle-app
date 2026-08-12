@@ -173,7 +173,12 @@ class DawnGift {
       ),
       orientation: rito == null
           ? provisionalOrientation
-          : '${rito.gesto}\n\n${rito.respiro}\n\n'
+          // IL RESPIRO NON STA PIU' NEL TESTO, ordine P voce 17: e' un
+          // respiro guidato a schermo, con la figura che si espande e si
+          // contrae. Una istruzione criptica scritta e' un compito, un respiro
+          // guidato e' un'esperienza. I suoi numeri restano in `rito.tempi` e
+          // `rito.giri`, che sono cio' con cui il simbolo si muove.
+          : '${rito.gesto}\n\n'
               'Se ti è più comodo: ${rito.viaTattile}',
       word: rito?.parola,
       rito: rito,

@@ -3,8 +3,8 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import '../../core/sigilli/ora_rituale.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../core/identity/birth_identity.dart';
 import '../../core/astro/natal_chart.dart';
@@ -12,6 +12,7 @@ import '../../core/identity/natal_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
+import '../../core/astro/luogo_attuale.dart';
 import '../../core/astro/sky_location.dart';
 import '../../core/permissions/app_permission.dart';
 import '../../core/permissions/avviso_del_permesso.dart';
@@ -20,8 +21,10 @@ import '../../core/rituals/avvisi_del_rito.dart';
 import '../../services/avvisi_locali.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
+import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/rituals/rito_alba.dart';
 import '../../core/rituals/ritual_streak.dart';
+import 'dove_sei_adesso.dart';
 import 'ritual_gift_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../sigilli/regia_del_cammino.dart';
@@ -29,6 +32,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
 
 /// Rito dell'Alba, prototipo di riferimento dei cinque riti quotidiani.
 ///
@@ -135,6 +139,14 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
       duration: const Duration(seconds: 7),
     )..repeat();
     _loadLayers();
+    // IL LUOGO ATTUALE SI LEGGE ALL'APERTURA, ordine P voce 23: e' conservato,
+    // quindi non si chiede niente a nessuno per saperlo.
+    DoveSonoAdesso.letto().then((luogo) {
+      if (!mounted || luogo == null) return;
+      setState(() => _luogoDichiarato = luogo);
+      // Se il dono e' gia' composto, si ricompone con l'ora vera.
+      if (_revealed) _ricomponiIlDono();
+    });
     // Il permesso degli avvisi si chiede all'APERTURA del rito, dopo il primo
     // fotogramma, non all'avvio dell'app.
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -286,11 +298,37 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     });
     _recordStreak(date).then((_) => _programmaAvviso());
     _aggiornaPosizione(date);
+    // IL FILO DEL GIORNO, ordine P voce 18: la parola di stamattina si segna
+    // qui, e stasera il Rito del Sogno la richiama. Senza questo la Parola del
+    // Giorno resta un ornamento: nasce, sta un minuto a schermo e non torna.
+    final parola = _gift?.word;
+    if (parola != null) {
+      unawaited(FiloDelGiorno.segnaLaParola(parola, date));
+    }
+    // E la domanda che Medora ha lasciato ieri nella stesa torna qui, nel dono
+    // del mattino successivo, come chiede la voce 09.
+    unawaited(FiloDelGiorno.domandaDiIeri(date).then((domanda) {
+      if (mounted && domanda != null) {
+        setState(() => _domandaDiIeri = domanda);
+      }
+    }));
   }
 
+  /// La domanda lasciata ieri da Medora, se ieri c'e' stata una stesa.
+  String? _domandaDiIeri;
+
   /// La posizione con cui si e' composto il rito, con la sua origine.
+  ///
+  /// **Tre strade in ordine di verita', ordine P voce 23**: il dispositivo, poi
+  /// la citta' che la persona ha DICHIARATO nel profilo, poi la stima dal fuso
+  /// che non si dichiara mai.
   PosizioneDiStamattina _posizione(DateTime date) =>
-      PosizioneDiStamattina.da(_dovesSei, date.timeZoneOffset);
+      PosizioneDiStamattina.da(_dovesSei, date.timeZoneOffset,
+          dichiarato: _luogoDichiarato);
+
+  /// La citta' in cui la persona ha detto di vivere, conservata fra un avvio e
+  /// l'altro. Nulla finche' non l'ha detta.
+  LuogoAttuale? _luogoDichiarato;
 
   /// Dove sei stamattina, se il permesso c'e' gia'. Null finche' non si sa.
   SkyPlace? _dovesSei;
@@ -369,11 +407,30 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     });
   }
 
+  /// Ricompone il dono con la posizione che si conosce adesso.
+  ///
+  /// Esisteva in due copie, una in `_reveal` e una in `_aggiornaPosizione`, e
+  /// con la citta' dichiarata sarebbero diventate tre: un punto solo.
+  void _ricomponiIlDono() {
+    final date = widget.now ?? DateTime.now();
+    setState(() {
+      _gift = DawnGift.forChart(date,
+          identity: _identity(),
+          posizione: _posizione(date),
+          carta: _carta());
+    });
+  }
+
   Future<void> _recordStreak(DateTime date) async {
     final n = await const RitualStreak(id: 'dawn').recordToday(date);
     if (!mounted) return;
     // IL CAMMINO SE NE ACCORGE: il rito e' compiuto, non aperto.
-    unawaited(RegiaDelCammino.dopoUnGesto(context, 'alba', oraRituale: 'alba'));
+    // L'ORA RITUALE SI MISURA, ordine P voce 35. Qui c'era 'alba' scritta a
+    // mano: aprendo il rito a mezzogiorno il traguardo del cielo si accendeva
+    // lo stesso, e il traguardo che non si affretta diventava il piu' facile
+    // di tutti.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'alba',
+        oraRituale: OraRituale.diAdesso()));
     setState(() => _streak = n);
   }
 
@@ -381,12 +438,8 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     final word = gift.word;
     if (word == null) return;
     try {
-      await SharePlus.instance.share(
-        ShareParams(
-          text: 'La mia parola del giorno dal Rito dell\'Alba: $word. '
-              '${gift.orientation} Con Esoteric Circle.',
-        ),
-      );
+      await PortaDellaCondivisione.testo('La mia parola del giorno dal Rito dell\'Alba: $word. '
+              '${gift.orientation} Con Esoteric Circle.');
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -412,8 +465,9 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title:
-            Text('Rito dell\'Alba', style: TypographyTokens.display(size: 20)),
+        title: Text('Rito dell\'Alba',
+            key: const Key('alba_titolo'),
+            style: TypographyTokens.display(size: 20)),
       ),
       body: Stack(
         fit: StackFit.expand,
@@ -490,8 +544,30 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
                                 dono: DailyElement.dawn,
                                 giorno: widget.now ?? DateTime.now(),
                                 streak: _streak,
+                                domandaDiIeri: _domandaDiIeri,
                                 onShare: () => _shareWord(_gift!),
                               ),
+                              // DOVE SEI ADESSO, ordine P voce 23. Compare solo
+                              // quando l'ora del sorgere non si puo'
+                              // dichiarare, cioe' quando il rito sta
+                              // rinunciando a dire una cosa vera: chi legge ha
+                              // appena visto cosa gli manca.
+                              if (!_posizione(widget.now ?? DateTime.now())
+                                  .oraDichiarabile) ...[
+                                const SizedBox(height: SpacingTokens.md),
+                                DoveSeiAdesso(
+                                  palette: MaestroPalette.forKey(ThemeKey.of(
+                                      DailyRituals.dawnMaestro(
+                                          widget.now ?? DateTime.now()))),
+                                  maestro: DailyRituals.dawnMaestro(
+                                      widget.now ?? DateTime.now()),
+                                  location: widget.location,
+                                  suScelto: (luogo) {
+                                    setState(() => _luogoDichiarato = luogo);
+                                    _ricomponiIlDono();
+                                  },
+                                ),
+                              ],
                               // L'ESITO DEGLI AVVISI, detto qui e non
                               // taciuto: chi ha negato per sempre non vedra'
                               // mai piu' comparire la richiesta, e senza
@@ -580,13 +656,19 @@ class _LiftPrompt extends StatelessWidget {
             ),
             child: Text(
               'Trascina verso l\'alto per sollevare l\'alba',
-              style: TypographyTokens.label(size: 12)
+              // La chiave serve alla misura del contrasto, ordine P voce 11:
+              // questo invito sta sul cielo notturno, cioe' nel regime scuro,
+              // e la tabella lo misura insieme a quelli sul chiaro perche' la
+              // voce chiede OGNI testo del rito, non solo il pannello.
+              key: const Key('alba_invito_al_gesto'),
+              style: TypographyTokens.didascalia()
                   .copyWith(color: palette.goldSoft, letterSpacing: 0.8),
             ),
           ),
           const SizedBox(height: SpacingTokens.sm),
           Text(
             'Oppure tocca o tieni premuto',
+            key: const Key('alba_ripiego_tattile'),
             style: TypographyTokens.corpo().copyWith(
               color: palette.goldSoft.withValues(alpha: 0.85),
               letterSpacing: 0.3,

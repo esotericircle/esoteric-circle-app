@@ -46,7 +46,13 @@ class RigaDelDono extends StatelessWidget {
           Expanded(
             child: Text(
               VoceDelDono.frase(dono: dono, giorno: giorno),
-              style: TypographyTokens.label(size: 12).copyWith(
+              // LA CHIAVE SERVE ALLA MISURA DEL CONTRASTO, ordine P voce 11:
+              // e' il punto da cui la tabella di
+              // `docs/tipografia/alba_contrasto.md` trova questo testo a video
+              // e ne campiona il fondo vero. La misura passa da dodici a
+              // sedici, cioe' dal ruolo didascalia: voce 13.
+              key: const Key('alba_riga_dono'),
+              style: TypographyTokens.didascalia().copyWith(
                 color: accento,
                 letterSpacing: 0.4,
               ),

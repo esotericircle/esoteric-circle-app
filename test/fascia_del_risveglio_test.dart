@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/sky_location.dart';
-import 'package:esoteric_circle/core/astro/sunset_time.dart';
+import 'package:esoteric_circle/core/astro/solar_time.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
