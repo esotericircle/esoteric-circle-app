@@ -3,7 +3,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/rune_cast.dart';
@@ -12,6 +11,7 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'bindrune.dart';
+import '../../../../core/condivisione/porta_della_condivisione.dart';
 
 /// La card condivisibile dell'Estrazione Rune, cornice oro e rossa di Caligo:
 /// la gettata, le rune nelle loro posizioni col verso, e il presagio in sintesi.
@@ -172,12 +172,7 @@ Future<bool> shareRuneCard({
   final file = File('${dir.path}/estrazione_rune_${esito.gettata.id}.png');
   await file.writeAsBytes(png, flush: true);
   final nomi = esito.rune.map((r) => r.rune.name).join(', ');
-  await SharePlus.instance.share(
-    ShareParams(
-      files: [XFile(file.path)],
-      text: 'Ho gettato le rune con ${esito.gettata.nome}: $nomi. '
-          'Scopri il tuo presagio con Caligo, su Esoteric Circle.',
-    ),
-  );
+  await PortaDellaCondivisione.daFile(file.path, testo: 'Ho gettato le rune con ${esito.gettata.nome}: $nomi. '
+          'Scopri il tuo presagio con Caligo, su Esoteric Circle.');
   return true;
 }

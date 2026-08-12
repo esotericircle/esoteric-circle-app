@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../core/tarot/tarot_reading.dart';
 import '../../core/tarot/tarot_spread.dart';
@@ -14,6 +13,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'tarot_card_art.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
 
 /// La card verticale condivisibile della Stesa a Tre Carte, nel formato unico:
 /// sfondo blu e oro di Medora, i tre arcani grandi con la loro posizione, la
@@ -123,18 +123,17 @@ class StesaShareCard extends StatelessWidget {
                     .copyWith(color: palette.goldSoft, height: 1.25)),
           ),
           const SizedBox(height: SpacingTokens.sm),
-          // Un estratto della lettura: come le carte dialogano fra loro.
-          Text(reading.dialogo.text,
-              key: const Key('share_dialogo'),
-              textAlign: TextAlign.center,
-              style: TypographyTokens.corpo().copyWith(
-                  color: ColorTokens.textPrimary, height: 1.4)),
-          const SizedBox(height: SpacingTokens.sm),
-          // La carta chiave, il cuore della stesa.
+          // LE CARTE CHE DIALOGANO NON SONO PIU' QUI, ordine P voce 08. La
+          // bolla e' stata eliminata, e con lei la sua generazione: tenerne una
+          // copia sulla card da condividere avrebbe voluto dire che il testo
+          // continuava a nascere, cioe' che l'eliminazione era un nascondimento.
+          // La carta chiave, il cuore della stesa. Non e' una bolla: e' una riga
+          // che dice quale delle tre pesa piu' delle altre, come nella
+          // schermata, dove e' uno stato di una delle tre bolle.
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('LA CARTA CHIAVE  ',
+              Text('LA CHIAVE  ',
                   style: TypographyTokens.etichetta().copyWith(
                       color: ColorTokens.textSecondary, letterSpacing: 1.4)),
               Flexible(
@@ -146,7 +145,10 @@ class StesaShareCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: SpacingTokens.sm),
-          // Il consiglio di Medora, quello che ci si porta a casa.
+          // Il consiglio di Medora, quello che ci si porta a casa. Sulla card
+          // sta il solo consiglio: la domanda di chiusura resta nella
+          // schermata, perche' una domanda dentro un'immagine da mandare a
+          // qualcuno sembra rivolta a chi la riceve.
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(SpacingTokens.sm),
@@ -154,7 +156,7 @@ class StesaShareCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
               border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
             ),
-            child: Text(reading.consiglio,
+            child: Text(reading.consiglio.split('\n\n').first,
                 key: const Key('share_consiglio'),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.corpo().copyWith(
@@ -221,8 +223,6 @@ Future<bool> shareStesaCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/stesa_tre_carte.png');
   await file.writeAsBytes(png, flush: true);
-  await SharePlus.instance.share(
-    ShareParams(files: [XFile(file.path)], text: text),
-  );
+  await PortaDellaCondivisione.daFile(file.path, testo: text);
   return true;
 }

@@ -3,7 +3,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/animal_catalog.dart';
@@ -11,6 +10,7 @@ import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
+import '../../../../core/condivisione/porta_della_condivisione.dart';
 
 /// La card condivisibile dell'Animale Guida, nella cornice oro e rossa di
 /// Caligo. Il totem sul cielo del profilo, il nome, la sintesi, l'origine dal
@@ -146,12 +146,7 @@ Future<bool> shareGuideAnimalCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/animale_guida_${animal.stem}.png');
   await file.writeAsBytes(png, flush: true);
-  await SharePlus.instance.share(
-    ShareParams(
-      files: [XFile(file.path)],
-      text: 'Il mio animale guida è ${animal.name}. '
-          'Scopri il tuo con Caligo, su Esoteric Circle.',
-    ),
-  );
+  await PortaDellaCondivisione.daFile(file.path, testo: 'Il mio animale guida è ${animal.name}. '
+          'Scopri il tuo con Caligo, su Esoteric Circle.');
   return true;
 }

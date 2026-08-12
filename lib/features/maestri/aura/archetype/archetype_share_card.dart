@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/archetypes/archetype.dart';
 import '../../../../core/maestro/maestro.dart';
@@ -13,6 +12,7 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'archetype_wheel.dart';
+import '../../../../core/condivisione/porta_della_condivisione.dart';
 
 /// La card condivisibile del Test Archetipo, nella cornice verde e oro di Aura.
 ///
@@ -269,13 +269,8 @@ Future<bool> shareArchetypeCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/archetipo_${dominante.name}.png');
   await file.writeAsBytes(png, flush: true);
-  await SharePlus.instance.share(
-    ShareParams(
-      files: [XFile(file.path)],
-      text: 'Il mio archetipo è ${dominante.conArticolo}. '
+  await PortaDellaCondivisione.daFile(file.path, testo: 'Il mio archetipo è ${dominante.conArticolo}. '
           'Scopri il tuo con Aura, su Esoteric Circle. '
-          'https://esotericircle.app/aura/archetype_test',
-    ),
-  );
+          'https://esotericircle.app/aura/archetype_test');
   return true;
 }

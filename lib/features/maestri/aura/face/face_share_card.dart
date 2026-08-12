@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/face/face_classifier.dart';
 import '../../../../core/face/face_corpus.dart';
@@ -15,6 +14,7 @@ import '../../../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'face_constellation.dart';
 import 'face_constellation_painter.dart';
 import 'face_silhouette.dart';
+import '../../../../core/condivisione/porta_della_condivisione.dart';
 
 /// La card condivisibile della Costellazione del Viso, nella cornice verde e oro
 /// di Aura, coerente con la card del Test Archetipo.
@@ -175,12 +175,7 @@ Future<bool> shareFaceCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/costellazione_viso_${dominante.name}.png');
   await file.writeAsBytes(png, flush: true);
-  await SharePlus.instance.share(
-    ShareParams(
-      files: [XFile(file.path)],
-      text: 'La mia Costellazione del Viso dice "${dominante.titoloEvocativo}". '
-          'Scopri la tua con Aura, su Esoteric Circle.',
-    ),
-  );
+  await PortaDellaCondivisione.daFile(file.path, testo: 'La mia Costellazione del Viso dice "${dominante.titoloEvocativo}". '
+          'Scopri la tua con Aura, su Esoteric Circle.');
   return true;
 }

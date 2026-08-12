@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/angels/angel_catalog.dart';
 import '../../core/angels/guardian_angels.dart';
@@ -49,6 +51,10 @@ class _AngelsScreenState extends State<AngelsScreen>
     _entrata = AnimationController(vsync: this, duration: AngelsScreen.ingresso);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
+      // L'ANGELO CUSTODE ENTRA NEL CAMMINO, ordine P voce 35: e' uno dei tre
+      // Sigilli di aggancio trasversali, e prima non poteva accendersi da
+      // nessun sentiero perche' nessuno lo mandava alla regia.
+      unawaited(RegiaDelCammino.dopoUnGesto(context, 'angelo_custode'));
       // Con Riduci Movimento le carte sono gia' posate: nessun moto, nessuna
       // attesa, la stessa scena ferma.
       if (MediaQuery.of(context).disableAnimations) {

@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/astro/zodiac.dart';
 import '../../core/maestro/maestro.dart';
@@ -85,6 +87,9 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   }
 
   void _apri(Vip vip) {
+    // LA SINASTRIA ENTRA NEL CAMMINO, ordine P voce 35: il confronto fra due
+    // carte e' il gesto, e qui e' scelto.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'sinastria'));
     Navigator.of(context).push(SinastriaVipScreen.route(
       vip: vip,
       userSign: widget.userSign,

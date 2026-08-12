@@ -6,7 +6,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../core/astro/zodiac.dart';
 import '../../core/synastry/synastry_report.dart';
@@ -16,6 +15,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
 
 /// La card condivisibile della Sinastria: i due volti nella cornice VIP col
 /// cuore, il cerchio dell'affinita', le quattro barre, la cornice oro e blu di
@@ -329,8 +329,6 @@ Future<bool> shareSynastryCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/sinastria_card.png');
   await file.writeAsBytes(png, flush: true);
-  await SharePlus.instance.share(
-    ShareParams(files: [XFile(file.path)], text: text),
-  );
+  await PortaDellaCondivisione.daFile(file.path, testo: text);
   return true;
 }

@@ -2,7 +2,14 @@ import 'dart:math';
 
 import 'moon_phase.dart';
 
-/// L'ora vera del tramonto, calcolata offline con l'algoritmo NOAA, senza rete.
+/// LE ORE VERE DEL SOLE, calcolate offline con l'algoritmo NOAA, senza rete.
+///
+/// **Il file portava il nome del solo tramonto, e dichiarava il falso.**
+/// Ordine P voce 29: qui dentro c'e' anche il SORGERE, che il Rito dell'Alba
+/// usa per l'ora della sua fascia, e un file che dice di conoscere solo il
+/// tramonto manda a cercare altrove una cosa che ha in casa, oppure la fa
+/// riscrivere. La classe conserva il nome storico perche' entra nei
+/// salvataggi e nelle firme di mezza app: a mentire era il file.
 ///
 /// Riusa il giorno giuliano gia' in `MoonPhase.julianDay`, non riscrive
 /// l'astronomia di base. La longitudine e' est positivo, la latitudine in gradi,
