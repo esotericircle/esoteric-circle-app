@@ -45,6 +45,34 @@ class Sentieri {
       di(sentiero).where((t) => t.eGrande).toList()
         ..sort((a, b) => a.posizione.compareTo(b.posizione));
 
+  /// IL CONTO DI UN SENTIERO, E CE N'E' UNO SOLO. Ordine S voce 03.
+  ///
+  /// **Vale 55 e non 50, per decisione di Mauro, e la ragione e' che i cinque
+  /// grandi sono traguardi a tutti gli effetti**: valgono Eos, hanno le loro
+  /// condizioni, e dalla voce S.02 sono anche le cinque stelle principali del
+  /// disegno. Un totale che li esclude dice alla persona che quelle cinque cose
+  /// non contano.
+  ///
+  /// **Prima i conti a schermo erano DUE**: la lista diceva "50 di 50" mentre le
+  /// posizioni per sentiero sono cinquantacinque, e la riga della voce S.03 ne
+  /// avrebbe portato un terzo sulla stessa schermata. Adesso chi mostra un totale
+  /// lo chiede qui.
+  static int quantiInTutto(Sentiero sentiero) => di(sentiero).length;
+
+  /// A CHE PUNTO DEL CAMMINO STA UN TRAGUARDO, da 1 a 55.
+  ///
+  /// **Non e' la sua posizione**, e la differenza conta: le posizioni dei mini
+  /// vanno da 1 a 50 e i cinque grandi stanno a 10, 20, 30, 40 e 50, cioe' i due
+  /// elenchi si sovrappongono. Un grande CHIUDE la sua decina, quindi viene dopo
+  /// il mini che porta lo stesso numero: "50 di 55" sarebbe stato il quarantanove
+  /// per il mini e il cinquantacinque per il grande, e la stessa riga avrebbe
+  /// detto due cose.
+  static int ordineNelCammino(Traguardo traguardo) {
+    final p = traguardo.posizione;
+    if (traguardo.eGrande) return p + p ~/ 10;
+    return p + (p - 1) ~/ 10;
+  }
+
   /// LA SOMMA DEGLI EOS DI UN SENTIERO, calcolata e non scritta a mano.
   ///
   /// **QUI L'ORDINE O CHIEDE DUE COSE CHE NON POSSONO STARE INSIEME, e la

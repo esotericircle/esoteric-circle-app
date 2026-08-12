@@ -125,7 +125,36 @@ chiusa: committare non e' consegnare.
     perche' il tronco e lo stelo sono struttura e in una misura assoluta
     passavano per segmenti. Rosso eseguito rimettendo il reticolo intero: cadono
     tre prove su tre sentieri.
-- **S.03** La schermata dice dove sei, cosa vedi e cosa guadagni — APERTA
+- **S.03** La schermata dice dove sei, cosa vedi e cosa guadagni — CHIUSA
+  - **PRIMA DELLE TRE RIGHE, IL CONTO: e' 55.** A schermo i conti erano DUE e
+    stavano per diventare tre: la lista diceva "50 di 50" col cinquanta scritto a
+    mano, mentre le posizioni per sentiero sono cinquantacinque. Il conto scelto e'
+    **55, per decisione di Mauro**, perche' i cinque grandi sono traguardi a tutti
+    gli effetti: valgono Eos, hanno le loro condizioni, e dalla voce S.02 sono le
+    cinque stelle principali del disegno. Un totale che li esclude dice alla
+    persona che quelle cinque cose non contano.
+  - Il conto vive in un punto solo, `Sentieri.quantiInTutto`, e da lui leggono la
+    riga in alto e i sottotitoli della lista. Nasce anche
+    `Sentieri.ordineNelCammino`, da 1 a 55, perche' **la posizione non e'
+    l'ordine**: le posizioni dei mini vanno da 1 a 50 e i grandi stanno a 10, 20,
+    30, 40 e 50, quindi i due elenchi si sovrappongono, e un grande CHIUDE la sua
+    decina, cioe' viene dopo il mini che porta il suo numero.
+  - Le tre righe stanno in `lib/features/sigilli/le_tre_righe_del_sentiero.dart`,
+    un punto solo, e i tre sentieri le compongono dalla stessa struttura cambiando
+    la sola voce: DOVE SEI col numero dal dato e scritto in parole, COSA VEDI in
+    una frase del Maestro, COSA GUADAGNI detto una volta.
+  - **La riga "cosa vedi" NON spiega il disegno.** Adesso che il disegno e' buono,
+    spiegarne il meccanismo lo insulterebbe: dice cosa E' la figura. Una prova
+    vieta le parole del tutorial ("tocca", "scorri", "quando accendi", "vedrai")
+    dentro quella riga.
+  - I numeri sono in parole e non in cifre, da zero a cinquantacinque: un
+    intervallo chiuso, quindi nessuna dipendenza in piu' e nessun convertitore
+    generale. Con la vocale che cade dove deve, ventuno e non ventiuno.
+  - Misura: `test/il_conto_e_uno_solo_test.dart`, otto prove. Una ENUMERA i file
+    di `lib/features` e cade se un punto qualsiasi scrive un totale del sentiero a
+    mano, perche' e' cosi' che i conti tornano a essere due. Verificato a video su
+    `docs/preview/sentiero-costellazione-meta.png`: "Ventisei stelle accese su
+    cinquantacinque", e nella lista "54 di 55".
 - **S.04** Perche' il borsellino e' a zero — APERTA
 - **S.05** Gli Eos hanno un nome e una loro icona — APERTA
 - **S.06** Il borsellino e' sempre visibile — APERTA
@@ -292,6 +321,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 2
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

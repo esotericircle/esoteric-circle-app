@@ -17,6 +17,7 @@ import '../maestri/rotta_arte.dart';
 import '../pricing/upgrade_invite.dart';
 import 'celebrazione.dart';
 import 'disegno_del_sentiero.dart';
+import 'le_tre_righe_del_sentiero.dart';
 
 /// IL SENTIERO DEI SIGILLI: Albero, Costellazione o Loto.
 ///
@@ -242,6 +243,15 @@ class _SentieroScreenState extends State<SentieroScreen> {
                 ),
               ),
             ),
+            // LE TRE RIGHE, sotto il disegno: dove sei, cosa vedi, cosa
+            // guadagni. Ordine S voce 03.
+            SliverToBoxAdapter(
+              child: LeTreRigheDelSentiero(
+                sentiero: widget.sentiero,
+                accesi: accesi.length,
+                palette: palette,
+              ),
+            ),
             // IL COMANDO DISCRETO, che fa quello che prima si faceva da se'.
             SliverToBoxAdapter(
               child: Center(
@@ -375,7 +385,11 @@ class GradinoDelSentiero extends StatelessWidget {
         ? traguardo.frase
         : bloccato
             ? 'Dal Tier 1 in su'
-            : '${traguardo.posizione} di 50';
+            // IL CONTO E' UNO SOLO e viene da `Sentieri`: qui c'era "di 50"
+            // scritto a mano, che contava i soli mini e diceva alla persona che
+            // i cinque grandi non fanno parte del cammino.
+            : '${Sentieri.ordineNelCammino(traguardo)} di '
+                '${Sentieri.quantiInTutto(sentiero)}';
 
     return InkWell(
       key: Key('gradino_${traguardo.id}'),
