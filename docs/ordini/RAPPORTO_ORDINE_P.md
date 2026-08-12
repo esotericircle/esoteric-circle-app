@@ -386,12 +386,19 @@ c'e' la lista che scorre e il `Wrap` che manda a capo.
 
 `flutter analyze lib/`: **zero errori**.
 
-`flutter test`: il giro completo ha dato **2.478 prove passate e 4 cadute**, e
-**in tutte e quattro era sbagliata la misura, non il prodotto**. Corrette, e il
-giro seguente e' verde. La guardia dell'ordine e' verde perche' non restano voci
-aperte. **Resta rossa la sola guardia del lavoro non spinto**, per il commit del
-workflow che il token non ha il permesso di spingere: la ragione sta scritta qui
-sopra e non e' un difetto del lavoro.
+`flutter test`, primo giro: **2.478 prove passate e 4 cadute**, e **in tutte e
+quattro era sbagliata la misura, non il prodotto**.
+
+`flutter test`, secondo giro dopo le correzioni: **2.483 prove passate e UNA
+caduta**, ed e' `niente_lavoro_non_spinto_test`, cioe' la guardia nata oggi,
+rossa per il commit del workflow della Ronda che il token non ha il permesso di
+spingere. La ragione sta scritta qui sopra e non e' un difetto del lavoro: quella
+riga diventa verde quando Mauro apre una delle due strade. **Tutto il resto e'
+verde, guardia dell'ordine compresa**, che e' verde perche' non restano voci
+aperte.
+
+I numeri si scrivono dopo averli letti: la prima stesura di questa riga diceva
+"verde" mentre il secondo giro stava ancora girando.
 
 Le quattro, una per una:
 
