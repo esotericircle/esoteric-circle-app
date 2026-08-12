@@ -47,6 +47,50 @@ chiusa: committare non e' consegnare.
 - **S.17** Il confine, e non si supera mai — APERTA
 - **S.18** Le lunghezze si misurano prima di deciderle — APERTA
 
+## LA DECISIONE DI MAURO SULLA SEZIONE B
+
+Ha priorita' sul testo delle voci S.19, S.20 e S.21, e sta qui perche' e' qui che
+si legge lo stato.
+
+1. **RIORDINO AUTORIZZATO: S.21 si esegue PRIMA di S.19 e S.20.** La legge di
+   consegna vieta di RINUMERARE e ACCORPARE, non di eseguire in un ordine diverso:
+   il manifesto resta questo, cambia la sequenza.
+2. **Il determinismo riguarda QUALE RUNA ESCE, non le parole con cui viene
+   raccontata.** La decisione di inizio agosto nasceva da un difetto preciso, che
+   alla stessa domanda nello stesso giorno Caligo affidava due rune diverse. La
+   pietra resta determinata, il testo no.
+3. **MODELLO MISTO.** Il presagio della voce S.19 lo COMPONE IL MODELLO da due
+   dati: la runa uscita col suo significato dal corpus, e la domanda scelta. E'
+   l'unica bolla che deve davvero rispondere ed e' UNA SOLA per gettata, quindi una
+   generazione al giorno per utente nel piano gratuito e non quattro. **Ripiego
+   deterministico obbligatorio senza rete, e il ripiego non dichiara di essere un
+   ripiego: funziona e basta.** Le ventiquattro rune singole della voce S.20
+   restano CORPUS, per famiglie di domanda: brevi, dimezzate, ancorate al simbolo,
+   e non si scrivono 576 testi.
+4. **LE FAMIGLIE DI DOMANDA nascono nella S.21 e sono la chiave anche del corpus
+   della S.20.** Poche, cinque o sei. NON si scelgono da soli: l'elenco delle
+   famiglie e l'elenco chiuso delle domande si propongono a Mauro PRIMA di scrivere
+   un solo testo, perche' da quella scelta dipende quanto corpus va scritto e quel
+   corpus e' materiale suo.
+5. Il confine della voce S.17 va nelle istruzioni di sistema del presagio, in un
+   punto solo, e una prova verifica che l'istruzione sia presente e unica.
+6. **LA PROVA CHE IL PRESAGIO RISPONDE misura DUE cose e non una**, perche' testi
+   diversi fra loro non bastano: (a) a parita' di runa, due domande diverse danno
+   presagi che condividono meno di una soglia dichiarata delle loro parole piene;
+   (b) ogni presagio condivide almeno N parole piene con LA SUA domanda. Rosso
+   eseguito rimettendo la composizione a hash sulle liste fisse: deve cadere il
+   punto b.
+7. **La famiglia delle due porte si prende sul serio**: S.15, S.16 e S.17 si
+   applicano in TUTTI E DUE i posti per la stessa arte, corpus e istruzioni di
+   sistema. Se se ne applica uno solo il registro cambia a meta' schermata e la
+   persona lo vede. Una prova enumera le arti a due porte e cade se una delle due
+   non ha recepito la legge.
+8. **Voce S.04: prima si rende leggibile il fallimento, poi si cerca la causa.**
+   Sono due passi e il primo e' una correzione a se', non un mezzo. E' lo stesso
+   caso di inizio agosto, quando la causa dell'accesso anonimo era gia' catturata
+   in `AppServices.diagnostics` e non la leggeva nessuno.
+9. Premessa 4 caduta, accettata: la voce S.10 resta valida e si misura sulla resa.
+
 ## Sezione B. Le rune
 
 - **S.19** Il presagio di Caligo e' la prima bolla — APERTA
