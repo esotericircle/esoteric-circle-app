@@ -5,10 +5,10 @@ import 'dart:math' as math;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import '../../design_system/components/cosmos_background.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/astro/moon_phase.dart';
@@ -28,6 +28,7 @@ import 'widgets/moon_widget.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/astro/birth_place.dart' as astro;
 import '../../core/astro/sky.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
 
 /// QUANDO: l'avverbio di tempo della schermata del cielo, in un punto solo.
 ///
@@ -829,12 +830,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
       final kind = widget.birth ? 'nascita' : 'cielo';
       final file = File('${dir.path}/esoteric_${kind}_${format.name}.png');
       await file.writeAsBytes(bytes);
-      await SharePlus.instance.share(
-        ShareParams(
-          files: [XFile(file.path, mimeType: 'image/png')],
-          text: SkyPostcard.shareText(now, birth: widget.birth),
-        ),
-      );
+      await PortaDellaCondivisione.daFile(file.path, testo: SkyPostcard.shareText(now, birth: widget.birth));
     } catch (_) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -960,11 +956,21 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     ];
     final selected = bodies.where((b) => b.key == _selectedKey).firstOrNull;
 
-    return Scaffold(
+    // IL CIELO IN PARALLASSE SOTTO LA VOLTA, ordine P voci 01 e 02.
+    //
+    // **Questa schermata dichiarava il fondo in movimento e non ne aveva
+    // nessuno.** E' una rotta spinta sopra il guscio, quindi il cosmo del
+    // guscio non le arriva, e qui sotto c'era un colore pieno. Il difetto era
+    // silenzioso: la volta celeste ha corpi propri e sembrava viva, mentre lo
+    // sfondo era fermo. Lo ha trovato il terzo lucchetto, dopo che la sua
+    // grandezza misurata e' stata corretta.
+    return CosmosBackground(
+      seed: 11,
+      child: Scaffold(
       key: const Key('sky_overview_screen'),
       extendBody: true,
       extendBodyBehindAppBar: true,
-      backgroundColor: ColorTokens.neutralDeepest,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: palette.deepest.withValues(alpha: 0.35),
         elevation: 0,
@@ -1142,6 +1148,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
           );
         },
       ),
+      ),
     );
   }
 }
@@ -1158,7 +1165,18 @@ class _SkyBody {
     this.asterism,
     this.datoDiAdesso,
     this.coordinate,
+    this.sottoIlSuolo = false,
   });
+
+  /// SE A QUELL'ISTANTE IL CORPO STAVA SOTTO L'ORIZZONTE. Ordine P voce 22.
+  ///
+  /// **Il difetto che chiude.** La scheda lo diceva gia', "Stanotte sta sotto
+  /// il suolo: da qui non si vedra'", e intanto il corpo restava disegnato a
+  /// piena luce in mezzo agli altri. Una scena che contraddice la propria
+  /// didascalia insegna a non fidarsi della didascalia. Adesso il corpo si
+  /// vela, quindi il segno visivo e la frase dicono la stessa cosa, e vale per
+  /// tutti e due i cieli perche' passa da qui.
+  final bool sottoIlSuolo;
 
   /// Lo stesso corpo in un altro posto sullo schermo. Serve alla disposizione,
   /// che sposta i corpi per leggibilita' senza toccare nient'altro di loro.
@@ -1172,6 +1190,7 @@ class _SkyBody {
         asterism: asterism,
         datoDiAdesso: datoDiAdesso,
         coordinate: coordinate,
+        sottoIlSuolo: sottoIlSuolo,
       );
 
   /// La Luna della veduta. Con [birth] vero la didascalia parla della notte in
@@ -1195,6 +1214,9 @@ class _SkyBody {
         moon: moon,
         datoDiAdesso: _datoDellaLuna(moon, cielo, birth: birth),
         coordinate: _coordinateDellaLuna(moon, cielo, birth: birth),
+        // La Luna sotto il suolo: `SkySnapshot` la porta a nullo proprio in
+        // quel caso, quindi la si legge da li' invece di ricalcolarla.
+        sottoIlSuolo: cielo != null && cielo.moon == null,
       );
 
   /// Sotto questa altezza un corpo e' oltre l'orizzonte e non si mostra. E' la
@@ -1220,6 +1242,15 @@ class _SkyBody {
         datoDiAdesso: _datoDellaCostellazione(sign, cielo, birth: birth),
         coordinate: _coordinateDellaCostellazione(sign, cielo,
             catalogo: catalogo, birth: birth),
+        // LA STESSA SOGLIA DEL MOTORE, non una sua: `_altezzaMinima` e'
+        // `kAltezzaOrizzonte`, e usarne un'altra qui rimetterebbe il difetto
+        // di chi stava in mezzo fra due soglie diverse.
+        // NON SI RICALCOLA NIENTE: `nomiVisibili` e' gia' l'elenco delle
+        // costellazioni sopra l'orizzonte, filtrato con la stessa soglia del
+        // motore. Rifare il conto qui vorrebbe dire una seconda soglia, ed e'
+        // esattamente il difetto gia' pagato una volta su questa schermata.
+        sottoIlSuolo:
+            cielo != null && !cielo.nomiVisibili.contains(sign.italianName),
       );
 
   /// Nome, altezza in gradi e direzione della Luna, piu' la sua fase.
@@ -1360,6 +1391,36 @@ class _SkyBody {
 }
 
 /// Rende un corpo con la sua etichetta sotto, evidenziato quando selezionato.
+/// QUANTO SI VELA UN CORPO SOTTO L'ORIZZONTE.
+///
+/// Un quarto: si vede che c'e', si vede che non e' come gli altri, e non
+/// sparisce. A meta' non si distingueva dai corpi bassi, a un decimo diventava
+/// invisibile e chi cercava il suo segno non lo trovava piu'.
+const double velaturaSottoLOrizzonte = 0.25;
+
+/// La linea del suolo sotto un corpo velato: e' il segno che dice PERCHE' e'
+/// velato, e senza di lei la velatura sembrerebbe un difetto di resa.
+class _LineaDellOrizzonte extends CustomPainter {
+  _LineaDellOrizzonte({required this.colore});
+
+  final Color colore;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final y = size.height * 0.86;
+    canvas.drawLine(
+      Offset(0, y),
+      Offset(size.width, y),
+      Paint()
+        ..strokeWidth = 1
+        ..color = colore.withValues(alpha: 0.9),
+    );
+  }
+
+  @override
+  bool shouldRepaint(_LineaDellOrizzonte old) => old.colore != colore;
+}
+
 class _BodyView extends StatelessWidget {
   const _BodyView({
     required this.body,
@@ -1395,9 +1456,27 @@ class _BodyView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-              width: body.size,
-              height: body.size,
-              child: Center(child: visual)),
+            width: body.size,
+            height: body.size,
+            child: Center(
+              // IL VELO SUI CORPI SOTTO L'ORIZZONTE, ordine P voce 22.
+              //
+              // Non si toglie il corpo dalla scena, e non e' un ripiego: chi
+              // cerca il proprio segno deve trovarlo anche quando sta sotto il
+              // suolo, altrimenti la schermata risponde col silenzio. Si vela,
+              // e sotto di lui passa la linea dell'orizzonte: cosi' il segno
+              // visivo dice la stessa cosa che la scheda ha gia' scritto.
+              child: body.sottoIlSuolo
+                  ? Opacity(
+                      opacity: velaturaSottoLOrizzonte,
+                      child: CustomPaint(
+                        painter: _LineaDellOrizzonte(colore: palette.gold),
+                        child: visual,
+                      ),
+                    )
+                  : visual,
+            ),
+          ),
           const SizedBox(height: 2),
           Text(
             body.label,
