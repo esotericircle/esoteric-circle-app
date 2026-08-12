@@ -47,6 +47,7 @@ class RitualView extends StatefulWidget {
     required this.prompt,
     required this.sensorHint,
     required this.visualBuilder,
+    this.cosaEIlVisivo,
     required this.revealed,
     this.rito,
     this.cosaRicevi,
@@ -63,6 +64,23 @@ class RitualView extends StatefulWidget {
   /// LA RIGA CHE DICE COSA STAI PER RICEVERE, prima del gesto.
   ///
   /// Ordine P voce 16: nessuno compie un gesto senza sapere cosa ne esce. Il
+  /// COSA E' LA COSA CHE SI VEDE. Ordine S voce 12.
+  ///
+  /// **Il difetto: il disco dell'Oracolo non diceva cosa fosse.** Funzionava, il
+  /// cielo reagiva al movimento del telefono, e chi lo guardava non capiva ne'
+  /// cosa stesse guardando ne' cosa ottenesse muovendolo. La riga del gesto
+  /// compariva solo PRIMA della rivelazione e la riga del sensore stava in fondo,
+  /// dopo il responso: dopo il gesto il disco restava li', nudo.
+  ///
+  /// **Delle due strade dell'ordine si e' presa la (a):** il disco resta e acquista
+  /// un senso. Buttarlo perche' non era spiegato sarebbe stato risolvere un
+  /// problema di parole togliendo l'unico punto dell'app in cui il cielo reagisce
+  /// al movimento del telefono.
+  ///
+  /// Nullo per i riti il cui livello visivo si spiega da se': il sole che si
+  /// solleva non ha bisogno di una didascalia.
+  final String? cosaEIlVisivo;
+
   /// [prompt] dice come si fa, questa dice cosa si ottiene, e sono due cose
   /// diverse: "Inclina o scorri per rivelare" non dice niente a nessuno.
   final String? cosaRicevi;
@@ -291,6 +309,33 @@ class _RitualViewState extends State<RitualView>
                   ),
                 ),
               ),
+              // **COSA E' QUELLO CHE SI VEDE, E COSA FA MUOVERLO.** Ordine S voce
+              // 12: sta SOTTO il livello visivo e resta anche dopo la
+              // rivelazione, perche' il disco resta li' anche dopo. La riga del
+              // sensore e' salita da sotto il responso a qui: dice cosa succede
+              // muovendo, e la sua casa e' accanto alla cosa che si muove, non in
+              // fondo alla schermata.
+              if (widget.cosaEIlVisivo != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SpacingTokens.lg),
+                  child: Column(
+                    children: [
+                      Text(
+                        widget.cosaEIlVisivo!,
+                        key: const Key('rito_cosa_e_il_visivo'),
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.didascalia().copyWith(
+                            color: palette.goldSoft, height: 1.35),
+                      ),
+                      const SizedBox(height: SpacingTokens.xs),
+                      _HintRow(
+                          icon: Icons.touch_app_outlined,
+                          text: widget.sensorHint,
+                          palette: palette),
+                    ],
+                  ),
+                ),
               // Responso, rivelato dopo il gesto.
               Expanded(
                 flex: 4,
@@ -343,10 +388,15 @@ class _RitualViewState extends State<RitualView>
                             key: const Key('ritual_content'),
                             child: widget.revealed),
                       const SizedBox(height: SpacingTokens.md),
-                      _HintRow(
-                          icon: Icons.touch_app_outlined,
-                          text: widget.sensorHint,
-                          palette: palette),
+                      // **LA RIGA DEL SENSORE NON SI RIPETE.** Ordine S voce 12:
+                      // per i riti che dichiarano cosa e' il loro visivo, e'
+                      // salita accanto al disco. Per gli altri resta qui, che e'
+                      // la sua casa di sempre.
+                      if (widget.cosaEIlVisivo == null)
+                        _HintRow(
+                            icon: Icons.touch_app_outlined,
+                            text: widget.sensorHint,
+                            palette: palette),
                       if (widget.footnote != null) ...[
                         const SizedBox(height: SpacingTokens.sm),
                         _HintRow(

@@ -95,6 +95,14 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
       prompt: 'Inclina o scorri per rivelare',
       sensorHint:
           'Inclina il telefono, oppure scorri col dito: il ripiego tattile vale sempre.',
+      // **COSA E' IL DISCO, ordine S voce 12.** Funzionava e non diceva cosa
+      // fosse: chi lo guardava non capiva ne' cosa stesse guardando ne' cosa
+      // ottenesse muovendolo. Delle due strade dell'ordine si e' presa la prima,
+      // il disco resta e acquista un senso: e' la ruota del cielo di questo
+      // momento, con le dodici case e i corpi che vi stanno adesso, e muovendo il
+      // telefono ci si guarda dentro.
+      cosaEIlVisivo: 'La ruota del cielo di questo momento, sopra di te: le '
+          'dodici case e i corpi che vi stanno adesso.',
       visualBuilder: (context, revealed, t, inclinazione) => CustomPaint(
         painter: _OraclePainter(
             palette: palette,

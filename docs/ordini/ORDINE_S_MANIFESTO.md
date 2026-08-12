@@ -589,7 +589,36 @@ chiusa: committare non e' consegnare.
   - Anteprima GUARDATA: `docs/preview/runa-tramonto-voce-uno.png`. Adesso si legge
     barra, la riga di chi parla, la pietra, "Gira la pietra", il nome della runa, e
     solo dopo le tre righe.
-- **S.12** L'Oracolo del Giorno dichiara cosa e' e cosa da' — APERTA
+- **S.12** L'Oracolo del Giorno dichiara cosa e' e cosa da' — CHIUSA
+  - **SI E' PRESA LA STRADA (a), come raccomandava l'Architetto:** il disco resta e
+    acquista un senso. Buttarlo perche' non era spiegato sarebbe stato risolvere un
+    problema di parole togliendo l'unico punto dell'app in cui il cielo reagisce al
+    movimento del telefono.
+  - Il disco dichiara cosa e': "La ruota del cielo di questo momento, sopra di te: le
+    dodici case e i corpi che vi stanno adesso." La didascalia vive nel rito che la
+    dichiara, non dentro il guscio: `RitualView` la ospita e resta nulla per i riti il
+    cui livello visivo si spiega da se', perche' il sole che si solleva non ha bisogno
+    di una didascalia.
+  - **E COSA SUCCEDE MUOVENDOLO STA ACCANTO A LUI.** La riga del ripiego tattile
+    ("Inclina il telefono, oppure scorri col dito") stava in fondo alla schermata,
+    DOPO il responso: adesso e' salita sotto il disco, che e' la casa della frase che
+    dice cosa fa muovere una cosa. In fondo non si ripete: una prova conta le
+    occorrenze e cade se diventano due.
+  - **LA DICHIARAZIONE RESTA DOPO IL GESTO, ed e' li' il difetto vero.** La riga del
+    gesto compariva solo PRIMA della rivelazione: dopo il gesto il disco restava li',
+    nudo. Una prova che guardasse solo la schermata appena aperta passerebbe col
+    difetto in piedi, quindi la misura tocca il disco, aspetta il responso e guarda di
+    nuovo.
+  - Misura: `test/il_disco_dellOracolo_dice_cosa_e_test.dart`, due prove. Rosso
+    eseguito rimettendo la didascalia solo prima della rivelazione: cade su "dopo il
+    gesto il disco torna nudo".
+  - Anteprima GUARDATA: `docs/preview/oracolo-giorno.png`.
+  - **RIDONDANZA VISTA E NON CHIUSA, e va detta:** sotto il disco la riga del ripiego
+    dice "Inclini il telefono oppure scorri col dito" e due righe piu' sotto il "Cosa
+    fai" del rito dice la stessa cosa con altre parole. Il ripiego tattile e'
+    obbligatorio e resta; il testo del "Cosa fai" e' corpus della voce P.17, e
+    riscriverlo e' materiale di Mauro. **E' la stessa famiglia della voce S.24**, la
+    ridondanza nelle schede delle rune: si propone di trattarla la'.
 - **S.13** Il respiro guidato esce dal Rito dell'Alba — APERTA
 - **S.14** L'accesso si apre davvero: Google su Android e su iPhone, Apple su iPhone — APERTA
 
@@ -747,6 +776,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 11
+VOCI_CHIUSE: 12
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
