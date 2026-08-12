@@ -69,21 +69,83 @@ chiusa: committare non e' consegnare.
 
 ---
 
-## Le quattro premesse da abbattere
+## Le quattro premesse, ABBATTUTE PRIMA DI TOCCARE IL CODICE
 
 Non sono voci e non hanno una riga di stato: sono cio' che va accertato prima di
-lavorare, perche' una di loro puo' cambiare l'ordine del lavoro.
+lavorare, perche' una di loro puo' cambiare l'ordine del lavoro. **Una lo ha
+cambiato.**
 
-1. Da dove vengono i testi dei responsi, arte per arte: corpus scritto o modello a
-   runtime. Un corpus si riscrive, un testo generato si governa dalle istruzioni
-   di sistema e dal tetto in token. Chi ha tutte e due le strade e' una famiglia
-   delle due porte e va dichiarata.
-2. **DA VERIFICARE PER PRIMA E RIFERIRE**: che la domanda posta prima della
-   gettata arrivi davvero fino al testo del responso. Se non ci arriva, prima si
-   porta il dato e poi si cambia la voce.
-3. Che il saldo Eos resti a zero per una ragione sola.
-4. Che lo spazio eccessivo sotto i tre Maestri in home sia scritto nel sorgente;
-   se il censimento non lo trova, si misura sulla resa.
+### 2. LA DOMANDA NON ARRIVA AL TESTO. Verificata per prima, come l'ordine chiede
+
+**Misurata sul codice e con una sonda eseguita**, non ragionata. Il risultato
+cambia l'ordine del lavoro della Sezione B.
+
+- `RunePresagio.componi(esito)` **non riceve la domanda affatto**: non e' nella
+  firma. Il presagio, cioe' la prima bolla che la voce S.19 vuole risponda alla
+  domanda, oggi non puo' rispondere a niente. Con la stessa gettata sono 434
+  caratteri identici qualunque cosa la persona abbia chiesto.
+- `RuneVoce.voce(runa:, persona:, giorno:, domanda:)` la riceve, ma la usa in due
+  modi che NON sono il contenuto: entra nella chiave FNV che pesca l'apertura, il
+  ponte e la chiusa da tre liste fisse, e aggiunge UNA frase costante, "Dentro la
+  tua domanda, e' qui che guarda."
+- La sonda, otto domande diverse sulla stessa runa e lo stesso giorno: otto testi
+  distinti, ma la differenza e' solo QUALE variante e' stata pescata. Delle parole
+  piene delle otto domande ne ricompare una sola nel testo, "questa", e per
+  coincidenza col corpus. **Il contenuto della domanda non tocca il testo.**
+
+**Cosa comporta, ed e' la ragione per cui l'ordine chiedeva di verificarla per
+prima.** Il corpus delle rune e' deterministico: un testo scritto a mano non puo'
+rispondere a una domanda scritta a mano libera, perche' le combinazioni sono
+infinite. Quindi **la voce S.21 viene PRIMA delle voci S.19 e S.20**: solo quando
+le domande sono un elenco CHIUSO, la tendina a due famiglie, un corpus puo' avere
+una risposta per ogni coppia di domanda e runa. Riscrivere i testi prima di
+chiudere l'elenco vorrebbe dire riscriverli due volte.
+
+### 1. DA DOVE VENGONO I TESTI. Accertato file per file
+
+- **Corpus scritto e deterministico**, nessun modello: rune (`runes.dart`,
+  `rune_presage.dart`, `rune_voce.dart`, `rune_lore.g.dart`), tarocchi
+  (`tarot_reading.dart`), Oroscopo (`horoscope_data.dart` piu' il cielo vero
+  calcolato in locale), i cinque doni del giorno.
+- **Modello a runtime**, Gemini via `firebase_ai`: **solo** la chat dei Maestri,
+  da `lib/features/maestri/chat/maestro_chat_controller.dart`, governata dalle
+  istruzioni di sistema di `lib/services/ai/maestro_persona.dart`. E' l'unico
+  punto dell'app che chiama il modello.
+- **FAMIGLIA DELLE DUE PORTE, e va dichiarata**: l'elemento oracolare e la sua
+  prima lettura sono corpus, mentre il SEGUITO che il Maestro scrive sotto e' del
+  modello (`seguito_della_lettura.dart`), con un ripiego deterministico quando la
+  voce tace (`lettura_di_ripiego.dart`). Quindi le voci S.15, S.16 e S.17 vanno
+  applicate in DUE posti per la stessa arte: nel corpus e nelle istruzioni di
+  sistema.
+
+### 3. IL SALDO A ZERO: la causa NON e' ancora una sola, e si dice
+
+Cosa e' verificato nei file:
+
+- L'accredito esiste e passa dal server per nome e non per importo,
+  `PremioDelTraguardo.accredita` verso la callable `muoviGliEos`.
+- La callable **e' distribuita e accetta la causale**: `premio_sigillo` sta in
+  `CAUSALI_CHIEDIBILI`, e `VALORE_DEL_PREMIO` porta i valori dei traguardi.
+- La borsa si risincronizza **solo se il server ha risposto**
+  (`if (saldo != null) await borsa.sincronizza()`).
+- **E il `catch` attorno all'accredito non registra niente.** Se l'accredito
+  fallisce, nessuno lo sa: ne' la persona, ne' un registro, ne' una prova. E'
+  questo che rende la causa illeggibile da fuori, ed e' la prima cosa da
+  correggere nella voce S.04, prima di scegliere fra le quattro strade.
+
+Le strade (a) e (b) dell'ordine restano entrambe in piedi; (c) e (d) richiedono un
+dispositivo. La voce S.04 parte dal rendere visibile il guasto, non
+dall'indovinare quale sia.
+
+### 4. IL VUOTO IN HOME NON E' SCRITTO NEL SORGENTE. La premessa cade
+
+In `santuario_screen.dart` non esiste nessuno spazio scritto di quell'ordine di
+grandezza: il blocco eroe distribuisce l'altezza in PROPORZIONE
+(`centralH = h * 0.60` col tetto `math.max(220, h * 0.54)`, zona d'ingresso a
+`h * 0.02`), quindi il vuoto e' un risultato della resa e non un numero da
+cambiare. **Ed e' esattamente il motivo per cui nessuna misura lo aveva visto**:
+il censimento degli spazi conta i `SizedBox` senza figlio, cioe' i vuoti scritti.
+La voce S.10 si misura sulla resa, come l'ordine prevede.
 
 ---
 
