@@ -95,8 +95,13 @@ class RegiaDelCammino {
     // La porta, la borsa e la coda si prendono PRIMA di qualunque attesa:
     // leggere il contesto dopo un await e' il modo classico di parlare a un
     // albero che non c'e' piu'.
-    final porta = context.read<AppServices>().porta;
+    final servizi = context.read<AppServices>();
+    final porta = servizi.porta;
     final borsa = context.read<QuestionAllowance>();
+    // IL REGISTRO DEI GUASTI, la stessa porta che raccoglie i silenzi della
+    // voce: un secondo registro dividerebbe i guasti e nessun pannello li
+    // mostrerebbe tutti.
+    final guasti = servizi.guasti;
     final CodaDelleFeste? coda = _codaSeCe(context);
     final nuovi = await diario.quelliCheSiAccendono(stato);
     if (nuovi.isEmpty) return;
@@ -125,12 +130,38 @@ class RegiaDelCammino {
       //    movimento porta gia' il suo identificativo e non si conta due
       //    volte. Quello che non deve mai succedere e' che si porti via la
       //    festa cadendo.
+      // **IL FALLIMENTO SI VEDE, ordine S voce 04, primo passo.** Qui c'era un
+      // `catch` che non registrava niente: se l'accredito fallisce non lo sa
+      // nessuno, ne' la persona ne' un registro ne' una prova, ed e' per questo
+      // che la causa del borsellino a zero era illeggibile da fuori. E' lo stesso
+      // caso di inizio agosto, quando la causa dell'accesso anonimo era gia'
+      // catturata in `AppServices.diagnostics` e non la leggeva nessuno. Prima si
+      // rende leggibile il guasto, poi si cerca la causa: sono due passi, e il
+      // primo e' una correzione a se'.
       try {
         final saldo = await PremioDelTraguardo.accredita(porta, traguardo);
-        if (saldo != null) await borsa.sincronizza();
+        if (saldo == null) {
+          guasti.registra(
+            operazione: 'accredito del traguardo ${traguardo.id}',
+            errore: 'il server non ha risposto: il Sigillo resta acceso e il '
+                'premio si riprende alla prossima sincronia',
+          );
+          return;
+        }
+        // **IL SALDO SI APPLICA SUBITO, col numero che il server ha appena
+        // detto.** Prima si buttava e si chiedeva tutto lo stato con una seconda
+        // chiamata: se quella non rispondeva, il numero in barra restava quello
+        // vecchio e la persona vedeva "+10 Eos" nella festa e zero nel
+        // borsellino.
+        await borsa.applicaSaldo(saldo);
       } catch (errore) {
-        // Nessun rilancio: qui sotto non c'e' piu' niente da proteggere, e
-        // sopra la festa e' gia' avvenuta.
+        // Nessun rilancio: sopra la festa e' gia' avvenuta e qui sotto non c'e'
+        // piu' niente da proteggere. Ma si REGISTRA, perche' un guasto che non
+        // lascia traccia e' un guasto che nessuno potra' spiegare.
+        guasti.registra(
+          operazione: 'accredito del traguardo ${traguardo.id}',
+          errore: errore,
+        );
       }
     }
   }

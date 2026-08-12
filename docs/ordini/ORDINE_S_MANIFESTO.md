@@ -168,6 +168,34 @@ chiusa: committare non e' consegnare.
     `docs/preview/sentiero-costellazione-meta.png`: "Ventisei stelle accese su
     cinquantacinque", e nella lista "54 di 55".
 - **S.04** Perche' il borsellino e' a zero — APERTA
+  - **PRIMO PASSO FATTO: il fallimento e' leggibile.** Il `catch` attorno
+    all'accredito non registrava niente, quindi se l'accredito falliva non lo
+    sapeva nessuno: ne' la persona, ne' un registro, ne' una prova. Finche' era
+    cosi' la causa non era leggibile da fuori e ogni ipotesi valeva come le altre.
+    Adesso i due modi di fallire, il server che non risponde e l'eccezione, vanno
+    nel `RegistroDeiGuasti`, che e' la stessa porta dove finiscono i silenzi della
+    voce: un secondo registro dividerebbe i guasti e nessun pannello li mostrerebbe
+    tutti.
+  - **E UNA CAUSA E' STATA TROVATA mentre si rendeva leggibile il guasto.** Il
+    saldo nuovo arriva DENTRO la risposta dell'accredito, ed era buttato: si
+    chiamava `sincronizza`, cioe' una SECONDA chiamata al server per tutto lo stato
+    del giorno. Se quella non risponde, e senza rete non risponde, il numero in
+    barra resta quello vecchio anche con l'accredito riuscito, e la persona vede
+    "+10 Eos" nella festa e zero nel borsellino. E' la strada (b) delle quattro
+    dell'ordine. Nasce `QuestionAllowance.applicaSaldo`, che applica il numero che
+    il server ha appena detto, avvisa chi guarda e lo scrive su disco.
+  - Misura: `test/il_saldo_cambia_a_schermo_test.dart`, sette prove. Fra loro:
+    ogni traguardo dei 165 chiede un premio con un motivo che il server conosce
+    (chiude la strada di un motivo sconosciuto che renderebbe l'accredito un errore
+    per sempre), e la porta spenta NON finge un accredito, perche' un saldo
+    inventato in barra e' peggio di un saldo fermo. Rosso eseguito rimettendo il
+    catch muto e la seconda chiamata.
+  - **COSA RESTA, e per questo la voce e' ancora aperta**: il criterio di chiusura
+    chiede una prova che monti un traguardo, lo accenda e cada se il saldo in barra
+    resta fermo, cioe' il giro intero dalla regia alla barra con una porta finta
+    che risponde. E le strade (c), l'utente anonimo con un ramo diverso sul server
+    dopo una disinstallazione, e (d), le marcature "Eos in attesa", chiedono un
+    dispositivo.
 - **S.05** Gli Eos hanno un nome e una loro icona — APERTA
 - **S.06** Il borsellino e' sempre visibile — APERTA
 - **S.07** Gli Eos volano dalla celebrazione al borsellino — APERTA

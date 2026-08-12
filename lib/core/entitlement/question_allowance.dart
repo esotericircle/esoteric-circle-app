@@ -352,6 +352,25 @@ class QuestionAllowance extends ChangeNotifier {
     }
   }
 
+  /// APPLICA UN SALDO CHE IL SERVER HA GIA' DETTO. Ordine S voce 04.
+  ///
+  /// **Perche' esiste, ed e' la meta' del difetto del borsellino a zero.** Chi
+  /// accredita un premio riceve dal server il saldo nuovo nella risposta: e' la
+  /// verita', ed e' gia' in mano. Prima quel numero veniva buttato e si chiamava
+  /// [sincronizza], cioe' si chiedeva al server TUTTO lo stato con una seconda
+  /// chiamata: se quella non rispondeva, il saldo a schermo restava quello
+  /// vecchio anche se l'accredito era andato a buon fine. La persona vedeva
+  /// "+10 Eos" nella festa e zero in barra.
+  ///
+  /// Non sostituisce [sincronizza], che resta la verita' periodica su tutto lo
+  /// stato del giorno: questa applica UN dato che si conosce, subito.
+  Future<void> applicaSaldo(int saldo) async {
+    if (saldo == _saldoEos) return;
+    _saldoEos = saldo;
+    notifyListeners();
+    await _persist();
+  }
+
   /// CHIEDE AL SERVER COM'E' MESSO IL GIORNO, e si allinea a cio' che dice.
   ///
   /// Si chiama all'avvio e al ritorno in primo piano. Se il server non
