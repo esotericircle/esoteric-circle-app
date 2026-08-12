@@ -606,6 +606,16 @@ abstract class _PittoreDelSentiero extends CustomPainter {
 
   bool acceso(PuntoDelSentiero p) => accesi.contains(p.traguardo.id);
 
+  /// LA FIGURA E' COMPIUTA: l'ULTIMO grande e' acceso.
+  ///
+  /// **Ordine S voce 02, la regola che mancava.** L'ultimo grande traguardo deve
+  /// dare alla figura qualcosa che prima non aveva, non un pezzo in piu': un
+  /// petalo su cinquanta non si vede, e infatti da meta' a completo il Loto
+  /// cambiava poco. Sull'Albero era gia' vero senza avere un nome, perche' Keter
+  /// porta una corona di luce che le altre Sefirot non hanno: quella e' il
+  /// modello, e da qui vale per tutti e tre.
+  bool get figuraCompiuta => punti.any((p) => p.eGrande && p.gruppo == 4 && acceso(p));
+
   Offset assoluto(PuntoDelSentiero p, Size s) =>
       Offset(p.dove.dx * s.width, p.dove.dy * s.height);
 
@@ -724,8 +734,30 @@ class PittoreDellaCostellazione extends _PittoreDelSentiero {
   void paint(Canvas tela, Size misura) {
     final c = corto(misura);
 
-    // 1. L'OSSATURA, solo fra stelle accese: la figura si compone.
-    ossatura(tela, misura, GeometriaDelSentiero.ossatura(Sentiero.costellazione));
+    final ossa = GeometriaDelSentiero.ossatura(Sentiero.costellazione);
+
+    // 1. QUANDO L'ULTIMA STELLA PRINCIPALE SI ACCENDE, LA FIGURA SI CHIUDE.
+    //
+    // Ordine S voce 02: prima restava una somma di cinquantaquattro segmenti
+    // piu' uno. Adesso, compiuta, tutta l'ossatura porta un alone continuo
+    // sotto le linee, e a quel punto si legge come UNA cosa e non come tanti
+    // tratti che si toccano. Si dipinge PRIMA delle linee, cosi' e' luce che
+    // esce da loro e non una vernice sopra.
+    if (figuraCompiuta) {
+      final alone = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round
+        ..strokeWidth = c * 0.0175
+        ..color = oro.withValues(alpha: 0.30)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, c * 0.012);
+      for (final osso in ossa) {
+        tela.drawLine(assoluto(punti[osso.da], misura),
+            assoluto(punti[osso.a], misura), alone);
+      }
+    }
+
+    // 2. L'OSSATURA, solo fra stelle accese: la figura si compone.
+    ossatura(tela, misura, ossa);
 
     // 2. LE STELLE, dalle piccole alle principali, cosi' le grandi restano
     // sopra e la gerarchia si legge anche dove i punti si avvicinano.
@@ -988,8 +1020,37 @@ class PittoreDelLoto extends _PittoreDelSentiero {
       }
     }
 
-    // 3. IL CUORE del fiore, sempre: e' il punto da cui tutto parte.
+    // 3. QUANDO IL CUORE SI APRE, LA LUCE NASCE DAL CENTRO.
+    //
+    // **Ordine S voce 02, ed e' la ragione per cui il cuore si apre per
+    // ULTIMO**: e' come si schiude un loto vero, e lo dice la riga del Passport,
+    // il loto si schiude quando il respiro ha smesso di essere una decisione. Il
+    // fiore completo non e' un petalo in piu' aperto, e' un fiore ACCESO: la
+    // luce parte dal centro e si propaga verso i petali, e la differenza da
+    // meta' si legge da lontano.
+    if (figuraCompiuta) {
+      final quanto = GeometriaDelSentiero.lunghezzaDelGiro.first * c * 1.15;
+      tela.drawCircle(
+          cuore,
+          quanto,
+          Paint()
+            ..shader = RadialGradient(
+              colors: [
+                Colors.white.withValues(alpha: 0.62),
+                oro.withValues(alpha: 0.34),
+                oro.withValues(alpha: 0.0),
+              ],
+              stops: const [0.0, 0.42, 1.0],
+            ).createShader(Rect.fromCircle(center: cuore, radius: quanto)));
+    }
+
+    // 4. IL CUORE del fiore, sempre: e' il punto da cui tutto parte.
     tela.drawCircle(
-        cuore, c * 0.013, Paint()..color = oro.withValues(alpha: 0.72));
+        cuore,
+        c * (figuraCompiuta ? 0.020 : 0.013),
+        Paint()
+          ..color = figuraCompiuta
+              ? Colors.white.withValues(alpha: 0.92)
+              : oro.withValues(alpha: 0.72));
   }
 }

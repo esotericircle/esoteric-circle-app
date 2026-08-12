@@ -76,6 +76,27 @@ chiusa: committare non e' consegnare.
   - Numeri corretti dopo una prova rossa della voce P.33: col giro esterno a 0,52
     del lato corto i petali estremi uscivano dalla tela, cinquanta pixel sui
     fianchi misurati. Adesso 0,40 e il fiore ci sta dentro.
+  - **L'ULTIMO GRANDE DA' ALLA FIGURA QUALCOSA CHE PRIMA NON AVEVA, non un pezzo
+    in piu'.** Era la regola che mancava, e la sua assenza si misurava: da meta' a
+    completa il Loto cambiava il 3 per cento della propria impronta, cioe' un
+    petalo su cinquanta, cioe' niente. Sull'Albero era gia' vero senza avere un
+    nome, perche' Keter porta una corona di luce che le altre Sefirot non hanno, e
+    quella e' il modello.
+    - LOTO: quando il cuore si apre, **la luce nasce dal centro** e si propaga
+      verso i petali. Il fiore completo non e' un petalo in piu' aperto, e' un
+      fiore ACCESO. **L'ordine di apertura NON si inverte**: il cuore si apre per
+      ultimo, perche' e' come si schiude un loto vero ed e' cio' che dice la riga
+      del Passport, il loto si schiude quando il respiro ha smesso di essere una
+      decisione.
+    - COSTELLAZIONE: quando l'ultima stella principale si accende, tutta
+      l'ossatura porta un alone continuo sotto le linee, e la figura si legge come
+      UNA cosa invece che come cinquantaquattro segmenti piu' uno.
+  - Misura del compimento: la differenza fra l'anteprima a meta' e quella
+    completa deve toccare piu' del 45 per cento dell'IMPRONTA della figura, cioe'
+    dei pixel che la figura occupa in tutto. E' un confronto della figura con se
+    stessa, quindi non dipende da quanto e' grande la tela. Rosso eseguito
+    spegnendo il compimento: il Loto scende al **3 per cento** e la prova cade
+    dicendo che l'ultimo traguardo non sta dando niente.
   - UNA FIGURA SOLA, non cinque figurine: i cinque principali stanno su una
     SPINA e ogni parte cresce da lei con due braccia. I cinque grandi sono le
     stelle che reggono la forma, i cinquanta mini la riempiono.

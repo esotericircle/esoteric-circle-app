@@ -265,6 +265,72 @@ void main() {
     });
   }
 
+  /// QUANTI PIXEL CAMBIANO fra due tele, oltre una soglia di livelli.
+  int quantiCambiano(
+      ({ByteData dati, int larghezza, int altezza}) prima,
+      ({ByteData dati, int larghezza, int altezza}) dopo,
+      {int soglia = 20}) {
+    var quanti = 0;
+    for (var y = 0; y < prima.altezza; y += 2) {
+      for (var x = 0; x < prima.larghezza; x += 2) {
+        final i = (y * prima.larghezza + x) * 4;
+        var scarto = 0;
+        for (var canale = 0; canale < 3; canale++) {
+          final d = (dopo.dati.getUint8(i + canale) -
+                  prima.dati.getUint8(i + canale))
+              .abs();
+          if (d > scarto) scarto = d;
+        }
+        if (scarto > soglia) quanti++;
+      }
+    }
+    return quanti;
+  }
+
+  group('L\'ultimo grande da\' alla figura qualcosa che prima non aveva', () {
+    /// **QUANTE VOLTE l'ultimo grande deve valere piu' di un traguardo normale.**
+    ///
+    /// Il criterio dell'ordine e' che la differenza fra l'anteprima a meta' e
+    /// quella completa si veda in un secondo, senza cercarla. Tradotto in una
+    /// misura: l'ultimo grande deve cambiare molti piu' pixel di quanti ne cambi
+    /// un mini qualunque, e il confronto e' con se stesso invece che con un
+    /// numero assoluto, cosi' la soglia non dipende da quanto e' grande la tela.
+    /// Sei volte: un petalo su cinquanta cambia poche decine di pixel, un fiore
+    /// che si accende ne cambia migliaia.
+    const int quanteVolte = 6;
+
+    for (final sentiero in Sentiero.values) {
+      test('${sentiero.name}: da meta\' a completa la differenza e\' GLOBALE',
+          () async {
+        // **UNA DIFFERENZA CHE SI VEDE IN UN SECONDO E' GLOBALE**: tocca una
+        // buona parte della figura, non solo il pezzo che si e' aggiunto. Si
+        // misura quanti pixel cambiano da meta' a completa, in frazione
+        // dell'IMPRONTA della figura, cioe' dei pixel che la figura occupa in
+        // tutto: il confronto e' con se stessa e non con un numero assoluto,
+        // quindi non dipende da quanto e' grande la tela.
+        final tutti = {for (final t in Sentieri.di(sentiero)) t.id};
+        final meta = {
+          ...Sentieri.miniDi(sentiero).take(25).map((t) => t.id),
+          ...Sentieri.grandiDi(sentiero).take(2).map((t) => t.id),
+        };
+        final buio = await dipingi(sentiero, const {});
+        final aMeta = await dipingi(sentiero, meta);
+        final piena = await dipingi(sentiero, tutti);
+
+        final impronta = quantiCambiano(buio, piena);
+        final differenza = quantiCambiano(aMeta, piena);
+        final quota = differenza / impronta;
+        expect(quota, greaterThan(0.45),
+            reason: 'da meta\' a completa cambia il '
+                '${(quota * 100).toStringAsFixed(0)} per cento dell\'impronta '
+                'della figura: l\'ultimo grande sta aggiungendo un pezzo invece '
+                'di dare alla figura qualcosa che prima non aveva, e la '
+                'differenza va cercata invece di vedersi');
+      });
+    }
+  });
+
+
   group('Dentro il disegno non entra niente di serie', () {
     test('il file del disegno non usa nessuna icona del framework', () {
       final s = File('lib/features/sigilli/disegno_del_sentiero.dart')
