@@ -115,6 +115,17 @@ class TarotSpread {
     ]);
   }
 
+  /// IL VERSO DI UNA CARTA, in un punto solo.
+  ///
+  /// Nasce dall'indice della carta e dal seme, mai dal caso del momento: la
+  /// stessa carta nella stessa stesa e' sempre dritta o sempre rovesciata,
+  /// anche se la schermata si ricostruisce dieci volte.
+  static bool versoDi(int indiceCarta, int seme) =>
+      Random(indiceCarta * 7919 + seme).nextDouble() < reversedChance;
+
+  /// Il caso con cui si mescola: col seme e' riproducibile, senza e' nuovo.
+  static Random casoCon(int? seme) => seme == null ? Random() : Random(seme);
+
   /// Il mazzo tagliato in [punto]: la meta' sotto sale sopra, come nel gesto
   /// vero. Un taglio non mescola niente, cambia solo da dove si comincia.
   static List<int> taglia(List<int> ordine, int punto) {

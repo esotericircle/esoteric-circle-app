@@ -209,15 +209,15 @@ workflows:
           # dentro il progetto Xcode. Senza, la firma non arriva dove serve.
           xcode-project use-profiles
 
-      - name: Le prove, prima di costruire
+      - name: Le prove, prima di costruire, E SONO UNO SBARRAMENTO
         script: |
-          # Le stesse che girano su Windows: se il codice condiviso e' rotto,
-          # e' inutile spendere minuti di Mac per scoprirlo dopo l'archivio.
-          flutter test
-        # La suite non deve fermare la build iOS se cade per una ragione che
-        # non riguarda iOS: si segnala e si va avanti, perche' l'obiettivo di
-        # questo workflow e' avere un archivio da guardare sul telefono.
-        ignore_failure: true
+          # ORDINE P VOCE 03. Qui c'era `ignore_failure: true`, cioe' il
+          # permesso scritto di spedire su rosso: e' cosi' che la 2171 e'
+          # uscita con due test rossi. Adesso il comando ESCE CON ERRORE e
+          # l'archivio non si produce. L'unico scavalco e' la variabile
+          # SPEDISCO_SU_ROSSO, che stampa il proprio nome nel registro: una
+          # spedizione su rosso resta possibile, in silenzio no.
+          bash tool/sbarramento.sh
 
       - name: L'archivio
         script: |
