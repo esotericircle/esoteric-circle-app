@@ -496,15 +496,16 @@ nell'albero di lavoro, e il remoto era fermo alla 2176, quaranta voci dopo.**
 Adesso e' tutto sul remoto, in venti commit ordinati per voce.
 
 ```
-prima:  3b3a8ff9f4abf98c6c068a6dcf7ecc189a904cc0
-adesso: 4265fcf7f0b761760dd7231e0cb672894d6855e1
+all'inizio della quarta sessione: 3b3a8ff9f4abf98c6c068a6dcf7ecc189a904cc0
+alla consegna dell'ordine:        4265fcf7f0b761760dd7231e0cb672894d6855e1
+alla consegna della 2177:         91d0c88c280faf6a457260c8f539061d0d4ca159
 ```
 
-Lo sha di adesso e' quello del commit della consegna, `Ordine P voci 31 e 32`,
-letto con `git ls-remote origin claude/esoteric-circle-master-order-e798aj`. Il
-commit che aggiunge queste righe al rapporto viene dopo di lui, quindi porta uno
-sha successivo che si legge con lo stesso comando: un rapporto non puo' contenere
-lo sha di se stesso.
+Tutti e tre letti con `git ls-remote origin claude/esoteric-circle-master-order-e798aj`.
+Il terzo e' il commit `Consegnata la 2177`, cioe' l'ultimo che questo rapporto
+puo' nominare: il commit che aggiunge queste righe viene dopo di lui e porta uno
+sha successivo, perche' un rapporto non puo' contenere lo sha di se stesso. Chi
+verifica legge il remoto, non questa riga.
 
 ## La riconciliazione, prima di spingere
 
