@@ -116,5 +116,16 @@ void main() {
     // ROSSO ESEGUITO davvero: velando `docs/preview/barra-home.png` ad alfa
     // 194, come nel caso del 5 agosto, il suo punto piu' chiaro e' sceso da 244
     // a 186 e la prova e' caduta nominando il file e il numero.
-  });
+  },
+      // **CENTOCINQUANTA IMMAGINI DA APRIRE E LEGGERE PIXEL PER PIXEL.**
+      //
+      // Con le cinque nate dall'ordine P, le quattro fasi del taglio e l'attesa
+      // di Medora, la misura ha superato i trenta secondi di difetto ed e'
+      // caduta PER IL TEMPO e non per un velo: il punto piu' chiaro delle cinque
+      // nuove sta fra 253 e 255, cioe' larghissimamente sopra la soglia. Un
+      // rosso che accusa il falso insegna a ignorare la prova, quindi si
+      // dichiara il tempo che la misura richiede. **La soglia del velo non si
+      // tocca:** qui non c'e' niente da rendere piu' permissivo, c'e' un lavoro
+      // che e' cresciuto.
+      timeout: const Timeout(Duration(minutes: 6)));
 }

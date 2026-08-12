@@ -114,7 +114,7 @@ void main() {
     test('un dato rotto non diventa un luogo', () {
       // Chi legge da un magazzino deve reggere un magazzino sporco.
       expect(LuogoAttuale.fromJson(const {'lat': 1.0}), isNull);
-      expect(LuogoAttuale.fromJson(const {'lat': 1.0, 'lon': 2.0, 'citta': ''}),
+      expect(LuogoAttuale.fromJson(const {'lat': 1.0, 'lon': 2.0, 'nome': ''}),
           isNull);
     });
   });

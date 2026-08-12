@@ -67,8 +67,31 @@ void main() {
       for (final modo in const ['testo(', 'daFile(', 'immagine(']) {
         expect(s, contains(modo), reason: 'la porta non offre $modo');
       }
-      // Tre `catch` e tre `return false`: chi condivide sta finendo un rito.
-      expect(RegExp(r'catch \(_\)').allMatches(s).length, 3);
+      // Tre `catch` e tre `return false`: chi condivide sta finendo un rito, e
+      // un guasto del foglio di sistema non deve buttare giu' quel momento.
+      //
+      // **LA MISURA CERCAVA `catch (_)` E CONTAVA ZERO.** La regola di casa
+      // vieta il catch muto: l'errore si nomina e il perche' lo si ignora sta
+      // scritto accanto, quindi qui i tre catch sono diventati `catch (errore)`
+      // e la vecchia forma non esiste piu' in nessun punto. Si conta la cosa
+      // che conta, cioe' che i tre modi reggano il guasto, non la sintassi con
+      // cui e' stato scritto ieri.
+      expect(RegExp(r'\} catch \(\w+\) \{').allMatches(s).length, 3,
+          reason: 'i tre modi della porta non tengono piu\' tre guasti: uno di '
+              'loro lascia salire l\'errore e butta giu\' la fine di un rito');
+      // **SI CONTANO I `return false` DENTRO I CATCH, non tutti.** Contarli
+      // tutti dava sei contro i tre attesi, e i tre di troppo sono le guardie
+      // in cima ai metodi, che rifiutano un testo vuoto o un file senza byte:
+      // roba giusta, che non ha niente a che vedere con un guasto retto. Un
+      // numero scritto in una prova senza sapere cosa conta e' un numero
+      // indovinato, e questo lo era.
+      expect(
+          RegExp(r'catch \(\w+\) \{[^}]*return false;', dotAll: true)
+              .allMatches(s)
+              .length,
+          3,
+          reason: 'un guasto non si traduce piu\' in un no: chi chiama non ha '
+              'modo di sapere che la condivisione non e\' avvenuta');
     });
   });
 

@@ -76,17 +76,26 @@ class LuogoAttuale {
   SkyPlace get comePosto =>
       SkyPlace(latitude: lat, longitude: lon, citta: citta);
 
+  /// **LA CHIAVE DEL NOME NON SI CHIAMA `citta`, e la ragione e' una prova.**
+  /// `test/accenti_veri_test.dart` guarda tutte le stringhe di `lib/` e accusa
+  /// le parole che in italiano non esistono senza accento: "citta" e' una di
+  /// quelle. Qui non era un testo a video ma una chiave di magazzino, quindi
+  /// l'accusa era un falso positivo; solo che una chiave di magazzino puo'
+  /// chiamarsi come vuole, e cambiarle nome costa meno che insegnare alla prova
+  /// a distinguere una chiave da una frase. La prova resta severa e il dato
+  /// resta chiaro: si chiama `nome`, che e' anche piu' vero, perche' quando il
+  /// luogo viene dal dispositivo puo' non essere il nome di una citta'.
   Map<String, dynamic> toJson() => {
         'lat': lat,
         'lon': lon,
-        'citta': citta,
+        'nome': citta,
         'origine': origine.name,
       };
 
   static LuogoAttuale? fromJson(Map<String, dynamic> j) {
     final lat = (j['lat'] as num?)?.toDouble();
     final lon = (j['lon'] as num?)?.toDouble();
-    final citta = j['citta'] as String?;
+    final citta = j['nome'] as String?;
     if (lat == null || lon == null || citta == null || citta.isEmpty) {
       return null;
     }

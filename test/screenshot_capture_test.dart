@@ -2359,11 +2359,18 @@ void main() {
   // fermarsi li': la scelta e' di Mauro. Le due catture montano la stessa card
   // con gli stessi dati, e cambiano soltanto la disposizione, quindi il
   // confronto e' fra due composizioni e non fra due contenuti.
+  // **IL NOME DEL FILE STA QUI PER INTERO, e non composto a pezzi.** La prova
+  // `corredo_anteprime_test` cerca nel sorgente il nome di ogni immagine del
+  // repo per sapere chi la rigenera: un nome messo insieme con
+  // un'interpolazione non lo trova, e quelle immagini risultano orfane, cioe'
+  // vecchie senza che nessuno lo sappia.
   for (final proposta in const [
-    (DisposizioneDelTransito.rigaSottoLaSintesi, 'A-riga-sotto-la-sintesi'),
-    (DisposizioneDelTransito.fasciaInCima, 'B-fascia-in-cima'),
+    (DisposizioneDelTransito.rigaSottoLaSintesi,
+        'oroscopo-transito-A-riga-sotto-la-sintesi.png'),
+    (DisposizioneDelTransito.fasciaInCima,
+        'oroscopo-transito-B-fascia-in-cima.png'),
   ]) {
-    testWidgets('Cattura la proposta ${proposta.$2} del transito',
+    testWidgets('Cattura la proposta del transito, ${proposta.$2}',
         (tester) async {
       await loadFonts();
       final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
@@ -2460,7 +2467,7 @@ void main() {
           AssetImage(ZodiacArt.emblemPath(Zodiac.aries)),
           tester.element(find.byType(OroscopoShareCard))));
       await tester.pumpAndSettle();
-      await capture(tester, rootKey, 'oroscopo-transito-${proposta.$2}.png');
+      await capture(tester, rootKey, proposta.$2);
     });
   }
 
@@ -2566,6 +2573,19 @@ void main() {
     // invece di contare i millisecondi qui: se domani le durate cambiassero,
     // queste quattro immagini resterebbero al centro delle fasi nuove.
     final stato = tester.state(find.byType(StesaTreCarteScreen)) as dynamic;
+    // I quattro nomi per intero, nell'ordine delle fasi, per la stessa ragione
+    // detta sopra: un nome composto a pezzi non ha nessun generatore, agli
+    // occhi di chi va a cercarlo.
+    const nomi = [
+      'stesa-taglio-1-raccolta.png',
+      'stesa-taglio-2-divisione.png',
+      'stesa-taglio-3-ricomposizione.png',
+      'stesa-taglio-4-ristesa.png',
+    ];
+    expect(nomi, hasLength(TaglioFasi.fasi.length),
+        reason: 'i nomi delle anteprime sono ${nomi.length} e le fasi '
+            '${TaglioFasi.fasi.length}: una fase nuova resterebbe senza '
+            'immagine, o un nome punterebbe a una fase che non esiste');
     var orologio = Duration.zero;
     for (var i = 0; i < TaglioFasi.fasi.length; i++) {
       final fase = TaglioFasi.fasi[i];
@@ -2580,7 +2600,7 @@ void main() {
           reason: 'a meta\' della fase ${fase.nome} la scena dice di essere '
               'nella fase ${stato.faseDelTaglioInScena}: l\'immagine '
               'mostrerebbe un\'altra fase da quella che il nome promette');
-      await capture(tester, rootKey, 'stesa-taglio-${i + 1}-${fase.nome}.png');
+      await capture(tester, rootKey, nomi[i]);
     }
     // Il taglio finisce, altrimenti la prova chiude con un tempo ancora vivo.
     await tester.pump(TaglioFasi.totale);
