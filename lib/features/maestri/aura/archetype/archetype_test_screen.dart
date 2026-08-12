@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../sigilli/regia_del_cammino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/archetypes/archetype.dart';
@@ -143,6 +145,9 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
       _profilo = profilo;
       _fase = _Fase.risultato;
     });
+    // IL TEST ARCHETIPO ENTRA NEL CAMMINO, ordine P voce 35: il profilo e'
+    // calcolato e registrato, il gesto e' compiuto.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'archetipo'));
   }
 
   Set<Pianeta> get _pianeti {

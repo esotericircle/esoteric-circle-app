@@ -48,6 +48,18 @@ class MaestroScope extends StatefulWidget {
     return scope!.palette;
   }
 
+  /// LA PALETTE SE LO SCOPE C'E', altrimenti nulla, senza rompere niente.
+  ///
+  /// **Serve a chi si monta SOPRA una schermata invece che dentro.** La
+  /// celebrazione e la sua fascia sono sovrimpressioni: nascono da un gesto
+  /// compiuto in una schermata qualunque, e se quella schermata non ha uno
+  /// scope la festa non deve far cadere la schermata sotto. Chi chiede da
+  /// questa porta decide lui cosa fare del nulla, invece di far esplodere un
+  /// assert dentro il rito di qualcun altro.
+  static MaestroPalette? forse(BuildContext context) => context
+      .dependOnInheritedWidgetOfExactType<_InheritedMaestroPalette>()
+      ?.palette;
+
   @override
   State<MaestroScope> createState() => _MaestroScopeState();
 }

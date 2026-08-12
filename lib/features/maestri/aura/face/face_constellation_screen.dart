@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import '../../../sigilli/regia_del_cammino.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:provider/provider.dart';
 
@@ -61,19 +62,33 @@ class FaceConstellationScreen extends StatefulWidget {
   /// Apre direttamente sul ripiego tattile, per le anteprime del ripiego.
   final bool partiDalRipiego;
 
+  /// LA SOGLIA DI QUESTA ARTE, dichiarata una volta sola. Ordine P voce 27.
+  ///
+  /// **Perche' esiste.** L'identificativo dell'arte e il suo Maestro erano
+  /// scritti dentro `route`, cioe' in un punto che solo l'app attraversa. Le
+  /// anteprime montavano la schermata NUDA, con un `MaestroScope` costruito a
+  /// mano: senza `ArteCorrente` e senza `ConCuore`, quindi senza il cuore delle
+  /// arti preferite nella barra, e con la palette presa dal controller invece
+  /// che dichiarata dal proprietario. Provavano una scena che l'app non monta.
+  ///
+  /// Adesso la soglia si chiede da qui, e la chiedono tutti e due: la rotta
+  /// dell'app e la cattura dell'anteprima. Un solo punto dichiara chi e' il
+  /// proprietario di quest'arte.
+  static Widget conLaSoglia(Widget schermata) => SogliaArte(
+        id: 'face_constellation',
+        maestro: Maestro.aura,
+        child: schermata,
+      );
+
   static Route<void> route({
     DateTime Function()? clock,
     Set<Pianeta> Function(DateTime)? pianetiDelGiorno,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => SogliaArte(
-        id: 'face_constellation',
-        maestro: Maestro.aura,
-        child: FaceConstellationScreen(
+      builder: (_) => conLaSoglia(FaceConstellationScreen(
           clock: clock,
           pianetiDelGiorno: pianetiDelGiorno,
-        ),
-      ),
+        )),
     );
   }
 
@@ -142,6 +157,8 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
       _fotoPath = fotoPath;
       _fase = _Fase.risultato;
     });
+    // LA COSTELLAZIONE DEL VISO ENTRA NEL CAMMINO, ordine P voce 35.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'viso'));
   }
 
   @override

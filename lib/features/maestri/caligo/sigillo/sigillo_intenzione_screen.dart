@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../sigilli/regia_del_cammino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/magic/intention_sigil.dart';
@@ -73,6 +75,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
     )..addStatusListener((s) {
         if (s == AnimationStatus.completed) {
           setState(() => _fase = _Fase.rivelazione);
+          _entraNelCammino();
         }
       });
   }
@@ -86,6 +89,12 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
 
   bool get _riduciMoto => MediaQuery.of(context).disableAnimations;
 
+  /// IL SIGILLO ENTRA NEL CAMMINO, ordine P voce 35: alla rivelazione, cioe'
+  /// quando il segno e' compiuto e non quando si comincia a scriverlo.
+  void _entraNelCammino() {
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'sigillo'));
+  }
+
   void _traccia_() {
     final testo = _campo.text.trim();
     if (IntentionSigil.cammino(testo).length < 2) return;
@@ -96,6 +105,10 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
     if (_riduciMoto) {
       _traccia.value = 1;
       setState(() => _fase = _Fase.rivelazione);
+      // RIDUCI MOVIMENTO NON TOGLIE IL TRAGUARDO: senza animazione il
+      // listener non scatta, e senza questa riga il Sigillo non entrerebbe
+      // mai nel cammino per chi tiene il moto spento.
+      _entraNelCammino();
     } else {
       _traccia
         ..value = 0

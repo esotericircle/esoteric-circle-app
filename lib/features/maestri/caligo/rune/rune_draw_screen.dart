@@ -64,18 +64,32 @@ class RuneDrawScreen extends StatefulWidget {
   /// riproducibile. A runtime resta null, un vero lancio senza seme.
   final math.Random? random;
 
+  /// LA SOGLIA DI QUESTA ARTE, dichiarata una volta sola. Ordine P voce 27.
+  ///
+  /// **Perche' esiste.** L'identificativo dell'arte e il suo Maestro erano
+  /// scritti dentro `route`, cioe' in un punto che solo l'app attraversa. Le
+  /// anteprime montavano la schermata NUDA, con un `MaestroScope` costruito a
+  /// mano: senza `ArteCorrente` e senza `ConCuore`, quindi senza il cuore delle
+  /// arti preferite nella barra, e con la palette presa dal controller invece
+  /// che dichiarata dal proprietario. Provavano una scena che l'app non monta.
+  ///
+  /// Adesso la soglia si chiede da qui, e la chiedono tutti e due: la rotta
+  /// dell'app e la cattura dell'anteprima. Un solo punto dichiara chi e' il
+  /// proprietario di quest'arte.
+  static Widget conLaSoglia(Widget schermata) => SogliaArte(
+        id: 'rune_draw',
+        maestro: Maestro.caligo,
+        child: schermata,
+      );
+
   static Route<void> route({
     required Zodiac userSign,
     DateTime? userBirth,
     math.Random? random,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => SogliaArte(
-        id: 'rune_draw',
-        maestro: Maestro.caligo,
-        child: RuneDrawScreen(
-            userSign: userSign, userBirth: userBirth, random: random),
-      ),
+      builder: (_) => conLaSoglia(RuneDrawScreen(
+            userSign: userSign, userBirth: userBirth, random: random)),
     );
   }
 

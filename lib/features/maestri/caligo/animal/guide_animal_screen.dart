@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../sigilli/regia_del_cammino.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/archetypes/archetype.dart';
@@ -60,6 +62,24 @@ class GuideAnimalScreen extends StatefulWidget {
   /// Da dove si entra: il viaggio ripetibile o la lettura fissa di identita'.
   final GuideAnimalMode modo;
 
+  /// LA SOGLIA DI QUESTA ARTE, dichiarata una volta sola. Ordine P voce 27.
+  ///
+  /// **Perche' esiste.** L'identificativo dell'arte e il suo Maestro erano
+  /// scritti dentro `route`, cioe' in un punto che solo l'app attraversa. Le
+  /// anteprime montavano la schermata NUDA, con un `MaestroScope` costruito a
+  /// mano: senza `ArteCorrente` e senza `ConCuore`, quindi senza il cuore delle
+  /// arti preferite nella barra, e con la palette presa dal controller invece
+  /// che dichiarata dal proprietario. Provavano una scena che l'app non monta.
+  ///
+  /// Adesso la soglia si chiede da qui, e la chiedono tutti e due: la rotta
+  /// dell'app e la cattura dell'anteprima. Un solo punto dichiara chi e' il
+  /// proprietario di quest'arte.
+  static Widget conLaSoglia(Widget schermata) => SogliaArte(
+        id: 'guide_animal',
+        maestro: Maestro.caligo,
+        child: schermata,
+      );
+
   static Route<void> route({
     required Zodiac userSign,
     DateTime? userBirth,
@@ -67,16 +87,12 @@ class GuideAnimalScreen extends StatefulWidget {
     GuideAnimalMode modo = GuideAnimalMode.viaggio,
   }) {
     return MaterialPageRoute<void>(
-      builder: (_) => SogliaArte(
-        id: 'guide_animal',
-        maestro: Maestro.caligo,
-        child: GuideAnimalScreen(
+      builder: (_) => conLaSoglia(GuideAnimalScreen(
           userSign: userSign,
           userBirth: userBirth,
           clock: clock,
           modo: modo,
-        ),
-      ),
+        )),
     );
   }
 
@@ -126,6 +142,9 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
         _archetipo = _storico.ultimo?.dominante;
         _pronto = true;
       });
+      // L'ANIMALE GUIDA ENTRA NEL CAMMINO, ordine P voce 35: terzo Sigillo
+      // di aggancio trasversale.
+      unawaited(RegiaDelCammino.dopoUnGesto(context, 'animale_guida'));
       // Se manca il Test Archetipo, il popup evocativo, che lascia proseguire.
       if (_archetipo == null && !_popupFatto) {
         _popupFatto = true;
