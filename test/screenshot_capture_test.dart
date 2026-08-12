@@ -123,6 +123,7 @@ import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/entitlement/registro_degli_eos.dart';
 import 'package:esoteric_circle/design_system/components/volo_degli_eos.dart';
+import 'package:esoteric_circle/features/sigilli/celebrazione.dart';
 import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:esoteric_circle/core/arts/arti_preferite.dart';
 import 'package:esoteric_circle/features/santuario/widgets/tue_arti_view.dart';
@@ -2459,6 +2460,33 @@ void main() {
     await tester.pump();
     await tester.pump(VoloDegliEos.durata * 0.45);
     await capture(tester, rootKey, 'eos-in-volo.png');
+  });
+
+  // --- LA CELEBRAZIONE BREVE SOPRA UNA SCHERMATA PIENA DI TESTO ---
+  //
+  // **Ordine S voce 09.** Sulla 2177 il testo della schermata sotto si leggeva
+  // attraverso la festa, e due celebrazioni si dipingevano insieme. Questa
+  // immagine e' la prova a video del velo: sotto ci sta il sentiero, che di testo
+  // ne ha molto, e di quel testo non si deve leggere niente.
+  testWidgets('Cattura la celebrazione breve col velo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final ctx = tester.element(find.byType(MaterialApp));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SentieroScreen.route(Sentiero.costellazione)));
+    await step(tester);
+    await step(tester);
+    final dentro = tester.element(find.byKey(const Key('sentiero_disegno')));
+    final mini = Sentieri.miniDi(Sentiero.costellazione).first;
+    expect(
+        mostraLaSovrimpressione(dentro,
+            traguardo: mini, sentiero: Sentiero.costellazione),
+        isTrue);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 900));
+    await capture(tester, rootKey, 'celebrazione-breve-col-velo.png');
   });
 
   // --- La card condivisibile dell'Oroscopo, CON LA RIGA DEL CIELO ---

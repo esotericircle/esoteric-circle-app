@@ -444,7 +444,71 @@ chiusa: committare non e' consegnare.
     `https://esotericircle.app`, il dominio del brand. Se l'invito deve portare a uno
     store o a un link dinamico che attribuisce il download, quel valore e' di Mauro e
     vive in un punto solo, `Brand.url`.
-- **S.09** Le celebrazioni si sovrappongono, e il fondo non si oscura — APERTA
+- **S.09** Le celebrazioni si sovrappongono, e il fondo non si oscura — CHIUSA
+  - **(a) UNA ALLA VOLTA.** La causa stava nel ciclo della regia: piu' Sigilli
+    maturano con lo stesso gesto, e per ognuno si chiedeva la festa senza attendere
+    la precedente. La coda esisteva ma serializzava cio' che si ACCODA, non cio' che
+    si dipinge. Adesso il conto delle feste a schermo e' uno, `FesteInCorso`, e
+    `Celebrazione.festeggia` rifiuta se ce n'e' gia' una: chi chiama la mette in coda,
+    che e' quello che fa gia' quando non c'e' dove ospitarla.
+  - **IL CONTO SI SEGNA ALLA PORTA, non nello stato del widget.** Un widget si
+    costruisce al fotogramma dopo, e il ciclo della regia chiama due volte dentro lo
+    stesso fotogramma: segnato in `initState`, la seconda chiamata trovava il conto a
+    zero e si dipingeva sopra. Lo ha detto la prova del rosso, non la lettura.
+  - **(b) IL FONDO SI OSCURA, e il velo e' un numero solo.** La forma grande aveva la
+    sua barriera scritta a mano dentro la rotta, la fascia un gradiente radiale che ai
+    bordi finiva TRASPARENTE: due numeri per la stessa promessa, e uno la tradiva.
+    Adesso `VeloDellaCelebrazione` dichiara l'opacita' e le due forme la leggono.
+  - **E il primo rimedio non bastava, e la misura lo ha detto.** Un `BoxDecoration`
+    che porta insieme un colore e un gradiente dipinge il GRADIENTE e ignora il
+    colore: il velo messo come colore accanto al bagliore non copriva niente, e nella
+    fascia alta il testo di sotto restava al quarantacinque per cento. Adesso sono due
+    strati: il velo pieno, e sopra il bagliore che aggiunge luce senza togliere
+    copertura.
+  - Il velo entra e **si dissolve alla fine**: prima la fascia spariva di colpo, e una
+    scena che si spegne a scatto sembra un errore di disegno invece della fine di una
+    festa. Con Riduci Movimento non si dissolve niente e si esce subito.
+  - **(c) LA CELEBRAZIONE BREVE.** Resta a tutto schermo, breve, e porta gli Eos col
+    loro segno. **Difetto trovato guardando l'anteprima**: gli Eos erano scritti DUE
+    volte, "+20 Eos" come testo e "+20 Eos" col segno appena sotto. La riga di testo
+    porta adesso la SERIE, che e' l'unica cosa che il segno non sa dire.
+  - Misura: `test/una_festa_alla_volta_e_il_fondo_si_oscura_test.dart`, tre prove.
+    **DUE MISURE BUTTATE PRIMA DI QUESTE, e sta scritto nel file.** La prima contava
+    le feste dopo tre `dopoUnGesto`: ogni chiamata guarda l'elenco per conto suo,
+    quindi i traguardi maturavano uno per passaggio e due feste non si incontravano
+    mai. La seconda segnava sei gesti e chiedeva un solo passaggio: con quei gesti
+    matura UN traguardo, verificato stampando il diario. Entrambe restavano verdi
+    togliendo il presidio, cioe' passavano per la ragione sbagliata. Adesso si misura
+    ALLA PORTA: due `festeggia` di fila, che e' esattamente il ciclo della regia con
+    due Sigilli.
+  - **LA SOGLIA DEL VELO NON PUO' DERIVARE DAL VELO, e anche questo lo ha detto un
+    rosso.** La misura calcolava il massimo ammesso come `1 - opacita`: diluendo il
+    velo da 0,92 a 0,35 la soglia si allargava insieme al difetto e la prova restava
+    verde col testo perfettamente leggibile. Adesso la soglia e' una soglia di
+    LEGGIBILITA' dichiarata, ventiquattro livelli di luce su 255, e la grandezza
+    misurata e' un DIFFERENZIALE: la stessa scena col testo e senza, sotto il velo,
+    pixel per pixel. Tutto il resto e' identico nelle due, quindi si cancella.
+  - **DUE INGANNI DELLA MISURA, scritti nella prova.** Il rettangolo guardato stava al
+    centro, dove la festa scrive il PROPRIO testo: si misurava il contrasto della
+    celebrazione invece di quello di sotto. E il pixel piu' luminoso era la fascetta
+    DEBUG di Flutter, dipinta sopra ogni velo in alto a destra.
+  - Rossi eseguiti: togliendo il presidio (cade su "la seconda festa si e' dipinta
+    sopra la prima") e diluendo il velo a 0,35 (cade su "del testo di sotto passano
+    141.9 livelli di luce su 255").
+  - **IL VELO E' SALITO A 0,96 GUARDANDO L'ANTEPRIMA**, non misurando: al 92 per cento
+    le tre righe del sentiero restavano un fantasma che si leggeva, e la prova non lo
+    vedeva perche' la sua soglia lo ammetteva. Le anteprime vedono cio' che le prove
+    non cercano.
+  - Anteprima nuova, GUARDATA: `docs/preview/celebrazione-breve-col-velo.png`, la
+    festa sopra il sentiero, che di testo ne ha molto.
+  - **DIFETTO TROVATO E NON CHIUSO, e va detto:** il simbolo al centro della
+    celebrazione e' un'icona di serie (`Icons.star_rounded` per la Costellazione,
+    `Icons.spa_rounded` per l'Albero, `Icons.local_florist_rounded` per il Loto).
+    E' la stessa famiglia della scintilla degli Eos della voce S.05, nel punto piu'
+    cerimoniale dell'app, e la precisazione della voce S.02 vieta le icone di serie
+    nella figura del sentiero. Tre simboli disegnati a mano sono lavoro a se', della
+    stessa mano dei tre disegni: **si propone a Mauro come voce nuova** invece di
+    inventarli dentro questa.
 - **S.10** Il vuoto sotto i tre Maestri in home — APERTA
 - **S.11** Il Rito del Tramonto: i testi soffocano la runa — APERTA
 - **S.12** L'Oracolo del Giorno dichiara cosa e' e cosa da' — APERTA
@@ -605,6 +669,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 8
+VOCI_CHIUSE: 9
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

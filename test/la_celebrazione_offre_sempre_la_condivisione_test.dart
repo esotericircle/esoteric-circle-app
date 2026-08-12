@@ -123,8 +123,21 @@ void main() {
             'celebrato senza via di condivisione perde il suo bonus');
 
     // SI RITIRA DA SOLA: chi la ignora non deve trovarsela ancora li'.
+    //
+    // **ADESSO SI DISSOLVE, ordine S voce 09, e i passi lo tengono in conto.**
+    // Prima la fascia spariva di colpo e due pompate bastavano; il velo si
+    // dissolve in uscita, e un'animazione avanza solo coi fotogrammi: un salto
+    // unico di sei secondi fa scattare il timer e lascia la dissolvenza al primo
+    // fotogramma. Si avanza a passi dichiarati fino a che se ne va.
     await tester.pump(_FasciaDiProva.quantoResta);
-    await tester.pump(const Duration(milliseconds: 100));
+    for (var i = 0; i < 20; i++) {
+      if (find.byKey(const Key('sovrimpressione_del_traguardo'))
+          .evaluate()
+          .isEmpty) {
+        break;
+      }
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     expect(find.byKey(const Key('sovrimpressione_del_traguardo')), findsNothing,
         reason: 'la fascia non si ritira da sola');
   });

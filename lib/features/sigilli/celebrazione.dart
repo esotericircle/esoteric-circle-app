@@ -8,6 +8,7 @@ import '../../core/sigilli/bonus_della_condivisione.dart';
 import '../../core/sigilli/diario_del_cammino.dart';
 import '../../core/sigilli/sentieri.dart';
 import '../../design_system/components/cosmos_background.dart';
+import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -60,6 +61,11 @@ class Celebrazione {
     bool attendiLaFine = false,
     VoidCallback? allaChiusura,
   }) async {
+    // **UNA ALLA VOLTA, ordine S voce 09.** Se una festa e' gia' a schermo questa
+    // non si dipinge sopra: chi ha chiamato la mette in coda, e la coda la porta
+    // al primo momento utile. Due celebrazioni nello stesso istante sono
+    // illeggibili, e il premio di entrambe si perde.
+    if (FesteInCorso.unaCeGia) return false;
     if (traguardo.eGrande || primoInAssoluto) {
       final navigatore = Navigator.maybeOf(context);
       if (navigatore == null) return false;
@@ -68,6 +74,13 @@ class Celebrazione {
         sentiero: sentiero,
         serie: serie,
       ));
+      // **IL CONTO SI SEGNA QUI E NON NELLO STATO DELLA SCENA.** Un widget si
+      // costruisce al fotogramma DOPO, e il ciclo della regia chiama questa
+      // funzione due volte dentro lo stesso fotogramma: segnandolo in `initState`
+      // la seconda chiamata trovava il conto ancora a zero e si dipingeva sopra.
+      // Lo ha detto la prova, e ha fatto buttare due stesure prima di questa.
+      FesteInCorso.entra();
+      scena.whenComplete(FesteInCorso.esce);
       // IL GANCIO VA SULLA ROTTA, non sull'attesa di chi chiama: la forma grande
       // resta aperta finche' la persona non la chiude, e chi ha chiamato non deve
       // aspettarla.
@@ -87,6 +100,69 @@ class Celebrazione {
   }
 }
 
+/// QUANTE FESTE CI SONO A SCHERMO, ordine S voce 09.
+///
+/// **Il difetto, visto sulla 2177.** Due celebrazioni si dipingevano nello
+/// stesso istante, "IL GIORNO E LA SERA" sopra "IL GIORNO PIENO", con due
+/// "+10 Eos" uno sull'altro. La ragione sta nel ciclo della regia: piu' Sigilli
+/// possono maturare con lo stesso gesto, e per ognuno si chiedeva la festa senza
+/// attendere la precedente. La coda esisteva, ma serializzava cio' che si
+/// ACCODA, non cio' che si dipinge.
+///
+/// **Adesso il conto e' uno e sta qui.** Chi entra si segna, chi esce si toglie,
+/// e `Celebrazione.festeggia` rifiuta se ce n'e' gia' una: chi ha chiamato la
+/// mette in coda, che e' esattamente cio' che fa quando non c'e' dove ospitarla.
+/// Un conto solo, e non un flag per forma: due contatori diversi sarebbero due
+/// verita' sulla stessa domanda.
+class FesteInCorso {
+  const FesteInCorso._();
+
+  static int _quante = 0;
+
+  /// Vero se una festa e' gia' a schermo.
+  static bool get unaCeGia => _quante > 0;
+
+  static void entra() => _quante++;
+
+  static void esce() {
+    if (_quante > 0) _quante--;
+  }
+
+  /// Solo per le prove: azzera il conto fra una scena e l'altra.
+  @visibleForTesting
+  static void azzera() => _quante = 0;
+}
+
+/// IL VELO DELLA CELEBRAZIONE: un numero solo, per entrambe le forme.
+///
+/// **Perche' e' dichiarato qui.** L'ordine chiede che il velo sia opaco
+/// abbastanza che nessun testo sottostante si legga attraverso, con soglia
+/// dichiarata e misurata, non a occhio. La forma grande aveva la sua barriera
+/// scritta a mano dentro la rotta, la fascia aveva un gradiente radiale che
+/// finiva TRASPARENTE ai bordi: due numeri diversi per la stessa promessa, e uno
+/// dei due la tradiva. Adesso il numero e' uno e le due forme lo leggono.
+class VeloDellaCelebrazione {
+  const VeloDellaCelebrazione._();
+
+  /// L'OPACITA' DEL VELO A PIENO REGIME.
+  ///
+  /// Novantasei centesimi. **La misura diceva che bastavano novantadue, e
+  /// l'anteprima ha detto di no:** sotto il velo al 92 per cento le tre righe del
+  /// sentiero restavano un fantasma che si leggeva ancora, e la prova non lo
+  /// vedeva perche' la sua soglia ammette ventiquattro livelli di luce su 255. Le
+  /// anteprime vedono cio' che le prove non cercano. Non e' opaco del tutto perche' la scena sotto deve restare
+  /// riconoscibile: la festa e' successa DENTRO qualcosa, e coprirla del tutto
+  /// farebbe sembrare la celebrazione un'altra schermata.
+  static const double opacita = 0.96;
+
+  /// Quanto dura la dissolvenza in entrata e in uscita.
+  static const Duration dissolvenza = Duration(milliseconds: 420);
+
+  /// Il colore del velo per un sentiero.
+  static Color colore(MaestroPalette palette) =>
+      palette.deepest.withValues(alpha: opacita);
+}
+
 /// LA FORMA GRANDE: la scena prende tutto, il Maestro parla, il segno si
 /// compie. Non finisce mai col punto: in fondo c'e' il prossimo traguardo.
 class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
@@ -96,7 +172,12 @@ class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
     this.serie,
   }) : super(
           opaque: false,
-          barrierColor: const Color(0xCC05060A),
+          // IL VELO LEGGE IL NUMERO UNICO, ordine S voce 09: qui c'era
+          // `0xCC05060A`, cioe' un'opacita' scritta a mano che nessuno teneva
+          // d'accordo con quella della fascia.
+          barrierColor: Color(0xFF05060A).withValues(
+            alpha: VeloDellaCelebrazione.opacita,
+          ),
           // LA FESTA SI PORTA IL SUO SCOPE, e non e' un ripiego: e' la
           // correzione di un difetto vero.
           //
@@ -406,6 +487,9 @@ bool mostraLaSovrimpressione(
 }) {
   final overlay = Overlay.maybeOf(context);
   if (overlay == null) return false;
+  // Stessa ragione della forma grande: il conto si segna alla porta, non nello
+  // stato del widget, che nasce un fotogramma dopo.
+  if (FesteInCorso.unaCeGia) return false;
   late final OverlayEntry fascia;
   fascia = OverlayEntry(
     // ANCHE LA FASCIA SI PORTA IL SUO SCOPE, per la stessa ragione della forma
@@ -419,6 +503,7 @@ bool mostraLaSovrimpressione(
         serie: serie,
         suFine: () {
           if (fascia.mounted) fascia.remove();
+          FesteInCorso.esce();
           // LA FASCIA SE NE VA DA SE' dopo qualche secondo: quello e' il suo
           // momento di chiusura, ed e' li' che gli Eos volano.
           allaChiusura?.call();
@@ -427,6 +512,7 @@ bool mostraLaSovrimpressione(
     ),
   );
   overlay.insert(fascia);
+  FesteInCorso.entra();
   return true;
 }
 
@@ -449,10 +535,18 @@ class _FasciaDellaCelebrazione extends StatefulWidget {
 }
 
 class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final AnimationController _segno = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 900),
+  );
+
+  /// IL VELO, che entra e SI DISSOLVE ALLA FINE, ordine S voce 09. Prima la
+  /// fascia spariva di colpo, e una scena che si spegne a scatto sembra un
+  /// errore di disegno invece della fine di una festa.
+  late final AnimationController _velo = AnimationController(
+    vsync: this,
+    duration: VeloDellaCelebrazione.dissolvenza,
   );
   Timer? _ritiro;
 
@@ -462,7 +556,23 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
   @override
   void initState() {
     super.initState();
-    _ritiro = Timer(quantoResta, widget.suFine);
+    // Il ritiro parte in anticipo di quanto dura la dissolvenza, cosi' la scena
+    // resta a schermo per il tempo dichiarato e non un istante di piu'.
+    _ritiro = Timer(quantoResta - VeloDellaCelebrazione.dissolvenza, _ritirati);
+  }
+
+  Future<void> _ritirati() async {
+    if (!mounted) {
+      widget.suFine();
+      return;
+    }
+    // Con Riduci Movimento non si dissolve niente: si esce, e si esce subito.
+    if (MediaQuery.of(context).disableAnimations) {
+      widget.suFine();
+      return;
+    }
+    await _velo.reverse();
+    widget.suFine();
   }
 
   /// **CON RIDUCI MOVIMENTO LA SCENA DIVENTA STATICA E NON SPARISCE**: il
@@ -479,14 +589,17 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
     _partito = true;
     if (MediaQuery.of(context).disableAnimations) {
       _segno.value = 1;
+      _velo.value = 1;
     } else {
       _segno.forward();
+      _velo.forward();
     }
   }
 
   @override
   void dispose() {
     _ritiro?.cancel();
+    _velo.dispose();
     _segno.dispose();
     super.dispose();
   }
@@ -500,82 +613,108 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
     // l'ordine chiede allo stesso momento, "sempre a tutto schermo" e "non
     // blocca mai".
     return Positioned.fill(
-      child: Material(
-        key: const Key('sovrimpressione_del_traguardo'),
-        type: MaterialType.transparency,
-        child: Stack(
-          children: [
-            IgnorePointer(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                    radius: 0.9,
-                    colors: [
-                      palette.surfaceElevated.withValues(alpha: 0.62),
-                      palette.deepest.withValues(alpha: 0.30),
-                      Colors.transparent,
-                    ],
-                    stops: const [0.0, 0.55, 1.0],
-                  ),
-                ),
-                child: SafeArea(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: SpacingTokens.xl),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SegnoDelMaestro(
-                              sentiero: widget.sentiero,
-                              avanzamento: _segno,
-                              grande: true),
-                          const SizedBox(height: SpacingTokens.md),
-                          Text(widget.traguardo.nome,
-                              key: const Key('sovrimpressione_nome'),
-                              textAlign: TextAlign.center,
-                              style: TypographyTokens.cerimoniale()
-                                  .copyWith(color: palette.goldSoft)),
-                          const SizedBox(height: SpacingTokens.xs),
-                          Text(
-                            widget.serie ?? '+${widget.traguardo.eos} Eos',
-                            key: const Key('sovrimpressione_eos'),
-                            textAlign: TextAlign.center,
-                            style: TypographyTokens.titoloScheda()
-                                .copyWith(color: ColorTokens.textPrimary),
-                          ),
-                          const SizedBox(height: SpacingTokens.sm),
-                          EosCheVolano(
-                              quanti: widget.traguardo.eos,
-                              avanzamento: _segno),
-                          // Lo spazio che la fascia toccabile occupera' sotto:
-                          // il testo non le finisce mai dietro.
-                          const SizedBox(height: SpacingTokens.xxl),
+      child: FadeTransition(
+        opacity: _velo,
+        child: Material(
+          key: const Key('sovrimpressione_del_traguardo'),
+          type: MaterialType.transparency,
+          child: Stack(
+            children: [
+              IgnorePointer(
+                // **IL VELO E' UNO STRATO A SE', E IL BAGLIORE STA SOPRA.**
+                // Ordine S voce 09. Qui c'era un gradiente radiale che ai bordi
+                // arrivava a `Colors.transparent`: il testo della schermata sotto
+                // si leggeva attraverso, ed e' cio' che si vedeva sulla 2177.
+                //
+                // **E il primo rimedio non bastava, e la misura lo ha detto.** Un
+                // `BoxDecoration` che porta insieme un colore e un gradiente
+                // dipinge il GRADIENTE e ignora il colore: mettere il velo come
+                // colore accanto al bagliore non copriva niente, e nella fascia in
+                // alto il testo di sotto restava al quarantacinque per cento.
+                // Adesso sono due strati: il velo pieno, e sopra il bagliore che
+                // aggiunge luce senza togliere copertura.
+                child: ColoredBox(
+                  color: VeloDellaCelebrazione.colore(palette),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: RadialGradient(
+                        radius: 0.9,
+                        colors: [
+                          palette.surfaceElevated.withValues(alpha: 0.62),
+                          palette.surfaceElevated.withValues(alpha: 0.24),
+                          Colors.transparent,
                         ],
+                        stops: const [0.0, 0.55, 1.0],
+                      ),
+                    ),
+                    child: SafeArea(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: SpacingTokens.xl),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SegnoDelMaestro(
+                                  sentiero: widget.sentiero,
+                                  avanzamento: _segno,
+                                  grande: true),
+                              const SizedBox(height: SpacingTokens.md),
+                              Text(widget.traguardo.nome,
+                                  key: const Key('sovrimpressione_nome'),
+                                  textAlign: TextAlign.center,
+                                  style: TypographyTokens.cerimoniale()
+                                      .copyWith(color: palette.goldSoft)),
+                              const SizedBox(height: SpacingTokens.xs),
+                              // **GLI EOS NON SI SCRIVONO DUE VOLTE.** Qui c'era
+                              // `widget.serie ?? '+N Eos'`, e appena sotto c'e'
+                              // il segno degli Eos che li conta: nell'anteprima
+                              // si leggeva "+20 Eos" e subito sotto "+20 Eos"
+                              // con l'icona. La riga porta la SERIE, che e'
+                              // l'unica cosa che il segno non sa dire.
+                              if (widget.serie != null) ...[
+                                Text(
+                                  widget.serie!,
+                                  key: const Key('sovrimpressione_eos'),
+                                  textAlign: TextAlign.center,
+                                  style: TypographyTokens.titoloScheda()
+                                      .copyWith(color: ColorTokens.textPrimary),
+                                ),
+                                const SizedBox(height: SpacingTokens.xs),
+                              ],
+                              EosCheVolano(
+                                  quanti: widget.traguardo.eos,
+                                  avanzamento: _segno),
+                              // Lo spazio che la fascia toccabile occupera' sotto:
+                              // il testo non le finisce mai dietro.
+                              const SizedBox(height: SpacingTokens.xxl),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            // L'UNICA COSA TOCCABILE: la condivisione, che porta alla stessa
-            // card e allo stesso bonus della forma grande.
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: SpacingTokens.xl,
-              child: Center(
-                child: VieDellaCondivisione(
-                  compatte: true,
-                  suScelta: (modo) => condividiIlTraguardo(
-                    context,
-                    traguardo: widget.traguardo,
-                    modo: modo,
+              // L'UNICA COSA TOCCABILE: la condivisione, che porta alla stessa
+              // card e allo stesso bonus della forma grande.
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: SpacingTokens.xl,
+                child: Center(
+                  child: VieDellaCondivisione(
+                    compatte: true,
+                    suScelta: (modo) => condividiIlTraguardo(
+                      context,
+                      traguardo: widget.traguardo,
+                      modo: modo,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -656,7 +795,10 @@ Future<void> condividiIlTraguardo(
   if (saldo == null) {
     servizi.guasti.registra(
       operazione: 'bonus di condivisione ${modo.motivo} per ${traguardo.id}',
-      errore: 'il server non ha risposto: la condivisione e\' avvenuta e il '
+      // Nessun "e'" scritto con l'apostrofo: la guardia della lingua non puo'
+      // distinguere da fuori una frase mostrata da una riga di registro, e in
+      // questo repository quella forma resta vietata comunque.
+      errore: 'il server non ha risposto: la condivisione era partita e il '
           'bonus si riprende alla prossima sincronia',
     );
     return;

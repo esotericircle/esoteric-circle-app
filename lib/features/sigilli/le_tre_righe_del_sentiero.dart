@@ -55,7 +55,9 @@ class LeTreRigheDelSentiero extends StatelessWidget {
   /// cammino sopra e' suo, e le righe lo dicono in quest'ordine.
   static String cosaVedi(Sentiero sentiero) => switch (sentiero) {
         Sentiero.costellazione =>
-          'Nessun altro cielo ha questa figura: è la tua, e la disegni tu.',
+          // Nessuna virgola prima della "e": la regola della lingua di casa
+          // vale su tutte le stringhe del codice, e la guardia la sorveglia.
+          'Nessun altro cielo ha questa figura: è la tua e la disegni tu.',
         Sentiero.albero =>
           'Un albero cresce dove lo curi: questo porta i tuoi frutti.',
         Sentiero.loto =>
@@ -87,7 +89,7 @@ class LeTreRigheDelSentiero extends StatelessWidget {
 
   /// COSA GUADAGNI, detto una volta e senza insistere.
   static const String cosaGuadagni =
-      'Ogni traguardo porta Eos, e condividerlo ne porta altri.';
+      'Ogni traguardo porta Eos. Condividerlo ne porta altri.';
 
   /// I NUMERI IN PAROLE, da zero a cinquantacinque.
   ///
