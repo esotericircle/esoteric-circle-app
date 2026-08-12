@@ -14,6 +14,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import 'card_del_traguardo.dart';
+import 'sentiero_screen.dart';
 
 /// LA CELEBRAZIONE DI UN TRAGUARDO, nelle sue due forme.
 ///
@@ -31,22 +32,41 @@ class Celebrazione {
   /// [primoInAssoluto] e' vero quando questo e' il primissimo Sigillo della
   /// persona: quello va a schermo pieno anche se e' un mini, perche' il primo
   /// premio deve sembrare grande.
-  static Future<void> festeggia(
+  ///
+  /// **Torna VERO solo se la festa e' davvero comparsa a schermo**, ordine P
+  /// voce 34. Quando non c'e' dove ospitarla, chi ha chiamato la mette in coda
+  /// invece di perderla: prima questa funzione usciva in silenzio e nessuno
+  /// poteva accorgersene.
+  /// [attendiLaFine] serve solo a chi celebra IN FILA, cioe' allo svuotamento
+  /// della coda: due scene a schermo pieno spinte insieme si accavallerebbero.
+  /// Nel ciclo normale resta falso, e non e' un dettaglio: la forma grande e'
+  /// una rotta, e attenderla vuol dire fermare tutto finche' la persona non
+  /// chiude la festa. E' cosi' che l'accredito del premio restava ostaggio
+  /// della celebrazione, cioe' lo stesso difetto della voce 34 al contrario.
+  static Future<bool> festeggia(
     BuildContext context, {
     required Traguardo traguardo,
     required Sentiero sentiero,
     required bool primoInAssoluto,
     String? serie,
+    bool attendiLaFine = false,
   }) async {
     if (traguardo.eGrande || primoInAssoluto) {
-      await Navigator.of(context).push(_RottaDellaCelebrazione(
+      final navigatore = Navigator.maybeOf(context);
+      if (navigatore == null) return false;
+      final scena = navigatore.push(_RottaDellaCelebrazione(
         traguardo: traguardo,
         sentiero: sentiero,
         serie: serie,
       ));
-      return;
+      if (attendiLaFine) {
+        await scena;
+      } else {
+        unawaited(scena);
+      }
+      return true;
     }
-    mostraLaSovrimpressione(context,
+    return mostraLaSovrimpressione(context,
         traguardo: traguardo, sentiero: sentiero, serie: serie);
   }
 }
@@ -61,10 +81,28 @@ class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
   }) : super(
           opaque: false,
           barrierColor: const Color(0xCC05060A),
-          pageBuilder: (context, _, __) => CelebrazioneAScermoPieno(
-            traguardo: traguardo,
-            sentiero: sentiero,
-            serie: serie,
+          // LA FESTA SI PORTA IL SUO SCOPE, e non e' un ripiego: e' la
+          // correzione di un difetto vero.
+          //
+          // **Una rotta non e' figlia della schermata da cui parte.** Il
+          // `MaestroScope` vive DENTRO la pagina, mentre una rotta spinta e' una
+          // sorella: la festa cercava il colore piu' in alto, non lo trovava e
+          // faceva esplodere un assert dentro il rito che stava festeggiando.
+          // Lo ha trovato la prova del Cosmic Passport, che apriva la schermata,
+          // accendeva un Sigillo e cadeva sulla festa.
+          //
+          // E il colore giusto e' quello del SENTIERO, non quello della
+          // schermata da cui si arriva: un Frutto dell'Albero si festeggia in
+          // rosso di Caligo anche se lo hai acceso dentro una stesa di Medora.
+          // Prima, quando per caso lo scope c'era, la festa prendeva il colore
+          // sbagliato senza che nessuno se ne accorgesse.
+          pageBuilder: (context, _, __) => MaestroScope(
+            maestro: sentiero.maestro,
+            child: CelebrazioneAScermoPieno(
+              traguardo: traguardo,
+              sentiero: sentiero,
+              serie: serie,
+            ),
           ),
         );
 
@@ -214,6 +252,26 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                         ),
                       ),
                     const SizedBox(height: SpacingTokens.sm),
+                    // IL SALTO DIRETTO AL PUNTO DEL JOURNAL, ordine P voce 20.
+                    //
+                    // La festa mostrava il Sigillo acceso e poi si chiudeva su
+                    // se stessa: chi voleva vederlo al suo posto doveva
+                    // ritrovare il sentiero da solo. Il sentiero scende gia' da
+                    // solo sul punto raggiunto, voce 36, quindi qui basta
+                    // aprirlo: la discesa fa il resto.
+                    TextButton.icon(
+                      key: const Key('celebrazione_vai_al_sigillo'),
+                      onPressed: () {
+                        final navigatore = Navigator.of(context);
+                        navigatore.maybePop();
+                        navigatore.push(SentieroScreen.route(widget.sentiero));
+                      },
+                      icon: Icon(Icons.route_rounded,
+                          size: 16, color: palette.goldSoft),
+                      label: Text('Vedi il Sigillo sul sentiero',
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: palette.goldSoft)),
+                    ),
                     TextButton(
                       key: const Key('celebrazione_continua'),
                       onPressed: () => Navigator.of(context).maybePop(),
@@ -308,32 +366,48 @@ class EosCheVolano extends StatelessWidget {
   }
 }
 
-/// LA FORMA IN SOVRIMPRESSIONE, per i mini.
+/// LA FORMA BREVE DEI MINI: **a tutto schermo**, ordine P voci 20 e 34.
 ///
-/// **Non blocca mai.** Vive in un overlay che NON intercetta i tocchi
-/// (`IgnorePointer` su tutto tranne la fascia, che e' l'unica cosa toccabile),
-/// si ritira da sola dopo qualche secondo, e chi la ignora non perde niente:
-/// il Sigillo e' gia' acceso nel journal e da li' si riapre e si condivide.
-void mostraLaSovrimpressione(
+/// **Cosa e' cambiato.** Era una fascia stretta in cima allo schermo, e una
+/// fascia non e' una celebrazione: cinquanta traguardi festeggiati con una
+/// striscia in un angolo sono cinquanta traguardi che passano inosservati.
+/// Adesso la scena prende tutto lo schermo, il simbolo del sentiero si accende
+/// con un movimento, il nome entra e gli Eos salgono contando.
+///
+/// **E continua a non bloccare mai.** Il livello visivo e' dentro un
+/// `IgnorePointer`: i tocchi passano alla schermata di sotto, che resta
+/// utilizzabile. L'unica cosa toccabile e' la condivisione. La scena si ritira
+/// da sola, e chi la ignora non perde niente, perche' il Sigillo e' gia'
+/// acceso nel journal e da li' si riapre e si condivide anche settimane dopo.
+///
+/// Torna vero se la scena e' davvero comparsa.
+bool mostraLaSovrimpressione(
   BuildContext context, {
   required Traguardo traguardo,
   required Sentiero sentiero,
   String? serie,
 }) {
   final overlay = Overlay.maybeOf(context);
-  if (overlay == null) return;
+  if (overlay == null) return false;
   late final OverlayEntry fascia;
   fascia = OverlayEntry(
-    builder: (ctx) => _FasciaDellaCelebrazione(
-      traguardo: traguardo,
-      sentiero: sentiero,
-      serie: serie,
-      suFine: () {
-        if (fascia.mounted) fascia.remove();
-      },
+    // ANCHE LA FASCIA SI PORTA IL SUO SCOPE, per la stessa ragione della forma
+    // grande: una voce dell'Overlay non e' figlia della pagina che l'ha chiesta,
+    // e il colore giusto e' quello del sentiero che si sta festeggiando.
+    builder: (ctx) => MaestroScope(
+      maestro: sentiero.maestro,
+      child: _FasciaDellaCelebrazione(
+        traguardo: traguardo,
+        sentiero: sentiero,
+        serie: serie,
+        suFine: () {
+          if (fascia.mounted) fascia.remove();
+        },
+      ),
     ),
   );
   overlay.insert(fascia);
+  return true;
 }
 
 class _FasciaDellaCelebrazione extends StatefulWidget {
@@ -368,8 +442,26 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
   @override
   void initState() {
     super.initState();
-    _segno.forward();
     _ritiro = Timer(quantoResta, widget.suFine);
+  }
+
+  /// **CON RIDUCI MOVIMENTO LA SCENA DIVENTA STATICA E NON SPARISCE**: il
+  /// simbolo si vede acceso, il nome si legge, gli Eos ci sono e la
+  /// condivisione pure. Si toglie il movimento, non il contenuto. La
+  /// MediaQuery non si legge in initState, per questo il movimento si decide
+  /// qui: lo stesso passo falso era gia' costato la scena grande.
+  bool _partito = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_partito) return;
+    _partito = true;
+    if (MediaQuery.of(context).disableAnimations) {
+      _segno.value = 1;
+    } else {
+      _segno.forward();
+    }
   }
 
   @override
@@ -382,57 +474,88 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    return Positioned(
-      left: SpacingTokens.md,
-      right: SpacingTokens.md,
-      top: MediaQuery.of(context).padding.top + SpacingTokens.sm,
+    // A TUTTO SCHERMO, ma senza intercettare i tocchi: la scena prende tutta
+    // la tela, il livello visivo sta dentro un IgnorePointer e la schermata di
+    // sotto resta utilizzabile. E' il modo di tenere insieme le due cose che
+    // l'ordine chiede allo stesso momento, "sempre a tutto schermo" e "non
+    // blocca mai".
+    return Positioned.fill(
       child: Material(
         key: const Key('sovrimpressione_del_traguardo'),
-        color: Colors.transparent,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [palette.surfaceElevated, palette.deepest],
-            ),
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-            border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
-          ),
-          child: Row(
-            children: [
-              SegnoDelMaestro(sentiero: widget.sentiero, avanzamento: _segno),
-              const SizedBox(width: SpacingTokens.sm),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(widget.traguardo.nome,
-                        key: const Key('sovrimpressione_nome'),
-                        style: TypographyTokens.titoloScheda()
-                            .copyWith(color: palette.goldSoft)),
-                    Text(
-                      widget.serie ?? '+${widget.traguardo.eos} Eos',
-                      key: const Key('sovrimpressione_eos'),
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: ColorTokens.textSecondary),
+        type: MaterialType.transparency,
+        child: Stack(
+          children: [
+            IgnorePointer(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    radius: 0.9,
+                    colors: [
+                      palette.surfaceElevated.withValues(alpha: 0.62),
+                      palette.deepest.withValues(alpha: 0.30),
+                      Colors.transparent,
+                    ],
+                    stops: const [0.0, 0.55, 1.0],
+                  ),
+                ),
+                child: SafeArea(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: SpacingTokens.xl),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SegnoDelMaestro(
+                              sentiero: widget.sentiero,
+                              avanzamento: _segno,
+                              grande: true),
+                          const SizedBox(height: SpacingTokens.md),
+                          Text(widget.traguardo.nome,
+                              key: const Key('sovrimpressione_nome'),
+                              textAlign: TextAlign.center,
+                              style: TypographyTokens.cerimoniale()
+                                  .copyWith(color: palette.goldSoft)),
+                          const SizedBox(height: SpacingTokens.xs),
+                          Text(
+                            widget.serie ?? '+${widget.traguardo.eos} Eos',
+                            key: const Key('sovrimpressione_eos'),
+                            textAlign: TextAlign.center,
+                            style: TypographyTokens.titoloScheda()
+                                .copyWith(color: ColorTokens.textPrimary),
+                          ),
+                          const SizedBox(height: SpacingTokens.sm),
+                          EosCheVolano(
+                              quanti: widget.traguardo.eos,
+                              avanzamento: _segno),
+                          // Lo spazio che la fascia toccabile occupera' sotto:
+                          // il testo non le finisce mai dietro.
+                          const SizedBox(height: SpacingTokens.xxl),
+                        ],
+                      ),
                     ),
-                  ],
+                  ),
                 ),
               ),
-              // IL PULSANTE DI CONDIVISIONE C'E' ANCHE QUI, e porta alla
-              // stessa card e allo stesso bonus della forma grande.
-              VieDellaCondivisione(
-                compatte: true,
-                suScelta: (modo) => condividiIlTraguardo(
-                  context,
-                  traguardo: widget.traguardo,
-                  modo: modo,
+            ),
+            // L'UNICA COSA TOCCABILE: la condivisione, che porta alla stessa
+            // card e allo stesso bonus della forma grande.
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: SpacingTokens.xl,
+              child: Center(
+                child: VieDellaCondivisione(
+                  compatte: true,
+                  suScelta: (modo) => condividiIlTraguardo(
+                    context,
+                    traguardo: widget.traguardo,
+                    modo: modo,
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

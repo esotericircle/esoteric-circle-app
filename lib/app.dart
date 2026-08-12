@@ -29,6 +29,8 @@ import 'features/shell/app_shell.dart';
 import 'features/shell/barra_del_cerchio.dart';
 import 'features/shell/navigation_controller.dart';
 import 'core/identity/account_del_cerchio.dart';
+import 'core/sigilli/coda_delle_feste.dart';
+import 'features/sigilli/regia_del_cammino.dart';
 import 'core/sigilli/diario_del_cammino.dart';
 import 'services/app_services.dart';
 import 'services/apertura_delle_chiamate.dart';
@@ -172,6 +174,11 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         // accesi. Vive accanto ai contatori, non dentro: i budget del giorno
         // sono del server, la storia del cammino e' del dispositivo.
         ChangeNotifierProvider(create: (_) => DiarioDelCammino()..carica()),
+        // LA CODA DELLE FESTE, ordine P voce 34: un traguardo che si accende
+        // quando nessuna schermata puo' ospitare la sovrimpressione non si
+        // perde, entra qui e si celebra al primo momento utile. La coda sta su
+        // disco, quindi sopravvive anche alla chiusura dell'app.
+        ChangeNotifierProvider(create: (_) => CodaDelleFeste()..carica()),
         // L'ACCOUNT DEL CERCHIO: anonimo dal primo secondo, elevabile senza
         // perdere niente.
         ChangeNotifierProvider(
@@ -320,8 +327,15 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         //
         // LA DESTINAZIONE STA SEMPRE SOTTO, gia' costruita: l'intro non decide
         // dove si va, ritarda solo il momento in cui si vede.
-        home: _OnboardingLauncher(
-          child: MaestroScope(child: AppShell(clock: clock)),
+        // IL GUARDIANO DELLE FESTE sta DENTRO il guscio, cioe' sotto il
+        // Navigator: e' l'unico posto da cui si vede l'Overlay della radice,
+        // quello in cui una festa in attesa puo' comparire sopra ogni rotta.
+        // Sopra il Navigator, nel builder, non vedrebbe nessun Overlay e la
+        // coda non si svuoterebbe mai.
+        home: GuardianoDelleFeste(
+          child: _OnboardingLauncher(
+            child: MaestroScope(child: AppShell(clock: clock)),
+          ),
         ),
       ),
       ),

@@ -37,10 +37,22 @@ class DiarioDelCammino extends ChangeNotifier {
   static const _kUltimoGiorno = 'cammino.ultimoGiorno';
   static const _kAccesi = 'cammino.accesi';
   static const _kCondivisi = 'cammino.condivisi';
+  static const _kSerie = 'cammino.serie';
+  static const _kUltimoPerRito = 'cammino.ultimoPerRito';
 
   final Map<String, int> _gestiCompiuti = {};
   final Map<String, int> _giorniConGesto = {};
   final Map<String, int> _gestiNellOraGiusta = {};
+
+  /// LA CONTINUITA' PER RITO, ordine P voce 35.
+  ///
+  /// **Prima non esisteva, e nessuno se n'era accorto.** La regia chiamava
+  /// `statoDelCammino(seriePerRito: const {})`, cioe' passava sempre una
+  /// mappa vuota: TUTTI i traguardi `GiorniDiSeguito` erano irraggiungibili,
+  /// dai cinque dell'alba ai cinque del tramonto. E' la stessa famiglia della
+  /// stesa scollegata: un dato che nessuno alimentava.
+  final Map<String, int> _seriePerRito = {};
+  final Map<String, String> _ultimoGiornoPerRito = {};
   final Set<String> _oggiHaFatto = {};
   String _giornoDiOggi = '';
   String? _primoGiorno;
@@ -87,6 +99,8 @@ class DiarioDelCammino extends ChangeNotifier {
       _condivisi
         ..clear()
         ..addAll(prefs.getStringList(_kCondivisi) ?? const []);
+      _leggiMappa(prefs.getString(_kSerie), _seriePerRito);
+      _leggiTesti(prefs.getString(_kUltimoPerRito), _ultimoGiornoPerRito);
       _apriIlGiorno();
       notifyListeners();
     } catch (errore) {
@@ -117,6 +131,7 @@ class DiarioDelCammino extends ChangeNotifier {
     _gestiCompiuti[gesto] = (_gestiCompiuti[gesto] ?? 0) + 1;
     if (_oggiHaFatto.add(gesto)) {
       _giorniConGesto[gesto] = (_giorniConGesto[gesto] ?? 0) + 1;
+      _aggiornaLaSerie(gesto);
     }
     if (oraRituale != null) {
       final chiave = '$gesto@$oraRituale';
@@ -129,6 +144,39 @@ class DiarioDelCammino extends ChangeNotifier {
     notifyListeners();
     await _salva();
   }
+
+  /// LA SERIE DI UN RITO: quanti giorni di seguito, senza buchi.
+  ///
+  /// Un giorno saltato la azzera, ed e' il punto: una continuita' che
+  /// perdona non e' una continuita', e i traguardi di ritorno esistono
+  /// proprio perche' non si possono affrettare.
+  void _aggiornaLaSerie(String gesto) {
+    final oggi = ConfineDelGiorno.chiaveDi(_orologio());
+    final ieri =
+        ConfineDelGiorno.chiaveDi(_orologio().subtract(const Duration(days: 1)));
+    final ultimo = _ultimoGiornoPerRito[gesto];
+    if (ultimo == oggi) return;
+    _seriePerRito[gesto] = ultimo == ieri ? (_seriePerRito[gesto] ?? 0) + 1 : 1;
+    _ultimoGiornoPerRito[gesto] = oggi;
+  }
+
+  /// La continuita' corrente di ogni rito, per la fotografia del cammino.
+  Map<String, int> get seriePerRito {
+    final oggi = ConfineDelGiorno.chiaveDi(_orologio());
+    final ieri =
+        ConfineDelGiorno.chiaveDi(_orologio().subtract(const Duration(days: 1)));
+    // Una serie vale solo se l'ultimo giorno e' oggi o ieri: altrimenti e'
+    // gia' rotta, e leggerla intera direbbe il falso fino al gesto seguente.
+    return {
+      for (final voce in _seriePerRito.entries)
+        if (_ultimoGiornoPerRito[voce.key] == oggi ||
+            _ultimoGiornoPerRito[voce.key] == ieri)
+          voce.key: voce.value,
+    };
+  }
+
+  /// Se un gesto e' stato compiuto almeno una volta, da sempre.
+  bool haFatto(String gesto) => (_gestiCompiuti[gesto] ?? 0) > 0;
 
   /// Accende un Sigillo. Torna vero se si e' acceso adesso, cosi' chi chiama
   /// sa se deve celebrare: accendere due volte lo stesso Sigillo non
@@ -205,6 +253,20 @@ class DiarioDelCammino extends ChangeNotifier {
   int quantiAccesiDi(Sentiero sentiero) =>
       Sentieri.di(sentiero).where((t) => _accesi.contains(t.id)).length;
 
+  void _leggiTesti(String? grezzo, Map<String, String> dentro) {
+    if (grezzo == null) return;
+    try {
+      final letto = jsonDecode(grezzo);
+      if (letto is! Map) return;
+      dentro.clear();
+      for (final voce in letto.entries) {
+        if (voce.value is String) dentro['${voce.key}'] = voce.value as String;
+      }
+    } catch (errore) {
+      // Un dato illeggibile vale come dato assente.
+    }
+  }
+
   void _leggiMappa(String? testo, Map<String, int> dentro) {
     dentro.clear();
     if (testo == null || testo.isEmpty) return;
@@ -236,6 +298,9 @@ class DiarioDelCammino extends ChangeNotifier {
       if (_ultimoGiorno != null) {
         await prefs.setString(_kUltimoGiorno, _ultimoGiorno!);
       }
+      await prefs.setString(_kSerie, jsonEncode(_seriePerRito));
+      await prefs.setString(
+          _kUltimoPerRito, jsonEncode(_ultimoGiornoPerRito));
     } catch (errore) {
       // Si ignora: senza disco il cammino vale per questa sessione. Meglio
       // un Sigillo che vive un giorno di un\'app che cade mentre festeggia.

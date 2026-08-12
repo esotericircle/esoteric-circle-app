@@ -31,31 +31,130 @@ enum FamigliaDelTraguardo {
   memoria,
 
   /// Il Cerchio: condivisione e invito. Premio, mai pedaggio.
-  cerchio,
+  cerchio;
+
+  /// PERCHE' CONTA UN TRAGUARDO DI QUESTA FAMIGLIA. Ordine P voce 19.
+  ///
+  /// **Da dove viene questo testo, dichiarato.** La correzione del 12 agosto
+  /// 2026 rende il "perche' conta" obbligatorio su tutti e 165, compresi quelli
+  /// che restano interamente dell'ordine O perche' nell'Allegato A non esiste
+  /// un accostamento sensato. Per quelli il testo NON si inventa uno per uno:
+  /// si prende da qui, cioe' dalla famiglia, che e' il dato che gia' dice
+  /// perche' quel traguardo esiste. Otto ragioni scritte una volta valgono piu'
+  /// di centotredici frasi scritte a mano che nessuno rileggera' mai.
+  String get percheContaLaFamiglia {
+    switch (this) {
+      case FamigliaDelTraguardo.cielo:
+        return 'Il cielo comanda e non si affretta: questo traguardo si compie '
+            'solo dentro una finestra astronomica vera, quindi arriva quando '
+            'arriva. È il tipo di traguardo che nessun\'altra app può dare.';
+      case FamigliaDelTraguardo.ritorno:
+        return 'Non conta la volta, conta la seconda volta: è tornare che '
+            'trasforma un\'app aperta per curiosità in un appuntamento.';
+      case FamigliaDelTraguardo.giornata:
+        return 'Una giornata chiusa vale più di cinque aperture sparse: i '
+            'doni si tengono per mano solo se stanno nello stesso giorno.';
+      case FamigliaDelTraguardo.profondita:
+        return 'La stessa arte ripetuta smette di essere una prova e comincia a '
+            'essere una pratica: è lì che i responsi cominciano a parlarsi.';
+      case FamigliaDelTraguardo.ampiezza:
+        return 'Due arti sullo stesso cielo dicono cose diverse e la terza le '
+            'lega: l\'ampiezza è il modo in cui il Cerchio smette di essere '
+            'una funzione sola.';
+      case FamigliaDelTraguardo.identita:
+        return 'È il momento in cui l\'app smette di parlare al tuo segno e '
+            'comincia a parlare a te: senza questi pezzi ogni lettura resta '
+            'generica.';
+      case FamigliaDelTraguardo.memoria:
+        return 'Il Cerchio si ricorda di te: quello che hai già detto non '
+            'devi ridirlo ed è la differenza fra un servizio e una '
+            'relazione.';
+      case FamigliaDelTraguardo.cerchio:
+        return 'Ciò che si condivide torna indietro: il Cerchio è premio, '
+            'mai pedaggio e nessun traguardo di questa famiglia si può '
+            'raggiungere per obbligo.';
+    }
+  }
+}
+
+/// IL NOME DI UN TRAGUARDO, COL SUO PLURALE COME DATO. Ordine P voce 38.
+///
+/// **Perche' il plurale e' un dato e non una lettera aggiunta a mano.** Nel
+/// Cosmic Passport si leggeva "I tuoi Stella", "I tuoi Frutto", "I tuoi
+/// Petalo": qualcuno aveva incollato il nome SINGOLARE dentro una frase al
+/// plurale, e nessuna prova poteva accorgersene perche' il nome non diceva
+/// che forma fosse. E' la stessa famiglia gia' chiusa a inizio agosto con
+/// "Ne hai uno oggi" contro "Ne hai una oggi".
+///
+/// Da qui in poi un nome porta con se' le due forme e chi lo usa dichiara
+/// quale sta chiedendo. Le due forme sono gli unici modi di leggerlo: non
+/// esiste un accesso "al nome e basta" da cui possa ripartire il difetto.
+class NomeDelTraguardo {
+  const NomeDelTraguardo(this.singolare, this.plurale);
+
+  /// Uno solo: "Stella", "Frutto", "Petalo".
+  final String singolare;
+
+  /// Piu' di uno: "Stelle", "Frutti", "Petali".
+  final String plurale;
 }
 
 /// I TRE SENTIERI, con l'identita' gia' decisa da Mauro.
 enum Sentiero {
   /// Costellazione personale: le Stelle del Cammino e le Costellazioni.
-  costellazione(Maestro.medora, 'Costellazione personale', 'Stella',
-      'Costellazione'),
+  costellazione(
+    Maestro.medora,
+    'Costellazione personale',
+    NomeDelTraguardo('Stella', 'Stelle'),
+    NomeDelTraguardo('Costellazione', 'Costellazioni'),
+    'Ogni gesto che compi accende una stella e le stelle accese si uniscono '
+        'in una figura che nel cielo di nessun altro esiste.',
+  ),
 
   /// Albero della Vita: i Frutti dell'Albero e le Sefirot Maggiori.
-  albero(Maestro.caligo, 'Albero della Vita', 'Frutto', 'Sefira'),
+  albero(
+    Maestro.caligo,
+    'Albero della Vita',
+    NomeDelTraguardo('Frutto', 'Frutti'),
+    NomeDelTraguardo('Sefira', 'Sefirot'),
+    'Ogni gesto che compi matura un frutto su un ramo e di ramo in ramo '
+        'l\'Albero sale fino alla corona.',
+  ),
 
   /// Fiore di Loto: i Petali del Risveglio e le Fioriture.
-  loto(Maestro.aura, 'Fiore di Loto', 'Petalo', 'Fioritura');
+  loto(
+    Maestro.aura,
+    'Fiore di Loto',
+    NomeDelTraguardo('Petalo', 'Petali'),
+    NomeDelTraguardo('Fioritura', 'Fioriture'),
+    'Ogni gesto che compi apre un petalo e il loto si schiude quando il '
+        'respiro ha smesso di essere una decisione.',
+  );
 
-  const Sentiero(this.maestro, this.titolo, this.nomeDelMini, this.nomeDelGrande);
+  const Sentiero(
+    this.maestro,
+    this.titolo,
+    this.mini,
+    this.grande,
+    this.promessa,
+  );
 
   final Maestro maestro;
   final String titolo;
 
-  /// Come si chiama un traguardo piccolo su questo sentiero.
-  final String nomeDelMini;
+  /// Come si chiama un traguardo piccolo su questo sentiero, nelle due forme.
+  final NomeDelTraguardo mini;
 
-  /// Come si chiama un traguardo grande su questo sentiero.
-  final String nomeDelGrande;
+  /// Come si chiama un traguardo grande su questo sentiero, nelle due forme.
+  final NomeDelTraguardo grande;
+
+  /// LA FRASE INTERA che dice a cosa serve il sentiero.
+  ///
+  /// Scritta per intero e non composta incollando pezzi: e' una frase che si
+  /// legge, non un segnaposto riempito a runtime. Dice a cosa serve il
+  /// cammino, non quanti pezzi ha, perche' "cinquanta piccoli con cinque
+  /// grandi" e' un inventario e nessuno torna domani per un inventario.
+  final String promessa;
 }
 
 /// LE CONDIZIONI, TIPIZZATE E NON SCRITTE A MANO OGNI VOLTA.
@@ -294,8 +393,29 @@ class Traguardo {
     required this.condizione,
     required this.frase,
     required this.posizione,
+    required this.percheConta,
+    required this.cosaApre,
     this.eGrande = false,
   });
+
+  /// PERCHE' CONTA, il terzo dei quattro campi. Ordine P voce 19.
+  ///
+  /// Non e' la [frase] della festa: quella si legge una volta sola, al momento
+  /// in cui il Sigillo si accende. Questa si legge PRIMA, sul sentiero, e deve
+  /// far venire voglia di raggiungerlo.
+  final String percheConta;
+
+  /// COSA APRE, il quarto campo, ED E' LA REGOLA DI AMMISSIONE.
+  ///
+  /// **Un traguardo che non apre niente non entra nell'elenco.** E' il filtro
+  /// con cui i 165 sono stati scritti e va usato per ogni traguardo che verra'
+  /// aggiunto dopo. Il campo e' obbligatorio su tutti e 165, anche su quelli
+  /// che restano interamente dell'ordine O: non e' decorativo, e' il
+  /// collegamento di ritorno. Dove nomina un traguardo successivo, quel
+  /// traguardo diventa visibile in anticipo; dove nomina una funzione, il
+  /// traguardo raggiunto ci porta con un tocco; dove nomina un momento della
+  /// giornata, il richiamo arriva in quel momento.
+  final String cosaApre;
 
   /// Identificativo stabile: entra nel salvataggio del progresso, quindi
   /// cambiarlo vuol dire far ricominciare qualcuno da capo.

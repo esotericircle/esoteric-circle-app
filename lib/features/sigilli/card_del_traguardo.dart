@@ -44,9 +44,12 @@ class CardDelTraguardo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
+            // UNO SOLO, quindi la forma SINGOLARE, dichiarata: questa
+            // etichetta nomina il traguardo che si e' appena acceso, che e'
+            // uno.
             traguardo.eGrande
-                ? sentiero.nomeDelGrande.toUpperCase()
-                : sentiero.nomeDelMini.toUpperCase(),
+                ? sentiero.grande.singolare.toUpperCase()
+                : sentiero.mini.singolare.toUpperCase(),
             style: TypographyTokens.etichetta().copyWith(
               color: palette.goldSoft,
               letterSpacing: 2,

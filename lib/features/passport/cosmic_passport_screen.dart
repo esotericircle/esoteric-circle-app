@@ -1,3 +1,5 @@
+import 'dart:async';
+import '../sigilli/regia_del_cammino.dart';
 import '../sigilli/sentiero_screen.dart';
 import '../../core/sigilli/sentieri.dart';
 import '../../core/archetypes/archetype_history.dart';
@@ -49,7 +51,7 @@ import '../../design_system/components/miniatura_intera.dart';
 /// Non ha un proprio Scaffold, AppBar o sfondo cosmico: e' solo contenuto,
 /// destinato a essere inserito in un contenitore che fornisce navigazione e
 /// sfondo.
-class CosmicPassport extends StatelessWidget {
+class CosmicPassport extends StatefulWidget {
   const CosmicPassport({super.key, this.identity});
 
   /// Identita' di nascita da cui nascono i fatti deterministici. Se assente si
@@ -58,9 +60,38 @@ class CosmicPassport extends StatelessWidget {
   final BirthIdentity? identity;
 
   @override
+  State<CosmicPassport> createState() => _CosmicPassportState();
+}
+
+class _CosmicPassportState extends State<CosmicPassport> {
+  /// IL PASSAPORTO ENTRA NEL CAMMINO, ordine P voce 35.
+  ///
+  /// La Sezione Zero dava il Cosmic Passport per collegato alla regia: la
+  /// verifica sui sorgenti dice di no, non lo era. Sono tre pezzi
+  /// dell'identita' in un colpo solo, e fra loro c'e' la carta natale, cioe'
+  /// il PRIMO dei tre Sigilli di aggancio trasversali.
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      unawaited(RegiaDelCammino.dopoUnGesto(context, 'passaporto'));
+      unawaited(RegiaDelCammino.dopoUnGesto(context, 'numero_della_vita'));
+      // La carta natale si dichiara solo se c'e' davvero un dato di nascita,
+      // non col dato d'esempio: un traguardo acceso su un esempio sarebbe un
+      // traguardo regalato.
+      if (widget.identity != null) {
+        unawaited(RegiaDelCammino.dopoUnGesto(context, 'carta_natale'));
+        unawaited(RegiaDelCammino.dopoUnGesto(context, 'ora_di_nascita'));
+        unawaited(RegiaDelCammino.dopoUnGesto(context, 'luogo_di_nascita'));
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final id = identity ?? BirthIdentity.example;
+    final id = widget.identity ?? BirthIdentity.example;
     final profile = context.watch<ProfileController>();
 
     // **LO SPAZIO DELLA BARRA STA DENTRO LO SCROLL.** Decisione di Mauro del
@@ -919,8 +950,14 @@ class _SentieriDelCammino extends StatelessWidget {
               ),
               title:
                   Text(sentiero.titolo, style: TypographyTokens.titoloScheda()),
+              // LA FRASE INTERA, ordine P voce 38. Qui si leggeva "I tuoi
+              // Stella: cinquanta piccoli con cinque grandi": il nome
+              // singolare incollato dentro una frase al plurale, e un
+              // inventario al posto di una ragione per entrare. La promessa
+              // del sentiero e' scritta per intero nel dato, non composta
+              // qui incollando pezzi.
               subtitle: Text(
-                'I tuoi ${sentiero.nomeDelMini}: cinquanta piccoli con cinque grandi',
+                sentiero.promessa,
                 style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textSecondary),
               ),
