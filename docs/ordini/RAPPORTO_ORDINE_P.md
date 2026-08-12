@@ -1,14 +1,18 @@
-# Rapporto dell'ORDINE P, quarta sessione, 12 agosto 2026
+# Rapporto dell'ORDINE P, quarta e quinta sessione, 12 agosto 2026
 
-**L'ordine e' CONSEGNATO.** La guardia `test/ordine_p_guard_test.dart` e' verde:
-**quaranta voci su quaranta hanno uno stato terminale**, 38 chiuse, una fermata
-su premessa falsa, una fermata in attesa di una decisione che non spetta a chi
-costruisce. Nessun numero di build e' stato scelto e nulla e' stato spedito: il
-numero lo decide Mauro.
+**L'ordine e' CONSEGNATO, e adesso anche SPEDITO.** La guardia
+`test/ordine_p_guard_test.dart` e' verde: **quaranta voci su quaranta hanno uno
+stato terminale**, 39 chiuse e una fermata su premessa falsa. Zero aperte, zero in
+attesa.
 
-Le quattro sessioni, in ordine: la prima ha aperto l'ordine, la seconda ha
-portato a stato terminale 12 voci, la terza 21, questa le ultime 7 piu' la
-riconciliazione della quarantesima riga.
+La quinta sessione ha portato la decisione di Mauro sulla voce 25 e tre pulizie
+che nessuna prova aveva ancora reso permanenti. Il numero della build lo decide
+Mauro, e per questa consegna e' **2177**.
+
+Le cinque sessioni, in ordine: la prima ha aperto l'ordine, la seconda ha portato
+a stato terminale 12 voci, la terza 21, la quarta le ultime 7 piu' la
+riconciliazione della quarantesima riga, e la quinta ha chiuso la voce 25 con la
+decisione di Mauro e spedito la build.
 
 ---
 
@@ -114,7 +118,7 @@ con meno di quaranta righe non e' valido.
 | **P.22** Il velo sui corpi sotto l'orizzonte | CHIUSA |
 | **P.23** Il luogo attuale nel profilo contro quello di nascita | CHIUSA |
 | **P.24** La giuntura dell'Oroscopo che ripete se stessa | CHIUSA per la parte meccanica |
-| **P.25** La card da condividere dell'Oroscopo senza transito | FERMATA IN ATTESA DI DECISIONE |
+| **P.25** La card da condividere dell'Oroscopo senza transito | CHIUSA |
 | **P.26** Il prato del Soffio | CHIUSA |
 | **P.27** Le sedici anteprime che montano una scena che l'app non monta | CHIUSA |
 | **P.28** Il gesto di condividere in tredici posti | CHIUSA |
@@ -128,12 +132,12 @@ con meno di quaranta righe non e' valido.
 | **P.31** Il manifesto e la guardia | CHIUSA |
 | **P.32** Il rapporto | CHIUSA |
 
-**Conto: 40 righe. 38 CHIUSE, 1 FERMATA SU PREMESSA FALSA, 1 FERMATA IN ATTESA
-DI DECISIONE. Aperte: zero.**
+**Conto: 40 righe. 39 CHIUSE, 1 FERMATA SU PREMESSA FALSA. Aperte: zero. In
+attesa: zero.**
 
 ---
 
-# LE SETTE VOCI DI QUESTA SESSIONE
+# LE SETTE VOCI DELLA QUARTA SESSIONE
 
 ## P.23, il luogo attuale contro quello di nascita
 
@@ -547,13 +551,138 @@ consegna, non il commit.
 
 ---
 
-# LA BUILD
+# LA QUINTA SESSIONE: LA DECISIONE, E TRE COSE CHE MENTIVANO RESTANDO DOV'ERANO
 
-**Non si spedisce su rosso, e adesso non c'e' rosso.** La guardia dell'ordine e'
-verde, la suite e' verde, `flutter analyze lib/` e' a zero errori.
+## La voce 25 si chiude: HA VINTO LA PROPOSTA A
 
-**Il numero della build lo decide Mauro.** Questo rapporto non ne propone uno e
-non ha spedito niente.
+Decisione di Mauro. La card da condividere porta il transito come **riga in oro
+con un glifo, sotto la bolla della sintesi**: l'emblema resta il colpo d'occhio,
+la sintesi resta la frase che si legge, e il cielo e' la firma che dice da dove
+viene quella frase.
+
+- **L'enumerazione delle due disposizioni non esiste piu'.** Tenere montata la
+  proposta scartata sarebbe codice morto che il prossimo lettore prende per una
+  scelta ancora aperta. Le due immagini del confronto sono uscite dal corredo per
+  la stessa ragione: a scelta fatta, un'anteprima che nessuno rigenera mostra uno
+  stato vecchio.
+- **La giuntura non e' stata toccata.** "Il cielo di oggi lo dice cosi'" e' corpus
+  di Mauro e resta fuori dall'ordine, come le quarantotto ancore della voce 24.
+- La riga compare SOLO col cielo vero: dalla hash `rigaDelCielo` e' nulla e la
+  riga non si disegna, perche' una card che la scrivesse comunque direbbe il falso
+  nel posto piu' pubblico che l'app abbia.
+- Misura: `La riga del cielo entra nella card, e solo se il cielo c'e'` in
+  `test/oroscopo_widget_test.dart`. Chiede tre cose, e la terza e' che la riga
+  stia SOTTO la sintesi, cioe' che non sia la proposta scartata. **Rosso
+  eseguito** spegnendo la condizione: chiave trovata 0 volte.
+- Anteprima rigenerata e GUARDATA, `docs/preview/oroscopo-card.png`, che adesso
+  monta un cielo vero. Prima la cattura passava dalla hash, quindi avrebbe
+  mostrato la card di prima facendo credere che la scelta non fosse applicata: un
+  guardiano dentro la cattura pretende la riga a schermo prima di scattare.
+
+## Via l'azione che committava da sola
+
+`chat-screenshot.yml` rigenerava un'anteprima a ogni push e la committava **da
+sola sul ramo canonico** col `GITHUB_TOKEN`. Serviva a una cosa buona, far vedere
+lo screenshot dal telefono senza scaricare niente, e ha prodotto DUE conflitti: un
+commit che nessuno si aspetta, su un ramo dove il lavoro sta in corso, da
+riconciliare a mano ogni volta.
+
+Disattivata su GitHub, e adesso **tolta dal repository**, perche' un file che sta
+qui prima o poi qualcuno lo riaccende. Toglierlo non basta:
+`test/nessuna_azione_committa_da_sola_test.dart` cade se un workflow torna a
+portare `git commit`, `git push` o `contents: write`, perche' domani se ne scrive
+un altro con lo stesso buon motivo. **Non si vieta a un'azione di scrivere**, si
+vieta di scrivere NELLA CRONOLOGIA: un artefatto, una pull request o una notifica
+non toccano il ramo di nessuno.
+
+## Via l'ordine che descriveva una striscia che non esiste
+
+`docs/consegne/ORDINE_ESPLORA.md` descriveva per intero la striscia Esplora,
+eliminata da tutta l'app il 6 agosto, e una sessione nuova lo leggeva come lavoro
+da fare. Un documento che descrive per intero un componente che non esiste costa
+piu' di un documento mancante. Le tre righe di `STATO_VIVO` che rimandavano ai due
+file dicono adesso cosa e' stato tolto e perche', invece di puntare al nulla.
+
+## Il server non installa piu' le librerie che servono solo alle prove
+
+`functions/package.json` portava fra le dipendenze di sviluppo
+`@firebase/rules-unit-testing` e il client `firebase`, che servono soltanto alle
+prove delle regole di Firestore. `firebase deploy` carica la cartella `functions` e
+la fa installare al server, dove quelle due non hanno niente da fare: **il deploy
+e' morto su un conflitto di versioni**, perche' `rules-unit-testing` pretende il
+client alla major 11 mentre il progetto era andato alla 12. Abbassare la versione
+curava il sintomo, e il conflitto sarebbe tornato alla major successiva.
+
+Adesso le due librerie vivono nel `package.json` della **radice**, che il deploy
+non carica mai perche' `firebase.json` dichiara `"source": "functions"`, e Node e
+TypeScript le trovano risalendo le cartelle. Il pin alla major 11 resta, ma li'
+non e' un ripiego: e' il client che la libreria di prova pretende.
+
+**E la compilazione non le chiede piu'.** `regole.emulatore.ts` e' uscito dal
+`tsconfig.json` delle funzioni e ha il suo, `tsconfig.regole.json`. Senza questo
+`npm run build` cadrebbe su un tipo mancante proprio nel predeploy, cioe' il
+guasto sarebbe stato spostato invece che tolto.
+
+**Verificato ESEGUENDO, non ragionando:**
+
+- `npm run build` dentro `functions` compila con le due librerie assenti;
+- `npm run test:regole` gira **8 prove su 8** sull'emulatore Firestore (serve una
+  JVM sul PATH: su questa macchina e' quella di Android Studio, `jbr/bin`);
+- il lock delle funzioni ha perso **1.636 righe**, che e' esattamente cio' che il
+  server non installa piu'.
+
+La guardia `test/il_server_non_installa_le_prove_test.dart` chiede tre cose: che le
+funzioni non dichiarino le librerie di prova, che la radice le dichiari, e che la
+compilazione delle funzioni escluda la prova mentre la sua la include. La seconda
+esiste perche' toglierle da tutte e due sarebbe il modo piu' facile di far passare
+la prova spegnendo le prove delle regole.
+
+---
+
+# LA BUILD 2177
+
+**Non si spedisce su rosso, e non c'e' rosso.** La guardia dell'ordine e' verde,
+`flutter analyze lib/` e' a zero errori, e il giro completo della suite ha dato
+**2.487 prove passate e una sola caduta**, che era la guardia del lavoro non
+spinto: reagiva al `pubspec.yaml` del 2177 ancora da committare, cioe' faceva
+esattamente il suo mestiere. Committato il numero, quella guardia e' verde e la
+suite e' verde per intero.
+
+**Il numero e' 2177 e lo ha deciso Mauro.** Sta nel `pubspec`, cioe' nell'unica
+sorgente che vale per ogni modo di costruire, e `test/versione_build_test.dart`
+pretende che non scenda sotto l'ultimo davvero distribuito, che il registro
+dichiara essere 2176.
+
+## L'archivio, e cosa e' stato controllato prima di spedirlo
+
+- `flutter build apk --release`: **164,8 MB**, 172.784.323 byte.
+- `tool/verifica_apk.py`: **integrita' verificata**, ogni famiglia dentro
+  l'archivio col conteggio giusto. Angeli 73, animali 12, archetipi 12, cristalli
+  12, mazzo dei tarocchi 79, ritratti VIP 50, rune 24, zodiaco 12, rune vergini
+  24. Questo controllo esiste perche' il 27 luglio un APK e' partito senza le
+  settantanove immagini dei tarocchi con la suite verde e analyze pulito: i
+  lucchetti confrontavano due dichiarazioni fra loro e nessuno guardava dentro
+  l'archivio.
+- Il numero dentro l'archivio, letto con aapt2 e non dal pubspec: **2177**.
+
+## La consegna
+
+- Release **`5hsckgnnb7a0g`**, distribuita a `cloud@esotericircle.app`.
+- Riletta dal server: `buildVersion` **2177**, creata alle 13:19:14 UTC del 12
+  agosto 2026. Un 200 sul caricamento non e' una release pronta, quindi si e'
+  atteso che l'operazione fosse conclusa e poi si e' interrogato il server.
+- Le note sono state rilette dal server invece di darle per scritte.
+- Registro `docs/versione_distribuita.json` aggiornato DENTRO la procedura, 2176
+  verso 2177, e solo dopo la conferma: un passo a mano in fondo a una procedura
+  lunga e' un passo che prima o poi salta.
+
+**LA PROVA DI ACCENSIONE E' STATA SALTATA, e non e' un dettaglio.** Nessun telefono
+collegato e nessun emulatore avviabile su questa macchina: l'archivio e' partito
+senza che nessun dispositivo lo avesse acceso, esattamente come per la 2176. Il
+salto e' ammesso solo per ordine esplicito e la consegna lo dichiara a voce alta
+nel proprio registro. **Resta il rischio che quella prova esiste per coprire**: la
+2161 e' arrivata con duemilaquarantasei prove verdi e moriva all'avvio, perche' in
+`flutter test` Firebase e i plugin nativi non partono affatto.
 
 ---
 
@@ -564,9 +693,9 @@ Due cose, ed escono per decisione, non per stanchezza.
 1. **Le quarantotto ancore dell'Oroscopo.** Materiale di Mauro, da guardare frase
    per frase: diventa una voce sua a parte. La voce 24 e' chiusa per la parte
    meccanica e la riga del manifesto lo scrive.
-2. **La scelta fra le due proposte della card dell'Oroscopo.** Due anteprime,
-   nessuna collegata, la voce fermata in attesa. Quando Mauro sceglie, il lavoro
-   che resta e' una riga di configurazione piu' la sua prova.
+2. ~~La scelta fra le due proposte della card dell'Oroscopo.~~ **SCELTA:
+   proposta A, la riga in oro sotto la sintesi.** La voce 25 e' chiusa, e resta
+   fuori dall'ordine soltanto la giuntura che apre quella riga, perche' e' corpus.
 
 E una terza, che non e' dell'ordine P ma questa sessione la ha vista e non la
 nasconde: **la schermata della meditazione non ha una fine.** E' un buco di
