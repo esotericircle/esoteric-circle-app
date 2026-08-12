@@ -69,18 +69,18 @@ class Celebrazione {
     if (traguardo.eGrande || primoInAssoluto) {
       final navigatore = Navigator.maybeOf(context);
       if (navigatore == null) return false;
-      final scena = navigatore.push(_RottaDellaCelebrazione(
+      final rotta = _RottaDellaCelebrazione(
         traguardo: traguardo,
         sentiero: sentiero,
         serie: serie,
-      ));
-      // **IL CONTO SI SEGNA QUI E NON NELLO STATO DELLA SCENA.** Un widget si
-      // costruisce al fotogramma DOPO, e il ciclo della regia chiama questa
-      // funzione due volte dentro lo stesso fotogramma: segnandolo in `initState`
-      // la seconda chiamata trovava il conto ancora a zero e si dipingeva sopra.
-      // Lo ha detto la prova, e ha fatto buttare due stesure prima di questa.
-      FesteInCorso.entra();
-      scena.whenComplete(FesteInCorso.esce);
+      );
+      final scena = navigatore.push(rotta);
+      // **SI SEGNA QUI E NON NELLO STATO DELLA SCENA.** Un widget si costruisce
+      // al fotogramma DOPO, e il ciclo della regia chiama questa funzione due
+      // volte dentro lo stesso fotogramma: segnandolo in `initState` la seconda
+      // chiamata trovava il conto ancora a zero e si dipingeva sopra. Lo ha detto
+      // la prova, e ha fatto buttare due stesure prima di questa.
+      FesteInCorso.entra(() => rotta.isActive);
       // IL GANCIO VA SULLA ROTTA, non sull'attesa di chi chiama: la forma grande
       // resta aperta finche' la persona non la chiude, e chi ha chiamato non deve
       // aspettarla.
@@ -117,20 +117,31 @@ class Celebrazione {
 class FesteInCorso {
   const FesteInCorso._();
 
-  static int _quante = 0;
+  /// **UN ELENCO DI DOMANDE, non un contatore.** Ordine S voce 09, seconda
+  /// stesura. Con un contatore, chi entra deve ricordarsi di uscire: se l'uscita
+  /// non arriva, e succede quando una rotta non viene mai chiusa perche' l'albero
+  /// e' stato buttato, il conto resta a uno e da quel momento **nessuna festa si
+  /// mostra piu'**. Lo hanno detto due prove della coda, che chiedevano una festa
+  /// e non la vedevano arrivare.
+  ///
+  /// Qui ogni festa lascia una domanda a cui si sa rispondere: "sei ancora a
+  /// schermo?". La rotta risponde guardando se e' attiva, la fascia se e' ancora
+  /// inserita nell'Overlay. Chi non risponde piu' di si' esce da se', e non c'e'
+  /// niente da ricordarsi.
+  static final List<bool Function()> _vive = [];
 
   /// Vero se una festa e' gia' a schermo.
-  static bool get unaCeGia => _quante > 0;
-
-  static void entra() => _quante++;
-
-  static void esce() {
-    if (_quante > 0) _quante--;
+  static bool get unaCeGia {
+    _vive.removeWhere((ancoraViva) => !ancoraViva());
+    return _vive.isNotEmpty;
   }
 
-  /// Solo per le prove: azzera il conto fra una scena e l'altra.
+  /// Segna una festa appena messa a schermo, con la domanda che la tiene viva.
+  static void entra(bool Function() ancoraViva) => _vive.add(ancoraViva);
+
+  /// Solo per le prove: dimentica tutto fra una scena e l'altra.
   @visibleForTesting
-  static void azzera() => _quante = 0;
+  static void azzera() => _vive.clear();
 }
 
 /// IL VELO DELLA CELEBRAZIONE: un numero solo, per entrambe le forme.
@@ -491,6 +502,12 @@ bool mostraLaSovrimpressione(
   // stato del widget, che nasce un fotogramma dopo.
   if (FesteInCorso.unaCeGia) return false;
   late final OverlayEntry fascia;
+  // **LA DOMANDA CHE TIENE VIVA LA FESTA.** Non si puo' chiedere
+  // `fascia.mounted`: una voce dell'Overlay diventa montata al fotogramma DOPO
+  // l'inserimento, e il ciclo della regia chiama due volte nello stesso
+  // fotogramma. Si tiene percio' una bandiera, spenta da tutte le strade di
+  // uscita, ritiro e smontaggio.
+  var viva = true;
   fascia = OverlayEntry(
     // ANCHE LA FASCIA SI PORTA IL SUO SCOPE, per la stessa ragione della forma
     // grande: una voce dell'Overlay non e' figlia della pagina che l'ha chiesta,
@@ -501,9 +518,10 @@ bool mostraLaSovrimpressione(
         traguardo: traguardo,
         sentiero: sentiero,
         serie: serie,
+        suMorte: () => viva = false,
         suFine: () {
+          viva = false;
           if (fascia.mounted) fascia.remove();
-          FesteInCorso.esce();
           // LA FASCIA SE NE VA DA SE' dopo qualche secondo: quello e' il suo
           // momento di chiusura, ed e' li' che gli Eos volano.
           allaChiusura?.call();
@@ -512,7 +530,7 @@ bool mostraLaSovrimpressione(
     ),
   );
   overlay.insert(fascia);
-  FesteInCorso.entra();
+  FesteInCorso.entra(() => viva);
   return true;
 }
 
@@ -521,6 +539,7 @@ class _FasciaDellaCelebrazione extends StatefulWidget {
     required this.traguardo,
     required this.sentiero,
     required this.suFine,
+    required this.suMorte,
     this.serie,
   });
 
@@ -528,6 +547,12 @@ class _FasciaDellaCelebrazione extends StatefulWidget {
   final Sentiero sentiero;
   final String? serie;
   final VoidCallback suFine;
+
+  /// **CHIAMATA SU QUALUNQUE STRADA DI USCITA**, ordine S voce 09. Il ritiro
+  /// normale passa da [suFine], ma un albero buttato non ritira niente: senza
+  /// questa, la festa resterebbe segnata come viva per sempre e nessun'altra si
+  /// mostrerebbe piu'.
+  final VoidCallback suMorte;
 
   @override
   State<_FasciaDellaCelebrazione> createState() =>
@@ -598,6 +623,7 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
 
   @override
   void dispose() {
+    widget.suMorte();
     _ritiro?.cancel();
     _velo.dispose();
     _segno.dispose();

@@ -38,7 +38,11 @@ class TueArtiView extends StatelessWidget {
             context.read<MaestroController>().activeMaestro);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.lg,
+      // **IL DISTACCO IN CIMA SCENDE A `md`, ordine S voce 10.** Sopra questo
+      // titolo c'e' gia' l'aria della barra: sommarci un distacco da `lg`
+      // allungava la fascia morta di altri ventiquattro punti. Sotto e ai lati
+      // resta `lg`, perche' li' non c'e' niente che lo doppi.
+      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
           SpacingTokens.lg, SpacingTokens.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

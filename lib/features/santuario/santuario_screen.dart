@@ -448,9 +448,18 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         // riposo sotto la barra c'e' solo cielo; durante lo
                         // scorrimento il contenuto continua a passarle
                         // sotto, che e' la scelta approvata del 2164.
+                        // **L'ARIA NON SI SOMMA A QUELLA CHE L'EROE HA GIA'
+                        // LASCIATO, ordine S voce 10.** Qui c'era l'altezza
+                        // intera della barra, e sopra di essa l'eroe lasciava la
+                        // propria aria sotto la zona d'ingresso: le due
+                        // insieme facevano la fascia morta. Serve che fra la riga
+                        // delle arti e cio' che segue ci sia l'altezza della
+                        // barra, non due volte un pezzo di essa.
                         SizedBox(
-                            height:
-                                SpazioDellaBarraNelloScroll.quanto(context)),
+                            height: math.max(
+                                0,
+                                SpazioDellaBarraNelloScroll.quanto(context) -
+                                    ariaSottoLIngresso(viewportH))),
                         // Lo scaffale personale viene PRIMA dell'elenco
                         // completo: quello che si e' scelto sta davanti a
                         // quello che il Cerchio propone.
@@ -482,6 +491,16 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       ),
     );
   }
+
+  /// L'ARIA CHE L'EROE LASCIA SOTTO LA ZONA D'INGRESSO.
+  ///
+  /// **E' dichiarata qui perche' la legge anche chi sta FUORI dall'eroe**, ordine
+  /// S voce 10: subito dopo l'eroe c'era un'aria pari all'altezza intera della
+  /// barra, e quell'aria si SOMMAVA a questa. Due arie una sopra l'altra, ognuna
+  /// giusta da sola, facevano la fascia morta fra la riga delle arti e "Le tue
+  /// arti": centosettantasei punti, misurati sulla resa.
+  static double ariaSottoLIngresso(double altezzaDellEroe) =>
+      altezzaDellEroe * 0.02;
 
   Widget _buildHero(
     BuildContext context,
@@ -524,7 +543,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           final tettoCentrale = math.max(220.0, h * 0.54);
           final centralH = (h * 0.60).clamp(220.0, tettoCentrale);
           // Zona d'ingresso (pulsante piu' arti) ancorata in basso.
-          final entryBottom = h * 0.02;
+          final entryBottom = ariaSottoLIngresso(h);
           // L'altezza della zona d'ingresso si MISURA, non si indovina. Era
           // una costante di 78: il pulsante piu' la riga delle arti la
           // superano appena il testo di sistema cresce o il nome del Maestro

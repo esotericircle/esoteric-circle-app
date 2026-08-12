@@ -2962,6 +2962,41 @@ void main() {
   });
 
   // --- Il Santuario, scaffale delle funzioni a scorrimento ---
+  // --- LA GIUNTURA FRA I MAESTRI E LO SCAFFALE. Ordine S voce 10 ---
+  //
+  // **La fascia morta si guarda, non si racconta.** La prova la misura in punti;
+  // questa immagine la mostra alla larghezza reale, con la riga delle arti in alto
+  // e "Le tue arti" sotto, cosi' si vede quanto respiro c'e' fra le due.
+  testWidgets('Cattura la giuntura fra i Maestri e lo scaffale', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    // Si scorre finche' il titolo dello scaffale entra nella meta' alta: e' la
+    // sola posizione in cui la giuntura si vede tutta.
+    final titolo = find.byKey(const Key('tue_arti_titolo'), skipOffstage: false);
+    // **LO SCORRIMENTO GIUSTO E' QUELLO VERTICALE, e non il primo che capita.**
+    // `find.byType(Scrollable).first` prende la striscia dei doni del giorno, che
+    // scorre in orizzontale: la prima stesura di questa cattura muoveva quella e
+    // l'immagine restava in cima alla home.
+    final position = tester
+        .state<ScrollableState>(find.byWidgetPredicate(
+            (w) => w is Scrollable && w.axisDirection == AxisDirection.down))
+        .position;
+    for (var i = 0; i < 20; i++) {
+      final scatola = tester.renderObject<RenderBox>(titolo);
+      final dove = scatola.localToGlobal(Offset.zero).dy;
+      if (dove > 200 && dove < 520) break;
+      position.jumpTo(position.pixels + 60);
+      await step(tester);
+    }
+    await capture(tester, rootKey, 'home-giuntura-scaffale.png');
+  });
+
   testWidgets('Cattura il Santuario, scaffale funzioni', (tester) async {
     silenceSensors();
     await loadFonts();

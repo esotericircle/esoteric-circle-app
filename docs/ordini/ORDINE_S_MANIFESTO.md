@@ -495,6 +495,17 @@ chiusa: committare non e' consegnare.
   - Rossi eseguiti: togliendo il presidio (cade su "la seconda festa si e' dipinta
     sopra la prima") e diluendo il velo a 0,35 (cade su "del testo di sotto passano
     141.9 livelli di luce su 255").
+  - **IL PRESIDIO ERA UN CONTATORE, E UN CONTATORE PERDE.** La prima stesura contava
+    chi entra e chi esce: se l'uscita non arriva, e succede quando un albero viene
+    buttato senza chiudere la rotta, il conto resta a uno e **nessuna festa si mostra
+    piu'**. Lo hanno detto due prove della coda, che chiedevano una festa e non la
+    vedevano arrivare. Adesso ogni festa lascia una DOMANDA a cui si sa rispondere,
+    "sei ancora a schermo?": la rotta risponde guardando se e' attiva, la fascia con
+    una bandiera che si spegne sia al ritiro sia allo smontaggio. Chi non risponde piu'
+    di si' esce da se'.
+  - E la domanda della fascia non puo' essere `fascia.mounted`: una voce dell'Overlay
+    diventa montata al fotogramma DOPO l'inserimento, e il ciclo della regia chiama
+    due volte nello stesso fotogramma. Anche questo lo ha detto una prova.
   - **IL VELO E' SALITO A 0,96 GUARDANDO L'ANTEPRIMA**, non misurando: al 92 per cento
     le tre righe del sentiero restavano un fantasma che si leggeva, e la prova non lo
     vedeva perche' la sua soglia lo ammetteva. Le anteprime vedono cio' che le prove
@@ -509,7 +520,43 @@ chiusa: committare non e' consegnare.
     nella figura del sentiero. Tre simboli disegnati a mano sono lavoro a se', della
     stessa mano dei tre disegni: **si propone a Mauro come voce nuova** invece di
     inventarli dentro questa.
-- **S.10** Il vuoto sotto i tre Maestri in home — APERTA
+- **S.10** Il vuoto sotto i tre Maestri in home — CHIUSA, col residuo dichiarato
+  - **PRIMA 176,3 PUNTI, DOPO 158,0**, misurati sulla resa a 360 per 797, fra il
+    fondo della riga delle arti del Maestro e la cima del titolo "Le tue arti".
+  - **PERCHE' NESSUNA MISURA LO AVEVA VISTO**, e l'ordine lo diceva: il censimento
+    degli spazi conta i vuoti SCRITTI, cioe' i `SizedBox` che qualcuno ha messo nel
+    codice. Questo vuoto non era scritto da nessuno: nasceva dalla somma di tre cose
+    ognuna giusta da sola.
+  - **LE TRE COSE, in punti.** L'eroe lascia sotto la zona d'ingresso la propria aria
+    (13,3); subito dopo l'eroe c'era un'aria pari all'altezza INTERA della barra
+    (134); e lo scaffale portava in cima un distacco da `lg` (24). Le due arie si
+    sommavano: adesso quella dopo l'eroe TOGLIE cio' che l'eroe ha gia' lasciato, e il
+    distacco dello scaffale scende a `md`.
+  - **IL RESIDUO E' L'ALTEZZA DELLA BARRA, e va detto invece di nasconderlo.** Dei 158
+    punti, 134 sono l'altezza che la barra si riserva: a riposo la' c'e' la barra, e
+    quella non e' fascia morta. Mentre si scorre la barra si ritira, e quei 134 punti
+    diventano cielo vuoto: e' cio' che si vede nell'anteprima. Farli seguire lo stato
+    della barra vorrebbe dire un contenuto che salta a ogni comparsa della barra, e
+    l'ordine M voce 1e ha scartato quella strada di proposito. **Il pavimento vero e'
+    dunque l'altezza della barra piu' un distacco di sezione, cioe' 150: siamo a 158,
+    e gli otto punti che restano sono la misura dell'aria dell'eroe.** Andare sotto
+    quel pavimento e' una decisione di Mauro sulla barra, non un lavoro.
+  - **LA BARRA NON SPRECA NIENTE, verificato.** Si riserva 134 punti e ne occupa 136,
+    quindi non avanza spazio: il confronto fra la misura dichiarata e la resa esiste
+    gia' in `una_barra_sola_test`, con tolleranza dichiarata di due punti. Scriverne
+    un secondo con una tolleranza mia sarebbe stata la seconda porta sulla stessa
+    misura, e la prova che avevo aggiunto si e' tolta.
+  - Misura: `test/il_vuoto_sotto_i_maestri_test.dart`, due prove. La soglia e' DERIVATA
+    da `SpazioDellaBarraNelloScroll.quanto` piu' un distacco di sezione. **La prima
+    stesura sommava a mano l'altezza della barra a un padding che la conteneva gia'**:
+    la soglia saliva a 178 e il vuoto di 176 passava, cioe' la soglia cresceva col
+    difetto. E' lo stesso inganno del velo nella voce S.09, ed e' la seconda volta in
+    questo ordine.
+  - Rosso eseguito rimettendo l'aria doppia: cade dichiarando 168,3 punti.
+  - Anteprima nuova, GUARDATA: `docs/preview/home-giuntura-scaffale.png`, la giuntura
+    alla larghezza reale. **Difetto della cattura, trovato guardando:** la prima
+    versione muoveva `find.byType(Scrollable).first`, che e' la striscia ORIZZONTALE
+    dei doni del giorno, e l'immagine restava in cima alla home.
 - **S.11** Il Rito del Tramonto: i testi soffocano la runa — APERTA
 - **S.12** L'Oracolo del Giorno dichiara cosa e' e cosa da' — APERTA
 - **S.13** Il respiro guidato esce dal Rito dell'Alba — APERTA
@@ -669,6 +716,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 9
+VOCI_CHIUSE: 10
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
