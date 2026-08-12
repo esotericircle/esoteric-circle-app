@@ -4,15 +4,19 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import '../../core/sigilli/ora_rituale.dart';
+
+import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/rituals/daily_elements.dart';
+import '../../design_system/components/le_tre_righe_del_rito.dart';
 import '../../design_system/components/riga_del_dono.dart';
 import 'package:flutter/scheduler.dart' show Ticker;
 import 'package:provider/provider.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 import '../../core/astro/sky_location.dart';
-import '../../core/astro/sunset_time.dart';
+import '../../core/astro/solar_time.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
@@ -488,6 +492,11 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     _incisioneTicker?.stop();
     PaletteSensoriale.eseguiSchema(SchemaAptico.conferma);
     setState(() => _completa = true);
+    // IL TRAMONTO ENTRA NEL CAMMINO, ordine P voce 35: qui il segno e'
+    // COMPIUTO, e l'ora rituale si MISURA sul cielo vero invece di essere
+    // dichiarata a mano.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'tramonto',
+        oraRituale: OraRituale.diAdesso()));
     // Crossfade dai tratti all'arte incisa, poi la lettura.
     Future<void>.delayed(const Duration(milliseconds: 1200), () async {
       if (!mounted) return;
@@ -1065,6 +1074,13 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             giorno: _e.giornoRituale,
             superficie: ColorTokens.neutralDeepest,
           ),
+          // LE TRE RIGHE DEL RITO, ordine P voce 17.
+          LeTreRigheDelRito(
+            rito: DailyElement.rune,
+            inchiostro: ColorTokens.textPrimary,
+            accento: _palette.goldSoft,
+          ),
+          const SizedBox(height: SpacingTokens.sm),
           if (_ritorno)
             Padding(
               padding: const EdgeInsets.only(bottom: SpacingTokens.sm),

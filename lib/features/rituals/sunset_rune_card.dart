@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../core/rituals/sunset_rune.dart';
 import '../../core/rituals/sunset_rune_corpus.dart';
@@ -12,6 +11,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../maestri/caligo/rune/bindrune.dart';
 import '../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'rune_strokes.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
 
 /// La carta condivisibile della Runa del Tramonto: la pietra incisa, il nome, il
 /// verso e la data. Senza indirizzo web inventato.
@@ -158,12 +158,7 @@ Future<bool> shareSunsetRuneCard({
   final verso = estrazione.simmetrica
       ? 'simmetrica'
       : (estrazione.inOmbra ? 'in merkstave' : 'dritta');
-  await SharePlus.instance.share(
-    ShareParams(
-      files: [XFile(file.path)],
-      text: 'La mia runa del tramonto: ${estrazione.rune.name} $verso. '
-          'Scopri la tua con Caligo, su Esoteric Circle.',
-    ),
-  );
+  await PortaDellaCondivisione.daFile(file.path, testo: 'La mia runa del tramonto: ${estrazione.rune.name} $verso. '
+          'Scopri la tua con Caligo, su Esoteric Circle.');
   return true;
 }

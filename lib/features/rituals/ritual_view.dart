@@ -1,8 +1,11 @@
 
 import 'package:flutter/material.dart';
 
+import '../../core/rituals/daily_elements.dart';
 import '../../core/sensi/ascoltatore_scuotimento.dart';
+import '../../design_system/components/le_tre_righe_del_rito.dart';
 import '../../design_system/components/ritual_backdrop.dart';
+import '../tarot/stesa_senses.dart' show TiltListener;
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -10,7 +13,24 @@ import '../../design_system/tokens/typography_tokens.dart';
 
 /// Come si compie un rituale: con un gesto tattile universale, oppure con un
 /// sensore che sul device lo arricchisce.
-enum RitualGesture { tap, hold, swipe, shake }
+enum RitualGesture {
+  tap,
+  hold,
+  swipe,
+  shake,
+
+  /// IL GIROSCOPIO, ordine P voce 16.
+  ///
+  /// **Il difetto che questo valore chiude.** L'Oracolo del Giorno dichiarava,
+  /// nel suo commento e nella riga a schermo, che la rivelazione arriva
+  /// inclinando il telefono. Il giroscopio non era collegato a niente: questo
+  /// enum aveva quattro valori e nessuno di loro leggeva l'inclinazione, e
+  /// `_listenShake` partiva solo su [shake]. Chi inclinava non otteneva nulla e
+  /// non poteva capire perche', perche' l'app gli aveva appena detto di farlo.
+  ///
+  /// Il ripiego tattile resta OBBLIGATORIO: il tocco svela sempre, sensore o no.
+  tilt,
+}
 
 /// Impalcatura condivisa dei rituali del giorno: livello visivo prima del testo,
 /// un gesto per rivelare il responso e, sempre, un ripiego tattile universale.
@@ -28,10 +48,31 @@ class RitualView extends StatefulWidget {
     required this.sensorHint,
     required this.visualBuilder,
     required this.revealed,
+    this.rito,
+    this.cosaRicevi,
+    this.ripiego,
     this.footnote,
     this.onReveal,
     this.backgroundAsset,
   });
+
+  /// Quale dei cinque doni e' questo rito. Serve alle tre righe in testa,
+  /// ordine P voce 17: cosa fai, perche', cosa ti resta.
+  final DailyElement? rito;
+
+  /// LA RIGA CHE DICE COSA STAI PER RICEVERE, prima del gesto.
+  ///
+  /// Ordine P voce 16: nessuno compie un gesto senza sapere cosa ne esce. Il
+  /// [prompt] dice come si fa, questa dice cosa si ottiene, e sono due cose
+  /// diverse: "Inclina o scorri per rivelare" non dice niente a nessuno.
+  final String? cosaRicevi;
+
+  /// IL RIPIEGO, quando il responso non c'e'.
+  ///
+  /// Ordine P voce 16, nessuno stato senza uscita. Quando e' non nullo, al
+  /// posto del responso compare questa etichetta con un Riprova, mai una
+  /// schermata muta.
+  final ({String etichetta, VoidCallback riprova})? ripiego;
 
   final String title;
   final MaestroPalette palette;
@@ -49,8 +90,15 @@ class RitualView extends StatefulWidget {
   /// Riga che spiega il sensore e il ripiego tattile.
   final String sensorHint;
 
-  /// Il visualizzatore, dato lo stato di rivelazione e un valore d'animazione.
-  final Widget Function(BuildContext context, bool revealed, double t)
+  /// Il visualizzatore, dato lo stato di rivelazione, un valore d'animazione e
+  /// L'INCLINAZIONE DEL TELEFONO sui due assi.
+  ///
+  /// L'inclinazione arriva fin qui perche' la voce 16 chiede che il cielo
+  /// REAGISCA al giroscopio: un sensore che serve solo a far scattare la
+  /// rivelazione e' un pulsante scomodo, non un cielo che risponde. A zero, cioe'
+  /// senza sensore, la scena resta composta e non manca niente.
+  final Widget Function(
+      BuildContext context, bool revealed, double t, Offset inclinazione)
       visualBuilder;
 
   /// Il responso, mostrato dopo il gesto.
@@ -71,6 +119,18 @@ class _RitualViewState extends State<RitualView>
   bool _revealed = false;
   AscoltatoreScuotimento? _scuotimento;
 
+  /// L'ASCOLTATORE DELL'INCLINAZIONE, la porta unica del giroscopio in questa
+  /// app: la stessa che inclina le carte posate della Stesa e la costellazione
+  /// del Rito del Sogno. Un secondo ascoltatore sarebbe la terza porta.
+  TiltListener? _inclinazione;
+
+  /// Quanta inclinazione svela il responso, in radianti.
+  ///
+  /// [TiltListener] limita a 0,06 radianti: la meta' e' un gesto deciso e non
+  /// un tremolio della mano. Piu' in alto sarebbe irraggiungibile, perche' oltre
+  /// il massimo il valore non sale.
+  static const double _bastaCosi = 0.03;
+
   @override
   void initState() {
     super.initState();
@@ -79,6 +139,23 @@ class _RitualViewState extends State<RitualView>
       duration: const Duration(seconds: 4),
     )..repeat(reverse: true);
     if (widget.gesture == RitualGesture.shake) _listenShake();
+    if (widget.gesture == RitualGesture.tilt) _ascoltaLInclinazione();
+  }
+
+  /// IL CIELO REAGISCE AL GIROSCOPIO, e a un certo punto si scopre.
+  void _ascoltaLInclinazione() {
+    final ascoltatore = TiltListener()..start();
+    ascoltatore.addListener(() {
+      if (!mounted) return;
+      // Il cielo si muove a ogni notifica, rivelato o no.
+      setState(() {});
+      if (_revealed) return;
+      if (ascoltatore.x.abs() >= _bastaCosi ||
+          ascoltatore.y.abs() >= _bastaCosi) {
+        _reveal();
+      }
+    });
+    _inclinazione = ascoltatore;
   }
 
   // Scuotimento: un picco netto dell'accelerazione svela. Se il sensore manca,
@@ -92,6 +169,7 @@ class _RitualViewState extends State<RitualView>
   @override
   void dispose() {
     _scuotimento?.dispose();
+    _inclinazione?.dispose();
     _pulse.dispose();
     super.dispose();
   }
@@ -135,6 +213,16 @@ class _RitualViewState extends State<RitualView>
               behavior: HitTestBehavior.opaque,
               onTap: _reveal,
               child: child);
+        case RitualGesture.tilt:
+          // L'inclinazione arriva dal giroscopio; IL RIPIEGO TATTILE E'
+          // OBBLIGATORIO, quindi qui ci sono sia il tocco sia lo scorrimento:
+          // chi non ha il sensore, o lo ha negato, compie il rito uguale.
+          return GestureDetector(
+              key: const Key('ritual_gesture'),
+              behavior: HitTestBehavior.opaque,
+              onHorizontalDragEnd: (_) => _reveal(),
+              onTap: _reveal,
+              child: child);
       }
     }
 
@@ -169,14 +257,35 @@ class _RitualViewState extends State<RitualView>
                         child: AnimatedBuilder(
                           animation: _pulse,
                           builder: (context, _) => widget.visualBuilder(
-                              context, _revealed, _pulse.value),
+                            context,
+                            _revealed,
+                            _pulse.value,
+                            Offset(_inclinazione?.x ?? 0,
+                                _inclinazione?.y ?? 0),
+                          ),
                         ),
                       ),
                       if (!_revealed)
                         Positioned(
                           bottom: SpacingTokens.lg,
-                          child: _PromptPill(
-                              label: widget.prompt, palette: palette),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // COSA STAI PER RICEVERE, prima del gesto.
+                              if (widget.cosaRicevi != null) ...[
+                                Text(
+                                  widget.cosaRicevi!,
+                                  key: const Key('rito_cosa_ricevi'),
+                                  textAlign: TextAlign.center,
+                                  style: TypographyTokens.didascalia().copyWith(
+                                      color: palette.goldSoft, height: 1.35),
+                                ),
+                                const SizedBox(height: SpacingTokens.sm),
+                              ],
+                              _PromptPill(
+                                  label: widget.prompt, palette: palette),
+                            ],
+                          ),
                         ),
                     ],
                   ),
@@ -191,7 +300,45 @@ class _RitualViewState extends State<RitualView>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      if (_revealed)
+                      // LE TRE RIGHE DEL RITO, ordine P voce 17, in testa.
+                      if (widget.rito != null) ...[
+                        LeTreRigheDelRito(
+                          rito: widget.rito!,
+                          inchiostro: ColorTokens.textPrimary,
+                          accento: palette.goldSoft,
+                        ),
+                        const SizedBox(height: SpacingTokens.md),
+                      ],
+                      // NESSUNO STATO SENZA USCITA, ordine P voce 16: se il
+                      // responso non c'e', compare il ripiego con la sua
+                      // etichetta e il suo Riprova, mai una schermata muta.
+                      if (_revealed && widget.ripiego != null)
+                        Column(
+                          key: const Key('rito_ripiego'),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(widget.ripiego!.etichetta,
+                                style: TypographyTokens.corpo().copyWith(
+                                    color: ColorTokens.textPrimary,
+                                    height: 1.4)),
+                            const SizedBox(height: SpacingTokens.sm),
+                            OutlinedButton.icon(
+                              key: const Key('rito_riprova'),
+                              onPressed: widget.ripiego!.riprova,
+                              icon: const Icon(Icons.refresh_rounded, size: 16),
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: palette.goldSoft,
+                                side: BorderSide(
+                                    color: palette.gold
+                                        .withValues(alpha: 0.55)),
+                              ),
+                              label: Text('Riprova',
+                                  style: TypographyTokens.didascalia()
+                                      .copyWith(color: palette.goldSoft)),
+                            ),
+                          ],
+                        )
+                      else if (_revealed)
                         Container(
                             key: const Key('ritual_content'),
                             child: widget.revealed),

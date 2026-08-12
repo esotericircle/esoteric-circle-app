@@ -1,5 +1,5 @@
 import 'package:esoteric_circle/core/astro/sky_location.dart';
-import 'package:esoteric_circle/core/astro/sunset_time.dart';
+import 'package:esoteric_circle/core/astro/solar_time.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';

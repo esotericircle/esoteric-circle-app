@@ -4,7 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../core/astro/sky_location.dart';
-import '../../core/astro/sunset_time.dart';
+import '../../core/astro/solar_time.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/sunset_rune.dart';

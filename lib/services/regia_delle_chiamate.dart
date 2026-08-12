@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../core/astro/sunset_time.dart';
+import '../core/astro/solar_time.dart';
 import '../core/entitlement/entitlement_service.dart';
 import '../core/entitlement/question_allowance.dart';
 import '../core/horoscope/cielo_di_oggi.dart';

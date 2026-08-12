@@ -13,6 +13,9 @@ import 'daily_rituals.dart';
 /// Oracolo, Tramonto, Notte.
 enum DailyElement {
   dawn(
+    cosaFai: 'Sollevi l\'alba con un gesto e ricevi la parola del giorno.',
+    perche: 'Il primo minuto della giornata decide il tono di tutte le ore che vengono dopo.',
+    cosaTiResta: 'Una parola da portare con te, che stasera il Rito del Sogno ti richiamerà.',
     title: 'Rito dell\'Alba',
     shortLabel: 'Alba',
     anchorHour: 7,
@@ -24,6 +27,11 @@ enum DailyElement {
         'per orientare le tue prossime ore.',
   ),
   breath(
+    cosaFai: 'Respiri col simbolo che si apre e si chiude, per i giri che il rito conta.',
+    perche: 'Il respiro contato è il modo più rapido di cambiare stato senza '
+        'chiedere niente a nessuno.',
+    cosaTiResta: 'Il tuo destino del momento, con la tensione sciolta che '
+        'resta nel corpo.',
     title: 'Soffio del Destino',
     shortLabel: 'Soffio',
     anchorHour: 10,
@@ -35,6 +43,9 @@ enum DailyElement {
         'scioglie la tensione.',
   ),
   oracle(
+    cosaFai: 'Inclini il telefono oppure scorri col dito: il cielo di oggi si scopre.',
+    perche: 'A metà giornata la domanda che porti si è già fatta più precisa: è lì che un responso serve.',
+    cosaTiResta: 'La riga del cielo di oggi, più un Sigillo sul cammino se torni domani.',
     title: 'Oracolo del Giorno',
     shortLabel: 'Oracolo',
     anchorHour: 13,
@@ -46,6 +57,10 @@ enum DailyElement {
         'con te.',
   ),
   rune(
+    cosaFai: 'Estrai la runa della sera dal mazzo delle ventiquattro.',
+    perche: 'Il tramonto è il momento in cui si sceglie cosa lasciare fuori dalla notte.',
+    cosaTiResta: 'Una runa che il Rito del Sogno nominerà fra poche ore, con '
+        'il suo presagio.',
     title: 'La Runa del Tramonto',
     shortLabel: 'Tramonto',
     anchorHour: 18,
@@ -57,6 +72,9 @@ enum DailyElement {
         'ti ha lasciato.',
   ),
   night(
+    cosaFai: 'Soffi sulla nebbia, unisci la costellazione della Luna di stanotte e chiudi il giorno.',
+    perche: 'Un giorno che non si chiude resta addosso: il rito della buonanotte gli mette un punto.',
+    cosaTiResta: 'La tua costellazione della notte da condividere, col giorno raccolto in una carta.',
     title: 'Rito del Sogno',
     shortLabel: 'Notte',
     anchorHour: 22,
@@ -71,6 +89,9 @@ enum DailyElement {
   );
 
   const DailyElement({
+    required this.cosaFai,
+    required this.perche,
+    required this.cosaTiResta,
     required this.title,
     required this.shortLabel,
     required this.anchorHour,
@@ -79,6 +100,24 @@ enum DailyElement {
     required this.pushByDefault,
     required this.description,
   });
+
+  /// COSA FAI, in una riga. Ordine P voce 17.
+  ///
+  /// Le tre righe stanno IN TESTA a ogni rito, prima del gesto: chi apre un
+  /// rito deve sapere cosa sta per fare prima di farlo, non dopo.
+  final String cosaFai;
+
+  /// PERCHE'. Non la descrizione del rito: la ragione per cui vale il minuto
+  /// che chiede.
+  final String perche;
+
+  /// COSA TI RESTA. **E' la terza, ed e' quella che oggi mancava ovunque.**
+  ///
+  /// Un dono che si esaurisce quando lo apri non produce ritorni; un dono che
+  /// apre qualcosa che si chiude piu' tardi, si'. Questa riga e' l'unica delle
+  /// tre che risponde alla domanda per cui la persona torna domani, e per
+  /// questo nomina sempre qualcosa che resta o qualcuno che la richiamera'.
+  final String cosaTiResta;
 
   final String title;
   final String shortLabel;
@@ -97,6 +136,16 @@ enum DailyElement {
   /// La spiegazione breve dell'elemento, cosa e' e a cosa serve, per il popup
   /// informativo della striscia.
   final String description;
+
+  /// SE IL RITO GUIDA GIA' IL RESPIRO NELLA SUA SCENA.
+  ///
+  /// **Ordine P voce 17, e serve a non averne due.** Il respiro guidato e' uno
+  /// solo in tutto il progetto, ma il Soffio del Destino lo monta nella scena,
+  /// attorno al soffione, mentre l'Alba lo porta dentro la scheda del dono.
+  /// Le due schermate condividono la scheda: senza questa riga il Soffio si
+  /// ritrovava DUE anelli che respirano, uno sopra l'altro. Lo ha trovato una
+  /// prova gia' esistente, che ne cercava uno e ne contava due.
+  bool get guidaIlRespiroInScena => this == DailyElement.breath;
 
   int get anchorMinutes => anchorHour * 60 + anchorMinute;
 

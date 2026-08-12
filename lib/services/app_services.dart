@@ -118,12 +118,18 @@ class AppServices {
   bool get aiReady => ai.isReady;
 
   /// Servizi inerti, senza rete: usati nei test e come ripiego assoluto.
-  factory AppServices.offline([String? reason]) {
+  ///
+  /// [porta] si puo' sostituire: serve alle prove della voce P.34, che devono
+  /// poter montare una porta che SOLLEVA e una che non risponde mai, perche'
+  /// e' esattamente cosi' che la porta vera si comporta con le funzioni non
+  /// ancora distribuite. Senza questo, quel difetto non sarebbe provabile.
+  factory AppServices.offline([String? reason, PortaDelCerchio? porta]) {
     return AppServices(
       ai: const UnavailableMaestroAiProvider(),
       memory: InMemoryMaestroMemoryRepository(),
       memoryPersistent: false,
       diagnostics: reason ?? 'Servizi offline.',
+      porta: porta ?? const PortaSpentaDelCerchio(),
     );
   }
 

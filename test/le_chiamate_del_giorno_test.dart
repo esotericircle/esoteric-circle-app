@@ -1,4 +1,4 @@
-import 'package:esoteric_circle/core/astro/sunset_time.dart';
+import 'package:esoteric_circle/core/astro/solar_time.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/rituals/avvisi_del_rito.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';

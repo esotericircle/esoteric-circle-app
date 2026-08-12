@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../core/identity/birth_moon.dart';
 import '../../core/rituals/dream_rite_corpus.dart';
@@ -11,6 +10,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../synastry/sinastria_share_card.dart' show captureBoundaryPng;
+import '../../core/condivisione/porta_della_condivisione.dart';
 
 /// La carta della notte del Rito del Sogno: la costellazione unita, una parola
 /// sola, la frase della notte e la provenienza dal cielo reale. Senza indirizzi
@@ -144,12 +144,7 @@ Future<bool> shareDreamRiteCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/rito_del_sogno_${luna.sign.id}.png');
   await file.writeAsBytes(png, flush: true);
-  await SharePlus.instance.share(
-    ShareParams(
-      files: [XFile(file.path)],
-      text: 'La mia notte con ${DreamRiteCorpus.provenienza(luna)}. '
-          'Il Rito del Sogno, su Esoteric Circle.',
-    ),
-  );
+  await PortaDellaCondivisione.daFile(file.path, testo: 'La mia notte con ${DreamRiteCorpus.provenienza(luna)}. '
+          'Il Rito del Sogno, su Esoteric Circle.');
   return true;
 }

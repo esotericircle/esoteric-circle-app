@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../astro/sunset_time.dart';
+import '../astro/solar_time.dart';
 import 'rito_alba.dart';
 import 'ritual_streak.dart';
 

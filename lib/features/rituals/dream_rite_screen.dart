@@ -2,8 +2,12 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import '../../core/sigilli/ora_rituale.dart';
+
+import '../sigilli/regia_del_cammino.dart';
 
 import '../../core/rituals/daily_elements.dart';
+import '../../design_system/components/le_tre_righe_del_rito.dart';
 import '../../design_system/components/riga_del_dono.dart';
 
 import '../../core/astro/moon_phase.dart';
@@ -12,6 +16,7 @@ import '../../core/identity/birth_moon.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_rituals.dart';
 import '../../core/rituals/dream_rite_corpus.dart';
+import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/rituals/sunset_rune.dart';
 import '../../core/rituals/sunset_rune_memory.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -136,12 +141,27 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
 
   Future<void> _leggiCerniera() async {
     final ultima = await SunsetRuneMemory.ultimaPerCerniera();
-    if (ultima == null || !mounted) return;
-    // Solo se la runa e' della stessa sera, il giorno rituale coincide.
-    if (ultima.giorno == SunsetRune.iso(SunsetRune.giornoRituale(_date))) {
+    if (ultima != null &&
+        mounted &&
+        // Solo se la runa e' della stessa sera, il giorno rituale coincide.
+        ultima.giorno == SunsetRune.iso(SunsetRune.giornoRituale(_date))) {
       setState(() => _runaTramonto = ultima.rune);
     }
+    // LA PAROLA DEL MATTINO TORNA QUI, ordine P voce 18.
+    //
+    // **E' cio' che rende il Sogno la chiusura del giorno invece di un rito
+    // autoconcluso.** La forma c'era gia': Buonanotte, la costellazione, il
+    // saluto di Caligo, la card da condividere. Mancava che RACCOGLIESSE la
+    // giornata. Con la parola dell'alba e la runa del tramonto dentro, il rito
+    // della buonanotte diventa quello che il nome promette.
+    final parola = await FiloDelGiorno.parolaDiStamattina(_date);
+    if (parola != null && mounted) {
+      setState(() => _parolaDiStamattina = parola);
+    }
   }
+
+  /// La parola ricevuta all'alba di oggi, se il rito e' stato compiuto.
+  String? _parolaDiStamattina;
 
   @override
   void didChangeDependencies() {
@@ -211,6 +231,10 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
 
   void _allaFiguraCompleta() {
     setState(() => _completa = true);
+    // IL SOGNO ENTRA NEL CAMMINO, ordine P voce 35: la figura si e' composta,
+    // il rito e' compiuto.
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'sogno',
+        oraRituale: OraRituale.diAdesso()));
     Future<void>.delayed(const Duration(milliseconds: 900), () {
       if (mounted) setState(() => _fase = _Fase.messaggio);
     });
@@ -405,6 +429,15 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
               style: TypographyTokens.label(size: 12).copyWith(
                   color: _palette.goldSoft, letterSpacing: 0.3, height: 1.45)),
         ],
+        // LA PAROLA DEL MATTINO, richiamata la sera. Ordine P voce 18.
+        if (_parolaDiStamattina != null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          Text(FiloDelGiorno.richiamoDellaParola(_parolaDiStamattina!),
+              key: const Key('dream_parola_del_mattino'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.didascalia().copyWith(
+                  color: _palette.goldSoft, height: 1.45)),
+        ],
         const SizedBox(height: SpacingTokens.md),
         _Riga(
           palette: _palette,
@@ -472,6 +505,13 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           giorno: _date,
           superficie: ColorTokens.neutralDeepest,
         ),
+        // LE TRE RIGHE DEL RITO, ordine P voce 17.
+        LeTreRigheDelRito(
+          rito: DailyElement.night,
+          inchiostro: ColorTokens.textPrimary,
+          accento: _palette.goldSoft,
+        ),
+        const SizedBox(height: SpacingTokens.sm),
         Text('Il saluto di ${_maestro.displayName}',
             key: const Key('dream_message_title'),
             style: TypographyTokens.display(size: 19)

@@ -9,8 +9,11 @@ import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'attorno_al_soffio.dart';
 
 /// I quattro rituali del giorno: contenuti deterministici e reali, livello
 /// visivo prima del testo, ogni sensore con ripiego tattile universale.
@@ -137,7 +140,10 @@ void main() {
       // Nello stato rivelato compare il dono, col tipo di dono e la base
       // apribile. Senza contenuti verificati, l'orientamento e' provvisorio.
       final gift = DawnGift.forChart(date);
-      expect(find.text(gift.kind.label.toUpperCase()), findsOneWidget);
+      // NIENTE MAIUSCOLETTO, ordine P voce 13: l'etichetta del dono e' passata
+      // dal ruolo etichetta a quello didascalia, e col maiuscoletto se n'e'
+      // andato anche il toUpperCase.
+      expect(find.text(gift.kind.label), findsOneWidget);
       expect(find.text(gift.orientation), findsOneWidget);
       expect(find.byKey(const Key('gift_base_toggle')), findsOneWidget);
 
@@ -151,12 +157,14 @@ void main() {
       await tester.tap(find.byKey(const Key('gift_base_toggle')));
       await tester.pump(const Duration(milliseconds: 300));
       expect(find.byKey(const Key('gift_base_panel')), findsOneWidget);
-      expect(find.text('Ancora natale'.toUpperCase()), findsOneWidget);
+      expect(find.text('Ancora natale'), findsOneWidget);
     });
 
     testWidgets('Soffio del Destino: il ripiego libera i semi e porge il dono',
         (tester) async {
-      await tester.pumpWidget(MaterialApp(home: BreathDestinyScreen(now: date)));
+      // Il Soffio porta il cosmo condiviso dalla voce 26: l'impalcatura sta in
+      // `attorno_al_soffio.dart`, non riscritta qui.
+      await tester.pumpWidget(attornoAlSoffio(BreathDestinyScreen(now: date)));
       await tester.pump();
       // L'invito al soffio e il suo ripiego, il dono non c'e' ancora.
       expect(find.text('Soffia per liberare il tuo destino'), findsOneWidget);
@@ -169,7 +177,7 @@ void main() {
       }
       expect(find.byKey(const Key('ritual_content')), findsOneWidget);
       final gift = DawnGift.forMaestro(date, Maestro.aura);
-      expect(find.text(gift.kind.label.toUpperCase()), findsOneWidget);
+      expect(find.text(gift.kind.label), findsOneWidget);
     });
 
     testWidgets('Oracolo del Giorno: ripiego allo scorrimento del dito',

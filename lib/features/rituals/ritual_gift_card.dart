@@ -5,17 +5,27 @@ import 'package:flutter/material.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
+import '../../core/rituals/filo_del_giorno.dart';
+import '../../design_system/components/guida_del_respiro.dart';
+import '../../design_system/components/le_tre_righe_del_rito.dart';
 import '../../design_system/components/riga_del_dono.dart';
+import '../../core/rituals/tempi_del_respiro.dart';
 import '../../design_system/theme/accento_del_maestro.dart';
+import '../../design_system/tokens/regime_chiaro.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 
-// Colori del dono nello stato illuminato. A gesto completato la scena e' luce
-// piena: il dono usa testo scuro su una bolla di vetro chiara, per la
-// leggibilita' piena. E' il rovescio dell'invito, chiaro sul buio.
-const Color _dayInk = Color(0xFF2A2213); // testo forte
-const Color _dayInkSoft = Color(0xFF6E5B33); // etichette e testo secondario
-const Color _dayInset = Color(0x14000000); // superfici interne, un velo caldo
+// I COLORI DEL REGIME CHIARO NON VIVONO PIU' QUI. Ordine P voce 12.
+//
+// Erano tre costanti private, e una costante privata non e' un token: non si
+// enumera, non si misura e non si sorveglia. Finche' i regimi cromatici erano
+// due e uno solo era governato dai token, nessun presidio automatico poteva
+// proteggere l'altro, ed e' cosi' che il difetto delle etichette illeggibili
+// e' nato. Adesso stanno in `RegimeChiaro`, col contrasto misurato e una
+// guardia che lo sorveglia.
+const Color _dayInk = RegimeChiaro.testoSuChiaro;
+final Color _dayInkSoft = RegimeChiaro.testoMutoSuChiaro;
+const Color _dayInset = RegimeChiaro.incassoSuChiaro;
 
 /// L'ACCENTO DELLA SCHEDA, che nasce dal Maestro del giorno.
 ///
@@ -41,12 +51,12 @@ Color _accentoDi(Maestro maestro) =>
 
 /// Il vetro reso opaco, cioe' la condizione in cui la scheda si mostra davvero:
 /// compare a gesto completato, quando la scena sotto e' luce piena.
-const Color _vetroOpaco = AccentoDelMaestro.vetro;
+const Color _vetroOpaco = RegimeChiaro.superficieChiara;
 
 // La bolla e' un vetro smerigliato: semitrasparente e sfocata, lascia intravedere
 // la scena sotto ma tiene il testo scuro leggibile sul chiaro.
-const Color _dayGlass = Color(0xC7FBF4E2); // bianco caldo, alpha circa 0.78
-const Color _dayGlassBorder = Color(0x4DFFFFFF);
+const Color _dayGlass = RegimeChiaro.velatura;
+const Color _dayGlassBorder = RegimeChiaro.bordoDellaVelatura;
 
 /// La card del dono del giorno, condivisa dai riti: dentro una bolla di vetro
 /// smerigliato semitrasparente, testo scuro leggibile sul chiaro. Porge tre
@@ -62,7 +72,14 @@ class RitualGiftCard extends StatefulWidget {
     required this.giorno,
     required this.streak,
     required this.onShare,
+    this.domandaDiIeri,
   });
+
+  /// LA DOMANDA CHE MEDORA HA LASCIATO IERI NELLA STESA. Ordine P voce 18.
+  ///
+  /// Nulla quando ieri non c'e' stata nessuna stesa, e in quel caso la riga non
+  /// compare: si mostra il dato che c'e', e di quello che manca non si parla.
+  final String? domandaDiIeri;
 
   /// Quale dei cinque Doni e' questa scheda, e di che giorno: servono alla riga
   /// che dichiara chi parla. Non si ricavano dal `gift`, che porta il Maestro
@@ -116,15 +133,25 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 giorno: widget.giorno,
                 superficie: _vetroOpaco,
               ),
+              // LE TRE RIGHE DEL RITO, ordine P voce 17: cosa fai, perche', e
+              // cosa ti resta. In testa, prima di tutto il resto.
+              LeTreRigheDelRito(
+                rito: widget.dono,
+                inchiostro: _dayInk,
+                accento: accento,
+              ),
+              const SizedBox(height: SpacingTokens.md),
               // Livello uno: il tipo di dono e l'orientamento del giorno.
               Row(
                 children: [
                   Flexible(
                     child: Text(
-                      gift.kind.label.toUpperCase(),
-                      style: TypographyTokens.etichetta().copyWith(
+                      // NIENTE MAIUSCOLETTO, ordine P voce 13.
+                      gift.kind.label,
+                      key: const Key('alba_tipo_del_dono'),
+                      style: TypographyTokens.didascalia().copyWith(
                         color: accento,
-                        letterSpacing: 2.4,
+                        letterSpacing: 0.6,
                       ),
                     ),
                   ),
@@ -136,8 +163,8 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               const SizedBox(height: SpacingTokens.sm),
               Text(
                 gift.orientation,
-                style: TypographyTokens.body(size: 16)
-                    .copyWith(color: _dayInk, height: 1.5),
+                key: const Key('alba_orientamento'),
+                style: TypographyTokens.corpo().copyWith(color: _dayInk),
               ),
               // Livello due: la parola del giorno, in risalto. **O NIENTE.**
               //
@@ -155,11 +182,17 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               // qualcosa da dire.
               if (word != null) ...[
                 const SizedBox(height: SpacingTokens.lg),
+                // PAROLA DEL GIORNO, ordine P voce 13: ruolo didascalia,
+                // cioe' sedici, niente maiuscoletto, e un colore che soddisfa
+                // 4,5 a 1 sul fondo reale. Era etichetta a dodici in
+                // maiuscoletto spaziato tre, cioe' la riga meno leggibile
+                // della scheda proprio sopra la parola piu' importante.
                 Text(
-                  'PAROLA DEL GIORNO',
-                  style: TypographyTokens.etichetta().copyWith(
+                  'Parola del giorno',
+                  key: const Key('alba_etichetta_parola'),
+                  style: TypographyTokens.didascalia().copyWith(
                     color: _dayInkSoft,
-                    letterSpacing: 3,
+                    letterSpacing: 0.6,
                   ),
                 ),
                 const SizedBox(height: SpacingTokens.xs),
@@ -169,6 +202,50 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                   style: TypographyTokens.display(size: 32).copyWith(
                     color: accento,
                     letterSpacing: 1.4,
+                  ),
+                ),
+              ],
+              // IL RESPIRO NON SI LEGGE PIU', SI FA. Ordine P voce 17.
+              //
+              // La frase "tre dentro e tre fuori, sei giri, corti come i
+              // tratti" era un'istruzione scritta, cioe' un compito: contare a
+              // mente davanti a una figura ferma. Adesso e' il respiro guidato
+              // gia' costruito per il Soffio del Destino, con la cadenza che il
+              // rito del giorno dichiara nei suoi dati. Non se ne scrive un
+              // secondo: due respiri nello stesso progetto sarebbero un'altra
+              // occorrenza della famiglia delle due porte.
+              if (gift.rito != null &&
+                  !widget.dono.guidaIlRespiroInScena) ...[
+                const SizedBox(height: SpacingTokens.md),
+                Center(
+                  child: GuidaDelRespiro(
+                    key: const Key('respiro_del_dono'),
+                    tempi: TempiDelRespiro(
+                      tempi: gift.rito!.tempi,
+                      giri: gift.rito!.giri,
+                    ),
+                    colore: accento,
+                  ),
+                ),
+              ],
+              // LA DOMANDA DI IERI, ordine P voce 18: il filo fra la stesa di
+              // ieri e il dono di stamattina.
+              if (widget.domandaDiIeri != null) ...[
+                const SizedBox(height: SpacingTokens.md),
+                Container(
+                  key: const Key('domanda_di_ieri'),
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(SpacingTokens.sm),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    color: _dayInset,
+                    border: Border.all(color: accento.withValues(alpha: 0.4)),
+                  ),
+                  child: Text(
+                    FiloDelGiorno.richiamoDellaDomanda(widget.domandaDiIeri!),
+                    key: const Key('alba_domanda_di_ieri'),
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: _dayInk, height: 1.4),
                   ),
                 ),
               ],
@@ -242,7 +319,8 @@ class _BaseToggle extends StatelessWidget {
             const SizedBox(width: 6),
             Text(
               'Da dove nasce questo dono',
-              style: TypographyTokens.etichetta().copyWith(
+              key: const Key('alba_base_toggle'),
+              style: TypographyTokens.didascalia().copyWith(
                 color: accento,
                 letterSpacing: 0.4,
               ),
@@ -337,10 +415,14 @@ class _BaseRow extends StatelessWidget {
           children: [
             Flexible(
               child: Text(
-                label.toUpperCase(),
-                style: TypographyTokens.etichetta().copyWith(
+                // NIENTE MAIUSCOLETTO, ordine P voce 13: le etichette della
+                // base erano le piu' piccole della scheda e le piu' spaziate,
+                // cioe' le meno leggibili di tutte.
+                label,
+                key: Key('alba_base_etichetta_' + chiaveDi(label)),
+                style: TypographyTokens.didascalia().copyWith(
                   color: _dayInkSoft,
-                  letterSpacing: 1.6,
+                  letterSpacing: 0.4,
                 ),
               ),
             ),
@@ -352,6 +434,7 @@ class _BaseRow extends StatelessWidget {
         const SizedBox(height: 2),
         Text(
           value,
+          key: Key('alba_base_valore_' + chiaveDi(label)),
           style: TypographyTokens.corpo().copyWith(
             color: provisional ? _dayInkSoft : _dayInk,
             height: 1.4,
@@ -390,7 +473,8 @@ class _ShareWordButton extends StatelessWidget {
       icon: const Icon(Icons.ios_share_rounded, size: 16),
       label: Text(
         'Condividi la parola',
-        style: TypographyTokens.label(size: 12)
+        key: const Key('alba_condividi_etichetta'),
+        style: TypographyTokens.didascalia()
             .copyWith(color: accento, letterSpacing: 0.5),
       ),
     );
@@ -424,7 +508,8 @@ class _StreakChip extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label,
-            style: TypographyTokens.etichetta().copyWith(
+            key: const Key('alba_giorni_di_fila'),
+            style: TypographyTokens.didascalia().copyWith(
               color: accento,
               letterSpacing: 0.4,
             ),
@@ -434,3 +519,12 @@ class _StreakChip extends StatelessWidget {
     );
   }
 }
+
+/// La chiave a video di un'etichetta della base, ricavata dal suo testo.
+///
+/// Serve alla misura del contrasto, ordine P voce 11: la tabella deve poter
+/// trovare a video ogni testo di cui dichiara il contrasto, e una chiave
+/// scritta a mano per ciascuna riga sarebbe un secondo elenco da tenere
+/// allineato con le righe vere.
+String chiaveDi(String etichetta) =>
+    etichetta.toLowerCase().replaceAll(' ', '_').replaceAll('\'', '');
