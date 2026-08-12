@@ -571,14 +571,20 @@ void main() {
       for (final p in SpreadPosition.values) {
         expect(find.byKey(Key('stesa_letta_${p.name}')), findsOneWidget);
       }
-      // 3, 4, 5, 6. Dialogo, chiave, consiglio, domanda.
-      for (final chiave in const [
+      // 3. IL CONSIGLIO, e adesso e' l'unica bolla oltre alle tre posizioni.
+      //
+      // **Gli strati sono passati da sette a cinque, ordine P voci 07, 08 e
+      // 09.** Le carte che dialogano e la carta chiave sono state eliminate; la
+      // carta chiave e' diventata uno STATO di una delle tre bolle di posizione
+      // e la domanda e' finita dentro il consiglio, come sua chiusura.
+      expect(find.byKey(const Key('stesa_consiglio')), findsOneWidget);
+      for (final morta in const [
         'stesa_dialogo',
         'stesa_chiave',
-        'stesa_consiglio',
         'stesa_domanda',
       ]) {
-        expect(find.byKey(Key(chiave)), findsOneWidget, reason: 'manca $chiave');
+        expect(find.byKey(Key(morta)), findsNothing,
+            reason: '$morta e\' stata eliminata, non nascosta');
       }
       // 7. Le azioni. Il disclaimer non sta piu' qui: ne esistevano NOVE a
       // schermo, e adesso ne esiste UNO, nell'area privacy.

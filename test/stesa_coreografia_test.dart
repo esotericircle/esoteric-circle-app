@@ -62,7 +62,11 @@ void main() {
     });
 
     test('Ogni scena ha il suo tempo', () {
-      for (final d in const [
+      // NON PIU' `const`: il tempo del taglio non e' un numero scritto, e' la
+      // somma delle quattro fasi dichiarate in `TaglioFasi`, ordine P voce 05.
+      // Una somma di Duration non e' costante, ed e' il prezzo per non tenere
+      // lo stesso numero in due posti.
+      for (final d in [
         StesaTiming.handoff,
         StesaTiming.ingresso,
         StesaTiming.respiro,

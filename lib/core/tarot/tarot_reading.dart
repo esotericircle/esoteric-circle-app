@@ -2,30 +2,23 @@ import 'tarot_card.dart';
 import 'tarot_spread.dart';
 import '../../features/horoscope/answer_depth.dart';
 import 'tarot_topic.dart';
+import 'tetti_della_stesa.dart';
 
-/// La regola che ha fatto parlare fra loro le tre carte.
-///
-/// Serve a spiegare da dove viene la riga del dialogo, e ai test per verificare
-/// che la priorita' sia rispettata.
-enum DialogoRule {
-  treMaggiori,
-  dueMaggiori,
-  soloMinori,
-  unaRovesciata,
-  piuRovesciate,
-  stessoSeme,
-  semeCoerente,
-  spadeCoppe,
-  bastoniDenari,
-}
-
-/// Come dialogano fra loro le tre carte uscite.
-class Dialogo {
-  const Dialogo({required this.rule, required this.text});
-
-  final DialogoRule rule;
-  final String text;
-}
+// LE CARTE CHE DIALOGANO NON VIVONO PIU' QUI, ordine P voce 08.
+//
+// C'erano una classe per la riga del dialogo, una enumerazione di nove regole e
+// la funzione che le applicava in ordine di priorita'. La bolla che mostrava
+// quel testo e' stata eliminata, e con lei se ne va la generazione: eliminare
+// vuol dire togliere il widget, i suoi testi, la sua generazione e il suo
+// costo, non nasconderla dietro un interruttore. I tre nomi non compaiono
+// nemmeno in questo commento, perche' la prova della voce 08 li cerca nel
+// sorgente e un commento che li nomina la farebbe cadere per finta.
+//
+// Cio' che quel testo diceva di vero, cioe' quanti Arcani Maggiori sono usciti
+// e quante carte sono rovesciate, non e' andato perduto: e' entrato nel
+// CONSIGLIO, che per la voce 09 deve poggiare sulle tre carte insieme. Una
+// bolla in meno e una bolla piu' piena, invece di due bolle che dicevano la
+// stessa cosa in due modi.
 
 /// La carta che e' il cuore della stesa, con la ragione della scelta.
 class CartaChiave {
@@ -37,9 +30,17 @@ class CartaChiave {
 
 /// L'interpretazione completa di una stesa, letta dentro un argomento.
 ///
-/// Sette strati, nell'ordine del corpus `docs/corpus/stesa_interpretazione.md`:
-/// sintesi forte, le tre posizioni, le carte che dialogano, la carta chiave, il
-/// consiglio di Medora, la domanda di chiusura, poi le azioni col disclaimer.
+/// **L'ORDINE E' CAMBIATO CON L'ORDINE P.** Prima gli strati erano sette e il
+/// consiglio arrivava per ultimo, scarno, dopo due bolle che ripetevano cio'
+/// che le carte avevano gia' detto. Adesso sono cinque e il primo e' il
+/// consiglio: sintesi forte, IL CONSIGLIO con la domanda dentro, le tre
+/// posizioni fra cui una porta lo stato di carta chiave, poi le azioni col
+/// disclaimer.
+///
+/// La ragione sta nella voce 09: il consiglio e' la bolla che la persona porta
+/// via, quindi si genera prima e si legge prima. E la domanda non e' piu' una
+/// bolla: e' come finisce cio' che Medora dice, perche' una domanda in una
+/// cornice sua sembra un compito assegnato.
 ///
 /// Tutto e' deterministico e cacheabile: a parita' di carte e di argomento il
 /// testo e' sempre lo stesso. A runtime Gemini cuce solo l'ultimo strato sulla
@@ -51,7 +52,6 @@ class TarotReading {
     required this.depth,
     required this.sintesi,
     required this.posizioni,
-    required this.dialogo,
     required this.chiave,
     required this.consiglio,
     required this.domanda,
@@ -71,22 +71,29 @@ class TarotReading {
   /// Strato 1: una riga forte, dalla sintesi della carta del Presente.
   final String sintesi;
 
-  /// Strato 2: le tre posizioni, ognuna col testo ricco letto nell'argomento.
+  /// Strato 3: le tre posizioni, ognuna col testo ricco letto nell'argomento.
   final List<PosizioneLetta> posizioni;
 
-  /// Strato 3: come le tre carte parlano fra loro.
-  final Dialogo dialogo;
-
-  /// Strato 4: quale delle tre e' il cuore.
+  /// Quale delle tre posizioni porta lo STATO di carta chiave.
+  ///
+  /// **Non e' piu' una bolla**, ordine P voce 07: la carta chiave e' uno stato
+  /// di una delle tre bolle di Passato, Presente e Futuro, e la ragione della
+  /// scelta e' la marcatura piccola dentro quella bolla.
   final CartaChiave chiave;
 
-  /// Strato 5: il consiglio di Medora, dal gruppo dell'argomento.
+  /// STRATO 2, IL PRIMO CHE SI LEGGE: il consiglio di Medora, con la domanda
+  /// dentro come ultimo paragrafo.
   final String consiglio;
 
-  /// Strato 6: la domanda che apre a Chiedi ai Maestri.
+  /// La domanda di chiusura, tenuta anche come dato suo.
+  ///
+  /// A schermo vive dentro il [consiglio] e non ha una bolla propria. Resta un
+  /// campo perche' va SALVATA: ricompare nel dono del mattino successivo con la
+  /// formula "Ieri Medora ti ha lasciato questa domanda", ed e' quella la
+  /// ragione per cui la domanda esiste.
   final String domanda;
 
-  /// Strato 7: le azioni e il disclaimer stanno nella schermata, una sola volta.
+  /// Strato 4: le azioni e il disclaimer stanno nella schermata, una sola volta.
 
   /// Compone la lettura di [spread] dentro [topic], alla profondita' [depth].
   static TarotReading of(
@@ -94,120 +101,95 @@ class TarotReading {
     TarotTopic topic, {
     AnswerDepth depth = AnswerDepth.free,
   }) {
+    final domanda = domandaDi(spread, topic);
     return TarotReading(
       spread: spread,
       topic: topic,
       depth: depth,
-      sintesi: spread.presente.summary,
+      sintesi: TettiDellaStesa.dentro(
+          spread.presente.summary, TettiDellaStesa.sintesi),
       posizioni: [
         for (final drawn in spread.cards) PosizioneLetta.of(drawn, topic),
       ],
-      dialogo: dialogoDi(spread),
       chiave: chiaveDi(spread),
-      consiglio: topic.group.consiglio,
-      domanda: domandaDi(spread, topic),
+      consiglio: consiglioDi(spread, topic, domanda),
+      domanda: domanda,
     );
   }
 
-  /// Le carte che dialogano, con le regole del corpus.
+  /// IL CONSIGLIO DI MEDORA, che poggia sulle tre carte insieme e le nomina.
   ///
-  /// Se piu' regole valgono, vince quella coi Maggiori: un tema del destino
-  /// pesa piu' di un accostamento di semi.
-  static Dialogo dialogoDi(TarotSpread spread) {
-    final carte = spread.cards;
-    final maggiori =
-        carte.where((c) => c.card.arcana == TarotArcana.maggiore).length;
-    final rovesciate = carte.where((c) => c.reversed).length;
-    final semi = carte
-        .where((c) => c.card.seme != null)
-        .map((c) => c.card.seme!)
-        .toList();
-
-    // Priorita' ai Maggiori.
-    if (maggiori == 3) {
-      return const Dialogo(
-        rule: DialogoRule.treMaggiori,
-        text: 'Un momento cardine della tua vita, il cielo insiste.',
-      );
-    }
-    if (maggiori == 2) {
-      return const Dialogo(
-        rule: DialogoRule.dueMaggiori,
-        text: 'Un tema del destino, qualcosa di grande attraversa la tua '
-            'stesa, non è un caso.',
-      );
-    }
-
-    // Tre carte dello stesso seme: un filo unico.
-    if (semi.length == 3 && semi.toSet().length == 1) {
-      final seme = semi.first;
-      return Dialogo(
-        rule: DialogoRule.stessoSeme,
-        text: 'Un filo unico, l\'elemento domina la lettura: ${_elemento(seme)} '
-            'di ${seme.italianName}.',
-      );
-    }
-
-    // Lo stesso seme che ricorre dal Passato al Futuro.
-    final estremi = [spread.passato.card.seme, spread.futuro.card.seme];
-    if (estremi[0] != null && estremi[0] == estremi[1]) {
-      return const Dialogo(
-        rule: DialogoRule.semeCoerente,
-        text: 'Un cammino coerente, stai andando nella tua direzione.',
-      );
-    }
-
-    // Gli accostamenti di seme.
-    final insieme = semi.toSet();
-    if (insieme.contains(TarotSeme.spade) &&
-        insieme.contains(TarotSeme.coppe)) {
-      return const Dialogo(
-        rule: DialogoRule.spadeCoppe,
-        text: 'Mente e cuore ti tirano da due parti, cercano equilibrio.',
-      );
-    }
-    if (insieme.contains(TarotSeme.bastoni) &&
-        insieme.contains(TarotSeme.denari)) {
-      return const Dialogo(
-        rule: DialogoRule.bastoniDenari,
-        text: 'Slancio e concretezza, l\'impulso chiede di posarsi a terra.',
-      );
-    }
-
-    // I versi.
-    if (rovesciate >= 2) {
-      return const Dialogo(
-        rule: DialogoRule.piuRovesciate,
-        text: 'Un nodo da sciogliere prima di andare avanti, con margine di '
-            'scelta.',
-      );
-    }
-    if (rovesciate == 1) {
-      return const Dialogo(
-        rule: DialogoRule.unaRovesciata,
-        text: 'Una svolta, un blocco che si scioglie mentre passi.',
-      );
-    }
-
-    // Nessun Maggiore e nessun verso che parli: resta il quotidiano.
-    return const Dialogo(
-      rule: DialogoRule.soloMinori,
-      text: 'La risposta è nel quotidiano e nelle tue mani, non in un destino '
-          'più grande.',
-    );
+  /// **Ordine P voce 09.** Prima era il solo modello del gruppo, cioe' un testo
+  /// che valeva identico per qualunque stesa dello stesso argomento: la persona
+  /// se ne accorge alla seconda lettura, ed e' esattamente il motivo per cui la
+  /// bolla piu' importante era anche la meno credibile.
+  ///
+  /// Adesso il consiglio ha quattro pezzi, in quest'ordine: il consiglio del
+  /// gruppo, che resta materiale del corpus e non si tocca; una frase che lega
+  /// il Passato al Presente NOMINANDOLI; una frase sul Futuro che dice dove
+  /// questo va, senza mai prometterlo; e la lettura dei versi e dei Maggiori,
+  /// che e' il pezzo di verita' rimasto della bolla eliminata dalla voce 08.
+  /// Poi una riga di stacco, e la domanda.
+  ///
+  /// Resta deterministico: stesse carte e stesso argomento danno sempre lo
+  /// stesso testo, quindi la bolla piu' lunga dell'app continua a non toccare
+  /// l'LLM.
+  static String consiglioDi(
+      TarotSpread spread, TarotTopic topic, String domanda) {
+    final prosa = [
+      topic.group.consiglio,
+      'Le tre carte lo dicono insieme. ${spread.passato.displayName} tiene il '
+          'filo di ciò che è stato, ${_minuscola(spread.passato.summary)} e '
+          '${spread.presente.displayName} è ciò che hai fra le mani adesso.',
+      '${spread.futuro.displayName} non è una sentenza: è dove questo va se non '
+          'cambi passo, ${_minuscola(spread.futuro.summary)}.',
+      _letturaDeiVersi(spread),
+    ].join(' ');
+    return '${TettiDellaStesa.dentro(prosa, TettiDellaStesa.consiglio - domanda.length - 2)}'
+        '\n\n$domanda';
   }
 
-  static String _elemento(TarotSeme seme) {
-    switch (seme) {
-      case TarotSeme.bastoni:
-        return 'il fuoco';
-      case TarotSeme.coppe:
-        return 'l\'acqua';
-      case TarotSeme.denari:
-        return 'la terra';
-      case TarotSeme.spade:
-        return 'l\'aria';
+  /// La sintesi breve senza la maiuscola iniziale e senza il punto finale, per
+  /// entrare dentro una frase piu' grande invece di interromperla.
+  static String _minuscola(String sintesi) {
+    var testo = sintesi.trim();
+    while (testo.endsWith('.')) {
+      testo = testo.substring(0, testo.length - 1);
     }
+    if (testo.isEmpty) return testo;
+    return testo[0].toLowerCase() + testo.substring(1);
+  }
+
+  /// COSA DICONO I VERSI E I MAGGIORI, tutti e tre insieme.
+  ///
+  /// E' il contenuto vero che la bolla "Le carte che dialogano" portava, entrato
+  /// nel consiglio invece di sparire con lei: quante carte sono uscite
+  /// rovesciate e quanti Arcani Maggiori attraversano la stesa sono fatti della
+  /// tradizione, non ornamenti.
+  static String _letturaDeiVersi(TarotSpread spread) {
+    final rovesciate = spread.cards.where((c) => c.reversed).length;
+    final maggiori = spread.cards
+        .where((c) => c.card.arcana == TarotArcana.maggiore)
+        .length;
+    final versi = switch (rovesciate) {
+      // LA PAROLA DEL ROVESCIO NON SI SCRIVE A MANO, nemmeno qui. La parola
+      // accordata alla carta vive in `DrawnCard.versoLabel`, e una parola fissa
+      // riporterebbe il maschile su "La Papessa". Qui il soggetto non e' una
+      // carta ma il CONTO delle carte, quindi si dice il fatto senza la parola:
+      // "uscita al rovescio" vale per qualunque arcano, e la prova che
+      // sorveglia l'accordo resta verde perche' non ha piu' niente da accordare.
+      0 => 'Nessuna delle tre è uscita al rovescio: la strada è libera e il '
+          'passo tocca a te.',
+      1 => 'Una delle tre è uscita al rovescio, quindi c\'è un nodo da '
+          'sciogliere e non un muro.',
+      _ => 'Più di una è uscita al rovescio: prima di andare avanti c\'è '
+          'qualcosa da sciogliere e il margine per farlo ce l\'hai.',
+    };
+    if (maggiori >= 2) {
+      return '$versi E con $maggiori Arcani Maggiori nella stesa il tema è più '
+          'grande della giornata: il cielo insiste su questo.';
+    }
+    return versi;
   }
 
   /// La carta chiave: di default il Presente.

@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/tarot/tarot_reading.dart';
 import '../../core/tarot/tarot_card.dart';
+import '../../core/tarot/stesa_in_corso.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -13,9 +16,11 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import 'attesa_di_medora.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
 import 'stesa_handoff.dart';
+import '../sigilli/regia_del_cammino.dart';
 import 'stesa_reveal.dart';
 import 'stesa_senses.dart';
 import 'stesa_share_card.dart';
@@ -67,10 +72,13 @@ class StesaTreCarteScreen extends StatefulWidget {
       );
 
   @override
-  State<StesaTreCarteScreen> createState() => _StesaTreCarteScreenState();
+  State<StesaTreCarteScreen> createState() => StesaTreCarteScreenState();
 }
 
-class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
+/// Lo stato della Stesa. **Pubblico apposta**: le prove della voce 05 devono
+/// poter chiedere in che fase del taglio si trova la scena, e dedurlo dai pixel
+/// vorrebbe dire misurare l'effetto invece della causa.
+class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     with TickerProviderStateMixin {
   /// L'ORDINE DEL MAZZO, che i gesti cambiano davvero.
   ///
@@ -84,7 +92,49 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// ordine da' sempre la stessa lettura.
   late final int _seme = widget.seed ?? 0;
 
-  late TarotSpread _spread = TarotSpread.dalMazzo(_mazzo, seed: _seme);
+  /// LA STESA IN CORSO, ordine P voce 04: le carte assegnate sono un DATO e
+  /// non una funzione del mazzo. Prima qui c'era
+  /// `TarotSpread.dalMazzo(_mazzo)`, ricalcolata dopo ogni gesto: le prime tre
+  /// del mazzo corrente diventavano la stesa, quindi mischiando cambiavano le
+  /// carte gia' scelte dalla persona. La legge del dominio vive in
+  /// `StesaInCorso`.
+  late StesaInCorso _stesa = _stesaIniziale();
+
+  /// LA STESA DI PARTENZA, e con [StesaTreCarteScreen.revealAll] e' gia' fatta.
+  ///
+  /// **Difetto trovato dalla voce 10 e chiuso qui.** Con `revealAll` le tre
+  /// posizioni restavano NON assegnate: la schermata mostrava le prime tre del
+  /// mazzo residuo passando dal ripiego di [_spread], che costruisce le carte
+  /// con `reversed: false`. Cioe' in anteprima e nelle prove nessuna carta
+  /// usciva mai rovesciata, mentre nell'app vera una su tre lo e'. La cattura
+  /// `stesa-tre-carte.png` era stata scelta apposta perche' portava due
+  /// rovesciate, e da un pezzo non ne portava piu' nessuna.
+  ///
+  /// Adesso `revealAll` assegna davvero, passando dalla legge del dominio: le
+  /// carte escono dal mazzo residuo ed entrano nella stesa col verso che
+  /// `StesaInCorso` gli da', che e' lo stesso dell'app vera.
+  StesaInCorso _stesaIniziale() {
+    var stesa = StesaInCorso.nuova(mazzo: _mazzo, seme: _seme);
+    if (!widget.revealAll) return stesa;
+    for (final posizione in SpreadPosition.values) {
+      stesa = stesa.assegna(posizione, daIndice: 0);
+    }
+    return stesa;
+  }
+
+  /// Le carte gia' assegnate, per le parti della schermata che le leggono.
+  TarotSpread get _spread => TarotSpread([
+        for (var i = 0; i < SpreadPosition.values.length; i++)
+          _stesa.assegnate[i] ??
+              DrawnCard(
+                card: TarotDeck.cards[_stesa.mazzoResiduo.isEmpty
+                    ? 0
+                    : _stesa.mazzoResiduo[
+                        i % _stesa.mazzoResiduo.length]],
+                position: SpreadPosition.values[i],
+                reversed: false,
+              ),
+      ]);
 
   /// LE TRE CARTE CHE IL MAZZO HA IN CIMA IN QUESTO MOMENTO.
   ///
@@ -117,8 +167,31 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// ventaglio resta a portata senza scorrere oltre la configurazione.
   bool _setupAperto = false;
 
-  /// Dove il mazzo e' stato tagliato l'ultima volta.
-  int _taglioIndice = TarotSpread.fanSize ~/ 2;
+  /// Dove il mazzo e' stato tagliato l'ultima volta, IN INDICI DI CARTA del
+  /// mazzo intero.
+  ///
+  /// **L'unita' e' dichiarata perche' prima erano due, e il gesto ne moriva.**
+  /// Questo numero viveva fra 2 e 7, contato su `TarotSpread.fanSize`, cioe' su
+  /// quante carte si pescano; il ventaglio invece lo confronta con gli indici
+  /// delle settantotto. Il punto di taglio cadeva quindi sempre fuori dalla
+  /// finestra che si vede, tutte le carte a schermo finivano dalla stessa parte
+  /// del taglio, e le due meta' non si dividevano mai: a video si vedeva un
+  /// blocco unico spostarsi e rientrare. Il difetto e' stato trovato
+  /// GUARDANDO le quattro anteprime del taglio, non da una misura: la prova
+  /// della voce 05 interrogava `TaglioPose` con indici scelti a mano, e da quel
+  /// lato tutto tornava.
+  int _taglioIndice = TarotDeck.cards.length ~/ 2;
+
+  /// Quante volte si e' tagliato, per far variare il punto senza allontanarlo
+  /// dalla meta'.
+  int _tagliFatti = 0;
+
+  /// GLI SCOSTAMENTI DAL CENTRO, in carte.
+  ///
+  /// Un taglio vero si fa verso la meta' del mazzo, e la meta' e' anche dove il
+  /// ventaglio e' centrato: un punto a due carte dal fondo sarebbe legittimo nel
+  /// dato e invisibile a schermo. Restando qui, la divisione si vede sempre.
+  static const List<int> _scostamentiDelTaglio = [0, 3, -2, 5, -4];
 
   /// La carta del ventaglio che sta volando verso il suo slot.
   int? _inVolo;
@@ -153,6 +226,73 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   bool _reduceMotion = false;
 
   bool _avviata = false;
+
+  /// QUALE FASE DEL TAGLIO E' IN SCENA QUANDO IL MOTO E' SPENTO.
+  ///
+  /// Con Riduci Movimento il taglio non scorre: si ferma sui quattro centri di
+  /// fase, uno alla volta, con una dissolvenza fra l'uno e l'altro. Nullo
+  /// quando il taglio scorre, perche' in quel caso la fase si legge dal tempo.
+  int? _faseStatica;
+
+  /// Il velo della dissolvenza fra due stati del taglio fermo.
+  bool _statoInPiena = true;
+
+  /// In che fase del taglio si trova la scena, da 0 a 3, oppure nullo se il
+  /// taglio non e' in corso.
+  @visibleForTesting
+  int? get faseDelTaglioInScena => _scene != StesaScene.taglio
+      ? null
+      : (_faseStatica ?? TaglioFasi.faseAl(_taglio.value));
+
+  /// DOVE SI STA TAGLIANDO, in indici di carta del mazzo intero.
+  ///
+  /// Serve alle prove per chiedere la cosa che conta: che le carte montate a
+  /// schermo stiano da TUTTE E DUE le parti del taglio. Se stessero tutte dalla
+  /// stessa, la divisione sarebbe un blocco unico che si sposta, ed e' il difetto
+  /// che l'anteprima ha mostrato.
+  @visibleForTesting
+  int get puntoDelTaglio => _taglioIndice;
+
+  /// L'INCLINAZIONE TENUTA FERMA durante un gesto del mazzo. Nulla fuori dal
+  /// gesto, quando l'inclinazione la decide il giroscopio.
+  Offset? _tiltFermo;
+
+  /// FERMA L'AMBIENTE ATTORNO ALLE CARTE GIA' USCITE. Ordine P voce 05.
+  ///
+  /// **Le carte gia' estratte non partecipano al gesto: restano nelle loro
+  /// posizioni, immobili, per tutta l'animazione.** Il galleggiamento e
+  /// l'inclinazione dal giroscopio sono effetti d'ambiente, e su una carta gia'
+  /// uscita durante il taglio diventavano un movimento che contraddice cio' che
+  /// il taglio deve dire, cioe' che quella carta e' fuori dal mazzo e nessun
+  /// gesto la tocca piu'.
+  ///
+  /// **Si FERMA dove sta, non si azzera.** Azzerarlo avrebbe fatto scattare la
+  /// carta di due punti nell'istante in cui il gesto comincia, cioe' avrebbe
+  /// sostituito un movimento lento con uno scatto secco. Misurato: 2,2 punti.
+  void _fermaLAmbiente() {
+    _galleggio.stop();
+    _tiltFermo = Offset(_tilt.x, _tilt.y);
+  }
+
+  /// Riprende il galleggiamento quando il gesto e' finito.
+  void _riprendiLAmbiente() {
+    _tiltFermo = null;
+    if (!_reduceMotion) _galleggio.repeat();
+  }
+
+  /// L'ATTESA DI MEDORA, fra l'ultima carta e il primo responso. Voce 06.
+  StatoDellAttesa _attesa = StatoDellAttesa.assente;
+
+  /// Vero quando il responso puo' stare a schermo: la stesa e' compiuta e
+  /// Medora non la sta piu' coprendo. In dissolvenza il responso c'e' gia',
+  /// sotto il velo che se ne va.
+  bool get _responsoInScena =>
+      _complete && _attesa != StatoDellAttesa.piena;
+
+  /// Quante stese sono state chiuse in questa sessione: sposta il punto di
+  /// partenza delle righe dell'attesa, cosi' due stese vicine non aprono sulla
+  /// stessa frase.
+  int _giroDellAttesa = 0;
 
   /// Quante carte sono gia' state pescate, da 0 a 3.
   late int _drawn = widget.revealAll ? SpreadPosition.values.length : 0;
@@ -233,31 +373,77 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Future<void> _taglia() async {
     if (!_scene.accettaGesti) return;
     _sensi.momento(MomentoSensoriale.taglio);
+    _fermaLAmbiente();
     setState(() {
       _scene = StesaScene.taglio;
-      // Il punto di taglio cambia a ogni gesto, ma resta dentro il mazzo.
-      _taglioIndice = 2 + (_taglioIndice + 3) % (TarotSpread.fanSize - 3);
+      // Il punto di taglio cambia a ogni gesto e resta vicino alla meta', che e'
+      // dove il mazzo si taglia davvero e dove il ventaglio guarda.
+      _tagliFatti++;
+      _taglioIndice = (TarotDeck.cards.length ~/ 2) +
+          _scostamentiDelTaglio[_tagliFatti % _scostamentiDelTaglio.length];
     });
-    if (!_reduceMotion) {
+    if (_reduceMotion) {
+      await _taglioAQuattroStati();
+      if (!mounted) return;
+    } else {
       await _taglio.forward(from: 0);
       if (!mounted) return;
     }
     _taglio.value = 0;
     setState(() {
+      _faseStatica = null;
+      _statoInPiena = true;
       // Il punto vero del taglio nel mazzo intero, non nel solo ventaglio:
       // tagliare nove carte su settantotto sarebbe un taglio finto.
-      final punto = (_taglioIndice * TarotDeck.cards.length) ~/
-          TarotSpread.fanSize;
-      _mazzo = TarotSpread.taglia(_mazzo, punto);
-      _spread = TarotSpread.dalMazzo(_mazzo, seed: _seme);
+      //
+      // **Non c'e' piu' nessuna conversione**, e non serviva: il numero E' GIA'
+      // un indice di carta. La moltiplicazione che stava qui era la stessa
+      // confusione di unita' che rendeva invisibile la divisione a schermo, solo
+      // vista dall'altro lato.
+      final punto = _taglioIndice;
+      // IL TAGLIO TOCCA SOLO IL MAZZO RESIDUO: le carte gia' uscite restano
+      // dove sono, ed e' anche il modo visivo di dirlo alla persona.
+      _stesa = _stesa.taglia(punto);
+      _mazzo = List<int>.of(_stesa.mazzoResiduo);
       _scene = StesaScene.riposo;
     });
+    _riprendiLAmbiente();
+  }
+
+  /// IL TAGLIO CON RIDUCI MOVIMENTO: quattro stati, non zero.
+  ///
+  /// **Ordine P voce 05.** Prima con Riduci Movimento il taglio saltava
+  /// l'animazione per intero: le quattro fasi non diventavano quattro stati
+  /// statici, diventavano niente, e chi ha chiesto di non vedere movimento
+  /// perdeva il racconto del gesto. Riduci Movimento non toglie mai contenuto.
+  ///
+  /// La scena si ferma sul centro di ogni fase per la durata dichiarata di
+  /// quella fase, e fra un fermo e l'altro passa una dissolvenza breve: nessuna
+  /// carta scorre da un punto all'altro, cioe' non c'e' moto, ma tutti e quattro
+  /// i momenti si vedono.
+  Future<void> _taglioAQuattroStati() async {
+    for (var fase = 0; fase < TaglioFasi.fasi.length; fase++) {
+      if (!mounted) return;
+      setState(() {
+        _faseStatica = fase;
+        _taglio.value = TaglioFasi.centroDi(fase);
+        _statoInPiena = true;
+      });
+      final tenuta =
+          TaglioFasi.fasi[fase].durata - TaglioFasi.dissolvenzaFraStati;
+      await Future<void>.delayed(
+          tenuta.isNegative ? Duration.zero : tenuta);
+      if (!mounted) return;
+      setState(() => _statoInPiena = false);
+      await Future<void>.delayed(TaglioFasi.dissolvenzaFraStati);
+    }
   }
 
   /// Il mescolamento a vortice, da scuotimento o dal tasto.
   Future<void> _mischia() async {
     if (!mounted || !_scene.accettaGesti) return;
     _sensi.momento(MomentoSensoriale.mescolamento);
+    _fermaLAmbiente();
     setState(() => _scene = StesaScene.mescolamento);
     if (!_reduceMotion) {
       await _mescola.forward(from: 0);
@@ -268,10 +454,12 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // **IL MAZZO SI MESCOLA DAVVERO.** Senza questa riga il vortice era una
       // bella animazione sopra un mazzo immobile, e le tre carte restavano
       // quelle di prima: e' il difetto che Mauro e Dora hanno segnalato.
-      _mazzo = [..._mazzo]..shuffle();
-      _spread = TarotSpread.dalMazzo(_mazzo, seed: _seme);
+      // LA MISCHIA TOCCA SOLO IL MAZZO RESIDUO, per la stessa ragione.
+      _stesa = _stesa.mischia();
+      _mazzo = List<int>.of(_stesa.mazzoResiduo);
       _scene = StesaScene.riposo;
     });
+    _riprendiLAmbiente();
   }
 
   @override
@@ -311,13 +499,61 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     final slot = _drawn;
     setState(() {
       _inVolo = null;
+      // LA CARTA SI ASSEGNA QUI, e da questo momento e' immutabile: esce dal
+      // mazzo residuo ed entra nella stesa.
+      _stesa = _stesa.assegna(SpreadPosition.values[slot], daIndice: fanIndex);
+      _mazzo = List<int>.of(_stesa.mazzoResiduo);
       _drawn++;
       if (_complete) _scene = StesaScene.completa;
     });
+    // LA STESA ENTRA NEL CAMMINO, ordine P voce 35. Qui, e non all'apertura
+    // della scena: una scena si apre anche per sbaglio, una stesa COMPIUTA
+    // no. Prima di questa voce la stesa non compariva in nessuno dei quattro
+    // commit dell'ordine O, quindi non registrava niente e nessun traguardo
+    // dei tarocchi poteva accendersi, ne' con tre stese ne' con trecento.
+    if (_complete) {
+      unawaited(RegiaDelCammino.dopoUnGesto(context, 'stesa'));
+      // LA DOMANDA SI SALVA, ordine P voce 09 e voce 18.
+      //
+      // **Senza questo la domanda e' un finale carino che nessuno ricorda.** La
+      // domanda esiste perche' e' cio' che riporta la persona domani: ricompare
+      // nel dono del mattino successivo con la formula "Ieri Medora ti ha
+      // lasciato questa domanda".
+      unawaited(FiloDelGiorno.segnaLaDomanda(_reading.domanda, DateTime.now()));
+    }
     // Il flip, poi la fioritura dell'elemento: la carta si scopre e il suo
     // seme parla un istante, prima di lasciarla pulita e leggibile.
     _sensi.momento(MomentoSensoriale.flip);
     await _fiorisci(slot);
+    // MEDORA CI PENSA, ordine P voce 06: solo alla TERZA carta, perche' e' li'
+    // che il responso comincia, e prima non c'e' niente da guardare insieme.
+    if (_complete) await _medoraCiPensa();
+  }
+
+  /// L'ATTESA FRA L'ULTIMA CARTA E IL PRIMO RESPONSO. Ordine P voce 06.
+  ///
+  /// I responsi apparivano di colpo, e un responso istantaneo e' un responso
+  /// letto da un archivio. La scena resta il minimo garantito di
+  /// [AttesaDiMedora], che sono i tempi gia' approvati per il consulto e non una
+  /// seconda copia loro, poi si dissolve.
+  ///
+  /// Non puo' restare a girare: la lettura e' deterministica e locale, quindi
+  /// non aspetta nessuna rete, e cio' che la chiude e' il suo stesso minimo.
+  Future<void> _medoraCiPensa() async {
+    if (!mounted) return;
+    setState(() {
+      _attesa = StatoDellAttesa.piena;
+      _giroDellAttesa++;
+    });
+    await Future<void>.delayed(
+        AttesaDiMedora.minimaPer(riduciMovimento: _reduceMotion));
+    if (!mounted) return;
+    // La scena non sparisce di colpo: si dissolve, e il responso e' gia' sotto
+    // di lei quando comincia a sparire. Nessuna parola viene tagliata.
+    setState(() => _attesa = StatoDellAttesa.inUscita);
+    await Future<void>.delayed(AttesaDiMedora.dissolvenza);
+    if (!mounted) return;
+    setState(() => _attesa = StatoDellAttesa.assente);
   }
 
   /// L'aura elementale della carta appena scoperta.
@@ -396,6 +632,21 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                     seed: _inVolo!,
                   ),
                 ),
+              // MEDORA CI PENSA, ordine P voce 06. Sta sopra la scena e sotto
+              // il velo dell'intro: e' l'ultima cosa che si vede prima del
+              // responso.
+              if (_attesa.inScena)
+                Positioned.fill(
+                  child: AnimatedOpacity(
+                    opacity: _attesa == StatoDellAttesa.piena ? 1 : 0,
+                    duration: AttesaDiMedora.dissolvenza,
+                    child: AttesaDiMedora(
+                      palette: palette,
+                      riduciMovimento: _reduceMotion,
+                      rotazione: _giroDellAttesa,
+                    ),
+                  ),
+                ),
               if (_renderCard)
                 Positioned(
                   left: -3000,
@@ -440,8 +691,15 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               palette: palette,
               revealSpec: _revealSlot == i ? _revealSpec : null,
               revealProgress: _revealSlot == i ? _reveal.value : 0,
-              tiltX: _tilt.x,
-              tiltY: _tilt.y,
+              // DURANTE UN GESTO DEL MAZZO LE CARTE USCITE SONO IMMOBILI.
+              //
+              // Ordine P voce 05: il galleggiamento e l'inclinazione sono
+              // effetti d'ambiente, e mentre il mazzo si taglia diventavano un
+              // movimento che contraddice il senso del gesto. Le carte gia'
+              // estratte non partecipano, ed e' il modo visivo di dire cio' che
+              // la voce 04 dice nel dato.
+              tiltX: _tiltFermo?.dx ?? _tilt.x,
+              tiltY: _tiltFermo?.dy ?? _tilt.y,
               galleggio: _reduceMotion
                   ? 0
                   : TiltListener.fluttuazioneDi(i, _galleggio.value),
@@ -493,6 +751,21 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         if (!_complete) ...[
           _slots(palette),
           const SizedBox(height: SpacingTokens.sm),
+          // IL TESTO DELLE CARTE GIA' USCITE, A PIENA LARGHEZZA.
+          //
+          // **Ordine P voce 10, ed e' qui che il difetto si vedeva peggio.**
+          // Con una carta sola scelta, il nome e la sintesi stavano nella
+          // colonna della miniatura, cioe' un terzo dello schermo, mentre alla
+          // loro destra due terzi restavano vuoti: "L'onda / trattenuta."
+          // occupava due righe senza nessun motivo.
+          if (_drawn > 0) ...[
+            _BloccoDelleCarte(
+              key: const Key('stesa_blocco_carte'),
+              carte: _spread.cards.take(_drawn).toList(),
+              palette: palette,
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+          ],
         ],
         // Colpo d'occhio: il ventaglio coperto, finche' restano carte da pescare.
         if (!_complete) ...[
@@ -511,17 +784,25 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           AnimatedBuilder(
             animation: Listenable.merge(
                 [_ingresso, _respiro, _taglio, _mescola]),
-            builder: (context, _) => StesaFan(
-              palette: palette,
-              taken: _taken,
-              onPick: _pick,
-              scene: _scene,
-              ingresso: _ingresso.value,
-              respiro: _respiro.value,
-              taglio: _taglio.value,
-              mescolamento: _mescola.value,
-              taglioIndice: _taglioIndice,
-              reduceMotion: _reduceMotion,
+            // LA DISSOLVENZA FRA I QUATTRO STATI DEL TAGLIO FERMO.
+            //
+            // Vale solo con Riduci Movimento: fuori da quel caso
+            // `_statoInPiena` resta vero e questa opacita' non si muove mai.
+            builder: (context, _) => AnimatedOpacity(
+              opacity: _statoInPiena ? 1 : 0.15,
+              duration: TaglioFasi.dissolvenzaFraStati,
+              child: StesaFan(
+                palette: palette,
+                taken: _taken,
+                onPick: _pick,
+                scene: _scene,
+                ingresso: _ingresso.value,
+                respiro: _respiro.value,
+                taglio: _taglio.value,
+                mescolamento: _mescola.value,
+                taglioIndice: _taglioIndice,
+                reduceMotion: _reduceMotion,
+              ),
             ),
           ),
           const SizedBox(height: SpacingTokens.sm),
@@ -578,7 +859,7 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           const SizedBox(height: SpacingTokens.lg),
         ],
         // La sintesi memorabile, sopra le tre carte.
-        if (_complete) ...[
+        if (_responsoInScena) ...[
           Text(_reading.sintesi,
               key: const Key('stesa_synthesis'),
               textAlign: TextAlign.center,
@@ -586,45 +867,22 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                   .copyWith(color: palette.goldSoft, height: 1.25)),
           const SizedBox(height: SpacingTokens.md),
         ],
-        if (_complete) _slots(palette),
-        if (_complete) ...[
+        if (_responsoInScena) _slots(palette),
+        if (_responsoInScena) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          // IL BLOCCO DELLE CARTE A PIENA LARGHEZZA, ordine P voce 10.
+          _BloccoDelleCarte(
+            key: const Key('stesa_blocco_carte'),
+            carte: _spread.cards,
+            palette: palette,
+          ),
           const SizedBox(height: SpacingTokens.lg),
-          // Strato 2, le tre posizioni col testo ricco letto nell'argomento.
-          // La lente sta qui una volta sola: ripeterla su ogni posizione la
-          // rendeva una formula.
-          Text('${_reading.posizioni.first.apertura}, carta per carta',
-              key: const Key('stesa_lente'),
-              style: TypographyTokens.etichetta().copyWith(
-                  color: palette.goldSoft.withValues(alpha: 0.9),
-                  letterSpacing: 1.2)),
-          const SizedBox(height: SpacingTokens.xs),
-          for (final letta in _reading.posizioni) ...[
-            _StratoPosizione(
-              key: Key('stesa_letta_${letta.drawn.position.name}'),
-              letta: letta,
-              palette: palette,
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-          ],
-          const SizedBox(height: SpacingTokens.xs),
-          // Strato 3, le carte che dialogano.
-          _Strato(
-            key: const Key('stesa_dialogo'),
-            titolo: 'Le carte che dialogano',
-            testo: _reading.dialogo.text,
-            palette: palette,
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          // Strato 4, la carta chiave.
-          _Strato(
-            key: const Key('stesa_chiave'),
-            titolo: 'La carta chiave',
-            occhiello: _reading.chiave.drawn.displayName,
-            testo: _reading.chiave.perche,
-            palette: palette,
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          // Strato 5, il consiglio di Medora.
+          // IL CONSIGLIO E' LA PRIMA COSA CHE SI LEGGE, ordine P voce 09.
+          //
+          // Stava in fondo, dopo il dialogo e la carta chiave, ed era la piu'
+          // corta delle tre. E' la bolla che la persona porta via: adesso apre
+          // il responso, e' la piu' lunga, e finisce con la domanda invece di
+          // lasciarla a una bolla sua.
           _Strato(
             key: const Key('stesa_consiglio'),
             titolo: 'Il consiglio di Medora',
@@ -632,15 +890,28 @@ class _StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             palette: palette,
             inEvidenza: true,
           ),
-          const SizedBox(height: SpacingTokens.sm),
-          // Strato 6, la domanda che apre a Chiedi ai Maestri.
-          _Strato(
-            key: const Key('stesa_domanda'),
-            titolo: 'La domanda che ti lascio',
-            testo: _reading.domanda,
-            palette: palette,
-            corsivo: true,
-          ),
+          const SizedBox(height: SpacingTokens.lg),
+          // Le tre posizioni col testo ricco letto nell'argomento. La lente sta
+          // qui una volta sola: ripeterla su ogni posizione la rendeva una
+          // formula.
+          Text('${_reading.posizioni.first.apertura}, carta per carta',
+              key: const Key('stesa_lente'),
+              style: TypographyTokens.etichetta().copyWith(
+                  color: palette.goldSoft.withValues(alpha: 0.9),
+                  letterSpacing: 1.2)),
+          const SizedBox(height: SpacingTokens.xs),
+          for (final letta in _reading.posizioni) ...[
+            BollaDellaPosizione(
+              key: Key('stesa_letta_${letta.drawn.position.name}'),
+              letta: letta,
+              palette: palette,
+              // LA BOLLA CHIAVE E' UNA DI QUESTE TRE, ordine P voce 07.
+              perche: letta.drawn.position == _reading.chiave.drawn.position
+                  ? _reading.chiave.perche
+                  : null,
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+          ],
           const SizedBox(height: SpacingTokens.sm),
           Text(TarotSpread.closing,
               key: const Key('stesa_closing'),
@@ -768,6 +1039,12 @@ class _Slot extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 AspectRatio(
+                  // LA CHIAVE DELLA CARTA POSATA, ordine P voce 05: la prova
+                  // che verifica che una carta gia' estratta non si muova di un
+                  // punto durante il taglio ha bisogno di un punto a cui
+                  // agganciarsi, e dedurlo dal nome della carta la legherebbe
+                  // al pescaggio.
+                  key: Key('stesa_carta_${position.name}'),
                   aspectRatio: kTarotAspect,
                   child: drawn == null
                       ? _EmptySlot(palette: palette)
@@ -795,35 +1072,95 @@ class _Slot extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TypographyTokens.etichetta().copyWith(
                 color: palette.goldSoft, letterSpacing: 1.2)),
-        if (drawn != null) ...[
-          // Il nome in chiaro, grande e leggibile: nel cartiglio resta piccolo
-          // e decorativo.
-          // Il minimo tipografico non scende sotto una certa misura: qui si
-          // rimpicciolisce la riga intera, cosi' il nome resta su due righe e
-          // nessuna parola va a capo da sola.
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(splitNomeCartiglio(drawn!.card.name).join('\n'),
-                key: Key('stesa_name_${position.name}'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.titoloScheda()
-                    .copyWith(color: ColorTokens.textPrimary, height: 1.15)),
+        // IL NOME, IL VERSO E LA SINTESI NON STANNO PIU' QUI.
+        //
+        // **Ordine P voce 10.** Erano dentro la colonna della miniatura, larga
+        // un terzo dello schermo, quindi "L'onda trattenuta." andava a capo
+        // dopo due parole mentre alla sua destra due terzi della larghezza
+        // restavano vuoti. Adesso vivono in `_BloccoDelleCarte`, sotto la fila
+        // delle tre carte, su tutta la larghezza disponibile.
+      ],
+    );
+  }
+}
+
+/// IL BLOCCO DELLE CARTE USCITE, SU TUTTA LA LARGHEZZA. Ordine P voce 10.
+///
+/// Una riga per carta: la posizione, il nome, la marcatura del verso quando c'e'
+/// e la frase di sintesi. La colonna e' quella della schermata, non quella della
+/// miniatura, quindi le frasi vanno a capo per la loro lunghezza e non per la
+/// larghezza di un'immagine.
+///
+/// **E ROVESCIATO SMETTE DI ESSERE UN MAIUSCOLETTO PICCOLO.** Era un'etichetta
+/// in oro alla misura minima, cioe' la cosa meno leggibile della schermata
+/// mentre e' l'unica che ribalta il significato della carta. Adesso e' una
+/// marcatura: una pastiglia col bordo, alla misura della didascalia.
+class _BloccoDelleCarte extends StatelessWidget {
+  const _BloccoDelleCarte({
+    super.key,
+    required this.carte,
+    required this.palette,
+  });
+
+  final List<DrawnCard> carte;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (final drawn in carte) ...[
+          // UN SOLO `Wrap` PER I QUATTRO PEZZI, e la ragione e' misurata due
+          // volte.
+          //
+          // **Ordine P voce 10.** Nella prima stesura i pezzi stavano su una
+          // `Row`: al nome restavano 156 punti su 328, quindi "Cinque di Spade"
+          // andava a capo dopo due parole. Il difetto non era la colonna della
+          // miniatura, era la riga CONDIVISA, e spostare il testo senza dargli
+          // tutta la larghezza lo avrebbe riprodotto piu' in basso.
+          //
+          // **Poi le ho dato quattro righe in colonna, e un presidio esistente
+          // e' caduto**: dopo due pescaggi il ventaglio finiva a 872 punti su
+          // uno schermo da 844, cioe' fuori campo proprio mentre serve. Dentro
+          // un `Wrap` ogni pezzo riceve tutta la larghezza per se', quindi il
+          // nome non si spezza, e i pezzi corti si affiancano invece di
+          // impilarsi: due righe invece di quattro.
+          Wrap(
+            spacing: SpacingTokens.xs,
+            runSpacing: 2,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Text(drawn.position.label.toUpperCase(),
+                  style: TypographyTokens.etichetta().copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.8),
+                      letterSpacing: 1.2)),
+              Text(drawn.card.name,
+                  key: Key('stesa_name_${drawn.position.name}'),
+                  style: TypographyTokens.titoloScheda().copyWith(
+                      color: ColorTokens.textPrimary, height: 1.2)),
+              if (drawn.reversed)
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(SpacingTokens.radiusPill),
+                    border: Border.all(
+                        color: palette.gold.withValues(alpha: 0.6)),
+                  ),
+                  child: Text(drawn.versoLabel,
+                      key: Key('stesa_reversed_${drawn.position.name}'),
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: palette.goldSoft)),
+                ),
+              Text(drawn.summary,
+                  key: Key('stesa_meaning_${drawn.position.name}'),
+                  style: TypographyTokens.didascalia().copyWith(
+                      color: ColorTokens.textSecondary, height: 1.35)),
+            ],
           ),
-          if (drawn!.reversed)
-            Text(drawn!.versoLabel,
-                key: Key('stesa_reversed_${position.name}'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.etichetta().copyWith(
-                    color: palette.goldSoft, letterSpacing: 0.6)),
-          const SizedBox(height: 2),
-          // Sotto la carta resta la sintesi breve: il testo ricco ha il suo
-          // strato piu' sotto, ripeterlo qui in colonna stretta lo rendeva
-          // illeggibile.
-          Text(drawn!.summary,
-              key: Key('stesa_meaning_${position.name}'),
-              textAlign: TextAlign.center,
-              style: TypographyTokens.didascalia().copyWith(
-                  color: ColorTokens.textSecondary, height: 1.35)),
+          const SizedBox(height: SpacingTokens.xs),
         ],
       ],
     );
@@ -950,21 +1287,19 @@ class _Strato extends StatelessWidget {
     required this.titolo,
     required this.testo,
     required this.palette,
-    this.occhiello,
     this.inEvidenza = false,
-    this.corsivo = false,
   });
 
   final String titolo;
   final String testo;
   final MaestroPalette palette;
 
-  /// Una riga forte sopra il testo, come il nome della carta chiave.
-  final String? occhiello;
-
   /// Il consiglio si stacca dagli altri strati, e' quello che si porta a casa.
+  ///
+  /// **Ed e' l'unico strato che resta**: l'occhiello serviva alla bolla della
+  /// carta chiave e il corsivo a quella della domanda, ed entrambe sono uscite
+  /// con la voce 08 e la voce 09.
   final bool inEvidenza;
-  final bool corsivo;
 
   @override
   Widget build(BuildContext context) {
@@ -987,17 +1322,10 @@ class _Strato extends StatelessWidget {
                   color: palette.goldSoft.withValues(alpha: 0.85),
                   letterSpacing: 1.4)),
           const SizedBox(height: 6),
-          if (occhiello != null) ...[
-            Text(occhiello!,
-                style: TypographyTokens.titoloScheda()
-                    .copyWith(color: palette.goldSoft, height: 1.2)),
-            const SizedBox(height: 4),
-          ],
           Text(testo,
               style: TypographyTokens.corpo().copyWith(
                 color: inEvidenza ? palette.goldSoft : ColorTokens.textPrimary,
                 height: 1.5,
-                fontStyle: corsivo ? FontStyle.italic : FontStyle.normal,
               )),
         ],
       ),
@@ -1005,17 +1333,45 @@ class _Strato extends StatelessWidget {
   }
 }
 
-/// Una posizione letta dentro l'argomento: apertura, nome della carta, testo
-/// ricco dal corpus.
-class _StratoPosizione extends StatelessWidget {
-  const _StratoPosizione({
+/// UNA DELLE TRE BOLLE DI POSIZIONE, e una delle tre e' LA CHIAVE.
+///
+/// **Ordine P voce 07.** La carta chiave aveva una bolla propria, che ripeteva
+/// il nome di una carta gia' mostrata due volte piu' sopra. Adesso non e' una
+/// bolla, e' uno STATO di questa: quando [perche] non e' nullo, la bolla si
+/// distingue con un blu piu' intenso, un bordo acceso piu' spesso e la marcatura
+/// che dice perche' e' quella.
+///
+/// **La distinzione si misura, non si stima.** Lo scarto fra la bolla chiave e
+/// una bolla normale e' dichiarato in [scartoMinimoAPixel] e sorvegliato da una
+/// prova differenziale a pixel: una evidenziazione che si vede solo a chi sa che
+/// c'e' non e' una evidenziazione.
+class BollaDellaPosizione extends StatelessWidget {
+  const BollaDellaPosizione({
     super.key,
     required this.letta,
     required this.palette,
+    this.perche,
   });
 
   final PosizioneLetta letta;
   final MaestroPalette palette;
+
+  /// La ragione per cui questa e' la carta chiave, oppure nullo se non lo e'.
+  final String? perche;
+
+  bool get eLaChiave => perche != null;
+
+  /// DI QUANTO LA BOLLA CHIAVE DEVE SCOSTARSI DALLE ALTRE DUE.
+  ///
+  /// Livelli medi di colore, da 0 a 255, misurati sulla fascia alta del rientro
+  /// della bolla, cioe' dove non passa nessuna lettera. Diciotto perche' e' lo
+  /// scarto che si legge da un colpo d'occhio a un braccio di distanza: sotto i
+  /// dieci le due bolle si distinguono solo mettendole una accanto all'altra, e
+  /// nella schermata vera non sono affiancate, sono una sotto l'altra.
+  ///
+  /// La soglia sta qui e non nella prova: e' una decisione di prodotto, e una
+  /// soglia scritta dentro la sua misura non protegge niente.
+  static const double scartoMinimoAPixel = 18;
 
   @override
   Widget build(BuildContext context) {
@@ -1024,24 +1380,63 @@ class _StratoPosizione extends StatelessWidget {
       padding: const EdgeInsets.all(SpacingTokens.md),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-        color: palette.surfaceElevated.withValues(alpha: 0.55),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
+        // IL BLU PIU' INTENSO: e' il primario del Maestro, non un colore nuovo.
+        color: eLaChiave
+            ? palette.primary.withValues(alpha: 0.62)
+            : palette.surfaceElevated.withValues(alpha: 0.55),
+        border: Border.all(
+          color: palette.gold.withValues(alpha: eLaChiave ? 0.95 : 0.25),
+          width: eLaChiave ? 2 : 1,
+        ),
+        boxShadow: eLaChiave
+            ? [
+                BoxShadow(
+                  color: palette.gold.withValues(alpha: 0.28),
+                  blurRadius: 14,
+                  spreadRadius: 1,
+                ),
+              ]
+            : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(letta.drawn.position.label.toUpperCase(),
-              style: TypographyTokens.etichetta().copyWith(
-                  color: palette.goldSoft.withValues(alpha: 0.85),
-                  letterSpacing: 1.4)),
-          const SizedBox(height: 4),
+          Row(
+            children: [
+              Text(letta.drawn.position.label.toUpperCase(),
+                  style: TypographyTokens.etichetta().copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.85),
+                      letterSpacing: 1.4)),
+              if (eLaChiave) ...[
+                const SizedBox(width: SpacingTokens.xs),
+                Icon(Icons.star_rounded, size: 15, color: palette.goldSoft),
+                const SizedBox(width: 4),
+                Text('LA CHIAVE',
+                    style: TypographyTokens.etichetta().copyWith(
+                        color: palette.goldSoft, letterSpacing: 1.4)),
+              ],
+            ],
+          ),
+          // I vuoti passano dai token: la bolla e' nata in questo ordine e non
+          // aveva nessun diritto di portarsi dietro due misure scritte a mano.
+          const SizedBox(height: SpacingTokens.xxs),
           Text(letta.drawn.displayName,
               style: TypographyTokens.titoloScheda()
                   .copyWith(color: palette.goldSoft, height: 1.2)),
-          const SizedBox(height: 6),
+          const SizedBox(height: SpacingTokens.xxs),
           Text(letta.testo,
               style: TypographyTokens.corpo().copyWith(
                   color: ColorTokens.textPrimary, height: 1.5)),
+          // LA MARCATURA PICCOLA CHE DICE PERCHE' E' QUELLA.
+          if (eLaChiave) ...[
+            const SizedBox(height: SpacingTokens.xs),
+            Text(perche!,
+                key: Key('stesa_marcatura_${letta.drawn.position.name}'),
+                style: TypographyTokens.didascalia().copyWith(
+                    color: palette.goldSoft.withValues(alpha: 0.9),
+                    height: 1.35,
+                    fontStyle: FontStyle.italic)),
+          ],
         ],
       ),
     );

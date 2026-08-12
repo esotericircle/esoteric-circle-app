@@ -89,41 +89,13 @@ void main() {
     });
   });
 
-  group('Le carte che dialogano', () {
-    test('Tre Maggiori, un momento cardine', () {
-      final d =
-          TarotReading.dialogoDi(stesa('Il Matto', 'La Morte', 'Il Mondo'));
-      expect(d.rule, DialogoRule.treMaggiori);
-    });
-
-    test('Due Maggiori, un tema del destino', () {
-      final d = TarotReading.dialogoDi(
-          stesa('Il Matto', 'La Morte', 'Asso di Coppe'));
-      expect(d.rule, DialogoRule.dueMaggiori);
-    });
-
-    test('I Maggiori hanno la precedenza sulle altre regole', () {
-      // Qui varrebbe anche la regola delle rovesciate, ma i Maggiori vincono.
-      final d = TarotReading.dialogoDi(stesa(
-          'Il Matto', 'La Morte', 'Asso di Coppe',
-          versi: [true, true, false]));
-      expect(d.rule, DialogoRule.dueMaggiori,
-          reason: 'una regola minore ha superato i Maggiori');
-    });
-
-    test('Tre carte dello stesso seme, un filo unico', () {
-      final d = TarotReading.dialogoDi(
-          stesa('Asso di Spade', 'Tre di Spade', 'Re di Spade'));
-      expect(d.rule, DialogoRule.stessoSeme);
-      expect(d.text, contains('aria'));
-    });
-
-    test('Spade con Coppe, mente e cuore', () {
-      final d = TarotReading.dialogoDi(
-          stesa('Asso di Spade', 'Due di Coppe', 'Tre di Bastoni'));
-      expect(d.rule, DialogoRule.spadeCoppe);
-    });
-  });
+  // IL GRUPPO "LE CARTE CHE DIALOGANO" NON ESISTE PIU', ordine P voce 08.
+  //
+  // Erano cinque prove sulle nove regole di priorita' di quella riga. La bolla
+  // e' stata eliminata e con lei la generazione: prove su un codice che non
+  // c'e' piu' non si aggiornano, si togliono. Cio' che di quel testo era vero,
+  // i Maggiori e i versi, e' entrato nel consiglio ed e' sorvegliato da
+  // `test/la_stesa_si_capisce_test.dart`.
 
   group('La carta chiave', () {
     test('Di default e il Presente', () {
@@ -155,16 +127,23 @@ void main() {
         expect(p.apertura, isNotEmpty);
         expect(p.testo, p.drawn.meaning);
       }
-      expect(r.dialogo.text, isNotEmpty);
       expect(r.chiave.perche, isNotEmpty);
-      expect(r.consiglio, TarotTopicGroup.lavoro.consiglio);
+      // IL CONSIGLIO NON E' PIU' IL SOLO MODELLO DEL GRUPPO, voce 09: lo
+      // contiene, ma poggia sulle tre carte e le nomina.
+      expect(r.consiglio, contains(TarotTopicGroup.lavoro.consiglio));
+      expect(r.consiglio, contains(s.presente.card.name));
       expect(TarotReading.domande, contains(r.domanda));
     });
 
-    test('Il consiglio segue il gruppo dell\'argomento', () {
+    test('Il consiglio parte dal gruppo e finisce con la domanda', () {
+      // ORDINE P VOCE 09: il consiglio non e' piu' il solo modello del gruppo.
+      // Lo CONTIENE, in apertura, e poi poggia sulle tre carte nominandole, e
+      // finisce con la domanda dopo una riga di stacco.
       final s = TarotSpread.draw(seed: 3);
       for (final t in TarotTopic.values) {
-        expect(TarotReading.of(s, t).consiglio, t.group.consiglio);
+        final r = TarotReading.of(s, t);
+        expect(r.consiglio, startsWith(t.group.consiglio));
+        expect(r.consiglio.split('\n\n').last.trim(), r.domanda);
       }
     });
 
@@ -174,7 +153,6 @@ void main() {
           final a = TarotReading.of(TarotSpread.draw(seed: seme), t);
           final b = TarotReading.of(TarotSpread.draw(seed: seme), t);
           expect(a.sintesi, b.sintesi);
-          expect(a.dialogo.text, b.dialogo.text);
           expect(a.chiave.drawn.card.stem, b.chiave.drawn.card.stem);
           expect(a.consiglio, b.consiglio);
           expect(a.domanda, b.domanda);

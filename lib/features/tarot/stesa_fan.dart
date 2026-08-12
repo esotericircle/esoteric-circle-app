@@ -99,6 +99,24 @@ class _StesaFanState extends State<StesaFan> {
   double _dragStart = 0;
   double _centroStart = 0;
 
+  /// QUANDO IL TAGLIO COMINCIA, L'ARCO GUARDA DOVE SI TAGLIA.
+  ///
+  /// **Senza questo la divisione poteva restare fuori schermo.** L'arco monta
+  /// una finestra di carte attorno al suo centro, e il centro lo muove il dito:
+  /// chi aveva sfogliato fino al fondo e poi tagliava vedeva tutte le carte
+  /// montate dalla stessa parte del taglio, quindi un blocco unico che si
+  /// spostava invece di due meta' che si separano. Il punto del taglio sta
+  /// vicino alla meta' del mazzo, e all'inizio del gesto l'arco ci torna.
+  @override
+  void didUpdateWidget(StesaFan vecchio) {
+    super.didUpdateWidget(vecchio);
+    if (vecchio.taglio == 0 && widget.taglio > 0) {
+      _centro = widget.taglioIndice
+          .clamp(0, widget.carte - 1)
+          .toDouble();
+    }
+  }
+
   /// Quanto scorre l'arco per ogni punto trascinato.
   static const double _sensibilita = 0.028;
 
@@ -143,15 +161,22 @@ class _StesaFanState extends State<StesaFan> {
                 child: ClipRect(
                   child: Stack(
                     clipBehavior: Clip.none,
-                    children: [
-                      for (final i in indici)
-                        _carta(
-                          indice: i,
-                          w: w,
-                          cardW: cardW,
-                          passo: passo,
-                        ),
-                    ],
+                    // L'ORDINE DI DISEGNO NON E' SEMPRE QUELLO DEL MAZZO.
+                    //
+                    // Ordine P voce 05: quando le due meta' si ricompongono, la
+                    // meta' di sotto deve passare SOPRA, altrimenti il gesto si
+                    // vede ma non si capisce che ha cambiato l'ordine. Chi sta
+                    // davanti lo dice `TaglioPose.quotaDi`, e fuori dal taglio
+                    // la quota e' pari per tutti, quindi l'ordine resta quello
+                    // naturale del ventaglio.
+                    children: _inOrdineDiQuota(indici)
+                        .map((i) => _carta(
+                              indice: i,
+                              w: w,
+                              cardW: cardW,
+                              passo: passo,
+                            ))
+                        .toList(),
                   ),
                 ),
               ),
@@ -168,6 +193,25 @@ class _StesaFanState extends State<StesaFan> {
         );
       },
     );
+  }
+
+  /// Gli indici riordinati per quota: quota bassa prima, cioe' sotto.
+  ///
+  /// Ordinamento STABILE, cosi' a quota pari l'ordine resta quello del mazzo e
+  /// il ventaglio a riposo non cambia aspetto.
+  List<int> _inOrdineDiQuota(List<int> indici) {
+    final quota = <int, double>{
+      for (final i in indici)
+        i: TaglioPose.quotaDi(
+            index: i, taglioA: widget.taglioIndice, t: widget.taglio),
+    };
+    if (quota.values.toSet().length <= 1) return indici;
+    final ordinati = List<int>.of(indici);
+    ordinati.sort((a, b) {
+      final scarto = quota[a]!.compareTo(quota[b]!);
+      return scarto != 0 ? scarto : a.compareTo(b);
+    });
+    return ordinati;
   }
 
   Widget _carta({
@@ -212,35 +256,45 @@ class _StesaFanState extends State<StesaFan> {
       // ricompone), le carte si ristendono. Le pose sono ASSOLUTE: per
       // chiudere il ventaglio bisogna annullare lo sventagliamento, quindi
       // decidono loro dove sta la carta, non un ritocco sopra la sede.
-      // Il mazzo si compone DENTRO l'arco del ventaglio, non sotto: a +44 le
-      // carte raccolte uscivano dal ritaglio della fascia e il taglio si
-      // vedeva come un ventaglio vuoto. Visto sull'anteprima, non dedotto.
-      final mazzo = Offset(w / 2 - cardW / 2, StesaFan.arcoDi(0) - 8);
-      if (widget.taglio > 0 && widget.taglio < 1) {
-        final posa = TaglioPose.of(
-          sede: offset,
-          mazzo: mazzo,
-          index: indice,
-          count: widget.carte,
-          taglioA: widget.taglioIndice,
-          t: widget.taglio,
-          angoloSede: angolo,
-        );
-        offset = posa.offset;
-        angolo = posa.angolo;
-      }
-      if (widget.mescolamento > 0 && widget.mescolamento < 1) {
-        final posa = MischiaPose.of(
-          sede: offset,
-          mazzo: mazzo,
-          index: indice,
-          count: widget.carte,
-          t: widget.mescolamento,
-          angoloSede: angolo,
-        );
-        offset = posa.offset;
-        angolo = posa.angolo;
-      }
+    }
+
+    // IL TAGLIO E IL MESCOLAMENTO VALGONO ANCHE CON RIDUCI MOVIMENTO.
+    //
+    // **Ordine P voce 05.** Prima stavano dentro il ramo del moto concesso,
+    // quindi con Riduci Movimento le quattro fasi del taglio non erano quattro
+    // stati in dissolvenza: erano zero, il gesto sparivo del tutto. Riduci
+    // Movimento toglie il moto, non il contenuto. Le due pose restano le stesse:
+    // cambia chi muove il tempo, che con Riduci Movimento avanza a scatti sui
+    // quattro centri di fase invece di scorrere.
+    //
+    // Il mazzo si compone DENTRO l'arco del ventaglio, non sotto: a +44 le
+    // carte raccolte uscivano dal ritaglio della fascia e il taglio si
+    // vedeva come un ventaglio vuoto. Visto sull'anteprima, non dedotto.
+    final mazzo = Offset(w / 2 - cardW / 2, StesaFan.arcoDi(0) - 8);
+    if (widget.taglio > 0 && widget.taglio < 1) {
+      final posa = TaglioPose.of(
+        sede: offset,
+        mazzo: mazzo,
+        index: indice,
+        count: widget.carte,
+        taglioA: widget.taglioIndice,
+        t: widget.taglio,
+        angoloSede: angolo,
+      );
+      offset = posa.offset;
+      angolo = posa.angolo;
+    }
+    if (widget.mescolamento > 0 && widget.mescolamento < 1) {
+      final posa = MischiaPose.of(
+        sede: offset,
+        mazzo: mazzo,
+        index: indice,
+        count: widget.carte,
+        t: widget.mescolamento,
+        angoloSede: angolo,
+      );
+      offset = posa.offset;
+      angolo = posa.angolo;
     }
 
     return Positioned(

@@ -45,9 +45,14 @@ class StesaTiming {
   /// Il battito del ventaglio a riposo.
   static const Duration respiro = Duration(milliseconds: 3400);
 
-  /// Il taglio: raccolta, divisione, ricomposizione e ristesa. Millequattro-
-  /// cento perche' quattro atti in settecento millisecondi erano un lampo.
-  static const Duration taglio = Duration(milliseconds: 1400);
+  /// Il taglio: raccolta, divisione, ricomposizione e ristesa.
+  ///
+  /// **NON E' UN NUMERO SCRITTO, E' LA SOMMA DELLE QUATTRO FASI.** Ordine P
+  /// voce 05: ogni momento del taglio ha una durata dichiarata in un punto
+  /// solo, e quel punto e' [TaglioFasi]. Prima qui c'era 1400 scritto a mano e
+  /// altrove tre frazioni scritte a mano, cioe' quattro numeri che dovevano
+  /// restare d'accordo fra loro senza che nessuno li tenesse insieme.
+  static Duration get taglio => TaglioFasi.totale;
 
   /// Il mescolamento: raccolta, mescola e ristesa.
   static const Duration mescolamento = Duration(milliseconds: 1600);
@@ -257,6 +262,111 @@ class MischiaPose {
   }
 }
 
+/// UNA FASE DEL TAGLIO: come si chiama, quanto dura, cosa racconta.
+///
+/// La terza colonna non e' un commento: e' cio' che la fase deve far capire a
+/// chi guarda. Una fase che non si sa raccontare non si sa nemmeno disegnare, ed
+/// e' il difetto della voce 05, dove il taglio si vedeva e non si capiva.
+class FaseDelTaglio {
+  const FaseDelTaglio({
+    required this.nome,
+    required this.durata,
+    required this.racconto,
+  });
+
+  final String nome;
+  final Duration durata;
+  final String racconto;
+}
+
+/// LE QUATTRO FASI DEL TAGLIO, IN UN PUNTO SOLO. Ordine P voce 05.
+///
+/// **Il difetto che questa classe chiude.** Il taglio raccontava quattro
+/// momenti ma i suoi tempi vivevano in quattro posti: il totale in
+/// `StesaTiming`, e tre frazioni scritte a mano dentro `TaglioPose`. Cambiare
+/// una fase voleva dire ricalcolare a mente le altre tre, quindi nessuno le
+/// cambiava, quindi il taglio restava illeggibile.
+///
+/// Adesso i numeri decisi sono quattro, uno per fase, e tutto il resto discende:
+/// il totale e' la somma, i confini sono le somme parziali diviso il totale.
+class TaglioFasi {
+  const TaglioFasi._();
+
+  /// Le quattro fasi, nell'ordine in cui vanno in onda.
+  ///
+  /// I quattro numeri vengono dai 1400 millisecondi gia' approvati il 3 agosto
+  /// 2026, distribuiti secondo cio' che ogni fase deve far leggere: la raccolta
+  /// e la ristesa sono i due gesti ampi e prendono di piu', la ricomposizione e'
+  /// il gesto piu' breve perche' e' un rientro e non un viaggio.
+  static const List<FaseDelTaglio> fasi = [
+    FaseDelTaglio(
+      nome: 'raccolta',
+      durata: Duration(milliseconds: 400),
+      racconto: 'le carte stese a ventaglio si ricompongono in un mazzo unico',
+    ),
+    FaseDelTaglio(
+      nome: 'divisione',
+      durata: Duration(milliseconds: 340),
+      racconto: 'il mazzo si divide in due metà che si separano',
+    ),
+    FaseDelTaglio(
+      nome: 'ricomposizione',
+      durata: Duration(milliseconds: 280),
+      racconto: 'le due metà tornano un mazzo solo, con quella di sotto sopra',
+    ),
+    FaseDelTaglio(
+      nome: 'ristesa',
+      durata: Duration(milliseconds: 380),
+      racconto: 'il mazzo si ristende a ventaglio',
+    ),
+  ];
+
+  /// Il totale, che non si scrive: si somma.
+  static Duration get totale => fasi.fold(
+      Duration.zero, (somma, fase) => somma + fase.durata);
+
+  /// LA SOGLIA OLTRE LA QUALE UN'ANIMAZIONE DIVENTA ATTESA.
+  ///
+  /// **Non e' un numero inventato per l'occasione**: e' il mescolamento, cioe'
+  /// il gesto piu' lungo che il fondatore ha guardato sul telefono e approvato.
+  /// Il taglio non puo' durare piu' del gesto piu' lungo gia' accettato, e se
+  /// domani il mescolamento si accorcia questa soglia scende con lui. Se il
+  /// totale la supera si accorciano le fasi, non se ne salta una.
+  static Duration get soglia => StesaTiming.mescolamento;
+
+  /// LA DISSOLVENZA FRA DUE STATI, quando il moto e' spento.
+  ///
+  /// Sta sotto la fase piu' breve, cosi' ogni fase resta visibile per un tratto
+  /// prima di lasciare il posto alla successiva. Non e' movimento: e' il modo in
+  /// cui due stati statici si succedono senza uno stacco secco.
+  static const Duration dissolvenzaFraStati = Duration(milliseconds: 120);
+
+  /// Il confine dopo la fase [indice], come frazione del totale da 0 a 1.
+  static double confineDopo(int indice) {
+    var speso = 0;
+    for (var i = 0; i <= indice && i < fasi.length; i++) {
+      speso += fasi[i].durata.inMilliseconds;
+    }
+    return speso / totale.inMilliseconds;
+  }
+
+  /// In quale fase, da 0 a 3, si trova il taglio al tempo [t].
+  static int faseAl(double t) {
+    for (var i = 0; i < fasi.length - 1; i++) {
+      if (t < confineDopo(i)) return i;
+    }
+    return fasi.length - 1;
+  }
+
+  /// Il centro della fase [indice], cioe' il punto in cui quella fase si vede
+  /// meglio. Lo usano l'anteprima e il ramo di Riduci Movimento, che mostra le
+  /// quattro fasi come quattro stati invece che come un moto continuo.
+  static double centroDi(int indice) {
+    final da = indice == 0 ? 0.0 : confineDopo(indice - 1);
+    return (da + confineDopo(indice)) / 2;
+  }
+}
+
 /// LA COREOGRAFIA VERA DEL TAGLIO, approvata il 3 agosto 2026.
 ///
 /// Quattro atti: il ventaglio si ricompone in mazzo, il mazzo si DIVIDE IN
@@ -265,9 +375,31 @@ class MischiaPose {
 class TaglioPose {
   const TaglioPose._();
 
-  static const double fineRaccolta = 0.28;
-  static const double fineDivisione = 0.52;
-  static const double fineRicomposizione = 0.72;
+  /// I confini dei quattro atti, letti dalle durate dichiarate in [TaglioFasi].
+  static double get fineRaccolta => TaglioFasi.confineDopo(0);
+  static double get fineDivisione => TaglioFasi.confineDopo(1);
+  static double get fineRicomposizione => TaglioFasi.confineDopo(2);
+
+  /// CHI STA SOPRA CHI, mentre le due meta' si ricompongono.
+  ///
+  /// **Ordine P voce 05, terzo momento: la meta' inferiore va SOPRA.** Il dato
+  /// lo faceva gia' (`StesaInCorso.taglia` porta il fondo in cima), ma a schermo
+  /// non si vedeva: le due meta' rientravano nell'ordine in cui erano state
+  /// disegnate, quindi il gesto si vedeva e non si capiva che avesse cambiato
+  /// qualcosa. Da qui in poi la meta' di sotto passa davanti, e resta davanti
+  /// per la ristesa.
+  ///
+  /// Fuori dal gesto nessuna meta' e' privilegiata: a riposo il ventaglio ha il
+  /// suo ordine naturale.
+  static double quotaDi({
+    required int index,
+    required int taglioA,
+    required double t,
+  }) {
+    if (t <= 0 || t >= 1) return 0;
+    if (t < fineDivisione) return 0;
+    return index < taglioA ? 1 : 0;
+  }
 
   static ({Offset offset, double angolo, double scala}) of({
     required Offset sede,
