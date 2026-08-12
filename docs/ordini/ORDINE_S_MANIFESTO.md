@@ -647,7 +647,45 @@ chiusa: committare non e' consegnare.
     prima. Il ponte si raggiunge, e lo dimostra la prova che lo porta in vista e lo
     tocca; **che l'anteprima non sappia arrivarci e' un limite del corredo**, non del
     codice, e resta scritto qui.
-- **S.14** L'accesso si apre davvero: Google su Android e su iPhone, Apple su iPhone — APERTA
+- **S.14** L'accesso si apre davvero: Google su Android e su iPhone, Apple su iPhone
+  — CHIUSA nel progetto, e la verifica a video e' di Mauro dopo due build nuove
+  - **CAUSA 1, ANDROID: NON RIAPERTA E NON RITOCCATA.** La ha chiusa Mauro, e il file
+    e' escluso dal repository. La prova RIFERISCE cio' che c'e' nell'albero di lavoro:
+    `google-services.json` contiene **due oauth_client di tipo 1**, con le impronte
+    `5e30c4da2dc6c4f2b0543c62185006cf59ec832d` (release) e
+    `6d6a584253758a90cbe02965de44f665fa0db7f7` (debug), che sono esattamente quelle
+    dichiarate nell'ordine. La prova cade solo se il file c'e' e NON ha nessun tipo 1,
+    cioe' se e' tornato indietro. **Serve una build Android nuova**, perche' il file
+    finisce dentro l'archivio e la 2177 porta ancora quello vecchio.
+  - **CAUSA 2, IPHONE E GOOGLE: aggiunto lo schema di ritorno.** `ios/Runner/Info.plist`
+    non aveva nessun `CFBundleURLTypes`: il giro di accesso apriva Safari e non
+    rientrava mai nell'app, cioe' la persona si autenticava e restava fuori. Adesso
+    dichiara `com.googleusercontent.apps.425821975933-vq6jtskejop8aibnlrqjs7v15ud66849`,
+    che e' il `REVERSED_CLIENT_ID` del `GoogleService-Info.plist`. **Dato portato da
+    fuori il repository**, letto sul disco: quel file e' escluso, e la prova lo legge
+    se c'e' e cade se i due valori divergono, perche' sono due porte sullo stesso dato.
+  - **CAUSA 3, IPHONE E APPLE: creato `ios/Runner/Runner.entitlements`** con
+    `com.apple.developer.applesignin` e il valore `Default`. Sul portale la capacita'
+    c'era gia' e non bastava: senza questo file non e' dichiarata DENTRO l'app.
+  - **AGGANCIATO A TUTTE E TRE LE CONFIGURAZIONI** del bersaglio Runner, non solo a
+    Release: una sola configurazione agganciata e' il modo in cui questa cosa funziona
+    in TestFlight e non in debug, o viceversa. I due file stanno NEL REPOSITORY, quindi
+    valgono sia da Xcode sia con la build in cloud.
+  - Misura: `test/l_accesso_si_apre_davvero_test.dart`, tre prove che **girano senza un
+    Mac** perche' sono prove sui file. La seconda conta le configurazioni del Runner
+    leggendo il progetto Xcode e pretende tanti agganci quante sono: non un numero
+    scritto a mano, che invecchierebbe al primo bersaglio nuovo.
+  - Rossi eseguiti: togliendo un aggancio (cade dicendo "agganciate a 2 configurazioni
+    su 3") e cambiando lo schema di ritorno (cade dicendo "lo schema di ritorno e il
+    REVERSED_CLIENT_ID divergono", coi due valori).
+  - **QUESTE PROVE NON DICONO CHE L'ACCESSO FUNZIONA SU UN TELEFONO.** Dicono che nel
+    progetto c'e' cio' senza cui non puo' funzionare. **La verifica a video la fa Mauro
+    dopo le due build nuove, una Android e una iOS**, e qui non si da' per riuscito cio'
+    che nessuno ha acceso.
+  - **COSA FUNZIONA GIA' ADESSO, e serve per i fondatori:** email e password, e
+    l'ingresso anonimo, su tutte e due le piattaforme.
+  - Facebook, Instagram e TikTok non entrano in questo ordine, per decisione di Mauro
+    del 12 agosto 2026.
 
 ## Sezione A. La convenzione trasversale del responso
 
@@ -803,6 +841,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 13
+VOCI_CHIUSE: 14
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

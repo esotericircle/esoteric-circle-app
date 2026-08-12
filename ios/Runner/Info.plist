@@ -76,6 +76,23 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<!-- LO SCHEMA DI RITORNO DELL'ACCESSO GOOGLE. Ordine S voce 14, causa 2.
+	     Senza CFBundleURLTypes il giro di accesso apre Safari e non rientra mai
+	     nell'app: la persona si autentica e resta fuori. Il valore e' il
+	     REVERSED_CLIENT_ID del GoogleService-Info.plist, che sta sul disco di
+	     Mauro ed e' escluso dal repository: una prova confronta i due e cade se
+	     divergono, perche' sono due porte sullo stesso dato. -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.425821975933-vq6jtskejop8aibnlrqjs7v15ud66849</string>
+			</array>
+		</dict>
+	</array>
 	<!-- NIENTE CRITTOGRAFIA PROPRIA, dichiarato una volta per tutte: l'app usa
 	     solo l'HTTPS di sistema, che e' esente. Senza questa chiave, App Store
 	     Connect fa la domanda sulla crittografia A OGNI caricamento su
