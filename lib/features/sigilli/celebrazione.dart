@@ -12,6 +12,8 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
+import '../../core/entitlement/registro_degli_eos.dart';
 import '../../services/app_services.dart';
 import 'card_del_traguardo.dart';
 import 'sentiero_screen.dart';
@@ -44,6 +46,11 @@ class Celebrazione {
   /// una rotta, e attenderla vuol dire fermare tutto finche' la persona non
   /// chiude la festa. E' cosi' che l'accredito del premio restava ostaggio
   /// della celebrazione, cioe' lo stesso difetto della voce 34 al contrario.
+  /// [allaChiusura] si chiama quando la festa LASCIA LO SCHERMO, ed e' il
+  /// momento in cui gli Eos volano nel borsellino, ordine S voce 07. Prima non
+  /// c'era nessun momento del genere: chi festeggia sapeva solo che la scena era
+  /// partita, e il volo lanciato subito avrebbe attraversato una celebrazione a
+  /// schermo pieno per arrivare a un borsellino che in quel momento e' coperto.
   static Future<bool> festeggia(
     BuildContext context, {
     required Traguardo traguardo,
@@ -51,6 +58,7 @@ class Celebrazione {
     required bool primoInAssoluto,
     String? serie,
     bool attendiLaFine = false,
+    VoidCallback? allaChiusura,
   }) async {
     if (traguardo.eGrande || primoInAssoluto) {
       final navigatore = Navigator.maybeOf(context);
@@ -60,6 +68,10 @@ class Celebrazione {
         sentiero: sentiero,
         serie: serie,
       ));
+      // IL GANCIO VA SULLA ROTTA, non sull'attesa di chi chiama: la forma grande
+      // resta aperta finche' la persona non la chiude, e chi ha chiamato non deve
+      // aspettarla.
+      if (allaChiusura != null) scena.whenComplete(allaChiusura);
       if (attendiLaFine) {
         await scena;
       } else {
@@ -68,7 +80,10 @@ class Celebrazione {
       return true;
     }
     return mostraLaSovrimpressione(context,
-        traguardo: traguardo, sentiero: sentiero, serie: serie);
+        traguardo: traguardo,
+        sentiero: sentiero,
+        serie: serie,
+        allaChiusura: allaChiusura);
   }
 }
 
@@ -387,6 +402,7 @@ bool mostraLaSovrimpressione(
   required Traguardo traguardo,
   required Sentiero sentiero,
   String? serie,
+  VoidCallback? allaChiusura,
 }) {
   final overlay = Overlay.maybeOf(context);
   if (overlay == null) return false;
@@ -403,6 +419,9 @@ bool mostraLaSovrimpressione(
         serie: serie,
         suFine: () {
           if (fascia.mounted) fascia.remove();
+          // LA FASCIA SE NE VA DA SE' dopo qualche secondo: quello e' il suo
+          // momento di chiusura, ed e' li' che gli Eos volano.
+          allaChiusura?.call();
         },
       ),
     ),
@@ -595,15 +614,67 @@ Future<void> mostraLaCardDelTraguardo(
 }
 
 /// CONDIVIDE UN TRAGUARDO e incassa il bonus graduato, che e' uno solo.
+///
+/// **QUI I TRE PULSANTI NON FACEVANO NIENTE, ordine S voce 08.** Questa funzione
+/// segnava il traguardo come condiviso e chiedeva il bonus al server, e nessun
+/// foglio di sistema si apriva: toccando "Condividi pubblicamente" non partiva
+/// niente verso nessuno, e il bonus era un premio per un gesto mai avvenuto. Un
+/// controllo o e' collegato a qualcosa o e' dichiarato inattivo, e non esiste la
+/// terza possibilita'.
+///
+/// **L'ORDINE ADESSO E': si condivide, e solo dopo si incassa.** Se la
+/// condivisione non parte non si segna niente e non si chiede niente: `false`
+/// dalla porta non e' solo un guasto, e' anche la persona che ha aperto il foglio
+/// di sistema e ha cambiato idea, e in quel caso il bonus non e' dovuto.
+///
+/// Passa dalla PORTA UNICA della condivisione, quella della voce P.28: non se ne
+/// scrive una quarta strada.
 Future<void> condividiIlTraguardo(
   BuildContext context, {
   required Traguardo traguardo,
   required ModoDellaCondivisione modo,
 }) async {
   final diario = context.read<DiarioDelCammino>();
-  final porta = context.read<AppServices>().porta;
+  final servizi = context.read<AppServices>();
+  final porta = servizi.porta;
   final borsa = context.read<QuestionAllowance>();
+  final registro = _registroDegliEos(context);
+
+  // 1. SI CONDIVIDE DAVVERO.
+  final andata = await PortaDellaCondivisione.testo(
+    TestoDellaCondivisione.perIlTraguardo(traguardo, modo),
+  );
+  if (!andata) return;
+
+  // 2. SI SEGNA, cosi' il bonus in sospeso non resta in sospeso per sempre.
   await diario.segnaCondiviso(traguardo.id);
+
+  // 3. SI INCASSA, e il saldo si applica col numero che il server ha appena
+  //    detto: chiederlo di nuovo con una seconda chiamata era il difetto della
+  //    voce S.04, e se quella non risponde il numero in barra resta vecchio.
   final saldo = await PremioDelTraguardo.bonus(porta, traguardo, modo);
-  if (saldo != null) await borsa.sincronizza();
+  if (saldo == null) {
+    servizi.guasti.registra(
+      operazione: 'bonus di condivisione ${modo.motivo} per ${traguardo.id}',
+      errore: 'il server non ha risposto: la condivisione e\' avvenuta e il '
+          'bonus si riprende alla prossima sincronia',
+    );
+    return;
+  }
+  final arrivati = saldo - borsa.saldoEos;
+  await registro?.segna(
+    quanti: arrivati,
+    perche: 'Hai condiviso ${traguardo.nome}',
+  );
+  await borsa.applicaSaldo(saldo);
+}
+
+/// Il registro dei movimenti, se l'albero lo porta: una card riaperta dal
+/// journal in una prova non deve cadere per un provider mancante.
+RegistroDegliEos? _registroDegliEos(BuildContext context) {
+  try {
+    return context.read<RegistroDegliEos>();
+  } catch (errore) {
+    return null;
+  }
 }

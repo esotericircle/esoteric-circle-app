@@ -286,9 +286,164 @@ chiusa: committare non e' consegnare.
     "Costellazione / del Viso", "Estrazione / Rune", "Animale Guida" e "Test
     Archetipo". Nomi interi, a capo fra le parole, nessuna sovrapposizione con
     l'icona degli Eos ne' col cuore.
-- **S.06** Il borsellino e' sempre visibile — APERTA
-- **S.07** Gli Eos volano dalla celebrazione al borsellino — APERTA
-- **S.08** I tre pulsanti della celebrazione grande non fanno niente — APERTA
+- **S.06** Il borsellino e' sempre visibile — CHIUSA
+  - Il difetto: il saldo esisteva in UNA schermata, il sentiero dei Sigilli, ed era
+    disegnato dentro di essa. Da ogni altra parte gli Eos non c'erano. Un numero che
+    appare e scompare non si impara, e chi non lo vede non sa nemmeno di averne.
+  - **UNA FORMA SOLA, UN POSTO SOLO**, in
+    `lib/design_system/components/borsellino.dart`: l'icona degli Eos, il numero, la
+    parola, in coda alle azioni della barra e prima del cuore. La riga disegnata a
+    mano nel sentiero e' stata TOLTA, non copiata: lasciarla sarebbe stato il secondo
+    borsellino, cioe' due numeri da tenere d'accordo per sempre.
+  - **LA BARRA DELLE ARTI LO MONTA DA SE'**, quindi le sei schermate che passano da
+    `BarraArte` lo hanno senza una riga in piu' e nella stessa posizione. Le altre
+    tredici hanno una AppBar propria e montano lo stesso widget. Nel Dominio di un
+    Maestro sta dentro lo Stack del titolo e non fra le azioni: li' il titolo occupa
+    tutta la barra per tenere il nome esattamente al centro, e un'azione vera glielo
+    avrebbe spostato.
+  - **DICIANNOVE CON, DIECI ESENTI, e ogni esenzione porta la sua ragione scritta.**
+    La chat di un Maestro tiene l'intestazione volutamente vuota, ed e' una scelta
+    gia' scritta nel suo sorgente; le superfici immersive non hanno barra; account,
+    impostazioni, dati di nascita, identita' e prezzario non sono la pratica, e nel
+    prezzario un saldo accanto ai piani confonderebbe l'offerta.
+  - **IL PORTAFOGLIO, e le tre cose sono tre perche' rispondono a tre domande
+    diverse.** Quanto ho e' il saldo. Quando ne avro' di piu' e' la ricarica. Da dove
+    vengono e' la fiducia. Si apre toccando il segno, ed e' un foglio inferiore in
+    tono, non una schermata nuova.
+  - **QUI SI DECIDE DI NON INVENTARE NIENTE.** Gli Eos non si ricaricano da soli:
+    cio' che torna ogni giorno sono i gesti del giorno, e il giorno lo dice il
+    server. Il bonus mensile la matrice lo promette con una parola e non con una
+    cifra (No, Medio, Alto, Massimo): il portafoglio dice che il piano ne porta, non
+    quanto, perche' una cifra inventata nel borsellino e' peggio di una cifra
+    assente. `PlanCatalog.eosOgniMese` legge quella riga come `haMemoria` legge la
+    sua, e non traduce il livello in un numero.
+  - **DA DOVE SONO ARRIVATI GLI ULTIMI EOS: serviva un registro, e non c'era.** Il
+    diario del cammino tiene i traguardi accesi in un INSIEME, che per costruzione
+    non ha ne' ordine ne' momento: "gli ultimi" non era una domanda a cui si potesse
+    rispondere. Adesso `RegistroDegliEos` segna il movimento nell'istante in cui
+    l'app lo compie, con la ragione in parole della persona ("Il primo passo", non
+    "traguardo id_3"), ne tiene otto e sopravvive alla chiusura dell'app.
+  - **IL REGISTRO RACCONTA, NON CONTA.** Sommare i movimenti darebbe un secondo saldo
+    accanto a quello del server, e al primo movimento perso i due discorderebbero:
+    la persona vedrebbe due numeri diversi nella stessa schermata. Una prova cade se
+    il registro comincia a sommare, e un'altra semina dieci Eos nel registro con
+    sette sul server e pretende che a schermo si legga sette.
+  - **UN DIFETTO TROVATO STRADA FACENDO, e non e' del borsellino.** Nella regia del
+    cammino, quando l'accredito non riceve risposta, c'era un `return` dentro il
+    ciclo dei traguardi maturati: un accredito muto si portava via anche gli altri,
+    nessuna festa e nessun Sigillo acceso, con un solo guasto scritto per tutti.
+    Adesso e' un `continue`, e il premio di quello si riprende alla prossima
+    sincronia.
+  - Misura: `test/il_borsellino_si_vede_sempre_test.dart`, sei prove. **ENUMERA**: ogni
+    schermata con una barra deve stare in UNA delle due liste, e una schermata nuova
+    cade col suo nome invece di passare in silenzio. Una prova monta il sentiero VERO,
+    tocca il segno e pretende le tre cose nel foglio. Rossi eseguiti: togliendo il
+    borsellino dal Rito dell'Alba (cade col nome del file) e togliendo il terzo blocco
+    del portafoglio (cade su "non dice da dove sono arrivati gli Eos").
+  - **IL FOGLIO PRENDE LA PALETTE DA CHI LO APRE**, e la prima stesura cadeva: un
+    foglio inferiore vive nell'Overlay del Navigator, cioe' SOPRA la rotta che lo ha
+    aperto, e il `MaestroScope` dell'arte sta dentro la rotta. E' la stessa scelta
+    del foglio delle funzioni.
+  - **IL SEGNO NON FA CADERE UNA SCHERMATA CHE NON HA LA BORSA.** Le prove montano
+    scene d'arte da sole: pretendere il provider avrebbe fatto cadere schermate
+    intere per un numero in un angolo, e infatti ha fatto cadere la prova
+    dell'archetipo. Che il segno ci sia dove deve non lo garantisce quel controllo,
+    lo garantisce l'enumerazione.
+  - Anteprima nuova, GUARDATA: `docs/preview/portafoglio-aperto.png`, saldo, ricarica
+    e tre movimenti con la loro ragione. **La prima cattura mostrava "0 Eos" accanto a
+    tre movimenti in entrata**, cioe' il difetto del borsellino a zero della voce
+    S.04: il saldo era seminato prima del `load()` del guscio, che legge il disco in
+    asincrono e lo sovrascriveva. Adesso si semina per ultimo.
+- **S.07** Gli Eos volano dalla celebrazione al borsellino — CHIUSA
+  - Le due cose sono due, e possono rompersi da sole: **il numero che sale contando
+    e' la notizia, il volo delle scintille e' il modo in cui si vede arrivare.** Con
+    Riduci Movimento si toglie la seconda e la prima resta, perche' cio' che si
+    toglie e' il moto e non la notizia.
+  - **IL VOLO PARTE QUANDO LA FESTA SE NE VA, e non quando il server risponde.** La
+    celebrazione grande copre la barra: lanciarlo all'accredito vorrebbe dire
+    attraversare una scena a schermo pieno per arrivare a un borsellino coperto, e
+    non lo vedrebbe nessuno. `Celebrazione.festeggia` ha percio' un gancio nuovo,
+    `allaChiusura`, che vale per entrambe le forme: la rotta grande quando viene
+    chiusa, la fascia quando se ne va da se'.
+  - **IL NUMERO SI SA DOPO, e per questo c'e' una scatola.** La festa parte prima
+    che il server risponda, e il gancio della chiusura scatta dopo: `_QuantiSonoArrivati`
+    porta il numero dall'uno all'altro senza far attendere la festa, che e' il
+    difetto della voce P.34 al contrario. Se la festa si chiude prima della risposta
+    resta a zero e non vola niente: giusto, non c'e' ancora nulla da far arrivare.
+  - **DOVE ARRIVANO NON SI INDOVINA.** Il segno del borsellino DICHIARA la propria
+    scatola in `DoveStaIlBorsellino`, e il volo la chiede: scrivere l'angolo in alto
+    a destra dentro il volo sarebbe stato tenere d'accordo per sempre due punti che
+    nessuno confronta. Senza borsellino a schermo il volo non parte affatto, che e'
+    meglio di un volo verso il nulla.
+  - **SEI SCINTILLE AL MASSIMO, non una per Eos**: un traguardo grande ne porta
+    trenta, e trenta scintille sono una nuvola. Partono a scaglioni e su archi
+    diversi, altrimenti sei punti sulla stessa retta sembrano uno.
+  - **IL CONTO NON PARTE ALL'APERTURA.** Il segno ricorda l'ultimo numero mostrato e
+    conta solo quando cambia: un saldo che conta da zero ogni volta che apri una
+    schermata racconterebbe un premio appena arrivato che non e' arrivato.
+    L'`ArrivoDegliEos` fa ricominciare il conto da prima del premio, perche' il
+    saldo era gia' cambiato dietro la festa.
+  - Misura: `test/gli_eos_volano_nel_borsellino_test.dart`, quattro prove.
+    **SI MISURA DOVE ARRIVANO**, non che il widget esista: si legge la posizione
+    della prima scintilla e si confronta con la scatola che il borsellino dichiara.
+    Una prova fa il giro intero con una porta finta che accredita, aspetta la festa,
+    e pretende che NIENTE voli finche' la festa e' a schermo e che il volo parta
+    appena se ne va.
+  - Rossi eseguiti: portando la durata del conto a zero (cade su "il numero e'
+    scattato subito a 40: e' cambiato senza che si veda cambiare") e spostando il
+    volo all'accredito invece che alla chiusura (cade su "gli Eos volano mentre la
+    festa copre ancora la barra").
+  - **DUE DIFETTI TROVATI DALLE PROVE, e sono di quelli che passano.** La partenza
+    veniva da `MediaQuery.sizeOf`, che in una prova con un MediaQuery proprio vale
+    zero: le scintille partivano dall'angolo in alto a sinistra, cinquecento punti
+    fuori posto, e adesso la partenza e' il centro della TELA su cui si vola. E il
+    primo Sigillo in assoluto si festeggia a schermo pieno e quella scena non se ne
+    va da se': aspetta un tocco, e la prova che aspettava dieci secondi accusava il
+    volo di un difetto che era una festa in attesa.
+  - Anteprima nuova, GUARDATA: `docs/preview/eos-in-volo.png`, colta a meta' corsa,
+    perche' e' l'unico fotogramma in cui il volo si vede: all'inizio le scintille
+    sono un punto al centro, alla fine sono spente sopra il numero.
+- **S.08** I tre pulsanti della celebrazione grande non fanno niente — CHIUSA
+  - Il difetto: `condividiIlTraguardo` segnava il traguardo come condiviso e chiedeva
+    il bonus al server, e **nessun foglio di sistema si apriva**. Toccando "Condividi
+    pubblicamente" non partiva niente verso nessuno: un controllo o e' collegato a
+    qualcosa o e' dichiarato inattivo, e non esiste la terza possibilita'. Peggio del
+    solito, perche' quei tre pulsanti sono l'unico posto da cui il bonus si incassa:
+    finche' non funzionavano il bonus graduato non esisteva per nessuno. E c'era un
+    danno in piu' che l'ordine non nomina: **il bonus veniva chiesto per un gesto mai
+    avvenuto**, cioe' Eos regalati.
+  - **L'ORDINE ADESSO E': si condivide, e solo dopo si incassa.** Se la condivisione
+    non parte non si segna niente e non si chiede niente. `false` dalla porta non e'
+    solo un guasto: e' anche la persona che ha aperto il foglio di sistema e ha
+    cambiato idea, e in quel caso il bonus non e' dovuto.
+  - Passa dalla PORTA UNICA della condivisione, quella della voce P.28. Non se ne e'
+    scritta una quarta strada.
+  - **TRE TESTI, perche' i tre gesti sono tre**, in `TestoDellaCondivisione`: l'invito
+    parla a chi non e' ancora nel Cerchio e porta il link, perche' senza link non c'e'
+    nessun download da attribuire; il pubblico si legge davanti a estranei e non da'
+    del tu a nessuno; il privato e' un messaggio a una persona sola. Il link e' quello
+    di `Brand.url`, che e' l'unico posto in cui il dominio vive.
+  - Il saldo si applica col numero che il server ha appena detto, e il movimento
+    finisce nel registro come "Hai condiviso ...": prima si chiamava `sincronizza`,
+    una seconda chiamata che se non risponde lascia il numero vecchio in barra, ed e'
+    il difetto della voce S.04.
+  - Misura: `test/i_tre_pulsanti_condividono_davvero_test.dart`, quattro prove.
+    **Si sostituisce la piattaforma di `share_plus` con una che REGISTRA**: e' l'unico
+    punto oltre il quale il gesto lascia l'app, quindi la prova legge il testo esatto
+    che sarebbe partito. Una prova che cercasse la porta nel sorgente passerebbe anche
+    con un pulsante scollegato. La quarta prova misura il contrario: se la
+    condivisione non parte, il bonus non si chiede.
+  - Rosso eseguito scollegando UNO dei tre, il pubblico: cade su "toccando «Condividi
+    pubblicamente» non e' partito niente".
+  - **UN INGANNO DELLA LIBRERIA, e va scritto.** `SharePlus.instance` e' un
+    `static final` che cattura la piattaforma al PRIMO accesso: sostituirla a ogni
+    prova non ha effetto, e le chiamate continuano ad arrivare al finto della prova
+    precedente. Si vedeva bene: la prima delle tre prove passava, le altre due
+    trovavano il registro vuoto. Un finto solo per tutto il file, e si azzera.
+  - **RESTA UNA COSA DA DECIDERE A MAURO, e non e' codice:** il link dell'invito e'
+    `https://esotericircle.app`, il dominio del brand. Se l'invito deve portare a uno
+    store o a un link dinamico che attribuisce il download, quel valore e' di Mauro e
+    vive in un punto solo, `Brand.url`.
 - **S.09** Le celebrazioni si sovrappongono, e il fondo non si oscura — APERTA
 - **S.10** Il vuoto sotto i tre Maestri in home — APERTA
 - **S.11** Il Rito del Tramonto: i testi soffocano la runa — APERTA
@@ -450,6 +605,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 5
+VOCI_CHIUSE: 8
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

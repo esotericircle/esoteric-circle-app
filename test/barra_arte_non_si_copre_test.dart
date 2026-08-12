@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/arts/arti_preferite.dart';
+import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:provider/provider.dart';
 import 'package:esoteric_circle/features/maestri/rotta_arte.dart';
 import 'package:flutter/material.dart';
@@ -41,18 +42,45 @@ void main() {
     return trovate;
   }
 
-  test('Le schermate d\'arte con azioni passano tutte dalla barra unica', () {
+  test('Le azioni di un\'arte non finiscono nell\'angolo del cuore', () {
+    // **LA GRANDEZZA MISURATA E' CAMBIATA CON L'ORDINE S VOCE 06, e sta scritto
+    // qui.** Prima si chiedeva `BarraArte`, che era l'unico modo esistente di
+    // avere le azioni in fila col cuore. Poi il borsellino e' arrivato in tutte
+    // le schermate della pratica, e cinque di quelle hanno una AppBar propria
+    // per ragioni loro (il fondo trasparente dell'Oroscopo, il titolo che occupa
+    // tutta la barra nel Dominio): dando loro delle azioni si e' ripresentato lo
+    // stesso difetto, e nell'anteprima della meditazione il cuore dorato passava
+    // SOPRA "0 Eos".
+    //
+    // La regola vera non e' "usa BarraArte": e' **l'angolo destro lo dichiara un
+    // punto solo, e quel punto si prende in carico il cuore**. I modi ammessi
+    // sono percio' due, e sono lo stesso: `BarraArte`, che monta l'angolo, o
+    // `AngoloDellaBarra` dentro le azioni di una AppBar propria. Chi non fa
+    // nessuna delle due cose torna a mettere due elementi nello stesso posto.
     final fuori = <String>[];
     for (final p in schermateConBarraEAzioni()) {
       final testo = File(p).readAsStringSync();
-      // Una AppBar montata a mano e' il modo in cui il difetto e' nato: le
-      // azioni le dichiara qualcuno che non sa cosa ci sia gia' in quell'angolo.
-      if (testo.contains('appBar: AppBar(')) fuori.add(p);
+      if (!testo.contains('appBar: AppBar(')) continue;
+      if (testo.contains('AngoloDellaBarra')) continue;
+      fuori.add(p);
     }
     expect(fuori, isEmpty,
-        reason: 'queste schermate d\'arte montano una barra tutta loro invece '
-            'di passare da BarraArte: le azioni finiscono nello stesso angolo '
-            'del cuore dei preferiti e si coprono a vicenda. $fuori');
+        reason: 'queste schermate d\'arte dichiarano azioni in una barra tutta '
+            'loro senza passare dall\'angolo comune: finiscono nello stesso '
+            'posto del cuore dei preferiti e si coprono a vicenda. $fuori');
+  });
+
+  testWidgets('L\'angolo comune toglie di mezzo il cuore sovrapposto',
+      (tester) async {
+    // **La prova che la seconda strada e' davvero equivalente.** Se l'angolo non
+    // reclamasse il cuore, chi ha una AppBar propria si troverebbe il cuore
+    // sovrapposto E quello in barra: due cuori, e il primo sopra il borsellino.
+    await tester.pumpWidget(_arteConAppBarPropria());
+    await tester.pump();
+    await tester.pump();
+    expect(find.byKey(const Key('cuore_prova')), findsOneWidget,
+        reason: 'il cuore compare piu\' di una volta: l\'angolo comune non ha '
+            'reclamato quello sovrapposto, e quello copre il borsellino');
   });
 
   testWidgets('Il cuore e il tasto informazioni non si sovrappongono',
@@ -107,5 +135,26 @@ Widget _arteDiProva() => ChangeNotifierProvider(
           body: const SizedBox.expand(),
         ),
       ),
+      ),
+    );
+
+/// Un'arte finta con una AppBar PROPRIA e l'angolo comune fra le azioni.
+Widget _arteConAppBarPropria() => MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ArtiPreferiteController()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+      ],
+      child: MaterialApp(
+        home: SogliaArte(
+          id: 'prova',
+          maestro: Maestro.aura,
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text('Arte con barra propria'),
+              actions: const [AngoloDellaBarra()],
+            ),
+            body: const SizedBox.expand(),
+          ),
+        ),
       ),
     );

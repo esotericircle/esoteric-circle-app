@@ -29,6 +29,9 @@ import '../../core/maestro/maestro.dart';
 import '../../core/astro/birth_place.dart' as astro;
 import '../../core/astro/sky.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
+import '../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../design_system/components/borsellino.dart';
+import '../maestri/rotta_arte.dart';
 
 /// QUANDO: l'avverbio di tempo della schermata del cielo, in un punto solo.
 ///
@@ -984,12 +987,19 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                 onPressed: () => Navigator.of(context).maybePop(),
               )
             : null,
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(SkyPostcard.titleFor(birth: widget.birth),
-              style: TypographyTokens.display(size: 20)),
-        ),
+        // **NIENTE FittedBox, ordine S voce 05.** Rimpiccioliva il titolo
+        // senza fondo per tenerlo su una riga, quindi poteva scendere sotto il
+        // pavimento tipografico dell'app, e non andava a capo mai. La regola e'
+        // un'altra: a capo FRA le parole, e la misura scende solo quanto serve,
+        // entro un minimo dichiarato.
+        title: TitoloCheNonSiRompe(
+            testo: SkyPostcard.titleFor(birth: widget.birth),
+            stile: TypographyTokens.display(size: 20)),
         actions: [
+        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+        // ogni schermata della pratica. Un saldo che appare e scompare non
+        // si impara.
+          const AngoloDellaBarra(),
           IconButton(
             key: const Key('sky_fonti_apri'),
             tooltip: 'Fonti e metodo',

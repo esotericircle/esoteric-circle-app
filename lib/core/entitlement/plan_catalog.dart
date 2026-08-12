@@ -251,6 +251,21 @@ class PlanCatalog {
     return riga.first.values[ordine.indexOf(tier)].toLowerCase() != 'base';
   }
 
+  /// SE QUEL PIANO PORTA EOS OGNI MESE, e con quale parola lo promette.
+  ///
+  /// Nullo per chi non ne ha nessuno. **La matrice promette un livello e non un
+  /// numero** (No, Medio, Alto, Massimo), e questa funzione restituisce quella
+  /// parola senza tradurla in una cifra: il portafoglio dice alla persona che
+  /// il piano porta un bonus, non quanto, perche' un numero inventato nel
+  /// borsellino e' peggio di un numero assente.
+  static String? eosOgniMese(Tier tier) {
+    final riga = matrix.where((r) => r.label == 'Eos bonus mensili');
+    if (riga.isEmpty) return null;
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    final valore = riga.first.values[ordine.indexOf(tier)];
+    return valore.toLowerCase() == 'no' ? null : valore;
+  }
+
   /// Cosa promettere a chi sale a quel piano, riguardo alle domande.
   ///
   /// Il testo diceva "senza limiti" per QUALUNQUE piano di destinazione,

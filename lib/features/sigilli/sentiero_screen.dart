@@ -171,7 +171,6 @@ class _SentieroScreenState extends State<SentieroScreen> {
   Widget build(BuildContext context) {
     final palette = context.palette;
     final diario = context.watch<DiarioDelCammino>();
-    final borsa = context.watch<QuestionAllowance>();
     final piano = context.watch<EntitlementService>().tier;
     // I traguardi si mostrano dal 50 al 1: l'apertura viene dall'alto.
     final mini = Sentieri.miniDi(widget.sentiero).reversed.toList();
@@ -202,35 +201,12 @@ class _SentieroScreenState extends State<SentieroScreen> {
             stile: TypographyTokens.titoloScheda()
                 .copyWith(color: palette.goldSoft),
           ),
-          azioni: [
-            // IL SALDO EOS, che legge dal server e non finge: finche' le
-            // funzioni non sono distribuite mostra l'ultimo saldo noto.
-            // **IL SALDO SI STRINGE PERCHE' IL TITOLO NON SI TRONCHI.** Con la
-            // parola Eos accanto al numero la riga e' cresciuta, e nell'anteprima
-            // il titolo e' tornato a leggersi "Costellazio ne persona...", che e'
-            // esattamente il difetto che l'ordine P aveva chiuso. Lo spazio a
-            // destra scende da `md` a `xs` e lo stacco fra icona e numero da
-            // quattro a tre: sono i punti che servivano al titolo, e il saldo non
-            // perde niente perche' era il suo margine, non il suo contenuto.
-            Padding(
-              padding: const EdgeInsets.only(right: SpacingTokens.xs),
-              child: Row(
-                key: const Key('saldo_eos'),
-                children: [
-                  // L'ICONA NOSTRA E LA PAROLA. Ordine S voce 05: qui c'era
-                  // `Icons.auto_awesome`, la scintilla di serie, e un numero
-                  // nudo: nessuno capiva che fossero Eos, e chi ci provava
-                  // leggeva "stelle".
-                  IconaDegliEos(misura: 15, colore: palette.goldSoft),
-                  const SizedBox(width: 3),
-                  Text('${borsa.saldoEos} Eos',
-                      key: const Key('saldo_eos_numero'),
-                      style: TypographyTokens.etichetta()
-                          .copyWith(color: palette.goldSoft)),
-                ],
-              ),
-            ),
-          ],
+          // **IL SALDO NON STA PIU' QUI, ordine S voce 06.** Era disegnato
+          // dentro questa schermata, e per questo esisteva soltanto in questa
+          // schermata: adesso e' `SegnoDelBorsellino` e lo monta la barra, in
+          // ogni arte e sempre nello stesso angolo. Lasciarne una copia qui
+          // sarebbe il secondo borsellino, cioe' due numeri da tenere
+          // d'accordo per sempre.
         ),
         // TUTTO DENTRO UN SOLO SCORRIMENTO: il disegno in alto e' la prima
         // cosa che si vede, l'elenco arriva scorrendo. Le cinquanta righe si

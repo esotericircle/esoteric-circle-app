@@ -32,6 +32,7 @@ import 'oroscopo_colors.dart';
 import 'oroscopo_share_card.dart';
 import 'tradition_glyph.dart';
 import '../maestri/rotta_arte.dart';
+import '../../design_system/components/borsellino.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -246,6 +247,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
+        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in ogni
+        // schermata della pratica. Un saldo che appare e scompare non si impara.
+        actions: const [AngoloDellaBarra()],
       ),
       body: CosmosBackground(
         seed: 5,

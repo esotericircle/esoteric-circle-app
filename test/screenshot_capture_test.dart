@@ -121,6 +121,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
+import 'package:esoteric_circle/core/entitlement/registro_degli_eos.dart';
+import 'package:esoteric_circle/design_system/components/volo_degli_eos.dart';
 import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:esoteric_circle/core/arts/arti_preferite.dart';
 import 'package:esoteric_circle/features/santuario/widgets/tue_arti_view.dart';
@@ -2333,6 +2335,22 @@ void main() {
   // direzione sta crescendo, COMPLETA si deve riconoscere una figura e non una
   // nuvola di punti. Se a zero si vede gia' tutto, o se a meta' non si capisce
   // dove va, il disegno non e' finito.
+  // **I NOVE NOMI PER INTERO, e non e' una ripetizione oziosa.** Il corredo
+  // riconosce un'anteprima cercando il suo nome NELLA SORGENTE di questo file:
+  // un nome composto a runtime non si trova, e le nove immagini risultavano
+  // "orfane", cioe' prodotte da nessuno. Scritti qui, e confrontati sotto con
+  // quello che la cattura usa davvero, i due non possono divergere.
+  const nomiDeiSentieri = <String>[
+    'sentiero-albero-zero.png',
+    'sentiero-albero-meta.png',
+    'sentiero-albero-completo.png',
+    'sentiero-costellazione-zero.png',
+    'sentiero-costellazione-meta.png',
+    'sentiero-costellazione-completo.png',
+    'sentiero-loto-zero.png',
+    'sentiero-loto-meta.png',
+    'sentiero-loto-completo.png',
+  ];
   for (final sentiero in Sentiero.values) {
     for (final stato in const [
       ('zero', 0, 0),
@@ -2371,11 +2389,77 @@ void main() {
       expect(scorrimento.pixels, 0.0,
           reason: 'la schermata si e\' mossa da se\': l\'anteprima mostrerebbe '
               'l\'elenco invece del disegno');
-      await capture(
-            tester, rootKey, 'sentiero-${sentiero.name}-${stato.$1}.png');
+      final nome = 'sentiero-${sentiero.name}-${stato.$1}.png';
+      expect(nomiDeiSentieri, contains(nome),
+          reason: 'questa cattura scrive un nome che non e\' fra i nove '
+              'dichiarati: il corredo non lo trovera\' e l\'anteprima '
+              'risultera\' orfana');
+      await capture(tester, rootKey, nome);
       });
     }
   }
+
+  // --- IL PORTAFOGLIO APERTO. Ordine S voce 06 ---
+  //
+  // **Le tre cose in una schermata sola**: il saldo, quando tornano i gesti del
+  // giorno, e da dove sono arrivati gli ultimi Eos. Il saldo e i movimenti si
+  // seminano qui perche' un portafoglio vuoto mostrerebbe soltanto la riga
+  // dell'attesa, e la voce chiede di guardare cio' che vede chi ha camminato.
+  testWidgets('Cattura il portafoglio aperto', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final ctx = tester.element(find.byType(MaterialApp));
+    await tester.runAsync(() async {
+      final registro = ctx.read<RegistroDegliEos>();
+      await registro.segna(quanti: 10, perche: 'Il primo passo');
+      await registro.segna(quanti: 5, perche: 'Tre giorni di seguito all\'alba');
+      await registro.segna(quanti: 30, perche: 'La Costellazione a metà');
+    });
+    await step(tester);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SentieroScreen.route(Sentiero.costellazione)));
+    await step(tester);
+    await step(tester);
+    // **IL SALDO SI SEMINA PER ULTIMO, e la prima stesura sbagliava qui.** Il
+    // guscio dell'app crea il contatore con `..load()`, che legge il disco in
+    // asincrono: seminato prima, il saldo veniva sovrascritto da quella lettura
+    // e l'anteprima mostrava "0 Eos" accanto a tre movimenti in entrata, cioe'
+    // esattamente il difetto del borsellino a zero della voce S.04.
+    await tester.runAsync(() => ctx.read<QuestionAllowance>().applicaSaldo(45));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('borsellino')));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 60));
+    }
+    await capture(tester, rootKey, 'portafoglio-aperto.png');
+  });
+
+  // --- GLI EOS IN VOLO VERSO IL BORSELLINO. Ordine S voce 07 ---
+  //
+  // **Si cattura a meta' corsa**, perche' e' l'unico fotogramma in cui il volo si
+  // vede: all'inizio le scintille sono un punto al centro, alla fine sono
+  // spente sopra il numero. A meta' si legge la direzione, che e' cio' che la
+  // voce chiede di far capire.
+  testWidgets('Cattura gli Eos in volo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final ctx = tester.element(find.byType(MaterialApp));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SentieroScreen.route(Sentiero.costellazione)));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() => ctx.read<QuestionAllowance>().applicaSaldo(45));
+    await step(tester);
+    final dentro = tester.element(find.byKey(const Key('borsellino')));
+    VoloDegliEos.lancia(dentro, quanti: 30);
+    await tester.pump();
+    await tester.pump(VoloDegliEos.durata * 0.45);
+    await capture(tester, rootKey, 'eos-in-volo.png');
+  });
 
   // --- La card condivisibile dell'Oroscopo, CON LA RIGA DEL CIELO ---
   //

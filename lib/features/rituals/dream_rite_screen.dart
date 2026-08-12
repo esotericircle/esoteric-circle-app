@@ -31,6 +31,9 @@ import '../../services/breath_detector.dart';
 import '../maestri/aura/meditation/meditation_audio.dart';
 import '../tarot/stesa_senses.dart' show TiltListener;
 import 'dream_rite_card.dart';
+import '../../../design_system/components/borsellino.dart';
+import '../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../maestri/rotta_arte.dart';
 
 /// Rito del Sogno, ex Rito della Buonanotte: a rotazione fra i tre Maestri di
 /// giorno in giorno, come il Rito dell'Alba.
@@ -273,9 +276,18 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('Rito del Sogno',
-            style: TypographyTokens.display(size: 20)),
+        // **IL TITOLO NON SI ROMPE**, ordine S voce 05: a capo fra le parole,
+        // la misura scende solo quanto serve, e non si tronca mai. Col
+        // borsellino nella riga delle azioni lo spazio del titolo si e'
+        // ristretto, e un `Text` nudo qui torna a mettere i puntini.
+        title: TitoloCheNonSiRompe(
+            testo: 'Rito del Sogno',
+            stile: TypographyTokens.display(size: 20)),
         actions: [
+        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+        // ogni schermata della pratica. Un saldo che appare e scompare non
+        // si impara.
+          const AngoloDellaBarra(),
           IconButton(
             key: const Key('dream_sources'),
             icon: const Icon(Icons.info_outline_rounded),

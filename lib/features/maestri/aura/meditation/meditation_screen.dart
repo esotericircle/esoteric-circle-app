@@ -10,6 +10,8 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 import 'meditation_audio.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../rotta_arte.dart';
+import '../../../../../design_system/components/borsellino.dart';
+import '../../../../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// Meditazione di Aura con suono e cimatica.
 ///
@@ -112,8 +114,17 @@ class _MeditationScreenState extends State<MeditationScreen>
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title:
-            Text('Meditazione', style: TypographyTokens.display(size: 20)),
+        // **IL TITOLO NON SI ROMPE**, ordine S voce 05: a capo fra le
+        // parole, la misura scende solo quanto serve, e non si tronca mai.
+        // Col borsellino nella riga delle azioni lo spazio del titolo si e'
+        // ristretto, e un `Text` nudo qui torna a mettere i puntini.
+        title: TitoloCheNonSiRompe(
+            testo: 'Meditazione',
+            stile: TypographyTokens.display(size: 20)),
+        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+        // ogni schermata della pratica. Un saldo che appare e scompare non
+        // si impara.
+        actions: const [AngoloDellaBarra()],
       ),
       body: SafeArea(
         top: false,

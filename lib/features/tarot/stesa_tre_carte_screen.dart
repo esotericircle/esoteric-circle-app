@@ -28,6 +28,8 @@ import 'medora_stage.dart';
 import 'tarot_card_art.dart';
 import 'tarot_selectors.dart';
 import '../maestri/rotta_arte.dart';
+import '../../../design_system/components/borsellino.dart';
+import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
 const double kTarotAspect = 2 / 3;
@@ -600,9 +602,18 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // Il titolo legge il nome della stesa attiva: e' un dato della sua
         // definizione, non una stringa scritta qui. Quando arriveranno le
         // stese da sette e dieci carte il titolo cambiera' da solo.
-        title: Text(_setup.tipo.nome,
-            key: const Key('stesa_titolo'),
-            style: TypographyTokens.titoloSezione()),
+        // **IL TITOLO NON SI ROMPE**, ordine S voce 05: a capo fra le
+        // parole, la misura scende solo quanto serve, e non si tronca mai.
+        // Col borsellino nella riga delle azioni lo spazio del titolo si e'
+        // ristretto, e un `Text` nudo qui torna a mettere i puntini.
+        title: TitoloCheNonSiRompe(
+            chiaveDelTesto: const Key('stesa_titolo'),
+            testo: _setup.tipo.nome,
+            stile: TypographyTokens.titoloSezione()),
+        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+        // ogni schermata della pratica. Un saldo che appare e scompare non
+        // si impara.
+        actions: const [AngoloDellaBarra()],
       ),
       body: CosmosBackground(
         seed: 19,

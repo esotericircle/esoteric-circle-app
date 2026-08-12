@@ -36,6 +36,7 @@ class TitoloCheNonSiRompe extends StatelessWidget {
     required this.testo,
     required this.stile,
     this.righe = 2,
+    this.chiaveDelTesto,
   });
 
   final String testo;
@@ -45,6 +46,14 @@ class TitoloCheNonSiRompe extends StatelessWidget {
 
   /// Quante righe il titolo puo' occupare.
   final int righe;
+
+  /// LA CHIAVE DEL TESTO, e non del componente.
+  ///
+  /// Alcune prove cercano il titolo di una barra per chiave e ne leggono il
+  /// `Text`: dando quella chiave al componente troverebbero questo widget e non
+  /// il testo, quindi il titolo si porta dietro la sua chiave e la mette dove
+  /// stava prima, sul `Text`.
+  final Key? chiaveDelTesto;
 
   /// IL MINIMO DEL TITOLO DI UNA BARRA.
   ///
@@ -111,6 +120,7 @@ class TitoloCheNonSiRompe extends StatelessWidget {
       );
       return Text(
         testo,
+        key: chiaveDelTesto,
         maxLines: righe,
         // **SOFTWRAP DICHIARATO, e questo era il difetto vero.** L'AppBar avvolge
         // il titolo in un `DefaultTextStyle` con `softWrap: false`: un `Text` che

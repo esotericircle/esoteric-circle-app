@@ -73,7 +73,15 @@ void main() {
     // il titolo: se la costante ci fosse ma nessuno la leggesse, il nome a
     // video potrebbe essere un altro senza che nulla lo dica.
     final sorgente = File(laPorta).readAsStringSync();
-    expect(sorgente.contains('Text(titoloDelConsiglio'), isTrue,
+    // **LA GRANDEZZA MISURATA E' CAMBIATA CON L'ORDINE S VOCE 05.** Qui si
+    // cercava `Text(titoloDelConsiglio`, cioe' il nome del WIDGET oltre al dato:
+    // il titolo della barra e' passato a `TitoloCheNonSiRompe`, che va a capo fra
+    // le parole invece di troncare, e la prova cadeva pur essendo il nome ancora
+    // letto dalla costante. Cio' che va sorvegliato e' che il titolo NASCA DALLA
+    // COSTANTE, non quale widget lo dipinge.
+    final loLegge = sorgente.contains('testo: titoloDelConsiglio') ||
+        sorgente.contains('Text(titoloDelConsiglio');
+    expect(loLegge, isTrue,
         reason: 'La schermata del confronto non dipinge piu\' il titolo '
             'leggendolo da `titoloDelConsiglio`.');
   });

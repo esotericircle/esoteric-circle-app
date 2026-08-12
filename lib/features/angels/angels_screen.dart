@@ -15,6 +15,9 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../core/maestro/maestro.dart';
+import '../../../../design_system/components/borsellino.dart';
+import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../maestri/rotta_arte.dart';
 
 /// I tre Angeli della persona, di dominio Medora.
 ///
@@ -143,9 +146,18 @@ class _AngelsScreenState extends State<AngelsScreen>
           tooltip: 'Indietro',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text('I tuoi tre Angeli',
-            style: TypographyTokens.titoloSezione()),
+        // **IL TITOLO NON SI ROMPE**, ordine S voce 05: a capo fra le
+        // parole, la misura scende solo quanto serve, e non si tronca mai.
+        // Col borsellino nella riga delle azioni lo spazio del titolo si e'
+        // ristretto, e un `Text` nudo qui torna a mettere i puntini.
+        title: TitoloCheNonSiRompe(
+            testo: 'I tuoi tre Angeli',
+            stile: TypographyTokens.titoloSezione()),
         actions: [
+        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+        // ogni schermata della pratica. Un saldo che appare e scompare non
+        // si impara.
+          const AngoloDellaBarra(),
           IconButton(
             key: const Key('angeli_fonti_metodo'),
             icon: const Icon(Icons.help_outline_rounded),

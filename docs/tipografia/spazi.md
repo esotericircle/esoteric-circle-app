@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 138 -->
+<!-- VUOTI_CENSITI: 137 -->
 <!-- FILE_CON_VUOTI: 54 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **138** |
+| Vuoti verticali dichiarati | **137** |
 | File che ne contengono | **54** |
 | Oltre la soglia di 48 punti | **2** |
 
@@ -22,11 +22,11 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 65 |
+| 2 | 67 |
 | 3 | 8 |
-| 4 | 27 |
+| 4 | 25 |
 | 5 | 1 |
-| 6 | 15 |
+| 6 | 14 |
 | 7 | 2 |
 | 8 | 7 |
 | 9 | 2 |
@@ -42,14 +42,13 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 ## I vuoti oltre la soglia
 
 - `lib/features/synastry/sinastria_share_card.dart:94` padding 60 punti
-- `lib/features/synastry/sinastria_vip_screen.dart:230` padding 90 punti
+- `lib/features/synastry/sinastria_vip_screen.dart:238` padding 90 punti
 
 ## I vuoti, file per file
 
 | File | Vuoti | Oltre soglia |
 | --- | ---: | ---: |
 | `lib/features/passport/cosmic_passport_screen.dart` | 7 | 0 |
-| `lib/features/tarot/stesa_tre_carte_screen.dart` | 7 | 0 |
 | `lib/features/santuario/daily_strip.dart` | 6 | 0 |
 | `lib/features/santuario/santuario_screen.dart` | 6 | 0 |
 | `lib/features/synastry/sinastria_share_card.dart` | 6 | 1 |
@@ -60,6 +59,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/maestro_screen.dart` | 4 | 0 |
 | `lib/features/pricing/pricing_screen.dart` | 4 | 0 |
 | `lib/features/settings/settings_screen.dart` | 4 | 0 |
+| `lib/features/tarot/stesa_tre_carte_screen.dart` | 4 | 0 |
 | `lib/features/tarot/tarot_selectors.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_share_card.dart` | 3 | 0 |
 | `lib/features/identity/circle_seal_screen.dart` | 3 | 0 |
@@ -68,6 +68,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/caligo/rune/rune_share_card.dart` | 3 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 3 | 0 |
 | `lib/features/shell/santuario_bottom_bar.dart` | 3 | 0 |
+| `lib/features/sigilli/sentiero_screen.dart` | 3 | 0 |
 | `lib/features/tarot/stesa_share_card.dart` | 3 | 0 |
 | `lib/features/account/account_screen.dart` | 2 | 0 |
 | `lib/features/angels/angels_screen.dart` | 2 | 0 |
@@ -99,6 +100,5 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/onboarding/riquadro_della_scelta.dart` | 1 | 0 |
 | `lib/features/rituals/dream_rite_card.dart` | 1 | 0 |
 | `lib/features/sigilli/celebrazione.dart` | 1 | 0 |
-| `lib/features/sigilli/sentiero_screen.dart` | 1 | 0 |
 | `lib/features/synastry/sinastria_gallery_screen.dart` | 1 | 0 |
 | `lib/features/tarot/stesa_fan.dart` | 1 | 0 |

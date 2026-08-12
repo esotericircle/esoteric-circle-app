@@ -15,6 +15,8 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../services/app_services.dart';
 import '../../chat/maestro_chat_screen.dart';
 import '../../rotta_arte.dart';
+import '../../../../../design_system/components/borsellino.dart';
+import '../../../../../design_system/components/titolo_che_non_si_rompe.dart';
 
 /// Il Sigillo dell'Intenzione, terza arte distintiva di Caligo.
 ///
@@ -131,9 +133,18 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(color: palette.goldSoft),
-        title: Text('Il Sigillo dell\'Intenzione',
-            style: TypographyTokens.display(size: 20)
+        // **IL TITOLO NON SI ROMPE**, ordine S voce 05: a capo fra le
+        // parole, la misura scende solo quanto serve, e non si tronca mai.
+        // Col borsellino nella riga delle azioni lo spazio del titolo si e'
+        // ristretto, e un `Text` nudo qui torna a mettere i puntini.
+        title: TitoloCheNonSiRompe(
+            testo: 'Il Sigillo dell\'Intenzione',
+            stile: TypographyTokens.display(size: 20)
                 .copyWith(color: palette.goldSoft)),
+        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+        // ogni schermata della pratica. Un saldo che appare e scompare non
+        // si impara.
+        actions: const [AngoloDellaBarra()],
       ),
       extendBodyBehindAppBar: true,
       body: CosmosBackground(

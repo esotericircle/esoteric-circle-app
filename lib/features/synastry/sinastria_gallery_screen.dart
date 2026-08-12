@@ -14,6 +14,8 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'sinastria_vip_screen.dart';
 import '../maestri/rotta_arte.dart';
+import '../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../design_system/components/borsellino.dart';
 
 /// La galleria di apertura della Sinastria VIP: si sceglie il VIP, poi si vede
 /// il responso. E' l'apertura vera dell'arte.
@@ -118,11 +120,18 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
         scrolledUnderElevation: 0,
         centerTitle: true,
         iconTheme: IconThemeData(color: palette.goldSoft),
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text('Scegli il tuo VIP',
-              maxLines: 1, style: TypographyTokens.display(size: 19)),
-        ),
+        // **NIENTE FittedBox, ordine S voce 05.** Rimpiccioliva il titolo
+        // senza fondo per tenerlo su una riga, quindi poteva scendere sotto il
+        // pavimento tipografico dell'app, e non andava a capo mai. La regola e'
+        // un'altra: a capo FRA le parole, e la misura scende solo quanto serve,
+        // entro un minimo dichiarato.
+        title: TitoloCheNonSiRompe(
+            testo: 'Scegli il tuo VIP',
+            stile: TypographyTokens.display(size: 19)),
+        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+        // ogni schermata della pratica. Un saldo che appare e scompare non
+        // si impara.
+        actions: const [AngoloDellaBarra()],
       ),
       body: CosmosBackground(
         seed: 17,

@@ -1,3 +1,4 @@
+import '../brand/brand.dart';
 import '../../services/server/porta_del_cerchio.dart';
 import 'sentieri.dart';
 
@@ -26,6 +27,37 @@ enum ModoDellaCondivisione {
 
   /// Come si legge sul pulsante.
   final String etichetta;
+}
+
+/// COSA SI MANDA DAVVERO, per ciascuno dei tre modi. Ordine S voce 08.
+///
+/// **I tre pulsanti non facevano niente, ed era la violazione piu' cara.** Un
+/// controllo o e' collegato a qualcosa o e' dichiarato inattivo: non esiste la
+/// terza possibilita'. Toccandoli si segnava il traguardo come condiviso e si
+/// chiedeva il bonus al server, ma **nessun foglio di sistema si apriva**: non
+/// era stato condiviso niente con nessuno, e il bonus della condivisione era un
+/// premio per un gesto mai avvenuto.
+///
+/// **I tre testi sono tre perche' i tre gesti sono tre.** L'invito parla a chi
+/// non e' ancora nel Cerchio e porta il link, perche' senza link non c'e' nessun
+/// download da attribuire; il pubblico si legge davanti a estranei e non da' del
+/// tu a nessuno; il privato e' un messaggio a una persona sola.
+class TestoDellaCondivisione {
+  const TestoDellaCondivisione._();
+
+  static String perIlTraguardo(Traguardo traguardo, ModoDellaCondivisione modo) {
+    switch (modo) {
+      case ModoDellaCondivisione.invitoConDownload:
+        return 'Sto camminando nel Cerchio e ho appena acceso un Sigillo: '
+            '"${traguardo.nome}". Vieni a vedere il tuo cielo. ${Brand.url}';
+      case ModoDellaCondivisione.socialPubblico:
+        return 'Un Sigillo acceso nel Cerchio: "${traguardo.nome}". '
+            '${traguardo.frase} ${Brand.name}.';
+      case ModoDellaCondivisione.condivisionePrivata:
+        return 'Guarda cosa ho acceso nel Cerchio: "${traguardo.nome}". '
+            '${traguardo.frase}';
+    }
+  }
 }
 
 /// IL PREMIO DI UN TRAGUARDO, chiesto al server per nome e non per importo.

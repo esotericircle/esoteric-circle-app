@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/arts/arti_preferite.dart';
 import '../../core/maestro/maestro.dart';
+import '../../design_system/components/borsellino.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -90,6 +91,57 @@ class BarraArte extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _BarraArteState extends State<BarraArte> {
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return AppBar(
+      backgroundColor: palette.deepest.withValues(alpha: 0.35),
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      centerTitle: true,
+      iconTheme: IconThemeData(color: palette.goldSoft),
+      automaticallyImplyLeading: false,
+      // Mai un vicolo cieco: la via d'uscita e' sempre la stessa e sempre li'.
+      leading: widget.leading ??
+          IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            tooltip: 'Indietro',
+            onPressed: () => Navigator.of(context).maybePop(),
+          ),
+      title: widget.titolo,
+      actions: [
+        ...widget.azioni,
+        // L'ANGOLO DESTRO E' UNA PORTA SOLA: il borsellino e il cuore, in
+        // quest'ordine, e il cuore sovrapposto si toglie da se'.
+        const AngoloDellaBarra(),
+      ],
+    );
+  }
+}
+
+
+/// L'ANGOLO DESTRO DI UNA BARRA: il borsellino e il cuore, in quest'ordine.
+///
+/// **Perche' esiste, e non e' una comodita'.** Il cuore delle arti preferite ha
+/// due case: dentro la barra, per chi ha una barra, e SOVRAPPOSTO in alto a
+/// destra per chi non ne ha. Quando il borsellino e' arrivato in tutte le
+/// schermate della pratica, ordine S voce 06, quelle che avevano una AppBar
+/// propria e il cuore sovrapposto si sono trovate le due cose nello stesso
+/// angolo: nell'anteprima del rito e della meditazione il cuore dorato passava
+/// SOPRA "0 Eos". E' la stessa famiglia del difetto che aveva fatto nascere
+/// `BarraArte`, dove il cuore copriva il tasto delle fonti.
+///
+/// Adesso l'angolo e' un widget solo: chiunque lo monta ottiene il borsellino, il
+/// cuore in fila accanto e il ritiro del cuore sovrapposto. Chi non e' dentro
+/// un'arte ottiene il solo borsellino, e non deve saperlo.
+class AngoloDellaBarra extends StatefulWidget {
+  const AngoloDellaBarra({super.key});
+
+  @override
+  State<AngoloDellaBarra> createState() => _AngoloDellaBarraState();
+}
+
+class _AngoloDellaBarraState extends State<AngoloDellaBarra> {
   ValueNotifier<bool>? _reclamato;
 
   @override
@@ -114,24 +166,10 @@ class _BarraArteState extends State<BarraArte> {
   @override
   Widget build(BuildContext context) {
     final arte = ArteCorrente.of(context);
-    final palette = context.palette;
-    return AppBar(
-      backgroundColor: palette.deepest.withValues(alpha: 0.35),
-      elevation: 0,
-      scrolledUnderElevation: 0,
-      centerTitle: true,
-      iconTheme: IconThemeData(color: palette.goldSoft),
-      automaticallyImplyLeading: false,
-      // Mai un vicolo cieco: la via d'uscita e' sempre la stessa e sempre li'.
-      leading: widget.leading ??
-          IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
-            tooltip: 'Indietro',
-            onPressed: () => Navigator.of(context).maybePop(),
-          ),
-      title: widget.titolo,
-      actions: [
-        ...widget.azioni,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SegnoDelBorsellino(),
         if (arte != null) CuorePreferita(id: arte.id),
         const SizedBox(width: SpacingTokens.xs),
       ],

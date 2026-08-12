@@ -33,6 +33,9 @@ import '../chat/chat_openers.dart';
 import '../chat/maestro_chat_screen.dart';
 import '../widgets/maestro_bust.dart';
 import '../widgets/tre_volti.dart';
+import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../../design_system/components/borsellino.dart';
+import '../rotta_arte.dart';
 
 /// "Consulta un Maestro", a domanda singola dentro il dominio di un Maestro.
 ///
@@ -500,11 +503,18 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
         // difetto gia' pagato con "Sintesi comparat...". Il rimpicciolimento
         // e' l'unica delle due cose che possiamo scegliere senza togliere
         // parole a chi ha scelto il nome.
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(titoloDelConsiglio,
-              maxLines: 1, style: TypographyTokens.display(size: 20)),
-        ),
+        // **NIENTE FittedBox, ordine S voce 05.** Rimpiccioliva il titolo
+        // senza fondo per tenerlo su una riga, quindi poteva scendere sotto il
+        // pavimento tipografico dell'app, e non andava a capo mai. La regola e'
+        // un'altra: a capo FRA le parole, e la misura scende solo quanto serve,
+        // entro un minimo dichiarato.
+        title: TitoloCheNonSiRompe(
+            testo: titoloDelConsiglio,
+            stile: TypographyTokens.display(size: 20)),
+        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+        // ogni schermata della pratica. Un saldo che appare e scompare non
+        // si impara.
+        actions: const [AngoloDellaBarra()],
       ),
       // **LO SPAZIO DELLA BARRA STA DENTRO LA LISTA.** Decisione di Mauro
       // del 7 agosto 2026, ragione intera su SpazioDellaBarraNelloScroll: le

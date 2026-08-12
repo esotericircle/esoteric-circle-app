@@ -3,12 +3,25 @@ import 'package:provider/provider.dart';
 
 import '../../core/astro/natal_chart_controller.dart';
 import '../../core/entitlement/question_allowance.dart';
+import '../../core/entitlement/registro_degli_eos.dart';
 import '../../core/sigilli/bonus_della_condivisione.dart';
 import '../../core/sigilli/coda_delle_feste.dart';
 import '../../core/sigilli/diario_del_cammino.dart';
 import '../../core/sigilli/sentieri.dart';
+import '../../design_system/components/volo_degli_eos.dart';
 import '../../services/app_services.dart';
 import 'celebrazione.dart';
+
+/// UNA SCATOLA PER UN NUMERO CHE ARRIVA DOPO.
+///
+/// La festa parte prima che il server risponda, e il volo degli Eos parte quando
+/// la festa se ne va: fra i due momenti c'e' l'accredito. Senza questa scatola il
+/// gancio della chiusura non avrebbe modo di sapere quanti Eos sono arrivati, e
+/// l'unica alternativa sarebbe far attendere la festa, che e' il difetto della
+/// voce P.34 al contrario.
+class _QuantiSonoArrivati {
+  int quanti = 0;
+}
 
 /// LA REGIA DEL CAMMINO, in un punto solo.
 ///
@@ -102,6 +115,10 @@ class RegiaDelCammino {
     // voce: un secondo registro dividerebbe i guasti e nessun pannello li
     // mostrerebbe tutti.
     final guasti = servizi.guasti;
+    // IL REGISTRO DEI MOVIMENTI si prende qui con gli altri, PRIMA di
+    // qualunque attesa: chiederlo dopo un await vorrebbe dire leggere un albero
+    // che potrebbe non esserci piu'.
+    final RegistroDegliEos? registro = _registro(context);
     final CodaDelleFeste? coda = _codaSeCe(context);
     final nuovi = await diario.quelliCheSiAccendono(stato);
     if (nuovi.isEmpty) return;
@@ -109,6 +126,14 @@ class RegiaDelCammino {
     for (final traguardo in nuovi) {
       final primoInAssoluto = diario.accesi.isEmpty;
       if (!await diario.accendi(traguardo.id)) continue;
+
+      // **QUANTI EOS SONO ARRIVATI, e si sapra' solo dopo.** Il volo parte alla
+      // CHIUSURA della festa, e a quel punto l'accredito e' quasi sempre gia'
+      // tornato: questa scatola porta il numero da la' a qui senza che la festa
+      // debba attendere la rete. Se la festa si chiude prima della risposta
+      // resta a zero e non vola niente, che e' giusto: non c'e' ancora niente da
+      // far arrivare.
+      final arrivati = _QuantiSonoArrivati();
 
       // 1. SI CELEBRA SUBITO, e non si aspetta niente e nessuno. La
       //    celebrazione non deve mai attendere la rete, e non deve mai poter
@@ -119,6 +144,15 @@ class RegiaDelCammino {
             traguardo: traguardo,
             sentiero: sentieroDi(traguardo),
             primoInAssoluto: primoInAssoluto,
+            // **GLI EOS VOLANO QUANDO LA FESTA SE NE VA, ordine S voce 07.** E'
+            // il momento in cui la barra torna visibile: lanciarlo prima
+            // vorrebbe dire attraversare una celebrazione a schermo pieno per
+            // arrivare a un borsellino coperto, e non vedrebbe niente nessuno.
+            allaChiusura: () {
+              if (context.mounted && arrivati.quanti > 0) {
+                VoloDegliEos.lancia(context, quanti: arrivati.quanti);
+              }
+            },
           );
 
       // 2. SE NON C'ERA DOVE OSPITARLA, la festa non si perde: entra in coda
@@ -146,8 +180,19 @@ class RegiaDelCammino {
             errore: 'il server non ha risposto: il Sigillo resta acceso e il '
                 'premio si riprende alla prossima sincronia',
           );
-          return;
+          // **SI CONTINUA, e prima c'era un `return`.** Con piu' Sigilli
+          // maturati insieme, e succede al primo gesto di un cammino nuovo,
+          // un accredito muto si portava via anche gli altri: nessuna festa,
+          // nessun Sigillo acceso, e un solo guasto scritto per tutti. Il
+          // premio di questo si riprendera' alla prossima sincronia, e gli
+          // altri non c'entrano niente.
+          continue;
         }
+        // DA DOVE SONO ARRIVATI GLI EOS, ordine S voce 06. Il delta si prende
+        // PRIMA di applicare il saldo nuovo, perche' il server risponde col
+        // totale e non con quanto ha aggiunto.
+        arrivati.quanti = saldo - borsa.saldoEos;
+        await registro?.segna(quanti: arrivati.quanti, perche: traguardo.nome);
         // **IL SALDO SI APPLICA SUBITO, col numero che il server ha appena
         // detto.** Prima si buttava e si chiedeva tutto lo stato con una seconda
         // chiamata: se quella non rispondeva, il numero in barra restava quello
@@ -220,6 +265,19 @@ class RegiaDelCammino {
         ])
           if (diario.haFatto(pezzo)) pezzo,
       };
+
+  /// IL REGISTRO DEI MOVIMENTI, se l'albero lo porta.
+  ///
+  /// Stessa ragione della coda: una prova che monta una scena d'arte da sola non
+  /// ha l'albero intero, e un traguardo non deve mai mancare perche' manca il
+  /// provider di una riga del portafoglio.
+  static RegistroDegliEos? _registro(BuildContext context) {
+    try {
+      return context.read<RegistroDegliEos>();
+    } catch (errore) {
+      return null;
+    }
+  }
 
   static CodaDelleFeste? _codaSeCe(BuildContext context) {
     try {

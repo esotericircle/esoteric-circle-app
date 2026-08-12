@@ -7,6 +7,7 @@ import 'core/astro/natal_chart_controller.dart';
 import 'core/astro/zodiac_controller.dart';
 import 'core/entitlement/entitlement_service.dart';
 import 'core/entitlement/question_allowance.dart';
+import 'core/entitlement/registro_degli_eos.dart';
 import 'core/feature_flags/feature_flag_service.dart';
 import 'core/identity/identity_controller.dart';
 import 'core/identity/natal_identity.dart';
@@ -179,6 +180,11 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         // perde, entra qui e si celebra al primo momento utile. La coda sta su
         // disco, quindi sopravvive anche alla chiusura dell'app.
         ChangeNotifierProvider(create: (_) => CodaDelleFeste()..carica()),
+        // DA DOVE SONO ARRIVATI GLI ULTIMI EOS, ordine S voce 06. Il saldo e'
+        // del server e resta suo: questo registro non lo calcola, racconta i
+        // movimenti che l'app ha compiuto, perche' i traguardi accesi vivono in
+        // un insieme che per costruzione non ha ne' ordine ne' momento.
+        ChangeNotifierProvider(create: (_) => RegistroDegliEos()..carica()),
         // L'ACCOUNT DEL CERCHIO: anonimo dal primo secondo, elevabile senza
         // perdere niente.
         ChangeNotifierProvider(

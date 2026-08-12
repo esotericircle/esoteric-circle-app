@@ -14,7 +14,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// LA DISCESA ARRIVA AL PUNTO RAGGIUNTO, ordine P voce 36.
+/// LA DISCESA ARRIVA AL PUNTO RAGGIUNTO, ordine P voce 36, **chiesta col tocco
+/// dalla voce S.01**.
 ///
 /// **Il difetto, con la riga.** In `_scendiAlPunto` c'era
 ///
@@ -99,11 +100,29 @@ void main() {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           builder: (ctx, child) => MaestroScope(child: child!),
-          home: SentieroScreen(sentiero: sentiero),
+          // **UNA CHIAVE NUOVA A OGNI MONTAGGIO, e serve davvero.** La prova
+          // del Riduci Movimento monta la schermata DUE volte nello stesso
+          // tester: senza chiave Flutter riconosce lo stesso tipo di widget
+          // nello stesso posto, aggiorna l'elemento invece di ricrearlo, e lo
+          // stato sopravvive col suo scorrimento. Il secondo montaggio
+          // ripartiva percio' dalla lista gia' scesa, dove il comando "Vai al
+          // punto in cui sei" non e' nemmeno costruito, essendo uno sliver
+          // fuori dalla finestra: la prova cadeva dicendo di non trovare un
+          // pulsante che nella schermata c'e'.
+          home: SentieroScreen(key: UniqueKey(), sentiero: sentiero),
         ),
       ),
     ));
     await tester.pump();
+    await lascialaFinire(tester);
+    // **LA DISCESA ADESSO LA CHIEDE UN TOCCO, ordine S voce 01.** All'apertura
+    // la schermata resta ferma sul disegno, che era la ragione della voce: prima
+    // scendeva da se' e il disegno non lo vedeva nessuno. La misura di questa
+    // prova non e' cambiata di una riga, e' cambiato CHI avvia la discesa,
+    // quindi qui si tocca "Vai al punto in cui sei" e poi si misura dove ci si
+    // ferma. Senza il tocco la prova misurerebbe una schermata immobile e
+    // cadrebbe per la ragione sbagliata.
+    await tester.tap(find.byKey(const Key('sentiero_vai_al_punto')));
     await lascialaFinire(tester);
   }
 
@@ -130,7 +149,7 @@ void main() {
     ('un sentiero a due', 2),
     ('un sentiero a meta\'', 25),
   ]) {
-    testWidgets('la discesa si ferma sul punto raggiunto, $nome',
+    testWidgets('la discesa chiesta col tocco si ferma sul punto, $nome',
         (tester) async {
       const sentiero = Sentiero.costellazione;
       final diario = await diarioCon(sentiero, accesi);

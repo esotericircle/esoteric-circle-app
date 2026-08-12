@@ -28,6 +28,6 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | `alba_base_etichetta_ancora_natale` | lib/features/rituals/ritual_gift_card.dart:422 | corpo o didascalia | 16 | 400 | #554627 | #C2C6BD | **5.26** | 4.5 | si' |
 | `alba_base_valore_ancora_natale` | lib/features/rituals/ritual_gift_card.dart:437 | corpo o didascalia | 16 | 400 | #2A2213 | #CDCEC2 | **9.88** | 4.5 | si' |
 | `alba_condividi_etichetta` | lib/features/rituals/ritual_gift_card.dart:476 | corpo o didascalia | 16 | 400 | #084F3B | #EEEDDC | **8.06** | 4.5 | si' |
-| `alba_titolo` | lib/features/rituals/dawn_rite_screen.dart:469 | titoloScheda | 20 | 600 | #F4F1E8 | #0A0F17 | **17.00** | 3.0 | si' |
+| `alba_titolo` | lib/features/rituals/dawn_rite_screen.dart:476 | titoloScheda | 20 | 600 | #F4F1E8 | #0A0F17 | **17.00** | 3.0 | si' |
 
 Nessun testo sotto la sua soglia.

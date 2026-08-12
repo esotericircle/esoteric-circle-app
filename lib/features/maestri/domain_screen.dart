@@ -8,6 +8,8 @@ import '../../services/app_services.dart';
 import '../shell/vie_del_cerchio.dart';
 import 'maestro_screen.dart';
 import 'widgets/domain_pillars.dart';
+import '../../design_system/components/borsellino.dart';
+import 'rotta_arte.dart';
 
 /// Il dominio di un Maestro, come route spinta sopra il Santuario.
 ///
@@ -89,6 +91,13 @@ class DomainScreen extends StatelessWidget {
                   onPressed: () => Navigator.of(context).maybePop(),
                 ),
               ),
+              // IL BORSELLINO, ordine S voce 06, e sta NELLO STACK e non
+              // fra le azioni: qui il titolo occupa tutta la barra per
+              // tenere il nome del Maestro esattamente al centro in tutti e
+              // tre i domini, e un'azione vera glielo sposterebbe. Cosi' il
+              // segno resta nello stesso angolo delle altre schermate senza
+              // toccare la centratura.
+              const Positioned(right: 0, child: AngoloDellaBarra()),
             ],
           ),
         ),

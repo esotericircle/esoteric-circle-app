@@ -39,6 +39,9 @@ import 'rune_strokes.dart';
 import 'sunset_rune_card.dart';
 import '../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../core/sensi/palette_sensoriale.dart';
+import '../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../design_system/components/borsellino.dart';
+import '../maestri/rotta_arte.dart';
 
 /// La Runa del Tramonto, dominio Caligo, versione definitiva.
 ///
@@ -637,14 +640,19 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         ),
         // Il titolo intero, mai troncato: si rimpicciolisce quanto serve per
         // stare in larghezza anche fra le due icone della barra.
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          alignment: Alignment.centerLeft,
-          child: Text('La Runa del Tramonto',
-              maxLines: 1,
-              style: TypographyTokens.display(size: 20)),
-        ),
+        // **NIENTE FittedBox, ordine S voce 05.** Rimpiccioliva il titolo
+        // senza fondo per tenerlo su una riga, quindi poteva scendere sotto il
+        // pavimento tipografico dell'app, e non andava a capo mai. La regola e'
+        // un'altra: a capo FRA le parole, e la misura scende solo quanto serve,
+        // entro un minimo dichiarato.
+        title: TitoloCheNonSiRompe(
+            testo: 'La Runa del Tramonto',
+            stile: TypographyTokens.display(size: 20)),
         actions: [
+        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+        // ogni schermata della pratica. Un saldo che appare e scompare non
+        // si impara.
+          const AngoloDellaBarra(),
           IconButton(
             key: const Key('sunset_sources'),
             icon: const Icon(Icons.info_outline_rounded),

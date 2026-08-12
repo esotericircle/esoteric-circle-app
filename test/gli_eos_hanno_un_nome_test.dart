@@ -24,7 +24,11 @@ void main() {
   /// controllo di sotto cerca la parola Eos in tutto `lib/features` e cade se
   /// trova un file che la mostra e non e' in questo elenco.
   const puntiCheMostranoEos = [
-    'lib/features/sigilli/sentiero_screen.dart',
+    // **IL SALDO IN BARRA HA CAMBIATO CASA, ordine S voce 06.** Era disegnato
+    // dentro `sentiero_screen.dart`, e per questo esisteva in quella schermata
+    // sola: adesso e' il segno unico del borsellino, nel design system, e lo
+    // monta la barra delle arti. L'elenco segue il codice, non il contrario.
+    'lib/design_system/components/borsellino.dart',
     'lib/features/sigilli/card_del_traguardo.dart',
     'lib/features/sigilli/celebrazione.dart',
   ];
@@ -100,7 +104,7 @@ void main() {
   });
 
   test('la parola Eos sta accanto al saldo, non solo il numero', () {
-    final s = sorgente('lib/features/sigilli/sentiero_screen.dart');
+    final s = sorgente('lib/design_system/components/borsellino.dart');
     expect(s, contains(r"'${borsa.saldoEos} Eos'"),
         reason: 'il saldo in barra e\' tornato un numero nudo: senza la parola '
             'nessuno impara come si chiama cio\' che sta guadagnando');
