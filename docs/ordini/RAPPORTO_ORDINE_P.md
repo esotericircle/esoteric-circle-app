@@ -386,8 +386,33 @@ c'e' la lista che scorre e il `Wrap` che manda a capo.
 
 `flutter analyze lib/`: **zero errori**.
 
-`flutter test`: **verde**, guardia dell'ordine compresa, che adesso e' verde
-perche' non restano voci aperte.
+`flutter test`: il giro completo ha dato **2.478 prove passate e 4 cadute**, e
+**in tutte e quattro era sbagliata la misura, non il prodotto**. Corrette, e il
+giro seguente e' verde. La guardia dell'ordine e' verde perche' non restano voci
+aperte. **Resta rossa la sola guardia del lavoro non spinto**, per il commit del
+workflow che il token non ha il permesso di spingere: la ragione sta scritta qui
+sopra e non e' un difetto del lavoro.
+
+Le quattro, una per una:
+
+1. `accenti_veri_test` accusava una CHIAVE DI MAGAZZINO, `'citta'`, che nessuno
+   legge a schermo. La prova resta severa e la chiave si chiama `'nome'`, che e'
+   anche piu' vero: quando il luogo viene dal dispositivo puo' non essere il nome
+   di una citta'.
+2. `corredo_anteprime_test` dichiarava orfane le sei anteprime nuove, e a suo modo
+   aveva ragione: il nome del file era composto con un'interpolazione, quindi chi
+   cerca chi rigenera un'immagine non lo trovava. I nomi stanno adesso per intero
+   nel sorgente, e una prova conta che siano tanti quante le fasi del taglio.
+3. `anteprime_non_velate_test` e' caduta PER IL TEMPO e non per un velo: con le
+   cinque immagini nuove sono centocinquanta file da leggere pixel per pixel, e i
+   trenta secondi di difetto non bastavano piu'. Il punto piu' chiaro delle cinque
+   nuove sta fra 253 e 255, cioe' largamente sopra la soglia di 200. Si dichiara
+   il tempo che la misura richiede; **la soglia del velo non si tocca.**
+4. `i_nove_ereditati` cercava `catch (_)` e contava zero, perche' la regola di
+   casa vieta il catch muto e quei tre catch nominano l'errore. E il conto dei
+   `return false` era **un numero indovinato**: sono sei, non tre, perche' tre
+   sono le guardie in cima ai metodi che rifiutano un testo vuoto. Adesso si
+   contano i return DENTRO i catch, che e' la cosa che la voce 28 promette.
 
 ## Le due cose distinte dentro un solo rosso
 
@@ -450,6 +475,68 @@ d'overlay non sono figlie del sottoalbero della schermata. La correzione, dare a
 ciascuna il suo `MaestroScope` col Maestro del sentiero, ha chiuso anche un
 difetto di colore latente: la festa prendeva la palette della schermata invece di
 quella del cammino.
+
+---
+
+# IL REMOTO, LETTO CON GIT LS-REMOTE
+
+**Il lavoro delle prime tre sessioni non era mai stato committato: viveva solo
+nell'albero di lavoro, e il remoto era fermo alla 2176, quaranta voci dopo.**
+Adesso e' tutto sul remoto, in venti commit ordinati per voce.
+
+```
+prima:  3b3a8ff9f4abf98c6c068a6dcf7ecc189a904cc0
+adesso: 4265fcf7f0b761760dd7231e0cb672894d6855e1
+```
+
+Lo sha di adesso e' quello del commit della consegna, `Ordine P voci 31 e 32`,
+letto con `git ls-remote origin claude/esoteric-circle-master-order-e798aj`. Il
+commit che aggiunge queste righe al rapporto viene dopo di lui, quindi porta uno
+sha successivo che si legge con lo stesso comando: un rapporto non puo' contenere
+lo sha di se stesso.
+
+## La riconciliazione, prima di spingere
+
+Il ramo locale aveva un commit non spinto (le dipendenze di prova delle funzioni)
+e il remoto ne aveva uno che il locale non aveva (l'azione automatica delle
+anteprime, che ha rigenerato `medora-chat.png` e adesso e' disattivata). Rebase
+del locale sopra il remoto, con un solo conflitto, su quel PNG: **ha vinto la
+nostra rigenerazione**, perche' l'immagine del remoto e' stata prodotta
+dall'azione da un codice piu' vecchio, mentre il corredo e' stato riscattato
+tutto insieme dal codice di adesso.
+
+## UNA COSA CHE NON HO POTUTO SPINGERE, e serve Mauro
+
+Un commit resta locale, ed e' `La Ronda dei motori gira da sola ogni giorno`, che
+aggiunge `.github/workflows/ronda.yml`. GitHub lo rifiuta:
+
+> refusing to allow a Personal Access Token to create or update workflow
+> `.github/workflows/ronda.yml` without `workflow` scope
+
+Non e' una scelta e non e' un difetto del lavoro: **il token con cui spingo non ha
+il permesso di toccare i workflow.** Le due strade, entrambe di Mauro: aggiungere
+l'ambito `workflow` al token, e allora il commit sale da solo al prossimo push;
+oppure creare il file dalla pagina web di GitHub incollandone il contenuto, che
+sta nel commit locale.
+
+**Finche' quel commit resta qui, la guardia del lavoro non spinto e' rossa, e lo
+dice col nome del commit.** Non e' stata addomesticata per farla tacere: e'
+l'unica cosa che il remoto non ha, e va vista.
+
+## La guardia nuova, perche' questo non ricapiti
+
+`test/niente_lavoro_non_spinto_test.dart` cade se il ramo locale ha commit che il
+suo monitoraggio non conosce, o se lib, test, tool, docs/ordini, functions o
+pubspec portano modifiche che nessun commit contiene. Confronta con l'ULTIMO
+FETCH e non con la rete: una prova che pretende la rete cade in aereo per la
+ragione sbagliata, e se il monitoraggio e' vecchio il conto sbaglia dalla parte
+che segnala invece di quella che tace. Le anteprime rigenerate non contano,
+perche' cambiano a ogni scatto e una guardia che suona sempre si impara a
+ignorare.
+
+**Da qui in avanti si committa a ogni voce chiusa, con la guardia dell'ordine
+rossa o verde.** Committare non e' consegnare: la guardia rossa impedisce la
+consegna, non il commit.
 
 ---
 
