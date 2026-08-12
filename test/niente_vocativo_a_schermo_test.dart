@@ -71,7 +71,16 @@ void main() {
         if (righe[i].trimLeft().startsWith('//')) continue;
         if (righe[i].contains('import ')) continue;
         for (final m in letterale.allMatches(righe[i])) {
-          sospette.add('${f.path}:${i + 1} ${m.group(0)}');
+          // **UN PERCORSO DI FILE NON E' UN TESTO MOSTRATO**, e la prova ne
+          // accusava uno: `'lib/features/maestri/caligo/animal/guide_animal_screen.dart'`
+          // contiene `o/a` fra "caligo" e "animal", cioe' due lettere separate
+          // da una barra che non sono due desinenze. Il registro delle arti
+          // dichiara le schermate per percorso, ed e' giusto che lo faccia.
+          // Cambiata la grandezza misurata, non la soglia: si scartano le
+          // stringhe che sono percorsi, e la regola sui participi resta intera.
+          final trovata = m.group(0)!;
+          if (trovata.contains('.dart') || trovata.contains('lib/')) continue;
+          sospette.add('${f.path}:${i + 1} $trovata');
         }
       }
     }

@@ -92,6 +92,15 @@ void main() {
       // questa prova al primo giro, che e' il motivo per cui esiste.
       'vent', 'trent', 'quarant', 'cinquant', 'sessant', 'settant', 'ottant',
       'novant', 'qualcos',
+      // **"COS'E'" E' UN'ELISIONE, NON UN ACCENTO MANCANTE**, ordine P quarta
+      // sessione. La prova accusava `lib/core/sigilli/sentiero_costellazione.dart`
+      // per la frase "la cosa che mostrerai a qualcuno prima di spiegare cos'e'
+      // l'app", che e' italiano corretto: "cosa e'" elide in "cos'e'"
+      // esattamente come "che cosa" in "che cos'e'". Qui la MISURA era
+      // sbagliata, non il testo, e la regola di casa dice che in quel caso si
+      // cambia la grandezza misurata e mai la soglia: la parola entra
+      // nell'elenco delle elisioni, e il testo dell'Allegato A resta com'e'.
+      'cos',
     };
     final parola = RegExp(r"([A-Za-zÀ-ÿ]+)'");
     final colpevoli = <String>[];
