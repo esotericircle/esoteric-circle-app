@@ -14,5 +14,13 @@
     "sourceMap": true
   },
   "compileOnSave": true,
-  "include": ["src"]
+  "include": ["src"],
+  // LE PROVE DELLE REGOLE RESTANO FUORI DA QUESTA COMPILAZIONE.
+  //
+  // `regole.emulatore.ts` importa `@firebase/rules-unit-testing` e il client
+  // `firebase`: sono strumenti di prova, non fanno parte delle funzioni, e il
+  // server che le costruisce non li installa. Lasciandolo qui, `npm run build`
+  // cadrebbe su un tipo mancante proprio nel predeploy del deploy. Si compila da
+  // se' con `tsconfig.regole.json`, che `npm run test:regole` usa.
+  "exclude": ["src/regole.emulatore.ts"]
 }

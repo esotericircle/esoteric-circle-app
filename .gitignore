@@ -186,3 +186,6 @@ intro video/
 # Gli strumenti da PC di sviluppo tirano giu' le proprie dipendenze, che
 # NON entrano nell'app: Swiss Ephemeris e' AGPL e resta qui.
 tool/node_modules/
+# Le dipendenze della radice: sono strumenti di PROVA (le prove delle regole di
+# Firestore) e non si versionano, come quelle di tool/ e di functions/.
+/node_modules/
