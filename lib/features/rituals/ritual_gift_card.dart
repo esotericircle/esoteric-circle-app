@@ -6,14 +6,13 @@ import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/filo_del_giorno.dart';
-import '../../design_system/components/guida_del_respiro.dart';
 import '../../design_system/components/le_tre_righe_del_rito.dart';
 import '../../design_system/components/riga_del_dono.dart';
-import '../../core/rituals/tempi_del_respiro.dart';
 import '../../design_system/theme/accento_del_maestro.dart';
 import '../../design_system/tokens/regime_chiaro.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import 'breath_destiny_screen.dart';
 
 // I COLORI DEL REGIME CHIARO NON VIVONO PIU' QUI. Ordine P voce 12.
 //
@@ -205,26 +204,32 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                   ),
                 ),
               ],
-              // IL RESPIRO NON SI LEGGE PIU', SI FA. Ordine P voce 17.
+              // **IL RESPIRO GUIDATO ESCE DA QUI, ordine S voce 13.**
               //
-              // La frase "tre dentro e tre fuori, sei giri, corti come i
-              // tratti" era un'istruzione scritta, cioe' un compito: contare a
-              // mente davanti a una figura ferma. Adesso e' il respiro guidato
-              // gia' costruito per il Soffio del Destino, con la cadenza che il
-              // rito del giorno dichiara nei suoi dati. Non se ne scrive un
-              // secondo: due respiri nello stesso progetto sarebbero un'altra
-              // occorrenza della famiglia delle due porte.
-              if (gift.rito != null &&
-                  !widget.dono.guidaIlRespiroInScena) ...[
+              // La voce P.17 aveva ragione a togliere l'istruzione scritta
+              // ("tre dentro e tre fuori, sei giri"), che era un compito da
+              // contare a mente. Ma il rimedio ha portato il respiro guidato
+              // DENTRO ogni dono del giorno, e quello e' il rito del Soffio del
+              // Destino: nell'Alba e' comparsa una meditazione che non e' sua, e
+              // il rito del mattino e' diventato il contenitore di un altro rito.
+              //
+              // **Dal dono al Soffio si va con un invito di una riga**, e non
+              // col rito intero incastrato dentro. La riga e' una porta vera, non
+              // un annuncio: la tocchi e sei nel Soffio.
+              if (gift.rito != null && !widget.dono.guidaIlRespiroInScena) ...[
                 const SizedBox(height: SpacingTokens.md),
                 Center(
-                  child: GuidaDelRespiro(
-                    key: const Key('respiro_del_dono'),
-                    tempi: TempiDelRespiro(
-                      tempi: gift.rito!.tempi,
-                      giri: gift.rito!.giri,
+                  child: TextButton.icon(
+                    key: const Key('ponte_verso_il_soffio'),
+                    onPressed: () => Navigator.of(context)
+                        .push(BreathDestinyScreen.route(now: widget.giorno)),
+                    icon: Icon(Icons.air_rounded, size: 16, color: accento),
+                    label: Text(
+                      'Il respiro guidato ti aspetta nel Soffio del Destino',
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: accento, height: 1.3),
                     ),
-                    colore: accento,
                   ),
                 ),
               ],

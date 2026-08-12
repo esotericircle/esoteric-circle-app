@@ -619,7 +619,34 @@ chiusa: committare non e' consegnare.
     obbligatorio e resta; il testo del "Cosa fai" e' corpus della voce P.17, e
     riscriverlo e' materiale di Mauro. **E' la stessa famiglia della voce S.24**, la
     ridondanza nelle schede delle rune: si propone di trattarla la'.
-- **S.13** Il respiro guidato esce dal Rito dell'Alba — APERTA
+- **S.13** Il respiro guidato esce dal Rito dell'Alba — CHIUSA
+  - Il fatto: la voce P.17 aveva ragione a togliere l'istruzione scritta ("tre dentro
+    e tre fuori, sei giri"), che era un compito da contare a mente davanti a una figura
+    ferma. Ma il rimedio ha portato il respiro guidato DENTRO ogni dono del giorno: il
+    rito del mattino e' diventato il contenitore di un rito che non e' suo.
+  - **IL RESPIRO GUIDATO VIVE NEL SOFFIO DEL DESTINO, e in nessun altro rito.** Dalla
+    scheda del dono si va al respiro con un INVITO DI UNA RIGA, e la riga e' una porta
+    vera: la tocchi e sei nel Soffio. Un invito che non porta da nessuna parte sarebbe
+    un vicolo cieco travestito da ponte.
+  - Misura: `test/il_respiro_vive_nel_soffio_test.dart`, quattro prove. **La prima
+    ENUMERA i montaggi della guida del respiro in tutto `lib` e ammette un solo
+    padrone**: la domanda della voce non e' "l'Alba ce l'ha?" ma "chi ce l'ha, e ha il
+    diritto di averla?". La quarta monta il Rito dell'Alba vero, compie il gesto,
+    **porta il ponte in vista come farebbe un dito** e lo tocca: la scheda del dono e'
+    piu' alta dello schermo, e una riga sotto il taglio senza modo di arrivarci non
+    sarebbe un ponte.
+  - Rosso eseguito scollegando il ponte: cade su "e' un annuncio, e un annuncio che non
+    porta da nessuna parte e' un vicolo cieco".
+  - **UN DIFETTO DEL BANCO, e sta scritto nella prova:** il tocco spingeva la rotta e
+    la rotta cadeva costruendosi, perche' si porta il suo `MaestroScope` e nel banco
+    non c'era il Maestro attivo. La prova vedeva un ponte che non apriva niente per un
+    difetto suo, non del codice.
+  - Anteprima nuova: `docs/preview/alba-ponte-al-soffio.png`. **GUARDATA, e va detto
+    che non mostra il ponte:** la scheda del dono e' piu' alta dello schermo e il suo
+    scorrimento interno non ha corsa, quindi l'anteprima si ferma dove si fermava
+    prima. Il ponte si raggiunge, e lo dimostra la prova che lo porta in vista e lo
+    tocca; **che l'anteprima non sappia arrivarci e' un limite del corredo**, non del
+    codice, e resta scritto qui.
 - **S.14** L'accesso si apre davvero: Google su Android e su iPhone, Apple su iPhone — APERTA
 
 ## Sezione A. La convenzione trasversale del responso
@@ -776,6 +803,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 12
+VOCI_CHIUSE: 13
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

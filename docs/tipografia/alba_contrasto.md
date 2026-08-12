@@ -21,13 +21,13 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | Testo | File e riga | Ruolo | Misura | Peso | Inchiostro | Fondo reso | Contrasto | Soglia | Passa |
 | --- | --- | --- | ---: | ---: | --- | --- | ---: | ---: | --- |
 | `alba_riga_dono` | lib/design_system/components/riga_del_dono.dart:54 | corpo o didascalia | 16 | 400 | #084F3B | #DCDED2 | **6.99** | 4.5 | si' |
-| `alba_tipo_del_dono` | lib/features/rituals/ritual_gift_card.dart:151 | corpo o didascalia | 16 | 400 | #084F3B | #D0D5CB | **6.37** | 4.5 | si' |
-| `alba_orientamento` | lib/features/rituals/ritual_gift_card.dart:166 | corpo o didascalia | 16 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
-| `alba_etichetta_parola` | lib/features/rituals/ritual_gift_card.dart:192 | corpo o didascalia | 16 | 400 | #554627 | #D0D5CB | **6.10** | 4.5 | si' |
-| `alba_base_toggle` | lib/features/rituals/ritual_gift_card.dart:322 | corpo o didascalia | 16 | 400 | #084F3B | #F8F4E3 | **8.63** | 4.5 | si' |
-| `alba_base_etichetta_ancora_natale` | lib/features/rituals/ritual_gift_card.dart:422 | corpo o didascalia | 16 | 400 | #554627 | #C2C6BD | **5.26** | 4.5 | si' |
-| `alba_base_valore_ancora_natale` | lib/features/rituals/ritual_gift_card.dart:437 | corpo o didascalia | 16 | 400 | #2A2213 | #CDCEC2 | **9.88** | 4.5 | si' |
-| `alba_condividi_etichetta` | lib/features/rituals/ritual_gift_card.dart:476 | corpo o didascalia | 16 | 400 | #084F3B | #EEEDDC | **8.06** | 4.5 | si' |
+| `alba_tipo_del_dono` | lib/features/rituals/ritual_gift_card.dart:150 | corpo o didascalia | 16 | 400 | #084F3B | #D0D5CB | **6.37** | 4.5 | si' |
+| `alba_orientamento` | lib/features/rituals/ritual_gift_card.dart:165 | corpo o didascalia | 16 | 400 | #2A2213 | #DCDED2 | **11.54** | 4.5 | si' |
+| `alba_etichetta_parola` | lib/features/rituals/ritual_gift_card.dart:191 | corpo o didascalia | 16 | 400 | #554627 | #D0D5CB | **6.10** | 4.5 | si' |
+| `alba_base_toggle` | lib/features/rituals/ritual_gift_card.dart:327 | corpo o didascalia | 16 | 400 | #084F3B | #F8F4E3 | **8.63** | 4.5 | si' |
+| `alba_base_etichetta_ancora_natale` | lib/features/rituals/ritual_gift_card.dart:427 | corpo o didascalia | 16 | 400 | #554627 | #C2C6BD | **5.26** | 4.5 | si' |
+| `alba_base_valore_ancora_natale` | lib/features/rituals/ritual_gift_card.dart:442 | corpo o didascalia | 16 | 400 | #2A2213 | #CDCEC2 | **9.88** | 4.5 | si' |
+| `alba_condividi_etichetta` | lib/features/rituals/ritual_gift_card.dart:481 | corpo o didascalia | 16 | 400 | #084F3B | #EEEDDC | **8.06** | 4.5 | si' |
 | `alba_titolo` | lib/features/rituals/dawn_rite_screen.dart:476 | titoloScheda | 20 | 600 | #F4F1E8 | #0A0F17 | **17.00** | 3.0 | si' |
 
 Nessun testo sotto la sua soglia.

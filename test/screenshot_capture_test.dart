@@ -1098,6 +1098,22 @@ void main() {
     await step(tester);
     await capture(tester, rootKey, 'rito-alba-dono.png');
 
+    // **IL PONTE VERSO IL SOFFIO, ordine S voce 13.** La scheda del dono scorre:
+    // il respiro guidato che stava qui dentro e' uscito, e al suo posto c'e' una
+    // riga che porta nel Soffio del Destino. Si scorre la scheda fino in fondo,
+    // perche' e' li' che la riga vive.
+    // Di scorrimenti verticali ce n'e' piu' d'uno in scena: quello della scheda
+    // e' l'ULTIMO montato, cioe' il piu' interno.
+    final dentroLaScheda = tester
+        .state<ScrollableState>(find
+            .byWidgetPredicate(
+                (w) => w is Scrollable && w.axisDirection == AxisDirection.down)
+            .last)
+        .position;
+    dentroLaScheda.jumpTo(dentroLaScheda.maxScrollExtent);
+    await step(tester);
+    await capture(tester, rootKey, 'alba-ponte-al-soffio.png');
+
     // La base apribile del dono: da dove nasce, con l'ancora natale reale e i
     // livelli provvisori chiaramente marcati. Superficie piu' alta, cosi'
     // l'anteprima mostra il pannello intero, che sul device e' scorrevole.
