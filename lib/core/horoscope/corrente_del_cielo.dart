@@ -244,13 +244,25 @@ class CorrenteDelCielo {
     'Guarda cosa si muove mentre leggi:',
   ];
 
-  /// La stessa giuntura per le frasi che cominciano con un nome proprio.
+  /// LA GIUNTURA COL PUNTO, per le frasi che cominciano con un nome proprio.
+  ///
+  /// **Non e' piu' la stessa frase con un punto invece dei due punti**, ordine P
+  /// voce 24. Lo era: a tre indici su cinque le due famiglie portavano parola
+  /// per parola lo stesso testo, e agli altri due condividevano le prime sei.
+  /// Cioe' la scelta fra le due forme era grammaticale, giusta, e invisibile:
+  /// chi leggeva due schede dello stesso giorno trovava lo stesso attacco, e la
+  /// ragione per cui esistono due famiglie andava perduta.
+  ///
+  /// Adesso a ogni indice le due famiglie non condividono nemmeno le prime tre
+  /// parole, e `test/la_giuntura_non_si_ripete_test.dart` lo misura indice per
+  /// indice. La sostanza resta la stessa: e' una cucitura fra il testo del segno
+  /// e la riga del cielo, e non dice niente che non sia vero.
   static const List<String> giunturaColPunto = [
-    'Il cielo di oggi lo dice a modo suo.',
-    'Sopra di te, intanto, si muove questo.',
-    'Il cielo lo racconta da dove passa.',
-    'E il giorno lo scrive così.',
-    'Guarda cosa si muove mentre leggi.',
+    'Intanto, sopra di te si muove questo.',
+    'Il giorno, mentre lo leggi, porta anche questo.',
+    'Da dove passa, il cielo racconta anche questo.',
+    'Mentre leggi, sopra di te succede questo.',
+    'E il cielo, adesso, scrive anche questo.',
   ];
 
   /// Vero se [frase] comincia con un nome proprio di pianeta, cioe' con una
@@ -569,8 +581,24 @@ class CorrenteDelCielo {
       final scritta = frase(v, gia: gia, forma: forma);
       // La GIUNTURA solo sulla prima: le altre seguono un discorso gia'
       // aperto, e un connettivo a ogni frase sarebbe una cantilena.
+      // LA GIUNTURA VARIA SUL DOMINIO, ordine P voce 24.
+      //
+      // **Il difetto: variava sul GIORNO e non sul dominio.** L'indice era
+      // `giornoOrdinale + indiceDelSegno`, cioe' lo stesso per tutte e quattro
+      // le schede dello stesso oroscopo dello stesso giorno: Amore, Lavoro,
+      // Fortuna e Salute aprivano la loro riga del cielo con la stessa identica
+      // giuntura, una sotto l'altra. Chi scorreva le quattro schede leggeva
+      // quattro volte "Il cielo di oggi lo dice cosi'", e a quel punto la
+      // giuntura smette di essere una cucitura e diventa un tic.
+      //
+      // Con `dominio.index` dentro, le quattro schede prendono base, base+1,
+      // base+2 e base+3 modulo cinque: quattro resti distinti, sempre, perche'
+      // quattro e' minore di cinque. E' la stessa garanzia con cui
+      // `formaDellaScheda` teneva distinte le forme, applicata al connettivo
+      // che ne era rimasto fuori.
       pezzi.add(pezzi.isEmpty
-          ? conLaGiuntura(scritta, giornoOrdinale + indiceDelSegno)
+          ? conLaGiuntura(
+              scritta, giornoOrdinale + indiceDelSegno + dominio.index)
           : scritta);
       gia.add(_chiaveCasa(v));
       gia.add(_chiavePianetaECasa(v));
