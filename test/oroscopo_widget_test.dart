@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/astro/natal_chart.dart';
+import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope_data.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
@@ -396,6 +398,103 @@ void main() {
           expect(find.text('${l.value} su 5'), findsWidgets);
         }
       }
+    });
+
+    testWidgets('La riga del cielo entra nella card, e solo se il cielo c\'e\'',
+        (tester) async {
+      // **ORDINE P VOCE 25, la composizione scelta da Mauro il 12 agosto 2026.**
+      // La card mostrava la sola frase del segno: il transito, nel solo posto in
+      // cui l'Oroscopo diventa un'immagine che si manda agli altri, non
+      // compariva. Due proposte sono state montate e guardate, e ha vinto la
+      // riga in oro sotto la sintesi.
+      //
+      // Due prove in una, e la seconda vale quanto la prima: la riga c'e' quando
+      // il cielo e' stato letto davvero, e NON c'e' quando la corrente viene
+      // dalla hash. Una card che scrivesse comunque una riga del cielo direbbe
+      // il falso nel posto piu' pubblico che l'app abbia.
+      await loadFonts();
+      final carta = NatalChart(
+        sunSign: Zodiac.aries,
+        planets: const [
+          PlanetPosition(
+              id: 'sun',
+              name: 'Sole',
+              glyph: '\u2609',
+              longitude: 18.4,
+              sign: Zodiac.aries),
+          PlanetPosition(
+              id: 'venus',
+              name: 'Venere',
+              glyph: '\u2640',
+              longitude: 40.2,
+              sign: Zodiac.taurus),
+          PlanetPosition(
+              id: 'saturn',
+              name: 'Saturno',
+              glyph: '\u2644',
+              longitude: 300.5,
+              sign: Zodiac.aquarius),
+        ],
+        ascendantLongitude: 205.0,
+        midheavenLongitude: 115.0,
+        houses: [
+          for (var n = 1; n <= 12; n++)
+            HouseCusp(number: n, longitude: (205.0 + (n - 1) * 30.0) % 360.0),
+        ],
+        hasTime: true,
+      );
+      final cielo = CieloDiOggi.perIlGiorno(
+          adesso: DateTime.utc(2026, 7, 9, 12), carta: carta);
+      expect(cielo.ceCieloVero, isTrue,
+          reason: 'il cielo del giorno scelto non porta fatti: la prova non '
+              'starebbe misurando quello che crede');
+
+      Future<void> monta(List<HoroscopeCard> schede) async {
+        await tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              child: Center(
+                child: OroscopoShareCard(
+                  sign: Zodiac.aries,
+                  cards: schede,
+                  palette:
+                      MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
+                ),
+              ),
+            ),
+          ),
+        ));
+        await tester.pumpAndSettle();
+      }
+
+      // COL CIELO VERO la riga c'e', e porta il testo della scheda Generale.
+      final conCielo = Horoscope.forSign(
+          sign: Zodiac.aries, dayOfYear: 190, year: 2026, cielo: cielo);
+      await monta(conCielo);
+      expect(find.byKey(const Key('share_transito_riga')), findsOneWidget,
+          reason: 'la card non porta la riga del cielo: chi condivide manda '
+              'agli altri la sola parte generica');
+      final attesa = conCielo
+          .firstWhere((c) => c.domain == HoroscopeDomain.generale)
+          .rigaDelCielo!;
+      expect(find.text(attesa), findsOneWidget,
+          reason: 'la riga a schermo non e\' quella della scheda: la card ha '
+              'ricomposto il testo per conto suo');
+      // E la sintesi resta la frase che si legge: la gerarchia non e' cambiata.
+      final sintesi = conCielo
+          .firstWhere((c) => c.domain == HoroscopeDomain.generale)
+          .synthesis;
+      expect(tester.getCenter(find.text(sintesi)).dy,
+          lessThan(tester.getCenter(find.text(attesa)).dy),
+          reason: 'la riga del cielo e\' finita sopra la sintesi: e\' la '
+              'proposta che Mauro NON ha scelto');
+
+      // SENZA CIELO la riga non c'e', e non si inventa niente.
+      await monta(
+          Horoscope.forSign(sign: Zodiac.aries, dayOfYear: 190, year: 2026));
+      expect(find.byKey(const Key('share_transito_riga')), findsNothing,
+          reason: 'la card scrive una riga del cielo anche quando il cielo non '
+              'e\' stato letto: e\' una promessa che il dato non mantiene');
     });
 
     testWidgets('Numero e Colore sono due bolle uguali col titolo sopra',

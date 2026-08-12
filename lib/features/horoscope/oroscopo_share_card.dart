@@ -21,50 +21,27 @@ import '../../core/condivisione/porta_della_condivisione.dart';
 /// schede in forma compatta con la loro forma a tema e il livello col numero,
 /// numero fortunato e colore del giorno, marchio e deep link. Tutto
 /// deterministico.
-/// LE DUE PROPOSTE PER FAR ENTRARE IL TRANSITO NELLA CARD. Ordine P voce 25.
+/// LA RIGA DEL CIELO DENTRO LA CARD. Ordine P voce 25, chiusa il 12 agosto 2026.
 ///
-/// **Il difetto.** La card mostra la sola frase del segno: il transito vero, nel
-/// solo posto in cui l'Oroscopo diventa un'immagine che la gente manda agli
-/// altri, non compare. Quindi cio' che si condivide e' la parte generica, e la
-/// parte che nessun'altra app puo' dare resta dentro l'app.
+/// **Il difetto che questa riga chiude.** La card mostrava la sola frase del
+/// segno: il transito vero, nel solo posto in cui l'Oroscopo diventa un'immagine
+/// che la gente manda agli altri, non compariva. Cio' che si condivideva era la
+/// parte generica, e la parte che nessun'altra app puo' dare restava dentro
+/// l'app.
 ///
-/// **Non si decide da soli.** Farlo entrare e' una scelta di composizione
-/// visiva, e la scelta e' di Mauro: qui ci sono due modi, montati entrambi, e
-/// nient'altro. Finche' Mauro non sceglie, la card resta quella di prima:
-/// [DisposizioneDelTransito.assente] e' il valore di difetto, quindi l'app non
-/// cambia di un pixel.
-enum DisposizioneDelTransito {
-  /// Come oggi: il transito non entra. E' il difetto della voce 25, e resta il
-  /// valore di partenza finche' la scelta non e' stata fatta.
-  assente,
-
-  /// PROPOSTA A, LA RIGA SOTTO LA SINTESI.
-  ///
-  /// Il transito e' una riga in oro sotto la bolla della sintesi, con un glifo
-  /// piccolo davanti. Non tocca la gerarchia: l'emblema resta il colpo
-  /// d'occhio, la sintesi resta la frase che si legge, e il cielo e' la firma
-  /// che dice da dove viene. Costa tre righe di altezza.
-  rigaSottoLaSintesi,
-
-  /// PROPOSTA B, LA FASCIA IN CIMA.
-  ///
-  /// Il transito e' una fascia sopra l'emblema, con la sua etichetta IL CIELO DI
-  /// OGGI. Cambia la gerarchia: la prima cosa che si legge non e' piu' il segno
-  /// ma il cielo, e il segno diventa la risposta. Piu' forte e piu' rischiosa:
-  /// chi condivide sta condividendo il proprio segno, e questa disposizione mette
-  /// il segno al secondo posto.
-  ///
-  /// **UNA CONSEGUENZA VISTA GUARDANDO L'ANTEPRIMA, e va detta perche' pesa
-  /// sulla scelta.** Sotto l'etichetta la riga si ripete: la giuntura che apre
-  /// il transito dice a parole quello che l'etichetta dice sopra, quindi si
-  /// legge IL CIELO DI OGGI e subito sotto "Il cielo di oggi lo dice cosi'".
-  /// Non e' un difetto di questa disposizione, e' il suo prezzo: la giuntura
-  /// serve dentro un testo che scorre e diventa un doppione sotto un titolo.
-  /// Sceglierla vuol dire togliere la giuntura dalla riga della card, e le
-  /// giunture sono testo, cioe' materiale di Mauro.
-  fasciaInCima,
-}
-
+/// **Come e' stata scelta la composizione, e da chi.** Farlo entrare era una
+/// scelta di composizione visiva, quindi di Mauro, non di chi costruisce: sono
+/// state montate DUE proposte alla larghezza vera e col cielo vero, la riga in
+/// oro sotto la sintesi e una fascia sopra l'emblema con la sua etichetta.
+/// **Mauro ha scelto la prima**, e questa e' quella: l'emblema resta il colpo
+/// d'occhio, la sintesi resta la frase che si legge, e il cielo e' la firma che
+/// dice da dove viene quella frase. La seconda cambiava la gerarchia mettendo il
+/// segno al secondo posto, e portava anche un doppione, perche' sotto la sua
+/// etichetta la giuntura ripeteva a parole cio' che il titolo diceva sopra.
+///
+/// **La giuntura NON e' stata toccata.** "Il cielo di oggi lo dice cosi'" e' del
+/// corpus di Mauro e resta fuori dall'ordine, come le quarantotto ancore: qui si
+/// dispone il testo, non si riscrive.
 class OroscopoShareCard extends StatelessWidget {
   const OroscopoShareCard({
     super.key,
@@ -72,13 +49,7 @@ class OroscopoShareCard extends StatelessWidget {
     required this.cards,
     required this.palette,
     this.width = 360,
-    this.transito = DisposizioneDelTransito.assente,
   });
-
-  /// COME IL TRANSITO ENTRA NELLA CARD, o se non entra. Ordine P voce 25: il
-  /// valore di difetto e' l'assenza, cioe' la card di oggi, finche' Mauro non
-  /// sceglie fra le due proposte.
-  final DisposizioneDelTransito transito;
 
   final Zodiac sign;
   final List<HoroscopeCard> cards;
@@ -123,32 +94,6 @@ class OroscopoShareCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (transito == DisposizioneDelTransito.fasciaInCima &&
-              rigaDelCielo != null) ...[
-            Container(
-              key: const Key('share_transito_fascia'),
-              padding: const EdgeInsets.all(SpacingTokens.sm),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                color: palette.primary.withValues(alpha: 0.5),
-                border:
-                    Border.all(color: palette.gold.withValues(alpha: 0.55)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('IL CIELO DI OGGI',
-                      style: TypographyTokens.etichetta().copyWith(
-                          color: palette.goldSoft, letterSpacing: 2.0)),
-                  const SizedBox(height: SpacingTokens.xxs),
-                  Text(rigaDelCielo,
-                      style: TypographyTokens.didascalia().copyWith(
-                          color: ColorTokens.textPrimary, height: 1.35)),
-                ],
-              ),
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-          ],
           Text('OROSCOPO',
               textAlign: TextAlign.center,
               style: TypographyTokens.etichetta()
@@ -191,8 +136,13 @@ class OroscopoShareCard extends StatelessWidget {
                 style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
           ),
-          if (transito == DisposizioneDelTransito.rigaSottoLaSintesi &&
-              rigaDelCielo != null) ...[
+          // LA RIGA DEL CIELO, la composizione scelta da Mauro il 12 agosto 2026.
+          //
+          // Compare solo quando il cielo e' stato letto davvero: con la corrente
+          // presa dalla hash `rigaDelCielo` e' nulla, e una card che scrivesse
+          // comunque una riga direbbe il falso nel posto piu' pubblico che
+          // l'Oroscopo abbia.
+          if (rigaDelCielo != null) ...[
             const SizedBox(height: SpacingTokens.sm),
             Row(
               key: const Key('share_transito_riga'),

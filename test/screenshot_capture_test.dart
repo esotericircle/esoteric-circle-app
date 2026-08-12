@@ -2318,12 +2318,66 @@ void main() {
     await capture(tester, rootKey, 'oroscopo-due-schede-affiancate.png');
   });
 
-  // --- La card condivisibile dell'Oroscopo ---
+  // --- La card condivisibile dell'Oroscopo, CON LA RIGA DEL CIELO ---
+  //
+  // **Ordine P voce 25, chiusa il 12 agosto 2026 con la scelta di Mauro.** La
+  // card porta il transito come riga in oro sotto la sintesi, quindi questa
+  // cattura deve montare un cielo VERO: con la corrente presa dalla hash la riga
+  // non esiste, e l'anteprima mostrerebbe la card di prima facendo credere che
+  // la scelta non sia stata applicata.
   testWidgets('Cattura la card Oroscopo', (tester) async {
     await loadFonts();
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    final cards =
-        Horoscope.forSign(sign: Zodiac.aries, dayOfYear: 190, year: 2026);
+    final carta = NatalChart(
+      sunSign: Zodiac.aries,
+      planets: const [
+        PlanetPosition(
+            id: 'sun',
+            name: 'Sole',
+            glyph: '\u2609',
+            longitude: 18.4,
+            sign: Zodiac.aries),
+        PlanetPosition(
+            id: 'moon',
+            name: 'Luna',
+            glyph: '\u263d',
+            longitude: 102.7,
+            sign: Zodiac.cancer),
+        PlanetPosition(
+            id: 'venus',
+            name: 'Venere',
+            glyph: '\u2640',
+            longitude: 40.2,
+            sign: Zodiac.taurus),
+        PlanetPosition(
+            id: 'mars',
+            name: 'Marte',
+            glyph: '\u2642',
+            longitude: 251.9,
+            sign: Zodiac.sagittarius),
+        PlanetPosition(
+            id: 'saturn',
+            name: 'Saturno',
+            glyph: '\u2644',
+            longitude: 300.5,
+            sign: Zodiac.aquarius),
+      ],
+      ascendantLongitude: 205.0,
+      midheavenLongitude: 115.0,
+      houses: [
+        for (var n = 1; n <= 12; n++)
+          HouseCusp(number: n, longitude: (205.0 + (n - 1) * 30.0) % 360.0),
+      ],
+      hasTime: true,
+    );
+    final cielo = CieloDiOggi.perIlGiorno(
+        adesso: DateTime.utc(2026, 7, 9, 12), carta: carta);
+    expect(cielo.ceCieloVero, isTrue,
+        reason: 'il cielo del giorno scelto non porta nessun fatto, quindi la '
+            'riga del cielo non ci sarebbe e l\'anteprima mostrerebbe la card '
+            'di prima della voce 25');
+    final cards = Horoscope.forSign(
+        sign: Zodiac.aries, dayOfYear: 190, year: 2026, cielo: cielo);
     montaLoSchermo(tester, const Size(400, 900));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -2349,127 +2403,13 @@ void main() {
         AssetImage(ZodiacArt.emblemPath(Zodiac.aries)),
         tester.element(find.byType(OroscopoShareCard))));
     await tester.pumpAndSettle();
+    // IL GUARDIANO: se la riga del cielo non fosse a schermo, questa immagine
+    // mostrerebbe la card senza transito e nessuno se ne accorgerebbe.
+    expect(find.byKey(const Key('share_transito_riga')), findsOneWidget,
+        reason: 'la riga del cielo non e\' nella card: la composizione scelta '
+            'per la voce 25 non e\' quella che l\'anteprima mostra');
     await capture(tester, rootKey, 'oroscopo-card.png');
   });
-
-  // --- LE DUE PROPOSTE PER IL TRANSITO NELLA CARD. Ordine P voce 25 ---
-  //
-  // **Due anteprime alla larghezza vera, e nessuna scelta.** La voce chiede di
-  // mostrare due modi di far entrare il transito nella card condivisibile e di
-  // fermarsi li': la scelta e' di Mauro. Le due catture montano la stessa card
-  // con gli stessi dati, e cambiano soltanto la disposizione, quindi il
-  // confronto e' fra due composizioni e non fra due contenuti.
-  // **IL NOME DEL FILE STA QUI PER INTERO, e non composto a pezzi.** La prova
-  // `corredo_anteprime_test` cerca nel sorgente il nome di ogni immagine del
-  // repo per sapere chi la rigenera: un nome messo insieme con
-  // un'interpolazione non lo trova, e quelle immagini risultano orfane, cioe'
-  // vecchie senza che nessuno lo sappia.
-  for (final proposta in const [
-    (DisposizioneDelTransito.rigaSottoLaSintesi,
-        'oroscopo-transito-A-riga-sotto-la-sintesi.png'),
-    (DisposizioneDelTransito.fasciaInCima,
-        'oroscopo-transito-B-fascia-in-cima.png'),
-  ]) {
-    testWidgets('Cattura la proposta del transito, ${proposta.$2}',
-        (tester) async {
-      await loadFonts();
-      final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-      // **IL CIELO VERO, altrimenti le due proposte mostrerebbero il vuoto.**
-      // La riga del transito esiste solo quando la corrente del giorno viene
-      // dai fatti: con la hash `rigaDelCielo` e' nulla, e le due immagini
-      // sarebbero identiche fra loro e identiche alla card di oggi. Quindi si
-      // monta una carta natale completa e si legge il cielo dal motore locale,
-      // come fa l'app.
-      final carta = NatalChart(
-        sunSign: Zodiac.aries,
-        planets: const [
-          PlanetPosition(
-              id: 'sun',
-              name: 'Sole',
-              glyph: '☉',
-              longitude: 18.4,
-              sign: Zodiac.aries),
-          PlanetPosition(
-              id: 'moon',
-              name: 'Luna',
-              glyph: '☽',
-              longitude: 102.7,
-              sign: Zodiac.cancer),
-          PlanetPosition(
-              id: 'venus',
-              name: 'Venere',
-              glyph: '♀',
-              longitude: 40.2,
-              sign: Zodiac.taurus),
-          PlanetPosition(
-              id: 'mars',
-              name: 'Marte',
-              glyph: '♂',
-              longitude: 251.9,
-              sign: Zodiac.sagittarius),
-          PlanetPosition(
-              id: 'saturn',
-              name: 'Saturno',
-              glyph: '♄',
-              longitude: 300.5,
-              sign: Zodiac.aquarius),
-        ],
-        ascendantLongitude: 205.0,
-        midheavenLongitude: 115.0,
-        houses: [
-          for (var n = 1; n <= 12; n++)
-            HouseCusp(number: n, longitude: (205.0 + (n - 1) * 30.0) % 360.0),
-        ],
-        hasTime: true,
-      );
-      final cielo = CieloDiOggi.perIlGiorno(
-          adesso: DateTime.utc(2026, 7, 9, 12), carta: carta);
-      // IL GUARDIANO: senza fatti veri le due proposte non mostrerebbero
-      // niente, e chi guarda crederebbe che la card non cambi.
-      expect(cielo.ceCieloVero, isTrue,
-          reason: 'il cielo del giorno scelto non porta nessun fatto: le due '
-              'proposte mostrerebbero il vuoto');
-      // Lo stesso segno e lo stesso giorno per le due immagini: fra loro cambia
-      // solo la disposizione.
-      final cards = Horoscope.forSign(
-          sign: Zodiac.aries, dayOfYear: 190, year: 2026, cielo: cielo);
-      expect(
-          cards
-              .firstWhere((c) => c.domain == HoroscopeDomain.generale)
-              .rigaDelCielo,
-          isNotNull,
-          reason: 'la riga del cielo non si stacca dalla sintesi: le due '
-              'anteprime non mostrerebbero la differenza che devono mostrare');
-      montaLoSchermo(tester, const Size(400, 980));
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
-      final rootKey = GlobalKey();
-      await tester.pumpWidget(RepaintBoundary(
-        key: rootKey,
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            backgroundColor: const Color(0xFF0A0E24),
-            body: Center(
-              child: SingleChildScrollView(
-                child: OroscopoShareCard(
-                    sign: Zodiac.aries,
-                    cards: cards,
-                    palette: palette,
-                    transito: proposta.$1),
-              ),
-            ),
-          ),
-        ),
-      ));
-      await tester.pumpAndSettle();
-      await tester.runAsync(() async => precacheImage(
-          AssetImage(ZodiacArt.emblemPath(Zodiac.aries)),
-          tester.element(find.byType(OroscopoShareCard))));
-      await tester.pumpAndSettle();
-      await capture(tester, rootKey, proposta.$2);
-    });
-  }
 
   // --- La Stesa a Tre Carte, con una carta rovesciata ---
   testWidgets('Cattura la Stesa a Tre Carte', (tester) async {

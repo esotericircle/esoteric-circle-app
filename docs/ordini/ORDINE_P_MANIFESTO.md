@@ -8,6 +8,10 @@ coperte da un'altra.
 Stati ammessi: **APERTA**, **CHIUSA**, **FERMATA SU PREMESSA FALSA**,
 **FERMATA IN ATTESA DI DECISIONE**.
 
+Il quarto stato e' a ZERO da quando Mauro ha scelto la proposta A per la voce
+25, il 12 agosto 2026. Resta dichiarato fra gli stati ammessi perche' e' una
+categoria vera e servira' di nuovo, non perche' ci sia una voce dentro.
+
 Il quarto stato nasce con la quarta sessione e non e' un modo elegante di
 dire aperta: il lavoro della voce e' finito e consegnato, e cio' che resta
 non e' lavoro ma una scelta che non spetta a chi costruisce. La voce 25 ne e'
@@ -303,7 +307,7 @@ prima che la Sezione Zero esistesse: VOCI_TOTALI passa da 32 a 40.
   - Misura: `test/la_giuntura_non_si_ripete_test.dart`, cinque prove su tutti i
     366 giorni per dodici segni. Rosso eseguito: tutti e cinque gli indici
     condividevano le prime tre parole, e il dominio non era nell'indice.
-- **P.25** La card da condividere dell'Oroscopo senza transito — FERMATA IN ATTESA DI DECISIONE
+- **P.25** La card da condividere dell'Oroscopo senza transito — CHIUSA
   - Il difetto, confermato: la card verticale mostra emblema, nome del segno, la
     frase di sintesi dell'ancora, le quattro bolle e numero piu' colore. Il
     transito vero non compare da nessuna parte, quindi cio' che la gente manda
@@ -314,28 +318,50 @@ prima che la Sezione Zero esistesse: VOCI_TOTALI passa da 32 a 40.
     sintesi: `rigaDelCielo` stacca il resto e torna nulla quando la corrente
     viene dalla hash. Aggiungere un campo avrebbe voluto dire scrivere due volte
     la stessa stringa.
-  - **Non si decide da soli, e la voce si ferma qui.** Far entrare il transito e'
-    una scelta di composizione, quindi di Mauro. Due proposte, montate entrambe:
+  - **NON SI E' DECISO DA SOLI, e la decisione e' arrivata: VINCE LA PROPOSTA A**,
+    la riga in oro sotto la sintesi. Scelta di Mauro del 12 agosto 2026. La card
+    porta adesso quella e nient'altro: l'enumerazione delle due disposizioni non
+    esiste piu', perche' tenere montata la proposta scartata sarebbe codice morto
+    che il prossimo lettore prende per una scelta ancora aperta.
+  - La riga compare SOLO quando il cielo e' stato letto davvero: con la corrente
+    presa dalla hash `rigaDelCielo` e' nulla e la riga non si disegna. Una card
+    che scrivesse comunque una riga del cielo direbbe il falso nel posto piu'
+    pubblico che l'app abbia.
+  - **LA GIUNTURA NON E' STATA TOCCATA.** "Il cielo di oggi lo dice cosi'" e'
+    corpus di Mauro e resta fuori dall'ordine, come le quarantotto ancore della
+    voce 24: qui si dispone il testo, non si riscrive.
+  - Misura: `La riga del cielo entra nella card, e solo se il cielo c'e'` in
+    `test/oroscopo_widget_test.dart`, che chiede tre cose: che la riga ci sia col
+    cielo vero, che porti la stessa stringa della scheda invece di ricomporla, e
+    che stia SOTTO la sintesi, cioe' che non sia la proposta scartata. Rosso
+    eseguito spegnendo la condizione: chiave trovata 0 volte.
+  - Anteprima rigenerata e GUARDATA, `docs/preview/oroscopo-card.png`, che adesso
+    monta un cielo vero: prima la cattura passava dalla hash, quindi avrebbe
+    mostrato la card di prima facendo credere che la scelta non fosse applicata.
+    Un guardiano nella cattura pretende la riga a schermo prima di scattare.
+  - Le due immagini del confronto sono state RIMOSSE dal corredo: la scelta e'
+    fatta, e un'anteprima che nessuno rigenera mostra uno stato vecchio. Cio' che
+    resta e' la card vera.
+  - Storia della decisione, che resta scritta qui perche' non si perda. Far
+    entrare il transito era una scelta di composizione, quindi di Mauro. Due
+    proposte, montate entrambe:
     `DisposizioneDelTransito.rigaSottoLaSintesi` (proposta A, una riga in oro con
     un glifo sotto la bolla, la gerarchia non cambia) e `fasciaInCima`
     (proposta B, una fascia sopra l'emblema con l'etichetta IL CIELO DI OGGI: la
     prima cosa che si legge diventa il cielo e il segno passa secondo).
-  - **L'app non cambia di un pixel finche' la scelta non e' fatta**: il valore di
-    difetto e' `assente`, cioe' la card di oggi, e nessuna delle due e' collegata
-    a niente.
-  - Osservazione dalla proposta B, vista guardandola: sotto l'etichetta la
-    giuntura si ripete, "IL CIELO DI OGGI" e subito "Il cielo di oggi lo dice
-    cosi'". Non e' un difetto della disposizione, e' il suo prezzo. Scegliere la
-    B vuol dire togliere la giuntura dalla riga della card, e le giunture sono
-    testo, cioe' materiale di Mauro.
+  - Osservazione dalla proposta B, vista guardandola, ed e' una delle ragioni per
+    cui non ha vinto: sotto l'etichetta la giuntura si ripeteva, "IL CIELO DI
+    OGGI" e subito "Il cielo di oggi lo dice cosi'". Non era un difetto della
+    disposizione, era il suo prezzo: sceglierla avrebbe voluto dire togliere la
+    giuntura dalla riga della card, cioe' toccare il corpus.
   - File: `lib/core/horoscope/horoscope.dart`,
     `lib/features/horoscope/oroscopo_share_card.dart`,
     `test/screenshot_capture_test.dart`.
-  - Le due anteprime, alla larghezza vera e col cielo vero:
-    `docs/preview/oroscopo-transito-A-riga-sotto-la-sintesi.png`,
-    `docs/preview/oroscopo-transito-B-fascia-in-cima.png`. La cattura pretende
-    che il cielo del giorno porti fatti veri: senza, le due immagini sarebbero
-    identiche fra loro e nessuno vedrebbe la differenza da scegliere.
+  - Le due anteprime del confronto erano
+    `oroscopo-transito-A-riga-sotto-la-sintesi.png` e
+    `oroscopo-transito-B-fascia-in-cima.png`, alla larghezza vera e col cielo
+    vero, perche' senza fatti veri sarebbero state identiche fra loro e nessuno
+    avrebbe visto la differenza da scegliere.
 - **P.26** Il prato del Soffio — CHIUSA
   - **Scritta e rimessa indietro una volta, chiusa alla seconda.** Il prato non
     era un fondale: era un livello dentro un pittore che sulla stessa tela
@@ -435,6 +461,6 @@ prima che la Sezione Zero esistesse: VOCI_TOTALI passa da 32 a 40.
 ---
 
 VOCI_TOTALI: 40
-VOCI_CHIUSE: 38
+VOCI_CHIUSE: 39
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
