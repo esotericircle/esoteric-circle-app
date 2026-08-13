@@ -96,11 +96,24 @@ void main() {
       // Toglierlo da uno solo fa cadere questa riga.
       final sorgente = File('lib/services/ai/firebase_maestro_ai_provider.dart')
           .readAsStringSync();
-      const metodi = ['reply', 'consult', 'synthesize', 'distill'];
+      // **CINQUE METODI DALLA VOCE S.19**, non quattro: il presagio delle rune
+      // consegna testo come gli altri, quindi guarda la troncatura come gli
+      // altri. Un JSON troncato non e' un JSON, e senza questa riga il presagio
+      // sarebbe caduto sul ripiego dicendo "non ha trovato le parole" e
+      // nascondendo il perche'.
+      const metodi = [
+        'reply',
+        'consult',
+        'synthesize',
+        'distill',
+        'presagioDelleRune',
+      ];
       // Il corpo di ciascuno va dalla sua firma alla firma successiva, e dopo
       // l'ultimo si ferma al primo aiuto privato: senza questo confine il
       // controllo di un metodo passerebbe per merito di un altro.
-      const finePrivata = 'List<Content> _toHistory';
+      // Il confine dopo l'ultimo metodo pubblico. Col presagio in mezzo, gli
+      // aiuti privati sono due: si prende il primo che viene dopo.
+      const finePrivata = 'Responso? _parsePresagio';
       final confini = <int>[
         for (final m in metodi) sorgente.indexOf(' $m({'),
         sorgente.indexOf(finePrivata),
@@ -140,9 +153,14 @@ void main() {
       // Le tre uscite che la persona LEGGE: la chat, la sintesi, e i tre
       // strati del Consulta. Il distillato no: e' un JSON di servizio che non
       // legge nessuno.
-      expect('TestoDelResponso.pulisci('.allMatches(sorgente).length, 5,
-          reason: 'la chat, la sintesi e i tre strati del Consulta: cinque '
-              'punti, e se ne manca uno un asterisco arriva a video');
+      // **SEI PUNTI DALLA VOCE S.19**, non cinque: le tre parti del presagio
+      // passano da una funzione sola, `pezzo`, che chiama `pulisci` una volta per
+      // tutte e tre. La chat, la sintesi, i tre strati del Consulta e il
+      // presagio.
+      expect('TestoDelResponso.pulisci('.allMatches(sorgente).length, 6,
+          reason: 'la chat, la sintesi, i tre strati del Consulta e il presagio '
+              'delle rune: sei punti, e se ne manca uno un asterisco arriva a '
+              'video');
     });
 
     test('Ogni misura ha un tetto piu\' grande del proprio ragionamento', () {

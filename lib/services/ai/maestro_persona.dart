@@ -325,7 +325,7 @@ class MaestroPersona {
       MisuraDellaRisposta.letturaDellaChat.istruzione,
       '',
       'COSA STAI SCRIVENDO: il presagio di una gettata di rune. è la prima '
-          'cosa che la persona legge dopo il getto, ed è la lettura che tiene '
+          'cosa che la persona legge dopo il getto ed è la lettura che tiene '
           'insieme le pietre uscite. Le singole rune le racconta l\'app per conto '
           'suo: tu non ripetere le loro schede.',
       '',
@@ -338,12 +338,12 @@ class MaestroPersona {
           'simbolo prima di ricevere una risposta.',
       '',
       conDomanda
-          ? 'LA DOMANDA POSTA è IL CENTRO: la prima parte le risponde, e la '
-              'seconda dice una cosa che si puù fare oggi o nei prossimi '
+          ? 'LA DOMANDA POSTA è IL CENTRO: la prima parte le risponde e la '
+              'seconda dice una cosa che si può fare oggi o nei prossimi '
               'giorni su quella. Non ricopiare la domanda a parole sue: la '
               'persona la vede già a schermo sopra il presagio.'
           : 'LA PERSONA NON HA SCELTO NESSUNA DOMANDA: il presagio parla alla '
-              'sua giornata, e la seconda parte le lascia una cosa da guardare '
+              'sua giornata e la seconda parte le lascia una cosa da guardare '
               'entro sera. Non inventare una domanda che non ha posto.',
       '',
       'FORMATO: rispondi SOLO con un oggetto JSON con tre campi di testo, '

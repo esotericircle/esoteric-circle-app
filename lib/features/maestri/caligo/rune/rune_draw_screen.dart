@@ -42,6 +42,7 @@ import '../../../../core/domande/domande_del_cerchio.dart';
 import '../../../../core/rituals/filo_del_giorno.dart';
 import '../../../../core/rituals/sunset_rune_memory.dart';
 import '../../../../core/responsi/anatomia_del_responso.dart';
+import '../../../../services/ai/registro_dei_guasti.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
 /// selettore del tipo di gettata. Il caso e' voluto e autentico, e' gettare le
@@ -294,8 +295,15 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
           _presagioDelModello = responso;
           _presagioInArrivo = false;
         });
-      } catch (_) {
-        // Nessun avviso: il ripiego e' un presagio a tutti gli effetti.
+      } catch (errore, traccia) {
+        // **QUI L'ERRORE SI IGNORA DI PROPOSITO, e va detto due volte.** Alla
+        // PERSONA non si dice niente: il ripiego e' un presagio a tutti gli
+        // effetti, e un avviso lo declasserebbe. A NOI si dice tutto: il guasto e'
+        // gia' nel registro, perche' la chiamata passa dalla `VoceSorvegliata`, e
+        // qui lo si annota una seconda volta come guasto innocuo per avere il
+        // punto esatto in cui la schermata ha deciso di cadere sul ripiego.
+        annotaGuastoInnocuo(
+            'chiedendo il presagio delle rune al modello', errore, traccia);
         if (!mounted || !identical(_esito, esito)) return;
         setState(() => _presagioInArrivo = false);
       }
