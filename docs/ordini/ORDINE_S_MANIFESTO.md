@@ -1445,51 +1445,78 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     l'esito** (la lezione della coda della voce S.26): messa la corrente PRIMA della
     sintesi, la prova e' caduta nominando segno, giorno e scheda, "il testo non apre
     con la sintesi del segno". Rimessa a posto, sei verdi.
-- **S.28** I doni quotidiani e la chat dei Maestri — FERMATA IN ATTESA DI DECISIONE
-  - **I DONI SONO A POSTO, misurati sul corpus intero e non su un campione:** i 366
-    giorni per tre doni (la riga dell'Oracolo, il messaggio del mattino, il saluto
-    della notte) passano il confine della voce S.17, e il piu' lungo e' **76
-    caratteri**.
-  - **E LA VOCE CHIEDE UNA DISTINZIONE CHE VA SCRITTA: un dono non e' un responso.**
-    E' il colpo d'occhio, una riga che si legge in due secondi, e l'azione la porta il
-    RITO che gli sta attorno, non la riga. Pretendere le tre parti dell'anatomia
-    dentro settanta caratteri sarebbe la voce S.20 al contrario: la' si e' accorciato
-    cio' che era lungo, qui si allungherebbe cio' che e' corto per farlo somigliare a
-    una regola. Quindi la prova non chiede tre parti: chiede che i doni restino UNA
-    RIGA, col tetto dichiarato a 120 caratteri, cioe' la misura oltre la quale una
-    riga smette di essere una riga.
-  - **LA CHAT PORTA LA LEGGE E IL CONFINE dal punto unico**, e questo era gia' vero e
-    presidiato.
-  - **IL DIFETTO VERO, ed e' il motivo per cui la voce si ferma: DUE ANATOMIE IN DUE
-    POSTI.** L'istruzione della chat descrive una "struttura della risposta, anatomia
-    a QUATTRO STRATI" con parole sue, che vengono dai briefing: segno grafico, frase
-    di sintesi, testo narrato. Le tre parti di `ParteDelResponso` (la risposta, cosa
-    puoi fare, da dove viene) **non sono nominate: misurato, zero su tre**. Le porta
-    lo stesso, ma sparse e con altri nomi: la risposta sta nella sintesi piu' il testo
-    narrato, cosa puoi fare e' `ConsiglioFinale.istruzione` che vive in un punto suo,
-    da dove viene e' la regola dell'ancoraggio. **E' la famiglia delle due porte che
-    quest'ordine esiste per chiudere**, ed e' l'ultima rimasta.
-  - **PERCHE' NON LA CHIUDO DA SOLO.** Cambiare l'istruzione di sistema **invalida
-    l'attribuzione cieca delle tre voci, misurata al 98,3 per cento**, che si rifa'
-    solo con una chiamata vera a Vertex, cioe' con `flutter test
-    tool/attribuzione_cieca.dart` sul PC di Mauro. E il precedente dice che non e' un
-    rischio teorico: **una sola riga di chiusura generica aggiunta a questa istruzione
-    fece scendere Medora al 70 per cento**, scambiata per Aura sei volte su venti, e
-    sta scritto nel commento accanto a quella riga.
-  - **LA DOMANDA A MAURO, in una riga:** unifico l'anatomia della chat leggendola da
-    `ParteDelResponso`, sapendo che dopo va rilanciata l'attribuzione cieca e che il
-    98,3 per cento resta non valido finche' non la rilanci? Oppure la chat tiene la
-    sua struttura a quattro strati e nel manifesto sta scritto che le due anatomie
-    convivono di proposito?
-  - Misura: `test/i_doni_e_la_chat_davanti_all_anatomia_test.dart`, quattro prove. Due
-    presidiano i doni (confine su 366 giorni per tre doni, e il tetto della riga); una
-    presidia che legge e confine arrivino alla chat per tutti e tre i Maestri; la
-    quarta DICHIARA, cioe' stampa quali parti dell'anatomia l'istruzione nomina e
-    pretende che il consiglio finale e la struttura a quattro strati ci siano ancora,
-    cosi' se qualcuno tocca l'istruzione senza decidere niente, la riga cade.
-
-## Sezione D. Documenti e consegna
-
+- **S.28** I doni quotidiani e la chat dei Maestri — CHIUSA
+  - **I DONI SONO A POSTO, misurati sul corpus intero:** 366 giorni per tre doni
+    passano il confine della voce S.17, e il piu' lungo e' 76 caratteri. **Un dono non
+    e' un responso:** e' il colpo d'occhio, e l'azione la porta il RITO che gli sta
+    attorno. Pretendere le tre parti dentro settanta caratteri sarebbe la voce S.20 al
+    contrario, quindi la prova chiede che restino UNA RIGA, col tetto a 120.
+  - **LA VOCE SI CHIUDE PER LEGAME, NON PER RISCRITTURA**, e le due strade proposte nel
+    primo rapporto sono scartate entrambe. Allineare il LESSICO della chat alle tre
+    parti fonderebbe due distinzioni utili in un vocabolario solo: **i quattro strati
+    sono la FORMA di una risposta di chat, le tre parti sono l'OBBLIGO DI CONTENUTO di
+    qualunque responso**, e la chat li porta gia' entrambi. Dichiarare che le due
+    anatomie convivono sarebbe accettare la deriva: il giorno che nasce una quarta
+    parte, la chat non la riceve e nessuno se ne accorge.
+  - **CIO' CHE MANCAVA E' IL LEGAME**, e viveva nella testa di chi ha scritto il file.
+    Adesso e' un dato percorribile, `lib/core/responsi/dove_la_chat_porta_ogni_parte.dart`:
+    la risposta sta nella sintesi piu' il testo narrato della struttura, cosa puoi fare
+    nel consiglio finale, da dove viene nella regola dell'ancoraggio. Ogni voce porta il
+    MARCATORE con cui il suo posto si riconosce dentro la STRINGA EMESSA, cosi' la prova
+    lo cerca invece di fidarsi del sorgente.
+  - **L'ISTRUZIONE NON E' STATA TOCCATA, e come l'ho verificato:** `git diff` sui sei
+    file che la compongono (`maestro_persona`, `consiglio_finale`,
+    `misura_della_risposta`, `legge_del_responso`, `confine_del_responso`,
+    `maestro_oracle`) e' VUOTO, e i due file nuovi non entrano nella composizione. Non
+    e' una promessa: e' un comando eseguito.
+  - **LA PREMESSA 4 DELLA PRIMA STESURA ERA FALSA, e i numeri sono questi, misurati da
+    me.** L'attribuzione cieca fu presa il 2 agosto; il commit `97bb997` dell'11 agosto,
+    voci S.15 e S.17, ha messo nella stringa emessa la legge (359 caratteri), il confine
+    (370) e una riga sul benessere (48), togliendo la vecchia riga sui divieti (145):
+    **781 entrati, 145 usciti, 636 NETTI**. Le istruzioni oggi misurano 6930 caratteri
+    per Medora, 6969 per Aura, 7031 per Caligo; prima erano 6294, 6333 e 6395. **Il
+    dieci per cento, identico per tutti e tre.**
+  - **LA GUARDIA CHE MANCAVA, ed e' la ragione per cui quel dieci per cento e' passato
+    senza che una riga cadesse:** `lib/services/ai/impronta_dell_istruzione.dart`
+    registra l'impronta sha256 della stringa emessa per i tre Maestri, la data, e lo
+    STATO della misura presa su di essa. Chi cambia l'istruzione ha due strade e nessuna
+    terza: rilanciare l'attribuzione e aggiornare il dato, oppure dichiarare che si
+    consegna con una misura non valida.
+  - **IL 98,3 PER CENTO NON E' SCRITTO ACCANTO ALL'IMPRONTA DI OGGI**, e questa e' la
+    cosa piu' importante del file: quel numero appartiene a una stringa che non esiste
+    piu', e scriverlo li' sarebbe mettere il falso dentro un dato. Sta scritto come
+    ultima misura NOTA, con la stringa su cui fu presa.
+  - Misura: `test/i_doni_e_la_chat_davanti_all_anatomia_test.dart`, sette prove, e
+    ognuna che enumera **dichiara quante osservazioni ha fatto e cade se sono zero**
+    (lezione della voce S.27, dove una prova girava su 144 testi senza guardarne
+    nessuno). Osservazioni: 3 parti, 9 marcatori cercati nella stringa emessa (tre per
+    Maestro), 3 impronte confrontate, 1098 testi dei doni.
+  - **PROVA DEL ROSSO su tutte e tre le nuove, e l'INIEZIONE E' STATA VERIFICATA PRIMA
+    di leggere l'esito**, che e' la lezione della coda della voce S.26:
+    1. tolto il posto di "cosa puoi fare" dalla mappa (verificato: le voci scendono da
+       4 a 3 nel file), la prova cade dicendo "queste parti non hanno un posto
+       dichiarato: Cosa puoi fare";
+    2. cambiato il marcatore in "IL CONSIGLIO CHE NON ESISTE" (verificato: 1
+       occorrenza), la prova cade su tutti e tre i Maestri;
+    3. azzerata l'impronta di Medora (verificato: 1 occorrenza di zeri), la prova cade
+       mostrando impronta calcolata e impronta registrata.
+  - **UNA PROVA NASCE ROSSA, IL 13 AGOSTO, E DEVE RESTARLO:** quella che pretende che
+    l'attribuzione cieca sia valida su QUESTA istruzione. Non e' un difetto da
+    correggere in codice: e' una misura che manca, e il rosso e' la dichiarazione resa
+    eseguibile. Torna verde quando si rilancia `tool/attribuzione_cieca.dart` dal PC di
+    Mauro, e non prima. **Da oggi i rossi ammessi nella suite sono DUE:** la guardia
+    dell'ordine S e questo.
+  - **IL VINCOLO SI SPOSTA SULLA CONSEGNA, cioe' sulla voce S.29:** il rilancio
+    dell'attribuzione cieca non e' piu' facoltativo, perche' le regole di casa dicono
+    che si esegue prima di ogni consegna che tocchi le personalita', e questa sessione
+    le ha toccate. Insieme a lei si esegue la misura (a) del presagio della voce S.19:
+    **due misure che chiedono Vertex vero si pagano in una sessione sola, non in due.**
+  - **UN'IPOTESI, e si chiama ipotesi perche' non e' misurata.** Le tre aggiunte
+    dell'11 agosto sono IDENTICHE per i tre Maestri, quindi hanno aggiunto massa
+    condivisa a una stringa che prima era distintiva per intero. Se la misura nuova
+    risultera' scesa, il primo posto dove guardare e' la PROPORZIONE fra comune e
+    firma, non il contenuto delle tre aggiunte. Non si tocca niente su questa base
+    prima che la misura parli.
 - **S.29** Le Linee Guida recepiscono, e la consegna — APERTA
 
 ---
@@ -1575,6 +1602,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 25
+VOCI_CHIUSE: 26
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

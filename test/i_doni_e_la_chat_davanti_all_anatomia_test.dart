@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
+import 'package:esoteric_circle/core/responsi/dove_la_chat_porta_ogni_parte.dart';
+import 'package:esoteric_circle/services/ai/impronta_dell_istruzione.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
-import 'package:esoteric_circle/core/maestro/consiglio_finale.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
@@ -95,40 +99,114 @@ void main() {
     }
   });
 
-  test('MISURA: dove sta ognuna delle tre parti dentro l\'istruzione della chat',
-      () {
-    // **QUESTA PROVA DICHIARA, e il numero che stampa e' la voce S.28.** La chat
-    // esprime le tre parti dell'anatomia, ma con parole SUE e in tre punti diversi:
-    // - la RISPOSTA e' la "frase di sintesi" piu' il "testo narrato" della struttura
-    //   a quattro strati, che viene dai briefing e non da `ParteDelResponso`;
-    // - COSA PUOI FARE e' `ConsiglioFinale.istruzione`, che vive in un punto suo;
-    // - DA DOVE VIENE e' la regola dell'ancoraggio, che pretende che la risposta
-    //   nomini i dati della persona.
+  test('ogni parte del responso ha un posto dichiarato nella chat', () {
+    // **QUESTA PROVA ERA UNA DICHIARAZIONE ED E' DIVENTATA UN LEGAME.** Diceva quali
+    // parti dell'anatomia l'istruzione NOMINA, e la risposta era zero su tre. Era
+    // vera, ed e' stata SUPERATA dalla decisione del 13 agosto: le tre parti sono
+    // l'obbligo di CONTENUTO di un responso, i quattro strati sono la FORMA di una
+    // risposta di chat, e sono due assi diversi. Pretendere che l'istruzione usi le
+    // stesse parole fonderebbe due distinzioni utili in un vocabolario solo.
     //
-    // **Sono due anatomie scritte in due posti**, ed e' la famiglia delle due porte
-    // che quest'ordine esiste per chiudere. Non si tocca qui, e la ragione sta nel
-    // manifesto: cambiare l'istruzione di sistema invalida l'attribuzione cieca
-    // delle tre voci, misurata al 98,3 per cento, che si rifa' solo con una chiamata
-    // vera a Vertex.
-    final istruzione = MaestroPersona.systemInstruction(
-      maestro: Maestro.medora,
-      profile: UserProfile.empty,
-      memory: MaestroMemory.empty,
-    );
-    final trovate = <String, bool>{};
+    // Cio' che si pretende adesso: che ogni parte abbia un POSTO DICHIARATO. **Il
+    // giorno che nasce una quarta parte dentro il responso e nessuno le trova una
+    // casa nella chat, questa riga cade**, ed e' la ragione per cui la voce si chiude
+    // qui invece che di nuovo fra sei mesi.
+    var osservate = 0;
+    final senzaCasa = <String>[];
     for (final parte in ParteDelResponso.nelResponso) {
-      trovate[parte.nome] = istruzione.contains(parte.nome);
+      osservate++;
+      if (DoveLaChatPortaOgniParte.per(parte) == null) {
+        senzaCasa.add(parte.nome);
+      }
+    }
+    expect(senzaCasa, isEmpty,
+        reason: 'queste parti del responso non hanno un posto dichiarato nella '
+            'chat: ${senzaCasa.join(", ")}');
+    // **QUANTE OSSERVAZIONI, e cade se sono zero.** Lezione della voce S.27: una
+    // prova che enumera puo' girare a vuoto e sembrare forte lo stesso.
+    // ignore: avoid_print
+    print('ORDINE S VOCE 28: parti osservate $osservate');
+    expect(osservate, greaterThan(0),
+        reason: 'la prova ha enumerato zero parti: non ha guardato niente');
+    // E la tradizione NON deve avere una casa nella chat: vive nel pannello delle
+    // fonti, e `dentroIlResponso` falso e' il modo in cui l'anatomia lo dice.
+    expect(DoveLaChatPortaOgniParte.per(ParteDelResponso.tradizione), isNull,
+        reason: 'la tradizione ha un posto dentro la chat: l\'anatomia dice che '
+            'sta nel pannello delle fonti');
+  });
+
+  test('ogni posto dichiarato e\' vivo dentro la STRINGA EMESSA', () {
+    // **NON SI LEGGE IL SORGENTE DEL COMPOSITORE.** Leggere il file direbbe che la
+    // riga e' scritta, non che arriva al modello: si compone la stringa vera e ci si
+    // cerca dentro il marcatore.
+    var osservate = 0;
+    final morti = <String>[];
+    for (final maestro in Maestro.values) {
+      final istruzione = MaestroPersona.systemInstruction(
+        maestro: maestro,
+        profile: UserProfile.empty,
+        memory: MaestroMemory.empty,
+      );
+      for (final posto in DoveLaChatPortaOgniParte.tutte) {
+        osservate++;
+        if (!istruzione.contains(posto.marcatore)) {
+          morti.add('${maestro.id}: "${posto.marcatore}" (${posto.parte.nome}) '
+              'non e\' nella stringa emessa');
+        }
+      }
+    }
+    expect(morti, isEmpty, reason: morti.join(' | '));
+    // ignore: avoid_print
+    print('ORDINE S VOCE 28: marcatori cercati nella stringa emessa $osservate');
+    expect(osservate, greaterThan(0),
+        reason: 'la prova non ha cercato nessun marcatore: gira a vuoto');
+  });
+
+  test('l\'impronta dell\'istruzione coincide con quella registrata', () {
+    // **LA GUARDIA CHE MANCAVA, ed e' il motivo per cui 636 caratteri sono entrati
+    // nell'artefatto piu' fragile del progetto senza che una riga cadesse.**
+    var osservate = 0;
+    final cambiate = <String>[];
+    for (final maestro in Maestro.values) {
+      final istruzione = MaestroPersona.systemInstruction(
+        maestro: maestro,
+        profile: UserProfile.empty,
+        memory: MaestroMemory.empty,
+      );
+      final impronta = sha256.convert(utf8.encode(istruzione)).toString();
+      osservate++;
+      final registrata = ImprontaDellIstruzione.per(maestro);
+      if (impronta != registrata) {
+        cambiate.add('${maestro.id}: adesso $impronta, registrata $registrata');
+      }
     }
     // ignore: avoid_print
-    print('ORDINE S VOCE 28: parti dell\'anatomia nominate nell\'istruzione della '
-        'chat: $trovate');
-    // Cio' che la chat porta davvero, e che si presidia: il consiglio finale c'e',
-    // e la struttura a quattro strati anche.
-    expect(istruzione, contains(ConsiglioFinale.istruzione),
-        reason: 'la chat non chiede piu\' il consiglio finale: e\' la parte che '
-            'fa tornare, ed e\' cio\' che nell\'anatomia si chiama "cosa puoi '
-            'fare"');
-    expect(istruzione, contains('ANATOMIA A QUATTRO STRATI'),
-        reason: 'la struttura della risposta e\' sparita dall\'istruzione');
+    print('ORDINE S VOCE 28: impronte confrontate $osservate');
+    expect(osservate, greaterThan(0));
+    expect(cambiate, isEmpty,
+        reason: 'l\'istruzione di sistema e\' cambiata rispetto a quella registrata '
+            'il ${ImprontaDellIstruzione.registrateIl}. Non e\' vietato cambiarla: '
+            'e\' vietato cambiarla in silenzio. Rilancia l\'attribuzione cieca e '
+            'aggiorna le impronte, oppure dichiara nel rapporto che si consegna '
+            'con una misura non valida. ${cambiate.join(" | ")}');
   });
+
+  test('l\'attribuzione cieca e\' valida su QUESTA istruzione', () {
+    // **QUESTA PROVA NASCE ROSSA, IL 13 AGOSTO 2026, ED E' GIUSTO COSI': dice il
+    // vero.** L'attribuzione cieca fu misurata il 2 agosto al 98,3 per cento; l'11
+    // agosto il commit 97bb997, voci S.15 e S.17, ha aggiunto 636 caratteri netti
+    // all'istruzione di tutti e tre i Maestri. Quel numero appartiene a una stringa
+    // che non esiste piu'.
+    //
+    // **Il rosso e' la dichiarazione resa eseguibile.** Scrivere il 98,3 accanto
+    // all'impronta di oggi sarebbe mettere il falso dentro un dato; lasciarlo in un
+    // commento lo renderebbe ignorabile. Questa riga torna verde quando la misura
+    // viene rifatta, e non prima.
+    expect(ImprontaDellIstruzione.attribuzioneValida, isTrue,
+        reason: 'LA MISURA DELL\'ATTRIBUZIONE CIECA NON E\' VALIDA su questa '
+            'istruzione. Ultima misura nota: '
+            '${ImprontaDellIstruzione.ultimaMisuraNota} Come si rimisura: '
+            '${ImprontaDellIstruzione.comeSiRimisura}');
+  });
+
 }
