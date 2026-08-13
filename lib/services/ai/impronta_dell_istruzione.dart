@@ -45,26 +45,44 @@ class ImprontaDellIstruzione {
   /// Il giorno in cui queste impronte sono state registrate.
   static const String registrateIl = '13 agosto 2026';
 
-  /// **VERO SOLO QUANDO L'ATTRIBUZIONE CIECA E' STATA MISURATA SU QUESTE
-  /// IMPRONTE.** Oggi e' falso, e la prova che lo guarda nasce ROSSA di proposito:
-  /// dice il vero, ed e' l'unico modo perche' una misura mancante non passi
-  /// inosservata fino alla consegna.
+  /// **VERO SOLO QUANDO L'ATTRIBUZIONE CIECA E' STATA MISURATA SU QUESTE IMPRONTE
+  /// E HA PASSATO LA SOGLIA.** Sono due condizioni e non una, e il 14 agosto 2026 la
+  /// prima e' diventata vera mentre la seconda e' diventata FALSA: la misura e' stata
+  /// presa su questa stringa e ha dato 70,0 per cento contro una soglia di 85.
+  ///
+  /// **NON SI PORTA A VERO PER FAR PASSARE LA SUITE, e non si abbassa la soglia.** Il
+  /// rosso non dice piu' che manca una misura: adesso dice che la misura c'e' ed e'
+  /// negativa, che e' una cosa piu' seria. Torna vero quando le tre voci sono di
+  /// nuovo distinguibili e la misura lo dimostra.
   static const bool attribuzioneValida = false;
 
   /// L'ultima misura NOTA, con la stringa su cui fu presa. Si tiene perche' un
   /// numero senza il suo oggetto e' una leggenda.
   static const String ultimaMisuraNota =
-      '98,3 per cento (59 su 60), 2 agosto 2026, presa su una stringa di circa '
-      '6300 caratteri, prima che il commit 97bb997 dell\'11 agosto ne aggiungesse '
-      '636 netti con le voci S.15 e S.17.';
+      '70,0 per cento (42 su 60), 14 agosto 2026, presa SU QUESTE IMPRONTE. '
+      'Prima era 98,3 per cento (59 su 60) il 2 agosto, su una stringa di circa '
+      '6300 caratteri, prima che il commit 97bb997 aggiungesse 636 caratteri '
+      'netti con le voci S.15 e S.17.';
+
+  /// LA MATRICE, e si tiene per intero perche' il numero da solo direbbe la cosa
+  /// sbagliata.
+  ///
+  /// **Non e' un appiattimento simmetrico delle tre voci: e' AURA CHE ATTIRA.** Aura
+  /// resta riconoscibile al cento per cento, e le altre due finiscono dentro di lei.
+  /// In tutti e diciotto gli errori la risposta e' stata attribuita ad Aura: nessuno
+  /// scambio nella direzione opposta, nessuno scambio fra Medora e Caligo.
+  static const String matrice =
+      'medora 14 su 20 (70,0 per cento), sei volte scambiata per aura; '
+      'aura 20 su 20 (100 per cento); '
+      'caligo 8 su 20 (40,0 per cento), dodici volte scambiato per aura. '
+      'Verdetti illeggibili: zero. Caso cieco 33,3 per cento, soglia 85.';
 
   /// Cosa si deve fare perche' [attribuzioneValida] torni vero.
   static const String comeSiRimisura =
       'flutter test tool/attribuzione_cieca.dart, dal PC con una sessione gcloud '
-      'attiva. Poi si scrive qui il risultato e si porta attribuzioneValida a '
-      'vero. La misura (a) del presagio della voce S.19 chiede lo stesso PC e lo '
-      'stesso tipo di chiamata: si pagano insieme, non due volte.';
+      'attiva. Poi si scrive qui il risultato: attribuzioneValida torna vero solo '
+      'se la misura passa la soglia, mai per far passare la suite.';
 
-  /// L'impronta registrata per un Maestro.
+
   static String? per(Maestro maestro) => impronte[maestro.id];
 }

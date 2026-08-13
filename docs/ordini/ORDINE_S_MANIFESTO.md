@@ -944,7 +944,7 @@ diagnosi e non una regola da applicare a tutti gli scatti.
 
 ## Sezione B. Le rune
 
-- **S.19** Il presagio di Caligo e' la prima bolla — FERMATA IN ATTESA DI DECISIONE
+- **S.19** Il presagio di Caligo e' la prima bolla — CHIUSA
   - **DICHIARATA CHIUSA E RIAPERTA NELLO STESSO GIORNO, e la ragione va scritta.**
     Il quarto stato aspettava la decisione D4, la D4 e' arrivata, il testo e' stato
     riscritto secondo l'anatomia e ho scritto CHIUSA. **Non lo era:** la decisione
@@ -1023,13 +1023,25 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     una; e quando la voce tace resta un presagio INTERO che non si dichiara,
     misurato cercando sei parole una per una (ripiego, offline, non disponibile,
     riprova, errore, generato).
-  - **PERCHE' LA VOCE E' NEL QUARTO STATO E NON CHIUSA.** Manca la MISURA (a), e la
-    decisione D5 la riclassifica: non e' una prova della suite, e' una misura che si
-    esegue una volta contro il modello VERO e si riporta col numero, come
-    l'attribuzione cieca delle tre voci che sta al 98,3 per cento. **Da questa
-    macchina non si puo' prendere**, perche' serve una sessione Google attiva e
-    credito Vertex. **La voce aspetta l'esecuzione di Mauro e non altro lavoro mio:**
-    non c'e' codice da scrivere, c'e' un comando da lanciare.
+  - **LA MISURA (a) E' STATA ESEGUITA IL 14 AGOSTO 2026, e la voce si chiude con i
+    numeri.** Sessione Google viva, quarantotto chiamate al modello vero, zero senza
+    risposta utile. **SOVRAPPOSIZIONE MEDIA 12,1 per cento, MASSIMA 28,3 per cento**,
+    fra i presagi che la stessa runa produce per domande diverse.
+  - **COME SI LEGGE: la domanda conta.** Se il modello rispondesse alla runa
+    ignorando la domanda, i sedici presagi della stessa runa si somiglierebbero quasi
+    del tutto; a 12,1 per cento di parole piene in comune, cio' che cambia fra un
+    presagio e l'altro e' quasi tutto. Nessuna soglia era dichiarata di proposito: il
+    numero si consegna e la soglia la fissa Mauro.
+  - **PER RUNA, e le tre si comportano come il campione prevedeva:** Fehu diritta 11,7
+    di media e 26,7 di massimo; Hagalaz diritta 13,7 e 28,3; Othala in merkstave 10,9
+    e 20,3. **Il verso d'ombra, che era il caso in cui il simbolo rischiava di coprire
+    la domanda, e' il piu' distinto dei tre.**
+  - Le coppie piu' somiglianti, che lo strumento stampa per dire cosa guardare: per
+    Fehu «Una scelta mi blocca» e «Cosa mi sfugge di questa situazione»; per Hagalaz
+    «Cosa conviene lasciare andare adesso» e «Il mio animale guida: cosa mi dice ora»;
+    per Othala «La mia Luna: cosa chiede adesso» e «La runa di ieri sera: cosa
+    continua oggi». Sono coppie di domande vicine per senso, non un difetto del
+    montaggio.
   - **LO STRUMENTO C'E', ed e' scritto come il deploy: lo scrive Code, lo lancia
     Mauro.** `tool/misura_del_presagio.dart`, fuori dalla suite come
     `tool/attribuzione_cieca.dart` e per la stessa ragione: `flutter test` guarda
@@ -1637,6 +1649,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 26
+VOCI_CHIUSE: 27
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
