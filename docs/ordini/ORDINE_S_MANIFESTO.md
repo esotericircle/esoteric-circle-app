@@ -1517,7 +1517,42 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     risultera' scesa, il primo posto dove guardare e' la PROPORZIONE fra comune e
     firma, non il contenuto delle tre aggiunte. Non si tocca niente su questa base
     prima che la misura parli.
-- **S.29** Le Linee Guida recepiscono, e la consegna — APERTA
+- **S.29** Le Linee Guida recepiscono, e la consegna — FERMATA IN ATTESA DI DECISIONE
+  - **LE LINEE GUIDA HANNO RECEPITO, ed e' la meta' della voce che si poteva fare
+    qui.** `docs/03_Linee_Guida_UX_Trasversali.md` porta il capitolo 21 nuovo, e il
+    capitolo 2 non cambia di una riga: **i quattro strati sono la FORMA, le tre parti
+    sono il CONTENUTO**, e la prima cosa che il capitolo dice e' che sono due assi
+    diversi che non si fondono in un vocabolario solo.
+  - Cosa recepisce, in nove regole: il simbolo non apre mai un responso; il confine
+    vale ovunque e vive in un punto solo; **un dono non e' un responso**; il ripiego
+    non si dichiara mai e non si vede nessuno scambio di testo a video, ma il guasto
+    si scrive nel registro; i testi dei responsi sono materiale dell'Architetto e la
+    loro FONTE sta nel repository con una prova che li confronta; le domande proposte
+    vivono in un punto unico; un sigillo e' un segno impresso su qualcosa; **quattro
+    regole di prova** (una soglia non deriva dalla grandezza che giudica, chi enumera
+    dichiara le osservazioni e cade se sono zero, il rosso si esegue verificando prima
+    che l'iniezione sia entrata, le anteprime si guardano tutte alla risoluzione
+    vera); e che **l'istruzione di sistema e' l'artefatto piu' fragile del progetto** e
+    si tocca solo quando si puo' rimisurare.
+  - **LA CONSEGNA NON PARTE, e non per una scelta mia: mancano DUE MISURE che qui non
+    si possono prendere.** L'attribuzione cieca delle tre voci, che le regole di casa
+    dichiarano obbligatoria prima di ogni consegna che tocchi le personalita' e che
+    questa sessione ha toccato (636 caratteri netti, voci S.15 e S.17); e la misura
+    (a) del presagio della voce S.19. **Chiedono tutte e due una sessione `gcloud`
+    attiva e credito Vertex, e si pagano in una sessione sola.**
+  - **DUE ROSSI DICHIARATI NELLA SUITE, e sono i soli ammessi:** la guardia dell'ordine
+    S, che resta rossa finche' questa voce non ha uno stato terminale, e la prova
+    dell'attribuzione cieca, che nasce rossa perche' dice il vero.
+  - **COSA RESTA A MAURO, in una sessione sola al PC:**
+    1. `flutter test tool/attribuzione_cieca.dart`, poi si scrive il risultato in
+       `lib/services/ai/impronta_dell_istruzione.dart` e si porta `attribuzioneValida`
+       a vero;
+    2. `flutter test tool/misura_del_presagio.dart`, col passo a passo in
+       `docs/ordini/MISURARE_IL_PRESAGIO.md`, e i due numeri vanno nel rapporto;
+    3. la verifica a video dell'accesso su due build nuove, che aspetta dalla voce
+       S.14.
+  - **SE LA CONSEGNA DOVESSE PARTIRE PRIMA**, si dichiara in TESTA al rapporto e non in
+    fondo: si consegna con l'attribuzione cieca non valida e senza la misura (a).
 
 ---
 
@@ -1604,4 +1639,4 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 VOCI_TOTALI: 29
 VOCI_CHIUSE: 26
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2

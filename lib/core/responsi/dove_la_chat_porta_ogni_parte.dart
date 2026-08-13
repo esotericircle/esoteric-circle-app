@@ -73,9 +73,9 @@ class DoveLaChatPortaOgniParte {
       parte: ParteDelResponso.cosaPuoiFare,
       dove: 'il consiglio finale',
       marcatore: 'IL CONSIGLIO FINALE',
-      perche: 'E\' la riga che chiede una cosa concreta in ogni risposta e per '
-          'ogni livello, ed e\' la parte che fa tornare: la stessa ragione per '
-          'cui l\'anatomia la chiama cosi\'.',
+      perche: 'È la riga che chiede una cosa concreta in ogni risposta e per '
+          'ogni livello ed è la parte che fa tornare: la stessa ragione per '
+          'cui l’anatomia la chiama così.',
     ),
     PostoDellaParte(
       parte: ParteDelResponso.daDoveViene,
