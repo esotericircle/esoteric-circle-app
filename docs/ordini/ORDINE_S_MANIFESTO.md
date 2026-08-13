@@ -850,12 +850,35 @@ si legge lo stato.
 
 ## Sezione B. Le rune
 
-- **S.19** Il presagio di Caligo e' la prima bolla — CHIUSA
-  - **ERA FERMATA IN ATTESA DELLA DECISIONE D4, e adesso non lo e' piu'.** La
-    posizione era fatta, il testo aspettava la domanda, e la domanda e' nata con la
-    voce S.21 il 13 agosto 2026. Il quarto stato ha fatto il suo lavoro: ha detto
-    la verita' per il tempo in cui era vera, senza dare per fatto un testo che non
-    c'era e senza dire che il presagio era ancora in fondo alla schermata.
+- **S.19** Il presagio di Caligo e' la prima bolla — APERTA
+  - **DICHIARATA CHIUSA E RIAPERTA NELLO STESSO GIORNO, e la ragione va scritta.**
+    Il quarto stato aspettava la decisione D4, la D4 e' arrivata, il testo e' stato
+    riscritto secondo l'anatomia e ho scritto CHIUSA. **Non lo era:** la decisione
+    di Mauro sulla Sezione B, che sta piu' sopra in questo stesso documento, chiede
+    per questa voce tre cose che non erano fatte, e non le avevo rilette prima di
+    dichiarare. Sono il punto 3 (modello misto), il punto 5 (il confine nelle
+    istruzioni di sistema) e il punto 6 (la prova a due misure). **Meglio una riga
+    che dice di essersi sbagliata che un marcatore che conta una voce finita.**
+  - **QUEL CHE E' FATTO, verificato:** la posizione, l'anatomia, il ripiego
+    deterministico che risponde alla domanda, e le anteprime guardate.
+  - **QUEL CHE MANCA, dalla decisione di Mauro sulla Sezione B:**
+    - **Punto 3, MODELLO MISTO.** Il presagio lo deve COMPORRE IL MODELLO da due
+      dati, la runa uscita col suo significato dal corpus e la domanda scelta. E'
+      l'unica bolla che deve davvero rispondere ed e' una sola per gettata, quindi
+      una generazione al giorno per utente nel piano gratuito. Cio' che c'e' ora e'
+      soltanto il RIPIEGO, che l'ordine pretende comunque e che non dichiara di
+      essere un ripiego: funziona e basta.
+    - **Punto 5, il confine della voce S.17 nelle istruzioni di sistema**, in un
+      punto solo, con una prova che l'istruzione sia presente e unica. Il testo per
+      il modello esiste gia' (`ConfineDelResponso.perIlModello`) e non e' ancora
+      agganciato a nessuna istruzione.
+    - **Punto 6, LA PROVA A DUE MISURE:** a parita' di runa, due domande diverse
+      danno presagi che condividono meno di una soglia dichiarata delle loro parole
+      piene; e ogni presagio condivide almeno N parole piene con LA SUA domanda. Il
+      rosso si esegue rimettendo la composizione a hash sulle liste fisse, e deve
+      cadere il punto b. **Il ripiego di adesso e' esattamente quella composizione
+      a hash**, quindi oggi il punto b cade: la prova non e' stata scritta perche'
+      avrebbe misurato il ripiego invece del presagio.
   - **IL PRESAGIO E' SALITO IN CIMA.** Stava in fondo, dopo le rune una per una: la
     persona leggeva tre frammenti e doveva montarli da sola, e la lettura che li
     tiene insieme arrivava quando aveva gia' finito di interpretare. Adesso e' la
@@ -912,7 +935,8 @@ si legge lo stato.
     non dichiaravano un quando, e la prova le ha nominate una per una.
   - GUARDATA l'anteprima `rune-norne.png` alla larghezza reale e alla risoluzione
     vera: il presagio e' la prima bolla, apre senza nomi di runa, la cosa da fare
-    sta nella sua cornice, i nomi con i versi arrivano in fondo.
+    sta nella sua cornice, i nomi con i versi arrivano in fondo. E guardata
+    `rune-getto.png`, che ha trovato la litania delle glosse.
 - **S.20** I responsi delle singole rune scendono alla meta' — CHIUSA
   - **IL TETTO VIENE DALLA MISURA: 55 caratteri.** La mediana misurata alla voce
     S.18 era 106 per il verso dritto e 111 per quello d'ombra: si prende la meta'
@@ -1093,6 +1117,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 21
+VOCI_CHIUSE: 20
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
