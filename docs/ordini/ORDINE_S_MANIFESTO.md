@@ -1357,6 +1357,13 @@ diagnosi e non una regola da applicare a tutti gli scatti.
   - **LA FONTE STA NEL REPOSITORY, `docs/responsi/consiglio.md`**, e una prova la
     confronta col codice come per le cornici, con le stesse tre trasformazioni
     dichiarate. La trascrizione era giusta al primo confronto vero.
+  - **UNA GUARDIA VECCHIA E' STATA SUPERATA, e riscritta invece che cancellata.**
+    `tarot_interpretazione_test` pretendeva che il consiglio COMINCIASSE col modello
+    del gruppo: era vero, perche' il gruppo porta l'azione e la bolla apriva con
+    l'azione. Adesso apre con la lente e la risposta, e la riga e' stata cambiata di
+    grandezza, non tolta: pretende l'apertura nuova e che l'azione ci sia ancora. E'
+    la quarta guardia superata in questa sessione, e la quarta volta che aveva
+    ragione lei.
   - **LA MISURA DOPO:** il consiglio passa da 541 a 713 caratteri di mediana e da 696
     a 870 di massimo, e nessun tetto esistente taglia (verificato dalla prova che
     confronta i tetti coi massimi misurati).

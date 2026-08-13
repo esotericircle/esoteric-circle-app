@@ -135,14 +135,24 @@ void main() {
       expect(TarotReading.domande, contains(r.domanda));
     });
 
-    test('Il consiglio parte dal gruppo e finisce con la domanda', () {
+    test('Il consiglio parte dalla lente e finisce con la domanda', () {
       // ORDINE P VOCE 09: il consiglio non e' piu' il solo modello del gruppo.
-      // Lo CONTIENE, in apertura, e poi poggia sulle tre carte nominandole, e
-      // finisce con la domanda dopo una riga di stacco.
+      // Lo CONTIENE, e poi poggia sulle tre carte nominandole, e finisce con la
+      // domanda dopo una riga di stacco.
+      //
+      // **QUESTA RIGA E' STATA RISCRITTA DALLA VOCE S.26 DELL'ORDINE S.** Diceva
+      // che il consiglio COMINCIA col modello del gruppo, ed era vero: il gruppo
+      // porta l'AZIONE, e la bolla apriva con l'azione. L'anatomia della voce S.16
+      // dice che prima viene la RISPOSTA, e l'allegato C ha portato le tre risposte
+      // che mancavano. Adesso la bolla apre con la lente dell'argomento e la
+      // risposta del gruppo, e l'azione viene dopo: la riga non e' stata tolta ma
+      // cambiata di grandezza, e l'ordine delle due parti lo presidia
+      // `il_consiglio_dei_tarocchi_e_la_sua_anatomia_test`.
       final s = TarotSpread.draw(seed: 3);
       for (final t in TarotTopic.values) {
         final r = TarotReading.of(s, t);
-        expect(r.consiglio, startsWith(t.group.consiglio));
+        expect(r.consiglio, startsWith('${t.lente}, ${t.group.risposta}'));
+        expect(r.consiglio, contains(t.group.consiglio));
         expect(r.consiglio.split('\n\n').last.trim(), r.domanda);
       }
     });
