@@ -51,13 +51,20 @@ class RunePresagio {
     // domande cambia le cornici restano attaccate a quella giusta. Per una
     // domanda scritta con parole della persona non esiste cornice, e in ripiego
     // il responso parla alla giornata.
-    final cornice = CorniciDelPresagio.perDomanda(domanda);
+    // **SENZA CORNICE VALE LA DICIASSETTESIMA, quella della giornata**, e non una
+    // delle sedici: usare la cornice di una domanda per chi non l'ha scelta
+    // direbbe alla persona che ha chiesto qualcosa che non ha chiesto. Vale per chi
+    // non scegli niente e per chi scrive la domanda con parole sue, che non ha una
+    // cornice sua.
+    final cornice = CorniciDelPresagio.perDomanda(domanda) ??
+        CorniciDelPresagio.dellaGiornata;
     return Responso(
       risposta: _risposta(esito, cornice),
-      // LA CHIUSURA DELLA CORNICE E' LA PARTE 2, quando c'e' una cornice. Le nove
-      // indicazioni per famiglia e equilibrio restano per la giornata, cioe' per
-      // chi getta senza domanda.
-      cosaPuoiFare: cornice?.chiusura ?? _cosaPuoiFare(esito),
+      // **LA PARTE 2 VIENE SEMPRE DALL'ALLEGATO.** Le nove indicazioni per
+      // famiglia e equilibrio che avevo scritto io non esistono piu': la
+      // diciassettesima cornice copre il caso che coprivano loro, e cio' che la
+      // persona legge lo scrive l'Architetto.
+      cosaPuoiFare: cornice.chiusura,
       daDoveViene: _daDoveViene(esito),
     );
   }
@@ -68,18 +75,16 @@ class RunePresagio {
   /// simbolo chiede alla persona di sapere cosa vuol dire quel simbolo prima di
   /// riceverne una risposta. Le posizioni invece restano, perche' dicono di CHE
   /// COSA si sta parlando (cio' che fu, cio' che diviene, cio' che sara').
-  static String _risposta(EsitoGettata esito, CorniceDelPresagio? cornice) {
+  static String _risposta(EsitoGettata esito, CorniceDelPresagio cornice) {
     // **L'APERTURA DELLA CORNICE, e la frase della runa si innesta dopo.** E' il
     // montaggio dell'allegato B, in quest'ordine: apertura, frase della runa dal
     // corpus che non si tocca, chiusura, e poi la riga che nomina la runa.
     //
-    // **SENZA CORNICE L'APERTURA E' PROVVISORIA, e va detto.** La cornice della
-    // giornata e' la diciassettesima e la scrive l'Architetto: l'allegato vieta
-    // di usare una delle sedici come ripiego generico, perche' direbbe alla
-    // persona che ha chiesto una cosa che non ha chiesto. Finche' non arriva,
-    // questa riga tiene il posto ed e' testo mio, non materiale dell'allegato.
-    final apertura =
-        cornice?.apertura ?? 'Sulla tua giornata, ecco cosa vedono le rune.';
+    // **IL TESTO PROVVISORIO NON C'E' PIU'.** Fino al 13 agosto 2026 il caso senza
+    // domanda apriva con una riga scritta da me, dichiarata provvisoria: adesso
+    // apre con la diciassettesima cornice dell'allegato, e non c'e' una sola riga
+    // di responso che non venga da Mauro.
+    final apertura = cornice.apertura;
     final parti = <String>[apertura, ..._perPosizione(esito.rune)];
     parti.add(esito.gettata.libera
         ? _equilibrioLibera(esito)
@@ -124,51 +129,13 @@ class RunePresagio {
     return fuori;
   }
 
-  /// LA SECONDA PARTE, quella che fa tornare: una cosa che si puo' fare oggi.
-  ///
-  /// **Non "ascolta te stesso", e la regola sta scritta nell'anatomia.** Nove
-  /// indicazioni, tre famiglie per tre equilibri di luce e ombra: la famiglia
-  /// dice DI CHE COSA si tratta, l'equilibrio dice con quanta cautela. Nove e non
-  /// una, perche' una sola indicazione per ogni gettata si riconoscerebbe alla
-  /// seconda lettura e smetterebbe di essere un consiglio.
-  static String _cosaPuoiFare(EsitoGettata esito) {
-    final rune = esito.gettata.libera ? esito.sparse : esito.rune;
-    final ombre = esito.gettata.libera
-        ? esito.sparse.where((s) => s.verso == RuneVerso.merkstave).length
-        : esito.rune.where((r) => r.inOmbra).length;
-    final n = rune.isEmpty ? 1 : rune.length;
-    // Tre gradi: nessuna ombra, ombra in minoranza, ombra in maggioranza.
-    final grado = ombre == 0 ? 0 : (ombre * 2 > n ? 2 : 1);
-    switch (_aettDominante(esito.rune)) {
-      case 'Freyr':
-        return const [
-          'Cosa puoi fare: entro stasera porta a termine una cosa concreta che '
-              'avevi rimandato. Una sola, fino in fondo.',
-          'Cosa puoi fare: prendi la cosa concreta che hai fra le mani e fanne '
-              'oggi il pezzo più piccolo. Il resto aspetta domani.',
-          'Cosa puoi fare: oggi non aggiungere niente. Metti in ordine una cosa '
-              'che possiedi già, prima di volerne un\'altra.',
-        ][grado];
-      case 'Hagal':
-        return const [
-          'Cosa puoi fare: oggi scegli la cosa che stavi evitando e comincia dal '
-              'suo primo passo, quello che si fa in dieci minuti.',
-          'Cosa puoi fare: stasera scrivi in una riga la cosa che stai evitando. '
-              'Guardarla scritta è il primo passo che conta.',
-          'Cosa puoi fare: oggi rimanda una decisione di proposito. Scrivi '
-              'quale informazione ti manca per prenderla.',
-        ][grado];
-      default:
-        return const [
-          'Cosa puoi fare: di\' a una persona la cosa che non le hai detto, in '
-              'una frase sola e oggi.',
-          'Cosa puoi fare: oggi chiedi a una persona cosa si aspetta da te. '
-              'Chiedere è meno faticoso che indovinare.',
-          'Cosa puoi fare: oggi non rispondere a caldo. Aspetta domani mattina '
-              'per la cosa che ti pesa più di tutte.',
-        ][grado];
-    }
-  }
+  // **LE NOVE INDICAZIONI PER FAMIGLIA SONO STATE TOLTE, il 13 agosto 2026.**
+  // Erano tre famiglie di rune per tre equilibri di luce e ombra, scritte da me
+  // per il caso senza domanda, e coprivano il posto che adesso occupa la
+  // diciassettesima cornice dell'allegato B. Tenerle sarebbe stato lasciare due
+  // testi possibili per la stessa parte del responso, cioe' la famiglia delle due
+  // porte, con la differenza che una delle due porte non e' materiale
+  // dell'Architetto.
 
   /// LA TERZA PARTE: qui, e solo qui, compaiono le rune coi loro versi.
   static String _daDoveViene(EsitoGettata esito) {

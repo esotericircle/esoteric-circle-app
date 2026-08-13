@@ -65,7 +65,12 @@ void main() {
     // Il vincolo 1 dell'allegato: il simbolo compare nella parte 3 e non prima.
     // Una cornice che nomina la pietra smette di essere una cornice.
     final colpe = <String>[];
-    for (final c in CorniciDelPresagio.tutte) {
+    // **TUTTE E DICIASSETTE**, la giornata compresa: il vincolo 1 non dipende dal
+    // fatto che ci sia una domanda.
+    for (final c in [
+      ...CorniciDelPresagio.tutte,
+      CorniciDelPresagio.dellaGiornata,
+    ]) {
       for (final r in kElderFuthark) {
         if (c.apertura.contains(r.name) || c.chiusura.contains(r.name)) {
           colpe.add('${c.domanda}: nomina ${r.name}');
@@ -93,24 +98,20 @@ void main() {
     // **Il principio nuovo:** almeno una parola piena della domanda, cioe' il nome
     // dell'area, dev'essere nel presagio. Non e' il minimo osservato, e' una
     // soglia sotto la quale il presagio parlerebbe di qualcosa che la persona non
-    // ha nominato: a zero, infatti, casca (vedi la deroga qui sotto).
+    // ha nominato.
     const sogliaDichiarata = 1;
 
-    /// **L'UNICA DEROGA, e sta qui col suo nome e il suo motivo.**
-    ///
-    /// La cornice G8 dell'allegato B non condivide NESSUNA parola piena con la
-    /// sua domanda: la domanda dice "guardando", la cornice parla di "una parte
-    /// che tieni fuori dal racconto". Semanticamente risponde, e bene; per la
-    /// misura (b) e' muta, e la misura (b) e' il presidio che l'allegato stesso
-    /// dichiara al vincolo 2.
-    ///
-    /// **NON SI AGGIUSTA LA MISURA PER FARLA PASSARE.** Bastava togliere "cosa"
-    /// dalle parole vuote e il conto saliva a uno: sarebbe stato allargare la
-    /// soglia attorno al difetto, che in questo ordine e' gia' costato due misure
-    /// buttate. La cornice e' materiale dell'Architetto e Code non la riformula:
-    /// la deroga sta scritta, il rapporto la chiede, e quando la cornice arriva
-    /// corretta questa riga si cancella.
-    const derogaDellArchitetto = 'Cosa non sto guardando di me?';
+    // **LA DEROGA DELLA G8 NON SERVE PIU', ed e' la prova che l'ha chiesta.** La
+    // prima stesura di "Cosa non sto guardando di me?" non conteneva nessuna
+    // parola piena della sua domanda: era l'unica delle sedici a violare il
+    // vincolo 2 dell'allegato. La misura l'ha detto, e l'Architetto ha riscritto la
+    // cornice il 13 agosto 2026 invece di farsi aggiustare la misura addosso.
+    //
+    // **LA DICIASSETTESIMA CORNICE, quella della giornata, NON entra in questa
+    // misura, e si esclude PER NOME come chiede l'allegato:** non esiste una
+    // domanda con cui confrontare le parole, quindi la (b) su di lei non vuol dire
+    // niente. Escluderla dentro la condizione, in silenzio, avrebbe nascosto la
+    // ragione.
 
     final minimi = <String, int>{};
     for (final d in [
@@ -133,30 +134,25 @@ void main() {
     }
     final povere = minimi.entries
         .where((e) => e.value < sogliaDichiarata)
-        .where((e) => e.key != derogaDellArchitetto)
         .map((e) => '${e.key}: ${e.value} parole piene condivise')
         .toList();
     expect(povere, isEmpty,
         reason: 'questi presagi non parlano della domanda posta:\n'
             '${povere.join("\n")}');
-    // **E LA DEROGA DEVE RESTARE UNA DEROGA.** Se un giorno quella cornice
-    // arrivasse corretta e nessuno cancellasse questa riga, la prova smetterebbe
-    // di guardare una domanda per sempre: quindi cade anche al contrario, quando
-    // la deroga non serve piu'.
-    expect(minimi[derogaDellArchitetto], lessThan(sogliaDichiarata),
-        reason: 'la cornice "$derogaDellArchitetto" adesso condivide '
-            '${minimi[derogaDellArchitetto]} parole piene con la sua domanda: la '
-            'deroga non serve piu\' e va cancellata da questa prova');
 
     // Il minimo misurato, stampato perche' il numero valga anche fra sei mesi.
-    final minimoAssoluto = minimi.entries
-        .where((e) => e.key != derogaDellArchitetto)
-        .map((e) => e.value)
-        .reduce(min);
+    final minimoAssoluto = minimi.values.reduce(min);
     // ignore: avoid_print
     print('MISURA (b): minimo di parole piene condivise fra presagio e sua '
         'domanda = $minimoAssoluto (soglia dichiarata $sogliaDichiarata)');
     expect(minimoAssoluto, greaterThanOrEqualTo(sogliaDichiarata));
+
+    // **E LA DICIASSETTESIMA RESTA FUORI DA QUESTO ELENCO, per nome.** Se un
+    // giorno entrasse fra le domande della gettata, la misura la prenderebbe e
+    // risponderebbe zero: questa riga cade prima, dicendo perche'.
+    expect(minimi.containsKey(CorniciDelPresagio.dellaGiornata.domanda), isFalse,
+        reason: 'la cornice della giornata e\' entrata nella misura (b): non ha '
+            'una domanda con cui confrontare le parole');
   });
 
   test('la chiusura di ogni cornice e\' una cosa che si puo\' fare', () {
@@ -173,7 +169,10 @@ void main() {
       'apriti all\'universo',
     ];
     final colpe = <String>[];
-    for (final c in CorniciDelPresagio.tutte) {
+    for (final c in [
+      ...CorniciDelPresagio.tutte,
+      CorniciDelPresagio.dellaGiornata,
+    ]) {
       final basso = c.chiusura.toLowerCase();
       for (final f in formule) {
         if (basso.contains(f)) colpe.add('${c.domanda}: "$f"');
@@ -187,7 +186,10 @@ void main() {
     // medico, legale o finanziario. Il confine e' quello dell'ordine, non una
     // seconda lista scritta qui.
     final colpe = <String>[];
-    for (final c in CorniciDelPresagio.tutte) {
+    for (final c in [
+      ...CorniciDelPresagio.tutte,
+      CorniciDelPresagio.dellaGiornata,
+    ]) {
       for (final testo in [c.apertura, c.chiusura]) {
         final v = ConfineDelResponso.violazioni(testo);
         if (v.isNotEmpty) colpe.add('${c.domanda}: ${v.join("; ")}');
@@ -236,5 +238,24 @@ void main() {
       }
       expect(presagio.risposta.contains('giornata'), isTrue);
     }
+  });
+
+  test('la diciassettesima parla alla giornata e APRE invece di chiudere', () {
+    // Allegato B aggiornato: la cornice della giornata non chiude, apre. Chi getta
+    // senza domanda esce con una domanda per il giorno dopo, ed e' il ritorno che
+    // la voce cerca.
+    final g = CorniciDelPresagio.dellaGiornata;
+    expect(g.domanda, isEmpty,
+        reason: 'la cornice della giornata non ha una domanda, per definizione');
+    expect(g.apertura, contains('giornata'));
+    expect(g.chiusura, contains('domani'),
+        reason: 'la diciassettesima deve lasciare una domanda per domani: e\' la '
+            'parte che fa tornare');
+    // E si trova per la domanda vuota, che e' il modo in cui il motore la chiede.
+    expect(CorniciDelPresagio.perDomanda(''), same(g));
+    expect(CorniciDelPresagio.perDomanda('   '), same(g));
+    // Ma NON compare fra le sedici: se vi entrasse, la misura (b) la prenderebbe.
+    expect(CorniciDelPresagio.tutte.length, 16);
+    expect(CorniciDelPresagio.tutte.contains(g), isFalse);
   });
 }

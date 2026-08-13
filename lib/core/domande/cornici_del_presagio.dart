@@ -36,10 +36,19 @@
 ///
 /// **IL CASO SENZA DOMANDA NON USA NESSUNA DI QUESTE SEDICI.** L'allegato lo
 /// vieta in chiaro: userne una direbbe alla persona che ha chiesto una cosa che
-/// non ha chiesto. Vale la voce S.15, il responso parla alla giornata, e la
-/// cornice della giornata e' una diciassettesima che scrive l'Architetto. Finche'
-/// non arriva, la giornata la apre il testo provvisorio che sta nel motore del
-/// presagio, dichiarato la' come provvisorio.
+/// non ha chiesto. Vale la voce S.15, il responso parla alla giornata, e per lei
+/// c'e' la DICIASSETTESIMA, [CorniciDelPresagio.dellaGiornata], arrivata
+/// nell'allegato aggiornato del 13 agosto 2026. Il testo provvisorio che teneva
+/// il posto nel motore del presagio non esiste piu'.
+///
+/// **LA VIRGOLA PRIMA DELLA E NON E' IN DEROGA, e non lo e' mai stata.** Avevo
+/// chiesto una deroga per undici testi su trentadue; Mauro l'ha negata con la
+/// ragione giusta: in queste cornici quella virgola e' sempre stilistica e mai
+/// portante, quindi il costo di toglierla e' zero e si evita una lista di
+/// eccezioni che nessuno mantiene. Una regola con un'eccezione dichiarata resta
+/// una regola; con un elenco di eccezioni diventa un elenco. Togliere la virgola
+/// e' l'UNICO intervento sui testi oltre agli accenti, ed e' un intervento che
+/// l'allegato ordina, non una riformulazione.
 library;
 
 import 'domande_del_cerchio.dart';
@@ -73,15 +82,15 @@ class CorniciDelPresagio {
     CorniceDelPresagio(
       domanda: 'Cosa devo sapere sul mio momento?',
       apertura: 'Il momento che stai attraversando non chiede di essere capito '
-          'tutto insieme. Chiede una cosa sola, e le pietre indicano quale.',
+          'tutto insieme. Chiede una cosa sola e le pietre indicano quale.',
       chiusura: 'Oggi non decidere niente di grande. Guarda cosa del tuo '
-          'momento si ripete, e prendine nota da qualche parte: le cose che si '
+          'momento si ripete e prendine nota da qualche parte: le cose che si '
           'ripetono sono quelle che stanno chiedendo.',
     ),
     CorniceDelPresagio(
       domanda: 'In amore, dove sto andando?',
       apertura: 'In amore non stai fermo, nemmeno quando ti sembra. Una '
-          'direzione c’è già, e le pietre dicono da che parte punta.',
+          'direzione c’è già e le pietre dicono da che parte punta.',
       chiusura: 'Nei prossimi giorni fai una cosa sola in quella direzione, '
           'piccola e detta a voce. In amore quello che non viene nominato resta '
           'un’intenzione.',
@@ -89,7 +98,7 @@ class CorniciDelPresagio {
     CorniceDelPresagio(
       domanda: 'Nel lavoro, quale passo fare?',
       apertura: 'Nel lavoro il passo giusto quasi mai è il più grande. È quello '
-          'che si può fare domani mattina, e le pietre lo indicano.',
+          'che si può fare domani mattina e le pietre lo indicano.',
       chiusura: 'Scegli un passo solo e dagli un’ora precisa. Un passo '
           'senza un’ora non è un passo, è un proposito.',
     ),
@@ -112,7 +121,7 @@ class CorniciDelPresagio {
     CorniceDelPresagio(
       domanda: 'Cosa conviene lasciare andare adesso?',
       apertura: 'Lasciare andare non è perdere. Adesso qualcosa ti sta costando '
-          'più di quanto ti rende, e le pietre lo nominano.',
+          'più di quanto ti rende e le pietre lo nominano.',
       chiusura: 'Scegline una sola e lasciala per sette giorni. Se dopo sette '
           'giorni non ti manca, era quella.',
     ),
@@ -124,13 +133,18 @@ class CorniciDelPresagio {
           'stessa ora. L’insistenza si misura in ripetizioni, non in '
           'sforzo.',
     ),
+    // **RISCRITTA DALL’ARCHITETTO il 13 agosto 2026**, e a chiederlo e’ stata la
+    // prova (b): la prima stesura non conteneva nessuna parola piena della sua
+    // domanda, quindi era l’unica delle sedici a violare il vincolo 2
+    // dell’allegato. La versione nuova nomina "guardando", e la deroga che teneva
+    // in piedi la prova non serve piu’.
     CorniceDelPresagio(
       domanda: 'Cosa non sto guardando di me?',
-      apertura: 'Di te c’è una parte che tieni fuori dal racconto che fai '
-          'agli altri. Non è la peggiore: è quella che non torna comoda. Le '
-          'pietre la portano dentro.',
-      chiusura: 'Oggi di’ a voce alta una cosa vera su di te che di solito '
-          'non dici. Basta dirla una volta, anche a te stesso.',
+      apertura: 'Quello che non stai guardando di te non è la parte peggiore: '
+          'è quella che non torna comoda nel racconto che fai agli altri. Le '
+          'pietre la mettono in mezzo.',
+      chiusura: 'Oggi di’ a voce alta, anche solo a te stesso, la cosa di te '
+          'che stai evitando di guardare. Una volta sola basta.',
     ),
   ];
 
@@ -141,13 +155,13 @@ class CorniciDelPresagio {
     CorniceDelPresagio(
       domanda: 'Il mio Sole: dove mi chiede coraggio?',
       apertura: 'Il tuo Sole non chiede coraggio dove sei già bravo. Lo chiede '
-          'dove ti esponi, e le pietre indicano il punto.',
+          'dove ti esponi e le pietre indicano il punto.',
       chiusura: 'Fai oggi, in piccolo, la cosa che ti espone. Il coraggio si '
           'allena in scala ridotta, non si aspetta in scala grande.',
     ),
     CorniceDelPresagio(
       domanda: 'La mia Luna: cosa chiede adesso?',
-      apertura: 'La tua Luna chiede quasi sempre la stessa cosa, e quasi sempre '
+      apertura: 'La tua Luna chiede quasi sempre la stessa cosa e quasi sempre '
           'a bassa voce. Adesso le pietre la dicono forte.',
       chiusura: 'Concedile la cosa più piccola che chiede, oggi stesso. Una '
           'Luna ascoltata smette di insistere.',
@@ -161,7 +175,7 @@ class CorniciDelPresagio {
     ),
     CorniceDelPresagio(
       domanda: 'La runa di ieri sera: cosa continua oggi?',
-      apertura: 'Ieri sera hai chiuso il giorno con un segno, e quella cosa non '
+      apertura: 'Ieri sera hai chiuso il giorno con un segno e quella cosa non '
           'si è fermata alla notte. Le pietre di adesso dicono dove è arrivata.',
       chiusura: 'Riprendi oggi ciò che ieri sera avevi lasciato a metà, anche '
           'solo per dieci minuti. Continuare vale più che ricominciare.',
@@ -171,7 +185,7 @@ class CorniciDelPresagio {
       apertura: 'La parola di stamattina non era un ornamento: era un filo. Le '
           'pietre dicono dove passa adesso.',
       chiusura: 'Prima di sera trova un momento della giornata in cui quella '
-          'parola è già successa, e riconoscilo. Non serve cercarne un altro.',
+          'parola è già successa e riconoscilo. Non serve cercarne un altro.',
     ),
     CorniceDelPresagio(
       domanda: 'Il mio segno in questo periodo: cosa cambia?',
@@ -184,9 +198,9 @@ class CorniciDelPresagio {
     CorniceDelPresagio(
       domanda: 'Il mio animale guida: cosa mi dice ora?',
       apertura: 'Il tuo animale guida non parla: fa. Ti mostra un modo di '
-          'stare, e le pietre dicono in quale punto ti serve adesso.',
+          'stare e le pietre dicono in quale punto ti serve adesso.',
       chiusura: 'Oggi affronta una cosa nel suo modo invece che nel tuo. Una '
-          'volta sola, e guarda cosa cambia.',
+          'volta sola e guarda cosa cambia.',
     ),
     CorniceDelPresagio(
       domanda: 'Il mio archetipo: quale passo mi somiglia?',
@@ -196,6 +210,28 @@ class CorniciDelPresagio {
           'anche se nessuno lo sapesse mai.',
     ),
   ];
+
+  /// LA DICIASSETTESIMA, per chi non scegli nessuna domanda. Allegato B
+  /// aggiornato del 13 agosto 2026.
+  ///
+  /// **Non e’ una delle sedici e non lo diventa.** Usare la cornice di una domanda
+  /// per chi non ne ha scelta nessuna direbbe alla persona che ha chiesto qualcosa
+  /// che non ha chiesto. Vale la voce S.15: il responso parla alla giornata.
+  ///
+  /// **La prova (b) non si applica a lei**, perche’ non esiste una domanda con cui
+  /// confrontare le parole, e l’allegato pretende che sia esclusa PER NOME dentro
+  /// la prova, non con un’eccezione silenziosa nella condizione.
+  ///
+  /// **Questa cornice non chiude: apre.** Chi getta senza domanda esce con una
+  /// domanda per il giorno dopo, ed e’ il ritorno che la voce cerca.
+  static const CorniceDelPresagio dellaGiornata = CorniceDelPresagio(
+    domanda: '',
+    apertura: 'Non hai chiesto niente e va bene cos\u00ec: certi giorni la domanda '
+        'non \u00e8 ancora una domanda. Allora le pietre non rispondono, guardano '
+        'la tua giornata.',
+    chiusura: 'Prima di sera guarda se qualcosa di oggi assomiglia a questo. Se '
+        'assomiglia, domani la domanda ce l\u2019hai gi\u00e0.',
+  );
 
   /// Tutte e sedici.
   static List<CorniceDelPresagio> get tutte => [...generiche, ...personali];
@@ -207,9 +243,13 @@ class CorniciDelPresagio {
   /// modello. Il ripiego, in quel caso, parla alla giornata.
   static CorniceDelPresagio? perDomanda(String domanda) {
     final cercata = domanda.trim();
+    // **SENZA DOMANDA VALE LA DICIASSETTESIMA**, non una delle sedici.
+    if (cercata.isEmpty) return dellaGiornata;
     for (final c in tutte) {
       if (c.domanda == cercata) return c;
     }
+    // Una domanda scritta con parole della persona non ha cornice: il presagio lo
+    // compone il modello, e in ripiego si parla alla giornata.
     return null;
   }
 

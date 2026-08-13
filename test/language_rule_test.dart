@@ -158,27 +158,18 @@ void main() {
   });
 
   test('Nessuna stringa del codice viola la regola della virgola', () {
-    /// **L'UNICA DEROGA DELLA REGOLA DELLA VIRGOLA, e va letta per intero.**
-    ///
-    /// Le sedici cornici del presagio sono l'allegato B all'ordine S, materiale
-    /// dell'Architetto, e l'ordine dice: "Le sedici si usano verbatim. Nessuna
-    /// riformulazione, nessun accorciamento, nessuna sostituzione di sinonimi".
-    /// UNDICI dei trentadue testi (apertura piu' chiusura per sedici domande)
-    /// contengono la sequenza virgola piu' "e", per esempio "Chiede una cosa sola,
-    /// e le pietre indicano quale".
-    ///
-    /// **Sono due regole di Mauro che si scontrano**, e nessuna delle due e' mia:
-    /// "verbatim" e "mai la virgola piu' e". Ha vinto la piu' specifica e la piu'
-    /// recente, perche' l'alternativa era riscrivere il testo di un altro. La
-    /// deroga vale per QUESTO file e per nessun altro: se le cornici arrivano
-    /// riscritte, questa riga si cancella e il file rientra nella regola.
-    const derogaDellAllegatoB = 'cornici_del_presagio.dart';
-
+    // **NESSUNA DEROGA, e c'e' stata una richiesta respinta.** Avevo chiesto di
+    // esentare le cornici del presagio, undici testi su trentadue con la virgola
+    // prima della "e", perche' l'allegato B le vuole verbatim. Mauro ha negato con
+    // la ragione giusta: in quelle cornici la virgola e' sempre stilistica e mai
+    // portante, quindi si toglie senza cambiare il senso, e una regola con un
+    // elenco di eccezioni diventa un elenco che nessuno mantiene. Le undici
+    // virgole sono state togliete e questo file guarda tutto `lib`, cornici
+    // comprese.
     final files = Directory('lib')
         .listSync(recursive: true)
         .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))
-        .where((f) => !f.path.endsWith(derogaDellAllegatoB));
+        .where((f) => f.path.endsWith('.dart'));
     for (final file in files) {
       final strings = _logicalStrings(file.readAsStringSync());
       for (final s in strings) {

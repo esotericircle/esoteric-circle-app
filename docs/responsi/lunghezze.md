@@ -32,10 +32,10 @@ percio' le lunghezze nuove.
 | Oroscopo, scheda «generale» | 4392 | 194 | 210 |
 | Rito del Sogno, saluto della notte | 366 | 68 | 74 |
 | Rito dell'Alba, messaggio del mattino | 366 | 75 | 76 |
-| Rune, presagio della gettata «croce» | 200 | 911 | 941 |
-| Rune, presagio della gettata «norne» | 200 | 714 | 741 |
-| Rune, presagio della gettata «odino» | 200 | 541 | 559 |
-| Rune, presagio della gettata «telo» | 200 | 1112 | 1138 |
+| Rune, presagio della gettata «croce» | 200 | 1007 | 1039 |
+| Rune, presagio della gettata «norne» | 200 | 811 | 838 |
+| Rune, presagio della gettata «odino» | 200 | 642 | 656 |
+| Rune, presagio della gettata «telo» | 200 | 1209 | 1237 |
 | Rune, singola runa: riga breve di significato | 24 | 61 | 67 |
 | Rune, singola runa: verso d'ombra | 24 | 44 | 52 |
 | Rune, singola runa: verso dritto | 24 | 43 | 51 |
@@ -53,10 +53,10 @@ percio' le lunghezze nuove.
 - **Oroscopo, scheda «generale»** (210 caratteri): Cerchi senso, libertà e avventura, la mente e i piedi vogliono lontano, oggi allarga lo sg...
 - **Rito del Sogno, saluto della notte** (74 caratteri): Il cielo si chiude piano: lascia al domani una sola cosa, il resto posala.
 - **Rito dell'Alba, messaggio del mattino** (76 caratteri): Il cielo si schiarisce: oggi una piccola scelta conta più di mille pensieri.
-- **Rune, presagio della gettata «croce»** (941 caratteri): Sulla tua giornata, ecco cosa vedono le rune. Per il cuore della questione, nutri la radic...
-- **Rune, presagio della gettata «norne»** (741 caratteri): Sulla tua giornata, ecco cosa vedono le rune. Per ciò che fu, rallenta: ritrovata la caden...
-- **Rune, presagio della gettata «odino»** (559 caratteri): Sulla tua giornata, ecco cosa vedono le rune. Per il consiglio essenziale, rallenta: ritro...
-- **Rune, presagio della gettata «telo»** (1138 caratteri): Sulla tua giornata, ecco cosa vedono le rune. Per la più vicina al centro, ciò che viene d...
+- **Rune, presagio della gettata «croce»** (1039 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
+- **Rune, presagio della gettata «norne»** (838 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
+- **Rune, presagio della gettata «odino»** (656 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
+- **Rune, presagio della gettata «telo»** (1237 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
 - **Rune, singola runa: riga breve di significato** (67 caratteri): La grandine, la scossa che passa: dopo la tempesta, terreno pulito.
 - **Rune, singola runa: verso d'ombra** (52 caratteri): Rallenta: ritrovata la cadenza, la strada si spiana.
 - **Rune, singola runa: verso dritto** (51 caratteri): Tieni in equilibrio ciò che dai con ciò che ricevi.

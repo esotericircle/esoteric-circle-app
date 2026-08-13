@@ -202,48 +202,42 @@ void main() {
     }
   });
 
-  test('cosa puoi fare e\' una cosa che si puo\' davvero fare', () {
-    // **NON "ascolta te stesso", e la regola sta scritta nell'anatomia.** Le
-    // formule che non si possono compiere sono la via facile di ogni oracolo, e
-    // questa prova le nomina una per una perche' rientrino solo di proposito.
-    const vuote = [
-      'ascolta te stesso',
-      'ascoltati',
-      'segui il tuo cuore',
-      'fidati del tuo istinto',
-      'sii te stesso',
-      'apriti all\'universo',
-      'lascia andare',
-    ];
-    final colpe = <String>{};
-    final azioni = <String>{};
+  test('cosa puoi fare viene SEMPRE dall\'allegato, mai da me', () {
+    // **QUESTA PROVA E' CAMBIATA DI SOGGETTO, il 13 agosto 2026.** Prima misurava
+    // le nove indicazioni per famiglia che avevo scritto io: che non fossero
+    // formule vuote e che dichiarassero un quando. Quelle nove non esistono piu',
+    // perche' la diciassettesima cornice dell'allegato B copre il caso senza
+    // domanda che coprivano loro.
+    //
+    // Adesso misura una cosa piu' forte: **la parte 2 di un presagio e' SEMPRE la
+    // chiusura di una cornice dell'allegato.** Se un giorno rientrasse un testo
+    // scritto da Code, questa prova cade con la gettata nel messaggio. Che le
+    // chiusure siano compibili e con un quando lo guarda
+    // `le_sedici_cornici_test`, dove vivono i testi.
+    final chiusure = {
+      for (final c in CorniciDelPresagio.tutte) c.chiusura,
+      CorniciDelPresagio.dellaGiornata.chiusura,
+    };
+    final estranee = <String>[];
     for (final g in gettate) {
       for (var seme = 0; seme < semi; seme++) {
-        final testo = RunePresagio.componiIlResponso(
-                RuneCast.getta(g, random: Random(seme)))
-            .cosaPuoiFare;
-        azioni.add(testo);
-        final basso = testo.toLowerCase();
-        for (final v in vuote) {
-          if (basso.contains(v)) colpe.add('"$v" in: $testo');
-        }
-        // Ogni indicazione dichiara un tempo: oggi, stasera, domani. Senza un
-        // quando, "fai una cosa concreta" e' un consiglio che non scade mai e
-        // quindi non si compie mai.
-        if (!basso.contains('oggi') &&
-            !basso.contains('stasera') &&
-            !basso.contains('domani')) {
-          colpe.add('senza un quando: $testo');
+        final esito = RuneCast.getta(g, random: Random(seme));
+        for (final domanda in [
+          '',
+          'Nel lavoro, quale passo fare?',
+          'Ma il mio gatto mi vuole bene?',
+        ]) {
+          final testo =
+              RunePresagio.componiIlResponso(esito, domanda: domanda)
+                  .cosaPuoiFare;
+          if (!chiusure.contains(testo)) {
+            estranee.add('${g.id} seme $seme, domanda "$domanda": $testo');
+          }
         }
       }
     }
-    expect(colpe, isEmpty, reason: colpe.take(8).join('\n'));
-    // **PIU' DI UNA, e il numero e' dichiarato: nove.** Tre famiglie per tre
-    // equilibri di luce e ombra. Una sola indicazione per tutte le gettate si
-    // riconoscerebbe alla seconda lettura e smetterebbe di essere un consiglio.
-    expect(azioni.length, greaterThanOrEqualTo(6),
-        reason: 'le indicazioni distinte sono ${azioni.length}: troppo poche '
-            'perche\' la seconda lettura non le riconosca');
+    expect(estranee, isEmpty,
+        reason: 'la parte 2 di questi presagi non viene dall\'allegato');
   });
 
   test('la parte quattro resta fuori, dove l\'anatomia la manda', () {
