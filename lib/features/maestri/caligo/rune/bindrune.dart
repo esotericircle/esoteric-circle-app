@@ -35,6 +35,14 @@ class BindruneSigillo extends StatelessWidget {
 
   /// L'estremo alto e quello basso dello stelo, in coordinate normalizzate: alto
   /// il settanta per cento del riquadro, centrato.
+  /// IL RAGGIO DEL TONDO, in frazione del lato: il disco su cui il segno e' inciso.
+  static const double raggioDelTondo = 0.44;
+
+  /// IL MARGINE fra il segno e l'anello, in frazione del lato. **Non e' estetica:**
+  /// un segno che tocca il bordo si legge come un segno tagliato, e il tondo smette
+  /// di essere una cornice e diventa un ostacolo. Una prova lo misura sulla resa.
+  static const double margineDelTondo = 0.05;
+
   static const double steloAlto = 0.15;
   static const double steloBasso = 0.85;
 
@@ -269,13 +277,66 @@ class _BindrunePainter extends CustomPainter {
     }
   }
 
+  /// Il disco e l'anello: la superficie su cui il sigillo e' inciso.
+  ///
+  /// **Tre strati, e ognuno fa una cosa sola.** Il disco scuro da' un fondo al
+  /// segno, cosi' i tratti chiari hanno qualcosa dietro invece del cosmo; l'alone
+  /// caldo dentro il disco lo fa sembrare inciso e non stampato; l'anello d'oro
+  /// chiude la forma, ed e' il tratto che dice "sigillo" prima ancora che si legga
+  /// il glifo.
+  void _paintTondo(Canvas canvas, Size size) {
+    final centro = size.center(Offset.zero);
+    final raggio = size.shortestSide * BindruneSigillo.raggioDelTondo;
+
+    canvas.drawCircle(
+      centro,
+      raggio,
+      Paint()..color = const Color(0xFF1A0C10).withValues(alpha: 0.55),
+    );
+    canvas.drawCircle(
+      centro,
+      raggio,
+      Paint()
+        ..shader = RadialGradient(colors: [
+          alone.withValues(alpha: 0.16),
+          alone.withValues(alpha: 0.0),
+        ]).createShader(Rect.fromCircle(center: centro, radius: raggio)),
+    );
+    canvas.drawCircle(
+      centro,
+      raggio,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = size.shortestSide * 0.012
+        ..color = oro.withValues(alpha: 0.85),
+    );
+  }
+
   // Il sigillo della settimana: un unico segno composto. Un solo stelo
   // verticale centrale, spesso, alto il settanta per cento del riquadro, e i
   // rami delle rune agganciati allo stelo, uno per runa, ciascuno alla propria
   // quota, alternando destra e sinistra. Nessun ramo attraversa lo stelo,
   // nessuno esce dal riquadro, al massimo sette. Tono osso caldo, alone ambrato.
   void _paintStelo(Canvas canvas, Size size) {
-    final box = size.shortestSide * 0.82;
+    // **IL SIGILLO STA DENTRO UN TONDO, ordine S voce 25.**
+    //
+    // Prima era un intreccio di tratti d'oro sospeso sul fondo, e a video si
+    // leggeva come un groviglio: nessuna forma che lo contenesse, nessun
+    // appoggio, nessun bordo. Un sigillo e' un segno impresso su qualcosa, e senza
+    // quel qualcosa restano solo le linee.
+    //
+    // Adesso c'e' un DISCO su cui il segno e' inciso e un ANELLO che lo chiude, coi
+    // due tratti che l'app usa gia' per le cornici: il segno rientra dentro
+    // l'anello con un margine dichiarato, quindi non lo tocca mai.
+    _paintTondo(canvas, size);
+    // **IL RIQUADRO DEL GLIFO SI RICAVA DALL'ANELLO, non si sceglie.** E' il
+    // quadrato piu' grande inscritto nel cerchio interno, cioe' nel tondo meno il
+    // margine: cosi' se un giorno il raggio o il margine cambiano, il glifo li
+    // segue da solo e nessuno deve ricordarsi di aggiustare un terzo numero.
+    final box = size.shortestSide *
+        (BindruneSigillo.raggioDelTondo - BindruneSigillo.margineDelTondo) *
+        2 /
+        math.sqrt2;
     final left = (size.width - box) / 2;
     final top = (size.height - box) / 2;
     Offset map(Offset p) => Offset(left + p.dx * box, top + p.dy * box);
@@ -295,6 +356,16 @@ class _BindrunePainter extends CustomPainter {
             Rect.fromCircle(center: size.center(Offset.zero), radius: box * 0.6)),
     );
 
+    // **I TRATTI SEGUONO IL LATO, non il riquadro del glifo. Ordine S voce 25.**
+    //
+    // Erano frazioni di `box`, e quando il riquadro e' sceso dentro l'anello si
+    // sono assottigliati con lui: il segno stava dentro il tondo ma inciso piu'
+    // piano di prima, e un sigillo piu' pallido non e' un sigillo migliore. I due
+    // numeri qui sotto sono gli stessi PESI ASSOLUTI di prima (0,82 per 0,055 e
+    // 0,82 per 0,042), riscritti sul lato perche' non seguano piu' una misura che
+    // cambia.
+    final pesoStelo = size.shortestSide * 0.045;
+    final pesoRami = size.shortestSide * 0.034;
     // Lo stelo verticale centrale, spesso, sotto i rami.
     final steloTop = map(const Offset(0.5, BindruneSigillo.steloAlto));
     final steloBot = map(const Offset(0.5, BindruneSigillo.steloBasso));
@@ -303,7 +374,7 @@ class _BindrunePainter extends CustomPainter {
         steloBot,
         Paint()
           ..strokeCap = StrokeCap.round
-          ..strokeWidth = box * 0.055
+          ..strokeWidth = pesoStelo
           ..color = ambra.withValues(alpha: 0.4)
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, box * 0.035));
     canvas.drawLine(
@@ -311,7 +382,7 @@ class _BindrunePainter extends CustomPainter {
         steloBot,
         Paint()
           ..strokeCap = StrokeCap.round
-          ..strokeWidth = box * 0.055
+          ..strokeWidth = pesoStelo
           ..color = osso);
 
     // I rami, ognuno a una quota diversa lungo lo stelo.
@@ -321,14 +392,14 @@ class _BindrunePainter extends CustomPainter {
     // sigillo e' un segno inciso, non un ricamo. Il bagliore segue.
     final glow = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = box * 0.055
+      ..strokeWidth = pesoStelo
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..color = ambra.withValues(alpha: 0.5)
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, box * 0.04);
     final tratto = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = box * 0.042
+      ..strokeWidth = pesoRami
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..color = osso;
@@ -350,7 +421,18 @@ class _BindrunePainter extends CustomPainter {
 
 
   void _paintSovrapposto(Canvas canvas, Size size) {
-    final box = size.shortestSide * 0.74;
+    // **IL TONDO VALE ANCHE QUI, ordine S voce 25.** Le due strade dipingono lo
+    // stesso oggetto, il Sigillo del Giorno: una lo compone con un solo stelo, e
+    // l'altra sovrappone i glifi. Se il tondo stesse su una sola delle due, il
+    // sigillo sarebbe un sigillo a giorni alterni, ed e' la famiglia delle due
+    // porte.
+    _paintTondo(canvas, size);
+    // Lo stesso riquadro ricavato dall'anello: il quadrato piu' grande inscritto
+    // nel cerchio interno.
+    final box = size.shortestSide *
+        (BindruneSigillo.raggioDelTondo - BindruneSigillo.margineDelTondo) *
+        2 /
+        math.sqrt2;
     final left = (size.width - box) / 2;
     final top = (size.height - box) / 2;
     Offset map(Offset p) => Offset(left + p.dx * box, top + p.dy * box);

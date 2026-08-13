@@ -1275,7 +1275,42 @@ diagnosi e non una regola da applicare a tutti gli scatti.
   - GUARDATE le quattro anteprime delle rune rigenerate: nella scheda di Perthro
     "Qualcosa si muove sotto, non ancora visibile" compare una volta, e sotto la
     voce porta la materia antica e il cielo di oggi senza ripetere niente.
-- **S.25** Il Sigillo del Giorno non e' piu' uno scarabocchio — APERTA
+- **S.25** Il Sigillo del Giorno non e' piu' uno scarabocchio — CHIUSA
+  - **IL DIFETTO, in una riga: un sigillo e' un segno impresso su qualcosa, e quel
+    qualcosa non c'era.** Il segno era un intreccio di tratti d'oro sospeso sul
+    fondo: nessuna forma che lo contenesse, nessun appoggio, nessun bordo. Restavano
+    delle linee che si incrociano, ed e' esattamente cio' che si legge come uno
+    scarabocchio.
+  - **ADESSO C'E' UN TONDO, in tre strati e ognuno fa una cosa sola:** un disco
+    scuro, cosi' i tratti chiari hanno qualcosa dietro invece del cosmo; un alone
+    caldo dentro il disco, che lo fa sembrare inciso e non stampato; un anello
+    d'oro che chiude la forma, ed e' il tratto che dice "sigillo" prima ancora che
+    si legga il glifo.
+  - **IL RIQUADRO DEL GLIFO SI RICAVA DALL'ANELLO, non si sceglie:** e' il quadrato
+    piu' grande inscritto nel cerchio interno, cioe' nel tondo meno il margine
+    dichiarato. Se un giorno il raggio o il margine cambiano, il glifo li segue da
+    solo e nessuno deve ricordarsi di aggiustare un terzo numero.
+  - **IL TONDO VALE PER TUTTE E DUE LE STRADE del pittore**, quella a stelo unico e
+    quella sovrapposta: un sigillo a giorni alterni sarebbe la famiglia delle due
+    porte.
+  - **UN DIFETTO NATO DALLA CORREZIONE, e l'ha visto l'anteprima.** Portando il
+    glifo dentro l'anello i tratti si sono assottigliati con lui, perche' erano
+    frazioni del riquadro: il segno stava dentro il tondo ma inciso piu' piano di
+    prima, e un sigillo piu' pallido non e' un sigillo migliore. Adesso i due pesi
+    sono frazioni del LATO e valgono quanto valevano prima (0,045 e 0,034 del lato,
+    cioe' gli stessi pesi assoluti di quando il riquadro era 0,82).
+  - Misura: `test/il_sigillo_del_giorno_e_un_sigillo_test.dart`, quattro prove SULLA
+    RESA. L'anello si campiona a settantadue angoli, uno ogni cinque gradi, e cade se
+    su uno solo manca il tratto; il segno non deve avere inchiostro oltre il raggio
+    ammesso, cioe' non tocca mai la sua cornice; e **il PRESIDIO OPPOSTO**, senza il
+    quale la prova di prima si passerebbe rimpicciolendo il glifo fino a farlo
+    sparire: il segno deve arrivare oltre un terzo del raggio e l'inchiostro dentro
+    il disco deve stare fra il 2 e il 35 per cento, cioe' ne' vuoto ne' macchia.
+  - **PROVA DEL ROSSO fatta:** portato a zero l'alpha dell'anello, la prova ha detto
+    "su 72 angoli su 72 non c'e' tratto". Rimesso, quattro verdi.
+  - GUARDATE `rune-norne.png` e `rune-card.png` alla risoluzione vera: il sigillo e'
+    un disco inciso con l'anello d'oro, e nella card da condividere e' la prima cosa
+    che si vede sotto il titolo.
 
 ## Sezione C. Le altre arti, perche' la regola e' trasversale
 
@@ -1370,6 +1405,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 22
+VOCI_CHIUSE: 23
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
