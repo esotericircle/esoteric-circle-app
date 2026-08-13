@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 137 -->
+<!-- VUOTI_CENSITI: 136 -->
 <!-- FILE_CON_VUOTI: 54 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **137** |
+| Vuoti verticali dichiarati | **136** |
 | File che ne contengono | **54** |
 | Oltre la soglia di 48 punti | **2** |
 
@@ -26,7 +26,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | 3 | 8 |
 | 4 | 25 |
 | 5 | 1 |
-| 6 | 14 |
+| 6 | 13 |
 | 7 | 2 |
 | 8 | 7 |
 | 9 | 2 |
@@ -42,7 +42,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 ## I vuoti oltre la soglia
 
 - `lib/features/synastry/sinastria_share_card.dart:94` padding 60 punti
-- `lib/features/synastry/sinastria_vip_screen.dart:238` padding 90 punti
+- `lib/features/synastry/sinastria_vip_screen.dart:243` padding 90 punti
 
 ## I vuoti, file per file
 
@@ -64,7 +64,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/horoscope/oroscopo_share_card.dart` | 3 | 0 |
 | `lib/features/identity/circle_seal_screen.dart` | 3 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 3 | 0 |
-| `lib/features/maestri/caligo/rune/rune_draw_screen.dart` | 3 | 0 |
 | `lib/features/maestri/caligo/rune/rune_share_card.dart` | 3 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 3 | 0 |
 | `lib/features/shell/santuario_bottom_bar.dart` | 3 | 0 |
@@ -78,6 +77,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/aura/face/face_constellation_screen.dart` | 2 | 0 |
 | `lib/features/maestri/aura/face/face_share_card.dart` | 2 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_share_card.dart` | 2 | 0 |
+| `lib/features/maestri/caligo/rune/rune_draw_screen.dart` | 2 | 0 |
 | `lib/features/maestri/chat/widgets/chat_bubble.dart` | 2 | 0 |
 | `lib/features/maestri/chat/widgets/chat_composer.dart` | 2 | 0 |
 | `lib/features/onboarding/risveglio_journey.dart` | 2 | 0 |
