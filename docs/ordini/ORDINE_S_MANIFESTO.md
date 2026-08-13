@@ -282,6 +282,26 @@ chiusa: committare non e' consegnare.
     viene spezzata a meta'" e su "tornato a poter mettere i puntini"), e togliendo il
     `softWrap: true` (cade su "sta dipingendo fuori dalla sua scatola e passa sopra
     le azioni della barra").
+  - **CORREZIONE DEL 13 AGOSTO, trovata guardando l'anteprima delle rune.** Col
+    borsellino della voce S.06 la barra dell'Estrazione Rune ha tre azioni a destra
+    e al titolo restano circa novanta punti: a quattordici, cioe' al minimo
+    dichiarato, la parola "Estrazione" ne chiede novantotto, e il motore di testo ha
+    fatto l'unica cosa che sa fare, l'ha spezzata. Si leggeva "ESTRAZION / E RUNE",
+    ed e' esattamente il difetto che questa voce doveva chiudere.
+  - **LA REGOLA DI MAURO HA UN ORDINE, e qui i suoi due articoli si scontravano:**
+    prima viene "a capo fra le parole, mai dentro una parola", poi "la misura scende
+    fino a entrare, entro un minimo dichiarato". Vince il primo, quindi la misura
+    scende di altri due punti fino al pavimento tipografico dell'app, dodici, e non
+    un punto sotto.
+  - **E SERVIVA ANCHE UN MARGINE, perche' la scatola misurata e quella dipinta non
+    coincidono al decimo:** la parola entrava per meno di due punti e si spezzava
+    comunque. Il margine dichiarato e' quattro punti, e senza di lui il secondo giro
+    da solo non bastava: verificato guardando l'anteprima nei tre stati.
+  - **UNA LETTURA SBAGLIATA, e va detta:** a bassa risoluzione ho letto come rotto
+    anche lo stato GIA' corretto, e ho aggiunto il margine sopra una diagnosi che
+    credevo fallita. Il margine serviva davvero, ma l'ho scoperto ingrandendo
+    l'immagine: le anteprime si guardano alla larghezza vera E alla risoluzione
+    vera.
   - GUARDATE alla larghezza reale cinque barre: "Costellazione / personale",
     "Costellazione / del Viso", "Estrazione / Rune", "Animale Guida" e "Test
     Archetipo". Nomi interi, a capo fra le parole, nessuna sovrapposizione con
@@ -830,8 +850,51 @@ si legge lo stato.
 
 ## Sezione B. Le rune
 
-- **S.19** Il presagio di Caligo e' la prima bolla — APERTA
-- **S.20** I responsi delle singole rune scendono alla meta' — APERTA
+- **S.19** Il presagio di Caligo e' la prima bolla — FERMATA IN ATTESA DI DECISIONE
+  - **LA PARTE CHE NON DIPENDE DALLA DOMANDA E' FATTA**, e il resto aspetta la D4: si
+    dichiara col quarto stato invece di chiudere, perche' chiudere vorrebbe dire dare
+    per fatto un testo che non e' scritto, e lasciare APERTA direbbe che il presagio
+    e' ancora in fondo alla schermata quando invece e' in cima.
+  - **IL PRESAGIO E' SALITO IN CIMA.** Stava in fondo, dopo le rune una per una: la
+    persona leggeva tre frammenti e doveva montarli da sola, e la lettura che li
+    tiene insieme arrivava quando aveva gia' finito di interpretare. Adesso e' la
+    prima cosa che si legge dopo la gettata, e le rune singole vengono dopo, come
+    dettaglio di cio' che il presagio ha gia' detto.
+  - **LA SUA LUNGHEZZA NON SI TOCCA, e la prova e' un presidio AL CONTRARIO.** Tutte
+    le altre prove della sezione difendono un tetto; questa difende un pavimento,
+    perche' l'ordine dichiara che la lunghezza del presagio e' l'unica gia' giusta.
+    Il pavimento e' il tetto delle rune brevi per tre: se un presagio scendesse
+    sotto, vorrebbe dire che qualcuno lo ha uniformato alle bolle brevi.
+  - Misura: `test/il_presagio_e_la_prima_bolla_test.dart`, due prove.
+  - **COSA RESTA, ed e' una dipendenza dichiarata e non un rinvio:** il TESTO del
+    presagio si riscrive secondo l'anatomia della voce S.16 e **deve rispondere alla
+    domanda posta**. La domanda non esiste ancora: nasce con la voce S.21, che e' la
+    decisione D4 di Mauro sulle famiglie di domanda. Riscrivere adesso il presagio
+    contro una domanda che non c'e' vorrebbe dire scriverlo due volte, e la seconda
+    sarebbe quella vera.
+- **S.20** I responsi delle singole rune scendono alla meta' — CHIUSA
+  - **IL TETTO VIENE DALLA MISURA: 55 caratteri.** La mediana misurata alla voce
+    S.18 era 106 per il verso dritto e 111 per quello d'ombra: si prende la meta'
+    della piu' alta, arrotondata PER DIFETTO, e vale per entrambi i versi. Un tetto
+    per verso sarebbero due regole sullo stesso tipo di testo, e la prima volta che
+    una runa le sfiora entrambe nessuno saprebbe quale vale. Vive in
+    `lib/core/responsi/tetti_dei_responsi.dart`, non nel punto di chiamata.
+  - **QUARANTOTTO TESTI RISCRITTI, non tagliati.** Nella forma breve resta la
+    risposta, cioe' cio' che la runa dice a te, e cade la descrizione del simbolo,
+    che vive nel campo `meaning` della runa, nella sua scheda e nel pannello delle
+    fonti. Dopo la riscrittura la mediana e' 43 per il dritto e 44 per l'ombra, col
+    massimo a 51 e 52.
+  - Esempio, per far vedere cosa e' caduto e cosa e' restato. Prima: "L'abbondanza
+    che scorre. Beni ed energia che circolano: non da trattenere, ma da far muovere
+    perche' fruttino." Dopo: "Fai muovere cio' che hai: fermo si consuma."
+  - Misura: `test/i_responsi_delle_rune_sono_brevi_test.dart`, quattro prove.
+    ENUMERA le ventiquattro rune nei due versi e cade col nome della runa se una
+    supera il tetto o se una e' vuota; una seconda prova pretende che la descrizione
+    del simbolo NON sia caduta nel nulla, perche' senza di lei avremmo accorciato
+    buttando; una terza passa i quarantotto testi dal confine della voce S.17.
+  - **LA META' SI ARROTONDA PER DIFETTO**, e la prima stesura della prova
+    arrotondava al piu' vicino: 111 mezzi fanno 55,5, e un tetto che arrotonda per
+    eccesso si concede mezzo carattere senza una ragione.
 - **S.21** La domanda prima della gettata: in alto, in tendina, in due famiglie — APERTA
 - **S.22** Lo spazio eccessivo dopo i pulsanti del tipo di gettata — APERTA
 - **S.23** I pulsanti di scelta della stesa restano dopo il getto — APERTA
@@ -931,6 +994,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 18
+VOCI_CHIUSE: 19
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

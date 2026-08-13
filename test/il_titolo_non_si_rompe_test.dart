@@ -202,6 +202,38 @@ void main() {
             'rompe a modo suo: $colpevoli');
   });
 
+  test('quando il minimo non basta si scende al pavimento, non si spezza', () {
+    // **IL CASO VERO, e lo ha trovato l'anteprima delle rune.** Con tre azioni a
+    // destra (le fonti, il borsellino e il cuore) al titolo restano circa novanta
+    // punti: a quattordici la parola "Estrazione" ne chiede novantotto, e il motore
+    // di testo faceva l'unica cosa che sa fare, la spezzava. Si leggeva
+    // "ESTRAZION / E RUNE".
+    //
+    // La regola di Mauro ha un ORDINE, e qui i due articoli si scontrano: prima
+    // viene "mai dentro una parola", poi "entro un minimo dichiarato". Vince il
+    // primo, quindi la misura scende fino al pavimento dell'app.
+    final stile = TypographyTokens.titoloScheda();
+    final misura = TitoloCheNonSiRompe.misuraChePermetteDiLeggere(
+        testo: 'Estrazione Rune', stile: stile, larghezza: 92.7);
+    expect(misura, lessThan(TitoloCheNonSiRompe.minimo),
+        reason: 'in novantadue punti il titolo resta al minimo preferito, e a '
+            'quella misura la parola non entra: si spezza');
+    expect(misura, greaterThanOrEqualTo(TitoloCheNonSiRompe.pavimentoAssoluto),
+        reason: 'la misura e\' scesa sotto il pavimento tipografico dell\'app');
+
+    // E A QUELLA MISURA LA PAROLA ENTRA DAVVERO, col margine dichiarato: il
+    // difetto era che entrava per meno di due punti e si spezzava comunque.
+    final pittore = TextPainter(
+      text: TextSpan(
+          text: 'Estrazione', style: stile.copyWith(fontSize: misura)),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    expect(pittore.width,
+        lessThanOrEqualTo(92.7 - TitoloCheNonSiRompe.margineDellaScatola),
+        reason: 'la parola piu\' lunga entra per meno del margine dichiarato: '
+            'sull\'anteprima si spezza comunque');
+  });
+
   test('la misura scende solo quanto serve', () {
     // **Il rimedio non diventa una tassa fissa.** Con lo spazio che basta il
     // titolo resta al ruolo tipografico: se rimpicciolisse comunque, avremmo

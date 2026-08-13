@@ -688,19 +688,16 @@ class _Responso extends StatelessWidget {
             ),
           ],
           const SizedBox(height: SpacingTokens.lg),
-          // LA RIVELAZIONE, una runa per volta.
-          for (var i = 0; i < esito.rune.length; i++) ...[
-            _LetturaRuna(
-                runa: esito.rune[i],
-                indice: i,
-                palette: palette,
-                libera: esito.gettata.libera,
-                voce: i < voci.length ? voci[i] : null,
-                giuntura: giunture != null && i < giunture.length
-                    ? giunture[i]
-                    : null),
-            const SizedBox(height: SpacingTokens.md),
-          ],
+          // **IL PRESAGIO E' LA PRIMA BOLLA, ordine S voce 19.** Stava in fondo,
+          // dopo le rune una per una: la persona leggeva tre frammenti e doveva
+          // montarli da sola, e la lettura che li tiene insieme arrivava quando
+          // aveva gia' finito di interpretare. Adesso e' la prima cosa che si
+          // legge dopo la gettata, e le rune singole vengono dopo, come dettaglio
+          // di cio' che il presagio ha gia' detto.
+          //
+          // **La sua lunghezza non si tocca**, e l'ordine lo dichiara perche'
+          // nessuno la accorci per uniformita' con le bolle brevi delle rune: e'
+          // l'unica misura gia' giusta di tutta la sezione.
           // IL PRESAGIO, la lettura sola che intreccia le rune.
           ScrollReveal(
             depth: 1,
@@ -731,6 +728,20 @@ class _Responso extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: SpacingTokens.md),
+          // LE RUNE UNA PER UNA, il dettaglio dopo la lettura d'insieme.
+          for (var i = 0; i < esito.rune.length; i++) ...[
+            _LetturaRuna(
+                runa: esito.rune[i],
+                indice: i,
+                palette: palette,
+                libera: esito.gettata.libera,
+                voce: i < voci.length ? voci[i] : null,
+                giuntura: giunture != null && i < giunture.length
+                    ? giunture[i]
+                    : null),
+            const SizedBox(height: SpacingTokens.md),
+          ],
           const SizedBox(height: SpacingTokens.md),
           // IL SIGILLO DEL GIORNO, la bindrune che intreccia le rune uscite.
           ScrollReveal(

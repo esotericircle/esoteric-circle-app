@@ -55,13 +55,28 @@ class TitoloCheNonSiRompe extends StatelessWidget {
   /// stava prima, sul `Text`.
   final Key? chiaveDelTesto;
 
-  /// IL MINIMO DEL TITOLO DI UNA BARRA.
+  /// IL MINIMO PREFERITO DEL TITOLO DI UNA BARRA.
   ///
   /// Quattordici punti: sta sopra il pavimento assoluto dell'app, che vale dodici,
   /// e sopra il minimo della famiglia delle etichette, che vale undici. Sotto
-  /// questa misura un titolo di barra non e' piu' un titolo, e allora il problema
-  /// non e' la tipografia ma il nome, e il nome e' materiale di Mauro.
+  /// questa misura un titolo di barra comincia a non sembrare piu' un titolo.
   static const double minimo = TypographyTokens.pavimento + 2;
+
+  /// IL PAVIMENTO ASSOLUTO, e serve per un caso che si e' visto DAVVERO.
+  ///
+  /// **Il difetto, nell'anteprima delle rune.** Con tre azioni a destra (le fonti,
+  /// il borsellino e il cuore) al titolo restano circa novanta punti, e a
+  /// quattordici la parola "Estrazione" ne chiede novantacinque: il motore di
+  /// testo ha fatto l'unica cosa che sapeva fare, l'ha spezzata, e si leggeva
+  /// "Estrazion / e Rune". Un titolo rotto, esattamente cio' che la regola vieta.
+  ///
+  /// **La regola di Mauro ha un ordine, e l'ordine decide qui.** Prima viene "a
+  /// capo fra le parole, mai dentro una parola"; poi "la misura scende fino a
+  /// entrare, entro un minimo dichiarato". Quando i due si scontrano vince il
+  /// primo, quindi la misura scende di altri due punti fino al pavimento
+  /// dell'app: dodici. Non un punto sotto, perche' quello e' il pavimento di
+  /// TUTTO il testo dell'app e non lo si tocca per un titolo.
+  static const double pavimentoAssoluto = TypographyTokens.pavimento;
 
   /// LA MISURA A CUI IL TITOLO ENTRA SENZA ROMPERSI.
   ///
@@ -79,9 +94,14 @@ class TitoloCheNonSiRompe extends StatelessWidget {
     final parolaPiuLunga = testo
         .split(RegExp(r'\s+'))
         .fold<String>('', (a, b) => b.length > a.length ? b : a);
+    // PRIMO GIRO: fino al minimo preferito, cercando la misura che tiene il
+    // titolo intero dentro le righe concesse.
     for (var misura = base; misura >= minimo; misura -= 0.5) {
       final scala = stile.copyWith(fontSize: misura);
-      if (_larghezza(parolaPiuLunga, scala, textScaler) > larghezza) continue;
+      if (_larghezza(parolaPiuLunga, scala, textScaler) >
+          larghezza - margineDellaScatola) {
+        continue;
+      }
       final pittore = TextPainter(
         text: TextSpan(text: testo, style: scala),
         textDirection: TextDirection.ltr,
@@ -90,8 +110,31 @@ class TitoloCheNonSiRompe extends StatelessWidget {
       )..layout(maxWidth: larghezza);
       if (!pittore.didExceedMaxLines) return misura;
     }
-    return minimo;
+    // SECONDO GIRO: la parola piu' lunga non entra nemmeno al minimo preferito, e
+    // allora comanda la prima regola, quella che vieta di spezzare una parola. Si
+    // scende fino al pavimento dell'app, e non oltre.
+    for (var misura = minimo - 0.5;
+        misura >= pavimentoAssoluto;
+        misura -= 0.5) {
+      final scala = stile.copyWith(fontSize: misura);
+      if (_larghezza(parolaPiuLunga, scala, textScaler) <=
+          larghezza - margineDellaScatola) {
+        return misura;
+      }
+    }
+    return pavimentoAssoluto;
   }
+
+  /// IL MARGINE FRA LA SCATOLA MISURATA E QUELLA DIPINTA.
+  ///
+  /// **Quattro punti, e non e' una precauzione generica.** Nell'anteprima delle
+  /// rune il titolo si spezzava mentre la misura diceva che entrava: la parola
+  /// "Estrazione" chiedeva 90,8 punti in una scatola di 92,7, cioe' entrava per
+  /// meno di due. Una scatola calcolata durante il layout e una dipinta a tre
+  /// pixel per punto non coincidono al decimo, e un titolo che entra per due punti
+  /// e' un titolo che si spezza sull'anteprima e sul telefono. Il margine si prende
+  /// prima, e la misura scende di mezzo punto.
+  static const double margineDellaScatola = 4;
 
   static double _larghezza(String parola, TextStyle stile, double scaler) {
     final pittore = TextPainter(

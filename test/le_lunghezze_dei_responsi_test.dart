@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/horoscope/horoscope_data.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
+import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tetti_della_stesa.dart';
@@ -78,6 +79,17 @@ void main() {
       }
       tutto['Rune, presagio della gettata «${gettata.id}»'] = presagi;
     }
+
+    // --- RUNE: il responso della singola runa, nei due versi ---
+    //
+    // **Servono alla voce S.20**, che vuole il tetto a meta' della mediana: senza
+    // questa riga nella tabella, quel tetto sarebbe un numero scelto a occhio.
+    tutto['Rune, singola runa: verso dritto'] =
+        kElderFuthark.map((r) => r.upright).toList();
+    tutto['Rune, singola runa: verso d\'ombra'] =
+        kElderFuthark.map((r) => r.shadow).toList();
+    tutto['Rune, singola runa: riga breve di significato'] =
+        kElderFuthark.map((r) => r.meaning).toList();
 
     // --- TAROCCHI: le quattro parti della stesa ---
     final sintesi = <String>[];
@@ -160,6 +172,14 @@ void main() {
       'forme della gettata, i sedici argomenti, i dodici segni), dove il testo',
       'varia col giorno si percorre un anno intero ($giorniDellAnno giorni), e le',
       'gettate si ripetono su $semiDelleGettate semi.',
+      '',
+      'COSA E\' CAMBIATO DOPO LA PRIMA MISURA, perche\' questa tabella dice lo',
+      'stato di ADESSO e la voce S.20 ha usato quello di prima: i responsi delle',
+      'singole rune misuravano 106 di mediana nel verso dritto e 111 in quello',
+      'd\'ombra, e da quei numeri nasce il tetto di 55 caratteri, la meta\' della',
+      'mediana piu\' alta arrotondata per difetto. I quarantotto testi sono stati',
+      'RISCRITTI per starci dentro, non tagliati, e le righe qui sotto mostrano',
+      'percio\' le lunghezze nuove.',
       '',
       '| Responso | Quanti | Mediana | Massimo |',
       '| --- | --- | --- | --- |',

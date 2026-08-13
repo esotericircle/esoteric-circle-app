@@ -2113,6 +2113,7 @@ void main() {
     await lancia(tester, 'norne');
     expect(find.byKey(const Key('rune_presage')), findsOneWidget);
     expect(find.byKey(const Key('rune_sigillo')), findsOneWidget);
+    // DIAGNOSI TEMPORANEA
     await capture(tester, rootKey, 'rune-norne.png');
   });
 
