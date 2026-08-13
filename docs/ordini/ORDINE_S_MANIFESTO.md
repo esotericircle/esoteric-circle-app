@@ -1364,6 +1364,47 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     grandezza, non tolta: pretende l'apertura nuova e che l'azione ci sia ancora. E'
     la quarta guardia superata in questa sessione, e la quarta volta che aveva
     ragione lei.
+  - **LA CODA DELLA VOCE, chiesta da Mauro il 13 agosto 2026: i tre numeri che il
+    rapporto non portava.** La voce resta CHIUSA, questa e' la sua coda.
+    - **IL TETTO. Vecchio 900, nuovo 1100. Caso peggiore vecchio 703, nuovo 884.**
+      Il commento di `TettiDellaStesa` dichiarava 703, cioe' la misura PRIMA della
+      parte 1, e diceva che il tetto "tiene margine invece di stare al filo":
+      diventato falso, perche' 884 dentro 900 sono 16 caratteri di margine.
+      **Rimisurato su un campione che non si muove piu':** 877 sui 16 argomenti per
+      60 semi (il campione vecchio), 884 a 200 semi, 884 a 500 semi. Il tetto nuovo
+      tiene 884 piu' il 24 per cento, e il commento e' stato riscritto col numero
+      nuovo e col perche' del vecchio.
+    - **IL PRIMO NOME DI CARTA: da 21,5-34,0 con mediana 28,9 a 37,3-51,6 con
+      mediana 47,2 per cento.** Con la risposta in testa il simbolo e' salito
+      intorno alla meta' del testo, dopo la risposta e dopo l'azione, che e' dove
+      l'anatomia lo vuole. **Non e' una soglia difesa da nessuna prova:** e' un
+      numero riportato, e se Mauro lo giudica troppo avanti si decide allora.
+    - **IL ROSSO DELLE TRE PROVE, e una delle tre non esisteva.**
+      1. *Anatomia sui sedici argomenti* (`la RISPOSTA viene prima dell'AZIONE`):
+         esisteva, **senza rosso eseguito**. Rosso fatto adesso invertendo i due
+         pezzi nel montaggio: la prova e' caduta su `amoreQuadro` dicendo che la
+         posizione della risposta non era piu' maggiore di zero, cioe' che l'azione
+         veniva prima.
+      2. *Troncamento che non decapita*: **NON ERA STATA SCRITTA.** Scritta adesso, e
+         misura che la prosa prima dello stacco finisce con un punto e che la
+         domanda di chiusura arriva intera. Rosso fatto stringendo il tetto del
+         troncamento a 300: la prova ha nominato argomento e seme e ha mostrato il
+         moncone, "...ietro. La risposta si vede nei".
+      3. *Innesto sulla lente giusta*: esisteva solo come mezza riga dentro la
+         prima. Scritta a parte, e adesso pretende anche che nessun argomento apra
+         con la lente di un altro e che le sedici lenti siano davvero sedici. Rosso
+         fatto con la stessa inversione del punto 1: ha nominato tutti e sedici gli
+         argomenti, "non apre con la sua lente".
+    - **UN ERRORE DI PROCEDURA, e va detto perche' e' il piu' pericoloso di oggi.** Il
+      primo tentativo di rosso sul troncamento **non e' andato a segno**: la
+      sostituzione non ha trovato la riga e la prova e' rimasta verde. Verde su
+      codice INTATTO, non verde su codice rotto: se non avessi controllato che
+      l'iniezione fosse entrata, avrei dichiarato un rosso mai eseguito. La verifica
+      dell'iniezione fa parte della prova del rosso.
+    - **UNA PROVA NUOVA SUL TETTO**, che prima non c'era: il caso peggiore si
+      rimisura dentro la suite e pretende un margine di almeno il quindici per cento
+      del tetto. Il commento non basta piu': se il corpus cresce, la riga cade prima
+      che il taglio arrivi a video.
   - **LA MISURA DOPO:** il consiglio passa da 541 a 713 caratteri di mediana e da 696
     a 870 di massimo, e nessun tetto esistente taglia (verificato dalla prova che
     confronta i tetti coi massimi misurati).
