@@ -1265,6 +1265,13 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     difetto.
   - **PROVA DEL ROSSO fatta:** rimessa la riga dentro la voce, la prima prova e'
     caduta nominando gettata, seme e runa. Rimessa a posto, cinque verdi.
+  - **UNA GUARDIA VECCHIA E' STATA SUPERATA, e riscritta invece che cancellata.**
+    `corpus_rune_attestato_test` pretendeva che la voce contenesse il verso della
+    runa dal catalogo: era vero, e adesso non lo e' piu', perche' quel testo si
+    diceva due volte nella stessa scheda. La riga non e' stata tolta ma CAMBIATA DI
+    GRANDEZZA: adesso pretende che la voce porti la MATERIA ATTESTATA del corpus,
+    che e' l'altra meta' della sostanza e nella scheda non si legge da nessun'altra
+    parte. Il perche' del cambio sta scritto nel test, sopra la riga nuova.
   - GUARDATE le quattro anteprime delle rune rigenerate: nella scheda di Perthro
     "Qualcosa si muove sotto, non ancora visibile" compare una volta, e sotto la
     voce porta la materia antica e il cielo di oggi senza ripetere niente.

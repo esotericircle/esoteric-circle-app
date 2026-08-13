@@ -161,11 +161,31 @@ void main() {
       expect(a.contains('Leone'), isTrue,
           reason: 'La voce del 7 agosto non nomina il Sole in Leone: '
               'l\'aggancio al cielo vero si e\' staccato.');
-      // E la sostanza e' quella del catalogo: il verso della runa c'e'.
-      expect(a.contains(kElderFuthark.first.upright), isTrue,
-          reason: 'La voce ha perso la sostanza: il verso della runa non '
-              'c\'e\' piu\'. Il ventaglio riguarda la dizione, mai la '
-              'sostanza.');
+      // **QUESTA RIGA E' STATA RISCRITTA DALLA VOCE S.24 DELL'ORDINE S, e il
+      // perche' va letto prima di rimetterla com'era.**
+      //
+      // Diceva: la voce contiene il verso della runa dal catalogo, cioe'
+      // `upright`. Era vero e adesso non lo e' piu', e non perche' la sostanza si
+      // sia persa: perche' si diceva DUE VOLTE nella stessa scheda. La bolla sopra
+      // la voce porta gia' `runa.riga`, che e' quel testo, e la voce lo ricopiava
+      // parola per parola due centimetri sotto. L'anteprima delle Norne lo ha
+      // mostrato, e la voce S.24 lo ha chiuso.
+      //
+      // **La sostanza non e' sparita, e' rimasta dove si legge una volta sola**, e
+      // che ci sia a schermo lo pretende
+      // `test/la_scheda_della_runa_non_si_ripete_test.dart`, che pretende anche il
+      // contrario: che la voce NON la ripeta.
+      //
+      // Cio' che resta vero qui, e che questa riga presidia: la voce porta la
+      // MATERIA ATTESTATA del corpus, l'altra meta' della sostanza, che nella
+      // scheda non si legge da nessun'altra parte.
+      final lore = kRuneLore[runa.rune.name];
+      expect(lore, isNotNull);
+      final materia = lore!.materia.split('. Fonte:').first;
+      final pezzo = materia.substring(0, materia.length.clamp(0, 40));
+      expect(a.contains(pezzo), isTrue,
+          reason: 'La voce ha perso la materia attestata del corpus: e\' la '
+              'sostanza che nella scheda non si legge da nessun\'altra parte.');
     });
   });
 
