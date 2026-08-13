@@ -1314,7 +1314,7 @@ diagnosi e non una regola da applicare a tutti gli scatti.
 
 ## Sezione C. Le altre arti, perche' la regola e' trasversale
 
-- **S.26** I tarocchi — FERMATA IN ATTESA DI DECISIONE
+- **S.26** I tarocchi — CHIUSA
   - **IL CONFINE DELLA VOCE S.17 E' GIA' APPLICATO**, e non da oggi: la prova
     `il_confine_del_responso_test` setaccia i responsi dei tarocchi insieme a tutti
     gli altri, e sono verdi.
@@ -1345,12 +1345,29 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     2. **Il consiglio scende sotto le posizioni**, e la prima bolla diventa la
        lettura delle carte. Non serve testo nuovo, ma disfa la voce 09 dell'ordine P,
        e quella fu una decisione presa guardando l'app.
+  - **MAURO HA SCELTO LA PRIMA STRADA, e l'allegato C e' arrivato il 13 agosto 2026:**
+    tre risposte, una per gruppo, scritte per innestarsi su una lente e non per stare
+    da sole. **Le sedici lenti gia' presenti producono sedici aperture diverse da tre
+    soli testi**, ed e' la ragione per cui cominciano in minuscola e senza punto
+    davanti.
+  - **IL MONTAGGIO E' QUELLO DELL'ALLEGATO:** lente dell'argomento, virgola, LA
+    RISPOSTA, poi L'AZIONE che c'era gia' e non si tocca, poi la cucitura e le carte,
+    poi la riga di stacco e la domanda. La voce 09 dell'ordine P non e' stata disfatta:
+    il consiglio resta la prima bolla, e adesso ha la forma dell'anatomia.
+  - **LA FONTE STA NEL REPOSITORY, `docs/responsi/consiglio.md`**, e una prova la
+    confronta col codice come per le cornici, con le stesse tre trasformazioni
+    dichiarate. La trascrizione era giusta al primo confronto vero.
+  - **LA MISURA DOPO:** il consiglio passa da 541 a 713 caratteri di mediana e da 696
+    a 870 di massimo, e nessun tetto esistente taglia (verificato dalla prova che
+    confronta i tetti coi massimi misurati).
   - Misura: `test/il_consiglio_dei_tarocchi_e_la_sua_anatomia_test.dart`, quattro
-    prove. Tre presidiano cio' che oggi e' al posto giusto: la cucitura fra consiglio
-    e carte esiste in ogni lettura, **nessuna carta e' nominata prima della
-    cucitura**, e la domanda di chiusura sta in fondo una volta sola. La quarta NON
-    GIUDICA, DICHIARA: tiene vero nel tempo il numero scritto qui sopra, e cade se un
-    giorno arriva la parte 1 senza che nessuno aggiorni questa voce.
+    prove. Tre presidiano la forma: la cucitura fra consiglio e carte esiste in ogni
+    lettura, **nessuna carta e' nominata prima della cucitura**, e la domanda di
+    chiusura sta in fondo una volta sola. **LA QUARTA ERA UNA DICHIARAZIONE ED E'
+    DIVENTATA UNA GUARDIA, ed e' la cosa piu' utile successa qui:** diceva "la parte 1
+    non c'e'" e cadeva se fosse arrivata senza che nessuno aggiornasse la voce. E'
+    caduta il giorno stesso, col messaggio giusto, e adesso pretende che la RISPOSTA
+    venga prima dell'AZIONE e che la bolla apra con la lente.
 - **S.27** L'Oroscopo personalizzato — APERTA
 - **S.28** I doni quotidiani e la chat dei Maestri — APERTA
 
@@ -1441,6 +1458,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 23
+VOCI_CHIUSE: 24
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

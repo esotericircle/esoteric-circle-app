@@ -77,24 +77,39 @@ void main() {
     }
   });
 
-  test('LA MISURA DELLA VOCE S.26: quale parte dell\'anatomia manca', () {
-    // **QUESTA PROVA NON GIUDICA, DICHIARA.** Serve a tenere vero nel tempo il
-    // numero scritto nel manifesto: il consiglio dei tarocchi porta la parte 2 e la
-    // parte 3, e non la parte 1. Se un giorno qualcuno aggiunge la risposta, questa
-    // riga cade e obbliga ad aggiornare il manifesto invece di lasciarlo vecchio.
+  test('la RISPOSTA viene prima dell\'AZIONE, come dice l\'anatomia', () {
+    // **QUESTA PROVA ERA UNA DICHIARAZIONE ED E' DIVENTATA UNA GUARDIA.**
     //
-    // Il segno che la parte 1 non c'e': la bolla APRE con l'azione, cioe' col
-    // consiglio del gruppo, che e' testo di [TarotTopicGroup.consiglio].
+    // Fino al 13 agosto 2026 diceva: il consiglio dei tarocchi porta la parte 2 e la
+    // parte 3, e non la parte 1. Non giudicava, teneva vero il numero scritto nel
+    // manifesto, e cadeva se la parte 1 fosse arrivata senza che nessuno aggiornasse
+    // la voce. **E' successo esattamente questo:** l'allegato C ha portato le tre
+    // risposte, il montaggio le ha messe al loro posto, e la prova e' caduta
+    // chiedendo di aggiornare la voce S.26. Adesso presidia l'ordine invece di
+    // dichiarare la mancanza.
+    //
+    // La grandezza misurata: dove comincia la risposta e dove comincia l'azione
+    // dentro la stessa bolla. Se un giorno si invertissero, chi legge riceverebbe di
+    // nuovo un consiglio prima di sapere cosa la lettura vede.
     for (final t in TarotTopic.values) {
       final lettura = TarotReading.of(TarotSpread.draw(seed: 4), t);
-      expect(lettura.consiglio.startsWith(t.group.consiglio), isTrue,
-          reason: '${t.name}: il consiglio non apre piu\' con l\'azione del '
-              'gruppo. Se e\' perche\' e\' arrivata la parte 1 dell\'anatomia, '
-              'aggiorna la voce S.26 del manifesto: la misura scritta la\' non '
-              'e\' piu\' vera');
+      final consiglio = lettura.consiglio;
+      final doveRisposta = consiglio.indexOf(t.group.risposta);
+      final doveAzione = consiglio.indexOf(t.group.consiglio);
+      expect(doveRisposta, greaterThanOrEqualTo(0),
+          reason: '${t.name}: la risposta del gruppo non c\'e\' nel consiglio');
+      expect(doveAzione, greaterThan(0),
+          reason: '${t.name}: l\'azione del gruppo non c\'e\' nel consiglio');
+      expect(doveRisposta, lessThan(doveAzione),
+          reason: '${t.name}: l\'azione viene prima della risposta, e l\'anatomia '
+              'della voce S.16 dice il contrario');
+      // E la bolla APRE con la lente dell'argomento, che e' cio' che rende sedici
+      // aperture diverse da tre soli testi.
+      expect(consiglio.startsWith('${t.lente}, '), isTrue,
+          reason: '${t.name}: il consiglio non apre con la lente');
     }
-    // E le tre parti dell'anatomia restano quelle: se ne nascesse una quarta
-    // dentro il responso, la misura qui sopra parlerebbe di un altro oggetto.
+    // Le tre parti dell'anatomia restano quelle: se ne nascesse una quarta dentro il
+    // responso, questa misura parlerebbe di un altro oggetto.
     expect(ParteDelResponso.nelResponso.length, 3);
   });
 }

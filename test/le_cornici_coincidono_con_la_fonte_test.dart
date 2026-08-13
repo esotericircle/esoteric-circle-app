@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/domande/cornici_del_presagio.dart';
+import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// LE DICIASSETTE CORNICI COINCIDONO CON LA FONTE, CARATTERE PER CARATTERE.
@@ -191,5 +192,39 @@ void main() {
     // E ogni sezione della fonte ha trovato la sua cornice nel codice: cosi' una
     // cornice dimenticata nella trascrizione non passa inosservata.
     expect(tutte.length, fonte.length);
+  });
+
+  test('le tre risposte del consiglio coincidono con l\'allegato C', () {
+    // **LA STESSA REGOLA DELLE CORNICI, e per la stessa ragione.** Le tre risposte
+    // del consiglio di Medora sono materiale dell'Architetto, trascritte a mano dal
+    // suo allegato: senza un confronto, "verbatim" resta un proposito. La fonte e'
+    // `docs/responsi/consiglio.md`, portata nel repository senza toccarne un
+    // carattere, e le trasformazioni ammesse sono le stesse tre dichiarate qui
+    // sopra.
+    final testo = File('docs/responsi/consiglio.md').readAsStringSync();
+    // Ogni risposta sta sotto il titolo del suo gruppo, in maiuscolo.
+    final perGruppo = <TarotTopicGroup, String>{
+      TarotTopicGroup.amore: 'AMORE E SENTIMENTI',
+      TarotTopicGroup.lavoro: 'LAVORO E DENARO',
+      TarotTopicGroup.vita: 'VITA E CAMMINO',
+    };
+    final divergenze = <String>[];
+    for (final voce in perGruppo.entries) {
+      final i = testo.indexOf('## ${voce.value}');
+      expect(i, greaterThan(0),
+          reason: 'nella fonte non c\'e\' la sezione "${voce.value}"');
+      final dopo = testo.indexOf('\n\n', i) + 2;
+      final fine = testo.indexOf('\n\n', dopo);
+      final dallaFonte = normalizza(testo.substring(dopo, fine));
+      if (voce.key.risposta != dallaFonte) {
+        divergenze.add('${voce.value}\n'
+            '  codice: ${voce.key.risposta}\n'
+            '  fonte : $dallaFonte');
+      }
+    }
+    expect(divergenze, isEmpty,
+        reason: 'il codice non coincide con `docs/responsi/consiglio.md`. Le tre '
+            'risposte sono materiale dell\'Architetto e si usano verbatim: quando '
+            'divergono ha ragione la fonte.\n\n${divergenze.join("\n\n")}');
   });
 }

@@ -40,7 +40,7 @@ percio' le lunghezze nuove.
 | Rune, singola runa: verso d'ombra | 24 | 44 | 52 |
 | Rune, singola runa: verso dritto | 24 | 43 | 51 |
 | Tarocchi, bolla di posizione | 576 | 196 | 325 |
-| Tarocchi, consiglio | 192 | 541 | 696 |
+| Tarocchi, consiglio | 192 | 713 | 870 |
 | Tarocchi, domanda di chiusura | 192 | 52 | 73 |
 | Tarocchi, sintesi | 192 | 22 | 28 |
 
@@ -61,6 +61,6 @@ percio' le lunghezze nuove.
 - **Rune, singola runa: verso d'ombra** (52 caratteri): Rallenta: ritrovata la cadenza, la strada si spiana.
 - **Rune, singola runa: verso dritto** (51 caratteri): Tieni in equilibrio ciò che dai con ciò che ricevi.
 - **Tarocchi, bolla di posizione** (325 caratteri): C'è uno slancio senza direzione, oppure un timore che ti trattiene sull'orlo proprio mentr...
-- **Tarocchi, consiglio** (696 caratteri): Non forzare i tempi dell'altro, porta la tua verità con dolcezza e osserva cosa torna indi...
+- **Tarocchi, consiglio** (870 caratteri): Sulla fiducia in gioco, le carte non vedono una porta chiusa: vedono due tempi che non coi...
 - **Tarocchi, domanda di chiusura** (73 caratteri): Se il cielo inclina e non obbliga, qual è il primo passo che spetta a te?
 - **Tarocchi, sintesi** (28 caratteri): L'arcobaleno della famiglia.

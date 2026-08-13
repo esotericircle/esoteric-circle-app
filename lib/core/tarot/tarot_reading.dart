@@ -137,6 +137,17 @@ class TarotReading {
   static String consiglioDi(
       TarotSpread spread, TarotTopic topic, String domanda) {
     final prosa = [
+      // **LA RISPOSTA PRIMA DELL'AZIONE, ordine S voce 26.** L'allegato C ha
+      // portato le tre risposte che mancavano, una per gruppo, e il montaggio e'
+      // quello che dichiara: la lente dell'argomento, la virgola, la risposta,
+      // poi l'azione che c'era gia' e non si tocca. Prima la bolla apriva
+      // sull'azione, e chi legge riceveva un consiglio prima di sapere cosa la
+      // lettura vede nella sua situazione.
+      //
+      // **Le sedici lenti fanno sedici aperture da tre soli testi**, ed e' la
+      // ragione per cui le risposte cominciano in minuscola: si innestano, non
+      // stanno da sole.
+      '${topic.lente}, ${topic.group.risposta}',
       topic.group.consiglio,
       'Le tre carte lo dicono insieme. ${spread.passato.displayName} tiene il '
           'filo di ciò che è stato, ${_minuscola(spread.passato.summary)} e '

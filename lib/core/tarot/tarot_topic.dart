@@ -8,6 +8,42 @@ enum TarotTopicGroup {
 
   final String label;
 
+  /// LA RISPOSTA DEL GRUPPO, parte 1 dell'anatomia. Allegato C all'ordine S,
+  /// materiale dell'Architetto, consegnato il 13 agosto 2026.
+  ///
+  /// **Cosa mancava.** Il consiglio e' la bolla che si legge per prima, e apriva
+  /// con l'AZIONE: chi legge riceveva un consiglio prima di sapere cosa la lettura
+  /// vede nella sua situazione. La voce S.16 dice che la risposta viene prima.
+  ///
+  /// **Si innesta su una lente, non sta da sola.** Il montaggio dell'allegato e'
+  /// `lente + ", " + risposta + azione`: le sedici lenti gia' presenti producono
+  /// sedici aperture diverse da tre soli testi, ed e' la ragione per cui queste tre
+  /// cominciano in minuscola e senza punto davanti.
+  ///
+  /// **Tre forme diverse, non tre volte la stessa**, come chiede il vincolo 3
+  /// dell'allegato: la prima nega e poi mostra, la seconda constata e poi spiega, la
+  /// terza nega e poi corregge. Chi fa una lettura d'amore e poi una di vita non
+  /// deve riconoscere lo scheletro.
+  ///
+  /// **Ogni risposta prepara la sua azione**, e le due si leggono insieme: se un
+  /// giorno cambia [consiglio], va riletta anche questa.
+  String get risposta {
+    switch (this) {
+      case TarotTopicGroup.amore:
+        return 'le carte non vedono una porta chiusa: vedono due tempi che non '
+            'coincidono. C’è un movimento in corso e una parte di quel '
+            'movimento non dipende da te.';
+      case TarotTopicGroup.lavoro:
+        return 'le carte vedono una situazione ferma. Non la tiene ferma un '
+            'ostacolo venuto da fuori: la tiene ferma un passo che nessuno ha '
+            'ancora fatto.';
+      case TarotTopicGroup.vita:
+        return 'le carte non vedono confusione. Vedono troppe strade tenute '
+            'aperte insieme: non ti manca una direzione, ne hai più di una e '
+            'nessuna ha ancora un nome.';
+    }
+  }
+
   /// Il modello di consiglio del gruppo, da `docs/corpus/stesa_interpretazione.md`.
   ///
   /// E' il ripiego deterministico: a runtime Gemini lo specializza sull'argomento
