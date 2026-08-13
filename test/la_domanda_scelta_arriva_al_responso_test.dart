@@ -124,6 +124,44 @@ void main() {
             'chiesto "$scelta" e nel responso non la ritrova');
   });
 
+  testWidgets('la domanda arriva fino al PRESAGIO, non solo alla sua scatola',
+      (tester) async {
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(host());
+    await passo(tester);
+
+    // **QUESTA E' LA PROVA CHE CHIUDE ANCHE LA VOCE S.19.** La scatola della
+    // domanda sopra la lettura dimostra soltanto che la domanda e' stata
+    // ricevuta: il presagio poteva riceverla e ignorarla, e a schermo non si
+    // sarebbe visto niente. La misura e' che il TESTO del presagio dichiari di
+    // stare rispondendo a quella domanda.
+    await tester.tap(find.byKey(const Key('rune_tendina_domande')));
+    await passo(tester);
+    await tester.tap(
+        find.text(DomandeDelCerchio.generichePerLaGettata.first.testo).last);
+    await passo(tester);
+    final cast = find.byKey(const Key('rune_cast_button'));
+    await tester.ensureVisible(cast);
+    await tester.pump();
+    await tester.tap(cast);
+    await passo(tester);
+
+    final dentroIlPresagio = find.descendant(
+      of: find.byKey(const Key('rune_presage')),
+      matching: find.textContaining('Sulla domanda che hai posto'),
+    );
+    expect(dentroIlPresagio, findsOneWidget,
+        reason: 'il presagio non dice di stare rispondendo alla domanda: la '
+            'domanda arriva alla sua scatola e si ferma li\'');
+
+    // Le tre parti dell'anatomia hanno ciascuna la sua superficie: la cosa da
+    // fare non si perde in mezzo a un paragrafo, ed e' la parte che fa tornare.
+    expect(find.byKey(const Key('rune_presage_text')), findsOneWidget);
+    expect(find.byKey(const Key('rune_presage_azione')), findsOneWidget);
+    expect(find.byKey(const Key('rune_presage_fonte')), findsOneWidget);
+  });
+
   testWidgets('si puo\' ancora gettare senza domanda, e la riga lo dice',
       (tester) async {
     silenceSensors(tester);

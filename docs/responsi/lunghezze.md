@@ -32,10 +32,10 @@ percio' le lunghezze nuove.
 | Oroscopo, scheda «generale» | 4392 | 194 | 210 |
 | Rito del Sogno, saluto della notte | 366 | 68 | 74 |
 | Rito dell'Alba, messaggio del mattino | 366 | 75 | 76 |
-| Rune, presagio della gettata «croce» | 200 | 651 | 683 |
-| Rune, presagio della gettata «norne» | 200 | 495 | 522 |
-| Rune, presagio della gettata «odino» | 200 | 340 | 354 |
-| Rune, presagio della gettata «telo» | 200 | 919 | 949 |
+| Rune, presagio della gettata «croce» | 200 | 911 | 941 |
+| Rune, presagio della gettata «norne» | 200 | 714 | 741 |
+| Rune, presagio della gettata «odino» | 200 | 541 | 559 |
+| Rune, presagio della gettata «telo» | 200 | 1112 | 1138 |
 | Rune, singola runa: riga breve di significato | 24 | 61 | 67 |
 | Rune, singola runa: verso d'ombra | 24 | 44 | 52 |
 | Rune, singola runa: verso dritto | 24 | 43 | 51 |
@@ -53,10 +53,10 @@ percio' le lunghezze nuove.
 - **Oroscopo, scheda «generale»** (210 caratteri): Cerchi senso, libertà e avventura, la mente e i piedi vogliono lontano, oggi allarga lo sg...
 - **Rito del Sogno, saluto della notte** (74 caratteri): Il cielo si chiude piano: lascia al domani una sola cosa, il resto posala.
 - **Rito dell'Alba, messaggio del mattino** (76 caratteri): Il cielo si schiarisce: oggi una piccola scelta conta più di mille pensieri.
-- **Rune, presagio della gettata «croce»** (683 caratteri): La croce si è aperta in cinque punti. Per il cuore della questione, Sowilo diritta: Energi...
-- **Rune, presagio della gettata «norne»** (522 caratteri): Le tre Norne hanno teso il filo del tempo. Per ciò che fu, Raidho in merkstave: Rallenta: ...
-- **Rune, presagio della gettata «odino»** (354 caratteri): Odino ha parlato con un segno solo. Per il consiglio essenziale, Raidho in merkstave: Rall...
-- **Rune, presagio della gettata «telo»** (949 caratteri): Le rune cadono sparse sul telo di Tacito. Per la più vicina al centro, Sowilo dritta: Ener...
+- **Rune, presagio della gettata «croce»** (941 caratteri): Sulla tua giornata, ecco cosa vedono le rune. Per il cuore della questione, nutri la radic...
+- **Rune, presagio della gettata «norne»** (741 caratteri): Sulla tua giornata, ecco cosa vedono le rune. Per ciò che fu, rallenta: ritrovata la caden...
+- **Rune, presagio della gettata «odino»** (559 caratteri): Sulla tua giornata, ecco cosa vedono le rune. Per il consiglio essenziale, rallenta: ritro...
+- **Rune, presagio della gettata «telo»** (1138 caratteri): Sulla tua giornata, ecco cosa vedono le rune. Per la più vicina al centro, ciò che viene d...
 - **Rune, singola runa: riga breve di significato** (67 caratteri): La grandine, la scossa che passa: dopo la tempesta, terreno pulito.
 - **Rune, singola runa: verso d'ombra** (52 caratteri): Rallenta: ritrovata la cadenza, la strada si spiana.
 - **Rune, singola runa: verso dritto** (51 caratteri): Tieni in equilibrio ciò che dai con ciò che ricevi.

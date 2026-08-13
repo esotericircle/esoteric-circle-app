@@ -850,11 +850,12 @@ si legge lo stato.
 
 ## Sezione B. Le rune
 
-- **S.19** Il presagio di Caligo e' la prima bolla — FERMATA IN ATTESA DI DECISIONE
-  - **LA PARTE CHE NON DIPENDE DALLA DOMANDA E' FATTA**, e il resto aspetta la D4: si
-    dichiara col quarto stato invece di chiudere, perche' chiudere vorrebbe dire dare
-    per fatto un testo che non e' scritto, e lasciare APERTA direbbe che il presagio
-    e' ancora in fondo alla schermata quando invece e' in cima.
+- **S.19** Il presagio di Caligo e' la prima bolla — CHIUSA
+  - **ERA FERMATA IN ATTESA DELLA DECISIONE D4, e adesso non lo e' piu'.** La
+    posizione era fatta, il testo aspettava la domanda, e la domanda e' nata con la
+    voce S.21 il 13 agosto 2026. Il quarto stato ha fatto il suo lavoro: ha detto
+    la verita' per il tempo in cui era vera, senza dare per fatto un testo che non
+    c'era e senza dire che il presagio era ancora in fondo alla schermata.
   - **IL PRESAGIO E' SALITO IN CIMA.** Stava in fondo, dopo le rune una per una: la
     persona leggeva tre frammenti e doveva montarli da sola, e la lettura che li
     tiene insieme arrivava quando aveva gia' finito di interpretare. Adesso e' la
@@ -865,13 +866,53 @@ si legge lo stato.
     perche' l'ordine dichiara che la lunghezza del presagio e' l'unica gia' giusta.
     Il pavimento e' il tetto delle rune brevi per tre: se un presagio scendesse
     sotto, vorrebbe dire che qualcuno lo ha uniformato alle bolle brevi.
-  - Misura: `test/il_presagio_e_la_prima_bolla_test.dart`, due prove.
-  - **COSA RESTA, ed e' una dipendenza dichiarata e non un rinvio:** il TESTO del
-    presagio si riscrive secondo l'anatomia della voce S.16 e **deve rispondere alla
-    domanda posta**. La domanda non esiste ancora: nasce con la voce S.21, che e' la
-    decisione D4 di Mauro sulle famiglie di domanda. Riscrivere adesso il presagio
-    contro una domanda che non c'e' vorrebbe dire scriverlo due volte, e la seconda
-    sarebbe quella vera.
+  - **IL TESTO HA PRESO LA FORMA DELL'ANATOMIA della voce S.16.** Era un paragrafo
+    unico che apriva col nome della gettata e poi nominava una runa per posizione:
+    **il simbolo veniva PRIMA della risposta**, cioe' chiedeva alla persona di
+    sapere cosa vuol dire Perthro prima di ricevere qualcosa, e dopo averlo letto
+    non c'era niente da fare. Adesso e' un `Responso` a tre parti: la risposta, che
+    tiene le posizioni e NON nomina nessuna runa; cosa puoi fare; da dove viene, ed
+    e' la' che le rune compaiono coi loro versi.
+  - **E RISPONDE ALLA DOMANDA POSTA**, che e' la parte che aspettava: con una
+    domanda il presagio apre dicendo che a quella sta rispondendo, senza domanda
+    parla alla giornata. **La domanda non si ricopia dentro**, perche' sta gia' a
+    schermo nella sua scatola subito sopra, e perche' una domanda scritta dalla
+    persona puo' contenere qualunque cosa: ricopiarla farebbe entrare nel responso
+    del testo che non e' nostro.
+  - **NOVE COSE DA FARE, non una:** tre famiglie di rune per tre equilibri di luce e
+    ombra. La famiglia dice di che cosa si tratta, l'equilibrio con quanta cautela.
+    Una sola indicazione per tutte le gettate si riconoscerebbe alla seconda
+    lettura e smetterebbe di essere un consiglio.
+  - **LE TRE PARTI SI VEDONO A SCHERMO**, e non e' decorazione: in un paragrafo
+    unico la cosa da fare si perde in mezzo, ed e' la parte che fa tornare. La
+    risposta passa dai paragrafi di lettura, cosa puoi fare ha la sua cornice, da
+    dove viene sta in didascalia secondaria.
+  - Misure: `test/il_presagio_e_la_prima_bolla_test.dart`, due prove sulla posizione
+    e sul pavimento; `test/il_presagio_risponde_alla_domanda_test.dart`, sette
+    prove che ENUMERANO le quattro gettate per sessanta semi: il responso e' intero,
+    nessun nome di runa compare nelle prime due parti, la terza li nomina TUTTI (il
+    presidio opposto, perche' togliere il simbolo dall'inizio non vuol dire
+    buttarlo), la domanda cambia il testo, la domanda non si ricopia, ogni cosa da
+    fare dichiara un QUANDO e non e' una formula vuota, la tradizione resta fuori.
+    Piu' una prova a schermo in
+    `test/la_domanda_scelta_arriva_al_responso_test.dart`, che pretende dal
+    presagio la riga della domanda: la scatola sopra la lettura dimostrava solo che
+    la domanda era arrivata, non che il presagio l'avesse usata.
+  - **PROVA DEL ROSSO fatta:** togliendo al presagio la distinzione fra domanda e
+    giornata la prova e' caduta sola, con la gettata nel messaggio. Rimessa a
+    posto, sette verdi.
+  - **TRE DIFETTI DI CUCITURA trovati dalle prove e uno guardando l'anteprima.** La
+    riga del corpus comincia con la maiuscola perche' nata per stare da sola, e
+    dopo "Per cio' che fu," si leggeva "Per cio' che fu, Una luce si accende": ora
+    scende in minuscola. L'apertura chiudeva la frase col punto e "Da dove viene:"
+    ne aggiungeva un secondo. E "Da dove viene: Le tre Norne" aveva la maiuscola
+    dopo i due punti: **minuscolizzarla era impossibile**, perche' "odino ha
+    parlato" e' peggio della maiuscola, quindi la frase e' scritta per il posto che
+    occupa e la vecchia apertura non serve piu' a nessuno. Tre indicazioni su nove
+    non dichiaravano un quando, e la prova le ha nominate una per una.
+  - GUARDATA l'anteprima `rune-norne.png` alla larghezza reale e alla risoluzione
+    vera: il presagio e' la prima bolla, apre senza nomi di runa, la cosa da fare
+    sta nella sua cornice, i nomi con i versi arrivano in fondo.
 - **S.20** I responsi delle singole rune scendono alla meta' — CHIUSA
   - **IL TETTO VIENE DALLA MISURA: 55 caratteri.** La mediana misurata alla voce
     S.18 era 106 per il verso dritto e 111 per quello d'ombra: si prende la meta'
@@ -1052,6 +1093,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 20
+VOCI_CHIUSE: 21
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

@@ -653,7 +653,12 @@ class _Responso extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final presagio = RunePresagio.componi(esito);
+    // **IL PRESAGIO RISPONDE ALLA DOMANDA POSTA, ordine S voce 19.** Prima non la
+    // riceveva nemmeno: la domanda entrava nel seme della gettata e nell'eco
+    // della singola runa, ma la lettura d'insieme parlava come se nessuno avesse
+    // chiesto niente.
+    final responso = RunePresagio.componiIlResponso(esito, domanda: domanda);
+    final presagio = responso.inParole;
     // LA VOCE DELLA RUNA: la runa dentro la domanda e dentro il giorno,
     // agganciata al cielo vero. Il perche' sta su RuneVoce.
     final voci = [
@@ -765,12 +770,37 @@ class _Responso extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.xs),
+                  // **LE TRE PARTI SI VEDONO, ordine S voce 19 sull'anatomia
+                  // della voce S.16.** Erano un paragrafo unico, e in un
+                  // paragrafo unico la cosa da fare si perde in mezzo: e' la
+                  // parte che fa tornare, quindi ha la sua superficie.
                   ParagrafiDiLettura(
                       key: const Key('rune_presage_text'),
-                      testo: presagio,
+                      testo: responso.risposta,
                       oro: palette.goldSoft,
                       stile: TypographyTokens.lettura()
                           .copyWith(color: ColorTokens.textPrimary)),
+                  const SizedBox(height: SpacingTokens.sm),
+                  Container(
+                    key: const Key('rune_presage_azione'),
+                    padding: const EdgeInsets.all(SpacingTokens.sm),
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(SpacingTokens.radiusMd),
+                      border:
+                          Border.all(color: palette.gold.withValues(alpha: 0.4)),
+                      color: palette.deepest.withValues(alpha: 0.35),
+                    ),
+                    child: Text(responso.cosaPuoiFare,
+                        style: TypographyTokens.lettura()
+                            .copyWith(color: ColorTokens.textPrimary)),
+                  ),
+                  const SizedBox(height: SpacingTokens.sm),
+                  // DA DOVE VIENE, e qui compaiono le rune: non prima.
+                  Text(responso.daDoveViene,
+                      key: const Key('rune_presage_fonte'),
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: ColorTokens.textSecondary)),
                 ],
               ),
             ),
