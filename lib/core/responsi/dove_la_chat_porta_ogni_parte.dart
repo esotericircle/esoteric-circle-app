@@ -61,12 +61,12 @@ class DoveLaChatPortaOgniParte {
   static const List<PostoDellaParte> tutte = [
     PostoDellaParte(
       parte: ParteDelResponso.risposta,
-      dove: 'la sintesi piu\' il testo narrato, dentro la struttura a quattro '
+      dove: 'la sintesi più il testo narrato, dentro la struttura a quattro '
           'strati',
       marcatore: 'ANATOMIA A QUATTRO STRATI',
       perche: 'La struttura chiede al Maestro una frase di sintesi e poi il '
-          'testo narrato nel suo tono: insieme sono cio\' che la lettura vede '
-          'nella situazione della persona, cioe\' la risposta. Il primo strato, '
+          'testo narrato nel suo tono: insieme sono ciò che la lettura vede '
+          'nella situazione della persona, cioè la risposta. Il primo strato, '
           'il segno grafico, lo da\' l\'app e non il modello.',
     ),
     PostoDellaParte(
@@ -82,8 +82,8 @@ class DoveLaChatPortaOgniParte {
       dove: 'la regola dell\'ancoraggio natale',
       marcatore: 'ANCORAGGIO',
       perche: 'Pretende che la risposta nomini i dati della persona invece di '
-          'parlare in generale: e\' il modo in cui una risposta di chat dice da '
-          'dove viene cio\' che afferma, come il nome della runa nella terza '
+          'parlare in generale: è il modo in cui una risposta di chat dice da '
+          'dove viene ciò che afferma, come il nome della runa nella terza '
           'parte del presagio.',
     ),
   ];
