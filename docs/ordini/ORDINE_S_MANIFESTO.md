@@ -1529,42 +1529,62 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     risultera' scesa, il primo posto dove guardare e' la PROPORZIONE fra comune e
     firma, non il contenuto delle tre aggiunte. Non si tocca niente su questa base
     prima che la misura parli.
-- **S.29** Le Linee Guida recepiscono, e la consegna — FERMATA IN ATTESA DI DECISIONE
-  - **LE LINEE GUIDA HANNO RECEPITO, ed e' la meta' della voce che si poteva fare
-    qui.** `docs/03_Linee_Guida_UX_Trasversali.md` porta il capitolo 21 nuovo, e il
-    capitolo 2 non cambia di una riga: **i quattro strati sono la FORMA, le tre parti
-    sono il CONTENUTO**, e la prima cosa che il capitolo dice e' che sono due assi
-    diversi che non si fondono in un vocabolario solo.
-  - Cosa recepisce, in nove regole: il simbolo non apre mai un responso; il confine
-    vale ovunque e vive in un punto solo; **un dono non e' un responso**; il ripiego
-    non si dichiara mai e non si vede nessuno scambio di testo a video, ma il guasto
-    si scrive nel registro; i testi dei responsi sono materiale dell'Architetto e la
-    loro FONTE sta nel repository con una prova che li confronta; le domande proposte
-    vivono in un punto unico; un sigillo e' un segno impresso su qualcosa; **quattro
-    regole di prova** (una soglia non deriva dalla grandezza che giudica, chi enumera
-    dichiara le osservazioni e cade se sono zero, il rosso si esegue verificando prima
-    che l'iniezione sia entrata, le anteprime si guardano tutte alla risoluzione
-    vera); e che **l'istruzione di sistema e' l'artefatto piu' fragile del progetto** e
-    si tocca solo quando si puo' rimisurare.
-  - **LA CONSEGNA NON PARTE, e non per una scelta mia: mancano DUE MISURE che qui non
-    si possono prendere.** L'attribuzione cieca delle tre voci, che le regole di casa
-    dichiarano obbligatoria prima di ogni consegna che tocchi le personalita' e che
-    questa sessione ha toccato (636 caratteri netti, voci S.15 e S.17); e la misura
-    (a) del presagio della voce S.19. **Chiedono tutte e due una sessione `gcloud`
-    attiva e credito Vertex, e si pagano in una sessione sola.**
-  - **DUE ROSSI DICHIARATI NELLA SUITE, e sono i soli ammessi:** la guardia dell'ordine
-    S, che resta rossa finche' questa voce non ha uno stato terminale, e la prova
-    dell'attribuzione cieca, che nasce rossa perche' dice il vero.
-  - **COSA RESTA A MAURO, in una sessione sola al PC:**
-    1. `flutter test tool/attribuzione_cieca.dart`, poi si scrive il risultato in
-       `lib/services/ai/impronta_dell_istruzione.dart` e si porta `attribuzioneValida`
-       a vero;
-    2. `flutter test tool/misura_del_presagio.dart`, col passo a passo in
-       `docs/ordini/MISURARE_IL_PRESAGIO.md`, e i due numeri vanno nel rapporto;
-    3. la verifica a video dell'accesso su due build nuove, che aspetta dalla voce
-       S.14.
-  - **SE LA CONSEGNA DOVESSE PARTIRE PRIMA**, si dichiara in TESTA al rapporto e non in
-    fondo: si consegna con l'attribuzione cieca non valida e senza la misura (a).
+- **S.29** Le Linee Guida recepiscono, e la consegna — CHIUSA
+  - **LE LINEE GUIDA HANNO RECEPITO, E NON COME APPENDICE.** Il capitolo 21 che le
+    aveva ricevute in fondo e' stato SCIOLTO dentro il corpo di
+    `docs/03_Linee_Guida_UX_Trasversali.md`: le tre parti contro i quattro strati, il
+    simbolo che non apre mai, un dono che non e' un responso e le aperture stabili
+    accettate stanno nel capitolo 2; il confine, il ripiego che non si dichiara mai,
+    l'istruzione come artefatto piu' fragile e i testi che sono materiale
+    dell'Architetto stanno nel capitolo 8; il compimento, l'ordine da 1 a 55 e il
+    sigillo stanno nel capitolo 12; le quattro regole di prova stanno nel capitolo 13.
+    Niente e' stato condensato e le copie `.docx` nel Project di Mauro non sono state
+    toccate.
+  - **LE DUE MISURE SONO STATE PRESE, il 14 agosto 2026, in una sessione sola con
+    `gcloud` attiva e il credito Vertex vivo.** Non erano rinviabili: la consegna
+    dipendeva da loro.
+    1. **ATTRIBUZIONE CIECA: 70,0 per cento (42 su 60) contro una soglia di 85.** La
+       matrice dice una cosa che il numero da solo direbbe storta: **non e' un
+       appiattimento simmetrico, e' Aura che attira.** Aura 20 su 20; Medora 14 su 20,
+       sei volte scambiata per Aura; Caligo 8 su 20, dodici volte scambiato per Aura.
+       Tutti e diciotto gli errori vanno verso Aura, nessuno in direzione opposta,
+       nessuno fra Medora e Caligo. Il dato sta in
+       `lib/services/ai/impronta_dell_istruzione.dart` con la sua matrice, e
+       `attribuzioneValida` resta **falso**: non si porta a vero per far passare la
+       suite, e la soglia non si abbassa.
+    2. **MISURA (a) DEL PRESAGIO: media 12,1 per cento, massima 28,3.** Quarantotto
+       chiamate, zero fallimenti. Fehu 11,7 e 26,7; Hagalaz 13,7 e 28,3; Othala
+       merkstave 10,9 e 20,3.
+  - **LA CONSEGNA E' PARTITA, il 14 agosto 2026, CON LO SBARRAMENTO DICHIARATO.** La
+    prova dell'attribuzione cieca era rossa e lo era per il verso giusto: adesso non
+    dice piu' che manca una misura, dice che la misura c'e' ed e' negativa. Lo
+    sbarramento e' scritto in testa al rapporto e **dentro le note di rilascio che
+    Mauro legge sul telefono**, non solo nella conversazione.
+    - Numero **2178**, letto dall'archivio con `aapt2 dump badging` e non dal pubspec.
+      Il 2177 del pubspec era gia' il numero dell'ultimo consegnato: il numero e' stato
+      portato al successivo perche' due consegne diverse non possono avere lo stesso
+      numero sul telefono.
+    - Un solo archivio arm64, mai `--split-per-abi`. 153.156.197 byte, cioe' 153,2 MB
+      in base mille e 146,1 MiB in base 1024.
+    - `tool/verifica_apk.py` verde: nove famiglie dichiarate, ognuna col conteggio
+      giusto dentro l'archivio.
+    - Destinatario unico `cloud@esotericircle.app`. Elenco dei tester letto prima del
+      caricamento e dopo la distribuzione: due, invariati. Release `4g4lmnuejre80`.
+    - `docs/versione_distribuita.json` aggiornato **dopo** la conferma del server,
+      dentro la procedura: 2177 diventa 2178.
+  - **IL DEBITO, e si scrive come debito e non come nota: la prova di accensione non
+    e' stata eseguita.** Nessun dispositivo Android collegato, `flutter devices`
+    elenca solo Edge e il web, e nessun emulatore parte su questa macchina. E' il
+    **settimo salto di fila**. Il salto e' passato dalla variabile
+    `ACCENSIONE_SALTATA_PER_ORDINE` con la ragione per esteso, che `tool/consegna.py`
+    stampa a video prima di caricare: **questa consegna e' partita al buio**, nessun
+    dispositivo ha acceso l'archivio prima che partisse.
+  - **COSA RESTA A MAURO, e non e' piu' una lista di comandi ma due decisioni:**
+    1. la verifica a video dell'accesso, che aspetta dalla voce S.14 e che il settimo
+       salto rende ogni giorno piu' urgente;
+    2. cosa fare delle tre voci a 70,0 per cento. La matrice dice dove guardare: non
+       le tre voci insieme, ma la proporzione fra la massa comune e la firma, e Caligo
+       per primo, che e' quello che si dissolve dentro Aura.
 
 ---
 
@@ -1649,6 +1669,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 27
+VOCI_CHIUSE: 28
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
