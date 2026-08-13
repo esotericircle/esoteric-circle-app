@@ -1,3 +1,5 @@
+import 'package:esoteric_circle/core/rituals/rune_cast.dart';
+import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
@@ -134,6 +136,17 @@ void main() {
 
 /// Inciampa [quanteVolte] con un 429, poi risponde.
 class _VoceCheInciampa implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   _VoceCheInciampa({required this.quanteVolte});
   int quanteVolte;
 

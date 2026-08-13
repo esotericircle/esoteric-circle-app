@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -5007,6 +5008,17 @@ void main() {
 
 /// Maestro offline: risponde con un testo fisso, senza rete.
 class _ScriptedMaestro implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   @override
   bool get isReady => true;
 
@@ -5086,6 +5098,17 @@ class _ScriptedMaestro implements MaestroAiProvider {
 /// Una voce che consegna una lettura BREVE col suo consiglio marcato, e al
 /// tocco il SEGUITO, cioe' il testo che manca.
 class _VoceInDueStrati implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   _VoceInDueStrati({this.ritardoDelSeguito = Duration.zero});
 
   /// Quanto ci mette il SEGUITO. Zero per le catture in cui il seguito deve
@@ -5150,6 +5173,17 @@ class _VoceInDueStrati implements MaestroAiProvider {
 }
 
 class _VoceCheFaAspettare implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   @override
   bool get isReady => true;
 

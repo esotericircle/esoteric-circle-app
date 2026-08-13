@@ -944,7 +944,7 @@ diagnosi e non una regola da applicare a tutti gli scatti.
 
 ## Sezione B. Le rune
 
-- **S.19** Il presagio di Caligo e' la prima bolla — APERTA
+- **S.19** Il presagio di Caligo e' la prima bolla — CHIUSA
   - **DICHIARATA CHIUSA E RIAPERTA NELLO STESSO GIORNO, e la ragione va scritta.**
     Il quarto stato aspettava la decisione D4, la D4 e' arrivata, il testo e' stato
     riscritto secondo l'anatomia e ho scritto CHIUSA. **Non lo era:** la decisione
@@ -994,78 +994,45 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     nessuna istruzione" era sbagliata. Adesso c'e' la prova che pretende che ci sia
     e che ci sia UNA volta sola, e **al primo giro ha preso me**: scrivendola avevo
     aggiunto una seconda copia del confine poche righe sopra la prima.
-  - **QUEL CHE MANCA, dalla decisione di Mauro sulla Sezione B:**
-    - **Punto 3, MODELLO MISTO.** Il presagio lo deve COMPORRE IL MODELLO da due
-      dati, la runa uscita col suo significato dal corpus e la domanda scelta. E'
-      l'unica bolla che deve davvero rispondere ed e' una sola per gettata, quindi
-      una generazione al giorno per utente nel piano gratuito. Cio' che c'e' ora e'
-      soltanto il RIPIEGO, che l'ordine pretende comunque e che non dichiara di
-      essere un ripiego: funziona e basta.
-    - ~~Punto 5, il confine nelle istruzioni di sistema~~: FATTO, vedi sopra.
-    - **Punto 6, la misura (b): FATTA e verde.** La misura (a) resta da eseguire
-      contro il modello vero, e si esegue quando il modello e' agganciato: la
-      decisione D5 la riclassifica come misura da riportare col numero, non come
-      guardia della suite.
-    - **LA DICIASSETTESIMA CORNICE, quella della giornata.** L'allegato vieta di
-      usare una delle sedici per chi non sceglie una domanda, perche' direbbe alla
-      persona che ha chiesto una cosa che non ha chiesto, e dichiara che quella
-      cornice la scrive l'Architetto. Ci sono arrivato: il ripiego senza domanda
-      esiste e apre con una riga PROVVISORIA scritta da me, dichiarata provvisoria
-      nel codice. Chiesta a Mauro.
-  - **IL PRESAGIO E' SALITO IN CIMA.** Stava in fondo, dopo le rune una per una: la
-    persona leggeva tre frammenti e doveva montarli da sola, e la lettura che li
-    tiene insieme arrivava quando aveva gia' finito di interpretare. Adesso e' la
-    prima cosa che si legge dopo la gettata, e le rune singole vengono dopo, come
-    dettaglio di cio' che il presagio ha gia' detto.
-  - **LA SUA LUNGHEZZA NON SI TOCCA, e la prova e' un presidio AL CONTRARIO.** Tutte
-    le altre prove della sezione difendono un tetto; questa difende un pavimento,
-    perche' l'ordine dichiara che la lunghezza del presagio e' l'unica gia' giusta.
-    Il pavimento e' il tetto delle rune brevi per tre: se un presagio scendesse
-    sotto, vorrebbe dire che qualcuno lo ha uniformato alle bolle brevi.
-  - **IL TESTO HA PRESO LA FORMA DELL'ANATOMIA della voce S.16.** Era un paragrafo
-    unico che apriva col nome della gettata e poi nominava una runa per posizione:
-    **il simbolo veniva PRIMA della risposta**, cioe' chiedeva alla persona di
-    sapere cosa vuol dire Perthro prima di ricevere qualcosa, e dopo averlo letto
-    non c'era niente da fare. Adesso e' un `Responso` a tre parti: la risposta, che
-    tiene le posizioni e NON nomina nessuna runa; cosa puoi fare; da dove viene, ed
-    e' la' che le rune compaiono coi loro versi.
-  - **E RISPONDE ALLA DOMANDA POSTA**, che e' la parte che aspettava: con una
-    domanda il presagio apre dicendo che a quella sta rispondendo, senza domanda
-    parla alla giornata. **La domanda non si ricopia dentro**, perche' sta gia' a
-    schermo nella sua scatola subito sopra, e perche' una domanda scritta dalla
-    persona puo' contenere qualunque cosa: ricopiarla farebbe entrare nel responso
-    del testo che non e' nostro.
-  - **NOVE COSE DA FARE, non una:** tre famiglie di rune per tre equilibri di luce e
-    ombra. La famiglia dice di che cosa si tratta, l'equilibrio con quanta cautela.
-    Una sola indicazione per tutte le gettate si riconoscerebbe alla seconda
-    lettura e smetterebbe di essere un consiglio.
-  - **LE TRE PARTI SI VEDONO A SCHERMO**, e non e' decorazione: in un paragrafo
-    unico la cosa da fare si perde in mezzo, ed e' la parte che fa tornare. La
-    risposta passa dai paragrafi di lettura, cosa puoi fare ha la sua cornice, da
-    dove viene sta in didascalia secondaria.
-  - Misure: `test/il_presagio_e_la_prima_bolla_test.dart`, due prove sulla posizione
-    e sul pavimento; `test/il_presagio_risponde_alla_domanda_test.dart`, sette
-    prove che ENUMERANO le quattro gettate per sessanta semi: il responso e' intero,
-    nessun nome di runa compare nelle prime due parti, la terza li nomina TUTTI (il
-    presidio opposto, perche' togliere il simbolo dall'inizio non vuol dire
-    buttarlo), la domanda cambia il testo, la domanda non si ricopia, ogni cosa da
-    fare dichiara un QUANDO e non e' una formula vuota, la tradizione resta fuori.
-    Piu' una prova a schermo in
-    `test/la_domanda_scelta_arriva_al_responso_test.dart`, che pretende dal
-    presagio la riga della domanda: la scatola sopra la lettura dimostrava solo che
-    la domanda era arrivata, non che il presagio l'avesse usata.
-  - **PROVA DEL ROSSO fatta:** togliendo al presagio la distinzione fra domanda e
-    giornata la prova e' caduta sola, con la gettata nel messaggio. Rimessa a
-    posto, sette verdi.
-  - **TRE DIFETTI DI CUCITURA trovati dalle prove e uno guardando l'anteprima.** La
-    riga del corpus comincia con la maiuscola perche' nata per stare da sola, e
-    dopo "Per cio' che fu," si leggeva "Per cio' che fu, Una luce si accende": ora
-    scende in minuscola. L'apertura chiudeva la frase col punto e "Da dove viene:"
-    ne aggiungeva un secondo. E "Da dove viene: Le tre Norne" aveva la maiuscola
-    dopo i due punti: **minuscolizzarla era impossibile**, perche' "odino ha
-    parlato" e' peggio della maiuscola, quindi la frase e' scritta per il posto che
-    occupa e la vecchia apertura non serve piu' a nessuno. Tre indicazioni su nove
-    non dichiaravano un quando, e la prova le ha nominate una per una.
+  - **IL MODELLO E' AGGANCIATO, punto 3 della D5.** Metodo nuovo sul confine
+    astratto, `MaestroAiProvider.presagioDelleRune`, che riceve i FATTI e non il
+    prompt: la gettata, le pietre uscite coi loro versi, posizioni e significati
+    dal corpus, e la domanda scelta. L'implementazione su Gemini sta in
+    `FirebaseMaestroAiProvider` con Flash-Lite, uscita JSON a tre campi e parsing
+    difensivo come i tre strati della chat; l'istruzione e'
+    `MaestroPersona.presagioInstruction`, che **passa da `_commonRules`** e quindi
+    porta con se' la legge della voce S.15 e il confine della voce S.17 senza
+    nominarli.
+  - **L'ANATOMIA ARRIVA AL MODELLO DA `ParteDelResponso`**, non riscritta a mano
+    nell'istruzione: se un giorno l'anatomia cambia, l'istruzione cambia con lei. E
+    la quarta parte, la tradizione, non si chiede.
+  - **IL RIPIEGO NON SI DICHIARA MAI, e a video non c'e' nessuno scambio.** Mentre
+    il modello scrive, la bolla mostra tre righe di respiro, "Caligo sta leggendo le
+    pietre": se mostrasse il ripiego e poi lo sostituisse, la persona vedrebbe lo
+    scambio e capirebbe che il primo era un ripiego. Quando il modello tace resta il
+    ripiego, cornice piu' frase della runa, senza un avviso e senza un'icona.
+  - **UNA GENERAZIONE AL GIORNO NEL PIANO GRATUITO, senza contatore nuovo:** il
+    presagio si chiede una volta per gettata, e le gettate del giorno le limita gia'
+    il tier. Un secondo contatore sarebbe la stessa cosa contata due volte.
+  - **IL GUASTO SI SCRIVE ANCHE SE LA PERSONA NON LO VEDE:** il presagio passa dalla
+    `VoceSorvegliata` come tutte le altre voci, quindi cade nel registro dei guasti.
+    Il ripiego non si dichiara alla persona, a noi si'.
+  - Misura: `test/il_presagio_passa_dal_modello_test.dart`, quattro prove.
+    L'istruzione porta il confine UNA volta sola, porta le tre parti e la regola del
+    simbolo, dice al modello quando la domanda non c'e' e gli vieta di inventarne
+    una; e quando la voce tace resta un presagio INTERO che non si dichiara,
+    misurato cercando sei parole una per una (ripiego, offline, non disponibile,
+    riprova, errore, generato).
+  - **CIO' CHE RESTA E NON E' CODICE: la misura (a)**, che la decisione D5
+    riclassifica come misura e non come guardia: a parita' di runa, due domande
+    diverse devono dare presagi che condividono meno di una soglia dichiarata delle
+    parole piene. Si esegue una volta contro il modello vero e si riporta col
+    numero, come l'attribuzione cieca delle tre voci. **Serve una chiamata vera a
+    Vertex**, quindi la esegue chi ha le credenziali attive.
+  - **TRENTATRE FINTE VOCI NEI TEST hanno dovuto imparare il metodo nuovo.** Il
+    confine e' un'interfaccia: chi la implementa deve implementarla tutta, e a
+    dirlo e' stato il compilatore su 33 file di prova. Non e' un fastidio, e' la
+    ragione per cui il confine funziona.
   - GUARDATA l'anteprima `rune-norne.png` alla larghezza reale e alla risoluzione
     vera: il presagio e' la prima bolla, apre senza nomi di runa, la cosa da fare
     sta nella sua cornice, i nomi con i versi arrivano in fondo. E guardata
@@ -1284,6 +1251,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 21
+VOCI_CHIUSE: 22
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

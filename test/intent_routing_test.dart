@@ -1,3 +1,5 @@
+import 'package:esoteric_circle/core/rituals/rune_cast.dart';
+import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/chat/immersive_intents.dart';
 import 'package:esoteric_circle/core/chat/intent_classifier.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
@@ -94,6 +96,17 @@ void main() {
 /// Provider AI che conta le chiamate, per provare che l'instradamento non
 /// tocca l'AI.
 class _RecordingAi implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   int replies = 0;
 
   @override

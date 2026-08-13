@@ -9,6 +9,8 @@ import 'maestro_ai_provider.dart';
 import 'maestro_oracle.dart';
 import 'registro_dei_guasti.dart';
 import 'ritentativi_della_voce.dart';
+import '../../core/responsi/anatomia_del_responso.dart';
+import '../../core/rituals/rune_cast.dart';
 
 /// La voce dei Maestri, sorvegliata, che RITENTA prima di arrendersi.
 ///
@@ -149,6 +151,28 @@ class VoceSorvegliata implements MaestroAiProvider {
         memory: memory,
         natal: natal,
         depth: depth,
+      ),
+    );
+  }
+
+  /// **IL PRESAGIO PASSA DALLA SORVEGLIANZA come tutte le altre voci.** Ordine S
+  /// voce 19: se il modello non risponde, la schermata cade sul ripiego in
+  /// silenzio, e senza questo registro il guasto evaporerebbe. Il ripiego non si
+  /// dichiara alla PERSONA, ma a noi si'.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) {
+    return _sorvegliando(
+      'presagioDelleRune',
+      () => _voce.presagioDelleRune(
+        esito: esito,
+        domanda: domanda,
+        profile: profile,
+        natal: natal,
       ),
     );
   }

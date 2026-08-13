@@ -1,3 +1,5 @@
+import 'package:esoteric_circle/core/rituals/rune_cast.dart';
+import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/app.dart';
@@ -170,6 +172,17 @@ void main() {
 
 /// Una voce pronta che risponde con calma, cosi' l'attesa esiste.
 class _VoceLenta implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   const _VoceLenta();
 
   @override

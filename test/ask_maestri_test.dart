@@ -1,3 +1,5 @@
+import 'package:esoteric_circle/core/rituals/rune_cast.dart';
+import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
@@ -486,6 +488,17 @@ AppServices _servicesWith(MaestroAiProvider ai) => AppServices(
 /// Provider pronto che risponde con un testo per Maestro, cosi' si distingue la
 /// risposta viva da quella dell'oracolo e si verifica l'intreccio della sintesi.
 class _ReadyAi implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   @override
   bool get isReady => true;
 
@@ -543,6 +556,17 @@ class _ReadyAi implements MaestroAiProvider {
 
 /// Cattura i parametri passati a consult, per verificare la personalizzazione.
 class _CapturingAi implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   NatalContext? lastNatal;
   ConsultDepth? lastDepth;
 
@@ -600,6 +624,17 @@ class _CapturingAi implements MaestroAiProvider {
 
 /// Provider pronto che pero' non trova le parole: cade sull'oracolo.
 class _UnavailableAi implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   @override
   bool get isReady => true;
 

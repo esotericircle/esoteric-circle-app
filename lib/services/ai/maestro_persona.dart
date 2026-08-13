@@ -10,6 +10,7 @@ import '../../core/maestro/misura_della_risposta.dart';
 import '../../core/maestro/natal_context.dart';
 import '../../core/maestro/seguito_della_lettura.dart';
 import '../../core/maestro/voce_del_maestro.dart';
+import '../../core/responsi/anatomia_del_responso.dart';
 import '../../core/responsi/confine_del_responso.dart';
 import '../../core/responsi/legge_del_responso.dart';
 
@@ -290,6 +291,64 @@ class MaestroPersona {
       // fretta legge al posto di tutto il resto.
       ConsiglioFinale.istruzione,
     ].join('\n');
+  }
+
+  /// L'ISTRUZIONE DEL PRESAGIO DELLE RUNE. Ordine S voce 19, punto 3 della D5.
+  ///
+  /// **Passa da `_commonRules` come tutte le altre**, quindi porta con se' la legge
+  /// del responso della voce S.15 e il CONFINE della voce S.17 senza che questa
+  /// funzione debba nominarli: e' il punto 5 della decisione, e a pretenderlo c'e'
+  /// una prova.
+  ///
+  /// **Cio' che aggiunge e' solo l'anatomia del presagio**, cioe' le tre parti e la
+  /// regola che il nome della runa compare nella terza e non prima. La forma delle
+  /// tre parti la conosce `ParteDelResponso`, e da la' arriva: se un giorno
+  /// l'anatomia cambia, questa istruzione cambia con lei.
+  static String presagioInstruction({
+    required UserProfile profile,
+    required MaestroMemory memory,
+    NatalContext natal = NatalContext.none,
+    bool conDomanda = true,
+  }) {
+    final parti = ParteDelResponso.nelResponso
+        .map((p) => '- ${p.numero}. ${p.nome}: ${p.cosaFa} '
+            '(${p.righeMinime} o ${p.righeMassime} righe)')
+        .join('\n');
+    return [
+      voceDi(Maestro.caligo),
+      '',
+      _commonRules(profile),
+      '',
+      _natalContext(natal),
+      _memoryContext(memory),
+      '',
+      MisuraDellaRisposta.letturaDellaChat.istruzione,
+      '',
+      'COSA STAI SCRIVENDO: il presagio di una gettata di rune. è la prima '
+          'cosa che la persona legge dopo il getto, ed è la lettura che tiene '
+          'insieme le pietre uscite. Le singole rune le racconta l\'app per conto '
+          'suo: tu non ripetere le loro schede.',
+      '',
+      'LE TRE PARTI, in questo ordine:',
+      parti,
+      '',
+      'IL NOME DELLA RUNA COMPARE SOLO NELLA TERZA PARTE. Nelle prime due parla '
+          'della situazione e di cosa fare, mai della pietra: un responso che '
+          'apre col simbolo chiede alla persona di sapere cosa vuol dire quel '
+          'simbolo prima di ricevere una risposta.',
+      '',
+      conDomanda
+          ? 'LA DOMANDA POSTA è IL CENTRO: la prima parte le risponde, e la '
+              'seconda dice una cosa che si puù fare oggi o nei prossimi '
+              'giorni su quella. Non ricopiare la domanda a parole sue: la '
+              'persona la vede già a schermo sopra il presagio.'
+          : 'LA PERSONA NON HA SCELTO NESSUNA DOMANDA: il presagio parla alla '
+              'sua giornata, e la seconda parte le lascia una cosa da guardare '
+              'entro sera. Non inventare una domanda che non ha posto.',
+      '',
+      'FORMATO: rispondi SOLO con un oggetto JSON con tre campi di testo, '
+          '"risposta", "cosaPuoiFare", "daDoveViene". Niente altro fuori dal JSON.',
+    ].where((r) => r.trim().isNotEmpty).join('\n');
   }
 
   /// COME SI SCRIVE UNA LETTURA CHE SI LEGGE A DUE STRATI.

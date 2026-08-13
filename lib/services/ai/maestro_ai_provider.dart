@@ -4,6 +4,8 @@ import '../../core/chat/user_profile.dart';
 import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
+import '../../core/responsi/anatomia_del_responso.dart';
+import '../../core/rituals/rune_cast.dart';
 import '../../core/maestro/natal_context.dart';
 import 'maestro_oracle.dart';
 
@@ -70,6 +72,36 @@ abstract interface class MaestroAiProvider {
     MaestroMemory memory = MaestroMemory.empty,
     NatalContext? natal,
     ConsultDepth depth = ConsultDepth.breve,
+  });
+
+  /// IL PRESAGIO DELLE RUNE, composto dal modello. Ordine S voce 19, punto 3
+  /// della decisione D5 di Mauro.
+  ///
+  /// **Perche' questa e' l'unica bolla che passa dal modello.** E' la sola che deve
+  /// DAVVERO rispondere alla domanda posta, ed e' una sola per gettata: le
+  /// ventiquattro rune singole restano corpus, brevi e ancorate al simbolo, perche'
+  /// altrimenti servirebbero 576 testi generati per ogni lettura.
+  ///
+  /// **UNA GENERAZIONE AL GIORNO NEL PIANO GRATUITO, e non serve un contatore
+  /// nuovo.** Il presagio si chiede una volta per gettata, e le gettate del giorno
+  /// sono gia' limitate dal tier: nel piano gratuito e' una, quindi una generazione.
+  /// Aggiungere un secondo limite qui vorrebbe dire due contatori per la stessa
+  /// cosa, e al primo ritocco direbbero numeri diversi.
+  ///
+  /// Riceve i FATTI e non il prompt: la gettata, le rune uscite coi loro versi,
+  /// posizioni e significati dal corpus, e la domanda scelta (vuota se la persona
+  /// non ne ha scelta nessuna). La composizione dell'istruzione e'
+  /// dell'implementazione.
+  ///
+  /// **Se il modello non c'e' o non trova le parole solleva [MaestroAiUnavailable]**,
+  /// e chi chiama cade sul ripiego deterministico: cornice dell'allegato B piu' la
+  /// frase della runa. **Il ripiego non si dichiara mai come ripiego**, quindi la
+  /// persona non deve poter capire quale dei due sta leggendo.
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
   });
 
   /// Genera la Sintesi comparativa di "Consulta un Maestro" quando i Maestri
@@ -161,6 +193,16 @@ class UnavailableMaestroAiProvider implements MaestroAiProvider {
     MaestroMemory memory = MaestroMemory.empty,
     NatalContext? natal,
     ConsultDepth depth = ConsultDepth.breve,
+  }) async {
+    throw const MaestroAiUnavailable();
+  }
+
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
   }) async {
     throw const MaestroAiUnavailable();
   }

@@ -9,6 +9,8 @@ import '../../core/chat/user_profile.dart';
 import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
+import '../../core/rituals/rune_cast.dart';
+import '../../core/responsi/anatomia_del_responso.dart';
 import '../../core/maestro/misura_della_risposta.dart';
 import '../../core/maestro/natal_context.dart';
 import 'maestro_ai_provider.dart';
@@ -326,6 +328,93 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   /// Estrae i tre strati dal JSON del modello, in modo difensivo: qualunque
   /// forma inattesa torna null, e chi chiama cade sul ripiego. Mai un'eccezione
   /// di parsing che arrivi cruda a video.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async {
+    final d = domanda.trim();
+    // **FLASH-LITE, come le risposte brevi.** E' una bolla per gettata e nel piano
+    // gratuito una al giorno: il modello ricco non serve, e il costo di questa
+    // chiamata non deve crescere col numero delle persone.
+    final model = _ai.generativeModel(
+      model: kMaestroBreveModel,
+      systemInstruction: Content.system(
+        MaestroPersona.presagioInstruction(
+          profile: profile,
+          memory: MaestroMemory.empty,
+          natal: natal,
+          conDomanda: d.isNotEmpty,
+        ),
+      ),
+      generationConfig: configurazionePer(
+        MisuraDellaRisposta.letturaDellaChat,
+        temperature: 0.9,
+        topP: 0.95,
+        responseMimeType: 'application/json',
+      ),
+    );
+
+    // **I FATTI, non il prompt.** Le pietre arrivano col verso, la posizione e il
+    // significato del corpus: e' cio' che il modello non puo' inventare, e la
+    // decisione D3 dice che il presagio si compone da questi due dati piu' la
+    // domanda.
+    final pietre = [
+      for (final r in esito.rune)
+        '- ${r.rune.name}, ${r.inOmbra ? 'in merkstave' : 'diritta'}, '
+            'per ${r.posizione.glossa}: ${r.rune.meaning}',
+    ].join('\n');
+    final richiesta = StringBuffer()
+      ..writeln('Gettata: ${esito.gettata.nome}.')
+      ..writeln('Pietre uscite:')
+      ..writeln(pietre);
+    if (d.isEmpty) {
+      richiesta.writeln('La persona non ha scelto nessuna domanda.');
+    } else {
+      richiesta.writeln('Domanda posta dalla persona: «$d».');
+    }
+
+    final response = await model.generateContent([
+      Content.text(richiesta.toString()),
+    ]);
+    final raw = response.text?.trim();
+    if (raw == null || raw.isEmpty) {
+      throw const MaestroAiUnavailable('Il presagio non ha trovato le parole.');
+    }
+    if (eTroncata(response)) throw const MaestroAiTroncata();
+    final responso = _parsePresagio(raw);
+    if (responso == null || !responso.eIntero) {
+      throw const MaestroAiUnavailable('Il presagio non ha trovato le parole.');
+    }
+    return responso;
+  }
+
+  /// Le tre parti dall'uscita JSON, con lo stesso parsing difensivo dei tre
+  /// strati: un campo che manca vale vuoto, e un responso non intero fa cadere sul
+  /// ripiego invece di andare a video mutilo.
+  Responso? _parsePresagio(String raw) {
+    try {
+      final start = raw.indexOf('{');
+      final end = raw.lastIndexOf('}');
+      if (start < 0 || end <= start) return null;
+      final decoded = jsonDecode(raw.substring(start, end + 1));
+      if (decoded is! Map) return null;
+      String pezzo(String chiave) => TestoDelResponso.pulisci(
+          (decoded[chiave] as Object?)?.toString().trim() ?? '');
+      return Responso(
+        risposta: pezzo('risposta'),
+        cosaPuoiFare: pezzo('cosaPuoiFare'),
+        daDoveViene: pezzo('daDoveViene'),
+      );
+    } catch (errore, traccia) {
+      annotaGuastoInnocuo(
+          'leggendo le tre parti del presagio delle rune', errore, traccia);
+      return null;
+    }
+  }
+
   MaestroReply? _parseReply(String raw) {
     try {
       final start = raw.indexOf('{');

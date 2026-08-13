@@ -41,6 +41,7 @@ import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../../core/domande/domande_del_cerchio.dart';
 import '../../../../core/rituals/filo_del_giorno.dart';
 import '../../../../core/rituals/sunset_rune_memory.dart';
+import '../../../../core/responsi/anatomia_del_responso.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
 /// selettore del tipo di gettata. Il caso e' voluto e autentico, e' gettare le
@@ -105,6 +106,15 @@ enum _Fase { preparazione, responso }
 
 class _RuneDrawScreenState extends State<RuneDrawScreen> {
   final TextEditingController _domanda = TextEditingController();
+
+  /// Il presagio composto dal modello, quando arriva. Nullo prima e nullo se il
+  /// modello non risponde: in quel caso vale il ripiego, che non si dichiara.
+  Responso? _presagioDelModello;
+
+  /// Vero mentre il modello sta scrivendo. Serve alla bolla per non mostrare un
+  /// testo che fra un istante viene sostituito da un altro: uno scambio a video
+  /// direbbe alla persona che il primo era un ripiego.
+  bool _presagioInArrivo = false;
   /// I DATI CHE LE DOMANDE PERSONALI CHIEDONO, e solo quelli che ci sono davvero.
   ///
   /// Ordine S voce 21, decisione D4: le personali nascono da CARTA E CAMMINO. Il
@@ -228,12 +238,68 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
       _esito = RuneCast.getta(_gettata, random: widget.random);
       _fase = _Fase.responso;
     });
+    _chiediIlPresagio();
   }
 
   void _gettaAncora() {
     if (!_consumaUnaGettata()) return;
     PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
     setState(() => _esito = RuneCast.getta(_gettata, random: widget.random));
+    _chiediIlPresagio();
+  }
+
+  /// IL PRESAGIO DEL MODELLO, e il ripiego che non si dichiara.
+  ///
+  /// **Ordine S voce 19, punto 3 della decisione D5.** Il presagio e' l'unica bolla
+  /// che deve davvero rispondere alla domanda, ed e' una sola per gettata: la
+  /// compone il modello dai due dati che non puo' inventare, la runa col suo
+  /// significato dal corpus e la domanda scelta.
+  ///
+  /// **UNA GENERAZIONE AL GIORNO NEL PIANO GRATUITO, senza un contatore nuovo.** Si
+  /// chiede una volta per gettata, e le gettate del giorno le limita gia' il tier:
+  /// nel piano gratuito e' una. Un secondo contatore qui sarebbe la stessa cosa
+  /// contata due volte, e al primo ritocco i due direbbero numeri diversi.
+  ///
+  /// **IL RIPIEGO NON SI DICHIARA MAI.** Se il modello non c'e', non risponde o
+  /// risponde male, resta il presagio deterministico: cornice dell'allegato B piu'
+  /// la frase della runa dal corpus. La persona non deve poter capire quale dei due
+  /// sta leggendo, quindi non c'e' nessun avviso e nessuna icona.
+  void _chiediIlPresagio() {
+    final esito = _esito;
+    if (esito == null) return;
+    // **LA LETTURA E' NULLABILE apposta:** questa schermata si monta anche da sola
+    // nelle prove e nelle catture, dove `AppServices` non c'e'. Senza il punto di
+    // domanda il getto schianterebbe la' dentro.
+    final servizi = Provider.of<AppServices?>(context, listen: false);
+    final ai = servizi?.ai;
+    if (ai == null || !ai.isReady) return;
+    setState(() {
+      _presagioDelModello = null;
+      _presagioInArrivo = true;
+    });
+    final domanda = _domanda.text.trim();
+    unawaited(() async {
+      try {
+        // Il profilo arriva dalla memoria, che e' la sua casa: serve al modello
+        // per il nome e la forma di cortesia, e non lo ricopia nessuno qui.
+        final profilo = await servizi!.memory.loadProfile();
+        if (!mounted || !identical(_esito, esito)) return;
+        final responso = await ai.presagioDelleRune(
+          esito: esito,
+          domanda: domanda,
+          profile: profilo,
+        );
+        if (!mounted || !identical(_esito, esito)) return;
+        setState(() {
+          _presagioDelModello = responso;
+          _presagioInArrivo = false;
+        });
+      } catch (_) {
+        // Nessun avviso: il ripiego e' un presagio a tutti gli effetti.
+        if (!mounted || !identical(_esito, esito)) return;
+        setState(() => _presagioInArrivo = false);
+      }
+    }());
   }
 
   /// IL SEME DELLA FISICA: persona, giorno, domanda e rune uscite.
@@ -315,6 +381,8 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   esito: _esito!,
                   seme: _semeDellaGettata(_esito!),
                   domanda: _domanda.text.trim(),
+                  presagioDelModello: _presagioDelModello,
+                  presagioInArrivo: _presagioInArrivo,
                   persona: widget.userBirth?.toIso8601String() ??
                       widget.userSign.name,
                   giorno: DateTime.now(),
@@ -631,6 +699,8 @@ class _Responso extends StatelessWidget {
     required this.esito,
     required this.seme,
     required this.domanda,
+    required this.presagioDelModello,
+    required this.presagioInArrivo,
     required this.persona,
     required this.giorno,
     required this.animazioni,
@@ -644,6 +714,15 @@ class _Responso extends StatelessWidget {
   final EsitoGettata esito;
   final int seme;
   final String domanda;
+
+  /// Il presagio composto dal modello, quando c'e'. Nullo vuol dire ripiego, e il
+  /// ripiego non si dichiara: la persona legge un presagio, non un avviso.
+  final Responso? presagioDelModello;
+
+  /// Vero mentre il modello scrive. La bolla mostra l'attesa invece di un testo
+  /// che fra un istante verrebbe sostituito: uno scambio a video direbbe alla
+  /// persona che il primo era un ripiego.
+  final bool presagioInArrivo;
   final String persona;
   final DateTime giorno;
   final bool animazioni;
@@ -663,7 +742,12 @@ class _Responso extends StatelessWidget {
     // riceveva nemmeno: la domanda entrava nel seme della gettata e nell'eco
     // della singola runa, ma la lettura d'insieme parlava come se nessuno avesse
     // chiesto niente.
-    final responso = RunePresagio.componiIlResponso(esito, domanda: domanda);
+    // **IL MODELLO SE C'E', il ripiego altrimenti, e nessuno dei due si annuncia.**
+    // Ordine S voce 19, punto 3 della D5: quando il modello risponde il presagio
+    // e' suo; quando non risponde e' la cornice dell'allegato B piu' la frase della
+    // runa dal corpus, e la persona non deve poter capire quale sta leggendo.
+    final responso = presagioDelModello ??
+        RunePresagio.componiIlResponso(esito, domanda: domanda);
     final presagio = responso.inParole;
     // LA VOCE DELLA RUNA: la runa dentro la domanda e dentro il giorno,
     // agganciata al cielo vero. Il perche' sta su RuneVoce.
@@ -776,6 +860,32 @@ class _Responso extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.xs),
+                  // **L'ATTESA NON MOSTRA UN TESTO CHE POI CAMBIA.** Mentre il
+                  // modello scrive, la bolla tiene tre righe di respiro invece del
+                  // ripiego: se mostrasse il ripiego e poi lo sostituisse, la
+                  // persona vedrebbe lo scambio e capirebbe che il primo era un
+                  // ripiego, che e' esattamente cio' che l'ordine vieta.
+                  if (presagioInArrivo)
+                    Padding(
+                      key: const Key('rune_presage_attesa'),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: SpacingTokens.md),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 14,
+                            height: 14,
+                            child: CircularProgressIndicator(
+                                strokeWidth: 1.6, color: palette.goldSoft),
+                          ),
+                          const SizedBox(width: SpacingTokens.sm),
+                          Text('Caligo sta leggendo le pietre',
+                              style: TypographyTokens.didascalia()
+                                  .copyWith(color: ColorTokens.textSecondary)),
+                        ],
+                      ),
+                    )
+                  else ...[
                   // **LE TRE PARTI SI VEDONO, ordine S voce 19 sull'anatomia
                   // della voce S.16.** Erano un paragrafo unico, e in un
                   // paragrafo unico la cosa da fare si perde in mezzo: e' la
@@ -813,6 +923,7 @@ class _Responso extends StatelessWidget {
                       key: const Key('rune_presage_fonte'),
                       style: TypographyTokens.didascalia()
                           .copyWith(color: ColorTokens.textSecondary)),
+                  ],
                 ],
               ),
             ),
@@ -1223,45 +1334,6 @@ class _SelettoreGettate extends StatelessWidget {
 }
 
 /// Un suggerimento di domanda tappabile, a pillola.
-class _Suggerimento extends StatelessWidget {
-  const _Suggerimento(
-      {required this.testo, required this.palette, required this.onTap});
-
-  final String testo;
-  final MaestroPalette palette;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.sm, vertical: 6),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-          color: palette.deepest.withValues(alpha: 0.4),
-          border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
-        ),
-        child: Text(testo,
-            style: TypographyTokens.etichetta()
-                .copyWith(color: palette.goldSoft, letterSpacing: 0.2)),
-      ),
-    );
-  }
-}
-
-/// Il Pozzo di Urdhr, il wow: le rune cadono sull'acqua immobile alla radice di
-/// Yggdrasil, coi cerchi concentrici dove ognuna tocca e i fili sottili delle
-/// Norne che le collegano. Con Riduci Movimento o Quality Tier basso, niente
-/// increspature ne parallasse: la gettata resta statica, gia' posata.
-/// IL CONTO DELLE GETTATE DEL GIORNO, ordine L voce 2b.
-///
-/// Leggibile e sempre presente per chi ha un limite: "2 di 3", "1 di 3", e a
-/// zero il messaggio dice che si riparte domani. Chi non ha limite non vede
-/// nessun conto, perche' un contatore a infinito e' rumore. Il numero viene
-/// dallo stesso budget dell'ordine I (QuestionAllowance) e cala nello stesso
-/// istante in cui la gettata parte, perche' la schermata guarda il contatore.
 class _ContoDelleGettate extends StatelessWidget {
   const _ContoDelleGettate({
     required this.rimaste,

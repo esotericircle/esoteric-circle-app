@@ -1,3 +1,5 @@
+import 'package:esoteric_circle/core/rituals/rune_cast.dart';
+import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_constellation_screen.dart';
@@ -3544,6 +3546,17 @@ const _cartaPiena = NatalContext(
 /// L'immagine mostra come l'app IMPAGINA quel testo, non che il modello lo
 /// scriva: quello lo dice la misura, che sta nel rapporto.
 class _VoceConUnTesto implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   _VoceConUnTesto(this.testo);
 
   final String testo;
@@ -3594,6 +3607,17 @@ class _VoceConUnTesto implements MaestroAiProvider {
 }
 
 class _VoceCheRisponde implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   @override
   bool get isReady => true;
 
@@ -3644,6 +3668,17 @@ class _VoceCheRisponde implements MaestroAiProvider {
 /// Una voce accesa che fallisce a ogni chiamata: e' lo stato reale del
 /// progetto finche' firebasevertexai.googleapis.com resta spenta.
 class _VoceCheTace implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   @override
   bool get isReady => true;
 
@@ -3692,6 +3727,17 @@ class _VoceCheTace implements MaestroAiProvider {
 /// Una voce pronta che risponde con calma: quanto basta perche' l'attesa
 /// esista e la scena della voce 1 abbia qualcosa da accompagnare.
 class _VoceLenta implements MaestroAiProvider {
+  // Aggiunto con la voce S.19: il presagio delle rune passa dal confine come
+  // tutte le altre voci, e una finta che non lo implementa non compila.
+  @override
+  Future<Responso> presagioDelleRune({
+    required EsitoGettata esito,
+    required String domanda,
+    required UserProfile profile,
+    NatalContext natal = NatalContext.none,
+  }) async =>
+      throw const MaestroAiUnavailable();
+
   const _VoceLenta();
 
   @override
