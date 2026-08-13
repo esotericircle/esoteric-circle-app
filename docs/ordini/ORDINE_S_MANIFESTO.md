@@ -1214,7 +1214,32 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     famiglia della voce S.10.
   - GUARDATA `rune-soglia.png` alla larghezza reale: sotto la riga della domanda
     arriva subito il pulsante.
-- **S.23** I pulsanti di scelta della stesa restano dopo il getto — APERTA
+- **S.23** I pulsanti di scelta della stesa restano dopo il getto — FERMATA SU PREMESSA FALSA
+  - **LA PREMESSA NON REGGE, e l'ho verificata prima di toccare il codice.** Ne'
+    nell'Estrazione Rune ne' nella Stesa di Tarocchi un comando di scelta sopravvive
+    al responso.
+  - Misura: `test/dopo_il_responso_niente_scelte_test.dart`, tre prove che ENUMERANO
+    i comandi invece di guardarne uno. Nelle rune: il selettore e le sue quattro
+    pillole (`rune_selector`, `rune_segment_odino`, `norne`, `croce`, `telo`) ci sono
+    tutti PRIMA del getto, ed e' giusto, e dopo il getto non ne resta nessuno. Nella
+    Stesa: `stesa_setup_riga` e `stesa_setup` non ci sono con le tre carte gia'
+    lette, montata col percorso `revealAll` che e' lo stesso stato di una lettura
+    compiuta.
+  - **E NON L'HA CHIUSA IL MIO LAVORO DI OGGI, va detto:** verificato sul commit
+    `f774d8c`, cioe' prima dell'ordine S, il selettore era montato nella
+    `_Preparazione` e MAI dentro il `_Responso` (zero richiami e zero
+    `rune_segment`). Il difetto non c'era nemmeno allora.
+  - **DUE COSE CHE LA VOCE NON NOMINAVA, e la prova le tiene comunque.** Primo: la
+    TENDINA delle domande e il campo libero sono comandi di scelta della stessa
+    famiglia, e anche loro spariscono col responso; se restassero, cambiarli non
+    cambierebbe la lettura appena letta. Secondo: cio' che resta dopo il responso e'
+    "Getta ancora", che dichiara nel nome di rifare la stessa gettata, invece di un
+    selettore che sembri cambiare una lettura gia' uscita.
+  - **PERCHE' NON SI CHIUDE COME FATTA.** Chiuderla direbbe che si e' corretto un
+    difetto, e non c'era niente da correggere; lasciarla aperta direbbe che c'e' un
+    lavoro da fare. Il quarto stato dell'ordine, PREMESSA FALSA, e' l'unico che dice
+    la verita': la prova pero' resta, perche' da oggi quel difetto non puo' entrare
+    senza far cadere una riga.
 - **S.24** La ridondanza nelle schede delle rune — APERTA
 - **S.25** Il Sigillo del Giorno non e' piu' uno scarabocchio — APERTA
 
@@ -1312,5 +1337,5 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 
 VOCI_TOTALI: 29
 VOCI_CHIUSE: 21
-VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
