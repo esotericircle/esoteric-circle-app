@@ -1416,7 +1416,35 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     non c'e'" e cadeva se fosse arrivata senza che nessuno aggiornasse la voce. E'
     caduta il giorno stesso, col messaggio giusto, e adesso pretende che la RISPOSTA
     venga prima dell'AZIONE e che la bolla apra con la lente.
-- **S.27** L'Oroscopo personalizzato — APERTA
+- **S.27** L'Oroscopo personalizzato — CHIUSA
+  - **LA MISURA PRIMA DELLA CORREZIONE, come nella voce S.23, e anche qui il difetto
+    non c'era.** L'Oroscopo applica gia' l'anatomia: la scheda apre con la SINTESI del
+    segno, che e' la risposta; poi arriva la corrente del giorno, che e' la cosa da
+    fare; poi, quando la persona ha la carta, la riga del cielo che dichiara da dove
+    viene la lettura. Risposta, azione, simbolo: in quest'ordine, misurato.
+  - **LA PRIMA MISURA NON MISURAVA NIENTE, e va detto.** `Horoscope.forSign` senza
+    cielo compone il testo dal solo segno, quindi **nessuna scheda nomina un
+    pianeta**: la prova che cercava il simbolo passava per vuoto. La parte 3 esiste
+    solo col cielo vero, ed e' la' che va guardata: aggiunta una prova che costruisce
+    una `VoceDelCielo` vera e verifica che il testo apra ancora con la risposta e che
+    il pianeta arrivi dopo.
+  - **SENZA CARTA NON C'E' UNA PARTE 3, ed e' giusto:** senza cielo non esiste una
+    provenienza da dichiarare, e al suo posto la schermata mostra la nota che dice
+    che quella lettura parla al segno e non al cielo di questa persona. Una riga
+    generica scritta come una vera si leggerebbe come vera, e questa e' la ragione per
+    cui `CorrenteDelCielo.componi` torna NULLO quando non ci sono voci: verificato.
+  - Misura: `test/l_oroscopo_e_la_sua_anatomia_test.dart`, sei prove che ENUMERANO
+    dodici segni per quattro schede su tre giorni distanti, cioe' 144 testi per giro.
+    Nessun pianeta nella prima frase; il testo apre con la sintesi; dopo la sintesi
+    resta sempre una seconda frase (se restasse solo la sintesi, il responso avrebbe
+    una parte sola); le due famiglie di giunture del cielo non nominano pianeti, cosi'
+    il simbolo non entra nella cucitura mezzo passo prima; il confine della voce S.17
+    passa sul testo COMPOSTO, che e' quello che la persona legge e che l'altra prova
+    del confine non componeva.
+  - **PROVA DEL ROSSO fatta, e l'iniezione e' stata verificata prima di leggere
+    l'esito** (la lezione della coda della voce S.26): messa la corrente PRIMA della
+    sintesi, la prova e' caduta nominando segno, giorno e scheda, "il testo non apre
+    con la sintesi del segno". Rimessa a posto, sei verdi.
 - **S.28** I doni quotidiani e la chat dei Maestri — APERTA
 
 ## Sezione D. Documenti e consegna
@@ -1506,6 +1534,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 24
+VOCI_CHIUSE: 25
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
