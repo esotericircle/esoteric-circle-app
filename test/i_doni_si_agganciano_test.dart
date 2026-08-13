@@ -217,8 +217,18 @@ void main() {
               'guidato e\' un\'esperienza');
       final scheda = File('lib/features/rituals/ritual_gift_card.dart')
           .readAsStringSync();
-      expect(scheda, contains('GuidaDelRespiro'),
-          reason: 'la scheda del dono non guida piu\' nessun respiro');
+      // **QUESTA PRETESA E' SUPERATA DALL'ORDINE S VOCE 13, e sta scritto qui.**
+      // Chiedeva che la scheda del dono guidasse il respiro, e per un po' e' stato
+      // giusto: era esattamente il rimedio della voce P.17. Poi si e' visto il
+      // costo: il respiro guidato appartiene al Soffio del Destino, e portarlo
+      // dentro OGNI dono del giorno faceva del rito del mattino il contenitore di
+      // un rito che non e' suo. La scheda offre adesso un invito di una riga verso
+      // il Soffio, che e' una porta vera, e cio' che questa voce difende, cioe' che
+      // l'istruzione criptica non torni un testo da leggere, resta misurato dalla
+      // riga qui sopra e da `il_respiro_vive_nel_soffio_test`.
+      expect(scheda, contains('ponte_verso_il_soffio'),
+          reason: 'la scheda del dono non porta piu\' al respiro: la voce S.13 '
+              'chiede un invito di una riga, non il nulla');
       // E il respiro guidato e' UNO SOLO in tutto il progetto.
       final quanti = Directory('lib')
           .listSync(recursive: true)

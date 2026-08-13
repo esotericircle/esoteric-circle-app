@@ -647,8 +647,10 @@ chiusa: committare non e' consegnare.
     prima. Il ponte si raggiunge, e lo dimostra la prova che lo porta in vista e lo
     tocca; **che l'anteprima non sappia arrivarci e' un limite del corredo**, non del
     codice, e resta scritto qui.
-- **S.14** L'accesso si apre davvero: Google su Android e su iPhone, Apple su iPhone
-  — CHIUSA nel progetto, e la verifica a video e' di Mauro dopo due build nuove
+- **S.14** L'accesso si apre davvero, Google e Apple — CHIUSA
+  - **LA CHIUSURA E' NEL PROGETTO, e la verifica a video e' di Mauro** dopo due build
+    nuove, una Android e una iOS. Sta scritto qui e nel rapporto, perche' non si da'
+    per riuscito cio' che nessuno ha acceso.
   - **CAUSA 1, ANDROID: NON RIAPERTA E NON RITOCCATA.** La ha chiusa Mauro, e il file
     e' escluso dal repository. La prova RIFERISCE cio' che c'e' nell'albero di lavoro:
     `google-services.json` contiene **due oauth_client di tipo 1**, con le impronte
