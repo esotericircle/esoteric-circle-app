@@ -1314,7 +1314,43 @@ diagnosi e non una regola da applicare a tutti gli scatti.
 
 ## Sezione C. Le altre arti, perche' la regola e' trasversale
 
-- **S.26** I tarocchi — APERTA
+- **S.26** I tarocchi — FERMATA IN ATTESA DI DECISIONE
+  - **IL CONFINE DELLA VOCE S.17 E' GIA' APPLICATO**, e non da oggi: la prova
+    `il_confine_del_responso_test` setaccia i responsi dei tarocchi insieme a tutti
+    gli altri, e sono verdi.
+  - **LA MISURA DELL'ANATOMIA, ed e' il motivo per cui la voce si ferma.** Il
+    consiglio e' la bolla che si legge per prima, per decisione dell'ordine P voce
+    09, e porta DUE delle tre parti: **cosa puoi fare** (l'azione del gruppo, per
+    esempio "Fai il passo concreto che rimandi da tempo, anche piccolo") e **da dove
+    viene** (le tre carte coi loro versi, dopo la cucitura "Le tre carte lo dicono
+    insieme"). **Manca la parte 1, la risposta:** la bolla apre con l'azione, quindi
+    chi legge riceve un consiglio prima di sapere cosa la lettura vede nella sua
+    situazione.
+  - **DOVE ARRIVA IL SIMBOLO, misurato:** il primo nome di carta compare fra il 21,5
+    e il 34,0 per cento del consiglio, mediana 28,9, cioe' nel primo terzo della
+    bolla. E' dopo l'azione e prima di qualunque risposta, perche' la risposta non
+    c'e'.
+  - **PERCHE' NON LA CHIUDO DA SOLO, e sono due ragioni, non una.** La prima: mettere
+    le due parti nell'ordine dell'anatomia richiede un TESTO che non esiste, la
+    risposta per ciascuno dei tre gruppi, e i testi dei responsi sono materiale
+    dell'Architetto (precedente: le sedici cornici della voce S.19, che Code non ha
+    inventato). La seconda, piu' seria: **l'alternativa senza testo nuovo sarebbe
+    spostare il consiglio DOPO le bolle delle posizioni, e questo disfa la decisione
+    dell'ordine P voce 09**, che lo ha messo per primo di proposito perche' e' la
+    bolla che la persona porta via.
+  - **LE DUE STRADE, e la scelta e' di Mauro:**
+    1. **Tre risposte nuove, una per gruppo** (amore, lavoro, vita): due o tre righe
+       che dicono cosa la lettura vede, da mettere PRIMA dell'azione. Il consiglio
+       resta la prima bolla e prende la forma dell'anatomia.
+    2. **Il consiglio scende sotto le posizioni**, e la prima bolla diventa la
+       lettura delle carte. Non serve testo nuovo, ma disfa la voce 09 dell'ordine P,
+       e quella fu una decisione presa guardando l'app.
+  - Misura: `test/il_consiglio_dei_tarocchi_e_la_sua_anatomia_test.dart`, quattro
+    prove. Tre presidiano cio' che oggi e' al posto giusto: la cucitura fra consiglio
+    e carte esiste in ogni lettura, **nessuna carta e' nominata prima della
+    cucitura**, e la domanda di chiusura sta in fondo una volta sola. La quarta NON
+    GIUDICA, DICHIARA: tiene vero nel tempo il numero scritto qui sopra, e cade se un
+    giorno arriva la parte 1 senza che nessuno aggiorni questa voce.
 - **S.27** L'Oroscopo personalizzato — APERTA
 - **S.28** I doni quotidiani e la chat dei Maestri — APERTA
 
@@ -1407,4 +1443,4 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 VOCI_TOTALI: 29
 VOCI_CHIUSE: 23
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
