@@ -1033,6 +1033,39 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     confine e' un'interfaccia: chi la implementa deve implementarla tutta, e a
     dirlo e' stato il compilatore su 33 file di prova. Non e' un fastidio, e' la
     ragione per cui il confine funziona.
+  - **LA FONTE DELLE CORNICI E' NEL REPOSITORY, e una prova la confronta col
+    codice.** Chiesto da Mauro il 13 agosto 2026, e la ragione e' misurata: le
+    diciassette cornici sono state trascritte a mano dall'allegato, la regola
+    "verbatim" non aveva nessuna guardia, e nello stesso commit una trascrizione
+    aveva prodotto un "puu" al posto di un "puo'" nell'istruzione del presagio.
+    L'allegato sta in `docs/responsi/cornici.md`, portato dentro senza toccarne un
+    carattere: non e' documentazione, e' il dato da cui il codice deve coincidere.
+  - Misura: `test/le_cornici_coincidono_con_la_fonte_test.dart`, tre prove. La fonte
+    porta diciassette cornici; nessuna parola tronca sfugge alla tavola degli
+    accenti; e ogni cornice del codice coincide con la sua riga nella fonte,
+    mostrando le due righe affiancate quando divergono. **PROVA DEL ROSSO fatta:**
+    cambiata una lettera in G7, "testardagine" invece di "testardaggine", la prova
+    e' caduta col nome della cornice e le due righe. Rimessa, tre verdi.
+  - **TRE TRASFORMAZIONI DICHIARATE, e sono le uniche ammesse**, perche' l'allegato
+    usa la convenzione ASCII dei documenti e porta le virgole che l'ordine dice di
+    togliere: gli accenti da una TAVOLA esplicita che non indovina, gli apostrofi
+    tipografici, e la virgola prima della "e". Una trasformazione in piu' sarebbe un
+    modo di far coincidere due testi diversi, quindi la prova cade su qualunque
+    altra differenza.
+  - **DUE DIFETTI DELLA PROVA, trovati dalla prova stessa al primo giro, e nessuno
+    dei due era nella trascrizione:** `replaceAll` in Dart prende una stringa
+    LETTERALE e non un modello di sostituzione, quindi la fonte si riempiva di
+    "$1"; e la tavola sostituiva senza guardare le maiuscole, quindi "E' quello che
+    si puo'" tornava minuscolo e la prova accusava il codice. **La trascrizione era
+    giusta al primo confronto vero.**
+  - **LA STESSA GUARDIA PER I 165 TRAGUARDI E' IN CODA, e non per costo.** Sta in
+    `docs/ordini/CODA.md` con la misura: per i traguardi NON esiste una regola di
+    verbatim da presidiare, perche' la correzione di Mauro del 12 agosto 2026 dice
+    che dall'Allegato A si prendono nome, perche' conta e cosa apre **dove
+    migliorano**, e "dove migliorano" e' adozione selettiva. Misurato: l'Allegato A
+    porta 150 traguardi, il codice 165, e dei 150 nomi il codice ne porta verbatim
+    OTTO. Le due liste non divergono per una lettera, sono due insiemi diversi:
+    quale sia quello giusto lo decide chi ha scritto i testi.
   - GUARDATA l'anteprima `rune-norne.png` alla larghezza reale e alla risoluzione
     vera: il presagio e' la prima bolla, apre senza nomi di runa, la cosa da fare
     sta nella sua cornice, i nomi con i versi arrivano in fondo. E guardata

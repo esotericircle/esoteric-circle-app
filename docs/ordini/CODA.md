@@ -41,3 +41,44 @@ Non toccare mai `docs/STATO_VIVO.md`.
 Prima di aprire un ordine, rileggi `claude/Indice_delle_Prescrizioni_Esoteric_Circle` nel Project: se il blocco può chiudere anche altre righe marcate ASSENTE o VIOLATA senza costo aggiuntivo, fallo e dillo nell'esito.
 
 Italiano. Niente trattino lungo. Niente proposizione dopo la virgola che inizia con la lettera e. Accenti veri.
+
+## IN CODA, dall'ordine S: la guardia dei 165 traguardi contro l'Allegato A
+
+**Chiesta da Mauro il 13 agosto 2026**, insieme alla guardia delle diciassette
+cornici, che invece e' stata fatta subito (`test/le_cornici_coincidono_con_la_fonte_test.dart`).
+
+**LA RAGIONE PER CUI NON SI FA ADESSO NON E' IL COSTO, ed e' importante.** Per i
+traguardi non esiste una regola di verbatim da presidiare. La CORREZIONE DI MAURO
+DEL 12 AGOSTO 2026, che il manifesto dell'ordine P registra sulla voce P.19, dice:
+le tre guardie quantitative dell'ordine O vincono sull'Allegato A, gli obiettivi non
+si sostituiscono, e **dall'Allegato si prendono nome, perche' conta e cosa apre DOVE
+MIGLIORANO**. "Dove migliorano" non e' verbatim: e' adozione selettiva, e una
+guardia che pretendesse la coincidenza carattere per carattere farebbe cadere una
+regola che nessuno ha dato.
+
+**LA MISURA, perche' il numero conti piu' dell'impressione.** L'Allegato A porta
+**150** traguardi (50 per sentiero, con i nomi M01 fino a M50 e cosi' per A e C). Il
+codice ne porta **165** (55 per sentiero: 50 mini piu' 5 grandi). Dei 150 nomi
+dell'Allegato, il codice ne porta verbatim **OTTO**: gli altri 142 sono testi
+diversi, per esempio "La prima luce", "Il passaporto", "Lo specchio degli altri",
+"Il segno che sale", "Tre albe di fila", "La prima stesa". Le due liste non
+divergono per una lettera: sono due insiemi diversi.
+
+**LE TRE STRADE, e la scelta e' di Mauro perche' e' materiale suo.**
+1. **Guardia limitata all'adottato:** per i traguardi il cui NOME viene
+   dall'Allegato, il perche' conta e il cosa apre devono coincidere con la fonte.
+   Oggi sarebbero otto. Costo basso, e presidia esattamente cio' che la correzione
+   del 12 agosto ammette.
+2. **Riallineamento all'Allegato:** i 165 del codice si riportano ai testi
+   dell'Allegato dove l'Allegato ha una voce corrispondente. Non e' una prova, e' un
+   lavoro di contenuto sui testi, e va deciso voce per voce da chi li ha scritti.
+3. **Niente guardia, e sta scritto perche':** i traguardi restano governati dalle
+   guardie quantitative dell'ordine O e dalla correzione del 12 agosto, che sono
+   presidiate. Questa e' la situazione di oggi, e senza una riga come questa nessuno
+   saprebbe che e' una scelta e non una dimenticanza.
+
+**Nel frattempo NON e' vero che i traguardi non hanno guardie:** ne hanno sei
+quantitative (`test/i_traguardi_del_cammino_test.dart` e le prove
+dell'ordine O), che contano le posizioni, la curva Eos, l'obbligatorieta' del campo
+cosa apre e l'aritmetica per sentiero. Cio' che manca e' solo il confronto coi TESTI
+della fonte.
