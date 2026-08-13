@@ -791,8 +791,14 @@ class _Responso extends StatelessWidget {
                           Border.all(color: palette.gold.withValues(alpha: 0.4)),
                       color: palette.deepest.withValues(alpha: 0.35),
                     ),
-                    child: Text(responso.cosaPuoiFare,
-                        style: TypographyTokens.lettura()
+                    // **ANCHE QUI SI PASSA DALLA PORTA UNICA**, e a dirlo e'
+                    // stata la prova `etichette_e_lettura`: un Text diretto nel
+                    // ruolo lettura e' la famiglia delle due porte, e da quella
+                    // porta il muro di testo rientra.
+                    child: ParagrafiDiLettura(
+                        testo: responso.cosaPuoiFare,
+                        oro: palette.goldSoft,
+                        stile: TypographyTokens.lettura()
                             .copyWith(color: ColorTokens.textPrimary)),
                   ),
                   const SizedBox(height: SpacingTokens.sm),
@@ -1963,7 +1969,13 @@ class _TendinaDelleDomande extends StatelessWidget {
                   style: TypographyTokens.didascalia()
                       .copyWith(color: palette.goldSoft)),
             ),
-            Icon(Icons.expand_more_rounded, size: 18, color: palette.goldSoft),
+            // **IL TRIANGOLO E NON LA FRECCIA IN GIU'.** La prova
+            // `ogni_freccia_mantiene` lo ha preso al volo: una freccia in giu'
+            // promette "qui sotto c'e' altro testo, te lo mostro", e questa
+            // tendina non apre del testo, apre delle scelte. Il triangolo pieno
+            // e' l'affordance del selettore, e la prova lo dichiara come
+            // famiglia diversa di proposito.
+            Icon(Icons.arrow_drop_down, size: 22, color: palette.goldSoft),
           ],
         ),
       ),
