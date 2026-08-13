@@ -944,7 +944,7 @@ diagnosi e non una regola da applicare a tutti gli scatti.
 
 ## Sezione B. Le rune
 
-- **S.19** Il presagio di Caligo e' la prima bolla — CHIUSA
+- **S.19** Il presagio di Caligo e' la prima bolla — FERMATA IN ATTESA DI DECISIONE
   - **DICHIARATA CHIUSA E RIAPERTA NELLO STESSO GIORNO, e la ragione va scritta.**
     Il quarto stato aspettava la decisione D4, la D4 e' arrivata, il testo e' stato
     riscritto secondo l'anatomia e ho scritto CHIUSA. **Non lo era:** la decisione
@@ -1023,12 +1023,39 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     una; e quando la voce tace resta un presagio INTERO che non si dichiara,
     misurato cercando sei parole una per una (ripiego, offline, non disponibile,
     riprova, errore, generato).
-  - **CIO' CHE RESTA E NON E' CODICE: la misura (a)**, che la decisione D5
-    riclassifica come misura e non come guardia: a parita' di runa, due domande
-    diverse devono dare presagi che condividono meno di una soglia dichiarata delle
-    parole piene. Si esegue una volta contro il modello vero e si riporta col
-    numero, come l'attribuzione cieca delle tre voci. **Serve una chiamata vera a
-    Vertex**, quindi la esegue chi ha le credenziali attive.
+  - **PERCHE' LA VOCE E' NEL QUARTO STATO E NON CHIUSA.** Manca la MISURA (a), e la
+    decisione D5 la riclassifica: non e' una prova della suite, e' una misura che si
+    esegue una volta contro il modello VERO e si riporta col numero, come
+    l'attribuzione cieca delle tre voci che sta al 98,3 per cento. **Da questa
+    macchina non si puo' prendere**, perche' serve una sessione Google attiva e
+    credito Vertex. **La voce aspetta l'esecuzione di Mauro e non altro lavoro mio:**
+    non c'e' codice da scrivere, c'e' un comando da lanciare.
+  - **LO STRUMENTO C'E', ed e' scritto come il deploy: lo scrive Code, lo lancia
+    Mauro.** `tool/misura_del_presagio.dart`, fuori dalla suite come
+    `tool/attribuzione_cieca.dart` e per la stessa ragione: `flutter test` guarda
+    solo `test/`, quindi da qui non parte mai da solo e non spende niente per
+    sbaglio. Il passo a passo sta in `docs/ordini/MISURARE_IL_PRESAGIO.md`, sulla
+    forma di `DISTRIBUIRE_IL_SERVER.md`: quale comando, in quale cartella, cosa si
+    deve vedere se e' andata, e cosa fare sui tre errori possibili.
+  - **IL CAMPIONE E' DICHIARATO, ed e' quello proposto da Mauro: TRE RUNE FISSE per
+    tutte e SEDICI le domande, quarantotto presagi.** Le tre non sono estratte a
+    caso e il perche' sta accanto a ognuna: Fehu dritta e' il caso comune, Hagalaz
+    dritta e' il significato duro che deve accogliere una domanda leggera, Othala in
+    merkstave e' il verso d'ombra, cioe' il caso in cui e' piu' facile che il modello
+    si appoggi al simbolo e lasci cadere la domanda.
+  - **LO STRUMENTO STAMPA IL COSTO, quarantotto chiamate, e NESSUN GIUDICE:** il
+    confronto e' aritmetico, quindi non serve una seconda serie di chiamate a un
+    secondo modello. Il credito Blaze del trial finisce il 24 settembre 2026 e ogni
+    numero che si spende va saputo prima di spenderlo.
+  - **NON DICHIARA UNA SOGLIA, e non e' una dimenticanza:** la D5 chiede il numero, e
+    la soglia la fissa Mauro dopo averlo visto. Uno strumento che si promuovesse da
+    solo sarebbe la guardia che la D5 ha detto di non fare. Stampa pero', per ogni
+    runa, la COPPIA di domande piu' somiglianti: e' la riga che dice cosa correggere
+    e non solo che qualcosa non va, come la matrice dell'attribuzione cieca.
+  - **IL MODELLO MISURATO E' QUELLO VERO**, `gemini-2.5-flash-lite`, e istruzioni,
+    temperatura, topP, tetto e budget di ragionamento arrivano dal codice dell'app e
+    non da una copia scritta nello strumento: misurare un modello diverso da quello
+    che le persone leggono non misura niente.
   - **TRENTATRE FINTE VOCI NEI TEST hanno dovuto imparare il metodo nuovo.** Il
     confine e' un'interfaccia: chi la implementa deve implementarla tutta, e a
     dirlo e' stato il compilatore su 33 file di prova. Non e' un fastidio, e' la
@@ -1284,6 +1311,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 22
+VOCI_CHIUSE: 21
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
