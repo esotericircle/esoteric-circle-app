@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:esoteric_circle/core/domande/cornici_del_presagio.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
@@ -162,15 +163,27 @@ void main() {
       expect(senza.risposta, contains('giornata'),
           reason: '${g.id}: senza domanda il presagio deve parlare alla '
               'giornata, come dice la legge del responso');
-      expect(con.risposta, contains('domanda'),
-          reason: '${g.id}: con una domanda il presagio non dichiara di stare '
-              'rispondendo a quella');
-      // Le altre due parti NON dipendono dalla domanda, e va detto: la cosa da
-      // fare nasce dalla famiglia e dall'equilibrio, il simbolo dalle rune
-      // uscite. Se un giorno dipenderanno, questa riga cadra' e sara' giusto
-      // riscriverla di proposito.
-      expect(senza.cosaPuoiFare, con.cosaPuoiFare);
+      // **LA MISURA E' CAMBIATA COL MATERIALE, e va detto perche'.** Prima qui si
+      // pretendeva la parola "domanda" dentro il presagio: era la riga
+      // provvisoria che avevo scritto io, "Sulla domanda che hai posto". Adesso
+      // l'apertura e' la cornice dell'allegato B, che nomina l'AREA della domanda
+      // con le parole della persona e non la parola "domanda": pretenderla
+      // vorrebbe dire pretendere il mio testo al posto di quello di Mauro. Quanto
+      // il presagio parli davvero della sua domanda lo misura la (b), in
+      // `le_sedici_cornici_test`.
+      final cornice = CorniciDelPresagio.perDomanda('Nel lavoro, quale passo '
+          'fare?')!;
+      expect(con.risposta.startsWith(cornice.apertura), isTrue,
+          reason: '${g.id}: il presagio non apre con la cornice della domanda');
+      expect(con.cosaPuoiFare, cornice.chiusura,
+          reason: '${g.id}: cosa puoi fare non e\' la chiusura della cornice');
+      // **CIO' CHE NON DIPENDE DALLA DOMANDA: la terza parte.** I nomi delle rune
+      // e i loro versi vengono dalla gettata, non da cio' che si e' chiesto. Se un
+      // giorno dipenderanno, questa riga cadra' ed e' giusto riscriverla di
+      // proposito.
       expect(senza.daDoveViene, con.daDoveViene);
+      // E le nove indicazioni per famiglia restano a chi getta senza domanda.
+      expect(senza.cosaPuoiFare, isNot(con.cosaPuoiFare));
     }
   });
 

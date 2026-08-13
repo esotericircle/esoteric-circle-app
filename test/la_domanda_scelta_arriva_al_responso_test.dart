@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/domande/cornici_del_presagio.dart';
 import 'package:esoteric_circle/core/domande/domande_del_cerchio.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
@@ -147,9 +148,16 @@ void main() {
     await tester.tap(cast);
     await passo(tester);
 
+    // **SI CERCA L'APERTURA DELLA CORNICE della domanda scelta**, che dall'allegato
+    // B e' cio' che la persona legge come prima riga del presagio. Prima si
+    // cercava una riga mia, "Sulla domanda che hai posto": era il provvisorio che
+    // teneva il posto finche' le cornici non arrivavano.
+    final apertura = CorniciDelPresagio.perDomanda(
+            DomandeDelCerchio.generichePerLaGettata.first.testo)!
+        .apertura;
     final dentroIlPresagio = find.descendant(
       of: find.byKey(const Key('rune_presage')),
-      matching: find.textContaining('Sulla domanda che hai posto'),
+      matching: find.textContaining(apertura.split('.').first),
     );
     expect(dentroIlPresagio, findsOneWidget,
         reason: 'il presagio non dice di stare rispondendo alla domanda: la '
@@ -225,6 +233,15 @@ void main() {
     // giusto. Questa prova ENUMERA i file di `lib` e cade se un secondo elenco
     // di domande rinasce fuori dal punto unico.
     final casa = 'lib/core/domande/domande_del_cerchio.dart'.replaceAll('/', '');
+    // **LA CASA DELLE CORNICI PORTA I TESTI DELLE DOMANDE, e deve.** Allegato B:
+    // l'accostamento fra cornice e domanda si fa per TESTO ESATTO, non per
+    // posizione nell'elenco, cosi' se l'ordine delle domande cambia le cornici
+    // restano attaccate a quella giusta. Non e' un secondo elenco di domande da
+    // proporre a qualcuno: e' una mappa, e a tenerla d'accordo col punto unico c'e'
+    // una prova che cade nei DUE versi (`le_sedici_cornici_test`), cioe' un legame
+    // piu' stretto di quello che questo presidio pretende.
+    final mappa =
+        'lib/core/domande/cornici_del_presagio.dart'.replaceAll('/', '');
     final colpevoli = <String>[];
     final domande = <String>{
       for (final d in DomandeDelCerchio.generichePerLaGettata) d.testo,
@@ -235,7 +252,8 @@ void main() {
         .listSync(recursive: true)
         .whereType<File>()
         .where((f) => f.path.endsWith('.dart'))) {
-      if (f.path.replaceAll('\\', '').replaceAll('/', '') == casa) continue;
+      final nudo = f.path.replaceAll('\\', '').replaceAll('/', '');
+      if (nudo == casa || nudo == mappa) continue;
       final testo = f.readAsStringSync();
       final quante = domande.where((d) => testo.contains(d)).length;
       // Una citazione sola puo' essere un esempio in un commento. Tre o piu'

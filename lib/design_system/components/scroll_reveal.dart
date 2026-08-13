@@ -140,11 +140,37 @@ class _ScrollRevealState extends State<ScrollReveal>
     }
   }
 
+  /// Quante volte si riprova quando la geometria non c'e' ancora.
+  ///
+  /// **DIECI, ed e' un numero dichiarato.** Serve a coprire i pochi frame fra il
+  /// montaggio e il primo layout utile, non a inseguire un elemento per sempre:
+  /// un widget montato che non riceve mai una dimensione (per esempio uno slot di
+  /// lista mai costruito) altrimenti chiederebbe un frame nuovo a ogni frame,
+  /// finche' campa. Dieci frame sono circa un sesto di secondo a sessanta al
+  /// secondo, e nella pratica ne serve uno.
+  static const int _quantiTentativi = 10;
+  int _tentativi = 0;
+
   /// Parte solo quando l'elemento sta davvero entrando nello schermo.
   void _controlla() {
     if (!mounted || _off || _revealed || _controller.isAnimating) return;
     final box = context.findRenderObject() as RenderBox?;
-    if (box == null || !box.attached || !box.hasSize) return;
+    if (box == null || !box.attached || !box.hasSize) {
+      // **L'OCCASIONE NON SI PERDE PIU', e questo era un difetto vero e non solo
+      // delle anteprime.** Prima qui si tornava indietro e basta: la comparsa
+      // aveva UNA sola occasione, il postFrame di `didChangeDependencies`, e se
+      // in quel frame la scatola non aveva ancora geometria l'elemento restava
+      // dipinto a opacita' ZERO. Su un telefono lo salvava il primo scorrimento,
+      // che pero' e' un gesto che la persona potrebbe non fare: nella schermata
+      // dei Piani due livelli su quattro non si vedevano finche' non si scorreva,
+      // e le anteprime del corredo lo mostravano nero su nero senza che nessuna
+      // prova se ne accorgesse, perche' il widget nell'albero c'era.
+      if (_tentativi < _quantiTentativi) {
+        _tentativi++;
+        WidgetsBinding.instance.addPostFrameCallback((_) => _controlla());
+      }
+      return;
+    }
     final pos = _position;
     if (pos == null || !pos.hasPixels || !pos.hasViewportDimension) {
       // Nessuno scorrimento attorno: la superficie e' ferma e l'elemento e'

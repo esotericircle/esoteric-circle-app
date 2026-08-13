@@ -1,3 +1,4 @@
+import '../domande/cornici_del_presagio.dart';
 import '../responsi/anatomia_del_responso.dart';
 import 'rune_cast.dart';
 
@@ -44,12 +45,22 @@ class RunePresagio {
   static Responso componiIlResponso(
     EsitoGettata esito, {
     String domanda = '',
-  }) =>
-      Responso(
-        risposta: _risposta(esito, domanda),
-        cosaPuoiFare: _cosaPuoiFare(esito),
-        daDoveViene: _daDoveViene(esito),
-      );
+  }) {
+    // **LA CORNICE SI TROVA PER TESTO ESATTO DELLA DOMANDA**, come chiede
+    // l'allegato B: non per posizione nell'elenco, cosi' se domani l'ordine delle
+    // domande cambia le cornici restano attaccate a quella giusta. Per una
+    // domanda scritta con parole della persona non esiste cornice, e in ripiego
+    // il responso parla alla giornata.
+    final cornice = CorniciDelPresagio.perDomanda(domanda);
+    return Responso(
+      risposta: _risposta(esito, cornice),
+      // LA CHIUSURA DELLA CORNICE E' LA PARTE 2, quando c'e' una cornice. Le nove
+      // indicazioni per famiglia e equilibrio restano per la giornata, cioe' per
+      // chi getta senza domanda.
+      cosaPuoiFare: cornice?.chiusura ?? _cosaPuoiFare(esito),
+      daDoveViene: _daDoveViene(esito),
+    );
+  }
 
   /// LA PRIMA PARTE: cosa la lettura vede, senza nominare nessuna runa.
   ///
@@ -57,10 +68,18 @@ class RunePresagio {
   /// simbolo chiede alla persona di sapere cosa vuol dire quel simbolo prima di
   /// riceverne una risposta. Le posizioni invece restano, perche' dicono di CHE
   /// COSA si sta parlando (cio' che fu, cio' che diviene, cio' che sara').
-  static String _risposta(EsitoGettata esito, String domanda) {
-    final apertura = domanda.trim().isEmpty
-        ? 'Sulla tua giornata, ecco cosa vedono le rune.'
-        : 'Sulla domanda che hai posto, ecco cosa vedono le rune.';
+  static String _risposta(EsitoGettata esito, CorniceDelPresagio? cornice) {
+    // **L'APERTURA DELLA CORNICE, e la frase della runa si innesta dopo.** E' il
+    // montaggio dell'allegato B, in quest'ordine: apertura, frase della runa dal
+    // corpus che non si tocca, chiusura, e poi la riga che nomina la runa.
+    //
+    // **SENZA CORNICE L'APERTURA E' PROVVISORIA, e va detto.** La cornice della
+    // giornata e' la diciassettesima e la scrive l'Architetto: l'allegato vieta
+    // di usare una delle sedici come ripiego generico, perche' direbbe alla
+    // persona che ha chiesto una cosa che non ha chiesto. Finche' non arriva,
+    // questa riga tiene il posto ed e' testo mio, non materiale dell'allegato.
+    final apertura =
+        cornice?.apertura ?? 'Sulla tua giornata, ecco cosa vedono le rune.';
     final parti = <String>[apertura, ..._perPosizione(esito.rune)];
     parti.add(esito.gettata.libera
         ? _equilibrioLibera(esito)

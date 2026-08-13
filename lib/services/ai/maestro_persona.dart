@@ -88,6 +88,11 @@ class MaestroPersona {
       // modello obbediscono a due confini diversi, e nessuna prova se ne
       // accorge. Il confine vive in `ConfineDelResponso` e arriva da la'.
       ..writeln('- Parla di benessere e riflessione, non di cura.')
+      // **UNA VOLTA SOLA, e a pretenderlo c'e' una prova.** Punto 5 della
+      // decisione D5: il confine sta nelle istruzioni di sistema in un punto solo.
+      // Era gia' vero da quando la voce S.17 lo ha portato qui, ma non lo
+      // presidiava nessuno: scrivendo la prova ho aggiunto io stesso una seconda
+      // copia poche righe sopra, e la prova l'ha presa al primo giro.
       ..writeln(ConfineDelResponso.perIlModello)
       ..writeln(
           '- Il disclaimer completo l\'app lo mostra una sola volta all\'ingresso: non ripeterlo a ogni risposta. Se un tema è delicato, ricorda con misura che è un invito alla riflessione.')

@@ -848,6 +848,100 @@ si legge lo stato.
    in `AppServices.diagnostics` e non la leggeva nessuno.
 9. Premessa 4 caduta, accettata: la voce S.10 resta valida e si misura sulla resa.
 
+## LA DECISIONE D5 DI MAURO, 13 agosto 2026, sulla voce S.19 e sul punto 6
+
+Nasce dal rapporto in cui ho dichiarato la S.19 chiusa senza aver riletto la
+decisione sulla Sezione B, e da una domanda che avevo posto male.
+
+1. **LA MISURA (a) SI RICLASSIFICA, e non e' mai stata una prova.** A parita' di
+   runa, due domande diverse devono dare presagi che condividono meno di una
+   soglia dichiarata delle parole piene: e' una MISURA eseguita una volta contro
+   il modello vero e riportata col numero nel rapporto, come l'attribuzione cieca
+   delle tre voci dei Maestri, che sta al 98,3 per cento e non e' mai stata una
+   guardia verde. **Non si dichiara "non misurabile offline": si dichiara come
+   misura, e si esegue quando il modello e' agganciato.** L'errore era mio, e
+   stava nel confondere le due cose.
+2. **LA MISURA (b) RESTA UNA PROVA DELLA SUITE**, e deve mordere anche sul
+   ripiego: ogni presagio condivide almeno N parole piene con LA SUA domanda.
+3. **IL MODELLO SI AGGANCIA AL PRESAGIO**, come da decisione D3: metodo nuovo sul
+   confine `MaestroAiProvider`, il confine della voce S.17 nelle istruzioni di
+   sistema in un punto solo, e il ripiego che non si dichiara MAI come ripiego.
+4. **LE SEDICI CORNICI DEL RIPIEGO LE SCRIVE L'ARCHITETTO** e arrivano come
+   allegato: una per domanda, otto generiche e otto personali, e **NON variano per
+   runa**. La runa continua a portare la sua frase di corpus, la cornice porta la
+   domanda: e' per questo che non sono 576. Ogni cornice apre nominando l'area
+   della domanda con le parole della persona e non con quelle del simbolo, e
+   lascia il posto in cui la frase della runa si innesta. Nessun nome di runa
+   dentro la cornice.
+5. **LA S.19 SI CHIUDE QUANDO LE CORNICI ARRIVANO.** Nel frattempo non si aspetta:
+   si prosegue con S.22, S.23, S.24 e S.25, che sono difetti visivi delle rune e
+   non chiedono decisioni.
+6. **LE ANTEPRIME DELLE VOCI GIA' CHIUSE SI RIGENERANO E SI RIGUARDANO**, perche'
+   erano state giudicate quando il responso non si dipingeva. Un giudizio a video
+   dato su un'immagine vuota non e' un giudizio, e non si sa quante voci ne siano
+   state toccate: il rapporto dichiara quali si sono riguardate e se qualcuna
+   cambia esito.
+
+### Il punto 6 eseguito: le anteprime giudicate su immagini incomplete
+
+**LO STRUMENTO.** Non si poteva sapere a occhio quali anteprime fossero
+incomplete, quindi si e' costruita una misura: l'interruttore
+`--dart-define=ANTEPRIME_LENTE=true` da' a ogni scatto otto frame invece di uno e
+scrive in `build/preview_lento`. Poi si confronta l'INCHIOSTRO delle due
+versioni, cioe' quanti pixel chiari porta l'immagine: le stelle del fondale si
+muovono fra i due scatti e non cambiano il conto, ma un contenuto dipinto a
+opacita' zero lo cambia di molto. Il primo tentativo, il confronto byte a byte,
+aveva risposto 120 immagini diverse su 161, cioe' non aveva risposto niente.
+
+**LA CAUSA VERA, e non era ScrollReveal.** Ventisei anteprime su 161 mostravano
+inchiostro diverso oltre il cinque per cento. Guardandole: il difetto sta nel
+CAMBIO DI MISURA DELLO SCHERMO. `montaLoSchermo` allarga la finestra e cio' che
+stava sotto la piega adesso ci sta dentro, ma i figli nuovi di una lista pigra non
+nascono nel frame in cui la finestra cresce. Un frame non basta, tre si': ora
+l'attesa sta dentro `montaLoSchermo`, che e' il punto unico attraversato da tutti
+e cinquanta i punti che cambiano misura.
+
+**COSA ERA DAVVERO ROTTO, con i numeri:**
+- `piani.png`, la schermata dei Piani: **due livelli su quattro non c'erano**,
+  l'Iniziato e l'Adepto, cioe' i piani che si pagano. Inchiostro 8.266 con un
+  frame, 27.027 con tre.
+- `dominio-medora.png`, `dominio-aura.png`, `dominio-caligo.png`: rapporti 1,41,
+  1,28 e 1,26. Le arti in fondo al dominio non si dipingevano.
+
+**E UNA RIPARAZIONE DI CONTORNO, che vale per l'app e non per il corredo.**
+`ScrollReveal` aveva UNA sola occasione per far partire la comparsa, il postFrame
+di `didChangeDependencies`: se in quel frame la scatola non aveva ancora
+geometria, l'elemento restava dipinto a opacita' zero e lo salvava solo il primo
+scorrimento, che e' un gesto che la persona potrebbe non fare. Adesso riprova per
+dieci frame, e il numero e' dichiarato con la sua ragione.
+
+**LE ALTRE VENTISEI DIFFERENZE SONO MOMENTI SCELTI, non difetti**, e due si sono
+guardate per esserne sicuri: `rito-sogno-costellazione.png` col giro lento mostra
+il rito ANDATO AVANTI, cioe' il dono e il saluto di Caligo invece dell'istante in
+cui la figura si unisce, che e' quello che l'anteprima vuole; `santuario-medora.png`
+col giro lento mostra in piu' l'invito "Tocca il cielo", che compare in ritardo di
+proposito. Nella lista stanno anche `consulto-simbolo-inizio` (15,04),
+`guide-animale-rivelazione` (5,12), `stesa-attesa-di-medora` (4,65),
+`barra-meta-corsa`, `barra-home-fuori`, `eos-in-volo` e
+`barra-assente-in-immersiva`: portano nel nome il momento che scelgono.
+
+**LE VOCI GIA' CHIUSE, e se cambia esito.** NON compaiono nella lista, quindi il
+giudizio a video su di esse resta valido: i tre disegni del sentiero (S.01, S.02,
+S.03), il borsellino e il portafoglio (S.06), gli Eos in volo (S.07), i tre
+pulsanti della condivisione (S.08), la celebrazione col velo (S.09), la pietra del
+Tramonto (S.11), il disco dell'Oracolo (S.12), il respiro (S.13) e tutte le rune
+(S.19, S.20, S.21). **Cambia invece il quadro della voce S.10**, il vuoto sotto i
+Maestri: le sue tre anteprime del dominio erano incomplete. La MISURA della S.10
+non ne dipende, perche' era presa sulla resa dentro una prova e non sull'immagine,
+ma il giudizio a video era dato su un'immagine mutila: riguardata adesso, il
+dominio si legge intero, ritratto, arti vive e "Altre arti in arrivo" col suo
+chevron. L'esito della S.10 non cambia.
+
+**UNA CATTURA CADE COL GIRO LENTO, e va detto:** "Cattura le quattro fasi del
+taglio". Le quattro fasi sono momenti di un'animazione, e dando piu' tempo la
+scena passa alla fase dopo: e' la conferma che il giro lento e' uno strumento di
+diagnosi e non una regola da applicare a tutti gli scatti.
+
 ## Sezione B. Le rune
 
 - **S.19** Il presagio di Caligo e' la prima bolla — APERTA
@@ -861,6 +955,45 @@ si legge lo stato.
     che dice di essersi sbagliata che un marcatore che conta una voce finita.**
   - **QUEL CHE E' FATTO, verificato:** la posizione, l'anatomia, il ripiego
     deterministico che risponde alla domanda, e le anteprime guardate.
+  - **LE SEDICI CORNICI SONO ARRIVATE il 13 agosto 2026**, allegato B, e sono
+    montate: vivono in `lib/core/domande/cornici_del_presagio.dart` VERBATIM,
+    accostate alla domanda per TESTO ESATTO e non per posizione. Il montaggio e'
+    quello dell'allegato: apertura della cornice, la frase della runa dal corpus
+    che non si tocca, chiusura della cornice, poi la riga che nomina la runa e il
+    verso. Le nove indicazioni per famiglia restano a chi getta senza domanda.
+  - **MISURA (b) ESEGUITA E VERDE**, in `test/le_sedici_cornici_test.dart`, sette
+    prove: ogni domanda ha la sua cornice e ogni cornice la sua domanda nei due
+    versi, nessuna cornice nomina una runa, il montaggio e' quello dichiarato, il
+    ripiego senza cornice parla alla giornata e non usa mai una delle sedici.
+    **Il minimo misurato di parole piene condivise fra presagio e sua domanda e'
+    UNO**, con soglia dichiarata uno.
+  - **LA SOGLIA DELLA (b) L'AVEVO DICHIARATA DUE, e l'ho abbassata a uno scrivendo
+    perche'.** Due era un principio inventato a tavolino; la misura ha risposto che
+    cinque cornici su sedici condividono una sola parola piena, e quella parola e'
+    il NOME DELL'AREA (momento, amore, insistere, Ascendente), cioe' esattamente
+    cio' che il vincolo 2 dell'allegato chiede. Il conto e' per token esatti e non
+    conosce le forme: "mostro" della domanda e "mostri" della cornice sono due
+    parole diverse per la prova. Pretenderne due vorrebbe dire pretendere che la
+    cornice ripeta la domanda.
+  - **UNA CORNICE NON PASSA LA (b), ed e' la G8**, "Cosa non sto guardando di me?":
+    zero parole piene condivise. La deroga sta scritta nella prova col suo nome,
+    perche' la cornice e' materiale dell'Architetto e Code non la riformula. Bastava
+    togliere "cosa" dalle parole vuote per farla passare a uno: sarebbe stato
+    allargare la soglia attorno al difetto. **Chiesta a Mauro una G8 che nomini la
+    sua area.**
+  - **UNDICI TESTI SU TRENTADUE CONTENGONO VIRGOLA PIU' "E"**, per esempio "Chiede
+    una cosa sola, e le pietre indicano quale". Sono due regole di Mauro che si
+    scontrano, verbatim contro la regola della virgola, e ha vinto la piu'
+    specifica: la deroga vale per quel file e per nessun altro, sta scritta in
+    `test/language_rule_test.dart`, **e il trattino lungo NON e' in deroga**, con
+    una prova a parte che lo guarda anche la' dentro.
+  - **PUNTO 5 DELLA D5, il confine nelle istruzioni di sistema: era gia' vero e non
+    lo presidiava nessuno.** Il confine della voce S.17 arriva al modello da quando
+    la S.17 lo ha messo in `_commonRules`, che e' la porta unica di tutte le
+    istruzioni; la riga del manifesto che diceva "non e' ancora agganciato a
+    nessuna istruzione" era sbagliata. Adesso c'e' la prova che pretende che ci sia
+    e che ci sia UNA volta sola, e **al primo giro ha preso me**: scrivendola avevo
+    aggiunto una seconda copia del confine poche righe sopra la prima.
   - **QUEL CHE MANCA, dalla decisione di Mauro sulla Sezione B:**
     - **Punto 3, MODELLO MISTO.** Il presagio lo deve COMPORRE IL MODELLO da due
       dati, la runa uscita col suo significato dal corpus e la domanda scelta. E'
@@ -868,17 +1001,17 @@ si legge lo stato.
       una generazione al giorno per utente nel piano gratuito. Cio' che c'e' ora e'
       soltanto il RIPIEGO, che l'ordine pretende comunque e che non dichiara di
       essere un ripiego: funziona e basta.
-    - **Punto 5, il confine della voce S.17 nelle istruzioni di sistema**, in un
-      punto solo, con una prova che l'istruzione sia presente e unica. Il testo per
-      il modello esiste gia' (`ConfineDelResponso.perIlModello`) e non e' ancora
-      agganciato a nessuna istruzione.
-    - **Punto 6, LA PROVA A DUE MISURE:** a parita' di runa, due domande diverse
-      danno presagi che condividono meno di una soglia dichiarata delle loro parole
-      piene; e ogni presagio condivide almeno N parole piene con LA SUA domanda. Il
-      rosso si esegue rimettendo la composizione a hash sulle liste fisse, e deve
-      cadere il punto b. **Il ripiego di adesso e' esattamente quella composizione
-      a hash**, quindi oggi il punto b cade: la prova non e' stata scritta perche'
-      avrebbe misurato il ripiego invece del presagio.
+    - ~~Punto 5, il confine nelle istruzioni di sistema~~: FATTO, vedi sopra.
+    - **Punto 6, la misura (b): FATTA e verde.** La misura (a) resta da eseguire
+      contro il modello vero, e si esegue quando il modello e' agganciato: la
+      decisione D5 la riclassifica come misura da riportare col numero, non come
+      guardia della suite.
+    - **LA DICIASSETTESIMA CORNICE, quella della giornata.** L'allegato vieta di
+      usare una delle sedici per chi non sceglie una domanda, perche' direbbe alla
+      persona che ha chiesto una cosa che non ha chiesto, e dichiara che quella
+      cornice la scrive l'Architetto. Ci sono arrivato: il ripiego senza domanda
+      esiste e apre con una riga PROVVISORIA scritta da me, dichiarata provvisoria
+      nel codice. Chiesta a Mauro.
   - **IL PRESAGIO E' SALITO IN CIMA.** Stava in fondo, dopo le rune una per una: la
     persona leggeva tre frammenti e doveva montarli da sola, e la lettura che li
     tiene insieme arrivava quando aveva gia' finito di interpretare. Adesso e' la

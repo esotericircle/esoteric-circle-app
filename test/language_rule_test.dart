@@ -146,11 +146,39 @@ void main() {
   // Setaccio profondo: scandaglia ogni stringa nel codice sotto lib/, unendo le
   // stringhe adiacenti spezzate su piu' righe, cosi' nessun copy sfugge, ne'
   // statico ne' a capo. Salta i commenti.
+  test('Anche nel file in deroga il trattino lungo resta vietato', () {
+    // **LA DEROGA VALE PER UNA REGOLA SOLA.** L'allegato B esce dalla regola
+    // della virgola perche' e' testo di Mauro consegnato verbatim, ma il trattino
+    // lungo non e' una scelta d'autore, e' un carattere che questa app non usa
+    // mai. Senza questa prova la deroga si sarebbe allargata in silenzio.
+    final testo =
+        File('lib/core/domande/cornici_del_presagio.dart').readAsStringSync();
+    expect(testo.contains('—'), isFalse,
+        reason: 'trattino lungo nelle cornici del presagio');
+  });
+
   test('Nessuna stringa del codice viola la regola della virgola', () {
+    /// **L'UNICA DEROGA DELLA REGOLA DELLA VIRGOLA, e va letta per intero.**
+    ///
+    /// Le sedici cornici del presagio sono l'allegato B all'ordine S, materiale
+    /// dell'Architetto, e l'ordine dice: "Le sedici si usano verbatim. Nessuna
+    /// riformulazione, nessun accorciamento, nessuna sostituzione di sinonimi".
+    /// UNDICI dei trentadue testi (apertura piu' chiusura per sedici domande)
+    /// contengono la sequenza virgola piu' "e", per esempio "Chiede una cosa sola,
+    /// e le pietre indicano quale".
+    ///
+    /// **Sono due regole di Mauro che si scontrano**, e nessuna delle due e' mia:
+    /// "verbatim" e "mai la virgola piu' e". Ha vinto la piu' specifica e la piu'
+    /// recente, perche' l'alternativa era riscrivere il testo di un altro. La
+    /// deroga vale per QUESTO file e per nessun altro: se le cornici arrivano
+    /// riscritte, questa riga si cancella e il file rientra nella regola.
+    const derogaDellAllegatoB = 'cornici_del_presagio.dart';
+
     final files = Directory('lib')
         .listSync(recursive: true)
         .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'));
+        .where((f) => f.path.endsWith('.dart'))
+        .where((f) => !f.path.endsWith(derogaDellAllegatoB));
     for (final file in files) {
       final strings = _logicalStrings(file.readAsStringSync());
       for (final s in strings) {

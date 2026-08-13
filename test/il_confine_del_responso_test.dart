@@ -199,4 +199,42 @@ void main() {
     expect(responso.parte(ParteDelResponso.tradizione), isEmpty,
         reason: 'il responso ha cominciato a portarsi la tradizione dentro');
   });
+
+  test('il confine arriva al MODELLO, e in un punto solo', () {
+    // **PUNTO 5 DELLA DECISIONE D5.** Prima di questa riga il confine viveva solo
+    // nel corpus deterministico e nelle prove che lo setacciano: al modello non lo
+    // diceva nessuno. Sono le due porte della stessa arte con due confini
+    // diversi, e la persona lo vedrebbe, perche' il registro cambierebbe a meta'
+    // schermata.
+    //
+    // **E DEVE ESSERCI UNA VOLTA SOLA.** Due copie della stessa regola dentro la
+    // stessa istruzione divergono al primo ritocco, e da quel momento nessuno sa
+    // quale delle due obbedisce il modello.
+    final apertura = ConfineDelResponso.perIlModello.split(':').first;
+    for (final maestro in Maestro.values) {
+      final istruzione = MaestroPersona.systemInstruction(
+        maestro: maestro,
+        profile: UserProfile.empty,
+        memory: MaestroMemory.empty,
+      );
+      final quante = istruzione.split(apertura).length - 1;
+      expect(quante, 1,
+          reason: 'il confine compare $quante volte nell\'istruzione di '
+              '${maestro.id}: deve comparire una volta sola');
+      // E ci sono anche i divieti veri, non solo il titolo.
+      for (final r in ConfineDelResponso.nonSiPuoMai) {
+        expect(istruzione, contains(r),
+            reason: 'manca il divieto "$r" nell\'istruzione di ${maestro.id}');
+      }
+    }
+
+    // Il consulto passa dalla stessa porta: se un giorno smettesse, questa riga
+    // cadrebbe invece di lasciare una superficie senza confine.
+    final consulto = MaestroPersona.consultInstruction(
+      maestro: Maestro.caligo,
+      profile: UserProfile.empty,
+      memory: MaestroMemory.empty,
+    );
+    expect(consulto.split(apertura).length - 1, 1);
+  });
 }
