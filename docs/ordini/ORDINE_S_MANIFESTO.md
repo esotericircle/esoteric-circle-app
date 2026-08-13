@@ -1240,7 +1240,34 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     lavoro da fare. Il quarto stato dell'ordine, PREMESSA FALSA, e' l'unico che dice
     la verita': la prova pero' resta, perche' da oggi quel difetto non puo' entrare
     senza far cadere una riga.
-- **S.24** La ridondanza nelle schede delle rune — APERTA
+- **S.24** La ridondanza nelle schede delle rune — CHIUSA
+  - **DUE RIDONDANZE, e le ha trovate l'anteprima delle Norne, non una prova.**
+  - **UNA: la riga della runa era scritta due volte nello stesso riquadro.** La
+    scheda mostra la riga breve in una bolla, e subito sotto la "voce", cioe' la runa
+    dentro il giorno. La voce apriva con "Nel tuo giorno, questa pietra dice:" e poi
+    RICOPIAVA quella riga, parola per parola, due centimetri sotto l'originale. Chi
+    legge la seconda volta pensa di aver perso il segno. Adesso l'apertura introduce
+    cio' che la voce AGGIUNGE, la materia antica del corpus, e la riga resta dove
+    stava, una volta sola.
+  - **DUE: la glossa della posizione era scritta due volte.** La scheda apriva con la
+    giuntura in corsivo, "Dal fondo del pozzo, cio' che fu:", e il sottotitolo diceva
+    "Urdhr, cio' che fu". Adesso quando c'e' la giuntura il sottotitolo porta il solo
+    titolo della posizione; **senza giuntura, cioe' in tutte le gettate che non sono
+    le Norne, la glossa resta la'**, perche' altrimenti non la direbbe nessuno.
+  - Misura: `test/la_scheda_della_runa_non_si_ripete_test.dart`, cinque prove. Le
+    prime quattro ENUMERANO le quattro gettate per quaranta semi: la voce non ripete
+    la riga, nessuna frase compare due volte dentro la voce, la voce dice ancora cio'
+    che aggiunge (il PRESIDIO OPPOSTO: se restasse un moncone senza cielo, cade), e
+    l'eco della domanda compare una volta sola. La quinta gira A SCHERMO e conta le
+    occorrenze della glossa dentro ogni scheda.
+  - **LA GRANDEZZA MISURATA E' LA FRASE, non la parola**, e sotto i venti caratteri
+    non si conta: due parole ripetute sono l'italiano, due frasi identiche sono un
+    difetto.
+  - **PROVA DEL ROSSO fatta:** rimessa la riga dentro la voce, la prima prova e'
+    caduta nominando gettata, seme e runa. Rimessa a posto, cinque verdi.
+  - GUARDATE le quattro anteprime delle rune rigenerate: nella scheda di Perthro
+    "Qualcosa si muove sotto, non ancora visibile" compare una volta, e sotto la
+    voce porta la materia antica e il cielo di oggi senza ripetere niente.
 - **S.25** Il Sigillo del Giorno non e' piu' uno scarabocchio — APERTA
 
 ## Sezione C. Le altre arti, perche' la regola e' trasversale
@@ -1336,6 +1363,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 21
+VOCI_CHIUSE: 22
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

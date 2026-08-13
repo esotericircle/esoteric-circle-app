@@ -1070,8 +1070,19 @@ class _LetturaRuna extends StatelessWidget {
                       Text(runa.rune.name,
                           style: TypographyTokens.titoloSezione()
                               .copyWith(color: palette.goldSoft)),
+                      // **LA GLOSSA UNA VOLTA SOLA, ordine S voce 24.** Quando
+                      // c'e' la giuntura, la riga in corsivo sopra la scheda
+                      // dice gia' di che posizione si tratta ("Dal fondo del
+                      // pozzo, cio' che fu:"): ripeterla qui sotto la faceva
+                      // leggere due volte in tre centimetri. Senza giuntura,
+                      // cioe' in tutte le gettate che non sono le Norne, la
+                      // glossa resta qui, perche' altrimenti non la direbbe
+                      // nessuno.
                       Text(
-                          '${runa.posizione.titolo} · ${runa.posizione.glossa}',
+                          giuntura == null
+                              ? '${runa.posizione.titolo} · '
+                                  '${runa.posizione.glossa}'
+                              : runa.posizione.titolo,
                           style: TypographyTokens.corpo().copyWith(
                               color: palette.goldSoft.withValues(alpha: 0.8),
                               letterSpacing: 0.4)),

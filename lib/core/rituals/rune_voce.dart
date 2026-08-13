@@ -53,11 +53,20 @@ class RuneVoce {
     return h;
   }
 
+  /// LE APERTURE, e non annunciano piu' la riga della runa. Ordine S voce 24.
+  ///
+  /// **Il difetto, visto nell'anteprima.** Dicevano "Nel tuo giorno, questa pietra
+  /// dice:" e subito dopo la voce ricopiava [RunaGettata.riga], che la scheda mostra
+  /// GIA' due centimetri sopra, nella sua bolla. La stessa frase due volte nella
+  /// stessa scheda: chi legge la seconda volta pensa di aver perso il segno.
+  ///
+  /// Adesso l'apertura introduce cio' che la voce AGGIUNGE, cioe' la materia antica e
+  /// il cielo di oggi, e la riga resta dove stava, una volta sola.
   static const List<String> _aperture = [
-    'Oggi questa pietra parla piano:',
-    'Nel tuo giorno, questa pietra dice:',
-    'La pietra si rivolge a te:',
-    'Ascolta cosa porta questa pietra:',
+    'Oggi questa pietra viene da lontano:',
+    'Nel tuo giorno porta con sé la sua storia:',
+    'La sua radice è antica:',
+    'Ascolta da dove viene:',
   ];
 
   static const List<String> _pontiCielo = [
@@ -97,7 +106,7 @@ class RuneVoce {
     final lore = kRuneLore[runa.rune.name];
     final materia = lore == null
         ? ''
-        : ' La sua materia antica: ${_senzaFonte(lore.materia)}.';
+        : ' ${_senzaFonte(lore.materia)}.';
 
     // IL CIELO VERO, dalle porte che esistono: il segno che il Sole
     // attraversa oggi e la Luna come sta.
@@ -110,7 +119,14 @@ class RuneVoce {
         ? ''
         : ' Dentro la tua domanda, è qui che guarda.';
 
-    return '$apertura ${runa.riga}$materia $cielo$eco $chiusa';
+    // **LA RIGA DELLA RUNA NON SI RIPETE QUI, ordine S voce 24.** La scheda la
+    // mostra nella sua bolla, sopra questa voce: ricopiarla faceva leggere la
+    // stessa frase due volte nello stesso riquadro. Se la materia manca (una runa
+    // senza lore), l'apertura resterebbe appesa, quindi in quel caso si salta.
+    final corpo = materia.isEmpty ? '' : '$apertura${materia.trimRight()}';
+    return [corpo, '$cielo$eco', chiusa]
+        .where((p) => p.trim().isNotEmpty)
+        .join(' ');
   }
 
   /// La materia senza la coda della fonte: la fonte sta nel pannello Fonti,
