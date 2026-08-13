@@ -895,7 +895,65 @@ si legge lo stato.
   - **LA META' SI ARROTONDA PER DIFETTO**, e la prima stesura della prova
     arrotondava al piu' vicino: 111 mezzi fanno 55,5, e un tetto che arrotonda per
     eccesso si concede mezzo carattere senza una ragione.
-- **S.21** La domanda prima della gettata: in alto, in tendina, in due famiglie — APERTA
+- **S.21** La domanda prima della gettata: in alto, in tendina, in due famiglie — CHIUSA
+  - **LA DECISIONE D4 DI MAURO, presa il 13 agosto 2026, in tre punti.** Uno:
+    l'elenco unico delle domande vive in un PUNTO NUOVO IN CORE, e le chat vi
+    attingono. Due: le PERSONALI nascono da CARTA E CAMMINO insieme, e una domanda
+    il cui dato manca non si mostra. Tre: OTTO E OTTO, otto generiche e otto
+    personali.
+  - **IL PUNTO UNICO E' `lib/core/domande/domande_del_cerchio.dart`.** Prima le
+    domande proposte stavano in DUE case: cinque in `kRuneDomandeSuggerite` dentro
+    `rune_cast.dart` e sessanta nella vista dei suggerimenti della chat. Due
+    elenchi della stessa cosa sono due elenchi da tenere d'accordo a mano, e
+    nessuna prova poteva dire quale fosse quello giusto. Ora
+    `SuggestionSets` e' una VISTA sul punto unico, e la costante vecchia si e'
+    ritirata lasciando al suo posto la riga che dice dove sono andate le domande.
+  - **LE SESSANTA DELLA CHAT SI SONO SPOSTATE PAROLA PER PAROLA, nello stesso
+    ordine.** Questa voce sposta la loro casa, non le riscrive: riscriverle era un
+    altro lavoro, e mescolarlo a questo avrebbe reso impossibile dire quale delle
+    due cose ha rotto qualcosa. Le cinque della gettata sono diventate le prime
+    cinque generiche, anche loro parola per parola, con tre di sblocco in aggiunta.
+  - **LA DOMANDA E' SALITA SOPRA IL PULSANTE.** Stava sotto il getto, cioe' dopo:
+    si gettava e poi si trovava il campo di una domanda che non aveva piu' modo di
+    entrare nella gettata. Adesso si pone prima, e la lettura ne tiene conto (il
+    seme della gettata e l'eco dentro la voce della runa la usavano gia', ma
+    nessuno poteva scriverla in tempo).
+  - **UNA TENDINA, NON DUE ELENCHI APERTI.** Sopra il pulsante lo spazio e' quello
+    che e': sedici voci in chiaro avrebbero spinto il getto sotto la piega, cioe'
+    avrebbero rifatto il difetto che questa voce chiude. Il menu porta le due
+    famiglie come sezioni, coi nomi che la chat mostra da sempre, e sotto resta il
+    campo libero per chi la vuole scrivere con parole sue.
+  - **LE PERSONALI CHE NON HANNO IL LORO DATO NON COMPAIONO**, e ognuna dichiara
+    quale dato la regge. Nella schermata delle rune arrivano il segno, il Sole
+    quando c'e' la data di nascita, la runa di ieri sera e la parola di stamattina
+    dal filo fra i riti: **Luna, Ascendente, animale guida e archetipo non sono
+    ancora agganciati**, perche' questa schermata non riceve la carta natale ne' il
+    risultato del Test, e passarli qui e' un lavoro che si fa quando le loro voci
+    servono. Meglio quattro voci in meno che quattro voci che nominano cio' che
+    l'app non sa.
+  - **LA DOMANDA NON DIVENTA UN PEDAGGIO.** Spostarla sopra il pulsante la mette
+    sulla strada del getto, ed e' il punto esatto in cui una schermata comincia a
+    pretendere qualcosa prima di funzionare. La riga a schermo lo dichiara, "Puoi
+    anche gettare senza domanda", e una prova getta senza domanda e pretende il
+    responso.
+  - Misura: `test/la_domanda_scelta_arriva_al_responso_test.dart`, sei prove. La
+    prima scegli una domanda dalla tendina, getta, e pretende di RITROVARE quel
+    TESTO dentro il responso: non la presenza della scatola, che passerebbe anche
+    vuota. Una seconda getta senza domanda. Una terza guarda l'ordine di
+    dichiarazione, tendina e campo sopra il pulsante. Una quarta e' il PRESIDIO DEL
+    PUNTO UNICO: enumera i file di `lib` e cade se tre o piu' testi di domanda
+    rinascono in un file che non e' la loro casa.
+  - **PROVA DEL ROSSO fatta:** azzerata la domanda passata al responso, la prima
+    prova e' caduta sola, le altre cinque sono restate verdi. Rimessa a posto,
+    sei verdi.
+  - **UNA MISURA SBAGLIATA, buttata e non aggiustata.** La prova dell'ordine
+    cercava `Key('rune_tendina_domande')`, che vive DENTRO il widget della tendina,
+    in fondo al file: cadeva dicendo che la domanda sta sotto il pulsante mentre a
+    schermo stava sopra. Si e' cambiata la grandezza misurata, il punto di
+    CHIAMATA, non la soglia.
+  - GUARDATA l'anteprima `rune-soglia.png` alla larghezza reale: etichetta, tendina
+    chiusa, campo libero e riga del "senza domanda" stanno sopra il pulsante, e il
+    getto e' ancora sopra la piega.
 - **S.22** Lo spazio eccessivo dopo i pulsanti del tipo di gettata — APERTA
 - **S.23** I pulsanti di scelta della stesa restano dopo il getto — APERTA
 - **S.24** La ridondanza nelle schede delle rune — APERTA
@@ -994,6 +1052,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 19
+VOCI_CHIUSE: 20
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

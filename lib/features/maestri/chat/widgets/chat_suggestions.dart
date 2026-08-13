@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/domande/domande_del_cerchio.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
@@ -27,97 +28,18 @@ extension SuggestionGroupLabel on SuggestionGroup {
 class SuggestionSets {
   const SuggestionSets._();
 
-  // Le cinque categorie canoniche in testa (amore, lavoro, fortuna, successo,
-  // relazioni), declinate nel dominio del Maestro, poi qualche apertura propria.
-  static const List<String> _frequentMedora = [
-    'Cosa dicono le stelle sul mio amore?',
-    'Che indicano gli astri sul mio lavoro?',
-    'Dove si apre la mia fortuna in questi giorni?',
-    'Le stelle sostengono un mio traguardo?',
-    'Cosa muove le mie relazioni ora?',
-    'Parlami del mio segno',
-    'Tira una carta per me',
-    'Parlami dei miei transiti',
-  ];
+  // **LE LISTE NON VIVONO PIU' QUI, ordine S voce 21.** Stavano in sei costanti
+  // dentro questa vista, e i suggerimenti della gettata di rune in un settimo
+  // posto: due elenchi della stessa cosa sono due elenchi da tenere d'accordo a
+  // mano. Adesso la loro casa e' `DomandeDelCerchio`, in core, e questa classe
+  // resta cio' che era per chi la usa: la vista che le mostra. Le domande sono le
+  // stesse, parola per parola e nello stesso ordine.
 
-  static const List<String> _personalMedora = [
-    'Cosa illumina il mio Sole?',
-    'Parlami del mio Sole',
-    'La forza del mio Sole',
-    'Il mio Sole come mi guida?',
-    'Cosa sente la mia Luna?',
-    'Parlami della mia Luna',
-    'La mia Luna e le emozioni',
-    'Il bisogno della mia Luna',
-    'Cosa mostra il mio Ascendente?',
-    'Parlami del mio Ascendente',
-    'L\'Ascendente e la mia maschera',
-    'La prima impressione del mio Ascendente',
-  ];
+  static List<String> frequent(Maestro maestro) =>
+      DomandeDelCerchio.perLaChat(maestro, FamigliaDellaDomanda.generiche);
 
-  static const List<String> _frequentAura = [
-    'Come apro il cuore all\'amore?',
-    'Un respiro per la tensione del lavoro',
-    'Come mi apro al flusso che arriva?',
-    'Come trovo la calma prima di un traguardo?',
-    'Come porto equilibrio nelle mie relazioni?',
-    'Guidami in una meditazione breve',
-    'Quale chakra devo riequilibrare?',
-    'Un respiro per calmare la mente',
-  ];
-
-  static const List<String> _personalAura = [
-    'Il mio Sole e la mia energia vitale',
-    'Come nutro la luce del mio Sole?',
-    'Il mio Sole e il chakra del plesso',
-    'La forza del mio Sole nel corpo',
-    'La mia Luna e il chakra del cuore',
-    'Come accolgo le emozioni della mia Luna?',
-    'La mia Luna e il respiro',
-    'Il bisogno di quiete della mia Luna',
-    'Il mio Ascendente e la mia presenza',
-    'Come abito il mio Ascendente col respiro?',
-    'Il mio Ascendente e l\'energia che mostro',
-    'La prima impressione del mio Ascendente',
-  ];
-
-  static const List<String> _frequentCaligo = [
-    'Quale runa parla del mio amore?',
-    'Un simbolo per la forza nel lavoro',
-    'Una runa per attirare abbondanza',
-    'Quale rito sostiene un mio traguardo?',
-    'Cosa dicono i simboli delle mie relazioni?',
-    'Estrai una runa per me',
-    'Un simbolo di protezione',
-    'Qual è il mio animale guida?',
-  ];
-
-  static const List<String> _personalCaligo = [
-    'Il mio Sole e la runa del potere',
-    'Quale simbolo veste il mio Sole?',
-    'Il mio Sole e la mia volontà',
-    'L\'archetipo del mio Sole',
-    'La mia Luna e la runa dell\'acqua',
-    'Quale simbolo abita la mia Luna?',
-    'La mia Luna e l\'ombra',
-    'L\'archetipo della mia Luna',
-    'Il mio Ascendente e la maschera rituale',
-    'Quale runa apre il mio Ascendente?',
-    'Il mio Ascendente e la soglia',
-    'L\'archetipo del mio Ascendente',
-  ];
-
-  static List<String> frequent(Maestro maestro) => switch (maestro) {
-        Maestro.medora => _frequentMedora,
-        Maestro.aura => _frequentAura,
-        Maestro.caligo => _frequentCaligo,
-      };
-
-  static List<String> personal(Maestro maestro) => switch (maestro) {
-        Maestro.medora => _personalMedora,
-        Maestro.aura => _personalAura,
-        Maestro.caligo => _personalCaligo,
-      };
+  static List<String> personal(Maestro maestro) =>
+      DomandeDelCerchio.perLaChat(maestro, FamigliaDellaDomanda.personali);
 
   /// Quante vie si propongono sotto il benvenuto.
   ///

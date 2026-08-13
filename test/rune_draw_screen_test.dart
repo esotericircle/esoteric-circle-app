@@ -92,7 +92,11 @@ void main() {
     expect(find.byKey(const Key('rune_selector')), findsOneWidget);
     expect(find.byKey(const Key('rune_dynamic_text')), findsOneWidget);
     expect(find.byKey(const Key('rune_question_field')), findsOneWidget);
-    expect(find.byKey(const Key('rune_suggestions')), findsOneWidget);
+    // **LE PILLOLE SONO DIVENTATE UNA TENDINA, ordine S voce 21.** La domanda si
+    // pone prima di gettare e sta SOPRA il pulsante: cinque pillole aperte sotto il
+    // getto erano l'elenco vecchio, e in cima non ci sarebbero mai stati sedici
+    // suggerimenti in chiaro.
+    expect(find.byKey(const Key('rune_tendina_domande')), findsOneWidget);
     expect(find.byKey(const Key('rune_cast_button')), findsOneWidget);
     expect(find.byKey(const Key('rune_well')), findsOneWidget);
     // La gettata iniziale e' la Runa di Odino: il testo dinamico ne parla.
@@ -122,7 +126,11 @@ void main() {
     await tester.pumpWidget(host());
     await passo(tester);
 
-    await tester.tap(find.text('Nel lavoro, quale passo fare?'));
+    // La domanda si scegli dalla tendina, che e' il modo nuovo: si apre e si
+    // prende la voce.
+    await tester.tap(find.byKey(const Key('rune_tendina_domande')));
+    await passo(tester);
+    await tester.tap(find.text('Nel lavoro, quale passo fare?').last);
     await passo(tester);
     final campo = tester.widget<TextField>(
         find.byKey(const Key('rune_question_field')));

@@ -172,15 +172,13 @@ const List<GettataRune> gettate = [
   gettataTelo,
 ];
 
-/// I suggerimenti di domanda tappabili prima del lancio. La domanda e' solo
-/// intenzione, non inviata a nessun servizio nella Demo.
-const List<String> kRuneDomandeSuggerite = [
-  'Cosa devo sapere sul mio momento?',
-  'In amore, dove sto andando?',
-  'Nel lavoro, quale passo fare?',
-  'Una scelta mi blocca, cosa la scioglie?',
-  'Cosa mi sfugge di questa situazione?',
-];
+// I SUGGERIMENTI DI DOMANDA NON VIVONO PIU' QUI. Ordine S voce 21.
+//
+// Stavano qui, cinque, e nella vista dei suggerimenti della chat ce n'erano altri
+// sessanta: due elenchi della stessa cosa in due case diverse, da tenere
+// d'accordo a mano. Ora la casa e' una sola,
+// `lib/core/domande/domande_del_cerchio.dart`, e i cinque testi sono la',
+// parola per parola, insieme alle tre di sblocco e alle otto personali.
 
 /// Il testo base di "Fonti e metodo", che dichiara cosa e' antico e cosa e'
 /// moderno, senza spacciare l'uno per l'altro.

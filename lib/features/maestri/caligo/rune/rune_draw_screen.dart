@@ -38,6 +38,9 @@ import '../../../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../../../core/sensi/catalogo_suoni.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../../core/domande/domande_del_cerchio.dart';
+import '../../../../core/rituals/filo_del_giorno.dart';
+import '../../../../core/rituals/sunset_rune_memory.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
 /// selettore del tipo di gettata. Il caso e' voluto e autentico, e' gettare le
@@ -102,6 +105,34 @@ enum _Fase { preparazione, responso }
 
 class _RuneDrawScreenState extends State<RuneDrawScreen> {
   final TextEditingController _domanda = TextEditingController();
+  /// I DATI CHE LE DOMANDE PERSONALI CHIEDONO, e solo quelli che ci sono davvero.
+  ///
+  /// Ordine S voce 21, decisione D4: le personali nascono da CARTA E CAMMINO. Il
+  /// segno c'e' sempre; il Sole lo si sa quando c'e' la data di nascita; la runa di
+  /// ieri sera e la parola di stamattina arrivano dal filo fra i riti e si leggono
+  /// dal disco.
+  ///
+  /// **Luna, Ascendente, animale guida e archetipo NON sono qui, e va detto.** Le
+  /// loro domande esistono nel punto unico e non si mostrano ancora, perche' questa
+  /// schermata non riceve la carta natale ne' il risultato del Test: agganciarle
+  /// vorrebbe dire passare qui altri quattro dati, ed e' un lavoro che si fa quando
+  /// le loro voci servono, non prima. Meglio quattro voci in meno che quattro voci
+  /// che nominano cio' che l'app non sa.
+  Set<DatoPerLaDomanda> _datiDisponibili = const {DatoPerLaDomanda.segno};
+
+  Future<void> _leggiIDatiDelleDomande() async {
+    final trovati = <DatoPerLaDomanda>{DatoPerLaDomanda.segno};
+    if (widget.userBirth != null) trovati.add(DatoPerLaDomanda.sole);
+    final parola = await FiloDelGiorno.parolaDiStamattina(DateTime.now());
+    if (parola != null && parola.trim().isNotEmpty) {
+      trovati.add(DatoPerLaDomanda.parolaDiStamattina);
+    }
+    final ieriSera = await SunsetRuneMemory.ultimaPerCerniera();
+    if (ieriSera != null) trovati.add(DatoPerLaDomanda.runaDiIeriSera);
+    if (!mounted) return;
+    setState(() => _datiDisponibili = trovati);
+  }
+
   GettataRune _gettata = gettate.first;
   _Fase _fase = _Fase.preparazione;
   EsitoGettata? _esito;
@@ -121,6 +152,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   @override
   void initState() {
     super.initState();
+    unawaited(_leggiIDatiDelleDomande());
     _scuotimento.onScuotimento = _dalloScuotimento;
     _scuotimento.start();
   }
@@ -269,6 +301,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   palette: palette,
                   gettata: _gettata,
                   domanda: _domanda,
+                  datiDisponibili: _datiDisponibili,
                   animazioni: _animazioni,
                   onGettata: _cambiaGettata,
                   onGetta: _getta,
@@ -363,6 +396,7 @@ class _Preparazione extends StatelessWidget {
     required this.palette,
     required this.gettata,
     required this.domanda,
+    required this.datiDisponibili,
     required this.animazioni,
     required this.onGettata,
     required this.onGetta,
@@ -375,6 +409,9 @@ class _Preparazione extends StatelessWidget {
   final MaestroPalette palette;
   final GettataRune gettata;
   final TextEditingController domanda;
+
+  /// Quali dati le domande personali possono nominare, ordine S voce 21.
+  final Set<DatoPerLaDomanda> datiDisponibili;
   final bool animazioni;
   final ValueChanged<GettataRune> onGettata;
   final VoidCallback onGetta;
@@ -424,6 +461,62 @@ class _Preparazione extends StatelessWidget {
           // col bottone del getto era in fondo, dopo la domanda e i
           // suggerimenti, e per gettare si scorreva oltre cio' che si era
           // gia' letto. Il gesto sta subito sotto la scena che lo mostra.
+          const SizedBox(height: SpacingTokens.lg),
+          // **LA DOMANDA SI PONE PRIMA, E STA SOPRA IL PULSANTE.** Ordine S voce
+          // 21, decisione D4 di Mauro del 13 agosto 2026. Stava sotto il getto,
+          // cioe' dopo: si gettava e poi si trovava il campo di una domanda che
+          // non aveva piu' modo di entrare nella gettata. Adesso e' una tendina a
+          // due famiglie, GENERICHE e PERSONALI, e sotto resta il campo libero per
+          // chi la vuole scrivere con parole sue.
+          //
+          // **Le domande vengono dal punto unico**, `DomandeDelCerchio`: prima
+          // stavano qui cinque suggerimenti e nella chat altre sessanta, cioe' due
+          // elenchi della stessa cosa. Le personali si mostrano solo se il loro
+          // dato c'e'.
+          Text('La tua domanda',
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
+          const SizedBox(height: SpacingTokens.xs),
+          _TendinaDelleDomande(
+            palette: palette,
+            datiDisponibili: datiDisponibili,
+            onScelta: (testo) => domanda.text = testo,
+          ),
+          const SizedBox(height: SpacingTokens.xs),
+          TextField(
+            key: const Key('rune_question_field'),
+            controller: domanda,
+            maxLines: 2,
+            minLines: 1,
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textPrimary),
+            decoration: InputDecoration(
+              hintText: 'Oppure scrivila con le tue parole.',
+              hintStyle: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary),
+              filled: true,
+              fillColor: palette.deepest.withValues(alpha: 0.4),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                borderSide:
+                    BorderSide(color: palette.gold.withValues(alpha: 0.4)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                borderSide:
+                    BorderSide(color: palette.gold.withValues(alpha: 0.8)),
+              ),
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          // **SI PUO' GETTARE SENZA DOMANDA**, e la riga lo dice: in quel caso il
+          // responso parla alla giornata, come chiede la legge del responso.
+          Text(
+              'Puoi anche gettare senza domanda: il responso parlerà alla '
+              'tua giornata.',
+              key: const Key('rune_senza_domanda'),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary)),
           const SizedBox(height: SpacingTokens.lg),
           // IL POZZO DI URDHR in attesa, col lancio.
           _PozzoUrdhr(
@@ -486,52 +579,6 @@ class _Preparazione extends StatelessWidget {
             // volta. Un disclaimer ripetuto smette di essere letto e
             // diventa un modo di scaricare la responsabilita' invece di
             // dirla. Adesso sta in un posto solo, nell'area privacy.
-          const SizedBox(height: SpacingTokens.lg),
-          // LA DOMANDA, solo intenzione, coi suggerimenti tappabili.
-          Text('La tua domanda',
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
-          const SizedBox(height: SpacingTokens.xs),
-          TextField(
-            key: const Key('rune_question_field'),
-            controller: domanda,
-            maxLines: 2,
-            minLines: 1,
-            style: TypographyTokens.didascalia()
-                .copyWith(color: ColorTokens.textPrimary),
-            decoration: InputDecoration(
-              hintText: 'Tieni in mente una domanda, oppure scrivila.',
-              hintStyle: TypographyTokens.didascalia()
-                  .copyWith(color: ColorTokens.textSecondary),
-              filled: true,
-              fillColor: palette.deepest.withValues(alpha: 0.4),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                borderSide:
-                    BorderSide(color: palette.gold.withValues(alpha: 0.4)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                borderSide:
-                    BorderSide(color: palette.gold.withValues(alpha: 0.8)),
-              ),
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          Wrap(
-            key: const Key('rune_suggestions'),
-            spacing: SpacingTokens.xs,
-            runSpacing: SpacingTokens.xs,
-            children: [
-              for (final q in kRuneDomandeSuggerite)
-                _Suggerimento(
-                  testo: q,
-                  palette: palette,
-                  onTap: () => domanda.text = q,
-                ),
-            ],
-          ),
-
           const SizedBox(height: SpacingTokens.xs),
           // IL RIPIEGO TATTILE, DICHIARATO A SCHERMO. Quando il sensore
           // non c'e', la riga smette di promettere lo scuotimento e dice
@@ -1805,3 +1852,91 @@ class _PietreCoperte extends StatelessWidget {
   }
 }
 
+/// LA TENDINA DELLE DOMANDE, due famiglie in un menu solo. Ordine S voce 21.
+///
+/// **Perche' un menu e non due elenchi affiancati.** La domanda si pone prima di
+/// gettare, quindi sta sopra il pulsante, e sopra il pulsante lo spazio e' quello
+/// che e': due elenchi aperti spingerebbero il getto sotto la piega, cioe'
+/// rifarebbero il difetto che questa voce chiude. Il menu porta le due famiglie
+/// come sezioni, coi loro nomi, quelli che la chat mostra da sempre.
+///
+/// **Le personali che non hanno il loro dato non compaiono.** Una voce che nomina
+/// la tua Luna quando l'app non sa la tua Luna e' una promessa che nessuno
+/// mantiene, ed e' la stessa famiglia dell'etichetta che diceva "In arrivo".
+class _TendinaDelleDomande extends StatelessWidget {
+  const _TendinaDelleDomande({
+    required this.palette,
+    required this.datiDisponibili,
+    required this.onScelta,
+  });
+
+  final MaestroPalette palette;
+  final Set<DatoPerLaDomanda> datiDisponibili;
+  final void Function(String testo) onScelta;
+
+  @override
+  Widget build(BuildContext context) {
+    final generiche = DomandeDelCerchio.perLaGettata(
+        FamigliaDellaDomanda.generiche,
+        datiDisponibili: datiDisponibili);
+    final personali = DomandeDelCerchio.perLaGettata(
+        FamigliaDellaDomanda.personali,
+        datiDisponibili: datiDisponibili);
+    return PopupMenuButton<String>(
+      key: const Key('rune_tendina_domande'),
+      tooltip: 'Scegli una domanda',
+      color: palette.surfaceElevated,
+      onSelected: onScelta,
+      itemBuilder: (context) => [
+        PopupMenuItem<String>(
+          enabled: false,
+          child: Text(FamigliaDellaDomanda.generiche.etichetta,
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
+        ),
+        for (final d in generiche)
+          PopupMenuItem<String>(
+            value: d.testo,
+            child: Text(d.testo,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textPrimary)),
+          ),
+        if (personali.isNotEmpty) ...[
+          const PopupMenuDivider(),
+          PopupMenuItem<String>(
+            enabled: false,
+            child: Text(FamigliaDellaDomanda.personali.etichetta,
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
+          ),
+          for (final d in personali)
+            PopupMenuItem<String>(
+              value: d.testo,
+              child: Text(d.testo,
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textPrimary)),
+            ),
+        ],
+      ],
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
+          color: palette.deepest.withValues(alpha: 0.4),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text('Scegli una domanda',
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: palette.goldSoft)),
+            ),
+            Icon(Icons.expand_more_rounded, size: 18, color: palette.goldSoft),
+          ],
+        ),
+      ),
+    );
+  }
+}

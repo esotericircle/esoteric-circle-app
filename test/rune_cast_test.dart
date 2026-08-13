@@ -4,6 +4,7 @@ import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/domande/domande_del_cerchio.dart';
 
 /// Il cuore deterministico e casuale dell'Estrazione Rune di Caligo.
 void main() {
@@ -34,10 +35,17 @@ void main() {
       }
     });
 
-    test('I suggerimenti di domanda sono presenti', () {
-      expect(kRuneDomandeSuggerite.length, greaterThanOrEqualTo(5));
-      for (final q in kRuneDomandeSuggerite) {
-        expect(q.trim(), isNotEmpty);
+    test('I suggerimenti di domanda sono presenti, nel punto unico', () {
+      // **NON SONO PIU' IN `rune_cast.dart`, ordine S voce 21.** Stavano qui
+      // cinque e nella chat altri sessanta: adesso la casa e' una sola. I cinque
+      // testi di prima sono le prime cinque generiche, parola per parola, e la
+      // prova che nessuno le perda vive in
+      // `test/la_domanda_scelta_arriva_al_responso_test.dart`.
+      final generiche = DomandeDelCerchio.perLaGettata(
+          FamigliaDellaDomanda.generiche);
+      expect(generiche.length, greaterThanOrEqualTo(5));
+      for (final q in generiche) {
+        expect(q.testo.trim(), isNotEmpty);
       }
     });
   });

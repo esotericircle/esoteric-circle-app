@@ -2077,6 +2077,21 @@ void main() {
     await tester.ensureVisible(cast);
     await tester.pump();
     await tester.tap(cast);
+    // **TRE PASSI, NON UNO, E IL PERCHE' VA SCRITTO.** Con un passo solo le
+    // anteprime del responso uscivano VUOTE sotto il conto delle gettate: il
+    // presagio e le bolle delle rune stanno nell'albero, e le prove qui sotto lo
+    // verificavano, ma erano dipinte a opacita' ZERO. Misurato: dopo 400
+    // millisecondi il presagio e' a 0,00, dopo 1200 e' a 1,00.
+    //
+    // La causa e' in `ScrollReveal`: la comparsa ha UNA sola occasione, il
+    // postFrame di `didChangeDependencies`, e se in quel frame la scatola non ha
+    // ancora geometria l'occasione si perde. In un telefono la recupera il primo
+    // scorrimento, che qui non arriva mai; la recupera invece il rimontaggio
+    // successivo, e per quello serve piu' di un frame. **Un'anteprima vuota non
+    // dice "va bene", dice che non si e' guardato niente**, e nasconde anche cio'
+    // che la spedisce.
+    await step(tester);
+    await step(tester);
     await step(tester);
   }
 
@@ -2106,14 +2121,17 @@ void main() {
       (tester) async {
     silenceSensors();
     await loadFonts();
+    // **3400 E NON 2900, misurato.** Il fondo del sigillo cade a 3295 punti: a
+    // 2900 il sigillo restava FUORI dalla finestra, e `ScrollReveal` non rivela
+    // cio' che non e' mai entrato in scena. L'anteprima mostrava la sua scatola
+    // vuota e sembrava un difetto del sigillo.
     final rootKey = await mountAnimal(
         tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(5)),
-        size: const Size(360, 2900));
+        size: const Size(360, 3400));
     await precacheRune(tester);
     await lancia(tester, 'norne');
     expect(find.byKey(const Key('rune_presage')), findsOneWidget);
     expect(find.byKey(const Key('rune_sigillo')), findsOneWidget);
-    // DIAGNOSI TEMPORANEA
     await capture(tester, rootKey, 'rune-norne.png');
   });
 
