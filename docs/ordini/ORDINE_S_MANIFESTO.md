@@ -1445,7 +1445,48 @@ diagnosi e non una regola da applicare a tutti gli scatti.
     l'esito** (la lezione della coda della voce S.26): messa la corrente PRIMA della
     sintesi, la prova e' caduta nominando segno, giorno e scheda, "il testo non apre
     con la sintesi del segno". Rimessa a posto, sei verdi.
-- **S.28** I doni quotidiani e la chat dei Maestri — APERTA
+- **S.28** I doni quotidiani e la chat dei Maestri — FERMATA IN ATTESA DI DECISIONE
+  - **I DONI SONO A POSTO, misurati sul corpus intero e non su un campione:** i 366
+    giorni per tre doni (la riga dell'Oracolo, il messaggio del mattino, il saluto
+    della notte) passano il confine della voce S.17, e il piu' lungo e' **76
+    caratteri**.
+  - **E LA VOCE CHIEDE UNA DISTINZIONE CHE VA SCRITTA: un dono non e' un responso.**
+    E' il colpo d'occhio, una riga che si legge in due secondi, e l'azione la porta il
+    RITO che gli sta attorno, non la riga. Pretendere le tre parti dell'anatomia
+    dentro settanta caratteri sarebbe la voce S.20 al contrario: la' si e' accorciato
+    cio' che era lungo, qui si allungherebbe cio' che e' corto per farlo somigliare a
+    una regola. Quindi la prova non chiede tre parti: chiede che i doni restino UNA
+    RIGA, col tetto dichiarato a 120 caratteri, cioe' la misura oltre la quale una
+    riga smette di essere una riga.
+  - **LA CHAT PORTA LA LEGGE E IL CONFINE dal punto unico**, e questo era gia' vero e
+    presidiato.
+  - **IL DIFETTO VERO, ed e' il motivo per cui la voce si ferma: DUE ANATOMIE IN DUE
+    POSTI.** L'istruzione della chat descrive una "struttura della risposta, anatomia
+    a QUATTRO STRATI" con parole sue, che vengono dai briefing: segno grafico, frase
+    di sintesi, testo narrato. Le tre parti di `ParteDelResponso` (la risposta, cosa
+    puoi fare, da dove viene) **non sono nominate: misurato, zero su tre**. Le porta
+    lo stesso, ma sparse e con altri nomi: la risposta sta nella sintesi piu' il testo
+    narrato, cosa puoi fare e' `ConsiglioFinale.istruzione` che vive in un punto suo,
+    da dove viene e' la regola dell'ancoraggio. **E' la famiglia delle due porte che
+    quest'ordine esiste per chiudere**, ed e' l'ultima rimasta.
+  - **PERCHE' NON LA CHIUDO DA SOLO.** Cambiare l'istruzione di sistema **invalida
+    l'attribuzione cieca delle tre voci, misurata al 98,3 per cento**, che si rifa'
+    solo con una chiamata vera a Vertex, cioe' con `flutter test
+    tool/attribuzione_cieca.dart` sul PC di Mauro. E il precedente dice che non e' un
+    rischio teorico: **una sola riga di chiusura generica aggiunta a questa istruzione
+    fece scendere Medora al 70 per cento**, scambiata per Aura sei volte su venti, e
+    sta scritto nel commento accanto a quella riga.
+  - **LA DOMANDA A MAURO, in una riga:** unifico l'anatomia della chat leggendola da
+    `ParteDelResponso`, sapendo che dopo va rilanciata l'attribuzione cieca e che il
+    98,3 per cento resta non valido finche' non la rilanci? Oppure la chat tiene la
+    sua struttura a quattro strati e nel manifesto sta scritto che le due anatomie
+    convivono di proposito?
+  - Misura: `test/i_doni_e_la_chat_davanti_all_anatomia_test.dart`, quattro prove. Due
+    presidiano i doni (confine su 366 giorni per tre doni, e il tetto della riga); una
+    presidia che legge e confine arrivino alla chat per tutti e tre i Maestri; la
+    quarta DICHIARA, cioe' stampa quali parti dell'anatomia l'istruzione nomina e
+    pretende che il consiglio finale e la struttura a quattro strati ci siano ancora,
+    cosi' se qualcuno tocca l'istruzione senza decidere niente, la riga cade.
 
 ## Sezione D. Documenti e consegna
 
@@ -1536,4 +1577,4 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 VOCI_TOTALI: 29
 VOCI_CHIUSE: 25
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
