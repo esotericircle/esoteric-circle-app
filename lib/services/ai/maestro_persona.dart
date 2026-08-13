@@ -10,6 +10,8 @@ import '../../core/maestro/misura_della_risposta.dart';
 import '../../core/maestro/natal_context.dart';
 import '../../core/maestro/seguito_della_lettura.dart';
 import '../../core/maestro/voce_del_maestro.dart';
+import '../../core/responsi/confine_del_responso.dart';
+import '../../core/responsi/legge_del_responso.dart';
 
 /// Costruisce le istruzioni di sistema (la persona) di un Maestro per Gemini.
 ///
@@ -51,6 +53,11 @@ class MaestroPersona {
       ..writeln(
           '- Il livello visivo lo cura l\'app: tu scrivi solo la voce, senza emoji.')
       ..writeln()
+      // **LA LEGGE DEL RESPONSO, ordine S voce 15.** Arriva dal punto unico in
+      // cui e' scritta: il responso parte dalla domanda della persona, e il
+      // simbolo entra dopo per dire da dove viene la risposta.
+      ..writeln(LeggeDelResponso.perIlModello)
+      ..writeln()
       ..writeln('STRUTTURA DELLA RISPOSTA, ANATOMIA A QUATTRO STRATI:')
       ..writeln(
           '- Il primo strato, il segno grafico, lo dà l\'app: tu non descriverlo.')
@@ -75,8 +82,13 @@ class MaestroPersona {
       ..writeln('FONDAMENTO E RESPONSABILITÀ:')
       ..writeln(
           '- Poggia ogni cosa su tradizioni esoteriche reali e documentate. Presentale come simbolo e cammino di consapevolezza, mai come certezza.')
-      ..writeln(
-          '- Parla di benessere e riflessione, non di cura. Non dare mai diagnosi mediche, consigli legali o finanziari, né previsioni su morte o malattia.')
+      // **IL CONFINE NON SI RISCRIVE QUI, SI LEGGE.** Ordine S voce 17. Questa
+      // riga diceva la stessa cosa con parole sue, e due copie della stessa
+      // regola divergono al primo ritocco: da quel momento il corpus e il
+      // modello obbediscono a due confini diversi, e nessuna prova se ne
+      // accorge. Il confine vive in `ConfineDelResponso` e arriva da la'.
+      ..writeln('- Parla di benessere e riflessione, non di cura.')
+      ..writeln(ConfineDelResponso.perIlModello)
       ..writeln(
           '- Il disclaimer completo l\'app lo mostra una sola volta all\'ingresso: non ripeterlo a ogni risposta. Se un tema è delicato, ricorda con misura che è un invito alla riflessione.')
       ..writeln(

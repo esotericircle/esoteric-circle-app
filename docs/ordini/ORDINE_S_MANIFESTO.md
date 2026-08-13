@@ -691,10 +691,98 @@ chiusa: committare non e' consegnare.
 
 ## Sezione A. La convenzione trasversale del responso
 
-- **S.15** La legge: il responso parte dalla domanda — APERTA
-- **S.16** L'anatomia del responso, quattro parti e un ordine — APERTA
-- **S.17** Il confine, e non si supera mai — APERTA
-- **S.18** Le lunghezze si misurano prima di deciderle — APERTA
+- **S.15** La legge: il responso parte dalla domanda — CHIUSA
+  - **La legge vive in un punto solo, nominata**, in
+    `lib/core/responsi/legge_del_responso.dart`: tre articoli e nessuno di piu'. Il
+    responso si rivolge alla persona e alla sua domanda, in seconda persona, con
+    parole di uso comune; il simbolo entra DOPO, per dire da dove viene la risposta;
+    senza domanda si parla alla giornata della persona, mai al simbolo in astratto.
+  - **NON E' UN DOCUMENTO, E' UN OGGETTO DEL CODICE**, e questa e' la differenza che
+    conta: una raccomandazione scritta in un file di prosa non si puo' interrogare,
+    una costante si'. Le istruzioni di sistema dei tre Maestri **leggono** la legge da
+    la' invece di riscriverla con parole loro, e una prova pretende che ci sia e che
+    compaia UNA volta sola: una regola scritta due volte sono due regole, e divergono
+    al primo ritocco.
+  - Rosso eseguito togliendo la legge dalle istruzioni: cade su "le istruzioni di
+    medora non portano la legge del responso".
+  - **RESTA DA FARE, ed e' il lavoro delle Sezioni B e C:** le arti la APPLICANO. La
+    legge adesso esiste e arriva al modello; i corpora deterministici delle singole
+    arti si riscrivono voce per voce (S.19, S.20, S.26, S.27, S.28), e qui non si e'
+    riscritto niente per non farlo di corsa.
+- **S.16** L'anatomia del responso, quattro parti e un ordine — CHIUSA
+  - Le quattro parti sono nominate nel codice come STRUTTURA, in
+    `lib/core/responsi/anatomia_del_responso.dart`: la risposta (2 a 4 righe), cosa
+    puoi fare (1 a 2), da dove viene (1 a 2), la tradizione. Ognuna dichiara che
+    lavoro fa e quante righe le spettano.
+  - **LA QUARTA NON STA NEL RESPONSO**, ed e' il punto che si dimentica: la tradizione
+    scende nel pannello delle fonti e del metodo che esiste gia'. Per questo
+    `Responso` ha TRE campi e non quattro, e chiedere la tradizione a un responso
+    torna vuoto invece di un testo inventato.
+  - **L'ORDINE E' LA FORMA DELL'OGGETTO, non una convenzione:** chi ha in mano un
+    `Responso` non puo' mettere il simbolo per primo nemmeno volendo. Se ogni arte
+    rimettesse in fila le parti per conto suo, in due mesi avremmo quattro ordini
+    diversi delle stesse quattro parti e nessuna prova potrebbe dire quale sia quello
+    giusto.
+  - **LA RETENTION E' SCRITTA ACCANTO AL CODICE**, perche' e' una ragione di prodotto
+    e non di stile: un responso che spiega un simbolo si esaurisce quando lo leggi, uno
+    che risponde alla tua domanda e ti lascia una cosa da fare produce un ritorno,
+    perche' domani vuoi sapere se aveva ragione. `cosaPuoiFare` e' la parte che fa
+    tornare.
+- **S.17** Il confine, e non si supera mai — CHIUSA
+  - Il confine vive in `lib/core/responsi/confine_del_responso.dart` con le due liste
+    dichiarate: cosa si puo' (seconda persona, concretezza, un'azione, dire cosa
+    osservare o rimandare) e cosa non si puo' mai (annunciare un evento futuro come
+    certo, dare indicazioni mediche, legali o finanziarie, parlare di malattia, morte,
+    gravidanza, denaro altrui o esiti giudiziari come previsioni).
+  - **QUATTROMILASEICENTOCINQUANTA RESPONSI COMPOSTI E GUARDATI, zero violazioni.** Si
+    misurano i responsi COMPOSTI e non le costanti del corpus: una previsione certa
+    puo' nascere dall'unione di due pezzi innocenti, e guardare i mattoni non la
+    vedrebbe.
+  - **LA GRANDEZZA MISURATA E' CAMBIATA UNA VOLTA, e la prima misura aveva torto.** La
+    prima stesura vietava le radici in assoluto e ha accusato VENTICINQUE responsi
+    delle rune per la parola "eredita'": e' il significato tradizionale di **Othala**,
+    "l'eredita' e la casa", che non promette niente a nessuno. Una prova che accusa il
+    falso insegna a ignorarla. Adesso la regola e' quella dell'ordine, letta alla
+    lettera: **un tema delicato e' una violazione quando e' RIVOLTO ALLA PERSONA**, e
+    si guarda frase per frase. La previsione data per certa, invece, vale da sola: non
+    conta di cosa parla, conta che sia annunciata come certa.
+  - **UNA GUARDIA CHE NON HA MAI VISTO UN COLPEVOLE NON E' UNA GUARDIA:** una prova
+    mostra al confine le due frasi che l'ordine porta come esempio, quella ammessa
+    ("questa runa ti chiede di rimandare la decisione di qualche giorno") e quella
+    vietata ("nei prossimi giorni perderai il lavoro"), e pretende che le distingua.
+  - Per i testi del modello la stessa regola arriva dalle istruzioni di sistema,
+    LETTA dal punto unico: la riga che diceva la stessa cosa con parole sue e' stata
+    sostituita, perche' due copie divergono al primo ritocco e da quel momento il
+    corpus e il modello obbediscono a due confini diversi.
+  - Il disclaimer e' quello GIA' in uso, `ArtCatalog.disclaimerCornice`: il confine
+    dichiara dove vive e non ne scrive un secondo, e una prova cade se se lo scrive.
+  - Misura: `test/il_confine_del_responso_test.dart`, cinque prove. Rossi eseguiti:
+    togliendo il futuro in seconda persona dalle forme della previsione (cade su "il
+    confine non riconosce «perderai»") e togliendo la legge dalle istruzioni.
+- **S.18** Le lunghezze si misurano prima di deciderle — CHIUSA
+  - **LA TABELLA C'E', ed e' generata**: `docs/responsi/lunghezze.md`, prodotta dalla
+    prova `test/le_lunghezze_dei_responsi_test.dart` e rigenerabile con
+    `--dart-define=AGGIORNA_LUNGHEZZE=1`. Senza il comando la prova la CONFRONTA e
+    cade se il documento e i corpora si sono allontanati: un documento che nessuno
+    rigenera mostra uno stato vecchio, ed e' peggio di nessun documento.
+  - **SI MISURANO I RESPONSI COMPOSTI, non le stringhe del sorgente:** un corpus e'
+    fatto di pezzi che si uniscono a runtime, e contare i caratteri delle costanti
+    direbbe quanto e' lungo un mattone, non quanto e' lungo il muro.
+  - La battuta e' DICHIARATA: dove il corpus e' finito si percorre intero (le quattro
+    forme della gettata, i sedici argomenti, i dodici segni), dove il testo varia col
+    giorno si percorre un anno intero, e le gettate si ripetono su duecento semi.
+  - **COSA DICE LA MISURA, in caratteri (mediana e massimo).** Rune, presagio: telo
+    737 e 760, croce 536 e 568, norne 427 e 447, odino 316 e 327. Tarocchi: consiglio
+    541 e 696, posizione 196 e 325, domanda 52 e 73, sintesi 22 e 28. Oroscopo, le
+    quattro schede: fra 167 e 194 di mediana, massimo 210. Oracolo del Giorno 73 e 76.
+    Rito del Sogno 68 e 74. Rito dell'Alba 75 e 76.
+  - **NESSUN TETTO ESISTENTE TAGLIA NIENTE, verificato:** una prova confronta i quattro
+    tetti della stesa con i massimi misurati e cade se un tetto sta sotto. Un tetto
+    sotto il massimo vero e' un troncamento che aspetta il giorno giusto, e un testo
+    tagliato e' un testo non scritto: e' gia' costato una voce nell'ordine P.
+  - **I TETTI NUOVI NASCERANNO DA QUESTA TABELLA**, nelle voci che chiedono di
+    accorciare (S.20, S.22, S.26), e vivranno nel blocco unico delle costanti. Qui non
+    si e' accorciato niente, perche' l'ordine chiede la misura PRIMA della decisione.
 
 ## LA DECISIONE DI MAURO SULLA SEZIONE B
 
@@ -843,6 +931,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 14
+VOCI_CHIUSE: 18
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
