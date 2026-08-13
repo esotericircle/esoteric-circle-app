@@ -518,15 +518,21 @@ class _Preparazione extends StatelessWidget {
               style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary)),
           const SizedBox(height: SpacingTokens.lg),
-          // IL POZZO DI URDHR in attesa, col lancio.
-          _PozzoUrdhr(
-            palette: palette,
-            gettata: gettata,
-            esito: null,
-            seme: 0,
-            animazioni: animazioni,
-          ),
-          const SizedBox(height: SpacingTokens.md),
+          // **IL POZZO IN ATTESA NON C'E' PIU', ordine S voce 22.**
+          //
+          // Stavano qui 140 punti di pozzo vuoto fra la domanda e il pulsante.
+          // L'ordine L voce 2a li aveva scelti di proposito, portandoli da 300 a
+          // 140: "il telo in attesa e' un accenno, non una scena vuota". **La
+          // misura sulla resa dice che quell'accenno non viene dipinto:** nella
+          // banda di 140 punti l'inchiostro sta su 8 righe su 140, con al massimo
+          // 4 pixel chiari per riga, e sono le stelle del fondale che passano
+          // dietro. Un accenno che non si vede non e' un accenno, e' spazio.
+          //
+          // Il pozzo compare col getto, dove ha le pietre da mostrare: e' anche
+          // il modo in cui il getto diventa un fatto invece di un cambio di testo.
+          // **Se un giorno si vuole un accenno prima del getto, va DIPINTO**, e la
+          // prova `il_pozzo_in_attesa_non_e_un_vuoto_test` misura la banda sulla
+          // resa: un accenno vero la fa passare, 140 punti di niente no.
           FilledButton.icon(
             key: const Key('rune_cast_button'),
             // ESAURITE LE GETTATE IL PULSANTE E' GRIGIO, ordine I voce 3:

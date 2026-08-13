@@ -98,7 +98,11 @@ void main() {
     // suggerimenti in chiaro.
     expect(find.byKey(const Key('rune_tendina_domande')), findsOneWidget);
     expect(find.byKey(const Key('rune_cast_button')), findsOneWidget);
-    expect(find.byKey(const Key('rune_well')), findsOneWidget);
+    // **IL POZZO NON STA PIU' SULLA SOGLIA, ordine S voce 22.** Erano 140 punti
+    // che non dipingevano niente fra la domanda e il pulsante, misurati sulla
+    // resa. Il pozzo compare col getto, dove ha le pietre: la sua prova vive in
+    // `il_pozzo_in_attesa_non_e_un_vuoto_test`.
+    expect(find.byKey(const Key('rune_well')), findsNothing);
     // La gettata iniziale e' la Runa di Odino: il testo dinamico ne parla.
     expect(find.textContaining('Odino'), findsWidgets);
   });

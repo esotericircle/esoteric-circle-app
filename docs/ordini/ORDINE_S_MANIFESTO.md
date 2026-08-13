@@ -1152,7 +1152,41 @@ diagnosi e non una regola da applicare a tutti gli scatti.
   - GUARDATA l'anteprima `rune-soglia.png` alla larghezza reale: etichetta, tendina
     chiusa, campo libero e riga del "senza domanda" stanno sopra il pulsante, e il
     getto e' ancora sopra la piega.
-- **S.22** Lo spazio eccessivo dopo i pulsanti del tipo di gettata — APERTA
+- **S.22** Lo spazio eccessivo dopo i pulsanti del tipo di gettata — CHIUSA
+  - **ERANO 140 PUNTI DI POZZO VUOTO fra la domanda e il pulsante del getto**, e la
+    misura sulla resa dice che non dipingevano niente: nella banda l'inchiostro
+    stava su 8 righe su 140, con al massimo 4 pixel chiari per riga, e sono le
+    stelle del fondale che passano dietro.
+  - **L'ORDINE L VOCE 2a LI AVEVA SCELTI DI PROPOSITO**, portandoli da 300 a 140 e
+    chiamandoli "un accenno, non una scena vuota". Non era una scelta sbagliata,
+    era una scelta mai verificata a video: **un accenno che non si vede non e' un
+    accenno, e' spazio.** E dopo la voce S.21 quello spazio e' finito fra la domanda
+    e il pulsante, cioe' sulla strada del getto.
+  - **NON SI ACCORCIA, SI TOGLIE.** Il pozzo compare col getto, dove ha le pietre
+    da mostrare, e' anche il modo in cui il getto diventa un fatto invece di un
+    cambio di testo. Misura dopo: fra la riga della domanda e il pulsante restano
+    24 punti, di cui 21 senza inchiostro.
+  - Misura: `test/il_pozzo_in_attesa_non_e_un_vuoto_test.dart`, due prove. La prima
+    misura SULLA RESA la banda fra la riga della domanda e il pulsante e cade se
+    piu' di quaranta punti di fila non dipingono niente; la seconda pretende che il
+    pozzo NON ci sia prima del getto e che ci sia dopo.
+  - **LA SOGLIA E' QUARANTA PUNTI, dichiarata e non ricavata dal difetto:** i
+    distacchi di sezione dell'app arrivano a 32 punti (`SpacingTokens.xl`), quindi
+    quaranta lascia passare un distacco pieno col suo margine e non lascia passare
+    due distacchi messi in fila per sbaglio. Non e' ne' il vuoto che c'era (140) ne'
+    quello che resta (21).
+  - **LA PROVA NON VIETA UN ACCENNO, vieta un vuoto:** se un giorno si vuole
+    qualcosa fra la domanda e il pulsante basta che sia DIPINTO, e una banda con
+    inchiostro la fa passare.
+  - **PROVA DEL ROSSO fatta:** rimesso il pozzo in attesa, la banda e' tornata a 164
+    punti con 63 righe vuote di fila e la prova e' caduta sola. Rimesso a posto,
+    due verdi.
+  - **PERCHE' NESSUNA MISURA LO AVEVA VISTO:** il censimento degli spazi conta i
+    `SizedBox` senza figlio, cioe' i vuoti SCRITTI. Un vuoto che nasce da un widget
+    che occupa spazio e non dipinge niente non lo vede nessuno. E' la stessa
+    famiglia della voce S.10.
+  - GUARDATA `rune-soglia.png` alla larghezza reale: sotto la riga della domanda
+    arriva subito il pulsante.
 - **S.23** I pulsanti di scelta della stesa restano dopo il getto — APERTA
 - **S.24** La ridondanza nelle schede delle rune — APERTA
 - **S.25** Il Sigillo del Giorno non e' piu' uno scarabocchio — APERTA
@@ -1250,6 +1284,6 @@ La voce S.10 si misura sulla resa, come l'ordine prevede.
 ---
 
 VOCI_TOTALI: 29
-VOCI_CHIUSE: 20
+VOCI_CHIUSE: 21
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
