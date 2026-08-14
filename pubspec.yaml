@@ -167,6 +167,11 @@ flutter:
     # L'INTRO, provvisoria per le dimostrazioni. Il video sta gia' nel repo e
     # non era dichiarato, quindi non entrava nel pacchetto.
     - brand_assets/intro/
+    # LE TRE ARTI DEI SENTIERI, ordine T. I cinquantacinque elementi di ogni
+    # Journal sono disegnati SPENTI dentro l'immagine: il codice ci mette
+    # sopra le luci, e sa dove metterle perche' gli ancoraggi si ricavano da
+    # qui con tool/ancoraggi_dai_sentieri.dart.
+    - brand_assets/sentieri/
     - assets/brand/
     # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o
     # ingrandita) e miniatura (viste con piu' carte). Bundlate in-app per la
