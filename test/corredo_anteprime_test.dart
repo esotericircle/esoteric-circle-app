@@ -207,6 +207,47 @@ void main() {
             '${fuori.join(", ")}');
   });
 
+  /// LE ANTEPRIME CHE NASCONO FUORI DAL CORREDO, e il loro generatore.
+  ///
+  /// **Non e' una lista di esenzioni, ed e' la differenza che conta.** Il
+  /// corredo e' la porta unica delle CATTURE di schermata, ma non ogni immagine
+  /// di `docs/preview/` e' una cattura: l'immagine di verifica degli ancoraggi
+  /// (ordine T voce 01) e' l'arte di un Journal con sopra i cinquantacinque
+  /// punti trovati, e la produce lo strumento che quei punti li ricava.
+  ///
+  /// Per ciascuna si dichiara CHI la fa, e la prova va a leggere quel file: se
+  /// il generatore sparisce o smette di scrivere quel nome, l'immagine torna
+  /// orfana e questa riga cade. **Una riga di esenzione direbbe soltanto "questa
+  /// non guardarla"; qui invece si sposta la guardia, non si toglie.**
+  const fuoriDalCorredo = <String, List<String>>{
+    r'^ancoraggi_[a-z]+\.png$': [
+      'tool/ancoraggi_dai_sentieri.dart',
+      "docs/preview/ancoraggi_",
+    ],
+  };
+
+  test('ogni anteprima nata fuori dal corredo ha il suo generatore vivo', () {
+    var osservate = 0;
+    final morte = <String>[];
+    for (final voce in fuoriDalCorredo.entries) {
+      osservate++;
+      final generatore = File(voce.value[0]);
+      if (!generatore.existsSync()) {
+        morte.add('${voce.key}: il generatore ${voce.value[0]} non esiste piu\'');
+        continue;
+      }
+      if (!generatore.readAsStringSync().contains(voce.value[1])) {
+        morte.add('${voce.key}: ${voce.value[0]} non scrive piu\' '
+            '"${voce.value[1]}"');
+      }
+    }
+    // ignore: avoid_print
+    print('CORREDO: generatori fuori dal corredo osservati $osservate');
+    expect(osservate, greaterThan(0),
+        reason: 'la prova non ha guardato nessun generatore: gira a vuoto');
+    expect(morte, isEmpty, reason: morte.join(' | '));
+  });
+
   test('Ogni anteprima del repo ha un generatore', () {
     // Un\'anteprima orfana resta ferma all\'ultima volta che qualcuno l\'ha
     // prodotta, e nessuno se ne accorge finche\' non la guarda.
@@ -223,6 +264,9 @@ void main() {
           .replaceFirst(RegExp(r'-\d{4}\.png$'), '.png')
           .replaceFirst('.png', '');
       if (corredo.contains(radice)) continue;
+      // Nata fuori dal corredo, ma con un generatore DICHIARATO e vivo: chi lo
+      // presidia e' la prova qui sopra, che va a leggere quel generatore.
+      if (fuoriDalCorredo.keys.any((f) => RegExp(f).hasMatch(nome))) continue;
       orfane.add(nome);
     }
     expect(orfane, isEmpty,

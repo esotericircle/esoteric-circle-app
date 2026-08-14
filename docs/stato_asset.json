@@ -28,6 +28,7 @@
       "assets/img_thumb/zodiac/",
       "assets/img/caligo/",
       "brand_assets/intro/",
+      "brand_assets/sentieri/",
       "assets/brand/"
     ],
     "nota_rune_vergini": "assets/img/rune_bone_vergine/ ospita il RETRO delle ventiquattro rune, cioe' la stessa pietra senza incisione. Non e' una famiglia a due misure e non ha miniatura: il retro si vede solo coperto o in volo, mai a fuoco, quindi sta a lato lungo 512 contro i 683x788 della faccia incisa. Non si rigenera col modello: si ricava dalla runa incisa con tool/rune_vergini.py, che toglie il solco e il suo bagliore e rimette la grana della stessa pietra, cosi' forma, venatura e luce restano quelle sue. Il conteggio e' bloccato in CI a 24 come le famiglie, ma nella sola misura piena.",
@@ -36,7 +37,8 @@
     "brand_assets_conteggi": {
       "avatars": 3,
       "santuario": 1,
-      "intro": 1
+      "intro": 1,
+      "sentieri": 3
     },
     "nota_intro": "brand_assets/intro/ esiste nel repo (Intro-Test-1.mp4) ma non e' dichiarato tra gli asset nel pubspec: presente, non bundlato. Se serve nel bundle, va aggiunto al pubspec e a pubspec_asset_attesi insieme.",
     "famiglie_conteggi": {

@@ -249,7 +249,7 @@ class LetturaDegliAncoraggi {
     if (trovate.length != quantiInTutto) {
       throw AncoraggiNonValidi(
           'la regola "${regola.nome}" ha trovato ${trovate.length} elementi '
-          'invece di $quantiInTutto. I diametri trovati, dal piu\' grande: '
+          'invece di $quantiInTutto. I diametri trovati, dal più grande: '
           '${(trovate.map((m) => m.diametro).toList()..sort((a, b) => b - a)).take(12).join(", ")}');
     }
     return componi(trovate, larghezza, altezza, regola.nome);
@@ -274,7 +274,7 @@ class LetturaDegliAncoraggi {
       throw AncoraggiNonValidi(
           '"$nome": gli elementi grandi sono ${grandi.length} invece di '
           '$gruppi. Grande vuol dire largo almeno $quanteVolteIlGrande volte il '
-          'diametro mediano, che qui e\' $mediana pixel, cioe\' almeno '
+          'diametro mediano, che qui è $mediana pixel, cioè almeno '
           '${confine.toStringAsFixed(0)}. I diametri: '
           '${(trovate.map((m) => m.diametro).toList()..sort((a, b) => b - a)).join(", ")}');
     }
@@ -379,7 +379,7 @@ class LetturaDegliAncoraggi {
     }
     if (perGruppoConto.length != gruppi) {
       throw AncoraggiNonValidi('"$nome": i gruppi sono '
-          '${perGruppoConto.length} invece di $gruppi, e sono '
+          '${perGruppoConto.length} invece di $gruppi. Sono '
           '${perGruppoConto.keys.toList()}');
     }
     for (var g = 0; g < gruppi; g++) {
