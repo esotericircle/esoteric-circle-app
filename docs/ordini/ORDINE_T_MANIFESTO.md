@@ -121,6 +121,56 @@ lo chiede.
     punto a x uguale a 1,4 cioe' fuori dalla tela (entrata). Tutte e quattro
     cadono col messaggio che dice QUALE gruppo e QUANTI punti ha.
 - **T.02** L'immagine prende il posto del painter, le luci restano al codice — APERTA
+  - **FATTO: LO SCONTORNO E' MISURATO, E NON C'E' NIENTE DA FARE.** L'alone rosso
+    sui bordi era un'ipotesi dell'Architetto che nessuno aveva misurato. Adesso e'
+    un numero: si guardano i soli pixel ad ALFA PARZIALE, che sono il contorno
+    sfumato, si rendono sopra il fondo vero dell'app (`0xFF0B0D1A`), e si contano
+    quelli che portano un CALORE che il corpo opaco della figura non si concede
+    (calore vuol dire di quanto il rosso supera il piu' alto fra verde e blu). Il
+    confronto e' con la figura stessa e non con un colore assoluto, ed e' il
+    punto: un'arte di oro e rosso e' calda per costruzione. **Costellazione 329
+    pixel su 365.980 di bordo, cioe' 0,090 per cento; Albero 218 su 528.222, cioe'
+    0,041; Loto 71 su 183.516, cioe' 0,039.** La soglia dichiarata e' **mezzo per
+    cento**, e non viene dai numeri trovati: viene da cosa vuol dire alone, cioe'
+    una FASCIA lungo il contorno; il contorno sfumato e' spesso due o tre pixel,
+    e mezzo per cento vuol dire un granello isolato ogni duecento pixel di
+    profilo, che non e' una fascia. Tutte e tre sono dieci volte sotto: **si
+    scrive che non c'e' niente da fare**, e non si consegna nessuna coppia prima e
+    dopo. Sta in `test/lo_scontorno_delle_tre_arti_test.dart`.
+  - **FATTO: IL COMPIMENTO E' RIMISURATO COL DENOMINATORE NUOVO, e la soglia dei
+    quarantacinque non si puo' applicare.** Il denominatore vecchio era
+    l'INCHIOSTRO della figura e dava risultati impossibili (Loto 183 per cento,
+    Costellazione 110): l'ultimo elemento che si apre muove piu' area di quanta ne
+    fosse dipinta prima. Il denominatore nuovo e' la SUPERFICIE, cioe' il
+    rettangolo dei cinquantacinque ancoraggi, uguale prima e dopo. Misurato a 360
+    per 462, che e' la tela vera del disegno: **dal 54 al 55 cambiano il 10,5 per
+    cento sulla Costellazione e il 4,7 sull'Albero; da meta' cammino al 55, il
+    20,9 e il 15,8.**
+  - **E LA SOGLIA DELLA S.02 RIGUARDAVA UN'ALTRA COSA, due volte.** Quel
+    quarantacinque per cento era fissato fra il disegno a META' cammino e quello
+    completo, non fra il 54 e il 55, e su un denominatore diverso, l'impronta
+    invece della superficie. Numeratore e denominatore diversi: non si
+    confrontano, e riportare quel numero qui sarebbe stato falso. **In piu' quella
+    soglia non e' mai stata una prova**: nella suite non esiste nessuna riga che
+    la faccia rispettare, quindi era un proposito. La soglia vera la fissa Mauro
+    adesso che i numeri ci sono; intanto una prova pretende solo che l'ultimo
+    traguardo non sia INVISIBILE, cioe' sopra l'uno per cento della superficie.
+  - **E IL LOTO RESTA FUORI SCALA ANCHE COL DENOMINATORE NUOVO, 185 per cento, ed
+    e' un fatto sul Loto e non sulla misura.** I suoi cinquantacinque ancoraggi
+    stanno su una fascia alta il 20,1 per cento della tela mentre il fiore si
+    disegna da un cuore che sta sotto di loro: il rettangolo degli ancoraggi non
+    contiene la figura. E' lo stesso difetto che Mauro segnala a occhio, il Loto
+    che si allarga e resta basso, visto da un'altra parte.
+  - **NON FATTO, e serve una decisione di Mauro prima:** montare l'immagine al
+    posto del pittore, separare il fondo in uno strato, portare le luci sopra, e
+    le anteprime nei due stati. La decisione: oggi il disegno prende il **58 per
+    cento** dell'altezza utile e la sua tela e' 328 per 462, cioe' una proporzione
+    di 0,710, mentre l'arte e' 0,5628. Montata senza deformarla, l'arte si ferma a
+    260 punti di larghezza su 328, e ne avanzano 68. **Per farle occupare la tela
+    davvero, la tela deve prendere la forma dell'arte**, cioe' salire da 462 a 583
+    punti, dal 58 al 73 per cento dell'altezza utile: e quello sposta le tre righe
+    sotto la piega, che e' esattamente cio' che la voce S.01 aveva chiuso.
+    **Non decido io quanta schermata prende il Journal.**
 
 ## Marcatori
 
