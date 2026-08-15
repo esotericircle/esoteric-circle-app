@@ -1,6 +1,5 @@
 import 'package:esoteric_circle/core/sigilli/eventi_del_cielo.dart';
 import 'package:esoteric_circle/core/sigilli/gesti_delle_arti.dart';
-import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:esoteric_circle/core/sigilli/pezzi_dell_identita.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:flutter_test/flutter_test.dart';
