@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'istante_dichiarato.dart';
 
 /// IL NUMERO IN BARRA SI MUOVE DOPO UN TRAGUARDO. Ordine S voce 04, criterio di
 /// chiusura.
@@ -32,7 +33,7 @@ void main() {
       (tester) async {
     final porta = _PortaCheAccredita();
     final borsa = QuestionAllowance(porta: porta);
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
 
     final servizi = AppServices.offline('prova della voce S.04', porta);
@@ -99,7 +100,7 @@ void main() {
     // non esiste.
     final porta = _PortaMuta();
     final borsa = QuestionAllowance(porta: porta);
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     final servizi = AppServices.offline('prova della voce S.04', porta);
 

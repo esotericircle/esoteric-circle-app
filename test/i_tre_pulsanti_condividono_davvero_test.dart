@@ -15,6 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'istante_dichiarato.dart';
 
 /// I TRE PULSANTI DELLA CELEBRAZIONE CONDIVIDONO DAVVERO. Ordine S voce 08.
 ///
@@ -55,7 +56,7 @@ void main() {
 
   Future<_PortaCheDaIlBonus> monta(WidgetTester tester) async {
     final porta = _PortaCheDaIlBonus();
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     await tester.pumpWidget(MultiProvider(
       providers: [

@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'istante_dichiarato.dart';
 
 /// IL TITOLO DELLA BARRA NON SI ROMPE. Correzione nata dalla voce S.05.
 ///
@@ -72,7 +73,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     SharedPreferences.setMockInitialValues({});
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     await tester.pumpWidget(MultiProvider(
       providers: [

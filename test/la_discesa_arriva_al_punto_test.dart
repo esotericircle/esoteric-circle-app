@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'istante_dichiarato.dart';
 
 /// LA DISCESA ARRIVA AL PUNTO RAGGIUNTO, ordine P voce 36, **chiesta col tocco
 /// dalla voce S.01**.
@@ -66,7 +67,7 @@ void main() {
 
   Future<DiarioDelCammino> diarioCon(Sentiero sentiero, int accesi) async {
     SharedPreferences.setMockInitialValues(const {});
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     for (final t in Sentieri.miniDi(sentiero).take(accesi)) {
       await diario.accendi(t.id);

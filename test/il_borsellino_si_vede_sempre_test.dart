@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'istante_dichiarato.dart';
 
 /// IL BORSELLINO E' SEMPRE VISIBILE. Ordine S voce 06.
 ///
@@ -171,7 +172,7 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
     SharedPreferences.setMockInitialValues({});
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     final registro = RegistroDegliEos();
     await registro.segna(quanti: 10, perche: 'Il primo passo del cammino');

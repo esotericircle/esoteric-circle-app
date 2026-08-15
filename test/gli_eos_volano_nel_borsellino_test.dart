@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'istante_dichiarato.dart';
 
 /// GLI EOS VOLANO DALLA CELEBRAZIONE AL BORSELLINO. Ordine S voce 07.
 ///
@@ -178,7 +179,7 @@ void main() {
     addTearDown(tester.view.reset);
     final porta = _PortaCheAccredita();
     final borsa = QuestionAllowance(porta: porta);
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     final servizi = AppServices.offline('prova della voce S.07', porta);
 

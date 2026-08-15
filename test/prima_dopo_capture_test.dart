@@ -92,6 +92,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'attorno_al_soffio.dart';
+import 'istante_dichiarato.dart';
 
 /// LE IMMAGINI PRIMA E DOPO, che l'Architetto apre dal remoto prima che il
 /// fondatore installi.
@@ -3354,7 +3355,7 @@ void main() {
       }
 
       final radice = GlobalKey();
-      final diario = DiarioDelCammino();
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
       // UN CAMMINO GIA' COMINCIATO per la scena a meta': dodici Sigilli
       // accesi sulla Costellazione, cosi' la discesa si ferma davvero a

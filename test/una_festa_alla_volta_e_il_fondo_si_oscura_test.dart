@@ -20,6 +20,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'istante_dichiarato.dart';
 
 /// UNA FESTA ALLA VOLTA, E IL FONDO SI OSCURA. Ordine S voce 09.
 ///
@@ -51,7 +52,7 @@ void main() {
     // con lo stesso gesto. Qui si accendono a mano tre traguardi vicini e si
     // chiede alla regia di guardare: e' la stessa strada dell'app.
     final porta = _PortaCheAccredita();
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     final servizi = AppServices.offline('prova della voce S.09', porta);
 
@@ -139,7 +140,7 @@ void main() {
     // nell'Overlay del Navigator, e un RepaintBoundary messo dentro la pagina non
     // la dipingerebbe affatto.
     final chiave = GlobalKey();
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     final mini = Sentieri.miniDi(Sentiero.loto).first;
     final mostraIlTesto = ValueNotifier<bool>(true);

@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'istante_dichiarato.dart';
 
 /// LA FESTA ARRIVA SEMPRE, ordine P voce 34.
 ///
@@ -47,7 +48,7 @@ void main() {
 
   Future<DiarioDelCammino> diarioPronto() async {
     SharedPreferences.setMockInitialValues(const {});
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     return diario;
   }

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'istante_dichiarato.dart';
 
 /// LE TRE GUARDIE DELLA CELEBRAZIONE, ordine O voce 3i.
 ///
@@ -36,7 +37,7 @@ void main() {
 
   testWidgets('la celebrazione grande offre la condivisione', (tester) async {
     SharedPreferences.setMockInitialValues({});
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     final grande = Sentieri.grandiDi(Sentiero.costellazione).first;
     await tester.pumpWidget(attorno(
       CelebrazioneAScermoPieno(
@@ -71,7 +72,7 @@ void main() {
 
   testWidgets('la sovrimpressione non ruba i tocchi di sotto', (tester) async {
     SharedPreferences.setMockInitialValues({});
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     var toccatoSotto = 0;
     final mini = Sentieri.miniDi(Sentiero.loto).first;
 
@@ -145,7 +146,7 @@ void main() {
   testWidgets('ogni Sigillo acceso riapre la sua card e la condivide',
       (tester) async {
     SharedPreferences.setMockInitialValues({});
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     final mini = Sentieri.miniDi(Sentiero.albero).first;
     await tester.pumpWidget(attorno(
       Scaffold(

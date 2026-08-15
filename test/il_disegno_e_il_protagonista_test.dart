@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'istante_dichiarato.dart';
 
 /// IL DISEGNO DEL SENTIERO E' IL PROTAGONISTA. Ordine S voce 01.
 ///
@@ -60,7 +61,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     SharedPreferences.setMockInitialValues({});
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     // Un cammino a meta': senza traguardi accesi il punto raggiunto sarebbe in
     // cima e il tocco non avrebbe dove portare, cioe' la prova non misurerebbe

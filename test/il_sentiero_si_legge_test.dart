@@ -15,6 +15,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'istante_dichiarato.dart';
 
 /// IL SENTIERO SI LEGGE, ordine P voci 37 e 39.
 ///
@@ -108,7 +109,7 @@ void main() {
         ('non raggiunto', 0),
       ]) {
         SharedPreferences.setMockInitialValues(const {});
-        final diario = DiarioDelCammino();
+        final diario = DiarioDelCammino(orologio: orologioDelleProve);
         await diario.carica();
         final mini = Sentieri.miniDi(sentiero);
         // Per l'acceso si guarda il primo; per il prossimo, il primo non
@@ -206,7 +207,7 @@ void main() {
     for (final sentiero in Sentieri.tutti) {
       for (final traguardo in Sentieri.di(sentiero)) {
         SharedPreferences.setMockInitialValues(const {});
-        final diario = DiarioDelCammino();
+        final diario = DiarioDelCammino(orologio: orologioDelleProve);
         await diario.carica();
         // ACCESO: e' lo stato in cui il gradino mostra la frase per intero,
         // ed e' li' che si leggeva "il peso della" e finiva.
