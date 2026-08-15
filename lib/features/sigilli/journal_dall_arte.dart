@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
@@ -281,22 +282,48 @@ class PittoreDelleLuci extends CustomPainter {
     if (quanti == 0) return;
     final f = forza * respiro;
     if (effettiPieni) {
+      // **L'ALONE STA FUORI DALL'ELEMENTO, e non sopra.** Un alone dorato steso
+      // anche sull'orbo lo lava: il lapis blu sotto una velatura calda diventa
+      // grigio, e la saturazione scende proprio dove l'elemento dovrebbe
+      // brillare. Togliendogli l'area della forma, l'alone fa quello che un
+      // alone fa, cioe' illuminare INTORNO, e il colore dell'elemento resta suo.
+      // **Una sottrazione per stato, non una per elemento**: il costo non
+      // cambia.
+      final soloIntorno =
+          Path.combine(PathOperation.difference, alone, tracciato);
       tela.drawPath(
-        alone,
+        soloIntorno,
         Paint()
           ..color = oro.withValues(alpha: 0.30 * f)
-          ..maskFilter = MaskFilter.blur(BlurStyle.normal, ampiezza),
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, ampiezza)
+          // **ANCHE L'ALONE SI SOMMA.** Steso in modo normale lavava di oro
+          // l'elemento sotto, ed era meta' della desaturazione: il lapis blu
+          // sotto una velatura calda diventa grigio.
+          ..blendMode = BlendMode.plus,
       );
     }
-    // **UNA PASSATA SOLA SULLA FORMA ESATTA.** Prima ce n'erano due, e la
-    // seconda in BlendMode.plus: su un tracciato di qualche migliaio di
-    // rettangoli quella modalita' non arrivava mai in fondo. Il bianco che
-    // portava si ottiene schiarendo l'oro, che costa nulla.
+    // **L'ACCENSIONE ILLUMINA, NON COPRE.** Ordine W voce 01.
+    //
+    // Prima qui c'era un riempimento pieno al settantadue per cento: un disco
+    // d'oro piatto steso sopra l'elemento, che cancellava il modellato e il
+    // colore sotto. **Il premio per aver raggiunto un traguardo era veder
+    // spegnere il gioiello**: la sfera di peltro dell'Albero perdeva ombra e
+    // riflesso, e l'orbo di lapis della Costellazione passava da blu profondo a
+    // crema, guadagnando luminanza e PERDENDO saturazione.
+    //
+    // **La luce si somma, non si sovrappone**: in `BlendMode.plus` cio' che sta
+    // sotto resta e si schiarisce, quindi il lapis resta lapis e la pietra resta
+    // pietra. Il muro dell'8 agosto non c'entra: quello era la passata SFUMATA
+    // su un tracciato di migliaia di rettangoli, e la sfumatura qui resta sul
+    // riquadro, che e' un rettangolo per elemento.
+    //
+    // E il bianco e' sparito: schiarire verso il bianco DESATURA, ed era meta'
+    // del difetto. La luce e' oro, e l'oro somma.
     tela.drawPath(
       tracciato,
       Paint()
-        ..color = Color.lerp(oro, Colors.white, 0.25 * f)!
-            .withValues(alpha: 0.72 * f),
+        ..color = Color.fromRGBO(80, 80, 80, 0.85 * f)
+        ..blendMode = BlendMode.colorDodge,
     );
   }
 
@@ -311,22 +338,45 @@ class PittoreDelleLuci extends CustomPainter {
     double dx,
     double dy,
   ) {
+    // **LA LINEA E' LUCE, NON UN FILO.** Ordine W voce 02.
+    //
+    // Prima era un tratto pieno che attraversava il tronco e le foglie
+    // passandoci davanti: sembrava una linea di costruzione rimasta accesa, e
+    // **appiattiva il disegno**. Nel 2.5D la profondita' la fa l'ordine dei
+    // piani, e un filo davanti al tronco toglie all'albero il rilievo, che e'
+    // l'identita' visiva scelta da Mauro.
+    //
+    // Le luci stanno sopra l'arte e non possono passarle dietro, quindi la
+    // linea smette di sembrare un oggetto: **si dissolve verso il centro della
+    // campata.** Il collegamento si legge ai due capi, dove nasce, e non taglia
+    // cio' che sta in mezzo. La sfumatura e' un gradiente per segmento, e i
+    // segmenti accesi sono al massimo una cinquantina: il muro dell'8 agosto
+    // valeva per migliaia di rettangoli e qui non si incontra.
     final pennello = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = math.max(1.2, 3.0 * scala)
+      ..strokeWidth = math.max(1.2, 2.4 * scala)
       ..strokeCap = StrokeCap.round
-      ..color = oroTenue.withValues(alpha: 0.55 * respiro);
+      ..blendMode = BlendMode.plus;
     for (var i = 0; i + 1 < ancoraggi.length; i++) {
       // Solo col VICINO nel cammino e solo dentro lo stesso gruppo: unire tutti
       // con tutti farebbe una ragnatela, non una figura che si compone.
       if (ancoraggi[i + 1].gruppo != ancoraggi[i].gruppo) continue;
       if (!accesi.contains(traguardi[i].id)) continue;
       if (!accesi.contains(traguardi[i + 1].id)) continue;
-      tela.drawLine(
-        _punto(ancoraggi[i], scala, dx, dy),
-        _punto(ancoraggi[i + 1], scala, dx, dy),
-        pennello,
-      );
+      final da = _punto(ancoraggi[i], scala, dx, dy);
+      final a = _punto(ancoraggi[i + 1], scala, dx, dy);
+      // Piena ai capi, spenta a meta': e' il filamento che nasce dai due
+      // elementi accesi e non un tratto che li unisce passando davanti a tutto.
+      pennello.shader = ui.Gradient.linear(da, a, [
+        oroTenue.withValues(alpha: 0.62 * respiro),
+        oroTenue.withValues(alpha: 0.05 * respiro),
+        oroTenue.withValues(alpha: 0.62 * respiro),
+      ], const [
+        0.0,
+        0.5,
+        1.0,
+      ]);
+      tela.drawLine(da, a, pennello);
     }
   }
 
