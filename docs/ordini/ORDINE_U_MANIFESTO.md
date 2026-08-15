@@ -71,7 +71,7 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     Poi ripristinato.
   - **PRIMA quattordici, DOPO zero** prove che pescano dall'orologio senza
     dichiararlo.
-- **U.01** Un gesto, una festa, un pagamento — CHIUSA
+- **U.01** Un gesto, una festa, un pagamento — FERMATA IN ATTESA DI DECISIONE
   - **IL CENSIMENTO E' COMPLETO: i traguardi che compaiono in piu' di un sentiero
     sono TRE**, e ognuno compare in tutti e tre. Carta natale (med_1, cal_1,
     aur_1, posizione 1), Angelo Custode (med_2, cal_2, aur_2, posizione 2),
@@ -168,6 +168,34 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
 
     Identita' in tutto: **12 su 12 caselle possibili.** Pezzi dell'identita'
     osservati dalla prova: **9**. Gesti osservati: **43**.
+  - **LA PROVA AVEVA UN PUNTO CIECO, e l'ha trovato una prova di casa lo stesso
+    giorno.** Costruendo lo stato "da zero", come la voce chiedeva alla lettera,
+    il CIELO restava vuoto: ma `la_festa_arriva_sempre_test.dart`, che dichiara
+    il 14 agosto come istante, e' diventato rosso dicendo che una festa restava
+    in coda. La causa: **una gettata in un giorno di luna nuova accende `cal_1`,
+    la prima gettata, E `cal_6`, la finestra del cielo.** Due feste e due
+    accrediti per un gesto solo, cioe' esattamente cio' che questa voce vieta.
+  - **LA PROVA E' STATA ALLARGATA, non allentata:** adesso guarda ogni gesto anche
+    sotto ogni evento del cielo, uno per volta. **1.290 coppie gesto e cielo
+    osservate**, e ne trova **ventiquattro** che accendono due traguardi.
+  - **NON E' UN CASO RARO E NON SI PUO' LASCIARE:** il cielo non e' un'eccezione,
+    e' un giorno su tanti, e capita proprio alla prima volta di qualcuno. Le
+    ventiquattro coppie sono tutte della stessa forma: **una PRIMA VOLTA dei sei
+    montati oggi** (prima gettata `cal_1`, primo soffio `aur_1`, primo tramonto
+    `cal_2`) che cade nello stesso giorno di una **finestra del cielo** che chiede
+    quello stesso gesto. Undici sulla gettata, nove sul soffio, quattro sul
+    tramonto.
+  - **LA DECISIONE E' DI MAURO, e non la prendo io perche' tocca due materiali
+    suoi.** Le vie sono tre e vanno guardate insieme: **una**, i tre sostitutivi
+    smettono di essere prime volte e diventano seconde o terze volte, cioe'
+    `GestiCompiuti(gesto, 2)`, e allora le loro frasi vanno riscritte perche'
+    dicono "la prima"; **due**, le finestre del cielo che chiedono quei tre gesti
+    pretendono anche che il gesto non sia il primo, e allora cambia il dato di
+    tredici traguardi gia' esistenti; **tre**, si accetta che una prima volta
+    sotto un cielo raro paghi due volte, e allora la pretesa di questa voce
+    diventa "al massimo due" e va scritto perche'. **Non scelgo, e non ammorbidisco
+    la prova nel frattempo: resta rossa e dice il vero.**
+
   - **IL SETTIMO OBIETTIVO, quello di cal_27, resta fuori dal dato come i sei:**
     compiere gettata, runa del tramonto e rito del sogno nello stesso giorno.
     `Traguardo` porta `nome`, `frase`, `percheConta` e `cosaApre`, e cosa fare per
@@ -178,7 +206,7 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
 ## Marcatori
 
 VOCI_TOTALI: 3
-VOCI_CHIUSE: 2
+VOCI_CHIUSE: 1
 VOCI_APERTE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

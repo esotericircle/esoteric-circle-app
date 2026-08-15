@@ -1,4 +1,6 @@
+import 'package:esoteric_circle/core/sigilli/eventi_del_cielo.dart';
 import 'package:esoteric_circle/core/sigilli/gesti_delle_arti.dart';
+import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:esoteric_circle/core/sigilli/pezzi_dell_identita.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -108,6 +110,7 @@ void main() {
     // `PezziDellIdentita`, e lo legge anche la regia: due elenchi dello stesso
     // dato divergono, e nessuno se ne accorge finche' non e' tardi.
     var gestiOsservati = 0;
+    var cieliOsservati = 0;
     final troppi = <String>[];
     for (final sorgente in GestiDelleArti.tutte) {
       final gesto = sorgente.gesto;
@@ -126,12 +129,41 @@ void main() {
         troppi.add('$gesto accende ${accesi.length} traguardi: '
             '${accesi.map((t) => t.id).join(", ")}');
       }
+      // **E LO STESSO GESTO SOTTO UN CIELO, uno per volta.** La prima stesura
+      // guardava solo lo stato nudo, e aveva un punto cieco che una prova di
+      // casa ha trovato il giorno stesso: una gettata in un giorno di luna nuova
+      // accende `cal_1`, la prima gettata, E `cal_6`, la finestra del cielo.
+      // Due feste e due accrediti per un gesto solo, che e' esattamente cio' che
+      // questa voce vieta. **Il cielo non e' un caso raro: e' un giorno su
+      // tanti, e capita alla prima volta di qualcuno.**
+      for (final evento in EventiDelCielo.tutti) {
+        final sottoIlCielo = StatoDelCammino(
+          gestiCompiuti: {gesto: 1},
+          giorniConGesto: {gesto: 1},
+          oggiHaFatto: {gesto},
+          eventiDelCieloDiOggi: {evento},
+          pezziDellIdentita:
+              PezziDellIdentita.eUnPezzo(gesto) ? {gesto} : const {},
+        );
+        cieliOsservati++;
+        final sotto = Sentieri.tuttiITraguardi
+            .where((t) => t.condizione.raggiunto(sottoIlCielo))
+            .toList();
+        if (sotto.length > 1) {
+          troppi.add('$gesto sotto "$evento" accende ${sotto.length} '
+              'traguardi: ${sotto.map((t) => t.id).join(", ")}');
+        }
+      }
     }
     // **QUANTE OSSERVAZIONI, e cade se sono zero.**
     // ignore: avoid_print
-    print('ORDINE U VOCE 01: gesti osservati $gestiOsservati');
+    print('ORDINE U VOCE 01: gesti osservati $gestiOsservati, coppie gesto e '
+        'cielo osservate $cieliOsservati');
     expect(gestiOsservati, greaterThan(0),
         reason: 'la prova non ha osservato nessun gesto: gira a vuoto');
+    expect(cieliOsservati, greaterThan(0),
+        reason: 'la prova non ha guardato nessun cielo: il punto cieco è '
+            'tornato');
     expect(troppi, isEmpty,
         reason: 'questi gesti accendono più di un traguardo alla volta, '
             'quindi partono più feste e più accrediti per un gesto solo: '
