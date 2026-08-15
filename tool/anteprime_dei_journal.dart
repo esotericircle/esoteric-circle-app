@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -97,35 +96,42 @@ void main() {
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
-    final scatola =
-        chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-    final immagine = await scatola.toImage(pixelRatio: 2.0);
-    final png = await immagine.toByteData(format: ui.ImageByteFormat.png);
-    final dove = File('docs/preview/$nome.png');
-    dove.parent.createSync(recursive: true);
-    dove.writeAsBytesSync(png!.buffer.asUint8List());
-    // ignore: avoid_print
-    print('anteprima: ${dove.path}');
+    // **LA CATTURA STA DENTRO runAsync, ed e' la riga che toglieva il blocco.**
+    // `toImage` e `toByteData` li completa il MOTORE sul tempo vero, mentre
+    // dentro `testWidgets` il tempo e' finto: fuori da `runAsync` quella
+    // promessa non viene mai osservata e la prova resta appesa fino al tetto,
+    // **dopo che il file e' gia' stato scritto**.
+    await tester.runAsync(() async {
+      final scatola =
+          chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final immagine = await scatola.toImage(pixelRatio: 2.0);
+      final png = await immagine.toByteData(format: ui.ImageByteFormat.png);
+      final dove = File('docs/preview/$nome.png');
+      dove.parent.createSync(recursive: true);
+      dove.writeAsBytesSync(png!.buffer.asUint8List());
+      // ignore: avoid_print
+      print('anteprima: ${dove.path}');
+    });
   }
 
-  testWidgets('le sei anteprime dei Journal', (tester) async {
-    tester.view.physicalSize = const Size(larghezza * 2, altezza * 2);
-    tester.view.devicePixelRatio = 2.0;
-    addTearDown(tester.view.reset);
-    for (final sentiero in Sentieri.tutti) {
-      final ordinati = Sentieri.di(sentiero).toList()
-        ..sort((a, b) => Sentieri.ordineNelCammino(a)
-            .compareTo(Sentieri.ordineNelCammino(b)));
-      await scatta(tester, sentiero, ordinati.take(2).map((t) => t.id).toSet(),
-          'journal_${sentiero.name}_due');
-      await scatta(tester, sentiero, ordinati.map((t) => t.id).toSet(),
-          'journal_${sentiero.name}_cinquantacinque');
+  // **UN TEST PER IMMAGINE**, come nel corredo: sei prove da una cattura, non
+  // un ciclo dentro una prova sola.
+  for (final sentiero in Sentieri.tutti) {
+    for (final stato in const ['due', 'cinquantacinque']) {
+      testWidgets('journal ${sentiero.name} $stato', (tester) async {
+        tester.view.physicalSize = const Size(larghezza * 2, altezza * 2);
+        tester.view.devicePixelRatio = 2.0;
+        addTearDown(tester.view.reset);
+        final ordinati = Sentieri.di(sentiero).toList()
+          ..sort((a, b) => Sentieri.ordineNelCammino(a)
+              .compareTo(Sentieri.ordineNelCammino(b)));
+        final accesi = stato == 'due'
+            ? ordinati.take(2).map((t) => t.id).toSet()
+            : ordinati.map((t) => t.id).toSet();
+        await scatta(tester, sentiero, accesi, 'journal_${sentiero.name}_$stato');
+      });
     }
-    // ignore: avoid_print
-    print('ORDINE T VOCE 02: anteprime scattate ${Sentieri.tutti.length * 2}');
-    expect(QualityTier.values, isNotEmpty);
-    expect(ArteDelSentiero.disponibile(Sentiero.albero), isTrue);
-  });
+  }
 }
 
 /// Il fondo dipinto da un'immagine gia' aperta, per le anteprime.

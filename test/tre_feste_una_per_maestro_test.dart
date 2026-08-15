@@ -1,4 +1,7 @@
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'dart:io';
+
+import 'package:esoteric_circle/features/rituals/rune_strokes.dart';
 import 'package:esoteric_circle/features/sigilli/direzione_della_festa.dart';
 import 'package:esoteric_circle/features/sigilli/pittore_della_festa.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -115,5 +118,44 @@ void main() {
     expect(PittoreDellaFesta.quotaDelDegrado, lessThan(1.0),
         reason: 'la festa degradata ha le stesse particelle di quella piena: '
             'non degrada affatto');
+  });
+
+  test('la materia di Caligo non passa da un font, mai', () {
+    // **LA PROVA CHE IMPEDISCE IL RITORNO DEL DIFETTO.** Nessuno dei due font
+    // del progetto, Cinzel ed EBGaramond, contiene il blocco runico Unicode: se
+    // un giorno le rune di Caligo tornassero a passare da un `TextPainter`, la
+    // pioggia tornerebbe una pioggia di QUADRATI, che è esattamente ciò che è
+    // successo con le cifre e che ha trovato un'anteprima, non una prova.
+    //
+    // Le rune si tracciano da `kRuneStrokes`, che le porta come spezzate.
+    final pittore =
+        File('lib/features/sigilli/pittore_della_festa.dart').readAsStringSync();
+    final ramo = pittore.substring(pittore.indexOf('void _runa('));
+    final fine = ramo.indexOf('  void ', 10);
+    final soloRuna = fine > 0 ? ramo.substring(0, fine) : ramo;
+    expect(soloRuna.contains('TextPainter'), isFalse,
+        reason: 'le rune di Caligo passano da un TextPainter: nessun font del '
+            'progetto ha il blocco runico, quindi a video sarebbero quadrati');
+    expect(soloRuna.contains('kRuneStrokes'), isTrue,
+        reason: 'le rune non si tracciano più da kRuneStrokes');
+    // E le ventiquattro ci sono tutte: una pioggia che pesca da sei rune si
+    // riconoscerebbe come un motivo che si ripete.
+    // ignore: avoid_print
+    print('ORDINE V VOCE 04: rune disponibili ' '${kRuneStrokes.length}');
+    expect(kRuneStrokes.length, 24,
+        reason: 'le rune dell\'Elder Futhark non sono più ventiquattro');
+  });
+
+  test('nessuna particella può diventare un responso', () {
+    // **IL VINCOLO PIÙ IMPORTANTE DELLA FESTA DI CALIGO.** La runa, la carta e
+    // l'arcano discendono in modo deterministico da persona, giorno e domanda,
+    // mai dal caso. **Una runa sola, grande, al centro sarebbe indistinguibile
+    // da una gettata**, e la persona ci leggerebbe un significato che nessuno le
+    // ha dato: una festa che per sbaglio profetizza è peggio di una festa
+    // brutta.
+    expect(PittoreDellaFesta.quotaMassimaDellaRuna, lessThanOrEqualTo(0.1),
+        reason: 'una particella può arrivare a una quota troppo grande del lato '
+            'corto: a quella misura non è più una particella, è un responso');
+    expect(PittoreDellaFesta.quotaMassimaDellaRuna, greaterThan(0.0));
   });
 }

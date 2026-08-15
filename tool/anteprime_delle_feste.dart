@@ -110,15 +110,28 @@ void main() {
       ),
     ));
     await tester.pump();
-    final scatola =
-        chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-    final immagine = await scatola.toImage(pixelRatio: 3.0);
-    final png = await immagine.toByteData(format: ui.ImageByteFormat.png);
-    final dove = File('docs/preview/festa_${maestro.id}_$quando.png');
-    dove.parent.createSync(recursive: true);
-    dove.writeAsBytesSync(png!.buffer.asUint8List());
-    // ignore: avoid_print
-    print('anteprima: ${dove.path}');
+    // **LA CATTURA STA DENTRO runAsync, ed e' la riga che toglieva il blocco.**
+    // `toImage` e `toByteData` li completa il MOTORE sul tempo vero, mentre
+    // dentro `testWidgets` il tempo e' finto: fuori da `runAsync` quella
+    // promessa non viene mai osservata e la prova resta appesa fino al tetto dei
+    // dieci minuti, **dopo che il file e' gia' stato scritto**. E' per questo
+    // che le immagini uscivano lo stesso e il generatore falliva comunque.
+    //
+    // Il conteggio dice il resto: i due generatori che si fermavano erano gli
+    // unici due con zero `runAsync`, e `test/screenshot_capture_test.dart` ne
+    // ha quarantadue. Non si scrive niente di nuovo: si adotta la forma che nel
+    // repo funziona gia'.
+    await tester.runAsync(() async {
+      final scatola =
+          chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final immagine = await scatola.toImage(pixelRatio: 3.0);
+      final png = await immagine.toByteData(format: ui.ImageByteFormat.png);
+      final dove = File('docs/preview/festa_${maestro.id}_$quando.png');
+      dove.parent.createSync(recursive: true);
+      dove.writeAsBytesSync(png!.buffer.asUint8List());
+      // ignore: avoid_print
+      print('anteprima: ${dove.path}');
+    });
   }
 
   for (final maestro in Maestro.values) {

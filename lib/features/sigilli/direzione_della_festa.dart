@@ -38,9 +38,13 @@ enum MateriaDellaFesta {
   /// Stelle a cinque punte, di grandezze diverse.
   stelle,
 
-  /// Cifre, e sono cifre vere perche' Caligo e' il Maestro dei numeri e delle
-  /// rune: una pioggia di scintille sarebbe la stessa di Medora girata.
-  numeri,
+  /// **RUNE, tracciate a segni e non scritte.** Decisione di Mauro del 15 agosto
+  /// 2026, che cambia una sua indicazione precedente: la materia era `numeri`,
+  /// "una pioggia fitta di numeri di dimensioni diverse". **Una pioggia di cifre
+  /// arabe si legge come pioggia digitale, e i numeri arabi non stanno in
+  /// nessuna tradizione di Caligo.** La direzione non cambia: resta dall'alto
+  /// verso il basso.
+  rune,
 
   /// Polline e petali.
   polline,
@@ -75,11 +79,21 @@ class FesteDeiMaestri {
     ),
     Maestro.caligo: FestaDelMaestro(
       direzione: DirezioneDellaFesta.dallAlto,
-      materia: MateriaDellaFesta.numeri,
-      // **Meno particelle delle altre due, e non e' una svista.** Una cifra e'
-      // un segno complesso e occupa piu' spazio di una stella: novanta cifre
-      // sarebbero una parete di inchiostro invece di una pioggia.
-      quanteParticelle: 60,
+      materia: MateriaDellaFesta.rune,
+      // **QUARANTA, E IL NUMERO E' MISURATO, non ereditato.** Il criterio non e'
+      // "quante ce ne stanno": e' **arrivare alla copertura delle altre due**,
+      // perche' tre feste che pesano in modo diverso si leggerebbero come tre
+      // cure diverse. Misurato sul fotogramma di meta' corsa, che e' il pieno
+      // della festa: 150 particelle davano l'8,1 per cento di schermo coperto,
+      // 70 il 4,3, 55 il 3,6, 45 il 3,2, **40 il 2,8**, che cade fra il 2,5 di
+      // Medora e il 2,9 di Aura.
+      //
+      // **La previsione era sbagliata, e va detto.** Sembrava che una runa a
+      // tratti fosse piu' leggera di una cifra piena e che il numero dovesse
+      // salire dai sessanta di prima: una runa e' fatta di tratti LUNGHI, che
+      // attraversano tutto il riquadro, mentre una cifra sta raccolta al centro
+      // del suo. A parita' di grandezza una runa copre di piu', non di meno.
+      quanteParticelle: 40,
     ),
     Maestro.aura: FestaDelMaestro(
       direzione: DirezioneDellaFesta.dalBasso,

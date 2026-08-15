@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../core/maestro/maestro.dart';
+import '../rituals/rune_strokes.dart';
 import 'direzione_della_festa.dart';
 
 /// IL PITTORE DELLE TRE FESTE. Ordine U voce 02.
@@ -45,6 +46,13 @@ class PittoreDellaFesta extends CustomPainter {
 
   /// **QUANTE PARTICELLE RESTANO QUANDO SI DEGRADA:** un quinto, e non zero.
   static const double quotaDelDegrado = 0.2;
+
+  /// **NESSUNA RUNA PIU' GRANDE DI UN DODICESIMO DEL LATO CORTO.** Non e' una
+  /// misura estetica: e' il confine oltre il quale un segno smette di essere una
+  /// particella e diventa **un responso**. Una runa grande al centro dello
+  /// schermo si legge come una gettata, e la persona ci troverebbe un
+  /// significato che nessuno le ha dato.
+  static const double quotaMassimaDellaRuna = 1 / 12;
 
   @override
   void paint(Canvas tela, Size misura) {
@@ -94,13 +102,20 @@ class PittoreDellaFesta extends CustomPainter {
     final grandezza = (eGrande ? 1.35 : 1.0) * (5 + laterale * 9);
     final colore = (indice.isEven ? oro : oroTenue)
         .withValues(alpha: (0.85 * vigore).clamp(0.0, 1.0));
+    // **IL TETTO SI IMPONE QUI, e non si lascia alla buona volonta' di chi
+    // disegna.** Sotto questa misura un segno e' una particella, sopra e' un
+    // responso: e' l'unico punto in cui il vincolo puo' valere per tutte e tre
+    // le materie insieme.
+    final corto = math.min(larghezza, altezza);
+    final entroIlTetto =
+        math.min(grandezza, corto * quotaMassimaDellaRuna / 2.4);
     switch (_festa.materia) {
       case MateriaDellaFesta.stelle:
-        _stella(tela, dove, grandezza, colore);
-      case MateriaDellaFesta.numeri:
-        _numero(tela, dove, grandezza, colore, indice);
+        _stella(tela, dove, entroIlTetto, colore);
+      case MateriaDellaFesta.rune:
+        _runa(tela, dove, entroIlTetto, colore, indice);
       case MateriaDellaFesta.polline:
-        _polline(tela, dove, grandezza, colore, t);
+        _polline(tela, dove, entroIlTetto, colore, t);
     }
   }
 
@@ -117,31 +132,47 @@ class PittoreDellaFesta extends CustomPainter {
     tela.drawPath(via, Paint()..color = colore);
   }
 
-  /// **CIFRE VERE, e non scintille**: Caligo e' il Maestro dei numeri e delle
-  /// rune, e una pioggia di scintille sarebbe la festa di Medora girata.
-  void _numero(
+  /// **LE RUNE SI DISEGNANO A TRATTI, MAI COME TESTO.**
+  ///
+  /// Si usa `kRuneStrokes`, che porta tutte e ventiquattro le rune dell'Elder
+  /// Futhark come spezzate normalizzate fra zero e uno. **Un `TextPainter` col
+  /// blocco runico rifarebbe esattamente il difetto appena chiuso**: nessuno dei
+  /// due font del progetto, Cinzel ed EBGaramond, contiene quei glifi, e la
+  /// pioggia tornerebbe una pioggia di quadrati. E' successo con le cifre e
+  /// l'ha trovato un'anteprima, non una prova.
+  ///
+  /// **LA PIOGGIA NON DEVE MAI POTERSI LEGGERE COME UNA GETTATA, ed e' il
+  /// vincolo piu' importante di questo metodo.** Vale la regola di casa sul
+  /// contenuto oracolare: la runa, la carta e l'arcano discendono in modo
+  /// deterministico da persona, giorno e domanda, **mai dal caso**. Una runa
+  /// sola, grande, al centro sarebbe indistinguibile da un responso, e la
+  /// persona ci leggerebbe un significato che nessuno le ha dato: una festa che
+  /// per sbaglio profetizza e' peggio di una festa brutta. Quindi molte rune
+  /// insieme, di misure diverse, e **nessuna piu' grande di
+  /// [quotaMassimaDellaRuna] del lato corto dello schermo**.
+  void _runa(
       Canvas tela, Offset centro, double misura, Color colore, int indice) {
-    final testo = TextPainter(
-      text: TextSpan(
-        text: '${indice % 10}',
-        style: TextStyle(
-          color: colore,
-          // **IL FONT SI DICHIARA, e non e' un vezzo: senza, in `flutter test`
-          // il predefinito disegna un RETTANGOLO al posto di ogni cifra**, e
-          // l'anteprima mostra una pioggia di quadrati invece della pioggia di
-          // numeri. E' lo stesso difetto delle immagini di verifica degli
-          // ancoraggi, ordine T voce 01, ed e' stato di nuovo un'anteprima a
-          // trovarlo. Cinzel e' il font dei titoli del Cerchio: le cifre di
-          // Caligo cadono nella scrittura di casa, non in quella di sistema.
-          fontFamily: 'Cinzel',
-          fontSize: misura * 2.2,
-          fontWeight: FontWeight.w700,
-          height: 1,
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    testo.paint(tela, centro - Offset(testo.width / 2, testo.height / 2));
+    final nomi = kRuneStrokes.keys.toList();
+    final spezzate = kRuneStrokes[nomi[indice % nomi.length]]!;
+    final lato = misura * 2.4;
+    final pennello = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = (lato * 0.14).clamp(1.0, 6.0)
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..color = colore;
+    for (final spezzata in spezzate) {
+      if (spezzata.isEmpty) continue;
+      final via = Path();
+      for (var k = 0; k < spezzata.length; k++) {
+        final punto = Offset(
+          centro.dx + (spezzata[k].dx - 0.5) * lato,
+          centro.dy + (spezzata[k].dy - 0.5) * lato,
+        );
+        k == 0 ? via.moveTo(punto.dx, punto.dy) : via.lineTo(punto.dx, punto.dy);
+      }
+      tela.drawPath(via, pennello);
+    }
   }
 
   void _polline(
