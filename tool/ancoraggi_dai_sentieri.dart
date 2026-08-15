@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:esoteric_circle/core/sigilli/forma_dell_elemento.dart';
 import 'package:esoteric_circle/core/sigilli/lettura_degli_ancoraggi.dart';
 import 'package:esoteric_circle/core/sigilli/regole_delle_tre_arti.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
@@ -42,6 +43,7 @@ void main() {
             .then((b) => ByteData.view(b.buffer)));
       await font.load();
       final righe = <String>[];
+      final formeDart = <String>[];
       final saltati = <String>[];
       for (final sentiero in Sentieri.tutti) {
         final regola = RegoleDelleTreArti.per(sentiero);
@@ -81,9 +83,36 @@ void main() {
             '${sorgenteImmagine.width}x${sorgenteImmagine.height}, '
             'sorgente ${sorgente.name}');
         righe.add(_dartDi(sentiero, ancoraggi));
-        await _immagineDiVerifica(sentiero, arte, ancoraggi);
+
+        // **LE CINQUANTACINQUE FORME, calcolate qui e non a ogni fotogramma.**
+        final crudoArte = (await arte.toByteData(
+                format: ui.ImageByteFormat.rawRgba))!
+            .buffer
+            .asUint8List();
+        final materia = RegoleDelleTreArti.formaDi(sentiero, arte.width);
+        final forme = <FormaDellElemento>[];
+        for (final a in ancoraggi) {
+          forme.add(CrescitaDellaForma.cresci(
+            crudoArte,
+            arte.width,
+            arte.height,
+            (a.x * arte.width).round(),
+            (a.y * arte.height).round(),
+            materia,
+          ));
+        }
+        final ripieghi = forme.where((f) => f.eRipiego).length;
+        final aree = forme.where((f) => !f.eRipiego).map((f) => f.area).toList()
+          ..sort();
+        // ignore: avoid_print
+        print('  forme ${forme.length - ripieghi}, ripieghi $ripieghi'
+            '${aree.isEmpty ? "" : ", aree min ${aree.first} mediana "
+                "${aree[aree.length ~/ 2]} max ${aree.last}"}');
+        formeDart.add(_formeDart(sentiero, forme));
+        await _immagineDiVerifica(sentiero, arte, ancoraggi, forme);
       }
       _scriviIlDato(righe, saltati);
+      _scriviLeForme(formeDart);
     });
   });
 }
@@ -159,6 +188,7 @@ Future<void> _immagineDiVerifica(
   Sentiero sentiero,
   ui.Image arte,
   List<AncoraggioDelSentiero> ancoraggi,
+  List<FormaDellElemento> forme,
 ) async {
   final registratore = ui.PictureRecorder();
   final tela = Canvas(registratore);
@@ -180,6 +210,20 @@ Future<void> _immagineDiVerifica(
     final centro = Offset(a.x * w, a.y * h);
     final raggio = a.eGrande ? 46.0 : 30.0;
     final colore = colori[a.gruppo % colori.length];
+    // **LA FORMA TROVATA, velata sotto il cerchio.** Serve a Mauro per vedere
+    // se la crescita ha preso il petalo giusto o se ha ripiegato sul tondo.
+    if (i < forme.length) {
+      final f = forme[i];
+      final pennello = Paint()
+        ..color = (f.eRipiego ? const Color(0xFFFFFFFF) : colore)
+            .withValues(alpha: f.eRipiego ? 0.20 : 0.42);
+      for (var k = 0; k + 2 < f.strisce.length; k += 3) {
+        tela.drawRect(
+            Rect.fromLTWH(f.strisce[k + 1].toDouble(), f.strisce[k].toDouble(),
+                (f.strisce[k + 2] - f.strisce[k + 1] + 1).toDouble(), 1),
+            pennello);
+      }
+    }
     tela.drawCircle(
         centro,
         raggio,
@@ -215,4 +259,51 @@ Future<void> _immagineDiVerifica(
   dove.writeAsBytesSync(png!.buffer.asUint8List());
   // ignore: avoid_print
   print('  immagine di verifica: ${dove.path}');
+}
+
+String _formeDart(Sentiero sentiero, List<FormaDellElemento> forme) {
+  final b = StringBuffer();
+  b.writeln('    Sentiero.${sentiero.name}: [');
+  for (final f in forme) {
+    b.writeln('      FormaDellElemento(eRipiego: ${f.eRipiego}, '
+        'area: ${f.area}, strisce: [${f.strisce.join(",")}]),');
+  }
+  b.writeln('    ],');
+  return b.toString();
+}
+
+void _scriviLeForme(List<String> righe) {
+  final b = StringBuffer()
+    ..writeln('library;')
+    ..writeln()
+    ..writeln("import 'forma_dell_elemento.dart';")
+    ..writeln("import 'sentieri.dart';")
+    ..writeln()
+    ..writeln('/// LE FORME DEI CINQUANTACINQUE ELEMENTI. Ordine T voce 02.')
+    ..writeln('///')
+    ..writeln('/// **QUESTO FILE NON SI SCRIVE A MANO.** Lo produce')
+    ..writeln('/// `tool/ancoraggi_dai_sentieri.dart` crescendo ogni forma dal')
+    ..writeln('/// suo seme sulla MATERIA dell\'elemento, e una prova rifa\' la')
+    ..writeln('/// crescita a ogni giro e confronta.')
+    ..writeln('///')
+    ..writeln('/// **Le strisce sono in pixel dell\'arte**, a terne: riga,')
+    ..writeln('/// primo x, ultimo x. Chi disegna le riscala alla tela vera.')
+    ..writeln('///')
+    ..writeln('/// `eRipiego` vero vuol dire che la crescita non si è chiusa e')
+    ..writeln('/// al suo posto c\'è il bagliore tondo attorno al seme. **Non')
+    ..writeln('/// si inventa una forma: si dichiara.**')
+    ..writeln('class FormeDeiSentieri {')
+    ..writeln('  const FormeDeiSentieri._();')
+    ..writeln()
+    ..writeln('  static const Map<Sentiero, List<FormaDellElemento>> tutte = {')
+    ..write(righe.join())
+    ..writeln('  };')
+    ..writeln()
+    ..writeln('  static List<FormaDellElemento>? di(Sentiero sentiero) =>')
+    ..writeln('      tutte[sentiero];')
+    ..writeln('}');
+  File('lib/core/sigilli/forme_dei_sentieri.dart')
+      .writeAsStringSync(b.toString());
+  // ignore: avoid_print
+  print('scritto lib/core/sigilli/forme_dei_sentieri.dart');
 }

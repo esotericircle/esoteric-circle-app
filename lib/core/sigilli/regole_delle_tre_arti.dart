@@ -1,5 +1,6 @@
 library;
 
+import 'forma_dell_elemento.dart';
 import 'lettura_degli_ancoraggi.dart';
 import 'sentieri.dart';
 
@@ -103,6 +104,50 @@ class RegoleDelleTreArti {
         Sentiero.costellazione => SorgenteDegliAncoraggi.pallini,
         Sentiero.loto => SorgenteDegliAncoraggi.pallini,
       };
+
+  /// **COME CRESCE UNA FORMA SU CIASCUNA ARTE.** Ordine T voce 02.
+  ///
+  /// **Il muro e' sempre l'oro, riconosciuto dalla TINTA**, e questa parte e'
+  /// uguale per tutte e tre. Cio' che cambia e' se all'oro serve un aiuto, e i
+  /// numeri vengono da una misura fatta prima di scriverli.
+  ///
+  /// - **Albero: solo l'oro, con una chiusura di 3.** La sfera e' cinta da un
+  ///   anello d'oro che chiude da solo; la chiusura scavalca le sottili nervature
+  ///   dorate che attraversano la pietra. Cosi' le forme sono 55 su 55, mediana
+  ///   1.686 pixel. Senza chiusura sarebbero 54.
+  /// - **Costellazione: solo l'oro, nessuna chiusura.** L'orbo di lapis sta
+  ///   dentro un castone d'oro chiuso: 55 forme su 55, mediana 1.788 pixel.
+  /// - **Loto: l'oro NON basta, e serve anche la materia, con tolleranza 110.**
+  ///   I petali si toccano e dove il contorno inciso si assottiglia la crescita
+  ///   passa nel petalo accanto e poi nelle foglie: col solo oro escono 4 forme
+  ///   su 55, con l'oro piu' la materia diventano 22, mediana 4.080 pixel, che
+  ///   e' l'ordine di grandezza di un petalo.
+  ///
+  /// **I trentatre ripieghi del Loto non si nascondono.** La causa e' misurata e
+  /// non e' nel codice: i semi del file dei pallini non stanno al centro dei
+  /// petali, alcuni cadono sulla filigrana d'oro fra un petalo e l'altro. Si
+  /// corregge nel file dei pallini.
+  ///
+  /// Il raggio massimo e' il **dodici per cento della larghezza dell'arte**, e
+  /// non viene dalle misure: viene da cosa e' un elemento. Un Journal ne porta
+  /// cinquantacinque, quindi nessuno puo' allontanarsi dal proprio seme piu' di
+  /// una frazione della figura; oltre, non si sta illuminando un elemento ma il
+  /// disegno.
+  static RegolaDellaForma formaDi(Sentiero sentiero, int larghezzaArte) =>
+      RegolaDellaForma(
+        tolleranza: switch (sentiero) {
+          Sentiero.loto => 110,
+          Sentiero.costellazione => 0,
+          Sentiero.albero => 0,
+        },
+        chiusura: switch (sentiero) {
+          Sentiero.loto => 0,
+          Sentiero.costellazione => 0,
+          Sentiero.albero => 3,
+        },
+        raggioMassimo: (larghezzaArte * 0.12).round(),
+        areaMinima: CrescitaDellaForma.areaDelRipiego,
+      );
 
   /// Il file da cui si leggono gli ancoraggi: l'arte stessa oppure i pallini.
   static String daDoveSiLegge(Sentiero sentiero) =>
