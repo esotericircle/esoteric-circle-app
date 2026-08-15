@@ -159,11 +159,46 @@ lo chiede.
     risoluzione coi semi disegnati sopra: alcuni cadono sulla filigrana d'oro fra
     un petalo e l'altro, non dentro la materia verde. E' la ragione dei diciannove
     ripieghi, e si corregge nel file dei pallini, non nel codice.
-  - **NON FATTO:** la forma accesa disegnata davvero, il fondo come strato, il
-    montaggio dell'immagine con la tela che prende la proporzione della sua arte,
-    la riga del conteggio dentro l'immagine, le sei anteprime, e le tre serie di
-    misure (spazio, scontorno, compimento). La macchina della forma e' misurata ma
-    non scritta in Dart ne' disegnata.
+  - **FATTO: LA MACCHINA DELLA FORMA E' SCRITTA, E IL MURO E' L'ORO RICONOSCIUTO
+    DALLA TINTA.** La prima regola guardava quanto un pixel fosse chiaro e
+    sbagliava, perche' il contorno inciso di un petalo e' oro di mezzo tono,
+    scuro quanto lo smalto che racchiude. Dalla tinta invece e' netto: nell'oro
+    il rosso sta sopra il verde e il verde sopra il blu, con stacco fra il primo
+    e l'ultimo. **Costellazione 55 forme su 55, mediana 1.788 pixel; Albero 55 su
+    55, mediana 1.700, con una chiusura di 3 che scavalca le nervature sottili
+    senza scavalcare l'anello; Loto 22 su 55, mediana 4.297, che e' l'ordine di
+    grandezza di un petalo.** Sul Loto l'oro da solo non basta perche' i petali si
+    toccano, e serve anche la materia con tolleranza 110. Le forme si conservano
+    a strisce orizzontali e non come contorno: un contorno va inseguito e ogni
+    errore di percorso chiude male una forma, una striscia e' un fatto.
+  - **I TRENTATRE RIPIEGHI DEL LOTO non si nascondono e la causa e' misurata:** i
+    semi del file dei pallini non stanno al centro dei petali, alcuni cadono
+    sulla filigrana d'oro fra un petalo e l'altro. Si corregge nel file, non nel
+    codice.
+  - **FATTO: i due strati esistono e il fondo non sa niente del cammino.**
+    `FondoDelSentiero` e' un'immagine e basta, non riceve i traguardi accesi;
+    `LuciDelSentiero` porta tutto cio' che dipende dal cammino, comprese le linee
+    che si saldano fra due punti accesi dello stesso gruppo e la differenza fra
+    grande e mini, dichiarata con due numeri (alone 9 contro 6, luce 0,95 contro
+    0,78). La scelta e' per sentiero e il procedurale resta intatto.
+  - **NON FATTO, E L'INTERRUTTORE E' SPENTO CON LA RAGIONE SCRITTA NEL CODICE.**
+    A due traguardi accesi il Journal dall'arte si disegna, e l'anteprima l'ho
+    vista: fondo, orbi accesi e linea saldata. **A cinquantacinque accesi il
+    disegno non arriva in fondo**, e la causa e' misurata: la forma sta a strisce,
+    una per riga, e accenderle tutte chiede al pittore un tracciato di qualche
+    migliaio di rettangoli disgiunti. Tre alleggerimenti provati, ognuno ha tolto
+    una causa e il tempo non e' sceso: l'alone spostato dalla forma al riquadro,
+    via `computeMetrics`, via la passata in `BlendMode.plus`. **Non e' la
+    sfumatura, e' il tracciato.** Finche' non si disegna da una maschera gia'
+    rasterizzata, `ArteDelSentiero.acceso` resta falso e i tre Journal restano
+    quelli procedurali: nessuno perde niente e nessuno rischia una schermata che
+    si pianta col cammino finito.
+  - **NON FATTO per la stessa ragione:** le sei anteprime nei due stati, il
+    montaggio nella schermata vera con la tela alla proporzione della sua arte e
+    la quota dal 58 al 73 per cento, la riga del conteggio spostata dentro
+    l'immagine, e le tre serie di misure (spazio, scontorno sull'arte nuova,
+    compimento). **Non si misura lo spazio di un disegno che non e' acceso**, e
+    non si guardano anteprime che non si riescono a produrre.
 
 ## Marcatori
 

@@ -2,7 +2,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../core/sigilli/ancoraggi_dei_sentieri.dart';
 import '../../core/sigilli/sentieri.dart';
+import 'journal_dall_arte.dart';
 import '../../design_system/theme/maestro_scope.dart';
 
 /// IL DISEGNO DEI TRE SENTIERI, ordine P voce 33.
@@ -526,6 +528,12 @@ class DisegnoDelSentiero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    // **LA SCELTA E' PER SENTIERO E NON GLOBALE.** Se quel sentiero ha la sua
+    // arte con gli ancoraggi e le forme, il Journal si disegna da li'; se non
+    // ce l'ha, resta il procedurale di prima, intatto.
+    if (ArteDelSentiero.disponibile(sentiero)) {
+      return _dallArte(context);
+    }
     final punti = GeometriaDelSentiero.punti(sentiero);
     return LayoutBuilder(
       builder: (context, vincoli) {
@@ -585,6 +593,64 @@ class DisegnoDelSentiero extends StatelessWidget {
         );
       },
     );
+  }
+
+  /// IL JOURNAL DALL'ARTE: due strati, il fondo che non sa niente del cammino e
+  /// le luci sopra.
+  Widget _dallArte(BuildContext context) {
+    final mq = MediaQuery.maybeOf(context);
+    final pieni = !(mq?.disableAnimations ?? false);
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTapUp: suTocco == null ? null : (d) => _toccoSullArte(context, d),
+      child: Stack(
+        key: Key('journal_arte_${sentiero.name}'),
+        fit: StackFit.expand,
+        children: [
+          FondoDelSentiero(sentiero: sentiero),
+          LuciDelSentiero(
+            sentiero: sentiero,
+            accesi: accesi,
+            evidenziato: evidenziato,
+            effettiPieni: pieni,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _toccoSullArte(BuildContext context, TapUpDetails dettaglio) {
+    final ancoraggi = AncoraggiDeiSentieri.di(sentiero);
+    if (ancoraggi == null) return;
+    final traguardi = Sentieri.di(sentiero).toList()
+      ..sort((a, b) =>
+          Sentieri.ordineNelCammino(a).compareTo(Sentieri.ordineNelCammino(b)));
+    final scatola = context.findRenderObject();
+    if (scatola is! RenderBox) return;
+    final misura = scatola.size;
+    final wArte = ArteDelSentiero.larghezzaArte(sentiero).toDouble();
+    final hArte = ArteDelSentiero.altezzaArte(sentiero).toDouble();
+    final scala = math.min(misura.width / wArte, misura.height / hArte);
+    final dx = (misura.width - wArte * scala) / 2;
+    final dy = (misura.height - hArte * scala) / 2;
+    final tocco = dettaglio.localPosition;
+    var quale = -1;
+    var minima = double.infinity;
+    for (var i = 0; i < ancoraggi.length; i++) {
+      final centro = Offset(
+          dx + ancoraggi[i].x * wArte * scala, dy + ancoraggi[i].y * hArte * scala);
+      final d = (centro - tocco).distance;
+      if (d < minima) {
+        minima = d;
+        quale = i;
+      }
+    }
+    // La zona toccabile e' piu' larga del disegno: un bersaglio piu' piccolo di
+    // un polpastrello non e' un bersaglio.
+    final corto = math.min(misura.width, misura.height);
+    if (quale >= 0 && minima <= corto * 0.055 && quale < traguardi.length) {
+      suTocco!(traguardi[quale]);
+    }
   }
 }
 
