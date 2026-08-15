@@ -332,16 +332,39 @@ class CrescitaDellaForma {
     return f;
   }
 
+  /// **FUORI DALLA FINESTRA VALE PIENO, NON VUOTO.** Ordine Z voce 01.
+  ///
+  /// **Il difetto che questa riga aveva, e non era del Loto ma del meccanismo.**
+  /// Prima un vicino fuori dai bordi contava come assenza, quindi ogni pixel
+  /// sull'anello di bordo veniva eroso SEMPRE. Insieme alla gonfiatura che lo
+  /// precede, questo voleva dire che con una chiusura qualunque la maschera del
+  /// libero **non toccava piu' il bordo della finestra**, e il controllo che
+  /// dichiara una colata, cioe' "la regione arriva fino al bordo", non poteva
+  /// piu' accendersi.
+  ///
+  /// **Un parametro che migliorava il numero da guardare togliendo la corrente
+  /// al termometro.** Sul Loto il conteggio saliva da 22 forme a 50 non perche'
+  /// le forme si chiudessero, ma perche' ventotto colate smettevano di essere
+  /// respinte: misurato, a chiusura 0 quella guardia sparava 28 volte, a
+  /// chiusura 1 zero volte.
+  ///
+  /// **Fuori dalla finestra non c'e' il vuoto, c'e' il resto dell'arte**, che la
+  /// finestra ha tagliato via per non far costare troppo la crescita. Contarlo
+  /// come materia e' la lettura giusta: cosi' l'erosione non si mangia l'anello
+  /// di bordo, la chiusura continua a sigillare le fessure interne che e' cio'
+  /// per cui esiste, e una maschera che tocca il bordo davvero continua a
+  /// toccarlo. Una maschera piena resta piena, ed e' la riga che lo sorveglia in
+  /// `test/la_chiusura_non_si_mangia_il_bordo_test.dart`.
   static Uint8List _sgonfia(Uint8List m, int w, int h) {
     final f = Uint8List(w * h);
     for (var y = 0; y < h; y++) {
       for (var x = 0; x < w; x++) {
         final i = y * w + x;
         if (m[i] == 0) continue;
-        final su = y > 0 ? m[i - w] : 0;
-        final giu = y + 1 < h ? m[i + w] : 0;
-        final sin = x > 0 ? m[i - 1] : 0;
-        final des = x + 1 < w ? m[i + 1] : 0;
+        final su = y > 0 ? m[i - w] : 1;
+        final giu = y + 1 < h ? m[i + w] : 1;
+        final sin = x > 0 ? m[i - 1] : 1;
+        final des = x + 1 < w ? m[i + 1] : 1;
         if (su == 1 && giu == 1 && sin == 1 && des == 1) f[i] = 1;
       }
     }
