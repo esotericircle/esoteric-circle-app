@@ -45,30 +45,43 @@ void main() {
       final saltati = <String>[];
       for (final sentiero in Sentieri.tutti) {
         final regola = RegoleDelleTreArti.per(sentiero);
-        if (regola == null) {
+        final sorgente = RegoleDelleTreArti.sorgenteDi(sentiero);
+        final daLeggere = File(RegoleDelleTreArti.daDoveSiLegge(sentiero));
+        final arteFile = File(RegoleDelleTreArti.arteDi(sentiero));
+        if (!daLeggere.existsSync() || !arteFile.existsSync()) {
           saltati.add(sentiero.name);
           // ignore: avoid_print
-          print('${sentiero.name}: nessuna regola, saltato');
+          print('${sentiero.name}: manca ${daLeggere.path} oppure '
+              '${arteFile.path}, saltato');
           continue;
         }
-        final file = File(RegoleDelleTreArti.arteDi(sentiero));
-        if (!file.existsSync()) {
-          // ignore: avoid_print
-          print('${sentiero.name}: arte assente in ${file.path}');
-          continue;
+        final arte = await _apri(await arteFile.readAsBytes());
+        final sorgenteImmagine = sorgente == SorgenteDegliAncoraggi.arte
+            ? arte
+            : await _apri(await daLeggere.readAsBytes());
+        // **LE DUE IMMAGINI DEVONO AVERE LA STESSA MISURA**, altrimenti i
+        // pallini non dicono dove stanno gli elementi dell'arte ma dove
+        // starebbero su un'altra tela.
+        if (sorgenteImmagine.width != arte.width ||
+            sorgenteImmagine.height != arte.height) {
+          throw StateError('${sentiero.name}: i pallini sono '
+              '${sorgenteImmagine.width}x${sorgenteImmagine.height} mentre '
+              'l\'arte misura ${arte.width}x${arte.height}. Misure diverse: i '
+              'pallini non valgono');
         }
-        final immagine = await _apri(await file.readAsBytes());
-        final crudo = (await immagine.toByteData(
+        final crudo = (await sorgenteImmagine.toByteData(
                 format: ui.ImageByteFormat.rawRgba))!
             .buffer
             .asUint8List();
         final ancoraggi = LetturaDegliAncoraggi.leggi(
-            crudo, immagine.width, immagine.height, regola);
+            crudo, sorgenteImmagine.width, sorgenteImmagine.height, regola,
+            raggruppaPerColore: sorgente == SorgenteDegliAncoraggi.pallini);
         // ignore: avoid_print
         print('${sentiero.name}: ${ancoraggi.length} ancoraggi da '
-            '${immagine.width}x${immagine.height}');
+            '${sorgenteImmagine.width}x${sorgenteImmagine.height}, '
+            'sorgente ${sorgente.name}');
         righe.add(_dartDi(sentiero, ancoraggi));
-        await _immagineDiVerifica(sentiero, immagine, ancoraggi);
+        await _immagineDiVerifica(sentiero, arte, ancoraggi);
       }
       _scriviIlDato(righe, saltati);
     });

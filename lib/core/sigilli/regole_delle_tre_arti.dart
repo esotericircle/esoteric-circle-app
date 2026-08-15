@@ -76,15 +76,48 @@ class RegoleDelleTreArti {
   );
 
   /// LA REGOLA IN USO per un sentiero, oggi.
-  ///
-  /// **Costellazione e Loto non hanno ancora una regola automatica**, e la
-  /// ragione e' misurata, non è una resa: vedi
-  /// `docs/ordini/ORDINE_T_MANIFESTO.md`. Appena arriva il livello dei pallini,
-  /// qui si scrive `pallini` e non cambia altro.
-  static RegolaDiRiconoscimento? per(Sentiero sentiero) =>
-      switch (sentiero) {
-        Sentiero.albero => albero,
-        Sentiero.costellazione => null,
-        Sentiero.loto => null,
+  static RegolaDiRiconoscimento per(Sentiero sentiero) =>
+      switch (sorgenteDi(sentiero)) {
+        SorgenteDegliAncoraggi.arte => albero,
+        SorgenteDegliAncoraggi.pallini => pallini,
       };
+
+  /// **DA DOVE VENGONO GLI ANCORAGGI DI CIASCUN SENTIERO, e il perche' di
+  /// ognuno.** Ordine T voce 02.
+  ///
+  /// **E' un dato, non un "se" sparso nel codice**: se un giorno l'Albero avesse
+  /// il suo file di pallini, si cambia questa riga e nient'altro.
+  ///
+  /// - **Albero, dall'arte**: le sfere sono grigie in mezzo a un disegno caldo,
+  ///   e la lettura automatica trova le cinquantacinque macchie con un baratro
+  ///   fra grandi e piccoli. Chiusa nella voce T.01 e non si tocca.
+  /// - **Costellazione e Loto, dai pallini**: sulla costellazione gli orbi di
+  ///   lapis sono spezzati dai riflessi dorati e le mezzelune portano lo stesso
+  ///   smalto blu; sul loto i petali si toccano fra loro e le foglie decorative
+  ///   hanno lo stesso verde e la stessa forma. Cinque strade automatiche
+  ///   misurate, nessuna arriva: il file dei pallini non e' un ripiego, e' il
+  ///   dato che l'arte non porta.
+  static SorgenteDegliAncoraggi sorgenteDi(Sentiero sentiero) =>
+      switch (sentiero) {
+        Sentiero.albero => SorgenteDegliAncoraggi.arte,
+        Sentiero.costellazione => SorgenteDegliAncoraggi.pallini,
+        Sentiero.loto => SorgenteDegliAncoraggi.pallini,
+      };
+
+  /// Il file da cui si leggono gli ancoraggi: l'arte stessa oppure i pallini.
+  static String daDoveSiLegge(Sentiero sentiero) =>
+      switch (sorgenteDi(sentiero)) {
+        SorgenteDegliAncoraggi.arte => arteDi(sentiero),
+        SorgenteDegliAncoraggi.pallini => palliniDi(sentiero),
+      };
+}
+
+/// Le due strade per sapere dove stanno i cinquantacinque elementi.
+enum SorgenteDegliAncoraggi {
+  /// Si riconoscono dentro l'arte stessa.
+  arte,
+
+  /// Si leggono da un secondo PNG con cinquantacinque dischi pieni, cinque
+  /// colori per i cinque gruppi, il grande di diametro doppio.
+  pallini,
 }

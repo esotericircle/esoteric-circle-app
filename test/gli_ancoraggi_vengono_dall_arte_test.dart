@@ -63,43 +63,56 @@ void main() {
           .buffer
           .asUint8List();
 
-  testWidgets('l\'arte dell\'Albero da\' ancora i cinquantacinque punti scritti',
+  testWidgets('OGNI sentiero da\' ancora i cinquantacinque punti scritti',
       (tester) async {
     await tester.runAsync(() async {
-      final regola = RegoleDelleTreArti.per(Sentiero.albero)!;
-      final file = File(RegoleDelleTreArti.arteDi(Sentiero.albero));
-      expect(file.existsSync(), isTrue,
-          reason: 'l\'arte dell\'Albero non c\'e\' piu\': ${file.path}');
-      final codice = await ui.instantiateImageCodec(await file.readAsBytes());
-      final arte = (await codice.getNextFrame()).image;
-      final adesso = LetturaDegliAncoraggi.leggi(
-          await crudo(arte), arte.width, arte.height, regola);
-      final scritti = AncoraggiDeiSentieri.di(Sentiero.albero);
-      expect(scritti, isNotNull,
-          reason: 'il dato degli ancoraggi dell\'Albero non e\' stato scritto: '
-              'lancia flutter test tool/ancoraggi_dai_sentieri.dart');
-      expect(adesso.length, scritti!.length);
-      // **QUANTE OSSERVAZIONI, e cade se sono zero.**
+      // **SI ENUMERANO TUTTI E TRE, ciascuno dalla SUA sorgente dichiarata**:
+      // l'Albero dall'arte, Costellazione e Loto dal file dei pallini. Prima
+      // questa prova guardava il solo Albero, ed era vero allora: adesso
+      // guardarne uno solo lascerebbe due sentieri senza guardia.
+      var sentieriOsservati = 0;
       var confrontati = 0;
       final diversi = <String>[];
-      for (var i = 0; i < adesso.length; i++) {
-        confrontati++;
-        final a = adesso[i], b = scritti[i];
-        if ((a.x - b.x).abs() > 0.0001 ||
-            (a.y - b.y).abs() > 0.0001 ||
-            a.gruppo != b.gruppo ||
-            a.eGrande != b.eGrande) {
-          diversi.add('numero ${i + 1}: adesso $a, scritto $b');
+      for (final sentiero in Sentieri.tutti) {
+        final scritti = AncoraggiDeiSentieri.di(sentiero);
+        if (scritti == null) continue;
+        sentieriOsservati++;
+        final regola = RegoleDelleTreArti.per(sentiero);
+        final sorgente = RegoleDelleTreArti.sorgenteDi(sentiero);
+        final file = File(RegoleDelleTreArti.daDoveSiLegge(sentiero));
+        expect(file.existsSync(), isTrue,
+            reason: '${sentiero.name}: la sorgente degli ancoraggi non esiste '
+                'più: ${file.path}');
+        final codice = await ui.instantiateImageCodec(await file.readAsBytes());
+        final immagine = (await codice.getNextFrame()).image;
+        final adesso = LetturaDegliAncoraggi.leggi(
+            await crudo(immagine), immagine.width, immagine.height, regola,
+            raggruppaPerColore: sorgente == SorgenteDegliAncoraggi.pallini);
+        expect(adesso.length, scritti.length);
+        for (var i = 0; i < adesso.length; i++) {
+          confrontati++;
+          final a = adesso[i], b = scritti[i];
+          if ((a.x - b.x).abs() > 0.0001 ||
+              (a.y - b.y).abs() > 0.0001 ||
+              a.gruppo != b.gruppo ||
+              a.eGrande != b.eGrande) {
+            diversi.add('${sentiero.name} numero ${i + 1}: adesso $a, '
+                'scritto $b');
+          }
         }
       }
+      // **QUANTE OSSERVAZIONI, e cade se sono zero.**
       // ignore: avoid_print
-      print('ORDINE T VOCE 01: ancoraggi confrontati $confrontati');
+      print('ORDINE T VOCE 01: sentieri riletti $sentieriOsservati, ancoraggi '
+          'confrontati $confrontati');
+      expect(sentieriOsservati, greaterThan(0),
+          reason: 'nessun sentiero riletto: la prova gira a vuoto');
       expect(confrontati, greaterThan(0),
-          reason: 'la prova non ha confrontato nessun ancoraggio: gira a vuoto');
+          reason: 'la prova non ha confrontato nessun ancoraggio');
       expect(diversi, isEmpty,
-          reason: 'l\'arte dell\'Albero non produce piu\' i punti scritti nel '
-              'dato. Rilancia flutter test tool/ancoraggi_dai_sentieri.dart e '
-              'GUARDA l\'immagine di verifica prima di committare. '
+          reason: 'la sorgente non produce più i punti scritti nel dato. '
+              'Rilancia flutter test tool/ancoraggi_dai_sentieri.dart e GUARDA '
+              'le immagini di verifica prima di committare. '
               '${diversi.take(4).join(" | ")}');
     });
   });

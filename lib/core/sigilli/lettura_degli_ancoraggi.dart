@@ -243,8 +243,9 @@ class LetturaDegliAncoraggi {
     Uint8List rgba,
     int larghezza,
     int altezza,
-    RegolaDiRiconoscimento regola,
-  ) {
+    RegolaDiRiconoscimento regola, {
+    bool raggruppaPerColore = false,
+  }) {
     final trovate = elementi(macchie(rgba, larghezza, altezza, regola), regola);
     if (trovate.length != quantiInTutto) {
       throw AncoraggiNonValidi(
@@ -252,7 +253,8 @@ class LetturaDegliAncoraggi {
           'invece di $quantiInTutto. I diametri trovati, dal più grande: '
           '${(trovate.map((m) => m.diametro).toList()..sort((a, b) => b - a)).take(12).join(", ")}');
     }
-    return componi(trovate, larghezza, altezza, regola.nome);
+    return componi(trovate, larghezza, altezza, regola.nome,
+        raggruppaPerColore: raggruppaPerColore);
   }
 
   /// DAI CINQUANTACINQUE ELEMENTI AGLI ANCORAGGI: chi e' grande, di che gruppo
@@ -261,8 +263,9 @@ class LetturaDegliAncoraggi {
     List<MacchiaDellArte> trovate,
     int larghezza,
     int altezza,
-    String nome,
-  ) {
+    String nome, {
+    bool raggruppaPerColore = false,
+  }) {
     // CHI E' GRANDE. Il confine e' un RAPPORTO col diametro mediano, non una
     // misura in pixel: cosi' la regola vale anche se l'arte cambia risoluzione.
     final diametri = trovate.map((m) => m.diametro).toList()..sort();
@@ -279,21 +282,42 @@ class LetturaDegliAncoraggi {
           '${(trovate.map((m) => m.diametro).toList()..sort((a, b) => b - a)).join(", ")}');
     }
 
-    // I GRUPPI: ogni piccolo va al grande piu' vicino. Il grande e' il centro
-    // della sua parte per costruzione dell'arte, quindi la vicinanza basta e
-    // non serve nessun numero scritto a mano.
+    // I GRUPPI, in due modi e non uno solo, perche' le due strade portano due
+    // informazioni diverse.
+    //
+    // **SULL'ARTE la vicinanza e' l'unica cosa che c'e'**: ogni piccolo va al
+    // grande piu' vicino, e il grande e' il centro della sua parte per
+    // costruzione del disegno.
+    //
+    // **SUL FILE DEI PALLINI il gruppo e' DICHIARATO dal colore**, ed e' un dato
+    // migliore di una distanza: chi ha disegnato quel file sa quale pallino
+    // appartiene a quale figura, e su un loto due petali di fiori diversi
+    // possono essere piu' vicini fra loro che al proprio cuore.
     final diChi = <int, List<MacchiaDellArte>>{
       for (var i = 0; i < gruppi; i++) i: <MacchiaDellArte>[]
     };
     for (final p in piccoli) {
       var quale = 0;
-      var minima = double.infinity;
-      for (var i = 0; i < grandi.length; i++) {
-        final d = (p.cx - grandi[i].cx) * (p.cx - grandi[i].cx) +
-            (p.cy - grandi[i].cy) * (p.cy - grandi[i].cy);
-        if (d < minima) {
-          minima = d;
-          quale = i;
+      if (raggruppaPerColore) {
+        var minima = 1 << 30;
+        for (var i = 0; i < grandi.length; i++) {
+          final d = (p.rosso - grandi[i].rosso).abs() +
+              (p.verde - grandi[i].verde).abs() +
+              (p.blu - grandi[i].blu).abs();
+          if (d < minima) {
+            minima = d;
+            quale = i;
+          }
+        }
+      } else {
+        var minima = double.infinity;
+        for (var i = 0; i < grandi.length; i++) {
+          final d = (p.cx - grandi[i].cx) * (p.cx - grandi[i].cx) +
+              (p.cy - grandi[i].cy) * (p.cy - grandi[i].cy);
+          if (d < minima) {
+            minima = d;
+            quale = i;
+          }
         }
       }
       diChi[quale]!.add(p);
