@@ -9,11 +9,23 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// LE NOVE ANTEPRIME DELLE TRE FESTE. Ordine U voce 02.
+/// LE NOVE ANTEPRIME DELLE TRE FESTE. Ordine U voce 02, sbloccate dall'ordine V.
 ///
 /// **Tre fotogrammi per Maestro, all'inizio, a meta' e alla fine.** Alla
 /// larghezza vera del telefono di Mauro, 360 per 797. Sono le immagini su cui
-/// dira' se e' una festa o no, quindi vanno guardate prima di consegnarle.
+/// dira' se e' una festa o no.
+///
+/// **UN TEST PER IMMAGINE, e non un ciclo dentro una prova sola.** La prima
+/// stesura faceva le nove catture dentro un `testWidgets` solo e non arrivava
+/// mai in fondo: `TimeoutException after 0:10:00.000000: Test timed out after
+/// 10 minutes`, dopo aver prodotto la prima immagine. **Il tetto e' del singolo
+/// test**, quindi nove catture in una prova lo incontrano e nove prove da una
+/// cattura no. E' la forma che `test/screenshot_capture_test.dart` usa da
+/// settimane, con centotredici prove da una cattura ciascuna: non era un harness
+/// rotto, era una forma che in questo repo non ha mai funzionato.
+///
+/// **Allungare il tetto non sarebbe stata una correzione**: avrebbe spostato il
+/// muro invece di togliere la ragione per cui ci si sbatte contro.
 ///
 /// Si lancia a mano:
 ///
@@ -28,6 +40,9 @@ void main() {
   const momenti = {'inizio': 0.18, 'meta': 0.5, 'fine': 0.92};
 
   setUpAll(() async {
+    // **IL FONT SI CARICA QUI perche' `test/flutter_test_config.dart` vale per
+    // l'albero `test/` e non per `tool/`.** Non e' una seconda porta: e' una
+    // conseguenza di dove vive questo file.
     final font = FontLoader('Cinzel')
       ..addFont(File('assets/fonts/Cinzel-variable.ttf')
           .readAsBytes()
@@ -35,83 +50,82 @@ void main() {
     await font.load();
   });
 
-  testWidgets('le nove anteprime delle feste', (tester) async {
-    tester.view.physicalSize = const Size(larghezza * 2, altezza * 2);
-    tester.view.devicePixelRatio = 2.0;
+  Future<void> scatta(
+      WidgetTester tester, Maestro maestro, String quando, double avanzamento) async {
+    tester.view.physicalSize = const Size(larghezza * 3, altezza * 3);
+    tester.view.devicePixelRatio = 3.0;
     addTearDown(tester.view.reset);
-    var scattate = 0;
-    for (final maestro in Maestro.values) {
-      final palette = switch (maestro) {
-        Maestro.medora => MaestroPalette.medora,
-        Maestro.caligo => MaestroPalette.caligo,
-        Maestro.aura => MaestroPalette.aura,
-      };
-      for (final momento in momenti.entries) {
-        final chiave = GlobalKey();
-        await tester.pumpWidget(Directionality(
-          textDirection: TextDirection.ltr,
-          child: RepaintBoundary(
-            key: chiave,
-            child: Container(
-              width: larghezza,
-              height: altezza,
-              color: const Color(0xFF0B0D1A),
-              child: Stack(
-                children: [
-                  // Cio' che la festa scopre: il nome e il premio, come nella
-                  // scena vera. Senza, non si vedrebbe se la festa copre o apre.
-                  Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('Hai gettato le prime rune',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontFamily: 'Cinzel',
-                                fontSize: 26,
-                                color: palette.gold)),
-                        const SizedBox(height: 12),
-                        Text('+20 Eos',
-                            style: TextStyle(
-                                fontFamily: 'Cinzel',
-                                fontSize: 18,
-                                color: palette.goldSoft)),
-                      ],
-                    ),
-                  ),
-                  Positioned.fill(
-                    child: CustomPaint(
-                      painter: PittoreDellaFesta(
-                        maestro: maestro,
-                        avanzamento: momento.value,
-                        oro: palette.gold,
-                        oroTenue: palette.goldSoft,
-                        eGrande: false,
-                        effettiPieni: true,
-                      ),
-                    ),
-                  ),
-                ],
+    final palette = switch (maestro) {
+      Maestro.medora => MaestroPalette.medora,
+      Maestro.caligo => MaestroPalette.caligo,
+      Maestro.aura => MaestroPalette.aura,
+    };
+    final chiave = GlobalKey();
+    await tester.pumpWidget(Directionality(
+      textDirection: TextDirection.ltr,
+      child: RepaintBoundary(
+        key: chiave,
+        child: Container(
+          width: larghezza,
+          height: altezza,
+          color: const Color(0xFF0B0D1A),
+          child: Stack(
+            children: [
+              // Cio' che la festa scopre: il nome e il premio, come nella scena
+              // vera. Senza, non si vedrebbe se la festa copre o apre.
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Hai gettato le prime rune',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Cinzel',
+                            fontSize: 26,
+                            color: palette.gold)),
+                    const SizedBox(height: 12),
+                    Text('+20 Eos',
+                        style: TextStyle(
+                            fontFamily: 'Cinzel',
+                            fontSize: 18,
+                            color: palette.goldSoft)),
+                  ],
+                ),
               ),
-            ),
+              Positioned.fill(
+                child: CustomPaint(
+                  painter: PittoreDellaFesta(
+                    maestro: maestro,
+                    avanzamento: avanzamento,
+                    oro: palette.gold,
+                    oroTenue: palette.goldSoft,
+                    eGrande: false,
+                    effettiPieni: true,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ));
-        await tester.pump();
-        final scatola =
-            chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-        final immagine = await scatola.toImage(pixelRatio: 2.0);
-        final png = await immagine.toByteData(format: ui.ImageByteFormat.png);
-        final dove =
-            File('docs/preview/festa_${maestro.id}_${momento.key}.png');
-        dove.parent.createSync(recursive: true);
-        dove.writeAsBytesSync(png!.buffer.asUint8List());
-        scattate++;
-        // ignore: avoid_print
-        print('anteprima: ${dove.path}');
-      }
-    }
+        ),
+      ),
+    ));
+    await tester.pump();
+    final scatola =
+        chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+    final immagine = await scatola.toImage(pixelRatio: 3.0);
+    final png = await immagine.toByteData(format: ui.ImageByteFormat.png);
+    final dove = File('docs/preview/festa_${maestro.id}_$quando.png');
+    dove.parent.createSync(recursive: true);
+    dove.writeAsBytesSync(png!.buffer.asUint8List());
     // ignore: avoid_print
-    print('ORDINE U VOCE 02: anteprime scattate $scattate');
-    expect(scattate, 9);
-  });
+    print('anteprima: ${dove.path}');
+  }
+
+  for (final maestro in Maestro.values) {
+    for (final momento in momenti.entries) {
+      testWidgets('festa ${maestro.id} ${momento.key}', (tester) async {
+        await scatta(tester, maestro, momento.key, momento.value);
+      });
+    }
+  }
 }

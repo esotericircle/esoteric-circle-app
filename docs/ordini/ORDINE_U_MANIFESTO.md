@@ -263,14 +263,20 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     ricopiarlo, che e' l'errore appena corretto nella U.01.
   - **ROSSO ESEGUITO, con l'iniezione verificata prima di leggere l'esito:** data
     ad Aura la direzione di Medora, la guardia e' caduta nominando i due.
-  - **NON FATTO: OTTO ANTEPRIME SU NOVE.** Il generatore
-    `tool/anteprime_delle_feste.dart` produce il primo fotogramma e poi non
-    arriva in fondo, **stesso sintomo delle anteprime dei Journal della voce T.02**:
-    catture ripetute dentro una prova sola scadono dopo dieci minuti. La prima,
-    `docs/preview/festa_medora_inizio.png`, l'ho guardata e la direzione si legge:
-    stelle d'oro che si aprono dal centro, col traguardo e il premio sotto.
-    **Le altre otto no, e sono quelle su cui Mauro deve dire se e' una festa**,
-    quindi la voce resta APERTA.
+  - **LE NOVE ANTEPRIME CI SONO, sbloccate dall'ordine V**, e stanno in
+    `docs/preview/festa_<maestro>_<inizio|meta|fine>.png`, alla larghezza vera di
+    360 per 797 e a rapporto tre.
+  - **UN DIFETTO TROVATO DALL'ANTEPRIMA, e non da una prova: le cifre di Caligo
+    uscivano come QUADRATI.** Il `TextPainter` dentro il pittore non dichiarava il
+    font, e in `flutter test` il predefinito disegna un rettangolo al posto di
+    ogni glifo: la pioggia di numeri era una pioggia di scatole. **E' lo stesso
+    difetto delle immagini di verifica degli ancoraggi della voce T.01**, ed e'
+    stata di nuovo un'anteprima a trovarlo. Adesso le cifre cadono in Cinzel, il
+    font dei titoli del Cerchio. **La materia non e' stata toccata: resta
+    `numeri`, che e' la parola di Mauro.**
+  - **LA VOCE RESTA APERTA finche' Mauro non ha guardato le nove immagini** e ha
+    detto se e' una festa.
+
 
 ## Marcatori
 

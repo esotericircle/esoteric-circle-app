@@ -126,6 +126,14 @@ class PittoreDellaFesta extends CustomPainter {
         text: '${indice % 10}',
         style: TextStyle(
           color: colore,
+          // **IL FONT SI DICHIARA, e non e' un vezzo: senza, in `flutter test`
+          // il predefinito disegna un RETTANGOLO al posto di ogni cifra**, e
+          // l'anteprima mostra una pioggia di quadrati invece della pioggia di
+          // numeri. E' lo stesso difetto delle immagini di verifica degli
+          // ancoraggi, ordine T voce 01, ed e' stato di nuovo un'anteprima a
+          // trovarlo. Cinzel e' il font dei titoli del Cerchio: le cifre di
+          // Caligo cadono nella scrittura di casa, non in quella di sistema.
+          fontFamily: 'Cinzel',
           fontSize: misura * 2.2,
           fontWeight: FontWeight.w700,
           height: 1,
