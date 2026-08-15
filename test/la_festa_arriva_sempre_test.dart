@@ -178,6 +178,7 @@ void main() {
         reason: 'la festa non e\' entrata in coda: e\' andata persa, ed e\' '
             'esattamente il difetto della voce 34');
 
+    final primaDelMomentoUtile = coda.inAttesa.length;
     // IL PRIMO MOMENTO UTILE: adesso una schermata c'e'.
     await tester.pumpWidget(attorno(
       diario: diario,
@@ -192,9 +193,28 @@ void main() {
         reason: 'al primo momento utile la festa in attesa non e\' arrivata: '
             'una coda che non si svuota e\' una festa persa con un passaggio '
             'in piu\'');
-    expect(coda.inAttesa, isEmpty,
-        reason: 'la festa e\' stata mostrata ma resta in coda: comparirebbe di '
-            'nuovo al prossimo avvio');
+    // **LE FESTE IN CODA POSSONO ESSERE PIÙ DI UNA, e non è un difetto.**
+    // Ordine U voce 01, seconda coda: un gesto accende al massimo un traguardo
+    // A CIELO VUOTO, ma sotto un cielo può accenderne due, e sono due fatti
+    // diversi che meritano due feste. L'istante dichiarato di queste prove, il
+    // 14 agosto, è un giorno di luna nuova: una gettata accende la PRIMA
+    // GETTATA e la GETTATA A LUNA NUOVA.
+    //
+    // **La coda ne consegna UNA per momento utile, ed è ciò per cui esiste:**
+    // due scene a schermo pieno spinte insieme si accavallerebbero. Quindi non
+    // si pretende più che la coda sia vuota, perché sarebbe pretendere che due
+    // feste arrivino nello stesso istante. Si pretende che si sia ACCORCIATA,
+    // cioè che il momento utile ne abbia consegnata almeno una.
+    //
+    // **La grandezza misurata cambia, la cosa sorvegliata no: nessuna festa va
+    // persa.** Quelle che restano tornano al prossimo momento utile, ed è la
+    // prova qui sotto, quella della coda che sopravvive al riavvio, a dirlo.
+    // ignore: avoid_print
+    print('ORDINE U VOCE 01: in coda ne restano ${coda.inAttesa.length} dopo '
+        'il primo momento utile, da $primaDelMomentoUtile che erano');
+    expect(coda.inAttesa.length, lessThan(primaDelMomentoUtile),
+        reason: 'il momento utile non ha consegnato nessuna festa: la coda è '
+            'rimasta lunga ${coda.inAttesa.length} come prima');
   });
 
   test('la coda sopravvive alla chiusura dell\'app', () async {
