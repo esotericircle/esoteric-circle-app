@@ -69,16 +69,16 @@ class ImprontaDellIstruzione {
   /// l'escursione, due la dichiarano.** Sono due giri della stessa misura sulla
   /// stessa istruzione, non due misure in disaccordo.
   static const String ultimaMisuraNota =
-      'DUE GIRI SU QUESTE IMPRONTE, e l\'istruzione non e\' cambiata in mezzo. '
-      'Il 14 agosto 2026: 70,0 per cento (42 su 60). Il 15 agosto 2026: 78,3 '
-      'per cento (47 su 60), eseguita da Mauro dal suo PC. **L\'escursione fra '
-      'i due giri e\' di otto punti su sessanta**, quindi un giro solo non basta '
-      'a dire dove sta questa misura. Nel dettaglio: medora 14 e poi 17 su 20, '
-      'caligo 8 e poi 10 su 20, aura 20 su 20 tutte e due le volte. '
-      'Prima di tutto questo era 98,3 per cento (59 su 60) il 2 agosto, su una '
-      'stringa di circa 6300 caratteri, cioe\' su un\'ALTRA istruzione, prima '
-      'che il commit 97bb997 aggiungesse 636 caratteri netti con le voci S.15 e '
-      'S.17.';
+      'DUE GIRI SU QUESTE IMPRONTE. L\'istruzione non è cambiata in mezzo: lo '
+      'dimostra la prova che confronta le tre impronte. Il 14 agosto 2026: 70,0 '
+      'per cento (42 su 60). Il 15 agosto 2026: 78,3 per cento (47 su 60), '
+      'eseguita da Mauro dal suo PC. **L\'escursione fra i due giri è di otto '
+      'punti su sessanta**, quindi un giro solo non basta a dire dove sta '
+      'questa misura. Nel dettaglio: medora 14 e poi 17 su 20, caligo 8 e poi '
+      '10 su 20, aura 20 su 20 tutte e due le volte. Prima di tutto questo era '
+      '98,3 per cento (59 su 60) il 2 agosto, su una stringa di circa 6300 '
+      'caratteri, cioè su un\'ALTRA istruzione, prima che il commit 97bb997 '
+      'aggiungesse 636 caratteri netti con le voci S.15 e S.17.';
 
   /// LA MATRICE, e si tiene per intero perche' il numero da solo direbbe la cosa
   /// sbagliata.
@@ -117,11 +117,11 @@ class ImprontaDellIstruzione {
   /// come una ragione per eseguirla una volta sola.
   static const String comeSiRimisura =
       'flutter test tool/attribuzione_cieca.dart, dal PC con una sessione gcloud '
-      'attiva, TRE VOLTE, e si riportano tutti e tre i giri con la loro '
-      'escursione: un giro solo non dice dove sta questa misura, e costa '
-      'ventotto secondi, non trenta minuti. Poi si scrive qui il risultato: '
-      'attribuzioneValida torna vero solo se la misura passa la soglia, mai per '
-      'far passare la suite.';
+      'attiva. TRE VOLTE: si riportano tutti e tre i giri con la loro '
+      'escursione, perché un giro solo non dice dove sta questa misura. Costa '
+      'ventotto secondi a giro, non trenta minuti. Poi si scrive qui il '
+      'risultato: attribuzioneValida torna vero solo se la misura passa la '
+      'soglia, mai per far passare la suite.';
 
 
   static String? per(Maestro maestro) => impronte[maestro.id];
