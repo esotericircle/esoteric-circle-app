@@ -122,13 +122,46 @@ class RegoleDelleTreArti {
   /// - **Loto: l'oro NON basta, e serve anche la materia, con tolleranza 110.**
   ///   I petali si toccano e dove il contorno inciso si assottiglia la crescita
   ///   passa nel petalo accanto e poi nelle foglie: col solo oro escono 4 forme
-  ///   su 55, con l'oro piu' la materia diventano 22, mediana 4.080 pixel, che
+  ///   su 55, con l'oro piu' la materia diventano 22, mediana 4.297 pixel, che
   ///   e' l'ordine di grandezza di un petalo.
   ///
-  /// **I trentatre ripieghi del Loto non si nascondono.** La causa e' misurata e
-  /// non e' nel codice: i semi del file dei pallini non stanno al centro dei
-  /// petali, alcuni cadono sulla filigrana d'oro fra un petalo e l'altro. Si
-  /// corregge nel file dei pallini.
+  /// **I TRENTATRE RIPIEGHI DEL LOTO NON SI NASCONDONO, e la loro causa e' stata
+  /// riscritta il 15 agosto 2026 con l'ordine Y voce 02, perche' quella che stava
+  /// qui era FALSA.** Diceva che i semi del file dei pallini cadono sulla
+  /// filigrana d'oro fra un petalo e l'altro. Misurato seme per seme: **solo
+  /// CINQUE semi stanno sull'oro, e sono i cinque centri dei fiori**; nessuno dei
+  /// ventotto petali caduti ha il seme sull'oro, e ventidue semi altrettanto
+  /// verdi crescono benissimo. La posizione dei semi spiega cinque ripieghi su
+  /// trentatre e nessuno dei petali.
+  ///
+  /// **LE TRENTATRE CAUSE, CONTATE UNA A UNA strumentando la crescita:** 28 escono
+  /// dalla finestra, cioe' la regione non si chiude e corre via; 4 non trovano un
+  /// pixel libero vicino al seme; 1 chiude su un'area di un pixel solo. Le ultime
+  /// cinque sono i centri, e non sono correggibili spostando un pallino: il
+  /// bottone centrale e' d'oro, cioe' e' il muro, e la materia di riferimento
+  /// viene letta SUL SEME, quindi la crescita va a cercare materia dorata mentre
+  /// la regola dell'oro gliela vieta. E' una contraddizione che puo' solo
+  /// ripiegare.
+  ///
+  /// **PERCHE' LA CHIUSURA NON E' LA CURA, e va scritto perche' il conteggio dice
+  /// il contrario.** Portando la chiusura del Loto a 1, 2, 3, 4 o 5 le forme
+  /// diventano 50 su 55 a ogni valore, e sembra la soluzione. Non lo e': l'area
+  /// mediana passa da 4.297 a 14.613 col valore piu' piccolo e a 21.327 col piu'
+  /// grande, cioe' da un petalo a tre volte e mezzo un petalo. **Il conteggio
+  /// migliora perche' la chiusura SPEGNE LA GUARDIA DELLA COLATA**: l'erosione
+  /// azzera l'anello esterno della finestra, perche' i vicini fuori bordo contano
+  /// come vuoto, quindi dopo una chiusura la maschera non tocca piu' il bordo e
+  /// il controllo "esce dalla finestra" non puo' piu' essere vero. Misurato: a
+  /// chiusura 0 quella guardia spara 28 volte, a chiusura 1 spara zero volte.
+  /// **Una forma che invade il petalo vicino e' peggio di un ripiego, perche' il
+  /// ripiego si dichiara e l'invasione no.**
+  ///
+  /// **La stessa guardia e' spenta anche sull'Albero**, che la chiusura ce l'ha a
+  /// 3 dalla voce T.02, e li' si vede: la sua area massima e' 13.045 pixel contro
+  /// una mediana di 1.700, cioe' sette volte e mezzo. Senza chiusura quella forma
+  /// misura 9.703 contro una mediana di 1.479, quindi l'invasione c'era gia' e la
+  /// chiusura l'ha ingrassata. Non e' stato toccato niente: qui si dichiara e
+  /// basta, perche' l'Albero non era l'oggetto dell'ordine.
   ///
   /// Il raggio massimo e' il **dodici per cento della larghezza dell'arte**, e
   /// non viene dalle misure: viene da cosa e' un elemento. Un Journal ne porta
