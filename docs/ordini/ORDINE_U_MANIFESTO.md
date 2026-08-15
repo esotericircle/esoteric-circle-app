@@ -71,13 +71,42 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     Poi ripristinato.
   - **PRIMA quattordici, DOPO zero** prove che pescano dall'orologio senza
     dichiararlo.
-- **U.01** Un gesto, una festa, un pagamento — APERTA
+- **U.01** Un gesto, una festa, un pagamento — FERMATA IN ATTESA DI DECISIONE
+  - **IL CENSIMENTO E' COMPLETO: i traguardi che compaiono in piu' di un sentiero
+    sono TRE**, e ognuno compare in tutti e tre. Carta natale (med_1, cal_1,
+    aur_1, posizione 1), Angelo Custode (med_2, cal_2, aur_2, posizione 2),
+    Animale Guida (med_3, cal_3, aur_3, posizione 3).
+  - **LA GUARDIA E' SCRITTA E NASCE ROSSA, ed e' giusto cosi': dice il vero.**
+    `test/un_gesto_una_festa_un_pagamento_test.dart` enumera i 165 traguardi e
+    raggruppa per FIRMA della condizione, che e' il dato e non il testo: due
+    traguardi con la stessa firma si accendono insieme, sempre. Trova tre
+    condizioni ripetute. **La misura del difetto: la carta natale accende tre
+    traguardi e paga 60 Eos per un gesto solo.** Torna verde quando i sei
+    sostitutivi sono montati, e non si porta a verde allentando cio' che chiede.
+  - **LA VERIFICA CHE L'ALLEGATO D CHIEDE PRIMA DEL MONTAGGIO E' FATTA, per
+    enumerazione su tutte e 165 le voci: NESSUNO DEI SEI COLLIDE.** Il tipo
+    `GestiCompiuti(gesto, 1)` non compare mai in nessuno dei tre sentieri: le
+    progressioni cominciano tutte da tre, quindi lo spazio delle prime volte e'
+    libero. Sull'oracolo la Costellazione ha gia' due, tre, cinque, sette e
+    quattordici giorni di seguito; sulla gettata l'Albero ha tre, cinque, dieci,
+    venti, trenta e cinquanta; sul tramonto due, tre, cinque, sette e quattordici
+    sere; sul soffio il Loto ha tre, cinque, venti e cinquanta; sull'archetipo
+    solo la combinazione di tre arti nello stesso giorno; sul chakra i sette
+    centri diversi e lo stesso centro tre volte. Nessuna e' una prima volta.
+  - **MANCANO SEI TESTI, ed e' la ragione per cui la voce non e' chiusa.** Un
+    traguardo porta QUATTRO testi: `nome`, `frase`, `percheConta`, `cosaApre`.
+    L'Allegato D ne da' quattro, ma uno dei quattro e' l'**Obiettivo**, che non e'
+    la `frase`: la frase e' quella della FESTA, si legge una volta sola nel
+    momento in cui il Sigillo si accende ed e' scritta al passato, mentre
+    l'Obiettivo dice cosa fare ed e' all'imperativo. **Servono le sei frasi della
+    festa.** Non le scrivo io: i testi sono materiale dell'Architetto, e usare
+    l'Obiettivo al posto della frase sarebbe riformularlo cambiandogli posto.
 - **U.02** Tre celebrazioni, una per Maestro — APERTA
 
 ## Marcatori
 
 VOCI_TOTALI: 3
 VOCI_CHIUSE: 1
-VOCI_APERTE: 2
+VOCI_APERTE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
