@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
+import 'direzione_della_festa.dart';
+import 'pittore_della_festa.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/entitlement/question_allowance.dart';
@@ -242,8 +245,21 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
     with SingleTickerProviderStateMixin {
   late final AnimationController _segno = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 1800),
+    // **LA DURATA VIENE DAL DATO E NON DA QUI.** Ordine U voce 02: si sceglie
+    // sul tempo di LETTURA di cio' che si scopre, non su quello
+    // dell'animazione, e il grande dura un terzo in piu' del mini.
+    duration: Duration(
+        milliseconds:
+            FesteDeiMaestri.millesimiDi(eGrande: widget.traguardo.eGrande)),
   );
+
+  /// **UN TOCCO LA SALTA, e porta subito al traguardo e al premio.** Una festa
+  /// da cui non si puo' uscire diventa un ostacolo alla seconda volta: la prima
+  /// si guarda, la decima si vuole superare.
+  void _salta() {
+    if (_segno.isCompleted) return;
+    _segno.value = 1;
+  }
 
   bool _partito = false;
 
@@ -278,7 +294,13 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
       seed: 23,
       child: Material(
         type: MaterialType.transparency,
-        child: SafeArea(
+        child: GestureDetector(
+          key: const Key('festa_salta'),
+          behavior: HitTestBehavior.opaque,
+          onTap: _salta,
+          child: Stack(
+            children: [
+        SafeArea(
           // LA SCENA SCORRE SE LO SCHERMO E' BASSO, invece di traboccare: su
           // un telefono piccolo, o con la scrittura ingrandita, la festa non
           // deve diventare una riga gialla di errore. La prova lo ha trovato
@@ -392,6 +414,32 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                 ),
               ),
             ),
+          ),
+        ),
+              // **LA FESTA STA SOPRA, e non sotto.** Ordine U voce 02: il
+              // movimento deve SCOPRIRE cio' che c'e' sotto, quindi passa
+              // davanti alla scena e se ne va. Non intercetta il tocco, cosi'
+              // i due pulsanti restano raggiungibili anche mentre corre.
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: AnimatedBuilder(
+                    animation: _segno,
+                    builder: (context, _) => CustomPaint(
+                      key: Key('festa_${widget.sentiero.maestro.id}'),
+                      painter: PittoreDellaFesta(
+                        maestro: widget.sentiero.maestro,
+                        avanzamento: _segno.value,
+                        oro: palette.gold,
+                        oroTenue: palette.goldSoft,
+                        eGrande: widget.traguardo.eGrande,
+                        effettiPieni:
+                            !MediaQuery.of(context).disableAnimations,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
