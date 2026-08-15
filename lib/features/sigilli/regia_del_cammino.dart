@@ -7,6 +7,7 @@ import '../../core/entitlement/registro_degli_eos.dart';
 import '../../core/sigilli/bonus_della_condivisione.dart';
 import '../../core/sigilli/coda_delle_feste.dart';
 import '../../core/sigilli/diario_del_cammino.dart';
+import '../../core/sigilli/pezzi_dell_identita.dart';
 import '../../core/sigilli/sentieri.dart';
 import '../../design_system/components/volo_degli_eos.dart';
 import '../../services/app_services.dart';
@@ -252,17 +253,13 @@ class RegiaDelCammino {
     bool haLaCarta,
   ) =>
       {
+        // **LA LISTA NON STA PIU' QUI.** Ordine U voce 01, coda: viveva scritta a
+        // mano in questo punto, ed era l'unico posto che sapesse quali gesti
+        // completano un pezzo dell'identita'. La prova che sorveglia "un gesto,
+        // una festa, un pagamento" ha bisogno dello stesso legame, e ricopiarlo
+        // la' dentro avrebbe aperto la seconda porta sullo stesso dato.
         if (haLaCarta || diario.haFatto('carta_natale')) 'carta_natale',
-        for (final pezzo in const [
-          'passaporto',
-          'angelo_custode',
-          'animale_guida',
-          'archetipo',
-          'viso',
-          'numero_della_vita',
-          'ora_di_nascita',
-          'luogo_di_nascita',
-        ])
+        for (final pezzo in PezziDellIdentita.daSoloGesto)
           if (diario.haFatto(pezzo)) pezzo,
       };
 

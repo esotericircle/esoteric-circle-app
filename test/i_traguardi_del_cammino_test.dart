@@ -1,4 +1,5 @@
 import 'package:esoteric_circle/core/sigilli/eventi_del_cielo.dart';
+import 'package:esoteric_circle/core/sigilli/pezzi_dell_identita.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -19,7 +20,20 @@ void main() {
     FamigliaDelTraguardo.giornata: 5,
     FamigliaDelTraguardo.profondita: 8,
     FamigliaDelTraguardo.ampiezza: 5,
-    FamigliaDelTraguardo.identita: 5,
+    // **IDENTITA' NON STA PIU' QUI, e non e' un allentamento: e' aritmetica.**
+    // Ordine U voce 01, coda. Il minimo di cinque per sentiero non era
+    // raggiungibile e non lo era nemmeno prima: i pezzi dell'identita' che l'app
+    // possiede sono NOVE, piu' i tre grandi di posizione 50 che sono di questa
+    // famiglia, cioe' DODICI caselle in tutto contro le QUINDICI che tre
+    // sentieri per cinque pretendono. Il conto tornava solo perche' carta
+    // natale, angelo e animale occupavano nove caselle invece di tre: **il
+    // minimo stava in piedi appoggiato al difetto che la voce U.01 ha tolto.**
+    //
+    // Al suo posto tre pretese piu' sotto, e la prima non esisteva: vieta per
+    // sempre la triplicazione, che il minimo per sentiero invece incoraggiava.
+    // **La guardia non e' stata allentata, e' stata spostata** su cio' che
+    // l'identita' e' davvero, cioe' una cosa sola per persona e non una per
+    // sentiero. Le altre sette famiglie e il tetto del Cerchio non si toccano.
     FamigliaDelTraguardo.memoria: 5,
   };
 
@@ -64,6 +78,76 @@ void main() {
       expect(conta[FamigliaDelTraguardo.cerchio] ?? 0, lessThanOrEqualTo(4),
           reason: '${sentiero.titolo} chiede troppe volte di condividere');
     }
+  });
+
+  test('ogni pezzo dell\'identità è nominato da AL PIÙ un traguardo', () {
+    // **LA PRETESA CHE NON ESISTEVA.** Vieta per sempre la triplicazione: un
+    // pezzo dell'identita' e' una cosa che una persona ha UNA volta, quindi tre
+    // traguardi sullo stesso pezzo non sono tre traguardi, sono lo stesso pagato
+    // tre volte. Si contano tutte e due le forme con cui un pezzo si nomina, il
+    // pezzo dichiarato e il gesto compiuto una volta.
+    var pezziOsservati = 0;
+    final ripetuti = <String>[];
+    for (final pezzo in PezziDellIdentita.tutti) {
+      pezziOsservati++;
+      final chi = <String>[];
+      for (final t in Sentieri.tuttiITraguardi) {
+        final f = t.condizione.firma;
+        if (f == 'identita:$pezzo' || f.startsWith('gesti:$pezzo:1:')) {
+          chi.add(t.id);
+        }
+      }
+      if (chi.length > 1) {
+        ripetuti.add('$pezzo è nominato da ${chi.length} traguardi: '
+            '${chi.join(", ")}');
+      }
+    }
+    // **QUANTE OSSERVAZIONI, e cade se sono zero.**
+    // ignore: avoid_print
+    print('ORDINE U VOCE 01: pezzi dell\'identita osservati $pezziOsservati');
+    expect(pezziOsservati, greaterThan(0),
+        reason: 'la prova non ha guardato nessun pezzo: gira a vuoto');
+    expect(ripetuti, isEmpty,
+        reason: 'un pezzo dell\'identità si ha una volta sola, quindi un solo '
+            'traguardo può nominarlo: ${ripetuti.join(" | ")}');
+  });
+
+  test('i traguardi di identità sono almeno dodici in tutto', () {
+    // **DODICI E NON QUINDICI, e il numero non è scelto: è quanto ce n\'è.**
+    // Nove pezzi dell'identita' piu' i tre grandi di posizione 50, che sono di
+    // questa famiglia. Quindici era il numero che tre sentieri per cinque
+    // pretendevano, e non esisteva.
+    final quanti = Sentieri.tuttiITraguardi
+        .where((t) => t.famiglia == FamigliaDelTraguardo.identita)
+        .length;
+    // ignore: avoid_print
+    print('ORDINE U VOCE 01: traguardi di identita in tutto $quanti');
+    expect(quanti, greaterThanOrEqualTo(12),
+        reason: 'i traguardi di identità sono $quanti su dodici caselle '
+            'possibili: l\'identità sta sparendo dal cammino');
+  });
+
+  test('ogni sentiero porta almeno tre traguardi di identità', () {
+    // **TRE E NON CINQUE**, perche' dodici caselle su tre sentieri non ne
+    // consentono cinque a testa, e perche' l'identita' e' una cosa sola per
+    // persona: chiederne cinque per sentiero e' cio' che portava a scriverne le
+    // stesse tre su tutti e tre.
+    var sentieriOsservati = 0;
+    final poveri = <String>[];
+    for (final sentiero in Sentieri.tutti) {
+      sentieriOsservati++;
+      final quanti = Sentieri.di(sentiero)
+          .where((t) => t.famiglia == FamigliaDelTraguardo.identita)
+          .length;
+      // ignore: avoid_print
+      print('ORDINE U VOCE 01: ${sentiero.name} porta $quanti di identita');
+      if (quanti < 3) poveri.add('${sentiero.titolo}: $quanti');
+    }
+    expect(sentieriOsservati, greaterThan(0),
+        reason: 'la prova non ha guardato nessun sentiero');
+    expect(poveri, isEmpty,
+        reason: 'questi sentieri non portano nemmeno tre traguardi di '
+            'identità: ${poveri.join(", ")}');
   });
 
   test('almeno 30 traguardi per sentiero non si chiudono in giornata', () {
@@ -119,7 +203,16 @@ void main() {
             'diverse: $doppioni');
   });
 
-  test('i tre aggancio si ripetono sui tre sentieri, e sono solo tre', () {
+  test('ogni ripetizione DICHIARATA sta davvero su tre sentieri', () {
+    // **IL TITOLO DICEVA TRE, E OGGI SONO ZERO.** Ordine U voce 01, coda: le tre
+    // ripetizioni non erano una decisione ma un difetto, e la voce le ha tolte.
+    // Zero e' lo stato giusto, ma **una prova che guarda una lista vuota e passa
+    // in silenzio non e' una prova**: qui il numero si stampa, cosi' chi legge il
+    // verde sa se ha guardato qualcosa. La pretesa su ogni firma dichiarata
+    // resta identica: se una ripetizione si dichiara, deve stare su tutti e tre.
+    // ignore: avoid_print
+    print('ORDINE U VOCE 01: ripetizioni dichiarate '
+        '${Sentieri.agganciTrasversali.length}');
     for (final firma in Sentieri.agganciTrasversali) {
       final quanti = Sentieri.tuttiITraguardi
           .where((t) => t.condizione.firma == firma)

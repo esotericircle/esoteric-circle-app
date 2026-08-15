@@ -71,7 +71,7 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     Poi ripristinato.
   - **PRIMA quattordici, DOPO zero** prove che pescano dall'orologio senza
     dichiararlo.
-- **U.01** Un gesto, una festa, un pagamento — FERMATA IN ATTESA DI DECISIONE
+- **U.01** Un gesto, una festa, un pagamento — CHIUSA
   - **IL CENSIMENTO E' COMPLETO: i traguardi che compaiono in piu' di un sentiero
     sono TRE**, e ognuno compare in tutti e tre. Carta natale (med_1, cal_1,
     aur_1, posizione 1), Angelo Custode (med_2, cal_2, aur_2, posizione 2),
@@ -112,23 +112,73 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     `cosaApre`: quattro testi, e l'Obiettivo sarebbe un quinto. Oggi cosa fare per
     accendere un traguardo lo dice la CONDIZIONE, che e' un dato e non una frase.
     I sei Obiettivi restano nell'Allegato e nel manifesto.
-  - **RESTA UN NODO, ed e' una decisione di Mauro, non mia.** Togliendo le due
-    ripetizioni dall'Albero e dal Loto, la famiglia `identita` di quei due
-    sentieri scende **da sei a quattro**, contro un minimo di cinque che una
-    guardia di casa pretende per ogni famiglia in ogni sentiero. La Costellazione
-    resta a cinque perche' li' i tre pezzi dell'identita' sono rimasti. **Non
-    abbasso il minimo e non sposto una famiglia per far tornare il conto**: la
-    famiglia dei sei l'ho scelta io e l'ho scelta per quello che sono, cioe'
-    prime volte dentro un'arte, `profondita`, tranne l'archetipo che dice
-    qualcosa di te e resta `identita`. Servono **due traguardi di identita' in
-    piu' per l'Albero e due per il Loto**, oppure il minimo di quella famiglia
-    cambia. I testi sono tuoi.
+  - **IL NODO L'HA SCIOLTO MAURO, e la coda della voce ha trovato un secondo
+    difetto che la prima guardia non poteva vedere.**
+  - **LA PROVA MISURAVA LA FIRMA, e l'unita' e' il GESTO.** `identita:archetipo` e
+    `gesti:archetipo:1:false` sono due firme DIVERSE che lo stesso gesto accende
+    insieme: la guardia per firma era verde su un difetto vivo, cioe' `cal_27` e
+    `aur_2` accesi da un compimento solo del Test Archetipo, **due feste e trenta
+    Eos**. La prova nuova costruisce, per ogni gesto registrato, uno stato da zero
+    come se quel gesto fosse stato compiuto una volta sola, e conta quanti dei 165
+    si accendono: al massimo uno. **Osserva 43 gesti.**
+  - **IL ROSSO E' STATO SCRITTO ED ESEGUITO PRIMA DELLA CORREZIONE**, come la voce
+    chiede: `archetipo accende 2 traguardi: cal_27, aur_2`. Poi `cal_27` e'
+    diventato un traguardo di giornata e **la prova e' tornata verde da sola,
+    senza toccarla.**
+  - **IL LEGAME FRA GESTO E PEZZO DELL'IDENTITA' NON E' STATO RICOPIATO NELLA
+    PROVA.** I nove pezzi vivevano scritti a mano dentro `regia_del_cammino.dart`:
+    adesso stanno in `lib/core/sigilli/pezzi_dell_identita.dart` e li leggono sia
+    la regia sia la prova. La regia non ha piu' la lista scritta a mano.
+  - **cal_27 E' CAMBIATO, coi testi di Mauro verbatim:** "Il giorno affidato alle
+    pietre", famiglia `giornata`, condizione `GestiNelloStessoGiorno(['gettata',
+    'tramonto', 'sogno'])`, id e posizione invariati. Accenti veri, come per i sei
+    dell'Allegato D.
+  - **LA GUARDIA DELLE FAMIGLIE HA CAMBIATO CIO' CHE MISURA, e il perche' e'
+    aritmetico.** Il minimo di cinque per sentiero non era raggiungibile e non lo
+    era nemmeno prima: i pezzi dell'identita' sono **nove**, piu' i **tre** grandi
+    di posizione 50 di quella famiglia, cioe' **dodici caselle contro le quindici**
+    che tre sentieri per cinque pretendono. Il conto tornava solo perche' carta
+    natale, angelo e animale ne occupavano nove invece di tre: **il minimo stava in
+    piedi appoggiato al difetto che questa voce ha tolto.** Al suo posto tre
+    pretese, e la prima **non esisteva**: ogni pezzo dell'identita' e' nominato da
+    al piu' UN traguardo fra tutti e 165, contando sia `PezzoDellIdentita(pezzo)`
+    sia `GestiCompiuti(pezzo, 1)`. **Vieta per sempre la triplicazione, che il
+    minimo per sentiero invece incoraggiava.** Le altre due: almeno dodici di
+    identita' in tutto, almeno tre per sentiero. Le altre sette famiglie e il tetto
+    del Cerchio non sono stati toccati.
+  - **IL TEST DEI TRE AGGANCIO NON PASSA PIU' SU ZERO IN SILENZIO.** Guardava una
+    lista vuota, faceva zero osservazioni e passava, mentre il titolo dichiarava
+    che erano tre. Adesso stampa quante ripetizioni dichiarate ha guardato e il
+    titolo dice cio' che pretende, non un numero che non c'e' piu'.
+  - **L'INTESTAZIONE DELLA GUARDIA DICEVA IL FALSO** e l'ho riscritta: sosteneva
+    di nascere rossa e che tre condizioni erano ripetute. Adesso dice quando e'
+    diventata verde, in due tempi, e **cosa la fa tornare rossa**.
+  - **LE CONTE A FINE LAVORO, famiglia per famiglia e sentiero per sentiero:**
+
+    | famiglia | costellazione | albero | loto |
+    |---|---|---|---|
+    | ampiezza | 5 | 5 | 5 |
+    | cerchio | 4 | 4 | 4 |
+    | cielo | 11 | 11 | 11 |
+    | giornata | 5 | 6 | 5 |
+    | identita | 5 | 3 | 4 |
+    | memoria | 6 | 6 | 6 |
+    | profondita | 10 | 11 | 11 |
+    | ritorno | 9 | 9 | 9 |
+
+    Identita' in tutto: **12 su 12 caselle possibili.** Pezzi dell'identita'
+    osservati dalla prova: **9**. Gesti osservati: **43**.
+  - **IL SETTIMO OBIETTIVO, quello di cal_27, resta fuori dal dato come i sei:**
+    compiere gettata, runa del tramonto e rito del sogno nello stesso giorno.
+    `Traguardo` porta `nome`, `frase`, `percheConta` e `cosaApre`, e cosa fare per
+    accendere un traguardo lo dice la CONDIZIONE, che e' un dato e non una frase.
+
 - **U.02** Tre celebrazioni, una per Maestro — APERTA
 
 ## Marcatori
 
 VOCI_TOTALI: 3
-VOCI_CHIUSE: 1
+VOCI_CHIUSE: 2
 VOCI_APERTE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
