@@ -236,6 +236,41 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     accendere un traguardo lo dice la CONDIZIONE, che e' un dato e non una frase.
 
 - **U.02** Tre celebrazioni, una per Maestro — APERTA
+  - **NIENTE NELLO STATO ATTUALE CONTRADDICE LA VOCE, misurato prima di
+    costruire.** Le celebrazioni erano due, `CelebrazioneAScermoPieno` e
+    `_FasciaDellaCelebrazione`, uguali per i tre Maestri tranne la palette; il
+    tocco che salta **non esisteva**; `disableAnimations` era gia' gestito e
+    degradava invece di spegnere; le durate erano 1800 e 900 millesimi con sei
+    secondi di permanenza.
+  - **FATTO: la direzione e' un dato, non un effetto che si intuisce guardando.**
+    `lib/features/sigilli/direzione_della_festa.dart` dichiara per ogni Maestro
+    la direzione e la MATERIA: Medora dal centro verso fuori con le stelle,
+    Caligo dall'alto verso il basso con le **cifre**, Aura dal basso verso l'alto
+    col polline. Una prova enumera i tre e pretende tre direzioni diverse; una
+    seconda pretende tre materie diverse, perche' **una pioggia che cade e una
+    che sale sono la stessa festa girata**.
+  - **FATTO: il grande e' piu' ampio e piu' lungo del mini, in due numeri.** Una
+    volta e mezzo le particelle, un terzo di tempo in piu', dichiarati come
+    RAPPORTI e non come misure: mini 1.800 millesimi, grande 2.394.
+  - **FATTO: la durata si sceglie sul tempo di LETTURA**, e la soglia non deriva
+    dalla durata scelta: viene da quanto ci mette un occhio a leggere due righe
+    brevi, piu' di un secondo e mezzo.
+  - **FATTO: il tocco che salta, che non c'era.** Porta subito al traguardo e al
+    premio, perche' una festa da cui non si puo' uscire diventa un ostacolo alla
+    seconda volta.
+  - **FATTO: degradare non e' spegnere.** Con Riduci Movimento resta un quinto
+    delle particelle, e la prova legge quel numero **dal pittore** invece di
+    ricopiarlo, che e' l'errore appena corretto nella U.01.
+  - **ROSSO ESEGUITO, con l'iniezione verificata prima di leggere l'esito:** data
+    ad Aura la direzione di Medora, la guardia e' caduta nominando i due.
+  - **NON FATTO: OTTO ANTEPRIME SU NOVE.** Il generatore
+    `tool/anteprime_delle_feste.dart` produce il primo fotogramma e poi non
+    arriva in fondo, **stesso sintomo delle anteprime dei Journal della voce T.02**:
+    catture ripetute dentro una prova sola scadono dopo dieci minuti. La prima,
+    `docs/preview/festa_medora_inizio.png`, l'ho guardata e la direzione si legge:
+    stelle d'oro che si aprono dal centro, col traguardo e il premio sotto.
+    **Le altre otto no, e sono quelle su cui Mauro deve dire se e' una festa**,
+    quindi la voce resta APERTA.
 
 ## Marcatori
 
