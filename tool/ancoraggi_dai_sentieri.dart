@@ -104,10 +104,16 @@ void main() {
         final ripieghi = forme.where((f) => f.eRipiego).length;
         final aree = forme.where((f) => !f.eRipiego).map((f) => f.area).toList()
           ..sort();
+        // **QUANTE FORME TORNANO ALL'ORO, e si stampa invece di dedurlo.** Una
+        // forma senza colore fa accendere quell'elemento della luce dorata di
+        // prima: e' il ripiego dichiarato dell'ordine X voce 01 lettera b, e chi
+        // guarda deve poter sapere su quanti elementi vale.
+        final senzaColore = forme.where((f) => f.colore == null).length;
         // ignore: avoid_print
         print('  forme ${forme.length - ripieghi}, ripieghi $ripieghi'
             '${aree.isEmpty ? "" : ", aree min ${aree.first} mediana "
-                "${aree[aree.length ~/ 2]} max ${aree.last}"}');
+                "${aree[aree.length ~/ 2]} max ${aree.last}"}'
+            ', senza colore $senzaColore su ${forme.length}');
         formeDart.add(_formeDart(sentiero, forme));
         await _immagineDiVerifica(sentiero, arte, ancoraggi, forme);
       }
@@ -265,8 +271,11 @@ String _formeDart(Sentiero sentiero, List<FormaDellElemento> forme) {
   final b = StringBuffer();
   b.writeln('    Sentiero.${sentiero.name}: [');
   for (final f in forme) {
+    final colore =
+        f.colore == null ? 'null' : '[${f.colore!.join(",")}]';
     b.writeln('      FormaDellElemento(eRipiego: ${f.eRipiego}, '
-        'area: ${f.area}, strisce: [${f.strisce.join(",")}]),');
+        'area: ${f.area}, colore: $colore, '
+        'strisce: [${f.strisce.join(",")}]),');
   }
   b.writeln('    ],');
   return b.toString();
@@ -292,6 +301,11 @@ void _scriviLeForme(List<String> righe) {
     ..writeln('/// `eRipiego` vero vuol dire che la crescita non si è chiusa e')
     ..writeln('/// al suo posto c\'è il bagliore tondo attorno al seme. **Non')
     ..writeln('/// si inventa una forma: si dichiara.**')
+    ..writeln('///')
+    ..writeln('/// `colore` è la materia dell\'elemento, mediana per canale sui')
+    ..writeln('/// pixel opachi e non dorati dentro la forma, e serve a dare')
+    ..writeln('/// alla luce il colore di ciò che accende. **Nullo vuol dire')
+    ..writeln('/// nullo**: chi disegna torna all\'oro del sentiero.')
     ..writeln('class FormeDeiSentieri {')
     ..writeln('  const FormeDeiSentieri._();')
     ..writeln()

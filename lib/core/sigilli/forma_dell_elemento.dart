@@ -40,6 +40,7 @@ class FormaDellElemento {
     required this.strisce,
     required this.eRipiego,
     required this.area,
+    this.colore,
   });
 
   /// Le strisce, a terne: riga, primo x, ultimo x. **In pixel dell'arte**, non
@@ -52,6 +53,28 @@ class FormaDellElemento {
 
   /// Quanti pixel dell'arte copre la forma.
   final int area;
+
+  /// **IL COLORE DELLA MATERIA DI QUESTO ELEMENTO**, tre canali fra 0 e 255,
+  /// oppure nulla quando non e' ricavabile. Ordine X voce 01.
+  ///
+  /// **A cosa serve: a dare alla luce il colore di cio' che accende.** L'oro e'
+  /// complementare al blu, quindi qualunque luce dorata su un lapislazzuli lo
+  /// porta verso il grigio, a qualunque opacita': misurato, sulla Costellazione
+  /// il 73,8 per cento dei pixel che cambiano accendendo porta la firma dell'oro
+  /// e perde saturazione da 0,75 a 0,59, mentre sul Loto gli stessi pixel dorati
+  /// sono il 69,8 per cento e non perdono niente, perche' la materia del Loto e'
+  /// calda. **Non e' una taratura, e' la scelta del colore della luce.**
+  ///
+  /// **E' MEDIANO PER CANALE, non medio, ed e' la stessa ragione di [materia]**:
+  /// dentro un elemento passano venature d'oro incise, e una media le tirerebbe
+  /// dentro riportando nella luce proprio il colore che si vuole togliere. La
+  /// mediana le ignora finche' restano una minoranza.
+  ///
+  /// **Nulla vuol dire nulla, e chi disegna torna all'oro dichiarandolo.** Sui
+  /// ripieghi non c'e' un elemento cresciuto sotto: il colore di un disco
+  /// attorno a un seme caduto sulla filigrana sarebbe il colore della filigrana,
+  /// cioe' un valore plausibile e falso.
+  final List<int>? colore;
 
   int get quanteStrisce => strisce.length ~/ 3;
 }
@@ -246,7 +269,37 @@ class CrescitaDellaForma {
       strisce: _strisce(punti, larghezza),
       eRipiego: false,
       area: punti.length,
+      colore: _colore(rgba, punti),
     );
+  }
+
+  /// **QUANTI PIXEL SERVONO PERCHE' UN COLORE SIA UN COLORE.** Sotto questa
+  /// soglia la mediana la decidono pochi pixel e un elemento minuscolo mezzo
+  /// coperto dall'oro darebbe il colore dell'oro. Venti e' la stessa soglia che
+  /// [CrescitaDellaForma.materia] usa attorno al seme, e vale per la stessa
+  /// ragione: non e' un numero nuovo.
+  static const int pixelMinimiPerIlColore = 20;
+
+  /// IL COLORE DELLA MATERIA DENTRO LA FORMA, mediano per canale.
+  ///
+  /// **L'oro si esclude prima di misurare.** Le venature incise stanno dentro la
+  /// forma, e sono esattamente il colore che questa luce non deve avere: se
+  /// entrassero nel conto la cura riporterebbe la malattia.
+  static List<int>? _colore(Uint8List rgba, List<int> punti) {
+    final r = <int>[], g = <int>[], b = <int>[];
+    for (final p in punti) {
+      final i = p * 4;
+      if (rgba[i + 3] <= 128) continue;
+      if (eOro(rgba[i], rgba[i + 1], rgba[i + 2])) continue;
+      r.add(rgba[i]);
+      g.add(rgba[i + 1]);
+      b.add(rgba[i + 2]);
+    }
+    if (r.length < pixelMinimiPerIlColore) return null;
+    r.sort();
+    g.sort();
+    b.sort();
+    return [r[r.length ~/ 2], g[g.length ~/ 2], b[b.length ~/ 2]];
   }
 
   /// CHIUSURA: si gonfia e poi si sgonfia. Serve a scavalcare una venatura
@@ -312,6 +365,13 @@ class CrescitaDellaForma {
       strisce: _strisce(punti, larghezza),
       eRipiego: true,
       area: punti.length,
+      // **IL RIPIEGO NON HA COLORE, e si scrive invece di lasciarlo capire.**
+      // Qui sotto non c'e' un elemento cresciuto: c'e' un disco tirato attorno
+      // al seme perche' la crescita non si e' chiusa. Misurare il colore dentro
+      // quel disco darebbe il colore di cio' su cui il seme e' caduto, che sul
+      // Loto e' spesso la filigrana d'oro fra due petali. Sarebbe un valore
+      // plausibile e falso, e chi disegna deve poter tornare all'oro sapendolo.
+      colore: null,
     );
   }
 

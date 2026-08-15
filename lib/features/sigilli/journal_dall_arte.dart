@@ -144,6 +144,21 @@ class LuciDelSentiero extends StatelessWidget {
   }
 }
 
+/// UN ALONE E IL COLORE DELLA MATERIA CHE LO EMETTE. Ordine X voce 01.
+///
+/// **Tiene insieme due cose che prima viaggiavano separate**: dove si stende la
+/// luce e di che colore e'. Finche' la luce era oro per tutti il colore non
+/// serviva portarlo, e infatti non c'era.
+class _AloneDellaMateria {
+  const _AloneDellaMateria(this.dove, this.colore);
+
+  /// Il riquadro dell'elemento meno la sua forma.
+  final Path dove;
+
+  /// La sua materia, gia' portata alla luminosita' piena.
+  final Color colore;
+}
+
 /// IL PITTORE DELLE LUCI.
 class PittoreDelleLuci extends CustomPainter {
   const PittoreDelleLuci({
@@ -185,7 +200,7 @@ class PittoreDelleLuci extends CustomPainter {
 
     // PRIMA LE LINEE, poi le forme: una linea che passa sopra un elemento
     // acceso lo taglierebbe in due.
-    _linee(tela, ancoraggi, traguardi, scala, dx, dy);
+    _linee(tela, ancoraggi, forme, traguardi, scala, dx, dy);
 
     // **UN TRACCIATO SOLO PER I MINI E UNO PER I GRANDI, e non uno per forma.**
     // L'alone sfumato costa, e cinquantacinque aloni separati mettevano il
@@ -193,36 +208,106 @@ class PittoreDelleLuci extends CustomPainter {
     // arrivata in fondo. Unendo le forme in due tracciati le passate sfumate
     // diventano due, e a video non cambia niente perche' gli aloni si sommavano
     // comunque.
+    // **LA FORMA SI RAGGRUPPA, L'ALONE NO, e la ragione e' il colore.** La
+    // passata netta sulla forma e' neutra e uguale per tutti, quindi un
+    // tracciato solo per stato basta e costa meno. L'alone invece porta ora la
+    // tinta della materia che lo emette, e due elementi di colore diverso non
+    // possono stare nella stessa passata: gli aloni si stendono uno per
+    // elemento. **Restano al massimo cinquantacinque riquadri**, uno per
+    // elemento acceso, non i migliaia di rettangoli che nell'ordine T avevano
+    // messo in ginocchio l'anteprima: quello era il tracciato delle strisce,
+    // questo e' un rettangolo per elemento.
     final mini = Path();
     final grandi = Path();
     final evidenza = Path();
-    final aloneMini = Path();
-    final aloneGrandi = Path();
-    final aloneEvidenza = Path();
+    final aloniMini = <_AloneDellaMateria>[];
+    final aloniGrandi = <_AloneDellaMateria>[];
+    final aloniEvidenza = <_AloneDellaMateria>[];
     var quantiMini = 0, quantiGrandi = 0, quantaEvidenza = 0;
     for (var i = 0; i < ancoraggi.length; i++) {
       if (!accesi.contains(traguardi[i].id)) continue;
       if (ancoraggi[i].eGrande) {
         _aggiungi(grandi, forme[i], scala, dx, dy);
-        _riquadro(aloneGrandi, forme[i], scala, dx, dy);
+        aloniGrandi.add(_alonePerUno(forme[i], scala, dx, dy));
         quantiGrandi++;
       } else {
         _aggiungi(mini, forme[i], scala, dx, dy);
-        _riquadro(aloneMini, forme[i], scala, dx, dy);
+        aloniMini.add(_alonePerUno(forme[i], scala, dx, dy));
         quantiMini++;
       }
       if (evidenziato == traguardi[i].id) {
         _aggiungi(evidenza, forme[i], scala, dx, dy);
-        _riquadro(aloneEvidenza, forme[i], scala, dx, dy);
+        aloniEvidenza.add(_alonePerUno(forme[i], scala, dx, dy));
         quantaEvidenza++;
       }
     }
-    _accendi(tela, mini, aloneMini,
+    _accendi(tela, mini, aloniMini,
         quanti: quantiMini, ampiezza: 6.0, forza: 0.78);
-    _accendi(tela, grandi, aloneGrandi,
+    _accendi(tela, grandi, aloniGrandi,
         quanti: quantiGrandi, ampiezza: 9.0, forza: 0.95);
-    _accendi(tela, evidenza, aloneEvidenza,
+    _accendi(tela, evidenza, aloniEvidenza,
         quanti: quantaEvidenza, ampiezza: 14.0, forza: 1.0);
+  }
+
+  /// **LA LUCE HA IL COLORE DELLA MATERIA CHE ACCENDE.** Ordine X voce 01.
+  ///
+  /// **Perche' non l'oro.** L'oro e' complementare al blu: qualunque luce dorata
+  /// su un lapislazzuli lo porta verso il grigio, a qualunque opacita'. Misurato
+  /// sulle anteprime, il 73,8 per cento dei pixel che cambiavano accendendo la
+  /// Costellazione portava la firma dell'oro e perdeva saturazione da 0,75 a
+  /// 0,59; sul Loto gli stessi pixel dorati erano il 69,8 per cento e non
+  /// perdevano niente, perche' la materia del Loto e' calda. Non e' una
+  /// taratura: e' la scelta del colore della luce.
+  ///
+  /// **SI TIENE LA TINTA DELLA MATERIA, NON LA SUA DEBOLEZZA.** La luminosita'
+  /// va al massimo, e **schiarire verso il bianco desatura**, quindi il valore
+  /// si alza nello spazio della tinta e non aggiungendo bianco: era meta' del
+  /// difetto originale e non si ripete.
+  ///
+  /// **La saturazione ha un pavimento, ed e' quella dell'oro che questa luce
+  /// sostituisce, 0,74.** Il numero non viene da cio' che ho misurato sulle
+  /// anteprime: viene dal vincolo che una luce nuova non puo' essere piu' scialba
+  /// di quella che rimpiazza, altrimenti sui sentieri dove l'oro funzionava si
+  /// perde. **E senza il pavimento si perdeva davvero, misurato**: la materia
+  /// dell'Albero ha saturazione mediana 0,31 e quella del Loto 0,40, contro lo
+  /// 0,84 del lapis, e una luce cosi' scialba lava cio' su cui si posa. Con
+  /// l'oro l'Albero faceva 0,46 e 0,47, con la materia cruda faceva 0,52 e 0,44.
+  /// **La tinta e' della materia, la forza e' quella che una luce deve avere.**
+  ///
+  /// **Senza colore si torna all'oro, e lo si dichiara qui.** Una forma di
+  /// ripiego non ha un elemento sotto: darle un colore inventato sarebbe peggio
+  /// che darle la luce di prima. Vale anche per una materia perfettamente grigia,
+  /// che non ha nessuna tinta da tenere.
+  Color _luceDi(FormaDellElemento forma) {
+    final c = forma.colore;
+    if (c == null) return oro;
+    final materia = HSVColor.fromColor(Color.fromARGB(255, c[0], c[1], c[2]));
+    if (materia.saturation <= 0) return oro;
+    return materia
+        .withSaturation(
+            math.max(materia.saturation, HSVColor.fromColor(oro).saturation))
+        .withValue(1.0)
+        .toColor();
+  }
+
+  /// L'alone di UN elemento: il suo riquadro meno la sua forma, col suo colore.
+  ///
+  /// **La sottrazione resta anche se la sfocatura la scavalca.** Il
+  /// `MaskFilter.blur` si applica dopo, quindi il bagliore rientra comunque
+  /// sopra la forma: e' il meccanismo che spiega la firma dorata misurata. Ma
+  /// adesso cio' che rientra ha la tinta della materia, quindi illumina invece
+  /// di lavare, e la sottrazione continua a tenere il grosso della luce fuori,
+  /// dove un alone deve stare.
+  _AloneDellaMateria _alonePerUno(
+      FormaDellElemento forma, double scala, double dx, double dy) {
+    final riquadro = Path();
+    _riquadro(riquadro, forma, scala, dx, dy);
+    final sua = Path();
+    _aggiungi(sua, forma, scala, dx, dy);
+    return _AloneDellaMateria(
+      Path.combine(PathOperation.difference, riquadro, sua),
+      _luceDi(forma),
+    );
   }
 
   /// Le strisce di una forma diventano rettangoli dentro un tracciato.
@@ -271,7 +356,7 @@ class PittoreDelleLuci extends CustomPainter {
     ));
   }
 
-  void _accendi(Canvas tela, Path tracciato, Path alone,
+  void _accendi(Canvas tela, Path tracciato, List<_AloneDellaMateria> aloni,
       {required int quanti,
       required double ampiezza,
       required double forza}) {
@@ -287,20 +372,33 @@ class PittoreDelleLuci extends CustomPainter {
       // grigio, e la saturazione scende proprio dove l'elemento dovrebbe
       // brillare. Togliendogli l'area della forma, l'alone fa quello che un
       // alone fa, cioe' illuminare INTORNO, e il colore dell'elemento resta suo.
-      // **Una sottrazione per stato, non una per elemento**: il costo non
-      // cambia.
-      final soloIntorno =
-          Path.combine(PathOperation.difference, alone, tracciato);
-      tela.drawPath(
-        soloIntorno,
-        Paint()
-          ..color = oro.withValues(alpha: 0.30 * f)
-          ..maskFilter = MaskFilter.blur(BlurStyle.normal, ampiezza)
-          // **ANCHE L'ALONE SI SOMMA.** Steso in modo normale lavava di oro
-          // l'elemento sotto, ed era meta' della desaturazione: il lapis blu
-          // sotto una velatura calda diventa grigio.
-          ..blendMode = BlendMode.plus,
-      );
+      // **UNA SOTTRAZIONE PER ELEMENTO, e il conto totale non cambia.** Prima
+      // era una sola per stato su tutte le forme insieme; adesso sono una per
+      // elemento su una forma sola, e i rettangoli attraversati sono gli stessi.
+      // Cio' che cambia e' che ogni alone puo' avere il suo colore, che e' il
+      // punto della voce.
+      // **IL RITAGLIO CONTRO LA FORMA E' STATO PROVATO E SCARTATO, con i
+      // numeri.** Ritagliando la tela sull'alone prima di stenderlo, la
+      // sfocatura non rientra piu' sopra l'elemento: sulla Costellazione la
+      // saturazione resta 0,67 e 0,65, cioe' identica, mentre sull'Albero
+      // scende da 0,46 e 0,48 a 0,42 e 0,41 e sul Loto da 0,52 e 0,54 a 0,51 e
+      // 0,51. **Costa un salvataggio, un ritaglio e un ripristino per elemento
+      // e non compra niente**: la luce che rientra, adesso che ha la tinta
+      // giusta, e' quella che fa salire la saturazione invece di abbassarla.
+      for (final alone in aloni) {
+        tela.drawPath(
+          alone.dove,
+          Paint()
+            // **IL COLORE E' QUELLO DELLA MATERIA**, non l'oro. Vedi `_luceDi`:
+            // l'oro sul lapis lo porta al grigio, e questa era la passata che
+            // portava il grosso del danno, non quella netta qui sotto.
+            ..color = alone.colore.withValues(alpha: 0.30 * f)
+            ..maskFilter = MaskFilter.blur(BlurStyle.normal, ampiezza)
+            // **ANCHE L'ALONE SI SOMMA.** Steso in modo normale lavava
+            // l'elemento sotto, ed era meta' della desaturazione.
+            ..blendMode = BlendMode.plus,
+        );
+      }
     }
     // **L'ACCENSIONE ILLUMINA, NON COPRE.** Ordine W voce 01.
     //
@@ -333,6 +431,7 @@ class PittoreDelleLuci extends CustomPainter {
   void _linee(
     Canvas tela,
     List<AncoraggioDelSentiero> ancoraggi,
+    List<FormaDellElemento> forme,
     List<dynamic> traguardi,
     double scala,
     double dx,
@@ -365,12 +464,27 @@ class PittoreDelleLuci extends CustomPainter {
       if (!accesi.contains(traguardi[i + 1].id)) continue;
       final da = _punto(ancoraggi[i], scala, dx, dy);
       final a = _punto(ancoraggi[i + 1], scala, dx, dy);
+      // **LA LINEA PRENDE IL COLORE DEI SUOI DUE CAPI.** Ordine X voce 01.
+      //
+      // Una linea unisce due elementi che possono essere di materia diversa,
+      // quindi non ha un colore solo: nasce del colore di chi la emette a un
+      // capo e arriva del colore di chi la riceve all'altro. Era oro tenue su
+      // tutte, ed era la seconda passata in `plus` che portava dorato sopra il
+      // lapis.
+      //
+      // **Se a un capo manca il colore la linea torna all'oro, tutta.** Meta'
+      // colorata e meta' dorata direbbe una cosa che nel dato non c'e': dove il
+      // colore non e' ricavabile si dichiara, non si sfuma.
+      final ca = forme[i].colore, cb = forme[i + 1].colore;
+      final tinta = (ca == null || cb == null)
+          ? [oroTenue, oroTenue]
+          : [_luceDi(forme[i]), _luceDi(forme[i + 1])];
       // Piena ai capi, spenta a meta': e' il filamento che nasce dai due
       // elementi accesi e non un tratto che li unisce passando davanti a tutto.
       pennello.shader = ui.Gradient.linear(da, a, [
-        oroTenue.withValues(alpha: 0.62 * respiro),
-        oroTenue.withValues(alpha: 0.05 * respiro),
-        oroTenue.withValues(alpha: 0.62 * respiro),
+        tinta[0].withValues(alpha: 0.62 * respiro),
+        tinta[0].withValues(alpha: 0.05 * respiro),
+        tinta[1].withValues(alpha: 0.62 * respiro),
       ], const [
         0.0,
         0.5,
