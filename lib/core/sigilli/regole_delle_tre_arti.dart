@@ -1,5 +1,7 @@
 library;
 
+import 'dart:math' as math;
+
 import 'forma_dell_elemento.dart';
 import 'lettura_degli_ancoraggi.dart';
 import 'sentieri.dart';
@@ -155,6 +157,83 @@ class RegoleDelleTreArti {
         SorgenteDegliAncoraggi.arte => arteDi(sentiero),
         SorgenteDegliAncoraggi.pallini => palliniDi(sentiero),
       };
+}
+
+/// **LA STRUTTURA DEL LOTO, dichiarata da chi ha disegnato l'arte.** Ordine Y
+/// voce 01.
+///
+/// **Non e' un'ipotesi ricavata dai pixel: e' un fatto detto da Mauro.** Il Loto
+/// e' fatto di CINQUE FIORI, e ogni fiore ha UN CENTRO e DIECI PETALI attorno.
+/// Cinque piu' cinquanta fa cinquantacinque, che e' il numero dei traguardi, e
+/// la coincidenza non e' una coincidenza: i traguardi sono stati disposti su
+/// questa struttura.
+///
+/// **A cosa serve avere la struttura come DATO invece che come commento.** Fino
+/// a ieri il difetto del Loto si riportava come "22 forme su 55", che dice che
+/// c'e' un problema e non dice dove. Con i fiori e i petali si dice quale fiore
+/// e quale petalo, e chi deve correggere a mano ne marca pochi invece di
+/// cinquanta al buio.
+///
+/// **UNA TRAPPOLA, e sta scritta qui perche' non ci caschi il prossimo.**
+/// Attorno al bottone centrale di ogni fiore c'e' una corona interna di petali
+/// piccoli, tutti d'oro, che NON sono i dieci. I dieci sono i petali VERDI e
+/// grandi, ognuno con la sua venatura dorata al centro. Un conteggio fatto sui
+/// pixel dell'arte che ne trovasse venti per fiore starebbe contando anche la
+/// corona dorata. **Qui non si contano i petali sull'arte**: si contano gli
+/// ancoraggi, che vengono dal file dei pallini, quindi la trappola non morde da
+/// questa parte. Morderebbe il giorno in cui qualcuno provasse a ricavare la
+/// struttura dall'immagine.
+class StrutturaDelLoto {
+  const StrutturaDelLoto._();
+
+  /// Quanti fiori porta il Loto.
+  static const int quantiFiori = 5;
+
+  /// Quanti petali ha ogni fiore, oltre al centro.
+  static const int petaliPerFiore = 10;
+
+  /// **I PETALI DI UN FIORE, IN SENSO ORARIO DAL PIU' IN ALTO**, come indici
+  /// dentro la lista intera degli ancoraggi.
+  ///
+  /// **Il verso e il punto di partenza si dichiarano perche' un numero di petalo
+  /// senza di essi non vuol dire niente**: chi legge "fiore 2, petalo 7" deve
+  /// poterlo trovare sull'immagine senza chiedere.
+  ///
+  /// L'angolo si misura in PIXEL e non nelle coordinate relative: l'arte e' alta
+  /// quasi il doppio di quanto e' larga, e su coordinate relative un fiore tondo
+  /// sembrerebbe schiacciato e l'ordine attorno al giro cambierebbe.
+  static List<int> petaliInSensoOrario(
+    List<AncoraggioDelSentiero> ancoraggi,
+    int fiore, {
+    required int larghezzaArte,
+    required int altezzaArte,
+  }) {
+    final centro = centroDi(ancoraggi, fiore);
+    if (centro < 0) return const [];
+    final cx = ancoraggi[centro].x * larghezzaArte;
+    final cy = ancoraggi[centro].y * altezzaArte;
+    final petali = <int>[];
+    for (var i = 0; i < ancoraggi.length; i++) {
+      if (ancoraggi[i].gruppo != fiore || ancoraggi[i].eGrande) continue;
+      petali.add(i);
+    }
+    petali.sort((a, b) {
+      // Zero in cima, e cresce girando in senso orario.
+      double giro(int i) {
+        final dx = ancoraggi[i].x * larghezzaArte - cx;
+        final dy = ancoraggi[i].y * altezzaArte - cy;
+        final ang = math.atan2(dx, -dy);
+        return ang < 0 ? ang + 2 * math.pi : ang;
+      }
+
+      return giro(a).compareTo(giro(b));
+    });
+    return petali;
+  }
+
+  /// Il centro di un fiore, come indice dentro la lista intera.
+  static int centroDi(List<AncoraggioDelSentiero> ancoraggi, int fiore) =>
+      ancoraggi.indexWhere((a) => a.gruppo == fiore && a.eGrande);
 }
 
 /// Le due strade per sapere dove stanno i cinquantacinque elementi.

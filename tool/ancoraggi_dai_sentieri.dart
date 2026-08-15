@@ -114,6 +114,14 @@ void main() {
             '${aree.isEmpty ? "" : ", aree min ${aree.first} mediana "
                 "${aree[aree.length ~/ 2]} max ${aree.last}"}'
             ', senza colore $senzaColore su ${forme.length}');
+        // **IL LOTO SI RIPORTA PER FIORE E PER PETALO.** Ordine Y voce 01
+        // lettera b. Un numero aggregato dice che c'e' un problema, questa
+        // tabella dice DOVE, e chi corregge a mano ne marca pochi invece di
+        // cinquanta al buio.
+        if (sentiero == Sentiero.loto) {
+          _tabellaDelLoto(ancoraggi, forme, arte.width, arte.height);
+        }
+
         formeDart.add(_formeDart(sentiero, forme));
         await _immagineDiVerifica(sentiero, arte, ancoraggi, forme);
       }
@@ -121,6 +129,49 @@ void main() {
       _scriviLeForme(formeDart);
     });
   });
+}
+
+/// LA TABELLA DEL LOTO: quale fiore e quale petalo ha ripiegato.
+///
+/// I petali si contano **in senso orario dal piu' in alto**, da 1 a 10, e il
+/// verso e il punto di partenza vengono da `StrutturaDelLoto`, che e' la porta
+/// unica: se un giorno cambiassero, cambierebbero qui e nella prova insieme.
+void _tabellaDelLoto(
+  List<AncoraggioDelSentiero> ancoraggi,
+  List<FormaDellElemento> forme,
+  int larghezza,
+  int altezza,
+) {
+  final aree = <int>[];
+  var ripiegati = 0;
+  for (var fiore = 0; fiore < StrutturaDelLoto.quantiFiori; fiore++) {
+    final centro = StrutturaDelLoto.centroDi(ancoraggi, fiore);
+    final petali = StrutturaDelLoto.petaliInSensoOrario(
+      ancoraggi,
+      fiore,
+      larghezzaArte: larghezza,
+      altezzaArte: altezza,
+    );
+    final caduti = <String>[];
+    if (centro >= 0 && forme[centro].eRipiego) caduti.add('centro');
+    for (var p = 0; p < petali.length; p++) {
+      if (forme[petali[p]].eRipiego) {
+        caduti.add('${p + 1}');
+      } else {
+        aree.add(forme[petali[p]].area);
+      }
+    }
+    if (centro >= 0 && !forme[centro].eRipiego) aree.add(forme[centro].area);
+    ripiegati += caduti.length;
+    // ignore: avoid_print
+    print('  fiore $fiore: ripiego su ${caduti.isEmpty ? "nessuno" : caduti.join(", ")}'
+        ' (${caduti.length} su ${petali.length + 1})');
+  }
+  aree.sort();
+  // ignore: avoid_print
+  print('  LOTO: ripieghi $ripiegati su ${ancoraggi.length}, forme vere '
+      '${aree.length}${aree.isEmpty ? "" : ", area mediana "
+          "${aree[aree.length ~/ 2]} massima ${aree.last}"}');
 }
 
 Future<ui.Image> _apri(Uint8List byte) async {
