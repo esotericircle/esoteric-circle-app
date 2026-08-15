@@ -143,25 +143,41 @@ class RegoleDelleTreArti {
   /// la regola dell'oro gliela vieta. E' una contraddizione che puo' solo
   /// ripiegare.
   ///
-  /// **PERCHE' LA CHIUSURA NON E' LA CURA, e va scritto perche' il conteggio dice
-  /// il contrario.** Portando la chiusura del Loto a 1, 2, 3, 4 o 5 le forme
-  /// diventano 50 su 55 a ogni valore, e sembra la soluzione. Non lo e': l'area
-  /// mediana passa da 4.297 a 14.613 col valore piu' piccolo e a 21.327 col piu'
-  /// grande, cioe' da un petalo a tre volte e mezzo un petalo. **Il conteggio
-  /// migliora perche' la chiusura SPEGNE LA GUARDIA DELLA COLATA**: l'erosione
-  /// azzera l'anello esterno della finestra, perche' i vicini fuori bordo contano
-  /// come vuoto, quindi dopo una chiusura la maschera non tocca piu' il bordo e
-  /// il controllo "esce dalla finestra" non puo' piu' essere vero. Misurato: a
-  /// chiusura 0 quella guardia spara 28 volte, a chiusura 1 spara zero volte.
-  /// **Una forma che invade il petalo vicino e' peggio di un ripiego, perche' il
-  /// ripiego si dichiara e l'invasione no.**
+  /// **PERCHE' LA CHIUSURA NON E' LA CURA, rimisurato il 16 agosto 2026 con
+  /// l'ordine Z, dopo che la guardia della colata era stata riparata.** I numeri
+  /// che stavano qui erano presi con la guardia rotta e dicevano che a ogni
+  /// valore le forme diventavano 50 su 55: era tutto e solo l'effetto del bordo
+  /// eroso. **Con la guardia viva il Loto PEGGIORA a ogni valore**, e il
+  /// conteggio adesso lo dice invece di nasconderlo: chiusura 0 da' 33 ripieghi e
+  /// 22 forme vere, mediana 4.297 e massima 6.921; chiusura 1 da' 37 e 18,
+  /// mediana 5.049 massima 12.276; chiusura 2 da' 44 e 11, mediana 5.362 massima
+  /// 13.655; chiusura 3 da' 49 e 6, mediana 5.794 massima 9.065; chiusura 4 da'
+  /// 52 e 3, mediana 5.507 massima 6.642; chiusura 5 da' 52 e 3, mediana 5.789
+  /// massima 6.847. **Zero e' il valore migliore su ogni misura.**
   ///
-  /// **La stessa guardia e' spenta anche sull'Albero**, che la chiusura ce l'ha a
-  /// 3 dalla voce T.02, e li' si vede: la sua area massima e' 13.045 pixel contro
-  /// una mediana di 1.700, cioe' sette volte e mezzo. Senza chiusura quella forma
-  /// misura 9.703 contro una mediana di 1.479, quindi l'invasione c'era gia' e la
-  /// chiusura l'ha ingrassata. Non e' stato toccato niente: qui si dichiara e
-  /// basta, perche' l'Albero non era l'oggetto dell'ordine.
+  /// **E LA RAGIONE E' GEOMETRICA, non di taratura: chiudere la REGIONE gonfia
+  /// il libero, quindi ALLARGA i passaggi invece di sigillarli.** Serve
+  /// l'operazione opposta, sigillare il MURO, cioe' saldare le fessure sottili
+  /// del contorno d'oro prima di crescere. E' un ordine suo e questi sono i due
+  /// dati per chi lo scrivera': le ventotto colate non sono ventotto buchi
+  /// diversi ma **SEDICI SISTEMI**, perche' i petali vicini si fondono nella
+  /// stessa colata, fino a quattro insieme sul fiore 2; e la strozzatura da cui
+  /// passano, cercata dentro ogni colata come il cammino che tiene il valore piu'
+  /// alto nel suo punto peggiore, e' larga **da 1 a 5 pixel, mediana 3**.
+  ///
+  /// **Una misura fatta che NON risponde, e si dichiara perche' nessuno la
+  /// rifaccia**: la larghezza dell'oro sul segmento che unisce due semi non
+  /// separa le coppie che si fondono da quelle che tengono, mediana 3 contro 2.
+  /// La colata non passa dove passa quella retta.
+  ///
+  /// **L'Albero non era gonfiato, verificato con la guardia viva**: a chiusura 3
+  /// resta 55 su 55 con mediana 1.700, a chiusura 0 resta 54 su 55 con mediana
+  /// 1.479, gli stessi numeri di prima della riparazione. La sua forma da 13.045
+  /// pixel, contro una mediana di 1.700, **non tocca mai il bordo della
+  /// finestra**: non era una colata nascosta, e' una regione vera che si prende un
+  /// quarto della finestra. Resta un difetto da guardare, non un errore di
+  /// conteggio, e non e' stato toccato perche' l'Albero non era l'oggetto
+  /// dell'ordine.
   ///
   /// Il raggio massimo e' il **dodici per cento della larghezza dell'arte**, e
   /// non viene dalle misure: viene da cosa e' un elemento. Un Journal ne porta
