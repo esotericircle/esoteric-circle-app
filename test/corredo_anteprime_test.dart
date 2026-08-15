@@ -220,6 +220,10 @@ void main() {
   /// orfana e questa riga cade. **Una riga di esenzione direbbe soltanto "questa
   /// non guardarla"; qui invece si sposta la guardia, non si toglie.**
   const fuoriDalCorredo = <String, List<String>>{
+    r'^journal_[a-z]+_[a-z]+\.png$': [
+      'tool/anteprime_dei_journal.dart',
+      "docs/preview/",
+    ],
     r'^festa_[a-z]+_[a-z]+\.png$': [
       'tool/anteprime_delle_feste.dart',
       "docs/preview/festa_",

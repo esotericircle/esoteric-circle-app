@@ -274,6 +274,38 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     stata di nuovo un'anteprima a trovarlo. Adesso le cifre cadono in Cinzel, il
     font dei titoli del Cerchio. **La materia non e' stata toccata: resta
     `numeri`, che e' la parola di Mauro.**
+  - **IL BLOCCO DELLE ANTEPRIME E' STATO TOLTO, ordine V voce 03, e la causa era
+    un'altra da quella ipotizzata due volte.** `toImage` e `toByteData` li
+    completa il MOTORE sul tempo vero, mentre dentro `testWidgets` il tempo e'
+    finto: **fuori da `runAsync` quella promessa non viene mai osservata e la
+    prova resta appesa fino al tetto, dopo che il file e' gia' stato scritto.**
+    E' per questo che le immagini uscivano lo stesso e il generatore falliva
+    comunque. Il conteggio lo dice da solo: i due generatori che si fermavano
+    erano gli unici due con zero `runAsync`, e `screenshot_capture_test.dart` ne
+    ha quarantadue. **Nove anteprime in 10 secondi e sei dei Journal in 9,8**,
+    contro novanta minuti e nove timeout, e nessun tetto e' stato spostato.
+  - **LA MATERIA DI CALIGO E' DIVENTATA RUNE**, ordine V voce 04, per decisione
+    di Mauro del 15 agosto 2026 che cambia una sua indicazione precedente: una
+    pioggia di cifre arabe si legge come pioggia digitale, e i numeri arabi non
+    stanno in nessuna tradizione di Caligo. **La direzione non e' cambiata.** Le
+    rune si tracciano da `kRuneStrokes`, mai da un font, e una prova cade se
+    tornano a passare da un `TextPainter`: nessuno dei due font del progetto ha
+    il blocco runico, quindi sarebbero quadrati.
+  - **NESSUNA PARTICELLA PUO' DIVENTARE UN RESPONSO.** Il tetto e' un dodicesimo
+    del lato corto, **imposto nel pittore** e non lasciato a chi disegna: la
+    runa discende in modo deterministico da persona, giorno e domanda, mai dal
+    caso, e una runa sola e grande al centro sarebbe indistinguibile da una
+    gettata.
+  - **QUARANTA PARTICELLE, misurate e non ereditate.** Il criterio e' arrivare
+    alla copertura delle altre due: 150 davano l'8,1 per cento di schermo a meta'
+    corsa, 70 il 4,3, 55 il 3,6, 45 il 3,2, **40 il 2,8**, fra il 2,5 di Medora e
+    il 2,9 di Aura. **La previsione era sbagliata e va detto:** una runa e' fatta
+    di tratti LUNGHI che attraversano il riquadro, una cifra sta raccolta al
+    centro del suo, quindi a parita' di grandezza una runa copre di piu'.
+  - **LE MISURE SULLE RUNE VERE.** Copertura: Medora 1,9 / 2,5 / 0,6 per cento,
+    **Caligo 0,9 / 2,8 / 1,0**, Aura 1,5 / 2,9 / 1,1. Contrasto della banda del
+    nome e del premio: Medora 7,0 ovunque, **Caligo 7,0 / 6,3 / 7,0**, Aura
+    7,0 / 6,0 / 7,0, tutti sopra il 4,5 che l'app pretende altrove.
   - **LA VOCE RESTA APERTA finche' Mauro non ha guardato le nove immagini** e ha
     detto se e' una festa.
 
