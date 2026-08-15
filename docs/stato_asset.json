@@ -38,7 +38,7 @@
       "avatars": 3,
       "santuario": 1,
       "intro": 1,
-      "sentieri": 3
+      "sentieri": 5
     },
     "nota_intro": "brand_assets/intro/ esiste nel repo (Intro-Test-1.mp4) ma non e' dichiarato tra gli asset nel pubspec: presente, non bundlato. Se serve nel bundle, va aggiunto al pubspec e a pubspec_asset_attesi insieme.",
     "famiglie_conteggi": {
