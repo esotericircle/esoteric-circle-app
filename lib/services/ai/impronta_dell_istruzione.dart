@@ -47,8 +47,14 @@ class ImprontaDellIstruzione {
 
   /// **VERO SOLO QUANDO L'ATTRIBUZIONE CIECA E' STATA MISURATA SU QUESTE IMPRONTE
   /// E HA PASSATO LA SOGLIA.** Sono due condizioni e non una, e il 14 agosto 2026 la
-  /// prima e' diventata vera mentre la seconda e' diventata FALSA: la misura e' stata
-  /// presa su questa stringa e ha dato 70,0 per cento contro una soglia di 85.
+  /// prima e' diventata vera mentre la seconda e' diventata FALSA.
+  ///
+  /// **DUE GIRI, NON DUE MISURE IN DISACCORDO.** Il 14 agosto ha dato 70,0 per
+  /// cento, il 15 agosto 78,3, e in mezzo le impronte NON sono cambiate: lo
+  /// dimostra la prova che le confronta, che e' verde. Stessa istruzione, due
+  /// giorni, otto punti di differenza. **Tutti e due stanno sotto la soglia di
+  /// 85**, quindi il rosso dice il vero in tutti e due i casi e il divario fra
+  /// loro non e' mai stato un motivo per cambiare questa riga.
   ///
   /// **NON SI PORTA A VERO PER FAR PASSARE LA SUITE, e non si abbassa la soglia.** Il
   /// rosso non dice piu' che manca una misura: adesso dice che la misura c'e' ed e'
@@ -56,32 +62,66 @@ class ImprontaDellIstruzione {
   /// nuovo distinguibili e la misura lo dimostra.
   static const bool attribuzioneValida = false;
 
-  /// L'ultima misura NOTA, con la stringa su cui fu presa. Si tiene perche' un
+  /// Le misure NOTE, con la stringa su cui furono prese. Si tengono perche' un
   /// numero senza il suo oggetto e' una leggenda.
+  ///
+  /// **CE NE SONO DUE E NON UNA, ed e' voluto: una sola nasconderebbe
+  /// l'escursione, due la dichiarano.** Sono due giri della stessa misura sulla
+  /// stessa istruzione, non due misure in disaccordo.
   static const String ultimaMisuraNota =
-      '70,0 per cento (42 su 60), 14 agosto 2026, presa SU QUESTE IMPRONTE. '
-      'Prima era 98,3 per cento (59 su 60) il 2 agosto, su una stringa di circa '
-      '6300 caratteri, prima che il commit 97bb997 aggiungesse 636 caratteri '
-      'netti con le voci S.15 e S.17.';
+      'DUE GIRI SU QUESTE IMPRONTE, e l\'istruzione non e\' cambiata in mezzo. '
+      'Il 14 agosto 2026: 70,0 per cento (42 su 60). Il 15 agosto 2026: 78,3 '
+      'per cento (47 su 60), eseguita da Mauro dal suo PC. **L\'escursione fra '
+      'i due giri e\' di otto punti su sessanta**, quindi un giro solo non basta '
+      'a dire dove sta questa misura. Nel dettaglio: medora 14 e poi 17 su 20, '
+      'caligo 8 e poi 10 su 20, aura 20 su 20 tutte e due le volte. '
+      'Prima di tutto questo era 98,3 per cento (59 su 60) il 2 agosto, su una '
+      'stringa di circa 6300 caratteri, cioe\' su un\'ALTRA istruzione, prima '
+      'che il commit 97bb997 aggiungesse 636 caratteri netti con le voci S.15 e '
+      'S.17.';
 
   /// LA MATRICE, e si tiene per intero perche' il numero da solo direbbe la cosa
   /// sbagliata.
   ///
   /// **Non e' un appiattimento simmetrico delle tre voci: e' AURA CHE ATTIRA.** Aura
   /// resta riconoscibile al cento per cento, e le altre due finiscono dentro di lei.
-  /// In tutti e diciotto gli errori la risposta e' stata attribuita ad Aura: nessuno
-  /// scambio nella direzione opposta, nessuno scambio fra Medora e Caligo.
+  /// In tutti gli errori la risposta e' stata attribuita ad Aura: nessuno scambio
+  /// nella direzione opposta, nessuno scambio fra Medora e Caligo.
+  ///
+  /// **QUI STANNO TUTTI E DUE I GIRI, per la stessa ragione di
+  /// [ultimaMisuraNota]**: fra il 14 e il 15 agosto il totale si e' mosso di otto
+  /// punti, mentre **l'unico fatto fermo e' che Aura non viene mai scambiata**, e
+  /// un fatto che regge a due giri vale piu' di un totale che si muove.
   static const String matrice =
-      'medora 14 su 20 (70,0 per cento), sei volte scambiata per aura; '
-      'aura 20 su 20 (100 per cento); '
-      'caligo 8 su 20 (40,0 per cento), dodici volte scambiato per aura. '
+      'GIRO DEL 14 AGOSTO 2026: medora 14 su 20 (70,0 per cento), sei volte '
+      'scambiata per aura; aura 20 su 20 (100 per cento); caligo 8 su 20 '
+      '(40,0 per cento), dodici volte scambiato per aura; diciotto errori, '
+      'tutti verso aura. '
+      'GIRO DEL 15 AGOSTO 2026: medora 17 su 20 (85,0 per cento); aura 20 su 20 '
+      '(100 per cento); caligo 10 su 20 (50,0 per cento); tredici errori, '
+      'tutti verso aura. '
       'Verdetti illeggibili: zero. Caso cieco 33,3 per cento, soglia 85.';
 
   /// Cosa si deve fare perche' [attribuzioneValida] torni vero.
+  ///
+  /// **QUESTA PROVA NON SI ESEGUE UNA VOLTA SOLA, e i due giri del 14 e del 15
+  /// agosto 2026 dicono perche':** stessa istruzione, stesse impronte, otto punti
+  /// su sessanta di differenza. **Chi ne esegue uno solo e ci lavora sopra sta
+  /// inseguendo il rumore**, e rischia di dichiarare guarita una voce che il giro
+  /// dopo ricade, o malata una che stava bene.
+  ///
+  /// **Tre giri, e si guarda l'escursione prima del totale.** Costa
+  /// **ventotto secondi a giro**, non i trenta minuti che dice il tetto scritto
+  /// in `tool/attribuzione_cieca.dart`: quel tetto e' la protezione contro una
+  /// chiamata di rete che si pianta, non una stima del costo, e non va letto
+  /// come una ragione per eseguirla una volta sola.
   static const String comeSiRimisura =
       'flutter test tool/attribuzione_cieca.dart, dal PC con una sessione gcloud '
-      'attiva. Poi si scrive qui il risultato: attribuzioneValida torna vero solo '
-      'se la misura passa la soglia, mai per far passare la suite.';
+      'attiva, TRE VOLTE, e si riportano tutti e tre i giri con la loro '
+      'escursione: un giro solo non dice dove sta questa misura, e costa '
+      'ventotto secondi, non trenta minuti. Poi si scrive qui il risultato: '
+      'attribuzioneValida torna vero solo se la misura passa la soglia, mai per '
+      'far passare la suite.';
 
 
   static String? per(Maestro maestro) => impronte[maestro.id];
