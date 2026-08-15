@@ -11,27 +11,52 @@ import 'package:flutter_test/flutter_test.dart';
 /// vedere tre volte di seguito la stessa animazione e ricevere tre volte gli Eos
 /// per lo stesso motivo. Oltre a essere sbagliato, innervosisce.
 ///
-/// **Questa intestazione diceva il falso fino al 15 agosto 2026**, e la coda
-/// della voce l'ha fatta riscrivere: sosteneva che la prova nasce rossa e che
-/// tre condizioni sono ripetute. Non e' piu' vero, e un commento che descrive un
-/// mondo finito e' peggio di nessun commento, perche' si legge come vero.
+/// **LA REGOLA, e distingue due cose che si somigliano solo a guardarle male.**
 ///
-/// **Cosa e' vero adesso.** La prova e' diventata verde in due tempi. Il 15
-/// agosto sono stati montati i sei traguardi sostitutivi dell'Allegato D, e le
-/// tre condizioni ripetute sono sparite. Poi la coda della voce ha mostrato che
-/// **la firma non era l'unita' giusta**: `identita:archetipo` e
-/// `gesti:archetipo:1:false` sono due firme diverse che lo STESSO gesto accende
-/// insieme, quindi la prova per firma era verde su un difetto vivo, due feste e
-/// trenta Eos per un compimento solo del Test Archetipo. La prova per GESTO
-/// l'ha trovato, ed e' stata scritta ed eseguita rossa PRIMA che il difetto
-/// sparisse; poi `cal_27` e' diventato un traguardo di giornata ed e' tornata
-/// verde da sola, senza toccarla.
+/// **Lo stesso FATTO non si festeggia due volte.** Tre traguardi che chiedono la
+/// carta natale sono lo stesso fatto scritto tre volte, e un gesto solo li
+/// accendeva tutti: quella e' la ripetizione vera, ed e' vietata.
 ///
-/// **Cosa la fa tornare rossa.** Due traguardi che chiedono la stessa cosa, in
-/// qualunque forma: la stessa condizione scritta due volte, oppure due
-/// condizioni diverse che un gesto solo soddisfa insieme. La seconda e' quella
-/// che si vede meno, ed e' la ragione per cui la prova per gesto esiste accanto
-/// a quella per firma invece che al suo posto.
+/// **Fatti DIVERSI che cadono nello stesso istante sono due feste meritate.** La
+/// prima gettata e la gettata a luna nuova non sono la stessa cosa detta in due
+/// modi: **una la decidi tu, l'altra te la regala il calendario e non la puoi
+/// cercare.** Chi le fa cadere insieme ha fatto una cosa piu' rara di chi le fa
+/// cadere separate, e togliergli una delle due feste sarebbe punirlo.
+///
+/// **UNA SOGLIA SUL NUMERO DI TRAGUARDI ACCESI DA UN GESTO NON PUO' ESISTERE, e
+/// non e' un'opinione: e' misurato.** Delle trenta finestre del cielo scritte nei
+/// tre sentieri, **sette non chiedono nessun gesto** (med_35 equinozio, med_41
+/// luna piena nel tuo segno, med_50 ritorno solare, cal_19 solstizio, cal_35
+/// saturno diretto, cal_41 luna nuova nel tuo segno, aur_41 tre transiti
+/// insieme): si accendono da sole, senza che nessuno abbia toccato l'app. E
+/// dentro `EventiDelCielo.diOggi` la riga che aggiunge luna crescente oppure
+/// luna calante non ha condizioni, quindi **uno dei due e' acceso tutti i giorni
+/// dell'anno**. Un tetto sul numero lo romperebbe il cielo da solo, in un giorno
+/// qualunque, senza che nessuno tocchi il codice.
+///
+/// **QUINDI QUI DENTRO CI SONO DUE MESTIERI DIVERSI, e non si confondono.**
+///
+/// **La GUARDIA** enumera i gesti a cielo vuoto e pretende che un gesto ne
+/// accenda al massimo uno. E' cio' che una persona puo' ottenere quando vuole, e
+/// il cielo ne resta fuori perche' il cielo non si sceglie. Non si ammorbidisce.
+///
+/// **La MISURA** enumera gesto per cielo, dichiara quante coppie ha guardato e
+/// stampa il massimo trovato. **Non pretende nessun numero**, perche' qualunque
+/// numero sarebbe falso, e cade solo se non ha guardato niente.
+///
+/// **Come ci si e' arrivati, in tre tempi, e il primo era sbagliato due volte.**
+/// La prima stesura raggruppava per FIRMA della condizione ed era verde su un
+/// difetto vivo: `identita:archetipo` e `gesti:archetipo:1:false` sono due firme
+/// diverse che lo stesso gesto accende insieme, cioe' due feste e trenta Eos per
+/// un compimento solo del Test Archetipo. La seconda stesura ha misurato il
+/// GESTO e l'ha trovato, rossa, prima che il difetto sparisse. La terza ha
+/// aggiunto il cielo e ha scoperto che la pretesa, cosi' com'era, non era
+/// soddisfacibile.
+///
+/// **Cosa fa cadere la guardia, oggi.** Due traguardi che un gesto solo accende
+/// a cielo vuoto: la stessa condizione scritta due volte, oppure due condizioni
+/// diverse che quel gesto soddisfa insieme. La seconda e' quella che si vede
+/// meno, ed e' la ragione per cui questa prova guarda il gesto e non la firma.
 
 void main() {
   test('nessuna condizione accende piu di un traguardo alla volta', () {
@@ -95,77 +120,123 @@ void main() {
     expect(peggiore, greaterThan(0));
   });
 
-  test('UN GESTO accende al massimo UN traguardo', () {
-    // **L'UNITA' E' IL GESTO, NON LA FIRMA.** La prova qui sopra raggruppa per
-    // firma della condizione, ed e' verde: ma `identita:archetipo` e
-    // `gesti:archetipo:1:false` sono due firme DIVERSE che lo stesso gesto
-    // accende insieme. Chi vede la festa non vede una firma, compie un gesto.
-    //
-    // Quindi: per ogni gesto registrato si costruisce uno stato da zero come se
-    // quel gesto fosse stato compiuto una volta sola, e si conta quanti dei 165
-    // si accendono.
+  test('LA GUARDIA: un gesto, a cielo vuoto, accende al massimo un traguardo',
+      () {
+    // **QUESTO E' CIO' CHE UNA PERSONA PUO' OTTENERE QUANDO VUOLE**, ed e'
+    // esattamente il difetto che Mauro ha nominato: la carta natale pagata tre
+    // volte. Il cielo qui non c'e' di proposito, perche' il cielo non si sceglie.
     //
     // **IL LEGAME FRA GESTO E PEZZO DELL'IDENTITA' NON SI RICOPIA QUI.** Vive in
     // `PezziDellIdentita`, e lo legge anche la regia: due elenchi dello stesso
     // dato divergono, e nessuno se ne accorge finche' non e' tardi.
     var gestiOsservati = 0;
-    var cieliOsservati = 0;
     final troppi = <String>[];
     for (final sorgente in GestiDelleArti.tutte) {
       final gesto = sorgente.gesto;
       gestiOsservati++;
-      final stato = StatoDelCammino(
-        gestiCompiuti: {gesto: 1},
-        giorniConGesto: {gesto: 1},
-        oggiHaFatto: {gesto},
-        pezziDellIdentita:
-            PezziDellIdentita.eUnPezzo(gesto) ? {gesto} : const {},
-      );
       final accesi = Sentieri.tuttiITraguardi
-          .where((t) => t.condizione.raggiunto(stato))
+          .where((t) => t.condizione.raggiunto(_statoDi(gesto)))
           .toList();
       if (accesi.length > 1) {
         troppi.add('$gesto accende ${accesi.length} traguardi: '
             '${accesi.map((t) => t.id).join(", ")}');
       }
-      // **E LO STESSO GESTO SOTTO UN CIELO, uno per volta.** La prima stesura
-      // guardava solo lo stato nudo, e aveva un punto cieco che una prova di
-      // casa ha trovato il giorno stesso: una gettata in un giorno di luna nuova
-      // accende `cal_1`, la prima gettata, E `cal_6`, la finestra del cielo.
-      // Due feste e due accrediti per un gesto solo, che e' esattamente cio' che
-      // questa voce vieta. **Il cielo non e' un caso raro: e' un giorno su
-      // tanti, e capita alla prima volta di qualcuno.**
-      for (final evento in EventiDelCielo.tutti) {
-        final sottoIlCielo = StatoDelCammino(
-          gestiCompiuti: {gesto: 1},
-          giorniConGesto: {gesto: 1},
-          oggiHaFatto: {gesto},
-          eventiDelCieloDiOggi: {evento},
-          pezziDellIdentita:
-              PezziDellIdentita.eUnPezzo(gesto) ? {gesto} : const {},
-        );
-        cieliOsservati++;
-        final sotto = Sentieri.tuttiITraguardi
-            .where((t) => t.condizione.raggiunto(sottoIlCielo))
-            .toList();
-        if (sotto.length > 1) {
-          troppi.add('$gesto sotto "$evento" accende ${sotto.length} '
-              'traguardi: ${sotto.map((t) => t.id).join(", ")}');
-        }
-      }
     }
     // **QUANTE OSSERVAZIONI, e cade se sono zero.**
     // ignore: avoid_print
-    print('ORDINE U VOCE 01: gesti osservati $gestiOsservati, coppie gesto e '
-        'cielo osservate $cieliOsservati');
+    print('ORDINE U VOCE 01: gesti osservati a cielo vuoto $gestiOsservati');
     expect(gestiOsservati, greaterThan(0),
         reason: 'la prova non ha osservato nessun gesto: gira a vuoto');
-    expect(cieliOsservati, greaterThan(0),
-        reason: 'la prova non ha guardato nessun cielo: il punto cieco è '
-            'tornato');
     expect(troppi, isEmpty,
         reason: 'questi gesti accendono più di un traguardo alla volta, '
             'quindi partono più feste e più accrediti per un gesto solo: '
             '${troppi.join(" | ")}');
   });
+
+  test('MISURA: quanti traguardi accende un gesto sotto un cielo', () {
+    // **NON E' UNA GUARDIA E NON HA SOGLIA**, e la ragione e' misurata: qualunque
+    // numero sarebbe falso. Sette traguardi si accendono senza nessun gesto, e
+    // uno fra luna crescente e luna calante e' acceso tutti i giorni dell'anno.
+    // Un tetto sul numero di traguardi accesi da un gesto lo romperebbe il cielo
+    // da solo, senza che nessuno tocchi il codice.
+    //
+    // Cade solo se le osservazioni sono zero.
+    var coppie = 0;
+    var massimo = 0;
+    final alMassimo = <String>[];
+    for (final sorgente in GestiDelleArti.tutte) {
+      final gesto = sorgente.gesto;
+      for (final evento in EventiDelCielo.tutti) {
+        coppie++;
+        final quanti = Sentieri.tuttiITraguardi
+            .where((t) => t.condizione.raggiunto(_statoDi(gesto, cielo: evento)))
+            .length;
+        if (quanti > massimo) {
+          massimo = quanti;
+          alMassimo
+            ..clear()
+            ..add('$gesto sotto "$evento"');
+        } else if (quanti == massimo && massimo > 1) {
+          alMassimo.add('$gesto sotto "$evento"');
+        }
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE U VOCE 01: coppie gesto e cielo osservate $coppie, massimo '
+        'trovato $massimo, raggiunto da ${alMassimo.length} coppie, le prime '
+        'otto: ${alMassimo.take(8).join(", ")}');
+    expect(coppie, greaterThan(0),
+        reason: 'la misura non ha guardato nessuna coppia: gira a vuoto');
+  });
+
+  test('MISURA: il limite superiore per gesto, e non e\' un giorno vero', () {
+    // **E' UN LIMITE SUPERIORE, non la simulazione di un giorno.** Per ogni gesto
+    // si somma: uno per il traguardo che quel gesto accende da solo, piu' le
+    // finestre del cielo che chiedono QUEL gesto, piu' le sette che non chiedono
+    // nessun gesto e quindi si accendono comunque.
+    //
+    // **Nessun giorno vero puo' raggiungerlo**, perche' alcuni eventi si
+    // escludono a vicenda e la somma li conta tutti insieme: luna crescente
+    // contro luna calante, luna nuova contro luna piena, e i quattro quarti fra
+    // loro. Il numero serve a dire quanto in alto puo' arrivare la cosa, non
+    // quanto arriva.
+    const senzaGesto = 7;
+    var gestiOsservati = 0;
+    var peggiore = 0;
+    var qualeGesto = '';
+    for (final sorgente in GestiDelleArti.tutte) {
+      final gesto = sorgente.gesto;
+      gestiOsservati++;
+      // **NON SI CONTA DALLA FIRMA, e la prima stesura sbagliava proprio qui.**
+      // La firma di una finestra senza gesto finisce con la parola "presenza",
+      // che e' anche il nome di un gesto vero: contando dalla firma, il gesto
+      // `presenza` si prendeva le sette finestre di nessuno e poi se le vedeva
+      // sommare un'altra volta. Si guarda la condizione.
+      var finestreDelGesto = 0;
+      for (final t in Sentieri.tuttiITraguardi) {
+        final c = t.condizione;
+        if (c is FinestraDelCielo && c.conGesto == gesto) finestreDelGesto++;
+      }
+      final limite = 1 + finestreDelGesto + senzaGesto;
+      if (limite > peggiore) {
+        peggiore = limite;
+        qualeGesto = gesto;
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE U VOCE 01: limite superiore per gesto $peggiore, sul gesto '
+        '"$qualeGesto", su $gestiOsservati gesti');
+    expect(gestiOsservati, greaterThan(0),
+        reason: 'la misura non ha guardato nessun gesto: gira a vuoto');
+  });
 }
+
+/// Lo stato di chi ha compiuto UN gesto una volta sola, e nient'altro.
+StatoDelCammino _statoDi(String gesto, {String? cielo}) => StatoDelCammino(
+      gestiCompiuti: {gesto: 1},
+      giorniConGesto: {gesto: 1},
+      oggiHaFatto: {gesto},
+      eventiDelCieloDiOggi: cielo == null ? const {} : {cielo},
+      pezziDellIdentita:
+          PezziDellIdentita.eUnPezzo(gesto) ? {gesto} : const {},
+    );

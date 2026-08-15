@@ -71,7 +71,7 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     Poi ripristinato.
   - **PRIMA quattordici, DOPO zero** prove che pescano dall'orologio senza
     dichiararlo.
-- **U.01** Un gesto, una festa, un pagamento — FERMATA IN ATTESA DI DECISIONE
+- **U.01** Un gesto, una festa, un pagamento — CHIUSA
   - **IL CENSIMENTO E' COMPLETO: i traguardi che compaiono in piu' di un sentiero
     sono TRE**, e ognuno compare in tutti e tre. Carta natale (med_1, cal_1,
     aur_1, posizione 1), Angelo Custode (med_2, cal_2, aur_2, posizione 2),
@@ -185,16 +185,50 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     `cal_2`) che cade nello stesso giorno di una **finestra del cielo** che chiede
     quello stesso gesto. Undici sulla gettata, nove sul soffio, quattro sul
     tramonto.
-  - **LA DECISIONE E' DI MAURO, e non la prendo io perche' tocca due materiali
-    suoi.** Le vie sono tre e vanno guardate insieme: **una**, i tre sostitutivi
-    smettono di essere prime volte e diventano seconde o terze volte, cioe'
-    `GestiCompiuti(gesto, 2)`, e allora le loro frasi vanno riscritte perche'
-    dicono "la prima"; **due**, le finestre del cielo che chiedono quei tre gesti
-    pretendono anche che il gesto non sia il primo, e allora cambia il dato di
-    tredici traguardi gia' esistenti; **tre**, si accetta che una prima volta
-    sotto un cielo raro paghi due volte, e allora la pretesa di questa voce
-    diventa "al massimo due" e va scritto perche'. **Non scelgo, e non ammorbidisco
-    la prova nel frattempo: resta rossa e dice il vero.**
+  - **LA DECISIONE E' ARRIVATA: la pretesa non era soddisfacibile, e la ragione e'
+    misurata.** Delle trenta finestre del cielo, **sette non chiedono nessun
+    gesto** (med_35 equinozio, med_41 luna piena nel tuo segno, med_50 ritorno
+    solare, cal_19 solstizio, cal_35 saturno diretto, cal_41 luna nuova nel tuo
+    segno, aur_41 tre transiti insieme): si accendono da sole, senza che nessuno
+    abbia toccato l'app. E dentro `EventiDelCielo.diOggi` la riga che aggiunge
+    luna crescente oppure calante **non ha condizioni**, quindi uno dei due e'
+    acceso tutti i giorni dell'anno. **Un tetto sul numero lo romperebbe il cielo
+    da solo, in un giorno qualunque, senza che nessuno tocchi il codice.**
+  - **LA REGOLA, e distingue due cose che si somigliano solo a guardarle male.**
+    Lo stesso FATTO non si festeggia due volte: tre traguardi che chiedono la
+    carta natale sono lo stesso fatto scritto tre volte, e quella e' la
+    ripetizione vera. **Fatti DIVERSI che cadono nello stesso istante sono due
+    feste meritate:** la prima gettata e la gettata a luna nuova non sono la
+    stessa cosa detta in due modi, perche' **una la decidi tu e l'altra te la
+    regala il calendario e non la puoi cercare.** Chi le fa cadere insieme ha
+    fatto una cosa piu' rara di chi le fa cadere separate, e togliergli una festa
+    sarebbe punirlo.
+  - **DUE MESTIERI SEPARATI, e non si confondono.** La GUARDIA enumera i gesti a
+    cielo vuoto e pretende al massimo un traguardo, perche' quello e' cio' che una
+    persona puo' ottenere quando vuole: **43 gesti osservati, verde, e non e'
+    stata toccata per farla passare.** La MISURA enumera gesto per cielo, non ha
+    soglia e cade solo se non guarda niente: **1.290 coppie osservate, massimo
+    trovato 2, raggiunto da 137 coppie.**
+  - **IL SECONDO NUMERO DELLA MISURA E' UN LIMITE SUPERIORE, non un giorno vero:
+    12, sul gesto gettata.** Uno per il traguardo che il gesto accende da solo,
+    piu' le quattro finestre che chiedono la gettata, piu' le sette che non
+    chiedono niente. **Nessun giorno vero puo' raggiungerlo**, perche' alcuni
+    eventi si escludono a vicenda e la somma li conta tutti insieme: crescente
+    contro calante, nuova contro piena, i quattro quarti fra loro.
+  - **UN ERRORE MIO, trovato misurando e non ragionando.** La prima stesura del
+    limite contava le finestre dalla FIRMA, e la firma di una finestra senza gesto
+    finisce con la parola "presenza", che e' **anche il nome di un gesto vero**:
+    il gesto `presenza` si prendeva le sette finestre di nessuno e poi se le vedeva
+    sommare un'altra volta, e il limite usciva 15 invece di 12. Adesso si guarda
+    la condizione e non la firma.
+  - **IL DOPPIONE VERO RESTA VIETATO, verificato:** la prova delle firme in
+    `test/i_traguardi_del_cammino_test.dart` cade ancora se due traguardi portano
+    la stessa identica condizione, stesso evento e stesso gesto. Non e' toccata da
+    questa decisione, e resta verde con zero condizioni ripetute su 165.
+  - **NESSUN TESTO DI TRAGUARDO E' STATO TOCCATO.** Le sei prime volte
+    dell'Allegato D restano `GestiCompiuti(gesto, 1)` con le loro frasi, comprese
+    le parole "la prima"; le ventitre finestre con `conGesto` restano come sono e
+    non hanno ricevuto nessuna condizione aggiuntiva.
 
   - **IL SETTIMO OBIETTIVO, quello di cal_27, resta fuori dal dato come i sei:**
     compiere gettata, runa del tramonto e rito del sogno nello stesso giorno.
@@ -206,7 +240,7 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
 ## Marcatori
 
 VOCI_TOTALI: 3
-VOCI_CHIUSE: 1
+VOCI_CHIUSE: 2
 VOCI_APERTE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
