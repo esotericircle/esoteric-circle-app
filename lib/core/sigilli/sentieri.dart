@@ -16,14 +16,25 @@ class Sentieri {
 
   static const List<Sentiero> tutti = Sentiero.values;
 
-  /// I TRE AGGANCIO TRASVERSALI, gli unici traguardi che si ripetono sui tre
-  /// sentieri per decisione: completare l'identita' vale su ogni cammino, e
-  /// chiedere tre volte la stessa cosa sarebbe una tassa, non un traguardo.
-  static const List<String> agganciTrasversali = [
-    'identita:carta_natale',
-    'identita:angelo_custode',
-    'identita:animale_guida',
-  ];
+  /// I TRAGUARDI CHE SI RIPETONO SUI TRE SENTIERI, e **adesso non ce n'e'
+  /// nessuno.** Ordine U voce 01.
+  ///
+  /// **Erano tre, ed erano un difetto, non una decisione.** Carta natale, Angelo
+  /// Custode e Animale Guida stavano su tutti e tre i sentieri con la stessa
+  /// condizione: un gesto solo li accendeva tutti e tre insieme, quindi la stessa
+  /// animazione partiva tre volte di seguito e gli Eos si pagavano tre volte per
+  /// lo stesso motivo. Misurato: **sessanta Eos per un gesto solo.** Il commento
+  /// che stava qui diceva che ripetere l'identita' era una scelta, "chiedere tre
+  /// volte la stessa cosa sarebbe una tassa": ma non era chiesta tre volte, era
+  /// PAGATA tre volte, che e' il contrario.
+  ///
+  /// **La lista resta, vuota, e non si cancella.** Serve alle prove che
+  /// distinguono una ripetizione voluta da una sbagliata: cancellarla vorrebbe
+  /// dire togliere il posto dove una ripetizione futura andrebbe dichiarata, e
+  /// allora la prossima nascerebbe in silenzio come queste tre.
+  /// `test/un_gesto_una_festa_un_pagamento_test.dart` cade se una condizione
+  /// compare su piu' di un traguardo.
+  static const List<String> agganciTrasversali = [];
 
   static List<Traguardo> di(Sentiero sentiero) => switch (sentiero) {
         Sentiero.costellazione => sentieroDellaCostellazione,

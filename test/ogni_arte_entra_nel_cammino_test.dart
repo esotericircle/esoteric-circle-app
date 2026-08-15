@@ -143,9 +143,15 @@ void main() {
             'TRE Sigilli di aggancio trasversali possono accendersi, e sono i '
             'primi tre traguardi che una persona incontra');
 
-    // E i tre trasversali devono esistere davvero con quei nomi.
+    // **LA RIGA PRETENDEVA TRE TRASVERSALI, E ADESSO SONO ZERO.** Ordine U voce
+    // 01: quei tre non erano una decisione ma un difetto, un gesto solo li
+    // accendeva tutti e tre e pagava sessanta Eos. Non si allenta cio' che
+    // chiedeva: si sposta su cio' che resta vero, cioe' che OGNI ripetizione
+    // dichiarata sia alimentata da una schermata vera. Con l'elenco vuoto la
+    // riga non guarda niente, e lo DICE invece di passare in silenzio.
     final trasversali = Sentieri.agganciTrasversali;
-    expect(trasversali, hasLength(3));
+    // ignore: avoid_print
+    print('ORDINE U VOCE 01: ripetizioni dichiarate ${trasversali.length}');
     for (final firma in trasversali) {
       final pezzo = firma.split(':').last;
       expect(GestiDelleArti.di(pezzo)?.costruito, isTrue,

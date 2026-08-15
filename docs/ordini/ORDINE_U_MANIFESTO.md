@@ -93,14 +93,36 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     sere; sul soffio il Loto ha tre, cinque, venti e cinquanta; sull'archetipo
     solo la combinazione di tre arti nello stesso giorno; sul chakra i sette
     centri diversi e lo stesso centro tre volte. Nessuna e' una prima volta.
-  - **MANCANO SEI TESTI, ed e' la ragione per cui la voce non e' chiusa.** Un
-    traguardo porta QUATTRO testi: `nome`, `frase`, `percheConta`, `cosaApre`.
-    L'Allegato D ne da' quattro, ma uno dei quattro e' l'**Obiettivo**, che non e'
-    la `frase`: la frase e' quella della FESTA, si legge una volta sola nel
-    momento in cui il Sigillo si accende ed e' scritta al passato, mentre
-    l'Obiettivo dice cosa fare ed e' all'imperativo. **Servono le sei frasi della
-    festa.** Non le scrivo io: i testi sono materiale dell'Architetto, e usare
-    l'Obiettivo al posto della frase sarebbe riformularlo cambiandogli posto.
+  - **I SEI SOSTITUTIVI SONO MONTATI VERBATIM**, coi testi dell'Allegato D e le
+    sei frasi della festa arrivate dopo. Le condizioni sono sei prime volte:
+    `GestiCompiuti(gesto, 1)` su oracolo, gettata, tramonto, soffio, archetipo e
+    chakra, sei gesti che esistevano gia' nell'app.
+  - **LA GUARDIA E' DIVENTATA VERDE DA SOLA: zero condizioni ripetute** su 165
+    traguardi, e il caso peggiore passa da tre traguardi e sessanta Eos a uno e
+    venti. Non e' stata toccata per farla passare.
+  - **`agganciTrasversali` RESTA, VUOTA, e non si cancella.** Serve alle prove che
+    distinguono una ripetizione voluta da una sbagliata: cancellarla vorrebbe dire
+    togliere il posto dove una ripetizione futura andrebbe dichiarata, e allora la
+    prossima nascerebbe in silenzio come queste tre. Il commento che stava li'
+    diceva che ripetere l'identita' era una scelta, perche' "chiedere tre volte la
+    stessa cosa sarebbe una tassa": **ma non era chiesta tre volte, era PAGATA tre
+    volte**, che e' il contrario.
+  - **L'OBIETTIVO DELL'ALLEGATO D NON HA UN CAMPO CHE LO OSPITI, e non l'ho
+    infilato dove capita.** `Traguardo` porta `nome`, `frase`, `percheConta` e
+    `cosaApre`: quattro testi, e l'Obiettivo sarebbe un quinto. Oggi cosa fare per
+    accendere un traguardo lo dice la CONDIZIONE, che e' un dato e non una frase.
+    I sei Obiettivi restano nell'Allegato e nel manifesto.
+  - **RESTA UN NODO, ed e' una decisione di Mauro, non mia.** Togliendo le due
+    ripetizioni dall'Albero e dal Loto, la famiglia `identita` di quei due
+    sentieri scende **da sei a quattro**, contro un minimo di cinque che una
+    guardia di casa pretende per ogni famiglia in ogni sentiero. La Costellazione
+    resta a cinque perche' li' i tre pezzi dell'identita' sono rimasti. **Non
+    abbasso il minimo e non sposto una famiglia per far tornare il conto**: la
+    famiglia dei sei l'ho scelta io e l'ho scelta per quello che sono, cioe'
+    prime volte dentro un'arte, `profondita`, tranne l'archetipo che dice
+    qualcosa di te e resta `identita`. Servono **due traguardi di identita' in
+    piu' per l'Albero e due per il Loto**, oppure il minimo di quella famiglia
+    cambia. I testi sono tuoi.
 - **U.02** Tre celebrazioni, una per Maestro — APERTA
 
 ## Marcatori
