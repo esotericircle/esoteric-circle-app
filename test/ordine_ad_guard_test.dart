@@ -15,7 +15,7 @@ void main() {
 
   /// Quante voci ha questo ordine. Le voci non si rinumerano, non si accorpano
   /// e non si dichiarano coperte da un'altra.
-  const quante = 3;
+  const quante = 5;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -31,7 +31,7 @@ void main() {
       .where((r) => RegExp(r'^- \*\*AD\.\d\d\*\*').hasMatch(r))
       .toList();
 
-  test('il manifesto esiste e porta tutte e tre le voci', () {
+  test('il manifesto esiste e porta tutte e cinque le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'docs/ordini/ORDINE_AD_MANIFESTO.md non esiste, e la legge di '
             'consegna dice che nasce prima del codice');
@@ -103,7 +103,7 @@ void main() {
     final aperte = marcatore(testo, 'VOCI_APERTE');
     expect(aperte, 0,
         reason: 'restano $aperte voci APERTE nell\'ordine AD. Questa riga e\' '
-            'rossa apposta e non si tocca: torna verde quando le tre voci hanno '
+            'rossa apposta e non si tocca: torna verde quando le cinque voci hanno '
             'uno stato terminale, e non prima');
   });
 }

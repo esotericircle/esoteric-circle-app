@@ -1,6 +1,6 @@
 # ORDINE AD. LA CUSTODIA CON GOOGLE PASSA AL FLUSSO NATIVO
 
-Tre voci, da AD.01 a AD.03. Ramo `claude/esoteric-circle-master-order-e798aj`,
+Cinque voci, da AD.01 a AD.05: le prime tre dell'ordine, le due della coda iOS. Ramo `claude/esoteric-circle-master-order-e798aj`,
 premesse verificate sulla testa `fef509e` il 16 agosto 2026.
 
 ## Perche' quest'ordine esiste
@@ -48,11 +48,39 @@ memoria.
    journal_loto_nuovo-1.png` e `preview.webp`, che nessuna voce copre e che non
    si toccano.
 
-## Le tre voci
+**Le premesse della coda, verificate il 16 agosto 2026:**
+
+6. **P6 VERA.** `ios/Runner/GoogleService-Info.plist` esiste sul disco e porta
+   `REVERSED_CLIENT_ID` con valore
+   `com.googleusercontent.apps.425821975933-vq6jtskejop8aibnlrqjs7v15ud66849`.
+   **Non e' committato**: il gitignore lo esclude alla riga 145. **Codemagic lo
+   prende dalla variabile d'ambiente `GOOGLE_SERVICE_INFO_PLIST`**: lo script in
+   `codemagic.yaml` righe 131 e seguenti la decodifica da base64, o la scrive
+   come XML grezzo, dentro `ios/Runner/GoogleService-Info.plist` a ogni build.
+7. **P7 FALSA, e il lavoro esiste gia'.** `ios/Runner/Info.plist` DICHIARA
+   `CFBundleURLTypes` con lo schema esattamente uguale al `REVERSED_CLIENT_ID`
+   del file sul disco, messo li' dall'ordine S voce 14 causa 2, col commento che
+   lo spiega.
+8. **P8 FALSA, e il lavoro esiste gia'.** `ios/Runner/Runner.entitlements`
+   esiste, e' COMMITTATO, porta `com.apple.developer.applesignin` al valore
+   `Default`, ed e' agganciato con `CODE_SIGN_ENTITLEMENTS` in TUTTE e tre le
+   configurazioni di `project.pbxproj`. Ordine S voce 14 causa 3. Il commento nel
+   file dichiara anche che il portale Apple ha gia' la capacita' accesa
+   sull'identificativo `com.esotericircle.esotericCircle`.
+
+**Le guardie che la coda avrebbe chiesto esistono gia'**, in
+`test/l_accesso_si_apre_davvero_test.dart`, e sono verdi: lo schema di ritorno
+confrontato col `REVERSED_CLIENT_ID` vero (con il salto dichiarato quando il
+file manca), e le entitlements agganciate a tutte e tre le configurazioni,
+contate.
+
+## Le cinque voci
 
 - **AD.01** La via Google diventa nativa — FERMATA IN ATTESA DI DECISIONE
 - **AD.02** La correzione del test del server entra nella storia — CHIUSA
 - **AD.03** Il manifesto e il rapporto — CHIUSA
+- **AD.04** Lo schema URL di Google nel progetto iOS — FERMATA SU PREMESSA FALSA
+- **AD.05** Sign in with Apple, la parte che vive nel repository — FERMATA SU PREMESSA FALSA
 
 ## Cosa deve provare il founder perche' la AD.01 si chiuda
 
@@ -65,8 +93,8 @@ errore generico: anche quello e' un collaudo riuscito, perche' dice la verita'.
 
 ## I marcatori, contati sulle righe
 
-VOCI_TOTALI: 3
+VOCI_TOTALI: 5
 VOCI_APERTE: 0
 VOCI_CHIUSE: 2
-VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 2
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
