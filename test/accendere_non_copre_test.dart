@@ -4,26 +4,28 @@ import 'dart:ui' as ui;
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// ACCENDERE ILLUMINA, NON COPRE. Ordine W voce 01.
+/// ACCENDERE ILLUMINA CON UNA LUCE CALDA, NON CON LA CENERE. Ordine W voce 01,
+/// grandezza cambiata dall'ordine AF voce 02.
 ///
-/// **Il difetto, con tre facce e una causa.** La sfera dell'Albero passava da
-/// perla di peltro con ombra e riflesso a disco d'oro piatto; l'orbo di lapis
-/// della Costellazione passava da blu profondo a crema. **Il premio per aver
-/// raggiunto un traguardo era veder spegnere il gioiello**, ed e' il contrario
-/// di cio' che una ricompensa deve fare. La causa era un riempimento pieno al
-/// settantadue per cento steso sopra l'elemento, che cancellava il modellato e
-/// il colore sotto.
+/// **La storia di questa guardia, perche' non si riapra.** Nacque contro il
+/// disco d'oro piatto che copriva il gioiello: la pretesa era che accendendo la
+/// saturazione della materia non scendesse, cioe' che la luce fosse un velo.
+/// **Quella filosofia e' stata ribaltata da Mauro nell'ordine AF**: una perla
+/// accesa deve leggersi come una LAMPADINA, e la lampadina RIDIPINGE il disco
+/// apposta, bianco caldo e oro caldo col riflesso. Coprire non e' piu' il
+/// difetto: e' la decisione.
 ///
-/// **Il criterio e' in numeri e non a occhio**, e si misura sulle anteprime
-/// vere: fra lo stato a due traguardi e quello a cinquantacinque, sui pixel che
-/// cambiano, la luminanza deve salire e **la saturazione non deve scendere**.
-/// Salire di luce perdendo colore non e' accendere, e' sbiadire.
+/// **La grandezza nuova, col perche'.** Cio' che resta vero e' che accendere
+/// non deve produrre CENERE: la luminanza sale, e la luce che si vede e' calda
+/// e colorata, non un grigio slavato. Sui pixel che cambiano, la saturazione
+/// mediana da accesi deve restare sopra 0,40: l'oro caldo puro sta a 0,67, il
+/// colmo bianco e i riflessi la abbassano, e sotto 0,40 non e' piu' una luce
+/// dorata ma un lavaggio. Il vecchio criterio, non scendere rispetto alla
+/// materia, oggi direbbe il falso: il lapis a 0,63 DEVE scendere quando sopra
+/// ci si ridipinge una lampadina d'oro.
 void main() {
-  /// Quanto si tollera che la saturazione scenda. **Zero e' il vero criterio**,
-  /// e questo numero non lo ammorbidisce: dichiara solo il rumore della misura,
-  /// perche' due immagini compresse in PNG non danno mai lo stesso identico
-  /// centesimo.
-  const rumore = 0.02;
+  /// Il pavimento della saturazione accesa: sotto, la luce e' cenere.
+  const luceCalda = 0.40;
 
   Future<List<double>> misura(String file) async {
     final byte = await File(file).readAsBytes();
@@ -87,9 +89,11 @@ void main() {
         if (lumB <= lumA) {
           sbiaditi.add('${sentiero.name}: accendendo la luce non sale');
         }
-        if (satB < satA - rumore) {
-          sbiaditi.add('${sentiero.name}: accendendo la saturazione scende da '
-              '${satA.toStringAsFixed(2)} a ${satB.toStringAsFixed(2)}');
+        if (satB < luceCalda) {
+          sbiaditi.add('${sentiero.name}: la luce accesa ha saturazione '
+              '${satB.toStringAsFixed(2)}, sotto il pavimento di '
+              '${luceCalda.toStringAsFixed(2)}: non e\' una lampadina calda, '
+              'e\' cenere');
         }
       }
       // **QUANTE OSSERVAZIONI, e cade se sono zero.**
