@@ -45,13 +45,24 @@ marcatori in fondo si contano sulle righe.
 - **AE.01** Lo scontorno e la misura giusta — CHIUSA
 - **AE.02** Le perle si trovano, i pallini si generano, gli ancoraggi si rifanno — CHIUSA
 - **AE.03** Le forme diventano le perle — CHIUSA
-- **AE.04** Le anteprime, e i cerchi sopra l'arte per gli occhi di Mauro — APERTA
-- **AE.05** Il manifesto e il rapporto — APERTA
+- **AE.04** Le anteprime, e i cerchi sopra l'arte per gli occhi di Mauro — FERMATA IN ATTESA DI DECISIONE
+- **AE.05** Il manifesto e il rapporto — CHIUSA
+
+## Cosa guarda Mauro per chiudere la AE.04
+
+Quattro immagini: `journal_loto_due`, `journal_loto_dodici` e
+`journal_loto_cinquantacinque`, la schermata `sentiero-loto-meta`, e la mappa
+`loto_perle_trovate`, tutte in `docs/preview/`. I suoi difetti vengono prima di
+quelli dell'Architetto. Due fatti gia' visti da Code e non corretti perche'
+nessuna voce li copre: **le sacche di fondo bianco opache fra i petali e gli
+steli**, dichiarate dalla AE.01, che sul fondo scuro dell'app si vedono forte; e
+la riga di sintesi che dice ancora "petali accesi", testo del corpus fuori da
+quest'ordine.
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 2
-VOCI_CHIUSE: 3
+VOCI_APERTE: 0
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
