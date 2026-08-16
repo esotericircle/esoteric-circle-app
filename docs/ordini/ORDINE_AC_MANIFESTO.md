@@ -49,13 +49,22 @@ premessa vecchia.
 5. **P5 VERA.** `lib/features/sigilli/pittore_della_festa.dart` costruisce un
    solo `math.Random`.
 
+**La premessa della AC.02 e' caduta MISURANDO, il 16 agosto 2026.** La P4 e' vera
+alla lettera, ma la misura da cui la voce nasce era presa sulle ANTEPRIME, che
+compongono la scena con una quota di 0,73, mentre la schermata vera usa 0,58 e
+una larghezza ridotta dai margini. Misurato sul riquadro vero, 328 per 429,8
+punti: l'arte entra per ALTEZZA su tutti e tre i sentieri, quindi il vuoto sopra
+e sotto e' **zero**, e cio' che avanza sta ai LATI, il 12,8 per cento sulla
+Costellazione e il 26,3 sull'Albero e sul Loto. La guardia sta in
+`test/l_arte_riempie_il_riquadro_test.dart`.
+
 **Gruppi successivi:** le premesse da P6 a P12 si verificano quando si apre il
 gruppo che le usa, e il loro esito si scrive qui allora.
 
 ## Le dodici voci
 
 - **AC.01** L'interruttore dei Journal dall'arte si accende — FERMATA IN ATTESA DI DECISIONE
-- **AC.02** Il vuoto sotto l'arte sparisce — APERTA
+- **AC.02** Il vuoto sotto l'arte sparisce — FERMATA SU PREMESSA FALSA
 - **AC.03** Le particelle della festa smettono di saltare — CHIUSA
 - **AC.04** Mai due celebrazioni di seguito — APERTA
 - **AC.05** Nessun traguardo celebra due volte — APERTA
@@ -70,7 +79,7 @@ gruppo che le usa, e il loro esito si scrive qui allora.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 10
+VOCI_APERTE: 9
 VOCI_CHIUSE: 1
-VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
