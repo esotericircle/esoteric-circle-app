@@ -159,6 +159,30 @@ class _AloneDellaMateria {
   final Color colore;
 }
 
+/// I TRACCIATI COMPOSTI UNA VOLTA E TENUTI. Ordine AC voce 01a.
+///
+/// **Non e' una scorciatoia, e' il riconoscimento di un fatto**: le forme sono un
+/// dato generato che non cambia mai, e l'insieme dei traguardi accesi cambia un
+/// traguardo alla volta. Ricomporre migliaia di rettangoli a ogni passata voleva
+/// dire rifare ogni volta un lavoro il cui risultato era identico.
+class _TracciatiRicordati {
+  const _TracciatiRicordati({
+    required this.mini,
+    required this.grandi,
+    required this.aloniMini,
+    required this.aloniGrandi,
+    required this.quantiMini,
+    required this.quantiGrandi,
+  });
+
+  final Path mini;
+  final Path grandi;
+  final List<_AloneDellaMateria> aloniMini;
+  final List<_AloneDellaMateria> aloniGrandi;
+  final int quantiMini;
+  final int quantiGrandi;
+}
+
 /// IL PITTORE DELLE LUCI.
 class PittoreDelleLuci extends CustomPainter {
   const PittoreDelleLuci({
@@ -217,13 +241,77 @@ class PittoreDelleLuci extends CustomPainter {
     // elemento acceso, non i migliaia di rettangoli che nell'ordine T avevano
     // messo in ginocchio l'anteprima: quello era il tracciato delle strisce,
     // questo e' un rettangolo per elemento.
+    // **IL TRACCIATO NON SI RICOMPONE A OGNI CHIAMATA.** Ordine AC voce 01a.
+    //
+    // Le forme sono un DATO FISSO e l'insieme degli accesi cambia raramente, un
+    // traguardo alla volta: comporre migliaia di rettangoli a ogni passata era
+    // rifare ogni volta un lavoro il cui risultato non era cambiato. Adesso si
+    // compone quando cambia qualcosa e si tiene.
+    final ricordo = _tracciatiDi(ancoraggi, forme, traguardi, misura, scala, dx,
+        dy);
+
+    // **L'EVIDENZA STA FUORI DAL RICORDO, ed e' voluto.** E' un elemento solo,
+    // cambia a ogni tocco, e tenerla dentro vorrebbe dire buttare via tutto il
+    // resto ogni volta che il dito si sposta.
+    final evidenza = Path();
+    final aloniEvidenza = <_AloneDellaMateria>[];
+    var quantaEvidenza = 0;
+    if (evidenziato != null) {
+      for (var i = 0; i < ancoraggi.length; i++) {
+        if (traguardi[i].id != evidenziato) continue;
+        if (!accesi.contains(traguardi[i].id)) continue;
+        _aggiungi(evidenza, forme[i], scala, dx, dy);
+        aloniEvidenza.add(_alonePerUno(forme[i], scala, dx, dy));
+        quantaEvidenza++;
+      }
+    }
+    _accendi(tela, ricordo.mini, ricordo.aloniMini,
+        quanti: ricordo.quantiMini, ampiezza: 6.0, forza: 0.78);
+    _accendi(tela, ricordo.grandi, ricordo.aloniGrandi,
+        quanti: ricordo.quantiGrandi, ampiezza: 9.0, forza: 0.95);
+    _accendi(tela, evidenza, aloniEvidenza,
+        quanti: quantaEvidenza, ampiezza: 14.0, forza: 1.0);
+  }
+
+  /// **CIO' CHE SI TIENE FRA UNA PASSATA E L'ALTRA.**
+  ///
+  /// **La chiave dice tutto cio' da cui il tracciato dipende**, e se ne
+  /// dimenticasse un pezzo il disegno resterebbe indietro senza che nessuno lo
+  /// veda: il sentiero, la misura della tela, i colori della sua tavolozza e
+  /// **quali** traguardi sono accesi, non quanti. Due insiemi diversi della
+  /// stessa lunghezza sono due disegni diversi.
+  static final Map<String, _TracciatiRicordati> _ricordi = {};
+
+  /// **QUANTI RICORDI SI TENGONO.** Tre sentieri, e una misura di tela per
+  /// ciascuno: sopra questo numero si sta tenendo in vita roba che nessuno
+  /// riguardera'. Non e' una cache generica, e' una memoria corta e dichiarata.
+  static const int quantiRicordi = 6;
+
+  _TracciatiRicordati _tracciatiDi(
+    List<AncoraggioDelSentiero> ancoraggi,
+    List<FormaDellElemento> forme,
+    List<dynamic> traguardi,
+    Size misura,
+    double scala,
+    double dx,
+    double dy,
+  ) {
+    final firma = StringBuffer()
+      ..write(sentiero.name)
+      ..write('|${misura.width}x${misura.height}')
+      ..write('|${oro.toARGB32()}|${oroTenue.toARGB32()}|');
+    for (var i = 0; i < ancoraggi.length; i++) {
+      if (accesi.contains(traguardi[i].id)) firma.write('$i,');
+    }
+    final chiave = firma.toString();
+    final gia = _ricordi[chiave];
+    if (gia != null) return gia;
+
     final mini = Path();
     final grandi = Path();
-    final evidenza = Path();
     final aloniMini = <_AloneDellaMateria>[];
     final aloniGrandi = <_AloneDellaMateria>[];
-    final aloniEvidenza = <_AloneDellaMateria>[];
-    var quantiMini = 0, quantiGrandi = 0, quantaEvidenza = 0;
+    var quantiMini = 0, quantiGrandi = 0;
     for (var i = 0; i < ancoraggi.length; i++) {
       if (!accesi.contains(traguardi[i].id)) continue;
       if (ancoraggi[i].eGrande) {
@@ -235,18 +323,16 @@ class PittoreDelleLuci extends CustomPainter {
         aloniMini.add(_alonePerUno(forme[i], scala, dx, dy));
         quantiMini++;
       }
-      if (evidenziato == traguardi[i].id) {
-        _aggiungi(evidenza, forme[i], scala, dx, dy);
-        aloniEvidenza.add(_alonePerUno(forme[i], scala, dx, dy));
-        quantaEvidenza++;
-      }
     }
-    _accendi(tela, mini, aloniMini,
-        quanti: quantiMini, ampiezza: 6.0, forza: 0.78);
-    _accendi(tela, grandi, aloniGrandi,
-        quanti: quantiGrandi, ampiezza: 9.0, forza: 0.95);
-    _accendi(tela, evidenza, aloniEvidenza,
-        quanti: quantaEvidenza, ampiezza: 14.0, forza: 1.0);
+    if (_ricordi.length >= quantiRicordi) _ricordi.remove(_ricordi.keys.first);
+    return _ricordi[chiave] = _TracciatiRicordati(
+      mini: mini,
+      grandi: grandi,
+      aloniMini: aloniMini,
+      aloniGrandi: aloniGrandi,
+      quantiMini: quantiMini,
+      quantiGrandi: quantiGrandi,
+    );
   }
 
   /// **LA LUCE HA IL COLORE DELLA MATERIA CHE ACCENDE.** Ordine X voce 01.

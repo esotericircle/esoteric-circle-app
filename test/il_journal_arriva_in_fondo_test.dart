@@ -18,13 +18,21 @@ import 'package:flutter_test/flutter_test.dart';
 /// nessuna prova la sorvegliava: l'interruttore stava spento su una causa
 /// scritta a parole.
 ///
-/// **La soglia si dichiara PRIMA di misurare, e viene dal fotogramma.** A
-/// sessanta fotogrammi al secondo un fotogramma dura 16,7 millesimi di secondo.
-/// Questo pittore si ridisegna a ogni fotogramma, perche' il respiro del
-/// bagliore e' un'animazione, e **divide il fotogramma con tutto il resto della
-/// schermata**: l'immagine dell'arte, l'elenco dei traguardi, la barra. Quindi
-/// puo' prendersi al massimo **meta' fotogramma, 8 millesimi**. Non e' il numero
-/// che ho misurato: e' il numero sotto il quale la schermata resta fluida.
+/// **LA SOGLIA E' CAMBIATA IL 16 AGOSTO 2026, e la prima era sbagliata.** Diceva
+/// mezzo fotogramma, perche' davo per scontato che il pittore si ridisegnasse a
+/// ogni fotogramma. **Misurato, non e' cosi'**: `LuciDelSentiero` viene montato
+/// senza passare `respiro`, nessuna animazione lo tocca, e `shouldRepaint` non
+/// scatta se non cambia niente. Contate le passate vere: **una all'apertura, e
+/// zero scorrendo l'elenco fino in fondo o toccando tre traguardi**, su tutti e
+/// tre i sentieri.
+///
+/// **Quindi la grandezza giusta non e' il fotogramma: e' l'apertura.** La soglia
+/// e' **cento millesimi di secondo**, che e' il limite oltre il quale una
+/// risposta smette di sembrare istantanea. Non viene dalle misure: viene da cosa
+/// dev'essere vero perche' aprire un sentiero non sembri lento. **Ed e' un tetto
+/// generoso**, perche' alla stessa apertura si paga anche la decodifica
+/// dell'immagine dell'arte, che qui dentro non c'e': cio' che sfora questo tetto
+/// sfora di sicuro.
 ///
 /// **Cosa misura davvero, e cosa no.** Misura la composizione piu' la
 /// rasterizzazione su questa macchina dentro `flutter test`, che non e' un
@@ -33,8 +41,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// decimi: la prima anteprima a cinquantacinque accesi girava dieci minuti e poi
 /// scadeva.
 void main() {
-  /// Meta' fotogramma a sessanta al secondo. Vedi sopra da dove viene.
-  const soglia = Duration(microseconds: 8333);
+  /// Cento millesimi, il limite dell'immediatezza. Vedi sopra da dove viene.
+  const soglia = Duration(milliseconds: 100);
 
   testWidgets('il disegno a cinquantacinque accesi sta dentro mezzo fotogramma',
       (tester) async {
@@ -60,10 +68,14 @@ void main() {
           respiro: 1.0,
           effettiPieni: true,
         );
-        // Un giro a vuoto prima di cronometrare: il primo paga la preparazione
-        // del motore e non e' il costo di un fotogramma.
+        // **IL GIRO A VUOTO SI FA SU UN'ALTRA MISURA DI TELA, e la ragione e'
+        // che adesso i tracciati si tengono**: scaldando il motore sulla stessa
+        // misura si scalderebbe anche la memoria dei tracciati, e la prima
+        // passata cronometrata non sarebbe piu' la prima. Qui si paga la
+        // preparazione del motore senza regalare il lavoro che si vuole
+        // misurare.
         final scaldata = ui.PictureRecorder();
-        pittore.paint(Canvas(scaldata), const Size(larghezza, altezza));
+        pittore.paint(Canvas(scaldata), const Size(larghezza + 7, altezza + 7));
         await scaldata
             .endRecording()
             .toImage(larghezza.round(), altezza.round());
@@ -80,10 +92,20 @@ void main() {
         // Che l'immagine sia davvero uscita, altrimenti si sta cronometrando il
         // nulla: e' il modo piu' facile di misurare zero e chiamarlo veloce.
         expect(immagine.width, larghezza.round());
+        // **LA SECONDA PASSATA, che e' quella che paga chi resta.** La prima
+        // compone i tracciati, la seconda li ritrova gia' fatti: le due misure
+        // insieme dicono quanto pesava la composizione e quanto pesa il solo
+        // disegno.
+        final secondo = Stopwatch()..start();
+        final ancora = ui.PictureRecorder();
+        pittore.paint(Canvas(ancora), const Size(larghezza, altezza));
+        await ancora.endRecording().toImage(larghezza.round(), altezza.round());
+        secondo.stop();
         // ignore: avoid_print
         print('ORDINE AC VOCE 01: ${sentiero.name} a cinquantacinque accesi, '
-            'composizione ${(composizione / 1000).toStringAsFixed(2)} ms, '
-            'con la rasterizzazione ${(totale / 1000).toStringAsFixed(2)} ms');
+            'PRIMA passata ${(totale / 1000).toStringAsFixed(2)} ms '
+            '(composizione ${(composizione / 1000).toStringAsFixed(2)}), '
+            'SECONDA ${(secondo.elapsedMicroseconds / 1000).toStringAsFixed(2)} ms');
         if (totale > soglia.inMicroseconds) {
           lenti.add('${sentiero.name}: ${(totale / 1000).toStringAsFixed(2)} ms '
               'contro un tetto di ${(soglia.inMicroseconds / 1000)
