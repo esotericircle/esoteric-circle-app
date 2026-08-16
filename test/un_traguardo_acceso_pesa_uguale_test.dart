@@ -19,6 +19,21 @@ import 'package:flutter_test/flutter_test.dart';
 /// una persona vede davvero: non l'area della forma nel dato, ma quanta luce
 /// nuova compare sullo schermo.
 ///
+/// **LA GRANDEZZA MISURATA E' FRAGILE, ed e' la prima cosa da rifare quando
+/// questa voce si apre.** Il 16 agosto 2026, alleggerendo il pittore, il rapporto
+/// e' passato da 10,4 a 21,9 con un disegno che a pixel non si muove piu' di
+/// venti punti su duecentocinquantacinque: sul Loto due macchie che si sfioravano
+/// hanno cominciato a toccarsi e il conteggio e' sceso da tre a due. **Una
+/// mediana su TRE campioni non e' una mediana, e' il campione di mezzo**, e basta
+/// che due si fondano perche' il numero raddoppi.
+///
+/// **Vale la regola di casa al contrario: non si abbassa la soglia, si cambia la
+/// grandezza.** Quando si aprira' la voce, la prima cosa non e' correggere il
+/// disegno: e' rifare la misura su un campione che regga, per esempio l'area
+/// mediana per ELEMENTO acceso invece che per macchia, che non dipende da quante
+/// se ne fondono. Il 21,9 resta scritto qui in chiaro: un numero peggiorato che
+/// si spiega si scrive, non si nasconde.
+///
 /// **DUE VINCOLI INSIEME, e uno solo non basterebbe.** Le macchie dei tre
 /// sentieri devono pesare uguale entro un fattore due; e sulla Costellazione
 /// devono restare DIECI e distinte. Senza il secondo si guarirebbe il sintomo

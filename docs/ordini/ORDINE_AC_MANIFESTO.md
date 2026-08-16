@@ -61,6 +61,40 @@ Costellazione e il 26,3 sull'Albero e sul Loto. La guardia sta in
 **Gruppi successivi:** le premesse da P6 a P12 si verificano quando si apre il
 gruppo che le usa, e il loro esito si scrive qui allora.
 
+## AC.01b, il blocco da aprire per PRIMO alla prossima sessione
+
+**La AC.01a e' fatta e misurata**, e i tre sentieri stanno dentro il tetto dei
+cento millesimi: Costellazione 18,80, Albero 19,68, Loto 25,82, contro i 71,89,
+100,39 e 287,60 di prima. La causa vera era nelle cinquantacinque sottrazioni
+booleane, non nei migliaia di rettangoli, che a 2,8 millesimi erano innocenti.
+
+**Resta l'accensione, e si apre da fermo perche' e' la prima volta che quel ramo
+arriva a una persona.** Contiene sei cose e nessuna in piu':
+
+- **a)** `ArteDelSentiero.acceso` passa a `true`, **per tutti e tre insieme**.
+  Nessun interruttore per sentiero: i tre numeri stanno dentro il tetto, quel
+  lavoro non serve piu' e la costante unica resta unica.
+- **b)** **Il commento sopra l'interruttore si RISCRIVE**, perche' adesso siamo
+  nel caso 2. Dice tre cose: qual era la causa vera, cioe' le sottrazioni
+  booleane e non i rettangoli; come e' stata tolta, cioe' il complemento
+  calcolato per righe; quale tetto sorveglia adesso quel ramo, coi tre numeri.
+  Il vecchio non si tiene accanto al nuovo, si sostituisce.
+- **c)** **Il generatore delle nove immagini**, col criterio della P.27: una
+  anteprima si monta come e' montato cio' che prova. Non la schermata nuda ma
+  quella vera, dentro la sua soglia, con la barra, l'elenco sotto e il comando
+  del tocco, alla larghezza reale. Tre sentieri per due, dodici e cinquantacinque
+  accesi.
+- **d)** **Dentro quelle stesse immagini si vedono le bande laterali della
+  AC.02**, il 6,4 per cento per lato sulla Costellazione e il 13,1 su Albero e
+  Loto. Si portano, non si correggono: la decisione e' di Mauro e si prende
+  guardando.
+- **e)** La guardia `il_journal_arriva_in_fondo_test.dart` resta e sorveglia il
+  tetto con l'interruttore acceso: da quel momento cade se qualcuno appesantisce
+  il disegno, che e' il verso giusto per una guardia.
+- **f)** La voce si dichiara CHIUSA **solo dopo** che Mauro ha guardato le nove.
+  Fino ad allora resta FERMATA IN ATTESA DI DECISIONE, che e' lo stato giusto e
+  non una formalita'.
+
 ## Le dodici voci
 
 - **AC.01** L'interruttore dei Journal dall'arte si accende — FERMATA IN ATTESA DI DECISIONE
