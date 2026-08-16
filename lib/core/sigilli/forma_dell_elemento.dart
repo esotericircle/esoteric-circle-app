@@ -152,6 +152,23 @@ class CrescitaDellaForma {
   /// con almeno trenta punti fra il primo e l'ultimo.
   static bool eOro(int r, int g, int b) => r > g && g >= b && (r - b) > 30;
 
+  /// **LA REGIONE VISITATA DALL'ULTIMA CRESCITA, e se e' uscita dalla finestra.**
+  /// Ordine AB voce 01.
+  ///
+  /// **Non serve a chi disegna: serve a chi MISURA.** Una colata ripiega, quindi
+  /// la sua regione non finisce dentro la forma e andrebbe persa, ma e' proprio
+  /// quella che dice dove passa la strozzatura da cui la crescita e' scappata.
+  /// Tenerla qui evita che uno strumento rifaccia la crescita per conto suo, che
+  /// sarebbe una seconda porta sullo stesso calcolo e potrebbe scostarsi senza
+  /// che nessuno se ne accorga.
+  ///
+  /// **Vale solo fino alla chiamata successiva**, e chi la legge deve leggerla
+  /// subito: e' un residuo dichiarato, non uno stato.
+  static List<int> ultimaRegione = const [];
+
+  /// Vero se l'ultima crescita e' arrivata al bordo della finestra.
+  static bool ultimaEUscita = false;
+
   /// **QUANTI PIXEL DI MURO CI SONO SU UN'ARTE, prima e dopo la saldatura.**
   /// Ordine AA voce 01 lettera d.
   ///
@@ -344,6 +361,13 @@ class CrescitaDellaForma {
     // **DUE MODI DI NON CHIUDERSI, e tutti e due portano al ripiego dichiarato:**
     // la forma esce dalla finestra, cioe' non e' un elemento ma una colata; la
     // forma e' piu' piccola del bagliore tondo, cioe' non aggiunge niente.
+    // **LA REGIONE SI CONSEGNA ANCHE QUANDO NON DIVENTA UNA FORMA.** Ordine AB
+    // voce 01. Una colata ripiega, quindi la sua regione andrebbe persa: ma e'
+    // proprio quella che serve per disegnare a Mauro la mappa delle strozzature.
+    // Si lascia qui invece di rifare la crescita dentro lo strumento, che
+    // sarebbe una seconda porta sullo stesso calcolo.
+    ultimaRegione = punti;
+    ultimaEUscita = esce;
     if (esce || punti.length < regola.areaMinima) {
       return _ripiego(semeX, semeY, larghezza, altezza);
     }

@@ -232,6 +232,15 @@ void main() {
       'tool/ancoraggi_dai_sentieri.dart',
       "docs/preview/ancoraggi_",
     ],
+    // La mappa delle strozzature (ordine AB voce 01) non e' un'anteprima
+    // dell'app: e' la lista della spesa di Mauro per Photoshop, l'arte del Loto
+    // attenuata coi sedici punti da ingrossare. La produce lo strumento che quei
+    // punti li misura, quindi se un giorno la misura cambia cambia anche
+    // l'immagine, e non possono scostarsi.
+    r'^strozzature_[a-z]+\.png$': [
+      'tool/mappa_delle_strozzature.dart',
+      "docs/preview/strozzature_",
+    ],
   };
 
   test('ogni anteprima nata fuori dal corredo ha il suo generatore vivo', () {
