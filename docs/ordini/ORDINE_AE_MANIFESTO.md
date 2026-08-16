@@ -44,14 +44,14 @@ marcatori in fondo si contano sulle righe.
 
 - **AE.01** Lo scontorno e la misura giusta — CHIUSA
 - **AE.02** Le perle si trovano, i pallini si generano, gli ancoraggi si rifanno — CHIUSA
-- **AE.03** Le forme diventano le perle — APERTA
+- **AE.03** Le forme diventano le perle — CHIUSA
 - **AE.04** Le anteprime, e i cerchi sopra l'arte per gli occhi di Mauro — APERTA
 - **AE.05** Il manifesto e il rapporto — APERTA
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 3
-VOCI_CHIUSE: 2
+VOCI_APERTE: 2
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

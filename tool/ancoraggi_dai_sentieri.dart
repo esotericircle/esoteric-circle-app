@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/sigilli/forma_dell_elemento.dart';
@@ -99,16 +100,35 @@ void main() {
         print('  muro: $muroPrima pixel, con saldatura '
             '${materia.saldaturaDelMuro} diventa $muroDopo '
             '(${muroPrima == 0 ? "zero" : "piu' ${((muroDopo - muroPrima) / muroPrima * 100).toStringAsFixed(1)} per cento"})');
+        // **SUL LOTO LA FORMA E' IL DISCO DELLA PERLA, non la crescita.** Ordine
+        // AE voce 03. L'arte delle perle ha cinquantacinque bersagli TONDI, e la
+        // legge delle luci e' cambiata: si illumina la perla, non il petalo. Il
+        // raggio si legge dal pallino, che lo porta gia': si misura la corsa
+        // opaca del pallini attraverso il centro, non si indovina. La
+        // distinzione fra forma vera e ripiego per il Loto muore qui.
+        final crudoPallini = sentiero == Sentiero.loto
+            ? (await sorgenteImmagine.toByteData(
+                    format: ui.ImageByteFormat.rawRgba))!
+                .buffer
+                .asUint8List()
+            : null;
         final forme = <FormaDellElemento>[];
         for (final a in ancoraggi) {
-          forme.add(CrescitaDellaForma.cresci(
-            crudoArte,
-            arte.width,
-            arte.height,
-            (a.x * arte.width).round(),
-            (a.y * arte.height).round(),
-            materia,
-          ));
+          final cx = (a.x * arte.width).round();
+          final cy = (a.y * arte.height).round();
+          if (crudoPallini != null) {
+            forme.add(_discoDellaPerla(
+                crudoArte, crudoPallini, arte.width, arte.height, cx, cy));
+          } else {
+            forme.add(CrescitaDellaForma.cresci(
+              crudoArte,
+              arte.width,
+              arte.height,
+              cx,
+              cy,
+              materia,
+            ));
+          }
         }
         final ripieghi = forme.where((f) => f.eRipiego).length;
         final aree = forme.where((f) => !f.eRipiego).map((f) => f.area).toList()
@@ -138,6 +158,52 @@ void main() {
       _scriviLeForme(formeDart);
     });
   });
+}
+
+/// IL DISCO DELLA PERLA: la forma di un elemento del Loto. Ordine AE voce 03.
+///
+/// **Il raggio viene dal pallino, non si indovina**: e' la mezza corsa opaca del
+/// file dei pallini attraverso il centro dell'ancoraggio, cioe' esattamente il
+/// raggio che lo strumento delle perle ha misurato e disegnato. Il colore e' il
+/// mediano della materia dentro il disco, dalla stessa porta di sempre.
+FormaDellElemento _discoDellaPerla(
+  Uint8List arte,
+  Uint8List pallini,
+  int larghezza,
+  int altezza,
+  int cx,
+  int cy,
+) {
+  bool opaco(int x, int y) =>
+      x >= 0 && x < larghezza && y >= 0 && y < altezza &&
+      pallini[(y * larghezza + x) * 4 + 3] > 128;
+  var sinistra = 0;
+  while (opaco(cx - sinistra - 1, cy)) {
+    sinistra++;
+  }
+  var destra = 0;
+  while (opaco(cx + destra + 1, cy)) {
+    destra++;
+  }
+  final raggio = ((sinistra + destra) / 2).round();
+  final strisce = <int>[];
+  var area = 0;
+  for (var dy = -raggio; dy <= raggio; dy++) {
+    final y = cy + dy;
+    if (y < 0 || y >= altezza) continue;
+    final mezzo = math.sqrt((raggio * raggio - dy * dy).toDouble()).floor();
+    final x1 = math.max(0, cx - mezzo);
+    final x2 = math.min(larghezza - 1, cx + mezzo);
+    strisce.addAll([y, x1, x2]);
+    area += x2 - x1 + 1;
+  }
+  return FormaDellElemento(
+    strisce: strisce,
+    eRipiego: false,
+    area: area,
+    colore: CrescitaDellaForma.materia(
+        arte, larghezza, altezza, cx, cy, lato: math.max(6, raggio ~/ 2)),
+  );
 }
 
 /// LA TABELLA DEL LOTO: quale fiore e quale petalo ha ripiegato.
