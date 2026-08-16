@@ -121,13 +121,15 @@ enum Sentiero {
         'l\'Albero sale fino alla corona.',
   ),
 
-  /// Fiore di Loto: i Petali del Risveglio e le Fioriture.
+  /// Fiore di Loto: le Perle del Risveglio e le Fioriture. Si chiamano PERLE
+  /// dall'ordine AF: l'arte nuova porta una perla su ogni petalo, e la legge
+  /// delle luci accende quella.
   loto(
     Maestro.aura,
     'Fiore di Loto',
-    NomeDelTraguardo('Petalo', 'Petali'),
+    NomeDelTraguardo('Perla', 'Perle'),
     NomeDelTraguardo('Fioritura', 'Fioriture'),
-    'Ogni gesto che compi apre un petalo e il loto si schiude quando il '
+    'Ogni gesto che compi accende una perla e il loto si schiude quando il '
         'respiro ha smesso di essere una decisione.',
   );
 
