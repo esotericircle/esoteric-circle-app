@@ -151,43 +151,39 @@ class LuciDelSentiero extends StatelessWidget {
   }
 }
 
-/// UN ALONE E IL COLORE DELLA MATERIA CHE LO EMETTE. Ordine X voce 01.
+/// UNA LAMPADINA: la forma, il suo cerchio e il suo colore. Ordine AF voce 02.
 ///
-/// **Tiene insieme due cose che prima viaggiavano separate**: dove si stende la
-/// luce e di che colore e'. Finche' la luce era oro per tutti il colore non
-/// serviva portarlo, e infatti non c'era.
-class _AloneDellaMateria {
-  const _AloneDellaMateria(this.dove, this.colore);
+/// **Tiene insieme cio' che serve a disegnare un elemento ACCESO come una
+/// lampadina**: la forma esatta da ridipingere, il centro e il raggio del suo
+/// cerchio per l'alone a gradiente e il riflesso, e il colore della materia per
+/// la tinta dell'alone, che resta la legge dell'ordine X.
+class _Lampadina {
+  const _Lampadina(this.forma, this.centro, this.raggio, this.colore);
 
-  /// Il riquadro dell'elemento meno la sua forma.
-  final Path dove;
+  /// La forma esatta dell'elemento, da ridipingere luminosa.
+  final Path forma;
 
-  /// La sua materia, gia' portata alla luminosita' piena.
+  /// Il centro del cerchio che avvolge la forma.
+  final Offset centro;
+
+  /// Il raggio equivalente della forma sulla tela.
+  final double raggio;
+
+  /// La materia dell'elemento, portata alla luminosita' piena.
   final Color colore;
 }
 
-/// I TRACCIATI COMPOSTI UNA VOLTA E TENUTI. Ordine AC voce 01a.
+/// LE LAMPADINE COMPOSTE UNA VOLTA E TENUTE. Ordine AC voce 01a.
 ///
 /// **Non e' una scorciatoia, e' il riconoscimento di un fatto**: le forme sono un
 /// dato generato che non cambia mai, e l'insieme dei traguardi accesi cambia un
-/// traguardo alla volta. Ricomporre migliaia di rettangoli a ogni passata voleva
-/// dire rifare ogni volta un lavoro il cui risultato era identico.
-class _TracciatiRicordati {
-  const _TracciatiRicordati({
-    required this.mini,
-    required this.grandi,
-    required this.aloniMini,
-    required this.aloniGrandi,
-    required this.quantiMini,
-    required this.quantiGrandi,
-  });
+/// traguardo alla volta. Ricomporre i tracciati a ogni passata era rifare ogni
+/// volta un lavoro il cui risultato era identico.
+class _LampadineRicordate {
+  const _LampadineRicordate({required this.mini, required this.grandi});
 
-  final Path mini;
-  final Path grandi;
-  final List<_AloneDellaMateria> aloniMini;
-  final List<_AloneDellaMateria> aloniGrandi;
-  final int quantiMini;
-  final int quantiGrandi;
+  final List<_Lampadina> mini;
+  final List<_Lampadina> grandi;
 }
 
 /// IL PITTORE DELLE LUCI.
@@ -254,30 +250,23 @@ class PittoreDelleLuci extends CustomPainter {
     // traguardo alla volta: comporre migliaia di rettangoli a ogni passata era
     // rifare ogni volta un lavoro il cui risultato non era cambiato. Adesso si
     // compone quando cambia qualcosa e si tiene.
-    final ricordo = _tracciatiDi(ancoraggi, forme, traguardi, misura, scala, dx,
-        dy);
+    final ricordo = _lampadineDi(ancoraggi, forme, traguardi, misura, scala,
+        dx, dy);
 
     // **L'EVIDENZA STA FUORI DAL RICORDO, ed e' voluto.** E' un elemento solo,
     // cambia a ogni tocco, e tenerla dentro vorrebbe dire buttare via tutto il
     // resto ogni volta che il dito si sposta.
-    final evidenza = Path();
-    final aloniEvidenza = <_AloneDellaMateria>[];
-    var quantaEvidenza = 0;
+    final evidenza = <_Lampadina>[];
     if (evidenziato != null) {
       for (var i = 0; i < ancoraggi.length; i++) {
         if (traguardi[i].id != evidenziato) continue;
         if (!accesi.contains(traguardi[i].id)) continue;
-        _aggiungi(evidenza, forme[i], scala, dx, dy);
-        aloniEvidenza.add(_alonePerUno(forme[i], scala, dx, dy));
-        quantaEvidenza++;
+        evidenza.add(_lampadinaPerUno(forme[i], scala, dx, dy));
       }
     }
-    _accendi(tela, ricordo.mini, ricordo.aloniMini,
-        quanti: ricordo.quantiMini, ampiezza: 6.0, forza: 0.78);
-    _accendi(tela, ricordo.grandi, ricordo.aloniGrandi,
-        quanti: ricordo.quantiGrandi, ampiezza: 9.0, forza: 0.95);
-    _accendi(tela, evidenza, aloniEvidenza,
-        quanti: quantaEvidenza, ampiezza: 14.0, forza: 1.0);
+    _accendi(tela, ricordo.mini, forza: 0.85);
+    _accendi(tela, ricordo.grandi, forza: 1.0);
+    _accendi(tela, evidenza, forza: 1.0, enfasi: 1.3);
   }
 
   /// **CIO' CHE SI TIENE FRA UNA PASSATA E L'ALTRA.**
@@ -287,14 +276,14 @@ class PittoreDelleLuci extends CustomPainter {
   /// veda: il sentiero, la misura della tela, i colori della sua tavolozza e
   /// **quali** traguardi sono accesi, non quanti. Due insiemi diversi della
   /// stessa lunghezza sono due disegni diversi.
-  static final Map<String, _TracciatiRicordati> _ricordi = {};
+  static final Map<String, _LampadineRicordate> _ricordi = {};
 
   /// **QUANTI RICORDI SI TENGONO.** Tre sentieri, e una misura di tela per
   /// ciascuno: sopra questo numero si sta tenendo in vita roba che nessuno
   /// riguardera'. Non e' una cache generica, e' una memoria corta e dichiarata.
   static const int quantiRicordi = 6;
 
-  _TracciatiRicordati _tracciatiDi(
+  _LampadineRicordate _lampadineDi(
     List<AncoraggioDelSentiero> ancoraggi,
     List<FormaDellElemento> forme,
     List<dynamic> traguardi,
@@ -314,32 +303,15 @@ class PittoreDelleLuci extends CustomPainter {
     final gia = _ricordi[chiave];
     if (gia != null) return gia;
 
-    final mini = Path();
-    final grandi = Path();
-    final aloniMini = <_AloneDellaMateria>[];
-    final aloniGrandi = <_AloneDellaMateria>[];
-    var quantiMini = 0, quantiGrandi = 0;
+    final mini = <_Lampadina>[];
+    final grandi = <_Lampadina>[];
     for (var i = 0; i < ancoraggi.length; i++) {
       if (!accesi.contains(traguardi[i].id)) continue;
-      if (ancoraggi[i].eGrande) {
-        _aggiungi(grandi, forme[i], scala, dx, dy);
-        aloniGrandi.add(_alonePerUno(forme[i], scala, dx, dy));
-        quantiGrandi++;
-      } else {
-        _aggiungi(mini, forme[i], scala, dx, dy);
-        aloniMini.add(_alonePerUno(forme[i], scala, dx, dy));
-        quantiMini++;
-      }
+      (ancoraggi[i].eGrande ? grandi : mini)
+          .add(_lampadinaPerUno(forme[i], scala, dx, dy));
     }
     if (_ricordi.length >= quantiRicordi) _ricordi.remove(_ricordi.keys.first);
-    return _ricordi[chiave] = _TracciatiRicordati(
-      mini: mini,
-      grandi: grandi,
-      aloniMini: aloniMini,
-      aloniGrandi: aloniGrandi,
-      quantiMini: quantiMini,
-      quantiGrandi: quantiGrandi,
-    );
+    return _ricordi[chiave] = _LampadineRicordate(mini: mini, grandi: grandi);
   }
 
   /// **LA LUCE HA IL COLORE DELLA MATERIA CHE ACCENDE.** Ordine X voce 01.
@@ -383,27 +355,15 @@ class PittoreDelleLuci extends CustomPainter {
         .toColor();
   }
 
-  /// L'alone di UN elemento: il suo riquadro meno la sua forma, col suo colore.
-  ///
-  /// **LA SOTTRAZIONE E' ARITMETICA, non un motore booleano.** Ordine AC voce
-  /// 01a. Prima era un `Path.combine` di differenza per elemento, e misurato
-  /// costava il novantacinque per cento del tempo di composizione: 57,7
-  /// millesimi sulla Costellazione, 86,2 sull'Albero, 275,7 sul Loto, contro i
-  /// 2,8 dei rettangoli del tracciato. Il complemento di una forma a strisce
-  /// dentro il suo riquadro si calcola per righe, prendendo i BUCHI fra un
-  /// segmento e l'altro: e' lo stesso risultato senza scomodare la geometria
-  /// booleana.
-  ///
-  /// **La sottrazione resta anche se la sfocatura la scavalca.** Il
-  /// `MaskFilter.blur` si applica dopo, quindi il bagliore rientra comunque
-  /// sopra la forma: e' il meccanismo che spiega la firma dorata misurata. Ma
-  /// adesso cio' che rientra ha la tinta della materia, quindi illumina invece
-  /// di lavare, e la sottrazione continua a tenere il grosso della luce fuori,
-  /// dove un alone deve stare.
-  _AloneDellaMateria _alonePerUno(
+  /// LA LAMPADINA di UN elemento: forma, cerchio e colore.
+  _Lampadina _lampadinaPerUno(
       FormaDellElemento forma, double scala, double dx, double dy) {
+    final via = Path();
+    _aggiungi(via, forma, scala, dx, dy);
     final s = forma.strisce;
-    if (s.length < 3) return _AloneDellaMateria(Path(), _luceDi(forma));
+    if (s.length < 3) {
+      return _Lampadina(via, Offset.zero, 0, _luceDi(forma));
+    }
     var minX = s[1], maxX = s[2], minY = s[0], maxY = s[0];
     for (var k = 0; k + 2 < s.length; k += 3) {
       if (s[k] < minY) minY = s[k];
@@ -411,46 +371,14 @@ class PittoreDelleLuci extends CustomPainter {
       if (s[k + 1] < minX) minX = s[k + 1];
       if (s[k + 2] > maxX) maxX = s[k + 2];
     }
-    // I segmenti della forma, raccolti per riga. **Non si assume una striscia
-    // per riga**: una forma concava puo' averne due o tre sulla stessa y, e
-    // darlo per scontato lascerebbe dentro l'alone un pezzo di elemento.
-    final perRiga = <int, List<int>>{};
-    for (var k = 0; k + 2 < s.length; k += 3) {
-      (perRiga[s[k]] ??= <int>[]).addAll([s[k + 1], s[k + 2]]);
-    }
-    // **L'ALTEZZA E' LA STESSA DELLE STRISCE, mezzo punto in piu' compreso.** La
-    // forma sovrappone le sue righe per non lasciare cuciture, e il suo
-    // complemento deve sovrapporle uguale: costruirlo alto un punto esatto
-    // lascerebbe una riga scoperta ogni volta, cioe' una cucitura di luce dove
-    // prima non c'era.
-    final alto = scala + 0.5;
-    final via = Path();
-    void rettangolo(int y, int da, int a) {
-      if (a < da) return;
-      via.addRect(Rect.fromLTWH(
-          dx + da * scala, dy + y * scala, (a - da + 1) * scala, alto));
-    }
-
-    for (var y = minY; y <= maxY; y++) {
-      final segmenti = perRiga[y];
-      if (segmenti == null) {
-        // Una riga senza strisce e' tutta alone, da un bordo all'altro.
-        rettangolo(y, minX, maxX);
-        continue;
-      }
-      final coppie = <List<int>>[];
-      for (var j = 0; j + 1 < segmenti.length; j += 2) {
-        coppie.add([segmenti[j], segmenti[j + 1]]);
-      }
-      coppie.sort((a, b) => a[0].compareTo(b[0]));
-      var x = minX;
-      for (final c in coppie) {
-        rettangolo(y, x, c[0] - 1);
-        if (c[1] + 1 > x) x = c[1] + 1;
-      }
-      rettangolo(y, x, maxX);
-    }
-    return _AloneDellaMateria(via, _luceDi(forma));
+    final centro = Offset(
+      dx + (minX + maxX + 1) / 2 * scala,
+      dy + (minY + maxY + 1) / 2 * scala,
+    );
+    // Il raggio equivalente discende dall'area, cosi' vale uguale su un disco
+    // del Loto e su una sfera dell'Albero.
+    final raggio = math.sqrt(forma.area / math.pi) * scala;
+    return _Lampadina(via, centro, raggio, _luceDi(forma));
   }
 
   /// Le strisce di una forma diventano rettangoli dentro un tracciato.
@@ -469,78 +397,90 @@ class PittoreDelleLuci extends CustomPainter {
     }
   }
 
-  /// **SI ACCENDE LA FORMA, NON IL PUNTO.**
+  /// **LA LAMPADINA.** Ordine AF voce 02, difetto di Mauro: una perla accesa
+  /// deve leggersi come una lampadina accesa al primo sguardo, non come una
+  /// scintilla tenue.
   ///
-  /// **Il grande e' piu' ampio e piu' caldo del mini, e la differenza si
-  /// dichiara con un numero**: mezzo passo in piu' di alone, nove contro sei, e
-  /// un quinto di luce in piu', 0,95 contro 0,78.
-  void _accendi(Canvas tela, Path tracciato, List<_AloneDellaMateria> aloni,
-      {required int quanti,
-      required double ampiezza,
-      required double forza}) {
-    // **NIENTE computeMetrics QUI, ed e' costato dieci minuti a scoprirlo.** Su
-    // un tracciato di qualche migliaio di rettangoli quella chiamata costruisce
-    // le metriche di ogni contorno e l'anteprima non arrivava mai in fondo:
-    // sapere SE c'e' qualcosa da accendere e' un contatore, non una misura.
-    if (quanti == 0) return;
-    final f = forza * respiro;
-    if (effettiPieni) {
-      // **L'ALONE STA FUORI DALL'ELEMENTO, e non sopra.** Un alone dorato steso
-      // anche sull'orbo lo lava: il lapis blu sotto una velatura calda diventa
-      // grigio, e la saturazione scende proprio dove l'elemento dovrebbe
-      // brillare. Togliendogli l'area della forma, l'alone fa quello che un
-      // alone fa, cioe' illuminare INTORNO, e il colore dell'elemento resta suo.
-      // **UNA SOTTRAZIONE PER ELEMENTO, e il conto totale non cambia.** Prima
-      // era una sola per stato su tutte le forme insieme; adesso sono una per
-      // elemento su una forma sola, e i rettangoli attraversati sono gli stessi.
-      // Cio' che cambia e' che ogni alone puo' avere il suo colore, che e' il
-      // punto della voce.
-      // **IL RITAGLIO CONTRO LA FORMA E' STATO PROVATO E SCARTATO, con i
-      // numeri.** Ritagliando la tela sull'alone prima di stenderlo, la
-      // sfocatura non rientra piu' sopra l'elemento: sulla Costellazione la
-      // saturazione resta 0,67 e 0,65, cioe' identica, mentre sull'Albero
-      // scende da 0,46 e 0,48 a 0,42 e 0,41 e sul Loto da 0,52 e 0,54 a 0,51 e
-      // 0,51. **Costa un salvataggio, un ritaglio e un ripristino per elemento
-      // e non compra niente**: la luce che rientra, adesso che ha la tinta
-      // giusta, e' quella che fa salire la saturazione invece di abbassarla.
-      for (final alone in aloni) {
-        tela.drawPath(
-          alone.dove,
+  /// **SENZA MaskFilter, SENZA sfocature, SENZA BlendMode.plus, ed e' un
+  /// vincolo di costruzione**: la tecnica vecchia e' la stessa sospettata di non
+  /// comparire affatto sul telefono (difetto Impeller aperto), e un gradiente
+  /// disegnato non dipende da quel percorso di rendering. Tre passate per
+  /// elemento, tutte in disegno normale: l'ALONE, un gradiente radiale che
+  /// sfuma dal colore della materia al niente; il DISCO, la forma ridipinta
+  /// piena con un gradiente da bianco caldo a oro caldo, spostato in alto a
+  /// sinistra perche' una sfera illuminata ha il colmo dove guarda la luce; il
+  /// RIFLESSO, un cerchietto bianco pieno.
+  ///
+  /// **Il colore dell'alone resta quello della materia**, che e' la legge
+  /// dell'ordine X; il disco invece e' bianco caldo e oro caldo per decisione di
+  /// Mauro in quest'ordine: la lampadina e' la lampadina, su tutti e tre i
+  /// sentieri.
+  ///
+  /// **IL PAVIMENTO DEL RAGGIO, ed e' la strada della AC.11**: sotto gli otto
+  /// punti logici una lampadina non si legge su uno schermo a 360 di larghezza,
+  /// quindi un elemento piu' piccolo si accende comunque come un cerchio da
+  /// otto. Il numero e' un pavimento di leggibilita', non una misura dell'arte.
+  static const double pavimentoDelRaggio = 8.0;
+
+  /// Il bianco caldo del colmo e l'oro caldo del bordo della lampadina.
+  static const Color _biancoCaldo = Color(0xFFFFF3D6);
+  static const Color _oroCaldo = Color(0xFFE9B84D);
+
+  void _accendi(Canvas tela, List<_Lampadina> lampadine,
+      {required double forza, double enfasi = 1.0}) {
+    if (lampadine.isEmpty) return;
+    final f = (forza * respiro).clamp(0.0, 1.0);
+    for (final lampadina in lampadine) {
+      if (lampadina.raggio <= 0) continue;
+      final raggio = math.max(lampadina.raggio, pavimentoDelRaggio) * enfasi;
+      final centro = lampadina.centro;
+
+      // L'ALONE: un gradiente radiale col colore della materia, disegnato e non
+      // sfocato. Cade quando gli effetti pieni sono spenti, come prima.
+      if (effettiPieni) {
+        final raggioAlone = raggio * 2.4;
+        tela.drawCircle(
+          centro,
+          raggioAlone,
           Paint()
-            // **IL COLORE E' QUELLO DELLA MATERIA**, non l'oro. Vedi `_luceDi`:
-            // l'oro sul lapis lo porta al grigio, e questa era la passata che
-            // portava il grosso del danno, non quella netta qui sotto.
-            ..color = alone.colore.withValues(alpha: 0.30 * f)
-            ..maskFilter = MaskFilter.blur(BlurStyle.normal, ampiezza)
-            // **ANCHE L'ALONE SI SOMMA.** Steso in modo normale lavava
-            // l'elemento sotto, ed era meta' della desaturazione.
-            ..blendMode = BlendMode.plus,
+            ..shader = ui.Gradient.radial(centro, raggioAlone, [
+              lampadina.colore.withValues(alpha: 0.50 * f),
+              lampadina.colore.withValues(alpha: 0.22 * f),
+              lampadina.colore.withValues(alpha: 0.0),
+            ], [
+              raggio / raggioAlone,
+              0.62,
+              1.0,
+            ]),
         );
       }
+
+      // IL DISCO: la forma ridipinta luminosa. Il colmo del gradiente sta in
+      // alto a sinistra, dove una sfera prende la luce. Se la forma e' piu'
+      // piccola del pavimento si disegna il cerchio del pavimento: la
+      // leggibilita' vince sulla fedelta' di una forma minuscola.
+      final colmo = centro.translate(-raggio * 0.25, -raggio * 0.30);
+      final pennello = Paint()
+        ..shader = ui.Gradient.radial(colmo, raggio * 1.7, [
+          _biancoCaldo.withValues(alpha: 0.95 * f),
+          _oroCaldo.withValues(alpha: 0.90 * f),
+        ], [
+          0.0,
+          1.0,
+        ]);
+      if (lampadina.raggio < pavimentoDelRaggio) {
+        tela.drawCircle(centro, raggio, pennello);
+      } else {
+        tela.drawPath(lampadina.forma, pennello);
+      }
+
+      // IL RIFLESSO FORTE: il lampo che dice "accesa" anche in miniatura.
+      tela.drawCircle(
+        centro.translate(-raggio * 0.32, -raggio * 0.36),
+        raggio * 0.24,
+        Paint()..color = Colors.white.withValues(alpha: 0.95 * f),
+      );
     }
-    // **L'ACCENSIONE ILLUMINA, NON COPRE.** Ordine W voce 01.
-    //
-    // Prima qui c'era un riempimento pieno al settantadue per cento: un disco
-    // d'oro piatto steso sopra l'elemento, che cancellava il modellato e il
-    // colore sotto. **Il premio per aver raggiunto un traguardo era veder
-    // spegnere il gioiello**: la sfera di peltro dell'Albero perdeva ombra e
-    // riflesso, e l'orbo di lapis della Costellazione passava da blu profondo a
-    // crema, guadagnando luminanza e PERDENDO saturazione.
-    //
-    // **La luce si somma, non si sovrappone**: in `BlendMode.plus` cio' che sta
-    // sotto resta e si schiarisce, quindi il lapis resta lapis e la pietra resta
-    // pietra. Il muro dell'8 agosto non c'entra: quello era la passata SFUMATA
-    // su un tracciato di migliaia di rettangoli, e la sfumatura qui resta sul
-    // riquadro, che e' un rettangolo per elemento.
-    //
-    // E il bianco e' sparito: schiarire verso il bianco DESATURA, ed era meta'
-    // del difetto. La luce e' oro, e l'oro somma.
-    tela.drawPath(
-      tracciato,
-      Paint()
-        ..color = Color.fromRGBO(80, 80, 80, 0.85 * f)
-        ..blendMode = BlendMode.colorDodge,
-    );
   }
 
   /// **LA LINEA SI SALDA FRA DUE PUNTI ACCESI DELLO STESSO GRUPPO**, e solo
@@ -572,8 +512,10 @@ class PittoreDelleLuci extends CustomPainter {
     final pennello = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = math.max(1.2, 2.4 * scala)
-      ..strokeCap = StrokeCap.round
-      ..blendMode = BlendMode.plus;
+      // **SENZA BlendMode.plus, dall'ordine AF**: il plus e' nella famiglia
+      // sospettata di non comparire sul telefono, e un gradiente d'alfa in
+      // disegno normale dice la stessa cosa.
+      ..strokeCap = StrokeCap.round;
     for (var i = 0; i + 1 < ancoraggi.length; i++) {
       // Solo col VICINO nel cammino e solo dentro lo stesso gruppo: unire tutti
       // con tutti farebbe una ragnatela, non una figura che si compone.
