@@ -54,28 +54,81 @@ class PittoreDellaFesta extends CustomPainter {
   /// significato che nessuno le ha dato.
   static const double quotaMassimaDellaRuna = 1 / 12;
 
+  /// **I NUMERI DI UNA PARTICELLA DIPENDONO DAL SUO INDICE, non dall'ordine in
+  /// cui si e' arrivati a lei.** Ordine AC voce 03.
+  ///
+  /// **Il difetto che questa riga chiude.** Prima le tre estrazioni si facevano
+  /// dentro il ciclo e solo per le particelle gia' nate: una non nata ne
+  /// consumava una, una nata tre. Cosi' **ogni nascita spostava il flusso di
+  /// tutte quelle dopo di lei**, e le stelle gia' in volo saltavano in un altro
+  /// punto invece di proseguire. Misurato prima della correzione: fra 0,18 e
+  /// 0,19 cambiavano angolo quattordici stelle su trentacinque, fra 0,30 e 0,31
+  /// trentatre su cinquantuno, e solo da 0,45 in poi, quando sono tutte nate, il
+  /// disegno si stabilizzava. **Per il primo quarantacinque per cento della
+  /// festa le particelle saltavano invece di aprirsi.**
+  ///
+  /// Adesso si estrae per TUTTE prima di qualunque filtro, quindi la particella
+  /// numero venti prende sempre gli stessi tre numeri, che sia nata o no. Il seme
+  /// complessivo resta fisso, quindi la stessa festa continua a ridisegnarsi
+  /// identica.
+  static List<({double ritardo, double quanto, double laterale})> numeriDelle(
+    Maestro maestro,
+    int quante, {
+    required bool eGrande,
+  }) {
+    final caso = math.Random(maestro.index * 7919 + (eGrande ? 31 : 17));
+    return List.generate(
+      quante,
+      (_) => (
+        // Ogni particella parte con un suo ritardo, cosi' il fronte non e' una
+        // riga netta: una festa che arriva tutta insieme e' un lampo, non un
+        // movimento.
+        ritardo: caso.nextDouble() * 0.45,
+        quanto: caso.nextDouble(),
+        laterale: caso.nextDouble(),
+      ),
+    );
+  }
+
+  /// Quante particelle disegna questa festa, degrado compreso.
+  int get quanteParticelle => effettiPieni
+      ? _quante
+      : math.max(6, (_quante * quotaDelDegrado).round());
+
+  /// **DOVE STA UNA PARTICELLA, come dato e non come effetto del disegno.**
+  ///
+  /// Serve alla prova che sorveglia il salto: senza, l'unico modo di sapere dove
+  /// sta una stella sarebbe guardare i pixel, e due stelle vicine non si
+  /// distinguerebbero. Chi disegna e chi misura passano di qui tutti e due,
+  /// quindi non possono scostarsi.
+  Map<int, Offset> posizioni(Size misura) {
+    final quante = quanteParticelle;
+    final numeri = numeriDelle(maestro, quante, eGrande: eGrande);
+    final dove = <int, Offset>{};
+    for (var i = 0; i < quante; i++) {
+      final t = ((avanzamento - numeri[i].ritardo) / (1 - numeri[i].ritardo))
+          .clamp(0.0, 1.0);
+      if (t <= 0) continue;
+      dove[i] = _dove(misura, numeri[i].quanto, numeri[i].laterale, t, i);
+    }
+    return dove;
+  }
+
   @override
   void paint(Canvas tela, Size misura) {
-    final quante = effettiPieni
-        ? _quante
-        : math.max(6, (_quante * quotaDelDegrado).round());
-    final caso = math.Random(maestro.index * 7919 + (eGrande ? 31 : 17));
+    final quante = quanteParticelle;
+    final numeri = numeriDelle(maestro, quante, eGrande: eGrande);
     for (var i = 0; i < quante; i++) {
-      // Ogni particella parte con un suo ritardo, cosi' il fronte non e' una
-      // riga netta: una festa che arriva tutta insieme e' un lampo, non un
-      // movimento.
-      final ritardo = caso.nextDouble() * 0.45;
-      final t = ((avanzamento - ritardo) / (1 - ritardo)).clamp(0.0, 1.0);
+      final t = ((avanzamento - numeri[i].ritardo) / (1 - numeri[i].ritardo))
+          .clamp(0.0, 1.0);
       if (t <= 0) continue;
-      _particella(tela, misura, caso, t, i);
+      _particella(tela, misura, numeri[i].quanto, numeri[i].laterale, t, i);
     }
   }
 
-  void _particella(
-      Canvas tela, Size misura, math.Random caso, double t, int indice) {
+  Offset _dove(
+      Size misura, double quanto, double laterale, double t, int indice) {
     final larghezza = misura.width, altezza = misura.height;
-    final quanto = caso.nextDouble();
-    final laterale = caso.nextDouble();
     late Offset dove;
     switch (_festa.direzione) {
       case DirezioneDellaFesta.dalCentro:
@@ -97,6 +150,13 @@ class PittoreDellaFesta extends CustomPainter {
         dove = Offset(quanto * larghezza + onda,
             altezza * 1.05 - t * 1.2 * altezza);
     }
+    return dove;
+  }
+
+  void _particella(Canvas tela, Size misura, double quanto, double laterale,
+      double t, int indice) {
+    final larghezza = misura.width, altezza = misura.height;
+    final dove = _dove(misura, quanto, laterale, t, indice);
     // Le particelle si spengono verso la fine della loro corsa.
     final vigore = (1 - t * t) * (effettiPieni ? 1.0 : 0.75);
     final grandezza = (eGrande ? 1.35 : 1.0) * (5 + laterale * 9);

@@ -54,9 +54,9 @@ gruppo che le usa, e il loro esito si scrive qui allora.
 
 ## Le dodici voci
 
-- **AC.01** L'interruttore dei Journal dall'arte si accende — APERTA
+- **AC.01** L'interruttore dei Journal dall'arte si accende — FERMATA IN ATTESA DI DECISIONE
 - **AC.02** Il vuoto sotto l'arte sparisce — APERTA
-- **AC.03** Le particelle della festa smettono di saltare — APERTA
+- **AC.03** Le particelle della festa smettono di saltare — CHIUSA
 - **AC.04** Mai due celebrazioni di seguito — APERTA
 - **AC.05** Nessun traguardo celebra due volte — APERTA
 - **AC.06** Tre pezzi dell'identita' diventano gesti — APERTA
@@ -70,7 +70,7 @@ gruppo che le usa, e il loro esito si scrive qui allora.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 12
-VOCI_CHIUSE: 0
+VOCI_APERTE: 10
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
