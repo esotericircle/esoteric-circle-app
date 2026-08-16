@@ -26,24 +26,31 @@ import '../../design_system/theme/maestro_scope.dart';
 class ArteDelSentiero {
   const ArteDelSentiero._();
 
-  /// **L'INTERRUTTORE, ED E' SPENTO, con la ragione scritta qui.**
+  /// **L'INTERRUTTORE, ED E' ACCESO dal 16 agosto 2026, ordine AC voce 01.**
   ///
-  /// Il Journal dall'arte e' completo e provato fino a un punto: a due traguardi
-  /// accesi si disegna e l'anteprima c'e'. **A cinquantacinque accesi il disegno
-  /// non arriva in fondo**, e la causa e' misurata: la forma di un elemento e'
-  /// conservata a strisce, una per riga, e accenderle tutte vuol dire chiedere
-  /// al pittore un tracciato di qualche migliaio di rettangoli disgiunti. Tre
-  /// tentativi di alleggerirlo (l'alone sul riquadro invece che sulla forma, via
-  /// `computeMetrics`, via la passata in `BlendMode.plus`) hanno tolto ognuno
-  /// una causa e il tempo non e' sceso: **non e' la sfumatura, e' il tracciato.**
+  /// **LA CAUSA VERA ERANO LE CINQUANTACINQUE SOTTRAZIONI BOOLEANE, non i
+  /// migliaia di rettangoli.** Per mesi qui c'era scritto che il disegno a
+  /// cinquantacinque accesi non arrivava in fondo per via del tracciato a
+  /// strisce. Misurato strumentando la composizione in due parti, il tracciato
+  /// costava **2,8 millesimi di secondo sul Loto**, cioe' era innocente: i
+  /// cinquantacinque `Path.combine` di differenza, uno per elemento, ne costavano
+  /// **275,7**. Il novantacinque per cento del tempo stava dove nessuno guardava.
   ///
-  /// **Non si accende cio' che non e' stato visto funzionare.** Finche' resta
-  /// falso, i tre Journal restano quelli procedurali di prima, che funzionano:
-  /// nessuno perde niente e nessuno rischia una schermata che si pianta col
-  /// cammino finito. Torna vero quando le forme si disegnano da una maschera
-  /// gia' rasterizzata invece che da un tracciato di rettangoli, e quando le sei
-  /// anteprime sono state guardate.
-  static const bool acceso = false;
+  /// **E' STATA TOLTA CALCOLANDO IL COMPLEMENTO PER RIGHE.** Il buco fra un
+  /// segmento e l'altro dentro il riquadro di una forma e' aritmetica sulle
+  /// strisce, non geometria booleana: stesso risultato, nessun motore. Verificato
+  /// a pixel contro il disegno di prima, la differenza massima per canale e' 6
+  /// sulla Costellazione, 9 sull'Albero, 20 sul Loto, tutte sotto la soglia di 30
+  /// con cui le guardie stesse decidono se un pixel e' cambiato.
+  ///
+  /// **IL TETTO CHE SORVEGLIA QUESTO RAMO E' CENTO MILLESIMI, ed e' l'apertura e
+  /// non il fotogramma**: questo pittore si disegna UNA volta quando il sentiero
+  /// si apre, e zero volte scorrendo l'elenco o toccando un traguardo, contate.
+  /// I tre numeri misurati sono **Costellazione 18,80, Albero 19,68, Loto 25,82**,
+  /// contro i 71,89, 100,39 e 287,60 di prima. La guardia sta in
+  /// `test/il_journal_arriva_in_fondo_test.dart` e da adesso cade se qualcuno
+  /// appesantisce il disegno.
+  static const bool acceso = true;
 
   /// **TRE COSE INSIEME, e servono tutte e tre**: l'immagine, i cinquantacinque
   /// ancoraggi e le cinquantacinque forme. Con l'immagine ma senza ancoraggi il
