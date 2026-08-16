@@ -50,14 +50,23 @@ memoria.
 
 ## Le tre voci
 
-- **AD.01** La via Google diventa nativa — APERTA
-- **AD.02** La correzione del test del server entra nella storia — APERTA
-- **AD.03** Il manifesto e il rapporto — APERTA
+- **AD.01** La via Google diventa nativa — FERMATA IN ATTESA DI DECISIONE
+- **AD.02** La correzione del test del server entra nella storia — CHIUSA
+- **AD.03** Il manifesto e il rapporto — CHIUSA
+
+## Cosa deve provare il founder perche' la AD.01 si chiuda
+
+Sul telefono, con la build in profile che porta la via nativa: aprire la
+custodia, scegliere Google, completare il flusso nella FINESTRA NATIVA (non piu'
+una pagina web su firebaseapp.com), e leggere l'esito a schermo. Se l'account
+Google scelto e' maobatta@gmail.com, che in console esiste gia' dal 14 agosto,
+l'esito giusto a schermo e' quello del "gia' di un altro Cerchio", non un
+errore generico: anche quello e' un collaudo riuscito, perche' dice la verita'.
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 3
-VOCI_APERTE: 3
-VOCI_CHIUSE: 0
+VOCI_APERTE: 0
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

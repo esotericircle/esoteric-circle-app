@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 /// COME STA LA PERSONA DENTRO IL CERCHIO.
 ///
@@ -76,6 +77,39 @@ abstract class PortaDellIdentita {
   Future<void> ricarica();
 }
 
+/// LA PORTA VERSO IL FLUSSO NATIVO DI GOOGLE. Ordine AD voce 01.
+///
+/// **Esiste perche' le prove non aprano nessuna finestra e non tocchino la
+/// rete**, come tutto il resto dell'identita': chi prova monta una porta finta
+/// che consegna una credenziale costruita a mano, e la porta vera vive solo
+/// dentro l'app.
+abstract class PortaDelFlussoGoogle {
+  /// La credenziale del flusso nativo, oppure nulla se la persona ha chiuso la
+  /// finestra: il nulla NON e' un errore, e' un'annullata.
+  Future<AuthCredential?> credenziale();
+}
+
+/// Il flusso vero, sopra `google_sign_in`.
+///
+/// **Il client id web non sta scritto qui, e non e' una dimenticanza**: su
+/// Android il pacchetto lo legge da solo dalla configurazione generata da
+/// `google-services.json`, che porta il client con `client_type` 3. Scriverlo a
+/// mano nel codice vorrebbe dire una seconda copia che diverge alla prima
+/// rigenerazione del file.
+class FlussoGoogleNativo implements PortaDelFlussoGoogle {
+  @override
+  Future<AuthCredential?> credenziale() async {
+    final account = await GoogleSignIn().signIn();
+    // Il pacchetto risponde nulla quando la persona chiude la finestra.
+    if (account == null) return null;
+    final autenticazione = await account.authentication;
+    return GoogleAuthProvider.credential(
+      idToken: autenticazione.idToken,
+      accessToken: autenticazione.accessToken,
+    );
+  }
+}
+
 /// La porta vera, sopra `firebase_auth`.
 ///
 /// **Perche' `link...` e non `signIn...`, ed e' il cuore della voce 1d.**
@@ -88,16 +122,24 @@ abstract class PortaDellIdentita {
 /// migrato, e la prova che enumera prima e dopo lo dimostra elemento per
 /// elemento.
 ///
-/// **Google e Apple passano dal fornitore federato di Firebase**
-/// (`linkWithProvider`), senza pacchetti nativi in piu': un pacchetto in piu'
-/// vorrebbe dire configurazione nativa in piu' su tutte e due le piattaforme,
-/// e la stessa cosa si ottiene con quello che c'e'. Resta a carico della
-/// console l'abilitazione dei due fornitori, che nessun codice puo' fare.
+/// **LA VIA GOOGLE E' NATIVA DAL 16 AGOSTO 2026, ordine AD.** Prima passava dal
+/// fornitore federato di Firebase (`linkWithProvider`), che su Android apre la
+/// pagina web su firebaseapp.com: provato sul telefono vero, il ritorno dal
+/// consenso muore con "missing initial state", perche' i browser Android con lo
+/// storage partizionato non reggono il flusso via redirect, e nessuna
+/// configurazione di console lo salva. Adesso le credenziali nascono dal flusso
+/// nativo di Google e si attaccano con `linkWithCredential`: stessa garanzia
+/// sull'uid, nessun browser di mezzo. **Apple resta su `linkWithProvider`**:
+/// non compare su Android e si rivede alla build iOS.
 class PortaDellIdentitaFirebase implements PortaDellIdentita {
-  PortaDellIdentitaFirebase({FirebaseAuth? auth})
-      : _auth = auth ?? FirebaseAuth.instance;
+  PortaDellIdentitaFirebase({
+    FirebaseAuth? auth,
+    PortaDelFlussoGoogle? flussoGoogle,
+  })  : _auth = auth ?? FirebaseAuth.instance,
+        _flussoGoogle = flussoGoogle ?? FlussoGoogleNativo();
 
   final FirebaseAuth _auth;
+  final PortaDelFlussoGoogle _flussoGoogle;
 
   User? get _utente => _auth.currentUser;
 
@@ -152,7 +194,9 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
     try {
       switch (via) {
         case ViaDellaCustodia.google:
-          await utente.linkWithProvider(GoogleAuthProvider());
+          final credenziale = await _flussoGoogle.credenziale();
+          if (credenziale == null) return EsitoDellaCustodia.annullata;
+          await utente.linkWithCredential(credenziale);
         case ViaDellaCustodia.apple:
           await utente.linkWithProvider(AppleAuthProvider());
         case ViaDellaCustodia.email:

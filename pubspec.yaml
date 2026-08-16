@@ -61,6 +61,7 @@ dependencies:
 
   # Auth anonima: un uid stabile su cui appendere la memoria dell'utente.
   firebase_auth: 6.5.4
+  google_sign_in: ^6.3.0
 
   # Firestore: memoria persistente per la Demo (profilo, fatti, sintesi di
   # sessione). L'evoluzione verso Cloud SQL con pgvector resta dietro la stessa
