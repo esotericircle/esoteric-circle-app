@@ -1,12 +1,15 @@
+import 'dart:math' as math;
+
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/sigilli/ancoraggi_dei_sentieri.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
+import 'package:esoteric_circle/features/sigilli/journal_dall_arte.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
-import 'package:esoteric_circle/features/sigilli/disegno_del_sentiero.dart';
 import 'package:esoteric_circle/features/sigilli/sentiero_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -234,15 +237,32 @@ void main() {
     // Il quarantesimo mini e' lontano dal punto in cui la discesa si era
     // fermata: se il tocco lo raggiunge, il legame fra disegno ed elenco
     // esiste davvero e non e' un caso.
+    //
+    // **IL PUNTO DA TOCCARE E' L'ANCORAGGIO, non la geometria procedurale.**
+    // Dal 16 agosto 2026 il Journal dall'arte e' acceso e sul Loto il tocco
+    // vive sugli ancoraggi delle perle: toccare il punto del vecchio pittore
+    // procedurale vorrebbe dire toccare un petalo qualunque e accusare un
+    // legame sano. L'arte e' montata con BoxFit.contain, quindi il punto si
+    // riporta sulla tela con la stessa scala centrata che usa chi disegna.
     final lontano = Sentieri.miniDi(sentiero)[39];
-    final punto = GeometriaDelSentiero.punti(sentiero)
-        .firstWhere((p) => p.traguardo.id == lontano.id);
+    final ordinati = Sentieri.di(sentiero).toList()
+      ..sort((a, b) =>
+          Sentieri.ordineNelCammino(a).compareTo(Sentieri.ordineNelCammino(b)));
+    final indice = ordinati.indexWhere((t) => t.id == lontano.id);
+    final ancora = AncoraggiDeiSentieri.di(sentiero)![indice];
+    // La chiave e' quella del riquadro che ospita il disegno, non quella del
+    // pittore procedurale: col Journal dall'arte acceso `disegno_loto` non
+    // esiste piu', e cercarlo era il "Bad state: No element" di questa prova.
     final tela = tester.renderObject<RenderBox>(
-        find.byKey(Key('disegno_${sentiero.name}')));
+        find.byKey(const Key('sentiero_disegno')));
     final origine = tela.localToGlobal(Offset.zero);
+    final wArte = ArteDelSentiero.larghezzaArte(sentiero).toDouble();
+    final hArte = ArteDelSentiero.altezzaArte(sentiero).toDouble();
+    final scala = math.min(
+        tela.size.width / wArte, tela.size.height / hArte);
     final dove = origine +
-        Offset(punto.dove.dx * tela.size.width,
-            punto.dove.dy * tela.size.height);
+        Offset((tela.size.width - wArte * scala) / 2 + ancora.x * wArte * scala,
+            (tela.size.height - hArte * scala) / 2 + ancora.y * hArte * scala);
 
     final prima = rigaDi(tester, lontano).top;
     await tester.tapAt(dove);
