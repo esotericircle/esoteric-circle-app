@@ -249,6 +249,15 @@ void main() {
       'tool/trova_le_perle.py',
       "docs/preview/loto_perle_trovate",
     ],
+    // Il SORGENTE del Loto delle perle (ordine AE): non e' un'anteprima, e' il
+    // file di Mauro da cui lo scontorno deriva l'arte, e non si modifica mai
+    // sul posto. Il suo custode e' lo strumento che lo consuma: se un giorno lo
+    // scontorno smettesse di leggerlo, questo file resterebbe qui senza che
+    // nessuno sappia piu' perche', e questa riga lo direbbe.
+    r'^journal_loto_nuovo-1\.png$': [
+      'tool/scontorna_loto.py',
+      "docs/preview/journal_loto_nuovo-1.png",
+    ],
   };
 
   test('ogni anteprima nata fuori dal corredo ha il suo generatore vivo', () {
