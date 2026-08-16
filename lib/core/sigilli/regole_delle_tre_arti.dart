@@ -179,6 +179,28 @@ class RegoleDelleTreArti {
   /// conteggio, e non e' stato toccato perche' l'Albero non era l'oggetto
   /// dell'ordine.
   ///
+  /// **ANCHE SALDARE IL MURO E' STATO PROVATO E SCARTATO, il 16 agosto 2026 con
+  /// l'ordine AA voce 01, ed era l'operazione OPPOSTA alla chiusura.** Dilatare
+  /// il muro prima di crescere restringe davvero i passaggi fra due petali, e il
+  /// conteggio infatti sale: sul Loto il muro passa da 577.180 pixel a 703.519
+  /// con saldatura 1, a 805.560 con 2, a 892.019 con 3, e le forme vere passano
+  /// da 22 a 31, 38 e 49. **Ma l'area crolla, e il criterio aveva due gambe
+  /// apposta**: la mediana passa da 4.297 pixel a 2.662, 2.063 e 1.653, cioe'
+  /// fuori dalla banda fra 3.438 e 5.156 gia' col valore piu' piccolo.
+  ///
+  /// **E NON E' UN EFFETTO DELLA POPOLAZIONE CHE CAMBIA**, che era l'obiezione da
+  /// abbattere prima di dare un verdetto: guardando SOLO i ventidue petali che si
+  /// chiudevano gia' senza saldatura, e che continuano a chiudersi a ogni valore,
+  /// la loro mediana scende da 4.297 a 2.677, 1.863 e 1.439. **Sono gli stessi
+  /// petali e diventano meno della meta'.** La causa e' quella dichiarata prima
+  /// di misurare: la venatura centrale e' oro, quindi si salda anche lei e taglia
+  /// il petalo in due. Il conteggio salirebbe rimpicciolendo la cosa contata, che
+  /// e' la bugia uguale e contraria a quella della chiusura.
+  ///
+  /// **Le due strade automatiche sono quindi ESCLUSE con una misura, tutte e
+  /// due**, e quel che resta tocca i file di Mauro, l'arte o i pallini, e la
+  /// decisione e' sua.
+  ///
   /// Il raggio massimo e' il **dodici per cento della larghezza dell'arte**, e
   /// non viene dalle misure: viene da cosa e' un elemento. Un Journal ne porta
   /// cinquantacinque, quindi nessuno puo' allontanarsi dal proprio seme piu' di
@@ -198,6 +220,13 @@ class RegoleDelleTreArti {
         },
         raggioMassimo: (larghezzaArte * 0.12).round(),
         areaMinima: CrescitaDellaForma.areaDelRipiego,
+        // **NESSUN SENTIERO SALDA IL MURO, e lo zero non e' provvisorio: e'
+        // misurato.** Vedi la tabella nella dichiarazione di questo metodo.
+        saldaturaDelMuro: switch (sentiero) {
+          Sentiero.loto => 0,
+          Sentiero.costellazione => 0,
+          Sentiero.albero => 0,
+        },
       );
 
   /// Il file da cui si leggono gli ancoraggi: l'arte stessa oppure i pallini.

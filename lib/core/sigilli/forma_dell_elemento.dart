@@ -93,6 +93,7 @@ class RegolaDellaForma {
     required this.chiusura,
     required this.raggioMassimo,
     required this.areaMinima,
+    this.saldaturaDelMuro = 0,
   });
 
   /// **QUANTO PUO' ALLONTANARSI UN COLORE DALLA MATERIA del seme e restare lo
@@ -118,6 +119,20 @@ class RegolaDellaForma {
   /// **SOTTO QUESTA AREA la forma non e' una forma**: e' piu' piccola del
   /// bagliore tondo che dovrebbe sostituire, quindi non aggiunge niente.
   final int areaMinima;
+
+  /// **DI QUANTO SI DILATA IL MURO PRIMA DI CRESCERE.** Ordine AA voce 01.
+  ///
+  /// **E' l'opposto di [chiusura] e le due non vanno confuse.** La chiusura
+  /// gonfia il LIBERO, quindi allarga i passaggi fra due elementi che si toccano;
+  /// questa gonfia il MURO, quindi li restringe fino a chiuderli. Una saldatura
+  /// di n salda una strozzatura larga fino a 2n.
+  ///
+  /// **Zero vuol dire non saldare niente**, ed e' il valore di tutti e tre i
+  /// sentieri finche' una misura non dimostra che un altro valore fa meglio su
+  /// due gambe insieme, il conteggio delle forme E l'area, perche' saldando
+  /// troppo un elemento si taglia in due e il conteggio salirebbe rimpicciolendo
+  /// la cosa contata.
+  final int saldaturaDelMuro;
 }
 
 /// LA CRESCITA.
@@ -136,6 +151,38 @@ class CrescitaDellaForma {
   /// **IL MURO: l'oro, riconosciuto dalla tinta.** Rosso sopra verde sopra blu,
   /// con almeno trenta punti fra il primo e l'ultimo.
   static bool eOro(int r, int g, int b) => r > g && g >= b && (r - b) > 30;
+
+  /// **QUANTI PIXEL DI MURO CI SONO SU UN'ARTE, prima e dopo la saldatura.**
+  /// Ordine AA voce 01 lettera d.
+  ///
+  /// **Serve a verificare che la saldatura sia ENTRATA prima di leggere il
+  /// conteggio delle forme.** E' la regola del rosso applicata a una correzione
+  /// invece che a un difetto: se questi due numeri sono uguali, la dilatazione
+  /// non ha fatto niente e il conteggio che si legge dopo non dice niente.
+  static (int, int) muroPrimaEDopo(
+    Uint8List rgba,
+    int larghezza,
+    int altezza,
+    int saldatura,
+  ) {
+    var muro = Uint8List(larghezza * altezza);
+    var prima = 0;
+    for (var p = 0; p < larghezza * altezza; p++) {
+      final i = p * 4;
+      if (rgba[i + 3] <= 128) continue;
+      if (!eOro(rgba[i], rgba[i + 1], rgba[i + 2])) continue;
+      muro[p] = 1;
+      prima++;
+    }
+    for (var g = 0; g < saldatura; g++) {
+      muro = _gonfia(muro, larghezza, altezza);
+    }
+    var dopo = 0;
+    for (var p = 0; p < muro.length; p++) {
+      if (muro[p] == 1) dopo++;
+    }
+    return (prima, dopo);
+  }
 
   /// LA MATERIA ATTORNO AL SEME: il colore mediano dei pixel opachi in un
   /// quadretto attorno al punto. **Mediano e non medio**, perche' il seme puo'
@@ -190,13 +237,48 @@ class CrescitaDellaForma {
     final lf = x1 - x0 + 1;
     final af = y1 - y0 + 1;
 
+    // **IL MURO SI SALDA PRIMA DI CRESCERE.** Ordine AA voce 01.
+    //
+    // **E' l'operazione OPPOSTA alla chiusura, e l'ordine Z ha dimostrato
+    // perche' serve quella e non questa.** Chiudere la REGIONE gonfia il libero,
+    // quindi allarga i passaggi fra un petalo e l'altro invece di sigillarli.
+    // Dilatare il MURO li restringe: una saldatura di n chiude una strozzatura
+    // fino a 2n, e sul Loto le strozzature misurate vanno da 1 a 5 pixel con
+    // mediana 3.
+    //
+    // **Il muro dilatato non entra mai nella forma**, perche' il libero lo
+    // esclude: non c'e' niente da togliere alla fine, e l'area non si gonfia.
+    // Il pericolo e' l'opposto ed e' dichiarato: nel Loto il muro passa anche
+    // DENTRO il petalo, perche' la venatura e' oro e ha spessore mediano 5, e
+    // saldandola troppo il petalo si taglia in due. Per questo il criterio ha
+    // due gambe, il conteggio e l'area, e non basta il conteggio.
+    var muro = Uint8List(lf * af);
+    if (regola.saldaturaDelMuro > 0) {
+      for (var y = y0; y <= y1; y++) {
+        for (var x = x0; x <= x1; x++) {
+          final i = (y * larghezza + x) * 4;
+          if (rgba[i + 3] <= 128) continue;
+          if (eOro(rgba[i], rgba[i + 1], rgba[i + 2])) {
+            muro[(y - y0) * lf + (x - x0)] = 1;
+          }
+        }
+      }
+      for (var g = 0; g < regola.saldaturaDelMuro; g++) {
+        muro = _gonfia(muro, lf, af);
+      }
+    }
+
     // LA MASCHERA DEL LIBERO, calcolata solo dentro la finestra.
     var libero = Uint8List(lf * af);
     for (var y = y0; y <= y1; y++) {
       for (var x = x0; x <= x1; x++) {
         final i = (y * larghezza + x) * 4;
         if (rgba[i + 3] <= 128) continue;
-        if (eOro(rgba[i], rgba[i + 1], rgba[i + 2])) continue;
+        if (regola.saldaturaDelMuro > 0) {
+          if (muro[(y - y0) * lf + (x - x0)] == 1) continue;
+        } else if (eOro(rgba[i], rgba[i + 1], rgba[i + 2])) {
+          continue;
+        }
         if (regola.tolleranza > 0) {
           final d = (rgba[i] - m[0]).abs() +
               (rgba[i + 1] - m[1]).abs() +

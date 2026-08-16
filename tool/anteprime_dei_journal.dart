@@ -11,11 +11,30 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// LE ANTEPRIME DEI TRE JOURNAL. Ordine T voce 02.
+/// LE ANTEPRIME DEI TRE JOURNAL. Ordine T voce 02, ampliato dall'ordine AA
+/// voce 02.
 ///
-/// **Sei immagini, due stati per sentiero**: a due traguardi accesi, che e'
-/// quello che Mauro vede oggi, e a cinquantacinque. Alla larghezza vera del suo
-/// telefono, 360 per 797, rigenerate insieme e alla stessa risoluzione.
+/// **NOVE immagini, tre stati per sentiero**: a due traguardi accesi, a dodici e
+/// a cinquantacinque. Alla larghezza vera del telefono di Mauro, 360 per 797,
+/// rigenerate insieme e alla stessa risoluzione.
+///
+/// **PERCHE' DODICI, e non e' un numero arbitrario.** Fino all'ordine AA gli
+/// stati erano due, il primo giorno e l'ultimo, e **nessuno vive agli estremi**:
+/// una persona sta per settimane fra i cinque e i trenta traguardi accesi, e
+/// quello stato non era mai stato guardato. E' li' che si vede se un traguardo
+/// raggiunto si distingue dagli altri, ed e' l'unica immagine che puo' dire se
+/// l'interruttore `ArteDelSentiero.acceso` si puo' girare.
+///
+/// La misura che lo ha suggerito: fra due accesi e cinquantacinque, sul Loto
+/// cambiano 100.810 pixel che formano sette macchie, le due maggiori da 27.306 e
+/// 26.602. **A cinquantacinque i bagliori dei vicini si fondono**, e puo' anche
+/// essere giusto cosi' per un Journal completo, ma sullo stato di mezzo non si
+/// sapeva niente.
+///
+/// **I dodici sono i PRIMI dodici del cammino**, non dodici a caso, perche' e'
+/// quello che una persona vera ha in mano dopo le prime settimane. E' la stessa
+/// scelta che il generatore faceva gia' per i due: si ordina per
+/// `Sentieri.ordineNelCammino` e si prendono i primi.
 ///
 /// Si lancia a mano:
 ///
@@ -114,10 +133,16 @@ void main() {
     });
   }
 
-  // **UN TEST PER IMMAGINE**, come nel corredo: sei prove da una cattura, non
+  // **UN TEST PER IMMAGINE**, come nel corredo: nove prove da una cattura, non
   // un ciclo dentro una prova sola.
+  //
+  // **Quanti accesi per ogni stato, come DATO e non come catena di se.** Il nome
+  // dello stato e il numero stanno nella stessa riga, cosi' non possono
+  // separarsi: `cinquantacinque` vale tutti quanti, quindi si scrive col numero
+  // dei traguardi di quel sentiero.
+  const quantiAccesi = {'due': 2, 'dodici': 12, 'cinquantacinque': -1};
   for (final sentiero in Sentieri.tutti) {
-    for (final stato in const ['due', 'cinquantacinque']) {
+    for (final stato in quantiAccesi.keys) {
       testWidgets('journal ${sentiero.name} $stato', (tester) async {
         tester.view.physicalSize = const Size(larghezza * 2, altezza * 2);
         tester.view.devicePixelRatio = 2.0;
@@ -125,9 +150,16 @@ void main() {
         final ordinati = Sentieri.di(sentiero).toList()
           ..sort((a, b) => Sentieri.ordineNelCammino(a)
               .compareTo(Sentieri.ordineNelCammino(b)));
-        final accesi = stato == 'due'
-            ? ordinati.take(2).map((t) => t.id).toSet()
-            : ordinati.map((t) => t.id).toSet();
+        final quanti = quantiAccesi[stato]!;
+        final accesi = (quanti < 0 ? ordinati : ordinati.take(quanti))
+            .map((t) => t.id)
+            .toSet();
+        // **QUANTI NE SONO STATI ACCESI DAVVERO, stampato accanto al file.** Se
+        // un giorno l'ordine del cammino cambiasse e `take` ne prendesse meno,
+        // l'immagine uscirebbe lo stesso e nessuno se ne accorgerebbe.
+        // ignore: avoid_print
+        print('journal ${sentiero.name} $stato: accesi ${accesi.length} '
+            'su ${ordinati.length}');
         await scatta(tester, sentiero, accesi, 'journal_${sentiero.name}_$stato');
       });
     }

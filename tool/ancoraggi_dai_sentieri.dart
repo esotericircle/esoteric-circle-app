@@ -90,6 +90,15 @@ void main() {
             .buffer
             .asUint8List();
         final materia = RegoleDelleTreArti.formaDi(sentiero, arte.width);
+        // **L'INIEZIONE SI VERIFICA PRIMA DI LEGGERE IL CONTEGGIO.** Ordine AA
+        // voce 01 lettera d: se questi due numeri sono uguali la saldatura non e'
+        // entrata, e il conteggio delle forme che segue non dice niente.
+        final (muroPrima, muroDopo) = CrescitaDellaForma.muroPrimaEDopo(
+            crudoArte, arte.width, arte.height, materia.saldaturaDelMuro);
+        // ignore: avoid_print
+        print('  muro: $muroPrima pixel, con saldatura '
+            '${materia.saldaturaDelMuro} diventa $muroDopo '
+            '(${muroPrima == 0 ? "zero" : "piu' ${((muroDopo - muroPrima) / muroPrima * 100).toStringAsFixed(1)} per cento"})');
         final forme = <FormaDellElemento>[];
         for (final a in ancoraggi) {
           forme.add(CrescitaDellaForma.cresci(
