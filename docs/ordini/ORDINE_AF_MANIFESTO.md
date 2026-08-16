@@ -40,7 +40,7 @@ mirate durante le voci, suite intera UNA volta sola in fondo prima del push.
 
 ## Le cinque voci
 
-- **AF.01** Le sacche bianche spariscono — APERTA
+- **AF.01** Le sacche bianche spariscono — CHIUSA
 - **AF.02** La lampadina — APERTA
 - **AF.03** La lampadina si accende davvero al traguardo — APERTA
 - **AF.04** Le perle si chiamano perle — APERTA
@@ -49,7 +49,7 @@ mirate durante le voci, suite intera UNA volta sola in fondo prima del push.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 5
-VOCI_CHIUSE: 0
+VOCI_APERTE: 4
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

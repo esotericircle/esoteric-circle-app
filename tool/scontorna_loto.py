@@ -63,6 +63,61 @@ while coda:
 print(f'soglia {SOGLIA}: pixel resi trasparenti {resi} su {w*h} '
       f'({100*resi/(w*h):.1f} per cento)')
 
+# **ANCHE LE SACCHE CHIUSE SPARISCONO.** Ordine AF voce 01, decisione di Mauro:
+# trasparenza vera anche fra gli steli. L'inondazione dal bordo non raggiunge il
+# bianco chiuso dentro l'arte, quindi le regioni bianche interne si rendono
+# trasparenti anch'esse, CON UNA PROTEZIONE: dentro i cinquantacinque dischi
+# delle perle e dei centri non si tocca niente, perche' i riflessi sono bianchi
+# anche loro e sono arte. I dischi si leggono da loto_pallini.png, che le
+# coordinate le porta gia': una seconda lettura dello stesso dato, non una
+# seconda porta.
+#
+# Il criterio con cui una regione interna e' detta SFONDO: stessa soglia
+# dell'inondazione, canale minimo sopra 235, e nessun pixel della regione dentro
+# un disco. Una regione bianca che tocca un disco e' un riflesso che sborda, e
+# si lascia stare.
+import os
+if os.path.exists('brand_assets/sentieri/loto_pallini.png'):
+    pal = Image.open('brand_assets/sentieri/loto_pallini.png').convert('RGBA')
+    # il pallini e' alla misura FINALE: si riporta alla misura del sorgente
+    pal = pal.resize((w, h), Image.NEAREST)
+    palp = pal.tobytes()
+    def nel_disco(q):
+        return palp[q * 4 + 3] > 128
+    sacche = celle_tolte = toccate = 0
+    for q in range(w * h):
+        if not bianco(q) or visto[q]:
+            continue
+        visto[q] = 1
+        pila = [q]
+        celle = []
+        tocca = False
+        while pila:
+            t = pila.pop()
+            celle.append(t)
+            if nel_disco(t):
+                tocca = True
+            x, y = t % w, t // w
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < w and 0 <= ny < h:
+                    n = ny * w + nx
+                    if not visto[n] and bianco(n):
+                        visto[n] = 1
+                        pila.append(n)
+        if tocca:
+            toccate += 1
+            continue
+        sacche += 1
+        for t in celle:
+            px[t * 4 + 3] = 0
+        celle_tolte += len(celle)
+    print(f'sacche interne rese trasparenti: {sacche} regioni, '
+          f'{celle_tolte} pixel; regioni risparmiate perche\' toccano un '
+          f'disco: {toccate}')
+else:
+    print('loto_pallini.png assente: il passo delle sacche interne e\' saltato')
+
 pronta = Image.frombytes('RGBA', (w, h), bytes(px))
 pronta = pronta.resize(MISURA_FINALE, Image.LANCZOS)
 
