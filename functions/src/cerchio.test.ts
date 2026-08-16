@@ -39,7 +39,7 @@ test("i limiti del giorno sono quelli del piano", () => {
   assert.equal(limiteDi("domande", "free"), 3);
   assert.equal(limiteDi("domande", "tier2"), 10);
   assert.equal(limiteDi("domande", "tier3"), null);
-  assert.equal(limiteDi("gettate", "free"), 3);
+  assert.equal(limiteDi("gettate", "free"), 1);
   assert.equal(limiteDi("gettate", "tier1"), null);
   // "No" nella matrice vale ZERO, non "senza limite": e' l'errore che
   // regalerebbe una funzione a chi non l'ha nel piano.
