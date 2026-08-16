@@ -43,7 +43,7 @@ marcatori in fondo si contano sulle righe.
 ## Le cinque voci
 
 - **AE.01** Lo scontorno e la misura giusta — CHIUSA
-- **AE.02** Le perle si trovano, i pallini si generano, gli ancoraggi si rifanno — APERTA
+- **AE.02** Le perle si trovano, i pallini si generano, gli ancoraggi si rifanno — CHIUSA
 - **AE.03** Le forme diventano le perle — APERTA
 - **AE.04** Le anteprime, e i cerchi sopra l'arte per gli occhi di Mauro — APERTA
 - **AE.05** Il manifesto e il rapporto — APERTA
@@ -51,7 +51,7 @@ marcatori in fondo si contano sulle righe.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 4
-VOCI_CHIUSE: 1
+VOCI_APERTE: 3
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

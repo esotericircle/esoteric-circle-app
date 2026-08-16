@@ -241,6 +241,14 @@ void main() {
       'tool/mappa_delle_strozzature.dart',
       "docs/preview/strozzature_",
     ],
+    // La mappa delle perle trovate (ordine AE voce 02): l'arte del Loto coi
+    // cinquanta cerchi individuati, colorati per gruppo, cosi' un pallino sul
+    // petalo sbagliato si vede in un secondo. La produce lo strumento che le
+    // perle le trova, quindi mappa e rilevamento non possono scostarsi.
+    r'^loto_perle_trovate\.png$': [
+      'tool/trova_le_perle.py',
+      "docs/preview/loto_perle_trovate",
+    ],
   };
 
   test('ogni anteprima nata fuori dal corredo ha il suo generatore vivo', () {
