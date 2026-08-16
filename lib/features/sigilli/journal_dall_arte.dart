@@ -378,6 +378,15 @@ class PittoreDelleLuci extends CustomPainter {
 
   /// L'alone di UN elemento: il suo riquadro meno la sua forma, col suo colore.
   ///
+  /// **LA SOTTRAZIONE E' ARITMETICA, non un motore booleano.** Ordine AC voce
+  /// 01a. Prima era un `Path.combine` di differenza per elemento, e misurato
+  /// costava il novantacinque per cento del tempo di composizione: 57,7
+  /// millesimi sulla Costellazione, 86,2 sull'Albero, 275,7 sul Loto, contro i
+  /// 2,8 dei rettangoli del tracciato. Il complemento di una forma a strisce
+  /// dentro il suo riquadro si calcola per righe, prendendo i BUCHI fra un
+  /// segmento e l'altro: e' lo stesso risultato senza scomodare la geometria
+  /// booleana.
+  ///
   /// **La sottrazione resta anche se la sfocatura la scavalca.** Il
   /// `MaskFilter.blur` si applica dopo, quindi il bagliore rientra comunque
   /// sopra la forma: e' il meccanismo che spiega la firma dorata misurata. Ma
@@ -386,14 +395,55 @@ class PittoreDelleLuci extends CustomPainter {
   /// dove un alone deve stare.
   _AloneDellaMateria _alonePerUno(
       FormaDellElemento forma, double scala, double dx, double dy) {
-    final riquadro = Path();
-    _riquadro(riquadro, forma, scala, dx, dy);
-    final sua = Path();
-    _aggiungi(sua, forma, scala, dx, dy);
-    return _AloneDellaMateria(
-      Path.combine(PathOperation.difference, riquadro, sua),
-      _luceDi(forma),
-    );
+    final s = forma.strisce;
+    if (s.length < 3) return _AloneDellaMateria(Path(), _luceDi(forma));
+    var minX = s[1], maxX = s[2], minY = s[0], maxY = s[0];
+    for (var k = 0; k + 2 < s.length; k += 3) {
+      if (s[k] < minY) minY = s[k];
+      if (s[k] > maxY) maxY = s[k];
+      if (s[k + 1] < minX) minX = s[k + 1];
+      if (s[k + 2] > maxX) maxX = s[k + 2];
+    }
+    // I segmenti della forma, raccolti per riga. **Non si assume una striscia
+    // per riga**: una forma concava puo' averne due o tre sulla stessa y, e
+    // darlo per scontato lascerebbe dentro l'alone un pezzo di elemento.
+    final perRiga = <int, List<int>>{};
+    for (var k = 0; k + 2 < s.length; k += 3) {
+      (perRiga[s[k]] ??= <int>[]).addAll([s[k + 1], s[k + 2]]);
+    }
+    // **L'ALTEZZA E' LA STESSA DELLE STRISCE, mezzo punto in piu' compreso.** La
+    // forma sovrappone le sue righe per non lasciare cuciture, e il suo
+    // complemento deve sovrapporle uguale: costruirlo alto un punto esatto
+    // lascerebbe una riga scoperta ogni volta, cioe' una cucitura di luce dove
+    // prima non c'era.
+    final alto = scala + 0.5;
+    final via = Path();
+    void rettangolo(int y, int da, int a) {
+      if (a < da) return;
+      via.addRect(Rect.fromLTWH(
+          dx + da * scala, dy + y * scala, (a - da + 1) * scala, alto));
+    }
+
+    for (var y = minY; y <= maxY; y++) {
+      final segmenti = perRiga[y];
+      if (segmenti == null) {
+        // Una riga senza strisce e' tutta alone, da un bordo all'altro.
+        rettangolo(y, minX, maxX);
+        continue;
+      }
+      final coppie = <List<int>>[];
+      for (var j = 0; j + 1 < segmenti.length; j += 2) {
+        coppie.add([segmenti[j], segmenti[j + 1]]);
+      }
+      coppie.sort((a, b) => a[0].compareTo(b[0]));
+      var x = minX;
+      for (final c in coppie) {
+        rettangolo(y, x, c[0] - 1);
+        if (c[1] + 1 > x) x = c[1] + 1;
+      }
+      rettangolo(y, x, maxX);
+    }
+    return _AloneDellaMateria(via, _luceDi(forma));
   }
 
   /// Le strisce di una forma diventano rettangoli dentro un tracciato.
@@ -417,31 +467,6 @@ class PittoreDelleLuci extends CustomPainter {
   /// **Il grande e' piu' ampio e piu' caldo del mini, e la differenza si
   /// dichiara con un numero**: mezzo passo in piu' di alone, nove contro sei, e
   /// un quinto di luce in piu', 0,95 contro 0,78.
-  /// **IL RIQUADRO DELLA FORMA, e serve all'alone.** Sfumare un tracciato fatto
-  /// di migliaia di rettangoli, uno per riga, non arriva mai in fondo: la prima
-  /// anteprima a cinquantacinque accesi ci ha girato dieci minuti e poi e'
-  /// scaduta, due volte. **L'alone e' morbido per definizione**, quindi puo'
-  /// posarsi sul riquadro dell'elemento, che e' un rettangolo solo; la luce
-  /// netta resta sulla forma esatta, ed e' quella che si vede.
-  void _riquadro(
-      Path alone, FormaDellElemento forma, double scala, double dx, double dy) {
-    if (forma.strisce.length < 3) return;
-    var minX = forma.strisce[1], maxX = forma.strisce[2];
-    var minY = forma.strisce[0], maxY = forma.strisce[0];
-    for (var k = 0; k + 2 < forma.strisce.length; k += 3) {
-      if (forma.strisce[k] < minY) minY = forma.strisce[k];
-      if (forma.strisce[k] > maxY) maxY = forma.strisce[k];
-      if (forma.strisce[k + 1] < minX) minX = forma.strisce[k + 1];
-      if (forma.strisce[k + 2] > maxX) maxX = forma.strisce[k + 2];
-    }
-    alone.addRect(Rect.fromLTWH(
-      dx + minX * scala,
-      dy + minY * scala,
-      (maxX - minX + 1) * scala,
-      (maxY - minY + 1) * scala,
-    ));
-  }
-
   void _accendi(Canvas tela, Path tracciato, List<_AloneDellaMateria> aloni,
       {required int quanti,
       required double ampiezza,
