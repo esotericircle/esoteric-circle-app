@@ -51,8 +51,10 @@ class LeTreRigheDelSentiero extends StatelessWidget {
   /// minore.
   ///
   /// **Cio' che e' unico nei due casi non e' la figura: sono i frutti che quella
-  /// persona ha maturato e i petali che ha aperto.** La struttura e' di tutti, il
-  /// cammino sopra e' suo, e le righe lo dicono in quest'ordine.
+  /// persona ha maturato e le perle che ha acceso.** La struttura e' di tutti, il
+  /// cammino sopra e' suo, e le righe lo dicono in quest'ordine. I bersagli del
+  /// Loto si chiamano PERLE dall'ordine AF: l'arte nuova porta una perla su ogni
+  /// petalo, e la legge delle luci accende quella.
   static String cosaVedi(Sentiero sentiero) => switch (sentiero) {
         Sentiero.costellazione =>
           // Nessuna virgola prima della "e": la regola della lingua di casa
@@ -61,15 +63,18 @@ class LeTreRigheDelSentiero extends StatelessWidget {
         Sentiero.albero =>
           'Un albero cresce dove lo curi: questo porta i tuoi frutti.',
         Sentiero.loto =>
-          'Il loto è un simbolo di tutti: questi petali li hai aperti tu.',
+          'Il loto è un simbolo di tutti: queste perle le hai accese tu.',
       };
 
-  /// COME SI CHIAMANO I PUNTI di questa figura, al plurale e al singolare.
-  static ({String uno, String molti}) nomeDeiPunti(Sentiero sentiero) =>
+  /// COME SI CHIAMANO I PUNTI di questa figura, col loro genere: le concordanze
+  /// si scrivono in una mappa esplicita, non si deducono dalle desinenze.
+  static ({String uno, String molti, bool femminile}) nomeDeiPunti(
+          Sentiero sentiero) =>
       switch (sentiero) {
-        Sentiero.costellazione => (uno: 'stella', molti: 'stelle'),
-        Sentiero.albero => (uno: 'frutto', molti: 'frutti'),
-        Sentiero.loto => (uno: 'petalo', molti: 'petali'),
+        Sentiero.costellazione =>
+          (uno: 'stella', molti: 'stelle', femminile: true),
+        Sentiero.albero => (uno: 'frutto', molti: 'frutti', femminile: false),
+        Sentiero.loto => (uno: 'perla', molti: 'perle', femminile: true),
       };
 
   /// DOVE SEI, col numero letto dal dato e scritto in parole.
@@ -77,11 +82,11 @@ class LeTreRigheDelSentiero extends StatelessWidget {
     final nome = nomeDeiPunti(sentiero);
     final quanti = Sentieri.quantiInTutto(sentiero);
     if (accesi == 0) {
-      return 'Nessun${nome.uno == 'stella' ? 'a' : ''} ${nome.uno} '
-          'ancora acces${nome.uno == 'stella' ? 'a' : 'o'}, '
+      return 'Nessun${nome.femminile ? 'a' : ''} ${nome.uno} '
+          'ancora acces${nome.femminile ? 'a' : 'o'}, '
           'su ${inParole(quanti)}.';
     }
-    final acceseLa = nome.uno == 'stella' ? 'accese' : 'accesi';
+    final acceseLa = nome.femminile ? 'accese' : 'accesi';
     return '${inParole(accesi).substring(0, 1).toUpperCase()}'
         '${inParole(accesi).substring(1)} ${nome.molti} $acceseLa '
         'su ${inParole(quanti)}.';

@@ -126,7 +126,7 @@ void main() {
       // gli stessi per chiunque; il loto e' un simbolo condiviso. Una riga che
       // lasciasse intendere il contrario direbbe il falso, ed e' la stessa
       // famiglia dell'avviso che diceva alla persona che l'app non sapeva chi
-      // fosse. Cio' che e' unico sono i frutti maturati e i petali aperti: la
+      // fosse. Cio' che e' unico sono i frutti maturati e le perle accese: la
       // struttura e' di tutti, il cammino sopra e' suo.
       const rivendicazioni = [
         'nessun altro', 'nessun\'altra', 'solo tuo', 'solo tua', 'unico',
@@ -141,8 +141,9 @@ void main() {
                   'sono di tutti, e cio\' che e\' suo e\' il cammino sopra. '
                   '«$riga»');
         }
-        // E la parte che E' sua va nominata: i frutti, i petali.
-        final suo = sentiero == Sentiero.albero ? 'tuoi frutti' : 'petali';
+        // E la parte che E' sua va nominata: i frutti, le perle. I bersagli
+        // del Loto si chiamano PERLE dall'ordine AF, con l'arte nuova.
+        final suo = sentiero == Sentiero.albero ? 'tuoi frutti' : 'perle';
         expect(riga, contains(suo),
             reason: 'la riga di ${sentiero.name} non dice quale parte e\' '
                 'della persona: la struttura e\' di tutti, ma il cammino sopra '
