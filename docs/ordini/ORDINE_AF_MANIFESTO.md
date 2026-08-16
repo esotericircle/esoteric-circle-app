@@ -42,14 +42,14 @@ mirate durante le voci, suite intera UNA volta sola in fondo prima del push.
 
 - **AF.01** Le sacche bianche spariscono — CHIUSA
 - **AF.02** La lampadina — CHIUSA
-- **AF.03** La lampadina si accende davvero al traguardo — APERTA
+- **AF.03** La lampadina si accende davvero al traguardo — CHIUSA
 - **AF.04** Le perle si chiamano perle — APERTA
 - **AF.05** Il manifesto e il rapporto — APERTA
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 3
-VOCI_CHIUSE: 2
+VOCI_APERTE: 2
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
