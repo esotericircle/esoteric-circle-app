@@ -43,15 +43,17 @@ si rinumerano e non si accorpano.
 
 ## Le quattro voci
 
-- **AI.01** La pillola degli Eos — APERTA
-- **AI.02** Il menu' utente ovunque — APERTA
-- **AI.03** I titoli delle card non si spezzano dentro le parole — APERTA
-- **AI.04** Il manifesto e il rapporto — APERTA
+- **AI.01** La pillola degli Eos — FERMATA IN ATTESA DI DECISIONE
+  (la meccanica e' montata ovunque con la veste VELO; Mauro sceglie fra le
+  due vesti guardando `docs/preview/pillola_due_vesti.png`)
+- **AI.02** Il menu' utente ovunque — CHIUSA
+- **AI.03** I titoli delle card non si spezzano dentro le parole — CHIUSA
+- **AI.04** Il manifesto e il rapporto — CHIUSA
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 4
-VOCI_APERTE: 4
-VOCI_CHIUSE: 0
+VOCI_APERTE: 0
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

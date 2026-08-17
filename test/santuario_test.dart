@@ -221,7 +221,7 @@ void main() {
 
     final titleRect = tester.getRect(find.text('Il Cielo Sopra di Te, Adesso'));
     final avatarRect =
-        tester.getRect(find.byKey(const Key('santuario_user_avatar')));
+        tester.getRect(find.byKey(const Key('porta_dell_account')));
     // Nessuna sovrapposizione: l'avatar resta isolato nel suo angolo.
     expect(titleRect.overlaps(avatarRect), isFalse,
         reason: 'il titolo tocca l\'avatar: $titleRect vs $avatarRect');
@@ -289,8 +289,8 @@ void main() {
     ));
     await step(tester);
 
-    expect(find.byKey(const Key('santuario_user_avatar')), findsOneWidget);
-    await tester.tap(find.byKey(const Key('santuario_user_avatar')));
+    expect(find.byKey(const Key('porta_dell_account')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('porta_dell_account')));
     await step(tester);
     await step(tester);
 
