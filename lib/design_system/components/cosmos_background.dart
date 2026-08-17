@@ -520,9 +520,38 @@ class _CosmosPainter extends CustomPainter {
       '${size.width.toStringAsFixed(1)}x${size.height.toStringAsFixed(1)}'
       '@$densita';
 
+  /// **LA SCORTA DI UN PIANO, ordine AJ voce 02.** I piani erano grandi
+  /// esattamente quanto lo schermo e la parallasse li sposta fino alla sua
+  /// ampiezza massima: il bordo entrava nell'inquadratura, ed e' la LINEA
+  /// che Mauro vede ai lati inclinando il telefono. La scorta e' l'ampiezza
+  /// massima di QUEL piano (tilt saturo per la sua profondita' efficace,
+  /// piu' la corsa del dito sullo scorrimento) piu' un pixel: cosi' il bordo
+  /// non entra mai, a qualunque inclinazione. La matematica e' la stessa di
+  /// `ParallaxController.layerOffset`, non una copia.
+  static double scortaDi(double depth, {double fattore = 1}) =>
+      ParallaxController.tiltRangeDefault *
+          ParallaxController.profonditaEfficace(depth) *
+          fattore +
+      3 * 40 * depth +
+      1;
+
+  /// Vero se il punto normalizzato del PIANO cade nella zona franca del
+  /// titolo, che e' dichiarata in coordinate dello SCHERMO: con la scorta i
+  /// due riquadri non coincidono piu' e la conversione sta qui, in un posto
+  /// solo. Con scorta zero e' l'identita' di prima.
+  bool _nellaZonaFranca(double x, double y, Size size, double margine) {
+    if (keepOut == null) return false;
+    if (margine == 0) return keepOut!.contains(Offset(x, y));
+    final w = size.width - 2 * margine;
+    final h = size.height - 2 * margine;
+    return keepOut!.contains(Offset(
+        (x * size.width - margine) / w, (y * size.height - margine) / h));
+  }
+
   /// Dipinge una volta cio' che gli si chiede, dentro un'immagine grande
-  /// quanto lo schermo in PIXEL VERI: alla densita' del dispositivo, cosi'
-  /// il cielo non perde un filo di nitidezza rispetto a prima.
+  /// quanto lo schermo piu' la scorta, in PIXEL VERI: alla densita' che gli
+  /// si chiede, cosi' il cielo non perde un filo di nitidezza rispetto a
+  /// prima (le nebulose, gia' sfumate, viaggiano a mezza densita').
   ui.Image _dipingiUnaVolta(
       Size size, double densita, void Function(Canvas) disegna) {
     final registratore = ui.PictureRecorder();
@@ -540,10 +569,25 @@ class _CosmosPainter extends CustomPainter {
 
   /// Rifa' i quattro piani e i due sprite. Si chiama solo quando la chiave
   /// cambia, cioe' quasi mai.
+  /// Le scorte dei tre piani in cache, dalle loro profondita' vere. La
+  /// polvere si compone a meta' offset, e la sua scorta lo sa.
+  static final double margineLontano =
+      scortaDi(ProfonditaDeiPiani.polvere, fattore: 0.5);
+  static final double margineFondo = scortaDi(ProfonditaDeiPiani.fondo);
+  static final double margineMedio = scortaDi(ProfonditaDeiPiani.medio);
+
   void _rigeneraIlCielo(Size size, double densita, String chiave) {
     cielo.liberaPiani();
     _stoDipingendoLaCache = true;
     const fermo = Offset.zero;
+    // Le tele coi margini di scorta: i pittori riempiono anche la scorta,
+    // perche' un margine vuoto sarebbe la stessa linea spostata piu' in la'.
+    final teloLontano = Size(size.width + 2 * margineLontano,
+        size.height + 2 * margineLontano);
+    final teloFondo =
+        Size(size.width + 2 * margineFondo, size.height + 2 * margineFondo);
+    final teloMedio =
+        Size(size.width + 2 * margineMedio, size.height + 2 * margineMedio);
 
     // PIANO MEDIO: nebulose e pianeti. I pianeti stavano sopra le stelle di
     // fondo e adesso stanno sotto: sono due dischi di dieci e sette punti di
@@ -552,12 +596,15 @@ class _CosmosPainter extends CustomPainter {
     // sovrapposizione, e sta scritto qui invece che essere scoperto domani.
     final vuotoIlMedio =
         _nebulaClusters == 0 && (!showPlanets || _planetCount == 0);
+    // A MEZZA DENSITA', ed e' un risparmio dichiarato: le nebulose sono
+    // sfumate per natura e l'ingrandimento non si vede; coi margini della
+    // scorta il piano medio costa cosi' MENO pixel di prima.
     cielo.medio = vuotoIlMedio
         ? null
-        : _dipingiUnaVolta(size, densita, (tela) {
-            if (_nebulaClusters > 0) _paintNebula(tela, size, fermo, 0);
+        : _dipingiUnaVolta(teloMedio, densita / 2, (tela) {
+            if (_nebulaClusters > 0) _paintNebula(tela, teloMedio, fermo, 0);
             if (showPlanets && _planetCount > 0) {
-              _paintPlanets(tela, size, fermo);
+              _paintPlanets(tela, teloMedio, fermo);
             }
           });
 
@@ -566,8 +613,8 @@ class _CosmosPainter extends CustomPainter {
     // mostrare niente: il piano non nasce affatto.
     cielo.lontano = _dustStars == 0
         ? null
-        : _dipingiUnaVolta(size, densita, (tela) {
-            _paintStarDust(tela, size, fermo, 0);
+        : _dipingiUnaVolta(teloLontano, densita, (tela) {
+            _paintStarDust(tela, teloLontano, fermo, 0);
           });
 
     // PIANO DI FONDO: le stelle di campo, le costellazioni e GLI ALONI delle
@@ -583,18 +630,19 @@ class _CosmosPainter extends CustomPainter {
     // vivo restano la croce e il nucleo, che sono linee e un cerchio pieno.
     // L'alone non pulsa piu': vive al ventidue per cento di opacita', e la
     // pulsazione la porta il nucleo che gli sta sopra.
-    cielo.fondo = _dipingiUnaVolta(size, densita, (tela) {
-      _paintFieldStars(tela, size, fermo, 0);
-      if (showZodiac) _paintZodiac(tela, size, fermo, 0);
-      _aloniDelleProtagoniste(tela, size, fermo);
+    cielo.fondo = _dipingiUnaVolta(teloFondo, densita, (tela) {
+      _paintFieldStars(tela, teloFondo, fermo, 0);
+      if (showZodiac) _paintZodiac(tela, teloFondo, fermo, 0);
+      _aloniDelleProtagoniste(tela, teloFondo, fermo);
     });
 
-    // PIANO VICINO: le particelle, per la stessa ragione solo se ci sono.
-    cielo.vicino = _nearCount == 0
-        ? null
-        : _dipingiUnaVolta(size, densita, (tela) {
-            _paintNearParticles(tela, size, fermo, 0);
-          });
+    // **IL PIANO VICINO NON HA PIU' UNA CACHE, ordine AJ voce 02.** E' il
+    // piano piu' reattivo (fino a 165 punti di corsa) e la sua scorta
+    // sarebbe costata decine di megabyte; ma il suo contenuto sono al
+    // massimo QUATTORDICI cerchi semplici, quindi si disegna dal vivo nel
+    // cammino per fotogramma, dove costa niente, non crea nessun filtro e
+    // riprende pure la deriva verticale che la cache congelava.
+    cielo.vicino = null;
 
     // LO SPRITE DELLA SCIA: lo stesso gradiente di prima, disegnato una
     // volta. In composizione si modula col colore e con l'alpha del momento.
@@ -630,13 +678,15 @@ class _CosmosPainter extends CustomPainter {
         (off.dy * densita).roundToDouble() / densita,
       );
 
-  void _componi(Canvas canvas, ui.Image? piano, Offset grezzo, Size size) {
+  void _componi(Canvas canvas, ui.Image? piano, Offset grezzo, Size size,
+      {double margine = 0}) {
     if (piano == null) return;
     final off = _sullaGriglia(grezzo);
     canvas.drawImageRect(
       piano,
       Rect.fromLTWH(0, 0, piano.width.toDouble(), piano.height.toDouble()),
-      Rect.fromLTWH(off.dx, off.dy, size.width, size.height),
+      Rect.fromLTWH(off.dx - margine, off.dy - margine,
+          size.width + 2 * margine, size.height + 2 * margine),
       Paint()..filterQuality = FilterQuality.low,
     );
   }
@@ -658,12 +708,21 @@ class _CosmosPainter extends CustomPainter {
     // **IL CAMMINO PER FOTOGRAMMA: solo composizioni e disegni leggeri.**
     // Qui dentro non si crea nessun MaskFilter, nessuno shader e nessuna
     // lista: e' la regola dell'ordine, e una prova la legge sul sorgente.
-    _componi(canvas, cielo.medio, piani.medio, size);
-    _componi(canvas, cielo.lontano, piani.polvere, size);
-    _componi(canvas, cielo.fondo, piani.fondo, size);
-    _componi(canvas, cielo.vicino, piani.vicino, size);
-    _scintillio(canvas, size, farOff, t);
-    if (_animate) _respiroDelCampo(canvas, size, farOff, t);
+    _componi(canvas, cielo.medio, piani.medio, size, margine: margineMedio);
+    _componi(canvas, cielo.lontano, piani.polvere, size,
+        margine: margineLontano);
+    _componi(canvas, cielo.fondo, piani.fondo, size, margine: margineFondo);
+    if (_nearCount > 0) {
+      _paintNearParticles(canvas, size, piani.vicino, t);
+    }
+    // **Scintillio e respiro sono la meta' viva delle stelle in cache**: si
+    // scalano sul TELO del fondo e si spostano della sua scorta, cosi' i
+    // due pezzi della stessa stella continuano a cadere nello stesso punto.
+    final teloFondo =
+        Size(size.width + 2 * margineFondo, size.height + 2 * margineFondo);
+    final offFondo = farOff - Offset(margineFondo, margineFondo);
+    _scintillio(canvas, teloFondo, offFondo, t);
+    if (_animate) _respiroDelCampo(canvas, teloFondo, offFondo, t);
     if (_shootingStars) _paintShootingStars(canvas, size, farOff, t);
   }
 
@@ -694,7 +753,7 @@ class _CosmosPainter extends CustomPainter {
       final radius = 0.4 + rr * rr * 2.6;
       final phase = rng.nextDouble();
       final baseAlpha = 0.28 + rng.nextDouble() * 0.62;
-      if (keepOut != null && keepOut!.contains(Offset(x, y))) continue;
+      if (_nellaZonaFranca(x, y, size, margineFondo)) continue;
       final battito = 0.5 + 0.5 * math.sin(2 * math.pi * (t * 3 + phase * 7));
       final center = Offset(x * size.width, y * size.height) + off;
       paint.color = const Color(0xFFFFFFFF)
@@ -711,7 +770,7 @@ class _CosmosPainter extends CustomPainter {
     for (var i = 0; i < _heroStars; i++) {
       final x = rng.nextDouble();
       final y = rng.nextDouble() * 0.7;
-      if (keepOut != null && keepOut!.contains(Offset(x, y))) continue;
+      if (_nellaZonaFranca(x, y, size, margineFondo)) continue;
       final center = Offset(x * size.width, y * size.height) + off;
       final baseR = 1.6 + rng.nextDouble() * 1.4;
       // Il valore a riposo del battito, lo stesso che il cosmo mostra oggi
@@ -738,7 +797,7 @@ class _CosmosPainter extends CustomPainter {
     for (var i = 0; i < _heroStars; i++) {
       final x = rng.nextDouble();
       final y = rng.nextDouble() * 0.7; // in alto, dove il cielo respira
-      if (keepOut != null && keepOut!.contains(Offset(x, y))) continue;
+      if (_nellaZonaFranca(x, y, size, margineFondo)) continue;
       final center = Offset(x * size.width, y * size.height) + off;
       final baseR = 1.6 + rng.nextDouble() * 1.4;
       final tw = _animate
@@ -770,7 +829,7 @@ class _CosmosPainter extends CustomPainter {
     for (var i = 0; i < _dustStars; i++) {
       final x = rng.nextDouble();
       final y = rng.nextDouble();
-      if (keepOut != null && keepOut!.contains(Offset(x, y))) continue;
+      if (_nellaZonaFranca(x, y, size, margineLontano)) continue;
       final twinkle = _animate
           ? 0.4 + 0.6 * math.sin(2 * math.pi * (t * 4 + rng.nextDouble()))
           : 0.6;
@@ -846,7 +905,7 @@ class _CosmosPainter extends CustomPainter {
     final paint = Paint()..style = PaintingStyle.fill;
     for (final s in stars) {
       // Zona franca: nessuna stella sul testo del titolo in alto.
-      if (keepOut != null && keepOut!.contains(Offset(s.x, s.y))) continue;
+      if (_nellaZonaFranca(s.x, s.y, size, margineFondo)) continue;
       final twinkle = _animate
           ? 0.5 + 0.5 * math.sin(2 * math.pi * (t * 6 + s.phase))
           : 0.8;

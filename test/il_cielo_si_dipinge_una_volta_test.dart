@@ -96,12 +96,26 @@ void main() {
       '_paintPlanets(',
       '_paintStarDust(',
       '_paintFieldStars(',
-      '_paintNearParticles(',
     ]) {
       expect(generatore.contains(strato), isTrue,
           reason: 'Lo strato "$strato" non viene piu\' dipinto nella cache: '
               'il cielo si e\' impoverito invece di alleggerirsi.');
     }
+    // **LE PARTICELLE VICINE SONO USCITE DALLA CACHE PER DECISIONE, ordine
+    // AJ voce 02**: il piano piu' reattivo corre fino a 165 punti e la sua
+    // scorta sarebbe costata decine di megabyte, mentre il suo contenuto e'
+    // al massimo quattordici cerchi semplici. Vivono dal vivo nel cammino
+    // per fotogramma, dove la prova sopra garantisce che non nascano
+    // filtri; qui si pretende che ESISTANO ancora, nel paint e non nella
+    // cache.
+    final cammino = sorgente.substring(sorgente.indexOf('void paint('));
+    expect(cammino.contains('_paintNearParticles('), isTrue,
+        reason: 'Le particelle vicine sono sparite del tutto: dovevano '
+            'uscire dalla cache, non dal cielo.');
+    expect(generatore.contains('_paintNearParticles('), isFalse,
+        reason: 'Le particelle vicine sono tornate nella cache: la loro '
+            'scorta costa decine di megabyte, e la decisione dell\'ordine '
+            'AJ le vuole dal vivo.');
     expect(sorgente.contains('MaskFilter.blur(BlurStyle.normal, 24)'), isTrue,
         reason: 'La sfocatura delle nebulose e\' sparita dal file: il '
             'cielo doveva restare identico, non diventare piatto.');

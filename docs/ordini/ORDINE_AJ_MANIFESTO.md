@@ -64,7 +64,8 @@ si rinumerano e non si accorpano.
 ## Le cinque voci
 
 - **AJ.01** Gli scatti spariscono: la regola del cielo vale per tutti — APERTA
-- **AJ.02** La linea ai bordi sparisce — APERTA
+- **AJ.02** La linea ai bordi sparisce — CHIUSA
+  (l'ultima parola resta al telefono di Mauro, inclinandolo)
 - **AJ.03** Lo spazio esagerato in home sparisce — APERTA
 - **AJ.04** Le arti preferite, e le altre — FERMATA SU PREMESSA FALSA
   (P6: "Tarocchi" non esiste nel catalogo, esiste "Stesa di Tarocchi".
@@ -74,7 +75,7 @@ si rinumerano e non si accorpano.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 4
-VOCI_CHIUSE: 0
+VOCI_APERTE: 3
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

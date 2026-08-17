@@ -121,6 +121,17 @@ class ParallaxController extends ChangeNotifier {
     }
   }
 
+  /// **SOLO PER LE PROVE: il tilt a comando.** La guardia dei bordi
+  /// (ordine AJ voce 02) deve rendere il cielo a fondo corsa nelle quattro
+  /// direzioni, e i sensori in prova non esistono: questa porta imposta il
+  /// tilt saturo senza filtro, come un telefono inclinato fino in fondo.
+  @visibleForTesting
+  void inclinaPerLaProva(double tiltX, double tiltY) {
+    _tiltX = tiltX.clamp(-1.0, 1.0);
+    _tiltY = tiltY.clamp(-1.0, 1.0);
+    notifyListeners();
+  }
+
   void _onAccel(AccelerometerEvent e) {
     // x e y della gravita' danno l'inclinazione; normalizziamo su g (9.8) e
     // filtriamo passa-basso per un moto dolce e senza scatti.
