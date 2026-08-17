@@ -456,11 +456,17 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         // insieme facevano la fascia morta. Serve che fra la riga
                         // delle arti e cio' che segue ci sia l'altezza della
                         // barra, non due volte un pezzo di essa.
-                        SizedBox(
-                            height: math.max(
-                                0,
-                                SpazioDellaBarraNelloScroll.quanto(context) -
-                                    ariaSottoLIngresso(viewportH))),
+                        // **IL RESPIRO DI SEZIONE, ordine AJ voce 03.** Qui
+                        // c'era l'altezza della barra meno l'aria dell'eroe,
+                        // per la decisione del 2164 (a riposo sotto la barra
+                        // solo cielo): il vuoto reso fra l'ingresso e "Le
+                        // tue arti" misurava 184 punti, e Mauro il 17 agosto
+                        // ha detto che lo spazio esagerato deve sparire. Lo
+                        // stacco diventa il respiro normale delle sezioni
+                        // della home; a riposo il titolo dello scaffale
+                        // scivola sotto la barra, come ogni contenuto che le
+                        // passa sotto scorrendo, che e' la scelta approvata.
+                        const SizedBox(height: SpacingTokens.xl),
                         // Lo scaffale personale viene PRIMA dell'elenco
                         // completo: quello che si e' scelto sta davanti a
                         // quello che il Cerchio propone.
