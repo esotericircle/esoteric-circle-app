@@ -74,7 +74,32 @@ suite intera UNA volta ad AL.09.
   che veste il Maestro del suo sentiero; guardia nessun_foglio_e_bianco con
   tre prove e rosso provato togliendo le cure; nessun blur per fotogramma
   toccato; chiude il collaudo di Mauro sulla 2180)
-- **AL.05** Gli Eos arrivano davvero nel borsellino — APERTA
+- **AL.05** Gli Eos arrivano davvero nel borsellino — FERMATA IN ATTESA DI DECISIONE
+  (filo enumerato con le prove: gesto e accensione vivi, festa viva, la
+  chiamata PARTE dal telefono e ARRIVA a Cloud Run, provato dai log del
+  server pieni di 401 dal 12 al 16 agosto; il punto rotto e' LA PORTA del
+  servizio: cinque callable su sei hanno la policy IAM VUOTA, misurata con
+  gcloud, e solo natalchart ha allUsers con run.invoker, infatti e' l'unica
+  che funziona; il codice della funzione non gira nemmeno; i candidati
+  dell'ordine caduti: la chiamata parte, l'uid non c'entra perche' non si
+  arriva al codice, l'errore NON e' inghiottito, la regia lo registra nei
+  guasti, e il saldo si applica gia' dalla risposta; cura client fatta: la
+  promessa "si riprende alla prossima sincronia" non aveva meccanismo, ora
+  esistono il libro degli accrediti e la sincronia riprendiIPremiPersi nel
+  guardiano, una volta per sessione, idempotente, col saldo finale chiesto
+  allo stato intero perche' una risposta ripetuta porta il saldo di allora;
+  guardia gli_eos_arrivano_davvero con rosso provato; IL PASSO DI MAURO,
+  guidato: aprire il terminale e dare i cinque comandi qui sotto, uno per
+  volta, poi aprire l'app; i Sigilli gia' accesi si riprendono da soli al
+  primo avvio)
+
+  ```
+  gcloud run services add-iam-policy-binding muoviglieos --member=allUsers --role=roles/run.invoker --region=europe-west1 --project=esoteric-circle
+  gcloud run services add-iam-policy-binding statodelcerchio --member=allUsers --role=roles/run.invoker --region=europe-west1 --project=esoteric-circle
+  gcloud run services add-iam-policy-binding consumadelgiorno --member=allUsers --role=roles/run.invoker --region=europe-west1 --project=esoteric-circle
+  gcloud run services add-iam-policy-binding scrivilamemoria --member=allUsers --role=roles/run.invoker --region=europe-west1 --project=esoteric-circle
+  gcloud run services add-iam-policy-binding cancellailcerchio --member=allUsers --role=roles/run.invoker --region=europe-west1 --project=esoteric-circle
+  ```
 - **AL.06** Il menu' account non ha voci morte — APERTA
 - **AL.07** L'onboarding riconosce e propone "Continua come" — APERTA
 - **AL.08** La capsula persistente di volto e borsellino — APERTA
@@ -83,7 +108,7 @@ suite intera UNA volta ad AL.09.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 5
+VOCI_APERTE: 4
 VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4

@@ -7,6 +7,7 @@ import '../../core/entitlement/registro_degli_eos.dart';
 import '../../core/sigilli/bonus_della_condivisione.dart';
 import '../../core/sigilli/coda_delle_feste.dart';
 import '../../core/sigilli/diario_del_cammino.dart';
+import '../../core/sigilli/libro_degli_accrediti.dart';
 import '../../core/sigilli/pezzi_dell_identita.dart';
 import '../../core/sigilli/sentieri.dart';
 import '../../design_system/components/volo_degli_eos.dart';
@@ -212,6 +213,9 @@ class RegiaDelCammino {
         // festa e' una anche quando i traguardi sono di piu'.
         final delta = saldo - borsa.saldoEos;
         arrivati.quanti += delta;
+        // IL LIBRO SA COSA E' ARRIVATO, ordine AL voce 05: senza questo segno
+        // la sincronia non saprebbe quali premi riprendere e quali no.
+        await LibroDegliAccrediti.segna(traguardo.id);
         await registro?.segna(quanti: delta, perche: traguardo.nome);
         // **IL SALDO SI APPLICA SUBITO, col numero che il server ha appena
         // detto.** Prima si buttava e si chiedeva tutto lo stato con una seconda
@@ -267,6 +271,99 @@ class RegiaDelCammino {
       }
     }
   }
+
+  /// LA SINCRONIA DEI PREMI PERSI, ordine AL voce 05.
+  ///
+  /// **La promessa senza meccanismo.** In tre punti di questo file sta scritto
+  /// "il premio si riprende alla prossima sincronia", e la sincronia non
+  /// esisteva: `accredita` aveva un solo chiamante, l'accensione. Sulla 2179
+  /// ogni chiamata moriva respinta alla porta di Cloud Run, quindi ogni
+  /// Sigillo acceso di Mauro e' rimasto senza premio, e nessuno li avrebbe
+  /// mai ripresi. Qui la promessa diventa vera: si guardano i traguardi
+  /// ACCESI che non stanno nel libro degli accrediti e si riprova, una volta
+  /// per sessione. Il doppio conto non esiste perche' il movimento porta
+  /// l'identificativo 'traguardo-<id>' e il server ripete la risposta di
+  /// allora.
+  ///
+  /// **Il saldo finale viene dal server, non dai pezzi.** Una risposta
+  /// ripetuta porta il saldo di ALLORA, che oggi puo' essere piu' basso del
+  /// vero: applicarla regredirebbe la pillola. Percio' dopo le riprese si
+  /// chiede lo stato intero e si applica quello, che e' l'unico numero
+  /// sovrano.
+  static Future<void> riprendiIPremiPersi(BuildContext context) async {
+    if (ripresaTentata) return;
+    ripresaTentata = true;
+    final DiarioDelCammino diario;
+    final AppServices servizi;
+    final QuestionAllowance borsa;
+    try {
+      diario = context.read<DiarioDelCammino>();
+      servizi = context.read<AppServices>();
+      borsa = context.read<QuestionAllowance>();
+    } catch (errore) {
+      return;
+    }
+    final porta = servizi.porta;
+    final guasti = servizi.guasti;
+    final RegistroDegliEos? registro = _registro(context);
+    if (!porta.viva) {
+      // La porta spenta non e' un guasto: senza server si riprova alla
+      // prossima apertura, e la sessione resta segnata per non girare a
+      // vuoto.
+      return;
+    }
+    final gia = await LibroDegliAccrediti.accreditati();
+    final persi = [
+      for (final t in Sentieri.tuttiITraguardi)
+        if (diario.eAcceso(t.id) && !gia.contains(t.id)) t,
+    ];
+    if (persi.isEmpty) return;
+    final saldoPrima = borsa.saldoEos;
+    var ripresi = 0;
+    for (final traguardo in persi) {
+      try {
+        final saldo = await PremioDelTraguardo.accredita(porta, traguardo);
+        if (saldo == null) {
+          guasti.registra(
+            operazione: 'ripresa del premio ${traguardo.id}',
+            errore: 'il server non ha risposto: si riprova alla prossima '
+                'apertura',
+          );
+          continue;
+        }
+        ripresi++;
+        await LibroDegliAccrediti.segna(traguardo.id);
+      } catch (errore) {
+        guasti.registra(
+          operazione: 'ripresa del premio ${traguardo.id}',
+          errore: errore,
+        );
+      }
+    }
+    if (ripresi == 0) return;
+    final statoNuovo = await porta.stato();
+    if (statoNuovo == null) {
+      guasti.registra(
+        operazione: 'saldo dopo la ripresa dei premi',
+        errore: 'il server non ha detto il saldo: la pillola si aggiorna '
+            'alla prossima apertura',
+      );
+      return;
+    }
+    final delta = statoNuovo.saldoEos - saldoPrima;
+    await borsa.applicaSaldo(statoNuovo.saldoEos);
+    if (delta > 0) {
+      await registro?.segna(quanti: delta, perche: 'Premi ritrovati');
+      if (context.mounted) {
+        VoloDegliEos.lancia(context, quanti: delta);
+      }
+    }
+  }
+
+  /// Vero quando la sincronia di questa sessione e' gia' partita: una volta
+  /// per apertura basta, il resto lo fanno le accensioni nuove.
+  @visibleForTesting
+  static bool ripresaTentata = false;
 
   /// I PEZZI DELL'IDENTITA' GIA' COMPLETI.
   ///
@@ -378,6 +475,13 @@ class _GuardianoDelleFesteState extends State<GuardianoDelleFeste> {
     _staCelebrando = true;
     try {
       await RegiaDelCammino.svuotaLaCoda(context);
+      // LA SINCRONIA DEI PREMI, ordine AL voce 05: il guardiano e' il primo
+      // momento della sessione in cui l'albero e' intero, ed e' qui che i
+      // premi rimasti indietro si riprendono. Dentro c'e' il suo catenaccio,
+      // quindi girare piu' volte non costa niente.
+      if (mounted) {
+        await RegiaDelCammino.riprendiIPremiPersi(context);
+      }
     } finally {
       _staCelebrando = false;
     }
