@@ -917,21 +917,30 @@ Future<void> mostraLaCardDelTraguardo(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (foglio) => Padding(
-      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.lg,
-          SpacingTokens.lg, SpacingTokens.xl),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CardDelTraguardo(traguardo: traguardo, sentiero: sentiero),
-          const SizedBox(height: SpacingTokens.md),
-          VieDellaCondivisione(
-            suScelta: (modo) {
-              Navigator.of(foglio).pop();
-              condividiIlTraguardo(context, traguardo: traguardo, modo: modo);
-            },
-          ),
-        ],
+    // **IL FOGLIO VESTE IL MAESTRO DEL SENTIERO, ordine AL voce 04.** Il
+    // builder vive sul Navigator radice, fuori dallo scope della schermata
+    // che lo apre: qui la card e le vie chiedevano `context.palette` a uno
+    // scope che non c'era, e in release il foglio moriva BIANCO. Lo scope
+    // giusto non e' quello della schermata di passaggio ma quello del
+    // sentiero del traguardo, lo stesso disegno di paletteDelSentiero.
+    builder: (foglio) => MaestroScope(
+      maestro: sentiero.maestro,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.lg,
+            SpacingTokens.lg, SpacingTokens.xl),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CardDelTraguardo(traguardo: traguardo, sentiero: sentiero),
+            const SizedBox(height: SpacingTokens.md),
+            VieDellaCondivisione(
+              suScelta: (modo) {
+                Navigator.of(foglio).pop();
+                condividiIlTraguardo(context, traguardo: traguardo, modo: modo);
+              },
+            ),
+          ],
+        ),
       ),
     ),
   );

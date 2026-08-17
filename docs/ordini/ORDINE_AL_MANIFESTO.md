@@ -63,7 +63,17 @@ suite intera UNA volta ad AL.09.
   rosso provato sulla condizione monca; il med_27 gia' scattato sul telefono di
   Mauro NON si revoca, un Sigillo acceso non si spegne mai per legge del diario:
   il caso esiste e la riprogettazione dei traguardi lo assorbira')
-- **AL.04** Nessun foglio e' bianco — APERTA
+- **AL.04** Nessun foglio e' bianco — FERMATA IN ATTESA DI DECISIONE
+  (porte enumerate 33 e TUTTE dichiarano il fondo: la causa vera del foglio
+  bianco non era un colore mancante ne' Impeller, era lo SCOPE: i fogli vivono
+  come rotte del Navigator radice e MaestroScope stava dentro home, quindi
+  l'assert di MaestroScope.of in release sparisce, il punto esclamativo lancia
+  sul nullo e il builder muore in un foglio muto; misurato in banco con
+  l'assert 'scope != null' sia sulla card sia sulle vie; due cure a strati,
+  lo scope neutro sopra il Navigator come pavimento e il foglio del traguardo
+  che veste il Maestro del suo sentiero; guardia nessun_foglio_e_bianco con
+  tre prove e rosso provato togliendo le cure; nessun blur per fotogramma
+  toccato; chiude il collaudo di Mauro sulla 2180)
 - **AL.05** Gli Eos arrivano davvero nel borsellino — APERTA
 - **AL.06** Il menu' account non ha voci morte — APERTA
 - **AL.07** L'onboarding riconosce e propone "Continua come" — APERTA
@@ -73,7 +83,7 @@ suite intera UNA volta ad AL.09.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 6
+VOCI_APERTE: 5
 VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3

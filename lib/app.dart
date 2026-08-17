@@ -322,7 +322,19 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
                   conSuono: settings.suonoEVibrazione,
                   child: BarraDelCerchio(
                     observatore: _pila,
-                    child: child ?? const SizedBox.shrink(),
+                    // **LO SCOPE SOPRA IL NAVIGATOR, ordine AL voce 04.** I
+                    // fogli dal basso e i dialoghi vivono come rotte del
+                    // Navigator radice: lo scope dentro `home` per loro non
+                    // esiste, e in release l'assert di MaestroScope.of
+                    // sparisce, il `!` lancia sul nullo e il builder del
+                    // foglio muore in un foglio MUTO. E' il foglio bianco che
+                    // Mauro ha toccato sulla 2179 aprendo un traguardo acceso.
+                    // Questo scope neutro e' il pavimento: ogni rotta spinta
+                    // sopra puo' sempre vestire il suo Maestro, e il piu'
+                    // vicino vince.
+                    child: MaestroScope(
+                      child: child ?? const SizedBox.shrink(),
+                    ),
                   ),
                 )),
               );
