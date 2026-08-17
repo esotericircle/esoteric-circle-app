@@ -249,6 +249,15 @@ void main() {
       'tool/trova_le_perle.py',
       "docs/preview/loto_perle_trovate",
     ],
+    // La mappa del ritocco (ordine AG voce 01, FERMATA IN ATTESA DI
+    // DECISIONE): l'arte del Loto coi dischi rossi che Mauro pulira' in
+    // Photoshop e i cerchi, del colore del gruppo, dove il codice posera' le
+    // perle a raggio unico. La produce lo strumento che misura, in modalita'
+    // --solo-misura, quindi mappa e misura non possono scostarsi.
+    r'^loto_ritocco_da_fare\.png$': [
+      'tool/perle_uguali_del_loto.py',
+      "docs/preview/loto_ritocco_da_fare",
+    ],
     // Il SORGENTE del Loto delle perle (ordine AE): non e' un'anteprima, e' il
     // file di Mauro da cui lo scontorno deriva l'arte, e non si modifica mai
     // sul posto. Il suo custode e' lo strumento che lo consuma: se un giorno lo

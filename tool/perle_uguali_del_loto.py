@@ -281,6 +281,14 @@ def main():
         quadro = quadro.convert('RGBA')
         velo = Image.new('RGBA', (w, h), (0, 0, 0, 0))
         d = ImageDraw.Draw(velo)
+        # I cerchi dei centri portano il colore del GRUPPO, letto dai
+        # pallini, come la mappa delle perle trovate: un cerchio sul fiore
+        # sbagliato si vede in un secondo.
+        colore_gruppo = {}
+        for i, px, py, g in mini:
+            q = pal[int(py), int(px)]
+            if q[3] > 128:
+                colore_gruppo[g] = (int(q[0]), int(q[1]), int(q[2]), 235)
         for i, px, py, g in mini:
             r = raggi[i] + MARGINE_RIEMPIMENTO
             d.ellipse([px - r, py - r, px + r, py + r],
@@ -288,7 +296,8 @@ def main():
             nx, ny = centri[i]
             d.ellipse([nx - raggio_unico, ny - raggio_unico,
                        nx + raggio_unico, ny + raggio_unico],
-                      outline=(90, 255, 130, 235), width=4)
+                      outline=colore_gruppo.get(g, (90, 255, 130, 235)),
+                      width=4)
         quadro.alpha_composite(velo)
         quadro.convert('RGB').save(
             RADICE / 'docs/preview/loto_ritocco_da_fare.png')
