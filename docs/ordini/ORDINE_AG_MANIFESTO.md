@@ -42,15 +42,40 @@ mirate durante le voci, suite intera UNA volta sola in fondo prima del push.
 
 ## Le quattro voci
 
-- **AG.01** Le perle le disegna il codice, uguali e centrate — APERTA
+- **AG.01** Le perle le disegna il codice, uguali e centrate — FERMATA IN ATTESA DI DECISIONE
 - **AG.02** Mai piu' blu — APERTA
 - **AG.03** Le anteprime tornano vere — APERTA
 - **AG.04** Il manifesto e il rapporto — APERTA
 
+## La fermata della AG.01, il 17 agosto 2026
+
+La misura e' fatta e sta nello strumento `tool/perle_uguali_del_loto.py`:
+raggio unico 27 (mediana dei cinquanta, che vanno da 20,0 a 37,0), frazione
+unica 0,692 della corsa centro-punta (le correnti vanno da 0,537 a 0,740),
+asse radiale dalla punta con la controprova delle componenti principali
+(scarto mediano 1,1 gradi, massimo 8,3), soglia di correzione 3,2 pixel dal
+rumore della stima su tre settori. Correggerebbe 42 ancoraggi su 50, scarto
+massimo 52,4 pixel. Su SEI perle la stima non converge e ci si ferma senza
+inventare, come l'ordine comanda: 12 a (422,1224), 28 a (617,1063), 31 a
+(653,812), 35 a (401,609), 47 a (830,431), 49 a (630,550), tutte con la punta
+del petalo che tocca il fogliame dietro.
+
+IL RIEMPIMENTO LASCIA CICATRICI, guardate e non raccontate: cinque tecniche
+provate (Telea, Telea con maschera a colore, specchio radiale, clone dal
+petalo gemello ruotato, clone assiale con punteggio di piattezza), tutte
+pulite all'anteprima 360 e tutte sfregiate a risoluzione piena, che e' la
+scala vera del telefono (l'arte monta a 1,15 volte il nativo). Come da
+ordine: meglio fermarsi che consegnare petali sfregiati. Il ripiego e' il
+ritocco di Mauro in Photoshop sulla mappa
+`docs/preview/loto_ritocco_da_fare.png`: dischi rossi da pulire, cerchi verdi
+dove il codice posera' le perle. Consegnata l'arte ritoccata, lo strumento
+riprende dalla scrittura dei pallini (la modalita' `--solo-misura` oggi non
+tocca i derivati).
+
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 4
-VOCI_APERTE: 4
+VOCI_APERTE: 3
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
