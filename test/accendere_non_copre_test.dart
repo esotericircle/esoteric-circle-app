@@ -16,16 +16,26 @@ import 'package:flutter_test/flutter_test.dart';
 /// difetto: e' la decisione.
 ///
 /// **La grandezza nuova, col perche'.** Cio' che resta vero e' che accendere
-/// non deve produrre CENERE: la luminanza sale, e la luce che si vede e' calda
-/// e colorata, non un grigio slavato. Sui pixel che cambiano, la saturazione
-/// mediana da accesi deve restare sopra 0,40: l'oro caldo puro sta a 0,67, il
-/// colmo bianco e i riflessi la abbassano, e sotto 0,40 non e' piu' una luce
-/// dorata ma un lavaggio. Il vecchio criterio, non scendere rispetto alla
-/// materia, oggi direbbe il falso: il lapis a 0,63 DEVE scendere quando sopra
-/// ci si ridipinge una lampadina d'oro.
+/// non deve produrre CENERE: la luminanza sale, e la luce che si vede e'
+/// COLORATA, non un grigio slavato. Sui pixel che cambiano, la saturazione
+/// mediana da accesi deve restare sopra quella del BIANCO CALDO della
+/// lampadina, 0,16: e' il colore piu' pallido che la palette dichiara, quindi
+/// una luce onesta non puo' stare sotto, e la cenere (saturazione vicina a
+/// zero) ci sta. Il vecchio criterio, non scendere rispetto alla materia,
+/// direbbe il falso: il lapis a 0,63 DEVE scendere sotto una lampadina d'oro.
+///
+/// **Perche' non piu' 0,40, ed e' la seconda decisione che supera questa
+/// guardia.** Il pavimento 0,40 era misurato con l'ALONE nei pixel che
+/// cambiano; l'ordine AG voce 02 ha tolto l'alone dal Loto per fusione
+/// dichiarata, e i pixel che cambiano sono rimasti i soli dischi color
+/// avorio: 0,37 con tinta d'oro e luminanza raddoppiata, che non e' cenere.
+/// Un pavimento tarato sui numeri di ieri misurava la presenza dell'alone,
+/// non il calore della luce: quello ancorato alla palette la misura sempre.
 void main() {
-  /// Il pavimento della saturazione accesa: sotto, la luce e' cenere.
-  const luceCalda = 0.40;
+  /// Il pavimento della saturazione accesa e' quello del bianco caldo
+  /// 0xFFFFF3D6 della lampadina, il colore piu' pallido che la palette
+  /// dichiara: (255-214)/255. Sotto, la luce e' cenere.
+  const luceCalda = 0.16;
 
   Future<List<double>> misura(String file) async {
     final byte = await File(file).readAsBytes();
