@@ -3505,6 +3505,13 @@ class _IdentitaPerAnteprima implements PortaDellIdentita {
     String? parola,
   }) async =>
       EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  IdentitaRiconosciuta? get riconosciuta => null;
+
+  @override
+  Future<EsitoDellaCustodia> entraComeRiconosciuto() async =>
+      EsitoDellaCustodia.nonRiuscita;
 }
 
 /// Una carta natale piena, per le anteprime del consulto.

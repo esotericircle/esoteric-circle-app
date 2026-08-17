@@ -75,6 +75,32 @@ abstract class PortaDellIdentita {
 
   /// Ricarica lo stato dell'utente dal fornitore.
   Future<void> ricarica();
+
+  /// L'IDENTITA' RICONOSCIUTA, ordine AL voce 07.
+  ///
+  /// Quando la custodia risponde "appartiene gia' a un altro Cerchio", quel
+  /// rifiuto porta con se' CHI e' stato riconosciuto: prima si buttava via
+  /// tutto e alla persona restava solo un vicolo. Qui resta il nome (l'email
+  /// dell'account, che e' l'unica cosa vera che si sa prima di entrare) e la
+  /// credenziale con cui si puo' entrare in quel Cerchio.
+  IdentitaRiconosciuta? get riconosciuta;
+
+  /// ENTRA nel Cerchio riconosciuto, con la credenziale rimasta dall'ultimo
+  /// rifiuto. Non e' un'elevazione: e' un cambio di account, e chi chiama lo
+  /// dice alla persona con la riga onesta PRIMA del tocco.
+  Future<EsitoDellaCustodia> entraComeRiconosciuto();
+}
+
+/// Chi e' stato riconosciuto da un tentativo di custodia finito su un
+/// Cerchio gia' esistente, con la via per entrarci.
+class IdentitaRiconosciuta {
+  const IdentitaRiconosciuta({required this.nome, required this.credenziale});
+
+  /// L'email dell'account riconosciuto: il nome vero si sapra' solo dentro.
+  final String? nome;
+
+  /// La credenziale con cui entrare, quando la si ha.
+  final AuthCredential? credenziale;
 }
 
 /// LA PORTA VERSO IL FLUSSO NATIVO DI GOOGLE. Ordine AD voce 01.
@@ -141,6 +167,11 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
   final FirebaseAuth _auth;
   final PortaDelFlussoGoogle _flussoGoogle;
 
+  IdentitaRiconosciuta? _riconosciuta;
+
+  @override
+  IdentitaRiconosciuta? get riconosciuta => _riconosciuta;
+
   User? get _utente => _auth.currentUser;
 
   @override
@@ -191,11 +222,15 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
   }) async {
     final utente = _auth.currentUser;
     if (utente == null) return EsitoDellaCustodia.nonRiuscita;
+    // La credenziale che si prova ad attaccare: se il Cerchio risulta di un
+    // altro, e' anche la via per ENTRARCI, e non si butta piu' via.
+    AuthCredential? tentata;
     try {
       switch (via) {
         case ViaDellaCustodia.google:
           final credenziale = await _flussoGoogle.credenziale();
           if (credenziale == null) return EsitoDellaCustodia.annullata;
+          tentata = credenziale;
           await utente.linkWithCredential(credenziale);
         case ViaDellaCustodia.apple:
           await utente.linkWithProvider(AppleAuthProvider());
@@ -203,9 +238,8 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
           if (email == null || parola == null) {
             return EsitoDellaCustodia.nonRiuscita;
           }
-          await utente.linkWithCredential(
-            EmailAuthProvider.credential(email: email, password: parola),
-          );
+          tentata = EmailAuthProvider.credential(email: email, password: parola);
+          await utente.linkWithCredential(tentata);
       }
       await ricarica();
       return EsitoDellaCustodia.riuscita;
@@ -214,6 +248,14 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
         case 'credential-already-in-use':
         case 'email-already-in-use':
         case 'account-exists-with-different-credential':
+          // **IL RIFIUTO PORTA CON SE' CHI E', ordine AL voce 07.** Quando
+          // l'errore consegna la credenziale aggiornata si tiene quella,
+          // altrimenti quella appena tentata: e' cio' che rende possibile il
+          // "Continua come" invece del vicolo cieco.
+          _riconosciuta = IdentitaRiconosciuta(
+            nome: errore.email ?? email,
+            credenziale: errore.credential ?? tentata,
+          );
           return EsitoDellaCustodia.giaDiUnAltroCerchio;
         case 'web-context-canceled':
         case 'canceled':
@@ -226,6 +268,23 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
       // Si ignora il dettaglio tecnico e si risponde con l'esito che la
       // persona puo' capire: qualunque cosa sia andata storta, il suo
       // Cerchio non e' stato toccato e puo' riprovare.
+      return EsitoDellaCustodia.nonRiuscita;
+    }
+  }
+
+  @override
+  Future<EsitoDellaCustodia> entraComeRiconosciuto() async {
+    final credenziale = _riconosciuta?.credenziale;
+    if (credenziale == null) return EsitoDellaCustodia.nonRiuscita;
+    try {
+      await _auth.signInWithCredential(credenziale);
+      _riconosciuta = null;
+      await ricarica();
+      return EsitoDellaCustodia.riuscita;
+    } catch (errore) {
+      // Anche qui l'esito parla alla persona: il suo telefono e' rimasto
+      // com'era e puo' riprovare, magari ripetendo la via Google per una
+      // credenziale fresca.
       return EsitoDellaCustodia.nonRiuscita;
     }
   }
@@ -263,6 +322,13 @@ class IdentitaAssente implements PortaDellIdentita {
     String? email,
     String? parola,
   }) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  IdentitaRiconosciuta? get riconosciuta => null;
+
+  @override
+  Future<EsitoDellaCustodia> entraComeRiconosciuto() async =>
       EsitoDellaCustodia.nonRiuscita;
 }
 
@@ -333,6 +399,20 @@ class AccountDelCerchio extends ChangeNotifier {
         _porta.uid != prima) {
       return EsitoDellaCustodia.cerchioCambiato;
     }
+    return esito;
+  }
+
+  /// Il nome dell'identita' riconosciuta dall'ultimo rifiuto, per il
+  /// "Continua come [nome]" dell'ordine AL voce 07. Nullo finche' nessun
+  /// Cerchio e' stato riconosciuto.
+  String? get nomeRiconosciuto => _porta.riconosciuta?.nome;
+
+  /// ENTRA nel Cerchio riconosciuto. Qui il cambio di uid non e' un guasto,
+  /// e' esattamente cio' che la persona ha chiesto col tocco, dopo la riga
+  /// onesta che le ha detto cosa succede al cammino di questo telefono.
+  Future<EsitoDellaCustodia> entraNelCerchioRiconosciuto() async {
+    final esito = await _porta.entraComeRiconosciuto();
+    rileggi();
     return esito;
   }
 }

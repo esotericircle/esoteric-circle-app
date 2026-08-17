@@ -70,6 +70,13 @@ class _PortaFinta implements PortaDellIdentita {
     });
     return EsitoDellaCustodia.riuscita;
   }
+
+  @override
+  IdentitaRiconosciuta? get riconosciuta => null;
+
+  @override
+  Future<EsitoDellaCustodia> entraComeRiconosciuto() async =>
+      EsitoDellaCustodia.nonRiuscita;
 }
 
 void main() {

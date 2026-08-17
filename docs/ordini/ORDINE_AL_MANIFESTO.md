@@ -109,14 +109,24 @@ suite intera UNA volta ad AL.09.
   il guasto si registra; sottotitolo nuovo "Salva carta natale, ricordi e Eos:
   se cambi telefono non perdi nulla"; guardia il_menu_account_non_ha_voci_morte
   con enumerazione delle voci per costruzione e rosso provato sull'attesa nuda)
-- **AL.07** L'onboarding riconosce e propone "Continua come" — APERTA
+- **AL.07** L'onboarding riconosce e propone "Continua come" — CHIUSA
+  (il rifiuto "gia' di un altro Cerchio" ora porta con se' CHI e' stato
+  riconosciuto, email e credenziale, invece di buttare via tutto; il
+  componente unico ContinuaComeRiconosciuto vive nelle DUE scene, foglio
+  dell'account e passo del Risveglio, col pulsante "Continua come [nome]" che
+  entra col signInWithCredential e la riga onesta PRIMA del tocco: i passi di
+  questo telefono restano qui e i due Cerchi non si uniscono, perche' nessuna
+  unione esiste e la vecchia frase che la prometteva e' sparita, con la prova
+  che ne vieta il ritorno nei sorgenti; "Piu' tardi" resta; nessuna decisione
+  di prodotto e' servita perche' la riga dichiara la realta' e la forma era
+  nel dettato; guardia l_onboarding_riconosce_e_propone con rosso provato)
 - **AL.08** La capsula persistente di volto e borsellino — APERTA
 - **AL.09** Il manifesto, la suite, la build 2180 — APERTA
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 3
-VOCI_CHIUSE: 2
+VOCI_APERTE: 2
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4

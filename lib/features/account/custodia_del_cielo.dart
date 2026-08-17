@@ -210,16 +210,85 @@ String? frasePerEsito(EsitoDellaCustodia esito) {
       return null;
     case EsitoDellaCustodia.annullata:
       return null;
+    // **NIENTE PROMESSE DI UNIONE, ordine AL voce 07.** Qui si prometteva di
+    // unire i due Cerchi scrivendoci: un'unione che non esiste da nessuna
+    // parte del sistema. La via in avanti vera e' il "Continua come" sotto.
     case EsitoDellaCustodia.giaDiUnAltroCerchio:
-      return 'Quell\'identità appartiene già a un altro Cerchio. Il tuo '
-          'resta intero qui: prova con un\'altra via, oppure scrivici e '
-          'uniremo i due.';
+      return 'Quell\'identità vive già in un altro Cerchio. Puoi entrarci '
+          'qui sotto, oppure provare con un\'altra via.';
     case EsitoDellaCustodia.cerchioCambiato:
       return 'Qualcosa non ha funzionato e il tuo cielo non è stato '
           'collegato. Niente è andato perso: riprova più tardi.';
     case EsitoDellaCustodia.nonRiuscita:
       return 'Non è riuscito adesso. Il tuo cielo resta dove sta: puoi '
           'riprovare quando vuoi dall\'area account.';
+  }
+}
+
+/// "CONTINUA COME [NOME]", ordine AL voce 07, in un componente solo.
+///
+/// Quando la custodia risponde che l'identita' vive gia' in un altro
+/// Cerchio, la via in avanti e' entrare in quel Cerchio: il pulsante porta
+/// il nome riconosciuto e, PRIMA del tocco, una riga sola e onesta dice cosa
+/// succede al cammino di questo telefono. La riga dichiara la verita' di
+/// oggi: i passi fatti qui restano su questo telefono e i due Cerchi NON si
+/// uniscono, perche' nessuna unione esiste nel sistema, e prometterla
+/// sarebbe una bugia detta nel momento in cui si chiede fiducia.
+///
+/// E' un componente unico per le due scene che lo mostrano, il foglio
+/// dell'area account e il passo del Risveglio: due copie diventerebbero due
+/// promesse diverse al primo ritocco.
+class ContinuaComeRiconosciuto extends StatelessWidget {
+  const ContinuaComeRiconosciuto({
+    super.key,
+    required this.account,
+    required this.suEsito,
+  });
+
+  /// L'account lo porta chi ospita, come gia' fa il foglio dell'invito: il
+  /// componente vive anche dentro fogli sul Navigator radice, dove pescare
+  /// dall'albero e' fragile.
+  final AccountDelCerchio account;
+
+  /// Riceve l'esito dell'ingresso: chi ospita decide come chiudersi.
+  final void Function(EsitoDellaCustodia esito) suEsito;
+
+  @override
+  Widget build(BuildContext context) {
+    final nome = account.nomeRiconosciuto;
+    if (nome == null) return const SizedBox.shrink();
+    final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'I passi fatti su questo telefono restano qui e i due Cerchi non '
+          'si uniscono: Eos e ricordi saranno quelli del Cerchio in cui '
+          'entri.',
+          key: const Key('continua_come_riga_onesta'),
+          style: TypographyTokens.didascalia()
+              .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        FilledButton(
+          key: const Key('continua_come'),
+          style: FilledButton.styleFrom(
+            backgroundColor: palette.gold,
+            foregroundColor: palette.deepest,
+            padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+          ),
+          onPressed: () async {
+            final esito = await account.entraNelCerchioRiconosciuto();
+            suEsito(esito);
+          },
+          child: Text('Continua come $nome',
+              overflow: TextOverflow.ellipsis,
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.deepest)),
+        ),
+      ],
+    );
   }
 }
 
@@ -267,12 +336,14 @@ class _FoglioDellInvito extends StatefulWidget {
 class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
   ViaDellaCustodia? _inCorso;
   String? _guaio;
+  bool _riconosciuto = false;
 
   Future<void> _custodisci(ViaDellaCustodia via,
       {String? email, String? parola}) async {
     setState(() {
       _inCorso = via;
       _guaio = null;
+      _riconosciuto = false;
     });
     final esito = await widget.account
         .custodisci(via, email: email, parola: parola);
@@ -284,6 +355,7 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
     setState(() {
       _inCorso = null;
       _guaio = frasePerEsito(esito);
+      _riconosciuto = esito == EsitoDellaCustodia.giaDiUnAltroCerchio;
     });
   }
 
@@ -340,6 +412,23 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
                   key: const Key('invito_guaio'),
                   style: TypographyTokens.didascalia()
                       .copyWith(color: palette.goldSoft, height: 1.4)),
+            ],
+            // LA VIA IN AVANTI, ordine AL voce 07: quando il Cerchio e' di
+            // un altro, si puo' entrarci col proprio nome, dopo la riga
+            // onesta. "Piu' tardi" resta qui sotto, come sempre.
+            if (_riconosciuto) ...[
+              const SizedBox(height: SpacingTokens.md),
+              ContinuaComeRiconosciuto(
+                account: widget.account,
+                suEsito: (esito) {
+                  if (!mounted) return;
+                  if (esito == EsitoDellaCustodia.riuscita) {
+                    Navigator.of(context).pop(true);
+                    return;
+                  }
+                  setState(() => _guaio = frasePerEsito(esito));
+                },
+              ),
             ],
             const SizedBox(height: SpacingTokens.lg),
             VieDellaCustodia(inCorso: _inCorso, suScelta: (via, {email, parola}) {

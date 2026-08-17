@@ -43,12 +43,14 @@ class CustodiaDelCieloStep extends StatefulWidget {
 class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
   ViaDellaCustodia? _inCorso;
   String? _guaio;
+  bool _riconosciuto = false;
 
   Future<void> _custodisci(ViaDellaCustodia via,
       {String? email, String? parola}) async {
     setState(() {
       _inCorso = via;
       _guaio = null;
+      _riconosciuto = false;
     });
     final esito = await context
         .read<AccountDelCerchio>()
@@ -61,6 +63,9 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
     setState(() {
       _inCorso = null;
       _guaio = frasePerEsito(esito);
+      // LA VIA IN AVANTI, ordine AL voce 07: il Risveglio riconosce e
+      // propone, con lo STESSO componente del foglio dell'account.
+      _riconosciuto = esito == EsitoDellaCustodia.giaDiUnAltroCerchio;
     });
   }
 
@@ -119,6 +124,20 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
                       textAlign: TextAlign.center,
                       style: TypographyTokens.didascalia()
                           .copyWith(color: palette.goldSoft, height: 1.4)),
+                ],
+                if (_riconosciuto) ...[
+                  const SizedBox(height: SpacingTokens.md),
+                  ContinuaComeRiconosciuto(
+                    account: context.read<AccountDelCerchio>(),
+                    suEsito: (esito) {
+                      if (!mounted) return;
+                      if (esito == EsitoDellaCustodia.riuscita) {
+                        widget.suFine();
+                        return;
+                      }
+                      setState(() => _guaio = frasePerEsito(esito));
+                    },
+                  ),
                 ],
                 const SizedBox(height: SpacingTokens.xl),
                 VieDellaCustodia(
