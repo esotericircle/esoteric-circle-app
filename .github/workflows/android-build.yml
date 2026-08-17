@@ -33,6 +33,11 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          # LA VERSIONE E' FISSA, ordine AH: il numero sovrano vive in
+          # docs/versione_flutter.json e una prova pretende che coincidano.
+          # La sintassi flutter-version e' quella documentata di
+          # subosito/flutter-action.
+          flutter-version: 3.44.5
 
       - name: Inietta google-services.json
         env:
