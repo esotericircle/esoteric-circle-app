@@ -316,8 +316,39 @@ class _AccountTile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(entry.title,
-                        style: TypographyTokens.display(size: 17)),
+                    // **IL TITOLO NON SI SPEZZA DENTRO LE PAROLE.** Ordine AI
+                    // voce 03, dalla foto di Mauro: "NOTIFIC HE" a 360 punti.
+                    // Il distintivo "In arrivo" stava FUORI dalla colonna e
+                    // rubava la riga: al titolo restavano 83 punti, meno di
+                    // una parola. La composizione scelta e' lo SPAZIO
+                    // DISPONIBILE: titolo e distintivo vivono in un Wrap
+                    // dentro la colonna, il titolo ha tutta la sua larghezza
+                    // e il distintivo scende sotto quando non c'e' posto.
+                    Wrap(
+                      spacing: SpacingTokens.sm,
+                      runSpacing: 4,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text(entry.title,
+                            style: TypographyTokens.display(size: 17)),
+                        if (!entry.isLive)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                  SpacingTokens.radiusPill),
+                              color: ColorTokens.gold.withValues(alpha: 0.16),
+                              border: Border.all(
+                                  color: ColorTokens.gold
+                                      .withValues(alpha: 0.5)),
+                            ),
+                            child: Text('In arrivo',
+                                style: TypographyTokens.etichetta()
+                                    .copyWith(color: ColorTokens.goldLight)),
+                          ),
+                      ],
+                    ),
                     const SizedBox(height: 2),
                     Text(entry.subtitle,
                         style: TypographyTokens.corpo().copyWith(
@@ -325,22 +356,6 @@ class _AccountTile extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: SpacingTokens.sm),
-              if (!entry.isLive)
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(SpacingTokens.radiusPill),
-                    color: ColorTokens.gold.withValues(alpha: 0.16),
-                    border:
-                        Border.all(color: ColorTokens.gold.withValues(alpha: 0.5)),
-                  ),
-                  child: Text('In arrivo',
-                      style: TypographyTokens.etichetta()
-                          .copyWith(color: ColorTokens.goldLight)),
-                ),
               const SizedBox(width: SpacingTokens.xs),
               Icon(
                 entry.isLive
