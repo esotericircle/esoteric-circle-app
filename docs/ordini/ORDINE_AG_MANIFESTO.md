@@ -43,7 +43,7 @@ mirate durante le voci, suite intera UNA volta sola in fondo prima del push.
 ## Le quattro voci
 
 - **AG.01** Le perle le disegna il codice, uguali e centrate — FERMATA IN ATTESA DI DECISIONE
-- **AG.02** Mai piu' blu — APERTA
+- **AG.02** Mai piu' blu — CHIUSA
 - **AG.03** Le anteprime tornano vere — APERTA
 - **AG.04** Il manifesto e il rapporto — APERTA
 
@@ -75,7 +75,7 @@ tocca i derivati).
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 4
-VOCI_APERTE: 3
-VOCI_CHIUSE: 0
+VOCI_APERTE: 2
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

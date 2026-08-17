@@ -343,7 +343,17 @@ class PittoreDelleLuci extends CustomPainter {
   /// ripiego non ha un elemento sotto: darle un colore inventato sarebbe peggio
   /// che darle la luce di prima. Vale anche per una materia perfettamente grigia,
   /// che non ha nessuna tinta da tenere.
+  ///
+  /// **SUL LOTO LA PALETTE E' FISSA: SEMPRE L'ORO, MAI LA MATERIA.** Ordine AG
+  /// voce 02. Le perle sono grigie e la loro tinta mediana e' un accidente
+  /// della pittura: due dischi su cinquantacinque (gli indici 13 e 46)
+  /// portavano una tinta fredda quasi invisibile, 190 e 220 gradi con
+  /// saturazione 0,050 e 0,032, e il pavimento di saturazione 0,74 la
+  /// trasformava in azzurro pieno: erano le due lampade azzurre viste
+  /// dall'Architetto. Una tinta che nell'arte non si vede non puo' comandare
+  /// la luce.
   Color _luceDi(FormaDellElemento forma) {
+    if (sentiero == Sentiero.loto) return oro;
     final c = forma.colore;
     if (c == null) return oro;
     final materia = HSVColor.fromColor(Color.fromARGB(255, c[0], c[1], c[2]));
@@ -414,7 +424,8 @@ class PittoreDelleLuci extends CustomPainter {
   /// **Il colore dell'alone resta quello della materia**, che e' la legge
   /// dell'ordine X; il disco invece e' bianco caldo e oro caldo per decisione di
   /// Mauro in quest'ordine: la lampadina e' la lampadina, su tutti e tre i
-  /// sentieri.
+  /// sentieri. **Sul Loto l'alone non si disegna e la luce e' sempre oro**,
+  /// ordine AG voce 02: vedi `_luceDi` e il commento dentro `_accendi`.
   ///
   /// **IL PAVIMENTO DEL RAGGIO, ed e' la strada della AC.11**: sotto gli otto
   /// punti logici una lampadina non si legge su uno schermo a 360 di larghezza,
@@ -437,7 +448,15 @@ class PittoreDelleLuci extends CustomPainter {
 
       // L'ALONE: un gradiente radiale col colore della materia, disegnato e non
       // sfocato. Cade quando gli effetti pieni sono spenti, come prima.
-      if (effettiPieni) {
+      //
+      // **SUL LOTO L'ALONE NON SI DISEGNA, ed e' la fusione dichiarata
+      // dall'ordine AG voce 02.** Le perle del Loto stanno su petali DIPINTI,
+      // non su fondo scuro come gli orbi e le sfere: qualunque velo colorato
+      // sopra un petalo ne cambia la tinta, ed e' proprio il difetto che
+      // Mauro ha indicato, petali che tendono al blu quando la perla sopra
+      // e' illuminata. La luce del Loto sta tutta dentro il disco della
+      // lampadina, che a 211 di luminanza contro 89 si legge da se'.
+      if (effettiPieni && sentiero != Sentiero.loto) {
         final raggioAlone = raggio * 2.4;
         tela.drawCircle(
           centro,
