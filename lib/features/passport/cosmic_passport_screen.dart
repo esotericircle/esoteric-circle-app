@@ -130,7 +130,13 @@ class _CosmicPassportState extends State<CosmicPassport> {
                       Expanded(
                         child: Text(
                           'Cosmic Passport',
-                          style: TypographyTokens.display(size: 30),
+                          // Corpo 26 dall'ordine AK voce 03: con porta e
+                          // pillola ai capi lo spazio e' di ~172 punti, e a
+                          // 30 la parola "Passport" si spezzava in
+                          // "PASSPOR|T". A 26 va a capo fra le parole,
+                          // "Cosmic" sopra e "Passport" sotto, intere.
+                          maxLines: 2,
+                          style: TypographyTokens.display(size: 26),
                         ),
                       ),
                       // LA PILLOLA, ordine AI voce 01: il saldo sempre

@@ -200,7 +200,12 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
           curve: Curves.easeOut,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-            color: palette.deepest.withValues(alpha: veste0 ? 0.38 : 0.55),
+            // Il velo si e' scurito da 0,38 a 0,62 con l'ordine AK voce 03: senza
+            // la rotellina accanto, sul Passaporto la pillola e' finita
+            // sopra un fondo chiaro e il contrasto della cifra scendeva a
+            // 2,9 contro il 4,5 che l'ordine AI pretende su OGNI fondo. Il
+            // velo resta velo: cambia il fondo della pillola, non il bordo.
+            color: palette.deepest.withValues(alpha: veste0 ? 0.62 : 0.72),
             border: Border.all(
               color: veste0
                   ? palette.goldSoft.withValues(alpha: 0.35)

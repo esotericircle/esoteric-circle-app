@@ -143,7 +143,9 @@ void main() {
       final eVistaDelGuscio = nome == 'CosmicPassport';
       if (eVistaDelGuscio) {
         contesto.read<NavigationController>().goToPassport();
-        await respiro(tester);
+        // Il Passaporto entra in dissolvenza: la pillola si misura ad
+        // apparizione compiuta, non a meta' velo.
+        await respiro(tester, 16);
       } else if (!ePrincipaleGiaMontata) {
         Navigator.of(contesto).push(rotte[nome]!());
         await respiro(tester);
@@ -157,9 +159,15 @@ void main() {
       }
       // IL CONTRASTO SUL FONDO VERO di questa schermata.
       if (find.byKey(const Key('borsellino')).evaluate().isNotEmpty) {
+        // L'ULTIMA nell'albero e' quella della schermata in cima: il guscio
+        // tiene la home montata sotto, e la prima pillola sarebbe la sua.
         final scatola = tester
-            .renderObject<RenderBox>(find.byKey(const Key('borsellino')).first);
-        final dove = scatola.localToGlobal(Offset.zero) & scatola.size;
+            .renderObject<RenderBox>(find.byKey(const Key('borsellino')).last);
+        // La POLPA della pillola: sei punti dentro il riquadro, cosi' gli
+        // angoli arrotondati non portano nel campione il fondo che sta
+        // dietro (sul Passaporto una stella chiara falsava la misura).
+        final dove =
+            (scatola.localToGlobal(Offset.zero) & scatola.size).deflate(6);
         final resa = await quadro();
         final dati = (await tester.runAsync(
             () => resa.toByteData(format: ui.ImageByteFormat.rawRgba)))!;
