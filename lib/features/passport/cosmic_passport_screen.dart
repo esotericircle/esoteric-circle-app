@@ -158,9 +158,13 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   ),
                   const SizedBox(height: SpacingTokens.md),
                   // Testo introduttivo: spiega la natura fissa del documento.
+                  // La frase minima dell'ordine AK voce 04: la promessa dei
+                  // fatti fissi resta vera per le tessere, e il cammino vivo
+                  // ha la sua casa col suo nome, la bolla qui sotto.
                   Text(
-                    'Qui vivono i fatti identitari fissi del tuo cammino: la '
-                    'carta natale non cambia mai.',
+                    'Qui vivono i fatti identitari fissi del tuo cammino, e '
+                    'in cima i tuoi traguardi vivi: la carta natale non '
+                    'cambia mai, il cammino cresce ogni giorno.',
                     style: TypographyTokens.body(size: 16)
                         .copyWith(color: ColorTokens.textSecondary),
                   ),
@@ -926,15 +930,31 @@ class _SentieriDelCammino extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final palette = context.palette;
     // IL MATERIAL SOPRA LE TRE PORTE: il Passaporto e' contenuto puro, senza
     // Scaffold, e un ListTile senza Material sopra fa cadere l'intera
     // schermata. Lo ha trovato la cattura del Passport, non una prova di
     // questo lavoro.
-    return Material(
+    // **LA BOLLA "I TUOI TRAGUARDI", ordine AK voce 04, voce di Mauro.** Le
+    // tre porte erano una colonna nuda in cima al corpo: ora vivono in una
+    // bolla di sezione nello stile del Passaporto, col loro nome. Restano
+    // tre ListTile e aprono ancora i loro sentieri.
+    return DepthCard(
+      key: const Key('bolla_dei_traguardi'),
+      child: Material(
       type: MaterialType.transparency,
       child: Column(
         key: const Key('sentieri_del_cammino'),
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(SpacingTokens.md,
+                SpacingTokens.sm, SpacingTokens.md, 0),
+            child: Text('I tuoi traguardi',
+                key: const Key('titolo_dei_traguardi'),
+                style: TypographyTokens.display(size: 19)
+                    .copyWith(color: palette.goldSoft)),
+          ),
           for (final sentiero in Sentieri.tutti) ...[
             ListTile(
               key: Key('porta_${sentiero.name}'),
@@ -966,6 +986,7 @@ class _SentieriDelCammino extends StatelessWidget {
             ),
           ],
         ],
+      ),
       ),
     );
   }
