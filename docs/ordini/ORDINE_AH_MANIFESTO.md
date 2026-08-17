@@ -33,13 +33,13 @@ rinumerano e non si accorpano.
 
 ## Le due voci
 
-- **AH.01** Il numero entra nei due file, e vive in un posto solo — APERTA
-- **AH.02** Il manifesto e il rapporto — APERTA
+- **AH.01** Il numero entra nei due file, e vive in un posto solo — CHIUSA
+- **AH.02** Il manifesto e il rapporto — CHIUSA
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 2
-VOCI_APERTE: 2
-VOCI_CHIUSE: 0
+VOCI_APERTE: 0
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

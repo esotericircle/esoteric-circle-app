@@ -88,7 +88,11 @@ workflows:
         # dovrebbe ritrovarselo.
         APP_STORE_APPLE_ID: 6798775360
 
-      flutter: stable
+      # LA VERSIONE E' FISSA, ordine AH: il numero sovrano vive in
+      # docs/versione_flutter.json e una prova pretende che coincidano. La
+      # sintassi col numero esatto e' quella documentata di Codemagic per il
+      # campo flutter.
+      flutter: 3.44.5
       # Xcode e CocoaPods restano quelli di serie della macchina: fissarne una
       # versione qui vorrebbe dire tenerla allineata a mano per sempre, e alla
       # prima build non si sa ancora quale serva.
