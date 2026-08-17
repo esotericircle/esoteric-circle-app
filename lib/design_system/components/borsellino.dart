@@ -1,5 +1,7 @@
 import 'dart:ui' as ui;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,10 +45,20 @@ enum VesteDellaPillola {
 }
 
 class SegnoDelBorsellino extends StatefulWidget {
-  const SegnoDelBorsellino({super.key, this.veste = VesteDellaPillola.velo});
+  const SegnoDelBorsellino(
+      {super.key, this.veste = VesteDellaPillola.velo, this.compatta = false});
 
-  /// La veste della pillola, fra le due in attesa degli occhi di Mauro.
+  /// La veste di riposo della pillola. Dalla coda all'ordine AI la veste
+  /// resa puo' accendersi d'oro all'atterraggio degli Eos e poi tornare qui.
   final VesteDellaPillola veste;
+
+  /// **LA FORMA COMPATTA, per la barra delle arti.** La larghezza resta
+  /// RISERVATA (cinque cifre tabellari), ma l'aria attorno si stringe:
+  /// nella barra dei sentieri il titolo lungo scendeva a corpo 13 contro il
+  /// minimo di 14, misurato dalla guardia del titolo, e quei punti erano
+  /// margine della pillola, non contenuto. Le cinque schermate principali
+  /// restano con la forma piena.
+  final bool compatta;
 
   @override
   State<SegnoDelBorsellino> createState() => _SegnoDelBorsellinoState();
@@ -59,6 +71,21 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
   /// L'ULTIMO NUMERO GIA' MOSTRATO, da cui il conto parte quando cambia.
   int? _mostrato;
 
+  /// **LA VESTE MISTA, decisione di Mauro del 17 agosto (coda all'ordine
+  /// AI).** La pillola vive col velo di riposo; quando il volo degli Eos le
+  /// atterra dentro si accende d'ORO e poi torna velo: il guadagno si
+  /// celebra da solo.
+  bool _accesa = false;
+  Timer? _spegnimento;
+
+  /// Quanto resta d'oro dopo l'atterraggio: il volo e il conto durano 900
+  /// millesimi l'uno, e la doratura li copre entrambi e resta un respiro in
+  /// piu', abbastanza da vedersi, mai un lampeggio.
+  static const Duration quantoRestaAccesa = Duration(milliseconds: 2600);
+
+  /// Quanto dura il passaggio fra le due vesti, nei due sensi.
+  static const Duration transizione = Duration(milliseconds: 420);
+
   @override
   void initState() {
     super.initState();
@@ -68,6 +95,7 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
 
   @override
   void dispose() {
+    _spegnimento?.cancel();
     ArrivoDegliEos.annunci.removeListener(_ricominciaIlConto);
     DoveStaIlBorsellino.dimentica(_dove);
     super.dispose();
@@ -78,7 +106,16 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
     if (!mounted) return;
     final borsa = context.read<QuestionAllowance?>();
     if (borsa == null) return;
-    setState(() => _mostrato = borsa.saldoEos - ArrivoDegliEos.quanti);
+    setState(() {
+      _mostrato = borsa.saldoEos - ArrivoDegliEos.quanti;
+      // L'ATTERRAGGIO ACCENDE L'ORO: stessa porta del conto, perche' il
+      // volo annuncia una volta sola e i due si muovono insieme.
+      _accesa = true;
+    });
+    _spegnimento?.cancel();
+    _spegnimento = Timer(quantoRestaAccesa, () {
+      if (mounted) setState(() => _accesa = false);
+    });
   }
 
   @override
@@ -125,8 +162,12 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
     // icona, il tocco apre il borsellino che la nomina per esteso e la voce
     // per chi ascolta dice "Borsellino, N Eos". Cinque cifre piu' la parola
     // non starebbero in nessuna testata.
+    // La veste RESA: quella di riposo del montaggio, oppure l'oro
+    // dell'atterraggio finche' la doratura non si spegne.
+    final vesteResa =
+        _accesa ? VesteDellaPillola.oro : widget.veste;
     final stile = TypographyTokens.etichetta().copyWith(
-      color: widget.veste == VesteDellaPillola.oro
+      color: vesteResa == VesteDellaPillola.oro
           ? palette.gold
           : palette.goldSoft,
       fontFeatures: const [ui.FontFeature.tabularFigures()],
@@ -137,7 +178,12 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
     )..layout();
     final larghezzaCifre = metro.width;
     metro.dispose();
-    final veste0 = widget.veste == VesteDellaPillola.velo;
+    final veste0 = vesteResa == VesteDellaPillola.velo;
+    // Sotto Riduci Movimento il passaggio fra le vesti e' un cambio secco:
+    // si toglie il movimento, non la doratura.
+    final durataTransizione = MediaQuery.of(context).disableAnimations
+        ? Duration.zero
+        : transizione;
     return Semantics(
       button: true,
       label: 'Borsellino, $saldo Eos',
@@ -149,7 +195,9 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
         key: const Key('borsellino'),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
         onTap: () => PortafoglioDelCerchio.apri(context),
-        child: Container(
+        child: AnimatedContainer(
+          duration: durataTransizione,
+          curve: Curves.easeOut,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
             color: palette.deepest.withValues(alpha: veste0 ? 0.38 : 0.55),
@@ -168,19 +216,18 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
                     ),
                   ],
           ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.sm,
-            vertical: 5,
+          padding: EdgeInsets.symmetric(
+            horizontal: widget.compatta ? SpacingTokens.xs : SpacingTokens.sm,
+            vertical: widget.compatta ? 3 : 5,
           ),
           child: Row(
             key: _dove,
             mainAxisSize: MainAxisSize.min,
             children: [
               IconaDegliEos(
-                  misura: 14,
-                  colore:
-                      veste0 ? palette.goldSoft : palette.gold),
-              const SizedBox(width: 5),
+                  misura: widget.compatta ? 12 : 14,
+                  colore: veste0 ? palette.goldSoft : palette.gold),
+              SizedBox(width: widget.compatta ? 3 : 5),
               // IL NUMERO SALE CONTANDO, ordine S voce 07, e dura quanto il volo
               // delle scintille. **Con Riduci Movimento il volo non parte e il
               // conto resta**: si toglie la scintilla, non la notizia. La cifra

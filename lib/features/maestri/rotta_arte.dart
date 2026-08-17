@@ -169,7 +169,9 @@ class _AngoloDellaBarraState extends State<AngoloDellaBarra> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SegnoDelBorsellino(),
+        // La forma compatta: qui il vicino di banco e' il titolo del
+        // sentiero, che ha un corpo minimo da difendere.
+        const SegnoDelBorsellino(compatta: true),
         if (arte != null) CuorePreferita(id: arte.id),
         const SizedBox(width: SpacingTokens.xs),
       ],

@@ -43,9 +43,12 @@ si rinumerano e non si accorpano.
 
 ## Le quattro voci
 
-- **AI.01** La pillola degli Eos — FERMATA IN ATTESA DI DECISIONE
-  (la meccanica e' montata ovunque con la veste VELO; Mauro sceglie fra le
-  due vesti guardando `docs/preview/pillola_due_vesti.png`)
+- **AI.01** La pillola degli Eos — CHIUSA
+  (decisione di Mauro del 17 agosto 2026, portata dalla coda all'ordine: la
+  VESTE MISTA. La pillola vive col velo di riposo; quando il volo degli Eos
+  le atterra dentro si accende d'oro per 2,6 secondi, poi torna velo. Sotto
+  Riduci Movimento il cambio e' secco. Il guadagno si celebra da solo.
+  Anteprima dei tre momenti: `docs/preview/pillola_tre_momenti.png`.)
 - **AI.02** Il menu' utente ovunque — CHIUSA
 - **AI.03** I titoli delle card non si spezzano dentro le parole — CHIUSA
 - **AI.04** Il manifesto e il rapporto — CHIUSA
@@ -54,6 +57,6 @@ si rinumerano e non si accorpano.
 
 VOCI_TOTALI: 4
 VOCI_APERTE: 0
-VOCI_CHIUSE: 3
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

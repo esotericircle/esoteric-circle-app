@@ -262,7 +262,7 @@ void main() {
     // ATTESA DI DECISIONE): velo e oro a 0, 1.000 e 10.000 Eos sui tre fondi,
     // per gli occhi di Mauro. Lo produce il suo strumento, e non possono
     // scostarsi.
-    r'^pillola_due_vesti\.png$': [
+    r'^pillola_(due_vesti|tre_momenti)\.png$': [
       'tool/anteprime_della_pillola.dart',
       "docs/preview/pillola_due_vesti",
     ],

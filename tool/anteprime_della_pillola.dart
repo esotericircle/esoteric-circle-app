@@ -36,6 +36,76 @@ void main() {
     await titoli.load();
   });
 
+  /// I TRE MOMENTI DELLA VESTE MISTA: riposo, oro all'atterraggio, ritorno.
+  /// Coda all'ordine AI, decisione di Mauro del 17 agosto.
+  testWidgets('i tre momenti della veste mista', (tester) async {
+    SharedPreferences.setMockInitialValues(const {});
+    tester.view.devicePixelRatio = 2.0;
+    tester.view.physicalSize = const Size(720, 560);
+    addTearDown(tester.view.reset);
+    final borsa = QuestionAllowance();
+    await borsa.applicaSaldo(120);
+    final chiave = GlobalKey();
+    Widget scena(String etichetta, {required bool accesa}) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(etichetta,
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: const Color(0xFFB7B0A0))),
+              // I momenti si mostrano con le due vesti pure: il riposo e il
+              // ritorno sono il velo, l'atterraggio e' l'oro. La meccanica
+              // vera del passaggio vive nel componente ed e' provata da
+              // test/la_pillola_si_accende_quando_arrivano_test.dart.
+              SegnoDelBorsellino(
+                  veste: accesa
+                      ? VesteDellaPillola.oro
+                      : VesteDellaPillola.velo),
+            ],
+          ),
+        );
+    await tester.pumpWidget(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Material(
+        type: MaterialType.transparency,
+        child: RepaintBoundary(
+          key: chiave,
+          child: Container(
+            color: const Color(0xFF0B0D1A),
+            padding: const EdgeInsets.all(24),
+            child: ChangeNotifierProvider<QuestionAllowance>.value(
+              value: borsa,
+              child: MaestroScope(
+                maestro: Maestro.medora,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    scena('1. riposo (velo)', accesa: false),
+                    scena('2. gli Eos atterrano (oro)', accesa: true),
+                    scena('3. ritorno al velo', accesa: false),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    await tester.runAsync(() async {
+      final scatola =
+          chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final immagine = await scatola.toImage(pixelRatio: 2.0);
+      final png = await immagine.toByteData(format: ui.ImageByteFormat.png);
+      File('docs/preview/pillola_tre_momenti.png')
+          .writeAsBytesSync(png!.buffer.asUint8List());
+      // ignore: avoid_print
+      print('anteprima: docs/preview/pillola_tre_momenti.png');
+    });
+  });
+
   testWidgets('le due vesti a tre saldi', (tester) async {
     SharedPreferences.setMockInitialValues(const {});
     tester.view.devicePixelRatio = 2.0;
