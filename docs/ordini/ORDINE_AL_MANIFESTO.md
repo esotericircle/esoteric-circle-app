@@ -54,7 +54,15 @@ suite intera UNA volta ad AL.09.
   tilt resta e la parallasse appiattita pure; guardia
   il_cielo_di_nascita_si_muove con rosso provato, tre misure bugiarde cadute e
   dichiarate nella prova; chiude il telefono di Mauro sulla 2180)
-- **AL.03** Il Passaporto pieno conta anche l'archetipo — APERTA
+- **AL.03** Il Passaporto pieno conta anche l'archetipo — CHIUSA
+  (il gesto 'passaporto' scatta a ogni visita e da solo non dice niente: ora il
+  pezzo e' COMPOSTO e matura solo con ogni tessera del documento viva, enumerate
+  in `PezziDellIdentita.tessereDelPassaporto` con cosa conta oggi e cosa conta
+  dopo scritto accanto; il confronto e' sui pezzi, cosi' la carta dal profilo
+  vale come quella dal gesto; guardia il_passaporto_pieno_conta_l_archetipo con
+  rosso provato sulla condizione monca; il med_27 gia' scattato sul telefono di
+  Mauro NON si revoca, un Sigillo acceso non si spegne mai per legge del diario:
+  il caso esiste e la riprogettazione dei traguardi lo assorbira')
 - **AL.04** Nessun foglio e' bianco — APERTA
 - **AL.05** Gli Eos arrivano davvero nel borsellino — APERTA
 - **AL.06** Il menu' account non ha voci morte — APERTA
@@ -65,7 +73,7 @@ suite intera UNA volta ad AL.09.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 7
-VOCI_CHIUSE: 0
+VOCI_APERTE: 6
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2

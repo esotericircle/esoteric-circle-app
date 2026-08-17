@@ -104,7 +104,7 @@ class RegiaDelCammino {
       carta: carta,
       segno: carta?.sunSign,
       seriePerRito: diario.seriePerRito,
-      pezziDellIdentita: _pezziDellIdentita(diario, carta != null),
+      pezziDellIdentita: pezziDellIdentitaMaturi(diario, carta != null),
     );
     // La porta, la borsa e la coda si prendono PRIMA di qualunque attesa:
     // leggere il contesto dopo un await e' il modo classico di parlare a un
@@ -274,20 +274,32 @@ class RegiaDelCammino {
   /// natale e' l'unica che si legge dal suo controllore, perche' esiste anche
   /// per chi l'ha creata prima che questo registro nascesse. Un pezzo che
   /// avesse una porta propria sarebbe la seconda porta sullo stesso dato.
-  static Set<String> _pezziDellIdentita(
+  @visibleForTesting
+  static Set<String> pezziDellIdentitaMaturi(
     DiarioDelCammino diario,
     bool haLaCarta,
-  ) =>
-      {
-        // **LA LISTA NON STA PIU' QUI.** Ordine U voce 01, coda: viveva scritta a
-        // mano in questo punto, ed era l'unico posto che sapesse quali gesti
-        // completano un pezzo dell'identita'. La prova che sorveglia "un gesto,
-        // una festa, un pagamento" ha bisogno dello stesso legame, e ricopiarlo
-        // la' dentro avrebbe aperto la seconda porta sullo stesso dato.
-        if (haLaCarta || diario.haFatto('carta_natale')) 'carta_natale',
-        for (final pezzo in PezziDellIdentita.daSoloGesto)
-          if (diario.haFatto(pezzo)) pezzo,
-      };
+  ) {
+    final pezzi = {
+      // **LA LISTA NON STA PIU' QUI.** Ordine U voce 01, coda: viveva scritta a
+      // mano in questo punto, ed era l'unico posto che sapesse quali gesti
+      // completano un pezzo dell'identita'. La prova che sorveglia "un gesto,
+      // una festa, un pagamento" ha bisogno dello stesso legame, e ricopiarlo
+      // la' dentro avrebbe aperto la seconda porta sullo stesso dato.
+      if (haLaCarta || diario.haFatto('carta_natale')) 'carta_natale',
+      for (final pezzo in PezziDellIdentita.daSoloGesto)
+        if (diario.haFatto(pezzo)) pezzo,
+    };
+    // **IL PASSAPORTO E' COMPOSTO, ordine AL voce 03.** Il suo gesto scatta a
+    // ogni visita della schermata, quindi da solo non dice niente: matura
+    // quando ogni tessera del documento e' viva, e le tessere stanno
+    // enumerate in un punto solo, PezziDellIdentita.tessereDelPassaporto.
+    // Il confronto e' sui PEZZI e non sui gesti, cosi' la carta natale
+    // arrivata dal profilo conta come quella arrivata dal gesto.
+    if (!PezziDellIdentita.tessereDelPassaporto.every(pezzi.contains)) {
+      pezzi.remove('passaporto');
+    }
+    return pezzi;
+  }
 
   /// IL REGISTRO DEI MOVIMENTI, se l'albero lo porta.
   ///

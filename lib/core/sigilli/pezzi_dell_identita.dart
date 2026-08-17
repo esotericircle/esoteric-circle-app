@@ -51,4 +51,36 @@ class PezziDellIdentita {
   ];
 
   static bool eUnPezzo(String gesto) => tutti.contains(gesto);
+
+  /// LE TESSERE DEL PASSAPORTO, ordine AL voce 03.
+  ///
+  /// Il pezzo 'passaporto' e' COMPOSTO: il suo gesto dice soltanto "ho aperto
+  /// il documento", perche' scatta a ogni visita della schermata, e da solo
+  /// faceva maturare med_27 con l'archetipo ancora da fare (il telefono di
+  /// Mauro, collaudo del 17 agosto 2026). Il Passaporto pieno matura SOLO
+  /// quando ogni tessera del documento e' viva.
+  ///
+  /// **Cosa conta OGGI**, tessera per tessera del documento reale:
+  /// la carta natale (il portale del cielo di nascita e la sua card), il
+  /// numero della vita, l'ora e il luogo di nascita (i dati del documento,
+  /// vivi solo con l'identita' reale), i tre Angeli, l'animale guida e
+  /// l'archetipo. Le tessere deterministiche, il Sigillo del Cerchio e la
+  /// fase lunare di nascita, sono vive per costruzione dalla sola data e non
+  /// hanno un gesto da contare; lo Specchio dei Dati non e' una tessera
+  /// dell'identita'.
+  ///
+  /// **Cosa conta DOPO**: l'elenco delle tessere in arrivo del documento,
+  /// `_passportEntries`, oggi e' vuoto; quando una tessera nuova entra nel
+  /// documento va aggiunta QUI, cosi' il Passaporto pieno resta pieno
+  /// davvero. La Costellazione del Viso non e' una tessera del documento
+  /// oggi: se un giorno vi entra, entra anche in questo elenco.
+  static const List<String> tessereDelPassaporto = [
+    'carta_natale',
+    'numero_della_vita',
+    'ora_di_nascita',
+    'luogo_di_nascita',
+    'angelo_custode',
+    'animale_guida',
+    'archetipo',
+  ];
 }
