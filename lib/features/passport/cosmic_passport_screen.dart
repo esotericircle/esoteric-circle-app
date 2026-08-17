@@ -19,7 +19,8 @@ import '../../core/identity/profile_controller.dart';
 import '../../core/rituals/guide_animal_derivation.dart';
 import '../maestri/caligo/animal/guide_animal_screen.dart';
 import '../../design_system/components/depth_card.dart';
-import '../../design_system/components/user_avatar.dart';
+import '../../design_system/components/borsellino.dart';
+import '../../design_system/components/porta_dell_account.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -121,20 +122,11 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Il volto dell'utente in testa al suo passaporto: la foto,
-                      // o l'emblema del suo segno solare (sempre noto qui dalla
-                      // data), o le iniziali, o il sigillo neutro.
-                      UserAvatar(
-                        key: const Key('passport_user_avatar'),
-                        photo: profile.hasAvatarPhoto
-                            ? MemoryImage(profile.avatarPhoto!)
-                            : null,
-                        sign: NightSky.sunSign(id.birthMoment),
-                        name: profile.hasName
-                            ? profile.profile.displayName
-                            : null,
-                        size: 52,
-                      ),
+                      // Il volto dell'utente in testa al suo passaporto era
+                      // DECORATIVO: dall'ordine AI voce 02 e' la porta unica
+                      // dell'account, lo stesso componente di ogni testata,
+                      // con dentro lo stesso volto coi suoi quattro ripieghi.
+                      const PortaDellAccount(misura: 52),
                       const SizedBox(width: SpacingTokens.md),
                       Expanded(
                         child: Text(
@@ -142,6 +134,10 @@ class _CosmicPassportState extends State<CosmicPassport> {
                           style: TypographyTokens.display(size: 30),
                         ),
                       ),
+                      // LA PILLOLA, ordine AI voce 01: il saldo sempre
+                      // visibile anche sul documento.
+                      const SegnoDelBorsellino(),
+                      const SizedBox(width: SpacingTokens.xs),
                       IconButton(
                         key: const Key('passport_settings'),
                         icon: const Icon(Icons.settings_outlined),

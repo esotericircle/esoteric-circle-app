@@ -7,6 +7,8 @@ import '../../../core/entitlement/question_allowance.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/archetypes/archetype_history.dart';
+import '../../../design_system/components/porta_dell_account.dart';
+import '../rotta_arte.dart';
 import '../../../core/chat/altre_voci.dart';
 import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/immersive_intents.dart';
@@ -974,23 +976,27 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       // popano comunque la route, la chat resta superficie immersiva senza
       // barra di navigazione.
       automaticallyImplyLeading: false,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back_rounded),
-        tooltip: 'Indietro',
-        onPressed: () => Navigator.of(context).maybePop(),
+      leadingWidth: 92,
+      leading: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            tooltip: 'Indietro',
+            onPressed: () => Navigator.of(context).maybePop(),
+          ),
+          const PortaDellAccount(misura: 32),
+        ],
       ),
-      // NESSUNA AZIONE NELL'INTESTAZIONE.
-      //
-      // Qui c'era un'icona a bilancia, dorata. In una schermata di astrologia
-      // si legge come il SEGNO della Bilancia, e portava a una schermata dove
-      // la conversazione ricominciava da zero: la domanda era gia' stata
-      // fatta, e per sentire gli altri due bisognava riscriverla. Le altre
-      // voci adesso si chiamano da SOTTO la risposta a cui si riferiscono, e
-      // la sintesi si raggiunge solo quando c'e' qualcosa da sintetizzare.
-      // Nessun simbolo da sviluppatore nell'header. La messa a punto (token di
-      // debug di App Check) resta raggiungibile con un gesto nascosto: una
-      // pressione prolungata sul nome del Maestro. Cosi' l'header e' pulito
-      // nella build normale e da Demo.
+      // LE AZIONI SONO LA PILLOLA E BASTA, ordine AI. La storia della
+      // bilancia resta scritta: qui c'era un'icona a bilancia, dorata, che in
+      // una schermata di astrologia si leggeva come il SEGNO della Bilancia e
+      // portava a ricominciare la conversazione; le altre voci si chiamano da
+      // SOTTO la risposta e nessun simbolo da sviluppatore vive qui (la messa
+      // a punto resta nella pressione prolungata sul nome). La pillola non e'
+      // un simbolo da sviluppatore: e' il borsellino, che dev'essere sempre
+      // visibile per decisione di Mauro del 17 agosto.
+      actions: const [AngoloDellaBarra()],
       title: GestureDetector(
         onLongPress: onDiagnostics,
         behavior: HitTestBehavior.opaque,

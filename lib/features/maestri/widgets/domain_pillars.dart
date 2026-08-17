@@ -42,12 +42,21 @@ class DomainPillars extends StatelessWidget {
     return Text(
       key: const Key('domain_pillars'),
       maestro.domainArtsPhrase,
-      maxLines: 1,
+      // DUE RIGHE, ordine AI voce 02: il titolo del dominio vive ora fra la
+      // porta dell'account e la pillola, e nello spazio protetto la frase
+      // lunga di Medora non ci sta su una riga. Meglio a capo fra le parole
+      // che troncata coi puntini: la frase si legge intera.
+      maxLines: 2,
       textAlign: TextAlign.center,
       overflow: TextOverflow.ellipsis,
       style: TypographyTokens.etichetta().copyWith(
         color: palette.goldSoft.withValues(alpha: 0.85),
-        letterSpacing: 0.9,
+        // La spaziatura scende da 0,9 a 0,4 con l'ordine AI voce 02: nello
+        // spazio protetto fra porta e pillola (167,7 punti a 360) la riga
+        // piu' lunga, "Cartomanzia e Destino", misura 171,3 a 0,9 e si
+        // troncava coi puntini; a 0,4 misura 160,8 e la frase entra INTERA
+        // su due righe, con 6,9 punti di margine.
+        letterSpacing: 0.4,
       ),
     );
   }

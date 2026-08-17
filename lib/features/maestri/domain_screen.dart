@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_scope.dart';
+import '../../design_system/components/porta_dell_account.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../shell/vie_del_cerchio.dart';
@@ -60,47 +61,44 @@ class DomainScreen extends StatelessWidget {
         // Il nome del Maestro e, come seconda riga, i tre pilastri del suo
         // dominio: si sa di che cosa e' fatto prima ancora di scorrere.
         //
-        // La colonna e' centrata sulla larghezza della SCHERMATA, non sullo
-        // spazio che avanza accanto alla freccia: per questo la freccia non e'
-        // un `leading` ma sta dentro il titolo, sovrapposta a sinistra, e il
-        // titolo occupa tutta la barra (`titleSpacing` a zero). Cosi' il nome
-        // resta esattamente al centro in tutti e tre i domini.
-        toolbarHeight: 74,
+        // **LA TESTATA HA DUE CAPI E UN CENTRO PROTETTO, ordine AI voce 02.**
+        // Qui c'era uno Stack col titolo centrato sull'intera larghezza e il
+        // saldo sovrapposto a destra: con mille Eos il numero entrava nei
+        // sottotitoli, ed e' il difetto fotografato da Mauro. Adesso e' una
+        // AppBar normale: la freccia e la porta dell'account al capo
+        // sinistro, la pillola al capo destro, e il titolo VINCOLATO dallo
+        // spazio fra i due per costruzione, quindi non puo' toccare nessuno
+        // dei capi. La centratura perfetta sull'intera larghezza si perde di
+        // pochi punti, uguali nei tre domini: la protezione vale la deriva.
+        toolbarHeight: 88,
         titleSpacing: 0,
-        title: SizedBox(
-          width: double.infinity,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(maestro.displayName,
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.display(size: 20)),
-                  const SizedBox(height: 2),
-                  DomainPillars(maestro: maestro),
-                ],
-              ),
-              Positioned(
-                left: 0,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back_rounded),
-                  tooltip: 'Indietro',
-                  onPressed: () => Navigator.of(context).maybePop(),
-                ),
-              ),
-              // IL BORSELLINO, ordine S voce 06, e sta NELLO STACK e non
-              // fra le azioni: qui il titolo occupa tutta la barra per
-              // tenere il nome del Maestro esattamente al centro in tutti e
-              // tre i domini, e un'azione vera glielo sposterebbe. Cosi' il
-              // segno resta nello stesso angolo delle altre schermate senza
-              // toccare la centratura.
-              const Positioned(right: 0, child: AngoloDellaBarra()),
-            ],
-          ),
+        centerTitle: true,
+        leadingWidth: 92,
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back_rounded),
+              tooltip: 'Indietro',
+              onPressed: () => Navigator.of(context).maybePop(),
+            ),
+            const PortaDellAccount(misura: 34),
+          ],
         ),
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(maestro.displayName,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.display(size: 20)),
+            const SizedBox(height: 2),
+            DomainPillars(maestro: maestro),
+          ],
+        ),
+        // IL BORSELLINO, ordine S voce 06, oggi PILLOLA dell'ordine AI: al
+        // capo destro, fra le azioni come in ogni altra testata.
+        actions: const [AngoloDellaBarra()],
       ),
       // Cosmo senza costellazioni anche qui: superficie calma, nessun
       // rettangolo a portale dietro l'header.

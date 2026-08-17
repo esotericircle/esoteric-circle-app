@@ -24,7 +24,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/identity/account_del_cerchio.dart';
 import '../../core/identity/quando_chiedere_la_custodia.dart';
-import '../account/account_screen.dart';
+import '../../design_system/components/borsellino.dart';
+import '../../design_system/components/porta_dell_account.dart';
 import '../account/custodia_del_cielo.dart';
 import '../maestri/art_navigation.dart';
 import '../maestri/widgets/striscia_altre_arti.dart';
@@ -799,15 +800,21 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               ),
 
 
-              // Icona Utente in alto a destra: apre l'area account, distinta dal
-              // Passport (che resta il profilo esoterico nella barra in basso).
+              // In alto a destra vivono LA PILLOLA E LA PORTA, ordine AI:
+              // il saldo sempre visibile e l'ingresso all'account, fianco a
+              // fianco. La porta era una copia privata di questa schermata
+              // (_UserAvatarButton): ora e' il componente unico, la stessa
+              // porta di ogni altra testata.
               Positioned(
                 top: h * 0.012,
                 right: SpacingTokens.sm,
-                child: _UserAvatarButton(
-                  palette: palette,
-                  onTap: () =>
-                      Navigator.of(context).push(AccountScreen.route()),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    SegnoDelBorsellino(),
+                    SizedBox(width: SpacingTokens.xs),
+                    PortaDellAccount(),
+                  ],
                 ),
               ),
             ],
@@ -1154,50 +1161,6 @@ class _DomainEntry extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-/// L'avatar Utente in alto a destra: apre l'area account. Un cerchio discreto
-/// nella palette del Maestro al centro, con l'icona di una persona.
-class _UserAvatarButton extends StatelessWidget {
-  const _UserAvatarButton({required this.palette, required this.onTap});
-
-  final MaestroPalette palette;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      shape: const CircleBorder(),
-      child: InkWell(
-        key: const Key('santuario_user_avatar'),
-        customBorder: const CircleBorder(),
-        onTap: onTap,
-        child: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: RadialGradient(colors: [
-              palette.primary.withValues(alpha: 0.55),
-              palette.deepest.withValues(alpha: 0.5),
-            ]),
-            border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
-            boxShadow: [
-              BoxShadow(
-                color: palette.glow.withValues(alpha: 0.3),
-                blurRadius: 12,
-                spreadRadius: -4,
-              ),
-            ],
-          ),
-          alignment: Alignment.center,
-          child: Icon(Icons.person_outline_rounded,
-              size: 22, color: palette.goldSoft),
-        ),
-      ),
     );
   }
 }
