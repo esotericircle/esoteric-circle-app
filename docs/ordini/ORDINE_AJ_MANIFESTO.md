@@ -81,12 +81,12 @@ si rinumerano e non si accorpano.
 - **AJ.04** Le arti preferite, e le altre — FERMATA SU PREMESSA FALSA
   (P6: "Tarocchi" non esiste nel catalogo, esiste "Stesa di Tarocchi".
   Decide Mauro il nome, poi la voce riparte con una coda.)
-- **AJ.05** Il manifesto e il rapporto — APERTA
+- **AJ.05** Il manifesto e il rapporto — CHIUSA
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 1
-VOCI_CHIUSE: 2
+VOCI_APERTE: 0
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

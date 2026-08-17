@@ -88,7 +88,13 @@ void main() {
               'o la striscia ESPLORA:\n${colpe.join('\n')}');
     }
 
-    nessunoNellaZona('A riposo in cima');
+    // **A RIPOSO IN CIMA NON SI PRETENDE PIU' IL VUOTO, ordine AJ voce
+    // 03.** La pretesa veniva dalla decisione del 2164 (a riposo sotto la
+    // barra solo cielo), che teneva in piedi una fascia morta di 184 punti
+    // fra i Maestri e le arti: Mauro il 17 agosto ha chiesto di toglierla, e
+    // adesso lo scaffale scivola sotto la barra a riposo come ogni contenuto
+    // che le passa sotto scorrendo. La grandezza che resta e' la CODA: in
+    // fondo la zona della barra dev'essere ancora riservata.
 
     // In fondo: si scorre tutto. La barra laggiu' e' ritirata (torna solo
     // col dito che risale, e quello e' mezzo scorrimento, non riposo), ma la
