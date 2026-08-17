@@ -176,8 +176,11 @@ void main() {
           reason: 'la festa non porta piu\' al Sigillo appena acceso: si '
               'chiudeva su se stessa e il sentiero bisognava ritrovarlo');
       expect(sorgente, contains('SentieroScreen.route'));
-      // Le due intensita' restano, e la card resta sempre offerta.
-      expect(sorgente, contains('traguardo.eGrande || primoInAssoluto'),
+      // Le due intensita' restano, e la card resta sempre offerta. Dalla
+      // festa unica dell'ordine AC voce 04 la condizione legge la LISTA dei
+      // nominati: basta un grande fra loro e la celebrazione e' piena.
+      expect(sorgente,
+          contains('traguardi.any((t) => t.eGrande) || primoInAssoluto'),
           reason: 'le due intensita\' sono sparite: cinquanta celebrazioni '
               'lunghe diventano un ostacolo, e un mini che passa in silenzio '
               'non e\' un traguardo');
