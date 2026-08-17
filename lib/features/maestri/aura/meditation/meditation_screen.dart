@@ -58,7 +58,22 @@ class _MeditationScreenState extends State<MeditationScreen>
     _breath = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: _cycleMs),
-    )..repeat();
+    );
+  }
+
+
+  /// **IL GIRO PARTE SOLO SENZA RIDUCI MOVIMENTO, ordine AJ voce 01**: il
+  /// repeat di `_breath` girava anche per chi ha chiesto meno movimento. La
+  /// MediaQuery non si legge in initState, quindi la guardia sta qui e vale
+  /// a ogni cambio di dipendenze.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.of(context).disableAnimations) {
+      if (_breath.isAnimating) _breath.stop();
+    } else {
+      if (!_breath.isAnimating) _breath.repeat();
+    }
   }
 
   @override

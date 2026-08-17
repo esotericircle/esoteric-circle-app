@@ -27,6 +27,12 @@ import 'zodiac_figures.dart';
 /// Tutto e' regolato dal Quality Tier: pieno in alto, ridotto in medio, quasi
 /// statico in basso per garantire fluidita' e batteria.
 class CosmosBackground extends StatefulWidget {
+  /// **QUANTI CIELI SONO SOSPESI adesso, e lo leggono le prove.** Ordine AJ
+  /// voce 01: quando una rotta ne copre un'altra, il cielo coperto si
+  /// sospende; questo conto e' la mano sul polso della sospensione.
+  @visibleForTesting
+  static int quantiSospesi = 0;
+
   const CosmosBackground({
     super.key,
     required this.child,
@@ -85,8 +91,44 @@ ParallaxController? _ripiego;
 ParallaxController _parallasseDiRipiego() =>
     _ripiego ??= ParallaxController();
 
+/// L'OSSERVATORE DELLE ROTTE per la sospensione del cielo. Ordine AJ voce
+/// 01: la schermata COPERTA da una rotta spinta sopra continuava a
+/// ricostruire il cosmo a ogni tick del sensore (il watch sulla parallasse)
+/// e a tenere vivo il suo giro da trenta secondi. Ogni cosmo si iscrive qui
+/// e, quando la sua rotta viene coperta, si sospende: niente ascolto della
+/// parallasse, giro fermo. Al ritorno riprende. Montato in
+/// `navigatorObservers` dall'app.
+final RouteObserver<ModalRoute<void>> osservatoreDelCielo =
+    RouteObserver<ModalRoute<void>>();
+
 class _CosmosBackgroundState extends State<CosmosBackground>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, RouteAware {
+  /// Vero mentre la rotta di questo cielo e' coperta da un'altra: il cielo
+  /// non si ricostruisce e non gira. Quanti sono sospesi lo conta la prova.
+  bool _coperto = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final rotta = ModalRoute.of(context);
+    if (rotta != null) osservatoreDelCielo.subscribe(this, rotta);
+  }
+
+  @override
+  void didPushNext() {
+    if (_coperto) return;
+    CosmosBackground.quantiSospesi++;
+    setState(() => _coperto = true);
+    _controller.stop();
+  }
+
+  @override
+  void didPopNext() {
+    if (!_coperto) return;
+    CosmosBackground.quantiSospesi--;
+    setState(() => _coperto = false);
+  }
+
   late final AnimationController _controller;
 
   /// LE IMMAGINI DEI PIANI STATICI, una per piano di parallasse.
@@ -108,6 +150,8 @@ class _CosmosBackgroundState extends State<CosmosBackground>
 
   @override
   void dispose() {
+    osservatoreDelCielo.unsubscribe(this);
+    if (_coperto) CosmosBackground.quantiSospesi--;
     _controller.dispose();
     _cielo.libera();
     super.dispose();
@@ -124,8 +168,12 @@ class _CosmosBackgroundState extends State<CosmosBackground>
             .watch<QualityTierController?>()
             ?.tier ??
         QualityTier.medium;
-    final parallax =
-        context.watch<ParallaxController?>() ?? _parallasseDiRipiego();
+    // **DA COPERTO NON SI ASCOLTA**: il watch qui sotto ricostruiva questo
+    // albero a ogni tick del sensore anche sotto una funzionalita' aperta.
+    // Da coperto si legge senza iscriversi, e il giro sta fermo.
+    final parallax = _coperto
+        ? (context.read<ParallaxController?>() ?? _parallasseDiRipiego())
+        : (context.watch<ParallaxController?>() ?? _parallasseDiRipiego());
     final sunSign = context.watch<ZodiacController?>()?.sunSign;
     // Riduci Movimento: cosmo fermo, niente stella cadente, parallasse minima.
     final reduceMotion = MediaQuery.of(context).disableAnimations;
@@ -134,7 +182,8 @@ class _CosmosBackgroundState extends State<CosmosBackground>
     if (quality == QualityTier.low || reduceMotion) {
       if (_controller.isAnimating) _controller.stop();
     } else {
-      if (!_controller.isAnimating) _controller.repeat();
+      // Da coperto il giro NON si riarma: e' la sospensione dell'ordine AJ.
+      if (!_coperto && !_controller.isAnimating) _controller.repeat();
     }
 
     return Stack(

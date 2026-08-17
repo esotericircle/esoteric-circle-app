@@ -230,8 +230,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         vsync: this, duration: const Duration(milliseconds: 1200))
       ..forward();
     _alone = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 3400))
-      ..repeat(reverse: true);
+        vsync: this, duration: const Duration(milliseconds: 3400));
     _rimbalzo = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 620));
     _flip = AnimationController(
@@ -286,6 +285,13 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     _riduciMovimento = MediaQuery.of(context).disableAnimations;
+    // **IL GIRO DELL'ALONE PARTE SOLO SENZA RIDUCI MOVIMENTO, ordine AJ
+    // voce 01**: girava anche per chi ha chiesto meno movimento, per sempre.
+    if (_riduciMovimento) {
+      if (_alone.isAnimating) _alone.stop();
+    } else {
+      if (!_alone.isAnimating) _alone.repeat(reverse: true);
+    }
     _precaricaFondali();
     if (_risolta) return;
     _risolta = true;
@@ -351,6 +357,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     _ritornoFuture ??= _controllaRitorno();
     _cercaOssoVergine();
   }
+
 
   @override
   void dispose() {

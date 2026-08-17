@@ -21,6 +21,7 @@ import 'core/settings/settings_controller.dart';
 import 'core/arts/arti_preferite.dart';
 import 'core/sensi/guardia_del_suono.dart';
 import 'core/sensi/motore_audio.dart';
+import 'design_system/components/cosmos_background.dart';
 import 'design_system/theme/app_theme.dart';
 import 'design_system/theme/maestro_scope.dart';
 import 'features/debug/app_check_debug_view.dart';
@@ -250,7 +251,7 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         // sapere quale schermata e' in cima sia alla regola contro il doppione.
         // E' UN DATO SOLO, montato qui e passato alla barra: due copie della
         // pila divergerebbero al primo pop.
-        navigatorObservers: [_pila],
+        navigatorObservers: [_pila, osservatoreDelCielo],
         // La striscia col token di debug di App Check sta sopra il Navigator,
         // quindi si legge anche mentre l'onboarding e' aperto sopra lo shell.
         // In release non compare: lo decidono i servizi, non questa riga.

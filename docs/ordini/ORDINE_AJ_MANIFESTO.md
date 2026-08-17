@@ -63,7 +63,18 @@ si rinumerano e non si accorpano.
 
 ## Le cinque voci
 
-- **AJ.01** Gli scatti spariscono: la regola del cielo vale per tutti — APERTA
+- **AJ.01** Gli scatti spariscono: la regola del cielo vale per tutti — FERMATA IN ATTESA DI DECISIONE
+  (le cure trasversali sono fatte: la schermata coperta si sospende (cielo
+  fermo e niente ascolto della parallasse sotto una rotta, conto dei sospesi
+  provato sull'app vera) e i tre repeat scoperti hanno la guardia di Riduci
+  Movimento; il pumpAndSettle del sentiero converge sotto quelle guardie.
+  RESTANO, dichiarate coi numeri del censimento: le cure per sprite dei
+  pittori che sfocano per fotogramma, nell'ordine ritual_object (87 filtri a
+  fotogramma, solo onboarding), dream_rite (70 shader), maestro_reveal (22
+  piu' il Ticker), meditation e sky_overview. Il metro CPU delle prove vede
+  il paint e non il raster, dove le sfocature pesano: 1,4-3,1 millesimi a
+  fotogramma misurati sul ritual_object. La chiusura vera e' il telefono di
+  Mauro, come la voce prescrive.)
 - **AJ.02** La linea ai bordi sparisce — CHIUSA
   (l'ultima parola resta al telefono di Mauro, inclinandolo)
 - **AJ.03** Lo spazio esagerato in home sparisce — CHIUSA
@@ -75,7 +86,7 @@ si rinumerano e non si accorpano.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 2
+VOCI_APERTE: 1
 VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

@@ -146,7 +146,22 @@ class _MaestroAuraState extends State<_MaestroAura>
   void initState() {
     super.initState();
     _c = AnimationController(vsync: this, duration: const Duration(seconds: 3))
-      ..repeat();
+      ;
+  }
+
+
+  /// **IL GIRO PARTE SOLO SENZA RIDUCI MOVIMENTO, ordine AJ voce 01**: il
+  /// repeat di `_c` girava anche per chi ha chiesto meno movimento. La
+  /// MediaQuery non si legge in initState, quindi la guardia sta qui e vale
+  /// a ogni cambio di dipendenze.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.of(context).disableAnimations) {
+      if (_c.isAnimating) _c.stop();
+    } else {
+      if (!_c.isAnimating) _c.repeat();
+    }
   }
 
   @override
