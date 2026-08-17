@@ -3034,7 +3034,7 @@ void main() {
     selectCentral(tester, Maestro.medora);
     await step(tester);
     await precacheFaces(tester);
-    await tester.tap(find.byKey(const Key('santuario_user_avatar')));
+    await tester.tap(find.byKey(const Key('porta_dell_account')));
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'area-utente.png');
