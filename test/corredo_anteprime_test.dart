@@ -258,6 +258,14 @@ void main() {
       'tool/perle_uguali_del_loto.py',
       "docs/preview/loto_ritocco_da_fare",
     ],
+    // Il quadro delle due vesti della pillola (ordine AI voce 01, FERMATA IN
+    // ATTESA DI DECISIONE): velo e oro a 0, 1.000 e 10.000 Eos sui tre fondi,
+    // per gli occhi di Mauro. Lo produce il suo strumento, e non possono
+    // scostarsi.
+    r'^pillola_due_vesti\.png$': [
+      'tool/anteprime_della_pillola.dart',
+      "docs/preview/pillola_due_vesti",
+    ],
     // Il SORGENTE del Loto delle perle (ordine AE): non e' un'anteprima, e' il
     // file di Mauro da cui lo scontorno deriva l'arte, e non si modifica mai
     // sul posto. Il suo custode e' lo strumento che lo consuma: se un giorno lo

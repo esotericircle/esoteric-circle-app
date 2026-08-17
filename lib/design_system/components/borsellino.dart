@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,9 +28,25 @@ import 'volo_degli_eos.dart';
 /// azioni della barra e prima del cuore. Chi lo vuole non lo ridisegna, lo
 /// monta. Se ogni schermata se lo disegnasse, in due mesi avremmo cinque
 /// borsellini diversi in cinque angoli diversi, che e' la famiglia delle due
-/// porte applicata al denaro.
+/// porte applicata al denaro. Dall'ordine AI voce 01 il segno veste la
+/// PILLOLA qui sotto.
+
+/// LE DUE VESTI DELLA PILLOLA, ordine AI voce 01: stessa meccanica, due pesi
+/// visivi. Decide Mauro guardando le anteprime; finche' non decide si monta
+/// il velo, che e' la piu' discreta.
+enum VesteDellaPillola {
+  /// Vetro leggero: fondo velato e bordo tenue.
+  velo,
+
+  /// Vetro inciso: fondo piu' pieno, bordo d'oro e un alone breve.
+  oro,
+}
+
 class SegnoDelBorsellino extends StatefulWidget {
-  const SegnoDelBorsellino({super.key});
+  const SegnoDelBorsellino({super.key, this.veste = VesteDellaPillola.velo});
+
+  /// La veste della pillola, fra le due in attesa degli occhi di Mauro.
+  final VesteDellaPillola veste;
 
   @override
   State<SegnoDelBorsellino> createState() => _SegnoDelBorsellinoState();
@@ -93,53 +111,117 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
     // apertura non e' cambiato niente.
     final partenza = _mostrato ?? saldo;
     _mostrato = saldo;
+    // **LA PILLOLA, ordine AI voce 01.** Il saldo era icona e testo nudi, e
+    // con mille Eos la riga cresceva fin dentro i sottotitoli. Adesso e' una
+    // pillola di vetro a LARGHEZZA RISERVATA: lo spazio e' quello di cinque
+    // cifre coi numeri tabellari, misurato qui sotto sul campione piu' largo,
+    // quindi 0 e 10.000 occupano lo stesso posto e niente si sposta mai.
+    // **Senza sfocature**: il vetro e' un velo di colore, perche' il filtro di
+    // sfocatura e' la stessa tecnica sospettata di non comparire sul telefono.
+    //
+    // **La parola "Eos" esce dalla pillola**, e non e' un ripensamento
+    // dell'ordine S voce 05 fatto in silenzio: la' il numero nudo con la
+    // scintilla di serie si leggeva "stelle"; qui la moneta e' la NOSTRA
+    // icona, il tocco apre il borsellino che la nomina per esteso e la voce
+    // per chi ascolta dice "Borsellino, N Eos". Cinque cifre piu' la parola
+    // non starebbero in nessuna testata.
+    final stile = TypographyTokens.etichetta().copyWith(
+      color: widget.veste == VesteDellaPillola.oro
+          ? palette.gold
+          : palette.goldSoft,
+      fontFeatures: const [ui.FontFeature.tabularFigures()],
+    );
+    final metro = TextPainter(
+      text: TextSpan(text: '88.888', style: stile),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    final larghezzaCifre = metro.width;
+    metro.dispose();
+    final veste0 = widget.veste == VesteDellaPillola.velo;
     return Semantics(
       button: true,
       label: 'Borsellino, $saldo Eos',
-      child: InkWell(
+      // Il Material sta NEL componente: una prova che monta la schermata da
+      // sola non ne ha uno sopra, e la pillola non deve farla cadere.
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
         key: const Key('borsellino'),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
         onTap: () => PortafoglioDelCerchio.apri(context),
-        child: Padding(
-          // **LO SPAZIO E' STRETTO PERCHE' IL TITOLO NON SI ROMPA.** Con la
-          // parola Eos accanto al numero la riga delle azioni e' cresciuta, e
-          // il titolo della barra e' tornato a spezzarsi: questi punti erano
-          // margine del saldo, non contenuto.
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+            color: palette.deepest.withValues(alpha: veste0 ? 0.38 : 0.55),
+            border: Border.all(
+              color: veste0
+                  ? palette.goldSoft.withValues(alpha: 0.35)
+                  : palette.gold.withValues(alpha: 0.65),
+            ),
+            boxShadow: veste0
+                ? null
+                : [
+                    BoxShadow(
+                      color: palette.glow.withValues(alpha: 0.25),
+                      blurRadius: 10,
+                      spreadRadius: -3,
+                    ),
+                  ],
+          ),
           padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.xs,
-            vertical: SpacingTokens.xs,
+            horizontal: SpacingTokens.sm,
+            vertical: 5,
           ),
           child: Row(
             key: _dove,
             mainAxisSize: MainAxisSize.min,
             children: [
-              // L'ICONA NOSTRA E LA PAROLA, ordine S voce 05: qui c'era la
-              // scintilla di serie e un numero nudo, e si leggeva "stelle".
-              IconaDegliEos(misura: 15, colore: palette.goldSoft),
-              const SizedBox(width: 3),
+              IconaDegliEos(
+                  misura: 14,
+                  colore:
+                      veste0 ? palette.goldSoft : palette.gold),
+              const SizedBox(width: 5),
               // IL NUMERO SALE CONTANDO, ordine S voce 07, e dura quanto il volo
-              // delle scintille: i due si vedono insieme, quindi finiscono
-              // insieme. **Con Riduci Movimento il volo non parte e il conto
-              // resta**, perche' il numero e' informazione e non moto: quello che
-              // si toglie e' la scintilla, non la notizia.
-              TweenAnimationBuilder<double>(
-                tween: Tween<double>(
-                    begin: partenza.toDouble(), end: saldo.toDouble()),
-                duration: VoloDegliEos.durata,
-                curve: Curves.easeOutCubic,
-                builder: (context, valore, _) => Text(
-                  '${valore.round()} Eos',
-                  key: const Key('saldo_eos_numero'),
-                  style: TypographyTokens.etichetta()
-                      .copyWith(color: palette.goldSoft),
+              // delle scintille. **Con Riduci Movimento il volo non parte e il
+              // conto resta**: si toglie la scintilla, non la notizia. La cifra
+              // sta in uno spazio fisso allineato a destra, cosi' il conto non
+              // fa respirare la pillola.
+              SizedBox(
+                width: larghezzaCifre,
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween<double>(
+                      begin: partenza.toDouble(), end: saldo.toDouble()),
+                  duration: VoloDegliEos.durata,
+                  curve: Curves.easeOutCubic,
+                  builder: (context, valore, _) => Text(
+                    cifraDegliEos(valore.round()),
+                    key: const Key('saldo_eos_numero'),
+                    textAlign: TextAlign.right,
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
+                    style: stile,
+                  ),
                 ),
               ),
             ],
           ),
         ),
       ),
+      ),
     );
   }
+}
+
+/// La cifra col punto delle migliaia, all'italiana: 10000 diventa "10.000".
+/// Una porta sola per il formato, cosi' pillola e prove leggono lo stesso.
+String cifraDegliEos(int saldo) {
+  final crudo = saldo.toString();
+  final testo = StringBuffer();
+  for (var i = 0; i < crudo.length; i++) {
+    if (i > 0 && (crudo.length - i) % 3 == 0) testo.write('.');
+    testo.write(crudo[i]);
+  }
+  return testo.toString();
 }
 
 
