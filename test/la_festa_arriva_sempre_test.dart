@@ -200,11 +200,11 @@ void main() {
     // 14 agosto, è un giorno di luna nuova: una gettata accende la PRIMA
     // GETTATA e la GETTATA A LUNA NUOVA.
     //
-    // **La coda ne consegna UNA per momento utile, ed è ciò per cui esiste:**
-    // due scene a schermo pieno spinte insieme si accavallerebbero. Quindi non
-    // si pretende più che la coda sia vuota, perché sarebbe pretendere che due
-    // feste arrivino nello stesso istante. Si pretende che si sia ACCORCIATA,
-    // cioè che il momento utile ne abbia consegnata almeno una.
+    // **La coda si consegna in UNA FESTA SOLA che nomina tutte, dall'ordine
+    // AC voce 04:** prima ne consegnava una per momento utile, in fila, ed
+    // era la raffica vista da Mauro il 16 sera. La grandezza di questa prova
+    // resta la stessa, la coda deve essersi ACCORCIATA: oggi si svuota del
+    // tutto, e il numero stampato qui sotto lo dice.
     //
     // **La grandezza misurata cambia, la cosa sorvegliata no: nessuna festa va
     // persa.** Quelle che restano tornano al prossimo momento utile, ed è la

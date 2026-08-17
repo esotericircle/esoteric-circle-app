@@ -63,18 +63,60 @@ class Celebrazione {
     String? serie,
     bool attendiLaFine = false,
     VoidCallback? allaChiusura,
+  }) =>
+      festeggiaInsieme(
+        context,
+        traguardi: [traguardo],
+        sentieri: [sentiero],
+        primoInAssoluto: primoInAssoluto,
+        serie: serie,
+        attendiLaFine: attendiLaFine,
+        allaChiusura: allaChiusura,
+      );
+
+  /// **QUANTE CELEBRAZIONI SONO PARTITE, e solo le prove lo leggono.** Ordine
+  /// AC voce 04: la prova del rosso deve poter DICHIARARE quante feste sono
+  /// comparse, non dedurlo da cio' che resta a schermo, perche' due feste in
+  /// fila si vedono una alla volta e a ogni istante il conto visibile e' uno.
+  @visibleForTesting
+  static int partite = 0;
+
+  /// LA FESTA UNICA. Ordine AC voce 04, decisione di Mauro del 16 agosto:
+  /// due celebrazioni di seguito danno gia' fastidio, quindi non se ne devono
+  /// mai vedere due di fila.
+  ///
+  /// **Quando nello stesso momento ci sono due o piu' feste in attesa, si
+  /// celebra UNA volta sola, e quella celebrazione le nomina tutte**: il nome
+  /// di ogni traguardo acceso, la somma degli Eos, e l'intensita' del piu'
+  /// importante (se fra loro c'e' un grande, la celebrazione e' piena). Si
+  /// unisce la FESTA, non il premio: ogni Sigillo si accende comunque nel
+  /// Journal uno per uno, e nessun traguardo perde i suoi Eos, perche'
+  /// l'accredito resta per traguardo nella regia. Il salto al Journal porta
+  /// al primo dei Sigilli nominati.
+  ///
+  /// Con un solo traguardo tutto resta identico a prima, ed e' la prova 1
+  /// della voce a pretenderlo.
+  static Future<bool> festeggiaInsieme(
+    BuildContext context, {
+    required List<Traguardo> traguardi,
+    required List<Sentiero> sentieri,
+    required bool primoInAssoluto,
+    String? serie,
+    bool attendiLaFine = false,
+    VoidCallback? allaChiusura,
   }) async {
+    if (traguardi.isEmpty || traguardi.length != sentieri.length) return false;
     // **UNA ALLA VOLTA, ordine S voce 09.** Se una festa e' gia' a schermo questa
     // non si dipinge sopra: chi ha chiamato la mette in coda, e la coda la porta
     // al primo momento utile. Due celebrazioni nello stesso istante sono
     // illeggibili, e il premio di entrambe si perde.
     if (FesteInCorso.unaCeGia) return false;
-    if (traguardo.eGrande || primoInAssoluto) {
+    if (traguardi.any((t) => t.eGrande) || primoInAssoluto) {
       final navigatore = Navigator.maybeOf(context);
       if (navigatore == null) return false;
       final rotta = _RottaDellaCelebrazione(
-        traguardo: traguardo,
-        sentiero: sentiero,
+        traguardi: traguardi,
+        sentieri: sentieri,
         serie: serie,
       );
       final scena = navigatore.push(rotta);
@@ -88,6 +130,7 @@ class Celebrazione {
       // resta aperta finche' la persona non la chiude, e chi ha chiamato non deve
       // aspettarla.
       if (allaChiusura != null) scena.whenComplete(allaChiusura);
+      partite++;
       if (attendiLaFine) {
         await scena;
       } else {
@@ -95,11 +138,13 @@ class Celebrazione {
       }
       return true;
     }
-    return mostraLaSovrimpressione(context,
-        traguardo: traguardo,
-        sentiero: sentiero,
+    final comparsa = mostraLaSovrimpressione(context,
+        traguardi: traguardi,
+        sentieri: sentieri,
         serie: serie,
         allaChiusura: allaChiusura);
+    if (comparsa) partite++;
+    return comparsa;
   }
 }
 
@@ -181,8 +226,8 @@ class VeloDellaCelebrazione {
 /// compie. Non finisce mai col punto: in fondo c'e' il prossimo traguardo.
 class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
   _RottaDellaCelebrazione({
-    required this.traguardo,
-    required this.sentiero,
+    required this.traguardi,
+    required this.sentieri,
     this.serie,
   }) : super(
           opaque: false,
@@ -207,34 +252,48 @@ class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
           // rosso di Caligo anche se lo hai acceso dentro una stesa di Medora.
           // Prima, quando per caso lo scope c'era, la festa prendeva il colore
           // sbagliato senza che nessuno se ne accorgesse.
+          // **LA SCENA E' DEL PRIMO NOMINATO**: colore, segno e salto al
+          // Journal seguono il primo dei Sigilli, come l'ordine AC voce 04
+          // prescrive per il salto. L'INTENSITA' invece e' del piu'
+          // importante, e la decide la scena guardando se fra i traguardi
+          // c'e' un grande.
           pageBuilder: (context, _, __) => MaestroScope(
-            maestro: sentiero.maestro,
+            maestro: sentieri.first.maestro,
             child: CelebrazioneAScermoPieno(
-              traguardo: traguardo,
-              sentiero: sentiero,
+              traguardi: traguardi,
+              sentieri: sentieri,
               serie: serie,
             ),
           ),
         );
 
-  final Traguardo traguardo;
-  final Sentiero sentiero;
+  final List<Traguardo> traguardi;
+  final List<Sentiero> sentieri;
   final String? serie;
 }
 
 class CelebrazioneAScermoPieno extends StatefulWidget {
   const CelebrazioneAScermoPieno({
     super.key,
-    required this.traguardo,
-    required this.sentiero,
+    required this.traguardi,
+    required this.sentieri,
     this.serie,
   });
 
-  final Traguardo traguardo;
-  final Sentiero sentiero;
+  /// I traguardi nominati, nell'ordine in cui il cammino li ha accesi.
+  /// Ordine AC voce 04: quasi sempre uno, e quando sono di piu' la festa e'
+  /// UNA e li nomina tutti.
+  final List<Traguardo> traguardi;
+  final List<Sentiero> sentieri;
 
   /// "terzo giorno di seguito", quando c'e' una serie da dire.
   final String? serie;
+
+  /// Il piu' importante fra i nominati: un grande se c'e', il primo
+  /// altrimenti. La sua frase e' quella che si legge, la sua intensita' e'
+  /// quella della festa.
+  Traguardo get principale =>
+      traguardi.firstWhere((t) => t.eGrande, orElse: () => traguardi.first);
 
   @override
   State<CelebrazioneAScermoPieno> createState() =>
@@ -249,8 +308,8 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
     // sul tempo di LETTURA di cio' che si scopre, non su quello
     // dell'animazione, e il grande dura un terzo in piu' del mini.
     duration: Duration(
-        milliseconds:
-            FesteDeiMaestri.millesimiDi(eGrande: widget.traguardo.eGrande)),
+        milliseconds: FesteDeiMaestri.millesimiDi(
+            eGrande: widget.traguardi.any((t) => t.eGrande))),
   );
 
   /// **UN TOCCO LA SALTA, e porta subito al traguardo e al premio.** Una festa
@@ -288,7 +347,16 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
   Widget build(BuildContext context) {
     final palette = context.palette;
     final diario = context.watch<DiarioDelCammino>();
-    final prossimo = diario.prossimoDi(widget.sentiero);
+    final prossimo = diario.prossimoDi(widget.sentieri.first);
+    // I sentieri coinvolti, senza ripetizioni e nell'ordine dei nominati: la
+    // festa unita porta il segno di ognuno, che e' il "Sigilli di tutti"
+    // dell'ordine AC voce 04.
+    final coinvolti = <Sentiero>[];
+    for (final s in widget.sentieri) {
+      if (!coinvolti.contains(s)) coinvolti.add(s);
+    }
+    final eosTotali =
+        widget.traguardi.fold<int>(0, (somma, t) => somma + t.eos);
 
     return CosmosBackground(
       seed: 23,
@@ -314,19 +382,40 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(height: SpacingTokens.xxl),
-                    SegnoDelMaestro(
-                      sentiero: widget.sentiero,
-                      avanzamento: _segno,
-                      grande: true,
+                    // IL SEGNO DI OGNI SENTIERO COINVOLTO: quasi sempre uno,
+                    // e con una festa unita di sentieri diversi uno ciascuno.
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (final s in coinvolti) ...[
+                          SegnoDelMaestro(
+                            sentiero: s,
+                            avanzamento: _segno,
+                            grande: true,
+                          ),
+                          if (s != coinvolti.last)
+                            const SizedBox(width: SpacingTokens.md),
+                        ],
+                      ],
                     ),
                     const SizedBox(height: SpacingTokens.lg),
-                    Text(
-                      widget.traguardo.nome,
-                      key: const Key('celebrazione_nome'),
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.cerimonialeGrande()
-                          .copyWith(color: palette.goldSoft),
-                    ),
+                    // **OGNI TRAGUARDO PORTA IL SUO NOME**, ordine AC voce
+                    // 04: la festa e' una e li nomina tutti. Il primo tiene
+                    // la chiave storica, cosi' ogni prova che cercava il nome
+                    // della festa continua a trovarlo.
+                    for (final t in widget.traguardi) ...[
+                      Text(
+                        t.nome,
+                        key: t == widget.traguardi.first
+                            ? const Key('celebrazione_nome')
+                            : null,
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.cerimonialeGrande()
+                            .copyWith(color: palette.goldSoft),
+                      ),
+                      if (t != widget.traguardi.last)
+                        const SizedBox(height: SpacingTokens.xs),
+                    ],
                     if (widget.serie != null) ...[
                       const SizedBox(height: SpacingTokens.xs),
                       Text(widget.serie!,
@@ -335,21 +424,27 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                               .copyWith(color: palette.goldSoft)),
                     ],
                     const SizedBox(height: SpacingTokens.md),
+                    // Una frase sola, quella del piu' importante: tre frasi
+                    // cerimoniali in fila sarebbero un muro di testo, e la
+                    // festa deve restare leggibile in un respiro.
                     Text(
-                      widget.traguardo.frase,
+                      widget.principale.frase,
                       key: const Key('celebrazione_frase'),
                       textAlign: TextAlign.center,
                       style: TypographyTokens.corpo().copyWith(
                           color: ColorTokens.textPrimary, height: 1.5),
                     ),
                     const SizedBox(height: SpacingTokens.md),
-                    EosCheVolano(
-                        quanti: widget.traguardo.eos, avanzamento: _segno),
+                    // LA SOMMA DEGLI EOS: nessun traguardo perde i suoi,
+                    // l'accredito resta per traguardo nella regia.
+                    EosCheVolano(quanti: eosTotali, avanzamento: _segno),
                     const SizedBox(height: SpacingTokens.lg),
                     VieDellaCondivisione(
+                      // Si condivide il piu' importante: la card porta un
+                      // traguardo solo, e il piu' importante e' la festa.
                       suScelta: (modo) => condividiIlTraguardo(
                         context,
-                        traguardo: widget.traguardo,
+                        traguardo: widget.principale,
                         modo: modo,
                       ),
                     ),
@@ -394,7 +489,9 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                       onPressed: () {
                         final navigatore = Navigator.of(context);
                         navigatore.maybePop();
-                        navigatore.push(SentieroScreen.route(widget.sentiero));
+                        // AL PRIMO DEI SIGILLI NOMINATI, ordine AC voce 04.
+                        navigatore
+                            .push(SentieroScreen.route(widget.sentieri.first));
                       },
                       icon: Icon(Icons.route_rounded,
                           size: 16, color: palette.goldSoft),
@@ -425,13 +522,15 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                   child: AnimatedBuilder(
                     animation: _segno,
                     builder: (context, _) => CustomPaint(
-                      key: Key('festa_${widget.sentiero.maestro.id}'),
+                      key: Key('festa_${widget.sentieri.first.maestro.id}'),
                       painter: PittoreDellaFesta(
-                        maestro: widget.sentiero.maestro,
+                        maestro: widget.sentieri.first.maestro,
                         avanzamento: _segno.value,
                         oro: palette.gold,
                         oroTenue: palette.goldSoft,
-                        eGrande: widget.traguardo.eGrande,
+                        // L'INTENSITA' E' QUELLA DEL PIU' IMPORTANTE: un
+                        // grande fra i nominati accende la festa piena.
+                        eGrande: widget.traguardi.any((t) => t.eGrande),
                         effettiPieni:
                             !MediaQuery.of(context).disableAnimations,
                       ),
@@ -539,8 +638,8 @@ class EosCheVolano extends StatelessWidget {
 /// Torna vero se la scena e' davvero comparsa.
 bool mostraLaSovrimpressione(
   BuildContext context, {
-  required Traguardo traguardo,
-  required Sentiero sentiero,
+  required List<Traguardo> traguardi,
+  required List<Sentiero> sentieri,
   String? serie,
   VoidCallback? allaChiusura,
 }) {
@@ -561,10 +660,10 @@ bool mostraLaSovrimpressione(
     // grande: una voce dell'Overlay non e' figlia della pagina che l'ha chiesta,
     // e il colore giusto e' quello del sentiero che si sta festeggiando.
     builder: (ctx) => MaestroScope(
-      maestro: sentiero.maestro,
+      maestro: sentieri.first.maestro,
       child: _FasciaDellaCelebrazione(
-        traguardo: traguardo,
-        sentiero: sentiero,
+        traguardi: traguardi,
+        sentieri: sentieri,
         serie: serie,
         suMorte: () => viva = false,
         suFine: () {
@@ -584,15 +683,17 @@ bool mostraLaSovrimpressione(
 
 class _FasciaDellaCelebrazione extends StatefulWidget {
   const _FasciaDellaCelebrazione({
-    required this.traguardo,
-    required this.sentiero,
+    required this.traguardi,
+    required this.sentieri,
     required this.suFine,
     required this.suMorte,
     this.serie,
   });
 
-  final Traguardo traguardo;
-  final Sentiero sentiero;
+  /// I traguardi nominati: la festa unita dell'ordine AC voce 04 vale anche
+  /// nella forma breve.
+  final List<Traguardo> traguardi;
+  final List<Sentiero> sentieri;
   final String? serie;
   final VoidCallback suFine;
 
@@ -730,15 +831,23 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SegnoDelMaestro(
-                                  sentiero: widget.sentiero,
+                                  sentiero: widget.sentieri.first,
                                   avanzamento: _segno,
                                   grande: true),
                               const SizedBox(height: SpacingTokens.md),
-                              Text(widget.traguardo.nome,
-                                  key: const Key('sovrimpressione_nome'),
-                                  textAlign: TextAlign.center,
-                                  style: TypographyTokens.cerimoniale()
-                                      .copyWith(color: palette.goldSoft)),
+                              // OGNI TRAGUARDO PORTA IL SUO NOME, ordine AC
+                              // voce 04: il primo tiene la chiave storica.
+                              for (final t in widget.traguardi) ...[
+                                Text(t.nome,
+                                    key: t == widget.traguardi.first
+                                        ? const Key('sovrimpressione_nome')
+                                        : null,
+                                    textAlign: TextAlign.center,
+                                    style: TypographyTokens.cerimoniale()
+                                        .copyWith(color: palette.goldSoft)),
+                                if (t != widget.traguardi.last)
+                                  const SizedBox(height: SpacingTokens.xs),
+                              ],
                               const SizedBox(height: SpacingTokens.xs),
                               // **GLI EOS NON SI SCRIVONO DUE VOLTE.** Qui c'era
                               // `widget.serie ?? '+N Eos'`, e appena sotto c'e'
@@ -756,8 +865,10 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
                                 ),
                                 const SizedBox(height: SpacingTokens.xs),
                               ],
+                              // LA SOMMA DEGLI EOS di tutti i nominati.
                               EosCheVolano(
-                                  quanti: widget.traguardo.eos,
+                                  quanti: widget.traguardi.fold<int>(
+                                      0, (somma, t) => somma + t.eos),
                                   avanzamento: _segno),
                               // Lo spazio che la fascia toccabile occupera' sotto:
                               // il testo non le finisce mai dietro.
@@ -781,7 +892,7 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
                     compatte: true,
                     suScelta: (modo) => condividiIlTraguardo(
                       context,
-                      traguardo: widget.traguardo,
+                      traguardo: widget.traguardi.first,
                       modo: modo,
                     ),
                   ),

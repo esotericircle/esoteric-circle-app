@@ -100,7 +100,7 @@ arriva a una persona.** Contiene sei cose e nessuna in piu':
 - **AC.01** L'interruttore dei Journal dall'arte si accende — FERMATA IN ATTESA DI DECISIONE
 - **AC.02** Il vuoto sotto l'arte sparisce — FERMATA SU PREMESSA FALSA
 - **AC.03** Le particelle della festa smettono di saltare — CHIUSA
-- **AC.04** Mai due celebrazioni di seguito — APERTA
+- **AC.04** Mai due celebrazioni di seguito — CHIUSA
 - **AC.05** Nessun traguardo celebra due volte — APERTA
 - **AC.06** Tre pezzi dell'identita' diventano gesti — APERTA
 - **AC.07** Tre traguardi nuovi, coi testi gia' scritti — APERTA
@@ -113,7 +113,7 @@ arriva a una persona.** Contiene sei cose e nessuna in piu':
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 9
-VOCI_CHIUSE: 1
+VOCI_APERTE: 8
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

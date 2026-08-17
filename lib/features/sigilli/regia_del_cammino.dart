@@ -124,43 +124,59 @@ class RegiaDelCammino {
     final nuovi = await diario.quelliCheSiAccendono(stato);
     if (nuovi.isEmpty) return;
 
+    // **PRIMA SI ACCENDE TUTTO, POI SI CELEBRA UNA VOLTA.** Ordine AC voce
+    // 04, decisione di Mauro del 16 agosto: due celebrazioni di seguito danno
+    // gia' fastidio. Il caso non e' teorico e non nasce da due Maestri: due
+    // traguardi dello STESSO sentiero maturano sullo stesso gesto, come
+    // cal_1 e cal_8 su una gettata col sogno gia' fatto, o ogni volta che un
+    // gesto cade dentro una finestra del cielo. La raffica vista da Mauro il
+    // 16 sera dopo l'onboarding e' la conferma sul campo. Si unisce la
+    // FESTA, non il premio: l'accredito resta per traguardo, qui sotto.
+    final primoInAssoluto = diario.accesi.isEmpty;
+    final accesi = <Traguardo>[];
     for (final traguardo in nuovi) {
-      final primoInAssoluto = diario.accesi.isEmpty;
-      if (!await diario.accendi(traguardo.id)) continue;
+      if (await diario.accendi(traguardo.id)) accesi.add(traguardo);
+    }
+    if (accesi.isEmpty) return;
 
-      // **QUANTI EOS SONO ARRIVATI, e si sapra' solo dopo.** Il volo parte alla
-      // CHIUSURA della festa, e a quel punto l'accredito e' quasi sempre gia'
-      // tornato: questa scatola porta il numero da la' a qui senza che la festa
-      // debba attendere la rete. Se la festa si chiude prima della risposta
-      // resta a zero e non vola niente, che e' giusto: non c'e' ancora niente da
-      // far arrivare.
-      final arrivati = _QuantiSonoArrivati();
+    // **QUANTI EOS SONO ARRIVATI, e si sapra' solo dopo.** Il volo parte alla
+    // CHIUSURA della festa, e a quel punto l'accredito e' quasi sempre gia'
+    // tornato: questa scatola porta il numero da la' a qui senza che la festa
+    // debba attendere la rete. Con la festa unita il numero e' la SOMMA di
+    // cio' che ogni accredito ha portato.
+    final arrivati = _QuantiSonoArrivati();
 
-      // 1. SI CELEBRA SUBITO, e non si aspetta niente e nessuno. La
-      //    celebrazione non deve mai attendere la rete, e non deve mai poter
-      //    essere saltata da un errore di rete.
-      final festeggiato = context.mounted &&
-          await Celebrazione.festeggia(
-            context,
-            traguardo: traguardo,
-            sentiero: sentieroDi(traguardo),
-            primoInAssoluto: primoInAssoluto,
-            // **GLI EOS VOLANO QUANDO LA FESTA SE NE VA, ordine S voce 07.** E'
-            // il momento in cui la barra torna visibile: lanciarlo prima
-            // vorrebbe dire attraversare una celebrazione a schermo pieno per
-            // arrivare a un borsellino coperto, e non vedrebbe niente nessuno.
-            allaChiusura: () {
-              if (context.mounted && arrivati.quanti > 0) {
-                VoloDegliEos.lancia(context, quanti: arrivati.quanti);
-              }
-            },
-          );
+    // 1. SI CELEBRA SUBITO, UNA VOLTA SOLA, e non si aspetta niente e
+    //    nessuno. La celebrazione nomina ogni traguardo acceso e porta la
+    //    somma degli Eos; l'intensita' e' quella del piu' importante.
+    final festeggiato = context.mounted &&
+        await Celebrazione.festeggiaInsieme(
+          context,
+          traguardi: accesi,
+          sentieri: [for (final t in accesi) sentieroDi(t)],
+          primoInAssoluto: primoInAssoluto,
+          // **GLI EOS VOLANO QUANDO LA FESTA SE NE VA, ordine S voce 07.** E'
+          // il momento in cui la barra torna visibile: lanciarlo prima
+          // vorrebbe dire attraversare una celebrazione a schermo pieno per
+          // arrivare a un borsellino coperto, e non vedrebbe niente nessuno.
+          allaChiusura: () {
+            if (context.mounted && arrivati.quanti > 0) {
+              VoloDegliEos.lancia(context, quanti: arrivati.quanti);
+            }
+          },
+        );
 
-      // 2. SE NON C'ERA DOVE OSPITARLA, la festa non si perde: entra in coda
-      //    e arriva al primo momento utile, anche dopo una chiusura dell'app.
-      if (!festeggiato) await coda?.accoda(traguardo.id);
+    // 2. SE NON C'ERA DOVE OSPITARLA, nessuna festa si perde: entrano in
+    //    coda una per una e arrivano insieme al primo momento utile, anche
+    //    dopo una chiusura dell'app.
+    if (!festeggiato) {
+      for (final traguardo in accesi) {
+        await coda?.accoda(traguardo.id);
+      }
+    }
 
-      // 3. L'ACCREDITO IN FONDO, E PROTETTO. Se fallisce, il Sigillo resta
+    for (final traguardo in accesi) {
+      // 3. L'ACCREDITO IN FONDO, E PROTETTO, PER TRAGUARDO. Se fallisce, il Sigillo resta
       //    acceso e il premio riparte alla prossima sincronia, perche' il
       //    movimento porta gia' il suo identificativo e non si conta due
       //    volte. Quello che non deve mai succedere e' che si porti via la
@@ -191,9 +207,12 @@ class RegiaDelCammino {
         }
         // DA DOVE SONO ARRIVATI GLI EOS, ordine S voce 06. Il delta si prende
         // PRIMA di applicare il saldo nuovo, perche' il server risponde col
-        // totale e non con quanto ha aggiunto.
-        arrivati.quanti = saldo - borsa.saldoEos;
-        await registro?.segna(quanti: arrivati.quanti, perche: traguardo.nome);
+        // totale e non con quanto ha aggiunto. Il registro porta il delta di
+        // QUESTO traguardo; il volo alla chiusura porta la SOMMA, perche' la
+        // festa e' una anche quando i traguardi sono di piu'.
+        final delta = saldo - borsa.saldoEos;
+        arrivati.quanti += delta;
+        await registro?.segna(quanti: delta, perche: traguardo.nome);
         // **IL SALDO SI APPLICA SUBITO, col numero che il server ha appena
         // detto.** Prima si buttava e si chiedeva tutto lo stato con una seconda
         // chiamata: se quella non rispondeva, il numero in barra restava quello
@@ -214,30 +233,37 @@ class RegiaDelCammino {
 
   /// Celebra cio' che era rimasto in attesa. La chiama il guardiano quando una
   /// schermata capace di ospitare la sovrimpressione e' finalmente montata.
+  ///
+  /// **TUTTE INSIEME, IN UNA FESTA SOLA.** Ordine AC voce 04: qui c'era il
+  /// ciclo che le serviva una alla volta, in fila, ed era la raffica che
+  /// Mauro ha visto la sera del 16 dopo l'onboarding. Adesso si prende
+  /// l'intera coda e si celebra una volta, coi nomi di tutte.
   static Future<void> svuotaLaCoda(BuildContext context) async {
     final coda = _codaSeCe(context);
     if (coda == null || coda.vuota) return;
     final diario = context.read<DiarioDelCammino>();
-    while (context.mounted) {
-      final traguardo = await coda.prendiLaProssima();
-      if (traguardo == null) return;
-      if (!context.mounted) {
-        // Si rimette dov'era: una festa presa e non mostrata sarebbe persa.
+    final traguardi = await coda.prendiTutte();
+    if (traguardi.isEmpty) return;
+    if (!context.mounted) {
+      // Si rimettono dov'erano: una festa presa e non mostrata sarebbe persa.
+      for (final traguardo in traguardi) {
         await coda.accoda(traguardo.id);
-        return;
       }
-      final festeggiato = await Celebrazione.festeggia(
-        context,
-        traguardo: traguardo,
-        sentiero: sentieroDi(traguardo),
-        primoInAssoluto: diario.accesi.length <= 1,
-        // IN FILA: le feste in attesa si mostrano una dopo l'altra, altrimenti
-        // due scene a schermo pieno si accavallerebbero.
-        attendiLaFine: true,
-      );
-      if (!festeggiato) {
+      return;
+    }
+    final festeggiato = await Celebrazione.festeggiaInsieme(
+      context,
+      traguardi: traguardi,
+      sentieri: [for (final t in traguardi) sentieroDi(t)],
+      // Il primo in assoluto: quando tutti gli accesi del diario sono quelli
+      // di questa festa, la persona non aveva niente prima, e il primo
+      // premio deve sembrare grande. Era `<= 1` quando la festa era una.
+      primoInAssoluto: diario.accesi.length <= traguardi.length,
+      attendiLaFine: true,
+    );
+    if (!festeggiato) {
+      for (final traguardo in traguardi) {
         await coda.accoda(traguardo.id);
-        return;
       }
     }
   }

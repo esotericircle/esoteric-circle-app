@@ -3427,8 +3427,8 @@ void main() {
           await tester.pump(const Duration(milliseconds: 600));
         case 'celebrazione_grande_o':
           await monta(CelebrazioneAScermoPieno(
-            traguardo: Sentieri.grandiDi(Sentiero.costellazione).first,
-            sentiero: Sentiero.costellazione,
+            traguardi: [Sentieri.grandiDi(Sentiero.costellazione).first],
+            sentieri: const [Sentiero.costellazione],
             serie: 'settimo giorno di seguito',
           ));
           await tester.pump(const Duration(milliseconds: 1400));
@@ -3440,8 +3440,8 @@ void main() {
                 child: ElevatedButton(
                   onPressed: () => mostraLaSovrimpressione(
                     ctx,
-                    traguardo: Sentieri.miniDi(Sentiero.albero)[4],
-                    sentiero: Sentiero.albero,
+                    traguardi: [Sentieri.miniDi(Sentiero.albero)[4]],
+                    sentieri: const [Sentiero.albero],
                     serie: 'terzo giorno di seguito',
                   ),
                   child: const Text('quello che stavo facendo'),

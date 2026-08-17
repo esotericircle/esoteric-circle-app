@@ -2,12 +2,18 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
+import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/sigilli/celebrazione.dart';
 import 'package:esoteric_circle/features/sigilli/pittore_della_festa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// LE NOVE ANTEPRIME DELLE TRE FESTE. Ordine U voce 02, sbloccate dall'ordine V.
 ///
@@ -48,6 +54,35 @@ void main() {
           .readAsBytes()
           .then((b) => ByteData.view(b.buffer)));
     await font.load();
+    // La festa unita monta la SCENA VERA, che porta il corpo in EBGaramond e
+    // le icone Material: senza, la frase e i segni escono a scatole bianche,
+    // guardato sulla prima cattura. Le icone stanno nella cache dell'SDK,
+    // stessa risalita di test/flutter_test_config.dart.
+    final corpo = FontLoader('EBGaramond')
+      ..addFont(File('assets/fonts/EBGaramond-variable.ttf')
+          .readAsBytes()
+          .then((b) => ByteData.view(b.buffer)));
+    await corpo.load();
+    const relIcone = 'artifacts/material_fonts/MaterialIcons-Regular.otf';
+    final candidati = <String>[
+      if (Platform.environment['FLUTTER_ROOT'] != null)
+        '${Platform.environment['FLUTTER_ROOT']}/bin/cache/$relIcone',
+    ];
+    var cartella = File(Platform.resolvedExecutable).parent;
+    for (var i = 0; i < 8; i++) {
+      candidati.add('${cartella.path}/$relIcone');
+      candidati.add('${cartella.path}/bin/cache/$relIcone');
+      cartella = cartella.parent;
+    }
+    for (final c in candidati) {
+      if (File(c).existsSync()) {
+        final icone = FontLoader('MaterialIcons')
+          ..addFont(
+              File(c).readAsBytes().then((b) => ByteData.view(b.buffer)));
+        await icone.load();
+        break;
+      }
+    }
   });
 
   Future<void> scatta(
@@ -141,4 +176,78 @@ void main() {
       });
     }
   }
+
+  /// LA DECIMA: LA FESTA UNITA CON TRE TRAGUARDI. Ordine AC voce 04.
+  ///
+  /// Non e' un fotogramma del pittore: e' la SCENA VERA della celebrazione,
+  /// coi tre nomi, la somma degli Eos e la frase del piu' importante. E'
+  /// l'immagine su cui Mauro dira' se la festa unita e' una festa.
+  testWidgets('festa unita tre', (tester) async {
+    tester.view.physicalSize = const Size(larghezza * 3, altezza * 3);
+    tester.view.devicePixelRatio = 3.0;
+    addTearDown(tester.view.reset);
+    // Il fondo cosmico ascolta i sensori, che in prova non esistono: si
+    // silenziano, come fanno le prove che montano l'app intera.
+    final messaggero =
+        TestWidgetsFlutterBinding.instance.defaultBinaryMessenger;
+    messaggero.setMockMethodCallHandler(
+        const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
+        (chiamata) async => null);
+    for (final nome in const [
+      'dev.fluttercommunity.plus/sensors/accelerometer',
+      'dev.fluttercommunity.plus/sensors/user_accel',
+      'dev.fluttercommunity.plus/sensors/gyroscope',
+      'dev.fluttercommunity.plus/sensors/magnetometer',
+    ]) {
+      messaggero.setMockStreamHandler(
+          EventChannel(nome), MockStreamHandler.inline(onListen: (a, e) {}));
+    }
+    SharedPreferences.setMockInitialValues(const {});
+    final diario = DiarioDelCammino();
+    await diario.carica();
+    final tre = [
+      Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'cal_1'),
+      Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'cal_6'),
+      Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'cal_8'),
+    ];
+    for (final t in tre) {
+      await diario.accendi(t.id);
+    }
+    final chiave = GlobalKey();
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: RepaintBoundary(
+          key: chiave,
+          child: MaestroScope(
+            maestro: Maestro.caligo,
+            child: CelebrazioneAScermoPieno(
+              traguardi: tre,
+              sentieri: const [
+                Sentiero.albero,
+                Sentiero.albero,
+                Sentiero.albero,
+              ],
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+    // A fine corsa del segno: e' il fotogramma in cui tutto si legge.
+    await tester.pump(const Duration(seconds: 8));
+    await tester.runAsync(() async {
+      final scatola =
+          chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final immagine = await scatola.toImage(pixelRatio: 3.0);
+      final png = await immagine.toByteData(format: ui.ImageByteFormat.png);
+      final dove = File('docs/preview/festa_unita_tre.png');
+      dove.writeAsBytesSync(png!.buffer.asUint8List());
+      // ignore: avoid_print
+      print('anteprima: ${dove.path}');
+    });
+  });
 }

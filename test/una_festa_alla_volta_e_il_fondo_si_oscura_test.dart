@@ -236,7 +236,7 @@ void main() {
         tester.element(find.byKey(const Key('quello_che_sta_sotto')));
     expect(
         mostraLaSovrimpressione(contesto,
-            traguardo: mini, sentiero: Sentiero.loto),
+            traguardi: [mini], sentieri: const [Sentiero.loto]),
         isTrue,
         reason: 'la sovrimpressione non e\' comparsa: niente da misurare');
     await tester.pump();

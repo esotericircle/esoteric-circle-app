@@ -50,6 +50,23 @@ class CodaDelleFeste extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Toglie TUTTE le feste in attesa e le restituisce risolte, nell'ordine in
+  /// cui il cammino le ha accese. Ordine AC voce 04: quando nello stesso
+  /// momento ce n'e' piu' di una pronta, si celebra UNA volta sola e quella
+  /// celebrazione le nomina tutte, quindi chi celebra le prende insieme.
+  /// Un identificativo che non esiste piu' si scarta, come sempre.
+  Future<List<Traguardo>> prendiTutte() async {
+    final id = List<String>.from(_inAttesa);
+    _inAttesa.clear();
+    await _salva();
+    final trovati = <Traguardo>[
+      for (final uno in id)
+        if (_cerca(uno) != null) _cerca(uno)!,
+    ];
+    notifyListeners();
+    return trovati;
+  }
+
   /// Toglie la prima festa in attesa e la restituisce, gia' risolta nel suo
   /// traguardo. Nullo quando non c'e' niente da celebrare.
   Future<Traguardo?> prendiLaProssima() async {

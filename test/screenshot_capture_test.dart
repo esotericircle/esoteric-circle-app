@@ -2561,7 +2561,7 @@ void main() {
     final mini = Sentieri.miniDi(Sentiero.costellazione).first;
     expect(
         mostraLaSovrimpressione(dentro,
-            traguardo: mini, sentiero: Sentiero.costellazione),
+            traguardi: [mini], sentieri: const [Sentiero.costellazione]),
         isTrue);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 900));

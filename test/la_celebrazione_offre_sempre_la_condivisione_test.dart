@@ -41,8 +41,8 @@ void main() {
     final grande = Sentieri.grandiDi(Sentiero.costellazione).first;
     await tester.pumpWidget(attorno(
       CelebrazioneAScermoPieno(
-        traguardo: grande,
-        sentiero: Sentiero.costellazione,
+        traguardi: [grande],
+        sentieri: const [Sentiero.costellazione],
         serie: 'terzo giorno di seguito',
       ),
       diario,
@@ -91,7 +91,7 @@ void main() {
                 ElevatedButton(
                   key: const Key('accendi'),
                   onPressed: () => mostraLaSovrimpressione(ctx,
-                      traguardo: mini, sentiero: Sentiero.loto),
+                      traguardi: [mini], sentieri: const [Sentiero.loto]),
                   child: const Text('accendi'),
                 ),
               ],

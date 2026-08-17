@@ -72,8 +72,8 @@ void main() {
       child: MaterialApp(
         builder: (ctx, child) => MaestroScope(child: child!),
         home: CelebrazioneAScermoPieno(
-          traguardo: grande,
-          sentiero: Sentiero.costellazione,
+          traguardi: [grande],
+          sentieri: const [Sentiero.costellazione],
         ),
       ),
     ));
