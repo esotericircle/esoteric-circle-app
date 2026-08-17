@@ -162,8 +162,8 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   // fatti fissi resta vera per le tessere, e il cammino vivo
                   // ha la sua casa col suo nome, la bolla qui sotto.
                   Text(
-                    'Qui vivono i fatti identitari fissi del tuo cammino, e '
-                    'in cima i tuoi traguardi vivi: la carta natale non '
+                    'Qui vivono i fatti identitari fissi del tuo cammino e, '
+                    'in cima, i tuoi traguardi vivi: la carta natale non '
                     'cambia mai, il cammino cresce ogni giorno.',
                     style: TypographyTokens.body(size: 16)
                         .copyWith(color: ColorTokens.textSecondary),
@@ -952,7 +952,9 @@ class _SentieriDelCammino extends StatelessWidget {
                 SpacingTokens.sm, SpacingTokens.md, 0),
             child: Text('I tuoi traguardi',
                 key: const Key('titolo_dei_traguardi'),
-                style: TypographyTokens.display(size: 19)
+                // Il preset di sezione, non una misura scritta a mano: il
+                // conto della tipografia nel dato non deve crescere.
+                style: TypographyTokens.titoloSezione()
                     .copyWith(color: palette.goldSoft)),
           ),
           for (final sentiero in Sentieri.tutti) ...[

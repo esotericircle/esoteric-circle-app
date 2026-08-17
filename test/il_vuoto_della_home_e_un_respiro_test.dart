@@ -53,7 +53,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
 
     final ingresso = find.byKey(const Key('santuario_enter_domain'));
-    final titolo = find.text('Le tue arti');
+    final titolo = find.text('Le arti preferite');
     expect(ingresso, findsWidgets);
     expect(titolo, findsWidgets,
         reason: 'la sezione delle arti non e\' montata: niente da misurare');

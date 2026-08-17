@@ -105,7 +105,11 @@ void main() {
     expect(find.byKey(const Key('passport_birth_sky')), findsOneWidget);
     expect(find.text('Il tuo cielo di nascita'), findsOneWidget);
 
-    // Toccandolo si apre la volta immersiva di nascita.
+    // Toccandolo si apre la volta immersiva di nascita. La bolla dei
+    // traguardi (ordine AK voce 04) sta sopra e il portale puo' essere
+    // sceso sotto il bordo: prima lo si porta in vista.
+    await tester.ensureVisible(find.byKey(const Key('passport_birth_sky')));
+    await tester.pump();
     await tester.tap(find.byKey(const Key('passport_birth_sky')));
     await step(tester);
     await step(tester);

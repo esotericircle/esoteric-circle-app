@@ -127,7 +127,15 @@ void main() {
 
     await tester.tap(find.text('Passport'));
     await step(tester);
-    await tester.tap(find.byKey(const Key('passport_settings')));
+    // La rotellina non c'e' piu' (ordine AK voce 03): la via e' porta
+    // dell'account, "Il tuo account", voce Impostazioni.
+    await tester.tap(find.byKey(const Key('porta_dell_account')).last,
+        warnIfMissed: false);
+    for (var g = 0; g < 5; g++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    await tester.tap(find.byKey(const Key('account_impostazioni')),
+        warnIfMissed: false);
     await step(tester);
     await step(tester);
 

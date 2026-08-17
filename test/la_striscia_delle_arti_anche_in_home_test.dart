@@ -70,7 +70,7 @@ void main() {
             'arti del Cerchio" non compare mai: la voce 4 dell\'ordine 2161 '
             'la vuole in fondo alla home, sotto lo scaffale delle tue arti.');
     // SectionTitle porta il titolo in maiuscolo: si cerca cio' che si vede.
-    expect(find.text('Scopri altre arti del Cerchio'.toUpperCase()),
+    expect(find.text('Le altre arti del Cerchio'.toUpperCase()),
         findsOneWidget,
         reason: 'La striscia c\'e\' ma senza il suo titolo.');
 
@@ -124,7 +124,7 @@ void main() {
       // Con gli apici: si conta il letterale che finisce a video, non le
       // volte che i commenti nominano la striscia per raccontarla.
       titoli +=
-          "'Scopri altre arti del Cerchio'".allMatches(testo).length;
+          "'Le altre arti del Cerchio'".allMatches(testo).length;
       final usi = 'StrisciaAltreArti('.allMatches(testo).length;
       if (usi > 0 && !f.path.contains('striscia_altre_arti.dart')) {
         for (var i = 0; i < usi; i++) {
@@ -139,7 +139,7 @@ void main() {
         reason: 'La striscia ha $definizioni definizioni: deve averne UNA, '
             'nel punto condiviso. Una copia in piu\' e\' la seconda porta.');
     expect(titoli, 1,
-        reason: 'Il titolo "Scopri altre arti del Cerchio" compare $titoli '
+        reason: 'Il titolo "Le altre arti del Cerchio" compare $titoli '
             'volte nel codice: se e\' piu\' di una, qualcuno ha copiato la '
             'striscia invece di usarla.');
     montaggi.sort();
