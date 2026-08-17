@@ -153,8 +153,9 @@ String sottoLOrizzonte(Zodiac sign, SkySnapshot cielo,
 /// inclinando si rivela altro cielo ai lati e in alto. La Luna e le
 /// costellazioni alte stanotte (`NightSky`, dalla posizione reale del Sole) sono
 /// distribuite su questa tela, toccabili, con etichetta e riga breve nella voce
-/// di Medora. Riduci Movimento appiattisce o ferma la parallasse. Freccia
-/// Indietro al Santuario.
+/// di Medora. Riduci Movimento appiattisce la parallasse ma non la ferma:
+/// inclinare e' un gesto deliberato come trascinare, e resta (ordine AL voce
+/// 02). Freccia Indietro al Santuario.
 class SkyOverviewScreen extends StatefulWidget {
   const SkyOverviewScreen({
     super.key,
@@ -903,9 +904,16 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
     final reduceMotion = MediaQuery.of(context).disableAnimations;
     final parallax = context.watch<ParallaxController>();
 
-    // Deriva del giroscopio; con Riduci Movimento si ferma. Il trascinamento
-    // del dito resta sempre. La camera e' pan piu' tilt.
-    final tilt = reduceMotion ? Offset.zero : parallax.layerOffset(1.0);
+    // **L'INCLINAZIONE RESTA ANCHE CON RIDUCI MOVIMENTO, ordine AL voce
+    // 02.** Qui il tilt veniva azzerato da disableAnimations, che sul
+    // telefono si accende anche da solo (risparmio batteria, scala delle
+    // animazioni di sistema): il Cielo di nascita restava di ghiaccio
+    // mentre il cosmo della home, che non azzera i suoi offset, si muoveva.
+    // Riduci Movimento toglie il moto AUTONOMO (deriva, animazioni), non la
+    // risposta a un gesto deliberato: inclinare e' come trascinare col
+    // dito, che infatti resta sempre. La parallasse appiattita di sotto
+    // resta per chi ha chiesto meno movimento.
+    final tilt = parallax.layerOffset(1.0);
     final cam = _cam + tilt;
     // Con Riduci Movimento i piani si muovono insieme (parallasse piatta), cosi'
     // la tela resta esplorabile ma senza effetto di profondita'.

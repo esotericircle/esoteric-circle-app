@@ -43,7 +43,17 @@ suite intera UNA volta ad AL.09.
   (corse misurate e IDENTICHE a e5b993f, ipotesi delle corse caduta; la causa
   vera era la sospensione che scattava anche sotto le rotte TRASPARENTI:
   curata, guardie dei bordi intatte; chiude il telefono di Mauro sulla 2180)
-- **AL.02** Il Cielo di nascita torna a muoversi — APERTA
+- **AL.02** Il Cielo di nascita torna a muoversi — FERMATA IN ATTESA DI DECISIONE
+  (in banco la nascita correva identica a stanotte: la fisica e' una sola e
+  l'ipotesi della differenza di codice fra i due cieli e' caduta; dei tre
+  sospetti dell'ordine, la sospensione era gia' curata da AL.01 e vale anche
+  per il cosmo dietro la volta, l'iscrizione propria di rotta non esiste, e la
+  guardia di Riduci Movimento era MESSA MALE: azzerava l'inclinazione, che e'
+  un gesto deliberato come il dito, mentre disableAnimations sul telefono si
+  accende anche da solo con risparmio batteria o scala animazioni; curata, il
+  tilt resta e la parallasse appiattita pure; guardia
+  il_cielo_di_nascita_si_muove con rosso provato, tre misure bugiarde cadute e
+  dichiarate nella prova; chiude il telefono di Mauro sulla 2180)
 - **AL.03** Il Passaporto pieno conta anche l'archetipo — APERTA
 - **AL.04** Nessun foglio e' bianco — APERTA
 - **AL.05** Gli Eos arrivano davvero nel borsellino — APERTA
@@ -55,7 +65,7 @@ suite intera UNA volta ad AL.09.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 8
+VOCI_APERTE: 7
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
