@@ -32,7 +32,6 @@ import '../angels/angels_screen.dart';
 import '../identity/circle_seal_screen.dart';
 import '../santuario/sky_overview_screen.dart';
 import '../santuario/widgets/moon_widget.dart';
-import '../settings/settings_screen.dart';
 import '../../core/maestro/maestro.dart';
 import '../onboarding/natal_chart_reveal.dart';
 import '../../design_system/components/immersive_scaffold.dart';
@@ -136,16 +135,13 @@ class _CosmicPassportState extends State<CosmicPassport> {
                       ),
                       // LA PILLOLA, ordine AI voce 01: il saldo sempre
                       // visibile anche sul documento.
+                      // **LA ROTELLINA NON C'E' PIU', ordine AK voce 03,
+                      // voce di Mauro del 17 agosto.** Le Impostazioni
+                      // restano a un tocco di distanza dalla stessa testata:
+                      // porta dell'account, "Il tuo account", voce
+                      // Impostazioni. La testata tiene porta, titolo e
+                      // pillola.
                       const SegnoDelBorsellino(),
-                      const SizedBox(width: SpacingTokens.xs),
-                      IconButton(
-                        key: const Key('passport_settings'),
-                        icon: const Icon(Icons.settings_outlined),
-                        color: palette.goldSoft,
-                        tooltip: 'Impostazioni',
-                        onPressed: () =>
-                            Navigator.of(context).push(SettingsScreen.route()),
-                      ),
                     ],
                   ),
                   const SizedBox(height: SpacingTokens.xs),
