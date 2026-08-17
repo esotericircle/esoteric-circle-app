@@ -45,7 +45,10 @@ marcatori in fondo si contano sulle righe.
 - **AE.01** Lo scontorno e la misura giusta — CHIUSA
 - **AE.02** Le perle si trovano, i pallini si generano, gli ancoraggi si rifanno — CHIUSA
 - **AE.03** Le forme diventano le perle — CHIUSA
-- **AE.04** Le anteprime, e i cerchi sopra l'arte per gli occhi di Mauro — FERMATA IN ATTESA DI DECISIONE
+- **AE.04** Le anteprime, e i cerchi sopra l'arte per gli occhi di Mauro — CHIUSA
+  (decisione di Mauro del 17 agosto 2026, riportata dall'Architetto: i suoi
+  occhi sono arrivati attraverso gli ordini AF e AG, le anteprime vanno bene
+  e l'arte del Loto con le lampadine resta com'e'.)
 - **AE.05** Il manifesto e il rapporto — CHIUSA
 
 ## Cosa guarda Mauro per chiudere la AE.04
@@ -63,6 +66,6 @@ quest'ordine.
 
 VOCI_TOTALI: 5
 VOCI_APERTE: 0
-VOCI_CHIUSE: 4
+VOCI_CHIUSE: 5
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

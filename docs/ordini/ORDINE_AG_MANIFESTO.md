@@ -42,9 +42,18 @@ mirate durante le voci, suite intera UNA volta sola in fondo prima del push.
 
 ## Le quattro voci
 
-- **AG.01** Le perle le disegna il codice, uguali e centrate — FERMATA IN ATTESA DI DECISIONE
+- **AG.01** Le perle le disegna il codice, uguali e centrate — CHIUSA
+  (decisione di Mauro del 17 agosto 2026, riportata dall'Architetto: l'arte
+  del Loto con le lampadine RESTA COM'E', niente ritocco Photoshop per ora.
+  La fermata aspettava questa scelta e la scelta e' arrivata: l'arte resta
+  con le perle originali sotto le lampadine. Il ritocco resta possibile in
+  futuro senza nessun vincolo tecnico nuovo: lo strumento
+  `tool/perle_uguali_del_loto.py` e la mappa
+  `docs/preview/loto_ritocco_da_fare.png` restano al loro posto.)
 - **AG.02** Mai piu' blu — CHIUSA
-- **AG.03** Le anteprime tornano vere — FERMATA IN ATTESA DI DECISIONE
+- **AG.03** Le anteprime tornano vere — CHIUSA
+  (decisione di Mauro del 17 agosto 2026: le anteprime sono state guardate e
+  vanno bene.)
 - **AG.04** Il manifesto e il rapporto — CHIUSA
 
 ## La fermata della AG.01, il 17 agosto 2026
@@ -76,6 +85,6 @@ tocca i derivati).
 
 VOCI_TOTALI: 4
 VOCI_APERTE: 0
-VOCI_CHIUSE: 2
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
