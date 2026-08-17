@@ -98,8 +98,22 @@ ParallaxController _parallasseDiRipiego() =>
 /// e, quando la sua rotta viene coperta, si sospende: niente ascolto della
 /// parallasse, giro fermo. Al ritorno riprende. Montato in
 /// `navigatorObservers` dall'app.
-final RouteObserver<ModalRoute<void>> osservatoreDelCielo =
-    RouteObserver<ModalRoute<void>>();
+final OsservatoreDelCielo osservatoreDelCielo = OsservatoreDelCielo();
+
+/// L'osservatore ricorda l'ULTIMA rotta spinta, perche' RouteAware non la
+/// passa: il cielo deve sospendersi solo quando chi lo copre e' OPACO.
+/// Ordine AL voce 01, misurato: una celebrazione o un foglio dal basso
+/// (rotte trasparenti) facevano scattare la sospensione e il cosmo VISIBILE
+/// dietro restava fermo al movimento del dispositivo.
+class OsservatoreDelCielo extends RouteObserver<ModalRoute<void>> {
+  Route<dynamic>? ultimaSpinta;
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    ultimaSpinta = route;
+    super.didPush(route, previousRoute);
+  }
+}
 
 class _CosmosBackgroundState extends State<CosmosBackground>
     with SingleTickerProviderStateMixin, RouteAware {
@@ -117,6 +131,11 @@ class _CosmosBackgroundState extends State<CosmosBackground>
   @override
   void didPushNext() {
     if (_coperto) return;
+    // **SOLO SOTTO UNA ROTTA OPACA**: dietro una rotta trasparente
+    // (celebrazione, foglio dal basso, dialogo) il cielo resta visibile e
+    // deve continuare a muoversi.
+    final sopra = osservatoreDelCielo.ultimaSpinta;
+    if (sopra is ModalRoute && !sopra.opaque) return;
     CosmosBackground.quantiSospesi++;
     setState(() => _coperto = true);
     _controller.stop();

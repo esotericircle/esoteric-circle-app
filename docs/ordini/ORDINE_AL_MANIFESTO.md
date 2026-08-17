@@ -39,7 +39,10 @@ suite intera UNA volta ad AL.09.
 
 ## Le nove voci
 
-- **AL.01** Il cosmo ritrova profondita' e movimento — APERTA
+- **AL.01** Il cosmo ritrova profondita' e movimento — FERMATA IN ATTESA DI DECISIONE
+  (corse misurate e IDENTICHE a e5b993f, ipotesi delle corse caduta; la causa
+  vera era la sospensione che scattava anche sotto le rotte TRASPARENTI:
+  curata, guardie dei bordi intatte; chiude il telefono di Mauro sulla 2180)
 - **AL.02** Il Cielo di nascita torna a muoversi — APERTA
 - **AL.03** Il Passaporto pieno conta anche l'archetipo — APERTA
 - **AL.04** Nessun foglio e' bianco — APERTA
@@ -52,7 +55,7 @@ suite intera UNA volta ad AL.09.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 9
+VOCI_APERTE: 8
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
