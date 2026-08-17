@@ -100,7 +100,15 @@ suite intera UNA volta ad AL.09.
   gcloud run services add-iam-policy-binding scrivilamemoria --member=allUsers --role=roles/run.invoker --region=europe-west1 --project=esoteric-circle
   gcloud run services add-iam-policy-binding cancellailcerchio --member=allUsers --role=roles/run.invoker --region=europe-west1 --project=esoteric-circle
   ```
-- **AL.06** Il menu' account non ha voci morte — APERTA
+- **AL.06** Il menu' account non ha voci morte — CHIUSA
+  (Notifiche e Privacy rispondono con l'anticipo del Santuario, showFeatureSheet,
+  ognuna con parole sue invece del foglio scritto a mano con la frase qualunque;
+  la causa del "al tocco nulla" della custodia era l'attesa NUDA su
+  quantiMomenti, sei letture di rete in fila senza tetto, con l'eccezione
+  inghiottita dal gesto: ora due secondi di tetto, il foglio si apre comunque e
+  il guasto si registra; sottotitolo nuovo "Salva carta natale, ricordi e Eos:
+  se cambi telefono non perdi nulla"; guardia il_menu_account_non_ha_voci_morte
+  con enumerazione delle voci per costruzione e rosso provato sull'attesa nuda)
 - **AL.07** L'onboarding riconosce e propone "Continua come" — APERTA
 - **AL.08** La capsula persistente di volto e borsellino — APERTA
 - **AL.09** Il manifesto, la suite, la build 2180 — APERTA
@@ -108,7 +116,7 @@ suite intera UNA volta ad AL.09.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 4
-VOCI_CHIUSE: 1
+VOCI_APERTE: 3
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/feature_flags/feature_flag.dart';
 import '../../core/identity/account_del_cerchio.dart';
+import '../../design_system/components/feature_sheet.dart';
 import '../../services/app_services.dart';
 import 'custodia_del_cielo.dart';
 
@@ -65,17 +67,24 @@ class AccountScreen extends StatelessWidget {
         onTap: (context) =>
             Navigator.of(context).push(PricingScreen.route()),
       ),
+      // LE VOCI IN ARRIVO PARLANO, ordine AL voce 06: al tocco rispondono con
+      // l'anticipo elegante del Santuario, mai il silenzio, e l'anticipo dice
+      // cosa arrivera' con parole sue, non con una frase qualunque.
       const _AccountEntry(
         id: 'notifiche',
         title: 'Notifiche',
         subtitle: 'Gli appuntamenti che ti avvisano',
         icon: Icons.notifications_none_rounded,
+        teaser: 'Qui sceglierai quali momenti del cielo ti avvisano: i riti '
+            'del giorno, i transiti sul tuo tema e le risposte dei Maestri.',
       ),
       const _AccountEntry(
         id: 'privacy',
         title: 'Privacy',
         subtitle: 'Dati, consensi e sicurezza',
         icon: Icons.shield_outlined,
+        teaser: 'Qui vedrai i tuoi consensi e i tuoi dati, con i comandi per '
+            'gestirli. Intanto la cancellazione completa vive già qui sotto.',
       ),
       // CUSTODIRE IL PROPRIO CIELO, ordine N voce 1c: la via che resta a chi
       // ha rimandato. La voce compare SOLO a chi e' ancora anonimo, perche' a
@@ -84,11 +93,31 @@ class AccountScreen extends StatelessWidget {
         _AccountEntry(
           id: 'custodia',
           title: 'Custodisci il tuo cielo',
-          subtitle: 'Collegalo a te: ti segue anche se cambi telefono',
+          // IL SOTTOTITOLO DICE A COSA SERVE, ordine AL voce 06, con parole
+          // che non richiedono l'Architetto per essere capite.
+          subtitle: 'Salva carta natale, ricordi e Eos: se cambi telefono '
+              'non perdi nulla',
           icon: Icons.shield_moon_outlined,
           onTap: (context) async {
-            final momenti =
-                await context.read<AppServices>().memory.quantiMomenti();
+            // **IL TOCCO RISPONDE SEMPRE, ordine AL voce 06.** Qui c'era
+            // un'attesa nuda su `quantiMomenti`, che sono SEI letture di rete
+            // in fila senza tetto: su una rete lenta il foglio arrivava dopo
+            // secondi o mai, e un'eccezione moriva inghiottita dal gesto.
+            // "Al tocco non succede nulla" era esattamente questo. Il numero
+            // dei momenti qui e' un ornamento: due secondi di tetto, poi si
+            // apre comunque, e il guasto si registra invece di sparire.
+            final servizi = context.read<AppServices>();
+            var momenti = 1;
+            try {
+              momenti = await servizi.memory
+                  .quantiMomenti()
+                  .timeout(const Duration(seconds: 2));
+            } catch (errore) {
+              servizi.guasti.registra(
+                operazione: 'conta dei momenti per la custodia',
+                errore: errore,
+              );
+            }
             if (!context.mounted) return;
             // Dall'area account si chiede sempre, anche con zero momenti: qui
             // e' la persona ad averlo cercato, e un invito che non si apre
@@ -202,6 +231,7 @@ class _AccountEntry {
     required this.subtitle,
     required this.icon,
     this.onTap,
+    this.teaser,
   });
 
   final String id;
@@ -211,6 +241,10 @@ class _AccountEntry {
 
   /// Azione della voce. Se assente, la sezione e' ancora in arrivo.
   final void Function(BuildContext context)? onTap;
+
+  /// L'anticipo della voce in arrivo: cosa arrivera', detto con parole sue.
+  /// Ordine AL voce 06: una voce senza azione DEVE averlo.
+  final String? teaser;
 
   bool get isLive => onTap != null;
 }
@@ -225,60 +259,21 @@ class _AccountTile extends StatelessWidget {
       entry.onTap!(context);
       return;
     }
-    // Mai un vicolo cieco: un anticipo elegante per le sezioni in arrivo.
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (sheetContext) => Container(
-        key: const Key('account_coming_soon'),
-        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
-            SpacingTokens.lg, SpacingTokens.xl),
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [ColorTokens.neutralSurface, ColorTokens.neutralDeepest],
-          ),
-          borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(SpacingTokens.radiusXl)),
-          border: Border.all(color: ColorTokens.gold.withValues(alpha: 0.3)),
-        ),
-        child: SafeArea(
-          top: false,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(entry.icon, color: ColorTokens.goldLight, size: 24),
-                  const SizedBox(width: SpacingTokens.sm),
-                  Text(entry.title,
-                      style: TypographyTokens.display(size: 19)
-                          .copyWith(color: ColorTokens.goldLight)),
-                ],
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              Text(
-                'Questa sezione sta per aprirsi nel Cerchio. Torna presto per '
+    // **MAI UN VICOLO CIECO, ordine AL voce 06.** Le sezioni in arrivo
+    // rispondono con LO STESSO anticipo elegante delle card Coming soon del
+    // Santuario: era un foglio scritto a mano solo qui, cioe' la seconda
+    // porta sulla stessa esperienza, e il suo testo era una frase qualunque.
+    showFeatureSheet(
+      context,
+      feature: FeatureDefinition(
+        id: 'account_${entry.id}',
+        title: entry.title,
+        teaser: entry.teaser ??
+            'Questa sezione sta per aprirsi nel Cerchio. Torna presto per '
                 'trovarla pronta.',
-                style: TypographyTokens.corpo()
-                    .copyWith(color: ColorTokens.textSecondary, height: 1.4),
-              ),
-              const SizedBox(height: SpacingTokens.lg),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () => Navigator.of(sheetContext).pop(),
-                  child: Text('Va bene',
-                      style: TypographyTokens.label(size: 13)
-                          .copyWith(color: ColorTokens.goldLight)),
-                ),
-              ),
-            ],
-          ),
-        ),
+        icon: entry.icon,
       ),
+      status: FeatureStatus.comingSoon,
     );
   }
 
