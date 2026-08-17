@@ -36,7 +36,7 @@ gira UNA volta alla AK.05, prima del push.
 ## Le cinque voci
 
 - **AK.01** Lo scaffale diventa "Le arti preferite" — CHIUSA
-- **AK.02** La fila "Le altre arti del Cerchio" — APERTA
+- **AK.02** La fila "Le altre arti del Cerchio" — CHIUSA
 - **AK.03** La rotellina lascia il Passport — APERTA
 - **AK.04** I sentieri nella bolla "I tuoi traguardi" — APERTA
 - **AK.05** Il manifesto, la suite, la build su App Tester — APERTA
@@ -44,7 +44,7 @@ gira UNA volta alla AK.05, prima del push.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 4
-VOCI_CHIUSE: 1
+VOCI_APERTE: 3
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

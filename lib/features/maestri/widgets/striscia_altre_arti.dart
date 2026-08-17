@@ -51,11 +51,25 @@ List<ArtEntry> artiDaScoprire(
   required Set<String> gia,
   required DateTime giorno,
 }) {
-  // In home, `corrente` e' nullo: non c'e' nessun dominio da non ripetere,
-  // quindi si pesca da TUTTI i Maestri. E' l'unica differenza di regola fra
-  // home e dominio, ed e' una differenza di luogo, non di criterio: tutto il
-  // resto, scaffale escluso, rotte uniche, una per Maestro, rotazione, vale
-  // identico nei due posti.
+  // **IN HOME LA FILA E' IL COMPLEMENTO PURO, ordine AK voce 02.** Sotto
+  // "Le arti preferite" stanno TUTTE le arti attive del catalogo che non
+  // sono nello scaffale della persona, nell'ordine del catalogo: un'arte
+  // non compare mai in due posti della stessa schermata, e se la persona
+  // cambia le preferite la fila mostra il resto da sola. Il tetto di una
+  // per Maestro e la rotazione col giorno restano la regola del DOMINIO,
+  // dove la fila e' una vetrina e non l'inventario.
+  if (corrente == null) {
+    final rotteViste = <String>{};
+    final complemento = <ArtEntry>[];
+    for (final m in Maestro.values) {
+      for (final a in ArtCatalog.activeOf(m)) {
+        if (gia.contains(a.id)) continue;
+        if (!rotteViste.add(a.id)) continue;
+        complemento.add(a);
+      }
+    }
+    return complemento;
+  }
   final altri = Maestro.values.where((m) => m != corrente).toList();
   // La rotazione col giorno: da quale Maestro si comincia.
   final salto = giorno.difference(DateTime(2026)).inDays % altri.length;
@@ -112,18 +126,29 @@ class StrisciaAltreArti extends StatelessWidget {
         const <String>{};
     final arts =
         artiDaScoprire(corrente, gia: gia, giorno: DateTime.now());
+    // **A FILA VUOTA LA SEZIONE SPARISCE INTERA, senza lasciare aria**:
+    // ordine AK voce 02. Un titolo sopra il niente sarebbe una promessa.
+    if (arts.isEmpty) return const SizedBox.shrink();
 
     return Column(
       key: const Key('other_arts_strip'),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: SpacingTokens.xl),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-          child: SectionTitle(
-            title: 'Scopri altre arti del Cerchio',
-            subtitle: 'Le arti degli altri Maestri, oltre il tuo dominio.',
-          ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+          // In home il titolo e' quello dettato da Mauro (ordine AK voce
+          // 02) e la fila e' l'inventario del resto; nel dominio resta
+          // l'invito a scoprire di sempre.
+          child: corrente == null
+              ? const SectionTitle(
+                  title: 'Le altre arti del Cerchio',
+                  subtitle: 'Quelle che non hai messo fra le preferite.',
+                )
+              : const SectionTitle(
+                  title: 'Scopri altre arti del Cerchio',
+                  subtitle: 'Le arti degli altri Maestri, oltre il tuo dominio.',
+                ),
         ),
         const SizedBox(height: SpacingTokens.md),
         SizedBox(
