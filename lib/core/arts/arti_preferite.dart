@@ -36,18 +36,33 @@ class ArtiPreferiteController extends ChangeNotifier {
   /// qui, non lo ripete.
   static const int tetto = 9;
 
-  /// Quante arti per Maestro entrano nel seme.
-  ///
-  /// DUE dal 31 luglio 2026, ed era tre dal giorno prima. Il fondatore ha
-  /// cambiato la sua stessa decisione per il motivo che avevo dichiarato io:
-  /// con nove nel seme e nove arti vive lo scaffale nasceva completo, e la
-  /// matita serviva solo a togliere. Con sei nel seme e il tetto a nove la
-  /// matita serve davvero ad aggiungere.
-  ///
-  /// Non e' `tetto` diviso i Maestri: sono due numeri con due ragioni diverse,
-  /// e adesso si vede, perche' due per tre fa sei e il tetto e' nove. Una prova
-  /// cade se il seme non ne ha esattamente due per ciascuno.
-  static const int perMaestro = 2;
+  /// **IL SEME E' L'ELENCO DI MAURO, nell'ordine suo.** Voce del 17 agosto
+  /// 2026, ordine AK voce 01: le sette arti che ogni scaffale nuovo mostra.
+  /// La ragione del seme vecchio (due arti per Maestro, per lasciare alla
+  /// matita qualcosa da aggiungere) e' superata da questa decisione: sette
+  /// nel seme e il tetto a nove lasciano comunque due posti alla matita.
+  /// Chi ha gia' personalizzato su disco tiene il suo: il seme vale solo per
+  /// chi non ha mai scelto.
+  static const List<String> setteDiMauro = [
+    'horoscope',
+    'tarot_spread_three',
+    'synastry_vip',
+    'rune_draw',
+    'guide_animal',
+    'meditation',
+    'face_constellation',
+  ];
+
+  /// **LE ETICHETTE BREVI DELLO SCAFFALE.** Decisione di Mauro: nella home
+  /// la stesa si chiama "Tarocchi"; il catalogo e ogni altro posto dell'app
+  /// tengono "Stesa di Tarocchi". E' un dato di QUESTO controller, mai una
+  /// seconda voce di catalogo e mai una stringa incollata in un widget.
+  static const Map<String, String> _etichetteBrevi = {
+    'tarot_spread_three': 'Tarocchi',
+  };
+
+  /// L'etichetta breve di un'arte nello scaffale, se ne ha una.
+  static String? etichettaBreve(String id) => _etichetteBrevi[id];
 
   static const String _chiave = 'arti_preferite_v1';
 
@@ -77,33 +92,17 @@ class ArtiPreferiteController extends ChangeNotifier {
     }
   }
 
-  /// Il seme: TRE arti vive per ciascun Maestro, nell'ordine del catalogo.
+  /// Il seme: LE SETTE DI MAURO, uguali per tutti, nell'ordine suo.
   ///
-  /// **Cosa e' cambiato, e perche'.** Prima il seme prendeva le arti del proprio
-  /// Maestro piu' una per ciascuno degli altri due, e col Maestro nullo ne
-  /// prendeva tre in tutto: e' esattamente la terna scarna che si vedeva a
-  /// schermo, horoscope, meditation e rune_draw. Adesso ogni Maestro porta le
-  /// sue tre, e lo scaffale nasce pieno come un luogo che ti appartiene.
-  ///
-  /// Il proprio Maestro va per PRIMO, quando c'e': lo scaffale si apre su cio'
-  /// che e' tuo, poi sul resto del Cerchio.
-  ///
-  /// Deterministico, senza numeri casuali: due persone con lo stesso Maestro
-  /// partono dallo stesso scaffale.
+  /// La storia del seme vecchio (per Maestro, prima tre poi due a testa)
+  /// vive nel commento di `setteDiMauro`: e' stata superata dalla voce del
+  /// 17 agosto.
   static List<String> semePer(Maestro? maestro) {
-    // L'ordine dei Maestri: il proprio davanti, gli altri dietro come sono nel
-    // catalogo. Senza Maestro assegnato, cioe' prima della Risonanza, l'ordine
-    // del catalogo va bene cosi' com'e'.
-    final ordine = <Maestro>[
-      if (maestro != null) maestro,
-      ...Maestro.values.where((m) => m != maestro),
-    ];
-
-    final seme = <String>[];
-    for (final m in ordine) {
-      seme.addAll(ArtCatalog.activeOf(m).map((a) => a.id).take(perMaestro));
-    }
-    return seme.take(tetto).toList();
+    // L'ordine non dipende piu' dal Maestro assegnato: e' l'ordine ESATTO
+    // dettato da Mauro, uguale per tutti. Il parametro resta nella firma
+    // perche' chi chiama non debba cambiare, e per il giorno in cui il seme
+    // tornasse a dipendere dal Maestro.
+    return List<String>.from(setteDiMauro);
   }
 
   /// Tutte le arti che si possono mettere nello scaffale: le vive di tutti e

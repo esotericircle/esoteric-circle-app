@@ -80,7 +80,9 @@ si rinumerano e non si accorpano.
 - **AJ.03** Lo spazio esagerato in home sparisce — CHIUSA
 - **AJ.04** Le arti preferite, e le altre — FERMATA SU PREMESSA FALSA
   (P6: "Tarocchi" non esiste nel catalogo, esiste "Stesa di Tarocchi".
-  Decide Mauro il nome, poi la voce riparte con una coda.)
+  ANNOTAZIONE del 17 agosto: Mauro ha deciso, nome breve "Tarocchi" nello
+  scaffale e catalogo intatto; il lavoro riparte e SI CHIUDE nell'ordine AK,
+  voci 01 e 02. Lo stato di questa riga non cambia e nulla si rinumera.)
 - **AJ.05** Il manifesto e il rapporto — CHIUSA
 
 ## I marcatori, contati sulle righe

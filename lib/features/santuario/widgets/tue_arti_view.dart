@@ -12,7 +12,7 @@ import '../../../design_system/tokens/typography_tokens.dart';
 import '../../maestri/rotta_arte.dart';
 import '../santuario_screen.dart';
 
-/// "Le tue arti": lo scaffale personale, in cima all'elenco.
+/// "Le arti preferite": lo scaffale personale, in cima all'elenco.
 ///
 /// Non parte mai vuoto, perche' il seme vive nel dato. La matita accanto al
 /// titolo apre l'elenco completo a spunte, e ogni bolla porta il colore del
@@ -49,7 +49,7 @@ class TueArtiView extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('Le tue arti',
+              Text('Le arti preferite',
                   key: const Key('tue_arti_titolo'),
                   style: TypographyTokens.display(size: 20)
                       .copyWith(color: palette.textPrimary)),
@@ -107,7 +107,10 @@ class _BollaArte extends StatelessWidget {
           : () => CuorePreferita.mostraEsito(
               context, preferite.cambia(id), propria),
       child: ShelfCard(
-        titolo: arte.title,
+        // L'ETICHETTA BREVE, se il dato ne dichiara una: "Tarocchi" al posto
+        // di "Stesa di Tarocchi" nello scaffale, decisione di Mauro (ordine
+        // AK voce 01). Il catalogo non si rinomina.
+        titolo: ArtiPreferiteController.etichettaBreve(id) ?? arte.title,
         anticipo: arte.teaser,
         icona: arte.icon,
         maestro: proprietario,
@@ -186,7 +189,7 @@ class _FoglioScelta extends StatelessWidget {
                 ),
               ),
             ),
-            Text('Le tue arti',
+            Text('Le arti preferite',
                 style: TypographyTokens.display(size: 22)
                     .copyWith(color: palette.textPrimary)),
             const SizedBox(height: SpacingTokens.xs),

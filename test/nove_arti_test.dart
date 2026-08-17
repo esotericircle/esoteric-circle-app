@@ -23,69 +23,31 @@ void main() {
 
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  test('Il tetto e\' un dato, e vale nove', () {
+  test("Il tetto e' un dato, e vale nove", () {
     // Il numero sta in un punto solo e il foglio della matita lo legge da li'.
-    // Nove e' un cambio di una decisione precedente, non una svista: era sei, e
-    // il fondatore l'ha cambiata il 30 luglio 2026.
     expect(ArtiPreferiteController.tetto, 9);
-    // Due dal 31 luglio 2026, era tre: il tetto NON scende con lui, resta
-    // nove, cosi' la matita serve davvero ad aggiungere.
-    expect(ArtiPreferiteController.perMaestro, 2);
   });
 
-  test('Il seme ha tre arti per ciascun Maestro', () {
+  test("Il seme e' le sette di Mauro, per chiunque", () {
+    // **LA GRANDEZZA E' CAMBIATA CON L'ORDINE AK VOCE 01, col perche'.**
+    // Prima il seme era due arti per Maestro (e prima ancora tre), contato
+    // per Maestro, e due prove pretendevano che il proprio Maestro aprisse
+    // lo scaffale e che il seme cambiasse col Maestro assegnato: la voce di
+    // Mauro del 17 agosto ha fissato le SETTE sue, uguali per tutti e
+    // nell'ordine suo, e quelle pretese sono superate dalla decisione.
+    // Sotto il tetto di nove restano due posti per la matita, che era la
+    // ragione da salvare.
     for (final assegnato in [null, ...Maestro.values]) {
       final seme = ArtiPreferiteController.semePer(assegnato);
-
-      // Il conto NON si deduce dalla lunghezza: nove voci potrebbero essere
-      // sette di un Maestro e una a testa per gli altri due, e sarebbe un altro
-      // scaffale. Si conta per Maestro.
-      for (final m in Maestro.values) {
-        final sue = ArtCatalog.activeOf(m).map((a) => a.id).toSet();
-        final quante = seme.where(sue.contains).length;
-        expect(quante, ArtiPreferiteController.perMaestro,
-            reason: 'col Maestro assegnato ${assegnato?.name ?? "nessuno"} lo '
-                'scaffale nasce con $quante arti di ${m.name} invece di tre: '
-                'non e\' piu\' tre per Maestro');
-      }
-      const atteso =
-          ArtiPreferiteController.perMaestro * 3;
-      expect(seme.length, atteso,
-          reason: 'il seme ha ${seme.length} arti invece di $atteso');
+      expect(seme, ArtiPreferiteController.setteDiMauro,
+          reason: "col Maestro ${assegnato?.name ?? 'nessuno'} il seme non "
+              "e' l'elenco di Mauro");
       expect(seme.length, lessThan(ArtiPreferiteController.tetto),
-          reason: 'il seme riempie tutto il tetto e la matita non ha niente da '
-              'aggiungere, che e il motivo del cambio');
+          reason: 'il seme riempie tutto il tetto e la matita non ha niente '
+              'da aggiungere');
       expect(seme.toSet().length, seme.length,
           reason: 'nel seme la stessa arte compare due volte');
     }
-  });
-
-  test('Il proprio Maestro apre lo scaffale', () {
-    final seme = ArtiPreferiteController.semePer(Maestro.aura);
-    final sueDiAura = ArtCatalog.activeOf(Maestro.aura).map((a) => a.id).toSet();
-    expect(
-        seme
-            .take(ArtiPreferiteController.perMaestro)
-            .every(sueDiAura.contains),
-        isTrue,
-        reason: 'lo scaffale non si apre sulle arti del proprio Maestro: cio\' '
-            'che e\' tuo deve venire prima del resto del Cerchio');
-  });
-
-  test('Col Maestro assegnato lo scaffale non resta sul seme senza Maestro',
-      () {
-    // La prova del difetto vero: il seme col Maestro e quello senza devono
-    // essere diversi, altrimenti non si potrebbe nemmeno accorgersi che il
-    // Maestro non arriva.
-    final senza = ArtiPreferiteController.semePer(null);
-    final conAura = ArtiPreferiteController.semePer(Maestro.aura);
-    expect(conAura, isNot(senza),
-        reason: 'il seme e\' identico col Maestro e senza: un Maestro che non '
-            'arriva sarebbe invisibile');
-
-    final scaffale = ArtiPreferiteController()..setMaestro(Maestro.aura);
-    expect(scaffale.ids, conAura,
-        reason: 'assegnato il Maestro, lo scaffale resta sul seme di prima');
   });
 
   test('Il Maestro arriva davvero allo scaffale', () {
