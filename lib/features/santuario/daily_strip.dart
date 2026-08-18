@@ -575,10 +575,13 @@ class _DailyStripState extends State<DailyStrip>
                   Color(0xFFFFFFFF),
                   Color(0x00FFFFFF),
                 ],
+                // Le code sono LARGHE, non un filo: con sedici punti
+                // l'ultima etichetta si tagliava di netto a meta' parola,
+                // guardato sull'anteprima. Quaranta la fanno svanire.
                 stops: [
                   0.0,
-                  16 / rect.width,
-                  1 - 16 / rect.width,
+                  20 / rect.width,
+                  1 - 40 / rect.width,
                   1.0,
                 ],
               ).createShader(rect),

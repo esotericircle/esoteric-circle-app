@@ -52,6 +52,8 @@ class SegnoDelBorsellino extends StatefulWidget {
     this.monetaDOro = false,
     this.contestoDelFoglio,
     this.verticale = false,
+    this.senzaVeste = false,
+    this.suTocco,
   });
 
   /// La veste di riposo della pillola. Dalla coda all'ordine AI la veste
@@ -78,6 +80,17 @@ class SegnoDelBorsellino extends StatefulWidget {
   /// Navigator: il suo contesto non puo' aprire un foglio, e questa porta
   /// consegna quello giusto. Nulla per chi vive dentro una schermata.
   final BuildContext Function()? contestoDelFoglio;
+
+  /// **SENZA LA SUA VESTE, ordine AM voce 04.** Dentro la barra sottile il
+  /// saldo non porta la propria pillola: la fascia e' gia' la sua superficie,
+  /// e una pillola dentro una barra sarebbe un bordo dentro un bordo. La
+  /// veste mista, il conto che sale e il bersaglio del volo restano.
+  final bool senzaVeste;
+
+  /// Il tocco, quando chi ospita ne vuole uno suo: nella barra chiusa il
+  /// tocco APRE la barra invece di aprire il foglio, cosi' il primo tocco
+  /// non porta via da dove si sta.
+  final VoidCallback? suTocco;
 
   /// **LA FORMA VERTICALE, per la capsula dell'ordine AL voce 08.** Icona
   /// sopra e cifra sotto: la capsula resta stretta e le barre delle arti,
@@ -220,12 +233,15 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
         child: InkWell(
         key: const Key('borsellino'),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        onTap: () => PortafoglioDelCerchio.apri(
-            widget.contestoDelFoglio?.call() ?? context),
+        onTap: widget.suTocco ??
+            () => PortafoglioDelCerchio.apri(
+                widget.contestoDelFoglio?.call() ?? context),
         child: AnimatedContainer(
           duration: durataTransizione,
           curve: Curves.easeOut,
-          decoration: BoxDecoration(
+          decoration: widget.senzaVeste
+              ? const BoxDecoration()
+              : BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
             // Il velo si e' scurito da 0,38 a 0,62 con l'ordine AK voce 03: senza
             // la rotellina accanto, sul Passaporto la pillola e' finita
@@ -279,7 +295,12 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
               // fa respirare la pillola; in colonna sta al centro sotto la
               // moneta.
               SizedBox(
-                width: larghezzaCifre,
+                // **LA LARGHEZZA RISERVATA NON VALE DENTRO LA BARRA.**
+                // Nelle testate teneva fermo il vicino di banco mentre il
+                // numero cresceva; nella barra sottile il vicino e' uno
+                // spazio elastico, e il posto per cinque cifre apriva un
+                // vuoto fra la moneta e lo zero. Guardato sull'anteprima.
+                width: widget.senzaVeste ? null : larghezzaCifre,
                 child: TweenAnimationBuilder<double>(
                   tween: Tween<double>(
                       begin: partenza.toDouble(), end: saldo.toDouble()),

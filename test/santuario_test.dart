@@ -289,7 +289,13 @@ void main() {
     ));
     await step(tester);
 
+    // **DUE TOCCHI, ordine AM voce 04, decisione di Mauro.** Il volto vive
+    // nella barra sottile in alto: il primo tocco APRE la barra, che scende
+    // e ingrandisce il contenuto, e solo da aperta i tocchi navigano. Cosi'
+    // il primo tocco non porta via da dove si sta.
     expect(find.byKey(const Key('porta_dell_account')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('porta_dell_account')));
+    await step(tester);
     await tester.tap(find.byKey(const Key('porta_dell_account')));
     await step(tester);
     await step(tester);

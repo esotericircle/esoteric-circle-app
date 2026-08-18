@@ -92,7 +92,24 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
   attesi nell'intervallo fra questa voce e la 04, come l'ordine ammette:
   santuario_test pretende la porta dell'account in home, che in questo
   momento non esiste piu' e rinasce nella barra)
-- **AM.04** La barra sottile persistente in alto, casa unica — APERTA
+- **AM.04** La barra sottile persistente in alto, casa unica — FERMATA IN ATTESA DI DECISIONE
+  (BarraDellIdentita sopra il Navigator, sotto la barra di stato, alta 30
+  punti misurati a riposo e 66 da aperta; dentro, in ordine, il volto con la
+  porta dell'account, il borsellino con la moneta d'oro e il saldo, il segno
+  zodiacale in miniatura e l'Ascendente, che compare SOLO quando la carta lo
+  ha dato e senza segnaposto quando manca; al tocco scende e ingrandisce il
+  contenuto, il volto da 22 a 40 punti, un secondo tocco la richiude, e con
+  Riduci Movimento il passaggio e' secco; da aperta i tocchi navigano, volto
+  all'account e segno al Passaporto, mentre da chiusa il primo tocco apre la
+  barra e non porta via da dove si sta; le schermate le fanno spazio come
+  alla barra di stato, quindi nessuna testata finisce coperta; ESPLORA e il
+  suo menu' non toccati; nessuna sfocatura per fotogramma; CASA UNICA
+  sorvegliata sui 404 sorgenti, nessuna copia di volto o saldo altrove;
+  guardia la_barra_sottile_e_la_casa_unica con otto prove e rosso provato;
+  due difetti trovati GUARDANDO l'anteprima e curati, il vuoto fra moneta e
+  cifra per la larghezza riservata che nella barra non serve, e la coda della
+  sfumatura dei doni troppo corta che tagliava l'ultima etichetta; chiude il
+  collaudo di Mauro sulla 2181)
 - **AM.05** Il manifesto, la suite, la build 2181 — APERTA
 
 ## I marcatori, contati sulle righe
