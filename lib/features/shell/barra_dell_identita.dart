@@ -94,12 +94,30 @@ class _BarraDellIdentitaState extends State<BarraDellIdentita> {
       final cima = widget.observatore.schermataInCima();
       if (cima == _schermata) return;
       // Cambiando schermata la barra torna sottile: l'apertura apparteneva
-      // alla lettura di prima.
+      // alla lettura di prima. E' la via 2 e la via 4 del ritiro.
       setState(() {
         _schermata = cima;
         _aperta = false;
       });
     });
+  }
+
+  /// **IL RITIRO, IN UN PUNTO SOLO. Ordine AO voce 02.**
+  ///
+  /// La barra scendeva col tocco e risaliva solo con un secondo tocco nello
+  /// stesso punto: chi la apriva per leggere e tornava a fare altro se la
+  /// ritrovava addosso al contenuto, e per toglierla doveva ricordarsi di un
+  /// gesto che non c'entrava piu' niente con quello che stava facendo.
+  ///
+  /// **Le quattro vie sono i quattro modi di smettere di guardarla**: scorre
+  /// la schermata sotto, apre una rotta, tocca fuori, torna indietro. Tutte
+  /// e quattro finiscono qui dentro, e nessuna schermata sa che questa barra
+  /// esiste: se ogni schermata dovesse ricordarsi di chiuderla, resterebbe
+  /// aperta esattamente in quella che se ne dimentica. E' la regola delle
+  /// due porte, applicata a un gesto invece che a un dato.
+  void _ritira() {
+    if (!_aperta || !mounted) return;
+    setState(() => _aperta = false);
   }
 
   @override
@@ -124,7 +142,36 @@ class _BarraDellIdentitaState extends State<BarraDellIdentita> {
             viewPadding:
                 mq.viewPadding.copyWith(top: mq.viewPadding.top + quantoOccupa),
           ),
-          child: widget.child,
+          // **LE VIE 1 E 3 DEL RITIRO ASCOLTANO QUI, sopra tutta l'app e
+          // senza rubare niente a nessuno.** Il `Listener` sente il dito che
+          // si posa e NON consuma il tocco, quindi il bersaglio sotto lo
+          // riceve lo stesso: la barra si toglie di mezzo mentre il gesto va
+          // a segno, invece di mangiarsi il primo tocco come farebbe una
+          // tendina modale. Il `NotificationListener` sente qualunque
+          // scorrimento della schermata sotto, quale che sia la lista: e' la
+          // ragione per cui questo strato sta sopra il figlio e non dentro
+          // una schermata particolare.
+          child: Listener(
+            key: const Key('ascolto_del_ritiro'),
+            // **TRANSLUCENT, e non `deferToChild`.** Col primo tentativo il
+            // ritiro non scattava toccando il fondo cosmico, dove nessun
+            // widget partecipa all'esame del tocco e quindi il Listener non
+            // veniva nemmeno interrogato: si ritirava toccando un pulsante e
+            // non toccando il vuoto, che e' il contrario di quel che serve.
+            // Translucent lo mette nell'elenco dei destinatari SENZA togliere
+            // il tocco a chi sta sotto.
+            behavior: HitTestBehavior.translucent,
+            onPointerDown: (_) => _ritira(),
+            child: NotificationListener<ScrollUpdateNotification>(
+              onNotification: (_) {
+                _ritira();
+                // Falso: la notizia continua a salire verso chi la usa
+                // davvero, per esempio la testata che si accorcia scorrendo.
+                return false;
+              },
+              child: widget.child,
+            ),
+          ),
         ),
         if (siVede)
           Positioned(

@@ -106,10 +106,25 @@ qui ne' altrove.
   perche' scritto accanto, piu' la cattura dell'anteprima che ora apre il
   Calendario con un tocco solo invece di due; anteprima rigenerata e
   guardata. Chiude il collaudo di Mauro sulla 2183)
-- **AO.02** La barra aperta si ritira da sola — APERTA
-  (allo scorrimento della schermata sotto, all'apertura di una rotta, al
-  tocco fuori dalla barra, al ritorno indietro; morbido come l'apertura,
-  secco sotto Riduci Movimento; la regola sta in UN punto solo)
+- **AO.02** La barra aperta si ritira da sola — FERMATA IN ATTESA DI DECISIONE
+  (le quattro vie sono i quattro modi di smettere di guardarla, e due
+  esistevano gia': il cambio di schermata copriva l'apertura di una rotta e
+  il ritorno indietro, mentre lo SCORRIMENTO e il TOCCO FUORI non ritiravano
+  niente, misurato a 88 punti su 30. La cura sta in `_ritira()` dentro
+  `_BarraDellIdentitaState`, con due ascolti sopra tutta l'app e nessuna
+  schermata che sappia della barra: un `Listener` a
+  `HitTestBehavior.translucent` e un `NotificationListener` sugli
+  scorrimenti, che restituisce falso perche' la notizia continui a salire.
+  **Due tentativi sbagliati, misurati e non indovinati**: `deferToChild` non
+  faceva scattare il ritiro sul fondo cosmico, dove nessun widget partecipa
+  all'esame del tocco; e il punto scelto per la prova e' stato spostato due
+  volte, perche' il primo apriva il dominio dal carosello e il secondo
+  cadeva dentro la barra di navigazione del Cerchio, che vive in un altro
+  ramo. Ritiro morbido misurato su un fotogramma solo, e SECCO con Riduci
+  Movimento, dichiarato alla finestra come fa il sistema operativo. Guardia
+  `test/la_barra_si_ritira_da_sola_test.dart` con sette prove e ROSSO
+  PROVATO SU TUTTE E QUATTRO LE VIE, spegnendo prima gli ascolti e poi anche
+  il ritiro sul cambio di rotta. Chiude il collaudo di Mauro sulla 2183)
 - **AO.03** La striscia dei doni occupa meno spazio — APERTA
   (misura prima e dopo alla larghezza vera, margini sopra e sotto ridotti
   senza toccare l'area di tocco delle icone, e via l'avviso col conto alla
@@ -140,7 +155,7 @@ qui ne' altrove.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 7
+VOCI_APERTE: 6
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
