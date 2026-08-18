@@ -3024,6 +3024,27 @@ void main() {
     await capture(tester, rootKey, 'santuario-alto.png');
   });
 
+  // --- Il Calendario degli Eventi, dal centro della barra (ordine AN.03) ---
+  testWidgets('Cattura il Calendario degli Eventi', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    await step(tester);
+    // Si apre come si apre nell'app: dal centro della barra, che prima va
+    // aperta col primo tocco.
+    await tester.tap(find.byKey(const Key('barra_dell_identita')),
+        warnIfMissed: false);
+    await step(tester);
+    // Da aperta il centro mostra i TRE eventi, e la chiave e' quella.
+    await tester.tap(find.byKey(const Key('barra_tre_eventi')),
+        warnIfMissed: false);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'calendario-degli-eventi.png');
+  });
+
   // --- L'area Utente, aperta dall'icona in alto a destra nel Cerchio ---
   testWidgets('Cattura l\'area Utente', (tester) async {
     silenceSensors();

@@ -319,7 +319,12 @@ class _IlCieloCheViene extends StatelessWidget {
     Zodiac? segno;
     NatalChart? carta;
     try {
-      segno = context.watch<ZodiacController?>()?.sunSign;
+      // **SI CHIEDE IL TIPO VERO, non quello nullabile.** Provider cerca
+      // il tipo esatto: `watch<ZodiacController?>()` e' un tipo DIVERSO da
+      // quello registrato e non lo trova mai, quindi il segno arrivava
+      // sempre nullo e gli appuntamenti personali non comparivano. Il
+      // ripiego per chi non ha il provider resta il catch qui sotto.
+      segno = context.watch<ZodiacController>().sunSign;
     } catch (errore) {
       segno = null;
     }

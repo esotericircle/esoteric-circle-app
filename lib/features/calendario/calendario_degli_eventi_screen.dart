@@ -65,7 +65,12 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
     Zodiac? segno;
     NatalChart? carta;
     try {
-      segno = context.watch<ZodiacController?>()?.sunSign;
+      // **SI CHIEDE IL TIPO VERO, non quello nullabile.** Provider cerca
+      // il tipo esatto: `watch<ZodiacController?>()` e' un tipo DIVERSO da
+      // quello registrato e non lo trova mai, quindi il segno arrivava
+      // sempre nullo e gli appuntamenti personali non comparivano. Il
+      // ripiego per chi non ha il provider resta il catch qui sotto.
+      segno = context.watch<ZodiacController>().sunSign;
     } catch (errore) {
       segno = null;
     }
@@ -103,7 +108,7 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
                 SpacingTokens.md, SpacingTokens.lg, SpacingTokens.xxxl),
             children: [
               Text(
-                'Le date che il cielo ha gia' ' deciso, calcolate sul tuo '
+                'Le date che il cielo ha già deciso, calcolate sul tuo '
                 'fuso orario.',
                 style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary),
@@ -174,12 +179,17 @@ class _VoceDelCalendario extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  LinguaDegliEventi.fraQuanto(evento.fraQuantiGiorni),
-                  style: TypographyTokens.didascalia()
-                      .copyWith(color: ColorTokens.textMuted),
-                ),
+                // IL CONTO ALLA ROVESCIA SOLO SE DICE QUALCOSA IN PIU':
+                // guardando l'anteprima, per un evento di oggi si leggeva
+                // "oggi" due volte, a destra e sotto.
+                if (!evento.eOggi) ...[
+                  const SizedBox(height: 2),
+                  Text(
+                    LinguaDegliEventi.fraQuanto(evento.fraQuantiGiorni),
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textMuted),
+                  ),
+                ],
                 if (LinguaDegliEventi.significatoDi(evento.evento) != null) ...[
                   const SizedBox(height: SpacingTokens.xs),
                   Text(
@@ -214,7 +224,7 @@ class _InvitoACompletare extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Qui sotto c\'e' ' il cielo di tutti',
+            Text('Qui sotto c\'è il cielo di tutti',
                 style: TypographyTokens.titoloScheda()
                     .copyWith(color: palette.goldSoft)),
             const SizedBox(height: SpacingTokens.xs),

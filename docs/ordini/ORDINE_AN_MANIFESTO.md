@@ -105,7 +105,24 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   una notizia a meta'. Guardia la_barra_sottile_e_la_casa_unica con nove
   prove e rosso provato; anteprima rigenerata e guardata; chiude il collaudo
   di Mauro sulla 2182)
-- **AN.03** La schermata del Calendario degli Eventi — APERTA
+- **AN.03** La schermata del Calendario degli Eventi — FERMATA IN ATTESA DI DECISIONE
+  (`lib/features/calendario/calendario_degli_eventi_screen.dart`, si apre dal
+  centro della barra; elenco cronologico a orizzonte dichiarato di 90 giorni
+  piu' i grandi appuntamenti personali anche oltre, perche' il ritorno solare
+  capita una volta l'anno; gli eventi DI TUTTI e i TUOI si distinguono a
+  colpo d'occhio per icona e colore; ogni voce porta nome in lingua, data
+  vera, quanto manca e una riga di significato su tradizioni reali, senza
+  imperativi, sorvegliato dalla guardia; senza identita' restano gli eventi
+  di tutti piu' un invito con un pulsante che porta davvero ai dati di
+  nascita, mai un vicolo cieco; nasce anche `LinguaDegliEventi`, la porta
+  unica dei nomi e dei significati. UN DIFETTO VERO TROVATO E CURATO: la
+  lettura `watch<ZodiacController?>()` chiede a Provider un tipo DIVERSO da
+  quello registrato e tornava sempre nulla, quindi gli appuntamenti
+  personali non comparivano mai, ne' qui ne' nella barra. Altri difetti
+  trovati GUARDANDO l'anteprima: accenti mangiati dalla concatenazione e un
+  "oggi" scritto due volte. Guardia il_calendario_degli_eventi con sei prove
+  e rosso provato, guardie della lingua verdi, anteprima nuova
+  calendario-degli-eventi.png guardata; chiude il collaudo sulla 2182)
 - **AN.04** La sincronia dei premi persi parte davvero all'avvio — APERTA
 - **AN.05** Il listino vivo: costi in chiaro, residui, spesa vera — APERTA
 - **AN.06** Il gating onesto a due strade — APERTA
@@ -116,7 +133,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 7
+VOCI_APERTE: 6
 VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2

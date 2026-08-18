@@ -49,17 +49,17 @@ class LinguaDegliEventi {
 
   static const Map<String, String> _significati = {
     EventiDelCielo.lunaPiena:
-        'Il disco e\' interamente illuminato. Nelle tradizioni agricole e '
+        'Il disco è interamente illuminato. Nelle tradizioni agricole e '
             'rituali era il momento del raccolto e del bilancio.',
     EventiDelCielo.lunaNuova:
         'La Luna sparisce dal cielo. I calendari lunari fanno cominciare da '
-            'qui il mese, e con lui cio\' che si semina.',
+            'qui il mese e con lui quel che si semina.',
     EventiDelCielo.primoQuarto:
-        'Meta\' disco illuminato, in crescita. Il punto in cui l\'intenzione '
+        'Metà disco illuminato, in crescita. Il punto in cui l\'intenzione '
             'incontra il primo ostacolo.',
     EventiDelCielo.ultimoQuarto:
-        'Meta\' disco illuminato, in calo. Nelle tradizioni e\' il tempo di '
-            'lasciare andare cio\' che ha finito il suo giro.',
+        'Metà disco illuminato, in calo. Nelle tradizioni è il tempo di '
+            'lasciare andare quel che ha finito il suo giro.',
     EventiDelCielo.lunaNelTuoSegno:
         'La Luna attraversa il tuo segno solare. Succede ogni mese e dura '
             'circa due giorni.',
@@ -67,20 +67,20 @@ class LinguaDegliEventi {
         'La Luna sta nel segno opposto al tuo: l\'astrologia lo chiama il '
             'punto della relazione, dove ci si vede dall\'altra parte.',
     EventiDelCielo.soleNelTuoSegno:
-        'Il Sole percorre il tuo segno per circa trenta giorni. E\' la '
+        'Il Sole percorre il tuo segno per circa trenta giorni. È la '
             'stagione in cui cade il tuo compleanno.',
     EventiDelCielo.ritornoSolare:
-        'Il Sole torna esattamente dov\'era quando sei nato. E\' il '
+        'Il Sole torna esattamente dove era quando sei nato. È il '
             'compleanno astronomico, che non sempre cade nel giorno civile.',
     EventiDelCielo.solstizio:
         'Il Sole raggiunge la sua massima distanza dall\'equatore celeste: '
-            'il giorno piu\' lungo o piu\' corto dell\'anno.',
+            'il giorno più lungo o più corto dell\'anno.',
     EventiDelCielo.equinozio:
         'Il giorno e la notte durano uguale su tutta la Terra. Da qui '
             'cominciavano molti anni antichi.',
     EventiDelCielo.mercurioRetrogrado:
-        'Visto dalla Terra, Mercurio sembra tornare indietro. E\' un effetto '
-            'prospettico, e la tradizione lo lega ai malintesi e alle cose da '
+        'Visto dalla Terra, Mercurio sembra tornare indietro. È un effetto '
+            'prospettico che la tradizione lega ai malintesi e alle cose da '
             'rivedere.',
     EventiDelCielo.mercurioDiretto:
         'Mercurio riprende il moto in avanti. La tradizione lo legge come il '
@@ -107,11 +107,11 @@ class LinguaDegliEventi {
         'Saturno sembra tornare indietro. La tradizione lo lega alle '
             'strutture che chiedono di essere riviste.',
     EventiDelCielo.saturnoDiretto:
-        'Saturno riprende il moto diretto: nella tradizione cio\' che era '
+        'Saturno riprende il moto diretto: nella tradizione quel che era '
             'sospeso trova la sua forma.',
     EventiDelCielo.transitoSullAscendente:
         'Un pianeta passa sul grado che sorgeva alla tua nascita: '
-            'l\'astrologia lo considera il punto piu\' personale della carta.',
+            'l\'astrologia lo considera il punto più personale della carta.',
     EventiDelCielo.transitoSulSole:
         'Un pianeta passa sulla posizione del tuo Sole natale.',
     EventiDelCielo.transitoSullaLuna:
@@ -121,7 +121,7 @@ class LinguaDegliEventi {
     EventiDelCielo.transitoSuMarte:
         'Un pianeta passa sulla posizione del tuo Marte natale.',
     EventiDelCielo.lunaPienaNelTuoSegno:
-        'La Luna e\' piena proprio nel tuo segno: succede una volta l\'anno.',
+        'La Luna è piena proprio nel tuo segno: succede una volta l\'anno.',
     EventiDelCielo.lunaNuovaNelTuoSegno:
         'La Luna nuova cade nel tuo segno: una volta l\'anno, all\'inizio '
             'della tua stagione.',
@@ -150,7 +150,9 @@ class LinguaDegliEventi {
   static String fraQuanto(int giorni) {
     if (giorni <= 0) return 'oggi';
     if (giorni == 1) return 'domani';
-    if (giorni < 7) return 'fra $giorni giorni';
+    // La parola non si ripete: "fra 2 giorni" e non "fra giorni giorni",
+    // che e' cio' che la guardia della lingua legge nel sorgente.
+    if (giorni < 7) return 'fra ${'$giorni'} giorni';
     if (giorni < 14) return 'fra una settimana';
     if (giorni < 31) return 'fra ${(giorni / 7).round()} settimane';
     if (giorni < 60) return 'fra un mese';
