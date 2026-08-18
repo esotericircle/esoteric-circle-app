@@ -111,9 +111,22 @@ void main() {
               'gesti sono tre, e tre testi diversi');
 
       // IL BONUS SI INCASSA, e solo dopo la condivisione.
-      expect(porta.motivi, [modo.motivo],
-          reason: 'il bonus chiesto al server non e\' quello del modo scelto: '
-              '${porta.motivi}');
+      //
+      // **L'INVITO FA ECCEZIONE, ordine AN voce 08, e non e' un
+      // allentamento.** Il suo premio arriva quando l'amico SCARICA il
+      // Cerchio, e saperlo richiede un'attribuzione dell'installazione che
+      // nel progetto non esiste: accreditarlo alla condivisione mentre il
+      // pulsante dichiara "quando il tuo amico scarica" sarebbe una bugia a
+      // schermo. Resta dichiarato in attesa sulla card. La pretesa qui
+      // diventa quindi piu' STRETTA, non piu' larga: si paga esattamente
+      // cio' che si e' promesso.
+      expect(porta.motivi, modo.subitoPagato ? [modo.motivo] : isEmpty,
+          reason: modo.subitoPagato
+              ? 'il bonus chiesto al server non e\' quello del modo scelto: '
+                  '${porta.motivi}'
+              : 'l\'invito e\' stato pagato alla condivisione, ma il suo '
+                  'premio dipende dal download dell\'amico e nessuno sa '
+                  'ancora se e\' avvenuto: ${porta.motivi}');
     });
   }
 

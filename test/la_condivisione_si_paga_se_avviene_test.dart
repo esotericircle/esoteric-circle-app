@@ -1,0 +1,102 @@
+import 'dart:io';
+
+import 'package:esoteric_circle/core/condivisione/porta_della_condivisione.dart';
+import 'package:esoteric_circle/core/sigilli/bonus_della_condivisione.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:share_plus/share_plus.dart';
+
+/// LA CONDIVISIONE SI PAGA SOLO SE AVVIENE DAVVERO. Ordine AN voce 08.
+///
+/// **Il difetto misurato sulla testa**: tutte e tre le vie della porta
+/// tornavano VERO appena `SharePlus.share` non sollevava, cioe' appena il
+/// foglio di sistema si apriva. Bastava aprirlo e premere indietro perche' il
+/// Cerchio credesse a una condivisione mai partita e accreditasse il bonus.
+/// share_plus l'esito lo dice, e ora si legge.
+///
+/// **E la frase lo dice PRIMA**: ogni pulsante dichiara cosa fa arrivare i
+/// suoi Eos. Per l'invito, il cui premio dipende dal download dell'amico e
+/// quindi da un'attribuzione che nel progetto non esiste, si dichiara anche
+/// l'attesa: la promessa mostrata resta vera nel codice.
+void main() {
+  test('avvenuta e\' vero SOLO sul successo', () {
+    expect(
+        PortaDellaCondivisione.avvenuta(
+            const ShareResult('ok', ShareResultStatus.success)),
+        isTrue);
+    expect(
+        PortaDellaCondivisione.avvenuta(
+            const ShareResult('', ShareResultStatus.dismissed)),
+        isFalse,
+        reason: 'chi apre il foglio e preme indietro NON ha condiviso: '
+            'pagarlo sarebbe un premio per un gesto mai avvenuto');
+    expect(
+        PortaDellaCondivisione.avvenuta(ShareResult.unavailable),
+        isFalse,
+        reason: 'non sapere se e\' avvenuta non e\' saperlo: si sceglie la '
+            'via prudente e il bonus resta in attesa, incassabile dopo');
+  });
+
+  test('nessuna via della porta torna vero senza guardare l\'esito', () {
+    // **L'ENUMERAZIONE, perche' le tre vie sono la stessa famiglia.** Se
+    // domani ne nascesse una quarta che dimentica l'esito, questa prova la
+    // trova: si cerca il ritorno cieco subito dopo la chiamata a share.
+    final sorgente =
+        File('lib/core/condivisione/porta_della_condivisione.dart')
+            .readAsStringSync();
+    final chiamate = 'SharePlus.instance.share('.allMatches(sorgente).length;
+    final letture = 'return avvenuta(esito);'.allMatches(sorgente).length;
+    // ignore: avoid_print
+    print('ORDINE AN VOCE 08: vie della porta $chiamate, esiti letti '
+        '$letture');
+    expect(chiamate, 3, reason: 'le vie della porta non sono piu\' tre');
+    expect(letture, chiamate,
+        reason: 'una via chiama il foglio di sistema e non legge il suo '
+            'esito: torna vero appena il foglio si apre');
+    expect(sorgente.contains('      return true;'), isFalse,
+        reason: 'e\' tornato un ritorno cieco dopo la condivisione');
+  });
+
+  test('ogni modo dice quando arriva il suo premio', () {
+    for (final modo in ModoDellaCondivisione.values) {
+      expect(modo.quandoArriva.trim(), isNotEmpty,
+          reason: '${modo.motivo} non dice quando arrivano i suoi Eos');
+      expect(modo.quandoArriva, contains('Eos'),
+          reason: '${modo.motivo} non nomina cio\' che fa arrivare');
+    }
+    // ignore: avoid_print
+    print('ORDINE AN VOCE 08: frasi ${[
+      for (final m in ModoDellaCondivisione.values) m.quandoArriva
+    ]}');
+  });
+
+  test('l\'invito e\' dichiarato in attesa, gli altri due si pagano subito',
+      () {
+    expect(ModoDellaCondivisione.invitoConDownload.subitoPagato, isFalse,
+        reason: 'l\'invito si accrediterebbe alla condivisione mentre il '
+            'pulsante dichiara che arriva col download dell\'amico: e\' una '
+            'bugia a schermo, perche\' l\'attribuzione non esiste');
+    expect(ModoDellaCondivisione.socialPubblico.subitoPagato, isTrue);
+    expect(ModoDellaCondivisione.condivisionePrivata.subitoPagato, isTrue);
+
+    // E il codice della condivisione rispetta la regola invece di ignorarla.
+    final flusso =
+        File('lib/features/sigilli/celebrazione.dart').readAsStringSync();
+    expect(flusso.contains('if (!modo.subitoPagato) return;'), isTrue,
+        reason: 'il flusso incassa anche cio\' che ha dichiarato in attesa');
+  });
+
+  test('i valori del server e il tetto restano intatti', () {
+    // Il client chiede il premio per NOME e mai per importo: i tre motivi
+    // sono quelli che il server conosce.
+    expect(
+        ModoDellaCondivisione.values.map((m) => m.motivo).toSet(),
+        {'invito_con_download', 'social_pubblico', 'condivisione_privata'},
+        reason: 'i motivi non combaciano piu\' con quelli del server');
+    final server = File('functions/src/borsellino.ts').readAsStringSync();
+    expect(server.contains('invito_con_download: 60'), isTrue);
+    expect(server.contains('social_pubblico: 30'), isTrue);
+    expect(server.contains('condivisione_privata: 15'), isTrue);
+    expect(server.contains('TETTO_CONDIVISIONI_PREMIATE = 3'), isTrue,
+        reason: 'il tetto di tre al giorno contro il farming e\' sparito');
+  });
+}

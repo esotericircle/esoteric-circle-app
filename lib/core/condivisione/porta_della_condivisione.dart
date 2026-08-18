@@ -27,14 +27,31 @@ class PortaDellaCondivisione {
   /// La firma comune col nome del file delle immagini condivise.
   static const String nomeDelFile = 'esoteric-circle.png';
 
+  /// **LA CONDIVISIONE E' AVVENUTA DAVVERO?** Ordine AN voce 08.
+  ///
+  /// Fino a ieri queste tre vie tornavano VERO appena il foglio di sistema
+  /// si apriva senza sollevare: bastava aprirlo e premere indietro perche'
+  /// il Cerchio credesse a una condivisione mai partita, e accreditasse il
+  /// bonus. share_plus l'esito lo dice, e da qui si legge: `success` e'
+  /// l'unica cosa che vale, `dismissed` e' la persona che ha cambiato idea,
+  /// `unavailable` e' il sistema che non sa rispondere.
+  ///
+  /// **Su `unavailable` si torna FALSO, ed e' una scelta prudente
+  /// dichiarata**: non sapere se e' avvenuta non e' saperlo. Il Sigillo
+  /// resta acceso e il bonus resta in attesa, incassabile piu' tardi
+  /// riaprendo la card: meglio un premio che arriva dopo di un premio dato
+  /// per una cosa che forse non e' successa.
+  static bool avvenuta(ShareResult esito) =>
+      esito.status == ShareResultStatus.success;
+
   /// Manda del TESTO. Torna falso se la condivisione non e' partita.
   static Future<bool> testo(String cosa, {String? oggetto}) async {
     if (cosa.trim().isEmpty) return false;
     try {
-      await SharePlus.instance.share(
+      final esito = await SharePlus.instance.share(
         ShareParams(text: cosa, subject: oggetto),
       );
-      return true;
+      return avvenuta(esito);
     } catch (errore) {
       // Si ignora, e il perche' e' dichiarato: il foglio di sistema puo' non aprirsi, e chi condivide sta finendo un rito.
       assert(errore is Object);
@@ -56,13 +73,13 @@ class PortaDellaCondivisione {
   }) async {
     if (percorso.isEmpty) return false;
     try {
-      await SharePlus.instance.share(
+      final esito = await SharePlus.instance.share(
         ShareParams(
           text: testo,
           files: [XFile(percorso, mimeType: tipo)],
         ),
       );
-      return true;
+      return avvenuta(esito);
     } catch (errore) {
       // Si ignora, e il perche' e' dichiarato: il foglio di sistema puo' non aprirsi, e chi condivide sta finendo un rito.
       assert(errore is Object);
@@ -79,13 +96,13 @@ class PortaDellaCondivisione {
   }) async {
     if (byte.isEmpty) return false;
     try {
-      await SharePlus.instance.share(
+      final esito = await SharePlus.instance.share(
         ShareParams(
           text: testo,
           files: [XFile.fromData(byte, name: nome, mimeType: tipo)],
         ),
       );
-      return true;
+      return avvenuta(esito);
     } catch (errore) {
       // Si ignora, e il perche' e' dichiarato: il foglio di sistema puo' non aprirsi, e chi condivide sta finendo un rito.
       assert(errore is Object);

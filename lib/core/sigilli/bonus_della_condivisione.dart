@@ -12,21 +12,59 @@ import 'sentieri.dart';
 /// il telefono non li scrive.
 enum ModoDellaCondivisione {
   /// L'invito che porta un download: il massimo.
-  invitoConDownload('invito_con_download', 'Invita qualcuno nel Cerchio'),
+  invitoConDownload(
+    'invito_con_download',
+    'Invita qualcuno nel Cerchio',
+    quandoArriva: 'I suoi Eos arrivano quando il tuo amico scarica il '
+        'Cerchio.',
+    subitoPagato: false,
+  ),
 
   /// Il social pubblico: alto.
-  socialPubblico('social_pubblico', 'Condividi pubblicamente'),
+  socialPubblico(
+    'social_pubblico',
+    'Condividi pubblicamente',
+    quandoArriva: 'I suoi Eos arrivano a condivisione avvenuta.',
+    subitoPagato: true,
+  ),
 
   /// La condivisione privata verificabile: medio.
-  condivisionePrivata('condivisione_privata', 'Manda a qualcuno');
+  condivisionePrivata(
+    'condivisione_privata',
+    'Manda a qualcuno',
+    quandoArriva: 'I suoi Eos arrivano a condivisione avvenuta.',
+    subitoPagato: true,
+  );
 
-  const ModoDellaCondivisione(this.motivo, this.etichetta);
+  const ModoDellaCondivisione(
+    this.motivo,
+    this.etichetta, {
+    required this.quandoArriva,
+    required this.subitoPagato,
+  });
 
   /// Il motivo che il server riconosce nel listino.
   final String motivo;
 
   /// Come si legge sul pulsante.
   final String etichetta;
+
+  /// **QUANDO IL PREMIO ARRIVA, detto PRIMA del tocco.** Ordine AN voce 08:
+  /// la persona deve sapere cosa fa arrivare gli Eos, e la frase non puo'
+  /// promettere piu' di quanto il codice sappia.
+  final String quandoArriva;
+
+  /// **SE IL BONUS SI ACCREDITA SUBITO, a condivisione avvenuta.**
+  ///
+  /// Per l'INVITO e' falso, e qui si dice la verita' invece di fingere:
+  /// sapere che l'amico ha scaricato richiede un'attribuzione
+  /// dell'installazione che nel progetto NON esiste (verificato: nessun
+  /// Dynamic Link, nessun Install Referrer). Pagare l'invito all'apertura
+  /// del foglio, mostrando "quando il tuo amico scarica", sarebbe una bugia
+  /// a schermo. Quindi l'invito resta DICHIARATO IN ATTESA e si accreditera'
+  /// quando l'attribuzione esistera', in un ordine suo che comincera'
+  /// scegliendo la strada con l'Architetto.
+  final bool subitoPagato;
 }
 
 /// COSA SI MANDA DAVVERO, per ciascuno dei tre modi. Ordine S voce 08.

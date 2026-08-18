@@ -139,7 +139,24 @@ class VieDellaCondivisione extends StatelessWidget {
                   style: TypographyTokens.etichetta()),
             ),
           ),
-          const SizedBox(height: SpacingTokens.xs),
+          // **QUANDO ARRIVA IL PREMIO, DETTO PRIMA DEL TOCCO**, ordine AN
+          // voce 08: ogni via dice cosa fa arrivare i suoi Eos, e la frase
+          // non promette piu' di quanto il codice sappia. Per l'invito, che
+          // aspetta un'attribuzione che ancora non esiste, si dichiara anche
+          // l'attesa invece di far credere a un accredito immediato.
+          Padding(
+            padding: const EdgeInsets.only(
+                left: SpacingTokens.xs, top: 2, bottom: SpacingTokens.xs),
+            child: Text(
+              modo.subitoPagato
+                  ? modo.quandoArriva
+                  : '${modo.quandoArriva} Per ora resta in attesa: te li '
+                      'accrediteremo appena sapremo del suo arrivo.',
+              key: Key('quando_arriva_${modo.motivo}'),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textMuted, height: 1.35),
+            ),
+          ),
         ],
       ],
     );

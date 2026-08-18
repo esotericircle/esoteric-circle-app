@@ -177,13 +177,30 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   npm test 25 verdi con rosso provato sul benvenuto, piu'
   il_benvenuto_e_la_dote lato client. **IL DEPLOY DELLE FUNCTIONS SPETTA A
   MAURO**, come dice la nota dell'ordine: `firebase deploy --only functions`)
-- **AN.08** La condivisione si paga solo se avviene davvero — APERTA
+- **AN.08** La condivisione si paga solo se avviene davvero — FERMATA IN ATTESA DI DECISIONE
+  (P8 riverificata e curata: tutte e tre le vie della porta leggono ora
+  `ShareResult.status` e tornano vero SOLO su success; annullato e non
+  disponibile valgono come non condiviso, e su "non disponibile" si sceglie
+  la via prudente dichiarata, perche' non sapere se e' avvenuta non e'
+  saperlo; il Sigillo resta acceso e il bonus in attesa, incassabile
+  riaprendo la card. Ogni pulsante dice PRIMA del tocco cosa fa arrivare i
+  suoi Eos. L'INVITO resta DICHIARATO IN ATTESA e non si accredita alla
+  condivisione: il suo premio dipende dal download dell'amico e
+  l'attribuzione dell'installazione non esiste (P9), quindi pagarlo mentre
+  il pulsante promette il contrario sarebbe una bugia a schermo; gli altri
+  due si incassano subito. L'attribuzione vera non entra qui e avra' un
+  ordine suo, che comincera' scegliendo la strada con l'Architetto. Valori
+  del server (60, 30, 15) e tetto di 3 al giorno intatti. Guardia
+  la_condivisione_si_paga_se_avviene con cinque prove, fra cui
+  l'enumerazione delle tre vie, e rosso provato simulando l'annullamento; la
+  prova storica dei tre pulsanti si e' fatta piu' STRETTA, non piu' larga;
+  chiude il collaudo di Mauro sulla 2182)
 - **AN.09** Il manifesto, la suite, la build 2182 — APERTA
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 2
+VOCI_APERTE: 1
 VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5

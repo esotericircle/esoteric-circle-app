@@ -982,6 +982,16 @@ Future<void> condividiIlTraguardo(
   // 2. SI SEGNA, cosi' il bonus in sospeso non resta in sospeso per sempre.
   await diario.segnaCondiviso(traguardo.id);
 
+  // **L'INVITO NON SI PAGA ADESSO, ordine AN voce 08, e qui si dice la
+  // verita' invece di fingere.** Il suo premio arriva quando l'amico scarica
+  // il Cerchio, e sapere se l'ha fatto richiede un'attribuzione
+  // dell'installazione che nel progetto NON esiste. Accreditarlo alla
+  // condivisione, mentre il pulsante dichiara "quando il tuo amico scarica",
+  // sarebbe una bugia a schermo: resta dichiarato in attesa sulla card e si
+  // accreditera' quando l'attribuzione ci sara'. Gli altri due modi si
+  // incassano subito, perche' del loro esito il codice sa tutto.
+  if (!modo.subitoPagato) return;
+
   // 3. SI INCASSA, e il saldo si applica col numero che il server ha appena
   //    detto: chiederlo di nuovo con una seconda chiamata era il difetto della
   //    voce S.04, e se quella non risponde il numero in barra resta vecchio.
