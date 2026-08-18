@@ -13,8 +13,9 @@ import 'istante_dichiarato.dart';
 /// conto dei gesti si azzerava.
 ///
 /// **La causa, e viene dalla stessa famiglia della voce AN.04.** L'app
-/// costruisce il diario e lancia il caricamento senza attenderlo,
-/// `DiarioDelCammino()..carica()`. Chi apre l'app e fa subito un gesto,
+/// costruisce il diario e lancia il caricamento senza attenderlo, con la
+/// cascata che chiama `carica` sul costruttore. Chi apre l'app e fa subito
+/// un gesto,
 /// e succede a chiunque apra l'app per fare qualcosa, incontra questa
 /// sequenza:
 ///   1. `carica()` parte e va a leggere il disco, che e' lento;
