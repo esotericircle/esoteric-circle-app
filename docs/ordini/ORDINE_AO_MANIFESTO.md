@@ -272,16 +272,42 @@ qui ne' altrove.
   background e ritorno, funzionalita' e ritorno, tre rotte aperte e chiuse
   in fila, piu' la sentinella; ROSSO PROVATO su tutti e quattro tornando
   all'interruttore. Chiude il collaudo di Mauro sulla 2183)
-- **AO.08** Il manifesto, la suite, la build 2183 — APERTA
-  (stati veri e marcatori contati; se qualcosa tocca functions le prove del
-  server girano prima e il deploy lo esegue Mauro; suite intera una volta,
-  verde sui rossi di legge dichiarati; build 2183 arm64 e distribuzione coi
-  comandi e le note dell'ordine)
+- **AO.08** Il manifesto, la suite, la build 2183 — CHIUSA
+  (**NESSUNA VOCE HA TOCCATO `functions/`**, verificato: il deploy del
+  server non serve a questo ordine, e nessun comando resta a Mauro.
+  Suite intera col giornale pieno su file, DUE esecuzioni. La prima: 2906
+  verdi e 16 rossi, di cui sette di legge, la guardia di quest'ordine ancora
+  aperta, il transitorio del lavoro non spinto e SEI code delle voci del
+  giorno, tutte curate. La seconda: 2911 verdi e dieci rossi, cioe' i sette
+  di legge, la guardia di quest'ordine, e due code nuove curate subito
+  dopo.
+  **LE CODE, e cosa hanno insegnato.** Due prove dell'archetipo pretendevano
+  la regola vecchia e sono state portate sul tempo dei tre mesi senza
+  perdere cio' che misuravano; il riquadro del limite giornaliero e' stato
+  tolto perche' con l'attesa di tre mesi non ci si arriva piu', e un ramo
+  irraggiungibile e' codice che mente sulla scena. Il conto dei consumatori
+  della carta natale SCENDE per la prima volta, da 14 a 13: la barra non
+  chiede piu' la carta, perche' al centro ha una porta e non una notizia.
+  **Due guardie leggevano un commento invece del codice**, la lingua sul
+  `$quanti giorni` e l'istante dichiarato su una citazione dentro una
+  docstring: si e' cambiato il codice, non le guardie. E il tocco nuovo del
+  Passaporto e' passato da `InkWell` a `GestureDetector`, perche' il ripple
+  chiede a runtime lo shader `ink_sparkle.frag` che in prova puo' mancare, e
+  una suite si e' fermata su quello dentro una prova che non c'entrava
+  niente.
+  **Due prove hanno dovuto congedare le feste prima di misurare**, ed e' una
+  conseguenza VOLUTA della voce 04: adesso che il diario non riparte da
+  zero, visitare il Passaporto matura davvero i traguardi e le celebrazioni
+  si aprono. Non e' un difetto che compare, e' una scena che comincia a
+  funzionare.
+  Anteprime rigenerate e guardate, 102 file, piu' quella nuova delle tre
+  feste affiancate col suo generatore dichiarato nel corredo. Build
+  `0.1.0+2183` arm64 e distribuzione con le note dell'ordine)
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 1
-VOCI_CHIUSE: 2
+VOCI_APERTE: 0
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
