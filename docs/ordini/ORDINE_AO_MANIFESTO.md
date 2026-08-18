@@ -241,11 +241,37 @@ qui ne' altrove.
   `test/l_archetipo_si_apre_dal_passport_test.dart` (sei prove a schermo),
   con rosso provato su tutte e tre le cose. Chiude il collaudo di Mauro
   sulla 2183)
-- **AO.07** Il cielo non si ferma piu', e la profondita' resta intera — APERTA
-  (la sospensione da interruttore diventa stato calcolato su rotta in cima E
-  app in primo piano, rivalutato a ogni cambio di rotta, di ciclo di vita e a
-  ogni ricostruzione, piu' una sentinella che riparte e registra; la resa
-  dell'ordine AM voce 02 non si tocca)
+- **AO.07** Il cielo non si ferma piu', e la profondita' resta intera — FERMATA IN ATTESA DI DECISIONE
+  (**la causa strutturale era quella della P6, e ce n'era una seconda che
+  l'ordine non nominava.** La prima: `_coperto` era un interruttore mosso da
+  due eventi opposti, e un evento che non arriva lo lascia acceso per
+  sempre. La seconda, trovata leggendo: il giro si riarmava SOLO dentro il
+  `build`, e una rotta coperta da una rotta opaca finisce OFFSTAGE, quindi
+  proprio nel caso da curare il `build` non arrivava piu'. Due anelli, non
+  uno.
+  **La cura**: `_deveGirare` e' calcolato e non ricordato, e chiede due cose
+  invece di ricordarne una: `ModalRoute.isCurrent`, che e' una verita'
+  interrogabile a ogni fotogramma, e `AppLifecycleState`, che questo file
+  non nominava affatto. Se la rotta e' in cima si gira, qualunque cosa sia
+  successo agli eventi: e' la riga che rende impossibile il blocco eterno.
+  Cio' che resta ricordato, la copertura da parte di una rotta TRASPARENTE,
+  da solo non ferma niente. Il ticker si accorda allo stato in UN punto,
+  `_accordaIlGiro`, invece che in due che potevano non incontrarsi.
+  **La sentinella** batte ogni due secondi (`intervalloDellaSentinella`),
+  confronta due booleani e non e' lavoro per fotogramma: batte anche da
+  offstage, dove il `build` non arriva, e quando trova il cielo fermo mentre
+  dovrebbe girare riparte e lo CONTA in `ripartenzeDellaSentinella`, che in
+  un'app sana resta zero.
+  **LA RESA NON E' STATA TOCCATA**: piani, scorte, densita', corse e
+  rapporti restano quelli dell'ordine AM voce 02, e le guardie del cielo e
+  dei bordi sono verdi senza un allentamento, venti prove fra `cosmos`,
+  `cosmo_e_interruttori`, `il_cielo_ha_i_suoi_livelli`,
+  `ampiezza_parallasse`, `cielo_resta_intero`, `cielo_usa_lo_spazio` e
+  `la_home_non_rallenta_al_ritorno`. Guardia nuova
+  `test/il_cielo_non_si_ferma_piu_test.dart` coi tre casi veri dell'ordine,
+  background e ritorno, funzionalita' e ritorno, tre rotte aperte e chiuse
+  in fila, piu' la sentinella; ROSSO PROVATO su tutti e quattro tornando
+  all'interruttore. Chiude il collaudo di Mauro sulla 2183)
 - **AO.08** Il manifesto, la suite, la build 2183 — APERTA
   (stati veri e marcatori contati; se qualcosa tocca functions le prove del
   server girano prima e il deploy lo esegue Mauro; suite intera una volta,
@@ -255,7 +281,7 @@ qui ne' altrove.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 2
+VOCI_APERTE: 1
 VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5

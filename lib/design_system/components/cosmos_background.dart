@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
@@ -32,6 +33,19 @@ class CosmosBackground extends StatefulWidget {
   /// sospende; questo conto e' la mano sul polso della sospensione.
   @visibleForTesting
   static int quantiSospesi = 0;
+
+  /// **QUANTE VOLTE LA SENTINELLA HA RIMESSO IN MOTO IL CIELO. Ordine AO
+  /// voce 07.** Se il giro risulta fermo mentre lo stato dice che dovrebbe
+  /// girare, la sentinella riparte e lo segna qui: un guasto che non lascia
+  /// traccia e' un guasto che nessuno potra' spiegare. In un'app sana questo
+  /// numero resta zero.
+  @visibleForTesting
+  static int ripartenzeDellaSentinella = 0;
+
+  /// Ogni quanto la sentinella guarda il polso del cielo. Due secondi: lento
+  /// abbastanza da non pesare, svelto abbastanza che nessuno veda un cielo
+  /// fermo e si chieda perche'.
+  static const Duration intervalloDellaSentinella = Duration(seconds: 2);
 
   /// QUANTE VOLTE IL COSMO SI E' RICOSTRUITO, per la misura dell'ordine AM
   /// voce 01. La lentezza che Mauro sente tornando in home si vede qui: se
@@ -132,10 +146,54 @@ class OsservatoreDelCielo extends RouteObserver<ModalRoute<void>> {
 }
 
 class _CosmosBackgroundState extends State<CosmosBackground>
-    with SingleTickerProviderStateMixin, RouteAware {
-  /// Vero mentre la rotta di questo cielo e' coperta da un'altra: il cielo
-  /// non si ricostruisce e non gira. Quanti sono sospesi lo conta la prova.
-  bool _coperto = false;
+    with SingleTickerProviderStateMixin, RouteAware, WidgetsBindingObserver {
+  /// **LA SOSPENSIONE NON E' PIU' UN INTERRUTTORE. Ordine AO voce 07.**
+  ///
+  /// Era un bool mosso da due eventi OPPOSTI del RouteObserver,
+  /// `didPushNext` e `didPopNext`: se uno dei due non arrivava, e non arriva
+  /// tornando dal background ne' in certe uscite di rotta, il cielo restava
+  /// fermo per sempre. E il giro si riarmava solo dentro il `build`, quindi
+  /// bastava che non arrivasse una ricostruzione perche' restasse fermo
+  /// anche con lo stato che diceva di girare. E' il difetto che Mauro ha
+  /// visto sulla 2182, e questa voce lo chiude alla radice.
+  ///
+  /// Adesso il cielo gira se, e solo se, **la sua rotta e' in cima E l'app e'
+  /// in primo piano**. Le due cose non sono ricordate, sono CHIESTE: la
+  /// prima a `ModalRoute.isCurrent`, che e' una verita' interrogabile a ogni
+  /// fotogramma; la seconda al ciclo di vita, che qui si ascolta. Cio' che
+  /// resta ricordato, la copertura da parte di una rotta TRASPARENTE, non
+  /// puo' bloccare niente da solo: se la rotta e' in cima, si gira.
+  bool _copertoDaTrasparente = false;
+
+  /// L'ultimo stato del ciclo di vita che il sistema ci ha detto.
+  AppLifecycleState _cicloDiVita = AppLifecycleState.resumed;
+
+  /// Vero se questo cielo, adesso, deve girare. **Calcolato, non ricordato.**
+  bool get _deveGirare {
+    if (_cicloDiVita != AppLifecycleState.resumed) return false;
+    final rotta = ModalRoute.of(context);
+    // Senza una rotta il cielo e' montato da solo, come nelle prove e nei
+    // fondali dei riti: gira.
+    if (rotta == null) return true;
+    // **LA VERITA' INTERROGABILE VINCE SUL RICORDO**: se la rotta e' in
+    // cima, qualunque cosa sia successo agli eventi, il cielo si vede e deve
+    // muoversi. E' questa riga a rendere impossibile il blocco eterno.
+    if (rotta.isCurrent) return true;
+    // Coperto: si gira solo se cio' che sta sopra e' trasparente, perche'
+    // dietro una celebrazione o un foglio dal basso il cielo si vede ancora.
+    return _copertoDaTrasparente;
+  }
+
+  /// **LO SPECCHIO PER LE PROVE**: dice se il ticker sta davvero girando, che
+  /// e' la stessa cosa che decide se i fotogrammi cambiano. Le prove non
+  /// devono dedurlo da un bool di stato, che potrebbe mentire.
+  @visibleForTesting
+  bool get girDavvero => _controller.isAnimating;
+
+  /// Ferma il giro alle spalle dello stato, per provare la sentinella: e'
+  /// l'evento perduto riprodotto a mano.
+  @visibleForTesting
+  void fermaIlGiroPerProva() => _controller.stop();
 
   @override
   void didChangeDependencies() {
@@ -145,24 +203,68 @@ class _CosmosBackgroundState extends State<CosmosBackground>
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState stato) {
+    super.didChangeAppLifecycleState(stato);
+    if (!mounted || stato == _cicloDiVita) return;
+    // **QUI SI RIVALUTA, e non si ricorda niente.** Tornando in primo piano
+    // il cielo non "riprende da dove era": si ricalcola se deve girare, e se
+    // deve, gira.
+    setState(() => _cicloDiVita = stato);
+    _accordaIlGiro();
+  }
+
+  @override
   void didPushNext() {
-    if (_coperto) return;
-    // **SOLO SOTTO UNA ROTTA OPACA**: dietro una rotta trasparente
-    // (celebrazione, foglio dal basso, dialogo) il cielo resta visibile e
-    // deve continuare a muoversi.
+    // Si segna soltanto CHE COSA sta sopra, perche' una rotta trasparente
+    // lascia vedere il cielo. Il resto lo decide `_deveGirare`.
     final sopra = osservatoreDelCielo.ultimaSpinta;
-    if (sopra is ModalRoute && !sopra.opaque) return;
-    CosmosBackground.quantiSospesi++;
-    setState(() => _coperto = true);
-    _controller.stop();
+    final trasparente = sopra is ModalRoute && !sopra.opaque;
+    if (!trasparente && !_sospesoNelConto) {
+      CosmosBackground.quantiSospesi++;
+      _sospesoNelConto = true;
+    }
+    if (!mounted) return;
+    setState(() => _copertoDaTrasparente = trasparente);
+    _accordaIlGiro();
   }
 
   @override
   void didPopNext() {
-    if (!_coperto) return;
-    CosmosBackground.quantiSospesi--;
-    setState(() => _coperto = false);
+    if (_sospesoNelConto) {
+      CosmosBackground.quantiSospesi--;
+      _sospesoNelConto = false;
+    }
+    if (!mounted) return;
+    setState(() => _copertoDaTrasparente = false);
+    _accordaIlGiro();
   }
+
+  /// **ACCORDA IL GIRO ALLO STATO, in un punto solo.** Prima questa decisione
+  /// viveva sparsa fra `didPushNext`, che fermava, e il `build`, che
+  /// riarmava: due punti che potevano non incontrarsi. Qui il ticker segue
+  /// cio' che `_deveGirare` dice, e chiunque cambi qualcosa passa di qua.
+  void _accordaIlGiro({bool daSentinella = false}) {
+    if (!mounted) return;
+    final deve = _deveGirare && _movimentoConsentito;
+    if (deve && !_controller.isAnimating) {
+      if (daSentinella) CosmosBackground.ripartenzeDellaSentinella++;
+      _controller.repeat();
+    } else if (!deve && _controller.isAnimating) {
+      _controller.stop();
+    }
+  }
+
+  /// Vero se il movimento e' permesso dalle scelte della persona e dalla
+  /// qualita': con Riduci Movimento o in qualita' bassa il cosmo sta fermo,
+  /// ed e' una decisione vecchia che questa voce non tocca.
+  bool _movimentoConsentito = true;
+
+  /// Vero se questo cielo e' entrato nel conto dei sospesi: serve a toglierlo
+  /// una volta sola, e a non lasciarlo dentro morendo.
+  bool _sospesoNelConto = false;
+
+  /// Il battito della sentinella.
+  Timer? _sentinella;
 
   late final AnimationController _controller;
 
@@ -181,12 +283,32 @@ class _CosmosBackgroundState extends State<CosmosBackground>
       vsync: this,
       duration: const Duration(seconds: 30),
     )..repeat();
+    // **SI ASCOLTA IL CICLO DI VITA DELL'APP, ordine AO voce 07.** Prima
+    // questo file non lo nominava affatto, verificato per enumerazione nella
+    // premessa P6: andare in background e tornare non diceva niente al
+    // cielo, che restava fermo o girava a vuoto.
+    WidgetsBinding.instance.addObserver(this);
+    // **LA SENTINELLA, e perche' non basta il `build`.** Una rotta coperta da
+    // una rotta opaca finisce OFFSTAGE: non si ricostruisce piu', quindi un
+    // controllo che vivesse solo dentro il `build` non girerebbe proprio nel
+    // caso in cui serve. Questo battito e' lento apposta, due secondi, e fa
+    // un confronto fra due booleani: non e' lavoro per fotogramma, e' una
+    // mano sul polso. Quando trova il cielo fermo mentre lo stato dice che
+    // deve girare, riparte e lo registra.
+    _sentinella = Timer.periodic(CosmosBackground.intervalloDellaSentinella, (_) {
+      if (!mounted) return;
+      if (_deveGirare && _movimentoConsentito && !_controller.isAnimating) {
+        _accordaIlGiro(daSentinella: true);
+      }
+    });
   }
 
   @override
   void dispose() {
     osservatoreDelCielo.unsubscribe(this);
-    if (_coperto) CosmosBackground.quantiSospesi--;
+    WidgetsBinding.instance.removeObserver(this);
+    _sentinella?.cancel();
+    if (_sospesoNelConto) CosmosBackground.quantiSospesi--;
     _controller.dispose();
     _cielo.libera();
     super.dispose();
@@ -221,20 +343,28 @@ class _CosmosBackgroundState extends State<CosmosBackground>
     // **DA COPERTO NON SI ASCOLTA**: il watch qui sotto ricostruiva questo
     // albero a ogni tick del sensore anche sotto una funzionalita' aperta.
     // Da coperto si legge senza iscriversi, e il giro sta fermo.
-    final parallax = _coperto
+    // Da fermo si legge senza iscriversi: il watch ricostruiva questo albero
+    // a ogni tick del sensore anche sotto una funzionalita' aperta.
+    final fermo = !_deveGirare;
+    final parallax = fermo
         ? (context.read<ParallaxController?>() ?? _parallasseDiRipiego())
         : (context.watch<ParallaxController?>() ?? _parallasseDiRipiego());
     final sunSign = context.watch<ZodiacController?>()?.sunSign;
     // Riduci Movimento: cosmo fermo, niente stella cadente, parallasse minima.
     final reduceMotion = MediaQuery.of(context).disableAnimations;
 
-    // In qualita' bassa o con Riduci Movimento il cosmo e' quasi statico.
-    if (quality == QualityTier.low || reduceMotion) {
-      if (_controller.isAnimating) _controller.stop();
-    } else {
-      // Da coperto il giro NON si riarma: e' la sospensione dell'ordine AJ.
-      if (!_coperto && !_controller.isAnimating) _controller.repeat();
-    }
+    // **QUI VIVE LA SENTINELLA, ordine AO voce 07.** Il `build` non decide
+    // piu' da solo se il giro va armato: aggiorna cio' che sa sulle scelte
+    // della persona e poi chiama l'unico punto che accorda il ticker allo
+    // stato. Se il giro risulta fermo mentre lo stato dice che deve girare,
+    // e succede quando un evento del RouteObserver si perde per strada, qui
+    // riparte e la ripartenza si CONTA: un guasto che non lascia traccia e'
+    // un guasto che nessuno potra' spiegare.
+    _movimentoConsentito = quality != QualityTier.low && !reduceMotion;
+    final eraFermoMaDoveva = _deveGirare &&
+        _movimentoConsentito &&
+        !_controller.isAnimating;
+    _accordaIlGiro(daSentinella: eraFermoMaDoveva);
 
     return Stack(
       // IL COSMO RIEMPIE SEMPRE L'ALTEZZA. Senza questo, lo Stack prendeva
