@@ -375,6 +375,27 @@ class _Star {
 /// muove: se l'immagine di un piano venisse composta con l'offset di un
 /// altro, la profondita' si appiattirebbe senza che nessun pixel gridasse.
 /// Vivono qui perche' una prova possa leggerli e verificarli.
+/// **QUANTI ELEMENTI SU UN TELO CON LA SCORTA, ordine AM voce 02.**
+///
+/// Le scorte di AJ.02 hanno allargato i teli perche' il bordo non entrasse
+/// piu' nell'inquadratura, e il conto degli elementi e' rimasto quello di
+/// prima: dipingere le stesse stelle su un telo piu' grande vuol dire
+/// diluirle, e a schermo se ne vedono meno. Misurato su 360x797: del piano
+/// di fondo restava a schermo il 51 per cento delle stelle, del piano
+/// medio il 37 per cento delle nebulose. E' il livello che Mauro vede
+/// mancare sulla 2180.
+///
+/// Qui il conto segue l'AREA: la densita' a schermo torna quella di prima
+/// delle scorte, e i bordi restano coperti perche' il telo non si tocca.
+/// Costa piu' elementi da dipingere UNA volta nella cache, mai nel cammino
+/// per fotogramma.
+int quantiSulTelo(int base, Size telo, Size schermo) {
+  final areaSchermo = schermo.width * schermo.height;
+  if (areaSchermo <= 0) return base;
+  final rapporto = (telo.width * telo.height) / areaSchermo;
+  return (base * rapporto).round();
+}
+
 class ProfonditaDeiPiani {
   const ProfonditaDeiPiani._();
 
@@ -702,9 +723,11 @@ class _CosmosPainter extends CustomPainter {
     cielo.medio = vuotoIlMedio
         ? null
         : _dipingiUnaVolta(teloMedio, densita / 2, (tela) {
-            if (_nebulaClusters > 0) _paintNebula(tela, teloMedio, fermo, 0);
+            if (_nebulaClusters > 0) {
+              _paintNebula(tela, teloMedio, fermo, 0, margine: margineMedio);
+            }
             if (showPlanets && _planetCount > 0) {
-              _paintPlanets(tela, teloMedio, fermo);
+              _paintPlanets(tela, teloMedio, fermo, margine: margineMedio);
             }
           });
 
@@ -714,7 +737,9 @@ class _CosmosPainter extends CustomPainter {
     cielo.lontano = _dustStars == 0
         ? null
         : _dipingiUnaVolta(teloLontano, densita, (tela) {
-            _paintStarDust(tela, teloLontano, fermo, 0);
+            _paintStarDust(tela, teloLontano, fermo, 0,
+                quante: quantiSulTelo(
+                    _dustStars, teloLontano, size));
           });
 
     // PIANO DI FONDO: le stelle di campo, le costellazioni e GLI ALONI delle
@@ -731,7 +756,9 @@ class _CosmosPainter extends CustomPainter {
     // L'alone non pulsa piu': vive al ventidue per cento di opacita', e la
     // pulsazione la porta il nucleo che gli sta sopra.
     cielo.fondo = _dipingiUnaVolta(teloFondo, densita, (tela) {
-      _paintFieldStars(tela, teloFondo, fermo, 0);
+      _paintFieldStars(tela, teloFondo, fermo, 0,
+          quante: quantiSulTelo(
+              _fieldStars, teloFondo, size));
       if (showZodiac) _paintZodiac(tela, teloFondo, fermo, 0);
       _aloniDelleProtagoniste(tela, teloFondo, fermo);
     });
@@ -923,10 +950,11 @@ class _CosmosPainter extends CustomPainter {
 
   // --- Polvere stellare fine sul piano piu' lontano ---
 
-  void _paintStarDust(Canvas canvas, Size size, Offset off, double t) {
+  void _paintStarDust(Canvas canvas, Size size, Offset off, double t,
+      {int? quante}) {
     final rng = math.Random(91 + seed * 7919);
     final paint = Paint()..style = PaintingStyle.fill;
-    for (var i = 0; i < _dustStars; i++) {
+    for (var i = 0; i < (quante ?? _dustStars); i++) {
       final x = rng.nextDouble();
       final y = rng.nextDouble();
       if (_nellaZonaFranca(x, y, size, margineLontano)) continue;
@@ -950,14 +978,20 @@ class _CosmosPainter extends CustomPainter {
 
   // --- Pianeti soffusi, dischi tenui con luce radente, per dare scala ---
 
-  void _paintPlanets(Canvas canvas, Size size, Offset off) {
+  void _paintPlanets(Canvas canvas, Size size, Offset off,
+      {double margine = 0}) {
     const spots = [
       (Offset(0.16, 0.2), 10.0),
       (Offset(0.82, 0.3), 7.0),
     ];
+    // Stessa mappatura delle nebulose, e per la stessa ragione.
+    final visibile =
+        Size(size.width - 2 * margine, size.height - 2 * margine);
     for (var i = 0; i < _planetCount && i < spots.length; i++) {
       final (pos, r) = spots[i];
-      final center = Offset(pos.dx * size.width, pos.dy * size.height) + off;
+      final center = Offset(margine + pos.dx * visibile.width,
+              margine + pos.dy * visibile.height) +
+          off;
       // Alone.
       canvas.drawCircle(
         center,
@@ -989,9 +1023,10 @@ class _CosmosPainter extends CustomPainter {
 
   // --- Stelle di fondo, pulsazione dolce ---
 
-  void _paintFieldStars(Canvas canvas, Size size, Offset off, double t) {
+  void _paintFieldStars(Canvas canvas, Size size, Offset off, double t,
+      {int? quante}) {
     final rng = math.Random(7 + seed * 7919);
-    final stars = List<_Star>.generate(_fieldStars, (_) {
+    final stars = List<_Star>.generate(quante ?? _fieldStars, (_) {
       // Intervallo di dimensioni piu' ampio: da minute a decise, per profondita'.
       final rr = rng.nextDouble();
       return _Star(
@@ -1091,7 +1126,8 @@ class _CosmosPainter extends CustomPainter {
 
   // --- Nebulose soffuse e pittoriche, piano intermedio ---
 
-  void _paintNebula(Canvas canvas, Size size, Offset off, double t) {
+  void _paintNebula(Canvas canvas, Size size, Offset off, double t,
+      {double margine = 0}) {
     const centers = [
       Offset(0.22, 0.22),
       Offset(0.80, 0.46),
@@ -1100,9 +1136,16 @@ class _CosmosPainter extends CustomPainter {
     final drift = _animate ? math.sin(2 * math.pi * t) * 12 : 0.0;
     final rng = math.Random(53 + seed * 7919);
 
-    for (var i = 0; i < _nebulaClusters; i++) {
-      final base = Offset(
-              centers[i].dx * size.width, centers[i].dy * size.height) +
+    // **I CENTRI STANNO NELL'AREA VISIBILE, ordine AM voce 02.** Le tre
+    // posizioni sono curate a mano su coordinate normalizzate, e con la
+    // scorta di AJ.02 il telo e' 2,73 volte lo schermo: distribuite su tutto
+    // il telo, a video ne restava circa una. Qui la coordinata normalizzata
+    // mappa la finestra visibile, e le tre nebulose tornano dov'erano.
+    final visibile =
+        Size(size.width - 2 * margine, size.height - 2 * margine);
+    for (var i = 0; i < _nebulaClusters && i < centers.length; i++) {
+      final base = Offset(margine + centers[i].dx * visibile.width,
+              margine + centers[i].dy * visibile.height) +
           off +
           Offset(drift, -drift);
       // Ogni nebulosa e' un grappolo di macchie morbide sovrapposte con un

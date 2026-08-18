@@ -63,7 +63,23 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
   misura dopo la cura 1 su 40; guardia la_home_non_rallenta_al_ritorno con
   rosso provato, guardie del cielo tutte verdi; chiude il collaudo di Mauro
   sulla 2181)
-- **AM.02** La profondita' perduta e il livello che manca — APERTA
+- **AM.02** La profondita' perduta e il livello che manca — FERMATA IN ATTESA DI DECISIONE
+  (una premessa della voce era imprecisa e si dichiara: e5b993f non e' prima
+  delle cure AJ, AJ.02 e' suo antenato e le scorte c'erano gia'; il confronto
+  vero e' col padre di AJ.02, dove i teli erano grandi quanto lo schermo.
+  Enumerati i pezzi dipinti oggi, polvere, stelle di campo con costellazioni e
+  aloni, nebulose e pianeti, quattordici particelle vive e stelle cadenti:
+  NESSUN pezzo e' sparito, era sparita la DENSITA'. Misura: il telo del fondo
+  e' 1,95 volte lo schermo e quello del medio 2,73, e col conto degli elementi
+  rimasto fisso a schermo restava il 51 per cento delle stelle di campo e il
+  37 per cento delle nebulose. Cura in due modi diversi: le stelle, che
+  nascono a caso, si contano sull'AREA del telo, da 140 a 273, e a schermo
+  tornano 140; nebulose e pianeti, che hanno posizioni curate a mano, restano
+  tre e due e i centri mappano la finestra VISIBILE invece di tutto il telo.
+  Corse invariate, polvere 15, fondo 80, medio 105,5, vicino 165,5, rapporto
+  vicino su fondo 2,07. Guardia il_cielo_ha_i_suoi_livelli con rosso provato,
+  guardia dei bordi di AJ.02 verde senza toccarla, anteprima rigenerata e
+  guardata; chiude il collaudo di Mauro sulla 2181)
 - **AM.03** La capsula se ne va, e le testate restano pulite — APERTA
 - **AM.04** La barra sottile persistente in alto, casa unica — APERTA
 - **AM.05** Il manifesto, la suite, la build 2181 — APERTA
@@ -71,7 +87,7 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 4
+VOCI_APERTE: 3
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
