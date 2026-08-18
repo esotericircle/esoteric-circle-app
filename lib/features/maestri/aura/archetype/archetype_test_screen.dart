@@ -10,6 +10,8 @@ import '../../../../core/archetypes/archetype_history.dart';
 import '../../../../core/archetypes/archetype_quiz.dart';
 import '../../../../core/archetypes/archetype_scoring.dart';
 import '../../../../core/archetypes/archetype_sky.dart';
+import '../../../../core/archetypes/ripetizione_del_test.dart';
+import '../../../../core/archetypes/lettura_del_giorno.dart';
 import '../../../../core/archetypes/archetype_transits.dart';
 import '../../../../core/entitlement/entitlement_service.dart';
 import '../../../../core/entitlement/tier.dart';
@@ -117,10 +119,25 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
 
   Tier get _tier => context.read<EntitlementService>().tier;
 
-  bool get _consentito => ArchetypeAllowance.consentito(
+  /// **CHI PUO' COMINCIARE, ordine AO voce 06.** Due condizioni, e la prima
+  /// e' nuova: dall'ultimo test devono essere passati TRE MESI, decisione di
+  /// Mauro del 18 agosto 2026. Il tetto giornaliero per livello resta dietro,
+  /// perche' e' la stessa classe che governa anche la Costellazione del Viso,
+  /// ma con novanta giorni di attesa non lo incontra piu' nessuno: e' una
+  /// cintura sotto una bretella, non una seconda regola.
+  bool get _consentito =>
+      RipetizioneDelTest.siPuoRifare(
+        ultimo: _storico.ultimo?.quando,
+        adesso: _adesso(),
+      ) &&
+      ArchetypeAllowance.consentito(
         fattiOggi: _storico.fattiOggi,
         tier: _tier,
       );
+
+  /// L'istante di adesso: passa dall'orologio iniettabile che questa
+  /// schermata ha gia', mai da un secondo `DateTime.now()` sparso.
+  DateTime _adesso() => (widget.clock ?? DateTime.now)();
 
   void _inizia() {
     if (!_consentito) return;
@@ -195,6 +212,8 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
                       rimanenti: ArchetypeAllowance.rimanenti(
                           fattiOggi: _storico.fattiOggi, tier: _tier),
                       ultimo: _storico.ultimo,
+                      adesso: _adesso(),
+                      pianetiDiOggi: _pianeti,
                       conCielo: _conCielo,
                       onCielo: (v) => setState(() => _conCielo = v),
                       onInizia: _inizia,
@@ -276,6 +295,8 @@ class _Soglia extends StatelessWidget {
     required this.consentito,
     required this.rimanenti,
     required this.ultimo,
+    required this.adesso,
+    required this.pianetiDiOggi,
     required this.conCielo,
     required this.onCielo,
     required this.onInizia,
@@ -285,6 +306,8 @@ class _Soglia extends StatelessWidget {
   final bool consentito;
   final int? rimanenti;
   final ArchetypeEsito? ultimo;
+  final DateTime adesso;
+  final Set<Pianeta> pianetiDiOggi;
   final bool conCielo;
   final ValueChanged<bool> onCielo;
   final VoidCallback onInizia;
@@ -297,16 +320,29 @@ class _Soglia extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: SpacingTokens.xl),
-          Text('Quale dei dodici archetipi ti guida?',
-              style: TypographyTokens.cerimoniale()
-                  .copyWith(color: palette.goldSoft)),
-          const SizedBox(height: SpacingTokens.sm),
-          Text(
-            'Dodici domande, una alla volta. Rispondi di pancia: non ci sono '
-            'risposte giuste, ci sono risposte tue.',
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textPrimary, height: 1.5),
-          ),
+          // **CHI L'HA GIA' FATTO VEDE SE STESSO, ordine AO voce 06.** Prima
+          // qui c'era solo l'invito a ricominciare, e chi riapriva il Test
+          // trovava una porta che non portava da nessuna parte: il suo
+          // archetipo, che e' una cosa sua, non compariva affatto.
+          if (ultimo != null)
+            _IlTuoArchetipoOggi(
+              palette: palette,
+              esito: ultimo!,
+              adesso: adesso,
+              pianetiDiOggi: pianetiDiOggi,
+            )
+          else ...[
+            Text('Quale dei dodici archetipi ti guida?',
+                style: TypographyTokens.cerimoniale()
+                    .copyWith(color: palette.goldSoft)),
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              'Dodici domande, una alla volta. Rispondi di pancia: non ci '
+              'sono risposte giuste, ci sono risposte tue.',
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.5),
+            ),
+          ],
           const SizedBox(height: SpacingTokens.lg),
           // La scelta del cielo, PRIMA delle domande, come impostazione del test.
           DepthCard(
@@ -332,6 +368,16 @@ class _Soglia extends StatelessWidget {
               icon: const Icon(Icons.play_arrow_rounded),
               label: const Text('Comincia'),
             )
+          else if (ultimo != null)
+            // **L'ATTESA SI DICHIARA, col giorno esatto**: un pulsante spento
+            // senza una data e' un vicolo cieco con la luce accesa.
+            Text(
+              RipetizioneDelTest.frase(
+                  ultimo: ultimo!.quando, adesso: adesso),
+              key: const Key('archetype_attesa'),
+              style: TypographyTokens.corpo()
+                  .copyWith(color: palette.goldSoft, height: 1.5),
+            )
           else
             _Bloccato(palette: palette, ultimo: ultimo),
           if (consentito && rimanenti != null) ...[
@@ -340,6 +386,100 @@ class _Soglia extends StatelessWidget {
                 style: TypographyTokens.etichetta()
                     .copyWith(color: ColorTokens.textSecondary)),
           ],
+        ],
+      ),
+    );
+  }
+}
+
+/// IL TUO ARCHETIPO, OGGI. Ordine AO voce 06.
+///
+/// L'emblema che gia' ti appartiene e la LETTURA DI OGGI, composta dai
+/// transiti del giorno e dalla Luna: la figura sta ferma, la lettura cambia.
+/// E' la decisione registrata il 6 agosto 2026, che non era mai stata
+/// mostrata da nessuna parte.
+class _IlTuoArchetipoOggi extends StatelessWidget {
+  const _IlTuoArchetipoOggi({
+    required this.palette,
+    required this.esito,
+    required this.adesso,
+    required this.pianetiDiOggi,
+  });
+
+  final MaestroPalette palette;
+  final ArchetypeEsito esito;
+  final DateTime adesso;
+  final Set<Pianeta> pianetiDiOggi;
+
+  @override
+  Widget build(BuildContext context) {
+    final lettura = LetturaDelGiorno.per(
+      esito.dominante,
+      pianetiDiOggi,
+      quando: adesso,
+    );
+    return DepthCard(
+      key: const Key('archetype_lettura_di_oggi'),
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              // L'emblema vero, intero e mai ritagliato: e' arte di brand.
+              ClipRRect(
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                child: Image.asset(
+                  esito.dominante.arteThumb,
+                  key: const Key('archetype_emblema'),
+                  width: 56,
+                  height: 56,
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => Icon(Icons.psychology_alt,
+                      color: palette.goldSoft, size: 36),
+                ),
+              ),
+              const SizedBox(width: SpacingTokens.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Il tuo archetipo',
+                        style: TypographyTokens.etichetta()
+                            .copyWith(color: ColorTokens.textSecondary)),
+                    const SizedBox(height: 2),
+                    Text(
+                      esito.dominante.conArticolo,
+                      key: const Key('archetype_nome_dominante'),
+                      style: TypographyTokens.titoloScheda()
+                          .copyWith(color: palette.goldSoft),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          Text('La lettura di oggi',
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: ColorTokens.textSecondary)),
+          const SizedBox(height: SpacingTokens.xs),
+          for (final riga in lettura.righe) ...[
+            Text(
+              riga,
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.5),
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+          ],
+          const SizedBox(height: SpacingTokens.xs),
+          // LA CORNICE: il cielo non causa, si accosta. E' la stessa frase
+          // del responso, presa dalla stessa porta.
+          Text(
+            LetturaDelGiorno.cornice,
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+          ),
         ],
       ),
     );

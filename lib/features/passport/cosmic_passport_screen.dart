@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../maestri/aura/archetype/archetype_test_screen.dart';
 import '../sigilli/regia_del_cammino.dart';
 import '../sigilli/sentiero_screen.dart';
 import '../../core/sigilli/sentieri.dart';
@@ -756,7 +757,15 @@ class _TesseraArchetipo extends StatelessWidget {
         ),
       );
     }
-    return DepthCard(
+    // **L'EMBLEMA SI TOCCA E APRE, ordine AO voce 06.** Prima era un'immagine
+    // e basta: la figura piu' personale del Passaporto, e l'unica tessera che
+    // non portava da nessuna parte. Adesso apre il Test Archetipo, dove chi
+    // l'ha gia' fatto trova se stesso e la lettura di oggi.
+    return InkWell(
+      key: const Key('passport_archetipo_tocco'),
+      borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+      onTap: () => Navigator.of(context).push(ArchetypeTestScreen.route()),
+      child: DepthCard(
       key: const Key('passport_archetipo'),
       padding: const EdgeInsets.all(SpacingTokens.md),
       child: Row(
@@ -816,7 +825,11 @@ class _TesseraArchetipo extends StatelessWidget {
               ],
             ),
           ),
+          // Il segno che si tocca: senza, la tessera aprirebbe qualcosa senza
+          // averlo mai detto.
+          Icon(Icons.chevron_right_rounded, color: palette.goldSoft, size: 20),
         ],
+      ),
       ),
     );
   }

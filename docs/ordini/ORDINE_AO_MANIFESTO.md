@@ -207,10 +207,40 @@ qui ne' altrove.
   dell'elenco. Rosso provato sulla festa unita. Anteprima nuova
   `docs/preview/le-tre-feste-affiancate.png`, guardata: le tre materie si
   distinguono a colpo d'occhio. Chiude il collaudo di Mauro sulla 2183)
-- **AO.06** L'archetipo si rilegge, e dal Passport si apre — APERTA
-  (emblema piu' lettura di oggi dai transiti; il test si rifa' dopo tre mesi
-  con la data dichiarata a schermo; l'emblema del Passport diventa toccabile;
-  LA CARTA NATALE NON CAMBIA MAI)
+- **AO.06** L'archetipo si rilegge, e dal Passport si apre — FERMATA IN ATTESA DI DECISIONE
+  (**PRIMA**: chi ha gia' fatto il test, riaprendolo, trova il suo EMBLEMA e
+  la LETTURA DI OGGI, in `lib/core/archetypes/lettura_del_giorno.dart`, e
+  non piu' l'invito a ricominciare e basta.
+  **UN LIMITE DEL PROGETTO, dichiarato invece che nascosto**: in locale il
+  dispositivo calcola due soli corpi, Sole e Luna
+  (`ArchetypeSky.pianetiCalcolabili` vale 2), e la tabella dei transiti lega
+  il Sole a Eroe e Sovrano e la Luna a Custode e Innocente. Per gli altri
+  OTTO archetipi la riga dei pianeti non arriverebbe MAI, e chi ha il Mago
+  leggerebbe ogni giorno la stessa frase: misurato, una sola lettura diversa
+  su quaranta giorni. Per questo la lettura ha DUE strati, la riga dei
+  pianeti quando c'e' e sempre la riga della LUNA di oggi, che e' un dato
+  vero, cambia ogni notte e vale per chiunque; crescente si semina e si
+  nomina la luce dell'archetipo, calante si lascia andare e si nomina la sua
+  ombra, prese dal corpus e non da un secondo elenco. Dopo la cura: otto
+  letture diverse su quaranta giorni, e nessun pianeta inventato.
+  **SECONDA**: `RipetizioneDelTest`, casa unica dei TRE MESI decisi da Mauro
+  il 18 agosto, con la frase che dichiara i giorni e la DATA esatta. Vive da
+  sola e non dentro `ArchetypeAllowance`, che e' il tetto giornaliero e
+  serve anche alla Costellazione del Viso. **Un difetto trovato dalla prova
+  e non immaginato**: `add(Duration(days: 90))` su un test del primo agosto
+  dava il 29 ottobre invece del 30, perche' in mezzo cade la fine dell'ora
+  legale e quell'ora sposta la data indietro di un giorno; adesso si contano
+  i giorni CIVILI, come nell'ordine AN voce 01.
+  **TERZA**: nel Cosmic Passport la tessera dell'archetipo e' diventata
+  toccabile e apre il Test, col segno del tocco accanto: era l'unica tessera
+  che non portava da nessuna parte.
+  **LA CARTA NATALE NON CAMBIA MAI**, scritto accanto alla regola: se
+  l'archetipo cambia, cambia solo l'emblema, perche' le posizioni dei
+  pianeti alla nascita sono astronomia e non psicologia. Guardie
+  `test/l_archetipo_si_rilegge_test.dart` (nove prove sul cuore) e
+  `test/l_archetipo_si_apre_dal_passport_test.dart` (sei prove a schermo),
+  con rosso provato su tutte e tre le cose. Chiude il collaudo di Mauro
+  sulla 2183)
 - **AO.07** Il cielo non si ferma piu', e la profondita' resta intera — APERTA
   (la sospensione da interruttore diventa stato calcolato su rotta in cima E
   app in primo piano, rivalutato a ogni cambio di rotta, di ciclo di vita e a
@@ -225,7 +255,7 @@ qui ne' altrove.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 3
+VOCI_APERTE: 2
 VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
