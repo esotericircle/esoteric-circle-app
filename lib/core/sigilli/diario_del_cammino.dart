@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'dart:async';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../astro/natal_chart.dart';
@@ -81,6 +83,18 @@ class DiarioDelCammino extends ChangeNotifier {
     return _orologio().difference(primo).inDays;
   }
 
+  /// QUANDO IL DIARIO E' PRONTO. Ordine AN voce 04.
+  ///
+  /// Il caricamento e' asincrono e l'app lo lancia col provider
+  /// (`DiarioDelCammino()..carica()`), quindi al primo fotogramma il diario
+  /// e' ancora VUOTO. Chi decide qualcosa in base a cosa e' acceso, come la
+  /// sincronia dei premi persi, senza questa attesa guardava un cammino
+  /// vuoto e concludeva che non c'era niente da riprendere: e' il difetto
+  /// che Mauro ha visto sulla 2181, dove il saldo e' rimasto a zero fino al
+  /// gesto successivo.
+  Future<void> get pronto => _pronto.future;
+  final Completer<void> _pronto = Completer<void>();
+
   Future<void> carica() async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -107,6 +121,11 @@ class DiarioDelCammino extends ChangeNotifier {
       // Si ignora: un diario illeggibile vale come diario vuoto. Il cammino
       // riparte, e i Sigilli gia' accesi che il server conosce torneranno
       // quando la sincronia col Cerchio li riportera'.
+    } finally {
+      // PRONTO ANCHE SE LA LETTURA E' FALLITA: chi aspetta deve ripartire
+      // comunque, altrimenti un disco illeggibile bloccherebbe per sempre
+      // chi sta in attesa.
+      if (!_pronto.isCompleted) _pronto.complete();
     }
   }
 

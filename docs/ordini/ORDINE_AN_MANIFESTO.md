@@ -123,7 +123,19 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   "oggi" scritto due volte. Guardia il_calendario_degli_eventi con sei prove
   e rosso provato, guardie della lingua verdi, anteprima nuova
   calendario-degli-eventi.png guardata; chiude il collaudo sulla 2182)
-- **AN.04** La sincronia dei premi persi parte davvero all'avvio — APERTA
+- **AN.04** La sincronia dei premi persi parte davvero all'avvio — CHIUSA
+  (causa trovata per enumerazione sui tre candidati dell'ordine: non era
+  l'ordine di avvio del guardiano ne' un errore inghiottito, era il
+  CATENACCIO consumato a vuoto, e la ragione intera nessuno dei tre la
+  nominava: il diario si carica da disco in modo asincrono, l'app lancia
+  `carica()` dal provider senza attenderlo, e il guardiano gira al primo
+  fotogramma utile quando quella lettura e' ancora in volo; la sincronia
+  guardava un cammino VUOTO, non trovava premi da riprendere e bruciava il
+  suo "una volta per sessione" per tutta la sessione, ed e' il saldo rimasto
+  a zero che Mauro ha visto sulla 2181. Cura: il diario dichiara quando e'
+  pronto, anche se la lettura fallisce, e la sincronia lo aspetta; guardia
+  la_sincronia_parte_da_sola che riproduce l'attimo vero, col caricamento in
+  volo, e rosso provato)
 - **AN.05** Il listino vivo: costi in chiaro, residui, spesa vera — APERTA
 - **AN.06** Il gating onesto a due strade — APERTA
 - **AN.07** Il benvenuto, l'accredito del giorno e la dote dei piani — APERTA
@@ -133,7 +145,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 6
-VOCI_CHIUSE: 1
+VOCI_APERTE: 5
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2

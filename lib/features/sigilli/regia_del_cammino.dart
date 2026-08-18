@@ -306,6 +306,15 @@ class RegiaDelCammino {
     final porta = servizi.porta;
     final guasti = servizi.guasti;
     final RegistroDegliEos? registro = _registro(context);
+    // **PRIMA SI ASPETTA CHE IL DIARIO SIA PRONTO, ordine AN voce 04.**
+    // Il guardiano gira al primo fotogramma utile, e a quel punto il
+    // caricamento del diario da disco e' ancora in volo: senza questa
+    // attesa la sincronia guardava un cammino VUOTO, concludeva che non
+    // c'era niente da riprendere e bruciava il suo catenaccio per tutta la
+    // sessione. E' il difetto che Mauro ha visto sulla 2181: al riavvio con
+    // le porte aperte il saldo e' rimasto a zero, e l'arretrato e' arrivato
+    // solo col traguardo successivo.
+    await diario.pronto;
     if (!porta.viva) {
       // La porta spenta non e' un guasto: senza server si riprova alla
       // prossima apertura, e la sessione resta segnata per non girare a
