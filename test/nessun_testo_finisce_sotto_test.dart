@@ -161,6 +161,17 @@ void main() {
           area.width <= 0) {
         continue;
       }
+      // LA FASCIA DELLA CAPSULA E' ESCLUSA, ordine AL voce 08, per la stessa
+      // ragione della barra: per decisione di Mauro i doni del giorno
+      // scorrono SOTTO la capsula dell'identita' e la sfumatura della
+      // striscia li ha gia' spenti prima del suo bordo, guardato
+      // sull'anteprima. Contare coperto un testo che il disegno ha gia'
+      // reso invisibile chiamerebbe difetto una decisione.
+      final capsula = find.byKey(const Key('capsula_dell_identita'));
+      if (capsula.evaluate().isNotEmpty &&
+          area.overlaps(tester.getRect(capsula).inflate(4))) {
+        continue;
+      }
       bersagli.add((
         span: w.text,
         align: w.textAlign,

@@ -1,6 +1,6 @@
 # Censimento delle misure tipografiche scritte a mano
 
-<!-- TOTALE_CENSITO: 233 -->
+<!-- TOTALE_CENSITO: 231 -->
 <!-- FILE_CENSITI: 60 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- LETTURA_SOTTO_16: 0 -->
@@ -20,7 +20,7 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 
 | Grandezza | Valore |
 | --- | --- |
-| Misure esplicite sotto `lib/` | **233** |
+| Misure esplicite sotto `lib/` | **231** |
 | File che ne contengono | **60** |
 | Sotto il pavimento assoluto di 12 | **0** |
 | Sotto 16 in contesto di lettura | **0** |
@@ -57,7 +57,6 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/features/maestri/aura/archetype/archetype_share_card.dart` | 5 | 0 | 0 |
 | `lib/features/synastry/sinastria_gallery_screen.dart` | 5 | 0 | 0 |
 | `lib/design_system/components/consulto_del_cielo_view.dart` | 4 | 0 | 0 |
-| `lib/features/account/account_screen.dart` | 4 | 0 | 0 |
 | `lib/features/rituals/breath_destiny_screen.dart` | 4 | 0 | 0 |
 | `lib/features/santuario/widgets/tue_arti_view.dart` | 4 | 0 | 0 |
 | `lib/core/permissions/app_permission.dart` | 3 | 0 | 0 |
@@ -72,6 +71,7 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/core/permissions/avviso_del_permesso.dart` | 2 | 0 | 0 |
 | `lib/design_system/components/feature_sheet.dart` | 2 | 0 | 0 |
 | `lib/design_system/components/vip_frame.dart` | 2 | 0 | 0 |
+| `lib/features/account/account_screen.dart` | 2 | 0 | 0 |
 | `lib/features/horoscope/oroscopo_share_card.dart` | 2 | 0 | 0 |
 | `lib/features/identity/widgets/birth_companions.dart` | 2 | 0 | 0 |
 | `lib/features/maestri/caligo/animal/animal_journey.dart` | 2 | 0 | 0 |

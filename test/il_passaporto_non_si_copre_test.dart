@@ -123,6 +123,23 @@ void main() {
     // scorrere, nessun contenuto puo' restare sotto la barra, perche' non
     // esiste piu' un gesto per portarlo allo scoperto.
     for (var i = 0; i < 14; i++) {
+      // **LA FESTA SI CONGEDA, come farebbe la persona.** La visita del
+      // Passaporto matura traguardi e la celebrazione copre lo schermo: un
+      // trascinamento dentro la sua finestra muore li' e il fine corsa non
+      // arriva mai. Non e' la guardia che si allenta, e' il viaggio che si
+      // completa: la pretesa sotto resta identica.
+      for (final congedo in const [
+        Key('festa_salta'),
+        Key('celebrazione_continua'),
+      ]) {
+        final tasto = find.byKey(congedo);
+        if (tasto.evaluate().isNotEmpty) {
+          await tester.tap(tasto, warnIfMissed: false);
+          for (var p = 0; p < 4; p++) {
+            await tester.pump(const Duration(milliseconds: 150));
+          }
+        }
+      }
       await tester.dragFrom(const Offset(200, 500), const Offset(0, -650));
       await tester.pump(const Duration(milliseconds: 120));
     }

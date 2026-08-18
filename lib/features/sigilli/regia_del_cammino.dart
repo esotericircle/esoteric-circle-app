@@ -475,15 +475,19 @@ class _GuardianoDelleFesteState extends State<GuardianoDelleFeste> {
     _staCelebrando = true;
     try {
       await RegiaDelCammino.svuotaLaCoda(context);
-      // LA SINCRONIA DEI PREMI, ordine AL voce 05: il guardiano e' il primo
-      // momento della sessione in cui l'albero e' intero, ed e' qui che i
-      // premi rimasti indietro si riprendono. Dentro c'e' il suo catenaccio,
-      // quindi girare piu' volte non costa niente.
-      if (mounted) {
-        await RegiaDelCammino.riprendiIPremiPersi(context);
-      }
     } finally {
       _staCelebrando = false;
+    }
+    // LA SINCRONIA DEI PREMI, ordine AL voce 05: il guardiano e' il primo
+    // momento della sessione in cui l'albero e' intero, ed e' qui che i
+    // premi rimasti indietro si riprendono. Sta FUORI dal catenaccio delle
+    // feste, e non e' pignoleria: non celebra niente, e tenerlo dentro
+    // allungava il catenaccio di un soffio che bastava a far slittare una
+    // festa fin sopra la schermata dopo, misurato dalla prova del
+    // Passaporto. Dentro c'e' il suo catenaccio, quindi girare piu' volte
+    // non costa niente.
+    if (mounted) {
+      await RegiaDelCammino.riprendiIPremiPersi(context);
     }
   }
 

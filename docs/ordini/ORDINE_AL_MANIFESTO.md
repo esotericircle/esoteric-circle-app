@@ -140,12 +140,17 @@ suite intera UNA volta ad AL.09.
   la vecchia guardia della pillola per testata e' sostituita per decisione di
   Mauro con la grandezza nuova scritta accanto; anteprime rigenerate e
   guardate; chiude il collaudo di Mauro sulla 2180)
-- **AL.09** Il manifesto, la suite, la build 2180 — APERTA
+- **AL.09** Il manifesto, la suite, la build 2180 — CHIUSA
+  (manifesto con gli stati veri e i marcatori contati; suite intera una volta
+  col giornale pieno su file; pubspec a 0.1.0+2180; build arm64 e distribuzione
+  su App Tester coi comandi esatti dell'ordine; il rapporto porta build, link
+  della release e l'elenco delle cinque FERMATE IN ATTESA che aspettano il
+  collaudo di Mauro, piu' il passo manuale del server per gli Eos)
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 1
-VOCI_CHIUSE: 3
+VOCI_APERTE: 0
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
