@@ -72,7 +72,24 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
 
 ## Le nove voci
 
-- **AN.01** Il motore della prossima data — APERTA
+- **AN.01** Il motore della prossima data — CHIUSA
+  (`lib/core/astro/prossimi_eventi.dart`: la prossima occorrenza di ogni
+  evento si trova scandendo i giorni futuri e CHIEDENDO a
+  `EventiDelCielo.diOggi`, quindi nessun secondo motore astronomico;
+  orizzonte dichiarato di 400 giorni; la data e' l'INIZIO dell'evento, non
+  ogni giorno in cui dura, altrimenti un mese di Sole nel tuo segno
+  riempirebbe il calendario; gli stati continui, Luna crescente e calante,
+  non sono appuntamenti e restano fuori; gli eventi personali si calcolano
+  solo con segno o carta, e senza non compaiono. DUE DIFETTI TROVATI
+  MISURANDO e curati: i giorni si contavano con Duration e il cambio d'ora
+  legale spostava il solstizio di un giorno, ora si contano sul calendario;
+  e gli eventi di ATTRAVERSAMENTO (solstizi, equinozi, ritorno solare,
+  ritorni diretti) il motore di oggi li segnala a mezzanotte DOPO che
+  l'istante e' passato, quindi la data vera e' il giorno prima e si corregge
+  in un punto solo. Prove contro fonte terza: prossima Luna piena 27 agosto
+  2026 e prossimo solstizio 21 dicembre 2026, piu' la coerenza su 21 eventi
+  confrontati col motore di oggi; guardia il_motore_della_prossima_data con
+  rosso provato)
 - **AN.02** La barra cambia veste — APERTA
 - **AN.03** La schermata del Calendario degli Eventi — APERTA
 - **AN.04** La sincronia dei premi persi parte davvero all'avvio — APERTA
@@ -85,7 +102,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 9
-VOCI_CHIUSE: 0
+VOCI_APERTE: 8
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
