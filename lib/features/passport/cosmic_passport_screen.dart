@@ -761,9 +761,16 @@ class _TesseraArchetipo extends StatelessWidget {
     // e basta: la figura piu' personale del Passaporto, e l'unica tessera che
     // non portava da nessuna parte. Adesso apre il Test Archetipo, dove chi
     // l'ha gia' fatto trova se stesso e la lettura di oggi.
-    return InkWell(
+    // **UN GestureDetector E NON UN InkWell, e la ragione e' misurata.** Il
+    // ripple di Material chiede a runtime lo shader `ink_sparkle.frag`, che
+    // in una prova headless puo' non esserci: la suite intera si e' fermata
+    // una volta con "Asset 'shaders/ink_sparkle.frag' not found" dentro una
+    // prova che non c'entrava niente col Passaporto, e isolata era verde.
+    // L'ondina qui non aggiungeva nulla, sopra una DepthCard su fondo
+    // cosmico, e il tocco funziona identico.
+    return GestureDetector(
       key: const Key('passport_archetipo_tocco'),
-      borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+      behavior: HitTestBehavior.opaque,
       onTap: () => Navigator.of(context).push(ArchetypeTestScreen.route()),
       child: DepthCard(
       key: const Key('passport_archetipo'),
