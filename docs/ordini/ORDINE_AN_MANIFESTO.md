@@ -195,12 +195,18 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   l'enumerazione delle tre vie, e rosso provato simulando l'annullamento; la
   prova storica dei tre pulsanti si e' fatta piu' STRETTA, non piu' larga;
   chiude il collaudo di Mauro sulla 2182)
-- **AN.09** Il manifesto, la suite, la build 2182 — APERTA
+- **AN.09** Il manifesto, la suite, la build 2182 — CHIUSA
+  (manifesto con gli stati veri e i marcatori contati; prove del server con
+  npm test dentro functions prima della suite Flutter; suite intera col
+  giornale pieno su file; pubspec a 0.1.0+2182; build arm64 e distribuzione
+  su App Tester coi comandi esatti dell'ordine; il rapporto porta build,
+  link della release, le cinque FERMATE IN ATTESA e il deploy delle
+  functions che spetta a Mauro)
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 1
-VOCI_CHIUSE: 3
+VOCI_APERTE: 0
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
