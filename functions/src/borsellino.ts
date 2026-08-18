@@ -14,6 +14,8 @@
  * di un Sigillo si accredita due volte, e un saldo che cresce da solo e' un
  * saldo che non vale niente.
  */
+import {Piano} from "./budget";
+
 export type CausaleEos =
   | "premio_sigillo"
   | "premio_rituale"
@@ -67,6 +69,40 @@ export const BONUS_DELLA_CONDIVISIONE: Record<string, number> = {
  * di cammino.
  */
 export const TETTO_CONDIVISIONI_PREMIATE = 3;
+
+/**
+ * IL BENVENUTO, una volta sola nella vita del Cerchio. Ordine AN voce 07,
+ * dall'economia approvata: 250 Eos alla prima apertura assoluta, perche'
+ * bastano per un'esperienza premium vera e la persona capisce subito cosa
+ * si perde restando gratis.
+ */
+export const BENVENUTO = 250;
+
+/**
+ * L'ACCREDITO DEL GIORNO, per piano, al primo avvio di ogni giornata.
+ * Nell'ordine: Viandante, Iniziato, Adepto, Illuminato. In Demo vale il
+ * Viandante. Il confine del giorno e' la mezzanotte locale che il server
+ * gia' usa per i contatori: il SALDO non si azzera mai, si rinnovano solo i
+ * tetti d'uso, e questo e' un accredito, non un ripristino.
+ */
+export const ACCREDITO_DEL_GIORNO: Record<Piano, number> = {
+  free: 20,
+  tier1: 40,
+  tier2: 60,
+  tier3: 100,
+};
+
+/**
+ * LA DOTE DI SOTTOSCRIZIONE, alla PRIMA sottoscrizione di un piano. Il dato
+ * e' pronto e la pagina dei Piani lo mostra come valore del piano;
+ * l'accredito vero scattera' quando gli abbonamenti saranno acquistabili.
+ */
+export const DOTE_DEL_PIANO: Record<Piano, number> = {
+  free: 0,
+  tier1: 500,
+  tier2: 1500,
+  tier3: 3000,
+};
 
 /**
  * QUANTO VALE UN PREMIO lo decide il server, non chi lo chiede.

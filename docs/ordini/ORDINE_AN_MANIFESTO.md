@@ -162,14 +162,28 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   il_gating_a_due_strade con quattro prove, fra cui la coerenza fra le due
   regole (niente di quel che gli Eos non comprano ha un prezzo nel listino),
   e rosso provato; chiude il collaudo di Mauro sulla 2182)
-- **AN.07** Il benvenuto, l'accredito del giorno e la dote dei piani — APERTA
+- **AN.07** Il benvenuto, l'accredito del giorno e la dote dei piani — CHIUSA
+  (sul SERVER, dentro `statoDelCerchio` che il client chiede a ogni apertura,
+  quindi nessuna seconda porta sullo stesso momento: benvenuto di 250 Eos con
+  identificativo fisso, cioe' una volta sola nella vita del Cerchio, e
+  accredito del giorno con identificativo che porta la data, cioe' al piu'
+  una volta al giorno, 20 al Viandante, 40 all'Iniziato, 60 all'Adepto, 100
+  all'Illuminato; tutti e due IDEMPOTENTI e dentro la transazione del saldo,
+  che si SOMMA e non si azzera mai. La dote entra nel dato dei piani, 500,
+  1.500 e 3.000, e nella pagina come valore del piano, dichiarando che
+  l'accredito vero scattera' quando gli abbonamenti saranno acquistabili,
+  senza promettere date. Le azioni premiate NON esistono e due guardie lo
+  sorvegliano, una sul server e una sui 415 sorgenti del client. Prove:
+  npm test 25 verdi con rosso provato sul benvenuto, piu'
+  il_benvenuto_e_la_dote lato client. **IL DEPLOY DELLE FUNCTIONS SPETTA A
+  MAURO**, come dice la nota dell'ordine: `firebase deploy --only functions`)
 - **AN.08** La condivisione si paga solo se avviene davvero — APERTA
 - **AN.09** Il manifesto, la suite, la build 2182 — APERTA
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 3
-VOCI_CHIUSE: 2
+VOCI_APERTE: 2
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4

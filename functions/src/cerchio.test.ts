@@ -2,7 +2,14 @@ import {test} from "node:test";
 import assert from "node:assert/strict";
 import {chiaveDelGiorno, eOggi} from "./giorno";
 import {decidi, limiteDi, restaOggi, TETTO_DI_CORRETTEZZA} from "./budget";
-import {importoRichiesto, saldoDopo, VALORE_DEL_PREMIO} from "./borsellino";
+import {
+  ACCREDITO_DEL_GIORNO,
+  BENVENUTO,
+  DOTE_DEL_PIANO,
+  importoRichiesto,
+  saldoDopo,
+  VALORE_DEL_PREMIO,
+} from "./borsellino";
 
 /**
  * LE REGOLE DEL SERVER, provate senza rete e senza emulatore.
@@ -91,4 +98,42 @@ test("il saldo non scende sotto zero", () => {
   assert.equal(saldoDopo(10, -10), 0);
   assert.equal(saldoDopo(10, -11), null);
   assert.equal(saldoDopo(0, 10), 10);
+});
+
+// --- ORDINE AN VOCE 07: il benvenuto, il giorno e la dote ---
+
+test("il benvenuto vale 250 Eos, e uno solo", () => {
+  assert.equal(BENVENUTO, 250);
+});
+
+test("l'accredito del giorno cresce col piano", () => {
+  assert.equal(ACCREDITO_DEL_GIORNO.free, 20);
+  assert.equal(ACCREDITO_DEL_GIORNO.tier1, 40);
+  assert.equal(ACCREDITO_DEL_GIORNO.tier2, 60);
+  assert.equal(ACCREDITO_DEL_GIORNO.tier3, 100);
+  // Il Viandante prende il meno di tutti ma prende: un giorno di gioco
+  // gratuito senza niente in tasca non insegna cosa siano gli Eos.
+  assert.ok(ACCREDITO_DEL_GIORNO.free > 0);
+});
+
+test("la dote cresce col piano e il gratuito non ne ha", () => {
+  assert.equal(DOTE_DEL_PIANO.free, 0);
+  assert.equal(DOTE_DEL_PIANO.tier1, 500);
+  assert.equal(DOTE_DEL_PIANO.tier2, 1500);
+  assert.equal(DOTE_DEL_PIANO.tier3, 3000);
+});
+
+test("le azioni premiate non esistono nel listino del server", () => {
+  // Decisione di Mauro del 18 agosto: login, oracolo, soffio, mood,
+  // meditazione e video NON premiano. Se qualcuno ne aggiungesse una, il
+  // suo motivo comparirebbe qui e questa prova cadrebbe.
+  const vietati = ["login", "oracolo", "soffio", "mood", "meditazione",
+    "video"];
+  for (const motivo of vietati) {
+    assert.equal(
+      importoRichiesto("premio_sigillo", motivo, null),
+      null,
+      `il motivo ${motivo} premia: le azioni premiate sono state eliminate`
+    );
+  }
 });

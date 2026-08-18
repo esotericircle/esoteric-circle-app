@@ -12,6 +12,8 @@ import {
   restaOggi,
 } from "./budget";
 import {
+  ACCREDITO_DEL_GIORNO,
+  BENVENUTO,
   CAUSALI_CHIEDIBILI,
   TETTO_CONDIVISIONI_PREMIATE,
   causaleValida,
@@ -121,13 +123,63 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     return (dati.spesi ?? {}) as Record<string, number>;
   });
 
-  const borsellino = await borsellinoDoc(uid).get();
+  // **IL BENVENUTO E L'ACCREDITO DEL GIORNO, ordine AN voce 07.**
+  //
+  // Stanno QUI perche' `statoDelCerchio` e' cio' che il client chiede al
+  // primo avvio e a ogni apertura: un secondo giro di chiamate per gli
+  // accrediti sarebbe una seconda porta sullo stesso momento. Tutti e due
+  // sono IDEMPOTENTI e vivono nella stessa transazione del saldo: il
+  // benvenuto ha un identificativo fisso, quindi si accredita una volta
+  // sola nella vita del Cerchio; l'accredito del giorno ne ha uno che porta
+  // il giorno, quindi al piu' una volta al giorno.
+  //
+  // **IL SALDO NON SI AZZERA MAI**: a mezzanotte locale si rinnovano i tetti
+  // d'uso, e questo e' un accredito che si SOMMA. Le azioni premiate non
+  // esistono e non si predispone niente per loro: decisione di Mauro del 18
+  // agosto.
+  const saldoEos = await db.runTransaction(async (tx) => {
+    const borsellino = borsellinoDoc(uid);
+    const snap = await tx.get(borsellino);
+    let saldo = (snap.data()?.saldo as number) ?? 0;
+
+    const daAccreditare: {id: string; quanti: number; motivo: string}[] = [];
+    daAccreditare.push({
+      id: "benvenuto",
+      quanti: BENVENUTO,
+      motivo: "benvenuto",
+    });
+    const delGiorno = ACCREDITO_DEL_GIORNO[piano] ?? 0;
+    if (delGiorno > 0) {
+      daAccreditare.push({
+        id: `giorno-${giorno}`,
+        quanti: delGiorno,
+        motivo: "accredito_del_giorno",
+      });
+    }
+
+    for (const voce of daAccreditare) {
+      const movimento = utente(uid).collection("movimenti").doc(voce.id);
+      const gia = await tx.get(movimento);
+      if (gia.exists) continue;
+      saldo += voce.quanti;
+      tx.set(movimento, {
+        causale: "rettifica",
+        motivo: voce.motivo,
+        importo: voce.quanti,
+        saldoDopo: saldo,
+        quando: admin.firestore.FieldValue.serverTimestamp(),
+      });
+      tx.set(borsellino, {saldo, aggiornato: admin.firestore.FieldValue.serverTimestamp()});
+    }
+    return saldo;
+  });
+
   return {
     giorno,
     piano,
     spesi,
     resta: residuiDi(piano, spesi),
-    saldoEos: (borsellino.data()?.saldo as number) ?? 0,
+    saldoEos,
   };
 });
 

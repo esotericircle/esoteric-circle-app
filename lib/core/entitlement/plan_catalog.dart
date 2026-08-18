@@ -258,6 +258,35 @@ class PlanCatalog {
   /// parola senza tradurla in una cifra: il portafoglio dice alla persona che
   /// il piano porta un bonus, non quanto, perche' un numero inventato nel
   /// borsellino e' peggio di un numero assente.
+  /// LA DOTE DELLA PRIMA SOTTOSCRIZIONE, ordine AN voce 07.
+  ///
+  /// Chi sottoscrive un piano riceve una dote in Eos: 500 all'Iniziato,
+  /// 1.500 all'Adepto, 3.000 all'Illuminato. **Il dato e' pronto e la pagina
+  /// lo mostra come valore del piano; l'accredito vero scattera' quando gli
+  /// abbonamenti saranno acquistabili**, e fino ad allora non si promette
+  /// nessuna data, perche' una data promessa e non mantenuta vale meno di un
+  /// silenzio onesto.
+  static const Map<Tier, int> doteDellaSottoscrizione = {
+    Tier.free: 0,
+    Tier.tier1: 500,
+    Tier.tier2: 1500,
+    Tier.tier3: 3000,
+  };
+
+  /// La dote scritta come si legge: "500 Eos", oppure nulla per il piano
+  /// gratuito, che non ne ha una.
+  static String? doteScritta(Tier tier) {
+    final quanti = doteDellaSottoscrizione[tier] ?? 0;
+    if (quanti <= 0) return null;
+    final crudo = quanti.toString();
+    final testo = StringBuffer();
+    for (var i = 0; i < crudo.length; i++) {
+      if (i > 0 && (crudo.length - i) % 3 == 0) testo.write('.');
+      testo.write(crudo[i]);
+    }
+    return '$testo Eos';
+  }
+
   static String? eosOgniMese(Tier tier) {
     final riga = matrix.where((r) => r.label == 'Eos bonus mensili');
     if (riga.isEmpty) return null;
@@ -359,6 +388,10 @@ class PlanCatalog {
       'Contemplativo',
       'Dinamico esclusivo'
     ]),
+    // LA DOTE DI BENVENUTO DEL PIANO, ordine AN voce 07: si mostra come
+    // valore del piano, e la riga dice che arriva alla sottoscrizione.
+    FeatureRow('Eos in dono alla sottoscrizione',
+        ['No', '500', '1.500', '3.000']),
     FeatureRow('Domanda al Maestro reale', ['No', 'No', 'No', '1 al mese']),
     FeatureRow('Accesso anticipato nuove funzioni', ['No', 'No', 'No', 'Sì']),
     FeatureRow('Eos bonus mensili', ['No', 'Medio', 'Alto', 'Massimo']),
