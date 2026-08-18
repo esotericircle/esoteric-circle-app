@@ -148,11 +148,40 @@ qui ne' altrove.
   cade sempre prima delle 22:30, quindi per distinguere la posizione vera
   dalla stima dal fuso serve un luogo molto a ovest del suo fuso. Anteprime
   rigenerate e guardate)
-- **AO.04** I premi dei traguardi arrivano tutti — APERTA
-  (indagine per enumerazione su ogni passo del filo, con la prova che dice
-  se e' vivo o rotto; criterio di accettazione: la somma accreditata e'
-  uguale alla somma dei valori dei traguardi accesi, provato su una festa
-  unita; NESSUN TETTO GIORNALIERO, vedi P4)
+- **AO.04** I premi dei traguardi arrivano tutti — CHIUSA
+  (**IL FILO DEI PREMI E' INTERO, e il difetto stava prima.** L'enumerazione
+  ha percorso i sette passi, dal gesto al saldo, e i quattro candidati
+  dell'ordine: il premio si chiede per NOME e mai per importo; il server che
+  rifiuta NON fa segnare il libro, quindi quei premi restano da riprendere;
+  la rete assente lascia il Sigillo acceso e il premio in lista; la
+  sincronia li riprende TUTTI; tre scritture del libro nello stesso istante
+  non ne perdono nessuna. **Criterio di accettazione soddisfatto**: in una
+  festa unita da tre traguardi, tre movimenti distinti e 40 Eos accreditati
+  contro 40 attesi.
+  **LA CAUSA VERA ERA CHE IL TRAGUARDO NON MATURAVA**, e viene dalla stessa
+  famiglia della voce AN.04: `DiarioDelCammino` veniva costruito con
+  `..carica()` senza attesa, e chi apriva l'app e faceva subito un gesto
+  incontrava questa sequenza: `segna` contava il gesto su mappe ancora
+  VUOTE, portando le stese da tre a uno; `_salva` scriveva quel conto povero
+  sul disco, cancellando la storia; e il caricamento, atterrando, rileggeva
+  cio' che era appena stato scritto. Il cammino tornava al primo giorno e i
+  traguardi che aspettavano un conteggio si allontanavano. **Il difetto era
+  gia' stato incontrato e AGGIRATO DENTRO UNA PROVA** invece che curato: il
+  commento della guardia della lampadina lo descriveva parola per parola, e
+  quell'aggiramento adesso non serve piu'.
+  **La cura fonde invece di aspettare, e la prima cura era sbagliata**: far
+  attendere ogni scrittura fino a lettura avvenuta e' giusto nell'app ma
+  velenoso nelle prove, dove un gesto compiuto nel tempo vero mentre il
+  caricamento dorme nel tempo finto aspetta per sempre, e due guardie sono
+  rimaste appese otto minuti invece di cadere. Adesso chi scrive scrive
+  subito, `_salva` RIMANDA finche' il disco non e' stato letto per non
+  cancellare la storia sotto la lettura, e il caricamento SOMMA i conteggi
+  invece di sostituirli, unisce gli elenchi e tiene la serie piu' lunga.
+  Guardie `test/i_premi_dei_traguardi_arrivano_tutti_test.dart` (cinque
+  prove, l'enumerazione) e `test/il_diario_non_riparte_da_zero_test.dart`
+  (tre prove, la causa), con rosso misurato: una stesa invece di quattro,
+  disco riscritto povero e Sigillo acceso sparito. NESSUN TETTO
+  GIORNALIERO, vedi P4)
 - **AO.05** Ogni Maestro ha la sua festa, e si vede — APERTA
   (la festa porta il Maestro del traguardo che si sta celebrando, e nella
   festa unita la scena dichiara come sceglie; tre anteprime affiancate)
@@ -174,7 +203,7 @@ qui ne' altrove.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 5
-VOCI_CHIUSE: 1
+VOCI_APERTE: 4
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2

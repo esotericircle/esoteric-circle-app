@@ -88,19 +88,23 @@ void main() {
         EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await respiro(tester);
 
-    // **IL DIARIO DEVE ESSERE NATO E CARICO prima del gesto**, come nell'app
-    // vera, dove il caricamento e' finito da un pezzo quando una persona compie
-    // qualcosa. Il provider e' PIGRO: il diario nasce alla prima lettura, e il
-    // suo carica() parte in quel momento. Se la prima lettura e' il gesto
+    // **IL DIARIO NASCE PRIMA DEL GESTO**, perche' il provider e' PIGRO: il
+    // diario nasce alla prima lettura e il suo `carica()` parte in quel
+    // momento.
+    //
+    // **QUI C'ERA UN AGGIRAMENTO, e adesso non serve piu'. Ordine AO voce
+    // 04.** Il commento di prima diceva: "se la prima lettura e' il gesto
     // stesso, il caricamento atterra DURANTE il salvataggio del gesto e
-    // ripulisce la mappa portandoselo via. Misurato: e' successo, col sintomo
-    // di un segna riuscito su un diario che subito dopo risultava vuoto.
-    // Quindi: prima si forza la nascita leggendo, poi si lascia atterrare il
-    // caricamento sul tempo vero, e solo dopo si compie il gesto.
+    // ripulisce la mappa portandoselo via. Misurato: e' successo". Quel
+    // difetto era vero, ed era la causa dei premi che non arrivavano tutti:
+    // era stato aggirato QUI, dentro una prova, invece che curato nel
+    // codice. Adesso il diario aspetta di aver letto il disco prima di
+    // scrivere, quindi l'ordine e' garantito da lui e non dalla prova; qui
+    // basta un respiro perche' il caricamento atterri, e il gesto puo'
+    // arrivare quando vuole.
     final contesto = tester.element(find.byType(Navigator).first);
     contesto.read<DiarioDelCammino>();
-    await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 200)));
+    await respiro(tester);
 
     // **IL GESTO PASSA DAL REGISTRO**, che e' il tratto sotto prova: la stessa
     // porta che i riti chiamano quando il gesto e' compiuto davvero.

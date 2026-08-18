@@ -95,33 +95,69 @@ class DiarioDelCammino extends ChangeNotifier {
   Future<void> get pronto => _pronto.future;
   final Completer<void> _pronto = Completer<void>();
 
+  /// **IL CARICAMENTO NON CANCELLA CIO' CHE E' STATO SCRITTO NEL FRATTEMPO.
+  /// Ordine AO voce 04.**
+  ///
+  /// Il difetto stava qui, e il sintomo era lontano: Mauro vedeva che non
+  /// tutti i premi dei traguardi arrivavano. Il filo dei premi era intero,
+  /// provato passo per passo; a mancare era il TRAGUARDO, che non maturava
+  /// perche' il conto dei gesti si azzerava. Chi apriva l'app e faceva
+  /// subito qualcosa incontrava questa sequenza: il caricamento partiva e
+  /// andava a leggere il disco, che e' lento; `segna` contava il gesto su
+  /// mappe ancora VUOTE, portando le stese da tre a uno; salvava quel conto
+  /// povero SUL DISCO, cancellando la storia; e infine il caricamento
+  /// atterrava e sostituiva tutto con cio' che era appena stato scritto.
+  /// Il difetto era gia' stato incontrato una volta, e aggirato dentro una
+  /// prova invece che curato qui: il commento della guardia della lampadina
+  /// lo descriveva parola per parola.
+  ///
+  /// **Perche' si fonde invece di aspettare.** La prima cura faceva
+  /// attendere ogni scrittura fino a lettura avvenuta, ed era giusta
+  /// nell'app ma velenosa nelle prove: un gesto compiuto nel tempo VERO
+  /// mentre il caricamento dorme nel tempo FINTO aspetta una risposta che
+  /// non arrivera' mai, e la prova resta appesa otto minuti invece di
+  /// cadere. Misurato su due guardie. La fusione non aspetta niente e
+  /// nessuno: chi scrive scrive subito, e il caricamento, quando atterra,
+  /// SOMMA la storia del disco a cio' che nel frattempo e' successo invece
+  /// di sostituirla. Per i conteggi la somma e' la semantica giusta, perche'
+  /// il gesto in volo ha contato uno partendo da zero; per gli elenchi lo e'
+  /// l'unione, perche' nessun Sigillo acceso deve sparire.
+  bool _discoLetto = false;
+  bool _scrittoPrimaDiLeggere = false;
+
   Future<void> carica() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      _leggiMappa(prefs.getString(_kGesti), _gestiCompiuti);
-      _leggiMappa(prefs.getString(_kGiorni), _giorniConGesto);
-      _leggiMappa(prefs.getString(_kOre), _gestiNellOraGiusta);
-      _giornoDiOggi = prefs.getString(_kGiornoDiOggi) ?? '';
-      _oggiHaFatto
-        ..clear()
-        ..addAll(prefs.getStringList(_kOggi) ?? const []);
-      _primoGiorno = prefs.getString(_kPrimoGiorno);
-      _ultimoGiorno = prefs.getString(_kUltimoGiorno);
-      _accesi
-        ..clear()
-        ..addAll(prefs.getStringList(_kAccesi) ?? const []);
-      _condivisi
-        ..clear()
-        ..addAll(prefs.getStringList(_kCondivisi) ?? const []);
-      _leggiMappa(prefs.getString(_kSerie), _seriePerRito);
+      // **SI FONDE SE QUALCUNO HA SCRITTO MENTRE LEGGEVAMO**, e si sostituisce
+      // se il disco e' l'unica verita' esistente. Vedi la spiegazione sopra:
+      // e' la cura del conto dei gesti che si azzerava.
+      final fondi = _scrittoPrimaDiLeggere;
+      _leggiMappa(prefs.getString(_kGesti), _gestiCompiuti, sommando: fondi);
+      _leggiMappa(prefs.getString(_kGiorni), _giorniConGesto, sommando: fondi);
+      _leggiMappa(prefs.getString(_kOre), _gestiNellOraGiusta, sommando: fondi);
+      if (!fondi) _giornoDiOggi = prefs.getString(_kGiornoDiOggi) ?? '';
+      _oggiHaFatto.addAll(prefs.getStringList(_kOggi) ?? const []);
+      // Il primo giorno e' il PIU' VECCHIO dei due, mai quello nato adesso.
+      _primoGiorno = prefs.getString(_kPrimoGiorno) ?? _primoGiorno;
+      if (!fondi) _ultimoGiorno = prefs.getString(_kUltimoGiorno);
+      _accesi.addAll(prefs.getStringList(_kAccesi) ?? const []);
+      _condivisi.addAll(prefs.getStringList(_kCondivisi) ?? const []);
+      // La serie di giorni di seguito NON si somma: si tiene la piu' lunga,
+      // perche' due conteggi dello stesso giorno non fanno due giorni.
+      _leggiMappa(prefs.getString(_kSerie), _seriePerRito,
+          tenendoIlMassimo: fondi);
       _leggiTesti(prefs.getString(_kUltimoPerRito), _ultimoGiornoPerRito);
+      _discoLetto = true;
       _apriIlGiorno();
       notifyListeners();
+      // Cio' che si e' fuso vive solo in memoria finche' non si riscrive.
+      if (fondi) await _salva();
     } catch (errore) {
       // Si ignora: un diario illeggibile vale come diario vuoto. Il cammino
       // riparte, e i Sigilli gia' accesi che il server conosce torneranno
       // quando la sincronia col Cerchio li riportera'.
     } finally {
+      _discoLetto = true;
       // PRONTO ANCHE SE LA LETTURA E' FALLITA: chi aspetta deve ripartire
       // comunque, altrimenti un disco illeggibile bloccherebbe per sempre
       // chi sta in attesa.
@@ -146,6 +182,7 @@ class DiarioDelCammino extends ChangeNotifier {
   /// lo chiamano dal punto in cui il gesto e' davvero compiuto: non
   /// all'apertura di una scena, che si apre anche per sbaglio.
   Future<void> segna(String gesto, {String? oraRituale}) async {
+    _scrittoPrimaDiLeggere = !_discoLetto;
     _apriIlGiorno();
     _gestiCompiuti[gesto] = (_gestiCompiuti[gesto] ?? 0) + 1;
     if (_oggiHaFatto.add(gesto)) {
@@ -201,6 +238,7 @@ class DiarioDelCammino extends ChangeNotifier {
   /// sa se deve celebrare: accendere due volte lo stesso Sigillo non
   /// celebrerebbe niente, festeggerebbe un ricordo.
   Future<bool> accendi(String id) async {
+    _scrittoPrimaDiLeggere = !_discoLetto;
     if (!_accesi.add(id)) return false;
     notifyListeners();
     await _salva();
@@ -208,6 +246,7 @@ class DiarioDelCammino extends ChangeNotifier {
   }
 
   Future<void> segnaCondiviso(String id) async {
+    _scrittoPrimaDiLeggere = !_discoLetto;
     if (!_condivisi.add(id)) return;
     notifyListeners();
     await _salva();
@@ -286,15 +325,31 @@ class DiarioDelCammino extends ChangeNotifier {
     }
   }
 
-  void _leggiMappa(String? testo, Map<String, int> dentro) {
-    dentro.clear();
+  /// Legge una mappa di conteggi dal disco.
+  ///
+  /// **Tre modi, e ognuno ha il suo caso.** Di regola SOSTITUISCE, perche' il
+  /// disco e' la verita' e in memoria non c'e' niente. Se qualcuno ha scritto
+  /// mentre leggevamo, ordine AO voce 04, allora SOMMA, perche' il gesto in
+  /// volo ha contato uno partendo da zero e la storia del disco va davanti a
+  /// lui. Per le serie di giorni di seguito si tiene il MASSIMO: due
+  /// conteggi dello stesso giorno non fanno due giorni.
+  void _leggiMappa(String? testo, Map<String, int> dentro,
+      {bool sommando = false, bool tenendoIlMassimo = false}) {
+    final fondi = sommando || tenendoIlMassimo;
+    if (!fondi) dentro.clear();
     if (testo == null || testo.isEmpty) return;
     try {
       final letto = jsonDecode(testo);
       if (letto is! Map) return;
       for (final voce in letto.entries) {
         final valore = voce.value;
-        if (valore is num) dentro['${voce.key}'] = valore.toInt();
+        if (valore is! num) continue;
+        final chiave = '${voce.key}';
+        final daDisco = valore.toInt();
+        final inMemoria = dentro[chiave] ?? 0;
+        dentro[chiave] = tenendoIlMassimo
+            ? (daDisco > inMemoria ? daDisco : inMemoria)
+            : (sommando ? inMemoria + daDisco : daDisco);
       }
     } catch (errore) {
       // Si ignora: una voce illeggibile vale zero, e il cammino continua.
@@ -302,6 +357,13 @@ class DiarioDelCammino extends ChangeNotifier {
   }
 
   Future<void> _salva() async {
+    // **NON SI SCRIVE PRIMA DI AVER LETTO. Ordine AO voce 04.** Scrivere ora
+    // vorrebbe dire cancellare dal disco la storia che il caricamento sta
+    // ancora leggendo, e la fusione, quando atterra, troverebbe un disco gia'
+    // povero: le stese tornavano due invece di quattro, misurato. Non e'
+    // un'attesa, e' un rinvio: il caricamento salva lui appena ha fuso, e
+    // sono i millisecondi di una lettura da disco.
+    if (!_discoLetto) return;
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_kGesti, jsonEncode(_gestiCompiuti));

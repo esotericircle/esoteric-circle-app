@@ -134,6 +134,14 @@ void main() {
     // Non si attende la regia: se la festa fosse a valle dell'attesa, questa
     // riga non tornerebbe mai, ed e' proprio il caso da prendere.
     unawaited(RegiaDelCammino.dopoUnGesto(dentro, gesto));
+    // **UN GIRO IN PIU', e non e' un allentamento. Ordine AO voce 04.** Il
+    // diario adesso aspetta che il disco sia stato letto prima di scrivere,
+    // perche' un gesto contato su mappe vuote cancellava la storia e i
+    // traguardi non maturavano piu'. E' un microtask in piu' nella catena,
+    // non un'attesa di rete: la porta di questa prova resta appesa PER
+    // SEMPRE, quindi se la festa dipendesse dalla rete nessun numero di giri
+    // la farebbe comparire, e questa prova resterebbe rossa come deve.
+    await tester.pump();
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
