@@ -341,7 +341,7 @@ class _DailyStripState extends State<DailyStrip>
     with SingleTickerProviderStateMixin {
   late final AnimationController _pulse;
   final ScrollController _scroll = ScrollController();
-  Timer? _tick; // fa scorrere il conto alla rovescia al tramonto
+  Timer? _tick; // sveglia la striscia al tramonto e a mezzogiorno
   SkyPlace? _luogo; // la posizione reale, solo se il permesso e' già concesso
   String? _runaApertaIl; // il giorno rituale della runa già vissuta
 
@@ -349,30 +349,27 @@ class _DailyStripState extends State<DailyStrip>
   // al cerchio "?", senza mai troncare l'etichetta ne' sforare la riga.
   /// L'altezza della fascia.
   ///
-  /// Centoquarantaquattro e non centotrentadue. La casella di un Dono contiene
-  /// l'icona da 46, sei di stacco, la riga dell'etichetta col cerchio "?" e lo
-  /// slot del conto alla rovescia da 12: con centotrentadue lo spazio che
-  /// restava all'elenco era esattamente al limite, e sui rapporti di pixel
-  /// alti l'arrotondamento del testo lo superava di dieci punti. Era
-  /// l'overflow che rendeva rosse nove prove.
-  ///
-  /// Nella stima avevo scritto che avrei evitato di alzare la fascia per non
-  /// mangiare spazio all'eroe. L'ho cambiata: dodici punti su
-  /// settecentonovantasette sono un prezzo piccolo, e le alternative
-  /// toccavano l'allineamento delle caselle, che e' piu' fragile.
-  /// **CENTOQUARANTOTTO DALL'ORDINE A**, e il commento qui sotto lo aveva
-  /// previsto: "se domani l'etichetta cresce, la soglia e' gia' il posto dove
-  /// dirlo". L'etichetta e' cresciuta, da undici punti al pavimento di dodici,
-  /// e la casella ha cominciato a sbordare di 2,0 pixel in basso, misurati su
-  /// tre rapporti di schermo diversi. Quattro punti invece di due perche' il
-  /// margine di prima era esattamente zero, ed e' il motivo per cui e' bastato
-  /// un punto di carattere per romperlo. Due punti vengono da qui e due dallo
-  /// stacco fra icona ed etichetta, perche' prenderli tutti e quattro da qui
-  /// avrebbe fatto scendere la carta del Maestro centrale sotto il quaranta per
-  /// cento dello schermo che `SantuarioScreen.quotaMinimaCarta` le garantisce:
-  /// misurato, 39,9 contro 40,0.
-  static const double _heightLarga = 146;
-  static const double _heightStretta = 146;
+  /// **LA STORIA DELLE MISURE, perche' nessuno la riscopra.** La fascia e'
+  /// salita per gradi, da centotrentadue a centoquarantaquattro e poi a
+  /// centoquarantasei, e ogni salita aveva la sua ragione misurata: la
+  /// casella conteneva l'icona da 46, gli stacchi, la riga dell'etichetta
+  /// col cerchio "?" e lo slot del conto alla rovescia da 12, e quando
+  /// l'etichetta e' cresciuta di un punto di carattere la casella ha
+  /// cominciato a sbordare di 2,0 pixel su tre rapporti di schermo. Ogni
+  /// volta si e' preferito alzare la fascia invece di stringere le caselle,
+  /// perche' l'alternativa toccava il loro allineamento e la carta del
+  /// Maestro centrale, che non deve scendere sotto il quaranta per cento
+  /// dello schermo garantito da `SantuarioScreen.quotaMinimaCarta`.
+  /// **L'ALTEZZA DELLA FASCIA, ordine AO voce 03: da 146 a 122.** I
+  /// ventiquattro punti recuperati non sono stati tolti a caso: dodici
+  /// vengono dallo slot morto del conto alla rovescia, che stava sotto ogni
+  /// casella per scrivere sotto una sola, e dodici dai quattro stacchi
+  /// interni, portati da otto e sei a quattro ciascuno. **Nessuno viene
+  /// dall'area di tocco**, che resta intera: cerchio dell'icona
+  /// quarantasei, bersaglio dell'aiuto quarantaquattro per quarantaquattro,
+  /// e una prova cade se qualcuno prova a stringerli per far posto.
+  static const double _heightLarga = 122;
+  static const double _heightStretta = 122;
 
   /// L'altezza della fascia, che SI ADATTA alla larghezza.
   ///
@@ -431,23 +428,20 @@ class _DailyStripState extends State<DailyStrip>
     }
   }
 
-  // Il conto alla rovescia batte ogni trenta secondi finche' c'e' qualcosa da
-  // contare. Passato il tramonto si ferma, e resta un solo risveglio al prossimo
-  // cambio di giorno rituale, cosi' a notte fonda la striscia non si ricostruisce
-  // per sempre a vuoto.
+  // **UNA SVEGLIA SOLA, AL PROSSIMO ISTANTE CHE CAMBIA QUALCOSA. Ordine AO
+  // voce 03.** Qui c'era un battito ogni TRENTA SECONDI, cioe' centoventi
+  // ricostruzioni all'ora, e serviva a far scorrere il conto alla rovescia
+  // che adesso non si mostra piu'. Restano due soli istanti in cui la
+  // striscia cambia davvero faccia: il TRAMONTO, che accende la casella
+  // della Runa, e il confine del giorno rituale a mezzogiorno, che cambia il
+  // dono attivo. Si dorme fino al primo dei due e non un minuto di meno.
   void _programmaTick() {
     _tick?.cancel();
     final now = _clock();
-    if (_contoTramonto(now) != null) {
-      _tick = Timer.periodic(const Duration(seconds: 30), (_) {
-        if (!mounted) return;
-        setState(() {});
-        // Appena il conto finisce, si riprogramma: il periodico si spegne.
-        if (_contoTramonto(_clock()) == null) _programmaTick();
-      });
-      return;
-    }
-    final risveglio = _prossimoConfineRituale(now);
+    final tramonto = _tramontoDelGiornoRituale(now);
+    final confine = _prossimoConfineRituale(now);
+    final risveglio =
+        tramonto.isAfter(now) && tramonto.isBefore(confine) ? tramonto : confine;
     _tick = Timer(risveglio.difference(now), () {
       if (!mounted) return;
       setState(() {});
@@ -497,16 +491,6 @@ class _DailyStripState extends State<DailyStrip>
       _runaApertaIl != null &&
       _runaApertaIl == SunsetRune.iso(SunsetRune.giornoRituale(now));
 
-  String? _contoTramonto(DateTime now) {
-    // Se la runa di stasera e' gia' stata vissuta, nessun conto: e' fatta.
-    if (_runaGiaVissuta(now)) return null;
-    final minuti = _tramontoDelGiornoRituale(now).difference(now).inMinutes;
-    if (minuti <= 0) return null;
-    final h = minuti ~/ 60;
-    final m = minuti % 60;
-    return h > 0 ? 'tra ${h}h ${m}min' : 'tra ${m}min';
-  }
-
   // La casella della Runa e' accesa quando il tramonto del giorno rituale e'
   // passato, oppure quando la runa di stasera e' gia' stata vissuta.
   bool _tramontoArrivato(DateTime now) =>
@@ -537,9 +521,11 @@ class _DailyStripState extends State<DailyStrip>
       ),
       child: Column(
         children: [
-          // Staccata dal margine superiore: un respiro sotto la safe area, mai a
-          // ridosso della tacca.
-          const SizedBox(height: 8),
+          // Staccata dal margine superiore: un respiro sotto la safe area, mai
+          // a ridosso della tacca. **Da otto a quattro, ordine AO voce 03**:
+          // sopra c'e' gia' la barra sottile dell'identita' che tiene la sua
+          // distanza, quindi qui il respiro era doppio.
+          const SizedBox(height: 4),
           // Riga sottile che annuncia la striscia, centrata.
           Text(
             'I tuoi doni del giorno',
@@ -557,7 +543,7 @@ class _DailyStripState extends State<DailyStrip>
               letterSpacing: 1.2,
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Expanded(
             // **I DONI TORNANO A TUTTA LARGHEZZA, ordine AM voce 03.** La
             // capsula se n'e' andata e con lei la riserva di destra: resta
@@ -608,7 +594,6 @@ class _DailyStripState extends State<DailyStrip>
                   pulse: _pulse,
                   width: DailyStrip.larghezzaCasella(
                       MediaQuery.of(context).size.width),
-                  subtitle: isRuna ? _contoTramonto(now) : null,
                   onTap: () => _open(element),
                   onInfo: () =>
                       _showElementInfo(context, element, maestro, accent),
@@ -617,11 +602,11 @@ class _DailyStripState extends State<DailyStrip>
               ),
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           // Barra di scorrimento sottile: segnala che le icone continuano oltre
           // quelle visibili, nell'oro del tema.
           _StripScrollbar(controller: _scroll),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
         ],
       ),
     );
@@ -701,7 +686,6 @@ class _StripItem extends StatelessWidget {
     required this.width,
     required this.onTap,
     required this.onInfo,
-    this.subtitle,
   });
 
   final DailyElement element;
@@ -715,7 +699,6 @@ class _StripItem extends StatelessWidget {
   /// Riga sotto l'etichetta, oggi usata solo dalla Runa per il conto alla
   /// rovescia al tramonto. Lo spazio e' riservato uguale per tutti, cosi' le
   /// icone restano allineate anche dove la riga e' vuota.
-  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -878,22 +861,14 @@ class _StripItem extends StatelessWidget {
                 ],
               ),
             ),
-            // Slot del conto alla rovescia, altezza fissa per tutti.
-            SizedBox(
-              height: 12,
-              child: subtitle == null
-                  ? null
-                  : Text(
-                      subtitle!,
-                      key: Key('daily_conto_${element.name}'),
-                      maxLines: 1,
-                      softWrap: false,
-                      style: TypographyTokens.etichetta().copyWith(
-                        color: accent.withValues(alpha: 0.95),
-                        letterSpacing: 0.2,
-                      ),
-                    ),
-            ),
+            // **LO SLOT DEL CONTO ALLA ROVESCIA NON C'E' PIU'. Ordine AO
+            // voce 03.** Qui stava un riquadro alto dodici punti riservato
+            // sotto OGNI casella, per scrivere "tra 1h 20min" sotto una
+            // sola: quattro caselle su cinque pagavano lo spazio di un
+            // avviso che non le riguardava. Mauro lo ha chiesto via dal
+            // collaudo della 2182. L'ora del dono non e' andata perduta,
+            // vive dove si CHIEDE, nella spiegazione che apre il punto
+            // interrogativo, e una prova la cerca li'.
           ],
         ));
   }

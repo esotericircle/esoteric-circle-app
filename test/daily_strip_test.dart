@@ -99,19 +99,34 @@ void main() {
     }
   });
 
-  testWidgets('La casella della Runa mostra il conto alla rovescia al tramonto',
+
+  /// **COME SI VEDE CHE LA CASELLA DEL TRAMONTO E' ACCESA, ordine AO voce
+  /// 03.** Il conto alla rovescia sotto la casella non esiste piu': Mauro lo
+  /// ha chiesto via dal collaudo della 2182, insieme allo slot da dodici
+  /// punti che occupava sotto ogni casella. Cio' che quelle prove volevano
+  /// davvero sapere e' se la striscia ha capito che il tramonto e' passato,
+  /// e quello si legge dall'ACCENSIONE: l'etichetta di una casella accesa e'
+  /// d'oro, quella di una spenta e' del colore del testo secondario. E' un
+  /// segno piu' forte del conto, perche' e' quello che la persona vede.
+  bool tramontoAcceso(WidgetTester tester) {
+    final etichetta = tester.widget<Text>(find.text('Tramonto'));
+    // L'oro della striscia, riletto nel sorgente: Color(0xFFE8C463).
+    return etichetta.style?.color == const Color(0xFFE8C463);
+  }
+
+  testWidgets('Prima del tramonto la casella del Tramonto e\' spenta',
       (tester) async {
-    // Primo pomeriggio: il tramonto e' piu' tardi, il conto e' a vista.
+    // Primo pomeriggio: il tramonto e' piu' tardi, quindi la casella e'
+    // ancora spenta e nessun conto alla rovescia compare sotto NESSUNA
+    // casella, perche' quello slot non esiste piu'.
     await tester
         .pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();
-    final conto = find.byKey(const Key('daily_conto_rune'));
-    expect(conto, findsOneWidget);
-    expect(tester.widget<Text>(conto).data, startsWith('tra '));
-    // Solo la Runa ha il conto: le altre caselle no.
+    expect(tramontoAcceso(tester), isFalse,
+        reason: 'la casella del Tramonto e\' accesa alle 13:00');
     for (final e in DailyElement.values) {
-      if (e == DailyElement.rune) continue;
-      expect(find.byKey(Key('daily_conto_${e.name}')), findsNothing);
+      expect(find.byKey(Key('daily_conto_${e.name}')), findsNothing,
+          reason: 'sotto ${e.name} c\'e\' ancora un conto alla rovescia');
     }
   });
 
@@ -136,16 +151,27 @@ void main() {
 
     expect(spia.chiesto, 0, reason: 'nessuna richiesta di permesso all\'apertura');
     expect(spia.guardato, greaterThan(0), reason: 'ha guardato senza chiedere');
-    // Ripiego sul tramonto stimato dal fuso: il conto c'e' e coincide.
+    // **IL RIPIEGO SUL TRAMONTO STIMATO DAL FUSO SI VEDE DALL'ACCENSIONE,
+    // ordine AO voce 03.** Prima si leggeva dentro il conto alla rovescia,
+    // che non esiste piu': si guarda allora se la casella e' spenta prima
+    // del tramonto stimato e accesa un'ora dopo. Se il ripiego non
+    // funzionasse, la striscia non saprebbe niente del tramonto e le due
+    // scene sarebbero identiche.
     final stimato = SunsetTime.perData(SunsetRune.giornoRituale(now),
         lat: SunsetTime.latDiRipiego,
         lon: SunsetTime.longitudineDaFuso(now.timeZoneOffset),
         offset: now.timeZoneOffset)!;
-    final minuti = stimato.difference(now).inMinutes;
-    final atteso = minuti >= 60
-        ? 'tra ${minuti ~/ 60}h ${minuti % 60}min'
-        : 'tra ${minuti % 60}min';
-    expect(find.text(atteso), findsOneWidget);
+    expect(tramontoAcceso(tester), isFalse,
+        reason: 'alle ${now.hour} la casella e\' gia\' accesa, ma il tramonto '
+            'stimato e\' alle ${stimato.hour}');
+    final dopo = stimato.add(const Duration(hours: 1));
+    await tester
+        .pumpWidget(_host(DailyStrip(clock: () => dopo, location: spia)));
+    await tester.pump();
+    await tester.pump();
+    expect(tramontoAcceso(tester), isTrue,
+        reason: 'un\'ora dopo il tramonto stimato la casella e\' ancora '
+            'spenta: il ripiego dal fuso non sta funzionando');
   });
 
   testWidgets('Il confine di giornata e\' quello rituale, come la schermata',
@@ -158,8 +184,13 @@ void main() {
     await tester
         .pumpWidget(_host(DailyStrip(clock: () => notte)));
     await tester.pump();
-    // Il tramonto del giorno rituale (ieri) e' passato: nessun conto.
-    expect(find.byKey(const Key('daily_conto_rune')), findsNothing);
+    // Il tramonto del giorno rituale (ieri) e' passato: la casella e' ACCESA.
+    // **Ordine AO voce 03**: prima lo si leggeva dall'assenza del conto alla
+    // rovescia, che era un segno indiretto, e adesso lo dice l'accensione,
+    // cioe' quello che la persona vede davvero.
+    expect(tramontoAcceso(tester), isTrue,
+        reason: 'alle 3 di notte il tramonto del giorno rituale, cioe\' di '
+            'ieri, e\' passato da un pezzo: la casella doveva essere accesa');
 
     // Alle 13:00 il giorno rituale e' oggi e il tramonto e' ancora davanti.
     final pomeriggio = DateTime(2026, 7, 14, 13, 0);
@@ -167,12 +198,9 @@ void main() {
     await tester
         .pumpWidget(_host(DailyStrip(clock: () => pomeriggio)));
     await tester.pump();
-    final conto = find.byKey(const Key('daily_conto_rune'));
-    expect(conto, findsOneWidget);
-    // E il conto e' quello del giorno rituale corrente, poche ore, non diciassette.
-    final testo = tester.widget<Text>(conto).data!;
-    final ore = int.parse(RegExp(r'tra (\d+)h').firstMatch(testo)!.group(1)!);
-    expect(ore, lessThan(12), reason: 'conto sul giorno rituale, non su domani');
+    expect(tramontoAcceso(tester), isFalse,
+        reason: 'alle 13:00 la casella e\' accesa: sta guardando il tramonto '
+            'di ieri invece di quello del giorno rituale corrente');
   });
 
   testWidgets('Il bersaglio del controllo di aiuto e\' almeno 44 per 44',
@@ -204,24 +232,52 @@ void main() {
     expect(find.byKey(const Key('daily_info_close_rune')), findsOneWidget);
   });
 
-  testWidgets('Il conto usa la posizione reale, la stessa fonte della schermata',
-      (tester) async {
-    // Con una posizione nota, il conto della striscia deve coincidere con il
-    // tramonto calcolato su quella posizione, non sulla stima dal fuso.
-    final now = DateTime(2026, 6, 21, 14, 0);
-    const luogo = _LuogoFinto(SkyPlace(latitude: 41.9, longitude: 12.5));
-    await tester.pumpWidget(_host(
-        DailyStrip(clock: () => now, location: luogo)));
-    await tester.pump(); // risolve la posizione
-    await tester.pump();
+  testWidgets('La striscia usa la posizione reale, la stessa fonte della '
+      'schermata', (tester) async {
+    // **COSA MISURA QUESTA PROVA, e come e' cambiata di grandezza. Ordine AO
+    // voce 03.** La domanda resta quella di prima: la striscia usa la
+    // POSIZIONE VERA per sapere quando tramonta, o ripiega sulla stima dal
+    // fuso anche quando la posizione ce l'ha? La risposta si leggeva nel
+    // conto alla rovescia, che Mauro ha tolto dal collaudo della 2182, e
+    // adesso si legge nell'ACCENSIONE della casella del Tramonto.
+    //
+    // **DUE TRAPPOLE, trovate misurando e non ragionando.** La prima: la
+    // casella e' accesa anche quando la Runa e' semplicemente l'ELEMENTO
+    // CORRENTE, cioe' fra le 18:30 e le 22:30, e in quella finestra
+    // l'accensione non dice niente sul tramonto. La seconda: con una
+    // posizione italiana il tramonto cade sempre PRIMA delle 22:30, quindi
+    // fuori da quella finestra le due fonti concordano comunque. Serve una
+    // posizione molto a ovest del suo fuso, dove il sole tramonta dopo la
+    // mezzanotte: li' alle 23 l'elemento corrente e' la Notte, la stima dal
+    // fuso dice tramontato e la posizione vera dice di no, e la casella
+    // dichiara quale delle due sta ascoltando.
+    final quando = DateTime(2026, 6, 21, 23, 0);
+    const luogo = _LuogoFinto(SkyPlace(latitude: 41.9, longitude: -30));
+    final veroLaggiu = SunsetTime.perData(SunsetRune.giornoRituale(quando),
+        lat: 41.9, lon: -30, offset: quando.timeZoneOffset)!;
+    final stimaDalFuso = SunsetTime.perData(SunsetRune.giornoRituale(quando),
+        lat: SunsetTime.latDiRipiego,
+        lon: SunsetTime.longitudineDaFuso(quando.timeZoneOffset),
+        offset: quando.timeZoneOffset)!;
+    // ignore: avoid_print
+    print('ORDINE AO VOCE 03: alle $quando, tramonto sulla posizione vera '
+        '$veroLaggiu, stima dal fuso $stimaDalFuso');
+    expect(quando.isAfter(stimaDalFuso), isTrue,
+        reason: 'la prova non distingue: a quella ora la stima non e ancora '
+            'passata');
+    expect(quando.isBefore(veroLaggiu), isTrue,
+        reason: 'la prova non distingue: a quella ora anche il tramonto vero '
+            'e passato');
 
-    final tramonto = SunsetTime.perData(now,
-        lat: 41.9, lon: 12.5, offset: now.timeZoneOffset)!;
-    final minuti = tramonto.difference(now).inMinutes;
-    final h = minuti ~/ 60;
-    final m = minuti % 60;
-    final atteso = h > 0 ? 'tra ${h}h ${m}min' : 'tra ${m}min';
-    expect(find.text(atteso), findsOneWidget);
+    await tester.pumpWidget(
+        _host(DailyStrip(clock: () => quando, location: luogo)));
+    await tester.pump();
+    await tester.pump();
+    expect(tramontoAcceso(tester), isFalse,
+        reason: 'la casella del Tramonto risulta accesa alle 23 di una '
+            'posizione dove il sole tramonta dopo mezzanotte: la striscia sta '
+            'usando la stima dal fuso invece della posizione che le e stata '
+            'data');
   });
 
   testWidgets('L\'header e\' centrato orizzontalmente', (tester) async {

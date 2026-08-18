@@ -125,10 +125,29 @@ qui ne' altrove.
   `test/la_barra_si_ritira_da_sola_test.dart` con sette prove e ROSSO
   PROVATO SU TUTTE E QUATTRO LE VIE, spegnendo prima gli ascolti e poi anche
   il ritiro sul cambio di rotta. Chiude il collaudo di Mauro sulla 2183)
-- **AO.03** La striscia dei doni occupa meno spazio — APERTA
-  (misura prima e dopo alla larghezza vera, margini sopra e sotto ridotti
-  senza toccare l'area di tocco delle icone, e via l'avviso col conto alla
-  rovescia della P2)
+- **AO.03** La striscia dei doni occupa meno spazio — CHIUSA
+  (**da 146,0 a 122,0 punti**, misurati prima e dopo montandola a 360, 390 e
+  412: ventiquattro punti tornati al cielo e alla carta del Maestro. Dodici
+  vengono dallo SLOT MORTO del conto alla rovescia, che stava sotto ogni
+  casella per scrivere sotto una sola, e dodici dai quattro stacchi interni,
+  da otto e sei a quattro ciascuno. **Nessuno dall'area di tocco**: cerchio
+  dell'icona 46 e bersaglio dell'aiuto 44 per 44, misurati dopo la cura.
+  L'avviso col conto alla rovescia esisteva davvero, come dice la P2, e se
+  n'e' andato con lui il battito ogni TRENTA SECONDI che lo faceva scorrere,
+  cioe' centoventi ricostruzioni all'ora: al suo posto una sveglia sola al
+  primo istante che cambia qualcosa, il tramonto o il mezzogiorno rituale.
+  L'ora del dono non e' andata perduta, resta dove si CHIEDE, nella
+  spiegazione del punto interrogativo, e una prova la cerca li'. Guardia
+  `test/la_striscia_dei_doni_non_ruba_spazio_test.dart` con sei prove e
+  rosso provato sulle tre altezze; tre prove sorelle di `daily_strip_test`
+  cambiate di grandezza col perche' accanto, perche' misuravano il conto che
+  non esiste piu' e ora misurano l'ACCENSIONE della casella, che e' quello
+  che la persona vede. **Due trappole trovate misurando** e scritte accanto
+  alla prova: la casella e' accesa anche solo perche' la Runa e' l'elemento
+  corrente fra le 18:30 e le 22:30, e con una posizione italiana il tramonto
+  cade sempre prima delle 22:30, quindi per distinguere la posizione vera
+  dalla stima dal fuso serve un luogo molto a ovest del suo fuso. Anteprime
+  rigenerate e guardate)
 - **AO.04** I premi dei traguardi arrivano tutti — APERTA
   (indagine per enumerazione su ogni passo del filo, con la prova che dice
   se e' vivo o rotto; criterio di accettazione: la somma accreditata e'
@@ -155,7 +174,7 @@ qui ne' altrove.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 6
-VOCI_CHIUSE: 0
+VOCI_APERTE: 5
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
