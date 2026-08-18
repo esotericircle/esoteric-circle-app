@@ -120,13 +120,32 @@ suite intera UNA volta ad AL.09.
   che ne vieta il ritorno nei sorgenti; "Piu' tardi" resta; nessuna decisione
   di prodotto e' servita perche' la riga dichiara la realta' e la forma era
   nel dettato; guardia l_onboarding_riconosce_e_propone con rosso provato)
-- **AL.08** La capsula persistente di volto e borsellino — APERTA
+- **AL.08** La capsula persistente di volto e borsellino — FERMATA IN ATTESA DI DECISIONE
+  (la capsula vive sopra il Navigator come la barra, in alto a destra su ogni
+  schermata tranne le tre soglie del Risveglio dichiarate; volto sopra con la
+  porta dell'account e saldo sotto con la MONETA D'ORO consegnata da Mauro,
+  docs/consegne/Eos1.png, ritagliata sull'alpha vero e adattata in
+  assets/brand/moneta_eos.webp; la scritta incisa si perde alle misure piccole
+  ed e' dichiarato; la pillola dentro la capsula e' quella VERA in forma
+  verticale nuova, con veste mista, conto che sale e bersaglio del volo; le
+  testate hanno perso le loro copie di pillola e porta, Santuario, Passaporto,
+  dominio, chat, Consiglio e barre delle arti, e il segno ha UNA casa sola
+  sorvegliata dai sorgenti; il cuore delle arti e' passato al capo sinistro
+  accanto alla freccia cosi' il titolo non perde punti; i doni scorrono a
+  sinistra della capsula e SFUMANO sparendo prima di scivolarci sotto,
+  gradiente e mai sfocatura, corretto GUARDANDO l'anteprima; tocco sul volto
+  apre AccountScreen e tocco sul saldo apre il borsellino per le vie della
+  barra; il saldo a quattro cifre misurato dalla prova; ESPLORA e menu' a
+  scomparsa intatti; guardia la_capsula_su_ogni_schermata con rosso provato;
+  la vecchia guardia della pillola per testata e' sostituita per decisione di
+  Mauro con la grandezza nuova scritta accanto; anteprime rigenerate e
+  guardate; chiude il collaudo di Mauro sulla 2180)
 - **AL.09** Il manifesto, la suite, la build 2180 — APERTA
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 2
+VOCI_APERTE: 1
 VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5

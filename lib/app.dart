@@ -29,6 +29,7 @@ import 'features/onboarding/onboarding_screen.dart';
 import 'features/santuario/greeting_controller.dart';
 import 'features/shell/app_shell.dart';
 import 'features/shell/barra_del_cerchio.dart';
+import 'features/shell/capsula_dell_identita.dart';
 import 'features/shell/navigation_controller.dart';
 import 'core/identity/account_del_cerchio.dart';
 import 'core/sigilli/coda_delle_feste.dart';
@@ -332,8 +333,15 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
                     // Questo scope neutro e' il pavimento: ogni rotta spinta
                     // sopra puo' sempre vestire il suo Maestro, e il piu'
                     // vicino vince.
+                    // LA CAPSULA DELL'IDENTITA' STA QUI, ordine AL voce 08:
+                    // sopra il Navigator come la barra, cosi' e' UNA in
+                    // tutta l'app e le testate hanno perso le loro copie.
+                    // Sta DENTRO lo scope, che le da' il velo.
                     child: MaestroScope(
-                      child: child ?? const SizedBox.shrink(),
+                      child: CapsulaDellIdentita(
+                        observatore: _pila,
+                        child: child ?? const SizedBox.shrink(),
+                      ),
                     ),
                   ),
                 )),

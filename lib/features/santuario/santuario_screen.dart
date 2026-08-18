@@ -24,8 +24,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/identity/account_del_cerchio.dart';
 import '../../core/identity/quando_chiedere_la_custodia.dart';
-import '../../design_system/components/borsellino.dart';
-import '../../design_system/components/porta_dell_account.dart';
 import '../account/custodia_del_cielo.dart';
 import '../maestri/art_navigation.dart';
 import '../maestri/widgets/striscia_altre_arti.dart';
@@ -806,23 +804,10 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               ),
 
 
-              // In alto a destra vivono LA PILLOLA E LA PORTA, ordine AI:
-              // il saldo sempre visibile e l'ingresso all'account, fianco a
-              // fianco. La porta era una copia privata di questa schermata
-              // (_UserAvatarButton): ora e' il componente unico, la stessa
-              // porta di ogni altra testata.
-              Positioned(
-                top: h * 0.012,
-                right: SpacingTokens.sm,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    SegnoDelBorsellino(),
-                    SizedBox(width: SpacingTokens.xs),
-                    PortaDellAccount(),
-                  ],
-                ),
-              ),
+              // **LA PILLOLA E LA PORTA NON VIVONO PIU' QUI, ordine AL voce
+              // 08.** La capsula dell'identita' sta sopra il Navigator, una
+              // per tutta l'app: una copia per testata era esattamente la
+              // famiglia delle due porte che la capsula chiude.
             ],
           );
         },

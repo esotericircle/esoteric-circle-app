@@ -34,7 +34,6 @@ import '../chat/maestro_chat_screen.dart';
 import '../widgets/maestro_bust.dart';
 import '../widgets/tre_volti.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
-import '../../../design_system/components/porta_dell_account.dart';
 import '../rotta_arte.dart';
 
 /// "Consulta un Maestro", a domanda singola dentro il dominio di un Maestro.
@@ -483,19 +482,12 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
         backgroundColor: palette.deepest.withValues(alpha: 0.4),
         elevation: 0,
         iconTheme: IconThemeData(color: palette.goldSoft),
-        leadingWidth: 92,
-        leading: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back_rounded),
-              tooltip: 'Indietro',
-              onPressed: () => Navigator.of(context).maybePop(),
-            ),
-            // LA PORTA DELL'ACCOUNT, ordine AI voce 02: al capo sinistro
-            // come in ogni testata principale.
-            const PortaDellAccount(misura: 32),
-          ],
+        // **LA PORTA NON VIVE PIU' QUI, ordine AL voce 08**: il volto sta
+        // nella capsula dell'identita', sopra il Navigator.
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          tooltip: 'Indietro',
+          onPressed: () => Navigator.of(context).maybePop(),
         ),
         // SI CHIAMA PER QUELLO CHE FA, e non col nome del Maestro che si e'
         // appena lasciato: arrivandoci dalla chat, quel nome diceva di essere

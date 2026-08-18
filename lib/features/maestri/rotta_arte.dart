@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../core/arts/arti_preferite.dart';
 import '../../core/maestro/maestro.dart';
-import '../../design_system/components/borsellino.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../shell/capsula_dell_identita.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -101,47 +101,68 @@ class _BarraArteState extends State<BarraArte> {
       centerTitle: true,
       iconTheme: IconThemeData(color: palette.goldSoft),
       automaticallyImplyLeading: false,
-      // Mai un vicolo cieco: la via d'uscita e' sempre la stessa e sempre li'.
-      leading: widget.leading ??
-          IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
-            tooltip: 'Indietro',
-            onPressed: () => Navigator.of(context).maybePop(),
-          ),
+      // **IL CUORE STA AL CAPO SINISTRO, ordine AL voce 08.** L'angolo
+      // destro appartiene alla capsula dell'identita', che fluttua sopra il
+      // Navigator: il cuore accanto alla freccia non le finisce mai sotto e
+      // il titolo, con la pillola uscita dalle barre, guadagna punti invece
+      // di perderne. La guardia tipografica del titolo resta intera.
+      leadingWidth: 96,
+      leading: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          widget.leading ??
+              IconButton(
+                icon: const Icon(Icons.arrow_back_rounded),
+                tooltip: 'Indietro',
+                onPressed: () => Navigator.of(context).maybePop(),
+              ),
+          const CuoreNellaBarra(),
+        ],
+      ),
       title: widget.titolo,
       actions: [
         ...widget.azioni,
-        // L'ANGOLO DESTRO E' UNA PORTA SOLA: il borsellino e il cuore, in
-        // quest'ordine, e il cuore sovrapposto si toglie da se'.
-        const AngoloDellaBarra(),
+        // L'ANGOLO DESTRO E' LO SPAZIO DELLA CAPSULA: si riserva e basta,
+        // e il cuore sovrapposto delle scene senza barra si toglie da se'
+        // tramite CuoreNellaBarra qui a sinistra.
+        const SizedBox(width: CapsulaDellIdentita.larghezza),
       ],
     );
   }
 }
 
 
-/// L'ANGOLO DESTRO DI UNA BARRA: il borsellino e il cuore, in quest'ordine.
+/// L'ANGOLO DESTRO DI UNA BARRA, che dall'ordine AL voce 08 e' lo SPAZIO
+/// DELLA CAPSULA.
 ///
-/// **Perche' esiste, e non e' una comodita'.** Il cuore delle arti preferite ha
-/// due case: dentro la barra, per chi ha una barra, e SOVRAPPOSTO in alto a
-/// destra per chi non ne ha. Quando il borsellino e' arrivato in tutte le
-/// schermate della pratica, ordine S voce 06, quelle che avevano una AppBar
-/// propria e il cuore sovrapposto si sono trovate le due cose nello stesso
-/// angolo: nell'anteprima del rito e della meditazione il cuore dorato passava
-/// SOPRA "0 Eos". E' la stessa famiglia del difetto che aveva fatto nascere
-/// `BarraArte`, dove il cuore copriva il tasto delle fonti.
-///
-/// Adesso l'angolo e' un widget solo: chiunque lo monta ottiene il borsellino, il
-/// cuore in fila accanto e il ritiro del cuore sovrapposto. Chi non e' dentro
-/// un'arte ottiene il solo borsellino, e non deve saperlo.
-class AngoloDellaBarra extends StatefulWidget {
+/// **La storia, che resta vera.** Il cuore delle arti preferite ha due case:
+/// nella barra per chi ha una barra, sovrapposto per chi non ne ha; quando il
+/// borsellino arrivo' in tutte le schermate, cuore e saldo si trovarono nello
+/// stesso angolo e nacque questo widget, l'angolo dichiarato in un posto
+/// solo. Con la capsula dell'identita' l'angolo destro appartiene a LEI, che
+/// fluttua sopra il Navigator: la pillola e' uscita dalle barre, il cuore
+/// vive in [CuoreNellaBarra] al capo sinistro e qui resta la riserva di
+/// spazio, cosi' nessuna azione finisce mai sotto la capsula.
+class AngoloDellaBarra extends StatelessWidget {
   const AngoloDellaBarra({super.key});
 
   @override
-  State<AngoloDellaBarra> createState() => _AngoloDellaBarraState();
+  Widget build(BuildContext context) =>
+      const SizedBox(width: CapsulaDellIdentita.larghezza);
 }
 
-class _AngoloDellaBarraState extends State<AngoloDellaBarra> {
+/// IL CUORE DELLE ARTI PREFERITE dentro una barra, col ritiro del cuore
+/// sovrapposto: chi lo monta prende in carico il cuore e quello che fluttua
+/// sulla scena si toglie da se'. Chi non e' dentro un'arte non mostra niente,
+/// e non deve saperlo.
+class CuoreNellaBarra extends StatefulWidget {
+  const CuoreNellaBarra({super.key});
+
+  @override
+  State<CuoreNellaBarra> createState() => _CuoreNellaBarraState();
+}
+
+class _CuoreNellaBarraState extends State<CuoreNellaBarra> {
   ValueNotifier<bool>? _reclamato;
 
   @override
@@ -166,16 +187,8 @@ class _AngoloDellaBarraState extends State<AngoloDellaBarra> {
   @override
   Widget build(BuildContext context) {
     final arte = ArteCorrente.of(context);
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // La forma compatta: qui il vicino di banco e' il titolo del
-        // sentiero, che ha un corpo minimo da difendere.
-        const SegnoDelBorsellino(compatta: true),
-        if (arte != null) CuorePreferita(id: arte.id),
-        const SizedBox(width: SpacingTokens.xs),
-      ],
-    );
+    if (arte == null) return const SizedBox.shrink();
+    return CuorePreferita(id: arte.id);
   }
 }
 

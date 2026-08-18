@@ -45,8 +45,14 @@ enum VesteDellaPillola {
 }
 
 class SegnoDelBorsellino extends StatefulWidget {
-  const SegnoDelBorsellino(
-      {super.key, this.veste = VesteDellaPillola.velo, this.compatta = false});
+  const SegnoDelBorsellino({
+    super.key,
+    this.veste = VesteDellaPillola.velo,
+    this.compatta = false,
+    this.monetaDOro = false,
+    this.contestoDelFoglio,
+    this.verticale = false,
+  });
 
   /// La veste di riposo della pillola. Dalla coda all'ordine AI la veste
   /// resa puo' accendersi d'oro all'atterraggio degli Eos e poi tornare qui.
@@ -59,6 +65,26 @@ class SegnoDelBorsellino extends StatefulWidget {
   /// margine della pillola, non contenuto. Le cinque schermate principali
   /// restano con la forma piena.
   final bool compatta;
+
+  /// **LA MONETA D'ORO DI MAURO, ordine AL voce 08.** Nella capsula l'icona
+  /// del saldo e' la moneta consegnata da Mauro (assets/brand/moneta_eos):
+  /// la scritta incisa si perde sotto i 18 punti ed e' dichiarato, a queste
+  /// misure resta una moneta d'oro e basta. Fuori dalla capsula resta
+  /// l'icona storica degli Eos.
+  final bool monetaDOro;
+
+  /// **IL CONTESTO CON CUI APRIRE IL FOGLIO, per chi vive SOPRA il
+  /// Navigator.** La capsula sta nel builder dell'app, antenata del
+  /// Navigator: il suo contesto non puo' aprire un foglio, e questa porta
+  /// consegna quello giusto. Nulla per chi vive dentro una schermata.
+  final BuildContext Function()? contestoDelFoglio;
+
+  /// **LA FORMA VERTICALE, per la capsula dell'ordine AL voce 08.** Icona
+  /// sopra e cifra sotto: la capsula resta stretta e le barre delle arti,
+  /// che le riservano lo spazio, non rubano al titolo i punti che la
+  /// guardia tipografica difende. La larghezza della cifra resta RISERVATA
+  /// come in ogni altra forma.
+  final bool verticale;
 
   @override
   State<SegnoDelBorsellino> createState() => _SegnoDelBorsellinoState();
@@ -194,7 +220,8 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
         child: InkWell(
         key: const Key('borsellino'),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        onTap: () => PortafoglioDelCerchio.apri(context),
+        onTap: () => PortafoglioDelCerchio.apri(
+            widget.contestoDelFoglio?.call() ?? context),
         child: AnimatedContainer(
           duration: durataTransizione,
           curve: Curves.easeOut,
@@ -225,19 +252,32 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
             horizontal: widget.compatta ? SpacingTokens.xs : SpacingTokens.sm,
             vertical: widget.compatta ? 3 : 5,
           ),
-          child: Row(
+          child: Flex(
             key: _dove,
+            // La stessa pillola in due forme: in fila nelle barre, in
+            // colonna dentro la capsula. Il contenuto e' identico.
+            direction: widget.verticale ? Axis.vertical : Axis.horizontal,
             mainAxisSize: MainAxisSize.min,
             children: [
-              IconaDegliEos(
-                  misura: widget.compatta ? 12 : 14,
-                  colore: veste0 ? palette.goldSoft : palette.gold),
-              SizedBox(width: widget.compatta ? 3 : 5),
+              if (widget.monetaDOro)
+                Image.asset(
+                  'assets/brand/moneta_eos.webp',
+                  key: const Key('moneta_eos'),
+                  width: widget.compatta ? 14 : 16,
+                  height: widget.compatta ? 14 : 16,
+                  filterQuality: FilterQuality.medium,
+                )
+              else
+                IconaDegliEos(
+                    misura: widget.compatta ? 12 : 14,
+                    colore: veste0 ? palette.goldSoft : palette.gold),
+              SizedBox.square(dimension: widget.compatta ? 3 : 5),
               // IL NUMERO SALE CONTANDO, ordine S voce 07, e dura quanto il volo
               // delle scintille. **Con Riduci Movimento il volo non parte e il
               // conto resta**: si toglie la scintilla, non la notizia. La cifra
               // sta in uno spazio fisso allineato a destra, cosi' il conto non
-              // fa respirare la pillola.
+              // fa respirare la pillola; in colonna sta al centro sotto la
+              // moneta.
               SizedBox(
                 width: larghezzaCifre,
                 child: TweenAnimationBuilder<double>(
@@ -248,7 +288,9 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
                   builder: (context, valore, _) => Text(
                     cifraDegliEos(valore.round()),
                     key: const Key('saldo_eos_numero'),
-                    textAlign: TextAlign.right,
+                    textAlign: widget.verticale
+                        ? TextAlign.center
+                        : TextAlign.right,
                     maxLines: 1,
                     overflow: TextOverflow.clip,
                     style: stile,

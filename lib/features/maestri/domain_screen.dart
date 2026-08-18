@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_scope.dart';
-import '../../design_system/components/porta_dell_account.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../shell/vie_del_cerchio.dart';
 import 'maestro_screen.dart';
 import 'widgets/domain_pillars.dart';
-import '../../design_system/components/borsellino.dart';
 import 'rotta_arte.dart';
 
 /// Il dominio di un Maestro, come route spinta sopra il Santuario.
@@ -73,17 +71,12 @@ class DomainScreen extends StatelessWidget {
         toolbarHeight: 88,
         titleSpacing: 0,
         centerTitle: true,
-        leadingWidth: 92,
-        leading: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back_rounded),
-              tooltip: 'Indietro',
-              onPressed: () => Navigator.of(context).maybePop(),
-            ),
-            const PortaDellAccount(misura: 34),
-          ],
+        // **LA PORTA NON VIVE PIU' QUI, ordine AL voce 08**: il volto sta
+        // nella capsula dell'identita', sopra il Navigator.
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          tooltip: 'Indietro',
+          onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: Column(
           mainAxisSize: MainAxisSize.min,

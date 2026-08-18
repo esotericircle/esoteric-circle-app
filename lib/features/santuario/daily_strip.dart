@@ -18,6 +18,7 @@ import '../rituals/dawn_rite_screen.dart';
 import '../rituals/day_oracle_screen.dart';
 import '../rituals/dream_rite_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
+import '../shell/capsula_dell_identita.dart';
 
 const Color _gold = Color(0xFFE8C463);
 
@@ -559,11 +560,42 @@ class _DailyStripState extends State<DailyStrip>
           ),
           const SizedBox(height: 6),
           Expanded(
-            child: ListView.builder(
+            // **LA CAPSULA RUBA AI DONI LO SPAZIO DI DESTRA, ordine AL voce
+            // 08, forma decisa da Mauro.** Le icone scorrono alla sua
+            // sinistra e SFUMANO sparendo: sotto la capsula a destra e oltre
+            // il bordo a sinistra. La sfumatura e' un gradiente sulla
+            // striscia, mai una sfocatura per fotogramma; la coda di destra
+            // della lista riserva la larghezza della capsula, cosi' l'ultima
+            // icona puo' sempre scorrere fuori da sotto di lei.
+            child: ShaderMask(
+              key: const Key('sfumatura_dei_doni'),
+              shaderCallback: (rect) => LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: const [
+                  Color(0x00FFFFFF),
+                  Color(0xFFFFFFFF),
+                  Color(0xFFFFFFFF),
+                  Color(0x00FFFFFF),
+                ],
+                // La sfumatura di destra FINISCE al bordo sinistro della
+                // capsula: guardando l'anteprima, con la coda dentro la
+                // capsula le etichette restavano leggibili sotto il velo
+                // invece di sparire prima di scivolarci sotto.
+                stops: [
+                  0.0,
+                  16 / rect.width,
+                  1 - (CapsulaDellIdentita.larghezza + 32) / rect.width,
+                  1 - (CapsulaDellIdentita.larghezza - 4) / rect.width,
+                ],
+              ).createShader(rect),
+              blendMode: BlendMode.dstIn,
+              child: ListView.builder(
               controller: _scroll,
               scrollDirection: Axis.horizontal,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
+              padding: const EdgeInsets.only(
+                  left: SpacingTokens.md,
+                  right: SpacingTokens.md + CapsulaDellIdentita.larghezza),
               itemCount: DailyElement.values.length,
               itemBuilder: (context, indice) {
                 final i = indice;
@@ -587,6 +619,7 @@ class _DailyStripState extends State<DailyStrip>
                       _showElementInfo(context, element, maestro, accent),
                 );
               },
+              ),
             ),
           ),
           const SizedBox(height: 6),

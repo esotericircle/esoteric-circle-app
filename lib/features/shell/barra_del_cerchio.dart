@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
+import '../account/account_screen.dart';
 import '../maestri/domain_screen.dart';
 import '../../services/app_services.dart';
 import 'dove_si_vede_la_barra.dart';
@@ -403,6 +404,17 @@ class NavigazioneDellaBarra {
       case SpecieDiVia.passport:
         alPassport(context);
     }
+  }
+
+  /// IL CONTESTO DEL NAVIGATOR, per chi vive sopra di lui. Ordine AL voce
+  /// 08: la capsula apre il foglio del borsellino, e un foglio ha bisogno di
+  /// un contesto DENTRO il Navigator. Questo e' quello del Navigator stesso,
+  /// che sta sotto il pavimento dello scope e sotto i provider dell'app.
+  static BuildContext contestoDelNavigatore() => _navigatore().context;
+
+  /// La via all'account da sopra il Navigator, per il volto della capsula.
+  static void allAccount() {
+    _navigatore().push(AccountScreen.route());
   }
 
   /// Torna al Cerchio senza aggiungere nulla alla pila: il Cerchio e' la rotta

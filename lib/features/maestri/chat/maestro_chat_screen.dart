@@ -7,7 +7,6 @@ import '../../../core/entitlement/question_allowance.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/archetypes/archetype_history.dart';
-import '../../../design_system/components/porta_dell_account.dart';
 import '../rotta_arte.dart';
 import '../../../core/chat/altre_voci.dart';
 import '../../../core/chat/chat_message.dart';
@@ -976,17 +975,12 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       // popano comunque la route, la chat resta superficie immersiva senza
       // barra di navigazione.
       automaticallyImplyLeading: false,
-      leadingWidth: 92,
-      leading: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
-            tooltip: 'Indietro',
-            onPressed: () => Navigator.of(context).maybePop(),
-          ),
-          const PortaDellAccount(misura: 32),
-        ],
+      // **LA PORTA NON VIVE PIU' QUI, ordine AL voce 08**: il volto sta
+      // nella capsula dell'identita', sopra il Navigator.
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_rounded),
+        tooltip: 'Indietro',
+        onPressed: () => Navigator.of(context).maybePop(),
       ),
       // LE AZIONI SONO LA PILLOLA E BASTA, ordine AI. La storia della
       // bilancia resta scritta: qui c'era un'icona a bilancia, dorata, che in

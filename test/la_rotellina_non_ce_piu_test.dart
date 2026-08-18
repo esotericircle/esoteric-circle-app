@@ -5,11 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// LA ROTELLINA LASCIA IL PASSPORT. Ordine AK voce 03, voce di Mauro.
 ///
-/// La testata del Passaporto tiene porta dell'account, titolo e pillola: la
-/// rotellina delle Impostazioni non c'e' piu'. La via alle Impostazioni
-/// resta INTERA e si legge sul sorgente delle due porte: la testata monta la
-/// PortaDellAccount, che apre AccountScreen, e AccountScreen elenca la voce
-/// Impostazioni che apre SettingsScreen.
+/// La rotellina delle Impostazioni non c'e' piu'. **La via alle Impostazioni
+/// e' cambiata di casa con l'ordine AL voce 08, decisione di Mauro**: la
+/// testata del Passaporto ha perso porta e pillola, e il volto vive nella
+/// capsula dell'identita' sopra il Navigator, presente anche sul Passaporto.
+/// La via resta INTERA: capsula, AccountScreen, voce Impostazioni,
+/// SettingsScreen, e la presenza della capsula sul Passaporto la sorveglia
+/// la_capsula_su_ogni_schermata.
 void main() {
   test("la chiave passport_settings non esiste piu' nella testata", () {
     final sorgente =
@@ -18,9 +20,11 @@ void main() {
     expect(sorgente.contains('passport_settings'), isFalse,
         reason: 'la rotellina delle Impostazioni e\' tornata nella testata '
             'del Passaporto: Mauro l\'ha eliminata il 17 agosto');
-    expect(sorgente.contains('PortaDellAccount'), isTrue,
-        reason: 'senza la porta dell\'account il Passaporto resterebbe senza '
-            'via alle Impostazioni');
+    final capsula = File('lib/features/shell/capsula_dell_identita.dart')
+        .readAsStringSync();
+    expect(capsula.contains('PortaDellAccount'), isTrue,
+        reason: 'senza la porta dell\'account nella capsula il Passaporto '
+            'resterebbe senza via alle Impostazioni');
   });
 
   test('la via alle Impostazioni resta intera', () {

@@ -18,9 +18,15 @@ import 'user_avatar.dart';
 /// `AccountScreen`. MAI una copia per schermata: e' la famiglia di difetti
 /// piu' numerosa del progetto.
 class PortaDellAccount extends StatelessWidget {
-  const PortaDellAccount({super.key, this.misura = 40});
+  const PortaDellAccount({super.key, this.misura = 40, this.suTocco});
 
   final double misura;
+
+  /// Il tocco, quando la porta vive SOPRA il Navigator (la capsula
+  /// dell'ordine AL voce 08): da lassu' `Navigator.of` non trova niente e la
+  /// via gliela consegna chi la monta. Nullo dentro le schermate, dove vale
+  /// la destinazione di sempre.
+  final VoidCallback? suTocco;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +43,7 @@ class PortaDellAccount extends StatelessWidget {
         child: InkWell(
           key: const Key('porta_dell_account'),
           customBorder: const CircleBorder(),
-          onTap: () => Navigator.of(context).push(AccountScreen.route()),
+          onTap: suTocco ?? () => Navigator.of(context).push(AccountScreen.route()),
           child: Container(
             width: misura,
             height: misura,

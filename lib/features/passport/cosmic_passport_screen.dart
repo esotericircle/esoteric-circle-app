@@ -19,8 +19,6 @@ import '../../core/identity/profile_controller.dart';
 import '../../core/rituals/guide_animal_derivation.dart';
 import '../maestri/caligo/animal/guide_animal_screen.dart';
 import '../../design_system/components/depth_card.dart';
-import '../../design_system/components/borsellino.dart';
-import '../../design_system/components/porta_dell_account.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -37,6 +35,7 @@ import '../onboarding/natal_chart_reveal.dart';
 import '../../design_system/components/immersive_scaffold.dart';
 import '../../core/astro/natal_chart_controller.dart';
 import '../../design_system/components/miniatura_intera.dart';
+import '../shell/capsula_dell_identita.dart';
 
 /// Schermata del Cosmic Passport.
 ///
@@ -118,37 +117,22 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   const SizedBox(height: SpacingTokens.xl),
                   // Header cerimoniale: titolo e ingresso pulito alle
                   // Impostazioni, nell'angolo del documento.
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Il volto dell'utente in testa al suo passaporto era
-                      // DECORATIVO: dall'ordine AI voce 02 e' la porta unica
-                      // dell'account, lo stesso componente di ogni testata,
-                      // con dentro lo stesso volto coi suoi quattro ripieghi.
-                      const PortaDellAccount(misura: 52),
-                      const SizedBox(width: SpacingTokens.md),
-                      Expanded(
-                        child: Text(
-                          'Cosmic Passport',
-                          // Corpo 26 dall'ordine AK voce 03: con porta e
-                          // pillola ai capi lo spazio e' di ~172 punti, e a
-                          // 30 la parola "Passport" si spezzava in
-                          // "PASSPOR|T". A 26 va a capo fra le parole,
-                          // "Cosmic" sopra e "Passport" sotto, intere.
-                          maxLines: 2,
-                          style: TypographyTokens.display(size: 26),
-                        ),
-                      ),
-                      // LA PILLOLA, ordine AI voce 01: il saldo sempre
-                      // visibile anche sul documento.
-                      // **LA ROTELLINA NON C'E' PIU', ordine AK voce 03,
-                      // voce di Mauro del 17 agosto.** Le Impostazioni
-                      // restano a un tocco di distanza dalla stessa testata:
-                      // porta dell'account, "Il tuo account", voce
-                      // Impostazioni. La testata tiene porta, titolo e
-                      // pillola.
-                      const SegnoDelBorsellino(),
-                    ],
+                  // **PORTA E PILLOLA NON VIVONO PIU' QUI, ordine AL voce
+                  // 08**: la capsula dell'identita' sta sopra il Navigator,
+                  // una per tutta l'app. Il titolo si prende la riga intera
+                  // e resta a corpo 26 con due righe possibili: la capsula
+                  // gli sta sopra a destra e il margine destro la rispetta.
+                  // **LA ROTELLINA NON C'E' PIU', ordine AK voce 03**: le
+                  // Impostazioni restano a un tocco, capsula, "Il tuo
+                  // account", voce Impostazioni.
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        right: CapsulaDellIdentita.larghezza),
+                    child: Text(
+                      'Cosmic Passport',
+                      maxLines: 2,
+                      style: TypographyTokens.display(size: 26),
+                    ),
                   ),
                   const SizedBox(height: SpacingTokens.xs),
                   Text(

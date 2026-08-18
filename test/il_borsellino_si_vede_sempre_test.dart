@@ -13,6 +13,9 @@ import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/design_system/components/borsellino.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/shell/barra_del_cerchio.dart';
+import 'package:esoteric_circle/features/shell/capsula_dell_identita.dart';
 import 'package:esoteric_circle/features/sigilli/sentiero_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -88,43 +91,36 @@ void main() {
 
   String sorgente(String p) => File(p).readAsStringSync();
 
-  test('ogni schermata della pratica monta il segno del borsellino', () {
-    final senza = <String>[];
-    for (final percorso in conBorsellino) {
-      final s = sorgente(percorso);
-      // Tre modi, e sono lo stesso: l'angolo comune della barra, la barra
-      // delle arti che monta l'angolo, o il segno da solo.
-      if (!s.contains('SegnoDelBorsellino') &&
-          !s.contains('AngoloDellaBarra') &&
-          !s.contains('BarraArte(')) {
-        senza.add(percorso);
-      }
-    }
-    expect(senza, isEmpty,
-        reason: 'queste schermate non mostrano il saldo, e li\' gli Eos non '
-            'esistono:\n${senza.join("\n")}');
-  });
-
-  test('nessuna schermata con una barra resta fuori dalle due liste', () {
-    // **IL PRESIDIO CONTRO LA SCHERMATA NUOVA.** E' l'unico modo in cui
-    // un'enumerazione resta vera invece di invecchiare in silenzio: chi aggiunge
-    // una barra domani deve decidere, e la decisione si scrive.
-    final fuori = <String>[];
-    for (final voce in Directory('lib/features').listSync(recursive: true)) {
+  test('il segno del borsellino ha UNA casa sola, la capsula', () {
+    // **LA GRANDEZZA E' CAMBIATA CON L'ORDINE AL VOCE 08, decisione di
+    // Mauro dal collaudo della 2179.** Le due enumerazioni che vivevano qui,
+    // le schermate col segno e le esenzioni dichiarate, sorvegliavano un
+    // mondo in cui ogni barra montava la sua copia: quel mondo non esiste
+    // piu'. Il segno vive nella capsula dell'identita', sopra il Navigator,
+    // presente su ogni schermata tranne le soglie dichiarate; la vecchia
+    // domanda "quali schermate lo montano" e' diventata "nessuna lo monta
+    // piu' da sola", che e' la regola delle due porte applicata al saldo.
+    // Le vecchie liste restano nel file come storia (conBorsellino,
+    // senzaBorsellino) e non governano piu' niente.
+    final copie = <String>[];
+    for (final voce in Directory('lib').listSync(recursive: true)) {
       if (voce is! File || !voce.path.endsWith('.dart')) continue;
       final percorso = voce.path.replaceAll('\\', '/');
-      final s = voce.readAsStringSync();
-      final haUnaBarra = s.contains('AppBar(') || s.contains('BarraArte(');
-      if (!haUnaBarra) continue;
-      if (conBorsellino.contains(percorso)) continue;
-      if (senzaBorsellino.containsKey(percorso)) continue;
-      fuori.add(percorso);
+      if (percorso.endsWith('capsula_dell_identita.dart') ||
+          percorso.endsWith('design_system/components/borsellino.dart')) {
+        continue;
+      }
+      if (voce.readAsStringSync().contains('SegnoDelBorsellino(')) {
+        copie.add(percorso);
+      }
     }
-    expect(fuori, isEmpty,
-        reason: 'queste schermate hanno una barra e non stanno in nessuna delle '
-            'due liste: decidi se il borsellino ci va, e scrivilo qui, '
-            'altrimenti il saldo torna a comparire a macchia di leopardo:\n'
-            '${fuori.join("\n")}');
+    expect(copie, isEmpty,
+        reason: 'il segno del borsellino e\' tornato a vivere fuori dalla '
+            'capsula: e\' la seconda porta sul saldo:\n${copie.join("\n")}');
+    expect(
+        sorgente('lib/app.dart').contains('CapsulaDellIdentita('), isTrue,
+        reason: 'la capsula non sta sopra il Navigator: il saldo non ha piu\' '
+            'nessuna casa');
   });
 
   test('il registro racconta e NON conta: il saldo resta quello del server',
@@ -194,10 +190,23 @@ void main() {
       ],
       child: MaterialApp(
         theme: AppTheme.dark(),
-        home: Navigator(
-          onGenerateRoute: (_) =>
-              SentieroScreen.route(Sentiero.costellazione),
-        ),
+        // LA CAPSULA SOPRA IL NAVIGATOR, come nell'app vera: dall'ordine AL
+        // voce 08 il segno vive li' e da nessun'altra parte. L'osservatore
+        // e' attaccato al Navigator, cosi' le vie della capsula funzionano.
+        // Il pavimento dello scope sopra la capsula, come nell'app vera:
+        // senza, la pillola non si dipinge per scelta sua.
+        home: MaestroScope(child: Builder(builder: (ctx) {
+          final oss = OsservatoreDellaPila();
+          NavigazioneDellaBarra.osservatore = oss;
+          return CapsulaDellIdentita(
+            observatore: oss,
+            child: Navigator(
+              observers: [oss],
+              onGenerateRoute: (_) =>
+                  SentieroScreen.route(Sentiero.costellazione),
+            ),
+          );
+        })),
       ),
     ));
     await tester.pump();
@@ -209,7 +218,7 @@ void main() {
       (tester) async {
     final registro = await montaUnaSchermata(tester, saldo: 7);
     expect(find.byKey(const Key('borsellino')), findsOneWidget,
-        reason: 'il segno del borsellino non c\'e\' nella barra');
+        reason: 'il segno del borsellino non c\'e\' nella capsula');
 
     await tester.tap(find.byKey(const Key('borsellino')));
     // NIENTE pumpAndSettle: il fondo cosmico non si assesta mai e l'attesa

@@ -53,6 +53,19 @@ void main() {
     for (var i = 0; i < 16; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
+    // **LA FESTA SI CONGEDA PRIMA DI TOCCARE, come farebbe la persona.** La
+    // visita del Passaporto matura traguardi e la celebrazione copre lo
+    // schermo intero: il tocco sulla porta finiva sui pulsanti della
+    // condivisione. Trovato con l'ordine AL voce 08, quando la testata piu'
+    // corta ha spostato le porte esattamente sotto quei pulsanti.
+    for (var giro = 0; giro < 3; giro++) {
+      final continua = find.byKey(const Key('celebrazione_continua'));
+      if (continua.evaluate().isEmpty) break;
+      await tester.tap(continua, warnIfMissed: false);
+      for (var i = 0; i < 8; i++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
+    }
 
     final bolla = find.byKey(const Key('bolla_dei_traguardi'));
     expect(bolla, findsOneWidget,
