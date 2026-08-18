@@ -48,7 +48,21 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
 
 ## Le cinque voci
 
-- **AM.01** La lentezza che si accumula al ritorno in home — APERTA
+- **AM.01** La lentezza che si accumula al ritorno in home — FERMATA IN ATTESA DI DECISIONE
+  (l'ipotesi dell'ordine e' CADUTA e si dichiara: su tre giri di oroscopo,
+  stesa e rune i conteggi restano IDENTICI al freddo, cosmi 1, ticker 5,
+  ricostruzioni per dieci inclinazioni 10, quindi nessuna iscrizione doppia
+  ne' ticker rimasto vivo; la causa vera non era una somma ma un
+  MOLTIPLICATORE, misurato: la chiave della cache dei quattro teli porta i
+  colori della palette e MaestroScope li sfuma a ogni fotogramma, quindi un
+  solo cambio di Maestro costava 36 rasterizzazioni a schermo pieno su 40
+  fotogrammi contro UNA da freddo, e in home il Maestro cambia a ogni giro
+  del carosello e a ogni ritorno da un'arte; cura: chi rasterizza poggia
+  sulla palette di DESTINAZIONE ferma per tutta la sfumatura, chi dipinge al
+  volo continua con quella animata e la transizione si vede come prima;
+  misura dopo la cura 1 su 40; guardia la_home_non_rallenta_al_ritorno con
+  rosso provato, guardie del cielo tutte verdi; chiude il collaudo di Mauro
+  sulla 2181)
 - **AM.02** La profondita' perduta e il livello che manca — APERTA
 - **AM.03** La capsula se ne va, e le testate restano pulite — APERTA
 - **AM.04** La barra sottile persistente in alto, casa unica — APERTA
@@ -57,7 +71,7 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 5
+VOCI_APERTE: 4
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

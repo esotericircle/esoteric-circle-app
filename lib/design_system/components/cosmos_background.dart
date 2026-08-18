@@ -33,6 +33,22 @@ class CosmosBackground extends StatefulWidget {
   @visibleForTesting
   static int quantiSospesi = 0;
 
+  /// QUANTE VOLTE IL COSMO SI E' RICOSTRUITO, per la misura dell'ordine AM
+  /// voce 01. La lentezza che Mauro sente tornando in home si vede qui: se
+  /// dopo un ciclo lo stesso movimento del dispositivo produce piu'
+  /// ricostruzioni di prima, qualcosa si e' sommato. Non e' una guardia da
+  /// sola, e' lo strumento con cui la guardia misura.
+  @visibleForTesting
+  static int quanteRicostruzioni = 0;
+
+  /// QUANTE VOLTE I QUATTRO PIANI SONO STATI RASTERIZZATI DA CAPO.
+  ///
+  /// E' la misura del costo VERO: una ricostruzione di widget non costa
+  /// quasi niente, rifare i quattro teli a schermo pieno costa un fotogramma
+  /// intero. Ordine AM voce 01.
+  @visibleForTesting
+  static int quanteRigenerazioni = 0;
+
   const CosmosBackground({
     super.key,
     required this.child,
@@ -178,11 +194,26 @@ class _CosmosBackgroundState extends State<CosmosBackground>
 
   @override
   Widget build(BuildContext context) {
+    CosmosBackground.quanteRicostruzioni++;
     // Letture tolleranti: il motore e' il fondale di TUTTA l'app e deve
     // reggere anche montato da solo, come promette il backdrop dei riti nei
     // test. Senza provider si degrada con garbo: qualita' media, nessun segno
     // evidenziato, moto di ripiego condiviso.
     final palette = widget.paletteOverride ?? context.palette;
+    // **LA PALETTE DEL PITTORE E' QUELLA DI DESTINAZIONE, ordine AM voce
+    // 01.** Il painter rasterizza i quattro teli e li tiene in cache con
+    // una chiave che porta i colori: seguendo la palette ANIMATA, ogni
+    // fotogramma della sfumatura era una chiave nuova e i teli si
+    // rifacevano da capo. Misurato sulla 2180: 36 rasterizzazioni a schermo
+    // pieno su 40 fotogrammi per un solo cambio di Maestro, contro UNA da
+    // freddo. E' la lentezza che Mauro sente tornando in home, dove il
+    // Maestro cambia a ogni giro del carosello.
+    //
+    // Il fondo, l'alone e il velo qui sopra continuano a usare `palette`,
+    // che sfuma: la transizione si vede dove costa nulla vederla.
+    final paletteDelPittore = widget.paletteOverride ??
+        MaestroScope.destinazioneDi(context) ??
+        palette;
     final quality = context
             .watch<QualityTierController?>()
             ?.tier ??
@@ -244,7 +275,7 @@ class _CosmosBackgroundState extends State<CosmosBackground>
                 seed: widget.seed,
                 animation: _controller,
                 parallax: parallax,
-                palette: palette,
+                palette: paletteDelPittore,
                 tier: quality,
                 highlighted: sunSign,
                 showZodiac: widget.showZodiac,
@@ -645,6 +676,7 @@ class _CosmosPainter extends CustomPainter {
   static final double margineMedio = scortaDi(ProfonditaDeiPiani.medio);
 
   void _rigeneraIlCielo(Size size, double densita, String chiave) {
+    CosmosBackground.quanteRigenerazioni++;
     cielo.liberaPiani();
     _stoDipingendoLaCache = true;
     const fermo = Offset.zero;

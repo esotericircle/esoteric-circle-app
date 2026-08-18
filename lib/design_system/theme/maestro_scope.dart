@@ -60,6 +60,19 @@ class MaestroScope extends StatefulWidget {
       .dependOnInheritedWidgetOfExactType<_InheritedMaestroPalette>()
       ?.palette;
 
+  /// LA PALETTE DI DESTINAZIONE, per chi rasterizza. Ordine AM voce 01.
+  ///
+  /// Durante il cambio di Maestro la palette esposta sfuma a ogni
+  /// fotogramma: chi ne fa una CACHE, come il cosmo coi suoi quattro teli,
+  /// deve poggiare su un colore fermo, altrimenti la cache non vale mai e
+  /// il costo della sfumatura si moltiplica per il costo di un raster a
+  /// schermo pieno. Chi dipinge al volo continua a usare `palette` e la
+  /// transizione si vede come sempre. Fuori da uno scope torna nulla, come
+  /// la sorella `forse`.
+  static MaestroPalette? destinazioneDi(BuildContext context) => context
+      .dependOnInheritedWidgetOfExactType<_InheritedMaestroPalette>()
+      ?.destinazione;
+
   @override
   State<MaestroScope> createState() => _MaestroScopeState();
 }
@@ -155,6 +168,15 @@ class _MaestroScopeState extends State<MaestroScope>
         final palette = MaestroPalette.lerp(_from, _to, curved);
         return _InheritedMaestroPalette(
           palette: palette,
+          // **DOVE LA SFUMATURA VA A FINIRE, ordine AM voce 01.** Chi
+          // RASTERIZZA qualcosa sui colori del Maestro non puo' seguire i
+          // valori intermedi: ogni passo del lerp e' una tinta diversa, e
+          // per il cosmo voleva dire rifare i quattro teli a schermo pieno
+          // a ogni fotogramma della transizione (36 volte su 40, misurate).
+          // La destinazione e' un colore SOLO per tutta la sfumatura: chi
+          // dipinge al volo continua a usare la palette animata e la
+          // transizione resta dolce dove si vede.
+          destinazione: _to,
           child: child!,
         );
       },
@@ -166,14 +188,20 @@ class _MaestroScopeState extends State<MaestroScope>
 class _InheritedMaestroPalette extends InheritedWidget {
   const _InheritedMaestroPalette({
     required this.palette,
+    required this.destinazione,
     required super.child,
   });
 
   final MaestroPalette palette;
 
+  /// La palette a cui la sfumatura sta andando, ferma per tutta la sua
+  /// durata. La legge chi rasterizza (vedi MaestroScope.destinazioneDi).
+  final MaestroPalette destinazione;
+
   @override
   bool updateShouldNotify(_InheritedMaestroPalette oldWidget) =>
-      oldWidget.palette != palette;
+      oldWidget.palette != palette ||
+      oldWidget.destinazione != destinazione;
 }
 
 /// Scorciatoia leggibile per accedere alla palette del Maestro attivo.
