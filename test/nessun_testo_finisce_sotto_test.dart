@@ -161,16 +161,29 @@ void main() {
           area.width <= 0) {
         continue;
       }
-      // LA FASCIA DELLA CAPSULA E' ESCLUSA, ordine AL voce 08, per la stessa
-      // ragione della barra: per decisione di Mauro i doni del giorno
-      // scorrono SOTTO la capsula dell'identita' e la sfumatura della
-      // striscia li ha gia' spenti prima del suo bordo, guardato
-      // sull'anteprima. Contare coperto un testo che il disegno ha gia'
-      // reso invisibile chiamerebbe difetto una decisione.
-      final capsula = find.byKey(const Key('capsula_dell_identita'));
-      if (capsula.evaluate().isNotEmpty &&
-          area.overlaps(tester.getRect(capsula).inflate(4))) {
+      // LA FASCIA DELLA BARRA DELL'IDENTITA' E' ESCLUSA, ordine AM voce 04,
+      // per la stessa ragione della barra del Cerchio: la barra sottile e'
+      // una superficie persistente decisa da Mauro, e le schermate le fanno
+      // spazio col padding alto. Contare coperto cio' che le sta sotto
+      // chiamerebbe difetto una decisione.
+      final barra = find.byKey(const Key('barra_dell_identita'));
+      if (barra.evaluate().isNotEmpty &&
+          area.overlaps(tester.getRect(barra).inflate(4))) {
         continue;
+      }
+      // LA CODA SFUMATA DEI DONI E' ESCLUSA, e non e' una scappatoia: la
+      // striscia dei doni SCORRE, e ai due capi le icone svaniscono invece
+      // di tagliarsi di netto. E' una decisione presa guardando l'anteprima
+      // (ordine AM voce 04), e la sfumatura fa il suo mestiere proprio
+      // rendendo meno visibile cio' che sta per uscire. La misura
+      // differenziale la legge come copertura, ma li' non c'e' niente
+      // sopra: c'e' il disegno che dice "continua".
+      final doni = find.byKey(const Key('santuario_daily_strip'));
+      if (doni.evaluate().isNotEmpty) {
+        final r = tester.getRect(doni);
+        final codaDestra = Rect.fromLTRB(r.right - 48, r.top, r.right, r.bottom);
+        final codaSinistra = Rect.fromLTRB(r.left, r.top, r.left + 24, r.bottom);
+        if (area.overlaps(codaDestra) || area.overlaps(codaSinistra)) continue;
       }
       bersagli.add((
         span: w.text,

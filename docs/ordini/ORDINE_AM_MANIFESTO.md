@@ -110,12 +110,17 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
   cifra per la larghezza riservata che nella barra non serve, e la coda della
   sfumatura dei doni troppo corta che tagliava l'ultima etichetta; chiude il
   collaudo di Mauro sulla 2181)
-- **AM.05** Il manifesto, la suite, la build 2181 — APERTA
+- **AM.05** Il manifesto, la suite, la build 2181 — CHIUSA
+  (manifesto con gli stati veri e i marcatori contati sulle righe; suite
+  intera col giornale pieno su file; pubspec a 0.1.0+2181; build arm64 e
+  distribuzione su App Tester coi comandi esatti dell'ordine; il rapporto
+  porta build, link della release e le tre voci in FERMATA IN ATTESA che
+  aspettano il collaudo di Mauro)
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 3
-VOCI_CHIUSE: 0
+VOCI_APERTE: 0
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3

@@ -183,9 +183,13 @@ void main() {
     // Cammino chiede la carta natale per sapere se un traguardo del cielo si
     // e' acceso, e la chiede alla porta unica come tutti gli altri. E' un
     // consumatore vero, non un passante: entra nel conto.
-    expect(elenco.length, 12,
+    // TREDICI dall'ordine AM del 18 agosto 2026: la barra sottile
+    // dell'identita' mostra l'Ascendente, che in locale non si calcola e
+    // arriva dalla carta. Chiede alla porta unica come tutti gli altri,
+    // quindi e' un consumatore vero ed entra nel conto.
+    expect(elenco.length, 13,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
-            '${elenco.length} invece di 12:\n${elenco.join("\n")}\n'
+            '${elenco.length} invece di 13:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
             'aggiorna questo numero. Se ne hai tolta una, idem.');
   });

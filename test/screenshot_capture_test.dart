@@ -3034,6 +3034,9 @@ void main() {
     selectCentral(tester, Maestro.medora);
     await step(tester);
     await precacheFaces(tester);
+    // Due tocchi: il primo apre la barra sottile, il secondo va all'account.
+    await tester.tap(find.byKey(const Key('porta_dell_account')));
+    await step(tester);
     await tester.tap(find.byKey(const Key('porta_dell_account')));
     await step(tester);
     await step(tester);
@@ -3322,10 +3325,14 @@ void main() {
     await step(tester);
     // La rotellina non c'e' piu' (ordine AK voce 03): la via e' porta
     // dell'account, "Il tuo account", voce Impostazioni.
-    await tester.tap(find.byKey(const Key('porta_dell_account')).last,
-        warnIfMissed: false);
-    for (var g = 0; g < 5; g++) {
-      await tester.pump(const Duration(milliseconds: 120));
+    // **DUE TOCCHI dall'ordine AM voce 04**: il volto vive nella barra
+    // sottile in alto, e il primo tocco la apre invece di portare via.
+    for (var tocco = 0; tocco < 2; tocco++) {
+      await tester.tap(find.byKey(const Key('porta_dell_account')).last,
+          warnIfMissed: false);
+      for (var g = 0; g < 5; g++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
     }
     await tester.tap(find.byKey(const Key('account_impostazioni')),
         warnIfMissed: false);
@@ -3403,10 +3410,14 @@ void main() {
     await step(tester);
     // La rotellina non c'e' piu' (ordine AK voce 03): la via e' porta
     // dell'account, "Il tuo account", voce Impostazioni.
-    await tester.tap(find.byKey(const Key('porta_dell_account')).last,
-        warnIfMissed: false);
-    for (var g = 0; g < 5; g++) {
-      await tester.pump(const Duration(milliseconds: 120));
+    // **DUE TOCCHI dall'ordine AM voce 04**: il volto vive nella barra
+    // sottile in alto, e il primo tocco la apre invece di portare via.
+    for (var tocco = 0; tocco < 2; tocco++) {
+      await tester.tap(find.byKey(const Key('porta_dell_account')).last,
+          warnIfMissed: false);
+      for (var g = 0; g < 5; g++) {
+        await tester.pump(const Duration(milliseconds: 120));
+      }
     }
     await tester.tap(find.byKey(const Key('account_impostazioni')),
         warnIfMissed: false);

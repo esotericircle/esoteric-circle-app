@@ -20,10 +20,14 @@ void main() {
     expect(sorgente.contains('passport_settings'), isFalse,
         reason: 'la rotellina delle Impostazioni e\' tornata nella testata '
             'del Passaporto: Mauro l\'ha eliminata il 17 agosto');
-    final capsula = File('lib/features/shell/capsula_dell_identita.dart')
+    // **LA CASA E' CAMBIATA ANCORA, ordine AM voce 04**: la capsula se n'e'
+    // andata per decisione di Mauro e la porta dell'account vive nella barra
+    // sottile in alto, che sta su ogni schermata, Passaporto compreso. La
+    // via resta INTERA: barra, "Il tuo account", voce Impostazioni.
+    final barra = File('lib/features/shell/barra_dell_identita.dart')
         .readAsStringSync();
-    expect(capsula.contains('PortaDellAccount'), isTrue,
-        reason: 'senza la porta dell\'account nella capsula il Passaporto '
+    expect(barra.contains('PortaDellAccount'), isTrue,
+        reason: 'senza la porta dell\'account nella barra il Passaporto '
             'resterebbe senza via alle Impostazioni');
   });
 

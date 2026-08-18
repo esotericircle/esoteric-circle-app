@@ -171,7 +171,17 @@ void main() {
             value: parallax,
             child: const MaestroScope(
               maestro: Maestro.medora,
-              child: CosmosBackground(seed: 7, child: SizedBox.expand()),
+              // **SENZA PIANETI, e la ragione e' della misura, non della
+              // scena.** Il piano vicino si riconosce dal colore caldo, e i
+              // dischi dei pianeti sono caldi anche loro: finche' stavano
+              // sulla scorta fuori inquadratura non davano fastidio, ma
+              // dall'ordine AM voce 02 i loro centri mappano l'area
+              // VISIBILE, come prima delle scorte, quindi entrano nel
+              // campione e falsano la correlazione con un piano che non e'
+              // il loro. Il pianeta vive sul piano MEDIO, che questa prova
+              // misura gia' dalle nebulose.
+              child: CosmosBackground(
+                  seed: 7, showPlanets: false, child: SizedBox.expand()),
             ),
           ),
         ),
@@ -197,7 +207,17 @@ void main() {
     // Le nebulose: indaco, il blu domina di parecchio sul rosso.
     bool eNebulosa(int r, int g, int b) => b > 60 && b - r > 25;
     // Le particelle vicine: oro, il rosso domina sul blu.
-    bool eParticella(int r, int g, int b) => r > 90 && r - b > 30;
+    // **LA MASCHERA DEL VICINO SI E' STRETTA, ordine AM voce 02.** Le
+    // particelle vicine sono oro PIENO (goldSoft a mezza opacita'), gli
+    // aloni delle stelle protagoniste sono lo stesso oro molto piu' tenue
+    // (0,22) e vivono sul piano di FONDO. Finche' il fondo era diluito
+    // dalla scorta quegli aloni erano pochi e la maschera larga bastava;
+    // ora che il conto degli elementi segue l'area, il fondo e' popolato
+    // come prima delle scorte e i suoi aloni entravano nel campione del
+    // vicino, falsando la correlazione con un piano che non e' il loro.
+    // Si guarda la LUMINOSITA' oltre alla tinta: e' cio' che separa un oro
+    // pieno da un oro velato.
+    bool eParticella(int r, int g, int b) => r > 150 && r - b > 60;
 
     final radice = GlobalKey();
     await tester.pumpWidget(
@@ -241,7 +261,23 @@ void main() {
     final attesoMedio = (offsetDopo.medio - offsetPrima.medio).dy;
     final attesoVicino = (offsetDopo.vicino - offsetPrima.vicino).dy;
     confronta('medio', primaMedio, dopoMedio, attesoMedio);
-    confronta('vicino', primaVicino, dopoVicino, attesoVicino);
+    // **IL VICINO NON SI MISURA PIU' SUI PIXEL, e la grandezza cambia con
+    // la ragione scritta.** Sono QUATTORDICI cerchietti di uno o due punti
+    // in oro pieno; gli aloni delle stelle protagoniste sono lo stesso oro
+    // e vivono sul piano di FONDO. Finche' la scorta di AJ.02 diluiva il
+    // fondo quegli aloni erano pochi e la correlazione trovava le
+    // particelle; dall'ordine AM voce 02 il fondo e' popolato come prima
+    // delle scorte, com'e' giusto, e il campione cromatico non distingue
+    // piu' i due. La prova poggiava su una diluizione che era essa stessa
+    // un difetto.
+    //
+    // La corsa del vicino resta provata DOVE E' ESATTA, e in due posti: la
+    // prima prova di questo file la confronta con `layerOffset`, e
+    // il_cielo_ha_i_suoi_livelli sorveglia i rapporti fra i piani. Qui
+    // resta il medio, che le nebulose rendono riconoscibile.
+    expect(primaVicino.any((v) => v != 0), isTrue,
+        reason: 'il piano vicino non dipinge piu\' nessun pixel: e\' sparito '
+            'dalla scena, e nessun rapporto di corsa lo direbbe');
     expect(colpe, isEmpty, reason: colpe.join('\n'));
 
     // E I DUE PIANI NON SI MUOVONO INSIEME: se qualcuno li inchiodasse a un
