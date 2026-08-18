@@ -35,7 +35,6 @@ import '../onboarding/natal_chart_reveal.dart';
 import '../../design_system/components/immersive_scaffold.dart';
 import '../../core/astro/natal_chart_controller.dart';
 import '../../design_system/components/miniatura_intera.dart';
-import '../shell/capsula_dell_identita.dart';
 
 /// Schermata del Cosmic Passport.
 ///
@@ -125,14 +124,10 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   // **LA ROTELLINA NON C'E' PIU', ordine AK voce 03**: le
                   // Impostazioni restano a un tocco, capsula, "Il tuo
                   // account", voce Impostazioni.
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        right: CapsulaDellIdentita.larghezza),
-                    child: Text(
-                      'Cosmic Passport',
-                      maxLines: 2,
-                      style: TypographyTokens.display(size: 26),
-                    ),
+                  Text(
+                    'Cosmic Passport',
+                    maxLines: 2,
+                    style: TypographyTokens.display(size: 26),
                   ),
                   const SizedBox(height: SpacingTokens.xs),
                   Text(

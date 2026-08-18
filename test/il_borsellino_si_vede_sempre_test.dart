@@ -15,7 +15,6 @@ import 'package:esoteric_circle/design_system/components/borsellino.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/shell/barra_del_cerchio.dart';
-import 'package:esoteric_circle/features/shell/capsula_dell_identita.dart';
 import 'package:esoteric_circle/features/sigilli/sentiero_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -91,9 +90,14 @@ void main() {
 
   String sorgente(String p) => File(p).readAsStringSync();
 
-  test('il segno del borsellino ha UNA casa sola, la capsula', () {
-    // **LA GRANDEZZA E' CAMBIATA CON L'ORDINE AL VOCE 08, decisione di
-    // Mauro dal collaudo della 2179.** Le due enumerazioni che vivevano qui,
+  test('il segno del borsellino ha UNA casa sola', () {
+    // **LA CASA DEL SALDO E' CAMBIATA DUE VOLTE, e la storia si scrive.**
+    // Con l'ordine AL voce 08 era la capsula in alto a destra; col collaudo
+    // della 2180 Mauro l'ha tolta, e dall'ordine AM voce 04 il saldo vive
+    // nella barra sottile in alto. Quello che NON e' mai cambiato e' la
+    // regola: una casa sola, mai una copia per testata.
+    //
+    // **La vecchia grandezza, dall'ordine AL voce 08.** Le due enumerazioni che vivevano qui,
     // le schermate col segno e le esenzioni dichiarate, sorvegliavano un
     // mondo in cui ogni barra montava la sua copia: quel mondo non esiste
     // piu'. Il segno vive nella capsula dell'identita', sopra il Navigator,
@@ -106,7 +110,8 @@ void main() {
     for (final voce in Directory('lib').listSync(recursive: true)) {
       if (voce is! File || !voce.path.endsWith('.dart')) continue;
       final percorso = voce.path.replaceAll('\\', '/');
-      if (percorso.endsWith('capsula_dell_identita.dart') ||
+      // La casa unica del saldo e il componente stesso non sono copie.
+      if (percorso.endsWith('barra_dell_identita.dart') ||
           percorso.endsWith('design_system/components/borsellino.dart')) {
         continue;
       }
@@ -115,12 +120,8 @@ void main() {
       }
     }
     expect(copie, isEmpty,
-        reason: 'il segno del borsellino e\' tornato a vivere fuori dalla '
-            'capsula: e\' la seconda porta sul saldo:\n${copie.join("\n")}');
-    expect(
-        sorgente('lib/app.dart').contains('CapsulaDellIdentita('), isTrue,
-        reason: 'la capsula non sta sopra il Navigator: il saldo non ha piu\' '
-            'nessuna casa');
+        reason: 'il segno del borsellino e\' tornato a vivere in una testata: '
+            'e\' la seconda porta sul saldo:\n${copie.join("\n")}');
   });
 
   test('il registro racconta e NON conta: il saldo resta quello del server',
@@ -190,21 +191,32 @@ void main() {
       ],
       child: MaterialApp(
         theme: AppTheme.dark(),
-        // LA CAPSULA SOPRA IL NAVIGATOR, come nell'app vera: dall'ordine AL
-        // voce 08 il segno vive li' e da nessun'altra parte. L'osservatore
-        // e' attaccato al Navigator, cosi' le vie della capsula funzionano.
-        // Il pavimento dello scope sopra la capsula, come nell'app vera:
-        // senza, la pillola non si dipinge per scelta sua.
+        // **IL SEGNO SOPRA IL NAVIGATOR, dove vive la sua casa unica.**
+        // Questa prova misura il FOGLIO del portafoglio, non chi ospita il
+        // segno: la casa e' cambiata due volte (capsula con l'ordine AL,
+        // barra sottile con l'ordine AM) e la prova monta il componente
+        // nudo, cosi' non si rompe a ogni cambio di casa. Che il segno abbia
+        // una casa sola lo sorveglia la prova qui sopra, sui sorgenti.
+        // Il pavimento dello scope: senza, la pillola non si dipinge.
         home: MaestroScope(child: Builder(builder: (ctx) {
           final oss = OsservatoreDellaPila();
           NavigazioneDellaBarra.osservatore = oss;
-          return CapsulaDellIdentita(
-            observatore: oss,
-            child: Navigator(
-              observers: [oss],
-              onGenerateRoute: (_) =>
-                  SentieroScreen.route(Sentiero.costellazione),
-            ),
+          return Stack(
+            children: [
+              Navigator(
+                observers: [oss],
+                onGenerateRoute: (_) =>
+                    SentieroScreen.route(Sentiero.costellazione),
+              ),
+              Positioned(
+                top: 8,
+                right: 8,
+                child: SegnoDelBorsellino(
+                  compatta: true,
+                  contestoDelFoglio: () => oss.navigator!.context,
+                ),
+              ),
+            ],
           );
         })),
       ),

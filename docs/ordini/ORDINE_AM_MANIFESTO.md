@@ -80,7 +80,18 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
   vicino su fondo 2,07. Guardia il_cielo_ha_i_suoi_livelli con rosso provato,
   guardia dei bordi di AJ.02 verde senza toccarla, anteprima rigenerata e
   guardata; chiude il collaudo di Mauro sulla 2181)
-- **AM.03** La capsula se ne va, e le testate restano pulite — APERTA
+- **AM.03** La capsula se ne va, e le testate restano pulite — CHIUSA
+  (CapsulaDellIdentita tolta dal montaggio in app.dart e il suo file
+  cancellato; i doni tornano a tutta larghezza con la sfumatura ai due capi;
+  il titolo del Passaporto riprende la riga intera; l'angolo destro delle
+  barre delle arti non riserva piu' niente e il cuore resta al capo sinistro,
+  dove si e' guardato; nessuna testata riprende copie di pillola o porta,
+  perche' la casa unica e' la barra della voce 04; la moneta_eos.webp resta
+  perche' le serve; guardia della capsula rimossa e guardia del borsellino
+  aggiornata al mondo nuovo col perche' accanto; DUE ROSSI DICHIARATI e
+  attesi nell'intervallo fra questa voce e la 04, come l'ordine ammette:
+  santuario_test pretende la porta dell'account in home, che in questo
+  momento non esiste piu' e rinasce nella barra)
 - **AM.04** La barra sottile persistente in alto, casa unica — APERTA
 - **AM.05** Il manifesto, la suite, la build 2181 — APERTA
 

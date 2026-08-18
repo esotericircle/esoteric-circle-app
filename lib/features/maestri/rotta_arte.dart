@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../core/arts/arti_preferite.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/theme/maestro_palette.dart';
-import '../shell/capsula_dell_identita.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -101,11 +100,11 @@ class _BarraArteState extends State<BarraArte> {
       centerTitle: true,
       iconTheme: IconThemeData(color: palette.goldSoft),
       automaticallyImplyLeading: false,
-      // **IL CUORE STA AL CAPO SINISTRO, ordine AL voce 08.** L'angolo
-      // destro appartiene alla capsula dell'identita', che fluttua sopra il
-      // Navigator: il cuore accanto alla freccia non le finisce mai sotto e
-      // il titolo, con la pillola uscita dalle barre, guadagna punti invece
-      // di perderne. La guardia tipografica del titolo resta intera.
+      // **IL CUORE STA AL CAPO SINISTRO, ordine AL voce 08, e ci resta.**
+      // Con la capsula sparita (ordine AM voce 03) l'angolo destro non ha
+      // piu' un occupante che fluttua sopra, ma il cuore accanto alla
+      // freccia si e' guardato ed e' giusto li': il titolo tiene i suoi
+      // punti e la guardia tipografica resta intera.
       leadingWidth: 96,
       leading: Row(
         mainAxisSize: MainAxisSize.min,
@@ -120,13 +119,7 @@ class _BarraArteState extends State<BarraArte> {
         ],
       ),
       title: widget.titolo,
-      actions: [
-        ...widget.azioni,
-        // L'ANGOLO DESTRO E' LO SPAZIO DELLA CAPSULA: si riserva e basta,
-        // e il cuore sovrapposto delle scene senza barra si toglie da se'
-        // tramite CuoreNellaBarra qui a sinistra.
-        const SizedBox(width: CapsulaDellIdentita.larghezza),
-      ],
+      actions: widget.azioni,
     );
   }
 }
@@ -147,8 +140,7 @@ class AngoloDellaBarra extends StatelessWidget {
   const AngoloDellaBarra({super.key});
 
   @override
-  Widget build(BuildContext context) =>
-      const SizedBox(width: CapsulaDellIdentita.larghezza);
+  Widget build(BuildContext context) => const SizedBox.shrink();
 }
 
 /// IL CUORE DELLE ARTI PREFERITE dentro una barra, col ritiro del cuore
