@@ -136,7 +136,20 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   pronto, anche se la lettura fallisce, e la sincronia lo aspetta; guardia
   la_sincronia_parte_da_sola che riproduce l'attimo vero, col caricamento in
   volo, e rosso provato)
-- **AN.05** Il listino vivo: costi in chiaro, residui, spesa vera — APERTA
+- **AN.05** Il listino vivo: costi in chiaro, residui, spesa vera — FERMATA IN ATTESA DI DECISIONE
+  (nasce `ListinoDegliEos`, la porta unica dei prezzi coi cinque numeri
+  approvati, 50 carta extra, 120 stesa a tre carte come deciso da Mauro il
+  18 agosto, 150 sinastria, 80 domanda, 250 stesa completa, ognuno col suo
+  tetto giornaliero per piano legato ai budget che il server gia' conosce;
+  nasce `SpesaDegliEos`, la porta unica della spesa, che chiede al SERVER e
+  applica il saldo che il server risponde, mai un conteggio locale, e non
+  procede su nessun esito diverso da riuscito; nasce `CostoInChiaro`, che
+  prima di spendere dice il residuo del giorno e, finito il gratuito, il
+  costo della prossima, con lo stato onesto quando gli Eos non bastano;
+  soglia della conferma dichiarata a 100 Eos. Guardia il_listino_vivo con
+  otto prove, fra cui l'enumerazione sui 413 sorgenti che vieta un prezzo
+  scritto a mano fuori dal listino, e rosso provato; chiude il collaudo di
+  Mauro sulla 2182)
 - **AN.06** Il gating onesto a due strade — APERTA
 - **AN.07** Il benvenuto, l'accredito del giorno e la dote dei piani — APERTA
 - **AN.08** La condivisione si paga solo se avviene davvero — APERTA
@@ -145,7 +158,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 5
+VOCI_APERTE: 4
 VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
