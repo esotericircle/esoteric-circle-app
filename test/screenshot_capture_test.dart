@@ -3306,10 +3306,39 @@ void main() {
     });
     await step(tester);
 
+    // **PRIMA SI CONGEDA LA FESTA, e questa riga nasce guardando
+    // l'anteprima.** Visitare il Passaporto matura dei traguardi, quindi
+    // sopra la tessera si apriva una celebrazione a schermo pieno: lo scatto
+    // usciva con la festa e non con l'archetipo, mentre la verifica qui
+    // sotto passava lo stesso, perche' un widget coperto e' comunque
+    // nell'albero. E' la misura che guarda la cosa sbagliata, di nuovo.
+    for (var giro = 0; giro < 4; giro++) {
+      final congedo = find.byKey(const Key('celebrazione_continua'));
+      if (congedo.evaluate().isEmpty) break;
+      await tester.tap(congedo.first, warnIfMissed: false);
+      await step(tester);
+    }
+    // **E ANCHE LA FASCIA IN SOVRIMPRESSIONE**, che non ha un congedo da
+    // toccare: se ne va da sola dopo il suo tempo, e qui si aspetta invece
+    // di fotografarla addosso alla tessera.
+    for (var giro = 0; giro < 10; giro++) {
+      if (find
+          .byKey(const Key('sovrimpressione_del_traguardo'))
+          .evaluate()
+          .isEmpty) {
+        break;
+      }
+      await tester.pump(const Duration(seconds: 1));
+    }
     await tester.ensureVisible(find.byKey(const Key('passport_archetipo')));
     await step(tester);
     // LA VERIFICA PRIMA DELLO SCATTO. Un'anteprima esce lo stesso anche senza
     // cio' che dovrebbe mostrare, e sembra una prova.
+    expect(find.byKey(const Key('celebrazione_nome')), findsNothing,
+        reason: 'la festa copre ancora la tessera che questa anteprima '
+            'dovrebbe mostrare');
+    expect(find.byKey(const Key('sovrimpressione_del_traguardo')), findsNothing,
+        reason: 'la fascia della celebrazione vela ancora la tessera');
     expect(find.byKey(const Key('passport_archetipo_nome')), findsOneWidget);
     expect(
         tester

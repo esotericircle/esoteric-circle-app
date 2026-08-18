@@ -193,9 +193,15 @@ void main() {
     // Alla stessa porta chiede anche quanto si sa di questa persona, per
     // decidere se invitare a completare il profilo invece di deciderlo da
     // se': e' un consumatore vero ed entra nel conto.
-    expect(elenco.length, 14,
+    // TREDICI DALL'ORDINE AO del 18 agosto 2026, e il conto SCENDE per la
+    // prima volta: la barra sottile non chiede piu' la carta natale, perche'
+    // al suo centro non c'e' piu' il cielo che viene ma la porta degli
+    // Eventi Cosmici, che non ha bisogno di sapere chi sei. Un consumatore
+    // in meno non e' una perdita: e' una schermata che ha smesso di chiedere
+    // cio' che non le serviva.
+    expect(elenco.length, 13,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
-            '${elenco.length} invece di 14:\n${elenco.join("\n")}\n'
+            '${elenco.length} invece di 13:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
             'aggiorna questo numero. Se ne hai tolta una, idem.');
   });

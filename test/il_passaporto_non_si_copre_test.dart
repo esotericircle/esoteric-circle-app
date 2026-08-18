@@ -1,5 +1,6 @@
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/features/shell/spazio_della_barra.dart';
+import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,8 +56,19 @@ void main() {
 
   Future<void> apriIlPassaporto(WidgetTester tester) async {
     silenzia();
-    SharedPreferences.setMockInitialValues(
-        const {'onboarding.done': true, 'santuario.greeted': true});
+    // **IL CAMMINO E' GIA' PERCORSO, e non e' un trucco: e' l'unico modo di
+    // misurare il Passaporto invece delle sue feste.** Ordine AO voce 04:
+    // adesso che il diario non riparte piu' da zero, visitare il Passaporto
+    // matura davvero dei traguardi, e le celebrazioni si aprono una dopo
+    // l'altra sopra la schermata. Misurato: lo scorrimento non arrivava piu'
+    // alla lista e la card restava ferma a 930 punti, col dito che cadeva
+    // sul testo della festa. Con tutti i Sigilli gia' accesi non si accende
+    // niente di nuovo, e sotto il dito c'e' il Passaporto.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+    });
     tester.view.physicalSize = const Size(1080, 2391);
     tester.view.devicePixelRatio = 3.0;
     addTearDown(tester.view.reset);
@@ -155,6 +167,32 @@ void main() {
     final card = find.text('Il tuo cielo di nascita');
     expect(card, findsOneWidget,
         reason: 'la card del cielo di nascita non c\'e\' piu\' nel Passaporto');
+
+    // **PRIMA SI CONGEDA LA FESTA, e il perche' e' una conseguenza voluta
+    // dell'ordine AO voce 04.** Visitare il Passaporto matura dei traguardi;
+    // finche' il conto dei gesti si azzerava, in questa prova non maturava
+    // niente e nessuna festa compariva. Adesso che il diario non riparte
+    // piu' da zero, la celebrazione si apre davvero e copre lo schermo: lo
+    // scorrimento non arrivava piu' alla lista e la card restava ferma a
+    // 930 punti, misurato. Non e' un difetto del Passaporto, e' la scena
+    // che ora funziona.
+    for (var giro = 0; giro < 4; giro++) {
+      final congedo = find.byKey(const Key('celebrazione_continua'));
+      if (congedo.evaluate().isEmpty) break;
+      await tester.tap(congedo.first, warnIfMissed: false);
+      for (var i = 0; i < 6; i++) {
+        await tester.pump(const Duration(milliseconds: 200));
+      }
+    }
+    for (var giro = 0; giro < 10; giro++) {
+      if (find
+          .byKey(const Key('sovrimpressione_del_traguardo'))
+          .evaluate()
+          .isEmpty) {
+        break;
+      }
+      await tester.pump(const Duration(seconds: 1));
+    }
 
     final ctx = tester.element(find.byType(CustomScrollView).first);
     final cimaBarra = altezza - SpazioDellaBarraNelloScroll.quanto(ctx);

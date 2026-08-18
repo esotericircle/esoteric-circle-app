@@ -275,6 +275,16 @@ void main() {
       'tool/scontorna_loto.py',
       "docs/preview/journal_loto_nuovo-1.png",
     ],
+    // Le tre feste accostate (ordine AO voce 05): non e' una scena nuova, e'
+    // l'accostamento dei tre fotogrammi di meta' festa che lo strumento delle
+    // feste ha gia' prodotto dalla scena vera. Serve a rispondere alla
+    // domanda di Mauro, che non e' "questa festa e' bella" ma "le tre feste
+    // sono diverse", e tre immagini guardate una dopo l'altra non
+    // rispondono.
+    r'^le-tre-feste-affiancate\.png$': [
+      'tool/le_tre_feste_affiancate.py',
+      "docs/preview/le-tre-feste-affiancate.png",
+    ],
   };
 
   test('ogni anteprima nata fuori dal corredo ha il suo generatore vivo', () {

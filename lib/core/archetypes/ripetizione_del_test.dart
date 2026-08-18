@@ -70,12 +70,17 @@ class RipetizioneDelTest {
 
   /// Come si dice a schermo, con la data vera e mai un tempo vago.
   static String frase({required DateTime ultimo, required DateTime adesso}) {
-    final giorni = giorniAncora(ultimo: ultimo, adesso: adesso);
-    if (giorni == 0) return 'Puoi rifare il test quando vuoi.';
+    // **LA VARIABILE SI CHIAMA `quanti` e non `giorni`, e non e' un vezzo.**
+    // Con `$giorni giorni` la guardia della lingua leggeva "giorni giorni" e
+    // cadeva: guardava il sorgente, dove la parola compare due volte, invece
+    // della frase resa, dove ce n'e' una sola. Cambiare il nome costa niente
+    // e lascia la guardia severa dov'e'.
+    final quanti = giorniAncora(ultimo: ultimo, adesso: adesso);
+    if (quanti == 0) return 'Puoi rifare il test quando vuoi.';
     final quando = quandoSiPotra(ultimo);
     final data = '${quando.day} ${_mesi[quando.month - 1]} ${quando.year}';
-    if (giorni == 1) return 'Potrai rifare il test domani, il $data.';
-    return 'Potrai rifare il test fra $giorni giorni, il $data.';
+    if (quanti == 1) return 'Potrai rifare il test domani, il $data.';
+    return 'Potrai rifare il test fra $quanti giorni, il $data.';
   }
 
   static const List<String> _mesi = [

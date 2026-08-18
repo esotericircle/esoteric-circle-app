@@ -378,14 +378,16 @@ class _Soglia extends StatelessWidget {
               style: TypographyTokens.corpo()
                   .copyWith(color: palette.goldSoft, height: 1.5),
             )
-          else
-            _Bloccato(palette: palette, ultimo: ultimo),
-          if (consentito && rimanenti != null) ...[
-            const SizedBox(height: SpacingTokens.sm),
-            Text(rimanenti == 1 ? 'Ne hai uno oggi.' : 'Ne hai $rimanenti oggi.',
-                style: TypographyTokens.etichetta()
-                    .copyWith(color: ColorTokens.textSecondary)),
-          ],
+          ,
+          // **IL RIQUADRO DEL LIMITE GIORNALIERO NON C'E' PIU', ordine AO
+          // voce 06.** Mostrava l'ultimo responso a chi aveva finito i test
+          // del giorno, ed era giusto quando i test erano uno o tre al
+          // giorno. Con l'attesa di tre mesi non ci si arriva mai: chi ha un
+          // archetipo lo vede qui sopra, con la lettura di oggi e la data in
+          // cui potra' rifarlo, e chi non ce l'ha ha sempre il suo primo
+          // test. Un ramo irraggiungibile e' codice che mente sulla scena, e
+          // con lui se ne va la riga "ne hai N oggi", che parlava dello
+          // stesso conteggio.
         ],
       ),
     );
@@ -486,70 +488,6 @@ class _IlTuoArchetipoOggi extends StatelessWidget {
   }
 }
 
-/// Limite raggiunto: mai un vicolo cieco, si mostra l'ultimo esito salvato.
-class _Bloccato extends StatelessWidget {
-  const _Bloccato({required this.palette, required this.ultimo});
-
-  final MaestroPalette palette;
-  final ArchetypeEsito? ultimo;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      key: const Key('archetype_blocked'),
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.lock_rounded, size: 18, color: palette.goldSoft),
-            const SizedBox(width: SpacingTokens.xs),
-            Expanded(
-              child: Text(
-                'Per oggi hai già guardato dentro di te. Il Cerchio ne apre di più.',
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textPrimary, height: 1.4),
-              ),
-            ),
-          ],
-        ),
-        if (ultimo != null) ...[
-          const SizedBox(height: SpacingTokens.lg),
-          Text('Il tuo ultimo responso',
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
-          const SizedBox(height: SpacingTokens.sm),
-          DepthCard(
-            key: const Key('archetype_last_saved'),
-            padding: const EdgeInsets.all(SpacingTokens.md),
-            child: Row(
-              children: [
-                _Statua(
-                    archetipo: ultimo!.dominante, lato: 84, palette: palette),
-                const SizedBox(width: SpacingTokens.md),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(ultimo!.dominante.conArticolo,
-                          style: TypographyTokens.titoloSezione()
-                              .copyWith(color: palette.goldSoft)),
-                      const SizedBox(height: 2),
-                      Text(ArchetypeCorpus.di(ultimo!.dominante).essenza,
-                          style: TypographyTokens.didascalia().copyWith(
-                              color: ColorTokens.textSecondary, height: 1.35)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ],
-    );
-  }
-}
-
-/// Una domanda alla volta, con l'avanzamento in chiaro.
 class _Domande extends StatelessWidget {
   const _Domande({
     required this.palette,

@@ -294,16 +294,27 @@ void main() {
     await rispondiTutte(tester, 3);
     expect(find.byKey(const Key('archetype_result')), findsOneWidget);
 
-    // Rientrando nello stesso giorno, il secondo e' bloccato e si vede
-    // l'ultimo responso invece di un vicolo cieco. Si smonta prima, altrimenti
-    // lo State della schermata sopravvive e resta sul risultato.
+    // Rientrando, il secondo test non si puo' fare e non c'e' un vicolo
+    // cieco: si vede il proprio archetipo. Si smonta prima, altrimenti lo
+    // State della schermata sopravvive e resta sul risultato.
+    //
+    // **QUESTA PROVA E' CAMBIATA DI FORMA, ordine AO voce 06, e la sostanza
+    // e' cresciuta.** Pretendeva `archetype_blocked`, cioe' il riquadro del
+    // limite giornaliero con l'ultimo responso. Adesso chi ha gia' un
+    // archetipo trova la LETTURA DI OGGI col suo emblema, piu' la data in
+    // cui potra' rifare il test: e' la stessa promessa, mai un vicolo cieco,
+    // mantenuta meglio. Il riquadro del limite non compare piu' perche' non
+    // si arriva piu' li': l'attesa di tre mesi scatta prima del tetto
+    // giornaliero.
     await tester.pumpWidget(const SizedBox.shrink());
     await passo(tester);
     await tester.pumpWidget(host(tier: Tier.free));
     await passo(tester);
     expect(find.byKey(const Key('archetype_start')), findsNothing);
-    expect(find.byKey(const Key('archetype_blocked')), findsOneWidget);
-    expect(find.byKey(const Key('archetype_last_saved')), findsOneWidget);
+    expect(find.byKey(const Key('archetype_lettura_di_oggi')), findsOneWidget,
+        reason: 'chi ha gia\' fatto il test non vede il suo archetipo');
+    expect(find.byKey(const Key('archetype_attesa')), findsOneWidget,
+        reason: 'non si dice quando si potra\' rifare');
     expect(find.text('Il Realista'), findsWidgets);
   });
 
@@ -314,7 +325,12 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    // Tier 2 per non incappare nel limite, e due giorni diversi.
+    // **DUE TEST A TRE MESI DI DISTANZA, e non piu' due giorni. Ordine AO
+    // voce 06.** La decisione di Mauro del 18 agosto 2026 dice che il test
+    // si rifa' dopo tre mesi: rifarlo il giorno dopo era la slot machine che
+    // quella decisione ha escluso. Questa prova non e' stata allentata, e'
+    // stata portata sul tempo vero della regola nuova: cio' che misura, il
+    // confronto con la volta precedente, e' identico.
     var oggi = DateTime(2026, 7, 20, 10);
     await tester.pumpWidget(host(tier: Tier.tier2, clock: () => oggi));
     await passo(tester);
@@ -323,7 +339,7 @@ void main() {
     await rispondiTutte(tester, 3); // Realista
     expect(find.byKey(const Key('archetype_comparison')), findsNothing);
 
-    oggi = DateTime(2026, 7, 21, 10);
+    oggi = DateTime(2026, 10, 20, 10);
     await tester.pumpWidget(const SizedBox.shrink());
     await passo(tester);
     await tester.pumpWidget(host(tier: Tier.tier2, clock: () => oggi));
