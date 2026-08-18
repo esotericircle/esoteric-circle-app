@@ -1,6 +1,7 @@
 library;
 
 import '../../core/maestro/maestro.dart';
+import '../../core/sigilli/sentieri.dart';
 
 /// LA DIREZIONE DELLA FESTA, UNA PER MAESTRO. Ordine U voce 02.
 ///
@@ -103,6 +104,36 @@ class FesteDeiMaestri {
   };
 
   static FestaDelMaestro di(Maestro maestro) => tutte[maestro]!;
+
+  /// **DI CHI E' LA FESTA, quando i traguardi celebrati sono piu' di uno.**
+  /// Ordine AO voce 05.
+  ///
+  /// **La regola**: e' del traguardo PIU' IMPORTANTE, cioe' del primo grande
+  /// se ce n'e' uno, e a parita' del primo nominato. E' la stessa regola con
+  /// cui la scena sceglie gia' l'INTENSITA', e tenerne due diverse per due
+  /// aspetti della stessa scena vorrebbe dire mostrare la festa piena di un
+  /// Maestro con la materia di un altro.
+  ///
+  /// **Cosa faceva prima, e perche' Mauro vedeva sempre la stessa festa.** La
+  /// scena prendeva `sentieri.first.maestro`, cioe' il primo dell'elenco. E
+  /// l'elenco non e' casuale: nasce scorrendo i traguardi nell'ordine in cui
+  /// sono dichiarati, dove i Sigilli di Medora vengono prima. Nella festa
+  /// unita, che e' il caso normale, vinceva quasi sempre Medora: misurato con
+  /// un mini di Medora davanti a un GRANDE di Caligo, dove si vedevano le
+  /// stelle mentre si celebrava una runa.
+  static Maestro dellaScena(
+    List<Traguardo> traguardi,
+    List<Sentiero> sentieri,
+  ) {
+    // Le due liste camminano appaiate: la scena stessa lo pretende prima di
+    // aprirsi, e qui si e' prudenti perche' un indice fuori posto in una
+    // celebrazione sarebbe uno schermo nero al posto di una festa.
+    if (sentieri.isEmpty) return Maestro.medora;
+    for (var i = 0; i < traguardi.length && i < sentieri.length; i++) {
+      if (traguardi[i].eGrande) return sentieri[i].maestro;
+    }
+    return sentieri.first.maestro;
+  }
 
   /// **QUANTO IL GRANDE E' PIU' AMPIO E PIU' LUNGO DEL MINI, in due numeri.**
   ///

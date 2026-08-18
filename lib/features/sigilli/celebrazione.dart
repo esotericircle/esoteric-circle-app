@@ -258,7 +258,7 @@ class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
           // importante, e la decide la scena guardando se fra i traguardi
           // c'e' un grande.
           pageBuilder: (context, _, __) => MaestroScope(
-            maestro: sentieri.first.maestro,
+            maestro: FesteDeiMaestri.dellaScena(traguardi, sentieri),
             child: CelebrazioneAScermoPieno(
               traguardi: traguardi,
               sentieri: sentieri,
@@ -562,9 +562,15 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                   child: AnimatedBuilder(
                     animation: _segno,
                     builder: (context, _) => CustomPaint(
-                      key: Key('festa_${widget.sentieri.first.maestro.id}'),
+                      key: Key('festa_${FesteDeiMaestri.dellaScena(
+                        widget.traguardi,
+                        widget.sentieri,
+                      ).id}'),
                       painter: PittoreDellaFesta(
-                        maestro: widget.sentieri.first.maestro,
+                        maestro: FesteDeiMaestri.dellaScena(
+                          widget.traguardi,
+                          widget.sentieri,
+                        ),
                         avanzamento: _segno.value,
                         oro: palette.gold,
                         oroTenue: palette.goldSoft,
@@ -700,7 +706,7 @@ bool mostraLaSovrimpressione(
     // grande: una voce dell'Overlay non e' figlia della pagina che l'ha chiesta,
     // e il colore giusto e' quello del sentiero che si sta festeggiando.
     builder: (ctx) => MaestroScope(
-      maestro: sentieri.first.maestro,
+      maestro: FesteDeiMaestri.dellaScena(traguardi, sentieri),
       child: _FasciaDellaCelebrazione(
         traguardi: traguardi,
         sentieri: sentieri,

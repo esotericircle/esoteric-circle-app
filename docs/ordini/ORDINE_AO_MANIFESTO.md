@@ -182,9 +182,31 @@ qui ne' altrove.
   (tre prove, la causa), con rosso misurato: una stesa invece di quattro,
   disco riscritto povero e Sigillo acceso sparito. NESSUN TETTO
   GIORNALIERO, vedi P4)
-- **AO.05** Ogni Maestro ha la sua festa, e si vede — APERTA
-  (la festa porta il Maestro del traguardo che si sta celebrando, e nella
-  festa unita la scena dichiara come sceglie; tre anteprime affiancate)
+- **AO.05** Ogni Maestro ha la sua festa, e si vede — FERMATA IN ATTESA DI DECISIONE
+  (**l'ipotesi dell'ordine era giusta, e prima e' stata MISURATA.** Con un
+  sentiero solo il Maestro arrivava gia' giusto, verificato su tutti e tre;
+  il difetto stava nella FESTA UNITA, dove la scena prendeva
+  `sentieri.first.maestro`, cioe' il primo dell'elenco, e l'elenco nasce
+  scorrendo i traguardi nell'ordine in cui sono dichiarati, dove Medora
+  viene prima. Misura del difetto: un mini di Medora davanti a un GRANDE di
+  Caligo dava la festa di MEDORA, cioe' stelle mentre si celebrava una runa.
+  E siccome la festa unita e' il caso normale, non l'eccezione, Mauro vedeva
+  quasi sempre la stessa.
+  **La regola nuova, dichiarata accanto al codice** in
+  `FesteDeiMaestri.dellaScena`: la festa e' del traguardo PIU' IMPORTANTE,
+  cioe' del primo grande se ce n'e' uno, e a parita' del primo nominato. E'
+  la stessa regola con cui la scena sceglie gia' l'INTENSITA', e tenerne due
+  diverse per due aspetti della stessa scena vorrebbe dire mostrare la festa
+  piena di un Maestro con la materia di un altro. Applicata in tutti e tre i
+  punti che sceglievano dal primo: la rotta a schermo pieno, il pittore e la
+  fascia in sovrimpressione.
+  Guardia `test/ogni_maestro_ha_la_sua_festa_test.dart` con sette prove, fra
+  cui l'enumerazione che le tre feste sono DAVVERO tre per materia,
+  direzione e quantita' (stelle dal centro 90, rune dall'alto 40, polline
+  dal basso 90) e quella che il sorgente non sceglie piu' dal primo
+  dell'elenco. Rosso provato sulla festa unita. Anteprima nuova
+  `docs/preview/le-tre-feste-affiancate.png`, guardata: le tre materie si
+  distinguono a colpo d'occhio. Chiude il collaudo di Mauro sulla 2183)
 - **AO.06** L'archetipo si rilegge, e dal Passport si apre — APERTA
   (emblema piu' lettura di oggi dai transiti; il test si rifa' dopo tre mesi
   con la data dichiarata a schermo; l'emblema del Passport diventa toccabile;
@@ -203,7 +225,7 @@ qui ne' altrove.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 4
+VOCI_APERTE: 3
 VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
