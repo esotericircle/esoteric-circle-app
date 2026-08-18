@@ -150,7 +150,18 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   otto prove, fra cui l'enumerazione sui 413 sorgenti che vieta un prezzo
   scritto a mano fuori dal listino, e rosso provato; chiude il collaudo di
   Mauro sulla 2182)
-- **AN.06** Il gating onesto a due strade — APERTA
+- **AN.06** Il gating onesto a due strade — FERMATA IN ATTESA DI DECISIONE
+  (nasce `StradeDelloSblocco`, la porta unica che dice davanti a ogni
+  lucchetto quale strada esiste davvero: un extra a consumo mostra il costo
+  in Eos E l'abbonamento che lo include, con la strada di oggi per prima;
+  cio' che gli Eos non comprano mai, memoria dei Maestri, voce, profondita',
+  compatibilita' a tre livelli e le altre sette funzioni di relazione
+  continuativa, mostra SOLO l'abbonamento; il Coming soon resta separato dal
+  Premium perche' li' non c'e' niente da comprare. Ogni strada porta la sua
+  riga e quella degli Eos porta il costo dal listino. Guardia
+  il_gating_a_due_strade con quattro prove, fra cui la coerenza fra le due
+  regole (niente di quel che gli Eos non comprano ha un prezzo nel listino),
+  e rosso provato; chiude il collaudo di Mauro sulla 2182)
 - **AN.07** Il benvenuto, l'accredito del giorno e la dote dei piani — APERTA
 - **AN.08** La condivisione si paga solo se avviene davvero — APERTA
 - **AN.09** Il manifesto, la suite, la build 2182 — APERTA
@@ -158,7 +169,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 4
+VOCI_APERTE: 3
 VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
