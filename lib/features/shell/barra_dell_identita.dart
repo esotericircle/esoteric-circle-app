@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/astro/lingua_degli_eventi.dart';
-import '../../core/astro/natal_chart.dart';
-import '../../core/astro/natal_chart_controller.dart';
-import '../../core/astro/prossimi_eventi.dart';
-import '../../core/astro/zodiac.dart';
-import '../../core/astro/zodiac_controller.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../design_system/components/borsellino.dart';
 import '../../design_system/components/porta_dell_account.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
-import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'barra_del_cerchio.dart';
@@ -172,7 +165,6 @@ class _LaBarra extends StatelessWidget {
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
     // Le misure del contenuto: sottile a riposo, leggibile da aperta.
     final volto = aperta ? 40.0 : 22.0;
-    final glifo = aperta ? 30.0 : 18.0;
 
     return Material(
       type: MaterialType.transparency,
@@ -206,18 +198,24 @@ class _LaBarra extends StatelessWidget {
                 aperta: aperta,
                 suTocco: aperta ? NavigazioneDellaBarra.allAccount : suTocco,
               ),
-              // 2. IL PROSSIMO EVENTO DEL CIELO, col conto alla rovescia.
-              // Da aperta ne mostra tre, coi giorni. Il tocco apre il
-              // Calendario degli Eventi.
+              // 2. LA PORTA DEGLI EVENTI COSMICI.
+              //
+              // **IL TOCCO PORTA AL CALENDARIO SEMPRE, chiusa o aperta che
+              // sia la barra, ordine AO voce 01.** Prima il primo tocco da
+              // chiusa apriva soltanto la barra, per la regola dell'ordine
+              // AM voce 04 che diceva di non portare via da dove si sta: ma
+              // quella regola nasceva quando qui c'era una NOTIZIA da
+              // leggere in grande, e una notizia si ingrandisce mentre una
+              // porta si attraversa. Adesso al centro c'e' una porta col suo
+              // nome scritto sopra, e una porta che al primo tocco fa
+              // qualcos'altro insegna a non fidarsi del proprio dito.
               Expanded(
-                child: _IlCieloCheViene(
+                child: _PortaDegliEventiCosmici(
                   aperta: aperta,
-                  suTocco: aperta
-                      ? () {
-                          suChiusura();
-                          NavigazioneDellaBarra.alCalendario();
-                        }
-                      : suTocco,
+                  suTocco: () {
+                    suChiusura();
+                    NavigazioneDellaBarra.alCalendario();
+                  },
                 ),
               ),
               // 3. IL BORSELLINO, moneta d'oro e saldo.
@@ -262,7 +260,7 @@ class _VoltoENome extends StatelessWidget {
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
     String? nome;
     try {
-      nome = context.watch<ProfileController>().profile?.displayName;
+      nome = context.watch<ProfileController>().profile.displayName;
     } catch (errore) {
       // Senza il profilo nell'albero, come in una prova che monta una scena
       // da sola, resta il solo volto.
@@ -301,14 +299,28 @@ class _VoltoENome extends StatelessWidget {
   }
 }
 
-/// IL CIELO CHE VIENE: il prossimo evento, o i prossimi tre da aperta.
+/// LA PORTA DEGLI EVENTI COSMICI: una scritta sola, sempre quella.
 ///
-/// Le date vengono dal motore unico della voce AN.01, che le calcola in
-/// locale dalle stesse fonti del cielo di oggi. Senza segno e senza carta
-/// restano gli eventi di tutti, che bastano: la Luna piena arriva per
-/// chiunque.
-class _IlCieloCheViene extends StatelessWidget {
-  const _IlCieloCheViene({required this.aperta, required this.suTocco});
+/// **Cosa c'era prima, e perche' se n'e' andato. Ordine AO voce 01.** Qui
+/// stava il PROSSIMO EVENTO col conto alla rovescia, una riga da chiusa e
+/// tre da aperta, prese dal motore della voce AN.01. Dal collaudo della 2182
+/// Mauro ha deciso che il centro della barra e' una PORTA e non un
+/// bollettino: una notizia che cambia da sola, dentro una fascia alta trenta
+/// punti, si legge male e cambia sotto gli occhi mentre la si guarda.
+///
+/// **Il conto alla rovescia non e' stato cancellato, e' tornato a casa sua**:
+/// il Calendario degli Eventi lo mostra per ogni evento, con la data e il
+/// "fra quanto", nello spazio giusto per leggerlo. E il motore
+/// `ProssimiEventi` resta intero: serve al Calendario, ai promemoria e ai
+/// Maestri, e buttarlo perche' la barra non lo usa piu' vorrebbe dire buttare
+/// il calcolo insieme alla sua vetrina.
+///
+/// **La scritta e' la stessa da chiusa e da aperta.** Da aperta cresce, come
+/// tutto il resto della barra, ma non diventa un'altra cosa: chi ha imparato
+/// dove si tocca lo ritrova dov'era.
+class _PortaDegliEventiCosmici extends StatelessWidget {
+  const _PortaDegliEventiCosmici(
+      {required this.aperta, required this.suTocco});
 
   final bool aperta;
   final VoidCallback suTocco;
@@ -316,77 +328,26 @@ class _IlCieloCheViene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
-    Zodiac? segno;
-    NatalChart? carta;
-    try {
-      // **SI CHIEDE IL TIPO VERO, non quello nullabile.** Provider cerca
-      // il tipo esatto: `watch<ZodiacController?>()` e' un tipo DIVERSO da
-      // quello registrato e non lo trova mai, quindi il segno arrivava
-      // sempre nullo e gli appuntamenti personali non comparivano. Il
-      // ripiego per chi non ha il provider resta il catch qui sotto.
-      segno = context.watch<ZodiacController>().sunSign;
-    } catch (errore) {
-      segno = null;
-    }
-    try {
-      carta = context.watch<NatalChartController>().chart;
-    } catch (errore) {
-      carta = null;
-    }
-    final prossimi = ProssimiEventi.da(
-      adesso: DateTime.now(),
-      carta: carta,
-      segno: segno,
-    );
-    if (prossimi.isEmpty) return const SizedBox.shrink();
-
     return GestureDetector(
+      key: const Key('barra_eventi_cosmici'),
       behavior: HitTestBehavior.opaque,
       onTap: suTocco,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xs),
-        child: aperta
-            // **LE TRE RIGHE STANNO NELLO SPAZIO CHE HANNO, misurato.** Con
-            // una Column nuda traboccavano di 43 punti: il corpo di sistema
-            // puo' arrivare a 1,3 volte e tre righe di didascalia non ci
-            // stanno in una fascia sottile. Qui si adattano invece di
-            // sfondare, e la barra resta la fascia decisa da Mauro.
-            ? FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Column(
-                  key: const Key('barra_tre_eventi'),
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    for (final evento in prossimi.take(3))
-                      Text(
-                        '${LinguaDegliEventi.nomeDi(evento.evento)}, '
-                        '${LinguaDegliEventi.dataBreve(evento.quando)}',
-                        maxLines: 1,
-                        textAlign: TextAlign.center,
-                        style: TypographyTokens.didascalia().copyWith(
-                          color: evento.personale
-                              ? palette.gold
-                              : ColorTokens.textSecondary,
-                        ),
-                      ),
-                  ],
-                ),
-              )
-            // **LA RIGA NON SI TRONCA MAI, guardato sull'anteprima**: con
-            // l'ellissi si leggeva "Saturno retrogrado, og...", che e' una
-            // notizia a meta'. Si adatta invece di tagliarsi.
-            : FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  LinguaDegliEventi.rigaDellaBarra(prossimi.first),
-                  key: const Key('barra_prossimo_evento'),
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.etichetta()
-                      .copyWith(color: palette.goldSoft),
-                ),
-              ),
+        // La scritta si adatta invece di troncarsi: su uno schermo stretto
+        // "Eventi Cosmici" tagliato a meta' sarebbe una porta senza nome.
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            'Eventi Cosmici',
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: (aperta
+                    ? TypographyTokens.titoloScheda()
+                    : TypographyTokens.etichetta())
+                .copyWith(color: palette.goldSoft),
+          ),
+        ),
       ),
     );
   }

@@ -3032,13 +3032,11 @@ void main() {
         tester, await buildServices(Maestro.medora, seeded: false),
         clock: clockFor(Maestro.medora));
     await step(tester);
-    // Si apre come si apre nell'app: dal centro della barra, che prima va
-    // aperta col primo tocco.
-    await tester.tap(find.byKey(const Key('barra_dell_identita')),
-        warnIfMissed: false);
-    await step(tester);
-    // Da aperta il centro mostra i TRE eventi, e la chiave e' quella.
-    await tester.tap(find.byKey(const Key('barra_tre_eventi')),
+    // Si apre come si apre nell'app: dal centro della barra, con un tocco
+    // solo. **Ordine AO voce 01**: prima ne servivano due, perche' il primo
+    // apriva la fascia e il secondo colpiva i tre eventi; adesso al centro
+    // c'e' la porta "Eventi Cosmici" e un tocco basta.
+    await tester.tap(find.byKey(const Key('barra_eventi_cosmici')),
         warnIfMissed: false);
     await step(tester);
     await step(tester);

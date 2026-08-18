@@ -65,6 +65,21 @@ void main() {
 
   final barra = find.byKey(const Key('barra_dell_identita'));
 
+  /// **DOVE SI TOCCA PER APRIRE LA BARRA, e perche' non e' piu' il centro.**
+  /// Ordine AO voce 01: il centro e' diventato la porta degli Eventi
+  /// Cosmici, che al tocco porta al Calendario invece di aprire la fascia.
+  /// Un tocco al centro qui non aprirebbe piu' niente e la prova
+  /// accuserebbe l'apertura di un difetto che non ha. Si tocca il volto, che
+  /// da chiusa apre la barra ed e' il gesto che fa chiunque voglia
+  /// guardarsi.
+  Future<void> apriLaBarra(WidgetTester tester) async {
+    await tester.tap(find.byKey(const Key('porta_dell_account')),
+        warnIfMissed: false);
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+  }
+
   testWidgets('la barra c\'e\', e' ' sottile e porta volto e saldo',
       (tester) async {
     await apri(tester);
@@ -92,10 +107,7 @@ void main() {
       (tester) async {
     await apri(tester);
     final chiusa = tester.getRect(barra).height;
-    await tester.tap(barra, warnIfMissed: false);
-    for (var i = 0; i < 8; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
-    }
+    await apriLaBarra(tester);
     final aperta = tester.getRect(barra).height;
     // ignore: avoid_print
     print('ORDINE AM VOCE 04: da ${chiusa.toStringAsFixed(1)} a '
@@ -107,7 +119,10 @@ void main() {
     expect(volto.height, greaterThan(30),
         reason: 'la barra e\' scesa ma il volto e\' rimasto piccolo: il '
             'contenuto doveva diventare piu\' leggibile');
-    await tester.tap(barra, warnIfMissed: false);
+    // **IL SECONDO TOCCO SI FA SULLA FASCIA, non sul volto.** Da aperta il
+    // volto porta all'account, che e' la prova qui sotto: toccarlo di nuovo
+    // aprirebbe una schermata invece di richiudere.
+    await tester.tapAt(Offset(340, tester.getRect(barra).center.dy));
     for (var i = 0; i < 8; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
@@ -117,10 +132,7 @@ void main() {
 
   testWidgets('da aperta il volto porta all\'account', (tester) async {
     await apri(tester);
-    await tester.tap(barra, warnIfMissed: false);
-    for (var i = 0; i < 8; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
-    }
+    await apriLaBarra(tester);
     await tester.tap(find.byKey(const Key('porta_dell_account')),
         warnIfMissed: false);
     for (var i = 0; i < 8; i++) {
@@ -145,31 +157,23 @@ void main() {
         reason: 'il saldo a quattro cifre fa traboccare la barra');
   });
 
-  testWidgets('il centro porta il cielo che viene, e da aperta ne mostra tre',
-      (tester) async {
+  testWidgets('il centro e\' la porta degli Eventi Cosmici', (tester) async {
+    // **QUESTA PROVA E\' CAMBIATA DI GRANDEZZA, ordine AO voce 01, e il
+    // perche' sta qui.** Pretendeva il PROSSIMO EVENTO col conto alla
+    // rovescia, una riga da chiusa e tre da aperta: era la forma decisa
+    // dall'ordine AN. Dal collaudo della 2182 Mauro ha deciso che il centro
+    // e' una porta con un nome fisso, e il conto alla rovescia sta nel
+    // Calendario. Qui resta il minimo che riguarda la CASA UNICA, cioe' che
+    // al centro ci sia quella porta e non un'altra cosa; a provare la
+    // scritta, il tocco e il fatto che il motore sia rimasto vivo e'
+    // `test/il_centro_della_barra_dice_eventi_cosmici_test.dart`.
     await apri(tester);
-    final riga = tester
-        .widget<Text>(find.byKey(const Key('barra_prossimo_evento')));
-    // ignore: avoid_print
-    print('ORDINE AN VOCE 02: al centro si legge "${riga.data}"');
-    expect(riga.data, isNotNull);
-    // La riga e' in lingua del Cerchio: un nome e quanto manca, mai il nome
-    // tecnico dell'evento.
-    expect(riga.data, isNot(contains('_')),
-        reason: 'al centro si legge il nome tecnico dell\'evento');
-    expect(
-        riga.data!.contains('oggi') ||
-            riga.data!.contains('domani') ||
-            riga.data!.contains('fra '),
-        isTrue,
-        reason: 'la riga non dice quanto manca: "${riga.data}"');
-
-    await tester.tap(barra, warnIfMissed: false);
-    for (var i = 0; i < 8; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
-    }
-    expect(find.byKey(const Key('barra_tre_eventi')), findsOneWidget,
-        reason: 'da aperta il centro non mostra i prossimi tre eventi');
+    expect(find.byKey(const Key('barra_eventi_cosmici')), findsOneWidget,
+        reason: 'al centro della barra non c\'e\' la porta degli Eventi '
+            'Cosmici');
+    expect(find.byKey(const Key('barra_prossimo_evento')), findsNothing,
+        reason: 'il conto alla rovescia e\' ancora al centro della barra: '
+            'doveva tornare nel Calendario');
   });
 
   testWidgets('col nome nel profilo, la barra saluta per nome',

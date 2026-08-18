@@ -89,11 +89,23 @@ qui ne' altrove.
 
 ## Le voci
 
-- **AO.01** Il centro della barra dice "Eventi Cosmici" — APERTA
-  (sempre quella scritta, chiusa e aperta, e al tocco apre il Calendario; il
-  conto alla rovescia esce dalla barra e resta nel Calendario, che e' casa
-  sua; il motore della prossima data di AN.01 NON si tocca, perche' serve al
-  Calendario, ai promemoria e ai Maestri)
+- **AO.01** Il centro della barra dice "Eventi Cosmici" — FERMATA IN ATTESA DI DECISIONE
+  (`_IlCieloCheViene` diventa `_PortaDegliEventiCosmici`: una scritta sola,
+  la stessa da chiusa e da aperta, che da aperta cresce senza diventare
+  un'altra cosa. **IL TOCCO PORTA AL CALENDARIO SEMPRE**, e non piu' solo da
+  aperta: la regola dell'ordine AM voce 04, per cui il primo tocco apriva
+  soltanto la fascia, nasceva quando qui c'era una NOTIZIA da ingrandire, e
+  una porta col nome scritto sopra che al primo tocco fa altro insegna a non
+  fidarsi del proprio dito. La barra si apre dal volto e dalla fascia, che
+  restano dov'erano. Il conto alla rovescia esce dalla barra e resta nel
+  Calendario, che lo mostra gia' per ogni evento; il motore `ProssimiEventi`
+  di AN.01 resta intero e la guardia lo verifica in positivo, insieme al
+  fatto che il Calendario continua a chiederlo. Sei import morti tolti dalla
+  barra. Guardia `test/il_centro_della_barra_dice_eventi_cosmici_test.dart`
+  con quattro rossi provati; tre prove sorelle cambiate di grandezza col
+  perche' scritto accanto, piu' la cattura dell'anteprima che ora apre il
+  Calendario con un tocco solo invece di due; anteprima rigenerata e
+  guardata. Chiude il collaudo di Mauro sulla 2183)
 - **AO.02** La barra aperta si ritira da sola — APERTA
   (allo scorrimento della schermata sotto, all'apertura di una rotta, al
   tocco fuori dalla barra, al ritorno indietro; morbido come l'apertura,
@@ -128,7 +140,7 @@ qui ne' altrove.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 8
+VOCI_APERTE: 7
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
