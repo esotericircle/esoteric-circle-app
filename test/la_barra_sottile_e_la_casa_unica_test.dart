@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/app.dart';
-import 'package:esoteric_circle/core/astro/natal_chart.dart';
-import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
-import 'package:esoteric_circle/core/astro/zodiac.dart';
-import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/features/account/account_screen.dart';
 import 'package:esoteric_circle/features/shell/barra_dell_identita.dart';
@@ -147,32 +145,53 @@ void main() {
         reason: 'il saldo a quattro cifre fa traboccare la barra');
   });
 
-  testWidgets('l\'Ascendente compare SOLO quando la carta lo ha dato',
+  testWidgets('il centro porta il cielo che viene, e da aperta ne mostra tre',
       (tester) async {
     await apri(tester);
-    expect(find.byKey(const Key('barra_ascendente')), findsNothing,
-        reason: 'senza carta natale l\'Ascendente non si conosce, e un '
-            'segnaposto sarebbe una promessa vuota');
+    final riga = tester
+        .widget<Text>(find.byKey(const Key('barra_prossimo_evento')));
+    // ignore: avoid_print
+    print('ORDINE AN VOCE 02: al centro si legge "${riga.data}"');
+    expect(riga.data, isNotNull);
+    // La riga e' in lingua del Cerchio: un nome e quanto manca, mai il nome
+    // tecnico dell'evento.
+    expect(riga.data, isNot(contains('_')),
+        reason: 'al centro si legge il nome tecnico dell\'evento');
+    expect(
+        riga.data!.contains('oggi') ||
+            riga.data!.contains('domani') ||
+            riga.data!.contains('fra '),
+        isTrue,
+        reason: 'la riga non dice quanto manca: "${riga.data}"');
 
-    // La carta arriva, con l'Ascendente dentro: adesso si mostra. Il segno
-    // solare ha una fonte sua, il suo controller, e si accende con lei.
-    tester.element(barra).read<ZodiacController>().setSunSign(Zodiac.leo);
-    final carte = tester.element(barra).read<NatalChartController>();
-    carte.chart = NatalChart(
-      sunSign: Zodiac.leo,
-      moonSign: Zodiac.pisces,
-      ascendant: Zodiac.scorpio,
-      planets: const [],
-      houses: const [],
-    );
-    carte.notifyListeners();
+    await tester.tap(barra, warnIfMissed: false);
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 120));
+    }
+    expect(find.byKey(const Key('barra_tre_eventi')), findsOneWidget,
+        reason: 'da aperta il centro non mostra i prossimi tre eventi');
+  });
+
+  testWidgets('col nome nel profilo, la barra saluta per nome',
+      (tester) async {
+    await apri(tester);
+    // **IL PROFILO NASCE COL NOME D'ESEMPIO**, dichiarato in-world nelle
+    // anteprime: qui si prova che il nome mostrato e' QUELLO DEL PROFILO e
+    // che passa dalla normalizzazione, non che manchi.
+    tester
+        .element(barra)
+        .read<ProfileController>()
+        .setProfile(UserProfile(displayName: 'mauro'));
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
-    expect(find.byKey(const Key('barra_ascendente')), findsOneWidget,
-        reason: 'la carta ha dato l\'Ascendente e la barra non lo mostra');
-    expect(find.byKey(const Key('barra_segno')), findsOneWidget,
-        reason: 'col segno solare noto la barra deve mostrarlo');
+    final nome =
+        tester.widget<Text>(find.byKey(const Key('barra_nome_proprio')));
+    // ignore: avoid_print
+    print('ORDINE AN VOCE 02: la barra saluta "${nome.data}"');
+    expect(nome.data, 'Mauro',
+        reason: 'il nome non passa dalla normalizzazione del dato: si scrive '
+            'come si scrive un nome');
   });
 
   testWidgets('sulle soglie del Risveglio la barra non c\'e\'',

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/astro/lingua_degli_eventi.dart';
+import '../../core/astro/natal_chart.dart';
 import '../../core/astro/natal_chart_controller.dart';
+import '../../core/astro/prossimi_eventi.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/astro/zodiac_controller.dart';
+import '../../core/identity/profile_controller.dart';
 import '../../design_system/components/borsellino.dart';
 import '../../design_system/components/porta_dell_account.dart';
-import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -49,8 +52,12 @@ class BarraDellIdentita extends StatefulWidget {
   static const double altezzaChiusa = 30;
 
   /// L'ALTEZZA APERTA: la barra scende e il contenuto si ingrandisce, per
-  /// essere piu' leggibile. Tarata sulle anteprime.
-  static const double altezzaAperta = 66;
+  /// essere piu' leggibile. **Tarata MISURANDO, ordine AN voce 02**: a 66
+  /// punti le tre righe del cielo che viene traboccavano di 43, perche' tre
+  /// righe di didascalia occupano da sole una sessantina di punti. Qui ci
+  /// stanno intere col loro respiro, e la barra resta una fascia che scende
+  /// di poco, non un pannello.
+  static const double altezzaAperta = 88;
 
   /// Quanto dura la discesa. Con Riduci Movimento il passaggio e' secco.
   static const Duration discesa = Duration(milliseconds: 260);
@@ -191,13 +198,29 @@ class _LaBarra extends StatelessWidget {
           child: Row(
             children: [
               const SizedBox(width: SpacingTokens.sm),
-              // 1. IL VOLTO, con i ripieghi di sempre.
-              PortaDellAccount(
+              // 1. IL VOLTO E IL NOME, ordine AN voce 02: chi apre l'app si
+              // vede riconosciuto. Senza nome resta il solo volto, mai un
+              // segnaposto.
+              _VoltoENome(
                 misura: volto,
+                aperta: aperta,
                 suTocco: aperta ? NavigazioneDellaBarra.allAccount : suTocco,
               ),
-              const SizedBox(width: SpacingTokens.sm),
-              // 2. IL BORSELLINO, moneta d'oro e saldo.
+              // 2. IL PROSSIMO EVENTO DEL CIELO, col conto alla rovescia.
+              // Da aperta ne mostra tre, coi giorni. Il tocco apre il
+              // Calendario degli Eventi.
+              Expanded(
+                child: _IlCieloCheViene(
+                  aperta: aperta,
+                  suTocco: aperta
+                      ? () {
+                          suChiusura();
+                          NavigazioneDellaBarra.alCalendario();
+                        }
+                      : suTocco,
+                ),
+              ),
+              // 3. IL BORSELLINO, moneta d'oro e saldo.
               SegnoDelBorsellino(
                 compatta: !aperta,
                 monetaDOro: true,
@@ -206,20 +229,6 @@ class _LaBarra extends StatelessWidget {
                     ? NavigazioneDellaBarra.contestoDelNavigatore
                     : null,
                 suTocco: aperta ? null : suTocco,
-              ),
-              const Spacer(),
-              // 3. IL SEGNO e 4. L'ASCENDENTE, che si mostra SOLO quando la
-              // carta natale l'ha dato: finche' manca non compare nulla, mai
-              // un segnaposto.
-              _SegnoEAscendente(
-                misura: glifo,
-                aperta: aperta,
-                suTocco: aperta
-                    ? () {
-                        suChiusura();
-                        NavigazioneDellaBarra.alPassport(context);
-                      }
-                    : suTocco,
               ),
               const SizedBox(width: SpacingTokens.sm),
             ],
@@ -230,13 +239,15 @@ class _LaBarra extends StatelessWidget {
   }
 }
 
-/// Il segno solare e l'Ascendente, letti dalle loro fonti vere.
+/// IL VOLTO E IL NOME PROPRIO. Ordine AN voce 02.
 ///
-/// Il segno viene da `ZodiacController`, l'Ascendente dalla carta natale
-/// calcolata (`NatalChartController.chart.ascendant`): in locale non si
-/// calcola, arriva dalla callable, e finche' non c'e' non si mostra niente.
-class _SegnoEAscendente extends StatelessWidget {
-  const _SegnoEAscendente({
+/// Il nome viene dal profilo, che e' la porta dove il nome vive gia'
+/// normalizzato: qui non si normalizza una seconda volta. Se il nome non
+/// c'e' ancora resta il solo volto: un segnaposto direbbe che manca
+/// qualcosa senza dire cosa fare, e il posto per darlo e' l'account, che
+/// questo stesso volto apre.
+class _VoltoENome extends StatelessWidget {
+  const _VoltoENome({
     required this.misura,
     required this.aperta,
     required this.suTocco,
@@ -249,74 +260,136 @@ class _SegnoEAscendente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
-    final segno = context.watch<ZodiacController?>()?.sunSign;
-    Zodiac? ascendente;
+    String? nome;
     try {
-      ascendente = context.watch<NatalChartController>().chart?.ascendant;
+      nome = context.watch<ProfileController>().profile?.displayName;
     } catch (errore) {
-      // Senza il controller nell'albero, come in una prova che monta una
-      // scena da sola, l'Ascendente semplicemente non c'e'.
-      ascendente = null;
+      // Senza il profilo nell'albero, come in una prova che monta una scena
+      // da sola, resta il solo volto.
+      nome = null;
     }
-    if (segno == null && ascendente == null) return const SizedBox.shrink();
-
-    Widget unSegno(Zodiac z, String etichetta, Key chiave) => Row(
-          key: chiave,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ZodiacEmblem(
-                sign: z, size: misura, art: ZodiacEmblemArt.symbol),
-            if (aperta) ...[
-              const SizedBox(width: 4),
-              Text(
-                etichetta,
+    final pulito = (nome ?? '').trim();
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        PortaDellAccount(misura: misura, suTocco: suTocco),
+        if (pulito.isNotEmpty) ...[
+          const SizedBox(width: 6),
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: suTocco,
+            child: ConstrainedBox(
+              // Il nome non ruba il posto all'evento: e' un saluto, non un
+              // titolo. Oltre questa larghezza si accorcia con garbo.
+              // Il nome cede spazio al cielo: da chiusa il centro deve
+              // poter dire "Saturno retrogrado, oggi" per intero, e
+              // guardando l'anteprima con 78 punti si troncava.
+              constraints: BoxConstraints(maxWidth: aperta ? 120 : 56),
+              child: Text(
+                pulito,
+                key: const Key('barra_nome_proprio'),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft),
               ),
-            ],
-          ],
-        );
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// IL CIELO CHE VIENE: il prossimo evento, o i prossimi tre da aperta.
+///
+/// Le date vengono dal motore unico della voce AN.01, che le calcola in
+/// locale dalle stesse fonti del cielo di oggi. Senza segno e senza carta
+/// restano gli eventi di tutti, che bastano: la Luna piena arriva per
+/// chiunque.
+class _IlCieloCheViene extends StatelessWidget {
+  const _IlCieloCheViene({required this.aperta, required this.suTocco});
+
+  final bool aperta;
+  final VoidCallback suTocco;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
+    Zodiac? segno;
+    NatalChart? carta;
+    try {
+      segno = context.watch<ZodiacController?>()?.sunSign;
+    } catch (errore) {
+      segno = null;
+    }
+    try {
+      carta = context.watch<NatalChartController>().chart;
+    } catch (errore) {
+      carta = null;
+    }
+    final prossimi = ProssimiEventi.da(
+      adesso: DateTime.now(),
+      carta: carta,
+      segno: segno,
+    );
+    if (prossimi.isEmpty) return const SizedBox.shrink();
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: suTocco,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (segno != null)
-            unSegno(segno, segno.italianName, const Key('barra_segno')),
-          if (ascendente != null) ...[
-            SizedBox(width: aperta ? SpacingTokens.sm : 6),
-            // L'ASCENDENTE si distingue dal segno solare: da aperta lo dice
-            // la parola, da chiusa la sigla, perche' due glifi uguali senza
-            // una parola accanto sarebbero due enigmi.
-            Row(
-              key: const Key('barra_ascendente'),
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Asc',
-                  style: TypographyTokens.etichetta()
-                      .copyWith(color: ColorTokens.textSecondary),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xs),
+        child: aperta
+            // **LE TRE RIGHE STANNO NELLO SPAZIO CHE HANNO, misurato.** Con
+            // una Column nuda traboccavano di 43 punti: il corpo di sistema
+            // puo' arrivare a 1,3 volte e tre righe di didascalia non ci
+            // stanno in una fascia sottile. Qui si adattano invece di
+            // sfondare, e la barra resta la fascia decisa da Mauro.
+            ? FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Column(
+                  key: const Key('barra_tre_eventi'),
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (final evento in prossimi.take(3))
+                      Text(
+                        '${LinguaDegliEventi.nomeDi(evento.evento)}, '
+                        '${LinguaDegliEventi.dataBreve(evento.quando)}',
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.didascalia().copyWith(
+                          color: evento.personale
+                              ? palette.gold
+                              : ColorTokens.textSecondary,
+                        ),
+                      ),
+                  ],
                 ),
-                const SizedBox(width: 3),
-                ZodiacEmblem(
-                    sign: ascendente,
-                    size: misura,
-                    art: ZodiacEmblemArt.symbol),
-                if (aperta) ...[
-                  const SizedBox(width: 4),
-                  Text(
-                    ascendente.italianName,
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: palette.goldSoft),
-                  ),
-                ],
-              ],
-            ),
-          ],
-        ],
+              )
+            // **LA RIGA NON SI TRONCA MAI, guardato sull'anteprima**: con
+            // l'ellissi si leggeva "Saturno retrogrado, og...", che e' una
+            // notizia a meta'. Si adatta invece di tagliarsi.
+            : FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  LinguaDegliEventi.rigaDellaBarra(prossimi.first),
+                  key: const Key('barra_prossimo_evento'),
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.goldSoft),
+                ),
+              ),
       ),
     );
   }
 }
+
+/// **IL SEGNO E L'ASCENDENTE NON VIVONO PIU' QUI, ordine AN voce 02**, per
+/// decisione di Mauro dal collaudo della 2181: il centro della barra
+/// appartiene al cielo che viene, e il segno con l'Ascendente si leggono nel
+/// Passaporto, dove stanno insieme al resto dell'identita'. Il componente
+/// `_SegnoEAscendente` e' stato tolto invece di essere lasciato spento: un
+/// widget che nessuno monta e' codice che mente sulla scena.

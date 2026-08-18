@@ -90,7 +90,21 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   2026 e prossimo solstizio 21 dicembre 2026, piu' la coerenza su 21 eventi
   confrontati col motore di oggi; guardia il_motore_della_prossima_data con
   rosso provato)
-- **AN.02** La barra cambia veste — APERTA
+- **AN.02** La barra cambia veste — FERMATA IN ATTESA DI DECISIONE
+  (a sinistra il volto E il nome proprio dal profilo, che passa dalla
+  normalizzazione del dato e senza nome resta il solo volto; al centro il
+  prossimo evento col conto alla rovescia in lingua del Cerchio, dal motore
+  della voce 01, e a parita' di data vince l'evento personale; a destra il
+  borsellino; segno e Ascendente escono e `_SegnoEAscendente` e' stato tolto
+  invece che lasciato spento; da aperta il centro mostra i prossimi TRE
+  eventi con le date e i tocchi navigano, volto all'account, borsellino al
+  borsellino, centro al Calendario; da chiusa il primo tocco apre e basta.
+  Tre difetti trovati MISURANDO e GUARDANDO e curati: le tre righe
+  traboccavano di 43 punti e ora si adattano, l'altezza aperta e' salita a
+  88, e la riga del centro si troncava in "Saturno retrogrado, og..." che e'
+  una notizia a meta'. Guardia la_barra_sottile_e_la_casa_unica con nove
+  prove e rosso provato; anteprima rigenerata e guardata; chiude il collaudo
+  di Mauro sulla 2182)
 - **AN.03** La schermata del Calendario degli Eventi — APERTA
 - **AN.04** La sincronia dei premi persi parte davvero all'avvio — APERTA
 - **AN.05** Il listino vivo: costi in chiaro, residui, spesa vera — APERTA
@@ -102,7 +116,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 8
+VOCI_APERTE: 7
 VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

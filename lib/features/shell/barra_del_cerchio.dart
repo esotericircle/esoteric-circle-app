@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../account/account_screen.dart';
+import '../calendario/calendario_degli_eventi_screen.dart';
 import '../maestri/domain_screen.dart';
 import '../../services/app_services.dart';
 import 'dove_si_vede_la_barra.dart';
@@ -412,9 +413,15 @@ class NavigazioneDellaBarra {
   /// che sta sotto il pavimento dello scope e sotto i provider dell'app.
   static BuildContext contestoDelNavigatore() => _navigatore().context;
 
-  /// La via all'account da sopra il Navigator, per il volto della capsula.
+  /// La via all'account da sopra il Navigator, per il volto della barra.
   static void allAccount() {
     _navigatore().push(AccountScreen.route());
+  }
+
+  /// La via al Calendario degli Eventi, dal centro della barra sottile.
+  /// Ordine AN voce 02.
+  static void alCalendario() {
+    _navigatore().push(CalendarioDegliEventiScreen.route());
   }
 
   /// Torna al Cerchio senza aggiungere nulla alla pila: il Cerchio e' la rotta
