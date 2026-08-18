@@ -141,8 +141,13 @@ suite intera UNA volta ad AL.09.
   Mauro con la grandezza nuova scritta accanto; anteprime rigenerate e
   guardate; chiude il collaudo di Mauro sulla 2180)
 - **AL.09** Il manifesto, la suite, la build 2180 — CHIUSA
-  (manifesto con gli stati veri e i marcatori contati; suite intera una volta
-  col giornale pieno su file; pubspec a 0.1.0+2180; build arm64 e distribuzione
+  (manifesto con gli stati veri e i marcatori contati; suite intera DUE volte
+  col giornale pieno su file, la prima ha trovato cinque code vere che sono
+  state curate e committate, la seconda e' verde su 2804 prove coi SETTE rossi
+  di legge dichiarati e tutti preesistenti alla 2179: attribuzione cieca da
+  rimisurare dal PC di Mauro, i due disegni dei sentieri fuori tela col peso
+  dei traguardi, gia' rossi sulla testa cda32ab, e le guardie degli ordini
+  AC, T e U ancora aperti; pubspec a 0.1.0+2180; build arm64 e distribuzione
   su App Tester coi comandi esatti dell'ordine; il rapporto porta build, link
   della release e l'elenco delle cinque FERMATE IN ATTESA che aspettano il
   collaudo di Mauro, piu' il passo manuale del server per gli Eos)
