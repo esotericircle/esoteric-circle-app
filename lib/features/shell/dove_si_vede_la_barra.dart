@@ -87,6 +87,9 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'CircleSealScreen': PresenzaDellaBarra.assente,
   'ArchetypeTestScreen': PresenzaDellaBarra.assente,
   'FaceConstellationScreen': PresenzaDellaBarra.assente,
+  // Il Calendario degli Eventi si apre dal centro della barra sottile ed e'
+  // una lettura, come il cielo di nascita: si esce col tasto indietro.
+  'CalendarioDegliEventiScreen': PresenzaDellaBarra.assente,
   'AccountScreen': PresenzaDellaBarra.assente,
   'SettingsScreen': PresenzaDellaBarra.assente,
   'ProfileScreen': PresenzaDellaBarra.assente,

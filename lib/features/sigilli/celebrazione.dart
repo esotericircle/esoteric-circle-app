@@ -234,7 +234,7 @@ class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
           // IL VELO LEGGE IL NUMERO UNICO, ordine S voce 09: qui c'era
           // `0xCC05060A`, cioe' un'opacita' scritta a mano che nessuno teneva
           // d'accordo con quella della fascia.
-          barrierColor: Color(0xFF05060A).withValues(
+          barrierColor: const Color(0xFF05060A).withValues(
             alpha: VeloDellaCelebrazione.opacita,
           ),
           // LA FESTA SI PORTA IL SUO SCOPE, e non e' un ripiego: e' la
@@ -299,6 +299,13 @@ class CelebrazioneAScermoPieno extends StatefulWidget {
   State<CelebrazioneAScermoPieno> createState() =>
       _CelebrazioneAScermoPienoState();
 }
+
+/// QUANTO SPAZIO SI TIENE PER L'USCITA, ordine AN voce 09. E' l'altezza del
+/// bersaglio del congedo, quarantotto punti, la stessa misura minima con cui
+/// si tocca qualsiasi altra cosa nel Cerchio: la scena che scorre riceve
+/// tanto in meno, cosi' il suo centro resta il centro della parte visibile e
+/// non della finestra intera.
+const double _altezzaDelCongedo = 48;
 
 class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
     with SingleTickerProviderStateMixin {
@@ -373,11 +380,24 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
           // un telefono piccolo, o con la scrittura ingrandita, la festa non
           // deve diventare una riga gialla di errore. La prova lo ha trovato
           // al primo montaggio, su uno schermo da 600 punti.
+          //
+          // **E IL CONGEDO STA FUORI DALLO SCORRIMENTO, ordine AN voce 09.**
+          // Finche' stava in fondo alla colonna bastava che la festa
+          // crescesse per spingerlo oltre il bordo, ed e' successo: le tre
+          // frasi "quando arrivano i tuoi Eos" della voce 08 lo hanno portato
+          // a 877 punti su uno schermo di 797, cioe' fuori. Una festa a
+          // schermo pieno senza uscita raggiungibile e' una stanza senza
+          // porta, quindi la porta si ancora al fondo e il resto scorre
+          // sotto: qualunque cosa cresca dentro domani, l'uscita resta dov'e'.
           child: LayoutBuilder(
-            builder: (context, vincoli) => SingleChildScrollView(
+            builder: (context, vincoli) => Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
               child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: vincoli.maxHeight),
+                constraints: BoxConstraints(
+                    minHeight: vincoli.maxHeight - _altezzaDelCongedo),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -499,17 +519,37 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                           style: TypographyTokens.didascalia()
                               .copyWith(color: palette.goldSoft)),
                     ),
-                    TextButton(
+                  ],
+                ),
+              ),
+                  ),
+                ),
+                // IL CONGEDO, ANCORATO: sta fuori dallo scorrimento, quindi
+                // e' raggiungibile qualunque cosa ci sia sopra.
+                //
+                // **E porta il suo velo**, una sfumatura ferma e non una
+                // sfocatura per fotogramma: senza, cio' che scorre gli passa
+                // dietro e le due scritte si leggono una sull'altra.
+                Container(
+                  height: _altezzaDelCongedo,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0x0005060A), Color(0xE605060A)],
+                    ),
+                  ),
+                  child: Center(
+                    child: TextButton(
                       key: const Key('celebrazione_continua'),
                       onPressed: () => Navigator.of(context).maybePop(),
                       child: Text('Continua il cammino',
                           style: TypographyTokens.etichetta()
                               .copyWith(color: ColorTokens.textSecondary)),
                     ),
-                    const SizedBox(height: SpacingTokens.md),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),

@@ -80,7 +80,7 @@ class ListinoDegliEos {
   /// LA CARTA SINGOLA IN PIU'.
   static const cartaExtra = VoceDelListino(
     id: 'tarot_card_extra',
-    nome: 'Una carta in piu\'',
+    nome: 'Una carta in più',
     costo: 50,
     budget: null,
     gratisAlGiorno: {
@@ -94,7 +94,7 @@ class ListinoDegliEos {
   /// LA DOMANDA IN PIU' A UN MAESTRO.
   static const domandaExtra = VoceDelListino(
     id: 'maestro_question',
-    nome: 'Una domanda in piu\'',
+    nome: 'Una domanda in più',
     costo: 80,
     budget: 'domande',
     gratisAlGiorno: {
@@ -108,7 +108,7 @@ class ListinoDegliEos {
   /// LA SINASTRIA CELEB IN PIU'.
   static const sinastriaExtra = VoceDelListino(
     id: 'synastry_vip',
-    nome: 'Una sinastria in piu\'',
+    nome: 'Una sinastria in più',
     costo: 150,
     budget: 'confronti',
     gratisAlGiorno: {
@@ -155,8 +155,12 @@ class ListinoDegliEos {
   /// con la possibilita' di non farselo chiedere piu'.
   static const int sogliaDellaConferma = 100;
 
+  /// COME SI CHIAMA LA MONETA, in un punto solo: la parola vive qui e chi
+  /// scrive una cifra la compone, invece di incollarla accanto al numero.
+  static const String moneta = 'Eos';
+
   /// Come si scrive un costo, in un punto solo: "120 Eos".
-  static String prezzo(int costo) => '$costo Eos';
+  static String prezzo(int costo) => '$costo $moneta';
 
   /// Come si dice quanto resta oggi, in lingua del Cerchio.
   static String residuo(int quante, String cosa) {

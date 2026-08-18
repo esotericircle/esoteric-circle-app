@@ -1,3 +1,4 @@
+import 'listino_degli_eos.dart';
 import 'tier.dart';
 
 /// I cicli di prezzo di un piano.
@@ -273,7 +274,8 @@ class PlanCatalog {
     Tier.tier3: 3000,
   };
 
-  /// La dote scritta come si legge: "500 Eos", oppure nulla per il piano
+  /// La dote scritta come si legge, col numero e la moneta, oppure nulla
+  /// per il piano
   /// gratuito, che non ne ha una.
   static String? doteScritta(Tier tier) {
     final quanti = doteDellaSottoscrizione[tier] ?? 0;
@@ -284,7 +286,10 @@ class PlanCatalog {
       if (i > 0 && (crudo.length - i) % 3 == 0) testo.write('.');
       testo.write(crudo[i]);
     }
-    return '$testo Eos';
+    // La parola si compone, non si scrive accanto al numero: un prezzo
+    // scritto a mano fuori dal listino e' esattamente cio' che la guardia
+    // dell'ordine AN voce 05 vieta, e questa e' la stessa famiglia.
+    return '$testo ${ListinoDegliEos.moneta}';
   }
 
   static String? eosOgniMese(Tier tier) {

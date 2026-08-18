@@ -202,6 +202,20 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   su App Tester coi comandi esatti dell'ordine; il rapporto porta build,
   link della release, le cinque FERMATE IN ATTESA e il deploy delle
   functions che spetta a Mauro)
+  **E LA SUITE HA PRESO UN DIFETTO CHE NESSUNA VOCE CERCAVA: la festa era
+  rimasta senza uscita.** Le tre frasi "quando arrivano i tuoi Eos" nate
+  dalla voce 08 hanno allungato la colonna della celebrazione a schermo
+  pieno, e il congedo, che ne era l'ultima riga, e' finito FUORI dal bordo:
+  misurato, cominciava a 877 punti su uno schermo di 797. Non l'ha visto un
+  occhio, sono cadute due prove che non parlano di feste, la bolla dei
+  traguardi e il volo degli Eos, perche' i loro tocchi finivano sui pulsanti
+  della condivisione rimasti davanti. Cura: il congedo esce dallo
+  scorrimento e si ancora al fondo della scena, con un velo fermo perche'
+  cio' che scorre non gli passi dietro; la scena riceve
+  `_altezzaDelCongedo` punti in meno, cosi' il suo centro resta il centro di
+  cio' che si vede. Guardia nuova `test/dalla_festa_si_esce_sempre_test.dart`,
+  che misura i punti del congedo su tre schermi e poi lo tocca davvero, con
+  rosso provato su due dei tre.
 
 ## I marcatori, contati sulle righe
 

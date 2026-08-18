@@ -1,7 +1,7 @@
 # Censimento delle misure tipografiche scritte a mano
 
-<!-- TOTALE_CENSITO: 231 -->
-<!-- FILE_CENSITI: 60 -->
+<!-- TOTALE_CENSITO: 232 -->
+<!-- FILE_CENSITI: 61 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- LETTURA_SOTTO_16: 0 -->
 <!-- Generato da tool/censimento_tipografia.dart. Non si scrive a mano: si rigenera. -->
@@ -20,8 +20,8 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 
 | Grandezza | Valore |
 | --- | --- |
-| Misure esplicite sotto `lib/` | **231** |
-| File che ne contengono | **60** |
+| Misure esplicite sotto `lib/` | **232** |
+| File che ne contengono | **61** |
 | Sotto il pavimento assoluto di 12 | **0** |
 | Sotto 16 in contesto di lettura | **0** |
 
@@ -89,6 +89,7 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/design_system/components/interruttore_del_cerchio.dart` | 1 | 0 | 0 |
 | `lib/design_system/components/section_title.dart` | 1 | 0 | 0 |
 | `lib/features/angels/angelo_ingrandito.dart` | 1 | 0 | 0 |
+| `lib/features/calendario/calendario_degli_eventi_screen.dart` | 1 | 0 | 0 |
 | `lib/features/debug/app_check_debug_view.dart` | 1 | 0 | 0 |
 | `lib/features/home/widgets/demo_controls.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/chat/widgets/chat_empty_state.dart` | 1 | 0 | 0 |

@@ -8,6 +8,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'istante_dichiarato.dart';
+
 /// LA SINCRONIA DEI PREMI PARTE DA SOLA. Ordine AN voce 04.
 ///
 /// **Il difetto, dal collaudo di Mauro sulla 2181**: aperte le porte del
@@ -19,8 +21,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// (ordine di avvio del guardiano, catenaccio gia' consumato, errore
 /// inghiottito) il colpevole e' il SECONDO, ma per una ragione che nessuno
 /// dei tre nominava per intero. Il diario si carica da disco in modo
-/// asincrono, `DiarioDelCammino()..carica()` nel provider; il guardiano gira
-/// al primo fotogramma utile, quando quel caricamento e' ancora in volo.
+/// asincrono, perche' l'app lancia `carica` dal provider senza attenderlo;
+/// il guardiano gira al primo fotogramma utile, quando quella lettura e'
+/// ancora in volo.
 /// La sincronia guardava quindi un cammino VUOTO, non trovava nessun premio
 /// da riprendere, usciva subito e bruciava il catenaccio "una volta per
 /// sessione" per tutta la sessione.
@@ -40,7 +43,7 @@ void main() {
     final porta = _PortaCheConta();
     final borsa = QuestionAllowance(porta: porta);
     // Il diario si carica come lo carica l'app: dal provider, in volo.
-    final diario = DiarioDelCammino(orologio: () => DateTime(2026, 8, 18, 9));
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     final chiave = GlobalKey();
     await tester.pumpWidget(MultiProvider(
       providers: [

@@ -160,7 +160,9 @@ void main() {
       // nel Cerchio, che e' il tetto separato del Consiglio.
       // VENTISEI dall'11 agosto 2026, ordine I voce 3: la riga delle gettate
       // di rune, tre al giorno per il Viandante e illimitate dal Tier 1.
-      expect(PlanCatalog.matrix.length, 26);
+      // VENTISETTE dall'ordine AN voce 07: la riga della dote in Eos alla
+      // sottoscrizione entra nella pagina come valore del piano.
+      expect(PlanCatalog.matrix.length, 27);
       final gettate = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

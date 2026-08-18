@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/astro/aspetti_di_oggi.dart';
 import '../../core/astro/lingua_degli_eventi.dart';
 import '../../core/astro/natal_chart.dart';
 import '../../core/astro/natal_chart_controller.dart';
@@ -80,6 +81,16 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
       carta = null;
     }
 
+    // **QUANTO SI SA DI QUESTA PERSONA, chiesto alla porta unica.** La prima
+    // stesura decideva l'invito con una condizione scritta qui, e sarebbe
+    // stata la seconda verita' sui dati di nascita: il giorno che il Cerchio
+    // cambia idea su cosa serve per un appuntamento personale, questa
+    // schermata resterebbe indietro da sola. Il livello lo dice
+    // `AspettiDiOggi`, che e' la porta, e qui si legge soltanto.
+    final livello = AspettiDiOggi.livello(carta);
+    final nullaDiTuo =
+        livello == LivelloPersonalizzazione.soloSegno && segno == null;
+
     final tutti =
         ProssimiEventi.da(adesso: quando, carta: carta, segno: segno);
     final elenco = [
@@ -114,7 +125,7 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
                     .copyWith(color: ColorTokens.textSecondary),
               ),
               const SizedBox(height: SpacingTokens.lg),
-              if (segno == null && carta == null)
+              if (nullaDiTuo)
                 _InvitoACompletare(palette: palette),
               for (final evento in elenco) ...[
                 _VoceDelCalendario(evento: evento),
