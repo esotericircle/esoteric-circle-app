@@ -1,0 +1,128 @@
+# ORDINE AP. IL CERCHIO TI RICONOSCE, E TI RESTITUISCE IL TUO CAMMINO
+
+Nove voci, da AP.01 ad AP.09. Ramo `claude/esoteric-circle-master-order-e798aj`,
+premesse verificate sulla testa `4336e1ee` il 19 agosto 2026.
+
+## Come si legge questo file
+
+Una riga per voce, con lo stato in fondo. Stati ammessi: APERTA, CHIUSA,
+FERMATA SU PREMESSA FALSA, FERMATA IN ATTESA DI DECISIONE. Finche' una riga
+e' APERTA la guardia `test/ordine_ap_guard_test.dart` resta rossa. Le voci
+che si vedono o si provano sul telefono (AP.02, AP.04, AP.05, AP.06, AP.07) a
+cura fatta e guardia verde vanno in FERMATA IN ATTESA DI DECISIONE: le chiude
+il collaudo di Mauro sulla build di AP.09. Un commit per voce; prove mirate
+durante le voci, prove del server con npm test, suite intera UNA volta ad
+AP.09.
+
+## Perche' quest'ordine esiste
+
+Un fatto misurato da Mauro sul telefono vero, sulla 2183: ha disinstallato e
+reinstallato l'app, si e' registrato con lo stesso account Google, e il
+borsellino e' tornato SOLO dopo aver visitato il Passport, mentre i traguardi
+accesi nei sentieri non sono tornati affatto.
+
+La radice e' una sola e riguarda l'architettura, non una schermata: **il
+Cerchio ricorda il denaro ma non ricorda il cammino ne' chi sei**. Da qui
+discende la domanda di Mauro, cioe' che rifare l'onboarding da registrati non
+ha senso; e da qui discende la cosa piu' grave, che la voce della custodia
+promette testualmente di non far perdere nulla, e oggi quella frase e' falsa.
+
+## Le decisioni di Mauro del 18 agosto, dentro quest'ordine
+
+- La barra sottile NON compare durante l'onboarding, compare dalla home in poi
+  e resta visibile in ogni schermata come adesso.
+- Nessun muro di accesso alla prima apertura: la prima schermata resta il
+  risveglio, e la via per chi torna e' una porta piccola, non un modulo.
+- La riga di quella porta e' "Faccio gia' parte del Cerchio", con sotto la
+  riga di servizio smorzata "Accedi e ritrova il tuo cammino".
+
+## Il vincolo permanente, riportato come vuole l'ordine AO
+
+**LA SCRITTA ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e'
+normale che a volte si sovrappongano ad altro. Decisione di Mauro del 17
+agosto 2026.
+
+## Le premesse, verificate una per una il 19 agosto 2026
+
+1. **P1 VERA.** Il cammino vive solo sul telefono: `SharedPreferences` compare
+   in `lib/core/sigilli/diario_del_cammino.dart`,
+   `lib/core/sigilli/libro_degli_accrediti.dart` e
+   `lib/core/sigilli/coda_delle_feste.dart`, due occorrenze per file, import e
+   uso. Fuori dal telefono i traguardi accesi non esistono da nessuna parte.
+2. **P2 VERA.** Anche il profilo vive sul telefono:
+   `lib/core/identity/profile_store.dart` usa SharedPreferences in otto punti.
+3. **P3 VERA.** `porta.stato()` parte da DUE soli posti in tutta `lib`,
+   contati per enumerazione: `lib/features/sigilli/regia_del_cammino.dart`
+   riga 353 e `lib/core/entitlement/question_allowance.dart` riga 381.
+   Nessuno la chiama all'avvio e nessuno la rifa' dopo il riconoscimento.
+4. **P4 VERA.** `firestore.rules` righe 29 e 30: `allow read: if
+   proprietario(uid)` e `allow write: if false`. Il telefono legge il proprio
+   documento e non lo scrive mai; ogni scrittura passa dalle callable, e
+   questo vincolo non si tocca.
+5. **P5 VERA.** Le callable sono sei: cinque in
+   `functions/src/cerchio.ts` (`statoDelCerchio`, `consumaDelGiorno`,
+   `muoviGliEos`, `scriviLaMemoria`, `cancellaIlCerchio`) piu' `natalChart` in
+   `functions/src/index.ts`.
+6. **P6 VERA, ed e' la frase che quest'ordine deve rendere vera.**
+   `lib/features/account/account_screen.dart` righe 98 e 99: "Salva carta
+   natale, ricordi e Eos: se cambi telefono non perdi nulla".
+7. **P7 VERA.** `ContinuaComeRiconosciuto` vive in
+   `lib/features/account/custodia_del_cielo.dart` riga 241 ed e' montato in
+   due scene, il foglio dell'account (riga 421) e il passo del Risveglio
+   (`lib/features/onboarding/custodia_del_cielo_step.dart` riga 130);
+   `signInWithCredential` sta in `lib/core/identity/account_del_cerchio.dart`
+   riga 280.
+8. **P8 VERA, con la misura precisa.** La barra sottile ha gia' tre soglie
+   dove non si vede (`OnboardingScreen`, `MaestroRevealScreen`,
+   `ArtIntroScreen`), e alla prima apertura infatti NON c'e': misurato
+   montando l'app senza onboarding fatto. Ma il Risveglio prosegue in
+   `RisveglioJourney`, che e' una rotta spinta con `pushReplacement`
+   (`onboarding_screen.dart` riga 213) e NON sta fra le soglie: da li' in poi,
+   e quindi per la carta natale, la custodia e il sigillo, la barra si vede.
+   L'elenco vive dentro `barra_dell_identita.dart` e non nell'elenco unico
+   `dove_si_vede_la_barra.dart`, che governa la barra STORICA del guscio.
+9. **P9 VERA per dichiarazione di Mauro**: il fatto del 18 agosto sul telefono
+   e' un collaudo, non una supposizione, e non si rimisura da qui.
+
+## Le voci
+
+- **AP.01** Il Cerchio custodisce il cammino e l'identita'. Stato: APERTA
+  (identita' di nascita, contatori dei gesti, giorni con gesto, gesti
+  nell'ora giusta, sigilli accesi con la data, archetipo con la data, arti
+  preferite; si scrive solo dalle callable e si viaggia con cio' che gia'
+  parte; forma estendibile senza rompere chi legge una versione vecchia)
+- **AP.02** Il saldo e il cammino si chiedono all'avvio. Stato: APERTA
+  (all'avvio con rete e subito dopo il riconoscimento; senza rete si dichiara
+  e si riprova, mai un saldo falso e mai una cancellazione)
+- **AP.03** La fusione, mai la sostituzione cieca. Stato: APERTA
+  (per ogni contatore vince il piu' alto, i sigilli si uniscono, le date piu'
+  vecchie vincono dove la data e' un primato; nessuna storia si cancella mai,
+  ed e' la lezione della AO.04)
+- **AP.04** La porta piccola per chi torna. Stato: APERTA
+  ("Faccio gia' parte del Cerchio" con sotto "Accedi e ritrova il tuo
+  cammino"; non e' un muro e il richiamo principale resta "comincia")
+- **AP.05** L'onboarding si salta, e il ritrovamento si vede. Stato: APERTA
+  (con l'identita' sul server non si rifa' niente; nel mezzo si vede cosa e'
+  stato ritrovato, coi numeri veri; con identita' parziale si chiede solo il
+  resto)
+- **AP.06** Il "Continua come" restituisce il cammino. Stato: APERTA
+  (stessa fusione e stesso ritrovamento delle voci 03 e 05, logica in un
+  punto solo)
+- **AP.07** La barra sottile fuori dall'onboarding. Stato: APERTA
+  (l'elenco di dove si vede in UN punto solo, mai dentro le schermate)
+- **AP.08** La frase della custodia diventa vera. Stato: APERTA
+  (il sottotitolo dice cio' che il Cerchio custodisce davvero; si MISURA se
+  Android puo' proporre da solo l'account gia' usato, e se non funziona non
+  compare niente e il rapporto dichiara la misura; mai il backup di sistema)
+- **AP.09** Il manifesto, la suite, il deploy e la build 2184. Stato: APERTA
+  (stati veri e marcatori contati; npm test dentro `functions`; suite intera
+  una volta; build 2184 arm64 e distribuzione; **il deploy delle functions lo
+  esegue Mauro** e il rapporto lo dice a chiare lettere)
+
+## I marcatori, contati sulle righe
+
+VOCI_TOTALI: 9
+VOCI_APERTE: 9
+VOCI_CHIUSE: 0
+VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
