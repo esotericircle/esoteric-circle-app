@@ -56,9 +56,36 @@ Mauro del 17 agosto 2026.
 
 ## Le voci
 
-- **AR.01** Il cielo si muove della corsa che gli spetta. Stato: APERTA
-  (prima si misura, poi si corregge; riga di messa a punto permanente;
-  percorso del movimento congelato)
+- **AR.01** Il cielo si muove della corsa che gli spetta. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**LE MISURE, e due ipotesi dell'ordine sono cadute.** Nasce
+  `test/il_cielo_si_muove_davvero_test.dart`, che risponde a due domande
+  diverse: se la formula da' la corsa giusta, e se il cielo a schermo la usa.
+  **La corsa e' esatta**: polvere 30,0, fondo 80,0, medio 105,5, vicino
+  165,5, cioe' la tabella di F3 con scarto zero, e a mezza inclinazione
+  esattamente la meta'.
+  **I2 E' FALSA, e va detto perche' era il sospetto numero due.** Il `read` al
+  posto del `watch` non impedisce il movimento: `_CosmosPainter` nasce con
+  `super(repaint: Listenable.merge([animation, parallax]))` e ricalcola gli
+  offset DENTRO `paint`, quindi ridipinge a ogni notifica del sensore anche
+  senza ricostruire il widget. Misurato montando la scena vera: inclinando il
+  controller dei provider cambiano 876 pixel su mille, e su quindici
+  notifiche il cielo cambia quindici volte su quindici. **La prova del rosso
+  chiesta dall'ordine, cioe' rimettere il `read`, NON scatta**, ed e' la
+  dimostrazione che quella non era la causa.
+  **Cade anche il sospetto del provider nullabile**: `context.watch` col tipo
+  nullabile TROVA il controller registrato, misurato con la stessa prova.
+  **I1 e I3 non sono misurabili senza telefono**, e per questo nasce cio' che
+  l'ordine chiede: `lib/features/settings/riga_di_messa_a_punto.dart`, in
+  fondo alle Impostazioni, dice "Sensore vivo" o "Sensore spento",
+  l'inclinazione e quanti punti sta correndo il piano di fondo sugli 80
+  attesi. Provata: da ferma dice 0,0 punti, a fondo corsa 80,0.
+  **La cura che vale comunque**: senza sensore la deriva di ripiego valeva
+  1,9 punti sul piano di fondo, cioe' il "si sposta di due millimetri";
+  adesso, e SOLO quando `sensorActive` e' falso, usa un range di 250 con la
+  stessa profondita' efficace della corsa, cioe' 40 punti sul fondo e 83 sul
+  vicino. E le due domande hanno due nomi: `ascoltaIlSensore` non e' piu' lo
+  stesso booleano che arma il giro lento.
+  **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2186)
 - **AR.02** I tre sentieri nascono dal dato. Stato: APERTA
   (165 voci VERBATIM da `docs/corpus/Traguardi_165_Revisione_B.json`, somma
   Eos 2.010 per sentiero e 6.030 in tutto)
@@ -90,7 +117,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 10
-VOCI_APERTE: 10
+VOCI_APERTE: 9
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

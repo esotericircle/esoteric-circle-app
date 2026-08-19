@@ -97,6 +97,30 @@ class ParallaxController extends ChangeNotifier {
     return Offset(dx, dy);
   }
 
+  /// **QUANTO DERIVA IL CIELO QUANDO IL SENSORE NON C'E'. Ordine AR voce 01.**
+  ///
+  /// La deriva normale vale 12 per la profondita', cioe' 1,9 punti sul piano
+  /// di fondo: e' un respiro accanto a un'inclinazione che ne corre 80, e da
+  /// sola e' esattamente "il si sposta di due millimetri" che Mauro descrive.
+  /// Su un telefono senza accelerometro, o dove lo stream non parte, quella
+  /// deriva e' TUTTO cio' che la persona vedra' per sempre.
+  ///
+  /// Per quel caso la deriva sale a un range di 250 e usa la stessa
+  /// profondita' efficace della corsa, cosi' i piani restano in proporzione
+  /// fra loro: 40 punti sul fondo (la meta' della corsa satura) e 83 sul
+  /// piano vicino. **Non e' il movimento del sensore e non finge di esserlo**:
+  /// e' un cielo che vive comunque, e chi lo guarda vede qualcosa muoversi.
+  static const double rangeSenzaSensore = 250;
+
+  /// La deriva da usare quando `sensorActive` e' falso.
+  Offset derivaSenzaSensore(double depth, double t) {
+    final d = profonditaEfficace(depth);
+    final a = 2 * math.pi * t;
+    final dx = math.cos(a) * rangeSenzaSensore * d;
+    final dy = math.sin(a * 0.7) * rangeSenzaSensore * 0.7 * d;
+    return Offset(dx, dy);
+  }
+
   /// Aggiornato dallo scorrimento della schermata (pixel).
   void updateScroll(double pixels) {
     // Normalizza su una finestra ampia, con saturazione morbida.

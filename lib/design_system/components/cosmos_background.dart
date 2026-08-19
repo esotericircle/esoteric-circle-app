@@ -368,10 +368,18 @@ class _CosmosBackgroundState extends State<CosmosBackground>
     // Da coperto si legge senza iscriversi, e il giro sta fermo.
     // Da fermo si legge senza iscriversi: il watch ricostruiva questo albero
     // a ogni tick del sensore anche sotto una funzionalita' aperta.
-    final fermo = !_deveGirare;
-    final parallax = fermo
-        ? (context.read<ParallaxController?>() ?? _parallasseDiRipiego())
-        : (context.watch<ParallaxController?>() ?? _parallasseDiRipiego());
+    // **ASCOLTARE LA PARALLASSE E ARMARE IL GIRO SONO DUE DOMANDE DIVERSE.**
+    // Ordine AR voce 01. Prima le rispondeva un booleano solo, chiamato
+    // `fermo`, e chi leggeva non poteva sapere quale delle due stesse
+    // decidendo. Il giro lento si arma o si ferma anche per la qualita' e per
+    // Riduci Movimento (`_movimentoConsentito`); l'ascolto del sensore invece
+    // si spegne SOLO quando il cielo non si vede, cioe' a rotta coperta da
+    // una opaca o ad app non in primo piano. Sono due decisioni, e adesso
+    // hanno due nomi.
+    final ascoltaIlSensore = _deveGirare;
+    final parallax = ascoltaIlSensore
+        ? (context.watch<ParallaxController?>() ?? _parallasseDiRipiego())
+        : (context.read<ParallaxController?>() ?? _parallasseDiRipiego());
     final sunSign = context.watch<ZodiacController?>()?.sunSign;
     // Riduci Movimento: cosmo fermo, niente stella cadente, parallasse minima.
     final reduceMotion = MediaQuery.of(context).disableAnimations;
@@ -598,8 +606,16 @@ class OffsetDeiPiani {
       // sensore contribuisce va a meta' ampiezza, cosi' l'inclinazione
       // resta la protagonista e il respiro non sparisce.
       if (conDeriva) {
-        final deriva = parallax.autoDrift(depth, t);
-        return base + (parallax.sensorActive ? deriva * 0.5 : deriva);
+        // **SENZA SENSORE LA DERIVA DIVENTA UNA CORSA CHE SI VEDE, ordine AR
+        // voce 01.** Col sensore vivo la deriva e' un respiro accanto
+        // all'inclinazione, e va a meta' ampiezza. Senza sensore quella
+        // deriva sarebbe l'unico movimento esistente, e a 1,9 punti sul
+        // piano di fondo non e' un movimento: e' il "si sposta di due
+        // millimetri" che Mauro descrive.
+        if (!parallax.sensorActive) {
+          return base + parallax.derivaSenzaSensore(depth, t);
+        }
+        return base + parallax.autoDrift(depth, t) * 0.5;
       }
       return base;
     }

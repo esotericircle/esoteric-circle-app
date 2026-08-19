@@ -1,3 +1,4 @@
+import 'riga_di_messa_a_punto.dart';
 import '../../core/arts/art_catalog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -231,6 +232,17 @@ class SettingsScreen extends StatelessWidget {
                     _VeilBadge(palette: palette),
                   ],
                 ),
+              ),
+
+              const SizedBox(height: SpacingTokens.xl),
+              const SectionTitle(
+                title: 'Messa a punto',
+                subtitle: 'Cosa sta facendo il movimento del cielo, adesso.',
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              const DepthCard(
+                raised: true,
+                child: RigaDiMessaAPunto(),
               ),
 
               // Ultime righe, solo nelle build di debug: il token di App Check
