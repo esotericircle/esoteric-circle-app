@@ -130,7 +130,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // L'OROSCOPO ENTRA NEL CAMMINO, ordine P voce 35. Il gesto e'
     // l'interrogazione del cielo, non l'apertura della scena: una scena si
     // apre anche per sbaglio, un'interrogazione no.
-    unawaited(RegiaDelCammino.dopoUnGesto(context, 'oroscopo'));
+    // **QUALE PERIODO, ordine AR voce 11.** La scena sa se si sta
+    // interrogando il giorno, la settimana o il mese: e' il dettaglio che
+    // distingue chi legge sempre l'oggi da chi guarda piu' lontano.
+    unawaited(RegiaDelCammino.dopoUnGesto(
+      context,
+      'oroscopo',
+      dettagli: {'periodo': _period.name},
+    ));
     // Con Riduci Movimento non c'e' pulsazione da aspettare: il responso
     // compare intero, subito.
     if (MediaQuery.of(context).disableAnimations) {

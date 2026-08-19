@@ -145,7 +145,13 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
       });
       // L'ANIMALE GUIDA ENTRA NEL CAMMINO, ordine P voce 35: terzo Sigillo
       // di aggancio trasversale.
-      unawaited(RegiaDelCammino.dopoUnGesto(context, 'animale_guida'));
+      // **QUALE ANIMALE, ordine AR voce 11**: la scena lo ha appena
+      // derivato dal segno e non deve andarselo a cercare.
+      unawaited(RegiaDelCammino.dopoUnGesto(
+        context,
+        'animale_guida',
+        dettagli: {'animale': _animal.name},
+      ));
       // Se manca il Test Archetipo, il popup evocativo, che lascia proseguire.
       if (_archetipo == null && !_popupFatto) {
         _popupFatto = true;

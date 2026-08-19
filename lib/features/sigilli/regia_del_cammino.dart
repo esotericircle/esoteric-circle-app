@@ -54,10 +54,25 @@ class RegiaDelCammino {
 
   /// Da chiamare quando un gesto e' COMPIUTO, non quando una scena si apre:
   /// una scena si apre anche per sbaglio, un gesto no.
+  /// **IL GESTO PORTA CON SE' CIO' CHE LA SCENA SA. Ordine AR voce 11.**
+  ///
+  /// Fino a qui arrivava solo il NOME del gesto e l'ora: "una stesa e'
+  /// avvenuta". Con quel poco si possono chiedere solo quantita', e infatti i
+  /// traguardi che ne nascevano erano conteggi nudi, che Mauro ha bocciato.
+  /// Le condizioni che valgono qualcosa chiedono altro: tutti e quattro i
+  /// semi, la stessa carta in due stese, tutti i modi della gettata provati.
+  /// Sono domande sui DETTAGLI, e i dettagli li ha in mano la scena
+  /// nell'istante in cui registra il gesto.
+  ///
+  /// **Ogni punto passa cio' che ha gia'**, senza andarselo a cercare
+  /// altrove e senza aprire una seconda porta: dove un dato utile non c'e',
+  /// non si inventa. Le chiavi sono libere ma i nomi vanno tenuti stabili,
+  /// perche' una condizione li nomina.
   static Future<void> dopoUnGesto(
     BuildContext context,
     String gesto, {
     String? oraRituale,
+    Map<String, Object?> dettagli = const {},
   }) async {
     // SE L'ALBERO NON PORTA IL DIARIO non si registra niente e non si cade:
     // succede in ogni prova che monta una scena d'arte da sola, e una scena
@@ -69,7 +84,7 @@ class RegiaDelCammino {
     } catch (errore) {
       return;
     }
-    await diario.segna(gesto, oraRituale: oraRituale);
+    await diario.segna(gesto, oraRituale: oraRituale, dettagli: dettagli);
     if (!context.mounted) return;
     await guardaCosaSiAccende(context);
   }

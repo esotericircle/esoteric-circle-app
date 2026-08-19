@@ -514,7 +514,29 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // commit dell'ordine O, quindi non registrava niente e nessun traguardo
     // dei tarocchi poteva accendersi, ne' con tre stese ne' con trecento.
     if (_complete) {
-      unawaited(RegiaDelCammino.dopoUnGesto(context, 'stesa'));
+      // **IL GESTO PORTA CIO' CHE LA SCENA SA, ordine AR voce 11.** Nel
+      // momento in cui la stesa e' completa questa scena ha in mano le tre
+      // carte uscite e l'argomento scelto: sono i dettagli che le condizioni
+      // di profondita' e coincidenza chiedono (tutti e quattro i semi, la
+      // stessa carta in due stese, i sedici argomenti del ventaglio). Non si
+      // va a cercare niente altrove: e' tutto qui, gia' pronto.
+      final carte = _spread.cards;
+      unawaited(RegiaDelCammino.dopoUnGesto(
+        context,
+        'stesa',
+        dettagli: {
+          'carte': [for (final c in carte) c.card.stem],
+          'semi': [
+            for (final c in carte)
+              if (c.card.seme != null) c.card.seme!.name,
+          ],
+          'maggiori': [
+            for (final c in carte)
+              if (c.card.arcana == TarotArcana.maggiore) c.card.stem,
+          ],
+          'argomento': (widget.topic ?? TarotTopic.predefinito).name,
+        },
+      ));
       // LA DOMANDA SI SALVA, ordine P voce 09 e voce 18.
       //
       // **Senza questo la domanda e' un finale carino che nessuno ricorda.** La

@@ -505,8 +505,13 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     // IL TRAMONTO ENTRA NEL CAMMINO, ordine P voce 35: qui il segno e'
     // COMPIUTO, e l'ora rituale si MISURA sul cielo vero invece di essere
     // dichiarata a mano.
+    // **LA RUNA DELLA SERA VIAGGIA COL GESTO, ordine AR voce 11.** La
+    // condizione "tutte le ventiquattro rune" e "la stessa runa in due sere"
+    // vivono di questo dettaglio, e la scena ce l'ha in mano: e' il segno che
+    // ha appena finito di incidere.
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'tramonto',
-        oraRituale: OraRituale.diAdesso()));
+        oraRituale: OraRituale.diAdesso(),
+        dettagli: {'runa': _estrazione?.rune.name}));
     // Crossfade dai tratti all'arte incisa, poi la lettura.
     Future<void>.delayed(const Duration(milliseconds: 1200), () async {
       if (!mounted) return;

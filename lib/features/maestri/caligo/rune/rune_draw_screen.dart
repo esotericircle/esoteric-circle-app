@@ -221,7 +221,16 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
     borsa.registraGettata(piano);
     // IL CAMMINO SE NE ACCORGE, ordine O: il gesto e' compiuto adesso, non
     // quando la scena si e' aperta.
-    unawaited(RegiaDelCammino.dopoUnGesto(context, 'gettata'));
+    // **IL MODO DELLA GETTATA VIAGGIA COL GESTO, ordine AR voce 11.** La
+    // scena sa quale delle quattro gettate si sta facendo: senza questo
+    // dettaglio la condizione "tutti i modi provati" non potrebbe esistere.
+    // Le rune uscite NON si passano da qui: in questo punto la gettata e'
+    // solo autorizzata e le pietre non sono ancora state estratte.
+    unawaited(RegiaDelCammino.dopoUnGesto(
+      context,
+      'gettata',
+      dettagli: {'modo': _gettata.id},
+    ));
     // LA CHIAMATA DEL RITORNO, ordine M voce 2e: chi consuma qui l'ultima
     // gettata del giorno riceve domattina l'avviso che sono tornate. Si
     // riprogramma adesso, perche' domattina l'app potrebbe non aprirsi.

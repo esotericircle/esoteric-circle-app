@@ -48,9 +48,31 @@ class DiarioDelCammino extends ChangeNotifier {
   static const _kSerie = 'cammino.serie';
   static const _kUltimoPerRito = 'cammino.ultimoPerRito';
 
+  /// **CIO' CHE LA SCENA SAPEVA, ordine AR voce 11.** Non basta sapere che una
+  /// stesa e' stata fatta: le condizioni nuove del Cammino chiedono la
+  /// VARIETA' (tutti e quattro i semi, tutte le ventiquattro rune) e la
+  /// COINCIDENZA (la stessa carta in due stese). Sono domande sui dettagli,
+  /// e un gesto senza dettagli non potra' mai rispondere.
+  static const _kDettagli = 'cammino.dettagli';
+
   final Map<String, int> _gestiCompiuti = {};
   final Map<String, int> _giorniConGesto = {};
   final Map<String, int> _gestiNellOraGiusta = {};
+
+  /// I dettagli visti, per `gesto.chiave` e poi per valore: quante volte quel
+  /// valore e' comparso. Con questa forma si risponde a tutte e due le
+  /// domande: quanti valori DIVERSI si sono visti, e quante volte e' tornato
+  /// il piu' insistente.
+  final Map<String, Map<String, int>> _dettagli = {};
+
+  /// **QUANTO PESA SUL DISCO, dichiarato.** Al massimo questo numero di
+  /// valori distinti per chiave: le carte sono settantotto, le rune
+  /// ventiquattro, gli argomenti sedici, i semi quattro, quindi centoventotto
+  /// tiene tutti i domini veri con margine. Oltre il tetto non si aggiungono
+  /// valori NUOVI, e quelli gia' presenti continuano a contare: si perde la
+  /// varieta' oltre il tetto, mai una coincidenza gia' cominciata. Non e' uno
+  /// storico: non si tengono ne' le date ne' l'ordine, solo quante volte.
+  static const int quantiValoriPerChiave = 128;
 
   /// LA CONTINUITA' PER RITO, ordine P voce 35.
   ///
@@ -155,6 +177,7 @@ class DiarioDelCammino extends ChangeNotifier {
       _leggiMappa(prefs.getString(_kGesti), _gestiCompiuti, sommando: fondi);
       _leggiMappa(prefs.getString(_kGiorni), _giorniConGesto, sommando: fondi);
       _leggiMappa(prefs.getString(_kOre), _gestiNellOraGiusta, sommando: fondi);
+      _leggiIDettagli(prefs.getString(_kDettagli), sommando: fondi);
       if (!fondi) _giornoDiOggi = prefs.getString(_kGiornoDiOggi) ?? '';
       _oggiHaFatto.addAll(prefs.getStringList(_kOggi) ?? const []);
       // Il primo giorno e' il PIU' VECCHIO dei due, mai quello nato adesso.
@@ -202,10 +225,15 @@ class DiarioDelCammino extends ChangeNotifier {
   /// REGISTRA UN GESTO. E' l'unico modo di scrivere nel diario, e le schermate
   /// lo chiamano dal punto in cui il gesto e' davvero compiuto: non
   /// all'apertura di una scena, che si apre anche per sbaglio.
-  Future<void> segna(String gesto, {String? oraRituale}) async {
+  Future<void> segna(
+    String gesto, {
+    String? oraRituale,
+    Map<String, Object?> dettagli = const {},
+  }) async {
     _scrittoPrimaDiLeggere = !_discoLetto;
     _apriIlGiorno();
     _gestiCompiuti[gesto] = (_gestiCompiuti[gesto] ?? 0) + 1;
+    _registraIDettagli(gesto, dettagli);
     if (_oggiHaFatto.add(gesto)) {
       _giorniConGesto[gesto] = (_giorniConGesto[gesto] ?? 0) + 1;
       _aggiornaLaSerie(gesto);
@@ -221,6 +249,80 @@ class DiarioDelCammino extends ChangeNotifier {
     notifyListeners();
     await _salva();
   }
+
+  /// Rilegge i dettagli dal disco. Somma quando il caricamento sta fondendo,
+  /// per la stessa ragione dei conteggi (ordine AO voce 04): un dettaglio
+  /// registrato mentre il disco veniva letto non deve sparire.
+  void _leggiIDettagli(String? grezzo, {required bool sommando}) {
+    if (grezzo == null) return;
+    try {
+      final letto = jsonDecode(grezzo);
+      if (letto is! Map) return;
+      for (final voce in letto.entries) {
+        final dentro = voce.value;
+        if (dentro is! Map) continue;
+        final mio = _dettagli.putIfAbsent(
+            voce.key.toString(), () => <String, int>{});
+        for (final v in dentro.entries) {
+          final quante = v.value is int ? v.value as int : 0;
+          if (quante <= 0) continue;
+          final chiave = v.key.toString();
+          if (!mio.containsKey(chiave) &&
+              mio.length >= quantiValoriPerChiave) {
+            continue;
+          }
+          mio[chiave] = sommando ? (mio[chiave] ?? 0) + quante : quante;
+        }
+      }
+    } catch (errore) {
+      // Una voce illeggibile vale zero, e il cammino continua.
+    }
+  }
+
+  /// **COSA SI TIENE DI UN DETTAGLIO, e cosa no.** Si tengono i valori come
+  /// stringhe e quante volte sono comparsi. Non si tiene quando, non si
+  /// tiene in che ordine, e non si tiene niente che la scena non abbia gia'
+  /// in mano: dove un dato utile non c'e', non si inventa.
+  void _registraIDettagli(String gesto, Map<String, Object?> dettagli) {
+    for (final voce in dettagli.entries) {
+      final valori = <String>[];
+      final v = voce.value;
+      if (v == null) continue;
+      if (v is Iterable) {
+        valori.addAll(v.map((e) => e.toString()).where((s) => s.isNotEmpty));
+      } else {
+        final s = v.toString();
+        if (s.isNotEmpty) valori.add(s);
+      }
+      if (valori.isEmpty) continue;
+      final chiave = '$gesto.${voce.key}';
+      final dentro = _dettagli.putIfAbsent(chiave, () => <String, int>{});
+      for (final valore in valori) {
+        if (!dentro.containsKey(valore) &&
+            dentro.length >= quantiValoriPerChiave) {
+          continue;
+        }
+        dentro[valore] = (dentro[valore] ?? 0) + 1;
+      }
+    }
+  }
+
+  /// Quanti valori DIVERSI si sono visti per quel dettaglio: la varieta'.
+  /// "Tutti e quattro i semi" e' questo numero uguale a quattro.
+  int quantiValoriDistinti(String gesto, String chiave) =>
+      _dettagli['$gesto.$chiave']?.length ?? 0;
+
+  /// Quante volte e' tornato il valore piu' insistente: la coincidenza.
+  /// "La stessa carta in due stese" e' questo numero maggiore o uguale a due.
+  int massimaRipetizione(String gesto, String chiave) {
+    final dentro = _dettagli['$gesto.$chiave'];
+    if (dentro == null || dentro.isEmpty) return 0;
+    return dentro.values.reduce((a, b) => a > b ? a : b);
+  }
+
+  /// Quante volte si e' visto proprio quel valore.
+  int quanteVolteIlValore(String gesto, String chiave, String valore) =>
+      _dettagli['$gesto.$chiave']?[valore] ?? 0;
 
   /// LA SERIE DI UN RITO: quanti giorni di seguito, senza buchi.
   ///
@@ -288,6 +390,7 @@ class DiarioDelCammino extends ChangeNotifier {
     _gestiCompiuti.clear();
     _giorniConGesto.clear();
     _gestiNellOraGiusta.clear();
+    _dettagli.clear();
     _ultimoGiornoPerRito.clear();
     _oggiHaFatto.clear();
     _accesi.clear();
@@ -467,6 +570,7 @@ class DiarioDelCammino extends ChangeNotifier {
       await prefs.setString(_kGiornoDiOggi, _giornoDiOggi);
       await prefs.setStringList(_kAccesi, _accesi.toList());
       await prefs.setString(_kQuandoAccesi, jsonEncode(_quandoAccesi));
+      await prefs.setString(_kDettagli, jsonEncode(_dettagli));
       await prefs.setStringList(_kCondivisi, _condivisi.toList());
       if (_primoGiorno != null) {
         await prefs.setString(_kPrimoGiorno, _primoGiorno!);

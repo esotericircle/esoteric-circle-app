@@ -1,6 +1,6 @@
 # ORDINE AR. IL CIELO TORNA A MUOVERSI, E IL CAMMINO RINASCE
 
-Dieci voci, da AR.01 ad AR.10. Ramo `claude/esoteric-circle-master-order-e798aj`,
+Undici voci, da AR.01 ad AR.11. Ramo `claude/esoteric-circle-master-order-e798aj`,
 verificato sulla testa `ad400d4` il 19 agosto 2026. La voce AR.10 e' la coda
 che Mauro ha aggiunto a ordine gia' iniziato, e vive qui dentro.
 
@@ -181,10 +181,49 @@ Mauro del 17 agosto 2026.
   solo stato, l'assenza del nome e i tre bersagli al primo tocco.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2186)
 
+- **AR.11** Il gesto porta con se' cio' che la scena sa. Stato: CHIUSA
+  (`RegiaDelCammino.dopoUnGesto` prende `Map<String, Object?> dettagli`, e il
+  diario li registra per `gesto.chiave` con quante volte ogni valore e'
+  comparso: con questa forma sola si risponde sia alla VARIETA' (quanti
+  valori diversi: tutti e quattro i semi) sia alla COINCIDENZA (quante volte
+  torna il piu' insistente: la stessa carta in due stese).
+  **Quanto pesa, dichiarato**: al massimo 128 valori distinti per chiave, che
+  tiene tutti i domini veri con margine (78 carte, 24 rune, 16 argomenti, 4
+  semi). Oltre il tetto non entrano valori NUOVI e quelli gia' presenti
+  continuano a contare: si perde la varieta' oltre il tetto, mai una
+  coincidenza gia' cominciata. Non e' uno storico: niente date, niente
+  ordine. I dettagli si azzerano con la rinascita della voce 06.
+  **IL RAPPORTO PER L'ARCHITETTO, punto per punto.** Passano dettagli, e sono
+  quelli che la scena aveva gia' in mano:
+  la STESA le tre carte (`carte`), i loro semi (`semi`), quali erano Arcani
+  Maggiori (`maggiori`) e l'argomento del ventaglio (`argomento`);
+  la GETTATA il modo scelto (`modo`);
+  il TRAMONTO la runa incisa (`runa`);
+  la SINASTRIA il ritratto scelto (`vip`);
+  l'ARCHETIPO il profilo dominante appena calcolato (`archetipo`);
+  l'ANIMALE GUIDA l'animale derivato dal segno (`animale`);
+  l'OROSCOPO il periodo interrogato (`periodo`).
+  **Non passano dettagli, e la ragione e' che non ne hanno**: alba, soffio,
+  oracolo e sogno registrano un rito che non ha varianti da distinguere;
+  passaporto, numero della vita, carta natale, ora e luogo di nascita sono
+  pezzi dell'identita', che o ci sono o non ci sono; il viso e il sigillo
+  compiono un gesto unico.
+  **Cosa NON arriva alla regia senza cambiare architettura**, ed e' la parte
+  che serve all'Architetto per scrivere le condizioni: le RUNE USCITE dalla
+  gettata non si possono passare dal punto che registra il gesto, perche' li'
+  la gettata e' solo autorizzata e le pietre non sono ancora estratte (serve
+  un secondo momento, dopo l'estrazione); la MEDITAZIONE e i CHAKRA non
+  chiamano affatto la regia, quindi per loro non esiste nemmeno il gesto,
+  prima ancora dei dettagli; e le DOMANDE ai Maestri restano fuori per
+  decisione di Mauro.
+  Guardia `test/il_gesto_porta_i_dettagli_test.dart` con sei prove, fra cui
+  l'enumerazione dei punti che devono passare i loro dettagli. Rosso provato
+  togliendo il passaggio da un punto solo)
+
 ## I marcatori, contati sulle righe
 
-VOCI_TOTALI: 10
+VOCI_TOTALI: 11
 VOCI_APERTE: 6
-VOCI_CHIUSE: 0
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4

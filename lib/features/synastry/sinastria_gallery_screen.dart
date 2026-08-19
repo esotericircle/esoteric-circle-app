@@ -91,7 +91,14 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   void _apri(Vip vip) {
     // LA SINASTRIA ENTRA NEL CAMMINO, ordine P voce 35: il confronto fra due
     // carte e' il gesto, e qui e' scelto.
-    unawaited(RegiaDelCammino.dopoUnGesto(context, 'sinastria'));
+    // **CON CHI, ordine AR voce 11.** La scena sa quale ritratto e' stato
+    // scelto: e' il dettaglio che distingue "tre sinastrie" da "tre
+    // sinastrie con tre persone diverse".
+    unawaited(RegiaDelCammino.dopoUnGesto(
+      context,
+      'sinastria',
+      dettagli: {'vip': vip.name},
+    ));
     Navigator.of(context).push(SinastriaVipScreen.route(
       vip: vip,
       userSign: widget.userSign,

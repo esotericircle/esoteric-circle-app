@@ -49,6 +49,8 @@ class RinascitaDelCammino {
     'cammino.condivisi',
     'cammino.serie',
     'cammino.ultimoPerRito',
+    // I dettagli dei gesti, ordine AR voce 11.
+    'cammino.dettagli',
     // Il libro degli accrediti: senza questo i premi gia' pagati
     // resterebbero segnati e i traguardi nuovi non pagherebbero.
     'cammino.accreditati',

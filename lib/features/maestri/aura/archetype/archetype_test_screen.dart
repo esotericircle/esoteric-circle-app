@@ -165,7 +165,14 @@ class _ArchetypeTestScreenState extends State<ArchetypeTestScreen> {
     });
     // IL TEST ARCHETIPO ENTRA NEL CAMMINO, ordine P voce 35: il profilo e'
     // calcolato e registrato, il gesto e' compiuto.
-    unawaited(RegiaDelCammino.dopoUnGesto(context, 'archetipo'));
+    // **QUALE ARCHETIPO, ordine AR voce 11.** Il profilo e' appena stato
+    // calcolato: passarlo costa nulla e permette la condizione "l'archetipo
+    // cambia" senza aprire una seconda porta sullo storico.
+    unawaited(RegiaDelCammino.dopoUnGesto(
+      context,
+      'archetipo',
+      dettagli: {'archetipo': profilo.dominante.name},
+    ));
   }
 
   Set<Pianeta> get _pianeti {
