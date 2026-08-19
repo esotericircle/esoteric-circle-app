@@ -168,9 +168,32 @@ class _CosmosBackgroundState extends State<CosmosBackground>
   /// L'ultimo stato del ciclo di vita che il sistema ci ha detto.
   AppLifecycleState _cicloDiVita = AppLifecycleState.resumed;
 
+  /// **QUANDO L'APP E' DAVVERO VIA, e non quando perde il fuoco un istante.**
+  /// Ordine AQ voce 01, misurato il 19 agosto 2026.
+  ///
+  /// La voce AO.07 fermava il cielo per qualunque stato diverso da `resumed`,
+  /// e li' dentro c'e' anche `inactive`, che su Android NON vuol dire che
+  /// l'app e' sparita: arriva a schermo acceso e app visibile, col pannello
+  /// delle notifiche che scende, con un avviso di sistema, in certe
+  /// transizioni. Ogni volta il cosmo si inchiodava, e ripartiva al battito
+  /// successivo della sentinella, fino a due secondi dopo: **e' il fermarsi
+  /// e ripartire che Mauro ha visto sulla 2184 e che sulla 2181 non
+  /// c'era**, perche' prima di AO.07 il ciclo di vita non entrava affatto
+  /// nella decisione.
+  ///
+  /// Adesso si sta fermi solo quando l'app e' davvero via: sospesa, nascosta
+  /// o staccata. Con `inactive` si continua a girare, perche' quel cielo la
+  /// persona lo sta guardando. E' la scelta che l'ordine chiede quando
+  /// fluidita' e risparmio litigano: **vince la fluidita'**.
+  static const Set<AppLifecycleState> _appDavveroVia = {
+    AppLifecycleState.paused,
+    AppLifecycleState.hidden,
+    AppLifecycleState.detached,
+  };
+
   /// Vero se questo cielo, adesso, deve girare. **Calcolato, non ricordato.**
   bool get _deveGirare {
-    if (_cicloDiVita != AppLifecycleState.resumed) return false;
+    if (_appDavveroVia.contains(_cicloDiVita)) return false;
     final rotta = ModalRoute.of(context);
     // Senza una rotta il cielo e' montato da solo, come nelle prove e nei
     // fondali dei riti: gira.

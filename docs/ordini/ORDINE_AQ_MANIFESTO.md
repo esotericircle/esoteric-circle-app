@@ -82,10 +82,36 @@ agosto 2026.
 
 ## Le voci
 
-- **AQ.01** Il cosmo torna fluido, e la fluidita' vince. Stato: APERTA
-  (misurare prima, sulla testa di oggi e su quella della 2181; verificare P3;
-  la resa di AM.02 non si tocca; se blocco e fluidita' sono in conflitto
-  vince la fluidita')
+- **AQ.01** Il cosmo torna fluido, e la fluidita' vince. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**LA PREMESSA P3 E' FALSA, e la misura lo dice con i numeri.** Nasce
+  `test/quanto_costa_il_cielo_test.dart`, che monta il cielo e la home vere e
+  cronometra i fotogrammi; la stessa misura e' stata eseguita su un albero di
+  lavoro separato fermo alla testa della 2181, `69ff2d69`. Microsecondi per
+  fotogramma, tre giri per numero: cielo da freddo oggi 1271, 1204, 1210
+  contro 1050, 1077, 1216 sulla 2181; cielo dopo essere tornati da una scena
+  aperta oggi 804, 779, 797 contro 810, 752, 816; home ferma oggi 8880, 8531,
+  8758 contro 8036, 8976, 8557; home mentre il dito scorre oggi 12375 contro
+  11756. **Nessuno scarto**: dove c'e' una differenza sta dentro la
+  variazione fra tre giri della stessa testa. E la sentinella, in dieci
+  secondi, non ha dovuto riaccendere il cielo nemmeno una volta.
+  **LA CAUSA VERA STAVA IN UNA RIGA SOLA, e nessuna misura di tempo poteva
+  trovarla.** AO.07 ha scritto che il cielo gira solo se il ciclo di vita e'
+  `resumed`, e in quel "solo" ci sta anche `inactive`. Su Android `inactive`
+  NON vuol dire che l'app e' sparita: arriva a schermo acceso e app visibile,
+  col pannello delle notifiche che scende, con un avviso di sistema, in certe
+  transizioni. Misurato: mandando `inactive` il cielo si FERMA. Ogni volta si
+  inchiodava fino al battito successivo della sentinella, fino a due secondi
+  dopo, ed e' esattamente il fermarsi e ripartire che Mauro descrive, che
+  sulla 2181 non c'era perche' prima di AO.07 il ciclo di vita non entrava
+  nella decisione. Adesso ci si ferma solo quando l'app e' davvero via
+  (`paused`, `hidden`, `detached`): **vince la fluidita'**, come l'ordine
+  chiede, e il blocco di AO.07 non si riapre, perche' restano sia la domanda
+  a `ModalRoute.isCurrent` sia la sentinella.
+  La resa di AM.02 non e' stata toccata. Guardia con le soglie prese dal
+  misurato e non da un'idea, e rosso provato: prima della cura la prova del
+  ciclo di vita cadeva stampando `inactive: false`.
+  **Nessun telefono ha acceso questa cura**: la chiude il collaudo di Mauro
+  sulla 2185)
 - **AQ.02** Le feste si vedono davvero diverse. Stato: APERTA
   (via i glifi di sistema, il segno di ogni Maestro disegnato da noi; misurare
   le particelle nella scena vera e curarle; tre anteprime dall'app vera)
@@ -107,7 +133,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 6
-VOCI_APERTE: 6
+VOCI_APERTE: 5
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
