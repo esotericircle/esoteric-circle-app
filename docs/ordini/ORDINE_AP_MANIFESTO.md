@@ -158,10 +158,26 @@ agosto 2026.
 - **AP.04** La porta piccola per chi torna. Stato: APERTA
   ("Faccio gia' parte del Cerchio" con sotto "Accedi e ritrova il tuo
   cammino"; non e' un muro e il richiamo principale resta "comincia")
-- **AP.05** L'onboarding si salta, e il ritrovamento si vede. Stato: APERTA
-  (con l'identita' sul server non si rifa' niente; nel mezzo si vede cosa e'
-  stato ritrovato, coi numeri veri; con identita' parziale si chiede solo il
-  resto)
+- **AP.05** L'onboarding si salta, e il ritrovamento si vede. Stato: FERMATA IN ATTESA DI DECISIONE
+  (nasce `lib/core/cammino/ritrovamento.dart`, che decide in UN punto solo
+  quali passi restano da chiedere: la stessa domanda arriva da due strade,
+  la porta piccola della voce 04 e il "Continua come" della voce 06, e se
+  ognuna decidesse per conto suo un giorno una delle due richiederebbe la
+  nascita a chi l'aveva gia' data. Con l'identita' completa il rito non si
+  monta affatto; con l'ora mancante si chiede SOLO l'ora, e l'onboarding si
+  apre gia' su quel passo coi dati noti compilati, provato a schermo.
+  **Perche' l'ora non si salta mai per comodita'**: e' la distinzione che
+  decide se l'Ascendente esiste, quindi darla per persa chiuderebbe una
+  porta per sempre.
+  Nasce `lib/features/onboarding/scena_del_ritrovamento.dart`, la prova A
+  SCHERMO che la promessa della custodia sia mantenuta: carta natale,
+  Sigilli accesi ed Eos, coi NUMERI VERI. Se non c'e' niente da mostrare la
+  scena non compare, perche' celebrare il ritrovamento di zero cose sarebbe
+  la bugia peggiore, nel momento in cui una persona sta verificando se puo'
+  fidarsi. **All'avvio la scena non si mostra**, e' voluto: il ritrovamento
+  e' una notizia solo dopo un riconoscimento, non ogni mattina.
+  Guardia `test/l_onboarding_non_si_rifa_test.dart` con otto prove. Chiude il
+  collaudo di Mauro sulla 2184)
 - **AP.06** Il "Continua come" restituisce il cammino. Stato: APERTA
   (stessa fusione e stesso ritrovamento delle voci 03 e 05, logica in un
   punto solo)
@@ -193,7 +209,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 5
+VOCI_APERTE: 4
 VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3

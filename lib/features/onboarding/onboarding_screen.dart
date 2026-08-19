@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/diagnosi/briciole.dart';
+import '../../core/cammino/cammino_da_custodire.dart';
+import '../../core/cammino/ritrovamento.dart';
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/birth_place.dart' as astro;
 import '../../core/astro/city_catalog.dart';
@@ -43,16 +45,27 @@ import 'risveglio_journey.dart';
 /// nessun colore di Maestro. La base e' la tavolozza cosmica neutra del Cerchio
 /// (fondo nero, oro, nebulose viola): il Maestro si rivela solo alla fine.
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key, this.clock});
+  const OnboardingScreen({super.key, this.clock, this.ritrovata});
+
+  /// **CIO' CHE IL CERCHIO AVEVA GIA', ordine AP voce 05.** Chi rientra col
+  /// suo account non deve ridare cio' che ha gia' dato: i passi che il
+  /// Cerchio conosce si trovano compilati e il rito comincia dal primo che
+  /// manca davvero. Con tutto ritrovato questa schermata non si monta
+  /// affatto, e a deciderlo e' `Ritrovamento`, in un punto solo.
 
   /// Orologio iniettabile per i test. Di default l'ora locale.
   final DateTime Function()? clock;
+  final IdentitaDaCustodire? ritrovata;
 
-  static Route<void> route({DateTime Function()? clock}) {
+  static Route<void> route({
+    DateTime Function()? clock,
+    IdentitaDaCustodire? ritrovata,
+  }) {
     // Il cosmo di fondo legge la palette dal MaestroScope: la rotta lo porta con
     // se', cosi' vive anche fuori dalla home (dove sta l'altro MaestroScope).
     return MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(child: OnboardingScreen(clock: clock)),
+      builder: (_) => MaestroScope(
+          child: OnboardingScreen(clock: clock, ritrovata: ritrovata)),
       fullscreenDialog: false,
     );
   }
@@ -73,6 +86,35 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   static const MaestroPalette _palette = MaestroPalette.neutral;
 
   _Step _step = _Step.accoglienza;
+
+  /// **DA DOVE COMINCIA IL RITO, ordine AP voce 05.** Con niente di
+  /// ritrovato si comincia dall'accoglienza, come sempre. Con qualcosa di
+  /// ritrovato i passi gia' noti restano indietro: chi ha dato il giorno ma
+  /// non l'ora si vede chiedere l'ora, non tutto da capo.
+  void _riprendiCioCheIlCerchioSapeva() {
+    final ritrovata = widget.ritrovata;
+    if (ritrovata == null) return;
+    final giorno = ritrovata.giorno;
+    if (giorno != null) _birthDate = giorno;
+    final ora = ritrovata.ora?.split(':');
+    if (ora != null && ora.length == 2) {
+      _hour = int.tryParse(ora[0]);
+      _minute = int.tryParse(ora[1]);
+      _timeKnown = _hour != null;
+    }
+    if (ritrovata.nome != null) _nameCtrl.text = ritrovata.nome!;
+    final mancanti = Ritrovamento.da(
+      CamminoDaCustodire(identita: ritrovata),
+    ).passiDaChiedere;
+    if (mancanti.isEmpty) return;
+    // Il primo passo che manca davvero, nell'ordine del rito.
+    _step = switch (mancanti.first) {
+      PassoDelRito.data => _Step.data,
+      PassoDelRito.ora => _Step.ora,
+      PassoDelRito.luogo => _Step.luogo,
+      PassoDelRito.nome => _Step.nome,
+    };
+  }
 
   // I dati raccolti lungo il rituale.
   DateTime _birthDate = DateTime(1990, 6, 15);
@@ -101,6 +143,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   void initState() {
     super.initState();
     Briciole.lascia('onboarding_entrato');
+    _riprendiCioCheIlCerchioSapeva();
     _ignite = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),

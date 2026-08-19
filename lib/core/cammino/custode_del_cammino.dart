@@ -8,7 +8,10 @@ import '../entitlement/question_allowance.dart';
 import '../identity/natal_identity.dart';
 import '../identity/profile_controller.dart';
 import '../sigilli/diario_del_cammino.dart';
+import '../../features/onboarding/scena_del_ritrovamento.dart';
+import '../onboarding/onboarding_controller.dart';
 import 'cammino_da_custodire.dart';
+import 'ritrovamento.dart';
 
 /// IL CUSTODE DEL CAMMINO: lo raccoglie, lo manda, e adotta cio' che torna.
 /// Ordine AP voci 02 e 03.
@@ -142,7 +145,64 @@ class CustodeDelCammino {
     if (tornato == null) return null;
     if (!context.mounted) return tornato;
     await adotta(context, tornato);
+    if (!context.mounted) return tornato;
+    // **IL RITO NON SI RIFA' A CHI IL CERCHIO CONOSCE GIA', ordine AP voce
+    // 05.** La decisione sta in `Ritrovamento`, in un punto solo, perche' la
+    // stessa domanda arriva anche dal "Continua come" della voce 06.
+    final esito = Ritrovamento.da(tornato, saldoEos: borsa.saldoEos);
+    if (esito.siSalta) {
+      try {
+        await context.read<OnboardingController>().ritrovato();
+      } catch (errore) {
+        // Senza il controller non c'e' nessun rito da saltare.
+      }
+    }
     return tornato;
+  }
+
+  /// **IL GIRO DOPO UN RICONOSCIMENTO, e la scena che lo racconta.** Ordine
+  /// AP voci 05 e 06.
+  ///
+  /// Si chiama quando una persona e' appena stata riconosciuta, da qualunque
+  /// delle due strade: la porta piccola del Risveglio (voce 04) o il
+  /// "Continua come" della custodia (voce 06). Le due strade portano allo
+  /// stesso posto, e questo e' il posto: il cammino torna, il rito non si
+  /// rifa' se non serve, e cio' che e' stato ritrovato SI VEDE.
+  ///
+  /// **All'avvio invece la scena non si mostra**, ed e' voluto: chi apre
+  /// l'app ogni mattina non deve vedersi annunciare un bentornato. Il
+  /// ritrovamento e' una notizia solo nel momento in cui si temeva di aver
+  /// perso qualcosa.
+  static Future<Ritrovamento?> dopoIlRiconoscimento(
+    BuildContext context, {
+    bool mostraLaScena = true,
+  }) async {
+    final tornato = await custodisciEAdotta(context);
+    if (!context.mounted) return null;
+    final esito = cosaHaRitrovato(context, tornato);
+    if (!mostraLaScena || !esito.qualcosaDaMostrare) return esito;
+    final navigatore = Navigator.maybeOf(context);
+    if (navigatore == null) return esito;
+    await navigatore.push(ScenaDelRitrovamento.route(
+      ritrovamento: esito,
+      onProsegui: () => navigatore.maybePop(),
+    ));
+    return esito;
+  }
+
+  /// **COSA IL CERCHIO HA RITROVATO**, per chi deve mostrarlo. La decisione
+  /// e' sempre di `Ritrovamento`: qui si legge soltanto.
+  static Ritrovamento cosaHaRitrovato(
+    BuildContext context,
+    CamminoDaCustodire? cammino,
+  ) {
+    var saldo = 0;
+    try {
+      saldo = context.read<QuestionAllowance>().saldoEos;
+    } catch (errore) {
+      saldo = 0;
+    }
+    return Ritrovamento.da(cammino, saldoEos: saldo);
   }
 
   /// ADOTTA il cammino che il Cerchio ha restituito.

@@ -47,6 +47,19 @@ class OnboardingController extends ChangeNotifier {
     }
   }
 
+  /// **IL RITO NON SI RIFA' A CHI IL CERCHIO CONOSCE GIA'. Ordine AP voce
+  /// 05.**
+  ///
+  /// La domanda di Mauro: rifare l'onboarding quando si e' gia' registrati
+  /// non ha senso. Chi rientra col suo account ha gia' dato la sua nascita, e
+  /// richiedergliela e' come se il Cerchio non lo conoscesse.
+  ///
+  /// **E' diverso da [complete]**, anche se fa la stessa cosa allo stato: la
+  /// differenza sta nel MOTIVO, e il motivo si legge nel nome. Chiamarlo
+  /// `complete` avrebbe detto che il rito e' stato fatto, e non e' vero: e'
+  /// stato RITROVATO.
+  Future<void> ritrovato() => complete();
+
   /// Segna l'onboarding come completato: da qui in poi si apre il Cerchio.
   Future<void> complete() async {
     _needsOnboarding = false;
