@@ -1,3 +1,4 @@
+import '../astro/zodiac.dart';
 import 'cammino_da_custodire.dart';
 
 /// I PASSI DEL RITO CHE CHIEDONO UN DATO DI NASCITA.
@@ -32,6 +33,7 @@ class Ritrovamento {
     required this.quantiTraguardi,
     required this.quantiEos,
     required this.nome,
+    required this.segno,
   });
 
   /// Tutti i passi che chiedono un dato: e' cio' che si fa alla prima volta.
@@ -51,6 +53,12 @@ class Ritrovamento {
 
   /// Il nome ritrovato, per salutare chi torna con quello che e' suo.
   final String? nome;
+
+  /// **IL SEGNO, ordine AQ voce 04.** Non e' un dato in piu' custodito: nasce
+  /// dal giorno di nascita che il Cerchio ha restituito, come nasce ovunque
+  /// nell'app. Nullo quando il giorno non e' tornato, e allora l'emblema non
+  /// compare: meglio niente che il segno di qualcun altro.
+  final Zodiac? segno;
 
   /// Vero se non c'e' piu' niente da chiedere: il rito non si rifa'.
   bool get siSalta => passiDaChiedere.isEmpty;
@@ -80,6 +88,7 @@ class Ritrovamento {
       quantiTraguardi: cammino?.sigilli.length ?? 0,
       quantiEos: saldoEos,
       nome: identita?.nome,
+      segno: identita?.giorno == null ? null : Zodiac.fromDate(identita!.giorno!),
     );
   }
 }

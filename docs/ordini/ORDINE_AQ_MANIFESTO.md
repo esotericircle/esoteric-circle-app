@@ -164,9 +164,18 @@ agosto 2026.
   quei nomi, cioe' la riga che mancava. Rosso provato togliendo una scena
   dall'elenco.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
-- **AQ.04** Il Bentornato si riempie. Stato: APERTA
-  (emblema del segno dagli asset esistenti, nome, e le righe dei dati veri:
-  nessun numero d'esempio, e cio' che non c'e' non compare)
+- **AQ.04** Il Bentornato si riempie. Stato: FERMATA IN ATTESA DI DECISIONE
+  (la scena si apre col LIVELLO VISIVO e non piu' con una riga di testo:
+  l'EMBLEMA del proprio segno, 120 punti, preso da `assets/img/zodiac` che il
+  Cerchio ha gia', poi il nome, poi le righe di cio' che e' tornato coi numeri
+  veri. **Il segno non e' un dato in piu' da custodire**: nasce dal giorno di
+  nascita restituito, come nasce ovunque nell'app, e se il giorno non e'
+  tornato l'emblema NON compare, perche' l'emblema di qualcun altro sarebbe
+  peggio di nessun emblema. Prova nuova in
+  `test/l_onboarding_non_si_rifa_test.dart`: col 12 aprile nasce l'Ariete,
+  senza giorno il segno resta nullo. Anteprima `ritrovamento.png` rigenerata
+  dall'app vera e guardata: emblema, nome, carta natale, tre Sigilli, 340 Eos.
+  **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
 - **AQ.05** "Non perdere il tuo cielo" diventa leggibile. Stato: APERTA
   (una promessa, una riga, i pulsanti; il testo superfluo si toglie invece di
   rimpicciolirlo; misure prima e dopo)
@@ -178,7 +187,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 6
-VOCI_APERTE: 3
+VOCI_APERTE: 2
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4

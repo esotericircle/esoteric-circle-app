@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/cammino/ritrovamento.dart';
 import '../../core/maestro/maestro.dart';
+import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/icona_degli_eos.dart';
@@ -61,17 +62,36 @@ class ScenaDelRitrovamento extends StatelessWidget {
             padding: const EdgeInsets.all(SpacingTokens.lg),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // **IL LIVELLO VISIVO PRIMA DEL TESTO, ordine AQ voce 04.**
+                // La schermata che Mauro ha visto vuota si apriva con una
+                // riga di testo: qui arriva prima l'EMBLEMA del proprio
+                // segno, preso dagli asset che il Cerchio ha gia'. Non e' un
+                // ornamento: e' la prima cosa che dice "questo sei tu", e
+                // compare solo se il segno c'e' davvero, perche' l'emblema di
+                // qualcun altro sarebbe peggio di nessun emblema.
+                if (ritrovamento.segno != null) ...[
+                  ZodiacEmblem(
+                    key: const Key('ritrovamento_emblema'),
+                    sign: ritrovamento.segno!,
+                    size: 120,
+                    ripiego: Icon(Icons.auto_awesome,
+                        size: 72, color: palette.goldSoft),
+                  ),
+                  const SizedBox(height: SpacingTokens.md),
+                ],
                 Text(
                   nome == null ? 'Bentornato nel Cerchio' : 'Bentornato, $nome',
                   key: const Key('ritrovamento_saluto'),
+                  textAlign: TextAlign.center,
                   style: TypographyTokens.cerimonialeGrande()
                       .copyWith(color: palette.goldSoft),
                 ),
                 const SizedBox(height: SpacingTokens.sm),
                 Text(
                   'Il Cerchio ti aveva tenuto tutto.',
+                  textAlign: TextAlign.center,
                   style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textPrimary, height: 1.5),
                 ),

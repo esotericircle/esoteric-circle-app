@@ -180,4 +180,22 @@ void main() {
     expect(testi.toLowerCase(), contains('ora'),
         reason: 'il rito non si e aperto sul passo che manca: "$testi"');
   });
+
+  test('il Bentornato porta il segno, e solo se il giorno e tornato', () {
+    // **ORDINE AQ VOCE 04.** L'emblema nasce dal giorno di nascita, come
+    // ovunque nell'app: non e' un dato in piu' da custodire. Senza giorno non
+    // c'e' segno, e la scena non mostra l'emblema di qualcun altro.
+    final conGiorno = Ritrovamento.da(CamminoDaCustodire(
+      identita: identita(nome: 'Sofia', giorno: DateTime(1990, 4, 12)),
+    ));
+    // ignore: avoid_print
+    print('ORDINE AQ VOCE 04: dal 12 aprile nasce il segno '
+        '${conGiorno.segno?.id}');
+    expect(conGiorno.segno, isNotNull);
+    final senzaGiorno = Ritrovamento.da(CamminoDaCustodire(
+      identita: identita(nome: 'Sofia'),
+    ));
+    expect(senzaGiorno.segno, isNull,
+        reason: 'senza giorno di nascita si mostrerebbe il segno di un altro');
+  });
 }
