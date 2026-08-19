@@ -141,9 +141,15 @@ void main() {
     // canale sullo stesso momento e' la seconda porta sullo stesso dato. La
     // seconda: sul server non e' nata una callable nuova, e le sei restano
     // sei.
+    // **GLI SPAZI SI APPIATTISCONO PRIMA DI GUARDARE.** La pretesa e' che il
+    // cammino viaggi dentro `stato`, non che la firma stia su una riga sola:
+    // quando l'ordine AR voce 06 le ha aggiunto l'azzeramento, il
+    // formattatore e' andato a capo e questa riga e' caduta senza che niente
+    // di vero fosse cambiato. E' lo stesso difetto gia' visto nell'ordine AQ.
     final porta = File('lib/services/server/porta_del_cerchio.dart')
-        .readAsStringSync();
-    expect(porta.contains('Future<StatoDelCerchio?> stato({'), isTrue,
+        .readAsStringSync()
+        .replaceAll(RegExp(r'\s+'), '');
+    expect(porta.contains('Future<StatoDelCerchio?>stato({'), isTrue,
         reason: 'lo stato non porta piu\' il cammino con se\'');
     for (final inventata in const [
       'custodisciIlCammino',

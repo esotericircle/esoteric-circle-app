@@ -54,7 +54,8 @@ class _ServerFinto extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async {
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async {
     if (!risponde) return null;
     return StatoDelCerchio(
       giorno: giorno,

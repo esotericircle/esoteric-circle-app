@@ -381,9 +381,11 @@ class QuestionAllowance extends ChangeNotifier {
   /// 02: viaggia con la richiesta dello stato invece di aprire un secondo
   /// canale sullo stesso momento. Torna il cammino che il Cerchio ha fuso,
   /// oppure nullo se il server non ha risposto o non lo conosce ancora.
-  Future<CamminoDaCustodire?> sincronizza({CamminoDaCustodire? cammino}) async {
+  Future<CamminoDaCustodire?> sincronizza(
+      {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async {
     await _svuotaLaCoda();
-    final stato = await _porta.stato(cammino: cammino);
+    final stato =
+        await _porta.stato(cammino: cammino, azzeraIlCammino: azzeraIlCammino);
     // **SENZA RISPOSTA NON SI TOCCA NIENTE**: si resta sui numeri locali, che
     // e' la scelta dichiarata per l'assenza di rete, e non si cancella
     // nessuna storia.

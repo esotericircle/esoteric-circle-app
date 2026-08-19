@@ -99,7 +99,8 @@ class _PortaCheConta extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async => StatoDelCerchio(
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => StatoDelCerchio(
       giorno: '2026-08-18', piano: 'free', spesi: const {}, saldoEos: _saldo);
 
   @override

@@ -11,6 +11,7 @@ import '../sigilli/diario_del_cammino.dart';
 import '../../features/onboarding/scena_del_ritrovamento.dart';
 import '../onboarding/onboarding_controller.dart';
 import 'cammino_da_custodire.dart';
+import 'rinascita_del_cammino.dart';
 import 'ritrovamento.dart';
 
 /// IL CUSTODE DEL CAMMINO: lo raccoglie, lo manda, e adotta cio' che torna.
@@ -120,6 +121,13 @@ class CustodeDelCammino {
   /// Torna il cammino che il server ha fuso, oppure nullo se non ha risposto:
   /// senza rete non si mostra niente di falso e non si cancella niente, si
   /// riprova alla prossima apertura.
+  /// **LA RINASCITA DA RACCONTARE, ordine AR voce 06.** Vero quando questo
+  /// avvio ha azzerato un cammino che esisteva: la home lo legge una volta e
+  /// mostra la riga onesta, perche' chi riapre e trova il Journal spento deve
+  /// capire in una frase cosa e' successo, e sapere che i suoi Eos sono dove
+  /// li aveva lasciati. Un Cerchio nuovo non lo vede mai.
+  static bool rinascitaDaRaccontare = false;
+
   static Future<CamminoDaCustodire?> custodisciEAdotta(
     BuildContext context,
   ) async {
@@ -138,10 +146,27 @@ class CustodeDelCammino {
     } catch (errore) {
       // Senza diario non c'e' niente da aspettare.
     }
+    // **LA RINASCITA VIENE PRIMA DI TUTTO, ordine AR voce 06.** Se il
+    // cammino va azzerato lo si fa QUI, prima di raccoglierlo: raccoglierlo
+    // prima vorrebbe dire mandare al Cerchio i numeri che si stanno
+    // buttando, e la fusione, che difende sempre il piu' alto, li
+    // riporterebbe indietro tutti.
+    final eRinato = await RinascitaDelCammino.rinasci();
+    if (eRinato) {
+      try {
+        if (context.mounted) {
+          await context.read<DiarioDelCammino>().azzeraPerLaRinascita();
+        }
+      } catch (errore) {
+        // Senza diario non c'e' memoria da svuotare.
+      }
+      rinascitaDaRaccontare = true;
+    }
     if (!context.mounted) return null;
     final mio = raccogli(context);
     quanteVolte++;
-    final tornato = await borsa.sincronizza(cammino: mio);
+    final tornato =
+        await borsa.sincronizza(cammino: mio, azzeraIlCammino: eRinato);
     if (tornato == null) return null;
     if (!context.mounted) return tornato;
     await adotta(context, tornato);

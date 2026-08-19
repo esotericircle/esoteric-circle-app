@@ -279,6 +279,28 @@ class DiarioDelCammino extends ChangeNotifier {
   /// massimo fra cio' che c'e' e cio' che arriva, esattamente come fa la
   /// fusione, e i Sigilli si uniscono invece di sostituirsi. E' la lezione
   /// della voce AO.04: una scrittura non deve mai poter distruggere.
+  /// **IL CAMMINO RIPARTE DA ZERO, ordine AR voce 06.** Svuota cio' che sta
+  /// in MEMORIA, non solo sul disco: cancellare le chiavi e basta lascerebbe
+  /// i conti vivi dentro questo oggetto, e il primo salvataggio successivo li
+  /// riscriverebbe tali e quali. Il saldo Eos non abita qui e non viene
+  /// toccato da nessuna di queste righe.
+  Future<void> azzeraPerLaRinascita() async {
+    _gestiCompiuti.clear();
+    _giorniConGesto.clear();
+    _gestiNellOraGiusta.clear();
+    _ultimoGiornoPerRito.clear();
+    _oggiHaFatto.clear();
+    _accesi.clear();
+    _quandoAccesi.clear();
+    _condivisi.clear();
+    _seriePerRito.clear();
+    _primoGiorno = null;
+    _ultimoGiorno = null;
+    _giornoDiOggi = '';
+    await _salva();
+    notifyListeners();
+  }
+
   Future<void> adottaIlCammino(CamminoDaCustodire cammino) async {
     void massimo(Map<String, int> dentro, Map<String, int> arrivati) {
       for (final voce in arrivati.entries) {

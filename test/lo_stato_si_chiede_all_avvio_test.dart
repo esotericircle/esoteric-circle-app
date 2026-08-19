@@ -144,7 +144,8 @@ class _PortaCheConta extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async {
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async {
     quanteVolte++;
     if (cammino != null && !cammino.eVuoto) {
       camminiMandati++;
@@ -188,7 +189,8 @@ class _PortaCheConta extends PortaDelCerchio {
 /// La porta viva che non risponde: e' la rete che manca.
 class _PortaMuta extends _PortaCheConta {
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async {
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async {
     quanteVolte++;
     return null;
   }

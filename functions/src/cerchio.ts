@@ -200,15 +200,33 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   const camminoDalTelefono = leggiCammino(
     (request.data as Record<string, unknown> | undefined)?.cammino
   );
+  // **L'AZZERAMENTO DEL CAMMINO, ordine AR voce 06.** Il Cammino e' stato
+  // riprogettato: i contatori di prima raccontano una storia che non esiste
+  // piu'. Il telefono non puo' cancellare niente da solo (allow write: if
+  // false), quindi lo chiede qui, e il server DIMENTICA prima di fondere:
+  // altrimenti la fusione difenderebbe proprio i numeri che si vogliono
+  // buttare, perche' vince sempre il piu' alto.
+  //
+  // **Gli Eos non passano di qui e non vengono toccati**: vivono nel
+  // borsellino, in un altro documento, e questa riga non lo apre nemmeno.
+  const azzeraIlCammino =
+    (request.data as Record<string, unknown> | undefined)?.azzeraIlCammino ===
+    true;
   const cammino = await db.runTransaction(async (tx) => {
     const doc = camminoDoc(uid);
     const snap = await tx.get(doc);
-    const custodito = (snap.data() ?? {}) as CamminoCustodito;
+    const custodito = azzeraIlCammino
+      ? ({} as CamminoCustodito)
+      : ((snap.data() ?? {}) as CamminoCustodito);
     const fuso = fondiCammini(custodito, camminoDalTelefono);
     // Si scrive solo se c'e' qualcosa da custodire: un documento vuoto in
     // piu' per ogni utente anonimo non dice niente a nessuno.
     const daScrivere = Object.keys(fuso).filter((k) => k !== "versione");
-    if (daScrivere.length > 0) {
+    // Con l'azzeramento si scrive SEMPRE, anche un documento vuoto: e' cio'
+    // che cancella dal Cerchio il cammino di prima. Senza questa riga il
+    // documento vecchio resterebbe intatto ogni volta che il telefono non ha
+    // ancora niente da mandare.
+    if (daScrivere.length > 0 || azzeraIlCammino) {
       tx.set(doc, {
         ...fuso,
         aggiornato: admin.firestore.FieldValue.serverTimestamp(),

@@ -95,7 +95,13 @@ abstract class PortaDelCerchio {
   /// vale. Nessuna callable nuova, perche' `statoDelCerchio` e' gia' cio' che
   /// si chiede a ogni apertura, e un secondo canale sullo stesso momento
   /// sarebbe la seconda porta sullo stesso dato.
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino});
+  /// **L'AZZERAMENTO VIAGGIA CON LA STESSA PORTA, ordine AR voce 06.** Il
+  /// telefono non scrive su Firestore (premessa P4 dell'ordine AP), quindi
+  /// dimenticare il cammino sul server e' una cosa che solo il server puo'
+  /// fare: gli si dice qui, dentro la richiesta che gia' parte a ogni
+  /// apertura, invece di aprire una seconda porta per una cosa sola.
+  Future<StatoDelCerchio?> stato(
+      {CamminoDaCustodire? cammino, bool azzeraIlCammino = false});
 
   /// Chiede di consumare un budget. Nullo se il server non risponde: chi
   /// chiama accoda e riprova, non inventa una risposta.
@@ -173,8 +179,13 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   }
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async =>
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
       StatoDelCerchio.daMappa(await _chiama('statoDelCerchio', {
+        // **L'AZZERAMENTO PARTE PRIMA DEL CAMMINO, e l'ordine dei due campi
+        // non conta qui ma conta sul server**: e' il server a dimenticare
+        // prima e a fondere poi, dentro la stessa transazione.
+        if (azzeraIlCammino) 'azzeraIlCammino': true,
         if (cammino != null && !cammino.eVuoto) 'cammino': cammino.aMappa(),
       }));
 
@@ -249,7 +260,9 @@ class PortaSpentaDelCerchio extends PortaDelCerchio {
   bool get viva => false;
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async => null;
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async =>
+      null;
 
   @override
   Future<EsitoDelConsumo?> consuma({

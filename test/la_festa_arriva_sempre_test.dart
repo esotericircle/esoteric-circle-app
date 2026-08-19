@@ -253,7 +253,8 @@ class _PortaCheSolleva extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async => throw StateError('unauthenticated');
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => throw StateError('unauthenticated');
 
   @override
   Future<EsitoDelConsumo?> consuma({
@@ -307,7 +308,8 @@ class _PortaAppesa extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) => _appesa<StatoDelCerchio>();
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) => _appesa<StatoDelCerchio>();
 
   @override
   Future<EsitoDelConsumo?> consuma({

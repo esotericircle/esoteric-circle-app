@@ -317,7 +317,8 @@ class _PortaCheRisponde extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async => StatoDelCerchio(
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => StatoDelCerchio(
       giorno: '2026-08-18',
       piano: 'free',
       spesi: const {},
@@ -369,7 +370,8 @@ class _PortaCheRifiuta extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async => null;
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => null;
 
   @override
   Future<EsitoDelConsumo?> consuma(
@@ -403,7 +405,8 @@ class _PortaMuta extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async => null;
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => null;
 
   @override
   Future<EsitoDelConsumo?> consuma(

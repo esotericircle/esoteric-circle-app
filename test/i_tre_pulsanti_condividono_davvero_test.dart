@@ -174,7 +174,8 @@ class _PortaCheDaIlBonus extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async => null;
+  Future<StatoDelCerchio?> stato(
+          {CamminoDaCustodire? cammino, bool azzeraIlCammino = false}) async => null;
 
   @override
   Future<EsitoDelConsumo?> consuma({

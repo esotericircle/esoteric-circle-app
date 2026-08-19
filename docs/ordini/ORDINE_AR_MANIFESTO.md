@@ -97,9 +97,35 @@ Mauro del 17 agosto 2026.
   numeri vanno nel rapporto anche se sono brutti)
 - **AR.05** I gradini dormienti sono dichiarati, non finti. Stato: APERTA
   (un dormiente non arma mai, non accredita mai, e la scala non si blocca)
-- **AR.06** Il cammino riparte pulito, una volta sola. Stato: APERTA
-  (azzeramento idempotente segnato da una versione del cammino; **il saldo
-  Eos NON si azzera**; una riga onesta lo dice alla persona)
+- **AR.06** Il cammino riparte pulito, una volta sola. Stato: FERMATA IN ATTESA DI DECISIONE
+  (nasce `lib/core/cammino/rinascita_del_cammino.dart`, la casa unica
+  dell'azzeramento. **La generazione del cammino non e' la versione del
+  formato**: quella dice come sono fatti i campi, questa quale CAMMINO si sta
+  percorrendo, e oggi vale due. Le chiavi si cancellano PER NOME e non per
+  prefisso: un `removeWhere` su "cammino." avrebbe portato via anche la
+  generazione stessa, e il giorno che qualcuno mettesse il saldo sotto quel
+  prefisso lo avrebbe portato via in silenzio.
+  **IL SALDO EOS NON SI AZZERA**, e la chiave `allowance.saldoEos` e' nominata
+  nel codice come quella che resta, con due prove che la difendono: una sul
+  comportamento e una sul DATO, cosi' cade anche chi la aggiungesse
+  all'elenco senza far girare niente.
+  **Il diario svuota anche la MEMORIA**: cancellare le chiavi e lasciare i
+  conti vivi dentro l'oggetto li avrebbe riscritti tali e quali al primo
+  salvataggio.
+  **Il server dimentica PRIMA di fondere**, e l'ordine dei due passi e'
+  sorvegliato da una prova che legge `cerchio.ts`: la fusione difende sempre
+  il numero piu' alto, quindi fondere e poi dimenticare avrebbe riportato
+  indietro il cammino vecchio tutto intero. L'azzeramento viaggia dentro
+  `statoDelCerchio`, che parte gia' a ogni apertura: **nessuna callable
+  nuova**, e la premessa P4 dell'ordine AP resta intatta.
+  La riga onesta e' un foglio dal basso in tono di Maestro, mai una SnackBar,
+  mostrato una volta sola e mai a un Cerchio nuovo, che di quella perdita non
+  ha nulla da sapere.
+  Sette prove, e i TRE rossi chiesti dall'ordine provati uno per uno. Uno di
+  quei rossi non scattava, e il difetto era nella prova: chiedeva a lib quali
+  chiavi controllare, quindi togliendone una non la cercava piu'. Adesso
+  l'elenco della prova e' suo.
+  **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2186)
 - **AR.07** "Il prossimo" mostra il prossimo. Stato: APERTA
   (il gradino ARMATO dopo quello celebrato, e se il sentiero e' finito lo
   dichiara invece di ripetere l'ultimo)
@@ -117,7 +143,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 10
-VOCI_APERTE: 9
+VOCI_APERTE: 8
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2

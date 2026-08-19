@@ -1,3 +1,4 @@
+import 'foglio_della_rinascita.dart';
 import 'dart:async';
 import 'dart:math' as math;
 
@@ -184,6 +185,14 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   @override
   void initState() {
     super.initState();
+    // **LA RIGA ONESTA DELLA RINASCITA, ordine AR voce 06.** Se questo avvio
+    // ha azzerato un cammino che esisteva, chi apre trova il Journal spento:
+    // deve saperlo da noi in una frase, e deve sapere subito che gli Eos non
+    // sono stati toccati. Si dice dopo il primo fotogramma, quando la home
+    // c'e' gia', e una volta sola.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) FoglioDellaRinascita.seServe(context);
+    });
     _breath = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 6),
