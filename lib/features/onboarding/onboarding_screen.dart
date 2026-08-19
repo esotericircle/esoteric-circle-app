@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import '../../core/diagnosi/briciole.dart';
 import '../../core/cammino/cammino_da_custodire.dart';
 import '../../core/cammino/ritrovamento.dart';
+import '../../core/cammino/custode_del_cammino.dart';
+import '../account/custodia_del_cielo.dart';
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/birth_place.dart' as astro;
 import '../../core/astro/city_catalog.dart';
@@ -72,6 +74,48 @@ class OnboardingScreen extends StatefulWidget {
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+/// LA PORTA PICCOLA PER CHI TORNA. Ordine AP voce 04.
+///
+/// **I testi sono di Mauro, e stanno qui perche' si possano cambiare senza
+/// toccare altro.** La riga principale dice chi sei, quella di servizio dice
+/// cosa succede: la seconda e' piu' smorzata, perche' la prima e' la
+/// domanda e la seconda e' solo la risposta.
+class _PortaPerChiTorna extends StatelessWidget {
+  const _PortaPerChiTorna({required this.palette, required this.onTap});
+
+  final MaestroPalette palette;
+  final VoidCallback onTap;
+
+  static const String riga = 'Faccio già parte del Cerchio';
+  static const String rigaDiServizio = 'Accedi e ritrova il tuo cammino';
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      key: const Key('onboarding_porta_per_chi_torna'),
+      onPressed: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            riga,
+            textAlign: TextAlign.center,
+            style: TypographyTokens.etichetta()
+                .copyWith(color: palette.goldSoft),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            rigaDiServizio,
+            textAlign: TextAlign.center,
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 /// I passi del rituale, in ordine. L'accoglienza apre, il sigillo chiude.
@@ -504,7 +548,37 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         ),
       ),
       cta: _Cta(label: 'Inizia il rito', palette: _palette, onTap: _goNext),
+      // **LA PORTA PICCOLA PER CHI TORNA, ordine AP voce 04.** Non e' un
+      // muro: chi arriva per la prima volta prosegue senza notarla, perche'
+      // il richiamo principale resta "Inizia il rito" e questa sta sotto, in
+      // un tono smorzato. Chi torna, invece, la trova subito, e non deve
+      // rifare un rito che ha gia' fatto per scoprire che il Cerchio lo
+      // conosceva.
+      sottoLaCta: _PortaPerChiTorna(
+        palette: _palette,
+        onTap: _entraDaChiGiaCE,
+      ),
     );
+  }
+
+  /// **CHI TORNA PASSA DA QUI, e da qui in poi la strada e' una sola.** Il
+  /// riconoscimento porta al giro del Custode, lo stesso del "Continua come"
+  /// della voce 06: il cammino torna, il rito non si rifa' se non serve, e
+  /// cio' che e' stato ritrovato si vede.
+  Future<void> _entraDaChiGiaCE() async {
+    final riconosciuto = await mostraLaPortaPerChiTorna(context);
+    if (!mounted || !riconosciuto) return;
+    // Da qui in poi la strada e' una sola, la stessa del "Continua come"
+    // della voce 06: il cammino torna, il rito non si rifa' se non serve, e
+    // cio' che e' stato ritrovato si vede.
+    final ritrovato = await CustodeDelCammino.dopoIlRiconoscimento(context);
+    if (!mounted) return;
+    // **SI ESCE DAL RITO SOLO SE NON RESTA NIENTE DA CHIEDERE.** Con
+    // un'identita' parziale il rito prosegue dai passi che mancano, e non si
+    // torna in home a meta' strada.
+    if (ritrovato != null && ritrovato.siSalta) {
+      Navigator.of(context).maybePop();
+    }
   }
 
   // --- Passo 1: la data, e nasce il Sole nel segno ---
@@ -794,6 +868,7 @@ class _StepBody extends StatelessWidget {
     required this.subtitle,
     required this.content,
     required this.cta,
+    this.sottoLaCta,
   });
 
   final Widget visual;
@@ -805,6 +880,11 @@ class _StepBody extends StatelessWidget {
   final String subtitle;
   final Widget content;
   final Widget? cta;
+
+  /// **CIO' CHE STA SOTTO IL RICHIAMO PRINCIPALE, ordine AP voce 04.** E' il
+  /// posto della porta piccola per chi torna: sta sotto, e' piu' smorzata, e
+  /// chi arriva per la prima volta prosegue senza notarla.
+  final Widget? sottoLaCta;
 
   @override
   Widget build(BuildContext context) {
@@ -853,6 +933,11 @@ class _StepBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: SpacingTokens.sm),
             child: cta,
+          ),
+        if (sottoLaCta != null)
+          Padding(
+            padding: const EdgeInsets.only(top: SpacingTokens.xs),
+            child: sottoLaCta,
           ),
       ],
     );

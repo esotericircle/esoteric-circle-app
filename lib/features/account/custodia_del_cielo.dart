@@ -318,12 +318,46 @@ Future<bool> mostraInvitoACustodire(
   return esito ?? false;
 }
 
+/// LA PORTA PICCOLA PER CHI TORNA. Ordine AP voce 04.
+///
+/// **Non e' un muro, ed e' la decisione di Mauro del 18 agosto**: la prima
+/// schermata resta il risveglio, e la via per chi torna e' una porta
+/// piccola. Chi arriva per la prima volta prosegue senza notarla.
+///
+/// **Non e' nemmeno una seconda porta sull'accesso**: dentro ci sono le
+/// stesse `VieDellaCustodia` del foglio della custodia, cioe' Google, Apple
+/// dove serve, ed email. Cambia il motivo per cui si apre, non la strada.
+/// Torna vero quando il riconoscimento e' avvenuto.
+Future<bool> mostraLaPortaPerChiTorna(BuildContext context) async {
+  final palette = context.palette;
+  final account = context.read<AccountDelCerchio>();
+  final esito = await showModalBottomSheet<bool>(
+    context: context,
+    backgroundColor: Colors.transparent,
+    isScrollControlled: true,
+    builder: (foglio) => _FoglioDellInvito(
+      momenti: 0,
+      palette: palette,
+      account: account,
+      perChiTorna: true,
+    ),
+  );
+  return esito ?? false;
+}
+
 class _FoglioDellInvito extends StatefulWidget {
   const _FoglioDellInvito({
     required this.momenti,
     required this.palette,
     required this.account,
+    this.perChiTorna = false,
   });
+
+  /// **CHI TORNA VEDE UN'ALTRA FRASE, non un'altra porta.** Ordine AP voce
+  /// 04: le vie di accesso sono le stesse, cambia cio' che si sta facendo.
+  /// A chi custodisce si dice cosa non perdera'; a chi torna si dice che il
+  /// Cerchio lo stava aspettando.
+  final bool perChiTorna;
 
   final int momenti;
   final MaestroPalette palette;
@@ -392,7 +426,10 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
                     color: palette.goldSoft, size: 22),
                 const SizedBox(width: SpacingTokens.sm),
                 Expanded(
-                  child: Text('Il Cerchio custodisce $quanti',
+                  child: Text(
+                      widget.perChiTorna
+                          ? 'Il Cerchio ti stava aspettando'
+                          : 'Il Cerchio custodisce $quanti',
                       key: const Key('invito_numero_dei_momenti'),
                       style: TypographyTokens.titoloScheda()
                           .copyWith(color: palette.goldSoft)),
@@ -401,8 +438,11 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
             ),
             const SizedBox(height: SpacingTokens.sm),
             Text(
-              'Vuoi che restino tuoi anche se cambi telefono? Basta un tocco: '
-              'nulla di quello che hai fatto si perde.',
+              widget.perChiTorna
+                  ? 'Entra con l\'account che usavi: ritrovi la tua carta '
+                      'natale, i Sigilli accesi e i tuoi Eos.'
+                  : 'Vuoi che restino tuoi anche se cambi telefono? Basta un '
+                      'tocco: nulla di quello che hai fatto si perde.',
               style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.4),
             ),

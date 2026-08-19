@@ -155,9 +155,24 @@ agosto 2026.
   tre modi diversi**, cioe' sostituendo invece di fondere (due prove rosse),
   non unendo i Sigilli (tre rosse) e facendo vincere la data piu' recente
   (due rosse); ripristinato, `npm test` conta 34 verdi)
-- **AP.04** La porta piccola per chi torna. Stato: APERTA
-  ("Faccio gia' parte del Cerchio" con sotto "Accedi e ritrova il tuo
-  cammino"; non e' un muro e il richiamo principale resta "comincia")
+- **AP.04** La porta piccola per chi torna. Stato: FERMATA IN ATTESA DI DECISIONE
+  (sulla prima schermata del Risveglio, sotto "Inizia il rito", compare
+  `_PortaPerChiTorna` coi testi di Mauro: "Faccio gia' parte del Cerchio" e,
+  smorzata, "Accedi e ritrova il tuo cammino". I due testi vivono in due
+  costanti, cosi' si cambiano senza toccare altro.
+  **Non e' una seconda porta sull'accesso**: il foglio che si apre e'
+  `mostraLaPortaPerChiTorna`, che dentro monta le stesse `VieDellaCustodia`
+  del foglio della custodia, Google, Apple dove le regole dell'App Store lo
+  pretendono, ed email. Cambia la frase, non la strada.
+  **E non e' un muro, misurato e non presunto**: la guardia confronta le
+  QUOTE a schermo e pretende che il rito stia sopra e la porta sotto, che la
+  riga di servizio non sia piu' grande del richiamo principale, e che chi
+  tocca "Inizia il rito" prosegua senza incontrarla piu'. A riconoscimento
+  avvenuto si va al giro del Custode, che e' lo stesso della voce 06, e si
+  esce dal rito SOLO se non resta niente da chiedere: con un'identita'
+  parziale il rito prosegue dai passi che mancano.
+  Guardia `test/la_porta_per_chi_torna_test.dart` con tre prove e rosso
+  provato. Chiude il collaudo di Mauro sulla 2184)
 - **AP.05** L'onboarding si salta, e il ritrovamento si vede. Stato: FERMATA IN ATTESA DI DECISIONE
   (nasce `lib/core/cammino/ritrovamento.dart`, che decide in UN punto solo
   quali passi restano da chiedere: la stessa domanda arriva da due strade,
@@ -209,7 +224,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 4
+VOCI_APERTE: 3
 VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
