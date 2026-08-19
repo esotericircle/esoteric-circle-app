@@ -14,11 +14,14 @@ import 'package:provider/provider.dart';
 /// Cerchio, la persona non finisce piu' in un vicolo: il rifiuto porta con
 /// se' CHI e' stato riconosciuto, e la scena offre "Continua come [nome]"
 /// con, PRIMA del tocco, la riga onesta su cosa succede al cammino di questo
-/// telefono. La riga dichiara la verita' di oggi, nessuna unione esiste e
-/// nessuna si promette: la vecchia frase "scrivici e uniremo i due" era una
-/// promessa vuota ed e' sparita dai sorgenti, con la prova che vieta il suo
-/// ritorno. Le due scene, il foglio dell'account e il passo del Risveglio,
-/// usano UN componente solo.
+/// telefono. La riga dichiara la verita' DI OGGI, e la verita' di oggi non e'
+/// piu' quella di ieri: fino all'ordine AP nessuna unione esisteva e la riga
+/// diceva che i due Cerchi non si univano; dalla voce 03 il cammino di questo
+/// telefono si fonde sul server con quello del Cerchio in cui si entra,
+/// quindi la riga lo dice, e continua a dire cio' che NON si fonde, Eos e
+/// ricordi. Resta vietata la vecchia promessa vuota "scrivici e uniremo i
+/// due", che prometteva a mano un'unione che nessuno faceva. Le due scene, il
+/// foglio dell'account e il passo del Risveglio, usano UN componente solo.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -55,8 +58,23 @@ void main() {
         reason: 'il pulsante non porta il nome riconosciuto');
     expect(find.byKey(const Key('continua_come_riga_onesta')), findsOneWidget,
         reason: 'manca la riga onesta prima del tocco');
-    expect(find.textContaining('non si uniscono'), findsOneWidget,
+    // **LA PRETESA E' RIMASTA, LA VERITA' E' CAMBIATA, ordine AP voce 08.**
+    // Qui si pretendeva la frase "non si uniscono", ed era giusto finche' il
+    // sistema non univa niente. Adesso la fusione esiste, quindi si pretende
+    // che la riga dica l'unione dei passi E il limite: Eos e ricordi restano
+    // quelli del Cerchio in cui si entra.
+    final riga = tester
+        .widget<Text>(find.byKey(const Key('continua_come_riga_onesta')))
+        .data!
+        .toLowerCase();
+    // ignore: avoid_print
+    print('ORDINE AL VOCE 07: la riga onesta dice "$riga"');
+    expect(riga, isNot(contains('non si uniscono')),
+        reason: 'la riga nega un\'unione che il server esegue davvero');
+    expect(riga, contains('si uniscono'),
         reason: 'la riga non dichiara la verita\' sui due Cerchi');
+    expect(riga.contains('eos') && riga.contains('ricordi'), isTrue,
+        reason: 'la riga non dice piu\' cosa NON si fonde: "$riga"');
     // "Piu' tardi" resta.
     expect(find.byKey(const Key('invito_piu_tardi')), findsOneWidget);
 
@@ -138,6 +156,9 @@ class _PortaCheRiconosce implements PortaDellIdentita {
         nome: 'mauro@esempio.it', credenziale: null);
     return EsitoDellaCustodia.giaDiUnAltroCerchio;
   }
+
+  @override
+  Future<String?> nomeGiaProposto() async => null;
 
   @override
   Future<EsitoDellaCustodia> entraComeRiconosciuto() async {

@@ -231,10 +231,16 @@ String? frasePerEsito(EsitoDellaCustodia esito) {
 /// Quando la custodia risponde che l'identita' vive gia' in un altro
 /// Cerchio, la via in avanti e' entrare in quel Cerchio: il pulsante porta
 /// il nome riconosciuto e, PRIMA del tocco, una riga sola e onesta dice cosa
-/// succede al cammino di questo telefono. La riga dichiara la verita' di
-/// oggi: i passi fatti qui restano su questo telefono e i due Cerchi NON si
-/// uniscono, perche' nessuna unione esiste nel sistema, e prometterla
-/// sarebbe una bugia detta nel momento in cui si chiede fiducia.
+/// succede al cammino di questo telefono.
+///
+/// **LA RIGA E' CAMBIATA CON L'ORDINE AP, perche' il sistema e' cambiato.**
+/// Prima diceva che i due Cerchi non si uniscono, ed era vero: nessuna
+/// unione esisteva. Dalla voce 03 il cammino di questo telefono si FONDE con
+/// quello del Cerchio in cui si entra, sul server, contatore piu' alto e
+/// Sigilli in unione. Lasciare la vecchia riga sarebbe stato promettere in
+/// difetto, che e' comunque una bugia detta mentre si chiede fiducia. Cio'
+/// che davvero NON si fonde sono Eos e ricordi, e infatti la riga continua a
+/// dirlo.
 ///
 /// E' un componente unico per le due scene che lo mostrano, il foglio
 /// dell'area account e il passo del Risveglio: due copie diventerebbero due
@@ -264,9 +270,8 @@ class ContinuaComeRiconosciuto extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'I passi fatti su questo telefono restano qui e i due Cerchi non '
-          'si uniscono: Eos e ricordi saranno quelli del Cerchio in cui '
-          'entri.',
+          'I passi fatti su questo telefono si uniscono al cammino di quel '
+          'Cerchio: Eos e ricordi restano quelli del Cerchio in cui entri.',
           key: const Key('continua_come_riga_onesta'),
           style: TypographyTokens.didascalia()
               .copyWith(color: ColorTokens.textSecondary, height: 1.4),

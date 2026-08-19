@@ -95,8 +95,16 @@ class AccountScreen extends StatelessWidget {
           title: 'Custodisci il tuo cielo',
           // IL SOTTOTITOLO DICE A COSA SERVE, ordine AL voce 06, con parole
           // che non richiedono l'Architetto per essere capite.
-          subtitle: 'Salva carta natale, ricordi e Eos: se cambi telefono '
-              'non perdi nulla',
+          //
+          // **E DICE IL VERO, ordine AP voce 08.** Fino alla 2183 questa
+          // riga prometteva "non perdi nulla" mentre i traguardi accesi si
+          // perdevano davvero: Mauro lo ha misurato reinstallando l'app.
+          // Adesso il cammino e' custodito (voci 01 e 03) e la riga puo'
+          // NOMINARE cio' che torna, invece di promettere in blocco. Il
+          // cielo di nascita torna perche' torna la nascita, che e' cio' da
+          // cui si ricalcola: e' la stessa scelta della voce 01.
+          subtitle: 'Cielo di nascita, traguardi accesi, ricordi e Eos: '
+              'tornano su qualsiasi telefono',
           icon: Icons.shield_moon_outlined,
           onTap: (context) async {
             // **IL TOCCO RISPONDE SEMPRE, ordine AL voce 06.** Qui c'era

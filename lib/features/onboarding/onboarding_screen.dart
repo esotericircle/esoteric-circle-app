@@ -14,6 +14,7 @@ import '../../core/astro/zodiac.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_place.dart';
+import '../../core/identity/account_del_cerchio.dart';
 import '../../core/identity/circle_seal.dart';
 import '../../core/identity/identity_controller.dart';
 import '../../core/identity/profile_controller.dart';
@@ -188,6 +189,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     super.initState();
     Briciole.lascia('onboarding_entrato');
     _riprendiCioCheIlCerchioSapeva();
+    _chiediSeIlTelefonoPropone();
     _ignite = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
@@ -554,11 +556,48 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       // un tono smorzato. Chi torna, invece, la trova subito, e non deve
       // rifare un rito che ha gia' fatto per scoprire che il Cerchio lo
       // conosceva.
-      sottoLaCta: _PortaPerChiTorna(
-        palette: _palette,
-        onTap: _entraDaChiGiaCE,
+      sottoLaCta: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (_bentornato != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 2),
+              child: Text(
+                'Bentornato, $_bentornato',
+                key: const Key('onboarding_bentornato'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: _palette.goldSoft),
+              ),
+            ),
+          _PortaPerChiTorna(
+            palette: _palette,
+            onTap: _entraDaChiGiaCE,
+          ),
+        ],
       ),
     );
+  }
+
+  /// **IL BENTORNATO, ordine AP voce 08, e il silenzio se non c'e'.** Se il
+  /// telefono propone da solo l'account gia' usato, chi torna si sente
+  /// chiamare per nome davanti alla porta piccola. Se non propone niente non
+  /// compare nulla e la porta resta com'e': un saluto a un nome che non si
+  /// sa sarebbe peggio del silenzio, e comunque nessuno entra da solo.
+  String? _bentornato;
+
+  Future<void> _chiediSeIlTelefonoPropone() async {
+    final AccountDelCerchio account;
+    try {
+      account = context.read<AccountDelCerchio>();
+    } on ProviderNotFoundException {
+      // Fuori dall'app viva (anteprime e prove mirate) non c'e' nessun
+      // account da interrogare, e non c'e' niente da salutare.
+      return;
+    }
+    await account.chiediIlBentornato();
+    if (!mounted || account.bentornato == null) return;
+    setState(() => _bentornato = account.bentornato);
   }
 
   /// **CHI TORNA PASSA DA QUI, e da qui in poi la strada e' una sola.** Il

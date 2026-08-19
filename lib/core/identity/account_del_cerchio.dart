@@ -89,6 +89,12 @@ abstract class PortaDellIdentita {
   /// rifiuto. Non e' un'elevazione: e' un cambio di account, e chi chiama lo
   /// dice alla persona con la riga onesta PRIMA del tocco.
   Future<EsitoDellaCustodia> entraComeRiconosciuto();
+
+  /// IL NOME CHE IL TELEFONO PROPONE DA SOLO, ordine AP voce 08.
+  ///
+  /// Nullo quando il telefono non propone niente, e il nulla NON e' un
+  /// guasto: e' la risposta piu' probabile, e chi chiama non mostra nulla.
+  Future<String?> nomeGiaProposto();
 }
 
 /// Chi e' stato riconosciuto da un tentativo di custodia finito su un
@@ -113,6 +119,14 @@ abstract class PortaDelFlussoGoogle {
   /// La credenziale del flusso nativo, oppure nulla se la persona ha chiuso la
   /// finestra: il nulla NON e' un errore, e' un'annullata.
   Future<AuthCredential?> credenziale();
+
+  /// IL NOME CHE GOOGLE PROPONE SENZA APRIRE NIENTE, ordine AP voce 08.
+  ///
+  /// **Sta qui e non in una casa nuova**: questa e' l'unica porta verso
+  /// Google di tutta l'app, e una seconda classe che costruisse un
+  /// `GoogleSignIn` per conto suo sarebbe la seconda strada per lo stesso
+  /// dato. Risponde nulla ogni volta che il telefono non propone niente.
+  Future<String?> nomeGiaAutorizzato();
 }
 
 /// Il flusso vero, sopra `google_sign_in`.
@@ -133,6 +147,33 @@ class FlussoGoogleNativo implements PortaDelFlussoGoogle {
       idToken: autenticazione.idToken,
       accessToken: autenticazione.accessToken,
     );
+  }
+
+  /// **COSA CHIEDE DAVVERO QUESTA RIGA, misurato sul pacchetto.**
+  /// `signInSilently` di `google_sign_in` 6.3.0 finisce, su Android, dentro
+  /// `GoogleSignInClient.silentSignIn()` (misurato in
+  /// `google_sign_in_android` 6.2.1, `GoogleSignInPlugin.java` riga 276), che
+  /// NON e' `getLastSignedInAccount`: non guarda la memoria dell'app, chiede
+  /// ai servizi Google se quel telefono ha gia' autorizzato questa app. E'
+  /// per questo che puo' rispondere anche dopo una reinstallazione, ed e'
+  /// anche il motivo per cui puo' rispondere nulla senza che nulla sia
+  /// rotto. Gli errori sono gia' soffocati dal pacchetto e tornano nulla.
+  ///
+  /// **Non fa entrare nessuno**: prende un nome e basta. Entrare da soli
+  /// all'apertura sarebbe il muro d'accesso che Mauro ha escluso il 18
+  /// agosto.
+  @override
+  Future<String?> nomeGiaAutorizzato() async {
+    final account = await GoogleSignIn().signInSilently();
+    if (account == null) return null;
+    final nome = account.displayName?.trim();
+    if (nome != null && nome.isNotEmpty) return nome;
+    // Senza nome resta l'email, e di un'email si mostra la parte davanti:
+    // "Bentornato, mauro" e' un saluto, "Bentornato, mauro@..." e' un dato.
+    final email = account.email.trim();
+    if (email.isEmpty) return null;
+    final davanti = email.split('@').first;
+    return davanti.isEmpty ? null : davanti;
   }
 }
 
@@ -272,6 +313,15 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
     }
   }
 
+  /// Il nome proposto lo sa solo il flusso di Google, e si chiede solo a chi
+  /// non ha ancora custodito: a chi ha gia' un account il telefono non deve
+  /// proporre di rientrare in cio' in cui e' gia' dentro.
+  @override
+  Future<String?> nomeGiaProposto() async {
+    if (!anonimo) return null;
+    return _flussoGoogle.nomeGiaAutorizzato();
+  }
+
   @override
   Future<EsitoDellaCustodia> entraComeRiconosciuto() async {
     final credenziale = _riconosciuta?.credenziale;
@@ -330,6 +380,9 @@ class IdentitaAssente implements PortaDellIdentita {
   @override
   Future<EsitoDellaCustodia> entraComeRiconosciuto() async =>
       EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  Future<String?> nomeGiaProposto() async => null;
 }
 
 /// L'ACCOUNT DEL CERCHIO, guardato dall'app.
@@ -406,6 +459,27 @@ class AccountDelCerchio extends ChangeNotifier {
   /// "Continua come [nome]" dell'ordine AL voce 07. Nullo finche' nessun
   /// Cerchio e' stato riconosciuto.
   String? get nomeRiconosciuto => _porta.riconosciuta?.nome;
+
+  /// IL BENTORNATO, ordine AP voce 08. Nullo finche' il telefono non ha
+  /// proposto niente, e nullo per sempre se non propone mai.
+  String? _bentornato;
+  String? get bentornato => _bentornato;
+
+  bool _bentornatoChiesto = false;
+
+  /// **SI CHIEDE UNA VOLTA SOLA E NON APRE NIENTE.** Se il telefono propone
+  /// un nome, chi torna si sente chiamare per nome davanti alla porta
+  /// piccola; se non propone niente non compare nulla, e non e' un guasto da
+  /// raccontare: e' la risposta normale su un telefono che quell'account non
+  /// l'ha mai autorizzato.
+  Future<void> chiediIlBentornato() async {
+    if (_bentornatoChiesto) return;
+    _bentornatoChiesto = true;
+    final nome = await _porta.nomeGiaProposto();
+    if (nome == null || nome.isEmpty) return;
+    _bentornato = nome;
+    notifyListeners();
+  }
 
   /// ENTRA nel Cerchio riconosciuto. Qui il cambio di uid non e' un guasto,
   /// e' esattamente cio' che la persona ha chiesto col tocco, dopo la riga

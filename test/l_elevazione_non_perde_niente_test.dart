@@ -77,6 +77,9 @@ class _PortaFinta implements PortaDellIdentita {
   @override
   Future<EsitoDellaCustodia> entraComeRiconosciuto() async =>
       EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  Future<String?> nomeGiaProposto() async => null;
 }
 
 void main() {

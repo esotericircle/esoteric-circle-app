@@ -223,10 +223,35 @@ agosto 2026.
   prova nata sbagliata e corretta: usava nomi di classe inventati, e un nome
   inventato interroga una schermata che non esiste e passa sempre. Chiude il
   collaudo di Mauro sulla 2184)
-- **AP.08** La frase della custodia diventa vera. Stato: APERTA
-  (il sottotitolo dice cio' che il Cerchio custodisce davvero; si MISURA se
-  Android puo' proporre da solo l'account gia' usato, e se non funziona non
-  compare niente e il rapporto dichiara la misura; mai il backup di sistema)
+- **AP.08** La frase della custodia diventa vera. Stato: CHIUSA
+  (le frasi false erano DUE, e la seconda l'aveva resa falsa quest'ordine
+  stesso. La prima e' il sottotitolo della custodia, che prometteva "non
+  perdi nulla" mentre i traguardi si perdevano davvero: adesso NOMINA cio'
+  che torna, "Cielo di nascita, traguardi accesi, ricordi e Eos: tornano su
+  qualsiasi telefono". La seconda e' la riga onesta del "Continua come", che
+  diceva che i due Cerchi non si uniscono: era vera fino alla voce 03, e da
+  quando la fusione esiste era diventata una promessa IN DIFETTO, che e'
+  bugia quanto una in eccesso. Ora dice che i passi si uniscono, e continua
+  a dire cio' che NON si fonde, Eos e ricordi.
+  **La misura sul bentornato, e cosa dice davvero.** Misurato sul pacchetto:
+  `google_sign_in` 6.3.0 espone `signInSilently`, e su Android finisce in
+  `GoogleSignInClient.silentSignIn()` (`google_sign_in_android` 6.2.1,
+  `GoogleSignInPlugin.java` riga 276), che NON e' `getLastSignedInAccount`:
+  non guarda la memoria dell'app ma chiede ai servizi Google se quel
+  telefono ha gia' autorizzato questa app, ed e' per questo che PUO'
+  rispondere anche dopo una reinstallazione. Se risponde un nome, sopra la
+  porta piccola compare "Bentornato, [nome]"; se risponde nulla non compare
+  niente e la porta resta com'e'. **Il verdetto sul telefono vero non e'
+  stato misurato da qui e non si dichiara**: nessun emulatore parte su
+  questa macchina, quindi lo chiude il collaudo di Mauro sulla 2184.
+  Nessuno entra da solo: il saluto prende un nome, non un'identita'.
+  Guardia `test/le_frasi_della_custodia_dicono_il_vero_test.dart` con cinque
+  prove che LEGANO la frase al codice invece di fissarla, perche' fissare il
+  testo resterebbe verde il giorno in cui il sistema cambia e la frase resta
+  indietro, che e' esattamente cio' che era successo. Tre rossi provati.
+  Una guardia vecchia riscritta e non allentata: `l_onboarding_riconosce_e_
+  propone_test` pretendeva la frase "non si uniscono", e adesso pretende
+  l'unione dei passi e il limite su Eos e ricordi)
 - **AP.09** Il manifesto, la suite, il deploy e la build 2184. Stato: APERTA
   (stati veri e marcatori contati; npm test dentro `functions`; suite intera
   una volta; build 2184 arm64 e distribuzione; **il deploy delle functions lo
@@ -235,7 +260,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 2
-VOCI_CHIUSE: 3
+VOCI_APERTE: 1
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4

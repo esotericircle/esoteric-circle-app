@@ -168,6 +168,9 @@ class _PortaIdentitaFinta implements PortaDellIdentita {
   @override
   Future<EsitoDellaCustodia> entraComeRiconosciuto() async =>
       EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  Future<String?> nomeGiaProposto() async => null;
 }
 
 class _MemoriaMuta extends InMemoryMaestroMemoryRepository {
