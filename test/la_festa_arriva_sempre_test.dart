@@ -9,6 +9,7 @@ import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/sigilli/regia_del_cammino.dart';
 import 'package:esoteric_circle/services/app_services.dart';
+import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -252,7 +253,7 @@ class _PortaCheSolleva extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato() async => throw StateError('unauthenticated');
+  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async => throw StateError('unauthenticated');
 
   @override
   Future<EsitoDelConsumo?> consuma({
@@ -306,7 +307,7 @@ class _PortaAppesa extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato() => _appesa<StatoDelCerchio>();
+  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) => _appesa<StatoDelCerchio>();
 
   @override
   Future<EsitoDelConsumo?> consuma({

@@ -8,6 +8,7 @@ import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/components/costo_in_chiaro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -212,7 +213,7 @@ class _PortaCheSpende extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato() async => StatoDelCerchio(
+  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async => StatoDelCerchio(
       giorno: '2026-08-18', piano: 'free', spesi: const {}, saldoEos: _saldo);
 
   @override

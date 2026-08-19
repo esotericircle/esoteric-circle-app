@@ -6,6 +6,7 @@ import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/services/memory/firestore_maestro_memory_repository.dart';
+import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -53,7 +54,7 @@ class _ServerFinto extends PortaDelCerchio {
   bool get viva => true;
 
   @override
-  Future<StatoDelCerchio?> stato() async {
+  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async {
     if (!risponde) return null;
     return StatoDelCerchio(
       giorno: giorno,

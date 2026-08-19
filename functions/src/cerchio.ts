@@ -12,6 +12,11 @@ import {
   restaOggi,
 } from "./budget";
 import {
+  CamminoCustodito,
+  fondiCammini,
+  leggiCammino,
+} from "./cammino";
+import {
   ACCREDITO_DEL_GIORNO,
   BENVENUTO,
   CAUSALI_CHIEDIBILI,
@@ -69,6 +74,13 @@ const borsellinoDoc = (uid: string) =>
   utente(uid).collection("stato").doc("borsellino");
 const abbonamentoDoc = (uid: string) =>
   utente(uid).collection("stato").doc("abbonamento");
+/**
+ * IL CAMMINO CUSTODITO, ordine AP voce 01: sta accanto agli altri stati
+ * dell'utente, sotto lo stesso ramo che le regole proteggono dalla scrittura
+ * del client.
+ */
+const camminoDoc = (uid: string) =>
+  utente(uid).collection("stato").doc("cammino");
 
 /** I quattro budget a zero, come nascono e come ribaltano. */
 function contatoriVuoti(giorno: string): Record<string, unknown> {
@@ -174,12 +186,44 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     return saldo;
   });
 
+  // **IL CAMMINO VIAGGIA CON LO STATO, ordine AP voce 01.**
+  //
+  // Il client manda cio' che ha sul telefono, il server lo fonde col
+  // custodito e risponde con cio' che vale. Non c'e' una callable nuova, e
+  // non e' pigrizia: `statoDelCerchio` e' gia' cio' che si chiede a ogni
+  // apertura e dopo ogni riconoscimento, e un secondo canale sullo stesso
+  // momento sarebbe la seconda porta sullo stesso dato.
+  //
+  // **La fusione sta in un punto solo e sta QUI**, non nel client: se la
+  // regola vivesse anche in Dart sarebbero due regole, e il giorno che una
+  // cambia il cammino di qualcuno si spezzerebbe a meta'.
+  const camminoDalTelefono = leggiCammino(
+    (request.data as Record<string, unknown> | undefined)?.cammino
+  );
+  const cammino = await db.runTransaction(async (tx) => {
+    const doc = camminoDoc(uid);
+    const snap = await tx.get(doc);
+    const custodito = (snap.data() ?? {}) as CamminoCustodito;
+    const fuso = fondiCammini(custodito, camminoDalTelefono);
+    // Si scrive solo se c'e' qualcosa da custodire: un documento vuoto in
+    // piu' per ogni utente anonimo non dice niente a nessuno.
+    const daScrivere = Object.keys(fuso).filter((k) => k !== "versione");
+    if (daScrivere.length > 0) {
+      tx.set(doc, {
+        ...fuso,
+        aggiornato: admin.firestore.FieldValue.serverTimestamp(),
+      });
+    }
+    return fuso;
+  });
+
   return {
     giorno,
     piano,
     spesi,
     resta: residuiDi(piano, spesi),
     saldoEos,
+    cammino,
   };
 });
 

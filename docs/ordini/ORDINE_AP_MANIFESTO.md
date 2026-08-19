@@ -86,11 +86,31 @@ agosto 2026.
 
 ## Le voci
 
-- **AP.01** Il Cerchio custodisce il cammino e l'identita'. Stato: APERTA
-  (identita' di nascita, contatori dei gesti, giorni con gesto, gesti
-  nell'ora giusta, sigilli accesi con la data, archetipo con la data, arti
-  preferite; si scrive solo dalle callable e si viaggia con cio' che gia'
-  parte; forma estendibile senza rompere chi legge una versione vecchia)
+- **AP.01** Il Cerchio custodisce il cammino e l'identita'. Stato: CHIUSA
+  (nasce `functions/src/cammino.ts`, la casa del cammino custodito:
+  identita' di nascita, conti dei gesti, giorni con gesto, gesti nell'ora
+  giusta, serie, Sigilli accesi CON LA DATA, archetipo con la data del test e
+  arti preferite. **NESSUNA CALLABLE NUOVA**, e la guardia lo conta: restano
+  sei. Il cammino viaggia dentro `statoDelCerchio`, che il client chiede gia'
+  a ogni apertura, e il documento vive in `users/{uid}/stato/cammino`, sotto
+  lo stesso ramo che le regole proteggono dalla scrittura del client, quindi
+  la premessa P4 resta intatta.
+  **Cosa NON si custodisce, ed e' una scelta**: la carta natale, che nasce
+  dai dati di nascita ogni volta uguale. Custodirla sarebbe una seconda
+  verita' sullo stesso cielo.
+  **La fusione vive sul SERVER e solo li'**: il telefono manda cio' che ha e
+  adotta cio' che torna. Se la regola vivesse anche in Dart sarebbero due
+  regole, e il giorno che una cambia il cammino di qualcuno si spezzerebbe a
+  meta'. Lato telefono nasce `lib/core/cammino/cammino_da_custodire.dart`,
+  che e' solo la forma e non decide niente.
+  La forma porta una VERSIONE e ogni campo e' opzionale, cosi' si estende
+  senza rompere chi legge una versione vecchia; la lettura non si fida di
+  niente, perche' cio' che entra nel Cerchio ci resta. Prove del server
+  `functions/src/cammino.test.ts`, nove prove dentro `npm test` che ora conta
+  34 verdi; guardia del telefono
+  `test/il_cerchio_custodisce_il_cammino_test.dart` con otto prove, fra cui
+  l'enumerazione delle callable e il viaggio di andata e ritorno senza
+  perdite)
 - **AP.02** Il saldo e il cammino si chiedono all'avvio. Stato: APERTA
   (all'avvio con rete e subito dopo il riconoscimento; senza rete si dichiara
   e si riprova, mai un saldo falso e mai una cancellazione)
@@ -122,7 +142,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 9
-VOCI_CHIUSE: 0
+VOCI_APERTE: 8
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

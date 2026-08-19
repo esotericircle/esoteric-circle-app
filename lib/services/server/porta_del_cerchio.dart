@@ -1,3 +1,4 @@
+import '../../core/cammino/cammino_da_custodire.dart';
 import 'dart:math' as math;
 
 import 'package:cloud_functions/cloud_functions.dart';
@@ -13,6 +14,7 @@ class StatoDelCerchio {
     required this.piano,
     required this.spesi,
     required this.saldoEos,
+    this.cammino,
   });
 
   final String giorno;
@@ -22,6 +24,11 @@ class StatoDelCerchio {
   final Map<String, int> spesi;
 
   final int saldoEos;
+
+  /// IL CAMMINO CUSTODITO, gia' fuso dal server. Nullo quando il server e'
+  /// piu' vecchio dell'app e non lo conosce ancora: in quel caso il telefono
+  /// tiene il suo e riprova alla prossima apertura, senza cancellare niente.
+  final CamminoDaCustodire? cammino;
 
   static StatoDelCerchio? daMappa(Object? risposta) {
     if (risposta is! Map) return null;
@@ -41,6 +48,7 @@ class StatoDelCerchio {
       piano: risposta['piano'] is String ? risposta['piano'] as String : 'free',
       spesi: spesi,
       saldoEos: saldo is num ? saldo.toInt() : 0,
+      cammino: CamminoDaCustodire.daMappa(risposta['cammino']),
     );
   }
 }
@@ -80,7 +88,14 @@ abstract class PortaDelCerchio {
   bool get viva;
 
   /// Lo stato del giorno, oppure nullo se il server non risponde.
-  Future<StatoDelCerchio?> stato();
+  /// Chiede lo stato intero del Cerchio, e gli porta il cammino del telefono.
+  ///
+  /// **Il cammino viaggia con lo stato, ordine AP voce 01**: il telefono
+  /// manda cio' che ha, il server fonde col custodito e risponde con cio' che
+  /// vale. Nessuna callable nuova, perche' `statoDelCerchio` e' gia' cio' che
+  /// si chiede a ogni apertura, e un secondo canale sullo stesso momento
+  /// sarebbe la seconda porta sullo stesso dato.
+  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino});
 
   /// Chiede di consumare un budget. Nullo se il server non risponde: chi
   /// chiama accoda e riprova, non inventa una risposta.
@@ -158,8 +173,10 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   }
 
   @override
-  Future<StatoDelCerchio?> stato() async =>
-      StatoDelCerchio.daMappa(await _chiama('statoDelCerchio', const {}));
+  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async =>
+      StatoDelCerchio.daMappa(await _chiama('statoDelCerchio', {
+        if (cammino != null && !cammino.eVuoto) 'cammino': cammino.aMappa(),
+      }));
 
   @override
   Future<EsitoDelConsumo?> consuma({
@@ -232,7 +249,7 @@ class PortaSpentaDelCerchio extends PortaDelCerchio {
   bool get viva => false;
 
   @override
-  Future<StatoDelCerchio?> stato() async => null;
+  Future<StatoDelCerchio?> stato({CamminoDaCustodire? cammino}) async => null;
 
   @override
   Future<EsitoDelConsumo?> consuma({
