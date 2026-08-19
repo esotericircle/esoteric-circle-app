@@ -110,7 +110,7 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
                 if (!_riconosciuto)
                   Text(
                     'La tua carta natale e il tuo cammino vivono su questo '
-                    'telefono: collegali a te, e ti seguiranno ovunque.',
+                    'telefono: collegali a te e ti seguiranno ovunque.',
                     key: const Key('custodia_ragione'),
                     textAlign: TextAlign.center,
                     style: TypographyTokens.corpo().copyWith(

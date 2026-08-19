@@ -137,6 +137,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'istante_dichiarato.dart';
+
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
 ///
@@ -3996,7 +3998,7 @@ void main() {
       SharedPreferences.setMockInitialValues(const {});
       await montaLoSchermo(tester, schermoReale);
       final rootKey = GlobalKey();
-      final diario = DiarioDelCammino();
+      final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
       await tester.pumpWidget(
         RepaintBoundary(
@@ -4022,7 +4024,16 @@ void main() {
       // A meta' della corsa, dove il campo delle particelle e' pieno: una
       // festa fotografata alla fine sarebbe una festa gia' finita.
       await tester.pump(const Duration(milliseconds: 900));
-      await capture(tester, rootKey, 'festa-${sentiero.name}.png');
+      // **IL NOME SI SCRIVE PER INTERO, ordine AQ voce 06.** Composto a
+      // pezzi non compare nei sorgenti, e la guardia del corredo dichiara
+      // orfana l'immagine che nessuno sembra generare: sarebbe verde solo
+      // finche' nessuno la cerca.
+      final nomeFile = switch (sentiero) {
+        Sentiero.costellazione => 'festa-costellazione.png',
+        Sentiero.albero => 'festa-albero.png',
+        Sentiero.loto => 'festa-loto.png',
+      };
+      await capture(tester, rootKey, nomeFile);
     });
   }
 

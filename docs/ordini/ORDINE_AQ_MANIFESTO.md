@@ -190,15 +190,37 @@ agosto 2026.
   Anteprima nuova `docs/preview/custodia-del-cielo.png`, montata DALL'APP
   VERA alla larghezza vera di 360 punti e guardata.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
-- **AQ.06** Il manifesto, la suite, l'accensione e la build 2185. Stato: APERTA
-  (stati veri; suite intera una volta; numero a 2185; **l'accensione non si
-  salta**, e se nessun dispositivo e' collegato il rapporto lo dichiara in
-  testa e le voci visive restano fermate)
+- **AQ.06** Il manifesto, la suite, l'accensione e la build 2185. Stato: CHIUSA
+  (suite intera UNA volta: **2974 verdi e 12 rossi**, dei quali i SETTE di
+  legge gia' dichiarati in AM.05 (l'attribuzione cieca, albero e loto fuori
+  tela, `un_traguardo_acceso_pesa_uguale`, e le guardie degli ordini AC, T e
+  U ancora aperti), la guardia di quest'ordine rossa apposta finche' non si
+  e' chiusa questa riga, e QUATTRO code vere, tutte curate: le tre anteprime
+  nuove delle feste risultavano ORFANE, perche' il corredo ne componeva il
+  nome a pezzi e un nome composto non compare nei sorgenti che la guardia
+  legge; una frase nuova della custodia aveva la virgola prima della "e",
+  contro la regola di casa; e la cattura delle feste costruiva il Diario
+  senza dichiarare il suo istante, cioe' pescava il giorno vero e sarebbe
+  stata verde o rossa a seconda di quando la si lancia.
+  Build `0.1.0+2185`, 161.110.875 byte (153,6 MB) per arm64, integrita'
+  dell'archivio verificata famiglia per famiglia, consegnata su Firebase App
+  Distribution il 19 agosto 2026, release `0fd0hee8sp4mo`, registro
+  `docs/versione_distribuita.json` aggiornato da 2184 a 2185 dentro la
+  procedura. **Due tester come chiede l'ordine**: `tool/consegna.py` conosce
+  solo `cloud@esotericircle.app`, quindi il secondo passo `:distribute` e'
+  stato rifatto a mano con tutti e due gli indirizzi, aggiungendo
+  `info@esotericircle.com`, e la release e' stata riletta dal server.
+  **L'ACCENSIONE: NON E' STATA FATTA, e non per scelta.** `flutter devices`
+  trova Windows, Chrome ed Edge, nessun telefono, e `adb` non e' nel PATH di
+  questa macchina: e' l'undicesimo giro senza accensione. Per la regola che
+  quest'ordine mette prima di tutte, le cinque voci visive restano FERMATE IN
+  ATTESA DI DECISIONE e questo sta scritto IN TESTA al manifesto e in testa al
+  rapporto)
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 6
-VOCI_APERTE: 1
-VOCI_CHIUSE: 0
+VOCI_APERTE: 0
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
