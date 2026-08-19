@@ -110,14 +110,28 @@ class ScenaDelRitrovamento extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: SpacingTokens.xl),
-                FilledButton(
-                  key: const Key('ritrovamento_prosegui'),
-                  style: FilledButton.styleFrom(
-                    backgroundColor: palette.primary,
-                    foregroundColor: palette.onPrimary,
+                // **A TUTTA LARGHEZZA come ogni altro invito dell'app.**
+                // L'anteprima lo mostrava stretto e appoggiato a sinistra,
+                // orfano in mezzo al vuoto: qui non c'e' niente accanto a
+                // lui, ed e' l'unica cosa da toccare.
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    key: const Key('ritrovamento_prosegui'),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: palette.primary,
+                      foregroundColor: palette.onPrimary,
+                    ),
+                    onPressed: onProsegui,
+                    // **LO STILE E' DICHIARATO, come in ogni altro pulsante
+                    // dell'app.** Senza, il testo prende quello del tema di
+                    // Material e non il token di casa: l'anteprima lo ha
+                    // mostrato subito, coi rettangoli al posto delle lettere,
+                    // che e' il segno di un carattere diverso da quelli
+                    // dell'app.
+                    child: Text('Entra nel Cerchio',
+                        style: TypographyTokens.etichetta()),
                   ),
-                  onPressed: onProsegui,
-                  child: const Text('Entra nel Cerchio'),
                 ),
               ],
             ),

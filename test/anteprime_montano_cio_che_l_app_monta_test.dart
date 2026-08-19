@@ -107,9 +107,18 @@ void main() {
       // porta un `MaestroScope` senza Maestro, cioe' quello che segue il Maestro
       // attivo. La cattura fa la stessa cosa, e questa prova tiene le due
       // dichiarazioni allineate.
+      // **GLI SPAZI SI APPIATTISCONO PRIMA DI GUARDARE, ordine AP voce 09.**
+      // La pretesa e' che la rotta avvolga il Risveglio in un `MaestroScope`,
+      // non che stia su una riga sola: quando la voce 05 ha aggiunto il
+      // parametro dell'identita' ritrovata, il formattatore e' andato a capo
+      // in mezzo alla frase e questa prova e' caduta senza che niente di
+      // vero fosse cambiato. Una guardia che cade per un a capo insegna a
+      // non fidarsi delle guardie.
       final rotta =
-          File('lib/features/onboarding/onboarding_screen.dart').readAsStringSync();
-      expect(rotta, contains('MaestroScope(child: OnboardingScreen('),
+          File('lib/features/onboarding/onboarding_screen.dart')
+              .readAsStringSync()
+              .replaceAll(RegExp(r'\s+'), '');
+      expect(rotta, contains('MaestroScope(child:OnboardingScreen('),
           reason: 'la rotta del Risveglio e\' cambiata: la cattura va '
               'riallineata a lei, non viceversa');
       expect(corredo, contains('MaestroScope(child: child!)'),

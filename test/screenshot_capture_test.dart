@@ -75,6 +75,9 @@ import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
 import 'package:esoteric_circle/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
+import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
+import 'package:esoteric_circle/core/cammino/ritrovamento.dart';
+import 'package:esoteric_circle/features/onboarding/scena_del_ritrovamento.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
@@ -3975,6 +3978,64 @@ void main() {
     await tester.tap(find.byKey(const Key('onboarding_continue')));
     await tester.pumpAndSettle();
   }
+
+  // --- LA SCENA DEL RITROVAMENTO, ordine AP voce 05 ---
+  //
+  // **E' la schermata su cui si gioca la promessa di tutto l'ordine**, e
+  // finora non esisteva nessuna sua immagine: e' cio' che vede chi torna col
+  // suo account dopo aver cambiato telefono. I numeri sono quelli di un
+  // cammino vero, non un esempio ornamentale, perche' la scena a schermo dice
+  // proprio quei numeri e un numero inventato qui la trasformerebbe in una
+  // vanteria.
+  testWidgets('Cattura la scena del ritrovamento', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    await montaLoSchermo(tester, schermoReale);
+    final rootKey = GlobalKey();
+    final ritrovamento = Ritrovamento.da(
+      CamminoDaCustodire(
+        identita: IdentitaDaCustodire(
+          nome: 'Sofia',
+          giorno: DateTime(1990, 4, 12),
+          ora: '07:30',
+          luogo: 'Roma',
+          latitudine: 41.9,
+          longitudine: 12.5,
+        ),
+        sigilli: {
+          'med_1': DateTime(2026, 8, 1),
+          'cal_1': DateTime(2026, 8, 3),
+          'aur_1': DateTime(2026, 8, 7),
+        },
+      ),
+      saldoEos: 340,
+    );
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+              child: MaestroScope(child: child!),
+            ),
+            home: ScenaDelRitrovamento(
+              ritrovamento: ritrovamento,
+              onProsegui: () {},
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await capture(tester, rootKey, 'ritrovamento.png');
+  });
 
   testWidgets('Cattura il Risveglio, la data col Sole nel segno',
       (tester) async {

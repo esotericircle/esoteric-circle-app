@@ -31,6 +31,11 @@ void main() {
     'lib/design_system/components/borsellino.dart',
     'lib/features/sigilli/card_del_traguardo.dart',
     'lib/features/sigilli/celebrazione.dart',
+    // **IL RITROVAMENTO DICE ANCHE GLI EOS, ordine AP voce 05.** E' il punto
+    // in cui il Cerchio dimostra a chi rientra che la promessa e' stata
+    // mantenuta: proprio li' un numero senza il suo segno sarebbe un numero
+    // qualunque, e la prova lo sorveglia come gli altri tre.
+    'lib/features/onboarding/scena_del_ritrovamento.dart',
   ];
 
   String sorgente(String p) => File(p).readAsStringSync();

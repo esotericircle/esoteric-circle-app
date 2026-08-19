@@ -108,7 +108,16 @@ void main() {
     // aveva concluso il Risveglio senza ora non poteva piu' darla in nessun
     // modo. Se ne compare una quarta, va guardata: ogni strada in piu' e' un
     // posto dove l'ora puo' perdersi per conto suo.
-    expect(porte.length, lessThanOrEqualTo(3),
+    //
+    // **LA QUARTA E' NATA CON L'ORDINE AP, ed e' stata guardata.**
+    // `lib/core/cammino/cammino_da_custodire.dart` e' la porta del RITORNO:
+    // l'ora che il Cerchio ha custodito rientra da li' e da nessun'altra
+    // parte, quando una persona torna col suo account. Non e' una strada in
+    // piu' verso lo stesso posto, e' la sola strada da fuori verso dentro:
+    // senza di lei chi cambia telefono si rivedrebbe chiedere l'ora che
+    // aveva gia' dato, cioe' il difetto che quest'ordine cura. Il tetto sale
+    // a QUATTRO e la prova continua a contarle: alla quinta cade di nuovo.
+    expect(porte.length, lessThanOrEqualTo(4),
         reason: 'l\'ora di nascita entra da ${porte.length} strade ($porte): '
             'ogni strada in piu\' e\' un posto dove puo\' perdersi da sola');
   });

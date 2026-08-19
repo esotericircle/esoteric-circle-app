@@ -252,15 +252,66 @@ agosto 2026.
   Una guardia vecchia riscritta e non allentata: `l_onboarding_riconosce_e_
   propone_test` pretendeva la frase "non si uniscono", e adesso pretende
   l'unione dei passi e il limite su Eos e ricordi)
-- **AP.09** Il manifesto, la suite, il deploy e la build 2184. Stato: APERTA
-  (stati veri e marcatori contati; npm test dentro `functions`; suite intera
-  una volta; build 2184 arm64 e distribuzione; **il deploy delle functions lo
-  esegue Mauro** e il rapporto lo dice a chiare lettere)
+- **AP.09** Il manifesto, la suite, il deploy e la build 2184. Stato: CHIUSA
+  (prove del server 34 su 34 con `npm test` dentro `functions/`. Suite intera
+  in DUE esecuzioni: la prima 2946 verdi e 14 rossi, la seconda **2947 verdi
+  e 13 rossi**, dei quali SETTE di legge gia' dichiarati in AM.05
+  (l'attribuzione cieca, albero e loto fuori tela in
+  `i_tre_sentieri_si_disegnano`, `un_traguardo_acceso_pesa_uguale`, e le
+  guardie degli ordini AC, T e U ancora aperti), la guardia di quest'ordine
+  rossa apposta finche' questa riga non si chiude, il transitorio del lavoro
+  non ancora spinto, e QUATTRO code vere curate, piu' una quinta curata fra
+  le due corse.
+  **Le cinque code, tutte nate da quest'ordine.** Una guardia cadeva per un
+  A CAPO: pretendeva `MaestroScope(child: OnboardingScreen(` su una riga
+  sola, e il parametro dell'identita' ritrovata l'aveva spezzata; adesso
+  appiattisce gli spazi prima di guardare, perche' una guardia che cade per
+  un a capo insegna a non fidarsi delle guardie. La scena del ritrovamento
+  mostra Eos e non era nell'elenco di `gli_eos_hanno_un_nome`: ci e' entrata,
+  e usava gia' l'icona giusta. L'ora di nascita entrava da una QUARTA porta,
+  `cammino_da_custodire.dart`: guardata come la prova chiede, e' la porta del
+  RITORNO, l'unica da fuori verso dentro, quindi il tetto sale a quattro con
+  la ragione scritta e alla quinta la prova cade ancora. Il censimento degli
+  spazi rigenerato, 140 vuoti.
+  **La quarta coda ha rafforzato una rete, e la rete ha trovato un difetto
+  di misura in se stessa.** `passport_carta_natale` dichiarava nuda la scena
+  del ritrovamento perche' riconosceva le schermate DAL NOME, `...Screen` o
+  `...Journey`: il nome italiano non passava, e per contro qualunque cosa
+  chiamata Screen sarebbe passata senza scaffale. Adesso la classe montata si
+  cerca nei sorgenti e si guarda se porta uno `Scaffold`, con due correzioni
+  misurate: lo scaffale di una schermata con stato vive nello STATO (dodici
+  schermate sane risultavano nude), e si eredita per due passi, perche'
+  `DayOracleScreen` lo prende da `RitualView`. La propagazione libera invece
+  rendeva la rete verde per SATURAZIONE, e il rosso non scattava piu': la
+  causa era un COMMENTO di `CosmosBackground` che nomina "il nero dello
+  Scaffold", quindi ora i commenti si tolgono prima di guardare. Rosso
+  provato togliendo lo scaffale a una schermata vera.
+  **Un'anteprima nuova, e ha trovato due difetti che nessuna prova cercava**:
+  `docs/preview/ritrovamento.png`, la scena su cui si gioca la promessa di
+  tutto l'ordine, non aveva nessuna immagine. Alla prima cattura il pulsante
+  mostrava RETTANGOLI al posto delle lettere, perche' era l'unico testo
+  dell'app senza stile dichiarato e prendeva il carattere di Material invece
+  del token di casa; alla seconda si vedeva stretto e appoggiato a sinistra,
+  orfano, e adesso e' a tutta larghezza come ogni altro invito.
+  Build `0.1.0+2184`, letta nel `pubspec.yaml` riga 12 e riletta dall'archivio
+  con aapt2, 161.110.871 byte (153,6 MB) per arm64, consegnata su Firebase App
+  Distribution il 19 agosto 2026 a `cloud@esotericircle.app`, release
+  `3q1igqfc5niug`, registro `docs/versione_distribuita.json` aggiornato da 2183
+  a 2184 dentro la procedura e riletto. Integrita' dell'archivio verificata
+  famiglia per famiglia. Prova di accensione SALTATA con
+  `ACCENSIONE_SALTATA_PER_ORDINE` e la ragione scritta e stampata (nessun
+  telefono collegato e nessun emulatore avviabile su questa macchina): e' il
+  DECIMO salto di fila e resta un ripiego, nessun dispositivo ha acceso questo
+  archivio prima del caricamento.
+  **IL DEPLOY DELLE FUNCTIONS LO ESEGUE MAURO**: `firebase deploy --only
+  functions`. Senza quel comando la 2184 parla a un server che NON sa ancora
+  custodire il cammino, e tutto quello che quest'ordine ha costruito resta
+  muto)
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 1
-VOCI_CHIUSE: 4
+VOCI_APERTE: 0
+VOCI_CHIUSE: 5
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
