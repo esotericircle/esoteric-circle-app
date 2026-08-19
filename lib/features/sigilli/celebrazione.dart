@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'direzione_della_festa.dart';
+import 'segno_del_sentiero.dart';
 import 'pittore_della_festa.dart';
 import 'package:provider/provider.dart';
 
@@ -571,7 +572,28 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                           widget.traguardi,
                           widget.sentieri,
                         ),
-                        avanzamento: _segno.value,
+                        // **CON RIDUCI MOVIMENTO LA FESTA RESTA UNA FESTA,
+                        // ordine AQ voce 02.** Con quel modo acceso la scena
+                        // porta il segno gia' a fine corsa, e a fine corsa le
+                        // particelle hanno gia' finito il loro volo: misurato,
+                        // ZERO pixel su mille cambiavano ai bordi, cioe' la
+                        // festa era un fermo immagine e tutte e tre si
+                        // riducevano alla stessa scheda con sopra un simbolo.
+                        // Adesso il pittore riceve la POSA in cui il campo e'
+                        // pieno: niente si muove, ma la materia del proprio
+                        // Maestro si vede, ed e' cio' che distingue le tre
+                        // feste.
+                        // **CON RIDUCI MOVIMENTO SI MOSTRA IL CAMPO PIENO,
+                        // ordine AQ voce 02.** Con quel modo acceso la scena
+                        // porta il segno subito a fine corsa, e la festa
+                        // veniva dipinta nell'istante in cui il volo e' gia'
+                        // finito: la coda, non la festa. Adesso il pittore
+                        // riceve la posa in cui il campo e' pieno. Nessun
+                        // movimento, come la persona ha chiesto, ma la
+                        // materia del proprio Maestro si vede tutta.
+                        avanzamento: MediaQuery.of(context).disableAnimations
+                            ? PittoreDellaFesta.posaDelCampoPieno
+                            : _segno.value,
                         oro: palette.gold,
                         oroTenue: palette.goldSoft,
                         // L'INTENSITA' E' QUELLA DEL PIU' IMPORTANTE: un
@@ -610,11 +632,6 @@ class SegnoDelMaestro extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     final misura = grande ? 96.0 : 32.0;
-    final icona = switch (sentiero) {
-      Sentiero.costellazione => Icons.star_rounded,
-      Sentiero.albero => Icons.spa_rounded,
-      Sentiero.loto => Icons.local_florist_rounded,
-    };
     return AnimatedBuilder(
       key: const Key('segno_del_maestro'),
       animation: avanzamento,
@@ -624,7 +641,14 @@ class SegnoDelMaestro extends StatelessWidget {
           opacity: avanzamento.value.clamp(0.0, 1.0),
           child: Transform.scale(
             scale: 0.6 + 0.4 * t,
-            child: Icon(icona, size: misura, color: palette.goldSoft),
+            // **IL SEGNO E' DISEGNATO DA NOI, ordine AQ voce 02.** Qui
+            // stavano tre glifi di Material, e due erano lo stesso fiore.
+            child: SegnoDelSentiero(
+              sentiero: sentiero,
+              colore: palette.goldSoft,
+              misura: misura,
+              avanzamento: avanzamento.value,
+            ),
           ),
         );
       },

@@ -112,9 +112,37 @@ agosto 2026.
   ciclo di vita cadeva stampando `inactive: false`.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo di Mauro
   sulla 2185)
-- **AQ.02** Le feste si vedono davvero diverse. Stato: APERTA
-  (via i glifi di sistema, il segno di ogni Maestro disegnato da noi; misurare
-  le particelle nella scena vera e curarle; tre anteprime dall'app vera)
+- **AQ.02** Le feste si vedono davvero diverse. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**P1 era vera e la cura e' completa**: i tre glifi di Material sono spariti
+  e nasce `lib/features/sigilli/segno_del_sentiero.dart`, che disegna tre
+  forme distinte con la stessa mano, linee d'oro senza riempimenti: una
+  stella a sei raggi con tre compagne per la Costellazione, un tronco che si
+  divide in tre rami con le gemme per l'Albero, una corolla di cinque petali
+  che si apre per il Loto. Sono dichiarate PROVVISORIE nel loro stesso file:
+  nascono dal codice e non dagli asset di brand.
+  **P2 e' risultata FALSA nella parte che accusava, e la misura lo dice.**
+  Nasce `test/le_feste_si_vedono_diverse_test.dart`, che monta la scena VERA
+  e la fotografa: fra due istanti della corsa cambiano dai 42 ai 66 pixel su
+  mille, e ai bordi, dove passa solo cio' che vola, dai 28 ai 66. Nella scena
+  vera le particelle ci sono e si muovono. Una misura intermedia era verde
+  per il motivo sbagliato, e va detto: guardare "i bordi" prendeva dentro
+  anche i testi dei traguardi, che sono diversi per sentiero; la finestra
+  giusta e' la fascia ALTA, dove non arrivano ne' la scheda ne' le parole.
+  **Cio' che si e' trovato cercando, e non era nell'ordine**: con Riduci
+  Movimento la scena portava il segno subito a fine corsa, quindi la festa
+  veniva dipinta nell'istante in cui il volo e' gia' finito, cioe' la coda e
+  non la festa. Adesso il pittore riceve `posaDelCampoPieno`, l'istante in cui
+  tutte le particelle sono nate e nessuna e' svanita: nessun movimento per chi
+  ha chiesto di non averne, ma la materia del proprio Maestro si vede tutta.
+  Tre anteprime nuove generate MONTANDO L'APP VERA, `festa-costellazione`,
+  `festa-albero` e `festa-loto`, e guardate: la Costellazione riempie lo
+  schermo di stelle, il Loto di polline dorato, e in cima si vede il segno
+  disegnato del sentiero. Rosso provato sulla guardia dei glifi, rimettendo
+  un'icona di sistema.
+  **Un'osservazione nata dall'anteprima e non curata qui**, perche' non
+  appartiene a nessuna delle sei voci: in fondo alla festa la scheda "Il
+  prossimo" mostra il traguardo APPENA raggiunto invece del successivo.
+  **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
 - **AQ.03** La barra sottile non esiste fino alla home. Stato: APERTA
   (l'elenco per ENUMERAZIONE delle rotte del rito, in un punto solo; guardia
   che cade se una sola scena del rito la mostra, e che pretende la barra
@@ -133,7 +161,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 6
-VOCI_APERTE: 5
+VOCI_APERTE: 4
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2

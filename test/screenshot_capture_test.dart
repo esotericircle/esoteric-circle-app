@@ -3979,6 +3979,51 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  // --- LE TRE FESTE, MONTATE DALL'APP VERA (ordine AQ voce 02) ---
+  //
+  // **Perche' non bastava `tool/anteprime_delle_feste.dart`.** Quello
+  // strumento compone il pittore a mano: dimostra che il pittore sa
+  // disegnare, non che la persona vede qualcosa. Queste tre nascono dalla
+  // scena vera della celebrazione, con un traguardo vero per sentiero, ed e'
+  // l'unico modo per rispondere alla frase di Mauro "si vedono tutte
+  // uguali".
+  for (final sentiero in Sentiero.values) {
+    testWidgets('Cattura la festa di ${sentiero.name}', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      SharedPreferences.setMockInitialValues(const {});
+      await montaLoSchermo(tester, schermoReale);
+      final rootKey = GlobalKey();
+      final diario = DiarioDelCammino();
+      await diario.carica();
+      await tester.pumpWidget(
+        RepaintBoundary(
+          key: rootKey,
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => MaestroController()),
+              ChangeNotifierProvider(create: (_) => QualityTierController()),
+              ChangeNotifierProvider(create: (_) => ParallaxController()),
+              ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              builder: (ctx, child) => MaestroScope(child: child!),
+              home: CelebrazioneAScermoPieno(
+                traguardi: [Sentieri.di(sentiero).first],
+                sentieri: [sentiero],
+              ),
+            ),
+          ),
+        ),
+      );
+      // A meta' della corsa, dove il campo delle particelle e' pieno: una
+      // festa fotografata alla fine sarebbe una festa gia' finita.
+      await tester.pump(const Duration(milliseconds: 900));
+      await capture(tester, rootKey, 'festa-${sentiero.name}.png');
+    });
+  }
+
   // --- LA SCENA DEL RITROVAMENTO, ordine AP voce 05 ---
   //
   // **E' la schermata su cui si gioca la promessa di tutto l'ordine**, e

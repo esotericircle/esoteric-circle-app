@@ -44,6 +44,14 @@ class PittoreDellaFesta extends CustomPainter {
   final FestaDelMaestro _festa;
   final int _quante;
 
+  /// **LA POSA DEL CAMPO PIENO, ordine AQ voce 02.** L'istante della corsa in
+  /// cui le particelle sono tutte nate e nessuna e' ancora uscita di scena:
+  /// e' la fotografia che si mostra a chi ha chiesto meno movimento, al posto
+  /// del nulla che vedeva prima. Il numero non e' scelto a occhio: sotto lo
+  /// 0,45 una parte delle particelle non e' ancora nata (i ritardi arrivano
+  /// fino a 0,45), sopra lo 0,6 le prime cominciano a svanire.
+  static const double posaDelCampoPieno = 0.5;
+
   /// **QUANTE PARTICELLE RESTANO QUANDO SI DEGRADA:** un quinto, e non zero.
   static const double quotaDelDegrado = 0.2;
 
