@@ -96,6 +96,35 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'PricingScreen': PresenzaDellaBarra.assente,
 };
 
+/// **DOVE NON SI VEDE LA BARRA SOTTILE DELL'IDENTITA'. Ordine AP voce 07.**
+///
+/// Sono due barre diverse con due regole diverse, e per questo l'elenco e'
+/// un secondo: la barra STORICA del guscio si vede in cinque schermate e in
+/// nessun'altra, mentre la barra SOTTILE si vede quasi ovunque e sparisce
+/// solo nel rito d'ingresso. Ma la domanda che si fanno e' la stessa, "dove
+/// si vede questa barra", quindi la casa e' una: prima le soglie della barra
+/// sottile vivevano dentro `barra_dell_identita.dart` e nessuno che
+/// guardasse qui poteva saperlo.
+///
+/// **La decisione di Mauro del 18 agosto**: la barra sottile non compare
+/// durante l'onboarding e compare dalla home in poi. Chi attraversa il
+/// Risveglio non ha ancora ne' volto ne' saldo ne' cammino, e una barra
+/// dell'identita' sopra il rito d'ingresso e' una promessa vuota.
+const Set<String> soglieSenzaBarraSottile = {
+  'OnboardingScreen',
+  // **IL RISVEGLIO, che mancava e si vedeva.** E' una rotta a se', spinta
+  // con `pushReplacement` da `onboarding_screen.dart`, e porta dentro la
+  // carta natale, la custodia del cielo e il Sigillo: da li' in poi la barra
+  // compariva addosso al rito, misurato con la premessa P8.
+  'RisveglioJourney',
+  'MaestroRevealScreen',
+  'ArtIntroScreen',
+};
+
+/// Vero se su questa schermata si vede la barra SOTTILE dell'identita'.
+bool barraSottileSiVede(String? nomeSchermata) =>
+    !soglieSenzaBarraSottile.contains(nomeSchermata);
+
 /// Vero se su questa schermata la barra si vede.
 bool barraSiVede(String? nomeSchermata) =>
     presenzaPerSchermata[nomeSchermata] == PresenzaDellaBarra.presente;

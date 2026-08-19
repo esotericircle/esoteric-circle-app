@@ -165,8 +165,22 @@ agosto 2026.
 - **AP.06** Il "Continua come" restituisce il cammino. Stato: APERTA
   (stessa fusione e stesso ritrovamento delle voci 03 e 05, logica in un
   punto solo)
-- **AP.07** La barra sottile fuori dall'onboarding. Stato: APERTA
-  (l'elenco di dove si vede in UN punto solo, mai dentro le schermate)
+- **AP.07** La barra sottile fuori dall'onboarding. Stato: FERMATA IN ATTESA DI DECISIONE
+  (la premessa P8 aveva ragione e la misura ha detto DOVE: alla prima
+  apertura la barra gia' non si vedeva, perche' `OnboardingScreen` era fra le
+  soglie, ma il Risveglio prosegue in `RisveglioJourney`, che e' una rotta a
+  se' e NON c'era: da li' in poi, cioe' per la carta natale, la custodia del
+  cielo e il Sigillo, la barra compariva addosso al rito d'ingresso.
+  **L'elenco si e' trasferito nella casa unica** `dove_si_vede_la_barra.dart`,
+  dove gia' viveva quello della barra storica: le due barre hanno regole
+  diverse, la storica si vede in cinque schermate e la sottile quasi ovunque,
+  ma la domanda che si fanno e' la stessa, e prima aveva due case in due
+  file. Guardia `test/la_barra_sottile_non_entra_nel_risveglio_test.dart` con
+  quattro prove, che guardano tutti e due i versi, cioe' anche che dalla home
+  in poi la barra ci sia, e con rosso provato su entrambe le pretese. Una
+  prova nata sbagliata e corretta: usava nomi di classe inventati, e un nome
+  inventato interroga una schermata che non esiste e passa sempre. Chiude il
+  collaudo di Mauro sulla 2184)
 - **AP.08** La frase della custodia diventa vera. Stato: APERTA
   (il sottotitolo dice cio' che il Cerchio custodisce davvero; si MISURA se
   Android puo' proporre da solo l'account gia' usato, e se non funziona non
@@ -179,7 +193,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 6
+VOCI_APERTE: 5
 VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2

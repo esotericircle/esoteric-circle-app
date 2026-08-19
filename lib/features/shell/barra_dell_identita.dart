@@ -9,6 +9,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'barra_del_cerchio.dart';
+import 'dove_si_vede_la_barra.dart';
 
 /// LA BARRA SOTTILE DELL'IDENTITA', CASA UNICA. Ordine AM voce 04, forma
 /// decisa da Mauro dal collaudo della 2180.
@@ -55,16 +56,13 @@ class BarraDellIdentita extends StatefulWidget {
   /// Quanto dura la discesa. Con Riduci Movimento il passaggio e' secco.
   static const Duration discesa = Duration(milliseconds: 260);
 
-  /// Dove NON si vede: le soglie del Risveglio, dove la persona non ha
-  /// ancora ne' volto ne' saldo ne' cielo, e una barra dell'identita' sopra
-  /// il rito d'ingresso sarebbe una promessa vuota.
-  static const Set<String> soglie = {
-    'OnboardingScreen',
-    'MaestroRevealScreen',
-    'ArtIntroScreen',
-  };
-
-  static bool siVede(String? schermata) => !soglie.contains(schermata);
+  /// **DOVE SI VEDE, e l'elenco non sta piu' qui. Ordine AP voce 07.**
+  ///
+  /// Le soglie vivevano dentro questo file, e la barra storica aveva il suo
+  /// elenco in `dove_si_vede_la_barra.dart`: due elenchi in due posti per la
+  /// stessa domanda, "dove si vede questa barra". Adesso la casa e' una, e
+  /// chi cerca la risposta la trova dove gia' guardava.
+  static bool siVede(String? schermata) => barraSottileSiVede(schermata);
 
   @override
   State<BarraDellIdentita> createState() => _BarraDellIdentitaState();
