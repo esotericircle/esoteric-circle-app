@@ -99,25 +99,25 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
                       .copyWith(color: palette.goldSoft),
                 ),
                 const SizedBox(height: SpacingTokens.md),
-                Text(
-                  'La tua carta natale è calcolata e '
-                  '${widget.maestro.displayName} ti ha riconosciuto. Tutto '
-                  'questo vive attaccato a questo telefono: se lo cambi o '
-                  'reinstalli l\'app, si perde.',
-                  key: const Key('custodia_ragione'),
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.corpo().copyWith(
-                    color: ColorTokens.textSecondary,
-                    height: 1.5,
+                // **UNA RIGA SOLA, ordine AQ voce 05.** Qui stavano DUE
+                // blocchi di seguito, e con l'eventuale guaio e il "Continua
+                // come" la colonna arrivava a nove elementi: Mauro l'ha vista
+                // confusionaria, e aveva ragione. Il testo che avanzava si e'
+                // TOLTO, non rimpicciolito: il corpo resta quello di casa,
+                // sedici punti. Chi e' gia' riconosciuto non la legge
+                // affatto, perche' per lui la strada e' un'altra, e le parole
+                // che non servono spariscono invece di restare grigie.
+                if (!_riconosciuto)
+                  Text(
+                    'La tua carta natale e il tuo cammino vivono su questo '
+                    'telefono: collegali a te, e ti seguiranno ovunque.',
+                    key: const Key('custodia_ragione'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.corpo().copyWith(
+                      color: ColorTokens.textPrimary,
+                      height: 1.5,
+                    ),
                   ),
-                ),
-                const SizedBox(height: SpacingTokens.sm),
-                Text(
-                  'Collegalo a te in un tocco: ti seguirà ovunque.',
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: ColorTokens.textPrimary, height: 1.5),
-                ),
                 if (_guaio != null) ...[
                   const SizedBox(height: SpacingTokens.md),
                   Text(_guaio!,

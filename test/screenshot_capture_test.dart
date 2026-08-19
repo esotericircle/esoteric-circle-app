@@ -78,6 +78,8 @@ import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/core/cammino/ritrovamento.dart';
 import 'package:esoteric_circle/features/onboarding/scena_del_ritrovamento.dart';
+import 'package:esoteric_circle/features/onboarding/custodia_del_cielo_step.dart';
+import 'package:esoteric_circle/core/identity/account_del_cerchio.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
@@ -4023,6 +4025,42 @@ void main() {
       await capture(tester, rootKey, 'festa-${sentiero.name}.png');
     });
   }
+
+  // --- LA CUSTODIA DEL CIELO, dall'app vera (ordine AQ voce 05) ---
+  //
+  // Mauro l'ha vista confusionaria: nove elementi in colonna. Senza
+  // un'immagine alla larghezza vera non si puo' giudicare se adesso si legge.
+  testWidgets('Cattura la custodia del cielo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    SharedPreferences.setMockInitialValues(const {});
+    await montaLoSchermo(tester, schermoReale);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(
+      RepaintBoundary(
+        key: rootKey,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MaestroController()),
+            ChangeNotifierProvider(create: (_) => QualityTierController()),
+            ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ChangeNotifierProvider<AccountDelCerchio>(
+                create: (_) => AccountDelCerchio(porta: const IdentitaAssente())),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (ctx, child) => MaestroScope(child: child!),
+            home: CustodiaDelCieloStep(
+              maestro: Maestro.medora,
+              suFine: () {},
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 400));
+    await capture(tester, rootKey, 'custodia-del-cielo.png');
+  });
 
   // --- LA SCENA DEL RITROVAMENTO, ordine AP voce 05 ---
   //

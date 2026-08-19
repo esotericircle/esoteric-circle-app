@@ -176,9 +176,20 @@ agosto 2026.
   senza giorno il segno resta nullo. Anteprima `ritrovamento.png` rigenerata
   dall'app vera e guardata: emblema, nome, carta natale, tre Sigilli, 340 Eos.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
-- **AQ.05** "Non perdere il tuo cielo" diventa leggibile. Stato: APERTA
-  (una promessa, una riga, i pulsanti; il testo superfluo si toglie invece di
-  rimpicciolirlo; misure prima e dopo)
+- **AQ.05** "Non perdere il tuo cielo" diventa leggibile. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**il testo si e' TOLTO, non rimpicciolito**, ed e' la parte che conta: il
+  corpo resta quello di casa, sedici punti, che e' gia' il minimo del
+  progetto e non andava toccato. Prima: scudo, titolo, DUE blocchi di testo
+  di seguito (la ragione lunga che nominava il Maestro e "Collegalo a te in
+  un tocco"), l'eventuale guaio, l'eventuale "Continua come", tre pulsanti e
+  il "Piu' tardi", cioe' nove elementi in colonna. Adesso: scudo, titolo, UNA
+  riga sola, i pulsanti, la via alternativa, il "Piu' tardi".
+  **Chi e' gia' riconosciuto non la legge affatto**: la riga sparisce invece
+  di restare grigia, perche' per lui la strada e' il "Continua come" e le
+  parole che non servono vanno tolte di mezzo.
+  Anteprima nuova `docs/preview/custodia-del-cielo.png`, montata DALL'APP
+  VERA alla larghezza vera di 360 punti e guardata.
+  **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
 - **AQ.06** Il manifesto, la suite, l'accensione e la build 2185. Stato: APERTA
   (stati veri; suite intera una volta; numero a 2185; **l'accensione non si
   salta**, e se nessun dispositivo e' collegato il rapporto lo dichiara in
@@ -187,7 +198,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 6
-VOCI_APERTE: 2
+VOCI_APERTE: 1
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
