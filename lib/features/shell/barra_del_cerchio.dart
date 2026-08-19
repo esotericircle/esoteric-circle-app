@@ -340,7 +340,12 @@ class OsservatoreDellaPila extends NavigatorObserver {
     String? trovato;
     void visita(Element e) {
       final nome = e.widget.runtimeType.toString();
-      if (presenzaPerSchermata.containsKey(nome)) trovato ??= nome;
+      // **I NOMI CONOSCIUTI SONO DUE ELENCHI, ordine AQ voce 03.** Qui si
+      // guardava solo la mappa della barra storica, quindi ogni scena del
+      // rito rispondeva nulla, e per il nulla la barra sottile si vede: e'
+      // il motivo per cui compariva sull'Animale Guida e sul Bentornato
+      // benche' il Risveglio fosse gia' dichiarato fra le soglie.
+      if (nomiDiSchermataConosciuti.contains(nome)) trovato ??= nome;
       if (trovato == null) e.visitChildren(visita);
     }
 

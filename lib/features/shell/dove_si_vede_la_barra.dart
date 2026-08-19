@@ -110,6 +110,11 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
 /// durante l'onboarding e compare dalla home in poi. Chi attraversa il
 /// Risveglio non ha ancora ne' volto ne' saldo ne' cammino, e una barra
 /// dell'identita' sopra il rito d'ingresso e' una promessa vuota.
+/// **L'ELENCO E' PER ENUMERAZIONE DELLE SCENE DEL RITO. Ordine AQ voce 02
+/// e voce 03.** Non si dichiara scena per scena dentro le schermate: si
+/// nominano tutte qui, in un posto solo, e una scena nuova del rito che
+/// nessuno nomini fa cadere la guardia invece di ereditare per caso il
+/// comportamento sbagliato.
 const Set<String> soglieSenzaBarraSottile = {
   'OnboardingScreen',
   // **IL RISVEGLIO, che mancava e si vedeva.** E' una rotta a se', spinta
@@ -119,7 +124,34 @@ const Set<String> soglieSenzaBarraSottile = {
   'RisveglioJourney',
   'MaestroRevealScreen',
   'ArtIntroScreen',
+  // **LE SCENE CHE MAURO HA VISTO CON LA BARRA ADDOSSO, ordine AQ voce 03.**
+  // Vivono dentro il Risveglio, che era gia' dichiarato, e non bastava: il
+  // nome della rotta si cerca visitando l'albero costruito e fermandosi al
+  // primo nome CONOSCIUTO, e nessuno di questi lo era. Il trionfo
+  // dell'Animale Guida, quello degli Angeli, il cielo di nascita, la
+  // risonanza, la custodia del cielo, il Sigillo e il Bentornato sono tutte
+  // scene del rito.
+  'TrionfoAnimale',
+  'TrionfoAngeli',
+  'NatalChartReveal',
+  'SkyOverviewScreen',
+  'ResonanceScreen',
+  'CustodiaDelCieloStep',
+  'SigilloStep',
+  'ScenaDelRitrovamento',
 };
+
+/// **TUTTI I NOMI CHE IL GUSCIO SA RICONOSCERE.**
+///
+/// **La riga che rendeva vana ogni dichiarazione.** Chi guarda la pila delle
+/// rotte visita l'albero della rotta in cima e si ferma al primo widget il cui
+/// nome sia CONOSCIUTO; se non ne trova nessuno risponde nulla, e per il nulla
+/// la barra sottile si vede. Finche' i nomi conosciuti erano solo quelli della
+/// barra storica, ogni scena del rito rispondeva nulla, e la barra compariva
+/// addosso al rito anche se il rito era dichiarato qui sopra. Adesso i nomi
+/// sono l'unione dei due elenchi.
+Set<String> get nomiDiSchermataConosciuti =>
+    {...presenzaPerSchermata.keys, ...soglieSenzaBarraSottile};
 
 /// Vero se su questa schermata si vede la barra SOTTILE dell'identita'.
 bool barraSottileSiVede(String? nomeSchermata) =>

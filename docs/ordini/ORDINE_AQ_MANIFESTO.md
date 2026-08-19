@@ -143,10 +143,27 @@ agosto 2026.
   appartiene a nessuna delle sei voci: in fondo alla festa la scheda "Il
   prossimo" mostra il traguardo APPENA raggiunto invece del successivo.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
-- **AQ.03** La barra sottile non esiste fino alla home. Stato: APERTA
-  (l'elenco per ENUMERAZIONE delle rotte del rito, in un punto solo; guardia
-  che cade se una sola scena del rito la mostra, e che pretende la barra
-  presente dalla home in poi)
+- **AQ.03** La barra sottile non esiste fino alla home. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**LA DICHIARAZIONE C'ERA E NON ARRIVAVA A NESSUNO**, ed e' la scoperta di
+  questa voce. L'ordine AP voce 07 aveva gia' messo `RisveglioJourney` fra le
+  soglie, eppure Mauro vedeva la barra sull'Animale Guida: il motivo e' che
+  chi guarda la pila (`tipoDellaRotta` in `barra_del_cerchio.dart`) visita
+  l'albero della rotta in cima e si ferma al primo widget dal nome
+  CONOSCIUTO, dove conosciuto voleva dire "presente nella mappa della barra
+  STORICA". Nessuna scena del rito lo era, quindi la risposta era NULLA, e
+  per il nulla `barraSottileSiVede` risponde vero. La dichiarazione esisteva e
+  non veniva nemmeno cercata.
+  Adesso i nomi conosciuti sono l'unione dei due elenchi
+  (`nomiDiSchermataConosciuti`), e le scene del rito sono enumerate in un
+  punto solo, `dove_si_vede_la_barra.dart`: oltre alle quattro di prima ci
+  sono il trionfo dell'Animale Guida, quello degli Angeli, il cielo di
+  nascita, la panoramica, la risonanza, la custodia del cielo, il Sigillo e il
+  Bentornato. Guardia `test/la_barra_sottile_non_esiste_nel_rito_test.dart`
+  con quattro prove, che guardano tutti e due i versi (nel rito mai, dalla
+  home in poi sempre) e che pretendono anche che il guscio SAPPIA riconoscere
+  quei nomi, cioe' la riga che mancava. Rosso provato togliendo una scena
+  dall'elenco.
+  **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
 - **AQ.04** Il Bentornato si riempie. Stato: APERTA
   (emblema del segno dagli asset esistenti, nome, e le righe dei dati veri:
   nessun numero d'esempio, e cio' che non c'e' non compare)
@@ -161,7 +178,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 6
-VOCI_APERTE: 4
+VOCI_APERTE: 3
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
