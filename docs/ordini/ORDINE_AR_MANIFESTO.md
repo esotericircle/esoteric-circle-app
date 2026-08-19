@@ -150,15 +150,41 @@ Mauro del 17 agosto 2026.
 - **AR.09** Il manifesto, la suite, l'accensione e la build 2186. Stato: APERTA
   (stati veri; suite intera una volta; numero a 2186; l'accensione non si
   salta e il suo esito va in testa)
-- **AR.10** La barra sottile si semplifica. Stato: APERTA
-  (coda di Mauro del 19 agosto, che supera due sue decisioni precedenti: via
-  il nome, via l'apertura, un solo stato da 30 punti, e i tre bersagli
-  navigano al PRIMO tocco)
+- **AR.10** La barra sottile si semplifica. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**via il nome e via l'apertura**, e sono due decisioni di Mauro che ne
+  superano due sue precedenti, scritte accanto al codice: il nome accanto al
+  volto veniva dall'ordine AN voce 02, il ritiro automatico dall'ordine AO
+  voce 02. La barra ha UN solo stato, trenta punti; spariscono lo stato
+  esteso, la transizione, la vista dei tre eventi dentro la barra e **i due
+  ascoltatori che vivevano sopra tutta l'app** per ritirarla: senza uno stato
+  aperto non c'e' piu' niente da ritirare, e ogni tocco e ogni scorrimento
+  smettono di passare di li'.
+  **I tre bersagli portano dove devono al PRIMO tocco**: volto all'account,
+  "Eventi Cosmici" al Calendario, borsellino al borsellino. Il volto riceve
+  la via dall'osservatore della pila e non da `Navigator.of`, perche' la
+  barra vive nel `builder` di `MaterialApp`, che AVVOLGE il Navigator: e' il
+  motivo per cui al primo tentativo il tocco non apriva niente.
+  **L'area di tocco si allarga in LARGHEZZA e non in altezza**, ed e' una
+  misura dichiarata: sotto la fascia comincia il contenuto della schermata,
+  quindi un bersaglio piu' alto della barra gli ruberebbe i tocchi. Ogni
+  bersaglio prende tutta l'altezza della barra e almeno 44 punti di
+  larghezza.
+  **L'anteprima col saldo a quattro cifre ha trovato un difetto vero**, ed e'
+  esattamente cio' che la coda chiedeva di verificare: con una larghezza
+  FISSA il borsellino sbordava di ventisette pixel su "9.956". Adesso e' una
+  larghezza MINIMA. Anteprime `barra-home.png` e `barra-saldo-lungo.png`
+  rigenerate dall'app vera e guardate.
+  **Due prove hanno cambiato oggetto, non sono state allentate**: quelle che
+  pretendevano lo stato aperto e il saluto per nome sono uscite dalla loro
+  casa, che dichiara dove vive adesso la pretesa, e
+  `test/la_barra_ha_un_solo_stato_test.dart` pretende con cinque prove un
+  solo stato, l'assenza del nome e i tre bersagli al primo tocco.
+  **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2186)
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 10
-VOCI_APERTE: 7
+VOCI_APERTE: 6
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4

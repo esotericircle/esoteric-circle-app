@@ -103,32 +103,6 @@ void main() {
     // Che compaia quando c'e' lo dice la prova qui sotto.
   });
 
-  testWidgets('al tocco scende e ingrandisce, al secondo si richiude',
-      (tester) async {
-    await apri(tester);
-    final chiusa = tester.getRect(barra).height;
-    await apriLaBarra(tester);
-    final aperta = tester.getRect(barra).height;
-    // ignore: avoid_print
-    print('ORDINE AM VOCE 04: da ${chiusa.toStringAsFixed(1)} a '
-        '${aperta.toStringAsFixed(1)} punti al tocco');
-    expect(aperta, greaterThan(chiusa + 20),
-        reason: 'al tocco la barra non scende: da $chiusa a $aperta punti');
-    // Il contenuto si ingrandisce davvero, non solo la fascia.
-    final volto = tester.getSize(find.byKey(const Key('porta_dell_account')));
-    expect(volto.height, greaterThan(30),
-        reason: 'la barra e\' scesa ma il volto e\' rimasto piccolo: il '
-            'contenuto doveva diventare piu\' leggibile');
-    // **IL SECONDO TOCCO SI FA SULLA FASCIA, non sul volto.** Da aperta il
-    // volto porta all'account, che e' la prova qui sotto: toccarlo di nuovo
-    // aprirebbe una schermata invece di richiudere.
-    await tester.tapAt(Offset(340, tester.getRect(barra).center.dy));
-    for (var i = 0; i < 8; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
-    }
-    expect(tester.getRect(barra).height, closeTo(chiusa, 1),
-        reason: 'il secondo tocco non richiude la barra');
-  });
 
   testWidgets('da aperta il volto porta all\'account', (tester) async {
     await apri(tester);
@@ -176,27 +150,6 @@ void main() {
             'doveva tornare nel Calendario');
   });
 
-  testWidgets('col nome nel profilo, la barra saluta per nome',
-      (tester) async {
-    await apri(tester);
-    // **IL PROFILO NASCE COL NOME D'ESEMPIO**, dichiarato in-world nelle
-    // anteprime: qui si prova che il nome mostrato e' QUELLO DEL PROFILO e
-    // che passa dalla normalizzazione, non che manchi.
-    tester
-        .element(barra)
-        .read<ProfileController>()
-        .setProfile(UserProfile(displayName: 'mauro'));
-    for (var i = 0; i < 6; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
-    }
-    final nome =
-        tester.widget<Text>(find.byKey(const Key('barra_nome_proprio')));
-    // ignore: avoid_print
-    print('ORDINE AN VOCE 02: la barra saluta "${nome.data}"');
-    expect(nome.data, 'Mauro',
-        reason: 'il nome non passa dalla normalizzazione del dato: si scrive '
-            'come si scrive un nome');
-  });
 
   testWidgets('sulle soglie del Risveglio la barra non c\'e\'',
       (tester) async {
@@ -255,4 +208,13 @@ void main() {
         reason: 'la barra e\' la casa UNICA, e queste copie sono ricomparse '
             'fuori:\n${copie.join("\n")}');
   });
+
+  // **DUE PROVE SONO USCITE DA QUI. Ordine AR voce 10.**
+  //
+  // "al tocco scende e ingrandisce" e "col nome nel profilo, la barra saluta
+  // per nome" sorvegliavano due cose che Mauro ha tolto il 19 agosto 2026: lo
+  // stato aperto e il nome accanto al volto. Non sono state allentate, hanno
+  // cambiato oggetto: `test/la_barra_ha_un_solo_stato_test.dart` pretende
+  // adesso che la barra resti sempre alta uguale, che il nome NON ci sia, e
+  // che ognuno dei tre bersagli porti dove deve al primo tocco.
 }

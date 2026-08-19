@@ -80,6 +80,7 @@ import 'package:esoteric_circle/core/cammino/ritrovamento.dart';
 import 'package:esoteric_circle/features/onboarding/scena_del_ritrovamento.dart';
 import 'package:esoteric_circle/features/onboarding/custodia_del_cielo_step.dart';
 import 'package:esoteric_circle/core/identity/account_del_cerchio.dart';
+import 'package:esoteric_circle/features/shell/barra_dell_identita.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
@@ -5153,6 +5154,22 @@ void main() {
     await capture(tester, rootKey, 'barra-chat-fuori.png');
     await gesto.up();
     await tester.pump();
+  });
+
+  // --- LA BARRA COL SALDO LUNGO (ordine AR voce 10) ---
+  //
+  // La coda di Mauro chiede di guardarla con un saldo a quattro cifre: in una
+  // fascia da trenta punti un numero lungo e' il primo candidato a troncarsi,
+  // e adesso che il nome e' uscito lo spazio c'e', ma va guardato.
+  testWidgets('Cattura la barra col saldo a quattro cifre', (tester) async {
+    final rootKey = await montaApp(tester, giaRisvegliato: true);
+    final borsa = tester
+        .element(find.byType(BarraDellIdentita))
+        .read<QuestionAllowance>();
+    await borsa.applicaSaldo(9999);
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'barra-saldo-lungo.png');
   });
 
   testWidgets('Cattura la barra a meta corsa nella home', (tester) async {

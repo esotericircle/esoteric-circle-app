@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../core/identity/profile_controller.dart';
 import '../../design_system/components/borsellino.dart';
 import '../../design_system/components/porta_dell_account.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -45,16 +43,7 @@ class BarraDellIdentita extends StatefulWidget {
   /// con l'altezza vera.
   static const double altezzaChiusa = 30;
 
-  /// L'ALTEZZA APERTA: la barra scende e il contenuto si ingrandisce, per
-  /// essere piu' leggibile. **Tarata MISURANDO, ordine AN voce 02**: a 66
-  /// punti le tre righe del cielo che viene traboccavano di 43, perche' tre
-  /// righe di didascalia occupano da sole una sessantina di punti. Qui ci
-  /// stanno intere col loro respiro, e la barra resta una fascia che scende
-  /// di poco, non un pannello.
-  static const double altezzaAperta = 88;
 
-  /// Quanto dura la discesa. Con Riduci Movimento il passaggio e' secco.
-  static const Duration discesa = Duration(milliseconds: 260);
 
   /// **DOVE SI VEDE, e l'elenco non sta piu' qui. Ordine AP voce 07.**
   ///
@@ -70,7 +59,6 @@ class BarraDellIdentita extends StatefulWidget {
 
 class _BarraDellIdentitaState extends State<BarraDellIdentita> {
   String? _schermata;
-  bool _aperta = false;
 
   @override
   void initState() {
@@ -95,39 +83,29 @@ class _BarraDellIdentitaState extends State<BarraDellIdentita> {
       // alla lettura di prima. E' la via 2 e la via 4 del ritiro.
       setState(() {
         _schermata = cima;
-        _aperta = false;
       });
     });
   }
 
-  /// **IL RITIRO, IN UN PUNTO SOLO. Ordine AO voce 02.**
-  ///
-  /// La barra scendeva col tocco e risaliva solo con un secondo tocco nello
-  /// stesso punto: chi la apriva per leggere e tornava a fare altro se la
-  /// ritrovava addosso al contenuto, e per toglierla doveva ricordarsi di un
-  /// gesto che non c'entrava piu' niente con quello che stava facendo.
-  ///
-  /// **Le quattro vie sono i quattro modi di smettere di guardarla**: scorre
-  /// la schermata sotto, apre una rotta, tocca fuori, torna indietro. Tutte
-  /// e quattro finiscono qui dentro, e nessuna schermata sa che questa barra
-  /// esiste: se ogni schermata dovesse ricordarsi di chiuderla, resterebbe
-  /// aperta esattamente in quella che se ne dimentica. E' la regola delle
-  /// due porte, applicata a un gesto invece che a un dato.
-  void _ritira() {
-    if (!_aperta || !mounted) return;
-    setState(() => _aperta = false);
-  }
 
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     final siVede = BarraDellIdentita.siVede(_schermata);
-    final altezza = _aperta
-        ? BarraDellIdentita.altezzaAperta
-        : BarraDellIdentita.altezzaChiusa;
-    final quantoOccupa = siVede ? altezza : 0.0;
-    final durata =
-        mq.disableAnimations ? Duration.zero : BarraDellIdentita.discesa;
+    // **UN SOLO STATO, ordine AR voce 10.** La barra non si apre piu': era
+    // alta 30 punti a riposo e 66 da aperta, e il primo tocco serviva ad
+    // aprirla invece che a portare da qualche parte. Decisione di Mauro del
+    // 19 agosto 2026, che supera due sue decisioni precedenti (l'ordine AN
+    // voce 02 sul nome accanto al volto e l'ordine AO voce 02 sul ritiro
+    // automatico): tutto e' gia' abbastanza chiaro e toccabile senza
+    // ingrandire, e i tre eventi che la barra aperta mostrava vivono nel
+    // Calendario, che e' la loro casa.
+    //
+    // **Sono spariti anche i due ascoltatori sopra l'app**, che servivano
+    // solo a ritirarla: senza uno stato aperto non c'e' piu' niente da
+    // ritirare, e ogni tocco e ogni scorrimento dell'app smettono di passare
+    // da qui.
+    final quantoOccupa = siVede ? BarraDellIdentita.altezzaChiusa : 0.0;
 
     return Stack(
       children: [
@@ -140,49 +118,14 @@ class _BarraDellIdentitaState extends State<BarraDellIdentita> {
             viewPadding:
                 mq.viewPadding.copyWith(top: mq.viewPadding.top + quantoOccupa),
           ),
-          // **LE VIE 1 E 3 DEL RITIRO ASCOLTANO QUI, sopra tutta l'app e
-          // senza rubare niente a nessuno.** Il `Listener` sente il dito che
-          // si posa e NON consuma il tocco, quindi il bersaglio sotto lo
-          // riceve lo stesso: la barra si toglie di mezzo mentre il gesto va
-          // a segno, invece di mangiarsi il primo tocco come farebbe una
-          // tendina modale. Il `NotificationListener` sente qualunque
-          // scorrimento della schermata sotto, quale che sia la lista: e' la
-          // ragione per cui questo strato sta sopra il figlio e non dentro
-          // una schermata particolare.
-          child: Listener(
-            key: const Key('ascolto_del_ritiro'),
-            // **TRANSLUCENT, e non `deferToChild`.** Col primo tentativo il
-            // ritiro non scattava toccando il fondo cosmico, dove nessun
-            // widget partecipa all'esame del tocco e quindi il Listener non
-            // veniva nemmeno interrogato: si ritirava toccando un pulsante e
-            // non toccando il vuoto, che e' il contrario di quel che serve.
-            // Translucent lo mette nell'elenco dei destinatari SENZA togliere
-            // il tocco a chi sta sotto.
-            behavior: HitTestBehavior.translucent,
-            onPointerDown: (_) => _ritira(),
-            child: NotificationListener<ScrollUpdateNotification>(
-              onNotification: (_) {
-                _ritira();
-                // Falso: la notizia continua a salire verso chi la usa
-                // davvero, per esempio la testata che si accorcia scorrendo.
-                return false;
-              },
-              child: widget.child,
-            ),
-          ),
+          child: widget.child,
         ),
         if (siVede)
           Positioned(
             left: 0,
             right: 0,
             top: 0,
-            child: _LaBarra(
-              altezza: altezza,
-              aperta: _aperta,
-              durata: durata,
-              suTocco: () => setState(() => _aperta = !_aperta),
-              suChiusura: () => setState(() => _aperta = false),
-            ),
+            child: const _LaBarra(),
           ),
       ],
     );
@@ -190,159 +133,134 @@ class _BarraDellIdentitaState extends State<BarraDellIdentita> {
 }
 
 class _LaBarra extends StatelessWidget {
-  const _LaBarra({
-    required this.altezza,
-    required this.aperta,
-    required this.durata,
-    required this.suTocco,
-    required this.suChiusura,
-  });
-
-  final double altezza;
-  final bool aperta;
-  final Duration durata;
-  final VoidCallback suTocco;
-  final VoidCallback suChiusura;
+  const _LaBarra();
 
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
-    // Le misure del contenuto: sottile a riposo, leggibile da aperta.
-    final volto = aperta ? 40.0 : 22.0;
 
     return Material(
       type: MaterialType.transparency,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: suTocco,
-        child: AnimatedContainer(
-          key: const Key('barra_dell_identita'),
-          duration: durata,
-          curve: Curves.easeOut,
-          // La fascia occupa anche l'area sicura di sistema: sta SOTTO
-          // l'orologio del telefono e non ci finisce mai sopra.
-          padding: EdgeInsets.only(top: mq.padding.top),
-          height: altezza + mq.padding.top,
-          decoration: BoxDecoration(
-            // Un velo di colore, mai una sfocatura per fotogramma.
-            color: palette.deepest.withValues(alpha: aperta ? 0.92 : 0.72),
-            border: Border(
-              bottom: BorderSide(
-                  color: palette.goldSoft.withValues(alpha: 0.22)),
-            ),
+      child: Container(
+        key: const Key('barra_dell_identita'),
+        // La fascia occupa anche l'area sicura di sistema: sta SOTTO
+        // l'orologio del telefono e non ci finisce mai sopra.
+        padding: EdgeInsets.only(top: mq.padding.top),
+        height: BarraDellIdentita.altezzaChiusa + mq.padding.top,
+        decoration: BoxDecoration(
+          // Un velo di colore, mai una sfocatura per fotogramma.
+          color: palette.deepest.withValues(alpha: 0.72),
+          border: Border(
+            bottom:
+                BorderSide(color: palette.goldSoft.withValues(alpha: 0.22)),
           ),
-          child: Row(
-            children: [
-              const SizedBox(width: SpacingTokens.sm),
-              // 1. IL VOLTO E IL NOME, ordine AN voce 02: chi apre l'app si
-              // vede riconosciuto. Senza nome resta il solo volto, mai un
-              // segnaposto.
-              _VoltoENome(
-                misura: volto,
-                aperta: aperta,
-                suTocco: aperta ? NavigazioneDellaBarra.allAccount : suTocco,
+        ),
+        child: Row(
+          children: [
+            const SizedBox(width: SpacingTokens.sm),
+            // 1. IL VOLTO, e SOLO il volto. Ordine AR voce 10: il nome e'
+            // uscito dalla barra, perche' con un nome lungo si sovrapponeva
+            // al resto. Chi sono lo dice il volto, che e' anche la porta
+            // dell'account.
+            _AreaDiTocco(
+              chiave: const Key('barra_volto'),
+              // **AL PRIMO TOCCO SI VA ALL'ACCOUNT.** Prima il volto apriva
+              // la barra e solo da aperta portava all'account.
+              suTocco: NavigazioneDellaBarra.allAccount,
+              // **IL VOLTO RICEVE LA VIA DALL'OSSERVATORE.** La barra vive
+              // nel `builder` di `MaterialApp`, che AVVOLGE il Navigator:
+              // qui dentro `Navigator.of(context)` non trova niente, quindi
+              // il volto non puo' usare la sua via di casa e riceve quella
+              // che passa dall'osservatore della pila.
+              child: const PortaDellAccount(
+                misura: 22,
+                suTocco: NavigazioneDellaBarra.allAccount,
               ),
-              // 2. LA PORTA DEGLI EVENTI COSMICI.
-              //
-              // **IL TOCCO PORTA AL CALENDARIO SEMPRE, chiusa o aperta che
-              // sia la barra, ordine AO voce 01.** Prima il primo tocco da
-              // chiusa apriva soltanto la barra, per la regola dell'ordine
-              // AM voce 04 che diceva di non portare via da dove si sta: ma
-              // quella regola nasceva quando qui c'era una NOTIZIA da
-              // leggere in grande, e una notizia si ingrandisce mentre una
-              // porta si attraversa. Adesso al centro c'e' una porta col suo
-              // nome scritto sopra, e una porta che al primo tocco fa
-              // qualcos'altro insegna a non fidarsi del proprio dito.
-              Expanded(
-                child: _PortaDegliEventiCosmici(
-                  aperta: aperta,
-                  suTocco: () {
-                    suChiusura();
-                    NavigazioneDellaBarra.alCalendario();
-                  },
-                ),
-              ),
-              // 3. IL BORSELLINO, moneta d'oro e saldo.
-              SegnoDelBorsellino(
-                compatta: !aperta,
+            ),
+            // 2. LA PORTA DEGLI EVENTI COSMICI, che porta al Calendario al
+            // PRIMO tocco.
+            const Expanded(child: _PortaDegliEventiCosmici()),
+            // 3. IL BORSELLINO, moneta d'oro e saldo, che apre il borsellino
+            // al primo tocco.
+            _AreaDiTocco(
+              chiave: const Key('barra_borsellino'),
+              suTocco: null,
+              child: SegnoDelBorsellino(
+                compatta: true,
                 monetaDOro: true,
                 senzaVeste: true,
-                contestoDelFoglio: aperta
-                    ? NavigazioneDellaBarra.contestoDelNavigatore
-                    : null,
-                suTocco: aperta ? null : suTocco,
+                contestoDelFoglio:
+                    NavigazioneDellaBarra.contestoDelNavigatore,
               ),
-              const SizedBox(width: SpacingTokens.sm),
-            ],
-          ),
+            ),
+            const SizedBox(width: SpacingTokens.sm),
+          ],
         ),
       ),
     );
   }
 }
 
-/// IL VOLTO E IL NOME PROPRIO. Ordine AN voce 02.
-///
-/// Il nome viene dal profilo, che e' la porta dove il nome vive gia'
-/// normalizzato: qui non si normalizza una seconda volta. Se il nome non
-/// c'e' ancora resta il solo volto: un segnaposto direbbe che manca
-/// qualcosa senza dire cosa fare, e il posto per darlo e' l'account, che
-/// questo stesso volto apre.
-class _VoltoENome extends StatelessWidget {
-  const _VoltoENome({
-    required this.misura,
-    required this.aperta,
-    required this.suTocco,
+/// **L'AREA DI TOCCO E' PIENA ANCHE SE LA BARRA E' SOTTILE. Ordine AR voce
+/// 10.** Trenta punti di altezza non bastano per un dito: si allarga l'area
+/// INVISIBILE del bersaglio, non la barra. Il riquadro sale e scende oltre il
+/// bordo della fascia senza disegnare niente, quindi il tocco e' comodo e la
+/// barra resta sottile.
+class _AreaDiTocco extends StatelessWidget {
+  const _AreaDiTocco({
+    required this.chiave,
+    required this.child,
+    this.suTocco,
   });
 
-  final double misura;
-  final bool aperta;
-  final VoidCallback suTocco;
+  final Key chiave;
+  final Widget child;
+  final VoidCallback? suTocco;
+
+  /// **QUANTO SI PUO' ALLARGARE, e perche' non di piu'.** In larghezza si
+  /// allarga quanto serve; in altezza il bersaglio prende tutta la barra e
+  /// non un punto di piu': sotto la fascia comincia il contenuto della
+  /// schermata, e un bersaglio piu' alto gli ruberebbe i tocchi, che e' un
+  /// difetto peggiore di un bersaglio corto.
+  static const double larghezzaMinima = 44;
 
   @override
   Widget build(BuildContext context) {
-    final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
-    String? nome;
-    try {
-      nome = context.watch<ProfileController>().profile.displayName;
-    } catch (errore) {
-      // Senza il profilo nell'albero, come in una prova che monta una scena
-      // da sola, resta il solo volto.
-      nome = null;
+    // **UNA LARGHEZZA MINIMA, non una larghezza fissa**, e la differenza
+    // l'ha trovata l'anteprima col saldo a quattro cifre: con `width` fisso
+    // il borsellino sbordava di ventisette pixel, perche' "9999" chiede piu'
+    // spazio di un bersaglio comodo. Il minimo serve a chi e' piccolo, e chi
+    // e' grande resta com'e'.
+    final dentro = ConstrainedBox(
+      constraints: const BoxConstraints(minWidth: larghezzaMinima),
+      child: SizedBox(
+        height: double.infinity,
+        child: Center(child: child),
+      ),
+    );
+    if (suTocco == null) {
+      return KeyedSubtree(key: chiave, child: dentro);
     }
-    final pulito = (nome ?? '').trim();
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        PortaDellAccount(misura: misura, suTocco: suTocco),
-        if (pulito.isNotEmpty) ...[
-          const SizedBox(width: 6),
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: suTocco,
-            child: ConstrainedBox(
-              // Il nome non ruba il posto all'evento: e' un saluto, non un
-              // titolo. Oltre questa larghezza si accorcia con garbo.
-              // Il nome cede spazio al cielo: da chiusa il centro deve
-              // poter dire "Saturno retrogrado, oggi" per intero, e
-              // guardando l'anteprima con 78 punti si troncava.
-              constraints: BoxConstraints(maxWidth: aperta ? 120 : 56),
-              child: Text(
-                pulito,
-                key: const Key('barra_nome_proprio'),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TypographyTokens.etichetta()
-                    .copyWith(color: palette.goldSoft),
-              ),
-            ),
-          ),
-        ],
-      ],
+    return GestureDetector(
+      key: chiave,
+      behavior: HitTestBehavior.opaque,
+      onTap: suTocco,
+      child: dentro,
     );
   }
 }
+
+/// **IL NOME E' USCITO DALLA BARRA. Ordine AR voce 10.**
+///
+/// Qui viveva `_VoltoENome`, che accanto al volto scriveva il nome proprio
+/// (ordine AN voce 02). Mauro lo ha tolto il 19 agosto 2026, e la ragione e'
+/// misurabile: con un nome lungo la riga si sovrapponeva al resto, e in una
+/// fascia da trenta punti non c'e' spazio per un saluto e una porta insieme.
+/// Chi sei lo dice il volto, che resta ed e' anche la porta dell'account.
+///
+/// La classe non c'e' piu': tenerla morta avrebbe fatto credere che il nome
+/// possa tornare con un flag, mentre e' una decisione.
 
 /// LA PORTA DEGLI EVENTI COSMICI: una scritta sola, sempre quella.
 ///
@@ -364,11 +282,7 @@ class _VoltoENome extends StatelessWidget {
 /// tutto il resto della barra, ma non diventa un'altra cosa: chi ha imparato
 /// dove si tocca lo ritrova dov'era.
 class _PortaDegliEventiCosmici extends StatelessWidget {
-  const _PortaDegliEventiCosmici(
-      {required this.aperta, required this.suTocco});
-
-  final bool aperta;
-  final VoidCallback suTocco;
+  const _PortaDegliEventiCosmici();
 
   @override
   Widget build(BuildContext context) {
@@ -376,8 +290,15 @@ class _PortaDegliEventiCosmici extends StatelessWidget {
     return GestureDetector(
       key: const Key('barra_eventi_cosmici'),
       behavior: HitTestBehavior.opaque,
-      onTap: suTocco,
-      child: Padding(
+      // **AL PRIMO TOCCO SI VA AL CALENDARIO, ordine AR voce 10.** Non c'e'
+      // piu' nessuna apertura da consumare prima.
+      onTap: NavigazioneDellaBarra.alCalendario,
+      child: Container(
+        // **IL BERSAGLIO PRENDE TUTTA L'ALTEZZA DELLA BARRA**, ordine AR
+        // voce 10: la scritta e' alta diciotto punti, e un bersaglio alto
+        // quanto la scritta chiede al dito una mira che nessuno ha.
+        alignment: Alignment.center,
+        height: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xs),
         // La scritta si adatta invece di troncarsi: su uno schermo stretto
         // "Eventi Cosmici" tagliato a meta' sarebbe una porta senza nome.
@@ -387,9 +308,7 @@ class _PortaDegliEventiCosmici extends StatelessWidget {
             'Eventi Cosmici',
             maxLines: 1,
             textAlign: TextAlign.center,
-            style: (aperta
-                    ? TypographyTokens.titoloScheda()
-                    : TypographyTokens.etichetta())
+            style: TypographyTokens.etichetta()
                 .copyWith(color: palette.goldSoft),
           ),
         ),
