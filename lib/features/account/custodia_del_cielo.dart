@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/cammino/custode_del_cammino.dart';
 import '../../core/identity/account_del_cerchio.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -460,10 +461,18 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
               const SizedBox(height: SpacingTokens.md),
               ContinuaComeRiconosciuto(
                 account: widget.account,
-                suEsito: (esito) {
+                suEsito: (esito) async {
                   if (!mounted) return;
                   if (esito == EsitoDellaCustodia.riuscita) {
-                    Navigator.of(context).pop(true);
+                    // **ANCHE DA QUI IL CAMMINO TORNA, ordine AP voce 06.**
+                    // Il foglio si chiude prima, perche' la scena del
+                    // ritrovamento e' una rotta e non deve aprirsi dietro un
+                    // foglio che sta per sparire; il giro del Custode e' lo
+                    // stesso della porta piccola della voce 04.
+                    final navigatore = Navigator.of(context);
+                    final radice = navigatore.context;
+                    navigatore.pop(true);
+                    await CustodeDelCammino.dopoIlRiconoscimento(radice);
                     return;
                   }
                   setState(() => _guaio = frasePerEsito(esito));

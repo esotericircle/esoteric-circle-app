@@ -193,9 +193,20 @@ agosto 2026.
   e' una notizia solo dopo un riconoscimento, non ogni mattina.
   Guardia `test/l_onboarding_non_si_rifa_test.dart` con otto prove. Chiude il
   collaudo di Mauro sulla 2184)
-- **AP.06** Il "Continua come" restituisce il cammino. Stato: APERTA
-  (stessa fusione e stesso ritrovamento delle voci 03 e 05, logica in un
-  punto solo)
+- **AP.06** Il "Continua come" restituisce il cammino. Stato: CHIUSA
+  (le strade che riconoscono una persona erano TRE, non una: l'ultimo passo
+  del Risveglio, l'invito successivo a chi aveva rimandato, e la porta
+  piccola della voce 04. La prima e la seconda facevano entrare e basta.
+  Ora tutte e tre passano da `CustodeDelCammino.dopoIlRiconoscimento`, che
+  fa il giro intero in un punto solo: fusione della voce 03, rito che si
+  salta secondo la voce 05, scena del ritrovamento. Nella strada del foglio
+  d'invito il foglio si chiude PRIMA del giro, perche' il ritrovamento e'
+  una rotta e non deve aprirsi dietro un foglio che sta sparendo.
+  Guardia `test/il_continua_come_restituisce_il_cammino_test.dart` con tre
+  prove: ENUMERA le strade invece di montarne una, perche' una prova su una
+  schermata sola resterebbe verde il giorno in cui nasce la quarta strada e
+  nessuno la collega. Rosso provato togliendo una sola chiamata: la guardia
+  ha nominato il file colpevole)
 - **AP.07** La barra sottile fuori dall'onboarding. Stato: FERMATA IN ATTESA DI DECISIONE
   (la premessa P8 aveva ragione e la misura ha detto DOVE: alla prima
   apertura la barra gia' non si vedeva, perche' `OnboardingScreen` era fra le
@@ -224,7 +235,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 3
-VOCI_CHIUSE: 2
+VOCI_APERTE: 2
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/cammino/custode_del_cammino.dart';
 import '../../core/identity/account_del_cerchio.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -129,9 +130,17 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
                   const SizedBox(height: SpacingTokens.md),
                   ContinuaComeRiconosciuto(
                     account: context.read<AccountDelCerchio>(),
-                    suEsito: (esito) {
+                    suEsito: (esito) async {
                       if (!mounted) return;
                       if (esito == EsitoDellaCustodia.riuscita) {
+                        // **QUI IL PULSANTE NON SI LIMITA PIU' A FAR
+                        // ENTRARE, ordine AP voce 06**: chiama il giro del
+                        // Custode, che riporta il cammino, salta il rito se
+                        // non resta niente da chiedere e mostra cio' che e'
+                        // stato ritrovato. E' lo stesso giro della porta
+                        // piccola della voce 04: due strade, un posto solo.
+                        await CustodeDelCammino.dopoIlRiconoscimento(context);
+                        if (!mounted) return;
                         widget.suFine();
                         return;
                       }
