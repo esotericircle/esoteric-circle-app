@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'plan_catalog.dart';
+import '../cammino/cammino_da_custodire.dart';
 import '../../services/server/porta_del_cerchio.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'tier.dart';
@@ -376,10 +377,17 @@ class QuestionAllowance extends ChangeNotifier {
   /// Si chiama all'avvio e al ritorno in primo piano. Se il server non
   /// risponde non cambia niente: si resta sui numeri locali, che e' la scelta
   /// dichiarata per l'assenza di rete.
-  Future<void> sincronizza() async {
+  /// [cammino] e' cio' che questo telefono ha da custodire, ordine AP voce
+  /// 02: viaggia con la richiesta dello stato invece di aprire un secondo
+  /// canale sullo stesso momento. Torna il cammino che il Cerchio ha fuso,
+  /// oppure nullo se il server non ha risposto o non lo conosce ancora.
+  Future<CamminoDaCustodire?> sincronizza({CamminoDaCustodire? cammino}) async {
     await _svuotaLaCoda();
-    final stato = await _porta.stato();
-    if (stato == null) return;
+    final stato = await _porta.stato(cammino: cammino);
+    // **SENZA RISPOSTA NON SI TOCCA NIENTE**: si resta sui numeri locali, che
+    // e' la scelta dichiarata per l'assenza di rete, e non si cancella
+    // nessuna storia.
+    if (stato == null) return null;
     _giornoDelServer = stato.giorno;
     if (_day != stato.giorno) _day = stato.giorno;
     _count = stato.spesi['domande'] ?? 0;
@@ -389,6 +397,7 @@ class QuestionAllowance extends ChangeNotifier {
     _saldoEos = stato.saldoEos;
     notifyListeners();
     await _persist();
+    return stato.cammino;
   }
 
   /// Segna il gesto per il server e prova a mandarlo subito.

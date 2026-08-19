@@ -1,3 +1,4 @@
+import '../astro/birth_details.dart';
 import '../identity/birth_identity.dart';
 import '../identity/birth_place.dart';
 
@@ -270,6 +271,36 @@ class IdentitaDaCustodire {
               utcOffsetMinutes: scarto ?? 60,
               isApproximate: fuso == null,
             ),
+    );
+  }
+
+  /// L'identita' da custodire, presa dai DETTAGLI DI NASCITA che il Cerchio
+  /// ha raccolto: la data, l'ora quando c'e', il luogo quando c'e'.
+  ///
+  /// **E' questa la porta che usa il custode**, non quella dell'identita'
+  /// completa: `BirthIdentityController` espone i dettagli, ed e' li' che
+  /// vive cio' che la persona ha DATO. Passare dalla carta natale sarebbe
+  /// passare da cio' che si CALCOLA.
+  static IdentitaDaCustodire? daiDettagli(
+    BirthDetails? dettagli, {
+    String? nome,
+  }) {
+    if (dettagli == null) return null;
+    String due(int n) => n.toString().padLeft(2, '0');
+    final ora = dettagli.time;
+    return IdentitaDaCustodire(
+      nome: nome,
+      giorno: DateTime(
+          dettagli.date.year, dettagli.date.month, dettagli.date.day),
+      ora: ora == null ? null : '${due(ora.hour)}:${due(ora.minute)}',
+      // **IL LUOGO DELL'ASTRONOMIA, e non quello dell'identita'.** Nel
+      // progetto vivono due `BirthPlace`: quello di `core/astro`, che i
+      // dettagli di nascita portano con se', e quello di `core/identity`.
+      // Qui si legge il primo, che e' quello che il Cerchio ha raccolto.
+      luogo: dettagli.place?.label,
+      latitudine: dettagli.place?.latitude,
+      longitudine: dettagli.place?.longitude,
+      fuso: dettagli.place?.timezone,
     );
   }
 

@@ -374,6 +374,15 @@ class RegiaDelCammino {
   @visibleForTesting
   static bool ripresaTentata = false;
 
+  /// **PERMETTE UN ALTRO GIRO DELLA SINCRONIA, ordine AP voce 02.** Il
+  /// catenaccio di sopra vale per sessione, ed e' giusto: al secondo avvio
+  /// non c'e' niente di nuovo da riprendere. Ma quando l'identita' CAMBIA,
+  /// cioe' dopo un riconoscimento, il Cerchio e' un altro e i Sigilli appena
+  /// tornati non hanno ancora avuto il loro premio. Il doppio pagamento
+  /// resta impossibile: ogni movimento porta il suo identificativo e il
+  /// server ripete la risposta di allora.
+  static void riprendiDaCapo() => ripresaTentata = false;
+
   /// I PEZZI DELL'IDENTITA' GIA' COMPLETI.
   ///
   /// Passano tutti dal diario, cioe' dallo stesso registro dei gesti: la carta

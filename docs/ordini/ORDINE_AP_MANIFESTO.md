@@ -51,10 +51,17 @@ agosto 2026.
    uso. Fuori dal telefono i traguardi accesi non esistono da nessuna parte.
 2. **P2 VERA.** Anche il profilo vive sul telefono:
    `lib/core/identity/profile_store.dart` usa SharedPreferences in otto punti.
-3. **P3 VERA.** `porta.stato()` parte da DUE soli posti in tutta `lib`,
-   contati per enumerazione: `lib/features/sigilli/regia_del_cammino.dart`
-   riga 353 e `lib/core/entitlement/question_allowance.dart` riga 381.
-   Nessuno la chiama all'avvio e nessuno la rifa' dopo il riconoscimento.
+3. **P3 VERA A META', e la meta' falsa cambia la diagnosi.** I due soli
+   posti da cui parte `porta.stato()` sono confermati per enumerazione,
+   `regia_del_cammino.dart` riga 353 e `question_allowance.dart` riga 381.
+   Ma **la chiamata all'avvio C'ERA**: `lib/app.dart` costruiva il
+   borsellino con la cascata `..load()..sincronizza()`, e montando l'app
+   senza toccare niente lo stato risultava gia' chiesto UNA volta, misurato.
+   Cio' che mancava davvero e' l'altra meta' della premessa, ed e'
+   esattamente il caso di Mauro: **nessuno rifaceva la chiamata DOPO il
+   riconoscimento**, cioe' nel momento in cui l'identita' cambia e il Cerchio
+   diventa un altro. Chi entrava col proprio account restava con lo stato di
+   prima, che era vuoto.
 4. **P4 VERA.** `firestore.rules` righe 29 e 30: `allow read: if
    proprietario(uid)` e `allow write: if false`. Il telefono legge il proprio
    documento e non lo scrive mai; ogni scrittura passa dalle callable, e
@@ -111,9 +118,25 @@ agosto 2026.
   `test/il_cerchio_custodisce_il_cammino_test.dart` con otto prove, fra cui
   l'enumerazione delle callable e il viaggio di andata e ritorno senza
   perdite)
-- **AP.02** Il saldo e il cammino si chiedono all'avvio. Stato: APERTA
-  (all'avvio con rete e subito dopo il riconoscimento; senza rete si dichiara
-  e si riprova, mai un saldo falso e mai una cancellazione)
+- **AP.02** Il saldo e il cammino si chiedono all'avvio. Stato: FERMATA IN ATTESA DI DECISIONE
+  (nasce `lib/core/cammino/custode_del_cammino.dart`, che raccoglie il
+  cammino dalle porte uniche che gia' esistono, lo manda e adotta cio' che
+  torna. **UNA CHIAMATA SOLA**: la cascata `..sincronizza()` nel provider e'
+  stata TOLTA, perche' con l'aggiunta del custode le richieste erano
+  diventate due nello stesso momento, misurate, e la seconda sarebbe partita
+  senza cammino.
+  **Il custode aspetta che il diario abbia letto il disco** prima di
+  raccogliere, altrimenti manderebbe al Cerchio un telefono che sembra vuoto
+  e la fusione non avrebbe due parti: e' la stessa famiglia delle voci AN.04
+  e AO.04.
+  `QuestionAllowance.sincronizza` porta il cammino e restituisce quello
+  fuso; il diario impara ad ADOTTARLO prendendo il massimo e unendo i
+  Sigilli, cioe' difendendosi comunque da una risposta storta. Senza rete non
+  cambia niente e non si cancella niente, provato leggendo il disco dopo.
+  Il diario impara anche a ricordare QUANDO ogni Sigillo si e' acceso, che
+  prima non sapeva e che la fusione difende come primato.
+  Guardia `test/lo_stato_si_chiede_all_avvio_test.dart` con tre prove e rosso
+  provato togliendo il custode. Chiude il collaudo di Mauro sulla 2184)
 - **AP.03** La fusione, mai la sostituzione cieca. Stato: CHIUSA
   (`fondiCammini` in `functions/src/cammino.ts`, e vive SOLO li': per ogni
   contatore vince il PIU' ALTO chiave per chiave, perche' un conto piu' basso
@@ -156,7 +179,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 7
+VOCI_APERTE: 6
 VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

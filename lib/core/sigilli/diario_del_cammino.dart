@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../astro/natal_chart.dart';
+import '../cammino/cammino_da_custodire.dart';
 import '../astro/zodiac.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'eventi_del_cielo.dart';
@@ -38,6 +39,11 @@ class DiarioDelCammino extends ChangeNotifier {
   static const _kPrimoGiorno = 'cammino.primoGiorno';
   static const _kUltimoGiorno = 'cammino.ultimoGiorno';
   static const _kAccesi = 'cammino.accesi';
+  /// **QUANDO OGNI SIGILLO SI E' ACCESO, ordine AP voce 01.** Serviva al
+  /// Cerchio per custodire il cammino: un Sigillo si accende una volta sola,
+  /// e quella data e' un primato che la fusione difende. Prima esisteva solo
+  /// l'elenco, senza il quando.
+  static const _kQuandoAccesi = 'cammino.accesi.quando';
   static const _kCondivisi = 'cammino.condivisi';
   static const _kSerie = 'cammino.serie';
   static const _kUltimoPerRito = 'cammino.ultimoPerRito';
@@ -63,12 +69,26 @@ class DiarioDelCammino extends ChangeNotifier {
 
   /// I traguardi gia' accesi, per id. Un Sigillo acceso non si spegne mai.
   final Set<String> _accesi = {};
+  final Map<String, String> _quandoAccesi = {};
 
   /// I traguardi la cui card e' gia' stata condivisa: serve a sapere se il
   /// bonus in Eos e' ancora in sospeso.
   final Set<String> _condivisi = {};
 
   Set<String> get accesi => Set.unmodifiable(_accesi);
+
+  /// Quando quel Sigillo si e' acceso, se il diario lo sa. I Sigilli accesi
+  /// prima dell'ordine AP non hanno data, e non se ne inventa una.
+  DateTime? quandoSiEAcceso(String id) {
+    final quando = _quandoAccesi[id];
+    return quando == null ? null : DateTime.tryParse(quando);
+  }
+
+  /// Il primo e l'ultimo giorno di cammino, per il Cerchio che li custodisce.
+  DateTime? get primoGiorno =>
+      _primoGiorno == null ? null : DateTime.tryParse(_primoGiorno!);
+  DateTime? get ultimoGiorno =>
+      _ultimoGiorno == null ? null : DateTime.tryParse(_ultimoGiorno!);
   Set<String> get condivisi => Set.unmodifiable(_condivisi);
   int get giorniDiAssenzaPrimaDiOggi => _giorniDiAssenza;
 
@@ -141,6 +161,7 @@ class DiarioDelCammino extends ChangeNotifier {
       _primoGiorno = prefs.getString(_kPrimoGiorno) ?? _primoGiorno;
       if (!fondi) _ultimoGiorno = prefs.getString(_kUltimoGiorno);
       _accesi.addAll(prefs.getStringList(_kAccesi) ?? const []);
+      _leggiTesti(prefs.getString(_kQuandoAccesi), _quandoAccesi);
       _condivisi.addAll(prefs.getStringList(_kCondivisi) ?? const []);
       // La serie di giorni di seguito NON si somma: si tiene la piu' lunga,
       // perche' due conteggi dello stesso giorno non fanno due giorni.
@@ -240,9 +261,51 @@ class DiarioDelCammino extends ChangeNotifier {
   Future<bool> accendi(String id) async {
     _scrittoPrimaDiLeggere = !_discoLetto;
     if (!_accesi.add(id)) return false;
+    _quandoAccesi[id] = _orologio().toIso8601String();
     notifyListeners();
     await _salva();
     return true;
+  }
+
+  /// ADOTTA IL CAMMINO CHE IL CERCHIO HA RESTITUITO. Ordine AP voci 02 e 03.
+  ///
+  /// **Non e' una sostituzione cieca, e non lo e' per costruzione**: cio' che
+  /// arriva e' GIA' la fusione fra questo telefono e il Cerchio, fatta dal
+  /// server, dove per ogni contatore ha vinto il piu' alto e i Sigilli si
+  /// sono uniti. Adottarla non puo' quindi togliere niente a nessuno.
+  ///
+  /// **E si difende comunque**, perche' una risposta puo' arrivare da un
+  /// server piu' vecchio o da una rete che ha rotto qualcosa: si prende il
+  /// massimo fra cio' che c'e' e cio' che arriva, esattamente come fa la
+  /// fusione, e i Sigilli si uniscono invece di sostituirsi. E' la lezione
+  /// della voce AO.04: una scrittura non deve mai poter distruggere.
+  Future<void> adottaIlCammino(CamminoDaCustodire cammino) async {
+    void massimo(Map<String, int> dentro, Map<String, int> arrivati) {
+      for (final voce in arrivati.entries) {
+        final gia = dentro[voce.key] ?? 0;
+        if (voce.value > gia) dentro[voce.key] = voce.value;
+      }
+    }
+
+    massimo(_gestiCompiuti, cammino.gesti);
+    massimo(_giorniConGesto, cammino.giorni);
+    massimo(_gestiNellOraGiusta, cammino.oreGiuste);
+    massimo(_seriePerRito, cammino.serie);
+    for (final voce in cammino.sigilli.entries) {
+      _accesi.add(voce.key);
+      final gia = _quandoAccesi[voce.key];
+      final arrivato = voce.value.toIso8601String();
+      // La data piu' vecchia vince: un Sigillo si accende una volta sola.
+      if (gia == null || arrivato.compareTo(gia) < 0) {
+        _quandoAccesi[voce.key] = arrivato;
+      }
+    }
+    final primo = cammino.primoGiorno?.toIso8601String();
+    if (primo != null && (_primoGiorno == null || primo.compareTo(_primoGiorno!) < 0)) {
+      _primoGiorno = primo;
+    }
+    notifyListeners();
+    await _salva();
   }
 
   Future<void> segnaCondiviso(String id) async {
@@ -372,6 +435,7 @@ class DiarioDelCammino extends ChangeNotifier {
       await prefs.setStringList(_kOggi, _oggiHaFatto.toList());
       await prefs.setString(_kGiornoDiOggi, _giornoDiOggi);
       await prefs.setStringList(_kAccesi, _accesi.toList());
+      await prefs.setString(_kQuandoAccesi, jsonEncode(_quandoAccesi));
       await prefs.setStringList(_kCondivisi, _condivisi.toList());
       if (_primoGiorno != null) {
         await prefs.setString(_kPrimoGiorno, _primoGiorno!);

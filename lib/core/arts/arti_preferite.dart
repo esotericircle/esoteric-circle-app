@@ -113,6 +113,21 @@ class ArtiPreferiteController extends ChangeNotifier {
           for (final a in ArtCatalog.activeOf(m)) a.id,
       ];
 
+  /// ADOTTA LE ARTI PREFERITE CHE IL CERCHIO HA RESTITUITO. Ordine AP voce 02.
+  ///
+  /// Si sostituisce e non si unisce, ed e' scritto anche sul server: le arti
+  /// preferite sono un ORDINE scelto dalla persona, e unire due elenchi
+  /// inventerebbe un ordine che nessuno ha scelto. Cio' che arriva ha gia'
+  /// vinto la fusione, quindi qui si adotta e basta.
+  Future<void> adottaDalCerchio(List<String> arti) async {
+    if (arti.isEmpty) return;
+    final valide = [for (final a in arti) if (selezionabili.contains(a)) a];
+    if (valide.isEmpty) return;
+    _ids = valide;
+    notifyListeners();
+    await _salva();
+  }
+
   Future<void> carica() async {
     final prefs = await SharedPreferences.getInstance();
     final salvate = prefs.getStringList(_chiave);

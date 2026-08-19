@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/cammino/custode_del_cammino.dart';
 import 'core/diagnosi/racconto_della_corsa.dart';
 import 'core/archetypes/archetype_history.dart';
 import 'core/astro/natal_chart_controller.dart';
@@ -113,12 +114,24 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
     // gia' stato concesso, si riprogrammano le chiamate coi dati veri del
     // momento. Dopo il primo fotogramma, quando i provider sono vivi.
     WidgetsBinding.instance.addPostFrameCallback((_) => _programmaLeChiamate());
+    // **IL CAMMINO SI CUSTODISCE ALL'AVVIO, ordine AP voce 02.** Dopo il
+    // primo fotogramma, quando i provider sono vivi: si manda al Cerchio
+    // cio' che questo telefono ha e si adotta cio' che torna. Senza rete non
+    // succede niente e si riprova alla prossima apertura, perche' un saldo
+    // inventato e una storia cancellata sono peggio di un'attesa.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _custodisciIlCammino());
   }
 
   Future<void> _programmaLeChiamate() async {
     final ctx = _navigatore.currentContext;
     if (ctx == null || !ctx.mounted) return;
     await RegiaDelleChiamate.riprogramma(ctx);
+  }
+
+  Future<void> _custodisciIlCammino() async {
+    final ctx = _navigatore.currentContext;
+    if (ctx == null || !ctx.mounted) return;
+    await CustodeDelCammino.custodisciEAdotta(ctx);
   }
 
   @override
@@ -167,11 +180,14 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
         // li decide il server.
         ChangeNotifierProvider(
           create: (_) => QuestionAllowance(porta: runtime.porta)
-            // Prima il conto locale, che c'e' subito, poi quello del server,
-            // che e' la verita': cosi' non si resta senza numeri per il tempo
-            // di una chiamata.
-            ..load()
-            ..sincronizza(),
+            // Prima il conto locale, che c'e' subito. **LA CHIAMATA AL
+            // SERVER NON PARTE PIU' DA QUI, ordine AP voce 02**: la fa il
+            // Custode del cammino dopo il primo fotogramma, e la fa UNA
+            // volta portandosi dietro il cammino del telefono. Lasciarne
+            // anche una qui vorrebbe dire due richieste nello stesso
+            // momento, cioe' la seconda porta sullo stesso dato, e la
+            // seconda arriverebbe senza cammino.
+            ..load(),
         ),
         // IL DIARIO DEL CAMMINO: cio' che hai fatto e quali Sigilli si sono
         // accesi. Vive accanto ai contatori, non dentro: i budget del giorno
