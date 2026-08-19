@@ -114,10 +114,24 @@ agosto 2026.
 - **AP.02** Il saldo e il cammino si chiedono all'avvio. Stato: APERTA
   (all'avvio con rete e subito dopo il riconoscimento; senza rete si dichiara
   e si riprova, mai un saldo falso e mai una cancellazione)
-- **AP.03** La fusione, mai la sostituzione cieca. Stato: APERTA
-  (per ogni contatore vince il piu' alto, i sigilli si uniscono, le date piu'
-  vecchie vincono dove la data e' un primato; nessuna storia si cancella mai,
-  ed e' la lezione della AO.04)
+- **AP.03** La fusione, mai la sostituzione cieca. Stato: CHIUSA
+  (`fondiCammini` in `functions/src/cammino.ts`, e vive SOLO li': per ogni
+  contatore vince il PIU' ALTO chiave per chiave, perche' un conto piu' basso
+  e' sempre un conto piu' vecchio o piu' povero e mai piu' vero; i Sigilli si
+  UNISCONO e per quelli in comune resta la data PIU' VECCHIA, perche' un
+  Sigillo si accende una volta sola e quel giorno e' un primato; il primo
+  giorno di cammino e la data del test dell'archetipo seguono la stessa
+  regola, e per l'archetipo vince il DOMINANTE di quella data, non l'altro.
+  **Le arti preferite non si uniscono**, e la ragione e' scritta accanto:
+  sono un ORDINE scelto dalla persona, e un'unione inventerebbe un ordine che
+  nessuno ha scelto.
+  I tre casi dell'ordine sono provati coi loro nomi, telefono pieno e server
+  vuoto, telefono vuoto e server pieno (il caso di Mauro), e i due diversi;
+  piu' una prova generale che NESSUNA CHIAVE SPARISCE e nessun valore scende,
+  che e' la lezione della voce AO.04 scritta come prova. **Rosso provato in
+  tre modi diversi**, cioe' sostituendo invece di fondere (due prove rosse),
+  non unendo i Sigilli (tre rosse) e facendo vincere la data piu' recente
+  (due rosse); ripristinato, `npm test` conta 34 verdi)
 - **AP.04** La porta piccola per chi torna. Stato: APERTA
   ("Faccio gia' parte del Cerchio" con sotto "Accedi e ritrova il tuo
   cammino"; non e' un muro e il richiamo principale resta "comincia")
@@ -142,7 +156,7 @@ agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 8
-VOCI_CHIUSE: 1
+VOCI_APERTE: 7
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
