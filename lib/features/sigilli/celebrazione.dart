@@ -355,7 +355,27 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
   Widget build(BuildContext context) {
     final palette = context.palette;
     final diario = context.watch<DiarioDelCammino>();
-    final prossimo = diario.prossimoDi(widget.sentieri.first);
+    // **QUALE PROSSIMO, CON LA FESTA UNITA, ordine AR voce 07.** Quando si
+    // celebrano piu' traguardi insieme i sentieri sono piu' di uno, e il
+    // prossimo che si mostra e' quello del sentiero della FESTA, cioe' del
+    // traguardo piu' importante fra i celebrati: e' la stessa regola con cui
+    // la scena sceglie il Maestro e l'intensita' (ordine AO voce 05), e
+    // tenerne una diversa qui direbbe due cose nella stessa scena.
+    // Prima si prendeva `sentieri.first`, cioe' il primo dell'elenco, che
+    // nasce dall'ordine in cui i traguardi sono dichiarati.
+    final maestroDellaFesta =
+        FesteDeiMaestri.dellaScena(widget.traguardi, widget.sentieri);
+    final sentieroDellaFesta = widget.sentieri.firstWhere(
+      (s) => s.maestro == maestroDellaFesta,
+      orElse: () => widget.sentieri.first,
+    );
+    // **E CIO' CHE SI STA CELEBRANDO NON E' IL PROSSIMO**: gli id in corso si
+    // escludono, cosi' la risposta non dipende dal fatto che l'accensione sia
+    // gia' arrivata al diario quando la scena si apre.
+    final prossimo = diario.prossimoDi(
+      sentieroDellaFesta,
+      escludendo: {for (final t in widget.traguardi) t.id},
+    );
     // I sentieri coinvolti, senza ripetizioni e nell'ordine dei nominati: la
     // festa unita porta il segno di ognuno, che e' il "Sigilli di tutti"
     // dell'ordine AC voce 04.

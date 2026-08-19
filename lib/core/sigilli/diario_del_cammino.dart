@@ -382,12 +382,21 @@ class DiarioDelCammino extends ChangeNotifier {
 
   /// Il prossimo traguardo di un sentiero, cioe' il primo non ancora acceso.
   /// Serve alla celebrazione, che non finisce mai col punto.
-  Traguardo? prossimoDi(Sentiero sentiero) {
+  /// **CIO' CHE SI STA CELEBRANDO NON E' IL PROSSIMO, ordine AR voce 07.**
+  /// La festa si apre nell'istante in cui un traguardo matura, e se quel
+  /// traguardo non e' ancora segnato acceso questa ricerca lo trova per primo
+  /// e lo annuncia come il prossimo: e' il difetto visto nell'anteprima
+  /// dell'ordine AQ, dove in fondo alla festa si leggeva il nome appena
+  /// festeggiato. Chi celebra passa gli id in `escludendo` e la risposta non
+  /// dipende piu' dall'ordine con cui arrivano l'accensione e la scena.
+  Traguardo? prossimoDi(Sentiero sentiero, {Set<String> escludendo = const {}}) {
+    bool libero(Traguardo t) =>
+        !_accesi.contains(t.id) && !escludendo.contains(t.id);
     for (final t in Sentieri.miniDi(sentiero)) {
-      if (!_accesi.contains(t.id)) return t;
+      if (libero(t)) return t;
     }
     for (final t in Sentieri.grandiDi(sentiero)) {
-      if (!_accesi.contains(t.id)) return t;
+      if (libero(t)) return t;
     }
     return null;
   }

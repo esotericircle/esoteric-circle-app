@@ -126,9 +126,24 @@ Mauro del 17 agosto 2026.
   chiavi controllare, quindi togliendone una non la cercava piu'. Adesso
   l'elenco della prova e' suo.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2186)
-- **AR.07** "Il prossimo" mostra il prossimo. Stato: APERTA
-  (il gradino ARMATO dopo quello celebrato, e se il sentiero e' finito lo
-  dichiara invece di ripetere l'ultimo)
+- **AR.07** "Il prossimo" mostra il prossimo. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**la causa non era la scheda, era il momento.** La festa si apre
+  nell'istante in cui il traguardo matura, e la ricerca del "primo non
+  acceso" trovava proprio lui se l'accensione non era ancora arrivata al
+  diario. La cura non prova a mettere in fila due eventi asincroni, che e' la
+  famiglia di difetti piu' cara di questo progetto: `prossimoDi` prende
+  `escludendo`, la scena le passa gli id che sta celebrando, e la risposta
+  smette di dipendere dall'ordine di arrivo.
+  **Con la festa unita il prossimo e' quello del sentiero della FESTA**, cioe'
+  del traguardo piu' importante fra i celebrati: e' la stessa regola con cui
+  la scena sceglie Maestro e intensita' (ordine AO voce 05), e prima si
+  prendeva `sentieri.first`, che segue l'ordine in cui i traguardi sono
+  dichiarati. A sentiero finito non si annuncia nessun prossimo, invece di
+  ripetere l'ultimo.
+  Guardia `test/il_prossimo_e_il_prossimo_test.dart` con cinque prove, la
+  prima delle quali riproduce il difetto prima di curarlo. Rosso provato
+  togliendo l'esclusione dalla scena.
+  **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2186)
 - **AR.08** I testi seguono i nomi nuovi. Stato: APERTA
   (ogni posto prende il nome dal dato, e una prova cade se un nome vecchio
   sopravvive)
@@ -143,7 +158,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 10
-VOCI_APERTE: 8
+VOCI_APERTE: 7
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
