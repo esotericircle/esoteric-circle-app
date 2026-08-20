@@ -228,8 +228,19 @@ void main() {
   // continuita' di rito e' seminata se non dove serve. Senza questo ripristino
   // prima di ogni test, il mock di SharedPreferences di una cattura si
   // trascinerebbe nelle successive e ne cambierebbe il rendering.
+  // **LA GENERAZIONE E' GIA' QUELLA, ordine AR voce 06.** Senza questa riga
+  // ogni cattura parte da un telefono alla sua PRIMA apertura dopo la
+  // riprogettazione del Cammino, e il Santuario apre il foglio della rinascita
+  // sopra la scena: nelle anteprime comparirebbe un foglio che non si stava
+  // fotografando, e nella cattura dell'Oroscopo il tocco su "Profonda" cadeva
+  // sul foglio invece che sul menu. Le anteprime mostrano l'app di chi la usa,
+  // non il suo primo minuto.
   setUp(() => SharedPreferences.setMockInitialValues(
-        const {'onboarding.done': true, 'santuario.greeted': true},
+        const {
+          'onboarding.done': true,
+          'santuario.greeted': true,
+          'cammino.generazione': 2,
+        },
       ));
 
   Future<void> loadFont(String family, String path) async {
@@ -2308,6 +2319,21 @@ void main() {
   // carta che tocca. E la profondita' e' la Profonda, che e' l'altra cosa che
   // fino a ieri si pagava senza riceverla.
   testWidgets('Cattura l\'Oroscopo dai transiti veri', (tester) async {
+    // **IL CAMMINO E' GIA' PERCORSO, ordine AR voce 09.** Col corpus della
+    // revisione C interrogare il cielo matura un traguardo, e la celebrazione
+    // si apre sopra la scena: il tocco sul selettore della profondita' cadeva
+    // sulla festa che stava entrando, e il menu non si apriva mai. Il difetto
+    // sfuggiva anche a chi stampava i testi a schermo, perche' una festa in
+    // dissolvenza intercetta i tocchi prima di avere qualcosa da leggere.
+    // Misurato per bisezione sui commit: questa cattura e' verde fino ad
+    // AR.11 e rossa dal commit che porta il corpus nuovo. Con tutti i Sigilli
+    // gia' accesi non matura niente, e sotto il dito c'e' l'Oroscopo.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+    });
     silenceSensors();
     await loadFonts();
     final rootKey =
