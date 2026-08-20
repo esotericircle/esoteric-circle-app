@@ -504,6 +504,83 @@ class PuntoDelSentiero {
 }
 
 /// IL DISEGNO A SCHERMO, con i suoi punti toccabili.
+/// **CHI RISPONDE A UN TOCCO SUL DISEGNO.** Ordine AS voce 04.
+///
+/// **Il fatto di Mauro**: la perla grande dell'Albero non porta al traguardo
+/// mentre le piccole funzionano. **La causa, misurata invece che supposta**:
+/// prima vinceva il punto piu' vicino al dito entro un raggio UGUALE PER
+/// TUTTI, cinquantacinque millesimi del lato corto, cioe' 19,8 punti su una
+/// tela da 360. Ma sui tre sentieri ci sono OTTANTAQUATTRO coppie di punti
+/// piu' vicine di meta' di quel raggio, e la coppia piu' stretta, `aur_47` e
+/// `aur_55`, dista 2,5 punti. Toccando una perla grande bastava sbagliare di
+/// due pixel per prendere il mini accanto: il grande rispondeva solo se il
+/// dito cadeva sul suo centro esatto, e a occhio sembrava che non rispondesse
+/// mai.
+///
+/// **La cura: ogni punto attrae quanto e' disegnato.** Il raggio del tocco non
+/// e' piu' uno per tutti ma viene dalla `GrandezzaDelPunto`, la stessa che il
+/// pittore usa per disegnare: un principale e' tre volte una piccola sul
+/// disegno, e adesso lo e' anche sotto il dito. Si sceglie il punto con la
+/// distanza piu' piccola IN PROPORZIONE al proprio raggio, cosi' la perla
+/// grande vince nella sua area e la piccola resta prendibile fuori.
+///
+/// Il minimo resta il polpastrello: sotto una certa misura un bersaglio non si
+/// prende, per quanto piccolo sia disegnato.
+PuntoDelSentiero? quiHaToccato(
+    List<PuntoDelSentiero> punti, Offset tocco, Size misura) {
+  final corto = math.min(misura.width, misura.height);
+  // Il bersaglio minimo, quello di prima: sotto questa misura nessun punto e'
+  // prendibile, e vale per i piu' piccoli.
+  const minimoDelPolpastrello = 0.055;
+  Offset centroDi(PuntoDelSentiero p) =>
+      Offset(p.dove.dx * misura.width, p.dove.dy * misura.height);
+
+  // **PRIMA PASSATA: il dito e' DENTRO un punto disegnato**, e allora vince
+  // quel punto. Fra due cerchi che contengono il dito vince il PIU' GRANDE, e
+  // a parita' di grandezza il piu' vicino al centro.
+  //
+  // **Perche' il piu' grande e non il piu' interno**, e la misura lo ha
+  // imposto. Sul Loto ci sono punti quasi sovrapposti: `aur_47` sta a 2,5
+  // punti da `aur_55` su una tela da 360, cioe' dentro la perla grande.
+  // Scegliendo il piu' interno in proporzione al proprio raggio, il mini
+  // vinceva sempre e la perla grande restava irraggiungibile: quattro grandi
+  // su quindici, misurato. Il grande e' disegnato SOPRA e piu' largo, quindi
+  // e' cio' che l'occhio vede sotto il dito, ed e' giusto che risponda lui.
+  // Il mini che gli sta sotto resta raggiungibile dalla riga della lista, che
+  // e' la via principale e non ha sovrapposizioni.
+  PuntoDelSentiero? dentro;
+  var raggioDelVinto = -1.0;
+  var distanzaDelVinto = double.infinity;
+  for (final punto in punti) {
+    final raggio = punto.grandezza.raggio * corto;
+    final distanza = (centroDi(punto) - tocco).distance;
+    if (distanza > raggio) continue;
+    if (raggio > raggioDelVinto ||
+        (raggio == raggioDelVinto && distanza < distanzaDelVinto)) {
+      raggioDelVinto = raggio;
+      distanzaDelVinto = distanza;
+      dentro = punto;
+    }
+  }
+  if (dentro != null) return dentro;
+
+  // **SECONDA PASSATA: il dito e' fuori da tutti**, e allora vale il
+  // polpastrello, cioe' il piu' vicino entro una zona larga uguale per tutti.
+  // Senza questa, un punto da undici millesimi di tela sarebbe piu' piccolo di
+  // un dito e non si prenderebbe mai.
+  PuntoDelSentiero? vicino;
+  var minima = double.infinity;
+  for (final punto in punti) {
+    final distanza = (centroDi(punto) - tocco).distance;
+    if (distanza < minima) {
+      minima = distanza;
+      vicino = punto;
+    }
+  }
+  if (vicino != null && minima <= corto * minimoDelPolpastrello) return vicino;
+  return null;
+}
+
 class DisegnoDelSentiero extends StatelessWidget {
   const DisegnoDelSentiero({
     super.key,
@@ -544,24 +621,8 @@ class DisegnoDelSentiero extends StatelessWidget {
               ? null
               : (dettaglio) {
                   final tocco = dettaglio.localPosition;
-                  final corto = math.min(misura.width, misura.height);
-                  PuntoDelSentiero? vicino;
-                  var minima = double.infinity;
-                  for (final punto in punti) {
-                    final centro = Offset(punto.dove.dx * misura.width,
-                        punto.dove.dy * misura.height);
-                    final distanza = (centro - tocco).distance;
-                    if (distanza < minima) {
-                      minima = distanza;
-                      vicino = punto;
-                    }
-                  }
-                  // La zona toccabile e' piu' larga del disegno: un punto da
-                  // undici millesimi di tela e' piu' piccolo di un polpastrello,
-                  // e un bersaglio che non si prende non e' un bersaglio.
-                  if (vicino != null && minima <= corto * 0.055) {
-                    suTocco!(vicino.traguardo);
-                  }
+                  final vicino = quiHaToccato(punti, tocco, misura);
+                  if (vicino != null) suTocco!(vicino.traguardo);
                 },
           child: CustomPaint(
             key: Key('disegno_${sentiero.name}'),

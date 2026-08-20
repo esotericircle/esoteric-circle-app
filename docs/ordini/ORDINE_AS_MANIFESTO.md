@@ -140,9 +140,33 @@ Mauro del 17 agosto 2026.
   che RISPONDE e risponde di no, che e' cosa diversa da una porta spenta.
   **Prova del rosso**: rimessa l'uscita anticipata prima della domanda al
   server, la guardia cade e nomina il difetto)
-- **AS.04** Ogni Sigillo acceso si tocca, su tutti e tre i sentieri. Stato: APERTA
-  (enumerare gli elementi toccabili, grandi e piccoli, e provare che ciascuno
-  apra la card del suo traguardo)
+- **AS.04** Ogni Sigillo acceso si tocca, su tutti e tre i sentieri. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**LA CAUSA E' MISURATA, e non e' quella che sembrava.** Non c'era niente di
+  rotto nei punti grandi: il tocco sceglieva il punto piu' vicino al dito entro
+  un raggio UGUALE PER TUTTI, cinquantacinque millesimi del lato corto, cioe'
+  19,8 punti su una tela da 360. Ma sui tre sentieri ci sono OTTANTAQUATTRO
+  coppie di punti piu' vicine di meta' di quel raggio, e la piu' stretta,
+  `aur_47` e `aur_55`, dista 2,5 punti: bastava sbagliare di due pixel per
+  prendere il mini invece della perla. Il grande rispondeva solo col dito sul
+  centro esatto, e a occhio sembrava non rispondesse mai.
+  **La cura: ogni punto attrae quanto e' disegnato.** Nasce `quiHaToccato`, una
+  porta sola, in due passate. Prima: se il dito cade DENTRO un cerchio
+  disegnato, vince quel cerchio, e fra due cerchi sovrapposti vince il PIU'
+  GRANDE, perche' e' quello che si vede sotto il dito. Poi: se il dito e' fuori
+  da tutti, vale il polpastrello di prima, cioe' il piu' vicino entro la zona
+  larga uguale per tutti, se no un punto da undici millesimi di tela non si
+  prenderebbe mai.
+  **Il piu' interno era la prima stesura, e la misura l'ha bocciata**: quattro
+  grandi su quindici restavano irraggiungibili, perche' un mini quasi
+  sovrapposto e' sempre piu' interno in proporzione al proprio raggio.
+  **DODICI PUNTI RESTANO COPERTI da uno piu' grande, ed e' dichiarato**: sono
+  mini che il disegno mette dentro una perla, e la loro via e' la riga della
+  lista, che non ha sovrapposizioni. La guardia lo pretende esplicito e cade se
+  diventassero tanti.
+  Guardia `test/ogni_sigillo_si_tocca_test.dart`: enumera tutti e 165 i punti,
+  i quindici grandi a parte, e otto tocchi dentro ogni perla grande, 120 in
+  tutto. **Prova del rosso** togliendo la prima passata: 12 tocchi su 120
+  finiscono al mini)
 - **AS.05** Si legge, e la card del traguardo si sfoltisce. Stato: APERTA
   (i grigi sotto contrasto tornano in regola; via la bolla del prossimo
   traguardo)
@@ -169,7 +193,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 9
+VOCI_APERTE: 8
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
