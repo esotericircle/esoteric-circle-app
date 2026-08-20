@@ -140,23 +140,30 @@ class PittoreDellaFesta extends CustomPainter {
     late Offset dove;
     switch (_festa.direzione) {
       case DirezioneDellaFesta.dalCentro:
-        // **DAL CENTRO VERSO FUORI**, e il centro e' il punto in cui il
-        // traguardo si e' acceso, cioe' il mezzo della scena.
-        final angolo = quanto * 2 * math.pi;
+        // **DAL CENTRO VERSO FUORI, e adesso per tutti e tre.** Ordine AS voce
+        // 02: il centro e' il punto in cui il traguardo si e' acceso, cioe' il
+        // mezzo della scena. Le particelle partono di li' e si aprono a
+        // ventaglio, scoprendo il nome e il premio mentre volano via.
+        //
+        // Lo scarto fra le tre feste sta nella MATERIA e nel colore, non nella
+        // strada: una pioggia dall'alto teneva coperto il traguardo per meta'
+        // della sua corsa, ed era proprio la cosa da leggere.
+        // **GLI ANGOLI SI SPARTISCONO IL GIRO, non se lo tirano a sorte.**
+        // Ordine AS voce 02. Prima l'angolo era `quanto`, cioe' un numero a
+        // caso: con novanta stelle il cerchio si riempiva quasi uniforme, ma
+        // con le QUARANTA rune di Caligo i quadranti risultavano sbilanciati
+        // del 115 per cento, misurato dalla guardia dell'esplosione in tondo,
+        // e un'esplosione sbilanciata si legge come una direzione.
+        //
+        // Adesso ogni particella prende la sua fetta di giro dall'indice, e
+        // `quanto` diventa uno scarto dentro quella fetta: il giro e' coperto
+        // per costruzione, e resta il disordine che serve perche' non sembri
+        // una ruota di raggi.
+        final fetta = 2 * math.pi / math.max(1, quanteParticelle);
+        final angolo = indice * fetta + (quanto - 0.5) * fetta;
         final raggio = t * math.max(larghezza, altezza) * (0.35 + laterale);
         dove = Offset(larghezza / 2 + raggio * math.cos(angolo),
             altezza / 2 + raggio * math.sin(angolo) * 0.9);
-      case DirezioneDellaFesta.dallAlto:
-        // **DALL'ALTO VERSO IL BASSO**, e quando la cascata finisce sotto di lei
-        // restano scoperti il traguardo e il premio.
-        dove = Offset(quanto * larghezza, -0.1 * altezza + t * 1.25 * altezza);
-      case DirezioneDellaFesta.dalBasso:
-        // **DAL BASSO VERSO L'ALTO**, e nel salire scopre cio' che sta sotto.
-        // Il polline non sale dritto: ondeggia, ed e' cio' che lo distingue da
-        // una pioggia girata al contrario.
-        final onda = math.sin(t * math.pi * 2 + indice) * larghezza * 0.06;
-        dove = Offset(quanto * larghezza + onda,
-            altezza * 1.05 - t * 1.2 * altezza);
     }
     return dove;
   }

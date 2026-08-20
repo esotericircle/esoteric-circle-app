@@ -988,6 +988,53 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
                   ),
                 ),
               ),
+              // **ANCHE LA FESTA BREVE HA LA MATERIA DEL SUO MAESTRO.** Ordine
+              // AS voce 02, ed e' il difetto che Mauro vedeva "nella maggior
+              // parte dei casi".
+              //
+              // **L'enumerazione ha detto questo.** Le strade che portano a una
+              // celebrazione sono due, e le decide una riga sola dentro
+              // `festeggiaInsieme`: un traguardo GRANDE, o il primo in
+              // assoluto, apre la scena a schermo pieno, che le particelle le
+              // ha sempre avute; tutti gli altri aprono questa fascia, che
+              // mostrava il solo glifo. I traguardi grandi sono quindici su
+              // centosessantacinque: la fascia e' il caso normale, cioe' la
+              // festa che una persona vede quasi sempre, ed era l'unica senza
+              // stelle, rune o petali.
+              //
+              // Stesso pittore della scena grande, stessa posa a Riduci
+              // Movimento, stesso Maestro scelto dal traguardo piu' importante:
+              // una porta sola, non due che si somigliano.
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: AnimatedBuilder(
+                    animation: _segno,
+                    builder: (context, _) => CustomPaint(
+                      key: Key('festa_breve_${FesteDeiMaestri.dellaScena(
+                        widget.traguardi,
+                        widget.sentieri,
+                      ).id}'),
+                      painter: PittoreDellaFesta(
+                        maestro: FesteDeiMaestri.dellaScena(
+                          widget.traguardi,
+                          widget.sentieri,
+                        ),
+                        avanzamento: MediaQuery.of(context).disableAnimations
+                            ? PittoreDellaFesta.posaDelCampoPieno
+                            : _segno.value,
+                        oro: palette.gold,
+                        oroTenue: palette.goldSoft,
+                        // La fascia e' la forma dei mini: l'intensita' e'
+                        // quella piccola, se no non si distinguerebbe piu'
+                        // dalla scena grande.
+                        eGrande: false,
+                        effettiPieni:
+                            !MediaQuery.of(context).disableAnimations,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

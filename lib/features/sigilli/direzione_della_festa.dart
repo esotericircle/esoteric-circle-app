@@ -17,21 +17,29 @@ import '../../core/sigilli/sentieri.dart';
 /// riga cade invece che passare inosservata.
 
 /// Da dove parte il movimento e dove va.
+///
+/// **UNA SOLA DIREZIONE, DECISIONE DI MAURO DEL 20 AGOSTO 2026, ordine AS voce
+/// 02.** Le tre feste esplodono TUTTE dal centro, come quella di Medora, e
+/// cambia solo la materia: stelle, rune, petali, col colore del proprio
+/// Maestro. La pioggia dall'alto di Caligo e la salita dal basso di Aura non
+/// esistono piu'.
+///
+/// **Perche' la scelta e' giusta e va scritta, non subita.** La direzione
+/// doveva far riconoscere il Maestro prima di leggere; ma una festa che parte
+/// dal centro SCOPRE cio' che c'e' sotto aprendosi, mentre una che cade
+/// dall'alto lo copre a meta' corsa e lo libera solo alla fine. Il traguardo e
+/// il premio sono la cosa da leggere, e le altre due direzioni li tenevano
+/// nascosti piu' a lungo. La materia basta a distinguere: una runa non somiglia
+/// a un petalo nemmeno a occhio distratto.
+///
+/// L'enumerazione resta, con un valore solo, invece di sparire: cosi' chi
+/// domani volesse una direzione nuova trova il posto dove metterla e trova
+/// scritto perche' ne era stata tolta una.
 enum DirezioneDellaFesta {
-  /// **MEDORA: dal centro verso fuori.** Un'esplosione di stelle che si apre dal
+  /// **DAL CENTRO VERSO FUORI**, per tutti e tre. Un'esplosione che si apre dal
   /// punto in cui il traguardo si e' acceso e riempie lo schermo, e nel farlo
   /// scopre il traguardo e il premio.
   dalCentro,
-
-  /// **CALIGO: dall'alto verso il basso.** Una pioggia fitta di numeri di
-  /// dimensioni diverse che cadono e riempiono la schermata; quando la cascata
-  /// finisce verso il basso, sotto di essa restano scoperti il traguardo e il
-  /// premio.
-  dallAlto,
-
-  /// **AURA: dal basso verso l'alto.** Polline e petali che salgono dal margine
-  /// inferiore, si aprono e nel salire scoprono il traguardo e il premio.
-  dalBasso,
 }
 
 /// Di che cosa e' fatta la festa: e' il segno del Maestro, non un ornamento.
@@ -79,7 +87,8 @@ class FesteDeiMaestri {
       quanteParticelle: 90,
     ),
     Maestro.caligo: FestaDelMaestro(
-      direzione: DirezioneDellaFesta.dallAlto,
+      // Dal centro come gli altri due, ordine AS voce 02: cambia la materia.
+      direzione: DirezioneDellaFesta.dalCentro,
       materia: MateriaDellaFesta.rune,
       // **QUARANTA, E IL NUMERO E' MISURATO, non ereditato.** Il criterio non e'
       // "quante ce ne stanno": e' **arrivare alla copertura delle altre due**,
@@ -97,7 +106,8 @@ class FesteDeiMaestri {
       quanteParticelle: 40,
     ),
     Maestro.aura: FestaDelMaestro(
-      direzione: DirezioneDellaFesta.dalBasso,
+      // Dal centro come gli altri due, ordine AS voce 02: cambia la materia.
+      direzione: DirezioneDellaFesta.dalCentro,
       materia: MateriaDellaFesta.polline,
       quanteParticelle: 90,
     ),

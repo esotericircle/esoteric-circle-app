@@ -19,7 +19,19 @@ import 'package:flutter_test/flutter_test.dart';
 /// domani qualcuno riusa la scena di Medora per Aura, una prova cade invece che
 /// passare inosservata.
 void main() {
-  test('i tre Maestri hanno tre direzioni diverse, e nessuna manca', () {
+  test('tutte e tre le feste partono dal centro, per decisione di Mauro', () {
+    // **LA PRETESA SI E' ROVESCIATA, E IL PERCHE' VA SCRITTO.** Ordine AS voce
+    // 02, decisione di Mauro del 20 agosto 2026. Prima questa riga pretendeva
+    // TRE DIREZIONI DIVERSE, perche' si voleva far riconoscere il Maestro
+    // prima di leggere. Adesso ne pretende UNA SOLA, e non e' una guardia
+    // allentata: e' la stessa guardia che sorveglia la decisione nuova, cioe'
+    // che nessuno rimetta di nascosto la pioggia dall'alto.
+    //
+    // La ragione della decisione: una festa che parte dal centro SCOPRE il
+    // traguardo e il premio aprendosi, mentre una che cade dall'alto li tiene
+    // coperti per meta' della corsa. Il nome e gli Eos sono la cosa da
+    // leggere. A distinguere i Maestri resta la materia, che si riconosce a
+    // colpo d'occhio: una runa non somiglia a un petalo.
     var osservati = 0;
     final direzioni = <DirezioneDellaFesta, List<String>>{};
     for (final maestro in Maestro.values) {
@@ -27,21 +39,17 @@ void main() {
       final festa = FesteDeiMaestri.di(maestro);
       (direzioni[festa.direzione] ??= <String>[]).add(maestro.id);
     }
-    // **QUANTE OSSERVAZIONI, e cade se sono zero.**
     // ignore: avoid_print
-    print('ORDINE U VOCE 02: Maestri osservati $osservati, direzioni distinte '
+    print('ORDINE AS VOCE 02: Maestri osservati $osservati, direzioni distinte '
         '${direzioni.length}');
     expect(osservati, greaterThan(0),
         reason: 'la prova non ha guardato nessun Maestro: gira a vuoto');
-    expect(direzioni.length, osservati,
-        reason: 'due Maestri condividono la stessa direzione, quindi le loro '
-            'feste si somigliano nel movimento e restano distinguibili solo '
-            'dal colore: '
-            '${direzioni.entries.where((e) => e.value.length > 1).map((e) => "${e.key.name} -> ${e.value.join(", ")}").join(" | ")}');
-    // E tutte e tre le direzioni dichiarate sono usate: una direzione che non
-    // e' di nessuno e' una scena che nessuno vedra' mai.
-    expect(direzioni.keys.toSet(), DirezioneDellaFesta.values.toSet(),
-        reason: 'una direzione dichiarata non appartiene a nessun Maestro');
+    expect(direzioni.keys.toList(), [DirezioneDellaFesta.dalCentro],
+        reason: 'una festa non parte piu dal centro: '
+            '${direzioni.entries.map((e) => "${e.key.name} -> ${e.value.join(", ")}").join(" | ")}');
+    expect(DirezioneDellaFesta.values, hasLength(1),
+        reason: 'e tornata una direzione che la decisione del 20 agosto aveva '
+            'tolto: se serve davvero, si dichiara e si cambia questa riga');
   });
 
   test('le tre materie sono diverse, e non solo le direzioni', () {

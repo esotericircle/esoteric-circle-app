@@ -82,9 +82,40 @@ Mauro del 17 agosto 2026.
   il riposo imparato: mostrarne uno solo ha nascosto meta' del fenomeno per un
   ordine intero. Guardia `test/l_inclinazione_parte_dal_riposo_test.dart`.
   **Il numero vero lo legge Mauro dalla riga, sul telefono**)
-- **AS.02** Le feste sono sempre quelle nuove, e esplodono dal centro. Stato: APERTA
-  (enumerare le strade che portano a una celebrazione e farle passare da una
-  porta sola; tutte e tre le feste esplodono dal centro come quella di Medora)
+- **AS.02** Le feste sono sempre quelle nuove, e esplodono dal centro. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**L'ENUMERAZIONE HA TROVATO IL DIFETTO, ed era piu' semplice di quanto
+  sembrasse.** Le strade che portano a una celebrazione sono DUE, e le sceglie
+  una riga sola dentro `Celebrazione.festeggiaInsieme`: un traguardo GRANDE, o
+  il primo Sigillo in assoluto, apre la scena a schermo pieno; **tutti gli
+  altri aprono la FASCIA**, che mostrava il solo glifo del Maestro senza
+  nessuna particella. I grandi sono quindici su centosessantacinque: la fascia
+  e' il caso normale, e "la maggior parte dei casi" di Mauro era alla lettera
+  il novanta per cento delle feste.
+  Adesso la fascia riceve lo stesso `PittoreDellaFesta` della scena grande,
+  con lo stesso Maestro scelto dal traguardo piu' importante e la stessa posa a
+  Riduci Movimento: una porta sola, non due che si somigliano.
+  **TUTTE E TRE DAL CENTRO, decisione di Mauro.** `DirezioneDellaFesta` resta
+  un'enumerazione ma con un valore solo, e la guardia che pretendeva TRE
+  direzioni diverse adesso ne pretende UNA: non e' una guardia allentata, e'
+  la stessa guardia che sorveglia la decisione nuova, col perche' scritto
+  accanto.
+  **Un difetto trovato strada facendo, per misura.** Con la direzione unica,
+  gli angoli delle particelle erano tirati a sorte, e con le QUARANTA rune di
+  Caligo i quadranti risultavano sbilanciati del 115 per cento: un'esplosione
+  sbilanciata si legge come una direzione. Adesso ogni particella prende la sua
+  fetta di giro dall'indice e il caso decide solo lo scarto dentro la fetta.
+  Misurato dopo: medora 13,4 per cento, aura 25,7, caligo 28,8, tutti sotto il
+  55 ammesso.
+  **LE NOVE ANTEPRIME NASCONO DALLA SCENA VERA**, non piu' da
+  `tool/anteprime_delle_feste.dart` che compone il pittore a mano: la guardia
+  dei quadranti legge quelle immagini, quindi finche' nascevano da uno
+  strumento sorvegliava lo strumento. E lo scope porta il Maestro del sentiero,
+  che mancava: la prima cattura mostrava la festa di Caligo coi colori del
+  Maestro corrente.
+  Guardia nuova `test/anche_la_festa_breve_ha_la_materia_test.dart`, che monta
+  la fascia vera e conta i pixel che cambiano in alto: 28, 11 e 24 su mille coi
+  tre sentieri. **Prova del rosso col pittore congelato**: 4, 3 e 5, e la
+  soglia sta in mezzo a otto, tarata sui due stati e non scelta a occhio)
 - **AS.03** Il borsellino si aggiorna al traguardo. Stato: APERTA
   (dove si ferma l'accredito, per enumerazione; un accredito rifiutato resta in
   attesa e riprova)
@@ -117,7 +148,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 11
+VOCI_APERTE: 10
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
