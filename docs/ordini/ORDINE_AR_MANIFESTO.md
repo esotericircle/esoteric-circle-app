@@ -217,7 +217,12 @@ Mauro del 17 agosto 2026.
 - **AR.09** Il manifesto, la suite, l'accensione e la build 2186. Stato: CHIUSA
   (stati veri qui sopra; l'accensione tentata e non riuscita, con la causa
   scritta in testa; `npm test` nelle funzioni verde, 34 prove su 34; suite
-  Flutter intera girata una volta sola; numero a 0.1.0+2186 e consegna
+  Flutter intera: 3.024 verdi e SETTE rossi, che sono esattamente i sette
+  di legge gia dichiarati (l attribuzione cieca, che si rimisura solo dal PC
+  di Mauro con gcloud; il disegno di albero e quello di loto fuori tela;
+  un_traguardo_acceso_pesa_uguale; e le tre guardie degli ordini AC, T e U
+  ancora aperti). L OTTAVO ROSSO, che di legge non era, e stato trovato e
+  curato: vedi la coda della cattura dell Oroscopo; numero a 0.1.0+2186 e consegna
   all'App Distribution.
   **LE CODE DEL CORPUS NUOVO, e sono la parte che nessuno aveva previsto.**
   Cambiare i centosessantacinque traguardi ha fatto cadere prove che non
