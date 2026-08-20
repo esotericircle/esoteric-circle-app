@@ -71,12 +71,33 @@ class RigaDiMessaAPunto extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 2),
+          // **LA CORSA SI DICE SU TUTTI E DUE GLI ASSI. Ordine AS voce 01.**
+          // Prima questa riga mostrava un numero solo, quello dell'asse X, e
+          // ha nascosto meta' del fenomeno per un ordine intero: sull'asse Y
+          // la corsa era gia' a 79 punti su 80 col telefono fermo in mano,
+          // cioe' saturo in permanenza, e dalla riga non si poteva sapere.
+          // Una misura che guarda meta' della cosa e' una misura che mente.
           Text(
-            'Inclinazione ${parallasse.tiltX.toStringAsFixed(2)} e '
+            'Inclinazione dal riposo ${parallasse.tiltX.toStringAsFixed(2)} e '
             '${parallasse.tiltY.toStringAsFixed(2)}. Il piano di fondo corre '
-            '${corsa.dx.toStringAsFixed(1)} punti su '
+            '${corsa.dx.toStringAsFixed(1)} in orizzontale e '
+            '${corsa.dy.toStringAsFixed(1)} in verticale, su '
             '${corsaAttesaDelFondo.toStringAsFixed(0)} attesi a fondo corsa.',
             key: const Key('messa_a_punto_numeri'),
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+          ),
+          const SizedBox(height: 2),
+          // Il riposo imparato: se questi due numeri non somigliano a come si
+          // sta tenendo il telefono, il difetto e' nell'apprendimento e non
+          // nella corsa.
+          Text(
+            parallasse.riposoX == null
+                ? 'Riposo non ancora imparato: nessuna lettura del sensore.'
+                : 'Riposo imparato ${parallasse.riposoX!.toStringAsFixed(2)} e '
+                    '${parallasse.riposoY!.toStringAsFixed(2)}: è come stai '
+                    'tenendo il telefono adesso.',
+            key: const Key('messa_a_punto_riposo'),
             style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4),
           ),

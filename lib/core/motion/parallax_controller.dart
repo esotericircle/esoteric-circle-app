@@ -156,17 +156,102 @@ class ParallaxController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// **QUANTO IN FRETTA IL RIPOSO INSEGUE LA POSTURA.** Ordine AS voce 01.
+  ///
+  /// Deve essere abbastanza lento da NON seguire un'inclinazione voluta, che
+  /// dura uno o due secondi, e abbastanza svelto da accorgersi che la persona
+  /// si e' sdraiata o ha appoggiato il telefono. A 66 millisecondi per
+  /// campione, con questo passo in due secondi il riposo si sposta dell'otto
+  /// per cento (l'inclinazione resta quasi tutta deviazione) e in mezzo minuto
+  /// si sposta del settantacinque per cento (la postura nuova diventa il nuovo
+  /// zero).
+  static const double passoDelRiposo = 0.003;
+
+  /// **IL GUADAGNO, e il numero viene dal criterio di Mauro.** Ordine AS voce
+  /// 01: quindici gradi dal riposo devono dare quasi tutta la corsa, cioe' piu'
+  /// di 60 punti sugli 80 del piano di fondo.
+  ///
+  /// Quindici gradi valgono `sin(15) = 0,2588` di gravita'. Con guadagno 5,
+  /// `tanh(0,2588 * 5) = 0,860`, cioe' 68,8 punti a regime. **Il primo numero
+  /// provato era 4, e la misura lo ha bocciato**: dava 62 punti a regime ma
+  /// 58,4 nel gesto vero, perche' il passa-basso che rende dolce il moto ci
+  /// mette una trentina di campioni ad arrivare, e un'inclinazione dura un
+  /// secondo. La soglia non si e' abbassata: si e' alzato il guadagno, che e'
+  /// la cosa che si stava tarando.
+  ///
+  /// A novanta gradi la deviazione vale 1 e `tanh(5) = 0,9999`, quindi la
+  /// corsa resta 80 e non la supera mai: la saturazione e' MORBIDA, non un
+  /// taglio netto, e fra i quindici e i novanta gradi il cielo continua a
+  /// rispondere invece di essere gia' finito.
+  static const double guadagnoDellInclinazione = 5.0;
+
+  /// La posizione di riposo imparata, cioe' come la persona tiene il telefono
+  /// adesso. Nulla finche' non arriva la prima lettura: il primo campione la
+  /// fissa, altrimenti il cielo partirebbe a fondo corsa e ci metterebbe
+  /// mezzo minuto a tornare a casa.
+  double? _riposoX;
+  double? _riposoY;
+
+  /// La posizione di riposo, per chi la vuole mostrare. Ordine AS voce 01.
+  double? get riposoX => _riposoX;
+  double? get riposoY => _riposoY;
+
+  /// Saturazione morbida: `tanh`, scritta a mano perche' `dart:math` non la
+  /// porta. Cresce quasi dritta vicino allo zero e si appiattisce sull'uno.
+  static double _morbida(double v) {
+    final e2 = math.exp(2 * v);
+    return (e2 - 1) / (e2 + 1);
+  }
+
+  /// **DALLA GRAVITA' ALLA DEVIAZIONE.** Ordine AS voce 01, ed e' il cuore
+  /// della cura.
+  ///
+  /// Prima il tilt era la gravita' stessa: `tiltY = e.y / 9.8`. Ma un telefono
+  /// tenuto in mano per leggere porta quasi tutta la gravita' sull'asse Y,
+  /// quindi `tiltY` valeva 0,98 SEMPRE, cioe' era saturo in permanenza e meta'
+  /// della parallasse era morta prima di cominciare. Sull'asse X, invece, la
+  /// scala era tarata su novanta gradi: quindici gradi di inclinazione vera
+  /// valevano 21 punti sugli 80, ed e' esattamente il "si sposta di pochi
+  /// millimetri" che Mauro ha visto.
+  ///
+  /// Adesso lo zero e' la POSIZIONE DI RIPOSO, cioe' come la persona tiene il
+  /// telefono adesso, e il tilt e' quanto se ne discosta. Il cielo sta fermo
+  /// quando la mano sta ferma, e si muove quando la mano si muove: e' la sola
+  /// cosa che una persona possa collegare al proprio gesto.
   void _onAccel(AccelerometerEvent e) {
-    // x e y della gravita' danno l'inclinazione; normalizziamo su g (9.8) e
-    // filtriamo passa-basso per un moto dolce e senza scatti.
-    final targetX = (-e.x / 9.8).clamp(-1.0, 1.0);
-    final targetY = (e.y / 9.8).clamp(-1.0, 1.0);
+    // La gravita' normalizzata su g, senza tagli: qui e' il riferimento da cui
+    // si misura, non ancora un valore da mostrare.
+    final gx = -e.x / 9.8;
+    final gy = e.y / 9.8;
+
+    // Il primo campione FISSA il riposo. Senza questo il riposo partirebbe da
+    // zero, la deviazione varrebbe tutta la gravita' e il cielo si aprirebbe a
+    // fondo corsa per i primi secondi di ogni avvio.
+    _riposoX ??= gx;
+    _riposoY ??= gy;
+    _riposoX = _riposoX! + (gx - _riposoX!) * passoDelRiposo;
+    _riposoY = _riposoY! + (gy - _riposoY!) * passoDelRiposo;
+
+    final targetX =
+        _morbida((gx - _riposoX!) * guadagnoDellInclinazione).clamp(-1.0, 1.0);
+    final targetY =
+        _morbida((gy - _riposoY!) * guadagnoDellInclinazione).clamp(-1.0, 1.0);
+    // Il passa-basso di sempre, per un moto dolce e senza scatti.
     const alpha = 0.12;
     _tiltX += (targetX - _tiltX) * alpha;
     _tiltY += (targetY - _tiltY) * alpha;
     _sensorActive = true;
     notifyListeners();
   }
+
+  /// **SOLO PER LE PROVE: una lettura del sensore, come arriverebbe.** Ordine
+  /// AS voce 01. `inclinaPerLaProva` scavalca tutto e impone il tilt: serve a
+  /// misurare la corsa dei piani, non la formula. Questa invece entra dalla
+  /// stessa porta del sensore vero, cosi' una prova puo' simulare una
+  /// sequenza di letture, imparare il riposo e poi inclinare.
+  @visibleForTesting
+  void leggiDalSensorePerLaProva(double x, double y, double z) =>
+      _onAccel(AccelerometerEvent(x, y, z, DateTime.now()));
 
   @override
   void dispose() {

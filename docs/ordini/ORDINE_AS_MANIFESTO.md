@@ -55,10 +55,33 @@ Mauro del 17 agosto 2026.
 
 ## Le voci
 
-- **AS.01** L'inclinazione si misura dal riposo, non dalla gravita'. Stato: APERTA
-  (nasce una posizione di riposo che diventa lo zero; il tilt e' la deviazione;
-  il guadagno e' tarato perche' quindici gradi diano quasi tutta la corsa. La
-  riga di messa a punto mostra tutti e due gli assi)
+- **AS.01** L'inclinazione si misura dal riposo, non dalla gravita'. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**la cura, e i numeri sono tutti misurati.** Nasce la POSIZIONE DI RIPOSO:
+  una media che si muove col passo 0,003, cioe' in due secondi insegue l'otto
+  per cento e in mezzo minuto il settantacinque. Il primo campione la fissa,
+  altrimenti ogni avvio comincerebbe a fondo corsa. Il tilt e' la DEVIAZIONE
+  dal riposo, passata per una saturazione morbida (`tanh`) col guadagno 5.
+  **Il guadagno 4 e' stato provato e bocciato dalla misura**: dava 62 punti a
+  regime ma 58,4 nel gesto vero, perche' il passa-basso che rende dolce il
+  moto ci mette una trentina di campioni e un'inclinazione dura un secondo. La
+  soglia non si e' abbassata, si e' alzata la cosa che si stava tarando.
+  **I numeri del criterio, misurati con una sequenza di letture del sensore e
+  non con un tilt imposto**: fermo nella postura di lettura, tilt 0,000 e
+  0,000, corse 0,0 e 0,0 punti; a quindici gradi dal riposo il fondo corre
+  65,4 punti sugli 80 (il criterio chiedeva piu' di 60); a fondo corsa 79,9,
+  quindi non sfonda mai; e tenendo il telefono inclinato per un minuto la
+  corsa scende da 76,8 a 12,4, cioe' la postura nuova diventa lo zero nuovo.
+  **La corsa dei piani e' congelata dall'ordine AR e questa voce tocca il
+  controllore, quindi si rimisura**: polvere 30,0, fondo 80,0, medio 105,5,
+  vicino 165,5, identici alla tabella F3 prima e dopo.
+  **LA PROVA DEL ROSSO riproduce alla lettera cio' che Mauro ha letto sul
+  telefono**: rimessa la formula vecchia, da fermo il tilt Y vale 0,985 e il
+  fondo ha gia' speso 78,8 punti su 80, e a quindici gradi ne corre 20,3, che
+  e' il fatto F4 al decimo.
+  La riga di messa a punto adesso dice la corsa su ENTRAMBI gli assi e mostra
+  il riposo imparato: mostrarne uno solo ha nascosto meta' del fenomeno per un
+  ordine intero. Guardia `test/l_inclinazione_parte_dal_riposo_test.dart`.
+  **Il numero vero lo legge Mauro dalla riga, sul telefono**)
 - **AS.02** Le feste sono sempre quelle nuove, e esplodono dal centro. Stato: APERTA
   (enumerare le strade che portano a una celebrazione e farle passare da una
   porta sola; tutte e tre le feste esplodono dal centro come quella di Medora)
@@ -94,7 +117,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 12
+VOCI_APERTE: 11
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
