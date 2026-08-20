@@ -107,10 +107,10 @@ class PremioDelTraguardo {
   const PremioDelTraguardo._();
 
   static String motivoDi(Traguardo traguardo) {
-    if (traguardo.eGrande) return 'traguardo_grande_${traguardo.posizione}';
-    return traguardo.posizione <= 3
-        ? 'traguardo_mini_primi_tre'
-        : 'traguardo_mini';
+    // **IL NOME DICE IL GRADINO, non l'importo.** Il valore vive solo nel
+    // listino del server, che dalla posizione sa quanto vale quel gradino:
+    // il client non lo nomina e non lo puo' gonfiare.
+    return 'traguardo_gradino_${traguardo.posizione}';
   }
 
   /// Accredita il premio del traguardo. Torna il saldo nuovo, oppure nullo se

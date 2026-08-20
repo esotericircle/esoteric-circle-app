@@ -1,5 +1,8 @@
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/features/shell/spazio_della_barra.dart';
+import 'package:esoteric_circle/features/shell/app_shell.dart';
+import 'package:esoteric_circle/features/shell/navigation_controller.dart';
+import 'package:provider/provider.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +71,13 @@ void main() {
       'onboarding.done': true,
       'santuario.greeted': true,
       'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+      // **LA GENERAZIONE E' GIA' QUELLA, ordine AR voce 06.** Senza questa
+      // riga il telefono di questa prova risulta alla prima apertura dopo la
+      // riprogettazione del Cammino: la rinascita spegne i Sigilli appena
+      // accesi qui sopra, le feste tornano a coprire lo schermo e il dito
+      // cade sulla celebrazione invece che sul Passaporto. Misurato: la card
+      // restava a 930 punti per tutti e dieci i passi.
+      'cammino.generazione': 2,
     });
     tester.view.physicalSize = const Size(1080, 2391);
     tester.view.devicePixelRatio = 3.0;
@@ -77,13 +87,20 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 2));
 
-    final voce = find.byKey(const Key('barra_voce_passport'));
-    expect(voce, findsOneWidget,
-        reason: 'la voce del Passaporto non c\'e\' nella barra: la prova non '
-            'puo\' nemmeno arrivare alla schermata da misurare');
-    await tester.tap(voce);
+    // **SI ARRIVA DAL CONTROLLORE, NON DA UNA VOCE DI BARRA**, ordine AR coda
+    // sulla barra. La barra sottile ha perso il menu con le voci: adesso porta
+    // un volto, un borsellino e il centro degli Eventi Cosmici, e la chiave
+    // `barra_voce_passport` non esiste piu'. Questa prova non misura COME ci
+    // si arriva: misura che, una volta al Passaporto, la barra non copra
+    // niente. Quindi si apre la schermata dalla porta del guscio, e la cosa
+    // misurata resta identica.
+    final ctxNav = tester.element(find.byType(AppShell));
+    Provider.of<NavigationController>(ctxNav, listen: false).goToPassport();
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
+    expect(find.byType(CustomScrollView), findsWidgets,
+        reason: 'il Passaporto non si e aperto: la prova non ha niente da '
+            'misurare');
   }
 
   /// I testi del contenuto che scorre, con la loro scatola a schermo.

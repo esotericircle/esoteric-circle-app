@@ -87,6 +87,12 @@ void main() {
       'santuario.greeted': true,
       'cammino.gesti': '{"stesa":3}',
       'cammino.accesi': <String>['med_1'],
+      // **LA GENERAZIONE E' GIA' QUELLA, ordine AR voce 06.** Senza questa
+      // riga il telefono di questa prova risulterebbe alla sua PRIMA
+      // apertura dopo la riprogettazione del Cammino, e il custode
+      // azzererebbe tutto prima di raccogliere: il cammino mandato
+      // arriverebbe vuoto, e non perche' la sincronia sia rotta.
+      'cammino.generazione': 2,
     });
     // ignore: avoid_print
     print('ORDINE AP VOCE 02: cammini mandati ${porta.camminiMandati}, '
@@ -109,6 +115,12 @@ void main() {
       'santuario.greeted': true,
       'cammino.gesti': '{"stesa":3}',
       'cammino.accesi': <String>['med_1'],
+      // **LA GENERAZIONE E' GIA' QUELLA, ordine AR voce 06.** Senza questa
+      // riga il telefono di questa prova risulterebbe alla sua PRIMA
+      // apertura dopo la riprogettazione del Cammino, e il custode
+      // azzererebbe tutto prima di raccogliere: il cammino mandato
+      // arriverebbe vuoto, e non perche' la sincronia sia rotta.
+      'cammino.generazione': 2,
     });
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(360, 797);

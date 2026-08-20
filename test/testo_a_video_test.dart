@@ -101,6 +101,11 @@ void main() {
       // cambia la grandezza misurata e mai la soglia: la parola entra
       // nell'elenco delle elisioni, e il testo dell'Allegato A resta com'e'.
       'cos',
+      // **"DOV'ERA" E' UN'ELISIONE ANCHE LUI**, ordine AR voce 02. Il corpus
+      // della revisione C porta la frase "il Sole torna dov'era alla tua
+      // nascita": "dove era" elide in "dov'era" come "cosa e'" in "cos'e'".
+      // Di nuovo la misura era da allargare, non il testo da storpiare.
+      'dov',
     };
     final parola = RegExp(r"([A-Za-zÀ-ÿ]+)'");
     final colpevoli = <String>[];

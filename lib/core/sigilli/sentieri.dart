@@ -78,11 +78,13 @@ class Sentieri {
   /// il mini che porta lo stesso numero: "50 di 55" sarebbe stato il quarantanove
   /// per il mini e il cinquantacinque per il grande, e la stessa riga avrebbe
   /// detto due cose.
-  static int ordineNelCammino(Traguardo traguardo) {
-    final p = traguardo.posizione;
-    if (traguardo.eGrande) return p + p ~/ 10;
-    return p + (p - 1) ~/ 10;
-  }
+  /// **COL CORPUS DELLA REVISIONE C LA SOVRAPPOSIZIONE NON ESISTE PIU', ordine
+  /// AR voce 02.** Le posizioni del file vanno da 1 a 55 senza doppioni, e i
+  /// cinque grandi stanno a 11, 22, 33, 44 e 55: la posizione E' gia' l'ordine
+  /// nel cammino, e il calcolo che rimetteva in fila due elenchi sovrapposti
+  /// adesso non ha piu' niente da rimettere in fila. Tenerlo avrebbe spostato
+  /// i numeri di cinque posti, e la persona avrebbe letto "60 di 55".
+  static int ordineNelCammino(Traguardo traguardo) => traguardo.posizione;
 
   /// LA SOMMA DEGLI EOS DI UN SENTIERO, calcolata e non scritta a mano.
   ///

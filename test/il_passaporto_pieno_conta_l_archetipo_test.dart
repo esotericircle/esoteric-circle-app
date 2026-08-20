@@ -63,10 +63,23 @@ void main() {
     expect(pezzi, contains('passaporto'),
         reason: 'a documento pieno il pezzo deve maturare, altrimenti il '
             'traguardo diventa irraggiungibile');
-    final med27 =
-        Sentieri.tuttiITraguardi.singleWhere((t) => t.id == 'med_27');
+    // **IL TRAGUARDO NON SI NOMINA PIU' PER ID, ordine AR voce 02.** Col
+    // corpus della revisione C gli id hanno cambiato posto: med_27 adesso e'
+    // "L'Arcano che insiste". Si cerca il traguardo che POGGIA sul pezzo, che
+    // e' cio' che questa prova vuole davvero sapere.
     final stato = diario.statoDelCammino(pezziDellIdentita: pezzi);
-    expect(med27.condizione.raggiunto(stato), isTrue);
+    final suiPezzi = Sentieri.tuttiITraguardi.where((t) {
+      final c = t.condizione;
+      return c is PezzoDellIdentita &&
+          PezziDellIdentita.tessereDelPassaporto.contains(c.pezzo) == false &&
+          (c.pezzo == 'sigillo_del_cerchio' || c.pezzo == 'luna_natale');
+    }).toList();
+    expect(suiPezzi, isNotEmpty,
+        reason: 'nessun traguardo poggia piu sul Passaporto pieno');
+    for (final t in suiPezzi) {
+      expect(t.condizione.raggiunto(stato), isTrue,
+          reason: '${t.id} non matura col Passaporto pieno');
+    }
   });
 
   test('la carta natale dal profilo vale come quella dal gesto', () async {

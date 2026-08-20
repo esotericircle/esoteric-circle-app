@@ -99,16 +99,10 @@ class GestiDelleArti {
         gesto: 'carta_natale',
         schermata: 'lib/features/passport/cosmic_passport_screen.dart'),
     SorgenteDelGesto(
-        gesto: 'passaporto',
-        schermata: 'lib/features/passport/cosmic_passport_screen.dart'),
-    SorgenteDelGesto(
         gesto: 'numero_della_vita',
         schermata: 'lib/features/passport/cosmic_passport_screen.dart'),
     SorgenteDelGesto(
         gesto: 'ora_di_nascita',
-        schermata: 'lib/features/passport/cosmic_passport_screen.dart'),
-    SorgenteDelGesto(
-        gesto: 'luogo_di_nascita',
         schermata: 'lib/features/passport/cosmic_passport_screen.dart'),
     SorgenteDelGesto(
         gesto: 'angelo_custode',
@@ -119,27 +113,6 @@ class GestiDelleArti {
             'lib/features/maestri/caligo/animal/guide_animal_screen.dart'),
 
     // --- LE ARTI CHE NON ESISTONO ANCORA --------------------------------
-    SorgenteDelGesto(
-      gesto: 'chakra',
-      perche: 'La scansione dei chakra è un\'arte in arrivo del catalogo, '
-          'chakra_scan: non esiste una schermata da cui compiere il gesto. I '
-          'traguardi che la nominano restano visibili e non ancora '
-          'raggiungibili.',
-    ),
-    SorgenteDelGesto(
-      gesto: 'meditazione',
-      perche: 'La schermata della meditazione ESISTE, ma non modella nessuna '
-          'FINE: è un audio che si avvia e si ferma, senza durata nè '
-          'compimento. Il traguardo chiede "completa una meditazione fino '
-          'alla fine, senza uscire" e quella fine nel prodotto non esiste '
-          'ancora. Non si manda un gesto finto: il traguardo resta visibile e '
-          'non ancora raggiungibile, come prescrive l\'Allegato A.',
-    ),
-    SorgenteDelGesto(
-      gesto: 'invito',
-      perche: 'L\'invito a qualcuno nel Cerchio non ha ancora un flusso '
-          'proprio: la condivisione esiste, l\'invito con aggancio no.',
-    ),
 
     // --- I GESTI CHE NON NASCONO DA UNA SCHERMATA -----------------------
     SorgenteDelGesto(
@@ -148,26 +121,39 @@ class GestiDelleArti {
       perche: 'È l\'apertura dell\'app, non un\'arte: nessuna schermata la '
           'compie, la registra il guscio.',
     ),
-    SorgenteDelGesto(gesto: 'presenza_mattino', derivato: true),
-    SorgenteDelGesto(gesto: 'presenza_sera', derivato: true),
+    // --- I PEZZI COMPOSTI DEL PASSAPORTO, ordine AR voce 02 -------------
+    //
+    // Il corpus della revisione C nomina cose che la persona TROVA nel
+    // Passaporto invece di gesti che compie: la nascita scritta per intero,
+    // il Sigillo del Cerchio, la Luna che vegliava, il nome custodito. Non
+    // hanno una schermata che li manda, perche' nascono dalla composizione di
+    // pezzi che gia' esistono: li deriva `pezziDellIdentitaMaturi`.
+    SorgenteDelGesto(
+      gesto: 'nascita_completa',
+      derivato: true,
+      perche: 'Giorno, ora e luogo scritti insieme: si compone dai tre pezzi '
+          'che esistono già, non da un gesto in più.',
+    ),
+    SorgenteDelGesto(
+      gesto: 'sigillo_del_cerchio',
+      derivato: true,
+      perche: 'Si scopre col Passaporto pieno, che è già un pezzo composto.',
+    ),
+    SorgenteDelGesto(
+      gesto: 'luna_natale',
+      derivato: true,
+      perche: 'La Luna che vegliava alla nascita si legge nel Passaporto '
+          'pieno.',
+    ),
+    SorgenteDelGesto(
+      gesto: 'nome_proprio',
+      derivato: true,
+      perche: 'Il nome lo custodisce il profilo: nessuna schermata compie un '
+          'gesto per dirlo.',
+    ),
     SorgenteDelGesto(gesto: 'condivisione_stella', derivato: true),
     SorgenteDelGesto(gesto: 'condivisione_frutto', derivato: true),
     SorgenteDelGesto(gesto: 'condivisione_petalo', derivato: true),
-    SorgenteDelGesto(gesto: 'stella_accesa', derivato: true),
-    SorgenteDelGesto(gesto: 'frutto_maturo', derivato: true),
-    SorgenteDelGesto(gesto: 'petalo_aperto', derivato: true),
-    SorgenteDelGesto(gesto: 'carta_ripetuta', derivato: true),
-    SorgenteDelGesto(gesto: 'runa_ripetuta', derivato: true),
-    SorgenteDelGesto(gesto: 'stesa_tipo_diverso', derivato: true),
-    SorgenteDelGesto(gesto: 'gettata_tipo_diverso', derivato: true),
-    SorgenteDelGesto(gesto: 'chakra_diverso', derivato: true),
-    SorgenteDelGesto(gesto: 'chakra_ripetuto', derivato: true),
-    SorgenteDelGesto(gesto: 'giorno_intero', derivato: true),
-    SorgenteDelGesto(gesto: 'giorno_respirato', derivato: true),
-    SorgenteDelGesto(gesto: 'notte_compiuta', derivato: true),
-    SorgenteDelGesto(gesto: 'finestra_del_cielo', derivato: true),
-    SorgenteDelGesto(gesto: 'finestra_del_cielo_corpo', derivato: true),
-    SorgenteDelGesto(gesto: 'finestra_del_cielo_notte', derivato: true),
   ];
 
   static SorgenteDelGesto? di(String gesto) {

@@ -96,7 +96,19 @@ void main() {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        builder: (ctx, child) => MaestroScope(child: child!),
+        // **IL CIELO STA FERMO MENTRE SI MISURA IL PANNO, ordine AR voce 01.**
+        // Questa prova guarda la FORMA del panno di Tacito, non il cielo che
+        // gli sta dietro. Dopo la voce 01 il cosmo senza sensore non deriva
+        // piu' di due millimetri ma di quaranta punti, e la finestra del
+        // pozzo prende dentro anche il fondo: le corse rettilinee misurate
+        // passavano da 41, 47, 17, 47 a 35, 62, 14, 51 senza che l'arte
+        // fosse stata toccata. Con Riduci Movimento il fondo sta fermo e la
+        // misura torna a riguardare solo il panno. La soglia NON si e'
+        // toccata: si e' tolto dal campo cio' che non si stava misurando.
+        builder: (ctx, child) => MediaQuery(
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+          child: MaestroScope(child: child!),
+        ),
         home: RepaintBoundary(
           key: radice,
           child: RuneDrawScreen(userSign: Zodiac.aries, random: math.Random(7)),
@@ -243,8 +255,14 @@ void main() {
       'sinistra': corsaPiuLunga(sinistra),
       'destra': corsaPiuLunga(destra),
     };
+    final xs = [for (var y = 0; y < h; y++) if (sinistra[y] >= 0) sinistra[y]];
+    final xd = [for (var y = 0; y < h; y++) if (destra[y] >= 0) destra[y]];
+    final ys = [for (var x = 0; x < w; x++) if (dallAlto[x] >= 0) dallAlto[x]];
+    final yg = [for (var x = 0; x < w; x++) if (dalBasso[x] >= 0) dalBasso[x]];
     // ignore: avoid_print
-    print('PANNO: corse rettilinee per bordo = $corse');
+    print('PANNO: corse rettilinee per bordo = $corse; tela ${w}x$h; '
+        'panno largo ${xd.reduce((a, b) => a > b ? a : b) - xs.reduce((a, b) => a < b ? a : b)} '
+        'alto ${yg.reduce((a, b) => a > b ? a : b) - ys.reduce((a, b) => a < b ? a : b)}');
     corse.forEach((bordo, corsa) {
       expect(corsa, lessThanOrEqualTo(corsaRettaMassima),
           reason: 'Il bordo $bordo del panno tiene la stessa quota per '

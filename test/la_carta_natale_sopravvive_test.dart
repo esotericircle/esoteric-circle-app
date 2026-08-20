@@ -198,9 +198,21 @@ void main() {
             return !nuda.startsWith('//');
           })
           .join('\n');
+      // **"ORA E LUOGO" DA SOLO NON E' UN AVVISO, ordine AR voce 02.** Col
+      // corpus nuovo esistono frasi di traguardo che dicono "giorno, ora e
+      // luogo della tua nascita scritti insieme": nominano i dati, non
+      // avvisano che mancano, e la porta del livello non c'entra niente con
+      // loro. La misura era troppo larga, quindi si restringe la GRANDEZZA
+      // MISURATA e mai la soglia: perche' una riga sia un avviso, deve dire
+      // anche che qualcosa manca.
+      bool diceCheManca(String riga) => const [
+            'manca', 'Manca', 'senza', 'Senza', 'non hai', 'incomplet',
+          ].any(riga.contains);
       final avvisa = soloCodice.contains('senza ora') ||
           soloCodice.contains('Senza l\'ora') ||
-          soloCodice.contains('ora e luogo');
+          soloCodice
+              .split('\n')
+              .any((r) => r.contains('ora e luogo') && diceCheManca(r));
       if (!avvisa) continue;
       // **LE PORTE SONO DUE, e non e' un'eccezione di comodo.** La carta
       // natale e' il CALCOLO, e la sua porta e' `BirthIdentityController`.

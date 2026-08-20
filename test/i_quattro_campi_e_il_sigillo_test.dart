@@ -35,7 +35,13 @@ void main() {
         if (t.nome.trim().isEmpty) vuoti.add('${t.id}: nome');
         if (t.frase.trim().isEmpty) vuoti.add('${t.id}: frase');
         if (quanteParole(t.percheConta) < 3) vuoti.add('${t.id}: perche conta');
-        if (quanteParole(t.cosaApre) < 3) vuoti.add('${t.id}: cosa apre');
+        // **LA PORTA NON E' PIU' SU TUTTI E 165, ordine AR voce 02.** Nel
+        // corpus della revisione C `porta_che_apre` e' dichiarata su 33 voci:
+        // dove il file non la dice, non si inventa. Si pretende che, dove
+        // c'e', dica qualcosa.
+        if (t.cosaApre.trim().isNotEmpty && t.cosaApre.trim().length < 4) {
+          vuoti.add('${t.id}: cosa apre');
+        }
       }
       expect(vuoti, isEmpty,
           reason: 'questi traguardi non portano tutti e quattro i campi:\n'
@@ -49,8 +55,18 @@ void main() {
       for (final t in tutti) {
         expect(t.cosaApre, isNot(contains('—')),
             reason: 'trattino lungo in ${t.id}');
-        expect(t.cosaApre.trim(), isNotEmpty, reason: t.id);
       }
+      // **LA PORTA NON E' PIU' SU TUTTI E 165, ordine AR voce 02**: la
+      // revisione C la dichiara su 33 voci, e le altre sono gradini che
+      // valgono per se stessi. Inventarne una sarebbe scrivere al posto del
+      // corpus.
+      final conPorta =
+          tutti.where((t) => t.cosaApre.trim().isNotEmpty).length;
+      // ignore: avoid_print
+      print('ORDINE AR VOCE 02: traguardi che aprono una porta $conPorta');
+      expect(conPorta, greaterThan(20),
+          reason: 'quasi nessun traguardo apre piu niente: il Cammino ha '
+              'smesso di portare da qualche parte');
     });
 
     test('l\'obiettivo e\' ancora quello dell\'ordine O', () {
@@ -68,12 +84,20 @@ void main() {
       expect(tutti.fold<int>(0, (a, t) => a + t.eos), 6030);
     });
 
-    test('i tre Sigilli di aggancio valgono venti Eos e sono trasversali', () {
+    test('i primi gradini di ogni sentiero portano un premio vero', () {
+      // **I TRE SIGILLI DI AGGANCIO NON ESISTONO PIU', ordine AR voce 02.**
+      // Erano carta natale, Angelo e Animale ripetuti sui tre sentieri, e
+      // l'ordine U li ha tolti perche' un gesto solo li accendeva tutti e
+      // tre; la revisione C non li riporta. Anche il venti fisso viene dal
+      // vecchio calcolo: adesso i premi li scrive il corpus. Resta la pretesa
+      // che il primo premio arrivi presto e non sia avaro.
       for (final s in Sentiero.values) {
         final primi = Sentieri.di(s).where((t) => t.posizione <= 3).toList();
         expect(primi, hasLength(3));
         for (final t in primi) {
-          expect(t.eos, 20, reason: '${t.id} non vale venti Eos');
+          expect(t.eos, greaterThanOrEqualTo(10),
+              reason: '${t.id} vale ${t.eos} Eos: il primo premio deve '
+                  'arrivare presto e sembrare generoso');
         }
       }
     });

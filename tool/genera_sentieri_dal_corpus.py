@@ -371,21 +371,21 @@ def regolaNonCostruibile(v, testo):
     # scritto per intero perche' l'Architetto sappia cosa manca.
     if 'transiti di oggi' in testo and 'archetipo' in testo:
         return ('DORMIENTE',
-                'rileggere l archetipo coi transiti di oggi e un gesto che la '
-                'scena non registra: l archetipo manda un gesto solo, quello '
-                'del test compiuto')
+                "rileggere l'archetipo coi transiti di oggi è un gesto che la "
+                "scena non registra: l'archetipo manda un gesto solo, "
+                "quello del test compiuto")
     if 'a un anno dal primo' in testo:
         return ('DORMIENTE',
-                'il diario non tiene QUANDO un gesto e stato compiuto la prima '
-                'volta, quindi "a un anno dal primo" non e verificabile')
+                'il diario non tiene QUANDO un gesto è stato compiuto la prima '
+                'volta, quindi "a un anno dal primo" non è verificabile')
     if 'fasi lunari diverse' in testo:
         return ('DORMIENTE',
                 'la fase lunare non viaggia coi dettagli del gesto: servirebbe '
-                'che la scena la passasse, ed e un dettaglio nuovo')
+                'che la scena la passasse. È un dettaglio nuovo')
     if 'piu lunghi del tuo primo' in testo:
         return ('DORMIENTE',
                 'il soffio non passa la propria durata: senza quel dettaglio '
-                '"piu lungo del primo" non si puo confrontare')
+                '"più lungo del primo" non si può confrontare')
     # La costanza LUNGA su un evento del cielo: "dodici mesi di seguito in
     # cui...", "dodici Lune nuove di seguito". Il diario conta la serie dei
     # GIORNI, non quella degli eventi, e sono due cose diverse.
@@ -406,7 +406,7 @@ def regolaNonCostruibile(v, testo):
     if 'ogni mese' in testo and 'anno' in testo:
         return ('DORMIENTE',
                 'il diario tiene i giorni e le serie, non i gesti mese per '
-                'mese: "un gesto ogni mese per un anno" non e verificabile')
+                'mese: "un gesto ogni mese per un anno" non è verificabile')
     if 'stesso presagio' in testo:
         return ('DORMIENTE',
                 'il tramonto passa la runa incisa ma non il presagio: '
@@ -509,7 +509,30 @@ def main():
                 # li avrebbe accusati di accendersi insieme.
                 costruttore = (f"Dormiente('{v['id']}', "
                                f"'{scappa(perche)}')")
-            famiglia = FAMIGLIE.get(v.get('ragione'), 'profondita')
+            # **LA FAMIGLIA SEGUE LA CONDIZIONE, non l'etichetta.** La
+            # ragione del corpus dice perche' quel traguardo esiste; la
+            # famiglia dice di che natura e' la sua condizione, ed e' quello
+            # che le guardie contano (quanti dipendono dal cielo, quanti non
+            # si chiudono in giornata). Dedurla dal costruttore le tiene
+            # allineate per costruzione.
+            if costruttore.startswith('FinestraDelCielo'):
+                famiglia = 'cielo'
+            elif costruttore.startswith('GiorniDiSeguito') or                     costruttore.startswith('RitornoDopoAssenza'):
+                famiglia = 'ritorno'
+            elif costruttore.startswith('GestiNelloStessoGiorno'):
+                famiglia = 'giornata'
+            elif costruttore.startswith('VarietaDelDettaglio') or                     costruttore.startswith('GradiniAlleSpalle'):
+                famiglia = 'profondita'
+            elif costruttore.startswith('CoincidenzaDelDettaglio') or                     costruttore.startswith('MemoriaDelCerchio'):
+                famiglia = 'memoria'
+            elif costruttore.startswith('PezzoDellIdentita'):
+                famiglia = 'identita'
+            elif costruttore.startswith('GestoDelCerchio'):
+                famiglia = 'cerchio'
+            elif costruttore.startswith('Dormiente'):
+                famiglia = FAMIGLIE.get(v.get('ragione'), 'profondita')
+            else:
+                famiglia = 'ampiezza'
             righe.append(
                 "  Traguardo(\n"
                 f"    id: '{v['id']}',\n"

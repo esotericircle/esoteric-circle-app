@@ -109,20 +109,37 @@ void main() {
       // tornerebbe un errore e il saldo resterebbe fermo per sempre: e' una
       // delle quattro strade dell'ordine, e si chiude qui perche' e' l'unica
       // che si puo' misurare senza rete.
-      const noti = {
-        'traguardo_mini_primi_tre',
-        'traguardo_mini',
-        'traguardo_grande_10',
-        'traguardo_grande_20',
-        'traguardo_grande_30',
-        'traguardo_grande_40',
-        'traguardo_grande_50',
+      // **I MOTIVI NOTI SI LEGGONO DAL SERVER, ordine AR voce 05.** Prima
+      // erano elencati qui a mano, e il giorno che il corpus ha spostato i
+      // grandi da 10, 20, 30, 40, 50 a 11, 22, 33, 44, 55 questa prova ha
+      // continuato a guardare la lista vecchia. Ora la lista viene dal
+      // listino vero di `functions/src/borsellino.ts`: se il codice chiede un
+      // motivo che il server non ha, si vede subito.
+      final listino =
+          File('functions/src/borsellino.ts').readAsStringSync();
+      final tabella = listino.substring(
+          listino.indexOf('VALORE_DEL_PREMIO'), listino.indexOf('causaleValida'));
+      final noti = {
+        for (final m in RegExp(r'^\s*(\w+):\s*(\d+),', multiLine: true)
+            .allMatches(tabella))
+          m.group(1)!: int.parse(m.group(2)!),
       };
+      expect(noti.length, greaterThan(10),
+          reason: 'il listino del server non si e lasciato leggere: questa '
+              'prova girerebbe a vuoto');
       final sconosciuti = <String>[];
       for (final sentiero in Sentiero.values) {
         for (final t in Sentieri.di(sentiero)) {
           final motivo = PremioDelTraguardo.motivoDi(t);
-          if (!noti.contains(motivo)) sconosciuti.add('${t.id}: $motivo');
+          if (!noti.containsKey(motivo)) {
+            sconosciuti.add('${t.id}: $motivo, motivo che il server non ha');
+          } else if (noti[motivo] != t.eos) {
+            // **E IL PREZZO DEVE COINCIDERE.** Un motivo noto ma pagato meno
+            // di quanto il corpus promette e' peggio di un errore: la persona
+            // vede scritto 55 e ne riceve 10, e nessuno se ne accorge.
+            sconosciuti.add('${t.id}: il corpus promette ${t.eos} Eos e il '
+                'server ne paga ${noti[motivo]}');
+          }
         }
       }
       expect(sconosciuti, isEmpty,

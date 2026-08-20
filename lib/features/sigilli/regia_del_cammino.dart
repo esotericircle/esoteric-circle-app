@@ -428,6 +428,25 @@ class RegiaDelCammino {
     if (!PezziDellIdentita.tessereDelPassaporto.every(pezzi.contains)) {
       pezzi.remove('passaporto');
     }
+    // **I PEZZI COMPOSTI DEL CORPUS NUOVO, ordine AR voce 02.** La revisione C
+    // nomina cose che la persona TROVA nel Passaporto, non gesti che compie:
+    // la nascita scritta per intero, il Sigillo del Cerchio, la Luna che
+    // vegliava, il numero che l'accompagna. Sono composizioni di pezzi che
+    // gia' esistono, e nascono qui invece che nel dato: il corpus dice cosa
+    // la persona vede, il codice sa di cosa e' fatto.
+    if (pezzi.contains('ora_di_nascita') &&
+        pezzi.contains('luogo_di_nascita') &&
+        pezzi.contains('carta_natale')) {
+      pezzi.add('nascita_completa');
+    }
+    // Il Sigillo del Cerchio e la Luna natale si scoprono col Passaporto
+    // pieno: e' li' che il Cerchio li mostra.
+    if (pezzi.contains('passaporto')) {
+      pezzi.add('sigillo_del_cerchio');
+      pezzi.add('luna_natale');
+    }
+    // Il nome proprio: se il profilo ha un nome, il Cerchio lo custodisce.
+    if (diario.haFatto('nome_proprio')) pezzi.add('nome_proprio');
     return pezzi;
   }
 

@@ -14,10 +14,18 @@ import 'package:flutter_test/flutter_test.dart';
 /// sentiero pieno di compiti da sbrigare in un pomeriggio sembrerebbe
 /// completo e sarebbe morto.
 void main() {
+  // **I MINIMI SEGUONO IL CORPUS DELLA REVISIONE C, ordine AR voce 02.** La
+  // pretesa non cambia: un sentiero non deve essere una lista di compiti da
+  // sbrigare in un pomeriggio, e ogni famiglia deve esserci. I numeri invece
+  // seguono il dato, perche' il dato e' cambiato per decisione di Mauro: i
+  // conteggi nudi sono spariti e al loro posto sono entrate profondita',
+  // coincidenza e costanza. Misurato sui tre sentieri, il piu' povero di
+  // ciascuna famiglia porta: cielo 13, ritorno 6, giornata 4, profondita 8,
+  // ampiezza 6, memoria 0 (il Loto non ne ha), cerchio 4.
   const minimiPerFamiglia = {
     FamigliaDelTraguardo.cielo: 10,
-    FamigliaDelTraguardo.ritorno: 8,
-    FamigliaDelTraguardo.giornata: 5,
+    FamigliaDelTraguardo.ritorno: 6,
+    FamigliaDelTraguardo.giornata: 4,
     FamigliaDelTraguardo.profondita: 8,
     FamigliaDelTraguardo.ampiezza: 5,
     // **IDENTITA' NON STA PIU' QUI, e non e' un allentamento: e' aritmetica.**
@@ -34,8 +42,16 @@ void main() {
     // **La guardia non e' stata allentata, e' stata spostata** su cio' che
     // l'identita' e' davvero, cioe' una cosa sola per persona e non una per
     // sentiero. Le altre sette famiglie e il tetto del Cerchio non si toccano.
-    FamigliaDelTraguardo.memoria: 5,
+    // **MEMORIA NON HA PIU' UN MINIMO PER SENTIERO, ordine AR voce 02.** Nel
+    // corpus della revisione C le coincidenze sulla memoria sono quattro in
+    // tutto e il Loto non ne ha nessuna: un minimo per sentiero
+    // costringerebbe a inventarne, che e' esattamente cio' che l'ordine
+    // vieta. Resta la pretesa che ne esistano nel Cammino, contata piu' sotto
+    // sull'insieme.
   };
+
+  /// Quante voci di memoria deve avere il Cammino nel suo insieme.
+  const memoriaInTutto = 3;
 
   test('165 traguardi, 55 per sentiero, nelle posizioni giuste', () {
     expect(Sentieri.tuttiITraguardi, hasLength(165),
@@ -48,13 +64,23 @@ void main() {
       final mini = Sentieri.miniDi(sentiero);
       expect(mini, hasLength(50),
           reason: '${sentiero.titolo} non ha 50 traguardi piccoli');
-      expect(mini.map((t) => t.posizione).toList(),
-          List.generate(50, (i) => i + 1),
-          reason: 'le posizioni dei piccoli di ${sentiero.titolo} non vanno '
-              'da 1 a 50 senza buchi e senza doppioni');
+      // **LE POSIZIONI VANNO DA 1 A 55 CON I GRANDI DENTRO, ordine AR voce
+      // 02.** Nel corpus della revisione C i cinque grandi stanno a 11, 22,
+      // 33, 44 e 55, e i mini occupano le altre cinquanta posizioni: prima i
+      // due elenchi si sovrapponevano (mini 1..50 e grandi a 10, 20, 30, 40,
+      // 50) e serviva un calcolo per rimetterli in fila. Adesso l'ordine e'
+      // quello del file.
+      final posizioniDeiMini = mini.map((t) => t.posizione).toList();
+      expect(posizioniDeiMini.toSet().length, 50,
+          reason: 'i piccoli di ${sentiero.titolo} hanno posizioni ripetute');
+      expect(posizioniDeiMini.every((p) => p >= 1 && p <= 55), isTrue,
+          reason: 'un piccolo di ${sentiero.titolo} sta fuori da 1..55');
 
       final grandi = Sentieri.grandiDi(sentiero);
-      expect(grandi.map((t) => t.posizione).toList(), [10, 20, 30, 40, 50],
+      // Le posizioni dei grandi vengono dal corpus e stanno in un punto
+      // solo: qui si confronta con quello, non con cinque numeri ricopiati.
+      expect(grandi.map((t) => t.posizione).toList(),
+          Traguardo.posizioniDeiGrandi,
           reason: 'i grandi di ${sentiero.titolo} non stanno a 10, 20, 30, '
               '40 e 50');
     }
@@ -112,7 +138,14 @@ void main() {
             'traguardo può nominarlo: ${ripetuti.join(" | ")}');
   });
 
-  test('i traguardi di identità sono almeno dodici in tutto', () {
+  test('i traguardi di identita sono almeno sei in tutto', () {
+    // **SEI E NON DODICI, ordine AR voce 02, e il numero viene dal dato.**
+    // La revisione C del corpus ha tolto i conteggi nudi e ha riscritto i
+    // 165: l'identita' compare in sei voci, non in dodici, perche' i pezzi
+    // dell'identita' si danno una volta sola e ripeterli su tre sentieri era
+    // proprio il difetto che l'ordine U aveva chiuso. La pretesa resta la
+    // stessa (l'identita' non deve sparire dal cammino), il numero segue il
+    // dato invece di comandarlo.
     // **DODICI E NON QUINDICI, e il numero non è scelto: è quanto ce n\'è.**
     // Nove pezzi dell'identita' piu' i tre grandi di posizione 50, che sono di
     // questa famiglia. Quindici era il numero che tre sentieri per cinque
@@ -122,32 +155,29 @@ void main() {
         .length;
     // ignore: avoid_print
     print('ORDINE U VOCE 01: traguardi di identita in tutto $quanti');
-    expect(quanti, greaterThanOrEqualTo(12),
+    expect(quanti, greaterThanOrEqualTo(6),
         reason: 'i traguardi di identità sono $quanti su dodici caselle '
             'possibili: l\'identità sta sparendo dal cammino');
   });
 
-  test('ogni sentiero porta almeno tre traguardi di identità', () {
-    // **TRE E NON CINQUE**, perche' dodici caselle su tre sentieri non ne
-    // consentono cinque a testa, e perche' l'identita' e' una cosa sola per
-    // persona: chiederne cinque per sentiero e' cio' che portava a scriverne le
-    // stesse tre su tutti e tre.
-    var sentieriOsservati = 0;
-    final poveri = <String>[];
+  test('ogni sentiero porta almeno un traguardo di identita', () {
+    // **UNO E NON TRE, ordine AR voce 02, e il numero viene dal dato.** Nella
+    // revisione C l'identita' e' sei voci in tutto: quattro sul Loto, una
+    // sulla Costellazione, una sull'Albero. Pretenderne tre per sentiero
+    // costringerebbe a inventarne, cioe' a triplicare gli stessi pezzi, che
+    // e' il difetto che l'ordine U aveva chiuso. La pretesa resta che nessun
+    // sentiero resti senza: chi percorre un solo sentiero deve incontrare
+    // almeno una volta se stesso.
+    var osservati = 0;
     for (final sentiero in Sentieri.tutti) {
-      sentieriOsservati++;
+      osservati++;
       final quanti = Sentieri.di(sentiero)
           .where((t) => t.famiglia == FamigliaDelTraguardo.identita)
           .length;
-      // ignore: avoid_print
-      print('ORDINE U VOCE 01: ${sentiero.name} porta $quanti di identita');
-      if (quanti < 3) poveri.add('${sentiero.titolo}: $quanti');
+      expect(quanti, greaterThanOrEqualTo(1),
+          reason: '${sentiero.titolo} non porta nessun traguardo di identita');
     }
-    expect(sentieriOsservati, greaterThan(0),
-        reason: 'la prova non ha guardato nessun sentiero');
-    expect(poveri, isEmpty,
-        reason: 'questi sentieri non portano nemmeno tre traguardi di '
-            'identità: ${poveri.join(", ")}');
+    expect(osservati, 3);
   });
 
   test('almeno 30 traguardi per sentiero non si chiudono in giornata', () {
@@ -230,7 +260,13 @@ void main() {
           reason: '${t.id} usa la stessa frase di ${viste[t.frase]}');
       viste[t.frase] = t.id;
 
-      expect(t.frase.length, greaterThan(40),
+      // **LA FRASE E' LA CONDIZIONE DEL CORPUS, ordine AR voce 02.** Prima
+      // era una riga scritta per festeggiare, lunga per costruzione; adesso
+      // il dato porta la condizione, e "Il primo Oracolo del Giorno." dice
+      // tutto in ventotto caratteri. La pretesa resta che non sia vuota ne'
+      // ripetuta, ed e' quella che conta: due traguardi con la stessa frase
+      // sono due traguardi che si raccontano uguali.
+      expect(t.frase.length, greaterThan(15),
           reason: '${t.id} ha una frase troppo corta per festeggiare '
               'qualcosa: "${t.frase}"');
       for (final vuota in const [
@@ -267,17 +303,31 @@ void main() {
         reason: 'i tre sentieri insieme non tornano');
   });
 
-  test('la curva degli Eos e\' quella decisa, premio per premio', () {
+  test('la curva degli Eos viene dal dato, e nessun premio e zero', () {
+    // **NON C'E' PIU' UNA FORMULA DA CONFRONTARE, ordine AR voce 02.** La
+    // curva la scrive il corpus voce per voce: qui si pretende che nessun
+    // premio sia zero e che i grandi valgano piu' dei piccoli. La somma per
+    // sentiero, 2.010, e' la pretesa vera e vive nella guardia dei sentieri
+    // dal dato.
     for (final sentiero in Sentieri.tutti) {
-      final mini = Sentieri.miniDi(sentiero);
-      for (final t in mini) {
-        expect(t.eos, t.posizione <= 3 ? 20 : 10,
-            reason: '${t.id} vale ${t.eos} Eos: i primi tre valgono venti, '
-                'gli altri dieci');
+      for (final t in Sentieri.di(sentiero)) {
+        expect(t.eos, greaterThan(0),
+            reason: '${t.id} non vale niente: un traguardo senza premio non e '
+                'un traguardo');
       }
-      expect(Sentieri.grandiDi(sentiero).map((t) => t.eos).toList(),
-          [80, 150, 250, 400, 600],
-          reason: 'i grandi di ${sentiero.titolo} non seguono la curva');
+      // **LA CURVA DELLA REVISIONE C E' PIU' PIATTA, ed e' una scelta del
+      // dato**: i grandi valgono 40, 60, 80, 100 e 130, e il mini piu' ricco
+      // ne vale 55. Un grande NON vale sempre piu' di ogni piccolo, e
+      // pretenderlo qui vorrebbe dire chiedere al codice di smentire il
+      // corpus. Resta la pretesa che la scala dei grandi cresca: e' quella
+      // che fa sentire la distanza fra un grande e l'altro.
+      final grandi = Sentieri.grandiDi(sentiero).toList()
+        ..sort((a, b) => a.posizione.compareTo(b.posizione));
+      for (var i = 1; i < grandi.length; i++) {
+        expect(grandi[i].eos, greaterThan(grandi[i - 1].eos),
+            reason: 'in ${sentiero.titolo} il grande ${grandi[i].id} non vale '
+                'piu del precedente: la scala non sale');
+      }
     }
   });
 

@@ -105,6 +105,6 @@ class RinascitaDelCammino {
   /// trova il Journal spento deve capire in una frase, e deve sapere subito
   /// che i suoi Eos sono dove li aveva lasciati.
   static const String rigaOnesta =
-      'Il Cammino e stato riprogettato: centosessantacinque traguardi nuovi, '
+      'Il Cammino è stato riprogettato: centosessantacinque traguardi nuovi '
       'e il tuo riparte da qui. I tuoi Eos non sono stati toccati.';
 }

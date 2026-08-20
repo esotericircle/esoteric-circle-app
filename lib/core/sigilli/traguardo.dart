@@ -577,7 +577,11 @@ class Traguardo {
   /// in arrivo.
   final bool dormiente;
 
-  static const List<int> posizioniDeiGrandi = [10, 20, 30, 40, 50];
+  /// **LE POSIZIONI DEI GRANDI VENGONO DAL CORPUS, ordine AR voce 02.** Nella
+  /// revisione C chiudono le decine da dentro l'unica fila che esiste: 11, 22,
+  /// 33, 44 e 55. Prima erano 10, 20, 30, 40 e 50 su una fila di soli mini, e
+  /// i due elenchi si sovrapponevano.
+  static const List<int> posizioniDeiGrandi = [11, 22, 33, 44, 55];
 
   /// LA CURVA DEGLI EOS, decisa da Mauro e scritta in un punto solo.
   ///

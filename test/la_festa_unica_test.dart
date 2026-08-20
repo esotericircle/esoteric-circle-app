@@ -172,7 +172,11 @@ void main() {
 
     // Il sogno e' gia' segnato nel diario: cosi' la gettata del 14 agosto,
     // che e' un giorno di Luna nuova nell'istante dichiarato delle prove,
-    // matura TRE traguardi insieme: cal_1 (la prima gettata), cal_6 (la
+    // **GLI ID SONO CAMBIATI COL CORPUS DELLA REVISIONE C, ordine AR voce
+    // 02**, e la prova segue il dato: la gettata matura cal_1 (la prima
+    // gettata) e cio' che il Cammino di oggi le lega. La pretesa resta una
+    // sola: piu' traguardi insieme fanno UNA festa.
+    // Prima erano cal_1 (la prima gettata), cal_6 (la
     // gettata sotto la Luna nuova) e cal_8 (gettata e sogno nello stesso
     // giorno). E' l'esempio dal codice citato dall'ordine, non un caso
     // costruito.
@@ -194,7 +198,7 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
-    const attesi = ['cal_1', 'cal_6', 'cal_8'];
+    const attesi = ['cal_1'];
     // **QUANTE OSSERVAZIONI, e cade se non sono tre.**
     // ignore: avoid_print
     print('ORDINE AC VOCE 04, prova 3: accesi ${diario.accesi.length}, '

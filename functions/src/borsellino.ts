@@ -115,13 +115,70 @@ export const VALORE_DEL_PREMIO: Record<string, number> = {
   // raggiunto e il server sa quanto vale, perche' il valore dipende solo
   // dalla posizione sul sentiero e dalla curva decisa. Un premio con
   // l'importo nel corpo della richiesta sarebbe un borsellino aperto.
-  traguardo_mini_primi_tre: 20,
-  traguardo_mini: 10,
-  traguardo_grande_10: 80,
-  traguardo_grande_20: 150,
-  traguardo_grande_30: 250,
-  traguardo_grande_40: 400,
-  traguardo_grande_50: 600,
+  // **IL LISTINO E' LA CURVA DEL CORPUS, ordine AR voce 05.** Prima c'erano
+  // due soli scaglioni piu' cinque grandi alle posizioni 10, 20, 30, 40 e 50:
+  // col corpus della revisione C i grandi stanno su 11, 22, 33, 44 e 55 e i
+  // piccoli valgono di piu' salendo. Un listino fermo avrebbe fatto due
+  // danni insieme: l'accredito dei grandi tornava errore, perche' il motivo
+  // non esisteva piu, e i piccoli venivano pagati dieci Eos anche quando il
+  // corpus ne prometteva cinquantacinque. Qui il valore dipende SOLO dalla
+  // posizione sul sentiero, che nei tre sentieri paga uguale, e la somma di
+  // un sentiero intero fa 2.010 Eos come dice il corpus.
+  traguardo_gradino_1: 10,
+  traguardo_gradino_2: 10,
+  traguardo_gradino_3: 10,
+  traguardo_gradino_4: 10,
+  traguardo_gradino_5: 10,
+  traguardo_gradino_6: 10,
+  traguardo_gradino_7: 10,
+  traguardo_gradino_8: 10,
+  traguardo_gradino_9: 10,
+  traguardo_gradino_10: 10,
+  traguardo_gradino_11: 40,
+  traguardo_gradino_12: 20,
+  traguardo_gradino_13: 20,
+  traguardo_gradino_14: 20,
+  traguardo_gradino_15: 20,
+  traguardo_gradino_16: 20,
+  traguardo_gradino_17: 20,
+  traguardo_gradino_18: 20,
+  traguardo_gradino_19: 20,
+  traguardo_gradino_20: 20,
+  traguardo_gradino_21: 20,
+  traguardo_gradino_22: 60,
+  traguardo_gradino_23: 30,
+  traguardo_gradino_24: 30,
+  traguardo_gradino_25: 30,
+  traguardo_gradino_26: 30,
+  traguardo_gradino_27: 30,
+  traguardo_gradino_28: 30,
+  traguardo_gradino_29: 30,
+  traguardo_gradino_30: 30,
+  traguardo_gradino_31: 30,
+  traguardo_gradino_32: 30,
+  traguardo_gradino_33: 80,
+  traguardo_gradino_34: 45,
+  traguardo_gradino_35: 45,
+  traguardo_gradino_36: 45,
+  traguardo_gradino_37: 45,
+  traguardo_gradino_38: 45,
+  traguardo_gradino_39: 45,
+  traguardo_gradino_40: 45,
+  traguardo_gradino_41: 45,
+  traguardo_gradino_42: 45,
+  traguardo_gradino_43: 45,
+  traguardo_gradino_44: 100,
+  traguardo_gradino_45: 55,
+  traguardo_gradino_46: 55,
+  traguardo_gradino_47: 55,
+  traguardo_gradino_48: 55,
+  traguardo_gradino_49: 55,
+  traguardo_gradino_50: 55,
+  traguardo_gradino_51: 55,
+  traguardo_gradino_52: 55,
+  traguardo_gradino_53: 55,
+  traguardo_gradino_54: 55,
+  traguardo_gradino_55: 130,
   // Il Sigillo del giorno, cioe' il rito compiuto: il numero e' provvisorio e
   // lo fissera' l'ordine dell'economia, ma deve gia' essere un numero del
   // server perche' il cammino sia inattaccabile fin da adesso.

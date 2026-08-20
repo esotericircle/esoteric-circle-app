@@ -29,7 +29,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// di collegamento vivono.
 ///
 /// **Due sentieri, non uno**: il Loto con `aur_1` (un soffio) e la
-/// Costellazione con `med_3` (un oracolo), per non provare una porta sola.
+/// Costellazione con `med_2` (il primo Oracolo), per non provare una porta sola.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -214,6 +214,6 @@ void main() {
   testWidgets('l\'oracolo accende l\'orbo di med_3 sulla Costellazione',
       (tester) async {
     await provaSu(tester,
-        sentiero: Sentiero.costellazione, gesto: 'oracolo', sigillo: 'med_3');
+        sentiero: Sentiero.costellazione, gesto: 'oracolo', sigillo: 'med_2');
   });
 }
