@@ -20,7 +20,7 @@ import 'istante_dichiarato.dart';
 /// LA FESTA ARRIVA SEMPRE, ordine P voce 34.
 ///
 /// **Il fatto da cui e' nata la voce.** Sul telefono risultavano accesi almeno
-/// due traguardi, "Sotto la Luna nuova" e "Tre gettate", e nessuna
+/// due traguardi del Cammino di allora, e nessuna
 /// celebrazione era mai comparsa. Un Sigillo che si accende in silenzio e' un
 /// premio che non esiste.
 ///

@@ -86,17 +86,68 @@ Mauro del 17 agosto 2026.
   vicino. E le due domande hanno due nomi: `ascoltaIlSensore` non e' piu' lo
   stesso booleano che arma il giro lento.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2186)
-- **AR.02** I tre sentieri nascono dal dato. Stato: APERTA
-  (165 voci VERBATIM da `docs/corpus/Traguardi_165_Revisione_B.json`, somma
-  Eos 2.010 per sentiero e 6.030 in tutto)
-- **AR.03** La legge e' provata, non promessa. Stato: APERTA
-  (enumerazione a coppie: due traguardi non possono maturare sullo stesso
-  gesto; scala, famiglie disgiunte, un gradino per gesto)
-- **AR.04** La curva si misura, non si spera. Stato: APERTA
-  (feste nella prima settimana, nel primo mese, nel primo trimestre, e i
-  numeri vanno nel rapporto anche se sono brutti)
-- **AR.05** I gradini dormienti sono dichiarati, non finti. Stato: APERTA
-  (un dormiente non arma mai, non accredita mai, e la scala non si blocca)
+- **AR.02** I tre sentieri nascono dal dato. Stato: CHIUSA
+  (**la fonte e' la revisione C**, arrivata a ordine iniziato: la B non si usa
+  piu' e resta come storia. Nasce `tool/genera_sentieri_dal_corpus.py`, che
+  legge il file e scrive i tre file Dart, i quali dichiarano di essere
+  generati: centosessantacinque voci trascritte a mano introducono errori
+  silenziosi, e un errore silenzioso in un traguardo si scopre solo il giorno
+  in cui non si accende.
+  Le condizioni passano da REGOLE dichiarate, e nascono i tre costruttori che
+  il corpus nuovo richiede: `VarietaDelDettaglio` (tutti e quattro i semi),
+  `CoincidenzaDelDettaglio` (la stessa carta in due stese) e
+  `GradiniAlleSpalle` (la Dedizione), tutti e tre appoggiati ai dettagli della
+  voce 11.
+  **Gli Eos non si calcolano piu'**: venivano da una formula, adesso vengono
+  dal dato voce per voce, e la somma torna, 2.010 per sentiero e 6.030 in
+  tutto. Una formula e un dato che dicono la stessa cosa sono due verita' che
+  un giorno divergono.
+  **L'ordine delle regole e' sostanza, e una misura lo ha dimostrato**: messa
+  in fondo, una regola generosa traduceva "le dodici Lune del tuo segno" in
+  "una Luna nel tuo segno", cioe' un traguardo lungo un anno diventava lo
+  stesso di uno da un giorno, e la guardia della legge lo ha scoperto
+  accusandoli di essere lo stesso traguardo.
+  Guardia `test/i_sentieri_nascono_dal_dato_test.dart` con sette prove:
+  conta, somma, confronta nome per nome col file, e pretende che i file
+  dichiarino di essere generati)
+- **AR.03** La legge e' provata, non promessa. Stato: CHIUSA
+  (non una simulazione, che prova solo la strada percorsa: si ENUMERANO gli
+  eventi minimi, uno per gesto conosciuto, e si guarda se qualcuno accende due
+  traguardi insieme. Zero. Si enumerano poi i gesti per sentiero: nessuno ne
+  tocca due, tranne quelli comuni a tutti per progetto, che la prova dichiara
+  invece di ignorare. E si pretende che ogni combinazione di giornata NOMINI i
+  gesti che la completano, perche' una che non li nomina maturerebbe allo
+  scadere del giorno, cioe' quando nessuno guarda)
+- **AR.04** La curva si misura, non si spera. Stato: CHIUSA
+  (**i numeri, col modello dichiarato**: utente tipo, tre aperture a
+  settimana, e un modello PESSIMISTA per costruzione, perche' non insegue il
+  cielo, non cerca la varieta' e non spera nelle coincidenze. Nove feste nella
+  prima settimana, ventidue nel primo mese, ventidue nel primo trimestre, e
+  mai piu' di tre in un giorno, cioe' una per sentiero come vuole la legge.
+  **Il numero brutto, e va detto**: il secondo e il terzo mese sono a ZERO.
+  Chi apre tre volte a settimana ma non incontra un evento del cielo, non
+  prova arti diverse e non ha coincidenze, dopo il primo mese non vede piu'
+  nessuna festa. Non e' un difetto del codice: e' la forma della curva, ed e'
+  la misura su cui Mauro decide se ritoccarla)
+- **AR.05** I gradini dormienti sono dichiarati, non finti. Stato: CHIUSA
+  (**sono DICIOTTO e non cinque**, e i tredici in piu' li dichiaro io col
+  motivo tecnico: cinque li dichiara il corpus (tre eclissi senza motore, due
+  meditazioni senza fine); tre chiedono la fase lunare, che non viaggia coi
+  dettagli del gesto; tre chiedono la costanza LUNGA su un evento del cielo
+  (dodici Lune di seguito), e il diario conta la serie dei giorni, non quella
+  degli eventi; tre chiedono un gesto ogni mese per un anno, e i gesti non si
+  tengono mese per mese; uno chiede il presagio del tramonto, che la scena non
+  manda; uno la durata del soffio; uno l'archetipo riletto coi transiti; uno
+  "a un anno dal primo", e il diario non tiene quando un gesto e' stato
+  compiuto la prima volta.
+  Nasce la condizione `Dormiente`, che porta il perche' NEL DATO e risponde
+  falso a qualunque stato. La sua firma include l'id, perche' diciotto
+  dormienti con la stessa ragione avevano la stessa firma e la guardia della
+  legge li accusava di accendersi tutti insieme.
+  **Le serrature sono due**, e una prova le sorveglia entrambe: la condizione
+  che non matura mai e il salto dentro il motore. La scala li scavalca, cosi'
+  nessun sentiero si ferma su un gradino irraggiungibile. Rosso provato sulla
+  seconda serratura)
 - **AR.06** Il cammino riparte pulito, una volta sola. Stato: FERMATA IN ATTESA DI DECISIONE
   (nasce `lib/core/cammino/rinascita_del_cammino.dart`, la casa unica
   dell'azzeramento. **La generazione del cammino non e' la versione del
@@ -144,9 +195,14 @@ Mauro del 17 agosto 2026.
   prima delle quali riproduce il difetto prima di curarlo. Rosso provato
   togliendo l'esclusione dalla scena.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2186)
-- **AR.08** I testi seguono i nomi nuovi. Stato: APERTA
-  (ogni posto prende il nome dal dato, e una prova cade se un nome vecchio
-  sopravvive)
+- **AR.08** I testi seguono i nomi nuovi. Stato: CHIUSA
+  (una prova prende gli 88 nomi della revisione B che nella C non esistono
+  piu' e cerca chi li nomina ancora: zero. **Il confronto e' sui nomi INTERI
+  fra apici e non sulle sottostringhe**, ed e' una misura, non un dettaglio:
+  cercando pezzi, "Cinque mattine" accusava "Cinque mattine di seguito", che
+  e' un nome vivo. Un commento di una prova che citava due nomi vecchi e'
+  stato riscritto. La guardia salta se stessa, perche' i nomi vecchi li nomina
+  per mestiere)
 - **AR.09** Il manifesto, la suite, l'accensione e la build 2186. Stato: APERTA
   (stati veri; suite intera una volta; numero a 2186; l'accensione non si
   salta e il suo esito va in testa)
@@ -223,7 +279,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 11
-VOCI_APERTE: 6
-VOCI_CHIUSE: 1
+VOCI_APERTE: 1
+VOCI_CHIUSE: 6
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
