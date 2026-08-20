@@ -364,7 +364,21 @@ class RegiaDelCammino {
         );
       }
     }
-    if (ripresi == 0) return;
+    // **IL SALDO SI CHIEDE ANCHE QUANDO NON SI E' RIPRESO NIENTE.** Ordine AS
+    // voce 03, ed e' la parte della cura che vale a prescindere dalla causa
+    // del rifiuto.
+    //
+    // Prima qui c'era l'uscita anticipata a premi ripresi zero: se il server
+    // rifiutava TUTTI gli accrediti, e succede quando il listino dei premi sul
+    // server e' piu' vecchio dei motivi che il telefono manda, la sincronia
+    // usciva senza nemmeno chiedere quanto sa il server. Il numero in barra
+    // restava quello scritto sul disco, e poteva restare indietro per sempre:
+    // non per i premi rifiutati, che quelli mancano davvero, ma per tutto cio'
+    // che il server sapesse e il telefono no (il benvenuto, l'accredito del
+    // giorno, una sessione su un altro dispositivo).
+    //
+    // **Il saldo del server e' l'unico numero sovrano**, e chiederlo costa una
+    // chiamata sola dentro una sincronia che gira una volta per apertura.
     final statoNuovo = await porta.stato();
     if (statoNuovo == null) {
       guasti.registra(
@@ -372,6 +386,14 @@ class RegiaDelCammino {
         errore: 'il server non ha detto il saldo: la pillola si aggiorna '
             'alla prossima apertura',
       );
+      return;
+    }
+    if (ripresi == 0) {
+      // Nessun premio ripreso: il saldo del server si applica lo stesso, ma
+      // non si canta vittoria con un volo di Eos che non sono arrivati adesso.
+      if (statoNuovo.saldoEos != borsa.saldoEos) {
+        await borsa.applicaSaldo(statoNuovo.saldoEos);
+      }
       return;
     }
     final delta = statoNuovo.saldoEos - saldoPrima;

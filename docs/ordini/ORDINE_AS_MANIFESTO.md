@@ -116,9 +116,30 @@ Mauro del 17 agosto 2026.
   la fascia vera e conta i pixel che cambiano in alto: 28, 11 e 24 su mille coi
   tre sentieri. **Prova del rosso col pittore congelato**: 4, 3 e 5, e la
   soglia sta in mezzo a otto, tarata sui due stati e non scelta a occhio)
-- **AS.03** Il borsellino si aggiorna al traguardo. Stato: APERTA
-  (dove si ferma l'accredito, per enumerazione; un accredito rifiutato resta in
-  attesa e riprova)
+- **AS.03** Il borsellino si aggiorna al traguardo. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**L'ENUMERAZIONE dei punti in cui un accredito si puo' fermare**, e sono
+  quattro: la porta spenta, il server che non risponde, il server che RIFIUTA,
+  e l'accredito riuscito col saldo non applicato.
+  **L'IPOTESI PRIMA DELL'ORDINE RESTA UN'IPOTESI, e va detto invece di
+  spacciarla per misura.** Il motivo che il telefono manda,
+  `traguardo_gradino_<posizione>`, e' nato nell'ordine AR voce 09 e vive sul
+  server solo dopo `firebase deploy --only functions`, che Mauro non ha ancora
+  eseguito: percio' oggi ogni accredito di traguardo dovrebbe tornare errore.
+  **Verificato quel che si poteva verificare da qui**: `functions:list` dice
+  che le sei callable esistono e sono vive in europe-west1, ma il registro
+  (`functions:log`) non si lascia leggere da questa macchina, quindi la
+  conferma diretta la dara' il deploy.
+  **LA CURA DEL LATO CLIENTE VALE COMUNQUE, qualunque sia la causa**: un
+  accredito rifiutato NON entra nel libro dei premi arrivati, quindi il Sigillo
+  resta acceso e la sincronia lo riprova alla prossima apertura. E la sincronia
+  adesso chiede il saldo al server ANCHE quando non riprende niente: prima
+  usciva prima di chiedere, e col server che rifiuta tutto il numero in barra
+  restava quello del disco, non per i premi mancati ma per tutto cio' che il
+  server sapesse e il telefono no.
+  Guardia `test/il_premio_rifiutato_resta_in_attesa_test.dart`, con una porta
+  che RISPONDE e risponde di no, che e' cosa diversa da una porta spenta.
+  **Prova del rosso**: rimessa l'uscita anticipata prima della domanda al
+  server, la guardia cade e nomina il difetto)
 - **AS.04** Ogni Sigillo acceso si tocca, su tutti e tre i sentieri. Stato: APERTA
   (enumerare gli elementi toccabili, grandi e piccoli, e provare che ciascuno
   apra la card del suo traguardo)
@@ -148,7 +169,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 10
+VOCI_APERTE: 9
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 2
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
