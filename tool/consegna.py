@@ -31,7 +31,11 @@ import urllib.request
 
 APP = '1:425821975933:android:1b1ca4db8d4df69b940814'
 SERVIZIO = 'distributore-app@esoteric-circle.iam.gserviceaccount.com'
-TESTER = 'cloud@esotericircle.app'
+# **I DESTINATARI SONO DUE, ordine AR voce 09.** Fino alla 2185 la consegna
+# andava al solo account di servizio del progetto; l'ordine chiede che arrivi
+# anche all'indirizzo con cui Mauro usa il telefono. Restano due voci in una
+# lista, cosi' aggiungerne un terzo domani non tocca il resto della procedura.
+TESTER = ['cloud@esotericircle.app', 'info@esotericircle.com']
 REGISTRO = 'docs/versione_distribuita.json'
 
 
@@ -284,11 +288,21 @@ def main():
     stato, corpo = chiama(
         'https://firebaseappdistribution.googleapis.com/v1/' + release
         + ':distribute',
-        tok, dati={'testerEmails': [TESTER]})
+        tok, dati={'testerEmails': TESTER})
     if stato != 200:
         raise SystemExit('distribuzione fallita ' + str(stato) + ': '
                          + str(corpo))
-    print('distribuita a ' + TESTER)
+    print('distribuita a ' + ', '.join(TESTER))
+    # **IL 200 NON E' LA PROVA, e si e' gia' pagato per crederlo.** La
+    # risposta della distribuzione torna 200 anche quando l'invito non
+    # raggiunge nessuno: si rilegge la release e si stampa quanti inviti
+    # risultano accettati, cosi' chi legge il rapporto sa cosa e' successo
+    # davvero invece di fidarsi di un codice di stato.
+    stato_v, corpo_v = chiama(
+        'https://firebaseappdistribution.googleapis.com/v1/' + release, tok)
+    print('rilettura della release: stato ' + str(stato_v) + ', inviti '
+          + str(corpo_v.get('testerCount', 'non dichiarato')) + ', accettati '
+          + str(corpo_v.get('acceptedInvitationCount', 'non dichiarato')))
 
     # 5. IL REGISTRO, DENTRO LA PROCEDURA e non a mano, e solo adesso: prima di
     #    qui non c'era niente di consegnato da registrare.

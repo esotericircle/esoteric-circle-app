@@ -31,6 +31,17 @@ config trova ancora zero dispositivi Android; e l'adb dell'SDK,
 telefono e' collegato, e le voci visive restano FERMATE IN ATTESA DI
 DECISIONE: le chiude il collaudo di Mauro sulla 2186.
 
+**E L'EMULATORE NON E' UNA STRADA, con la causa esatta.** Chiudendo la voce
+AR.09 si e' provato lo stesso, perche' un fatto non si eredita: l'unico AVD
+e' `Pixel_8`, `flutter emulators --launch Pixel_8` esce con codice 1, e il
+log dell'emulatore dice la ragione per intero, `x86_64 emulation currently
+requires hardware acceleration! CPU acceleration status: Android Emulator
+hypervisor driver is not installed on this machine`. Nemmeno senza finestra e
+con la grafica software (`-no-window -gpu swiftshader_indirect`) si aggira:
+`adb devices` resta vuoto. La barriera e' un driver di kernel, e installarlo
+non e' cosa che l'agente faccia da solo: serve Mauro, come amministratore,
+oppure un telefono col debug USB.
+
 ## I fatti misurati, rifatti qui
 
 - **F1 CONFERMATO.** `git diff 69ff2d6..ad400d4 -- lib/core/motion/parallax_controller.dart`
@@ -203,9 +214,38 @@ Mauro del 17 agosto 2026.
   e' un nome vivo. Un commento di una prova che citava due nomi vecchi e'
   stato riscritto. La guardia salta se stessa, perche' i nomi vecchi li nomina
   per mestiere)
-- **AR.09** Il manifesto, la suite, l'accensione e la build 2186. Stato: APERTA
-  (stati veri; suite intera una volta; numero a 2186; l'accensione non si
-  salta e il suo esito va in testa)
+- **AR.09** Il manifesto, la suite, l'accensione e la build 2186. Stato: CHIUSA
+  (stati veri qui sopra; l'accensione tentata e non riuscita, con la causa
+  scritta in testa; `npm test` nelle funzioni verde, 34 prove su 34; suite
+  Flutter intera girata una volta sola; numero a 0.1.0+2186 e consegna
+  all'App Distribution.
+  **LE CODE DEL CORPUS NUOVO, e sono la parte che nessuno aveva previsto.**
+  Cambiare i centosessantacinque traguardi ha fatto cadere prove che non
+  parlavano di traguardi, e in ogni caso si e' cercata la causa invece di
+  spostare la soglia:
+  il LISTINO DEL SERVER conosceva `traguardo_grande_10..50` e due soli
+  scaglioni per i piccoli, mentre il corpus C mette i grandi su 11, 22, 33,
+  44, 55 e fa salire i piccoli da 10 a 55 Eos: gli accrediti dei grandi
+  sarebbero tornati errore e i piccoli sarebbero stati pagati un quinto.
+  Adesso il valore dipende SOLO dalla posizione, che nei tre sentieri paga
+  uguale, il listino ha i suoi 55 prezzi e la somma di un sentiero fa 2.010
+  Eos come dice il corpus. La prova non elenca piu' i motivi a mano: li legge
+  dal listino vero e confronta anche il prezzo, e il rosso l'ha nominata su
+  tutti e tre i sentieri.
+  Il PASSAPORTO cercava una voce di barra che la voce 10 ha tolto, e le sue
+  feste tornavano a coprire lo schermo perche' la rinascita della voce 06
+  spegneva i Sigilli che la prova aveva acceso: misurato, la card restava a
+  930 punti per dieci passi di seguito.
+  Il PANNO DI TACITO misurava 62 pixel di bordo rettilineo su 60 ammessi, e
+  l'arte non era stata toccata: bisezionando i commit e' verde fino al
+  manifesto e rosso da AR.01 in poi, perche' il cielo senza sensore adesso
+  deriva quaranta punti invece di due millimetri e la finestra del pozzo
+  prende dentro il fondo. Ora il cielo sta fermo mentre si misura il panno:
+  si e' tolto dal campo cio' che non si stava misurando, non si e' alzata la
+  soglia.
+  Gli accenti mancanti si sono corretti nel GENERATORE, non nei file
+  generati, perche' correggerli a valle li avrebbe fatti tornare al primo
+  rigenero)
 - **AR.10** La barra sottile si semplifica. Stato: FERMATA IN ATTESA DI DECISIONE
   (**via il nome e via l'apertura**, e sono due decisioni di Mauro che ne
   superano due sue precedenti, scritte accanto al codice: il nome accanto al
@@ -279,7 +319,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 11
-VOCI_APERTE: 1
-VOCI_CHIUSE: 6
+VOCI_APERTE: 0
+VOCI_CHIUSE: 7
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
