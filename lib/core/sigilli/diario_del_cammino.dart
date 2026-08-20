@@ -464,6 +464,23 @@ class DiarioDelCammino extends ChangeNotifier {
       memoria: memoria,
       giorniDiAssenzaPrimaDiOggi: _giorniDiAssenza,
       giorniDalPrimoGiorno: giorniDalPrimoGiorno,
+      // **I DETTAGLI ENTRANO NELLA FOTOGRAFIA, ordine AR voce 11.** Da qui
+      // le condizioni di varieta' e coincidenza possono guardarli senza
+      // conoscere il diario: la fotografia resta l'unica porta.
+      valoriDistinti: {
+        for (final voce in _dettagli.entries) voce.key: voce.value.length,
+      },
+      massimeRipetizioni: {
+        for (final voce in _dettagli.entries)
+          if (voce.value.isNotEmpty)
+            voce.key: voce.value.values.reduce((a, b) => a > b ? a : b),
+      },
+      // **I GRADINI ALLE SPALLE, per la famiglia Dedizione.** Si contano i
+      // Sigilli accesi di quel sentiero: e' un conto di TRAGUARDI, non di
+      // gesti, ed e' l'unico posto dove il conteggio sopravvive.
+      gradiniAlleSpalle: {
+        for (final s in Sentiero.values) s.name: quantiAccesiDi(s),
+      },
     );
   }
 
@@ -476,6 +493,12 @@ class DiarioDelCammino extends ChangeNotifier {
     final nuovi = <Traguardo>[];
     for (final traguardo in Sentieri.tuttiITraguardi) {
       if (_accesi.contains(traguardo.id)) continue;
+      // **UN DORMIENTE NON ARMA MAI, ordine AR voce 05.** La sua condizione
+      // gia' risponde falso a qualunque stato, e questa riga e' la seconda
+      // serratura: se un domani qualcuno gli desse per sbaglio una condizione
+      // vera senza toglierlo dai dormienti, non si accenderebbe lo stesso, e
+      // il difetto si vedrebbe dove va guardato, cioe' nel dato.
+      if (traguardo.dormiente) continue;
       if (!traguardo.condizione.raggiunto(stato)) continue;
       nuovi.add(traguardo);
     }
@@ -493,8 +516,14 @@ class DiarioDelCammino extends ChangeNotifier {
   /// festeggiato. Chi celebra passa gli id in `escludendo` e la risposta non
   /// dipende piu' dall'ordine con cui arrivano l'accensione e la scena.
   Traguardo? prossimoDi(Sentiero sentiero, {Set<String> escludendo = const {}}) {
+    // **LA SCALA SCAVALCA I DORMIENTI, ordine AR voce 05.** Se il prossimo
+    // gradino fosse uno che non si puo' raggiungere, la scala si bloccherebbe
+    // li' per sempre e il sentiero finirebbe in un vicolo cieco: si arma il
+    // successivo, e il Journal mostra il dormiente come in arrivo.
     bool libero(Traguardo t) =>
-        !_accesi.contains(t.id) && !escludendo.contains(t.id);
+        !_accesi.contains(t.id) &&
+        !escludendo.contains(t.id) &&
+        !t.dormiente;
     for (final t in Sentieri.miniDi(sentiero)) {
       if (libero(t)) return t;
     }
