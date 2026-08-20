@@ -109,18 +109,15 @@ class Sentieri {
       di(sentiero).fold(0, (somma, t) => somma + t.eos);
 
   /// La somma che la CURVA produce, ricavata dalla curva stessa e non
-  /// ricopiata: e' il numero contro cui la prova confronta il totale vero.
-  static int get eosAttesiPerSentiero {
-    const piccoli = 50;
-    var somma = 0;
-    for (var posizione = 1; posizione <= piccoli; posizione++) {
-      somma += posizione <= 3 ? 20 : 10;
-    }
-    for (final valore in Traguardo.eosDeiGrandi) {
-      somma += valore;
-    }
-    return somma;
-  }
+  /// **IL TOTALE PER SENTIERO VIENE DAL CORPUS, ordine AR voce 02.** Prima si
+  /// RICALCOLAVA con la formula (venti ai primi tre, dieci agli altri, piu' la
+  /// scala dei grandi), e una formula che ricalcola un dato e' una seconda
+  /// verita' che un giorno diverge. Il numero e' 2.010 per sentiero e lo dice
+  /// il file: la guardia confronta la somma vera con questo.
+  static const int eosAttesiPerSentiero = 2010;
+
+  /// E in tutto, sui tre sentieri.
+  static const int eosAttesiInTutto = 6030;
 
   static int get eosInTutto =>
       tutti.fold(0, (somma, s) => somma + eosDi(s));

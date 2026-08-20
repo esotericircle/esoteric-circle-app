@@ -188,6 +188,114 @@ sealed class CondizioneDelTraguardo {
   bool raggiunto(StatoDelCammino stato);
 }
 
+/// **IL GRADINO CHE DORME. Ordine AR voce 05.**
+///
+/// Un dormiente non e' un traguardo tolto ne' un traguardo finto: e' una voce
+/// del dato che oggi NON si puo' raggiungere, perche' chiede un gesto che
+/// l'app non registra o un dettaglio che nessuna scena manda. Resta nel
+/// Cammino, il Journal la mostra come in arrivo, e non arma mai: `raggiunto`
+/// risponde falso a qualunque stato, per costruzione.
+///
+/// **Il perche' viaggia col dato.** Non e' un commento: e' il campo che il
+/// manifesto e il rapporto leggono, e il giorno che il motore mancante
+/// arriva basta cambiare la condizione nel corpus e rigenerare.
+class Dormiente extends CondizioneDelTraguardo {
+  const Dormiente(this.di, this.perche);
+
+  /// L'id del traguardo che dorme. **Sta nella firma**, e la ragione e' che
+  /// diciotto dormienti con la stessa ragione avevano la stessa firma, e la
+  /// guardia della legge li accusava di accendersi tutti insieme sullo stesso
+  /// gesto: dormono insieme, ma ognuno e' un gradino suo.
+  final String di;
+
+  /// Cosa manca perche' questo gradino si svegli.
+  final String perche;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  /// **LA FIRMA E' UNICA PER RAGIONE**, cosi' due dormienti non sembrano lo
+  /// stesso traguardo detto due volte: dormono per motivi loro.
+  @override
+  String get firma => 'dormiente:$di:$perche';
+
+  @override
+  bool raggiunto(StatoDelCammino stato) => false;
+}
+
+/// **LA VARIETA' DENTRO UN'ARTE. Ordine AR voce 02, famiglia Profondita'.**
+///
+/// "Tutti e quattro i semi", "otto dei sedici argomenti", "tutte le
+/// ventiquattro rune": non e' quante volte si ripete un gesto, e' quante cose
+/// DIVERSE si sono incontrate facendolo. Poggia sui dettagli che la scena
+/// porta col gesto (ordine AR voce 11): senza quelli non matura mai, ed e' il
+/// modo giusto di non maturare.
+class VarietaDelDettaglio extends CondizioneDelTraguardo {
+  const VarietaDelDettaglio(this.gesto, this.chiave, this.quanti);
+
+  final String gesto;
+  final String chiave;
+  final int quanti;
+
+  /// La varieta' non si fa in un pomeriggio quando ne chiede piu' di due.
+  @override
+  bool get chiedeUnAltroGiorno => quanti > 2;
+
+  @override
+  String get firma => 'varieta:$gesto.$chiave:$quanti';
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.valoriDistinti['$gesto.$chiave'] ?? 0) >= quanti;
+}
+
+/// **LA COINCIDENZA. Ordine AR voce 02, famiglia Coincidenza.**
+///
+/// "La stessa carta esce in due stese diverse": non si puo' cercare, si puo'
+/// solo notare, ed e' per questo che vale. Poggia anche lei sui dettagli.
+class CoincidenzaDelDettaglio extends CondizioneDelTraguardo {
+  const CoincidenzaDelDettaglio(this.gesto, this.chiave, this.quanteVolte);
+
+  final String gesto;
+  final String chiave;
+  final int quanteVolte;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'coincidenza:$gesto.$chiave:$quanteVolte';
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.massimeRipetizioni['$gesto.$chiave'] ?? 0) >= quanteVolte;
+}
+
+/// **I GRADINI ALLE SPALLE. Ordine AR voce 02, famiglia Dedizione.**
+///
+/// "Dieci gradini alle spalle: si accende col primo gesto di Medora dopo il
+/// decimo". E' l'unico posto dove il conteggio sopravvive, ed e' un conteggio
+/// di TRAGUARDI e non di gesti: misura quanta strada si e' fatta, non quante
+/// volte si e' toccato lo stesso pulsante.
+class GradiniAlleSpalle extends CondizioneDelTraguardo {
+  const GradiniAlleSpalle(this.sentiero, this.quanti);
+
+  /// Il sentiero i cui gradini si contano, per nome (`costellazione`,
+  /// `albero`, `loto`).
+  final String sentiero;
+  final int quanti;
+
+  @override
+  bool get chiedeUnAltroGiorno => true;
+
+  @override
+  String get firma => 'gradini:$sentiero:$quanti';
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.gradiniAlleSpalle[sentiero] ?? 0) >= quanti;
+}
+
 /// GIORNI DI SEGUITO in un rito. Non si affretta per definizione.
 class GiorniDiSeguito extends CondizioneDelTraguardo {
   const GiorniDiSeguito(this.rito, this.quanti);
@@ -398,6 +506,9 @@ class Traguardo {
     required this.percheConta,
     required this.cosaApre,
     this.eGrande = false,
+    this.eos = 0,
+    this.fascia = '',
+    this.dormiente = false,
   });
 
   /// PERCHE' CONTA, il terzo dei quattro campi. Ordine P voce 19.
@@ -451,6 +562,21 @@ class Traguardo {
   /// dalle cinque posizioni non entra.
   final bool eGrande;
 
+  /// **GLI EOS VENGONO DAL DATO, ordine AR voce 02.** Prima si ricavavano
+  /// dalla grandezza; adesso ogni voce porta il suo numero, e la somma per
+  /// sentiero (2.010) e' una pretesa della guardia.
+  final int eos;
+
+  /// La fascia del cammino a cui appartiene: Primi giorni, Prima settimana,
+  /// Primo mese, La stagione, L'anno.
+  final String fascia;
+
+  /// **UN DORMIENTE E' DICHIARATO, non finto. Ordine AR voce 05.** Chiede un
+  /// gesto che oggi non esiste o un dettaglio che nessuna scena manda: resta
+  /// nel dato, non arma mai, non accredita mai, e il Journal lo mostra come
+  /// in arrivo.
+  final bool dormiente;
+
   static const List<int> posizioniDeiGrandi = [10, 20, 30, 40, 50];
 
   /// LA CURVA DEGLI EOS, decisa da Mauro e scritta in un punto solo.
@@ -459,12 +585,15 @@ class Traguardo {
   /// arrivare presto e sembrare generoso, altrimenti il cammino non comincia.
   /// I cinque grandi salgono 80, 150, 250, 400, 600, cosi' la distanza fra un
   /// grande e l'altro si sente.
-  static const List<int> eosDeiGrandi = [80, 150, 250, 400, 600];
 
-  int get eos {
-    if (eGrande) return eosDeiGrandi[posizioniDeiGrandi.indexOf(posizione)];
-    return posizione <= 3 ? 20 : 10;
-  }
+  /// **GLI EOS NON SI CALCOLANO PIU', VENGONO DAL DATO. Ordine AR voce 02.**
+  ///
+  /// Qui c'era una formula (venti ai primi tre, dieci agli altri, la scala
+  /// dei grandi) che diceva quanto vale un traguardo. Adesso lo dice il
+  /// corpus, voce per voce, e la somma per sentiero e' una pretesa della
+  /// guardia: 2.010 per sentiero, 6.030 in tutto. Una formula e un dato che
+  /// dicono la stessa cosa sono due verita' che un giorno divergono.
+  static const List<int> eosDeiGrandiStorici = [80, 150, 250, 400, 600];
 }
 
 /// LO STATO DEL CAMMINO: la fotografia su cui si misurano i traguardi.
@@ -487,6 +616,9 @@ class StatoDelCammino {
     this.memoria = const {},
     this.giorniDiAssenzaPrimaDiOggi = 0,
     this.giorniDalPrimoGiorno = 0,
+    this.valoriDistinti = const {},
+    this.massimeRipetizioni = const {},
+    this.gradiniAlleSpalle = const {},
   });
 
   /// Quante volte un gesto e' stato compiuto, da sempre.
@@ -518,4 +650,20 @@ class StatoDelCammino {
 
   /// Da quanti giorni questa persona e' nel Cerchio.
   final int giorniDalPrimoGiorno;
+
+  /// **LA VARIETA', ordine AR voce 11.** Per `gesto.chiave`, quanti valori
+  /// DIVERSI si sono visti: quattro semi, sedici argomenti, ventiquattro
+  /// rune. Senza i dettagli del gesto questa mappa resta vuota e nessuna
+  /// condizione di profondita' puo' maturare, che e' il modo giusto di non
+  /// maturare.
+  final Map<String, int> valoriDistinti;
+
+  /// **LA COINCIDENZA, ordine AR voce 11.** Per `gesto.chiave`, quante volte
+  /// e' tornato il valore piu' insistente: la stessa carta in due stese.
+  final Map<String, int> massimeRipetizioni;
+
+  /// **LA SCALA, ordine AR voce 03.** Per sentiero, quanti gradini sono gia'
+  /// alle spalle: e' cio' su cui poggiano i traguardi di Dedizione, che si
+  /// accendono col primo gesto di quel Maestro DOPO l'ennesimo gradino.
+  final Map<String, int> gradiniAlleSpalle;
 }
