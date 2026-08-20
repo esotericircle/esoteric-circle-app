@@ -15,8 +15,11 @@ enum ModoDellaCondivisione {
   invitoConDownload(
     'invito_con_download',
     'Invita qualcuno nel Cerchio',
-    quandoArriva: 'I suoi Eos arrivano quando il tuo amico scarica il '
-        'Cerchio.',
+    // **PIU' CORTO, ordine AS voce 05.** La regola trasversale di quest'ordine
+    // dice che l'utente cerca risposte: qui la risposta e' QUANDO arrivano gli
+    // Eos, e bastano quattro parole. La frase lunga si mangiava tre righe
+    // sotto ogni pulsante, in un grigio che per giunta non si leggeva.
+    quandoArriva: 'Eos quando il tuo amico scarica.',
     subitoPagato: false,
   ),
 
@@ -24,7 +27,7 @@ enum ModoDellaCondivisione {
   socialPubblico(
     'social_pubblico',
     'Condividi pubblicamente',
-    quandoArriva: 'I suoi Eos arrivano a condivisione avvenuta.',
+    quandoArriva: 'Eos a condivisione avvenuta.',
     subitoPagato: true,
   ),
 
@@ -32,7 +35,7 @@ enum ModoDellaCondivisione {
   condivisionePrivata(
     'condivisione_privata',
     'Manda a qualcuno',
-    quandoArriva: 'I suoi Eos arrivano a condivisione avvenuta.',
+    quandoArriva: 'Eos a condivisione avvenuta.',
     subitoPagato: true,
   );
 

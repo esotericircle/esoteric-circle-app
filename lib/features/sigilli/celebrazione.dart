@@ -13,6 +13,7 @@ import '../../core/sigilli/diario_del_cammino.dart';
 import '../../core/sigilli/sentieri.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/components/titolo_che_non_si_spezza.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -354,28 +355,11 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    final diario = context.watch<DiarioDelCammino>();
-    // **QUALE PROSSIMO, CON LA FESTA UNITA, ordine AR voce 07.** Quando si
-    // celebrano piu' traguardi insieme i sentieri sono piu' di uno, e il
-    // prossimo che si mostra e' quello del sentiero della FESTA, cioe' del
-    // traguardo piu' importante fra i celebrati: e' la stessa regola con cui
-    // la scena sceglie il Maestro e l'intensita' (ordine AO voce 05), e
-    // tenerne una diversa qui direbbe due cose nella stessa scena.
-    // Prima si prendeva `sentieri.first`, cioe' il primo dell'elenco, che
-    // nasce dall'ordine in cui i traguardi sono dichiarati.
-    final maestroDellaFesta =
-        FesteDeiMaestri.dellaScena(widget.traguardi, widget.sentieri);
-    final sentieroDellaFesta = widget.sentieri.firstWhere(
-      (s) => s.maestro == maestroDellaFesta,
-      orElse: () => widget.sentieri.first,
-    );
-    // **E CIO' CHE SI STA CELEBRANDO NON E' IL PROSSIMO**: gli id in corso si
-    // escludono, cosi' la risposta non dipende dal fatto che l'accensione sia
-    // gia' arrivata al diario quando la scena si apre.
-    final prossimo = diario.prossimoDi(
-      sentieroDellaFesta,
-      escludendo: {for (final t in widget.traguardi) t.id},
-    );
+    // **QUI SI CHIEDEVA IL PROSSIMO TRAGUARDO E IL SUO SENTIERO**, per la
+    // bolla che l'ordine AS voce 05 ha tolto: la festa dura meno di due
+    // secondi e in quel tempo si legge cosa si e' vinto, non cosa non si e'
+    // ancora vinto. Il motore che calcola il prossimo resta dov'e',
+    // `diario.prossimoDi`, e lo usa il sentiero.
     // I sentieri coinvolti, senza ripetizioni e nell'ordine dei nominati: la
     // festa unita porta il segno di ognuno, che e' il "Sigilli di tutti"
     // dell'ordine AC voce 04.
@@ -445,13 +429,16 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                     // la chiave storica, cosi' ogni prova che cercava il nome
                     // della festa continua a trovarlo.
                     for (final t in widget.traguardi) ...[
-                      Text(
+                      // **IL NOME NON SI SPEZZA IN MEZZO A UNA PAROLA**,
+                      // ordine AS voce 05: "La Costellazione nascente" usciva
+                      // come `LA COSTELLAZI` a capo `ONE NASCENTE`, visto
+                      // sull'anteprima e da nessuna prova.
+                      TitoloCheNonSiSpezza(
                         t.nome,
                         key: t == widget.traguardi.first
                             ? const Key('celebrazione_nome')
                             : null,
-                        textAlign: TextAlign.center,
-                        style: TypographyTokens.cerimonialeGrande()
+                        stile: TypographyTokens.cerimonialeGrande()
                             .copyWith(color: palette.goldSoft),
                       ),
                       if (t != widget.traguardi.last)
@@ -490,33 +477,19 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                       ),
                     ),
                     const SizedBox(height: SpacingTokens.xl),
-                    // NON SI CHIUDE MAI COL PUNTO: il prossimo traguardo e'
-                    // sempre li', e sempre uno vicino. Un premio che finisce con
-                    // un tasto Chiudi spegne il ciclo.
-                    if (prossimo != null)
-                      Container(
-                        key: const Key('celebrazione_prossimo'),
-                        padding: const EdgeInsets.all(SpacingTokens.md),
-                        decoration: BoxDecoration(
-                          color: palette.surfaceElevated.withValues(alpha: 0.7),
-                          borderRadius:
-                              BorderRadius.circular(SpacingTokens.radiusLg),
-                          border: Border.all(
-                              color: palette.gold.withValues(alpha: 0.3)),
-                        ),
-                        child: Column(
-                          children: [
-                            Text('Il prossimo',
-                                style: TypographyTokens.etichetta()
-                                    .copyWith(color: palette.goldSoft)),
-                            const SizedBox(height: 4),
-                            Text(prossimo.nome,
-                                textAlign: TextAlign.center,
-                                style: TypographyTokens.titoloScheda()
-                                    .copyWith(color: ColorTokens.textPrimary)),
-                          ],
-                        ),
-                      ),
+                    // **VIA LA BOLLA DEL PROSSIMO TRAGUARDO.** Decisione di
+                    // Mauro del 20 agosto 2026, ordine AS voce 05.
+                    //
+                    // C'era per non chiudere mai col punto: "il prossimo
+                    // traguardo e' sempre li'". Ma la festa dura meno di due
+                    // secondi e in quel tempo la persona deve leggere cosa ha
+                    // vinto, non cosa non ha ancora vinto: un secondo nome in
+                    // grande, subito sotto il proprio, si mangiava il momento.
+                    // Vale la regola trasversale di quest'ordine: dove un
+                    // testo si puo' togliere, si toglie invece di
+                    // rimpicciolirlo. Il cammino resta aperto lo stesso, e la
+                    // via per proseguire e' il pulsante qui sotto, che porta
+                    // al sentiero.
                     const SizedBox(height: SpacingTokens.sm),
                     // IL SALTO DIRETTO AL PUNTO DEL JOURNAL, ordine P voce 20.
                     //

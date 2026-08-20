@@ -4,6 +4,7 @@ import '../../core/sigilli/bonus_della_condivisione.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/sigilli/sentieri.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/components/titolo_che_non_si_spezza.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -57,10 +58,14 @@ class CardDelTraguardo extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.xs),
-          Text(traguardo.nome,
-              key: const Key('card_nome_del_traguardo'),
-              style: TypographyTokens.cerimoniale()
-                  .copyWith(color: ColorTokens.textPrimary)),
+          // Il nome non si spezza in mezzo a una parola, ordine AS voce 05.
+          TitoloCheNonSiSpezza(
+            traguardo.nome,
+            key: const Key('card_nome_del_traguardo'),
+            allineamento: TextAlign.start,
+            stile: TypographyTokens.cerimoniale()
+                .copyWith(color: ColorTokens.textPrimary),
+          ),
           const SizedBox(height: SpacingTokens.sm),
           Text(traguardo.frase,
               style: TypographyTokens.corpo()
@@ -148,10 +153,15 @@ class VieDellaCondivisione extends StatelessWidget {
             padding: const EdgeInsets.only(
                 left: SpacingTokens.xs, top: 2, bottom: SpacingTokens.xs),
             child: Text(
+              // **UNA RIGA, NON TRE, ordine AS voce 05.** La coda "per ora
+              // resta in attesa, te li accrediteremo appena sapremo del suo
+              // arrivo" spiegava il funzionamento dell'attribuzione: e' la
+              // ragione dietro la risposta, non la risposta. Chi legge vuole
+              // sapere QUANDO arrivano gli Eos, e adesso lo legge in quattro
+              // parole invece che in tre righe di grigio.
               modo.subitoPagato
                   ? modo.quandoArriva
-                  : '${modo.quandoArriva} Per ora resta in attesa: te li '
-                      'accrediteremo appena sapremo del suo arrivo.',
+                  : '${modo.quandoArriva} In attesa.',
               key: Key('quando_arriva_${modo.motivo}'),
               style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textMuted, height: 1.35),

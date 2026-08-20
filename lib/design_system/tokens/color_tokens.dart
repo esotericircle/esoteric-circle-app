@@ -49,7 +49,19 @@ class ColorTokens {
   // --- Neutri di testo e superfici trasparenti ---
   static const Color textPrimary = Color(0xFFF4F1E8);
   static const Color textSecondary = Color(0xFFC7C2B4);
-  static const Color textMuted = Color(0xFF8A8578);
+  /// **IL GRIGIO PIU' SCURO SI SCHIARISCE. Ordine AS voce 05.**
+  ///
+  /// Era `0xFF8A8578`, e misurato dava 4,66 a 1 sulla superficie di Medora:
+  /// appena sopra la soglia di 4,5 dichiarata dal progetto, cioe' il minimo
+  /// legale, su un telefono in mano e con la luce intorno. E' il colore delle
+  /// righe che spiegano quando arrivano gli Eos sotto i pulsanti della
+  /// condivisione: proprio quelle che Mauro non riusciva a leggere.
+  ///
+  /// Adesso vale `0xFFA39D8E`, misurato: 7,29 sul fondo piu' scuro, 6,34 su
+  /// Medora, 6,81 su Caligo, 6,59 su Aura. Resta piu' scuro di
+  /// [textSecondary], quindi la gerarchia fra i due grigi non si perde, ma
+  /// smette di stare sul filo.
+  static const Color textMuted = Color(0xFFA39D8E);
 
   // Velo scuro per il glassmorphism e le superfici in vetro.
   static const Color glassTint = Color(0x1AFFFFFF);

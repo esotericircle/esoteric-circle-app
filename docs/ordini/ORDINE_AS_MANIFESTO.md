@@ -167,9 +167,35 @@ Mauro del 17 agosto 2026.
   i quindici grandi a parte, e otto tocchi dentro ogni perla grande, 120 in
   tutto. **Prova del rosso** togliendo la prima passata: 12 tocchi su 120
   finiscono al mini)
-- **AS.05** Si legge, e la card del traguardo si sfoltisce. Stato: APERTA
-  (i grigi sotto contrasto tornano in regola; via la bolla del prossimo
-  traguardo)
+- **AS.05** Si legge, e la card del traguardo si sfoltisce. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**IL CENSIMENTO DEI GRIGI, e la prima stesura guardava un colore su due.**
+  Il progetto ha DUE grigi: `textSecondary`, che misurato sta fra 9,6 e 11,1 a
+  1 sui quattro fondi veri, e `textMuted`, che stava a **4,66 su Medora**, cioe'
+  il minimo legale della soglia 4,5. Ed e' proprio il colore delle righe che
+  spiegano quando arrivano gli Eos sotto i pulsanti della condivisione, quelle
+  che Mauro non leggeva. Adesso `textMuted` vale `0xFFA39D8E`: misurato 7,29
+  sul fondo piu' scuro, 6,34 su Medora, 6,81 su Caligo, 6,59 su Aura. La
+  guardia pretende 6 a 1 per i grigi pieni, che e' cio' che si e' appena
+  raggiunto: non e' severita' gratuita, impedisce di tornare sul filo.
+  **Due falsi colpevoli, e la misura e' stata ristretta invece che la soglia
+  abbassata**: il censimento accusava due righe delle rune, che erano lo SFONDO
+  di un pulsante spento e il BORDO di un altro, non testi.
+  **VIA LA BOLLA DEL PROSSIMO TRAGUARDO** dalla celebrazione, decisione di
+  Mauro: la festa dura meno di due secondi e in quel tempo si legge cosa si e'
+  vinto. E le righe sotto i pulsanti passano da tre righe a una: "Eos quando
+  il tuo amico scarica. In attesa." La coda che spiegava l'attribuzione era la
+  ragione dietro la risposta, non la risposta.
+  **UN DIFETTO TROVATO GUARDANDO L'ANTEPRIMA, che nessuna prova cercava**: il
+  nome della festa andava a capo IN MEZZO A UNA PAROLA, `LA COSTELLAZI` a capo
+  `ONE NASCENTE`, perche' Flutter taglia dove capita quando una parola sola e'
+  piu' larga della riga. Misurati col TextPainter: **sei nomi su 165** si
+  spezzano a corpo 34. Nasce
+  `lib/design_system/components/titolo_che_non_si_spezza.dart`, che scende di
+  corpo finche' la parola piu' lunga ci sta, fino a un minimo dichiarato, e la
+  guardia enumera tutti e 165 i nomi: zero spezzati.
+  Guardie `test/i_grigi_si_leggono_test.dart` e
+  `test/il_titolo_non_si_spezza_test.dart`, la seconda con la prova che il
+  difetto esisteva davvero prima della cura)
 - **AS.06** Il Rito dell'Alba. Stato: APERTA
   (via il rettangolo sotto il sole; testi piu' grandi e meno; la parola del
   giorno legata al testo)
@@ -193,7 +219,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 8
+VOCI_APERTE: 7
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
