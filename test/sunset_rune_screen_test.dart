@@ -78,13 +78,20 @@ void main() {
     // ci sono, e la schermata carica `sunset_stone_vergine`, cioe' l'osso vero
     // della runa di stasera: il fallimento di questa prova e' stato la misura
     // dell'aggancio, non un guasto.
-    expect(find.byKey(const Key('sunset_stone_vergine')), findsOneWidget,
-        reason: 'Il Tramonto non mostra il retro della sua pietra: se e\' '
-            'tornato al sasso dipinto, il file manca o il percorso non lo '
-            'trova piu\'.');
+    // **IN ATTESA DEL GETTO LA PIETRA NON C'E' PIU'. Ordine AS voce 09.**
+    // Questa riga pretendeva l'osso vero gia' a schermo prima del gesto: era
+    // giusta finche' la pietra stava li' velata, ma Mauro ha deciso che la
+    // runa deve CADERE col getto e non essere gia' li'. La pretesa si
+    // rovescia, e l'osso vero si controlla dopo il getto, dove adesso vive.
+    expect(find.byKey(const Key('sunset_stone_vergine')), findsNothing,
+        reason: 'la pietra e di nuovo a schermo prima di essere gettata: la '
+            'runa della sera si vede prima di averla ricevuta');
+    expect(find.byKey(const Key('sunset_getta')), findsOneWidget,
+        reason: 'manca l invito a gettare la runa');
     expect(find.byKey(const Key('sunset_getto_gesture')), findsOneWidget);
-    expect(find.text('Scuoti il telefono o tocca la pietra\nper gettarla.'),
-        findsOneWidget);
+    // L'invito non nomina piu' la pietra, ordine AS voce 09: prima del
+    // getto la pietra non c'e'.
+    expect(find.text('Scuoti il telefono, oppure tocca.'), findsOneWidget);
     // Senza posizione, l'ora e' dichiarata stimata, con la voce per attivarla.
     expect(find.byKey(const Key('sunset_stimata')), findsOneWidget);
     expect(find.byKey(const Key('sunset_attiva')), findsOneWidget);
@@ -119,10 +126,11 @@ void main() {
     expect(find.byKey(const Key('sunset_voce_uno')), findsOneWidget);
     expect(find.byKey(const Key('sunset_trasparenza')), findsOneWidget);
     // La seconda voce e' dietro la rotazione: prima l'invito, poi la voce.
-    expect(find.byKey(const Key('sunset_gira')), findsOneWidget);
+    expect(find.byKey(const Key('sunset_gira')), findsNothing,
+        reason: 'la bolla "Gira la pietra" e tornata: ordine AS voce 09');
     expect(find.byKey(const Key('sunset_voce_due')), findsNothing);
     // Doppio tap sull'invito: la pietra gira e svela la seconda voce.
-    final loc = tester.getCenter(find.byKey(const Key('sunset_gira_doppio')));
+    final loc = tester.getCenter(find.byKey(const Key('sunset_pietra_lettura')));
     await tester.tapAt(loc);
     await tester.pump(const Duration(milliseconds: 60));
     await tester.tapAt(loc);

@@ -1114,7 +1114,13 @@ class _LetturaRuna extends StatelessWidget {
                             style: TypographyTokens.didascalia().copyWith(
                                 color: ColorTokens.textSecondary))
                       else
-                        Text(runa.inOmbra ? 'in merkstave' : 'diritta',
+                        // **MERKSTAVE SI TRADUCE, ordine AS voce 09.** E' il
+                        // nome tecnico del verso d'ombra e nessuno sa cosa
+                        // significhi: chi legge "in merkstave" e basta non ha
+                        // ricevuto nessuna informazione. La parola resta,
+                        // perche' e' quella giusta e sta nelle fonti, ma
+                        // accanto c'e' cosa vuol dire.
+                        Text(runa.inOmbra ? 'in merkstave (rovesciata)' : 'diritta',
                             style: TypographyTokens.etichetta().copyWith(
                                 color: ColorTokens.textSecondary,
                                 letterSpacing: 0.6)),

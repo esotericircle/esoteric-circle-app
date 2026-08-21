@@ -157,7 +157,7 @@ Future<bool> shareSunsetRuneCard({
   await file.writeAsBytes(png, flush: true);
   final verso = estrazione.simmetrica
       ? 'simmetrica'
-      : (estrazione.inOmbra ? 'in merkstave' : 'dritta');
+      : (estrazione.inOmbra ? 'in merkstave (rovesciata)' : 'dritta');
   await PortaDellaCondivisione.daFile(file.path, testo: 'La mia runa del tramonto: ${estrazione.rune.name} $verso. '
           'Scopri la tua con Caligo, su Esoteric Circle.');
   return true;

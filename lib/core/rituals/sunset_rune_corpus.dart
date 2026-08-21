@@ -343,11 +343,45 @@ class SunsetRuneCorpus {
       .where((p) => p.isNotEmpty)
       .join(" ");
 
+  /// **IL PICCOLO RITO PROPIZIATORIO DELLA SERA. Ordine AS voce 09.**
+  ///
+  /// **Perche' esiste.** Il Tramonto diceva cosa lasciare fuori e cosa portare
+  /// dentro la notte, e finiva li': due frasi da leggere. La voce chiede un
+  /// gesto, perche' il tramonto e' l'ora in cui si chiude qualcosa, e chiudere
+  /// e' una cosa che si FA. E' veloce per progetto: dura quanto un respiro, si
+  /// puo' fare da seduti e al buio, e non chiede niente che non si abbia
+  /// addosso.
+  ///
+  /// **Non promette esiti**, come vuole la regola di casa: e' un modo di
+  /// segnare il passaggio, non una protezione ne' una fortuna.
+  ///
+  /// Sono quattro, e la sera ne sceglie una col GIORNO RITUALE, cosi' chi torna
+  /// ogni sera non ripete sempre lo stesso gesto e chi riapre la stessa sera
+  /// ritrova il suo.
+  static const List<String> ritiDellaSera = [
+    'Apri la mano verso la finestra, poi chiudila piano: quello che resta '
+        'fuori, resta fuori.',
+    'Spegni una luce che non ti serve e resta un respiro nel buio che si '
+        'apre.',
+    'Appoggia la mano dove il giorno ti ha stancato di più e tienicela per tre '
+        'respiri.',
+    'Di’ il nome della runa a voce bassa, una volta sola: lascia che finisca '
+        'lì.',
+  ];
+
+  /// Il rito propiziatorio di questa sera.
+  static String ritoDellaSera(EstrazioneTramonto e) {
+    final giorno = e.giornoRituale;
+    final seme = giorno.year * 372 + giorno.month * 31 + giorno.day;
+    return ritiDellaSera[seme % ritiDellaSera.length];
+  }
+
   /// La riga di trasparenza dei fattori: runa e verso, fase lunare, e il segno
   /// solo quando si sa. Senza segno la riga si chiude sulla fase, senza nominare
   /// un segno che l'utente non ha dato.
   static String trasparenza(EstrazioneTramonto e) {
-    final v = e.inOmbra ? "in merkstave" : "dritta";
+    // Merkstave si traduce, ordine AS voce 09.
+    final v = e.inOmbra ? "in merkstave (rovesciata)" : "dritta";
     final segno = e.segno;
     final testa = "${e.rune.name} $v, ${e.fase.italianName.toLowerCase()}";
     return segno == null

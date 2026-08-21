@@ -145,7 +145,7 @@ class _RunaTile extends StatelessWidget {
               style: TypographyTokens.label(size: 12)
                   .copyWith(color: palette.goldSoft)),
           Text(
-              libera ? 'in luce' : (runa.inOmbra ? 'in merkstave' : 'diritta'),
+              libera ? 'in luce' : (runa.inOmbra ? 'in merkstave (rovesciata)' : 'diritta'),
               textAlign: TextAlign.center,
               style: TypographyTokens.etichetta().copyWith(
                   color: palette.textPrimary.withValues(alpha: 0.7),

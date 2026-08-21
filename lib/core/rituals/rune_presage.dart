@@ -142,7 +142,9 @@ class RunePresagio {
     final pezzi = <String>[];
     for (final r in esito.rune) {
       final verso = r.verso == RuneVerso.merkstave
-          ? (esito.gettata.libera ? 'rovesciata' : 'in merkstave')
+          // Merkstave si traduce, ordine AS voce 09: la parola giusta resta,
+          // e accanto c'e' cosa vuol dire.
+          ? (esito.gettata.libera ? 'rovesciata' : 'in merkstave (rovesciata)')
           : (esito.gettata.libera ? 'dritta' : 'diritta');
       pezzi.add('${r.rune.name} $verso per ${r.posizione.glossa}');
     }

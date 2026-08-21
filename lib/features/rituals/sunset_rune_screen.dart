@@ -40,7 +40,6 @@ import 'sunset_rune_card.dart';
 import '../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../core/sensi/palette_sensoriale.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
-import '../../../design_system/components/borsellino.dart';
 import '../maestri/rotta_arte.dart';
 
 /// La Runa del Tramonto, dominio Caligo, versione definitiva.
@@ -200,11 +199,25 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   // giroscopio ha mai risposto, per non promettere un gesto che non funziona.
   final GiroInclinazione _inclinazione = GiroInclinazione();
   bool _giroDisponibile = false;
-  bool _puoInclinare = false;
 
   // L'ora del tramonto e l'identita' deterministica.
   DateTime? _tramonto;
   bool _stimata = true;
+
+  /// **SE LA RISPOSTA SULLA POSIZIONE E' GIA' ARRIVATA. Ordine AS voce 09.**
+  ///
+  /// **Il fatto di Mauro**: l'avviso "attiva la posizione" compare e sparisce,
+  /// e il sospetto era che non fosse collegato a niente. **L'ipotesi e' falsa,
+  /// e la misura lo dice**: e' collegatissimo. La scena parte con `_stimata` a
+  /// vero, quindi l'avviso c'e' subito; poi `_raffinaTramonto` chiede al
+  /// sistema se il permesso c'e', e quando la risposta arriva, se c'e', mette
+  /// `_stimata` a falso e l'avviso se ne va. Fra le due cose passa il tempo di
+  /// una chiamata di sistema, ed e' quello il lampeggio.
+  ///
+  /// La cura non e' togliere l'avviso, che serve a chi la posizione non ce
+  /// l'ha: e' non dirlo prima di saperlo. Finche' questo resta falso, la riga
+  /// dell'ora non dichiara niente.
+  bool _rispostaSullaPosizione = false;
 
   /// Vero quando il sistema ha detto che il permesso e' negato PER SEMPRE:
   /// da quel momento il pulsante porta alle impostazioni, perche' il dialogo
@@ -380,7 +393,14 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   // la richiesta esplicita vive dietro "Attiva la posizione".
   Future<void> _raffinaTramonto() async {
     final luogo = await widget.location.resolveSeConcesso();
-    if (luogo == null || !mounted) return;
+    if (!mounted) return;
+    // La risposta e' arrivata, qualunque sia: da adesso la riga dell'ora puo'
+    // dichiarare cio' che sa. Si segna PRIMA di uscire per luogo nullo, se no
+    // chi non ha la posizione non vedrebbe mai l'avviso.
+    if (luogo == null) {
+      setState(() => _rispostaSullaPosizione = true);
+      return;
+    }
     final offset = _ora.timeZoneOffset;
     final t = SunsetTime.perData(_e.giornoRituale,
             lat: luogo.latitude, lon: luogo.longitude, offset: offset) ??
@@ -388,6 +408,7 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     setState(() {
       _tramonto = t;
       _stimata = false;
+      _rispostaSullaPosizione = true;
       _estrazione = _riestrai(t);
     });
   }
@@ -583,10 +604,12 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     // Al primo evento reale il giroscopio e' confermato: solo ora la scena puo'
     // proporre l'inclinazione, mai prima, cosi' non promette un gesto assente.
     if (!_giroDisponibile) {
-      setState(() {
-        _giroDisponibile = true;
-        _puoInclinare = true;
-      });
+      // **QUI SI ACCENDEVA ANCHE `_puoInclinare`**, che serviva solo a
+      // scegliere le parole dell'invito "Gira la pietra": tolto l'invito
+      // (ordine AS voce 09), quel campo non aveva piu' nessun lettore. Il
+      // gesto resta vivo e sta tutto in `_giroDisponibile` e nell'ascolto qui
+      // sotto.
+      setState(() => _giroDisponibile = true);
     }
     const dt = 0.04; // il periodo di campionamento, in secondi
     // ev.y: velocita' angolare attorno all'asse lungo del telefono.
@@ -730,11 +753,20 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 final gradi = _riduciMovimento
                     ? 0.0
                     : (1 - _ingresso.value) * 4 * math.pi / 180;
+                // **LA CADUTA, ordine AS voce 09.** Il rimbalzo c'era gia' ed
+                // era un pop di scala del sei per cento: si vedeva appena, e
+                // soprattutto non si leggeva come una pietra che ARRIVA. Ora
+                // lo stesso controllore porta anche una caduta dall'alto, con
+                // la curva che rimbalza in fondo: e' il gesto del getto che si
+                // vede, non un ingrandimento.
+                final caduta = _rimbalzo.isAnimating
+                    ? -220 * (1 - Curves.easeOutBack.transform(_rimbalzo.value))
+                    : 0.0;
                 final pop = _rimbalzo.isAnimating
                     ? 1 + 0.06 * (1 - Curves.easeOut.transform(_rimbalzo.value))
                     : 1.0;
                 return Transform.translate(
-                  offset: Offset(0, salita),
+                  offset: Offset(0, salita + caduta),
                   child: Transform.rotate(
                     angle: gradi,
                     child: Transform.scale(scale: pop, child: _pietra()),
@@ -779,6 +811,15 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     if (!_stimata) {
       return Text('Tramonto alle $ora',
           key: const Key('sunset_ora'), style: stile);
+    }
+    // **PRIMA DI SAPERE NON SI DICHIARA NIENTE**, ordine AS voce 09: si mostra
+    // l'ora e basta, senza dire che e' stimata e senza offrire di attivare la
+    // posizione. Se la risposta arriva e la posizione c'e', l'ora si raffina
+    // da sola e nessuno ha visto lampeggiare niente; se non c'e', l'avviso
+    // compare una volta e resta.
+    if (!_rispostaSullaPosizione) {
+      return Text(t == null ? 'Tramonto' : 'Tramonto alle $ora',
+          key: const Key('sunset_ora_in_attesa'), style: stile);
     }
     return Column(
       children: [
@@ -913,7 +954,14 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   Widget _pietra() {
     const lato = 240.0;
     if (_fase == _Fase.getto) {
-      // Pietra velata, in attesa del getto.
+      // **LA PIETRA NON E' ANCORA CADUTA. Ordine AS voce 09.**
+      //
+      // Prima stava gia' li', al centro, velata, e il gesto la scopriva: si
+      // vedeva la runa della sera prima di averla gettata, e il rito
+      // cominciava dalla fine. Adesso al suo posto c'e' il palmo aperto che
+      // aspetta, e la pietra arriva col gesto: scuotendo il telefono, oppure
+      // toccando qui. Il ripiego tattile resta, come vuole la regola di casa
+      // sui sensori.
       return GestureDetector(
         key: const Key('sunset_getto_gesture'),
         behavior: HitTestBehavior.opaque,
@@ -921,7 +969,21 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         child: SizedBox(
           width: lato,
           height: lato,
-          child: _pietraVergine(lato),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.back_hand_outlined,
+                    size: 56,
+                    color: _palette.goldSoft.withValues(alpha: 0.75)),
+                const SizedBox(height: SpacingTokens.md),
+                Text('Getta la runa',
+                    key: const Key('sunset_getta'),
+                    style: TypographyTokens.display(size: 22)
+                        .copyWith(color: _palette.goldSoft)),
+              ],
+            ),
+          ),
         ),
       );
     }
@@ -1045,7 +1107,10 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   /// orfana da sola in fondo.
   String get _testoInvito {
     if (_fase == _Fase.getto) {
-      return 'Scuoti il telefono o tocca la pietra\nper gettarla.';
+      // **NON SI NOMINA PIU' LA PIETRA, ordine AS voce 09**: prima del getto
+      // la pietra non c'e', ed e' proprio il punto della voce. Un invito che
+      // dice di toccare una cosa che non si vede manda a cercarla.
+      return 'Scuoti il telefono, oppure tocca.';
     }
     if (_riduciMovimento) return 'Tocca la pietra per incidere il simbolo.';
     return 'Tieni premuto sulla pietra\ne scopri il simbolo.';
@@ -1123,14 +1188,20 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
               child: _pietraGirata(),
             ),
           ),
-          // L'INVITO SUBITO SOTTO LA PIETRA, ordine 2161 voce 11: prima fra
-          // la pietra e "Gira la pietra" stavano il nome, il verso, la Voce A
-          // e la trasparenza. La distanza e' la costante dichiarata qui sotto.
-          // SEMPRE VISIBILE, dall'ordine H: il giro e' ripetibile, quindi
-          // l'invito non ha una scadenza. Chi ha gia' girato lo rilegge come
-          // promemoria del gesto, non come novita'.
-          const SizedBox(height: _distanzaPietraInvito),
-          _invitoGira(),
+          // **VIA LA BOLLA "GIRA LA PIETRA". Ordine AS voce 09, decisione di
+          // Mauro del 21 agosto 2026.**
+          //
+          // C'era da tre ordini, e ogni ordine l'aveva spostata o riscritta:
+          // sotto la pietra invece che sopra, sempre visibile invece che
+          // scadente, con o senza la promessa del rovescio a seconda della
+          // runa. Era diventata la cosa piu' grande della scena dopo la
+          // pietra, per un gesto che nel rito non conta: **il destino ha
+          // voluto che la runa cadesse dritta o rovesciata, e basta.** Girarla
+          // a mano non cambia il responso, cambia solo cosa si guarda.
+          //
+          // Il GESTO resta vivo: la pietra si gira ancora col doppio tocco e
+          // con l'inclinazione, e chi ci prova la vede girare. Sparisce
+          // l'INVITO, cioe' la riga che chiedeva di farlo.
           const SizedBox(height: SpacingTokens.md),
           Center(
             child: Text(_e.rune.name.toUpperCase(),
@@ -1197,6 +1268,14 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             _bloccoVoce('Cosa porti dentro la notte', _vocePortare(),
                 const Key('sunset_voce_due')),
           ],
+          // **IL PICCOLO RITO DELLA SERA, ordine AS voce 09.** Sta DOPO le due
+          // voci e prima della striscia: le voci dicono cosa lasciare e cosa
+          // portare, e questo e' il gesto con cui lo si fa. E' l'ultima cosa
+          // che si legge prima di chiudere, che e' il posto giusto per una
+          // cosa da fare adesso.
+          const SizedBox(height: SpacingTokens.lg),
+          _bloccoVoce('Il gesto della sera',
+              SunsetRuneCorpus.ritoDellaSera(_e), const Key('sunset_rito')),
           const SizedBox(height: SpacingTokens.lg),
           _striscia(),
           if (_settimaSera) ...[
@@ -1210,11 +1289,6 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       ),
     );
   }
-
-  /// La distanza fra il bordo basso della pietra e l'invito "Gira la
-  /// pietra": una costante dichiarata, non un numero sparso. Ordine 2161,
-  /// voce 11: l'invito sta SUBITO sotto la pietra.
-  static const double _distanzaPietraInvito = SpacingTokens.sm;
 
   Widget _pietraGirata() {
     return AnimatedBuilder(
@@ -1246,51 +1320,6 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     );
   }
 
-  Widget _invitoGira() {
-    return GestureDetector(
-      key: const Key('sunset_gira_doppio'),
-      onDoubleTap: _gira,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        padding: const EdgeInsets.all(SpacingTokens.md),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          border: Border.all(color: _palette.gold.withValues(alpha: 0.4)),
-        ),
-        child: Column(
-          children: [
-            Text('Gira la pietra',
-                key: const Key('sunset_gira'),
-                style: TypographyTokens.display(size: 20)
-                    .copyWith(color: _palette.goldSoft)),
-            const SizedBox(height: SpacingTokens.xs),
-            // L'inclinazione si nomina solo quando il giroscopio ha risposto:
-            // mai promettere un gesto che su questo dispositivo non funziona.
-            Text(
-                // **NON SI PROMETTE UN ROVESCIO A CHI NON CE L'HA**, ordine
-                // 2171 voce 4, dalla segnalazione della fondatrice Dora su
-                // Gebo. Otto rune sono identiche se le giri: l'invito diceva
-                // "mostra il suo rovescio" e la scheda dichiarava due righe
-                // sotto che quella runa il rovescio non ce l'ha. Il gesto
-                // resta, perche' il retro inciso c'e' comunque: cambia cio'
-                // che si promette.
-                _e.simmetrica
-                    ? (_puoInclinare
-                        ? SunsetRuneCorpus.invitoSimmetricaConInclinazione
-                        : SunsetRuneCorpus.invitoSimmetrica)
-                    : (_puoInclinare
-                        ? 'Inclina il telefono sull\'asse lungo, oppure tocca '
-                            'due volte: la pietra mostra il suo rovescio.'
-                        : 'Tocca due volte: la pietra mostra il suo rovescio.'),
-                key: const Key('sunset_gira_invito'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.label(size: 12.5).copyWith(
-                    color: ColorTokens.textSecondary, height: 1.4)),
-          ],
-        ),
-      ),
-    );
-  }
 
   Widget _bloccoVoce(String titolo, String testo, Key key) {
     return Container(
@@ -2215,7 +2244,7 @@ class _AzioniState extends State<_Azioni> {
                 onPressed: () {
                   final services = context.read<AppServices>();
                   final verso = widget.estrazione.inOmbra
-                      ? 'in merkstave'
+                      ? 'in merkstave (rovesciata)'
                       : 'dritta';
                   Navigator.of(context).push(MaestroChatScreen.route(
                       maestro: Maestro.caligo,

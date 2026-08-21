@@ -67,25 +67,33 @@ void main() {
       await tester.pump(const Duration(milliseconds: 200));
     }
 
-    // Il bordo basso della pietra: dalla chiave della pietra toccabile se
-    // c'e' (e' quella che la voce 8 aggiunge), altrimenti dal nome, che le
-    // stava subito sotto col passo medio prima della correzione. Cosi' la
-    // stessa prova misura il prima e il dopo.
-    final pietraFinder = find.byKey(const Key('sunset_pietra_lettura'));
-    final double pietraFondo = pietraFinder.evaluate().isNotEmpty
-        ? tester.getRect(pietraFinder).bottom
-        : tester.getRect(find.byKey(const Key('sunset_nome'))).top -
-            SpacingTokens.md;
-    final invito = tester.getRect(find.byKey(const Key('sunset_gira_doppio')));
-    final distanza = invito.top - pietraFondo;
+    // **LA PRETESA SI E' ROVESCIATA, E NON E' UNA GUARDIA ALLENTATA.** Ordine
+    // AS voce 09, decisione di Mauro del 21 agosto 2026: la bolla "Gira la
+    // pietra" NON ESISTE PIU'. Era passata per tre ordini, ognuno l'aveva
+    // spostata o riscritta, ed era diventata la cosa piu' grande della scena
+    // dopo la pietra per un gesto che nel rito non conta: il destino ha voluto
+    // che la runa cadesse dritta o rovesciata, e girarla a mano non cambia il
+    // responso.
+    //
+    // Questa prova nasceva per tenerla vicina alla pietra; adesso sorveglia la
+    // decisione nuova, cioe' che nessuno la rimetta e che fra la pietra e il
+    // suo nome non si infili di nuovo un invito. Il GESTO resta vivo, e lo
+    // prova `il_doppio_tocco_gira_sulla_pietra_test.dart`.
+    expect(find.byKey(const Key('sunset_gira_doppio')), findsNothing,
+        reason: 'la bolla "Gira la pietra" e tornata');
+    expect(find.text('Gira la pietra'), findsNothing,
+        reason: 'l invito a girare la pietra e tornato senza la sua chiave');
+    final pietra =
+        tester.getRect(find.byKey(const Key('sunset_pietra_lettura')));
+    final nome = tester.getRect(find.byKey(const Key('sunset_nome')));
+    final distanza = nome.top - pietra.bottom;
     // ignore: avoid_print
-    print('INVITO: distanza pietra-invito = ${distanza.toStringAsFixed(1)} '
-        'punti (soglia $sogliaPunti)');
+    print('ORDINE AS VOCE 09: distanza fra la pietra e il suo nome '
+        '${distanza.toStringAsFixed(1)} punti, soglia $sogliaPunti');
     expect(distanza, lessThanOrEqualTo(sogliaPunti),
-        reason: 'L\'invito "Gira la pietra" sta a '
-            '${distanza.toStringAsFixed(1)} punti sotto la pietra, oltre la '
-            'soglia di $sogliaPunti: fra loro c\'e\' ancora altro, e Mauro '
-            'lo vuole SUBITO sotto.');
+        reason: 'fra la pietra e il suo nome ci sono '
+            '${distanza.toStringAsFixed(1)} punti, oltre la soglia di '
+            '$sogliaPunti: fra loro si e infilato qualcosa');
   });
 
   testWidgets('la pietra e\' la prima cosa che si vede, e il testo viene dopo',

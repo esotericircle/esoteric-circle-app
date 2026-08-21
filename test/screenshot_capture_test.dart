@@ -1638,6 +1638,10 @@ void main() {
       'onboarding.done': true,
       'santuario.greeted': true,
       'sunset_rune.settimana': sereSeminate(4),
+      // Il cammino e' gia' percorso, ordine AS voce 09: compiere il rito
+      // matura un traguardo e la festa coprirebbe la lettura da fotografare.
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
     });
     final rootKey =
         await mount(tester, await buildServices(Maestro.caligo, seeded: false));
@@ -1651,7 +1655,7 @@ void main() {
     expect(find.byKey(const Key('sunset_voce_uno')), findsOneWidget);
     await capture(tester, rootKey, 'runa-tramonto-voce-uno.png');
     // La seconda voce dietro la rotazione, ripiego doppio tap.
-    final loc = tester.getCenter(find.byKey(const Key('sunset_gira_doppio')));
+    final loc = tester.getCenter(find.byKey(const Key('sunset_pietra_lettura')));
     await tester.tapAt(loc);
     await tester.pump(const Duration(milliseconds: 60));
     await tester.tapAt(loc);

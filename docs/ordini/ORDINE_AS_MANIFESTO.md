@@ -288,10 +288,40 @@ Mauro del 17 agosto 2026.
   responso sono due righe che allontanano la risposta.
   Guardia `test/l_arcano_del_giorno_test.dart` con sei prove. Anteprima
   `arcano-del-giorno.png` rigenerata e guardata)
-- **AS.09** La Runa del Tramonto. Stato: APERTA
-  (l'avviso della posizione misurato; la pietra cade e non e' gia' li'; via
-  "Gira la Runa"; merkstave dice anche rovesciata; un piccolo rito
-  propiziatorio)
+- **AS.09** La Runa del Tramonto. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**L'AVVISO DELLA POSIZIONE: il sospetto di Mauro era che non fosse collegato
+  a niente, e la misura dice il contrario.** E' collegatissimo, e proprio per
+  questo lampeggia: la scena parte con `_stimata` a vero, quindi l'avviso c'e'
+  subito; poi `_raffinaTramonto` chiede al sistema se il permesso c'e', e
+  quando la risposta arriva, se c'e', l'avviso se ne va. Fra le due cose passa
+  il tempo di una chiamata di sistema. La cura non e' toglierlo, che serve a
+  chi la posizione non ce l'ha: e' **non dirlo prima di saperlo**. Finche' la
+  risposta non arriva la riga dell'ora non dichiara niente.
+  **LA PIETRA NON E' PIU' GIA' LI'**: stava al centro, velata, e il gesto la
+  scopriva, cioe' si vedeva la runa della sera prima di averla gettata. Adesso
+  al suo posto c'e' il palmo aperto con "Getta la runa", e la pietra CADE
+  dall'alto col gesto, scuotendo o toccando. Il rimbalzo che c'era era un pop
+  di scala del sei per cento: si vedeva appena e non si leggeva come un arrivo.
+  E l'invito non nomina piu' la pietra, perche' prima del getto non c'e'.
+  **VIA LA BOLLA "GIRA LA PIETRA"**, decisione di Mauro. Era passata per tre
+  ordini, ognuno l'aveva spostata o riscritta, ed era la cosa piu' grande della
+  scena dopo la pietra per un gesto che nel rito non conta: il destino ha
+  voluto che la runa cadesse dritta o rovesciata, e girarla a mano non cambia
+  il responso. **Il GESTO resta vivo**, doppio tocco e inclinazione: sparisce
+  l'invito, non la possibilita'. Due guardie che sorvegliavano l'invito sono
+  state ROVESCIATE, non tolte: adesso sorvegliano che nessuno lo rimetta.
+  **MERKSTAVE DICE ANCHE COSA VUOL DIRE**: sette punti a video lo mostravano
+  nudo, e nessuno sa cosa sia. Adesso e' "in merkstave (rovesciata)". La prima
+  stesura della guardia accusava anche `enum RuneVerso { dritto, merkstave }`,
+  cioe' nomi in codice: si e' ristretta la misura alle stringhe, non abbassata
+  la pretesa.
+  **IL PICCOLO RITO PROPIZIATORIO**: quattro gesti brevi in
+  `SunsetRuneCorpus.ritiDellaSera`, uno per sera scelto dal giorno rituale,
+  che si possono fare da seduti e al buio. Non promettono esiti, e la guardia
+  lo pretende parola per parola. Sta dopo le due voci, che dicono cosa lasciare
+  e cosa portare: e' il gesto con cui lo si fa.
+  Guardia `test/la_runa_cade_e_non_e_gia_li_test.dart`. Anteprime del tramonto
+  rigenerate e guardate)
 - **AS.10** Il Rito del Sogno diventa il Sigillo del Sogno. Stato: APERTA
   (il nome cambia ovunque; la linea si traccia invece di comparire)
 - **AS.11** Le arti del Maestro saltano all'occhio. Stato: APERTA
@@ -303,7 +333,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 4
+VOCI_APERTE: 3
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 8
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 9
