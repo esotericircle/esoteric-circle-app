@@ -4100,64 +4100,12 @@ void main() {
     });
   }
 
-  // --- I TRE FOTOGRAMMI DI OGNI FESTA, DALLA SCENA VERA (ordine AS voce 02) ---
-  //
-  // **Perche' nascono qui e non piu' in `tool/anteprime_delle_feste.dart`.**
-  // Quello strumento compone il pittore a mano dentro una scatola: dimostra
-  // che il pittore sa disegnare, non che la persona veda qualcosa. La guardia
-  // dell'esplosione in tondo LEGGE queste immagini, quindi finche' nascevano
-  // da uno strumento la guardia sorvegliava lo strumento e non l'app.
-  //
-  // Tre fotogrammi per Maestro: all'inizio, a meta' corsa (dove il campo e'
-  // pieno) e alla fine.
-  for (final sentiero in Sentiero.values) {
-    testWidgets('Cattura i tre tempi della festa di ${sentiero.name}',
-        (tester) async {
-      silenceSensors();
-      await loadFonts();
-      SharedPreferences.setMockInitialValues(const {});
-      await montaLoSchermo(tester, schermoReale);
-      final rootKey = GlobalKey();
-      final diario = DiarioDelCammino(orologio: orologioDelleProve);
-      await diario.carica();
-      await tester.pumpWidget(
-        RepaintBoundary(
-          key: rootKey,
-          child: MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (_) => MaestroController()),
-              ChangeNotifierProvider(create: (_) => QualityTierController()),
-              ChangeNotifierProvider(create: (_) => ParallaxController()),
-              ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
-            ],
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              // **LO SCOPE PORTA IL MAESTRO DEL SENTIERO, ordine AS voce 02.**
-              // Nell'app la rotta della celebrazione se lo porta da se', e
-              // senza questa riga la cattura mostrava la festa di Caligo coi
-              // colori del Maestro corrente: un'anteprima che dice una cosa
-              // che sullo schermo non succede.
-              builder: (ctx, child) =>
-                  MaestroScope(maestro: sentiero.maestro, child: child!),
-              home: CelebrazioneAScermoPieno(
-                traguardi: [Sentieri.grandiDi(sentiero).first],
-                sentieri: [sentiero],
-              ),
-            ),
-          ),
-        ),
-      );
-      final maestro = sentiero.maestro;
-      // I tre tempi sono cumulativi: si avanza e si scatta, come vedrebbe
-      // qualcuno che guarda la scena dall'inizio alla fine.
-      await tester.pump(const Duration(milliseconds: 320));
-      await capture(tester, rootKey, 'festa_${maestro.id}_inizio.png');
-      await tester.pump(const Duration(milliseconds: 700));
-      await capture(tester, rootKey, 'festa_${maestro.id}_meta.png');
-      await tester.pump(const Duration(milliseconds: 1400));
-      await capture(tester, rootKey, 'festa_${maestro.id}_fine.png');
-    });
-  }
+  // **LE NOVE CATTURE DEI TRE TEMPI DELLA FESTA SONO MORTE. Ordine AT voce
+  // 03.** Fotografavano le particelle per Maestro all'inizio, a meta' e alla
+  // fine: quelle particelle non esistono piu', al loro posto c'e' la
+  // transizione di stelle, che e' un filmato e non si fotografa a fotogrammi
+  // scelti da noi. Le anteprime `festa_<maestro>_<tempo>.png` sono state
+  // tolte insieme al codice che le generava.
 
   // --- LA CUSTODIA DEL CIELO, dall'app vera (ordine AQ voce 05) ---
   //

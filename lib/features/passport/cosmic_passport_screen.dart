@@ -1,6 +1,7 @@
 import 'dart:async';
 import '../maestri/aura/archetype/archetype_test_screen.dart';
 import '../sigilli/regia_del_cammino.dart';
+import '../sigilli/segno_del_sentiero.dart';
 import '../sigilli/sentiero_screen.dart';
 import '../../core/sigilli/sentieri.dart';
 import '../../core/archetypes/archetype_history.dart';
@@ -959,13 +960,18 @@ class _SentieriDelCammino extends StatelessWidget {
           for (final sentiero in Sentieri.tutti) ...[
             ListTile(
               key: Key('porta_${sentiero.name}'),
-              leading: Icon(
-                switch (sentiero) {
-                  Sentiero.costellazione => Icons.star_rounded,
-                  Sentiero.albero => Icons.spa_rounded,
-                  Sentiero.loto => Icons.local_florist_rounded,
-                },
-                color: ColorTokens.goldLight,
+              // **I TRE SEGNI DISEGNATI, NON I GLIFI DI SISTEMA. Ordine AT
+              // voce 03.** Qui c'erano `star_rounded`, `spa_rounded` e
+              // `local_florist_rounded`, cioe' proprio i tre glifi che
+              // l'ordine manda via dalle feste, e per la stessa ragione:
+              // **`spa_rounded` E' un fiore di loto**, quindi l'Albero e il
+              // Loto portavano lo stesso fiore. Il progetto ha gia' le tre
+              // forme disegnate da noi, nate con l'ordine AQ voce 02: si usano
+              // anche qui, e i glifi di sistema escono dal Cammino per intero.
+              leading: SegnoDelSentiero(
+                sentiero: sentiero,
+                colore: ColorTokens.goldLight,
+                misura: 24,
               ),
               title:
                   Text(sentiero.titolo, style: TypographyTokens.titoloScheda()),

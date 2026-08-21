@@ -112,8 +112,39 @@ e' fatto.
   misura peso, `frameCount`, durata e alpha di ciascuno e **dichiara** che
   medora e' opaco: il giorno che arriva un sorgente nuovo quella riga cade e
   qualcuno se ne accorge)
-- **AT.03** Demolizione dell'apparato precedente. Stato: APERTA
+- **AT.03** Demolizione dell'apparato precedente. Stato: CHIUSA
+  (**DEMOLITO, non disattivato con un interruttore.** Sono spariti dal
+  repository: `direzione_della_festa.dart` con la sua enumerazione di direzioni
+  e materie, `pittore_della_festa.dart` con le particelle,
+  `tool/anteprime_delle_feste.dart`, i richiami dentro `celebrazione.dart` sia
+  nella scena grande sia nella fascia breve, le nove anteprime
+  `festa_<maestro>_<tempo>.png` piu' `festa_unita_tre.png`, e cinque prove che
+  sorvegliavano quell'apparato.
+  **MUORE LA PIOGGIA DI RUNE DI CALIGO dell'ordine V**, che era una decisione
+  di Mauro del 15 agosto 2026: viene sostituita dalle transizioni, e sta
+  scritto nel commit e qui invece di sparire in silenzio. Con lei muoiono le
+  stelle dal centro di Medora e il polline dal basso di Aura.
+  **Cio' che NON e' morto, e il perche'.** La risposta "di chi e' la festa
+  quando i traguardi sono piu' di uno" viveva dentro il file demolito ma serve
+  ancora, perche' decide quale transizione parte: rinasce come
+  `MaestroDellaFesta` dentro il lettore nuovo, con la stessa regola dell'ordine
+  AO voce 05.
+  **CRITERIO DI CHIUSURA VERIFICATO**: `direzione_della_festa` non compare piu'
+  in nessun file; `PittoreDellaFesta` e `FesteDeiMaestri` nemmeno.
+  **I glifi `spa_rounded` e `local_florist` erano gia' usciti dalle feste con
+  l'ordine AQ voce 02, ma erano rimasti nel Passaporto**, dove facevano lo
+  stesso danno: `spa_rounded` E' un fiore di loto, quindi l'Albero e il Loto
+  portavano lo stesso fiore. Adesso il Passaporto usa i tre segni disegnati da
+  noi. Restano nel solo `art_catalog.dart`, dove sono le icone della
+  Meditazione e dei Chakra e non c'entrano col Cammino)
 - **AT.04** Il lettore di transizione. Stato: APERTA
+  (il componente `lib/features/sigilli/transizione_di_stelle.dart` e' scritto
+  come l'ordine prescrive: `ui.instantiateImageCodec`, un Ticker nostro,
+  `getNextFrame` un fotogramma per volta, mai una `List<ui.Image>`, il
+  fotogramma corrente dipinto a schermo intero da un `CustomPainter` senza
+  `MaskFilter` ne' shader. **Resta APERTA perche' le misure M4 e M5 vogliono un
+  dispositivo**: qui l'albero e' pronto ma non si e' potuto contare quanti
+  fotogrammi si dipingono davvero ne' guardare il picco di memoria)
 - **AT.05** La regia e il frame 21. Stato: APERTA
 - **AT.06** Una festa, un traguardo. Stato: APERTA
 - **AT.07** Cosa compare al frame 21. Stato: APERTA
@@ -124,8 +155,8 @@ e' fatto.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 11
-VOCI_APERTE: 8
-VOCI_CHIUSE: 2
+VOCI_APERTE: 7
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'direzione_della_festa.dart';
+import 'transizione_di_stelle.dart';
 import 'segno_del_sentiero.dart';
-import 'pittore_della_festa.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/entitlement/question_allowance.dart';
@@ -22,6 +21,7 @@ import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../core/entitlement/registro_degli_eos.dart';
 import '../../services/app_services.dart';
 import 'card_del_traguardo.dart';
+import 'transizione_di_stelle.dart';
 import 'sentiero_screen.dart';
 import '../../design_system/components/icona_degli_eos.dart';
 
@@ -260,7 +260,7 @@ class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
           // importante, e la decide la scena guardando se fra i traguardi
           // c'e' un grande.
           pageBuilder: (context, _, __) => MaestroScope(
-            maestro: FesteDeiMaestri.dellaScena(traguardi, sentieri),
+            maestro: MaestroDellaFesta.di(traguardi, sentieri),
             child: CelebrazioneAScermoPieno(
               traguardi: traguardi,
               sentieri: sentieri,
@@ -316,20 +316,59 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
     // **LA DURATA VIENE DAL DATO E NON DA QUI.** Ordine U voce 02: si sceglie
     // sul tempo di LETTURA di cio' che si scopre, non su quello
     // dell'animazione, e il grande dura un terzo in piu' del mini.
-    duration: Duration(
-        milliseconds: FesteDeiMaestri.millesimiDi(
-            eGrande: widget.traguardi.any((t) => t.eGrande))),
+    // **DUE SECONDI, quanto dura la transizione di stelle.** Ordine AT voce
+    // 04: il tempo della scena non e' piu' una scelta di durata dell'anima-
+    // zione, e' la durata del filmato che la copre.
+    duration: TransizioneDiStelle.durata,
   );
 
   /// **UN TOCCO LA SALTA, e porta subito al traguardo e al premio.** Una festa
   /// da cui non si puo' uscire diventa un ostacolo alla seconda volta: la prima
   /// si guarda, la decima si vuole superare.
   void _salta() {
+    // Il tocco porta subito al traguardo: la transizione si toglie di mezzo
+    // insieme all'attesa.
+    if (!_traguardoVisibile) {
+      setState(() {
+        _traguardoVisibile = true;
+        _transizioneInCorso = false;
+      });
+    }
     if (_segno.isCompleted) return;
     _segno.value = 1;
   }
 
   bool _partito = false;
+
+  /// **IL TRAGUARDO E' INVISIBILE FINO AL FRAME 21. Ordine AT voce 05.**
+  ///
+  /// Durante i primi venti fotogrammi lo schermo e' solo stelle: nessun testo,
+  /// nessun nome, nessuna cifra. Al frame 21, cioe' a 800 millesimi esatti, la
+  /// scheda appare DI COLPO: niente dissolvenza, niente scala, niente rimbalzo.
+  /// Il lampo della stella copre lo stacco, ed e' per questo che il fondatore
+  /// ha messo li' il taglio.
+  bool _traguardoVisibile = false;
+
+  /// Vero mentre la transizione corre. Dal frame 21 al 50 le stelle continuano
+  /// sopra l'immagine ormai visibile; finita la corsa restano la scheda e
+  /// basta, senza altre animazioni.
+  bool _transizioneInCorso = true;
+
+  /// **QUANDO IL TRAGUARDO E' COMPARSO DAVVERO, per la misura M3.** L'ordine
+  /// chiede il tempo fra l'inizio della transizione e la prima pittura
+  /// dell'immagine, letto da un log con timestamp su dispositivo reale.
+  DateTime? _quandoEPartita;
+
+  void _alFrame(int indice) {
+    _quandoEPartita ??= DateTime.now();
+    if (_traguardoVisibile) return;
+    if (indice + 1 < TransizioneDiStelle.frameDelloStacco) return;
+    final quanto = DateTime.now().difference(_quandoEPartita!).inMilliseconds;
+    // ignore: avoid_print
+    debugPrint('ORDINE AT M3: traguardo scoperto al frame ${indice + 1}, '
+        '$quanto ms dall inizio della transizione');
+    setState(() => _traguardoVisibile = true);
+  }
 
   /// IL MOVIMENTO SI DECIDE IN didChangeDependencies, non in initState: la
   /// MediaQuery non si puo' leggere prima che initState sia finito, e leggerla
@@ -341,6 +380,10 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
     _partito = true;
     if (MediaQuery.of(context).disableAnimations) {
       _segno.value = 1;
+      // **CON RIDUCI MOVIMENTO NON C'E' TRANSIZIONE, e il traguardo si vede
+      // subito**: si toglie il movimento, non il contenuto.
+      _traguardoVisibile = true;
+      _transizioneInCorso = false;
     } else {
       _segno.forward();
     }
@@ -380,7 +423,17 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
           onTap: _salta,
           child: Stack(
             children: [
-        SafeArea(
+        // **LA SCHEDA E' INVISIBILE FINO AL FRAME 21. Ordine AT voce 05.**
+        // Si nasconde con `Visibility` e non con un `Opacity`: l'opacita' a
+        // zero e' una dissolvenza che comincia, e l'ordine chiede che al frame
+        // 21 la scheda appaia DI COLPO. `maintainState` e `maintainSize`
+        // tengono l'ingombro, cosi' quando compare non salta niente.
+        Visibility(
+          visible: _traguardoVisibile,
+          maintainState: true,
+          maintainSize: true,
+          maintainAnimation: true,
+          child: SafeArea(
           // LA SCENA SCORRE SE LO SCHERMO E' BASSO, invece di traboccare: su
           // un telefono piccolo, o con la scrittura ingrandita, la festa non
           // deve diventare una riga gialla di errore. La prova lo ha trovato
@@ -547,58 +600,39 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
             ),
           ),
         ),
-              // **LA FESTA STA SOPRA, e non sotto.** Ordine U voce 02: il
-              // movimento deve SCOPRIRE cio' che c'e' sotto, quindi passa
-              // davanti alla scena e se ne va. Non intercetta il tocco, cosi'
-              // i due pulsanti restano raggiungibili anche mentre corre.
-              Positioned.fill(
-                child: IgnorePointer(
-                  child: AnimatedBuilder(
-                    animation: _segno,
-                    builder: (context, _) => CustomPaint(
-                      key: Key('festa_${FesteDeiMaestri.dellaScena(
-                        widget.traguardi,
-                        widget.sentieri,
-                      ).id}'),
-                      painter: PittoreDellaFesta(
-                        maestro: FesteDeiMaestri.dellaScena(
-                          widget.traguardi,
-                          widget.sentieri,
-                        ),
-                        // **CON RIDUCI MOVIMENTO LA FESTA RESTA UNA FESTA,
-                        // ordine AQ voce 02.** Con quel modo acceso la scena
-                        // porta il segno gia' a fine corsa, e a fine corsa le
-                        // particelle hanno gia' finito il loro volo: misurato,
-                        // ZERO pixel su mille cambiavano ai bordi, cioe' la
-                        // festa era un fermo immagine e tutte e tre si
-                        // riducevano alla stessa scheda con sopra un simbolo.
-                        // Adesso il pittore riceve la POSA in cui il campo e'
-                        // pieno: niente si muove, ma la materia del proprio
-                        // Maestro si vede, ed e' cio' che distingue le tre
-                        // feste.
-                        // **CON RIDUCI MOVIMENTO SI MOSTRA IL CAMPO PIENO,
-                        // ordine AQ voce 02.** Con quel modo acceso la scena
-                        // porta il segno subito a fine corsa, e la festa
-                        // veniva dipinta nell'istante in cui il volo e' gia'
-                        // finito: la coda, non la festa. Adesso il pittore
-                        // riceve la posa in cui il campo e' pieno. Nessun
-                        // movimento, come la persona ha chiesto, ma la
-                        // materia del proprio Maestro si vede tutta.
-                        avanzamento: MediaQuery.of(context).disableAnimations
-                            ? PittoreDellaFesta.posaDelCampoPieno
-                            : _segno.value,
-                        oro: palette.gold,
-                        oroTenue: palette.goldSoft,
-                        // L'INTENSITA' E' QUELLA DEL PIU' IMPORTANTE: un
-                        // grande fra i nominati accende la festa piena.
-                        eGrande: widget.traguardi.any((t) => t.eGrande),
-                        effettiPieni:
-                            !MediaQuery.of(context).disableAnimations,
-                      ),
-                    ),
+        ),
+              // **LE PARTICELLE SONO MORTE QUI. Ordine AT voce 03.**
+              //
+              // Qui vivevano le tre feste per Maestro: stelle dal centro per
+              // Medora, rune dall'alto per Caligo, polline dal basso per Aura.
+              // Le sostituisce la TRANSIZIONE DI STELLE, un filmato con alpha
+              // per Maestro, e l'ordine dice di demolire invece che adattare.
+              //
+              // **Muore anche la pioggia di rune di Caligo dell'ordine V**,
+              // che era una decisione di Mauro del 15 agosto 2026: viene
+              // sostituita dalle transizioni, e va scritto invece che sparire
+              // in silenzio.
+
+              // **LA TRANSIZIONE STA SOPRA TUTTO, ordine AT voci 04 e 05.**
+              // Parte nell'istante in cui la scena viene montata, copre lo
+              // schermo intero, e dal frame 21 continua a correre SOPRA la
+              // scheda ormai visibile. Finita la corsa si smonta e libera il
+              // codec: da li' in poi resta la scheda, senza altre animazioni.
+              if (_transizioneInCorso)
+                Positioned.fill(
+                  child: TransizioneDiStelle(
+                    maestro: MaestroDellaFesta.di(
+                        widget.traguardi, widget.sentieri),
+                    suFrame: _alFrame,
+                    suFine: () {
+                      if (!mounted) return;
+                      setState(() {
+                        _transizioneInCorso = false;
+                        _traguardoVisibile = true;
+                      });
+                    },
                   ),
                 ),
-              ),
             ],
           ),
         ),
@@ -723,7 +757,7 @@ bool mostraLaSovrimpressione(
     // grande: una voce dell'Overlay non e' figlia della pagina che l'ha chiesta,
     // e il colore giusto e' quello del sentiero che si sta festeggiando.
     builder: (ctx) => MaestroScope(
-      maestro: FesteDeiMaestri.dellaScena(traguardi, sentieri),
+      maestro: MaestroDellaFesta.di(traguardi, sentieri),
       child: _FasciaDellaCelebrazione(
         traguardi: traguardi,
         sentieri: sentieri,
@@ -818,6 +852,36 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
   /// MediaQuery non si legge in initState, per questo il movimento si decide
   /// qui: lo stesso passo falso era gia' costato la scena grande.
   bool _partito = false;
+
+  /// **IL TRAGUARDO E' INVISIBILE FINO AL FRAME 21. Ordine AT voce 05.**
+  ///
+  /// Durante i primi venti fotogrammi lo schermo e' solo stelle: nessun testo,
+  /// nessun nome, nessuna cifra. Al frame 21, cioe' a 800 millesimi esatti, la
+  /// scheda appare DI COLPO: niente dissolvenza, niente scala, niente rimbalzo.
+  /// Il lampo della stella copre lo stacco, ed e' per questo che il fondatore
+  /// ha messo li' il taglio.
+  bool _traguardoVisibile = false;
+
+  /// Vero mentre la transizione corre. Dal frame 21 al 50 le stelle continuano
+  /// sopra l'immagine ormai visibile; finita la corsa restano la scheda e
+  /// basta, senza altre animazioni.
+  bool _transizioneInCorso = true;
+
+  /// **QUANDO IL TRAGUARDO E' COMPARSO DAVVERO, per la misura M3.** L'ordine
+  /// chiede il tempo fra l'inizio della transizione e la prima pittura
+  /// dell'immagine, letto da un log con timestamp su dispositivo reale.
+  DateTime? _quandoEPartita;
+
+  void _alFrame(int indice) {
+    _quandoEPartita ??= DateTime.now();
+    if (_traguardoVisibile) return;
+    if (indice + 1 < TransizioneDiStelle.frameDelloStacco) return;
+    final quanto = DateTime.now().difference(_quandoEPartita!).inMilliseconds;
+    // ignore: avoid_print
+    debugPrint('ORDINE AT M3: traguardo scoperto al frame ${indice + 1}, '
+        '$quanto ms dall inizio della transizione');
+    setState(() => _traguardoVisibile = true);
+  }
 
   @override
   void didChangeDependencies() {
@@ -961,53 +1025,18 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
                   ),
                 ),
               ),
-              // **ANCHE LA FESTA BREVE HA LA MATERIA DEL SUO MAESTRO.** Ordine
-              // AS voce 02, ed e' il difetto che Mauro vedeva "nella maggior
-              // parte dei casi".
+              // **ANCHE LA FASCIA PERDE LE PARTICELLE. Ordine AT voce 03.**
               //
-              // **L'enumerazione ha detto questo.** Le strade che portano a una
-              // celebrazione sono due, e le decide una riga sola dentro
-              // `festeggiaInsieme`: un traguardo GRANDE, o il primo in
-              // assoluto, apre la scena a schermo pieno, che le particelle le
-              // ha sempre avute; tutti gli altri aprono questa fascia, che
-              // mostrava il solo glifo. I traguardi grandi sono quindici su
-              // centosessantacinque: la fascia e' il caso normale, cioe' la
-              // festa che una persona vede quasi sempre, ed era l'unica senza
-              // stelle, rune o petali.
+              // La voce AS.02 aveva dato alla festa breve lo stesso pittore
+              // della scena grande, perche' era l'unica senza materia: quella
+              // voce e' FERMATA SU DECISIONE DEL FONDATORE e questo ordine la
+              // sostituisce, quindi il pittore se ne va anche da qui.
               //
-              // Stesso pittore della scena grande, stessa posa a Riduci
-              // Movimento, stesso Maestro scelto dal traguardo piu' importante:
-              // una porta sola, non due che si somigliano.
-              Positioned.fill(
-                child: IgnorePointer(
-                  child: AnimatedBuilder(
-                    animation: _segno,
-                    builder: (context, _) => CustomPaint(
-                      key: Key('festa_breve_${FesteDeiMaestri.dellaScena(
-                        widget.traguardi,
-                        widget.sentieri,
-                      ).id}'),
-                      painter: PittoreDellaFesta(
-                        maestro: FesteDeiMaestri.dellaScena(
-                          widget.traguardi,
-                          widget.sentieri,
-                        ),
-                        avanzamento: MediaQuery.of(context).disableAnimations
-                            ? PittoreDellaFesta.posaDelCampoPieno
-                            : _segno.value,
-                        oro: palette.gold,
-                        oroTenue: palette.goldSoft,
-                        // La fascia e' la forma dei mini: l'intensita' e'
-                        // quella piccola, se no non si distinguerebbe piu'
-                        // dalla scena grande.
-                        eGrande: false,
-                        effettiPieni:
-                            !MediaQuery.of(context).disableAnimations,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // **La fascia NON riceve la transizione**, ed e' voluto: la
+              // transizione dura due secondi e copre lo schermo, mentre la
+              // fascia e' la forma breve che non deve rubare la scena a cio'
+              // che sta sotto. Chi decide se e quando la fascia esista ancora
+              // e' l'ordine AU, che governa la coda delle feste.
             ],
           ),
         ),
