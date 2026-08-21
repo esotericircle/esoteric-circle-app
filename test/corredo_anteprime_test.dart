@@ -224,10 +224,12 @@ void main() {
       'tool/anteprime_dei_journal.dart',
       "docs/preview/",
     ],
-    r'^festa_[a-z]+_[a-z]+\.png$': [
-      'tool/anteprime_delle_feste.dart',
-      "docs/preview/festa_",
-    ],
+    // **LE ANTEPRIME DELLE FESTE NON ESISTONO PIU'. Ordine AT voce 03.**
+    // Fotografavano le particelle per Maestro, che sono state demolite
+    // insieme al loro strumento: al loro posto c'e' la transizione di stelle,
+    // che e' un filmato e non si fotografa a fotogrammi scelti da noi. La riga
+    // sparisce da qui perche' non ha piu' niente da sorvegliare, e le immagini
+    // sono state tolte dal repository nello stesso commit.
     r'^ancoraggi_[a-z]+\.png$': [
       'tool/ancoraggi_dai_sentieri.dart',
       "docs/preview/ancoraggi_",

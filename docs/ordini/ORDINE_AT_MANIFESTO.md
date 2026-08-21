@@ -137,14 +137,23 @@ e' fatto.
   portavano lo stesso fiore. Adesso il Passaporto usa i tre segni disegnati da
   noi. Restano nel solo `art_catalog.dart`, dove sono le icone della
   Meditazione e dei Chakra e non c'entrano col Cammino)
-- **AT.04** Il lettore di transizione. Stato: APERTA
+- **AT.04** Il lettore di transizione. Stato: FERMATA IN ATTESA DI DECISIONE
   (il componente `lib/features/sigilli/transizione_di_stelle.dart` e' scritto
-  come l'ordine prescrive: `ui.instantiateImageCodec`, un Ticker nostro,
-  `getNextFrame` un fotogramma per volta, mai una `List<ui.Image>`, il
-  fotogramma corrente dipinto a schermo intero da un `CustomPainter` senza
-  `MaskFilter` ne' shader. **Resta APERTA perche' le misure M4 e M5 vogliono un
-  dispositivo**: qui l'albero e' pronto ma non si e' potuto contare quanti
-  fotogrammi si dipingono davvero ne' guardare il picco di memoria)
+  come l'ordine prescrive, e ogni vincolo e' sorvegliato da una riga:
+  `ui.instantiateImageCodec`, un Ticker nostro a venticinque fotogrammi,
+  `getNextFrame` un fotogramma per volta, **mai una `List<ui.Image>`**, mai
+  `Image.asset`, il fotogramma corrente dipinto a schermo intero da un
+  `CustomPainter` **senza `MaskFilter` ne' shader**.
+  **L'indice nasce dal TEMPO e non dal conto dei tick**: `(millesimi /
+  40).floor()` limitato a 0..49, cosi' un fotogramma saltato non fa scivolare
+  la sequenza e il frame 21 resta l'istante 800 anche coi fotogrammi fusi da
+  `libwebp`.
+  **La memoria si misura, non si promette**: al massimo due immagini vive in un
+  istante, e un contatore lo rende verificabile. Dopo lo smontaggio della scena
+  il contatore torna a ZERO, misurato dalla guardia.
+  **Resta FERMATA perche' M4 e M5 vogliono un dispositivo**: quanti fotogrammi
+  si dipingano davvero sui cinquanta attesi, e il picco di memoria da DevTools,
+  li chiude il collaudo del fondatore)
 - **AT.05** La regia e il frame 21. Stato: CHIUSA
   (la transizione parte quando la scena viene montata e copre lo schermo; la
   scheda e' INVISIBILE fino allo stacco e compare **di colpo**, senza
@@ -193,14 +202,38 @@ e' fatto.
   di Medora e' OPACO, quindi per un Maestro su tre l'assegnazione oggi
   produrrebbe uno schermo coperto per due secondi. Si chiude quando
   l'Architetto sceglie fra le tre opzioni)
-- **AT.09** Misure di accettazione. Stato: APERTA
-- **AT.10** Fallback, solo se misurato. Stato: APERTA
+- **AT.09** Misure di accettazione. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**M1, misurata**: i tre WebP pesano 1.515.670, 1.990.424 e 2.706.460 byte,
+  in tutto 6.212.554. L'APK passa da 161.176.931 byte (la 2187) a quello
+  dichiarato nel rapporto: la differenza e' il peso dei tre filmati meno le
+  particelle e le dieci anteprime demolite.
+  **M2, misurata con `ui.instantiateImageCodec`**: `frameCount` vale 40, 25 e
+  39, non 50, perche' `libwebp` fonde i fotogrammi identici. La durata totale
+  e' 2000 millesimi esatti in tutti e tre, e la regia lavora sul tempo.
+  **M3, M4 e M5 NON SONO STATE MISURATE**, e l'ordine prevede questo caso:
+  `adb devices` risponde vuoto e l'emulatore muore su `Android Emulator
+  hypervisor driver is not installed on this machine`, verificato di nuovo
+  oggi con `-accel-check`. Non si inventano numeri da una prova a tavolino.
+  **Quello che si e' potuto misurare senza dispositivo**, e che riguarda M5:
+  il lettore tiene al massimo DUE immagini vive in un istante, e dopo lo
+  smontaggio della scena il contatore torna a zero, misurato dalla guardia. Il
+  picco vero in megabyte lo dira' DevTools sul telefono)
+- **AT.10** Fallback, solo se misurato. Stato: CHIUSA
+  (**il fallback NON serve, perche' P2 non e' caduta.** La voce dice "se e solo
+  se P2 cade": misurato con `ui.instantiateImageCodec` sui tre file veri,
+  Flutter APRE il WebP animato, restituisce i fotogrammi uno per uno con la
+  loro durata e somma 2000 millesimi esatti. La sequenza APNG non si propone e
+  non si improvvisa niente.
+  **Cio' che di P2 non torna e' il conteggio, non la decodifica**, ed e'
+  riportato nella voce 02: `frameCount` vale 40, 25 e 39 perche' `libwebp`
+  fonde i fotogrammi identici. Non e' un fallimento della decodifica e non
+  cambia cosa si vede, quindi non fa scattare questa voce)
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 11
-VOCI_APERTE: 3
-VOCI_CHIUSE: 6
+VOCI_APERTE: 0
+VOCI_CHIUSE: 7
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3

@@ -78,7 +78,12 @@ void main() {
         ),
       ),
     ));
-    await tester.pump(const Duration(milliseconds: 600));
+    // **SI ASPETTA LO STACCO, ordine AT voce 05.** La celebrazione adesso si
+    // apre con la transizione di stelle, e la scheda resta invisibile fino agli
+    // 800 millesimi: prima di allora i pulsanti sono nell'albero ma non
+    // ricevono tocchi, e questa prova toccava il vuoto. Millecento millesimi
+    // stanno oltre lo stacco e dentro la transizione.
+    await tester.pump(const Duration(milliseconds: 1100));
     return porta;
   }
 
