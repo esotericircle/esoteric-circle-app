@@ -8,15 +8,15 @@ import 'package:esoteric_circle/core/rituals/dream_rite_corpus.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Il Rito del Sogno, ex Rito della Buonanotte: contenuto deterministico dal
+/// Il Sigillo del Sogno, ex Rito della Buonanotte: contenuto deterministico dal
 /// cielo notturno reale.
 void main() {
   final commaE = RegExp(r',\s+ed?\b', caseSensitive: false);
   final date = DateTime(2026, 7, 13, 22, 40);
 
   group('La rinomina', () {
-    test('Il rito si chiama Rito del Sogno, l\'id resta night', () {
-      expect(DailyElement.night.title, 'Rito del Sogno');
+    test('Il rito si chiama Sigillo del Sogno, l\'id resta night', () {
+      expect(DailyElement.night.title, 'Sigillo del Sogno');
       expect(DailyElement.night.id, 'night');
       // Il vecchio nome non compare piu' in nessuna stringa mostrata.
       expect(DailyElement.night.title.contains('Buonanotte'), isFalse);

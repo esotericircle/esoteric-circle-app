@@ -314,6 +314,43 @@ class GiorniDiSeguito extends CondizioneDelTraguardo {
       (stato.seriePerRito[rito] ?? 0) >= quanti;
 }
 
+/// **QUANTI GIORNI CON UN RITO DENTRO UN ARCO. Ordine AS voce 12, corpus D.**
+///
+/// **Perche' sostituisce la serie consecutiva in ventidue gradini.** La misura
+/// della voce AR.04 aveva mostrato zero feste nel secondo e nel terzo mese: chi
+/// non apre l'app tutti i giorni non completa mai una serie consecutiva, e la
+/// scala essendo sequenziale si blocca li' **per sempre**. Un traguardo che
+/// nessuno raggiunge non e' un traguardo difficile, e' un muro.
+///
+/// La costanza resta una costanza: sette giorni in dieci vuol dire tornare
+/// quasi ogni giorno, e chi salta una domenica non ricomincia da capo.
+///
+/// L'arco si conta all'indietro da OGGI, e non e' la finestra migliore
+/// possibile dentro tutta la storia: un traguardo di costanza dice "in questi
+/// giorni sei tornato", non "una volta nella vita hai avuto una buona
+/// settimana".
+class GiorniDentroUnArco extends CondizioneDelTraguardo {
+  const GiorniDentroUnArco(this.rito, this.quanti, this.arco);
+
+  final String rito;
+
+  /// Quanti giorni con quel rito servono.
+  final int quanti;
+
+  /// Dentro quanti giorni, contati all'indietro da oggi.
+  final int arco;
+
+  @override
+  bool get chiedeUnAltroGiorno => quanti > 1;
+
+  @override
+  String get firma => 'arco:$rito:$quanti:$arco';
+
+  @override
+  bool raggiunto(StatoDelCammino stato) =>
+      (stato.costanzeLarghe['$rito:$arco'] ?? 0) >= quanti;
+}
+
 /// QUANTE VOLTE si e' compiuto un gesto, da sempre.
 class GestiCompiuti extends CondizioneDelTraguardo {
   const GestiCompiuti(this.gesto, this.quanti, {this.inGiorniDiversi = false});
@@ -623,7 +660,16 @@ class StatoDelCammino {
     this.valoriDistinti = const {},
     this.massimeRipetizioni = const {},
     this.gradiniAlleSpalle = const {},
+    this.costanzeLarghe = const {},
   });
+
+  /// **QUANTI GIORNI CON UN RITO DENTRO UN ARCO. Ordine AS voce 12.**
+  ///
+  /// La chiave e' `rito:arco`, per esempio `oracolo:10`, e il valore e' quanti
+  /// giorni con quel rito cadono negli ultimi `arco` giorni. Le chiavi le
+  /// dichiara il corpus: qui ci sono solo gli archi che qualche traguardo
+  /// chiede davvero.
+  final Map<String, int> costanzeLarghe;
 
   /// Quante volte un gesto e' stato compiuto, da sempre.
   final Map<String, int> gestiCompiuti;

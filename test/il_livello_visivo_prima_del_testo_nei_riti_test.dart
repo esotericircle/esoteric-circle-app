@@ -19,7 +19,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// anteprime.** Alba e Soffio mostrano il dono in una SCHEDA che poggia sopra la
 /// scena: il sole sollevato occupa i due terzi alti e la scheda arriva sotto,
 /// quindi le tre righe in cima alla scheda vengono comunque dopo il livello
-/// visivo. Lo stesso vale per il saluto della notte nel Rito del Sogno, che
+/// visivo. Lo stesso vale per il saluto della notte nel Sigillo del Sogno, che
 /// arriva dopo il cielo, e per l'Oracolo, dove il disco sta sopra la lettura. Il
 /// Tramonto era l'unico a tenerle nella stessa colonna della pietra, e li' la
 /// misura si fa a schermo, nella prova dedicata

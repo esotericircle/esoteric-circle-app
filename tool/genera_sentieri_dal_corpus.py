@@ -23,7 +23,10 @@ import sys
 import unicodedata
 
 RADICE = pathlib.Path(__file__).resolve().parent.parent
-CORPUS = RADICE / 'docs' / 'corpus' / 'Traguardi_165_Revisione_C.json'
+# **IL CORPUS E' LA REVISIONE D. Ordine AS voce 12.** Sostituisce la C, che
+# resta come storia: cambia una cosa sola, ventidue gradini di costanza che non
+# chiedono piu' giorni consecutivi ma tanti giorni dentro un arco piu' largo.
+CORPUS = RADICE / 'docs' / 'corpus' / 'Traguardi_165_Revisione_D.json'
 
 # I gesti che l'app REGISTRA davvero, censiti sui punti che chiamano la regia.
 # Una condizione che chiedesse un gesto fuori da questo elenco non potrebbe
@@ -265,6 +268,56 @@ def regolaCielo(v, testo):
             None)
 
 
+def regolaCostanzaLarga(v, testo):
+    """**LA COSTANZA LARGA DEL CORPUS D. Ordine AS voce 12.**
+
+    Il corpus della revisione D dice "Sette Oracoli del Giorno, nell'arco di 10
+    giorni" dove la C diceva "in sette giorni consecutivi". La ragione la
+    spiega la misura della voce AR.04: con la serie consecutiva chi non apre
+    l'app tutti i giorni non la completa mai, e la scala essendo sequenziale si
+    blocca li' per sempre.
+
+    **Sta PRIMA della regola della serie consecutiva**, perche' molte di queste
+    frasi nominano ancora i giorni e la regola vecchia le riconoscerebbe come
+    serie, cioe' rimetterebbe il muro che il corpus nuovo toglie.
+    """
+    if "nell'arco di" not in testo and 'nell arco di' not in testo:
+        return None
+    # **LA PRESENZA E' UN RITO ANCHE QUI**, come nella regola della serie: il
+    # corpus la dice "sette giorni di presenza, qualunque gesto conti", e il
+    # diario la conta col rito `presenza`. Senza questo caso quella voce
+    # resterebbe dormiente per un motivo che non esiste.
+    gesto = 'presenza' if 'presenza' in testo else gestoIn(testo)
+    if gesto is None:
+        return None
+    # Due numeri: quanti giorni servono e quanto e' largo l'arco.
+    import re as _re
+    numeri = [int(n) for n in _re.findall(r'(\d+)', testo)]
+    quanti = numeroIn(testo.split("nell")[0])
+    arco = numeri[-1] if numeri else None
+    if quanti is None or arco is None or arco <= 0:
+        return None
+    # Settimane e mesi si riportano a giorni, come fa la regola della serie: il
+    # dato dice la durata, il diario conta giorni.
+    if 'settimana' in testo or 'settimane' in testo:
+        quanti = quanti * 7
+    elif 'mese' in testo or 'mesi' in testo:
+        quanti = quanti * 30
+    # **UN ARCO PIU' STRETTO DI QUANTI GIORNI SERVONO E' IMPOSSIBILE, e non si
+    # aggiusta di nascosto.** Il corpus D porta tre voci cosi': "due settimane
+    # di presenza, nell'arco di 3 giorni", cioe' quattordici giorni dentro tre.
+    # Nascono dalla conversione automatica della revisione, che ha preso il
+    # numero della durata al posto di quello dell'arco. Qui si DICHIARA: la
+    # voce diventa dormiente col suo perche', e il rapporto lo porta
+    # all'Architetto, che e' l'unico che puo' correggere il dato.
+    if arco < quanti:
+        return ('DORMIENTE',
+                'il corpus chiede %d giorni dentro un arco di %d: e '
+                'aritmeticamente impossibile, e il dato va corretto nel corpus'
+                % (quanti, arco))
+    return f"GiorniDentroUnArco('{gesto}', {quanti}, {arco})", None
+
+
 def regolaGiorniDiSeguito(v, testo):
     if 'consecutiv' not in testo and 'di seguito' not in testo:
         return None
@@ -441,6 +494,7 @@ REGOLE = [
     regolaVarieta,
     regolaCoincidenza,
     regolaCielo,
+    regolaCostanzaLarga,
     regolaGiorniDiSeguito,
     regolaStessoGiorno,
     regolaRitorno,
@@ -541,7 +595,9 @@ def main():
             # allineate per costruzione.
             if costruttore.startswith('FinestraDelCielo'):
                 famiglia = 'cielo'
-            elif costruttore.startswith('GiorniDiSeguito') or                     costruttore.startswith('RitornoDopoAssenza'):
+            elif (costruttore.startswith('GiorniDiSeguito')
+                  or costruttore.startswith('GiorniDentroUnArco')
+                  or costruttore.startswith('RitornoDopoAssenza')):
                 famiglia = 'ritorno'
             elif costruttore.startswith('GestiNelloStessoGiorno'):
                 famiglia = 'giornata'

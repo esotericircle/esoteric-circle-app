@@ -16,7 +16,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// del telefono del fondatore, e si misura il rettangolo vero della pillola.
 ///
 /// **La regola vale per tutti e tre i riti**, perche' il componente e' uno
-/// solo: Soffio, Meditazione e Rito del Sogno. Un caso speciale per il
+/// solo: Soffio, Meditazione e Sigillo del Sogno. Un caso speciale per il
 /// Soffio sarebbe un'altra regola messa su una porta sola.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

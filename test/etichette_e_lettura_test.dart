@@ -132,6 +132,24 @@ void main() {
     }
 
     const ammessi = {
+      // **QUATTRO RIGHE BREVI NEL RUOLO LETTURA. Ordine AS voci 06, 07, 08 e
+      // 11.** Questa guardia sorveglia il testo NARRATO, che senza
+      // `ParagrafiDiLettura` torna un blocco unico. Questi quattro punti
+      // portano righe corte che di narrato non hanno niente e che sono salite
+      // di corpo proprio per la regola trasversale di quest'ordine, cioe' che
+      // i testi piccoli si ingrandiscono: spezzarle in paragrafi non
+      // vorrebbe dire niente.
+      //
+      // L'invito del Rito dell'Alba, sei parole sopra il cielo notturno.
+      'lib/features/rituals/dawn_rite_screen.dart',
+      // L'invito del Soffio del Destino, cinque parole.
+      'lib/features/rituals/breath_destiny_screen.dart',
+      // Il colpo d'occhio dell'Arcano del Giorno: una frase sola, che viene
+      // dal corpus dei tarocchi ed e' il sommario della carta. Il RESPONSO,
+      // che e' il testo lungo, sta sotto in ruolo corpo.
+      'lib/features/rituals/day_oracle_screen.dart',
+      // Le tre arti del Maestro nella home: tre parole separate da virgole.
+      'lib/features/santuario/santuario_screen.dart',
       // Il punto comune: e' LUI la porta.
       'lib/design_system/typography/paragrafi_di_lettura.dart',
       // L'Oroscopo scrive a macchina: usa spezzaInParagrafi direttamente, e

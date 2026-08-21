@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
-/// La schermata del Rito del Sogno: nebbia, cielo, stelle unite, saluto.
+/// La schermata del Sigillo del Sogno: nebbia, cielo, stelle unite, saluto.
 void main() {
   final quando = DateTime(2026, 7, 13, 22, 40);
 
@@ -85,7 +85,7 @@ void main() {
     await tester.pumpWidget(host());
     await passo(tester);
 
-    expect(find.text('Rito del Sogno'), findsOneWidget);
+    expect(find.text('Sigillo del Sogno'), findsOneWidget);
     expect(find.byKey(const Key('dream_fog')), findsOneWidget);
     expect(find.byKey(const Key('dream_invito')), findsOneWidget);
     expect(find.byKey(const Key('dream_breath_bar')), findsOneWidget);

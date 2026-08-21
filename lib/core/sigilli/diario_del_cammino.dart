@@ -54,6 +54,7 @@ class DiarioDelCammino extends ChangeNotifier {
   /// COINCIDENZA (la stessa carta in due stese). Sono domande sui dettagli,
   /// e un gesto senza dettagli non potra' mai rispondere.
   static const _kDettagli = 'cammino.dettagli';
+  static const _kGiorniPerRito = 'cammino.giorniPerRito';
 
   final Map<String, int> _gestiCompiuti = {};
   final Map<String, int> _giorniConGesto = {};
@@ -83,6 +84,28 @@ class DiarioDelCammino extends ChangeNotifier {
   /// stesa scollegata: un dato che nessuno alimentava.
   final Map<String, int> _seriePerRito = {};
   final Map<String, String> _ultimoGiornoPerRito = {};
+
+  /// **I GIORNI RECENTI DI OGNI RITO. Ordine AS voce 12, corpus D.**
+  ///
+  /// **Perche' nasce.** Il corpus della revisione D cambia ventidue gradini di
+  /// costanza: non chiedono piu' giorni CONSECUTIVI ma tanti giorni dentro un
+  /// arco piu' largo, "sette in dieci", "quattordici in venti", "trenta in
+  /// quarantacinque". La ragione la spiega la misura della voce AR.04: con la
+  /// serie consecutiva chi non apre l'app tutti i giorni non completa mai una
+  /// serie, e la scala essendo sequenziale si BLOCCA li' per sempre.
+  ///
+  /// La serie consecutiva non basta a rispondere: dice quanti giorni di fila,
+  /// non quanti dentro una finestra. Serve l'elenco dei giorni, e questo e'.
+  ///
+  /// **Non e' uno storico infinito**: si tengono al massimo
+  /// [quantiGiorniPerRito] giorni per rito, che coprono l'arco piu' largo del
+  /// corpus con margine.
+  final Map<String, List<String>> _giorniPerRito = {};
+
+  /// **QUANTO PESA SUL DISCO, dichiarato.** L'arco piu' largo del corpus D e'
+  /// centotrenta giorni ("novanta nell'arco di centotrenta"): centoquaranta
+  /// tiene quello con margine, ed e' meno di mezzo chilobyte per rito.
+  static const int quantiGiorniPerRito = 140;
   final Set<String> _oggiHaFatto = {};
   String _giornoDiOggi = '';
   String? _primoGiorno;
@@ -191,6 +214,10 @@ class DiarioDelCammino extends ChangeNotifier {
       _leggiMappa(prefs.getString(_kSerie), _seriePerRito,
           tenendoIlMassimo: fondi);
       _leggiTesti(prefs.getString(_kUltimoPerRito), _ultimoGiornoPerRito);
+      // **I GIORNI RECENTI SI UNISCONO, non si sommano**: due letture dello
+      // stesso giorno non fanno due giorni, ed e' la stessa ragione per cui
+      // la serie tiene il massimo invece di sommare. Ordine AS voce 12.
+      _leggiIGiorniPerRito(prefs.getString(_kGiorniPerRito));
       _discoLetto = true;
       _apriIlGiorno();
       notifyListeners();
@@ -206,6 +233,32 @@ class DiarioDelCammino extends ChangeNotifier {
       // comunque, altrimenti un disco illeggibile bloccherebbe per sempre
       // chi sta in attesa.
       if (!_pronto.isCompleted) _pronto.complete();
+    }
+  }
+
+  /// Rilegge dal disco i giorni recenti di ogni rito, unendoli a quelli che
+  /// nel frattempo sono nati in memoria. Ordine AS voce 12.
+  void _leggiIGiorniPerRito(String? testo) {
+    if (testo == null || testo.isEmpty) return;
+    try {
+      final letto = jsonDecode(testo);
+      if (letto is! Map) return;
+      for (final voce in letto.entries) {
+        final giorni = voce.value;
+        if (giorni is! List) continue;
+        final miei =
+            _giorniPerRito.putIfAbsent(voce.key as String, () => <String>[]);
+        for (final g in giorni) {
+          if (g is String && !miei.contains(g)) miei.add(g);
+        }
+        miei.sort();
+        if (miei.length > quantiGiorniPerRito) {
+          miei.removeRange(0, miei.length - quantiGiorniPerRito);
+        }
+      }
+    } catch (_) {
+      // Un elenco illeggibile vale come elenco vuoto: le costanze larghe
+      // ripartiranno dai giorni nuovi, e nessun altro dato ne soffre.
     }
   }
 
@@ -337,7 +390,62 @@ class DiarioDelCammino extends ChangeNotifier {
     if (ultimo == oggi) return;
     _seriePerRito[gesto] = ultimo == ieri ? (_seriePerRito[gesto] ?? 0) + 1 : 1;
     _ultimoGiornoPerRito[gesto] = oggi;
+    // E il giorno entra nell'elenco dei giorni recenti, che e' cio' che
+    // risponde alle costanze larghe del corpus D.
+    final giorni = _giorniPerRito.putIfAbsent(gesto, () => <String>[]);
+    if (!giorni.contains(oggi)) {
+      giorni.add(oggi);
+      if (giorni.length > quantiGiorniPerRito) {
+        giorni.removeRange(0, giorni.length - quantiGiorniPerRito);
+      }
+    }
   }
+
+  /// **QUANTI GIORNI CON QUESTO RITO DENTRO L'ARCO PIU' RECENTE.** Ordine AS
+  /// voce 12.
+  ///
+  /// L'arco si conta all'indietro da OGGI: "sette nell'arco di dieci" vuol
+  /// dire sette giorni con quel rito fra oggi e nove giorni fa. Non e' la
+  /// finestra migliore possibile dentro tutta la storia, ed e' voluto: un
+  /// traguardo di costanza dice "in questi giorni sei tornato", non "una volta
+  /// nella vita hai avuto una buona settimana".
+  int giorniDelRitoNellArco(String rito, int arco) {
+    final giorni = _giorniPerRito[rito];
+    if (giorni == null || giorni.isEmpty || arco <= 0) return 0;
+    final oggi = _orologio();
+    var quanti = 0;
+    for (var indietro = 0; indietro < arco; indietro++) {
+      final chiave =
+          ConfineDelGiorno.chiaveDi(oggi.subtract(Duration(days: indietro)));
+      if (giorni.contains(chiave)) quanti++;
+    }
+    return quanti;
+  }
+
+  /// La fotografia delle costanze larghe: per ogni rito e per ogni arco che il
+  /// corpus nomina, quanti giorni ci sono dentro.
+  ///
+  /// **Si calcola sugli archi CHIESTI e non su tutti i numeri possibili**: e'
+  /// il corpus a dire quali archi esistono, e chiederglielo evita di
+  /// inventarne.
+  Map<String, int> costanzeLarghe(Set<({String rito, int arco})> chieste) => {
+        for (final c in chieste)
+          '${c.rito}:${c.arco}': giorniDelRitoNellArco(c.rito, c.arco),
+      };
+
+  /// Gli archi che il corpus chiede davvero, letti dai traguardi.
+  ///
+  /// **Si legge il dato invece di elencarli a mano**: il giorno che il corpus
+  /// cambia un arco, questo insieme cambia con lui, e nessuno deve ricordarsi
+  /// di aggiornare una lista.
+  Set<({String rito, int arco})> _archiChiestiDalCorpus() => {
+        for (final t in Sentieri.tuttiITraguardi)
+          if (t.condizione is GiorniDentroUnArco)
+            (
+              rito: (t.condizione as GiorniDentroUnArco).rito,
+              arco: (t.condizione as GiorniDentroUnArco).arco,
+            ),
+      };
 
   /// La continuita' corrente di ogni rito, per la fotografia del cammino.
   Map<String, int> get seriePerRito {
@@ -397,6 +505,7 @@ class DiarioDelCammino extends ChangeNotifier {
     _quandoAccesi.clear();
     _condivisi.clear();
     _seriePerRito.clear();
+    _giorniPerRito.clear();
     _primoGiorno = null;
     _ultimoGiorno = null;
     _giornoDiOggi = '';
@@ -454,6 +563,12 @@ class DiarioDelCammino extends ChangeNotifier {
       giorniConGesto: Map.unmodifiable(_giorniConGesto),
       oggiHaFatto: Set.unmodifiable(_oggiHaFatto),
       seriePerRito: seriePerRito,
+      // **LE COSTANZE LARGHE, ordine AS voce 12.** Gli archi da guardare non
+      // si inventano: li DICHIARA il corpus, cioe' i traguardi stessi, e qui
+      // si risponde solo a quelli. Chiedere tutti gli archi possibili sarebbe
+      // centoquaranta conti per rito a ogni fotografia, per rispondere a
+      // domande che nessuno fa.
+      costanzeLarghe: costanzeLarghe(_archiChiestiDalCorpus()),
       gestiNellOraGiusta: Map.unmodifiable(_gestiNellOraGiusta),
       eventiDelCieloDiOggi: EventiDelCielo.diOggi(
         adesso: _orologio(),
@@ -608,6 +723,7 @@ class DiarioDelCammino extends ChangeNotifier {
         await prefs.setString(_kUltimoGiorno, _ultimoGiorno!);
       }
       await prefs.setString(_kSerie, jsonEncode(_seriePerRito));
+      await prefs.setString(_kGiorniPerRito, jsonEncode(_giorniPerRito));
       await prefs.setString(
           _kUltimoPerRito, jsonEncode(_ultimoGiornoPerRito));
     } catch (errore) {

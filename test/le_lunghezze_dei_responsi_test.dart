@@ -146,7 +146,7 @@ void main() {
       saluti.add(DailyRituals.nightMessage(quando));
       mattini.add(DailyRituals.dawnMessage(quando));
     }
-    tutto['Rito del Sogno, saluto della notte'] = saluti;
+    tutto['Sigillo del Sogno, saluto della notte'] = saluti;
     tutto['Rito dell\'Alba, messaggio del mattino'] = mattini;
 
     return tutto;

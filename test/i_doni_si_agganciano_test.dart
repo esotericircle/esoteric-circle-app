@@ -260,7 +260,7 @@ void main() {
     });
 
     test('il giorno rituale non finisce a mezzanotte', () async {
-      // Chi apre il Rito del Sogno all'una di notte sta chiudendo il giorno
+      // Chi apre il Sigillo del Sogno all'una di notte sta chiudendo il giorno
       // prima: se il filo si rompesse li', si romperebbe proprio nel momento
       // in cui deve tenere.
       final mattina = DateTime(2026, 8, 12, 7, 0);

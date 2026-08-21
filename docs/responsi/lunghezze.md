@@ -30,15 +30,15 @@ percio' le lunghezze nuove.
 | Oroscopo, scheda «carriera» | 4392 | 185 | 201 |
 | Oroscopo, scheda «fortuna» | 4392 | 167 | 198 |
 | Oroscopo, scheda «generale» | 4392 | 194 | 210 |
-| Rito del Sogno, saluto della notte | 366 | 68 | 74 |
 | Rito dell'Alba, messaggio del mattino | 366 | 75 | 76 |
-| Rune, presagio della gettata «croce» | 200 | 1007 | 1039 |
-| Rune, presagio della gettata «norne» | 200 | 811 | 838 |
-| Rune, presagio della gettata «odino» | 200 | 642 | 656 |
+| Rune, presagio della gettata «croce» | 200 | 1027 | 1090 |
+| Rune, presagio della gettata «norne» | 200 | 823 | 877 |
+| Rune, presagio della gettata «odino» | 200 | 645 | 669 |
 | Rune, presagio della gettata «telo» | 200 | 1209 | 1237 |
 | Rune, singola runa: riga breve di significato | 24 | 61 | 67 |
 | Rune, singola runa: verso d'ombra | 24 | 44 | 52 |
 | Rune, singola runa: verso dritto | 24 | 43 | 51 |
+| Sigillo del Sogno, saluto della notte | 366 | 68 | 74 |
 | Tarocchi, bolla di posizione | 576 | 196 | 325 |
 | Tarocchi, consiglio | 192 | 713 | 870 |
 | Tarocchi, domanda di chiusura | 192 | 52 | 73 |
@@ -51,15 +51,15 @@ percio' le lunghezze nuove.
 - **Oroscopo, scheda «carriera»** (201 caratteri): Sul lavoro la tua sensibilità coglie ciò che sfugge ai numeri, oggi un'intuizione vale un ...
 - **Oroscopo, scheda «fortuna»** (198 caratteri): La tua fortuna arriva dalle persone giuste e dalla bellezza condivisa, oggi un incontro pu...
 - **Oroscopo, scheda «generale»** (210 caratteri): Cerchi senso, libertà e avventura, la mente e i piedi vogliono lontano, oggi allarga lo sg...
-- **Rito del Sogno, saluto della notte** (74 caratteri): Il cielo si chiude piano: lascia al domani una sola cosa, il resto posala.
 - **Rito dell'Alba, messaggio del mattino** (76 caratteri): Il cielo si schiarisce: oggi una piccola scelta conta più di mille pensieri.
-- **Rune, presagio della gettata «croce»** (1039 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
-- **Rune, presagio della gettata «norne»** (838 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
-- **Rune, presagio della gettata «odino»** (656 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
+- **Rune, presagio della gettata «croce»** (1090 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
+- **Rune, presagio della gettata «norne»** (877 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
+- **Rune, presagio della gettata «odino»** (669 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
 - **Rune, presagio della gettata «telo»** (1237 caratteri): Non hai chiesto niente e va bene così: certi giorni la domanda non è ancora una domanda. A...
 - **Rune, singola runa: riga breve di significato** (67 caratteri): La grandine, la scossa che passa: dopo la tempesta, terreno pulito.
 - **Rune, singola runa: verso d'ombra** (52 caratteri): Rallenta: ritrovata la cadenza, la strada si spiana.
 - **Rune, singola runa: verso dritto** (51 caratteri): Tieni in equilibrio ciò che dai con ciò che ricevi.
+- **Sigillo del Sogno, saluto della notte** (74 caratteri): Il cielo si chiude piano: lascia al domani una sola cosa, il resto posala.
 - **Tarocchi, bolla di posizione** (325 caratteri): C'è uno slancio senza direzione, oppure un timore che ti trattiene sull'orlo proprio mentr...
 - **Tarocchi, consiglio** (870 caratteri): Sulla fiducia in gioco, le carte non vedono una porta chiusa: vedono due tempi che non coi...
 - **Tarocchi, domanda di chiusura** (73 caratteri): Se il cielo inclina e non obbliga, qual è il primo passo che spetta a te?

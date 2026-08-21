@@ -1691,8 +1691,8 @@ void main() {
     await capture(tester, rootKey, 'runa-tramonto-sigillo.png');
   });
 
-  // --- Il Rito del Sogno: nebbia, cielo, costellazione unita, saluto ---
-  testWidgets('Cattura il Rito del Sogno', (tester) async {
+  // --- Il Sigillo del Sogno: nebbia, cielo, costellazione unita, saluto ---
+  testWidgets('Cattura il Sigillo del Sogno', (tester) async {
     silenceSensors();
     await loadFonts();
     final quando = DateTime(2026, 7, 13, 22, 40);
@@ -1727,7 +1727,7 @@ void main() {
     await capture(tester, rootKey, 'rito-sogno.png');
   });
 
-  testWidgets('Cattura la carta della notte del Rito del Sogno',
+  testWidgets('Cattura la carta della notte del Sigillo del Sogno',
       (tester) async {
     silenceSensors();
     await loadFonts();

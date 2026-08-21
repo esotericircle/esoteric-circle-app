@@ -23,7 +23,7 @@ import 'package:provider/provider.dart';
 ///
 /// A. `MeditationScreen.dispose` chiudeva il respiro e non fermava il lettore.
 ///    Che fosse una dimenticanza e non una scelta lo diceva lo stesso repo: il
-///    Rito del Sogno usa lo stesso TonePlayer e nel suo dispose lo ferma gia'.
+///    Sigillo del Sogno usa lo stesso TonePlayer e nel suo dispose lo ferma gia'.
 /// B. In tutto `lib/` non esisteva un solo osservatore del ciclo di vita. Non
 ///    e' che l'audio si fermasse male: nessuno gli diceva mai di fermarsi.
 /// C. Il motore audio non veniva mai chiuso, e ne convivevano due: quello

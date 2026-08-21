@@ -19,11 +19,11 @@ void main() {
     'runa-tramonto-voce-due.png', // Runa del Tramonto, seconda voce dopo la rotazione
     'runa-tramonto-settimana.png', // Runa del Tramonto, la striscia delle sette sere
     'runa-tramonto-sigillo.png', // Runa del Tramonto, il sigillo della settima sera
-    'rito-sogno-nebbia.png', // Rito del Sogno, apertura nella nebbia
-    'rito-sogno-cielo.png', // Rito del Sogno, il cielo reale rivelato
-    'rito-sogno-costellazione.png', // Rito del Sogno, la costellazione unita
-    'rito-sogno.png', // Rito del Sogno, il saluto della notte
-    'rito-sogno-carta.png', // Rito del Sogno, la carta della notte
+    'rito-sogno-nebbia.png', // Sigillo del Sogno, apertura nella nebbia
+    'rito-sogno-cielo.png', // Sigillo del Sogno, il cielo reale rivelato
+    'rito-sogno-costellazione.png', // Sigillo del Sogno, la costellazione unita
+    'rito-sogno.png', // Sigillo del Sogno, il saluto della notte
+    'rito-sogno-carta.png', // Sigillo del Sogno, la carta della notte
     'sigillo-cerchio.png', // Sigillo del Cerchio, nuova esperienza
     'santuario-alto.png', // Santuario, alto pulito
     'santuario-scaffale.png', // Santuario, scaffale funzioni a scorrimento

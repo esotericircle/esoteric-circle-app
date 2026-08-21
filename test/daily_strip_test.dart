@@ -57,7 +57,7 @@ Widget _host(Widget child) => MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
-        // Il cosmo condiviso del Rito del Sogno chiede parallasse e zodiaco.
+        // Il cosmo condiviso del Sigillo del Sogno chiede parallasse e zodiaco.
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
       ],
@@ -85,7 +85,7 @@ void main() {
     for (final e in DailyElement.values) {
       expect(find.byKey(Key('daily_element_${e.name}')), findsOneWidget);
     }
-    // Il quinto appuntamento, il Rito del Sogno, e' presente.
+    // Il quinto appuntamento, il Sigillo del Sogno, e' presente.
     expect(find.byKey(const Key('daily_element_night')), findsOneWidget);
     expect(find.text('Notte'), findsOneWidget);
   });
@@ -328,7 +328,9 @@ void main() {
     for (final label in const [
       'Alba',
       'Soffio',
-      'Oracolo',
+      // **ARCANO E NON PIU ORACOLO**, ordine AS voce 08: il dono ha cambiato
+      // natura ed e l estrazione di una carta degli Arcani Maggiori.
+      'Arcano',
       'Tramonto',
       'Notte',
     ]) {
@@ -381,7 +383,7 @@ void main() {
     expect(find.byType(SunsetRuneScreen), findsOneWidget);
   });
 
-  testWidgets('Il Rito del Sogno apre la sua esperienza', (tester) async {
+  testWidgets('Il Sigillo del Sogno apre la sua esperienza', (tester) async {
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
     silenceSensors(binding);
     await tester.pumpWidget(_host(DailyStrip(clock: () => DateTime(2026, 7, 14, 23, 0))));
@@ -427,7 +429,7 @@ void main() {
     expect(find.byKey(const Key('daily_info_oracle')), findsNothing);
   });
 
-  testWidgets('Il popup del Rito del Sogno nomina il Maestro di turno',
+  testWidgets('Il popup del Sigillo del Sogno nomina il Maestro di turno',
       (tester) async {
     final now = DateTime(2026, 7, 14, 23, 0);
     await tester.pumpWidget(_host(DailyStrip(clock: () => now)));

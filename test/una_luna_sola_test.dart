@@ -18,10 +18,10 @@ import 'package:flutter_test/flutter_test.dart';
 /// Le cause erano due, e nessuna era il disegno in se'.
 ///
 /// 1. La Luna realistica esisteva gia', costruita e verificata, ma viveva
-///    dentro un metodo privato di una classe privata del Rito del Sogno:
+///    dentro un metodo privato di una classe privata del Sigillo del Sogno:
 ///    nessun'altra superficie poteva usarla, quindi ne erano nate altre.
 ///    Cercandole per scrivere questa prova se ne sono trovate **quattro**, non
-///    le tre che ricordavo: Rito del Sogno, emblema, ombra del Santuario e
+///    le tre che ricordavo: Sigillo del Sogno, emblema, ombra del Santuario e
 ///    cartolina del cielo. E' la ragione per cui la prova ENUMERA invece di
 ///    guardare i posti che uno si aspetta.
 /// 2. La vista del consulto passava `fraction: 0.5` SCRITTO A MANO, con accanto
@@ -170,6 +170,6 @@ void main() {
   // La regola che quella prova proteggeva NON e' rimasta scoperta: la forma
   // unica del terminatore e l'accordo fra il nome e il disegno restano provati
   // qui sopra, e valgono per tutti i posti dove la Luna si vede ancora, cioe'
-  // il Rito del Sogno, il Santuario, la cartolina del cielo e i fatti
+  // il Sigillo del Sogno, il Santuario, la cartolina del cielo e i fatti
   // identitari.
 }
