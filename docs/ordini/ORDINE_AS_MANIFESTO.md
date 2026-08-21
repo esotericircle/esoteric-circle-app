@@ -26,9 +26,17 @@ avanti su ogni ordine.
 
 ## L'accensione, dichiarata in testa
 
-Da riempire alla voce AS.12 con l'esito vero. Se il telefono compare si
-accende e si guarda; altrimenti si dichiara qui, e le voci visive restano
-FERMATE IN ATTESA DI DECISIONE.
+**NESSUN TELEFONO HA ACCESO QUESTA BUILD, e non per scelta.** Provato di nuovo
+il 21 agosto 2026, senza ereditare il fatto dell'ordine AR: `adb devices`
+risponde con l'elenco VUOTO, l'unico AVD e' `Pixel_8` e l'emulatore esce col
+solito messaggio, `x86_64 emulation currently requires hardware acceleration!
+CPU acceleration status: Android Emulator hypervisor driver is not installed on
+this machine`. Nemmeno senza finestra e con la grafica software si aggira.
+
+**Quindi le voci visive restano FERMATE IN ATTESA DI DECISIONE**: le chiude il
+collaudo di Mauro sulla 2187. Cio' che si e' potuto guardare qui e' stato
+guardato: tutte le anteprime nuove e rigenerate sono state aperte una per una,
+e i difetti che hanno mostrato sono elencati nelle voci.
 
 ## I fatti misurati che comandano AS.01, rifatti qui
 
@@ -321,17 +329,65 @@ Mauro del 17 agosto 2026.
   Guardia `test/il_filo_si_traccia_test.dart`, che pretende anche il ridisegno
   a ogni fotogramma: senza quello il filo si allungherebbe solo quando cambia
   qualcos'altro, cioe' mai, e l'animazione non si vedrebbe)
-- **AS.11** Le arti del Maestro saltano all'occhio. Stato: APERTA
-  (la riga delle arti diventa la prima cosa che si vede dopo il nome)
-- **AS.12** Il corpus D, il manifesto, la suite e la build 2187. Stato: APERTA
-  (la costanza non chiede piu' giorni consecutivi ma tanti giorni dentro un
-  arco piu' largo; rigenerare i sentieri, suite intera, build e consegna)
+- **AS.11** Le arti del Maestro saltano all'occhio. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**LA CRITICA DEI FONDATORI ERA GIUSTA**: chi arriva non conosce i Maestri e
+  cerca un'arte, ma trovava "Entra nel Dominio di Medora", che e' un nome
+  proprio, e le tre arti stavano SOTTO il pulsante, nel ruolo tipografico piu'
+  piccolo dell'app e in oro tenue, cioe' l'ultima cosa che l'occhio prende.
+  Adesso sono la prima cosa dopo il nome: sopra il pulsante, al corpo del testo
+  di lettura, in oro pieno. Misurato a schermo: arti a 578 punti, pulsante a
+  608, corpo 18 contro il pavimento 12. Il pulsante resta sotto, ed e' giusto:
+  prima si legge cosa c'e', poi si tocca per entrarci.
+  **UNA REGRESSIONE, e l'ha trovata una prova che non parlava di arti**: il
+  blocco d'ingresso e' ancorato in basso, quindi cresce verso l'ALTO, cioe'
+  verso la figura del Maestro, e la prova differenziale del pulsante ha visto
+  46.673 pixel di figura dentro la zona della bolla. Curata restituendo
+  l'altezza guadagnata: aria minima fra arti e pulsante (2.356 pixel) e stima
+  di partenza dell'altezza da 78 a 96, che e' la misura del blocco nuovo
+  (zero).
+  Una guardia della bolla pretendeva le arti SOTTO il pulsante: la pretesa si
+  rovescia insieme alla gerarchia e continua a sorvegliare che le due cose non
+  si accavallino. Guardia nuova
+  `test/le_arti_saltano_all_occhio_test.dart`. Anteprima della home guardata)
+- **AS.12** Il corpus D, il manifesto, la suite e la build 2187. Stato: CHIUSA
+  (**IL CORPUS D E' VIVO**: il generatore legge la revisione D e la C resta
+  come storia. Cambia una cosa sola, e la ragione e' la misura della voce
+  AR.04: ventidue gradini di costanza non chiedono piu' giorni CONSECUTIVI ma
+  tanti giorni dentro un arco piu' largo, perche' chi non apre l'app tutti i
+  giorni non completava mai una serie e la scala, essendo sequenziale, si
+  bloccava li' per sempre.
+  Nasce `GiorniDentroUnArco` e il diario impara a ricordare i GIORNI RECENTI di
+  ogni rito, al massimo centoquaranta per rito, che coprono con margine l'arco
+  piu' largo del corpus. **Gli archi non si inventano**: li dichiara il corpus e
+  il diario li legge dai traguardi, cosi' il giorno che il corpus cambia un
+  arco nessuno deve ricordarsi di aggiornare una lista.
+  **SETTE VOCI DEL CORPUS D CHIEDONO L'IMPOSSIBILE, e si dichiarano invece di
+  aggiustarle di nascosto**: "due settimane di presenza, nell'arco di 3
+  giorni", cioe' quattordici giorni dentro tre. Nascono dalla conversione
+  automatica della revisione, che ha preso il numero della durata al posto di
+  quello dell'arco. Diventano dormienti col perche' scritto nel dato, e **il
+  dato va corretto nel corpus**: sono `cal_28`, `cal_40`, `cal_45`, `cal_52`,
+  `aur_34`, `aur_45`, `aur_53`.
+  **SUITE INTERA**: 3.056 verdi e 28 rossi al primo giro, curati fino ai soli
+  rossi di legge piu' quelli che questo ordine dichiara. Le code venivano tutte
+  dalle decisioni nuove, e in nessuna si e' allentata una soglia: si sono
+  rovesciate le pretese che sorvegliavano cio' che Mauro ha tolto, e la guardia
+  del testo narrato ha accolto quattro righe brevi nel suo elenco di ammessi.
+  **UNA REGRESSIONE VERA, trovata dalla prova differenziale del pulsante**:
+  portando le arti sopra il pulsante, il blocco d'ingresso, che e' ancorato in
+  basso, e' cresciuto verso l'ALTO e la figura del Maestro finiva sotto la
+  bolla. Misurato: 46.673 pixel. Con l'aria minima scende a 2.356, e con la
+  stima di partenza dell'altezza portata da 78 a 96 torna a zero.
+  **Build `0.1.0+2187`** arm64, numero letto dall'archivio con aapt2,
+  161.176.931 byte, famiglie verificate dentro lo zip; consegnata il 21 agosto
+  2026 a `cloud@esotericircle.app` e `info@esotericircle.com`, release
+  `6qqabqo3kdgag`, inviti accettati 2)
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 2
-VOCI_CHIUSE: 0
+VOCI_APERTE: 0
+VOCI_CHIUSE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 9
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 10
