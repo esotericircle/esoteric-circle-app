@@ -310,12 +310,18 @@ class _RitualViewState extends State<RitualView>
                 ),
               ),
               // **COSA E' QUELLO CHE SI VEDE, E COSA FA MUOVERLO.** Ordine S voce
-              // 12: sta SOTTO il livello visivo e resta anche dopo la
-              // rivelazione, perche' il disco resta li' anche dopo. La riga del
-              // sensore e' salita da sotto il responso a qui: dice cosa succede
-              // muovendo, e la sua casa e' accanto alla cosa che si muove, non in
-              // fondo alla schermata.
-              if (widget.cosaEIlVisivo != null)
+              // 12: sta SOTTO il livello visivo. La riga del sensore e' salita
+              // da sotto il responso a qui: dice cosa succede muovendo, e la
+              // sua casa e' accanto alla cosa che si muove.
+              //
+              // **MA SPARISCE DOPO LA RIVELAZIONE. Ordine AS voce 08.** La
+              // voce S.12 lo faceva restare perche' il disco restava li' anche
+              // dopo; adesso il livello visivo e' la CARTA, cioe' la risposta
+              // stessa, e sotto di lei non serve piu' sapere come si scopre una
+              // cosa gia' scoperta. Vale la regola trasversale di quest'ordine:
+              // due righe di istruzioni fra la carta e il suo responso sono
+              // due righe che allontanano la risposta.
+              if (widget.cosaEIlVisivo != null && !_revealed)
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: SpacingTokens.lg),

@@ -252,9 +252,42 @@ Mauro del 17 agosto 2026.
   in questo repo.
   Anteprime `soffio-destino` e `soffio-destino-dono` rigenerate e guardate: a
   testa piena lo stelo c'e', col dono a schermo non c'e' piu')
-- **AS.08** L'Oracolo del Giorno diventa l'Arcano del Giorno. Stato: APERTA
-  (una carta dei soli Arcani Maggiori e una risposta per la giornata; il gesto
-  del cammino resta `oracolo`)
+- **AS.08** L'Oracolo del Giorno diventa l'Arcano del Giorno. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**COS'ERA PRIMA, detto senza addolcirlo.** Una riga presa a giro da un
+  elenco di ventidue frasi, uguale per tutti e legata al giorno dell'anno: si
+  leggeva come un biscotto della fortuna, e il livello visivo era un disco
+  procedurale che l'ordine S voce 12 aveva dovuto corredare di una didascalia
+  per spiegare cosa fosse.
+  **Adesso e' l'estrazione di UNA CARTA dei soli Arcani Maggiori**, con l'arte
+  vera del mazzo e il significato che il progetto ha gia' scritto e verificato
+  per la Stesa. Nasce `lib/core/rituals/arcano_del_giorno.dart`. Finche' il
+  gesto non e' compiuto si vede il dorso; poi la carta, il suo nome, il colpo
+  d'occhio in una frase e il responso, che nel corpus e' gia' scritto in
+  seconda persona e finisce con cosa fare.
+  **SOLO DIRITTA, ed e' una scelta dichiarata**: nella Stesa il rovescio ha
+  senso perche' si legge un intreccio di tre carte, qui la carta e' una e una
+  carta rovescia obbligherebbe a spiegare cos'e' il rovescio prima di dire
+  qualcosa di utile, cioe' la lezione di tarocchi che questa voce toglie.
+  **Il conto non e' piu' il giorno dell'anno**, che dava un ciclo riconoscibile
+  e la stessa carta nello stesso giorno di ogni anno: misurato, adesso in un
+  anno escono tutte e 22 le carte e solo 34 giorni su 365 ripetono la carta
+  dell'anno prima.
+  **IL GESTO DEL CAMMINO RESTA `oracolo`**, come l'ordine chiede: il dono
+  cambia natura e nessun traguardo si sposta di un gradino.
+  **I NOMI NEL CORPUS SI TRADUCONO NEL GENERATORE**, non nei file generati: le
+  frasi dei traguardi nominano i doni, e correggerle a valle sarebbe inutile
+  perche' al primo rigenero tornerebbero. L'elenco `NOMI_NUOVI_DEI_DONI` sta
+  in `tool/genera_sentieri_dal_corpus.py` e vale anche per il Sigillo del Sogno
+  della voce 10.
+  **Il pittore del disco e' stato TOLTO, non spento**: codice che nessuno usa
+  e' codice che qualcuno crede vivo.
+  **Applicata la regola trasversale anche alla scena condivisa dei riti**: dopo
+  la rivelazione l'invito al gesto e il suggerimento del sensore spariscono.
+  Restavano perche' il disco restava; adesso il livello visivo e' la carta,
+  cioe' la risposta stessa, e due righe di istruzioni fra la carta e il suo
+  responso sono due righe che allontanano la risposta.
+  Guardia `test/l_arcano_del_giorno_test.dart` con sei prove. Anteprima
+  `arcano-del-giorno.png` rigenerata e guardata)
 - **AS.09** La Runa del Tramonto. Stato: APERTA
   (l'avviso della posizione misurato; la pietra cade e non e' gia' li'; via
   "Gira la Runa"; merkstave dice anche rovesciata; un piccolo rito
@@ -270,7 +303,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 5
+VOCI_APERTE: 4
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 7
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 8

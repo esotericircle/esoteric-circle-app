@@ -97,7 +97,7 @@ class ImmersiveIntents {
         'previsione del giorno',
       ],
       invite: 'Il cielo di oggi si mostra meglio che a parole. Guardiamolo insieme.',
-      buttonLabel: 'Apri l\'Oracolo del Giorno',
+      buttonLabel: 'Apri l\'Arcano del Giorno',
     ),
 
     // --- Aura ---

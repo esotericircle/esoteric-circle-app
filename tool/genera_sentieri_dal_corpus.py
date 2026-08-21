@@ -470,6 +470,30 @@ SENTIERI = {
 }
 
 
+# **I NOMI DEI DONI CAMBIANO, E IL CORPUS NON LO SA. Ordine AS voce 08.**
+#
+# L'Oracolo del Giorno e' diventato l'Arcano del Giorno, e il Rito del Sogno il
+# Sigillo del Sogno: sono decisioni di prodotto prese DOPO che il corpus era
+# stato scritto, e le frasi dei traguardi continuano a nominare i doni col nome
+# vecchio. Correggerle a valle, dentro i file Dart generati, sarebbe inutile: al
+# primo rigenero tornerebbero.
+#
+# Qui la traduzione avviene mentre si scrive, ed e' un elenco dichiarato invece
+# di una sostituzione sparsa: chi rinomina un dono domani sa dove aggiungere la
+# riga, e chi legge sa che quei nomi non vengono dal corpus.
+NOMI_NUOVI_DEI_DONI = {
+    'Oracolo del Giorno': 'Arcano del Giorno',
+    'Rito del Sogno': 'Sigillo del Sogno',
+}
+
+
+def coiNomiNuovi(testo):
+    """La frase del corpus, coi doni chiamati col loro nome di oggi."""
+    for vecchio, nuovo in NOMI_NUOVI_DEI_DONI.items():
+        testo = testo.replace(vecchio, nuovo)
+    return testo
+
+
 def scappa(s):
     return s.replace(chr(92), chr(92) * 2).replace(chr(39), chr(92) + chr(39)).replace(chr(36), chr(92) + chr(36))
 
@@ -536,14 +560,14 @@ def main():
             righe.append(
                 "  Traguardo(\n"
                 f"    id: '{v['id']}',\n"
-                f"    nome: '{scappa(v['nome'])}',\n"
+                f"    nome: '{scappa(coiNomiNuovi(v['nome']))}',\n"
                 f"    famiglia: FamigliaDelTraguardo.{famiglia},\n"
                 f"    condizione: const {costruttore},\n"
-                f"    frase: '{scappa(v['condizione'])}',\n"
+                f"    frase: '{scappa(coiNomiNuovi(v['condizione']))}',\n"
                 f"    posizione: {v['posizione']},\n"
                 "    percheConta: FamigliaDelTraguardo."
                 f"{famiglia}.percheContaLaFamiglia,\n"
-                f"    cosaApre: '{scappa(v.get('porta_che_apre') or '')}',\n"
+                f"    cosaApre: '{scappa(coiNomiNuovi(v.get('porta_che_apre') or ''))}',\n"
                 f"    eGrande: {str(bool(v['grande'])).lower()},\n"
                 f"    eos: {v['eos']},\n"
                 f"    fascia: '{scappa(v['fascia'])}',\n"

@@ -43,18 +43,22 @@ enum DailyElement {
         'scioglie la tensione.',
   ),
   oracle(
-    cosaFai: 'Inclini il telefono oppure scorri col dito: il cielo di oggi si scopre.',
+    // **LE TRE RIGHE SEGUONO IL DONO NUOVO, ordine AS voce 08.** Dicevano "il
+    // cielo di oggi si scopre" e "la riga del cielo di oggi", che erano vere
+    // finche' il dono era una frase estratta da un elenco: adesso e' una carta
+    // degli Arcani Maggiori, e un testo che nomina una cosa che non c'e' piu'
+    // e' un testo che mente.
+    cosaFai: 'Inclini il telefono oppure scorri col dito: la carta di oggi si scopre.',
     perche: 'A metà giornata la domanda che porti si è già fatta più precisa: è lì che un responso serve.',
-    cosaTiResta: 'La riga del cielo di oggi, più un Sigillo sul cammino se torni domani.',
-    title: 'Oracolo del Giorno',
-    shortLabel: 'Oracolo',
+    cosaTiResta: 'La carta del giorno con la sua risposta, più un Sigillo sul cammino se torni domani.',
+    title: 'Arcano del Giorno',
+    shortLabel: 'Arcano',
     anchorHour: 13,
     anchorMinute: 0,
     guide: Maestro.medora,
     pushByDefault: true,
     description:
-        'Il responso centrale del giorno, che illumina la domanda che porti '
-        'con te.',
+        'Una carta degli Arcani Maggiori per la giornata, con la sua risposta.',
   ),
   rune(
     cosaFai: 'Estrai la runa della sera dal mazzo delle ventiquattro.',
@@ -190,7 +194,7 @@ class DailyElements {
       element.guide ?? DailyRituals.dawnMaestro(now);
 
   /// Gli elementi che di default inviano una notifica push: Rito dell'Alba,
-  /// Oracolo del Giorno e Rito della Buonanotte. Soffio del Destino e Runa del
+  /// Arcano del Giorno e Rito della Buonanotte. Soffio del Destino e Runa del
   /// Tramonto restano disponibili in app senza push, attivabili in futuro.
   static List<DailyElement> get defaultPushElements =>
       DailyElement.values.where((e) => e.pushByDefault).toList(growable: false);

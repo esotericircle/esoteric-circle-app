@@ -99,6 +99,7 @@ import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
+import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/features/sigilli/sentiero_screen.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
@@ -1472,18 +1473,36 @@ void main() {
     await capture(tester, rootKey, 'soffio-destino-dono.png');
   });
 
-  testWidgets('Cattura l\'Oracolo del Giorno', (tester) async {
+  testWidgets('Cattura l\'Arcano del Giorno', (tester) async {
     silenceSensors();
+    // Il cammino e' gia' percorso, ordine AS voce 08: rivelare la carta matura
+    // un traguardo, e la festa coprirebbe la scena da fotografare.
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+    });
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    // **L'ARTE DELLA CARTA SI PRECARICA**, se no la cattura esce col ripiego
+    // dipinto a mano invece che con l'arte del mazzo: l'immagine e' un asset e
+    // in una prova headless non si decodifica da sola in tempo.
+    await tester.runAsync(() async {
+      final elemento = tester.element(find.byType(MaterialApp));
+      await precacheImage(
+          AssetImage(ArcanoDelGiorno.di(DateTime(2026, 7, 13)).fullPath),
+          elemento);
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), elemento);
+    });
     await captureRitual(
       tester,
       rootKey,
       DayOracleScreen.route(now: DateTime(2026, 7, 13)),
       () async => tester.drag(
           find.byKey(const Key('ritual_gesture')), const Offset(250, 0)),
-      'oracolo-giorno.png',
+      'arcano-del-giorno.png',
     );
   });
 
