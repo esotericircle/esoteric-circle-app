@@ -63,11 +63,16 @@ void main() {
           reason: 'manca la via "$modo": un traguardo senza via di '
               'condivisione e\' un bonus che nessuno potra\' mai incassare');
     }
-    // E NON FINISCE COL PUNTO: il prossimo traguardo e' li'.
-    expect(find.byKey(const Key('celebrazione_prossimo')), findsOneWidget,
-        reason: 'la celebrazione finisce senza indicare il prossimo passo, e '
-            'un premio che finisce col punto spegne il ciclo');
-    expect(find.byKey(const Key('eos_che_volano')), findsOneWidget);
+    // **VIA LA BOLLA DEL PROSSIMO TRAGUARDO, ordine AS voce 05**, decisione
+    // di Mauro: la festa dura meno di due secondi e in quel tempo si legge
+    // cosa si e' vinto, non cosa non si e' ancora vinto. La pretesa si
+    // rovescia e sorveglia la decisione nuova; il ciclo resta aperto dal
+    // pulsante che porta al sentiero, e quello si controlla qui sotto.
+    expect(find.byKey(const Key('celebrazione_prossimo')), findsNothing,
+        reason: 'la bolla del prossimo traguardo e tornata nella festa');
+    expect(find.byKey(const Key('celebrazione_vai_al_sigillo')), findsOneWidget,
+        reason: 'la festa finisce col punto: non c e nessuna via per '
+            'proseguire il cammino');
   });
 
   testWidgets('la sovrimpressione non ruba i tocchi di sotto', (tester) async {

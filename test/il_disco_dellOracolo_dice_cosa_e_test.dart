@@ -60,30 +60,38 @@ void main() {
     }
   }
 
-  testWidgets('il disco dice cosa e\', prima e DOPO il gesto', (tester) async {
+  testWidgets('la carta dice cosa e, e le istruzioni se ne vanno dopo il gesto',
+      (tester) async {
+    // **LA PRETESA SI E' ROVESCIATA COL DONO. Ordine AS voce 08.**
+    //
+    // Questa prova nasceva per il DISCO dell'Oracolo, che funzionava e non
+    // diceva cosa fosse: la cura di allora fu una didascalia che restava anche
+    // dopo il gesto, "perche' il disco resta li'". Adesso il dono e' l'Arcano
+    // del Giorno e il livello visivo e' la CARTA, cioe' la risposta stessa:
+    // prima del gesto la didascalia dice cosa si sta per scoprire, dopo non
+    // serve piu' e se ne va, perche' due righe di istruzioni fra la carta e il
+    // suo responso allontanano la risposta.
+    //
+    // Non e' una guardia allentata: sorveglia la decisione nuova, cioe' che la
+    // dichiarazione ci sia PRIMA e sparisca DOPO.
     await monta(tester);
     final didascalia = find.byKey(const Key('rito_cosa_e_il_visivo'));
     expect(didascalia, findsOneWidget,
-        reason: 'il disco non dice cosa sia: chi lo guarda non sa cosa sta '
-            'guardando');
-
-    // COSA DICE: il cielo di questo momento, e non una frase qualunque.
+        reason: 'la carta coperta non dice cosa sia: chi guarda non sa cosa '
+            'sta per scoprire');
     final testo = tester.widget<Text>(didascalia).data!;
-    expect(testo.toLowerCase(), contains('cielo'),
-        reason: 'la didascalia del disco non nomina il cielo: «$testo»');
+    expect(testo.toLowerCase(), contains('carta'),
+        reason: 'la didascalia non nomina la carta');
 
-    // **IL GESTO, e poi si guarda di nuovo.** Il ripiego tattile vale sempre,
-    // quindi il tocco rivela come l'inclinazione.
     await tester.tap(find.byKey(const Key('ritual_gesture')));
     for (var i = 0; i < 8; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
     expect(find.byKey(const Key('ritual_content')), findsOneWidget,
-        reason: 'il gesto non ha rivelato niente: la prova non sta misurando il '
-            'dopo');
-    expect(didascalia, findsOneWidget,
-        reason: 'dopo il gesto il disco torna nudo: la dichiarazione deve '
-            'restare, perche\' il disco resta');
+        reason: 'il gesto non ha rivelato niente');
+    expect(didascalia, findsNothing,
+        reason: 'dopo il gesto le istruzioni restano fra la carta e il suo '
+            'responso');
   });
 
   testWidgets('la riga del ripiego tattile non si dice due volte',

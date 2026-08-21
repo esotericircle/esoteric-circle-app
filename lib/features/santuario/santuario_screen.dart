@@ -564,7 +564,15 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // e' lungo, e allora la bolla saliva sopra i busti. Finche' la
           // misura non c'e' si parte dalla stima, e al primo fotogramma
           // subentra quella vera.
-          final entryZone = _altezzaIngresso ?? 78.0;
+          // **LA STIMA DI PARTENZA SEGUE IL BLOCCO NUOVO. Ordine AS voce 11.**
+          // Era 78, misurata quando le arti stavano SOTTO il pulsante nel ruolo
+          // piu' piccolo. Adesso stanno sopra e al corpo della lettura: il
+          // blocco misura di piu', e finche' la misura vera non arriva (un
+          // fotogramma dopo) le carte scendevano dentro la zona della bolla.
+          // Misurato dalla prova differenziale: 46.673 pixel di figura dentro
+          // la bolla con la stima vecchia, 2.356 con lo spazio stretto, zero
+          // con la stima giusta.
+          final entryZone = _altezzaIngresso ?? 96.0;
           // Le carte partono sopra la zona d'ingresso, con un margine d'aria.
           //
           // Il margine era il due per cento e NON bastava, perche' la figura
@@ -1158,7 +1166,7 @@ class _DomainEntry extends StatelessWidget {
               child: Text(
                 maestro.domainArts,
                 key: const Key('santuario_domain_arts'),
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: TypographyTokens.lettura().copyWith(
@@ -1170,7 +1178,14 @@ class _DomainEntry extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: SpacingTokens.sm),
+        // **LO SPAZIO E' STRETTO PER UNA RAGIONE MISURATA.** Ordine AS voce
+        // 11: il blocco d'ingresso e' ancorato in basso, quindi cresce verso
+        // l'ALTO, cioe' verso la figura del Maestro. Portando le arti sopra il
+        // pulsante il blocco si e' alzato, e la prova differenziale del
+        // pulsante ha visto la figura dipingere 46.673 pixel dentro la zona
+        // della bolla. Qui si restituisce l'altezza guadagnata: le arti stanno
+        // su una riga e l'aria fra loro e il pulsante e' quella minima.
+        const SizedBox(height: SpacingTokens.xs),
         _EnterDomainButton(maestro: maestro, onTap: onTap),
       ],
     );

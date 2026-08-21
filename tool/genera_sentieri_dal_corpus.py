@@ -312,8 +312,8 @@ def regolaCostanzaLarga(v, testo):
     # all'Architetto, che e' l'unico che puo' correggere il dato.
     if arco < quanti:
         return ('DORMIENTE',
-                'il corpus chiede %d giorni dentro un arco di %d: e '
-                'aritmeticamente impossibile, e il dato va corretto nel corpus'
+                'il corpus chiede %d giorni dentro un arco di %d, che e '
+                'aritmeticamente impossibile: il dato va corretto nel corpus'
                 % (quanti, arco))
     return f"GiorniDentroUnArco('{gesto}', {quanti}, {arco})", None
 

@@ -1,6 +1,7 @@
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
 import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
 import 'package:esoteric_circle/core/rituals/dawn_gift.dart';
 import 'package:esoteric_circle/core/rituals/ritual_streak.dart';
@@ -125,7 +126,7 @@ void main() {
       await tester.pumpWidget(MaterialApp(home: DawnRiteScreen(now: date)));
       await tester.pump();
       // Prima il livello visivo e l'invito al gesto, il dono non c'e' ancora.
-      expect(find.text('Trascina verso l\'alto per sollevare l\'alba'),
+      expect(find.text('Trascina in alto, oppure tocca'),
           findsOneWidget);
       expect(find.byKey(const Key('ritual_content')), findsNothing);
 
@@ -143,7 +144,13 @@ void main() {
       // NIENTE MAIUSCOLETTO, ordine P voce 13: l'etichetta del dono e' passata
       // dal ruolo etichetta a quello didascalia, e col maiuscoletto se n'e'
       // andato anche il toUpperCase.
-      expect(find.text(gift.kind.label), findsOneWidget);
+      // **L'ETICHETTA DEL TIPO DI DONO NON SI MOSTRA PIU', ordine AS voce
+      // 06**: era la categoria con cui lo chiamiamo noi ("Orientamento del
+      // giorno"), non cosa dice alla persona, e sopra c'e' gia' la riga che
+      // dice chi parla. Il tipo resta nel dato, dove serve a comporre il
+      // dono: la pretesa si sposta sul dono vero, cioe' il suo testo.
+      expect(find.text(gift.kind.label), findsNothing);
+      expect(find.byKey(const Key('alba_orientamento')), findsOneWidget);
       expect(find.text(gift.orientation), findsOneWidget);
       expect(find.byKey(const Key('gift_base_toggle')), findsOneWidget);
 
@@ -167,7 +174,7 @@ void main() {
       await tester.pumpWidget(attornoAlSoffio(BreathDestinyScreen(now: date)));
       await tester.pump();
       // L'invito al soffio e il suo ripiego, il dono non c'e' ancora.
-      expect(find.text('Soffia per liberare il tuo destino'), findsOneWidget);
+      expect(find.text('Soffia, oppure spazza col dito'), findsOneWidget);
       expect(find.byKey(const Key('ritual_content')), findsNothing);
 
       // Ripiego a tocco prolungato: disperde i semi e rivela il dono di Aura.
@@ -177,7 +184,13 @@ void main() {
       }
       expect(find.byKey(const Key('ritual_content')), findsOneWidget);
       final gift = DawnGift.forMaestro(date, Maestro.aura);
-      expect(find.text(gift.kind.label), findsOneWidget);
+      // **L'ETICHETTA DEL TIPO DI DONO NON SI MOSTRA PIU', ordine AS voce
+      // 06**: era la categoria con cui lo chiamiamo noi ("Orientamento del
+      // giorno"), non cosa dice alla persona, e sopra c'e' gia' la riga che
+      // dice chi parla. Il tipo resta nel dato, dove serve a comporre il
+      // dono: la pretesa si sposta sul dono vero, cioe' il suo testo.
+      expect(find.text(gift.kind.label), findsNothing);
+      expect(find.byKey(const Key('alba_orientamento')), findsOneWidget);
     });
 
     testWidgets('Oracolo del Giorno: ripiego allo scorrimento del dito',
@@ -190,7 +203,12 @@ void main() {
       await tester.drag(
           find.byKey(const Key('ritual_gesture')), const Offset(250, 0));
       await tester.pump(const Duration(milliseconds: 600));
-      expect(find.text(DailyRituals.dayOracle(date)), findsOneWidget);
+      // **L'ORACOLO E' DIVENTATO L'ARCANO DEL GIORNO, ordine AS voce 08.**
+      // Non e' piu' una riga presa a giro da un elenco: e' una carta degli
+      // Arcani Maggiori col suo responso. La pretesa segue il dono nuovo.
+      final carta = ArcanoDelGiorno.di(date);
+      expect(find.text(carta.name), findsOneWidget);
+      expect(find.text(carta.uprightSummary), findsOneWidget);
     });
 
   });

@@ -85,15 +85,24 @@ void main() {
             'del prossimo con la festa unita non ha piu senso');
   });
 
-  test('la festa ESCLUDE davvero cio che celebra', () {
-    // Il rosso di questa voce si prova qui: se la scena smettesse di passare
-    // gli id in corso, la scheda tornerebbe ad annunciare il traguardo appena
-    // festeggiato, e nessuna delle prove qui sopra se ne accorgerebbe.
+  test('chi mostra il prossimo puo escludere cio che si sta celebrando', () {
+    // **LA FESTA NON MOSTRA PIU' IL PROSSIMO. Ordine AS voce 05**, decisione
+    // di Mauro: la bolla e' stata tolta dalla celebrazione, perche' in due
+    // secondi si legge cosa si e' vinto e non cosa non si e' ancora vinto.
+    //
+    // Questa riga sorvegliava proprio quella bolla, e il codice che guardava
+    // non esiste piu'. Non si cancella la guardia: si sposta sulla PORTA, cioe'
+    // su `prossimoDi`, che resta il punto unico dove il prossimo si calcola e
+    // dove il difetto della voce AR.07 potrebbe tornare il giorno in cui
+    // qualcuno rimettesse una scheda del prossimo dentro una scena che celebra.
+    final motore =
+        File('lib/core/sigilli/diario_del_cammino.dart').readAsStringSync();
+    expect(motore.contains('escludendo'), isTrue,
+        reason: 'la porta del prossimo non sa piu escludere niente: chi la '
+            'usera dentro una festa annuncera il traguardo appena raggiunto');
     final scena =
         File('lib/features/sigilli/celebrazione.dart').readAsStringSync();
-    expect(scena.contains('escludendo: {for (final t in widget.traguardi)'),
-        isTrue,
-        reason: 'la festa non esclude piu i traguardi che sta celebrando: la '
-            'scheda annuncera di nuovo quello appena raggiunto');
+    expect(scena.contains("Key('celebrazione_prossimo')"), isFalse,
+        reason: 'la bolla del prossimo e tornata nella festa');
   });
 }

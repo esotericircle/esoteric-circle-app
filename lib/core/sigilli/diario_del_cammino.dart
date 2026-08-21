@@ -256,9 +256,18 @@ class DiarioDelCammino extends ChangeNotifier {
           miei.removeRange(0, miei.length - quantiGiorniPerRito);
         }
       }
-    } catch (_) {
-      // Un elenco illeggibile vale come elenco vuoto: le costanze larghe
-      // ripartiranno dai giorni nuovi, e nessun altro dato ne soffre.
+    } catch (errore) {
+      // **SI IGNORA, E SI DICHIARA PERCHE'.** Un elenco di giorni illeggibile
+      // vale come elenco vuoto: le costanze larghe ripartono dai giorni nuovi
+      // e nessun altro dato ne soffre. Rilanciare qui vorrebbe dire far
+      // fallire il caricamento intero del diario per una chiave sola, cioe'
+      // spegnere il cammino per un dettaglio.
+      assert(() {
+        // In sviluppo si vede, in esercizio non disturba nessuno.
+        // ignore: avoid_print
+        print('cammino.giorniPerRito illeggibile, si riparte vuoto: $errore');
+        return true;
+      }());
     }
   }
 
