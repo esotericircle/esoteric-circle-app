@@ -33,7 +33,7 @@ class BirthMoon {
 
   /// Il significato del segno lunare, per chi ha gia' il segno e non la data.
   /// Stesso corpus di [meaning], esposto per riusarlo senza ricalcolare la fase:
-  /// lo usa il Rito del Sogno per fondare il messaggio sul sentire del segno.
+  /// lo usa il Sigillo del Sogno per fondare il messaggio sul sentire del segno.
   static String meaningFor(Zodiac sign) => _meanings[sign]!;
 
   // Il segno lunare parla del sentire, non della volonta' del Sole: una riga

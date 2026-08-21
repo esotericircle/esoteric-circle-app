@@ -134,7 +134,7 @@ class SunsetRune {
     return _fnv1a("$chiave|insistenza") % 4;
   }
 
-  /// La chiave della cerniera col Rito del Sogno.
+  /// La chiave della cerniera col Sigillo del Sogno.
   static const String chiaveCerniera = "sunset_rune_last";
 
   /// La data in ISO yyyy-MM-dd.

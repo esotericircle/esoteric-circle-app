@@ -91,7 +91,7 @@ class DoveSiMuoveIlCielo {
     CieloDiUnaSchermata('CelebrazioneAScermoPieno', SorgenteDelCielo.propria),
     // ORDINE P VOCE 26: il Soffio si dipingeva un prato suo dentro il pittore
     // della scena, cioe' un secondo fondale da mantenere. Adesso porta il cosmo
-    // condiviso come il Rito del Sogno, e il soffione resta dipinto da lui
+    // condiviso come il Sigillo del Sogno, e il soffione resta dipinto da lui
     // perche' e' il gesto del rito e non lo sfondo.
     CieloDiUnaSchermata('BreathDestinyScreen', SorgenteDelCielo.propria),
 

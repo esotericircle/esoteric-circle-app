@@ -19,7 +19,7 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 /// riempie nella rivelazione e l'animale appare.
 ///
 /// La meccanica del tocco in sequenza e' il componente UNICO `StelleDaUnire`,
-/// lo stesso del Rito del Sogno: la stella che aspetta il tocco e' l'unica
+/// lo stesso del Sigillo del Sogno: la stella che aspetta il tocco e' l'unica
 /// accesa e pulsa, e con Riduci Movimento resta accesa e ferma. Il ripiego
 /// resta: il tasto che porta subito alla rivelazione.
 class AnimalJourney extends StatefulWidget {

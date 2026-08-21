@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 /// fiducia, il secondo la mette solo alla prova.
 ///
 /// **Erano tre geometrie.** La Luna realistica esisteva gia', costruita e
-/// verificata per il Rito del Sogno, ma viveva dentro un metodo privato di una
+/// verificata per il Sigillo del Sogno, ma viveva dentro un metodo privato di una
 /// classe privata: nessun'altra superficie poteva usarla. Accanto c'erano una
 /// versione semplificata, con mezzo disco e un contorno netto, che il consulto
 /// e il profilo mostravano, e una terza per l'ombra sopra la foto del Santuario.

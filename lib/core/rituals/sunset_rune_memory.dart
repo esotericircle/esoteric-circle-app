@@ -41,7 +41,7 @@ class SeraSalvata {
   DateTime get data => DateTime.parse(giorno);
 }
 
-/// La cerniera col Rito del Sogno: l'ultima runa portata dentro la notte.
+/// La cerniera col Sigillo del Sogno: l'ultima runa portata dentro la notte.
 class CernieraSogno {
   const CernieraSogno(
       {required this.giorno, required this.rune, required this.inOmbra});
@@ -89,7 +89,7 @@ class SunsetRuneMemory {
   }
 
   /// Salva la sera, una per giorno rituale, e pota la finestra ai sette giorni.
-  /// Aggiorna anche la chiave della cerniera col Rito del Sogno.
+  /// Aggiorna anche la chiave della cerniera col Sigillo del Sogno.
   static Future<void> scriviEstrazione(SeraSalvata sera) async {
     try {
       final prefs = await SharedPreferences.getInstance();

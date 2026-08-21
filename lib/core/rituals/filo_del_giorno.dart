@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// esaurisce quando lo apri non produce ritorni.
 ///
 /// **Cosa fa.** Tiene i tre fili che attraversano la giornata e la notte:
-/// - la PAROLA del mattino, che il Rito del Sogno richiama la sera con la
+/// - la PAROLA del mattino, che il Sigillo del Sogno richiama la sera con la
 ///   formula "Stamattina la tua parola era X";
 /// - la DOMANDA lasciata da Medora nella stesa, che ricompare nel dono del
 ///   mattino successivo con la formula "Ieri Medora ti ha lasciato questa
@@ -21,7 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///   difetti piu' frequente di questo progetto.
 ///
 /// **Il giorno e' quello RITUALE, non la mezzanotte del calendario.** Chi apre
-/// il Rito del Sogno all'una di notte sta chiudendo il giorno prima, e la sua
+/// il Sigillo del Sogno all'una di notte sta chiudendo il giorno prima, e la sua
 /// parola del mattino e' quella di ieri: il filo si spezzerebbe proprio nel
 /// momento in cui deve tenere.
 ///
@@ -35,7 +35,7 @@ class FiloDelGiorno {
 
   /// L'ora prima della quale si sta ancora chiudendo il giorno precedente.
   ///
-  /// Le cinque fasce dei doni finiscono col Rito del Sogno alle 22:30; chi
+  /// Le cinque fasce dei doni finiscono col Sigillo del Sogno alle 22:30; chi
   /// arriva dopo la mezzanotte e prima delle cinque sta ancora vivendo quella
   /// sera, non la mattina dopo.
   static const int albaDelGiornoRituale = 5;
@@ -70,7 +70,7 @@ class FiloDelGiorno {
   static Future<String?> parolaDiStamattina(DateTime adesso) async =>
       _leggiDelGiorno(_chiaveParola, giornoRituale(adesso));
 
-  /// La formula con cui il Rito del Sogno richiama la parola del mattino.
+  /// La formula con cui il Sigillo del Sogno richiama la parola del mattino.
   static String richiamoDellaParola(String parola) =>
       'Stamattina la tua parola era $parola.';
 

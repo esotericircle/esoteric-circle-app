@@ -29,7 +29,7 @@ class FiguraDaUnire {
 
 /// UNISCI LE STELLE E NASCE LA FIGURA, ordine L voce 3: il componente UNICO.
 ///
-/// Lo usano il Rito del Sogno e la rivelazione dell'Animale Guida: due modi
+/// Lo usano il Sigillo del Sogno e la rivelazione dell'Animale Guida: due modi
 /// diversi di fare la stessa cosa sono un difetto, non due funzioni.
 ///
 /// **LE STELLE SI VEDONO.** Sono grandi, pulsano UNA ALLA VOLTA nell'ordine
@@ -95,6 +95,22 @@ class StelleDaUnireState extends State<StelleDaUnire>
     duration: const Duration(milliseconds: 700),
   );
 
+  /// **IL FILO SI TRACCIA, NON COMPARE. Ordine AS voce 10.**
+  ///
+  /// Prima, toccata una stella, il segmento che la lega alla precedente
+  /// compariva intero nello stesso fotogramma: la figura si costruiva a
+  /// scatti, e il gesto di unire due stelle, che e' il rito, non si vedeva
+  /// mai. Adesso il segmento si disegna dal punto vecchio a quello nuovo in un
+  /// terzo di secondo, e solo dopo si accende la stella successiva.
+  ///
+  /// **Veloce per progetto**: trecento millesimi. Piu' lento sarebbe un'attesa
+  /// fra un tocco e l'altro, e chi unisce dieci stelle aspetterebbe tre
+  /// secondi in tutto per un'animazione che ha gia' capito.
+  late final AnimationController _traccia = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 300),
+  );
+
   final List<int> _accese = [];
 
   bool _avviato = false;
@@ -124,6 +140,7 @@ class StelleDaUnireState extends State<StelleDaUnire>
   void dispose() {
     _pulsa.dispose();
     _lampo.dispose();
+    _traccia.dispose();
     super.dispose();
   }
 
@@ -131,7 +148,13 @@ class StelleDaUnireState extends State<StelleDaUnire>
     if (completa) return;
     if (indice != _accese.length) return; // si uniscono in sequenza
     setState(() => _accese.add(indice));
-    if (!_riduciMovimento) _lampo.forward(from: 0);
+    if (!_riduciMovimento) {
+      _lampo.forward(from: 0);
+      // **CON RIDUCI MOVIMENTO IL PASSAGGIO E' SECCO**, come chiede l'ordine:
+      // il filo c'e' subito e intero, perche' si toglie il movimento, non il
+      // contenuto.
+      _traccia.forward(from: 0);
+    }
     widget.onTocco?.call(indice);
     if (completa) widget.onCompleta?.call();
   }
@@ -144,7 +167,7 @@ class StelleDaUnireState extends State<StelleDaUnire>
         Positioned.fill(
           child: IgnorePointer(
             child: AnimatedBuilder(
-              animation: Listenable.merge([_pulsa, _lampo]),
+              animation: Listenable.merge([_pulsa, _lampo, _traccia]),
               builder: (context, _) => CustomPaint(
                 painter: _StelleDaUnirePainter(
                   figura: widget.figura,
@@ -154,6 +177,12 @@ class StelleDaUnireState extends State<StelleDaUnire>
                   completa: completa,
                   pulsa: _riduciMovimento ? 1.0 : _pulsa.value,
                   lampo: _lampo.isAnimating ? _lampo.value : -1,
+                  // Quanto e' tracciato il filo appena nato: uno vuol dire
+                  // intero, ed e' anche il valore a riposo e con Riduci
+                  // Movimento.
+                  tracciato: _riduciMovimento || !_traccia.isAnimating
+                      ? 1.0
+                      : _traccia.value,
                   spostamento: widget.spostamento,
                 ),
               ),
@@ -192,6 +221,7 @@ class _StelleDaUnirePainter extends CustomPainter {
     required this.completa,
     required this.pulsa,
     required this.lampo,
+    required this.tracciato,
     required this.spostamento,
   });
 
@@ -203,6 +233,10 @@ class _StelleDaUnirePainter extends CustomPainter {
   final double pulsa;
   final double lampo;
   final Offset spostamento;
+
+  /// Quanto e' disegnato il filo appena nato, da zero a uno. Ordine AS voce
+  /// 10: uno vuol dire intero, ed e' il valore a riposo.
+  final double tracciato;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -221,7 +255,26 @@ class _StelleDaUnirePainter extends CustomPainter {
     for (final (a, b) in figura.fili) {
       if (!accese.contains(a) || !accese.contains(b)) continue;
       final pa = mappa(figura.punti[a].punto);
-      final pb = mappa(figura.punti[b].punto);
+      var pb = mappa(figura.punti[b].punto);
+      // **IL FILO APPENA NATO SI ALLUNGA, ordine AS voce 10.** E' quello che
+      // arriva all'ULTIMA stella unita: mentre si traccia, il suo capo corre
+      // dal punto vecchio a quello nuovo. Tutti gli altri fili sono gia'
+      // interi e non si toccano.
+      final eIlNuovo = accese.isNotEmpty && (accese.last == b || accese.last == a);
+      if (eIlNuovo && tracciato < 1.0) {
+        if (accese.last == a) {
+          // Il filo arriva dalla parte opposta: si allunga verso a.
+          pb = mappa(figura.punti[b].punto);
+          final capo = mappa(figura.punti[a].punto);
+          canvas.drawPath(
+              _fuso(pb, Offset.lerp(pb, capo, tracciato)!, 1.1, 3.4), aloneFilo);
+          canvas.drawPath(
+              _fuso(pb, Offset.lerp(pb, capo, tracciato)!, 0.3, pienoFilo),
+              cuoreFilo);
+          continue;
+        }
+        pb = Offset.lerp(pa, pb, tracciato)!;
+      }
       canvas.drawPath(_fuso(pa, pb, 1.1, 3.4), aloneFilo);
       canvas.drawPath(_fuso(pa, pb, 0.3, pienoFilo), cuoreFilo);
     }
@@ -302,6 +355,10 @@ class _StelleDaUnirePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_StelleDaUnirePainter old) =>
+      // Il tracciamento del filo nuovo cambia a ogni fotogramma: senza questa
+      // riga il filo si allungherebbe solo quando cambia qualcos altro, cioe
+      // mai, e l animazione non si vedrebbe. Ordine AS voce 10.
+      old.tracciato != tracciato ||
       old.accese.length != accese.length ||
       old.pulsa != pulsa ||
       old.lampo != lampo ||

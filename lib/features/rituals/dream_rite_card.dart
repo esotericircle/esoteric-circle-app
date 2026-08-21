@@ -12,7 +12,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import '../../core/condivisione/porta_della_condivisione.dart';
 
-/// La carta della notte del Rito del Sogno: la costellazione unita, una parola
+/// La carta della notte del Sigillo del Sogno: la costellazione unita, una parola
 /// sola, la frase della notte e la provenienza dal cielo reale. Senza indirizzi
 /// web inventati.
 class DreamRiteCard extends StatelessWidget {
@@ -145,6 +145,6 @@ Future<bool> shareDreamRiteCard({
   final file = File('${dir.path}/rito_del_sogno_${luna.sign.id}.png');
   await file.writeAsBytes(png, flush: true);
   await PortaDellaCondivisione.daFile(file.path, testo: 'La mia notte con ${DreamRiteCorpus.provenienza(luna)}. '
-          'Il Rito del Sogno, su Esoteric Circle.');
+          'Il Sigillo del Sogno, su Esoteric Circle.');
   return true;
 }

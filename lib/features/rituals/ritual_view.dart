@@ -139,7 +139,7 @@ class _RitualViewState extends State<RitualView>
 
   /// L'ASCOLTATORE DELL'INCLINAZIONE, la porta unica del giroscopio in questa
   /// app: la stessa che inclina le carte posate della Stesa e la costellazione
-  /// del Rito del Sogno. Un secondo ascoltatore sarebbe la terza porta.
+  /// del Sigillo del Sogno. Un secondo ascoltatore sarebbe la terza porta.
   TiltListener? _inclinazione;
 
   /// Quanta inclinazione svela il responso, in radianti.

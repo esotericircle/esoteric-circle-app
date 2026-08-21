@@ -16,7 +16,7 @@ import 'guardia_del_suono.dart';
 /// **Tre usi, una dipendenza.**
 ///
 /// 1. Gli effetti brevi della palette sonora, che sono file negli asset.
-/// 2. Le frequenze e il battito theta della Meditazione e del Rito del Sogno,
+/// 2. Le frequenze e il battito theta della Meditazione e del Sigillo del Sogno,
 ///    che sono byte sintetizzati sul momento.
 /// 3. Domani la voce dei Maestri del cantiere Protoface.
 ///
@@ -27,7 +27,7 @@ class MotoreAudio implements MotoreSonoro {
 
   /// L'UNICA istanza. La classe dichiarava di essere una sola mentre ne
   /// convivevano due: quella statica della palette e una nuova per ogni
-  /// apertura della Meditazione e del Rito del Sogno. Un commento che mente e'
+  /// apertura della Meditazione e del Sigillo del Sogno. Un commento che mente e'
   /// peggio di un difetto, perche' chi legge smette di verificare. Adesso la
   /// dichiarazione e' vera, e il costruttore e' privato perche' resti tale.
   static final MotoreAudio condiviso = MotoreAudio._();

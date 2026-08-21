@@ -35,7 +35,7 @@ import '../../../design_system/components/borsellino.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 
-/// Rito del Sogno, ex Rito della Buonanotte: a rotazione fra i tre Maestri di
+/// Sigillo del Sogno, ex Rito della Buonanotte: a rotazione fra i tre Maestri di
 /// giorno in giorno, come il Rito dell'Alba.
 ///
 /// Guarda al passato e al presente della giornata appena conclusa, mai al
@@ -281,7 +281,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         // borsellino nella riga delle azioni lo spazio del titolo si e'
         // ristretto, e un `Text` nudo qui torna a mettere i puntini.
         title: TitoloCheNonSiRompe(
-            testo: 'Rito del Sogno',
+            testo: 'Sigillo del Sogno',
             stile: TypographyTokens.display(size: 20)),
         actions: [
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in

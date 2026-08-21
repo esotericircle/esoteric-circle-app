@@ -207,7 +207,7 @@ class SkyPostcard {
       //
       // Questa era la QUARTA costruzione dello stesso terminatore, trovata
       // misurando per la prova che le enumera invece che ricordandosela. Le
-      // altre tre stavano nel Rito del Sogno, nell'emblema e nell'ombra del
+      // altre tre stavano nel Sigillo del Sogno, nell'emblema e nell'ombra del
       // Santuario. Quattro curve che dovevano restare d'accordo fra loro.
       final lit = LunaReale.parteIlluminata(
         c,

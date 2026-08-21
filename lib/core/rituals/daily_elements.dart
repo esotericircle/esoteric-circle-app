@@ -15,7 +15,7 @@ enum DailyElement {
   dawn(
     cosaFai: 'Sollevi l\'alba con un gesto e ricevi la parola del giorno.',
     perche: 'Il primo minuto della giornata decide il tono di tutte le ore che vengono dopo.',
-    cosaTiResta: 'Una parola da portare con te, che stasera il Rito del Sogno ti richiamerà.',
+    cosaTiResta: 'Una parola da portare con te, che stasera il Sigillo del Sogno ti richiamerà.',
     title: 'Rito dell\'Alba',
     shortLabel: 'Alba',
     anchorHour: 7,
@@ -63,7 +63,7 @@ enum DailyElement {
   rune(
     cosaFai: 'Estrai la runa della sera dal mazzo delle ventiquattro.',
     perche: 'Il tramonto è il momento in cui si sceglie cosa lasciare fuori dalla notte.',
-    cosaTiResta: 'Una runa che il Rito del Sogno nominerà fra poche ore, con '
+    cosaTiResta: 'Una runa che il Sigillo del Sogno nominerà fra poche ore, con '
         'il suo presagio.',
     title: 'La Runa del Tramonto',
     shortLabel: 'Tramonto',
@@ -79,7 +79,7 @@ enum DailyElement {
     cosaFai: 'Soffi sulla nebbia, unisci la costellazione della Luna di stanotte e chiudi il giorno.',
     perche: 'Un giorno che non si chiude resta addosso: il rito della buonanotte gli mette un punto.',
     cosaTiResta: 'La tua costellazione della notte da condividere, col giorno raccolto in una carta.',
-    title: 'Rito del Sogno',
+    title: 'Sigillo del Sogno',
     shortLabel: 'Notte',
     anchorHour: 22,
     anchorMinute: 30,

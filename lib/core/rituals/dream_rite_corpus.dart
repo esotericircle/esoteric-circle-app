@@ -4,7 +4,7 @@ import '../identity/birth_moon.dart';
 import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
 
-/// La voce del Rito del Sogno per un segno della Luna: una parola calmante e le
+/// La voce del Sigillo del Sogno per un segno della Luna: una parola calmante e le
 /// righe che guardano al giorno appena concluso.
 ///
 /// Non e' tradizione nuova: ogni voce riscrive in chiave riflessiva il
@@ -36,7 +36,7 @@ class VoceDelSogno {
   final String posa;
 }
 
-/// Il Rito del Sogno, ex Rito della Buonanotte: il messaggio della notte, la
+/// Il Sigillo del Sogno, ex Rito della Buonanotte: il messaggio della notte, la
 /// parola e la trasparenza, tutti deterministici dal cielo reale di adesso.
 ///
 /// La Luna arriva da `NightSky.moonSign` per il segno e da `MoonPhase.forDate`

@@ -322,8 +322,24 @@ Mauro del 17 agosto 2026.
   e cosa portare: e' il gesto con cui lo si fa.
   Guardia `test/la_runa_cade_e_non_e_gia_li_test.dart`. Anteprime del tramonto
   rigenerate e guardate)
-- **AS.10** Il Rito del Sogno diventa il Sigillo del Sogno. Stato: APERTA
-  (il nome cambia ovunque; la linea si traccia invece di comparire)
+- **AS.10** Il Rito del Sogno diventa il Sigillo del Sogno. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**IL NOME CAMBIA OVUNQUE**: ventotto occorrenze in sedici file, commenti
+  compresi, perche' un commento che nomina il dono col nome vecchio manda a
+  cercare una cosa che non c'e' piu'. Nel corpus dei traguardi la traduzione
+  vive nel GENERATORE, nello stesso elenco dichiarato che serve all'Arcano
+  della voce 08: a valle tornerebbe al primo rigenero.
+  **LA LINEA SI TRACCIA**: al tocco su una stella il segmento che la lega alla
+  precedente compariva intero nello stesso fotogramma, e la figura si costruiva
+  a scatti; il gesto di unire due stelle, che e' il rito, non si vedeva mai.
+  Adesso il capo del filo corre dal punto vecchio a quello nuovo in trecento
+  millesimi, e solo dopo si accende la stella successiva. **Trecento e non di
+  piu'**: chi unisce dieci stelle aspetterebbe tre secondi in tutto per
+  un'animazione che ha gia' capito.
+  **Con Riduci Movimento il passaggio e' secco**, come l'ordine chiede: il filo
+  e' intero subito, perche' si toglie il movimento e non il contenuto.
+  Guardia `test/il_filo_si_traccia_test.dart`, che pretende anche il ridisegno
+  a ogni fotogramma: senza quello il filo si allungherebbe solo quando cambia
+  qualcos'altro, cioe' mai, e l'animazione non si vedrebbe)
 - **AS.11** Le arti del Maestro saltano all'occhio. Stato: APERTA
   (la riga delle arti diventa la prima cosa che si vede dopo il nome)
 - **AS.12** Il corpus D, il manifesto, la suite e la build 2187. Stato: APERTA
@@ -333,7 +349,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 3
+VOCI_APERTE: 2
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 9
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 10

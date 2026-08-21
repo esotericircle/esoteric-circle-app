@@ -389,7 +389,7 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
 
     // IL FONDALE E' IL COSMO CONDIVISO, ordine P voce 26. Prima il Soffio si
     // dipingeva un prato suo dentro il pittore della scena: adesso passa da
-    // `CosmosBackground`, la stessa porta del Rito del Sogno, quindi il cielo in
+    // `CosmosBackground`, la stessa porta del Sigillo del Sogno, quindi il cielo in
     // parallasse arriva anche qui e non c'e' un secondo fondale da mantenere.
     return CosmosBackground(
       seed: 31,

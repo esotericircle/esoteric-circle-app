@@ -105,7 +105,7 @@ class CosmosBackground extends StatefulWidget {
   final Rect? starKeepOut;
 
   /// Se falso, il cosmo non disegna i dischi dei pianeti soffusi. Lo spegne chi
-  /// mette in scena un corpo celeste suo, come il Rito del Sogno con la Luna e
+  /// mette in scena un corpo celeste suo, come il Sigillo del Sogno con la Luna e
   /// il suo pianeta lontano, per non sovrapporre due sfere. Default acceso:
   /// nessuna altra schermata cambia.
   final bool showPlanets;

@@ -302,7 +302,7 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     _recordStreak(date).then((_) => _programmaAvviso());
     _aggiornaPosizione(date);
     // IL FILO DEL GIORNO, ordine P voce 18: la parola di stamattina si segna
-    // qui, e stasera il Rito del Sogno la richiama. Senza questo la Parola del
+    // qui, e stasera il Sigillo del Sogno la richiama. Senza questo la Parola del
     // Giorno resta un ornamento: nasce, sta un minuto a schermo e non torna.
     final parola = _gift?.word;
     if (parola != null) {
