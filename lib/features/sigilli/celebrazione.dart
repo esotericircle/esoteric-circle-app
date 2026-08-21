@@ -359,6 +359,36 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
   /// dell'immagine, letto da un log con timestamp su dispositivo reale.
   DateTime? _quandoEPartita;
 
+  /// **LA RETE DI SICUREZZA SUL TEMPO, e l'ha trovata una prova.** Ordine AT
+  /// voce 05.
+  ///
+  /// La scheda compare quando il lettore arriva al frame 21. Ma se il filmato
+  /// NON si apre, il frame 21 non arriva mai e la scheda resta invisibile per
+  /// sempre: una festa che non mostra il traguardo, cioe' un vicolo cieco. La
+  /// prova che monta la scena lo ha fatto vedere subito, perche' li' il codec
+  /// non si apre affatto.
+  ///
+  /// Questi due orologi non guidano niente quando tutto va bene, e il lettore
+  /// arriva sempre per primo: esistono per il giorno in cui non arriva.
+  Timer? _reteDelloStacco;
+  Timer? _reteDellaFine;
+
+  void _armaLaRete() {
+    _reteDelloStacco = Timer(TransizioneDiStelle.istanteDelloStacco, () {
+      if (!mounted || _traguardoVisibile) return;
+      debugPrint('ORDINE AT: stacco dalla rete di sicurezza, il lettore non '
+          'e arrivato al frame 21');
+      setState(() => _traguardoVisibile = true);
+    });
+    _reteDellaFine = Timer(TransizioneDiStelle.durata, () {
+      if (!mounted || !_transizioneInCorso) return;
+      setState(() {
+        _transizioneInCorso = false;
+        _traguardoVisibile = true;
+      });
+    });
+  }
+
   void _alFrame(int indice) {
     _quandoEPartita ??= DateTime.now();
     if (_traguardoVisibile) return;
@@ -386,11 +416,14 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
       _transizioneInCorso = false;
     } else {
       _segno.forward();
+      _armaLaRete();
     }
   }
 
   @override
   void dispose() {
+    _reteDelloStacco?.cancel();
+    _reteDellaFine?.cancel();
     _segno.dispose();
     super.dispose();
   }
@@ -477,6 +510,24 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                       ],
                     ),
                     const SizedBox(height: SpacingTokens.lg),
+                    // **LA PAROLA DI PREMIO, SOPRA OGNI ALTRO TESTO.** Ordine
+                    // AT voce 07: al frame 21 compaiono insieme, nello stesso
+                    // fotogramma, l'immagine del traguardo e questa parola.
+                    // Durante i primi venti fotogrammi lo schermo e' solo
+                    // stelle, e questo blocco non e' a schermo perche' tutta
+                    // la scheda e' invisibile fino allo stacco.
+                    //
+                    // **Il resto del contenuto della card e' materia
+                    // dell'ordine AU voce 04**, e questo ordine non ci mette
+                    // le mani: qui si decide soltanto QUANDO entra in scena.
+                    Text(
+                      'CONGRATULAZIONI',
+                      key: const Key('celebrazione_congratulazioni'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.cerimonialeGrande()
+                          .copyWith(color: palette.gold, letterSpacing: 1.6),
+                    ),
+                    const SizedBox(height: SpacingTokens.sm),
                     // **OGNI TRAGUARDO PORTA IL SUO NOME**, ordine AC voce
                     // 04: la festa e' una e li nomina tutti. Il primo tiene
                     // la chiave storica, cosi' ogni prova che cercava il nome
@@ -871,6 +922,36 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
   /// chiede il tempo fra l'inizio della transizione e la prima pittura
   /// dell'immagine, letto da un log con timestamp su dispositivo reale.
   DateTime? _quandoEPartita;
+
+  /// **LA RETE DI SICUREZZA SUL TEMPO, e l'ha trovata una prova.** Ordine AT
+  /// voce 05.
+  ///
+  /// La scheda compare quando il lettore arriva al frame 21. Ma se il filmato
+  /// NON si apre, il frame 21 non arriva mai e la scheda resta invisibile per
+  /// sempre: una festa che non mostra il traguardo, cioe' un vicolo cieco. La
+  /// prova che monta la scena lo ha fatto vedere subito, perche' li' il codec
+  /// non si apre affatto.
+  ///
+  /// Questi due orologi non guidano niente quando tutto va bene, e il lettore
+  /// arriva sempre per primo: esistono per il giorno in cui non arriva.
+  Timer? _reteDelloStacco;
+  Timer? _reteDellaFine;
+
+  void _armaLaRete() {
+    _reteDelloStacco = Timer(TransizioneDiStelle.istanteDelloStacco, () {
+      if (!mounted || _traguardoVisibile) return;
+      debugPrint('ORDINE AT: stacco dalla rete di sicurezza, il lettore non '
+          'e arrivato al frame 21');
+      setState(() => _traguardoVisibile = true);
+    });
+    _reteDellaFine = Timer(TransizioneDiStelle.durata, () {
+      if (!mounted || !_transizioneInCorso) return;
+      setState(() {
+        _transizioneInCorso = false;
+        _traguardoVisibile = true;
+      });
+    });
+  }
 
   void _alFrame(int indice) {
     _quandoEPartita ??= DateTime.now();

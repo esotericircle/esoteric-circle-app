@@ -145,18 +145,62 @@ e' fatto.
   `MaskFilter` ne' shader. **Resta APERTA perche' le misure M4 e M5 vogliono un
   dispositivo**: qui l'albero e' pronto ma non si e' potuto contare quanti
   fotogrammi si dipingono davvero ne' guardare il picco di memoria)
-- **AT.05** La regia e il frame 21. Stato: APERTA
-- **AT.06** Una festa, un traguardo. Stato: APERTA
-- **AT.07** Cosa compare al frame 21. Stato: APERTA
-- **AT.08** Assegnazione per Maestro. Stato: APERTA
+- **AT.05** La regia e il frame 21. Stato: CHIUSA
+  (la transizione parte quando la scena viene montata e copre lo schermo; la
+  scheda e' INVISIBILE fino allo stacco e compare **di colpo**, senza
+  dissolvenza ne' scala ne' rimbalzo, perche' e' il lampo della stella a
+  coprire il taglio. Si nasconde con `Visibility` e non con un'opacita' a zero,
+  che sarebbe una dissolvenza che comincia; `maintainSize` tiene l'ingombro,
+  cosi' quando compare non salta niente. Dal frame 21 al 50 le stelle
+  continuano sopra la scheda, e finita la corsa il lettore si smonta.
+  **UNA PROVA HA TROVATO UN VICOLO CIECO, ed e' la cosa piu' importante di
+  questa voce**: se il filmato non si apre, il frame 21 non arriva mai e la
+  scheda resta invisibile **per sempre**, cioe' una festa che non mostra il
+  traguardo. Succede davvero nelle prove, dove il codec non si apre. Adesso due
+  orologi fanno da rete: uno scopre la scheda agli 800 millesimi comunque,
+  l'altro chiude la transizione ai 2000. Quando tutto va bene il lettore arriva
+  sempre per primo e la rete non guida niente.
+  Guardia `test/lo_stacco_arriva_al_frame_21_test.dart`, che monta la scena
+  vera dei tre sentieri. **La prima stesura misurava la cosa sbagliata**:
+  contava i widget con `find.text` e li trovava anche a 400 millesimi, perche'
+  la scheda E' nell'albero, tenuta li' da `maintainSize`. Adesso legge lo stato
+  vero, `Visibility.visible`)
+- **AT.06** Una festa, un traguardo. Stato: CHIUSA
+  (**il lettore non viene mai montato due volte insieme**, e lo garantiscono
+  due cose misurate: il catenaccio `FesteInCorso`, che esisteva gia' e rifiuta
+  una festa se una e' a schermo, e il fatto che **un solo punto in tutto `lib`
+  monta il lettore**, contato dalla guardia.
+  **IL CONFINE CON L'ORDINE AU E' RISPETTATO e dichiarato**: la coda dei
+  traguardi in attesa, la distanza fra due feste e la regola che i gradini
+  dell'identita' non maturino in blocco restano materia della voce AU.03, e
+  questo ordine non le tocca)
+- **AT.07** Cosa compare al frame 21. Stato: CHIUSA
+  (al frame 21 compaiono INSIEME, nello stesso fotogramma, l'immagine del
+  traguardo e la parola di premio **CONGRATULAZIONI**, sopra ogni altro testo.
+  Sta dentro la scheda invisibile, quindi non puo' comparire prima nemmeno per
+  sbaglio, e la guardia lo pretende guardando dove sta nel sorgente. Durante i
+  primi venti fotogrammi lo schermo e' solo stelle.
+  **IL CONFINE CON L'ORDINE AU E' RISPETTATO**: il contenuto della card, cioe'
+  il nome, la descrizione, la riga dell'ora e gli Eos, e' materia della voce
+  AU.04. Qui si e' deciso soltanto QUANDO quel contenuto entra in scena)
+- **AT.08** Assegnazione per Maestro. Stato: FERMATA IN ATTESA DI DECISIONE
+  (l'assegnazione e' scritta ed e' quella dell'ordine: `stella_medora.webp` ai
+  traguardi di Medora, `stella_caligo.webp` a quelli di Caligo,
+  `stella_aura.webp` a quelli di Aura, e un traguardo senza dominio usa quello
+  di Medora. La guardia verifica che i tre filmati esistano e siano diversi fra
+  loro, e nessuna altra differenza e' stata aggiunta.
+  **Resta fermata per una ragione sola, che viene dalla voce 02**: il filmato
+  di Medora e' OPACO, quindi per un Maestro su tre l'assegnazione oggi
+  produrrebbe uno schermo coperto per due secondi. Si chiude quando
+  l'Architetto sceglie fra le tre opzioni)
 - **AT.09** Misure di accettazione. Stato: APERTA
 - **AT.10** Fallback, solo se misurato. Stato: APERTA
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 11
-VOCI_APERTE: 7
-VOCI_CHIUSE: 3
+VOCI_APERTE: 3
+VOCI_CHIUSE: 6
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
