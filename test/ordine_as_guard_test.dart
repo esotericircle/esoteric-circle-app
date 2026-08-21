@@ -56,6 +56,8 @@ void main() {
         if (riga.contains('CHIUSA')) 'CHIUSA',
         if (riga.contains('FERMATA SU PREMESSA FALSA'))
           'FERMATA SU PREMESSA FALSA',
+        if (riga.contains('FERMATA SU DECISIONE DEL FONDATORE'))
+          'FERMATA SU DECISIONE DEL FONDATORE',
         if (riga.contains('FERMATA IN ATTESA DI DECISIONE'))
           'FERMATA IN ATTESA DI DECISIONE',
         if (riga.contains('APERTA')) 'APERTA',
@@ -74,10 +76,17 @@ void main() {
     expect(marcatore(testo, 'VOCI_TOTALI'), righe.length);
     // Si conta per lo stato PIU' DEBOLE, quello che tiene l'ordine aperto piu'
     // a lungo, come nelle guardie sorelle.
-    var aperte = 0, attesa = 0, premessa = 0, chiuse = 0;
+    // **UNO STATO NUOVO, ordine AS: FERMATA SU DECISIONE DEL FONDATORE.** Non
+    // e' una fermata in attesa di una decisione, che vuol dire "chiusa quando
+    // Mauro guarda": e' una voce che Mauro ha fermato mentre era in corso, e
+    // la cui sostituzione arriva con un ordine successivo. Le due cose non si
+    // confondono, quindi il conto le tiene separate.
+    var aperte = 0, attesa = 0, premessa = 0, chiuse = 0, fondatore = 0;
     for (final r in righe) {
       if (r.contains('APERTA')) {
         aperte++;
+      } else if (r.contains('FERMATA SU DECISIONE DEL FONDATORE')) {
+        fondatore++;
       } else if (r.contains('FERMATA IN ATTESA DI DECISIONE')) {
         attesa++;
       } else if (r.contains('FERMATA SU PREMESSA FALSA')) {
@@ -91,10 +100,12 @@ void main() {
     expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DI_DECISIONE'), attesa);
     expect(marcatore(testo, 'VOCI_FERMATE_SU_PREMESSA_FALSA'), premessa);
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
-    expect(aperte + attesa + premessa + chiuse, quante,
-        reason: 'gli stati contati fanno ${aperte + attesa + premessa + chiuse} '
-            'invece di $quante: una voce e\' sparita dal conto pur restando '
-            'nel file');
+    expect(marcatore(testo, 'VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE'),
+        fondatore);
+    final contate = aperte + attesa + premessa + chiuse + fondatore;
+    expect(contate, quante,
+        reason: 'gli stati contati fanno $contate invece di $quante: una voce '
+            'e\' sparita dal conto pur restando nel file');
   });
 
   test('l\'ordine AS non e\' finito finche\' una voce resta aperta', () {

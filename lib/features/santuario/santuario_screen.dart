@@ -1133,33 +1133,45 @@ class _DomainEntry extends StatelessWidget {
     final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
     // Solo il pulsante e la riga delle arti: nessun saluto sopra, cosi' non si
     // sovrappone alla carta. Ogni Maestro si presenta dentro il proprio dominio.
+    // **LE ARTI SALGONO SOPRA IL PULSANTE. Ordine AS voce 11.**
+    //
+    // **La critica dei fondatori, ed e' giusta**: chi arriva non conosce i
+    // Maestri e cerca un'arte. Cercava "tarocchi" e trovava "Entra nel Dominio
+    // di Medora", che e' un nome proprio e non dice niente a chi non l'ha mai
+    // sentito; le tre arti stavano SOTTO il pulsante, nel ruolo tipografico
+    // piu' piccolo dell'app e in oro tenue, cioe' l'ultima cosa che l'occhio
+    // prende.
+    //
+    // Adesso sono la prima cosa dopo il nome: sopra il pulsante, al corpo del
+    // testo di lettura, in oro pieno. Il pulsante resta sotto, ed e' giusto
+    // cosi': prima si legge COSA c'e', poi si tocca per entrarci.
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _EnterDomainButton(maestro: maestro, onTap: onTap),
-        const SizedBox(height: SpacingTokens.xs),
-        // La riga delle tre arti del Maestro.
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.auto_awesome, size: 12, color: palette.gold),
-            const SizedBox(width: 6),
+            Icon(Icons.auto_awesome, size: 16, color: palette.gold),
+            const SizedBox(width: 8),
             Flexible(
               child: Text(
                 maestro.domainArts,
                 key: const Key('santuario_domain_arts'),
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.etichetta().copyWith(
-                  color: palette.goldSoft,
-                  letterSpacing: 0.6,
+                style: TypographyTokens.lettura().copyWith(
+                  color: palette.gold,
+                  letterSpacing: 0.4,
+                  height: 1.25,
                 ),
               ),
             ),
           ],
         ),
+        const SizedBox(height: SpacingTokens.sm),
+        _EnterDomainButton(maestro: maestro, onTap: onTap),
       ],
     );
   }

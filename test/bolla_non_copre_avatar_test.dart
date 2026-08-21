@@ -252,8 +252,15 @@ void main() {
           reason: 'a ${larghezza.round()} per ${altezza.round()} fra il fondo della carta e la cima della bolla ci '
               'sono ${distanza.toStringAsFixed(1)} punti, meno degli otto '
               'richiesti');
-      expect(r.arti.top, greaterThanOrEqualTo(r.bolla.bottom),
-          reason: 'il sottotitolo con le tre arti non sta sotto la bolla');
+      // **LE ARTI STANNO SOPRA LA BOLLA, ordine AS voce 11.** Questa riga
+      // pretendeva il contrario, ed era giusta finche' le tre arti erano un
+      // sottotitolo del pulsante. Adesso sono la prima cosa che si legge dopo
+      // il nome del Maestro, perche' chi arriva cerca un'arte e non conosce i
+      // Maestri: la pretesa si rovescia insieme alla gerarchia, e continua a
+      // sorvegliare che le due cose non si accavallino.
+      expect(r.bolla.top, greaterThanOrEqualTo(r.arti.bottom),
+          reason: 'le tre arti sono tornate sotto la bolla, oppure la bolla '
+              'le si e sovrapposta');
     });
 
     testWidgets('A ${larghezza.round()} per ${altezza.round()} il trio non finisce sotto la striscia dei Doni',
