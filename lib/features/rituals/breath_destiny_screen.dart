@@ -637,18 +637,14 @@ class _BreathPrompt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    // **VIA IL VELO, COME NELL'ALBA. Ordine AS voce 07.** Un `RadialGradient`
+    // nero dentro un rettangolo lascia gli angoli piu' scuri del centro, e
+    // quello che si vede e' un riquadro semitrasparente appoggiato sulla
+    // scena. Il testo resta leggibile per la sua pillola, che e' un
+    // contenitore voluto e con un bordo.
+    return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: SpacingTokens.lg, vertical: SpacingTokens.md),
-      decoration: BoxDecoration(
-        gradient: RadialGradient(
-          radius: 0.95,
-          colors: [
-            Colors.black.withValues(alpha: 0.28),
-            Colors.black.withValues(alpha: 0.0),
-          ],
-        ),
-      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -663,18 +659,18 @@ class _BreathPrompt extends StatelessWidget {
               color: palette.deepest.withValues(alpha: 0.5),
               border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
             ),
+            // **UNA RIGA SOLA, E PIU' GRANDE. Ordine AS voce 07.** Erano due,
+            // e dicevano tutte e due come si fa lo stesso gesto; la prima per
+            // giunta a corpo DODICI scritto a mano, cioe' sotto il pavimento
+            // tipografico del progetto. La via col dito non sparisce, entra
+            // nella stessa riga: togliere una possibilita' sarebbe un'altra
+            // cosa dal togliere una ripetizione.
             child: Text(
-              'Soffia per liberare il tuo destino',
-              style: TypographyTokens.label(size: 12)
-                  .copyWith(color: palette.goldSoft, letterSpacing: 0.8),
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          Text(
-            'Oppure spazza col dito o tieni premuto',
-            style: TypographyTokens.corpo().copyWith(
-              color: palette.goldSoft.withValues(alpha: 0.85),
-              letterSpacing: 0.3,
+              'Soffia, oppure spazza col dito',
+              key: const Key('soffio_invito_al_gesto'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.lettura()
+                  .copyWith(color: palette.goldSoft, letterSpacing: 0.6),
             ),
           ),
         ],
@@ -775,14 +771,31 @@ class _BreathScenePainter extends CustomPainter {
     // additivo, niente bruciatura a bianco. In due parti: lo stelo col
     // ricettacolo resta sempre, la testa si svuota progressivamente col soffio.
     const headBottomFy = 0.63, stemTopFy = 0.60;
-    // Lo stelo col ricettacolo, sempre piantato nel prato.
-    canvas.drawImageRect(
-      dandelion,
-      Rect.fromLTWH(0, stemTopFy * dh, dw, dh * (1 - stemTopFy)),
-      Rect.fromLTWH(
-          dstLeft, dstTop + stemTopFy * dstH, dstW, dstH * (1 - stemTopFy)),
-      Paint(),
-    );
+    // **LO STELO SE NE VA DOPO I PETALI. Ordine AS voce 07.**
+    //
+    // Qui c'era scritto "sempre piantato nel prato", e si disegnava con una
+    // `Paint()` piena: a soffio finito restava un gambo nudo in mezzo alla
+    // scena, sotto il dono, come il resto di una cosa che non c'e' piu'. Un
+    // soffione soffiato via non lascia il suo stelo in primo piano.
+    //
+    // Adesso lo stelo resta intero mentre la testa si dirada, cioe' finche' il
+    // gesto e' in corso, e si dissolve nell'ULTIMO TERZO del soffio: quando i
+    // pappi hanno finito di volare, se ne va anche lui. La soglia e' una sola
+    // costante dichiarata qui, non un numero sparso nel disegno.
+    const quandoLoSteloSiRitira = 0.7;
+    final steloOpacita = p <= quandoLoSteloSiRitira
+        ? 1.0
+        : (1 - (p - quandoLoSteloSiRitira) / (1 - quandoLoSteloSiRitira))
+            .clamp(0.0, 1.0);
+    if (steloOpacita > 0.01) {
+      canvas.drawImageRect(
+        dandelion,
+        Rect.fromLTWH(0, stemTopFy * dh, dw, dh * (1 - stemTopFy)),
+        Rect.fromLTWH(
+            dstLeft, dstTop + stemTopFy * dstH, dstW, dstH * (1 - stemTopFy)),
+        Paint()..color = Colors.white.withValues(alpha: steloOpacita),
+      );
+    }
     // La testa, che si dirada fino allo spoglio col progredire del soffio.
     final headOpacity = (1 - p).clamp(0.0, 1.0);
     if (headOpacity > 0.01) {

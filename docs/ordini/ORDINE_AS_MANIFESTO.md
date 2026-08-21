@@ -230,8 +230,28 @@ Mauro del 17 agosto 2026.
   trovato guardandole**: la cattura del dono mostrava una FESTA al posto della
   scheda, perche' compiere il rito matura un traguardo e la celebrazione si
   apre sopra; adesso la cattura parte a cammino gia' percorso)
-- **AS.07** Il Soffio del Destino. Stato: APERTA
-  (lo stelo sparisce dopo i petali; testi piu' grandi e sfoltiti)
+- **AS.07** Il Soffio del Destino. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**LO STELO SI DICHIARAVA "SEMPRE PIANTATO NEL PRATO"**, e si disegnava con
+  una `Paint()` piena, senza nessun legame col progresso del soffio: a gesto
+  finito restava un gambo nudo in primo piano sotto il dono. Adesso resta
+  intero mentre la testa si dirada, cioe' finche' il gesto e' in corso, e si
+  dissolve nell'ULTIMO TERZO del soffio; la soglia e' una costante sola
+  dichiarata accanto al disegno. Guardia
+  `test/lo_stelo_se_ne_va_col_soffio_test.dart`, che verifica anche
+  l'aritmetica agli estremi (uno a zero, uno a sette decimi, zero a fine
+  corsa). **Prova del rosso** rimettendo la `Paint()` piena.
+  **STESSO DIFETTO DELL'ALBA, e si e' curato uguale**: c'era lo stesso velo
+  radiale dentro un rettangolo, e le stesse due righe che dicevano come fare
+  lo stesso gesto, la prima a corpo DODICI scritto a mano, cioe' sotto il
+  pavimento tipografico del progetto. Adesso una riga sola, "Soffia, oppure
+  spazza col dito", al corpo del testo di lettura, e la via col dito non
+  sparisce.
+  **La prima stesura della guardia era rossa per il motivo sbagliato**: cercava
+  la frase "sempre piantato" nel file intero e trovava il commento che spiega
+  la cura. Adesso legge il sorgente SENZA i commenti, come si fa gia' altrove
+  in questo repo.
+  Anteprime `soffio-destino` e `soffio-destino-dono` rigenerate e guardate: a
+  testa piena lo stelo c'e', col dono a schermo non c'e' piu')
 - **AS.08** L'Oracolo del Giorno diventa l'Arcano del Giorno. Stato: APERTA
   (una carta dei soli Arcani Maggiori e una risposta per la giornata; il gesto
   del cammino resta `oracolo`)
@@ -250,7 +270,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 6
+VOCI_APERTE: 5
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 6
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 7

@@ -1431,6 +1431,10 @@ void main() {
       'santuario.greeted': true,
       'ritual.breath.lastDay': '2026-07-12',
       'ritual.breath.streak': 4,
+      // Il cammino e' gia' percorso, ordine AS voce 07: compiere il rito
+      // matura un traguardo e la festa coprirebbe il dono da fotografare.
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
     });
     await loadFonts();
     final rootKey =
