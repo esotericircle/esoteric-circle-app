@@ -51,8 +51,67 @@ e' fatto.
 - **AT.00** Il manifesto prima di tutto. Stato: CHIUSA
   (questo file, nato prima di ogni altra modifica, con la guardia che pretende
   zero voci APERTE alla consegna)
-- **AT.01** Igiene del repository. Stato: APERTA
-- **AT.02** Conversione dei tre video in WebP animati. Stato: APERTA
+- **AT.01** Igiene del repository. Stato: CHIUSA
+  (**L'IPOTESI I2 E' ABBATTUTA, E LA MISURA E' PEGGIORE DELL'IPOTESI.**
+  `git ls-files transition/` elencava tutti e tre i `.mov`, e `git log` diceva
+  che erano gia' DENTRO TRE COMMIT: `64eef3c3` (AS.08), `f24e7a10` (AS.09) e
+  `9c50242d` (AS.10). Quattrocentoundici megabyte di video entrati nella storia
+  con un `git add -A`.
+  **E' LA CAUSA DEL PUSH CHE NON PASSAVA**, e la sessione precedente aveva
+  sbagliato bersaglio: si era dato la colpa alla mole del repository e alle
+  anteprime, e si era riprovato per ore cambiando trasporto, buffer e
+  compattazione. Non era la rete e non erano le credenziali: erano
+  quattrocento megabyte da trasferire in tre commit.
+  **La cura in quattro passi, con l'output nel rapporto**: `git rm --cached -r
+  transition/`, la riga `transition/` in `.gitignore`, e poi la riscrittura dei
+  commit non spinti con `git filter-branch --index-filter`, perche' togliere i
+  file dall'indice non li toglie dalla storia. I commit riscritti non erano mai
+  stati pubblicati, quindi non si e' toccato niente che altri avessero visto:
+  otto commit, messaggi e granularita' intatti.
+  **VERIFICATO**: `git log 620db435..HEAD -- transition/` non trova piu' niente,
+  e **il push e' passato**, `620db435..a608cdcb`. L'ordine AS intero e' adesso
+  sul remoto.)
+- **AT.02** Conversione dei tre video in WebP animati. Stato: FERMATA SU PREMESSA FALSA
+  (**LA CONVERSIONE E' RIUSCITA, E TRE MISURE SU QUATTRO DICONO DI NO.**
+  I tre file esistono, Flutter li apre e la loro durata e' 2000 millesimi
+  ESATTI in tutti e tre: la premessa P2 e' VERA, Flutter decodifica il WebP
+  animato con alpha.
+  **1. IL FILE DI MEDORA E' OPACO, ed e' il fatto che ferma la voce.**
+  `Star-Transition-8.mov` ha alpha 255 su tutti i fotogrammi, misurato sul
+  SORGENTE con `alphaextract` prima ancora di convertire: ai fotogrammi 0, 10,
+  25 e 49 l'alpha medio vale 255, 255, 255, 255, mentre il 9 fa 0, 0, 236, 0 e
+  il 10 fa 0, 9, 233, 0. **Il fatto F2 e' vero sui parametri e falso sul
+  contenuto**: `pix_fmt=argb` c'e', ma quel canale non e' usato, e i tre file
+  NON sono identici fra loro come l'ordine dichiarava. La sua transizione
+  coprirebbe lo schermo per due secondi interi e al frame 21 non si vedrebbe
+  niente sotto: la regia della voce 05 sarebbe invisibile per un Maestro su
+  tre.
+  **La via c'e', e la decisione e' dell'Architetto**: il file 8 ha fondo NERO
+  (luminanza media 0, 0, 210, 0 agli stessi fotogrammi), quindi l'alpha si puo'
+  RICOSTRUIRE dalla luminanza con `alphamerge`. Provato: il file esce a
+  7.258.986 byte a 720 e qualita' 78, quindi andrebbe tarato. **Le tre
+  opzioni**: (a) arriva un sorgente nuovo per Medora; (b) si ricostruisce
+  l'alpha dalla luminanza, con la resa che cambia perche' le stelle sfumano coi
+  loro stessi grigi; (c) Medora usa uno dei due file buoni, e due Maestri
+  condividono la transizione. Non si sceglie da soli.
+  **2. `frameCount` NON E' 50**: vale 40 per medora, 25 per caligo, 39 per
+  aura. La causa e' `libwebp`, che FONDE i fotogrammi identici invece di
+  ripeterli: i chunk `ANMF` portano durate di 40, 80 e 160 millesimi e la somma
+  fa 2000 esatti in tutti e tre. **Nessun contenuto e' perso**, e la regia
+  della voce 05 lavora sul TEMPO e non sull'indice, quindi il frame 21 resta
+  l'istante 800. Ma il vincolo dell'ordine dice 50, e 50 non e'.
+  **3. IL PESO DI AURA E' FUORI**: 2.706.460 byte contro il tetto di 2.000.000,
+  e la somma fa 6.212.554 contro 6.000.000. La scala di rimedio dell'ordine e'
+  stata percorsa tutta: 3.804.052 a qualita' 78 e 720 di larghezza, 3.520.664 a
+  qualita' 70, 2.706.460 a 600 di larghezza, che e' il limite sotto il quale
+  l'ordine vieta di scendere. Provato anche a qualita' 55, per sapere: 2.512.974,
+  cioe' il peso e' dominato dalla quantita' di movimento e non dalla qualita'
+  del fotogramma.
+  Pesi finali dichiarati: medora **1.515.670**, caligo **1.990.424**, aura
+  **2.706.460**. Guardia `test/il_webp_animato_si_decodifica_test.dart`, che
+  misura peso, `frameCount`, durata e alpha di ciascuno e **dichiara** che
+  medora e' opaco: il giorno che arriva un sorgente nuovo quella riga cade e
+  qualcuno se ne accorge)
 - **AT.03** Demolizione dell'apparato precedente. Stato: APERTA
 - **AT.04** Il lettore di transizione. Stato: APERTA
 - **AT.05** La regia e il frame 21. Stato: APERTA
@@ -65,8 +124,8 @@ e' fatto.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 11
-VOCI_APERTE: 10
-VOCI_CHIUSE: 1
-VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_APERTE: 8
+VOCI_CHIUSE: 2
+VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
