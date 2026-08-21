@@ -1116,6 +1116,13 @@ void main() {
       'santuario.greeted': true,
       'ritual.dawn.lastDay': '2026-07-12',
       'ritual.dawn.streak': 6,
+      // **IL CAMMINO E' GIA' PERCORSO, ordine AS voce 06.** Compiere il rito
+      // matura un traguardo, e la celebrazione si apre SOPRA il dono: la
+      // cattura usciva con la festa al posto della scheda, e chi la guardava
+      // credeva di vedere il dono. Con tutti i Sigilli gia' accesi non matura
+      // niente e sotto c'e' quello che si sta fotografando.
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
     });
     await loadFonts();
     final rootKey =

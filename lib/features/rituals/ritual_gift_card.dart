@@ -138,28 +138,24 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 rito: widget.dono,
                 inchiostro: _dayInk,
                 accento: accento,
+                // Il perche' scende nella base apribile, ordine AS voce 06:
+                // qui sopra restano cosa fai e cosa ti resta, che sono la
+                // risposta.
+                conIlPerche: false,
               ),
               const SizedBox(height: SpacingTokens.md),
-              // Livello uno: il tipo di dono e l'orientamento del giorno.
-              Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      // NIENTE MAIUSCOLETTO, ordine P voce 13.
-                      gift.kind.label,
-                      key: const Key('alba_tipo_del_dono'),
-                      style: TypographyTokens.didascalia().copyWith(
-                        color: accento,
-                        letterSpacing: 0.6,
-                      ),
-                    ),
-                  ),
-                  if (gift.provisional) ...[
-                    const SizedBox(width: SpacingTokens.sm),
-                  ],
-                ],
-              ),
-              const SizedBox(height: SpacingTokens.sm),
+              // **VIA L'ETICHETTA DEL TIPO DI DONO. Ordine AS voce 06.**
+              //
+              // Diceva "Orientamento del giorno", "Intenzione del giorno" o
+              // "Monito del giorno": e' la CATEGORIA del contenuto, cioe' come
+              // lo chiamiamo noi, non cosa dice alla persona. Chi apre l'alba
+              // vuole sapere cosa fare oggi, e sopra c'e' gia' la riga che
+              // dice chi parla. La regola trasversale di quest'ordine dice che
+              // dove un testo si puo' togliere, si toglie invece di
+              // rimpicciolirlo: e questo si poteva togliere.
+              //
+              // Il tipo resta nel DATO, `gift.kind`, dove serve a chi compone
+              // il dono: sparisce dallo schermo, non dal modello.
               Text(
                 gift.orientation,
                 key: const Key('alba_orientamento'),
@@ -225,7 +221,9 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                         .push(BreathDestinyScreen.route(now: widget.giorno)),
                     icon: Icon(Icons.air_rounded, size: 16, color: accento),
                     label: Text(
-                      'Il respiro guidato ti aspetta nel Soffio del Destino',
+                      // Piu' corto, ordine AS voce 06: la porta si nomina,
+                      // non si racconta.
+                      'Il respiro guidato e nel Soffio del Destino',
                       textAlign: TextAlign.center,
                       style: TypographyTokens.didascalia()
                           .copyWith(color: accento, height: 1.3),
@@ -265,7 +263,13 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 duration: const Duration(milliseconds: 200),
                 alignment: Alignment.topCenter,
                 child: _baseOpen
-                    ? _BasePanel(source: gift.source)
+                    ? _BasePanel(
+                        source: gift.source,
+                        // **IL PERCHE' DEL RITO STA QUI DENTRO**, ordine AS
+                        // voce 06: la base e' il posto delle ragioni, ed e'
+                        // apribile da chi le cerca.
+                        percheDelRito: widget.dono.perche,
+                      )
                     : const SizedBox(width: double.infinity),
               ),
               const SizedBox(height: SpacingTokens.md),
@@ -342,9 +346,14 @@ class _BaseToggle extends StatelessWidget {
 /// Il pannello della base: ancora natale reale, transito e tradizione, con la
 /// provvisorieta' dichiarata dove il contenuto verificato manca.
 class _BasePanel extends StatelessWidget {
-  const _BasePanel({required this.source});
+  const _BasePanel({required this.source, this.percheDelRito});
 
   final GiftSource source;
+
+  /// **PERCHE' QUESTO RITO, ordine AS voce 06.** Era la seconda delle tre
+  /// righe in cima alla scheda, e in cima ci sta la risposta: qui e' al suo
+  /// posto, accanto alle altre ragioni, e la legge chi apre la base.
+  final String? percheDelRito;
 
   @override
   Widget build(BuildContext context) {
@@ -361,6 +370,12 @@ class _BasePanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (percheDelRito != null)
+            _BaseRow(
+              label: 'Perché questo rito',
+              value: percheDelRito!,
+              provisional: false,
+            ),
           _BaseRow(
             label: 'Ancora natale',
             value: source.natalDescription,

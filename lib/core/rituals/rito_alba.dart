@@ -375,12 +375,30 @@ class RitoAlba {
         forma.parole.where((p) => p.dato == null || cielo.ha(p.dato!)).toList();
     if (parole.isEmpty) return null;
 
-    // Tre semi derivati distinti, cosi' i tre momenti non si muovono insieme:
-    // con un seme solo, cambiando giorno cambierebbero tutti e tre in blocco e
-    // le combinazioni vere sarebbero quattro invece di sessantaquattro.
+    // Due semi derivati distinti per gesto e respiro, cosi' i due momenti non
+    // si muovono in blocco: con un seme solo, cambiando giorno cambierebbero
+    // insieme e le combinazioni vere sarebbero quattro invece di sedici.
     final gesto = gesti[_derivato(seme, 1) % gesti.length];
     final respiro = respiri[_derivato(seme, 2) % respiri.length];
-    final parola = parole[_derivato(seme, 3) % parole.length];
+
+    // **LA PAROLA VIENE DAL GESTO, non da un terzo seme. Ordine AS voce 06.**
+    //
+    // Qui c'era `parole[_derivato(seme, 3) % parole.length]`, cioe' un'estrazione
+    // indipendente: il gesto poteva dire "conta quante ore mancano a stasera" e
+    // la parola essere "Ombra". Le combinazioni erano sessantaquattro per forma,
+    // ma la maggior parte non stava insieme, e la parola del giorno e' proprio
+    // la cosa che la persona si porta dietro.
+    //
+    // Adesso ogni gesto DICHIARA la sua parola nel corpus, e qui la si cerca per
+    // nome. Il ripiego sull'indice del gesto esiste come cintura, per il giorno
+    // in cui qualcuno scrivesse un gesto con una parola che nella sua forma non
+    // c'e': meglio una parola vicina che nessuna parola, e la guardia
+    // `test/la_parola_appartiene_al_gesto_test.dart` fa in modo che quel giorno
+    // non arrivi.
+    final parola = parole.firstWhere(
+      (p) => p.parola == gesto.parola,
+      orElse: () => parole[_derivato(seme, 1) % parole.length],
+    );
 
     final dati = <DatoDelCielo>{gesto.dato};
     if (respiro.dato != null) dati.add(respiro.dato!);

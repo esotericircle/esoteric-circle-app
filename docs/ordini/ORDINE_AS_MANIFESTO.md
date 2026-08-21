@@ -196,9 +196,40 @@ Mauro del 17 agosto 2026.
   Guardie `test/i_grigi_si_leggono_test.dart` e
   `test/il_titolo_non_si_spezza_test.dart`, la seconda con la prova che il
   difetto esisteva davvero prima della cura)
-- **AS.06** Il Rito dell'Alba. Stato: APERTA
-  (via il rettangolo sotto il sole; testi piu' grandi e meno; la parola del
-  giorno legata al testo)
+- **AS.06** Il Rito dell'Alba. Stato: FERMATA IN ATTESA DI DECISIONE
+  (**LA PAROLA DEL GIORNO NON C'ENTRAVA NIENTE, e la causa era scritta nel
+  codice.** I tre momenti del rito si estraevano con TRE semi derivati
+  distinti, con tanto di commento che lo giustificava: "cosi' i tre momenti non
+  si muovono insieme". Il gesto poteva dire "conta quante ore mancano a
+  stasera" e la parola essere "Ombra". **Misurato su un anno e tre Maestri:
+  899 riti su 1095 avevano una parola scollegata dal proprio gesto**, cioe'
+  l'ottantadue per cento.
+  Adesso ogni gesto DICHIARA nel corpus la parola che gli appartiene, tutti e
+  trentasei annotati a mano leggendo gesto per gesto, e a runtime la parola si
+  cerca per nome. Le combinazioni scendono da sessantaquattro a sedici per
+  forma, ed e' il prezzo giusto: un rito che tiene insieme vale piu' di quattro
+  che non c'entrano niente. Guardia
+  `test/la_parola_appartiene_al_gesto_test.dart`, con la prova del rosso che
+  rimette la formula vecchia e riporta 899 scollegati.
+  **VIA IL RETTANGOLO SOTTO IL SOLE**: era un `RadialGradient` nero dentro un
+  Container rettangolare, e un gradiente radiale in un rettangolo lascia i
+  quattro angoli piu' scuri del centro. Quello che si vedeva era un riquadro
+  semitrasparente appoggiato sulla scena.
+  **DUE RIGHE DIVENTANO UNA**: "Trascina verso l'alto per sollevare l'alba" e
+  "Oppure tocca o tieni premuto" dicevano come si fa lo stesso gesto. Adesso e'
+  una riga sola, "Trascina in alto, oppure tocca", e cresce dal corpo della
+  didascalia a quello del testo di lettura. La via col dito non sparisce:
+  entra nella stessa riga.
+  **MENO SPIEGAZIONE, PIU' RISPOSTA**, che e' la regola trasversale: via
+  l'etichetta del tipo di dono ("Orientamento del giorno"), che e' la categoria
+  con cui lo chiamiamo noi e non cosa dice alla persona; e il "Perche'" scende
+  dalle tre righe in cima al pannello della base, che e' il posto dove il
+  progetto tiene gia' le ragioni ed e' apribile da chi le cerca. In cima
+  restano "Cosa fai" e "Cosa ti resta".
+  Anteprime `rito-alba` e `rito-alba-dono` rigenerate e guardate. **Un difetto
+  trovato guardandole**: la cattura del dono mostrava una FESTA al posto della
+  scheda, perche' compiere il rito matura un traguardo e la celebrazione si
+  apre sopra; adesso la cattura parte a cammino gia' percorso)
 - **AS.07** Il Soffio del Destino. Stato: APERTA
   (lo stelo sparisce dopo i petali; testi piu' grandi e sfoltiti)
 - **AS.08** L'Oracolo del Giorno diventa l'Arcano del Giorno. Stato: APERTA
@@ -219,7 +250,7 @@ Mauro del 17 agosto 2026.
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 7
+VOCI_APERTE: 6
 VOCI_CHIUSE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 6

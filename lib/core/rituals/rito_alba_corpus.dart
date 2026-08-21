@@ -27,6 +27,7 @@ enum DatoDelCielo {
 class Gesto {
   const Gesto({
     required this.testo,
+    required this.parola,
     required this.dato,
     required this.viaTattile,
     this.usaSensore = false,
@@ -34,6 +35,21 @@ class Gesto {
 
   /// Cosa fare, con dentro il segnaposto del dato che nomina.
   final String testo;
+
+  /// **LA PAROLA CHE APPARTIENE A QUESTO GESTO. Ordine AS voce 06.**
+  ///
+  /// **Il difetto che chiude.** La parola del giorno si estraeva con un terzo
+  /// seme, indipendente dal gesto e dal respiro: era una scelta deliberata
+  /// ("cosi' i tre momenti non si muovono insieme"), e produceva riti dove il
+  /// gesto diceva "conta quante ore mancano a stasera" e la parola era
+  /// "Ombra". Nessuna attinenza, e chi legge lo sente subito.
+  ///
+  /// Adesso il legame e' DICHIARATO NEL DATO, una parola per gesto, e non
+  /// dedotto da un indice: chi scrive un gesto nuovo deve dire quale parola
+  /// gli appartiene, e la guardia lo pretende. Le combinazioni scendono da
+  /// sessantaquattro a sedici per forma, ed e' il prezzo giusto: un rito che
+  /// tiene insieme vale piu' di quattro riti che non c'entrano niente.
+  final String parola;
 
   /// Il dato del cielo che questo gesto nomina.
   final DatoDelCielo dato;
@@ -143,6 +159,7 @@ class RitoAlbaCorpus {
           testo: 'Il sole sorge alle {alba}. Mettiti dove puoi vedere la luce '
               'che entra e resta rivolto in quella direzione per il tempo di un '
               'respiro intero.',
+          parola: 'Direzione',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Se non puoi alzarti, gira il palmo verso la finestra e '
               'tienilo aperto per il tempo di un respiro.',
@@ -151,6 +168,7 @@ class RitoAlbaCorpus {
           testo: 'Guarda un orologio e conta quante ore mancano a stasera. '
               'Il sole di oggi è sorto alle {alba}: quel numero è la parte '
               'di giornata che hai davanti.',
+          parola: 'Passo',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Conta le ore sulle dita, una per dito, senza guardare '
               'nessun quadrante.',
@@ -159,6 +177,7 @@ class RitoAlbaCorpus {
           testo: 'La Luna è in {segno}. Scegli una cosa sola che vuoi aver '
               'fatto prima che finisca il giorno e dilla ad alta voce una '
               'volta.',
+          parola: 'Prima',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Se non vuoi parlare, scrivila con un dito sul palmo '
               'aperto dell\'altra mano.',
@@ -167,6 +186,7 @@ class RitoAlbaCorpus {
           testo: 'La Luna è {fase}. Volgi lo sguardo verso il punto più '
               'lontano che riesci a vedere da dove sei e restaci sopra finché '
               'non hai contato fino a dieci.',
+          parola: 'Adesso',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Chiudi gli occhi e conta fino a dieci tenendo il pollice '
               'sul palmo.',
@@ -218,12 +238,14 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'Fai sette passi in linea retta, contandoli. Il sole è '
               'sorto alle {alba} e questi sono i primi passi che fai dopo.',
+          parola: 'Avanti',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Batti sette volte il dito su una superficie, contando.',
         ),
         Gesto(
           testo: 'La Luna è in {segno}. Apri e chiudi la mano tre volte, '
               'lentamente, pensando a una cosa che oggi vuoi lasciar andare.',
+          parola: 'Ordine',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Se la mano non si apre bene, premi il pollice contro '
               'l\'indice tre volte.',
@@ -231,6 +253,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è {fase}. Alzati e resta in piedi immobile per il '
               'tempo di tre respiri, senza appoggiarti.',
+          parola: 'Uno',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Da seduto, raddrizza la schiena e tienila dritta per '
               'tre respiri.',
@@ -238,6 +261,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'Il giorno si è aperto alle {alba}. Scegli l\'ora in cui '
               'vuoi aver finito la cosa più pesante e ricordatela.',
+          parola: 'Misura',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Scrivi quell\'ora con un dito sul tavolo.',
         ),
@@ -284,6 +308,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è in {segno}. Individua da che parte viene la luce '
               'più forte nella stanza e voltati verso di essa.',
+          parola: 'Verso',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Passa la mano nell\'aria finché non senti la parte '
               'più tiepida e fermala lì.',
@@ -291,6 +316,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'Alle {alba} il sole ha toccato l\'orizzonte del tuo luogo. '
               'Indica col braccio teso il punto da cui pensi sia arrivato.',
+          parola: 'Chiaro',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Indica quel punto col solo dito, senza alzare il '
               'braccio.',
@@ -298,6 +324,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è {fase}. Guarda fuori e trova tre cose che non '
               'c\'erano ieri, o che ieri non avevi notato.',
+          parola: 'Aperto',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Se non c\'è una finestra, trova tre suoni diversi e '
               'contali sulle dita.',
@@ -305,6 +332,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'Il sole è sorto alle {alba}. Resta fermo finché non senti '
               'l\'aria sulla pelle, poi muoviti.',
+          parola: 'Oggi',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Appoggia il dorso della mano sulla guancia e aspetta di '
               'sentire la differenza di temperatura.',
@@ -358,6 +386,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è {fase}. Appoggia entrambe le mani sul petto e '
               'lasciale lì finché non senti il torace muoversi da solo.',
+          parola: 'Peso',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Se non puoi alzare le braccia, appoggia una mano sola '
               'sul ventre.',
@@ -365,6 +394,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'Il sole è sorto alle {alba}. Ruota le spalle indietro '
               'cinque volte, lentamente, sentendo dove si blocca.',
+          parola: 'Lento',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Muovi solo le dita delle mani, aprendole e chiudendole '
               'cinque volte.',
@@ -372,6 +402,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è in {segno}. Poggia a terra tutti e due i piedi '
               'e senti il peso passare dai talloni alle dita.',
+          parola: 'Terra',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Da sdraiato, premi i talloni contro il materasso e '
               'lascia andare.',
@@ -379,6 +410,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è {fase}. Allunga le braccia sopra la testa fino a '
               'sentire tirare, poi lasciale cadere di colpo.',
+          parola: 'Aria',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Allunga solo le dita, aprendole il più possibile, poi '
               'rilassale.',
@@ -432,6 +464,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è in {segno}. Siediti e appoggia le mani sulle '
               'ginocchia, palmi in su e lasciale aperte per tutto il respiro.',
+          parola: 'Piano',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Appoggia le mani dove ti è comodo, purché i palmi '
               'restino aperti.',
@@ -439,6 +472,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'Il sole è sorto alle {alba}. Chiudi gli occhi e conta '
               'quanti suoni diversi arrivano, senza cercarli.',
+          parola: 'Conta',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Se preferisci tenerli aperti, fissa un punto solo e '
               'conta i suoni lo stesso.',
@@ -446,6 +480,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è {fase}. Poggia la lingua dietro i denti '
               'superiori e lasciala lì per tutto il tempo del respiro.',
+          parola: 'Ancora',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Se da\' fastidio, lascia la bocca socchiusa e non '
               'pensarci.',
@@ -453,6 +488,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è in {segno}. Lascia cadere le spalle di due dita '
               'e non rialzarle per tutto il rito.',
+          parola: 'Basta',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Espira una volta lunga e lascia che scendano da sole.',
         ),
@@ -500,12 +536,14 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è {fase}. Bevi un bicchiere d\'acqua lentamente, '
               'sentendo dove arriva.',
+          parola: 'Sete',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Se non puoi bere adesso, bagna le labbra e le dita.',
         ),
         Gesto(
           testo: 'Il sole è sorto alle {alba}. Appoggia i palmi uno contro '
               'l\'altro e premili finché non senti caldo, poi separali.',
+          parola: 'Caldo',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Sfrega solo i polpastrelli fra loro, il risultato è lo '
               'stesso.',
@@ -513,6 +551,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è in {segno}. Passa una mano dalla nuca alla '
               'spalla, da un lato e poi dall\'altro.',
+          parola: 'Sciolto',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Se il braccio non arriva, passa la mano sull\'avambraccio '
               'opposto.',
@@ -520,6 +559,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è {fase}. Sbadiglia apposta, anche se non ne hai '
               'voglia e lascia che il corpo decida se continuare.',
+          parola: 'Soglia',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Apri la bocca lentamente e richiudila, senza forzare.',
         ),
@@ -574,6 +614,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è in {segno}. Traccia col dito, sul vetro o '
               'sull\'aria, una linea verticale e una obliqua che la incrocia.',
+          parola: 'Traccia',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Tracciala sul palmo della mano e sentila mentre la '
               'fai.',
@@ -581,6 +622,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è {fase}. Disegna un cerchio con un dito e chiudilo, '
               'poi mettici dentro un punto.',
+          parola: 'Nodo',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Fallo sul dorso dell\'altra mano, dove il segno si sente '
               'meglio.',
@@ -588,12 +630,14 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'Il sole è sorto alle {alba}. Scrivi quell\'ora con un dito '
               'su una superficie e poi cancellala passandoci sopra.',
+          parola: 'Segno',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Scrivila sul palmo e chiudi la mano per cancellarla.',
         ),
         Gesto(
           testo: 'La Luna è in {segno}. Traccia tre linee parallele, poi '
               'attraversale con una quarta.',
+          parola: 'Soglia',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Usa quattro dita appoggiate, poi passaci sopra il '
               'pollice.',
@@ -644,6 +688,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è {fase}. Scegli un oggetto piccolo che hai a '
               'portata e mettilo in tasca: oggi è il tuo segno.',
+          parola: 'Custodire',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Se non hai tasche, tienilo in mano per il tempo del '
               'respiro e poi rimettilo al suo posto.',
@@ -651,18 +696,21 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è in {segno}. Chiudi il pugno attorno a qualcosa e '
               'stringi finché non senti la forma, poi lascia.',
+          parola: 'Chiuso',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Stringi il pugno vuoto, la forma la fa la mano.',
         ),
         Gesto(
           testo: 'Il sole è sorto alle {alba}. Tocca tre volte lo stesso '
               'punto di una superficie, sempre lo stesso.',
+          parola: 'Forma',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Tocca tre volte la punta del pollice con l\'indice.',
         ),
         Gesto(
           testo: 'La Luna è {fase}. Prendi qualcosa con la mano che di solito '
               'non usi e tienila per un respiro intero.',
+          parola: 'Peso',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Se non puoi cambiare mano, apri quella che usi sempre e '
               'tienila aperta.',
@@ -713,6 +761,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'Il sole è sorto alle {alba}. Trova la tua ombra, o quella '
               'di un oggetto e guarda da che parte cade.',
+          parola: 'Ombra',
           dato: DatoDelCielo.oraDellAlba,
           viaTattile: 'Se non c\'è luce diretta, passa la mano sopra una '
               'superficie e senti dove si fa più fresco.',
@@ -720,6 +769,7 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è {fase}. Copri un occhio con la mano e guarda la '
               'stanza, poi cambia occhio.',
+          parola: 'Dentro',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Chiudi un occhio senza usare la mano, il risultato è '
               'lo stesso.',
@@ -727,12 +777,14 @@ class RitoAlbaCorpus {
         Gesto(
           testo: 'La Luna è in {segno}. Nomina a mente una cosa di te che '
               'oggi non mostrerai a nessuno e non aggiungere altro.',
+          parola: 'Silenzio',
           dato: DatoDelCielo.segnoLunare,
           viaTattile: 'Se preferisci, tracciane l\'iniziale sul palmo.',
         ),
         Gesto(
           testo: 'La Luna è {fase}. Spegni ogni luce che puoi spegnere e '
               'resta così per il tempo di due respiri.',
+          parola: 'Riparo',
           dato: DatoDelCielo.faseLunare,
           viaTattile: 'Chiudi gli occhi e coprili con le mani per due respiri.',
         ),

@@ -27,6 +27,7 @@ class LeTreRigheDelRito extends StatelessWidget {
     required this.rito,
     required this.inchiostro,
     required this.accento,
+    this.conIlPerche = true,
   });
 
   final DailyElement rito;
@@ -37,6 +38,19 @@ class LeTreRigheDelRito extends StatelessWidget {
 
   /// Il colore delle tre etichette, gia' portato dove si legge.
   final Color accento;
+
+  /// **SE MOSTRARE ANCHE IL PERCHE'. Ordine AS voce 06.**
+  ///
+  /// La regola trasversale dettata da Mauro dice che chi apre l'app cerca una
+  /// risposta e vuole sapere cosa fare: "Cosa fai" e "Cosa ti resta" sono la
+  /// risposta, "Perche'" e' la ragione che ci sta dietro. Nel DONO del giorno
+  /// la ragione esce dalla scheda e va nel pannello della base, che e' il posto
+  /// dove il progetto tiene gia' cio' che spiega, ed e' apribile da chi lo
+  /// vuole: non sparisce, si sposta dove si cerca.
+  ///
+  /// Altrove resta acceso, perche' in una scheda di rito che si apre da sola il
+  /// perche' e' parte di cio' che si sta leggendo.
+  final bool conIlPerche;
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +65,16 @@ class LeTreRigheDelRito extends StatelessWidget {
           inchiostro: inchiostro,
           accento: accento,
         ),
-        const SizedBox(height: SpacingTokens.xs),
-        _Riga(
-          etichetta: 'Perché',
-          testo: rito.perche,
-          chiave: Key('perche_${rito.name}'),
-          inchiostro: inchiostro,
-          accento: accento,
-        ),
+        if (conIlPerche) ...[
+          const SizedBox(height: SpacingTokens.xs),
+          _Riga(
+            etichetta: 'Perché',
+            testo: rito.perche,
+            chiave: Key('perche_${rito.name}'),
+            inchiostro: inchiostro,
+            accento: accento,
+          ),
+        ],
         const SizedBox(height: SpacingTokens.xs),
         _Riga(
           etichetta: 'Cosa ti resta',

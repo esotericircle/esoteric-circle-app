@@ -636,21 +636,20 @@ class _LiftPrompt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Velo scuro morbido dietro il sotto invito: un alone che sfuma ai bordi,
-    // cosi' il testo resta leggibile sul riflesso luminoso senza tagliare un
-    // riquadro sulla scena.
-    return Container(
+    // **VIA IL VELO DIETRO L'INVITO. Ordine AS voce 06.**
+    //
+    // Qui c'era un `RadialGradient` nero dentro un Container rettangolare, per
+    // tenere leggibile il testo sul riflesso del sole. Ma un gradiente radiale
+    // dentro un rettangolo lascia i quattro angoli piu' scuri del centro, e
+    // quello che si vede e' un riquadro semitrasparente appoggiato sulla
+    // scena: e' il "residuo di rettangolo sotto il sole" che Mauro ha visto.
+    //
+    // Il testo resta leggibile lo stesso, e non per fiducia: la riga
+    // dell'invito ha la sua pillola scura, che e' un contenitore VOLUTO e con
+    // un bordo, e la sorveglianza del contrasto del rito continua a misurarla.
+    return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: SpacingTokens.lg, vertical: SpacingTokens.md),
-      decoration: BoxDecoration(
-        gradient: RadialGradient(
-          radius: 0.95,
-          colors: [
-            Colors.black.withValues(alpha: 0.34),
-            Colors.black.withValues(alpha: 0.0),
-          ],
-        ),
-      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -666,24 +665,24 @@ class _LiftPrompt extends StatelessWidget {
               color: palette.deepest.withValues(alpha: 0.5),
               border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
             ),
+            // **UNA RIGA SOLA, ordine AS voce 06.** Erano due, "Trascina verso
+            // l'alto per sollevare l'alba" e sotto "Oppure tocca o tieni
+            // premuto": dicevano tutte e due come si fa lo stesso gesto, e la
+            // regola trasversale di quest'ordine dice che dove un testo si
+            // puo' togliere si toglie invece di rimpicciolirlo. La via col
+            // dito NON sparisce, che sarebbe togliere una possibilita': entra
+            // nella stessa riga, e la riga cresce dal corpo della didascalia a
+            // quello del testo di lettura.
             child: Text(
-              'Trascina verso l\'alto per sollevare l\'alba',
+              'Trascina in alto, oppure tocca',
               // La chiave serve alla misura del contrasto, ordine P voce 11:
               // questo invito sta sul cielo notturno, cioe' nel regime scuro,
               // e la tabella lo misura insieme a quelli sul chiaro perche' la
               // voce chiede OGNI testo del rito, non solo il pannello.
               key: const Key('alba_invito_al_gesto'),
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: palette.goldSoft, letterSpacing: 0.8),
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.sm),
-          Text(
-            'Oppure tocca o tieni premuto',
-            key: const Key('alba_ripiego_tattile'),
-            style: TypographyTokens.corpo().copyWith(
-              color: palette.goldSoft.withValues(alpha: 0.85),
-              letterSpacing: 0.3,
+              textAlign: TextAlign.center,
+              style: TypographyTokens.lettura()
+                  .copyWith(color: palette.goldSoft, letterSpacing: 0.6),
             ),
           ),
         ],
