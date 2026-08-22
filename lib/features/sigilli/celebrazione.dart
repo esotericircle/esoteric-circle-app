@@ -21,7 +21,6 @@ import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../core/entitlement/registro_degli_eos.dart';
 import '../../services/app_services.dart';
 import 'card_del_traguardo.dart';
-import 'transizione_di_stelle.dart';
 import 'sentiero_screen.dart';
 import '../../design_system/components/icona_degli_eos.dart';
 
@@ -274,6 +273,21 @@ class _RottaDellaCelebrazione extends PageRouteBuilder<void> {
   final String? serie;
 }
 
+/// **LA DATA COME LA DIREBBE UNA PERSONA.** Ordine AU voce 07: "22 agosto alle
+/// 14:30", non un timbro di macchina. L'anno compare solo se non e' quello in
+/// corso, perche' su un traguardo preso stamattina l'anno e' rumore.
+String _quandoScritto(DateTime quando) {
+  const mesi = [
+    'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio',
+    'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre',
+  ];
+  final ora = quando.hour.toString().padLeft(2, '0');
+  final minuti = quando.minute.toString().padLeft(2, '0');
+  final anno =
+      quando.year == DateTime.now().year ? '' : ' ${quando.year}';
+  return '${quando.day} ${mesi[quando.month - 1]}$anno alle $ora:$minuti';
+}
+
 class CelebrazioneAScermoPieno extends StatefulWidget {
   const CelebrazioneAScermoPieno({
     super.key,
@@ -520,35 +534,84 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
                     // **Il resto del contenuto della card e' materia
                     // dell'ordine AU voce 04**, e questo ordine non ci mette
                     // le mani: qui si decide soltanto QUANDO entra in scena.
-                    Text(
-                      'CONGRATULAZIONI',
-                      key: const Key('celebrazione_congratulazioni'),
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.cerimonialeGrande()
-                          .copyWith(color: palette.gold, letterSpacing: 1.6),
-                    ),
-                    const SizedBox(height: SpacingTokens.sm),
-                    // **OGNI TRAGUARDO PORTA IL SUO NOME**, ordine AC voce
-                    // 04: la festa e' una e li nomina tutti. Il primo tiene
-                    // la chiave storica, cosi' ogni prova che cercava il nome
-                    // della festa continua a trovarlo.
-                    for (final t in widget.traguardi) ...[
-                      // **IL NOME NON SI SPEZZA IN MEZZO A UNA PAROLA**,
-                      // ordine AS voce 05: "La Costellazione nascente" usciva
-                      // come `LA COSTELLAZI` a capo `ONE NASCENTE`, visto
-                      // sull'anteprima e da nessuna prova.
-                      TitoloCheNonSiSpezza(
-                        t.nome,
-                        key: t == widget.traguardi.first
-                            ? const Key('celebrazione_nome')
-                            : null,
-                        stile: TypographyTokens.cerimonialeGrande()
-                            .copyWith(color: palette.goldSoft),
-                      ),
-                      if (t != widget.traguardi.last)
-                        const SizedBox(height: SpacingTokens.xs),
-                    ],
-                    if (widget.serie != null) ...[
+                    // **LA PAROLA DI PREMIO STA SEMPRE SU UNA RIGA SOLA.**
+                    // Ordine AU voce 07. Sulla 2188 usciva "CONGRATULAZI" a
+                    // capo "ONI", spezzata in mezzo a una parola, ed e' lo
+                    // stesso difetto che l'ordine AS voce 05 aveva curato sul
+                    // NOME del traguardo senza che nessuno guardasse la
+                    // parola qui sopra. Si rimpicciolisce per entrare, non va
+                    // a capo: una parola tagliata a meta' non e' una festa.
+                    //
+                    // **LA GERARCHIA SI CALCOLA, non si scrive.** Ordine AU
+                    // voce 07: tre corpi diversi e distinguibili a colpo
+                    // d'occhio. Scriverli fissi non basta, e la prova lo ha
+                    // fatto vedere: su uno schermo da 360 punti la parola di
+                    // premio scendeva da 34 a 27 per entrare su una riga,
+                    // mentre il nome restava a 28, cioe' a video il premio
+                    // diventava PIU' PICCOLO del nome. Qui si misura prima il
+                    // corpo con cui la parola entra, e gli altri due livelli
+                    // scendono con lei mantenendo il rapporto.
+                    LayoutBuilder(builder: (context, vincoli) {
+                      final stilePremio = TypographyTokens.cerimonialeGrande()
+                          .copyWith(color: palette.gold, letterSpacing: 1.6);
+                      final corpoPremio = TitoloCheNonSiSpezza.corpoCheEntra(
+                          'CONGRATULAZIONI', stilePremio, vincoli.maxWidth,
+                          minimo: 22);
+                      return Column(children: [
+                        Text(
+                          'CONGRATULAZIONI',
+                          key: const Key('celebrazione_congratulazioni'),
+                          textAlign: TextAlign.center,
+                          style: stilePremio.copyWith(fontSize: corpoPremio),
+                        ),
+                        const SizedBox(height: SpacingTokens.sm),
+                        for (final t in widget.traguardi) ...[
+                          // **IL NOME NON SI SPEZZA IN MEZZO A UNA PAROLA**,
+                          // ordine AS voce 05, e non e' in maiuscolo
+                          // integrale, ordine AU voce 07: quello vale solo per
+                          // la parola qui sopra.
+                          TitoloCheNonSiSpezza(
+                            nomeInTondo(t.nome),
+                            key: t == widget.traguardi.first
+                                ? const Key('celebrazione_nome')
+                                : null,
+                            stile: TypographyTokens.cerimoniale().copyWith(
+                                color: palette.goldSoft,
+                                fontSize: corpoPremio * 0.72),
+                            minimo: 16,
+                          ),
+                          // **QUANDO E' STATO RAGGIUNTO**, richiesta del
+                          // fondatore ferma dal 17 agosto. L'istante c'era
+                          // gia' nel dato del Sigillo, `quandoSiEAcceso`, e
+                          // nessuno lo mostrava. Per i Sigilli accesi prima
+                          // che il diario tenesse la data la riga non compare:
+                          // **non si inventa una data**.
+                          Builder(builder: (context) {
+                            final quando = context
+                                .read<DiarioDelCammino>()
+                                .quandoSiEAcceso(t.id);
+                            if (quando == null) return const SizedBox.shrink();
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(top: SpacingTokens.xs),
+                              child: Text(
+                                'Obiettivo raggiunto il '
+                                '${_quandoScritto(quando)}',
+                                key: t == widget.traguardi.first
+                                    ? const Key('celebrazione_quando')
+                                    : null,
+                                textAlign: TextAlign.center,
+                                style: TypographyTokens.didascalia().copyWith(
+                                    color: ColorTokens.textSecondary),
+                              ),
+                            );
+                          }),
+                          if (t != widget.traguardi.last)
+                            const SizedBox(height: SpacingTokens.xs),
+                        ],
+                      ]);
+                    }),
+                      if (widget.serie != null) ...[
                       const SizedBox(height: SpacingTokens.xs),
                       Text(widget.serie!,
                           key: const Key('celebrazione_serie'),
@@ -903,66 +966,22 @@ class _FasciaDellaCelebrazioneState extends State<_FasciaDellaCelebrazione>
   /// MediaQuery non si legge in initState, per questo il movimento si decide
   /// qui: lo stesso passo falso era gia' costato la scena grande.
   bool _partito = false;
-
-  /// **IL TRAGUARDO E' INVISIBILE FINO AL FRAME 21. Ordine AT voce 05.**
+  /// **QUI NON C'E' NESSUNA TRANSIZIONE, e prima c'era la regia per averla.**
   ///
-  /// Durante i primi venti fotogrammi lo schermo e' solo stelle: nessun testo,
-  /// nessun nome, nessuna cifra. Al frame 21, cioe' a 800 millesimi esatti, la
-  /// scheda appare DI COLPO: niente dissolvenza, niente scala, niente rimbalzo.
-  /// Il lampo della stella copre lo stacco, ed e' per questo che il fondatore
-  /// ha messo li' il taglio.
-  bool _traguardoVisibile = false;
-
-  /// Vero mentre la transizione corre. Dal frame 21 al 50 le stelle continuano
-  /// sopra l'immagine ormai visibile; finita la corsa restano la scheda e
-  /// basta, senza altre animazioni.
-  bool _transizioneInCorso = true;
-
-  /// **QUANDO IL TRAGUARDO E' COMPARSO DAVVERO, per la misura M3.** L'ordine
-  /// chiede il tempo fra l'inizio della transizione e la prima pittura
-  /// dell'immagine, letto da un log con timestamp su dispositivo reale.
-  DateTime? _quandoEPartita;
-
-  /// **LA RETE DI SICUREZZA SUL TEMPO, e l'ha trovata una prova.** Ordine AT
-  /// voce 05.
+  /// **Il codice morto trovato dall'ordine AU voce 07.** L'ordine AT aveva
+  /// scritto anche qui, nella fascia breve, i due interruttori dello stacco,
+  /// i due orologi della rete e la funzione del frame 21: tutto completo,
+  /// tutto commentato, e **mai collegato a niente**. Nessun punto di questa
+  /// classe montava il lettore ne' leggeva quegli interruttori, quindi il
+  /// file prometteva una regia che non esisteva, e l'analisi lo diceva da due
+  /// giorni con due avvisi che nessuno aveva letto.
   ///
-  /// La scheda compare quando il lettore arriva al frame 21. Ma se il filmato
-  /// NON si apre, il frame 21 non arriva mai e la scheda resta invisibile per
-  /// sempre: una festa che non mostra il traguardo, cioe' un vicolo cieco. La
-  /// prova che monta la scena lo ha fatto vedere subito, perche' li' il codec
-  /// non si apre affatto.
-  ///
-  /// Questi due orologi non guidano niente quando tutto va bene, e il lettore
-  /// arriva sempre per primo: esistono per il giorno in cui non arriva.
-  Timer? _reteDelloStacco;
-  Timer? _reteDellaFine;
-
-  void _armaLaRete() {
-    _reteDelloStacco = Timer(TransizioneDiStelle.istanteDelloStacco, () {
-      if (!mounted || _traguardoVisibile) return;
-      debugPrint('ORDINE AT: stacco dalla rete di sicurezza, il lettore non '
-          'e arrivato al frame 21');
-      setState(() => _traguardoVisibile = true);
-    });
-    _reteDellaFine = Timer(TransizioneDiStelle.durata, () {
-      if (!mounted || !_transizioneInCorso) return;
-      setState(() {
-        _transizioneInCorso = false;
-        _traguardoVisibile = true;
-      });
-    });
-  }
-
-  void _alFrame(int indice) {
-    _quandoEPartita ??= DateTime.now();
-    if (_traguardoVisibile) return;
-    if (indice + 1 < TransizioneDiStelle.frameDelloStacco) return;
-    final quanto = DateTime.now().difference(_quandoEPartita!).inMilliseconds;
-    // ignore: avoid_print
-    debugPrint('ORDINE AT M3: traguardo scoperto al frame ${indice + 1}, '
-        '$quanto ms dall inizio della transizione');
-    setState(() => _traguardoVisibile = true);
-  }
+  /// **Non si e' collegata la transizione, si e' tolta la promessa.** La
+  /// fascia breve e' la forma che compare quando la scena grande non ha dove
+  /// stare: darle un secondo filmato di due secondi vorrebbe dire due
+  /// transizioni per una festa sola, che e' proprio cio' che l'ordine AT voce
+  /// 06 vieta. Se un giorno la si vuole, e' una decisione, non una riga
+  /// dimenticata.
 
   @override
   void didChangeDependencies() {

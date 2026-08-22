@@ -11,6 +11,7 @@ import 'package:esoteric_circle/features/sigilli/regia_del_cammino.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
+import 'package:esoteric_circle/core/sigilli/distanza_fra_le_feste.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -188,6 +189,16 @@ void main() {
             'esattamente il difetto della voce 34');
 
     final primaDelMomentoUtile = coda.inAttesa.length;
+    // **IL PRIMO MOMENTO UTILE E' UN'APERTURA NUOVA. Ordine AU voce 06.**
+    //
+    // La regola non si e' allentata, si e' spostata di contesto: la coda si
+    // svuota, ma non piu' nella stessa apertura in cui una festa e' gia'
+    // comparsa, perche' il fondatore ha deciso che se ne vede UNA per
+    // apertura. Senza questa riga la prova misurerebbe lo stato lasciato dal
+    // test qui sopra, che una festa l'ha gia' mostrata, e cadrebbe per la
+    // regola nuova invece che per il difetto che sorveglia.
+    DistanzaFraLeFeste.nuovaApertura();
+    await DistanzaFraLeFeste.fingiCheSiaPassato(const Duration(hours: 4));
     // IL PRIMO MOMENTO UTILE: adesso una schermata c'e'.
     await tester.pumpWidget(attorno(
       diario: diario,

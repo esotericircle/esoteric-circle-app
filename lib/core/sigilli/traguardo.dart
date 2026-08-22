@@ -645,6 +645,22 @@ class Traguardo {
 /// non esiste il caso in cui due traguardi guardano la stessa cosa in due modi
 /// diversi. Chi costruisce questa fotografia e' `DiarioDelCammino`, che e' il
 /// solo posto che sa leggere il disco e il cielo.
+/// **IL NOME COME SI LEGGE, non come sta nel dato.** Ordine AU voce 07.
+///
+/// Il corpus scrive in maiuscolo integrale i nomi dei traguardi GRANDI, "LA
+/// COSTELLAZIONE NASCENTE", ed e' il suo modo di marcarli. A video pero' il
+/// maiuscolo integrale vale SOLO per la parola di premio: due blocchi tutti
+/// maiuscoli uno sopra l'altro non hanno gerarchia, sono un muro.
+///
+/// **Il dato non si tocca**: il corpus resta quello, cambia la resa. Un nome
+/// che NON e' tutto maiuscolo si lascia esattamente com'e', perche' li' le
+/// maiuscole interne sono volute.
+String nomeInTondo(String nome) {
+  if (nome.isEmpty || nome != nome.toUpperCase()) return nome;
+  final basso = nome.toLowerCase();
+  return basso[0].toUpperCase() + basso.substring(1);
+}
+
 class StatoDelCammino {
   const StatoDelCammino({
     this.gestiCompiuti = const {},

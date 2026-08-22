@@ -35,35 +35,64 @@ class TitoloCheNonSiSpezza extends StatelessWidget {
   /// titolo spezzato.
   final double minimo;
 
+  /// **IL CORPO PIU' GRANDE CON CUI IL TESTO ENTRA SU UNA RIGA.** Ordine AU
+  /// voce 07.
+  ///
+  /// **Perche' e' iterativo e non una proporzione.** La prima stesura
+  /// calcolava `partenza * larghezza / larghezzaDellaParola`, cioe' dava per
+  /// scontato che dimezzando il corpo si dimezzi la larghezza. Non e' vero
+  /// quando lo stile porta una spaziatura fra le lettere: quella e' un numero
+  /// ASSOLUTO e non scala col corpo, quindi su "CONGRATULAZIONI", che ha
+  /// sedici lettere e 1,6 punti di spaziatura, restano venticinque punti
+  /// fissi che il conto non vede. Misurato: su uno schermo da 320 punti la
+  /// proporzione dava 24 e la parola andava a capo lo stesso.
+  ///
+  /// Adesso si misura, e se non entra si scende di un punto e si rimisura.
+  /// Sono al piu' una quindicina di misure su una stringa corta, una volta per
+  /// costruzione.
+  static double corpoCheEntra(
+    String testo,
+    TextStyle stile,
+    double larghezza, {
+    double minimo = 20,
+  }) {
+    final partenza = stile.fontSize ?? 34;
+    if (!larghezza.isFinite || larghezza <= 0) return partenza;
+    // La parola piu' lunga: e' lei che decide, perche' e' l'unica che non si
+    // puo' mandare a capo.
+    final parole = testo.split(RegExp(r'\s+'));
+    for (var corpo = partenza; corpo > minimo; corpo -= 1) {
+      var entra = true;
+      for (final parola in parole) {
+        final pittore = TextPainter(
+          text: TextSpan(text: parola, style: stile.copyWith(fontSize: corpo)),
+          textDirection: TextDirection.ltr,
+          maxLines: 1,
+        )..layout();
+        if (pittore.width > larghezza) {
+          entra = false;
+          break;
+        }
+      }
+      if (entra) return corpo;
+    }
+    // Sotto il minimo non si scende: un titolo illeggibile e' peggio di un
+    // titolo spezzato.
+    return minimo;
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, vincoli) {
-        final larghezza = vincoli.maxWidth;
-        final partenza = stile.fontSize ?? 34;
-        var corpo = partenza;
-        if (larghezza.isFinite && larghezza > 0) {
-          // La parola piu' lunga: e' lei che decide, perche' e' l'unica che
-          // non si puo' mandare a capo.
-          final parole = testo.split(RegExp(r'\s+'));
-          var piuLarga = 0.0;
-          for (final parola in parole) {
-            final pittore = TextPainter(
-              text: TextSpan(text: parola, style: stile),
-              textDirection: TextDirection.ltr,
-              maxLines: 1,
-            )..layout();
-            if (pittore.width > piuLarga) piuLarga = pittore.width;
-          }
-          if (piuLarga > larghezza && piuLarga > 0) {
-            corpo = (partenza * larghezza / piuLarga).floorToDouble();
-            if (corpo < minimo) corpo = minimo;
-          }
-        }
+        final corpo =
+            corpoCheEntra(testo, stile, vincoli.maxWidth, minimo: minimo);
         return Text(
           testo,
           textAlign: allineamento,
-          style: corpo == partenza ? stile : stile.copyWith(fontSize: corpo),
+          style: corpo == (stile.fontSize ?? 34)
+              ? stile
+              : stile.copyWith(fontSize: corpo),
         );
       },
     );

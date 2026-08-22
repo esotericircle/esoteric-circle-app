@@ -195,7 +195,45 @@ decide su tre di esse:
   correzione al corpus e va detta come tale.
   Guardia `test/una_festa_un_traguardo_test.dart`, che legge la regia e cade se
   qualcuno le ripassa due traguardi nella stessa card)
-- **AU.07** La card del traguardo, dignita' e tipografia. Stato: APERTA
+- **AU.07** La card del traguardo, dignita' e tipografia. Stato: CHIUSA
+  (**LA PAROLA DI PREMIO STA SU UNA RIGA SOLA a tutte e tre le misure**: corpo
+  32 su schermo largo, 27 sul medio, 23 sullo stretto, una riga sempre.
+  **E LA PRIMA CURA NON BASTAVA, e la prova lo ha detto.** Bastava passare la
+  parola al componente che gia' esisteva, `TitoloCheNonSiSpezza`, e invece su
+  uno schermo da 320 punti restava spezzata lo stesso: quel componente
+  scalava il corpo in proporzione, cioe' dava per scontato che dimezzando il
+  corpo si dimezzi la larghezza. **Non e' vero quando lo stile porta una
+  spaziatura fra le lettere**: quella e' un numero ASSOLUTO e non scala col
+  corpo, e su "CONGRATULAZIONI", sedici lettere con 1,6 punti l'una, restano
+  venticinque punti fissi che il conto non vedeva. Adesso il componente
+  misura, e se non entra scende di un punto e rimisura.
+  **LA GERARCHIA SI CALCOLA, non si scrive, e anche questo lo ha detto la
+  prova.** Messi tre corpi fissi 34, 28 e 16, su uno schermo da 360 punti la
+  parola di premio scendeva a 27 per entrare mentre il nome restava a 28:
+  **a video il premio diventava piu' piccolo del nome**. Ora si misura prima
+  il corpo con cui la parola entra e gli altri livelli scendono con lei: 27,
+  19,4 e 16 sul medio.
+  **IL MAIUSCOLO INTEGRALE E' SOLO DELLA PAROLA DI PREMIO.** Il nome arrivava
+  in maiuscolo dal CORPUS, che marca cosi' i traguardi grandi, "LA
+  COSTELLAZIONE NASCENTE": il dato resta, cambia la resa, e a video si legge
+  "La costellazione nascente".
+  **"OBIETTIVO RAGGIUNTO IL ..." C'E', e l'istante non e' stato inventato**:
+  era gia' nel dato del Sigillo dall'ordine AP, `quandoSiEAcceso`, e nessuno
+  lo mostrava. Per i Sigilli accesi prima che il diario tenesse la data la
+  riga non compare affatto. La data si legge come la direbbe una persona, "14
+  agosto alle 12:00", e l'anno compare solo se non e' quello in corso.
+  Gli Eos sono rimasti dove sono. Guardia
+  `test/la_parola_di_premio_sta_su_una_riga_test.dart`, sei prove.
+  **UN DIFETTO TROVATO DI PASSAGGIO, e vive da due giorni**: la fascia breve
+  della celebrazione aveva scritta tutta la regia dello stacco, i due
+  interruttori, i due orologi della rete e la funzione del frame 21, **mai
+  collegata a niente**. L'analisi lo diceva con due avvisi che nessuno aveva
+  letto. Tolta la promessa invece di collegare la transizione: darle un
+  secondo filmato vorrebbe dire due transizioni per una festa sola, che e'
+  cio' che l'ordine AT voce 06 vieta.
+  **Una guardia esistente e' stata RI-MIRATA e non allentata**: "al primo
+  momento utile la festa in attesa arriva" restava vera, ma il primo momento
+  utile adesso e' un'apertura nuova, perche' se ne vede una per apertura)
 - **AU.08** Il grigio che non si legge, censimento totale. Stato: APERTA
 - **AU.09** Le perle del Loto al centro dei fiori. Stato: APERTA
 - **AU.10** La pila che non torna indietro. Stato: APERTA
@@ -206,8 +244,8 @@ decide su tre di esse:
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 7
-VOCI_CHIUSE: 7
+VOCI_APERTE: 6
+VOCI_CHIUSE: 8
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
