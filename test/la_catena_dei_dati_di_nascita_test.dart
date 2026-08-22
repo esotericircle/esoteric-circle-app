@@ -199,9 +199,16 @@ void main() {
     // Eventi Cosmici, che non ha bisogno di sapere chi sei. Un consumatore
     // in meno non e' una perdita: e' una schermata che ha smesso di chiedere
     // cio' che non le serviva.
-    expect(elenco.length, 13,
+    // QUATTORDICI DALL'ORDINE AZ del 22 agosto 2026, e il conto risale:
+    // l'area account e' diventata un consumatore **perche' adesso da li' si
+    // esce**. Uscire deve dimenticare cio' che il telefono ricorda di chi se
+    // ne va, e fra quelle cose c'e' la nascita: se restasse, chi entra dopo
+    // si troverebbe il cielo di un altro. **Chiede alla porta unica come
+    // tutti**, e non tiene nessuna copia sua: chiede per svuotare, non per
+    // leggere.
+    expect(elenco.length, 14,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
-            '${elenco.length} invece di 13:\n${elenco.join("\n")}\n'
+            '${elenco.length} invece di 14:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
             'aggiorna questo numero. Se ne hai tolta una, idem.');
   });
