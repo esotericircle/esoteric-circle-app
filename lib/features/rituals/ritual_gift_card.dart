@@ -12,7 +12,6 @@ import '../../design_system/theme/accento_del_maestro.dart';
 import '../../design_system/tokens/regime_chiaro.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import 'breath_destiny_screen.dart';
 
 // I COLORI DEL REGIME CHIARO NON VIVONO PIU' QUI. Ordine P voce 12.
 //
@@ -161,76 +160,32 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 key: const Key('alba_orientamento'),
                 style: TypographyTokens.corpo().copyWith(color: _dayInk),
               ),
-              // Livello due: la parola del giorno, in risalto. **O NIENTE.**
+              // **LA PAROLA DEL GIORNO NON C'E' PIU'.** Ordine BB voce 06, e il
+              // fondatore l'ha chiesto due volte: "sia nell'alba che nel
+              // soffio c'e' la parola del giorno: ma a che serve? Cosa deve
+              // farne l'utente?"
               //
-              // Qui l'etichetta compariva sempre, e quando la parola mancava
-              // sotto si leggeva "In arrivo". E' peggio del vuoto, non meglio:
-              // e' un campo che PROMETTE, cioe' che dice alla persona di
-              // aspettare qualcosa senza dirle cosa ne' quando. E' la stessa
-              // famiglia del "In attesa dei contenuti astrologici verificati"
-              // che il Rito dell'Alba mostrava e che e' gia' stata chiusa: una
-              // schermata non fa vedere alla persona la propria impalcatura.
+              // **Non si e' reinventato un uso e non si e' nascosta dietro un
+              // interruttore.** Una parola in risalto che non chiede niente e
+              // non porta da nessuna parte occupa il posto piu' importante
+              // della scheda: chi la legge cerca cosa farne, non trova
+              // risposta, e quel vuoto se lo porta dietro per tutto il rito.
               //
-              // O l'etichetta si riempie, o l'etichetta non c'e'. Quando il
-              // rito del giorno non porta una parola, questo livello sparisce
-              // intero, etichetta compresa, e la scheda resta quella che ha
-              // qualcosa da dire.
-              if (word != null) ...[
-                const SizedBox(height: SpacingTokens.lg),
-                // PAROLA DEL GIORNO, ordine P voce 13: ruolo didascalia,
-                // cioe' sedici, niente maiuscoletto, e un colore che soddisfa
-                // 4,5 a 1 sul fondo reale. Era etichetta a dodici in
-                // maiuscoletto spaziato tre, cioe' la riga meno leggibile
-                // della scheda proprio sopra la parola piu' importante.
-                Text(
-                  'Parola del giorno',
-                  key: const Key('alba_etichetta_parola'),
-                  style: TypographyTokens.didascalia().copyWith(
-                    color: _dayInkSoft,
-                    letterSpacing: 0.6,
-                  ),
-                ),
-                const SizedBox(height: SpacingTokens.xs),
-                Text(
-                  word,
-                  key: const Key('gift_word'),
-                  style: TypographyTokens.display(size: 32).copyWith(
-                    color: accento,
-                    letterSpacing: 1.4,
-                  ),
-                ),
-              ],
-              // **IL RESPIRO GUIDATO ESCE DA QUI, ordine S voce 13.**
+              // **Il dato resta nel modello**, `gift.word`, dove serve a chi
+              // compone il dono e alla condivisione: sparisce dallo schermo,
+              // non dal Cerchio.
+              // **E NEMMENO IL PONTE VERSO IL SOFFIO.** Ordine BB voce 07,
+              // parole del fondatore: "nel rito dell'Alba c'e' un testo
+              // collegato che porta al soffio del destino, perche'?
+              // Eliminalo."
               //
-              // La voce P.17 aveva ragione a togliere l'istruzione scritta
-              // ("tre dentro e tre fuori, sei giri"), che era un compito da
-              // contare a mente. Ma il rimedio ha portato il respiro guidato
-              // DENTRO ogni dono del giorno, e quello e' il rito del Soffio del
-              // Destino: nell'Alba e' comparsa una meditazione che non e' sua, e
-              // il rito del mattino e' diventato il contenitore di un altro rito.
-              //
-              // **Dal dono al Soffio si va con un invito di una riga**, e non
-              // col rito intero incastrato dentro. La riga e' una porta vera, non
-              // un annuncio: la tocchi e sei nel Soffio.
-              if (gift.rito != null && !widget.dono.guidaIlRespiroInScena) ...[
-                const SizedBox(height: SpacingTokens.md),
-                Center(
-                  child: TextButton.icon(
-                    key: const Key('ponte_verso_il_soffio'),
-                    onPressed: () => Navigator.of(context)
-                        .push(BreathDestinyScreen.route(now: widget.giorno)),
-                    icon: Icon(Icons.air_rounded, size: 16, color: accento),
-                    label: Text(
-                      // Piu' corto, ordine AS voce 06: la porta si nomina,
-                      // non si racconta.
-                      'Il respiro guidato e nel Soffio del Destino',
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: accento, height: 1.3),
-                    ),
-                  ),
-                ),
-              ],
+              // **Un dono del giorno non fa da corridoio a un altro dono.**
+              // La riga era nata nell'ordine S voce 13 per togliere il respiro
+              // guidato dall'Alba, ed era giusta allora: il rito del mattino
+              // non doveva contenere il rito della sera. Ma la porta lasciata
+              // al suo posto ha lo stesso difetto in piccolo, perche' ognuno
+              // dei doni ha la sua ora e il suo posto nella fascia, e chi
+              // arriva all'Alba non deve essere mandato altrove.
               // LA DOMANDA DI IERI, ordine P voce 18: il filo fra la stesa di
               // ieri e il dono di stamattina.
               if (widget.domandaDiIeri != null) ...[

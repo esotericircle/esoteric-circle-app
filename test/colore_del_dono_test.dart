@@ -54,15 +54,30 @@ void main() {
       ),
     ));
     await tester.pump();
-    // La parola del giorno: e' il Text con lo stile display piu' grande.
-    final parola = tester
-        .widgetList<Text>(find.byType(Text))
-        .where((t) => (t.style?.fontSize ?? 0) >= 32)
-        .toList();
-    expect(parola, isNotEmpty,
-        reason: 'la parola del giorno non e\' a schermo, quindi questa prova '
-            'non sta misurando il colore che crede');
-    return parola.first.style!.color!;
+    // **L'ACCENTO SI LEGGE SULL'ETICHETTA DELLE TRE RIGHE, e prima si leggeva
+    // sulla parola del giorno.** Ordine BB voce 06: la parola e' uscita dalla
+    // scheda per decisione del fondatore, e con lei se n'e' andato il posto
+    // dove questa prova guardava il colore.
+    //
+    // **Non e' un ripiego: e' il posto giusto adesso.** L'etichetta "Cosa
+    // fai." e' il primo pezzo di testo che porta la tinta del Maestro del
+    // giorno, sta in cima alla scheda, e la sua ragione d'essere e' proprio
+    // dire di chi e' il giorno.
+    final colori = <Color>[];
+    for (final r in tester.widgetList<RichText>(find.byType(RichText))) {
+      final span = r.text;
+      if (span is! TextSpan) continue;
+      final figli = span.children;
+      if (figli == null || figli.isEmpty) continue;
+      final primo = figli.first;
+      if (primo is! TextSpan) continue;
+      final c = primo.style?.color;
+      if (c != null) colori.add(c);
+    }
+    expect(colori, isNotEmpty,
+        reason: 'le tre righe del rito non sono a schermo, quindi questa '
+            'prova non sta misurando il colore che crede');
+    return colori.first;
   }
 
   group('Il colore nasce dal Maestro del giorno', () {

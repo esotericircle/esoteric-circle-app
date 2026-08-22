@@ -1,0 +1,79 @@
+# ORDINE BB, il manifesto
+
+**LE VOCI AX RIMASTE.** Tredici voci, dalla BB.00 alla BB.13, sul ramo
+`claude/esoteric-circle-master-order-e798aj`.
+
+**Riprende le voci dell'ordine AX rimaste aperte dopo AX.01**, che e' chiusa e
+verificata dal fondatore sul telefono con la build 2195. **AX.02 non e' qui**:
+sta nell'ordine BA voce 02, e non si ripete.
+
+## Come si legge questo file
+
+Ogni voce porta uno stato fra cinque: CHIUSA, APERTA, FERMATA SU PREMESSA
+FALSA, FERMATA IN ATTESA DI DECISIONE, FERMATA SU DECISIONE DEL FONDATORE. In
+fondo ci sono i marcatori, che la guardia `test/ordine_bb_guard_test.dart`
+conta sulle righe.
+
+## Le premesse, verificate prima di lavorare
+
+**Tutte le cifre del fondatore sono esatte**, contate sul file e non a
+memoria.
+
+**BB.12, il catalogo dei luoghi**, `assets/data/luoghi.csv`: **11.546 luoghi**,
+di cui **8.438 italiani** (terzo campo con la sigla di due lettere della
+provincia) e **3.108 esteri** (terzo campo col nome del paese). **241 paesi
+esteri distinti**, e **116 rappresentati da una sola citta'**. Francia 13,
+Svizzera 3, Albania 1. **Tutte e sei le cifre coincidono.**
+
+**BB.13, il logo**: `assets/brand/logo.png` esiste, ed e' **720 per 720**.
+
+**BB.11 E' GIA' CHIUSA, e non da questo ordine.** La voce Account nelle
+Impostazioni **e' gia' viva dalla build 2195**, curata con l'ordine AZ voce
+11: il codice porta la chiave `impostazioni_account` e la pillola "Dietro il
+velo" non c'e' piu' in quella schermata. **E lo prova il fondatore stesso**:
+nello screenshot delle Impostazioni che ha mandato con l'ordine BA si legge
+"IL TUO ACCOUNT, Profilo, accesso e dati di nascita" con la freccia. La
+premessa di BB.11 descrive una build precedente alla 2195.
+
+## Le voci
+
+- **BB.00** Manifesto e verifica delle premesse. Stato: CHIUSA
+- **BB.01** Il titolo su una riga, e la Luna si tocca. Stato: APERTA
+- **BB.02** Il foglio del borsellino dice tutto, e invita. Stato: APERTA
+- **BB.03** I movimenti del borsellino. Stato: APERTA
+- **BB.04** Gli Eos dichiarati sui pulsanti. Stato: APERTA
+- **BB.05** Il Passaporto porta a sbloccare. Stato: APERTA
+- **BB.06** La parola del giorno sparisce. Stato: CHIUSA
+- **BB.07** L'Alba non manda al Soffio. Stato: CHIUSA
+- **BB.08** "Attiva la posizione" attiva davvero. Stato: APERTA
+- **BB.09** Il Soffio non somiglia all'Alba. Stato: APERTA
+- **BB.10** Le notifiche dei doni. Stato: APERTA
+- **BB.11** Il menu' Account nelle Impostazioni. Stato: CHIUSA con l'ordine AZ voce 11
+- **BB.12** Il luogo di nascita e il mondo. Stato: APERTA
+- **BB.13** L'icona dell'app. Stato: APERTA
+
+## L'ordine di lavoro, deciso qui
+
+Si comincia da cio' che il fondatore vede per primo e piu' spesso, e si tiene
+per ultimo cio' che richiede una fonte esterna.
+
+1. **BB.06 e BB.07**, che sono due rimozioni: si tolgono cose che non servono,
+   e finche' ci sono occupano lo schermo.
+2. **BB.01 e BB.03**, che sono difetti di lettura in home e nel borsellino.
+3. **BB.04, BB.05 e BB.02**, che aggiungono cio' che manca dove la persona
+   decide qualcosa.
+4. **BB.08 e BB.10**, che sono la stessa famiglia: un permesso di sistema che
+   non viene mai chiesto.
+5. **BB.09**, che e' lavoro di forma e va guardato a video.
+6. **BB.13**, che e' lavoro d'immagine.
+7. **BB.12** per ultima, perche' chiede una fonte di sagome con licenza
+   verificata prima di scrivere una riga di codice.
+
+## I marcatori
+
+VOCI_TOTALI: 14
+VOCI_APERTE: 10
+VOCI_CHIUSE: 4
+VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

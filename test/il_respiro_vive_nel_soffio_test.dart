@@ -49,20 +49,27 @@ void main() {
             'rito che non e\' suo');
   });
 
-  test('dal dono del giorno al respiro si va con un invito, non col rito', () {
-    // **La riga e' una PORTA VERA, non un annuncio.** Un invito che non porta da
-    // nessuna parte e' un vicolo cieco, e in questo progetto e' vietato: la riga
-    // spinge la rotta del Soffio.
+  test('dal dono del giorno al respiro NON si va piu', () {
+    // **QUESTA PROVA E' STATA RIBALTATA, e la ragione va detta.** Ordine BB
+    // voce 07: il fondatore ha chiesto di togliere il ponte dall'Alba al
+    // Soffio, e prima di lui la voce 13 dell'ordine S lo aveva messo.
+    //
+    // **Tutte e due le decisioni sono sue e nessuna era sbagliata**: la voce S
+    // toglieva il rito del Soffio incastrato dentro l'Alba, e lasciare una
+    // porta era il modo piu' gentile di farlo. La voce BB dice che anche
+    // quella porta e' di troppo, perche' **ogni dono ha la sua ora e il suo
+    // posto nella fascia**, e chi arriva all'Alba non va mandato altrove.
+    //
+    // Cio' che questa prova sorveglia non cambia: **il respiro guidato non
+    // torna dentro la scheda del dono**, che era il difetto vero della voce S.
     final scheda = File('lib/features/rituals/ritual_gift_card.dart')
         .readAsStringSync();
-    expect(scheda.contains('ponte_verso_il_soffio'), isTrue,
-        reason: 'dal dono del giorno non c\'e\' piu\' nessun ponte verso il '
-            'respiro: la voce chiede un invito di una riga, non il nulla');
-    expect(scheda.contains('BreathDestinyScreen.route'), isTrue,
-        reason: 'il ponte verso il Soffio non apre niente: e\' un annuncio, e '
-            'un annuncio che non porta da nessuna parte e\' un vicolo cieco');
+    expect(scheda.contains('ponte_verso_il_soffio'), isFalse,
+        reason: 'dal dono del giorno si va ancora al Soffio: la voce BB 07 '
+            'chiede che un dono non faccia da corridoio a un altro dono');
     expect(scheda.contains('GuidaDelRespiro('), isFalse,
-        reason: 'il respiro guidato e\' tornato dentro la scheda del dono');
+        reason: 'il respiro guidato e tornato dentro la scheda del dono, ed e '
+            'il difetto che la voce S 13 aveva chiuso');
   });
 
   test('solo il Soffio dichiara di guidare il respiro in scena', () {
@@ -76,78 +83,4 @@ void main() {
         reason: 'questi doni dicono di guidare il respiro in scena: $chiLoGuida');
   });
 
-  testWidgets('il ponte si RAGGIUNGE e porta nel Soffio', (tester) async {
-    // **Non basta che la riga esista nel sorgente: deve raggiungersi col dito.**
-    // La scheda del dono e' piu' alta dello schermo, e una riga che sta sotto il
-    // taglio senza modo di arrivarci e' un vicolo cieco travestito da ponte.
-    SharedPreferences.setMockInitialValues({});
-    final messenger = TestWidgetsFlutterBinding.instance.defaultBinaryMessenger;
-    messenger.setMockMethodCallHandler(
-      const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
-      (call) async => null,
-    );
-    for (final nome in const [
-      'dev.fluttercommunity.plus/sensors/accelerometer',
-      'dev.fluttercommunity.plus/sensors/user_accel',
-      'dev.fluttercommunity.plus/sensors/gyroscope',
-      'dev.fluttercommunity.plus/sensors/magnetometer',
-    ]) {
-      messenger.setMockStreamHandler(
-        EventChannel(nome),
-        MockStreamHandler.inline(onListen: (args, events) {}),
-      );
-    }
-    tester.view.physicalSize = const Size(1080, 2391);
-    tester.view.devicePixelRatio = 3.0;
-    addTearDown(tester.view.reset);
-
-    // **I PROVIDER SERVONO PERCHE' IL PONTE APRE UNA ROTTA**, e quella rotta si
-    // porta il suo `MaestroScope`, che legge il Maestro attivo: senza, il tocco
-    // spingeva la rotta e la rotta cadeva costruendosi, quindi la prova vedeva un
-    // ponte che non apriva niente per un difetto del banco.
-    await tester.pumpWidget(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => MaestroController()),
-        ChangeNotifierProvider(create: (_) => QualityTierController()),
-        ChangeNotifierProvider(create: (_) => ParallaxController()),
-      ],
-      child: MaterialApp(
-        builder: (ctx, child) => MediaQuery(
-          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
-          child: child!,
-        ),
-        home: DawnRiteScreen(now: DateTime(2026, 8, 13, 6, 30)),
-      ),
-    ));
-    for (var i = 0; i < 8; i++) {
-      await tester.pump(const Duration(milliseconds: 150));
-    }
-    await tester.tap(find.byKey(const Key('ritual_gesture')));
-    for (var i = 0; i < 12; i++) {
-      await tester.pump(const Duration(milliseconds: 150));
-    }
-
-    final ponte = find.byKey(const Key('ponte_verso_il_soffio'));
-    expect(ponte, findsOneWidget,
-        reason: 'nella scheda del dono non c\'e\' nessun ponte verso il Soffio');
-    // SI PORTA IN VISTA, come farebbe un dito che scorre.
-    await tester.ensureVisible(ponte);
-    await tester.pump();
-    final dove = tester.getRect(ponte);
-    final altezza =
-        tester.view.physicalSize.height / tester.view.devicePixelRatio;
-    expect(dove.top >= 0 && dove.bottom <= altezza + 0.5, isTrue,
-        reason: 'il ponte verso il Soffio non si riesce a portare a schermo: sta '
-            'fra ${dove.top.toStringAsFixed(1)} e '
-            '${dove.bottom.toStringAsFixed(1)} su ${altezza.toStringAsFixed(0)} '
-            'punti, ed e\' un vicolo cieco travestito da ponte');
-
-    // E PORTA DAVVERO: al tocco si apre il Soffio.
-    await tester.tap(ponte);
-    for (var i = 0; i < 10; i++) {
-      await tester.pump(const Duration(milliseconds: 150));
-    }
-    expect(find.byType(BreathDestinyScreen), findsOneWidget,
-        reason: 'toccando il ponte non si apre il Soffio del Destino');
-  });
 }

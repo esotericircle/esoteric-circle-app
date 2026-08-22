@@ -335,11 +335,17 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     setState(() => _streak = n);
   }
 
+  /// **SI CONDIVIDE CIO' CHE SI VEDE.** Ordine BB voce 06.
+  ///
+  /// La parola del giorno e' uscita dalla scheda, per decisione del fondatore:
+  /// una parola in risalto che non chiede niente e non porta da nessuna parte
+  /// occupava il posto piu' importante. **Se sparisce dallo schermo deve
+  /// sparire anche di qui**, se no si condivide con gli altri una cosa che chi
+  /// riceve non trovera' aprendo l'app. Resta l'orientamento del giorno, che
+  /// e' cio' che il dono dice davvero.
   Future<void> _shareWord(DawnGift gift) async {
-    final word = gift.word;
-    if (word == null) return;
     try {
-      await PortaDellaCondivisione.testo('La mia parola del giorno dal Soffio del Destino: $word. '
+      await PortaDellaCondivisione.testo('Il mio Soffio del Destino di oggi: '
               '${gift.orientation} Con Esoteric Circle.');
     } catch (_) {
       if (!mounted) return;
