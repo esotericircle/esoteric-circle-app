@@ -31,11 +31,12 @@ import urllib.request
 
 APP = '1:425821975933:android:1b1ca4db8d4df69b940814'
 SERVIZIO = 'distributore-app@esoteric-circle.iam.gserviceaccount.com'
-# **I DESTINATARI SONO DUE, ordine AR voce 09.** Fino alla 2185 la consegna
-# andava al solo account di servizio del progetto; l'ordine chiede che arrivi
-# anche all'indirizzo con cui Mauro usa il telefono. Restano due voci in una
-# lista, cosi' aggiungerne un terzo domani non tocca il resto della procedura.
-TESTER = ['cloud@esotericircle.app', 'info@esotericircle.com']
+# **IL DESTINATARIO E' UNO SOLO.** L'ordine AR voce 09 ne aveva messi due,
+# aggiungendo a quello del progetto l'indirizzo con cui Mauro usa il telefono;
+# Mauro l'ha revocato, e le build tornano al solo account di servizio.
+# Resta una lista di una voce sola, cosi' rimetterne un secondo domani non
+# tocca il resto della procedura.
+TESTER = ['cloud@esotericircle.app']
 REGISTRO = 'docs/versione_distribuita.json'
 
 
