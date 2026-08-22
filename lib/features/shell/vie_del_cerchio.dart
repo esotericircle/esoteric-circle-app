@@ -49,6 +49,25 @@ enum SpecieDiVia { cerchio, maestro, passport }
 /// il Santuario, il guscio, la dichiara senza saperlo, perche' passano tutte
 /// da quella fabbrica. E' un valore tipizzato e non una stringa, quindi non
 /// esiste il modo di scriverlo "quasi uguale".
+/// **LE PORTE CHE NON HANNO UN ARGOMENTO.** Ordine AU voce 10.
+///
+/// `DestinazioneDominio` esisteva gia' e funziona, perche' un dominio porta il
+/// suo Maestro. Il menu' utente e il Calendario invece non hanno argomenti, e
+/// per questo nessuno gli aveva dato una destinazione: **si aprivano con un
+/// `push` diretto**, e ogni tocco impilava una rotta nuova sopra quella
+/// identica gia' aperta. Il fondatore l'ha misurato: dieci aperture del menu'
+/// utente, dieci tocchi su indietro per tornare al principio.
+///
+/// Un valore tipizzato e non una stringa, per la stessa ragione scritta sopra:
+/// una stringa la si puo' scrivere "quasi uguale".
+enum PortaDelCerchio {
+  /// Il menu' utente in alto a sinistra.
+  account,
+
+  /// Il Calendario degli Eventi, dal centro della barra sottile.
+  calendario;
+}
+
 @immutable
 class DestinazioneDominio {
   const DestinazioneDominio(this.maestro);

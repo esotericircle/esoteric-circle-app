@@ -16,6 +16,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../account/dati_di_nascita_screen.dart';
+import '../shell/vie_del_cerchio.dart';
 
 /// IL CALENDARIO DEGLI EVENTI. Ordine AN voce 03.
 ///
@@ -53,6 +54,7 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
   };
 
   static Route<void> route({DateTime? adesso}) => MaterialPageRoute<void>(
+        settings: const RouteSettings(arguments: PortaDelCerchio.calendario),
         builder: (_) => MaestroScope(
           maestro: Maestro.medora,
           child: CalendarioDegliEventiScreen(adesso: adesso),

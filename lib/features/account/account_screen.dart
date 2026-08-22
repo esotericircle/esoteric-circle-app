@@ -14,6 +14,7 @@ import '../pricing/pricing_screen.dart';
 import '../settings/settings_screen.dart';
 import 'profile_screen.dart';
 import 'dati_di_nascita_screen.dart';
+import '../shell/vie_del_cerchio.dart';
 
 /// L'area account, aperta dall'icona Utente in alto a destra nel Cerchio.
 ///
@@ -24,8 +25,12 @@ import 'dati_di_nascita_screen.dart';
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
 
+  /// **LA ROTTA DICHIARA LA SUA DESTINAZIONE.** Ordine AU voce 10: senza
+  /// questa riga nessuno puo' accorgersi che il menu' utente e' gia' aperto, e
+  /// ogni tocco ne impila un altro sopra quello di prima.
   static Route<void> route() => MaterialPageRoute<void>(
         builder: (_) => const AccountScreen(),
+        settings: const RouteSettings(arguments: PortaDelCerchio.account),
       );
 
   @override

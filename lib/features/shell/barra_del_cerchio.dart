@@ -419,14 +419,25 @@ class NavigazioneDellaBarra {
   static BuildContext contestoDelNavigatore() => _navigatore().context;
 
   /// La via all'account da sopra il Navigator, per il volto della barra.
+  ///
+  /// **UNA PORTA GIA' APERTA NON SI RIAPRE.** Ordine AU voce 10, misurato dal
+  /// fondatore: aprendo dieci volte il menu' utente servivano dieci tocchi su
+  /// indietro per tornare al principio, perche' qui c'era un `push` diretto e
+  /// ogni tocco impilava una rotta nuova sopra quella identica gia' viva.
   static void allAccount() {
-    _navigatore().push(AccountScreen.route());
+    apriUnaVoltaSola(
+      destinazione: PortaDelCerchio.account,
+      costruisci: AccountScreen.route,
+    );
   }
 
   /// La via al Calendario degli Eventi, dal centro della barra sottile.
   /// Ordine AN voce 02.
   static void alCalendario() {
-    _navigatore().push(CalendarioDegliEventiScreen.route());
+    apriUnaVoltaSola(
+      destinazione: PortaDelCerchio.calendario,
+      costruisci: CalendarioDegliEventiScreen.route,
+    );
   }
 
   /// Torna al Cerchio senza aggiungere nulla alla pila: il Cerchio e' la rotta

@@ -281,8 +281,53 @@ decide su tre di esse:
   scende sotto la sua soglia e pretende di trovarne almeno cinquanta prima di
   dichiarare qualcosa. Le sette prove di leggibilita' gia' esistenti, 43 in
   tutto, restano verdi)
-- **AU.09** Le perle del Loto al centro dei fiori. Stato: APERTA
-- **AU.10** La pila che non torna indietro. Stato: APERTA
+- **AU.09** Le perle del Loto al centro dei fiori. Stato: CHIUSA
+  (**IL CENSIMENTO SMENTISCE IN PARTE LA PREMESSA, e si dichiara.** Misurati
+  tutti e centosessantacinque i bersagli dei tre sentieri con un tocco
+  esattamente sul proprio centro: **i cinque grandi rispondono su tutti e
+  tre**, cioe' le sfere al centro del fiore rispondono. Chi non rispondeva era
+  l'opposto: **dieci mini del Loto e quattro della Costellazione**, che avevano
+  il proprio centro DENTRO il cerchio disegnato di un grande. Toccandoli si
+  prendeva il grande, e a occhio sembra che il fiore non risponda dove uno
+  crede di toccarlo. Prima: costellazione 51 su 55, albero 55, loto 45.
+  **La cura non sta nella regola del tocco, sta nella geometria.** L'ordine AS
+  voce 04 aveva gia' deciso, dopo una misura, che fra due cerchi che contengono
+  il dito vince il PIU' GRANDE, perche' e' quello che l'occhio vede: invertire
+  quella regola rimetterebbe il difetto di allora, quattro grandi su quindici
+  irraggiungibili. Un punto il cui centro cade dentro un altro punto e'
+  disegnato dove non si vede, e nessuna regola di tocco puo' rimediare a una
+  perla sepolta sotto un'altra.
+  **TRE STESURE BUTTATE, tutte smascherate dalla misura.** La prima faceva una
+  passata sola e spingeva i mini fuori dai grandi DENTRO i medi: sul Loto i
+  sepolti passavano da dieci a dodici, cioe' la cura peggiorava il difetto. La
+  seconda separava anche i pari col raggio pieno, e una perla finiva sepolta
+  sotto il grande centrale. La terza, con mezzo raggio fra pari, ancora non
+  convergeva: serviva che l'ultima parola fosse dei grandi.
+  **ADESSO 55 SU 55 SU TUTTI E TRE**, e i grandi rispondono anche a meta' del
+  proprio raggio nelle quattro direzioni, perche' una perla che risponde solo
+  al centro esatto a occhio non risponde mai.
+  **L'ANTEPRIMA E' STATA GUARDATA**, non solo rigenerata: il fiore e' integro,
+  le perle stanno nei petali, lo spostamento non si vede. Guardia
+  `test/ogni_perla_risponde_al_suo_centro_test.dart`.
+  **UN DIFETTO DI AU.03 TROVATO DA UNA PROVA CHE NON C'ENTRAVA**: vedi la
+  correzione scritta li' sopra, i risvegliati sono sette e non otto)
+- **AU.10** La pila che non torna indietro. Stato: CHIUSA
+  (**LA MISURA DEL FONDATORE E' ESATTA AL NUMERO.** Rimesso il codice di prima
+  per la prova del veleno: dieci aperture del menu' utente portano la pila da
+  1 a **11**, cioe' dieci rotte impilate e dieci tocchi su indietro per tornare
+  al principio. Adesso la portano da 1 a 2, e un tocco solo basta.
+  **La regola esisteva gia' e non la si e' riscritta**: `apriUnaVoltaSola`,
+  dell'ordine AL, spinge solo se quella destinazione non e' gia' viva piu' in
+  basso. Il menu' utente e il Calendario non ci passavano perche' **nessuno
+  aveva dato loro una destinazione da confrontare**: un dominio porta il suo
+  Maestro, loro non hanno argomenti. Adesso ce l'hanno, `PortaDelCerchio`, ed
+  e' un valore tipizzato e non una stringa, per la stessa ragione scritta
+  allora: una stringa la si puo' scrivere "quasi uguale".
+  **LE ROTTE IMPILABILI DALLA BARRA SONO TRE**, e affette erano DUE: il menu'
+  utente e il Calendario. Il dominio dei Maestri passava gia' dalla porta
+  giusta. Guardia `test/una_porta_aperta_non_si_riapre_test.dart`, che conta la
+  pila e sorveglia anche la sorgente: nella barra puo' restare UNA sola spinta
+  diretta, quella dentro `apriUnaVoltaSola`)
 - **AU.11** Il borsellino si aggiorna ovunque. Stato: APERTA
 - **AU.12** L'Arcano del Giorno, i testi sopra la carta. Stato: APERTA
 - **AU.13** Il tooltip dei tre sentieri. Stato: APERTA
@@ -290,8 +335,8 @@ decide su tre di esse:
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 5
-VOCI_CHIUSE: 9
+VOCI_APERTE: 3
+VOCI_CHIUSE: 11
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
