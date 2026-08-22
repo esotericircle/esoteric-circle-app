@@ -49,6 +49,23 @@ GAMMA_MASCHERA = 0.75
 # Vedi il commento dentro `converti`: senza soglia il file pesa il doppio.
 SOGLIA_DEL_FONDO = 20
 
+# **LA SOSTITUZIONE CONDIZIONALE, ed e' la leva che tiene il peso.** Sopra
+# questa soglia un blocco che e' cambiato poco rispetto al fotogramma prima non
+# viene riscritto: si tiene quello di prima. Su un filmato dove il fondo e'
+# fermo e si muovono solo le stelle vuol dire non ripagare ogni fotogramma per
+# intero. A zero e' spento, ed e' cosi' che i primi tre file sono usciti.
+CR_SOGLIA = 0
+
+# **A QUANTI GRADINI SI RIDUCE LA MASCHERA, ed e' la leva vera sul peso.**
+# `libwebp` comprime il canale alpha SENZA PERDITA anche quando il colore va a
+# perdita: un alpha con duecentocinquantasei livelli di sfumatura costa piu'
+# dell'immagine che accompagna, ed e' per questo che la prima ricostruzione di
+# Medora e' uscita a 6.660.122 byte contro il milione e mezzo del file opaco.
+# Ridotta a pochi gradini, la maschera si comprime quasi a niente e le stelle
+# restano quelle: nessuno guarda una stella e conta le sfumature del suo alone.
+# A zero la riduzione e' spenta.
+LIVELLI_DELL_ALPHA = 0
+
 
 def _corri(argomenti):
     esito = subprocess.run(argomenti, capture_output=True, text=True)
@@ -58,7 +75,8 @@ def _corri(argomenti):
 
 
 def converti(maestro, ricostruisci_alpha, gamma=GAMMA_MASCHERA,
-             qualita=QUALITA, soglia=SOGLIA_DEL_FONDO):
+             qualita=QUALITA, soglia=SOGLIA_DEL_FONDO, morbidezza=0.0,
+             ripresa=CR_SOGLIA, livelli=LIVELLI_DELL_ALPHA):
     """Fa un WebP animato dal .mov del Maestro, e ne restituisce il peso."""
     nome, _ = FILM[maestro]
     sorgente = os.path.join(SORGENTI, nome)
@@ -81,7 +99,23 @@ def converti(maestro, ricostruisci_alpha, gamma=GAMMA_MASCHERA,
         filtro = (
             f"[0:v]{scala},format=rgba,split=2[img][mas];"
             f"[mas]format=gray,eq=gamma={gamma},"
-            f"lutyuv=y='if(lt(val,{soglia}),0,val)'[alpha];"
+            f"lutyuv=y='if(lt(val,{soglia}),0,"
+            + (f"floor(val/{256 // livelli})*{256 // livelli}" if livelli else "val")
+            + ")'"
+            + (f",gblur=sigma={morbidezza}" if morbidezza else "") + "[alpha];"
+            f"[img][alpha]alphamerge[out]"
+        )
+    elif livelli:
+        # **ANCHE L'ALPHA CHE C'E' GIA' SI RIDUCE A GRADINI**, e per la stessa
+        # ragione: `libwebp` lo comprime senza perdita, quindi le sfumature del
+        # canale alpha costano piu' del colore che accompagnano. Qui l'alpha
+        # non si ricostruisce, si estrae com'e' e si quantizza: le stelle
+        # restano identiche, il peso scende. E' questa la leva che riporta
+        # Aura a 720 per 1280 senza sfondare il tetto.
+        filtro = (
+            f"[0:v]{scala},format=rgba,split=2[img][mas];"
+            f"[mas]alphaextract,"
+            f"lutyuv=y='floor(val/{256 // livelli})*{256 // livelli}'[alpha];"
             f"[img][alpha]alphamerge[out]"
         )
     else:
@@ -91,6 +125,7 @@ def converti(maestro, ricostruisci_alpha, gamma=GAMMA_MASCHERA,
         "-filter_complex", filtro, "-map", "[out]",
         "-c:v", "libwebp_anim", "-pix_fmt", "yuva420p",
         "-lossless", "0", "-q:v", str(qualita), "-compression_level", "6",
+        "-cr_threshold", str(ripresa),
         "-loop", "1", "-an", uscita,
     ])
     return os.path.getsize(uscita)

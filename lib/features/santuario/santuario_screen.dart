@@ -2,6 +2,7 @@ import 'foglio_della_rinascita.dart';
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../shell/spazio_della_barra.dart';
@@ -48,6 +49,33 @@ import 'widgets/tue_arti_view.dart';
 /// Santuario dedicata, solo i quattro briefing. Fondo, tempio e cielo sono un
 /// segnaposto architettonico, l'asset dipinto e il motore a effemeridi
 /// arrivano dopo.
+/// **L'ALTEZZA CHE UN MAESTRO DEVE AVERE, e resta 220.** Ordine AU voce 05.
+///
+/// **L'ipotesi del fondatore era giusta e la cura ovvia era sbagliata.** Il
+/// pavimento di 220 punti vinceva davvero sul vincolo calcolato: misurato
+/// montando la home, lo spazio concesso e' 188,7 punti su uno schermo alto,
+/// 67,8 su uno medio e perfino **meno 24,2** su uno basso, mentre il busto ne
+/// prendeva 220 comunque e saliva dentro il blocco del cielo.
+///
+/// **Ma abbassare il pavimento cura un difetto e ne apre un altro.** Provato e
+/// misurato: portandolo a 150, i pixel di testo coperti vanno a zero e la
+/// carta del Maestro scende al 28 per cento dello spazio dell'eroe, sotto il
+/// 33 per cento che un'altra regola pretende da tempo, cioe' i tre Maestri
+/// diventano piccoli. Due regole vere che si contendono lo stesso spazio non
+/// si risolvono sacrificandone una.
+///
+/// **Allora a cedere e' la scena.** Il minimo resta quello che serve perche' i
+/// Maestri siano Maestri, e quando lo spazio non lo concede la scena si
+/// allunga e si scorre: vedi `_mancaAllaScena`. Nessuna delle due regole si e'
+/// allentata.
+const double altezzaMinimaDelBusto = 220.0;
+
+/// **QUANTO SPAZIO C'ERA E QUANTO SE N'E' PRESO**, per le prove. Ordine AU
+/// voce 05: l'ipotesi del fondatore diceva che il pavimento vinceva sul
+/// vincolo, e senza questi due numeri la si sarebbe potuta solo credere.
+@visibleForTesting
+({double concessa, double busto, double alta})? ultimaMisuraDelBusto;
+
 class SantuarioScreen extends StatefulWidget {
   const SantuarioScreen({
     super.key,
@@ -167,6 +195,23 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   /// un testo, quindi cresce col nome del Maestro, col corpo di sistema e con
   /// la lingua, e un numero fisso qui vuol dire indovinare.
   double? _altezzaDelCielo;
+
+  /// **QUANTO MANCA ALLA SCENA PERCHE' I MAESTRI NON COPRANO IL CIELO.**
+  /// Ordine AU voce 05.
+  ///
+  /// Su uno schermo alto lo spazio basta e questo vale zero, quindi la home
+  /// non cambia di un punto. Su uno schermo basso no: misurato su 320 per 568,
+  /// lo spazio concesso al busto e' **meno 24,2 punti**, cioe' il blocco del
+  /// cielo e la zona d'ingresso insieme occupano piu' di tutta la scena. Li'
+  /// non esiste un'altezza del busto che vada bene, perche' il posto non c'e'.
+  ///
+  /// **La scena allora si allunga e si scorre**, invece di far salire le
+  /// figure sopra il testo. Cresce di quanto manca e non di piu', e non si
+  /// riduce mai da sola dentro la stessa misura di schermo: se si riducesse,
+  /// il giro dopo mancherebbe di nuovo e la scena respirerebbe avanti e
+  /// indietro a ogni fotogramma.
+  double _mancaAllaScena = 0;
+  double? _scenaMisurataPer;
 
   /// L'altezza vera della riga personale, che ora vive sotto il trio.
 
@@ -431,11 +476,21 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   // e la prova che li sorveglia resta verde senza allentarsi.
                   final viewportH = outer.maxHeight -
                       SpazioDellaBarraNelloScroll.quanto(context);
+                  // Cambiata la misura dello schermo, il conto di prima non
+                  // vale piu': si riparte da zero e si rimisura.
+                  if (_scenaMisurataPer != null &&
+                      (_scenaMisurataPer! - viewportH).abs() > 1.0) {
+                    _mancaAllaScena = 0;
+                  }
+                  _scenaMisurataPer = viewportH;
                   return SingleChildScrollView(
                     child: Column(
                       children: [
                         SizedBox(
-                          height: viewportH,
+                          // **PIU' ALTO DEL VIEWPORT SOLO SE SERVE**, ordine
+                          // AU voce 05: su uno schermo alto `_mancaAllaScena`
+                          // vale zero e questa riga e' quella di sempre.
+                          height: viewportH + _mancaAllaScena,
                           child: _buildHero(
                               context,
                               central,
@@ -612,8 +667,59 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           final altezzaConcessa =
               (fondoDellaScena - cieloFinisce - SpacingTokens.md) /
                   salitaDelLaterale;
+          // **IL PAVIMENTO DI 220 VINCEVA SUL VINCOLO, e adesso non piu'.**
+          // Ordine AU voce 05. Misurato montando la home a tre misure di
+          // schermo: lo spazio concesso e' 275,7 punti su uno schermo alto ma
+          // scende a 193,3 su uno medio e a 133,3 su uno basso, mentre il
+          // pavimento ne pretendeva 220 comunque. Quando il pavimento vince,
+          // il busto e' piu' alto dello spazio che c'e', e i pixel dipinti
+          // salgono dentro il blocco del cielo: erano 21.767 pixel di testo
+          // coperti su schermo medio e 10.238 su schermo basso.
+          //
+          // **IL PAVIMENTO NON SPARISCE, SI ABBASSA A CIO' CHE E' DAVVERO
+          // MINIMO.** Serviva a impedire che su uno schermo cortissimo i tre
+          // Maestri diventassero francobolli, ed e' un bisogno vero; ma un
+          // minimo che sfonda il vincolo non protegge la scena, la rompe.
+          // Adesso vale 150, che e' l'altezza sotto la quale una figura non si
+          // riconosce piu', e sopra quella soglia comanda lo spazio.
+          //
+          // **NON SI INVERTE L'ORDINE DI PILA**, che sarebbe la strada corta:
+          // se le due zone occupano gli stessi punti verticali una copre
+          // l'altra comunque, e col testo davanti la scena sarebbe illeggibile
+          // al contrario. Le due zone non si devono toccare.
           final altezzaBusto =
-              math.max(220.0, math.min(centralH, altezzaConcessa));
+              math.max(altezzaMinimaDelBusto, math.min(centralH, altezzaConcessa));
+          assert(() {
+            ultimaMisuraDelBusto =
+                (concessa: altezzaConcessa, busto: altezzaBusto, alta: h);
+            return true;
+          }());
+          // **SE LO SPAZIO NON BASTA, A CEDERE E' LA SCENA E NON IL TESTO.**
+          // Il deficit si misura qui, dove si conoscono tutte le misure vere,
+          // e la scena lo recupera al fotogramma dopo, come gia' fa con
+          // l'altezza della zona d'ingresso.
+          // **QUANTO DEVE CRESCERE LA SCENA, risolto in chiusura e non a
+          // tentativi.** Allungando la scena di un punto, lo spazio concesso
+          // al busto NON cresce di un punto: due margini sono quote della
+          // scena stessa, l'aria sotto l'ingresso piu' il cuscino, che valgono
+          // quattro centesimi, e la cima del cielo, che ne vale dodici
+          // millesimi. Quel che resta si divide per la salita del laterale.
+          // Con la resa vera il conto si chiude in UNA passata; moltiplicando
+          // per la salita, come diceva la prima stesura, ne restavano fuori
+          // diciotto punti e i laterali coprivano ancora 188 pixel di riga
+          // personale.
+          const quotaDellAria = 0.04;
+          const quotaDellaCimaDelCielo = 0.012;
+          const resaDellaScena =
+              (1 - quotaDellAria - quotaDellaCimaDelCielo) / salitaDelLaterale;
+          final mancante =
+              (altezzaMinimaDelBusto - altezzaConcessa) / resaDellaScena;
+          if (mancante > 0.5) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!mounted) return;
+              setState(() => _mancaAllaScena += mancante);
+            });
+          }
           final carouselHeight = altezzaBusto * 1.12;
           // IL CAROSELLO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava di
           // NOVANTADUE PUNTI, misurati sull'app montata a 360 per 797: la riga

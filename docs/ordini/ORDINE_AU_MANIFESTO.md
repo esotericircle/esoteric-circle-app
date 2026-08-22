@@ -99,7 +99,41 @@ decide su tre di esse:
   di **0,85 pixel** e quelli di lato di 0,72.
   **LO ZERO APPRESO DI AS.01 NON E' STATO TOCCATO** e la sua guardia resta
   verde, come le altre sei prove del cielo, 28 in tutto)
-- **AU.05** I Maestri non coprono piu' niente. Stato: APERTA
+- **AU.05** I Maestri non coprono piu' niente. Stato: CHIUSA
+  (**L'IPOTESI DEL FONDATORE ERA GIUSTA, E LA CURA OVVIA ERA SBAGLIATA.**
+  Misurato montando la home a tre misure, con la diagnostica
+  `ultimaMisuraDelBusto` messa apposta perche' l'ipotesi si potesse abbattere
+  invece che credere: lo spazio concesso al busto e' **188,7 punti su schermo
+  alto, 67,8 sul medio e MENO 24,2 sul basso**, mentre il pavimento ne
+  pretendeva 220 comunque. Su uno schermo basso il numero e' NEGATIVO, cioe'
+  il blocco del cielo e la zona d'ingresso insieme occupano gia' piu' di tutta
+  la scena: li' non esiste un'altezza del busto che vada bene, perche' il
+  posto non c'e'.
+  **Abbassare il pavimento curava un difetto e ne apriva un altro**, e si e'
+  visto misurando: portato a 150 i pixel coperti andavano a zero ma la carta
+  del Maestro scendeva al 28 per cento dello spazio dell'eroe, sotto il 33 che
+  un'altra regola pretende da tempo, e la sua guardia e' diventata rossa.
+  **Nessuna delle due regole si e' allentata: a cedere e' la scena.** Il
+  minimo resta 220, e quando lo spazio non lo concede la scena si allunga e si
+  scorre. Su schermo alto la scena passa da 511 a 544,7 punti.
+  **Il conto si chiude in una passata e non a tentativi**: allungando la scena
+  di un punto lo spazio concesso NON cresce di un punto, perche' due margini
+  sono quote della scena stessa; con la resa vera lo spazio concesso arriva
+  esatto a 220,0 su tutte e tre le misure. La prima stesura moltiplicava per
+  la salita del laterale invece di dividere per la resa, e ne restavano fuori
+  diciotto punti: i laterali coprivano ancora 188 pixel di riga personale.
+  **PIXEL DI TESTO COPERTI: da 4.323, 21.767 e 10.238 a ZERO, ZERO e ZERO.**
+  Guardia `test/i_maestri_non_coprono_il_cielo_test.dart`, che misura i pixel
+  DIPINTI e non i rettangoli, cade se qualcuno rialza il pavimento senza dare
+  lo spazio, e pretende di trovare i tre busti a schermo prima di dichiarare
+  zero: una prova che non trova niente non prova niente.
+  **UN DIFETTO DELLA PROVA, trovato e corretto**: la prima stesura metteva
+  rapporto 3 anche su un 720 per 1280, che e' un telefono a rapporto 2, e ne
+  usciva uno schermo da 240 punti di larghezza che non esiste. Le tre misure
+  adesso sono 360x797, 375x667 e 320x568.
+  **L'ordine di pila non e' stato invertito**, come l'ordine vieta e come il
+  commento gia' nel file spiegava. Trentaquattro prove della home restano
+  verdi)
 - **AU.06** Una festa, un traguardo. Stato: APERTA
 - **AU.07** La card del traguardo, dignita' e tipografia. Stato: APERTA
 - **AU.08** Il grigio che non si legge, censimento totale. Stato: APERTA
@@ -112,8 +146,8 @@ decide su tre di esse:
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 11
-VOCI_CHIUSE: 3
+VOCI_APERTE: 10
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
