@@ -1,6 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/app_services.dart';
 import '../../features/sigilli/regia_del_cammino.dart';
 import '../archetypes/archetype_history.dart';
 import '../arts/arti_preferite.dart';
@@ -128,14 +130,23 @@ class CustodeDelCammino {
   /// li aveva lasciati. Un Cerchio nuovo non lo vede mai.
   static bool rinascitaDaRaccontare = false;
 
-  static Future<CamminoDaCustodire?> custodisciEAdotta(
+  /// **PERCHE' IL GIRO NON HA PORTATO NIENTE.** Ordine AZ voce 01, fatto F1.
+  ///
+  /// Fino alla 2192 questo giro rispondeva `null` e basta, e quel nulla stava
+  /// per tre cose diverse: non c'e' un borsellino da interrogare, il server
+  /// non ha risposto, il server ha detto di no. **Chi chiamava non poteva
+  /// dire niente alla persona proprio perche' non sapeva cosa era successo**,
+  /// ed e' il silenzio che il fondatore ha visto.
+  static Future<EsitoDelGiro> custodisciEAdotta(
     BuildContext context,
   ) async {
     final QuestionAllowance borsa;
     try {
       borsa = context.read<QuestionAllowance>();
     } catch (errore) {
-      return null;
+      // Fuori dall'app viva non c'e' nessun borsellino: non e' un guasto e
+      // non va raccontato a nessuno.
+      return const EsitoDelGiro();
     }
     // **PRIMA SI ASPETTA CHE IL DIARIO ABBIA LETTO IL DISCO**, ordine AN
     // voce 04 e AO voce 04: raccogliere un cammino ancora in volo vorrebbe
@@ -162,15 +173,38 @@ class CustodeDelCammino {
       }
       rinascitaDaRaccontare = true;
     }
-    if (!context.mounted) return null;
+    if (!context.mounted) return const EsitoDelGiro();
     final mio = raccogli(context);
     quanteVolte++;
-    final tornato =
-        await borsa.sincronizza(cammino: mio, azzeraIlCammino: eRinato);
-    if (tornato == null) return null;
-    if (!context.mounted) return tornato;
+    // **IL NO DEL SERVER NON MUORE PIU' NEL GESTO.** Ordine AZ voce 01, ed e'
+    // il fatto F1. `PortaVeraDelCerchio` RILANCIA apposta su `unauthenticated`,
+    // `permission-denied`, `invalid-argument` e `failed-precondition`, per
+    // distinguere un rifiuto da una rete assente. Qui pero' non c'era nessun
+    // try: quell'eccezione risaliva fino al gestore del tocco e moriva li'.
+    // La persona toccava, non entrava, e **non le veniva detto niente**.
+    final CamminoDaCustodire? tornato;
+    try {
+      tornato = await borsa.sincronizza(cammino: mio, azzeraIlCammino: eRinato);
+    } on FirebaseFunctionsException catch (errore) {
+      if (context.mounted) {
+        try {
+          context.read<AppServices>().guasti.registra(
+                operazione: 'giro del Custode dopo il riconoscimento',
+                errore: errore,
+              );
+        } catch (_) {
+          // Senza servizi non c'e' registro dei guasti, e non e' questo il
+          // momento di crearne uno.
+        }
+      }
+      return EsitoDelGiro(rifiutatoDalServer: true, codice: errore.code);
+    }
+    // **IL NULLA E' L'ALTRO MODO**, e chiede un'altra frase: qui il server non
+    // ha risposto, e riprovare fra un momento ha senso.
+    if (tornato == null) return const EsitoDelGiro(senzaRisposta: true);
+    if (!context.mounted) return EsitoDelGiro(cammino: tornato);
     await adotta(context, tornato);
-    if (!context.mounted) return tornato;
+    if (!context.mounted) return EsitoDelGiro(cammino: tornato);
     // **IL RITO NON SI RIFA' A CHI IL CERCHIO CONOSCE GIA', ordine AP voce
     // 05.** La decisione sta in `Ritrovamento`, in un punto solo, perche' la
     // stessa domanda arriva anche dal "Continua come" della voce 06.
@@ -182,7 +216,7 @@ class CustodeDelCammino {
         // Senza il controller non c'e' nessun rito da saltare.
       }
     }
-    return tornato;
+    return EsitoDelGiro(cammino: tornato);
   }
 
   /// **IL GIRO DOPO UN RICONOSCIMENTO, e la scena che lo racconta.** Ordine
@@ -202,9 +236,34 @@ class CustodeDelCammino {
     BuildContext context, {
     bool mostraLaScena = true,
   }) async {
-    final tornato = await custodisciEAdotta(context);
+    final giro = await custodisciEAdotta(context);
     if (!context.mounted) return null;
-    final esito = cosaHaRitrovato(context, tornato);
+    final esito = cosaHaRitrovato(context, giro);
+    // **NESSUN RIENTRO MUTO.** Ordine AZ voce 01, fatto F1: si tocca "Continua
+    // con Google", si entra davvero, e poi non succede niente e nessuno dice
+    // perche'. La frase sta in `Ritrovamento` e si mostra QUI, in un punto
+    // solo, perche' i chiamanti sono tre e uno dei tre si dimenticherebbe.
+    final daDire = esito.cosaDireAllaPersona;
+    if (daDire != null) {
+      final messaggero = ScaffoldMessenger.maybeOf(context);
+      messaggero?.showSnackBar(SnackBar(
+        key: const Key('rientro_andato_storto'),
+        content: Text(daDire),
+        duration: const Duration(seconds: 8),
+        // **E SI PUO' RIPROVARE SENZA INVENTARSI UNA NASCITA.** Senza questa
+        // riga l'unica strada che resta a chi e' entrato e non ha ritrovato
+        // niente e' rifare il rito da capo, ed e' cio' che il fondatore ha
+        // fatto: F2 e F3, dati di nascita a caso perche' non c'era altro da
+        // fare. Il giro si rifa' da solo, e il piu' delle volte basta.
+        action: SnackBarAction(
+          label: 'Riprova',
+          onPressed: () {
+            if (!context.mounted) return;
+            dopoIlRiconoscimento(context, mostraLaScena: mostraLaScena);
+          },
+        ),
+      ));
+    }
     if (!mostraLaScena || !esito.qualcosaDaMostrare) return esito;
     final navigatore = Navigator.maybeOf(context);
     if (navigatore == null) return esito;
@@ -219,7 +278,7 @@ class CustodeDelCammino {
   /// e' sempre di `Ritrovamento`: qui si legge soltanto.
   static Ritrovamento cosaHaRitrovato(
     BuildContext context,
-    CamminoDaCustodire? cammino,
+    EsitoDelGiro giro,
   ) {
     var saldo = 0;
     try {
@@ -227,7 +286,12 @@ class CustodeDelCammino {
     } catch (errore) {
       saldo = 0;
     }
-    return Ritrovamento.da(cammino, saldoEos: saldo);
+    return Ritrovamento.da(
+      giro.cammino,
+      saldoEos: saldo,
+      rifiutatoDalServer: giro.rifiutatoDalServer,
+      senzaRisposta: giro.senzaRisposta,
+    );
   }
 
   /// ADOTTA il cammino che il Cerchio ha restituito.

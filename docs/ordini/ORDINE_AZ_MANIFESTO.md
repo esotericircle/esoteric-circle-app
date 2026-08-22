@@ -80,7 +80,7 @@ dire che la ricerca sul codice ha dato zero occorrenze, ed e' scritto quale.
 | # | Situazione | Cosa fa l'app oggi | Voce |
 |---|---|---|---|
 | S23 | Uscire dall'account | **Non esiste**: l'unico `signOut` di tutto `lib/` e' quello di Google dentro `dimentica()`, e non tocca Firebase | AZ.07 |
-| S24 | Cancellare l'account | **Promette piu' di cio' che fa**: dice "spariscono la tua carta natale, la memoria dei Maestri, i tuoi Sigilli e i tuoi Eos, qui e sul server", ed esegue solo `memory.deleteAllData()`, che cancella la memoria dei Maestri. L'utente di Firebase resta, il cammino sul Cerchio resta, le preferenze locali restano | AZ.08 |
+| S24 | Cancellare l'account | Sul server e' fatto per intero: la callable `cancellaIlCerchio` fa `recursiveDelete` del ramo e `deleteUser` dell'account. **Manca il "qui"**: nessuno svuota le preferenze locali, quindi restano `onboarding.done`, il diario e i dati di nascita. E il client **guarda solo `datiCancellati` e ignora `accountCancellato`**, che il server distingue apposta. Dopo l'oblio non si esce e non si riparte | AZ.08 |
 | S25 | Cancellare i dati restando nel Cerchio | Esiste in Impostazioni, stessa chiamata | AZ.08 |
 | S26 | Rinascita del cammino | Esiste e funziona, `RinascitaDelCammino.rinasci()` | nessuna |
 
@@ -107,8 +107,8 @@ dire che la ricerca sul codice ha dato zero occorrenze, ed e' scritto quale.
 
 ## Le voci
 
-- **AZ.00** Manifesto e censimento. Stato: APERTA
-- **AZ.01** Chi entra arriva in home, e se non arriva lo sa. Stato: APERTA
+- **AZ.00** Manifesto e censimento. Stato: CHIUSA
+- **AZ.01** Chi entra arriva in home, e se non arriva lo sa. Stato: CHIUSA
 - **AZ.02** Il rito non si decide su una preferenza locale. Stato: APERTA
 - **AZ.03** Il borsellino si aggiorna quando cambia, non al riavvio. Stato: APERTA
 - **AZ.04** I dati di nascita: chi vince, e chi lo vede. Stato: APERTA
@@ -151,11 +151,66 @@ poi la cura.
 - **Il controller della parallasse non si tocca**, e questo ordine non lo
   sfiora in nessuna voce.
 
+## Cosa e' stato fatto, voce per voce
+
+### AZ.01, il rientro non muore in silenzio
+
+**Il fatto F1, e la causa non era l'ingresso.** L'ingresso RIESCE, ed e' il
+fatto F10 a dimostrarlo: il borsellino viene poi recuperato, quindi il server
+ha riconosciuto. Cio' che si rompe viene DOPO, nel giro del Custode, e sono
+**due strade diverse che finiscono nello stesso silenzio**.
+
+**Strada uno, l'eccezione che nessuno cattura.** `PortaVeraDelCerchio._chiama`
+**rilancia apposta** su `unauthenticated`, `permission-denied`,
+`invalid-argument` e `failed-precondition`, per distinguere un no del server da
+una rete assente. Ma `custodisciEAdotta` chiamava `borsa.sincronizza(...)`
+**fuori da qualsiasi try**: quell'eccezione risaliva fino al gestore del tocco
+e moriva li'. Nessun messaggio, e il tocco dopo faceva la stessa cosa. **E' il
+"si puo' ripetere all'infinito con lo stesso esito" del fondatore.**
+
+**Strada due, il nulla che valeva come risposta.** Se il server non rispondeva,
+`sincronizza` tornava nullo, il giro tornava nullo, e `Ritrovamento.da(null)`
+diceva che mancano tutti e quattro i passi del rito e che **non c'e' niente da
+mostrare**: nessuna scena, nessun messaggio, e si resta dentro il rito.
+
+**La causa di fondo era un nulla che voleva dire tre cose.** Il giro rispondeva
+`null` quando non c'era un borsellino, quando il server non aveva risposto e
+quando il server aveva detto di no. **Chi chiamava non poteva dire niente alla
+persona proprio perche' non sapeva cosa fosse successo.** E i chiamanti sono
+tre: il Risveglio, il passo della custodia e l'area account. Tacevano tutti e
+tre.
+
+**La cura.** Nasce `EsitoDelGiro`, che porta il motivo invece di un nulla muto;
+il no del server viene catturato e registrato fra i guasti; `Ritrovamento`
+guadagna `rifiutatoDalServer` e `senzaRisposta`, e la frase da dire vive **in
+un punto solo** perche' uno dei tre chiamanti si dimenticherebbe. E l'avviso
+porta un **Riprova**: senza, l'unica strada che resta a chi e' entrato e non ha
+ritrovato niente e' rifare il rito da capo, **ed e' esattamente cio' che il
+fondatore ha fatto ai punti F2 e F3**. I dati a caso di F6 nascono li'.
+
+**Le misure**, in `test/il_rientro_non_muore_in_silenzio_test.dart`:
+- col server che dice `unauthenticated`, **eccezioni scappate dal giro: prima
+  una, adesso zero**, e l'esito dice `rifiutatoDalServer`;
+- col server che non risponde, l'esito dice `senzaRisposta` e **non** dice
+  rifiutato: le due cose restano distinte;
+- **cio' che la persona legge**, che prima era niente in tutti e due i casi:
+  "Sei entrato, ma il Cerchio non ha voluto aprirsi adesso..." e "Sei entrato,
+  ma non siamo riusciti a raggiungere il Cerchio...", senza nessun codice
+  tecnico, con il pulsante Riprova accanto;
+- **la controprova**: col Cerchio che riconosce, passi da chiedere **0**, il
+  rito si salta, e **avvisi a schermo 0**. Un avviso che si accende sempre
+  sarebbe peggio del silenzio.
+
+**Sul dispositivo non e' misurata e si dichiara.** Il fondatore deve ripetere
+la sua sequenza: disinstalla, reinstalla, tocca "Faccio gia' parte del
+Cerchio", sceglie il suo account. **Se non arriva in home, adesso deve leggere
+una frase**, e quella frase dice quale dei due casi e'.
+
 ## I marcatori
 
 VOCI_TOTALI: 15
-VOCI_APERTE: 15
-VOCI_CHIUSE: 0
+VOCI_APERTE: 13
+VOCI_CHIUSE: 2
 SITUAZIONI_CENSITE: 37
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
