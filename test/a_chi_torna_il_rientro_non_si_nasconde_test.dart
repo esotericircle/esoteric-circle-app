@@ -143,6 +143,9 @@ void main() {
 
 /// Una porta che propone un nome, oppure niente.
 class _PortaCheProponeONo implements PortaDellIdentita {
+  @override
+  Future<void> esci() async {}
+
   _PortaCheProponeONo({this.bentornato});
 
   final String? bentornato;

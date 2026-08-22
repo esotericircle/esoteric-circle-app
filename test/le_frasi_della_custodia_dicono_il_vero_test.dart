@@ -192,6 +192,14 @@ Future<void> _apri(WidgetTester tester, _PortaCheRiconosce porta) async {
 /// La porta finta: sa dire un nome riconosciuto e sa dire cosa il telefono
 /// propone da solo. Non tocca ne' Firebase ne' Google.
 class _PortaCheRiconosce implements PortaDellIdentita {
+  @override
+  Future<void> esci() async {}
+
+  @override
+  Future<EsitoDellaCustodia> entraDirettamente(ViaDellaCustodia via,
+          {String? email, String? parola}) async =>
+      EsitoDellaCustodia.riuscita;
+
   _PortaCheRiconosce({this.propone});
 
   final String? propone;

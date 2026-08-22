@@ -179,6 +179,9 @@ class _PortaIdentitaFinta implements PortaDellIdentita {
 
   @override
   Future<String?> nomeGiaProposto() async => null;
+
+  @override
+  Future<void> esci() async {}
 }
 
 class _MemoriaMuta extends InMemoryMaestroMemoryRepository {

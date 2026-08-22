@@ -88,6 +88,9 @@ class _PortaFinta implements PortaDellIdentita {
 
   @override
   Future<String?> nomeGiaProposto() async => null;
+
+  @override
+  Future<void> esci() async {}
 }
 
 void main() {

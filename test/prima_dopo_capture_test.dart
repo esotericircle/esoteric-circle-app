@@ -3515,6 +3515,9 @@ class _IdentitaPerAnteprima implements PortaDellIdentita {
 
   @override
   Future<String?> nomeGiaProposto() async => null;
+
+  @override
+  Future<void> esci() async {}
 }
 
 /// Una carta natale piena, per le anteprime del consulto.

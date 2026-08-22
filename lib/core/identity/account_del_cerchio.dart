@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dimenticanza_del_telefono.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -108,6 +109,21 @@ abstract class PortaDellIdentita {
   /// Nullo quando il telefono non propone niente, e il nulla NON e' un
   /// guasto: e' la risposta piu' probabile, e chi chiama non mostra nulla.
   Future<String?> nomeGiaProposto();
+
+  /// **SI ESCE DAL PROPRIO ACCOUNT.** Ordine AZ voce 07, situazioni S09, S13
+  /// e S23 del censimento.
+  ///
+  /// **Non esisteva.** In tutto `lib/` c'era un `signOut` solo, quello di
+  /// Google dentro `dimentica()`, e non toccava Firebase: **chi sceglieva
+  /// l'account sbagliato non aveva nessuna via di ritorno**, e due persone
+  /// sullo stesso telefono non erano previste, perche' la seconda ereditava
+  /// il Cerchio della prima.
+  ///
+  /// **Si esce verso un anonimo nuovo, non verso il vuoto**: l'app senza
+  /// un'identita' non sta in piedi, e lasciare il telefono senza nessuno
+  /// vorrebbe dire spegnerlo. Il cammino di chi esce resta sul Cerchio e lo
+  /// ritrova rientrando.
+  Future<void> esci();
 }
 
 /// Chi e' stato riconosciuto da un tentativo di custodia finito su un
@@ -421,6 +437,25 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
   }
 
   @override
+  Future<void> esci() async {
+    // **PRIMA SI DIMENTICA GOOGLE.** Senza, il client resta con l'account in
+    // mano e chi entra dopo si ritrova quello di prima senza nemmeno vedere
+    // il selettore: e' lo stesso difetto curato in AX voce 01, e qui sarebbe
+    // anche peggio, perche' uscire serve proprio a cambiare persona.
+    await _flussoGoogle.dimentica();
+    try {
+      await _auth.signOut();
+    } catch (errore) {
+      // Si ignora: se la sessione non si chiude sul momento, l'anonimo qui
+      // sotto la sostituisce comunque.
+    }
+    _riconosciuta = null;
+    // **E SI RIENTRA COME ANONIMI.** Un'app senza identita' non sta in piedi:
+    // il borsellino, il diario e la memoria hanno tutti bisogno di un uid.
+    await assicuraUnAccount();
+  }
+
+  @override
   Future<EsitoDellaCustodia> entraComeRiconosciuto() async {
     final credenziale = _riconosciuta?.credenziale;
     if (credenziale == null) return EsitoDellaCustodia.nonRiuscita;
@@ -489,6 +524,9 @@ class IdentitaAssente implements PortaDellIdentita {
 
   @override
   Future<String?> nomeGiaProposto() async => null;
+
+  @override
+  Future<void> esci() async {}
 }
 
 /// L'ACCOUNT DEL CERCHIO, guardato dall'app.
@@ -570,6 +608,19 @@ class AccountDelCerchio extends ChangeNotifier {
         await _porta.entraDirettamente(via, email: email, parola: parola);
     rileggi();
     return esito;
+  }
+
+  /// **SI ESCE, E IL TELEFONO DIMENTICA CHI ERA.** Ordine AZ voce 07.
+  ///
+  /// Non basta chiudere la sessione: se restassero il diario, i dati di
+  /// nascita e la preferenza del rito, **chi entra dopo si troverebbe il
+  /// cammino di un altro**, e la fusione lo manderebbe pure sul Cerchio del
+  /// nuovo arrivato. Cio' che si cancella e' solo la copia locale: il cammino
+  /// vero resta custodito e torna a chi rientra.
+  Future<void> esci() async {
+    await _porta.esci();
+    await DimenticanzaDelTelefono.dimentica();
+    rileggi();
   }
 
   /// Il nome dell'identita' riconosciuta dall'ultimo rifiuto, per il

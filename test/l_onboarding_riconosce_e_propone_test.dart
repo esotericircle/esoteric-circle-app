@@ -169,6 +169,9 @@ class _PortaCheRiconosce implements PortaDellIdentita {
   Future<String?> nomeGiaProposto() async => null;
 
   @override
+  Future<void> esci() async {}
+
+  @override
   Future<EsitoDellaCustodia> entraComeRiconosciuto() async {
     if (_riconosciuta == null) return EsitoDellaCustodia.nonRiuscita;
     entrato = true;

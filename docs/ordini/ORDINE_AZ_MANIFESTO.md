@@ -114,9 +114,9 @@ dire che la ricerca sul codice ha dato zero occorrenze, ed e' scritto quale.
 - **AZ.04** I dati di nascita: chi vince, e chi lo vede. Stato: APERTA
 - **AZ.05** La parola persa. Stato: APERTA
 - **AZ.06** La verifica dell'email. Stato: APERTA
-- **AZ.07** Uscire dall'account. Stato: APERTA
-- **AZ.08** Cancellare l'account per davvero. Stato: APERTA
-- **AZ.09** Sapere chi si e'. Stato: APERTA
+- **AZ.07** Uscire dall'account. Stato: CHIUSA
+- **AZ.08** Cancellare l'account per davvero. Stato: CHIUSA
+- **AZ.09** Sapere chi si e'. Stato: CHIUSA
 - **AZ.10** Il foglio dell'email che non dice niente. Stato: APERTA
 - **AZ.11** La voce Account nelle Impostazioni. Stato: APERTA
 - **AZ.12** Cambio email, cambio parola, e la riautenticazione. Stato: APERTA
@@ -260,11 +260,59 @@ Cerchio sveglio i tentativi restano **1**, perche' una ripetizione che parte
 sempre sarebbe una chiamata in piu' a ogni avvio pagata da tutti per il caso
 di uno.
 
+### AZ.07, AZ.08 e AZ.09: si esce, si cancella davvero, si sa chi si e'
+
+**Tre buchi misurati contando le occorrenze in `lib/`.**
+
+**Uscire non esisteva.** Un solo `signOut` in tutto `lib/`, quello di Google
+dentro `dimentica()`, **e non toccava Firebase**. Chi sceglieva l'account
+sbagliato (S09) non aveva via di ritorno, e due persone sullo stesso telefono
+(S13) non erano previste: la seconda ereditava il Cerchio della prima.
+
+**Cancellare era intero sul server e vuoto sul telefono.** La callable
+`cancellaIlCerchio` fa gia' `recursiveDelete` del ramo e `deleteUser`
+dell'account, quindi meta' della promessa era vera. **Mancava il "qui"**:
+restavano il diario, i dati di nascita e la preferenza del rito, e chi
+ricominciava si ritrovava il cammino di prima sopra un Cerchio che non
+esisteva piu'.
+
+**Sapere chi si e': nessuna riga, in nessuna schermata.**
+
+**Le cure.** Nasce `esci()` sulla porta dell'identita': dimentica Google,
+chiude la sessione, rientra come anonimo, **in quest'ordine**. Nasce
+`DimenticanzaDelTelefono`, in un posto solo perche' uscita e cancellazione
+devono dimenticare le stesse cose. E l'area account guadagna la voce per
+uscire, con la sua conferma, piu' un'intestazione che dice chi sei.
+
+**Le misure**, in `test/si_esce_si_cancella_e_si_sa_chi_si_e_test.dart` e
+`test/l_account_dice_chi_sei_e_come_uscire_test.dart`:
+- **9 chiavi dimenticate su 12**, e le tre rimaste sono `settings.*`: buttare
+  anche quelle vorrebbe dire rimettere a mano un'accessibilita' che qualcuno
+  aveva scelto per necessita';
+- **sulla porta VERA**, il flusso vede `[dimentica]` e l'auth vede
+  `[signOut, signInAnonymously]`, in quest'ordine;
+- a chi ha custodito la voce "Esci dal Cerchio" compare **1 volta**, a un
+  anonimo **0**: uscire senza aver mai custodito butterebbe il cammino;
+- l'intestazione legge `mauro@esempio.it` e "Il tuo cielo e' custodito, via
+  Google"; da anonimo, "Il tuo cielo non e' ancora custodito".
+
+**Una guardia ha avuto ragione contro di me, e si dichiara.** La prima
+stesura metteva la riga di chi sei DENTRO la lista, e la guardia dell'ordine
+AL voce 06 e' diventata rossa: pretende che ogni voce del menu' porti
+un'azione oppure il suo anticipo, perche' una riga che si tocca e non fa
+niente e' un vicolo cieco. **Non e' stata allentata**: la riga e' uscita
+dalla lista ed e' diventata un'intestazione, che e' cio' che era davvero.
+
+**E un errore mio, dichiarato.** `DimenticanzaDelTelefono` nasceva con nove
+chiavi scritte a memoria, e **nessuna delle nove esisteva**. Le chiavi vere
+sono trentotto, lette nelle costanti di `lib/`: per questo adesso si ragiona
+per prefisso, che regge anche le chiavi che nasceranno domani.
+
 ## I marcatori
 
 VOCI_TOTALI: 15
-VOCI_APERTE: 11
-VOCI_CHIUSE: 4
+VOCI_APERTE: 8
+VOCI_CHIUSE: 7
 SITUAZIONI_CENSITE: 37
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0

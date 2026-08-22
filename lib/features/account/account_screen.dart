@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/feature_flags/feature_flag.dart';
 import '../../core/identity/account_del_cerchio.dart';
+import '../../core/identity/dimenticanza_del_telefono.dart';
 import '../../design_system/components/feature_sheet.dart';
 import '../../services/app_services.dart';
 import 'custodia_del_cielo.dart';
@@ -139,6 +140,22 @@ class AccountScreen extends StatelessWidget {
                 momenti: momenti > 0 ? momenti : 1);
           },
         ),
+      // **SI ESCE. Ordine AZ voce 07, situazioni S09, S13 e S23.** Non
+      // esisteva: in tutto `lib/` c'era un `signOut` solo, quello di Google
+      // dentro `dimentica()`, e non toccava Firebase. Chi sbagliava account
+      // non aveva via di ritorno, e due persone sullo stesso telefono non
+      // erano previste. La voce compare solo a chi ha custodito: a un anonimo
+      // uscire vorrebbe dire buttare il proprio cammino senza averlo mai
+      // messo al sicuro, ed e' esattamente cio' che non deve poter succedere
+      // per sbaglio.
+      if (!_eAnonimo(context))
+        _AccountEntry(
+          id: 'esci',
+          title: 'Esci dal Cerchio',
+          subtitle: 'Il tuo cammino resta custodito e ti ritrova al rientro',
+          icon: Icons.logout_rounded,
+          onTap: (context) => _chiediDiUscire(context),
+        ),
       // IL DIRITTO ALL'OBLIO, voce 1f: e' un obbligo, non una gentilezza, e
       // cancella anche cio' che vive sul server.
       _AccountEntry(
@@ -165,13 +182,37 @@ class AccountScreen extends StatelessWidget {
       ),
       body: SafeArea(
         top: false,
-        child: ListView.separated(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // **SAPERE CHI SI E'. Ordine AZ voce 09, situazione S36.** In
+            // tutta l'app non c'era una sola riga che dicesse con quale
+            // account si e' entrati: chi sceglieva l'account sbagliato non
+            // aveva modo di accorgersene, e chi si chiedeva se il proprio
+            // cielo fosse custodito doveva dedurlo dalla presenza o
+            // dall'assenza di un'altra voce.
+            //
+            // **Sta FUORI dalla lista, e non e' un dettaglio di impaginazione.**
+            // La guardia dell'ordine AL voce 06 pretende che ogni voce del
+            // menu' porti un'azione oppure il suo anticipo, e ha ragione:
+            // una riga che si tocca e non fa niente e' un vicolo cieco.
+            // Questa non e' una voce, e' un'intestazione, come il nome sopra
+            // un documento. Metterla nella lista avrebbe voluto dire o
+            // renderla finta-toccabile o allentare la guardia, e nessuna
+            // delle due e' una cura.
+            const _IntestazioneDiChiSei(),
+            const SizedBox(height: SpacingTokens.md),
+            Expanded(
+              child: ListView.separated(
           key: const Key('account_list'),
           padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
               SpacingTokens.lg, SpacingTokens.xxxl),
           itemCount: entries.length,
           separatorBuilder: (_, __) => const SizedBox(height: SpacingTokens.sm),
           itemBuilder: (context, i) => _AccountTile(entry: entries[i]),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -190,6 +231,147 @@ bool _eAnonimo(BuildContext context) {
     // sola.
     return false;
   }
+}
+
+/// **L'INTESTAZIONE CHE DICE CHI SEI.** Ordine AZ voce 09, situazione S36.
+///
+/// **Non esisteva**, in nessuna schermata dell'app. Chi entrava con l'account
+/// sbagliato non aveva modo di accorgersene, e chi si chiedeva se il proprio
+/// cielo fosse custodito doveva dedurlo dal fatto che una certa voce ci fosse
+/// o non ci fosse. Adesso e' la prima cosa che si legge.
+///
+/// **E' un'affermazione, non un'azione**: per questo sta sopra la lista e non
+/// dentro. Vedi il commento nel corpo della schermata.
+class _IntestazioneDiChiSei extends StatelessWidget {
+  const _IntestazioneDiChiSei();
+
+  @override
+  Widget build(BuildContext context) {
+    AccountDelCerchio? account;
+    try {
+      account = context.watch<AccountDelCerchio>();
+    } catch (errore) {
+      // Le prove che montano questa schermata da sola non hanno un account, e
+      // devono poterla montare lo stesso.
+      account = null;
+    }
+    final custodito = account != null && !account.eAnonimo;
+    // **CIO' CHE SI MOSTRA E' CIO' CHE SI SA, e non di piu'.** Con Apple, che
+    // permette di nascondere l'indirizzo, l'email puo' non esserci: allora si
+    // dice da quale via si e' entrati, che e' il fatto vero, invece di
+    // lasciare un vuoto o di inventare un nome.
+    final email = account?.email;
+    final via = (account?.fornitori ?? const <String>[])
+        .map(_nomeDelFornitore)
+        .whereType<String>()
+        .join(', ');
+    final String titolo;
+    final String sotto;
+    if (!custodito) {
+      titolo = 'Il tuo cielo non è ancora custodito';
+      sotto = 'Vive solo su questo telefono';
+    } else {
+      titolo = email ?? (via.isEmpty ? 'Il tuo cielo è custodito' : 'Entrato con $via');
+      sotto = via.isEmpty
+          ? 'Il tuo cielo è custodito'
+          : 'Il tuo cielo è custodito, via $via';
+    }
+    return Padding(
+      key: const Key('account_chi_sei'),
+      padding: const EdgeInsets.fromLTRB(
+          SpacingTokens.lg, SpacingTokens.md, SpacingTokens.lg, 0),
+      child: Row(
+        children: [
+          Icon(
+            custodito ? Icons.verified_user_outlined : Icons.cloud_off_rounded,
+            color: ColorTokens.textSecondary,
+            size: 22,
+          ),
+          const SizedBox(width: SpacingTokens.sm),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  titolo,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textPrimary),
+                ),
+                Text(
+                  sotto,
+                  maxLines: 2,
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textSecondary),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Il nome umano di un fornitore. Nullo per quelli che non si mostrano.
+String? _nomeDelFornitore(String id) {
+  switch (id) {
+    case 'google.com':
+      return 'Google';
+    case 'apple.com':
+      return 'Apple';
+    case 'password':
+      return 'email';
+    default:
+      return null;
+  }
+}
+
+/// **LA DOMANDA PRIMA DI USCIRE.** Ordine AZ voce 07.
+///
+/// Si dice cosa resta e cosa se ne va, perche' "esci" da solo suona come
+/// "perdi tutto": il cammino resta custodito sul Cerchio ed e' proprio questo
+/// che rende l'uscita una cosa che si puo' fare senza paura.
+Future<void> _chiediDiUscire(BuildContext context) async {
+  final conferma = await showDialog<bool>(
+    context: context,
+    builder: (dialogo) => AlertDialog(
+      key: const Key('uscita_conferma'),
+      backgroundColor: ColorTokens.neutralSurface,
+      title: Text('Uscire dal Cerchio?', style: TypographyTokens.titoloScheda()),
+      content: Text(
+        'Il tuo cammino resta custodito e ti ritrova appena rientri. Questo '
+        'telefono torna come nuovo: dovrai accedere di nuovo per rivedere i '
+        'tuoi Sigilli e i tuoi Eos.',
+        style: TypographyTokens.corpo()
+            .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(dialogo).pop(false),
+          child: const Text('Resto'),
+        ),
+        TextButton(
+          key: const Key('uscita_conferma_si'),
+          onPressed: () => Navigator.of(dialogo).pop(true),
+          child: const Text('Esci'),
+        ),
+      ],
+    ),
+  );
+  if (conferma != true || !context.mounted) return;
+  await context.read<AccountDelCerchio>().esci();
+  if (!context.mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      key: Key('uscita_fatta'),
+      content: Text('Sei uscito. Il tuo cammino ti aspetta al rientro.'),
+    ),
+  );
+  // Si torna alla radice: restare in una schermata che parla di un account
+  // che non c'e' piu' sarebbe una bugia a schermo.
+  Navigator.of(context).popUntil((r) => r.isFirst);
 }
 
 /// LA DOMANDA PRIMA DELL'OBLIO, che si fa una volta sola e per intero.
@@ -227,14 +409,31 @@ Future<void> _chiediLOblio(BuildContext context) async {
   if (conferma != true || !context.mounted) return;
   final servizi = context.read<AppServices>();
   await servizi.memory.deleteAllData();
+  // **E IL "QUI" DELLA PROMESSA.** Ordine AZ voce 08, situazione S24. Il
+  // testo prometteva "qui e sul server": sul server la callable
+  // `cancellaIlCerchio` fa `recursiveDelete` del ramo e `deleteUser`
+  // dell'account, quindi quella meta' era vera. **Il "qui" non veniva
+  // toccato**: restavano il diario, i dati di nascita e la preferenza del
+  // rito, e chi avesse ricominciato si sarebbe ritrovato il cammino di prima
+  // sopra un Cerchio che non esisteva piu'.
+  await DimenticanzaDelTelefono.dimentica();
+  if (!context.mounted) return;
+  // **E SI ESCE**, se no si resta dentro con un'identita' che sul server e'
+  // stata cancellata: la chiamata dopo riceverebbe un rifiuto e basta.
+  try {
+    await context.read<AccountDelCerchio>().esci();
+  } catch (errore) {
+    // Senza account nell'albero non c'e' nessuna sessione da chiudere.
+  }
   if (!context.mounted) return;
   ScaffoldMessenger.of(context).showSnackBar(
     const SnackBar(
       key: Key('oblio_fatto'),
-      content: Text('Il Cerchio ti ha dimenticato. Puoi ricominciare quando '
-          'vuoi.'),
+      content: Text('Il Cerchio ti ha dimenticato, qui e sul server. '
+          'Puoi ricominciare quando vuoi.'),
     ),
   );
+  Navigator.of(context).popUntil((r) => r.isFirst);
 }
 
 class _AccountEntry {
