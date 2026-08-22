@@ -95,3 +95,27 @@ VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+
+## La consegna
+
+**Build `0.1.0+2191`** arm64, **161.176.767 byte**, cioe' identica alla 2190 al
+byte: la cura e' tutta nel tempo e non pesa niente. `tool/verifica_apk.py`
+verde su tutte e nove le famiglie grafiche. Consegnata il 22 agosto 2026,
+release `42ghotgq94ka0`, a `cloud@esotericircle.app` e `info@esotericircle.com`,
+inviti accettati 2.
+
+**La prova di accensione e' stata SALTATA e si dichiara**: il fondatore non ha
+un telefono collegato al PC e l'ordine chiede comunque la consegna.
+
+**M7, il consumo, e' dichiarato e non misurato**: senza un dispositivo non si
+legge la batteria. Cio' che e' cambiato si dice col numero: il sensore passa da
+quindici a sessanta campioni al secondo, e il disegno da quindici ridipinture
+al secondo a una per fotogramma **mentre il cielo si muove**, ZERO da fermo.
+Contate: 855 ridipinture in dieci secondi di movimento continuo.
+
+## Le prove
+
+**Le prove rosse residue sono SETTE, le stesse dell'ordine AV e tutte
+precedenti**: le tre guardie degli ordini AC, T e U, rosse apposta; il disegno
+di albero e loto che tocca il bordo della tela; l'attribuzione cieca dei doni;
+e il peso dell'alone di un traguardo acceso. **Nessun rosso nuovo.**
