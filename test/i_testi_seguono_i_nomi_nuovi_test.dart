@@ -27,7 +27,14 @@ void main() {
   }
 
   test('nessun nome della revisione B sopravvive nel codice', () {
-    final nuovi = nomiDi('docs/corpus/Traguardi_165_Revisione_C.json');
+    // **IL CONFRONTO E' COL CORPUS VIVO, non con quello di allora.** Ordine AU
+    // voce 03: la revisione D2 ha tolto "di seguito" da undici nomi, perche'
+    // promettevano giorni di fila su condizioni a finestra, cioe' mentivano.
+    // Tre di quei nomi tornano ad essere quelli che la revisione B aveva,
+    // "Cinque mattine", "Trenta mattine", "Sessanta mattine": non e' un nome
+    // vecchio sopravvissuto, e' il nome che il fondatore ha chiesto. Leggendo
+    // la revisione C questa prova accusava il corpus vivo di essere vecchio.
+    final nuovi = nomiDi('docs/corpus/Traguardi_165_Revisione_D2.json');
     final vecchi = nomiDi('docs/corpus/Traguardi_165_Revisione_B.json')
         .where((n) => !nuovi.contains(n))
         .toList();

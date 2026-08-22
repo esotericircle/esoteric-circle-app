@@ -553,12 +553,12 @@ PuntoDelSentiero? quiHaToccato(
   // 09, ed e' la cura di un difetto misurato: **dieci mini del Loto e quattro
   // della Costellazione non rispondevano al tocco sul proprio centro**, perche'
   // il grande accanto li inghiottiva. Il raggio di un grande vale 0,029 della
-  // tela, cioe' 10,4 punti su 360, ma i punti dell'arte stanno anche a tre
+  // tela, cioe' 10,4 punti di tela su trecentosessanta, ma i punti dell'arte stanno anche a tre
   // punti l'uno dall'altro: il grande arrivava a coprire il centro del vicino.
   //
   // **E LA GEOMETRIA NON SI TOCCA, che e' la lezione piu' cara di questa
   // voce.** La prima cura spostava i punti perche' nessuno restasse sepolto, e
-  // funzionava: 55 su 55 su tutti e tre. Ma i punti NON sono liberi: sono le
+  // funzionava, e rispondevano tutti. Ma i punti NON sono liberi: sono le
   // perle DIPINTE nell'arte, e gli ancoraggi si ricavano leggendo le immagini
   // di `brand_assets/sentieri/`. Spostandoli si scollavano dal disegno, e lo
   // ha detto una prova che tocca la tela dove l'arte ha la perla e pretende

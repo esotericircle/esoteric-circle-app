@@ -92,7 +92,7 @@ class PortaDellArte {
     'stesa': 'La Stesa di Tarocchi',
     'gettata': "L'Estrazione delle Rune",
     'tramonto': 'La Runa del Tramonto',
-    'sogno': 'Il Rito del Sogno',
+    'sogno': 'Il Sigillo del Sogno',
     'sigillo': "Il Sigillo dell'Intenzione",
     'viso': 'La Costellazione del Viso',
     'archetipo': "Il test dell'Archetipo",

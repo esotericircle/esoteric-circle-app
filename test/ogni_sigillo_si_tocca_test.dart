@@ -145,8 +145,33 @@ void main() {
       for (final grande in punti.where((p) => p.eGrande)) {
         final centro = Offset(
             grande.dove.dx * misura.width, grande.dove.dy * misura.height);
-        final raggio =
-            grande.grandezza.raggio * math.min(misura.width, misura.height);
+        // **LA CASA DI UN PUNTO ARRIVA A META' STRADA DAL VICINO.** Ordine
+        // AU voce 09, e le due regole si conciliano qui.
+        //
+        // Questa prova pretende che la perla grande prenda il dito che cade
+        // dentro di lei, e ha ragione: nasce dal fatto che il fondatore
+        // segnalava una perla grande che non rispondeva. Ma la voce AU.09
+        // pretende, con la stessa forza, che **ogni mini risponda al proprio
+        // centro**, e su Loto e Costellazione ci sono mini il cui centro cade
+        // dentro il raggio DISEGNATO di un grande: le due cose insieme sono
+        // impossibili solo finche' si misura col raggio disegnato.
+        //
+        // La conciliazione: **ogni punto comanda in casa propria, e la casa
+        // arriva a meta' strada dal vicino piu' vicino**. Il grande resta
+        // padrone della sua area, il mini resta raggiungibile al suo centro, e
+        // nessuno dei due perde quello che gli spetta.
+        var vicino = double.infinity;
+        for (final altro in punti) {
+          if (identical(altro, grande)) continue;
+          final d = (Offset(altro.dove.dx * misura.width,
+                      altro.dove.dy * misura.height) -
+                  centro)
+              .distance;
+          if (d < vicino) vicino = d;
+        }
+        final raggio = math.min(
+            grande.grandezza.raggio * math.min(misura.width, misura.height),
+            vicino / 2);
         for (var k = 0; k < 8; k++) {
           osservati++;
           final angolo = k * math.pi / 4;

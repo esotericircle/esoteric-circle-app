@@ -6,6 +6,7 @@ import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/sigilli/celebrazione.dart';
 import 'package:esoteric_circle/features/sigilli/transizione_di_stelle.dart';
+import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -79,7 +80,12 @@ void main() {
     testWidgets('su ${sentiero.name} lo schermo e solo stelle fino allo stacco',
         (tester) async {
       await montaLaFesta(tester, sentiero);
-      final nome = Sentieri.grandiDi(sentiero).first.nome;
+      // **IL NOME COME LA CARD LO RENDE.** Ordine AU voce 07: il corpus
+      // scrive i traguardi grandi in maiuscolo integrale per marcarli, ma a
+      // video il maiuscolo vale solo per la parola di premio, quindi la card
+      // mostra "La costellazione nascente". Cercare il nome del dato invece di
+      // quello reso trovava zero widget.
+      final nome = nomeInTondo(Sentieri.grandiDi(sentiero).first.nome);
 
       // **NON SI CONTANO I WIDGET, SI GUARDA SE SONO DIPINTI.** La prima
       // stesura di questa prova usava `find.text`, e trovava il nome anche a

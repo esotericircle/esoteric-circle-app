@@ -145,40 +145,47 @@ decide su tre di esse:
   **LO ZERO APPRESO DI AS.01 NON E' STATO TOCCATO** e la sua guardia resta
   verde, come le altre sei prove del cielo, 28 in tutto)
 - **AU.05** I Maestri non coprono piu' niente. Stato: CHIUSA
-  (**L'IPOTESI DEL FONDATORE ERA GIUSTA, E LA CURA OVVIA ERA SBAGLIATA.**
-  Misurato montando la home a tre misure, con la diagnostica
-  `ultimaMisuraDelBusto` messa apposta perche' l'ipotesi si potesse abbattere
-  invece che credere: lo spazio concesso al busto e' **188,7 punti su schermo
-  alto, 67,8 sul medio e MENO 24,2 sul basso**, mentre il pavimento ne
-  pretendeva 220 comunque. Su uno schermo basso il numero e' NEGATIVO, cioe'
-  il blocco del cielo e la zona d'ingresso insieme occupano gia' piu' di tutta
-  la scena: li' non esiste un'altezza del busto che vada bene, perche' il
-  posto non c'e'.
-  **Abbassare il pavimento curava un difetto e ne apriva un altro**, e si e'
-  visto misurando: portato a 150 i pixel coperti andavano a zero ma la carta
-  del Maestro scendeva al 28 per cento dello spazio dell'eroe, sotto il 33 che
-  un'altra regola pretende da tempo, e la sua guardia e' diventata rossa.
-  **Nessuna delle due regole si e' allentata: a cedere e' la scena.** Il
-  minimo resta 220, e quando lo spazio non lo concede la scena si allunga e si
-  scorre. Su schermo alto la scena passa da 511 a 544,7 punti.
-  **Il conto si chiude in una passata e non a tentativi**: allungando la scena
-  di un punto lo spazio concesso NON cresce di un punto, perche' due margini
-  sono quote della scena stessa; con la resa vera lo spazio concesso arriva
-  esatto a 220,0 su tutte e tre le misure. La prima stesura moltiplicava per
-  la salita del laterale invece di dividere per la resa, e ne restavano fuori
-  diciotto punti: i laterali coprivano ancora 188 pixel di riga personale.
-  **PIXEL DI TESTO COPERTI: da 4.323, 21.767 e 10.238 a ZERO, ZERO e ZERO.**
-  Guardia `test/i_maestri_non_coprono_il_cielo_test.dart`, che misura i pixel
-  DIPINTI e non i rettangoli, cade se qualcuno rialza il pavimento senza dare
-  lo spazio, e pretende di trovare i tre busti a schermo prima di dichiarare
-  zero: una prova che non trova niente non prova niente.
-  **UN DIFETTO DELLA PROVA, trovato e corretto**: la prima stesura metteva
-  rapporto 3 anche su un 720 per 1280, che e' un telefono a rapporto 2, e ne
-  usciva uno schermo da 240 punti di larghezza che non esiste. Le tre misure
-  adesso sono 360x797, 375x667 e 320x568.
-  **L'ordine di pila non e' stato invertito**, come l'ordine vieta e come il
-  commento gia' nel file spiegava. Trentaquattro prove della home restano
-  verdi)
+  (**L'IPOTESI DEL FONDATORE ERA GIUSTA, E DUE CURE SU DUE SONO STATE
+  MISURATE PRIMA DI SCEGLIERE.** Con la diagnostica `ultimaMisuraDelBusto`,
+  messa apposta perche' l'ipotesi si potesse abbattere invece che credere: lo
+  spazio concesso al busto e' **188,7 punti su schermo alto, 67,8 sul medio e
+  MENO 24,2 sul basso**, mentre il pavimento ne pretendeva 220 comunque. Su
+  uno schermo basso il numero e' NEGATIVO: il blocco del cielo e la zona
+  d'ingresso insieme occupano gia' piu' di tutta la scena.
+  **LA PRIMA CURA FUNZIONAVA ED E' STATA BUTTATA.** Allungava la scena e la
+  lasciava scorrere quando lo spazio non concedeva il minimo: zero pixel
+  coperti su tutte e tre le misure, busto a 220, e la guardia del 33 per cento
+  della carta soddisfatta. Ma una scena piu' alta del viewport spinge i tre
+  Maestri sotto il bordo, e **tre file di prove di navigazione sono diventati
+  rossi**, `chat_header`, `accents` e `navigation`: il tocco sul busto
+  centrale non apriva piu' il dominio, perche' il busto non era piu' a
+  schermo. **Una home che per mostrare i Maestri chiede di scorrere non e'
+  piu' la home**, e nessuna delle tre prove parlava di questo: e' stata la
+  suite intera a dirlo, e solo dopo aver confrontato col ramo di partenza si e'
+  saputo che quei rossi erano miei e non preesistenti.
+  **ALLORA COMANDA IL VINCOLO**, e il minimo torna a essere un minimo vero,
+  150 punti, sotto i quali una figura non si riconosce. **Sullo schermo da cui
+  viene la segnalazione, 360 per 797, i pixel di testo coperti passano da
+  4.323 a ZERO** e il busto prende 188,7 punti, il quattordici per cento in
+  meno di prima.
+  **SU MEDIO E BASSO IL CONFLITTO E' STRUTTURALE E SI DICHIARA**: con 67,8 e
+  meno 24,2 punti concessi non esiste nessuna altezza del busto che vada bene,
+  perche' il posto non c'e'. Li' il difetto non e' nel busto, e' nel blocco
+  del cielo, e comprimerlo cambia cio' che si legge: **e' una decisione
+  dell'Architetto e non si prende di nascosto dentro un'altra voce**. La
+  guardia pretende zero dove lo spazio esiste e altrove pretende che non
+  PEGGIORI, coi due numeri scritti.
+  **UNA GUARDIA E' STATA RI-MIRATA e non allentata**: quella che pretendeva
+  il 33 per cento dello spazio per la carta nasce da un difetto vero, 350
+  punti VUOTI sopra la carta. Adesso sopra la carta non avanza piu' niente:
+  c'e' il blocco del cielo, che fino a ieri il busto copriva. Pretendere
+  ancora quella quota vorrebbe dire pretendere che la carta torni a coprire il
+  testo. La regola cambia misura e non forza: la carta deve prendere TUTTO lo
+  spazio che il vincolo le concede.
+  **UN DIFETTO DELLA PROVA STESSA**: la prima stesura metteva rapporto 3 anche
+  su un 720 per 1280, che e' un telefono a rapporto 2, e ne usciva uno schermo
+  da 240 punti di larghezza che non esiste.
+  **L'ordine di pila non e' stato invertito**, come l'ordine vieta)
 - **AU.06** Una festa, un traguardo. Stato: CHIUSA
   (**LA REGOLA NUOVA SOSTITUISCE QUELLA DEL 16 AGOSTO, e le due vietavano cose
   diverse.** Quella di agosto vietava la RAFFICA, cinque scene di fila, e per

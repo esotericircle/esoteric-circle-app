@@ -16,19 +16,20 @@ import 'istante_dichiarato.dart';
 /// i giorni non la completa mai, e la scala essendo sequenziale si blocca li'
 /// per sempre. Il corpus D chiede tanti giorni dentro un arco piu' largo.
 ///
-/// **Cosa si misura**: che il corpus vivo sia la revisione D; che le costanze
+/// **Cosa si misura**: che il corpus vivo sia la revisione D2, ordine AU voce
+/// 03, che sostituisce la D correggendo le finestre impossibili; che le costanze
 /// larghe esistano davvero nei tre sentieri; e che il diario sappia contare i
 /// giorni dentro l'arco, saltandone uno in mezzo, che e' esattamente il caso
 /// che prima azzerava tutto.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  test('il corpus vivo e la revisione D', () {
+  test('il corpus vivo e la revisione D2', () {
     final generatore =
         File('tool/genera_sentieri_dal_corpus.py').readAsStringSync();
-    expect(generatore.contains('Traguardi_165_Revisione_D.json'), isTrue,
+    expect(generatore.contains('Traguardi_165_Revisione_D2.json'), isTrue,
         reason: 'il generatore legge ancora un corpus vecchio');
-    expect(File('docs/corpus/Traguardi_165_Revisione_D.json').existsSync(),
+    expect(File('docs/corpus/Traguardi_165_Revisione_D2.json').existsSync(),
         isTrue);
   });
 

@@ -38,6 +38,13 @@ void main() {
       RegExp(r"GestoNellOraGiusta\('([a-z_]+)'"),
       RegExp(r"GestoDelCerchio\('([a-z_]+)'"),
       RegExp(r"GiorniDiSeguito\('([a-z_]+)'"),
+      // **ANCHE LE COSTANZE A FINESTRA, ordine AU voce 03.** La revisione D2
+      // ha portato le ultime costanze da `GiorniDiSeguito` a
+      // `GiorniDentroUnArco`, e questo elenco non conosceva la seconda forma:
+      // il gesto "presenza" spariva dai nominati e la prova accusava il
+      // registro di dichiarare un gesto che nessuno usa piu'. Lo usano
+      // eccome: e' scritto in un costruttore che questa riga non guardava.
+      RegExp(r"GiorniDentroUnArco\('([a-z_]+)'"),
       RegExp(r"PezzoDellIdentita\('([a-z_]+)'\)"),
       RegExp(r"conGesto: '([a-z_]+)'"),
     ]) {

@@ -311,10 +311,14 @@ class RegiaDelCammino {
       context,
       traguardi: [traguardo],
       sentieri: [sentieroDi(traguardo)],
-      // Il primo in assoluto: quando l'unico acceso del diario e' questo, la
-      // persona non aveva niente prima, e il primo premio deve sembrare
-      // grande.
-      primoInAssoluto: diario.accesi.length <= 1,
+      // **IL PRIMO IN ASSOLUTO SI CONTA TOGLIENDO CHI ASPETTA ANCORA.**
+      // Ordine AU voce 06: da quando si celebra un traguardo alla volta, il
+      // diario puo' averne tre accesi mentre la persona non ha ancora visto
+      // NESSUNA festa, perche' gli altri due sono in coda. Contando i soli
+      // accesi, la prima festa della vita finiva nella forma breve invece che
+      // a schermo pieno, e il primo premio non sembrava piu' grande.
+      primoInAssoluto:
+          diario.accesi.length - coda.inAttesa.length <= 1,
       attendiLaFine: true,
     );
     if (festeggiato) {

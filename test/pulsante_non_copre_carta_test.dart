@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/features/santuario/greeting_controller.dart';
@@ -270,7 +271,42 @@ void main() {
             schermo - SantuarioScreen.zonaDellaBarraPerLaProva;
         final quota = resa.carta.height / spazioDellEroe;
 
-        expect(quota, greaterThanOrEqualTo(SantuarioScreen.quotaMinimaCarta),
+        // **LA REGOLA SI RI-MIRA, e la premessa che aveva sotto e' cambiata.**
+        // Ordine AU voce 05.
+        //
+        // Questa prova nasce da un difetto vero: la carta era alta 297 punti
+        // dentro un contenitore di 510 mentre sopra di lei avanzavano piu' di
+        // 350 punti VUOTI. Il senso della regola e' "lo spazio che avanza
+        // sopra la carta lo prende la carta", e la quota del 33 per cento era
+        // il modo di misurarlo.
+        //
+        // **Adesso sopra la carta non avanza piu' niente**: c'e' il blocco del
+        // cielo, il titolo, la Luna e la riga personale, che fino a ieri il
+        // busto COPRIVA. Misurato: 4.323 pixel di testo coperti su questa
+        // stessa misura di schermo. Pretendere ancora il 33 per cento vorrebbe
+        // dire pretendere che la carta si riprenda quei punti, cioe' che
+        // torni a coprire il testo.
+        //
+        // La regola non si allenta: cambia di misura. Si pretende che la
+        // carta prenda TUTTO lo spazio che il vincolo le concede, che e'
+        // esattamente "non sprecare quello che c'e'". Se domani qualcuno
+        // rimpicciolisse la carta senza motivo, questa riga lo direbbe come
+        // prima.
+        final misura = ultimaMisuraDelBusto;
+        expect(misura, isNotNull,
+            reason: 'la diagnostica del busto non c e: senza di lei non si '
+                'puo dire se la carta ha preso tutto lo spazio o no');
+        expect(misura!.busto,
+            closeTo(math.max(altezzaMinimaDelBusto, misura.concessa), 1.0),
+            reason: 'la carta di ${maestro.name} non prende tutto lo spazio '
+                'che il vincolo le concede: il busto e ${misura.busto} punti '
+                'mentre lo spazio concesso e ${misura.concessa}');
+        // ignore: avoid_print
+        print('ORDINE AU VOCE 05: la carta di ${maestro.name} occupa il '
+            '${(quota * 100).round()} per cento dello spazio dell eroe, '
+            '${resa.carta.height.round()} punti, e lo spazio concesso al busto '
+            'era ${misura.concessa.toStringAsFixed(1)}');
+        expect(quota, greaterThan(0.20),
             reason: 'la carta di ${maestro.name} occupa il '
                 '${(quota * 100).round()} per cento dell altezza dello '
                 'schermo, ${resa.carta.height.round()} punti su '

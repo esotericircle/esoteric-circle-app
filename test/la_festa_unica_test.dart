@@ -10,6 +10,7 @@ import 'package:esoteric_circle/features/sigilli/regia_del_cammino.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
+import 'package:esoteric_circle/core/sigilli/traguardo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -135,18 +136,38 @@ void main() {
     expect(Celebrazione.partite, 1,
         reason: 'con tre feste in attesa deve partire UNA celebrazione, '
             'non una raffica: ne sono partite ${Celebrazione.partite}');
-    for (final t in tre) {
-      expect(find.text(t.nome), findsOneWidget,
-          reason: 'la festa unita deve nominare anche "${t.nome}"');
+    // **LA REGOLA E' CAMBIATA, ordine AU voce 06**, decisione del fondatore del
+    // 22 agosto 2026, e sostituisce quella del 16 agosto che questa prova
+    // sorvegliava.
+    //
+    // **Le due vietavano cose diverse.** Quella di agosto vietava la RAFFICA,
+    // cinque scene di fila, e per evitarla univa i nomi in una scena sola: e'
+    // cosi' che sulla 2188 e' nata una card che nominava CINQUE traguardi con
+    // centoventi Eos. La nuova vieta i DUE NOMI nella stessa card, e la
+    // raffica la tiene lontana in un altro modo, con la distanza fra le feste.
+    //
+    // Cio' che questa prova sorveglia resta vero e importante: **con tre feste
+    // in attesa ne parte UNA sola**. Cambia solo cosa quella card nomina.
+    expect(find.text(nomeInTondo(tre.first.nome)), findsOneWidget,
+        reason: 'la card non nomina il traguardo che sta celebrando');
+    for (final t in tre.skip(1)) {
+      expect(find.text(nomeInTondo(t.nome)), findsNothing,
+          reason: 'la card nomina anche "${t.nome}": una card celebra UN SOLO '
+              'traguardo, mai due nomi nella stessa');
     }
     await tester.tap(find.byKey(const Key('festa_salta')),
         warnIfMissed: false);
     await tester.pump();
-    final somma = tre.fold<int>(0, (s, t) => s + t.eos);
-    expect(find.text('+$somma Eos'), findsOneWidget,
-        reason: 'la festa unita porta la SOMMA degli Eos dei tre');
-    expect(coda.vuota, isTrue,
-        reason: 'la festa unita consegna tutta la coda in una volta');
+    // **GLI EOS SONO QUELLI DEL TRAGUARDO CELEBRATO, non piu' la somma.**
+    // Ordine AU voce 06: gli altri due non hanno perso nulla, il loro Sigillo
+    // e' acceso e i loro Eos sono gia' accreditati; in attesa c'e' solo la
+    // festa. La card mostra quello che sta celebrando, e centoventi Eos su una
+    // card sola erano proprio cio' che il fondatore ha visto e fermato.
+    expect(find.text('+${tre.first.eos} Eos'), findsOneWidget,
+        reason: 'la card non porta gli Eos del traguardo che celebra');
+    expect(coda.inAttesa, hasLength(2),
+        reason: 'la coda si e svuotata tutta in una volta: le altre due feste '
+            'devono restare in attesa, una per apertura');
 
     // E DOPO LA CHIUSURA NON NE PARTE UN'ALTRA: si chiude la festa e si
     // lascia respirare il guardiano, il conto resta a uno.

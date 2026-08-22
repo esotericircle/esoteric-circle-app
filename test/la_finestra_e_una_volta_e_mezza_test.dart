@@ -23,8 +23,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// 1. nessun gradino chiede piu' giorni di quanti ne concede il suo arco;
 /// 2. nessuna condizione dice "consecutiv";
 /// 3. nessun nome promette "di seguito" mentre la condizione e' a finestra,
-///    perche' chi legge "Due sere di seguito" e salta una sera crede di aver
-///    perso un gradino che invece ha ancora.
+///    perche' chi legge un nome che promette due sere DI SEGUITO e poi ne
+///    salta una crede di aver perso un gradino che invece ha ancora.
 void main() {
   final corpus = File('docs/corpus/Traguardi_165_Revisione_D2.json');
 
@@ -150,7 +150,8 @@ void main() {
   test('nessun nome promette di seguito su una condizione a finestra', () {
     // **E' IL DIFETTO PIU' SUBDOLO DEI TRE**, perche' non rompe niente: la
     // condizione e' giusta, il gradino matura, e il nome mente lo stesso. Chi
-    // salta una sera legge "Due sere di seguito" e smette di provarci.
+    // salta una sera legge un nome che promette giorni di fila e smette di
+    // provarci.
     final bugiardi = <String>[];
     for (final v in tutteLeVoci()) {
       final nome = (v['nome'] as String).toLowerCase();

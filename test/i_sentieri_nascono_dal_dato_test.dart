@@ -8,7 +8,8 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 /// **Il corpus comanda, il codice e' la conseguenza.** I tre file dei sentieri
 /// non si scrivono a mano: li genera `tool/genera_sentieri_dal_corpus.py` da
-/// `docs/corpus/Traguardi_165_Revisione_C.json`. Queste prove confrontano il
+/// `docs/corpus/Traguardi_165_Revisione_D2.json`, che dall ordine AU voce 03 e
+/// il corpus vivo. Queste prove confrontano il
 /// codice col file, voce per voce: se qualcuno tocca un nome nel Dart senza
 /// toccare il corpus, cadono.
 ///
@@ -17,7 +18,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// traguardo si scopre solo il giorno in cui non si accende.
 void main() {
   final corpus = jsonDecode(
-      File('docs/corpus/Traguardi_165_Revisione_C.json')
+      File('docs/corpus/Traguardi_165_Revisione_D2.json')
           .readAsStringSync()) as Map<String, dynamic>;
   final voci = <Map<String, dynamic>>[
     for (final s in corpus['sentieri'] as List)
