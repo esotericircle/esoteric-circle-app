@@ -112,23 +112,34 @@ conta sulle righe.
 - **AV.03** I Maestri tornano grandi. Stato: FERMATA IN ATTESA DI DECISIONE
   (**SUL TELEFONO DEL FONDATORE LE DUE COSE STANNO INSIEME, ed e' cio' che
   l'ordine pretende comunque.** Su 360 per 797: **il busto passa da 188,7 a
-  220,0 punti** e **i pixel di testo coperti restano ZERO**. La carta del
-  Maestro torna al 34 per cento dello spazio dell'eroe, come l'ordine chiede.
-  **M3 VERDE**: le tre prove di navigazione che erano diventate rosse in AU.05,
-  `chat_header`, `accents` e `navigation`, sono verdi. Il tocco sul busto
-  centrale apre il dominio e i Maestri stanno dentro lo schermo senza scorrere.
+  220,0 punti**, cioe' torna alla grandezza della 2188, e **i pixel di testo
+  coperti restano ZERO**. La carta del Maestro torna al 34 per cento dello
+  spazio dell'eroe. **M3 VERDE**: le tre prove di navigazione diventate rosse
+  in AU.05, `chat_header`, `accents` e `navigation`, sono verdi; il tocco sul
+  busto centrale apre il dominio e i Maestri stanno dentro lo schermo senza
+  scorrere.
   **DA DOVE VIENE LO SPAZIO**: dal blocco del cielo, come l'ordine detta. La
   riga personale sotto la Luna sta su UNA riga sola e si accorcia coi puntini
-  invece di andare a capo, e ogni capo che non prende e' una fascia che torna
-  al carosello. Lo spazio concesso al busto sale da 188,7 a **209,2 punti**.
-  **PERCHE' LA VOCE E' FERMATA, e l'ordine lo prevede.** Su uno schermo medio,
-  375 per 667, e su uno basso, 320 per 568, **M1 e M2 non stanno insieme**, e i
-  due numeri sono questi: lo spazio concesso al busto e' **88,4 punti sul medio
-  e MENO 3,6 sul basso**, cioe' sotto zero, e col busto riportato grande i
-  pixel di testo coperti **peggiorano da 9.802 a 24.768 sul basso**. Li' la
-  scelta e' fra Maestri piccoli e testo coperto, e nessuna delle due e' la
-  cura: **la cura e' comprimere il blocco del cielo, e cambia cio' che si
-  legge**. E' una decisione dell'Architetto, e non si prende di nascosto.
+  invece di andare a capo, e lo spazio concesso al busto sale da 188,7 a
+  **209,2 punti**.
+  **UNA PROVA HA ACCUSATO IL FALSO, e la spiegazione vale piu' della cura.**
+  Messa l'ellissi, la prova che misura i PIXEL dichiarava la riga personale
+  **coperta al 74 per cento**. Cercato chi la coprisse, widget per widget:
+  **nessuno**. La prova ricostruisce ogni testo per confrontarlo con la scena,
+  e lo ricostruiva **senza l'overflow**: nella scena il testo era troncato coi
+  puntini, nella ricostruzione no, e i pixel divergevano per un motivo che non
+  era una copertura. Adesso le si passa anche quello. **E' anche la
+  spiegazione del falso positivo che quella prova dichiarava di non sapersi
+  spiegare**, quello della chat del Maestro e dell'Oroscopo: sono testi
+  troncati.
+  **PERCHE' LA VOCE RESTA FERMATA, e l'ordine lo prevede.** Su uno schermo
+  medio, 375 per 667, e su uno basso, 320 per 568, **M1 e M2 non stanno
+  insieme**: lo spazio concesso al busto e' **88,4 punti sul medio e MENO 3,6
+  sul basso**, cioe' sotto zero, e col busto riportato grande i pixel di testo
+  coperti sono **9.299 sul medio e 24.768 sul basso**. Li' la scelta e' fra
+  Maestri piccoli e testo coperto, e nessuna delle due e' la cura: **la cura e'
+  comprimere il blocco del cielo, e cambia cio' che si legge**. E' una
+  decisione dell'Architetto, e non si prende di nascosto dentro un'altra voce.
   **La seconda fonte di spazio che l'ordine indica non basta**: la fascia dei
   doni del giorno vale un centinaio di punti, e su uno schermo basso ne
   mancherebbero circa duecento.

@@ -163,10 +163,21 @@ void main() {
       // La chiamata sta DENTRO capture: e' l'unico modo perche' una cattura
       // nuova non possa nascere senza.
       final dentro = corredo.indexOf('Future<void> capture(');
-      final finoAllaFine = corredo.substring(dentro, dentro + 700);
+      // **LA FINESTRA E' PIU' LARGA, e la regola PIU' STRETTA.** Ordine AV
+      // voce 01: la finestra era di settecento caratteri e un commento nuovo
+      // dentro `capture` la faceva cadere pur restando la chiamata al suo
+      // posto, cioe' era rossa per un motivo che non era il suo. Adesso guarda
+      // il corpo intero, e pretende una cosa in piu': il precaricamento deve
+      // restare il comportamento predefinito.
+      final fine = corredo.indexOf('Future<void> captureRitual(', dentro);
+      final finoAllaFine =
+          corredo.substring(dentro, fine > dentro ? fine : dentro + 2500);
       expect(finoAllaFine, contains('precaricaCioCheLaScenaMonta'),
           reason: 'capture non precarica piu\' da solo, quindi la regola torna '
               'a doversi ricordare a mano in ogni cattura');
+      expect(finoAllaFine, contains('bool precarica = true'),
+          reason: 'il precaricamento non e piu il comportamento predefinito: '
+              'una cattura nuova puo nascere senza, per distrazione');
     });
   });
 }

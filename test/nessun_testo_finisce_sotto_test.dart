@@ -136,7 +136,14 @@ void main() {
     // rimonta l'albero disattiva gli elementi sotto i piedi: la prima stesura
     // moriva su un null check al secondo testo.
     final bersagli =
-        <({InlineSpan span, TextAlign align, int? maxLines, String testo, Rect area})>[];
+        <({
+      InlineSpan span,
+      TextAlign align,
+      int? maxLines,
+      TextOverflow overflow,
+      String testo,
+      Rect area
+    })>[];
     for (final w in tester.widgetList<RichText>(find.descendant(
         of: find.byType(schermata), matching: find.byType(RichText)))) {
       final testo = w.text.toPlainText().trim();
@@ -189,6 +196,20 @@ void main() {
         span: w.text,
         align: w.textAlign,
         maxLines: w.maxLines,
+        // **ANCHE IL MODO IN CUI IL TESTO TRABOCCA, e senza di lui la prova
+        // accusa il falso.** Ordine AV voce 03.
+        //
+        // La resa isolata qui sotto ricostruisce il testo per confrontarlo con
+        // la scena. Se nella scena il testo e' troncato coi puntini e nella
+        // resa isolata no, **i pixel divergono per un motivo che non e' una
+        // copertura**, e la differenza viene letta come tale: la riga
+        // personale del Santuario risultava "coperta al 74 per cento" mentre
+        // sopra di lei non c'era niente, verificato widget per widget.
+        //
+        // **E' anche la spiegazione del falso positivo dichiarato qui sopra**,
+        // quello della chat del Maestro e dell'Oroscopo che nessuno era
+        // riuscito a spiegare: sono testi troncati.
+        overflow: w.overflow,
         testo: testo,
         area: area
       ));
@@ -215,7 +236,10 @@ void main() {
                 width: b.area.width,
                 height: b.area.height,
                 child: RichText(
-                    text: b.span, textAlign: b.align, maxLines: b.maxLines),
+                    text: b.span,
+                    textAlign: b.align,
+                    maxLines: b.maxLines,
+                    overflow: b.overflow),
               ),
             ]),
           ),

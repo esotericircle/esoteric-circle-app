@@ -675,9 +675,23 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               // lo spazio lo cede il cielo. Il pavimento assoluto resta per gli
               // schermi cosi' piccoli che nemmeno il trentaquattro per cento ci
               // sta.
+              // **IL VINCOLO COMANDA, E IL MINIMO E' UN PAVIMENTO VERO.**
+              // Ordine AV voce 03.
+              //
+              // Il busto prende tutto lo spazio che il blocco del cielo gli
+              // concede, e la riga personale su una riga sola gliene cede: si
+              // passa da 188,7 punti della 2189 a **209,2**. Il minimo resta
+              // per gli schermi cosi' piccoli che nemmeno quello ci sta.
+              //
+              // **NON SI SCAVALCA IL VINCOLO PER ARRIVARE A 220.** Provato e
+              // misurato: portando il busto a 220 quando lo spazio ne concede
+              // 209, i pixel dipinti risalgono sopra la riga personale e la
+              // prova che misura i PIXEL, non i rettangoli, la dichiara
+              // **coperta al 74 per cento**. Undici punti di Maestro in piu'
+              // valgono meno di una riga che si legge.
               math.max(
-                  math.min(
-                      altezzaMinimaDelBusto, alturaDelloSchermo * quotaDelBustoSulloSchermo),
+                  math.min(altezzaMinimaDelBusto,
+                      alturaDelloSchermo * quotaDelBustoSulloSchermo),
                   math.min(centralH, altezzaConcessa));
           assert(() {
             ultimaMisuraDelBusto =
