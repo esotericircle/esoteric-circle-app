@@ -66,7 +66,20 @@ class Ritrovamento {
     required this.segno,
     this.rifiutatoDalServer = false,
     this.senzaRisposta = false,
+    this.identita,
   });
+
+  /// **L'IDENTITA' CHE IL CERCHIO CUSTODIVA.** Ordine AZ, trovato sul
+  /// telefono del fondatore il 22 agosto 2026, ed e' il fatto F2.
+  ///
+  /// **Serve a chi deve RIPRENDERE il rito invece di rifarlo.** La logica per
+  /// ripartire dal passo che manca esisteva gia' e funzionava, ma viveva
+  /// nell'`initState` del Risveglio e si applicava **solo se lo schermo veniva
+  /// costruito con l'identita' ritrovata**. Chi rientrava trovava lo schermo
+  /// gia' montato senza, quindi quella logica non girava mai e il rito
+  /// ripartiva dall'accoglienza: e' esattamente "sono costretto a rifare
+  /// l'onboarding per intero".
+  final IdentitaDaCustodire? identita;
 
   /// **IL SERVER HA DETTO DI NO.** Ordine AZ voce 01, fatto F1.
   ///
@@ -100,18 +113,23 @@ class Ritrovamento {
   ///
   /// **E' nulla quando non c'e' niente da dire**, cioe' quando il giro e'
   /// andato bene: chi entra e arriva a casa non ha bisogno di un avviso.
+  ///
+  /// **CORTA, e la misura viene dal telefono del fondatore.** La prima
+  /// stesura diceva la stessa cosa in tre frasi: sullo schermo vero occupava
+  /// **cinque righe** e schiacciava il "Riprova" contro il bordo. Un avviso
+  /// che si legge in un secondo vale piu' di uno completo che non si legge.
+  /// Cio' che si e' tolto e' il consiglio su cosa fare dopo: sta nel pulsante,
+  /// che e' il posto giusto.
   String? get cosaDireAllaPersona {
     if (rifiutatoDalServer) {
       // **NIENTE CODICI TECNICI.** Il codice del rifiuto va nel registro dei
       // guasti, non negli occhi di chi legge.
-      return "Sei entrato, ma il Cerchio non ha voluto aprirsi adesso. Il tuo "
-          "cammino è al sicuro dov'è: prova a chiudere e riaprire l'app. Se "
-          "resta così scrivici.";
+      return "Sei dentro, ma il Cerchio non si è aperto. Il tuo cammino è al "
+          "sicuro.";
     }
     if (senzaRisposta) {
-      return 'Sei entrato, ma non siamo riusciti a raggiungere il Cerchio. '
-          'Controlla la connessione: appena torna, il tuo cammino ti '
-          'raggiunge da solo.';
+      return 'Sei dentro, ma il Cerchio non risponde. Controlla la '
+          'connessione.';
     }
     return null;
   }
@@ -176,6 +194,7 @@ class Ritrovamento {
       segno: identita?.giorno == null ? null : Zodiac.fromDate(identita!.giorno!),
       rifiutatoDalServer: rifiutatoDalServer,
       senzaRisposta: senzaRisposta,
+      identita: identita,
     );
   }
 }

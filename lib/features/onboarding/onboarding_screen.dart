@@ -676,7 +676,24 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     // torna in home a meta' strada.
     if (ritrovato != null && ritrovato.siSalta) {
       Navigator.of(context).maybePop();
+      return;
     }
+    // **E SE QUALCOSA MANCA, SI RIPRENDE INVECE DI RICOMINCIARE.** Ordine AZ,
+    // fatto F2, **visto sul telefono del fondatore il 22 agosto 2026**: il
+    // Cerchio lo riconosceva, gli restituiva settecentoquindici Eos, e subito
+    // dopo il rito ripartiva dall'accoglienza.
+    //
+    // **La logica per riprendere esisteva gia' e funzionava**, in
+    // `_riprendiCioCheIlCerchioSapeva`: precompila cio' che si sa e comincia
+    // dal primo passo che manca davvero. Ma vive nell'`initState`, quindi si
+    // applica **solo a uno schermo costruito con l'identita' ritrovata**. Chi
+    // rientrava trovava questo schermo gia' montato senza, e quella logica non
+    // girava mai. Qui lo schermo si rimonta con cio' che il Cerchio sapeva.
+    final identita = ritrovato?.identita;
+    if (identita == null) return;
+    Navigator.of(context).pushReplacement(
+      OnboardingScreen.route(clock: widget.clock, ritrovata: identita),
+    );
   }
 
   // --- Passo 1: la data, e nasce il Sole nel segno ---

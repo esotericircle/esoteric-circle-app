@@ -439,6 +439,86 @@ Le prove automatiche non sostituiscono i suoi occhi. In ordine:
 6. **Prova il foglio dell'email**, dalla custodia: tocca "Custodisci" a campi
    vuoti. Deve dirti cosa manca, non restare fermo.
 
+## LA PROVA SUL TELEFONO DEL FONDATORE, 22 agosto 2026
+
+**Questa sezione cambia lo stato di AZ.14**, che dichiarava "nessuna delle cure
+e' stata vista su un telefono". Il fondatore ha collegato il suo RMX5056,
+Android 16, e le cure sono state guardate a video una per una.
+
+### La causa radice non era nell'app, ed e' stata trovata qui
+
+Leggendo i log della callable **mentre il fondatore toccava**:
+
+```
+Unhandled error Error: Firestore transactions require all reads
+to be executed before all writes.
+    at /workspace/lib/cerchio.js:169
+{"verifications":{"app":"INVALID","auth":"VALID"}}
+```
+
+**`statoDelCerchio` falliva SEMPRE.** Dentro la transazione del borsellino il
+ciclo degli accrediti leggeva e scriveva a ogni giro: alla seconda voce il
+`tx.get` cadeva dopo il `tx.set` della prima, e Firestore lo vieta. Le voci
+sono due ogni volta che il piano ha un accredito del giorno, **cioe' sempre**.
+
+**Una riga sola spiega F1, F5, F6, F8 e F10 messi insieme**: l'accesso
+riusciva davvero, e i log lo dicono (`auth: VALID`), ma la callable che
+restituisce borsellino, cammino e identita' non rispondeva mai.
+
+**La cura**: tutte le letture prima di tutte le scritture, e il borsellino
+scritto una volta sola col saldo finale. Distribuita in produzione il 22
+agosto 2026.
+
+### Cosa si vede adesso, guardato a video
+
+| passo | prima | dopo |
+|---|---|---|
+| tocco la porta per chi torna | il foglio si apre | uguale |
+| tocco "Continua con Google" | **niente, e nessun messaggio** | **"Bentornato nel Cerchio, il Cerchio ti aveva tenuto tutto, 715 Eos"** |
+| tocco "Entra nel Cerchio" | il rito riparte da capo | **curato, vedi sotto** |
+
+**La cura di AZ.01 si e' vista funzionare prima ancora del deploy**: col server
+ancora rotto, il tocco mostrava "Sei entrato, ma non siamo riusciti a
+raggiungere il Cerchio" col pulsante Riprova. **E' stata quella frase a
+portarci ai log giusti**: senza, avremmo continuato a cercare nell'app.
+
+### F2, riprodotto in diretta, e la causa non era dove sembrava
+
+Dopo il deploy il Cerchio riconosce e restituisce gli Eos, ma al tocco di
+"Entra nel Cerchio" **il rito riparte dall'accoglienza**.
+
+**La logica per riprendere esisteva gia' e funzionava**:
+`_riprendiCioCheIlCerchioSapeva` precompila cio' che si sa e comincia dal
+primo passo che manca. Ma vive nell'`initState` del Risveglio, quindi si
+applica **solo a uno schermo costruito con l'identita' ritrovata**. Chi
+rientrava trovava lo schermo **gia' montato senza**, e quella logica non
+girava mai: **era codice giusto che non veniva mai eseguito**.
+
+Adesso `Ritrovamento` porta l'identita' e il Risveglio si rimonta con cio' che
+il Cerchio sapeva. Prova in `test/chi_rientra_riprende_il_rito_test.dart`.
+
+### Tre difetti miei, trovati dalla macchina e dichiarati
+
+1. **191 prove cadevano tutte insieme.** La ripetizione di AZ.03 aspettava con
+   `Future.delayed`, che nessuno puo' annullare: l'attesa sopravviveva
+   all'albero smontato. Non era un capriccio delle prove, **e' un difetto
+   anche sul telefono**: una chiamata che parte dopo che la persona ha chiuso
+   tutto. Adesso e' un `Timer` che si spegne in `dispose`.
+2. **L'avviso era troppo lungo.** Sullo schermo vero occupava **cinque righe**
+   e schiacciava il "Riprova" contro il bordo. Accorciato: cio' che si e'
+   tolto e' il consiglio su cosa fare, che sta nel pulsante.
+3. **Ho detto che una build non era arrivata in fondo, e non era vero**: avevo
+   letto l'APK prima che venisse riscritto.
+
+### Cosa resta da guardare quando il telefono torna
+
+- **il "Bentornato" non e' mai comparso** nella prima schermata, quindi il
+  risalto di AZ.02 non e' scattato: va capito se Google non propone l'account
+  o se la chiamata silenziosa fallisce;
+- **quale passo il rito chiede** dopo il rientro: quello e' il dato che manca
+  sul Cerchio del fondatore;
+- le altre cinque cose dell'elenco qui sotto.
+
 ## I marcatori
 
 VOCI_TOTALI: 15
