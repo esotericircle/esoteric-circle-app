@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -170,28 +171,48 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
   /// lo stesso cammino due volte.
   bool _giroInCorso = false;
 
-  Future<void> _custodisciIlCammino() async {
+  /// **L'ATTESA E' UN TIMER CHE SI PUO' SPEGNERE, e non un `Future.delayed`.**
+  ///
+  /// **Trovato dalla suite, non ragionato.** La prima stesura aspettava con
+  /// `await Future.delayed(...)`, che nessuno puo' annullare: quando l'albero
+  /// dei widget veniva smontato, quell'attesa restava viva e **centonovantuno
+  /// prove cadevano tutte insieme** con "A Timer is still pending even after
+  /// the widget tree was disposed". Non era un capriccio delle prove: un
+  /// lavoro che sopravvive a chi lo ha chiesto e' un difetto anche nell'app,
+  /// e su un telefono vero vuol dire una chiamata che parte dopo che la
+  /// persona ha gia' chiuso tutto.
+  Timer? _attesa;
+
+  void _custodisciIlCammino() {
     if (_giroInCorso) return;
     _giroInCorso = true;
-    try {
-      for (var tentativo = 0;
-          tentativo <= _attesePerRiprovare.length;
-          tentativo++) {
-        final ctx = _navigatore.currentContext;
-        if (ctx == null || !ctx.mounted) return;
-        final esito = await CustodeDelCammino.custodisciEAdotta(ctx);
-        // Andata bene, oppure non c'era proprio niente da chiedere: si esce.
-        if (!esito.rifiutatoDalServer && !esito.senzaRisposta) return;
-        if (tentativo == _attesePerRiprovare.length) return;
-        await Future<void>.delayed(_attesePerRiprovare[tentativo]);
-      }
-    } finally {
+    _unGiro(0);
+  }
+
+  Future<void> _unGiro(int tentativo) async {
+    final ctx = _navigatore.currentContext;
+    if (ctx == null || !ctx.mounted) {
       _giroInCorso = false;
+      return;
     }
+    final esito = await CustodeDelCammino.custodisciEAdotta(ctx);
+    // Andata bene, oppure non c'era proprio niente da chiedere: si esce.
+    final valeLaPena = esito.rifiutatoDalServer || esito.senzaRisposta;
+    if (!valeLaPena || tentativo >= _attesePerRiprovare.length) {
+      _giroInCorso = false;
+      return;
+    }
+    _attesa?.cancel();
+    _attesa = Timer(
+      _attesePerRiprovare[tentativo],
+      () => _unGiro(tentativo + 1),
+    );
   }
 
   @override
   void dispose() {
+    // Se non si spegne qui, l'attesa sopravvive all'albero che l'ha chiesta.
+    _attesa?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     _guardia.dispose();
     super.dispose();

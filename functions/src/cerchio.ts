@@ -169,19 +169,48 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
       });
     }
 
-    for (const voce of daAccreditare) {
-      const movimento = utente(uid).collection("movimenti").doc(voce.id);
-      const gia = await tx.get(movimento);
-      if (gia.exists) continue;
+    // **TUTTE LE LETTURE PRIMA DI TUTTE LE SCRITTURE.** Ordine AZ, trovato
+    // sul telefono del fondatore il 22 agosto 2026.
+    //
+    // **Questa riga rompeva l'intera app, e nessuna prova poteva vederlo.**
+    // Prima il ciclo leggeva e scriveva a ogni giro: alla seconda voce da
+    // accreditare il `tx.get` cadeva dopo il `tx.set` della prima, e
+    // Firestore lo vieta ("transactions require all reads to be executed
+    // before all writes"). Le voci sono DUE ogni volta che il piano ha un
+    // accredito del giorno, quindi **`statoDelCerchio` falliva sempre**, con
+    // un errore interno.
+    //
+    // **E' la causa radice dei fatti F1, F5, F6, F8 e F10 messi insieme**:
+    // l'accesso riusciva davvero, ma la callable che restituisce borsellino,
+    // cammino e identita' non rispondeva mai. Il borsellino a zero, i Sigilli
+    // spenti, i dati di nascita a caso che restavano: tutto veniva da qui.
+    const riferimenti = daAccreditare.map((voce) =>
+      utente(uid).collection("movimenti").doc(voce.id)
+    );
+    const gia = await Promise.all(riferimenti.map((r) => tx.get(r)));
+
+    let cambiato = false;
+    for (let i = 0; i < daAccreditare.length; i++) {
+      if (gia[i].exists) continue;
+      const voce = daAccreditare[i];
       saldo += voce.quanti;
-      tx.set(movimento, {
+      cambiato = true;
+      tx.set(riferimenti[i], {
         causale: "rettifica",
         motivo: voce.motivo,
         importo: voce.quanti,
         saldoDopo: saldo,
         quando: admin.firestore.FieldValue.serverTimestamp(),
       });
-      tx.set(borsellino, {saldo, aggiornato: admin.firestore.FieldValue.serverTimestamp()});
+    }
+    // Il borsellino si scrive UNA VOLTA SOLA e col saldo finale, invece di
+    // una volta per voce: due scritture sullo stesso documento nella stessa
+    // transazione sono lavoro sprecato, e la prima verrebbe comunque persa.
+    if (cambiato) {
+      tx.set(borsellino, {
+        saldo,
+        aggiornato: admin.firestore.FieldValue.serverTimestamp(),
+      });
     }
     return saldo;
   });
