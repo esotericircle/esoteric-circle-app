@@ -192,9 +192,10 @@ class CustodeDelCammino {
                 operazione: 'giro del Custode dopo il riconoscimento',
                 errore: errore,
               );
-        } catch (_) {
+        } catch (senzaRegistro) {
           // Senza servizi non c'e' registro dei guasti, e non e' questo il
-          // momento di crearne uno.
+          // momento di crearne uno: si sta gia' raccontando un guasto, e un
+          // guasto dentro il racconto di un guasto non aiuta nessuno.
         }
       }
       return EsitoDelGiro(rifiutatoDalServer: true, codice: errore.code);

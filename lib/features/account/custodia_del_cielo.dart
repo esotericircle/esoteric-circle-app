@@ -113,6 +113,11 @@ class VieDellaCustodia extends StatelessWidget {
         email: email,
         parola: parola,
         palette: palette,
+        // **IL FONDO SI DICHIARA DOVE LA PORTA SI APRE.** Ordine AL voce 04:
+        // una porta che lascia decidere il fondo a Material si apre bianca
+        // sopra un cielo notturno. Il foglio lo riceve invece di sceglierlo,
+        // cosi' chi legge questa chiamata vede su cosa si apre.
+        backgroundColor: palette.surfaceElevated,
       ),
     );
   }
@@ -379,7 +384,11 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
           ? await widget.account
               .entraDirettamente(via, email: email, parola: parola)
           : await widget.account.custodisci(via, email: email, parola: parola);
-    } catch (_) {
+    } catch (imprevisto) {
+      // **QUALUNQUE COSA SIA, LA SCHEDA DEVE RIPARTIRE.** Non si guarda cosa
+      // e' successo perche' la condotta e' la stessa in tutti i casi: si dice
+      // alla persona che non e' riuscito e si riaccendono i pulsanti. Il
+      // dettaglio tecnico non cambierebbe niente di cio' che si fa qui.
       esito = EsitoDellaCustodia.nonRiuscita;
     } finally {
       if (mounted) setState(() => _inCorso = null);
@@ -523,11 +532,15 @@ class _FoglioDellEmail extends StatefulWidget {
     required this.email,
     required this.parola,
     required this.palette,
+    required this.backgroundColor,
   });
 
   final TextEditingController email;
   final TextEditingController parola;
   final MaestroPalette palette;
+
+  /// Il fondo su cui il foglio si apre, dichiarato da chi lo apre.
+  final Color backgroundColor;
 
   @override
   State<_FoglioDellEmail> createState() => _FoglioDellEmailState();
@@ -588,7 +601,7 @@ class _FoglioDellEmailState extends State<_FoglioDellEmail> {
     final palette = widget.palette;
     return AlertDialog(
       key: const Key('custodia_email_form'),
-      backgroundColor: palette.surfaceElevated,
+      backgroundColor: widget.backgroundColor,
       title: Text("Custodisci con un'email",
           style: TypographyTokens.titoloScheda()
               .copyWith(color: palette.goldSoft)),

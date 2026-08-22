@@ -64,7 +64,15 @@ void main() {
       // saldo come argomento con un valore di partenza. Un censimento che
       // scambia un parametro per uno stato manda a cercare un difetto che non
       // c'e'.
-      if (RegExp(r'^\s*(?:final\s+)?int\s+_?saldoEos\s*=[^;]*;',
+      //
+      // **E LO HA SEGNALATO UNA SECONDA VOLTA, il 22 agosto 2026.** Il
+      // parametro e' finito su una riga sua, e `[^;]*` **attraversa le
+      // righe**: cercava il punto e virgola fino a trovarlo tre righe piu'
+      // giu', dentro il corpo del metodo. Adesso il punto e virgola deve
+      // stare sulla STESSA riga, che e' come si scrive un campo davvero.
+      // **La guardia non e' stata allentata**: e' stata resa esatta, e
+      // continua a mordere su un campo vero.
+      if (RegExp(r'^[ \t]*(?:final[ \t]+)?int[ \t]+_?saldoEos[ \t]*=[^;\n]*;',
               multiLine: true)
           .hasMatch(f.readAsStringSync())) {
         sorgenti.add(nome);

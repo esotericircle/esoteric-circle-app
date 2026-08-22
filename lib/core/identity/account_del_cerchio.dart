@@ -221,9 +221,10 @@ class FlussoGoogleNativo implements PortaDelFlussoGoogle {
   Future<void> dimentica() async {
     try {
       await GoogleSignIn().signOut();
-    } catch (_) {
+    } catch (nienteDaDimenticare) {
       // Se non c'era niente da dimenticare, non c'e' niente da fare: quello
-      // che conta e' che il tentativo dopo riparta pulito.
+      // che conta e' che il tentativo dopo riparta pulito, e riparte pulito
+      // anche cosi'.
     }
   }
 
@@ -458,7 +459,11 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
         default:
           return EsitoDellaCustodia.nonRiuscita;
       }
-    } catch (_) {
+    } catch (imprevisto) {
+      // Si ignora il dettaglio tecnico e si risponde con l'esito che la
+      // persona puo' capire: qualunque cosa sia andata storta, il suo Cerchio
+      // non e' stato toccato e puo' riprovare. Il client di Google si
+      // dimentica lo stesso, se no il tentativo dopo riceve questo.
       await _flussoGoogle.dimentica();
       return EsitoDellaCustodia.nonRiuscita;
     }

@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 141 -->
+<!-- VUOTI_CENSITI: 142 -->
 <!-- FILE_CON_VUOTI: 56 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **141** |
+| Vuoti verticali dichiarati | **142** |
 | File che ne contengono | **56** |
 | Oltre la soglia di 48 punti | **2** |
 
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 73 |
+| 2 | 74 |
 | 3 | 8 |
 | 4 | 28 |
 | 5 | 1 |
@@ -57,6 +57,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_screen.dart` | 4 | 0 |
 | `lib/features/maestri/maestro_screen.dart` | 4 | 0 |
+| `lib/features/onboarding/onboarding_screen.dart` | 4 | 0 |
 | `lib/features/pricing/pricing_screen.dart` | 4 | 0 |
 | `lib/features/settings/settings_screen.dart` | 4 | 0 |
 | `lib/features/tarot/stesa_tre_carte_screen.dart` | 4 | 0 |
@@ -65,7 +66,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/identity/circle_seal_screen.dart` | 3 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 3 | 0 |
 | `lib/features/maestri/caligo/rune/rune_share_card.dart` | 3 | 0 |
-| `lib/features/onboarding/onboarding_screen.dart` | 3 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 3 | 0 |
 | `lib/features/shell/santuario_bottom_bar.dart` | 3 | 0 |
 | `lib/features/sigilli/sentiero_screen.dart` | 3 | 0 |
