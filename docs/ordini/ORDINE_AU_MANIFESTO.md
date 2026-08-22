@@ -328,15 +328,45 @@ decide su tre di esse:
   giusta. Guardia `test/una_porta_aperta_non_si_riapre_test.dart`, che conta la
   pila e sorveglia anche la sorgente: nella barra puo' restare UNA sola spinta
   diretta, quella dentro `apriUnaVoltaSola`)
-- **AU.11** Il borsellino si aggiorna ovunque. Stato: APERTA
+- **AU.11** Il borsellino si aggiorna ovunque. Stato: CHIUSA
+  (**LA PREMESSA DELL'ORDINE NON REGGE ALLA MISURA, e si dichiara invece di
+  correggerla in silenzio.** L'ordine dice che la causa e' che "il saldo si
+  rilegge solo quando il Passport si monta". Cercato nel codice: **il Passport
+  non legge affatto il saldo**, non lo nomina nemmeno; la barra e il
+  borsellino ascoltano tutti e due lo stesso `QuestionAllowance`, che e'
+  l'unica sorgente; e la lettura all'avvio c'e' gia', la fa il Custode del
+  cammino dopo il primo fotogramma.
+  **CENSITI I PUNTI CHE LEGGONO IL SALDO: 20, in 9 file**, il piu' carico e'
+  la regia del cammino con sette. **Nessuno tiene una copia**: il censimento
+  cade se qualcuno se ne fa una.
+  **MA IL FATTO DEL FONDATORE E' VERO, e la causa e' un'altra.** Nella
+  documentazione di `QuestionAllowance.sincronizza` sta scritto da sempre "si
+  chiama all'avvio e al ritorno in primo piano": **la seconda meta' era
+  falsa**. Contate le chiamate in tutto `lib`, erano due, tutte e due dentro
+  il Custode e tutte e due all'avvio. Se la sincronia dell'avvio non riesce,
+  perche' la rete e' lenta nel primo secondo o l'autenticazione non e' ancora
+  pronta, **il saldo resta quello locale finche' l'app non viene riavviata**:
+  zero in barra con quattrocentoquarantacinque sul server. Adesso l'app
+  ascolta il ritorno in primo piano e rifa' la sincronia.
+  **LE QUATTRO COSE DELL'ORDINE SONO MISURATE UNA PER UNA sul flusso vero**:
+  il saldo arriva con la sola sincronia d'avvio (445 senza visitare niente);
+  chi mostra il numero ascolta la stessa sorgente di chi lo aggiorna; un
+  accredito cambia la cifra nell'istante in cui il server risponde, senza
+  cambiare schermata; e **col server muto resta 445 e non zero**, perche' uno
+  zero falso e' peggio di un numero vecchio.
+  Guardia `test/il_borsellino_si_aggiorna_ovunque_test.dart`, cinque prove.
+  **Un difetto della prova stessa, corretto**: il censimento segnalava
+  `ritrovamento.dart` come copia del saldo, ed e' un PARAMETRO con un valore
+  di partenza. Un censimento che scambia un parametro per uno stato manda a
+  cercare un difetto che non c'e')
 - **AU.12** L'Arcano del Giorno, i testi sopra la carta. Stato: APERTA
 - **AU.13** Il tooltip dei tre sentieri. Stato: APERTA
 
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 3
-VOCI_CHIUSE: 11
+VOCI_APERTE: 2
+VOCI_CHIUSE: 12
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

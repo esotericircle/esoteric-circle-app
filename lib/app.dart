@@ -74,7 +74,7 @@ class EsotericCircleApp extends StatefulWidget {
   State<EsotericCircleApp> createState() => _EsotericCircleAppState();
 }
 
-class _EsotericCircleAppState extends State<EsotericCircleApp> {
+class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBindingObserver {
   /// L'osservatore della pila, uno per app: lo legge il Navigator e lo legge
   /// la barra, ed e' lo stesso oggetto.
   final OsservatoreDellaPila _pila = OsservatoreDellaPila();
@@ -120,6 +120,25 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
     // succede niente e si riprova alla prossima apertura, perche' un saldo
     // inventato e una storia cancellata sono peggio di un'attesa.
     WidgetsBinding.instance.addPostFrameCallback((_) => _custodisciIlCammino());
+    // **E SI RIPROVA QUANDO L'APP TORNA IN PRIMO PIANO. Ordine AU voce 11.**
+    //
+    // La documentazione di `QuestionAllowance.sincronizza` diceva da sempre
+    // "si chiama all'avvio e al ritorno in primo piano", **e la seconda meta'
+    // era falsa**: contate le chiamate in tutto `lib`, erano due, tutte e due
+    // dentro il Custode, tutte e due all'avvio. Se la sincronia dell'avvio non
+    // riesce, perche' la rete e' lenta nel primo secondo o perche'
+    // l'autenticazione non e' ancora pronta, **il saldo resta quello locale
+    // finche' l'app non viene riavviata**: e' il caso del fondatore, zero in
+    // barra con quattrocentoquarantacinque sul server.
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState stato) {
+    if (stato != AppLifecycleState.resumed) return;
+    // Non si aspetta: se non riesce nemmeno adesso, si riprovera' al prossimo
+    // ritorno, e intanto resta l'ultimo saldo conosciuto invece di uno zero.
+    _custodisciIlCammino();
   }
 
   Future<void> _programmaLeChiamate() async {
@@ -136,6 +155,7 @@ class _EsotericCircleAppState extends State<EsotericCircleApp> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _guardia.dispose();
     super.dispose();
   }
