@@ -160,20 +160,58 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 key: const Key('alba_orientamento'),
                 style: TypographyTokens.corpo().copyWith(color: _dayInk),
               ),
-              // **LA PAROLA DEL GIORNO NON C'E' PIU'.** Ordine BB voce 06, e il
-              // fondatore l'ha chiesto due volte: "sia nell'alba che nel
-              // soffio c'e' la parola del giorno: ma a che serve? Cosa deve
-              // farne l'utente?"
+              // **LA PAROLA DEL GIORNO, SOLO ALL'ALBA E COL SUO SIGNIFICATO.**
+              // Ordine BB voce 06.
               //
-              // **Non si e' reinventato un uso e non si e' nascosta dietro un
-              // interruttore.** Una parola in risalto che non chiede niente e
-              // non porta da nessuna parte occupa il posto piu' importante
-              // della scheda: chi la legge cerca cosa farne, non trova
-              // risposta, e quel vuoto se lo porta dietro per tutto il rito.
+              // **La domanda del fondatore era "cosa ne faccio adesso di
+              // questa parola?", e aveva ragione perche' la risposta non
+              // c'era.** La parola compariva grande e sola: un titolo senza
+              // testo. Chi la leggeva cercava cosa farne e non trovava nulla,
+              // e quel vuoto se lo portava dietro per tutto il rito.
               //
-              // **Il dato resta nel modello**, `gift.word`, dove serve a chi
-              // compone il dono e alla condivisione: sparisce dallo schermo,
-              // non dal Cerchio.
+              // **Il legame esisteva gia' nel corpus e non arrivava a
+              // schermo.** Ogni parola porta con se' il suo `perche`, cioe'
+              // cosa indica in questo giorno, e l'ordine AS voce 06 aveva gia'
+              // fatto in modo che la parola nascesse dal GESTO e non da un
+              // terzo seme. Mancava l'ultimo passo: mostrarlo. Adesso sotto la
+              // parola si legge cosa vuol dire, ed e' quello a rispondere alla
+              // domanda.
+              //
+              // **Solo all'Alba.** Nel Soffio del Destino la parola non
+              // compare: e' il rito dell'aria e del destino, non quello della
+              // parola da portarsi dietro, e la stessa cosa in due riti
+              // diversi li fa sembrare lo stesso rito.
+              if (widget.dono == DailyElement.dawn && word != null) ...[
+                const SizedBox(height: SpacingTokens.lg),
+                Text(
+                  'Parola del giorno',
+                  key: const Key('alba_etichetta_parola'),
+                  style: TypographyTokens.didascalia().copyWith(
+                    color: _dayInkSoft,
+                    letterSpacing: 0.6,
+                  ),
+                ),
+                const SizedBox(height: SpacingTokens.xs),
+                Text(
+                  word,
+                  key: const Key('gift_word'),
+                  style: TypographyTokens.display(size: 32).copyWith(
+                    color: accento,
+                    letterSpacing: 1.4,
+                  ),
+                ),
+                // **E SUBITO SOTTO, COSA VUOL DIRE.** E' la riga che mancava:
+                // senza, la parola resta un titolo senza testo.
+                if (gift.rito?.perche != null) ...[
+                  const SizedBox(height: SpacingTokens.xs),
+                  Text(
+                    gift.rito!.perche,
+                    key: const Key('alba_perche_della_parola'),
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: _dayInk, height: 1.4),
+                  ),
+                ],
+              ],
               // **E NEMMENO IL PONTE VERSO IL SOFFIO.** Ordine BB voce 07,
               // parole del fondatore: "nel rito dell'Alba c'e' un testo
               // collegato che porta al soffio del destino, perche'?

@@ -2,29 +2,33 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
-/// LE DUE COSE CHE NON SERVIVANO. Ordine BB, voci 06 e 07.
+/// LA PAROLA CHE SERVE, E IL PONTE CHE NON SERVIVA. Ordine BB, voci 06 e 07.
 ///
-/// **BB.06, la parola del giorno**, chiesta due volte dal fondatore: "sia
-/// nell'alba che nel soffio c'e' la parola del giorno: ma a che serve? Cosa
-/// deve farne l'utente?" Una parola in risalto che non chiede niente e non
-/// porta da nessuna parte occupava il posto piu' importante della scheda: chi
-/// la legge cerca cosa farne, non trova risposta, **e quel vuoto se lo porta
-/// dietro per tutto il rito**.
+/// **BB.06, e questa prova e' stata RIBALTATA una volta, per un errore che va
+/// dichiarato.** La voce diceva "Decisione del fondatore: si toglie", e non
+/// era vero: **il fondatore non aveva mai chiesto di togliere la parola del
+/// giorno, aveva fatto una domanda.** La decisione l'aveva scritta l'Architetto
+/// e attribuita a lui, e il lavoro fatto su quella premessa e' stato rovesciato.
+///
+/// **La domanda vera, parole sue**: "la parola doveva avere uno scopo: se
+/// dichiari che la parola del giorno, SOLO ALL'ALBA PERO', e' 'sete' (ad
+/// esempio) la risposta o responso all'utente deve essere inerente quella
+/// parola perche' l'utente si chiedera': ok, ma cosa ne faccio adesso di
+/// questa parola?"
+///
+/// **E la risposta non c'era davvero.** La parola compariva grande e sola: un
+/// titolo senza testo. **Il legame esisteva gia' nel corpus e non arrivava a
+/// schermo**: ogni parola porta il suo `perche`, cioe' cosa indica in questo
+/// giorno, e l'ordine AS voce 06 aveva gia' fatto in modo che nascesse dal
+/// GESTO e non da un terzo seme. Mancava l'ultimo passo, mostrarlo.
 ///
 /// **BB.07, il ponte dall'Alba al Soffio**: "nel rito dell'Alba c'e' un testo
-/// collegato che porta al soffio del destino, perche'? Eliminalo." Un dono del
-/// giorno non fa da corridoio a un altro dono.
+/// collegato che porta al soffio del destino, perche'? Eliminalo." Quello era
+/// una richiesta vera, e resta tolto.
 ///
-/// **Prima di togliere si e' guardato il corpus vivo**, come l'ordine AX
-/// chiedeva: `Traguardi_165_Revisione_D2.json` non nomina la parola del giorno
-/// **zero volte**, quindi nessun traguardo si spezza. Il Soffio invece e'
-/// nominato quindici volte e resta dov'e': qui si toglie la porta che ci
-/// portava dall'Alba, non il rito.
-///
-/// **Si legge il CODICE senza i commenti.** E' gia' successo due volte in
-/// questo repository che una guardia diventasse rossa per la propria
-/// spiegazione: qui i commenti raccontano cosa e' stato tolto e perche', e
-/// nominano per forza le cose tolte.
+/// **Si legge il CODICE senza i commenti**: e' gia' successo due volte che una
+/// guardia diventasse rossa per la propria spiegazione, e qui i commenti
+/// nominano per forza tutto cio' di cui si parla.
 void main() {
   String soloCodice(String percorso) {
     return File(percorso)
@@ -36,55 +40,76 @@ void main() {
         .join('\n');
   }
 
-  test('BB.06: la parola del giorno non si dipinge piu', () {
-    final card = soloCodice('lib/features/rituals/ritual_gift_card.dart');
+  final scheda = soloCodice('lib/features/rituals/ritual_gift_card.dart');
+
+  test('BB.06: la parola del giorno c e, e non e piu sola', () {
     for (final segno in const [
       "Key('gift_word')",
       "Key('alba_etichetta_parola')",
-      "'Parola del giorno'",
+      // **LA RIGA CHE MANCAVA**: senza, la parola resta un titolo senza testo.
+      "Key('alba_perche_della_parola')",
     ]) {
       // ignore: avoid_print
       print('ORDINE BB VOCE 06: "$segno" compare '
-          '${segno.allMatches(card).length} volte nel codice della scheda');
-      expect(card.contains(segno), isFalse,
-          reason: 'la scheda del dono dipinge ancora $segno');
+          '${segno.allMatches(scheda).length} volte nel codice della scheda');
+      expect(scheda.contains(segno), isTrue,
+          reason: 'la scheda non porta $segno: la parola del giorno o non c e '
+              'o e tornata sola, che era il difetto');
     }
+    expect(scheda.contains('gift.rito!.perche'), isTrue,
+        reason: 'sotto la parola non si legge cosa indica: resta la domanda '
+            '"cosa ne faccio adesso di questa parola"');
   });
 
-  test('BB.06: e non si condivide piu una cosa che non si vede', () {
-    // **SI CONDIVIDE CIO' CHE SI VEDE.** Se la parola sparisce dallo schermo
-    // ma resta nel testo condiviso, chi riceve il messaggio apre l'app e non
-    // trova cio' che gli e' stato promesso.
-    for (final schermo in const [
-      'lib/features/rituals/breath_destiny_screen.dart',
-      'lib/features/rituals/dawn_rite_screen.dart',
-    ]) {
-      final codice = soloCodice(schermo);
-      // ignore: avoid_print
-      print('ORDINE BB VOCE 06: in $schermo "parola del giorno" compare '
-          '${'parola del giorno'.allMatches(codice).length} volte nel codice');
-      expect(codice.contains('parola del giorno'), isFalse,
-          reason: '$schermo condivide ancora la parola del giorno');
-    }
+  test('BB.06: e compare SOLO all Alba', () {
+    // **Nel Soffio la parola non c e**, e non e' un dettaglio: e' il rito
+    // dell'aria e del destino, non quello della parola da portarsi dietro. La
+    // stessa cosa in due riti diversi li fa sembrare lo stesso rito, ed e'
+    // proprio la lamentela della voce BB.09.
+    // ignore: avoid_print
+    print('ORDINE BB VOCE 06: il guardiano dell Alba nella scheda compare '
+        '${"DailyElement.dawn".allMatches(scheda).length} volte');
+    expect(scheda.contains('widget.dono == DailyElement.dawn'), isTrue,
+        reason: 'la parola si dipinge in tutti i doni: nel Soffio non ci deve '
+            'essere');
+  });
+
+  test('BB.06: nel Soffio non si condivide nessuna parola', () {
+    final soffio = soloCodice('lib/features/rituals/breath_destiny_screen.dart');
+    // ignore: avoid_print
+    print('ORDINE BB VOCE 06: nel Soffio "parola del giorno" compare '
+        '${'parola del giorno'.allMatches(soffio).length} volte nel codice');
+    expect(soffio.contains('parola del giorno'), isFalse,
+        reason: 'il Soffio condivide ancora una parola del giorno che non '
+            'mostra');
+  });
+
+  test('BB.06: e all Alba si condivide la parola CON cio che indica', () {
+    final alba = soloCodice('lib/features/rituals/dawn_rite_screen.dart');
+    // ignore: avoid_print
+    print('ORDINE BB VOCE 06: la condivisione dell Alba nomina il perche '
+        '${'perche'.allMatches(alba).length} volte nel codice');
+    expect(alba.contains('parola del giorno'), isTrue,
+        reason: 'l Alba non condivide piu la sua parola');
+    expect(alba.contains('gift.rito?.perche'), isTrue,
+        reason: 'si condivide la parola nuda: a chi non ha l app davanti '
+            'arriva ancora piu muta che a schermo');
   });
 
   test('BB.07: dall Alba non si va piu al Soffio', () {
-    final card = soloCodice('lib/features/rituals/ritual_gift_card.dart');
     // ignore: avoid_print
     print('ORDINE BB VOCE 07: "ponte_verso_il_soffio" compare '
-        '${"ponte_verso_il_soffio".allMatches(card).length} volte, '
-        '"BreathDestinyScreen" ${"BreathDestinyScreen".allMatches(card).length}');
-    expect(card.contains('ponte_verso_il_soffio'), isFalse,
+        '${"ponte_verso_il_soffio".allMatches(scheda).length} volte, '
+        '"BreathDestinyScreen" ${"BreathDestinyScreen".allMatches(scheda).length}');
+    expect(scheda.contains('ponte_verso_il_soffio'), isFalse,
         reason: 'la scheda del dono porta ancora al Soffio del Destino');
-    expect(card.contains('BreathDestinyScreen'), isFalse,
+    expect(scheda.contains('BreathDestinyScreen'), isFalse,
         reason: 'la scheda del dono conosce ancora la strada per il Soffio: '
             'un dono non fa da corridoio a un altro dono');
   });
 
   test('e il Soffio del Destino resta raggiungibile dalla sua fascia', () {
-    // **LA CONTROPROVA, e senza di lei si sarebbe tolto un rito.** Il ponte
-    // spariva insieme all'unica via, e il Soffio diventava irraggiungibile:
-    // sarebbe stato molto peggio del difetto.
+    // **LA CONTROPROVA, e senza di lei si sarebbe tolto un rito.**
     var vie = 0;
     for (final f in Directory('lib').listSync(recursive: true)) {
       if (f is! File || !f.path.endsWith('.dart')) continue;

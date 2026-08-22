@@ -437,18 +437,22 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     setState(() => _streak = n);
   }
 
-  /// **SI CONDIVIDE CIO' CHE SI VEDE.** Ordine BB voce 06.
+  /// **SI CONDIVIDE CIO' CHE SI VEDE, e all'Alba si vede la parola.**
+  /// Ordine BB voce 06.
   ///
-  /// La parola del giorno e' uscita dalla scheda, per decisione del fondatore:
-  /// una parola in risalto che non chiede niente e non porta da nessuna parte
-  /// occupava il posto piu' importante. **Se sparisce dallo schermo deve
-  /// sparire anche di qui**, se no si condivide con gli altri una cosa che chi
-  /// riceve non trovera' aprendo l'app. Resta l'orientamento del giorno, che
-  /// e' cio' che il dono dice davvero.
+  /// La parola del giorno vive nell'Alba e solo li', **e non da sola**: porta
+  /// con se' cosa indica, che e' la risposta alla domanda del fondatore "cosa
+  /// ne faccio adesso di questa parola". Anche condividendola le due cose
+  /// restano insieme: una parola spedita nuda a chi non ha l'app davanti
+  /// sarebbe ancora piu' muta che a schermo.
   Future<void> _shareWord(DawnGift gift) async {
+    final word = gift.word;
+    if (word == null) return;
+    final perche = gift.rito?.perche;
     try {
-      await PortaDellaCondivisione.testo('Il mio Rito dell\'Alba di oggi: '
-              '${gift.orientation} Con Esoteric Circle.');
+      await PortaDellaCondivisione.testo(
+          'La mia parola del giorno dal Rito dell\'Alba: $word.'
+          '${perche == null ? '' : ' $perche'} Con Esoteric Circle.');
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

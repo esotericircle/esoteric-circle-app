@@ -43,7 +43,7 @@ premessa di BB.11 descrive una build precedente alla 2195.
 - **BB.03** I movimenti del borsellino. Stato: APERTA
 - **BB.04** Gli Eos dichiarati sui pulsanti. Stato: APERTA
 - **BB.05** Il Passaporto porta a sbloccare. Stato: APERTA
-- **BB.06** La parola del giorno sparisce. Stato: CHIUSA
+- **BB.06** La parola del giorno serve a qualcosa. Stato: CHIUSA
 - **BB.07** L'Alba non manda al Soffio. Stato: CHIUSA
 - **BB.08** "Attiva la posizione" attiva davvero. Stato: APERTA
 - **BB.09** Il Soffio non somiglia all'Alba. Stato: APERTA
@@ -51,6 +51,35 @@ premessa di BB.11 descrive una build precedente alla 2195.
 - **BB.11** Il menu' Account nelle Impostazioni. Stato: CHIUSA con l'ordine AZ voce 11
 - **BB.12** Il luogo di nascita e il mondo. Stato: APERTA
 - **BB.13** L'icona dell'app. Stato: APERTA
+
+## BB.06: una premessa falsa, e il lavoro rovesciato
+
+**La voce diceva "Decisione del fondatore: si toglie", e non era vero.** Il
+fondatore non aveva mai chiesto di togliere la parola del giorno: **aveva
+fatto una domanda**. La decisione l'aveva scritta l'Architetto e attribuita a
+lui. Il lavoro fatto su quella premessa e' stato rovesciato per intero.
+
+**La domanda vera, parole sue**: "la parola doveva avere uno scopo: se dichiari
+che la parola del giorno, SOLO ALL'ALBA PERO', e' sete (ad esempio) la
+risposta o responso all'utente deve essere inerente quella parola perche'
+l'utente si chiedera': ok, ma cosa ne faccio adesso di questa parola?"
+
+**E la risposta non c'era davvero.** La parola compariva grande e sola: **un
+titolo senza testo**. Chi la leggeva cercava cosa farne e non trovava nulla.
+
+**Il legame esisteva gia' nel corpus e non arrivava a schermo.** Ogni parola
+porta con se' il suo , cioe' cosa indica in questo giorno; e l'ordine
+AS voce 06 aveva gia' fatto in modo che la parola nascesse dal **gesto** e non
+da un terzo seme, proprio perche' "il gesto diceva conta quante ore mancano a
+stasera e la parola era Ombra". **Mancava l'ultimo passo: mostrarlo.** Adesso
+sotto la parola si legge cosa vuol dire.
+
+**Solo all'Alba**, come il fondatore chiede: nel Soffio del Destino la parola
+non compare, perche' e' il rito dell'aria e del destino, e la stessa cosa in
+due riti diversi li fa sembrare lo stesso rito.
+
+**Anche la condivisione tiene insieme le due cose**: una parola spedita nuda a
+chi non ha l'app davanti sarebbe ancora piu' muta che a schermo.
 
 ## L'ordine di lavoro, deciso qui
 
