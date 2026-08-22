@@ -33,6 +33,11 @@ enum EsitoDellaCustodia {
   /// senza dirglielo, si dichiara e si chiede.
   giaDiUnAltroCerchio,
 
+  /// **NESSUN CERCHIO CON QUELLE CHIAVI.** Ordine AX voce 01: chi torna ha
+  /// sbagliato account o non ne ha mai avuto uno, e va detto con parole sue
+  /// invece di un generico "non e' riuscito".
+  nonRiconosciuto,
+
   /// La rete, il fornitore non configurato, un imprevisto.
   nonRiuscita,
 
@@ -68,6 +73,14 @@ abstract class PortaDellIdentita {
 
   /// ELEVA l'account che c'e' gia': non ne crea un secondo.
   Future<EsitoDellaCustodia> eleva(
+    ViaDellaCustodia via, {
+    String? email,
+    String? parola,
+  });
+
+  /// ENTRA in un Cerchio che esiste gia', con una credenziale fresca. Ordine
+  /// AX voce 01: e' la via di chi torna, e non passa dall'elevazione.
+  Future<EsitoDellaCustodia> entraDirettamente(
     ViaDellaCustodia via, {
     String? email,
     String? parola,
@@ -120,6 +133,17 @@ abstract class PortaDelFlussoGoogle {
   /// finestra: il nulla NON e' un errore, e' un'annullata.
   Future<AuthCredential?> credenziale();
 
+  /// **DIMENTICA CHI HA SCELTO L'ULTIMA VOLTA.** Ordine AX voce 01.
+  ///
+  /// **Senza questa riga la porta si chiude alle spalle.** Il client di Google
+  /// resta "gia' entrato" dopo un tentativo, e alla chiamata successiva
+  /// restituisce lo stesso account **senza riaprire il selettore**, con un
+  /// token che puo' essere gia' stato speso. E' il motivo per cui, dopo un
+  /// accesso fallito, al fondatore non funzionava piu' nemmeno la
+  /// registrazione: non era la registrazione, era Google che rispondeva con
+  /// cio' che aveva in mano.
+  Future<void> dimentica();
+
   /// IL NOME CHE GOOGLE PROPONE SENZA APRIRE NIENTE, ordine AP voce 08.
   ///
   /// **Sta qui e non in una casa nuova**: questa e' l'unica porta verso
@@ -147,6 +171,16 @@ class FlussoGoogleNativo implements PortaDelFlussoGoogle {
       idToken: autenticazione.idToken,
       accessToken: autenticazione.accessToken,
     );
+  }
+
+  @override
+  Future<void> dimentica() async {
+    try {
+      await GoogleSignIn().signOut();
+    } catch (_) {
+      // Se non c'era niente da dimenticare, non c'e' niente da fare: quello
+      // che conta e' che il tentativo dopo riparta pulito.
+    }
   }
 
   /// **COSA CHIEDE DAVVERO QUESTA RIGA, misurato sul pacchetto.**
@@ -285,6 +319,11 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
       await ricarica();
       return EsitoDellaCustodia.riuscita;
     } on FirebaseAuthException catch (errore) {
+      // **OGNI FALLIMENTO LASCIA LA PORTA APERTA.** Ordine AX voce 01: senza
+      // questa riga il client di Google resta con l'account gia' scelto in
+      // mano, e il tentativo successivo, di qualunque tipo, riceve cio' che
+      // lui ha invece di riaprire il selettore.
+      await _flussoGoogle.dimentica();
       switch (errore.code) {
         case 'credential-already-in-use':
         case 'email-already-in-use':
@@ -309,6 +348,7 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
       // Si ignora il dettaglio tecnico e si risponde con l'esito che la
       // persona puo' capire: qualunque cosa sia andata storta, il suo
       // Cerchio non e' stato toccato e puo' riprovare.
+      await _flussoGoogle.dimentica();
       return EsitoDellaCustodia.nonRiuscita;
     }
   }
@@ -320,6 +360,64 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
   Future<String?> nomeGiaProposto() async {
     if (!anonimo) return null;
     return _flussoGoogle.nomeGiaAutorizzato();
+  }
+
+  /// **CHI TORNA ENTRA, NON ELEVA.** Ordine AX voce 01, ed e' la cura del
+  /// difetto piu' grave che il fondatore abbia trovato.
+  ///
+  /// **Cosa succedeva.** Chi reinstallava e sceglieva il proprio account
+  /// passava dalla stessa porta di chi custodisce per la prima volta, cioe' da
+  /// `eleva`, che ATTACCA l'identita' all'anonimo di questo telefono. Quella
+  /// identita' pero' e' gia' di un altro Cerchio, quindi il collegamento
+  /// falliva per forza, e la via d'uscita era un SECONDO tocco che riusava
+  /// **la credenziale gia' spesa dal tentativo fallito**. Su Google un token
+  /// speso non entra piu': la persona restava fuori.
+  ///
+  /// Qui si chiede una credenziale FRESCA e si entra e basta. Il cammino
+  /// dell'anonimo non si perde: lo custodisce il Cerchio, e il Custode lo
+  /// ritrova subito dopo.
+  @override
+  Future<EsitoDellaCustodia> entraDirettamente(ViaDellaCustodia via,
+      {String? email, String? parola}) async {
+    try {
+      switch (via) {
+        case ViaDellaCustodia.google:
+          // Si dimentica PRIMA: cosi' il selettore si riapre e il token e'
+          // nuovo, invece di essere quello che il client aveva in tasca.
+          await _flussoGoogle.dimentica();
+          final credenziale = await _flussoGoogle.credenziale();
+          if (credenziale == null) return EsitoDellaCustodia.annullata;
+          await _auth.signInWithCredential(credenziale);
+        case ViaDellaCustodia.apple:
+          await _auth.signInWithProvider(AppleAuthProvider());
+        case ViaDellaCustodia.email:
+          if (email == null || parola == null) {
+            return EsitoDellaCustodia.nonRiuscita;
+          }
+          await _auth.signInWithEmailAndPassword(
+              email: email, password: parola);
+      }
+      _riconosciuta = null;
+      await ricarica();
+      return EsitoDellaCustodia.riuscita;
+    } on FirebaseAuthException catch (errore) {
+      await _flussoGoogle.dimentica();
+      switch (errore.code) {
+        case 'web-context-canceled':
+        case 'canceled':
+        case 'user-cancelled':
+          return EsitoDellaCustodia.annullata;
+        case 'user-not-found':
+        case 'wrong-password':
+        case 'invalid-credential':
+          return EsitoDellaCustodia.nonRiconosciuto;
+        default:
+          return EsitoDellaCustodia.nonRiuscita;
+      }
+    } catch (_) {
+      await _flussoGoogle.dimentica();
+      return EsitoDellaCustodia.nonRiuscita;
+    }
   }
 
   @override
@@ -368,6 +466,14 @@ class IdentitaAssente implements PortaDellIdentita {
 
   @override
   Future<EsitoDellaCustodia> eleva(
+    ViaDellaCustodia via, {
+    String? email,
+    String? parola,
+  }) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  Future<EsitoDellaCustodia> entraDirettamente(
     ViaDellaCustodia via, {
     String? email,
     String? parola,
@@ -452,6 +558,17 @@ class AccountDelCerchio extends ChangeNotifier {
         _porta.uid != prima) {
       return EsitoDellaCustodia.cerchioCambiato;
     }
+    return esito;
+  }
+
+  /// **ENTRA in un Cerchio che esiste gia'.** Ordine AX voce 01: e' la via di
+  /// chi torna, e non passa dall'elevazione. Vedi il commento su
+  /// `entraDirettamente` nella porta.
+  Future<EsitoDellaCustodia> entraDirettamente(ViaDellaCustodia via,
+      {String? email, String? parola}) async {
+    final esito =
+        await _porta.entraDirettamente(via, email: email, parola: parola);
+    rileggi();
     return esito;
   }
 

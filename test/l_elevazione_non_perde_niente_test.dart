@@ -17,6 +17,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// di collegarsi all'account che c'e' ne crea un secondo. Deve essere
 /// riconosciuto e NON raccontato come una riuscita.
 class _PortaFinta implements PortaDellIdentita {
+  @override
+  Future<EsitoDellaCustodia> entraDirettamente(
+    ViaDellaCustodia via, {
+    String? email,
+    String? parola,
+  }) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
   _PortaFinta({
     required String uid,
     this.creaUnSecondoAccount = false,

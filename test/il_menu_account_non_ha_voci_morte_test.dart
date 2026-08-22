@@ -137,6 +137,14 @@ void main() {
 
 class _PortaIdentitaFinta implements PortaDellIdentita {
   @override
+  Future<EsitoDellaCustodia> entraDirettamente(
+    ViaDellaCustodia via, {
+    String? email,
+    String? parola,
+  }) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
   String? get uid => 'uid-di-prova';
 
   @override

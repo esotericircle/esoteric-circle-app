@@ -220,6 +220,11 @@ String? frasePerEsito(EsitoDellaCustodia esito) {
     case EsitoDellaCustodia.cerchioCambiato:
       return 'Qualcosa non ha funzionato e il tuo cielo non è stato '
           'collegato. Niente è andato perso: riprova più tardi.';
+    // **NESSUN RAMO MUTO.** Ordine AX voce 01: se non si entra, a schermo
+    // compare il perche' e cosa fare, in italiano e senza codici tecnici.
+    case EsitoDellaCustodia.nonRiconosciuto:
+      return 'Non troviamo un Cerchio con queste chiavi. Controlla di aver '
+          "scelto l'account giusto, oppure entra con un'altra via.";
     case EsitoDellaCustodia.nonRiuscita:
       return 'Non è riuscito adesso. Il tuo cielo resta dove sta: puoi '
           'riprovare quando vuoi dall\'area account.';
@@ -385,8 +390,21 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
       _guaio = null;
       _riconosciuto = false;
     });
-    final esito = await widget.account
-        .custodisci(via, email: email, parola: parola);
+    // **CHI TORNA ENTRA, CHI CUSTODISCE ELEVA.** Ordine AX voce 01, ed e' la
+    // cura del difetto piu' grave della 2191.
+    //
+    // Questa porta si apre in due momenti diversi e faceva la stessa cosa in
+    // tutti e due: attaccare l'identita' all'anonimo di questo telefono.
+    // Giusto per chi custodisce il proprio cielo la prima volta; **sbagliato
+    // per chi torna**, perche' quell'identita' e' gia' di un Cerchio e il
+    // collegamento fallisce per forza. La via d'uscita era un secondo tocco
+    // che riusava la credenziale gia' spesa dal tentativo fallito, e su Google
+    // un token speso non entra piu': **la persona restava fuori, e da li' in
+    // poi nemmeno la registrazione ripartiva**.
+    final esito = widget.perChiTorna
+        ? await widget.account
+            .entraDirettamente(via, email: email, parola: parola)
+        : await widget.account.custodisci(via, email: email, parola: parola);
     if (!mounted) return;
     if (esito == EsitoDellaCustodia.riuscita) {
       Navigator.of(context).pop(true);

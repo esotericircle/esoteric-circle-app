@@ -104,6 +104,9 @@ AuthCredential _credenzialeDiProva() => GoogleAuthProvider.credential(
 
 /// IL FLUSSO FINTO: consegna cio' che gli si e' detto di consegnare.
 class _FlussoFinto implements PortaDelFlussoGoogle {
+  @override
+  Future<void> dimentica() async {}
+
   _FlussoFinto(
       {required this.daConsegnare, this.dopoIlFlusso, this.nomeProposto});
 

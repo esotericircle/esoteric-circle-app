@@ -121,6 +121,14 @@ void main() {
 }
 
 class _PortaCheRiconosce implements PortaDellIdentita {
+  @override
+  Future<EsitoDellaCustodia> entraDirettamente(
+    ViaDellaCustodia via, {
+    String? email,
+    String? parola,
+  }) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
   bool entrato = false;
   bool _anonimo = true;
   IdentitaRiconosciuta? _riconosciuta;
