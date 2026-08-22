@@ -1,3 +1,4 @@
+import '../../core/sigilli/traguardo.dart';
 import 'dart:ui' as ui;
 
 import 'dart:async';
@@ -561,7 +562,20 @@ class _FoglioDelPortafoglio extends StatelessWidget {
                     const SizedBox(width: SpacingTokens.sm),
                     Expanded(
                       child: Text(
-                        movimento.perche,
+                        // **IL NOME COME SI LEGGE, non come sta nel dato.**
+                        // Ordine BB voce 03, fatto del fondatore: nello stesso
+                        // elenco si leggevano "LA PRIMA FIORITURA" e "Il tuo
+                        // numero", "LA COSTELLAZIONE NASCENTE" e "La tua carta
+                        // e' nata".
+                        //
+                        // **La causa sta nel corpus e NON si cura li'**: il
+                        // maiuscolo integrale e' il modo in cui il corpus
+                        // marca i traguardi grandi, ed e' un'informazione
+                        // vera. Si normalizza alla lettura, con la stessa
+                        // funzione che usa la scheda della festa: cosi' i due
+                        // posti non possono divergere, e il dato resta
+                        // intatto.
+                        nomeInTondo(movimento.perche),
                         style: TypographyTokens.corpo()
                             .copyWith(color: ColorTokens.textSecondary),
                       ),

@@ -254,7 +254,26 @@ class RegiaDelCammino {
         // totale e non con quanto ha aggiunto. Il registro porta il delta di
         // QUESTO traguardo; il volo alla chiusura porta la SOMMA, perche' la
         // festa e' una anche quando i traguardi sono di piu'.
-        final delta = saldo - borsa.saldoEos;
+        // **UN DELTA NON NASCE MAI DA UN SALDO NON ANCORA LETTO.**
+        // Ordine BB voce 03, dal fatto del fondatore: quattro movimenti nel
+        // borsellino, tutti con lo stesso importo, **e quell'importo era il
+        // SALDO e non il guadagno**.
+        //
+        // La sottrazione qui sopra e' giusta finche' `borsa.saldoEos` e' il
+        // saldo vero. **Ma se il borsellino non ha ancora sentito il server
+        // vale zero**, e allora il delta diventa il totale: quattro premi da
+        // pochi Eos si scrivono tutti e quattro come "piu' quattrocento-
+        // quarantacinque". Non e' un errore del riquadro che li mostra, che
+        // legge onestamente `movimento.quanti`: e' questa riga a scrivere il
+        // numero sbagliato.
+        //
+        // **Quando il saldo non e' noto si usa cio' che il traguardo
+        // dichiara**, che e' il suo premio: il listino lo conosce, e un
+        // importo dichiarato e' sempre meglio di una sottrazione fra un
+        // numero vero e uno zero che non e' un saldo ma un'assenza.
+        final saldoNoto = borsa.saldoEos > 0;
+        final delta =
+            saldoNoto ? saldo - borsa.saldoEos : traguardo.eos;
         arrivati.quanti += delta;
         // IL LIBRO SA COSA E' ARRIVATO, ordine AL voce 05: senza questo segno
         // la sincronia non saprebbe quali premi riprendere e quali no.
