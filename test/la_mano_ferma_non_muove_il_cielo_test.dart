@@ -63,6 +63,13 @@ void main() {
     for (var i = 0; i < quante; i++) {
       final s = scarto?.call(i) ?? 0.0;
       c.leggiDalSensorePerLaProva(x + s, y, 3.8);
+      // **E IL FOTOGRAMMA PASSA.** Ordine AW voce 01: dal cielo fluido il
+      // valore dipinto insegue il bersaglio fotogramma per fotogramma, quindi
+      // leggere il tilt subito dopo un campione vorrebbe dire leggerlo a meta'
+      // strada. Il sensore parla ogni sedici millesimi e lo schermo disegna
+      // ogni otto: due fotogrammi per campione.
+      c.avanzaIlFotogrammaPerLaProva(8);
+      c.avanzaIlFotogrammaPerLaProva(8);
     }
   }
 
@@ -116,50 +123,59 @@ void main() {
     }
   });
 
-  test('M3, inclinazione voluta di quindici gradi: oltre 60 punti', () {
-    // **M2 E M3 DEVONO STARE INSIEME**, ed e' la ragione per cui l'ordine
-    // vieta di abbassare il guadagno: togliere il tremore spegnendo la
-    // risposta rimetterebbe il difetto di due giorni fa, quando quindici gradi
-    // valevano ventuno punti su ottanta.
+  test('M5, a quindici gradi si dosa: fra 25 e 40 punti, non a fondo corsa',
+      () {
+    // **QUESTA MISURA SOSTITUISCE QUELLA VECCHIA, ordine AW voce 01.**
+    //
+    // Fino a ieri qui si pretendeva **oltre sessanta punti a quindici gradi**,
+    // e il fondo corsa stava a sedici: vuol dire che un movimento normale del
+    // polso arrivava al massimo e **da li' non c'era piu' controllo**. E' il
+    // "incontrollabile" che il fondatore ha descritto, ed e' un fatto letto
+    // nella sua riga diagnostica, dove l'inclinazione risultava gia' saturata
+    // a 1,00.
+    //
+    // Adesso il fondo corsa sta a trenta gradi e quindici ne danno una meta'
+    // scarsa: **si puo' dosare**, che e' cio' che l'ordine chiede.
     final c = ParallaxController();
     leggi(c, 20);
-    // Quindici gradi valgono sin(15) di gravita' sull'asse che si inclina.
     final quindici = math.sin(15 * math.pi / 180) * 9.8;
     leggi(c, 40, scarto: (i) => quindici);
     final corsa = punti(c.tiltX).abs();
     // ignore: avoid_print
-    print('ORDINE AU VOCE 04, M3: quindici gradi danno '
+    print('ORDINE AW VOCE 01, M5: quindici gradi danno '
         '${corsa.toStringAsFixed(1)} punti su 80');
-    expect(corsa, greaterThan(60.0),
-        reason: 'un gesto voluto non arriva in fondo: il cielo sembra morto');
+    expect(corsa, inInclusiveRange(25.0, 40.0),
+        reason: 'a quindici gradi il cielo corre ${corsa.toStringAsFixed(1)} '
+            'punti: fuori dalla fascia in cui si puo dosare');
     c.dispose();
   });
 
-  test('M4, il ritardo fra gesto e movimento sta sotto 120 millesimi', () {
-    // Il sensore manda una lettura ogni 66 millesimi, quindi 120 millesimi
-    // sono meno di due campioni: si conta quanti ne servono per arrivare a
-    // meta' della corsa che quel gesto raggiunge, che e' il ritardo che si
-    // percepisce.
+  test('M6, il ritardo fra gesto e movimento sta sotto 120 millesimi', () {
+    // **IL RITARDO SI CONTA IN MILLESIMI VERI, non in campioni.** Ordine AW
+    // voce 01: dal cielo fluido ogni campione porta con se' due fotogrammi, e
+    // contare i campioni per il periodo vecchio dava 2.640 millesimi per un
+    // gesto che ne dura seicento. Un numero fuori scala che nessuno aveva
+    // chiesto di controllare.
     final c = ParallaxController();
     leggi(c, 20);
     final quindici = math.sin(15 * math.pi / 180) * 9.8;
-    leggi(c, 40, scarto: (i) => quindici);
+    leggi(c, 60, scarto: (i) => quindici);
     final pieno = c.tiltX.abs();
     c.dispose();
 
     final d = ParallaxController();
     leggi(d, 20);
-    var campioni = 0;
-    for (var i = 0; i < 40; i++) {
+    var millesimi = 0;
+    for (var i = 0; i < 60; i++) {
       d.leggiDalSensorePerLaProva(quindici, 9.0, 3.8);
-      campioni++;
+      d.avanzaIlFotogrammaPerLaProva(8);
+      d.avanzaIlFotogrammaPerLaProva(8);
+      millesimi += ParallaxController.periodoDelSensoreInMillesimi;
       if (d.tiltX.abs() >= pieno / 2) break;
     }
-    final ritardo = campioni * 66;
     // ignore: avoid_print
-    print('ORDINE AU VOCE 04, M4: meta corsa dopo $campioni campioni, '
-        'cioe $ritardo millesimi');
-    expect(ritardo, lessThan(120),
+    print('ORDINE AW VOCE 01, M6: meta corsa dopo $millesimi millesimi');
+    expect(millesimi, lessThan(120),
         reason: 'il cielo arriva in ritardo sul gesto: si sente scollato '
             'dalla mano');
     d.dispose();
@@ -238,10 +254,13 @@ void main() {
       return punti;
     }
 
-    final tabella = <int, double>{for (var g = 0; g <= 25; g++) g: aGradi(g)};
+    // **DA ZERO A TRENTACINQUE GRADI**, ordine AW voce 01 misura M2: il fondo
+    // corsa e' passato da sedici a trenta gradi, e una tabella che si ferma a
+    // venticinque non guarderebbe piu' il tratto finale della curva.
+    final tabella = <int, double>{for (var g = 0; g <= 35; g++) g: aGradi(g)};
     var salto = 0.0;
     var dove = 0;
-    for (var g = 1; g <= 25; g++) {
+    for (var g = 1; g <= 35; g++) {
       final d = tabella[g]! - tabella[g - 1]!;
       if (d > salto) {
         salto = d;
@@ -249,10 +268,10 @@ void main() {
       }
     }
     // ignore: avoid_print
-    print('ORDINE AV VOCE 02, M1: punti per grado '
-        '${[0, 2, 4, 5, 6, 8, 10, 12, 15, 18, 20].map((g) => "$g:${tabella[g]!.toStringAsFixed(1)}").join("  ")}');
+    print('ORDINE AW VOCE 01, M2: punti per grado '
+        '${[0, 5, 10, 15, 20, 25, 30, 35].map((g) => "$g:${tabella[g]!.toStringAsFixed(1)}").join("  ")}');
     // ignore: avoid_print
-    print('ORDINE AV VOCE 02, M1: salto massimo ${salto.toStringAsFixed(1)} '
+    print('ORDINE AW VOCE 01, M2: salto massimo ${salto.toStringAsFixed(1)} '
         'punti fra ${dove - 1} e $dove gradi');
     expect(salto, lessThanOrEqualTo(8.0),
         reason: 'fra ${dove - 1} e $dove gradi il cielo salta di '
@@ -262,13 +281,14 @@ void main() {
     // otterrebbe spegnendo la risposta, che e' il difetto opposto e altrettanto
     // vero: il cielo che non si muove.
     //
-    // Si guarda a VENTI gradi e non a diciotto: il fondo corsa sta a sedici,
-    // ma il riposo insegue mentre si misura e si riprende qualche punto, cosi'
-    // il pieno a schermo arriva un paio di gradi piu' in la'. Chiedere il
-    // pieno esattamente al grado del fondo corsa vorrebbe dire ignorare lo
-    // zero appreso, che e' la cura dell'ordine AS voce 01 e non si tocca.
-    expect(tabella[20]!, greaterThan(75.0),
-        reason: 'a venti gradi la corsa non e piena: la continuita non si '
-            'compra spegnendo il cielo');
+    // **SI GUARDA A TRENTACINQUE GRADI**, ordine AW voce 01: il fondo corsa
+    // sta a trenta, ma il riposo insegue mentre si misura e si riprende
+    // qualche punto, cosi' il pieno a schermo arriva qualche grado piu' in
+    // la'. Chiedere il pieno esattamente al grado del fondo corsa vorrebbe
+    // dire ignorare lo zero appreso, che e' la cura dell'ordine AS voce 01 e
+    // non si tocca.
+    expect(tabella[35]!, greaterThan(70.0),
+        reason: 'a trentacinque gradi la corsa non e piena: la continuita non '
+            'si compra spegnendo il cielo');
   });
 }

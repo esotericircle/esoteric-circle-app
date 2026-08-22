@@ -4,6 +4,7 @@ import 'dart:ui' show Offset;
 
 import 'package:flutter/foundation.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import 'package:flutter/scheduler.dart';
 
 /// Sorgente del moto per la parallasse multistrato.
 ///
@@ -17,6 +18,7 @@ import 'package:sensors_plus/sensors_plus.dart';
 /// regola d'oro dei sensori con fallback tattile o statico.
 class ParallaxController extends ChangeNotifier {
   ParallaxController() {
+    _accendiIFotogrammi();
     _tryListenTilt();
   }
 
@@ -130,10 +132,18 @@ class ParallaxController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// **IL TICKER DEL CIELO.** Ordine AW voce 01: batte alla frequenza dello
+  /// schermo, non a quella del sensore, e si ferma da solo quando non c'e'
+  /// piu' strada da fare.
+  void _accendiIFotogrammi() {
+    _fotogrammi = Ticker(_battito);
+  }
+
   void _tryListenTilt() {
     try {
       _sub = accelerometerEventStream(
-        samplingPeriod: const Duration(milliseconds: 66),
+        samplingPeriod: const Duration(
+            milliseconds: periodoDelSensoreInMillesimi),
       ).listen(
         _onAccel,
         onError: (_) => _sensorActive = false,
@@ -183,7 +193,7 @@ class ParallaxController extends ChangeNotifier {
   /// corsa resta 80 e non la supera mai: la saturazione e' MORBIDA, non un
   /// taglio netto, e fra i quindici e i novanta gradi il cielo continua a
   /// rispondere invece di essere gia' finito.
-  /// **IL FONDO CORSA STA A SEDICI GRADI.** Ordine AV voce 02.
+  /// **IL FONDO CORSA STA A TRENTA GRADI.** Ordine AV voce 02.
   ///
   /// Prima la corsa piena la decideva una `tanh` con guadagno 34, e il
   /// guadagno da solo non dice a quanti gradi si arriva in fondo: lo si
@@ -197,7 +207,15 @@ class ParallaxController extends ChangeNotifier {
   /// indovina: si cerca provandole tutte sul controller VERO. Un modello
   /// scritto a parte per fare la stessa ricerca ha sbagliato di dieci punti su
   /// ottanta, e la terna che dava per buona non passava le accettazioni.
-  static double fondoCorsa = math.sin(16 * math.pi / 180);
+  static double fondoCorsa = math.sin(fondoCorsaInGradi * math.pi / 180);
+
+  /// **A QUANTI GRADI IL CIELO ARRIVA IN FONDO: TRENTA.** Ordine AW voce 01.
+  ///
+  /// Erano sedici, e sedici gradi sono un movimento normale del polso: si
+  /// arrivava al massimo subito e **da li' non c'era piu' niente da dosare**.
+  /// E' l'"incontrollabile" del fondatore, letto nella sua riga diagnostica
+  /// dove l'inclinazione risultava gia' saturata a 1,00.
+  static double fondoCorsaInGradi = 30;
 
   /// Solo per la ricerca della terna: rimette i valori di partenza.
   @visibleForTesting
@@ -205,6 +223,7 @@ class ParallaxController extends ChangeNotifier {
       {double? zona, double? fondoInGradi, double? esponente}) {
     if (zona != null) zonaMorta = zona;
     if (fondoInGradi != null) {
+      fondoCorsaInGradi = fondoInGradi;
       fondoCorsa = math.sin(fondoInGradi * math.pi / 180);
     }
     if (esponente != null) esponenteDellaCurva = esponente;
@@ -268,6 +287,40 @@ class ParallaxController extends ChangeNotifier {
   double? _riposoX;
   double? _riposoY;
 
+  /// **I NUMERI VERI PER LA RIGA DIAGNOSTICA.** Ordine AW voce 01, pezzo 4.
+  ///
+  /// **La riga mostrava `tiltX` e lo chiamava "inclinazione dal riposo".** Non
+  /// lo e': `tiltX` e' la RISPOSTA dopo la zona morta e la curva, e satura a
+  /// 1,00 molto prima che il telefono sia inclinato tanto. Il fondatore ha
+  /// letto "1.00" e ha creduto di essere a fondo corsa di inclinazione, e **la
+  /// diagnosi e' stata sbagliata tre volte per questo**.
+  ///
+  /// Adesso i due numeri sono separati e nominati: la deviazione IN GRADI, che
+  /// e' cio' che la mano fa, e la risposta da 0 a 1, che e' cio' che il cielo
+  /// ne fa.
+  double get deviazioneInGradiX =>
+      math.asin(_ultimaDeviazioneX.clamp(-1.0, 1.0)) * 180 / math.pi;
+  double get deviazioneInGradiY =>
+      math.asin(_ultimaDeviazioneY.clamp(-1.0, 1.0)) * 180 / math.pi;
+
+  /// La risposta dopo zona morta e curva, da 0 a 1: e' il bersaglio che il
+  /// sensore ha dato, non ancora il valore dipinto.
+  double get rispostaX => _bersaglioX;
+  double get rispostaY => _bersaglioY;
+
+  /// **QUANTI FOTOGRAMMI AL SECONDO IL CIELO SI STA RIDIPINGENDO.** Ordine AW
+  /// voce 01: **e' il numero che avrebbe fatto trovare questo difetto due
+  /// giorni fa**. Con il disegno legato al sensore diceva quindici; adesso
+  /// dice quanti ne disegna lo schermo, finche' c'e' strada da fare.
+  double get fotogrammiAlSecondo => _fotogrammiAlSecondo;
+  double _fotogrammiAlSecondo = 0;
+
+  /// I punti che vengono dallo SCORRIMENTO e non dal sensore, sul piano dato.
+  /// **La riga li sommava senza dirlo**, ordine AW voce 01 e fatto F5: con
+  /// inclinazione dichiarata 0,00 il piano verticale correva meno tredici
+  /// punti, e quei punti erano il dito, non la mano.
+  double puntiDelloScorrimento(double depth) => -_scroll * 40 * depth;
+
   /// La posizione di riposo, per chi la vuole mostrare. Ordine AS voce 01.
   double? get riposoX => _riposoX;
   double? get riposoY => _riposoY;
@@ -311,11 +364,21 @@ class ParallaxController extends ChangeNotifier {
   static const double taglioPerVelocita = 8.0;
   static const double taglioDellaVelocita = 1.0;
 
-  /// Il periodo dei campioni, quello chiesto allo stream. **Si usa il periodo
-  /// nominale e non l'orologio**: due letture che arrivano appaiate farebbero
+  /// **IL PERIODO DEI CAMPIONI: SEDICI MILLESIMI**, ordine AW voce 01, cioe'
+  /// circa sessanta al secondo invece dei quindici di prima. Meno strada da
+  /// interpolare fra un campione e l'altro, e meno ritardo.
+  ///
+  /// **Il numero sta in un posto solo apposta.** Il filtro a un euro qui sotto
+  /// usa lo stesso valore per stimare la velocita' e per pesare il taglio: se
+  /// lo stream chiedesse sedici e il filtro continuasse a credere sessantasei,
+  /// **il taglio sbaglierebbe di quattro volte** e il tremore tornerebbe.
+  static const int periodoDelSensoreInMillesimi = 16;
+
+  /// Lo stesso periodo in secondi, per i conti del filtro. **Si usa il periodo
+  /// NOMINALE e non l'orologio**: due letture che arrivano appaiate farebbero
   /// esplodere la velocita' stimata, e con lei il taglio, proprio nell'istante
   /// in cui non e' successo niente.
-  static const double periodoDelSensore = 0.066;
+  static const double periodoDelSensore = periodoDelSensoreInMillesimi / 1000;
 
   double? _devFiltrataX, _devFiltrataY, _devPrecedenteX, _devPrecedenteY;
   double _velocitaFiltrataX = 0, _velocitaFiltrataY = 0;
@@ -366,6 +429,89 @@ class ParallaxController extends ChangeNotifier {
   /// telefono adesso, e il tilt e' quanto se ne discosta. Il cielo sta fermo
   /// quando la mano sta ferma, e si muove quando la mano si muove: e' la sola
   /// cosa che una persona possa collegare al proprio gesto.
+  /// **DOVE IL CIELO STA ANDANDO**, cioe' cio' che il sensore ha deciso
+  /// all'ultimo campione. Il valore DIPINTO, `_tiltX`, lo insegue fotogramma
+  /// per fotogramma.
+  double _bersaglioX = 0;
+  double _bersaglioY = 0;
+
+  /// L'ultima deviazione dal riposo, per la riga diagnostica: e' il numero che
+  /// mancava, e senza il quale la diagnosi e' stata sbagliata tre volte.
+  double _ultimaDeviazioneX = 0;
+  double _ultimaDeviazioneY = 0;
+
+  Ticker? _fotogrammi;
+  Duration _ultimoBattito = Duration.zero;
+
+  /// **QUANTO CI METTE IL CIELO AD ARRIVARE DOVE IL SENSORE LO MANDA.**
+  /// Ordine AW voce 01: novanta millesimi di costante di tempo. In una
+  /// costante il valore copre il 63 per cento della strada, in tre quasi
+  /// tutta: un gesto arriva a destinazione in meno di tre decimi, e nel
+  /// frattempo ogni fotogramma mostra un passo diverso.
+  static const double costanteDiTempo = 0.090;
+
+  /// **L'INTERRUTTORE CHE RIMETTE IL DIFETTO, e serve a una prova sola.**
+  /// Ordine AW voce 01.
+  ///
+  /// Spento, il campione del sensore dipinge direttamente, com'era prima di
+  /// quest'ordine. Non e' un ripiego ne' una via di fuga: e' il modo di
+  /// misurare il PRIMA e il DOPO **con la stessa formula e nello stesso
+  /// file**, cosi' il confronto resta nel repository invece di vivere in un
+  /// rapporto. Nessun punto di `lib` lo tocca.
+  @visibleForTesting
+  static bool interpolaSulFotogramma = true;
+
+  /// Sotto questo scarto il bersaglio e' raggiunto e il ticker si ferma: da
+  /// fermi non si spende un fotogramma.
+  static const double _abbastanzaVicino = 0.0005;
+
+  void _svegliaIlTicker() {
+    if (_fotogrammi == null) return;
+    if (!_fotogrammi!.isActive) {
+      _ultimoBattito = Duration.zero;
+      _fotogrammi!.start();
+    }
+  }
+
+  void _battito(Duration adesso) {
+    // **IL PASSO SI CALCOLA SUL TEMPO VERO DEL FOTOGRAMMA**, ordine AW voce
+    // 01: con un numero fisso, a centoventi al secondo il cielo si
+    // muoverebbe il doppio che a sessanta, e la stessa inclinazione darebbe
+    // due velocita' diverse su due telefoni.
+    if (_ultimoBattito == Duration.zero) {
+      _ultimoBattito = adesso;
+      return;
+    }
+    final dt = (adesso - _ultimoBattito).inMicroseconds / 1000000.0;
+    _ultimoBattito = adesso;
+    if (dt <= 0) return;
+    _fotogrammiAlSecondo = 1 / dt;
+    _avvicinaAlBersaglio(dt);
+  }
+
+  /// Avvicina il valore dipinto al bersaglio di un fotogramma lungo [dt]
+  /// secondi, e notifica. **Se e' arrivato, il ticker si ferma**: un telefono
+  /// fermo non deve costare un fotogramma al secondo.
+  void _avvicinaAlBersaglio(double dt) {
+    final quantoResta = math.max((_bersaglioX - _tiltX).abs(),
+        (_bersaglioY - _tiltY).abs());
+    if (quantoResta < _abbastanzaVicino) {
+      if (_tiltX != _bersaglioX || _tiltY != _bersaglioY) {
+        _tiltX = _bersaglioX;
+        _tiltY = _bersaglioY;
+        notifyListeners();
+      }
+      _fotogrammi?.stop();
+      return;
+    }
+    // Avvicinamento esponenziale: la quota di strada coperta dipende solo dal
+    // rapporto fra il fotogramma e la costante di tempo.
+    final passo = 1 - math.exp(-dt / costanteDiTempo);
+    _tiltX += (_bersaglioX - _tiltX) * passo;
+    _tiltY += (_bersaglioY - _tiltY) * passo;
+    notifyListeners();
+  }
+
   void _onAccel(AccelerometerEvent e) {
     // La gravita' normalizzata su g, senza tagli: qui e' il riferimento da cui
     // si misura, non ancora un valore da mostrare.
@@ -389,10 +535,45 @@ class ParallaxController extends ChangeNotifier {
     // l'unico smorzamento e per questo doveva essere lento; adesso il filtro
     // adattivo ha gia' fatto il suo, e tenerne un altro dietro vorrebbe dire
     // rimettere il ritardo che si e' appena tolto.
-    _tiltX = _corsaDa(devX).clamp(-1.0, 1.0);
-    _tiltY = _corsaDa(devY).clamp(-1.0, 1.0);
+    // **IL SENSORE COMANDA UN BERSAGLIO, NON IL DISEGNO.** Ordine AW voce 01,
+    // ed e' il cuore della cura.
+    //
+    // Qui c'era `_tiltX = ...` seguito da `notifyListeners()`: il cielo si
+    // ridipingeva SOLO quando arrivava un campione, cioe' quindici volte al
+    // secondo. Su uno schermo a centoventi sono otto fotogrammi identici e uno
+    // che salta, e misurato era anche peggio: **col sensore a 66 millesimi
+    // cambiava il 7,6 per cento dei fotogrammi, e il salto peggiore valeva
+    // 4,87 punti sugli 80**.
+    //
+    // Adesso il campione sposta il bersaglio e basta. A dipingere ci pensa il
+    // fotogramma, qui sotto.
+    _bersaglioX = _corsaDa(devX).clamp(-1.0, 1.0);
+    _bersaglioY = _corsaDa(devY).clamp(-1.0, 1.0);
+    _ultimaDeviazioneX = devX;
+    _ultimaDeviazioneY = devY;
     _sensorActive = true;
-    notifyListeners();
+    if (!interpolaSulFotogramma) {
+      // **IL COMPORTAMENTO DI PRIMA, tenuto per una prova sola.** Vedi
+      // [interpolaSulFotogramma].
+      _tiltX = _bersaglioX;
+      _tiltY = _bersaglioY;
+      notifyListeners();
+      return;
+    }
+    _svegliaIlTicker();
+  }
+
+  /// **SOLO PER LE PROVE: un fotogramma dello schermo che passa.** Ordine AW
+  /// voce 01.
+  ///
+  /// Il tempo vero non scorre dentro un `flutter test`, e il ticker del
+  /// controller non riceverebbe mai un battito: questa porta fa passare un
+  /// fotogramma di [millesimi] e lascia che il valore dipinto si avvicini al
+  /// bersaglio, esattamente come farebbe sul telefono.
+  @visibleForTesting
+  void avanzaIlFotogrammaPerLaProva(int millesimi) {
+    _fotogrammiAlSecondo = 1000 / millesimi;
+    _avvicinaAlBersaglio(millesimi / 1000);
   }
 
   /// **SOLO PER LE PROVE: una lettura del sensore, come arriverebbe.** Ordine
@@ -407,6 +588,8 @@ class ParallaxController extends ChangeNotifier {
   @override
   void dispose() {
     _sub?.cancel();
+    _fotogrammi?.dispose();
+    _fotogrammi = null;
     super.dispose();
   }
 }

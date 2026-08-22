@@ -46,6 +46,9 @@ class RigaDiMessaAPunto extends StatelessWidget {
       );
     }
     final corsa = parallasse.layerOffset(ProfonditaDeiPiani.fondo);
+    // I punti che vengono dal dito e non dalla mano, per poterli separare.
+    final scorrimento = Offset(
+        0, parallasse.puntiDelloScorrimento(ProfonditaDeiPiani.fondo));
     final vivo = parallasse.sensorActive;
     return Padding(
       key: const Key('riga_di_messa_a_punto'),
@@ -77,13 +80,54 @@ class RigaDiMessaAPunto extends StatelessWidget {
           // la corsa era gia' a 79 punti su 80 col telefono fermo in mano,
           // cioe' saturo in permanenza, e dalla riga non si poteva sapere.
           // Una misura che guarda meta' della cosa e' una misura che mente.
+          // **LA RIGA DICE LA VERITA', E PRIMA NON LA DICEVA.** Ordine AW
+          // voce 01, pezzo 4.
+          //
+          // Qui c'era scritto "Inclinazione dal riposo" seguito da
+          // `parallasse.tiltX`. **Non e' l'inclinazione**: e' la RISPOSTA dopo
+          // la zona morta e la curva, che satura a 1,00 molto prima che il
+          // telefono sia inclinato tanto. Il fondatore ha letto 1,00 e ha
+          // creduto di essere a fondo corsa di mano, **e la diagnosi e' stata
+          // sbagliata tre volte per questo**.
+          //
+          // E i punti del piano di fondo sommavano il sensore e lo
+          // SCORRIMENTO senza dirlo: con inclinazione dichiarata 0,00 il piano
+          // verticale correva meno tredici punti, e quei punti erano il dito.
+          //
+          // Adesso ogni numero ha il suo nome e la sua unita'.
           Text(
-            'Inclinazione dal riposo ${parallasse.tiltX.toStringAsFixed(2)} e '
-            '${parallasse.tiltY.toStringAsFixed(2)}. Il piano di fondo corre '
-            '${corsa.dx.toStringAsFixed(1)} in orizzontale e '
-            '${corsa.dy.toStringAsFixed(1)} in verticale, su '
-            '${corsaAttesaDelFondo.toStringAsFixed(0)} attesi a fondo corsa.',
+            'Mano: ${parallasse.deviazioneInGradiX.toStringAsFixed(1)} e '
+            '${parallasse.deviazioneInGradiY.toStringAsFixed(1)} gradi dal '
+            'riposo, su ${ParallaxController.fondoCorsaInGradi.toStringAsFixed(0)} '
+            'a fondo corsa.',
+            key: const Key('messa_a_punto_gradi'),
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+          ),
+          Text(
+            'Risposta dopo la curva ${parallasse.rispostaX.toStringAsFixed(2)} '
+            'e ${parallasse.rispostaY.toStringAsFixed(2)} su 1,00.',
+            key: const Key('messa_a_punto_risposta'),
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+          ),
+          Text(
+            'Piano di fondo: ${(corsa.dx - scorrimento.dx).toStringAsFixed(1)} e '
+            '${(corsa.dy - scorrimento.dy).toStringAsFixed(1)} punti dalla '
+            'mano, ${scorrimento.dy.toStringAsFixed(1)} dallo scorrimento, su '
+            '${corsaAttesaDelFondo.toStringAsFixed(0)} attesi.',
             key: const Key('messa_a_punto_numeri'),
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+          ),
+          // **IL NUMERO CHE AVREBBE FATTO TROVARE IL DIFETTO DUE GIORNI FA.**
+          // Col disegno legato al campione del sensore questa riga avrebbe
+          // detto quindici, e nessuno avrebbe dovuto cercare oltre.
+          Text(
+            'Il cielo si ridipinge a '
+            '${parallasse.fotogrammiAlSecondo.toStringAsFixed(0)} fotogrammi '
+            'al secondo.',
+            key: const Key('messa_a_punto_fotogrammi'),
             style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4),
           ),

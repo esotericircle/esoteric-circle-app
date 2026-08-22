@@ -52,6 +52,12 @@ void main() {
       {int campioni = 200}) {
     for (var i = 0; i < campioni; i++) {
       p.leggiDalSensorePerLaProva(g.$1, g.$2, g.$3);
+      // **E IL FOTOGRAMMA PASSA.** Ordine AW voce 01: il sensore non dipinge
+      // piu', sposta un bersaglio, e a dipingere e' il fotogramma. Leggere il
+      // tilt subito dopo un campione vorrebbe dire leggerlo prima che il
+      // cielo si sia mosso: la prova trovava zero e accusava il codice.
+      p.avanzaIlFotogrammaPerLaProva(8);
+      p.avanzaIlFotogrammaPerLaProva(8);
     }
   }
 
@@ -80,7 +86,13 @@ void main() {
     p.dispose();
   });
 
-  test('quindici gradi dal riposo danno piu di 60 punti sugli 80', () {
+  /// **LA SOGLIA E' CAMBIATA CON L'ORDINE AW VOCE 01, e non e' un
+  /// allentamento.** Qui si pretendeva **oltre sessanta punti a quindici
+  /// gradi**, col fondo corsa a sedici: vuol dire che un movimento normale del
+  /// polso arrivava al massimo e da li' non restava piu' niente da dosare. Il
+  /// fondatore lo ha chiamato "incontrollabile". Adesso il fondo corsa sta a
+  /// trenta gradi e quindici ne danno una meta' scarsa: si puo' dosare.
+  test('quindici gradi dal riposo danno fra 25 e 40 punti sugli 80', () {
     final p = ParallaxController();
     // Prima la persona tiene il telefono come le viene, e il riposo lo impara.
     tieniFermo(p, postura());
@@ -93,7 +105,7 @@ void main() {
     print('ORDINE AS VOCE 01: a quindici gradi dal riposo il piano di fondo '
         'corre ${corsa.toStringAsFixed(1)} punti sugli 80 attesi a fondo '
         'corsa (tilt ${p.tiltX.toStringAsFixed(3)})');
-    expect(corsa, greaterThan(60),
+    expect(corsa, inInclusiveRange(25.0, 40.0),
         reason: 'quindici gradi danno solo ${corsa.toStringAsFixed(1)} punti: '
             'e la parallasse che si sposta di pochi millimetri, cioe il '
             'difetto che questa voce doveva chiudere');
