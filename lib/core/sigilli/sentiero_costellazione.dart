@@ -1,7 +1,7 @@
 // GENERATO DA tool/genera_sentieri_dal_corpus.py: NON SI SCRIVE
 // A MANO. Ordine AR voce 02.
 //
-// La fonte e' docs/corpus/Traguardi_165_Revisione_C.json, e il
+// La fonte e' docs/corpus/Traguardi_165_Revisione_D2.json, e il
 // dato comanda: nomi, condizioni, fasce, Eos e porte vengono da
 // li' verbatim. Per cambiare un traguardo si cambia il corpus e
 // si rigenera, mai il contrario.
@@ -714,15 +714,15 @@ final List<Traguardo> sentieroDellaCostellazione = [
     id: 'med_51',
     nome: 'Le dodici Lune del tuo segno',
     famiglia: FamigliaDelTraguardo.cielo,
-    condizione: const Dormiente('med_51', 'la costanza LUNGA su un evento del cielo (dodici Lune di seguito) chiede una memoria per evento che il diario non tiene: si conta la serie dei GIORNI, non quella degli eventi'),
-    frase: 'Dodici mesi di seguito in cui hai letto l\'Oroscopo mentre la Luna passava nel tuo segno.',
+    condizione: const FinestraDelCielo(EventiDelCielo.lunaNelTuoSegno, conGesto: 'oroscopo'),
+    frase: 'Dodici volte hai letto l\'Oroscopo mentre la Luna passava nel tuo segno.',
     posizione: 51,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: '',
     eGrande: false,
     eos: 55,
     fascia: 'L\'anno',
-    dormiente: true,
+    dormiente: false,
   ),
   Traguardo(
     id: 'med_52',

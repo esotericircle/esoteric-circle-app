@@ -23,10 +23,13 @@ import sys
 import unicodedata
 
 RADICE = pathlib.Path(__file__).resolve().parent.parent
-# **IL CORPUS E' LA REVISIONE D. Ordine AS voce 12.** Sostituisce la C, che
-# resta come storia: cambia una cosa sola, ventidue gradini di costanza che non
-# chiedono piu' giorni consecutivi ma tanti giorni dentro un arco piu' largo.
-CORPUS = RADICE / 'docs' / 'corpus' / 'Traguardi_165_Revisione_D.json'
+# **IL CORPUS E' LA REVISIONE D2. Ordine AU voce 03.** La D aveva portato
+# ventidue gradini di costanza dai giorni consecutivi ai giorni dentro un arco,
+# ma con l'arco sbagliato: ne uscivano gradini che chiedevano quattordici
+# giorni dentro tre, cioe' che non potevano maturare mai. La D2 applica la
+# LEGGE DELLA FINESTRA, l'arco vale circa una volta e mezza il numero
+# richiesto, e cosi' sette gradini dichiarati dormienti tornano vivi.
+CORPUS = RADICE / 'docs' / 'corpus' / 'Traguardi_165_Revisione_D2.json'
 
 # I gesti che l'app REGISTRA davvero, censiti sui punti che chiamano la regia.
 # Una condizione che chiedesse un gesto fuori da questo elenco non potrebbe
@@ -266,6 +269,17 @@ def regolaCielo(v, testo):
         return 'DORMIENTE', f'il gesto {gesto} non arriva alla regia'
     return (f"FinestraDelCielo(EventiDelCielo.{evento}, conGesto: '{gesto}')",
             None)
+
+
+# **LA LEGGE DELLA FINESTRA.** Ordine AU voce 03: l'arco vale circa una volta e
+# mezza il numero richiesto. Nessun gradino puo' chiedere piu' giorni di quanti
+# ne concede il suo arco, e nessuno puo' chiedere giorni consecutivi. La stessa
+# legge sta scritta nel corpus e sorvegliata da
+# `test/la_finestra_e_una_volta_e_mezza_test.dart`: qui serve perche' il
+# generatore se ne accorga mentre traduce, non dopo.
+LEGGE_DELLA_FINESTRA = {
+    2: 3, 3: 5, 5: 8, 7: 10, 14: 20, 21: 30, 30: 45, 40: 60, 60: 85, 90: 130,
+}
 
 
 def regolaCostanzaLarga(v, testo):
@@ -633,7 +647,7 @@ def main():
             "// GENERATO DA tool/genera_sentieri_dal_corpus.py: NON SI SCRIVE\n"
             "// A MANO. Ordine AR voce 02.\n"
             "//\n"
-            "// La fonte e' docs/corpus/Traguardi_165_Revisione_C.json, e il\n"
+            f"// La fonte e' docs/corpus/{CORPUS.name}, e il\n"
             "// dato comanda: nomi, condizioni, fasce, Eos e porte vengono da\n"
             "// li' verbatim. Per cambiare un traguardo si cambia il corpus e\n"
             "// si rigenera, mai il contrario.\n\n"

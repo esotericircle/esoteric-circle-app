@@ -31,10 +31,44 @@ decide su tre di esse:
 
 ## Le voci
 
-- **AU.00** Il manifesto prima di tutto. Stato: APERTA
+- **AU.00** Il manifesto prima di tutto. Stato: CHIUSA
+  (questo file, nato prima di ogni altra modifica, con la guardia
+  `test/ordine_au_guard_test.dart` che pretende zero voci APERTE alla consegna.
+  Due cure rispetto alla guardia sorella: il conto delle voci parte da zero
+  perche' il manifesto va da AU.00 a AU.13, e il regex delle righe cerca AU)
 - **AU.01** Medora, l'alpha dalla luminanza. Stato: APERTA
 - **AU.02** Aura torna grande come le altre. Stato: APERTA
-- **AU.03** Il corpus si corregge qui. Stato: APERTA
+- **AU.03** Il corpus si corregge qui. Stato: CHIUSA
+  (**TUTTE E VENTITRE' LE CORREZIONI HANNO MORSO**, e il conto dell'ordine non
+  torna: l'ordine annuncia diciotto correzioni e poi ne elenca ventitre', cioe'
+  DODICI condizioni sotto un titolo che dice dieci piu' UNDICI nomi. Si e'
+  applicato l'elenco, che e' il dato, e non il titolo, che e' il riassunto.
+  Le scrive `tool/genera_corpus_d2.py`, che CADE se una correzione non trova
+  la sua voce: una correzione che non morde e' peggio di una mancante, perche'
+  sembra fatta. **GLI EOS NON SI SONO MOSSI**, ricontati sul file nuovo: 165
+  gradini, 2.010 per sentiero, 6.030 in tutto.
+  **I RISVEGLIATI SONO OTTO, non sette.** Oltre ai sette che l'ordine nomina
+  c'e' `med_51`, che l'ordine faceva riscrivere senza elencarlo fra i
+  risvegliati: tolto il "dodici mesi di seguito" la condizione diventa
+  costruibile da sola. I dormienti del codice generato passano da 25 a 17, e i
+  17 che restano hanno tutti una ragione vera e dichiarata, non aritmetica:
+  cinque per un motore che non esiste, eclissi e meditazione, gli altri per
+  dettagli che la scena non manda.
+  **LA LEGGE DELLA FINESTRA sta in tre posti**: nel corpus come dato, nel
+  generatore che lo legge, e nella guardia
+  `test/la_finestra_e_una_volta_e_mezza_test.dart`, che la ripete apposta
+  invece di importarla, perche' una guardia che legge la regola dal posto che
+  sorveglia non sorveglia niente.
+  **LA GUARDIA ERA VERDE SENZA GUARDARE, due volte.** Prima cercava due cifre
+  in condizioni che scrivono il primo numero in lettere, "Tre Oracoli
+  nell'arco di 5 giorni", e non ne riconosceva nessuna delle ventiquattro;
+  poi il confine di parola era scritto in una stringa non grezza, dove ``
+  non e' un confine ma il carattere di ritorno indietro. Adesso ne riconosce
+  ventiquattro, e messi tre veleni nel corpus, uno per ciascuna delle tre cose
+  che pretende, cade su tutti e tre.
+  **UN DIFETTO TROVATO DI PASSAGGIO**: l'intestazione dei tre file generati
+  nominava la revisione C mentre il generatore leggeva la D. Adesso il nome
+  viene dal percorso vero e non si puo' piu' scollare)
 - **AU.04** La mano ferma. Stato: APERTA
 - **AU.05** I Maestri non coprono piu' niente. Stato: APERTA
 - **AU.06** Una festa, un traguardo. Stato: APERTA
@@ -49,8 +83,8 @@ decide su tre di esse:
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 14
-VOCI_CHIUSE: 0
+VOCI_APERTE: 12
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

@@ -1,7 +1,7 @@
 // GENERATO DA tool/genera_sentieri_dal_corpus.py: NON SI SCRIVE
 // A MANO. Ordine AR voce 02.
 //
-// La fonte e' docs/corpus/Traguardi_165_Revisione_C.json, e il
+// La fonte e' docs/corpus/Traguardi_165_Revisione_D2.json, e il
 // dato comanda: nomi, condizioni, fasce, Eos e porte vengono da
 // li' verbatim. Per cambiare un traguardo si cambia il corpus e
 // si rigenera, mai il contrario.
@@ -110,7 +110,7 @@ final List<Traguardo> sentieroDelLoto = [
   ),
   Traguardo(
     id: 'aur_8',
-    nome: 'Due mattine di seguito',
+    nome: 'Due mattine',
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 2, 3),
     frase: 'Due Riti dell\'Alba, nell\'arco di 3 giorni.',
@@ -180,7 +180,7 @@ final List<Traguardo> sentieroDelLoto = [
   ),
   Traguardo(
     id: 'aur_13',
-    nome: 'Tre mattine di seguito',
+    nome: 'Tre mattine',
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 3, 5),
     frase: 'Tre Riti dell\'Alba, nell\'arco di 5 giorni.',
@@ -278,7 +278,7 @@ final List<Traguardo> sentieroDelLoto = [
   ),
   Traguardo(
     id: 'aur_20',
-    nome: 'Cinque mattine di seguito',
+    nome: 'Cinque mattine',
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 5, 8),
     frase: 'Cinque Riti dell\'Alba, nell\'arco di 8 giorni.',
@@ -474,17 +474,17 @@ final List<Traguardo> sentieroDelLoto = [
   ),
   Traguardo(
     id: 'aur_34',
-    nome: 'Ventuno mattine di seguito',
+    nome: 'Ventuno mattine',
     famiglia: FamigliaDelTraguardo.ritorno,
-    condizione: const Dormiente('aur_34', 'il corpus chiede 21 giorni dentro un arco di 5, che e aritmeticamente impossibile: il dato va corretto nel corpus'),
-    frase: 'Tre settimane di Riti dell\'Alba, nell\'arco di 5 giorni.',
+    condizione: const GiorniDentroUnArco('alba', 21, 30),
+    frase: 'Ventuno Riti dell\'Alba, nell\'arco di 30 giorni.',
     posizione: 34,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: '',
     eGrande: false,
     eos: 45,
     fascia: 'La stagione',
-    dormiente: true,
+    dormiente: false,
   ),
   Traguardo(
     id: 'aur_35',
@@ -544,10 +544,10 @@ final List<Traguardo> sentieroDelLoto = [
   ),
   Traguardo(
     id: 'aur_39',
-    nome: 'Trenta mattine di seguito',
+    nome: 'Trenta mattine',
     famiglia: FamigliaDelTraguardo.ritorno,
-    condizione: const GiorniDiSeguito('alba', 30),
-    frase: 'Un mese di Riti dell\'Alba consecutivi.',
+    condizione: const GiorniDentroUnArco('alba', 30, 45),
+    frase: 'Trenta Riti dell\'Alba, nell\'arco di 45 giorni.',
     posizione: 39,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: '',
@@ -628,24 +628,24 @@ final List<Traguardo> sentieroDelLoto = [
   ),
   Traguardo(
     id: 'aur_45',
-    nome: 'Sessanta mattine di seguito',
+    nome: 'Sessanta mattine',
     famiglia: FamigliaDelTraguardo.ritorno,
-    condizione: const Dormiente('aur_45', 'il corpus chiede 60 giorni dentro un arco di 3, che e aritmeticamente impossibile: il dato va corretto nel corpus'),
-    frase: 'Due mesi di Riti dell\'Alba, nell\'arco di 3 giorni.',
+    condizione: const GiorniDentroUnArco('alba', 60, 85),
+    frase: 'Sessanta Riti dell\'Alba, nell\'arco di 85 giorni.',
     posizione: 45,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: '',
     eGrande: false,
     eos: 55,
     fascia: 'L\'anno',
-    dormiente: true,
+    dormiente: false,
   ),
   Traguardo(
     id: 'aur_46',
     nome: 'Le dodici Lune del respiro',
     famiglia: FamigliaDelTraguardo.cielo,
     condizione: const Dormiente('aur_46', 'la costanza LUNGA su un evento del cielo (dodici Lune di seguito) chiede una memoria per evento che il diario non tiene: si conta la serie dei GIORNI, non quella degli eventi'),
-    frase: 'Dodici Lune piene di seguito con un Soffio del Destino in ciascuna.',
+    frase: 'Dodici Lune piene con un Soffio del Destino in ciascuna.',
     posizione: 46,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: '',
@@ -740,17 +740,17 @@ final List<Traguardo> sentieroDelLoto = [
   ),
   Traguardo(
     id: 'aur_53',
-    nome: 'Novanta mattine di seguito',
+    nome: 'Novanta mattine',
     famiglia: FamigliaDelTraguardo.ritorno,
-    condizione: const Dormiente('aur_53', 'il corpus chiede 90 giorni dentro un arco di 5, che e aritmeticamente impossibile: il dato va corretto nel corpus'),
-    frase: 'Tre mesi di Riti dell\'Alba, nell\'arco di 5 giorni.',
+    condizione: const GiorniDentroUnArco('alba', 90, 130),
+    frase: 'Novanta Riti dell\'Alba, nell\'arco di 130 giorni.',
     posizione: 53,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: '',
     eGrande: false,
     eos: 55,
     fascia: 'L\'anno',
-    dormiente: true,
+    dormiente: false,
   ),
   Traguardo(
     id: 'aur_54',
