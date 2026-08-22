@@ -214,4 +214,61 @@ void main() {
         reason: 'i Maestri di lato tremano ancora con la mano ferma');
     c.dispose();
   });
+
+  test('M1 la continuita: nessun grado vale piu di 8 punti sugli 80', () {
+    // **LA MISURA CHE MANCAVA, ed e' per questo che il difetto e' passato.**
+    // Ordine AV voce 02.
+    //
+    // Le accettazioni dell'ordine AU voce 04 erano due punti soli: zero al
+    // riposo e oltre sessanta a quindici gradi. **Una curva che salta li
+    // rispetta tutti e due**, e infatti quella di ieri li rispettava mentre
+    // il fondatore vedeva il cielo immobile e poi scattare di lato. Una
+    // risposta si giudica sulla sua FORMA, non su due punti.
+    //
+    // Qui si tabula grado per grado da zero a venticinque e si guarda il
+    // salto piu' grande fra un grado e il successivo. **Questa prova resta nel
+    // repository per sempre**: e' l'unica che vede uno scatto.
+    double aGradi(int gradi) {
+      final c = ParallaxController();
+      leggi(c, 20);
+      final quanto = math.sin(gradi * math.pi / 180) * 9.8;
+      leggi(c, 60, scarto: (i) => quanto);
+      final punti = c.tiltX.abs() * 80;
+      c.dispose();
+      return punti;
+    }
+
+    final tabella = <int, double>{for (var g = 0; g <= 25; g++) g: aGradi(g)};
+    var salto = 0.0;
+    var dove = 0;
+    for (var g = 1; g <= 25; g++) {
+      final d = tabella[g]! - tabella[g - 1]!;
+      if (d > salto) {
+        salto = d;
+        dove = g;
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE AV VOCE 02, M1: punti per grado '
+        '${[0, 2, 4, 5, 6, 8, 10, 12, 15, 18, 20].map((g) => "$g:${tabella[g]!.toStringAsFixed(1)}").join("  ")}');
+    // ignore: avoid_print
+    print('ORDINE AV VOCE 02, M1: salto massimo ${salto.toStringAsFixed(1)} '
+        'punti fra ${dove - 1} e $dove gradi');
+    expect(salto, lessThanOrEqualTo(8.0),
+        reason: 'fra ${dove - 1} e $dove gradi il cielo salta di '
+            '${salto.toStringAsFixed(1)} punti sugli 80: e lo scatto che il '
+            'fondatore vede. La corsa non si concentra in una fascia stretta');
+    // **E LA CORSA PIENA SI RAGGIUNGE DAVVERO**, se no la continuita si
+    // otterrebbe spegnendo la risposta, che e' il difetto opposto e altrettanto
+    // vero: il cielo che non si muove.
+    //
+    // Si guarda a VENTI gradi e non a diciotto: il fondo corsa sta a sedici,
+    // ma il riposo insegue mentre si misura e si riprende qualche punto, cosi'
+    // il pieno a schermo arriva un paio di gradi piu' in la'. Chiedere il
+    // pieno esattamente al grado del fondo corsa vorrebbe dire ignorare lo
+    // zero appreso, che e' la cura dell'ordine AS voce 01 e non si tocca.
+    expect(tabella[20]!, greaterThan(75.0),
+        reason: 'a venti gradi la corsa non e piena: la continuita non si '
+            'compra spegnendo il cielo');
+  });
 }

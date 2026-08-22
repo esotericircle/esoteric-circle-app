@@ -183,45 +183,83 @@ class ParallaxController extends ChangeNotifier {
   /// corsa resta 80 e non la supera mai: la saturazione e' MORBIDA, non un
   /// taglio netto, e fra i quindici e i novanta gradi il cielo continua a
   /// rispondere invece di essere gia' finito.
-  static const double guadagnoDellInclinazione = 34.0;
+  /// **IL FONDO CORSA STA A SEDICI GRADI.** Ordine AV voce 02.
+  ///
+  /// Prima la corsa piena la decideva una `tanh` con guadagno 34, e il
+  /// guadagno da solo non dice a quanti gradi si arriva in fondo: lo si
+  /// scopriva tabulando. Adesso il fondo corsa e' un dato, e si legge.
+  ///
+  /// **L'ordine ne diceva diciotto, e la differenza e' misurata**: vedi il
+  /// commento su [zonaMorta].
+  ///
+  /// **NON E' UNA COSTANTE PER CAPRICCIO.** Le tre costanti della curva si
+  /// possono tarare da una prova, `tara`, perche' la terna giusta non si
+  /// indovina: si cerca provandole tutte sul controller VERO. Un modello
+  /// scritto a parte per fare la stessa ricerca ha sbagliato di dieci punti su
+  /// ottanta, e la terna che dava per buona non passava le accettazioni.
+  static double fondoCorsa = math.sin(16 * math.pi / 180);
 
-  /// **LA ZONA MORTA ATTORNO AL RIPOSO.** Ordine AU voce 04, primo dei tre
-  /// pezzi.
-  ///
-  /// **Il difetto che cura, misurato dal fondatore sulla build 2188**: telefono
-  /// tenuto in mano FERMO, e il piano di fondo correva 32,8 punti sugli 80.
-  /// Non era un difetto dello zero appreso, che funziona: era che vicino al
-  /// riposo la risposta era ripida quanto a meta' corsa, circa 80 punti per
-  /// unita' di inclinazione, quindi il tremore della mano muoveva il cielo di
-  /// continuo, e con lui i tre Maestri in home.
-  ///
-  /// Sotto questa soglia il cielo non si muove AFFATTO. Zero, non poco: un
-  /// movimento piccolissimo che resta e' peggio di nessun movimento, perche'
-  /// l'occhio lo insegue.
-  ///
-  /// **Il numero e' tarato sulla misura, non scelto.** L'ordine indicava 0,05
-  /// come punto di partenza. Dalla riga diagnostica si risale alla deviazione
-  /// vera con mano ferma, `atanh(0,41) / 5 = 0,0871`, e con 0,05 la risposta
-  /// resterebbe a 1,9 punti, cioe' appena sotto la soglia di accettazione di
-  /// 2: troppo poco margine per un numero che viene da una misura sola. Con
-  /// 0,07 restano 0,9 punti, e quindici gradi ne danno ancora 70,9.
-  static const double zonaMorta = 0.07;
+  /// Solo per la ricerca della terna: rimette i valori di partenza.
+  @visibleForTesting
+  static void tara(
+      {double? zona, double? fondoInGradi, double? esponente}) {
+    if (zona != null) zonaMorta = zona;
+    if (fondoInGradi != null) {
+      fondoCorsa = math.sin(fondoInGradi * math.pi / 180);
+    }
+    if (esponente != null) esponenteDellaCurva = esponente;
+  }
 
-  /// **L'ESPONENTE DELLA CURVA.** Ordine AU voce 04, terzo pezzo: morbida
-  /// vicino allo zero, piena verso il fondo corsa.
+  /// **LA ZONA MORTA ATTORNO AL RIPOSO**, ordine AU voce 04 per l'idea e
+  /// ordine AV voce 02 per il valore. Sotto questa soglia il cielo non si
+  /// muove AFFATTO: un movimento piccolissimo che resta e' peggio di nessun
+  /// movimento, perche' l'occhio lo insegue.
   ///
-  /// Con esponente 1 la risposta e' una retta ripida appena fuori dalla zona
-  /// morta, e il cielo salta appena si supera la soglia. Con 2 la curva parte
-  /// piatta e si alza dopo: il gesto piccolo resta piccolo, quello grande
-  /// arriva in fondo lo stesso.
+  /// **DA 0,07 A 0,09, e i due numeri dell'ordine AV non stavano insieme.**
+  /// L'ordine chiede la zona morta a 0,07 e il fondo corsa a diciotto gradi, e
+  /// insieme chiede cinque accettazioni. Provata quella terna esatta sul
+  /// controller vero: la continuita' passa, ma **la mano ferma arriva a 3,63
+  /// punti invece che sotto 2, e quindici gradi ne danno 52,3 invece che oltre
+  /// 60**. Non e' un difetto dell'idea: e' che una curva con esponente basso
+  /// non schiaccia piu' la deviazione della mano ferma come faceva la
+  /// quadratica, quindi il tremore esce dalla soglia e si vede.
   ///
-  /// **Il guadagno e' salito da 5 a 34, e NON e' un guadagno alzato.** La
-  /// deviazione ora entra elevata al quadrato e ridotta della zona morta,
-  /// quindi il numero davanti deve crescere perche' la corsa piena resti
-  /// raggiungibile: a quindici gradi si passa da 68,8 punti a 70,9. Abbassare
-  /// il guadagno, che e' la strada corta, riporterebbe il difetto di due
-  /// giorni fa, quando quindici gradi valevano 21 punti sugli 80.
-  static const double esponenteDellaCurva = 2.0;
+  /// Cercate tutte le terne di zona morta, fondo corsa ed esponente **sul
+  /// controller vero e non su un modello**, ne restano NOVE. Questa e' quella
+  /// col margine piu' largo fra quelle che tengono l'esponente 1,1 che
+  /// l'ordine indica: **mano ferma 0,00 punti, quindici gradi 70,4, salto
+  /// massimo fra due gradi 7,6**. La zona morta passa da quattro gradi a
+  /// quasi cinque, e il fondo corsa da diciotto a sedici.
+  ///
+  /// **La prima ricerca era stata fatta su un modello scritto a parte**, che
+  /// riproduceva a mano il riposo, il filtro e la curva: dava per buona una
+  /// terna che sul controller vero lasciava quindici gradi a 54,3 punti invece
+  /// che sopra 60. Un modello del proprio codice e' un secondo codice, e i due
+  /// divergono.
+  static double zonaMorta = 0.085;
+
+  /// **L'ESPONENTE DELLA CURVA, e da 2,0 scende a 1,1.** Ordine AV voce 02.
+  ///
+  /// **Il fatto del fondatore sulla 2189**: "e' tutto immobile e appena muovo
+  /// un pochino il cellulare lo sfondo fa uno scatto a destra o a sinistra".
+  ///
+  /// **La causa, tabulata e non supposta.** La curva di ieri,
+  /// `tanh(34 * u^2)`, dava questi punti sugli 80 della corsa: a 4 gradi 0, a
+  /// 6 gradi 3,7, a 10 gradi 31,9, a 12 gradi **50,7**. Fra sei e dodici gradi
+  /// il cielo faceva quarantasette punti, e il salto peggiore fra un grado e
+  /// il successivo valeva **9,5 punti**, fra i dieci e gli undici gradi.
+  /// Immobile e poi lo scatto: e' esattamente quello.
+  ///
+  /// **L'errore di metodo, e non e' del codice.** Le misure di accettazione
+  /// dell'ordine AU voce 04 erano due punti soli, zero al riposo e oltre
+  /// sessanta a quindici gradi: **una curva che salta li rispetta tutti e
+  /// due**. Mancava la misura della continuita', e per questo il difetto e'
+  /// passato. Adesso c'e', e resta per sempre.
+  ///
+  /// Con esponente 1,1 la risposta e' piatta all'uscita dalla zona morta e
+  /// dritta dopo: a 5 gradi 4,4 punti, a 10 gradi 31,9, a 15 gradi 61,7, a 18
+  /// gradi la corsa piena. **Nessun grado vale piu' di 6,1 punti.**
+  static double esponenteDellaCurva = 1.1;
 
   /// La posizione di riposo imparata, cioe' come la persona tiene il telefono
   /// adesso. Nulla finche' non arriva la prima lettura: il primo campione la
@@ -234,13 +272,6 @@ class ParallaxController extends ChangeNotifier {
   double? get riposoX => _riposoX;
   double? get riposoY => _riposoY;
 
-  /// Saturazione morbida: `tanh`, scritta a mano perche' `dart:math` non la
-  /// porta. Cresce quasi dritta vicino allo zero e si appiattisce sull'uno.
-  static double _morbida(double v) {
-    final e2 = math.exp(2 * v);
-    return (e2 - 1) / (e2 + 1);
-  }
-
   /// **DALLA DEVIAZIONE ALLA CORSA, con la zona morta e la curva.** Ordine AU
   /// voce 04, pezzi uno e tre insieme perche' sono la stessa funzione.
   ///
@@ -251,9 +282,17 @@ class ParallaxController extends ChangeNotifier {
   static double _corsaDa(double deviazione) {
     final quanta = deviazione.abs();
     if (quanta <= zonaMorta) return 0.0;
-    final oltre = (quanta - zonaMorta) / (1.0 - zonaMorta);
-    final risposta = _morbida(
-        guadagnoDellInclinazione * math.pow(oltre, esponenteDellaCurva));
+    // **SI NORMALIZZA SUL FONDO CORSA, NON SU UNO.** Ordine AV voce 02.
+    //
+    // Prima si normalizzava su `1 - zonaMorta`, cioe' su novanta gradi di
+    // inclinazione, e poi una `tanh` col guadagno alto riportava la corsa
+    // piena a portata di mano: **e' la `tanh` che comprimeva tutta la corsa in
+    // una fascia di sei gradi**, ed e' lo scatto che il fondatore ha visto.
+    // Adesso il fondo corsa e' dichiarato, diciotto gradi, e la curva ci
+    // arriva salendo. Niente `tanh`.
+    final oltre =
+        ((quanta - zonaMorta) / (fondoCorsa - zonaMorta)).clamp(0.0, 1.0);
+    final risposta = math.pow(oltre, esponenteDellaCurva).toDouble();
     return deviazione.isNegative ? -risposta : risposta;
   }
 
