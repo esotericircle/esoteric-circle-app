@@ -262,6 +262,35 @@ def regolaCielo(v, testo):
         evento = eventoIn(senzaAccenti(v['finestra_del_cielo']))
     if evento is None:
         return None
+    # **UNA FINESTRA DEL CIELO GUARDA OGGI, e non sa contare.** Ordine AU voce
+    # 03, coda: `FinestraDelCielo` risponde vero quando l'evento c'e' OGGI e il
+    # gesto e' stato fatto oggi. Una condizione che ne chiede DODICI, come
+    # "dodici volte hai letto l'Oroscopo mentre la Luna passava nel tuo segno",
+    # chiede una memoria per evento che il diario non tiene, la stessa che gia'
+    # rende dormienti cal_50 e aur_46.
+    #
+    # **Senza questa riga il difetto era peggio della dormienza**: la
+    # condizione usciva identica a quella del traguardo che ne chiede UNA
+    # sola, med_14, quindi med_51 si sarebbe acceso alla PRIMA lettura, cioe'
+    # un traguardo dell'anno regalato il primo giorno. Lo ha trovato una prova
+    # che non c'entrava, quella che vieta due traguardi con la stessa firma.
+    # **IL NUMERO CONTA SOLO SE CONTA GLI EVENTI**, e la prima stesura di
+    # questa riga ne spegneva tre a torto: in "un Oroscopo letto in un giorno
+    # che porta TRE transiti" il tre descrive il giorno, non quante volte; e in
+    # "sotto l'ultimo QUARTO di Luna" trovava perfino un quattro. Vale solo il
+    # numero di "N volte", oppure quello con cui la frase COMINCIA, come in
+    # "Dodici Lune nuove con una gettata in ciascuna".
+    conVolte = re.search(r'(\w+)\s+volte', testo)
+    if conVolte:
+        quante = numeroIn(conVolte.group(1))
+    else:
+        prima = testo.split()
+        quante = numeroIn(prima[0]) if prima else None
+    if quante is not None and quante > 1:
+        return 'DORMIENTE', (
+            'la costanza LUNGA su un evento del cielo (%d volte) chiede una '
+            'memoria per evento che il diario non tiene: si conta la serie dei '
+            'GIORNI, non quella degli eventi' % quante)
     gesto = gestoIn(testo)
     if gesto is None:
         return f"FinestraDelCielo(EventiDelCielo.{evento})", None

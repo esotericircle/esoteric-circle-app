@@ -80,13 +80,25 @@ decide su tre di esse:
   la sua voce: una correzione che non morde e' peggio di una mancante, perche'
   sembra fatta. **GLI EOS NON SI SONO MOSSI**, ricontati sul file nuovo: 165
   gradini, 2.010 per sentiero, 6.030 in tutto.
-  **I RISVEGLIATI SONO OTTO, non sette.** Oltre ai sette che l'ordine nomina
-  c'e' `med_51`, che l'ordine faceva riscrivere senza elencarlo fra i
-  risvegliati: tolto il "dodici mesi di seguito" la condizione diventa
-  costruibile da sola. I dormienti del codice generato passano da 25 a 17, e i
-  17 che restano hanno tutti una ragione vera e dichiarata, non aritmetica:
-  cinque per un motore che non esiste, eclissi e meditazione, gli altri per
-  dettagli che la scena non manda.
+  **I RISVEGLIATI SONO SETTE, ESATTAMENTE QUELLI CHE L'ORDINE NOMINA, e per un
+  poco ne avevo contato uno in piu' a torto.** La riscrittura di `med_51`
+  sembrava averlo reso costruibile, e invece lo aveva reso PEGGIO che
+  dormiente: "dodici volte hai letto l'Oroscopo mentre la Luna passava nel tuo
+  segno" usciva dal generatore con la stessa identica condizione di `med_14`,
+  che ne chiede UNA sola, quindi un traguardo dell'anno si sarebbe acceso alla
+  prima lettura. **Lo ha trovato una prova che non c'entrava**, quella
+  dell'ordine U che vieta due traguardi con la stessa firma, mentre lavoravo
+  a tutt'altro. La causa: `FinestraDelCielo` guarda OGGI e non sa contare, e
+  una condizione che chiede dodici eventi vuole una memoria per evento che il
+  diario non tiene, la stessa che gia' rende dormienti `cal_50` e `aur_46`.
+  Adesso il generatore se ne accorge e lo dichiara dormiente col suo perche'.
+  **Anche quella regola nuova ha sbagliato alla prima stesura**, e la misura
+  l'ha detto: spegneva altri tre traguardi a torto, perche' in "un Oroscopo
+  letto in un giorno che porta TRE transiti" il tre descrive il giorno e non
+  quante volte, e in "sotto l'ultimo QUARTO di Luna" trovava perfino un
+  quattro. Adesso vale solo il numero di "N volte" o quello con cui la frase
+  comincia. I dormienti del codice generato passano da 25 a 18, e i 18 che
+  restano hanno tutti una ragione vera e dichiarata, non aritmetica.
   **LA LEGGE DELLA FINESTRA sta in tre posti**: nel corpus come dato, nel
   generatore che lo legge, e nella guardia
   `test/la_finestra_e_una_volta_e_mezza_test.dart`, che la ripete apposta

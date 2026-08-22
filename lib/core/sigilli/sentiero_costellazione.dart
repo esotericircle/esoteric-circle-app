@@ -714,7 +714,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     id: 'med_51',
     nome: 'Le dodici Lune del tuo segno',
     famiglia: FamigliaDelTraguardo.cielo,
-    condizione: const FinestraDelCielo(EventiDelCielo.lunaNelTuoSegno, conGesto: 'oroscopo'),
+    condizione: const Dormiente('med_51', 'la costanza LUNGA su un evento del cielo (12 volte) chiede una memoria per evento che il diario non tiene: si conta la serie dei GIORNI, non quella degli eventi'),
     frase: 'Dodici volte hai letto l\'Oroscopo mentre la Luna passava nel tuo segno.',
     posizione: 51,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
@@ -722,7 +722,7 @@ final List<Traguardo> sentieroDellaCostellazione = [
     eGrande: false,
     eos: 55,
     fascia: 'L\'anno',
-    dormiente: false,
+    dormiente: true,
   ),
   Traguardo(
     id: 'med_52',
