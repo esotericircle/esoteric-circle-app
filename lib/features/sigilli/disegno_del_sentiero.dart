@@ -90,124 +90,12 @@ class GeometriaDelSentiero {
   /// parti i dieci mini e poi il grande che la chiude. Quindi il punto del
   /// grande della parte i sta all'indice `i * 11 + 10`, e l'ossatura ci conta
   /// sopra.
-  /// **NESSUN PUNTO SI NASCONDE SOTTO UN ALTRO.** Ordine AU voce 09.
-  ///
-  /// **Il censimento ha smentito in parte la premessa, e va detto.** Il
-  /// fondatore riferisce che le sfere al centro del fiore non rispondono al
-  /// tocco. Misurati tutti e centosessantacinque i bersagli dei tre sentieri,
-  /// con un tocco esattamente sul proprio centro, **i cinque grandi rispondono
-  /// su tutti e tre**. Chi non risponde e' l'opposto: **dieci mini del Loto e
-  /// quattro della Costellazione**, che hanno il proprio centro DENTRO il
-  /// cerchio disegnato di un grande. Toccandoli si prende il grande, e a occhio
-  /// sembra che il fiore non risponda dove uno crede di toccarlo.
-  ///
-  /// **La cura non sta nella regola del tocco, sta nella geometria.** L'ordine
-  /// AS voce 04 aveva gia' deciso, dopo una misura, che fra due cerchi che
-  /// contengono il dito vince il PIU' GRANDE, perche' e' quello che l'occhio
-  /// vede: invertire quella regola rimetterebbe il difetto di allora, quattro
-  /// grandi su quindici irraggiungibili. Ma un punto il cui centro cade dentro
-  /// un altro punto non e' un difetto del tocco: e' un punto **disegnato dove
-  /// non si vede**, e nessuna regola di tocco puo' rimediare a una perla
-  /// nascosta sotto un'altra.
-  ///
-  /// Qui i punti si scostano del minimo che serve a uscire, lungo la direzione
-  /// che gia' hanno rispetto al vicino piu' grande: la forma resta quella, e
-  /// nessuno resta sepolto. Chi e' esattamente sovrapposto si sposta in
-  /// diagonale, perche' una direzione bisogna sceglierla.
-  static List<PuntoDelSentiero> _nessunoSepolto(List<PuntoDelSentiero> punti) {
-    // Si lavora in frazioni di tela, come le posizioni: il lato corto e' 1.
-    const aria = 0.004;
-    // **PIU' PASSATE, e la prima stesura ne faceva una sola.** Spostare un
-    // mini fuori dal grande che lo copriva lo spingeva DENTRO un medio poco
-    // piu' in la', e sul Loto i sepolti passavano da dieci a dodici: la cura
-    // peggiorava il difetto. Con il rilassamento ogni spostamento si rimisura,
-    // e ci si ferma quando nessuno e' piu' sotto nessuno.
-    const passate = 24;
-    final dove = [for (final p in punti) p.dove];
-    for (var giro = 0; giro < passate; giro++) {
-      var mosso = false;
-      for (var i = 0; i < punti.length; i++) {
-        for (var j = 0; j < punti.length; j++) {
-          if (i == j) continue;
-          // Si sposta il PIU' PICCOLO: la forma la reggono i grandi, e
-          // muovere loro sposterebbe la figura invece di liberare un punto.
-          // **A PARITA' DI GRANDEZZA SI SPOSTA IL SECONDO**, e serve: sul
-          // Loto due perle uguali stavano a un decimo di punto l'una
-          // dall'altra, cioe' erano una sola perla a vedersi, e quale delle
-          // due rispondesse al dito era una lotteria. La prova le contava
-          // buone tutte e due, perche' ciascuna vince sul proprio centro
-          // esatto: e' un caso in cui il numero verde nasconde il difetto.
-          final piuGrande = punti[j].grandezza.raggio > punti[i].grandezza.raggio;
-          final pari = punti[j].grandezza.raggio == punti[i].grandezza.raggio;
-          if (!piuGrande && !(pari && j < i)) continue;
-          final scarto = dove[i] - dove[j];
-          final distanza = scarto.distance;
-          // **FRA PARI IL VINCOLO E' MEZZO RAGGIO, e non e' un compromesso
-          // al ribasso: e' l'unico risolvibile.** Chiedendo il raggio pieno
-          // anche fra uguali, sul Loto una perla veniva spinta fuori da una
-          // pari e finiva DENTRO il grande centrale, e il rilassamento non
-          // convergeva piu': cinquantaquattro su cinquantacinque. Con mezzo
-          // raggio due perle uguali non sono mai la stessa perla, e nessuna
-          // finisce sepolta sotto un grande.
-          final minima = piuGrande
-              ? punti[j].grandezza.raggio + aria
-              : punti[j].grandezza.raggio / 2 + aria;
-          if (distanza >= minima) continue;
-          final verso = distanza < 1e-6
-              ? const Offset(0.7071, 0.7071)
-              : scarto / distanza;
-          dove[i] = dove[j] + verso * minima;
-          mosso = true;
-        }
-      }
-      if (!mosso) break;
-    }
-    // **L'ULTIMA PAROLA E' DEI GRANDI.** Nel rilassamento i due vincoli si
-    // rincorrono: una perla spinta via da una pari puo' finire dentro il
-    // grande che le sta accanto, ed e' cosi' che `aur_51` restava sepolta
-    // sotto `aur_55`. Qui si ripassa una volta sola sul vincolo che conta per
-    // l'accettazione, cioe' che nessun punto stia dentro uno piu' grande:
-    // l'ultimo movimento libera sempre.
-    for (var giro = 0; giro < passate; giro++) {
-      var mosso = false;
-      for (var i = 0; i < punti.length; i++) {
-        for (var j = 0; j < punti.length; j++) {
-          if (i == j) continue;
-          if (punti[j].grandezza.raggio <= punti[i].grandezza.raggio) continue;
-          final scarto = dove[i] - dove[j];
-          final distanza = scarto.distance;
-          final minima = punti[j].grandezza.raggio + aria;
-          if (distanza >= minima) continue;
-          final verso = distanza < 1e-6
-              ? const Offset(0.7071, 0.7071)
-              : scarto / distanza;
-          dove[i] = dove[j] + verso * minima;
-          mosso = true;
-        }
-      }
-      if (!mosso) break;
-    }
-    return [
-      for (var i = 0; i < punti.length; i++)
-        if (dove[i] == punti[i].dove)
-          punti[i]
-        else
-          PuntoDelSentiero(
-            traguardo: punti[i].traguardo,
-            dove: dove[i],
-            grandezza: punti[i].grandezza,
-            gruppo: punti[i].gruppo,
-            angolo: punti[i].angolo,
-          ),
-    ];
-  }
-
   static List<PuntoDelSentiero> punti(Sentiero sentiero) =>
-      _nessunoSepolto(switch (sentiero) {
+      switch (sentiero) {
         Sentiero.costellazione => _costellazione(),
         Sentiero.albero => _albero(),
         Sentiero.loto => _loto(),
-      });
+      };
 
   /// L'OSSATURA della figura: quali punti si uniscono quando sono accesi.
   static List<SegmentoDelSentiero> ossatura(Sentiero sentiero) =>
@@ -660,11 +548,37 @@ PuntoDelSentiero? quiHaToccato(
   // e' cio' che l'occhio vede sotto il dito, ed e' giusto che risponda lui.
   // Il mini che gli sta sotto resta raggiungibile dalla riga della lista, che
   // e' la via principale e non ha sovrapposizioni.
+  //
+  // **IL RAGGIO NON SUPERA MAI META' STRADA VERSO IL VICINO.** Ordine AU voce
+  // 09, ed e' la cura di un difetto misurato: **dieci mini del Loto e quattro
+  // della Costellazione non rispondevano al tocco sul proprio centro**, perche'
+  // il grande accanto li inghiottiva. Il raggio di un grande vale 0,029 della
+  // tela, cioe' 10,4 punti su 360, ma i punti dell'arte stanno anche a tre
+  // punti l'uno dall'altro: il grande arrivava a coprire il centro del vicino.
+  //
+  // **E LA GEOMETRIA NON SI TOCCA, che e' la lezione piu' cara di questa
+  // voce.** La prima cura spostava i punti perche' nessuno restasse sepolto, e
+  // funzionava: 55 su 55 su tutti e tre. Ma i punti NON sono liberi: sono le
+  // perle DIPINTE nell'arte, e gli ancoraggi si ricavano leggendo le immagini
+  // di `brand_assets/sentieri/`. Spostandoli si scollavano dal disegno, e lo
+  // ha detto una prova che tocca la tela dove l'arte ha la perla e pretende
+  // che l'elenco vada a quel traguardo. Il codice deve seguire l'arte, mai il
+  // contrario.
+  double raggioDi(PuntoDelSentiero p) {
+    var raggio = p.grandezza.raggio * corto;
+    for (final altro in punti) {
+      if (identical(altro, p)) continue;
+      final meta = (centroDi(altro) - centroDi(p)).distance / 2;
+      if (meta < raggio) raggio = meta;
+    }
+    return raggio;
+  }
+
   PuntoDelSentiero? dentro;
   var raggioDelVinto = -1.0;
   var distanzaDelVinto = double.infinity;
   for (final punto in punti) {
-    final raggio = punto.grandezza.raggio * corto;
+    final raggio = raggioDi(punto);
     final distanza = (centroDi(punto) - tocco).distance;
     if (distanza > raggio) continue;
     if (raggio > raggioDelVinto ||

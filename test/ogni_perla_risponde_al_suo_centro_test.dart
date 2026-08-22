@@ -87,7 +87,20 @@ void main() {
       final guai = <String>[];
       for (final punto in punti) {
         if (punto.grandezza != GrandezzaDelPunto.principale) continue;
-        final r = punto.raggio * corto / 2;
+        // **META' DEL RAGGIO VERO, non di quello disegnato.** Il raggio di un
+        // punto si ferma a meta' strada verso il vicino piu' vicino, se no
+        // ruberebbe il centro di quello: dove due perle dell'arte stanno a sei
+        // punti l'una dall'altra, meta' del raggio DISEGNATO cadrebbe gia' in
+        // casa d'altri, e pretenderlo vorrebbe dire pretendere che il vicino
+        // non risponda al proprio centro. La prima stesura chiedeva proprio
+        // quello, e cadeva su tre perle grandi.
+        var vicino = double.infinity;
+        for (final altro in punti) {
+          if (identical(altro, punto)) continue;
+          final d = (centroDi(altro) - centroDi(punto)).distance;
+          if (d < vicino) vicino = d;
+        }
+        final r = math.min(punto.raggio * corto, vicino / 2) / 2;
         for (final verso in const [
           Offset(1, 0),
           Offset(-1, 0),

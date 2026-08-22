@@ -11,6 +11,7 @@ import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/sigilli/sentiero_screen.dart';
+import 'package:esoteric_circle/features/sigilli/la_mappa_del_sentiero.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -69,6 +70,12 @@ void main() {
     for (final t in Sentieri.miniDi(sentiero).take(accesi)) {
       await diario.accendi(t.id);
     }
+      // **NEL SENTIERO SI E' GIA' ENTRATI.** Ordine AU voce 13: al primo
+      // ingresso la mappa del sentiero si apre da sola e copre il disegno,
+      // che e' proprio cio' che questa prova guarda. Dichiararlo qui e' la
+      // stessa cosa che fanno le nove catture dei sentieri: la mappa ha la
+      // sua prova, questa ha la sua scena.
+      await LaMappaDelSentiero.segnaLIngresso(sentiero);
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),

@@ -286,31 +286,30 @@ decide su tre di esse:
   tutti e centosessantacinque i bersagli dei tre sentieri con un tocco
   esattamente sul proprio centro: **i cinque grandi rispondono su tutti e
   tre**, cioe' le sfere al centro del fiore rispondono. Chi non rispondeva era
-  l'opposto: **dieci mini del Loto e quattro della Costellazione**, che avevano
-  il proprio centro DENTRO il cerchio disegnato di un grande. Toccandoli si
-  prendeva il grande, e a occhio sembra che il fiore non risponda dove uno
-  crede di toccarlo. Prima: costellazione 51 su 55, albero 55, loto 45.
-  **La cura non sta nella regola del tocco, sta nella geometria.** L'ordine AS
-  voce 04 aveva gia' deciso, dopo una misura, che fra due cerchi che contengono
-  il dito vince il PIU' GRANDE, perche' e' quello che l'occhio vede: invertire
-  quella regola rimetterebbe il difetto di allora, quattro grandi su quindici
-  irraggiungibili. Un punto il cui centro cade dentro un altro punto e'
-  disegnato dove non si vede, e nessuna regola di tocco puo' rimediare a una
-  perla sepolta sotto un'altra.
-  **TRE STESURE BUTTATE, tutte smascherate dalla misura.** La prima faceva una
-  passata sola e spingeva i mini fuori dai grandi DENTRO i medi: sul Loto i
-  sepolti passavano da dieci a dodici, cioe' la cura peggiorava il difetto. La
-  seconda separava anche i pari col raggio pieno, e una perla finiva sepolta
-  sotto il grande centrale. La terza, con mezzo raggio fra pari, ancora non
-  convergeva: serviva che l'ultima parola fosse dei grandi.
-  **ADESSO 55 SU 55 SU TUTTI E TRE**, e i grandi rispondono anche a meta' del
-  proprio raggio nelle quattro direzioni, perche' una perla che risponde solo
-  al centro esatto a occhio non risponde mai.
-  **L'ANTEPRIMA E' STATA GUARDATA**, non solo rigenerata: il fiore e' integro,
-  le perle stanno nei petali, lo spostamento non si vede. Guardia
-  `test/ogni_perla_risponde_al_suo_centro_test.dart`.
-  **UN DIFETTO DI AU.03 TROVATO DA UNA PROVA CHE NON C'ENTRAVA**: vedi la
-  correzione scritta li' sopra, i risvegliati sono sette e non otto)
+  l'opposto: **dieci mini del Loto e quattro della Costellazione**, che
+  avevano il proprio centro dentro il raggio di tocco di un grande. Prima:
+  costellazione 51 su 55, albero 55, loto 45.
+  **LA CAUSA, misurata**: il raggio di tocco di un grande vale 0,029 della
+  tela, cioe' 10,4 punti su 360, ma i punti dell'arte stanno anche a tre punti
+  l'uno dall'altro. Il grande arrivava a coprire il centro del vicino, e
+  toccando quel mini rispondeva lui.
+  **LA CURA CHE FUNZIONAVA ERA SBAGLIATA, ed e' la lezione piu' cara di
+  quest'ordine.** La prima cura SPOSTAVA i punti perche' nessuno restasse
+  sepolto, e dava 55 su 55 su tutti e tre; l'anteprima sembrava integra. Ma i
+  punti **non sono liberi: sono le perle DIPINTE nell'arte**, e gli ancoraggi
+  si ricavano leggendo le immagini di `brand_assets/sentieri/`. Spostandoli si
+  scollavano dal disegno. **Lo ha detto una prova che non stavo guardando**,
+  quella che tocca la tela dove l'arte ha la perla e pretende che l'elenco
+  vada a quel traguardo: era rossa, e diceva che il codice si era staccato
+  dall'immagine. La geometria e' stata rimessa esattamente com'era.
+  **LA CURA VERA STA NELLA REGOLA DEL TOCCO**: il raggio di un punto non
+  supera mai meta' strada verso il vicino piu' vicino. Nessun punto si muove,
+  il codice segue l'arte, e **rispondono 55 su 55 su tutti e tre**.
+  **Anche la prova e' stata ri-mirata**: pretendeva che un grande rispondesse
+  a meta' del raggio DISEGNATO, ma dove due perle stanno a sei punti quella
+  meta' e' gia' casa d'altri, e pretenderlo vorrebbe dire pretendere che il
+  vicino non risponda al proprio centro. Adesso chiede meta' del raggio VERO.
+  Guardia `test/ogni_perla_risponde_al_suo_centro_test.dart`, sette prove)
 - **AU.10** La pila che non torna indietro. Stato: CHIUSA
   (**LA MISURA DEL FONDATORE E' ESATTA AL NUMERO.** Rimesso il codice di prima
   per la prova del veleno: dieci aperture del menu' utente portano la pila da
