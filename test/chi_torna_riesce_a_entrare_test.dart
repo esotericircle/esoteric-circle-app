@@ -192,6 +192,64 @@ void main() {
         reason: 'dopo un elevazione fallita il client resta con l account in '
             'mano, e il tentativo dopo riceve quello');
   });
+  test('il "Continua come" rifa la strada invece di riusare il token', () async {
+    // **LO STESSO DIFETTO DI AX.01, sopravvissuto in un altro punto.** Qui si
+    // arriva dopo che un'elevazione e' stata rifiutata perche' quell'identita'
+    // e' gia' di un altro Cerchio. La via d'uscita riusava
+    // `_riconosciuta.credenziale`, **cioe' proprio il token che il tentativo
+    // appena fallito aveva speso**: su Google un token speso non entra piu'.
+    //
+    // **Nessun collaudo lo aveva trovato**, perche' per arrivarci serve un
+    // account gia' di un altro Cerchio. E' stato trovato cercandolo.
+    final utente = _UtenteFinto(
+      uid: 'anonimo',
+      codiceDelCollegamento: 'credential-already-in-use',
+    );
+    final auth = _AuthCheContaGliIngressi(utente);
+    final flusso = _FlussoCheConta(daConsegnare: _credenzialeDiProva());
+    final porta = PortaDellIdentitaFirebase(auth: auth, flussoGoogle: flusso);
+
+    // Prima l'elevazione, che viene rifiutata e lascia il riconoscimento.
+    final primo = await porta.eleva(ViaDellaCustodia.google);
+    expect(primo, EsitoDellaCustodia.giaDiUnAltroCerchio);
+    final chiesteDopoIlRifiuto = flusso.credenzialiChieste;
+
+    // Poi il "Continua come".
+    final secondo = await porta.entraComeRiconosciuto();
+    // ignore: avoid_print
+    print('ORDINE AZ: dopo il rifiuto le credenziali chieste erano '
+        '$chiesteDopoIlRifiuto, dopo il Continua come sono '
+        '${flusso.credenzialiChieste}; esito ${secondo.name}');
+
+    expect(secondo, EsitoDellaCustodia.riuscita,
+        reason: 'il Continua come non fa entrare: e il vicolo cieco che l '
+            'ordine AL voce 07 voleva chiudere');
+    expect(flusso.credenzialiChieste, greaterThan(chiesteDopoIlRifiuto),
+        reason: 'il Continua come riusa il token gia speso dal tentativo '
+            'fallito, invece di chiederne uno nuovo: su Google quel token non '
+            'entra piu');
+  });
+}
+
+/// Un'auth che fa entrare e conta gli ingressi.
+class _AuthCheContaGliIngressi implements FirebaseAuth {
+  _AuthCheContaGliIngressi(this._utente);
+
+  User? _utente;
+  int ingressi = 0;
+
+  @override
+  User? get currentUser => _utente;
+
+  @override
+  Future<UserCredential> signInWithCredential(AuthCredential credential) async {
+    ingressi++;
+    _utente = _UtenteFinto(uid: 'chi-torna', gia: true);
+    return _CredenzialeUtenteFinta();
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 class _Ramo {

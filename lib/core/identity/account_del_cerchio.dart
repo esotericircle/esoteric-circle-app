@@ -172,7 +172,17 @@ abstract class PortaDellIdentita {
 /// Chi e' stato riconosciuto da un tentativo di custodia finito su un
 /// Cerchio gia' esistente, con la via per entrarci.
 class IdentitaRiconosciuta {
-  const IdentitaRiconosciuta({required this.nome, required this.credenziale});
+  const IdentitaRiconosciuta({
+    required this.nome,
+    required this.credenziale,
+    this.via,
+  });
+
+  /// **DA QUALE VIA E' ARRIVATO IL RICONOSCIMENTO.** Ordine AZ.
+  ///
+  /// Serve a rientrare **rifacendo la stessa strada** invece di riusare la
+  /// credenziale di prima. Vedi il perche' su `entraComeRiconosciuto`.
+  final ViaDellaCustodia? via;
 
   /// L'email dell'account riconosciuto: il nome vero si sapra' solo dentro.
   final String? nome;
@@ -395,6 +405,7 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
           _riconosciuta = IdentitaRiconosciuta(
             nome: errore.email ?? email,
             credenziale: errore.credential ?? tentata,
+            via: via,
           );
           return EsitoDellaCustodia.giaDiUnAltroCerchio;
         case 'web-context-canceled':
@@ -571,6 +582,31 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
 
   @override
   Future<EsitoDellaCustodia> entraComeRiconosciuto() async {
+    // **SI RIFA' LA STRADA, non si riusa il token.** Ordine AZ, ed e' lo
+    // stesso difetto curato in AX voce 01 **sopravvissuto in questo punto**.
+    //
+    // Qui si arriva dal "Continua come", cioe' dopo che un'elevazione e'
+    // stata rifiutata perche' quell'identita' e' gia' di un altro Cerchio.
+    // Prima si riusava `_riconosciuta.credenziale`, **cioe' proprio il token
+    // che il tentativo appena fallito aveva speso**: su Google un token speso
+    // non entra piu', quindi la via d'uscita non usciva da nessuna parte.
+    //
+    // **Non era stato trovato da nessun collaudo** perche' per arrivarci
+    // serve un account gia' di un altro Cerchio, che sul telefono di chi
+    // prova capita di rado. E' stato trovato cercandolo, dopo che lo stesso
+    // difetto era emerso altrove.
+    //
+    // Adesso si ripercorre la via da cui il riconoscimento e' arrivato, che
+    // chiede una credenziale nuova: **una sola strada per entrare, e non
+    // due**.
+    final via = _riconosciuta?.via;
+    if (via != null) {
+      final esito = await entraDirettamente(via);
+      if (esito == EsitoDellaCustodia.riuscita) _riconosciuta = null;
+      return esito;
+    }
+    // Senza via registrata resta la vecchia strada, che per l'email funziona
+    // (la sua credenziale non si consuma) e per Google e' l'ultima spiaggia.
     final credenziale = _riconosciuta?.credenziale;
     if (credenziale == null) return EsitoDellaCustodia.nonRiuscita;
     try {
@@ -579,9 +615,8 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
       await ricarica();
       return EsitoDellaCustodia.riuscita;
     } catch (errore) {
-      // Anche qui l'esito parla alla persona: il suo telefono e' rimasto
-      // com'era e puo' riprovare, magari ripetendo la via Google per una
-      // credenziale fresca.
+      // L'esito parla alla persona: il suo telefono e' rimasto com'era e puo'
+      // riprovare, ripetendo la via per una credenziale fresca.
       return EsitoDellaCustodia.nonRiuscita;
     }
   }
