@@ -74,13 +74,39 @@ conta sulle righe.
   la corsa in una fascia di sei gradi, e adesso non la usa piu' nessuno.
   Le venti prove del cielo gia' esistenti restano verdi)
 - **AV.03** I Maestri tornano grandi. Stato: APERTA
-- **AV.04** Le perle grandi non portano a niente. Stato: APERTA
+- **AV.04** Le perle grandi non portano a niente. Stato: CHIUSA
+  (**IL FONDATORE HA RAGIONE AL NUMERO.** Enumerate tutte e centosessantacinque
+  le perle dei tre sentieri, toccate una per una sul proprio ancoraggio:
+  **scollegate CINQUE per sentiero, e sono precisamente i cinque grandi**.
+  `med_11, med_22, med_33, med_44, med_55` e le due terne corrispondenti. Le
+  cinquanta mini funzionavano tutte, su tutti e tre.
+  **LA CAUSA**: l'elenco sotto il disegno costruiva `Sentieri.miniDi(...)`,
+  cioe' i cinquanta mini. I grandi non avevano una riga, quindi non avevano una
+  chiave, quindi `offsetDelTraguardo` non trovava niente e lo scorrimento non
+  partiva. **La perla si illuminava lo stesso**, perche' quello lo fa un altro
+  campo, ed e' esattamente cio' che il fondatore descrive: si illumina e non
+  porta da nessuna parte.
+  **LA CURA**: l'elenco porta tutti e cinquantacinque, e i grandi stanno al
+  loro posto nel cammino, alle posizioni 11, 22, 33, 44 e 55, non in fondo ne'
+  in un elenco a parte. **Adesso le scollegate sono ZERO su tutti e tre.**
+  **DUE DIFETTI DELLA PROVA, trovati e corretti prima di fidarsi del numero.**
+  Il primo: dopo il primo tocco l'elenco scorre e la tela del disegno esce di
+  vista, quindi tutte le misure successive fallivano per un motivo che non
+  c'entrava, e la prova dichiarava "la tela non c'e'" su quaranta perle. Il
+  secondo, piu' insidioso: il centro della perla si calcolava moltiplicando la
+  posizione per la larghezza della tela, mentre **l'arte e' montata con
+  `BoxFit.contain` e va riportata con la stessa scala centrata che usa chi
+  disegna**. Con quel conto sbagliato si toccava un petalo qualunque e la prova
+  accusava cinquanta perle su cinquantacinque, cioe' anche quelle sane. **Un
+  numero grosso non e' una prova migliore: era solo piu' sbagliato.**
+  Guardia `test/ogni_perla_porta_alla_sua_voce_test.dart`, che tocca tutte e
+  165 le perle e cade se una sola smette)
 
 ## I marcatori
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 3
-VOCI_CHIUSE: 2
+VOCI_APERTE: 2
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

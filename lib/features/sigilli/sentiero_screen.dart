@@ -188,8 +188,30 @@ class _SentieroScreenState extends State<SentieroScreen> {
     final palette = context.palette;
     final diario = context.watch<DiarioDelCammino>();
     final piano = context.watch<EntitlementService>().tier;
-    // I traguardi si mostrano dal 50 al 1: l'apertura viene dall'alto.
-    final mini = Sentieri.miniDi(widget.sentiero).reversed.toList();
+    // **L'ELENCO PORTA TUTTI E CINQUANTACINQUE, GRANDI COMPRESI.** Ordine AV
+    // voce 04.
+    //
+    // **Il fatto del fondatore**: "le perle grandi di ogni sentiero non
+    // funzionano: se faccio click si illuminano di piu' ma non portano a
+    // nessun traguardo nell'elenco piu' sotto".
+    //
+    // **La causa, e la misura la conferma al numero.** Qui c'era
+    // `Sentieri.miniDi(...)`, cioe' i CINQUANTA mini: i cinque grandi non
+    // avevano una riga, quindi non avevano una chiave in
+    // `_chiaviDeiGradini`, quindi `offsetDelTraguardo` non trovava niente e lo
+    // scorrimento non partiva. La perla si illuminava lo stesso, perche'
+    // quello lo fa `_evidenziato`, ed e' esattamente cio' che si vedeva.
+    // Enumerate tutte e centosessantacinque le perle dei tre sentieri:
+    // **scollegate cinque per sentiero, e sono precisamente i cinque grandi**.
+    //
+    // I traguardi si mostrano dal 55 al 1: l'apertura viene dall'alto, e i
+    // grandi stanno al loro posto nel cammino, alle posizioni 11, 22, 33, 44 e
+    // 55, invece che in fondo o in un elenco a parte.
+    final mini = (Sentieri.di(widget.sentiero).toList()
+          ..sort((a, b) => Sentieri.ordineNelCammino(a)
+              .compareTo(Sentieri.ordineNelCammino(b))))
+        .reversed
+        .toList();
     final accesi = {
       for (final t in Sentieri.di(widget.sentiero))
         if (diario.eAcceso(t.id)) t.id,
