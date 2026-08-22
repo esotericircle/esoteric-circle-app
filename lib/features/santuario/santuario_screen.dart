@@ -2,7 +2,6 @@ import 'foglio_della_rinascita.dart';
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../shell/spazio_della_barra.dart';
@@ -62,6 +61,13 @@ import 'widgets/tue_arti_view.dart';
 /// sono il prodotto, la riga di testo no. La riga personale sta su UNA riga
 /// sola e si accorcia coi puntini invece di andare a capo, e ogni capo che non
 /// prende e' una fascia che torna al carosello.
+///
+/// **UNA BANDIERA PER LE PROVE**, vedi il commento nel corpo del carosello:
+/// spegne la vernice dei tre Maestri, lasciandoli al loro posto, perche'
+/// l'occlusione si possa misurare sui pixel dipinti invece che sui rettangoli
+/// di layout. Nessun punto di `lib` la tocca, e vale falso in ogni build.
+@visibleForTesting
+bool maestriSpentiPerLaProva = false;
 ///
 /// **Il minimo e' il 34 per cento dell'altezza dello schermo**, come l'ordine
 /// chiede, con questo valore come pavimento assoluto per gli schermi piu'
@@ -1138,7 +1144,29 @@ class _CarouselState extends State<_Carousel>
                   : const Key('santuario_side_right');
             }
 
-            return GestureDetector(
+            // **L'INTERRUTTORE CHE SPEGNE LA VERNICE DEI MAESTRI, solo
+            // per le prove.** Ordine BA voce 02, e chiude anche la voce 02
+            // dell'ordine AX.
+            //
+            // **Serve perche' l'occlusione si misura sui PIXEL e non sui
+            // rettangoli.** Le figure escono dal proprio riquadro con
+            // `Clip.none`: confrontare le scatole di layout ha dichiarato zero
+            // pixel coperti per tre volte di seguito **mentre a schermo il
+            // testo si leggeva a meta'**. L'unico modo onesto e' dipingere la
+            // home due volte, con e senza i Maestri visibili, e contare i
+            // pixel del testo che cambiano.
+            //
+            // **Si spegne la vernice, NON il posto.** Se il carosello sparisse
+            // dal layout, cio' che sta sotto risalirebbe e tutti i pixel
+            // cambierebbero per un motivo che non e' l'occlusione: la misura
+            // direbbe un numero enorme e falso. Con l'opacita' a zero i
+            // Maestri restano dove sono e ingombrano come prima.
+            //
+            // **Nessun punto di `lib` tocca questa bandiera**, e vale falso in
+            // ogni build.
+            return Opacity(
+              opacity: maestriSpentiPerLaProva ? 0.0 : 1.0,
+              child: GestureDetector(
               key: const Key('santuario_carosello'),
               onHorizontalDragUpdate: (d) => _trascina(d, w),
               onHorizontalDragEnd: (d) => _rilascia(d, w),
@@ -1195,6 +1223,7 @@ class _CarouselState extends State<_Carousel>
                     }),
                 ],
               ),
+            ),
             );
           },
         );

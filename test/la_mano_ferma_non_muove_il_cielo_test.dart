@@ -184,18 +184,32 @@ void main() {
   test('la zona morta non e una scorciatoia: fuori di li il cielo risponde',
       () {
     // Una zona morta larghissima passerebbe M1 e M2 e ammazzerebbe l'app. Qui
-    // si pretende che appena oltre la soglia il cielo si muova davvero.
+    // si pretende che a un gesto piccolo ma voluto il cielo risponda davvero.
+    //
+    // **IL CRITERIO E' UN ANGOLO, non il doppio della soglia.** Ordine BA voce
+    // 01: prima questa riga chiedeva la risposta "al doppio della zona
+    // morta", e quel criterio **si muove insieme a cio' che dovrebbe
+    // sorvegliare**. Con la soglia grande di prima, il doppio erano quasi
+    // dieci gradi, dove qualunque taratura risponde; con la soglia dieci volte
+    // piu' piccola diventa mezzo grado, dove nessuna taratura sana risponde di
+    // un punto intero. **Una guardia che si sposta con l'imputato non
+    // sorveglia niente.**
+    //
+    // Due gradi e' l'angolo che conta: e' quanto inclina chi guarda il
+    // telefono senza volerlo muovere, ed e' il gesto che il fondatore non
+    // vedeva arrivare.
+    const gradiDelGestoPiccolo = 2.0;
     final c = ParallaxController();
     leggi(c, 20);
-    // Il doppio della zona morta: un gesto piccolo ma voluto.
-    leggi(c, 40, scarto: (i) => ParallaxController.zonaMorta * 2 * 9.8);
+    leggi(c, 40,
+        scarto: (i) => math.sin(gradiDelGestoPiccolo * math.pi / 180) * 9.8);
     final corsa = punti(c.tiltX).abs();
     // ignore: avoid_print
-    print('ORDINE AU VOCE 04: al doppio della zona morta il cielo corre '
+    print('ORDINE BA VOCE 01: a $gradiDelGestoPiccolo gradi il cielo corre '
         '${corsa.toStringAsFixed(1)} punti su 80');
     expect(corsa, greaterThan(1.0),
-        reason: 'oltre la zona morta il cielo resta fermo lo stesso: la '
-            'soglia si e mangiata la risposta');
+        reason: 'a un gesto piccolo il cielo resta fermo: la soglia si e '
+            'mangiata la risposta, ed e il fatto del fondatore sulla 2195');
     c.dispose();
   });
 

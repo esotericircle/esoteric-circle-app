@@ -215,7 +215,7 @@ class ParallaxController extends ChangeNotifier {
   /// arrivava al massimo subito e **da li' non c'era piu' niente da dosare**.
   /// E' l'"incontrollabile" del fondatore, letto nella sua riga diagnostica
   /// dove l'inclinazione risultava gia' saturata a 1,00.
-  static double fondoCorsaInGradi = 30;
+  static double fondoCorsaInGradi = 26;
 
   /// Solo per la ricerca della terna: rimette i valori di partenza.
   @visibleForTesting
@@ -255,7 +255,7 @@ class ParallaxController extends ChangeNotifier {
   /// terna che sul controller vero lasciava quindici gradi a 54,3 punti invece
   /// che sopra 60. Un modello del proprio codice e' un secondo codice, e i due
   /// divergono.
-  static double zonaMorta = 0.085;
+  static double zonaMorta = 0.008;
 
   /// **L'ESPONENTE DELLA CURVA, e da 2,0 scende a 1,1.** Ordine AV voce 02.
   ///
@@ -278,7 +278,7 @@ class ParallaxController extends ChangeNotifier {
   /// Con esponente 1,1 la risposta e' piatta all'uscita dalla zona morta e
   /// dritta dopo: a 5 gradi 4,4 punti, a 10 gradi 31,9, a 15 gradi 61,7, a 18
   /// gradi la corsa piena. **Nessun grado vale piu' di 6,1 punti.**
-  static double esponenteDellaCurva = 1.1;
+  static double esponenteDellaCurva = 1.3;
 
   /// La posizione di riposo imparata, cioe' come la persona tiene il telefono
   /// adesso. Nulla finche' non arriva la prima lettura: il primo campione la
