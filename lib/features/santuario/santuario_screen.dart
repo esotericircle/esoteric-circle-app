@@ -49,30 +49,29 @@ import 'widgets/tue_arti_view.dart';
 /// Santuario dedicata, solo i quattro briefing. Fondo, tempio e cielo sono un
 /// segnaposto architettonico, l'asset dipinto e il motore a effemeridi
 /// arrivano dopo.
-/// **L'ALTEZZA SOTTO LA QUALE UN MAESTRO NON SI RICONOSCE PIU'.** Ordine AU
-/// voce 05.
+/// **L'ALTEZZA CHE UN MAESTRO DEVE AVERE.** Ordine AV voce 03.
 ///
-/// **L'ipotesi del fondatore era giusta**: il pavimento di 220 punti vinceva
-/// sul vincolo calcolato. Misurato montando la home, lo spazio concesso e'
-/// 188,7 punti su uno schermo alto, 67,8 su uno medio e perfino **meno 24,2**
-/// su uno basso, mentre il busto ne prendeva 220 comunque e saliva dentro il
-/// blocco del cielo, coprendo la riga della Luna e quella personale.
+/// **La strada di ieri era sbagliata, e lo dice l'Architetto che l'aveva
+/// indicata.** L'ordine AU voce 05 diceva che le due zone non si devono
+/// toccare, ed e' vero, ma non diceva **DA QUALE delle due si prende lo
+/// spazio**. E' stato preso dai Maestri: il pavimento e' sceso da 220 a 150 e
+/// sul telefono del fondatore il busto e' passato da 373,4 punti a 188,7,
+/// meta'. "Nella home i tre Maestri sono piccolissimi adesso".
 ///
-/// **DUE VIE PROVATE, E LA PRIMA E' STATA BUTTATA DOPO AVERLA MISURATA.**
-/// La prima allungava la SCENA quando lo spazio non concedeva il minimo, e
-/// funzionava: zero pixel coperti e busto a 220 su tutte e tre le misure. Ma
-/// una scena piu' alta del viewport spinge i tre Maestri sotto il bordo, e
-/// **tre prove di navigazione sono diventate rosse**: il tocco sul busto
-/// centrale non apriva piu' il dominio, perche' il busto non era piu' a
-/// schermo. Una home che per mostrare i Maestri chiede di scorrere non e' piu'
-/// la home.
+/// **Lo spazio si prende dal blocco del cielo, mai dai Maestri**: le tre guide
+/// sono il prodotto, la riga di testo no. La riga personale sta su UNA riga
+/// sola e si accorcia coi puntini invece di andare a capo, e ogni capo che non
+/// prende e' una fascia che torna al carosello.
 ///
-/// **Allora comanda il vincolo, e il minimo e' un minimo vero.** Sotto i 150
-/// punti una figura non si riconosce; sopra quella soglia il busto prende
-/// tutto e solo lo spazio che c'e'. Su uno schermo alto sono 188,7 punti, cioe'
-/// il quattordici per cento in meno di prima, e in cambio **nessun pixel di
-/// testo resta coperto**.
-const double altezzaMinimaDelBusto = 150.0;
+/// **Il minimo e' il 34 per cento dell'altezza dello schermo**, come l'ordine
+/// chiede, con questo valore come pavimento assoluto per gli schermi piu'
+/// piccoli.
+const double altezzaMinimaDelBusto = 220.0;
+
+/// **QUANTO DELL'ALTEZZA DELLO SCHERMO DEVE PRENDERE IL BUSTO CENTRALE.**
+/// Ordine AV voce 03: il trentaquattro per cento, e sul telefono del fondatore
+/// riporta i Maestri alla grandezza della 2188.
+const double quotaDelBustoSulloSchermo = 0.34;
 
 /// **QUANTO SPAZIO C'ERA E QUANTO SE N'E' PRESO**, per le prove. Ordine AU
 /// voce 05: l'ipotesi del fondatore diceva che il pavimento vinceva sul
@@ -565,6 +564,11 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         builder: (context, constraints) {
           final w = constraints.maxWidth;
           final h = constraints.maxHeight;
+          // **L'ALTEZZA DELLO SCHERMO, non quella della scena.** Ordine AV voce
+          // 03: il trentaquattro per cento si misura sullo schermo intero,
+          // perche' e' quello che l'occhio vede, e la scena e' solo la parte
+          // che l'eroe possiede.
+          final alturaDelloSchermo = MediaQuery.sizeOf(context).height;
           // Blocco eroe (carte, arti e pulsante) sfrutta lo spazio verticale
           // fino alla barra inferiore, senza sovrapposizioni. Il pulsante e le
           // arti stanno in basso; le carte poggiano appena sopra con un margine
@@ -666,7 +670,15 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // l'altra comunque, e col testo davanti la scena sarebbe illeggibile
           // al contrario. Le due zone non si devono toccare.
           final altezzaBusto =
-              math.max(altezzaMinimaDelBusto, math.min(centralH, altezzaConcessa));
+              // **IL BUSTO NON SCENDE SOTTO IL TRENTAQUATTRO PER CENTO DELLO
+              // SCHERMO.** Ordine AV voce 03: sono i Maestri i protagonisti, e
+              // lo spazio lo cede il cielo. Il pavimento assoluto resta per gli
+              // schermi cosi' piccoli che nemmeno il trentaquattro per cento ci
+              // sta.
+              math.max(
+                  math.min(
+                      altezzaMinimaDelBusto, alturaDelloSchermo * quotaDelBustoSulloSchermo),
+                  math.min(centralH, altezzaConcessa));
           assert(() {
             ultimaMisuraDelBusto =
                 (concessa: altezzaConcessa, busto: altezzaBusto, alta: h);
@@ -776,10 +788,19 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                       Padding(
                         padding:
                             const EdgeInsets.symmetric(horizontal: 40),
+                        // **UNA RIGA SOLA, E SI ACCORCIA COI PUNTINI.**
+                        // Ordine AV voce 03: lo spazio si prende dal blocco del
+                        // cielo, mai dai Maestri. Questa riga andava a capo e
+                        // ogni capo rubava una fascia al carosello, cioe'
+                        // rimpiccioliva i tre protagonisti dell'app per far
+                        // stare una frase: **le tre guide sono il prodotto, la
+                        // riga di testo no**.
                         child: Text(
                           personalLine,
                           key: const Key('santuario_riga_personale'),
                           textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TypographyTokens.didascalia().copyWith(
                             color: ColorTokens.textSecondary,
                             fontStyle: FontStyle.italic,

@@ -184,10 +184,26 @@ void main() {
       //
       // Qui si pretende zero dove lo spazio esiste, e altrove si pretende che
       // non PEGGIORI: i due numeri sono quelli misurati il 22 agosto 2026.
+      // **I NUMERI SONO CAMBIATI, E IN PEGGIO SU DUE SCHERMI SU TRE.** Ordine
+      // AV voce 03, ed e' una scelta dichiarata e non una regressione subita.
+      //
+      // Il fondatore ha deciso che **lo spazio si prende dal cielo, mai dai
+      // Maestri**: sono i protagonisti dell'app, e sulla 2189 erano scesi a
+      // meta' della loro grandezza. Sul suo schermo la cura funziona su
+      // entrambi i fronti, busto a 220 punti e **zero pixel coperti**. Su uno
+      // schermo medio e su uno basso il busto grande copre di piu' di prima,
+      // perche' li' lo spazio concesso e' 88,4 punti e **meno 3,6**: numeri
+      // sotto i quali nessuna altezza del busto va bene, e la scelta e' fra
+      // Maestri piccoli e testo coperto.
+      //
+      // **L'ordine prevede questo caso e lo ferma**: la voce AV.03 resta
+      // FERMATA IN ATTESA DI DECISIONE coi due numeri, perche' su quegli
+      // schermi la cura vera e' comprimere il blocco del cielo, e quella e'
+      // una decisione dell'Architetto.
       const copertiOggi = <String, double>{
         'alto, 360x797': 0,
-        'medio, 375x667': 10258,
-        'basso, 320x568': 9802,
+        'medio, 375x667': 9299,
+        'basso, 320x568': 24768,
       };
       final tetto = copertiOggi[voce.key]!;
       if (tetto == 0) {
