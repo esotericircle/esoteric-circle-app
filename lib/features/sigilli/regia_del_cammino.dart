@@ -6,6 +6,7 @@ import '../../core/entitlement/question_allowance.dart';
 import '../../core/entitlement/registro_degli_eos.dart';
 import '../../core/sigilli/bonus_della_condivisione.dart';
 import '../../core/sigilli/coda_delle_feste.dart';
+import '../../core/sigilli/distanza_fra_le_feste.dart';
 import '../../core/sigilli/diario_del_cammino.dart';
 import '../../core/sigilli/libro_degli_accrediti.dart';
 import '../../core/sigilli/pezzi_dell_identita.dart';
@@ -162,14 +163,34 @@ class RegiaDelCammino {
     // cio' che ogni accredito ha portato.
     final arrivati = _QuantiSonoArrivati();
 
-    // 1. SI CELEBRA SUBITO, UNA VOLTA SOLA, e non si aspetta niente e
-    //    nessuno. La celebrazione nomina ogni traguardo acceso e porta la
-    //    somma degli Eos; l'intensita' e' quella del piu' importante.
-    final festeggiato = context.mounted &&
+    // **1. SI CELEBRA UN TRAGUARDO SOLO. Ordine AU voce 06**, decisione del
+    //    fondatore del 22 agosto, e SOSTITUISCE quella del 16 agosto sulla
+    //    celebrazione unica che li nominava tutti. Sulla 2188 si e' vista una
+    //    card che ne nominava CINQUE con centoventi Eos: una festa a raffica
+    //    smette di essere un premio, e una card che ne nomina cinque non e'
+    //    piu' una festa, e' un rendiconto.
+    //
+    //    **Chi va per primo**: il piu' importante, cioe' il primo grande se
+    //    c'e', e a parita' il primo per posizione nel cammino. E' la stessa
+    //    regola che sceglieva l'intensita' della festa unita, quindi la scena
+    //    resta quella che il fondatore ha gia' approvato.
+    final perImportanza = [...accesi]..sort((a, b) {
+        if (a.eGrande != b.eGrande) return a.eGrande ? -1 : 1;
+        return a.posizione.compareTo(b.posizione);
+      });
+    final questaVolta = perImportanza.first;
+    final inAttesa = perImportanza.skip(1).toList();
+    // **LA DISTANZA FRA DUE FESTE, e senza di lei la coda non serve**: si
+    // svuoterebbe tutta nella stessa schermata, cioe' cinque feste in fila
+    // invece di una card con cinque nomi. Cambierebbe la forma del fastidio.
+    final consentita = await DistanzaFraLeFeste.siPuoFesteggiare(
+        primoInAssoluto: primoInAssoluto);
+    final festeggiato = consentita &&
+        context.mounted &&
         await Celebrazione.festeggiaInsieme(
           context,
-          traguardi: accesi,
-          sentieri: [for (final t in accesi) sentieroDi(t)],
+          traguardi: [questaVolta],
+          sentieri: [sentieroDi(questaVolta)],
           primoInAssoluto: primoInAssoluto,
           // **GLI EOS VOLANO QUANDO LA FESTA SE NE VA, ordine S voce 07.** E'
           // il momento in cui la barra torna visibile: lanciarlo prima
@@ -182,13 +203,20 @@ class RegiaDelCammino {
           },
         );
 
-    // 2. SE NON C'ERA DOVE OSPITARLA, nessuna festa si perde: entrano in
-    //    coda una per una e arrivano insieme al primo momento utile, anche
-    //    dopo una chiusura dell'app.
-    if (!festeggiato) {
-      for (final traguardo in accesi) {
-        await coda?.accoda(traguardo.id);
-      }
+    // **2. TUTTI GLI ALTRI IN CODA, IN ORDINE, e nessuno si perde.** Ordine
+    //    AU voce 06: un traguardo in attesa NON e' perso. Il Sigillo si e'
+    //    gia' acceso qui sopra e gli Eos si accreditano qui sotto: in attesa
+    //    c'e' soltanto la festa, che e' il modo di dire "non hai perso niente,
+    //    te lo racconto dopo".
+    if (festeggiato) {
+      await DistanzaFraLeFeste.segnaFesta();
+    } else {
+      // Se la festa non e' comparsa, o perche' non c'era dove ospitarla o
+      // perche' e' troppo presto, anche il primo torna in coda.
+      await coda?.accoda(questaVolta.id);
+    }
+    for (final traguardo in inAttesa) {
+      await coda?.accoda(traguardo.id);
     }
 
     for (final traguardo in accesi) {
@@ -253,37 +281,46 @@ class RegiaDelCammino {
   /// Celebra cio' che era rimasto in attesa. La chiama il guardiano quando una
   /// schermata capace di ospitare la sovrimpressione e' finalmente montata.
   ///
-  /// **TUTTE INSIEME, IN UNA FESTA SOLA.** Ordine AC voce 04: qui c'era il
-  /// ciclo che le serviva una alla volta, in fila, ed era la raffica che
-  /// Mauro ha visto la sera del 16 dopo l'onboarding. Adesso si prende
-  /// l'intera coda e si celebra una volta, coi nomi di tutte.
+  /// **UNA SOLA, E LE ALTRE ASPETTANO.** Ordine AU voce 06, e SOSTITUISCE la
+  /// regola dell'ordine AC voce 04, che qui prendeva l'intera coda e ne
+  /// celebrava una che le nominava tutte.
+  ///
+  /// **Le due regole vietavano cose diverse.** Quella di agosto vietava la
+  /// RAFFICA, cioe' cinque scene di fila, e per evitarla univa i nomi in una
+  /// scena sola: cosi' e' nata la card che ne nominava cinque con centoventi
+  /// Eos, vista sulla 2188. Questa vieta i DUE NOMI nella stessa card, e la
+  /// raffica la tiene lontana in un altro modo, con la distanza fra le feste:
+  /// una per apertura dell'app, e tre ore di orologio fra l'una e l'altra.
   static Future<void> svuotaLaCoda(BuildContext context) async {
     final coda = _codaSeCe(context);
     if (coda == null || coda.vuota) return;
     final diario = context.read<DiarioDelCammino>();
-    final traguardi = await coda.prendiTutte();
-    if (traguardi.isEmpty) return;
+    // **PRIMA SI CHIEDE IL PERMESSO, POI SI PRENDE.** Prendere una festa dalla
+    // coda e poi rimetterla dentro perche' e' troppo presto e' un giro che
+    // funziona finche' non cade a meta': si guarda l'orologio prima di
+    // toccare la coda.
+    if (!await DistanzaFraLeFeste.siPuoFesteggiare()) return;
+    final traguardo = await coda.prendiLaProssima();
+    if (traguardo == null) return;
     if (!context.mounted) {
-      // Si rimettono dov'erano: una festa presa e non mostrata sarebbe persa.
-      for (final traguardo in traguardi) {
-        await coda.accoda(traguardo.id);
-      }
+      // Si rimette dov'era: una festa presa e non mostrata sarebbe persa.
+      await coda.accoda(traguardo.id);
       return;
     }
     final festeggiato = await Celebrazione.festeggiaInsieme(
       context,
-      traguardi: traguardi,
-      sentieri: [for (final t in traguardi) sentieroDi(t)],
-      // Il primo in assoluto: quando tutti gli accesi del diario sono quelli
-      // di questa festa, la persona non aveva niente prima, e il primo
-      // premio deve sembrare grande. Era `<= 1` quando la festa era una.
-      primoInAssoluto: diario.accesi.length <= traguardi.length,
+      traguardi: [traguardo],
+      sentieri: [sentieroDi(traguardo)],
+      // Il primo in assoluto: quando l'unico acceso del diario e' questo, la
+      // persona non aveva niente prima, e il primo premio deve sembrare
+      // grande.
+      primoInAssoluto: diario.accesi.length <= 1,
       attendiLaFine: true,
     );
-    if (!festeggiato) {
-      for (final traguardo in traguardi) {
-        await coda.accoda(traguardo.id);
-      }
+    if (festeggiato) {
+      await DistanzaFraLeFeste.segnaFesta();
+    } else {
+      await coda.accoda(traguardo.id);
     }
   }
 

@@ -33,10 +33,13 @@ LARGHEZZA = 720
 ALTEZZA = 1280
 QUALITA = 70
 
-# **IL TETTO, alzato dall'ordine AU voce 02.** Quello vecchio, 2 MB per file e
-# 6 MB in tutto, era dell'Architetto e si e' dimostrato troppo stretto: il peso
-# di questi filmati dipende dal MOVIMENTO e non dalla qualita' del fotogramma,
-# quindi stringere la qualita' non li fa dimagrire, li fa solo brutti.
+# **IL TETTO, alzato dall'ordine AU voce 02**, che pero' non e' servito.
+# Quello vecchio, 2 MB per file e 6 MB in tutto, aveva costretto Aura a 600 per
+# 1067 mentre gli altri due stavano a 720 per 1280. La diagnosi di allora, "il
+# peso dipende dal movimento e non dalla qualita'", era giusta a meta': il peso
+# dipendeva dal CANALE ALPHA, che `libwebp` comprime senza perdita anche quando
+# il colore va a perdita. Ridotto l'alpha a otto gradini, tutti e tre stanno a
+# 720 per 1280 e la somma rientra perfino nel tetto vecchio.
 TETTO_FILE = 3_000_000
 TETTO_TOTALE = 8_500_000
 
@@ -64,7 +67,7 @@ CR_SOGLIA = 0
 # Ridotta a pochi gradini, la maschera si comprime quasi a niente e le stelle
 # restano quelle: nessuno guarda una stella e conta le sfumature del suo alone.
 # A zero la riduzione e' spenta.
-LIVELLI_DELL_ALPHA = 0
+LIVELLI_DELL_ALPHA = 8
 
 
 def _corri(argomenti):

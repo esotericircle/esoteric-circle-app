@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'app.dart';
 import 'core/diagnosi/briciole.dart';
 import 'services/app_services.dart';
+import 'core/sigilli/distanza_fra_le_feste.dart';
 
 /// Punto di ingresso di Esoteric Circle.
 ///
@@ -71,5 +72,10 @@ Future<void> main() async {
     Briciole.lascia('crashlytics_armato');
   }
 
+  // **UNA FESTA PER APERTURA, e l'apertura comincia qui.** Ordine AU voce 06:
+  // il conto vive in memoria e non su disco, perche' "questa apertura"
+  // finisce quando il processo finisce; azzerarlo qui lo rende esplicito
+  // invece che affidato al fatto che una variabile statica nasca a zero.
+  DistanzaFraLeFeste.nuovaApertura();
   runApp(EsotericCircleApp(services: services));
 }

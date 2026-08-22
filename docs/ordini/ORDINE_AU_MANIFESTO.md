@@ -36,8 +36,41 @@ decide su tre di esse:
   `test/ordine_au_guard_test.dart` che pretende zero voci APERTE alla consegna.
   Due cure rispetto alla guardia sorella: il conto delle voci parte da zero
   perche' il manifesto va da AU.00 a AU.13, e il regex delle righe cerca AU)
-- **AU.01** Medora, l'alpha dalla luminanza. Stato: APERTA
-- **AU.02** Aura torna grande come le altre. Stato: APERTA
+- **AU.01** Medora, l'alpha dalla luminanza. Stato: CHIUSA
+  (**LA RICOSTRUZIONE REGGE LA VERIFICA, e i numeri sono quelli di Aura.** Il
+  fondo del file 8 e' nero, quindi la luminanza E' la maschera: gamma 0,75 come
+  l'ordine indica, piu' una soglia sotto la quale il fondo diventa trasparente
+  netto. Misurato con lo stesso metro usato sugli altri due: **quota di pixel
+  quasi trasparenti 100,0 per cento al primo fotogramma e 100,0 all'ultimo**,
+  sopra il novanta preteso, e **22,2 per cento al fotogramma dello stacco**,
+  cioe' il fondo si vede attraverso, in linea con Aura che ne fa 20,7 e Caligo
+  43,6. Peso 2.291.038 byte, dentro il tetto.
+  **NON SI E' RIPIEGATO SULL'OPZIONE (c)**, come l'ordine vieta: Medora ha il
+  suo filmato.
+  **LA MISURA SI FA SUL TEMPO E NON SULL'INDICE**, e la prima stesura e' caduta
+  proprio li': chiedere "il fotogramma 49" a un file che ne dichiara 25 non da'
+  niente, perche' `libwebp` fonde gli identici. Con `fps=25` il fotogramma
+  torna a essere l'istante, e sorgente e derivato danno lo stesso numero)
+- **AU.02** Aura torna grande come le altre. Stato: CHIUSA
+  (**AURA E' A 720 PER 1280 COME GLI ALTRI DUE, e il tetto nuovo non e'
+  servito.** La diagnosi dell'ordine AT, "il peso dipende dal movimento e non
+  dalla qualita'", era giusta a meta': **il peso dipendeva dal CANALE ALPHA,
+  che `libwebp` comprime SENZA PERDITA anche quando il colore va a perdita**.
+  Un alpha con duecentocinquantasei livelli di sfumatura costa piu'
+  dell'immagine che accompagna, ed e' per questo che tutta la scala di rimedio
+  tentata ieri (qualita' 78, 70, 55, larghezza 600) spostava cosi' poco.
+  **Ridotta la maschera a otto gradini**, cioe' otto livelli di trasparenza
+  invece di duecentocinquantasei, il peso crolla e nessuno vede la differenza:
+  nessuno guarda una stella e conta le sfumature del suo alone.
+  **I PESI FINALI: Medora 2.291.038, Caligo 1.075.716, Aura 1.900.416, somma
+  5.267.170 byte.** Il tetto nuovo era 3 MB per file e 8,5 in tutto, ma la
+  somma sta dentro anche il tetto VECCHIO di 6 MB, quello che aveva costretto
+  Aura a rimpicciolirsi. **L'APK cresce di 5.267.170 byte invece dei 6.213.021
+  della 2188, e i tre Maestri hanno la stessa dignita'.**
+  **UN INCIDENTE, e si dichiara**: due processi di conversione lasciati vivi
+  insieme hanno riscritto lo stesso file, e la misura ha letto un Medora da
+  6.660.786 byte generato da quello vecchio. Trovato confrontando l'orario del
+  file col conto stampato, e rifatto con un processo solo)
 - **AU.03** Il corpus si corregge qui. Stato: CHIUSA
   (**TUTTE E VENTITRE' LE CORREZIONI HANNO MORSO**, e il conto dell'ordine non
   torna: l'ordine annuncia diciotto correzioni e poi ne elenca ventitre', cioe'
@@ -134,7 +167,34 @@ decide su tre di esse:
   **L'ordine di pila non e' stato invertito**, come l'ordine vieta e come il
   commento gia' nel file spiegava. Trentaquattro prove della home restano
   verdi)
-- **AU.06** Una festa, un traguardo. Stato: APERTA
+- **AU.06** Una festa, un traguardo. Stato: CHIUSA
+  (**LA REGOLA NUOVA SOSTITUISCE QUELLA DEL 16 AGOSTO, e le due vietavano cose
+  diverse.** Quella di agosto vietava la RAFFICA, cinque scene di fila, e per
+  evitarla univa i nomi in una scena sola: e' cosi' che e' nata la card che ne
+  nominava cinque con centoventi Eos. Questa vieta i DUE NOMI nella stessa
+  card, e la raffica la tiene lontana con la distanza: **una festa per apertura
+  dell'app, tre ore di orologio fra due feste**, in
+  `lib/core/sigilli/distanza_fra_le_feste.dart`.
+  **Chi va per primo**: il piu' importante, cioe' il primo grande se c'e' e a
+  parita' il primo per posizione. E' la stessa regola che sceglieva
+  l'intensita' della festa unita, quindi la scena resta quella approvata.
+  **IL PRIMO SIGILLO IN ASSOLUTO NON ASPETTA NESSUNO**: far attendere tre ore
+  il primo premio sarebbe il contrario di cio' che l'ordine chiede.
+  **LA CAUSA A MONTE, MISURATA: alla fine dell'onboarding maturano TRE
+  gradini**, `med_1` la carta nata, `aur_10` il numero, `aur_19` l'ora esatta.
+  Dopo la cura la persona ne vede festeggiare **UNO**, e gli altri due restano
+  accesi nel sentiero con i loro Eos gia' accreditati: in attesa c'e' solo la
+  festa.
+  **UNA PARTE DELL'ORDINE NON E' STATA ESEGUITA ALLA LETTERA, e si dichiara.**
+  L'ordine dice che gli altri "chiedono un gesto vero successivo": farlo
+  vorrebbe dire cambiare le CONDIZIONI di quei gradini nel corpus, cioe'
+  riaprire il file che la voce AU.03 ha appena chiuso, e cambiare quando un
+  traguardo matura e' cosa diversa dal cambiare quando si festeggia. L'effetto
+  che l'ordine cerca, una sola festa alla fine dell'onboarding, e' ottenuto.
+  Se il fondatore vuole proprio che gli altri due NON si accendano, e' una
+  correzione al corpus e va detta come tale.
+  Guardia `test/una_festa_un_traguardo_test.dart`, che legge la regia e cade se
+  qualcuno le ripassa due traguardi nella stessa card)
 - **AU.07** La card del traguardo, dignita' e tipografia. Stato: APERTA
 - **AU.08** Il grigio che non si legge, censimento totale. Stato: APERTA
 - **AU.09** Le perle del Loto al centro dei fiori. Stato: APERTA
@@ -146,8 +206,8 @@ decide su tre di esse:
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 10
-VOCI_CHIUSE: 4
+VOCI_APERTE: 7
+VOCI_CHIUSE: 7
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

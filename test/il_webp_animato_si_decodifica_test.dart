@@ -17,25 +17,36 @@ import 'package:flutter_test/flutter_test.dart';
 ///     formato portano durate di 40, 80 e 160 millesimi, e la somma torna
 ///     esatta. Nessun contenuto e' perso, ma il vincolo dell'ordine non e'
 ///     soddisfatto alla lettera.
-///   - **`Star-Transition-8.mov`, quello destinato a Medora, E' OPACO**: alpha
-///     255 su tutti i fotogrammi, misurato sul SORGENTE con `alphaextract`
-///     prima ancora della conversione. Il fatto F2 dice `pix_fmt=argb` ed e'
-///     vero, ma il canale c'e' e non e' usato. La sua transizione coprirebbe
-///     lo schermo per due secondi e al frame 21 non si vedrebbe niente sotto.
+///   - **`Star-Transition-8.mov`, quello destinato a Medora, ERA OPACO**:
+///     alpha 255 su tutti i fotogrammi, misurato sul SORGENTE con
+///     `alphaextract` prima ancora della conversione.
 ///
-/// Per questo la voce e' FERMATA SU PREMESSA FALSA: la decisione su Medora
-/// spetta all'Architetto, e le opzioni stanno nel manifesto.
+/// **ORDINE AU VOCI 01 E 02: tutte e tre le fermate sono cadute.** Il
+/// fondatore ha scelto la ricostruzione dell'alpha dalla luminanza, e siccome
+/// il fondo del file 8 e' nero la luminanza E' la maschera. Insieme e' caduto
+/// anche il peso, e per una ragione che nessuno aveva visto: **`libwebp`
+/// comprime il canale alpha SENZA PERDITA anche quando il colore va a
+/// perdita**, quindi un alpha con duecentocinquantasei livelli di sfumatura
+/// costa piu' dell'immagine che accompagna. Ridotta la maschera a otto
+/// gradini, Medora passa da 6.660.786 a 2.291.038 byte e **Aura torna a 720
+/// per 1280 pesando 1.900.416**, cioe' meno del tetto VECCHIO che l'aveva
+/// costretta a 600 per 1067.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  /// Quali file devono avere l'alpha vivo. Medora non c'e', e non e' una
-  /// dimenticanza: e' il fatto misurato, dichiarato qui perche' il giorno che
-  /// arriva un sorgente nuovo questa riga cade e qualcuno se ne accorge.
-  const conAlphaVivo = {'stella_caligo', 'stella_aura'};
+  /// **ADESSO CE L'HANNO TUTTI E TRE**, ordine AU voce 01. Medora e' entrato
+  /// in questo elenco il 22 agosto 2026: l'alpha non e' arrivato da un
+  /// sorgente nuovo, e' stato ricostruito dalla luminanza.
+  const conAlphaVivo = {'stella_medora', 'stella_caligo', 'stella_aura'};
 
-  /// Il tetto per file dell'ordine, e la somma.
-  const tettoPerFile = 2000000;
-  const tettoTotale = 6000000;
+  /// **IL TETTO NUOVO, ordine AU voce 02**: 3 MB per file e 8,5 MB in tutto.
+  /// Quello vecchio, 2 e 6, aveva costretto Aura a 600 per 1067 mentre gli
+  /// altri due stavano a 720 per 1280, e il fondatore ha deciso che tre
+  /// Maestri hanno la stessa dignita'. **Alla fine non e' servito**: con
+  /// l'alpha a otto gradini la somma dei tre fa 5.267.170 byte, cioe' sta
+  /// dentro anche il tetto vecchio.
+  const tettoPerFile = 3000000;
+  const tettoTotale = 8500000;
 
   test('i tre file esistono, e i loro pesi si dichiarano', () {
     var somma = 0;
@@ -48,19 +59,15 @@ void main() {
     }
     // ignore: avoid_print
     print('ORDINE AT VOCE 02: pesi $pesi, somma $somma');
-    // **I DUE CHE RIENTRANO SI SORVEGLIANO**, e il terzo si dichiara: aura
-    // resta oltre il tetto anche alla scala minima che l'ordine consente
-    // (600 di larghezza) e a qualita' 70, misurato.
-    for (final nome in conAlphaVivo.where((n) => n != 'stella_aura')) {
+    // **ADESSO SI SORVEGLIANO TUTTI E TRE**, nessuno dichiarato fuori.
+    for (final nome in conAlphaVivo) {
       expect(pesi[nome]!, lessThanOrEqualTo(tettoPerFile),
           reason: '$nome pesa ${pesi[nome]} byte, oltre il tetto di '
               '$tettoPerFile');
     }
-    expect(pesi['stella_medora']!, lessThanOrEqualTo(tettoPerFile));
-    // ignore: avoid_print
-    print('ORDINE AT VOCE 02: aura ${pesi["stella_aura"]} byte contro il tetto '
-        '$tettoPerFile, somma $somma contro $tettoTotale: FUORI, e sta nel '
-        'rapporto');
+    expect(somma, lessThanOrEqualTo(tettoTotale),
+        reason: 'i tre filmati insieme pesano $somma byte, oltre gli '
+            '$tettoTotale concessi');
   });
 
   for (final nome in const ['stella_medora', 'stella_caligo', 'stella_aura']) {
@@ -100,10 +107,10 @@ void main() {
         expect(alphaInTutto, greaterThan(0),
             reason: '$nome ha perso l alpha nella conversione');
       } else {
-        // **MEDORA E OPACA, e la prova lo dichiara invece di ignorarlo.**
-        expect(alphaInTutto, 0,
-            reason: 'stella_medora adesso ha alpha: se e arrivato un sorgente '
-                'nuovo, questa riga va tolta e la voce AT.02 si riapre');
+        // Nessuno resta senza alpha: se un giorno qualcuno rimettesse un
+        // sorgente opaco, questa riga lo direbbe invece di lasciarlo
+        // passare in silenzio.
+        fail('$nome non e nell elenco di quelli con alpha vivo, e dopo l ordine AU voce 01 ce l hanno tutti e tre');
       }
     });
   }
