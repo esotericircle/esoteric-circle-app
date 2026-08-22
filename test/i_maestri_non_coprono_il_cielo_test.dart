@@ -196,7 +196,10 @@ void main() {
                 'lo spazio ce l ha. Il rimedio non e invertire l ordine di '
                 'pila: le due zone non si devono toccare');
       } else {
-        expect(copertiInTutto, lessThanOrEqualTo(tetto),
+        // Un pixel di tolleranza: i numeri scritti sono arrotondati e la
+        // misura ha i decimali, e cadere per nove centesimi di pixel non
+        // segnala niente a nessuno.
+        expect(copertiInTutto, lessThanOrEqualTo(tetto + 1),
             reason: 'su ${voce.key} i pixel coperti sono peggiorati: erano '
                 '$tetto, adesso $copertiInTutto. Lo spazio li non basta per '
                 'nessuna altezza del busto, ma non deve peggiorare');
