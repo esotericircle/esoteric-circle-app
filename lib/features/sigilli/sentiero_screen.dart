@@ -20,6 +20,7 @@ import 'disegno_del_sentiero.dart';
 import 'le_tre_righe_del_sentiero.dart';
 import '../../design_system/components/icona_degli_eos.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
+import 'la_mappa_del_sentiero.dart';
 
 /// IL SENTIERO DEI SIGILLI: Albero, Costellazione o Loto.
 ///
@@ -65,6 +66,21 @@ class SentieroScreen extends StatefulWidget {
 
 class _SentieroScreenState extends State<SentieroScreen> {
   final ScrollController _scorrimento = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    // **LA MAPPA AL PRIMO INGRESSO, ordine AU voce 13.** Una volta sola per
+    // sentiero, e poi solo se la si chiede col punto interrogativo: e' la
+    // differenza fra un aiuto e un'interruzione.
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      if (!await LaMappaDelSentiero.eIlPrimoIngresso(widget.sentiero)) return;
+      await LaMappaDelSentiero.segnaLIngresso(widget.sentiero);
+      if (!mounted) return;
+      await LaMappaDelSentiero.mostra(context, widget.sentiero);
+    });
+  }
 
   /// Le chiavi dei gradini: servono a MISURARE dove sta una riga invece di
   /// dedurlo da un'altezza scritta a mano, ordine P voce 36.
@@ -201,6 +217,18 @@ class _SentieroScreenState extends State<SentieroScreen> {
             stile: TypographyTokens.titoloScheda()
                 .copyWith(color: palette.goldSoft),
           ),
+          // **IL PUNTO INTERROGATIVO, ordine AU voce 13.** La mappa del
+          // sentiero non si impone: dopo il primo ingresso la si chiede da
+          // qui, e da qui e' sempre raggiungibile.
+          azioni: [
+            IconButton(
+              key: const Key('sentiero_apri_la_mappa'),
+              tooltip: 'Dove sono in questo sentiero',
+              icon: Icon(Icons.help_outline_rounded, color: palette.goldSoft),
+              onPressed: () =>
+                  LaMappaDelSentiero.mostra(context, widget.sentiero),
+            ),
+          ],
           // **IL SALDO NON STA PIU' QUI, ordine S voce 06.** Era disegnato
           // dentro questa schermata, e per questo esisteva soltanto in questa
           // schermata: adesso e' `SegnoDelBorsellino` e lo monta la barra, in

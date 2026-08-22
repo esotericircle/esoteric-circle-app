@@ -135,6 +135,7 @@ import 'package:esoteric_circle/features/sigilli/celebrazione.dart';
 import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:esoteric_circle/core/arts/arti_preferite.dart';
 import 'package:esoteric_circle/features/santuario/widgets/tue_arti_view.dart';
+import 'package:esoteric_circle/features/sigilli/la_mappa_del_sentiero.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -2530,6 +2531,12 @@ void main() {
         await tester.runAsync(() => diario.accendi(t.id));
       }
       await step(tester);
+      // **QUESTE NOVE GUARDANO IL DISEGNO, ordine AU voce 13.** La mappa del
+      // sentiero compare da sola al PRIMO ingresso, e coprirebbe la figura:
+      // qui si dichiara che in questo sentiero si e' gia' entrati, cosi'
+      // l'immagine mostra cio' che deve mostrare. La mappa ha la sua cattura,
+      // piu' sotto.
+      await tester.runAsync(() => LaMappaDelSentiero.segnaLIngresso(sentiero));
       final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
       unawaited(nav.push(SentieroScreen.route(sentiero)));
       await step(tester);
@@ -2551,6 +2558,32 @@ void main() {
       });
     }
   }
+
+  // --- LA MAPPA DEL SENTIERO. Ordine AU voce 13 ---
+  //
+  // **Tre cose e basta**: dove sei, cosa manca, da dove si comincia. Si guarda
+  // che siano tre e che il livello visivo venga prima del testo.
+  testWidgets('Cattura la mappa del sentiero', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.aura, seeded: false));
+    final ctx = tester.element(find.byType(MaterialApp));
+    final diario = ctx.read<DiarioDelCammino>();
+    for (final t in Sentieri.miniDi(Sentiero.loto).take(7)) {
+      await tester.runAsync(() => diario.accendi(t.id));
+    }
+    await step(tester);
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(SentieroScreen.route(Sentiero.loto)));
+    await step(tester);
+    await step(tester);
+    // Il primo ingresso la apre da solo: e' esattamente cio' che si vuole
+    // guardare.
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.pump(const Duration(milliseconds: 600));
+    await capture(tester, rootKey, 'mappa-del-sentiero.png');
+  });
 
   // --- IL PORTAFOGLIO APERTO. Ordine S voce 06 ---
   //

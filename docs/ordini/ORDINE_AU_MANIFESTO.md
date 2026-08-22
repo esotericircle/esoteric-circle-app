@@ -390,13 +390,40 @@ decide su tre di esse:
   fondatore.
   **Un errore di italiano corretto di passaggio**: "Una carta dei Arcani
   Maggiori" diventa "degli")
-- **AU.13** Il tooltip dei tre sentieri. Stato: APERTA
+- **AU.13** Il tooltip dei tre sentieri. Stato: CHIUSA
+  (**TRE COSE E BASTA**, in `lib/features/sigilli/la_mappa_del_sentiero.dart`:
+  dove sei, "7 perle accese su 55, nella fascia primi giorni"; cosa manca, con
+  le parole del corpus, "Due Riti dell'Alba, nell'arco di 3 giorni"; e da dove
+  si comincia, un pulsante toccabile che porta all'arte, "Il Rito dell'Alba".
+  Livello visivo prima del testo: il segno del sentiero in oro, e sotto le tre
+  righe.
+  **NON E' LA BOLLA CHE IL FONDATORE HA FATTO ELIMINARE**, e la differenza e'
+  misurata: quella stava in HOME e arrivava senza che nessuno la chiedesse,
+  questa sta DENTRO il sentiero e compare una volta sola al primo ingresso,
+  poi solo dal punto interrogativo in alto a destra. Il conto e' PER SENTIERO:
+  averla vista nel Loto non la spegne nell'Albero.
+  **LA PORTA DELL'ARTE E' TOCCABILE, e nel corpus era solo testo.** Il
+  traguardo dichiara "L'Estrazione delle Rune" come stringa, e una stringa non
+  si tocca: qui il gesto della condizione, letto dalla sua firma, diventa la
+  via che lo compie. Provati tutti e centosessantacinque i traguardi: **zero
+  senza una porta da nominare**, perche' quando un gesto non ha una via propria
+  si va alla casa del suo Maestro. Mai un vicolo cieco.
+  **UN DETTAGLIO CHE SAREBBE DIVENTATO UN DIFETTO**: "presenza" nella firma di
+  una finestra del cielo non e' un gesto, e' il modo di dire che basta esserci
+  quel giorno; lasciarlo passare faceva cercare un'arte che non esiste.
+  **LE NOVE ANTEPRIME DEI SENTIERI SONO STATE PROTETTE**: la mappa compare da
+  sola al primo ingresso e le avrebbe coperte tutte, quindi quelle catture
+  dichiarano di esserci gia' state. La mappa ha la sua, `mappa-del-sentiero.png`,
+  **guardata e non solo generata**.
+  Guardia `test/la_mappa_del_sentiero_test.dart`, sei prove, che pretende anche
+  che i testi nel foglio siano AL PIU' TRE: un aiuto che diventa un elenco
+  smette di aiutare)
 
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 1
-VOCI_CHIUSE: 13
+VOCI_APERTE: 0
+VOCI_CHIUSE: 14
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
