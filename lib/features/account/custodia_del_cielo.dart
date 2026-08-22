@@ -401,17 +401,31 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
     // che riusava la credenziale gia' spesa dal tentativo fallito, e su Google
     // un token speso non entra piu': **la persona restava fuori, e da li' in
     // poi nemmeno la registrazione ripartiva**.
-    final esito = widget.perChiTorna
-        ? await widget.account
-            .entraDirettamente(via, email: email, parola: parola)
-        : await widget.account.custodisci(via, email: email, parola: parola);
+    //
+    // **E LA PORTA SI RIAPRE ANCHE SE QUALCOSA LANCIA.** L'ordine chiede di
+    // cercare uno stato appeso che impedisca al tentativo dopo di partire:
+    // eccolo. `_inCorso` spegne tutti i pulsanti mentre si aspetta, e veniva
+    // rimesso a nulla solo lungo la via buona. Le porte dell'identita' oggi
+    // catturano tutto, ma `rileggi()` sopra di loro no: **una sola eccezione
+    // da li' lasciava la scheda bloccata per sempre**, e la persona doveva
+    // chiudere e riaprire l'app. Il `finally` toglie quel per sempre.
+    EsitoDellaCustodia esito;
+    try {
+      esito = widget.perChiTorna
+          ? await widget.account
+              .entraDirettamente(via, email: email, parola: parola)
+          : await widget.account.custodisci(via, email: email, parola: parola);
+    } catch (_) {
+      esito = EsitoDellaCustodia.nonRiuscita;
+    } finally {
+      if (mounted) setState(() => _inCorso = null);
+    }
     if (!mounted) return;
     if (esito == EsitoDellaCustodia.riuscita) {
       Navigator.of(context).pop(true);
       return;
     }
     setState(() {
-      _inCorso = null;
       _guaio = frasePerEsito(esito);
       _riconosciuto = esito == EsitoDellaCustodia.giaDiUnAltroCerchio;
     });
