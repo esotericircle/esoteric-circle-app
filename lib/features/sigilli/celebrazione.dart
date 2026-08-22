@@ -414,7 +414,7 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
     if (_traguardoVisibile) return;
     if (millesimi < SpiraleDiStelle.istanteDelCulmine.inMilliseconds) return;
     final quanto = DateTime.now().difference(_quandoEPartita!).inMilliseconds;
-    debugPrint('ORDINE AV: traguardo scoperto a $millesimi millesimi di '
+    debugPrint('ORDINE AV: traguardo scoperto al millesimo $millesimi della '
         'spirale, $quanto ms dall inizio');
     setState(() => _traguardoVisibile = true);
   }
