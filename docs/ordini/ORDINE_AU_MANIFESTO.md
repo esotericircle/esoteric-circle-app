@@ -433,3 +433,25 @@ VOCI_CHIUSE: 14
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+
+## La consegna
+
+**Build `0.1.0+2189`** arm64, numero letto dall'archivio con aapt2,
+**166.444.568 byte**. `tool/verifica_apk.py` verde su tutte e nove le famiglie
+grafiche. Consegnata il 22 agosto 2026, release `180a3eeruot2o`, a
+`cloud@esotericircle.app` e `info@esotericircle.com`, inviti accettati 2.
+
+**La prova di accensione e' stata SALTATA e si dichiara**, come la consegna
+stessa scrive a voce alta: il fondatore non ha un telefono collegato al PC e
+l'ordine chiede comunque la consegna. Nessun dispositivo ha acceso questo
+archivio prima del caricamento.
+
+## Le prove
+
+**Le prove rosse residue sono SETTE, e sono tutte PRECEDENTI a quest'ordine**,
+verificate eseguendole sul ramo di partenza `9964b3e9` in un albero separato:
+le tre guardie degli ordini AC, T e U, che sono rosse apposta perche' quegli
+ordini hanno ancora voci aperte; il disegno di albero e loto che tocca il bordo
+della tela; l'attribuzione cieca dei doni; e il peso dell'alone di un traguardo
+acceso, che varia di 5,1 volte fra i tre sentieri. **Nessuna di loro e' stata
+toccata da quest'ordine, e nessuna e' stata allentata per farla tacere.**
