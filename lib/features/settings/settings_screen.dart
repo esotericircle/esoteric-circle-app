@@ -1,6 +1,8 @@
 import 'riga_di_messa_a_punto.dart';
 import '../../core/arts/art_catalog.dart';
 import 'package:flutter/material.dart';
+
+import '../account/account_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -215,22 +217,43 @@ class SettingsScreen extends StatelessWidget {
                 subtitle: 'Accesso e profilo.',
               ),
               const SizedBox(height: SpacingTokens.sm),
+              // **LA VOCE ACCOUNT SI ACCENDE.** Ordine AZ voce 11, che e' lo
+              // stesso lavoro della voce 13 dell'ordine AX. Situazione S35
+              // del censimento, e fatto F9 del fondatore: era spenta e
+              // portava la pillola "Dietro il velo" mentre l'area account
+              // esisteva gia' e funzionava. Un vicolo cieco davanti a una
+              // porta aperta.
               DepthCard(
                 raised: true,
-                opacity: 0.6,
-                child: Row(
-                  children: [
-                    Icon(Icons.person_outline_rounded,
-                        color: palette.goldSoft, size: 22),
-                    const SizedBox(width: SpacingTokens.md),
-                    Expanded(
-                      child: Text(
-                        'Account',
-                        style: TypographyTokens.display(size: 16),
+                child: InkWell(
+                  key: const Key('impostazioni_account'),
+                  onTap: () =>
+                      Navigator.of(context).push(AccountScreen.route()),
+                  child: Row(
+                    children: [
+                      Icon(Icons.person_outline_rounded,
+                          color: palette.goldSoft, size: 22),
+                      const SizedBox(width: SpacingTokens.md),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Il tuo account',
+                              style: TypographyTokens.display(size: 16),
+                            ),
+                            Text(
+                              'Profilo, accesso e dati di nascita',
+                              style: TypographyTokens.didascalia()
+                                  .copyWith(color: ColorTokens.textSecondary),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    _VeilBadge(palette: palette),
-                  ],
+                      const Icon(Icons.chevron_right_rounded,
+                          color: ColorTokens.textSecondary, size: 22),
+                    ],
+                  ),
                 ),
               ),
 
@@ -520,30 +543,6 @@ class _PlanTile extends StatelessWidget {
           ),
           Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
         ],
-      ),
-    );
-  }
-}
-
-class _VeilBadge extends StatelessWidget {
-  const _VeilBadge({required this.palette});
-
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: SpacingTokens.xs,
-        vertical: SpacingTokens.xxs,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
-      ),
-      child: Text(
-        'Dietro il velo',
-        style: TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
       ),
     );
   }

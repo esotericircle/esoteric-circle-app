@@ -30,7 +30,7 @@ conta sulle righe.
 - **AX.10** "Attiva la posizione" non attiva niente. Stato: APERTA
 - **AX.11** Il Soffio non somiglia all'Alba. Stato: APERTA
 - **AX.12** Le notifiche dei doni. Stato: APERTA
-- **AX.13** Il menu' Account nelle Impostazioni. Stato: APERTA
+- **AX.13** Il menu' Account nelle Impostazioni. Stato: CHIUSA con l'ordine AZ voce 11
 - **AX.14** Il luogo di nascita e' un paese, non un planisfero. Stato: APERTA
 - **AX.15** L'icona dell'app. Stato: APERTA
 
@@ -76,8 +76,8 @@ disinstallare, reinstallare e rientrare col suo account Google.
 ## I marcatori
 
 VOCI_TOTALI: 16
-VOCI_APERTE: 14
-VOCI_CHIUSE: 2
+VOCI_APERTE: 13
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

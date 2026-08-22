@@ -203,6 +203,46 @@ void main() {
         reason: 'si avvisa di un guasto anche quando non c e stato nessun '
             'guasto');
   });
+  testWidgets('AZ.13: tutti i codici di rifiuto sono coperti, enumerati',
+      (tester) async {
+    // **I QUATTRO CODICI CHE LA PORTA RILANCIA, uno per uno.** Sono quelli
+    // che `PortaVeraDelCerchio._chiama` distingue apposta dal silenzio della
+    // rete, e comprendono il caso del token scaduto mentre si e' dentro, che
+    // e' la situazione S31 del censimento: Firebase risponde
+    // `unauthenticated` quando la sessione non vale piu'.
+    //
+    // **Nessuno di questi deve piu' scappare**, e ognuno deve avere una
+    // frase. Prima ne scappavano quattro su quattro.
+    const codici = [
+      'unauthenticated',
+      'permission-denied',
+      'invalid-argument',
+      'failed-precondition',
+    ];
+    var scappate = 0;
+    var mute = 0;
+    for (final codice in codici) {
+      final ctx = await montaIlGiro(tester, _PortaCheDiceNo(codice));
+      Ritrovamento? esito;
+      try {
+        esito = await CustodeDelCammino.dopoIlRiconoscimento(ctx,
+            mostraLaScena: false);
+      } catch (_) {
+        scappate++;
+      }
+      if (esito?.cosaDireAllaPersona == null) mute++;
+      await tester.pump();
+      await tester.pumpWidget(const SizedBox());
+    }
+    // ignore: avoid_print
+    print('ORDINE AZ VOCE 13: sui ${codici.length} codici di rifiuto, '
+        'eccezioni scappate $scappate, rami muti $mute');
+    expect(scappate, 0,
+        reason: 'qualche codice di rifiuto scappa ancora dal giro e muore nel '
+            'gesto');
+    expect(mute, 0,
+        reason: 'qualche codice di rifiuto non dice niente alla persona');
+  });
 }
 
 /// Una porta che dice NO col codice che il server usa davvero.

@@ -111,17 +111,17 @@ dire che la ricerca sul codice ha dato zero occorrenze, ed e' scritto quale.
 - **AZ.01** Chi entra arriva in home, e se non arriva lo sa. Stato: CHIUSA
 - **AZ.02** Il rito non si decide su una preferenza locale. Stato: CHIUSA
 - **AZ.03** Il borsellino si aggiorna quando cambia, non al riavvio. Stato: CHIUSA
-- **AZ.04** I dati di nascita: chi vince, e chi lo vede. Stato: APERTA
+- **AZ.04** I dati di nascita: chi vince, e chi lo vede. Stato: CHIUSA
 - **AZ.05** La parola persa. Stato: CHIUSA
 - **AZ.06** La verifica dell'email. Stato: CHIUSA
 - **AZ.07** Uscire dall'account. Stato: CHIUSA
 - **AZ.08** Cancellare l'account per davvero. Stato: CHIUSA
 - **AZ.09** Sapere chi si e'. Stato: CHIUSA
 - **AZ.10** Il foglio dell'email che non dice niente. Stato: CHIUSA
-- **AZ.11** La voce Account nelle Impostazioni. Stato: APERTA
+- **AZ.11** La voce Account nelle Impostazioni. Stato: CHIUSA
 - **AZ.12** Cambio email, cambio parola, e la riautenticazione. Stato: CHIUSA
-- **AZ.13** Il token che scade mentre si e' dentro. Stato: APERTA
-- **AZ.14** Cio' che questo ordine NON chiude, dichiarato. Stato: APERTA
+- **AZ.13** Il token che scade mentre si e' dentro. Stato: CHIUSA
+- **AZ.14** Cio' che questo ordine NON chiude, dichiarato. Stato: CHIUSA
 
 ## L'ordine di lavoro, deciso qui
 
@@ -349,11 +349,101 @@ di uno muto. E le voci nuove compaiono **1 volta** a chi ne ha bisogno e **0
 volte** a chi e' entrato con Google, che l'indirizzo lo ha gia' verificato
 dal fornitore.
 
+### AZ.04, i dati di nascita: chi vince, e chi lo vede
+
+**La fusione sul server e' innocente, e va detto invece di curarla.** In
+`functions/lib/cammino.js` la regola e' scritta: l'identita' si fonde campo
+per campo, e **se tutti e due ce l'hanno vince il server**, che e' la copia
+che sopravvive ai telefoni. **I dati a caso non hanno mai potuto cancellare
+quelli veri.**
+
+**Il difetto era che la fusione non avveniva.** `adotta` gira solo se
+`sincronizza` risponde, e nella sequenza del fondatore non rispondeva: e' il
+fatto F1. I dati a caso restavano perche' **nessuno li aveva ancora
+sostituiti**, non perche' avessero vinto.
+
+**Le misure**, in `test/i_dati_di_nascita_del_cerchio_vincono_test.dart`: col
+Cerchio che risponde, la nascita sul telefono passa da **2000-01-01 a
+1975-03-14**. **E la meta' che non va curata**: senza risposta la nascita
+resta quella scritta, perche' buttarla per una rete assente sarebbe molto
+peggio del difetto.
+
+### AZ.11, la voce Account nelle Impostazioni
+
+Fatto F9, situazione S35, ed e' **lo stesso lavoro della voce 13 dell'ordine
+AX**, che si chiude qui. Era spenta con la pillola "Dietro il velo" mentre
+l'area account **esisteva gia' e funzionava**: un vicolo cieco messo davanti a
+una porta aperta.
+
+**Le misure**, in `test/la_voce_account_nelle_impostazioni_e_viva_test.dart`:
+la chiave `impostazioni_account` compare **1 volta**, "Dietro il velo"
+**0 volte**, e `opacity` **0 volte** vicino alla voce, perche' una voce viva
+dipinta come spenta e' il difetto opposto e altrettanto brutto. La guardia
+legge il codice **senza i commenti**: e' gia' successo due volte in questo
+repository che una guardia diventasse rossa per la propria spiegazione.
+
+### AZ.13, il token che scade mentre si e' dentro
+
+**Coperto dalle cure di AZ.01 e AZ.03, e provato invece di dedotto.** Un token
+scaduto e' un `unauthenticated`: prima scappava dal giro e moriva nel gesto,
+adesso viene catturato, distinto dalla rete assente, raccontato e riprovato.
+
+**La misura enumera i quattro codici** che la porta rilancia apposta,
+`unauthenticated`, `permission-denied`, `invalid-argument` e
+`failed-precondition`: **eccezioni scappate 0 su 4, rami muti 0 su 4**. Prima
+erano quattro su quattro in tutti e due i conti.
+
+### AZ.14, cio' che questo ordine NON chiude
+
+**Il fondatore ha chiesto di prevedere tutto, e ha chiesto anche che cio' che
+non si chiude venga dichiarato invece di sparire.** Ecco l'elenco.
+
+1. **Nessuna delle cure e' stata vista su un telefono.** Su questa macchina
+   `adb devices` e' vuoto e nessun emulatore parte. Tutte le misure di questo
+   ordine sono prove automatiche: dicono che il codice fa cio' che deve, non
+   che il fondatore lo vedra'. **Cosa deve guardare lui** sta in fondo a
+   questo file.
+2. **La via di Apple non e' mai stata provata su un dispositivo** (S03).
+   Nessun Mac e nessun iPhone in questo ambiente. Il codice c'e' e segue la
+   stessa strada di Google, ma resta non verificata.
+3. **Il cambio dell'email non e' stato fatto** (S19). Farlo bene vuol dire
+   `verifyBeforeUpdateEmail`, cioe' un giro di verifica sul nuovo indirizzo
+   prima di sostituire il vecchio, con una finestra in cui la persona ha due
+   indirizzi e uno solo funziona. **E' un lavoro suo, non una riga**: metterlo
+   qui a meta' sarebbe peggio che non averlo.
+4. **La riautenticazione non ha una schermata propria** (S22). Dove serve, il
+   caso `requires-recent-login` viene tradotto in "esci e rientra, poi
+   riprova", che e' vero e fattibile ma piu' scomodo di un foglio che chiede
+   la parola sul momento.
+5. **I permessi restano dell'ordine AX**, voci 10 e 12 (S37). Non sono entrati
+   qui perche' sono lavoro di sistema operativo, non di account.
+6. **Le voci da AX.02 a AX.10, AX.12, AX.14 e AX.15 restano APERTE** dove
+   stanno. AX.13 si chiude qui insieme ad AZ.11.
+
+## Cosa deve guardare il fondatore sulla 2193
+
+Le prove automatiche non sostituiscono i suoi occhi. In ordine:
+
+1. **Disinstalla, reinstalla.** Nella prima schermata, se il telefono propone
+   il tuo account, la porta "Faccio gia' parte del Cerchio" deve essere un
+   **pulsante pieno**, non una scritta smorzata.
+2. **Toccala e scegli il tuo account.** Se non arrivi in home, adesso **devi
+   leggere una frase** che dice se il Cerchio ha detto di no o se non ha
+   risposto, con un **Riprova** accanto.
+3. **Guarda il saldo in barra.** Se parte da zero, aspetta una decina di
+   secondi senza toccare niente: deve arrivare da solo.
+4. **Apri Il tuo account.** In cima deve esserci la tua email, e sotto "Il tuo
+   cielo e' custodito". Piu' giu' deve esserci **Esci dal Cerchio**.
+5. **Impostazioni.** La voce Account non deve piu' portare "Dietro il velo":
+   deve aprirsi.
+6. **Prova il foglio dell'email**, dalla custodia: tocca "Custodisci" a campi
+   vuoti. Deve dirti cosa manca, non restare fermo.
+
 ## I marcatori
 
 VOCI_TOTALI: 15
-VOCI_APERTE: 4
-VOCI_CHIUSE: 11
+VOCI_APERTE: 0
+VOCI_CHIUSE: 15
 SITUAZIONI_CENSITE: 37
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
