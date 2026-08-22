@@ -157,7 +157,7 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
           Text(carta.uprightSummary,
               key: const Key('arcano_sommario'),
               style: TypographyTokens.lettura()
-                  .copyWith(color: palette.gold, height: 1.4)),
+                  .copyWith(color: palette.goldSoft, height: 1.4)),
           const SizedBox(height: SpacingTokens.sm),
           Text(carta.upright,
               key: const Key('arcano_responso'),

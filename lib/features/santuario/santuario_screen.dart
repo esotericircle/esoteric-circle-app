@@ -1276,7 +1276,7 @@ class _DomainEntry extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: TypographyTokens.lettura().copyWith(
-                  color: palette.gold,
+                  color: palette.goldSoft,
                   letterSpacing: 0.4,
                   height: 1.25,
                 ),

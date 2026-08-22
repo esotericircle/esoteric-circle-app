@@ -238,7 +238,7 @@ class _FoglioScelta extends StatelessWidget {
                 onPressed: () => Navigator.of(context).maybePop(),
                 child: Text('Fatto',
                     style: TypographyTokens.label(size: 14)
-                        .copyWith(color: palette.gold)),
+                        .copyWith(color: palette.goldSoft)),
               ),
             ),
           ],

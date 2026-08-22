@@ -234,7 +234,41 @@ decide su tre di esse:
   **Una guardia esistente e' stata RI-MIRATA e non allentata**: "al primo
   momento utile la festa in attesa arriva" restava vera, ma il primo momento
   utile adesso e' un'apertura nuova, perche' se ne vede una per apertura)
-- **AU.08** Il grigio che non si legge, censimento totale. Stato: APERTA
+- **AU.08** Il grigio che non si legge, censimento totale. Stato: CHIUSA
+  (**PERCHE' LE DUE CURE PRECEDENTI NON AVEVANO FUNZIONATO, e la ragione e'
+  esattamente quella che l'ordine sospettava.** L'ordine AS voce 05 aveva
+  alzato `textMuted` a `0xFFA39D8E` dichiarando "6,59 su Aura" e chiuso la
+  voce. **Quel numero era misurato sul fondo sbagliato**: `auraDeep`, il fondo
+  profondo della schermata, mentre quei testi stanno sulle CARD, cioe' su
+  `auraSurface`, piu' chiara. Sul fondo vero facevano **4,40**, e sul vetro
+  delle bolle **4,21**. Ecco perche' il fondatore continuava a non leggerli
+  mentre la prova era verde: si misurava il fondo teorico.
+  **IL CENSIMENTO ENUMERA: 625 punti del codice dipingono testo**, letti dai
+  sorgenti uno per uno col loro ruolo tipografico, il loro colore e la loro
+  opacita', per i fondi che quel testo tocca davvero, e fanno 4.926 misure.
+  **Sotto la loro soglia erano 487. Adesso sono ZERO.**
+  **DUE STESURE DELLA PROVA SONO STATE BUTTATE, e vale la pena dirlo.** La
+  prima faceva il prodotto cartesiano di tutti i colori per tutte le opacita'
+  trovate in giro: 4.347 righe in cui le peggiori erano "goldDeep all'8 per
+  cento", che nel codice non e' un testo ma un'ombra. Un censimento che
+  inventa combinazioni non censisce, fa rumore, e nel rumore il difetto vero
+  si perde. La seconda misurava l'oro di Medora sul verde di Aura, cioe'
+  inventava schermate che non esistono.
+  **LE SOGLIE SONO DUE, come l'ordine detta**: 7,0 per i testi piccoli e 4,5
+  per i titoli grandi, e il ruolo tipografico si legge dal codice. Senza
+  questa distinzione il censimento avrebbe preteso 7,0 anche dall'oro di un
+  titolo cerimoniale, e per ottenerlo l'oro andrebbe schiarito fino a non
+  essere piu' oro: si curerebbe un difetto rovinando il marchio.
+  **LE CORREZIONI SONO TRE.** `textMuted` da `0xFFA39D8E` a `0xFFD8D0BD`, che
+  sul peggiore dei fondi veri fa 7,39; `textSecondary` da `0xFFC7C2B4` a
+  `0xFFD7D2C2`, perche' faceva 6,68 su Aura; e **cinque punti in cui l'oro
+  pieno faceva da testo piccolo** passano all'oro chiaro, che sullo stesso
+  fondo passa da 5,47 a 8,06: il Passaporto, l'Oracolo del Giorno, la home,
+  le tue arti e le impostazioni. I tre livelli di grigio restano tre.
+  Guardia `test/il_censimento_dei_grigi_test.dart`, che cade se un solo punto
+  scende sotto la sua soglia e pretende di trovarne almeno cinquanta prima di
+  dichiarare qualcosa. Le sette prove di leggibilita' gia' esistenti, 43 in
+  tutto, restano verdi)
 - **AU.09** Le perle del Loto al centro dei fiori. Stato: APERTA
 - **AU.10** La pila che non torna indietro. Stato: APERTA
 - **AU.11** Il borsellino si aggiorna ovunque. Stato: APERTA
@@ -244,8 +278,8 @@ decide su tre di esse:
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 6
-VOCI_CHIUSE: 8
+VOCI_APERTE: 5
+VOCI_CHIUSE: 9
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

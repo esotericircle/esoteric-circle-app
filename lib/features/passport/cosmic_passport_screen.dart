@@ -918,7 +918,7 @@ class _VeilBadge extends StatelessWidget {
       ),
       child: Text(
         'Dietro il velo',
-        style: TypographyTokens.etichetta().copyWith(color: palette.gold),
+        style: TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
       ),
     );
   }

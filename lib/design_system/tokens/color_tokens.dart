@@ -48,20 +48,30 @@ class ColorTokens {
 
   // --- Neutri di testo e superfici trasparenti ---
   static const Color textPrimary = Color(0xFFF4F1E8);
-  static const Color textSecondary = Color(0xFFC7C2B4);
-  /// **IL GRIGIO PIU' SCURO SI SCHIARISCE. Ordine AS voce 05.**
+  /// **IL SECONDO GRIGIO SI SCHIARISCE CON L'ALTRO. Ordine AU voce 08.**
   ///
-  /// Era `0xFF8A8578`, e misurato dava 4,66 a 1 sulla superficie di Medora:
-  /// appena sopra la soglia di 4,5 dichiarata dal progetto, cioe' il minimo
-  /// legale, su un telefono in mano e con la luce intorno. E' il colore delle
-  /// righe che spiegano quando arrivano gli Eos sotto i pulsanti della
-  /// condivisione: proprio quelle che Mauro non riusciva a leggere.
+  /// Era `0xFFC7C2B4` e sulla superficie di Aura faceva 6,68: sotto il 7,0 che
+  /// l'ordine pretende dai testi piccoli. Adesso vale `0xFFD7D2C2`, e il
+  /// peggiore dei fondi veri gli da' 7,61.
+  static const Color textSecondary = Color(0xFFD7D2C2);
+
+  /// **IL GRIGIO PIU' SCURO SI SCHIARISCE UN'ALTRA VOLTA. Ordine AU voce 08,
+  /// ed e' la terza volta che il fondatore lo segnala.**
   ///
-  /// Adesso vale `0xFFA39D8E`, misurato: 7,29 sul fondo piu' scuro, 6,34 su
-  /// Medora, 6,81 su Caligo, 6,59 su Aura. Resta piu' scuro di
-  /// [textSecondary], quindi la gerarchia fra i due grigi non si perde, ma
-  /// smette di stare sul filo.
-  static const Color textMuted = Color(0xFFA39D8E);
+  /// Era `0xFF8A8578`, poi l'ordine AS voce 05 lo porto' a `0xFFA39D8E`
+  /// dichiarando "6,59 su Aura" e chiuse la voce. **Quel numero era misurato
+  /// sul fondo sbagliato**: `auraDeep`, che e' il fondo profondo della
+  /// schermata, mentre questi testi stanno sulle CARD, cioe' su `auraSurface`,
+  /// che e' piu' chiara. Sul fondo vero facevano 4,40, e sul vetro delle bolle
+  /// 4,21: ecco perche' il fondatore continuava a non leggerli mentre la
+  /// prova era verde. E' esattamente cio' che quest'ordine vieta, misurare sul
+  /// fondo teorico invece che su quello su cui il testo e' davvero dipinto.
+  ///
+  /// Adesso vale `0xFFD8D0BD`, misurato sui sette fondi veri: 12,79 sul piu'
+  /// scuro, 9,67 su Medora, 8,63 su Caligo, 7,28 sulla superficie di Aura e
+  /// **7,05 sul vetro sopra Aura**, che e' il peggiore di tutti. Resta piu'
+  /// scuro di [textSecondary], quindi i tre livelli restano tre.
+  static const Color textMuted = Color(0xFFD8D0BD);
 
   // Velo scuro per il glassmorphism e le superfici in vetro.
   static const Color glassTint = Color(0x1AFFFFFF);
