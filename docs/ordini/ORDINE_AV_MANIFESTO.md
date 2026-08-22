@@ -180,3 +180,30 @@ VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+
+## La consegna
+
+**Build `0.1.0+2190`** arm64, **161.176.767 byte**, cioe' **5.267.801 in meno
+della 2189**: quasi esattamente il peso dei tre filmati tolti.
+`tool/verifica_apk.py` verde su tutte e nove le famiglie grafiche. Consegnata
+il 22 agosto 2026, release `6d23qgl7hfgf8`, a `cloud@esotericircle.app` e
+`info@esotericircle.com`, inviti accettati 2.
+
+**La prova di accensione e' stata SALTATA e si dichiara**: il fondatore non ha
+un telefono collegato al PC e l'ordine chiede comunque la consegna.
+
+## Le prove
+
+**Le prove rosse residue sono SEI, tutte PRECEDENTI a quest'ordine**: le tre
+guardie degli ordini AC, T e U, rosse apposta perche' quegli ordini hanno
+ancora voci aperte; il disegno di albero e loto che tocca il bordo della tela;
+l'attribuzione cieca dei doni; e il peso dell'alone di un traguardo acceso, che
+varia di 5,1 volte fra i tre sentieri.
+
+**Tre prove sono state ri-mirate, nessuna allentata.** Quella del corredo, che
+pretendeva il precaricamento dentro `capture`: adesso guarda il corpo intero e
+in piu' pretende che resti il comportamento predefinito. Quella del manifesto
+degli asset, che dichiarava ancora la cartella dei filmati. E quella dei testi
+coperti, che accusava il falso sui testi troncati: la spiegazione vale piu'
+della cura, perche' era anche il falso positivo che quella prova dichiarava di
+non sapersi spiegare.
