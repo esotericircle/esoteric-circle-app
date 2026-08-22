@@ -1,6 +1,8 @@
 import 'package:esoteric_circle/core/identity/account_del_cerchio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/identity/dimenticanza_del_telefono.dart';
+import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -131,6 +133,28 @@ void main() {
             'come anonima: senza uid l app non sta in piedi');
     expect(diario, hasLength(3));
   });
+  test('uscendo, il borsellino dimentica i numeri di chi se ne va', () async {
+    // **IL DISCO NON BASTA.** Ordine AZ voce 15: uscire cancella le chiavi
+    // delle preferenze, ma il borsellino vive in memoria per tutta la
+    // sessione. Senza dimenticarlo, **il saldo di chi se ne e' andato
+    // resterebbe in barra** davanti a chi arriva dopo, fino al riavvio.
+    final borsa = QuestionAllowance(porta: const PortaSpentaDelCerchio());
+    SharedPreferences.setMockInitialValues(const {
+      'allowance.saldoEos': 715,
+      'allowance.count': 3,
+    });
+    await borsa.load();
+    final prima = borsa.saldoEos;
+
+    borsa.dimenticaChiSeNeVa();
+
+    // ignore: avoid_print
+    print('ORDINE AZ VOCE 15: il saldo passa da $prima a ${borsa.saldoEos}');
+    expect(prima, 715,
+        reason: 'la prova non parte da un saldo vero: non misura niente');
+    expect(borsa.saldoEos, 0,
+        reason: 'il saldo di chi e uscito resta in barra per chi arriva dopo');
+  });
 }
 
 /// Un flusso di Google che segna cosa gli viene chiesto.
@@ -193,6 +217,21 @@ class _CredenzialeQualunque implements UserCredential {
 
 /// Una porta che registra cosa le viene chiesto e in che ordine.
 class _PortaCheRegistra implements PortaDellIdentita {
+  @override
+  bool? get emailVerificata => null;
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email) async =>
+      EsitoDellaCustodia.riuscita;
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaVerificaDellEmail() async =>
+      EsitoDellaCustodia.riuscita;
+
+  @override
+  Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async =>
+      EsitoDellaCustodia.riuscita;
+
   final List<String> diario = [];
   int uscite = 0;
   bool anonimo = false;

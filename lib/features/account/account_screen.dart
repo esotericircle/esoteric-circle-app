@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../core/feature_flags/feature_flag.dart';
 import '../../core/identity/account_del_cerchio.dart';
+import '../../core/identity/natal_identity.dart';
+import '../../core/entitlement/question_allowance.dart';
 import '../../core/identity/dimenticanza_del_telefono.dart';
 import '../../design_system/components/feature_sheet.dart';
 import '../../services/app_services.dart';
@@ -445,6 +447,25 @@ Future<void> _chiediLaParolaNuova(BuildContext context) async {
   ));
 }
 
+
+/// Svuota cio' che i controller tengono in memoria su chi se ne va.
+///
+/// **Ognuno dietro il suo try, e non e' pigrizia**: le prove e le anteprime
+/// montano questa schermata con una parte sola dei provider, e un'uscita che
+/// si rompesse a meta' lascerebbe la memoria peggio di come l'ha trovata.
+void _dimenticaLaMemoriaViva(BuildContext context) {
+  try {
+    context.read<QuestionAllowance>().dimenticaChiSeNeVa();
+  } catch (senzaBorsellino) {
+    // Senza borsellino non c'e' nessun saldo da dimenticare.
+  }
+  try {
+    context.read<BirthIdentityController>().clear();
+  } catch (senzaIdentita) {
+    // Senza identita' non c'e' nessuna nascita da dimenticare.
+  }
+}
+
 /// **LA DOMANDA PRIMA DI USCIRE.** Ordine AZ voce 07.
 ///
 /// Si dice cosa resta e cosa se ne va, perche' "esci" da solo suona come
@@ -479,6 +500,13 @@ Future<void> _chiediDiUscire(BuildContext context) async {
   );
   if (conferma != true || !context.mounted) return;
   await context.read<AccountDelCerchio>().esci();
+  if (!context.mounted) return;
+  // **E LA MEMORIA VIVA, non solo il disco.** Ordine AZ voce 15: uscire
+  // cancella le chiavi delle preferenze, ma i controller vivono per tutta la
+  // sessione. Senza queste righe **il saldo e il cammino di chi se ne e'
+  // andato resterebbero a schermo** davanti a chi arriva dopo, fino al
+  // riavvio dell'app.
+  _dimenticaLaMemoriaViva(context);
   if (!context.mounted) return;
   ScaffoldMessenger.of(context).showSnackBar(
     const SnackBar(

@@ -47,6 +47,27 @@ class QuestionAllowance extends ChangeNotifier {
   int _saldoEos = 0;
   int get saldoEos => _saldoEos;
 
+  /// **QUANDO QUALCUNO ESCE, I SUOI NUMERI NON RESTANO A SCHERMO.**
+  /// Ordine AZ voce 15.
+  ///
+  /// **Il disco non basta.** Uscire cancella le chiavi delle preferenze, ma
+  /// questo oggetto vive in memoria per tutta la sessione: senza questa riga
+  /// il saldo di chi se ne e' andato **resterebbe in barra** davanti a chi
+  /// arriva dopo, fino al riavvio dell'app. Su un telefono prestato e' il
+  /// saldo di un altro; su un telefono proprio e' un numero che non torna.
+  ///
+  /// Non si tocca il server: qui si dimentica soltanto cio' che si ricorda.
+  void dimenticaChiSeNeVa() {
+    _saldoEos = 0;
+    _count = 0;
+    _approfondimenti = 0;
+    _confronti = 0;
+    _gettate = 0;
+    _giornoDelServer = null;
+    _daMandare.clear();
+    notifyListeners();
+  }
+
   /// I GESTI CHE IL SERVER NON HA ANCORA PRESO, ordine N voce 2e.
   ///
   /// Senza rete il gesto si compie lo stesso e si segna qui col suo
