@@ -1,7 +1,7 @@
 # Il censimento del contrasto
 
 <!-- COPPIE_CENSITE: 85 -->
-<!-- SOTTO_IL_CONTRASTO: 5 -->
+<!-- SOTTO_IL_CONTRASTO: 4 -->
 <!-- Generato da tool/censimento_contrasto.dart. Non si scrive a mano: si rigenera. -->
 
 Ordine P voce 14. Il censimento tipografico misura le DIMENSIONI e non vede questo difetto: `SOTTO_IL_PAVIMENTO: 0` resta vero mentre un testo e' illeggibile. Un testo a 18 punti in oro su avorio si legge peggio di uno a 14 in bianco su nero.
@@ -19,7 +19,7 @@ Entra ogni coppia INCHIOSTRO su SUPERFICIE che i token possono produrre, letta d
 | Grandezza | Valore |
 | --- | ---: |
 | Coppie censite | **85** |
-| Sotto 4.5 a 1 | **5** |
+| Sotto 4.5 a 1 | **4** |
 
 ## Le coppie, dalla peggiore alla migliore
 
@@ -29,66 +29,66 @@ Entra ogni coppia INCHIOSTRO su SUPERFICIE che i token possono produrre, letta d
 | `goldDeep` | `caligoSurface` | 3.70 | **NO** |
 | `goldDeep` | `auraDeep` | 4.06 | **NO** |
 | `goldDeep` | `medoraSurface` | 4.15 | **NO** |
-| `textMuted` | `auraSurface` | 4.40 | **NO** |
 | `goldDeep` | `caligoDeep` | 4.60 | si' |
 | `goldDeep` | `neutralSurface` | 4.60 | si' |
 | `goldDeep` | `medoraDeep` | 4.80 | si' |
 | `goldDeep` | `auraDeepest` | 4.97 | si' |
 | `goldDeep` | `medoraDeepest` | 5.16 | si' |
 | `goldDeep` | `caligoDeepest` | 5.19 | si' |
-| `textMuted` | `caligoSurface` | 5.21 | si' |
 | `goldDeep` | `neutralDeep` | 5.24 | si' |
 | `goldDeep` | `neutralDeepest` | 5.45 | si' |
 | `gold` | `auraSurface` | 5.65 | si' |
-| `textMuted` | `auraDeep` | 5.71 | si' |
-| `textMuted` | `medoraSurface` | 5.84 | si' |
-| `textMuted` | `caligoDeep` | 6.47 | si' |
-| `textMuted` | `neutralSurface` | 6.48 | si' |
-| `textSecondary` | `auraSurface` | 6.68 | si' |
 | `gold` | `caligoSurface` | 6.69 | si' |
-| `textMuted` | `medoraDeep` | 6.76 | si' |
-| `textMuted` | `auraDeepest` | 7.00 | si' |
-| `textMuted` | `medoraDeepest` | 7.26 | si' |
-| `textMuted` | `caligoDeepest` | 7.30 | si' |
 | `gold` | `auraDeep` | 7.34 | si' |
-| `textMuted` | `neutralDeep` | 7.37 | si' |
 | `gold` | `medoraSurface` | 7.50 | si' |
-| `textMuted` | `neutralDeepest` | 7.67 | si' |
+| `textMuted` | `auraSurface` | 7.74 | si' |
 | `testoSuChiaro` | `superficieChiara` | 7.84 | si' |
-| `textSecondary` | `caligoSurface` | 7.91 | si' |
+| `textSecondary` | `auraSurface` | 7.86 | si' |
 | `gold` | `caligoDeep` | 8.32 | si' |
 | `goldLight` | `auraSurface` | 8.32 | si' |
 | `gold` | `neutralSurface` | 8.32 | si' |
-| `textSecondary` | `auraDeep` | 8.67 | si' |
 | `gold` | `medoraDeep` | 8.69 | si' |
-| `textSecondary` | `medoraSurface` | 8.87 | si' |
 | `gold` | `auraDeepest` | 8.99 | si' |
+| `textMuted` | `caligoSurface` | 9.17 | si' |
+| `textSecondary` | `caligoSurface` | 9.31 | si' |
 | `gold` | `medoraDeepest` | 9.33 | si' |
 | `gold` | `caligoDeepest` | 9.39 | si' |
 | `gold` | `neutralDeep` | 9.48 | si' |
 | `goldBright` | `auraSurface` | 9.57 | si' |
-| `textSecondary` | `caligoDeep` | 9.83 | si' |
-| `textSecondary` | `neutralSurface` | 9.84 | si' |
 | `gold` | `neutralDeepest` | 9.85 | si' |
 | `goldLight` | `caligoSurface` | 9.86 | si' |
-| `textSecondary` | `medoraDeep` | 10.28 | si' |
+| `textMuted` | `auraDeep` | 10.05 | si' |
+| `textSecondary` | `auraDeep` | 10.20 | si' |
+| `textMuted` | `medoraSurface` | 10.27 | si' |
+| `textSecondary` | `medoraSurface` | 10.43 | si' |
 | `textPrimary` | `auraSurface` | 10.52 | si' |
-| `textSecondary` | `auraDeepest` | 10.63 | si' |
 | `goldLight` | `auraDeep` | 10.81 | si' |
-| `textSecondary` | `medoraDeepest` | 11.03 | si' |
 | `goldLight` | `medoraSurface` | 11.05 | si' |
-| `textSecondary` | `caligoDeepest` | 11.10 | si' |
-| `textSecondary` | `neutralDeep` | 11.20 | si' |
 | `goldBright` | `caligoSurface` | 11.34 | si' |
-| `textSecondary` | `neutralDeepest` | 11.65 | si' |
+| `textMuted` | `caligoDeep` | 11.39 | si' |
+| `textMuted` | `neutralSurface` | 11.40 | si' |
+| `textSecondary` | `caligoDeep` | 11.57 | si' |
+| `textSecondary` | `neutralSurface` | 11.58 | si' |
+| `textMuted` | `medoraDeep` | 11.91 | si' |
+| `textSecondary` | `medoraDeep` | 12.09 | si' |
 | `goldLight` | `caligoDeep` | 12.25 | si' |
 | `goldLight` | `neutralSurface` | 12.26 | si' |
+| `textMuted` | `auraDeepest` | 12.31 | si' |
 | `goldBright` | `auraDeep` | 12.43 | si' |
 | `textPrimary` | `caligoSurface` | 12.46 | si' |
+| `textSecondary` | `auraDeepest` | 12.50 | si' |
 | `goldBright` | `medoraSurface` | 12.71 | si' |
+| `textMuted` | `medoraDeepest` | 12.78 | si' |
 | `goldLight` | `medoraDeep` | 12.81 | si' |
+| `textMuted` | `caligoDeepest` | 12.86 | si' |
+| `textSecondary` | `medoraDeepest` | 12.97 | si' |
+| `textMuted` | `neutralDeep` | 12.98 | si' |
+| `textSecondary` | `caligoDeepest` | 13.05 | si' |
+| `textSecondary` | `neutralDeep` | 13.18 | si' |
 | `goldLight` | `auraDeepest` | 13.24 | si' |
+| `textMuted` | `neutralDeepest` | 13.50 | si' |
 | `textPrimary` | `auraDeep` | 13.66 | si' |
+| `textSecondary` | `neutralDeepest` | 13.70 | si' |
 | `goldLight` | `medoraDeepest` | 13.74 | si' |
 | `goldLight` | `caligoDeepest` | 13.83 | si' |
 | `goldLight` | `neutralDeep` | 13.96 | si' |
