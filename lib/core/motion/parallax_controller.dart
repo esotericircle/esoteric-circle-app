@@ -183,7 +183,45 @@ class ParallaxController extends ChangeNotifier {
   /// corsa resta 80 e non la supera mai: la saturazione e' MORBIDA, non un
   /// taglio netto, e fra i quindici e i novanta gradi il cielo continua a
   /// rispondere invece di essere gia' finito.
-  static const double guadagnoDellInclinazione = 5.0;
+  static const double guadagnoDellInclinazione = 34.0;
+
+  /// **LA ZONA MORTA ATTORNO AL RIPOSO.** Ordine AU voce 04, primo dei tre
+  /// pezzi.
+  ///
+  /// **Il difetto che cura, misurato dal fondatore sulla build 2188**: telefono
+  /// tenuto in mano FERMO, e il piano di fondo correva 32,8 punti sugli 80.
+  /// Non era un difetto dello zero appreso, che funziona: era che vicino al
+  /// riposo la risposta era ripida quanto a meta' corsa, circa 80 punti per
+  /// unita' di inclinazione, quindi il tremore della mano muoveva il cielo di
+  /// continuo, e con lui i tre Maestri in home.
+  ///
+  /// Sotto questa soglia il cielo non si muove AFFATTO. Zero, non poco: un
+  /// movimento piccolissimo che resta e' peggio di nessun movimento, perche'
+  /// l'occhio lo insegue.
+  ///
+  /// **Il numero e' tarato sulla misura, non scelto.** L'ordine indicava 0,05
+  /// come punto di partenza. Dalla riga diagnostica si risale alla deviazione
+  /// vera con mano ferma, `atanh(0,41) / 5 = 0,0871`, e con 0,05 la risposta
+  /// resterebbe a 1,9 punti, cioe' appena sotto la soglia di accettazione di
+  /// 2: troppo poco margine per un numero che viene da una misura sola. Con
+  /// 0,07 restano 0,9 punti, e quindici gradi ne danno ancora 70,9.
+  static const double zonaMorta = 0.07;
+
+  /// **L'ESPONENTE DELLA CURVA.** Ordine AU voce 04, terzo pezzo: morbida
+  /// vicino allo zero, piena verso il fondo corsa.
+  ///
+  /// Con esponente 1 la risposta e' una retta ripida appena fuori dalla zona
+  /// morta, e il cielo salta appena si supera la soglia. Con 2 la curva parte
+  /// piatta e si alza dopo: il gesto piccolo resta piccolo, quello grande
+  /// arriva in fondo lo stesso.
+  ///
+  /// **Il guadagno e' salito da 5 a 34, e NON e' un guadagno alzato.** La
+  /// deviazione ora entra elevata al quadrato e ridotta della zona morta,
+  /// quindi il numero davanti deve crescere perche' la corsa piena resti
+  /// raggiungibile: a quindici gradi si passa da 68,8 punti a 70,9. Abbassare
+  /// il guadagno, che e' la strada corta, riporterebbe il difetto di due
+  /// giorni fa, quando quindici gradi valevano 21 punti sugli 80.
+  static const double esponenteDellaCurva = 2.0;
 
   /// La posizione di riposo imparata, cioe' come la persona tiene il telefono
   /// adesso. Nulla finche' non arriva la prima lettura: il primo campione la
@@ -201,6 +239,77 @@ class ParallaxController extends ChangeNotifier {
   static double _morbida(double v) {
     final e2 = math.exp(2 * v);
     return (e2 - 1) / (e2 + 1);
+  }
+
+  /// **DALLA DEVIAZIONE ALLA CORSA, con la zona morta e la curva.** Ordine AU
+  /// voce 04, pezzi uno e tre insieme perche' sono la stessa funzione.
+  ///
+  /// Sotto la zona morta: zero secco. Sopra: si toglie la zona morta e si
+  /// rinormalizza, cosi' la corsa piena resta raggiungibile invece di essere
+  /// accorciata di quanto si e' tolto, poi la curva sale come il quadrato e la
+  /// `tanh` la satura dolcemente sull'uno.
+  static double _corsaDa(double deviazione) {
+    final quanta = deviazione.abs();
+    if (quanta <= zonaMorta) return 0.0;
+    final oltre = (quanta - zonaMorta) / (1.0 - zonaMorta);
+    final risposta = _morbida(
+        guadagnoDellInclinazione * math.pow(oltre, esponenteDellaCurva));
+    return deviazione.isNegative ? -risposta : risposta;
+  }
+
+  /// **IL FILTRO ADATTIVO.** Ordine AU voce 04, secondo pezzo, e l'ordine
+  /// spiega bene perche' serve: un passa-basso a coefficiente fisso **o trema
+  /// o ritarda, non puo' fare le due cose**. Con alpha 0,12, quello di prima,
+  /// il rumore della mano passava quasi intero, e alzando il taglio per
+  /// toglierlo il gesto sarebbe arrivato in ritardo.
+  ///
+  /// Questo e' il filtro a un euro: taglia basso quando la mano e' quasi
+  /// ferma, cioe' quando la velocita' angolare e' piccola e tutto cio' che si
+  /// vede e' rumore, e taglia alto quando il gesto e' veloce, cioe' quando ogni
+  /// millesimo di ritardo si vede. **Il taglio lo decide la velocita'**, ed e'
+  /// per questo che il rumore sparisce senza che il gesto rallenti.
+  static const double taglioAlRiposo = 0.5;
+  static const double taglioPerVelocita = 8.0;
+  static const double taglioDellaVelocita = 1.0;
+
+  /// Il periodo dei campioni, quello chiesto allo stream. **Si usa il periodo
+  /// nominale e non l'orologio**: due letture che arrivano appaiate farebbero
+  /// esplodere la velocita' stimata, e con lei il taglio, proprio nell'istante
+  /// in cui non e' successo niente.
+  static const double periodoDelSensore = 0.066;
+
+  double? _devFiltrataX, _devFiltrataY, _devPrecedenteX, _devPrecedenteY;
+  double _velocitaFiltrataX = 0, _velocitaFiltrataY = 0;
+
+  static double _pesoDelTaglio(double taglio) {
+    final tau = 1.0 / (2 * math.pi * taglio);
+    return periodoDelSensore / (periodoDelSensore + tau);
+  }
+
+  /// Filtra una deviazione sul suo asse e restituisce il valore pulito.
+  double _aUnEuro(double grezza, bool asseX) {
+    final precedente = asseX ? _devPrecedenteX : _devPrecedenteY;
+    final velocitaGrezza =
+        precedente == null ? 0.0 : (grezza - precedente) / periodoDelSensore;
+    final pesoVelocita = _pesoDelTaglio(taglioDellaVelocita);
+    final velocita = asseX
+        ? (_velocitaFiltrataX +=
+            (velocitaGrezza - _velocitaFiltrataX) * pesoVelocita)
+        : (_velocitaFiltrataY +=
+            (velocitaGrezza - _velocitaFiltrataY) * pesoVelocita);
+    final taglio = taglioAlRiposo + taglioPerVelocita * velocita.abs();
+    final peso = _pesoDelTaglio(taglio);
+    final vecchia = asseX ? _devFiltrataX : _devFiltrataY;
+    final pulita =
+        vecchia == null ? grezza : vecchia + (grezza - vecchia) * peso;
+    if (asseX) {
+      _devFiltrataX = pulita;
+      _devPrecedenteX = grezza;
+    } else {
+      _devFiltrataY = pulita;
+      _devPrecedenteY = grezza;
+    }
+    return pulita;
   }
 
   /// **DALLA GRAVITA' ALLA DEVIAZIONE.** Ordine AS voce 01, ed e' il cuore
@@ -232,14 +341,17 @@ class ParallaxController extends ChangeNotifier {
     _riposoX = _riposoX! + (gx - _riposoX!) * passoDelRiposo;
     _riposoY = _riposoY! + (gy - _riposoY!) * passoDelRiposo;
 
-    final targetX =
-        _morbida((gx - _riposoX!) * guadagnoDellInclinazione).clamp(-1.0, 1.0);
-    final targetY =
-        _morbida((gy - _riposoY!) * guadagnoDellInclinazione).clamp(-1.0, 1.0);
-    // Il passa-basso di sempre, per un moto dolce e senza scatti.
-    const alpha = 0.12;
-    _tiltX += (targetX - _tiltX) * alpha;
-    _tiltY += (targetY - _tiltY) * alpha;
+    // **PRIMA SI PULISCE, POI SI DECIDE.** Il filtro lavora sulla deviazione
+    // grezza e non sul risultato: cosi' il rumore non entra nella curva, e la
+    // zona morta giudica un numero che non trema gia' piu'.
+    final devX = _aUnEuro(gx - _riposoX!, true);
+    final devY = _aUnEuro(gy - _riposoY!, false);
+    // **NIENTE SECONDO PASSA-BASSO.** Quello fisso di prima, alpha 0,12, era
+    // l'unico smorzamento e per questo doveva essere lento; adesso il filtro
+    // adattivo ha gia' fatto il suo, e tenerne un altro dietro vorrebbe dire
+    // rimettere il ritardo che si e' appena tolto.
+    _tiltX = _corsaDa(devX).clamp(-1.0, 1.0);
+    _tiltY = _corsaDa(devY).clamp(-1.0, 1.0);
     _sensorActive = true;
     notifyListeners();
   }

@@ -69,7 +69,36 @@ decide su tre di esse:
   **UN DIFETTO TROVATO DI PASSAGGIO**: l'intestazione dei tre file generati
   nominava la revisione C mentre il generatore leggeva la D. Adesso il nome
   viene dal percorso vero e non si puo' piu' scollare)
-- **AU.04** La mano ferma. Stato: APERTA
+- **AU.04** La mano ferma. Stato: CHIUSA
+  (**LE QUATTRO MISURE STANNO INSIEME, ed erano quelle che potevano
+  litigare.** M1 sul tavolo: 0,000 punti, zero secco e non "quasi". M2 in mano
+  fermo: **0,00 punti col tremore e 0,65 con la mano posata di lato, contro i
+  32,8 misurati dal fondatore**. M3 quindici gradi: 62,1 punti sugli 80, sopra
+  i 60 pretesi. M4: meta' corsa dopo UN campione, cioe' 66 millesimi, sotto i
+  120. Guardia `test/la_mano_ferma_non_muove_il_cielo_test.dart`.
+  **IL MODELLO SI E' VERIFICATO SULLA MISURA DEL FONDATORE PRIMA DI TOCCARE IL
+  CODICE**: dalla riga diagnostica si risale alla deviazione vera con mano
+  ferma, `atanh(0,41) / 5 = 0,0871` g, e rimessa nella formula di ieri quella
+  deviazione da' **esattamente 32,8 punti**. E' cosi' che si e' scelta la zona
+  morta invece di indovinarla: con lo 0,05 di partenza dell'ordine sarebbero
+  restati 1,9 punti, cioe' appena sotto la soglia di 2, e un solo numero di
+  margine su una misura sola non basta. Con 0,07 restano 0,9.
+  **I TRE PEZZI SONO TUTTI E TRE DENTRO**: zona morta 0,07, sotto la quale il
+  cielo non si muove affatto; filtro a un euro al posto del passa-basso fisso,
+  che taglia basso quando la mano e' quasi ferma e alto quando il gesto e'
+  veloce; curva col quadrato, piatta vicino allo zero e piena a fondo corsa.
+  **IL GUADAGNO E' SALITO DA 5 A 34 E NON E' UN GUADAGNO ALZATO**: la
+  deviazione ora entra al quadrato e ridotta della zona morta, quindi il
+  numero davanti deve crescere perche' la corsa piena resti raggiungibile.
+  **IL PASSA-BASSO FISSO E' STATO TOLTO**, non affiancato: tenerne uno dietro
+  al filtro adattivo avrebbe rimesso il ritardo appena tolto.
+  **I MAESTRI SI SONO MISURATI, non dati per scontati**: il Santuario li muove
+  con `depth(0.5)` e `depth(0.28)`, che e' lo stesso `layerOffset`, e siccome
+  la loro profondita' e' PIU' ALTA di quella del piano di fondo il tremore li'
+  si vedrebbe di piu'. Con la mano ferma il Maestro centrale si sposta al piu'
+  di **0,85 pixel** e quelli di lato di 0,72.
+  **LO ZERO APPRESO DI AS.01 NON E' STATO TOCCATO** e la sua guardia resta
+  verde, come le altre sei prove del cielo, 28 in tutto)
 - **AU.05** I Maestri non coprono piu' niente. Stato: APERTA
 - **AU.06** Una festa, un traguardo. Stato: APERTA
 - **AU.07** La card del traguardo, dignita' e tipografia. Stato: APERTA
@@ -83,8 +112,8 @@ decide su tre di esse:
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 12
-VOCI_CHIUSE: 2
+VOCI_APERTE: 11
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
