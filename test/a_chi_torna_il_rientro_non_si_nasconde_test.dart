@@ -146,6 +146,21 @@ class _PortaCheProponeONo implements PortaDellIdentita {
   @override
   Future<void> esci() async {}
 
+  @override
+  bool? get emailVerificata => null;
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email) async =>
+      EsitoDellaCustodia.riuscita;
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaVerificaDellEmail() async =>
+      EsitoDellaCustodia.riuscita;
+
+  @override
+  Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async =>
+      EsitoDellaCustodia.riuscita;
+
   _PortaCheProponeONo({this.bentornato});
 
   final String? bentornato;

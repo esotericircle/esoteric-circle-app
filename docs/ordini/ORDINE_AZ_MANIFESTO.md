@@ -112,14 +112,14 @@ dire che la ricerca sul codice ha dato zero occorrenze, ed e' scritto quale.
 - **AZ.02** Il rito non si decide su una preferenza locale. Stato: CHIUSA
 - **AZ.03** Il borsellino si aggiorna quando cambia, non al riavvio. Stato: CHIUSA
 - **AZ.04** I dati di nascita: chi vince, e chi lo vede. Stato: APERTA
-- **AZ.05** La parola persa. Stato: APERTA
-- **AZ.06** La verifica dell'email. Stato: APERTA
+- **AZ.05** La parola persa. Stato: CHIUSA
+- **AZ.06** La verifica dell'email. Stato: CHIUSA
 - **AZ.07** Uscire dall'account. Stato: CHIUSA
 - **AZ.08** Cancellare l'account per davvero. Stato: CHIUSA
 - **AZ.09** Sapere chi si e'. Stato: CHIUSA
-- **AZ.10** Il foglio dell'email che non dice niente. Stato: APERTA
+- **AZ.10** Il foglio dell'email che non dice niente. Stato: CHIUSA
 - **AZ.11** La voce Account nelle Impostazioni. Stato: APERTA
-- **AZ.12** Cambio email, cambio parola, e la riautenticazione. Stato: APERTA
+- **AZ.12** Cambio email, cambio parola, e la riautenticazione. Stato: CHIUSA
 - **AZ.13** Il token che scade mentre si e' dentro. Stato: APERTA
 - **AZ.14** Cio' che questo ordine NON chiude, dichiarato. Stato: APERTA
 
@@ -308,11 +308,52 @@ chiavi scritte a memoria, e **nessuna delle nove esisteva**. Le chiavi vere
 sono trentotto, lette nelle costanti di `lib/`: per questo adesso si ragiona
 per prefisso, che regge anche le chiavi che nasceranno domani.
 
+### AZ.05, AZ.06, AZ.10 e AZ.12: la parte email
+
+**Quattro buchi, tutti misurati a zero occorrenze in `lib/`**: la parola
+persa (`sendPasswordResetEmail`), la verifica dell'email
+(`sendEmailVerification`, `emailVerified`), il cambio della parola
+(`updatePassword`) e la riautenticazione (`reauthenticate`).
+
+**E il foglio dell'email era muto**, che e' il difetto piu' facile da vivere
+e il piu' difficile da vedere: il pulsante "Custodisci" faceva
+`if (!a.contains('@') || b.length < 6) return;`. **Si toccava e non succedeva
+niente.** Chi sbagliava una lettera nell'indirizzo restava fermo davanti a un
+pulsante che non rispondeva, senza sapere cosa correggere.
+
+**Le cure.** La porta dell'identita' guadagna `mandaLaViaPerLaParola`,
+`mandaLaVerificaDellEmail`, `emailVerificata` e `cambiaLaParola`. Il foglio
+dell'email dice cosa non va, campo per campo, e porta la via per chi ha perso
+la parola. L'area account guadagna la verifica e il cambio, **e li mostra
+solo a chi ne ha bisogno**.
+
+**Due scelte che vanno dette.**
+
+**La frase della parola persa e' la stessa in tutti i casi**, anche quando
+l'indirizzo non esiste. Dire "quell'email non e' nel Cerchio" regalerebbe a
+chiunque un modo per scoprire chi ne fa parte provando indirizzi altrui.
+
+**`requires-recent-login` diventa una cosa che si puo' fare.** Firebase
+pretende un accesso recente per cambiare la parola: senza tradurlo, il cambio
+sarebbe fallito con la frase generica e nessuno avrebbe capito che basta
+uscire e rientrare. Adesso lo dice.
+
+**Le misure**, in `test/il_foglio_dell_email_dice_cosa_non_va_test.dart` e
+`test/l_account_dice_chi_sei_e_come_uscire_test.dart`. Cio' che si legge dove
+prima non si leggeva niente: **"Manca l'email"**, **"Questo indirizzo non
+sembra completo: manca la chiocciola o il punto"**, **"Ancora 3 caratteri e
+ci siamo"**, e per la parola persa **"Se quell'indirizzo fa parte del
+Cerchio..."**. **La controprova c'e'**: coi campi giusti il foglio si chiude
+e la custodia parte, perche' un foglio che si lamenta sempre sarebbe peggio
+di uno muto. E le voci nuove compaiono **1 volta** a chi ne ha bisogno e **0
+volte** a chi e' entrato con Google, che l'indirizzo lo ha gia' verificato
+dal fornitore.
+
 ## I marcatori
 
 VOCI_TOTALI: 15
-VOCI_APERTE: 8
-VOCI_CHIUSE: 7
+VOCI_APERTE: 4
+VOCI_CHIUSE: 11
 SITUAZIONI_CENSITE: 37
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0

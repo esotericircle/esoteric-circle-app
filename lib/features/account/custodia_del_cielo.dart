@@ -96,63 +96,27 @@ class VieDellaCustodia extends StatelessWidget {
   /// L'email e la parola d'accesso, raccolte in una finestra sola.
   ///
   /// Non si chiede il telefono: sta scritto nei briefing e vale anche qui.
+  ///
+  /// **E ADESSO IL FOGLIO PARLA.** Ordine AZ voce 10, situazione S21. Il
+  /// pulsante "Custodisci" faceva `if (!a.contains('@') || b.length < 6)
+  /// return;`, cioe' **non faceva niente e non diceva niente**: si toccava,
+  /// non succedeva nulla, e nessuno spiegava che mancava una chiocciola o che
+  /// la parola era corta. Era un vicolo cieco muto in mezzo alla
+  /// registrazione.
   static Future<(String, String)?> _chiediEmail(BuildContext context) {
     final email = TextEditingController();
     final parola = TextEditingController();
     final palette = context.palette;
     return showDialog<(String, String)>(
       context: context,
-      builder: (dialogo) => AlertDialog(
-        key: const Key('custodia_email_form'),
-        backgroundColor: palette.surfaceElevated,
-        title: Text('Custodisci con un\'email',
-            style: TypographyTokens.titoloScheda()
-                .copyWith(color: palette.goldSoft)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              key: const Key('custodia_email_campo'),
-              controller: email,
-              keyboardType: TextInputType.emailAddress,
-              autocorrect: false,
-              style: TypographyTokens.corpo()
-                  .copyWith(color: ColorTokens.textPrimary),
-              decoration: const InputDecoration(labelText: 'La tua email'),
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            TextField(
-              key: const Key('custodia_parola_campo'),
-              controller: parola,
-              obscureText: true,
-              style: TypographyTokens.corpo()
-                  .copyWith(color: ColorTokens.textPrimary),
-              decoration: const InputDecoration(
-                labelText: 'Una parola d\'accesso',
-                helperText: 'Almeno sei caratteri',
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(dialogo).pop(),
-            child: const Text('Annulla'),
-          ),
-          TextButton(
-            key: const Key('custodia_email_conferma'),
-            onPressed: () {
-              final a = email.text.trim();
-              final b = parola.text;
-              if (!a.contains('@') || b.length < 6) return;
-              Navigator.of(dialogo).pop((a, b));
-            },
-            child: const Text('Custodisci'),
-          ),
-        ],
+      builder: (dialogo) => _FoglioDellEmail(
+        email: email,
+        parola: parola,
+        palette: palette,
       ),
     );
   }
+
 }
 
 class _PulsanteDellaVia extends StatelessWidget {
@@ -539,6 +503,160 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// **IL FOGLIO DELL'EMAIL, CHE ADESSO DICE COSA NON VA.** Ordine AZ voce 10.
+///
+/// **Prima era muto.** Il pulsante "Custodisci" faceva
+/// `if (!a.contains('@') || b.length < 6) return;`: si toccava e non
+/// succedeva niente. Chi sbagliava una lettera nell'indirizzo, o sceglieva
+/// una parola di cinque caratteri, restava fermo davanti a un pulsante che
+/// non rispondeva, **senza sapere che cosa correggere**.
+///
+/// **E porta la via per la parola persa.** Ordine AZ voce 05: e' il posto
+/// giusto, perche' e' l'unico momento in cui a qualcuno viene chiesta una
+/// parola d'accesso.
+class _FoglioDellEmail extends StatefulWidget {
+  const _FoglioDellEmail({
+    required this.email,
+    required this.parola,
+    required this.palette,
+  });
+
+  final TextEditingController email;
+  final TextEditingController parola;
+  final MaestroPalette palette;
+
+  @override
+  State<_FoglioDellEmail> createState() => _FoglioDellEmailState();
+}
+
+class _FoglioDellEmailState extends State<_FoglioDellEmail> {
+  String? _guaioEmail;
+  String? _guaioParola;
+  String? _detto;
+
+  /// **QUANTO DEVE ESSERE LUNGA LA PAROLA.** Sei era gia' il limite del
+  /// controllo muto: si tiene, cosi' non si cambia la regola mentre si cura
+  /// il modo di raccontarla.
+  static const _lunghezzaMinima = 6;
+
+  void _prova() {
+    final email = widget.email.text.trim();
+    final parola = widget.parola.text;
+    setState(() {
+      _detto = null;
+      _guaioEmail = email.isEmpty
+          ? "Manca l'email"
+          : (!email.contains('@') || !email.contains('.')
+              ? "Questo indirizzo non sembra completo: manca la chiocciola o il punto"
+              : null);
+      _guaioParola = parola.isEmpty
+          ? 'Manca la parola'
+          : (parola.length < _lunghezzaMinima
+              ? 'Ancora ${_lunghezzaMinima - parola.length} caratteri e ci siamo'
+              : null);
+    });
+    if (_guaioEmail != null || _guaioParola != null) return;
+    Navigator.of(context).pop((email, parola));
+  }
+
+  Future<void> _parolaPersa() async {
+    final email = widget.email.text.trim();
+    if (!email.contains('@')) {
+      setState(() => _guaioEmail =
+          "Scrivi qui la tua email e te ne mandiamo una per rifare la parola");
+      return;
+    }
+    final account = context.read<AccountDelCerchio>();
+    await account.mandaLaViaPerLaParola(email);
+    if (!mounted) return;
+    // **LA STESSA FRASE IN TUTTI I CASI, ed e' una scelta.** Dire "quella
+    // email non esiste" regalerebbe a chiunque un modo per sapere chi fa
+    // parte del Cerchio.
+    setState(() {
+      _guaioEmail = null;
+      _detto = "Se quell'indirizzo fa parte del Cerchio, ti abbiamo mandato "
+          "una email per rifare la parola.";
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = widget.palette;
+    return AlertDialog(
+      key: const Key('custodia_email_form'),
+      backgroundColor: palette.surfaceElevated,
+      title: Text("Custodisci con un'email",
+          style: TypographyTokens.titoloScheda()
+              .copyWith(color: palette.goldSoft)),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            key: const Key('custodia_email_campo'),
+            controller: widget.email,
+            keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
+            style:
+                TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
+            decoration: InputDecoration(
+              labelText: 'La tua email',
+              errorText: _guaioEmail,
+              errorMaxLines: 3,
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          TextField(
+            key: const Key('custodia_parola_campo'),
+            controller: widget.parola,
+            obscureText: true,
+            style:
+                TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
+            decoration: InputDecoration(
+              labelText: "Una parola d'accesso",
+              helperText: 'Almeno sei caratteri',
+              errorText: _guaioParola,
+              errorMaxLines: 2,
+            ),
+          ),
+          if (_detto != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              _detto!,
+              key: const Key('custodia_parola_persa_detto'),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: palette.goldSoft),
+            ),
+          ],
+          const SizedBox(height: SpacingTokens.xs),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              key: const Key('custodia_parola_persa'),
+              onPressed: _parolaPersa,
+              child: Text(
+                'Ho perso la parola',
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('Annulla'),
+        ),
+        TextButton(
+          key: const Key('custodia_email_conferma'),
+          onPressed: _prova,
+          child: const Text('Custodisci'),
+        ),
+      ],
     );
   }
 }

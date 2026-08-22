@@ -3481,6 +3481,11 @@ void main() {
 /// L'identita' per l'anteprima: un account anonimo che non tocca nessuna rete.
 class _IdentitaPerAnteprima implements PortaDellIdentita {
   @override
+  Future<EsitoDellaCustodia> entraDirettamente(ViaDellaCustodia via,
+          {String? email, String? parola}) async =>
+      EsitoDellaCustodia.riuscita;
+
+  @override
   String? get uid => 'anteprima';
 
   @override
@@ -3518,6 +3523,21 @@ class _IdentitaPerAnteprima implements PortaDellIdentita {
 
   @override
   Future<void> esci() async {}
+
+  @override
+  bool? get emailVerificata => null;
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email) async =>
+      EsitoDellaCustodia.riuscita;
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaVerificaDellEmail() async =>
+      EsitoDellaCustodia.riuscita;
+
+  @override
+  Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async =>
+      EsitoDellaCustodia.riuscita;
 }
 
 /// Una carta natale piena, per le anteprime del consulto.

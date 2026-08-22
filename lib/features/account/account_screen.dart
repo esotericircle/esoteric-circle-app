@@ -140,6 +140,29 @@ class AccountScreen extends StatelessWidget {
                 momenti: momenti > 0 ? momenti : 1);
           },
         ),
+      // **LA VERIFICA DELL'EMAIL. Ordine AZ voce 06, situazione S18.** La
+      // voce compare solo a chi e' entrato con un'email e non l'ha ancora
+      // verificata: a chi e' entrato con Google o con Apple l'indirizzo lo ha
+      // gia' verificato il fornitore, e chiederglielo sarebbe un compito
+      // inventato.
+      if (_emailDaVerificare(context))
+        _AccountEntry(
+          id: 'verifica_email',
+          title: 'Verifica la tua email',
+          subtitle: 'Serve per rifare la parola se la perdi',
+          icon: Icons.mark_email_unread_outlined,
+          onTap: (context) => _mandaLaVerifica(context),
+        ),
+      // **CAMBIARE LA PAROLA. Ordine AZ voce 12, situazione S20.** Anche
+      // questa solo a chi ha una parola da cambiare.
+      if (_haUnaParola(context))
+        _AccountEntry(
+          id: 'cambia_parola',
+          title: "Cambia la parola d'accesso",
+          subtitle: 'Serve un accesso recente, altrimenti te lo diciamo',
+          icon: Icons.password_rounded,
+          onTap: (context) => _chiediLaParolaNuova(context),
+        ),
       // **SI ESCE. Ordine AZ voce 07, situazioni S09, S13 e S23.** Non
       // esisteva: in tutto `lib/` c'era un `signOut` solo, quello di Google
       // dentro `dimentica()`, e non toccava Firebase. Chi sbagliava account
@@ -326,6 +349,100 @@ String? _nomeDelFornitore(String id) {
     default:
       return null;
   }
+}
+
+
+/// Vero se questa persona ha un'email da verificare. Ordine AZ voce 06.
+bool _emailDaVerificare(BuildContext context) {
+  try {
+    return context.watch<AccountDelCerchio>().emailVerificata == false;
+  } catch (errore) {
+    return false;
+  }
+}
+
+/// Vero se questa persona ha una parola d'accesso da poter cambiare.
+bool _haUnaParola(BuildContext context) {
+  try {
+    return context.watch<AccountDelCerchio>().fornitori.contains('password');
+  } catch (errore) {
+    return false;
+  }
+}
+
+/// Manda la verifica, e dice sempre com'e' andata. Ordine AZ voce 06.
+Future<void> _mandaLaVerifica(BuildContext context) async {
+  final account = context.read<AccountDelCerchio>();
+  final esito = await account.mandaLaVerificaDellEmail();
+  if (!context.mounted) return;
+  final riuscito = esito == EsitoDellaCustodia.riuscita;
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    key: const Key('verifica_mandata'),
+    content: Text(riuscito
+        ? 'Ti abbiamo mandato una email. Apri il link e la verifica è fatta.'
+        : "Non siamo riusciti a mandarla adesso. Riprova fra poco."),
+  ));
+}
+
+/// **LA PAROLA NUOVA, e cosa si dice quando la sessione è vecchia.**
+/// Ordine AZ voce 12, situazione S22.
+///
+/// Firebase pretende un accesso recente per cambiare la parola. Senza dirlo,
+/// il cambio fallirebbe con la frase generica e nessuno capirebbe che basta
+/// uscire e rientrare: e' il tipo di vicolo cieco che questo ordine chiude.
+Future<void> _chiediLaParolaNuova(BuildContext context) async {
+  final campo = TextEditingController();
+  final nuova = await showDialog<String>(
+    context: context,
+    builder: (dialogo) => AlertDialog(
+      key: const Key('parola_nuova_form'),
+      backgroundColor: ColorTokens.neutralSurface,
+      title: Text("Una parola nuova", style: TypographyTokens.titoloScheda()),
+      content: TextField(
+        key: const Key('parola_nuova_campo'),
+        controller: campo,
+        obscureText: true,
+        style: TypographyTokens.corpo()
+            .copyWith(color: ColorTokens.textPrimary),
+        decoration: const InputDecoration(
+          labelText: 'La parola nuova',
+          helperText: 'Almeno sei caratteri',
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(dialogo).pop(),
+          child: const Text('Annulla'),
+        ),
+        TextButton(
+          key: const Key('parola_nuova_conferma'),
+          onPressed: () {
+            if (campo.text.length < 6) return;
+            Navigator.of(dialogo).pop(campo.text);
+          },
+          child: const Text('Cambia'),
+        ),
+      ],
+    ),
+  );
+  if (nuova == null || !context.mounted) return;
+  final esito = await context.read<AccountDelCerchio>().cambiaLaParola(nuova);
+  if (!context.mounted) return;
+  final String frase;
+  switch (esito) {
+    case EsitoDellaCustodia.riuscita:
+      frase = 'Fatto. Da adesso entri con la parola nuova.';
+    case EsitoDellaCustodia.nonRiconosciuto:
+      // E' `requires-recent-login`, tradotto in una cosa che si puo' fare.
+      frase = 'Per cambiare la parola serve un accesso recente. Esci e '
+          'rientra, poi riprova.';
+    default:
+      frase = "Non è riuscito adesso. La tua parola di prima vale ancora.";
+  }
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    key: const Key('parola_cambiata'),
+    content: Text(frase),
+  ));
 }
 
 /// **LA DOMANDA PRIMA DI USCIRE.** Ordine AZ voce 07.

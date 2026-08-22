@@ -124,6 +124,34 @@ abstract class PortaDellIdentita {
   /// vorrebbe dire spegnerlo. Il cammino di chi esce resta sul Cerchio e lo
   /// ritrova rientrando.
   Future<void> esci();
+
+  /// **LA PAROLA PERSA.** Ordine AZ voce 05, situazione S14.
+  ///
+  /// **Non esisteva**: zero `sendPasswordResetEmail` in tutto `lib/`. Chi si
+  /// era custodito con un'email e aveva dimenticato la parola **era fuori dal
+  /// proprio Cerchio per sempre**, senza nessuna via.
+  Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email);
+
+  /// **LA VERIFICA DELL'EMAIL.** Ordine AZ voce 06, situazione S18.
+  ///
+  /// **Non esisteva**: zero `sendEmailVerification` e zero `emailVerified`.
+  /// Un'email non verificata vuol dire che chiunque puo' registrarsi con
+  /// l'indirizzo di un altro, e che la via per la parola persa arriva a una
+  /// casella che potrebbe non essere sua.
+  Future<EsitoDellaCustodia> mandaLaVerificaDellEmail();
+
+  /// Vero se l'email di chi e' dentro e' stata verificata. Nullo per chi non
+  /// e' entrato con un'email: la domanda non ha senso e non si finge una
+  /// risposta.
+  bool? get emailVerificata;
+
+  /// **CAMBIARE LA PAROLA.** Ordine AZ voce 12, situazione S20.
+  ///
+  /// **Non esisteva**: zero `updatePassword`. Firebase pretende una sessione
+  /// recente per questa operazione: quando non lo e', risponde
+  /// `requires-recent-login`, e la persona deve rientrare. Si dice, invece di
+  /// far fallire in silenzio.
+  Future<EsitoDellaCustodia> cambiaLaParola(String nuova);
 }
 
 /// Chi e' stato riconosciuto da un tentativo di custodia finito su un
@@ -437,6 +465,72 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
   }
 
   @override
+  bool? get emailVerificata {
+    final utente = _utente;
+    if (utente == null) return null;
+    // La domanda ha senso solo per chi e' entrato con un'email: con Google e
+    // con Apple l'indirizzo lo ha gia' verificato il fornitore.
+    final conEmail = utente.providerData.any((p) => p.providerId == 'password');
+    if (!conEmail) return null;
+    return utente.emailVerified;
+  }
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return EsitoDellaCustodia.riuscita;
+    } on FirebaseAuthException catch (errore) {
+      switch (errore.code) {
+        case 'user-not-found':
+        case 'invalid-email':
+          // **NON SI DICE SE QUELL'EMAIL ESISTE**, e non e' pigrizia: dirlo
+          // vorrebbe dire regalare a chiunque un modo per sapere chi fa parte
+          // del Cerchio. La frase a schermo e' la stessa in tutti e due i
+          // casi, e questo esito serve solo a chi legge il registro.
+          return EsitoDellaCustodia.nonRiconosciuto;
+        default:
+          return EsitoDellaCustodia.nonRiuscita;
+      }
+    } catch (errore) {
+      return EsitoDellaCustodia.nonRiuscita;
+    }
+  }
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaVerificaDellEmail() async {
+    final utente = _utente;
+    if (utente == null) return EsitoDellaCustodia.nonRiuscita;
+    try {
+      await utente.sendEmailVerification();
+      return EsitoDellaCustodia.riuscita;
+    } catch (errore) {
+      return EsitoDellaCustodia.nonRiuscita;
+    }
+  }
+
+  @override
+  Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async {
+    final utente = _utente;
+    if (utente == null) return EsitoDellaCustodia.nonRiuscita;
+    try {
+      await utente.updatePassword(nuova);
+      return EsitoDellaCustodia.riuscita;
+    } on FirebaseAuthException catch (errore) {
+      // **LA SESSIONE VECCHIA NON BASTA, e la persona deve saperlo.**
+      // Firebase pretende un accesso recente per un'operazione cosi': senza
+      // questo ramo il cambio fallirebbe con la frase generica, e nessuno
+      // capirebbe che basta uscire e rientrare.
+      if (errore.code == 'requires-recent-login') {
+        return EsitoDellaCustodia.nonRiconosciuto;
+      }
+      return EsitoDellaCustodia.nonRiuscita;
+    } catch (errore) {
+      return EsitoDellaCustodia.nonRiuscita;
+    }
+  }
+
+  @override
   Future<void> esci() async {
     // **PRIMA SI DIMENTICA GOOGLE.** Senza, il client resta con l'account in
     // mano e chi entra dopo si ritrova quello di prima senza nemmeno vedere
@@ -527,6 +621,21 @@ class IdentitaAssente implements PortaDellIdentita {
 
   @override
   Future<void> esci() async {}
+
+  @override
+  bool? get emailVerificata => null;
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaVerificaDellEmail() async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async =>
+      EsitoDellaCustodia.nonRiuscita;
 }
 
 /// L'ACCOUNT DEL CERCHIO, guardato dall'app.
@@ -621,6 +730,24 @@ class AccountDelCerchio extends ChangeNotifier {
     await _porta.esci();
     await DimenticanzaDelTelefono.dimentica();
     rileggi();
+  }
+
+  /// La via per rifare la parola d'accesso. Ordine AZ voce 05.
+  Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email) =>
+      _porta.mandaLaViaPerLaParola(email);
+
+  /// La verifica dell'email. Ordine AZ voce 06.
+  Future<EsitoDellaCustodia> mandaLaVerificaDellEmail() =>
+      _porta.mandaLaVerificaDellEmail();
+
+  /// Vero se l'email e' verificata, nullo se la domanda non ha senso.
+  bool? get emailVerificata => _porta.emailVerificata;
+
+  /// Il cambio della parola. Ordine AZ voce 12.
+  Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async {
+    final esito = await _porta.cambiaLaParola(nuova);
+    rileggi();
+    return esito;
   }
 
   /// Il nome dell'identita' riconosciuta dall'ultimo rifiuto, per il

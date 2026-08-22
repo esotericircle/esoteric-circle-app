@@ -14,7 +14,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// una cura che funzionasse solo li' sarebbe invisibile al fondatore.
 void main() {
   Future<void> montaLAccount(WidgetTester tester,
-      {required bool anonimo, String? email}) async {
+      {required bool anonimo,
+      String? email,
+      bool? emailVerificata,
+      List<String> fornitori = const ['google.com']}) async {
     SharedPreferences.setMockInitialValues(const {});
     // **UNO SCHERMO ALTO, e non e' un trucco.** La lista dell'account e'
     // pigra: le voci sotto la piega non vengono nemmeno costruite, quindi una
@@ -29,7 +32,11 @@ void main() {
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider<AccountDelCerchio>(
           create: (_) => AccountDelCerchio(
-              porta: _PortaCosiComeE(anonimo: anonimo, email: email))
+              porta: _PortaCosiComeE(
+                  anonimo: anonimo,
+                  email: email,
+                  verificata: emailVerificata,
+                  vie: fornitori))
             ..rileggi(),
         ),
       ],
@@ -127,11 +134,74 @@ void main() {
     expect(find.textContaining('qui e sul server'), findsWidgets,
         reason: 'la promessa dell oblio non nomina piu tutte e due le meta');
   });
+
+  testWidgets('la verifica dell email compare solo a chi ne ha bisogno',
+      (tester) async {
+    // Ordine AZ voce 06, situazione S18. A chi entra con Google o con Apple
+    // l'indirizzo lo ha gia' verificato il fornitore: chiederglielo sarebbe
+    // un compito inventato.
+    await montaLAccount(tester,
+        anonimo: false,
+        email: 'mauro@esempio.it',
+        emailVerificata: false,
+        fornitori: const ['password']);
+    // ignore: avoid_print
+    print('ORDINE AZ VOCE 06: con email non verificata la voce compare '
+        '${find.text('Verifica la tua email').evaluate().length} volte');
+    expect(find.text('Verifica la tua email'), findsOneWidget,
+        reason: 'chi ha un email non verificata non ha modo di verificarla: e '
+            'il buco S18');
+  });
+
+  testWidgets('a chi entra con Google non si chiede di verificare niente',
+      (tester) async {
+    await montaLAccount(tester,
+        anonimo: false, email: 'mauro@esempio.it', emailVerificata: null);
+    // ignore: avoid_print
+    print('ORDINE AZ VOCE 06: con Google la voce compare '
+        '${find.text('Verifica la tua email').evaluate().length} volte');
+    expect(find.text('Verifica la tua email'), findsNothing,
+        reason: 'si chiede di verificare un indirizzo che ha gia verificato '
+            'il fornitore');
+  });
+
+  testWidgets('il cambio della parola c e solo per chi ha una parola',
+      (tester) async {
+    await montaLAccount(tester,
+        anonimo: false,
+        email: 'mauro@esempio.it',
+        emailVerificata: true,
+        fornitori: const ['password']);
+    // ignore: avoid_print
+    print('ORDINE AZ VOCE 12: con la via email la voce del cambio compare '
+        "${find.text("Cambia la parola d'accesso").evaluate().length} volte");
+    expect(find.text("Cambia la parola d'accesso"), findsOneWidget,
+        reason: 'non c e nessun modo di cambiare la parola: e il buco S20');
+  });
+
+  testWidgets('a chi entra con Google non si offre di cambiare una parola che '
+      'non ha', (tester) async {
+    await montaLAccount(tester, anonimo: false, email: 'mauro@esempio.it');
+    // ignore: avoid_print
+    print('ORDINE AZ VOCE 12: con Google la voce del cambio compare '
+        "${find.text("Cambia la parola d'accesso").evaluate().length} volte");
+    expect(find.text("Cambia la parola d'accesso"), findsNothing,
+        reason: 'si offre di cambiare una parola che non esiste');
+  });
 }
 
 /// Una porta ferma nello stato che la prova le chiede.
 class _PortaCosiComeE implements PortaDellIdentita {
-  _PortaCosiComeE({required this.anonimo, this.email});
+  _PortaCosiComeE({
+    required this.anonimo,
+    this.email,
+    this.verificata,
+    this.vie = const ['google.com'],
+  });
+
+  final bool? verificata;
+  final List<String> vie;
+  int verificheMandate = 0;
 
   @override
   final bool anonimo;
@@ -143,7 +213,7 @@ class _PortaCosiComeE implements PortaDellIdentita {
   String? get uid => anonimo ? 'anonimo' : 'custode';
 
   @override
-  List<String> get fornitori => anonimo ? const [] : const ['google.com'];
+  List<String> get fornitori => anonimo ? const [] : vie;
 
   @override
   IdentitaRiconosciuta? get riconosciuta => null;
@@ -173,4 +243,21 @@ class _PortaCosiComeE implements PortaDellIdentita {
 
   @override
   Future<void> esci() async {}
+
+  @override
+  bool? get emailVerificata => verificata;
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email) async =>
+      EsitoDellaCustodia.riuscita;
+
+  @override
+  Future<EsitoDellaCustodia> mandaLaVerificaDellEmail() async {
+    verificheMandate++;
+    return EsitoDellaCustodia.riuscita;
+  }
+
+  @override
+  Future<EsitoDellaCustodia> cambiaLaParola(String nuova) async =>
+      EsitoDellaCustodia.riuscita;
 }
