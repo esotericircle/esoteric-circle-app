@@ -74,6 +74,15 @@ bool maestriSpentiPerLaProva = false;
 /// piccoli.
 const double altezzaMinimaDelBusto = 220.0;
 
+/// **IL MINIMO SOTTO CUI UN MAESTRO NON E' PIU' UN MAESTRO.** Ordine BA voce
+/// 02.
+///
+/// Non e' una preferenza di composizione: e' la soglia sotto la quale la
+/// figura non si riconosce piu'. Solo questo pavimento puo' scavalcare il
+/// vincolo del blocco del cielo, e succede su schermi cosi' corti che
+/// qualunque scelta sarebbe un compromesso.
+const double altezzaMinimaAssolutaDelBusto = 150.0;
+
 /// **QUANTO DELL'ALTEZZA DELLO SCHERMO DEVE PRENDERE IL BUSTO CENTRALE.**
 /// Ordine AV voce 03: il trentaquattro per cento, e sul telefono del fondatore
 /// riporta i Maestri alla grandezza della 2188.
@@ -695,10 +704,39 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               // prova che misura i PIXEL, non i rettangoli, la dichiara
               // **coperta al 74 per cento**. Undici punti di Maestro in piu'
               // valgono meno di una riga che si legge.
+              // **IL VINCOLO COMANDA, E IL PAVIMENTO NON LO SCAVALCA PIU'.**
+              // Ordine BA voce 02, misurato sui PIXEL e non sui rettangoli.
+              //
+              // **Il `math.max` qui sopra faceva vincere il pavimento ogni
+              // volta che lo spazio concesso era piu' piccolo di lui**, e in
+              // quel caso il busto e' per definizione piu' alto dello spazio
+              // che c'e': i pixel dipinti salgono dentro il blocco del cielo.
+              // **Misurato dipingendo la home due volte, con e senza la
+              // vernice dei Maestri, e contando i pixel del testo che
+              // cambiano: 37.621 su schermo alto, 46.642 sul medio, 39.277 sul
+              // basso.** Le tre misure precedenti dicevano zero perche'
+              // confrontavano rettangoli di layout, e le figure escono dal
+              // proprio riquadro con `Clip.none`.
+              //
+              // **La decisione, e perche' e' questa.** L'ordine AV voce 03
+              // dice che i Maestri sono i protagonisti e che lo spazio lo cede
+              // il cielo; l'ordine BA voce 02 dice che il testo sopra di loro
+              // deve leggersi. Quando le due cose non stanno insieme **vince
+              // il testo**: un Maestro un po' piu' piccolo si riconosce
+              // ancora, una frase coperta a meta' non si legge affatto. E lo
+              // spazio non si prende comprimendo il blocco del cielo, che
+              // cambierebbe cio' che c'e' scritto.
+              //
+              // **Il pavimento assoluto resta**, per gli schermi cosi' corti
+              // che nemmeno il vincolo lascia una figura riconoscibile: sotto
+              // i 150 punti un Maestro non e' piu' un Maestro. Quello e' un
+              // minimo vero, non una preferenza.
               math.max(
-                  math.min(altezzaMinimaDelBusto,
-                      alturaDelloSchermo * quotaDelBustoSulloSchermo),
-                  math.min(centralH, altezzaConcessa));
+                  altezzaMinimaAssolutaDelBusto,
+                  math.min(
+                      math.min(centralH,
+                          alturaDelloSchermo * quotaDelBustoSulloSchermo),
+                      altezzaConcessa));
           assert(() {
             ultimaMisuraDelBusto =
                 (concessa: altezzaConcessa, busto: altezzaBusto, alta: h);

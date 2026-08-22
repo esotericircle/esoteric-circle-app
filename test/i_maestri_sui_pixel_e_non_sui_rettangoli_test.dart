@@ -82,11 +82,31 @@ void main() {
       final fascia = fasciaDelTesto(tester);
       final con = await dipingi(tester);
 
-      // **POI SENZA**, e nient'altro cambia: stessa scena, stesso istante
-      // finto, stessa misura di schermo.
+      // **PRIMA LA CONTROPROVA DELLA MISURA STESSA.** Due catture di seguito
+      // senza cambiare NIENTE devono dare zero differenze: se il cosmo si
+      // muove fra l'una e l'altra, ogni numero che segue e' il movimento
+      // delle stelle e non l'occlusione dei Maestri.
+      //
+      // **Serve davvero, e l'ha gia' salvata una volta**: la prima stesura
+      // faceva passare sessanta millesimi fra le due catture, e il conto
+      // diceva che i Maestri arrivavano fino alla riga ZERO dello schermo,
+      // cioe' sopra il titolo, sopra la barra, ovunque. Non erano i Maestri:
+      // era il cielo che scorreva.
+      final ancora = await dipingi(tester);
+      var mossi = 0;
+      for (var i = 0; i + 3 < con.lengthInBytes; i += 4) {
+        if (con.getUint32(i) != ancora.getUint32(i)) mossi++;
+      }
+      expect(mossi, 0,
+          reason: 'fra due catture identiche cambiano gia $mossi pixel: la '
+              'scena si muove da sola, e la misura dell occlusione misurerebbe '
+              'quello');
+
+      // **POI SENZA**, e nient'altro cambia: stessa scena, stesso istante,
+      // stessa misura di schermo. **Un solo `pump` senza far scorrere il
+      // tempo**: basta a ridipingere, e non lascia correre le animazioni.
       maestriSpentiPerLaProva = true;
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 60));
+      await tester.pump(Duration.zero);
       final senza = await dipingi(tester);
 
       // **SI CONTANO SOLO I PIXEL DENTRO LA FASCIA DEL TESTO.** Fuori di li'
@@ -102,10 +122,28 @@ void main() {
           if (con.getUint32(i) != senza.getUint32(i)) diversi++;
         }
       }
+      // **DOVE ARRIVA LA CIMA DEI MAESTRI, misurata e non stimata.** Il
+      // codice del carosello calcola quanto sale un laterale con un fattore
+      // dedotto dalle sue costanti; qui si guarda il pixel piu' alto che
+      // cambia, che e' la cima vera dei pixel dipinti.
+      var cima = -1;
+      final alto = tester.view.physicalSize.height ~/
+          tester.view.devicePixelRatio;
+      for (var y = 0; y < alto && cima < 0; y++) {
+        for (var x = 0; x < larghezza; x++) {
+          final i = (y * larghezza + x) * 4;
+          if (i < 0 || i + 3 >= con.lengthInBytes) continue;
+          if (con.getUint32(i) != senza.getUint32(i)) {
+            cima = y;
+            break;
+          }
+        }
+      }
       // ignore: avoid_print
       print('ORDINE BA VOCE 02: su schermo ${voce.key}, la fascia del testo '
-          'va da ${fascia.top.round()} a ${fascia.bottom.round()}, e i pixel '
-          'che cambiano togliendo i Maestri sono $diversi');
+          'va da ${fascia.top.round()} a ${fascia.bottom.round()}, i Maestri '
+          'arrivano fino a $cima, e i pixel del testo che cambiano sono '
+          '$diversi');
 
       expect(diversi, 0,
           reason: 'i Maestri coprono $diversi pixel del testo che sta sopra '

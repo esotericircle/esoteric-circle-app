@@ -73,6 +73,40 @@ prove e sembra comunque in ritardo.
 passata a 0,085 per tenere la mano ferma a zero punti, e il fondo corsa a 30
 gradi con l'ordine AW. Le due cose insieme fanno una partenza lenta.
 
+## BA.02: la misura e' onesta, e i primi numeri erano gonfiati
+
+**La misura sui pixel adesso c'e', ed e' quella che l'ordine AX voce 02
+imponeva**: si dipinge la home due volte, con e senza la vernice dei Maestri,
+e si contano i pixel del testo che cambiano. Le tre misure precedenti
+dicevano ZERO confrontando rettangoli di layout, e le figure escono dal
+proprio riquadro con `Clip.none`.
+
+**E LA PRIMA VERSIONE DI QUESTA MISURA ERA FALSA. Si dichiara.** Diceva
+37.621, 46.642 e 39.277 pixel coperti. **Erano gonfiati dal movimento delle
+stelle**: fra la cattura con i Maestri e quella senza passavano sessanta
+millesimi, e il cosmo scorre. Il segno che ha smascherato il numero e' che
+"i Maestri arrivavano fino alla riga ZERO dello schermo", cioe' sopra il
+titolo e sopra la barra, che e' impossibile.
+
+**Adesso la misura porta la propria controprova**: due catture di seguito
+senza cambiare niente devono dare **zero** differenze, e le due catture vere
+sono separate da un `pump` che non fa scorrere il tempo.
+
+**I numeri veri, dopo la prima cura**: **831** pixel su schermo alto, **4.712**
+sul medio, **25.425** sul basso.
+
+**La prima cura, e non basta.** Il calcolo dell'altezza del busto faceva
+`math.max` fra un pavimento di 220 punti e lo spazio che il blocco del cielo
+concede: **quando il pavimento vinceva, il busto era per definizione piu' alto
+dello spazio disponibile**. Adesso comanda il vincolo, e solo un pavimento
+assoluto di 150 punti puo' scavalcarlo, per gli schermi cosi' corti che sotto
+quella soglia un Maestro non si riconosce piu'.
+
+**La voce resta APERTA**, e la prova resta rossa a dichiararlo: **non e' una
+guardia rossa apposta, e' un difetto ancora aperto con la sua misura**. Lo
+schermo basso e' il caso peggiore, ed e' li' che il vincolo e il pavimento si
+scontrano davvero.
+
 ## I marcatori
 
 VOCI_TOTALI: 3
