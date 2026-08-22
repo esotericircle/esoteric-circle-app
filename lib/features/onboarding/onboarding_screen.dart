@@ -675,7 +675,22 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     // un'identita' parziale il rito prosegue dai passi che mancano, e non si
     // torna in home a meta' strada.
     if (ritrovato != null && ritrovato.siSalta) {
-      Navigator.of(context).maybePop();
+      // **SI ESCE CON `pop`, NON CON `maybePop`.** Ordine AZ, fatto F2, ed e'
+      // la causa che ha resistito a piu' giri di collaudo.
+      //
+      // Il rito e' chiuso apposta contro la fuga: alla riga 507 c'e' un
+      // `PopScope(canPop: false)`, messo perche' nessuno esca dal Risveglio
+      // col gesto indietro lasciando l'app a meta'. **E `maybePop` quella
+      // guardia la rispetta**: chiede il permesso, si sente dire di no, e non
+      // fa niente. Il chiamante non se ne accorgeva, perche' `maybePop` non
+      // lancia e non risponde niente.
+      //
+      // Cosi' chi rientrava con un'identita' intera restava dentro il rito
+      // **anche quando non c'era piu' niente da chiedergli**: e' il fatto F2.
+      // Qui l'uscita e' voluta e dichiarata, quindi si usa `pop`, che la
+      // guardia non governa: la guardia esiste contro il gesto della persona,
+      // non contro il codice che ha appena finito il lavoro.
+      Navigator.of(context).pop();
       return;
     }
     // **E SE QUALCOSA MANCA, SI RIPRENDE INVECE DI RICOMINCIARE.** Ordine AZ,
