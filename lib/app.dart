@@ -147,10 +147,47 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
     await RegiaDelleChiamate.riprogramma(ctx);
   }
 
+  /// **QUANTE VOLTE SI RIPROVA, E DOPO QUANTO.** Ordine AZ voce 03, fatti F5
+  /// e F8, segnalati quattro volte dal fondatore.
+  ///
+  /// **Il difetto era gia' scritto nel commento qui sopra e nessuno lo aveva
+  /// letto come un difetto**: se la sincronia dell'avvio non riesce, perche'
+  /// la rete e' lenta nel primo secondo o perche' **l'autenticazione non e'
+  /// ancora pronta**, il saldo resta quello locale finche' l'app non viene
+  /// riavviata. E il momento in cui questa chiamata parte, cioe' subito dopo
+  /// il primo fotogramma, e' esattamente il momento in cui Firebase puo' non
+  /// avere ancora ripristinato la sessione: il server risponde
+  /// `unauthenticated`, e non si riprova mai piu'.
+  ///
+  /// **Le attese sono corte e poche**: due secondi, poi cinque. Non e' una
+  /// coda di ripetizioni all'infinito, e non tiene sveglio niente.
+  static const _attesePerRiprovare = <Duration>[
+    Duration(seconds: 2),
+    Duration(seconds: 5),
+  ];
+
+  /// Vero mentre un giro e' in corso: due giri insieme manderebbero al Cerchio
+  /// lo stesso cammino due volte.
+  bool _giroInCorso = false;
+
   Future<void> _custodisciIlCammino() async {
-    final ctx = _navigatore.currentContext;
-    if (ctx == null || !ctx.mounted) return;
-    await CustodeDelCammino.custodisciEAdotta(ctx);
+    if (_giroInCorso) return;
+    _giroInCorso = true;
+    try {
+      for (var tentativo = 0;
+          tentativo <= _attesePerRiprovare.length;
+          tentativo++) {
+        final ctx = _navigatore.currentContext;
+        if (ctx == null || !ctx.mounted) return;
+        final esito = await CustodeDelCammino.custodisciEAdotta(ctx);
+        // Andata bene, oppure non c'era proprio niente da chiedere: si esce.
+        if (!esito.rifiutatoDalServer && !esito.senzaRisposta) return;
+        if (tentativo == _attesePerRiprovare.length) return;
+        await Future<void>.delayed(_attesePerRiprovare[tentativo]);
+      }
+    } finally {
+      _giroInCorso = false;
+    }
   }
 
   @override

@@ -109,8 +109,8 @@ dire che la ricerca sul codice ha dato zero occorrenze, ed e' scritto quale.
 
 - **AZ.00** Manifesto e censimento. Stato: CHIUSA
 - **AZ.01** Chi entra arriva in home, e se non arriva lo sa. Stato: CHIUSA
-- **AZ.02** Il rito non si decide su una preferenza locale. Stato: APERTA
-- **AZ.03** Il borsellino si aggiorna quando cambia, non al riavvio. Stato: APERTA
+- **AZ.02** Il rito non si decide su una preferenza locale. Stato: CHIUSA
+- **AZ.03** Il borsellino si aggiorna quando cambia, non al riavvio. Stato: CHIUSA
 - **AZ.04** I dati di nascita: chi vince, e chi lo vede. Stato: APERTA
 - **AZ.05** La parola persa. Stato: APERTA
 - **AZ.06** La verifica dell'email. Stato: APERTA
@@ -206,11 +206,65 @@ la sua sequenza: disinstalla, reinstalla, tocca "Faccio gia' parte del
 Cerchio", sceglie il suo account. **Se non arriva in home, adesso deve leggere
 una frase**, e quella frase dice quale dei due casi e'.
 
+### AZ.02, a chi torna il rientro non si nasconde
+
+**Il fatto F7 e' esatto, e non e' il difetto.** Il rito si decide su
+`prefs.getBool('onboarding.done')` e su nient'altro. Ma al primo avvio dopo
+una reinstallazione **non esiste ancora nessuna identita' da interrogare**:
+non c'e' nient'altro su cui decidere, e cambiare quella riga non avrebbe
+curato niente. Si dichiara invece di correggerla in silenzio.
+
+**Il difetto e' un altro, ed e' a due righe di distanza.** Quando il telefono
+propone gia' un account, l'app SA che chi guarda e' con ogni probabilita' di
+ritorno, e gli metteva davanti "Inizia il rito" tenendo il rientro in una riga
+smorzata sotto. **Chi reinstalla prende la strada grande**, rifa' il rito, e
+per finirlo inventa dei dati: sono F2 e F3, **e i dati a caso di F6 nascono
+li'**.
+
+**La cura**: col bentornato la porta per chi torna diventa un richiamo pieno.
+
+**Le misure**, in `test/a_chi_torna_il_rientro_non_si_nasconde_test.dart`:
+senza bentornato la porta e' un `TextButton` **senza nessun fondo dipinto**,
+col bentornato e' un `FilledButton` con fondo pieno e opaco. **La controprova
+c'e'**: a chi arriva davvero nuovo la porta resta smorzata, perche' offrirgli
+un accesso col risalto del rito sarebbe l'errore opposto.
+
+**Un criterio sbagliato, dichiarato.** La prima versione della prova
+pretendeva una porta piu' larga, e cadeva: misurato, la colonna e' larga 256
+punti in tutti e due i casi, perche' tanto la porta quanto la chiamata
+principale chiedono `width: double.infinity`. **Cadeva con ragione**, e il
+criterio sbagliato era quello della prova. Il risalto vero e' il fondo.
+
+### AZ.03, il borsellino non aspetta il riavvio
+
+**Il difetto era gia' scritto in un commento di `lib/app.dart`, e nessuno lo
+aveva letto come un difetto**: "se la sincronia dell'avvio non riesce, perche'
+la rete e' lenta nel primo secondo o perche' l'autenticazione non e' ancora
+pronta, il saldo resta quello locale finche' l'app non viene riavviata: e' il
+caso del fondatore, zero in barra con quattrocentoquarantacinque sul server."
+
+**E il momento della chiamata e' proprio quello sbagliato.** Parte dopo il
+primo fotogramma, cioe' quando Firebase puo' non avere ancora ripristinato la
+sessione: il server risponde `unauthenticated`, e **non si riprova mai piu'**
+fino al riavvio o al ritorno in primo piano. Ecco perche' sembrava che a
+sistemare le cose fosse il Passport: era il tempo passato, non il Passport.
+
+**La cura**: il giro si riprova, due volte, dopo due e cinque secondi, e solo
+quando l'esito dice che vale la pena. Possibile **solo grazie ad AZ.01**, che
+ha dato al giro un modo di dire perche' non ha portato niente.
+
+**Le misure**, in `test/il_borsellino_non_aspetta_il_riavvio_test.dart`: col
+primo giro che cade su `unauthenticated`, **saldo in barra 0**; al secondo
+giro **445**, che e' il numero vero del fondatore. **La controprova**: col
+Cerchio sveglio i tentativi restano **1**, perche' una ripetizione che parte
+sempre sarebbe una chiamata in piu' a ogni avvio pagata da tutti per il caso
+di uno.
+
 ## I marcatori
 
 VOCI_TOTALI: 15
-VOCI_APERTE: 13
-VOCI_CHIUSE: 2
+VOCI_APERTE: 11
+VOCI_CHIUSE: 4
 SITUAZIONI_CENSITE: 37
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0

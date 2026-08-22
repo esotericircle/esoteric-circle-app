@@ -84,16 +84,74 @@ class OnboardingScreen extends StatefulWidget {
 /// cosa succede: la seconda e' piu' smorzata, perche' la prima e' la
 /// domanda e la seconda e' solo la risposta.
 class _PortaPerChiTorna extends StatelessWidget {
-  const _PortaPerChiTorna({required this.palette, required this.onTap});
+  const _PortaPerChiTorna({
+    required this.palette,
+    required this.onTap,
+    this.riconosciuto = false,
+  });
 
   final MaestroPalette palette;
   final VoidCallback onTap;
+
+  /// **IL TELEFONO PROPONE GIA' UN ACCOUNT.** Ordine AZ voce 02.
+  ///
+  /// Quando e' vero, chi sta guardando questo schermo con ogni probabilita'
+  /// **non e' un ospite nuovo**: e' qualcuno che ha reinstallato. Vedi il
+  /// perche' del risalto sul commento di `build`.
+  final bool riconosciuto;
 
   static const String riga = 'Faccio già parte del Cerchio';
   static const String rigaDiServizio = 'Accedi e ritrova il tuo cammino';
 
   @override
   Widget build(BuildContext context) {
+    // **A CHI HA REINSTALLATO, IL RIENTRO NON SI NASCONDE.** Ordine AZ voce
+    // 02, fatti F2 e F3.
+    //
+    // Il fatto F7 e' esatto: il rito si decide su una preferenza locale. Ma
+    // **quella preferenza non e' il difetto**, ed e' giusto dire perche': al
+    // primo avvio dopo una reinstallazione non esiste ancora nessuna
+    // identita' da interrogare, quindi non c'e' nient'altro su cui decidere.
+    //
+    // **Il difetto e' un altro, ed e' qui.** Quando il telefono propone gia'
+    // un account, l'app SA che quella persona e' probabilmente di ritorno, e
+    // le metteva davanti "Inizia il rito" tenendo il rientro in una riga
+    // smorzata sotto. Chi reinstalla prende la strada grande, rifa' il rito,
+    // e per finirlo inventa dei dati: sono F2 e F3, e i dati a caso di F6
+    // nascono da qui. Col bentornato la porta diventa il richiamo pieno.
+    if (riconosciuto) {
+      return SizedBox(
+        width: double.infinity,
+        child: FilledButton(
+          key: const Key('onboarding_porta_per_chi_torna'),
+          onPressed: onTap,
+          style: FilledButton.styleFrom(
+            backgroundColor: palette.surfaceElevated,
+            foregroundColor: palette.goldSoft,
+            side: BorderSide(color: palette.gold.withValues(alpha: 0.55)),
+            padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                riga,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                rigaDiServizio,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
     return TextButton(
       key: const Key('onboarding_porta_per_chi_torna'),
       onPressed: onTap,
@@ -573,6 +631,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           _PortaPerChiTorna(
             palette: _palette,
             onTap: _entraDaChiGiaCE,
+            riconosciuto: _bentornato != null,
           ),
         ],
       ),
