@@ -74,9 +74,15 @@ void main() {
     final tipo = tester.widget(porta).runtimeType.toString();
     // ignore: avoid_print
     print('ORDINE AZ VOCE 02: senza bentornato la porta e un $tipo');
-    expect(tester.widget(porta), isA<TextButton>(),
-        reason: 'a chi arriva nuovo si sta offrendo un accesso con lo stesso '
-            'risalto del rito');
+    // **UN PULSANTE CON LA SUA CORNICE, non una scritta smorzata.** Ordine
+    // AZ: il bentornato NON puo' comparire dopo una reinstallazione, perche'
+    // `signInSilently` si appoggia a un accesso precedente di quella stessa
+    // installazione. Misurato due volte sul telefono del fondatore. Quindi
+    // chi deve rientrare vede quasi sempre questa versione, e nasconderla
+    // sotto il richiamo del rito era il difetto vero.
+    expect(tester.widget(porta), isA<OutlinedButton>(),
+        reason: 'la porta per chi torna e tornata una scritta smorzata: chi '
+            'reinstalla prende la strada grande e rifa il rito');
   });
 
   testWidgets('col bentornato la porta diventa un richiamo pieno',
@@ -136,8 +142,16 @@ void main() {
     // ignore: avoid_print
     print('ORDINE AZ VOCE 02: senza bentornato il fondo della porta e $fondo');
     expect(fondo, isNull,
-        reason: 'a chi arriva nuovo la porta si dipinge come a chi torna: il '
-            'risalto perde il suo significato');
+        reason: 'a chi arriva nuovo la porta si riempie come a chi viene '
+            'riconosciuto: il risalto perde il suo significato');
+    // **MA UNA CORNICE CE L'HA**, se no resterebbe la scritta smorzata di
+    // prima con un nome nuovo.
+    final bordo = bottone.style?.side?.resolve(<WidgetState>{});
+    // ignore: avoid_print
+    print('ORDINE AZ VOCE 02: senza bentornato il bordo e $bordo');
+    expect(bordo, isNotNull,
+        reason: 'la porta non ha nessuna cornice: a schermo resta una scritta '
+            'e non un pulsante');
   });
 }
 

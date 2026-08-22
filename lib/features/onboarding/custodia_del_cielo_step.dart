@@ -46,6 +46,33 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
   String? _guaio;
   bool _riconosciuto = false;
 
+  @override
+  void initState() {
+    super.initState();
+    // **A CHI E' GIA' DENTRO NON SI CHIEDE DI REGISTRARSI.** Ordine AZ, dal
+    // collaudo del fondatore sulla 2194: arrivava in fondo al rito col suo
+    // account gia' riconosciuto, e questo passo gli chiedeva di custodire un
+    // cielo **che era gia' custodito**. Il tentativo falliva per forza,
+    // perche' quell'identita' e' gia' attaccata a lui.
+    //
+    // **Succedeva solo qui**: dei tre punti che propongono la custodia,
+    // l'area account e il Santuario guardavano se l'account fosse gia'
+    // custodito, questo no. Adesso il passo si chiude da solo, senza mostrare
+    // niente: **una domanda che non ha senso non si fa e non si spiega**.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final AccountDelCerchio account;
+      try {
+        account = context.read<AccountDelCerchio>();
+      } on ProviderNotFoundException {
+        // Nelle anteprime e nelle prove mirate non c'e' nessun account da
+        // interrogare, e il passo si mostra come sempre.
+        return;
+      }
+      if (!account.eAnonimo) widget.suFine();
+    });
+  }
+
   Future<void> _custodisci(ViaDellaCustodia via,
       {String? email, String? parola}) async {
     setState(() {

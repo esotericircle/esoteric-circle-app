@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// LA GUARDIA DELL'ORDINE AZ.
 ///
 /// **Non e' una promessa, e' un test che non passa.** Legge il manifesto e
-/// resta rossa finche' le quindici voci non hanno uno stato terminale.
+/// resta rossa finche' le sedici voci non hanno uno stato terminale.
 ///
 /// **Sorveglia anche il censimento**, che in questo ordine non e' un contorno:
 /// il fondatore ha chiesto di prevedere OGNI mossa, volontaria o involontaria,
@@ -16,7 +16,15 @@ void main() {
 
   /// Quante voci ha questo ordine. Le voci non si rinumerano, non si accorpano
   /// e non si dichiarano coperte da un'altra.
-  const quante = 15;
+  ///
+  /// **Sono diventate SEDICI, e il numero e' cresciuto per un motivo che va
+  /// detto**: il collaudo del fondatore sulla 2194 ha trovato due cose che il
+  /// censimento delle prime quindici non copriva, cioe' la custodia proposta
+  /// a chi e' gia' custodito e il bentornato che non puo' comparire dopo una
+  /// reinstallazione. **Non sono state infilate dentro una voce esistente**:
+  /// hanno la loro, la AZ.15, perche' un ordine che si allarga in silenzio
+  /// non si puo' piu' leggere a distanza di un mese.
+  const quante = 16;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -32,7 +40,7 @@ void main() {
       .where((r) => RegExp(r'^- \*\*AZ\.\d\d\*\*').hasMatch(r))
       .toList();
 
-  test('il manifesto esiste e porta tutte e quindici le voci', () {
+  test('il manifesto esiste e porta tutte e sedici le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'docs/ordini/ORDINE_AZ_MANIFESTO.md non esiste, e la legge di '
             'consegna dice che nasce prima del codice');
@@ -156,7 +164,7 @@ void main() {
     final aperte = marcatore(testo, 'VOCI_APERTE');
     expect(aperte, 0,
         reason: 'restano $aperte voci APERTE nell\'ordine AZ. Questa riga e\' '
-            'rossa apposta e non si tocca: torna verde quando le quindici voci '
+            'rossa apposta e non si tocca: torna verde quando le sedici voci '
             'hanno uno stato terminale, e non prima');
   });
 }

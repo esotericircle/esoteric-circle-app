@@ -197,6 +197,10 @@ String? frasePerEsito(EsitoDellaCustodia esito) {
     case EsitoDellaCustodia.nonRiuscita:
       return 'Non è riuscito adesso. Il tuo cielo resta dove sta: puoi '
           'riprovare quando vuoi dall\'area account.';
+    // **NON E' UN GUASTO, ed è importante che non lo sembri.** Ordine AZ: era
+    // una domanda che non andava fatta, e chi la riceve deve solo proseguire.
+    case EsitoDellaCustodia.giaCustodito:
+      return 'Il tuo cielo è già custodito. Non devi fare altro.';
   }
 }
 

@@ -31,9 +31,9 @@ FALSA, FERMATA IN ATTESA DI DECISIONE, FERMATA SU DECISIONE DEL FONDATORE. In
 fondo ci sono i marcatori, che la guardia `test/ordine_az_guard_test.dart`
 conta sulle righe.
 
-## IL CENSIMENTO, trentasette situazioni
+## IL CENSIMENTO, trentanove situazioni
 
-**Il numero: 37 situazioni censite.** Enumerate, non campionate. Per ciascuna
+**Il numero: 39 situazioni censite.** Enumerate, non campionate. Per ciascuna
 c'e' cosa fa l'app OGGI, verificato sul codice del ramo e non a memoria, e la
 voce di lavoro che la prende in carico. Dove la colonna dice "non esiste", vuol
 dire che la ricerca sul codice ha dato zero occorrenze, ed e' scritto quale.
@@ -104,6 +104,8 @@ dire che la ricerca sul codice ha dato zero occorrenze, ed e' scritto quale.
 | S35 | La voce Account nelle Impostazioni e' spenta | Vero (F9), porta "Dietro il velo" | AZ.11 |
 | S36 | Sapere con che account si e' entrati | **Non c'e' nessuna riga che lo dica**, in nessuna schermata | AZ.09 |
 | S37 | Permessi negati e negati per sempre | Aperto nell'ordine AX, voci 10 e 12 | AZ.14 |
+| S38 | Custodire un cielo GIA' custodito | **Il censimento non la copriva, e il fondatore ci e' finito dentro.** Dei tre punti che propongono la custodia, l'area account e il Santuario guardano se e' gia' fatta, **l'ultimo passo del Risveglio no**: chiedeva di registrarsi a chi era gia' entrato, e il tentativo falliva per forza | AZ.15 |
+| S39 | Il "Bentornato" a chi ha reinstallato | **Non e' ottenibile**: `signInSilently` si appoggia a un accesso precedente della stessa installazione, che dopo una disinstallazione non esiste piu'. Misurato due volte sul telefono | AZ.15 |
 
 ## Le voci
 
@@ -122,6 +124,7 @@ dire che la ricerca sul codice ha dato zero occorrenze, ed e' scritto quale.
 - **AZ.12** Cambio email, cambio parola, e la riautenticazione. Stato: CHIUSA
 - **AZ.13** Il token che scade mentre si e' dentro. Stato: CHIUSA
 - **AZ.14** Cio' che questo ordine NON chiude, dichiarato. Stato: CHIUSA
+- **AZ.15** Cio' che il collaudo della 2194 ha trovato ancora rotto. Stato: CHIUSA
 
 ## L'ordine di lavoro, deciso qui
 
@@ -519,12 +522,70 @@ il Cerchio sapeva. Prova in `test/chi_rientra_riprende_il_rito_test.dart`.
   sul Cerchio del fondatore;
 - le altre cinque cose dell'elenco qui sotto.
 
+### AZ.15, cio' che il collaudo della 2194 ha trovato ancora rotto
+
+**Il fondatore ha collaudato la 2194 e ha riportato tre cose.** Vanno lette
+insieme, perche' due erano difetti veri e una era una sua domanda.
+
+**UNO: "dopo la schermata di benvenuto mi riporta all'inizio
+dell'onboarding".** E' il fatto F2, e la causa ha resistito a piu' giri
+perche' non era dove la cercavo. Il Risveglio ha un `PopScope(canPop: false)`,
+messo apposta perche' nessuno esca dal rito col gesto indietro lasciando l'app
+a meta'. Il codice che usciva dopo il rientro chiamava `maybePop()`. **E
+`maybePop` quella guardia la rispetta**: chiede il permesso, si sente dire di
+no, e non fa niente, senza lanciare e senza rispondere. Chi chiamava non aveva
+modo di accorgersene. **Due meccanismi giusti che si annullavano a vicenda**,
+e nessuno dei due sembrava sbagliato guardandolo da solo. Adesso si esce con
+`pop`, che la guardia non governa: **la guardia esiste contro il gesto della
+persona, non contro il codice che ha appena finito il lavoro**.
+
+**DUE: "alla fine, con la registrazione, non riconosce piu' che sono gia'
+dentro".** Difetto vero, e **il censimento non lo copriva**: e' la situazione
+S38, aggiunta qui. Dei tre punti che propongono la custodia, l'area account e
+il Santuario guardano se l'account e' gia' custodito, **l'ultimo passo del
+Risveglio no**. Chiedeva di registrarsi a chi era gia' entrato, e il tentativo
+falliva per forza perche' quell'identita' e' gia' attaccata a lui. **La difesa
+e' stata messa nel punto unico**, dentro `custodisci`, che adesso risponde
+`giaCustodito` senza nemmeno tentare: una difesa affidata a chi chiama regge
+finche' qualcuno non se ne dimentica, **e qualcuno se ne era gia'
+dimenticato**. Il passo del rito, in piu', si chiude da solo.
+
+**TRE: "il borsellino mostra oltre 700 Eos, ma non so se sia un refuso".**
+**Non e' un refuso.** Il Cerchio ne custodisce 715, letti dal server e visti a
+video in tre schermate diverse. E' il numero vero.
+
+**E il "Bentornato" non e' ottenibile, si dichiara come limite e non come
+cura.** La voce AZ.02 dava risalto alla porta per chi torna **solo quando il
+telefono proponeva gia' un account**. Quel risalto non poteva scattare proprio
+nel caso che doveva servire: il nome arriva da `signInSilently()`, che si
+appoggia a un accesso precedente **della stessa installazione**, e dopo una
+disinstallazione quella memoria non c'e' piu'. Misurato due volte sul telefono
+del fondatore, anche su installazione pulita. **Non si puo' indovinare chi e';
+si puo' pero' non nascondergli la porta**: adesso e' sempre un pulsante con la
+sua cornice, e si riempie solo quando c'e' davvero un nome da salutare.
+
+**Le misure**, in `test/il_rientro_intero_tocco_per_tocco_test.dart`:
+- col Cerchio che sa tutto si finisce **al guscio**, cioe' fuori dal rito;
+- col Cerchio che sa a meta' si riprende da **"A che ora, se lo sai"**;
+- a chi e' gia' dentro, `custodisci` risponde `giaCustodito` con **zero
+  elevazioni tentate**, e la frase non racconta un guasto;
+- **la controprova**: chi e' anonimo custodisce ancora, con una elevazione.
+
+**Perche' nessuna prova lo aveva trovato prima, e me lo prendo.** Le prove che
+c'erano guardavano **i pezzi**, ed erano tutte verdi: che il Ritrovamento
+sappia cosa manca, che il Risveglio costruito con l'identita' riparta dal
+passo giusto. **Il difetto stava nel tratto in mezzo, che nessuna
+percorreva.** La prova nuova cammina la strada intera tocco per tocco, e monta
+il rito **spinto sopra un guscio** come fa `lib/app.dart`: montandolo come
+home il difetto spariva, ed era la prova a misurare una strada che nell'app
+non esiste.
+
 ## I marcatori
 
-VOCI_TOTALI: 15
+VOCI_TOTALI: 16
 VOCI_APERTE: 0
-VOCI_CHIUSE: 15
-SITUAZIONI_CENSITE: 37
+VOCI_CHIUSE: 16
+SITUAZIONI_CENSITE: 39
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

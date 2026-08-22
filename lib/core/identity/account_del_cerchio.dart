@@ -48,6 +48,21 @@ enum EsitoDellaCustodia {
   /// memoria, contatori, Eos) sarebbe rimasto orfano. Non e' una riuscita e
   /// non si racconta come tale.
   cerchioCambiato,
+
+  /// **QUESTO CIELO E' GIA' CUSTODITO.** Ordine AZ, dal collaudo del fondatore
+  /// sulla 2194: arrivato in fondo al rito gli veniva chiesto di registrarsi
+  /// **mentre era gia' dentro col suo account**, e il tentativo falliva.
+  ///
+  /// **Non e' un guasto ed e' importante che non lo sembri**: e' una domanda
+  /// che non andava fatta. Chi la riceve deve solo proseguire.
+  ///
+  /// **Sta qui e non nei chiamanti, e la ragione e' misurata.** I punti che
+  /// propongono di custodire sono tre: l'area account, il Santuario e
+  /// l'ultimo passo del Risveglio. I primi due guardavano se l'account era
+  /// gia' custodito, **il terzo no**, ed e' quello in cui il fondatore e'
+  /// finito. Una difesa affidata a chi chiama regge finche' qualcuno non se
+  /// ne dimentica, e qualcuno se ne era gia' dimenticato.
+  giaCustodito,
 }
 
 /// I MODI PER CUSTODIRE IL PROPRIO CIELO.
@@ -694,6 +709,25 @@ class AccountDelCerchio extends ChangeNotifier {
     String? email,
     String? parola,
   }) async {
+    // **NON SI CUSTODISCE CIO' CHE E' GIA' CUSTODITO.** Ordine AZ, dal
+    // collaudo del fondatore sulla 2194: arrivato in fondo al rito gli veniva
+    // chiesto di registrarsi **mentre era gia' dentro col suo account**, e il
+    // tentativo falliva perche' quell'identita' e' gia' attaccata a lui.
+    //
+    // **La difesa sta QUI e non nei chiamanti.** I punti che propongono di
+    // custodire sono tre, contati: l'area account, il Santuario e l'ultimo
+    // passo del Risveglio. I primi due guardavano se l'account era gia'
+    // custodito, **il terzo no**, ed e' quello in cui il fondatore e' finito.
+    // Una difesa affidata a chi chiama regge finche' qualcuno non se ne
+    // dimentica, e qualcuno se ne era gia' dimenticato.
+    // **SI GUARDA `eCustodito`, NON `!eAnonimo`, e la differenza e' tutta.**
+    // Gli stati sono TRE, non due: assente, anonimo, custodito. La prima
+    // stesura di questa riga diceva `!eAnonimo`, che comprende anche
+    // **assente**, cioe' lo stato di chi non ha ancora riletto niente: e
+    // bloccava la custodia a chi ne aveva pieno diritto. **Cinque prove sono
+    // cadute insieme e avevano ragione.** Si nega solo cio' che si sa: qui si
+    // ferma chi e' custodito per certo, non chi non si e' ancora guardato.
+    if (eCustodito) return EsitoDellaCustodia.giaCustodito;
     // L'UID DI PARTENZA SI SEGNA PRIMA, ed e' il presidio della voce 1d.
     //
     // Elevare vuol dire attaccare un'identita' all'account che c'e' gia'. Se

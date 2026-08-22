@@ -9,6 +9,7 @@ import 'package:esoteric_circle/core/onboarding/onboarding_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/account/custodia_del_cielo.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter/material.dart';
@@ -161,6 +162,65 @@ void main() {
         reason: 'il rito riparte dall accoglienza invece che dal passo che '
             'manca: e il fatto F2, segnalato per piu giri di seguito');
   });
+  testWidgets('a chi e gia dentro non si chiede di registrarsi', (tester) async {
+    // **IL COLLAUDO DEL FONDATORE SULLA 2194**, parola sua: "se vado avanti
+    // alla fine, dopo aver assegnato il Maestro, con la registrazione, non
+    // riconosce piu che sono gia dentro".
+    //
+    // **Dei tre punti che propongono la custodia, questo era l'unico
+    // scoperto**: l'area account e il Santuario guardano se l'account e' gia'
+    // custodito, l'ultimo passo del Risveglio no.
+    final porta = _PortaCheEntra();
+    final account = AccountDelCerchio(porta: porta);
+    // La persona e' entrata: non e' piu' anonima.
+    await porta.entraDirettamente(ViaDellaCustodia.google);
+    account.rileggi();
+
+    final esito = await account.custodisci(ViaDellaCustodia.google);
+    // ignore: avoid_print
+    print('ORDINE AZ: a chi e gia dentro, custodisci risponde ${esito.name}, '
+        'ed elevazioni tentate ${porta.elevazioni}');
+
+    expect(esito, EsitoDellaCustodia.giaCustodito,
+        reason: 'si tenta di elevare chi e gia elevato: il tentativo fallisce '
+            'per forza, ed e cio che il fondatore ha visto in fondo al rito');
+    expect(porta.elevazioni, 0,
+        reason: 'la difesa non e nel punto unico: qualcuno prova comunque a '
+            'collegare un identita gia collegata');
+  });
+
+  testWidgets('e la frase non lo racconta come un guasto', (tester) async {
+    final frase = frasePerEsito(EsitoDellaCustodia.giaCustodito);
+    // ignore: avoid_print
+    print('ORDINE AZ: a chi e gia dentro si legge "$frase"');
+    expect(frase, isNotNull, reason: 'il ramo e muto');
+    for (final parolaDaEvitare in const [
+      'non è riuscito',
+      'errore',
+      'riprova',
+      'più tardi',
+    ]) {
+      expect(frase!.toLowerCase(), isNot(contains(parolaDaEvitare)),
+          reason: 'la frase racconta come un guasto una cosa che non lo e: '
+              'era una domanda che non andava fatta');
+    }
+  });
+
+  testWidgets('chi e anonimo puo ancora custodire, e nessuno lo ferma',
+      (tester) async {
+    // **LA CONTROPROVA, e senza di lei la difesa nuova sarebbe un muro.**
+    final porta = _PortaCheEntra();
+    final account = AccountDelCerchio(porta: porta);
+    account.rileggi();
+    final esito = await account.custodisci(ViaDellaCustodia.google);
+    // ignore: avoid_print
+    print('ORDINE AZ: a chi e anonimo, custodisci risponde ${esito.name}, '
+        'elevazioni ${porta.elevazioni}');
+    expect(esito, EsitoDellaCustodia.riuscita,
+        reason: 'chi non ha ancora custodito non riesce piu a farlo: la '
+            'difesa nuova ha chiuso la porta a chi ne aveva bisogno');
+    expect(porta.elevazioni, 1);
+  });
 }
 
 /// Una porta del Cerchio che custodisce cio' che la prova le dice.
@@ -223,9 +283,20 @@ class _PortaCheCustodisce extends PortaDelCerchio {
 /// Una porta dell'identita' che fa entrare, come fa quella vera dopo AX.01.
 class _PortaCheEntra implements PortaDellIdentita {
   bool _dentro = false;
+  int elevazioni = 0;
+
+  /// **L'ELEVAZIONE NON CAMBIA L'UID, e la prova deve rispettarlo.** Elevare
+  /// vuol dire attaccare un'identita' all'account che c'e' gia': se l'uid
+  /// cambiasse sarebbe nato un secondo account, e il presidio del Cerchio
+  /// cambiato griderebbe. La prima stesura di questa porta finta cambiava
+  /// l'uid anche elevando, e **la controprova e' caduta con ragione**: era
+  /// la finzione a essere sbagliata, non il codice.
+  bool _elevato = false;
 
   @override
-  String? get uid => _dentro ? 'chi-torna' : 'anonimo';
+  String? get uid => _elevato
+      ? 'anonimo'
+      : (_dentro ? 'chi-torna' : 'anonimo');
 
   @override
   bool get anonimo => !_dentro;
@@ -247,8 +318,12 @@ class _PortaCheEntra implements PortaDellIdentita {
 
   @override
   Future<EsitoDellaCustodia> eleva(ViaDellaCustodia via,
-          {String? email, String? parola}) async =>
-      EsitoDellaCustodia.riuscita;
+      {String? email, String? parola}) async {
+    elevazioni++;
+    _elevato = true;
+    _dentro = true;
+    return EsitoDellaCustodia.riuscita;
+  }
 
   @override
   Future<EsitoDellaCustodia> entraDirettamente(ViaDellaCustodia via,

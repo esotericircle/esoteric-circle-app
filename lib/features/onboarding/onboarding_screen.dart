@@ -105,20 +105,27 @@ class _PortaPerChiTorna extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // **A CHI HA REINSTALLATO, IL RIENTRO NON SI NASCONDE.** Ordine AZ voce
-    // 02, fatti F2 e F3.
+    // **LA PORTA PER CHI TORNA E' UN PULSANTE, sempre.** Ordine AZ voce 02,
+    // e la prima stesura era sbagliata: si dava risalto solo quando il
+    // telefono proponeva gia' un account.
     //
-    // Il fatto F7 e' esatto: il rito si decide su una preferenza locale. Ma
-    // **quella preferenza non e' il difetto**, ed e' giusto dire perche': al
-    // primo avvio dopo una reinstallazione non esiste ancora nessuna
-    // identita' da interrogare, quindi non c'e' nient'altro su cui decidere.
+    // **Quel risalto non poteva scattare proprio nel caso che doveva
+    // servire**, ed e' stato misurato sul telefono del fondatore, due volte,
+    // anche su installazione pulita. Il nome proposto arriva da
+    // `GoogleSignIn().signInSilently()`, che **si appoggia a un accesso
+    // precedente di QUESTA installazione**: dopo una disinstallazione quella
+    // memoria non c'e' piu', quindi risponde nulla. Chi reinstalla, cioe'
+    // esattamente chi deve rientrare, non vedeva mai il bentornato.
     //
-    // **Il difetto e' un altro, ed e' qui.** Quando il telefono propone gia'
-    // un account, l'app SA che quella persona e' probabilmente di ritorno, e
-    // le metteva davanti "Inizia il rito" tenendo il rientro in una riga
-    // smorzata sotto. Chi reinstalla prende la strada grande, rifa' il rito,
-    // e per finirlo inventa dei dati: sono F2 e F3, e i dati a caso di F6
-    // nascono da qui. Col bentornato la porta diventa il richiamo pieno.
+    // Non si puo' indovinare chi e'. **Si puo' pero' non nascondergli la
+    // porta**: prima era una scritta smorzata sotto il richiamo del rito, e
+    // chi reinstallava prendeva la strada grande, rifaceva il rito, e per
+    // finirlo inventava dei dati. Adesso e' un pulsante con la sua cornice,
+    // che resta secondario rispetto a "Inizia il rito" ma **si vede che si
+    // puo' toccare**.
+    //
+    // Col bentornato, quando c'e', il pulsante si riempie: chi viene
+    // riconosciuto merita di piu' di chi viene solo accolto.
     if (riconosciuto) {
       return SizedBox(
         width: double.infinity,
@@ -131,48 +138,44 @@ class _PortaPerChiTorna extends StatelessWidget {
             side: BorderSide(color: palette.gold.withValues(alpha: 0.55)),
             padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                riga,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.etichetta()
-                    .copyWith(color: palette.goldSoft),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                rigaDiServizio,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary),
-              ),
-            ],
-          ),
+          child: _corpo(),
         ),
       );
     }
-    return TextButton(
-      key: const Key('onboarding_porta_per_chi_torna'),
-      onPressed: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            riga,
-            textAlign: TextAlign.center,
-            style: TypographyTokens.etichetta()
-                .copyWith(color: palette.goldSoft),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            rigaDiServizio,
-            textAlign: TextAlign.center,
-            style: TypographyTokens.didascalia()
-                .copyWith(color: ColorTokens.textSecondary),
-          ),
-        ],
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton(
+        key: const Key('onboarding_porta_per_chi_torna'),
+        onPressed: onTap,
+        style: OutlinedButton.styleFrom(
+          foregroundColor: palette.goldSoft,
+          side: BorderSide(color: palette.gold.withValues(alpha: 0.40)),
+          padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+        ),
+        child: _corpo(),
       ),
+    );
+  }
+
+  /// Le due righe della porta, uguali in tutti e due i casi: cambia la
+  /// cornice, non cio' che si legge.
+  Widget _corpo() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          riga,
+          textAlign: TextAlign.center,
+          style: TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          rigaDiServizio,
+          textAlign: TextAlign.center,
+          style: TypographyTokens.didascalia()
+              .copyWith(color: ColorTokens.textSecondary),
+        ),
+      ],
     );
   }
 }
