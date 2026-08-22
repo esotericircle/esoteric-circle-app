@@ -924,6 +924,39 @@ class _SantuarioScreenState extends State<SantuarioScreen>
               // 08.** La capsula dell'identita' sta sopra il Navigator, una
               // per tutta l'app: una copia per testata era esattamente la
               // famiglia delle due porte che la capsula chiude.
+              // **L'AREA DI TOCCO DEL CIELO STA IN CIMA ALLA PILA.**
+              // Ordine BB voce 01, fatto del fondatore: "se tocco sulla luna
+              // il click non funziona".
+              //
+              // **Il rilevatore c'era gia' e avvolgeva la Luna**: il difetto
+              // non era la sua misura, era CHI GLI STAVA SOPRA. Il carosello
+              // dei Maestri viene dopo nella pila, quindi copre, e il suo
+              // rilevatore di trascinamento orizzontale **si prende i tocchi
+              // diretti al cielo**. E' la stessa famiglia del difetto misurato
+              // in BA voce 02, dove i Maestri coprono anche i pixel del testo:
+              // li' rubano la vista, qui rubano il dito.
+              //
+              // **Si separa la vernice dal tocco.** Il cielo continua a
+              // disegnarsi dov'e', sotto; qui sopra c'e' un rettangolo
+              // invisibile della stessa altezza che raccoglie i tocchi e apre
+              // la schermata del cielo. **Non si inverte l'ordine di pila**,
+              // che sposterebbe anche la vernice e cambierebbe cosa copre
+              // cosa: si sposta soltanto chi risponde al dito.
+              //
+              // Il carosello perde i tocchi nella fascia del cielo, ed e'
+              // giusto: li' sopra comanda il cielo, e per girare i Maestri
+              // resta tutta la loro fascia piu' in basso.
+              Positioned(
+                top: h * 0.012,
+                left: 0,
+                right: 0,
+                height: _altezzaDelCielo ?? 150.0,
+                child: GestureDetector(
+                  key: const Key('santuario_sky_tap_in_cima'),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () => _openSky(context),
+                ),
+              ),
             ],
           );
         },
@@ -939,11 +972,28 @@ class _SkyTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Il Cielo Sopra di Te, Adesso',
-      textAlign: TextAlign.center,
-      maxLines: 2,
-      style: TypographyTokens.titoloScheda(),
+    // **UNA RIGA SOLA, e si rimpicciolisce per starci.** Ordine BB voce 01,
+    // richiesta del fondatore.
+    //
+    // **Andando a capo il titolo rubava altezza a tutto il resto**: il blocco
+    // del cielo si misura, e da quella misura discende quanto spazio resta ai
+    // Maestri sotto. Una seconda riga qui vale una ventina di punti in meno
+    // laggiu', e li' i punti sono contati.
+    //
+    // `FittedBox` con `scaleDown` non ingrandisce mai: se il titolo ci sta al
+    // suo corpo resta esattamente com'era, e solo quando lo spazio manca
+    // scende quel tanto che basta. **Non e' un corpo piu' piccolo per tutti**,
+    // e' un corpo piu' piccolo solo dove serve.
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Text(
+        'Il Cielo Sopra di Te, Adesso',
+        key: const Key('santuario_sky_title_testo'),
+        textAlign: TextAlign.center,
+        maxLines: 1,
+        softWrap: false,
+        style: TypographyTokens.titoloScheda(),
+      ),
     );
   }
 }
