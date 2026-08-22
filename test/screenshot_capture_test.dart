@@ -136,6 +136,7 @@ import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:esoteric_circle/core/arts/arti_preferite.dart';
 import 'package:esoteric_circle/features/santuario/widgets/tue_arti_view.dart';
 import 'package:esoteric_circle/features/sigilli/la_mappa_del_sentiero.dart';
+import 'package:esoteric_circle/features/sigilli/spirale_di_stelle.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -523,8 +524,8 @@ void main() {
     await tester.pump();
   }
 
-  Future<void> capture(
-      WidgetTester tester, GlobalKey rootKey, String name) async {
+  Future<void> capture(WidgetTester tester, GlobalKey rootKey, String name,
+      {bool precarica = true}) async {
     // COL GIRO LENTO si da' tempo a tutto cio' che compare in ritardo, e si
     // guarda quali immagini cambiano: vedi la nota sull'interruttore.
     if (anteprimeLente) {
@@ -533,7 +534,14 @@ void main() {
       }
     }
     // PRIMA DI OGNI SCATTO, sempre, senza che nessuno se lo ricordi.
-    await precaricaCioCheLaScenaMonta(tester);
+    //
+    // **TRANNE DOVE UNA SCENA E' IN CORSA.** Ordine AV voce 01: il
+    // precaricamento gira dentro `runAsync`, cioe' fa scorrere il tempo VERO,
+    // e una scena animata avanza mentre lui lavora. La festa scattava a 900
+    // millesimi e usciva senza stelle, perche' nel frattempo la spirale era
+    // arrivata a fine corsa. Chi ha una scena in corsa precarica PRIMA di
+    // avanzare, e qui dichiara di averlo gia' fatto.
+    if (precarica) await precaricaCioCheLaScenaMonta(tester);
     await tester.runAsync(() async {
       final boundary =
           rootKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
@@ -4122,8 +4130,47 @@ void main() {
           ),
         ),
       );
-      // A meta' della corsa, dove il campo delle particelle e' pieno: una
-      // festa fotografata alla fine sarebbe una festa gia' finita.
+      // **SI PRECARICA, POI SI RIMONTA LA SCENA DA ZERO.** Ordine AV voce
+      // 01, e la ragione e' misurata.
+      //
+      // Il precaricamento gira dentro `runAsync`, cioe' **fa scorrere il tempo
+      // VERO**, e la spirale intanto corre: quando si arriva a scattare e' gia'
+      // a fine corsa e l'immagine esce senza stelle. Misurato con un contatore
+      // dentro la cattura: **zero stelle dipinte**, mentre la stessa scena in
+      // una prova senza precaricamento ne dipinge milleduecento.
+      //
+      // Rimontando dopo, la spirale nasce con l'orologio fermo del test e i
+      // novecento millesimi sono novecento millesimi.
+      await precaricaCioCheLaScenaMonta(tester);
+      await tester.pumpWidget(
+        RepaintBoundary(
+          key: rootKey,
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => MaestroController()),
+              ChangeNotifierProvider(create: (_) => QualityTierController()),
+              ChangeNotifierProvider(create: (_) => ParallaxController()),
+              ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              builder: (ctx, child) =>
+                  MaestroScope(maestro: sentiero.maestro, child: child!),
+              home: CelebrazioneAScermoPieno(
+                key: UniqueKey(),
+                traguardi: [Sentieri.di(sentiero).first],
+                sentieri: [sentiero],
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      // **AL CULMINE DELLA SPIRALE, ordine AV voce 01.** A 800 millesimi la
+      // scena e' al suo massimo riempimento e la scheda e' appena comparsa:
+      // qualche millesimo dopo si vedono tutte e due le cose insieme, che e'
+      // il momento che conta. Una festa fotografata alla fine sarebbe una
+      // festa gia' finita.
       await tester.pump(const Duration(milliseconds: 900));
       // **IL NOME SI SCRIVE PER INTERO, ordine AQ voce 06.** Composto a
       // pezzi non compare nei sorgenti, e la guardia del corredo dichiara
@@ -4134,7 +4181,14 @@ void main() {
         Sentiero.albero => 'festa-albero.png',
         Sentiero.loto => 'festa-loto.png',
       };
-      await capture(tester, rootKey, nomeFile);
+      // **LA CATTURA DICHIARA QUANTE STELLE HA VISTO.** Ordine AV voce 01:
+      // due volte questa immagine e' uscita senza spirale, e le due volte il
+      // widget c'era. Un numero stampato accanto allo scatto e' cio' che
+      // distingue "la scena non ha stelle" da "la cattura non le ha prese".
+      expect(PittoreDellaSpirale.viveAllUltimoFotogramma, greaterThan(1000),
+          reason: 'la cattura sta scattando una festa senza stelle: ne ha '
+              'viste ${PittoreDellaSpirale.viveAllUltimoFotogramma}');
+      await capture(tester, rootKey, nomeFile, precarica: false);
     });
   }
 

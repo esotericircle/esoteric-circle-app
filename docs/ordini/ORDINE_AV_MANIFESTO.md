@@ -38,7 +38,43 @@ conta sulle righe.
   (questo file, nato prima di ogni altra modifica, con la guardia
   `test/ordine_av_guard_test.dart` che pretende zero voci APERTE alla
   consegna)
-- **AV.01** La spirale di stelle, e i filmati spariscono. Stato: APERTA
+- **AV.01** La spirale di stelle, e i filmati spariscono. Stato: CHIUSA
+  (**LE CINQUE MISURE, tutte verificate e nessuna creduta.** M1 stelle vive al
+  culmine: **2.600**, contro le quattrocento chieste. M2 tempo di disegno al
+  culmine: **0,71 millesimi** di mediana su venti passate, contro un tetto di
+  otto. M3: **una sola `drawAtlas`**, zero altre chiamate di disegno, zero
+  filtri, contati da una tela finta che registra cio' che arriva davvero al
+  motore. M4 copertura al culmine: **71,4 per cento**, misurata sui pixel.
+  M5: la scheda si accende a **800 millesimi esatti**.
+  **DEMOLITO PER INTERO**: la cartella `assets/transizioni/` con i tre WebP, la
+  voce in `pubspec.yaml`, `transizione_di_stelle.dart`, e le tre prove che lo
+  sorvegliavano, riscritte sulla spirale. Zero richiami al lettore restano in
+  `lib`. **La riga `transition/` resta in `.gitignore`**, come l'ordine chiede.
+  `MaestroDellaFesta` e' sopravvissuto a due demolizioni perche' la risposta
+  che da' serve ancora, il colore della scena: adesso ha una casa sua.
+  **DUE DIFETTI VERI, TROVATI GUARDANDO L'ANTEPRIMA E NON DA UNA MISURA.**
+  Il primo: l'istante di partenza usava `Duration.zero` come sentinella, e **il
+  primo tick puo' arrivare proprio con zero**; la condizione tornava vera a
+  ogni giro, il tempo restava zero e le stelle non nascevano mai. **Lo stesso
+  identico difetto stava nel lettore di WebP dell'ordine AT**, riga per riga:
+  anche la transizione dei filmati restava ferma al primo fotogramma, e nessuno
+  se n'era accorto perche' nessuna prova guardava i pixel. Il secondo: il
+  precaricamento delle immagini nelle catture gira dentro `runAsync` e **fa
+  scorrere il tempo VERO**, quindi la spirale arrivava a fine corsa prima dello
+  scatto: la cattura ora precarica e rimonta la scena, e **pretende di aver
+  visto piu' di mille stelle prima di scattare**.
+  **E UNA COMBINAZIONE CHE PASSAVA LA MISURA ED ERA SBAGLIATA.** Milleduecento
+  stelle con scala 3,2 davano il 74,4 per cento e superavano M4, ma a schermo
+  erano **macchie larghe ottanta pixel**, un muro d'oro sopra il traguardo. La
+  stessa copertura si ottiene con stelle piccole e molte, 2.600 con scala 1,1,
+  che restano scintille: possibile solo perche' con `drawAtlas`
+  duemilaseicento costano quanto milleduecento. **L'alone si disegna una volta
+  sola nell'immagine sorgente**, non e' un filtro per fotogramma.
+  **E SI DIRADA DAVVERO, misurato**: la scena coperta passa da 71,4 per cento
+  al culmine a 43,8 a 1200 millesimi, 6,8 a 1600 e **zero** a 1900. Il
+  traguardo si libera.
+  **La festa e' una sola e uguale per tutti e tre i Maestri**, e questo cambia
+  la decisione precedente del fondatore sulla festa diversa per Maestro)
 - **AV.02** Lo sfondo che sta fermo e poi scatta. Stato: CHIUSA
   (**LA TABULAZIONE DELL'ARCHITETTO E' ESATTA AL DECIMO**, rifatta prima di
   toccare il codice: 0, 0, 0, 0,9, 3,7, 14,9, 31,9, 50,7, 70,9, 78,2, 79,5. E
@@ -128,8 +164,8 @@ conta sulle righe.
 ## I marcatori
 
 VOCI_TOTALI: 5
-VOCI_APERTE: 1
-VOCI_CHIUSE: 3
+VOCI_APERTE: 0
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1

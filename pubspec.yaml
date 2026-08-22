@@ -158,7 +158,6 @@ flutter:
     - assets/audio/
     # LE TRE TRANSIZIONI DI STELLE, ordine AT voce 02: un WebP animato con
     # alpha per Maestro, due secondi esatti.
-    - assets/transizioni/
     - assets/
     - assets/data/
     - assets/fonts/

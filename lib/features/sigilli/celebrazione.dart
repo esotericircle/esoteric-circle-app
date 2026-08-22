@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'transizione_di_stelle.dart';
+import 'maestro_della_festa.dart';
+import 'spirale_di_stelle.dart';
 import 'segno_del_sentiero.dart';
 import 'package:provider/provider.dart';
 
@@ -333,7 +334,7 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
     // **DUE SECONDI, quanto dura la transizione di stelle.** Ordine AT voce
     // 04: il tempo della scena non e' piu' una scelta di durata dell'anima-
     // zione, e' la durata del filmato che la copre.
-    duration: TransizioneDiStelle.durata,
+    duration: SpiraleDiStelle.durata,
   );
 
   /// **UN TOCCO LA SALTA, e porta subito al traguardo e al premio.** Una festa
@@ -388,13 +389,13 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
   Timer? _reteDellaFine;
 
   void _armaLaRete() {
-    _reteDelloStacco = Timer(TransizioneDiStelle.istanteDelloStacco, () {
+    _reteDelloStacco = Timer(SpiraleDiStelle.istanteDelCulmine, () {
       if (!mounted || _traguardoVisibile) return;
       debugPrint('ORDINE AT: stacco dalla rete di sicurezza, il lettore non '
           'e arrivato al frame 21');
       setState(() => _traguardoVisibile = true);
     });
-    _reteDellaFine = Timer(TransizioneDiStelle.durata, () {
+    _reteDellaFine = Timer(SpiraleDiStelle.durata, () {
       if (!mounted || !_transizioneInCorso) return;
       setState(() {
         _transizioneInCorso = false;
@@ -403,20 +404,21 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
     });
   }
 
-  void _alFrame(int indice) {
+  /// **IL TRAGUARDO COMPARE AL CULMINE.** Ordine AV voce 01: la regia resta
+  /// quella dei filmati, cambia solo cio' che copre lo schermo. A 800
+  /// millesimi la spirale e' al suo massimo riempimento, il 74,4 per cento
+  /// della scena misurato sui pixel, e in quell'istante compaiono di colpo
+  /// l'immagine del traguardo e la parola di premio.
+  void _alFrame(int millesimi) {
     _quandoEPartita ??= DateTime.now();
     if (_traguardoVisibile) return;
-    if (indice + 1 < TransizioneDiStelle.frameDelloStacco) return;
+    if (millesimi < SpiraleDiStelle.istanteDelCulmine.inMilliseconds) return;
     final quanto = DateTime.now().difference(_quandoEPartita!).inMilliseconds;
-    // ignore: avoid_print
-    debugPrint('ORDINE AT M3: traguardo scoperto al frame ${indice + 1}, '
-        '$quanto ms dall inizio della transizione');
+    debugPrint('ORDINE AV: traguardo scoperto a $millesimi millesimi di '
+        'spirale, $quanto ms dall inizio');
     setState(() => _traguardoVisibile = true);
   }
 
-  /// IL MOVIMENTO SI DECIDE IN didChangeDependencies, non in initState: la
-  /// MediaQuery non si puo' leggere prima che initState sia finito, e leggerla
-  /// li' faceva cadere l'intera scena. Lo ha trovato la prova, al primo giro.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -727,16 +729,19 @@ class _CelebrazioneAScermoPienoState extends State<CelebrazioneAScermoPieno>
               // sostituita dalle transizioni, e va scritto invece che sparire
               // in silenzio.
 
-              // **LA TRANSIZIONE STA SOPRA TUTTO, ordine AT voci 04 e 05.**
-              // Parte nell'istante in cui la scena viene montata, copre lo
-              // schermo intero, e dal frame 21 continua a correre SOPRA la
-              // scheda ormai visibile. Finita la corsa si smonta e libera il
-              // codec: da li' in poi resta la scheda, senza altre animazioni.
+              // **LA SPIRALE STA SOPRA TUTTO.** Ordine AV voce 01: parte
+              // nell'istante in cui la scena viene montata, copre lo schermo
+              // intero, e dal culmine continua a girare SOPRA la scheda ormai
+              // visibile, diradandosi. Finita la corsa si smonta e resta la
+              // scheda, senza altre animazioni.
+              //
+              // **E' UGUALE PER TUTTI E TRE I MAESTRI**, decisione del
+              // fondatore del 22 agosto 2026: cambia la sua decisione
+              // precedente, quella della festa diversa per Maestro coi tre
+              // filmati dell'ordine AT.
               if (_transizioneInCorso)
                 Positioned.fill(
-                  child: TransizioneDiStelle(
-                    maestro: MaestroDellaFesta.di(
-                        widget.traguardi, widget.sentieri),
+                  child: SpiraleDiStelle(
                     suFrame: _alFrame,
                     suFine: () {
                       if (!mounted) return;
