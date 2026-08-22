@@ -103,7 +103,7 @@ class _DayOracleScreenState extends State<DayOracleScreen> {
           oraRituale: OraRituale.diAdesso(adesso: date))),
       // COSA STAI PER RICEVERE, prima del gesto: nessuno compie un gesto senza
       // sapere cosa ne esce.
-      cosaRicevi: 'Una carta dei Arcani Maggiori, la tua per tutta la '
+      cosaRicevi: 'Una carta degli Arcani Maggiori, la tua per tutta la '
           'giornata: non cambia se la riapri.',
       prompt: 'Inclina o scorri per rivelare',
       sensorHint:

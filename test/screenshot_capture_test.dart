@@ -1496,14 +1496,19 @@ void main() {
           elemento);
       await precacheImage(AssetImage(TarotDeck.dorsoFull), elemento);
     });
-    await captureRitual(
-      tester,
-      rootKey,
-      DayOracleScreen.route(now: DateTime(2026, 7, 13)),
-      () async => tester.drag(
-          find.byKey(const Key('ritual_gesture')), const Offset(250, 0)),
-      'arcano-del-giorno.png',
-    );
+    // **PRIMA DEL GESTO, ordine AU voce 12.** E' li' che vive la riga "cosa
+    // stai per ricevere", ed e' li' che il fondatore l'ha vista tagliata ai
+    // due lati sulla 2187: la cattura di sotto arriva DOPO la rivelazione,
+    // quando quella riga non c'e' piu', quindi non poteva mostrarlo.
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(DayOracleScreen.route(now: DateTime(2026, 7, 13))));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'arcano-prima-del-gesto.png');
+    await tester.drag(
+        find.byKey(const Key('ritual_gesture')), const Offset(250, 0));
+    await tester.pump(const Duration(milliseconds: 700));
+    await capture(tester, rootKey, 'arcano-del-giorno.png');
   });
 
   // La Runa del Tramonto ha un flusso lungo: attesa, getto, incisione, due voci,

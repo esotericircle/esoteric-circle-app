@@ -284,31 +284,73 @@ class _RitualViewState extends State<RitualView>
                         ),
                       ),
                       if (!_revealed)
+                        // **LA RIGA STA DENTRO I MARGINI, E NON SOPRA LA
+                        // CARTA.** Ordine AU voce 12.
+                        //
+                        // **Il difetto**: un `Positioned` con il solo `bottom`
+                        // non ha nessun vincolo di larghezza, quindi il testo
+                        // prende la sua larghezza NATURALE, sborda dai due lati
+                        // della scena e lo `Stack` lo taglia. Sullo screenshot
+                        // della 2187 si legge una riga mozzata a destra e a
+                        // sinistra sopra la carta.
+                        //
+                        // **L'ipotesi dell'ordine e' caduta alla misura, e si
+                        // dichiara**: diceva che il testo si era allungato con
+                        // la revisione di AS e quindi traboccava. Contati i
+                        // caratteri sui due commit, prima ne aveva **96** ("il
+                        // cielo di oggi ha una riga per te...") e dopo ne ha
+                        // **85**: si e' accorciato. Il vincolo non c'e' mai
+                        // stato, e col testo lungo il difetto c'era gia'.
+                        //
+                        // Con `left` e `right` la larghezza e' quella della
+                        // scena meno i margini, e il testo va a capo invece di
+                        // uscire.
                         Positioned(
+                          left: SpacingTokens.lg,
+                          right: SpacingTokens.lg,
                           bottom: SpacingTokens.lg,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              // COSA STAI PER RICEVERE, prima del gesto.
-                              if (widget.cosaRicevi != null) ...[
-                                Text(
-                                  widget.cosaRicevi!,
-                                  key: const Key('rito_cosa_ricevi'),
-                                  textAlign: TextAlign.center,
-                                  style: TypographyTokens.didascalia().copyWith(
-                                      color: palette.goldSoft, height: 1.35),
-                                ),
-                                const SizedBox(height: SpacingTokens.sm),
-                              ],
-                              _PromptPill(
-                                  label: widget.prompt, palette: palette),
-                            ],
+                          // **LA PILLOLA RESTA SULLA CARTA, LA RIGA NO.** La
+                          // pillola porta il proprio fondo e il proprio bordo,
+                          // quindi si legge sopra qualunque cosa, ed e' il
+                          // gesto: la sua casa e' li'. La riga invece e' testo
+                          // nudo, e sull'oro della carta era oro su oro.
+                          // **IL CENTRO LE RIDA' LA SUA LARGHEZZA.** Il
+                          // vincolo `left`/`right` serve perche' nessuno possa
+                          // sbordare, ma da solo allargava la pillola da bordo
+                          // a bordo, e nell'anteprima tagliava la carta in due
+                          // come una fascia. Col centro la pillola torna larga
+                          // quanto le sue parole e il vincolo resta un tetto.
+                          child: Center(
+                            child: _PromptPill(
+                                label: widget.prompt, palette: palette),
                           ),
                         ),
                     ],
                   ),
                 ),
               ),
+              // **LA RIGA "COSA STAI PER RICEVERE" STA SOTTO LA CARTA.**
+              // Ordine AU voce 12: "sopra o sotto la carta, mai addosso".
+              //
+              // **Guardata l'anteprima, e non solo la geometria.** Dato il
+              // vincolo di larghezza la riga smetteva di essere tagliata ai
+              // lati, ed e' quello che l'ordine chiedeva per primo; ma
+              // nell'immagine si vedeva il difetto vero, che nessuna misura di
+              // rettangoli aveva segnalato: **testo oro sopra il dorso d'oro
+              // della carta**, illeggibile. Un testo che sta dentro i bordi e
+              // non si legge lo stesso e' un testo che non c'e'.
+              if (!_revealed && widget.cosaRicevi != null)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
+                      SpacingTokens.sm, SpacingTokens.lg, 0),
+                  child: Text(
+                    widget.cosaRicevi!,
+                    key: const Key('rito_cosa_ricevi'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: palette.goldSoft, height: 1.35),
+                  ),
+                ),
               // **COSA E' QUELLO CHE SI VEDE, E COSA FA MUOVERLO.** Ordine S voce
               // 12: sta SOTTO il livello visivo. La riga del sensore e' salita
               // da sotto il responso a qui: dice cosa succede muovendo, e la

@@ -359,14 +359,44 @@ decide su tre di esse:
   `ritrovamento.dart` come copia del saldo, ed e' un PARAMETRO con un valore
   di partenza. Un censimento che scambia un parametro per uno stato manda a
   cercare un difetto che non c'e')
-- **AU.12** L'Arcano del Giorno, i testi sopra la carta. Stato: APERTA
+- **AU.12** L'Arcano del Giorno, i testi sopra la carta. Stato: CHIUSA
+  (**L'IPOTESI E' CADUTA ALLA MISURA, e si dichiara.** L'ordine suppone che il
+  testo si sia allungato con la revisione di AS, che adesso nomina gli Arcani
+  Maggiori. Contati i caratteri sui due commit: **prima ne aveva 96** ("Il
+  cielo di oggi ha una riga per te..."), **dopo ne ha 85**. Si e' ACCORCIATO.
+  La causa era piu' vecchia: quella riga viveva in un `Positioned` col solo
+  `bottom`, quindi senza nessun vincolo di larghezza, prendeva la propria
+  larghezza naturale e lo `Stack` la tagliava. Col testo lungo il difetto
+  c'era gia'.
+  **E L'ANTEPRIMA HA TROVATO IL DIFETTO VERO, che nessuna misura di rettangoli
+  poteva vedere.** Dato il vincolo, la riga smetteva di essere tagliata ai
+  lati, cioe' faceva quello che l'ordine chiedeva per primo. Ma nell'immagine
+  si vedeva **testo oro sopra il dorso d'ORO della carta**: dentro i bordi e
+  illeggibile lo stesso. Un testo che sta nei margini e non si legge e' un
+  testo che non c'e'. **Adesso la riga sta SOTTO la carta**, come l'ordine
+  dice, "sopra o sotto, mai addosso".
+  **La pillola del gesto resta sulla carta, e non e' una svista**: porta il
+  proprio fondo e il proprio bordo, quindi si legge sopra qualunque cosa, ed
+  e' il gesto: la sua casa e' li'.
+  **QUANTI DONI ERANO MALATI: TUTTI E CINQUE.** L'impaginazione e' una sola,
+  `ritual_view.dart`, quindi il difetto e la cura valgono per alba, soffio,
+  oracolo, rune e notte insieme. Guardia
+  `test/i_testi_del_dono_non_stanno_sulla_carta_test.dart`, che pretende anche
+  di TROVARE la pillola prima di confrontarla, se no il confronto sarebbe
+  contro un meno uno, cioe' verde per non aver trovato niente.
+  **Nasce un'anteprima che mancava**: `arcano-prima-del-gesto.png`. Quella che
+  c'era arrivava DOPO la rivelazione, quando la riga non c'e' piu': non poteva
+  mostrare il difetto, ed e' per questo che nessuno se n'era accorto prima del
+  fondatore.
+  **Un errore di italiano corretto di passaggio**: "Una carta dei Arcani
+  Maggiori" diventa "degli")
 - **AU.13** Il tooltip dei tre sentieri. Stato: APERTA
 
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 2
-VOCI_CHIUSE: 12
+VOCI_APERTE: 1
+VOCI_CHIUSE: 13
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
