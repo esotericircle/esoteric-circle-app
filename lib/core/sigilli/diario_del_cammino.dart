@@ -26,6 +26,34 @@ import 'sentieri.dart';
 /// a decidere se un Sigillo si accende. Sono due cose diverse, e tenerle
 /// separate evita che un traguardo consumi una gettata.
 class DiarioDelCammino extends ChangeNotifier {
+
+  /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.**
+  ///
+  /// **Il fatto del fondatore**: "ho provato a cancellare l'account, ma i dati
+  /// restano... il borsellino, i traguardi e altri dati attualmente restano
+  /// anche dopo la conferma della cancellazione."
+  ///
+  /// **La causa**: cancellare toglieva le chiavi dal disco e chiudeva la
+  /// sessione, ma **i controller vivono per tutta la sessione dell'app** e
+  /// nessuno li svuotava. Quello che si vedeva a schermo era la memoria, non
+  /// il disco, e alla prima scrittura tornava anche sul disco.
+  ///
+  /// Non si tocca il server: qui si dimentica soltanto cio' che si ricorda.
+  void dimenticaChiSeNeVa() {
+    _gestiCompiuti.clear();
+    _giorniConGesto.clear();
+    _gestiNellOraGiusta.clear();
+    _dettagli.clear();
+    _seriePerRito.clear();
+    _ultimoGiornoPerRito.clear();
+    _giorniPerRito.clear();
+    _oggiHaFatto.clear();
+    _accesi.clear();
+    _quandoAccesi.clear();
+    _condivisi.clear();
+    notifyListeners();
+  }
+
   DiarioDelCammino({DateTime Function()? orologio})
       : _orologio = orologio ?? DateTime.now;
 

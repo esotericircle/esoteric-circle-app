@@ -14,6 +14,19 @@ import '../../core/voice/voice_greeting.dart';
 /// device); il sottotitolo e' attivo di default e resta anche senza voce. Il
 /// "gia' salutato" e' persistito, cosi' non si ripete.
 class GreetingController extends ChangeNotifier {
+
+  /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.** Vedi
+  /// `DimenticanzaDellaMemoriaViva`: i controller vivono per tutta la
+  /// sessione, e cancellare l'account senza svuotarli lascia a schermo i dati
+  /// di chi se n'e' appena andato. **Questo l'ha trovato la prova che enumera
+  /// i provider di `app.dart`**, non l'occhio: era uno dei cinque che nessuno
+  /// aveva contato.
+  void dimenticaChiSeNeVa() {
+    _text = null;
+    _maestro = null;
+    notifyListeners();
+  }
+
   GreetingController({
     DateTime Function()? clock,
     VoiceGreeting voice = const SilentVoiceGreeting(),

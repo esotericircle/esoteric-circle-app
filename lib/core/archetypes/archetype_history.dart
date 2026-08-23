@@ -75,6 +75,18 @@ class ArchetypeEsito {
 /// un contatore a parte: una sola verita', e cancellare lo storico non regala
 /// tentativi in piu' del dovuto perche' azzera anche i test del giorno.
 class ArchetypeHistory extends ChangeNotifier {
+
+  /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.** Vedi
+  /// `DimenticanzaDellaMemoriaViva`: i controller vivono per tutta la
+  /// sessione, e cancellare l'account senza svuotarli lascia a schermo i dati
+  /// di chi se n'e' appena andato. **Questo l'ha trovato la prova che enumera
+  /// i provider di `app.dart`**, non l'occhio: era uno dei cinque che nessuno
+  /// aveva contato.
+  void dimenticaChiSeNeVa() {
+    _esiti = const [];
+    notifyListeners();
+  }
+
   ArchetypeHistory({DateTime Function()? clock, int massimo = 40})
       : _clock = clock ?? DateTime.now,
         _massimo = massimo;

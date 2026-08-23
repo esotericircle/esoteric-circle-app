@@ -22,6 +22,19 @@ import 'art_catalog.dart';
 /// Il tetto e' [tetto]: oltre quel numero lo scaffale smette di essere una
 /// scelta e ridiventa un elenco.
 class ArtiPreferiteController extends ChangeNotifier {
+
+  /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.** Vedi
+  /// `DimenticanzaDellaMemoriaViva`: i controller vivono per tutta la
+  /// sessione, e cancellare l'account senza svuotarli lascia a schermo i dati
+  /// di chi se n'e' appena andato. **Questo l'ha trovato la prova che enumera
+  /// i provider di `app.dart`**, non l'occhio: era uno dei cinque che nessuno
+  /// aveva contato.
+  void dimenticaChiSeNeVa() {
+    _maestro = null;
+    _ids = const [];
+    notifyListeners();
+  }
+
   ArtiPreferiteController({Maestro? maestroAssegnato})
       : _maestro = maestroAssegnato;
 

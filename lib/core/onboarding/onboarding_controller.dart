@@ -8,6 +8,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// persistenza (test, anteprime) non si blocca l'app con l'onboarding: si va
 /// dritti al Santuario.
 class OnboardingController extends ChangeNotifier {
+
+  /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.**
+  ///
+  /// Chi cancella l'account deve tornare a essere qualcuno che l'onboarding
+  /// non ha ancora visto: senza questa riga l'app crederebbe che il rito
+  /// d'ingresso sia gia' stato fatto, e chi arriva dopo si troverebbe dentro
+  /// un Cerchio che non lo conosce.
+  void dimenticaChiSeNeVa() {
+    _resolved = true;
+    _needsOnboarding = true;
+    notifyListeners();
+  }
   static const _kDone = 'onboarding.done';
 
   bool _resolved = false;

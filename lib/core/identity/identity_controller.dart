@@ -22,6 +22,15 @@ class IdentityController extends ChangeNotifier {
   bool get hasName => name.isNotEmpty;
   AddressForm get form => _form;
 
+  /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.** Il nome con cui i Maestri
+  /// si rivolgono a qualcuno e' la cosa piu' sua che ci sia: lasciarlo a
+  /// schermo dopo una cancellazione vuol dire salutare col nome di un altro.
+  void dimenticaChiSeNeVa() {
+    _name = '';
+    _form = AddressForm.neutral;
+    notifyListeners();
+  }
+
   void setName(String value) {
     _name = normalizzaNomeProprio(value);
     notifyListeners();

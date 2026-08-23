@@ -21,6 +21,24 @@ import 'sentieri.dart';
 /// `DiarioDelCammino`, e il Sigillo si accende li' comunque, subito, sempre.
 /// Questa coda ricorda soltanto quali feste devono ancora essere mostrate.
 class CodaDelleFeste extends ChangeNotifier {
+
+  /// **DIMENTICA CHI SE NE VA. Ordine BC voce 02.**
+  ///
+  /// **Il fatto del fondatore**: "ho provato a cancellare l'account, ma i dati
+  /// restano... il borsellino, i traguardi e altri dati attualmente restano
+  /// anche dopo la conferma della cancellazione."
+  ///
+  /// **La causa**: cancellare toglieva le chiavi dal disco e chiudeva la
+  /// sessione, ma **i controller vivono per tutta la sessione dell'app** e
+  /// nessuno li svuotava. Quello che si vedeva a schermo era la memoria, non
+  /// il disco, e alla prima scrittura tornava anche sul disco.
+  ///
+  /// Non si tocca il server: qui si dimentica soltanto cio' che si ricorda.
+  void dimenticaChiSeNeVa() {
+    _inAttesa.clear();
+    notifyListeners();
+  }
+
   CodaDelleFeste();
 
   static const String _chiave = 'cammino.feste_in_attesa';
