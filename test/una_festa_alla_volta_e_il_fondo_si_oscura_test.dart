@@ -18,6 +18,7 @@ import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,9 +35,29 @@ import 'istante_dichiarato.dart';
 /// contando le feste a ogni fotogramma; il secondo si misura SUI PIXEL, perche'
 /// "il fondo si oscura" a occhio e' un'opinione e in numeri e' un fatto.
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
+
+  // La scena piena ascolta i sensori della parallasse: la fascia breve non
+  // lo faceva, e questo silenziatore e' arrivato con la sua demolizione
+  // (ordine BE voce 05).
+  void silenzia() {
+    final m = binding.defaultBinaryMessenger;
+    m.setMockMethodCallHandler(
+        const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
+        (call) async => null);
+    for (final nome in const [
+      'dev.fluttercommunity.plus/sensors/accelerometer',
+      'dev.fluttercommunity.plus/sensors/user_accel',
+      'dev.fluttercommunity.plus/sensors/gyroscope',
+      'dev.fluttercommunity.plus/sensors/magnetometer',
+    ]) {
+      m.setMockStreamHandler(
+          EventChannel(nome), MockStreamHandler.inline(onListen: (a, e) {}));
+    }
+  }
 
   setUp(() {
+    silenzia();
     SharedPreferences.setMockInitialValues({});
     FesteInCorso.azzera();
   });
@@ -235,11 +256,17 @@ void main() {
     await tester.pump();
     final contesto =
         tester.element(find.byKey(const Key('quello_che_sta_sotto')));
+    // **La porta e' quella piena: la sovrimpressione breve e' stata
+    // demolita dall'ordine BE voce 05**, e la scena unica e' la rotta a
+    // schermo intero. La misura resta la stessa: cio' che sta sotto non
+    // deve leggersi attraverso.
     expect(
-        mostraLaSovrimpressione(contesto,
-            traguardi: [mini], sentieri: const [Sentiero.loto]),
+        await Celebrazione.festeggiaInsieme(contesto,
+            traguardi: [mini],
+            sentieri: const [Sentiero.loto],
+            primoInAssoluto: false),
         isTrue,
-        reason: 'la sovrimpressione non e\' comparsa: niente da misurare');
+        reason: 'la festa non e\' comparsa: niente da misurare');
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 900));
     final copertoConTesto = await fasciaAlta();

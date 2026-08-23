@@ -3333,8 +3333,7 @@ void main() {
     'disegno_albero_p',
     'disegno_loto_p',
     'celebrazione_grande_o',
-    'sovrimpressione_mini_o',
-    'card_riaperta_o',
+        'card_riaperta_o',
   ]) {
     testWidgets('O, la scena $scena', (tester) async {
       if (_stato.isEmpty) return;
@@ -3432,26 +3431,6 @@ void main() {
             serie: 'settimo giorno di seguito',
           ));
           await tester.pump(const Duration(milliseconds: 1400));
-        case 'sovrimpressione_mini_o':
-          await monta(Builder(
-            builder: (ctx) => Scaffold(
-              backgroundColor: const Color(0xFF05060A),
-              body: Center(
-                child: ElevatedButton(
-                  onPressed: () => mostraLaSovrimpressione(
-                    ctx,
-                    traguardi: [Sentieri.miniDi(Sentiero.albero)[4]],
-                    sentieri: const [Sentiero.albero],
-                    serie: 'terzo giorno di seguito',
-                  ),
-                  child: const Text('quello che stavo facendo'),
-                ),
-              ),
-            ),
-          ));
-          await tester.tap(find.text('quello che stavo facendo'));
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 700));
         case 'card_riaperta_o':
           await monta(Builder(
             builder: (ctx) => Scaffold(

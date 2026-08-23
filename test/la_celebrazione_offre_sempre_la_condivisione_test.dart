@@ -75,78 +75,11 @@ void main() {
             'proseguire il cammino');
   });
 
-  testWidgets('la sovrimpressione non ruba i tocchi di sotto', (tester) async {
-    SharedPreferences.setMockInitialValues({});
-    final diario = DiarioDelCammino(orologio: orologioDelleProve);
-    var toccatoSotto = 0;
-    final mini = Sentieri.miniDi(Sentiero.loto).first;
-
-    await tester.pumpWidget(attorno(
-      Scaffold(
-        body: Builder(
-          builder: (ctx) => Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  key: const Key('quello_che_stavo_facendo'),
-                  onPressed: () => toccatoSotto++,
-                  child: const Text('continua'),
-                ),
-                ElevatedButton(
-                  key: const Key('accendi'),
-                  onPressed: () => mostraLaSovrimpressione(ctx,
-                      traguardi: [mini], sentieri: const [Sentiero.loto]),
-                  child: const Text('accendi'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      diario,
-    ));
-
-    await tester.tap(find.byKey(const Key('accendi')));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 400));
-    expect(find.byKey(const Key('sovrimpressione_del_traguardo')),
-        findsOneWidget);
-
-    // IL TOCCO DI SOTTO DEVE ARRIVARE: la fascia sta sopra, ma non ruba
-    // niente a cio' che stavi facendo.
-    await tester.tap(find.byKey(const Key('quello_che_stavo_facendo')));
-    await tester.pump();
-    expect(toccatoSotto, 1,
-        reason: 'la sovrimpressione ha intercettato il tocco della schermata '
-            'sotto: cinquanta interruzioni per sentiero cosi\' diventano un '
-            'fastidio, non una festa');
-
-    // E la condivisione c'e' anche qui.
-    expect(find.byKey(const Key('condividi_traguardo_compatto')),
-        findsOneWidget,
-        reason: 'la sovrimpressione non offre la condivisione, e un mini '
-            'celebrato senza via di condivisione perde il suo bonus');
-
-    // SI RITIRA DA SOLA: chi la ignora non deve trovarsela ancora li'.
-    //
-    // **ADESSO SI DISSOLVE, ordine S voce 09, e i passi lo tengono in conto.**
-    // Prima la fascia spariva di colpo e due pompate bastavano; il velo si
-    // dissolve in uscita, e un'animazione avanza solo coi fotogrammi: un salto
-    // unico di sei secondi fa scattare il timer e lascia la dissolvenza al primo
-    // fotogramma. Si avanza a passi dichiarati fino a che se ne va.
-    await tester.pump(_FasciaDiProva.quantoResta);
-    for (var i = 0; i < 20; i++) {
-      if (find.byKey(const Key('sovrimpressione_del_traguardo'))
-          .evaluate()
-          .isEmpty) {
-        break;
-      }
-      await tester.pump(const Duration(milliseconds: 100));
-    }
-    expect(find.byKey(const Key('sovrimpressione_del_traguardo')), findsNothing,
-        reason: 'la fascia non si ritira da sola');
-  });
+  // **LA PROVA DELLA SOVRIMPRESSIONE E' STATA DEMOLITA CON LA FORMA, ordine
+  // BE voce 05.** Sorvegliava una proprieta' della fascia breve, il tocco che
+  // passava sotto: la fascia non esiste piu', ogni traguardo celebra con la
+  // scena piena, che e' una rotta e i tocchi li tiene per se' finche' non la
+  // si congeda. La condivisione della scena piena resta sorvegliata qui sopra.
 
   testWidgets('ogni Sigillo acceso riapre la sua card e la condivide',
       (tester) async {

@@ -2657,30 +2657,8 @@ void main() {
 
   // --- LA CELEBRAZIONE BREVE SOPRA UNA SCHERMATA PIENA DI TESTO ---
   //
-  // **Ordine S voce 09.** Sulla 2177 il testo della schermata sotto si leggeva
-  // attraverso la festa, e due celebrazioni si dipingevano insieme. Questa
-  // immagine e' la prova a video del velo: sotto ci sta il sentiero, che di testo
-  // ne ha molto, e di quel testo non si deve leggere niente.
-  testWidgets('Cattura la celebrazione breve col velo', (tester) async {
-    silenceSensors();
-    await loadFonts();
-    final rootKey =
-        await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    final ctx = tester.element(find.byType(MaterialApp));
-    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-    unawaited(nav.push(SentieroScreen.route(Sentiero.costellazione)));
-    await step(tester);
-    await step(tester);
-    final dentro = tester.element(find.byKey(const Key('sentiero_disegno')));
-    final mini = Sentieri.miniDi(Sentiero.costellazione).first;
-    expect(
-        mostraLaSovrimpressione(dentro,
-            traguardi: [mini], sentieri: const [Sentiero.costellazione]),
-        isTrue);
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 900));
-    await capture(tester, rootKey, 'celebrazione-breve-col-velo.png');
-  });
+  // **LA CATTURA DELLA CELEBRAZIONE BREVE E' STATA DEMOLITA con la forma
+  // stessa, ordine BE voce 05**: ogni traguardo celebra con la scena piena.
 
   // --- La card condivisibile dell'Oroscopo, CON LA RIGA DEL CIELO ---
   //
