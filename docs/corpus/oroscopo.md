@@ -43,76 +43,76 @@ Il seme e' lo stesso del giorno, quindi l'apertura e' deterministica e riproduci
 ## Le ancore dei dodici segni
 
 ### Ariete, fuoco cardinale, Marte
-- Generale, "Il fuoco che apre": Sei l'inizio fatto persona, la scintilla che accende e oggi il coraggio di muovere il primo passo conta più del piano perfetto.
-- Amore, "Cuore in avanti": In amore vai diretto, come è nella tua natura di fuoco, la tua sincerità disarma e chi ti ama apprezza lo slancio più della prudenza.
-- Carriera, "Slancio da guidare": Sul lavoro apri varchi dove altri vedono muri, la tua spinta è un dono, basta darle una direzione oltre alla velocità.
-- Fortuna, "L'audacia premiata": La sorte, con te, ama chi osa, un rischio calcolato oggi vale più di mille attese prudenti.
+- Generale, "Il fuoco che apre": Sei l'inizio fatto persona, la scintilla che accende prima che gli altri abbiano finito di decidere. Il coraggio del primo passo è la tua misura e ogni giorno gli sceglie una direzione diversa.
+- Amore, "Cuore in avanti": In amore vai diretto, come vuole la tua natura di fuoco e la tua sincerità disarma perché chi ti ama sceglie proprio il tuo slancio. Dove quello slancio serva davvero, cambia col cielo.
+- Carriera, "Slancio da guidare": Sul lavoro apri varchi dove altri vedono muri e la tua spinta è un dono che chiede una direzione più che un freno. La direzione la porta il giorno.
+- Fortuna, "L'audacia premiata": La sorte, con te, ama chi osa e un rischio calcolato ti rende più di mille attese prudenti. Quale rischio valga la pena, lo mostra il giorno.
 
 ### Toro, terra fisso, Venere
-- Generale, "La forza della calma": La tua natura di terra cerca stabilità e bellezza concreta, oggi costruisci con calma, un passo solido vale più di dieci affrettati.
-- Amore, "Tenerezza che dura": Ami coi sensi e con la fedeltà, attraverso i gesti più che le parole, la tua dolcezza paziente è ciò che fa sentire l'altro a casa.
-- Carriera, "Il valore che resta": Sul lavoro ottieni per costanza ciò che altri inseguono per foga, la tua tenacia è la tua firma, non avere fretta di raccoglierne i frutti.
-- Fortuna, "L'abbondanza concreta": La tua fortuna ha radici, non ali, premia ciò che curi con pazienza e oggi qualcosa di seminato inizia a fruttare.
+- Generale, "La forza della calma": La tua natura di terra cerca stabilità e bellezza concreta e costruisci meglio di chiunque quando nessuno ti mette fretta. Dove posare il prossimo mattone, lo indica il giorno.
+- Amore, "Tenerezza che dura": Ami coi sensi e con la fedeltà, attraverso i gesti più che le parole e la tua dolcezza paziente è ciò che fa sentire l'altro a casa. Quale gesto conti adesso, cambia col cielo.
+- Carriera, "Il valore che resta": Sul lavoro ottieni per costanza ciò che altri inseguono per foga e la tua tenacia è la tua firma. Quanto sia vicino il raccolto, lo dice il giorno.
+- Fortuna, "L'abbondanza concreta": La tua fortuna ha radici e non ali e premia ciò che curi con pazienza. Quale seme sia pronto a fruttare lo scrive il giorno.
 
 ### Gemelli, aria mobile, Mercurio
-- Generale, "La mente che collega": Vivi di scambi, parole e idee che rimbalzano, oggi la tua curiosità è la bussola, segui il filo che ti accende senza disperderti.
-- Amore, "Il gioco della parola": Ti innamori delle menti vivaci e delle conversazioni che non finiscono, oggi una parola leggera può accendere più di un gesto solenne.
-- Carriera, "Idee in movimento": Sul lavoro brilli collegando ciò che gli altri tengono separato, la tua versatilità è forza, scegli una pista e portala fino in fondo.
-- Fortuna, "Il caso curioso": La tua fortuna passa dagli incontri e dall'informazione giusta al momento giusto, oggi tieni occhi e orecchie ben aperti.
+- Generale, "La mente che collega": Vivi di scambi, di parole e di idee che rimbalzano e la curiosità ti fa da bussola meglio di qualunque piano. Quale filo seguire, te lo indica il giorno.
+- Amore, "Il gioco della parola": Ti innamori delle menti vivaci e delle conversazioni che non finiscono e una frase leggera può accendere più di un gesto solenne. Con chi vada spesa, cambia col cielo.
+- Carriera, "Idee in movimento": Sul lavoro brilli collegando ciò che gli altri tengono separato e la versatilità è forza finché una pista la porti fino in fondo. Quale sia la tua pista, lo indica il cielo.
+- Fortuna, "Il caso curioso": La tua fortuna passa dagli incontri e dall'informazione giusta al momento giusto ed è un dono che si presenta senza bussare. Da che parte stia arrivando lo racconta il giorno.
 
 ### Cancro, acqua cardinale, Luna
-- Generale, "Il cuore che protegge": Senti tutto e ricordi tutto, la tua forza è la cura, oggi concediti dolcezza, un gesto gentile verso te o chi ami cambia il tono del giorno.
-- Amore, "Il nido degli affetti": Ami con tenerezza e dedizione e hai bisogno di sentirti al sicuro per aprirti, oggi un piccolo rifugio condiviso vale più di ogni promessa.
-- Carriera, "La cura che costruisce": Sul lavoro proteggi e nutri ciò che ti sta a cuore, la tua sensibilità legge le persone, usala come vantaggio e non come peso.
-- Fortuna, "La marea gentile": La tua fortuna segue le maree dell'intuito, oggi fidati di ciò che senti sotto la superficie, ti sta indicando la direzione.
+- Generale, "Il cuore che protegge": Senti tutto e ricordi tutto e la tua forza si chiama cura, non durezza. Verso chi rivolgerla lo suggerisce il giorno.
+- Amore, "Il nido degli affetti": Ami con tenerezza e dedizione e hai bisogno di sentirti al sicuro prima di aprirti del tutto. Quanto sicuro sia il terreno, cambia col cielo.
+- Carriera, "La cura che costruisce": Sul lavoro proteggi e nutri ciò che ti sta a cuore e la tua sensibilità legge le persone prima che parlino. Cosa stia chiedendo di essere letto, lo scrive il giorno.
+- Fortuna, "La marea gentile": La tua fortuna segue le maree dell'intuito e sotto la superficie sai già dove guardare. Quale marea stia salendo, lo segna il cielo.
 
 ### Leone, fuoco fisso, Sole
-- Generale, "La gioia di brillare": Sei calore, creatività e generosità che scalda, oggi esprimi ciò che sei senza chiedere permesso, la tua luce fa spazio anche agli altri.
-- Amore, "Il cuore generoso": Ami con slancio e teatro, doni tanto e chiedi di essere visto, oggi la tua lealtà calorosa è irresistibile, mostrala senza timore.
-- Carriera, "Il palco è tuo": Sul lavoro convinci con la passione più che con la logica fredda, oggi metti la tua idea al centro, il tuo entusiasmo è contagioso.
-- Fortuna, "Il favore del Sole": La tua fortuna risponde al tuo calore, più doni e crei più ricevi e oggi la vita sembra rispondere al tuo sorriso.
+- Generale, "La gioia di brillare": Sei calore, creatività e generosità che scalda e la tua luce fa spazio agli altri invece di toglierlo. Dove accenderla, lo indica il giorno.
+- Amore, "Il cuore generoso": Ami con slancio e con teatro, doni molto e chiedi di essere visto e la tua lealtà calorosa è irresistibile quando non la trattieni. A chi stia arrivando, cambia col cielo.
+- Carriera, "Il palco è tuo": Sul lavoro convinci con la passione più che con la logica fredda e il tuo entusiasmo diventa contagioso quando ha un'idea al centro. Quale idea mettere al centro, te lo suggerisce il cielo.
+- Fortuna, "Il favore del Sole": La tua fortuna risponde al tuo calore e più doni e più crei, più la vita ti risponde. Da dove ti risponda lo racconta il giorno.
 
 ### Vergine, terra mobile, Mercurio
-- Generale, "La cura del dettaglio": Osservi, distingui e migliori, trovi il sacro nelle piccole cose fatte bene, oggi un gesto ordinato rimette in pace anche la mente.
-- Amore, "L'amore nei piccoli gesti": Ami rendendoti utile, con attenzione e discrezione, oggi lascia che qualcuno si prenda cura di te, non solo il contrario.
-- Carriera, "La maestria del metodo": Sul lavoro cogli il dettaglio che sfugge a tutti, oggi la tua precisione fa la differenza, senza scambiare un difetto per il tutto.
-- Fortuna, "Il frutto del lavoro": La tua fortuna nasce dal fare bene ciò che tocchi, oggi un piccolo miglioramento apre una porta più grande.
+- Generale, "La cura del dettaglio": Osservi, distingui e migliori e trovi il sacro nelle piccole cose fatte bene. Quale piccola cosa rimetta in pace anche la mente, lo indica il giorno.
+- Amore, "L'amore nei piccoli gesti": Ami rendendoti utile, con attenzione e discrezione e ti riesce più facile dare che ricevere. Da dove possa arrivare la cura per te, cambia col cielo.
+- Carriera, "La maestria del metodo": Sul lavoro cogli il dettaglio che sfugge a tutti e la precisione è il tuo vantaggio finché non scambi un difetto per il tutto. Dove metterla, lo segna il giorno.
+- Fortuna, "Il frutto del lavoro": La tua fortuna nasce dal fare bene ciò che tocchi e un miglioramento minimo ti apre porte grandi. Quale porta sia socchiusa lo scrive il giorno.
 
 ### Bilancia, aria cardinale, Venere
-- Generale, "L'arte dell'equilibrio": Cerchi armonia, bellezza e giustizia, fiorisci nell'incontro, oggi rimetti al centro ciò che ti dà pace, senza temere di scegliere.
-- Amore, "Il piacere di stare in due": Qui l'amore è la tua arte, cerchi eleganza e sintonia, oggi un piccolo gesto di grazia riporta dolcezza in un legame.
-- Carriera, "La forza della misura": Sul lavoro la tua diplomazia è un talento raro, oggi medi dove altri litigano e questo ti fa avanzare senza rumore.
-- Fortuna, "L'incontro giusto": La tua fortuna arriva dalle persone giuste e dalla bellezza condivisa, oggi un incontro può valere più di mille sforzi solitari.
+- Generale, "L'arte dell'equilibrio": Cerchi armonia, bellezza e giustizia e fiorisci nell'incontro più che nella solitudine. Cosa rimettere al centro per ritrovare la pace, lo suggerisce il giorno.
+- Amore, "Il piacere di stare in due": Qui l'amore è la tua arte, cerchi eleganza e sintonia e un gesto di grazia ti vale più di una discussione vinta. Dove quel gesto serva, cambia col cielo.
+- Carriera, "La forza della misura": Sul lavoro la tua diplomazia è un talento raro e medi dove gli altri litigano avanzando senza rumore. Quale tavolo ci sia da ricomporre, lo mostra il cielo.
+- Fortuna, "L'incontro giusto": La tua fortuna arriva dalle persone giuste e dalla bellezza condivisa e un incontro ti vale più di mille sforzi solitari. Da che parte arrivi lo racconta il giorno.
 
 ### Scorpione, acqua fisso, Marte e Plutone
-- Generale, "La forza di rinascere": Vivi tutto in profondità, senza mezze misure, oggi lascia andare ciò che pesa, la tua forza cresce attraversando e non evitando.
-- Amore, "L'intensità vera": Ami senza vie di mezzo, vuoi verità e profondità, oggi la tua sfida è fidarti e proprio lì si nasconde la tenerezza più grande.
-- Carriera, "La strategia paziente": Sul lavoro agisci sotto controllo fino al momento giusto, oggi la tua determinazione silenziosa vale più di ogni proclama.
-- Fortuna, "Il tesoro nascosto": La tua fortuna sta dove altri non osano guardare, oggi un dettaglio sottovalutato può rivelarsi il tuo vantaggio.
+- Generale, "La forza di rinascere": Vivi tutto in profondità, senza mezze misure e la tua forza cresce attraversando invece di evitare. Cosa ci sia da attraversare lo indica il giorno.
+- Amore, "L'intensità vera": Ami senza vie di mezzo e vuoi verità e la tua sfida non è sentire ma fidarti. Dove il terreno regga la fiducia, cambia col cielo.
+- Carriera, "La strategia paziente": Sul lavoro ti muovi sotto controllo fino al momento giusto e la determinazione silenziosa ti vale più di ogni proclama. Se il momento sia arrivato, lo dice il cielo.
+- Fortuna, "Il tesoro nascosto": La tua fortuna sta dove gli altri non osano guardare e un dettaglio sottovalutato diventa il tuo vantaggio. Quale dettaglio sia, lo scrive il giorno.
 
 ### Sagittario, fuoco mobile, Giove
-- Generale, "La fame di orizzonte": Cerchi senso, libertà e avventura, la mente e i piedi vogliono lontano, oggi allarga lo sguardo, una prospettiva nuova scioglie un nodo vecchio.
-- Amore, "Il volo condiviso": Ti innamori dell'avventura e della crescita a due, oggi cerca leggerezza e complicità, l'amore che ti somiglia non è mai una gabbia.
-- Carriera, "La spinta verso l'alto": Sul lavoro il tuo entusiasmo è contagioso e apre porte, oggi punta in grande, curando anche il passo dopo il passo.
-- Fortuna, "Il favore di Giove": La tua fortuna ama l'ottimismo e il movimento, oggi un sì detto con fiducia può portarti più lontano del previsto.
+- Generale, "La fame di orizzonte": Cerchi senso, libertà e avventura e la mente ti porta lontano prima dei piedi. Verso quale orizzonte guardare, lo indica il giorno.
+- Amore, "Il volo condiviso": Ti innamori dell'avventura e della crescita a due e l'amore che ti somiglia non è mai una gabbia. Dove trovare quella leggerezza, cambia col cielo.
+- Carriera, "La spinta verso l'alto": Sul lavoro il tuo entusiasmo apre porte e puntare in grande ti riesce naturale quando curi anche il passo dopo il passo. Quale passo venga per primo, lo decide il giorno.
+- Fortuna, "Il favore di Giove": La tua fortuna ama l'ottimismo e il movimento e un sì detto con fiducia ti porta più lontano del previsto. A cosa dirlo lo racconta il giorno.
 
 ### Capricorno, terra cardinale, Saturno
-- Generale, "La pazienza che scala": Costruisci nel tempo, con disciplina e responsabilità, le vette non ti spaventano, oggi un passo concreto ti avvicina a ciò che conta.
-- Amore, "La fedeltà che dura": Sotto il riserbo custodisci una fedeltà profonda, oggi concediti tenerezza, mostrare un lato morbido non toglie nulla alla tua forza.
-- Carriera, "La vetta un passo alla volta": Sul lavoro nessuno costruisce per i propri obiettivi come te, oggi la tua serietà viene notata, i risultati parlano al posto tuo.
-- Fortuna, "Il merito premiato": La tua fortuna si costruisce mattone su mattone, oggi qualcosa di guadagnato con fatica inizia a darti ragione.
+- Generale, "La pazienza che scala": Costruisci nel tempo, con disciplina e responsabilità e le vette non ti hanno mai spaventato. Quale passo concreto ti avvicini davvero, lo indica il giorno.
+- Amore, "La fedeltà che dura": Sotto il riserbo custodisci una fedeltà profonda e mostrare un lato morbido non toglie niente alla tua forza. Quando valga la pena mostrarlo, cambia col cielo.
+- Carriera, "La vetta un passo alla volta": Sul lavoro nessuno costruisce per i propri obiettivi come te e i tuoi risultati parlano al posto tuo prima che tu apra bocca. Quanto siano stati notati, te lo racconta il cielo.
+- Fortuna, "Il merito premiato": La tua fortuna si costruisce mattone su mattone e ciò che hai guadagnato con fatica prima o poi ti dà ragione. Quando cominci a vederlo lo scrive il giorno.
 
 ### Acquario, aria fisso, Saturno e Urano
-- Generale, "La visione del futuro": Pensi diverso e guardi avanti, ami la libertà e le persone, oggi un'idea fuori dagli schemi merita spazio, non la trattenere.
-- Amore, "Il legame che libera": Ami in modo originale e paritario, l'amante è anche un complice, oggi la tua autenticità attira più di ogni convenzione.
-- Carriera, "L'idea che apre strade": Sul lavoro vedi ciò che gli altri non osano immaginare, oggi la tua originalità è una risorsa, condividila senza timore del giudizio.
-- Fortuna, "La sorpresa geniale": La tua fortuna arriva quando pensi in grande e per tutti, oggi una via inattesa può rivelarsi la più giusta.
+- Generale, "La visione del futuro": Pensi diverso e guardi avanti e ami la libertà quanto le persone. Quale idea fuori dagli schemi meriti spazio, lo indica il giorno.
+- Amore, "Il legame che libera": Ami in modo originale e paritario e per te l'amante è anche un complice. Dove la tua autenticità venga accolta, cambia col cielo.
+- Carriera, "L'idea che apre strade": Sul lavoro vedi ciò che gli altri non osano immaginare e la tua originalità è una risorsa quando smette di temere il giudizio. Con chi condividerla, lo apre il giorno.
+- Fortuna, "La sorpresa geniale": La tua fortuna arriva quando pensi in grande e per tutti e la via inattesa è quasi sempre la tua. Quale via si stia aprendo lo racconta il giorno.
 
 ### Pesci, acqua mobile, Giove e Nettuno
-- Generale, "L'anima senza confini": Senti l'invisibile, sogni e ti fondi col tutto, empatia e immaginazione sono il tuo dono, oggi ascolta l'intuito e poi dagli dei confini.
-- Amore, "La dolcezza che avvolge": Ami in modo tenero e avvolgente, quasi senza riserve, oggi ricordati di chiedere e non solo di dare, la tua dolcezza merita di essere ricambiata.
-- Carriera, "L'ispirazione che guida": Sul lavoro la tua sensibilità coglie ciò che sfugge ai numeri, oggi un'intuizione vale un piano, mettila a terra con un piccolo gesto pratico.
-- Fortuna, "Il dono dell'intuito": La tua fortuna passa dai segni sottili e dalle coincidenze, oggi fidati della prima sensazione, ti sta guidando bene.
+- Generale, "L'anima senza confini": Senti l'invisibile, sogni e ti fondi col tutto e l'intuito ti serve meglio quando gli dai dei confini. Dove tracciarli, lo indica il giorno.
+- Amore, "La dolcezza che avvolge": Ami in modo tenero e avvolgente, quasi senza riserve e la tua dolcezza merita di essere ricambiata quanto è donata. Da chi possa tornarti, cambia col cielo.
+- Carriera, "L'ispirazione che guida": Sul lavoro la tua sensibilità coglie ciò che sfugge ai numeri e un'intuizione ti vale un piano quando la metti a terra. Su cosa metterla, te lo indica il cielo.
+- Fortuna, "Il dono dell'intuito": La tua fortuna passa dai segni sottili e dalle coincidenze e la prima sensazione ti guida bene più spesso di quanto ammetti. Verso dove ti stia guidando lo scrive il giorno.
 
 ## I pool della corrente del giorno, per dominio
 

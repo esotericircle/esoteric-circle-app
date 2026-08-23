@@ -2740,39 +2740,50 @@ void main() {
         reason: 'il cielo del giorno scelto non porta nessun fatto, quindi la '
             'riga del cielo non ci sarebbe e l\'anteprima mostrerebbe la card '
             'di prima della voce 25');
-    final cards = Horoscope.forSign(
-        sign: Zodiac.aries, dayOfYear: 190, year: 2026, cielo: cielo);
     await montaLoSchermo(tester, const Size(400, 900));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    final rootKey = GlobalKey();
-    await tester.pumpWidget(RepaintBoundary(
-      key: rootKey,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          backgroundColor: const Color(0xFF0A0E24),
-          body: Center(
-            child: SingleChildScrollView(
-              child: OroscopoShareCard(
-                  sign: Zodiac.aries, cards: cards, palette: palette),
+    // **TRE SEGNI, NON UNO.** Ordine BD voce 07: la sintesi della card e'
+    // l'ancora NUDA del Generale, ed e' qui che si sente se un innesto suona
+    // monco. Un segno solo lascerebbe quarantasette ancore mai guardate; tre
+    // con innesti di forma diversa sono il minimo che l'ordine chiede.
+    for (final scelto in [
+      (Zodiac.aries, 'oroscopo-card.png'),
+      (Zodiac.taurus, 'oroscopo-card-toro.png'),
+      (Zodiac.pisces, 'oroscopo-card-pesci.png'),
+    ]) {
+      final cards = Horoscope.forSign(
+          sign: scelto.$1, dayOfYear: 190, year: 2026, cielo: cielo);
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0A0E24),
+            body: Center(
+              child: SingleChildScrollView(
+                child: OroscopoShareCard(
+                    sign: scelto.$1, cards: cards, palette: palette),
+              ),
             ),
           ),
         ),
-      ),
-    ));
-    await tester.pumpAndSettle();
-    // L'emblema del segno decodificato anche nella card.
-    await tester.runAsync(() async => precacheImage(
-        AssetImage(ZodiacArt.emblemPath(Zodiac.aries)),
-        tester.element(find.byType(OroscopoShareCard))));
-    await tester.pumpAndSettle();
-    // IL GUARDIANO: se la riga del cielo non fosse a schermo, questa immagine
-    // mostrerebbe la card senza transito e nessuno se ne accorgerebbe.
-    expect(find.byKey(const Key('share_transito_riga')), findsOneWidget,
-        reason: 'la riga del cielo non e\' nella card: la composizione scelta '
-            'per la voce 25 non e\' quella che l\'anteprima mostra');
-    await capture(tester, rootKey, 'oroscopo-card.png');
+      ));
+      await tester.pumpAndSettle();
+      // L'emblema del segno decodificato anche nella card.
+      await tester.runAsync(() async => precacheImage(
+          AssetImage(ZodiacArt.emblemPath(scelto.$1)),
+          tester.element(find.byType(OroscopoShareCard))));
+      await tester.pumpAndSettle();
+      // IL GUARDIANO: se la riga del cielo non fosse a schermo, questa
+      // immagine mostrerebbe la card senza transito e nessuno se ne
+      // accorgerebbe.
+      expect(find.byKey(const Key('share_transito_riga')), findsOneWidget,
+          reason: 'la riga del cielo non e\' nella card: la composizione '
+              'scelta per la voce 25 non e\' quella che l\'anteprima mostra');
+      await capture(tester, rootKey, scelto.$2);
+    }
   });
 
   // --- La Stesa a Tre Carte, con una carta rovesciata ---

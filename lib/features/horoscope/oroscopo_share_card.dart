@@ -73,6 +73,14 @@ class OroscopoShareCard extends StatelessWidget {
         .firstWhere((c) => c.domain == HoroscopeDomain.generale)
         .rigaDelCielo;
     const still = AlwaysStoppedAnimation<double>(0.5);
+    // La larghezza che il titolo di una tessera possiede DAVVERO, ricavata
+    // dagli stessi valori del layout qui sotto: il padding esterno `lg`, il
+    // bordo di 2, la meta' della riga, il margine di 3 per lato della
+    // tessera e il suo padding orizzontale `xs`. Serve al rimpicciolimento
+    // del titolo, che dentro `IntrinsicHeight` non puo' usare un
+    // `LayoutBuilder`: le dimensioni intrinseche non lo ammettono.
+    final larghezzaDelTitolo =
+        (width - 2 * SpacingTokens.lg - 2 * 2) / 2 - 2 * 3 - 2 * SpacingTokens.xs;
 
     return Container(
       width: width,
@@ -167,8 +175,11 @@ class OroscopoShareCard extends StatelessWidget {
               children: [
                 for (final c in cards.take(2))
                   Expanded(
-                      child:
-                          _LevelTile(card: c, palette: palette, pulse: still)),
+                      child: _LevelTile(
+                          card: c,
+                          palette: palette,
+                          pulse: still,
+                          larghezzaDelTitolo: larghezzaDelTitolo)),
               ],
             ),
           ),
@@ -179,8 +190,11 @@ class OroscopoShareCard extends StatelessWidget {
               children: [
                 for (final c in cards.skip(2))
                   Expanded(
-                      child:
-                          _LevelTile(card: c, palette: palette, pulse: still)),
+                      child: _LevelTile(
+                          card: c,
+                          palette: palette,
+                          pulse: still,
+                          larghezzaDelTitolo: larghezzaDelTitolo)),
               ],
             ),
           ),
@@ -255,11 +269,19 @@ class OroscopoShareCard extends StatelessWidget {
 /// troncato coi puntini.
 class _LevelTile extends StatelessWidget {
   const _LevelTile(
-      {required this.card, required this.palette, required this.pulse});
+      {required this.card,
+      required this.palette,
+      required this.pulse,
+      required this.larghezzaDelTitolo});
 
   final HoroscopeCard card;
   final MaestroPalette palette;
   final Animation<double> pulse;
+
+  /// Quanta larghezza possiede il titolo, calcolata dal genitore sugli
+  /// stessi valori del suo layout: qui un `LayoutBuilder` non puo' vivere,
+  /// perche' le tessere stanno dentro `IntrinsicHeight`.
+  final double larghezzaDelTitolo;
 
   @override
   Widget build(BuildContext context) {
@@ -291,13 +313,41 @@ class _LevelTile extends StatelessWidget {
               style: TypographyTokens.etichetta().copyWith(
                   color: ColorTokens.textSecondary, letterSpacing: 0.8)),
           // Titolo intero: va a capo e si rimpicciolisce, nessuna ellissi.
-          Text(card.title,
-              textAlign: TextAlign.center,
-              maxLines: 3,
-              softWrap: true,
-              overflow: TextOverflow.visible,
-              style: TypographyTokens.display(size: 16)
-                  .copyWith(color: palette.goldSoft, height: 1.15)),
+          //
+          // **E IL RIMPICCIOLIMENTO ADESSO ESISTE.** Ordine BD voce 07, coda:
+          // la promessa qui sopra era scritta ma non mantenuta, e sulla card
+          // del Toro "L'abbondanza concreta" usciva spezzata in mezzo alla
+          // parola, "L'ABBONDANZ A". Andare a capo fra le parole va bene;
+          // dentro una parola mai: quando la parola piu' lunga non ci sta,
+          // il corpo scende di quel tanto che la fa stare.
+          Builder(builder: (context) {
+            var stile = TypographyTokens.display(size: 16)
+                .copyWith(color: palette.goldSoft, height: 1.15);
+            var piuLarga = 0.0;
+            for (final parola in card.title.split(' ')) {
+              final metro = TextPainter(
+                  text: TextSpan(text: parola, style: stile),
+                  textDirection: TextDirection.ltr)
+                ..layout();
+              if (metro.width > piuLarga) piuLarga = metro.width;
+            }
+            // **COL RESPIRO, NON AL PAREGGIO.** Misurato: "L'abbondanza" fa
+            // 132,63 punti su una soglia di 132. Scalare esattamente alla
+            // soglia lascia la parola a un decimo di punto dal bordo, e basta
+            // l'arrotondamento dell'Expanded a spezzarla di nuovo: si scala a
+            // quattro punti dal bordo, che non si vedono e non tradiscono.
+            const respiro = 4.0;
+            if (piuLarga > larghezzaDelTitolo - respiro && piuLarga > 0) {
+              stile = stile.copyWith(
+                  fontSize: 16 * (larghezzaDelTitolo - respiro) / piuLarga);
+            }
+            return Text(card.title,
+                textAlign: TextAlign.center,
+                maxLines: 3,
+                softWrap: true,
+                overflow: TextOverflow.visible,
+                style: stile);
+          }),
         ],
       ),
     );

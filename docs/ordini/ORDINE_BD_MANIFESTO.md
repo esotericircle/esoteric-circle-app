@@ -96,7 +96,7 @@ la sintesi nuda.
 - **BD.04** Lo schermo piccolo. Stato: APERTA
 - **BD.05** I gradini dell'identita' che maturano insieme. Stato: APERTA
 - **BD.06** La data e l'ora sulla card del traguardo. Stato: APERTA
-- **BD.07** Le quarantotto ancore dell'Oroscopo. Stato: APERTA
+- **BD.07** Le quarantotto ancore dell'Oroscopo. Stato: CHIUSA, con le 48 virgole tolte per il precedente del fondatore
 
 ## L'ordine di lavoro, deciso qui
 
@@ -112,11 +112,41 @@ la sintesi nuda.
 6. **BD.02 per ultima**, perche' la bonifica misura la geometria che BD.01 ha
    appena cambiato: bonificare prima vorrebbe dire bonificare due volte.
 
+## Cosa BD.07 ha trovato e deciso, e va detto
+
+**Lo strumento mancante e' stato scritto**, `tool/_gen_oroscopo.py`, e la sua
+fedelta' e' provata dal giro di andata e ritorno: PRIMA di toccare le ancore
+ha rigenerato dal corpus di quel momento il `horoscope_data.dart` allora in
+vigore, carattere per carattere. Solo dopo quella prova le ancore nuove sono
+entrate. Il giro resta verde anche dopo l'innesto.
+
+**Le 48 virgole prima della "e", una per ancora.** Ogni ancora dell'Architetto
+portava una virgola prima della "e", e la regola della casa la vieta in ogni
+stringa di `lib`. Non e' stata chiesta una deroga, perche' il fondatore l'ha
+gia' negata una volta con la ragione scritta nella prova stessa: quella
+virgola e' sempre stilistica e mai portante, si toglie senza cambiare il
+senso, e una regola con un elenco di eccezioni diventa un elenco che nessuno
+mantiene. Le 48 virgole sono state tolte applicando quel precedente, il testo
+non e' stato toccato in nessun altro punto, e il fondatore puo' rovesciare la
+scelta con una parola.
+
+**Gli accenti sono stati resi nella forma tipografica del corpus** con una
+mappa esplicita di venticinque parole, e ogni parola non mappata avrebbe
+fermato l'innesto invece di indovinare.
+
+**E l'anteprima ha trovato un difetto suo**: sulla card del Toro il titolo
+"L'abbondanza concreta" usciva spezzato in mezzo alla parola, "L'ABBONDANZ A".
+La bolla prometteva nel commento "va a capo e si rimpicciolisce" ma il
+rimpicciolimento non esisteva. Adesso esiste, con quattro punti di respiro dal
+bordo, perche' scalare al pareggio lasciava la parola a un decimo di punto dal
+limite. La cattura della card copre ora TRE segni invece di uno, Ariete, Toro
+e Pesci, e le tre anteprime sono state guardate.
+
 ## I marcatori
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 7
-VOCI_CHIUSE: 1
+VOCI_APERTE: 6
+VOCI_CHIUSE: 2
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
