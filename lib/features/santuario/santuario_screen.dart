@@ -106,7 +106,12 @@ const double altezzaMinimaDelBusto = 220.0;
 /// figura non si riconosce piu'. Solo questo pavimento puo' scavalcare il
 /// vincolo del blocco del cielo, e succede su schermi cosi' corti che
 /// qualunque scelta sarebbe un compromesso.
-const double altezzaMinimaAssolutaDelBusto = 150.0;
+// **165 E NON PIU' 150, ordine BD voce 04.** Sullo schermo 320 per 568 lo
+// spazio concesso e' sotto il pavimento comunque: la scelta e' fra Maestri
+// francobollo e Maestri che salgono di qualche punto sul fondo del blocco del
+// cielo. Dopo la decisione del fondatore dell'ordine BD (i Maestri davanti,
+// una copertura leggera accettata) la seconda e' quella giusta.
+const double altezzaMinimaAssolutaDelBusto = 165.0;
 
 /// **QUANTO DEL MOVIMENTO VERTICALE RESTA AI MAESTRI.** Ordine BC voce 01.
 ///
@@ -732,7 +737,13 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // Lo spazio per farli piu' grandi si prende dove il fondatore ha
           // detto di prenderlo, cioe' avvicinando le due righe sopra di loro,
           // e da nessun'altra parte.
-          const salitaDelLaterale = 0.44 + 0.58;
+          // **LA SALITA DEL LATERALE E' FINITA.** Ordine BD voce 01: il
+          // conto 0,44 piu' 0,58 teneva conto di una geometria in cui il
+          // laterale poteva svettare sul centrale. Coi numeri di oggi non
+          // puo': il laterale e' alto 0,775 del centrale e posa a 0,11 dal
+          // fondo, quindi la sua cima arriva a 0,885 del centrale. Il
+          // divisore e' uno, e il due per cento che tratteneva va al busto.
+          const salitaDelLaterale = 1.0;
           final fondoDellaScena = h - carouselBottom;
           final altezzaConcessa =
               (fondoDellaScena - cieloFinisce - SpacingTokens.md) /
@@ -963,8 +974,14 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                       // 2. Grafica della Luna e del cielo, con l'occhiello della
                       // fase reale sotto. Footprint compatto: meno vuoto attorno
                       // alla Luna, piu' spazio alle carte dei Maestri sotto.
+                      // **LA LUNA CEDE PUNTI AI MAESTRI.** Ordine BD voci 01
+                      // e 04: il blocco del cielo e il carosello si dividono
+                      // la stessa altezza, e il fondatore ha chiesto i
+                      // Maestri "ancora piu' grandi". Il tetto scende da 100
+                      // a 84 e il pavimento da 54 a 46: la fase resta
+                      // leggibile, e ogni punto tolto qui finisce nel busto.
                       MoonWidget(
-                          phase: moon, size: (w * 0.12).clamp(54.0, 100.0)),
+                          phase: moon, size: (w * 0.12).clamp(46.0, 84.0)),
                       // **LE DUE RIGHE SI STRINGONO, E LO SPAZIO VA AI
                       // MAESTRI.** Ordine BC voce 01, parole del fondatore:
                       // "le due righe (bianca e giallo oro) devono essere piu'
@@ -1065,6 +1082,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   central: central,
                   selected: selected,
                   centralHeight: altezzaBusto,
+                  spazioStretto: spazioPerIlCarosello < altezzaBusto,
                   breath: _breath,
                   reduceMotion: reduceMotion,
                   preferred: SantuarioScreen.preferred,
@@ -1235,11 +1253,19 @@ class _Carousel extends StatefulWidget {
     required this.sideDepth,
     required this.onTapCentral,
     required this.onTapSide,
+    this.spazioStretto = false,
   });
 
   final Maestro central;
   final bool selected;
   final double centralHeight;
+
+  /// Vero quando lo spazio concesso e' sotto il pavimento del busto, cioe'
+  /// sugli schermi molto corti. Ordine BD voce 04: li' i laterali NON si
+  /// alzano di un quinto dell'altezza, perche' le loro teste bucherebbero il
+  /// titolo del cielo. La profondita' resta raccontata dalla scala e dalla
+  /// sovrapposizione, che non costano punti verticali.
+  final bool spazioStretto;
   final Animation<double> breath;
   final bool reduceMotion;
   final Maestro preferred;
@@ -1368,7 +1394,13 @@ class _CarouselState extends State<_Carousel>
             final centralW = widget.centralHeight * 0.75;
             // Il raggio orizzontale del cerchio visto di taglio: quanto si
             // spostano di lato quelli che stanno dietro.
-            final raggio = w * 0.37;
+            // **PIU' STRETTO DI PRIMA, ed e' la richiesta.** Ordine BD voce
+            // 01, parole del fondatore: "bisogna ingrandirli tanto che
+            // lateralmente si devono sovrapporre un pochino, cosi' da rendere
+            // la profondita' tra l'avatar davanti e quelli dietro". Con 0,37
+            // le cornici visibili si sfioravano appena; con 0,31 la centrale
+            // copre una fascia dei laterali, e la profondita' si vede.
+            final raggio = w * 0.31;
 
             // Ogni Maestro al suo angolo, e da li' tutto il resto.
             final posti = <_PostoInCerchio>[];
@@ -1383,7 +1415,10 @@ class _CarouselState extends State<_Carousel>
                 // conosce l'app troverebbe i due laterali scambiati.
                 x: w / 2 - math.sin(angolo) * raggio,
                 profondita: profondita,
-                scala: 0.58 + 0.42 * ((profondita + 1) / 2),
+                // Da 0,58 a 0,70 di pavimento: anche chi sta dietro e'
+                // grande, e la sovrapposizione con la centrale racconta la
+                // distanza meglio di quanto facesse il rimpicciolire.
+                scala: 0.70 + 0.30 * ((profondita + 1) / 2),
               ));
             }
             // Dietro prima, davanti dopo: cosi' chi e' vicino copre chi e'
@@ -1475,29 +1510,65 @@ class _CarouselState extends State<_Carousel>
                         left: p.x - larghezza / 2,
                         // Chi sta dietro sta anche piu' in alto: e' cio' che
                         // da' profondita' a una scena vista di tre quarti.
-                        bottom:
-                            (1 - p.profondita) * widget.centralHeight * 0.22,
+                        // Sui posti stretti l'innalzamento scende a 0,08:
+                        // misurato a 320 per 568, con 0,22 la testa del
+                        // laterale saliva fino a bucare il titolo del cielo.
+                        bottom: (1 - p.profondita) *
+                            widget.centralHeight *
+                            (widget.spazioStretto ? 0.08 : 0.22),
                         width: larghezza,
                         height: altezza,
                         child: Transform.translate(
                           offset: deriva,
-                          child: GestureDetector(
-                            key: ruoloDi(p),
-                            onTap: () => davanti
-                                ? widget.onTapCentral()
-                                : widget.onTapSide(p.maestro),
-                            child: MaestroBust(
-                              maestro: p.maestro,
-                              height: altezza,
-                              central: davanti,
-                              breath: davanti ? breathValue : 0.5,
-                              // La penombra cresce con la lontananza, invece
-                              // di essere accesa o spenta.
-                              dim: davanti
-                                  ? 0
-                                  : 0.55 * (1 - (p.profondita + 1) / 2),
-                              preferred: p.maestro == widget.preferred,
-                            ),
+                          // **IL TOCCO SEGUE LA CORNICE VISIBILE, NON LA
+                          // SCATOLA.** Ordine BD voce 01. Con la
+                          // sovrapposizione voluta dal fondatore, la scatola
+                          // del centrale (larga 0,754 dell'altezza, cornice
+                          // 0,58 piu' margini trasparenti) arriva a coprire il
+                          // CENTRO del laterale: il dito toccava il laterale e
+                          // rispondeva il centrale, attraverso pixel che non
+                          // esistono. Misurato dalla prova della rotazione a
+                          // 390 per 844: il centro del laterale sta a 90,3 e
+                          // la scatola del centrale comincia a 87.
+                          //
+                          // La figura si spegne al tocco e il dito cade su una
+                          // colonna larga quanto la cornice: dove le colonne
+                          // si sovrappongono vince chi sta davanti nella pila,
+                          // che e' esattamente chi si vede.
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              IgnorePointer(
+                                child: MaestroBust(
+                                  maestro: p.maestro,
+                                  height: altezza,
+                                  central: davanti,
+                                  breath: davanti ? breathValue : 0.5,
+                                  // La penombra cresce con la lontananza,
+                                  // invece di essere accesa o spenta.
+                                  dim: davanti
+                                      ? 0
+                                      : 0.55 * (1 - (p.profondita + 1) / 2),
+                                  preferred: p.maestro == widget.preferred,
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                child: GestureDetector(
+                                  key: ruoloDi(p),
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () => davanti
+                                      ? widget.onTapCentral()
+                                      : widget.onTapSide(p.maestro),
+                                  // 0,58 e' la larghezza della cornice in
+                                  // MaestroBust, e l'altezza e' tutta la
+                                  // colonna, testa compresa.
+                                  child: SizedBox(
+                                      width: altezza * 0.58, height: altezza),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );

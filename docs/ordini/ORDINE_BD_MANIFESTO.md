@@ -90,10 +90,10 @@ la sintesi nuda.
 ## Le voci
 
 - **BD.00** Manifesto e verifica delle premesse. Stato: CHIUSA
-- **BD.01** I Maestri ancora piu' grandi, con la sovrapposizione. Stato: APERTA
+- **BD.01** I Maestri ancora piu' grandi, con la sovrapposizione. Stato: CHIUSA
 - **BD.02** Le 38 prove rosse, la bonifica. Stato: APERTA
 - **BD.03** Il mondo oltre l'Italia. Stato: APERTA
-- **BD.04** Lo schermo piccolo. Stato: APERTA
+- **BD.04** Lo schermo piccolo. Stato: CHIUSA
 - **BD.05** I gradini dell'identita' che maturano insieme. Stato: CHIUSA
 - **BD.06** La data e l'ora sulla card del traguardo. Stato: CHIUSA
 - **BD.07** Le quarantotto ancore dell'Oroscopo. Stato: CHIUSA, con le 48 virgole tolte per il precedente del fondatore
@@ -145,8 +145,8 @@ e Pesci, e le tre anteprime sono state guardate.
 ## I marcatori
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 4
-VOCI_CHIUSE: 4
+VOCI_APERTE: 2
+VOCI_CHIUSE: 6
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
