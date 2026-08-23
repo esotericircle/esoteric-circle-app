@@ -68,6 +68,31 @@ import 'widgets/tue_arti_view.dart';
 /// di layout. Nessun punto di `lib` la tocca, e vale falso in ogni build.
 @visibleForTesting
 bool maestriSpentiPerLaProva = false;
+
+/// **IL TESTO DEL CIELO SPENTO, per misurare le LETTERE e non il rettangolo.**
+/// Ordine BA voce 02.
+///
+/// Serve alla prova che chiede se i Maestri coprono il testo sopra di loro.
+/// Con la sola bandiera dei Maestri si contavano i pixel che cambiano dentro
+/// il rettangolo del testo, e un rettangolo di testo e' quasi tutto vuoto:
+/// dipinta la mappa della differenza, su schermo alto i Maestri toccavano le
+/// ultime quattordici righe di quel rettangolo, dove lettere non ce ne sono.
+///
+/// Spegnendo anche il testo si ottiene la scena senza lettere, e la
+/// differenza fra quella e la scena senza Maestri **e' l'insieme esatto delle
+/// lettere dipinte**. Nessun punto di `lib` tocca questa bandiera, e vale
+/// falso in ogni build.
+///
+/// **E' UN NOTIFICATORE E NON UN BOOLEANO, e il motivo e' che la prima
+/// stesura non funzionava.** Una variabile globale che cambia non marca
+/// niente come da ricostruire: il blocco del cielo restava dipinto com'era, e
+/// la misura contava **zero pixel di inchiostro**. L'ha detto la guardia
+/// dentro la prova stessa, che pretende di trovare almeno cinquecento pixel
+/// di lettere prima di dichiarare qualunque cosa sulla loro copertura: senza
+/// quella riga la prova sarebbe passata dichiarando zero pixel coperti, cioe'
+/// avrebbe dichiarato risolto un difetto **non guardandolo**.
+final ValueNotifier<bool> testoDelCieloSpentoPerLaProva =
+    ValueNotifier<bool>(false);
 ///
 /// **Il minimo e' il 34 per cento dell'altezza dello schermo**, come l'ordine
 /// chiede, con questo valore come pavimento assoluto per gli schermi piu'
@@ -742,7 +767,26 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 (concessa: altezzaConcessa, busto: altezzaBusto, alta: h);
             return true;
           }());
-          final carouselHeight = altezzaBusto * 1.12;
+          // **IL RIQUADRO DEL CAROSELLO NON PUO' SALIRE SOPRA IL CIELO, e
+          // prima poteva.** Ordine BA voce 02.
+          //
+          // Il ritaglio da solo non bastava, ed e' stato misurato: su schermo
+          // alto portava i pixel di inchiostro coperti da 210 a **zero**, ma
+          // su medio e basso restavano 854 e 5.966. Il motivo e' che il
+          // ritaglio taglia al RIQUADRO del carosello, e quando il pavimento
+          // minimo del busto vince sullo spazio concesso **e' il riquadro
+          // stesso a entrare nel blocco del cielo**: tagliare al suo bordo non
+          // toglie niente.
+          //
+          // Adesso l'altezza del riquadro e' limitata allo spazio vero, e il
+          // busto dentro resta alto quanto gli serve per essere riconoscibile:
+          // la parte che avanza si dissolve nel ritaglio invece di salire sul
+          // testo. **Le due cose insieme sono la cura**, e nessuna delle due
+          // da sola lo era.
+          final spazioPerIlCarosello =
+              fondoDellaScena - cieloFinisce - SpacingTokens.md;
+          final carouselHeight =
+              math.min(altezzaBusto * 1.12, math.max(0.0, spazioPerIlCarosello));
           // IL CAROSELLO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava di
           // NOVANTADUE PUNTI, misurati sull'app montata a 360 per 797: la riga
           // personale stava da 301,2 a 337,2 mentre il rettangolo del carosello
@@ -796,7 +840,29 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                 top: h * 0.012,
                 left: 0,
                 right: 0,
-                child: GestureDetector(
+                // **IL TESTO SI PUO' SPEGNERE, e serve a misurare l'unica
+                // cosa che conta.** Ordine BA voce 02.
+                //
+                // La misura precedente contava i pixel che cambiano dentro il
+                // RETTANGOLO del testo, e un rettangolo di testo e' quasi
+                // tutto vuoto: sopra le lettere, sotto, fra una riga e
+                // l'altra. Dipinta la mappa della differenza, su schermo alto
+                // i Maestri toccavano solo le ultime quattordici righe del
+                // rettangolo, **dove lettere non ce ne sono**, e la prova
+                // dichiarava 830 pixel coperti mentre a video non era coperto
+                // niente. Era lo stesso difetto denunciato tre volte, il
+                // rettangolo al posto della vernice, spostato di un livello.
+                //
+                // Con questa bandiera la prova dipinge una terza volta senza
+                // il testo, e la differenza fra quella e la scena senza
+                // Maestri **e' l'insieme esatto delle lettere**. Da li' in
+                // poi la domanda "i Maestri coprono il testo" ha una risposta
+                // che non ammette interpretazioni.
+                child: ValueListenableBuilder<bool>(
+                  valueListenable: testoDelCieloSpentoPerLaProva,
+                  builder: (context, spento, figlio) =>
+                      Opacity(opacity: spento ? 0.0 : 1.0, child: figlio),
+                  child: GestureDetector(
                   key: const Key('santuario_sky_tap'),
                   behavior: HitTestBehavior.opaque,
                   onTap: () => _openSky(context),
@@ -869,6 +935,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                     ],
                     ),
                   ),
+                ),
                 ),
               ),
 
@@ -1254,6 +1321,38 @@ class _CarouselState extends State<_Carousel>
             // ogni build.
             return Opacity(
               opacity: maestriSpentiPerLaProva ? 0.0 : 1.0,
+              // **I MAESTRI NON ESCONO PIU' DAL LORO RIQUADRO, e questa e' la
+              // cura vera della quarta segnalazione.** Ordine BA voce 02.
+              //
+              // **Tre volte si e' provato a curare il difetto restringendo il
+              // busto**, e tre volte e' rimasto: il riquadro del carosello sta
+              // gia' sotto il blocco del cielo, ma le figure ne uscivano con
+              // `Clip.none`, quindi qualunque conto sull'altezza lasciava
+              // scoperto il caso in cui il pavimento minimo vince sullo spazio
+              // concesso. Su schermo basso lo spazio concede 133 punti e il
+              // pavimento ne pretende 150: quei diciassette punti finivano
+              // dentro il testo, e con loro tutta la cima delle figure.
+              //
+              // **Misurato sull'inchiostro vero**, cioe' contando i soli pixel
+              // di lettera: 210 coperti su schermo alto, 966 sul medio, e
+              // **5.979 su 7.107 sul basso, l'ottantaquattro per cento del
+              // testo**.
+              //
+              // Adesso il taglio e' una CERTEZZA di costruzione e non piu' un
+              // conto: dentro il ritaglio i Maestri possono essere alti quanto
+              // vogliono, sopra la loro zona non arriva un pixel. E si dissolve
+              // invece di tagliare netto, se no sugli schermi corti le figure
+              // verrebbero decapitate: la dissolvenza e' la stessa che il busto
+              // usa gia' in basso.
+              child: ClipRect(
+                child: ShaderMask(
+                  blendMode: BlendMode.dstIn,
+                  shaderCallback: (r) => const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0x00FFFFFF), Color(0xFFFFFFFF)],
+                    stops: [0.0, 0.16],
+                  ).createShader(r),
               child: GestureDetector(
               key: const Key('santuario_carosello'),
               onHorizontalDragUpdate: (d) => _trascina(d, w),
@@ -1312,6 +1411,8 @@ class _CarouselState extends State<_Carousel>
                 ],
               ),
             ),
+                ),
+              ),
             );
           },
         );

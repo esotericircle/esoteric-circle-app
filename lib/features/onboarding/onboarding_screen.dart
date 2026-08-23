@@ -8,6 +8,7 @@ import '../../core/cammino/custode_del_cammino.dart';
 import '../account/custodia_del_cielo.dart';
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/birth_place.dart' as astro;
+import 'mappa_della_nazione.dart';
 import '../../core/astro/city_catalog.dart';
 import '../../core/astro/night_sky.dart';
 import '../../core/astro/zodiac.dart';
@@ -236,6 +237,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   int? _hour;
   int? _minute;
   BirthPlace? _place;
+
+  /// **LA NAZIONE DEL LUOGO SCELTO, CALCOLATA UNA VOLTA SOLA.** Ordine BB
+  /// voce 12.
+  ///
+  /// Trovarla vuol dire scorrere undicimilacinquecento luoghi, e il `build` di
+  /// questa schermata gira a ogni fotogramma: senza questa memoria il passo
+  /// del luogo farebbe quel giro sessanta volte al secondo per disegnare una
+  /// mappa che non cambia mai.
+  MappaDellaNazione? _nazione;
+  BirthPlace? _nazionePerQuale;
   final TextEditingController _placeCtrl = TextEditingController();
   final FocusNode _luogoFocus = FocusNode();
   /// Dove sta l'elenco dei suggerimenti nell'albero, per poterlo portare sotto
@@ -813,6 +824,18 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
+  /// La nazione da disegnare, ricalcolata solo quando il luogo cambia.
+  MappaDellaNazione? _nazioneDelLuogo() {
+    final p = _place;
+    if (p == null) return null;
+    if (!identical(p, _nazionePerQuale)) {
+      _nazionePerQuale = p;
+      _nazione = MappaDellaNazione.perIlLuogo(
+          p.latitude, p.longitude, CityCatalog.luoghi);
+    }
+    return _nazione;
+  }
+
   // --- Passo 3: il luogo, e il cielo si ancora alla Terra ---
   Widget _luogoStep() {
     return _StepBody(
@@ -821,9 +844,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       // Non il logo, deciso da Mauro: mettere il proprio marchio nel punto in
       // cui si chiede alla persona dove e' nata sarebbe parlare di se' mentre
       // si sta ascoltando.
+      // **E QUANDO SI PUO', IL QUADRO SI STRINGE SULLA NAZIONE.** Ordine BB
+      // voce 12: su un planisfero l'Italia e' grande come un'unghia, e la
+      // stella che si accende dove sei nato cade dentro quell'unghia.
       visual: Planisfero(
         palette: _palette,
         reduceMotion: _reduceMotion,
+        nazione: _nazioneDelLuogo(),
         luogo: _place == null
             ? null
             : (lat: _place!.latitude, lon: _place!.longitude),

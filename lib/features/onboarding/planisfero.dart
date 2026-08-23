@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/motion/parallax_controller.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import 'mappa_della_nazione.dart';
 
 /// Il planisfero a punti: la mappa del mondo resa come una costellazione.
 ///
@@ -27,6 +28,7 @@ class Planisfero extends StatefulWidget {
     super.key,
     required this.palette,
     this.luogo,
+    this.nazione,
     this.reduceMotion = false,
   });
 
@@ -34,6 +36,18 @@ class Planisfero extends StatefulWidget {
 
   /// Il luogo scelto, in gradi. Null finche' non si sceglie.
   final ({double lat, double lon})? luogo;
+
+  /// **LA NAZIONE, QUANDO SI PUO' DISEGNARE.** Ordine BB voce 12.
+  ///
+  /// Il fatto del fondatore: su un planisfero l'Italia e' grande come
+  /// un'unghia, e la stella che si accende dove sei nato cade dentro
+  /// quell'unghia. Quando arriva una nazione, il quadro si stringe su di lei e
+  /// i punti diventano le sue citta' vere invece della griglia del mondo.
+  ///
+  /// **Nulla vuol dire mondo**, e non e' un ripiego: per i paesi di cui il
+  /// catalogo non ha abbastanza luoghi il planisfero e' l'unica cosa onesta
+  /// che si possa mostrare.
+  final MappaDellaNazione? nazione;
 
   final bool reduceMotion;
 
@@ -57,12 +71,16 @@ class _PlanisferoState extends State<Planisfero>
 
   /// I punti di terra, calcolati una volta sola: la griglia non cambia mai,
   /// e rifare il conto a ogni fotogramma sarebbe uno spreco.
-  late final List<Offset> _terra;
+  late List<Offset> _terra;
+
+  /// La nazione con cui `_terra` e' stato calcolato: se cambia, si rifa.
+  MappaDellaNazione? _nazioneDisegnata;
 
   @override
   void initState() {
     super.initState();
-    _terra = _puntiDiTerra();
+    _nazioneDisegnata = widget.nazione;
+    _terra = _punti(widget.nazione);
     _pulsare = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 8),
@@ -74,6 +92,31 @@ class _PlanisferoState extends State<Planisfero>
   void dispose() {
     _pulsare.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(Planisfero vecchio) {
+    super.didUpdateWidget(vecchio);
+    // **SI RIFA SOLO QUANDO CAMBIA IL PAESE, non a ogni fotogramma.** La
+    // nuvola dell'Italia sono ottomilaquattrocentotrentotto punti: rifarla a
+    // ogni ridisegno vorrebbe dire farla sessanta volte al secondo.
+    if (widget.nazione?.paese != _nazioneDisegnata?.paese) {
+      _nazioneDisegnata = widget.nazione;
+      setState(() => _terra = _punti(widget.nazione));
+    }
+  }
+
+  /// I punti da dipingere: le citta' della nazione, oppure la griglia del
+  /// mondo quando nazione non c'e'.
+  static List<Offset> _punti(MappaDellaNazione? nazione) {
+    if (nazione == null) return _puntiDiTerra();
+    return [
+      for (final p in nazione.punti)
+        () {
+          final q = nazione.proietta(p.lat, p.lon);
+          return Offset(q.x, q.y);
+        }(),
+    ];
   }
 
   static List<Offset> _puntiDiTerra() {
@@ -89,6 +132,13 @@ class _PlanisferoState extends State<Planisfero>
       }
     }
     return out;
+  }
+
+  Offset _proietta(double lat, double lon) {
+    final n = widget.nazione;
+    if (n == null) return Planisfero.proietta(lat, lon);
+    final q = n.proietta(lat, lon);
+    return Offset(q.x, q.y);
   }
 
   @override
@@ -107,9 +157,16 @@ class _PlanisferoState extends State<Planisfero>
           terra: _terra,
           palette: widget.palette,
           t: widget.reduceMotion ? 0 : _pulsare.value,
+          // **IL LUOGO SI PROIETTA CON LA STESSA FINESTRA DEI PUNTI**, se no
+          // la stella finisce da un'altra parte rispetto alla mappa: e' il
+          // difetto piu' facile da introdurre qui, e il piu' difficile da
+          // notare guardando, perche' la stella si vede comunque.
           luogo: widget.luogo == null
               ? null
-              : Planisfero.proietta(widget.luogo!.lat, widget.luogo!.lon),
+              : _proietta(widget.luogo!.lat, widget.luogo!.lon),
+          // Una nazione sta in un quadrato, il mondo in un rettangolo due a
+          // uno: chi dipinge deve saperlo.
+          quadrata: widget.nazione != null,
           deriva: deriva,
         ),
       ),
@@ -123,8 +180,12 @@ class _PlanisferoPainter extends CustomPainter {
     required this.palette,
     required this.t,
     required this.deriva,
+    required this.quadrata,
     this.luogo,
   });
+
+  /// Vero quando si dipinge una nazione, che sta in un quadrato.
+  final bool quadrata;
 
   final List<Offset> terra;
   final MaestroPalette palette;
@@ -132,12 +193,29 @@ class _PlanisferoPainter extends CustomPainter {
   final Offset deriva;
   final Offset? luogo;
 
+  /// **QUANTO SI ASSOTTIGLIA IL TRATTO QUANDO I PUNTI SONO TANTI.**
+  ///
+  /// Il mondo si disegna con un migliaio di punti e ognuno deve pesare. La
+  /// nazione ne porta ottomilaquattrocentotrentotto nello stesso quadro, e col
+  /// raggio del mondo si toccano tutti: l'Italia veniva fuori come una macchia
+  /// piena, uno stivale grasso senza la trama delle sue citta'. Visto
+  /// nell'anteprima, non trovato da una prova.
+  ///
+  /// La finezza scende con la radice del numero di punti, cosi' l'inchiostro
+  /// totale resta piu' o meno lo stesso comunque sia fitta la nuvola.
+  double get _finezza {
+    if (terra.length <= 1200) return 1.0;
+    return math.max(0.42, math.sqrt(1200 / terra.length));
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     // La mappa sta al centro, con le proporzioni giuste: due a uno, che e'
     // quello che vuole una proiezione equirettangolare.
-    final larghezza = math.min(size.width, size.height * 2);
-    final altezza = larghezza / 2;
+    final larghezza = quadrata
+        ? math.min(size.width, size.height)
+        : math.min(size.width, size.height * 2);
+    final altezza = quadrata ? larghezza : larghezza / 2;
     final origine = Offset(
       (size.width - larghezza) / 2,
       (size.height - altezza) / 2,
@@ -156,7 +234,7 @@ class _PlanisferoPainter extends CustomPainter {
       final onda = 0.5 + 0.5 * math.sin(2 * math.pi * (t + fase));
       // Solo una minoranza brilla forte in ogni istante.
       final acceso = math.pow(onda, 6).toDouble();
-      final r = 0.9 + 0.9 * acceso;
+      final r = (0.9 + 0.9 * acceso) * _finezza;
       canvas.drawCircle(
         p,
         r,
@@ -215,7 +293,11 @@ class _PlanisferoPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_PlanisferoPainter old) =>
-      old.t != t || old.luogo != luogo || old.deriva != deriva;
+      old.t != t ||
+      old.luogo != luogo ||
+      old.deriva != deriva ||
+      old.quadrata != quadrata ||
+      !identical(old.terra, terra);
 }
 
 /// La forma del mondo, ridotta all'osso.

@@ -23,7 +23,7 @@ conta sulle righe.
 
 - **BA.00** Manifesto e misure di partenza. Stato: CHIUSA
 - **BA.01** Lo sfondo parte in ritardo. Stato: CHIUSA
-- **BA.02** I Maestri coprono il messaggio sopra di loro. Stato: APERTA
+- **BA.02** I Maestri coprono il messaggio sopra di loro. Stato: CHIUSA
 
 ## BA.01: la misura di partenza, e il fatto e' esatto
 
@@ -102,16 +102,61 @@ dello spazio disponibile**. Adesso comanda il vincolo, e solo un pavimento
 assoluto di 150 punti puo' scavalcarlo, per gli schermi cosi' corti che sotto
 quella soglia un Maestro non si riconosce piu'.
 
-**La voce resta APERTA**, e la prova resta rossa a dichiararlo: **non e' una
-guardia rossa apposta, e' un difetto ancora aperto con la sua misura**. Lo
-schermo basso e' il caso peggiore, ed e' li' che il vincolo e il pavimento si
-scontrano davvero.
+## BA.02 chiusa: la terza misura era ancora sbagliata, e la cura era altrove
+
+**Anche la seconda misura era falsa, e l'ha smascherata una mappa dipinta.**
+Contava i pixel che cambiano dentro il RETTANGOLO del testo, ma un rettangolo
+di testo e' quasi tutto vuoto. Dipinta la mappa della differenza, su schermo
+alto la cima dei Maestri entrava nelle ultime quattordici righe di quel
+rettangolo, **dove lettere non ce ne sono**: la prova dichiarava 830 pixel
+coperti mentre a video non era coperto niente. Era il difetto denunciato tre
+volte, il rettangolo al posto della vernice, spostato di un livello.
+
+**La terza misura conta le LETTERE.** Si dipinge una terza volta anche senza
+il testo, e la differenza fra quella e la scena senza Maestri e' l'insieme
+esatto dell'inchiostro. **La prima stesura di questa misura non funzionava**,
+e l'ha detto la guardia dentro la prova stessa: una bandiera globale che
+cambia non fa ridipingere niente, e il conto dava zero pixel di inchiostro,
+cioe' avrebbe dichiarato risolto un difetto **non guardandolo**. Con un
+notificatore al posto del booleano il ridisegno e' certo.
+
+**I numeri veri, finalmente**: su 7.344 pixel di inchiostro ne erano coperti
+**210** su schermo alto, **966** sul medio, e **5.979 su 7.107 sul basso, cioe'
+l'ottantaquattro per cento del testo**.
+
+**La cura non era l'altezza del busto, ed e' per questo che tre tentativi di
+restringerlo non erano bastati.** Il riquadro del carosello poteva salire
+dentro il blocco del cielo, e le figure ne uscivano pure con `Clip.none`:
+qualunque conto sull'altezza lasciava scoperto il caso in cui il pavimento
+minimo vince sullo spazio concesso. Adesso due cose insieme, e nessuna delle
+due da sola bastava: **il carosello e' ritagliato** con una dissolvenza in
+cima, cosi' sopra la sua zona non arriva un pixel per costruzione; e **il suo
+riquadro non puo' piu' essere piu' alto dello spazio che c'e'**.
+
+**Misurato dopo: ZERO pixel di inchiostro coperti su tutti e tre gli
+schermi.**
+
+## Cosa resta, sullo schermo piu' piccolo, e non si tace
+
+Su **320 per 568** il blocco del cielo occupa 258 punti su 568, e sotto ne
+restano **ventiquattro**: il busto si dissolve nel ritaglio e in pratica non
+si vede. Il testo si legge, ma quella home ha perso i suoi protagonisti.
+
+**Non e' un difetto della cura, e' la stanza troppo piccola per due mobili**, e
+la scelta fra i due l'aveva gia' scritta il codice: quando non stanno insieme
+vince il testo, perche' un Maestro piu' piccolo si riconosce ancora e una frase
+coperta a meta' non si legge affatto.
+
+**La cura completa e' che il cielo ceda su quegli schermi**, ed e' lavoro
+dichiarato e non fatto. La prova stampa a ogni giro quanti punti restano al
+busto sui tre schermi, **234, 150 e 24**, cosi' il giorno in cui si fara' si sa
+da che numero si parte.
 
 ## I marcatori
 
 VOCI_TOTALI: 3
-VOCI_APERTE: 1
-VOCI_CHIUSE: 2
+VOCI_APERTE: 0
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

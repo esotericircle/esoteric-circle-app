@@ -2,59 +2,32 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
-import '../../core/maestro/maestro.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
 import '../../core/rituals/filo_del_giorno.dart';
 import '../../design_system/components/le_tre_righe_del_rito.dart';
 import '../../design_system/components/riga_del_dono.dart';
-import '../../design_system/theme/accento_del_maestro.dart';
-import '../../design_system/tokens/regime_chiaro.dart';
+import '../../design_system/theme/abito_del_responso.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 
-// I COLORI DEL REGIME CHIARO NON VIVONO PIU' QUI. Ordine P voce 12.
+// I COLORI NON VIVONO PIU' QUI, E ADESSO NEMMENO UNO. Ordine P voce 12, poi
+// ordine BB voce 09.
 //
-// Erano tre costanti private, e una costante privata non e' un token: non si
-// enumera, non si misura e non si sorveglia. Finche' i regimi cromatici erano
-// due e uno solo era governato dai token, nessun presidio automatico poteva
-// proteggere l'altro, ed e' cosi' che il difetto delle etichette illeggibili
-// e' nato. Adesso stanno in `RegimeChiaro`, col contrasto misurato e una
-// guardia che lo sorveglia.
-const Color _dayInk = RegimeChiaro.testoSuChiaro;
-final Color _dayInkSoft = RegimeChiaro.testoMutoSuChiaro;
-const Color _dayInset = RegimeChiaro.incassoSuChiaro;
-
-/// L'ACCENTO DELLA SCHEDA, che nasce dal Maestro del giorno.
-///
-/// **Da `gift.maestro` e da nient'altro.** Il dono sa gia' di chi e' il giorno,
-/// perche' gliel'ha messo dentro `DawnGift.forMaestro`, che a sua volta lo
-/// prende da `DailyRituals.dawnMaestro` per la rotazione e da
-/// `DailyElements.maestroFor` per i riti a guida fissa. Passare una palette
-/// dalle schermate creerebbe **due** punti che decidono lo stesso colore, e
-/// prima o poi direbbero due cose diverse.
-///
-/// **Il testo NON si tinge.** `_dayInk` e `_dayInkSoft` restano quelli: a gesto
-/// completato la scena e' luce piena e la bolla e' vetro chiaro, quindi tingere
-/// l'inchiostro peggiorerebbe la lettura senza dire niente di piu'. Il Maestro
-/// si vede dove il colore e' colore, cioe' negli accenti, nella parola del
-/// giorno e nel bordo.
-///
-/// **La regola del contrasto non vive piu' qui**, vive in
-/// `AccentoDelMaestro`: era privata a questo file, e questa scheda era l'unica
-/// superficie dell'app che sapesse essere leggibile. Adesso e' un punto solo
-/// per tutte le superfici che portano il colore del Maestro del giorno.
-Color _accentoDi(Maestro maestro) =>
-    AccentoDelMaestro.su(maestro, superficie: _vetroOpaco);
-
-/// Il vetro reso opaco, cioe' la condizione in cui la scheda si mostra davvero:
-/// compare a gesto completato, quando la scena sotto e' luce piena.
-const Color _vetroOpaco = RegimeChiaro.superficieChiara;
-
-// La bolla e' un vetro smerigliato: semitrasparente e sfocata, lascia intravedere
-// la scena sotto ma tiene il testo scuro leggibile sul chiaro.
-const Color _dayGlass = RegimeChiaro.velatura;
-const Color _dayGlassBorder = RegimeChiaro.bordoDellaVelatura;
+// **Il primo passo, l'ordine P.** Erano tre costanti private, e una costante
+// privata non e' un token: non si enumera, non si misura e non si sorveglia.
+// Finche' i regimi cromatici erano due e uno solo era governato dai token,
+// nessun presidio automatico poteva proteggere l'altro, ed e' cosi' che il
+// difetto delle etichette illeggibili e' nato. Sono passate in `RegimeChiaro`,
+// col contrasto misurato e una guardia che lo sorveglia.
+//
+// **Il secondo passo, l'ordine BB.** Erano diventate token, ma restavano
+// UNICHE: `_dayInk`, `_dayInkSoft`, `_dayInset`, `_dayGlass`, lette da questo
+// file e dai suoi sottocomponenti, uguali per tutti e cinque i Doni. **E' il
+// motivo per cui il Soffio del Destino somigliava al Rito dell'Alba**: non era
+// una svista di stile, era una scheda sola travestita da cinque. Adesso i
+// colori arrivano da `AbitoDelResponso`, che ne conosce due, e la scheda
+// chiede quale le tocca al Dono che sta mostrando.
 
 /// La card del dono del giorno, condivisa dai riti: dentro una bolla di vetro
 /// smerigliato semitrasparente, testo scuro leggibile sul chiaro. Porge tre
@@ -102,7 +75,12 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
     final word = gift.word;
     // L'accento nasce QUI, da gift.maestro, e da qui scende ai widget annidati
     // come parametro: non c'e' un secondo punto che lo decida.
-    final accento = _accentoDi(gift.maestro);
+    // **L'ABITO NASCE QUI, dal Dono, e scende ai figli come parametro.**
+    // Ordine BB voce 09: prima i colori erano costanti di questo file,
+    // lette direttamente anche dai sottocomponenti, ed e' il motivo per
+    // cui cinque riti diversi portavano la stessa identica scheda.
+    final abito = AbitoDelResponso.di(widget.dono);
+    final accento = abito.accentoDi(gift.maestro);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
@@ -110,9 +88,9 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
         filter: ui.ImageFilter.blur(sigmaX: 18, sigmaY: 18),
         child: Container(
           decoration: BoxDecoration(
-            color: _dayGlass,
+            color: abito.velatura,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: _dayGlassBorder),
+            border: Border.all(color: abito.bordo),
           ),
           padding: const EdgeInsets.all(SpacingTokens.lg),
           // **La scheda scorre**, e da oggi le serve. Finche' il dono era un
@@ -129,13 +107,13 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               RigaDelDono(
                 dono: widget.dono,
                 giorno: widget.giorno,
-                superficie: _vetroOpaco,
+                superficie: abito.superficiePeggiore,
               ),
               // LE TRE RIGHE DEL RITO, ordine P voce 17: cosa fai, perche', e
               // cosa ti resta. In testa, prima di tutto il resto.
               LeTreRigheDelRito(
                 rito: widget.dono,
-                inchiostro: _dayInk,
+                inchiostro: abito.inchiostro,
                 accento: accento,
                 // Il perche' scende nella base apribile, ordine AS voce 06:
                 // qui sopra restano cosa fai e cosa ti resta, che sono la
@@ -158,7 +136,8 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
               Text(
                 gift.orientation,
                 key: const Key('alba_orientamento'),
-                style: TypographyTokens.corpo().copyWith(color: _dayInk),
+                style:
+                    TypographyTokens.corpo().copyWith(color: abito.inchiostro),
               ),
               // **LA PAROLA DEL GIORNO, SOLO ALL'ALBA E COL SUO SIGNIFICATO.**
               // Ordine BB voce 06.
@@ -187,7 +166,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                   'Parola del giorno',
                   key: const Key('alba_etichetta_parola'),
                   style: TypographyTokens.didascalia().copyWith(
-                    color: _dayInkSoft,
+                    color: abito.inchiostroMuto,
                     letterSpacing: 0.6,
                   ),
                 ),
@@ -208,7 +187,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                     gift.rito!.perche,
                     key: const Key('alba_perche_della_parola'),
                     style: TypographyTokens.corpo()
-                        .copyWith(color: _dayInk, height: 1.4),
+                        .copyWith(color: abito.inchiostro, height: 1.4),
                   ),
                 ],
               ],
@@ -234,14 +213,14 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                   padding: const EdgeInsets.all(SpacingTokens.sm),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
-                    color: _dayInset,
+                    color: abito.incasso,
                     border: Border.all(color: accento.withValues(alpha: 0.4)),
                   ),
                   child: Text(
                     FiloDelGiorno.richiamoDellaDomanda(widget.domandaDiIeri!),
                     key: const Key('alba_domanda_di_ieri'),
                     style: TypographyTokens.didascalia()
-                        .copyWith(color: _dayInk, height: 1.4),
+                        .copyWith(color: abito.inchiostro, height: 1.4),
                   ),
                 ),
               ],
@@ -257,6 +236,7 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                 alignment: Alignment.topCenter,
                 child: _baseOpen
                     ? _BasePanel(
+                        abito: abito,
                         source: gift.source,
                         // **IL PERCHE' DEL RITO STA QUI DENTRO**, ordine AS
                         // voce 06: la base e' il posto delle ragioni, ed e'
@@ -282,7 +262,10 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
                     _ShareWordButton(
                         onShare: widget.onShare, accento: accento),
                   if (widget.streak >= 1)
-                    _StreakChip(days: widget.streak, accento: accento),
+                    _StreakChip(
+                        abito: abito,
+                        days: widget.streak,
+                        accento: accento),
                 ],
               ),
             ],
@@ -339,7 +322,11 @@ class _BaseToggle extends StatelessWidget {
 /// Il pannello della base: ancora natale reale, transito e tradizione, con la
 /// provvisorieta' dichiarata dove il contenuto verificato manca.
 class _BasePanel extends StatelessWidget {
-  const _BasePanel({required this.source, this.percheDelRito});
+  const _BasePanel(
+      {required this.abito, required this.source, this.percheDelRito});
+
+  /// L'abito deciso dalla scheda: qui non si sceglie niente da capo.
+  final AbitoDelResponso abito;
 
   final GiftSource source;
 
@@ -357,19 +344,22 @@ class _BasePanel extends StatelessWidget {
       padding: const EdgeInsets.all(SpacingTokens.md),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        color: _dayInset,
-        border: Border.all(color: _dayInkSoft.withValues(alpha: 0.28)),
+        color: abito.incasso,
+        border:
+            Border.all(color: abito.inchiostroMuto.withValues(alpha: 0.28)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (percheDelRito != null)
             _BaseRow(
+              abito: abito,
               label: 'Perché questo rito',
               value: percheDelRito!,
               provisional: false,
             ),
           _BaseRow(
+            abito: abito,
             label: 'Ancora natale',
             value: source.natalDescription,
             provisional: false,
@@ -389,6 +379,7 @@ class _BasePanel extends StatelessWidget {
           if (source.transit != null) ...[
             const SizedBox(height: SpacingTokens.sm),
             _BaseRow(
+              abito: abito,
               label: 'Transito attivo oggi',
               value: source.transit!,
               provisional: false,
@@ -397,6 +388,7 @@ class _BasePanel extends StatelessWidget {
           if (source.tradition != null) ...[
             const SizedBox(height: SpacingTokens.sm),
             _BaseRow(
+              abito: abito,
               label: 'Nella tradizione',
               value: source.tradition!,
               provisional: false,
@@ -410,10 +402,13 @@ class _BasePanel extends StatelessWidget {
 
 class _BaseRow extends StatelessWidget {
   const _BaseRow({
+    required this.abito,
     required this.label,
     required this.value,
     required this.provisional,
   });
+
+  final AbitoDelResponso abito;
 
   final String label;
   final String value;
@@ -434,7 +429,7 @@ class _BaseRow extends StatelessWidget {
                 label,
                 key: Key('alba_base_etichetta_' + chiaveDi(label)),
                 style: TypographyTokens.didascalia().copyWith(
-                  color: _dayInkSoft,
+                  color: abito.inchiostroMuto,
                   letterSpacing: 0.4,
                 ),
               ),
@@ -449,7 +444,7 @@ class _BaseRow extends StatelessWidget {
           value,
           key: Key('alba_base_valore_' + chiaveDi(label)),
           style: TypographyTokens.corpo().copyWith(
-            color: provisional ? _dayInkSoft : _dayInk,
+            color: provisional ? abito.inchiostroMuto : abito.inchiostro,
             height: 1.4,
             fontStyle: provisional ? FontStyle.italic : FontStyle.normal,
           ),
@@ -496,7 +491,10 @@ class _ShareWordButton extends StatelessWidget {
 
 /// Indicatore discreto dei giorni consecutivi di rito compiuto.
 class _StreakChip extends StatelessWidget {
-  const _StreakChip({required this.days, required this.accento});
+  const _StreakChip(
+      {required this.abito, required this.days, required this.accento});
+
+  final AbitoDelResponso abito;
 
   /// L'accento del Maestro del giorno, deciso una volta sola dalla scheda.
   final Color accento;
@@ -512,7 +510,7 @@ class _StreakChip extends StatelessWidget {
           horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-        color: _dayInset,
+        color: abito.incasso,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

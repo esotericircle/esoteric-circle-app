@@ -155,8 +155,14 @@ class RegimeChiaro {
 /// rimasto per settimane l'unica superficie chiara dell'app senza che nessun
 /// presidio la vedesse.
 enum SuperficieChiara {
-  /// La scheda del dono, condivisa da Alba e Soffio: e' la superficie chiara
+  /// La scheda del dono **del solo Rito dell'Alba**: e' la superficie chiara
   /// vera e propria, il vetro caldo col testo scuro.
+  ///
+  /// **NON E' PIU' CONDIVISA CON IL SOFFIO.** Ordine BB voce 09: era la stessa
+  /// scheda per tutti e cinque i Doni, ed e' il motivo per cui il fondatore ha
+  /// visto il Soffio somigliare all'Alba. Adesso solo l'Alba porta il chiaro,
+  /// che e' l'unica ad averne la ragione, e gli altri quattro sono tornati
+  /// notturni come il resto dell'app.
   schedaDelDono(
     classe: 'RitualGiftCard',
     file: 'lib/features/rituals/ritual_gift_card.dart',
@@ -171,6 +177,20 @@ enum SuperficieChiara {
     file: 'lib/design_system/components/riga_del_dono.dart',
     perche: 'vive dentro la scheda del dono, quindi eredita la sua superficie: '
         'la riceve dichiarata invece di indovinarla dal tema',
+  ),
+
+  /// **L'ABITO DEL RESPONSO, che il chiaro lo SCEGLIE per uno solo.**
+  ///
+  /// Ordine BB voce 09. E' l'unico punto che decide quale dei cinque Doni
+  /// porta il regime chiaro e quali quattro tornano notturni, quindi e' anche
+  /// il solo che nomina i token del chiaro fuori dalle schermate. Sta in
+  /// questo elenco per la stessa ragione delle altre due: chi tocca il chiaro
+  /// si dichiara, se no il presidio non puo' sorvegliarlo.
+  abitoDelResponso(
+    classe: 'AbitoDelResponso',
+    file: 'lib/design_system/theme/abito_del_responso.dart',
+    perche: 'decide quale Dono veste di giorno, e per farlo deve nominare i '
+        'colori del giorno: e la porta del regime chiaro, non una schermata',
   );
 
   const SuperficieChiara({

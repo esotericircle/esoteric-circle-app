@@ -84,6 +84,12 @@ class CityCatalog {
   /// Vero quando l'elenco pieno e' in memoria.
   static bool get isLoaded => _cities.length > _seed.length;
 
+  /// **TUTTI I LUOGHI, in sola lettura.** Ordine BB voce 12: la mappa della
+  /// nazione si disegna con le citta' di questo stesso elenco, quindi le
+  /// serve vederle tutte. In sola lettura perche' l'elenco lo riempie il
+  /// caricamento dell'asset, e nessun altro deve poterlo toccare.
+  static List<City> get luoghi => List.unmodifiable(_cities);
+
   /// Carica l'elenco una volta sola. Chiamate successive attendono la prima.
   /// Se l'asset manca o e' malformato non solleva: resta il seme.
   static Future<void> ensureLoaded({AssetBundle? bundle}) {

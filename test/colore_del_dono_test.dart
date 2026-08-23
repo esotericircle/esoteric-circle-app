@@ -199,7 +199,15 @@ void main() {
     test('nessun altro punto in lib deriva l\'accento della scheda', () {
       // Se un secondo punto decidesse questo colore, prima o poi i due
       // direbbero cose diverse e nessuno saprebbe quale comanda.
-      const laPorta = 'lib/features/rituals/ritual_gift_card.dart';
+      //
+      // **LA PORTA SI E SPOSTATA, e questa prova ha fatto il suo mestiere.**
+      // Ordine BB voce 09: l accento non dipende piu solo dal Maestro del
+      // giorno ma anche dall ABITO del responso, perche lo stesso oro che si
+      // legge sul vetro crema dell Alba sparirebbe sul vetro notturno del
+      // Soffio. Spostata la derivazione, questa e caduta indicando il file
+      // vecchio: era esattamente cio che doveva fare, e la porta nuova e
+      // `AbitoDelResponso.accentoDi`.
+      const laPorta = 'lib/design_system/theme/abito_del_responso.dart';
 
       final definizioni = <String>[];
       final colpevoli = <String>[];
@@ -210,7 +218,7 @@ void main() {
         final percorso = f.path.replaceAll(r'\', '/');
         final relativo = percorso.substring(percorso.indexOf('lib/'));
         final testo = f.readAsStringSync();
-        for (final _ in RegExp(r'Color\s+_accentoDi\s*\(').allMatches(testo)) {
+        for (final _ in RegExp(r'Color\s+accentoDi\s*\(').allMatches(testo)) {
           definizioni.add(relativo);
         }
         if (relativo == laPorta) continue;

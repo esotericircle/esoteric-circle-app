@@ -46,11 +46,11 @@ premessa di BB.11 descrive una build precedente alla 2195.
 - **BB.06** La parola del giorno serve a qualcosa. Stato: CHIUSA
 - **BB.07** L'Alba non manda al Soffio. Stato: CHIUSA
 - **BB.08** "Attiva la posizione" attiva davvero. Stato: CHIUSA
-- **BB.09** Il Soffio non somiglia all'Alba. Stato: APERTA
+- **BB.09** Il Soffio non somiglia all'Alba. Stato: CHIUSA
 - **BB.10** Le notifiche dei doni. Stato: CHIUSA
 - **BB.11** Il menu' Account nelle Impostazioni. Stato: CHIUSA con l'ordine AZ voce 11
-- **BB.12** Il luogo di nascita e il mondo. Stato: APERTA
-- **BB.13** L'icona dell'app. Stato: APERTA
+- **BB.12** Il luogo di nascita e il mondo. Stato: CHIUSA per l'Italia, e per gli altri 241 paesi resta il planisfero
+- **BB.13** L'icona dell'app. Stato: CHIUSA
 
 ## BB.06: una premessa falsa, e il lavoro rovesciato
 
@@ -68,7 +68,7 @@ l'utente si chiedera': ok, ma cosa ne faccio adesso di questa parola?"
 titolo senza testo**. Chi la leggeva cercava cosa farne e non trovava nulla.
 
 **Il legame esisteva gia' nel corpus e non arrivava a schermo.** Ogni parola
-porta con se' il suo , cioe' cosa indica in questo giorno; e l'ordine
+porta con se' il suo perche', cioe' cosa indica in questo giorno; e l'ordine
 AS voce 06 aveva gia' fatto in modo che la parola nascesse dal **gesto** e non
 da un terzo seme, proprio perche' "il gesto diceva conta quante ore mancano a
 stasera e la parola era Ombra". **Mancava l'ultimo passo: mostrarlo.** Adesso
@@ -101,8 +101,34 @@ per ultimo cio' che richiede una fonte esterna.
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 3
-VOCI_CHIUSE: 11
+VOCI_APERTE: 0
+VOCI_CHIUSE: 14
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+
+## Cosa BB.12 lascia scoperto, detto e non taciuto
+
+**La mappa della nazione si disegna per l'Italia, non per il mondo.** La fonte
+delle sagome, che era il nodo della voce, e' `assets/data/luoghi.csv`, cioe' i
+luoghi che l'app ha gia' in casa: nessun asset nuovo, nessuna rete, nessuna
+licenza da verificare, e nessun disallineamento possibile fra la mappa e
+l'elenco in cui la persona cerca la sua citta', perche' **sono lo stesso dato**.
+
+**Perche' un paese solo.** Perche' una nuvola di citta' disegni il paese deve
+essere fitta. Misurati i luoghi per grado quadrato di tutti e 242 i paesi:
+l'Italia ne ha **62**, l'India **0,42**, la Cina **0,23**, gli Stati Uniti
+**0,04**. Fra il primo e il secondo corrono **147 volte**. Le nuvole degli
+altri sono state guardate una per una, e non disegnano il loro paese: sono
+spruzzate.
+
+**Il criterio e' scritto come regola e non come elenco**: densita' minima di
+otto luoghi per grado quadrato, con almeno duecento luoghi. Se un domani il
+catalogo si infittisse su un altro paese, quel paese entrerebbe da solo.
+
+**Cosa servirebbe per gli altri 241.** Una vera fonte di contorni. Ne esiste
+una di pubblico dominio, Natural Earth alla scala 1 a 110 milioni. E' lavoro
+di un altro giorno, perche' vuole un asset nuovo, la sua conversione a punti e
+la sua prova. **Fino ad allora chi e' nato fuori dall'Italia vede il
+planisfero**, che e' la cosa onesta: meglio il mondo intero che una spruzzata
+di punti spacciata per il proprio paese.

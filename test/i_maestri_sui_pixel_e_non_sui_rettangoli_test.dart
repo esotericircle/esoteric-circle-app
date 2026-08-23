@@ -75,7 +75,11 @@ void main() {
         (tester) async {
       silenzia();
       maestriSpentiPerLaProva = false;
-      addTearDown(() => maestriSpentiPerLaProva = false);
+      testoDelCieloSpentoPerLaProva.value = false;
+      addTearDown(() {
+        maestriSpentiPerLaProva = false;
+        testoDelCieloSpentoPerLaProva.value = false;
+      });
 
       // **PRIMA CON I MAESTRI**, cioe' la home come la vede il fondatore.
       await montaLaHomePerLaMisura(tester, voce.value);
@@ -109,19 +113,47 @@ void main() {
       await tester.pump(Duration.zero);
       final senza = await dipingi(tester);
 
-      // **SI CONTANO SOLO I PIXEL DENTRO LA FASCIA DEL TESTO.** Fuori di li'
-      // i Maestri devono cambiare i pixel: sono loro, e coprono il cielo, che
-      // e' il loro posto.
+      // **E POI SENZA NIENTE**, cioe' senza Maestri e senza testo: la
+      // differenza fra questa e la precedente e' l'insieme ESATTO delle
+      // lettere dipinte.
+      testoDelCieloSpentoPerLaProva.value = true;
+      await tester.pump(Duration.zero);
+      final nudo = await dipingi(tester);
+
+      // **SI CONTANO LE LETTERE, NON IL RETTANGOLO. Ordine BA voce 02, terza
+      // stesura della misura, e le prime due erano sbagliate tutte e due.**
+      //
+      // La prima confrontava i rettangoli di layout e diceva zero tre volte
+      // mentre a schermo il testo si leggeva a meta'. La seconda contava i
+      // pixel dentro il rettangolo del testo, ed **e' stata smascherata
+      // dipingendo la mappa della differenza**: su schermo alto la cima dei
+      // Maestri entrava nelle ultime quattordici righe di quel rettangolo,
+      // **dove lettere non ce ne sono**, e la prova dichiarava 830 pixel
+      // coperti mentre a video non era coperto niente. Un rettangolo di testo
+      // e' quasi tutto vuoto, e contare il vuoto e' contare il cielo.
+      //
+      // Adesso un pixel conta solo se e' **di una lettera**, cioe' se
+      // spegnere il testo lo cambia. Non c'e' piu' spazio per
+      // l'interpretazione: o i Maestri toccano l'inchiostro, o non lo toccano.
       final larghezza = tester.view.physicalSize.width ~/
           tester.view.devicePixelRatio;
+      var lettere = 0;
       var diversi = 0;
       for (var y = fascia.top.floor(); y < fascia.bottom.ceil(); y++) {
         for (var x = fascia.left.floor(); x < fascia.right.ceil(); x++) {
           final i = (y * larghezza + x) * 4;
           if (i < 0 || i + 3 >= con.lengthInBytes) continue;
+          // Questo pixel porta inchiostro?
+          if (senza.getUint32(i) == nudo.getUint32(i)) continue;
+          lettere++;
           if (con.getUint32(i) != senza.getUint32(i)) diversi++;
         }
       }
+      expect(lettere, greaterThan(500),
+          reason: 'dentro la fascia si contano solo $lettere pixel di '
+              'inchiostro: il testo non si sta dipingendo, e una misura che '
+              'non trova le lettere non puo dire se sono coperte');
+      testoDelCieloSpentoPerLaProva.value = false;
       // **DOVE ARRIVA LA CIMA DEI MAESTRI, misurata e non stimata.** Il
       // codice del carosello calcola quanto sale un laterale con un fattore
       // dedotto dalle sue costanti; qui si guarda il pixel piu' alto che
@@ -141,9 +173,29 @@ void main() {
       }
       // ignore: avoid_print
       print('ORDINE BA VOCE 02: su schermo ${voce.key}, la fascia del testo '
-          'va da ${fascia.top.round()} a ${fascia.bottom.round()}, i Maestri '
-          'arrivano fino a $cima, e i pixel del testo che cambiano sono '
-          '$diversi');
+          'va da ${fascia.top.round()} a ${fascia.bottom.round()} e porta '
+          '$lettere pixel di inchiostro, i Maestri arrivano fino a $cima, e i '
+          'pixel di INCHIOSTRO che coprono sono $diversi');
+
+      // **E QUANTO RESTA DEI MAESTRI, dichiarato e non taciuto.** Ordine BA
+      // voce 02.
+      //
+      // Il testo che si legge non basta se il prezzo e' una home senza i suoi
+      // protagonisti. Su schermo alto e medio il busto resta pieno; **su
+      // schermo 320 per 568 scende a ventiquattro punti e in pratica non si
+      // vede**, perche' li' il blocco del cielo ne occupa 258 su 568 e sotto
+      // non resta posto. Non e' un difetto della cura, e' la stanza che e'
+      // troppo piccola per i due mobili.
+      //
+      // **La cura completa e' che il cielo ceda su quegli schermi**, ed e'
+      // lavoro dichiarato e non fatto. Questa riga esiste perche' il giorno in
+      // cui si fara' si sappia da che numero si parte, e perche' nessuno possa
+      // dire che il difetto era nascosto.
+      final busto = ultimaMisuraDelBusto?.busto ?? 0;
+      // ignore: avoid_print
+      print('ORDINE BA VOCE 02: su schermo ${voce.key} del busto restano '
+          '${busto.round()} punti, e il carosello ne prende '
+          '${(ultimaMisuraDelBusto?.concessa ?? 0).round()}');
 
       expect(diversi, 0,
           reason: 'i Maestri coprono $diversi pixel del testo che sta sopra '
