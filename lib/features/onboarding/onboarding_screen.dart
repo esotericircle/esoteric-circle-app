@@ -29,6 +29,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import 'anteprima_tono.dart';
 import 'astrolabio.dart';
 import 'orologio_dinamico.dart';
+import 'nazioni_del_mondo.dart';
 import 'planisfero.dart';
 import 'risveglio_ignitions.dart';
 import 'sigillo_step.dart';
@@ -260,6 +261,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   void initState() {
     super.initState();
     Briciole.lascia('onboarding_entrato');
+    // I contorni veri delle nazioni si caricano subito, ordine BE voce 03:
+    // se il caricamento arriva dopo la scelta della citta', la mappa gia'
+    // calcolata si butta e si ricalcola col contorno.
+    NazioniDelMondo.ensureLoaded().then((_) {
+      if (mounted) setState(() => _nazionePerQuale = null);
+    });
     _riprendiCioCheIlCerchioSapeva();
     _chiediSeIlTelefonoPropone();
     _ignite = AnimationController(

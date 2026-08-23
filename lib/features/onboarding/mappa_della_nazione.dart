@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import '../../core/astro/city_catalog.dart';
 import 'mondo_grezzo.dart';
+import 'nazioni_del_mondo.dart';
 
 /// LA MAPPA DELLA NAZIONE, DISEGNATA DAI LUOGHI CHE L'APP HA GIA'.
 /// Ordine BB voce 12.
@@ -53,6 +54,7 @@ class MappaDellaNazione {
     required this.ovest,
     required this.est,
     this.sfondo = const [],
+    this.nazionePiena = false,
   });
 
   /// **LO SFONDO DI REGIONE, ordine BD voce 03.** Per i paesi che non hanno
@@ -65,6 +67,11 @@ class MappaDellaNazione {
   /// Vero quando questa mappa e' una regione del mondo attorno al paese,
   /// non il paese disegnato dalle sue citta'.
   bool get eRegione => sfondo.isNotEmpty;
+
+  /// Vero quando lo sfondo e' il CORPO del paese, ricostruito dal suo
+  /// contorno vero (ordine BE voce 03): si dipinge pieno e leggibile come
+  /// l'Italia, non tenue come le coste di una regione.
+  final bool nazionePiena;
 
   /// Il paese come lo scrive il catalogo: per l'Italia e' la sigla di due
   /// lettere della provincia, per gli altri il nome del paese.
@@ -156,6 +163,15 @@ class MappaDellaNazione {
       );
     }
 
+    // **LA NAZIONE VERA, ordine BE voce 03.** Sulla 2199 il fondatore ha
+    // bocciato la regione a griglia: "la nazione non e' ricostruita e tutto
+    // e' semitrasparente". Se il contorno di Natural Earth c'e', il paese
+    // si disegna PIENO dal suo contorno vero, leggibile come l'Italia.
+    final contorni = NazioniDelMondo.contorniDi(paese);
+    if (contorni != null) {
+      return nazioneDalContorno(paese, punti, contorni);
+    }
+
     // **LA REGIONE DEL MONDO, ordine BD voce 03.** Il fatto del fondatore in
     // BB voce 12 valeva per tutto il mondo: "cosa succede se un utente e'
     // straniero?". Fino a qui gli altri 241 paesi vedevano il planisfero
@@ -166,6 +182,75 @@ class MappaDellaNazione {
     // resta dichiarato e qui diventa visibile**: la loro regione porta un
     // punto di citta' solo, col suo pezzo di costa attorno.
     return regione(paese, punti, sud: sud, nord: nord, ovest: ovest, est: est);
+  }
+
+  /// Quanti passi di griglia per lato ha il corpo di una nazione piena: piu'
+  /// fitto della regione, perche' qui la griglia E' la sagoma.
+  static const int passiDellaNazione = 84;
+
+  /// La nazione ricostruita dal suo contorno vero. Ordine BE voce 03.
+  static MappaDellaNazione nazioneDalContorno(
+    String paese,
+    List<({double lat, double lon})> punti,
+    List<List<({double lat, double lon})>> contorni,
+  ) {
+    // **GLI ANELLI GIUSTI SONO QUELLI DOVE VIVONO LE CITTA'.** Misurato
+    // sulla Francia: il contorno di Natural Earth porta anche la Guyana
+    // francese, il riquadro attraversava l'Atlantico e del corpo restavano
+    // 127 punti su settemila. Si tengono gli anelli che contengono almeno
+    // una citta' del catalogo (con mezzo grado di tolleranza costiera); se
+    // nessuno ne contiene, si tengono tutti.
+    final anelliVivi = <List<({double lat, double lon})>>[];
+    for (final anello in contorni) {
+      final unSolo = [anello];
+      final ospita = punti.any((c) =>
+          NazioniDelMondo.dentro(c.lat, c.lon, unSolo) ||
+          NazioniDelMondo.dentro(c.lat + 0.5, c.lon, unSolo) ||
+          NazioniDelMondo.dentro(c.lat - 0.5, c.lon, unSolo) ||
+          NazioniDelMondo.dentro(c.lat, c.lon + 0.5, unSolo) ||
+          NazioniDelMondo.dentro(c.lat, c.lon - 0.5, unSolo));
+      if (ospita) anelliVivi.add(anello);
+    }
+    final corpoDelPaese = anelliVivi.isEmpty ? contorni : anelliVivi;
+
+    // Il riquadro viene dal CONTORNO abitato, non dalle citta': un paese
+    // con una citta' sola merita comunque la sua sagoma intera.
+    var sud = 90.0, nord = -90.0, ovest = 180.0, est = -180.0;
+    for (final anello in corpoDelPaese) {
+      for (final p in anello) {
+        sud = math.min(sud, p.lat);
+        nord = math.max(nord, p.lat);
+        ovest = math.min(ovest, p.lon);
+        est = math.max(est, p.lon);
+      }
+    }
+    final ma = (nord - sud) * margine;
+    final mo = (est - ovest) * margine;
+    sud -= ma;
+    nord += ma;
+    ovest -= mo;
+    est += mo;
+
+    final corpo = <({double lat, double lon})>[];
+    for (var r = 0; r < passiDellaNazione; r++) {
+      for (var c = 0; c < passiDellaNazione; c++) {
+        final lon = ovest + (c + 0.5) * (est - ovest) / passiDellaNazione;
+        final lat = nord - (r + 0.5) * (nord - sud) / passiDellaNazione;
+        if (NazioniDelMondo.dentro(lat, lon, corpoDelPaese)) {
+          corpo.add((lat: lat, lon: lon));
+        }
+      }
+    }
+    return MappaDellaNazione._(
+      paese: paese,
+      punti: punti,
+      sud: sud,
+      nord: nord,
+      ovest: ovest,
+      est: est,
+      sfondo: corpo,
+      nazionePiena: true,
+    );
   }
 
   /// La finestra minima di una regione, in gradi per lato: sotto, un paese
