@@ -145,7 +145,24 @@ class _FoglioDellaMappa extends StatelessWidget {
               colore: palette.gold,
             ),
             const SizedBox(height: SpacingTokens.md),
-            // 1. DOVE SEI.
+            // **1. DOVE SEI, E ADESSO SI SA CHE COSA SI STA LEGGENDO.**
+            // Ordine BC voce 06.
+            //
+            // Fatto del fondatore: "compare dal basso una bolla che indica a
+            // che punto siamo, ma indica anche un suggerimento per il
+            // prossimo traguardo da raggiungere, ma non e' chiaro". Aveva
+            // ragione: erano due informazioni diverse, incolonnate senza dire
+            // quale fosse quale, e chi legge le prende per una sola.
+            Text(
+              'I TRAGUARDI RAGGIUNTI',
+              key: const Key('mappa_titolo_raggiunti'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.etichetta().copyWith(
+                color: palette.goldSoft.withValues(alpha: 0.75),
+                letterSpacing: 1.4,
+              ),
+            ),
+            const SizedBox(height: 2),
             Text(
               '$accesi perle accese su ${tutti.length}'
               '${prossimo == null ? "" : ", nella fascia ${prossimo.fascia.toLowerCase()}"}',
@@ -154,11 +171,37 @@ class _FoglioDellaMappa extends StatelessWidget {
               style: TypographyTokens.titoloScheda()
                   .copyWith(color: palette.goldSoft),
             ),
-            const SizedBox(height: SpacingTokens.sm),
-            // 2. COSA MANCA, con le parole del corpus.
+            const SizedBox(height: SpacingTokens.md),
+            // **2. COSA MANCA, col suo titolo e col NOME del traguardo.**
             if (prossimo != null) ...[
               Text(
-                prossimo.frase,
+                'IL TUO PROSSIMO TRAGUARDO',
+                key: const Key('mappa_titolo_prossimo'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.etichetta().copyWith(
+                  color: ColorTokens.textSecondary.withValues(alpha: 0.8),
+                  letterSpacing: 1.4,
+                ),
+              ),
+              const SizedBox(height: 2),
+              // **IL NOME, NON LA FRASE, ED E' IL CUORE DI QUESTA VOCE.**
+              //
+              // Parole del fondatore: "e' sbagliato scrivere 'il primo test
+              // archetipo completato' perche' quel test non e' mai stato
+              // fatto". **Aveva ragione, e il campo sbagliato aveva il nome
+              // giusto scritto sopra**: `frase` e' dichiarata nel modello
+              // come *"LA FRASE WOW"*, cioe' quella della festa, che si legge
+              // una volta sola nell'istante in cui il Sigillo si accende. E'
+              // al passato per costruzione, perche' festeggia una cosa appena
+              // avvenuta. Usarla per annunciare cio' che manca vuol dire
+              // dichiarare compiuto cio' che non e' nemmeno cominciato.
+              //
+              // `nome` e' *"il nome proprio del traguardo, quello che si legge
+              // sul sentiero"*, ed e' scritto al presente: per lo stesso
+              // traguardo vale "Sai quale archetipo ti somiglia", che dice
+              // cosa avrai invece di fingere che tu ce l'abbia gia'.
+              Text(
+                prossimo.nome,
                 key: const Key('mappa_cosa_manca'),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.corpo()

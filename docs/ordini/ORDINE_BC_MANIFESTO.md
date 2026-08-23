@@ -135,7 +135,7 @@ somiglia".
 - **BC.03** La bolla Archetipo nel Passaporto. Stato: CHIUSA
 - **BC.04** I nomi si sovrappongono nella Risonanza. Stato: CHIUSA
 - **BC.05** Le notifiche, davvero. Stato: APERTA
-- **BC.06** La bolla dei traguardi nei Sentieri. Stato: APERTA
+- **BC.06** La bolla dei traguardi nei Sentieri. Stato: CHIUSA, con dodici nomi lasciati al fondatore
 
 ## L'ordine di lavoro, deciso qui
 
@@ -158,8 +158,35 @@ ultimo cio' che tocca il server e la vita dei dati di una persona.
 ## I marcatori
 
 VOCI_TOTALI: 7
-VOCI_APERTE: 4
-VOCI_CHIUSE: 3
+VOCI_APERTE: 3
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+
+## Cosa BC.06 lascia al fondatore, e perche' non l'ho deciso io
+
+**Il caso che il fondatore ha citato e' risolto.** La bolla mostrava
+`frase`, che nel modello si chiama *"LA FRASE WOW"* ed e' quella della festa:
+al passato per costruzione, perche' festeggia una cosa appena avvenuta. Adesso
+mostra `nome`, e per quel traguardo la riga passa da **"Il primo Test
+Archetipo completato."** a **"Sai quale archetipo ti somiglia"**.
+
+**Ma il fondatore ha enunciato un principio, non solo un caso**: non si scrive
+come fatto cio' che non e' fatto. Contati sui 165 traguardi, **dodici nomi
+sono scritti come una cosa gia' avvenuta**, e il primo dei Fiori di Loto e' uno
+di quelli: chi apre quel sentiero il primo giorno legge "Hai ricevuto il primo
+Soffio" sotto il titolo "IL TUO PROSSIMO TRAGUARDO".
+
+I dodici: *La tua carta e' nata*, *La prima stesa*, *Una domanda ripresa*, *LA
+COSTELLAZIONE COMPIUTA*, *Hai gettato le prime rune*, *Il tuo Animale ti ha
+trovato*, *La notte compiuta*, *Hai ricevuto il primo Soffio*, *Il mattino
+aperto*, *Il primo respiro guidato*, *Il respiro compiuto*, *IL LOTO APERTO*.
+
+**Non li ho riscritti, ed e' una scelta dichiarata.** I nomi dei traguardi sono
+contenuto del mondo del Cerchio, scritti nella voce dei Maestri: sono materia
+del fondatore, non di chi sviluppa, e riscriverli sarebbe mettergli in bocca
+parole sue. La prova
+`test/la_bolla_dei_traguardi_dice_quale_e_quale_test.dart` li conta, li stampa
+a ogni giro e tiene fermo il numero a dodici, cosi' la decisione resta
+possibile invece di dimenticarsi.

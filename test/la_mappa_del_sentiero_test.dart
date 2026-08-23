@@ -86,8 +86,18 @@ void main() {
     final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     await monta(tester, Sentiero.loto, diario);
-    // Dentro il foglio: il segno, le due righe e il pulsante. Nessun altro
-    // testo, se no l'aiuto e' diventato una pagina.
+    // Dentro il foglio: il segno, le due righe COI LORO TITOLI, e il
+    // pulsante. Nessun altro testo, se no l'aiuto e' diventato una pagina.
+    //
+    // **IL CONTO E' PASSATO DA TRE A CINQUE, per decisione del fondatore.**
+    // Ordine BC voce 06: "prima di tutto dovrebbe esserci il titolo 'I
+    // traguardi raggiunti' e sotto 'il tuo prossimo traguardo'". Le due
+    // righe erano due informazioni diverse incolonnate senza dire quale
+    // fosse quale, e chi legge le prendeva per una sola.
+    //
+    // **La regola non si allenta, cambia di numero.** Cinque e' esatto e non
+    // e' un tetto comodo: due titoli, due contenuti, e nient'altro. Se
+    // domani ne comparisse un sesto, questa riga lo direbbe come prima.
     final testi = find
         .descendant(
             of: find.byType(BottomSheet), matching: find.byType(Text))
@@ -96,11 +106,12 @@ void main() {
         .where((s) => s.trim().isNotEmpty)
         .toList();
     // ignore: avoid_print
-    print('ORDINE AU VOCE 13: nel foglio ci sono ${testi.length} testi: '
+    print('ORDINE AU VOCE 13, poi BC VOCE 06: nel foglio ci sono '
+        '${testi.length} testi: '
         '$testi');
-    expect(testi.length, lessThanOrEqualTo(3),
-        reason: 'la mappa dice ${testi.length} cose invece di tre: un aiuto '
-            'che diventa un elenco smette di aiutare');
+    expect(testi.length, lessThanOrEqualTo(5),
+        reason: 'la mappa dice ${testi.length} cose invece di cinque: un '
+            'aiuto che diventa un elenco smette di aiutare');
   });
 
   test('la mappa si apre una volta sola da sola', () async {
