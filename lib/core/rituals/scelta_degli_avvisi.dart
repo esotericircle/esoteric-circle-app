@@ -130,7 +130,7 @@ class SceltaDegliAvvisi extends ChangeNotifier {
         // volesse dire e' peggio che tornare all'ora di casa.
         if (ora != null && ora >= 0 && ora < 1440) _ore[d] = ora;
       }
-    } catch (_) {
+    } catch (discoMuto) {
       // Un disco che non risponde vale come nessuna scelta fatta: restano
       // quelli di partenza, e l'app non si ferma per una preferenza.
     }
@@ -148,7 +148,7 @@ class SceltaDegliAvvisi extends ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool(chiaveDi(dono), acceso);
-    } catch (_) {
+    } catch (discoMuto) {
       // Se il disco rifiuta, la scelta vale per questa sessione: meglio un
       // interruttore che obbedisce adesso e si dimentica domani, che un
       // interruttore che non fa niente.
@@ -171,7 +171,7 @@ class SceltaDegliAvvisi extends ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt(chiaveDellOraDi(dono), minuti);
-    } catch (_) {
+    } catch (discoMuto) {
       // Vale per questa sessione: meglio un'ora che obbedisce adesso e si
       // dimentica domani, che un comando che non fa niente.
     }
@@ -184,8 +184,8 @@ class SceltaDegliAvvisi extends ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(chiaveDellOraDi(dono));
-    } catch (_) {
-      // Come sopra.
+    } catch (discoMuto) {
+      // Come sopra: la scelta vale per questa sessione.
     }
     notifyListeners();
   }

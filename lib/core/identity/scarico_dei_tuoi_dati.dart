@@ -67,7 +67,7 @@ class ScaricoDeiTuoiDati {
         dentro.putIfAbsent(gruppo, () => {})[chiave] = prefs.get(chiave);
         quante++;
       }
-    } catch (_) {
+    } catch (discoMuto) {
       // Un disco che non risponde da' un archivio vuoto, non un errore in
       // faccia: chi voleva i suoi dati riprova, e intanto l'app sta in piedi.
     }

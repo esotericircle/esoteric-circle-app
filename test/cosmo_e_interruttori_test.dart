@@ -73,6 +73,12 @@ void main() {
     // Quello che serve e' che l'elenco sia SCRITTO, cosi' il terzo interruttore
     // che nasce dentro un'arte non ricomincia da capo senza accorgersene.
     const attesi = {
+      // **IL MENU' DELLE NOTIFICHE**, ordine BC voce 05: i cinque
+      // appuntamenti dei Doni hanno un interruttore ciascuno, e sono comandi
+      // di sistema come quelli delle Impostazioni, non gesti dentro un'arte.
+      // La levetta di Material e' quella che la persona riconosce da tutte le
+      // altre app quando accende una notifica.
+      'lib/features/account/notifiche_screen.dart',
       'lib/features/settings/settings_screen.dart',
       'lib/features/tarot/tarot_selectors.dart',
     };

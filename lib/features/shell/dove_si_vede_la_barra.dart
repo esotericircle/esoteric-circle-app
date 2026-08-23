@@ -92,6 +92,9 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'CalendarioDegliEventiScreen': PresenzaDellaBarra.assente,
   'AccountScreen': PresenzaDellaBarra.assente,
   'SettingsScreen': PresenzaDellaBarra.assente,
+  // Il menu' delle notifiche, ordine BC voce 05: si apre dall'account ed e'
+  // una schermata di regolazione, come le Impostazioni.
+  'NotificheScreen': PresenzaDellaBarra.assente,
   'ProfileScreen': PresenzaDellaBarra.assente,
   'PricingScreen': PresenzaDellaBarra.assente,
 };

@@ -66,9 +66,14 @@ void main() {
     identita.setName('Sofia');
     zodiaco.setSunSign(Zodiac.leo);
     piano.setTier(Tier.tier2);
-    await avvisi.scegli(DailyElement.night, true);
+    // **SI SPEGNE E SI SPOSTA L'ORA**, perche' di partenza chiamano tutti e
+    // cinque: accendere cio' che e' gia' acceso non lascerebbe niente da
+    // dimenticare, e la prova guarderebbe un cambiamento che non c'e' stato.
+    await avvisi.scegli(DailyElement.night, false);
+    await avvisi.scegliLOra(DailyElement.oracle, ora: 9, minuto: 5);
     expect(identita.name, 'Sofia');
-    expect(avvisi.chiama(DailyElement.night), isTrue);
+    expect(avvisi.chiama(DailyElement.night), isFalse);
+    expect(avvisi.eLOraDiCasa(DailyElement.oracle), isFalse);
 
     await tester.pumpWidget(MultiProvider(
       providers: [
@@ -108,9 +113,15 @@ void main() {
         reason: 'il nome resta: i Maestri saluterebbero col nome di un altro');
     expect(zodiaco.sunSign, isNull, reason: 'il segno resta');
     expect(piano.tier, Tier.free, reason: 'il piano resta');
-    expect(avvisi.chiama(DailyElement.night), isFalse,
-        reason: 'le sveglie di chi se n e andato restano accese sul telefono '
-            'di chi arriva dopo');
+    // **TORNANO COME DI PARTENZA**, cioe' tutti accesi all'ora di casa: chi
+    // arriva dopo non deve trovare ne' gli interruttori spenti da un altro
+    // ne' le sue ore.
+    expect(avvisi.chiama(DailyElement.night), isTrue,
+        reason: 'le scelte di chi se n e andato restano sul telefono di chi '
+            'arriva dopo');
+    expect(avvisi.eLOraDiCasa(DailyElement.oracle), isTrue,
+        reason: 'l ora spostata da chi se n e andato resta: e una sveglia '
+            'orfana sul telefono di chi arriva dopo');
     expect(diario.accesi, isEmpty, reason: 'i traguardi restano');
     expect(feste.inAttesa, isEmpty, reason: 'le feste in coda restano');
     expect(eos.ultimi, isEmpty, reason: 'i movimenti degli Eos restano');

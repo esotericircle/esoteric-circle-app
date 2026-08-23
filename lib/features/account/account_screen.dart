@@ -15,6 +15,10 @@ import '../../core/identity/dimenticanza_del_telefono.dart';
 import '../../core/identity/dimenticanza_della_memoria_viva.dart';
 import '../../design_system/components/feature_sheet.dart';
 import '../../services/app_services.dart';
+// **CON UN PREFISSO, e non e' pedanteria**: in questo file vivono due
+// `PortaDelCerchio`, quella del server e quella delle vie della barra, e
+// senza prefisso il compilatore non sa quale delle due si intende.
+import '../../services/server/porta_del_cerchio.dart' as server;
 import 'custodia_del_cielo.dart';
 
 import '../../design_system/tokens/color_tokens.dart';
@@ -246,7 +250,8 @@ class AccountScreen extends StatelessWidget {
       _AccountEntry(
         id: 'oblio',
         title: 'Cancella il tuo account',
-        subtitle: 'Trenta giorni per ripensarci, poi il Cerchio dimentica',
+        subtitle: 'Trenta giorni per ripensarci, poi sparisce tutto, '
+            'qui e sul server',
         icon: Icons.delete_outline_rounded,
         onTap: (context) => _chiediLOblio(context),
       ),
@@ -946,7 +951,17 @@ class _SeHaiChiestoDiSparireState extends State<_SeHaiChiestoDiSparire> {
   }
 
   Future<void> _guarda() async {
-    final porta = context.read<AppServices>().porta;
+    // **I SERVIZI SI LEGGONO CON PRUDENZA.** Questa schermata la montano
+    // anche le prove e le anteprime, con una parte sola dell'albero: senza
+    // `AppServices` il richiamo dell'oblio non ha niente da dire, e **non
+    // deve far cadere l'account per questo**. La prima stesura lo pretendeva,
+    // e ha fatto cadere dieci prove che parlavano d'altro.
+    final server.PortaDelCerchio porta;
+    try {
+      porta = context.read<AppServices>().porta;
+    } catch (senzaServizi) {
+      return;
+    }
     if (!porta.viva) return;
     try {
       final stato = await porta.stato();
@@ -959,8 +974,15 @@ class _SeHaiChiestoDiSparireState extends State<_SeHaiChiestoDiSparire> {
 
   Future<void> _resto() async {
     setState(() => _staAnnullando = true);
-    final porta = context.read<AppServices>().porta;
-    final fatto = await porta.annullaLOblio();
+    // Il richiamo compare solo se i servizi c'erano al primo giro, quindi qui
+    // ci sono; il try resta perche' l'albero puo' essere cambiato sotto.
+    final bool fatto;
+    try {
+      fatto = await context.read<AppServices>().porta.annullaLOblio();
+    } catch (senzaServizi) {
+      if (mounted) setState(() => _staAnnullando = false);
+      return;
+    }
     if (!mounted) return;
     setState(() {
       _staAnnullando = false;

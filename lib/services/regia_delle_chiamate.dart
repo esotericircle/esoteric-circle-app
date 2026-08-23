@@ -28,7 +28,24 @@ class RegiaDelleChiamate {
     // non paga letture che non servono. La porta lo ricontrolla comunque.
     // **LA SCELTA SI LEGGE PRIMA DELL'ATTESA.** Il contesto non si usa dopo
     // un `await`: dopo, l'albero puo' non esserci piu'.
-    final scelta = context.read<SceltaDegliAvvisi>();
+    //
+    // **E SI LEGGE CON PRUDENZA, che non e' pigrizia.** Questa regia la
+    // chiamano tre punti: l'app all'avvio, il menu' delle notifiche, e
+    // l'Estrazione Rune quando l'ultima gettata si consuma. **La prima
+    // stesura la pretendeva dal contesto, e ha fatto cadere quarantina di
+    // prove in famiglie che non c'entravano niente**, dalle rune al pozzo di
+    // Urdhr: quelle schermate montano una parte sola dell'albero, e una
+    // scelta che non si trova faceva morire il rito invece di programmare un
+    // avviso in meno.
+    //
+    // Senza provider si legge il disco, che e' la verita' comunque: costa una
+    // lettura in piu' solo dove il provider non c'e'.
+    SceltaDegliAvvisi? scelta;
+    try {
+      scelta = context.read<SceltaDegliAvvisi>();
+    } catch (senzaProvider) {
+      scelta = null;
+    }
     if (!porta.disponibile || !await porta.permessoConcesso()) {
       return const [];
     }
@@ -43,6 +60,7 @@ class RegiaDelleChiamate {
       await porta.annulla(vecchio);
     }
 
+    scelta ??= SceltaDegliAvvisi();
     if (!scelta.caricata) await scelta.carica();
 
     // **L'ORA ANCORATA PER TUTTI E CINQUE, e l'alba vera la mette il rito.**
