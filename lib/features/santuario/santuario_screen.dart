@@ -700,8 +700,14 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // pixel dipinti, e la bolla d'ingresso pretende otto punti d'aria
           // veri, misurati dalla prova della bolla. Dodici punti li danno
           // con margine su tutte le misure provate.
+          // **IL CUSCINO SI STRINGE, ordine BE voce 01.** Parole del
+          // fondatore sulla 2199: "c'e' troppo spazio sotto i 3 maestri".
+          // Dodici punti fissi piu' il due per cento dell'eroe facevano
+          // ventotto punti d'aria a 797: scendono a otto piu' l'otto per
+          // mille, quattordici, e i punti risparmiati vanno al busto, che
+          // per la catena del vincolo cresce di altrettanto.
           final carouselBottom =
-              entryBottom + entryZone + 12.0 + h * 0.02;
+              entryBottom + entryZone + 8.0 + h * 0.008;
           // IL TRIO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava: il nome
           // della fase lunare stava da 277,2 a 295,2 mentre le carte laterali
           // cominciavano a 274,3, misurato sull'app montata a 360 per 797.
@@ -1506,6 +1512,20 @@ class _CarouselState extends State<_Carousel>
                         widget.centralDepth,
                         ((p.profondita + 1) / 2).clamp(0.0, 1.0),
                       )!;
+                      // **LA FLUTTUAZIONE E' TORNATA, ordine BE voce 01.**
+                      // Parole del fondatore: "prima i 3 maestri fluttuavano
+                      // e voglio ancora l'effetto fluttuazione". Un dondolio
+                      // verticale lento sul respiro gia' esistente, sfasato
+                      // per posto cosi' i tre non salgono e scendono in
+                      // coro; con Riduci Movimento resta fermo.
+                      final fluttua = widget.reduceMotion
+                          ? 0.0
+                          : math.sin(2 *
+                                  math.pi *
+                                  (breathValue +
+                                      Maestro.fixedOrder.indexOf(p.maestro) *
+                                          0.33)) *
+                              5.0;
                       return Positioned(
                         left: p.x - larghezza / 2,
                         // Chi sta dietro sta anche piu' in alto: e' cio' che
@@ -1513,9 +1533,17 @@ class _CarouselState extends State<_Carousel>
                         // Sui posti stretti l'innalzamento scende a 0,08:
                         // misurato a 320 per 568, con 0,22 la testa del
                         // laterale saliva fino a bucare il titolo del cielo.
+                        //
+                        // **E DA 0,22 A 0,14 OVUNQUE, ordine BE voce 01**: il
+                        // vuoto sotto i tre Maestri che il fondatore ha visto
+                        // era per meta' il fianco alzato, i laterali che
+                        // finivano cinquantotto punti sopra il fondo. La
+                        // profondita' la raccontano gia' la scala e la
+                        // sovrapposizione di BD.01.
                         bottom: (1 - p.profondita) *
-                            widget.centralHeight *
-                            (widget.spazioStretto ? 0.08 : 0.22),
+                                widget.centralHeight *
+                                (widget.spazioStretto ? 0.08 : 0.14) +
+                            fluttua,
                         width: larghezza,
                         height: altezza,
                         child: Transform.translate(

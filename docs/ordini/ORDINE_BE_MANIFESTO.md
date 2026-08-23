@@ -62,7 +62,7 @@ per conto suo.
 ## Le voci
 
 - **BE.00** Manifesto e verifica delle premesse. Stato: CHIUSA
-- **BE.01** I Maestri: lo spazio sotto e la fluttuazione. Stato: APERTA
+- **BE.01** I Maestri: lo spazio sotto e la fluttuazione. Stato: CHIUSA
 - **BE.02** L'onboarding sotto la barra. Stato: CHIUSA
 - **BE.03** La citta' straniera. Stato: APERTA
 - **BE.04** La bolla dei sentieri: titolo e frase. Stato: CHIUSA
@@ -88,8 +88,8 @@ per conto suo.
 ## I marcatori
 
 VOCI_TOTALI: 10
-VOCI_APERTE: 6
-VOCI_CHIUSE: 4
+VOCI_APERTE: 5
+VOCI_CHIUSE: 5
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
