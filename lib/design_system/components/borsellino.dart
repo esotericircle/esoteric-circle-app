@@ -18,6 +18,7 @@ import '../tokens/spacing_tokens.dart';
 import '../tokens/typography_tokens.dart';
 import 'icona_degli_eos.dart';
 import 'volo_degli_eos.dart';
+import '../../features/pricing/pricing_screen.dart';
 
 /// IL BORSELLINO, SEMPRE NELLO STESSO ANGOLO. Ordine S voce 06.
 ///
@@ -423,18 +424,98 @@ class PortafoglioDelCerchio {
   /// scrive uno, perche' una cifra inventata nel portafoglio e' peggio di una
   /// cifra assente.
   static String quandoTornano(QuestionAllowance borsa, Tier tier) {
-    final limite = borsa.dailyLimit(tier);
-    final gesti = limite == null
-        ? 'Le domande ai Maestri non hanno un tetto giornaliero nel tuo piano.'
-        : '${QuestionAllowance.comeSiDiceIlResiduo(borsa.remaining(tier), limite)} '
-            'domande ai Maestri. Domani tornano intere.';
     final bonus = PlanCatalog.eosOgniMese(tier);
     final mensile = bonus == null
         ? 'Il tuo piano non porta Eos ogni mese: questi li guadagni tu, '
             'accendendo i Sigilli del cammino.'
         : 'Il tuo piano porta Eos bonus ogni mese, oltre a quelli che '
             'guadagni accendendo i Sigilli.';
-    return '$gesti $mensile';
+    return mensile;
+  }
+
+  /// **TUTTI I LIMITI DEL PIANO, NON UNO SOLO.** Ordine BB voce 02.
+  ///
+  /// **Il fondatore ha aperto il borsellino e ha trovato una riga sola**: "Oggi
+  /// te ne restano 3 su 3 domande ai Maestri". Parole sue: "perche' dare solo
+  /// questa informazione? E le altre limitate dal piano free?"
+  ///
+  /// **Aveva ragione al numero: i budget sono QUATTRO**, contati nel codice
+  /// che li conta, cioe' `QuestionAllowance`: domande ai Maestri,
+  /// approfondimenti, confronti di sinastria e gettate di rune. Il foglio ne
+  /// mostrava uno.
+  ///
+  /// **Si enumera dal codice dei permessi e non a memoria**: ogni riga esce da
+  /// `PlanCatalog`, che e' la matrice dei piani, e da `QuestionAllowance`, che
+  /// tiene il conto speso. Se domani il piano gratuito guadagnasse un quinto
+  /// limite, **questa funzione resterebbe indietro e la guardia lo direbbe**:
+  /// vedi `test/il_borsellino_dice_tutti_i_limiti_test.dart`.
+  static List<String> tuttiILimiti(QuestionAllowance borsa, Tier tier) {
+    final righe = <String>[];
+    // **OGNI COSA PORTA IL SUO SINGOLARE E IL SUO PLURALE**, e il genere: e'
+    // l'unico modo di scrivere quattro righe che si leggono tutte bene. Vedi
+    // il commento su `residuoDiCosa`, dove la prima stesura ne prendeva uno
+    // solo e produceva "nessun domanda" e "1 gettate".
+    void aggiungi(
+      int? limite,
+      int resta, {
+      required String uno,
+      required String molti,
+      bool femminile = false,
+    }) {
+      if (limite == null) {
+        righe.add('${molti[0].toUpperCase()}${molti.substring(1)}: senza '
+            'tetto nel tuo piano.');
+        return;
+      }
+      final detto = QuestionAllowance.residuoDiCosa(resta, limite,
+          uno: uno, molti: molti, femminile: femminile);
+      righe.add('$detto. Domani torna intero.');
+    }
+
+    aggiungi(borsa.dailyLimit(tier), borsa.remaining(tier),
+        uno: 'domanda ai Maestri',
+        molti: 'domande ai Maestri',
+        femminile: true);
+    aggiungi(borsa.limiteApprofondimenti(tier),
+        borsa.approfondimentiRimasti(tier),
+        uno: 'approfondimento', molti: 'approfondimenti');
+    aggiungi(borsa.limiteConfronti(tier), borsa.confrontiRimasti(tier),
+        uno: 'confronto di sinastria', molti: 'confronti di sinastria');
+    aggiungi(borsa.limiteGettate(tier), borsa.gettateRimaste(tier) ?? 0,
+        uno: 'gettata di rune', molti: 'gettate di rune', femminile: true);
+    return righe;
+  }
+
+  /// **L'INVITO AD ABBONARSI, e cosa porta davvero.** Ordine BB voce 02.
+  ///
+  /// **Una frase e un pulsante, non un cartellone**: e' quello che il
+  /// fondatore ha chiesto, "un invito elegante". Chi sta guardando i propri
+  /// Eos non va aggredito.
+  ///
+  /// **La dote si legge dal catalogo dei piani, non si scrive qui.** Il
+  /// numero vive in `PlanCatalog.doteDellaSottoscrizione`, ed e' la stessa
+  /// fonte che la pagina dei piani mostra: due copie dello stesso numero un
+  /// giorno diventerebbero due numeri diversi.
+  ///
+  /// **Nessuna promessa che il prodotto non mantiene**: la dote si dichiara
+  /// come valore del piano, e non si promette una data d'accredito, perche'
+  /// gli abbonamenti non sono ancora acquistabili e **una data promessa e non
+  /// mantenuta vale meno di un silenzio onesto**.
+  static String? invitoAdAbbonarsi(Tier tier) {
+    if (tier != Tier.free) return null;
+    final doti = <String>[];
+    for (final t in const [Tier.tier1, Tier.tier2, Tier.tier3]) {
+      final dote = PlanCatalog.doteScritta(t);
+      // **IL NOME DEL PIANO VIENE DALLE INTESTAZIONI DEL CATALOGO**, che
+      // sono la fonte unica: scriverlo qui a mano sarebbe una seconda copia
+      // che un giorno diverge da quella della pagina dei piani.
+      const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+      final nome = PlanCatalog.columns[ordine.indexOf(t)];
+      if (dote != null) doti.add('$nome $dote');
+    }
+    if (doti.isEmpty) return null;
+    return 'Con un piano i tetti si allargano, e ogni piano porta una dote in '
+        'Eos: ${doti.join(', ')}.';
   }
 
   static Future<void> apri(BuildContext context) {
@@ -484,7 +565,17 @@ class _FoglioDelPortafoglio extends StatelessWidget {
         ),
         border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
       ),
-      child: Column(
+      // **IL FOGLIO SCORRE.** Ordine BB voce 02: con i quattro limiti e
+      // l'invito il contenuto e' cresciuto, e su uno schermo corto sbordava
+      // di sette pixel. **Un foglio che sborda non e' un foglio piu' lungo,
+      // e' un foglio con un pezzo che nessuno vedra' mai**, e il pezzo tagliato
+      // sarebbe proprio l'invito, che sta in fondo.
+      //
+      // `shrinkWrap` con `mainAxisSize.min` tiene il foglio alto quanto il suo
+      // contenuto finche' ci sta, e lo lascia scorrere solo quando non ci sta
+      // piu': chi ha uno schermo comodo non si accorge di niente.
+      child: SingleChildScrollView(
+        child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -533,6 +624,25 @@ class _FoglioDelPortafoglio extends StatelessWidget {
             style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
+          const SizedBox(height: SpacingTokens.lg),
+          // **2 BIS. TUTTI I LIMITI DEL PIANO, e non uno solo.** Ordine BB
+          // voce 02: il fondatore ha aperto il borsellino e ha trovato una
+          // riga sola sulle domande ai Maestri. I budget sono quattro, e chi
+          // guarda i propri Eos sta guardando proprio cosa puo' fare oggi.
+          _Titoletto('Cosa puoi fare oggi', palette),
+          const SizedBox(height: SpacingTokens.xs),
+          for (final riga
+              in PortafoglioDelCerchio.tuttiILimiti(borsa, tier)) ...[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 2),
+              child: Text(
+                riga,
+                key: Key('portafoglio_limite_${PortafoglioDelCerchio.tuttiILimiti(borsa, tier).indexOf(riga)}'),
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
+            ),
+          ],
           const SizedBox(height: SpacingTokens.lg),
           // 3. DA DOVE SONO ARRIVATI GLI ULTIMI EOS.
           _Titoletto('Gli ultimi Eos', palette),
@@ -584,6 +694,36 @@ class _FoglioDelPortafoglio extends StatelessWidget {
                 ),
               ),
           const SizedBox(height: SpacingTokens.lg),
+          // **4. L'INVITO, in fondo e in una frase.** Ordine BB voce 02, e il
+          // fondatore ha chiesto che sia "elegante": una riga e un pulsante,
+          // non un cartellone. Compare solo a chi e' sul piano gratuito: a chi
+          // ha gia' un piano sarebbe un invito a comprare cio' che ha.
+          if (PortafoglioDelCerchio.invitoAdAbbonarsi(tier) != null) ...[
+            Text(
+              PortafoglioDelCerchio.invitoAdAbbonarsi(tier)!,
+              key: const Key('portafoglio_invito'),
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+            Center(
+              child: FilledButton(
+                key: const Key('portafoglio_vai_ai_piani'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: palette.surfaceElevated,
+                  foregroundColor: palette.goldSoft,
+                  side: BorderSide(color: palette.gold.withValues(alpha: 0.45)),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(PricingScreen.route());
+                },
+                child: Text('Guarda i piani',
+                    style: TypographyTokens.etichetta()),
+              ),
+            ),
+            const SizedBox(height: SpacingTokens.lg),
+          ],
           Center(
             child: TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -595,6 +735,7 @@ class _FoglioDelPortafoglio extends StatelessWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }

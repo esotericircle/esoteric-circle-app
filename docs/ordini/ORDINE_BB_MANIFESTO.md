@@ -39,10 +39,10 @@ premessa di BB.11 descrive una build precedente alla 2195.
 
 - **BB.00** Manifesto e verifica delle premesse. Stato: CHIUSA
 - **BB.01** Il titolo su una riga, e la Luna si tocca. Stato: CHIUSA
-- **BB.02** Il foglio del borsellino dice tutto, e invita. Stato: APERTA
+- **BB.02** Il foglio del borsellino dice tutto, e invita. Stato: CHIUSA
 - **BB.03** I movimenti del borsellino. Stato: CHIUSA
-- **BB.04** Gli Eos dichiarati sui pulsanti. Stato: APERTA
-- **BB.05** Il Passaporto porta a sbloccare. Stato: APERTA
+- **BB.04** Gli Eos dichiarati sui pulsanti. Stato: CHIUSA
+- **BB.05** Il Passaporto porta a sbloccare. Stato: CHIUSA
 - **BB.06** La parola del giorno serve a qualcosa. Stato: CHIUSA
 - **BB.07** L'Alba non manda al Soffio. Stato: CHIUSA
 - **BB.08** "Attiva la posizione" attiva davvero. Stato: APERTA
@@ -101,8 +101,8 @@ per ultimo cio' che richiede una fonte esterna.
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 8
-VOCI_CHIUSE: 6
+VOCI_APERTE: 5
+VOCI_CHIUSE: 9
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

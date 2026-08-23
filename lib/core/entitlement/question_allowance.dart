@@ -320,6 +320,43 @@ class QuestionAllowance extends ChangeNotifier {
     return 'Oggi te ne restano $quanti su $limite';
   }
 
+  /// **LA STESSA COSA, DETTA COME LA DIREBBE UNA PERSONA.** Ordine BB voce 02.
+  ///
+  /// **Il fondatore l'ha letta e non gli e' suonata bene**: "Oggi te ne
+  /// restano 3 su 3 domande ai Maestri" mette il numero prima della cosa che
+  /// conta, e chi legge deve tornare indietro per capire di cosa si parla.
+  /// Parole sue: "l'italiano non e' il massimo, dovrebbe esserci scritto ti
+  /// restano 3 su 3 domande ai Maestri".
+  ///
+  /// **Qui la cosa viene prima del conto**, e l'"oggi" va in coda, dove fa da
+  /// promemoria invece che da premessa: "Ti restano 3 domande su 3, oggi."
+  ///
+  /// **La vecchia forma resta e non e' un doppione**: la usa chi nomina la
+  /// cosa da un'altra parte, per esempio accanto a un'icona che gia' dice di
+  /// cosa si tratta. Questa serve dove la cosa va detta nella frase.
+  /// **[uno] e' come si chiama UNA di quelle cose, [molti] come se ne
+  /// chiamano tante, e [femminile] serve al "nessuna".**
+  ///
+  /// **Tre argomenti e non uno, e la prova ha spiegato perche'.** La prima
+  /// stesura ne prendeva uno solo e produceva "Non ti resta nessun domanda",
+  /// "Non ti resta nessun approfondimenti" e "Ti resta 1 gettate di rune su
+  /// 1": **il numero era giusto e la frase era rotta in tre modi diversi**.
+  /// Una lingua che si accorda da sola non esiste: o si dichiara come si
+  /// declina, o si scrive male.
+  static String residuoDiCosa(
+    int quanti,
+    int limite, {
+    required String uno,
+    required String molti,
+    bool femminile = false,
+  }) {
+    if (quanti <= 0) {
+      return 'Non ti resta ${femminile ? 'nessuna' : 'nessun'} $uno, oggi';
+    }
+    if (quanti == 1) return 'Ti resta 1 $uno su $limite, oggi';
+    return 'Ti restano $quanti $molti su $limite, oggi';
+  }
+
   /// Quante gettate di rune al giorno prevede il piano, oppure null se
   /// illimitate. Il numero sta nella matrice, riga [PlanCatalog.rigaGettate].
   int? limiteGettate(Tier tier) =>

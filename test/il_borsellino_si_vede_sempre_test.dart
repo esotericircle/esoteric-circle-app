@@ -262,9 +262,20 @@ void main() {
     // e non un numero (No, Medio, Alto, Massimo): il portafoglio dice che il
     // piano porta un bonus, non quanto. Una cifra inventata nel borsellino e'
     // peggio di una cifra assente.
+    // **LE DOMANDE AI MAESTRI NON STANNO PIU' IN QUESTA RIGA, e non e' una
+    // perdita.** Ordine BB voce 02: il fondatore ha chiesto che il foglio
+    // dicesse TUTTI i limiti del piano e non uno solo, quindi i quattro
+    // budget hanno un elenco loro, e questa riga e' rimasta a fare cio' che
+    // le compete, cioe' parlare del bonus mensile. **Il conto delle domande
+    // si sorveglia dove vive adesso**, in
+    // `test/il_borsellino_dice_tutti_i_limiti_test.dart`.
     final viandante = PortafoglioDelCerchio.quandoTornano(
         QuestionAllowance(freeDailyLimit: 3), Tier.free);
-    expect(viandante, contains('domande ai Maestri'));
+    final limiti = PortafoglioDelCerchio.tuttiILimiti(
+        QuestionAllowance(freeDailyLimit: 3), Tier.free);
+    expect(limiti.any((r) => r.contains('domand')), isTrue,
+        reason: 'le domande ai Maestri non compaiono in nessuna riga del '
+            'foglio: il conto del piano e sparito invece di spostarsi');
     expect(viandante.toLowerCase(), contains('guadagni'),
         reason: 'al Viandante non si dice da dove arrivano gli Eos, e il suo '
             'piano non ne porta nessuno ogni mese');
