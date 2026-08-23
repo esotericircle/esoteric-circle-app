@@ -177,8 +177,17 @@ class _MaestroAuraState extends State<_MaestroAura>
     // La piu' forte pulsa piu' ampia e viva.
     final pulseAmp = 0.08 + widget.intensity * 0.14;
 
-    return Expanded(
-      child: AnimatedBuilder(
+    // **UN SOLO `Expanded`, E PRIMA ERANO DUE. Ordine BC voce 04.**
+    //
+    // Questa figura vive gia' dentro un `Expanded` della riga che la monta, e
+    // qui dentro ce n'era un secondo: **due widget di dato del genitore che
+    // parlano allo stesso oggetto disegnato**. Flutter lo dice a voce alta,
+    // "Competing ParentDataWidgets", ma nell'app quel grido finisce nel
+    // registro e nessuno lo legge; a fermarsi e' stata la prova di questa
+    // voce, che monta la schermata da sola.
+    //
+    // Non e' il difetto che il fondatore ha visto, ed era li' accanto.
+    return AnimatedBuilder(
         animation: _c,
         builder: (context, _) {
           final ph = _c.value * 2 * math.pi;
@@ -207,22 +216,46 @@ class _MaestroAuraState extends State<_MaestroAura>
                 // Altezza fissa e una riga sola: il vincitore ha il nome piu'
                 // grande, e senza questa scatola le tre percentuali cadevano
                 // su tre linee di base diverse, come tre righe storte.
+                // **IL NOME STA DENTRO LA SUA COLONNA. Ordine BC voce 04.**
+                //
+                // Fatto del fondatore: "nell'onboarding, quando viene rivelato
+                // il Maestro assegnato, vengono mostrati dei cerchi colorati
+                // sfumati, ma i nomi si sovrappongono". Nello screenshot si
+                // legge MEDORA scritto sopra CALIGO.
+                //
+                // **La causa era una riga sola**, ed era scritta a chiare
+                // lettere: `softWrap: false` con `overflow:
+                // TextOverflow.visible` vuol dire *esci dalla tua colonna
+                // invece di adattarti*. Ogni Maestro vive in un `Expanded`,
+                // cioe' in un terzo della larghezza; il vincitore porta la
+                // tipografia cerimoniale, piu' grande delle altre due, e
+                // MEDORA a quella misura e' piu' largo di un terzo dello
+                // schermo. Sbordava, e finiva addosso al vicino.
+                //
+                // **Si rimpicciolisce, non si taglia.** Coi puntini di
+                // sospensione il vincitore diventerebbe "MEDO...", e il nome
+                // del proprio Maestro e' l'ultima cosa che si puo' abbreviare
+                // in questa schermata. Il `FittedBox` lo porta dentro
+                // scalandolo, e solo quando serve: se ci sta, non tocca
+                // niente.
                 SizedBox(
                   height: 30,
                   child: Center(
-                    child: Text(
-                      widget.maestro.displayName,
-                      maxLines: 1,
-                      softWrap: false,
-                      overflow: TextOverflow.visible,
-                      textAlign: TextAlign.center,
-                      style: (widget.isWinner
-                              ? TypographyTokens.cerimoniale()
-                              : TypographyTokens.titoloSezione())
-                          .copyWith(
-                        color: widget.isWinner
-                            ? p.goldSoft
-                            : ColorTokens.textSecondary,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        widget.maestro.displayName,
+                        maxLines: 1,
+                        softWrap: false,
+                        textAlign: TextAlign.center,
+                        style: (widget.isWinner
+                                ? TypographyTokens.cerimoniale()
+                                : TypographyTokens.titoloSezione())
+                            .copyWith(
+                          color: widget.isWinner
+                              ? p.goldSoft
+                              : ColorTokens.textSecondary,
+                        ),
                       ),
                     ),
                   ),
@@ -236,7 +269,6 @@ class _MaestroAuraState extends State<_MaestroAura>
             ),
           );
         },
-      ),
     );
   }
 }
