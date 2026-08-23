@@ -132,7 +132,7 @@ somiglia".
 - **BC.00** Manifesto e verifica delle premesse. Stato: CHIUSA
 - **BC.01** I Maestri in home, e le due righe sopra di loro. Stato: APERTA
 - **BC.02** La gestione dell'account e dei dati. Stato: APERTA
-- **BC.03** La bolla Archetipo nel Passaporto. Stato: APERTA
+- **BC.03** La bolla Archetipo nel Passaporto. Stato: CHIUSA
 - **BC.04** I nomi si sovrappongono nella Risonanza. Stato: CHIUSA
 - **BC.05** Le notifiche, davvero. Stato: APERTA
 - **BC.06** La bolla dei traguardi nei Sentieri. Stato: APERTA
@@ -158,8 +158,8 @@ ultimo cio' che tocca il server e la vita dei dati di una persona.
 ## I marcatori
 
 VOCI_TOTALI: 7
-VOCI_APERTE: 5
-VOCI_CHIUSE: 2
+VOCI_APERTE: 4
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

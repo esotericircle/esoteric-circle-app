@@ -765,12 +765,13 @@ class _TesseraArchetipo extends StatelessWidget {
       // **Lo stesso GestureDetector della card piena**, e per la stessa
       // ragione misurata: il ripple di Material chiede uno shader che in una
       // prova headless puo' non esserci, e ha gia' fermato la suite una volta.
-      return GestureDetector(
+      // **IL TOCCO SCENDE DENTRO LA CARD, e prima la avvolgeva.** Ordine BC
+      // voce 03: avvolta da fuori, la card non sapeva di aprire qualcosa e
+      // non poteva dirlo. Adesso lo sa, e disegna la freccia da se'.
+      return _PassportEntryCard(
         key: const Key('passport_archetipo_vuoto_tocco'),
-        behavior: HitTestBehavior.opaque,
         onTap: () => Navigator.of(context).push(ArchetypeTestScreen.route()),
-        child: const _PassportEntryCard(
-          entry: _PassportEntry(
+        entry: const _PassportEntry(
             icon: Icons.psychology_alt,
             title: 'Archetipo',
             // **LA FRASE DICE DOVE PORTA IL TOCCO**, invece di ordinare di
@@ -778,7 +779,6 @@ class _TesseraArchetipo extends StatelessWidget {
             description: 'Tocca per fare il Test Archetipo: la tua figura '
                 'comparirà qui.',
           ),
-        ),
       );
     }
     // **L'EMBLEMA SI TOCCA E APRE, ordine AO voce 06.** Prima era un'immagine
@@ -867,17 +867,45 @@ class _TesseraArchetipo extends StatelessWidget {
 }
 
 /// Tessera "in arrivo" di un singolo fatto identitario del passaporto.
+///
+/// **E QUANDO INVECE APRE QUALCOSA, LO DICE. Ordine BC voce 03.**
+///
+/// Fatto del fondatore: "nel Passport adesso la bolla archetipo e' cliccabile
+/// anche se in grigio, ma ci vorrebbe una freccettina come per le altre bolle
+/// che invita al click."
+///
+/// **La regola esisteva gia', scritta a due passi da qui**, dentro
+/// `_PassportCard`: *"Se la tessera apre qualcosa al tocco, la freccia lo
+/// dice"*, con un `if (onTap != null)` che disegna il chevron. Questa card
+/// non l'aveva perche' era nata per le voci **dietro il velo**, cioe' per
+/// cose che non aprono niente: il badge al posto della freccia era giusto
+/// finche' e' stato vero. L'ordine BB voce 05 le ha poi aggiunto un tocco
+/// **dall'esterno**, avvolgendola in un `GestureDetector`, e la card non ne
+/// ha mai saputo nulla.
+///
+/// **E CON LA FRECCIA SE NE VA IL VELO, che e' l'altra meta' della stessa
+/// bugia.** Una tessera che porta al Test Archetipo non e' "in arrivo": il
+/// Test esiste ed e' vivo da mesi. Dire "Dietro il velo" e "Tocca per fare il
+/// Test" nella stessa scatola sono due frasi che si smentiscono, e chi legge
+/// crede alla piu' scoraggiante. Quindi dove c'e' un tocco la tessera torna
+/// piena, e il velo resta a chi lo merita.
 class _PassportEntryCard extends StatelessWidget {
-  const _PassportEntryCard({required this.entry});
+  const _PassportEntryCard({super.key, required this.entry, this.onTap});
 
   final _PassportEntry entry;
+
+  /// Se la tessera apre qualcosa al tocco, la freccia lo dice e il velo se ne
+  /// va. Nulla per le voci che davvero non aprono niente.
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    final apre = onTap != null;
 
     return DepthCard(
-      opacity: 0.6,
+      onTap: onTap,
+      opacity: apre ? 1.0 : 0.6,
       padding: const EdgeInsets.all(SpacingTokens.md),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -914,7 +942,10 @@ class _PassportEntryCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: SpacingTokens.sm),
-          _VeilBadge(palette: palette),
+          if (apre)
+            Icon(Icons.chevron_right_rounded, color: palette.goldSoft)
+          else
+            _VeilBadge(palette: palette),
         ],
       ),
     );
