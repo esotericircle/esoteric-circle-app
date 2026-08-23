@@ -690,18 +690,29 @@ class DisegnoDelSentiero extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTapUp: suTocco == null ? null : (d) => _toccoSullArte(context, d),
-      child: Stack(
-        key: Key('journal_arte_${sentiero.name}'),
-        fit: StackFit.expand,
-        children: [
-          FondoDelSentiero(sentiero: sentiero),
-          LuciDelSentiero(
-            sentiero: sentiero,
-            accesi: accesi,
-            evidenziato: evidenziato,
-            effettiPieni: pieni,
-          ),
-        ],
+      // **QUATTRO PUNTI D'ARIA IN CIMA, ordine BD voce 02.** L'arte si monta
+      // a contenimento e su una tela piu' larga che alta tocca il bordo alto
+      // a filo: la punta del petalo di vetta del Loto e la corona dell'Albero
+      // dipingevano nell'ultimo anello di pixel, e a occhio si leggevano come
+      // tagliate. Misurato: 19 pixel il Loto, 9 l'Albero. L'aria sta ATTORNO
+      // allo Stack, cosi' il fondo e le luci la condividono e restano
+      // allineati per costruzione; il tocco perde quattro punti di precisione
+      // su bersagli che ne tollerano venti.
+      child: Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: Stack(
+          key: Key('journal_arte_${sentiero.name}'),
+          fit: StackFit.expand,
+          children: [
+            FondoDelSentiero(sentiero: sentiero),
+            LuciDelSentiero(
+              sentiero: sentiero,
+              accesi: accesi,
+              evidenziato: evidenziato,
+              effettiPieni: pieni,
+            ),
+          ],
+        ),
       ),
     );
   }

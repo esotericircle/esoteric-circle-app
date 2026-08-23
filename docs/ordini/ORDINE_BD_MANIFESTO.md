@@ -91,7 +91,7 @@ la sintesi nuda.
 
 - **BD.00** Manifesto e verifica delle premesse. Stato: CHIUSA
 - **BD.01** I Maestri ancora piu' grandi, con la sovrapposizione. Stato: CHIUSA
-- **BD.02** Le 38 prove rosse, la bonifica. Stato: APERTA
+- **BD.02** Le 38 prove rosse, la bonifica. Stato: CHIUSA, coi rossi che restano dichiarati uno per uno
 - **BD.03** Il mondo oltre l'Italia. Stato: CHIUSA, col buco dei 116 paesi reso visibile e dichiarato
 - **BD.04** Lo schermo piccolo. Stato: CHIUSA
 - **BD.05** I gradini dell'identita' che maturano insieme. Stato: CHIUSA
@@ -162,6 +162,46 @@ infittendo `assets/data/luoghi.csv`, che resta lavoro di un altro giorno. La
 prova `il_mondo_oltre_l_italia_test.dart` tiene il conto: se le citta' della
 Liberia salgono, il buco si sta chiudendo.
 
+## Cosa BD.02 ha bonificato, e i rossi che restano dichiarati
+
+**La causa piu' grande era una finestra che nessun telefono ha.** Le prove che
+navigano dal Santuario montavano l'app sul default 800x600, largo e corto: li'
+la striscia dei Doni copre la fascia in cui il busto sborda e il tocco sul
+Maestro centrale muore. Pinnata la finestra 390x844 dove mancava, con la nota
+estesa in `chat_header_test`. Con lei sono tornate verdi le famiglie della
+chat, della navigazione, degli accenti e dell'archetipo.
+
+**Quattro pretese superate da decisioni posteriori sono state rimirate**, ognuna
+con la storia scritta dentro: il ponte verso il Soffio (tolto da BB.07), le
+parole dell'invito dell'archetipo (cambiate da BC.03), la snackbar dei sei
+secondi (voluta da BB.08), e il pavimento del busto a 220 (declassato da
+AU.05). Le due prove dell'occlusione a zero pixel sono state rimirate alla
+legge di BC e BD, i Maestri davanti con copertura leggera. **E due difetti
+veri sono stati curati**: la punta del petalo del Loto e la corona
+dell'Albero dipingevano nell'ultimo anello di pixel della tela dell'arte
+(quattro punti d'aria in cima, condivisi da fondo e luci), e la variabile
+`perche` dell'Alba finiva nell'esame degli accenti.
+
+**I rossi che restano, dichiarati col motivo:**
+
+1. **L'attribuzione cieca** (`i_doni_e_la_chat_davanti_all_anatomia`): nasce
+   rossa perche' dice il vero, 70,0 e 78,3 per cento contro una soglia di 85.
+   Si rifa' solo con una sessione Vertex dal PC del fondatore, ed e' il rosso
+   ammesso dichiarato fin dall'ordine S.
+2. **Un traguardo acceso pesa uguale** (`un_traguardo_acceso_pesa_uguale`):
+   il rapporto e' 5,1 contro un tetto di 2 (costellazione 4.632, albero
+   3.183, loto 911). **La causa e' un nodo fra due decisioni del fondatore**:
+   AB.02 vuole pesi uguali, AG.02 ha tolto l'alone al Loto perche' tingeva i
+   petali di blu, ed e' proprio l'alone il peso che manca. Non si cura senza
+   una sua scelta: alone diverso per il Loto, dischi piu' grandi, o tetto
+   rivisto.
+3. **Le quattro guardie degli ordini AC, AX, T e U**: rosse per costruzione
+   finche' quelle voci restano aperte, ed e' il loro mestiere. Dentro AX ci
+   sono voci che il lavoro successivo ha probabilmente gia' chiuso (la misura
+   sui pixel e' di BA.02, il Passaporto che porta a sbloccare ha la sua prova
+   verde): riconciliare quei manifesti e' lavoro da custode, non una riga da
+   cambiare al volo.
+
 ## Cosa BD.08 ha misurato e deciso
 
 **Le feste FUNZIONAVANO ed erano TRATTENUTE.** Misurato con una prova:
@@ -183,8 +223,8 @@ dichiarazione del cambio scritta dentro.
 ## I marcatori
 
 VOCI_TOTALI: 9
-VOCI_APERTE: 1
-VOCI_CHIUSE: 8
+VOCI_APERTE: 0
+VOCI_CHIUSE: 9
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

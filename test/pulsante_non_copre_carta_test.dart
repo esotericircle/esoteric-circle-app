@@ -297,7 +297,17 @@ void main() {
             reason: 'la diagnostica del busto non c e: senza di lei non si '
                 'puo dire se la carta ha preso tutto lo spazio o no');
         expect(misura!.busto,
-            closeTo(math.max(altezzaMinimaDelBusto, misura.concessa), 1.0),
+            // **IL PAVIMENTO GIUSTO E' QUELLO ASSOLUTO, non il 220.** Ordine
+            // BD voce 02: questa riga usava `altezzaMinimaDelBusto` (220),
+            // che e' il pavimento che l'ordine AU voce 05 ha DECLASSATO
+            // proprio perche' vinceva sul vincolo e spingeva il busto sul
+            // testo. Con la tipografia d'accessibilita' a 1,6 lo spazio
+            // concesso scende a 182 punti, il busto li prende TUTTI, e
+            // pretendere 220 vorrebbe dire pretendere il difetto che AU.05
+            // ha curato. Il senso della regola resta intero: la carta prende
+            // tutto cio' che il vincolo le concede.
+            closeTo(
+                math.max(altezzaMinimaAssolutaDelBusto, misura.concessa), 1.0),
             reason: 'la carta di ${maestro.name} non prende tutto lo spazio '
                 'che il vincolo le concede: il busto e ${misura.busto} punti '
                 'mentre lo spazio concesso e ${misura.concessa}');
