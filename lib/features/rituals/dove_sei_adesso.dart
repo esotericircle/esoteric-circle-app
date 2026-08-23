@@ -77,8 +77,47 @@ class _DoveSeiAdessoState extends State<DoveSeiAdesso> {
         cta: 'Usa la mia posizione',
       ),
       systemRequest: () async {
-        final luogo = await widget.location.resolveSeConcesso();
-        return luogo != null;
+        // **LA RISPOSTA INTERA, NON UN NULL, ordine BE voce 06.** Qui si
+        // usava `resolveSeConcesso`, che appiattisce ogni esito su un nulla:
+        // col permesso negato per sempre il dialogo di sistema non compare
+        // mai piu', il nulla tornava in silenzio, e sul telefono del
+        // fondatore il tocco restava MUTO. E' lo stesso appiattimento gia'
+        // curato una volta sulla Runa del Tramonto (BB.08), da un'altra
+        // porta: i due no restano distinti fino a schermo.
+        final risposta = await widget.location.chiedi();
+        if (!mounted) return risposta.concessa;
+        switch (risposta.esito) {
+          case EsitoPosizione.concessa:
+            break;
+          case EsitoPosizione.negataPerSempre:
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              key: Key('alba_posizione_negata_per_sempre'),
+              content: Text(
+                  'La posizione è stata negata per sempre a questa app: ti '
+                  'porto alle impostazioni per riattivarla. Oppure scegli '
+                  'la tua città qui sotto.'),
+              duration: Duration(seconds: 6),
+            ));
+            await widget.location.apriImpostazioni();
+          case EsitoPosizione.servizioSpento:
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              key: Key('alba_posizione_servizio_spento'),
+              content: Text(
+                  'La posizione del telefono è spenta: accendila dalle '
+                  'impostazioni, oppure scegli la tua città qui sotto.'),
+              duration: Duration(seconds: 6),
+            ));
+          case EsitoPosizione.negata:
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              key: Key('alba_posizione_negata'),
+              content: Text(
+                  'Senza posizione posso comunque usare la tua città: '
+                  'scegli qui sotto, per il sorgere vale allo stesso modo.'),
+            ));
+          case EsitoPosizione.nonDisponibile:
+            break;
+        }
+        return risposta.concessa;
       },
     );
     if (!concesso || !mounted) return;
@@ -105,6 +144,12 @@ class _DoveSeiAdessoState extends State<DoveSeiAdesso> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
         border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
+        // **IL VETRO DI NOTTE, ordine BE voce 06.** Parole del fondatore,
+        // maiuscole sue: "QUELLE SCRITTE CON SFONDO DEL MARE NON SI
+        // VEDONO". La card stava NUDA sulla fotografia del mare
+        // illuminato: solo bordo, nessun fondo. Lo stesso vetro scuro dei
+        // responsi (BB.09) le da' un fondo prevedibile su qualunque foto.
+        color: palette.deepest.withValues(alpha: 0.90),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
