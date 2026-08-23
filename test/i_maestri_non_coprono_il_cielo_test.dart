@@ -200,26 +200,26 @@ void main() {
       // FERMATA IN ATTESA DI DECISIONE coi due numeri, perche' su quegli
       // schermi la cura vera e' comprimere il blocco del cielo, e quella e'
       // una decisione dell'Architetto.
+      // **LA LEGGE E' CAMBIATA CON GLI ORDINI BC E BD, e si dichiara.** Lo
+      // zero sullo schermo alto apparteneva alla regola vecchia, le due zone
+      // non si toccano. Il fondatore l'ha rovesciata guardando le anteprime:
+      // i Maestri stanno DAVANTI, interi, e una copertura leggera e'
+      // accettata (coda di BC.01), e con BD.01 sono cresciuti fino a
+      // sovrapporsi. La leggibilita' per singolo testo la sorveglia
+      // `nessun_testo_finisce_sotto_test` col 35 per cento sui pixel; qui si
+      // tiene fermo che la copertura NON PEGGIORI oltre i numeri misurati il
+      // 23 agosto 2026, con un margine del dieci per cento perche' il
+      // respiro e la parallasse spostano qualche pixel fra un giro e l'altro.
       const copertiOggi = <String, double>{
-        'alto, 360x797': 0,
-        'medio, 375x667': 9299,
-        'basso, 320x568': 24768,
+        'alto, 360x797': 2408,
+        'medio, 375x667': 888,
+        'basso, 320x568': 6271,
       };
-      final tetto = copertiOggi[voce.key]!;
-      if (tetto == 0) {
-        expect(guai, isEmpty,
-            reason: 'i Maestri stanno ancora sopra il testo su uno schermo che '
-                'lo spazio ce l ha. Il rimedio non e invertire l ordine di '
-                'pila: le due zone non si devono toccare');
-      } else {
-        // Un pixel di tolleranza: i numeri scritti sono arrotondati e la
-        // misura ha i decimali, e cadere per nove centesimi di pixel non
-        // segnala niente a nessuno.
-        expect(copertiInTutto, lessThanOrEqualTo(tetto + 1),
-            reason: 'su ${voce.key} i pixel coperti sono peggiorati: erano '
-                '$tetto, adesso $copertiInTutto. Lo spazio li non basta per '
-                'nessuna altezza del busto, ma non deve peggiorare');
-      }
+      final tetto = copertiOggi[voce.key]! * 1.10;
+      expect(copertiInTutto, lessThanOrEqualTo(tetto),
+          reason: 'su ${voce.key} i pixel coperti sono ${copertiInTutto.round()} '
+              'contro un tetto di ${tetto.round()}: la copertura accettata dal '
+              'fondatore e LEGGERA e ferma, e questa sta crescendo');
     });
   }
 }

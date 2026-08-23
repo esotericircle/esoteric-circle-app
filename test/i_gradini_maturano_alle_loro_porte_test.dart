@@ -36,7 +36,8 @@ void main() {
 
   Future<DiarioDelCammino> diarioVergine() async {
     SharedPreferences.setMockInitialValues(const {'onboarding.done': true});
-    final diario = DiarioDelCammino();
+    final diario =
+        DiarioDelCammino(orologio: () => DateTime(2026, 8, 23, 12));
     await diario.carica();
     return diario;
   }

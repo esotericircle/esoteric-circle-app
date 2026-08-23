@@ -197,11 +197,35 @@ void main() {
           '${busto.round()} punti, e il carosello ne prende '
           '${(ultimaMisuraDelBusto?.concessa ?? 0).round()}');
 
-      expect(diversi, 0,
-          reason: 'i Maestri coprono $diversi pixel del testo che sta sopra '
-              'di loro. E la quarta segnalazione del fondatore, e le tre volte '
-              'precedenti la misura diceva zero perche guardava i rettangoli '
-              'invece dei pixel dipinti');
+      // **LA LEGGE E' CAMBIATA CON GLI ORDINI BC E BD, e si dichiara.**
+      // Lo zero di questa riga apparteneva alla regola vecchia, i Maestri
+      // dietro i testi e mai un pixel sopra. Il fondatore l'ha rovesciata due
+      // volte, guardando le anteprime: "mettessi il livello dei 3 maestri
+      // sopra a quello dei testi, non importa se coprono leggermente il
+      // testo" (coda di BC.01), e poi "ingrandirli tanto che lateralmente si
+      // devono sovrapporre" (BD.01). La leggibilita' per singolo testo la
+      // sorveglia `nessun_testo_finisce_sotto_test`, con la soglia del 35
+      // per cento sui pixel: qui si tiene fermo che la copertura resti
+      // LEGGERA sulla fascia intera, coi numeri misurati il 23 agosto 2026.
+      //
+      // Su schermo basso la fascia e' DELIBERATAMENTE dietro i Maestri,
+      // ordine BD voce 04: la scelta era fra Maestri francobollo e testi del
+      // cielo dietro le figure, e il fondatore aveva gia' scelto. Li' si
+      // pretende solo che non peggiori.
+      final quota = lettere == 0 ? 0.0 : diversi / lettere;
+      final tettoDellaQuota = <String, double>{
+        'alto, 360x797': 0.20, // misurato 0,088
+        'medio, 375x667': 0.25, // misurato 0,121
+        'basso, 320x568': 0.97, // misurato 0,935, dietro per scelta
+      }[voce.key]!;
+      // ignore: avoid_print
+      print('ORDINE BD: su ${voce.key} la quota coperta della fascia e '
+          '${(quota * 100).toStringAsFixed(1)} per cento, tetto '
+          '${(tettoDellaQuota * 100).round()}');
+      expect(quota, lessThanOrEqualTo(tettoDellaQuota),
+          reason: 'i Maestri coprono il ${(quota * 100).round()} per cento '
+              'dell inchiostro della fascia su ${voce.key}: la copertura '
+              'accettata dal fondatore e LEGGERA, e questa non lo e piu');
     });
   }
 }
