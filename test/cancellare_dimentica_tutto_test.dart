@@ -116,19 +116,39 @@ void main() {
     expect(eos.ultimi, isEmpty, reason: 'i movimenti degli Eos restano');
   });
 
-  test('BC.02: e la cancellazione la chiama, non solo l uscita', () {
+  test('BC.02: e TUTTE E TRE le vie che congedano la chiamano', () {
     // **ERA QUESTO IL DIFETTO.** La dimenticanza della memoria esisteva e
     // stava dentro l'uscita: cancellare l'account puliva MENO che uscire.
+    //
+    // **Contare le occorrenze non basta piu', e non e' un dettaglio.** Con le
+    // quattro voci dell'ordine BC le vie che congedano sono TRE: uscire,
+    // azzerare i dati tenendo l'account, e chiedere l'oblio. Un conto che
+    // dicesse "tre" resterebbe verde anche se una funzione la chiamasse due
+    // volte e un'altra nessuna: si guarda **dentro ciascuna**.
     final schermata = File('lib/features/account/account_screen.dart')
         .readAsStringSync();
-    final quante =
-        'DimenticanzaDellaMemoriaViva.dimentica'.allMatches(schermata).length;
+    final mute = <String>[];
+    for (final via in const [
+      '_chiediDiUscire',
+      '_azzeraIDati',
+      '_chiediLOblio',
+    ]) {
+      final da = schermata.indexOf('Future<void> $via(BuildContext');
+      expect(da, greaterThan(0), reason: 'la via "$via" non esiste piu');
+      var a = schermata.indexOf('\nFuture<void> ', da + 1);
+      if (a < 0) a = schermata.indexOf('\nclass ', da + 1);
+      if (a < 0) a = schermata.length;
+      final corpo = schermata.substring(da, a);
+      if (!corpo.contains('DimenticanzaDellaMemoriaViva.dimentica')) {
+        mute.add(via);
+      }
+    }
     // ignore: avoid_print
-    print('ORDINE BC VOCE 02: la memoria viva si dimentica in $quante punti '
-        'della schermata, e devono essere due: l uscita e la cancellazione');
-    expect(quante, 2,
-        reason: 'la dimenticanza della memoria viva compare $quante volte '
-            'invece di due: o l uscita o la cancellazione non la chiama');
+    print('ORDINE BC VOCE 02: le vie che congedano sono tre, e quelle che non '
+        'dimenticano la memoria sono ${mute.length}');
+    expect(mute, isEmpty,
+        reason: 'queste vie congedano qualcuno e gli lasciano i dati a '
+            'schermo: $mute');
   });
 
   test('BC.02: l elenco dei provider e completo, contato su app.dart', () {

@@ -151,13 +151,12 @@ class AvvisiDelRito {
   /// sceglie e dove si cambia idea.
   static const String spiegazione =
       'Posso chiamarti quando un Dono del giorno è pronto: l\'Alba al '
-      'mattino, e se vuoi anche il Soffio, l\'Arcano, il Tramonto e il '
-      'Sigillo del Sogno, ciascuno alla sua ora. Scegli tu quali, dal menù '
-      'Notifiche, e puoi cambiare idea quando vuoi: di partenza ne accendo '
-      'uno solo, il Rito dell\'Alba. L\'orario è indicativo, perché il '
-      'sistema consegna l\'avviso in una finestra attorno a quell\'ora e non '
-      'al minuto. Se preferisci di no, i riti restano interi e li apri quando '
-      'vuoi.';
+      'mattino, il Soffio, l\'Arcano, il Tramonto e il Sigillo del Sogno, '
+      'ciascuno alla sua ora. Sono cinque avvisi al giorno, e dal menù '
+      'Notifiche puoi spegnere quelli che non vuoi e spostare l\'ora di '
+      'quelli che tieni. L\'orario è indicativo, perché il sistema consegna '
+      'l\'avviso in una finestra attorno a quell\'ora e non al minuto. Se '
+      'preferisci di no, i riti restano interi e li apri quando vuoi.';
 
   /// QUANDO mandare l'avviso, per il giorno civile di [quando].
   ///
@@ -370,6 +369,7 @@ class AvvisiDelRito {
     required DateTime adesso,
     required List<DailyElement> doniAccesi,
     DateTime? albaVera,
+    Map<DailyElement, int>? oreScelte,
   }) async {
     if (!servizio.disponibile || !await servizio.permessoConcesso()) {
       return const [];
@@ -387,7 +387,8 @@ class AvvisiDelRito {
 
     final programmate = <int>[];
     for (final dono in doniAccesi) {
-      final quando = _prossimaVolta(dono, adesso, albaVera);
+      final quando = _prossimaVolta(dono, adesso, albaVera,
+          oreScelte?[dono] ?? dono.anchorMinutes);
       await servizio.programma(
         id: idDelDono(dono),
         quando: quando,
@@ -404,16 +405,23 @@ class AvvisiDelRito {
   /// La prossima volta che questo Dono chiama.
   ///
   /// Oggi se la sua ora deve ancora arrivare, domani se e' passata.
-  static DateTime _prossimaVolta(
-      DailyElement dono, DateTime adesso, DateTime? albaVera) {
+  static DateTime _prossimaVolta(DailyElement dono, DateTime adesso,
+      DateTime? albaVera, int minuti) {
     // **L'ALBA HA UN'ORA SUA quando il Sole la da'**, ed e' l'unica promessa
     // che questa app abbia mai fatto a voce: "quando il sole sorge da te".
-    if (dono == DailyElement.dawn && albaVera != null) {
+    //
+    // **MA SOLO SE NESSUNO L'HA CAMBIATA.** Ordine BC voce 05, coda: il
+    // fondatore ha chiesto che ogni orario si possa cambiare, e un'ora
+    // scelta a mano vale piu' del sorgere del Sole. Chi vuole il Sole
+    // rimette l'ora di casa dal menu'.
+    if (dono == DailyElement.dawn &&
+        albaVera != null &&
+        minuti == dono.anchorMinutes) {
       if (albaVera.isAfter(adesso)) return albaVera;
       return albaVera.add(const Duration(days: 1));
     }
     final oggi = DateTime(adesso.year, adesso.month, adesso.day,
-        dono.anchorHour, dono.anchorMinute);
+        minuti ~/ 60, minuti % 60);
     if (oggi.isAfter(adesso)) return oggi;
     return oggi.add(const Duration(days: 1));
   }

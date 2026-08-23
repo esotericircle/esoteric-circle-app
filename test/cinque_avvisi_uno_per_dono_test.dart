@@ -206,27 +206,56 @@ void main() {
             'riceverebbe accanto alle nuove');
   });
 
-  test('BC.05: la scelta parte con la sola Alba accesa', () async {
-    // **NON TUTTI E CINQUE D UFFICIO.** Cinque avvisi al giorno a chi ne ha
-    // accettato uno e' il modo piu rapido di far spegnere tutto dalle
-    // impostazioni di sistema e non tornare piu. L Alba e anche l unico che
-    // l app abbia mai promesso a voce quando chiede il permesso.
+  test('BC.05: la scelta parte con TUTTI E CINQUE accesi', () async {
+    // **DECISIONE DEL FONDATORE**: "tutte le notifiche devono essere attive
+    // di default".
+    //
+    // **La prima stesura ne accendeva uno solo, e la ragione era buona**:
+    // cinque avvisi al giorno a chi ne ha accettato uno sono il modo piu
+    // rapido di far spegnere tutto dalle impostazioni di Android e non
+    // tornare piu. Il fondatore ha deciso diversamente, ed e una scelta di
+    // prodotto che gli appartiene: i cinque Doni sono l appuntamento
+    // quotidiano attorno a cui l app e costruita.
+    //
+    // **Cio che rende la scelta sostenibile e che spegnerli e facile**, e lo
+    // misurano le prove qui sopra: ognuno ha il suo interruttore, l ora si
+    // sposta, e la spiegazione del permesso li nomina tutti e cinque prima
+    // che il sistema chieda.
     final scelta = SceltaDegliAvvisi();
     await scelta.carica();
     // ignore: avoid_print
     print('ORDINE BC VOCE 05: di partenza chiamano '
         '${scelta.quelliCheChiamano.map((d) => d.name).toList()}');
-    expect(scelta.quelliCheChiamano, [DailyElement.dawn]);
+    expect(scelta.quelliCheChiamano, hasLength(5));
+    for (final d in DailyElement.values) {
+      expect(scelta.chiama(d), isTrue,
+          reason: 'il Dono ${d.name} non chiama di partenza');
+    }
   });
 
   test('BC.05: e ogni interruttore vale per il suo Dono soltanto', () async {
     final scelta = SceltaDegliAvvisi();
     await scelta.carica();
-    await scelta.scegli(DailyElement.night, true);
+    // **SI SPEGNE, e non si accende**: con tutti e cinque accesi di partenza
+    // il gesto che conta e' l'altro, e provare ad accendere cio' che e' gia'
+    // acceso non direbbe niente.
     await scelta.scegli(DailyElement.dawn, false);
-    expect(scelta.chiama(DailyElement.night), isTrue);
     expect(scelta.chiama(DailyElement.dawn), isFalse);
-    expect(scelta.chiama(DailyElement.breath), isFalse);
+    // **E GLI ALTRI QUATTRO NON SI TOCCANO**: e' la richiesta del fondatore,
+    // che ognuno si gestisca per conto suo.
+    for (final d in const [
+      DailyElement.breath,
+      DailyElement.oracle,
+      DailyElement.rune,
+      DailyElement.night,
+    ]) {
+      expect(scelta.chiama(d), isTrue,
+          reason: 'spegnendo l Alba si e spento anche ${d.name}');
+    }
+    // E si riaccende.
+    await scelta.scegli(DailyElement.dawn, true);
+    expect(scelta.chiama(DailyElement.dawn), isTrue);
+    await scelta.scegli(DailyElement.night, false);
 
     // **E LA SCELTA SOPRAVVIVE ALLA CHIUSURA DELL APP.**
     final riletta = SceltaDegliAvvisi();
@@ -234,10 +263,74 @@ void main() {
     // ignore: avoid_print
     print('ORDINE BC VOCE 05: dopo un giro di disco chiamano '
         '${riletta.quelliCheChiamano.map((d) => d.name).toList()}');
-    expect(riletta.chiama(DailyElement.night), isTrue,
+    expect(riletta.chiama(DailyElement.night), isFalse,
         reason: 'la scelta non e stata scritta: riaprendo l app tornerebbe '
             'come prima');
-    expect(riletta.chiama(DailyElement.dawn), isFalse);
+    expect(riletta.chiama(DailyElement.dawn), isTrue);
+  });
+
+  test('BC.05 coda: l ora si cambia, e la chiamata la segue', () async {
+    // **Richiesta del fondatore, arrivata dopo l ordine**: "nel menu
+    // notifiche, l utente deve poter cambiare anche l orario di ogni
+    // notifica."
+    final scelta = SceltaDegliAvvisi();
+    await scelta.carica();
+    expect(scelta.minutiDi(DailyElement.oracle),
+        DailyElement.oracle.anchorMinutes,
+        reason: 'di partenza vale l ora concordata');
+    expect(scelta.eLOraDiCasa(DailyElement.oracle), isTrue);
+
+    await scelta.scegliLOra(DailyElement.oracle, ora: 9, minuto: 5);
+    expect(scelta.minutiDi(DailyElement.oracle), 9 * 60 + 5);
+    expect(scelta.eLOraDiCasa(DailyElement.oracle), isFalse);
+
+    // **E LA CHIAMATA VA ALL ORA NUOVA**, se no l interruttore direbbe una
+    // cosa e l agenda ne farebbe un altra.
+    final finti = _AvvisiFinti();
+    await AvvisiDelRito.programmaLeChiamateDelGiorno(
+      servizio: finti,
+      adesso: DateTime(2026, 8, 23, 0, 1),
+      doniAccesi: const [DailyElement.oracle],
+      oreScelte: {DailyElement.oracle: scelta.minutiDi(DailyElement.oracle)},
+    );
+    final quando =
+        finti.programmati[AvvisiDelRito.idDelDono(DailyElement.oracle)]!.quando;
+    // ignore: avoid_print
+    print('ORDINE BC VOCE 05 coda: l Arcano spostato alle 09:05 chiama alle '
+        '${quando.hour.toString().padLeft(2, '0')}:'
+        '${quando.minute.toString().padLeft(2, '0')}');
+    expect(quando.hour, 9);
+    expect(quando.minute, 5);
+
+    // **E SI TORNA INDIETRO.** Chi sposta un ora per prova deve poter
+    // rimettere quella di casa senza ricordarsela a memoria.
+    await scelta.rimettiLOraDiCasa(DailyElement.oracle);
+    expect(scelta.minutiDi(DailyElement.oracle),
+        DailyElement.oracle.anchorMinutes);
+
+    // **E LA SCELTA SOPRAVVIVE ALLA CHIUSURA DELL APP.**
+    await scelta.scegliLOra(DailyElement.night, ora: 21, minuto: 30);
+    final riletta = SceltaDegliAvvisi();
+    await riletta.carica();
+    expect(riletta.minutiDi(DailyElement.night), 21 * 60 + 30,
+        reason: 'l ora scelta non e stata scritta: riaprendo l app tornerebbe '
+            'quella di prima');
+  });
+
+  test('BC.05 coda: e un ora scritta male si butta invece di indovinarla',
+      () async {
+    // Un dato fuori dal giorno non e' una scelta della persona: indovinare
+    // cosa volesse dire e' peggio che tornare all ora di casa.
+    SharedPreferences.setMockInitialValues({
+      SceltaDegliAvvisi.chiaveDellOraDi(DailyElement.dawn): 5000,
+    });
+    final scelta = SceltaDegliAvvisi();
+    await scelta.carica();
+    // ignore: avoid_print
+    print('ORDINE BC VOCE 05 coda: con 5000 minuti scritti sul disco, l Alba '
+        'chiama a ${scelta.minutiDi(DailyElement.dawn)} minuti');
+    expect(scelta.minutiDi(DailyElement.dawn),
+        DailyElement.dawn.anchorMinutes);
   });
 
   test('BC.05: le chiavi della scelta si dimenticano con l account', () async {
@@ -280,7 +373,14 @@ void main() {
         '${AvvisiDelRito.spiegazione.substring(0, 60)}..."');
     expect(AvvisiDelRito.spiegazione, isNot(contains('Un avviso solo')));
     expect(AvvisiDelRito.spiegazione, isNot(contains('una volta al giorno')));
-    expect(AvvisiDelRito.spiegazione, contains('Scegli tu quali'),
-        reason: 'la spiegazione non dice che la scelta e della persona');
+    // **DICE IL NUMERO VERO PRIMA CHE IL SISTEMA CHIEDA.** Con tutti e cinque
+    // accesi di partenza, chi accetta deve sapere che sono cinque: e la
+    // differenza fra un consenso informato e una sorpresa il giorno dopo.
+    expect(AvvisiDelRito.spiegazione, contains('cinque avvisi al giorno'),
+        reason: 'la spiegazione non dice quanti avvisi arriveranno');
+    expect(AvvisiDelRito.spiegazione, contains('spegnere'),
+        reason: 'la spiegazione non dice che si possono spegnere');
+    expect(AvvisiDelRito.spiegazione, contains('spostare'),
+        reason: 'la spiegazione non dice che l ora si puo spostare');
   });
 }

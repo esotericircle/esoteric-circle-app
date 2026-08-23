@@ -141,6 +141,49 @@ class _NotificheScreenState extends State<NotificheScreen> {
 
   int? _inAgenda;
 
+  /// **CAMBIA L'ORA DI UN DONO.** Ordine BC voce 05, coda.
+  ///
+  /// Richiesta del fondatore: "nel menu' notifiche, l'utente deve poter
+  /// cambiare anche l'orario di ogni notifica."
+  ///
+  /// Si apre l'orologio di sistema, quello che la persona conosce gia' da
+  /// tutte le altre app: un selettore fatto in casa sarebbe una cosa nuova da
+  /// imparare per scegliere un'ora.
+  Future<void> _cambiaLOra(
+      DailyElement dono, SceltaDegliAvvisi scelta) async {
+    final adesso = scelta.oraDi(dono);
+    final scelto = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: adesso.ora, minute: adesso.minuto),
+      helpText: 'A che ora ti chiama ${dono.title}?',
+      cancelText: 'Lascia com\'è',
+      confirmText: 'Va bene',
+    );
+    if (scelto == null || !mounted) return;
+    await scelta.scegliLOra(dono, ora: scelto.hour, minuto: scelto.minute);
+    if (!mounted) return;
+    // **L'AGENDA SI RISCRIVE SUBITO**, come per l'interruttore: un'ora
+    // cambiata che lascia la vecchia chiamata in coda direbbe una cosa e ne
+    // farebbe un'altra.
+    await _riprogramma();
+    if (!mounted) return;
+    // **E SI PUO' TORNARE INDIETRO.** Chi sposta un'ora per prova deve poter
+    // rimettere quella di casa senza doverla ricordare a memoria.
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      key: const Key('notifiche_ora_cambiata'),
+      content: Text('${dono.title} ti chiamerà alle '
+          '${scelto.hour.toString().padLeft(2, '0')}:'
+          '${scelto.minute.toString().padLeft(2, '0')}.'),
+      action: SnackBarAction(
+        label: 'Rimetti ${AvvisiDelRito.oraDetta(dono)}',
+        onPressed: () async {
+          await scelta.rimettiLOraDiCasa(dono);
+          if (mounted) await _riprogramma();
+        },
+      ),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(ThemeKey.of(Maestro.medora));
@@ -192,6 +235,8 @@ class _NotificheScreenState extends State<NotificheScreen> {
                         await scelta.scegli(dono, v);
                         if (mounted) await _riprogramma();
                       },
+                      suOra: () => _cambiaLOra(dono, scelta),
+                      oraDetta: _comeSiScrive(scelta.oraDi(dono)),
                     ),
                     const SizedBox(height: SpacingTokens.sm),
                   ],
@@ -210,6 +255,11 @@ class _NotificheScreenState extends State<NotificheScreen> {
       ),
     );
   }
+
+  /// L'ora in cifre, come si legge nel menu'.
+  static String _comeSiScrive(({int ora, int minuto}) q) =>
+      '${q.ora.toString().padLeft(2, '0')}:'
+      '${q.minuto.toString().padLeft(2, '0')}';
 
   /// **IL NUMERO VERO, non una promessa.**
   ///
@@ -267,13 +317,22 @@ class _UnAppuntamento extends StatelessWidget {
     required this.palette,
     required this.attivabile,
     required this.suScelta,
+    required this.suOra,
+    required this.oraDetta,
   });
+
+  /// L'ora che questa riga mostra: quella scelta dalla persona, o quella di
+  /// casa se non l'ha mai cambiata.
+  final String oraDetta;
 
   final DailyElement dono;
   final bool acceso;
   final MaestroPalette palette;
   final bool attivabile;
   final Future<void> Function(bool) suScelta;
+
+  /// Il tocco sull'ora: apre l'orologio e la cambia.
+  final Future<void> Function() suOra;
 
   @override
   Widget build(BuildContext context) {
@@ -291,16 +350,47 @@ class _UnAppuntamento extends StatelessWidget {
           // **L'ORA IN CIFRE, e prima di tutto il resto.** E' quello che il
           // fondatore ha chiesto di poter gestire: "i singoli orari delle
           // notifiche".
-          SizedBox(
-            width: 58,
-            child: Text(
-              AvvisiDelRito.oraDetta(dono),
-              key: Key('notifiche_ora_${dono.name}'),
-              style: TypographyTokens.titoloScheda().copyWith(
-                color: acceso ? palette.goldSoft : ColorTokens.textMuted,
+          // **L'ORA SI TOCCA E SI CAMBIA.** Ordine BC voce 05, coda:
+          // richiesta del fondatore, "l'utente deve poter cambiare anche
+          // l'orario di ogni notifica".
+          //
+          // **Si tocca anche col Dono spento**, ed e' voluto: chi vuole
+          // l'Arcano alle nove deve poter mettere l'ora prima di accendere,
+          // invece di accendere alle tredici e correre a cambiarla.
+          InkWell(
+            key: Key('notifiche_tocco_ora_${dono.name}'),
+            onTap: attivabile ? () => suOra() : null,
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: SpacingTokens.xs, horizontal: 2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 56,
+                    child: Text(
+                      oraDetta,
+                      key: Key('notifiche_ora_${dono.name}'),
+                      style: TypographyTokens.titoloScheda().copyWith(
+                        color:
+                            acceso ? palette.goldSoft : ColorTokens.textMuted,
+                      ),
+                    ),
+                  ),
+                  // **UN SEGNO CHE SI PUO' TOCCARE**, se no un'ora scritta
+                  // sembra un'etichetta: e' la stessa regola della freccia
+                  // sulle tessere del Passaporto, dell'ordine BC voce 03.
+                  Icon(Icons.schedule_rounded,
+                      size: 13,
+                      color: (acceso ? palette.goldSoft : ColorTokens.textMuted)
+                          .withValues(alpha: 0.7)),
+                ],
               ),
             ),
           ),
+          const SizedBox(width: SpacingTokens.xs),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

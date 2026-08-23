@@ -56,6 +56,11 @@ class RegiaDelleChiamate {
       servizio: porta,
       adesso: DateTime.now(),
       doniAccesi: scelta.quelliCheChiamano,
+      // **E ALL'ORA CHE LA PERSONA HA SCELTO.** Ordine BC voce 05, coda:
+      // "l'utente deve poter cambiare anche l'orario di ogni notifica".
+      oreScelte: {
+        for (final d in scelta.quelliCheChiamano) d: scelta.minutiDi(d),
+      },
     );
   }
 }
