@@ -344,6 +344,9 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       rimandi: account.rimandi,
       adesso: DateTime.now(),
       ultimaRichiesta: ultima,
+      // Il primo avviso non aspetta niente, ordine BE voce 07: chi usa il
+      // Cerchio senza account lo deve sapere subito, una volta.
+      maiAvvisato: ultima == null,
     )) {
       return;
     }

@@ -23,12 +23,9 @@ import 'dimenticanza_del_telefono.dart';
 /// **QUANTI GIORNI DI RIPENSAMENTO PRIMA CHE L'OBLIO SIA DEFINITIVO.**
 /// Ordine BC voce 02.
 ///
-/// Trenta, decisi dal fondatore. **Deve valere lo stesso numero che il server
-/// scrive nella data**: se qui dicessimo trenta e il server ne segnasse
-/// quindici, la persona leggerebbe una promessa e ne vivrebbe un'altra. Il
-/// server e' la verita', e questa costante e' cio' che si dice a voce: la
-/// prova `test/scaricare_i_tuoi_dati_test.dart` le confronta.
-const int giorniDiRipensamento = 30;
+// **I TRENTA GIORNI NON ESISTONO PIU', ordine BE voce 07**: la costante
+// che li dichiarava e' stata rimossa con la regola, per decisione del
+// fondatore. La cancellazione e' immediata e totale.
 
 class ScaricoDeiTuoiDati {
   const ScaricoDeiTuoiDati._();

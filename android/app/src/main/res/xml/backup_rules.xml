@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Regole di backup per Android 11 e precedenti.
+  IL BACKUP E' SPENTO DEL TUTTO. Ordine BE voce 07.
 
-  Le preferenze restano nel backup, tranne il file che contiene i dati della
-  persona: dentro c'e' profile.avatarPhoto, cioe' la fotografia del volto in
-  base64, insieme alla data e al luogo di nascita. Due schermate dell'app
-  promettono che nessuna immagine lascia il dispositivo, e il Backup Automatico
-  la porterebbe su Google Drive senza dirlo a nessuno.
+  La regola precedente escludeva il solo file delle preferenze di Flutter
+  (per la fotografia del volto), ma NON escludeva le preferenze di Firebase
+  Auth: alla reinstallazione Android ripristinava i gettoni di accesso,
+  l'app tornava a parlare al server con la stessa identita' di prima, e chi
+  aveva cancellato i dati se li ritrovava. Il fondatore lo ha visto sulla
+  2199: 270 Eos su un'app "mai registrata".
 
-  Si esclude il file intero perche' il formato non consente di escludere singole
-  chiavi: il file delle preferenze e' uno solo. La perdita per l'utente e' che
-  cambiando telefono rifara' il Risveglio, che dura un minuto.
+  Con android:allowBackup="false" nel manifest non si ripristina niente:
+  ne' il volto, ne' l'identita', ne' il cammino. Chi cambia telefono rientra
+  col proprio account, che e' la via giusta.
 -->
 <full-backup-content>
-    <exclude domain="sharedpref" path="FlutterSharedPreferences.xml"/>
+    <exclude domain="sharedpref" path="."/>
+    <exclude domain="database" path="."/>
+    <exclude domain="file" path="."/>
 </full-backup-content>

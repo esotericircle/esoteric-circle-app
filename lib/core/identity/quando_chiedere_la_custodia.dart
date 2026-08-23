@@ -31,8 +31,15 @@ class QuandoChiedereLaCustodia {
     required int rimandi,
     required DateTime adesso,
     DateTime? ultimaRichiesta,
+    bool maiAvvisato = false,
   }) {
     if (!anonimo) return false;
+    // **IL PRIMO AVVISO NON ASPETTA I MOMENTI. Ordine BE voce 07, punto 1.**
+    // Parole del fondatore: "io non ero loggato e il sistema mi avrebbe
+    // dovuto avvertire che stavo usando l'app senza essere registrato". Il
+    // minimo di momenti serviva a non insistere, ma faceva anche tacere il
+    // PRIMO avviso: chi entra senza account deve saperlo subito, una volta.
+    if (maiAvvisato) return true;
     if (momenti < momentiMinimi) return false;
     if (rimandi >= rimandiMassimi) return false;
     if (ultimaRichiesta == null) return true;

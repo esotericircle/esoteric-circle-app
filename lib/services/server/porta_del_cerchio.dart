@@ -16,7 +16,6 @@ class StatoDelCerchio {
     required this.saldoEos,
     this.cammino,
     this.listinoDellaCondivisione = const {},
-    this.oblioInAttesaFinoAl,
   });
 
   final String giorno;
@@ -54,8 +53,6 @@ class StatoDelCerchio {
   /// un ripensamento, e chi rientra deve trovare il modo di restare senza
   /// doverlo cercare. Viaggia con lo stato e non in una callable sua, per la
   /// stessa ragione del listino: `statoDelCerchio` e' cio' che si chiede a
-  /// ogni apertura.
-  final DateTime? oblioInAttesaFinoAl;
 
   static StatoDelCerchio? daMappa(Object? risposta) {
     if (risposta is! Map) return null;
@@ -85,7 +82,6 @@ class StatoDelCerchio {
       saldoEos: saldo is num ? saldo.toInt() : 0,
       cammino: CamminoDaCustodire.daMappa(risposta['cammino']),
       listinoDellaCondivisione: listino,
-      oblioInAttesaFinoAl: _quandoDimentica(risposta['oblioInAttesa']),
     );
   }
 
@@ -175,28 +171,17 @@ abstract class PortaDelCerchio {
   /// sono piu'.
   Future<bool> cancellaIlCerchio();
 
-  /// **CHIEDE L'OBLIO, e non lo esegue subito.** Ordine BC voce 02.
+  /// **AZZERA I DATI TENENDO L'ACCOUNT, sul server.** Ordine BE voce 07,
+  /// punto 3: la voce "cancella i tuoi dati" puliva solo il telefono, il
+  /// ramo sul server restava e al ritorno dell'identita' rendeva tutto.
   ///
-  /// Torna la data in cui la cancellazione avverra' davvero, oppure nulla se
-  /// il server non ha potuto segnarla. Da quel momento l'account e' in
-  /// attesa: rientrando si puo' annullare, e dopo trenta giorni il lavoro
-  /// notturno cancella.
+  /// **I trenta giorni non esistono piu'** (decisione del fondatore che
+  /// sostituisce BC.02): chiediLOblio e annullaLOblio sono stati RIMOSSI, e
+  /// la cancellazione dell'account passa da `cancellaIlCerchio`, immediata.
   ///
-  /// **HA UN COMPORTAMENTO DI DIFETTO, e la ragione e' misurata.** Nel
-  /// progetto vivono **diciannove porte finte**, una per prova, e renderlo
-  /// obbligatorio avrebbe voluto dire toccare diciannove file per una
-  /// funzione che diciannove prove non usano. Il difetto e' il piu' prudente
-  /// che ci sia: **nessuna data, cioe' nessun oblio registrato**. Una porta
-  /// che tace non fa credere a nessuno di essersene andato.
-  ///
-  /// Che la porta VERA lo implementi davvero lo sorveglia
-  /// `test/scaricare_i_tuoi_dati_test.dart`, che guarda il sorgente della
-  /// porta di Firebase e cade se quelle due chiamate spariscono.
-  Future<DateTime?> chiediLOblio() async => null;
-
-  /// **ANNULLA L'OBLIO**, cioe' la meta' che rende i trenta giorni una
-  /// promessa invece che un'attesa. Torna vero se la persona resta.
-  Future<bool> annullaLOblio() async => false;
+  /// Il difetto e' prudente come per le sorelle: falso, cioe' niente
+  /// azzerato, e chi chiama lo dice invece di fingere.
+  Future<bool> azzeraIDati() async => false;
 
   /// UN IDENTIFICATIVO PER OGNI GESTO, e serve davvero.
   ///
@@ -316,18 +301,9 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   }
 
   @override
-  Future<DateTime?> chiediLOblio() async {
-    final risposta = await _chiama('chiediLOblio', const {});
-    if (risposta is! Map) return null;
-    final quando = risposta['cancellaDopo'];
-    if (quando is! String) return null;
-    return DateTime.tryParse(quando);
-  }
-
-  @override
-  Future<bool> annullaLOblio() async {
-    final risposta = await _chiama('annullaLOblio', const {});
-    return risposta is Map && risposta['inAttesa'] == false;
+  Future<bool> azzeraIDati() async {
+    final risposta = await _chiama('azzeraIDatiDelCerchio', const {});
+    return risposta is Map && risposta['datiAzzerati'] == true;
   }
 }
 

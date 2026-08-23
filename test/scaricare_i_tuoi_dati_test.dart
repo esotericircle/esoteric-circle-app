@@ -164,29 +164,40 @@ void main() {
     // implementi.
     final porta = File('lib/services/server/porta_del_cerchio.dart')
         .readAsStringSync();
-    for (final chiamata in const ["'chiediLOblio'", "'annullaLOblio'"]) {
+    // **LA LEGGE E' CAMBIATA CON L'ORDINE BE VOCE 07**: i trenta giorni
+    // sono stati aboliti dal fondatore, chiediLOblio e annullaLOblio sono
+    // stati RIMOSSI, e le porte vere sono la cancellazione immediata e
+    // l'azzeramento dei dati sul server.
+    for (final chiamata in const [
+      "'cancellaIlCerchio'",
+      "'azzeraIDatiDelCerchio'"
+    ]) {
       expect(porta.contains(chiamata), isTrue,
           reason: 'la porta vera non chiama piu $chiamata sul server: la '
-              'richiesta di oblio non arriverebbe da nessuna parte');
+              'cancellazione non arriverebbe da nessuna parte');
+    }
+    for (final morta in const ["'chiediLOblio'", "'annullaLOblio'"]) {
+      expect(porta.contains(morta), isFalse,
+          reason: 'la porta vera chiama ancora $morta: i trenta giorni sono '
+              'stati aboliti con l ordine BE voce 07');
     }
     // ignore: avoid_print
-    print('ORDINE BC VOCE 02: la porta vera chiama chiediLOblio e '
-        'annullaLOblio sul server');
+    print('ORDINE BE VOCE 07: la porta vera chiama cancellaIlCerchio e '
+        'azzeraIDatiDelCerchio, e i trenta giorni non esistono piu');
   });
 
-  test('BC.02: e i giorni che si dicono sono quelli che il server segna', () {
-    // **UN NUMERO SOLO IN DUE POSTI, ed e il tipo di scarto che nessuno vede
-    // finche non e troppo tardi**: se qui si dicesse trenta e il server ne
-    // segnasse quindici, la persona leggerebbe una promessa e ne vivrebbe
-    // un altra.
+  test('BE.07: nessun ripensamento resta scritto, ne qui ne sul server', () {
+    // **I trenta giorni sono stati aboliti dal fondatore**: nessuna delle
+    // due sponde deve piu dichiararli, se no una promessa che non esiste
+    // resta scritta da qualche parte e prima o poi qualcuno la legge.
     final server = File('functions/src/cerchio.ts').readAsStringSync();
-    final trovato =
-        RegExp(r'GIORNI_DI_RIPENSAMENTO = (\d+)').firstMatch(server);
-    expect(trovato, isNotNull,
-        reason: 'il server non dichiara piu i giorni di ripensamento');
+    expect(server.contains('GIORNI_DI_RIPENSAMENTO ='), isFalse,
+        reason: 'il server dichiara ancora i giorni di ripensamento');
+    final scarico = File('lib/core/identity/scarico_dei_tuoi_dati.dart')
+        .readAsStringSync();
+    expect(scarico.contains('const int giorniDiRipensamento'), isFalse,
+        reason: 'l app dichiara ancora i giorni di ripensamento');
     // ignore: avoid_print
-    print('ORDINE BC VOCE 02: l app dice $giorniDiRipensamento giorni, il '
-        'server ne segna ${trovato!.group(1)}');
-    expect(int.parse(trovato.group(1)!), giorniDiRipensamento);
+    print('ORDINE BE VOCE 07: nessuna sponda dichiara piu un ripensamento');
   });
 }

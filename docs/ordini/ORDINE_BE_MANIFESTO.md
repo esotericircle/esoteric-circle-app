@@ -68,7 +68,7 @@ per conto suo.
 - **BE.04** La bolla dei sentieri: titolo e frase. Stato: CHIUSA
 - **BE.05** La card vecchia va demolita. Stato: CHIUSA
 - **BE.06** Il Rito dell'Alba: posizione muta e testi sul mare. Stato: CHIUSA
-- **BE.07** La cancellazione immediata e il ritorno dei dati. Stato: APERTA
+- **BE.07** La cancellazione immediata e il ritorno dei dati. Stato: CHIUSA
 - **BE.08** Il sistema anti abuso, censimento completo. Stato: APERTA
 - **BE.09** Il peso del traguardo, presentato per la scelta. Stato: APERTA
 
@@ -88,8 +88,8 @@ per conto suo.
 ## I marcatori
 
 VOCI_TOTALI: 10
-VOCI_APERTE: 3
-VOCI_CHIUSE: 7
+VOCI_APERTE: 2
+VOCI_CHIUSE: 8
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

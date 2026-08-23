@@ -36,6 +36,7 @@
          resto, cosi' cambiando telefono non si perde tutto. -->
     <application
         android:label="Esoteric Circle"
+        android:allowBackup="false"
         android:fullBackupContent="@xml/backup_rules"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:name="${applicationName}"

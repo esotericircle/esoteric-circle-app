@@ -267,23 +267,9 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
 
   // **SE L'OBLIO E' IN ATTESA, LO STATO LO DICE.** Ordine BC voce 02.
   //
-  // I trenta giorni di ripensamento valgono solo se chi rientra li trova: un
-  // ripensamento che non si puo' esercitare non e' un ripensamento. Viaggia
-  // qui e non in una callable sua, per la stessa ragione del listino della
-  // condivisione: `statoDelCerchio` e' cio' che si chiede a ogni apertura, e
-  // un secondo canale sullo stesso momento sarebbe una porta in piu' che dice
-  // la stessa cosa.
-  let oblio: {cancellaDopo: string} | null = null;
-  try {
-    const snap = await oblioDoc(uid).get();
-    const quando = snap.data()?.cancellaDopo as
-      admin.firestore.Timestamp | undefined;
-    if (quando) oblio = {cancellaDopo: quando.toDate().toISOString()};
-  } catch (err) {
-    // Non sapere se c'e' un oblio in attesa non deve impedire di aprire
-    // l'app: al massimo il richiamo comparira' alla prossima apertura.
-    logger.warn("statoDelCerchio: oblio non leggibile", {err: String(err)});
-  }
+  // I trenta giorni di ripensamento non esistono piu', ordine BE voce 07:
+  // la cancellazione e' immediata e totale, e lo stato non ha piu' niente
+  // da raccontare in proposito.
 
   return {
     giorno,
@@ -291,7 +277,6 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     spesi,
     resta: residuiDi(piano, spesi),
     saldoEos,
-    oblioInAttesa: oblio,
     // **IL LISTINO DELLA CONDIVISIONE VIAGGIA CON LO STATO.** Ordine BB voce
     // 04: sui pulsanti deve comparire quanti Eos si guadagnano, e il
     // fondatore chiede che il numero si legga dal server invece di essere
@@ -536,52 +521,14 @@ export const scriviLaMemoria = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
  * vale la pena: **una cancellazione fatta per rabbia o per sbaglio e'
  * irreversibile, e un cammino di mesi non si ricostruisce.**
  */
-export const GIORNI_DI_RIPENSAMENTO = 30;
-
-/** Dove vive la richiesta di oblio di una persona. */
-const oblioDoc = (uid: string) =>
-  utente(uid).collection("stato").doc("oblio");
-
 /**
- * CHIEDE L'OBLIO, e non lo esegue subito. Ordine BC voce 02.
- *
- * **Decisione del fondatore**: "Cancella l'account, in fondo, con la
- * schermata che elenca cosa sparisce davvero, e trenta giorni di
- * ripensamento prima della cancellazione definitiva."
- *
- * Qui si segna soltanto la data, e da quel momento l'account e' **in
- * attesa**: rientrando si puo' annullare, e dopo trenta giorni il lavoro
- * notturno cancella davvero. Chi vuole andarsene subito ha comunque la voce
- * "cancella i tuoi dati", che non aspetta nessuno.
+ * **I TRENTA GIORNI NON ESISTONO PIU'. Ordine BE voce 07, decisione del
+ * fondatore che SOSTITUISCE quella dell'ordine BC**: "elimina la regola di
+ * aspettare 30 giorni: se l'utente cancella l'account lo cancella subito e
+ * con tutti i dati". Le callable chiediLOblio e annullaLOblio e il lavoro
+ * notturno che le serviva sono stati RIMOSSI, non nascosti: l'unica porta
+ * e' cancellaIlCerchio, immediata e totale.
  */
-export const chiediLOblio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
-  const uid = uidDi(request);
-  const adesso = admin.firestore.Timestamp.now();
-  const quando = new Date(adesso.toMillis());
-  quando.setUTCDate(quando.getUTCDate() + GIORNI_DI_RIPENSAMENTO);
-  await oblioDoc(uid).set({
-    chiestoIl: adesso,
-    cancellaDopo: admin.firestore.Timestamp.fromDate(quando),
-  });
-  logger.info("chiediLOblio: oblio in attesa", {
-    uid, cancellaDopo: quando.toISOString(),
-  });
-  return {inAttesa: true, cancellaDopo: quando.toISOString()};
-});
-
-/**
- * ANNULLA L'OBLIO. Ordine BC voce 02.
- *
- * **La meta' che rende i trenta giorni una promessa e non un'attesa.** Un
- * ripensamento che non si puo' esercitare non e' un ripensamento: chi rientra
- * deve trovare il modo di restare, e deve trovarlo dove l'ha lasciato.
- */
-export const annullaLOblio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
-  const uid = uidDi(request);
-  await oblioDoc(uid).delete();
-  logger.info("annullaLOblio: la persona resta", {uid});
-  return {inAttesa: false};
-});
 
 /**
  * IL DIRITTO ALL'OBLIO, e non e' una gentilezza: e' un obbligo.
@@ -596,6 +543,30 @@ export const annullaLOblio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
  * tuoi dati" che non aspetta nessuno, ed e' quello che il lavoro notturno
  * esegue quando i trenta giorni sono passati.
  */
+/**
+ * AZZERA I DATI TENENDO L'ACCOUNT. Ordine BE voce 07, punto 3.
+ *
+ * **Il fatto del fondatore sulla 2199**: ha cancellato i dati dall'app,
+ * reinstallato, e si e' ritrovato 270 Eos e traguardi accesi. La voce
+ * "cancella i tuoi dati" puliva solo il telefono: il ramo sul server
+ * restava intero, e al ritorno dell'identita' (il backup di Android
+ * ripristinava i gettoni di Firebase Auth) il server rendeva tutto.
+ * "Se cancello i dati e' perche' voglio ricominciare da capo e questi
+ * devono essere cancellati per sempre, anche dal dispositivo."
+ *
+ * Cancella il ramo intero dell'utente ma NON l'account: chi azzera vuole
+ * ricominciare, non andarsene.
+ */
+export const azzeraIDatiDelCerchio = onCall(
+  OPZIONI_DEL_CERCHIO,
+  async (request) => {
+    const uid = uidDi(request);
+    await db.recursiveDelete(utente(uid));
+    logger.info("azzeraIDatiDelCerchio: ramo azzerato, account vivo", {uid});
+    return {datiAzzerati: true};
+  },
+);
+
 export const cancellaIlCerchio = onCall(
   OPZIONI_DEL_CERCHIO,
   async (request) => {
