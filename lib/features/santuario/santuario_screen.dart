@@ -108,6 +108,53 @@ const double altezzaMinimaDelBusto = 220.0;
 /// qualunque scelta sarebbe un compromesso.
 const double altezzaMinimaAssolutaDelBusto = 150.0;
 
+/// **QUANTO DEL MOVIMENTO VERTICALE RESTA AI MAESTRI.** Ordine BC voce 01.
+///
+/// **Un ventesimo, e il numero viene da una misura.** Il piano del carosello
+/// si sposta di centocinque punti a fondo corsa, e una figura ancorata in
+/// basso che sale e scende di tanto o esce dal suo riquadro o, da quando il
+/// riquadro la ritaglia, ci perde la testa: **col movimento intero, inclinando
+/// il telefono in su le figure perdevano 28.082 pixel su 62.924, cioe' il
+/// quarantacinque per cento**.
+///
+/// A un decimo scendevano a 1.043, l'1,7 per cento, e sarebbe bastato; ma coi
+/// Maestri cresciuti a 268 punti quel resto e' risalito a 2.111, appena sopra
+/// il tre per cento che questa app si e' data come inezia tollerabile. **Si e'
+/// stretto il movimento invece di allargare la soglia**, che e' il modo di non
+/// barare con se stessi: a un ventesimo se ne perdono 760, l'1,1 per cento.
+///
+/// Di lato quel movimento e' la profondita' della scena e resta intero; in su
+/// e in giu' non racconta niente e costa una figura tagliata.
+const double quotaDelMovimentoInVerticale = 0.05;
+
+/// Lo stesso spostamento, ma quasi solo orizzontale.
+Offset _soloDiLato(Offset o) =>
+    Offset(o.dx, o.dy * quotaDelMovimentoInVerticale);
+
+/// **IL RITAGLIO CHE CHIUDE SOLO IL CIELO, e lascia aperti i fianchi.**
+/// Ordine BC voce 01.
+///
+/// L'ordine BA voce 02 ha chiuso i Maestri dentro un `ClipRect` perche' non
+/// salissero piu' sul testo. Un ritaglio chiude da tutti e quattro i lati, e
+/// **da tre di quei quattro non c'era niente da proteggere**: sopra c'e' il
+/// blocco del cielo, ai fianchi e sotto c'e' solo scena. Cosi' la parallasse
+/// orizzontale, che e' la profondita' della scena e va lasciata intera,
+/// tagliava le figure contro i bordi.
+class _SoloDaSopra extends CustomClipper<Rect> {
+  const _SoloDaSopra();
+
+  @override
+  Rect getClip(Size size) => Rect.fromLTRB(
+        -size.width,
+        0,
+        size.width * 2,
+        size.height * 3,
+      );
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Rect> vecchio) => false;
+}
+
 /// **QUANTO DELL'ALTEZZA DELLO SCHERMO DEVE PRENDERE IL BUSTO CENTRALE.**
 /// Ordine AV voce 03: il trentaquattro per cento, e sul telefono del fondatore
 /// riporta i Maestri alla grandezza della 2188.
@@ -684,6 +731,28 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // fondo della scena. Verificato: col busto a 373,4 la cima cadeva a
           // 274,3, e il fondo meno la cima fa 380,9, cioe' 1,02 volte.
           final cieloFinisce = (h * 0.012) + (_altezzaDelCielo ?? 150.0);
+          // **QUANTO SALE UN LATERALE, e non si sconta la dissolvenza.**
+          // Ordine BC voce 01.
+          //
+          // **Una strada e' stata presa e rifatta, e vale la pena scriverlo.**
+          // Il fondatore ha chiesto Maestri piu' grandi, e questo conto e' cio'
+          // che li limita: un laterale sale fino a 1,02 volte l'altezza del
+          // centrale sopra il fondo della scena, e li' sopra non deve esserci
+          // il cielo. Si e' pensato di scontare la fascia che il ritaglio
+          // dissolve, portando 1,02 a 0,94: il busto passava da 247 a 268
+          // punti e **i pixel di testo coperti restavano zero**, quindi il
+          // conto tornava.
+          //
+          // **Ma guardando l'anteprima, i tre Maestri erano decapitati.** In
+          // quella fascia non c'e' aria: **ci sono le loro teste**, ed e'
+          // proprio quello che il fondatore aveva segnalato nella stessa
+          // frase, "sparisce la loro testa o i loro piedi". Una misura sui
+          // pixel del TESTO non poteva vederlo, perche' guardava dall'altra
+          // parte: l'ha trovato l'occhio, sull'immagine.
+          //
+          // Lo spazio per farli piu' grandi si prende dove il fondatore ha
+          // detto di prenderlo, cioe' avvicinando le due righe sopra di loro,
+          // e da nessun'altra parte.
           const salitaDelLaterale = 0.44 + 0.58;
           final fondoDellaScena = h - carouselBottom;
           final altezzaConcessa =
@@ -891,11 +960,22 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                       // alla Luna, piu' spazio alle carte dei Maestri sotto.
                       MoonWidget(
                           phase: moon, size: (w * 0.12).clamp(54.0, 100.0)),
+                      // **LE DUE RIGHE SI STRINGONO, E LO SPAZIO VA AI
+                      // MAESTRI.** Ordine BC voce 01, parole del fondatore:
+                      // "le due righe (bianca e giallo oro) devono essere piu'
+                      // vicine per risparmiare spazio".
+                      //
+                      // Non e' una richiesta di stile: **il blocco del cielo e
+                      // il carosello si dividono la stessa altezza**, e ogni
+                      // punto che il cielo non usa lo prende il busto dei
+                      // Maestri. L'interlinea a uno serve piu' del vuoto che
+                      // le stava sotto.
                       Text(
                         moon.italianName.toUpperCase(),
                         style: TypographyTokens.etichetta().copyWith(
                           color: palette.goldSoft,
                           letterSpacing: 1.6,
+                          height: 1.0,
                         ),
                       ),
                       // 3. LA RIGA PERSONALE TORNA QUI, ordine M voce 1c,
@@ -908,7 +988,6 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                       // verticali. Lo spazio si ripaga da solo: la fascia
                       // che la riga occupava sotto il trio e' stata resa al
                       // carosello.
-                      const SizedBox(height: 4),
                       Padding(
                         padding:
                             const EdgeInsets.symmetric(horizontal: 40),
@@ -928,7 +1007,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                           style: TypographyTokens.didascalia().copyWith(
                             color: ColorTokens.textSecondary,
                             fontStyle: FontStyle.italic,
-                            height: 1.3,
+                            height: 1.15,
                           ),
                         ),
                       ),
@@ -984,8 +1063,30 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   breath: _breath,
                   reduceMotion: reduceMotion,
                   preferred: SantuarioScreen.preferred,
-                  centralDepth: depth(0.5),
-                  sideDepth: depth(0.28),
+                  // **LA PARALLASSE DEI MAESTRI SI MUOVE DI LATO, QUASI
+                  // NON PIU' IN SU E IN GIU'.** Ordine BC voce 01.
+                  //
+                  // Fatto del fondatore: "sparisce la loro testa o i loro
+                  // piedi a seconda del movimento del telefono". **La causa e'
+                  // un numero, e va detto**: il piano del carosello sta a
+                  // profondita' 0,5, che compressa vale 0,211, e con
+                  // un'ampiezza di 500 fa **centocinque punti a fondo corsa,
+                  // cinquantadue a trenta gradi**. Su una figura alta
+                  // duecentoquarantasette, la testa se ne andava per meta'.
+                  //
+                  // **Prima dell'ordine BA voce 02 non si vedeva, e non
+                  // perche' non ci fosse**: le figure uscivano dal riquadro
+                  // con `Clip.none` e coprivano il testo, che era il difetto
+                  // segnalato quattro volte. Chiuso il ritaglio, lo stesso
+                  // movimento taglia invece di sbordare. Non e' un difetto
+                  // nuovo: e' lo stesso, diventato visibile.
+                  //
+                  // **Di lato il movimento resta intero**, ed e' li' che si
+                  // sente la profondita' di una scena vista di tre quarti;
+                  // in verticale scende a un decimo, cioe' dieci punti, che
+                  // il riquadro puo' contenere senza rubare spazio al cielo.
+                  centralDepth: _soloDiLato(depth(0.5)),
+                  sideDepth: _soloDiLato(depth(0.28)),
                   onTapCentral: () => _enterDomain(context, central),
                   onTapSide: (m) => _selectSide(context, m),
                   ),
@@ -1345,6 +1446,18 @@ class _CarouselState extends State<_Carousel>
               // verrebbero decapitate: la dissolvenza e' la stessa che il busto
               // usa gia' in basso.
               child: ClipRect(
+                // **SI TAGLIA SOLO IN CIMA, e ai fianchi si lascia passare.**
+                // Ordine BC voce 01.
+                //
+                // Il ritaglio dell'ordine BA voce 02 chiudeva la scena da
+                // tutti e quattro i lati, e serviva solo da uno: il difetto
+                // era che i Maestri salivano sul testo. **Ai fianchi non c'e'
+                // nessun testo da proteggere**, e li' il ritaglio faceva solo
+                // danno: misurato, inclinando il telefono di lato le figure
+                // perdevano **quasi undicimila pixel su sessantatremila, il
+                // diciassette per cento**, contro i mille scarsi che perdevano
+                // in su.
+                clipper: const _SoloDaSopra(),
                 child: ShaderMask(
                   blendMode: BlendMode.dstIn,
                   shaderCallback: (r) => const LinearGradient(
