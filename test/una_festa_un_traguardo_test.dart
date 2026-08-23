@@ -103,27 +103,33 @@ void main() {
             'insieme: cosi la card torna a nominarne piu di una');
   });
 
-  test('fra due feste passano tre ore, e una sola per apertura', () async {
+  test('il guardiano a freddo aspetta novanta secondi, non di piu', () async {
+    // **LA REGOLA E' CAMBIATA CON L'ORDINE BD VOCE 08**, decisione del
+    // fondatore del 23 agosto 2026: "festa sempre, subito". Le tre ore e il
+    // limite di una festa per apertura, decisi con AU e sorvegliati da
+    // questa prova, trattenevano in coda ogni festa dopo la prima e sulla
+    // 2198 si leggevano come "le feste non funzionano". La distanza resta
+    // solo per il guardiano che riparte a freddo, ed e' scesa a novanta
+    // secondi.
     SharedPreferences.setMockInitialValues(const {});
     DistanzaFraLeFeste.nuovaApertura();
     // La prima passa: non c'e' niente alle spalle.
     expect(await DistanzaFraLeFeste.siPuoFesteggiare(), isTrue);
     await DistanzaFraLeFeste.segnaFesta();
-    // La seconda no, ed e' la regola dell apertura a fermarla.
+    // A trenta secondi il guardiano aspetta ancora.
+    await DistanzaFraLeFeste.fingiCheSiaPassato(const Duration(seconds: 30));
     expect(await DistanzaFraLeFeste.siPuoFesteggiare(), isFalse,
-        reason: 'due feste nella stessa apertura dell app');
-    // Riaperta l'app, e' l'orologio a fermarla: sono passati venti minuti.
-    DistanzaFraLeFeste.nuovaApertura();
-    await DistanzaFraLeFeste.fingiCheSiaPassato(const Duration(minutes: 20));
-    expect(await DistanzaFraLeFeste.siPuoFesteggiare(), isFalse,
-        reason: 'due feste a venti minuti di distanza');
-    // Passate tre ore, si puo'.
-    await DistanzaFraLeFeste.fingiCheSiaPassato(const Duration(hours: 3, minutes: 1));
+        reason: 'a trenta secondi dalla precedente il guardiano a freddo '
+            'deve aspettare');
+    // A due minuti e' libero: le tre ore non esistono piu'.
+    await DistanzaFraLeFeste.fingiCheSiaPassato(const Duration(minutes: 2));
     expect(await DistanzaFraLeFeste.siPuoFesteggiare(), isTrue,
-        reason: 'passate tre ore la festa non arriva piu');
+        reason: 'a due minuti il guardiano deve essere libero: le tre ore '
+            'di AU sono state revocate dal fondatore con BD.08');
     // ignore: avoid_print
-    print('ORDINE AU VOCE 06: una per apertura, e '
-        '${DistanzaFraLeFeste.quantoPassa.inHours} ore fra due feste');
+    print('ORDINE BD VOCE 08: il guardiano aspetta '
+        '${DistanzaFraLeFeste.quantoPassa.inSeconds} secondi fra due feste '
+        'a freddo, e nessun limite per apertura');
   });
 
   test('il primo Sigillo in assoluto non aspetta nessuno', () async {

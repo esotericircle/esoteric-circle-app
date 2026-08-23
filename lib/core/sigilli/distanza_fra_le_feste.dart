@@ -23,8 +23,17 @@ class DistanzaFraLeFeste {
 
   static const String _chiaveUltima = 'cammino.ultima_festa';
 
-  /// **TRE ORE DI OROLOGIO fra una festa e l'altra**, come l'ordine detta.
-  static const Duration quantoPassa = Duration(hours: 3);
+  /// **NOVANTA SECONDI, non piu' tre ore.** Ordine BD voce 08, decisione del
+  /// fondatore del 23 agosto 2026, e SOSTITUISCE le regole dell'ordine AU:
+  /// "festa sempre, subito". Sulla 2198 il fondatore ha raggiunto obiettivi
+  /// senza vedere nessuna animazione, e la misura ha detto che le feste
+  /// FUNZIONAVANO ed erano TRATTENUTE dalle tre ore e dal limite per
+  /// apertura: dalla sua poltrona era identico a "non funzionano".
+  ///
+  /// Questa distanza vale solo per il GUARDIANO che svuota la coda a freddo:
+  /// una maturazione fresca festeggia sempre, nell'istante del gesto, e la
+  /// coda riparte appena la festa di prima si chiude.
+  static const Duration quantoPassa = Duration(seconds: 90);
 
   /// **NON PIU' DI UNA FESTA PER APERTURA DELL'APP.** Vive in memoria e non su
   /// disco apposta: "questa apertura" finisce quando il processo finisce, e un
@@ -46,7 +55,10 @@ class DistanzaFraLeFeste {
   /// l'ordine chiede.
   static Future<bool> siPuoFesteggiare({bool primoInAssoluto = false}) async {
     if (primoInAssoluto) return true;
-    if (_giaFestaInQuestaApertura) return false;
+    // **IL LIMITE DI UNA FESTA PER APERTURA NON ESISTE PIU'.** Ordine BD
+    // voce 08: era la prima delle due mani che trattenevano le feste, e il
+    // fondatore ha scelto di aprirle entrambe. Il campo resta per le prove
+    // che raccontano la storia, ma qui non decide piu' niente.
     final disco = await SharedPreferences.getInstance();
     final ultima = disco.getInt(_chiaveUltima);
     if (ultima == null) return true;

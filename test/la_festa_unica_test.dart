@@ -169,17 +169,25 @@ void main() {
         reason: 'la coda si e svuotata tutta in una volta: le altre due feste '
             'devono restare in attesa, una per apertura');
 
-    // E DOPO LA CHIUSURA NON NE PARTE UN'ALTRA: si chiude la festa e si
-    // lascia respirare il guardiano, il conto resta a uno.
+    // **E DOPO LA CHIUSURA PARTE LA PROSSIMA, ed e' la legge nuova.**
+    // Ordine BD voce 08, decisione del fondatore del 23 agosto 2026, che
+    // SOSTITUISCE la regola di AU che questa prova sorvegliava: "festa
+    // sempre, subito", e chi ha maturato piu' traguardi insieme vede il
+    // secondo appena congeda il primo. La raffica che AC e AU vietavano
+    // erano scene sovrapposte o card con cinque nomi: qui ogni festa e'
+    // intera, con un nome solo, e arriva al ritmo di chi la chiude.
     await tester.tap(find.byKey(const Key('celebrazione_continua')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
     // ignore: avoid_print
-    print('ORDINE AC VOCE 04, prova 2 dopo la chiusura: partite '
-        '${Celebrazione.partite}');
-    expect(Celebrazione.partite, 1,
-        reason: 'dopo la chiusura della festa unita ne e\' partita '
-            'un\'altra: la raffica e\' tornata');
+    print('ORDINE BD VOCE 08, prova 2 dopo la chiusura: partite '
+        '${Celebrazione.partite}, in coda ${coda.inAttesa.length}');
+    expect(Celebrazione.partite, 2,
+        reason: 'chiusa la prima festa la seconda non e\' partita: chi '
+            'matura tre traguardi insieme deve vederli tutti, uno alla '
+            'volta, al ritmo con cui li congeda (ordine BD voce 08)');
+    expect(coda.inAttesa, hasLength(1),
+        reason: 'la coda non ha ceduto la seconda festa alla catena');
   });
 
   testWidgets(

@@ -1,6 +1,6 @@
 # ORDINE BD, il manifesto
 
-**I MAESTRI GRANDI E I SOSPESI.** Otto voci, dalla BD.00 alla BD.07, sul ramo
+**I MAESTRI GRANDI E I SOSPESI.** Nove voci, dalla BD.00 alla BD.08 (l'ottava arrivata dal fondatore a lavoro in corso), sul ramo
 `claude/esoteric-circle-master-order-e798aj`. Nasce dal collaudo della build
 2198 e raccoglie i lavori che i responsi degli ordini AU, BB e BC avevano
 dichiarati aperti.
@@ -97,6 +97,7 @@ la sintesi nuda.
 - **BD.05** I gradini dell'identita' che maturano insieme. Stato: CHIUSA
 - **BD.06** La data e l'ora sulla card del traguardo. Stato: CHIUSA
 - **BD.07** Le quarantotto ancore dell'Oroscopo. Stato: CHIUSA, con le 48 virgole tolte per il precedente del fondatore
+- **BD.08** Le feste non partono, voce speciale del fondatore. Stato: CHIUSA, con la decisione "festa sempre, subito"
 
 ## L'ordine di lavoro, deciso qui
 
@@ -161,11 +162,29 @@ infittendo `assets/data/luoghi.csv`, che resta lavoro di un altro giorno. La
 prova `il_mondo_oltre_l_italia_test.dart` tiene il conto: se le citta' della
 Liberia salgono, il buco si sta chiudendo.
 
+## Cosa BD.08 ha misurato e deciso
+
+**Le feste FUNZIONAVANO ed erano TRATTENUTE.** Misurato con una prova:
+diciassette strade dei gesti, tutte convergenti nell'unica porta della regia,
+nessuna festa persa; ma dopo la prima festa, le regole dell'ordine AU (una
+festa per apertura dell'app e tre ore fra due feste) tenevano in coda IN
+SILENZIO ogni altra. Chi prova l'app intensamente matura traguardi a minuti
+di distanza: dalla poltrona del fondatore era identico a "non funzionano".
+
+**La scelta e' stata proposta al fondatore con la misura, e ha deciso: FESTA
+SEMPRE, SUBITO.** Una maturazione fresca festeggia nell'istante del gesto;
+se una festa e' gia' a schermo la prossima entra in coda e riparte appena
+quella si chiude; la distanza scende da tre ore a novanta secondi e vale
+solo per il guardiano che riprende la coda a freddo; il limite di una festa
+per apertura non esiste piu'. Le prove di AU e AC che sorvegliavano le
+regole vecchie sono state rimirate alla legge nuova, ognuna con la
+dichiarazione del cambio scritta dentro.
+
 ## I marcatori
 
-VOCI_TOTALI: 8
+VOCI_TOTALI: 9
 VOCI_APERTE: 1
-VOCI_CHIUSE: 7
+VOCI_CHIUSE: 8
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -183,10 +185,14 @@ class RegiaDelCammino {
     // **LA DISTANZA FRA DUE FESTE, e senza di lei la coda non serve**: si
     // svuoterebbe tutta nella stessa schermata, cioe' cinque feste in fila
     // invece di una card con cinque nomi. Cambierebbe la forma del fastidio.
-    final consentita = await DistanzaFraLeFeste.siPuoFesteggiare(
-        primoInAssoluto: primoInAssoluto);
-    final festeggiato = consentita &&
-        context.mounted &&
+    // **UNA MATURAZIONE FRESCA FESTEGGIA SEMPRE.** Ordine BD voce 08,
+    // decisione del fondatore: "festa sempre, subito". La distanza non si
+    // guarda piu' qui: trattenere una festa nell'istante del gesto era
+    // esattamente cio' che sulla 2198 si leggeva come "le feste non
+    // funzionano". A trattenere resta solo FesteInCorso, dentro
+    // festeggiaInsieme: se una festa e' gia' a schermo questa entra in coda
+    // e riparte appena quella si chiude.
+    final festeggiato = context.mounted &&
         await Celebrazione.festeggiaInsieme(
           context,
           traguardi: [questaVolta],
@@ -199,6 +205,12 @@ class RegiaDelCammino {
           allaChiusura: () {
             if (context.mounted && arrivati.quanti > 0) {
               VoloDegliEos.lancia(context, quanti: arrivati.quanti);
+            }
+            // **LA CODA RIPARTE APPENA QUESTA SI CHIUDE.** Ordine BD voce
+            // 08: chi ha maturato due traguardi insieme vede il secondo
+            // appena congeda il primo, non fra novanta secondi.
+            if (context.mounted) {
+              unawaited(svuotaLaCoda(context, appenaChiusaUna: true));
             }
           },
         );
@@ -310,7 +322,8 @@ class RegiaDelCammino {
   /// Eos, vista sulla 2188. Questa vieta i DUE NOMI nella stessa card, e la
   /// raffica la tiene lontana in un altro modo, con la distanza fra le feste:
   /// una per apertura dell'app, e tre ore di orologio fra l'una e l'altra.
-  static Future<void> svuotaLaCoda(BuildContext context) async {
+  static Future<void> svuotaLaCoda(BuildContext context,
+      {bool appenaChiusaUna = false}) async {
     final coda = _codaSeCe(context);
     if (coda == null || coda.vuota) return;
     final diario = context.read<DiarioDelCammino>();
@@ -318,7 +331,13 @@ class RegiaDelCammino {
     // coda e poi rimetterla dentro perche' e' troppo presto e' un giro che
     // funziona finche' non cade a meta': si guarda l'orologio prima di
     // toccare la coda.
-    if (!await DistanzaFraLeFeste.siPuoFesteggiare()) return;
+    //
+    // **APPENA CHIUSA UNA, LA PROSSIMA NON ASPETTA.** Ordine BD voce 08: la
+    // distanza di novanta secondi vale per il guardiano che riparte a
+    // freddo, non per chi ha appena congedato una festa con altre in coda.
+    if (!appenaChiusaUna && !await DistanzaFraLeFeste.siPuoFesteggiare()) {
+      return;
+    }
     final traguardo = await coda.prendiLaProssima();
     if (traguardo == null) return;
     if (!context.mounted) {
@@ -330,6 +349,12 @@ class RegiaDelCammino {
       context,
       traguardi: [traguardo],
       sentieri: [sentieroDi(traguardo)],
+      // La catena della coda: chiusa questa, si guarda se ce n'e' un'altra.
+      allaChiusura: () {
+        if (context.mounted) {
+          unawaited(svuotaLaCoda(context, appenaChiusaUna: true));
+        }
+      },
       // **IL PRIMO IN ASSOLUTO SI CONTA TOGLIENDO CHI ASPETTA ANCORA.**
       // Ordine AU voce 06: da quando si celebra un traguardo alla volta, il
       // diario puo' averne tre accesi mentre la persona non ha ancora visto
