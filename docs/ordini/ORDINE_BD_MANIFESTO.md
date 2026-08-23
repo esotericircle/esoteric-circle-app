@@ -92,7 +92,7 @@ la sintesi nuda.
 - **BD.00** Manifesto e verifica delle premesse. Stato: CHIUSA
 - **BD.01** I Maestri ancora piu' grandi, con la sovrapposizione. Stato: CHIUSA
 - **BD.02** Le 38 prove rosse, la bonifica. Stato: APERTA
-- **BD.03** Il mondo oltre l'Italia. Stato: APERTA
+- **BD.03** Il mondo oltre l'Italia. Stato: CHIUSA, col buco dei 116 paesi reso visibile e dichiarato
 - **BD.04** Lo schermo piccolo. Stato: CHIUSA
 - **BD.05** I gradini dell'identita' che maturano insieme. Stato: CHIUSA
 - **BD.06** La data e l'ora sulla card del traguardo. Stato: CHIUSA
@@ -142,11 +142,30 @@ bordo, perche' scalare al pareggio lasciava la parola a un decimo di punto dal
 limite. La cattura della card copre ora TRE segni invece di uno, Ariete, Toro
 e Pesci, e le tre anteprime sono state guardate.
 
+## Cosa BD.03 ha scelto, e il buco che rende visibile
+
+**La strada e' la REGIONE DEL MONDO.** L'Italia resta disegnata dalle sue
+8.438 citta'; per ogni altro paese la finestra si stringe sulla regione
+attorno alle sue citta': le coste arrivano dai poligoni grossolani che il
+planisfero ha gia', dipinte tenui e ferme, e sopra brillano le citta' vere
+del catalogo con la stella del luogo scelto. Nessun asset nuovo, nessuna
+licenza, nessuna rete. Guardate a video le tre nature: la Cina (430 citta'
+sulla costa orientale, finestra di 61 gradi), la Liberia (una citta' sola,
+finestra allargata al minimo di 16 gradi con la costa dell'Africa
+occidentale attorno a Monrovia), e l'Italia immutata.
+
+**E il buco dichiarato dall'ordine adesso si vede**: chi nasce in uno dei
+116 paesi con una sola citta' vede la sua regione con un punto solo. Non e'
+un difetto del disegno, e' la fotografia del catalogo: si sana solo
+infittendo `assets/data/luoghi.csv`, che resta lavoro di un altro giorno. La
+prova `il_mondo_oltre_l_italia_test.dart` tiene il conto: se le citta' della
+Liberia salgono, il buco si sta chiudendo.
+
 ## I marcatori
 
 VOCI_TOTALI: 8
-VOCI_APERTE: 2
-VOCI_CHIUSE: 6
+VOCI_APERTE: 1
+VOCI_CHIUSE: 7
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

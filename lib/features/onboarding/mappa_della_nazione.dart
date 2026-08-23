@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import '../../core/astro/city_catalog.dart';
+import 'mondo_grezzo.dart';
 
 /// LA MAPPA DELLA NAZIONE, DISEGNATA DAI LUOGHI CHE L'APP HA GIA'.
 /// Ordine BB voce 12.
@@ -51,7 +52,19 @@ class MappaDellaNazione {
     required this.nord,
     required this.ovest,
     required this.est,
+    this.sfondo = const [],
   });
+
+  /// **LO SFONDO DI REGIONE, ordine BD voce 03.** Per i paesi che non hanno
+  /// abbastanza luoghi da disegnarsi da soli, la finestra si stringe sulla
+  /// loro regione del mondo: questi sono i punti di terra dei poligoni
+  /// grossolani dentro quella finestra, dipinti tenui dietro le citta' vere.
+  /// Per l'Italia resta vuoto: le sue ottomila citta' SONO la mappa.
+  final List<({double lat, double lon})> sfondo;
+
+  /// Vero quando questa mappa e' una regione del mondo attorno al paese,
+  /// non il paese disegnato dalle sue citta'.
+  bool get eRegione => sfondo.isNotEmpty;
 
   /// Il paese come lo scrive il catalogo: per l'Italia e' la sigla di due
   /// lettere della provincia, per gli altri il nome del paese.
@@ -114,7 +127,7 @@ class MappaDellaNazione {
         punti.add((lat: c.latitude, lon: c.longitude));
       }
     }
-    if (punti.length < luoghiMinimi) return null;
+    if (punti.isEmpty) return null;
 
     var sud = 90.0, nord = -90.0, ovest = 180.0, est = -180.0;
     for (final p in punti) {
@@ -125,18 +138,94 @@ class MappaDellaNazione {
     }
     final alto = nord - sud;
     final largo = est - ovest;
-    if (alto < 0.01 || largo < 0.01) return null;
-    if (punti.length / (alto * largo) < densitaMinima) return null;
+    final densa = punti.length >= luoghiMinimi &&
+        alto >= 0.01 &&
+        largo >= 0.01 &&
+        punti.length / (alto * largo) >= densitaMinima;
 
+    if (densa) {
+      final ma = alto * margine;
+      final mo = largo * margine;
+      return MappaDellaNazione._(
+        paese: paese,
+        punti: punti,
+        sud: sud - ma,
+        nord: nord + ma,
+        ovest: ovest - mo,
+        est: est + mo,
+      );
+    }
+
+    // **LA REGIONE DEL MONDO, ordine BD voce 03.** Il fatto del fondatore in
+    // BB voce 12 valeva per tutto il mondo: "cosa succede se un utente e'
+    // straniero?". Fino a qui gli altri 241 paesi vedevano il planisfero
+    // intero, dove ogni paese e' grande come un'unghia. Adesso la finestra
+    // si stringe sulla regione attorno alle citta' del paese: le coste
+    // arrivano dai poligoni grossolani del mondo, tenui, e sopra brillano le
+    // citta' vere del catalogo. **Il buco dei 116 paesi con una sola citta'
+    // resta dichiarato e qui diventa visibile**: la loro regione porta un
+    // punto di citta' solo, col suo pezzo di costa attorno.
+    return regione(paese, punti, sud: sud, nord: nord, ovest: ovest, est: est);
+  }
+
+  /// La finestra minima di una regione, in gradi per lato: sotto, un paese
+  /// con una citta' sola mostrerebbe un quadro vuoto senza nemmeno una costa.
+  static const double latoMinimoDellaRegione = 16.0;
+
+  /// Quanti passi di griglia per lato ha lo sfondo di regione.
+  static const int passiDellaRegione = 56;
+
+  static MappaDellaNazione regione(
+    String paese,
+    List<({double lat, double lon})> punti, {
+    required double sud,
+    required double nord,
+    required double ovest,
+    required double est,
+  }) {
+    // La finestra si allarga fino al lato minimo, restando centrata.
+    var alto = nord - sud;
+    var largo = est - ovest;
+    if (alto < latoMinimoDellaRegione) {
+      final centro = (sud + nord) / 2;
+      sud = centro - latoMinimoDellaRegione / 2;
+      nord = centro + latoMinimoDellaRegione / 2;
+      alto = latoMinimoDellaRegione;
+    }
+    if (largo < latoMinimoDellaRegione) {
+      final centro = (ovest + est) / 2;
+      ovest = centro - latoMinimoDellaRegione / 2;
+      est = centro + latoMinimoDellaRegione / 2;
+      largo = latoMinimoDellaRegione;
+    }
     final ma = alto * margine;
     final mo = largo * margine;
+    sud -= ma;
+    nord += ma;
+    ovest -= mo;
+    est += mo;
+
+    // Le coste della regione, dalla stessa griglia del planisfero ma dentro
+    // la finestra: piu' la finestra e' piccola, piu' la trama e' fitta.
+    final sfondo = <({double lat, double lon})>[];
+    for (var r = 0; r < passiDellaRegione; r++) {
+      for (var c = 0; c < passiDellaRegione; c++) {
+        final lon = ovest + (c + 0.5) * (est - ovest) / passiDellaRegione;
+        final lat = nord - (r + 0.5) * (nord - sud) / passiDellaRegione;
+        if (lat < -90 || lat > 90) continue;
+        if (MondoGrezzo.eTerra(lat, lon)) {
+          sfondo.add((lat: lat, lon: lon));
+        }
+      }
+    }
     return MappaDellaNazione._(
       paese: paese,
       punti: punti,
-      sud: sud - ma,
-      nord: nord + ma,
-      ovest: ovest - mo,
-      est: est + mo,
+      sud: sud,
+      nord: nord,
+      ovest: ovest,
+      est: est,
+      sfondo: sfondo,
     );
   }
 
