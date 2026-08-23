@@ -12,7 +12,14 @@ export {
   muoviGliEos,
   scriviLaMemoria,
   cancellaIlCerchio,
+  chiediLOblio,
+  annullaLOblio,
 } from "./cerchio";
+
+// IL LAVORO NOTTURNO DELL'OBLIO, ordine BC voce 02: i trenta giorni di
+// ripensamento sono una promessa solo se qualcuno torna a guardare quella
+// data. Chi chiede di sparire e poi disinstalla l'app non riaprirebbe mai.
+export {cancellaGliOblioScaduti} from "./oblio";
 
 /**
  * Chiave del motore astrologico FreeAstroAPI.
