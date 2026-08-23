@@ -8,6 +8,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../sigilli/regia_del_cammino.dart';
 import 'greeting_controller.dart';
 
 /// Il saluto per nome della primissima apertura del Santuario, mostrato come
@@ -37,6 +38,21 @@ class _GreetingBannerState extends State<GreetingBanner> {
       _prepared = true;
       final name = widget.name ?? context.read<ProfileController>().vocative;
       context.read<GreetingController>().prepare(name: name);
+      // **IL NOME NEL CERCHIO MATURA QUI.** Ordine BD voce 05: "Scrivi il tuo
+      // nome e il Cerchio lo custodisce" si compie quando il Cerchio lo USA,
+      // cioe' al primo saluto per nome nel Santuario. Non alla fine
+      // dell'onboarding, dove maturerebbe insieme alla carta: una festa sola
+      // li', le altre sui gesti veri. E mai sul vocativo neutro di brand:
+      // salutare "Viandante" non custodisce nessun nome.
+      ProfileController? profilo;
+      try {
+        profilo = context.read<ProfileController>();
+      } catch (profiloAssente) {
+        profilo = null;
+      }
+      if (profilo != null && profilo.profile.hasName) {
+        unawaited(RegiaDelCammino.dopoUnGesto(context, 'nome_proprio'));
+      }
     });
   }
 

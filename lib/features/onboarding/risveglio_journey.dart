@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'package:provider/provider.dart';
 
+import '../sigilli/regia_del_cammino.dart';
+
 import '../../core/diagnosi/briciole.dart';
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/natal_chart_controller.dart';
@@ -169,6 +171,16 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
 
   /// La fine vera del Risveglio, custodito o rimandato che sia.
   void _chiudiIlRisveglio() {
+    // **LA CARTA E' NATA, ed e' L'UNICA festa della fine dell'onboarding.**
+    // Ordine BD voce 05. Il corpus di med_1 dice "la carta natale viene
+    // calcolata per la prima volta", e la prima volta e' QUESTA: il gesto si
+    // segna qui, la coda delle feste lo celebra all'arrivo nel Santuario.
+    // Gli altri gradini dell'identita' non maturano piu' in blocco: ognuno
+    // ha la sua porta, il saluto per nome, la carta aperta, il portale del
+    // cielo, il Sigillo del Cerchio.
+    if (context.read<NatalChartController>().chart != null) {
+      unawaited(RegiaDelCammino.dopoUnGesto(context, 'carta_natale'));
+    }
     context.read<OnboardingController>().complete();
     // pop e non maybePop: maybePop passa dal PopScope qui sotto, che rifiuta
     // sempre. Questa e' l'uscita legittima, la sola, e deve poter uscire.

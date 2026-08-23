@@ -63,22 +63,38 @@ void main() {
     expect(pezzi, contains('passaporto'),
         reason: 'a documento pieno il pezzo deve maturare, altrimenti il '
             'traguardo diventa irraggiungibile');
-    // **IL TRAGUARDO NON SI NOMINA PIU' PER ID, ordine AR voce 02.** Col
-    // corpus della revisione C gli id hanno cambiato posto: med_27 adesso e'
-    // "L'Arcano che insiste". Si cerca il traguardo che POGGIA sul pezzo, che
-    // e' cio' che questa prova vuole davvero sapere.
+    // **LA REGOLA E' CAMBIATA CON L'ORDINE BD VOCE 05, e si dichiara.**
+    // Fino a quell'ordine il Sigillo del Cerchio e la Luna natale si
+    // DERIVAVANO dal documento pieno, e maturavano in blocco con tutto il
+    // resto: era esattamente il difetto dei gradini che maturano insieme.
+    // Adesso hanno ciascuno la propria porta, la schermata del Sigillo e il
+    // portale del cielo di nascita, e il documento pieno NON li matura piu'.
     final stato = diario.statoDelCammino(pezziDellIdentita: pezzi);
     final suiPezzi = Sentieri.tuttiITraguardi.where((t) {
       final c = t.condizione;
       return c is PezzoDellIdentita &&
-          PezziDellIdentita.tessereDelPassaporto.contains(c.pezzo) == false &&
           (c.pezzo == 'sigillo_del_cerchio' || c.pezzo == 'luna_natale');
     }).toList();
     expect(suiPezzi, isNotEmpty,
-        reason: 'nessun traguardo poggia piu sul Passaporto pieno');
+        reason: 'nessun traguardo poggia piu sul Sigillo o sulla Luna');
     for (final t in suiPezzi) {
-      expect(t.condizione.raggiunto(stato), isTrue,
-          reason: '${t.id} non matura col Passaporto pieno');
+      expect(t.condizione.raggiunto(stato), isFalse,
+          reason: '${t.id} matura ancora col solo Passaporto pieno: i gradini '
+              'tornerebbero a maturare in blocco (ordine BD voce 05)');
+    }
+    // E con le due porte aperte maturano davvero.
+    final diarioConLePorte = await diarioCon([
+      'passaporto',
+      ...PezziDellIdentita.tessereDelPassaporto,
+      'sigillo_del_cerchio',
+      'luna_natale',
+    ]);
+    final statoConLePorte = diarioConLePorte.statoDelCammino(
+        pezziDellIdentita: RegiaDelCammino.pezziDellIdentitaMaturi(
+            diarioConLePorte, true));
+    for (final t in suiPezzi) {
+      expect(t.condizione.raggiunto(statoConLePorte), isTrue,
+          reason: '${t.id} non matura nemmeno alla sua porta');
     }
   });
 

@@ -75,16 +75,16 @@ class _CosmicPassportState extends State<CosmicPassport> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
+      // **ALL'APERTURA MATURANO SOLO IL DOCUMENTO E IL NUMERO.** Ordine BD
+      // voce 05: qui scattavano in un colpo solo anche la carta, l'ora e il
+      // luogo, e i gradini dell'identita' maturavano in blocco alla prima
+      // visita. Adesso ogni contenuto matura alla SUA porta: la carta, l'ora
+      // e il luogo quando si apre la carta natale, la Luna al portale del
+      // cielo di nascita, il Sigillo del Cerchio alla sua schermata. Il
+      // numero della vita resta qui perche' la sua tessera non ha una porta:
+      // vederla nel documento E' il gesto.
       unawaited(RegiaDelCammino.dopoUnGesto(context, 'passaporto'));
       unawaited(RegiaDelCammino.dopoUnGesto(context, 'numero_della_vita'));
-      // La carta natale si dichiara solo se c'e' davvero un dato di nascita,
-      // non col dato d'esempio: un traguardo acceso su un esempio sarebbe un
-      // traguardo regalato.
-      if (widget.identity != null) {
-        unawaited(RegiaDelCammino.dopoUnGesto(context, 'carta_natale'));
-        unawaited(RegiaDelCammino.dopoUnGesto(context, 'ora_di_nascita'));
-        unawaited(RegiaDelCammino.dopoUnGesto(context, 'luogo_di_nascita'));
-      }
     });
   }
 
@@ -233,9 +233,15 @@ class _BirthSkyPortalCard extends StatelessWidget {
     return GestureDetector(
       key: const Key('passport_birth_sky'),
       behavior: HitTestBehavior.opaque,
-      onTap: () => Navigator.of(context).push(
-        SkyOverviewScreen.birthRoute(birthMoment: birthMoment),
-      ),
+      onTap: () {
+        // **LA PORTA DELLA LUNA NATALE**, ordine BD voce 05: la Luna che
+        // vegliava alla nascita si scopre guardando quel cielo, non
+        // ereditandola dal documento pieno.
+        unawaited(RegiaDelCammino.dopoUnGesto(context, 'luna_natale'));
+        Navigator.of(context).push(
+          SkyOverviewScreen.birthRoute(birthMoment: birthMoment),
+        );
+      },
       child: DepthCard(
         padding: const EdgeInsets.all(SpacingTokens.md),
         child: Row(
@@ -281,9 +287,14 @@ class _CircleSealCard extends StatelessWidget {
     return DepthCard(
       key: const Key('passport_seal'),
       raised: true,
-      onTap: () => Navigator.of(context).push(CircleSealScreen.route(
-          name: context.read<ProfileController>().vocative,
-          identity: identity)),
+      onTap: () {
+        // **LA PORTA DEL SIGILLO DEL CERCHIO**, ordine BD voce 05: si scopre
+        // aprendo la sua schermata, non col documento pieno.
+        unawaited(RegiaDelCammino.dopoUnGesto(context, 'sigillo_del_cerchio'));
+        Navigator.of(context).push(CircleSealScreen.route(
+            name: context.read<ProfileController>().vocative,
+            identity: identity));
+      },
       padding: const EdgeInsets.all(SpacingTokens.lg),
       child: Row(
         children: [
@@ -502,7 +513,17 @@ class _NatalChartCard extends StatelessWidget {
               : 'Sole, Luna e pianeti. Con l’ora di nascita arrivano anche '
                   'Ascendente e case.',
       isExample: identity.isExample,
-      onTap: () => Navigator.of(context).push(
+      onTap: () {
+        // **LA PORTA VERA DI QUESTI TRE GESTI**, ordine BD voce 05: aprire la
+        // propria carta e' il gesto che li compie, non l'apertura del
+        // documento. E mai sul dato d'esempio: un traguardo acceso su un
+        // esempio sarebbe un traguardo regalato.
+        if (!identity.isExample) {
+          unawaited(RegiaDelCammino.dopoUnGesto(context, 'carta_natale'));
+          unawaited(RegiaDelCammino.dopoUnGesto(context, 'ora_di_nascita'));
+          unawaited(RegiaDelCammino.dopoUnGesto(context, 'luogo_di_nascita'));
+        }
+        Navigator.of(context).push(
         MaterialPageRoute<void>(
           builder: (ctx) => MaestroScope(
             maestro: Maestro.medora,
@@ -522,7 +543,8 @@ class _NatalChartCard extends StatelessWidget {
             ),
           ),
         ),
-      ),
+      );
+      },
       emblem: Icon(Icons.explore_rounded, color: palette.goldSoft, size: 28),
     );
   }

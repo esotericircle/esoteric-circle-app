@@ -521,13 +521,15 @@ class RegiaDelCammino {
         pezzi.contains('carta_natale')) {
       pezzi.add('nascita_completa');
     }
-    // Il Sigillo del Cerchio e la Luna natale si scoprono col Passaporto
-    // pieno: e' li' che il Cerchio li mostra.
-    if (pezzi.contains('passaporto')) {
-      pezzi.add('sigillo_del_cerchio');
-      pezzi.add('luna_natale');
-    }
-    // Il nome proprio: se il profilo ha un nome, il Cerchio lo custodisce.
+    // **IL SIGILLO DEL CERCHIO E LA LUNA NATALE HANNO UNA PORTA VERA.**
+    // Ordine BD voce 05: si scoprivano "col Passaporto pieno", cioe'
+    // maturavano in blocco con tutto il resto. Adesso il Sigillo matura
+    // aprendo la sua schermata e la Luna aprendo il portale del cielo di
+    // nascita: gesti che il passaporto segna alle sue porte.
+    if (diario.haFatto('sigillo_del_cerchio')) pezzi.add('sigillo_del_cerchio');
+    if (diario.haFatto('luna_natale')) pezzi.add('luna_natale');
+    // Il nome proprio matura al primo saluto per nome nel Santuario: e' li'
+    // che il Cerchio dimostra di custodirlo. Ordine BD voce 05.
     if (diario.haFatto('nome_proprio')) pezzi.add('nome_proprio');
     return pezzi;
   }

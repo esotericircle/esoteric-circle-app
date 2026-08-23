@@ -21,7 +21,12 @@ void main() {
   test('La rotta della carta natale monta uno scaffale immersivo', () {
     final da = sorgente.indexOf("Key('passport_natal_chart')");
     expect(da, greaterThan(0), reason: 'tessera della carta natale non trovata');
-    final blocco = sorgente.substring(da, da + 1600);
+    // **FINO ALLA CLASSE SUCCESSIVA, non un numero a mano.** Il taglio a
+    // 1600 caratteri e' caduto quando l'ordine BD voce 05 ha messo le porte
+    // dei gesti prima della rotta: il testo cercato era sempre li', solo piu'
+    // in basso. Il confine vero della tessera e' l'inizio della classe dopo.
+    final fine = sorgente.indexOf('\nclass ', da);
+    final blocco = sorgente.substring(da, fine > da ? fine : sorgente.length);
     expect(blocco.contains('ImmersiveScaffold'), isTrue,
         reason: 'la carta natale si apre senza scaffale: senza un antenato '
             'Material ogni testo prende la riga gialla e il fondo resta nero');
@@ -29,7 +34,8 @@ void main() {
 
   test('Il pulsante in fondo riporta al Passport', () {
     final da = sorgente.indexOf("Key('passport_natal_chart')");
-    final blocco = sorgente.substring(da, da + 1600);
+    final fine = sorgente.indexOf('\nclass ', da);
+    final blocco = sorgente.substring(da, fine > da ? fine : sorgente.length);
     expect(blocco.contains('Torna al Passport'), isTrue,
         reason: 'la carta aperta dal Passport invita ancora alla Risonanza, che '
             'e\' gia\' avvenuta');

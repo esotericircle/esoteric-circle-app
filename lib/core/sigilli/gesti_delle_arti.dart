@@ -134,22 +134,23 @@ class GestiDelleArti {
       perche: 'Giorno, ora e luogo scritti insieme: si compone dai tre pezzi '
           'che esistono già, non da un gesto in più.',
     ),
+    // **TRE PORTE VERE AL POSTO DI TRE DERIVATI.** Ordine BD voce 05: questi
+    // tre maturavano in blocco, il Sigillo e la Luna col Passaporto pieno e il
+    // nome mai, perché nessuno lo segnava. Ora ognuno ha la sua schermata.
     SorgenteDelGesto(
       gesto: 'sigillo_del_cerchio',
-      derivato: true,
-      perche: 'Si scopre col Passaporto pieno, che è già un pezzo composto.',
+      perche: 'Si scopre aprendo la schermata del Sigillo del Cerchio dal '
+          'Passaporto.',
     ),
     SorgenteDelGesto(
       gesto: 'luna_natale',
-      derivato: true,
-      perche: 'La Luna che vegliava alla nascita si legge nel Passaporto '
-          'pieno.',
+      perche: 'Si scopre aprendo il portale del cielo di nascita dal '
+          'Passaporto.',
     ),
     SorgenteDelGesto(
       gesto: 'nome_proprio',
-      derivato: true,
-      perche: 'Il nome lo custodisce il profilo: nessuna schermata compie un '
-          'gesto per dirlo.',
+      perche: 'Matura al primo saluto per nome nel Santuario: è lì che il '
+          'Cerchio dimostra di custodirlo.',
     ),
     SorgenteDelGesto(gesto: 'condivisione_stella', derivato: true),
     SorgenteDelGesto(gesto: 'condivisione_frutto', derivato: true),
