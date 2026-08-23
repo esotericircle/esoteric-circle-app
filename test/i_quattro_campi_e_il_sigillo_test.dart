@@ -200,14 +200,15 @@ void main() {
           reason: 'la festa non porta piu\' al Sigillo appena acceso: si '
               'chiudeva su se stessa e il sentiero bisognava ritrovarlo');
       expect(sorgente, contains('SentieroScreen.route'));
-      // Le due intensita' restano, e la card resta sempre offerta. Dalla
-      // festa unica dell'ordine AC voce 04 la condizione legge la LISTA dei
-      // nominati: basta un grande fra loro e la celebrazione e' piena.
-      expect(sorgente,
-          contains('traguardi.any((t) => t.eGrande) || primoInAssoluto'),
-          reason: 'le due intensita\' sono sparite: cinquanta celebrazioni '
-              'lunghe diventano un ostacolo, e un mini che passa in silenzio '
-              'non e\' un traguardo');
+      // **LE DUE INTENSITA' NON ESISTONO PIU', ordine BE voce 05.** La
+      // seconda intensita' era la sovrimpressione breve, che sulla 2199 il
+      // fondatore ha riconosciuto come la card vecchia e ha fatto demolire:
+      // "ELIMINA TUTTO CIO' CHE E' VECCHIO E GIA' SOSTITUITO". La scena e'
+      // una per tutti, e il mini non passa in silenzio: celebra pieno, al
+      // ritmo della coda di BD.08.
+      expect(sorgente, isNot(contains('mostraLaSovrimpressione')),
+          reason: 'la seconda intensita\' e\' tornata: la card vecchia che '
+              'il fondatore ha fatto demolire (ordine BE voce 05)');
       expect(sorgente, contains('VieDellaCondivisione'));
     });
 

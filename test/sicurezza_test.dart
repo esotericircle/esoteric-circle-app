@@ -102,8 +102,13 @@ void main() {
         final f = File(nome);
         expect(f.existsSync(), isTrue, reason: 'manca $nome');
         final testo = f.readAsStringSync();
-        expect(testo.contains('FlutterSharedPreferences'), isTrue,
-            reason: '$nome non esclude le preferenze');
+        // **LA LEGGE E' CAMBIATA CON L'ORDINE BE VOCE 07**: non si esclude
+        // piu' il solo file di Flutter, si esclude TUTTO. La regola vecchia
+        // lasciava fuori le preferenze di Firebase Auth, e alla
+        // reinstallazione l'identita' tornava dal backup coi dati appresso.
+        expect(testo.contains('path="."'), isTrue,
+            reason: '$nome non esclude piu tutto: basta un file ripristinato '
+                'per far tornare l identita');
         expect(testo.contains('exclude'), isTrue);
       }
     });

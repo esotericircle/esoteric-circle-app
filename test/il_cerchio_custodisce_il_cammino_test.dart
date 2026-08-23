@@ -177,14 +177,13 @@ void main() {
     // **DA SEI A OTTO. Ordine BC voce 02**, e si dichiara qui come la prova
     // chiede. Le due nuove sono `chiediLOblio`, che segna la data della
     // cancellazione invece di eseguirla, e `annullaLOblio`, che e' la meta'
-    // che rende i trenta giorni di ripensamento una promessa: un
-    // ripensamento che non si puo' esercitare non e' un ripensamento.
-    //
-    // **Non sono passate da `statoDelCerchio`, e la ragione e' che non sono
-    // uno stato**: sono due gesti, e un gesto dentro la chiamata che chiede
-    // lo stato vorrebbe dire cancellare un account per il fatto di aver
-    // aperto l'app. La data invece viaggia con lo stato, come il listino.
-    expect(callable.length, 8,
+    // che rendeva i trenta giorni di ripensamento una promessa. **E POI I
+    // TRENTA GIORNI SONO STATI ABOLITI, ordine BE voce 07**: chiediLOblio e
+    // annullaLOblio sono uscite, ed e' entrata azzeraIDatiDelCerchio, che
+    // porta l'azzeramento dei dati anche sul server (era il ritorno dei 270
+    // Eos visto dal fondatore). Il conto scende da otto a sette, e ognuna
+    // delle sette ha il suo perche' nel manifesto dell'ordine BE.
+    expect(callable.length, 7,
         reason: 'le callable non sono piu\' sei: $callable. Se ne serviva una '
             'nuova andava dichiarata e motivata nel rapporto');
   });
