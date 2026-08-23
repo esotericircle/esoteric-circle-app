@@ -65,7 +65,7 @@ per conto suo.
 - **BE.01** I Maestri: lo spazio sotto e la fluttuazione. Stato: APERTA
 - **BE.02** L'onboarding sotto la barra. Stato: APERTA
 - **BE.03** La citta' straniera. Stato: APERTA
-- **BE.04** La bolla dei sentieri: titolo e frase. Stato: APERTA
+- **BE.04** La bolla dei sentieri: titolo e frase. Stato: CHIUSA
 - **BE.05** La card vecchia va demolita. Stato: CHIUSA
 - **BE.06** Il Rito dell'Alba: posizione muta e testi sul mare. Stato: APERTA
 - **BE.07** La cancellazione immediata e il ritorno dei dati. Stato: APERTA
@@ -88,8 +88,8 @@ per conto suo.
 ## I marcatori
 
 VOCI_TOTALI: 10
-VOCI_APERTE: 8
-VOCI_CHIUSE: 2
+VOCI_APERTE: 7
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

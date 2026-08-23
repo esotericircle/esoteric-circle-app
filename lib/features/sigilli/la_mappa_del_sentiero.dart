@@ -145,6 +145,17 @@ class _FoglioDellaMappa extends StatelessWidget {
               colore: palette.gold,
             ),
             const SizedBox(height: SpacingTokens.md),
+            // **IL TITOLO DEL MAESTRO, ordine BE voce 04.** Parole del
+            // fondatore: "la stessa bolla deve iniziare con il titolo 'I
+            // traguardi di Aura' o altro nome del Maestro corrispondente".
+            Text(
+              'I traguardi di ${sentiero.maestro.displayName}',
+              key: const Key('mappa_titolo_maestro'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.titoloSezione()
+                  .copyWith(color: palette.goldSoft),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
             // **1. DOVE SEI, E ADESSO SI SA CHE COSA SI STA LEGGENDO.**
             // Ordine BC voce 06.
             //
@@ -184,30 +195,19 @@ class _FoglioDellaMappa extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 2),
-              // **IL NOME, NON LA FRASE, ED E' IL CUORE DI QUESTA VOCE.**
-              //
-              // Parole del fondatore: "e' sbagliato scrivere 'il primo test
-              // archetipo completato' perche' quel test non e' mai stato
-              // fatto". **Aveva ragione, e il campo sbagliato aveva il nome
-              // giusto scritto sopra**: `frase` e' dichiarata nel modello
-              // come *"LA FRASE WOW"*, cioe' quella della festa, che si legge
-              // una volta sola nell'istante in cui il Sigillo si accende. E'
-              // al passato per costruzione, perche' festeggia una cosa appena
-              // avvenuta. Usarla per annunciare cio' che manca vuol dire
-              // dichiarare compiuto cio' che non e' nemmeno cominciato.
-              //
-              // `nome` e' *"il nome proprio del traguardo, quello che si legge
-              // sul sentiero"*, ed e' scritto al presente: per lo stesso
-              // traguardo vale "Sai quale archetipo ti somiglia", che dice
-              // cosa avrai invece di fingere che tu ce l'abbia gia'.
-              Text(
-                prossimo.nome,
-                key: const Key('mappa_cosa_manca'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.corpo()
-                    .copyWith(color: ColorTokens.textPrimary, height: 1.4),
-              ),
-              const SizedBox(height: SpacingTokens.md),
+              // **LA RIGA DI MEZZO NON C'E' PIU', ed e' una scelta a tre
+              // campi bocciati.** BC.06 tolse `frase`, al passato per
+              // costruzione; al suo posto mise `nome`, e sulla 2199 il
+              // fondatore ha letto "Il cielo di oggi ti riguarda" nudo e ha
+              // detto che non significa niente: aveva ragione. La terza
+              // strada provata, `percheConta`, e' stata montata e GUARDATA:
+              // parla al fondatore e non alla persona ("trasforma un'app
+              // aperta per curiosita' in un appuntamento" e' linguaggio di
+              // progetto), quindi bocciata dall'anteprima prima che da lui.
+              // Ordine BE voce 04: il prossimo traguardo lo dice il
+              // PULSANTE, che porta il nome dell'arte da compiere ed e' la
+              // sola cosa che una persona possa davvero fare.
+              const SizedBox(height: SpacingTokens.xs),
               // 3. DA DOVE SI COMINCIA, e si tocca.
               FilledButton.icon(
                 key: const Key('mappa_da_dove_si_comincia'),

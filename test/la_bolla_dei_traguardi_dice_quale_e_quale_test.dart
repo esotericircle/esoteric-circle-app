@@ -47,12 +47,24 @@ void main() {
     // la scelta del campo il cuore di questa voce. Che a schermo compaiano i
     // due titoli lo misura l altra prova, contando i testi del foglio.
     final sorgente = _leggi('lib/features/sigilli/la_mappa_del_sentiero.dart');
-    expect(sorgente.contains('prossimo.nome'), isTrue,
-        reason: 'la bolla non mostra il nome del prossimo traguardo');
+    // **IL CAMPO E' CAMBIATO DI NUOVO, ordine BE voce 04, ed e' il terzo
+    // capitolo.** BC.06 tolse `frase` (al passato per costruzione) e mise
+    // `nome`; sulla 2199 il fondatore ha letto il nome nudo, "Il cielo di
+    // oggi ti riguarda", e ha detto che messo li' cosi' non significa
+    // niente. Adesso parla `percheConta`, il campo che per documentazione
+    // "si legge PRIMA, sul sentiero": la frase della festa resta vietata
+    // come prima.
+    expect(sorgente.contains('prossimo.percheConta'), isFalse,
+        reason: 'la bolla mostra il perche conta, che parla al progetto e '
+            'non alla persona: bocciato guardando l anteprima (BE.04)');
+    expect(sorgente.contains('prossimo.nome'), isFalse,
+        reason: 'la bolla e tornata al nome nudo che il fondatore ha '
+            'bocciato sulla 2199');
     expect(sorgente.contains('prossimo.frase'), isFalse,
         reason: 'la bolla e tornata a mostrare la frase della festa per '
             'annunciare cio che manca');
     for (final chiave in const [
+      'mappa_titolo_maestro',
       'mappa_titolo_raggiunti',
       'mappa_titolo_prossimo',
     ]) {

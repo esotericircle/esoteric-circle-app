@@ -64,18 +64,23 @@ void main() {
 
       final doveSei =
           tester.widget<Text>(find.byKey(const Key('mappa_dove_sei'))).data!;
-      final cosaManca =
-          tester.widget<Text>(find.byKey(const Key('mappa_cosa_manca'))).data!;
+      // **COSA MANCA LO DICE IL PULSANTE, ordine BE voce 04**: la riga di
+      // mezzo e' stata tolta dopo tre campi bocciati, e il prossimo
+      // traguardo parla con il nome dell'arte da compiere.
       final daDove = find.byKey(const Key('mappa_da_dove_si_comincia'));
+      final cosaManca = tester
+          .widget<Text>(
+              find.descendant(of: daDove, matching: find.byType(Text)))
+          .data!;
       // ignore: avoid_print
       print('ORDINE AU VOCE 13: ${sentiero.name}\n  dove sei: "$doveSei"\n'
-          '  cosa manca: "$cosaManca"');
+          '  la porta: "$cosaManca"');
       expect(doveSei, contains('2 perle accese su 55'),
           reason: 'la prima riga non dice dove sei');
       expect(doveSei.toLowerCase(), contains('fascia'),
           reason: 'la prima riga non dice in che fascia stai');
       expect(cosaManca, isNotEmpty,
-          reason: 'la seconda riga non dice cosa manca');
+          reason: 'il pulsante della porta non dice quale arte compiere');
       expect(daDove, findsOneWidget,
           reason: 'manca la porta dell arte, che deve essere toccabile');
     });
@@ -98,6 +103,13 @@ void main() {
     // **La regola non si allenta, cambia di numero.** Cinque e' esatto e non
     // e' un tetto comodo: due titoli, due contenuti, e nient'altro. Se
     // domani ne comparisse un sesto, questa riga lo direbbe come prima.
+    //
+    // **E RESTA CINQUE, ordine BE voce 04, ma con voci diverse**: entra il
+    // titolo "I traguardi di [Maestro]" chiesto dal fondatore, ed esce la
+    // riga di mezzo del prossimo traguardo, perche' tutti e tre i campi
+    // possibili sono stati bocciati (frase al passato, nome nudo senza
+    // senso, percheConta che parla al progetto). Il prossimo traguardo lo
+    // dice il pulsante.
     final testi = find
         .descendant(
             of: find.byType(BottomSheet), matching: find.byType(Text))
