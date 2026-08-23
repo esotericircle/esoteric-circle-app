@@ -1157,6 +1157,17 @@ Future<void> mostraLaCardDelTraguardo(
   required Traguardo traguardo,
   required Sentiero sentiero,
 }) {
+  // QUANDO SI E' ACCESO, dal diario, per la scritta della voce BD.06. Il
+  // provider si legge col ripiego e mai con la pretesa: questa via la aprono
+  // anche schermate montate a meta' nelle prove, e un foglio che muore per
+  // un provider assente e' la famiglia di guasti gia' pagata una volta con
+  // una quarantina di prove cadute.
+  DateTime? quando;
+  try {
+    quando = context.read<DiarioDelCammino>().quandoSiEAcceso(traguardo.id);
+  } catch (diarioAssente) {
+    quando = null;
+  }
   return showModalBottomSheet<void>(
     context: context,
     backgroundColor: Colors.transparent,
@@ -1175,7 +1186,8 @@ Future<void> mostraLaCardDelTraguardo(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CardDelTraguardo(traguardo: traguardo, sentiero: sentiero),
+            CardDelTraguardo(
+                traguardo: traguardo, sentiero: sentiero, quando: quando),
             const SizedBox(height: SpacingTokens.md),
             VieDellaCondivisione(
               suScelta: (modo) {

@@ -23,10 +23,29 @@ class CardDelTraguardo extends StatelessWidget {
     super.key,
     required this.traguardo,
     required this.sentiero,
+    this.quando,
   });
 
   final Traguardo traguardo;
   final Sentiero sentiero;
+
+  /// Quando questo traguardo si e' acceso, se il diario lo sa. Richiesta del
+  /// fondatore del 17 agosto 2026: "vorrei che ci fosse anche una scritta con
+  /// obiettivo raggiunto il [data e ora]". Ordine BD voce 06.
+  ///
+  /// **Puo' mancare, e allora la scritta NON c'e'.** Il diario custodisce
+  /// l'istante dall'ordine AP: i Sigilli accesi prima non hanno data, e la
+  /// regola gia' scritta in `quandoSiEAcceso` vale anche qui, non se ne
+  /// inventa una.
+  final DateTime? quando;
+
+  /// La data e l'ora nella forma di casa, senza pacchetti: 23/08/2026 alle
+  /// 19:04. Due cifre fisse, cosi' l'otto di sera non diventa un "8:4".
+  static String dataEOra(DateTime istante) {
+    String due(int v) => v.toString().padLeft(2, '0');
+    return '${due(istante.day)}/${due(istante.month)}/${istante.year} '
+        'alle ${due(istante.hour)}:${due(istante.minute)}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +91,13 @@ class CardDelTraguardo extends StatelessWidget {
           Text(traguardo.frase,
               style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.45)),
+          if (quando != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text('Obiettivo raggiunto il ${dataEOra(quando!)}',
+                key: const Key('card_quando_raggiunto'),
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: palette.goldSoft)),
+          ],
           const SizedBox(height: SpacingTokens.md),
           Row(
             children: [
