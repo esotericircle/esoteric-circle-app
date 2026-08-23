@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 141 -->
-<!-- FILE_CON_VUOTI: 56 -->
+<!-- VUOTI_CENSITI: 144 -->
+<!-- FILE_CON_VUOTI: 59 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **141** |
-| File che ne contengono | **56** |
+| Vuoti verticali dichiarati | **144** |
+| File che ne contengono | **59** |
 | Oltre la soglia di 48 punti | **2** |
 
 ## Da dove viene la soglia
@@ -22,9 +22,9 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 73 |
+| 2 | 77 |
 | 3 | 8 |
-| 4 | 28 |
+| 4 | 27 |
 | 5 | 1 |
 | 6 | 10 |
 | 7 | 2 |
@@ -50,10 +50,10 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | --- | ---: | ---: |
 | `lib/features/passport/cosmic_passport_screen.dart` | 7 | 0 |
 | `lib/features/santuario/daily_strip.dart` | 6 | 0 |
-| `lib/features/santuario/santuario_screen.dart` | 6 | 0 |
 | `lib/features/synastry/sinastria_share_card.dart` | 6 | 1 |
 | `lib/design_system/components/guida_del_respiro.dart` | 5 | 0 |
 | `lib/features/identity/widgets/identity_widgets.dart` | 5 | 0 |
+| `lib/features/santuario/santuario_screen.dart` | 5 | 0 |
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_screen.dart` | 4 | 0 |
 | `lib/features/maestri/maestro_screen.dart` | 4 | 0 |
@@ -86,10 +86,13 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/rituals/sunset_rune_card.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_screen.dart` | 2 | 0 |
 | `lib/features/settings/riga_di_messa_a_punto.dart` | 2 | 0 |
+| `lib/features/sigilli/la_mappa_del_sentiero.dart` | 2 | 0 |
 | `lib/features/synastry/sinastria_vip_screen.dart` | 2 | 1 |
 | `lib/core/permissions/avviso_del_permesso.dart` | 1 | 0 |
 | `lib/design_system/components/art_card.dart` | 1 | 0 |
+| `lib/design_system/components/borsellino.dart` | 1 | 0 |
 | `lib/design_system/components/riga_del_consiglio.dart` | 1 | 0 |
+| `lib/features/account/notifiche_screen.dart` | 1 | 0 |
 | `lib/features/calendario/calendario_degli_eventi_screen.dart` | 1 | 0 |
 | `lib/features/debug/app_check_debug_view.dart` | 1 | 0 |
 | `lib/features/intro/sequenza_intro.dart` | 1 | 0 |

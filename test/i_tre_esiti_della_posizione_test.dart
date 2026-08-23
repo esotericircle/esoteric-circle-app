@@ -4,6 +4,8 @@ import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -121,6 +123,20 @@ void main() {
     expect(find.text('Apri le impostazioni per riattivarla'), findsOneWidget,
         reason: 'La riga ripete una richiesta che il sistema non '
             'mostrera\' mai piu\', invece di portare alle impostazioni.');
+    // **PRIMA SI LASCIA ANDARE LA SNACKBAR DELL'ORDINE BB VOCE 08.** Dal
+    // primo tocco la schermata dice a voce che il permesso e' negato per
+    // sempre, con una snackbar di sei secondi: sta in basso, esattamente
+    // sopra questo pulsante, e un secondo tocco a 150 millesimi cadrebbe su
+    // di lei. Non e' un difetto della schermata, e' la scena vera: anche il
+    // dito di una persona aspetterebbe che la scritta se ne vada.
+    await tester.pump(const Duration(seconds: 7));
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(
+        find.byKey(const Key('sunset_posizione_negata_per_sempre')),
+        findsNothing,
+        reason: 'la snackbar dei sei secondi resta a schermo: il tempo '
+            'non sta passando davvero');
     await tester.ensureVisible(find.byKey(const Key('sunset_attiva')));
     await tester.tap(find.byKey(const Key('sunset_attiva')));
     await tester.pump(const Duration(milliseconds: 150));

@@ -145,6 +145,11 @@ void main() {
         'I testi visibili della chat di ${maestro.id} usano accenti corretti',
         (tester) async {
       silenceSensors();
+      // Finestra da telefono, ordine BD voce 02: vedi la nota estesa in
+      // chat_header_test.
+      tester.view.physicalSize = const Size(390, 844);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
       await tester
           .pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
       await step(tester);
@@ -157,6 +162,10 @@ void main() {
       await tester.tap(find.byKey(const Key('santuario_central_bust')));
       await step(tester);
       await step(tester);
+      // La carta Consulta puo' stare sotto il bordo: prima la si porta in
+      // vista, come fa chat_header_test dalla stessa strada.
+      await tester.ensureVisible(find.text('Consulta ${maestro.displayName}'));
+      await tester.pump();
       await tester.tap(find.text('Consulta ${maestro.displayName}'));
       await step(tester);
 

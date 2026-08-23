@@ -55,6 +55,12 @@ void main() {
 
   Future<void> apriIlPassaporto(WidgetTester tester) async {
     silenzia(tester);
+    // Finestra da telefono, ordine BD voce 02: sul default 800x600 la barra
+    // e la scena degenerano e i tocchi muoiono su geometrie che nessun
+    // telefono ha. Vedi la nota estesa in chat_header_test.
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
     await tester.pumpWidget(
         EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     for (var i = 0; i < 6; i++) {
@@ -76,7 +82,7 @@ void main() {
 
     final tessera = find.byKey(const Key('passport_archetipo'));
     await tester.scrollUntilVisible(tessera, 300,
-        scrollable: find.byType(Scrollable).first);
+        scrollable: find.byType(Scrollable).last);
     expect(tessera, findsOneWidget,
         reason: 'il Test e\' stato fatto e il Passaporto non lo sa: fra cio\' '
             'che la persona ha fatto e cio\' che la schermata legge non c\'e\' '
@@ -103,9 +109,18 @@ void main() {
         reason: 'la tessera e\' viva a chi il Test non l\'ha mai fatto');
     // E non promette un futuro: dice che si puo' fare adesso. Promettere come
     // futuro qualcosa che l'app fa gia' e' peggio di non prometterlo.
-    final invito = find.textContaining('Fai il Test Archetipo');
-    await tester.scrollUntilVisible(invito, 300,
-        scrollable: find.byType(Scrollable).first);
+    // **L'invito ha cambiato parole con l'ordine BC voce 03**: "Fai il Test
+    // Archetipo" prometteva senza portare, adesso la tessera porta davvero e
+    // dice "Tocca per fare il Test Archetipo". La prova segue le parole vere.
+    final invito = find.textContaining('Tocca per fare il Test Archetipo');
+    // Sulla finestra da telefono l'invito puo' essere gia' in vista: si
+    // scorre solo se serve, e sull'ULTIMO Scrollable, perche' il Passaporto
+    // e' una rotta spinta sopra la home e il primo scorrevole e' della home
+    // coperta.
+    if (invito.evaluate().isEmpty) {
+      await tester.scrollUntilVisible(invito, 300,
+          scrollable: find.byType(Scrollable).last);
+    }
     expect(invito, findsOneWidget);
   });
 }

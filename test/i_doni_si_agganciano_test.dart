@@ -217,18 +217,17 @@ void main() {
               'guidato e\' un\'esperienza');
       final scheda = File('lib/features/rituals/ritual_gift_card.dart')
           .readAsStringSync();
-      // **QUESTA PRETESA E' SUPERATA DALL'ORDINE S VOCE 13, e sta scritto qui.**
-      // Chiedeva che la scheda del dono guidasse il respiro, e per un po' e' stato
-      // giusto: era esattamente il rimedio della voce P.17. Poi si e' visto il
-      // costo: il respiro guidato appartiene al Soffio del Destino, e portarlo
-      // dentro OGNI dono del giorno faceva del rito del mattino il contenitore di
-      // un rito che non e' suo. La scheda offre adesso un invito di una riga verso
-      // il Soffio, che e' una porta vera, e cio' che questa voce difende, cioe' che
-      // l'istruzione criptica non torni un testo da leggere, resta misurato dalla
-      // riga qui sopra e da `il_respiro_vive_nel_soffio_test`.
-      expect(scheda, contains('ponte_verso_il_soffio'),
-          reason: 'la scheda del dono non porta piu\' al respiro: la voce S.13 '
-              'chiede un invito di una riga, non il nulla');
+      // **LA STORIA DI QUESTA RIGA HA TRE CAPITOLI, e l'ultimo comanda.**
+      // P.17 chiedeva che la scheda guidasse il respiro; S.13 lo porto' nel
+      // Soffio lasciando nella scheda un ponte di una riga; e la voce 07
+      // dell'ordine BB ha tolto anche il ponte, per decisione del fondatore:
+      // ogni dono ha la sua ora e il suo posto, e chi arriva all'Alba non va
+      // mandato altrove. Questa prova pretendeva ancora il ponte del secondo
+      // capitolo, cioe' l'esatto contrario della decisione in vigore,
+      // sorvegliata da `il_respiro_vive_nel_soffio_test`. Ordine BD voce 02.
+      expect(scheda, isNot(contains('ponte_verso_il_soffio')),
+          reason: 'il ponte verso il Soffio e\' tornato nella scheda del '
+              'dono: la voce BB 07 lo ha tolto per decisione del fondatore');
       // E il respiro guidato e' UNO SOLO in tutto il progetto.
       final quanti = Directory('lib')
           .listSync(recursive: true)

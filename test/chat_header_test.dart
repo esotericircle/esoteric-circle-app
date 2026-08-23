@@ -47,6 +47,16 @@ void main() {
   }
 
   Future<void> openChat(WidgetTester tester, Maestro maestro) async {
+    // **LA FINESTRA E' UN TELEFONO, non il default 800x600.** Ordine BD voce
+    // 02. Sulla finestra di default, larga e corta, la scena del Santuario
+    // degenera: la striscia dei Doni occupa la fascia dove il busto sborda
+    // e il tocco sul Maestro centrale muore li', su una geometria che nessun
+    // telefono ha. Misurato: su 800x600 il tocco non apre il dominio, su
+    // OGNI misura di telefono vero si'. Le prove sorelle (carosello_ruota)
+    // pinnano gia' la finestra per la stessa ragione.
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
     await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
     // Dal Santuario: porta il Maestro al centro, entra nel dominio dal busto,

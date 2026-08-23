@@ -448,11 +448,15 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
   Future<void> _shareWord(DawnGift gift) async {
     final word = gift.word;
     if (word == null) return;
-    final perche = gift.rito?.perche;
+    // Si chiama "ragione" e non "perche" di proposito: il nome della
+    // variabile finisce dentro l'interpolazione della stringa condivisa, e
+    // l'esame degli accenti, che legge le stringhe come testo mostrato, vi
+    // trovava un "perche" senza accento che nessuno avrebbe mai visto.
+    final ragione = gift.rito?.perche;
     try {
       await PortaDellaCondivisione.testo(
           'La mia parola del giorno dal Rito dell\'Alba: $word.'
-          '${perche == null ? '' : ' $perche'} Con Esoteric Circle.');
+          '${ragione == null ? '' : ' $ragione'} Con Esoteric Circle.');
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

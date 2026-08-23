@@ -131,8 +131,12 @@ void main() {
     // vuole misurare. L'archetipo NON si semina: quello deve arrivare dopo,
     // dal vivo, ed e' tutto il punto.
     SharedPreferences.setMockInitialValues({'onboarding.done': true});
-    // SCHERMO STANDARD, come la prova dell'header della chat: su un ritratto
-    // stretto il dominio non offre la voce "Consulta" nello stesso punto.
+    // Finestra da telefono, ordine BD voce 02: sul default 800x600 la scena
+    // del Santuario degenera e il tocco sul busto muore. Vedi la nota estesa
+    // in chat_header_test.
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
     await tester.pumpWidget(
         EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
@@ -142,6 +146,9 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
+    await tester
+        .ensureVisible(find.text('Consulta ${Maestro.aura.displayName}'));
+    await tester.pump();
     await tester.tap(find.text('Consulta ${Maestro.aura.displayName}'));
     await step(tester);
 

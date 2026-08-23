@@ -338,8 +338,12 @@ class _LevelTile extends StatelessWidget {
             // quattro punti dal bordo, che non si vedono e non tradiscono.
             const respiro = 4.0;
             if (piuLarga > larghezzaDelTitolo - respiro && piuLarga > 0) {
+              // La misura di partenza e' quella del ruolo, non un numero
+              // scritto qui: si scala il corpo del token, qualunque sia.
               stile = stile.copyWith(
-                  fontSize: 16 * (larghezzaDelTitolo - respiro) / piuLarga);
+                  fontSize: (stile.fontSize ?? 16) *
+                      (larghezzaDelTitolo - respiro) /
+                      piuLarga);
             }
             return Text(card.title,
                 textAlign: TextAlign.center,

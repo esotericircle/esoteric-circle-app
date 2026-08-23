@@ -44,6 +44,12 @@ void main() {
   testWidgets('Santuario, dominio, chat e ritorno riavvolgono la pila',
       (tester) async {
     silenceSensors();
+    // Finestra da telefono, ordine BD voce 02: sul default 800x600 la scena
+    // del Santuario degenera e il tocco sul busto muore nella striscia dei
+    // Doni. Vedi la nota estesa in chat_header_test.
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
     await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
     final ctx = tester.element(find.byType(MaterialApp));
@@ -100,6 +106,12 @@ void main() {
   testWidgets('L\'icona Maestro nella bottom bar porta al suo dominio',
       (tester) async {
     silenceSensors();
+    // Finestra da telefono, ordine BD voce 02: sul default 800x600 la scena
+    // del Santuario degenera e il tocco sul busto muore nella striscia dei
+    // Doni. Vedi la nota estesa in chat_header_test.
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
     await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
     final maestro =
@@ -120,6 +132,12 @@ void main() {
     silenceSensors();
     // Fascia dell'Oracolo (12:30-18:00): senza selezione l'eroe segue Medora,
     // cosi' i laterali restano Caligo e Aura in ordine fisso.
+    // Finestra da telefono, ordine BD voce 02: sul default 800x600 la scena
+    // del Santuario degenera e il tocco sul busto muore nella striscia dei
+    // Doni. Vedi la nota estesa in chat_header_test.
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
     await tester.pumpWidget(EsotericCircleApp(conIntro: false, 
       services: AppServices.offline(),
       clock: () => DateTime(2026, 7, 14, 13, 0),
@@ -142,6 +160,12 @@ void main() {
   testWidgets('I tre Maestri nella bottom bar rispettano l\'ordine fisso',
       (tester) async {
     silenceSensors();
+    // Finestra da telefono, ordine BD voce 02: sul default 800x600 la scena
+    // del Santuario degenera e il tocco sul busto muore nella striscia dei
+    // Doni. Vedi la nota estesa in chat_header_test.
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
     await tester.pumpWidget(EsotericCircleApp(conIntro: false, services: AppServices.offline()));
     await step(tester);
 
