@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/feature_flags/feature_flag.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../core/identity/account_del_cerchio.dart';
+import '../../core/permissions/esito_del_permesso.dart';
+import '../../design_system/theme/maestro_scope.dart';
+import '../../core/rituals/avvisi_del_rito.dart';
+import '../../services/avvisi_locali.dart';
+import '../../design_system/theme/maestro_palette.dart';
+import '../../core/maestro/maestro.dart';
+import '../../services/regia_delle_chiamate.dart';
+import '../../core/permissions/app_permission.dart';
 import '../../core/identity/natal_identity.dart';
 import '../../core/entitlement/question_allowance.dart';
 import '../../core/identity/dimenticanza_del_telefono.dart';
@@ -78,13 +87,26 @@ class AccountScreen extends StatelessWidget {
       // LE VOCI IN ARRIVO PARLANO, ordine AL voce 06: al tocco rispondono con
       // l'anticipo elegante del Santuario, mai il silenzio, e l'anticipo dice
       // cosa arrivera' con parole sue, non con una frase qualunque.
-      const _AccountEntry(
+      // **LE NOTIFICHE SI ATTIVANO DA QUI, e prima era un anticipo.**
+      // Ordine BB voce 10, fatto del fondatore: "le notifiche agli orari di
+      // ogni dono del giorno non funzionano e nemmeno il pulsante nel menu
+      // utente".
+      //
+      // **Sul pulsante aveva ragione al cento per cento**: questa voce era un
+      // `teaser`, cioe' una voce che al tocco racconta cosa arrivera'. Non era
+      // rotta, **non esisteva**: prometteva "qui sceglierai" e non faceva
+      // scegliere niente.
+      //
+      // **La regia delle chiamate c'era gia' e funzionava**, e riprogramma a
+      // ogni avvio; ma si ferma alla prima riga se il permesso non c'e', e su
+      // Android 13 e oltre **il permesso va chiesto e nessuno lo chiedeva da
+      // qui**. Adesso il tocco lo chiede e poi programma davvero.
+      _AccountEntry(
         id: 'notifiche',
         title: 'Notifiche',
-        subtitle: 'Gli appuntamenti che ti avvisano',
+        subtitle: 'Gli appuntamenti dei doni del giorno',
         icon: Icons.notifications_none_rounded,
-        teaser: 'Qui sceglierai quali momenti del cielo ti avvisano: i riti '
-            'del giorno, i transiti sul tuo tema e le risposte dei Maestri.',
+        onTap: (context) => _attivaLeNotifiche(context),
       ),
       const _AccountEntry(
         id: 'privacy',
@@ -256,6 +278,87 @@ bool _eAnonimo(BuildContext context) {
     // sola.
     return false;
   }
+}
+
+
+/// **ATTIVA LE NOTIFICHE DEI DONI, e dice sempre com'e' andata.**
+/// Ordine BB voce 10.
+///
+/// **Tre esiti, e nessuno muto**, che e' la stessa regola pretesa per la
+/// posizione nella voce 08: permesso concesso, permesso negato, permesso
+/// negato per sempre. Nel terzo caso si porta alle impostazioni di sistema,
+/// perche' l'app non puo' piu' chiedere e insistere sarebbe una bugia.
+///
+/// **Restano TRE notifiche al giorno**, che e' la decisione registrata: non e'
+/// questa schermata a deciderlo, lo decide `AvvisiDelRito` quando programma il
+/// giorno, e qui non si aggiunge nessun numero.
+Future<void> _attivaLeNotifiche(BuildContext context) async {
+  // **LA STESSA PORTA CHE USA L'ALBA**, e non una seconda: il prelude spiega
+  // cosa arrivera' prima che il sistema chieda, e `PortaDelPermesso` ricava i
+  // tre esiti dal si' o no che il plugin sa dire.
+  final palette = MaestroScope.forse(context) ??
+      MaestroPalette.forKey(ThemeKey.of(Maestro.medora));
+  var esito = EsitoDelPermesso.negato;
+  final concesso = await requestPermissionWithPrelude(
+    context,
+    permission: AppPermission.notifications,
+    palette: palette,
+    copy: const PermissionCopy(
+      icon: Icons.notifications_active_rounded,
+      title: 'Ti avviso agli orari dei doni?',
+      body: AvvisiDelRito.spiegazione,
+      cta: 'Avvisami',
+    ),
+    systemRequest: () async {
+      esito = await PortaDelPermesso.chiedi(
+        AppPermission.notifications,
+        richiestaDiSistema: avvisiDelCerchio.chiediPermesso,
+      );
+      return esito == EsitoDelPermesso.concesso;
+    },
+  );
+  if (!context.mounted) return;
+  if (!concesso) {
+    // **IL TERZO ESITO PORTA ALLE IMPOSTAZIONI**, perche' da li' in poi l'app
+    // non puo' piu' chiedere: insistere sarebbe una bugia, e tacere un vicolo
+    // cieco.
+    final perSempre = esito == EsitoDelPermesso.negatoPerSempre;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        key: const Key('notifiche_negate'),
+        content: Text(perSempre
+            ? 'Le notifiche sono negate per sempre a questa app: il sistema '
+                'non me le fa più chiedere. Puoi riattivarle dalle '
+                'impostazioni del telefono.'
+            : 'Senza il permesso non posso avvisarti agli orari dei doni. '
+                'Puoi darmelo quando vuoi.'),
+        duration: const Duration(seconds: 6),
+        action: perSempre
+            ? SnackBarAction(
+                label: 'Impostazioni',
+                // **LA STESSA PORTA CHE USA L'AVVISO DEL PERMESSO**, e non
+                // una seconda: `Geolocator.openAppSettings` apre le
+                // impostazioni dell'app, non quelle della posizione, ed e'
+                // gia' cio' che l'app usa altrove per lo stesso scopo.
+                onPressed: () => Geolocator.openAppSettings(),
+              )
+            : null,
+      ),
+    );
+    return;
+  }
+  final quante = await RegiaDelleChiamate.riprogramma(context);
+  if (!context.mounted) return;
+  // **SI DICE QUANTE NE SONO STATE MESSE, e il numero e' vero**: viene da chi
+  // le ha programmate davvero, non da una promessa scritta qui.
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      key: const Key('notifiche_attivate'),
+      content: Text(quante.isEmpty
+          ? 'Le notifiche sono attive: ti avviserò agli orari dei doni.'
+          : 'Fatto: ${quante.length} appuntamenti dei doni sono in agenda.'),
+    ),
+  );
 }
 
 /// **L'INTESTAZIONE CHE DICE CHI SEI.** Ordine AZ voce 09, situazione S36.

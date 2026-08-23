@@ -45,9 +45,9 @@ premessa di BB.11 descrive una build precedente alla 2195.
 - **BB.05** Il Passaporto porta a sbloccare. Stato: CHIUSA
 - **BB.06** La parola del giorno serve a qualcosa. Stato: CHIUSA
 - **BB.07** L'Alba non manda al Soffio. Stato: CHIUSA
-- **BB.08** "Attiva la posizione" attiva davvero. Stato: APERTA
+- **BB.08** "Attiva la posizione" attiva davvero. Stato: CHIUSA
 - **BB.09** Il Soffio non somiglia all'Alba. Stato: APERTA
-- **BB.10** Le notifiche dei doni. Stato: APERTA
+- **BB.10** Le notifiche dei doni. Stato: CHIUSA
 - **BB.11** Il menu' Account nelle Impostazioni. Stato: CHIUSA con l'ordine AZ voce 11
 - **BB.12** Il luogo di nascita e il mondo. Stato: APERTA
 - **BB.13** L'icona dell'app. Stato: APERTA
@@ -101,8 +101,8 @@ per ultimo cio' che richiede una fonte esterna.
 ## I marcatori
 
 VOCI_TOTALI: 14
-VOCI_APERTE: 5
-VOCI_CHIUSE: 9
+VOCI_APERTE: 3
+VOCI_CHIUSE: 11
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

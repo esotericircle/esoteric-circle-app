@@ -877,6 +877,24 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         // Il no per sempre cambia la schermata: testo che spiega e pulsante
         // che porta alle impostazioni, perche' richiedere sarebbe una bugia.
         setState(() => _posizioneNegataPerSempre = true);
+        // **E LO SI DICE, invece di cambiare solo l'etichetta.** Ordine BB
+        // voce 08, fatto del fondatore: "al click non succede nulla".
+        //
+        // **Succedeva qualcosa, ed era invisibile**: il permesso era gia'
+        // negato per sempre, quindi il sistema non mostra piu' nessuna
+        // finestra, e il codice si limitava a cambiare la scritta **sotto il
+        // dito che la stava coprendo**. Chi tocca vede il proprio dito, non
+        // un testo che cambia di due parole.
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            key: Key('sunset_posizione_negata_per_sempre'),
+            content: Text(
+                "La posizione è stata negata per sempre a questa app: il "
+                "sistema non me la fa più chiedere. Puoi riattivarla dalle "
+                "impostazioni del telefono."),
+            duration: Duration(seconds: 6),
+          ),
+        );
         return;
       }
       // Permesso negato una volta o posizione assente: si spiega, in voce

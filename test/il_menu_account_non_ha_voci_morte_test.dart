@@ -48,22 +48,32 @@ void main() {
     await tester.pump(const Duration(milliseconds: 200));
   }
 
-  testWidgets('Notifiche e Privacy rispondono con l\'anticipo del Santuario',
+  testWidgets('Privacy risponde con l\'anticipo del Santuario',
       (tester) async {
+    // **NOTIFICHE NON E' PIU' QUI, e non e' una perdita.** Ordine BB voce 10:
+    // era una voce in arrivo che al tocco raccontava cosa sarebbe arrivato, e
+    // il fondatore ha misurato che il pulsante non fa nulla. **Aveva ragione:
+    // non era rotta, non esisteva.**
+    //
+    // Adesso quella voce chiede il permesso e programma davvero le chiamate,
+    // quindi non risponde piu' con un anticipo: **risponde facendo**. Il suo
+    // comportamento si sorveglia in
+    // `test/nessun_invito_a_un_permesso_e_muto_test.dart`, insieme a tutti
+    // gli altri punti dell'app che chiedono un permesso.
+    //
+    // **Privacy resta un anticipo e resta sorvegliata qui**: quella non e'
+    // ancora stata fatta, e finche' e' cosi' deve almeno parlare.
     await monta(tester);
-    await tester.ensureVisible(find.byKey(const Key('account_notifiche')));
-    await tester.tap(find.byKey(const Key('account_notifiche')));
-    for (var i = 0; i < 4; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
-    }
-    expect(find.textContaining('quali momenti del cielo'), findsOneWidget,
-        reason: 'il tocco su Notifiche non risponde con l\'anticipo suo: '
-            'e\' una voce morta');
-    await tester.tap(find.text('Chiudi'));
-    for (var i = 0; i < 4; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
-    }
-    await tester.ensureVisible(find.byKey(const Key('account_privacy')));
+    // **LA VOCE VA CERCATA SCORRENDO.** La lista dell'account e' pigra: le
+    // voci sotto la piega non vengono nemmeno costruite, e prima questa prova
+    // le raggiungeva **per caso**, perche' il tocco su Notifiche apriva un
+    // foglio e chiudendolo la lista si era mossa. Tolta quella voce, il caso
+    // e' finito.
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('account_privacy')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.byKey(const Key('account_privacy')));
     for (var i = 0; i < 4; i++) {
       await tester.pump(const Duration(milliseconds: 120));
