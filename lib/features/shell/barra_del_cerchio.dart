@@ -299,8 +299,23 @@ class OsservatoreDellaPila extends NavigatorObserver {
   }
 
   /// Il nome di classe della schermata in cima alla pila.
-  String? schermataInCima() =>
-      pila.isEmpty ? null : tipoDellaRotta(pila.last);
+  ///
+  /// **LE ROTTE A COMPARSA NON SONO SCHERMATE, ordine BE voce 02.** Il
+  /// selettore di giorno, mese o anno apre una `PopupRoute` (la tendina), i
+  /// fogli dal basso e i menu pure: sono sovrapposizioni sopra la schermata,
+  /// non schermate. Prendendo `pila.last` alla cieca, la tendina
+  /// dell'onboarding diventava la cima, il suo nome non era conosciuto, e
+  /// per il nulla la barra si vedeva: e' lo screenshot del fondatore sulla
+  /// 2199, la barra con granchio ed Eos sopra il rito d'ingresso, con
+  /// l'elenco dei giorni che le scorreva sopra. Si scende fino alla prima
+  /// rotta che sia una PAGINA.
+  String? schermataInCima() {
+    for (final rotta in pila.reversed) {
+      if (rotta is PopupRoute) continue;
+      return tipoDellaRotta(rotta);
+    }
+    return null;
+  }
 
   /// Il Maestro di cui parla la schermata in cima, quando ce n'e' uno.
   ///
