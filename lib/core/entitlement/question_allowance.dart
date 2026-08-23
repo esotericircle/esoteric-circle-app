@@ -47,6 +47,21 @@ class QuestionAllowance extends ChangeNotifier {
   int _saldoEos = 0;
   int get saldoEos => _saldoEos;
 
+  /// **QUANTI EOS VALE OGNI MODO DI CONDIVIDERE, detto dal server.**
+  /// Ordine BB voce 04.
+  ///
+  /// **Vuoto finche' il server non ha parlato**, e chi lo legge deve reggere
+  /// il vuoto: il pulsante dice quando arriva il premio anche senza dire
+  /// quanto. **Mai un numero di ripiego scritto nel client**: se il listino
+  /// cambiasse sul server, un ripiego resterebbe a promettere il vecchio.
+  Map<String, int> _listinoDellaCondivisione = const {};
+  Map<String, int> get listinoDellaCondivisione => _listinoDellaCondivisione;
+
+  /// Quanti Eos vale quel modo, oppure nullo se il server non lo ha ancora
+  /// detto.
+  int? eosPerLaCondivisione(String motivo) =>
+      _listinoDellaCondivisione[motivo];
+
   /// **QUANDO QUALCUNO ESCE, I SUOI NUMERI NON RESTANO A SCHERMO.**
   /// Ordine AZ voce 15.
   ///
@@ -418,6 +433,16 @@ class QuestionAllowance extends ChangeNotifier {
     _confronti = stato.spesi['confronti'] ?? 0;
     _gettate = stato.spesi['gettate'] ?? 0;
     _saldoEos = stato.saldoEos;
+    // **IL LISTINO DELLA CONDIVISIONE, cosi' come il server lo dichiara.**
+    // Ordine BB voce 04. Vive qui perche' qui vive gia' tutto cio' che il
+    // Cerchio dice sul denaro: una seconda casa per tre numeri sarebbe la
+    // seconda porta sullo stesso dato.
+    //
+    // **Si sostituisce solo se il server lo ha mandato**: un server piu'
+    // vecchio dell'app non deve cancellare quello che si sa gia'.
+    if (stato.listinoDellaCondivisione.isNotEmpty) {
+      _listinoDellaCondivisione = stato.listinoDellaCondivisione;
+    }
     notifyListeners();
     await _persist();
     return stato.cammino;

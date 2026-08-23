@@ -10,6 +10,8 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/components/icona_degli_eos.dart';
+import 'package:provider/provider.dart';
+import '../../core/entitlement/question_allowance.dart';
 
 /// LA CARD CONDIVISIBILE DI UN TRAGUARDO, nel formato unico gia' in uso.
 ///
@@ -159,9 +161,22 @@ class VieDellaCondivisione extends StatelessWidget {
               // ragione dietro la risposta, non la risposta. Chi legge vuole
               // sapere QUANDO arrivano gli Eos, e adesso lo legge in quattro
               // parole invece che in tre righe di grigio.
-              modo.subitoPagato
-                  ? modo.quandoArriva
-                  : '${modo.quandoArriva} In attesa.',
+              // **E QUANTI EOS SI GUADAGNANO, in testa alla riga.** Ordine
+              // BB voce 04, richiesta del fondatore: "le card con il tasto
+              // condivisione dovrebbero riportare il numero di EOS che si
+              // guadagnano se si fa una condivisione pubblica in modo che
+              // l'utente sia incentivato".
+              //
+              // **Il numero lo dice il server e non e' scritto qui.** Arriva
+              // col listino dentro lo stato del Cerchio: se domani un invito
+              // vale settanta invece di sessanta, **questa frase cambia da
+              // sola** e nessuno deve ricordarsi di venire a correggerla.
+              //
+              // **E quando il server non lo ha ancora detto, non si inventa**:
+              // la riga resta quella di prima, che dice QUANDO arriva il
+              // premio senza dire quanto. Un numero di ripiego scritto nel
+              // client sarebbe una promessa che il Cerchio non ha fatto.
+              _rigaDelPremio(context, modo),
               key: Key('quando_arriva_${modo.motivo}'),
               style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textMuted, height: 1.35),
@@ -170,6 +185,25 @@ class VieDellaCondivisione extends StatelessWidget {
         ],
       ],
     );
+  }
+
+  /// La riga sotto il pulsante: quanti Eos, e quando arrivano.
+  ///
+  /// **Il quanto viene dal server**, il quando dal modo. Se il primo manca si
+  /// dice solo il secondo: vedi il commento al punto di chiamata.
+  String _rigaDelPremio(BuildContext context, ModoDellaCondivisione modo) {
+    int? quanti;
+    try {
+      quanti = context.watch<QuestionAllowance>()
+          .eosPerLaCondivisione(modo.motivo);
+    } catch (senzaBorsellino) {
+      // Nelle anteprime e nelle prove mirate non c'e' nessun borsellino da
+      // interrogare, e la riga resta quella senza numero.
+      quanti = null;
+    }
+    final coda = modo.subitoPagato ? '' : ' In attesa.';
+    if (quanti == null) return '${modo.quandoArriva}$coda';
+    return '$quanti ${modo.quandoArriva}$coda';
   }
 
   void _apriLeVie(BuildContext context) {

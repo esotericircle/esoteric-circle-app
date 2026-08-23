@@ -17,6 +17,7 @@ import {
   leggiCammino,
 } from "./cammino";
 import {
+  BONUS_DELLA_CONDIVISIONE,
   ACCREDITO_DEL_GIORNO,
   BENVENUTO,
   CAUSALI_CHIEDIBILI,
@@ -270,6 +271,21 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     spesi,
     resta: residuiDi(piano, spesi),
     saldoEos,
+    // **IL LISTINO DELLA CONDIVISIONE VIAGGIA CON LO STATO.** Ordine BB voce
+    // 04: sui pulsanti deve comparire quanti Eos si guadagnano, e il
+    // fondatore chiede che il numero si legga dal server invece di essere
+    // scritto a mano nel testo, **cosi' se il listino cambia la frase cambia
+    // da sola**.
+    //
+    // **Non nasce una callable nuova**, per la stessa ragione per cui il
+    // cammino viaggia gia' di qui: `statoDelCerchio` e' cio' che si chiede a
+    // ogni apertura, e un secondo canale sullo stesso momento sarebbe la
+    // seconda porta sullo stesso dato.
+    //
+    // **Il client lo mostra e non lo usa per pagare**: il conto lo fa sempre
+    // il server, che dal motivo sa quanto vale. Un listino che arriva al
+    // telefono e' un'informazione, non un'autorizzazione.
+    listinoDellaCondivisione: BONUS_DELLA_CONDIVISIONE,
     cammino,
   };
 });

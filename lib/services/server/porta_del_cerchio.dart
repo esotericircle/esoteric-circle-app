@@ -15,6 +15,7 @@ class StatoDelCerchio {
     required this.spesi,
     required this.saldoEos,
     this.cammino,
+    this.listinoDellaCondivisione = const {},
   });
 
   final String giorno;
@@ -30,6 +31,20 @@ class StatoDelCerchio {
   /// tiene il suo e riprova alla prossima apertura, senza cancellare niente.
   final CamminoDaCustodire? cammino;
 
+  /// **QUANTI EOS VALE OGNI MODO DI CONDIVIDERE.** Ordine BB voce 04.
+  ///
+  /// **E' un'informazione, non un'autorizzazione**: serve a scrivere sul
+  /// pulsante quanto si guadagna, e il conto lo fa sempre il server, che dal
+  /// motivo sa quanto vale. Un listino che arriva al telefono non e' un
+  /// permesso di pagare.
+  ///
+  /// **Vuoto quando il server e' piu' vecchio dell'app**: allora il pulsante
+  /// dice quando arriva il premio senza dire quanto, che e' cio' che diceva
+  /// prima. **Mai un numero inventato dal client**: se il listino cambiasse
+  /// sul server e il telefono continuasse a promettere il vecchio, la frase
+  /// sarebbe una bugia scritta bene.
+  final Map<String, int> listinoDellaCondivisione;
+
   static StatoDelCerchio? daMappa(Object? risposta) {
     if (risposta is! Map) return null;
     final giorno = risposta['giorno'];
@@ -43,12 +58,21 @@ class StatoDelCerchio {
       }
     }
     final saldo = risposta['saldoEos'];
+    final listino = <String, int>{};
+    final grezzoListino = risposta['listinoDellaCondivisione'];
+    if (grezzoListino is Map) {
+      for (final voce in grezzoListino.entries) {
+        final valore = voce.value;
+        if (valore is num) listino['${voce.key}'] = valore.toInt();
+      }
+    }
     return StatoDelCerchio(
       giorno: giorno,
       piano: risposta['piano'] is String ? risposta['piano'] as String : 'free',
       spesi: spesi,
       saldoEos: saldo is num ? saldo.toInt() : 0,
       cammino: CamminoDaCustodire.daMappa(risposta['cammino']),
+      listinoDellaCondivisione: listino,
     );
   }
 }
