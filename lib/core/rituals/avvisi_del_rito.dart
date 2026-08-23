@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../astro/solar_time.dart';
+import 'daily_elements.dart';
 import 'rito_alba.dart';
 import 'ritual_streak.dart';
 
@@ -117,7 +118,14 @@ class AvvisiDelRito {
 
   /// L'id dell'avviso del Rito dell'Alba. Uno solo, sempre lo stesso, cosi'
   /// riprogrammarlo sostituisce il precedente invece di affiancarlo.
-  static const int idAvvisoAlba = 1001;
+  ///
+  /// **E' LO STESSO ID DEL DONO `dawn`, e deve restarlo.** Ordine BC voce 05.
+  /// Due porte programmano l'avviso dell'Alba, e va bene cosi': la regia lo
+  /// mette all'ora ancorata quando l'app si apre, e il Rito dell'Alba lo
+  /// rimette **sull'alba vera del luogo** quando qualcuno lo apre e concede la
+  /// posizione. Con lo stesso id il secondo sostituisce il primo; con due id
+  /// diversi la persona riceverebbe due chiamate la stessa mattina.
+  static int get idAvvisoAlba => idDelDono(DailyElement.dawn);
 
   /// Il titolo dell'avviso.
   ///
@@ -134,12 +142,22 @@ class AvvisiDelRito {
   ///
   /// Dice cosa si riceve, quanto spesso, e **che l'ora è approssimata**: chi
   /// accetta sa cosa sta accettando. Chi rifiuta continua a usare tutto.
+  /// **RISCRITTA PER I CINQUE DONI. Ordine BC voce 05.**
+  ///
+  /// Diceva *"Un avviso solo, nessun altro"*, ed era vero finche' l'avviso era
+  /// uno. Con cinque Doni che possono chiamare quella frase diventa una bugia
+  /// detta nel momento peggiore: **mentre si chiede un permesso**. Chi accetta
+  /// deve sapere cosa sta accettando, e qui c'e' scritto il numero vero, chi
+  /// sceglie e dove si cambia idea.
   static const String spiegazione =
-      'Posso avvisarti una volta al giorno, quando il sole sorge da te, che il '
-      'Rito dell\'Alba è pronto. Un avviso solo, nessun altro. L\'orario è '
-      'indicativo: il sistema consegna l\'avviso in una finestra attorno a '
-      'quell\'ora, non al minuto. Se preferisci di no, il rito resta intero e '
-      'lo apri quando vuoi.';
+      'Posso chiamarti quando un Dono del giorno è pronto: l\'Alba al '
+      'mattino, e se vuoi anche il Soffio, l\'Arcano, il Tramonto e il '
+      'Sigillo del Sogno, ciascuno alla sua ora. Scegli tu quali, dal menù '
+      'Notifiche, e puoi cambiare idea quando vuoi: di partenza ne accendo '
+      'uno solo, il Rito dell\'Alba. L\'orario è indicativo, perché il '
+      'sistema consegna l\'avviso in una finestra attorno a quell\'ora e non '
+      'al minuto. Se preferisci di no, i riti restano interi e li apri quando '
+      'vuoi.';
 
   /// QUANDO mandare l'avviso, per il giorno civile di [quando].
   ///
@@ -250,6 +268,58 @@ class AvvisiDelRito {
 
   /// Gli id delle chiamate del giorno: uno per chiamata, sempre gli stessi,
   /// cosi' riprogrammare sostituisce invece di affiancare.
+  // ===================================================================
+  // I CINQUE AVVISI DEI DONI. Ordine BC voce 05.
+  // ===================================================================
+
+  /// **L'ID DI UN DONO, e perche' partono da 1100.**
+  ///
+  /// Sotto quel numero vivono gli id delle chiamate vecchie, 1001 e seguenti,
+  /// e su un telefono che aggiorna l'app quelle chiamate sono **gia' in coda
+  /// nel sistema**: riusare i loro numeri vorrebbe dire sovrascriverne una a
+  /// caso e lasciare le altre a suonare per sempre. Con un blocco nuovo, le
+  /// vecchie si annullano una per una e le nuove nascono pulite.
+  static int idDelDono(DailyElement dono) =>
+      1100 + DailyElement.values.indexOf(dono);
+
+  /// Gli id delle chiamate di prima, che vanno spente sui telefoni che
+  /// aggiornano: restano qui a nome perche' spegnere un numero a caso non e'
+  /// una cosa che si scrive in linea.
+  static const List<int> idDelleChiamateDiPrima = [1001, 1002, 1003, 1004];
+
+  /// Il canale di sistema di un Dono: uno per ciascuno, cosi' **ognuno si
+  /// spegne anche dalle impostazioni di Android**, e chi spegne il Sigillo del
+  /// Sogno non perde l'Alba.
+  static String canaleDelDono(DailyElement dono) => 'dono_${dono.name}';
+
+  /// Il carico che l'apertura riceve: porta alla scena del Dono, mai alla home.
+  static String caricoDelDono(DailyElement dono) => 'dono:${dono.name}';
+
+  /// **IL TESTO DI UN AVVISO, e non anticipa il dono.**
+  ///
+  /// La regola era gia' scritta per l'Alba: *"non nomina il Maestro di turno e
+  /// non anticipa il dono, perche' sapere prima che cosa arriva toglie al rito
+  /// la sola cosa che ha, cioe' l'apertura"*. Vale per tutti e cinque: si dice
+  /// che il momento e' arrivato, non cosa ci si trovera' dentro.
+  static String testoDelDono(DailyElement dono) => switch (dono) {
+        DailyElement.dawn =>
+          'Il sole è sorto. Il rito di oggi ti aspetta quando vuoi.',
+        DailyElement.breath =>
+          'È l\'ora del respiro. Il Soffio del Destino ti aspetta.',
+        DailyElement.oracle =>
+          'La carta di oggi è pronta a scoprirsi.',
+        DailyElement.rune =>
+          'Il sole scende: la tua runa della sera ti aspetta.',
+        DailyElement.night =>
+          'La notte è cominciata. C\'è un Sigillo da chiudere prima di dormire.',
+      };
+
+  /// A che ora chiama, detto alla persona: e' cio' che si legge accanto
+  /// all'interruttore nel menu' delle notifiche.
+  static String oraDetta(DailyElement dono) =>
+      '${dono.anchorHour.toString().padLeft(2, '0')}:'
+      '${dono.anchorMinute.toString().padLeft(2, '0')}';
+
   static const int idChiamataDellaSera = 1002;
   static const int idChiamataDelMattino = 1003;
 
@@ -268,102 +338,84 @@ class AvvisiDelRito {
   static const String caricoOroscopo = 'oroscopo';
   static const String caricoGettate = 'gettate';
 
-  /// PROGRAMMA LE CHIAMATE DEL GIORNO. Le regole, tutte qui:
+  /// PROGRAMMA LE CHIAMATE DEL GIORNO: UNA PER DONO ACCESO.
+  /// Ordine BC voce 05.
+  ///
+  /// **Parole del fondatore, maiuscole sue**: "BISOGNA ATTIVARE LE NOTIFICHE
+  /// VERAMENTE e ne voglio 5, ovvero una per ogni dono con orario che avevamo
+  /// gia' concordato."
+  ///
+  /// **Cosa c'era prima, e perche' non bastava.** Tre chiamate, nessuna legata
+  /// a un Dono: la sera per la Runa del Tramonto, il mattino per le gettate
+  /// tornate oppure per il cielo di oggi, e il traguardo a un passo dieci ore
+  /// dopo. Si accendevano tutte insieme col permesso di sistema, e per
+  /// spegnerne una sola bisognava uscire dall'app e andare a cercare i canali
+  /// nelle impostazioni di Android.
+  ///
+  /// **Le regole, adesso:**
   ///
   /// - senza permesso non parte niente;
-  /// - LA SERA: la Runa del Tramonto chiama all'ora del tramonto gia'
-  ///   calcolata dalla scena ([tramonto]); se l'ora e' passata si guarda al
-  ///   tramonto di domani, che il chiamante fornisce con [tramontoDiDomani];
-  /// - IL MATTINO (ora media dell'alba di domani): UNA chiamata sola, la
-  ///   prima disponibile fra il ritorno delle gettate (per chi ha chiuso la
-  ///   giornata a zero) e l'oroscopo col FATTO VERO del giorno
-  ///   ([fattoDiDomani], nullo se il cielo non dice niente). QUANDO NON C'E'
-  ///   NIENTE DI VERO DA DIRE, LA CHIAMATA NON PARTE: meglio zero che rumore;
-  /// - MAI piu' di [chiamateAlGiorno] chiamate: i candidati oltre il tetto
-  ///   non si programmano.
+  /// - **un avviso per ogni Dono che la persona ha acceso**, all'ora che il
+  ///   Dono porta scritta dentro di se': Alba 7:00, Soffio 10:30, Arcano
+  ///   13:00, Tramonto 18:30, Notte 22:30;
+  /// - se l'ora di oggi e' gia' passata si programma quella di domani, se no
+  ///   l'avviso resterebbe muto fino al giorno dopo;
+  /// - **l'ora dell'Alba la decide il Sole quando si puo'**: con una posizione
+  ///   dichiarabile e' il sorgere vero, che e' l'unica cosa che l'app abbia
+  ///   mai promesso a voce.
   ///
   /// Torna gli id programmati, cosi' una prova li conta.
   static Future<List<int>> programmaLeChiamateDelGiorno({
     required ServizioAvvisi servizio,
     required DateTime adesso,
-    DateTime? tramonto,
-    DateTime? tramontoDiDomani,
-    String? fattoDiDomani,
-    bool gettateEsaurite = false,
-    String? traguardoVicino,
+    required List<DailyElement> doniAccesi,
+    DateTime? albaVera,
   }) async {
     if (!servizio.disponibile || !await servizio.permessoConcesso()) {
       return const [];
     }
 
-    final candidate = <({int id, DateTime quando, String titolo, String testo,
-        String canale, String carico})>[];
-
-    // LA SERA.
-    final seraOggi = tramonto != null && tramonto.isAfter(adesso)
-        ? tramonto
-        : tramontoDiDomani;
-    if (seraOggi != null && seraOggi.isAfter(adesso)) {
-      candidate.add((
-        id: idChiamataDellaSera,
-        quando: seraOggi,
-        titolo: 'La Runa del Tramonto',
-        testo: 'Il sole scende: la tua runa della sera ti aspetta.',
-        canale: canaleTramonto,
-        carico: caricoTramonto,
-      ));
-    }
-
-    // IL MATTINO: una sola voce, con le gettate davanti all'oroscopo perche'
-    // parlano di un limite che la persona ha toccato ieri con le sue mani.
-    final mattino = SunsetTime.oraMediaAlba(adesso.add(const Duration(days: 1)));
-    if (gettateEsaurite) {
-      candidate.add((
-        id: idChiamataDelMattino,
-        quando: mattino,
-        titolo: 'Le tue gettate sono tornate',
-        testo: 'Il giorno è nuovo: le tue tre gettate di rune sono di '
-            'nuovo intere.',
-        canale: canaleGettate,
-        carico: caricoGettate,
-      ));
-    } else if (fattoDiDomani != null && fattoDiDomani.trim().isNotEmpty) {
-      candidate.add((
-        id: idChiamataDelMattino,
-        quando: mattino,
-        titolo: 'Il tuo cielo di oggi',
-        testo: fattoDiDomani,
-        canale: canaleOroscopo,
-        carico: caricoOroscopo,
-      ));
-    }
-
-    // IL TRAGUARDO A UN PASSO, se c'e': terza e ultima voce del giorno.
-    if (traguardoVicino != null && traguardoVicino.trim().isNotEmpty) {
-      candidate.add((
-        id: idChiamataDelTraguardo,
-        quando: mattino.add(const Duration(hours: 10)),
-        titolo: 'Sei a un passo',
-        testo: traguardoVicino,
-        canale: canaleTraguardo,
-        carico: caricoTraguardo,
-      ));
+    // **PRIMA SI SPEGNE TUTTO, POI SI RIACCENDE CIO' CHE SERVE.**
+    //
+    // Un Dono appena spento ha un avviso gia' in coda nel sistema, e
+    // riprogrammare i soli accesi non lo toglierebbe: la persona spegnerebbe
+    // l'interruttore e riceverebbe lo stesso la chiamata, che e' il modo piu'
+    // sicuro di far spegnere tutto dalle impostazioni di Android.
+    for (final d in DailyElement.values) {
+      await servizio.annulla(idDelDono(d));
     }
 
     final programmate = <int>[];
-    for (final c in candidate.take(chiamateAlGiorno)) {
-      await servizio.annulla(c.id);
+    for (final dono in doniAccesi) {
+      final quando = _prossimaVolta(dono, adesso, albaVera);
       await servizio.programma(
-        id: c.id,
-        quando: c.quando,
-        titolo: c.titolo,
-        testo: c.testo,
-        canale: c.canale,
-        carico: c.carico,
+        id: idDelDono(dono),
+        quando: quando,
+        titolo: dono.title,
+        testo: testoDelDono(dono),
+        canale: canaleDelDono(dono),
+        carico: caricoDelDono(dono),
       );
-      programmate.add(c.id);
+      programmate.add(idDelDono(dono));
     }
     return programmate;
+  }
+
+  /// La prossima volta che questo Dono chiama.
+  ///
+  /// Oggi se la sua ora deve ancora arrivare, domani se e' passata.
+  static DateTime _prossimaVolta(
+      DailyElement dono, DateTime adesso, DateTime? albaVera) {
+    // **L'ALBA HA UN'ORA SUA quando il Sole la da'**, ed e' l'unica promessa
+    // che questa app abbia mai fatto a voce: "quando il sole sorge da te".
+    if (dono == DailyElement.dawn && albaVera != null) {
+      if (albaVera.isAfter(adesso)) return albaVera;
+      return albaVera.add(const Duration(days: 1));
+    }
+    final oggi = DateTime(adesso.year, adesso.month, adesso.day,
+        dono.anchorHour, dono.anchorMinute);
+    if (oggi.isAfter(adesso)) return oggi;
+    return oggi.add(const Duration(days: 1));
   }
 
   /// Segna che la spiegazione e' stata mostrata, quale che sia stata la

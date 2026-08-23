@@ -3176,6 +3176,27 @@ void main() {
     await capture(tester, rootKey, 'area-utente.png');
   });
 
+  // --- IL MENU' DELLE NOTIFICHE. Ordine BC voce 05 ---
+  testWidgets('Cattura il menu delle notifiche', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey = await mount(
+        tester, await buildServices(Maestro.medora, seeded: false),
+        clock: clockFor(Maestro.medora));
+    selectCentral(tester, Maestro.medora);
+    await step(tester);
+    await precacheFaces(tester);
+    // Due tocchi per l'account, come nella cattura sorella, poi la voce.
+    await tester.tap(find.byKey(const Key('porta_dell_account')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('porta_dell_account')));
+    await step(tester);
+    await tester.tap(find.byKey(const Key('account_notifiche')));
+    await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'menu-delle-notifiche.png');
+  });
+
   // --- Il Santuario, scaffale delle funzioni a scorrimento ---
   // --- LA GIUNTURA FRA I MAESTRI E LO SCAFFALE. Ordine S voce 10 ---
   //

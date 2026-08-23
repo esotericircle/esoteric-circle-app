@@ -71,29 +71,44 @@ void main() {
   });
 
   test('BB.10: la voce Notifiche dell account fa qualcosa', () {
+    // **IL PERMESSO SI CHIEDE ANCORA, MA UN PIANO PIU' IN LA'.**
+    // Ordine BC voce 05: la voce dell'account non decide piu' per la persona,
+    // apre il menu' dove i cinque appuntamenti si accendono uno per uno. Il
+    // permesso e la riprogrammazione vivono li' dentro, dove c'e' anche la
+    // riga che li spiega.
     final account = soloCodice('lib/features/account/account_screen.dart');
+    final menu = soloCodice('lib/features/account/notifiche_screen.dart');
     // ignore: avoid_print
-    print('ORDINE BB VOCE 10: nella voce Notifiche "teaser" compare '
-        '${"teaser: 'Qui sceglierai".allMatches(account).length} volte, e '
-        '"_attivaLeNotifiche" ${"_attivaLeNotifiche".allMatches(account).length}');
-    expect(account.contains("_attivaLeNotifiche(context)"), isTrue,
-        reason: 'la voce Notifiche non chiama niente: era un anticipo e lo e '
-            'rimasta');
-    expect(account.contains('RegiaDelleChiamate.riprogramma'), isTrue,
-        reason: 'il tocco chiede il permesso e poi non programma niente: il '
-            'permesso da solo non fa arrivare nessuna notifica');
+    print('ORDINE BB VOCE 10, poi BC VOCE 05: la voce apre il menu '
+        '${"NotificheScreen.route()".allMatches(account).length} volte, e nel '
+        'menu il permesso si chiede '
+        '${"requestPermissionWithPrelude".allMatches(menu).length} volte');
+    expect(account.contains('NotificheScreen.route()'), isTrue,
+        reason: 'la voce Notifiche non porta al menu delle notifiche: era un '
+            'anticipo, poi un interruttore unico, e adesso deve essere una '
+            'porta');
+    expect(menu.contains('requestPermissionWithPrelude'), isTrue,
+        reason: 'nel menu delle notifiche il permesso non passa dal foglio che '
+            'lo spiega: un permesso chiesto di colpo si nega, e su Android si '
+            'nega PER SEMPRE dopo due volte');
+    expect(menu.contains('RegiaDelleChiamate.riprogramma'), isTrue,
+        reason: 'il menu accende gli interruttori e non riscrive l agenda: '
+            'direbbe acceso senza chiamare, o spento chiamando lo stesso');
   });
 
-  test('BB.10: e anche qui i tre esiti restano tre', () {
-    final account = soloCodice('lib/features/account/account_screen.dart');
+  test('BC.05: e chi nega il permesso non resta senza risposta', () {
+    // **I RAMI SI SONO SPOSTATI COL PERMESSO.** Stavano nella voce
+    // dell'account finche' era li' che si chiedeva; adesso stanno nel menu',
+    // e quello che conta e' che ci siano: chi nega deve sentirselo dire e
+    // sapere dove si cambia idea.
+    final menu = soloCodice('lib/features/account/notifiche_screen.dart');
     for (final ramo in const [
-      'EsitoDelPermesso.negatoPerSempre',
+      "Key('notifiche_permesso_negato')",
       'openAppSettings',
-      "Key('notifiche_negate')",
-      "Key('notifiche_attivate')",
+      "Key('notifiche_permesso_manca')",
     ]) {
-      expect(account.contains(ramo), isTrue,
-          reason: 'manca il ramo "$ramo" nella voce Notifiche');
+      expect(menu.contains(ramo), isTrue,
+          reason: 'manca il ramo "$ramo" nel menu delle notifiche');
     }
   });
 
@@ -106,7 +121,7 @@ void main() {
       'lib/features/rituals/dawn_rite_screen.dart': 'notifiche',
       'lib/features/rituals/dove_sei_adesso.dart': 'posizione',
       'lib/features/rituals/sunset_rune_screen.dart': 'posizione',
-      'lib/features/account/account_screen.dart': 'notifiche',
+      'lib/features/account/notifiche_screen.dart': 'notifiche',
     };
     final muti = <String>[];
     punti.forEach((percorso, permesso) {

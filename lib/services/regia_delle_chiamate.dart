@@ -1,13 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../core/astro/solar_time.dart';
-import '../core/entitlement/entitlement_service.dart';
-import '../core/entitlement/question_allowance.dart';
-import '../core/horoscope/cielo_di_oggi.dart';
-import '../core/horoscope/corrente_del_cielo.dart';
-import '../core/identity/natal_identity.dart';
 import '../core/rituals/avvisi_del_rito.dart';
+import '../core/rituals/scelta_degli_avvisi.dart';
 import 'avvisi_locali.dart';
 
 /// LA REGIA DELLE CHIAMATE DEL GIORNO, in un punto solo. Ordine M voce 2.
@@ -31,27 +26,36 @@ class RegiaDelleChiamate {
     // Il permesso si guarda PRIMA di toccare i provider: senza permesso non
     // parte niente, e chi monta una scena senza tutto l'albero (le prove)
     // non paga letture che non servono. La porta lo ricontrolla comunque.
+    // **LA SCELTA SI LEGGE PRIMA DELL'ATTESA.** Il contesto non si usa dopo
+    // un `await`: dopo, l'albero puo' non esserci piu'.
+    final scelta = context.read<SceltaDegliAvvisi>();
     if (!porta.disponibile || !await porta.permessoConcesso()) {
       return const [];
     }
-    if (!context.mounted) return const [];
-    final carta = context.read<BirthIdentityController>().cartaCompleta;
-    final borsa = context.read<QuestionAllowance>();
-    final piano = context.read<EntitlementService>().tier;
-    final adesso = DateTime.now();
-    final domani = adesso.add(const Duration(days: 1));
-    // Il fatto del mattino parla del cielo di DOMANI, perche' l'avviso suona
-    // domani all'alba: un fatto di oggi sarebbe gia' vecchio.
-    final cielo = CieloDiOggi.perIlGiorno(adesso: domani, carta: carta);
+
+    // **LE CHIAMATE DI PRIMA SI SPENGONO, UNA PER UNA.** Ordine BC voce 05.
+    //
+    // Su un telefono che aggiorna l'app, le tre chiamate vecchie sono gia' in
+    // coda dentro il sistema: nessuno le annulla da solo, e resterebbero a
+    // suonare accanto alle cinque nuove. Si spengono a nome, per id, una volta
+    // per avvio: costa quattro chiamate e vale un anno di avvisi fantasma.
+    for (final vecchio in AvvisiDelRito.idDelleChiamateDiPrima) {
+      await porta.annulla(vecchio);
+    }
+
+    if (!scelta.caricata) await scelta.carica();
+
+    // **L'ORA ANCORATA PER TUTTI E CINQUE, e l'alba vera la mette il rito.**
+    //
+    // Qui non c'e' la posizione: quella la conosce il Rito dell'Alba, che la
+    // chiede quando qualcuno lo apre. La regia programma le cinque chiamate
+    // alle ore che i Doni portano scritte dentro; poi, alla prima apertura
+    // del rito, `programmaProssimo` rimette quella dell'Alba **sullo stesso
+    // id** e sul sorgere vero del luogo. Due porte, un id, nessun doppione.
     return AvvisiDelRito.programmaLeChiamateDelGiorno(
       servizio: porta,
-      adesso: adesso,
-      // Senza la scena del tramonto aperta non c'e' un'ora vera: si usa
-      // l'ora media, la stessa del ripiego di tutta l'app.
-      tramonto: SunsetTime.oraMedia(adesso),
-      tramontoDiDomani: SunsetTime.oraMedia(domani),
-      fattoDiDomani: CorrenteDelCielo.fattoDelGiorno(cielo),
-      gettateEsaurite: borsa.gettateRimaste(piano) == 0,
+      adesso: DateTime.now(),
+      doniAccesi: scelta.quelliCheChiamano,
     );
   }
 }

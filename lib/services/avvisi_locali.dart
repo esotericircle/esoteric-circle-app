@@ -59,6 +59,35 @@ class AvvisiLocali extends ServizioAvvisi {
       'Gettate di rune',
       'Un avviso al mattino quando le tue gettate del giorno sono tornate.'
     ),
+    // **I CINQUE CANALI DEI DONI. Ordine BC voce 05.**
+    //
+    // Uno per Dono, col nome che la persona riconosce: **cosi' ognuno si
+    // spegne anche dalle impostazioni di Android**, e chi spegne il Sigillo
+    // del Sogno non perde il Rito dell'Alba. Dentro l'app gli stessi cinque
+    // hanno il loro interruttore nel menu' Notifiche.
+    'dono_dawn': (
+      'Rito dell\'Alba',
+      'Un avviso al mattino, quando il sole sorge, che il Rito dell\'Alba è '
+          'pronto.'
+    ),
+    'dono_breath': (
+      'Soffio del Destino',
+      'Un avviso a metà mattina, quando è l\'ora del respiro.'
+    ),
+    'dono_oracle': (
+      'Arcano del Giorno',
+      'Un avviso a mezzogiorno passato, quando la carta di oggi si può '
+          'scoprire.'
+    ),
+    'dono_rune': (
+      'Runa del Tramonto',
+      'Un avviso la sera, quando il sole scende e la runa ti aspetta.'
+    ),
+    'dono_night': (
+      'Sigillo del Sogno',
+      'Un avviso a tarda sera, quando c\'è un Sigillo da chiudere prima di '
+          'dormire.'
+    ),
   };
 
   /// CHI APRE LA SCENA PROMESSA. L'app lo imposta all'avvio: riceve il

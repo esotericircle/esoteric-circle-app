@@ -134,7 +134,7 @@ somiglia".
 - **BC.02** La gestione dell'account e dei dati. Stato: APERTA
 - **BC.03** La bolla Archetipo nel Passaporto. Stato: CHIUSA
 - **BC.04** I nomi si sovrappongono nella Risonanza. Stato: CHIUSA
-- **BC.05** Le notifiche, davvero. Stato: APERTA
+- **BC.05** Le notifiche, davvero. Stato: CHIUSA
 - **BC.06** La bolla dei traguardi nei Sentieri. Stato: CHIUSA, con dodici nomi lasciati al fondatore
 
 ## L'ordine di lavoro, deciso qui
@@ -158,8 +158,8 @@ ultimo cio' che tocca il server e la vita dei dati di una persona.
 ## I marcatori
 
 VOCI_TOTALI: 7
-VOCI_APERTE: 2
-VOCI_CHIUSE: 5
+VOCI_APERTE: 1
+VOCI_CHIUSE: 6
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

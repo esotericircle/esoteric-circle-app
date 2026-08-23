@@ -1,0 +1,342 @@
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
+
+import '../../core/maestro/maestro.dart';
+import '../../core/permissions/app_permission.dart';
+import '../../core/permissions/esito_del_permesso.dart';
+import '../../core/rituals/avvisi_del_rito.dart';
+import '../../core/rituals/daily_elements.dart';
+import '../../core/rituals/scelta_degli_avvisi.dart';
+import '../../design_system/components/cosmos_background.dart';
+import '../../design_system/components/depth_card.dart';
+import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/theme/maestro_scope.dart';
+import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
+import '../../services/avvisi_locali.dart';
+import '../../services/regia_delle_chiamate.dart';
+
+/// IL MENU' DELLE NOTIFICHE: CINQUE ORARI, CINQUE INTERRUTTORI.
+/// Ordine BC voce 05.
+///
+/// **Parole del fondatore, maiuscole sue**: "BISOGNA ATTIVARE LE NOTIFICHE
+/// VERAMENTE e ne voglio 5, ovvero una per ogni dono con orario che avevamo
+/// gia' concordato. Sara' proprio l'utente che potra' gestire e attivare o
+/// disattivare i singoli orari delle notifiche nel menu' notifiche."
+///
+/// **Cosa c'era prima.** La voce Notifiche dell'account chiedeva il permesso e
+/// programmava tutto insieme: un solo interruttore per tutto, e per spegnere
+/// una sola chiamata bisognava uscire dall'app e cercarne il canale nelle
+/// impostazioni di Android. Adesso i cinque appuntamenti si accendono e si
+/// spengono qui, ognuno per conto suo, **con la sua ora scritta accanto**.
+///
+/// **Il permesso di sistema resta il primo cancello**, e la schermata lo dice
+/// invece di far finta che gli interruttori bastino: senza permesso nessun
+/// avviso parte, e in cima compare la riga che porta a concederlo.
+class NotificheScreen extends StatefulWidget {
+  const NotificheScreen({super.key, this.avvisi});
+
+  /// **LA PORTA DEGLI AVVISI, iniettabile solo nelle prove.**
+  ///
+  /// L'app vera usa `avvisiDelCerchio`, come tutto il resto. Le prove ne
+  /// passano una finta, perche' senza porta disponibile gli interruttori
+  /// restano spenti **ed e' giusto che lo siano**: una levetta che si muove
+  /// mentre il telefono non lascia arrivare niente e' peggio di una levetta
+  /// ferma. E' la stessa iniezione che usa gia' il Rito dell'Alba.
+  final ServizioAvvisi? avvisi;
+
+  static Route<void> route() => MaterialPageRoute(
+        builder: (_) => const NotificheScreen(),
+      );
+
+  @override
+  State<NotificheScreen> createState() => _NotificheScreenState();
+}
+
+class _NotificheScreenState extends State<NotificheScreen> {
+  /// Nullo finche' non si sa: si chiede al sistema una volta sola, all'avvio
+  /// della schermata, e non a ogni ridisegno.
+  bool? _permesso;
+
+  @override
+  void initState() {
+    super.initState();
+    _guardaIlPermesso();
+  }
+
+  ServizioAvvisi get _porta => widget.avvisi ?? avvisiDelCerchio;
+
+  Future<void> _guardaIlPermesso() async {
+    final porta = _porta;
+    final ok = porta.disponibile && await porta.permessoConcesso();
+    if (mounted) setState(() => _permesso = ok);
+  }
+
+  /// **SI SPIEGA PRIMA DI CHIEDERE, e non e' cortesia: e' la regola di casa.**
+  ///
+  /// La prima stesura di questa schermata chiamava dritto il permesso di
+  /// sistema, e **l'ha presa la prova che enumera i punti dove l'app chiede
+  /// qualcosa**: sono sei, e ognuno passa dal foglio che dice cosa si riceve
+  /// prima che il sistema chieda. Un permesso chiesto senza spiegazione si
+  /// nega, e su Android si nega **per sempre** dopo due volte.
+  Future<void> _chiediIlPermesso() async {
+    final porta = _porta;
+    if (!porta.disponibile) return;
+    await AvvisiDelRito.segnaChiesto();
+    if (!mounted) return;
+    final ok = await requestPermissionWithPrelude(
+      context,
+      permission: AppPermission.notifications,
+      palette: MaestroPalette.forKey(ThemeKey.of(Maestro.medora)),
+      copy: const PermissionCopy(
+        icon: Icons.notifications_active_rounded,
+        title: 'Posso chiamarti quando è l\'ora?',
+        body: AvvisiDelRito.spiegazione,
+        cta: 'Sì, avvisami',
+      ),
+      // LA PORTA UNICA DEI TRE ESITI, la stessa del Rito dell'Alba: il plugin
+      // sa dire solo si' o no, e la porta ricava il no per sempre dal fatto
+      // che il dialogo di sistema compare una volta sola.
+      systemRequest: () async {
+        final esito = await PortaDelPermesso.chiedi(
+          AppPermission.notifications,
+          richiestaDiSistema: porta.chiediPermesso,
+        );
+        return esito == EsitoDelPermesso.concesso;
+      },
+    );
+    if (!mounted) return;
+    setState(() => _permesso = ok);
+    if (ok) {
+      await _riprogramma();
+    } else if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const Key('notifiche_permesso_negato'),
+          content: const Text(
+              'Senza il permesso del telefono non posso avvisarti. Puoi '
+              'darmelo dalle impostazioni quando vuoi.'),
+          action: SnackBarAction(
+            label: 'Impostazioni',
+            onPressed: () => Geolocator.openAppSettings(),
+          ),
+        ),
+      );
+    }
+  }
+
+  /// **OGNI TOCCO RIPROGRAMMA SUBITO, e non a un'uscita che nessuno fa.**
+  ///
+  /// Un interruttore che scrive una preferenza e lascia l'agenda com'era
+  /// mente due volte: dice acceso e non chiama, oppure dice spento e chiama lo
+  /// stesso. Qui si riscrive l'agenda a ogni tocco, e la riga sotto dice
+  /// quanti appuntamenti ci sono davvero.
+  Future<void> _riprogramma() async {
+    final quante =
+        await RegiaDelleChiamate.riprogramma(context, servizio: widget.avvisi);
+    if (mounted) setState(() => _inAgenda = quante.length);
+  }
+
+  int? _inAgenda;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = MaestroPalette.forKey(ThemeKey.of(Maestro.medora));
+    final scelta = context.watch<SceltaDegliAvvisi>();
+    final accesi = DailyElement.values.where(scelta.chiama).length;
+
+    return MaestroScope(
+      maestro: Maestro.medora,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          iconTheme: IconThemeData(color: palette.goldSoft),
+          title: Text('Notifiche',
+              style: TypographyTokens.titoloScheda()
+                  .copyWith(color: palette.goldSoft)),
+        ),
+        body: CosmosBackground(
+          seed: 11,
+          showZodiac: false,
+          child: SafeArea(
+              child: ListView(
+                padding: const EdgeInsets.all(SpacingTokens.lg),
+                children: [
+                  Text(
+                    'I Doni del giorno hanno ciascuno la sua ora. Scegli quali '
+                    'ti chiamano: gli altri restano lì, e li apri quando vuoi.',
+                    key: const Key('notifiche_intro'),
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: ColorTokens.textSecondary),
+                  ),
+                  const SizedBox(height: SpacingTokens.lg),
+                  if (_permesso == false) ...[
+                    _IlPermessoManca(onTocco: _chiediIlPermesso),
+                    const SizedBox(height: SpacingTokens.lg),
+                  ],
+                  for (final dono in DailyElement.values) ...[
+                    _UnAppuntamento(
+                      dono: dono,
+                      acceso: scelta.chiama(dono),
+                      palette: palette,
+                      // **Spento del tutto quando il permesso manca**: un
+                      // interruttore che si muove senza che arrivi niente e'
+                      // peggio di un interruttore fermo.
+                      attivabile: _permesso != false,
+                      suScelta: (v) async {
+                        await scelta.scegli(dono, v);
+                        if (mounted) await _riprogramma();
+                      },
+                    ),
+                    const SizedBox(height: SpacingTokens.sm),
+                  ],
+                  const SizedBox(height: SpacingTokens.md),
+                  Text(
+                    _laRigaDelConto(accesi),
+                    key: const Key('notifiche_conto'),
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textMuted),
+                  ),
+                ],
+              ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// **IL NUMERO VERO, non una promessa.**
+  ///
+  /// Quando l'agenda e' stata riscritta si dice quanti appuntamenti ci sono
+  /// dentro davvero, contati da chi li ha messi. Prima di allora si dice
+  /// quanti ne sono accesi, che e' l'altra cosa vera che si sa.
+  String _laRigaDelConto(int accesi) {
+    if (_permesso == false) {
+      return 'Nessun avviso partirà finché il telefono non mi dà il permesso.';
+    }
+    final n = _inAgenda ?? accesi;
+    if (n == 0) return 'Nessun Dono ti chiama.';
+    if (n == 1) return 'Un Dono ti chiama.';
+    return '$n Doni ti chiamano.';
+  }
+}
+
+/// La riga che compare quando il permesso di sistema manca.
+class _IlPermessoManca extends StatelessWidget {
+  const _IlPermessoManca({required this.onTocco});
+
+  final Future<void> Function() onTocco;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return DepthCard(
+      key: const Key('notifiche_permesso_manca'),
+      onTap: onTocco,
+      padding: const EdgeInsets.all(SpacingTokens.md),
+      child: Row(
+        children: [
+          Icon(Icons.notifications_off_rounded, color: palette.goldSoft),
+          const SizedBox(width: SpacingTokens.md),
+          Expanded(
+            child: Text(
+              'Il telefono non mi lascia ancora avvisarti. Tocca per '
+              'concedere il permesso.',
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textPrimary),
+            ),
+          ),
+          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+        ],
+      ),
+    );
+  }
+}
+
+/// Un Dono, la sua ora, e il suo interruttore.
+class _UnAppuntamento extends StatelessWidget {
+  const _UnAppuntamento({
+    required this.dono,
+    required this.acceso,
+    required this.palette,
+    required this.attivabile,
+    required this.suScelta,
+  });
+
+  final DailyElement dono;
+  final bool acceso;
+  final MaestroPalette palette;
+  final bool attivabile;
+  final Future<void> Function(bool) suScelta;
+
+  @override
+  Widget build(BuildContext context) {
+    return DepthCard(
+      key: Key('notifiche_dono_${dono.name}'),
+      padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+      // **L'ORA SI ALLINEA COL TITOLO, non col centro della riga.** Visto
+      // nell'anteprima: il numero galleggiava a meta' altezza mentre il nome
+      // del Dono stava in cima, e le due cose che vanno lette insieme
+      // partivano da due righe di base diverse.
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // **L'ORA IN CIFRE, e prima di tutto il resto.** E' quello che il
+          // fondatore ha chiesto di poter gestire: "i singoli orari delle
+          // notifiche".
+          SizedBox(
+            width: 58,
+            child: Text(
+              AvvisiDelRito.oraDetta(dono),
+              key: Key('notifiche_ora_${dono.name}'),
+              style: TypographyTokens.titoloScheda().copyWith(
+                color: acceso ? palette.goldSoft : ColorTokens.textMuted,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  dono.title,
+                  style: TypographyTokens.corpo().copyWith(
+                    color: acceso
+                        ? ColorTokens.textPrimary
+                        : ColorTokens.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  dono.cosaFai,
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textMuted),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          // L'interruttore torna al centro della sua riga: e' un comando, non
+          // una parola da leggere in fila con le altre.
+          Align(
+            alignment: Alignment.centerRight,
+            child: Switch(
+            key: Key('notifiche_interruttore_${dono.name}'),
+            value: acceso,
+            onChanged: attivabile ? (v) => suScelta(v) : null,
+            activeThumbColor: palette.gold,
+          ),
+          ),
+        ],
+      ),
+    );
+  }
+}

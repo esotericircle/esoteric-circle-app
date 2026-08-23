@@ -34,6 +34,7 @@ import 'features/shell/barra_del_cerchio.dart';
 import 'features/shell/barra_dell_identita.dart';
 import 'features/shell/navigation_controller.dart';
 import 'core/identity/account_del_cerchio.dart';
+import 'core/rituals/scelta_degli_avvisi.dart';
 import 'core/sigilli/coda_delle_feste.dart';
 import 'features/sigilli/regia_del_cammino.dart';
 import 'core/sigilli/diario_del_cammino.dart';
@@ -276,6 +277,12 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>  with WidgetsBind
         // perde, entra qui e si celebra al primo momento utile. La coda sta su
         // disco, quindi sopravvive anche alla chiusura dell'app.
         ChangeNotifierProvider(create: (_) => CodaDelleFeste()..carica()),
+        // QUALI DONI TI CHIAMANO, ordine BC voce 05: cinque appuntamenti, uno
+        // per Dono, ciascuno col suo interruttore. Sta qui e non nella
+        // schermata che li mostra perche' **la programmazione degli avvisi
+        // gira all'avvio**, quando quella schermata non e' aperta: se la
+        // scelta vivesse nel widget, chi programma non potrebbe leggerla.
+        ChangeNotifierProvider(create: (_) => SceltaDegliAvvisi()..carica()),
         // DA DOVE SONO ARRIVATI GLI ULTIMI EOS, ordine S voce 06. Il saldo e'
         // del server e resta suo: questo registro non lo calcola, racconta i
         // movimenti che l'app ha compiuto, perche' i traguardi accesi vivono in

@@ -292,7 +292,13 @@ void main() {
       expect(s.contains('indicativo') || s.contains('finestra'), isTrue,
           reason: 'la spiegazione non dice che l\'ora non e\' al minuto, e su '
               'Android 14 non possiamo prometterla');
-      expect(s, contains('resta intero'),
+      // **LA RADICE E NON LA FORMA.** Ordine BC voce 05: i riti che restano
+      // interi a chi rifiuta adesso sono cinque, quindi la frase e' passata
+      // dal singolare al plurale. La pretesa vera e' che quella promessa ci
+      // sia, non come sia coniugata: cercare "resta intero" faceva cadere la
+      // prova su una frase scritta bene, ed e' lo stesso inciampo gia' visto
+      // nell'ordine BB voce 02 con i plurali del borsellino.
+      expect(s.contains('resta inter') || s.contains('restano inter'), isTrue,
           reason: 'la spiegazione non dice che chi rifiuta non perde niente');
     });
 
