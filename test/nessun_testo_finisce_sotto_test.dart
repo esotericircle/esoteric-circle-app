@@ -142,7 +142,8 @@ void main() {
       int? maxLines,
       TextOverflow overflow,
       String testo,
-      Rect area
+      Rect area,
+      double scala
     })>[];
     for (final w in tester.widgetList<RichText>(find.descendant(
         of: find.byType(schermata), matching: find.byType(RichText)))) {
@@ -151,9 +152,30 @@ void main() {
       final el = tester.element(find.byWidget(w));
       final box = el.renderObject as RenderBox;
       if (!box.attached || box.size.isEmpty) continue;
-      final pos = box.localToGlobal(Offset.zero);
-      final area =
-          Rect.fromLTWH(pos.dx, pos.dy, box.size.width, box.size.height);
+      // **IL TESTO SI MISURA COME E' DIPINTO, non come sarebbe senza chi lo
+      // rimpicciolisce.** Ordine BC voce 01, coda: falso positivo trovato
+      // guardando le due immagini.
+      //
+      // Il titolo del cielo sta dentro un `FittedBox` con `scaleDown`, messo
+      // dall'ordine BB voce 05 perche' non andasse a capo in mezzo a una
+      // parola. Il `RichText` dentro conserva la sua misura NON scalata, e
+      // `localToGlobal` restituisce invece l'origine gia' scalata: mettendo
+      // insieme i due si ottiene un rettangolo che non esiste, largo 297
+      // punti dove a video il titolo ne occupa 232.
+      //
+      // La resa isolata qui sotto ridisegnava quindi lo stesso testo **a un
+      // corpo piu' grande**, e i glifi non cadevano sugli stessi pixel: la
+      // misura dichiarava il titolo **coperto per l'89 per cento** mentre
+      // nell'immagine si legge perfettamente. Verificato salvando le due
+      // immagini e guardandole.
+      //
+      // La trasformazione completa dice la verita' su tutti e due i fronti:
+      // dove il testo cade E quanto e' grande. Chi non e' scalato ottiene
+      // esattamente il rettangolo di prima.
+      final versoLoSchermo = box.getTransformTo(null);
+      final area = MatrixUtils.transformRect(versoLoSchermo,
+          Rect.fromLTWH(0, 0, box.size.width, box.size.height));
+      final scala = box.size.width == 0 ? 1.0 : area.width / box.size.width;
       // LA FASCIA DELLA BARRA E' ESCLUSA, e non e' una scappatoia: dalla 2158
       // la barra del Cerchio SCIVOLA SOPRA il contenuto per scelta dichiarata,
       // e il contenuto che le finisce sotto si raggiunge scorrendo. Contarlo
@@ -211,7 +233,8 @@ void main() {
         // riuscito a spiegare: sono testi troncati.
         overflow: w.overflow,
         testo: testo,
-        area: area
+        area: area,
+        scala: scala
       ));
     }
     expect(bersagli, isNotEmpty,
@@ -233,13 +256,31 @@ void main() {
               Positioned(
                 left: b.area.left,
                 top: b.area.top,
-                width: b.area.width,
-                height: b.area.height,
-                child: RichText(
-                    text: b.span,
-                    textAlign: b.align,
-                    maxLines: b.maxLines,
-                    overflow: b.overflow),
+                // **NIENTE LARGHEZZA QUI**, e la ragione e' stata vista
+                // sull'immagine: fissando la larghezza dipinta, il figlio
+                // veniva stretto PRIMA di essere scalato, il testo si
+                // rimpaginava su 232 punti invece che sui suoi 297, e la
+                // resa isolata usciva troncata, "Il Cielo Sopra di Te."
+                // invece del titolo intero. Un troncamento diverso da quello
+                // della scena e' proprio il falso positivo che questa prova
+                // dichiara di evitare.
+                //
+                // **E SI RIDISEGNA ALLA GRANDEZZA VERA.** Il testo va rimesso
+                // al suo corpo originale e poi scalato, non ridisposto su una
+                // larghezza che non e' la sua.
+                child: Transform.scale(
+                  scale: b.scala,
+                  alignment: Alignment.topLeft,
+                  child: SizedBox(
+                    width: b.area.width / b.scala,
+                    height: b.area.height / b.scala,
+                    child: RichText(
+                        text: b.span,
+                        textAlign: b.align,
+                        maxLines: b.maxLines,
+                        overflow: b.overflow),
+                  ),
+                ),
               ),
             ]),
           ),

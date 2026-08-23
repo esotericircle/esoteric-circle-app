@@ -134,27 +134,6 @@ Offset _soloDiLato(Offset o) =>
 /// **IL RITAGLIO CHE CHIUDE SOLO IL CIELO, e lascia aperti i fianchi.**
 /// Ordine BC voce 01.
 ///
-/// L'ordine BA voce 02 ha chiuso i Maestri dentro un `ClipRect` perche' non
-/// salissero piu' sul testo. Un ritaglio chiude da tutti e quattro i lati, e
-/// **da tre di quei quattro non c'era niente da proteggere**: sopra c'e' il
-/// blocco del cielo, ai fianchi e sotto c'e' solo scena. Cosi' la parallasse
-/// orizzontale, che e' la profondita' della scena e va lasciata intera,
-/// tagliava le figure contro i bordi.
-class _SoloDaSopra extends CustomClipper<Rect> {
-  const _SoloDaSopra();
-
-  @override
-  Rect getClip(Size size) => Rect.fromLTRB(
-        -size.width,
-        0,
-        size.width * 2,
-        size.height * 3,
-      );
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Rect> vecchio) => false;
-}
-
 /// **QUANTO DELL'ALTEZZA DELLO SCHERMO DEVE PRENDERE IL BUSTO CENTRALE.**
 /// Ordine AV voce 03: il trentaquattro per cento, e sul telefono del fondatore
 /// riporta i Maestri alla grandezza della 2188.
@@ -854,8 +833,34 @@ class _SantuarioScreenState extends State<SantuarioScreen>
           // da sola lo era.
           final spazioPerIlCarosello =
               fondoDellaScena - cieloFinisce - SpacingTokens.md;
-          final carouselHeight =
-              math.min(altezzaBusto * 1.12, math.max(0.0, spazioPerIlCarosello));
+          // **E IL RIQUADRO NON SCENDE MAI SOTTO IL BUSTO CHE CONTIENE.**
+          // Ordine BC voce 01, difetto trovato dopo la consegna della 2197 e
+          // riparato subito.
+          //
+          // Scrivendo `math.max(0.0, ...)` avevo dato per scontato che lo
+          // spazio fosse sempre positivo. Su una finestra molto corta non lo
+          // e': lo spazio va sotto zero, il pavimento zero vince, e **il
+          // riquadro del carosello diventa alto ZERO**. Misurato sulla
+          // finestra di prova, 800 per 600: `Rect.fromLTRB(0, 366.4, 800,
+          // 366.4)`.
+          //
+          // **Un riquadro alto zero non si vede mancare, si vede smettere di
+          // rispondere.** Le figure continuano a disegnarsi, perche' sbordano
+          // con `Clip.none` e restano a video; ma il ritaglio moltiplica per
+          // tre l'altezza del riquadro, e tre volte zero e' ancora zero:
+          // dentro quel ritaglio non cade nessun dito. Il Santuario si vedeva
+          // intatto e non si apriva piu': **ventiquattro prove cadute in
+          // famiglie lontane** (chat, navigazione, accenti, tipografia), tutte
+          // ferme sullo stesso tocco al busto centrale.
+          //
+          // Il pavimento giusto e' lo stesso principio gia' scritto sopra per
+          // il busto: **cio' che e' davvero minimo**. Un riquadro piu' basso
+          // della figura che contiene non protegge niente, perche' la figura
+          // resta comunque disegnata; toglie solo il dito.
+          final carouselHeight = math.min(
+            altezzaBusto * 1.12,
+            math.max(altezzaBusto, spazioPerIlCarosello),
+          );
           // IL CAROSELLO NON ENTRA NEL BLOCCO DEL CIELO, e prima ci entrava di
           // NOVANTADUE PUNTI, misurati sull'app montata a 360 per 797: la riga
           // personale stava da 301,2 a 337,2 mentre il rettangolo del carosello
@@ -1422,50 +1427,26 @@ class _CarouselState extends State<_Carousel>
             // ogni build.
             return Opacity(
               opacity: maestriSpentiPerLaProva ? 0.0 : 1.0,
-              // **I MAESTRI NON ESCONO PIU' DAL LORO RIQUADRO, e questa e' la
-              // cura vera della quarta segnalazione.** Ordine BA voce 02.
+              // **I MAESTRI STANNO DAVANTI, INTERI, e questa e' una
+              // decisione del fondatore.** Ordine BC voce 01, coda: "le cime
+              // delle teste dei 3 Maestri stanno per sparire, sono
+              // semitrasparenti. Sarebbe meglio se mettessi il livello dei 3
+              // maestri sopra a quello dei testi. Non importa se coprono
+              // leggermente il testo, ma almeno evitiamo l'effetto fantasma."
               //
-              // **Tre volte si e' provato a curare il difetto restringendo il
-              // busto**, e tre volte e' rimasto: il riquadro del carosello sta
-              // gia' sotto il blocco del cielo, ma le figure ne uscivano con
-              // `Clip.none`, quindi qualunque conto sull'altezza lasciava
-              // scoperto il caso in cui il pavimento minimo vince sullo spazio
-              // concesso. Su schermo basso lo spazio concede 133 punti e il
-              // pavimento ne pretende 150: quei diciassette punti finivano
-              // dentro il testo, e con loro tutta la cima delle figure.
+              // Qui c'erano un `ClipRect` e una dissolvenza in cima (ordini BA
+              // voce 02 e BC voce 01), messi perche' le figure salivano sul
+              // testo del cielo. La dissolvenza pero' mangiava la cima delle
+              // teste OGNI volta che le figure toccavano il bordo alto del
+              // riquadro, e il fondatore l'ha vista sull'anteprima: un
+              // fantasma permanente per prevenire una copertura occasionale.
               //
-              // **Misurato sull'inchiostro vero**, cioe' contando i soli pixel
-              // di lettera: 210 coperti su schermo alto, 966 sul medio, e
-              // **5.979 su 7.107 sul basso, l'ottantaquattro per cento del
-              // testo**.
-              //
-              // Adesso il taglio e' una CERTEZZA di costruzione e non piu' un
-              // conto: dentro il ritaglio i Maestri possono essere alti quanto
-              // vogliono, sopra la loro zona non arriva un pixel. E si dissolve
-              // invece di tagliare netto, se no sugli schermi corti le figure
-              // verrebbero decapitate: la dissolvenza e' la stessa che il busto
-              // usa gia' in basso.
-              child: ClipRect(
-                // **SI TAGLIA SOLO IN CIMA, e ai fianchi si lascia passare.**
-                // Ordine BC voce 01.
-                //
-                // Il ritaglio dell'ordine BA voce 02 chiudeva la scena da
-                // tutti e quattro i lati, e serviva solo da uno: il difetto
-                // era che i Maestri salivano sul testo. **Ai fianchi non c'e'
-                // nessun testo da proteggere**, e li' il ritaglio faceva solo
-                // danno: misurato, inclinando il telefono di lato le figure
-                // perdevano **quasi undicimila pixel su sessantatremila, il
-                // diciassette per cento**, contro i mille scarsi che perdevano
-                // in su.
-                clipper: const _SoloDaSopra(),
-                child: ShaderMask(
-                  blendMode: BlendMode.dstIn,
-                  shaderCallback: (r) => const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0x00FFFFFF), Color(0xFFFFFFFF)],
-                    stops: [0.0, 0.16],
-                  ).createShader(r),
+              // **La gerarchia scelta e' l'opposto di prima**: i Maestri sono
+              // i protagonisti e passano davanti; se il loro capo sfiora la
+              // riga personale, la riga si legge lo stesso attorno. Lo
+              // smorzamento verticale della parallasse qui sotto resta, ed e'
+              // lui a garantire che la copertura sia leggera: dieci punti di
+              // corsa, non centocinque.
               child: GestureDetector(
               key: const Key('santuario_carosello'),
               onHorizontalDragUpdate: (d) => _trascina(d, w),
@@ -1524,8 +1505,6 @@ class _CarouselState extends State<_Carousel>
                 ],
               ),
             ),
-                ),
-              ),
             );
           },
         );
