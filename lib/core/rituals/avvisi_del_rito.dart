@@ -152,7 +152,7 @@ class AvvisiDelRito {
   static const String spiegazione =
       'Posso chiamarti quando un Dono del giorno è pronto: l\'Alba al '
       'mattino, il Soffio, l\'Arcano, il Tramonto e il Sigillo del Sogno, '
-      'ciascuno alla sua ora. Sono cinque avvisi al giorno, e dal menù '
+      'ciascuno alla sua ora. Sono cinque avvisi al giorno. Dal menù '
       'Notifiche puoi spegnere quelli che non vuoi e spostare l\'ora di '
       'quelli che tieni. L\'orario è indicativo, perché il sistema consegna '
       'l\'avviso in una finestra attorno a quell\'ora e non al minuto. Se '

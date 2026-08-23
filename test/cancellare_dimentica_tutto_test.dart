@@ -19,6 +19,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'istante_dichiarato.dart';
+
 /// CANCELLARE DIMENTICA TUTTO, ANCHE CIO' CHE STA IN MEMORIA.
 /// Ordine BC voce 02.
 ///
@@ -49,7 +51,10 @@ void main() {
     SharedPreferences.setMockInitialValues(const {});
 
     final borsa = QuestionAllowance();
-    final diario = DiarioDelCammino();
+    // **L'ISTANTE SI DICHIARA**, come pretende la guardia sorella: il
+    // Diario pesca il giorno vero, e una prova che lo lascia libero e'
+    // verde o rossa a seconda di quando la lanci.
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await diario.carica();
     final feste = CodaDelleFeste();
     final eos = RegistroDegliEos();

@@ -655,8 +655,8 @@ Future<void> _azzeraIDati(BuildContext context) async {
           style: TypographyTokens.titoloScheda()),
       content: Text(
         'Spariscono il tuo cammino, i Sigilli accesi, gli Eos e la memoria '
-        'che i Maestri hanno di te, qui e sul server. Il tuo account resta, '
-        'e rientri con lo stesso accesso di sempre. Non si torna indietro.',
+        'che i Maestri hanno di te, qui e sul server. Il tuo account resta: '
+        'rientri con lo stesso accesso di sempre. Non si torna indietro.',
         style: TypographyTokens.corpo()
             .copyWith(color: ColorTokens.textSecondary, height: 1.4),
       ),
@@ -717,11 +717,12 @@ Future<void> _chiediLOblio(BuildContext context) async {
           style: TypographyTokens.titoloScheda()),
       content: Text(
         'Spariranno la tua carta natale, la memoria dei Maestri, i tuoi '
-        'Sigilli e i tuoi Eos, qui e sul server, e con loro il tuo accesso.'
+        'Sigilli e i tuoi Eos, qui e sul server. Con loro sparirà il tuo '
+        'accesso.'
         '\n\n'
         'Non succede subito: hai $giorniDiRipensamento giorni per '
         'ripensarci. Se rientri entro quel termine trovi il modo '
-        'di restare, e non si cancella niente.',
+        'di restare: non si cancella niente.',
         style: TypographyTokens.corpo()
             .copyWith(color: ColorTokens.textSecondary, height: 1.4),
       ),
@@ -1019,7 +1020,7 @@ class _SeHaiChiestoDiSparireState extends State<_SeHaiChiestoDiSparire> {
               'Il Cerchio ti dimenticherà il '
               '${quando.day.toString().padLeft(2, '0')}/'
               '${quando.month.toString().padLeft(2, '0')}/${quando.year}. '
-              'Fino ad allora nulla è andato perduto, e puoi restare.',
+              'Fino ad allora nulla è andato perduto: puoi ancora restare.',
               style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.4),
             ),

@@ -69,10 +69,25 @@ void main() {
     expect(
         find.textContaining('Valore d\'esempio'), findsNWidgets(5));
 
-    // Le voci che richiedono servizi esterni restano dietro il velo.
-    expect(find.text('Dietro il velo'), findsWidgets);
+    // **NEL PASSAPORTO NON C'E' PIU' NESSUN VELO, e non e' una perdita.**
+    // Ordine BC voce 03.
+    //
+    // L'elenco delle voci in arrivo, `_passportEntries`, e' **vuoto da
+    // tempo**: l'ultima cosa che portava il badge era la tessera Archetipo, e
+    // portava insieme "Dietro il velo" e "Tocca per fare il Test Archetipo".
+    // Il Test esiste ed e' vivo da mesi, quindi la prima frase era falsa, e
+    // fra due frasi che si smentiscono chi legge crede alla piu'
+    // scoraggiante.
+    //
+    // **La regola resta viva nel codice**: una voce che davvero non apre
+    // niente tornerebbe a mostrare il badge. Semplicemente, oggi non ce n'e'
+    // nessuna.
+    expect(find.text('Dietro il velo'), findsNothing,
+        reason: 'e tornato un velo nel Passaporto: se e una voce che non apre '
+            'niente va bene, ma va scritta nell elenco delle voci in arrivo '
+            'invece di comparire da sola');
     // "Carta natale" non e' piu' una voce velata: e' una tessera VIVA, e si
-    // chiama "La tua carta natale". Dietro il velo resta il solo Archetipo.
+    // chiama "La tua carta natale".
     // L'etichetta di una tessera viva si mostra in maiuscolo.
     expect(find.text('LA TUA CARTA NATALE'), findsOneWidget);
   });

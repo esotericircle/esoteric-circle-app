@@ -189,7 +189,7 @@ enum SuperficieChiara {
   abitoDelResponso(
     classe: 'AbitoDelResponso',
     file: 'lib/design_system/theme/abito_del_responso.dart',
-    perche: 'decide quale Dono veste di giorno, e per farlo deve nominare i '
+    perche: 'decide quale Dono veste di giorno. Per farlo deve nominare i '
         'colori del giorno: e la porta del regime chiaro, non una schermata',
   );
 

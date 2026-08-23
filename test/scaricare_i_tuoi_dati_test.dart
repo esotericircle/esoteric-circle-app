@@ -87,7 +87,7 @@ void main() {
     // **COSA NON C E DENTRO**, che e l informazione che nessun archivio si
     // ricorda mai di dare: la memoria dei Maestri vive sul server, e le
     // password non le vede nessuno qui.
-    expect(testo, contains('COSA NON C\'E\' QUI DENTRO'));
+    expect(testo, contains('COSA NON C\'È QUI DENTRO'));
     expect(testo, contains('password'));
   });
 

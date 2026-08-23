@@ -37,9 +37,18 @@ void main() {
   });
 
   test('nessuna via della porta torna vero senza guardare l\'esito', () {
-    // **L'ENUMERAZIONE, perche' le tre vie sono la stessa famiglia.** Se
-    // domani ne nascesse una quarta che dimentica l'esito, questa prova la
-    // trova: si cerca il ritorno cieco subito dopo la chiamata a share.
+    // **L'ENUMERAZIONE, perche' le vie sono la stessa famiglia.** Se ne
+    // nascesse una che dimentica l'esito, questa prova la trova: si cerca il
+    // ritorno cieco subito dopo la chiamata a share.
+    //
+    // **E DA TRE SONO PASSATE A QUATTRO. Ordine BC voce 02.** La quarta manda
+    // PIU' FILE insieme, e serve allo scarico dei propri dati, che sono due:
+    // l'archivio e il riepilogo in italiano. Mandarli in due condivisioni
+    // separate vorrebbe dire far scegliere due volte dove metterli, e chi
+    // sbaglia la seconda si ritrova meta' dei suoi dati.
+    //
+    // **La prova ha fatto il suo mestiere**: e' caduta col numero, e la via
+    // nuova legge l'esito come le altre tre.
     final sorgente =
         File('lib/core/condivisione/porta_della_condivisione.dart')
             .readAsStringSync();
@@ -48,7 +57,7 @@ void main() {
     // ignore: avoid_print
     print('ORDINE AN VOCE 08: vie della porta $chiamate, esiti letti '
         '$letture');
-    expect(chiamate, 3, reason: 'le vie della porta non sono piu\' tre');
+    expect(chiamate, 4, reason: 'le vie della porta non sono piu\' quattro');
     expect(letture, chiamate,
         reason: 'una via chiama il foglio di sistema e non legge il suo '
             'esito: torna vero appena il foglio si apre');

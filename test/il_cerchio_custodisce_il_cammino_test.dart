@@ -174,7 +174,17 @@ void main() {
     }
     // ignore: avoid_print
     print('ORDINE AP VOCE 01: le callable sono ${callable.length}: $callable');
-    expect(callable.length, 6,
+    // **DA SEI A OTTO. Ordine BC voce 02**, e si dichiara qui come la prova
+    // chiede. Le due nuove sono `chiediLOblio`, che segna la data della
+    // cancellazione invece di eseguirla, e `annullaLOblio`, che e' la meta'
+    // che rende i trenta giorni di ripensamento una promessa: un
+    // ripensamento che non si puo' esercitare non e' un ripensamento.
+    //
+    // **Non sono passate da `statoDelCerchio`, e la ragione e' che non sono
+    // uno stato**: sono due gesti, e un gesto dentro la chiamata che chiede
+    // lo stato vorrebbe dire cancellare un account per il fatto di aver
+    // aperto l'app. La data invece viaggia con lo stato, come il listino.
+    expect(callable.length, 8,
         reason: 'le callable non sono piu\' sei: $callable. Se ne serviva una '
             'nuova andava dichiarata e motivata nel rapporto');
   });

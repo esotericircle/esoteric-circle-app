@@ -514,7 +514,7 @@ class PortafoglioDelCerchio {
       if (dote != null) doti.add('$nome $dote');
     }
     if (doti.isEmpty) return null;
-    return 'Con un piano i tetti si allargano, e ogni piano porta una dote in '
+    return 'Con un piano i tetti si allargano. Ogni piano porta una dote in '
         'Eos: ${doti.join(', ')}.';
   }
 

@@ -67,8 +67,15 @@ void main() {
       for (final modo in const ['testo(', 'daFile(', 'immagine(']) {
         expect(s, contains(modo), reason: 'la porta non offre $modo');
       }
-      // Tre `catch` e tre `return false`: chi condivide sta finendo un rito, e
-      // un guasto del foglio di sistema non deve buttare giu' quel momento.
+      // Un `catch` e un `return false` PER OGNI VIA: chi condivide sta
+      // finendo un rito, e un guasto del foglio di sistema non deve buttare
+      // giu' quel momento.
+      //
+      // **DA TRE A QUATTRO. Ordine BC voce 02**: la via nuova manda piu' file
+      // insieme, e serve allo scarico dei propri dati, che sono l'archivio e
+      // il riepilogo in italiano. Questa prova e' caduta col numero, ed e'
+      // esattamente cio' che doveva fare: la via nuova regge il suo guasto
+      // come le altre tre.
       //
       // **LA MISURA CERCAVA `catch (_)` E CONTAVA ZERO.** La regola di casa
       // vieta il catch muto: l'errore si nomina e il perche' lo si ignora sta
@@ -76,9 +83,9 @@ void main() {
       // e la vecchia forma non esiste piu' in nessun punto. Si conta la cosa
       // che conta, cioe' che i tre modi reggano il guasto, non la sintassi con
       // cui e' stato scritto ieri.
-      expect(RegExp(r'\} catch \(\w+\) \{').allMatches(s).length, 3,
-          reason: 'i tre modi della porta non tengono piu\' tre guasti: uno di '
-              'loro lascia salire l\'errore e butta giu\' la fine di un rito');
+      expect(RegExp(r'\} catch \(\w+\) \{').allMatches(s).length, 4,
+          reason: 'un modo della porta non tiene il suo guasto: lascia salire '
+              'l\'errore e butta giu\' la fine di un rito');
       // **SI CONTANO I `return false` DENTRO I CATCH, non tutti.** Contarli
       // tutti dava sei contro i tre attesi, e i tre di troppo sono le guardie
       // in cima ai metodi, che rifiutano un testo vuoto o un file senza byte:
@@ -89,7 +96,7 @@ void main() {
           RegExp(r'catch \(\w+\) \{[^}]*return false;', dotAll: true)
               .allMatches(s)
               .length,
-          3,
+          4,
           reason: 'un guasto non si traduce piu\' in un no: chi chiama non ha '
               'modo di sapere che la condivisione non e\' avvenuta');
     });

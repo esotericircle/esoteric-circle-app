@@ -205,10 +205,16 @@ void main() {
     // ne va, e fra quelle cose c'e' la nascita: se restasse, chi entra dopo
     // si troverebbe il cielo di un altro. **Chiede alla porta unica come
     // tutti**, e non tiene nessuna copia sua: chiede per svuotare, non per
+    // **TREDICI DALL'ORDINE BC voce 05.** La regia delle chiamate ha smesso
+    // di chiedere i dati di nascita: leggeva la carta per calcolare l'alba
+    // vera, e adesso i cinque avvisi partono alle ore che i Doni portano
+    // scritte dentro. **L'alba vera non e' sparita**: la mette il Rito
+    // dell'Alba, che la posizione la chiede quando qualcuno lo apre, e la
+    // rimette sullo stesso id senza sdoppiare la chiamata.
     // leggere.
-    expect(elenco.length, 14,
+    expect(elenco.length, 13,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
-            '${elenco.length} invece di 14:\n${elenco.join("\n")}\n'
+            '${elenco.length} invece di 13:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
             'aggiorna questo numero. Se ne hai tolta una, idem.');
   });

@@ -212,7 +212,7 @@ class _NotificheScreenState extends State<NotificheScreen> {
                 children: [
                   Text(
                     'I Doni del giorno hanno ciascuno la sua ora. Scegli quali '
-                    'ti chiamano: gli altri restano lì, e li apri quando vuoi.',
+                    'ti chiamano. Gli altri restano lì: li apri quando vuoi.',
                     key: const Key('notifiche_intro'),
                     style: TypographyTokens.corpo()
                         .copyWith(color: ColorTokens.textSecondary),

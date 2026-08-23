@@ -104,7 +104,7 @@ class ScaricoDeiTuoiDati {
       ..writeln('')
       ..writeln('Preparato il ${_dataItaliana(DateTime.now())}.')
       ..writeln('')
-      ..writeln('Questo archivio contiene tutto cio\' che Esoteric Circle '
+      ..writeln('Questo archivio contiene tutto ciò che Esoteric Circle '
           'tiene di te su questo telefono: ${albero['quanteVoci']} voci in '
           'tutto, raccolte qui sotto per argomento. Il file che lo accompagna '
           'porta gli stessi dati in forma leggibile da un programma.')
@@ -119,7 +119,7 @@ class ScaricoDeiTuoiDati {
       righe.writeln('');
     }
     righe
-      ..writeln('COSA NON C\'E\' QUI DENTRO')
+      ..writeln('COSA NON C\'È QUI DENTRO')
       ..writeln('')
       ..writeln('La memoria che i Maestri tengono delle vostre conversazioni '
           'vive sul server e non su questo telefono, quindi non compare in '
