@@ -69,8 +69,8 @@ per conto suo.
 - **BE.05** La card vecchia va demolita. Stato: CHIUSA
 - **BE.06** Il Rito dell'Alba: posizione muta e testi sul mare. Stato: CHIUSA
 - **BE.07** La cancellazione immediata e il ritorno dei dati. Stato: CHIUSA
-- **BE.08** Il sistema anti abuso, censimento completo. Stato: APERTA
-- **BE.09** Il peso del traguardo, presentato per la scelta. Stato: APERTA
+- **BE.08** Il sistema anti abuso, censimento completo. Stato: CHIUSA, col censimento scritto qui sotto
+- **BE.09** Il peso del traguardo, presentato per la scelta. Stato: CHIUSA, con le tre strade nel rapporto
 
 ## L'ordine di lavoro, deciso qui
 
@@ -85,11 +85,49 @@ per conto suo.
 8. **BE.08**, il censimento anti abuso, che sulla 07 poggia.
 9. **BE.09**, la presentazione del nodo del peso, nel rapporto.
 
+## Il censimento anti abuso, strada per strada (BE.08)
+
+Le difese portanti sono quattro, ognuna con la sua guardia in
+`il_sistema_anti_abuso_test.dart`:
+
+1. **Il saldo e' sovrano sul server.** Le regole di Firestore concedono al
+   telefono la sola LETTURA del proprio ramo: ogni scrittura passa dalle
+   callable. Un saldo che il client non puo' scrivere non si gonfia.
+2. **Il tetto delle condivisioni premiate e' 3 al giorno**, vive DENTRO la
+   transazione del saldo (due richieste simultanee non lo aggirano), e oltre
+   il tetto il Sigillo resta acceso ma il bonus non si accredita.
+3. **Ogni accredito e' idempotente**: il movimento porta l'identificativo
+   `traguardo-<id>`, e un accredito ripetuto risponde col saldo di allora
+   senza contare due volte.
+4. **I tetti giornalieri usano il giorno del SERVER** (`chiaveDelGiorno` sul
+   fuso del Cerchio): spostare l'orologio del telefono non sposta i tetti.
+
+Le strade enumerate, con cosa succede oggi e cosa se ne e' deciso:
+
+- **Offline**: l'app resta usabile per scelta; niente si accredita ne' si
+  spende sul server. I traguardi maturati offline si accreditano alla
+  riconnessione con l'id idempotente: nessun doppio conto. Nessuna furbata
+  possibile, perche' non c'e' nulla di spendibile che il server non riconti.
+- **Senza account (anonimo)**: identita' anonima, stesso ramo e stessi
+  tetti del piano gratuito. Nessun vantaggio rispetto a chi custodisce.
+- **Reinstallazioni ripetute**: con `allowBackup=false` (BE.07) ogni
+  reinstallazione e' un'identita' NUOVA a saldo zero: si possono rifare i
+  primi traguardi ma il saldo precedente si PERDE. Nessun guadagno
+  cumulativo, per costruzione. Il caso dei 270 Eos che tornavano era
+  l'opposto (identita' che sopravviveva) ed e' chiuso.
+- **Orologio spostato**: puo' accelerare le serie locali (giorni di
+  seguito) e quindi anticipare l'accensione di traguardi, ma ogni traguardo
+  paga UNA volta per identita' e il totale dei 165 e' finito: il danno
+  massimo e' anticipare un tetto gia' finito. Dichiarato accettabile per la
+  Demo; a C3, con le serie ricalcolate lato server, si chiude anche questo.
+- **Richieste ripetute o simultanee**: idempotenza piu' transazione, vedi
+  le difese 2 e 3.
+
 ## I marcatori
 
 VOCI_TOTALI: 10
-VOCI_APERTE: 2
-VOCI_CHIUSE: 8
+VOCI_APERTE: 0
+VOCI_CHIUSE: 10
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
