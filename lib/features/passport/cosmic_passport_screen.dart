@@ -750,11 +750,34 @@ class _TesseraArchetipo extends StatelessWidget {
       // Senza Test non e' "in arrivo", e' "non l'hai ancora fatto": la
       // differenza conta, perche' la prima frase e' falsa e la seconda porta
       // da qualche parte.
-      return const _PassportEntryCard(
-        entry: _PassportEntry(
-          icon: Icons.psychology_alt,
-          title: 'Archetipo',
-          description: 'Fai il Test Archetipo e la tua figura comparirà qui.',
+      // **E LA CARD PORTA AL TEST, ordine BB voce 05.** Richiesta del
+      // fondatore: "nel Passport in fondo, quando manca l'archetipo o un
+      // altro elemento della carta natale, dovrebbe esserci un pulsante per
+      // portare al test archetipo o alla funzionalita' per sbloccare
+      // quell'elemento."
+      //
+      // **La frase diceva gia' cosa fare e non lo faceva fare.** "Fai il Test
+      // Archetipo e la tua figura comparira' qui" e' un'istruzione: chi la
+      // legge deve andare a cercarsi il Test da un'altra parte, e la tessera
+      // che gliene parla resta muta sotto il dito. **E' un vicolo cieco
+      // travestito da spiegazione.**
+      //
+      // **Lo stesso GestureDetector della card piena**, e per la stessa
+      // ragione misurata: il ripple di Material chiede uno shader che in una
+      // prova headless puo' non esserci, e ha gia' fermato la suite una volta.
+      return GestureDetector(
+        key: const Key('passport_archetipo_vuoto_tocco'),
+        behavior: HitTestBehavior.opaque,
+        onTap: () => Navigator.of(context).push(ArchetypeTestScreen.route()),
+        child: const _PassportEntryCard(
+          entry: _PassportEntry(
+            icon: Icons.psychology_alt,
+            title: 'Archetipo',
+            // **LA FRASE DICE DOVE PORTA IL TOCCO**, invece di ordinare di
+            // fare qualcosa altrove.
+            description: 'Tocca per fare il Test Archetipo: la tua figura '
+                'comparirà qui.',
+          ),
         ),
       );
     }
