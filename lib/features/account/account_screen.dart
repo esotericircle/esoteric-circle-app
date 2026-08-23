@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/maestro/maestro.dart';
+import '../../design_system/components/depth_card.dart';
+import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/theme/maestro_scope.dart';
 import '../../core/feature_flags/feature_flag.dart';
 import '../../core/identity/account_del_cerchio.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import '../../core/condivisione/porta_della_condivisione.dart';
+import '../../core/identity/scarico_dei_tuoi_dati.dart';
 import '../../core/identity/dimenticanza_del_telefono.dart';
 import '../../core/identity/dimenticanza_della_memoria_viva.dart';
 import '../../design_system/components/feature_sheet.dart';
@@ -202,12 +210,43 @@ class AccountScreen extends StatelessWidget {
           icon: Icons.logout_rounded,
           onTap: (context) => _chiediDiUscire(context),
         ),
+      // **SCARICA I TUOI DATI. Ordine BC voce 02, seconda delle quattro.**
+      //
+      // Decisione del fondatore. Arriva **un file coi dati e un riepilogo
+      // scritto in italiano**: un archivio risponde alla domanda "cosa avete
+      // di me" solo a chi sa leggerlo, e la maggior parte delle persone
+      // aprirebbe delle parentesi graffe.
+      _AccountEntry(
+        id: 'scarica',
+        title: 'Scarica i tuoi dati',
+        subtitle: 'Tutto ciò che il Cerchio sa di te, in un file',
+        icon: Icons.download_rounded,
+        onTap: (context) => _scaricaITuoiDati(context),
+      ),
+      // **CANCELLA I TUOI DATI TENENDO L'ACCOUNT. Ordine BC voce 02, terza.**
+      //
+      // Decisione del fondatore, e **Google Play la chiede espressamente**
+      // dal 2024: un'opzione separata per cancellare i dati senza chiudere
+      // l'account. Chi vuole ricominciare da capo restando nel Cerchio non
+      // deve passare per la porta che non ha ritorno.
+      _AccountEntry(
+        id: 'azzera',
+        title: 'Cancella i tuoi dati',
+        subtitle: 'Il cammino riparte da zero, l\'account resta tuo',
+        icon: Icons.restart_alt_rounded,
+        onTap: (context) => _azzeraIDati(context),
+      ),
       // IL DIRITTO ALL'OBLIO, voce 1f: e' un obbligo, non una gentilezza, e
       // cancella anche cio' che vive sul server.
+      //
+      // **E ADESSO CON TRENTA GIORNI DI RIPENSAMENTO.** Ordine BC voce 02,
+      // quarta e ultima: sta in fondo, elenca cosa sparisce davvero, e non
+      // esegue subito. Una cancellazione fatta per rabbia o per sbaglio e'
+      // irreversibile, e un cammino di mesi non si ricostruisce.
       _AccountEntry(
         id: 'oblio',
         title: 'Cancella il tuo account',
-        subtitle: 'Il Cerchio dimentica tutto, qui e sul server',
+        subtitle: 'Trenta giorni per ripensarci, poi il Cerchio dimentica',
         icon: Icons.delete_outline_rounded,
         onTap: (context) => _chiediLOblio(context),
       ),
@@ -248,6 +287,17 @@ class AccountScreen extends StatelessWidget {
             // delle due e' una cura.
             const _IntestazioneDiChiSei(),
             const SizedBox(height: SpacingTokens.md),
+            // **IL RICHIAMO PER CHI HA CHIESTO L'OBLIO E POI E' TORNATO.**
+            // Ordine BC voce 02.
+            //
+            // **E' la meta' che rende i trenta giorni una promessa invece che
+            // un'attesa**: un ripensamento che non si puo' esercitare non e'
+            // un ripensamento, e chi rientra deve trovare il modo di restare
+            // **senza doverlo cercare**. Sta in cima e non in fondo per la
+            // stessa ragione: chi apre questa schermata sapendo di aver
+            // chiesto di sparire deve vedere prima di tutto che puo' ancora
+            // dire di no.
+            const _SeHaiChiestoDiSparire(),
             Expanded(
               child: ListView.separated(
           key: const Key('account_list'),
@@ -524,22 +574,149 @@ Future<void> _chiediDiUscire(BuildContext context) async {
   Navigator.of(context).popUntil((r) => r.isFirst);
 }
 
-/// LA DOMANDA PRIMA DELL'OBLIO, che si fa una volta sola e per intero.
+/// **SCARICA I TUOI DATI. Ordine BC voce 02, seconda delle quattro voci.**
+///
+/// Decisione del fondatore. Arrivano **due file**: i dati in JSON e un
+/// riepilogo scritto in italiano. Un archivio risponde alla domanda "cosa
+/// avete di me" solo a chi sa leggerlo, e la maggior parte delle persone
+/// aprirebbe delle parentesi graffe.
+///
+/// **Si passa dalla condivisione del telefono**, non da un salvataggio in
+/// una cartella: cosi' la persona sceglie dove metterli, se mandarseli per
+/// email o tenerli nei file, e il Cerchio non chiede nessun permesso nuovo
+/// per farlo.
+Future<void> _scaricaITuoiDati(BuildContext context) async {
+  final albero = await ScaricoDeiTuoiDati.raccogli();
+  if (!context.mounted) return;
+  final quante = albero['quanteVoci'] as int? ?? 0;
+  if (quante == 0) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      key: Key('scarico_vuoto'),
+      content: Text('Il Cerchio non ha ancora niente di tuo su questo '
+          'telefono.'),
+    ));
+    return;
+  }
+
+  // **I FILE SI SCRIVONO NELLA CARTELLA TEMPORANEA**, che e' l'unica dove
+  // un'app puo' scrivere senza chiedere niente a nessuno: da li' la
+  // condivisione li prende e la persona decide dove finiscono.
+  try {
+    final dove = await getTemporaryDirectory();
+    final quando = DateTime.now();
+    final marca = '${quando.year}'
+        '${quando.month.toString().padLeft(2, '0')}'
+        '${quando.day.toString().padLeft(2, '0')}';
+    final dati = File('${dove.path}/esoteric-circle-dati-$marca.json');
+    await dati.writeAsString(ScaricoDeiTuoiDati.comeJson(albero));
+    final riepilogo = File('${dove.path}/esoteric-circle-riepilogo-$marca.txt');
+    await riepilogo.writeAsString(ScaricoDeiTuoiDati.comeRiepilogo(albero));
+    if (!context.mounted) return;
+    // **Dalla porta unica della condivisione**, come tutto il resto dell'app:
+    // i due file viaggiano insieme, se no chi sbaglia la seconda scelta si
+    // ritrova meta' dei propri dati.
+    await PortaDellaCondivisione.piuFile(
+      [riepilogo.path, dati.path],
+      testo: 'I tuoi dati nel Cerchio, $quante voci.',
+    );
+  } catch (errore) {
+    if (!context.mounted) return;
+    // **UN GUASTO SI DICE**, e non si fa finta di aver consegnato qualcosa.
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      key: const Key('scarico_non_riuscito'),
+      content: Text('Non sono riuscito a preparare i tuoi dati: $errore'),
+    ));
+  }
+}
+
+/// **CANCELLA I TUOI DATI TENENDO L'ACCOUNT.**
+/// Ordine BC voce 02, terza delle quattro voci.
+///
+/// Decisione del fondatore, e **Google Play la chiede espressamente** dal
+/// 2024: un'opzione separata per cancellare i dati senza chiudere l'account.
+/// Chi vuole ricominciare da capo restando nel Cerchio non deve passare per
+/// la porta che non ha ritorno.
+///
+/// **Cancella le stesse cose dell'oblio, meno una: l'account.** Quindi non
+/// si esce e non si dimentica la custodia, perche' quella e' la chiave con
+/// cui si rientra.
+Future<void> _azzeraIDati(BuildContext context) async {
+  final conferma = await showDialog<bool>(
+    context: context,
+    builder: (dialogo) => AlertDialog(
+      key: const Key('azzera_conferma'),
+      backgroundColor: ColorTokens.neutralSurface,
+      title: Text('Ricominciare da zero?',
+          style: TypographyTokens.titoloScheda()),
+      content: Text(
+        'Spariscono il tuo cammino, i Sigilli accesi, gli Eos e la memoria '
+        'che i Maestri hanno di te, qui e sul server. Il tuo account resta, '
+        'e rientri con lo stesso accesso di sempre. Non si torna indietro.',
+        style: TypographyTokens.corpo()
+            .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(dialogo).pop(false),
+          child: const Text('Lascia tutto'),
+        ),
+        TextButton(
+          key: const Key('azzera_conferma_si'),
+          onPressed: () => Navigator.of(dialogo).pop(true),
+          child: const Text('Ricomincia'),
+        ),
+      ],
+    ),
+  );
+  if (conferma != true || !context.mounted) return;
+  final servizi = context.read<AppServices>();
+  await servizi.memory.deleteAllData();
+  if (!context.mounted) return;
+  // **LA CUSTODIA NON SI DIMENTICA**, che e' l'unica differenza con l'oblio:
+  // e' la chiave con cui si rientra, e cancellarla vorrebbe dire chiudere
+  // fuori chi ha chiesto solo di ricominciare.
+  await DimenticanzaDelTelefono.dimentica(tenendo: const ['account.']);
+  if (!context.mounted) return;
+  DimenticanzaDellaMemoriaViva.dimentica(context);
+  if (!context.mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    key: Key('azzera_fatto'),
+    content: Text('Il tuo cammino riparte da zero. L\'account resta tuo.'),
+  ));
+  Navigator.of(context).popUntil((r) => r.isFirst);
+}
+
+/// **LA DOMANDA PRIMA DELL'OBLIO.** Ordine AZ voce 08, poi BC voce 02.
 ///
 /// Si dice cosa sparisce, e non "sei sicuro?": chi cancella deve sapere che
-/// se ne vanno la carta natale, la memoria dei Maestri, i Sigilli e gli Eos,
-/// e che non c'e' un ripensamento dopo.
+/// se ne vanno la carta natale, la memoria dei Maestri, i Sigilli e gli Eos.
+///
+/// **E ADESSO NON SPARISCE SUBITO.** Decisione del fondatore: trenta giorni
+/// di ripensamento prima della cancellazione definitiva. Il server segna la
+/// data, l'account resta in attesa, e rientrando entro quel termine si puo'
+/// annullare. Dopo, un lavoro notturno cancella davvero.
+///
+/// **Nessuno dei tre obblighi impone l'attesa**: Apple e Google chiedono che
+/// la cancellazione si possa chiedere dall'app, il GDPR che avvenga. E' una
+/// scelta di prodotto, e vale la pena, perche' una cancellazione fatta per
+/// rabbia o per sbaglio e' irreversibile e un cammino di mesi non si
+/// ricostruisce. **Chi vuole andarsene subito ha la voce "cancella i tuoi
+/// dati"**, che non aspetta nessuno.
 Future<void> _chiediLOblio(BuildContext context) async {
   final conferma = await showDialog<bool>(
     context: context,
     builder: (dialogo) => AlertDialog(
       key: const Key('oblio_conferma'),
       backgroundColor: ColorTokens.neutralSurface,
-      title: Text('Cancellare tutto?',
+      title: Text('Cancellare il tuo account?',
           style: TypographyTokens.titoloScheda()),
       content: Text(
-        'Spariscono la tua carta natale, la memoria dei Maestri, i tuoi '
-        'Sigilli e i tuoi Eos, qui e sul server. Non si torna indietro.',
+        'Spariranno la tua carta natale, la memoria dei Maestri, i tuoi '
+        'Sigilli e i tuoi Eos, qui e sul server, e con loro il tuo accesso.'
+        '\n\n'
+        'Non succede subito: hai $giorniDiRipensamento giorni per '
+        'ripensarci. Se rientri entro quel termine trovi il modo '
+        'di restare, e non si cancella niente.',
         style: TypographyTokens.corpo()
             .copyWith(color: ColorTokens.textSecondary, height: 1.4),
       ),
@@ -551,53 +728,51 @@ Future<void> _chiediLOblio(BuildContext context) async {
         TextButton(
           key: const Key('oblio_conferma_si'),
           onPressed: () => Navigator.of(dialogo).pop(true),
-          child: const Text('Cancella tutto'),
+          child: const Text('Cancella il mio account'),
         ),
       ],
     ),
   );
   if (conferma != true || !context.mounted) return;
   final servizi = context.read<AppServices>();
-  await servizi.memory.deleteAllData();
-  // **E IL "QUI" DELLA PROMESSA.** Ordine AZ voce 08, situazione S24. Il
-  // testo prometteva "qui e sul server": sul server la callable
-  // `cancellaIlCerchio` fa `recursiveDelete` del ramo e `deleteUser`
-  // dell'account, quindi quella meta' era vera. **Il "qui" non veniva
-  // toccato**: restavano il diario, i dati di nascita e la preferenza del
-  // rito, e chi avesse ricominciato si sarebbe ritrovato il cammino di prima
-  // sopra un Cerchio che non esisteva piu'.
-  await DimenticanzaDelTelefono.dimentica();
+  final quando = await servizi.porta.chiediLOblio();
   if (!context.mounted) return;
-  // **E LA MEMORIA VIVA, che era il buco vero.** Ordine BC voce 02.
-  //
-  // Fatto del fondatore: "ho provato a cancellare l'account, ma i dati
-  // restano... il borsellino, i traguardi e altri dati restano anche dopo la
-  // conferma". **Il disco veniva pulito dalla riga qui sopra fin dalla build
-  // 2195**, ma i controller vivono per tutta la sessione e nessuno li
-  // svuotava: quello che si vedeva a schermo era la memoria, e alla prima
-  // scrittura tornava anche sul disco appena pulito.
-  //
-  // **Questa riga esisteva gia', e stava solo nell'uscita**: uscire puliva
-  // piu' che cancellare.
-  DimenticanzaDellaMemoriaViva.dimentica(context);
-  if (!context.mounted) return;
-  // **E SI ESCE**, se no si resta dentro con un'identita' che sul server e'
-  // stata cancellata: la chiamata dopo riceverebbe un rifiuto e basta.
+
+  if (quando == null) {
+    // **IL SERVER NON HA SEGNATO NIENTE, e non si fa finta di si'.** Dire
+    // "fatto" senza che il server lo sappia vorrebbe dire lasciare qualcuno
+    // convinto di essersene andato mentre e' ancora scritto nel Cerchio.
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      key: Key('oblio_non_riuscito'),
+      content: Text('Non sono riuscito a registrare la richiesta. Riprova '
+          'fra poco: finché non compare la conferma, non è stato cancellato '
+          'niente.'),
+    ));
+    return;
+  }
+
+  // **SI ESCE, ma non si dimentica niente**: i dati devono restare per tutti
+  // i trenta giorni, se no il ripensamento non avrebbe piu' niente da
+  // restituire. E' la differenza con la voce "cancella i tuoi dati".
   try {
     await context.read<AccountDelCerchio>().esci();
   } catch (errore) {
     // Senza account nell'albero non c'e' nessuna sessione da chiudere.
   }
   if (!context.mounted) return;
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
-      key: Key('oblio_fatto'),
-      content: Text('Il Cerchio ti ha dimenticato, qui e sul server. '
-          'Puoi ricominciare quando vuoi.'),
-    ),
-  );
+  DimenticanzaDellaMemoriaViva.dimentica(context);
+  if (!context.mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    key: const Key('oblio_fatto'),
+    duration: const Duration(seconds: 8),
+    content: Text('Ho registrato la tua richiesta. Il Cerchio ti dimenticherà '
+        'il ${quando.day.toString().padLeft(2, '0')}/'
+        '${quando.month.toString().padLeft(2, '0')}/${quando.year}. '
+        'Fino ad allora puoi rientrare e restare.'),
+  ));
   Navigator.of(context).popUntil((r) => r.isFirst);
 }
+
 
 class _AccountEntry {
   const _AccountEntry({
@@ -737,6 +912,109 @@ class _AccountTile extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// **IL RICHIAMO A CHI HA CHIESTO L'OBLIO E POI E' TORNATO.**
+/// Ordine BC voce 02.
+///
+/// Compare solo se il server dice che c'e' una richiesta in attesa, e porta
+/// due cose: **quando** il Cerchio dimenticherà, e il modo di annullare.
+///
+/// **Il numero non lo calcola il telefono.** La data arriva da
+/// `statoDelCerchio`, cioè da chi la cancellazione la eseguirà davvero:
+/// contarla qui vorrebbe dire mostrare un giorno che il server non conosce, e
+/// su una promessa così non si può sbagliare di un giorno.
+class _SeHaiChiestoDiSparire extends StatefulWidget {
+  const _SeHaiChiestoDiSparire();
+
+  @override
+  State<_SeHaiChiestoDiSparire> createState() => _SeHaiChiestoDiSparireState();
+}
+
+class _SeHaiChiestoDiSparireState extends State<_SeHaiChiestoDiSparire> {
+  DateTime? _quando;
+  bool _staAnnullando = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _guarda();
+  }
+
+  Future<void> _guarda() async {
+    final porta = context.read<AppServices>().porta;
+    if (!porta.viva) return;
+    try {
+      final stato = await porta.stato();
+      if (mounted) setState(() => _quando = stato?.oblioInAttesaFinoAl);
+    } catch (errore) {
+      // Non sapere se c'è un oblio in attesa non deve impedire di usare
+      // l'account: al massimo il richiamo comparirà alla prossima apertura.
+    }
+  }
+
+  Future<void> _resto() async {
+    setState(() => _staAnnullando = true);
+    final porta = context.read<AppServices>().porta;
+    final fatto = await porta.annullaLOblio();
+    if (!mounted) return;
+    setState(() {
+      _staAnnullando = false;
+      if (fatto) _quando = null;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      key: Key(fatto ? 'oblio_annullato' : 'oblio_non_annullato'),
+      content: Text(fatto
+          ? 'Bentornato. Il tuo cammino resta dov\'è.'
+          : 'Non sono riuscito ad annullare la richiesta. Riprova fra poco.'),
+    ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final quando = _quando;
+    if (quando == null) return const SizedBox.shrink();
+    final palette = MaestroPalette.forKey(ThemeKey.of(Maestro.medora));
+    return Padding(
+      padding: const EdgeInsets.only(bottom: SpacingTokens.md),
+      child: DepthCard(
+        key: const Key('oblio_in_attesa'),
+        padding: const EdgeInsets.all(SpacingTokens.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Hai chiesto di essere dimenticato',
+              style: TypographyTokens.titoloScheda()
+                  .copyWith(color: palette.goldSoft),
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+            Text(
+              'Il Cerchio ti dimenticherà il '
+              '${quando.day.toString().padLeft(2, '0')}/'
+              '${quando.month.toString().padLeft(2, '0')}/${quando.year}. '
+              'Fino ad allora nulla è andato perduto, e puoi restare.',
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+            Align(
+              alignment: Alignment.centerRight,
+              child: FilledButton(
+                key: const Key('oblio_resto'),
+                onPressed: _staAnnullando ? null : _resto,
+                style: FilledButton.styleFrom(
+                  backgroundColor: palette.gold.withValues(alpha: 0.22),
+                  foregroundColor: palette.goldSoft,
+                ),
+                child: Text(_staAnnullando ? 'Un momento…' : 'Voglio restare'),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -131,7 +131,7 @@ somiglia".
 
 - **BC.00** Manifesto e verifica delle premesse. Stato: CHIUSA
 - **BC.01** I Maestri in home, e le due righe sopra di loro. Stato: CHIUSA
-- **BC.02** La gestione dell'account e dei dati. Stato: APERTA
+- **BC.02** La gestione dell'account e dei dati. Stato: CHIUSA
 - **BC.03** La bolla Archetipo nel Passaporto. Stato: CHIUSA
 - **BC.04** I nomi si sovrappongono nella Risonanza. Stato: CHIUSA
 - **BC.05** Le notifiche, davvero. Stato: CHIUSA
@@ -158,8 +158,8 @@ ultimo cio' che tocca il server e la vita dei dati di una persona.
 ## I marcatori
 
 VOCI_TOTALI: 7
-VOCI_APERTE: 1
-VOCI_CHIUSE: 6
+VOCI_APERTE: 0
+VOCI_CHIUSE: 7
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

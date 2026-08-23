@@ -87,6 +87,36 @@ class PortaDellaCondivisione {
     }
   }
 
+  /// **MANDA PIU' FILE INSIEME.** Ordine BC voce 02.
+  ///
+  /// Serve allo scarico dei propri dati, che sono **due**: l'archivio in JSON
+  /// e il riepilogo scritto in italiano. Mandarli in due condivisioni
+  /// separate vorrebbe dire far scegliere due volte dove metterli, e chi
+  /// sbaglia la seconda si ritrova meta' dei suoi dati.
+  ///
+  /// **Passa di qui e non da `SharePlus` diretto**, come tutto il resto: una
+  /// prova enumera i punti che condividono e cade se ne compare uno che
+  /// scavalca questa porta.
+  static Future<bool> piuFile(
+    List<String> percorsi, {
+    String? testo,
+  }) async {
+    final veri = percorsi.where((p) => p.isNotEmpty).toList();
+    if (veri.isEmpty) return false;
+    try {
+      final esito = await SharePlus.instance.share(
+        ShareParams(
+          text: testo,
+          files: [for (final p in veri) XFile(p)],
+        ),
+      );
+      return avvenuta(esito);
+    } catch (errore) {
+      assert(errore is Object);
+      return false;
+    }
+  }
+
   /// Manda un'IMMAGINE, con un testo di accompagnamento facoltativo.
   static Future<bool> immagine(
     Uint8List byte, {

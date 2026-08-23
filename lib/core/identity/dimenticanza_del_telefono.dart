@@ -57,13 +57,20 @@ class DimenticanzaDelTelefono {
   ///
   /// Torna quante chiavi c'erano davvero: serve alle prove per dire che
   /// qualcosa e' stato dimenticato sul serio, invece di dichiararlo.
-  static Future<int> dimentica() async {
+  /// [tenendo] sono prefissi che questa volta NON si dimenticano, oltre a
+  /// quelli che restano sempre.
+  ///
+  /// **Serve alla voce "cancella i tuoi dati" dell'ordine BC voce 02**, che
+  /// azzera il cammino tenendo l'account: li' la custodia non si tocca,
+  /// perche' e' la chiave con cui si rientra, e cancellarla vorrebbe dire
+  /// chiudere fuori chi ha chiesto solo di ricominciare.
+  static Future<int> dimentica({List<String> tenendo = const []}) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       var quante = 0;
       for (final chiave in prefs.getKeys().toList()) {
-        final resta =
-            prefissiCheRestano.any((p) => chiave.startsWith(p));
+        final resta = prefissiCheRestano.any((p) => chiave.startsWith(p)) ||
+            tenendo.any((p) => chiave.startsWith(p));
         if (resta) continue;
         final va = prefissiDaDimenticare.any((p) => chiave.startsWith(p));
         if (!va) continue;
