@@ -52,6 +52,20 @@ class PaletteSensoriale {
   /// volta sola.
   static final Set<SuonoDelCerchio> _giaEmessi = <SuonoDelCerchio>{};
 
+  /// LA SPIA DEI SUONI, per le prove che devono CONTARLI.
+  ///
+  /// **Perche' serve.** In prova il plugin audio non c'e', quindi finora
+  /// l'unico modo di verificare chi suona era leggere il codice sorgente: una
+  /// prova strutturale, che dice se una riga esiste e non se il suono e'
+  /// partito una volta o due. L'ordine BK voce 04 chiede la misura vera, cioe'
+  /// che i due suoni del consulto partano UNA volta sola e non si sovrappongano,
+  /// e una regola del genere non si legge in una riga di sorgente.
+  ///
+  /// In produzione e' nulla e costa un confronto: nessun elenco che cresce,
+  /// nessuna memoria trattenuta.
+  @visibleForTesting
+  static void Function(SuonoDelCerchio suono)? spia;
+
   /// Riproduce uno dei cinque suoni del catalogo, se il livello e' acceso.
   ///
   /// Se il file non c'e' ancora, non succede niente: e' il ripiego silenzioso
@@ -64,6 +78,7 @@ class PaletteSensoriale {
       if (_giaEmessi.contains(suono)) return;
       _giaEmessi.add(suono);
     }
+    spia?.call(suono);
     await _motore.effetto(suono.percorso);
   }
 

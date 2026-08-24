@@ -87,6 +87,8 @@ import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
+import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -139,76 +141,75 @@ void main() {
   }
 
   for (final nascita in const [false, true]) {
-  testWidgets('Cielo ${nascita ? "nascita" : "adesso"}', (tester) async {
-    if (_stato.isEmpty) return;
-    silence();
-    SharedPreferences.setMockInitialValues({});
-    // La misura reale del telefono del fondatore: 360 punti logici.
-    tester.view.devicePixelRatio = 3.0;
-    tester.view.physicalSize = const Size(1080, 2392);
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
+    testWidgets('Cielo ${nascita ? "nascita" : "adesso"}', (tester) async {
+      if (_stato.isEmpty) return;
+      silence();
+      SharedPreferences.setMockInitialValues({});
+      // La misura reale del telefono del fondatore: 360 punti logici.
+      tester.view.devicePixelRatio = 3.0;
+      tester.view.physicalSize = const Size(1080, 2392);
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
 
-    final radice = GlobalKey();
-    await tester.pumpWidget(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => MaestroController()),
-        ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
-        ChangeNotifierProvider(create: (_) => ParallaxController()),
-        ChangeNotifierProvider(create: (_) => QualityTierController()),
-        ChangeNotifierProvider(create: (_) => ProfileController()),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        builder: (ctx, child) => MediaQuery(
-          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
-          child: MaestroScope(maestro: Maestro.medora, child: child!),
-        ),
-        home: RepaintBoundary(
-          key: radice,
-          child: SkyOverviewScreen(
-            birth: nascita,
-            // L'ISTANTE DELLA SEGNALAZIONE, non l'adesso della macchina: due
-            // catture fatte in momenti diversi non si possono confrontare, e
-            // questa coppia serve proprio a confrontare.
-            now: nascita
-                ? DateTime(1975, 7, 6, 9, 30)
-                : DateTime(2026, 8, 1, 18, 4),
-            ctaLabel: nascita ? 'Leggi la tua carta' : null,
-            onCta: nascita ? () {} : null,
-            luogoIniziale:
-                const SkyPlace(latitude: 45.46, longitude: 9.19),
-            location: const DisabledSkyLocation(),
+      final radice = GlobalKey();
+      await tester.pumpWidget(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(maestro: Maestro.medora, child: child!),
+          ),
+          home: RepaintBoundary(
+            key: radice,
+            child: SkyOverviewScreen(
+              birth: nascita,
+              // L'ISTANTE DELLA SEGNALAZIONE, non l'adesso della macchina: due
+              // catture fatte in momenti diversi non si possono confrontare, e
+              // questa coppia serve proprio a confrontare.
+              now: nascita
+                  ? DateTime(1975, 7, 6, 9, 30)
+                  : DateTime(2026, 8, 1, 18, 4),
+              ctaLabel: nascita ? 'Leggi la tua carta' : null,
+              onCta: nascita ? () {} : null,
+              luogoIniziale: const SkyPlace(latitude: 45.46, longitude: 9.19),
+              location: const DisabledSkyLocation(),
+            ),
           ),
         ),
-      ),
-    ));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 800));
-    await tester.pump(const Duration(seconds: 2));
-
-    // Si tocca Ariete, che e' la costellazione della segnalazione.
-    // Si tocca la LUNA, che e' il corpo che finiva sotto la barra del titolo.
-    final corpo = find.byKey(const Key('sky_body_moon'));
-    if (corpo.evaluate().isNotEmpty) {
-      await tester.tap(corpo, warnIfMissed: false);
+      ));
       await tester.pump();
-      await tester.pump(const Duration(milliseconds: 500));
-    }
+      await tester.pump(const Duration(milliseconds: 800));
+      await tester.pump(const Duration(seconds: 2));
 
-    await tester.runAsync(() async {
-      final rb =
-          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-      final img = await rb.toImage(pixelRatio: 3.0);
-      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
-      final dir = Directory('docs/preview/prima_dopo');
-      if (!dir.existsSync()) dir.createSync(recursive: true);
-      final quale = nascita ? 'nascita' : 'adesso';
-      File('${dir.path}/cielo_${quale}_$_stato.png')
-          .writeAsBytesSync(dati!.buffer.asUint8List());
-      img.dispose();
+      // Si tocca Ariete, che e' la costellazione della segnalazione.
+      // Si tocca la LUNA, che e' il corpo che finiva sotto la barra del titolo.
+      final corpo = find.byKey(const Key('sky_body_moon'));
+      if (corpo.evaluate().isNotEmpty) {
+        await tester.tap(corpo, warnIfMissed: false);
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
+      }
+
+      await tester.runAsync(() async {
+        final rb =
+            radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+        final img = await rb.toImage(pixelRatio: 3.0);
+        final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+        final dir = Directory('docs/preview/prima_dopo');
+        if (!dir.existsSync()) dir.createSync(recursive: true);
+        final quale = nascita ? 'nascita' : 'adesso';
+        File('${dir.path}/cielo_${quale}_$_stato.png')
+            .writeAsBytesSync(dati!.buffer.asUint8List());
+        img.dispose();
+      });
     });
-  });
   }
 
   testWidgets('Dati di nascita', (tester) async {
@@ -658,49 +659,49 @@ void main() {
 
       final radice = GlobalKey();
       Widget albero({required bool mostra}) => MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => QualityTierController()),
-          ChangeNotifierProvider(create: (_) => ParallaxController()),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: MaestroScope(
-            maestro: Maestro.medora,
-            child: Builder(
-              builder: (ctx) => MediaQuery(
-                data: MediaQuery.of(ctx)
-                    .copyWith(disableAnimations: stato.value.fermo),
-                child: RepaintBoundary(
-                  key: radice,
-                  child: Scaffold(
-                    backgroundColor: const Color(0xFF080B1A),
-                    body: Center(
-                      // La stessa dissolvenza della chat, con la stessa regola:
-                      // a moto fermo dura zero, cioe' la scena c'e' invece di
-                      // comparire.
-                      child: AnimatedSwitcher(
-                        duration: stato.value.fermo
-                            ? Duration.zero
-                            : TempiDellAttesa.dissolvenza,
-                        transitionBuilder: (figlio, anim) =>
-                            FadeTransition(opacity: anim, child: figlio),
-                        child: mostra
-                            ? ConsultoDelCieloView(
-                                key: const ValueKey('scena che compare'),
-                                natal: stato.value.natal,
-                                maestro: Maestro.medora,
-                              )
-                            : const SizedBox.shrink(
-                                key: ValueKey('nessuna scena')),
+            providers: [
+              ChangeNotifierProvider(create: (_) => QualityTierController()),
+              ChangeNotifierProvider(create: (_) => ParallaxController()),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: MaestroScope(
+                maestro: Maestro.medora,
+                child: Builder(
+                  builder: (ctx) => MediaQuery(
+                    data: MediaQuery.of(ctx)
+                        .copyWith(disableAnimations: stato.value.fermo),
+                    child: RepaintBoundary(
+                      key: radice,
+                      child: Scaffold(
+                        backgroundColor: const Color(0xFF080B1A),
+                        body: Center(
+                          // La stessa dissolvenza della chat, con la stessa regola:
+                          // a moto fermo dura zero, cioe' la scena c'e' invece di
+                          // comparire.
+                          child: AnimatedSwitcher(
+                            duration: stato.value.fermo
+                                ? Duration.zero
+                                : TempiDellAttesa.dissolvenza,
+                            transitionBuilder: (figlio, anim) =>
+                                FadeTransition(opacity: anim, child: figlio),
+                            child: mostra
+                                ? ConsultoDelCieloView(
+                                    key: const ValueKey('scena che compare'),
+                                    natal: stato.value.natal,
+                                    maestro: Maestro.medora,
+                                  )
+                                : const SizedBox.shrink(
+                                    key: ValueKey('nessuna scena')),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ),
-      );
+          );
 
       // LA SCENA DEVE COMPARIRE DAVVERO, altrimenti non c'e' nessuna meta'
       // della comparsa da fotografare. `AnimatedSwitcher` non anima il primo
@@ -978,8 +979,7 @@ void main() {
                     child: const PannelloDiMessaAPunto(
                       aiReady: true,
                       memoryPersistent: false,
-                      attestazione:
-                          EsitoAttestazione.nonInstallataPerScelta,
+                      attestazione: EsitoAttestazione.nonInstallataPerScelta,
                       nota: 'Memoria persistente non disponibile.',
                       guasti: null,
                       appCheckDebugToken: null,
@@ -1349,8 +1349,8 @@ void main() {
           ),
           home: RepaintBoundary(
             key: radice,
-            child: RuneDrawScreen(
-                userSign: Zodiac.aries, random: math.Random(7)),
+            child:
+                RuneDrawScreen(userSign: Zodiac.aries, random: math.Random(7)),
           ),
         ),
       ));
@@ -1525,8 +1525,8 @@ void main() {
     final radice = GlobalKey();
     await tester.pumpWidget(RepaintBoundary(
       key: radice,
-      child: EsotericCircleApp(
-          conIntro: false, services: AppServices.offline()),
+      child:
+          EsotericCircleApp(conIntro: false, services: AppServices.offline()),
     ));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 900));
@@ -1818,8 +1818,8 @@ void main() {
       key: radice,
       child: MediaQuery(
         data: const MediaQueryData(disableAnimations: true),
-        child: EsotericCircleApp(
-            conIntro: false, services: AppServices.offline()),
+        child:
+            EsotericCircleApp(conIntro: false, services: AppServices.offline()),
       ),
     ));
     await tester.pump();
@@ -1994,8 +1994,8 @@ void main() {
       ));
       await tester.pump();
       // L'arte del totem e delle carte si decodifica dentro runAsync.
-      await tester.runAsync(() => Future<void>.delayed(
-          const Duration(milliseconds: 400)));
+      await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 400)));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 80));
     }
@@ -2038,7 +2038,8 @@ void main() {
     final radice = GlobalKey();
     await tester.pumpWidget(RepaintBoundary(
       key: radice,
-      child: EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+      child:
+          EsotericCircleApp(conIntro: false, services: AppServices.offline()),
     ));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 900));
@@ -2061,8 +2062,7 @@ void main() {
   // taglio.
   // ORDINE 2171, VOCE 5: l'Oroscopo come consulto. Due scatti, all'apertura
   // e dopo il tocco, perche' la differenza sta proprio fra i due momenti.
-  testWidgets('2171, l Oroscopo all apertura e dopo il tocco',
-      (tester) async {
+  testWidgets('2171, l Oroscopo all apertura e dopo il tocco', (tester) async {
     if (_stato.isEmpty) return;
     silence();
     SharedPreferences.setMockInitialValues({});
@@ -2103,12 +2103,19 @@ void main() {
     if (interroga.evaluate().isNotEmpty) {
       await tester.tap(interroga);
       await tester.pump();
+      // **ORDINE BK: dopo il tocco c'e' la riflessione, poi le schede si
+      // compongono a CASCATA.** Prima bastava attendere la scrittura; adesso
+      // il responso arriva quando i due momenti sono passati e l'ultima
+      // scheda ha finito. Il numero viene dal dato e non e' battuto qui.
+      await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+          HoroscopeDomain.values.length,
+          piena: true));
+      await tester.pump(const Duration(milliseconds: 200));
       await tester.pump(const Duration(seconds: 3));
       await tester.pump(const Duration(seconds: 3));
     }
     await scattaApp(tester, radice, 'oroscopo_consulto');
   });
-
 
   testWidgets('2171, la stesa a taglio compiuto', (tester) async {
     if (_stato.isEmpty) return;
@@ -2145,7 +2152,6 @@ void main() {
 
     await scattaApp(tester, radice, 'stesa_taglio');
   });
-
 
   testWidgets('2169, il punto del luogo sul planisfero', (tester) async {
     if (_stato.isEmpty) return;
@@ -2223,7 +2229,8 @@ void main() {
     final radice = GlobalKey();
     await tester.pumpWidget(RepaintBoundary(
       key: radice,
-      child: EsotericCircleApp(conIntro: false, services: AppServices.offline()),
+      child:
+          EsotericCircleApp(conIntro: false, services: AppServices.offline()),
     ));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
@@ -2251,6 +2258,14 @@ void main() {
     // vede se il testo e' un muro oppure respira.
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
+    // **ORDINE BK: dopo il tocco c'e' la riflessione, poi le schede si
+    // compongono a CASCATA.** Prima bastava attendere la scrittura; adesso
+    // il responso arriva quando i due momenti sono passati e l'ultima
+    // scheda ha finito. Il numero viene dal dato e non e' battuto qui.
+    await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+        HoroscopeDomain.values.length,
+        piena: true));
+    await tester.pump(const Duration(milliseconds: 200));
     await tester.pump(const Duration(seconds: 3));
     await tester.pump(const Duration(seconds: 3));
     await tester.pump(const Duration(seconds: 2));
@@ -2373,8 +2388,8 @@ void main() {
       switch (scena) {
         case 'angeli':
           unawaited(nav.push(AngelsScreen.route(
-              identity: BirthIdentity(
-                  birthMoment: DateTime(1990, 6, 15, 14, 30)))));
+              identity:
+                  BirthIdentity(birthMoment: DateTime(1990, 6, 15, 14, 30)))));
         case 'archetipo':
           unawaited(nav.push(ArchetypeTestScreen.route()));
         case 'volto':
@@ -2450,8 +2465,7 @@ void main() {
           // La gettata sul telo, che e' la scena dell'ordine.
           await tester.ensureVisible(find.text('Il getto sul telo'));
           await tester.pump();
-          await tester.tap(find.text('Il getto sul telo'),
-              warnIfMissed: false);
+          await tester.tap(find.text('Il getto sul telo'), warnIfMissed: false);
           await attesa(800);
           await tester.runAsync(() async {
             final el = tester.element(find.byType(MaterialApp));
@@ -2468,8 +2482,7 @@ void main() {
               }
             }
           });
-          await tester.ensureVisible(
-              find.byKey(const Key('rune_cast_button')));
+          await tester.ensureVisible(find.byKey(const Key('rune_cast_button')));
           await tester.pump();
           await tester.tap(find.byKey(const Key('rune_cast_button')),
               warnIfMissed: false);
@@ -2700,8 +2713,7 @@ void main() {
                 ChangeNotifierProvider(create: (_) => MaestroController()),
                 ChangeNotifierProvider(
                     create: (_) => EntitlementService(initial: Tier.tier1)),
-                ChangeNotifierProvider(
-                    create: (_) => QualityTierController()),
+                ChangeNotifierProvider(create: (_) => QualityTierController()),
                 ChangeNotifierProvider(create: (_) => ParallaxController()),
                 ChangeNotifierProvider(create: (_) => ZodiacController()),
                 ChangeNotifierProvider(create: (_) => ProfileController()),
@@ -2713,8 +2725,7 @@ void main() {
                 theme: AppTheme.dark(),
                 builder: (ctx, child) => MaestroScope(child: child!),
                 home: OroscopoScreen(
-                    userSign: Zodiac.leo,
-                    now: DateTime.utc(2026, 8, 5, 12)),
+                    userSign: Zodiac.leo, now: DateTime.utc(2026, 8, 5, 12)),
               ),
             ),
           ));
@@ -2722,6 +2733,14 @@ void main() {
           await tester.pump(const Duration(milliseconds: 400));
           await tester.tap(find.byKey(const Key('oroscopo_interroga')));
           await tester.pump();
+          // **ORDINE BK: dopo il tocco c'e' la riflessione, poi le schede si
+          // compongono a CASCATA.** Prima bastava attendere la scrittura; adesso
+          // il responso arriva quando i due momenti sono passati e l'ultima
+          // scheda ha finito. Il numero viene dal dato e non e' battuto qui.
+          await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+              HoroscopeDomain.values.length,
+              piena: true));
+          await tester.pump(const Duration(milliseconds: 200));
           await tester.pump(const Duration(seconds: 2));
           for (var i = 0; i < 8; i++) {
             await tester.pump(const Duration(milliseconds: 500));
@@ -2731,8 +2750,7 @@ void main() {
               scrollable: find.byType(Scrollable).first);
           await tester.pump();
           if (scena == 'oroscopo_profonda_i') {
-            await tester
-                .tap(find.byKey(const Key('oroscopo_depth_carriera')));
+            await tester.tap(find.byKey(const Key('oroscopo_depth_carriera')));
             await tester.pump();
             await tester.pump(const Duration(milliseconds: 300));
             await tester.tap(find.text('Profonda').last);
@@ -2760,8 +2778,7 @@ void main() {
                 ChangeNotifierProvider(
                     create: (_) => MaestroController(
                         initial: const ThemeKey.of(Maestro.caligo))),
-                ChangeNotifierProvider(
-                    create: (_) => QualityTierController()),
+                ChangeNotifierProvider(create: (_) => QualityTierController()),
                 ChangeNotifierProvider(create: (_) => ParallaxController()),
                 ChangeNotifierProvider(create: (_) => ZodiacController()),
                 ChangeNotifierProvider(create: (_) => EntitlementService()),
@@ -2790,14 +2807,12 @@ void main() {
             }
           });
           // Tre getti: il primo dal pulsante, gli altri da Getta ancora.
-          await tester
-              .ensureVisible(find.byKey(const Key('rune_cast_button')));
+          await tester.ensureVisible(find.byKey(const Key('rune_cast_button')));
           await tester.pump();
           await tester.tap(find.byKey(const Key('rune_cast_button')));
           await attesa(800);
           for (var i = 0; i < 2; i++) {
-            await tester
-                .ensureVisible(find.byKey(const Key('rune_recast')));
+            await tester.ensureVisible(find.byKey(const Key('rune_recast')));
             await tester.pump();
             await tester.tap(find.byKey(const Key('rune_recast')));
             await attesa(800);
@@ -2938,6 +2953,14 @@ void main() {
         await tester.pump(const Duration(milliseconds: 400));
         await tester.tap(find.byKey(const Key('oroscopo_interroga')));
         await tester.pump();
+        // **ORDINE BK: dopo il tocco c'e' la riflessione, poi le schede si
+        // compongono a CASCATA.** Prima bastava attendere la scrittura; adesso
+        // il responso arriva quando i due momenti sono passati e l'ultima
+        // scheda ha finito. Il numero viene dal dato e non e' battuto qui.
+        await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+            HoroscopeDomain.values.length,
+            piena: true));
+        await tester.pump(const Duration(milliseconds: 200));
         await tester.pump(const Duration(seconds: 2));
         for (var i = 0; i < 8; i++) {
           await tester.pump(const Duration(milliseconds: 500));
@@ -3000,8 +3023,7 @@ void main() {
       Future<void> montaAnimale() async {
         final esito = ArchetypeEsito(
           quando: DateTime(2026, 7, 22, 10),
-          percentuali:
-              ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
+          percentuali: ArchetypeScoring.calcola(List.filled(12, 3)).percentuali,
           dominante: Archetype.realista,
         );
         SharedPreferences.setMockInitialValues({
@@ -3019,7 +3041,8 @@ void main() {
               ChangeNotifierProvider(create: (_) => ZodiacController()),
               ChangeNotifierProvider(create: (_) => EntitlementService()),
               ChangeNotifierProvider(create: (_) => QuestionAllowance()),
-              ChangeNotifierProvider(create: (_) => ArchetypeHistory()..carica()),
+              ChangeNotifierProvider(
+                  create: (_) => ArchetypeHistory()..carica()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -3110,8 +3133,7 @@ void main() {
             child: MultiProvider(
               providers: [
                 ChangeNotifierProvider(create: (_) => MaestroController()),
-                ChangeNotifierProvider(
-                    create: (_) => QualityTierController()),
+                ChangeNotifierProvider(create: (_) => QualityTierController()),
                 ChangeNotifierProvider(create: (_) => ParallaxController()),
                 ChangeNotifierProvider(create: (_) => ZodiacController()),
               ],
@@ -3140,8 +3162,8 @@ void main() {
           await tester.pump(const Duration(milliseconds: 250));
         case 'animale_rivelato_l':
           await montaAnimale();
-          await tester.ensureVisible(
-              find.byKey(const Key('animal_journey_skip')));
+          await tester
+              .ensureVisible(find.byKey(const Key('animal_journey_skip')));
           await tester.pump();
           await tester.tap(find.byKey(const Key('animal_journey_skip')));
           await attesa(1200);
@@ -3178,8 +3200,8 @@ void main() {
       key: radice,
       child: MediaQuery(
         data: const MediaQueryData(disableAnimations: true),
-        child: EsotericCircleApp(
-            conIntro: false, services: AppServices.offline()),
+        child:
+            EsotericCircleApp(conIntro: false, services: AppServices.offline()),
       ),
     ));
     await tester.pump();
@@ -3333,7 +3355,7 @@ void main() {
     'disegno_albero_p',
     'disegno_loto_p',
     'celebrazione_grande_o',
-        'card_riaperta_o',
+    'card_riaperta_o',
   ]) {
     testWidgets('O, la scena $scena', (tester) async {
       if (_stato.isEmpty) return;

@@ -13,9 +13,12 @@ import '../../core/horoscope/astro_tradition.dart';
 import '../../core/horoscope/cielo_di_oggi.dart';
 import '../../core/horoscope/corrente_del_cielo.dart';
 import '../../core/horoscope/horoscope.dart';
+import '../../core/horoscope/riflessione_del_cielo.dart';
 import '../../core/identity/natal_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
+import '../../core/sensi/catalogo_suoni.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/testo_che_si_scrive.dart';
 import '../../design_system/components/entrance_cascade.dart';
@@ -30,6 +33,7 @@ import '../pricing/upgrade_invite.dart';
 import 'horoscope_visuals.dart';
 import 'oroscopo_colors.dart';
 import 'oroscopo_share_card.dart';
+import 'riflessione_del_cielo_view.dart';
 import 'tradition_glyph.dart';
 import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
@@ -83,8 +87,10 @@ class OroscopoScreen extends StatefulWidget {
 
   static Route<void> route({required Zodiac userSign, DateTime? now}) {
     return MaterialPageRoute<void>(
-      builder: (_) =>
-          SogliaArte(id: 'horoscope', maestro: Maestro.medora, child: OroscopoScreen(userSign: userSign, now: now)),
+      builder: (_) => SogliaArte(
+          id: 'horoscope',
+          maestro: Maestro.medora,
+          child: OroscopoScreen(userSign: userSign, now: now)),
     );
   }
 
@@ -106,27 +112,60 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// Prima la schermata mostrava l'oroscopo dal primo fotogramma: sembrava
   /// uscito da una macchina, senza studio ne' interpretazione. Adesso c'e' un
   /// gesto, e i testi si compongono dopo.
-  bool _interrogato = false;
+  /// **LA FASE DEL CONSULTO, ordine BK voci 02 e 03.**
+  ///
+  /// Prima erano DUE booleani, `_interrogato` e `_interrogazione`, e il
+  /// difetto stava proprio li': diventavano veri nello stesso istante, quindi
+  /// le quattro schede montavano al tocco mentre `scrivendo` valeva falso, e
+  /// con `scrivendo` falso il responso si costruisce INTERO. La pausa esisteva
+  /// e non era mai visibile. Due booleani indipendenti possono trovarsi in
+  /// quattro combinazioni, e una sola era quella giusta: una fase sola non ha
+  /// combinazioni sbagliate da assumere.
+  _FaseDelConsulto _fase = _FaseDelConsulto.attesa;
 
-  /// Vero mentre l'emblema pulsa: dal tocco fino a [_durataInterrogazione].
-  bool _interrogazione = false;
+  /// Vero mentre uno dei due momenti della riflessione e' a schermo.
+  bool get _riflettendo =>
+      _fase == _FaseDelConsulto.raccolta || _fase == _FaseDelConsulto.nomina;
 
-  /// Quanto dura la pulsazione dell'emblema prima che i testi comincino a
-  /// scriversi. Due secondi: il tempo di capire che qualcosa sta accadendo,
-  /// senza che diventi un'attesa.
-  static const Duration _durataInterrogazione = Duration(seconds: 2);
+  /// Quale scheda sta scrivendo adesso: le altre, dopo di lei, non sono
+  /// ancora nate. Meno uno vuol dire che non ne e' nata nessuna.
+  int _turnoDiScrittura = -1;
 
-  /// Quanto ci mette un responso a scriversi per intero, al massimo. La
-  /// velocita' vive qui e non dentro il widget: e' una scelta del rito, e chi
-  /// la cambia deve vederla dichiarata.
-  static const Duration _durataScrittura = Duration(milliseconds: 2600);
+  /// La cascata delle schede, ordine BK voce 03.
+  Timer? _cascata;
+
+  /// Se l'attesa piena e' gia' stata spesa oggi, letta dal disco all'apertura.
+  /// Ordine BK voce 05.
+  bool _attesaPienaGiaSpesa = false;
+
+  /// Se QUESTO consulto ha avuto la riflessione piena: decide anche quanto
+  /// dura la raccolta dei corpi attorno all'emblema, cosi' la corona finisce
+  /// di comporsi quando il momento finisce, breve o pieno che sia.
+  bool _pienaQuestoConsulto = true;
+
+  /// Quante schede compone il responso. Dal dato, non da un numero battuto
+  /// qui: se domani i domini diventano cinque, la cascata li segue.
+  static final int _quanteSchede = HoroscopeDomain.values.length;
 
   Future<void> _interrogaIlCielo() async {
-    if (_interrogato) return;
-    setState(() {
-      _interrogato = true;
-      _interrogazione = true;
-    });
+    if (_fase != _FaseDelConsulto.attesa) return;
+    // **L'ATTESA PIENA UNA VOLTA AL GIORNO, ordine BK voce 05.** La prima
+    // interrogazione del giorno ha la riflessione intera; le successive la
+    // stessa scena, compressa. Il giorno lo decide `ConfineDelGiorno`, che e'
+    // l'autorita' del confine in tutta l'app, e il conteggio sta sul disco.
+    final piena = !_attesaPienaGiaSpesa;
+    _pienaQuestoConsulto = piena;
+    _attesaPienaGiaSpesa = true;
+    unawaited(MemoriaDellaRiflessione.segnaSpesaOggi(_date));
+    setState(() => _fase = _FaseDelConsulto.raccolta);
+    // **LA SOGLIA, ordine BK voce 04.** Vibrazione leggera e suono di soglia,
+    // dalla porta unica: l'interruttore che governa suono e vibrazione e'
+    // quello che c'e' gia', e non ne nasce un secondo.
+    unawaited(PaletteSensoriale.momento(
+      context,
+      aptica: SchemaAptico.tocco,
+      suono: SuonoDelCerchio.soglia,
+    ));
     // L'OROSCOPO ENTRA NEL CAMMINO, ordine P voce 35. Il gesto e'
     // l'interrogazione del cielo, non l'apertura della scena: una scena si
     // apre anche per sbaglio, un'interrogazione no.
@@ -138,14 +177,51 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       'oroscopo',
       dettagli: {'periodo': _period.name},
     ));
-    // Con Riduci Movimento non c'e' pulsazione da aspettare: il responso
-    // compare intero, subito.
+    // **QUI C'ERA IL RITORNO ANTICIPATO, e l'ordine BK lo vieta.** Con Riduci
+    // Movimento la funzione tornava subito e la riflessione non avveniva
+    // affatto: chi ha tolto le animazioni non aveva chiesto di saltare il
+    // rito, aveva chiesto che non si muovesse. I due momenti restano, fermi e
+    // dichiarati, con la stessa durata; cambia solo che non c'e' movimento
+    // dentro, e che il responso non si scrive a macchina.
+    final passo = RiflessioneDelCielo.momento(piena: piena);
+    await Future<void>.delayed(passo);
+    if (!mounted) return;
+    setState(() => _fase = _FaseDelConsulto.nomina);
+    await Future<void>.delayed(passo);
+    if (!mounted) return;
+    setState(() {
+      _fase = _FaseDelConsulto.responso;
+      _turnoDiScrittura = 0;
+    });
+    // **LA RIVELAZIONE, ordine BK voce 04.** Parte alla comparsa del responso,
+    // cioe' almeno un'intera riflessione dopo la soglia: i due suoni non si
+    // sovrappongono mai, e ciascuno parte una volta sola per consulto.
+    unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.rivelazione));
+    _avviaLaCascata();
+  }
+
+  /// **LA CASCATA DELLE SCHEDE, ordine BK voce 03.**
+  ///
+  /// L'ordine pone due tetti diversi, la prima scheda entro 3,5 secondi dal
+  /// tocco e l'ultima entro 6,0: due numeri diversi hanno senso solo se le
+  /// schede non finiscono tutte insieme. Chi apre l'Oroscopo legge la Generale
+  /// mentre le altre si compongono, invece di aspettare fermo che appaia
+  /// tutto.
+  void _avviaLaCascata() {
+    _cascata?.cancel();
+    // Senza movimento non c'e' scrittura da scaglionare: le schede nascono
+    // tutte insieme, gia' intere.
     if (MediaQuery.of(context).disableAnimations) {
-      setState(() => _interrogazione = false);
+      setState(() => _turnoDiScrittura = _quanteSchede - 1);
       return;
     }
-    await Future<void>.delayed(_durataInterrogazione);
-    if (mounted) setState(() => _interrogazione = false);
+    _cascata = Timer.periodic(RiflessioneDelCielo.passoFraLeSchede, (t) {
+      if (!mounted || _turnoDiScrittura >= _quanteSchede - 1) {
+        t.cancel();
+        return;
+      }
+      setState(() => _turnoDiScrittura++);
+    });
   }
 
   // La tradizione scelta e il micro messaggio del Maestro sull'ultima
@@ -196,7 +272,22 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       '${dominio.name}|${_depth[dominio]!.name}|$_year-$_dayOfYear';
 
   @override
+  void initState() {
+    super.initState();
+    // **L'ATTESA PIENA SI CHIEDE AL DISCO ALL'APERTURA, ordine BK voce 05.**
+    // Si legge qui e non al tocco, perche' un `await` fra il dito e il primo
+    // momento sarebbe un vuoto proprio nell'istante che questo ordine esiste
+    // per riempire. Finche' il disco non ha risposto vale la riflessione
+    // PIENA: nel dubbio si aspetta di piu', mai di meno, e saltare il rito e'
+    // l'unico esito che l'ordine vieta.
+    unawaited(MemoriaDellaRiflessione.giaSpesaOggi(_date).then((spesa) {
+      if (mounted) _attesaPienaGiaSpesa = spesa;
+    }));
+  }
+
+  @override
   void dispose() {
+    _cascata?.cancel();
     _pulse.dispose();
     super.dispose();
   }
@@ -207,8 +298,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // attivo altrove fosse un altro. Lo sfondo resta il cosmo ambientale.
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final profile = context.watch<ProfileController>();
-    final vocative =
-        Horoscope.vocativeFor(profile.vocative, profile.courtesy);
+    final vocative = Horoscope.vocativeFor(profile.vocative, profile.courtesy);
     final opening = Horoscope.openingFor(
         sign: widget.userSign,
         dayOfYear: _dayOfYear,
@@ -285,13 +375,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // L'EMBLEMA PULSA MENTRE IL CIELO SI INTERROGA: e' il
                       // segno che qualcosa sta accadendo, e dura quanto la
                       // pausa dichiarata.
-                      interrogazione: _interrogazione,
+                      interrogazione: _riflettendo,
+                      // I CORPI VERI ATTORNO ALL'EMBLEMA, primo momento.
+                      corona: _fase == _FaseDelConsulto.raccolta,
+                      adesso: _date,
+                      durataDelMomento: RiflessioneDelCielo.momento(
+                          piena: _pienaQuestoConsulto),
                     ),
                   ],
                 ),
                 items: [
-                  _Heading(
-                      periodo: _period, date: _date, palette: palette),
+                  _Heading(periodo: _period, date: _date, palette: palette),
                   const SizedBox(height: SpacingTokens.md),
                   _PeriodTabs(
                     current: _period,
@@ -317,39 +411,61 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                   const SizedBox(height: SpacingTokens.md),
                   // IL GESTO CHE APRE IL CONSULTO. Prima del tocco l'oroscopo
                   // non si vede: il cielo si interroga.
-                  if (!_interrogato)
+                  if (_fase == _FaseDelConsulto.attesa)
                     _InterrogaIlCielo(
                       palette: palette,
                       onTap: _interrogaIlCielo,
                     ),
-                  if (_interrogato)
-                    for (final card in cards) ...[
-                    _HoroscopeCardView(
-                      scrivendo: !_interrogazione,
-                      durataScrittura: _durataScrittura,
-                      card: card,
+                  // I DUE MOMENTI DELLA RIFLESSIONE, ordine BK voce 03. Stanno
+                  // dove staranno le schede, cosi' lo sguardo non si sposta
+                  // quando il responso arriva.
+                  if (_riflettendo)
+                    RigaDellaRiflessione(
+                      momento: _fase == _FaseDelConsulto.raccolta
+                          ? MomentoDellaRiflessione.raccolta
+                          : MomentoDellaRiflessione.nomina,
+                      cielo: cielo,
                       palette: palette,
-                      pulse: _pulse,
-                      depth: _depth[card.domain]!,
-                      // Il "gia' scritto" abita la schermata: la scheda lo
-                      // legge quando nasce e lo dichiara quando finisce.
-                      // LETTURA VIVA, non un booleano catturato: i widget
-                      // della lista vengono costruiti una volta e rinascono
-                      // dopo, quindi un valore fissato alla costruzione
-                      // sarebbe sempre vecchio. Il gancio legge il registro
-                      // nel momento della rinascita.
-                      giaScritto: () =>
-                          _testiScritti.contains(_chiaveDelTesto(card.domain)),
-                      onScritto: () =>
-                          _testiScritti.add(_chiaveDelTesto(card.domain)),
-                      onDepthSelected: (depth) =>
-                          _scegliProfondita(card.domain, depth),
-                      onDepthLocked: (depth) => _showDepthLocked(card.domain, depth),
-                      premiumUnlocked: PlanCatalog.haProfondita(
-                          context.watch<EntitlementService>().tier),
                     ),
-                    const SizedBox(height: SpacingTokens.md),
-                  ],
+                  // **LE SCHEDE NASCONO DOPO LA RIFLESSIONE, E UNA ALLA
+                  // VOLTA.** Ordine BK voci 02 e 03. Prima montavano al tocco,
+                  // ed e' per questo che il responso si vedeva intero: una
+                  // scheda che esiste mentre la scrittura non e' cominciata
+                  // mostra tutto il suo testo. Qui, finche' non e' il suo
+                  // turno, la scheda non e' in albero affatto: i caratteri del
+                  // responso presenti durante la riflessione sono ZERO, e non
+                  // per un'opacita' che li nasconde.
+                  if (_fase == _FaseDelConsulto.responso)
+                    for (var i = 0; i < cards.length; i++)
+                      if (i <= _turnoDiScrittura) ...[
+                        _HoroscopeCardView(
+                          scrivendo: true,
+                          durataScrittura:
+                              RiflessioneDelCielo.scritturaDiUnaScheda,
+                          card: cards[i],
+                          palette: palette,
+                          pulse: _pulse,
+                          depth: _depth[cards[i].domain]!,
+                          // Il "gia' scritto" abita la schermata: la scheda lo
+                          // legge quando nasce e lo dichiara quando finisce.
+                          // LETTURA VIVA, non un booleano catturato: i widget
+                          // della lista vengono costruiti una volta e rinascono
+                          // dopo, quindi un valore fissato alla costruzione
+                          // sarebbe sempre vecchio. Il gancio legge il registro
+                          // nel momento della rinascita.
+                          giaScritto: () => _testiScritti
+                              .contains(_chiaveDelTesto(cards[i].domain)),
+                          onScritto: () => _testiScritti
+                              .add(_chiaveDelTesto(cards[i].domain)),
+                          onDepthSelected: (depth) =>
+                              _scegliProfondita(cards[i].domain, depth),
+                          onDepthLocked: (depth) =>
+                              _showDepthLocked(cards[i].domain, depth),
+                          premiumUnlocked: PlanCatalog.haProfondita(
+                              context.watch<EntitlementService>().tier),
+                        ),
+                        const SizedBox(height: SpacingTokens.md),
+                      ],
                   // LA NOTA CHE DICHIARA IL RIPIEGO, quando il cielo non c'e'.
                   //
                   // Una riga generica scritta con lo stesso carattere di una
@@ -368,19 +484,19 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                   // che nessuno aveva ancora chiesto, e la card che ne usciva
                   // portava testi mai comparsi a video: e' lo stesso difetto
                   // che il gesto Interroga il cielo esiste per togliere.
-                  if (_interrogato)
+                  if (_fase == _FaseDelConsulto.responso)
                     _ShareBlock(
                       palette: palette,
                       sharing: _sharing,
                       onShare: _onShare,
                     ),
-            // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
-            //
-            // Le linee guida dicevano da sempre "una volta sola", e per
-            // sette volte ognuno ha pensato che il proprio fosse quella
-            // volta. Un disclaimer ripetuto smette di essere letto e
-            // diventa un modo di scaricare la responsabilita' invece di
-            // dirla. Adesso sta in un posto solo, nell'area privacy.
+                  // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
+                  //
+                  // Le linee guida dicevano da sempre "una volta sola", e per
+                  // sette volte ognuno ha pensato che il proprio fosse quella
+                  // volta. Un disclaimer ripetuto smette di essere letto e
+                  // diventa un modo di scaricare la responsabilita' invece di
+                  // dirla. Adesso sta in un posto solo, nell'area privacy.
                 ],
               ),
               if (_renderCard)
@@ -423,7 +539,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       context,
       title: 'L\'oroscopo della ${period.label.toLowerCase()} è del Cerchio '
           'Premium',
-      message: 'Col piano superiore leggi anche la ${period.label.toLowerCase()}, '
+      message:
+          'Col piano superiore leggi anche la ${period.label.toLowerCase()}, '
           'oltre il giorno.',
     );
   }
@@ -461,12 +578,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         text:
             'Il mio oroscopo di oggi, ${widget.userSign.italianName}. Esoteric Circle.',
       );
-if (andata && mounted) {
-  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
-  // a condivisione davvero avvenuta.
-  await PremioDellaCondivisione.premia(context,
-      cosa: 'Hai condiviso il tuo oroscopo');
-}
+      if (andata && mounted) {
+        // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+        // a condivisione davvero avvenuta.
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso il tuo oroscopo');
+      }
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -551,8 +668,8 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
 
   void _armaLaFine() {
     _fine?.cancel();
-    _fine = Timer(widget.durataScrittura + const Duration(milliseconds: 50),
-        () {
+    _fine =
+        Timer(widget.durataScrittura + const Duration(milliseconds: 50), () {
       if (mounted) widget.onScritto();
     });
   }
@@ -732,11 +849,27 @@ class _Hero extends StatelessWidget {
     required this.palette,
     required this.pulse,
     this.interrogazione = false,
+    this.corona = false,
+    required this.adesso,
+    this.durataDelMomento = RiflessioneDelCielo.momentoPieno,
   });
 
   final Zodiac sign;
   final MaestroPalette palette;
   final Animation<double> pulse;
+
+  /// Se attorno all'emblema si raccolgono i corpi veri del giorno. Ordine BK
+  /// voce 03, primo momento.
+  final bool corona;
+
+  /// Il giorno da cui vengono le posizioni dei corpi: lo stesso della
+  /// schermata, quindi la corona mostra il cielo del responso e non quello
+  /// dell'istante in cui si guarda.
+  final DateTime adesso;
+
+  /// Quanto dura il momento, cosi' i corpi finiscono di raccogliersi quando il
+  /// momento finisce, sia nella riflessione piena sia in quella breve.
+  final Duration durataDelMomento;
 
   /// Vero mentre il cielo si interroga: l'alone si accende di piu', perche' si
   /// capisca che c'e' un'elaborazione in corso e non un'attesa vuota.
@@ -787,6 +920,14 @@ class _Hero extends StatelessWidget {
                   sign: sign,
                   size: 264,
                   art: ZodiacEmblemArt.emblem),
+              if (corona)
+                CoronaDeiCorpi(
+                  key: const Key('oroscopo_corona_dei_corpi'),
+                  adesso: adesso,
+                  palette: palette,
+                  raggio: 122,
+                  durata: durataDelMomento,
+                ),
             ],
           );
         },
@@ -915,8 +1056,9 @@ class _TraditionChip extends StatelessWidget {
     final locked = !tradition.unlocked;
     // Alla persona si dice soltanto "In arrivo": la fase e' un dato di piano e
     // resta nella sola vista Demo per gli investitori.
-    final fase =
-        AppFlags.isDemo && tradition.phase != null ? ', ${tradition.phase}' : '';
+    final fase = AppFlags.isDemo && tradition.phase != null
+        ? ', ${tradition.phase}'
+        : '';
     return GestureDetector(
       key: Key('oroscopo_tradition_${tradition.name}'),
       onTap: onTap,
@@ -934,9 +1076,8 @@ class _TraditionChip extends StatelessWidget {
                   palette.surfaceElevated.withValues(alpha: 0.85),
                 ])
               : null,
-          color: selected
-              ? null
-              : palette.surfaceElevated.withValues(alpha: 0.35),
+          color:
+              selected ? null : palette.surfaceElevated.withValues(alpha: 0.35),
           border: Border.all(
             color: palette.gold.withValues(alpha: selected ? 0.6 : 0.25),
           ),
@@ -1046,7 +1187,8 @@ class _TraditionInvite extends StatelessWidget {
       curve: Curves.easeOutCubic,
       builder: (context, v, child) => Opacity(
         opacity: v,
-        child: Transform.translate(offset: Offset(0, (1 - v) * 8), child: child),
+        child:
+            Transform.translate(offset: Offset(0, (1 - v) * 8), child: child),
       ),
       child: riga,
     );
@@ -1301,8 +1443,8 @@ class _NotaDelCielo extends StatelessWidget {
           const SizedBox(width: SpacingTokens.sm),
           Expanded(
             child: Text(testo,
-                style: TypographyTokens.didascalia().copyWith(
-                    color: ColorTokens.textSecondary, height: 1.45)),
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.45)),
           ),
         ],
       ),
@@ -1346,8 +1488,7 @@ class _ShareBlock extends StatelessWidget {
               sharing
                   ? 'Preparo la card'
                   : PremioDellaCondivisione.etichetta(context),
-              style:
-                  TypographyTokens.etichetta().copyWith(letterSpacing: 0.6)),
+              style: TypographyTokens.etichetta().copyWith(letterSpacing: 0.6)),
         ),
       ],
     );
@@ -1438,4 +1579,25 @@ class _Pill extends StatelessWidget {
       ),
     );
   }
+}
+
+/// LE FASI DEL CONSULTO, ordine BK voci 02 e 03.
+///
+/// Una fase sola al posto di due booleani indipendenti. Il difetto che l'ha
+/// resa necessaria: `_interrogato` e `_interrogazione` diventavano veri
+/// insieme, e la combinazione "schede montate mentre la scrittura non e'
+/// ancora cominciata" mostrava il responso intero. Qui quella combinazione non
+/// esiste, perche' le schede appartengono a una fase che viene DOPO.
+enum _FaseDelConsulto {
+  /// Il cielo non e' stato ancora interrogato: c'e' il gesto, e nient'altro.
+  attesa,
+
+  /// Primo momento: il cielo si raccoglie, coi corpi veri attorno all'emblema.
+  raccolta,
+
+  /// Secondo momento: il fatto vero del giorno viene nominato.
+  nomina,
+
+  /// Il responso si compone, una scheda dopo l'altra.
+  responso,
 }

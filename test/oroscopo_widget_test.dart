@@ -22,6 +22,7 @@ import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
+import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -147,6 +148,14 @@ void main() {
       if (interroga.evaluate().isNotEmpty) {
         await tester.tap(interroga);
         await tester.pump();
+        // **ORDINE BK: dopo il tocco c'e' la riflessione, poi le schede si
+        // compongono a CASCATA.** Prima bastava attendere la scrittura; adesso
+        // il responso arriva quando i due momenti sono passati e l'ultima
+        // scheda ha finito. Il numero viene dal dato e non e' battuto qui.
+        await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+            HoroscopeDomain.values.length,
+            piena: true));
+        await tester.pump(const Duration(milliseconds: 200));
         await tester.pump(const Duration(milliseconds: 600));
       }
     }
@@ -176,9 +185,8 @@ void main() {
     testWidgets('L\'apertura personalizzata porta il nome della persona',
         (tester) async {
       await pumpScreen(tester);
-      final opening = tester
-          .widget<Text>(find.byKey(const Key('oroscopo_opening')))
-          .data!;
+      final opening =
+          tester.widget<Text>(find.byKey(const Key('oroscopo_opening'))).data!;
       // Il profilo della Demo e' Sofia, femminile: vocativo "Cara Sofia".
       expect(opening, startsWith('Cara Sofia,'));
       // E resta una delle aperture del pool.
@@ -229,8 +237,8 @@ void main() {
         final card = find.byKey(Key('oroscopo_card_${domain.name}'));
         final categoria = tester.getTopLeft(find.descendant(
             of: card, matching: find.text(domain.label.toUpperCase())));
-        final livello = tester.getTopLeft(find.descendant(
-            of: card, matching: find.byType(DomainLevel)));
+        final livello = tester.getTopLeft(
+            find.descendant(of: card, matching: find.byType(DomainLevel)));
         expect(livello.dy, greaterThan(categoria.dy),
             reason:
                 'l\'infografica di ${domain.label} non sta sotto la categoria');
@@ -369,8 +377,7 @@ void main() {
         (tester) async {
       await loadFonts();
       for (final sign in Zodiac.values) {
-        final cards =
-            Horoscope.forSign(sign: sign, dayOfYear: 200, year: 2026);
+        final cards = Horoscope.forSign(sign: sign, dayOfYear: 200, year: 2026);
         await tester.pumpWidget(MaterialApp(
           home: Scaffold(
             body: SingleChildScrollView(
@@ -518,10 +525,12 @@ void main() {
       expect(find.text('NUMERO'), findsOneWidget);
       expect(find.text('COLORE'), findsOneWidget);
       // Le due bolle hanno la stessa misura.
-      final numero = tester.getSize(find.ancestor(
-          of: find.text('NUMERO'), matching: find.byType(Container)).first);
-      final colore = tester.getSize(find.ancestor(
-          of: find.text('COLORE'), matching: find.byType(Container)).first);
+      final numero = tester.getSize(find
+          .ancestor(of: find.text('NUMERO'), matching: find.byType(Container))
+          .first);
+      final colore = tester.getSize(find
+          .ancestor(of: find.text('COLORE'), matching: find.byType(Container))
+          .first);
       expect((numero.width - colore.width).abs(), lessThan(1.0),
           reason: 'le bolle Numero e Colore hanno larghezza diversa');
       expect((numero.height - colore.height).abs(), lessThan(1.0),
@@ -531,8 +540,7 @@ void main() {
     testWidgets('Il titolo della Carriera non e\' troncato', (tester) async {
       await loadFonts();
       for (final sign in Zodiac.values) {
-        final cards =
-            Horoscope.forSign(sign: sign, dayOfYear: 190, year: 2026);
+        final cards = Horoscope.forSign(sign: sign, dayOfYear: 190, year: 2026);
         final carriera =
             cards.firstWhere((c) => c.domain == HoroscopeDomain.carriera);
         await tester.pumpWidget(MaterialApp(

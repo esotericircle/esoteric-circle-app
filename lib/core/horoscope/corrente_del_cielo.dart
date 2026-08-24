@@ -528,7 +528,14 @@ class CorrenteDelCielo {
       false => ' che si sta sciogliendo',
       null => '',
     };
-    return 'Oggi ${v.transito.nome} forma '
+    // **L'ARTICOLO DEL PIANETA, e non e' un dettaglio.** Usciva "Oggi Sole
+    // forma un trigono", che e' lo stesso errore che `colSuoArticolo` esiste
+    // per impedire: in italiano il Sole e la Luna l'articolo ce l'hanno, Marte
+    // e Venere no perche' sono nomi propri. Il mattone c'era e questa riga non
+    // lo usava; nessuna prova la guardava perche' fino all'ordine BK nessuno
+    // mostrava questa frase a video. L'ha trovata l'anteprima del secondo
+    // momento, guardata: e' il motivo per cui le anteprime si guardano.
+    return 'Oggi ${colSuoArticolo(v.transito, maiuscola: false)} forma '
         '${articoloDellAspetto[v.aspetto]} ${_alBersaglio(v)}$coda.';
   }
 

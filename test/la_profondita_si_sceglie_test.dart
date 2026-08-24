@@ -15,6 +15,8 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
+import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -38,15 +40,35 @@ void main() {
     sunSign: Zodiac.leo,
     planets: const [
       PlanetPosition(
-          id: 'sun', name: 'Sole', glyph: '☉', longitude: 128.4, sign: Zodiac.leo),
+          id: 'sun',
+          name: 'Sole',
+          glyph: '☉',
+          longitude: 128.4,
+          sign: Zodiac.leo),
       PlanetPosition(
-          id: 'moon', name: 'Luna', glyph: '☽', longitude: 12.7, sign: Zodiac.leo),
+          id: 'moon',
+          name: 'Luna',
+          glyph: '☽',
+          longitude: 12.7,
+          sign: Zodiac.leo),
       PlanetPosition(
-          id: 'venus', name: 'Venere', glyph: '♀', longitude: 150.2, sign: Zodiac.leo),
+          id: 'venus',
+          name: 'Venere',
+          glyph: '♀',
+          longitude: 150.2,
+          sign: Zodiac.leo),
       PlanetPosition(
-          id: 'mars', name: 'Marte', glyph: '♂', longitude: 61.9, sign: Zodiac.leo),
+          id: 'mars',
+          name: 'Marte',
+          glyph: '♂',
+          longitude: 61.9,
+          sign: Zodiac.leo),
       PlanetPosition(
-          id: 'saturn', name: 'Saturno', glyph: '♄', longitude: 300.5, sign: Zodiac.leo),
+          id: 'saturn',
+          name: 'Saturno',
+          glyph: '♄',
+          longitude: 300.5,
+          sign: Zodiac.leo),
     ],
     ascendantLongitude: 205.0,
     midheavenLongitude: 115.0,
@@ -81,7 +103,8 @@ void main() {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
-        ChangeNotifierProvider(create: (_) => EntitlementService(initial: piano)),
+        ChangeNotifierProvider(
+            create: (_) => EntitlementService(initial: piano)),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
@@ -109,6 +132,14 @@ void main() {
     // sullo schermo.
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
+    // **ORDINE BK: dopo il tocco c'e' la riflessione, poi le schede si
+    // compongono a CASCATA.** Prima bastava attendere la scrittura; adesso
+    // il responso arriva quando i due momenti sono passati e l'ultima
+    // scheda ha finito. Il numero viene dal dato e non e' battuto qui.
+    await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+        HoroscopeDomain.values.length,
+        piena: true));
+    await tester.pump(const Duration(milliseconds: 200));
     await tester.pump(const Duration(milliseconds: 600));
   }
 

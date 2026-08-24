@@ -17,6 +17,7 @@ import 'package:esoteric_circle/design_system/tokens/spacing_tokens.dart';
 import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -37,15 +38,35 @@ void main() {
     sunSign: Zodiac.leo,
     planets: const [
       PlanetPosition(
-          id: 'sun', name: 'Sole', glyph: '☉', longitude: 128.4, sign: Zodiac.leo),
+          id: 'sun',
+          name: 'Sole',
+          glyph: '☉',
+          longitude: 128.4,
+          sign: Zodiac.leo),
       PlanetPosition(
-          id: 'moon', name: 'Luna', glyph: '☽', longitude: 12.7, sign: Zodiac.leo),
+          id: 'moon',
+          name: 'Luna',
+          glyph: '☽',
+          longitude: 12.7,
+          sign: Zodiac.leo),
       PlanetPosition(
-          id: 'venus', name: 'Venere', glyph: '♀', longitude: 150.2, sign: Zodiac.leo),
+          id: 'venus',
+          name: 'Venere',
+          glyph: '♀',
+          longitude: 150.2,
+          sign: Zodiac.leo),
       PlanetPosition(
-          id: 'mars', name: 'Marte', glyph: '♂', longitude: 61.9, sign: Zodiac.leo),
+          id: 'mars',
+          name: 'Marte',
+          glyph: '♂',
+          longitude: 61.9,
+          sign: Zodiac.leo),
       PlanetPosition(
-          id: 'saturn', name: 'Saturno', glyph: '♄', longitude: 300.5, sign: Zodiac.leo),
+          id: 'saturn',
+          name: 'Saturno',
+          glyph: '♄',
+          longitude: 300.5,
+          sign: Zodiac.leo),
     ],
     ascendantLongitude: 205.0,
     midheavenLongitude: 115.0,
@@ -64,7 +85,8 @@ void main() {
 
   CieloDiOggi cielo() => CieloDiOggi.perIlGiorno(adesso: adesso, carta: carta);
 
-  test('per ogni scheda la Profonda ha piu\' blocchi e piu\' testo, e '
+  test(
+      'per ogni scheda la Profonda ha piu\' blocchi e piu\' testo, e '
       'contiene la Breve', () {
     expect(cielo().ceCieloVero, isTrue,
         reason: 'La carta di prova non produce un cielo vero: senza transiti '
@@ -105,7 +127,8 @@ void main() {
     expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
 
-  testWidgets('toccata Profonda, la scheda Carriera mostra tutto il testo e '
+  testWidgets(
+      'toccata Profonda, la scheda Carriera mostra tutto il testo e '
       'sotto non resta vuoto', (tester) async {
     tester.view.physicalSize = const Size(440, 3000);
     tester.view.devicePixelRatio = 1.0;
@@ -149,6 +172,14 @@ void main() {
     // Si apre il consulto e si lascia finire l'interrogazione e la scrittura.
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
+    // **ORDINE BK: dopo il tocco c'e' la riflessione, poi le schede si
+    // compongono a CASCATA.** Prima bastava attendere la scrittura; adesso
+    // il responso arriva quando i due momenti sono passati e l'ultima
+    // scheda ha finito. Il numero viene dal dato e non e' battuto qui.
+    await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+        HoroscopeDomain.values.length,
+        piena: true));
+    await tester.pump(const Duration(milliseconds: 200));
     await tester.pump(const Duration(seconds: 2));
     for (var i = 0; i < 8; i++) {
       await tester.pump(const Duration(milliseconds: 500));
@@ -206,8 +237,7 @@ void main() {
       });
       if (!visibile) continue;
       final box = e.renderObject! as RenderBox;
-      visibili[dato] =
-          box.localToGlobal(Offset.zero) & box.size;
+      visibili[dato] = box.localToGlobal(Offset.zero) & box.size;
     }
 
     for (final b in blocchi) {
@@ -223,8 +253,7 @@ void main() {
     final fondoScheda = tester.getRect(scheda).bottom;
     final fondoTesto =
         visibili.values.map((r) => r.bottom).reduce((a, b) => a > b ? a : b);
-    expect(fondoScheda - fondoTesto,
-        lessThanOrEqualTo(SpacingTokens.lg + 8),
+    expect(fondoScheda - fondoTesto, lessThanOrEqualTo(SpacingTokens.lg + 8),
         reason: 'Sotto il testo della scheda restano '
             '${(fondoScheda - fondoTesto).toStringAsFixed(1)} punti di '
             'vuoto: la scheda riserva l\'altezza di un testo che non mostra.');

@@ -10,6 +10,8 @@ import 'package:esoteric_circle/design_system/components/testo_che_si_scrive.dar
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
+import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +23,7 @@ import 'package:provider/provider.dart';
 /// si vede che sta accadendo qualcosa.
 void main() {
   Future<void> apri(WidgetTester tester,
-      {bool riduciMovimento = false,
-      Zodiac segno = Zodiac.leo}) async {
+      {bool riduciMovimento = false, Zodiac segno = Zodiac.leo}) async {
     tester.view.physicalSize = const Size(440, 2400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
@@ -39,8 +40,7 @@ void main() {
       ],
       child: MaterialApp(
         builder: (ctx, child) => MediaQuery(
-          data: MediaQuery.of(ctx)
-              .copyWith(disableAnimations: riduciMovimento),
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: riduciMovimento),
           child: MaestroScope(child: child!),
         ),
         home: OroscopoScreen(userSign: segno, now: DateTime(2026, 7, 10)),
@@ -71,6 +71,14 @@ void main() {
 
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
+    // **ORDINE BK: dopo il tocco c'e' la riflessione, poi le schede si
+    // compongono a CASCATA.** Prima bastava attendere la scrittura; adesso
+    // il responso arriva quando i due momenti sono passati e l'ultima
+    // scheda ha finito. Il numero viene dal dato e non e' battuto qui.
+    await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+        HoroscopeDomain.values.length,
+        piena: true));
+    await tester.pump(const Duration(milliseconds: 200));
     await tester.pump(const Duration(seconds: 3));
     expect(find.byKey(const Key('oroscopo_share')), findsOneWidget,
         reason: 'dopo il consulto non si puo\' piu\' condividere: la '
@@ -97,16 +105,16 @@ void main() {
 
   testWidgets('il sottotitolo SEGUE il periodo scelto', (tester) async {
     await apri(tester);
-    String sottotitolo() => tester
-        .widget<Text>(find.byKey(const Key('oroscopo_heading')))
-        .data!;
+    String sottotitolo() =>
+        tester.widget<Text>(find.byKey(const Key('oroscopo_heading'))).data!;
 
     expect(sottotitolo(), 'Oroscopo Personalizzato del giorno');
     // Le altre due strade sono bloccate dal piano, quindi il sottotitolo si
     // misura sul dato, che e' la stessa cosa che la schermata legge.
     expect(HoroscopePeriod.settimana.sottotitolo,
         'Oroscopo Personalizzato della settimana');
-    expect(HoroscopePeriod.mese.sottotitolo, 'Oroscopo Personalizzato del mese');
+    expect(
+        HoroscopePeriod.mese.sottotitolo, 'Oroscopo Personalizzato del mese');
     for (final p in HoroscopePeriod.values) {
       expect(p.sottotitolo.contains(p.label.toLowerCase()), isTrue,
           reason: 'il sottotitolo di ${p.label} non nomina il suo periodo: '
@@ -123,16 +131,21 @@ void main() {
 
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
-
+    // **L'EMBLEMA SI GUARDA SUBITO, ordine BK.** Qui NON si aspetta: la
+    // pretesa e' che il segno di "sta succedendo qualcosa" arrivi al tocco,
+    // e un'attesa messa prima di questa riga la renderebbe cieca.
     expect(find.byKey(const Key('oroscopo_emblema_pulsa')), findsOneWidget,
         reason: 'al tocco l\'emblema non da\' nessun segno: la persona non '
             'sa se sta succedendo qualcosa');
     expect(find.byKey(const Key('oroscopo_interroga')), findsNothing,
         reason: 'il gesto si puo\' ripetere: il consulto e\' gia\' cominciato');
 
-    // Passata la pulsazione dichiarata, i responsi ci sono e si stanno
-    // scrivendo.
-    await tester.pump(const Duration(seconds: 3));
+    // Passata la riflessione e la cascata, i responsi ci sono. Il numero
+    // viene dal dato e non e' battuto qui.
+    await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+        HoroscopeDomain.values.length,
+        piena: true));
+    await tester.pump(const Duration(milliseconds: 200));
     expect(find.byType(TestoCheSiScrive), findsWidgets,
         reason: 'dopo il tocco non compare nessun responso');
     expect(find.byKey(const Key('oroscopo_emblema_pulsa')), findsNothing,
@@ -143,7 +156,13 @@ void main() {
     await apri(tester);
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
+    // **QUI SI ASPETTA LA RIFLESSIONE E NON LA CASCATA, ordine BK.** Questa
+    // prova pretende di cogliere il responso MENTRE si scrive: attendere fino
+    // alla fine della composizione lo troverebbe gia' finito, e la prova
+    // direbbe "non si sta scrivendo" per il motivo sbagliato. Si arriva
+    // all'istante in cui la prima scheda nasce e comincia.
+    await tester.pump(RiflessioneDelCielo.intera(piena: true));
+    await tester.pump(const Duration(milliseconds: 50));
 
     final testo = find.byKey(const Key('oroscopo_testo_generale'));
     expect(testo, findsOneWidget);
@@ -174,6 +193,14 @@ void main() {
     await apri(tester, riduciMovimento: true);
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
+    // **ORDINE BK: dopo il tocco c'e' la riflessione, poi le schede si
+    // compongono a CASCATA.** Prima bastava attendere la scrittura; adesso
+    // il responso arriva quando i due momenti sono passati e l'ultima
+    // scheda ha finito. Il numero viene dal dato e non e' battuto qui.
+    await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+        HoroscopeDomain.values.length,
+        piena: true));
+    await tester.pump(const Duration(milliseconds: 200));
 
     // Nessuna attesa: il testo c'e' subito e per intero.
     final testo = find.descendant(

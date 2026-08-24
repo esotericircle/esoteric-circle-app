@@ -9,6 +9,7 @@ import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.da
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
+import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// LA TIPOGRAFIA DELL'OROSCOPO, MISURATA SULL'ALBERO VERO.
@@ -46,6 +47,14 @@ void main() {
 
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
+    // **ORDINE BK: dopo il tocco c'e' la riflessione, poi le schede si
+    // compongono a CASCATA.** Prima bastava attendere la scrittura; adesso
+    // il responso arriva quando i due momenti sono passati e l'ultima
+    // scheda ha finito. Il numero viene dal dato e non e' battuto qui.
+    await tester.pump(RiflessioneDelCielo.finoAllUltimaScheda(
+        HoroscopeDomain.values.length,
+        piena: true));
+    await tester.pump(const Duration(milliseconds: 200));
     await tester.pump(const Duration(seconds: 3));
     await tester.pump(const Duration(seconds: 3));
   }
