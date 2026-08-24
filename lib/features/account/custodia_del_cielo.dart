@@ -417,6 +417,17 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
     }
     setState(() {
       _guaio = frasePerEsito(esito);
+      // **LA STRADA PER CHI NON RISULTA, ordine BH voce 03.** Parole del
+      // fondatore: se il sistema non rileva l'email, "l'utente deve essere
+      // avvertito che l'email non risulta registrata e che potra' fare la
+      // registrazione poco dopo oppure nel menu utente". La frase comune
+      // dice il primo pezzo; qui, solo sulla porta di chi torna, si
+      // aggiunge la strada in avanti.
+      if (widget.perChiTorna &&
+          esito == EsitoDellaCustodia.nonRiconosciuto) {
+        _guaio = '${_guaio!} Se non ti sei mai registrato, potrai farlo '
+            'tra poco, alla fine del rito, oppure dal menu utente.';
+      }
       _riconosciuto = esito == EsitoDellaCustodia.giaDiUnAltroCerchio;
     });
   }

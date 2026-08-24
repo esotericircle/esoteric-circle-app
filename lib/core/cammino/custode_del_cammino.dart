@@ -285,11 +285,12 @@ class CustodeDelCammino {
       // perche'. Non e' un errore: e' la verita' detta al posto del
       // Bentornato che mentiva.
       if (mostraLaScena && esito.cerchioAppenaNato) {
-        // **La riga si declina sui fatti, ordine BH voce 01.** Se il
-        // benvenuto e' arrivato lo si nomina; se la lapide antifrode lo ha
-        // fermato (questa email lo aveva gia' ricevuto con un altro
-        // account), si dice quello, o la nascita "con la dote" sarebbe una
-        // promessa non mantenuta a schermo.
+        // **L'AVVISO E' UN DIALOGO, ordine BH voce 03.** Parole del
+        // fondatore: "l'utente deve essere avvertito che l'email non
+        // risulta registrata". La snackbar di BG.01 durava otto secondi e
+        // si poteva perdere: adesso l'avviso si legge e si congeda con un
+        // tocco. La riga si declina sui fatti (BH.01): con la dote se e'
+        // arrivata, con la verita' della lapide se e' stata fermata.
         var doteArrivata = false;
         try {
           doteArrivata =
@@ -297,16 +298,26 @@ class CustodeDelCammino {
         } catch (senzaProvider) {
           doteArrivata = false;
         }
-        ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(
-          key: const Key('cerchio_appena_nato'),
-          content: Text(doteArrivata
-              ? 'Questo account non aveva un Cerchio: ne nasce uno nuovo, '
-                  'da zero, con la sua dote di benvenuto.'
-              : 'Questo account non aveva un Cerchio: ne nasce uno nuovo, '
-                  'da zero. Il benvenuto non si ripete: questa email lo '
-                  'aveva già ricevuto.'),
-          duration: const Duration(seconds: 8),
-        ));
+        await showDialog<void>(
+          context: context,
+          builder: (dialogo) => AlertDialog(
+            key: const Key('cerchio_appena_nato'),
+            title: const Text('Questa email non aveva un Cerchio'),
+            content: Text(doteArrivata
+                ? 'Ne è nato uno nuovo, da zero, già registrato con il tuo '
+                    'account: la dote di benvenuto è tua.'
+                : 'Ne è nato uno nuovo, da zero, già registrato con il tuo '
+                    'account. Il benvenuto non si ripete: questa email lo '
+                    'aveva già ricevuto.'),
+            actions: [
+              TextButton(
+                key: const Key('cerchio_appena_nato_capito'),
+                onPressed: () => Navigator.of(dialogo).pop(),
+                child: const Text('Ho capito'),
+              ),
+            ],
+          ),
+        );
       }
       return esito;
     }
