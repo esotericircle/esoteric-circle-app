@@ -467,6 +467,17 @@ class PortafoglioDelCerchio {
             'tetto nel tuo piano.');
         return;
       }
+      // **UN LIMITE A ZERO NON E' UN ESAURIMENTO, ordine BG voce 02.** Il
+      // piano Viandante non porta approfondimenti ne' confronti: il foglio
+      // diceva "Non ti resta nessun approfondimento. Domani torna intero",
+      // che e' falso due volte (non li hai finiti, e domani torna zero). Il
+      // fondatore lo ha letto come un conteggio rotto, e aveva ragione a
+      // non fidarsi: cio' che il piano non porta si dice per quello che e'.
+      if (limite == 0) {
+        righe.add('${molti[0].toUpperCase()}${molti.substring(1)}: non nel '
+            'tuo piano. Si aprono salendo nel Cerchio.');
+        return;
+      }
       final detto = QuestionAllowance.residuoDiCosa(resta, limite,
           uno: uno, molti: molti, femminile: femminile);
       righe.add('$detto. Domani torna intero.');
@@ -525,10 +536,24 @@ class PortafoglioDelCerchio {
     // chiederlo la' faceva cadere il montaggio con "MaestroScope non trovato".
     // E' la stessa scelta del foglio delle funzioni, `showFeatureSheet`.
     final palette = context.palette;
+    // **IL FOGLIO NON SALE SOTTO LA BARRA, ordine BG voce 02.** Con
+    // isScrollControlled e il contenuto cresciuto il foglio arrivava fino in
+    // cima allo schermo, e il saldo ("330 Eos", screenshot del fondatore)
+    // finiva sotto la barra sottile, che e' un livello sopra il Navigator.
+    // Il tetto lascia libera la fascia di stato piu' la barra piu' un
+    // respiro.
+    final schermo = MediaQuery.of(context);
+    const altezzaDellaBarraSottile = 30.0; // = BarraDellIdentita.altezzaChiusa
     return showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
+      constraints: BoxConstraints(
+        maxHeight: schermo.size.height -
+            schermo.padding.top -
+            altezzaDellaBarraSottile -
+            SpacingTokens.sm,
+      ),
       builder: (_) => _FoglioDelPortafoglio(palette: palette),
     );
   }

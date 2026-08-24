@@ -41,7 +41,7 @@ traguardo. Sopravviveva solo una FRASE sbagliata.
 
 - **BG.00** Il manifesto prima di tutto, con la guardia di consegna. CHIUSA: questo file e `test/ordine_bg_guard_test.dart`.
 - **BG.01** Il Cerchio ricorda chi ha cancellato tutto. CHIUSA: la misura sta qui sopra (Cerchio nuovo, schermata bugiarda). La cura usa il segnale nato con BF.01: il benvenuto si accredita UNA volta nella vita di un Cerchio, quindi se l'ultima sincronia lo ha accreditato il Cerchio e' nato adesso. `QuestionAllowance.cerchioAppenaNato` (si rifa' a ogni sincronia), `Ritrovamento` non conta piu' gli Eos del neonato come cosa tenuta (carta e traguardi restano sovrani), entrambe le strade del Custode passano il segnale, e chi rientra dopo una cancellazione vede la VERITA': niente Bentornato, la riga onesta "Questo account non aveva un Cerchio: ne nasce uno nuovo, da zero, con la sua dote di benvenuto", e l'onboarding di un Cerchio nuovo. Guardia: `test/il_neonato_non_riceve_il_bentornato_test.dart`; suite intera verde con la cura (3.397 piu' il listino rimesso a posto).
-- **BG.02** Il foglio del borsellino: il numero coperto e i conti sbagliati. APERTA.
+- **BG.02** Il foglio del borsellino. CHIUSA, e il fondatore aveva ragione a non fidarsi: due bugie, non un conteggio rotto. (1) Il foglio a scorrimento libero saliva fino in cima e il saldo finiva SOTTO la barra sottile: ora ha un tetto che lascia liberi la fascia di stato, i trenta punti della barra e un respiro. (2) Il piano Viandante non porta approfondimenti ne' confronti (matrice: No), e il foglio li raccontava come ESAURITI ("Non ti resta nessun approfondimento. Domani torna intero": falso due volte, non li hai finiti e domani torna zero). Un limite a zero non e' un esaurimento: ora quelle righe dicono "non nel tuo piano. Si aprono salendo nel Cerchio". Le righe vere (domande 3 su 3, gettata 1 su 1) erano GIUSTE: il fondatore aveva fatto una gettata sola e il piano ne concede una, non tre (la bugia delle "tre gettate" era nel vecchio invito, gia' curata in BF.05.a). Guardia: `test/il_foglio_del_borsellino_dice_il_vero_test.dart`.
 - **BG.03** Le promesse dell'app, censimento e verifica. APERTA.
 - **BG.04** Gli Eos dichiarati su ogni condivisione. APERTA.
 - **BG.05** Comprare con gli Eos quando il giorno e' finito. APERTA.
@@ -50,8 +50,8 @@ traguardo. Sopravviveva solo una FRASE sbagliata.
 
 MARCATORI, per la guardia:
 VOCI_TOTALI: 8
-VOCI_APERTE: 6
+VOCI_APERTE: 5
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_CHIUSE: 2
+VOCI_CHIUSE: 3

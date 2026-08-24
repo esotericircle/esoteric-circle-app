@@ -40,7 +40,10 @@ void main() {
       'confront',
       'gettat',
     ]) {
-      expect(righe.any((r) => r.contains(cosa)), isTrue,
+      // Senza maiuscole: dall'ordine BG voce 02 le righe del piano che non
+      // porta una cosa iniziano col nome della cosa ("Approfondimenti: non
+      // nel tuo piano"), e la radice cercata deve trovarla anche in testa.
+      expect(righe.any((r) => r.toLowerCase().contains(cosa)), isTrue,
           reason: 'nessuna riga parla di "$cosa"');
     }
   });
