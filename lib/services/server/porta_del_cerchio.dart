@@ -16,6 +16,7 @@ class StatoDelCerchio {
     required this.saldoEos,
     this.cammino,
     this.listinoDellaCondivisione = const {},
+    this.listinoDelRiscatto = const {},
     this.accreditati = const [],
   });
 
@@ -55,6 +56,11 @@ class StatoDelCerchio {
   /// server non ha accreditato niente, o e' piu' vecchio dell'app.
   final List<AccreditoDellaDote> accreditati;
 
+  /// **QUANTO COSTA RISCATTARE UN USO DI UN BUDGET FINITO.** Ordine BG voce
+  /// 05: il prezzo lo decide il server, il client lo mostra sul pulsante e
+  /// non lo detta mai. Vuoto se il server e' piu' vecchio dell'app.
+  final Map<String, int> listinoDelRiscatto;
+
   static StatoDelCerchio? daMappa(Object? risposta) {
     if (risposta is! Map) return null;
     final giorno = risposta['giorno'];
@@ -76,6 +82,14 @@ class StatoDelCerchio {
         if (valore is num) listino['${voce.key}'] = valore.toInt();
       }
     }
+    final riscatto = <String, int>{};
+    final grezzoRiscatto = risposta['listinoDelRiscatto'];
+    if (grezzoRiscatto is Map) {
+      for (final voce in grezzoRiscatto.entries) {
+        final valore = voce.value;
+        if (valore is num) riscatto['${voce.key}'] = valore.toInt();
+      }
+    }
     final accreditati = <AccreditoDellaDote>[];
     final grezzoAccrediti = risposta['accreditati'];
     if (grezzoAccrediti is List) {
@@ -91,6 +105,7 @@ class StatoDelCerchio {
       saldoEos: saldo is num ? saldo.toInt() : 0,
       cammino: CamminoDaCustodire.daMappa(risposta['cammino']),
       listinoDellaCondivisione: listino,
+      listinoDelRiscatto: riscatto,
       accreditati: accreditati,
     );
   }

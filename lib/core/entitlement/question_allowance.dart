@@ -154,13 +154,20 @@ class QuestionAllowance extends ChangeNotifier {
   }
 
   /// Se si puo' approfondire adesso.
-  bool puoiApprofondire(Tier tier) =>
-      pianoConApprofondimento(tier) && approfondimentiRimasti(tier) > 0;
+  ///
+  /// **IL CREDITO DEL RISCATTO VALE ANCHE FUORI DAL PIANO, ordine BG voce
+  /// 05.** Sul piano che non porta approfondimenti il limite e' zero e i
+  /// rimasti sono zero; chi RISCATTA un uso con gli Eos porta il contatore
+  /// sotto zero e i rimasti a uno: il cancello guarda i rimasti, non il
+  /// piano, cosi' l'uso comprato si puo' spendere davvero.
+  bool puoiApprofondire(Tier tier) => approfondimentiRimasti(tier) > 0;
 
   /// Registra un approfondimento consumato. Anche i tier senza limite lo
   /// contano, perche' il tetto di correttezza vale per tutti.
   void registraApprofondimento(Tier tier) {
-    if (!pianoConApprofondimento(tier)) return;
+    // Niente ritorno anticipato sul piano senza approfondimenti: chi arriva
+    // qui fuori piano ci arriva con un credito riscattato, e il credito si
+    // consuma contandolo (da -1 a 0), o sarebbe infinito. Ordine BG voce 05.
     _rollover();
     _approfondimenti++;
     notifyListeners();
@@ -268,12 +275,15 @@ class QuestionAllowance extends ChangeNotifier {
   }
 
   /// Se si puo' fare un altro confronto adesso.
-  bool puoiConfrontare(Tier tier) =>
-      canCompare(tier) && confrontiRimasti(tier) > 0;
+  ///
+  /// Come per gli approfondimenti: il cancello guarda i rimasti e non il
+  /// piano, cosi' il credito riscattato con gli Eos si spende davvero.
+  /// Ordine BG voce 05.
+  bool puoiConfrontare(Tier tier) => confrontiRimasti(tier) > 0;
 
   /// Registra un confronto consumato.
   void registraConfronto(Tier tier) {
-    if (!canCompare(tier)) return;
+    // Come sopra: il credito fuori piano si consuma contandolo. BG voce 05.
     _rollover();
     _confronti++;
     notifyListeners();
@@ -488,6 +498,11 @@ class QuestionAllowance extends ChangeNotifier {
     if (stato.accreditati.isNotEmpty) {
       _accreditiDaRaccontare.addAll(stato.accreditati);
     }
+    // **IL LISTINO DEL RISCATTO, come quello della condivisione**: si
+    // sostituisce solo se il server lo ha mandato. Ordine BG voce 05.
+    if (stato.listinoDelRiscatto.isNotEmpty) {
+      _listinoDelRiscatto = stato.listinoDelRiscatto;
+    }
     // **SE IL BENVENUTO E' DI QUESTA CHIAMATA, IL CERCHIO E' APPENA NATO.**
     // Ordine BG voce 01: il fondatore e' entrato con "Faccio gia' parte del
     // Cerchio" su un account cancellato, Google ne ha creato uno nuovo in
@@ -506,6 +521,51 @@ class QuestionAllowance extends ChangeNotifier {
   final List<AccreditoDellaDote> _accreditiDaRaccontare = [];
 
   bool _cerchioAppenaNato = false;
+
+  /// **IL LISTINO DEL RISCATTO, detto dal server.** Ordine BG voce 05.
+  Map<String, int> _listinoDelRiscatto = const {};
+
+  /// Quanto costa riscattare un uso di quel budget, oppure nullo se il
+  /// server non lo ha ancora detto: senza prezzo non si promette niente.
+  int? prezzoDelRiscatto(String budget) => _listinoDelRiscatto[budget];
+
+  /// **COMPRA UN USO DI UN BUDGET FINITO, spendendo Eos.** Ordine BG voce
+  /// 05: e' la strada degli Eos del gating a due strade. Il PREZZO lo
+  /// decide il server (il numero passato qui e' solo dichiarativo), e nella
+  /// stessa transazione il server scala il contatore del giorno: al ritorno
+  /// il gesto si puo' rifare subito. Torna il prezzo pagato, oppure nullo
+  /// se non si e' pagato niente (saldo corto, server muto, prezzo ignoto):
+  /// chi chiama decide cosa dire, ma nessuno paga due volte perche' ogni
+  /// movimento porta il suo identificativo.
+  Future<int?> riscatta(String budget) async {
+    final prezzo = _listinoDelRiscatto[budget];
+    if (prezzo == null || !_porta.viva) return null;
+    if (_saldoEos < prezzo) return null;
+    final saldo = await _porta.muoviGliEos(
+      causale: 'spesa',
+      motivo: 'riscatto_$budget',
+      idMovimento: PortaDelCerchio.nuovoIdentificativo('riscatto-$budget'),
+      quanti: prezzo,
+    );
+    if (saldo == null) return null;
+    _saldoEos = saldo;
+    // Il contatore locale segue quello del server, che e' appena sceso di
+    // uno nella stessa transazione del saldo: puo' andare sotto zero, ed e'
+    // il credito comprato in anticipo sul proprio limite.
+    switch (budget) {
+      case 'domande':
+        _count--;
+      case 'approfondimenti':
+        _approfondimenti--;
+      case 'confronti':
+        _confronti--;
+      case 'gettate':
+        _gettate--;
+    }
+    notifyListeners();
+    await _persist();
+    return prezzo;
+  }
 
   /// Vero se l'ULTIMA sincronia ha accreditato il benvenuto: il Cerchio di
   /// questa persona e' nato in quella chiamata, non e' un ritorno.

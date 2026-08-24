@@ -27,7 +27,9 @@ import {
   ACCREDITO_DEL_GIORNO,
   BENVENUTO,
   CAUSALI_CHIEDIBILI,
+  PREZZI_DEL_RISCATTO,
   TETTO_CONDIVISIONI_PREMIATE,
+  budgetDelRiscatto,
   causaleValida,
   importoRichiesto,
   saldoDopo,
@@ -311,6 +313,9 @@ export const statoDelCerchio = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     // il server, che dal motivo sa quanto vale. Un listino che arriva al
     // telefono e' un'informazione, non un'autorizzazione.
     listinoDellaCondivisione: BONUS_DELLA_CONDIVISIONE,
+    // Ordine BG voce 05: il prezzo del riscatto di ogni budget, deciso dal
+    // server. Il client lo mostra sul pulsante e non lo detta mai.
+    listinoDelRiscatto: PREZZI_DEL_RISCATTO,
     // Ordine BF voce 01: cosa e' stato accreditato IN QUESTA chiamata, con
     // il motivo. Il client lo racconta nel registro dei movimenti; il saldo
     // resta l'unico numero che conta.
@@ -442,6 +447,20 @@ export const muoviGliEos = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
         return {saldo, applicato: false, tettoRaggiunto: true};
       }
       spesiOggi.condivisioni_premiate = gia + 1;
+      tx.set(contatoriDoc(uid), {giorno, spesi: spesiOggi});
+    }
+
+    // **IL RISCATTO SCALA IL CONTATORE NELLA STESSA TRANSAZIONE del saldo.**
+    // Ordine BG voce 05: pagare 60 Eos per una gettata deve rendere QUELLA
+    // gettata possibile subito, e il contatore del giorno e' del server.
+    // Scalare lo speso di uno riapre un uso; se gli Eos non bastano la
+    // transazione muore piu' sotto e il contatore non si tocca, tutto o
+    // niente. Lo speso puo' scendere sotto zero, ed e' voluto: vale come
+    // credito di oggi comprato in anticipo sul proprio limite.
+    const budgetRiscattato =
+      causale === "spesa" ? budgetDelRiscatto(motivo) : null;
+    if (budgetRiscattato !== null) {
+      spesiOggi[budgetRiscattato] = (spesiOggi[budgetRiscattato] ?? 0) - 1;
       tx.set(contatoriDoc(uid), {giorno, spesi: spesiOggi});
     }
 

@@ -214,16 +214,34 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
       // con gli Eos e' caduta: quella spesa non esiste ancora (AN.05,
       // rimandata alla revisione), e prometterla era una bugia scritta bene.
       final limite = borsa.limiteGettate(piano);
+      // **LA STRADA DEGLI EOS, ordine BG voce 05**: a gettate finite se ne
+      // riscatta una col prezzo del server, e a riscatto avvenuto il getto
+      // riparte da solo, senza chiedere un secondo tocco.
+      final riscatto = corredoDelRiscatto(
+        context,
+        budget: 'gettate',
+        cosaUna: 'una gettata di rune',
+        onSuccesso: (_) {
+          if (!mounted) return;
+          if (_fase == _Fase.preparazione) {
+            _getta();
+          } else {
+            _gettaAncora();
+          }
+        },
+      );
       showUpgradeInvite(
         context,
         title: 'Le gettate di oggi sono finite',
         message: limite == 1
-            ? 'La gettata del giorno è stata fatta. Puoi salire di livello '
-                'nel Cerchio: dall\'Iniziato in su le gettate sono senza '
-                'limiti.'
-            : 'Le $limite gettate del giorno sono state fatte. Puoi salire '
-                'di livello nel Cerchio: dall\'Iniziato in su le gettate '
-                'sono senza limiti.',
+            ? 'La gettata del giorno è stata fatta. Puoi riscattarne una '
+                'con gli Eos, oppure salire di livello nel Cerchio: '
+                'dall\'Iniziato in su le gettate sono senza limiti.'
+            : 'Le $limite gettate del giorno sono state fatte. Puoi '
+                'riscattarne una con gli Eos, oppure salire di livello nel '
+                'Cerchio: dall\'Iniziato in su le gettate sono senza limiti.',
+        riscattoLabel: riscatto.label,
+        onRiscatta: riscatto.azione,
       );
       return false;
     }

@@ -14,7 +14,7 @@
  * di un Sigillo si accredita due volte, e un saldo che cresce da solo e' un
  * saldo che non vale niente.
  */
-import {Piano} from "./budget";
+import {Budget, BUDGET, Piano} from "./budget";
 
 export type CausaleEos =
   | "premio_sigillo"
@@ -69,6 +69,39 @@ export const BONUS_DELLA_CONDIVISIONE: Record<string, number> = {
  * di cammino.
  */
 export const TETTO_CONDIVISIONI_PREMIATE = 3;
+
+/**
+ * IL LISTINO DEL RISCATTO, ordine BG voce 05: quando un budget del giorno e'
+ * finito, la persona puo' comprarne UN altro uso spendendo Eos. E' la strada
+ * degli Eos del gating a due strade (ordine AN), accanto a quella
+ * dell'abbonamento: mai un vicolo cieco.
+ *
+ * I numeri: la domanda a 80 e' il prezzo del listino approvato con AN ("Una
+ * domanda in piu'" 80); il confronto a 150 e' "Una sinastria in piu'" dello
+ * stesso listino; approfondimento e gettata a 60 sono decisi col mandato
+ * esteso di BF, sotto la domanda perche' sono gesti piu' brevi. Il prezzo lo
+ * decide QUESTO file: il client lo mostra e non lo detta mai.
+ */
+export const PREZZI_DEL_RISCATTO: Record<Budget, number> = {
+  domande: 80,
+  approfondimenti: 60,
+  confronti: 150,
+  gettate: 60,
+};
+
+/** Il motivo di un riscatto, dal budget: una forma sola, condivisa. */
+export function motivoDelRiscatto(budget: Budget): string {
+  return "riscatto_" + budget;
+}
+
+/** Il budget di un motivo di riscatto, oppure null se non lo e'. */
+export function budgetDelRiscatto(motivo: string): Budget | null {
+  if (!motivo.startsWith("riscatto_")) return null;
+  const budget = motivo.substring("riscatto_".length);
+  return (BUDGET as readonly string[]).includes(budget)
+    ? (budget as Budget)
+    : null;
+}
 
 /**
  * IL BENVENUTO, una volta sola nella vita del Cerchio. Ordine AN voce 07,
@@ -216,6 +249,11 @@ export function importoRichiesto(
     return typeof valore === "number" ? valore : null;
   }
   if (causale === "spesa") {
+    // **IL RISCATTO HA IL PREZZO DEL LISTINO, ordine BG voce 05**: per i
+    // motivi riscatto_<budget> il numero del client si ignora e vale il
+    // listino di questo file. Le altre spese restano come prima.
+    const budget = budgetDelRiscatto(motivo);
+    if (budget !== null) return -PREZZI_DEL_RISCATTO[budget];
     if (typeof quanti !== "number" || !Number.isInteger(quanti)) return null;
     if (quanti <= 0 || quanti > SPESA_MASSIMA) return null;
     return -quanti;

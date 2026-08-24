@@ -9,6 +9,8 @@ import {
   importoRichiesto,
   saldoDopo,
   VALORE_DEL_PREMIO,
+  PREZZI_DEL_RISCATTO,
+  budgetDelRiscatto,
 } from "./borsellino";
 
 /**
@@ -183,4 +185,49 @@ test("il runtime delle functions e' nodejs22, fissato in firebase.json", () => {
     fs.readFileSync(path.join(radice, "functions", "package.json"), "utf8")
   );
   assert.equal(pacchetto.engines.node, ">=22");
+});
+
+// --- ORDINE BG VOCE 05: il riscatto coi prezzi del server ---
+
+test("il listino del riscatto e' il server a deciderlo", () => {
+  assert.equal(PREZZI_DEL_RISCATTO.domande, 80);
+  assert.equal(PREZZI_DEL_RISCATTO.approfondimenti, 60);
+  assert.equal(PREZZI_DEL_RISCATTO.confronti, 150);
+  assert.equal(PREZZI_DEL_RISCATTO.gettate, 60);
+});
+
+test("il riscatto ignora il numero del client e usa il listino", () => {
+  // Il client dichiara 5: il server preleva comunque il prezzo pieno.
+  assert.equal(importoRichiesto("spesa", "riscatto_gettate", 5), -60);
+  assert.equal(importoRichiesto("spesa", "riscatto_domande", undefined), -80);
+  // Un riscatto di un budget inesistente non e' un movimento.
+  assert.equal(budgetDelRiscatto("riscatto_regali"), null);
+  // Le spese normali restano come prima: importo del client, con tetto.
+  assert.equal(importoRichiesto("spesa", "altra_cosa", 40), -40);
+});
+
+test("il riscatto scala il contatore dentro la transazione del saldo", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const sorgente = fs.readFileSync(
+    path.join(__dirname, "..", "src", "cerchio.ts"),
+    "utf8"
+  );
+  const transazione = sorgente.substring(
+    sorgente.indexOf("export const muoviGliEos"),
+    sorgente.indexOf("SCRIVE LA MEMORIA")
+  );
+  assert.ok(
+    transazione.includes("budgetDelRiscatto(motivo)"),
+    "il riscatto non passa piu' dal budget del motivo"
+  );
+  assert.ok(
+    transazione.includes("spesiOggi[budgetRiscattato] ?? 0) - 1"),
+    "il contatore del giorno non viene piu' scalato dal riscatto"
+  );
+  // E il listino viaggia con lo stato.
+  assert.ok(
+    sorgente.includes("listinoDelRiscatto: PREZZI_DEL_RISCATTO"),
+    "statoDelCerchio non porta piu' il listino del riscatto"
+  );
 });

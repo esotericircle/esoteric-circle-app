@@ -211,12 +211,22 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
             _loading.clear();
             _responders.clear();
           });
+          // La strada degli Eos, ordine BG voce 05: una domanda in piu' si
+          // riscatta col prezzo del server.
+          final riscatto = corredoDelRiscatto(
+            context,
+            budget: 'domande',
+            cosaUna: 'una domanda in più',
+          );
           showUpgradeInvite(
             context,
             title: 'Hai posto le tue domande di oggi',
             message:
-                'Col Cerchio le domande ai Maestri sono senza limiti e puoi '
-                'metterne a confronto gli sguardi.',
+                'Puoi riscattarne una con gli Eos, oppure col Cerchio le '
+                'domande ai Maestri sono senza limiti e puoi metterne a '
+                'confronto gli sguardi.',
+            riscattoLabel: riscatto.label,
+            onRiscatta: riscatto.azione,
           );
           return;
         }

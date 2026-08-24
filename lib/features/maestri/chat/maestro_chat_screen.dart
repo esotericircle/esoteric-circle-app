@@ -301,12 +301,23 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       );
       return;
     }
-    if (!contatore.canCompare(piano)) {
+    if (!contatore.puoiConfrontare(piano)) {
+      // Il cancello guarda i rimasti e non il piano (ordine BG voce 05):
+      // chi ha riscattato un confronto con gli Eos passa di qui col suo
+      // credito, e chi non ne ha riceve le due strade.
+      final riscatto = corredoDelRiscatto(
+        context,
+        budget: 'confronti',
+        cosaUna: 'un confronto di sinastria',
+      );
       await showUpgradeInvite(
         context,
         title: 'Gli altri sguardi sono del Cerchio',
-        message: 'Col Cerchio la stessa domanda arriva anche agli altri due '
-            'Maestri, qui dentro, ognuno con la sua lente.',
+        message: 'Puoi riscattare un confronto con gli Eos, oppure col '
+            'Cerchio la stessa domanda arriva anche agli altri due Maestri, '
+            'qui dentro, ognuno con la sua lente.',
+        riscattoLabel: riscatto.label,
+        onRiscatta: riscatto.azione,
       );
       return;
     }
@@ -364,26 +375,30 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     BuildContext context,
     MaestroChatController controller,
   ) async {
-    if (!controller.ilPianoComprendeIlSecondoStrato) {
-      await showUpgradeInvite(
-        context,
-        title: 'Il Maestro può scendere più a fondo',
-        message: 'Con il Cerchio puoi chiedergli di riprendere la stessa '
-            'lettura e portarla sotto la superficie, dove la prima si era '
-            'fermata.',
-      );
+    // **PRIMA SI GUARDA SE SI PUO', ordine BG voce 05**: il cancello conta
+    // i rimasti, quindi anche il credito riscattato fuori piano apre. Solo
+    // a porta chiusa si offrono le due strade, Eos oppure Cerchio.
+    if (controller.puoiLeggereIlSecondoStrato) {
+      controller.approfondisci();
       return;
     }
-    if (!controller.puoiLeggereIlSecondoStrato) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-              'Per oggi siamo scesi abbastanza. Domani si riparte da qui.'),
-        ),
-      );
-      return;
-    }
-    controller.approfondisci();
+    final riscatto = corredoDelRiscatto(
+      context,
+      budget: 'approfondimenti',
+      cosaUna: 'un approfondimento',
+    );
+    await showUpgradeInvite(
+      context,
+      title: 'Il Maestro può scendere più a fondo',
+      message: controller.ilPianoComprendeIlSecondoStrato
+          ? 'Per oggi siamo scesi abbastanza: puoi riscattare un '
+              'approfondimento con gli Eos, oppure domani si riparte da qui.'
+          : 'Puoi riscattare un approfondimento con gli Eos, oppure con il '
+              'Cerchio chiedergli di riprendere la stessa lettura e portarla '
+              'sotto la superficie, dove la prima si era fermata.',
+      riscattoLabel: riscatto.label,
+      onRiscatta: riscatto.azione,
+    );
   }
 
   /// Il cielo di questa persona, dalla sorgente unica.
