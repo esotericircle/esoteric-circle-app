@@ -705,10 +705,40 @@ export const scriviLaMemoria = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
  * Cancella il ramo intero dell'utente ma NON l'account: chi azzera vuole
  * ricominciare, non andarsene.
  */
+/**
+ * IL CONGEDO, il perche' della cancellazione. Ordine BH voce 06.
+ *
+ * Parole del fondatore: "chiedergli perche' sta eliminando i dati o
+ * l'account in modo da avere un feedback". Il perche' e' facoltativo, si
+ * scrive in una collezione FUORI dal ramo utente (sopravvive alla
+ * cancellazione, e' anonimo per costruzione: nessun uid, nessuna email) e
+ * si scrive PRIMA di cancellare, o non ci sarebbe piu' nessuno a scriverlo.
+ */
+async function scriviIlCongedo(
+  request: CallableRequest,
+  tipo: "dati" | "account"
+): Promise<void> {
+  const perche = (request.data as {perche?: unknown} | undefined)?.perche;
+  if (typeof perche !== "string") return;
+  const testo = perche.trim().slice(0, 300);
+  if (testo.length === 0) return;
+  try {
+    await db.collection("congedi").add({
+      tipo,
+      perche: testo,
+      quando: FieldValue.serverTimestamp(),
+    });
+  } catch (errore) {
+    // Il feedback non deve mai bloccare un diritto: si va avanti.
+    logger.warn("congedo non scritto", {tipo});
+  }
+}
+
 export const azzeraIDatiDelCerchio = onCall(
   OPZIONI_DEL_CERCHIO,
   async (request) => {
     const uid = uidDi(request);
+    await scriviIlCongedo(request, "dati");
     await db.recursiveDelete(utente(uid));
     logger.info("azzeraIDatiDelCerchio: ramo azzerato, account vivo", {uid});
     return {datiAzzerati: true};
@@ -719,6 +749,7 @@ export const cancellaIlCerchio = onCall(
   OPZIONI_DEL_CERCHIO,
   async (request) => {
     const uid = uidDi(request);
+    await scriviIlCongedo(request, "account");
     await db.recursiveDelete(utente(uid));
     try {
       await getAuth().deleteUser(uid);

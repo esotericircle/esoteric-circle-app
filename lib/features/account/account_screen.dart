@@ -16,6 +16,8 @@ import '../../services/app_services.dart';
 // `PortaDelCerchio`, quella del server e quella delle vie della barra, e
 // senza prefisso il compilatore non sa quale delle due si intende.
 import 'custodia_del_cielo.dart';
+import '../../design_system/theme/maestro_scope.dart';
+import 'privacy_policy_screen.dart';
 import 'festa_della_registrazione.dart';
 
 import '../../design_system/tokens/color_tokens.dart';
@@ -67,62 +69,6 @@ class AccountScreen extends StatelessWidget {
         icon: Icons.cake_outlined,
         onTap: (context) =>
             Navigator.of(context).push(DatiDiNascitaScreen.route()),
-      ),
-      _AccountEntry(
-        id: 'impostazioni',
-        title: 'Impostazioni',
-        subtitle: 'Preferenze, lingua, qualità grafica',
-        icon: Icons.settings_outlined,
-        onTap: (context) =>
-            Navigator.of(context).push(SettingsScreen.route()),
-      ),
-      _AccountEntry(
-        id: 'abbonamento',
-        title: 'Abbonamento',
-        subtitle: 'Il tuo piano e i livelli del Cerchio',
-        icon: Icons.workspace_premium_outlined,
-        onTap: (context) =>
-            Navigator.of(context).push(PricingScreen.route()),
-      ),
-      // LE VOCI IN ARRIVO PARLANO, ordine AL voce 06: al tocco rispondono con
-      // l'anticipo elegante del Santuario, mai il silenzio, e l'anticipo dice
-      // cosa arrivera' con parole sue, non con una frase qualunque.
-      // **LE NOTIFICHE SI ATTIVANO DA QUI, e prima era un anticipo.**
-      // Ordine BB voce 10, fatto del fondatore: "le notifiche agli orari di
-      // ogni dono del giorno non funzionano e nemmeno il pulsante nel menu
-      // utente".
-      //
-      // **Sul pulsante aveva ragione al cento per cento**: questa voce era un
-      // `teaser`, cioe' una voce che al tocco racconta cosa arrivera'. Non era
-      // rotta, **non esisteva**: prometteva "qui sceglierai" e non faceva
-      // scegliere niente.
-      //
-      // **La regia delle chiamate c'era gia' e funzionava**, e riprogramma a
-      // ogni avvio; ma si ferma alla prima riga se il permesso non c'e', e su
-      // Android 13 e oltre **il permesso va chiesto e nessuno lo chiedeva da
-      // qui**. Adesso il tocco lo chiede e poi programma davvero.
-      //
-      // **E DAL TOCCO SI APRE IL MENU', invece di decidere per la persona.**
-      // Ordine BC voce 05, parole del fondatore: "sara' proprio l'utente che
-      // potra' gestire e attivare o disattivare i singoli orari delle
-      // notifiche nel menu' notifiche". Prima il tocco chiedeva il permesso e
-      // programmava tutto insieme: un interruttore solo per cinque
-      // appuntamenti, e per spegnerne uno bisognava uscire dall'app.
-      _AccountEntry(
-        id: 'notifiche',
-        title: 'Notifiche',
-        subtitle: 'Gli appuntamenti dei doni del giorno',
-        icon: Icons.notifications_none_rounded,
-        onTap: (context) =>
-            Navigator.of(context).push(NotificheScreen.route()),
-      ),
-      const _AccountEntry(
-        id: 'privacy',
-        title: 'Privacy',
-        subtitle: 'Dati, consensi e sicurezza',
-        icon: Icons.shield_outlined,
-        teaser: 'Qui vedrai i tuoi consensi e i tuoi dati, con i comandi per '
-            'gestirli. Intanto la cancellazione completa vive già qui sotto.',
       ),
       // CUSTODIRE IL PROPRIO CIELO, ordine N voce 1c: la via che resta a chi
       // ha rimandato. La voce compare SOLO a chi e' ancora anonimo, perche' a
@@ -200,6 +146,54 @@ class AccountScreen extends StatelessWidget {
           icon: Icons.password_rounded,
           onTap: (context) => _chiediLaParolaNuova(context),
         ),
+      _AccountEntry(
+        id: 'abbonamento',
+        title: 'Abbonamento',
+        subtitle: 'Il tuo piano e i livelli del Cerchio',
+        icon: Icons.workspace_premium_outlined,
+        onTap: (context) =>
+            Navigator.of(context).push(PricingScreen.route()),
+      ),
+      // LE VOCI IN ARRIVO PARLANO, ordine AL voce 06: al tocco rispondono con
+      // l'anticipo elegante del Santuario, mai il silenzio, e l'anticipo dice
+      // cosa arrivera' con parole sue, non con una frase qualunque.
+      // **LE NOTIFICHE SI ATTIVANO DA QUI, e prima era un anticipo.**
+      // Ordine BB voce 10, fatto del fondatore: "le notifiche agli orari di
+      // ogni dono del giorno non funzionano e nemmeno il pulsante nel menu
+      // utente".
+      //
+      // **Sul pulsante aveva ragione al cento per cento**: questa voce era un
+      // `teaser`, cioe' una voce che al tocco racconta cosa arrivera'. Non era
+      // rotta, **non esisteva**: prometteva "qui sceglierai" e non faceva
+      // scegliere niente.
+      //
+      // **La regia delle chiamate c'era gia' e funzionava**, e riprogramma a
+      // ogni avvio; ma si ferma alla prima riga se il permesso non c'e', e su
+      // Android 13 e oltre **il permesso va chiesto e nessuno lo chiedeva da
+      // qui**. Adesso il tocco lo chiede e poi programma davvero.
+      //
+      // **E DAL TOCCO SI APRE IL MENU', invece di decidere per la persona.**
+      // Ordine BC voce 05, parole del fondatore: "sara' proprio l'utente che
+      // potra' gestire e attivare o disattivare i singoli orari delle
+      // notifiche nel menu' notifiche". Prima il tocco chiedeva il permesso e
+      // programmava tutto insieme: un interruttore solo per cinque
+      // appuntamenti, e per spegnerne uno bisognava uscire dall'app.
+      _AccountEntry(
+        id: 'notifiche',
+        title: 'Notifiche',
+        subtitle: 'Gli appuntamenti dei doni del giorno',
+        icon: Icons.notifications_none_rounded,
+        onTap: (context) =>
+            Navigator.of(context).push(NotificheScreen.route()),
+      ),
+      _AccountEntry(
+        id: 'impostazioni',
+        title: 'Impostazioni',
+        subtitle: 'Preferenze, lingua, qualità grafica',
+        icon: Icons.settings_outlined,
+        onTap: (context) =>
+            Navigator.of(context).push(SettingsScreen.route()),
+      ),
       // **SI ESCE. Ordine AZ voce 07, situazioni S09, S13 e S23.** Non
       // esisteva: in tutto `lib/` c'era un `signOut` solo, quello di Google
       // dentro `dimentica()`, e non toccava Firebase. Chi sbagliava account
@@ -216,46 +210,21 @@ class AccountScreen extends StatelessWidget {
           icon: Icons.logout_rounded,
           onTap: (context) => _chiediDiUscire(context),
         ),
-      // **SCARICA I TUOI DATI. Ordine BC voce 02, seconda delle quattro.**
-      //
-      // Decisione del fondatore. Arriva **un file coi dati e un riepilogo
-      // scritto in italiano**: un archivio risponde alla domanda "cosa avete
-      // di me" solo a chi sa leggerlo, e la maggior parte delle persone
-      // aprirebbe delle parentesi graffe.
+      // **PRIVACY E DATI, IL SOTTOMENU. Ordine BH voce 06.** Parole del
+      // fondatore: "la cancellazione dell'account e dati e anche privacy
+      // policy siano in fondo o magari in sotto menu, non direttamente
+      // accessibili, anche perche' sono poco utilizzate e per evitare click
+      // accidentali". Il vecchio anticipo "Privacy" e' diventato questa
+      // porta vera, ultima della lista: dentro ci stanno la policy, lo
+      // scarico dei dati e le due cancellazioni coi loro passi di
+      // protezione.
       _AccountEntry(
-        id: 'scarica',
-        title: 'Scarica i tuoi dati',
-        subtitle: 'Tutto ciò che il Cerchio sa di te, in un file',
-        icon: Icons.download_rounded,
-        onTap: (context) => _scaricaITuoiDati(context),
-      ),
-      // **CANCELLA I TUOI DATI TENENDO L'ACCOUNT. Ordine BC voce 02, terza.**
-      //
-      // Decisione del fondatore, e **Google Play la chiede espressamente**
-      // dal 2024: un'opzione separata per cancellare i dati senza chiudere
-      // l'account. Chi vuole ricominciare da capo restando nel Cerchio non
-      // deve passare per la porta che non ha ritorno.
-      _AccountEntry(
-        id: 'azzera',
-        title: 'Cancella i tuoi dati',
-        subtitle: 'Il cammino riparte da zero, l\'account resta tuo',
-        icon: Icons.restart_alt_rounded,
-        onTap: (context) => _azzeraIDati(context),
-      ),
-      // IL DIRITTO ALL'OBLIO, voce 1f: e' un obbligo, non una gentilezza, e
-      // cancella anche cio' che vive sul server.
-      //
-      // **E ADESSO CON TRENTA GIORNI DI RIPENSAMENTO.** Ordine BC voce 02,
-      // quarta e ultima: sta in fondo, elenca cosa sparisce davvero, e non
-      // esegue subito. Una cancellazione fatta per rabbia o per sbaglio e'
-      // irreversibile, e un cammino di mesi non si ricostruisce.
-      _AccountEntry(
-        id: 'oblio',
-        title: 'Cancella il tuo account',
-        subtitle: 'Trenta giorni per ripensarci, poi sparisce tutto, '
-            'qui e sul server',
-        icon: Icons.delete_outline_rounded,
-        onTap: (context) => _chiediLOblio(context),
+        id: 'privacy_e_dati',
+        title: 'Privacy e dati',
+        subtitle: 'La policy, i tuoi dati, le cancellazioni',
+        icon: Icons.shield_outlined,
+        onTap: (context) =>
+            Navigator.of(context).push(PrivacyEDatiScreen.route()),
       ),
     ];
 
@@ -688,6 +657,103 @@ Future<void> _scaricaITuoiDati(BuildContext context) async {
 /// **Cancella le stesse cose dell'oblio, meno una: l'account.** Quindi non
 /// si esce e non si dimentica la custodia, perche' quella e' la chiave con
 /// cui si rientra.
+/// IL PERCHE' DELLA CANCELLAZIONE, ordine BH voce 06.
+///
+/// Parole del fondatore: "chiedergli perche' sta eliminando i dati o
+/// l'account in modo da avere un feedback". Facoltativo per davvero: la
+/// scelta "Preferisco non dirlo" va avanti senza scrivere niente, perche'
+/// un diritto non si paga con un modulo. Torna null solo se si annulla.
+Future<String?> _chiediIlPerche(BuildContext context) async {
+  const ragioni = [
+    'Voglio ricominciare da capo',
+    'Qualcosa non ha funzionato',
+    "L'app non fa per me",
+    'Preferisco non dirlo',
+  ];
+  var scelta = ragioni.last;
+  final esito = await showDialog<String>(
+    context: context,
+    builder: (dialogo) => StatefulBuilder(
+      builder: (dialogo, aggiorna) => AlertDialog(
+        key: const Key('cancellazione_perche'),
+        backgroundColor: ColorTokens.neutralSurface,
+        title: Text('Prima di andare: perché?',
+            style: TypographyTokens.titoloScheda()),
+        content: RadioGroup<String>(
+          groupValue: scelta,
+          onChanged: (valore) => aggiorna(() => scelta = valore ?? scelta),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final ragione in ragioni)
+                RadioListTile<String>(
+                  key: Key('perche_${ragioni.indexOf(ragione)}'),
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(ragione,
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: ColorTokens.textPrimary)),
+                  value: ragione,
+                ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogo).pop(),
+            child: const Text('Annulla'),
+          ),
+          TextButton(
+            key: const Key('perche_continua'),
+            onPressed: () => Navigator.of(dialogo).pop(scelta),
+            child: const Text('Continua'),
+          ),
+        ],
+      ),
+    ),
+  );
+  if (esito == null) return null;
+  // "Preferisco non dirlo" non e' un feedback: non si manda.
+  return esito == ragioni.last ? '' : esito;
+}
+
+/// L'ULTIMA CONFERMA, ordine BH voce 06: "chiedere piu' volte se l'utente
+/// e' sicuro". Il passo finale, dopo la spiegazione e il perche': breve,
+/// senza niente di nuovo da leggere, solo la domanda secca.
+Future<bool> _neSeiDavveroSicuro(BuildContext context,
+    {required String verbo}) async {
+  final sicuro = await showDialog<bool>(
+    context: context,
+    builder: (dialogo) => AlertDialog(
+      key: const Key('cancellazione_ultima_conferma'),
+      backgroundColor: ColorTokens.neutralSurface,
+      title:
+          Text('Ne sei davvero sicuro?', style: TypographyTokens.titoloScheda()),
+      content: Text(
+        'È l\'ultimo passo. Non si torna indietro.',
+        style: TypographyTokens.corpo()
+            .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+      ),
+      actions: [
+        TextButton(
+          key: const Key('ultima_conferma_no'),
+          onPressed: () => Navigator.of(dialogo).pop(false),
+          child: const Text('No, resto'),
+        ),
+        TextButton(
+          key: const Key('ultima_conferma_si'),
+          // Il rosso di casa (la gamma di Caligo), non un colore inventato:
+          // e' il bottone che consuma, e si deve distinguere dal resto.
+          style: TextButton.styleFrom(foregroundColor: ColorTokens.caligoGlow),
+          onPressed: () => Navigator.of(dialogo).pop(true),
+          child: Text(verbo),
+        ),
+      ],
+    ),
+  );
+  return sicuro == true;
+}
+
 Future<void> _azzeraIDati(BuildContext context) async {
   final conferma = await showDialog<bool>(
     context: context,
@@ -717,6 +783,12 @@ Future<void> _azzeraIDati(BuildContext context) async {
     ),
   );
   if (conferma != true || !context.mounted) return;
+  // **I PASSI DI PROTEZIONE, ordine BH voce 06**: il perche' (facoltativo)
+  // e l'ultima conferma, per i tocchi accidentali.
+  final perche = await _chiediIlPerche(context);
+  if (perche == null || !context.mounted) return;
+  final sicuro = await _neSeiDavveroSicuro(context, verbo: 'Sì, ricomincia');
+  if (!sicuro || !context.mounted) return;
   final servizi = context.read<AppServices>();
   // **ANCHE IL SERVER, ordine BE voce 07 punto 3.** Il fondatore ha
   // azzerato, reinstallato, e si e' ritrovato 270 Eos: il ramo sul server
@@ -724,7 +796,7 @@ Future<void> _azzeraIDati(BuildContext context) async {
   // c'e' e non risponde, ci si ferma e lo si dice: azzerare solo il
   // telefono e' esattamente il difetto visto sulla 2199.
   if (servizi.porta.viva) {
-    final azzerato = await servizi.porta.azzeraIDati();
+    final azzerato = await servizi.porta.azzeraIDatiDicendo(perche);
     if (!context.mounted) return;
     if (!azzerato) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -811,7 +883,9 @@ Future<void> _chiediLOblio(BuildContext context) async {
       content: Text(
         'Spariranno subito e per sempre la tua carta natale, la memoria '
         'dei Maestri, i tuoi Sigilli e i tuoi Eos, qui e sul server. Con '
-        'loro sparirà il tuo accesso. Non si torna indietro.',
+        'loro sparirà il tuo accesso. Non si torna indietro. E se un '
+        'giorno tornerai con la stessa email, il dono di benvenuto non si '
+        'ripeterà.',
         style: TypographyTokens.corpo()
             .copyWith(color: ColorTokens.textSecondary, height: 1.4),
       ),
@@ -829,8 +903,15 @@ Future<void> _chiediLOblio(BuildContext context) async {
     ),
   );
   if (conferma != true || !context.mounted) return;
+  // **I PASSI DI PROTEZIONE, ordine BH voce 06**: il perche' (facoltativo)
+  // e l'ultima conferma, per i tocchi accidentali.
+  final perche = await _chiediIlPerche(context);
+  if (perche == null || !context.mounted) return;
+  final sicuro =
+      await _neSeiDavveroSicuro(context, verbo: 'Sì, cancella tutto');
+  if (!sicuro || !context.mounted) return;
   final servizi = context.read<AppServices>();
-  final cancellato = await servizi.porta.cancellaIlCerchio();
+  final cancellato = await servizi.porta.cancellaIlCerchioDicendo(perche);
   if (!context.mounted) return;
 
   if (!cancellato) {
@@ -874,7 +955,6 @@ class _AccountEntry {
     required this.subtitle,
     required this.icon,
     this.onTap,
-    this.teaser,
   });
 
   final String id;
@@ -884,10 +964,6 @@ class _AccountEntry {
 
   /// Azione della voce. Se assente, la sezione e' ancora in arrivo.
   final void Function(BuildContext context)? onTap;
-
-  /// L'anticipo della voce in arrivo: cosa arrivera', detto con parole sue.
-  /// Ordine AL voce 06: una voce senza azione DEVE averlo.
-  final String? teaser;
 
   bool get isLive => onTap != null;
 }
@@ -911,9 +987,11 @@ class _AccountTile extends StatelessWidget {
       feature: FeatureDefinition(
         id: 'account_${entry.id}',
         title: entry.title,
-        teaser: entry.teaser ??
-            'Questa sezione sta per aprirsi nel Cerchio. Torna presto per '
-                'trovarla pronta.',
+        // **Nessuna voce del menu porta piu' un anticipo suo, ordine BH
+        // voce 06**: l'ultima (Privacy) e' diventata una porta vera. La
+        // frase generica resta per la voce in arrivo che nascera'.
+        teaser: 'Questa sezione sta per aprirsi nel Cerchio. Torna presto '
+            'per trovarla pronta.',
         icon: entry.icon,
       ),
       status: FeatureStatus.comingSoon,
@@ -1013,3 +1091,81 @@ class _AccountTile extends StatelessWidget {
 
 // **IL RICHIAMO DELL'OBLIO IN ATTESA E' STATO RIMOSSO, ordine BE voce 07**:
 // i trenta giorni non esistono piu', la cancellazione e' immediata.
+
+
+/// PRIVACY E DATI, il sottomenu. Ordine BH voce 06.
+///
+/// Vive in fondo al menu utente, dietro una porta sua: la policy, lo
+/// scarico dei dati e le due cancellazioni. Le voci delicate stanno qui
+/// apposta, lontane dai tocchi accidentali, coi loro passi di protezione.
+class PrivacyEDatiScreen extends StatelessWidget {
+  const PrivacyEDatiScreen({super.key});
+
+  static Route<void> route() => MaterialPageRoute(
+        builder: (_) => const MaestroScope(child: PrivacyEDatiScreen()),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    final entries = <_AccountEntry>[
+      _AccountEntry(
+        id: 'policy',
+        title: 'Privacy policy',
+        subtitle: 'Cosa sappiamo di te, dove vive e i tuoi diritti',
+        icon: Icons.menu_book_outlined,
+        onTap: (context) =>
+            Navigator.of(context).push(PrivacyPolicyScreen.route()),
+      ),
+      _AccountEntry(
+        id: 'scarica',
+        title: 'Scarica i tuoi dati',
+        subtitle: 'Tutto ciò che il Cerchio sa di te, in un file',
+        icon: Icons.download_rounded,
+        onTap: (context) => _scaricaITuoiDati(context),
+      ),
+      _AccountEntry(
+        id: 'azzera',
+        title: 'Cancella i tuoi dati',
+        subtitle: "Il cammino riparte da zero, l'account resta tuo",
+        icon: Icons.restart_alt_rounded,
+        onTap: (context) => _azzeraIDati(context),
+      ),
+      // **IL SOTTOTITOLO DICE IL VERO, ordine BH voce 06.** Quello di prima
+      // prometteva "trenta giorni per ripensarci", ma i trenta giorni sono
+      // stati tolti da BE.07: la cancellazione e' immediata, e la riga lo
+      // dice senza sconti.
+      _AccountEntry(
+        id: 'oblio',
+        title: 'Cancella il tuo account',
+        subtitle: 'Sparisce tutto, subito e per sempre, qui e sul server',
+        icon: Icons.delete_outline_rounded,
+        onTap: (context) => _chiediLOblio(context),
+      ),
+    ];
+    return Scaffold(
+      backgroundColor: ColorTokens.neutralDeepest,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          color: ColorTokens.textPrimary,
+          onPressed: () => Navigator.of(context).maybePop(),
+        ),
+        title:
+            Text('Privacy e dati', style: TypographyTokens.display(size: 20)),
+      ),
+      body: SafeArea(
+        top: false,
+        child: ListView.separated(
+          key: const Key('privacy_e_dati_lista'),
+          padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
+              SpacingTokens.lg, SpacingTokens.xxxl),
+          itemCount: entries.length,
+          separatorBuilder: (_, __) => const SizedBox(height: SpacingTokens.sm),
+          itemBuilder: (context, i) => _AccountTile(entry: entries[i]),
+        ),
+      ),
+    );
+  }
+}

@@ -241,6 +241,15 @@ abstract class PortaDelCerchio {
   /// azzerato, e chi chiama lo dice invece di fingere.
   Future<bool> azzeraIDati() async => false;
 
+  /// LE CANCELLAZIONI COL PERCHE', ordine BH voce 06. Il congedo e'
+  /// facoltativo e anonimo (il server lo scrive senza uid ne' email, prima
+  /// di cancellare): qui i due passaggi con la ragione, con un difetto che
+  /// delega alle porte senza perche' cosi' nessuna porta finta si rompe.
+  Future<bool> cancellaIlCerchioDicendo(String? perche) =>
+      cancellaIlCerchio();
+
+  Future<bool> azzeraIDatiDicendo(String? perche) => azzeraIDati();
+
   /// UN IDENTIFICATIVO PER OGNI GESTO, e serve davvero.
   ///
   /// Senza rete il gesto si accoda e si rimanda dopo: se la risposta si
@@ -361,6 +370,22 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   @override
   Future<bool> azzeraIDati() async {
     final risposta = await _chiama('azzeraIDatiDelCerchio', const {});
+    return risposta is Map && risposta['datiAzzerati'] == true;
+  }
+
+  @override
+  Future<bool> cancellaIlCerchioDicendo(String? perche) async {
+    final risposta = await _chiama('cancellaIlCerchio', {
+      if (perche != null && perche.trim().isNotEmpty) 'perche': perche,
+    });
+    return risposta is Map && risposta['datiCancellati'] == true;
+  }
+
+  @override
+  Future<bool> azzeraIDatiDicendo(String? perche) async {
+    final risposta = await _chiama('azzeraIDatiDelCerchio', {
+      if (perche != null && perche.trim().isNotEmpty) 'perche': perche,
+    });
     return risposta is Map && risposta['datiAzzerati'] == true;
   }
 }

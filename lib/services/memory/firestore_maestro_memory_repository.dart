@@ -275,11 +275,15 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
 
   @override
   Future<void> deleteAllData() async {
-    // L'OBLIO PASSA DAL SERVER quando c'e': cancella il ramo intero, anche i
-    // documenti che il client non conosce (contatori, movimenti, consumi), e
-    // poi l'account. Il giro qui sotto resta per le prove e per il caso in
-    // cui il server non risponda, dove almeno cio' che si vede sparisce.
-    if (_porta.viva && await _porta.cancellaIlCerchio()) {
+    // **IL RAMO SI AZZERA, L'ACCOUNT NON SI TOCCA. Ordine BH voce 06.**
+    // Qui c'era `cancellaIlCerchio`, cioe' la cancellazione dell'ACCOUNT:
+    // cosi' TUTTE le strade che promettevano "l'account resta tuo" (la voce
+    // azzera del menu e quella delle Impostazioni) finivano per cancellare
+    // anche l'accesso. Chi vuole l'oblio dell'account chiama la porta
+    // dell'oblio per conto suo: questo metodo cancella i DATI, come dice il
+    // nome, e il giro locale qui sotto resta per le prove e per quando il
+    // server non risponde.
+    if (_porta.viva && await _porta.azzeraIDati()) {
       _daMandare.clear();
       await _semanticIndex.forget(uid);
       await _archive.purge(uid);

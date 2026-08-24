@@ -69,17 +69,22 @@ void main() {
     // le raggiungeva **per caso**, perche' il tocco su Notifiche apriva un
     // foglio e chiudendolo la lista si era mossa. Tolta quella voce, il caso
     // e' finito.
+    // **PRIVACY E' DIVENTATA UNA PORTA VERA, ordine BH voce 06**: niente
+    // piu' anticipo, il tocco apre il sottomenu Privacy e dati con la
+    // policy, lo scarico e le cancellazioni protette.
     await tester.scrollUntilVisible(
-      find.byKey(const Key('account_privacy')),
+      find.byKey(const Key('account_privacy_e_dati')),
       200,
       scrollable: find.byType(Scrollable).first,
     );
-    await tester.tap(find.byKey(const Key('account_privacy')));
+    await tester.tap(find.byKey(const Key('account_privacy_e_dati')));
     for (var i = 0; i < 4; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
-    expect(find.textContaining('i tuoi consensi'), findsOneWidget,
-        reason: 'il tocco su Privacy non risponde con l\'anticipo suo');
+    expect(find.byKey(const Key('privacy_e_dati_lista')), findsOneWidget,
+        reason: 'il tocco su Privacy e dati non apre il sottomenu');
+    expect(find.byKey(const Key('account_oblio')), findsOneWidget,
+        reason: 'la cancellazione dell\'account non vive nel sottomenu');
   });
 
   testWidgets('la custodia risponde anche quando la memoria non risponde',
