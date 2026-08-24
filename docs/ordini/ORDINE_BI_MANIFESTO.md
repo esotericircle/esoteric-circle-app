@@ -51,16 +51,16 @@ hai lasciato in coda."
 ## Le voci
 
 - **BI.00** Il manifesto prima di tutto, con la guardia. CHIUSA: questo file e `test/ordine_bi_guard_test.dart`.
-- **BI.01** La porta piccola sonda e comunica: prima l'email, il server dice se esiste e con quale via, chi esiste viene instradato alla sua via, chi non esiste lo sa subito e prosegue per forza l'onboarding. Nasce la callable dell'esistenza, ottava, dichiarata alla guardia delle callable. APERTA.
-- **BI.02** La password di tutti: la parola Password ovunque, Hai perso la Password?, l'occhiolino per rivelare, le regole scritte e validate (almeno 8 caratteri, una maiuscola, un numero, un carattere speciale), il gestore password del dispositivo, e i bottoni del foglio leggibili coi colori di casa. APERTA.
-- **BI.03** Il ricordo detto giusto: il Bentornato dice "Il Cerchio si ricorda di te", mai piu' "ti aveva tenuto tutto". APERTA.
-- **BI.04** Il secondo fattore col codice numerico: l'infrastruttura server e client del codice via email, col mittente da configurare e la guida passo passo al fondatore per l'unico gesto manuale suo. APERTA.
+- **BI.01** La porta piccola sonda e comunica. CHIUSA: la porta di chi torna non mostra piu' un modulo, chiede PRIMA l'email e la controlla col server (callable esisteIlCerchio, con tetto di dieci sonde al giorno per account contro l'enumerazione, costo dichiarato e scelto dal fondatore); chi risulta entra con la SUA via (Google, Apple, oppure il campo Password con occhiolino e Hai perso la Password?), chi non risulta legge in chiaro che l'email non e' registrata e prosegue per forza il rito (bottone Prosegui il rito, nessuna via mostrata: niente account creati in silenzio); se il server non risponde la sonda lo dice e apre le tre vie classiche, mai un vicolo cieco. La guardia delle callable sale da sette a nove con la dichiarazione. Guardia: test/la_porta_sonda_e_la_password_test.dart.
+- **BI.02** La password di tutti. CHIUSA: il campo si chiama Password, la via persa dice Hai perso la Password?, l'occhiolino rivela e copre, la regola del fondatore (8 caratteri, maiuscola, numero, carattere speciale) sta SCRITTA sotto il campo e VALIDATA a voce in guaioDellaPassword (casa unica, usata anche dal cambio Password del menu, il cui vecchio cancello sotto i sei caratteri era MUTO); il gestore password del dispositivo riceve AutofillGroup, i suggerimenti giusti e il segnale di chiusura; i bottoni del foglio (Annulla, Registrati) portano i colori di casa invece del blu del tema; la voce del menu diventa Cambia la Password e il foglio della registrazione si intitola Registrati con la tua email. Guardia nella stessa prova della voce 01.
+- **BI.03** Il ricordo detto giusto. CHIUSA: la scena del ritrovamento dice "Il Cerchio si ricorda di te." e la frase del possesso e' vietata dalla guardia. Il caso del fondatore resta spiegato dal fatto misurato in testa a questo manifesto: il suo Cerchio esisteva davvero, nato nel collaudo del mattino.
+- **BI.04** Il secondo fattore col codice numerico. CHIUSA, con l'unico gesto manuale dichiarato: nasce la callable secondoFattore (una sola, due operazioni): manda genera il codice di sei cifre, ne conserva l'IMPRONTA con scadenza di dieci minuti (mai il codice in chiaro, cinque invii al giorno) e lo spedisce dal mittente in Secret Manager (SMTP_URL, oggi un segnaposto: senza mittente il server DICHIARA mittente_non_configurato e il client ripiega sul collegamento di Firebase, mai un codice promesso che non arriva); verifica confronta l'impronta (cinque tentativi, il codice buono si consuma) e a verifica riuscita rende VERIFICATA l'email dell'account, cosi' il benvenuto arriva dalle regole di BH.01 senza una seconda strada per il premio. Il client: dopo la registrazione con email parte il codice e si apre il foglio delle sei cifre (autocompilazione oneTimeCode, Mandamelo di nuovo, guai declinati per motivo), a verifica compiuta il giro si rifa' e la festa si apre. IL GESTO DEL FONDATORE, guidato nel responso: creare la credenziale del mittente (password per le app di Gmail oppure una chiave SendGrid) e darla a Code, che imposta SMTP_URL e ridispiega: dieci minuti, nessuna conoscenza tecnica.
 - **BI.05** Suite, build e consegna su App Tester. APERTA.
 
 MARCATORI, per la guardia:
 VOCI_TOTALI: 6
-VOCI_APERTE: 5
+VOCI_APERTE: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_CHIUSE: 1
+VOCI_CHIUSE: 5
