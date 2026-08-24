@@ -76,7 +76,7 @@ da scrivere parte poi, su un testo gia' letto.
 ## Le voci
 
 - **BK.00** Il manifesto con la guardia. CHIUSA: questo file e `test/ordine_bk_guard_test.dart`.
-- **BK.01** Il nome breve in home. APERTA.
+- **BK.01** Il nome breve in home. CHIUSA: `'horoscope': 'Oroscopo'` aggiunta a `_etichetteBrevi` in `lib/core/arts/arti_preferite.dart`; catalogo e `function_shelf.dart` non toccati. **MISURA a 360 punti logici**, letta dal render object del `FittedBox` della bolla: col nome lungo lo spazio concesso e' 228,00 e quello voluto 286,62, quindi fattore **0,7955** e corpo reso **14,32**; col nome breve il voluto scende a 110,10, quindi fattore **1,0000** e corpo reso **18,00**, cioe' il corpo pieno del token. Il testo reso sale del **25,71 per cento** (rapporto 1,2571) e il titolo sta dentro la bolla (110,10 contro 228,00). Anteprima a 360 guardata: "Oroscopo" si legge allo stesso corpo di "Tarocchi" e "Sinastria VIP". Guardia: `test/il_nome_breve_dell_oroscopo_test.dart`, che misura la CATENA VERA (`etichettaBreve(id) ?? arte.title`) e non un titolo scritto a mano, enumera lo scaffale e pretende il catalogo intatto. **Rosso dimostrato**: tolta la voce dalla mappa e verificata l'assenza PRIMA di leggere l'esito, cadono entrambe le prove (fattore 0,7955 invece di 1,0 e etichette brevi 1 invece di 2). Aggiornato `test/le_arti_preferite_test.dart`, che pretendeva l'Oroscopo senza etichetta breve.
 - **BK.02** Il responso non compare al tocco. APERTA.
 - **BK.03** I due momenti della riflessione, col cielo vero. APERTA.
 - **BK.04** La soglia e la rivelazione. APERTA.
@@ -85,8 +85,8 @@ da scrivere parte poi, su un testo gia' letto.
 
 MARCATORI, per la guardia:
 VOCI_TOTALI: 7
-VOCI_APERTE: 6
+VOCI_APERTE: 5
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_CHIUSE: 1
+VOCI_CHIUSE: 2

@@ -18,6 +18,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// synastry_vip, rune_draw, guide_animal, meditation, face_constellation);
 /// la bolla della stesa porta l'etichetta breve "Tarocchi", che e' un dato
 /// del controller e MAI un rinomino del catalogo.
+///
+/// **DALL'ORDINE BK VOCE 01 le etichette brevi sono DUE**: la stesa e
+/// l'Oroscopo. Prima l'Oroscopo non ne aveva, e questa prova pretendeva che
+/// non ne avesse: adesso pretende il contrario, perche' la decisione del
+/// fondatore l'ha cambiata.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -47,8 +52,13 @@ void main() {
         'Tarocchi',
         reason: 'la decisione di Mauro: nello scaffale la stesa si chiama '
             'Tarocchi, senza rinominare il catalogo');
-    expect(ArtiPreferiteController.etichettaBreve('horoscope'), isNull,
-        reason: 'le altre arti tengono il titolo del catalogo');
+    expect(ArtiPreferiteController.etichettaBreve('horoscope'), 'Oroscopo',
+        reason: 'ordine BK voce 01: nello scaffale l\'arte si chiama '
+            '"Oroscopo", perche\' il nome lungo veniva rimpicciolito dal '
+            'FittedBox');
+    expect(ArtiPreferiteController.etichettaBreve('rune_draw'), isNull,
+        reason: 'le arti senza etichetta breve tengono il titolo del '
+            'catalogo');
   });
 
   testWidgets('lo scaffale montato: titolo, sette bolle in ordine, Tarocchi',

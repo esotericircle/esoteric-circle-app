@@ -70,8 +70,19 @@ class ArtiPreferiteController extends ChangeNotifier {
   /// la stesa si chiama "Tarocchi"; il catalogo e ogni altro posto dell'app
   /// tengono "Stesa di Tarocchi". E' un dato di QUESTO controller, mai una
   /// seconda voce di catalogo e mai una stringa incollata in un widget.
+  ///
+  /// **L'OROSCOPO, ordine BK voce 01.** Parole del fondatore: "la
+  /// funzionalita' Oroscopo Personalizzato si chiamera' solo oroscopo cosi'
+  /// il font sara' piu' grande in home". Il motivo e' misurabile e non
+  /// estetico: il titolo della bolla vive in un `FittedBox(scaleDown)`, che
+  /// rimpicciolisce quello che non ci sta. "Oroscopo Personalizzato" non ci
+  /// stava e veniva reso in piccolo; "Oroscopo" ci sta, e il corpo resta
+  /// quello pieno. Il catalogo continua a dire "Oroscopo Personalizzato",
+  /// perche' il nome lungo e' il nome dell'arte: cambia solo come si chiama
+  /// sullo scaffale di casa.
   static const Map<String, String> _etichetteBrevi = {
     'tarot_spread_three': 'Tarocchi',
+    'horoscope': 'Oroscopo',
   };
 
   /// L'etichetta breve di un'arte nello scaffale, se ne ha una.
