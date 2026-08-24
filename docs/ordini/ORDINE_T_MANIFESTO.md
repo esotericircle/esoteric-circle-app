@@ -48,7 +48,7 @@ lo chiede.
 
 ## Le voci
 
-- **T.01** I cinquantacinque ancoraggi si ricavano dall'arte — FERMATA IN ATTESA DI DECISIONE
+- **T.01** I cinquantacinque ancoraggi si ricavano dall'arte — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la decisione attesa e' arrivata, Mauro ha consegnato i due PNG dei pallini (brand_assets/sentieri), gli ancoraggi dei tre sentieri sono generati e la guardia test/gli_ancoraggi_vengono_dall_arte_test.dart rifa' la lettura a ogni giro.
   - **LO STATO IN UNA RIGA: la macchina e' finita e provata, l'Albero e' letto e
     guardato, e mancano due immagini che deve fare Mauro.** La voce non e' chiusa
     perche' due sentieri su tre non hanno ancora i loro ancoraggi, e non e'
@@ -120,7 +120,7 @@ lo chiede.
     5), due punti a 7,5 pixel di distanza (entrata, sotto il minimo di 20), un
     punto a x uguale a 1,4 cioe' fuori dalla tela (entrata). Tutte e quattro
     cadono col messaggio che dice QUALE gruppo e QUANTI punti ha.
-- **T.02** Le tre immagini prendono il posto del painter, e si accende la forma — APERTA
+- **T.02** Le tre immagini prendono il posto del painter, e si accende la forma — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): assolta dall'ordine AC voce 01, interruttore acceso dal 16 agosto col complemento per righe, tempi misurati 18,80, 19,68 e 25,82 millesimi, guardia test/il_journal_arriva_in_fondo_test.dart.
   - **LE CINQUE PREMESSE DELLA RISCRITTURA REGGONO, misurate da me.** I cinque
     file ci sono: `albero.png` 941 per 1672, `costellazione.png` e
     `costellazione_pallini.png` 1023 per 1537, `loto.png` e `loto_pallini.png`
@@ -203,7 +203,7 @@ lo chiede.
 ## Marcatori
 
 VOCI_TOTALI: 2
-VOCI_CHIUSE: 0
-VOCI_APERTE: 1
+VOCI_CHIUSE: 2
+VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

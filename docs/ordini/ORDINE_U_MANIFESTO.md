@@ -235,7 +235,7 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
     `Traguardo` porta `nome`, `frase`, `percheConta` e `cosaApre`, e cosa fare per
     accendere un traguardo lo dice la CONDIZIONE, che e' un dato e non una frase.
 
-- **U.02** Tre celebrazioni, una per Maestro — APERTA
+- **U.02** Tre celebrazioni, una per Maestro — FERMATA SU DECISIONE DEL FONDATORE. Voltata il 24 agosto 2026 (BF.03): superata due volte dal fondatore, AT ha demolito le feste a particelle e AV ha deciso che la festa non e' piu' diversa per Maestro (spirale unica), BE.05 ha demolito anche la card breve; di quel lavoro resta maestro_della_festa.dart, che decide il colore della scena.
   - **NIENTE NELLO STATO ATTUALE CONTRADDICE LA VOCE, misurato prima di
     costruire.** Le celebrazioni erano due, `CelebrazioneAScermoPieno` e
     `_FasciaDellaCelebrazione`, uguali per i tre Maestri tranne la palette; il
@@ -314,6 +314,7 @@ Tutte e cinque reggono, e le due che chiedevano una misura la portano.
 
 VOCI_TOTALI: 3
 VOCI_CHIUSE: 2
-VOCI_APERTE: 1
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
+VOCI_APERTE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

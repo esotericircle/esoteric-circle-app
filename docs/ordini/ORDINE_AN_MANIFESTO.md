@@ -90,7 +90,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   2026 e prossimo solstizio 21 dicembre 2026, piu' la coerenza su 21 eventi
   confrontati col motore di oggi; guardia il_motore_della_prossima_data con
   rosso provato)
-- **AN.02** La barra cambia veste — FERMATA IN ATTESA DI DECISIONE
+- **AN.02** La barra cambia veste — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): collaudata sulla 2182, i ritocchi chiesti sono confluiti in AO.01 e AO.02, poi AR.10 ha semplificato per decisione del fondatore.
   (a sinistra il volto E il nome proprio dal profilo, che passa dalla
   normalizzazione del dato e senza nome resta il solo volto; al centro il
   prossimo evento col conto alla rovescia in lingua del Cerchio, dal motore
@@ -105,7 +105,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   una notizia a meta'. Guardia la_barra_sottile_e_la_casa_unica con nove
   prove e rosso provato; anteprima rigenerata e guardata; chiude il collaudo
   di Mauro sulla 2182)
-- **AN.03** La schermata del Calendario degli Eventi — FERMATA IN ATTESA DI DECISIONE
+- **AN.03** La schermata del Calendario degli Eventi — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): il Calendario e' usato dal fondatore, AU.10 nasce da una sua misura proprio su quella pila, e nessun collaudo fino alla 2200 ha portato rilievi di merito.
   (`lib/features/calendario/calendario_degli_eventi_screen.dart`, si apre dal
   centro della barra; elenco cronologico a orizzonte dichiarato di 90 giorni
   piu' i grandi appuntamenti personali anche oltre, perche' il ritorno solare
@@ -136,7 +136,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   pronto, anche se la lettura fallisce, e la sincronia lo aspetta; guardia
   la_sincronia_parte_da_sola che riproduce l'attimo vero, col caricamento in
   volo, e rosso provato)
-- **AN.05** Il listino vivo: costi in chiaro, residui, spesa vera — FERMATA IN ATTESA DI DECISIONE
+- **AN.05** Il listino vivo: costi in chiaro, residui, spesa vera — FERMATA SU DECISIONE DEL FONDATORE. Voltata il 24 agosto 2026 con decisione col mandato BF: listino, spesa e CostoInChiaro esistono con guardie verdi ma nessuna arte spende Eos oggi; l'aggancio ai flussi veri (carta extra, stesa, domanda, sinastria) e' lavoro della revisione delle singole funzionalita', dove ogni arte innesta il suo costo sotto gli occhi del fondatore.
   (nasce `ListinoDegliEos`, la porta unica dei prezzi coi cinque numeri
   approvati, 50 carta extra, 120 stesa a tre carte come deciso da Mauro il
   18 agosto, 150 sinastria, 80 domanda, 250 stesa completa, ognuno col suo
@@ -150,7 +150,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   otto prove, fra cui l'enumerazione sui 413 sorgenti che vieta un prezzo
   scritto a mano fuori dal listino, e rosso provato; chiude il collaudo di
   Mauro sulla 2182)
-- **AN.06** Il gating onesto a due strade — FERMATA IN ATTESA DI DECISIONE
+- **AN.06** Il gating onesto a due strade — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): i due grigi sono separati per costruzione e la verifica a schermo e' stata rifatta dall'ordine BF voce 05.l col metodo dei pixel; la porta strade_dello_sblocco resta pronta per la revisione.
   (nasce `StradeDelloSblocco`, la porta unica che dice davanti a ogni
   lucchetto quale strada esiste davvero: un extra a consumo mostra il costo
   in Eos E l'abbonamento che lo include, con la strada di oggi per prima;
@@ -177,7 +177,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
   npm test 25 verdi con rosso provato sul benvenuto, piu'
   il_benvenuto_e_la_dote lato client. **IL DEPLOY DELLE FUNCTIONS SPETTA A
   MAURO**, come dice la nota dell'ordine: `firebase deploy --only functions`)
-- **AN.08** La condivisione si paga solo se avviene davvero — FERMATA IN ATTESA DI DECISIONE
+- **AN.08** La condivisione si paga solo se avviene davvero — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la cura vive in porta_della_condivisione.dart (si paga solo su success) con due guardie verdi, e BF.05.j l'ha dichiarata gia' assolta.
   (P8 riverificata e curata: tutte e tre le vie della porta leggono ora
   `ShareResult.status` e tornano vero SOLO su success; annullato e non
   disponibile valgono come non condiviso, e su "non disponibile" si sceglie
@@ -221,6 +221,7 @@ locale si rinnovano solo i tetti d'uso gratuiti del giorno.
 
 VOCI_TOTALI: 9
 VOCI_APERTE: 0
-VOCI_CHIUSE: 4
+VOCI_CHIUSE: 8
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

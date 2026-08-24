@@ -67,7 +67,7 @@ Mauro del 17 agosto 2026.
 
 ## Le voci
 
-- **AR.01** Il cielo si muove della corsa che gli spetta. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AR.01** Il cielo si muove della corsa che gli spetta. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): le misure sono state fatte e superate in meglio dalla catena AS.01, AU.04, AV.02 e AW, collaudo 2196 approvato.
   (**LE MISURE, e due ipotesi dell'ordine sono cadute.** Nasce
   `test/il_cielo_si_muove_davvero_test.dart`, che risponde a due domande
   diverse: se la formula da' la corsa giusta, e se il cielo a schermo la usa.
@@ -159,7 +159,7 @@ Mauro del 17 agosto 2026.
   che non matura mai e il salto dentro il motore. La scala li scavalca, cosi'
   nessun sentiero si ferma su un gradino irraggiungibile. Rosso provato sulla
   seconda serratura)
-- **AR.06** Il cammino riparte pulito, una volta sola. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AR.06** Il cammino riparte pulito, una volta sola. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la rinascita vive nel client e nel server, guardia viva, ed e' gia' scattata sui telefoni senza segnalazioni.
   (nasce `lib/core/cammino/rinascita_del_cammino.dart`, la casa unica
   dell'azzeramento. **La generazione del cammino non e' la versione del
   formato**: quella dice come sono fatti i campi, questa quale CAMMINO si sta
@@ -188,7 +188,7 @@ Mauro del 17 agosto 2026.
   chiavi controllare, quindi togliendone una non la cercava piu'. Adesso
   l'elenco della prova e' suo.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2186)
-- **AR.07** "Il prossimo" mostra il prossimo. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AR.07** "Il prossimo" mostra il prossimo. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la scheda del prossimo nella festa non esiste piu' per decisione di Mauro (AS.05, poi BE.04); il motore prossimoDi resta vivo dove serve.
   (**la causa non era la scheda, era il momento.** La festa si apre
   nell'istante in cui il traguardo matura, e la ricerca del "primo non
   acceso" trovava proprio lui se l'accensione non era ancora arrivata al
@@ -251,7 +251,7 @@ Mauro del 17 agosto 2026.
   Gli accenti mancanti si sono corretti nel GENERATORE, non nei file
   generati, perche' correggerli a valle li avrebbe fatti tornare al primo
   rigenero)
-- **AR.10** La barra sottile si semplifica. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AR.10** La barra sottile si semplifica. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): eseguita, la barra ha un solo stato con le sue guardie, e nessun collaudo successivo l'ha piu' toccata.
   (**via il nome e via l'apertura**, e sono due decisioni di Mauro che ne
   superano due sue precedenti, scritte accanto al codice: il nome accanto al
   volto veniva dall'ordine AN voce 02, il ritiro automatico dall'ordine AO
@@ -325,6 +325,6 @@ Mauro del 17 agosto 2026.
 
 VOCI_TOTALI: 11
 VOCI_APERTE: 0
-VOCI_CHIUSE: 7
+VOCI_CHIUSE: 11
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

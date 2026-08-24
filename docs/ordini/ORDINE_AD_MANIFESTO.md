@@ -76,7 +76,7 @@ contate.
 
 ## Le cinque voci
 
-- **AD.01** La via Google diventa nativa — FERMATA IN ATTESA DI DECISIONE
+- **AD.01** La via Google diventa nativa — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): il collaudo e' avvenuto di fatto, il fondatore ha percorso il flusso Google nativo dalla 2183 fino alla cancellazione e nuova registrazione di BF.01, e l'errore missing initial state non e' mai piu' comparso.
 - **AD.02** La correzione del test del server entra nella storia — CHIUSA
 - **AD.03** Il manifesto e il rapporto — CHIUSA
 - **AD.04** Lo schema URL di Google nel progetto iOS — FERMATA SU PREMESSA FALSA
@@ -95,6 +95,6 @@ errore generico: anche quello e' un collaudo riuscito, perche' dice la verita'.
 
 VOCI_TOTALI: 5
 VOCI_APERTE: 0
-VOCI_CHIUSE: 2
+VOCI_CHIUSE: 3
 VOCI_FERMATE_SU_PREMESSA_FALSA: 2
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

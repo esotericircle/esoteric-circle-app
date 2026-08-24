@@ -63,7 +63,7 @@ Mauro del 17 agosto 2026.
 
 ## Le voci
 
-- **AS.01** L'inclinazione si misura dal riposo, non dalla gravita'. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AS.01** L'inclinazione si misura dal riposo, non dalla gravita'. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): il collaudo atteso e' avvenuto (ne e' nato AU); la curva e' stata poi rifatta da AV.02 e AW, e il riposo di questa voce resta vivo nel parallax_controller.
   (**la cura, e i numeri sono tutti misurati.** Nasce la POSIZIONE DI RIPOSO:
   una media che si muove col passo 0,003, cioe' in due secondi insegue l'otto
   per cento e in mezzo minuto il settantacinque. Il primo campione la fissa,
@@ -105,7 +105,7 @@ Mauro del 17 agosto 2026.
   **Cosa NON e' stato fatto**, ed e' cio' che la fermata sospende: nessun
   collaudo a video di quelle scene, nessuna rifinitura del movimento, nessuna
   chiusura. L'ordine AT dira' cosa ne resta)
-- **AS.03** Il borsellino si aggiorna al traguardo. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AS.03** Il borsellino si aggiorna al traguardo. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): il deploy delle functions e' stato fatto dal fondatore il 21 agosto e AU.11 ha rifatto la sincronia; guardie vive.
   (**L'ENUMERAZIONE dei punti in cui un accredito si puo' fermare**, e sono
   quattro: la porta spenta, il server che non risponde, il server che RIFIUTA,
   e l'accredito riuscito col saldo non applicato.
@@ -129,7 +129,7 @@ Mauro del 17 agosto 2026.
   che RISPONDE e risponde di no, che e' cosa diversa da una porta spenta.
   **Prova del rosso**: rimessa l'uscita anticipata prima della domanda al
   server, la guardia cade e nomina il difetto)
-- **AS.04** Ogni Sigillo acceso si tocca, su tutti e tre i sentieri. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AS.04** Ogni Sigillo acceso si tocca, su tutti e tre i sentieri. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): confermata da AU (i cinque grandi rispondono su tutti e tre i sentieri) e completata da AU.09 e AV.04.
   (**LA CAUSA E' MISURATA, e non e' quella che sembrava.** Non c'era niente di
   rotto nei punti grandi: il tocco sceglieva il punto piu' vicino al dito entro
   un raggio UGUALE PER TUTTI, cinquantacinque millesimi del lato corto, cioe'
@@ -156,7 +156,7 @@ Mauro del 17 agosto 2026.
   i quindici grandi a parte, e otto tocchi dentro ogni perla grande, 120 in
   tutto. **Prova del rosso** togliendo la prima passata: 12 tocchi su 120
   finiscono al mini)
-- **AS.05** Si legge, e la card del traguardo si sfoltisce. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AS.05** Si legge, e la card del traguardo si sfoltisce. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): i grigi e il titolo vivono nei token con le loro guardie, estesa da AU.08 e BD.07.
   (**IL CENSIMENTO DEI GRIGI, e la prima stesura guardava un colore su due.**
   Il progetto ha DUE grigi: `textSecondary`, che misurato sta fra 9,6 e 11,1 a
   1 sui quattro fondi veri, e `textMuted`, che stava a **4,66 su Medora**, cioe'
@@ -185,7 +185,7 @@ Mauro del 17 agosto 2026.
   Guardie `test/i_grigi_si_leggono_test.dart` e
   `test/il_titolo_non_si_spezza_test.dart`, la seconda con la prova che il
   difetto esisteva davvero prima della cura)
-- **AS.06** Il Rito dell'Alba. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AS.06** Il Rito dell'Alba. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): collaudata e rifinita da BB.06, BB.07, BB.08, BB.09 e BE.06.
   (**LA PAROLA DEL GIORNO NON C'ENTRAVA NIENTE, e la causa era scritta nel
   codice.** I tre momenti del rito si estraevano con TRE semi derivati
   distinti, con tanto di commento che lo giustificava: "cosi' i tre momenti non
@@ -219,7 +219,7 @@ Mauro del 17 agosto 2026.
   trovato guardandole**: la cattura del dono mostrava una FESTA al posto della
   scheda, perche' compiere il rito matura un traguardo e la celebrazione si
   apre sopra; adesso la cattura parte a cammino gia' percorso)
-- **AS.07** Il Soffio del Destino. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AS.07** Il Soffio del Destino. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): collaudata e rifinita da BB.09 con l'abito notturno.
   (**LO STELO SI DICHIARAVA "SEMPRE PIANTATO NEL PRATO"**, e si disegnava con
   una `Paint()` piena, senza nessun legame col progresso del soffio: a gesto
   finito restava un gambo nudo in primo piano sotto il dono. Adesso resta
@@ -241,7 +241,7 @@ Mauro del 17 agosto 2026.
   in questo repo.
   Anteprime `soffio-destino` e `soffio-destino-dono` rigenerate e guardate: a
   testa piena lo stelo c'e', col dono a schermo non c'e' piu')
-- **AS.08** L'Oracolo del Giorno diventa l'Arcano del Giorno. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AS.08** L'Oracolo del Giorno diventa l'Arcano del Giorno. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): collaudata e rifinita da AU.12, l'Arcano ha il posto delle 13 nella giornata dei riti.
   (**COS'ERA PRIMA, detto senza addolcirlo.** Una riga presa a giro da un
   elenco di ventidue frasi, uguale per tutti e legata al giorno dell'anno: si
   leggeva come un biscotto della fortuna, e il livello visivo era un disco
@@ -277,7 +277,7 @@ Mauro del 17 agosto 2026.
   responso sono due righe che allontanano la risposta.
   Guardia `test/l_arcano_del_giorno_test.dart` con sei prove. Anteprima
   `arcano-del-giorno.png` rigenerata e guardata)
-- **AS.09** La Runa del Tramonto. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AS.09** La Runa del Tramonto. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): collaudata, la schermata e' stata toccata solo per aggiunte e nessun ordine ha rovesciato le decisioni.
   (**L'AVVISO DELLA POSIZIONE: il sospetto di Mauro era che non fosse collegato
   a niente, e la misura dice il contrario.** E' collegatissimo, e proprio per
   questo lampeggia: la scena parte con `_stimata` a vero, quindi l'avviso c'e'
@@ -311,7 +311,7 @@ Mauro del 17 agosto 2026.
   e cosa portare: e' il gesto con cui lo si fa.
   Guardia `test/la_runa_cade_e_non_e_gia_li_test.dart`. Anteprime del tramonto
   rigenerate e guardate)
-- **AS.10** Il Rito del Sogno diventa il Sigillo del Sogno. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AS.10** Il Rito del Sogno diventa il Sigillo del Sogno. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): collaudata, il rito vive nella Notte della giornata dei riti di BC.
   (**IL NOME CAMBIA OVUNQUE**: ventotto occorrenze in sedici file, commenti
   compresi, perche' un commento che nomina il dono col nome vecchio manda a
   cercare una cosa che non c'e' piu'. Nel corpus dei traguardi la traduzione
@@ -329,7 +329,7 @@ Mauro del 17 agosto 2026.
   Guardia `test/il_filo_si_traccia_test.dart`, che pretende anche il ridisegno
   a ogni fotogramma: senza quello il filo si allungherebbe solo quando cambia
   qualcos'altro, cioe' mai, e l'animazione non si vedrebbe)
-- **AS.11** Le arti del Maestro saltano all'occhio. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AS.11** Le arti del Maestro saltano all'occhio. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la gerarchia vive nel Santuario ed e' sopravvissuta a tutte le rifusioni fino a BE.01, guardia viva.
   (**LA CRITICA DEI FONDATORI ERA GIUSTA**: chi arriva non conosce i Maestri e
   cerca un'arte, ma trovava "Entra nel Dominio di Medora", che e' un nome
   proprio, e le tre arti stavano SOTTO il pulsante, nel ruolo tipografico piu'
@@ -387,7 +387,7 @@ Mauro del 17 agosto 2026.
 
 VOCI_TOTALI: 12
 VOCI_APERTE: 0
-VOCI_CHIUSE: 1
+VOCI_CHIUSE: 11
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 10
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

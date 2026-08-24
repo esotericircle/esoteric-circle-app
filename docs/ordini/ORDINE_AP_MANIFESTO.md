@@ -118,7 +118,7 @@ agosto 2026.
   `test/il_cerchio_custodisce_il_cammino_test.dart` con otto prove, fra cui
   l'enumerazione delle callable e il viaggio di andata e ritorno senza
   perdite)
-- **AP.02** Il saldo e il cammino si chiedono all'avvio. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AP.02** Il saldo e il cammino si chiedono all'avvio. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): rinforzata da AZ.01 e AZ.03 coi ritentativi, collaudata sul telefono vero del fondatore il 22 agosto.
   (nasce `lib/core/cammino/custode_del_cammino.dart`, che raccoglie il
   cammino dalle porte uniche che gia' esistono, lo manda e adotta cio' che
   torna. **UNA CHIAMATA SOLA**: la cascata `..sincronizza()` nel provider e'
@@ -155,7 +155,7 @@ agosto 2026.
   tre modi diversi**, cioe' sostituendo invece di fondere (due prove rosse),
   non unendo i Sigilli (tre rosse) e facendo vincere la data piu' recente
   (due rosse); ripristinato, `npm test` conta 34 verdi)
-- **AP.04** La porta piccola per chi torna. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AP.04** La porta piccola per chi torna. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): evoluta da AZ.02 e AZ.15, il rientro con Bentornato e 715 Eos e' stato visto a video dal fondatore.
   (sulla prima schermata del Risveglio, sotto "Inizia il rito", compare
   `_PortaPerChiTorna` coi testi di Mauro: "Faccio gia' parte del Cerchio" e,
   smorzata, "Accedi e ritrova il tuo cammino". I due testi vivono in due
@@ -173,7 +173,7 @@ agosto 2026.
   parziale il rito prosegue dai passi che mancano.
   Guardia `test/la_porta_per_chi_torna_test.dart` con tre prove e rosso
   provato. Chiude il collaudo di Mauro sulla 2184)
-- **AP.05** L'onboarding si salta, e il ritrovamento si vede. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AP.05** L'onboarding si salta, e il ritrovamento si vede. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): ritrovamento vivo con la sua scena, curata in diretta sul telefono da AZ.15.
   (nasce `lib/core/cammino/ritrovamento.dart`, che decide in UN punto solo
   quali passi restano da chiedere: la stessa domanda arriva da due strade,
   la porta piccola della voce 04 e il "Continua come" della voce 06, e se
@@ -207,7 +207,7 @@ agosto 2026.
   schermata sola resterebbe verde il giorno in cui nasce la quarta strada e
   nessuno la collega. Rosso provato togliendo una sola chiamata: la guardia
   ha nominato il file colpevole)
-- **AP.07** La barra sottile fuori dall'onboarding. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AP.07** La barra sottile fuori dall'onboarding. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la casa unica dove_si_vede_la_barra vive, estesa da AQ.03 e chiusa alla radice da BE.02 sulle rotte a comparsa.
   (la premessa P8 aveva ragione e la misura ha detto DOVE: alla prima
   apertura la barra gia' non si vedeva, perche' `OnboardingScreen` era fra le
   soglie, ma il Risveglio prosegue in `RisveglioJourney`, che e' una rotta a
@@ -312,6 +312,6 @@ agosto 2026.
 
 VOCI_TOTALI: 9
 VOCI_APERTE: 0
-VOCI_CHIUSE: 5
+VOCI_CHIUSE: 9
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 4
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

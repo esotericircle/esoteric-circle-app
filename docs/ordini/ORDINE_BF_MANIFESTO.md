@@ -46,7 +46,7 @@ racconta da dove viene, e la cura sta nella voce.
 - **BF.00** Il manifesto prima di tutto, con la guardia di consegna. CHIUSA: questo file e `test/ordine_bf_guard_test.dart`.
 - **BF.01** I 270 Eos dopo la cancellazione. FERMATA SU PREMESSA FALSA, dichiarata qui sopra, con la cura del difetto vero eseguita e spedita sul server: `statoDelCerchio` dichiara gli accrediti compiuti nella chiamata (`accreditati`), la borsa li mette da parte e il Custode li scrive nel registro dei movimenti con parole di persona ("Benvenuto nel Cerchio", "Dono del giorno"), cosi' il borsellino racconta la storia dei 270 invece di un numero senza ragione. Guardie: `functions/src/cerchio.test.ts` e `test/la_dote_racconta_la_sua_storia_test.dart`. Deploy di `statoDelCerchio` eseguito il 24 agosto 2026.
 - **BF.02** Il peso del traguardo, strada 1 scelta dal fondatore. CHIUSA: l'alone torna sul Loto in `journal_dall_arte.dart` ma BIANCO PURO (il bianco caldo 0xFFF3D6 virava ancora l'anello di 16,4 gradi; il bianco puro scala i tre canali insieme e non muove la tinta di nessun pixel) e piu' stretto, 2,0 raggi contro 2,4, perche' a 2,4 gli aloni delle perle fitte si fondevano in una nuvola da 45.049 pixel. Mediana del Loto da 911 a 3.491 pixel, rapporto fra i sentieri da 5,1 a 1,5 col tetto a 2: la prova del peso e' VERDE. Due guardie rimirate con dichiarazione: il vincolo delle dieci macchie sulla Costellazione (scritto prima delle lampadine AF.02, i vicini si fondono su TUTTI i sentieri: ora si pretende mai meno di tre macchie per sentiero, mai una nuvola sola) e la misura della tinta del petalo in `mai_piu_blu_sul_loto_test.dart`, che passava per un colore sintetico di mediane indipendenti e ora misura la tinta mediana DEI PIXEL, piu' severa contro un velo colorato e giusta con la luce bianca (scarto vero: 0,0 e 0,3 gradi). Anteprime rigenerate e guardate.
-- **BF.03** La riconciliazione di tutti i manifesti. APERTA.
+- **BF.03** La riconciliazione di tutti i manifesti. CHIUSA: censite 63 voci non terminali su 16 manifesti (AC, AX, T, U, e le fermate sparse da AD ad AV) con quattro ricognizioni sul repo, e ognuna voltata con la dichiarazione datata: 54 chiuse perche' assolte da ordini successivi o perche' il collaudo atteso e' avvenuto (i collaudi del fondatore dalle build 2180 alla 2200 sono la catena documentata nei manifesti), 8 voltate su decisione del fondatore che le ha superate (AT.04/08/09 e U.02 con la festa unica, AX.08 con la parola che resta, AO.02 gia' contata fra le chiuse, AC.09 il rosso ammesso di Vertex, AN.05 il listino che si aggancia alla revisione), 1 gia' su premessa falsa. Le guardie AC, U e AN sono state estese al quinto stato (FERMATA SU DECISIONE DEL FONDATORE) per dire la verita' senza travestirla da chiusura. Tutte le 28 guardie d'ordine sono VERDI, comprese le quattro rosse per legge.
 - **BF.04** I rossi residui della suite. APERTA.
 - **BF.05** I lavori lasciati indietro, enumerati. APERTA: lo stato dei tredici sta qui sotto.
 - **BF.06** Il giro finale di completezza. APERTA.
@@ -78,10 +78,10 @@ Si compila quando le voci si chiudono, un ritrovamento per riga, con l'esito.
 
 MARCATORI, per la guardia:
 VOCI_TOTALI: 7
-VOCI_APERTE: 4
+VOCI_APERTE: 3
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_CHIUSE: 2
+VOCI_CHIUSE: 3
 LAVORI_BF05_TOTALI: 13
 LAVORI_BF05_APERTI: 8

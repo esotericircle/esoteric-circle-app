@@ -63,7 +63,7 @@ si rinumerano e non si accorpano.
 
 ## Le cinque voci
 
-- **AJ.01** Gli scatti spariscono: la regola del cielo vale per tutti — FERMATA IN ATTESA DI DECISIONE
+- **AJ.01** Gli scatti spariscono: la regola del cielo vale per tutti — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): il difetto collaudato e' sparito, superata dalla filiera AM.01, AO.07, AQ.01 e AR.01 fino ad AW; il debito residuo dei blur di ritual_object.dart e' dichiarato nel giro finale dell'ordine BF.
   (le cure trasversali sono fatte: la schermata coperta si sospende (cielo
   fermo e niente ascolto della parallasse sotto una rotta, conto dei sospesi
   provato sull'app vera) e i tre repeat scoperti hanno la guardia di Riduci
@@ -89,6 +89,6 @@ si rinumerano e non si accorpano.
 
 VOCI_TOTALI: 5
 VOCI_APERTE: 0
-VOCI_CHIUSE: 3
+VOCI_CHIUSE: 4
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

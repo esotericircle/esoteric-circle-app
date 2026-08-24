@@ -48,7 +48,7 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
 
 ## Le cinque voci
 
-- **AM.01** La lentezza che si accumula al ritorno in home — FERMATA IN ATTESA DI DECISIONE
+- **AM.01** La lentezza che si accumula al ritorno in home — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): collaudata sulla 2181, il cosmo va bene, parola del fondatore nel manifesto AN.
   (l'ipotesi dell'ordine e' CADUTA e si dichiara: su tre giri di oroscopo,
   stesa e rune i conteggi restano IDENTICI al freddo, cosmi 1, ticker 5,
   ricostruzioni per dieci inclinazioni 10, quindi nessuna iscrizione doppia
@@ -63,7 +63,7 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
   misura dopo la cura 1 su 40; guardia la_home_non_rallenta_al_ritorno con
   rosso provato, guardie del cielo tutte verdi; chiude il collaudo di Mauro
   sulla 2181)
-- **AM.02** La profondita' perduta e il livello che manca — FERMATA IN ATTESA DI DECISIONE
+- **AM.02** La profondita' perduta e il livello che manca — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): collaudata e approvata sulla 2181; AQ dichiara che la resa non e' stata toccata dai lavori successivi.
   (una premessa della voce era imprecisa e si dichiara: e5b993f non e' prima
   delle cure AJ, AJ.02 e' suo antenato e le scorte c'erano gia'; il confronto
   vero e' col padre di AJ.02, dove i teli erano grandi quanto lo schermo.
@@ -92,7 +92,7 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
   attesi nell'intervallo fra questa voce e la 04, come l'ordine ammette:
   santuario_test pretende la porta dell'account in home, che in questo
   momento non esiste piu' e rinasce nella barra)
-- **AM.04** La barra sottile persistente in alto, casa unica — FERMATA IN ATTESA DI DECISIONE
+- **AM.04** La barra sottile persistente in alto, casa unica — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): collaudata sulla 2181 (la barra piace), veste poi evoluta da AN.02 e AR.10 su decisioni del fondatore.
   (BarraDellIdentita sopra il Navigator, sotto la barra di stato, alta 30
   punti misurati a riposo e 66 da aperta; dentro, in ordine, il volto con la
   porta dell'account, il borsellino con la moneta d'oro e il saldo, il segno
@@ -121,6 +121,6 @@ Mauro dalla console, e la voce AL.05 resta in attesa di quel passo.
 
 VOCI_TOTALI: 5
 VOCI_APERTE: 0
-VOCI_CHIUSE: 2
+VOCI_CHIUSE: 5
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

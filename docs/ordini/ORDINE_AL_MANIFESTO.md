@@ -39,11 +39,11 @@ suite intera UNA volta ad AL.09.
 
 ## Le nove voci
 
-- **AL.01** Il cosmo ritrova profondita' e movimento — FERMATA IN ATTESA DI DECISIONE
+- **AL.01** Il cosmo ritrova profondita' e movimento — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): il cosmo e' stato approvato sulla 2181 e la fluidita' e' stata chiusa dalla catena fino ad AW, collaudo 2196 approvato.
   (corse misurate e IDENTICHE a e5b993f, ipotesi delle corse caduta; la causa
   vera era la sospensione che scattava anche sotto le rotte TRASPARENTI:
   curata, guardie dei bordi intatte; chiude il telefono di Mauro sulla 2180)
-- **AL.02** Il Cielo di nascita torna a muoversi — FERMATA IN ATTESA DI DECISIONE
+- **AL.02** Il Cielo di nascita torna a muoversi — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): commit 345523d8, guardia test/il_cielo_di_nascita_si_muove_test.dart, tilt poi raffinato da AR.01 e AS.01.
   (in banco la nascita correva identica a stanotte: la fisica e' una sola e
   l'ipotesi della differenza di codice fra i due cieli e' caduta; dei tre
   sospetti dell'ordine, la sospensione era gia' curata da AL.01 e vale anche
@@ -63,7 +63,7 @@ suite intera UNA volta ad AL.09.
   rosso provato sulla condizione monca; il med_27 gia' scattato sul telefono di
   Mauro NON si revoca, un Sigillo acceso non si spegne mai per legge del diario:
   il caso esiste e la riprogettazione dei traguardi lo assorbira')
-- **AL.04** Nessun foglio e' bianco — FERMATA IN ATTESA DI DECISIONE
+- **AL.04** Nessun foglio e' bianco — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): guardia test/nessun_foglio_e_bianco_test.dart viva, nessun foglio bianco in nessun collaudo fino alla 2200.
   (porte enumerate 33 e TUTTE dichiarano il fondo: la causa vera del foglio
   bianco non era un colore mancante ne' Impeller, era lo SCOPE: i fogli vivono
   come rotte del Navigator radice e MaestroScope stava dentro home, quindi
@@ -74,7 +74,7 @@ suite intera UNA volta ad AL.09.
   che veste il Maestro del suo sentiero; guardia nessun_foglio_e_bianco con
   tre prove e rosso provato togliendo le cure; nessun blur per fotogramma
   toccato; chiude il collaudo di Mauro sulla 2180)
-- **AL.05** Gli Eos arrivano davvero nel borsellino — FERMATA IN ATTESA DI DECISIONE
+- **AL.05** Gli Eos arrivano davvero nel borsellino — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): le porte IAM sono state aperte da Mauro il 18 agosto e rimisurate nella premessa P4 dell'ordine AN; il borsellino e' stato visto vivo sul suo telefono.
   (filo enumerato con le prove: gesto e accensione vivi, festa viva, la
   chiamata PARTE dal telefono e ARRIVA a Cloud Run, provato dai log del
   server pieni di 401 dal 12 al 16 agosto; il punto rotto e' LA PORTA del
@@ -120,7 +120,7 @@ suite intera UNA volta ad AL.09.
   che ne vieta il ritorno nei sorgenti; "Piu' tardi" resta; nessuna decisione
   di prodotto e' servita perche' la riga dichiara la realta' e la forma era
   nel dettato; guardia l_onboarding_riconosce_e_propone con rosso provato)
-- **AL.08** La capsula persistente di volto e borsellino — FERMATA IN ATTESA DI DECISIONE
+- **AL.08** La capsula persistente di volto e borsellino — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la decisione attesa e' arrivata dal collaudo della 2180 ed era contraria (la capsula va tolta subito); AM.03 l'ha eseguita e la barra sottile ha preso il suo posto.
   (la capsula vive sopra il Navigator come la barra, in alto a destra su ogni
   schermata tranne le tre soglie del Risveglio dichiarate; volto sopra con la
   porta dell'account e saldo sotto con la MONETA D'ORO consegnata da Mauro,
@@ -156,6 +156,6 @@ suite intera UNA volta ad AL.09.
 
 VOCI_TOTALI: 9
 VOCI_APERTE: 0
-VOCI_CHIUSE: 4
+VOCI_CHIUSE: 9
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

@@ -137,7 +137,7 @@ e' fatto.
   portavano lo stesso fiore. Adesso il Passaporto usa i tre segni disegnati da
   noi. Restano nel solo `art_catalog.dart`, dove sono le icone della
   Meditazione e dei Chakra e non c'entrano col Cammino)
-- **AT.04** Il lettore di transizione. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AT.04** Il lettore di transizione. Stato: FERMATA SU DECISIONE DEL FONDATORE. Voltata il 24 agosto 2026 (BF.03): AV.01 ha demolito il lettore e i tre WebP per decisione del fondatore; l'oggetto da collaudare non esiste piu', al suo posto la spirale di stelle.
   (il componente `lib/features/sigilli/transizione_di_stelle.dart` e' scritto
   come l'ordine prescrive, e ogni vincolo e' sorvegliato da una riga:
   `ui.instantiateImageCodec`, un Ticker nostro a venticinque fotogrammi,
@@ -192,7 +192,7 @@ e' fatto.
   **IL CONFINE CON L'ORDINE AU E' RISPETTATO**: il contenuto della card, cioe'
   il nome, la descrizione, la riga dell'ora e gli Eos, e' materia della voce
   AU.04. Qui si e' deciso soltanto QUANDO quel contenuto entra in scena)
-- **AT.08** Assegnazione per Maestro. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AT.08** Assegnazione per Maestro. Stato: FERMATA SU DECISIONE DEL FONDATORE. Voltata il 24 agosto 2026 (BF.03): il fondatore ha deciso in AV che la festa non e' piu' diversa per Maestro; l'assegnazione e' stata demolita coi filmati.
   (l'assegnazione e' scritta ed e' quella dell'ordine: `stella_medora.webp` ai
   traguardi di Medora, `stella_caligo.webp` a quelli di Caligo,
   `stella_aura.webp` a quelli di Aura, e un traguardo senza dominio usa quello
@@ -202,7 +202,7 @@ e' fatto.
   di Medora e' OPACO, quindi per un Maestro su tre l'assegnazione oggi
   produrrebbe uno schermo coperto per due secondi. Si chiude quando
   l'Architetto sceglie fra le tre opzioni)
-- **AT.09** Misure di accettazione. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AT.09** Misure di accettazione. Stato: FERMATA SU DECISIONE DEL FONDATORE. Voltata il 24 agosto 2026 (BF.03): le misure riguardavano il lettore demolito da AV.01; l'erede, la spirale, e' misurato (0,71 millesimi, una sola drawAtlas) e collaudato sulle build dalla 2197 alla 2200.
   (**M1, misurata**: i tre WebP pesano 1.515.670, 1.990.424 e 2.706.460 byte,
   in tutto 6.212.554. L'APK passa da 161.176.931 byte (la 2187) a quello
   dichiarato nel rapporto: la differenza e' il peso dei tre filmati meno le
@@ -235,5 +235,5 @@ VOCI_TOTALI: 11
 VOCI_APERTE: 0
 VOCI_CHIUSE: 7
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 3
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 3
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

@@ -82,7 +82,7 @@ agosto 2026.
 
 ## Le voci
 
-- **AQ.01** Il cosmo torna fluido, e la fluidita' vince. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AQ.01** Il cosmo torna fluido, e la fluidita' vince. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la cura su inactive e' in ramo, la fluidita' definitiva e' arrivata con AW e il collaudo 2196 e' stato approvato.
   (**LA PREMESSA P3 E' FALSA, e la misura lo dice con i numeri.** Nasce
   `test/quanto_costa_il_cielo_test.dart`, che monta il cielo e la home vere e
   cronometra i fotogrammi; la stessa misura e' stata eseguita su un albero di
@@ -112,7 +112,7 @@ agosto 2026.
   ciclo di vita cadeva stampando `inactive: false`.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo di Mauro
   sulla 2185)
-- **AQ.02** Le feste si vedono davvero diverse. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AQ.02** Le feste si vedono davvero diverse. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la meta' delle particelle e' stata superata dalla decisione del fondatore in AV, la meta' dei tre segni disegnati vive in segno_del_sentiero.dart ed e' in produzione.
   (**P1 era vera e la cura e' completa**: i tre glifi di Material sono spariti
   e nasce `lib/features/sigilli/segno_del_sentiero.dart`, che disegna tre
   forme distinte con la stessa mano, linee d'oro senza riempimenti: una
@@ -143,7 +143,7 @@ agosto 2026.
   appartiene a nessuna delle sei voci: in fondo alla festa la scheda "Il
   prossimo" mostra il traguardo APPENA raggiunto invece del successivo.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
-- **AQ.03** La barra sottile non esiste fino alla home. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AQ.03** La barra sottile non esiste fino alla home. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): l'elenco delle scene del rito vive nella casa unica, e il caso limite della tendina e' stato chiuso da BE.02.
   (**LA DICHIARAZIONE C'ERA E NON ARRIVAVA A NESSUNO**, ed e' la scoperta di
   questa voce. L'ordine AP voce 07 aveva gia' messo `RisveglioJourney` fra le
   soglie, eppure Mauro vedeva la barra sull'Animale Guida: il motivo e' che
@@ -164,7 +164,7 @@ agosto 2026.
   quei nomi, cioe' la riga che mancava. Rosso provato togliendo una scena
   dall'elenco.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
-- **AQ.04** Il Bentornato si riempie. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AQ.04** Il Bentornato si riempie. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la scena del ritrovamento porta l'emblema ed e' stata vista piena sul telefono del fondatore durante AZ.
   (la scena si apre col LIVELLO VISIVO e non piu' con una riga di testo:
   l'EMBLEMA del proprio segno, 120 punti, preso da `assets/img/zodiac` che il
   Cerchio ha gia', poi il nome, poi le righe di cio' che e' tornato coi numeri
@@ -176,7 +176,7 @@ agosto 2026.
   senza giorno il segno resta nullo. Anteprima `ritrovamento.png` rigenerata
   dall'app vera e guardata: emblema, nome, carta natale, tre Sigilli, 340 Eos.
   **Nessun telefono ha acceso questa cura**: la chiude il collaudo sulla 2185)
-- **AQ.05** "Non perdere il tuo cielo" diventa leggibile. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AQ.05** "Non perdere il tuo cielo" diventa leggibile. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la riga unica vive in custodia_del_cielo_step.dart e il passo e' stato percorso e rilavorato in AZ sul dispositivo.
   (**il testo si e' TOLTO, non rimpicciolito**, ed e' la parte che conta: il
   corpo resta quello di casa, sedici punti, che e' gia' il minimo del
   progetto e non andava toccato. Prima: scudo, titolo, DUE blocchi di testo
@@ -221,6 +221,6 @@ agosto 2026.
 
 VOCI_TOTALI: 6
 VOCI_APERTE: 0
-VOCI_CHIUSE: 1
+VOCI_CHIUSE: 6
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

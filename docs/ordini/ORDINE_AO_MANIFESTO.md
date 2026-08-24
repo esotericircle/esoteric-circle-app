@@ -89,7 +89,7 @@ qui ne' altrove.
 
 ## Le voci
 
-- **AO.01** Il centro della barra dice "Eventi Cosmici" — FERMATA IN ATTESA DI DECISIONE
+- **AO.01** Il centro della barra dice "Eventi Cosmici" — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): confermata da AR.10 che ha rivestito la barra tenendo Eventi Cosmici al centro; nessun collaudo successivo l'ha piu' toccata.
   (`_IlCieloCheViene` diventa `_PortaDegliEventiCosmici`: una scritta sola,
   la stessa da chiusa e da aperta, che da aperta cresce senza diventare
   un'altra cosa. **IL TOCCO PORTA AL CALENDARIO SEMPRE**, e non piu' solo da
@@ -106,7 +106,7 @@ qui ne' altrove.
   perche' scritto accanto, piu' la cattura dell'anteprima che ora apre il
   Calendario con un tocco solo invece di due; anteprima rigenerata e
   guardata. Chiude il collaudo di Mauro sulla 2183)
-- **AO.02** La barra aperta si ritira da sola — FERMATA IN ATTESA DI DECISIONE
+- **AO.02** La barra aperta si ritira da sola — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la decisione contraria e' arrivata con AR.10, la barra ha un solo stato e non c'e' piu' niente da ritirare.
   (le quattro vie sono i quattro modi di smettere di guardarla, e due
   esistevano gia': il cambio di schermata copriva l'apertura di una rotta e
   il ritorno indietro, mentre lo SCORRIMENTO e il TOCCO FUORI non ritiravano
@@ -182,7 +182,7 @@ qui ne' altrove.
   (tre prove, la causa), con rosso misurato: una stesa invece di quattro,
   disco riscritto povero e Sigillo acceso sparito. NESSUN TETTO
   GIORNALIERO, vedi P4)
-- **AO.05** Ogni Maestro ha la sua festa, e si vede — FERMATA IN ATTESA DI DECISIONE
+- **AO.05** Ogni Maestro ha la sua festa, e si vede — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): superata dalla decisione del fondatore in AV, la festa non e' piu' diversa per Maestro; sopravvive maestro_della_festa.dart per il colore della scena.
   (**l'ipotesi dell'ordine era giusta, e prima e' stata MISURATA.** Con un
   sentiero solo il Maestro arrivava gia' giusto, verificato su tutti e tre;
   il difetto stava nella FESTA UNITA, dove la scena prendeva
@@ -207,7 +207,7 @@ qui ne' altrove.
   dell'elenco. Rosso provato sulla festa unita. Anteprima nuova
   `docs/preview/le-tre-feste-affiancate.png`, guardata: le tre materie si
   distinguono a colpo d'occhio. Chiude il collaudo di Mauro sulla 2183)
-- **AO.06** L'archetipo si rilegge, e dal Passport si apre — FERMATA IN ATTESA DI DECISIONE
+- **AO.06** L'archetipo si rilegge, e dal Passport si apre — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): lettura_del_giorno e ripetizione_del_test vivi con le loro guardie, nessun rilievo nei collaudi fino alla 2200.
   (**PRIMA**: chi ha gia' fatto il test, riaprendolo, trova il suo EMBLEMA e
   la LETTURA DI OGGI, in `lib/core/archetypes/lettura_del_giorno.dart`, e
   non piu' l'invito a ricominciare e basta.
@@ -241,7 +241,7 @@ qui ne' altrove.
   `test/l_archetipo_si_apre_dal_passport_test.dart` (sei prove a schermo),
   con rosso provato su tutte e tre le cose. Chiude il collaudo di Mauro
   sulla 2183)
-- **AO.07** Il cielo non si ferma piu', e la profondita' resta intera — FERMATA IN ATTESA DI DECISIONE
+- **AO.07** Il cielo non si ferma piu', e la profondita' resta intera — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la cura vive in cosmos_background.dart, raffinata da AQ.01 e AW, collaudo 2196 approvato dal fondatore.
   (**la causa strutturale era quella della P6, e ce n'era una seconda che
   l'ordine non nominava.** La prima: `_coperto` era un interruttore mosso da
   due eventi opposti, e un evento che non arriva lo lascia acceso per
@@ -308,6 +308,6 @@ qui ne' altrove.
 
 VOCI_TOTALI: 8
 VOCI_APERTE: 0
-VOCI_CHIUSE: 3
+VOCI_CHIUSE: 8
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 5
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

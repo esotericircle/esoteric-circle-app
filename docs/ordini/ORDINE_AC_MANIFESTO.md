@@ -97,23 +97,24 @@ arriva a una persona.** Contiene sei cose e nessuna in piu':
 
 ## Le dodici voci
 
-- **AC.01** L'interruttore dei Journal dall'arte si accende — FERMATA IN ATTESA DI DECISIONE
+- **AC.01** L'interruttore dei Journal dall'arte si accende — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): interruttore acceso dal 16 agosto col complemento per righe, nove anteprime rigenerate fino a BF.02 e collaudate dal fondatore sulle build dalla 2191 alla 2200.
 - **AC.02** Il vuoto sotto l'arte sparisce — FERMATA SU PREMESSA FALSA
 - **AC.03** Le particelle della festa smettono di saltare — CHIUSA
 - **AC.04** Mai due celebrazioni di seguito — CHIUSA
 - **AC.05** Nessun traguardo celebra due volte — CHIUSA
-- **AC.06** Tre pezzi dell'identita' diventano gesti — APERTA
-- **AC.07** Tre traguardi nuovi, coi testi gia' scritti — APERTA
-- **AC.08** L'icona degli Eos diventa la moneta — APERTA
-- **AC.09** L'attribuzione cieca di Caligo — APERTA
-- **AC.10** Le due cricchette, T.02 e U.02 — APERTA
-- **AC.11** La Costellazione illeggibile a dodici accesi — APERTA
-- **AC.12** Il manifesto e il rapporto — APERTA
+- **AC.06** Tre pezzi dell'identita' diventano gesti — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): assolta dall'ordine BD voce 05, i tre pezzi maturano alle loro porte vere, guardia test/i_gradini_maturano_alle_loro_porte_test.dart.
+- **AC.07** Tre traguardi nuovi, coi testi gia' scritti — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): i tre traguardi vivono nel cammino del corpus D2 (cal_6 Il Sigillo del Cerchio, aur_5 Il tuo nome nel Cerchio, aur_6 La tua Luna di nascita), rigenerato con AU.03.
+- **AC.08** L'icona degli Eos diventa la moneta — CHIUSA. Chiusa il 24 agosto 2026 con decisione col mandato BF: la moneta di Mauro e' l'icona del saldo nella barra (AL.08), l'alba disegnata resta l'icona dei premi e delle celebrazioni; la divisione e' dichiarata nel codice del borsellino e si tiene.
+- **AC.09** L'attribuzione cieca di Caligo — FERMATA SU DECISIONE DEL FONDATORE. Voltata il 24 agosto 2026 (BF.03): e' il rosso ammesso dichiarato fin dall'ordine S, si rimisura solo con una sessione Vertex dal PC del fondatore; rimandata alla revisione delle funzionalita' della chat.
+- **AC.10** Le due cricchette, T.02 e U.02 — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): T.01 e T.02 sono chiuse nei loro manifesti, U.02 e' voltata su decisione del fondatore (la festa non e' piu' diversa per Maestro, ordini AT e AV).
+- **AC.11** La Costellazione illeggibile a dodici accesi — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): assolta da AF.02 (il pavimento del raggio, dichiarato nel codice come la strada della AC.11) e da BF.02 (peso pareggiato, rapporto 1,5 col tetto 2).
+- **AC.12** Il manifesto e il rapporto — CHIUSA. Chiusa il 24 agosto 2026 (BF.03): la riconciliazione e' avvenuta dentro l'ordine BF voce 03, e il suo manifesto ne e' il rapporto.
 
 ## I marcatori, contati sulle righe
 
 VOCI_TOTALI: 12
-VOCI_APERTE: 7
-VOCI_CHIUSE: 3
+VOCI_APERTE: 0
+VOCI_CHIUSE: 10
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

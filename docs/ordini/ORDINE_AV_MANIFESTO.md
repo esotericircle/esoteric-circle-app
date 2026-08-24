@@ -109,7 +109,7 @@ conta sulle righe.
   **La `tanh` e' stata TOLTA e non solo aggirata**: era lei a comprimere tutta
   la corsa in una fascia di sei gradi, e adesso non la usa piu' nessuno.
   Le venti prove del cielo gia' esistenti restano verdi)
-- **AV.03** I Maestri tornano grandi. Stato: FERMATA IN ATTESA DI DECISIONE
+- **AV.03** I Maestri tornano grandi. Stato: CHIUSA. Chiusa il 24 agosto 2026 (BF.03): assolta da BD.01 e BD.04, e il vincolo dei zero pixel coperti e' stato sciolto dal fondatore stesso nella coda di BC.01 (i Maestri stanno davanti, una copertura leggera e' accettata); BE.01 ha aggiunto la fluttuazione.
   (**SUL TELEFONO DEL FONDATORE LE DUE COSE STANNO INSIEME, ed e' cio' che
   l'ordine pretende comunque.** Su 360 per 797: **il busto passa da 188,7 a
   220,0 punti**, cioe' torna alla grandezza della 2188, e **i pixel di testo
@@ -176,11 +176,10 @@ conta sulle righe.
 
 VOCI_TOTALI: 5
 VOCI_APERTE: 0
-VOCI_CHIUSE: 4
+VOCI_CHIUSE: 5
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
-
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 ## La consegna
 
 **Build `0.1.0+2190`** arm64, **161.176.767 byte**, cioe' **5.267.801 in meno
