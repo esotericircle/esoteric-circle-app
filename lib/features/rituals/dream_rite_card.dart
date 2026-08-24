@@ -144,7 +144,8 @@ Future<bool> shareDreamRiteCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/rito_del_sogno_${luna.sign.id}.png');
   await file.writeAsBytes(png, flush: true);
-  await PortaDellaCondivisione.daFile(file.path, testo: 'La mia notte con ${DreamRiteCorpus.provenienza(luna)}. '
+  // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
+  // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
+  return PortaDellaCondivisione.daFile(file.path, testo: 'La mia notte con ${DreamRiteCorpus.provenienza(luna)}. '
           'Il Sigillo del Sogno, su Esoteric Circle.');
-  return true;
 }

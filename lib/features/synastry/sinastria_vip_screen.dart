@@ -20,6 +20,7 @@ import 'user_photo.dart';
 import '../../core/maestro/maestro.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -352,7 +353,10 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
                     height: 18,
                     child: CircularProgressIndicator(strokeWidth: 2))
                 : const Icon(Icons.ios_share_rounded, size: 18),
-            label: Text(_sharing ? 'Preparo la card' : 'Condividi',
+            label: Text(
+            _sharing
+                ? 'Preparo la card'
+                : PremioDellaCondivisione.etichetta(context),
                 style: TypographyTokens.label(size: 13)
                     .copyWith(letterSpacing: 0.6)),
           ),
@@ -396,10 +400,16 @@ class _SinastriaVipScreenState extends State<SinastriaVipScreen>
       }
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      await shareSynastryCard(
+      final andata = await shareSynastryCard(
         boundaryKey: _cardKey,
         text: SynastryReport.challengeLine(_vip.name),
       );
+if (andata && mounted) {
+  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+  // a condivisione davvero avvenuta.
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso la sinastria');
+}
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

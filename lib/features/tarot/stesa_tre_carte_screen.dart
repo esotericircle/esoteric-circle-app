@@ -29,6 +29,7 @@ import 'tarot_card_art.dart';
 import 'tarot_selectors.dart';
 import '../maestri/rotta_arte.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
 const double kTarotAspect = 2 / 3;
@@ -969,7 +970,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                       height: 18,
                       child: CircularProgressIndicator(strokeWidth: 2))
                   : const Icon(Icons.ios_share_rounded, size: 18),
-              label: Text(_sharing ? 'Preparo la card' : 'Condividi',
+              label: Text(
+              _sharing
+                  ? 'Preparo la card'
+                  : PremioDellaCondivisione.etichetta(context),
                   style: TypographyTokens.etichetta()
                       .copyWith(letterSpacing: 0.6)),
             ),
@@ -1000,10 +1004,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      await shareStesaCard(
+      final andata = await shareStesaCard(
         boundaryKey: _cardKey,
         text: 'La mia stesa a tre carte. Esoteric Circle.',
       );
+if (andata && mounted) {
+  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+  // a condivisione davvero avvenuta.
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso la tua stesa');
+}
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

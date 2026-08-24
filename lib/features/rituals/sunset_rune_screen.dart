@@ -41,6 +41,7 @@ import '../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../core/sensi/palette_sensoriale.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 
 /// La Runa del Tramonto, dominio Caligo, versione definitiva.
 ///
@@ -2219,8 +2220,14 @@ class _AzioniState extends State<_Azioni> {
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      await shareSunsetRuneCard(
+      final andata = await shareSunsetRuneCard(
           boundaryKey: _boundary, estrazione: widget.estrazione);
+if (andata && mounted) {
+  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+  // a condivisione davvero avvenuta.
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso la runa del tramonto');
+}
     } finally {
       // La carta fuori campo torna a non essere renderizzata: senza questo
       // resta a decodificare inutilmente dopo ogni condivisione.
@@ -2251,7 +2258,7 @@ class _AzioniState extends State<_Azioni> {
                         BorderSide(color: palette.gold.withValues(alpha: 0.6))),
                 onPressed: _condividendo ? null : _condividi,
                 icon: const Icon(Icons.ios_share_rounded),
-                label: const Text('Condividi'),
+                label: Text(PremioDellaCondivisione.etichetta(context)),
               ),
               const SizedBox(height: SpacingTokens.sm),
               FilledButton.icon(

@@ -60,6 +60,12 @@ export const BONUS_DELLA_CONDIVISIONE: Record<string, number> = {
   invito_con_download: 60,
   social_pubblico: 30,
   condivisione_privata: 15,
+  // Ordine BG voce 04: OGNI condivisione dell'app premia e lo dichiara sul
+  // pulsante. Le card delle arti (oroscopo, rune, stesa, sigillo, viso,
+  // animale, sinastria, riti, cielo) passano dal foglio di sistema, che non
+  // distingue pubblico da privato: un motivo solo, col valore della
+  // condivisione privata. Il tetto anti farming resta lo stesso per tutte.
+  condivisione_arte: 15,
 };
 
 /**

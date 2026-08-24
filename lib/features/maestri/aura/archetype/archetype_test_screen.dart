@@ -32,6 +32,7 @@ import 'archetype_wheel.dart';
 import '../../rotta_arte.dart';
 import '../../../../design_system/components/interruttore_del_cerchio.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../../core/condivisione/premio_della_condivisione.dart';
 
 /// Il Test Archetipo, dominio Aura.
 ///
@@ -681,8 +682,14 @@ class _RisultatoState extends State<_Risultato>
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      await shareArchetypeCard(
+      final andata = await shareArchetypeCard(
           boundaryKey: _cardBoundary, dominante: profilo.dominante);
+if (andata && mounted) {
+  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+  // a condivisione davvero avvenuta.
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso il tuo archetipo');
+}
     } finally {
       if (mounted) setState(() => _condividendo = false);
     }
@@ -933,7 +940,7 @@ class _RisultatoState extends State<_Risultato>
                 onPressed:
                     _condividendo ? null : () => _condividi(delTest),
                 icon: const Icon(Icons.ios_share_rounded),
-                label: const Text('Condividi'),
+                label: Text(PremioDellaCondivisione.etichetta(context)),
               ),
               const SizedBox(height: SpacingTokens.sm),
               // L'EMBLEMA E' GIA' NEL PASSAPORTO, e lo si dice qui dentro.

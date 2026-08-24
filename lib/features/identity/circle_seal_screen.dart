@@ -16,6 +16,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'seal_painter.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 
 /// Il Sigillo del Cerchio, a fine onboarding subito dopo la carta natale.
 ///
@@ -95,8 +96,14 @@ class _CircleSealScreenState extends State<CircleSealScreen>
       final dir = await getTemporaryDirectory();
       final file = File('${dir.path}/sigillo_del_cerchio.png');
       await file.writeAsBytes(bytes);
-      await PortaDellaCondivisione.daFile(file.path, testo:
+      final andata = await PortaDellaCondivisione.daFile(file.path, testo:
               'Il mio Sigillo del Cerchio. Scopri il tuo con Esoteric Circle. #EsotericCircle');
+// Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+// a condivisione davvero avvenuta.
+if (andata && mounted) {
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso il Sigillo del Cerchio');
+}
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -394,7 +401,9 @@ class _ShareButton extends StatelessWidget {
               Icon(Icons.ios_share_rounded, size: 18, color: palette.goldSoft),
               const SizedBox(width: SpacingTokens.sm),
               Flexible(
-                child: Text('Condividi il sigillo',
+                child: Text(
+                    PremioDellaCondivisione.etichetta(context,
+                        base: 'Condividi il sigillo'),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TypographyTokens.display(size: 16)

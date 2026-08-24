@@ -32,6 +32,7 @@ import 'oroscopo_colors.dart';
 import 'oroscopo_share_card.dart';
 import 'tradition_glyph.dart';
 import '../maestri/rotta_arte.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -455,11 +456,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      await shareOroscopoCard(
+      final andata = await shareOroscopoCard(
         boundaryKey: _cardKey,
         text:
             'Il mio oroscopo di oggi, ${widget.userSign.italianName}. Esoteric Circle.',
       );
+if (andata && mounted) {
+  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+  // a condivisione davvero avvenuta.
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso il tuo oroscopo');
+}
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -1335,7 +1342,10 @@ class _ShareBlock extends StatelessWidget {
                   height: 18,
                   child: CircularProgressIndicator(strokeWidth: 2))
               : const Icon(Icons.ios_share_rounded, size: 18),
-          label: Text(sharing ? 'Preparo la card' : 'Condividi',
+          label: Text(
+              sharing
+                  ? 'Preparo la card'
+                  : PremioDellaCondivisione.etichetta(context),
               style:
                   TypographyTokens.etichetta().copyWith(letterSpacing: 0.6)),
         ),

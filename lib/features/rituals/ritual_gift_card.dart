@@ -12,6 +12,7 @@ import '../../design_system/components/riga_del_dono.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 
 // I COLORI NON VIVONO PIU' QUI, E ADESSO NEMMENO UNO. Ordine P voce 12, poi
 // ordine BB voce 09.
@@ -501,7 +502,8 @@ class _ShareWordButton extends StatelessWidget {
       ),
       icon: const Icon(Icons.ios_share_rounded, size: 16),
       label: Text(
-        'Condividi la parola',
+        PremioDellaCondivisione.etichetta(context,
+            base: 'Condividi la parola'),
         key: const Key('alba_condividi_etichetta'),
         style: TypographyTokens.didascalia()
             .copyWith(color: accento, letterSpacing: 0.5),

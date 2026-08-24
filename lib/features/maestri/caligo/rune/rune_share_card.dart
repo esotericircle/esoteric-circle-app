@@ -172,7 +172,8 @@ Future<bool> shareRuneCard({
   final file = File('${dir.path}/estrazione_rune_${esito.gettata.id}.png');
   await file.writeAsBytes(png, flush: true);
   final nomi = esito.rune.map((r) => r.rune.name).join(', ');
-  await PortaDellaCondivisione.daFile(file.path, testo: 'Ho gettato le rune con ${esito.gettata.nome}: $nomi. '
+  // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
+  // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
+  return PortaDellaCondivisione.daFile(file.path, testo: 'Ho gettato le rune con ${esito.gettata.nome}: $nomi. '
           'Scopri il tuo presagio con Caligo, su Esoteric Circle.');
-  return true;
 }

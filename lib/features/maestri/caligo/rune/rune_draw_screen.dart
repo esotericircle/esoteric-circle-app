@@ -43,6 +43,7 @@ import '../../../../core/rituals/filo_del_giorno.dart';
 import '../../../../core/rituals/sunset_rune_memory.dart';
 import '../../../../core/responsi/anatomia_del_responso.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
+import '../../../../core/condivisione/premio_della_condivisione.dart';
 
 /// L'Estrazione Rune, dominio Caligo: lettura a richiesta e ripetibile, col
 /// selettore del tipo di gettata. Il caso e' voluto e autentico, e' gettare le
@@ -1299,7 +1300,13 @@ class _AzioniState extends State<_Azioni> {
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      await shareRuneCard(boundaryKey: _cardBoundary, esito: widget.esito);
+      final andata = await shareRuneCard(boundaryKey: _cardBoundary, esito: widget.esito);
+if (andata && mounted) {
+  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+  // a condivisione davvero avvenuta.
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso la tua gettata di rune');
+}
     } finally {
       if (mounted) setState(() => _condividendo = false);
     }
@@ -1323,7 +1330,7 @@ class _AzioniState extends State<_Azioni> {
                         BorderSide(color: palette.gold.withValues(alpha: 0.6))),
                 onPressed: _condividendo ? null : _condividi,
                 icon: const Icon(Icons.ios_share_rounded),
-                label: const Text('Condividi'),
+                label: Text(PremioDellaCondivisione.etichetta(context)),
               ),
               const SizedBox(height: SpacingTokens.sm),
               FilledButton.icon(

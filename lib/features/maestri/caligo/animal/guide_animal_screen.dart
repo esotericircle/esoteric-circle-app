@@ -27,6 +27,7 @@ import 'animal_reveal.dart';
 import 'guide_animal_share_card.dart';
 import '../../rotta_arte.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../../core/condivisione/premio_della_condivisione.dart';
 
 /// Come si entra nell'Animale Guida.
 ///
@@ -652,8 +653,14 @@ class _AzioniState extends State<_Azioni> {
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      await shareGuideAnimalCard(
+      final andata = await shareGuideAnimalCard(
           boundaryKey: _cardBoundary, animal: widget.animal);
+if (andata && mounted) {
+  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+  // a condivisione davvero avvenuta.
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso il tuo animale guida');
+}
     } finally {
       if (mounted) setState(() => _condividendo = false);
     }
@@ -679,7 +686,7 @@ class _AzioniState extends State<_Azioni> {
                         BorderSide(color: palette.gold.withValues(alpha: 0.6))),
                 onPressed: _condividendo ? null : _condividi,
                 icon: const Icon(Icons.ios_share_rounded),
-                label: const Text('Condividi'),
+                label: Text(PremioDellaCondivisione.etichetta(context)),
               ),
               const SizedBox(height: SpacingTokens.sm),
               FilledButton.icon(

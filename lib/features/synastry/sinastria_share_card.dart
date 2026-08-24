@@ -329,6 +329,7 @@ Future<bool> shareSynastryCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/sinastria_card.png');
   await file.writeAsBytes(png, flush: true);
-  await PortaDellaCondivisione.daFile(file.path, testo: text);
-  return true;
+  // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
+  // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
+  return PortaDellaCondivisione.daFile(file.path, testo: text);
 }

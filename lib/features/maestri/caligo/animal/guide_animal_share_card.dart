@@ -146,7 +146,8 @@ Future<bool> shareGuideAnimalCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/animale_guida_${animal.stem}.png');
   await file.writeAsBytes(png, flush: true);
-  await PortaDellaCondivisione.daFile(file.path, testo: 'Il mio animale guida è ${animal.name}. '
+  // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
+  // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
+  return PortaDellaCondivisione.daFile(file.path, testo: 'Il mio animale guida è ${animal.name}. '
           'Scopri il tuo con Caligo, su Esoteric Circle.');
-  return true;
 }

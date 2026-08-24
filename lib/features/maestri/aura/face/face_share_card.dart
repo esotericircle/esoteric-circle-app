@@ -175,7 +175,8 @@ Future<bool> shareFaceCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/costellazione_viso_${dominante.name}.png');
   await file.writeAsBytes(png, flush: true);
-  await PortaDellaCondivisione.daFile(file.path, testo: 'La mia Costellazione del Viso dice "${dominante.titoloEvocativo}". '
+  // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
+  // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
+  return PortaDellaCondivisione.daFile(file.path, testo: 'La mia Costellazione del Viso dice "${dominante.titoloEvocativo}". '
           'Scopri la tua con Aura, su Esoteric Circle.');
-  return true;
 }

@@ -33,6 +33,7 @@ import '../tarot/stesa_senses.dart' show TiltListener;
 import 'dream_rite_card.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 
 /// Sigillo del Sogno, ex Rito della Buonanotte: a rotazione fra i tre Maestri di
 /// giorno in giorno, come il Rito dell'Alba.
@@ -675,7 +676,13 @@ class _AzioniState extends State<_Azioni> {
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      await shareDreamRiteCard(boundaryKey: _boundary, luna: widget.luna);
+      final andata = await shareDreamRiteCard(boundaryKey: _boundary, luna: widget.luna);
+if (andata && mounted) {
+  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+  // a condivisione davvero avvenuta.
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso la carta della notte');
+}
     } finally {
       if (mounted) setState(() => _condividendo = false);
     }
@@ -695,7 +702,8 @@ class _AzioniState extends State<_Azioni> {
                     color: widget.palette.gold.withValues(alpha: 0.6))),
             onPressed: _condividendo ? null : _condividi,
             icon: const Icon(Icons.ios_share_rounded),
-            label: const Text('Condividi la carta della notte'),
+            label: Text(PremioDellaCondivisione.etichetta(context,
+                base: 'Condividi la carta della notte')),
           ),
         ),
         if (_rendi)

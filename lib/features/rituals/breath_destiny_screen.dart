@@ -31,6 +31,7 @@ import '../../core/horoscope/cielo_di_oggi.dart';
 import '../../core/rituals/risposta_del_soffio.dart';
 import 'ritual_gift_card.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 
 /// Soffio del Destino, dominio Aura.
 ///
@@ -344,8 +345,14 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   /// e' cio' che il dono dice davvero.
   Future<void> _shareWord(DawnGift gift) async {
     try {
-      await PortaDellaCondivisione.testo('Il mio Soffio del Destino di oggi: '
+      final andata = await PortaDellaCondivisione.testo('Il mio Soffio del Destino di oggi: '
               '${gift.orientation} Con Esoteric Circle.');
+// Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+// a condivisione davvero avvenuta.
+if (andata && mounted) {
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso il Soffio del Destino');
+}
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

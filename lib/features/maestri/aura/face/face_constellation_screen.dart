@@ -36,6 +36,7 @@ import 'face_silhouette.dart';
 import '../../rotta_arte.dart';
 import '../../../../design_system/components/interruttore_del_cerchio.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../../../core/condivisione/premio_della_condivisione.dart';
 
 /// La Costellazione del Viso, dominio Aura.
 ///
@@ -765,8 +766,14 @@ class _RisultatoState extends State<_Risultato>
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      await shareFaceCard(
+      final andata = await shareFaceCard(
           boundaryKey: _cardBoundary, dominante: widget.reading.dominante);
+if (andata && mounted) {
+  // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+  // a condivisione davvero avvenuta.
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso la tua Costellazione del Viso');
+}
     } finally {
       if (mounted) setState(() => _condividendo = false);
     }
@@ -881,7 +888,7 @@ class _RisultatoState extends State<_Risultato>
                     side: BorderSide(color: palette.gold.withValues(alpha: 0.6))),
                 onPressed: _condividendo ? null : _condividi,
                 icon: const Icon(Icons.ios_share_rounded),
-                label: const Text('Condividi'),
+                label: Text(PremioDellaCondivisione.etichetta(context)),
               ),
               const SizedBox(height: SpacingTokens.sm),
               FilledButton.icon(

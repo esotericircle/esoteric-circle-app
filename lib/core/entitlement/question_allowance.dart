@@ -62,6 +62,26 @@ class QuestionAllowance extends ChangeNotifier {
   int? eosPerLaCondivisione(String motivo) =>
       _listinoDellaCondivisione[motivo];
 
+  int _condivisioniPremiateOggi = 0;
+
+  /// **SE UNA CONDIVISIONE, ADESSO, VERREBBE PREMIATA.** Ordine BG voce 04:
+  /// oltre il tetto del giorno il server non paga, e il pulsante non deve
+  /// promettere. Il conto arriva dal server con lo stato; chi paga davvero
+  /// resta il server, questo e' solo il permesso di promettere.
+  bool get condivisioneAncoraPremiata =>
+      _condivisioniPremiateOggi < tettoCondivisioniPremiate;
+
+  /// Il tetto anti farming del server, dichiarato qui per il pulsante. La
+  /// prova del sistema anti abuso tiene allineato questo numero al suo.
+  static const int tettoCondivisioniPremiate = 3;
+
+  /// Registra che il server ha appena premiato una condivisione: il conto
+  /// locale segue, senza aspettare la prossima sincronia.
+  void condivisionePremiata() {
+    _condivisioniPremiateOggi++;
+    notifyListeners();
+  }
+
   /// **QUANDO QUALCUNO ESCE, I SUOI NUMERI NON RESTANO A SCHERMO.**
   /// Ordine AZ voce 15.
   ///
@@ -476,6 +496,10 @@ class QuestionAllowance extends ChangeNotifier {
     _giornoDelServer = stato.giorno;
     if (_day != stato.giorno) _day = stato.giorno;
     _count = stato.spesi['domande'] ?? 0;
+    // Ordine BG voce 04: quante condivisioni premiate sono gia' state
+    // pagate oggi. Serve al pulsante, per non promettere un bonus che il
+    // tetto anti farming non pagherebbe.
+    _condivisioniPremiateOggi = stato.spesi['condivisioni_premiate'] ?? 0;
     _approfondimenti = stato.spesi['approfondimenti'] ?? 0;
     _confronti = stato.spesi['confronti'] ?? 0;
     _gettate = stato.spesi['gettate'] ?? 0;

@@ -35,6 +35,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 
 /// Rito dell'Alba, prototipo di riferimento dei cinque riti quotidiani.
 ///
@@ -453,9 +454,15 @@ class _DawnRiteScreenState extends State<DawnRiteScreen>
     // trovava un "perche" senza accento che nessuno avrebbe mai visto.
     final ragione = gift.rito?.perche;
     try {
-      await PortaDellaCondivisione.testo(
+      final andata = await PortaDellaCondivisione.testo(
           'La mia parola del giorno dal Rito dell\'Alba: $word.'
           '${ragione == null ? '' : ' $ragione'} Con Esoteric Circle.');
+// Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+// a condivisione davvero avvenuta.
+if (andata && mounted) {
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso la parola del giorno');
+}
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

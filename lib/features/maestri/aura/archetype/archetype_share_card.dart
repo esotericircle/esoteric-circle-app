@@ -269,8 +269,9 @@ Future<bool> shareArchetypeCard({
   final dir = await getTemporaryDirectory();
   final file = File('${dir.path}/archetipo_${dominante.name}.png');
   await file.writeAsBytes(png, flush: true);
-  await PortaDellaCondivisione.daFile(file.path, testo: 'Il mio archetipo è ${dominante.conArticolo}. '
+  // Ordine BG voce 04: l'esito VERO della porta risale al chiamante,
+  // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
+  return PortaDellaCondivisione.daFile(file.path, testo: 'Il mio archetipo è ${dominante.conArticolo}. '
           'Scopri il tuo con Aura, su Esoteric Circle. '
           'https://esotericircle.app/aura/archetype_test');
-  return true;
 }

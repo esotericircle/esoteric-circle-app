@@ -31,6 +31,7 @@ import '../../core/astro/sky.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 
 /// QUANDO: l'avverbio di tempo della schermata del cielo, in un punto solo.
 ///
@@ -833,7 +834,13 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
       final kind = widget.birth ? 'nascita' : 'cielo';
       final file = File('${dir.path}/esoteric_${kind}_${format.name}.png');
       await file.writeAsBytes(bytes);
-      await PortaDellaCondivisione.daFile(file.path, testo: SkyPostcard.shareText(now, birth: widget.birth));
+      final andata = await PortaDellaCondivisione.daFile(file.path, testo: SkyPostcard.shareText(now, birth: widget.birth));
+// Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
+// a condivisione davvero avvenuta.
+if (andata && context.mounted) {
+  await PremioDellaCondivisione.premia(context,
+      cosa: 'Hai condiviso il tuo cielo');
+}
     } catch (_) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -865,7 +872,9 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Condividi il tuo cielo',
+              Text(
+                  PremioDellaCondivisione.etichetta(context,
+                      base: 'Condividi il tuo cielo'),
                   style: TypographyTokens.display(size: 18)
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.md),
