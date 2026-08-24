@@ -1,5 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
+
+import '../../design_system/tokens/color_tokens.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/app_services.dart';
@@ -302,6 +304,7 @@ class CustodeDelCammino {
           context: context,
           builder: (dialogo) => AlertDialog(
             key: const Key('cerchio_appena_nato'),
+            backgroundColor: ColorTokens.neutralSurface,
             title: const Text('Questa email non aveva un Cerchio'),
             content: Text(doteArrivata
                 ? 'Ne è nato uno nuovo, da zero, già registrato con il tuo '

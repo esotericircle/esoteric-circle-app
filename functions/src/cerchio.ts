@@ -718,14 +718,15 @@ async function scriviIlCongedo(
   request: CallableRequest,
   tipo: "dati" | "account"
 ): Promise<void> {
-  const perche = (request.data as {perche?: unknown} | undefined)?.perche;
+  const perche =
+    (request.data as {ragione?: unknown} | undefined)?.ragione;
   if (typeof perche !== "string") return;
   const testo = perche.trim().slice(0, 300);
   if (testo.length === 0) return;
   try {
     await db.collection("congedi").add({
       tipo,
-      perche: testo,
+      ragione: testo,
       quando: FieldValue.serverTimestamp(),
     });
   } catch (errore) {

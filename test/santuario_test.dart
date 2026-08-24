@@ -302,12 +302,14 @@ void main() {
 
     // L'area account con le sue voci, il Passport resta un'altra cosa.
     expect(find.byKey(const Key('account_list')), findsOneWidget);
+    // **Le voci seguono il menu di BH.06**: Privacy e' diventata la porta
+    // del sottomenu, in fondo alla lista.
     for (final id in const [
       'profilo',
       'impostazioni',
       'abbonamento',
       'notifiche',
-      'privacy',
+      'privacy_e_dati',
     ]) {
       expect(find.byKey(Key('account_$id')), findsOneWidget);
     }

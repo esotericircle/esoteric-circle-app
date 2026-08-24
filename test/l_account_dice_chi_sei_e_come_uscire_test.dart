@@ -127,6 +127,11 @@ void main() {
     // "qui" non veniva toccato. Adesso viene toccato, e la riga finale lo
     // dice tutte e due le volte.
     await montaLAccount(tester, anonimo: false, email: 'mauro@esempio.it');
+    // **BH.06**: la voce dell'oblio vive nel sottomenu Privacy e dati, in
+    // fondo: ci si arriva dalla porta, come fa la persona.
+    await tester.tap(find.byKey(const Key('account_privacy_e_dati')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
     expect(find.text('Cancella il tuo account'), findsOneWidget);
     // ignore: avoid_print
     print('ORDINE AZ VOCE 08: il sottotitolo dell oblio dice "'

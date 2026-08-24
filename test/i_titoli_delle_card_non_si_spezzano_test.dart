@@ -110,15 +110,26 @@ void main() {
   }
 
   testWidgets('le card dell\'account non spezzano i titoli', (tester) async {
+    // **L'elenco segue il menu di BH.06**: le voci delicate sono scese nel
+    // sottomenu Privacy e dati, che la prova qui sotto controlla a parte.
     await controlla(tester, const AccountScreen(), const [
       'Profilo',
       'I tuoi dati di nascita',
-      'Impostazioni',
       'Abbonamento',
       'Notifiche',
-      'Privacy',
-      'Cancella il tuo account',
+      'Impostazioni',
+      'Privacy e dati',
     ], 'AccountScreen');
+  });
+
+  testWidgets('le card di Privacy e dati non spezzano i titoli',
+      (tester) async {
+    await controlla(tester, const PrivacyEDatiScreen(), const [
+      'Privacy policy',
+      'Scarica i tuoi dati',
+      'Cancella i tuoi dati',
+      'Cancella il tuo account',
+    ], 'PrivacyEDatiScreen');
   });
 
   testWidgets('le card delle impostazioni non spezzano i titoli',

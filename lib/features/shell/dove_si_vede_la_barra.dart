@@ -91,6 +91,10 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   // una lettura, come il cielo di nascita: si esce col tasto indietro.
   'CalendarioDegliEventiScreen': PresenzaDellaBarra.assente,
   'AccountScreen': PresenzaDellaBarra.assente,
+  // Il sottomenu Privacy e dati e la pagina della policy (ordine BH voci
+  // 06 e 07): pagine di lettura e di gestione, la barra non c'entra.
+  'PrivacyEDatiScreen': PresenzaDellaBarra.assente,
+  'PrivacyPolicyScreen': PresenzaDellaBarra.assente,
   'SettingsScreen': PresenzaDellaBarra.assente,
   // Il menu' delle notifiche, ordine BC voce 05: si apre dall'account ed e'
   // una schermata di regolazione, come le Impostazioni.

@@ -139,7 +139,9 @@ class FestaDellaRegistrazione extends StatelessWidget {
                             ? 'Il dono di benvenuto è tuo'
                             : '+$premio Eos',
                         key: const Key('festa_registrazione_premio'),
-                        style: TypographyTokens.display(size: 30)
+                        // Il titolo cerimoniale grande, non una misura scritta a mano:
+                        // e' il numero della festa, merita il ruolo pieno.
+                        style: TypographyTokens.cerimonialeGrande()
                             .copyWith(color: palette.goldSoft),
                       ),
                     ],
@@ -167,7 +169,7 @@ class FestaDellaRegistrazione extends StatelessWidget {
                         }
                       },
                       child: Text('Continua',
-                          style: TypographyTokens.body(size: 17, weight: 600)
+                          style: TypographyTokens.etichetta()
                               .copyWith(color: palette.deepest)),
                     ),
                   ),

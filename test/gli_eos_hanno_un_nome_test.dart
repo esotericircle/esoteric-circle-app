@@ -41,6 +41,9 @@ void main() {
     // esiste, anche lei porta il segno del denaro del Cerchio, non un
     // gettone di serie.
     'lib/features/pricing/upgrade_invite.dart',
+    // **LA FESTA DELLA REGISTRAZIONE, ordine BH voce 02**: mostra il
+    // premio in grande, col segno del denaro del Cerchio accanto.
+    'lib/features/account/festa_della_registrazione.dart',
   ];
 
   String sorgente(String p) => File(p).readAsStringSync();

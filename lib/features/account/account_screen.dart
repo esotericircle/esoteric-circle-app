@@ -425,6 +425,7 @@ Future<void> _verificaLaTuaEmail(BuildContext context) async {
     context: context,
     builder: (dialogo) => AlertDialog(
       key: const Key('verifica_email_foglio'),
+      backgroundColor: ColorTokens.neutralSurface,
       title: const Text('Verifica la tua email'),
       content: const Text(
           'Ti abbiamo mandato una email con un collegamento: aprila e '
@@ -1152,8 +1153,8 @@ class PrivacyEDatiScreen extends StatelessWidget {
           color: ColorTokens.textPrimary,
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title:
-            Text('Privacy e dati', style: TypographyTokens.display(size: 20)),
+        // Il ruolo di sezione, non una misura scritta a mano.
+        title: Text('Privacy e dati', style: TypographyTokens.titoloSezione()),
       ),
       body: SafeArea(
         top: false,

@@ -376,7 +376,7 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   @override
   Future<bool> cancellaIlCerchioDicendo(String? perche) async {
     final risposta = await _chiama('cancellaIlCerchio', {
-      if (perche != null && perche.trim().isNotEmpty) 'perche': perche,
+      if (perche != null && perche.trim().isNotEmpty) 'ragione': perche,
     });
     return risposta is Map && risposta['datiCancellati'] == true;
   }
@@ -384,7 +384,7 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   @override
   Future<bool> azzeraIDatiDicendo(String? perche) async {
     final risposta = await _chiama('azzeraIDatiDelCerchio', {
-      if (perche != null && perche.trim().isNotEmpty) 'perche': perche,
+      if (perche != null && perche.trim().isNotEmpty) 'ragione': perche,
     });
     return risposta is Map && risposta['datiAzzerati'] == true;
   }

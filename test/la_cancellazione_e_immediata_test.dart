@@ -35,7 +35,8 @@ void main() {
   test('BE.07: l\'azzeramento dei dati passa anche dal server', () {
     final schermata =
         File('lib/features/account/account_screen.dart').readAsStringSync();
-    expect(schermata.contains('porta.azzeraIDati()'), isTrue,
+    // **BH.06**: la porta adesso porta anche il perche' del congedo.
+    expect(schermata.contains('porta.azzeraIDatiDicendo(perche)'), isTrue,
         reason: 'la voce "cancella i tuoi dati" e\' tornata a pulire solo '
             'il telefono: il ramo sul server resterebbe e al ritorno '
             'dell\'identita\' renderebbe tutto');
@@ -56,7 +57,8 @@ void main() {
   test('BE.07: la cancellazione chiama la porta immediata, non l\'attesa', () {
     final schermata =
         File('lib/features/account/account_screen.dart').readAsStringSync();
-    expect(schermata.contains('porta.cancellaIlCerchio()'), isTrue,
+    // **BH.06**: la porta adesso porta anche il perche' del congedo.
+    expect(schermata.contains('porta.cancellaIlCerchioDicendo(perche)'), isTrue,
         reason: 'la cancellazione non passa piu\' dalla porta immediata');
     expect(schermata.contains('chiediLOblio()'), isFalse,
         reason: 'la schermata chiama ancora la richiesta coi trenta giorni, '
